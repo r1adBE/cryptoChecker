@@ -69,6 +69,7 @@ extension CoinLogoStore {
             failedBefore[name] != nil || fm.fileExists(atPath: directory.appendingPathComponent(name).path)
         }.map { DownloadJob(name: $0.name, url: $0.url, alternates: altByFile[$0.name] ?? []) }
         guard !pending.isEmpty else { return DownloadResult() }
+        await CoinLogoLoading.imagesPending(pending.count)
         let attempted = pending.count
         var added = 0
         var newFailures: [String] = []

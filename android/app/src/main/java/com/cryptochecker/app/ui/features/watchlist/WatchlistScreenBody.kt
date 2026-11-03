@@ -191,6 +191,8 @@ internal fun WatchlistBody(
                     addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
                     retryAt = live.widgetRetryAt,
                 )
+                // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
+                if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(reduceMotion = reduceMotion)
                 // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
                 if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)
             }

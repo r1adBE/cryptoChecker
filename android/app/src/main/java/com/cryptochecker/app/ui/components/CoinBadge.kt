@@ -38,6 +38,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /** Woher CoinBadge die Logos nimmt (in der App: CoinLogoRepository). */
@@ -59,7 +60,13 @@ interface CoinLogoSource {
 
     /** Gespeicherte [names] laden, nur aus der Datei (für die Suche über den Namen). */
     suspend fun loadSavedNames() {}
+
+    /** Logos laden gerade nach der Installation bzw. dem Leeren des Zwischenspeichers (Hinweis über der Merkliste). */
+    val loading: StateFlow<Boolean> get() = NOT_LOADING
 }
+
+/** [CoinLogoSource.loading] ohne Abgleich (Vorschau, Tests). */
+private val NOT_LOADING: StateFlow<Boolean> = MutableStateFlow(false)
 
 /**
  * Logo-Quelle der App. null (Schalter «In der App» aus, Vorschau, Tests): keine Plakette.

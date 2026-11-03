@@ -324,7 +324,7 @@ class CoinListSync @Inject constructor(
         val stages = Channel<Map<String, String>>(Channel.UNLIMITED)
         val worker = async {
             var total = LogoImageStore.Downloads()
-            for (stage in stages) total += imageStore.downloadMissing(stage, logoAlternates())
+            imageStore.loadingHint.during { for (stage in stages) total += imageStore.downloadMissing(stage, logoAlternates()) }
             total
         }
         val current = try {

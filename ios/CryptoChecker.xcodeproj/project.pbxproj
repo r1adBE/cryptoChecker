@@ -489,6 +489,7 @@
 		3EE0B9DE6674F0969DC31427 /* exchange_dexscreener.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B0C7C744E2E0BDB7AF7801 /* exchange_dexscreener.json */; };
 		3EFDC07063B93335E07C3608 /* NotificationBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20461CF7A1179F36F5B018A3 /* NotificationBudget.swift */; };
 		3F6649EC4130FBF77D84B0A2 /* exchange_zebpay.json in Resources */ = {isa = PBXBuildFile; fileRef = 827641089FBA76B6B5A13FA5 /* exchange_zebpay.json */; };
+		3F75B531D50B75D4CA1BE5EC /* LogoLoadingHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4EA960FA97EFB15FEDB08C /* LogoLoadingHint.swift */; };
 		3F896CE21E6AA6214FD620DF /* IndicatorHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C4412C6CD4DF44299C801 /* IndicatorHistory.swift */; };
 		3FBEF137A2FA162F71808961 /* recorded_bitflyer.json in Resources */ = {isa = PBXBuildFile; fileRef = F2DB55468E69AA5944AE129D /* recorded_bitflyer.json */; };
 		3FDC0957CACEE62534FFC8F8 /* CoinExclusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0AB3361F99FDC16BD1C66 /* CoinExclusion.swift */; };
@@ -999,6 +1000,7 @@
 		7D2A7477D02745AE901F9368 /* MarketUnusualCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E72337B310BE18F08CB610 /* MarketUnusualCard.swift */; };
 		7D3310CEE7BCA1E9722E4AD9 /* Exchange+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782C6EE651FF6D1BF43CDCC9 /* Exchange+Defaults.swift */; };
 		7D40E027DAE7C010680C11EB /* LiveFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91792094E520709F3A9CAD5C /* LiveFeed.swift */; };
+		7D7E0EA679F72214474E54FE /* LogoLoadingHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4EA960FA97EFB15FEDB08C /* LogoLoadingHint.swift */; };
 		7D906D1515E01DE5B6D0A8B6 /* MacroNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1DFD193D9B1D192C92F7F /* MacroNotifications.swift */; };
 		7DE4537611549ABE6DC2B645 /* Icrypex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45734D49C5335A2158D24BA1 /* Icrypex.swift */; };
 		7E11E80585F71BBD08724EEF /* PortfolioTxFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDA4E7F70DD1B7B074F0BEA /* PortfolioTxFormTests.swift */; };
@@ -1296,6 +1298,7 @@
 		A8D8CA6FF836C3E7D33EE12C /* OverlapDecisionCsvWealthParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70703B8AA5A5E1D6E1A9C0CD /* OverlapDecisionCsvWealthParityTests.swift */; };
 		A965E4CC1240A7CB5291AAF5 /* coin_meta_snapshot.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EB98F0D18E7E7C6C507ACF /* coin_meta_snapshot.json */; };
 		A96DE98CF47CE3958A793988 /* historic_close_chain.json in Resources */ = {isa = PBXBuildFile; fileRef = 380BBAC1DB4F3FCD09BD4632 /* historic_close_chain.json */; };
+		A97A5EE715B933E96C632500 /* WatchlistLogoHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B73B47ABF73BE7869371E /* WatchlistLogoHint.swift */; };
 		A9E607646ECFDDE3B5B5CB20 /* WidgetRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D456C591B6D8B8C6E57DC3D /* WidgetRows.swift */; };
 		A9EF540BC8AA1E1C22AA70B4 /* BaseNamesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F9A682F2ECE63E7834391 /* BaseNamesTests.swift */; };
 		AA2739E40191911E869AEDC1 /* Foxbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AFA6D661BD7D0C6BADE6FF /* Foxbit.swift */; };
@@ -1767,6 +1770,7 @@
 		E94865E487A7EDBCFB5CDDCB /* BackupCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6C77AD2FBCCA1CACDE50ED /* BackupCrypto.swift */; };
 		E964EDF960F7B04135D4AF4F /* InsightsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850CC0C9DA3CFAA8F759E24 /* InsightsDataSource.swift */; };
 		E97AA05FE2D33B00F59F154D /* StorageKeyRenewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE418CBE17BDA2F75DA1764 /* StorageKeyRenewTests.swift */; };
+		E9AF16A68B69518E115FFC54 /* LogoLoadingHintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A552A967F458B2E1BEB3B6D2 /* LogoLoadingHintTests.swift */; };
 		E9B1DA7D6243783876766AA5 /* exchange_bitso.json in Resources */ = {isa = PBXBuildFile; fileRef = FEB624C3AE6B2518A656A384 /* exchange_bitso.json */; };
 		E9F5288D5F38576E909B9CE8 /* LicenseFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E2062FB3259817C9BF80E /* LicenseFilesTests.swift */; };
 		EA06D3BE45C0F7B8A1ED8DBA /* OpenTargetGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC0250AB7C82285BC52ABA /* OpenTargetGuardTests.swift */; };
@@ -2955,6 +2959,7 @@
 		A50D685A5B45D1E34332BB81 /* PortfolioCsvImportSheet+Choices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PortfolioCsvImportSheet+Choices.swift"; sourceTree = "<group>"; };
 		A53611CF6939D5F039062131 /* BackupVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVersion.swift; sourceTree = "<group>"; };
 		A54BA3A132C460336BB0D0DD /* alarm_delivery_marker.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = alarm_delivery_marker.json; sourceTree = "<group>"; };
+		A552A967F458B2E1BEB3B6D2 /* LogoLoadingHintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingHintTests.swift; sourceTree = "<group>"; };
 		A5D90F038079B1AF31576693 /* WatchIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchIdentityTests.swift; sourceTree = "<group>"; };
 		A6597D83E8FD99B2D867F8D2 /* TaxDayClose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDayClose.swift; sourceTree = "<group>"; };
 		A665D27AC69910D165C22D99 /* PortfolioLedgerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioLedgerTests.swift; sourceTree = "<group>"; };
@@ -3091,6 +3096,7 @@
 		BBF2256F970ECB1A41253AB6 /* host_group_backoff.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = host_group_backoff.json; sourceTree = "<group>"; };
 		BBFE2634CEB38857A638A489 /* MoveHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveHistoryStore.swift; sourceTree = "<group>"; };
 		BC438E5B5ADFC99CD12689DB /* TaprootTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaprootTests.swift; sourceTree = "<group>"; };
+		BC4EA960FA97EFB15FEDB08C /* LogoLoadingHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoLoadingHint.swift; sourceTree = "<group>"; };
 		BC6DFA44E963559A6CB560B8 /* PortfolioHistoryAsOf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHistoryAsOf.swift; sourceTree = "<group>"; };
 		BC730A40FD558F34B2AE20C6 /* market_notice.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_notice.json; sourceTree = "<group>"; };
 		BC7C8811DE2656F2535AE74E /* ExplorerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerScreen.swift; sourceTree = "<group>"; };
@@ -3185,6 +3191,7 @@
 		CDA31F838E58A09656BB617A /* exchange_mercadobitcoin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_mercadobitcoin.json; sourceTree = "<group>"; };
 		CDDF35BDE4825AB39AD65E63 /* FiatAlarmGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatAlarmGuard.swift; sourceTree = "<group>"; };
 		CE46F655DEE454F7C0A50796 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		CE4B73B47ABF73BE7869371E /* WatchlistLogoHint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistLogoHint.swift; sourceTree = "<group>"; };
 		CE59C59955B6E0C579719110 /* AppData+PortfolioLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+PortfolioLoad.swift"; sourceTree = "<group>"; };
 		CE6FCCB33139A66138AD1DA4 /* CryptoCheckerWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoCheckerWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAFA0854E5A2CA5AFF5C969 /* CoinLogos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogos.swift; sourceTree = "<group>"; };
@@ -4142,6 +4149,7 @@
 				3D0E55BC39FA78B40AC63D0A /* L10n.swift */,
 				E0998B692A420702301F516A /* LiveStatus.swift */,
 				595536D8142B97E1544BF359 /* LocaleNumbers.swift */,
+				BC4EA960FA97EFB15FEDB08C /* LogoLoadingHint.swift */,
 				C61D6D610437D82C6ED32E4F /* LogoURLPolicy.swift */,
 				2DA9B69770AF06A2C4B1EDAB /* MarketScalePalette.swift */,
 				5894C6A8120B650CF44C1A6A /* MomentText.swift */,
@@ -4395,6 +4403,7 @@
 				99D6EEBACDEBE145674A102C /* WatchlistJump.swift */,
 				B68861A2F6D5B0CF43A3AA70 /* WatchlistList.swift */,
 				9A186124FBC2631B014345A9 /* WatchlistLoadingRows.swift */,
+				CE4B73B47ABF73BE7869371E /* WatchlistLogoHint.swift */,
 				F5AB8F3F47D0904F28F915A1 /* WatchlistMetaLine.swift */,
 				AA52F005D9E6E7E93CE46E16 /* WatchlistOnboarding.swift */,
 				B3DEA78F2E1CDF753A49D182 /* WatchlistPulse.swift */,
@@ -4905,6 +4914,7 @@
 				3D6FC1E9696D7629D8477E11 /* LocaleNumbersTests.swift */,
 				BC89BD0CEFC66A7848838BA8 /* LogoFallbackTests.swift */,
 				14AF0239619D8F35F681A9CE /* LogoFilesTests.swift */,
+				A552A967F458B2E1BEB3B6D2 /* LogoLoadingHintTests.swift */,
 				79E6FE3EEBA4A2E7F4113BD8 /* LogoURLAllowParityTests.swift */,
 				5D3BD2587DED51D2724FEA5A /* LowMemoryBulkTests.swift */,
 				B06AB44A577222E3B9088B4A /* MacroCalendarSignatureTests.swift */,
@@ -6323,6 +6333,7 @@
 				AE088A59929D1DA61690555D /* L10n.swift in Sources */,
 				D97FE23D4F02840262C62B18 /* LiveStatus.swift in Sources */,
 				06D7C110862AFE6412DF5309 /* LocaleNumbers.swift in Sources */,
+				7D7E0EA679F72214474E54FE /* LogoLoadingHint.swift in Sources */,
 				8046EC03DA6AF30ACA7A766A /* LogoURLPolicy.swift in Sources */,
 				9944F758BB8FC85403E161E2 /* MarketScalePalette.swift in Sources */,
 				C05A2681444A77BC6C580E6D /* MomentText.swift in Sources */,
@@ -6547,6 +6558,7 @@
 				773607BB3FB4C5DAA800F91E /* LocaleNumbersTests.swift in Sources */,
 				D7A7060443BADE854326E84A /* LogoFallbackTests.swift in Sources */,
 				157DF20FCA7F7B5FEB8AB698 /* LogoFilesTests.swift in Sources */,
+				E9AF16A68B69518E115FFC54 /* LogoLoadingHintTests.swift in Sources */,
 				7E418089FA299338F489BB6E /* LogoURLAllowParityTests.swift in Sources */,
 				3A5682BEFD8037880FCE93D5 /* LowMemoryBulkTests.swift in Sources */,
 				CB5FA1910B54BB99E3B0EBD0 /* MacroCalendarSignatureTests.swift in Sources */,
@@ -7141,6 +7153,7 @@
 				CBF505480A4769BE23E57665 /* L10n.swift in Sources */,
 				3391493A0CAA8666D7CC96EF /* LiveStatus.swift in Sources */,
 				1898D2DFFBF71745A4B535A1 /* LocaleNumbers.swift in Sources */,
+				3F75B531D50B75D4CA1BE5EC /* LogoLoadingHint.swift in Sources */,
 				53160FF574F06823D276131A /* LogoURLPolicy.swift in Sources */,
 				29D89446D0D2E61B3C0AE667 /* MarketScalePalette.swift in Sources */,
 				1BCA750D14C36C78AD67C555 /* MomentText.swift in Sources */,
@@ -7398,6 +7411,7 @@
 				0EEB89EE1B69BEEC2F772FD4 /* WatchlistJump.swift in Sources */,
 				58080B444A7A4EA4119625A5 /* WatchlistList.swift in Sources */,
 				670FD76F5BD1076AE9BA0B50 /* WatchlistLoadingRows.swift in Sources */,
+				A97A5EE715B933E96C632500 /* WatchlistLogoHint.swift in Sources */,
 				322C8260014630E8AFEB0712 /* WatchlistMetaLine.swift in Sources */,
 				51E8C462021D2B6570FBBF07 /* WatchlistOnboarding.swift in Sources */,
 				3395AC4FAD0F47C20DE67ABF /* WatchlistPulse.swift in Sources */,
@@ -7641,7 +7655,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7668,7 +7682,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -7689,7 +7703,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7719,7 +7733,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7748,7 +7762,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -7767,7 +7781,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -7854,7 +7868,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7883,7 +7897,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7909,7 +7923,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -7931,7 +7945,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7961,7 +7975,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -7993,7 +8007,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 191;
+				CURRENT_PROJECT_VERSION = 192;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

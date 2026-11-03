@@ -247,4 +247,5 @@
         <item quantity="other">%1$d yer kaldı</item>
     </plurals>
     <string name="watchlist_footer_full">İzleme listesi dolu</string>
+    <string name="watchlist_logos_loading">Logolar yükleniyor…</string>
 </resources>

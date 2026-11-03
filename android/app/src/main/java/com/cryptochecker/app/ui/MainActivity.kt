@@ -254,6 +254,7 @@ class MainActivity : AppCompatActivity() {
 /** CoinBadge holt die Logos über das Repository (Speicher → Datei → CoinGecko). */
 private class RepositoryLogoSource(private val repository: CoinLogoRepository) : CoinLogoSource {
     override val revision = repository.revision
+    override val loading = repository.logosLoading
     override val tradFiPairs = repository.tradFiPairs
     override val names = repository.names
     override fun cached(symbol: String) = repository.cached(symbol)

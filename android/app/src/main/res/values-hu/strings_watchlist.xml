@@ -247,4 +247,5 @@
         <item quantity="other">még %1$d hely szabad</item>
     </plurals>
     <string name="watchlist_footer_full">A figyelőlista megtelt</string>
+    <string name="watchlist_logos_loading">Logók betöltése…</string>
 </resources>

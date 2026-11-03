@@ -264,4 +264,5 @@
         <item quantity="other">queden %1$d llocs lliures</item>
     </plurals>
     <string name="watchlist_footer_full">Llista plena</string>
+    <string name="watchlist_logos_loading">S\'estan carregant els logotips…</string>
 </resources>

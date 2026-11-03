@@ -248,4 +248,5 @@
         <item quantity="other">մնաց %1$d տեղ</item>
     </plurals>
     <string name="watchlist_footer_full">Դիտացանկը լցված է</string>
+    <string name="watchlist_logos_loading">Լոգոները բեռնվում են…</string>
 </resources>

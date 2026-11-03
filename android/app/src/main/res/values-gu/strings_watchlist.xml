@@ -248,4 +248,5 @@
         <item quantity="other">%1$d જગ્યા બાકી</item>
     </plurals>
     <string name="watchlist_footer_full">વૉચલિસ્ટ ભરાઈ ગયું</string>
+    <string name="watchlist_logos_loading">લોગો લોડ થઈ રહ્યા છે…</string>
 </resources>

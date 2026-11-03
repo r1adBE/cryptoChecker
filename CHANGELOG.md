@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 192)
+
+* Watchlist: right after installing, a calm line «Loading logos …» explains the letter circles; it disappears once the first logo load is done.
+
 ## 16.2.2 (build 191)
 
 * Watch (Wear OS and Apple Watch): with the phone nearby the watch shows the phone's prices and follows its update interval (15–60 min); without the phone it fetches prices itself as before. Choose «prices from the phone, otherwise itself» or «always fetch itself» in the settings.

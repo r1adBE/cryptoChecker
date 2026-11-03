@@ -59,6 +59,9 @@ class CoinLogoRepository @Inject constructor(
     /** Steigt, sobald neue Logos auf dem Gerät liegen (Anzeigen laden dann neu). */
     val revision: StateFlow<Int> get() = images.revision
 
+    /** Hinweis «Logos werden geladen …» zeigen ([LogoImageStore.loadingHint]). */
+    val logosLoading: StateFlow<Boolean> get() = images.loadingHint.visible
+
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
     val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs
 

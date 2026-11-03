@@ -248,4 +248,5 @@
         <item quantity="other">%1$d இடங்கள் மீதம்</item>
     </plurals>
     <string name="watchlist_footer_full">கண்காணிப்புப் பட்டியல் நிரம்பியது</string>
+    <string name="watchlist_logos_loading">லோகோக்கள் ஏற்றப்படுகின்றன…</string>
 </resources>

@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.remote.util.await
 import com.cryptochecker.app.domain.logos.CoinLogoQueue
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.logos.LogoLoadingHint
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.util.ConnectivityMonitor
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -81,6 +82,9 @@ class LogoImageStore @Inject constructor(
 
     /** Steigt, sobald neue Logos auf dem Gerät liegen (Anzeigen laden dann neu). */
     val revision: StateFlow<Int> = _revision.asStateFlow()
+
+    /** «Logos werden geladen …» (nur erstes Laden, gemerkt im Logo-Ordner): Durchgänge von [CoinListSync], [downloadMissing]. */
+    val loadingHint = LogoLoadingHint { File(imageDir, LogoLoadingHint.DONE_MARKER) }
 
     /** Sofort, ohne Datei und Netz: Bild aus dem Speicher oder null (mitgeliefertes Icon, falls nur das da ist). */
     fun cached(symbol: String): Bitmap? = CoinLogos.fileName(symbol)?.let { name ->
@@ -180,6 +184,7 @@ class LogoImageStore @Inject constructor(
             CoinLogos.downloadJobs(wanted.toList()) { name -> name in failed || File(imageDir, name).isFile }
         }
         if (pending.isEmpty()) return Downloads()
+        loadingHint.imagesPending(pending.size)
         val altByFile = alternates.entries.mapNotNull { (key, urls) -> CoinLogos.fileName(key)?.let { it to urls } }.toMap()
         val attempted = pending.size
         val added = AtomicInteger()

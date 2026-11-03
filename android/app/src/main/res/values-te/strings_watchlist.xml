@@ -248,4 +248,5 @@
         <item quantity="other">%1$d స్థానాలు మిగిలి ఉన్నాయి</item>
     </plurals>
     <string name="watchlist_footer_full">వాచ్‌లిస్ట్ నిండింది</string>
+    <string name="watchlist_logos_loading">లోగోలు లోడ్ అవుతున్నాయి…</string>
 </resources>

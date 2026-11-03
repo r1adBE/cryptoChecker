@@ -263,4 +263,5 @@
         <item quantity="other">Locuri libere: %1$d</item>
     </plurals>
     <string name="watchlist_footer_full">Lista de urmărire e plină</string>
+    <string name="watchlist_logos_loading">Se încarcă logo-urile…</string>
 </resources>

@@ -248,4 +248,5 @@
         <item quantity="other">আর %1$dটি জায়গা বাকি</item>
     </plurals>
     <string name="watchlist_footer_full">ওয়াচলিস্ট পূর্ণ</string>
+    <string name="watchlist_logos_loading">লোগো লোড হচ্ছে…</string>
 </resources>

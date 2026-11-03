@@ -265,4 +265,5 @@
         <item quantity="other">Slobodna mesta: %1$d</item>
     </plurals>
     <string name="watchlist_footer_full">Spisak praćenja je pun</string>
+    <string name="watchlist_logos_loading">Logotipi se učitavaju…</string>
 </resources>

@@ -252,4 +252,6 @@
     </plurals>
     <!-- Statt der freien Plätze, wenn die Merkliste die Obergrenze erreicht hat (hinter « · ») -->
     <string name="watchlist_footer_full">Merkliste voll</string>
+    <!-- Unter dem Kopf der Merkliste, solange nach der Installation bzw. nach dem Leeren des Zwischenspeichers Logos laden -->
+    <string name="watchlist_logos_loading">Logos werden geladen …</string>
 </resources>

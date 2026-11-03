@@ -28,6 +28,8 @@ extension WatchlistScreen {
                 }
             }
             .frame(minHeight: WatchlistSearch.rowHeight)
+            // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
+            if !searching && !selecting && !editMode.isEditing { WatchlistLogoHint() }
             // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
             if !searching && !selecting && !editMode.isEditing { AlarmReliabilityLine() }
         }

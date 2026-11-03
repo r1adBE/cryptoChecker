@@ -123,8 +123,7 @@ actor CoinLogoStore {
                                         mirrorAllowed: !CoinLogos.isFresh(savedAt: metaAttempt, now: now, ttl: Self.mapRetryMillis),
                                         savedBinance: saved?.binance ?? [])
         let result = await CoinLists.fetch({ url in try await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession) },
-                                           request: request,
-                                           isNetworkError: { $0 is URLError })
+                                           request: request, isNetworkError: { $0 is URLError })
         let network = result.networkError || !NetworkStatus.shared.isOnline
         let recordFailure = CoinLogoRetry.recordsAttempt(networkFailure: network)
         // Versuche merken (kein Netz zählt nicht), Erfolg direkt mit Zeitpunkt
@@ -132,9 +131,7 @@ actor CoinLogoStore {
             if result.binanceSource == .direct { defaults.set(Double(now), forKey: Self.binanceTimeKey) }
             if result.binanceSource == .direct || recordFailure { defaults.set(Double(now), forKey: Self.binanceAttemptKey) }
         }
-        if alphaDue, result.alphaSource == .direct || recordFailure {
-            defaults.set(Double(now), forKey: Self.alphaAttemptKey)
-        }
+        if alphaDue, result.alphaSource == .direct || recordFailure { defaults.set(Double(now), forKey: Self.alphaAttemptKey) }
         if result.mirrorFailed, !network { defaults.set(Double(now), forKey: Self.metaAttemptKey) }
         listsNetworkFailed = network && result.missing(request)
         guard result.binance != nil || result.alpha != nil else { return false }
@@ -182,6 +179,8 @@ actor CoinLogoStore {
         // Ersatz-Adressen aus den gespeicherten Binance-Listen, falls ein Bild der Zuordnung scheitert
         let lists = savedLists()
         let alternates = CoinMeta.alternates(binance: lists?.binance, alpha: lists?.alpha)
+        // Hinweis «Logos werden geladen …» (`CoinLogoLoading`): ein Durchgang mit Bildern, Ende nach der letzten Stufe
+        if images { await CoinLogoLoading.runStarted() }
         var earlyTask: Task<DownloadResult, Never>?
         let current = await symbolMap { partial, order in
             guard images else { return }
@@ -206,6 +205,7 @@ actor CoinLogoStore {
         var result = DownloadResult()
         if let earlyTask { result = await earlyTask.value }
         let rest = await Self.downloadMissing(wanted, order: Self.savedMapOrder(), alternates: alternates)
+        await CoinLogoLoading.runFinished()
         result.added += rest.added
         result.network = result.network || rest.network
         retryPending = listsNetworkFailed || mapNetworkFailed || result.network

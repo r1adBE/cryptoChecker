@@ -247,4 +247,5 @@
         <item quantity="other">%1$d جای خالی مانده</item>
     </plurals>
     <string name="watchlist_footer_full">واچ‌لیست پر است</string>
+    <string name="watchlist_logos_loading">در حال بارگیری لوگوها…</string>
 </resources>
