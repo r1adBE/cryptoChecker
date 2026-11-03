@@ -50,17 +50,6 @@ object RecentExchanges {
     fun encode(list: List<String>): String = list.joinToString("\n")
 }
 
-/** Weitere grosse Coins, falls die Start-Auswahl weniger als [COUNT] liefert. */
-    val EXTRA = listOf("DOGE", "ADA", "TRX", "LTC")
-
-    fun pick(starter: List<String>, fallback: List<String>, available: Set<String>?): List<String> =
-        (starter + fallback + EXTRA)
-            .map { it.trim().uppercase() }
-            .filter { it.isNotEmpty() && (available == null || it in available) }
-            .distinct()
-            .take(COUNT)
-}
-
 /**
  * Ersatz-Zeichen einer Börse in den Listen (solange ihr Logo lädt oder fehlt, [ExchangeMarkBadge]): farbiger Kreis
  * mit dem Anfangsbuchstaben, bei zwei Wörtern beide («Bybit Futures» → «BF»). Die Farbe folgt aus dem ersten Wort
