@@ -19,6 +19,9 @@ enum ExchangesConfig {
         // Regionale Börsen
         Upbit(), Bithumb(), BitFlyer(), Bitbank(), Coincheck(), Btcturk(), Paribu(), Icrypex(), Bitso(),
         MercadoBitcoin(), Indodax(), ZebPay(), CoinDcx(), HashKey(), IndependentReserve(), BtcMarkets(), Luno(),
+        Bitpanda(), Bitkub(), BinanceTh(), CoinsPh(), Coinone(), WhiteBit(), CoinSpot(), MaxMaicoin(), BitoPro(),
+        BinanceTr(), Foxbit(), Bit2Me(), Valr(), WazirX(), OkexTr(), Quidax(), Buda(), Swyftx(), Tokocrypto(),
+        UpbitTh(), UpbitId(), Ndax(), CoinJar(), GmoCoin(), BitOasis(),
         // Kleinere Börsen und DEX-Daten
         Latoken(), NonKyc(), DexScreener(),
         // Devisen-Referenzkurse der EZB (Abschnitt «Forex», keine Alarme)

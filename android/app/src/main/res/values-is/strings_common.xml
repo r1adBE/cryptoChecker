@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Villa: %1$s</string>
     <string name="error_exchange_unreachable">Ekki næst í kauphöllina núna – síðustu verð eru áfram sýnileg.</string>
     <string name="error_exchange_unreachable_short">Ekki næst í kauphöllina núna</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Kauphöllin er lokuð á þessu svæði</string>
     <string name="loading_hint">Hleður…</string>
     <string name="option_off">Af</string>
     <string name="something_went_wrong">Eitthvað fór úrskeiðis</string>

@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">ભૂલ: %1$s</string>
     <string name="error_exchange_unreachable">એક્સચેન્જ સુધી અત્યારે પહોંચી શકાતું નથી – છેલ્લા ભાવ દેખાતા રહેશે.</string>
     <string name="error_exchange_unreachable_short">એક્સચેન્જ સુધી અત્યારે પહોંચી શકાતું નથી</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">આ પ્રદેશમાં એક્સચેન્જ બ્લૉક છે</string>
     <string name="loading_hint">લોડ થઈ રહ્યું છે…</string>
     <string name="option_off">બંધ</string>
     <string name="something_went_wrong">કંઈક ખોટું થયું</string>

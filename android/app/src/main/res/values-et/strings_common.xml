@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Viga: %1$s</string>
     <string name="error_exchange_unreachable">Börs pole praegu kättesaadav – viimased hinnad jäävad nähtavaks.</string>
     <string name="error_exchange_unreachable_short">Börs pole praegu kättesaadav</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Börs on selles piirkonnas blokeeritud</string>
     <string name="loading_hint">Laadimine…</string>
     <string name="option_off">Väljas</string>
     <string name="something_went_wrong">Midagi läks valesti</string>

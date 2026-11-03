@@ -1,0 +1,172 @@
+{
+  "exchange": "BinanceTr",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_binancetr.json (tools/record_exchange_fixtures.py). NOT recorded: the exchange answers HTTP 451 outside its country, so these bodies follow the documented open API format (code/msg/data, ccxt tokocrypto definitions) and must be checked from inside the country (ROADMAP «mit VPN prüfen»).",
+  "endpoints": {
+    "pairs": "GET https://www.binance.tr/open/v1/common/symbols",
+    "single": "GET https://www.binance.tr/open/v1/market/trades?symbol=BTC_TRY&limit=1",
+    "singleType1": "GET https://api.binance.me/api/v3/ticker/24hr?symbol=BTCUSDT",
+    "bulk": "none"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "common/symbols (data.list): spotTradingEnable «1» only; own markets keep «BTC_X», type 1 (Binance order book) gets «BTCX»",
+      "exchangeKey": "BinanceTr",
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"Success\",\"data\":{\"list\":[{\"type\":2,\"symbol\":\"BTC_TRY\",\"baseAsset\":\"BTC\",\"basePrecision\":8,\"quoteAsset\":\"TRY\",\"quotePrecision\":2,\"spotTradingEnable\":\"1\",\"marginTradingEnable\":\"0\"},{\"type\":2,\"symbol\":\"ETH_TRY\",\"baseAsset\":\"ETH\",\"basePrecision\":8,\"quoteAsset\":\"TRY\",\"quotePrecision\":2,\"spotTradingEnable\":\"1\",\"marginTradingEnable\":\"0\"},{\"type\":1,\"symbol\":\"BTC_USDT\",\"baseAsset\":\"BTC\",\"basePrecision\":8,\"quoteAsset\":\"USDT\",\"quotePrecision\":2,\"spotTradingEnable\":\"1\",\"marginTradingEnable\":\"0\"},{\"type\":2,\"symbol\":\"OLD_TRY\",\"baseAsset\":\"OLD\",\"basePrecision\":8,\"quoteAsset\":\"TRY\",\"quotePrecision\":2,\"spotTradingEnable\":\"0\",\"marginTradingEnable\":\"0\"}]},\"timestamp\":1793664000000}",
+      "expect": {
+        "address": "https://www.binance.tr/open/v1/common/symbols",
+        "count": 3,
+        "absent": [
+          "OLD_TRY"
+        ],
+        "pairs": {
+          "BTC_TRY": {
+            "base": "BTC",
+            "quote": "TRY"
+          },
+          "ETH_TRY": {
+            "base": "ETH",
+            "quote": "TRY"
+          },
+          "BTCUSDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "own market: last trade (price and its time), no 24 h values (candles)",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"Success\",\"data\":[{\"id\":28457,\"price\":\"3841324.00\",\"qty\":\"0.00120000\",\"quoteQty\":\"4609.59\",\"time\":1793663990123,\"isBuyerMaker\":true,\"isBestMatch\":true}],\"timestamp\":1793664000000}",
+      "url": "https://www.binance.tr/open/v1/market/trades?symbol=BTC_TRY&limit=1",
+      "expect": {
+        "last": 3841324.0,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "vol": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": 1793663990123
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: own-market id built with «_»",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"Success\",\"data\":[{\"id\":28457,\"price\":\"3841324.00\",\"qty\":\"0.00120000\",\"quoteQty\":\"4609.59\",\"time\":1793663990123,\"isBuyerMaker\":true,\"isBestMatch\":true}],\"timestamp\":1793664000000}",
+      "url": "https://www.binance.tr/open/v1/market/trades?symbol=BTC_TRY&limit=1",
+      "expect": {
+        "last": 3841324.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "type 1 market: 24hr ticker of the Binance order book (priceChangePercent in percent)",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"-1445.99\",\"priceChangePercent\":\"-1.847\",\"lastPrice\":\"76852.02\",\"bidPrice\":\"76852.01\",\"askPrice\":\"76852.02\",\"highPrice\":\"78878.01\",\"lowPrice\":\"76705.00\",\"volume\":\"49.92375\",\"quoteVolume\":\"3882449.15\",\"openPrice\":\"78298.01\",\"closeTime\":1793663950000}",
+      "url": "https://api.binance.me/api/v3/ticker/24hr?symbol=BTCUSDT",
+      "expect": {
+        "last": 76852.02,
+        "bid": 76852.01,
+        "ask": 76852.02,
+        "high": 78878.01,
+        "low": 76705.0,
+        "vol": 49.92375,
+        "volQuote": 3882449.15,
+        "change24hPercent": -1.847,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "no trade in the list -> no data",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"Success\",\"data\":[],\"timestamp\":1793664000000}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload (code ≠ 0)",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "FOO",
+        "quote": "TRY",
+        "id": "FOO_TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":3210,\"msg\":\"Invalid symbol.\",\"timestamp\":1793664000000}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "Binance order book error (type 1)",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "HTTP 451 page outside the country -> error without exchange text (shown as region-blocked)",
+      "exchangeKey": "BinanceTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<body><embed src='/not-support' type='text/html' style='width:100%;height:100vh;'/></body>",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

@@ -30,6 +30,8 @@ enum ConnectionErrors {
     static func display(_ stored: String) -> String {
         if isNotTraded(stored) { return L("watch_not_traded") }
         if isOffline(stored) { return L("watch_error_offline") }
+        // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)
+        if RefreshReportLogic.isRegionBlocked(stored) { return L("error_exchange_region_blocked") }
         if isRetryable(stored) { return L("error_exchange_unreachable_short") }
         // Schon übersetzte, eigene Texte (z. B. «Keine Kursdaten») so lassen
         let known = [L("exchange_data_empty_error"), L("exchange_unavailable_error"), L("something_went_wrong")]
@@ -42,9 +44,9 @@ enum ConnectionErrors {
     }
 
     /// Börse gerade nicht erreichbar (Netz, Zeitüberschreitung, HTTP-Fehler, zu viele Anfragen):
-    /// ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt» oder unbekanntem Paar.
+    /// ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar oder Standort-Sperre (HTTP 451).
     static func isRetryable(_ stored: String?) -> Bool {
-        guard let stored, !isNotTraded(stored) else { return false }
+        guard let stored, !isNotTraded(stored), !RefreshReportLogic.isRegionBlocked(stored) else { return false }
         if isOffline(stored) { return true }
         switch RefreshReportLogic.classify(stored) {
         case .TIMEOUT, .OFFLINE, .RATE_LIMIT, .SERVER: return true

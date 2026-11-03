@@ -1,0 +1,126 @@
+{
+  "exchange": "UpbitId",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_upbitid.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://id-api.upbit.com/v1/market/all?is_details=false",
+    "single": "GET https://id-api.upbit.com/v1/ticker?markets=IDR-BTC",
+    "bulk": "GET https://id-api.upbit.com/v1/ticker/all?quote_currencies=IDR,BTC,USDT"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "market/all: «IDR-BTC» = quote-base, unreadable market dropped",
+      "exchangeKey": "UpbitId",
+      "requestId": 0,
+      "body": "[{\"market\":\"IDR-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"IDR-ETH\",\"english_name\":\"Ethereum\"},{\"market\":\"USDT-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"BROKEN\",\"english_name\":\"x\"}]",
+      "expect": {
+        "address": "https://id-api.upbit.com/v1/market/all?is_details=false",
+        "count": 3,
+        "absent": [
+          "BROKEN"
+        ],
+        "pairs": {
+          "IDR-BTC": {
+            "base": "BTC",
+            "quote": "IDR"
+          },
+          "USDT-BTC": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker IDR-BTC (like Upbit: day high/low and signed_change_rate not used, trade_timestamp = exchange time)",
+      "exchangeKey": "UpbitId",
+      "pair": {
+        "base": "BTC",
+        "quote": "IDR",
+        "id": "IDR-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"IDR-BTC\",\"trade_date\":\"20261102\",\"trade_time\":\"225731\",\"trade_timestamp\":1793660251110,\"opening_price\":1433950000,\"high_price\":1433950000,\"low_price\":1381390000,\"trade_price\":1381390000,\"prev_closing_price\":1397330000,\"change\":\"FALL\",\"change_price\":15940000,\"change_rate\":0.01140747,\"signed_change_price\":-15940000,\"signed_change_rate\":-0.01140747,\"trade_volume\":6.784e-05,\"acc_trade_price\":938963.4841,\"acc_trade_price_24h\":915216.4025,\"acc_trade_volume\":0.00066463,\"acc_trade_volume_24h\":0.00064791,\"highest_52_week_price\":1840350000.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":1027660000.0,\"lowest_52_week_date\":\"2026-02-06\",\"timestamp\":1793671061621}]",
+      "url": "https://id-api.upbit.com/v1/ticker?markets=IDR-BTC",
+      "expect": {
+        "last": 1381390000.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 0.00064791,
+        "volQuote": 915216.4025,
+        "change24hPercent": null,
+        "exchangeTime": 1793660251110
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «QUOTE-BASE»",
+      "exchangeKey": "UpbitId",
+      "pair": {
+        "base": "BTC",
+        "quote": "IDR",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"IDR-BTC\",\"trade_date\":\"20261102\",\"trade_time\":\"225731\",\"trade_timestamp\":1793660251110,\"opening_price\":1433950000,\"high_price\":1433950000,\"low_price\":1381390000,\"trade_price\":1381390000,\"prev_closing_price\":1397330000,\"change\":\"FALL\",\"change_price\":15940000,\"change_rate\":0.01140747,\"signed_change_price\":-15940000,\"signed_change_rate\":-0.01140747,\"trade_volume\":6.784e-05,\"acc_trade_price\":938963.4841,\"acc_trade_price_24h\":915216.4025,\"acc_trade_volume\":0.00066463,\"acc_trade_volume_24h\":0.00064791,\"highest_52_week_price\":1840350000.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":1027660000.0,\"lowest_52_week_date\":\"2026-02-06\",\"timestamp\":1793671061621}]",
+      "url": "https://id-api.upbit.com/v1/ticker?markets=IDR-BTC",
+      "expect": {
+        "last": 1381390000.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market -> «Code not found»",
+      "exchangeKey": "UpbitId",
+      "pair": {
+        "base": "FOO",
+        "quote": "IDR",
+        "id": "IDR-FOO",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"name\":\"404\",\"message\":\"Code not found\"}}",
+      "expect": {
+        "error": true,
+        "message": "Code not found"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker/all (IDR, BTC, USDT): all markets",
+      "exchangeKey": "UpbitId",
+      "requestId": 0,
+      "body": "[{\"market\":\"IDR-BTC\",\"trade_date\":\"20261102\",\"trade_time\":\"225731\",\"trade_timestamp\":1793660251110,\"opening_price\":1433950000,\"high_price\":1433950000,\"low_price\":1381390000,\"trade_price\":1381390000,\"prev_closing_price\":1397330000,\"change\":\"FALL\",\"change_price\":15940000,\"change_rate\":0.01140747,\"signed_change_price\":-15940000,\"signed_change_rate\":-0.01140747,\"trade_volume\":6.784e-05,\"acc_trade_price\":938963.4841,\"acc_trade_price_24h\":915216.4025,\"acc_trade_volume\":0.00066463,\"acc_trade_volume_24h\":0.00064791,\"highest_52_week_price\":1840350000.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":1027660000.0,\"lowest_52_week_date\":\"2026-02-06\",\"timestamp\":1793671061621},{\"market\":\"IDR-ETH\",\"trade_date\":\"20261027\",\"trade_time\":\"142026\",\"trade_timestamp\":1793110826573,\"opening_price\":41300000,\"high_price\":41300000,\"low_price\":41300000,\"trade_price\":41300000,\"prev_closing_price\":44700000,\"change\":\"FALL\",\"change_price\":3400000,\"change_rate\":0.0760626398,\"signed_change_price\":-3400000,\"signed_change_rate\":-0.0760626398,\"trade_volume\":0.004,\"acc_trade_price\":0,\"acc_trade_price_24h\":0,\"acc_trade_volume\":0,\"acc_trade_volume_24h\":0,\"highest_52_week_price\":58840000.0,\"highest_52_week_date\":\"2025-11-06\",\"lowest_52_week_price\":28490000.0,\"lowest_52_week_date\":\"2026-06-05\",\"timestamp\":1793667607842}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "IDR-BTC": {
+            "last": 1381390000.0
+          },
+          "IDR-ETH": {
+            "last": 41300000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «trade_price» in one row reported as unreadable, the rest stays",
+      "exchangeKey": "UpbitId",
+      "requestId": 0,
+      "body": "[{\"market\":\"IDR-BTC\",\"trade_date\":\"20261102\",\"trade_time\":\"225731\",\"trade_timestamp\":1793660251110,\"opening_price\":1433950000,\"high_price\":1433950000,\"low_price\":1381390000,\"trade_price\":1381390000,\"prev_closing_price\":1397330000,\"change\":\"FALL\",\"change_price\":15940000,\"change_rate\":0.01140747,\"signed_change_price\":-15940000,\"signed_change_rate\":-0.01140747,\"trade_volume\":6.784e-05,\"acc_trade_price\":938963.4841,\"acc_trade_price_24h\":915216.4025,\"acc_trade_volume\":0.00066463,\"acc_trade_volume_24h\":0.00064791,\"highest_52_week_price\":1840350000.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":1027660000.0,\"lowest_52_week_date\":\"2026-02-06\",\"timestamp\":1793671061621},{\"market\":\"IDR-ETH\",\"trade_date\":\"20261027\",\"trade_time\":\"142026\",\"trade_timestamp\":1793110826573,\"opening_price\":41300000,\"high_price\":41300000,\"low_price\":41300000,\"price\":41300000,\"prev_closing_price\":44700000,\"change\":\"FALL\",\"change_price\":3400000,\"change_rate\":0.0760626398,\"signed_change_price\":-3400000,\"signed_change_rate\":-0.0760626398,\"trade_volume\":0.004,\"acc_trade_price\":0,\"acc_trade_price_24h\":0,\"acc_trade_volume\":0,\"acc_trade_volume_24h\":0,\"highest_52_week_price\":58840000.0,\"highest_52_week_date\":\"2025-11-06\",\"lowest_52_week_price\":28490000.0,\"lowest_52_week_date\":\"2026-06-05\",\"timestamp\":1793667607842},{\"market\":\"USDT-BTC\",\"trade_date\":\"20261102\",\"trade_time\":\"225731\",\"trade_timestamp\":1793660251110,\"opening_price\":1433950000,\"high_price\":1433950000,\"low_price\":1381390000,\"trade_price\":1381390000,\"prev_closing_price\":1397330000,\"change\":\"FALL\",\"change_price\":15940000,\"change_rate\":0.01140747,\"signed_change_price\":-15940000,\"signed_change_rate\":-0.01140747,\"trade_volume\":6.784e-05,\"acc_trade_price\":938963.4841,\"acc_trade_price_24h\":915216.4025,\"acc_trade_volume\":0.00066463,\"acc_trade_volume_24h\":0.00064791,\"highest_52_week_price\":1840350000.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":1027660000.0,\"lowest_52_week_date\":\"2026-02-06\",\"timestamp\":1793671061621}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "IDR-ETH"
+        ],
+        "failed": [
+          "IDR-ETH"
+        ]
+      }
+    }
+  ]
+}

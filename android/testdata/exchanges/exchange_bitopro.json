@@ -1,0 +1,154 @@
+{
+  "exchange": "BitoPro",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_bitopro.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.bitopro.com/v3/provisioning/trading-pairs",
+    "single": "GET https://api.bitopro.com/v3/tickers/btc_twd",
+    "bulk": "GET https://api.bitopro.com/v3/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "trading-pairs: pairs in maintenance dropped; base/quote in upper case, id stays lower case",
+      "exchangeKey": "BitoPro",
+      "requestId": 0,
+      "body": "{\"data\":[{\"pair\":\"eth_usdt\",\"base\":\"eth\",\"quote\":\"usdt\",\"basePrecision\":\"8\",\"quotePrecision\":\"2\",\"minLimitBaseAmount\":\"0.0001\",\"maxLimitBaseAmount\":\"100000000\",\"minMarketBuyQuoteAmount\":\"0.5\",\"orderOpenLimit\":\"200\",\"maintain\":false,\"orderBookQuotePrecision\":\"2\",\"orderBookQuoteScaleLevel\":\"5\",\"amountPrecision\":\"4\"},{\"pair\":\"usdt_twd\",\"base\":\"usdt\",\"quote\":\"twd\",\"basePrecision\":\"8\",\"quotePrecision\":\"3\",\"minLimitBaseAmount\":\"1\",\"maxLimitBaseAmount\":\"100000000\",\"minMarketBuyQuoteAmount\":\"35\",\"orderOpenLimit\":\"200\",\"maintain\":false,\"orderBookQuotePrecision\":\"3\",\"orderBookQuoteScaleLevel\":\"5\",\"amountPrecision\":\"4\"},{\"pair\":\"btc_twd\",\"base\":\"btc\",\"quote\":\"twd\",\"basePrecision\":\"8\",\"quotePrecision\":\"0\",\"minLimitBaseAmount\":\"0.0001\",\"maxLimitBaseAmount\":\"100000000\",\"minMarketBuyQuoteAmount\":\"190\",\"orderOpenLimit\":\"200\",\"maintain\":false,\"orderBookQuotePrecision\":\"0\",\"orderBookQuoteScaleLevel\":\"5\",\"amountPrecision\":\"4\"},{\"pair\":\"old_twd\",\"base\":\"old\",\"quote\":\"usdt\",\"basePrecision\":\"8\",\"quotePrecision\":\"2\",\"minLimitBaseAmount\":\"0.0001\",\"maxLimitBaseAmount\":\"100000000\",\"minMarketBuyQuoteAmount\":\"0.5\",\"orderOpenLimit\":\"200\",\"maintain\":true,\"orderBookQuotePrecision\":\"2\",\"orderBookQuoteScaleLevel\":\"5\",\"amountPrecision\":\"4\"}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "old_twd"
+        ],
+        "pairs": {
+          "btc_twd": {
+            "base": "BTC",
+            "quote": "TWD"
+          },
+          "eth_usdt": {
+            "base": "ETH",
+            "quote": "USDT"
+          },
+          "usdt_twd": {
+            "base": "USDT",
+            "quote": "TWD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker btc_twd: priceChange24hr is percent over 24 h; no bid/ask, no trade time",
+      "exchangeKey": "BitoPro",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": "btc_twd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":{\"pair\":\"btc_twd\",\"lastPrice\":\"2509240.00000000\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"}}",
+      "url": "https://api.bitopro.com/v3/tickers/btc_twd",
+      "expect": {
+        "last": 2509240.0,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 2578620.0,
+        "low": 2507432.0,
+        "vol": 8.00802172,
+        "volQuote": -1.0,
+        "change24hPercent": -2.14,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: built from base and quote in lower case",
+      "exchangeKey": "BitoPro",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":{\"pair\":\"btc_twd\",\"lastPrice\":\"2509240.00000000\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"}}",
+      "url": "https://api.bitopro.com/v3/tickers/btc_twd",
+      "expect": {
+        "last": 2509240.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: unsupported pair (HTTP 422)",
+      "exchangeKey": "BitoPro",
+      "pair": {
+        "base": "FOO",
+        "quote": "BAR",
+        "id": "foo_bar",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":\"Unsupported trading pair: foo_bar\"}",
+      "expect": {
+        "error": true,
+        "message": "Unsupported trading pair: foo_bar"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "lastPrice 0 -> no price",
+      "exchangeKey": "BitoPro",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": "btc_twd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":{\"pair\":\"btc_twd\",\"lastPrice\":\"0.00000000\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: all pairs under data",
+      "exchangeKey": "BitoPro",
+      "requestId": 0,
+      "body": "{\"data\":[{\"pair\":\"btc_twd\",\"lastPrice\":\"2509240.00000000\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"},{\"pair\":\"eth_twd\",\"lastPrice\":\"73604.00000000\",\"isBuyer\":true,\"priceChange24hr\":\"-1.03\",\"volume24hr\":\"169.45169324\",\"high24hr\":\"75700.00000000\",\"low24hr\":\"73142.00000000\"}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btc_twd": {
+            "last": 2509240.0,
+            "change24hPercent": -2.14
+          },
+          "eth_twd": {
+            "last": 73604.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays; «lastPrice» 0 skipped",
+      "exchangeKey": "BitoPro",
+      "requestId": 0,
+      "body": "{\"data\":[{\"pair\":\"btc_twd\",\"lastPrice\":\"2509240.00000000\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"},{\"pair\":\"eth_twd\",\"price\":\"73604.00000000\",\"isBuyer\":true,\"priceChange24hr\":\"-1.03\",\"volume24hr\":\"169.45169324\",\"high24hr\":\"75700.00000000\",\"low24hr\":\"73142.00000000\"},{\"pair\":\"new_twd\",\"lastPrice\":\"0\",\"isBuyer\":false,\"priceChange24hr\":\"-2.14\",\"volume24hr\":\"8.00802172\",\"high24hr\":\"2578620.00000000\",\"low24hr\":\"2507432.00000000\"}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "eth_twd",
+          "new_twd"
+        ],
+        "failed": [
+          "eth_twd"
+        ],
+        "tickers": {
+          "btc_twd": {
+            "last": 2509240.0
+          }
+        }
+      }
+    }
+  ]
+}

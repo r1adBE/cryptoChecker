@@ -30,6 +30,8 @@
     <string name="check_error_generic_prefix">Error: %1$s</string>
     <string name="error_exchange_unreachable">Exchange not reachable right now – the last prices stay visible.</string>
     <string name="error_exchange_unreachable_short">Exchange not reachable right now</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Exchange blocked in this region</string>
     <string name="loading_hint">Loading…</string>
     <string name="option_off">Off</string>
     <string name="something_went_wrong">Something went wrong</string>

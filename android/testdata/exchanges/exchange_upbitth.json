@@ -1,0 +1,126 @@
+{
+  "exchange": "UpbitTh",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_upbitth.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://th-api.upbit.com/v1/market/all?is_details=false",
+    "single": "GET https://th-api.upbit.com/v1/ticker?markets=THB-BTC",
+    "bulk": "GET https://th-api.upbit.com/v1/ticker/all?quote_currencies=THB,BTC,USDT"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "market/all: «THB-BTC» = quote-base, unreadable market dropped",
+      "exchangeKey": "UpbitTh",
+      "requestId": 0,
+      "body": "[{\"market\":\"THB-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"THB-ETH\",\"english_name\":\"Ethereum\"},{\"market\":\"USDT-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"BROKEN\",\"english_name\":\"x\"}]",
+      "expect": {
+        "address": "https://th-api.upbit.com/v1/market/all?is_details=false",
+        "count": 3,
+        "absent": [
+          "BROKEN"
+        ],
+        "pairs": {
+          "THB-BTC": {
+            "base": "BTC",
+            "quote": "THB"
+          },
+          "USDT-BTC": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker THB-BTC (like Upbit: day high/low and signed_change_rate not used, trade_timestamp = exchange time)",
+      "exchangeKey": "UpbitTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "THB-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"THB-BTC\",\"trade_date\":\"20261103\",\"trade_time\":\"033440\",\"trade_timestamp\":1793676880783,\"opening_price\":2610320,\"high_price\":2610320,\"low_price\":2572320,\"trade_price\":2572320,\"prev_closing_price\":2604400,\"change\":\"FALL\",\"change_price\":32080,\"change_rate\":0.0123176163,\"signed_change_price\":-32080,\"signed_change_rate\":-0.0123176163,\"trade_volume\":0.00027128,\"acc_trade_price\":1306.9305322,\"acc_trade_price_24h\":9246.6768542,\"acc_trade_volume\":0.00050519,\"acc_trade_volume_24h\":0.00354131,\"highest_52_week_price\":3584500.0,\"highest_52_week_date\":\"2025-11-05\",\"lowest_52_week_price\":1941040.0,\"lowest_52_week_date\":\"2026-07-01\",\"timestamp\":1793676881027}]",
+      "url": "https://th-api.upbit.com/v1/ticker?markets=THB-BTC",
+      "expect": {
+        "last": 2572320.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 0.00354131,
+        "volQuote": 9246.6768542,
+        "change24hPercent": null,
+        "exchangeTime": 1793676880783
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «QUOTE-BASE»",
+      "exchangeKey": "UpbitTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"market\":\"THB-BTC\",\"trade_date\":\"20261103\",\"trade_time\":\"033440\",\"trade_timestamp\":1793676880783,\"opening_price\":2610320,\"high_price\":2610320,\"low_price\":2572320,\"trade_price\":2572320,\"prev_closing_price\":2604400,\"change\":\"FALL\",\"change_price\":32080,\"change_rate\":0.0123176163,\"signed_change_price\":-32080,\"signed_change_rate\":-0.0123176163,\"trade_volume\":0.00027128,\"acc_trade_price\":1306.9305322,\"acc_trade_price_24h\":9246.6768542,\"acc_trade_volume\":0.00050519,\"acc_trade_volume_24h\":0.00354131,\"highest_52_week_price\":3584500.0,\"highest_52_week_date\":\"2025-11-05\",\"lowest_52_week_price\":1941040.0,\"lowest_52_week_date\":\"2026-07-01\",\"timestamp\":1793676881027}]",
+      "url": "https://th-api.upbit.com/v1/ticker?markets=THB-BTC",
+      "expect": {
+        "last": 2572320.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market -> «Code not found»",
+      "exchangeKey": "UpbitTh",
+      "pair": {
+        "base": "FOO",
+        "quote": "THB",
+        "id": "THB-FOO",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"name\":\"404\",\"message\":\"Code not found\"}}",
+      "expect": {
+        "error": true,
+        "message": "Code not found"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker/all (THB, BTC, USDT): all markets",
+      "exchangeKey": "UpbitTh",
+      "requestId": 0,
+      "body": "[{\"market\":\"THB-BTC\",\"trade_date\":\"20261103\",\"trade_time\":\"033440\",\"trade_timestamp\":1793676880783,\"opening_price\":2610320,\"high_price\":2610320,\"low_price\":2572320,\"trade_price\":2572320,\"prev_closing_price\":2604400,\"change\":\"FALL\",\"change_price\":32080,\"change_rate\":0.0123176163,\"signed_change_price\":-32080,\"signed_change_rate\":-0.0123176163,\"trade_volume\":0.00027128,\"acc_trade_price\":1306.9305322,\"acc_trade_price_24h\":9246.6768542,\"acc_trade_volume\":0.00050519,\"acc_trade_volume_24h\":0.00354131,\"highest_52_week_price\":3584500.0,\"highest_52_week_date\":\"2025-11-05\",\"lowest_52_week_price\":1941040.0,\"lowest_52_week_date\":\"2026-07-01\",\"timestamp\":1793676881027},{\"market\":\"THB-ETH\",\"trade_date\":\"20261102\",\"trade_time\":\"051850\",\"trade_timestamp\":1793596730727,\"opening_price\":77800,\"high_price\":77800,\"low_price\":77760,\"trade_price\":77760,\"prev_closing_price\":76900,\"change\":\"RISE\",\"change_price\":860,\"change_rate\":0.011183355,\"signed_change_price\":860,\"signed_change_rate\":0.011183355,\"trade_volume\":0.00082962,\"acc_trade_price\":1555.9668152,\"acc_trade_price_24h\":1555.9668152,\"acc_trade_volume\":0.02,\"acc_trade_volume_24h\":0.02,\"highest_52_week_price\":123520.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":50000.0,\"lowest_52_week_date\":\"2026-06-06\",\"timestamp\":1793639456086}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "THB-BTC": {
+            "last": 2572320.0
+          },
+          "THB-ETH": {
+            "last": 77760.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «trade_price» in one row reported as unreadable, the rest stays",
+      "exchangeKey": "UpbitTh",
+      "requestId": 0,
+      "body": "[{\"market\":\"THB-BTC\",\"trade_date\":\"20261103\",\"trade_time\":\"033440\",\"trade_timestamp\":1793676880783,\"opening_price\":2610320,\"high_price\":2610320,\"low_price\":2572320,\"trade_price\":2572320,\"prev_closing_price\":2604400,\"change\":\"FALL\",\"change_price\":32080,\"change_rate\":0.0123176163,\"signed_change_price\":-32080,\"signed_change_rate\":-0.0123176163,\"trade_volume\":0.00027128,\"acc_trade_price\":1306.9305322,\"acc_trade_price_24h\":9246.6768542,\"acc_trade_volume\":0.00050519,\"acc_trade_volume_24h\":0.00354131,\"highest_52_week_price\":3584500.0,\"highest_52_week_date\":\"2025-11-05\",\"lowest_52_week_price\":1941040.0,\"lowest_52_week_date\":\"2026-07-01\",\"timestamp\":1793676881027},{\"market\":\"THB-ETH\",\"trade_date\":\"20261102\",\"trade_time\":\"051850\",\"trade_timestamp\":1793596730727,\"opening_price\":77800,\"high_price\":77800,\"low_price\":77760,\"price\":77760,\"prev_closing_price\":76900,\"change\":\"RISE\",\"change_price\":860,\"change_rate\":0.011183355,\"signed_change_price\":860,\"signed_change_rate\":0.011183355,\"trade_volume\":0.00082962,\"acc_trade_price\":1555.9668152,\"acc_trade_price_24h\":1555.9668152,\"acc_trade_volume\":0.02,\"acc_trade_volume_24h\":0.02,\"highest_52_week_price\":123520.0,\"highest_52_week_date\":\"2025-11-10\",\"lowest_52_week_price\":50000.0,\"lowest_52_week_date\":\"2026-06-06\",\"timestamp\":1793639456086},{\"market\":\"USDT-BTC\",\"trade_date\":\"20261103\",\"trade_time\":\"033440\",\"trade_timestamp\":1793676880783,\"opening_price\":2610320,\"high_price\":2610320,\"low_price\":2572320,\"trade_price\":2572320,\"prev_closing_price\":2604400,\"change\":\"FALL\",\"change_price\":32080,\"change_rate\":0.0123176163,\"signed_change_price\":-32080,\"signed_change_rate\":-0.0123176163,\"trade_volume\":0.00027128,\"acc_trade_price\":1306.9305322,\"acc_trade_price_24h\":9246.6768542,\"acc_trade_volume\":0.00050519,\"acc_trade_volume_24h\":0.00354131,\"highest_52_week_price\":3584500.0,\"highest_52_week_date\":\"2025-11-05\",\"lowest_52_week_price\":1941040.0,\"lowest_52_week_date\":\"2026-07-01\",\"timestamp\":1793676881027}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "THB-ETH"
+        ],
+        "failed": [
+          "THB-ETH"
+        ]
+      }
+    }
+  ]
+}

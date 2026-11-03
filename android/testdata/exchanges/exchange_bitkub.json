@@ -1,0 +1,199 @@
+{
+  "exchange": "Bitkub",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_bitkub.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.bitkub.com/api/v3/market/symbols",
+    "single": "GET https://api.bitkub.com/api/v3/market/ticker?sym=BTC_THB",
+    "bulk": "GET https://api.bitkub.com/api/v3/market/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "symbols: only status active; stopped markets dropped",
+      "exchangeKey": "Bitkub",
+      "requestId": 0,
+      "body": "{\"error\":0,\"result\":[{\"base_asset\":\"BTC\",\"base_asset_scale\":8,\"base_quantity_scale\":8,\"buy_price_gap_as_percent\":20,\"created_at\":\"2017-10-30T22:16:10+07:00\",\"description\":\"Thai Baht to Bitcoin\",\"freeze_buy\":false,\"freeze_cancel\":false,\"freeze_sell\":false,\"market_segment\":\"SPOT\",\"min_quote_size\":10,\"modified_at\":\"2026-09-16T02:00:33.411+07:00\",\"name\":\"Bitcoin\",\"pairing_id\":1,\"price_scale\":2,\"price_step\":\"0.01\",\"quantity_scale\":0,\"quantity_step\":\"1\",\"quote_asset\":\"THB\",\"quote_asset_scale\":2,\"quote_quantity_scale\":2,\"sell_price_gap_as_percent\":20,\"status\":\"active\",\"symbol\":\"BTC_THB\",\"source\":\"exchange\"},{\"base_asset\":\"USDT\",\"base_asset_scale\":2,\"base_quantity_scale\":2,\"buy_price_gap_as_percent\":20,\"created_at\":\"2018-10-24T11:24:39+07:00\",\"description\":\"Thai Baht to Tether\",\"freeze_buy\":false,\"freeze_cancel\":false,\"freeze_sell\":false,\"market_segment\":\"SPOT\",\"min_quote_size\":10,\"modified_at\":\"2026-09-16T02:00:33.844+07:00\",\"name\":\"Tether\",\"pairing_id\":8,\"price_scale\":2,\"price_step\":\"0.01\",\"quantity_scale\":0,\"quantity_step\":\"1\",\"quote_asset\":\"THB\",\"quote_asset_scale\":2,\"quote_quantity_scale\":2,\"sell_price_gap_as_percent\":20,\"status\":\"active\",\"symbol\":\"USDT_THB\",\"source\":\"exchange\"},{\"base_asset\":\"BTC\",\"base_asset_scale\":8,\"base_quantity_scale\":6,\"buy_price_gap_as_percent\":20,\"created_at\":\"2026-06-16T17:30:01.989+07:00\",\"description\":\"Thai Baht to Bitcoin\",\"freeze_buy\":false,\"freeze_cancel\":false,\"freeze_sell\":false,\"market_segment\":\"SPOT\",\"min_quote_size\":6,\"modified_at\":\"2026-11-01T00:00:05.726+07:00\",\"name\":\"Bitcoin\",\"pairing_id\":484,\"price_scale\":1,\"price_step\":\"0.1\",\"quantity_scale\":8,\"quantity_step\":\"0.00000001\",\"quote_asset\":\"USDT\",\"quote_asset_scale\":8,\"quote_quantity_scale\":7,\"sell_price_gap_as_percent\":20,\"status\":\"active\",\"symbol\":\"BTC_USDT\",\"source\":\"broker\"},{\"base_asset\":\"WAN\",\"base_asset_scale\":8,\"base_quantity_scale\":8,\"buy_price_gap_as_percent\":20,\"created_at\":\"2018-06-10T16:40:31+07:00\",\"description\":\"Thai Baht to Wancoin\",\"freeze_buy\":true,\"freeze_cancel\":true,\"freeze_sell\":true,\"market_segment\":\"SPOT\",\"min_quote_size\":10,\"modified_at\":\"2026-06-16T20:12:35.799+07:00\",\"name\":\"Wancoin\",\"pairing_id\":3,\"price_scale\":2,\"price_step\":\"0.01\",\"quantity_scale\":0,\"quantity_step\":\"1\",\"quote_asset\":\"THB\",\"quote_asset_scale\":2,\"quote_quantity_scale\":2,\"sell_price_gap_as_percent\":20,\"status\":\"stopped\",\"symbol\":\"WAN_THB\",\"source\":\"exchange\"}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "WAN_THB"
+        ],
+        "pairs": {
+          "BTC_THB": {
+            "base": "BTC",
+            "quote": "THB"
+          },
+          "USDT_THB": {
+            "base": "USDT",
+            "quote": "THB"
+          },
+          "BTC_USDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC_THB (list of one; percent_change not used: window not documented; no trade time)",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTC_THB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTC_THB\",\"base_volume\":\"75.48236133\",\"high_24_hr\":\"2654444.43\",\"highest_bid\":\"2583026.83\",\"last\":\"2583376.13\",\"low_24_hr\":\"2575890\",\"lowest_ask\":\"2583380.11\",\"percent_change\":\"-1.92\",\"quote_volume\":\"197718257.44\"}]",
+      "url": "https://api.bitkub.com/api/v3/market/ticker?sym=BTC_THB",
+      "expect": {
+        "last": 2583376.13,
+        "bid": 2583026.83,
+        "ask": 2583380.11,
+        "high": 2654444.43,
+        "low": 2575890.0,
+        "vol": 75.48236133,
+        "volQuote": 197718257.44,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: address built from base and quote",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "ETH",
+        "quote": "THB",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"ETH_THB\",\"base_volume\":\"541.89041989\",\"high_24_hr\":\"77858.04\",\"highest_bid\":\"75709.9\",\"last\":\"75692.42\",\"low_24_hr\":\"75143.65\",\"lowest_ask\":\"75758.78\",\"percent_change\":\"-1.01\",\"quote_volume\":\"41624480.86\"}]",
+      "url": "https://api.bitkub.com/api/v3/market/ticker?sym=ETH_THB",
+      "expect": {
+        "last": 75692.42
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown symbol: error 11 -> «Invalid symbol»",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "FOO",
+        "quote": "THB",
+        "id": "FOO_THB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":11}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "other error code -> named with its code",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTC_THB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":10}",
+      "expect": {
+        "error": true,
+        "message": "Bitkub error 10"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty list -> no data",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTC_THB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last -> no price",
+      "exchangeKey": "Bitkub",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTC_THB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTC_THB\",\"base_volume\":\"75.48236133\",\"high_24_hr\":\"2654444.43\",\"highest_bid\":\"2583026.83\",\"last\":\"0\",\"low_24_hr\":\"2575890\",\"lowest_ask\":\"2583380.11\",\"percent_change\":\"-1.92\",\"quote_volume\":\"197718257.44\"}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker without sym: all active pairs",
+      "exchangeKey": "Bitkub",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTC_THB\",\"base_volume\":\"75.48236133\",\"high_24_hr\":\"2654444.43\",\"highest_bid\":\"2583026.83\",\"last\":\"2583376.13\",\"low_24_hr\":\"2575890\",\"lowest_ask\":\"2583380.11\",\"percent_change\":\"-1.92\",\"quote_volume\":\"197718257.44\"},{\"symbol\":\"ETH_THB\",\"base_volume\":\"541.89041989\",\"high_24_hr\":\"77858.04\",\"highest_bid\":\"75709.9\",\"last\":\"75692.42\",\"low_24_hr\":\"75143.65\",\"lowest_ask\":\"75758.78\",\"percent_change\":\"-1.01\",\"quote_volume\":\"41624480.86\"}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC_THB": {
+            "last": 2583376.13,
+            "vol": 75.48236133,
+            "change24hPercent": null
+          },
+          "ETH_THB": {
+            "last": 75692.42
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with «last» 0 is skipped, not failed",
+      "exchangeKey": "Bitkub",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTC_THB\",\"base_volume\":\"75.48236133\",\"high_24_hr\":\"2654444.43\",\"highest_bid\":\"2583026.83\",\"last\":\"2583376.13\",\"low_24_hr\":\"2575890\",\"lowest_ask\":\"2583380.11\",\"percent_change\":\"-1.92\",\"quote_volume\":\"197718257.44\"},{\"symbol\":\"ETH_THB\",\"base_volume\":\"541.89041989\",\"high_24_hr\":\"77858.04\",\"highest_bid\":\"75709.9\",\"low_24_hr\":\"75143.65\",\"lowest_ask\":\"75758.78\",\"percent_change\":\"-1.01\",\"quote_volume\":\"41624480.86\",\"last_price\":\"75692.42\"},{\"symbol\":\"NEW_THB\",\"base_volume\":\"75.48236133\",\"high_24_hr\":\"2654444.43\",\"highest_bid\":\"2583026.83\",\"last\":\"0\",\"low_24_hr\":\"2575890\",\"lowest_ask\":\"2583380.11\",\"percent_change\":\"-1.92\",\"quote_volume\":\"197718257.44\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH_THB",
+          "NEW_THB"
+        ],
+        "failed": [
+          "ETH_THB"
+        ],
+        "tickers": {
+          "BTC_THB": {
+            "last": 2583376.13
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: error object instead of a list -> batch fails",
+      "exchangeKey": "Bitkub",
+      "requestId": 0,
+      "body": "{\"error\":10}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

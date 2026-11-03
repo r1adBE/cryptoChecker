@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Грешка: %1$s</string>
     <string name="error_exchange_unreachable">Борсата в момента е недостъпна – последните курсове остават видими.</string>
     <string name="error_exchange_unreachable_short">Борсата в момента е недостъпна</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Борсата е блокирана в този регион</string>
     <string name="loading_hint">Зареждане…</string>
     <string name="option_off">Изкл.</string>
     <string name="something_went_wrong">Нещо се обърка</string>

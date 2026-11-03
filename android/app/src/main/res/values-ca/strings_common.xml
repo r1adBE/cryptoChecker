@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">No ha funcionat: %1$s</string>
     <string name="error_exchange_unreachable">L\'exchange no és accessible ara mateix – els últims preus continuen visibles.</string>
     <string name="error_exchange_unreachable_short">L\'exchange no és accessible ara mateix</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Plataforma bloquejada en aquesta regió</string>
     <string name="loading_hint">S\'està carregant…</string>
     <string name="option_off">Desactivat</string>
     <string name="something_went_wrong">Alguna cosa ha anat malament</string>

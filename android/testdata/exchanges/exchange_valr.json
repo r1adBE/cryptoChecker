@@ -1,0 +1,155 @@
+{
+  "exchange": "Valr",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_valr.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.valr.com/v1/public/pairs",
+    "single": "GET https://api.valr.com/v1/public/BTCZAR/marketsummary",
+    "bulk": "GET https://api.valr.com/v1/public/marketsummary"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "pairs: active SPOT only (inactive and futures dropped)",
+      "exchangeKey": "Valr",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCZAR\",\"baseCurrency\":\"BTC\",\"quoteCurrency\":\"ZAR\",\"shortName\":\"BTC/ZAR\",\"active\":true,\"minBaseAmount\":\"0.000008\",\"maxBaseAmount\":\"3.89\",\"minQuoteAmount\":\"10\",\"maxQuoteAmount\":\"5000000\",\"tickSize\":\"1\",\"baseDecimalPlaces\":\"8\",\"marginTradingAllowed\":true,\"currencyPairType\":\"SPOT\",\"initialMarginFraction\":\"0.1\",\"maintenanceMarginFraction\":\"0.05\",\"autoCloseMarginFraction\":\"0.03\"},{\"symbol\":\"ETHZAR\",\"baseCurrency\":\"ETH\",\"quoteCurrency\":\"ZAR\",\"shortName\":\"ETH/ZAR\",\"active\":true,\"minBaseAmount\":\"0.0002\",\"maxBaseAmount\":\"69.21\",\"minQuoteAmount\":\"10\",\"maxQuoteAmount\":\"5000000\",\"tickSize\":\"1\",\"baseDecimalPlaces\":\"8\",\"marginTradingAllowed\":true,\"currencyPairType\":\"SPOT\",\"initialMarginFraction\":\"0.1\",\"maintenanceMarginFraction\":\"0.05\",\"autoCloseMarginFraction\":\"0.03\"},{\"symbol\":\"USDTZAR\",\"baseCurrency\":\"USDT\",\"quoteCurrency\":\"ZAR\",\"shortName\":\"USDT/ZAR\",\"active\":true,\"minBaseAmount\":\"0.5\",\"maxBaseAmount\":\"261441.39\",\"minQuoteAmount\":\"10\",\"maxQuoteAmount\":\"5000000\",\"tickSize\":\"0.0001\",\"baseDecimalPlaces\":\"4\",\"marginTradingAllowed\":true,\"currencyPairType\":\"SPOT\",\"initialMarginFraction\":\"0.1\",\"maintenanceMarginFraction\":\"0.05\",\"autoCloseMarginFraction\":\"0.03\"},{\"symbol\":\"LTCBTC\",\"baseCurrency\":\"LTC\",\"quoteCurrency\":\"BTC\",\"shortName\":\"LTC/BTC\",\"active\":false,\"minBaseAmount\":\"0.0043\",\"maxBaseAmount\":\"15.67\",\"minQuoteAmount\":\"0.000016\",\"maxQuoteAmount\":\"0.0512\",\"tickSize\":\"0.000001\",\"baseDecimalPlaces\":\"8\",\"marginTradingAllowed\":false,\"currencyPairType\":\"SPOT\"},{\"symbol\":\"BTCUSDTPERP\",\"baseCurrency\":\"BTC\",\"quoteCurrency\":\"USDT\",\"shortName\":\"BTC/USDTPERP\",\"active\":true,\"minBaseAmount\":\"0.0001\",\"maxBaseAmount\":\"7\",\"minQuoteAmount\":\"1\",\"maxQuoteAmount\":\"250000\",\"tickSize\":\"1\",\"baseDecimalPlaces\":\"4\",\"marginTradingAllowed\":false,\"currencyPairType\":\"FUTURE\",\"initialMarginFraction\":\"0.0166\",\"maintenanceMarginFraction\":\"0.0083\",\"autoCloseMarginFraction\":\"0.0083\"}]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "LTCBTC",
+          "BTCUSDTPERP"
+        ],
+        "pairs": {
+          "BTCZAR": {
+            "base": "BTC",
+            "quote": "ZAR"
+          },
+          "ETHZAR": {
+            "base": "ETH",
+            "quote": "ZAR"
+          },
+          "USDTZAR": {
+            "base": "USDT",
+            "quote": "ZAR"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "marketsummary BTCZAR: previousClosePrice = price 24 h ago (rolling), created is the snapshot time",
+      "exchangeKey": "Valr",
+      "pair": {
+        "base": "BTC",
+        "quote": "ZAR",
+        "id": "BTCZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"currencyPair\":\"BTCZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"1280798\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"}",
+      "url": "https://api.valr.com/v1/public/BTCZAR/marketsummary",
+      "expect": {
+        "last": 1280798.0,
+        "bid": 1279791.0,
+        "ask": 1280591.0,
+        "high": 1319999.0,
+        "low": 1277557.0,
+        "vol": 11.68843153,
+        "volQuote": 15200836.45465147,
+        "change24hPercent": -2.863218790930347,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: built from base and quote",
+      "exchangeKey": "Valr",
+      "pair": {
+        "base": "btc",
+        "quote": "zar",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"currencyPair\":\"BTCZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"1280798\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"}",
+      "url": "https://api.valr.com/v1/public/BTCZAR/marketsummary",
+      "expect": {
+        "last": 1280798.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unsupported pair (HTTP 400) -> exchange text",
+      "exchangeKey": "Valr",
+      "pair": {
+        "base": "FOO",
+        "quote": "ZAR",
+        "id": "FOOZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-21,\"message\":\"Unsupported Currency Pair\"}",
+      "expect": {
+        "error": true,
+        "message": "Unsupported Currency Pair"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "lastTradedPrice 0 -> no price",
+      "exchangeKey": "Valr",
+      "pair": {
+        "base": "BTC",
+        "quote": "ZAR",
+        "id": "BTCZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"currencyPair\":\"BTCZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"0\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "marketsummary: all listed rows (the list is not complete: missing pairs go to the single ticker)",
+      "exchangeKey": "Valr",
+      "requestId": 0,
+      "body": "[{\"currencyPair\":\"BTCZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"1280798\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"},{\"currencyPair\":\"ETHZAR\",\"askPrice\":\"37509\",\"bidPrice\":\"37458\",\"lastTradedPrice\":\"37490\",\"previousClosePrice\":\"38646\",\"baseVolume\":\"83.46309629\",\"quoteVolume\":\"3169360.84080497\",\"highPrice\":\"38646\",\"lowPrice\":\"37004\",\"created\":\"2026-11-03T03:39:14.851Z\",\"changeFromPrevious\":\"-2.99\",\"markPrice\":\"37490\"}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCZAR": {
+            "last": 1280798.0,
+            "change24hPercent": -2.863218790930347
+          },
+          "ETHZAR": {
+            "last": 37490.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «lastTradedPrice» in one row reported as unreadable; price 0 skipped silently",
+      "exchangeKey": "Valr",
+      "requestId": 0,
+      "body": "[{\"currencyPair\":\"BTCZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"1280798\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"},{\"currencyPair\":\"ETHZAR\",\"askPrice\":\"37509\",\"bidPrice\":\"37458\",\"lastPrice\":\"37490\",\"previousClosePrice\":\"38646\",\"baseVolume\":\"83.46309629\",\"quoteVolume\":\"3169360.84080497\",\"highPrice\":\"38646\",\"lowPrice\":\"37004\",\"created\":\"2026-11-03T03:39:14.851Z\",\"changeFromPrevious\":\"-2.99\",\"markPrice\":\"37490\"},{\"currencyPair\":\"NEWZAR\",\"askPrice\":\"1280591\",\"bidPrice\":\"1279791\",\"lastTradedPrice\":\"0\",\"previousClosePrice\":\"1318551\",\"baseVolume\":\"11.68843153\",\"quoteVolume\":\"15200836.45465147\",\"highPrice\":\"1319999\",\"lowPrice\":\"1277557\",\"created\":\"2026-11-03T03:39:28.104Z\",\"changeFromPrevious\":\"-2.86\",\"markPrice\":\"1280591\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETHZAR",
+          "NEWZAR"
+        ],
+        "failed": [
+          "ETHZAR"
+        ],
+        "tickers": {
+          "BTCZAR": {
+            "last": 1280798.0
+          }
+        }
+      }
+    }
+  ]
+}

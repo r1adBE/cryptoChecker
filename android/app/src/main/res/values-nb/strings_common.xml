@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Feil: %1$s</string>
     <string name="error_exchange_unreachable">Børsen kan ikke nås akkurat nå – de siste kursene blir stående.</string>
     <string name="error_exchange_unreachable_short">Børsen kan ikke nås akkurat nå</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Børsen er blokkert i denne regionen</string>
     <string name="loading_hint">Laster inn…</string>
     <string name="option_off">Av</string>
     <string name="something_went_wrong">Noe gikk galt</string>

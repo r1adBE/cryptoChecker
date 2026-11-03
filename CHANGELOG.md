@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 187)
+
+* 24 new exchanges: Bitpanda, Bitkub, Binance TH, Binance TR, Coins.ph, Coinone, WhiteBIT, CoinSpot, MAX, BitoPro, Foxbit, Bit2Me, VALR, WazirX, OKX TR, Quidax, Buda, Swyftx, Tokocrypto, Upbit Thailand, Upbit Indonesia, NDAX, CoinJar, GMO Coin, BitOasis – now 81 markets on 70 exchanges.
+* An exchange that blocks your region shows «blocked in this region» instead of «not reachable».
+
 ## 16.2.2 (build 186)
 
 * Add pair, redesigned: search on top, chips All · Spot · Futures · DEX · Forex below. Without search text you see popular pairs, recently used exchanges and all exchanges of the chosen kind; a coin shows the exchanges that list it. The «Advanced / by exchange» section is gone.

@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Gabim: %1$s</string>
     <string name="error_exchange_unreachable">Bursa nuk arrihet tani – çmimet e fundit mbeten të dukshme.</string>
     <string name="error_exchange_unreachable_short">Bursa nuk arrihet tani</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Bursa është e bllokuar në këtë rajon</string>
     <string name="loading_hint">Po ngarkohet…</string>
     <string name="option_off">Joaktiv</string>
     <string name="something_went_wrong">Diçka shkoi keq</string>

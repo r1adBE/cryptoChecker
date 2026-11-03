@@ -1,0 +1,189 @@
+{
+  "exchange": "Coinone",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_coinone.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.coinone.co.kr/public/v2/markets/KRW",
+    "single": "GET https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC",
+    "bulk": "GET https://api.coinone.co.kr/public/v2/ticker_new/KRW"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets/KRW: trade_status 1 only; id «BTC-KRW» in upper case",
+      "exchangeKey": "Coinone",
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793662857119,\"markets\":[{\"quote_currency\":\"KRW\",\"target_currency\":\"BTC\",\"price_unit\":\"10000.0\",\"qty_unit\":\"0.00000001\",\"max_order_amount\":\"1000000000.0\",\"max_price\":\"1000000000000.0\",\"max_qty\":\"10000000000.0\",\"min_order_amount\":\"5000.0\",\"min_price\":\"0.0001\",\"min_qty\":\"0.00000001\",\"order_book_units\":[\"0.0\",\"100000.0\",\"1000000.0\"],\"maintenance_status\":0,\"trade_status\":1,\"order_types\":[\"limit\",\"market\",\"stop_limit\"]},{\"quote_currency\":\"KRW\",\"target_currency\":\"XRP\",\"price_unit\":\"1.0\",\"qty_unit\":\"0.00000001\",\"max_order_amount\":\"1000000000.0\",\"max_price\":\"1000000000000.0\",\"max_qty\":\"10000000000.0\",\"min_order_amount\":\"5000.0\",\"min_price\":\"0.0001\",\"min_qty\":\"0.00000001\",\"order_book_units\":[\"0.0\",\"10.0\",\"100.0\"],\"maintenance_status\":0,\"trade_status\":1,\"order_types\":[\"limit\",\"market\",\"stop_limit\"]},{\"quote_currency\":\"KRW\",\"target_currency\":\"ETH\",\"price_unit\":\"1000.0\",\"qty_unit\":\"0.00000001\",\"max_order_amount\":\"1000000000.0\",\"max_price\":\"1000000000000.0\",\"max_qty\":\"10000000000.0\",\"min_order_amount\":\"5000.0\",\"min_price\":\"0.0001\",\"min_qty\":\"0.00000001\",\"order_book_units\":[\"0.0\",\"10000.0\",\"100000.0\"],\"maintenance_status\":0,\"trade_status\":1,\"order_types\":[\"limit\",\"market\",\"stop_limit\"]},{\"quote_currency\":\"KRW\",\"target_currency\":\"OLD\",\"price_unit\":\"10000.0\",\"qty_unit\":\"0.00000001\",\"max_order_amount\":\"1000000000.0\",\"max_price\":\"1000000000000.0\",\"max_qty\":\"10000000000.0\",\"min_order_amount\":\"5000.0\",\"min_price\":\"0.0001\",\"min_qty\":\"0.00000001\",\"order_book_units\":[\"0.0\",\"100000.0\",\"1000000.0\"],\"maintenance_status\":0,\"trade_status\":0,\"order_types\":[\"limit\",\"market\",\"stop_limit\"]}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLD-KRW"
+        ],
+        "pairs": {
+          "BTC-KRW": {
+            "base": "BTC",
+            "quote": "KRW"
+          },
+          "ETH-KRW": {
+            "base": "ETH",
+            "quote": "KRW"
+          },
+          "XRP-KRW": {
+            "base": "XRP",
+            "quote": "KRW"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker_new KRW/BTC: first = price 24 h ago, bid/ask from the first book level, timestamp is the snapshot (no trade time)",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "BTC-KRW",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"103640000.0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"}]}",
+      "url": "https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC",
+      "expect": {
+        "last": 103640000.0,
+        "bid": 103630000.0,
+        "ask": 103650000.0,
+        "high": 106200000.0,
+        "low": 103530000.0,
+        "vol": 799.34763751,
+        "volQuote": 83758110871.8539,
+        "change24hPercent": -1.2388031255955785,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: path built from base and quote",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"103640000.0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"}]}",
+      "url": "https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC",
+      "expect": {
+        "last": 103640000.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty order book: no bid/ask, price still valid",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "BTC-KRW",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"103640000.0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[],\"best_bids\":[],\"id\":\"1793664019602001\"}]}",
+      "expect": {
+        "last": 103640000.0,
+        "bid": -1.0,
+        "ask": -1.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: unknown currency",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "FOO",
+        "quote": "KRW",
+        "id": "FOO-KRW",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"error\",\"error_code\":\"108\",\"error_msg\":\"Unknown CryptoCurrency\"}",
+      "expect": {
+        "error": true,
+        "message": "Unknown CryptoCurrency"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "success without tickers -> no data",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "BTC-KRW",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[]}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "Coinone",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "BTC-KRW",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"}]}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker_new/KRW: all KRW pairs, ids in upper case",
+      "exchangeKey": "Coinone",
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"103640000.0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"},{\"quote_currency\":\"krw\",\"target_currency\":\"eth\",\"timestamp\":1793662832460,\"high\":\"3120000.0\",\"low\":\"3021000.0\",\"first\":\"3045000.0\",\"last\":\"3041000.0\",\"quote_volume\":\"14404831188.7259\",\"target_volume\":\"4692.95588796\",\"best_asks\":[{\"price\":\"3042000.0\",\"qty\":\"4.61554134\"}],\"best_bids\":[{\"price\":\"3041000.0\",\"qty\":\"9.90132961\"}],\"id\":\"1793662832460001\"}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-KRW": {
+            "last": 103640000.0,
+            "change24hPercent": -1.2388031255955785
+          },
+          "ETH-KRW": {
+            "last": 3041000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with «last» 0 is skipped, not failed",
+      "exchangeKey": "Coinone",
+      "requestId": 0,
+      "body": "{\"result\":\"success\",\"error_code\":\"0\",\"server_time\":1793664020098,\"tickers\":[{\"quote_currency\":\"krw\",\"target_currency\":\"btc\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"103640000.0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"},{\"quote_currency\":\"krw\",\"target_currency\":\"eth\",\"timestamp\":1793662832460,\"high\":\"3120000.0\",\"low\":\"3021000.0\",\"first\":\"3045000.0\",\"last_price\":\"3041000.0\",\"quote_volume\":\"14404831188.7259\",\"target_volume\":\"4692.95588796\",\"best_asks\":[{\"price\":\"3042000.0\",\"qty\":\"4.61554134\"}],\"best_bids\":[{\"price\":\"3041000.0\",\"qty\":\"9.90132961\"}],\"id\":\"1793662832460001\"},{\"quote_currency\":\"krw\",\"target_currency\":\"new\",\"timestamp\":1793664019602,\"high\":\"106200000.0\",\"low\":\"103530000.0\",\"first\":\"104940000.0\",\"last\":\"0\",\"quote_volume\":\"83758110871.8539\",\"target_volume\":\"799.34763751\",\"best_asks\":[{\"price\":\"103650000.0\",\"qty\":\"0.28447382\"}],\"best_bids\":[{\"price\":\"103630000.0\",\"qty\":\"0.2011203\"}],\"id\":\"1793664019602001\"}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH-KRW",
+          "NEW-KRW"
+        ],
+        "failed": [
+          "ETH-KRW"
+        ],
+        "tickers": {
+          "BTC-KRW": {
+            "last": 103640000.0
+          }
+        }
+      }
+    }
+  ]
+}

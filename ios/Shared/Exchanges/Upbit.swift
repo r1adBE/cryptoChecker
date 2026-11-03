@@ -11,6 +11,29 @@ struct Upbit: UpbitStyleExchange {
     let tradeTimeFromUTCFields: Bool = false
 }
 
+/// Upbit Thailand: gleiche API wie Upbit unter eigener Adresse (https://th-api.upbit.com), Kennung «THB-BTC»; dazu die
+/// BTC- und USDT-Märkte. Handelszeit wie Upbit aus «trade_timestamp» (UTC, Aufzeichnung 03.11.2026 geprüft).
+struct UpbitTh: UpbitStyleExchange {
+    let key: String = "UpbitTh"
+    let name: String = "Upbit TH"
+    let ttsName: String = "Up bit Thailand"
+    let apiRoot: String = "https://th-api.upbit.com/v1"
+    let detailsFlag: String = "is_details=false"
+    let unfilteredURL: String? = "https://th-api.upbit.com/v1/ticker/all?quote_currencies=THB,BTC,USDT"
+    let tradeTimeFromUTCFields: Bool = false
+}
+
+/// Upbit Indonesia: wie `UpbitTh` mit eigener Adresse (https://id-api.upbit.com), Kennung «IDR-BTC».
+struct UpbitId: UpbitStyleExchange {
+    let key: String = "UpbitId"
+    let name: String = "Upbit ID"
+    let ttsName: String = "Up bit Indonesia"
+    let apiRoot: String = "https://id-api.upbit.com/v1"
+    let detailsFlag: String = "is_details=false"
+    let unfilteredURL: String? = "https://id-api.upbit.com/v1/ticker/all?quote_currencies=IDR,BTC,USDT"
+    let tradeTimeFromUTCFields: Bool = false
+}
+
 /// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
 /// «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
 /// «trade_date» + «trade_time» (UTC).
@@ -24,7 +47,7 @@ struct Bithumb: UpbitStyleExchange {
     let tradeTimeFromUTCFields: Bool = true
 }
 
-/// Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
+/// Gemeinsamer Aufbau von Upbit (auch Thailand und Indonesien) und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
 /// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
 /// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
 protocol UpbitStyleExchange: SimpleExchange {

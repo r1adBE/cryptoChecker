@@ -1,0 +1,147 @@
+{
+  "exchange": "BinanceTh",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_binanceth.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.binance.th/api/v1/exchangeInfo",
+    "single": "GET https://api.binance.th/api/v1/ticker/24hr?symbol=BTCTHB",
+    "bulk": "none (the 24hr ticker requires a symbol: HTTP 400 without one)"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "exchangeInfo: TRADING symbols only (BREAK dropped)",
+      "exchangeKey": "BinanceTh",
+      "requestId": 0,
+      "body": "{\"timezone\":\"UTC\",\"serverTime\":1793662839990,\"symbols\":[{\"symbol\":\"BTCTHB\",\"test\":0,\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"baseAssetPrecision\":8,\"quoteAsset\":\"THB\",\"quotePrecision\":0,\"quoteAssetPrecision\":8,\"baseCommissionPrecision\":8,\"quoteCommissionPrecision\":0,\"type\":\"GLOBAL\",\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"1.0\",\"maxPrice\":\"98435133\",\"tickSize\":\"1.0\"},{\"filterType\":\"PERCENT_PRICE\",\"multiplierUp\":\"5.0\",\"multiplierDown\":\"0.2\",\"avgPriceMins\":5},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.000010\",\"maxQty\":\"936.0\",\"stepSize\":\"0.000010\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":201},{\"filterType\":\"MIN_NOTIONAL\",\"avgPriceMins\":5,\"minNotional\":\"100.0\",\"applyToMarket\":true}],\"orderTypes\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"]},{\"symbol\":\"BTCUSDT\",\"test\":0,\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"baseAssetPrecision\":8,\"quoteAsset\":\"USDT\",\"quotePrecision\":8,\"quoteAssetPrecision\":8,\"baseCommissionPrecision\":8,\"quoteCommissionPrecision\":2,\"type\":\"GLOBAL\",\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.01\",\"maxPrice\":\"1000000.0\",\"tickSize\":\"0.01\"},{\"filterType\":\"PERCENT_PRICE\",\"multiplierUp\":\"5.0\",\"multiplierDown\":\"0.2\",\"avgPriceMins\":5},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.000010\",\"maxQty\":\"9000.0\",\"stepSize\":\"0.000010\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":201},{\"filterType\":\"MIN_NOTIONAL\",\"avgPriceMins\":5,\"minNotional\":\"5.0\",\"applyToMarket\":true}],\"orderTypes\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"]},{\"symbol\":\"USDTTHB\",\"test\":0,\"status\":\"TRADING\",\"baseAsset\":\"USDT\",\"baseAssetPrecision\":8,\"quoteAsset\":\"THB\",\"quotePrecision\":0,\"quoteAssetPrecision\":8,\"baseCommissionPrecision\":2,\"quoteCommissionPrecision\":0,\"type\":\"GLOBAL\",\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"26.82\",\"maxPrice\":\"40.24\",\"tickSize\":\"0.01\"},{\"filterType\":\"PERCENT_PRICE\",\"multiplierUp\":\"5.0\",\"multiplierDown\":\"0.2\",\"avgPriceMins\":5},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"1.0\",\"maxQty\":\"9222449.0\",\"stepSize\":\"1.0\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":201},{\"filterType\":\"MIN_NOTIONAL\",\"avgPriceMins\":5,\"minNotional\":\"100.0\",\"applyToMarket\":true}],\"orderTypes\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"]},{\"symbol\":\"OLDTHB\",\"test\":0,\"status\":\"BREAK\",\"baseAsset\":\"OLD\",\"baseAssetPrecision\":8,\"quoteAsset\":\"THB\",\"quotePrecision\":0,\"quoteAssetPrecision\":8,\"baseCommissionPrecision\":8,\"quoteCommissionPrecision\":0,\"type\":\"GLOBAL\",\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"1.0\",\"maxPrice\":\"98435133\",\"tickSize\":\"1.0\"},{\"filterType\":\"PERCENT_PRICE\",\"multiplierUp\":\"5.0\",\"multiplierDown\":\"0.2\",\"avgPriceMins\":5},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.000010\",\"maxQty\":\"936.0\",\"stepSize\":\"0.000010\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":201},{\"filterType\":\"MIN_NOTIONAL\",\"avgPriceMins\":5,\"minNotional\":\"100.0\",\"applyToMarket\":true}],\"orderTypes\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"]}]}",
+      "expect": {
+        "address": "https://api.binance.th/api/v1/exchangeInfo",
+        "count": 3,
+        "absent": [
+          "OLDTHB"
+        ],
+        "pairs": {
+          "BTCTHB": {
+            "base": "BTC",
+            "quote": "THB"
+          },
+          "USDTTHB": {
+            "base": "USDT",
+            "quote": "THB"
+          },
+          "BTCUSDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "24hr BTCTHB (Binance format: priceChangePercent is percent over rolling 24 h; closeTime is no trade time)",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTCTHB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCTHB\",\"priceChange\":\"-52420.00000000\",\"priceChangePercent\":\"-1.989\",\"weightedAvgPrice\":\"2619353.15444114\",\"prevClosePrice\":\"2635344.00000000\",\"lastPrice\":\"2583205.00000000\",\"lastQty\":\"0.00009000\",\"bidPrice\":\"2583204.00000000\",\"bidQty\":\"0.15504000\",\"askPrice\":\"2583205.00000000\",\"askQty\":\"0.28976000\",\"openPrice\":\"2635625.00000000\",\"highPrice\":\"2653000.00000000\",\"lowPrice\":\"2575500.00000000\",\"volume\":\"23.42569\",\"openTime\":1793577373564,\"closeTime\":1793663773564,\"firstId\":95789,\"lastId\":101487,\"count\":5699,\"quoteVolume\":\"61360124.86515\"}",
+      "url": "https://api.binance.th/api/v1/ticker/24hr?symbol=BTCTHB",
+      "expect": {
+        "last": 2583205.0,
+        "bid": 2583204.0,
+        "ask": 2583205.0,
+        "high": 2653000.0,
+        "low": 2575500.0,
+        "vol": 23.42569,
+        "volQuote": 61360124.86515,
+        "change24hPercent": -1.989,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: symbol built from base and quote",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCTHB\",\"priceChange\":\"-52420.00000000\",\"priceChangePercent\":\"-1.989\",\"weightedAvgPrice\":\"2619353.15444114\",\"prevClosePrice\":\"2635344.00000000\",\"lastPrice\":\"2583205.00000000\",\"lastQty\":\"0.00009000\",\"bidPrice\":\"2583204.00000000\",\"bidQty\":\"0.15504000\",\"askPrice\":\"2583205.00000000\",\"askQty\":\"0.28976000\",\"openPrice\":\"2635625.00000000\",\"highPrice\":\"2653000.00000000\",\"lowPrice\":\"2575500.00000000\",\"volume\":\"23.42569\",\"openTime\":1793577373564,\"closeTime\":1793663773564,\"firstId\":95789,\"lastId\":101487,\"count\":5699,\"quoteVolume\":\"61360124.86515\"}",
+      "url": "https://api.binance.th/api/v1/ticker/24hr?symbol=BTCTHB",
+      "expect": {
+        "last": 2583205.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "priceChangePercent missing -> no rolling change, price still valid",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTCTHB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCTHB\",\"priceChange\":\"-52420.00000000\",\"weightedAvgPrice\":\"2619353.15444114\",\"prevClosePrice\":\"2635344.00000000\",\"lastPrice\":\"2583205.00000000\",\"lastQty\":\"0.00009000\",\"bidPrice\":\"2583204.00000000\",\"bidQty\":\"0.15504000\",\"askPrice\":\"2583205.00000000\",\"askQty\":\"0.28976000\",\"openPrice\":\"2635625.00000000\",\"highPrice\":\"2653000.00000000\",\"lowPrice\":\"2575500.00000000\",\"volume\":\"23.42569\",\"openTime\":1793577373564,\"closeTime\":1793663773564,\"firstId\":95789,\"lastId\":101487,\"count\":5699,\"quoteVolume\":\"61360124.86515\"}",
+      "expect": {
+        "last": 2583205.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: invalid symbol",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "FOO",
+        "quote": "THB",
+        "id": "FOOTHB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+      "expect": {
+        "error": true,
+        "message": "Invalid symbol."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "halted symbol: lastPrice 0 is no price",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTCTHB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCTHB\",\"priceChange\":\"-52420.00000000\",\"priceChangePercent\":\"-1.989\",\"weightedAvgPrice\":\"2619353.15444114\",\"prevClosePrice\":\"2635344.00000000\",\"lastPrice\":\"0.00000000\",\"lastQty\":\"0.00009000\",\"bidPrice\":\"2583204.00000000\",\"bidQty\":\"0.15504000\",\"askPrice\":\"2583205.00000000\",\"askQty\":\"0.28976000\",\"openPrice\":\"2635625.00000000\",\"highPrice\":\"2653000.00000000\",\"lowPrice\":\"2575500.00000000\",\"volume\":\"23.42569\",\"openTime\":1793577373564,\"closeTime\":1793663773564,\"firstId\":95789,\"lastId\":101487,\"count\":5699,\"quoteVolume\":\"61360124.86515\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "renamed field (lastPrice -> price) fails instead of showing a wrong price",
+      "exchangeKey": "BinanceTh",
+      "pair": {
+        "base": "BTC",
+        "quote": "THB",
+        "id": "BTCTHB",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCTHB\",\"priceChange\":\"-52420.00000000\",\"priceChangePercent\":\"-1.989\",\"weightedAvgPrice\":\"2619353.15444114\",\"prevClosePrice\":\"2635344.00000000\",\"price\":\"2583205.00000000\",\"lastQty\":\"0.00009000\",\"bidPrice\":\"2583204.00000000\",\"bidQty\":\"0.15504000\",\"askPrice\":\"2583205.00000000\",\"askQty\":\"0.28976000\",\"openPrice\":\"2635625.00000000\",\"highPrice\":\"2653000.00000000\",\"lowPrice\":\"2575500.00000000\",\"volume\":\"23.42569\",\"openTime\":1793577373564,\"closeTime\":1793663773564,\"firstId\":95789,\"lastId\":101487,\"count\":5699,\"quoteVolume\":\"61360124.86515\"}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "exchange": "Bitpanda",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_bitpanda.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.bitpanda.com/v1/ticker",
+    "single": "GET https://api.bitpanda.com/v1/ticker",
+    "bulk": "GET https://api.bitpanda.com/v1/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "ticker as pair list: one pair per coin and currency with a price; metals (per gram) and price 0 dropped",
+      "exchangeKey": "Bitpanda",
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "count": 5,
+        "absent": [
+          "XAU_EUR",
+          "XAU_USD",
+          "TMAI_EUR",
+          "TMAI_USD"
+        ],
+        "pairs": {
+          "BTC_EUR": {
+            "base": "BTC",
+            "quote": "EUR"
+          },
+          "BTC_CHF": {
+            "base": "BTC",
+            "quote": "CHF"
+          },
+          "SHIB_USD": {
+            "base": "SHIB",
+            "quote": "USD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "BTC_EUR from the whole list: price only (no bid/ask, high/low, volume, 24 h change or exchange time)",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "last": 68571.6,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "very small price (SHIB_EUR, 8 decimals)",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "SHIB",
+        "quote": "EUR",
+        "id": "SHIB_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "last": 4.09e-06,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: BTC/USD derived as BTC_USD",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "last": 76718.5
+      }
+    },
+    {
+      "kind": "single",
+      "name": "gold per gram is not offered -> no data",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "XAU",
+        "quote": "EUR",
+        "id": "XAU_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "coin missing from the list -> no data",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "FOO",
+        "quote": "EUR",
+        "id": "FOO_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "currency missing for the coin -> no data",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC_JPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "price 0.0000 -> no price",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "TMAI",
+        "quote": "EUR",
+        "id": "TMAI_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit page (HTML) -> error without exchange text",
+      "exchangeKey": "Bitpanda",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<html><body>Too Many Requests</body></html>",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "whole list: every coin and currency; price 0 skipped silently, metals left out",
+      "exchangeKey": "Bitpanda",
+      "requestId": 0,
+      "body": "{\"XAU\":{\"EUR\":\"113.40\",\"USD\":\"126.87\"},\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"SHIB\":{\"EUR\":\"0.00000409\",\"USD\":\"0.00000457\"},\"TMAI\":{\"EUR\":\"0.0000\",\"USD\":\"0.0000\"}}",
+      "expect": {
+        "count": 5,
+        "absent": [
+          "XAU_EUR",
+          "TMAI_EUR"
+        ],
+        "tickers": {
+          "BTC_EUR": {
+            "last": 68571.6,
+            "change24hPercent": null
+          },
+          "SHIB_USD": {
+            "last": 4.57e-06
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: unreadable price in one row is reported for that pair, the rest stays",
+      "exchangeKey": "Bitpanda",
+      "requestId": 0,
+      "body": "{\"BTC\":{\"EUR\":\"68571.60\",\"USD\":\"76718.50\",\"CHF\":\"62816.16\"},\"FOO\":{\"EUR\":\"n/a\"}}",
+      "expect": {
+        "count": 3,
+        "failed": [
+          "FOO_EUR"
+        ],
+        "tickers": {
+          "BTC_USD": {
+            "last": 76718.5
+          }
+        }
+      }
+    }
+  ]
+}

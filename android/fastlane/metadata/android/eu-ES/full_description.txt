@@ -13,7 +13,7 @@ DATUEKIN ZINTZO
 • Kopuruak zure esportazioz edo Android-en sistema-babeskopiaz bakarrik irteten dira gailutik. Prezioetarako, tickerrak bakarrik doaz parearen burtsara; gainera, truke-tasak (Frankfurter), merkatu-datuak eta logoak (CoinGecko, Binance), datu-ispiluak (GitHub). Helbideei edo xpub bati jarraituz gero, blockchain-eko nodo publikoek helbideak (xpub-ean, eratorriak) eta zure IPa ikusten dituzte.
 
 ZERRENDA
-• 56 merkatu 45 burtsatan: spot eta futuroak, DEX tokenak DexScreener bidez, aukeran akzioak, urrea eta dibisak (TradFi)
+• 81 merkatu 70 burtsatan: spot eta futuroak, DEX tokenak DexScreener bidez, aukeran akzioak, urrea eta dibisak (TradFi)
 • Bigarren lerroa «≈ balioa» 31 monetatik batean (EUR, CHF, USD …), truke-tasan
 • Minidiagrama eta % aldaketa 24 orduan edo zure ordu-zonako 00:00etatik
 • Taldeak, gogokoak, arrastatu eta ordenatu, oharra txanponeko

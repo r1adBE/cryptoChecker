@@ -1,0 +1,171 @@
+{
+  "exchange": "Bit2Me",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_bit2me.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://gateway.bit2me.com/v1/trading/market-config",
+    "single": "GET https://gateway.bit2me.com/v2/trading/tickers?symbol=BTC/EUR",
+    "bulk": "GET https://gateway.bit2me.com/v2/trading/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "market-config: marketEnabled «enabled» only («frozen» dropped); «BTC/EUR» split at «/»",
+      "exchangeKey": "Bit2Me",
+      "requestId": 0,
+      "body": "[{\"id\":\"5daf7851-c883-4e34-ad1a-52a8bb7651e3\",\"symbol\":\"BTC/EUR\",\"marketEnabled\":\"enabled\",\"marketEnabledAt\":null,\"minAmount\":6e-05,\"maxAmount\":20,\"minPrice\":7500,\"maxPrice\":7500000,\"minOrderSize\":1,\"tickSize\":0.1,\"initialPrice\":0,\"pricePrecision\":1,\"amountPrecision\":8,\"feeMakerPercentage\":0,\"feeTakerPercentage\":0},{\"id\":\"f44fe4c1-03f7-48ff-ad4a-cbe659df2fef\",\"symbol\":\"BTC/USDC\",\"marketEnabled\":\"enabled\",\"marketEnabledAt\":null,\"minAmount\":5e-05,\"maxAmount\":20,\"minPrice\":1000,\"maxPrice\":200000,\"minOrderSize\":1,\"tickSize\":0.01,\"initialPrice\":0,\"pricePrecision\":2,\"amountPrecision\":8,\"feeMakerPercentage\":0,\"feeTakerPercentage\":0},{\"id\":\"ab8c5c81-9126-4e91-904c-2aa0f876c10a\",\"symbol\":\"ETH/EUR\",\"marketEnabled\":\"enabled\",\"marketEnabledAt\":null,\"minAmount\":0.002,\"maxAmount\":140,\"minPrice\":225,\"maxPrice\":225000,\"minOrderSize\":1,\"tickSize\":0.01,\"initialPrice\":0,\"pricePrecision\":2,\"amountPrecision\":8,\"feeMakerPercentage\":0,\"feeTakerPercentage\":0},{\"id\":\"5e0f8fe5-dd26-4443-a704-873ff4e4c416\",\"symbol\":\"AERO/EUR\",\"marketEnabled\":\"frozen\",\"marketEnabledAt\":null,\"minAmount\":6,\"maxAmount\":1000000,\"minPrice\":0.07,\"maxPrice\":70,\"minOrderSize\":1,\"tickSize\":0.0001,\"initialPrice\":0,\"pricePrecision\":4,\"amountPrecision\":5,\"feeMakerPercentage\":0,\"feeTakerPercentage\":0}]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "AERO/EUR"
+        ],
+        "pairs": {
+          "BTC/EUR": {
+            "base": "BTC",
+            "quote": "EUR"
+          },
+          "ETH/EUR": {
+            "base": "ETH",
+            "quote": "EUR"
+          },
+          "BTC/USDC": {
+            "base": "BTC",
+            "quote": "USDC"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "tickers?symbol=BTC/EUR: close = last, open = price 24 h ago (rolling), timestamp not used",
+      "exchangeKey": "Bit2Me",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC/EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"timestamp\":1793677154105,\"symbol\":\"BTC/EUR\",\"open\":70406.8,\"close\":68514.5,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144}]",
+      "url": "https://gateway.bit2me.com/v2/trading/tickers?symbol=BTC/EUR",
+      "expect": {
+        "last": 68514.5,
+        "bid": 68514.4,
+        "ask": 68514.5,
+        "high": 70513.7,
+        "low": 68336.3,
+        "vol": 552.2640254922001,
+        "volQuote": 38120355.7180144,
+        "change24hPercent": -2.687666532209961,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «BASE/QUOTE»",
+      "exchangeKey": "Bit2Me",
+      "pair": {
+        "base": "btc",
+        "quote": "eur",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"timestamp\":1793677154105,\"symbol\":\"BTC/EUR\",\"open\":70406.8,\"close\":68514.5,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144}]",
+      "url": "https://gateway.bit2me.com/v2/trading/tickers?symbol=BTC/EUR",
+      "expect": {
+        "last": 68514.5
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market (HTTP 404) -> exchange text",
+      "exchangeKey": "Bit2Me",
+      "pair": {
+        "base": "FOO",
+        "quote": "EUR",
+        "id": "FOO/EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"statusCode\":404,\"error\":\"Not Found\",\"message\":\"Market not found for symbol FOO/EUR\",\"reqId\":\"062b21d3-1558-4715-9a7f-f1ee57205902\"}",
+      "expect": {
+        "error": true,
+        "message": "Market not found for symbol FOO/EUR"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty list -> no data",
+      "exchangeKey": "Bit2Me",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC/EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "close 0 -> no price",
+      "exchangeKey": "Bit2Me",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC/EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"timestamp\":1793677154105,\"symbol\":\"BTC/EUR\",\"open\":70406.8,\"close\":0,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: all markets",
+      "exchangeKey": "Bit2Me",
+      "requestId": 0,
+      "body": "[{\"timestamp\":1793677154105,\"symbol\":\"BTC/EUR\",\"open\":70406.8,\"close\":68514.5,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144},{\"timestamp\":1793677093540,\"symbol\":\"ETH/EUR\",\"open\":2068.46,\"close\":2006.08,\"bid\":2005.91,\"ask\":2006.08,\"percentage\":-3.02,\"high\":2069.69,\"low\":1995.89,\"baseVolume\":4827.0110097692,\"quoteVolume\":9776000.587755267}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC/EUR": {
+            "last": 68514.5,
+            "change24hPercent": -2.687666532209961
+          },
+          "ETH/EUR": {
+            "last": 2006.08
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «close» in one row reported as unreadable; close 0 skipped silently",
+      "exchangeKey": "Bit2Me",
+      "requestId": 0,
+      "body": "[{\"timestamp\":1793677154105,\"symbol\":\"BTC/EUR\",\"open\":70406.8,\"close\":68514.5,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144},{\"timestamp\":1793677093540,\"symbol\":\"ETH/EUR\",\"open\":2068.46,\"last\":2006.08,\"bid\":2005.91,\"ask\":2006.08,\"percentage\":-3.02,\"high\":2069.69,\"low\":1995.89,\"baseVolume\":4827.0110097692,\"quoteVolume\":9776000.587755267},{\"timestamp\":1793677154105,\"symbol\":\"NEW/EUR\",\"open\":70406.8,\"close\":0,\"bid\":68514.4,\"ask\":68514.5,\"percentage\":-2.69,\"high\":70513.7,\"low\":68336.3,\"baseVolume\":552.2640254922001,\"quoteVolume\":38120355.7180144}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH/EUR",
+          "NEW/EUR"
+        ],
+        "failed": [
+          "ETH/EUR"
+        ],
+        "tickers": {
+          "BTC/EUR": {
+            "last": 68514.5
+          }
+        }
+      }
+    }
+  ]
+}

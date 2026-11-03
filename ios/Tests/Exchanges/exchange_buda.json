@@ -1,0 +1,155 @@
+{
+  "exchange": "Buda",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_buda.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://www.buda.com/api/v2/markets",
+    "single": "GET https://www.buda.com/api/v2/markets/BTC-CLP/ticker",
+    "bulk": "GET https://www.buda.com/api/v2/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: disabled dropped; id «BTC-CLP»",
+      "exchangeKey": "Buda",
+      "requestId": 0,
+      "body": "{\"markets\":[{\"base_currency\":\"BTC\",\"quote_currency\":\"CLP\",\"id\":\"BTC-CLP\",\"name\":\"btc-clp\",\"minimum_order_amount\":[\"0.00002\",\"BTC\"],\"disabled\":false,\"illiquid\":false,\"rpo_disabled\":false,\"taker_fee\":0.8,\"maker_fee\":0.4,\"max_orders_per_minute\":100,\"maker_discount_percentage\":\"0.0\",\"taker_discount_percentage\":\"0.0\",\"taker_discount_tiers\":{},\"maker_discount_tiers\":{}},{\"base_currency\":\"ETH\",\"quote_currency\":\"COP\",\"id\":\"ETH-COP\",\"name\":\"eth-cop\",\"minimum_order_amount\":[\"0.001\",\"ETH\"],\"disabled\":false,\"illiquid\":false,\"rpo_disabled\":false,\"taker_fee\":0.8,\"maker_fee\":0.4,\"max_orders_per_minute\":100,\"maker_discount_percentage\":\"0.0\",\"taker_discount_percentage\":\"0.0\",\"taker_discount_tiers\":{},\"maker_discount_tiers\":{}},{\"base_currency\":\"USDC\",\"quote_currency\":\"PEN\",\"id\":\"USDC-PEN\",\"name\":\"usdc-pen\",\"minimum_order_amount\":[\"0.01\",\"USDC\"],\"disabled\":false,\"illiquid\":false,\"rpo_disabled\":false,\"taker_fee\":0.5,\"maker_fee\":0.2,\"max_orders_per_minute\":100,\"maker_discount_percentage\":\"0.0\",\"taker_discount_percentage\":\"0.0\",\"taker_discount_tiers\":{},\"maker_discount_tiers\":{}},{\"base_currency\":\"OLD\",\"quote_currency\":\"CLP\",\"id\":\"OLD-CLP\",\"name\":\"btc-clp\",\"minimum_order_amount\":[\"0.00002\",\"BTC\"],\"disabled\":true,\"illiquid\":false,\"rpo_disabled\":false,\"taker_fee\":0.8,\"maker_fee\":0.4,\"max_orders_per_minute\":100,\"maker_discount_percentage\":\"0.0\",\"taker_discount_percentage\":\"0.0\",\"taker_discount_tiers\":{},\"maker_discount_tiers\":{}}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLD-CLP"
+        ],
+        "pairs": {
+          "BTC-CLP": {
+            "base": "BTC",
+            "quote": "CLP"
+          },
+          "ETH-COP": {
+            "base": "ETH",
+            "quote": "COP"
+          },
+          "USDC-PEN": {
+            "base": "USDC",
+            "quote": "PEN"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC-CLP: amounts as [value, currency], price_variation_24h a fraction (× 100), no trade time",
+      "exchangeKey": "Buda",
+      "pair": {
+        "base": "BTC",
+        "quote": "CLP",
+        "id": "BTC-CLP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"market_id\":\"BTC-CLP\",\"last_price\":[\"75293694.0\",\"CLP\"],\"min_ask\":[\"75198000.0\",\"CLP\"],\"max_bid\":[\"75078601.0\",\"CLP\"],\"volume\":[\"4.86242737\",\"BTC\"],\"quote_volume\":[\"368807211.17\",\"CLP\"],\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\"}}",
+      "url": "https://www.buda.com/api/v2/markets/BTC-CLP/ticker",
+      "expect": {
+        "last": 75293694.0,
+        "bid": 75078601.0,
+        "ask": 75198000.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 4.86242737,
+        "volQuote": 368807211.17,
+        "change24hPercent": -3.6999999999999997,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «BASE-QUOTE»",
+      "exchangeKey": "Buda",
+      "pair": {
+        "base": "btc",
+        "quote": "clp",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"market_id\":\"BTC-CLP\",\"last_price\":[\"75293694.0\",\"CLP\"],\"min_ask\":[\"75198000.0\",\"CLP\"],\"max_bid\":[\"75078601.0\",\"CLP\"],\"volume\":[\"4.86242737\",\"BTC\"],\"quote_volume\":[\"368807211.17\",\"CLP\"],\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\"}}",
+      "url": "https://www.buda.com/api/v2/markets/BTC-CLP/ticker",
+      "expect": {
+        "last": 75293694.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market (HTTP 404) -> exchange text",
+      "exchangeKey": "Buda",
+      "pair": {
+        "base": "FOO",
+        "quote": "CLP",
+        "id": "FOO-CLP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"message\":\"Not found\",\"code\":\"not_found\"}",
+      "expect": {
+        "error": true,
+        "message": "Not found"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "price 0 -> no price",
+      "exchangeKey": "Buda",
+      "pair": {
+        "base": "BTC",
+        "quote": "CLP",
+        "id": "BTC-CLP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"market_id\":\"BTC-CLP\",\"last_price\":[\"0.0\",\"CLP\"],\"min_ask\":[\"75198000.0\",\"CLP\"],\"max_bid\":[\"75078601.0\",\"CLP\"],\"volume\":[\"4.86242737\",\"BTC\"],\"quote_volume\":[\"368807211.17\",\"CLP\"],\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: price and 24 h change only",
+      "exchangeKey": "Buda",
+      "requestId": 0,
+      "body": "{\"tickers\":[{\"market_id\":\"BTC-CLP\",\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\",\"last_price\":[\"75293694.0\",\"CLP\"]},{\"market_id\":\"ETH-CLP\",\"price_variation_24h\":\"-0.032\",\"price_variation_7d\":\"-0.039\",\"last_price\":[\"2213091.0\",\"CLP\"]}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-CLP": {
+            "last": 75293694.0,
+            "bid": -1.0,
+            "change24hPercent": -3.6999999999999997
+          },
+          "ETH-CLP": {
+            "last": 2213091.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last_price» in one row reported as unreadable; price 0 skipped silently",
+      "exchangeKey": "Buda",
+      "requestId": 0,
+      "body": "{\"tickers\":[{\"market_id\":\"BTC-CLP\",\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\",\"last_price\":[\"75293694.0\",\"CLP\"]},{\"market_id\":\"ETH-CLP\",\"price_variation_24h\":\"-0.032\",\"price_variation_7d\":\"-0.039\",\"price\":[\"2213091.0\",\"CLP\"]},{\"market_id\":\"NEW-CLP\",\"price_variation_24h\":\"-0.037\",\"price_variation_7d\":\"-0.048\",\"last_price\":[\"0.0\",\"CLP\"]}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH-CLP",
+          "NEW-CLP"
+        ],
+        "failed": [
+          "ETH-CLP"
+        ],
+        "tickers": {
+          "BTC-CLP": {
+            "last": 75293694.0
+          }
+        }
+      }
+    }
+  ]
+}

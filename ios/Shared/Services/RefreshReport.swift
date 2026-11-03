@@ -153,6 +153,14 @@ enum RefreshReportLogic {
         httpCode((error ?? "").trimmingCharacters(in: .whitespaces).lowercased())
     }
 
+    /// HTTP 451 («Unavailable For Legal Reasons»): die Börse sperrt Abrufe aus der Region des Geräts (Binance TR
+    /// ausserhalb der Türkei, Tokocrypto ausserhalb Indonesiens, Binance in den USA). Ein neuer Versuch hilft nicht;
+    /// die Zeile sagt das statt «nicht erreichbar». Wie Android (Fälle in `exchange_failure.json`, «regionBlocked»).
+    static let regionBlockedHTTP = 451
+
+    /// Gespeicherter Fehlertext meldet die Standort-Sperre (`regionBlockedHTTP`).
+    static func isRegionBlocked(_ error: String?) -> Bool { httpStatus(error) == regionBlockedHTTP }
+
     /// iOS `ExchangeHTTP` («HTTP 429»), Android `HttpExchangeError` («HttpCode: 429»).
     private static func httpCode(_ lower: String) -> Int? {
         guard let regex = try? NSRegularExpression(pattern: #"\bhttp(?:code:)?\s*(\d{3})\b"#),

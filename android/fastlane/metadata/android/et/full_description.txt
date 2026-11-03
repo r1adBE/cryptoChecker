@@ -13,7 +13,7 @@ AUSALT ANDMETEST
 • Summad lahkuvad seadmest ainult sinu ekspordi või Androidi süsteemi varukoopia kaudu. Hindade jaoks saadetakse paari börsile ainult paaride sümbolid; lisaks vahetuskursid (Frankfurter), turuandmed ja logod (CoinGecko, Binance), andmepeeglid (GitHub). Kui jälgid aadresse või xpub-i, näevad avalikud plokiahela sõlmed aadresse (xpub-i puhul tuletatuid) ja sinu IP-d.
 
 JÄLGIMISLOEND
-• 56 turgu 45 börsil: spot ja futuurid, DEX-tokenid DexScreeneri kaudu, valikuliselt aktsiad, kuld ja valuutad (TradFi)
+• 81 turgu 70 börsil: spot ja futuurid, DEX-tokenid DexScreeneri kaudu, valikuliselt aktsiad, kuld ja valuutad (TradFi)
 • Teine rida „≈ väärtus“ ühes 31 valuutast (EUR, CHF, USD …), teisendatud kursiga
 • Minigraafik ja %-muutus 24 h jooksul või alates 00:00 sinu ajavööndis
 • Rühmad, lemmikud, lohistamine ja märkus mündi juures

@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Xato: %1$s</string>
     <string name="error_exchange_unreachable">Birja hozir javob bermayapti – oxirgi kurslar koʻrinib turadi.</string>
     <string name="error_exchange_unreachable_short">Birja hozir javob bermayapti</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Birja bu hududda bloklangan</string>
     <string name="loading_hint">Yuklanmoqda…</string>
     <string name="option_off">Oʻchiq</string>
     <string name="something_went_wrong">Nimadir xato ketdi</string>

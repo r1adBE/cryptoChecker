@@ -1,0 +1,160 @@
+{
+  "exchange": "MaxMaicoin",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_maxmaicoin.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://max-api.maicoin.com/api/v3/markets",
+    "single": "GET https://max-api.maicoin.com/api/v3/ticker?market=btctwd",
+    "bulk": "GET https://max-api.maicoin.com/api/v3/tickers?markets%5B%5D=btctwd&markets%5B%5D=ethtwd"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets v3: status active only; units shown in upper case, id stays lower case",
+      "exchangeKey": "MaxMaicoin",
+      "requestId": 0,
+      "body": "[{\"id\":\"btctwd\",\"status\":\"active\",\"base_unit\":\"btc\",\"base_unit_precision\":8,\"min_base_amount\":0.0001,\"quote_unit\":\"twd\",\"quote_unit_precision\":1,\"min_quote_amount\":250.0,\"m_wallet_supported\":true},{\"id\":\"usdttwd\",\"status\":\"active\",\"base_unit\":\"usdt\",\"base_unit_precision\":2,\"min_base_amount\":8.0,\"quote_unit\":\"twd\",\"quote_unit_precision\":3,\"min_quote_amount\":250.0,\"m_wallet_supported\":true},{\"id\":\"ethusdt\",\"status\":\"active\",\"base_unit\":\"eth\",\"base_unit_precision\":5,\"min_base_amount\":0.003,\"quote_unit\":\"usdt\",\"quote_unit_precision\":2,\"min_quote_amount\":8.0,\"m_wallet_supported\":true},{\"id\":\"oldtwd\",\"status\":\"suspended\",\"base_unit\":\"old\",\"base_unit_precision\":8,\"min_base_amount\":0.0001,\"quote_unit\":\"twd\",\"quote_unit_precision\":1,\"min_quote_amount\":250.0,\"m_wallet_supported\":true}]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "oldtwd"
+        ],
+        "pairs": {
+          "btctwd": {
+            "base": "BTC",
+            "quote": "TWD"
+          },
+          "usdttwd": {
+            "base": "USDT",
+            "quote": "TWD"
+          },
+          "ethusdt": {
+            "base": "ETH",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker btctwd: buy/sell = bid/ask, open = price 24 h ago, «at» is the snapshot (no trade time)",
+      "exchangeKey": "MaxMaicoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": "btctwd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"market\":\"btctwd\",\"at\":1793664349,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"2508653.2\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"}",
+      "url": "https://max-api.maicoin.com/api/v3/ticker?market=btctwd",
+      "expect": {
+        "last": 2508653.2,
+        "bid": 2508000.0,
+        "ask": 2508533.8,
+        "high": 2577551.0,
+        "low": 2505882.3,
+        "vol": 15.8211,
+        "volQuote": 39544462.79887654,
+        "change24hPercent": -2.1967563352826436,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: market built from base and quote in lower case",
+      "exchangeKey": "MaxMaicoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"market\":\"btctwd\",\"at\":1793664349,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"2508653.2\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"}",
+      "url": "https://max-api.maicoin.com/api/v3/ticker?market=btctwd",
+      "expect": {
+        "last": 2508653.2
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: unknown market",
+      "exchangeKey": "MaxMaicoin",
+      "pair": {
+        "base": "FOO",
+        "quote": "TWD",
+        "id": "footwd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"error\":{\"code\":1001,\"message\":\"market does not have a valid value\"}}",
+      "expect": {
+        "error": true,
+        "message": "market does not have a valid value"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "MaxMaicoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "TWD",
+        "id": "btctwd",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"market\":\"btctwd\",\"at\":1793664349,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"0.0\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers with markets[]: one row per requested market",
+      "exchangeKey": "MaxMaicoin",
+      "requestId": 0,
+      "body": "[{\"market\":\"btctwd\",\"at\":1793664350,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"2508653.2\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"},{\"market\":\"ethtwd\",\"at\":1793664350,\"buy\":\"73534.3\",\"buy_vol\":\"3.552958\",\"sell\":\"73572.6\",\"sell_vol\":\"0.280548\",\"open\":\"74551.8\",\"low\":\"73080.0\",\"high\":\"75730.0\",\"last\":\"73572.6\",\"vol\":\"601.5988\",\"vol_in_btc\":\"17.64136002016814839644\",\"vol_in_quote\":\"44094159.384564135792\"},{\"market\":\"usdttwd\",\"at\":1793664350,\"buy\":\"32.669\",\"buy_vol\":\"22342.75\",\"sell\":\"32.67\",\"sell_vol\":\"26278.14\",\"open\":\"32.693\",\"low\":\"32.62\",\"high\":\"32.725\",\"last\":\"32.669\",\"vol\":\"6818053.31\",\"vol_in_btc\":\"88.790401200632391328\",\"vol_in_quote\":\"221929493.9781933722\"}]",
+      "expect": {
+        "count": 3,
+        "tickers": {
+          "ethtwd": {
+            "last": 73572.6,
+            "bid": 73534.3
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
+      "exchangeKey": "MaxMaicoin",
+      "requestId": 0,
+      "body": "[{\"market\":\"btctwd\",\"at\":1793664349,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"2508653.2\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"},{\"market\":\"ethtwd\",\"at\":1793664350,\"buy\":\"73534.3\",\"buy_vol\":\"3.552958\",\"sell\":\"73572.6\",\"sell_vol\":\"0.280548\",\"open\":\"74551.8\",\"low\":\"73080.0\",\"high\":\"75730.0\",\"price\":\"73572.6\",\"vol\":\"601.5988\",\"vol_in_btc\":\"17.64136002016814839644\",\"vol_in_quote\":\"44094159.384564135792\"},{\"market\":\"usdttwd\",\"at\":1793664349,\"buy\":\"2508000.0\",\"buy_vol\":\"0.00119617\",\"sell\":\"2508533.8\",\"sell_vol\":\"0.03626888\",\"open\":\"2565000.0\",\"low\":\"2505882.3\",\"high\":\"2577551.0\",\"last\":\"2508653.2\",\"vol\":\"15.8211\",\"vol_in_btc\":\"15.8211\",\"vol_in_quote\":\"39544462.798876538244\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "ethtwd"
+        ],
+        "failed": [
+          "ethtwd"
+        ],
+        "tickers": {
+          "btctwd": {
+            "last": 2508653.2
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk rejected (unknown market in the selection): error object instead of a list -> batch fails",
+      "exchangeKey": "MaxMaicoin",
+      "requestId": 0,
+      "body": "{\"success\":false,\"error\":{\"code\":1001,\"message\":\"markets does not have a valid value\"}}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "exchange": "CoinSpot",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_coinspot.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://www.coinspot.com.au/pubapi/v2/latest",
+    "single": "GET https://www.coinspot.com.au/pubapi/v2/latest",
+    "bulk": "GET https://www.coinspot.com.au/pubapi/v2/latest"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "latest as pair list: «btc» in AUD, «btc_usdt» in USDT, old codes STR/ANS shown as XLM/NEO",
+      "exchangeKey": "CoinSpot",
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "count": 5,
+        "pairs": {
+          "btc": {
+            "base": "BTC",
+            "quote": "AUD"
+          },
+          "str": {
+            "base": "XLM",
+            "quote": "AUD"
+          },
+          "ans": {
+            "base": "NEO",
+            "quote": "AUD"
+          },
+          "btc_usdt": {
+            "base": "BTC",
+            "quote": "USDT"
+          },
+          "rfox": {
+            "base": "RFOX",
+            "quote": "AUD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "btc from the whole list: bid/ask/last only (no high/low, volume, 24 h change or exchange time)",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "btc",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "last": 109650.01,
+        "bid": 109620.0,
+        "ask": 109650.01,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: XLM/AUD found under the old code «str»",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "XLM",
+        "quote": "AUD",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "last": 0.233
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: BTC/USDT under «btc_usdt»",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "last": 78000.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "bid «NaN» (empty book) is no bid, the price stays",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "RFOX",
+        "quote": "AUD",
+        "id": "rfox",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "last": 0.00539896,
+        "bid": -1.0,
+        "ask": -1.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "coin missing from the list -> no data",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "PEPE",
+        "quote": "AUD",
+        "id": "pepe",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "status error -> exchange text",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "btc",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"message\":\"Not available at present\"}",
+      "expect": {
+        "error": true,
+        "message": "Not available at present"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "CoinSpot",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "btc",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"0\"}}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "latest: every listed coin keyed as in the list",
+      "exchangeKey": "CoinSpot",
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"str\":{\"bid\":\"0.231604\",\"ask\":\"0.23753\",\"last\":\"0.233\"},\"ans\":{\"bid\":\"2.42\",\"ask\":\"3.45\",\"last\":\"3.44899996\"},\"rfox\":{\"bid\":\"NaN\",\"ask\":\"NaN\",\"last\":\"0.00539896\"},\"btc_usdt\":{\"bid\":\"76500\",\"ask\":\"78299.97999992\",\"last\":\"78000\"}}}",
+      "expect": {
+        "count": 5,
+        "tickers": {
+          "btc": {
+            "last": 109650.01,
+            "change24hPercent": null
+          },
+          "str": {
+            "last": 0.233
+          },
+          "btc_usdt": {
+            "last": 78000.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; «last» 0 skipped",
+      "exchangeKey": "CoinSpot",
+      "requestId": 0,
+      "body": "{\"status\":\"ok\",\"prices\":{\"btc\":{\"bid\":\"109620\",\"ask\":\"109650.01\",\"last\":\"109650.01\"},\"eth\":{\"bid\":\"3208.66\",\"ask\":\"3225.96\",\"price\":\"3223.86\"},\"doge\":{\"bid\":\"0.105781\",\"ask\":\"0.108229\",\"last\":\"0\"}}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "eth",
+          "doge"
+        ],
+        "failed": [
+          "eth"
+        ],
+        "tickers": {
+          "btc": {
+            "last": 109650.01
+          }
+        }
+      }
+    }
+  ]
+}

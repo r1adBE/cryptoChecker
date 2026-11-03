@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">ದೋಷ: %1$s</string>
     <string name="error_exchange_unreachable">ಎಕ್ಸ್‌ಚೇಂಜ್ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ – ಕೊನೆಯ ಬೆಲೆಗಳು ಕಾಣಿಸುತ್ತಲೇ ಇರುತ್ತವೆ.</string>
     <string name="error_exchange_unreachable_short">ಎಕ್ಸ್‌ಚೇಂಜ್ ಸದ್ಯ ಲಭ್ಯವಿಲ್ಲ</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">ಈ ಪ್ರದೇಶದಲ್ಲಿ ಎಕ್ಸ್‌ಚೇಂಜ್ ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</string>
     <string name="loading_hint">ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
     <string name="option_off">ಆಫ್</string>
     <string name="something_went_wrong">ಏನೋ ತಪ್ಪಾಗಿದೆ</string>

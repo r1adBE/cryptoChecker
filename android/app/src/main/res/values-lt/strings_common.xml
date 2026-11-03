@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Klaida: %1$s</string>
     <string name="error_exchange_unreachable">Birža šiuo metu nepasiekiama – paskutinės kainos lieka matomos.</string>
     <string name="error_exchange_unreachable_short">Birža šiuo metu nepasiekiama</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Birža šiame regione užblokuota</string>
     <string name="loading_hint">Įkeliama…</string>
     <string name="option_off">Išjungta</string>
     <string name="something_went_wrong">Kažkas nepavyko</string>

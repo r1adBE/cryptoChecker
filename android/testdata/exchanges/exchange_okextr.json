@@ -1,0 +1,152 @@
+{
+  "exchange": "OkexTr",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_okextr.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://tr.okx.com/api/v5/public/instruments?instType=SPOT",
+    "single": "GET https://tr.okx.com/api/v5/market/ticker?instId=BTC-TRY",
+    "bulk": "GET https://tr.okx.com/api/v5/market/tickers?instType=SPOT"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "instruments: state «live» with quote TRY only (other quotes stay with OKX, suspended dropped)",
+      "exchangeKey": "OkexTr",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[{\"instId\":\"BTC-TRY\",\"instType\":\"SPOT\",\"baseCcy\":\"BTC\",\"quoteCcy\":\"TRY\",\"state\":\"live\",\"instCategory\":\"1\"},{\"instId\":\"ETH-TRY\",\"instType\":\"SPOT\",\"baseCcy\":\"ETH\",\"quoteCcy\":\"TRY\",\"state\":\"live\",\"instCategory\":\"1\"},{\"instId\":\"BTC-USDT\",\"instType\":\"SPOT\",\"baseCcy\":\"BTC\",\"quoteCcy\":\"USDT\",\"state\":\"live\",\"instCategory\":\"1\"},{\"instId\":\"OLD-TRY\",\"instType\":\"SPOT\",\"baseCcy\":\"OLD\",\"quoteCcy\":\"TRY\",\"state\":\"suspend\",\"instCategory\":\"1\"}],\"msg\":\"\"}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BTC-USDT",
+          "OLD-TRY"
+        ],
+        "pairs": {
+          "BTC-TRY": {
+            "base": "BTC",
+            "quote": "TRY"
+          },
+          "ETH-TRY": {
+            "base": "ETH",
+            "quote": "TRY"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC-TRY: open24h = price 24 h ago (sodUtc0/8 not used), ts is no trade time",
+      "exchangeKey": "OkexTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC-TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-TRY\",\"last\":\"3841324\",\"lastSz\":\"0.057287311\",\"askPx\":\"3832375\",\"askSz\":\"0.002608914\",\"bidPx\":\"3824261\",\"bidSz\":\"0.002608861\",\"open24h\":\"3921256\",\"high24h\":\"3945655\",\"low24h\":\"3824810\",\"volCcy24h\":\"12706033.261227593\",\"vol24h\":\"3.268798804\",\"ts\":\"1793677173564\",\"sodUtc0\":\"3850284\",\"sodUtc8\":\"3867422\"}],\"msg\":\"\"}",
+      "url": "https://tr.okx.com/api/v5/market/ticker?instId=BTC-TRY",
+      "expect": {
+        "last": 3841324.0,
+        "bid": 3824261.0,
+        "ask": 3832375.0,
+        "high": 3945655.0,
+        "low": 3824810.0,
+        "vol": 3.268798804,
+        "volQuote": 12706033.261227593,
+        "change24hPercent": -2.0384285035203007,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «BASE-QUOTE»",
+      "exchangeKey": "OkexTr",
+      "pair": {
+        "base": "btc",
+        "quote": "try",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-TRY\",\"last\":\"3841324\",\"lastSz\":\"0.057287311\",\"askPx\":\"3832375\",\"askSz\":\"0.002608914\",\"bidPx\":\"3824261\",\"bidSz\":\"0.002608861\",\"open24h\":\"3921256\",\"high24h\":\"3945655\",\"low24h\":\"3824810\",\"volCcy24h\":\"12706033.261227593\",\"vol24h\":\"3.268798804\",\"ts\":\"1793677173564\",\"sodUtc0\":\"3850284\",\"sodUtc8\":\"3867422\"}],\"msg\":\"\"}",
+      "url": "https://tr.okx.com/api/v5/market/ticker?instId=BTC-TRY",
+      "expect": {
+        "last": 3841324.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown instrument: code 51001 -> exchange text",
+      "exchangeKey": "OkexTr",
+      "pair": {
+        "base": "FOO",
+        "quote": "TRY",
+        "id": "FOO-TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"51001\",\"data\":[],\"msg\":\"Instrument ID, Instrument ID code, or Spread ID doesn't exist.\"}",
+      "expect": {
+        "error": true,
+        "message": "Instrument ID, Instrument ID code, or Spread ID doesn't exist."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "code 0 with empty data -> no data",
+      "exchangeKey": "OkexTr",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC-TRY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[],\"msg\":\"\"}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers SPOT: all rows keyed by instId",
+      "exchangeKey": "OkexTr",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-TRY\",\"last\":\"3841324\",\"lastSz\":\"0.057287311\",\"askPx\":\"3832375\",\"askSz\":\"0.002608914\",\"bidPx\":\"3824261\",\"bidSz\":\"0.002608861\",\"open24h\":\"3921256\",\"high24h\":\"3945655\",\"low24h\":\"3824810\",\"volCcy24h\":\"12706033.261227593\",\"vol24h\":\"3.268798804\",\"ts\":\"1793677173564\",\"sodUtc0\":\"3850284\",\"sodUtc8\":\"3867422\"},{\"instType\":\"SPOT\",\"instId\":\"ETH-TRY\",\"last\":\"112227\",\"lastSz\":\"0.00677517\",\"askPx\":\"112427\",\"askSz\":\"1.5\",\"bidPx\":\"111973\",\"bidSz\":\"0.22266733\",\"open24h\":\"115215\",\"high24h\":\"115447\",\"low24h\":\"111739\",\"volCcy24h\":\"24496717.90908681\",\"vol24h\":\"215.37080924\",\"ts\":\"1793677173973\",\"sodUtc0\":\"112923\",\"sodUtc8\":\"113600\"}],\"msg\":\"\"}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC-TRY": {
+            "last": 3841324.0,
+            "change24hPercent": -2.0384285035203007
+          },
+          "ETH-TRY": {
+            "last": 112227.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last» in one row reported as unreadable; empty «last» skipped silently",
+      "exchangeKey": "OkexTr",
+      "requestId": 0,
+      "body": "{\"code\":\"0\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-TRY\",\"last\":\"3841324\",\"lastSz\":\"0.057287311\",\"askPx\":\"3832375\",\"askSz\":\"0.002608914\",\"bidPx\":\"3824261\",\"bidSz\":\"0.002608861\",\"open24h\":\"3921256\",\"high24h\":\"3945655\",\"low24h\":\"3824810\",\"volCcy24h\":\"12706033.261227593\",\"vol24h\":\"3.268798804\",\"ts\":\"1793677173564\",\"sodUtc0\":\"3850284\",\"sodUtc8\":\"3867422\"},{\"instType\":\"SPOT\",\"instId\":\"ETH-TRY\",\"lastPx\":\"112227\",\"lastSz\":\"0.00677517\",\"askPx\":\"112427\",\"askSz\":\"1.5\",\"bidPx\":\"111973\",\"bidSz\":\"0.22266733\",\"open24h\":\"115215\",\"high24h\":\"115447\",\"low24h\":\"111739\",\"volCcy24h\":\"24496717.90908681\",\"vol24h\":\"215.37080924\",\"ts\":\"1793677173973\",\"sodUtc0\":\"112923\",\"sodUtc8\":\"113600\"},{\"instType\":\"SPOT\",\"instId\":\"NEW-TRY\",\"last\":\"\",\"lastSz\":\"0.057287311\",\"askPx\":\"3832375\",\"askSz\":\"0.002608914\",\"bidPx\":\"3824261\",\"bidSz\":\"0.002608861\",\"open24h\":\"3921256\",\"high24h\":\"3945655\",\"low24h\":\"3824810\",\"volCcy24h\":\"12706033.261227593\",\"vol24h\":\"3.268798804\",\"ts\":\"1793677173564\",\"sodUtc0\":\"3850284\",\"sodUtc8\":\"3867422\"}],\"msg\":\"\"}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH-TRY",
+          "NEW-TRY"
+        ],
+        "failed": [
+          "ETH-TRY"
+        ],
+        "tickers": {
+          "BTC-TRY": {
+            "last": 3841324.0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Eroare: %1$s</string>
     <string name="error_exchange_unreachable">Bursa nu poate fi accesată acum – ultimele prețuri rămân vizibile.</string>
     <string name="error_exchange_unreachable_short">Bursa nu poate fi accesată acum</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Bursa este blocată în această regiune</string>
     <string name="loading_hint">Se încarcă…</string>
     <string name="option_off">Oprit</string>
     <string name="something_went_wrong">Ceva nu a funcționat</string>

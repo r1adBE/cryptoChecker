@@ -13,7 +13,7 @@ IDATHA EQOTHO
 • Amanani aphuma kudivayisi kuphela ngokuthumela kwakho noma ngesipele se-Android. Ezintengweni, ama-ticker kuphela aya ku-exchange yawo; nezinga lokushintshisana (Frankfurter), idatha yemakethe namalogo (CoinGecko, Binance), izibuko zedatha (GitHub). Uma ubuka amakheli/i-xpub, ama-node e-blockchain omphakathi abona amakheli (ku-xpub, akhiqiziwe) ne-IP yakho.
 
 UHLU LOKUBUKA
-• Izimakethe ezingu-56 kuma-exchange angu-45: spot nama-futures, amathokheni e-DEX nge-DexScreener, uma uthanda izitoko, igolide ne-FX (TradFi)
+• Izimakethe ezingu-81 kuma-exchange angu-70: spot nama-futures, amathokheni e-DEX nge-DexScreener, uma uthanda izitoko, igolide ne-FX (TradFi)
 • Umugqa wesibili “≈ inani” ngemali eyodwa kwezingu-31 (EUR, CHF, USD …) ngezinga le-FX
 • Ishadi elincane noshintsho lwe-% ku-24 h noma kusukela ngo-00:00 ngesikhathi sakho
 • Amaqembu, izintandokazi, hudula-uyeke nenothi ku-coin ngayinye

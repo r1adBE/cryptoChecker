@@ -30,6 +30,21 @@ object ExchangeOrder {
         "Bitso" to "bitso", "MercadoBitcoin" to "mercado_bitcoin", "Indodax" to "indodax", "ZebPay" to "zebpay",
         "CoinDcx" to "coindcx", "HashKey" to "hashkey_exchange", "IndependentReserve" to "independent_reserve",
         "BtcMarkets" to "btcmarkets", "Luno" to "luno", "Latoken" to "latoken", "NonKyc" to "nonkyc_io",
+        "GmoCoin" to "gmo_japan",
+        "CoinJar" to "coinjar",
+        "UpbitId" to "upbit_indonesia",
+        "Tokocrypto" to "toko_crypto",
+        "Buda" to "buda",
+        "WazirX" to "wazirx",
+        "Valr" to "valr",
+        "Bit2Me" to "bit2me",
+        "Foxbit" to "foxbit",
+        "BitoPro" to "bitopro",
+        "MaxMaicoin" to "max_maicoin",
+        "WhiteBit" to "whitebit",
+        "Coinone" to "coinone",
+        "CoinsPh" to "coinspro",
+        "Bitkub" to "bitkub",
     )
 
     /** Wie [SPOT_IDS] für die Futures-Abschnitte. */

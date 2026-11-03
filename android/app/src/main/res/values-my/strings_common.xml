@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">အမှား: %1$s</string>
     <string name="error_exchange_unreachable">လဲလှယ်ရေးဌာနကို ယခု ချိတ်ဆက်၍မရပါ – နောက်ဆုံးဈေးနှုန်းများကို ဆက်ပြထားပါမည်။</string>
     <string name="error_exchange_unreachable_short">လဲလှယ်ရေးဌာနကို ယခု ချိတ်ဆက်၍မရပါ</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">ဤဒေသတွင် ငွေလဲလှယ်ရာကို ပိတ်ထားသည်</string>
     <string name="loading_hint">ဖွင့်နေသည်…</string>
     <string name="option_off">ပိတ်</string>
     <string name="something_went_wrong">တစ်ခုခု မှားသွားပါသည်</string>

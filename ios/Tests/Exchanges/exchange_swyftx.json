@@ -1,0 +1,143 @@
+{
+  "exchange": "Swyftx",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_swyftx.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.swyftx.com.au/markets/info/basic/",
+    "single": "GET https://api.swyftx.com.au/markets/info/basic/BTC/",
+    "bulk": "GET https://api.swyftx.com.au/markets/info/basic/"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "info/basic as pair list: one AUD pair per coin with buy and sell (EOS without prices dropped, a repeated code counts once)",
+      "exchangeKey": "Swyftx",
+      "requestId": 0,
+      "body": "[{\"name\":\"Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":3,\"rank\":1,\"buy\":\"110564.08519013\",\"sell\":\"109047.69606462\",\"spread\":\"1.38\",\"volume24H\":25308607181,\"marketCap\":1541540250992},{\"name\":\"Ethereum\",\"altName\":\"Ethereum\",\"code\":\"ETH\",\"id\":5,\"rank\":2,\"buy\":\"3237.31241122\",\"sell\":\"3194.16848536\",\"spread\":\"1.34\",\"volume24H\":10537504566,\"marketCap\":274951700601},{\"name\":\"USD Tether\",\"altName\":\"Tether\",\"code\":\"USDT\",\"id\":2,\"rank\":3,\"buy\":\"1.44011801\",\"sell\":\"1.42104477\",\"spread\":\"1.33\",\"volume24H\":44627330808,\"marketCap\":178890203826},{\"name\":\"EOS\",\"altName\":\"EOS\",\"code\":\"EOS\",\"id\":8,\"rank\":93,\"volume24H\":93541096,\"marketCap\":1152072770},{\"name\":\"Old Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":999,\"rank\":1,\"buy\":\"110564.08519013\",\"sell\":\"109047.69606462\",\"spread\":\"1.38\",\"volume24H\":25308607181,\"marketCap\":1541540250992}]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "EOS"
+        ],
+        "pairs": {
+          "BTC": {
+            "base": "BTC",
+            "quote": "AUD"
+          },
+          "USDT": {
+            "base": "USDT",
+            "quote": "AUD"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "info/basic/BTC: price = mid of sell (bid) and buy (ask); global volume24H not used, no 24 h change",
+      "exchangeKey": "Swyftx",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"name\":\"Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":3,\"rank\":1,\"buy\":\"110556.36149277\",\"sell\":\"109047.69606462\",\"spread\":\"1.37\",\"volume24H\":25308607181,\"marketCap\":1541540250992}]",
+      "url": "https://api.swyftx.com.au/markets/info/basic/BTC/",
+      "expect": {
+        "last": 109802.028778695,
+        "bid": 109047.69606462,
+        "ask": 110556.36149277,
+        "high": -1.0,
+        "vol": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: the code",
+      "exchangeKey": "Swyftx",
+      "pair": {
+        "base": "btc",
+        "quote": "AUD",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"name\":\"Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":3,\"rank\":1,\"buy\":\"110556.36149277\",\"sell\":\"109047.69606462\",\"spread\":\"1.37\",\"volume24H\":25308607181,\"marketCap\":1541540250992}]",
+      "url": "https://api.swyftx.com.au/markets/info/basic/BTC/",
+      "expect": {
+        "last": 109802.028778695
+      }
+    },
+    {
+      "kind": "single",
+      "name": "coin without prices -> no data",
+      "exchangeKey": "Swyftx",
+      "pair": {
+        "base": "EOS",
+        "quote": "AUD",
+        "id": "EOS",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"name\":\"EOS\",\"altName\":\"EOS\",\"code\":\"EOS\",\"id\":8,\"rank\":93,\"volume24H\":93541096,\"marketCap\":1152072770}]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown asset (HTTP 400) -> exchange text",
+      "exchangeKey": "Swyftx",
+      "pair": {
+        "base": "FOO",
+        "quote": "AUD",
+        "id": "FOOBAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"error\":\"AssetError\",\"message\":\"Asset not currently supported.\",\"errorRef\":\"err_J3nCpfPoVaKpACwbzaKmEi\"}}",
+      "expect": {
+        "error": true,
+        "message": "Asset not currently supported."
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "info/basic: every coin with prices, keyed by code",
+      "exchangeKey": "Swyftx",
+      "requestId": 0,
+      "body": "[{\"name\":\"Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":3,\"rank\":1,\"buy\":\"110564.08519013\",\"sell\":\"109047.69606462\",\"spread\":\"1.38\",\"volume24H\":25308607181,\"marketCap\":1541540250992},{\"name\":\"Ethereum\",\"altName\":\"Ethereum\",\"code\":\"ETH\",\"id\":5,\"rank\":2,\"buy\":\"3237.31241122\",\"sell\":\"3194.16848536\",\"spread\":\"1.34\",\"volume24H\":10537504566,\"marketCap\":274951700601},{\"name\":\"EOS\",\"altName\":\"EOS\",\"code\":\"EOS\",\"id\":8,\"rank\":93,\"volume24H\":93541096,\"marketCap\":1152072770}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "EOS"
+        ],
+        "tickers": {
+          "BTC": {
+            "last": 109805.890627375,
+            "change24hPercent": null
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: unreadable «sell» in one row reported as unreadable, the rest stays",
+      "exchangeKey": "Swyftx",
+      "requestId": 0,
+      "body": "[{\"name\":\"Bitcoin\",\"altName\":\"Bitcoin\",\"code\":\"BTC\",\"id\":3,\"rank\":1,\"buy\":\"110564.08519013\",\"sell\":\"109047.69606462\",\"spread\":\"1.38\",\"volume24H\":25308607181,\"marketCap\":1541540250992},{\"name\":\"Ethereum\",\"altName\":\"Ethereum\",\"code\":\"ETH\",\"id\":5,\"rank\":2,\"buy\":\"3237.31241122\",\"sell\":\"n/a\",\"spread\":\"1.34\",\"volume24H\":10537504566,\"marketCap\":274951700601},{\"name\":\"USD Tether\",\"altName\":\"Tether\",\"code\":\"USDT\",\"id\":2,\"rank\":3,\"buy\":\"1.44011801\",\"sell\":\"1.42104477\",\"spread\":\"1.33\",\"volume24H\":44627330808,\"marketCap\":178890203826}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "ETH"
+        ],
+        "failed": [
+          "ETH"
+        ]
+      }
+    }
+  ]
+}

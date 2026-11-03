@@ -5,7 +5,7 @@ Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was b
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures),
+Sprachausgabe und Startbildschirm-Widgets über 81 Märkte: 79 auf 70 Börsen (teils mit Spot und Futures),
 dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen. 75 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
@@ -213,7 +213,7 @@ Migrationstest mit Daten (`RoomSchemaRulesTest`).
 
 ## Umfang
 
-* 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
+* 81 Märkte: 79 auf 70 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
   Reserve) und EZB-Referenzkurse für Devisen. Die vollständige Liste in Anzeigereihenfolge steht in
   `marketdata/src/main/java/com/cryptochecker/marketdata/config/ExchangesConfig.kt`.
   Xcalibra ist seit Januar 2025 geschlossen.

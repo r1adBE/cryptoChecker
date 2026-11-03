@@ -24,6 +24,21 @@ enum ExchangeOrder {
         "Bitso": "bitso", "MercadoBitcoin": "mercado_bitcoin", "Indodax": "indodax", "ZebPay": "zebpay",
         "CoinDcx": "coindcx", "HashKey": "hashkey_exchange", "IndependentReserve": "independent_reserve",
         "BtcMarkets": "btcmarkets", "Luno": "luno", "Latoken": "latoken", "NonKyc": "nonkyc_io",
+        "GmoCoin": "gmo_japan",
+        "CoinJar": "coinjar",
+        "UpbitId": "upbit_indonesia",
+        "Tokocrypto": "toko_crypto",
+        "Buda": "buda",
+        "WazirX": "wazirx",
+        "Valr": "valr",
+        "Bit2Me": "bit2me",
+        "Foxbit": "foxbit",
+        "BitoPro": "bitopro",
+        "MaxMaicoin": "max_maicoin",
+        "WhiteBit": "whitebit",
+        "Coinone": "coinone",
+        "CoinsPh": "coinspro",
+        "Bitkub": "bitkub",
     ]
 
     /// Wie `spotIds` für die Futures-Abschnitte.

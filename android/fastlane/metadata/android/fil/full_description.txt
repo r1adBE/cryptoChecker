@@ -13,7 +13,7 @@ TAPAT SA DATA
 • Umaalis lang sa device ang mga halaga sa export mo o Android system backup. Para sa presyo, ticker lang ng pares ang napupunta sa exchange nito; dagdag ang exchange rate (Frankfurter), market data at logo (CoinGecko, Binance), data mirror (GitHub). Kung nagbabantay ka ng address o xpub, nakikita ng pampublikong blockchain node ang mga address (sa xpub, ang hinango) at IP mo.
 
 WATCHLIST
-• 56 na market sa 45 exchange: spot at futures, DEX token sa DexScreener, opsyonal na stocks, ginto at FX (TradFi)
+• 81 na market sa 70 exchange: spot at futures, DEX token sa DexScreener, opsyonal na stocks, ginto at FX (TradFi)
 • Ikalawang linyang “≈ value” sa 1 sa 31 currency (EUR, CHF, USD …), ayon sa FX rate
 • Mini chart at % change sa 24 h o mula 00:00 sa time zone mo
 • Mga grupo, paborito, drag & drop at tala bawat coin

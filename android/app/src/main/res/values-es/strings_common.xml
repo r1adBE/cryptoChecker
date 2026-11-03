@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Error: %1$s</string>
     <string name="error_exchange_unreachable">El exchange no está disponible ahora – los últimos precios siguen visibles.</string>
     <string name="error_exchange_unreachable_short">Exchange no disponible ahora</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Exchange bloqueado en esta región</string>
     <string name="loading_hint">Cargando…</string>
     <string name="option_off">No</string>
     <string name="something_went_wrong">Algo salió mal</string>

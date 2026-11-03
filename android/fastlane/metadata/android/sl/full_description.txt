@@ -13,7 +13,7 @@ POŠTENO O PODATKIH
 • Zneski zapustijo napravo samo prek tvojega izvoza ali sistemske varnostne kopije Android. Za tečaje gredo na borzo posameznega para samo oznake parov; poleg tega devizni tečaji (Frankfurter), tržni podatki in logotipi (CoinGecko, Binance), zrcala podatkov (GitHub). Če spremljaš naslove ali xpub, javna vozlišča verige blokov vidijo naslove (pri xpub izpeljane) in tvoj naslov IP.
 
 SEZNAM
-• 56 trgov na 45 borzah: spot in futures, žetoni DEX prek DexScreener, po želji delnice, zlato in devize (TradFi)
+• 81 trgov na 70 borzah: spot in futures, žetoni DEX prek DexScreener, po želji delnice, zlato in devize (TradFi)
 • Druga vrstica „≈ vrednost“ v eni od 31 valut (EUR, CHF, USD …), pretvorjeno po deviznem tečaju
 • Mini graf in sprememba v % v 24 h ali od 00:00 v tvojem časovnem pasu
 • Skupine, priljubljeni, povleci in spusti ter opomba za vsak kovanec

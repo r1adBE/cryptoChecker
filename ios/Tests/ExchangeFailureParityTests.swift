@@ -54,6 +54,14 @@ final class ExchangeFailureParityTests: XCTestCase {
         }
     }
 
+    /// HTTP 451 im gespeicherten Text = Standort-Sperre (eigene Meldung statt «nicht erreichbar»).
+    func testRegionBlocked() {
+        for c in cases("regionBlocked") {
+            let text = c["text"] as? String
+            XCTAssertEqual(RefreshReportLogic.isRegionBlocked(text), c["expected"] as? Bool, "regionBlocked: \(text ?? "nil")")
+        }
+    }
+
     func testConfirmedBySingle() {
         for c in cases("confirmedBySingle") {
             let text = c["text"] as? String

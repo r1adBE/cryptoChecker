@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Error: %1$s</string>
     <string name="error_exchange_unreachable">Hindi maabot ang exchange ngayon – makikita pa rin ang mga huling presyo.</string>
     <string name="error_exchange_unreachable_short">Hindi maabot ang exchange ngayon</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Naka-block ang exchange sa rehiyong ito</string>
     <string name="loading_hint">Naglo-load…</string>
     <string name="option_off">Naka-off</string>
     <string name="something_went_wrong">Nagkaproblema</string>

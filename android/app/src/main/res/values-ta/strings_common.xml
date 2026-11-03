@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">பிழை: %1$s</string>
     <string name="error_exchange_unreachable">எக்ஸ்சேஞ்சை இப்போது அணுக முடியவில்லை – கடைசி விலைகள் தொடர்ந்து தெரியும்.</string>
     <string name="error_exchange_unreachable_short">எக்ஸ்சேஞ்சை இப்போது அணுக முடியவில்லை</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">இந்தப் பகுதியில் பரிமாற்றம் தடுக்கப்பட்டுள்ளது</string>
     <string name="loading_hint">ஏற்றுகிறது…</string>
     <string name="option_off">ஆஃப்</string>
     <string name="something_went_wrong">ஏதோ தவறு நடந்துவிட்டது</string>

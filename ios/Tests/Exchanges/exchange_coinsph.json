@@ -1,0 +1,171 @@
+{
+  "exchange": "CoinsPh",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_coinsph.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.pro.coins.ph/openapi/v1/exchangeInfo",
+    "single": "GET https://api.pro.coins.ph/openapi/quote/v1/ticker/24hr?symbol=BTCPHP",
+    "bulk": "GET https://api.pro.coins.ph/openapi/quote/v1/ticker/24hr"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "exchangeInfo: status «trading» only («break» dropped)",
+      "exchangeKey": "CoinsPh",
+      "requestId": 0,
+      "body": "{\"timezone\":\"UTC\",\"serverTime\":1793662854606,\"symbols\":[{\"symbol\":\"BTCPHP\",\"status\":\"trading\",\"baseAsset\":\"BTC\",\"baseAssetPrecision\":7,\"quoteAsset\":\"PHP\",\"quoteAssetPrecision\":8,\"orderTypes\":[\"LIMIT\",\"MARKET\",\"LIMIT_MAKER\",\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"TAKE_PROFIT_LIMIT\",\"TAKE_PROFIT\"],\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.1\",\"maxPrice\":\"99999999999.00000000\",\"tickSize\":\"0.1\"},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.0000001\",\"maxQty\":\"99999999999.00000000\",\"stepSize\":\"0.0000001\"},{\"filterType\":\"NOTIONAL\",\"minNotional\":\"50\",\"maxNotional\":\"6000000\"},{\"filterType\":\"MIN_NOTIONAL\",\"minNotional\":\"50\"},{\"filterType\":\"STATIC_PRICE_RANGE\",\"priceUp\":\"99999999.000000000000000000\",\"priceDown\":\"0.100000000000000000\"},{\"filterType\":\"PERCENT_PRICE_BY_SIDE\",\"bidMultiplierUp\":\"5.00000000\",\"bidMultiplierDown\":\"0.20000000\",\"askMultiplierUp\":\"5.00000000\",\"askMultiplierDown\":\"0.20000000\"},{\"filterType\":\"PERCENT_PRICE_ORDER_SIZE\",\"multiplierUp\":\"1.10000000\",\"multiplierDown\":\"0.90000000\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":200},{\"filterType\":\"MAX_NUM_ALGO_ORDERS\",\"maxNumAlgoOrders\":5}]},{\"symbol\":\"ETHUSDT\",\"status\":\"trading\",\"baseAsset\":\"ETH\",\"baseAssetPrecision\":6,\"quoteAsset\":\"USDT\",\"quoteAssetPrecision\":8,\"orderTypes\":[\"LIMIT\",\"MARKET\",\"LIMIT_MAKER\",\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"TAKE_PROFIT_LIMIT\",\"TAKE_PROFIT\"],\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.01\",\"maxPrice\":\"99999999999.00000000\",\"tickSize\":\"0.01\"},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.000001\",\"maxQty\":\"99999999999.00000000\",\"stepSize\":\"0.000001\"},{\"filterType\":\"NOTIONAL\",\"minNotional\":\"1\",\"maxNotional\":\"50000\"},{\"filterType\":\"MIN_NOTIONAL\",\"minNotional\":\"1\"},{\"filterType\":\"STATIC_PRICE_RANGE\",\"priceUp\":\"99999999.000000000000000000\",\"priceDown\":\"0.010000000000000000\"},{\"filterType\":\"PERCENT_PRICE_BY_SIDE\",\"bidMultiplierUp\":\"5.00000000\",\"bidMultiplierDown\":\"0.20000000\",\"askMultiplierUp\":\"5.00000000\",\"askMultiplierDown\":\"0.20000000\"},{\"filterType\":\"PERCENT_PRICE_ORDER_SIZE\",\"multiplierUp\":\"1.10000000\",\"multiplierDown\":\"0.90000000\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":200},{\"filterType\":\"MAX_NUM_ALGO_ORDERS\",\"maxNumAlgoOrders\":5}]},{\"symbol\":\"USDTPHP\",\"status\":\"trading\",\"baseAsset\":\"USDT\",\"baseAssetPrecision\":2,\"quoteAsset\":\"PHP\",\"quoteAssetPrecision\":4,\"orderTypes\":[\"LIMIT\",\"MARKET\",\"LIMIT_MAKER\",\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"TAKE_PROFIT_LIMIT\",\"TAKE_PROFIT\"],\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.01\",\"maxPrice\":\"99999999999.00000000\",\"tickSize\":\"0.01\"},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.01\",\"maxQty\":\"99999999999.00000000\",\"stepSize\":\"0.01\"},{\"filterType\":\"NOTIONAL\",\"minNotional\":\"50\",\"maxNotional\":\"6200000\"},{\"filterType\":\"MIN_NOTIONAL\",\"minNotional\":\"50\"},{\"filterType\":\"STATIC_PRICE_RANGE\",\"priceUp\":\"99999999.000000000000000000\",\"priceDown\":\"0.001000000000000000\"},{\"filterType\":\"PERCENT_PRICE_BY_SIDE\",\"bidMultiplierUp\":\"1.20000000\",\"bidMultiplierDown\":\"0.80000000\",\"askMultiplierUp\":\"1.20000000\",\"askMultiplierDown\":\"0.80000000\"},{\"filterType\":\"PERCENT_PRICE_ORDER_SIZE\",\"multiplierUp\":\"1.10000000\",\"multiplierDown\":\"0.90000000\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":200},{\"filterType\":\"MAX_NUM_ALGO_ORDERS\",\"maxNumAlgoOrders\":5}]},{\"symbol\":\"ETHFIPHP\",\"status\":\"break\",\"baseAsset\":\"ETHFI\",\"baseAssetPrecision\":2,\"quoteAsset\":\"PHP\",\"quoteAssetPrecision\":4,\"orderTypes\":[\"LIMIT\",\"MARKET\",\"LIMIT_MAKER\",\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"TAKE_PROFIT_LIMIT\",\"TAKE_PROFIT\"],\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.01\",\"maxPrice\":\"99999999999.00000000\",\"tickSize\":\"0.01\"},{\"filterType\":\"LOT_SIZE\",\"minQty\":\"0.01\",\"maxQty\":\"99999999999.00000000\",\"stepSize\":\"0.01\"},{\"filterType\":\"NOTIONAL\",\"minNotional\":\"50\",\"maxNotional\":\"6000000\"},{\"filterType\":\"MIN_NOTIONAL\",\"minNotional\":\"50\"},{\"filterType\":\"STATIC_PRICE_RANGE\",\"priceUp\":\"99999999.000000000000000000\",\"priceDown\":\"0.010000000000000000\"},{\"filterType\":\"PERCENT_PRICE_BY_SIDE\",\"bidMultiplierUp\":\"5.00000000\",\"bidMultiplierDown\":\"0.20000000\",\"askMultiplierUp\":\"5.00000000\",\"askMultiplierDown\":\"0.20000000\"},{\"filterType\":\"PERCENT_PRICE_ORDER_SIZE\",\"multiplierUp\":\"1.10000000\",\"multiplierDown\":\"0.90000000\"},{\"filterType\":\"MAX_NUM_ORDERS\",\"maxNumOrders\":200},{\"filterType\":\"MAX_NUM_ALGO_ORDERS\",\"maxNumAlgoOrders\":5}]}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "ETHFIPHP"
+        ],
+        "pairs": {
+          "BTCPHP": {
+            "base": "BTC",
+            "quote": "PHP"
+          },
+          "USDTPHP": {
+            "base": "USDT",
+            "quote": "PHP"
+          },
+          "ETHUSDT": {
+            "base": "ETH",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "24hr BTCPHP: change from openPrice (priceChangePercent is a fraction, not used); closeTime is no trade time",
+      "exchangeKey": "CoinsPh",
+      "pair": {
+        "base": "BTC",
+        "quote": "PHP",
+        "id": "BTCPHP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"4827451\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295}",
+      "url": "https://api.pro.coins.ph/openapi/quote/v1/ticker/24hr?symbol=BTCPHP",
+      "expect": {
+        "last": 4827451.0,
+        "bid": 4823441.8,
+        "ask": 4830422.4,
+        "high": 4995215.9,
+        "low": 4816399.6,
+        "vol": 4.3163361,
+        "volQuote": 21206960.22,
+        "change24hPercent": -2.8146276753854496,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: symbol built from base and quote",
+      "exchangeKey": "CoinsPh",
+      "pair": {
+        "base": "BTC",
+        "quote": "PHP",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"4827451\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295}",
+      "url": "https://api.pro.coins.ph/openapi/quote/v1/ticker/24hr?symbol=BTCPHP",
+      "expect": {
+        "last": 4827451.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "openPrice missing -> no rolling change, price still valid",
+      "exchangeKey": "CoinsPh",
+      "pair": {
+        "base": "BTC",
+        "quote": "PHP",
+        "id": "BTCPHP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"4827451\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295}",
+      "expect": {
+        "last": 4827451.0,
+        "change24hPercent": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload: unknown symbol",
+      "exchangeKey": "CoinsPh",
+      "pair": {
+        "base": "FOO",
+        "quote": "PHP",
+        "id": "FOOPHP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":-100011,\"msg\":\"Not supported symbols\"}",
+      "expect": {
+        "error": true,
+        "message": "Not supported symbols"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "lastPrice 0 -> no price",
+      "exchangeKey": "CoinsPh",
+      "pair": {
+        "base": "BTC",
+        "quote": "PHP",
+        "id": "BTCPHP",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"0\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "24hr without symbol: all pairs",
+      "exchangeKey": "CoinsPh",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"4827451\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295},{\"symbol\":\"ETHPHP\",\"priceChange\":\"-2833.3\",\"priceChangePercent\":\"-0.0196\",\"weightedAvgPrice\":\"143867.674260327586471046\",\"prevClosePrice\":\"144366.4\",\"lastPrice\":\"141508\",\"lastQty\":\"0.005057\",\"bidPrice\":\"141463.2\",\"bidQty\":\"0.107589\",\"askPrice\":\"141645.7\",\"askQty\":\"1.914\",\"openPrice\":\"144341.3\",\"highPrice\":\"146700\",\"lowPrice\":\"140529.8\",\"volume\":\"65.989111\",\"quoteVolume\":\"9493699.92\",\"openTime\":1793576340000,\"closeTime\":1793662839636,\"firstId\":2339082853738571266,\"lastId\":2339807918390208002,\"count\":8924}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCPHP": {
+            "last": 4827451.0,
+            "change24hPercent": -2.8146276753854496
+          },
+          "ETHPHP": {
+            "last": 141508.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays; row with «lastPrice» 0 is skipped, not failed",
+      "exchangeKey": "CoinsPh",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCPHP\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"4827451\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295},{\"symbol\":\"ETHPHP\",\"priceChange\":\"-2833.3\",\"priceChangePercent\":\"-0.0196\",\"weightedAvgPrice\":\"143867.674260327586471046\",\"prevClosePrice\":\"144366.4\",\"price\":\"141508\",\"lastQty\":\"0.005057\",\"bidPrice\":\"141463.2\",\"bidQty\":\"0.107589\",\"askPrice\":\"141645.7\",\"askQty\":\"1.914\",\"openPrice\":\"144341.3\",\"highPrice\":\"146700\",\"lowPrice\":\"140529.8\",\"volume\":\"65.989111\",\"quoteVolume\":\"9493699.92\",\"openTime\":1793576340000,\"closeTime\":1793662839636,\"firstId\":2339082853738571266,\"lastId\":2339807918390208002,\"count\":8924},{\"symbol\":\"DOGUSDT\",\"priceChange\":\"-139809.9\",\"priceChangePercent\":\"-0.0281\",\"weightedAvgPrice\":\"4913185.565285536962703159\",\"prevClosePrice\":\"4966463.6\",\"lastPrice\":\"0\",\"lastQty\":\"0.0002395\",\"bidPrice\":\"4823441.8\",\"bidQty\":\"0.0124307\",\"askPrice\":\"4830422.4\",\"askQty\":\"0.0228023\",\"openPrice\":\"4967260.9\",\"highPrice\":\"4995215.9\",\"lowPrice\":\"4816399.6\",\"volume\":\"4.3163361\",\"quoteVolume\":\"21206960.22\",\"openTime\":1793577420000,\"closeTime\":1793663881021,\"firstId\":2339091958976964097,\"lastId\":2339816654160750082,\"count\":9295}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETHPHP",
+          "DOGUSDT"
+        ],
+        "failed": [
+          "ETHPHP"
+        ],
+        "tickers": {
+          "BTCPHP": {
+            "last": 4827451.0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -23,13 +23,29 @@ class RecordedBulkCompletenessTest {
         "Luno" to "recorded_luno.json",
         "Icrypex" to "recorded_icrypex.json",
         "HashKey" to "recorded_hashkey.json",
+        "GmoCoin" to "recorded_gmocoin.json",
+        "Swyftx" to "recorded_swyftx.json",
+        "Buda" to "recorded_buda.json",
+        "Quidax" to "recorded_quidax.json",
+        "Bit2Me" to "recorded_bit2me.json",
+        "Foxbit" to "recorded_foxbit.json",
+        "BitoPro" to "recorded_bitopro.json",
+        "WhiteBit" to "recorded_whitebit.json",
+        "Coinone" to "recorded_coinone.json",
+        "CoinsPh" to "recorded_coinsph.json",
+        "Bitkub" to "recorded_bitkub.json",
     )
 
     /**
      * Paare, die die Sammelabfrage zwar führt, aber mit Kurs 0 (nie gehandelt) — sie fallen dort weg wie bei Lighter
-     * und gelten damit als nicht gehandelt (HashKey «SPICEUSDC», Aufzeichnung 19.10.2026: c/h/l/o/v alle «0»).
+     * und gelten damit als nicht gehandelt (HashKey «SPICEUSDC», Aufzeichnung 19.10.2026: c/h/l/o/v alle «0»;
+     * Bit2Me «ALCH/EUR» und Quidax «asiusdt», «melaniausdt», Aufzeichnung 03.11.2026: Kurs 0).
      */
-    private val listedWithoutPrice = mapOf("HashKey" to setOf("SPICEUSDC"))
+    private val listedWithoutPrice = mapOf(
+        "HashKey" to setOf("SPICEUSDC"),
+        "Bit2Me" to setOf("ALCH/EUR"),
+        "Quidax" to setOf("asiusdt", "melaniausdt"),
+    )
 
     private fun recordedDir(): File {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

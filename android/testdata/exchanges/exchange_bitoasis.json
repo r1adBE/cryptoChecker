@@ -1,0 +1,126 @@
+{
+  "exchange": "BitOasis",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_bitoasis.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.bitoasis.net/v1/exchange/markets",
+    "single": "GET https://api.bitoasis.net/v1/exchange/ticker/BTC-AED",
+    "bulk": "none (no public list of all tickers)"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: available_pairs of tokens with trade_enabled («BASE-QUOTE»)",
+      "exchangeKey": "BitOasis",
+      "requestId": 0,
+      "body": "{\"tokens\":[{\"symbol\":\"BTC\",\"name\":\"Bitcoin\",\"trade_enabled\":true,\"withdrawal_enabled\":true,\"deposit_enabled\":true,\"available_pairs\":[\"BTC-AED\",\"BTC-SAR\",\"BTC-USD\",\"BTC-USDT\"]},{\"symbol\":\"ETH\",\"name\":\"Ethereum\",\"trade_enabled\":true,\"withdrawal_enabled\":true,\"deposit_enabled\":true,\"available_pairs\":[\"ETH-AED\",\"ETH-SAR\",\"ETH-USD\",\"ETH-USDT\",\"ETH-BTC\"]},{\"symbol\":\"ETHW\",\"name\":\"EthereumPoW\",\"trade_enabled\":false,\"withdrawal_enabled\":true,\"deposit_enabled\":false,\"available_pairs\":[]}]}",
+      "expect": {
+        "count": 9,
+        "absent": [],
+        "pairs": {
+          "BTC-AED": {
+            "base": "BTC",
+            "quote": "AED"
+          },
+          "ETH-BTC": {
+            "base": "ETH",
+            "quote": "BTC"
+          },
+          "BTC-USDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC-AED: open_price = price 24 h ago (rolling, hourly), daily high/low over the same window, no volume",
+      "exchangeKey": "BitOasis",
+      "pair": {
+        "base": "BTC",
+        "quote": "AED",
+        "id": "BTC-AED",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"pair\":\"BTC-AED\",\"bid\":\"282327\",\"ask\":\"282375\",\"open_price\":\"288938\",\"last_price\":\"282327\",\"daily_low\":\"281218\",\"daily_high\":\"288938\",\"daily_change\":\"-6611\",\"daily_percentage_change\":\"-2.29\"}}",
+      "url": "https://api.bitoasis.net/v1/exchange/ticker/BTC-AED",
+      "expect": {
+        "last": 282327.0,
+        "bid": 282327.0,
+        "ask": 282375.0,
+        "high": 288938.0,
+        "low": 281218.0,
+        "vol": -1.0,
+        "change24hPercent": -2.288034111124186,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «BASE-QUOTE»",
+      "exchangeKey": "BitOasis",
+      "pair": {
+        "base": "btc",
+        "quote": "aed",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"pair\":\"BTC-AED\",\"bid\":\"282327\",\"ask\":\"282375\",\"open_price\":\"288938\",\"last_price\":\"282327\",\"daily_low\":\"281218\",\"daily_high\":\"288938\",\"daily_change\":\"-6611\",\"daily_percentage_change\":\"-2.29\"}}",
+      "url": "https://api.bitoasis.net/v1/exchange/ticker/BTC-AED",
+      "expect": {
+        "last": 282327.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "invalid pair (HTTP 400) -> exchange text",
+      "exchangeKey": "BitOasis",
+      "pair": {
+        "base": "FOO",
+        "quote": "AED",
+        "id": "FOO-AED",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\n    \"code\": 400,\n    \"status\": \"error\",\n    \"message\": \"Currency pair 'FOO-AED' is invalid!\"\n}",
+      "expect": {
+        "error": true,
+        "message": "Currency pair 'FOO-AED' is invalid!"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last_price 0 -> no price",
+      "exchangeKey": "BitOasis",
+      "pair": {
+        "base": "BTC",
+        "quote": "AED",
+        "id": "BTC-AED",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"ticker\":{\"pair\":\"BTC-AED\",\"bid\":\"282327\",\"ask\":\"282375\",\"open_price\":\"288938\",\"last_price\":\"0\",\"daily_low\":\"281218\",\"daily_high\":\"288938\",\"daily_change\":\"-6611\",\"daily_percentage_change\":\"-2.29\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "HTML page (HTTP 404) -> error without exchange text",
+      "exchangeKey": "BitOasis",
+      "pair": {
+        "base": "BTC",
+        "quote": "AED",
+        "id": "BTC-AED",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<!DOCTYPE html><html><head><title>BitOasis</title></head></html>",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

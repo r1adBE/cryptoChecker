@@ -156,6 +156,16 @@ object RefreshReportLogic {
     fun httpStatus(error: String?): Int? =
         HTTP_CODE.find(error?.trim().orEmpty().lowercase())?.groupValues?.get(1)?.toIntOrNull()
 
+    /**
+     * HTTP 451 («Unavailable For Legal Reasons»): die Börse sperrt Abrufe aus der Region des Geräts (Binance TR
+     * ausserhalb der Türkei, Tokocrypto ausserhalb Indonesiens, Binance in den USA). Ein neuer Versuch hilft nicht;
+     * die Zeile sagt das statt «nicht erreichbar». Wie iOS (Fälle in `exchange_failure.json`, «regionBlocked»).
+     */
+    const val REGION_BLOCKED_HTTP = 451
+
+    /** Gespeicherter Fehlertext meldet die Standort-Sperre ([REGION_BLOCKED_HTTP]). */
+    fun isRegionBlocked(error: String?): Boolean = httpStatus(error) == REGION_BLOCKED_HTTP
+
     /** Android `HttpExchangeError` («HttpCode: 429»), iOS `ExchangeHTTP` («HTTP 429»). */
     private val HTTP_CODE = Regex("""\bhttp(?:code:)?\s*(\d{3})\b""")
 

@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Virhe: %1$s</string>
     <string name="error_exchange_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät hinnat pysyvät näkyvissä.</string>
     <string name="error_exchange_unreachable_short">Pörssiin ei saada yhteyttä</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Pörssi on estetty tällä alueella</string>
     <string name="loading_hint">Ladataan…</string>
     <string name="option_off">Pois</string>
     <string name="something_went_wrong">Jokin meni pieleen</string>

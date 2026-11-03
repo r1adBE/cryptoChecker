@@ -1,0 +1,152 @@
+{
+  "exchange": "CoinJar",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_coinjar.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.exchange.coinjar.com/products",
+    "single": "GET https://data.exchange.coinjar.com/products/BTCAUD/ticker",
+    "bulk": "GET https://data.exchange.coinjar.com/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "products: id kept as listed («BTCAUD» or «BTC-USDC»), iso codes as base/quote",
+      "exchangeKey": "CoinJar",
+      "requestId": 0,
+      "body": "[{\"id\":\"BTCAUD\",\"name\":\"BTC/AUD\",\"base_currency\":{\"subunit_to_unit\":100000000,\"iso_code\":\"BTC\",\"name\":\"Bitcoin\",\"subunit\":\"Satoshi\"},\"counter_currency\":{\"subunit_to_unit\":100,\"iso_code\":\"AUD\",\"name\":\"Australian Dollar\",\"subunit\":\"Cent\"},\"tick_value\":\"0.01\"},{\"id\":\"BTC-USDC\",\"name\":\"BTC/USDC\",\"base_currency\":{\"subunit_to_unit\":100000000,\"iso_code\":\"BTC\",\"name\":\"Bitcoin\",\"subunit\":\"Satoshi\"},\"counter_currency\":{\"subunit_to_unit\":1000000,\"iso_code\":\"USDC\",\"name\":\"USD Coin\",\"subunit\":\"MicroUSDC\"},\"tick_value\":\"0.01\"},{\"id\":\"ETHGBP\",\"name\":\"ETH/GBP\",\"base_currency\":{\"subunit_to_unit\":1000000000,\"iso_code\":\"ETH\",\"name\":\"Ethereum\",\"subunit\":\"Gwei\"},\"counter_currency\":{\"subunit_to_unit\":100,\"iso_code\":\"GBP\",\"name\":\"British Pound\",\"subunit\":\"Penny\"},\"tick_value\":\"0.01\"}]",
+      "expect": {
+        "count": 3,
+        "pairs": {
+          "BTCAUD": {
+            "base": "BTC",
+            "quote": "AUD"
+          },
+          "BTC-USDC": {
+            "base": "BTC",
+            "quote": "USDC"
+          },
+          "ETHGBP": {
+            "base": "ETH",
+            "quote": "GBP"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTCAUD: change_24h a fraction (× 100); prev_close (session close) and volume (session) not used",
+      "exchangeKey": "CoinJar",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTCAUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"session\":72420,\"status\":\"continuous\",\"last\":\"110000.00000000\",\"volume\":\"5991.00043951\",\"transition_time\":null,\"current_time\":\"2026-11-03T04:15:23.209996Z\",\"prev_close\":\"97740.00000000\",\"volume_24h\":\"2.43669234\",\"bid\":\"110000.00000000\",\"ask\":\"110100.00000000\",\"mark_price\":\"110000.00000000\",\"change_24h\":-0.0152}",
+      "url": "https://data.exchange.coinjar.com/products/BTCAUD/ticker",
+      "expect": {
+        "last": 110000.0,
+        "bid": 110000.0,
+        "ask": 110100.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 2.43669234,
+        "volQuote": -1.0,
+        "change24hPercent": -1.52,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: base and quote joined",
+      "exchangeKey": "CoinJar",
+      "pair": {
+        "base": "btc",
+        "quote": "aud",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"session\":72420,\"status\":\"continuous\",\"last\":\"110000.00000000\",\"volume\":\"5991.00043951\",\"transition_time\":null,\"current_time\":\"2026-11-03T04:15:23.209996Z\",\"prev_close\":\"97740.00000000\",\"volume_24h\":\"2.43669234\",\"bid\":\"110000.00000000\",\"ask\":\"110100.00000000\",\"mark_price\":\"110000.00000000\",\"change_24h\":-0.0152}",
+      "url": "https://data.exchange.coinjar.com/products/BTCAUD/ticker",
+      "expect": {
+        "last": 110000.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown product (HTTP 404) -> first error message",
+      "exchangeKey": "CoinJar",
+      "pair": {
+        "base": "FOO",
+        "quote": "AUD",
+        "id": "FOOAUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error_type\":\"NOT_FOUND\",\"error_messages\":[\"Record not found.\"]}",
+      "expect": {
+        "error": true,
+        "message": "Record not found."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "CoinJar",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTCAUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"session\":72420,\"status\":\"continuous\",\"last\":\"0.00000000\",\"volume\":\"5991.00043951\",\"transition_time\":null,\"current_time\":\"2026-11-03T04:15:23.209996Z\",\"prev_close\":\"97740.00000000\",\"volume_24h\":\"2.43669234\",\"bid\":\"110000.00000000\",\"ask\":\"110100.00000000\",\"mark_price\":\"110000.00000000\",\"change_24h\":-0.0152}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: one object per product id (sparklines not read)",
+      "exchangeKey": "CoinJar",
+      "requestId": 0,
+      "body": "{\"BTCAUD\":{\"last\":\"110000.00000000\",\"ask\":\"110100.00000000\",\"bid\":\"110000.00000000\",\"change_24h\":-0.0152,\"mark_price\":\"110000.00000000\",\"sparklines_24h\":[\"111500.00000000\",\"111600.00000000\",\"111400.00000000\",\"111100.00000000\",\"111300.00000000\",\"111200.00000000\",\"111300.00000000\",\"110900.00000000\",\"110700.00000000\",\"111300.00000000\",\"110900.00000000\",\"110500.00000000\",\"109900.00000000\",\"109900.00000000\",\"109800.00000000\",\"109600.00000000\",\"109500.00000000\",\"109700.00000000\",\"109600.00000000\",\"109700.00000000\",\"110100.00000000\",\"110000.00000000\",\"109600.00000000\",\"109900.00000000\",\"109800.00000000\"],\"volume_24h\":\"2.43469234\"},\"BTC-USDC\":{\"last\":\"76910.00000000\",\"ask\":\"76930.00000000\",\"bid\":\"76860.00000000\",\"change_24h\":-0.0205,\"mark_price\":\"76910.00000000\",\"volume_24h\":\"0.57843428\"}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTCAUD": {
+            "last": 110000.0,
+            "change24hPercent": -1.52
+          },
+          "BTC-USDC": {
+            "last": 76910.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last» in one row reported as unreadable; last 0 or false (never traded) skipped",
+      "exchangeKey": "CoinJar",
+      "requestId": 0,
+      "body": "{\"BTCAUD\":{\"last\":\"110000.00000000\",\"ask\":\"110100.00000000\",\"bid\":\"110000.00000000\",\"change_24h\":-0.0152,\"mark_price\":\"110000.00000000\",\"volume_24h\":\"2.43469234\"},\"BTC-USDC\":{\"price\":\"76910.00000000\",\"ask\":\"76930.00000000\",\"bid\":\"76860.00000000\",\"change_24h\":-0.0205,\"mark_price\":\"76910.00000000\",\"volume_24h\":\"0.57843428\"},\"NEWAUD\":{\"last\":\"0.00000000\",\"ask\":\"110100.00000000\",\"bid\":\"110000.00000000\",\"change_24h\":-0.0152,\"mark_price\":\"110000.00000000\",\"volume_24h\":\"2.43469234\"},\"JUPAUD\":{\"last\":false,\"ask\":\"110100.00000000\",\"bid\":\"110000.00000000\",\"change_24h\":null,\"mark_price\":\"110000.00000000\",\"volume_24h\":\"2.43469234\"}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "BTC-USDC",
+          "NEWAUD",
+          "JUPAUD"
+        ],
+        "failed": [
+          "BTC-USDC"
+        ],
+        "tickers": {
+          "BTCAUD": {
+            "last": 110000.0
+          }
+        }
+      }
+    }
+  ]
+}

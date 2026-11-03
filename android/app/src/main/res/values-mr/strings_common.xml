@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">त्रुटी: %1$s</string>
     <string name="error_exchange_unreachable">एक्सचेंजशी सध्या संपर्क होत नाही – शेवटच्या किमती दिसत राहतील.</string>
     <string name="error_exchange_unreachable_short">एक्सचेंजशी सध्या संपर्क होत नाही</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">या प्रदेशात एक्सचेंज ब्लॉक आहे</string>
     <string name="loading_hint">लोड होत आहे…</string>
     <string name="option_off">बंद</string>
     <string name="something_went_wrong">काहीतरी चुकले</string>

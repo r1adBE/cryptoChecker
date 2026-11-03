@@ -1,0 +1,169 @@
+{
+  "exchange": "Foxbit",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_foxbit.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.foxbit.com.br/rest/v3/markets",
+    "single": "GET https://api.foxbit.com.br/rest/v3/markets/btcbrl/ticker/24hr",
+    "bulk": "GET https://api.foxbit.com.br/rest/v3/markets/ticker/24hr"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: base/quote symbols in upper case, id stays lower case",
+      "exchangeKey": "Foxbit",
+      "requestId": 0,
+      "body": "{\"data\":[{\"base\":{\"name\":\"Bitcoin\",\"precision\":8,\"symbol\":\"btc\",\"type\":\"CRYPTO\"},\"quote\":{\"name\":\"Real\",\"precision\":2,\"symbol\":\"brl\",\"type\":\"FIAT\"},\"symbol\":\"btcbrl\",\"quantity_min\":\"0.00000103\",\"quantity_increment\":\"0.00000001\",\"quantity_precision\":8,\"price_min\":\"0.0001\",\"price_increment\":\"1.0\",\"price_precision\":0,\"default_fees\":{\"maker\":\"0.0025\",\"taker\":\"0.005\"},\"order_type\":[\"MARKET\",\"LIMIT\",\"INSTANT\",\"STOP_MARKET\",\"STOP_LIMIT\",\"TRAILING_STOP_MARKET\",\"TRAILING_STOP_LIMIT\",\"OCO\"]},{\"base\":{\"name\":\"Ethereum\",\"precision\":8,\"symbol\":\"eth\",\"type\":\"CRYPTO\"},\"quote\":{\"name\":\"Real\",\"precision\":2,\"symbol\":\"brl\",\"type\":\"FIAT\"},\"symbol\":\"ethbrl\",\"quantity_min\":\"0.00003601\",\"quantity_increment\":\"0.00000001\",\"quantity_precision\":8,\"price_min\":\"0.0001\",\"price_increment\":\"0.1\",\"price_precision\":1,\"default_fees\":{\"maker\":\"0.0025\",\"taker\":\"0.005\"},\"order_type\":[\"MARKET\",\"LIMIT\",\"INSTANT\",\"STOP_MARKET\",\"STOP_LIMIT\",\"TRAILING_STOP_MARKET\",\"TRAILING_STOP_LIMIT\",\"OCO\"]},{\"base\":{\"name\":\"Tether\",\"precision\":8,\"symbol\":\"usdt\",\"type\":\"CRYPTO\"},\"quote\":{\"name\":\"Real\",\"precision\":2,\"symbol\":\"brl\",\"type\":\"FIAT\"},\"symbol\":\"usdtbrl\",\"quantity_min\":\"0.08261125\",\"quantity_increment\":\"0.00001\",\"quantity_precision\":5,\"price_min\":\"0.0001\",\"price_increment\":\"0.0001\",\"price_precision\":4,\"default_fees\":{\"maker\":\"0.0025\",\"taker\":\"0.005\"},\"order_type\":[\"MARKET\",\"LIMIT\",\"INSTANT\",\"STOP_MARKET\",\"STOP_LIMIT\",\"OCO\"]}]}",
+      "expect": {
+        "count": 3,
+        "pairs": {
+          "btcbrl": {
+            "base": "BTC",
+            "quote": "BRL"
+          },
+          "ethbrl": {
+            "base": "ETH",
+            "quote": "BRL"
+          },
+          "usdtbrl": {
+            "base": "USDT",
+            "quote": "BRL"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "24hr btcbrl: rolling_24h.open = price 24 h ago, bid/ask from best; trade time only as ISO text (not used)",
+      "exchangeKey": "Foxbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "btcbrl",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":[{\"market_symbol\":\"btcbrl\",\"last_trade\":{\"price\":\"419486.00000000\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}}]}",
+      "url": "https://api.foxbit.com.br/rest/v3/markets/btcbrl/ticker/24hr",
+      "expect": {
+        "last": 419486.0,
+        "bid": 419463.0,
+        "ask": 419752.0,
+        "high": 430324.0,
+        "low": 410000.0,
+        "vol": 19.23005934,
+        "volQuote": 8121845.45929284,
+        "change24hPercent": -2.3829137636540496,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: built from base and quote in lower case",
+      "exchangeKey": "Foxbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":[{\"market_symbol\":\"btcbrl\",\"last_trade\":{\"price\":\"419486.00000000\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}}]}",
+      "url": "https://api.foxbit.com.br/rest/v3/markets/btcbrl/ticker/24hr",
+      "expect": {
+        "last": 419486.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market (HTTP 404): first detail is the text",
+      "exchangeKey": "Foxbit",
+      "pair": {
+        "base": "FOO",
+        "quote": "BAR",
+        "id": "foobar",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":{\"message\":\"Resource not found.\",\"code\":404,\"details\":[\"Market for symbol 'foobar' not found or not available.\"]}}",
+      "expect": {
+        "error": true,
+        "message": "Market for symbol 'foobar' not found or not available."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "empty data -> no data",
+      "exchangeKey": "Foxbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "btcbrl",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":[]}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "price 0 -> no price",
+      "exchangeKey": "Foxbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "BRL",
+        "id": "btcbrl",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"data\":[{\"market_symbol\":\"btcbrl\",\"last_trade\":{\"price\":\"0\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}}]}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "markets/ticker/24hr: all markets",
+      "exchangeKey": "Foxbit",
+      "requestId": 0,
+      "body": "{\"data\":[{\"market_symbol\":\"btcbrl\",\"last_trade\":{\"price\":\"419486.00000000\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}},{\"market_symbol\":\"ethbrl\",\"last_trade\":{\"price\":\"12319.30000000\",\"volume\":\"0.00024352\",\"date\":\"2026-11-03T03:27:50.000Z\"},\"rolling_24h\":{\"price_change\":\"-294.40000000\",\"price_change_percent\":\"-2.33397021\",\"volume\":\"86.27826174\",\"trades_count\":2301,\"open\":\"12613.70000000\",\"high\":\"12618.10000000\",\"low\":\"12224.60000000\",\"quote_volume\":\"1071760.78310408\"},\"best\":{\"ask\":{\"price\":\"12291.20000000\"},\"bid\":{\"price\":\"12284.80000000\"}}}]}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btcbrl": {
+            "last": 419486.0,
+            "change24hPercent": -2.3829137636540496
+          },
+          "ethbrl": {
+            "last": 12319.3
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «price» in one row reported as unreadable; price 0 or no last trade skipped silently",
+      "exchangeKey": "Foxbit",
+      "requestId": 0,
+      "body": "{\"data\":[{\"market_symbol\":\"btcbrl\",\"last_trade\":{\"price\":\"419486.00000000\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}},{\"market_symbol\":\"ethbrl\",\"last_trade\":{\"value\":\"12319.30000000\"},\"rolling_24h\":{\"price_change\":\"-294.40000000\",\"price_change_percent\":\"-2.33397021\",\"volume\":\"86.27826174\",\"trades_count\":2301,\"open\":\"12613.70000000\",\"high\":\"12618.10000000\",\"low\":\"12224.60000000\",\"quote_volume\":\"1071760.78310408\"},\"best\":{\"ask\":{\"price\":\"12291.20000000\"},\"bid\":{\"price\":\"12284.80000000\"}}},{\"market_symbol\":\"newbrl\",\"last_trade\":{\"price\":\"0\",\"volume\":\"0.00000197\",\"date\":\"2026-11-03T03:38:08.000Z\"},\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}},{\"market_symbol\":\"nonebrl\",\"last_trade\":null,\"rolling_24h\":{\"price_change\":\"-10240.00000000\",\"price_change_percent\":\"-2.38291376\",\"volume\":\"19.23005934\",\"trades_count\":7120,\"open\":\"429726.00000000\",\"high\":\"430324.00000000\",\"low\":\"410000.00000000\",\"quote_volume\":\"8121845.45929284\"},\"best\":{\"ask\":{\"price\":\"419752.00000000\",\"volume\":\"0.01008841\"},\"bid\":{\"price\":\"419463.00000000\",\"volume\":\"0.01841143\"}}}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ethbrl",
+          "newbrl",
+          "nonebrl"
+        ],
+        "failed": [
+          "ethbrl"
+        ],
+        "tickers": {
+          "btcbrl": {
+            "last": 419486.0
+          }
+        }
+      }
+    }
+  ]
+}

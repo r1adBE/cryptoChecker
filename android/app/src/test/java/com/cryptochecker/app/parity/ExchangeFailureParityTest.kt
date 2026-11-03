@@ -59,6 +59,16 @@ class ExchangeFailureParityTest {
         }
     }
 
+    /** HTTP 451 im gespeicherten Text = Standort-Sperre (eigene Meldung statt «nicht erreichbar»). */
+    @Test
+    fun regionBlocked() {
+        data["regionBlocked"].list().forEach { raw ->
+            val c = raw.obj()
+            val text = c["text"] as String?
+            assertEquals("regionBlocked: $text", c["expected"], RefreshReportLogic.isRegionBlocked(text))
+        }
+    }
+
     @Test
     fun confirmedBySingle() {
         data["confirmedBySingle"].list().forEach { raw ->

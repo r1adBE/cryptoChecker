@@ -1,0 +1,153 @@
+{
+  "exchange": "Ndax",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_ndax.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://core.ndax.io/v1/ticker",
+    "single": "GET https://core.ndax.io/v1/ticker",
+    "bulk": "GET https://core.ndax.io/v1/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "ticker as pair list: frozen markets, keys without «_» and markets without a price (last 0) dropped",
+      "exchangeKey": "Ndax",
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLD_CAD",
+          "odd",
+          "USD_CAD"
+        ],
+        "pairs": {
+          "BTC_CAD": {
+            "base": "BTC",
+            "quote": "CAD"
+          },
+          "BTC_USDC": {
+            "base": "BTC",
+            "quote": "USDC"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "BTC_CAD from the whole list (percentChange: window not documented, quoteVolume equals baseVolume: both unused)",
+      "exchangeKey": "Ndax",
+      "pair": {
+        "base": "BTC",
+        "quote": "CAD",
+        "id": "BTC_CAD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "last": 107563.4,
+        "bid": 107350.0,
+        "ask": 107563.4,
+        "high": 108801.82,
+        "low": 107257.0,
+        "vol": 4.08532516,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: «BASE_QUOTE»",
+      "exchangeKey": "Ndax",
+      "pair": {
+        "base": "eth",
+        "quote": "cad",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "last": 3155.35
+      }
+    },
+    {
+      "kind": "single",
+      "name": "frozen market -> no data",
+      "exchangeKey": "Ndax",
+      "pair": {
+        "base": "OLD",
+        "quote": "CAD",
+        "id": "OLD_CAD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "market missing from the list -> no data",
+      "exchangeKey": "Ndax",
+      "pair": {
+        "base": "FOO",
+        "quote": "CAD",
+        "id": "FOO_CAD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "whole list: frozen and odd keys skipped silently",
+      "exchangeKey": "Ndax",
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"BTC_USDC\":{\"baseVolume\":\"\",\"high24hr\":\"\",\"highestBid\":\"\",\"id\":91,\"isFrozen\":\"0\",\"last\":\"20076.7\",\"low24hr\":\"\",\"lowestAsk\":\"\",\"percentChange\":\"\",\"quoteVolume\":\"\"},\"OLD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"1\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"odd\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"USD_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"}}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLD_CAD",
+          "odd",
+          "USD_CAD"
+        ],
+        "tickers": {
+          "BTC_CAD": {
+            "last": 107563.4,
+            "change24hPercent": null
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last» in one row reported as unreadable; last 0 skipped",
+      "exchangeKey": "Ndax",
+      "requestId": 0,
+      "body": "{\"BTC_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"107563.4\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"},\"ETH_CAD\":{\"baseVolume\":\"61.324094\",\"high24hr\":\"3184.44\",\"highestBid\":\"3130.98\",\"id\":3,\"isFrozen\":\"0\",\"lastPrice\":\"3155.35\",\"low24hr\":\"3137.18\",\"lowestAsk\":\"3146.03\",\"percentChange\":\"-2.15968992248062\",\"quoteVolume\":\"61.324094\"},\"NEW_CAD\":{\"baseVolume\":\"4.08532516\",\"high24hr\":\"108801.82\",\"highestBid\":\"107350\",\"id\":1,\"isFrozen\":\"0\",\"last\":\"0\",\"low24hr\":\"107257\",\"lowestAsk\":\"107563.4\",\"percentChange\":\"-2.008105302427446\",\"quoteVolume\":\"4.08532516\"}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH_CAD",
+          "NEW_CAD"
+        ],
+        "failed": [
+          "ETH_CAD"
+        ],
+        "tickers": {
+          "BTC_CAD": {
+            "last": 107563.4
+          }
+        }
+      }
+    }
+  ]
+}

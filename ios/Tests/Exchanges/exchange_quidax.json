@@ -1,0 +1,172 @@
+{
+  "exchange": "Quidax",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_quidax.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://app.quidax.io/api/v1/markets",
+    "single": "GET https://app.quidax.io/api/v1/markets/tickers/btcngn",
+    "bulk": "GET https://app.quidax.io/api/v1/markets/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: base/quote units in upper case, id stays lower case",
+      "exchangeKey": "Quidax",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":[{\"id\":\"btcusdt\",\"name\":\"BTC/USDT\",\"base_unit\":\"btc\",\"quote_unit\":\"usdt\",\"filters\":{\"price_step\":1.0},\"trading_rules\":{\"base_precision\":8,\"quote_precision\":2,\"price_precision\":2,\"minimum_order_size\":0.1}},{\"id\":\"btcngn\",\"name\":\"BTC/NGN\",\"base_unit\":\"btc\",\"quote_unit\":\"ngn\",\"filters\":{\"price_step\":1.0},\"trading_rules\":{\"base_precision\":8,\"quote_precision\":0,\"price_precision\":0,\"minimum_order_size\":1000.0}},{\"id\":\"usdtngn\",\"name\":\"USDT/NGN\",\"base_unit\":\"usdt\",\"quote_unit\":\"ngn\",\"filters\":{},\"trading_rules\":{\"base_precision\":2,\"quote_precision\":0,\"price_precision\":2,\"minimum_order_size\":1000.0}}]}",
+      "expect": {
+        "count": 3,
+        "pairs": {
+          "btcngn": {
+            "base": "BTC",
+            "quote": "NGN"
+          },
+          "usdtngn": {
+            "base": "USDT",
+            "quote": "NGN"
+          },
+          "btcusdt": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "tickers/btcngn: buy/sell = bid/ask, open = price 24 h ago, «at» is the answer time",
+      "exchangeKey": "Quidax",
+      "pair": {
+        "base": "BTC",
+        "quote": "NGN",
+        "id": "btcngn",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"at\":1793677176,\"ticker\":{\"buy\":\"105304975.0\",\"sell\":\"106633568.0\",\"low\":\"105005641.0\",\"high\":\"108269842.0\",\"open\":\"108817047.0\",\"last\":\"105834095.0\",\"vol\":\"1.45874706\"},\"market\":\"btcngn\"}}",
+      "url": "https://app.quidax.io/api/v1/markets/tickers/btcngn",
+      "expect": {
+        "last": 105834095.0,
+        "bid": 105304975.0,
+        "ask": 106633568.0,
+        "high": 108269842.0,
+        "low": 105005641.0,
+        "vol": 1.45874706,
+        "volQuote": -1.0,
+        "change24hPercent": -2.741254318360615,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "no trade in 24 h: high/low/bid/ask «0.0» are no data, the price stays",
+      "exchangeKey": "Quidax",
+      "pair": {
+        "base": "QDX",
+        "quote": "USDT",
+        "id": "qdxusdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"at\":1793677177,\"ticker\":{\"buy\":\"0.0\",\"sell\":\"0.0\",\"low\":\"0.0\",\"high\":\"0.0\",\"open\":\"0.12026\",\"last\":\"0.12026\",\"vol\":\"0.0\"},\"market\":\"qdxusdt\"}}",
+      "expect": {
+        "last": 0.12026,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 0.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: built from base and quote in lower case",
+      "exchangeKey": "Quidax",
+      "pair": {
+        "base": "BTC",
+        "quote": "NGN",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"at\":1793677176,\"ticker\":{\"buy\":\"105304975.0\",\"sell\":\"106633568.0\",\"low\":\"105005641.0\",\"high\":\"108269842.0\",\"open\":\"108817047.0\",\"last\":\"105834095.0\",\"vol\":\"1.45874706\"},\"market\":\"btcngn\"}}",
+      "url": "https://app.quidax.io/api/v1/markets/tickers/btcngn",
+      "expect": {
+        "last": 105834095.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "status error -> exchange text",
+      "exchangeKey": "Quidax",
+      "pair": {
+        "base": "FOO",
+        "quote": "NGN",
+        "id": "foongn",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"error\",\"message\":\"Market not found\",\"data\":{\"code\":\"E0000\",\"message\":\"Market not found\"}}",
+      "expect": {
+        "error": true,
+        "message": "Market not found"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "Quidax",
+      "pair": {
+        "base": "BTC",
+        "quote": "NGN",
+        "id": "btcngn",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"at\":1,\"ticker\":{\"buy\":\"105304975.0\",\"sell\":\"106633568.0\",\"low\":\"105005641.0\",\"high\":\"108269842.0\",\"open\":\"108817047.0\",\"last\":\"0.0\",\"vol\":\"1.45874706\"},\"market\":\"btcngn\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: one object per market id",
+      "exchangeKey": "Quidax",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"btcngn\":{\"at\":1793677176,\"ticker\":{\"buy\":\"105304975.0\",\"sell\":\"106633568.0\",\"low\":\"105005641.0\",\"high\":\"108269842.0\",\"open\":\"108817047.0\",\"last\":\"105834095.0\",\"vol\":\"1.45874706\"},\"market\":\"btcngn\"},\"ethngn\":{\"at\":1793677177,\"ticker\":{\"buy\":\"0.0\",\"sell\":\"0.0\",\"low\":\"3076535.0\",\"high\":\"3181217.0\",\"open\":\"3175839.0\",\"last\":\"3101716.0\",\"vol\":\"35.1950793569411105\"}}}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btcngn": {
+            "last": 105834095.0,
+            "change24hPercent": -2.741254318360615
+          },
+          "ethngn": {
+            "last": 3101716.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last» in one row reported as unreadable; last 0 (never traded) skipped silently",
+      "exchangeKey": "Quidax",
+      "requestId": 0,
+      "body": "{\"status\":\"success\",\"message\":\"Successful\",\"data\":{\"btcngn\":{\"at\":1793677176,\"ticker\":{\"buy\":\"105304975.0\",\"sell\":\"106633568.0\",\"low\":\"105005641.0\",\"high\":\"108269842.0\",\"open\":\"108817047.0\",\"last\":\"105834095.0\",\"vol\":\"1.45874706\"},\"market\":\"btcngn\"},\"ethngn\":{\"at\":1793677177,\"ticker\":{\"buy\":\"0.0\",\"sell\":\"0.0\",\"low\":\"3076535.0\",\"high\":\"3181217.0\",\"open\":\"3175839.0\",\"price\":\"3101716.0\",\"vol\":\"35.1950793569411105\"}},\"wsgusdt\":{\"at\":1793677177,\"ticker\":{\"buy\":\"0.0\",\"sell\":\"0.0\",\"low\":\"0.0\",\"high\":\"0.0\",\"open\":\"0.0\",\"last\":\"0.0\",\"vol\":\"0.0\"}}}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ethngn",
+          "wsgusdt"
+        ],
+        "failed": [
+          "ethngn"
+        ],
+        "tickers": {
+          "btcngn": {
+            "last": 105834095.0
+          }
+        }
+      }
+    }
+  ]
+}

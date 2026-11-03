@@ -1,0 +1,154 @@
+{
+  "exchange": "WazirX",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_wazirx.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.wazirx.com/sapi/v1/exchangeInfo",
+    "single": "GET https://api.wazirx.com/sapi/v1/ticker/24hr?symbol=btcinr",
+    "bulk": "GET https://api.wazirx.com/sapi/v1/tickers/24hr"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "exchangeInfo: status «trading» only; assets in upper case, id stays lower case",
+      "exchangeKey": "WazirX",
+      "requestId": 0,
+      "body": "{\"timeZone\":\"UTC\",\"serverTime\":1793677172,\"symbols\":[{\"symbol\":\"btcinr\",\"status\":\"trading\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"baseAssetPrecision\":5,\"quoteAssetPrecision\":0,\"orderTypes\":[\"limit\",\"stop_limit\",\"limit_maker\"],\"isSpotTradingAllowed\":true,\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"1.000000\",\"tickSize\":\"1.000000\"}]},{\"symbol\":\"ethinr\",\"status\":\"trading\",\"baseAsset\":\"eth\",\"quoteAsset\":\"inr\",\"baseAssetPrecision\":4,\"quoteAssetPrecision\":1,\"orderTypes\":[\"limit\",\"stop_limit\",\"limit_maker\"],\"isSpotTradingAllowed\":true,\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"0.100000\",\"tickSize\":\"0.100000\"}]},{\"symbol\":\"btcusdt\",\"status\":\"trading\",\"baseAsset\":\"btc\",\"quoteAsset\":\"usdt\",\"baseAssetPrecision\":5,\"quoteAssetPrecision\":0,\"orderTypes\":[\"limit\",\"stop_limit\",\"limit_maker\"],\"isSpotTradingAllowed\":true,\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"1.000000\",\"tickSize\":\"1.000000\"}]},{\"symbol\":\"oldinr\",\"status\":\"halt\",\"baseAsset\":\"old\",\"quoteAsset\":\"inr\",\"baseAssetPrecision\":5,\"quoteAssetPrecision\":0,\"orderTypes\":[\"limit\",\"stop_limit\",\"limit_maker\"],\"isSpotTradingAllowed\":true,\"filters\":[{\"filterType\":\"PRICE_FILTER\",\"minPrice\":\"1.000000\",\"tickSize\":\"1.000000\"}]}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "oldinr"
+        ],
+        "pairs": {
+          "btcinr": {
+            "base": "BTC",
+            "quote": "INR"
+          },
+          "ethinr": {
+            "base": "ETH",
+            "quote": "INR"
+          },
+          "btcusdt": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "24hr btcinr: openPrice = price 24 h ago; «at» is the snapshot (no trade time)",
+      "exchangeKey": "WazirX",
+      "pair": {
+        "base": "BTC",
+        "quote": "INR",
+        "id": "btcinr",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"btcinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"7755013.0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000}",
+      "url": "https://api.wazirx.com/sapi/v1/ticker/24hr?symbol=btcinr",
+      "expect": {
+        "last": 7755013.0,
+        "bid": 7755012.0,
+        "ask": 7755013.0,
+        "high": 7861525.0,
+        "low": 7667478.0,
+        "vol": 0.15299,
+        "volQuote": -1.0,
+        "change24hPercent": -1.197439164224742,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: built from base and quote in lower case",
+      "exchangeKey": "WazirX",
+      "pair": {
+        "base": "BTC",
+        "quote": "INR",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"btcinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"7755013.0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000}",
+      "url": "https://api.wazirx.com/sapi/v1/ticker/24hr?symbol=btcinr",
+      "expect": {
+        "last": 7755013.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown symbol (HTTP 400) -> exchange text",
+      "exchangeKey": "WazirX",
+      "pair": {
+        "base": "FOO",
+        "quote": "BAR",
+        "id": "foobar",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":1999,\"message\":\"symbol does not have a valid value\"}",
+      "expect": {
+        "error": true,
+        "message": "symbol does not have a valid value"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "lastPrice 0 -> no price",
+      "exchangeKey": "WazirX",
+      "pair": {
+        "base": "BTC",
+        "quote": "INR",
+        "id": "btcinr",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"symbol\":\"btcinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers/24hr: all listed rows",
+      "exchangeKey": "WazirX",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"btcinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"7755013.0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000},{\"symbol\":\"ethinr\",\"baseAsset\":\"eth\",\"quoteAsset\":\"inr\",\"openPrice\":\"229900\",\"lowPrice\":\"224800.0\",\"highPrice\":\"231992.4\",\"lastPrice\":\"224800.1\",\"volume\":\"7.962800000000001\",\"bidPrice\":\"224800.0\",\"askPrice\":\"224800.1\",\"at\":1793677166000}]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "btcinr": {
+            "last": 7755013.0,
+            "change24hPercent": -1.197439164224742
+          },
+          "ethinr": {
+            "last": 224800.1
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «lastPrice» in one row reported as unreadable; price 0 skipped silently",
+      "exchangeKey": "WazirX",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"btcinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"7755013.0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000},{\"symbol\":\"ethinr\",\"baseAsset\":\"eth\",\"quoteAsset\":\"inr\",\"openPrice\":\"229900\",\"lowPrice\":\"224800.0\",\"highPrice\":\"231992.4\",\"price\":\"224800.1\",\"volume\":\"7.962800000000001\",\"bidPrice\":\"224800.0\",\"askPrice\":\"224800.1\",\"at\":1793677166000},{\"symbol\":\"newinr\",\"baseAsset\":\"btc\",\"quoteAsset\":\"inr\",\"openPrice\":\"7849000\",\"lowPrice\":\"7667478.0\",\"highPrice\":\"7861525.0\",\"lastPrice\":\"0\",\"volume\":\"0.15299\",\"bidPrice\":\"7755012.0\",\"askPrice\":\"7755013.0\",\"at\":1793677166000}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ethinr",
+          "newinr"
+        ],
+        "failed": [
+          "ethinr"
+        ],
+        "tickers": {
+          "btcinr": {
+            "last": 7755013.0
+          }
+        }
+      }
+    }
+  ]
+}

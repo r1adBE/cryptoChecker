@@ -411,25 +411,39 @@ Rules:
 | Aster | `priceChangePercent` (`/fapi/v1/ticker/24hr`) | percent (like Binance) |
 | Binance, Binance.US | `priceChangePercent` (`/ticker/24hr`) | percent |
 | Binance Futures (USD-M, COIN-M) | `priceChangePercent` (`/ticker/24hr`) | percent |
+| Binance TH | `priceChangePercent` (`/api/v1/ticker/24hr`) | percent (like Binance) |
+| Binance TR | own markets: – fallback candles (last trade only); type 1: `priceChangePercent` | percent (like Binance) |
 | BingX, BingX Futures | `openPrice` | price 24 h ago; the spot `priceChangePercent` is text with «%» and not used |
+| Bit2Me | `open` (`/v2/trading/tickers`) | price 24 h ago (rolling: it moves within the hour; `percentage` matches it) |
 | bitbank | `open` | price 24 h ago |
 | bitFlyer | – fallback candles | ticker has no 24 h change |
 | Bitfinex | `DAILY_CHANGE_RELATIVE` (index 5, bulk 6) | fraction × 100 |
 | Bitget, Bitget Futures | `change24h` | fraction × 100; `changeUtc24h` (since 00:00 UTC) not used |
+| Bitkub | – fallback candles | `percent_change` is percent, but its window is not documented |
+| BitOasis | `open_price` | price 24 h ago (rolling, moves hourly; checked against Binance BTC/USDT) |
+| BitoPro | `priceChange24hr` (`/v3/tickers`) | percent (checked against MAX BTC/TWD at the same time, 3 Nov 2026) |
+| Bitpanda | – fallback candles | price snapshot only: no 24 h change, volume, bid/ask or exchange time in `/v1/ticker` |
 | Bitso | `change_24` | absolute change → open = last − change |
 | Bitstamp | `open_24`, else `percent_change_24` | `open` is the start of the day and not used |
 | Bitvavo | `open` (`/ticker/24h`) | price 24 h ago |
 | BtcTurk | `open`, else `dailyPercent` | price 24 h ago / percent |
 | BTC Markets | `price24h`, else `pricePct24h` | absolute change → open = last − change / percent |
+| Buda | `price_variation_24h` | fraction × 100 (three decimals: 0.1 % steps) |
 | Bybit, Bybit Futures | `price24hPcnt` | fraction × 100 |
 | Coinbase | `open` from `/stats` (the only request), against `last` of the same response | price 24 h ago |
 | CoinDCX | `change_24_hour` | percent |
 | Coincheck | – fallback candles | ticker has no 24 h change |
+| CoinJar | `change_24h` | fraction × 100 (rolling: it moves within the hour); `prev_close` is a session close and not used |
+| Coinone | `first` (`/public/v2/ticker_new`) | price 24 h ago (documented as the open of the 24 h window) |
+| Coins.ph | `openPrice` (`/quote/v1/ticker/24hr`) | price 24 h ago; `priceChangePercent` is a fraction here (not percent as at Binance) and not used |
+| CoinSpot | – fallback candles | `/pubapi/v2/latest` has bid/ask/last only (no 24 h change, no volume) |
 | Crypto.com | `c` | fraction × 100; `null` without trades |
 | Deribit | `stats.price_change` (single), `price_change` (bulk) | percent |
 | DexScreener | `priceChange.h24` | percent |
+| Foxbit | `rolling_24h.open` | price 24 h ago |
 | Gate.io | `change_percentage` | percent; `change_utc0`/`change_utc8` not used |
 | Gemini | – fallback candles | `/pricefeed` `percentChange24h`: unit unclear (docs show percent «5.23», real responses look like fractions «0.0146»); `pubticker` has no 24 h change |
+| GMO Coin | – fallback candles | ticker has no 24 h change |
 | HashKey | `o` (`/quote/v1/ticker/24hr`) | price 24 h ago |
 | HTX, HTX Futures | – fallback candles | `open` of the bulk ticker is documented as the open of the calendar day (Singapore time) |
 | Hyperliquid | `prevDayPx` against the shown price (`midPx`, else `markPx`) | mark price 24 h ago |
@@ -441,17 +455,26 @@ Rules:
 | LATOKEN | `change24h` | percent |
 | Lighter | `daily_price_change` (`/exchangeStats`) | percent (rolling 24 h; checked against BTC high/low/last) |
 | Luno | – fallback candles | ticker has no 24 h change |
+| MAX (MaiCoin) | `open` (`/api/v3/ticker`) | price 24 h ago |
 | Mercado Bitcoin | `open` | price 24 h ago |
 | MEXC | `openPrice`, else `priceChangePercent` | price 24 h ago / **fraction** × 100 |
 | MEXC Futures | – fallback candles | `riseFallRate` is the change since 00:00 UTC+8, not rolling; the day values in `riseFallRates` are not used either |
+| NDAX | – fallback candles | `percentChange` without documented window (like Paribu) |
 | NonKYC | – fallback candles | no documented rolling 24 h field |
+| OKX TR | `open24h` | price 24 h ago (like OKX) |
 | OKX, OKX Futures | `open24h` | price 24 h ago; `sodUtc0`/`sodUtc8` not used |
 | One Trading | `price_change_percentage` | percent |
 | Paribu | – fallback candles | `percentChange` is percent, but its window is not documented |
 | Phemex | `openEp` (scaled 10^8) | price 24 h ago |
 | Phemex Futures | `openRp` | price 24 h ago |
 | Poloniex | `open` (`ticker24h`), else `dailyChange` | price 24 h ago / fraction × 100 |
-| Upbit, Bithumb | – fallback candles | `signed_change_rate` is against the previous day's close (KST) |
+| Quidax | `open` (`/markets/tickers`) | price 24 h ago |
+| Swyftx | – fallback candles | buy/sell prices only (price = mid); `volume24H` is the global volume, not used |
+| Tokocrypto | own markets: – fallback candles (last trade only); type 1: `priceChangePercent` | percent (like Binance) |
+| Upbit (also TH, ID), Bithumb | – fallback candles | `signed_change_rate` is against the previous day's close (KST) |
+| VALR | `previousClosePrice` (`marketsummary`) | price 24 h ago (rolling: it moves within the hour; `changeFromPrevious` matches it) |
+| WazirX | `openPrice` (`/sapi/v1/ticker/24hr`) | price 24 h ago |
+| WhiteBIT | `open` (v1 single), `change` (v4 bulk) | price 24 h ago / percent |
 | WOO X | `open` of the oldest of the 24 hourly candles the adapter loads anyway | only with all 24 candles |
 | WOO X Futures | `24hOpen` | price 24 h ago |
 | ZebPay | – fallback candles | 24 h window of `priceChangePercent` not documented |
@@ -3219,6 +3242,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   te/ta polite form, he/da quotes, ka/hy/lv/nb texts.
 * Build 186: add-pair overview with market chips (All/Spot/Futures/DEX/Forex), popular pairs, recent and all exchanges;
   accordion and step UI removed; no extra price requests (privacy); shared overview cases for both platforms.
+* Build 187: 24 exchanges added (adapters, fixtures, recordings, privacy hosts); HTTP 451 shown as region-blocked;
+  Binance TR and Tokocrypto built from docs/ccxt, not reachable from the build environment (owner tests via VPN).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

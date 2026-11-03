@@ -26,6 +26,33 @@ class Upbit : UpbitStyleExchange(
 }
 
 /**
+ * Upbit Thailand: gleiche API wie Upbit unter eigener Adresse (https://th-api.upbit.com), Kennung «THB-BTC»; dazu die
+ * BTC- und USDT-Märkte. Handelszeit wie Upbit aus «trade_timestamp» (UTC, Aufzeichnung 03.11.2026 geprüft).
+ */
+class UpbitTh : UpbitStyleExchange(
+    name = "Upbit TH",
+    ttsName = "Up bit Thailand",
+    apiRoot = "https://th-api.upbit.com/v1",
+    detailsFlag = "is_details=false",
+    unfilteredUrl = "https://th-api.upbit.com/v1/ticker/all?quote_currencies=THB,BTC,USDT",
+    tradeTimeFromUtcFields = false,
+) {
+    override val key = "UpbitTh"
+}
+
+/** Upbit Indonesia: wie [UpbitTh] mit eigener Adresse (https://id-api.upbit.com), Kennung «IDR-BTC». */
+class UpbitId : UpbitStyleExchange(
+    name = "Upbit ID",
+    ttsName = "Up bit Indonesia",
+    apiRoot = "https://id-api.upbit.com/v1",
+    detailsFlag = "is_details=false",
+    unfilteredUrl = "https://id-api.upbit.com/v1/ticker/all?quote_currencies=IDR,BTC,USDT",
+    tradeTimeFromUtcFields = false,
+) {
+    override val key = "UpbitId"
+}
+
+/**
  * Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
  * «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
  * «trade_date» + «trade_time» (UTC).
@@ -42,7 +69,7 @@ class Bithumb : UpbitStyleExchange(
 }
 
 /**
- * Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
+ * Gemeinsamer Aufbau von Upbit (auch Thailand und Indonesien) und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
  * [unfilteredUrl]: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst null (Bithumb).
  * [tradeTimeFromUtcFields]: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
  */

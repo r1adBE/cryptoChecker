@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">Қате: %1$s</string>
     <string name="error_exchange_unreachable">Биржа қазір қолжетімсіз – соңғы бағамдар көрініп тұрады.</string>
     <string name="error_exchange_unreachable_short">Биржа қазір қолжетімсіз</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">Биржа бұл аймақта бұғатталған</string>
     <string name="loading_hint">Жүктелуде…</string>
     <string name="option_off">Өшірулі</string>
     <string name="something_went_wrong">Бірдеңе дұрыс болмады</string>

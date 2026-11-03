@@ -34,10 +34,10 @@ internal fun isNotTraded(error: String?): Boolean = NotTraded.isMarker(error)
 
 /**
  * Börse gerade nicht erreichbar (Netz, Zeitüberschreitung, HTTP-Fehler, zu viele Anfragen):
- * ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt» oder unbekanntem Paar.
+ * ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar oder Standort-Sperre (HTTP 451).
  */
 internal fun isRetryableExchangeError(error: String?): Boolean {
-    if (error == null || isNotTraded(error)) return false
+    if (error == null || isNotTraded(error) || RefreshReportLogic.isRegionBlocked(error)) return false
     return isConnectionError(error) || RefreshReportLogic.classify(error) in RETRYABLE_FAILURES
 }
 
@@ -50,6 +50,8 @@ private val RETRYABLE_FAILURES = setOf(
 internal fun friendlyError(error: String): String = when {
     isNotTraded(error) -> stringResource(R.string.watch_not_traded)
     isConnectionError(error) -> stringResource(R.string.watch_error_offline)
+    // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)
+    RefreshReportLogic.isRegionBlocked(error) -> stringResource(R.string.error_exchange_region_blocked)
     // HTTP-Fehler, zu viele Anfragen: kein Code, nur was es bedeutet
     isRetryableExchangeError(error) -> stringResource(R.string.error_exchange_unreachable_short)
     error == UserFriendlyExchangeError.EMPTY_RESPONSE || error == UserFriendlyExchangeError.NO_TICKER_DATA ->

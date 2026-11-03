@@ -1,0 +1,152 @@
+{
+  "exchange": "GmoCoin",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_gmocoin.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://api.coin.z.com/public/v1/symbols",
+    "single": "GET https://api.coin.z.com/public/v1/ticker?symbol=BTC",
+    "bulk": "GET https://api.coin.z.com/public/v1/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "symbols: spot only (BTC_JPY = margin dropped), quote JPY",
+      "exchangeKey": "GmoCoin",
+      "requestId": 0,
+      "body": "{\"status\":0,\"data\":[{\"symbol\":\"BTC\",\"minOrderSize\":\"0.00001\",\"maxOrderSize\":\"5\",\"sizeStep\":\"0.00001\",\"tickSize\":\"1\",\"takerFee\":\"0.0005\",\"makerFee\":\"-0.0001\"},{\"symbol\":\"ETH\",\"minOrderSize\":\"0.001\",\"maxOrderSize\":\"100\",\"sizeStep\":\"0.0001\",\"tickSize\":\"1\",\"takerFee\":\"0.0005\",\"makerFee\":\"-0.0001\"},{\"symbol\":\"BTC_JPY\",\"minOrderSize\":\"0.001\",\"maxOrderSize\":\"5\",\"sizeStep\":\"0.001\",\"tickSize\":\"1\",\"takerFee\":\"0\",\"makerFee\":\"0\"}],\"responsetime\":\"2026-11-03T03:39:48.682Z\"}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BTC_JPY"
+        ],
+        "pairs": {
+          "BTC": {
+            "base": "BTC",
+            "quote": "JPY"
+          },
+          "ETH": {
+            "base": "ETH",
+            "quote": "JPY"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC: last/bid/ask/volume; high/low (window not documented as rolling) and timestamp not used",
+      "exchangeKey": "GmoCoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":0,\"data\":[{\"ask\":\"12107137\",\"bid\":\"12107136\",\"high\":\"12199600\",\"last\":\"12107137\",\"low\":\"12086073\",\"symbol\":\"BTC\",\"timestamp\":\"2026-11-03T03:39:47.331Z\",\"volume\":\"135.57367\"}],\"responsetime\":\"2026-11-03T03:39:47.574Z\"}",
+      "url": "https://api.coin.z.com/public/v1/ticker?symbol=BTC",
+      "expect": {
+        "last": 12107137.0,
+        "bid": 12107136.0,
+        "ask": 12107137.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 135.57367,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: the base symbol",
+      "exchangeKey": "GmoCoin",
+      "pair": {
+        "base": "btc",
+        "quote": "JPY",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":0,\"data\":[{\"ask\":\"12107137\",\"bid\":\"12107136\",\"high\":\"12199600\",\"last\":\"12107137\",\"low\":\"12086073\",\"symbol\":\"BTC\",\"timestamp\":\"2026-11-03T03:39:47.331Z\",\"volume\":\"135.57367\"}],\"responsetime\":\"2026-11-03T03:39:47.574Z\"}",
+      "url": "https://api.coin.z.com/public/v1/ticker?symbol=BTC",
+      "expect": {
+        "last": 12107137.0
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown symbol (status 2) -> message_string",
+      "exchangeKey": "GmoCoin",
+      "pair": {
+        "base": "FOO",
+        "quote": "JPY",
+        "id": "FOO",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":2, \"messages\": [{\"message_code\": \"ERR-5207\",\"message_string\":\"Not found\"}]}",
+      "expect": {
+        "error": true,
+        "message": "Not found"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "maintenance (status 5) -> exchange text",
+      "exchangeKey": "GmoCoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"status\":5,\"messages\":[{\"message_code\":\"ERR-5201\",\"message_string\":\"MAINTENANCE. Please wait for a while\"}]}",
+      "expect": {
+        "error": true,
+        "message": "MAINTENANCE. Please wait for a while"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker without symbol: spot rows only",
+      "exchangeKey": "GmoCoin",
+      "requestId": 0,
+      "body": "{\"status\":0,\"data\":[{\"ask\":\"12107137\",\"bid\":\"12107136\",\"high\":\"12199600\",\"last\":\"12107137\",\"low\":\"12086073\",\"symbol\":\"BTC\",\"timestamp\":\"2026-11-03T03:39:47.331Z\",\"volume\":\"135.57367\"},{\"ask\":\"354552\",\"bid\":\"354500\",\"high\":\"357102\",\"last\":\"354535\",\"low\":\"354144\",\"symbol\":\"ETH\",\"timestamp\":\"2026-11-03T03:39:46.906Z\",\"volume\":\"1956.8785\"},{\"ask\":\"12098975\",\"bid\":\"12096510\",\"high\":\"12192739\",\"last\":\"12098344\",\"low\":\"12069346\",\"symbol\":\"BTC_JPY\",\"timestamp\":\"2026-11-03T03:39:47.082Z\",\"volume\":\"644.308\"}],\"responsetime\":\"2026-11-03T03:39:47.574Z\"}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BTC_JPY"
+        ],
+        "tickers": {
+          "BTC": {
+            "last": 12107137.0
+          },
+          "ETH": {
+            "last": 354535.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed «last» in one row reported as unreadable; last 0 skipped",
+      "exchangeKey": "GmoCoin",
+      "requestId": 0,
+      "body": "{\"status\":0,\"data\":[{\"ask\":\"12107137\",\"bid\":\"12107136\",\"high\":\"12199600\",\"last\":\"12107137\",\"low\":\"12086073\",\"symbol\":\"BTC\",\"timestamp\":\"2026-11-03T03:39:47.331Z\",\"volume\":\"135.57367\"},{\"ask\":\"354552\",\"bid\":\"354500\",\"high\":\"357102\",\"price\":\"354535\",\"low\":\"354144\",\"symbol\":\"ETH\",\"timestamp\":\"2026-11-03T03:39:46.906Z\",\"volume\":\"1956.8785\"},{\"ask\":\"12107137\",\"bid\":\"12107136\",\"high\":\"12199600\",\"last\":\"0\",\"low\":\"12086073\",\"symbol\":\"NEW\",\"timestamp\":\"2026-11-03T03:39:47.331Z\",\"volume\":\"135.57367\"}],\"responsetime\":\"2026-11-03T03:39:47.574Z\"}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH",
+          "NEW"
+        ],
+        "failed": [
+          "ETH"
+        ],
+        "tickers": {
+          "BTC": {
+            "last": 12107137.0
+          }
+        }
+      }
+    }
+  ]
+}

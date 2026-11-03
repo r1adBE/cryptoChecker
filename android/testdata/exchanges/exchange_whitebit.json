@@ -1,0 +1,172 @@
+{
+  "exchange": "WhiteBit",
+  "description": "Built from live responses of 3 November 2026 (shortened to a few rows; prices as answered then); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS); full recorded responses in recorded/recorded_whitebit.json (tools/record_exchange_fixtures.py).",
+  "endpoints": {
+    "pairs": "GET https://whitebit.com/api/v4/public/markets",
+    "single": "GET https://whitebit.com/api/v1/public/ticker?market=BTC_USDT",
+    "bulk": "GET https://whitebit.com/api/v4/public/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: spot with tradesEnabled only (futures, TradFi futures and closed markets dropped)",
+      "exchangeKey": "WhiteBit",
+      "requestId": 0,
+      "body": "[{\"name\":\"BTC_USDT\",\"stock\":\"BTC\",\"money\":\"USDT\",\"stockPrec\":\"6\",\"moneyPrec\":\"2\",\"feePrec\":\"6\",\"makerFee\":\"0.1\",\"takerFee\":\"0.1\",\"minAmount\":\"0.00001\",\"minTotal\":\"1\",\"tradesEnabled\":true,\"type\":\"spot\",\"isCollateral\":true,\"maxTotal\":\"10000000\",\"isTradFiFutures\":false,\"delistedAt\":null,\"tickSize\":\"0.01\",\"stepSize\":\"0.000001\"},{\"name\":\"ETH_EUR\",\"stock\":\"ETH\",\"money\":\"EUR\",\"stockPrec\":\"4\",\"moneyPrec\":\"2\",\"feePrec\":\"6\",\"makerFee\":\"0.1\",\"takerFee\":\"0.1\",\"minAmount\":\"0.0001\",\"minTotal\":\"1\",\"tradesEnabled\":true,\"type\":\"spot\",\"isCollateral\":false,\"maxTotal\":\"1000000000\",\"isTradFiFutures\":false,\"delistedAt\":null,\"tickSize\":\"0.01\",\"stepSize\":\"0.0001\"},{\"name\":\"BTC_PERP\",\"stock\":\"BTC\",\"money\":\"USDT\",\"stockPrec\":\"3\",\"moneyPrec\":\"1\",\"feePrec\":\"6\",\"makerFee\":\"0.01\",\"takerFee\":\"0.055\",\"minAmount\":\"0.001\",\"minTotal\":\"5\",\"tradesEnabled\":true,\"type\":\"futures\",\"isCollateral\":true,\"maxTotal\":\"100000000000\",\"isTradFiFutures\":false,\"delistedAt\":null,\"tickSize\":\"0.1\",\"stepSize\":\"0.001\"},{\"name\":\"OLD_EUR\",\"stock\":\"OLD\",\"money\":\"EUR\",\"stockPrec\":\"4\",\"moneyPrec\":\"2\",\"feePrec\":\"6\",\"makerFee\":\"0.1\",\"takerFee\":\"0.1\",\"minAmount\":\"0.0001\",\"minTotal\":\"1\",\"tradesEnabled\":false,\"type\":\"spot\",\"isCollateral\":false,\"maxTotal\":\"1000000000\",\"isTradFiFutures\":false,\"delistedAt\":null,\"tickSize\":\"0.01\",\"stepSize\":\"0.0001\"},{\"name\":\"XAU_PERP\",\"stock\":\"XAU\",\"money\":\"USDT\",\"stockPrec\":\"3\",\"moneyPrec\":\"2\",\"feePrec\":\"6\",\"makerFee\":\"0.01\",\"takerFee\":\"0.055\",\"minAmount\":\"0.001\",\"minTotal\":\"5\",\"tradesEnabled\":true,\"type\":\"tradfiFutures\",\"isCollateral\":true,\"maxTotal\":\"10000000000\",\"isTradFiFutures\":true,\"delistedAt\":null,\"tickSize\":\"0.01\",\"stepSize\":\"0.001\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BTC_PERP",
+          "OLD_EUR",
+          "XAU_PERP"
+        ],
+        "pairs": {
+          "BTC_USDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          },
+          "ETH_EUR": {
+            "base": "ETH",
+            "quote": "EUR"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "v1 ticker BTC_USDT: open = price 24 h ago, volume in base, deal in quote, no trade time",
+      "exchangeKey": "WhiteBit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"message\":null,\"result\":{\"open\":\"78409.93\",\"bid\":\"76810.66\",\"ask\":\"76810.67\",\"low\":\"76705.58\",\"high\":\"78863.34\",\"last\":\"76810.66\",\"volume\":\"1948.431202\",\"deal\":\"151574421.50948392\",\"change\":\"-2.04\"}}",
+      "url": "https://whitebit.com/api/v1/public/ticker?market=BTC_USDT",
+      "expect": {
+        "last": 76810.66,
+        "bid": 76810.66,
+        "ask": 76810.67,
+        "high": 78863.34,
+        "low": 76705.58,
+        "vol": 1948.431202,
+        "volQuote": 151574421.50948393,
+        "change24hPercent": -2.0396268686886847,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair without stored id: market built from base and quote",
+      "exchangeKey": "WhiteBit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": null,
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"message\":null,\"result\":{\"open\":\"78409.93\",\"bid\":\"76810.66\",\"ask\":\"76810.67\",\"low\":\"76705.58\",\"high\":\"78863.34\",\"last\":\"76810.66\",\"volume\":\"1948.431202\",\"deal\":\"151574421.50948392\",\"change\":\"-2.04\"}}",
+      "url": "https://whitebit.com/api/v1/public/ticker?market=BTC_USDT",
+      "expect": {
+        "last": 76810.66
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown market: message object with a list per field",
+      "exchangeKey": "WhiteBit",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOO_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"message\":{\"market\":[\"Market is not available.\"]},\"result\":null}",
+      "expect": {
+        "error": true,
+        "message": "Market is not available."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error with message as plain text",
+      "exchangeKey": "WhiteBit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":false,\"message\":\"Too many requests\",\"result\":null}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "last 0 -> no price",
+      "exchangeKey": "WhiteBit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"success\":true,\"message\":null,\"result\":{\"open\":\"78409.93\",\"bid\":\"76810.66\",\"ask\":\"76810.67\",\"low\":\"76705.58\",\"high\":\"78863.34\",\"last\":\"0\",\"volume\":\"1948.431202\",\"deal\":\"151574421.50948392\",\"change\":\"-2.04\"}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "v4 ticker: all markets keyed by name; change is percent over 24 h; no bid/ask",
+      "exchangeKey": "WhiteBit",
+      "requestId": 0,
+      "body": "{\"BTC_USDT\":{\"base_id\":1,\"quote_id\":825,\"last_price\":\"76830.38\",\"quote_volume\":\"152102718.95909726\",\"base_volume\":\"1955.084085\",\"isFrozen\":false,\"change\":\"-1.85\"},\"ETH_EUR\":{\"base_id\":1027,\"quote_id\":0,\"last_price\":\"2010.61\",\"quote_volume\":\"4611692.989464\",\"base_volume\":\"2270.6805\",\"isFrozen\":false,\"change\":\"-1.33\"},\"BTC_PERP\":{\"base_id\":0,\"quote_id\":825,\"last_price\":\"76870.9\",\"quote_volume\":\"818606691.8676\",\"base_volume\":\"10523.152\",\"isFrozen\":false,\"change\":\"-1.83\"}}",
+      "expect": {
+        "count": 3,
+        "tickers": {
+          "BTC_USDT": {
+            "last": 76830.38,
+            "vol": 1955.084085,
+            "volQuote": 152102718.95909727,
+            "change24hPercent": -1.85,
+            "bid": -1.0
+          },
+          "ETH_EUR": {
+            "last": 2010.61
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: frozen market skipped silently; renamed «last_price» in one row reported as unreadable",
+      "exchangeKey": "WhiteBit",
+      "requestId": 0,
+      "body": "{\"BTC_USDT\":{\"base_id\":1,\"quote_id\":825,\"last_price\":\"76830.38\",\"quote_volume\":\"152102718.95909726\",\"base_volume\":\"1955.084085\",\"isFrozen\":false,\"change\":\"-1.85\"},\"ETH_EUR\":{\"base_id\":1027,\"quote_id\":0,\"last\":\"2010.61\",\"quote_volume\":\"4611692.989464\",\"base_volume\":\"2270.6805\",\"isFrozen\":false,\"change\":\"-1.33\"},\"ETH_BTC\":{\"base_id\":1027,\"quote_id\":0,\"last_price\":\"2010.61\",\"quote_volume\":\"4611692.989464\",\"base_volume\":\"2270.6805\",\"isFrozen\":true,\"change\":\"-1.33\"}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH_EUR",
+          "ETH_BTC"
+        ],
+        "failed": [
+          "ETH_EUR"
+        ],
+        "tickers": {
+          "BTC_USDT": {
+            "last": 76830.38
+          }
+        }
+      }
+    }
+  ]
+}

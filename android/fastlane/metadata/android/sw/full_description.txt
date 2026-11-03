@@ -13,7 +13,7 @@ UKWELI KUHUSU DATA
 • Kiasi hutoka kwenye kifaa tu kupitia uhamishaji wako au nakala rudufu ya Android. Kwa bei, alama za jozi pekee huenda kwa jukwaa la jozi husika; pia viwango vya ubadilishaji (Frankfurter), data ya soko na nembo (CoinGecko, Binance), vioo vya data (GitHub). Ukifuatilia anwani au xpub, nodi za umma za blockchain zinaona anwani (kwa xpub, zile zilizotolewa) na IP yako.
 
 ORODHA YA UFUATILIAJI
-• Masoko 56 kwenye majukwaa 45: spot na futures, tokeni za DEX kupitia DexScreener, hiari hisa, dhahabu na FX (TradFi)
+• Masoko 81 kwenye majukwaa 70: spot na futures, tokeni za DEX kupitia DexScreener, hiari hisa, dhahabu na FX (TradFi)
 • Mstari wa pili “≈ thamani” katika mojawapo ya sarafu 31 (EUR, CHF, USD …), kwa kiwango cha FX
 • Chati ndogo na mabadiliko ya % kwa 24 h au tangu 00:00 kwa saa zako za eneo
 • Vikundi, vipendwa, buruta-uachie na dokezo kwa kila sarafu

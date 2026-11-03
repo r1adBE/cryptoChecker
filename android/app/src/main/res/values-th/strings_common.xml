@@ -27,6 +27,8 @@
     <string name="check_error_generic_prefix">ข้อผิดพลาด: %1$s</string>
     <string name="error_exchange_unreachable">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้ – ราคาล่าสุดยังแสดงอยู่</string>
     <string name="error_exchange_unreachable_short">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
+    <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
+    <string name="error_exchange_region_blocked">กระดานเทรดถูกบล็อกในภูมิภาคนี้</string>
     <string name="loading_hint">กำลังโหลด…</string>
     <string name="option_off">ปิด</string>
     <string name="something_went_wrong">เกิดข้อผิดพลาดบางอย่าง</string>
