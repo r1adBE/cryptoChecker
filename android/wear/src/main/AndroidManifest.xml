@@ -7,9 +7,10 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-    <!-- tools:targetApi: dataExtractionRules gilt ab Android 12 (API 31, minSdk 30); bis Android 11 genügt
-         allowBackup="false" (Lint UnusedAttribute) -->
+    <!-- dataExtractionRules gilt ab Android 12 (API 31, minSdk 30); bis Android 11 deckt allowBackup="false" den Fall
+         ab, darum kein fullBackupContent (Lint DataExtractionRules unterdrückt) -->
     <application
+        tools:ignore="DataExtractionRules"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_watch"

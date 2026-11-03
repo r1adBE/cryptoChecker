@@ -77,7 +77,7 @@ internal class MemoryPrefs : SharedPreferences {
  * direkt ihr Ergebnis zurückgeben (sie unterbricht dann nicht).
  */
 internal fun <T> proxyOf(type: Class<T>, answers: Map<String, () -> Any?>): T =
-    type.cast(
+    requireNotNull(type.cast(
         Proxy.newProxyInstance(type.classLoader, arrayOf(type)) { proxy, method, args ->
             when (method.name) {
                 in answers -> answers.getValue(method.name)()
@@ -87,7 +87,7 @@ internal fun <T> proxyOf(type: Class<T>, answers: Map<String, () -> Any?>): T =
                 else -> throw UnsupportedOperationException("${type.simpleName}.${method.name} im Test nicht vorgesehen")
             }
         },
-    )
+    ))
 
 private val NO_WATCHLIST: () -> List<WatchEntity> = { throw IllegalStateException("keine Merkliste") }
 
