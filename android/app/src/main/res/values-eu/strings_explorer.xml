@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Futuroak</string>
     <string name="explorer_section_forex">Forex (erreferentzia-tasa)</string>
     <string name="explorer_market_forex">Dibisak</string>
-    <string name="explorer_popular_title">Ezagunak</string>
     <string name="explorer_recent_exchanges_title">Azkenaldian erabilitako burtsak</string>
     <string name="explorer_all_exchanges_title">Burtsa guztiak</string>
     <string name="explorer_exchanges_title">Burtsak</string>

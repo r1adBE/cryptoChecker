@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 187 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 188 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -29,7 +29,7 @@ Gleicher Funktionsumfang wie Android 16.2.2 (ohne Preis-Overlay, das gibt es unt
   WatchConnectivity (`WatchCore/`); alter Kurs grau mit Alter.
 - **Börsenauswahl in Abschnitten**: Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über alle
   Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
-  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. 81 Märkte: 79 auf 70 Börsen, dazu DexScreener für
+  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. 80 Märkte: 78 auf 69 Börsen, dazu DexScreener für
   DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen (täglich, nie live, ohne Alarme).
 - **Einstellungen**: Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –, Währung, Merkliste,
   Portfolio, Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets)

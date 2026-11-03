@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 188)
+
+* Watchlist: a healthy row shows just the exchange; the age appears only when the last trade is clearly older than the update (the header already shows the time).
+* Add pair: real exchange logos (futures show their parent exchange), no more «Popular» section.
+* OKX TR removed – it only repeated the TRY pairs that OKX already lists (now 80 markets on 69 exchanges).
+
 ## 16.2.2 (build 187)
 
 * 24 new exchanges: Bitpanda, Bitkub, Binance TH, Binance TR, Coins.ph, Coinone, WhiteBIT, CoinSpot, MAX, BitoPro, Foxbit, Bit2Me, VALR, WazirX, OKX TR, Quidax, Buda, Swyftx, Tokocrypto, Upbit Thailand, Upbit Indonesia, NDAX, CoinJar, GMO Coin, BitOasis – now 81 markets on 70 exchanges.

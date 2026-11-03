@@ -63,7 +63,7 @@ internal fun ExchangeHeaderCard(
 ) {
     StepCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            ExchangeMarkBadge(exchange.name, size = 40.dp, modifier = Modifier.padding(end = Spacing.md))
+            ExchangeMarkBadge(exchange.key, exchange.name, size = 40.dp, modifier = Modifier.padding(end = Spacing.md))
             Text(
                 text = exchange.name,
                 style = MaterialTheme.typography.titleMedium,

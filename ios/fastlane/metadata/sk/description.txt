@@ -13,7 +13,7 @@ Crypto Checker kontroluje kurzy na tvojej burze a dá ti vedieť, keď kontrola 
 • Sumy opúšťajú zariadenie iba cez tvoj export (CSV, záloha) alebo zašifrované v zálohe iCloud/zariadenia. Pre kurzy idú na burzu príslušného páru iba označenia párov; k tomu devízové kurzy (Frankfurter), trhové údaje a logá (CoinGecko, Binance), zrkadlá údajov (GitHub). Ak sleduješ adresy alebo xpub, verejné uzly blockchainu vidia adresy (pri xpub odvodené) a tvoju IP adresu.
 
 ZOZNAM
-• 81 trhov na 70 burzách: spot a futures, DEX tokeny cez DexScreener, voliteľne akcie, zlato a devízy (TradFi)
+• 80 trhov na 69 burzách: spot a futures, DEX tokeny cez DexScreener, voliteľne akcie, zlato a devízy (TradFi)
 • Druhý riadok „≈ hodnota“ v jednej z 31 mien (EUR, CHF, USD …), prepočítané devízovým kurzom
 • Minigraf a zmena v % za 24 h alebo od 00:00 v tvojom časovom pásme
 • Skupiny, obľúbené, presúvanie potiahnutím a poznámka ku každému coinu

@@ -74,9 +74,8 @@ fun ExplorerScreen(
     val dexMessage by vm.dexMessage.collectAsStateWithLifecycle()
     val dexPrefill by vm.dexPrefill.collectAsStateWithLifecycle()
     val showHttpLog by vm.showHttpLog.collectAsStateWithLifecycle()
-    // Übersicht: Markt-Chip, «Beliebt», zuletzt genutzte Börsen
+    // Übersicht: Markt-Chip, zuletzt genutzte Börsen
     val market by vm.marketFilter.collectAsStateWithLifecycle()
-    val popular by vm.popularPairs.collectAsStateWithLifecycle()
     val recentExchanges by vm.recentExchanges.collectAsStateWithLifecycle()
 
     // Jedes Öffnen der Seite beginnt bei der Übersicht (wie iOS); Drehen behält die offene Börse
@@ -98,7 +97,6 @@ fun ExplorerScreen(
             browse = BrowseUi(
                 market = market,
                 onMarket = vm::setMarketFilter,
-                popular = popular,
                 recent = recentExchanges,
                 onOpenExchange = vm::openExchange,
             ),
@@ -197,7 +195,7 @@ private fun ExplorerTopBar(onBack: () -> Unit) {
 
 /**
  * Die Seite: oben die Coin-Suche (der Hauptweg: Coin finden, dann sein Paar) und die Markt-Chips ([MarketChips]),
- * darunter ohne Suchbegriff die Übersicht ([BrowseSections]: «Beliebt», zuletzt genutzte und alle Börsen) bzw. die Paare
+ * darunter ohne Suchbegriff die Übersicht ([BrowseSections]: zuletzt genutzte und alle Börsen) bzw. die Paare
  * der geöffneten Börse ([ExchangePairs]: Paar, mehrere Paare auf einmal oder DEX-Suche) — und «Börse fehlt?».
  * Rückmeldungen als Snackbar ([ExplorerFeedback]).
  */
@@ -359,7 +357,7 @@ private fun BrowseContent(
         RecentSearchChips(search, Modifier.padding(bottom = Spacing.sm))
         // Hauptweg ist die Coin-Suche; darunter die Börsen
         StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))
-        BrowseSections(browse, selection, search, favorites, groupTarget)
+        BrowseSections(browse, selection, favorites)
     }
 
     Spacer(modifier = Modifier.size(Spacing.lg))

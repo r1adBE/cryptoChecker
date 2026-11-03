@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Фьючерстер</string>
     <string name="explorer_section_forex">Forex (анықтамалық бағам)</string>
     <string name="explorer_market_forex">Валюта</string>
-    <string name="explorer_popular_title">Танымал</string>
     <string name="explorer_recent_exchanges_title">Жақында пайдаланылған биржалар</string>
     <string name="explorer_all_exchanges_title">Барлық биржалар</string>
     <string name="explorer_exchanges_title">Биржалар</string>

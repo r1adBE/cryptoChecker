@@ -257,6 +257,9 @@ object CoinLogos {
     /** Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo). */
     const val TRADFI_PREFIX = "TRADFI:"
 
+    /** Vorsilbe der Schlüssel für Börsen-Logos ([com.cryptochecker.app.domain.market.ExchangeLogos]): «EXCHANGE:binance». */
+    const val EXCHANGE_PREFIX = "EXCHANGE:"
+
     /** Schlüssel des Logos für ein TradFi-Paar: «TRADFI:NVDA» (Symbol unverändert, ohne Hebel-Präfix-Regel). */
     fun tradFiKey(symbol: String): String = TRADFI_PREFIX + symbol.trim().uppercase()
 
@@ -371,9 +374,15 @@ object CoinLogos {
 
     /**
      * Dateiname im Bild-Zwischenspeicher. Nur Symbole aus A–Z und 0–9 (sonst null → Initialen),
-     * damit zwei Symbole nie dieselbe Datei teilen; TradFi-Logos als «T_NVDA.png».
+     * damit zwei Symbole nie dieselbe Datei teilen; TradFi-Logos als «T_NVDA.png», Börsen-Logos als «X_binance.png»
+     * (Kennung bei CoinGecko: a–z, 0–9, «_», «-»).
      */
     fun fileName(symbol: String): String? {
+        if (symbol.startsWith(EXCHANGE_PREFIX)) {
+            val id = symbol.removePrefix(EXCHANGE_PREFIX)
+            if (id.isEmpty() || id.any { it !in 'a'..'z' && it !in '0'..'9' && it != '_' && it != '-' }) return null
+            return "X_$id.png"
+        }
         if (symbol.startsWith(TRADFI_PREFIX)) {
             val raw = symbol.removePrefix(TRADFI_PREFIX).trim().uppercase()
             if (raw.isEmpty() || raw.any { it !in 'A'..'Z' && it !in '0'..'9' }) return null

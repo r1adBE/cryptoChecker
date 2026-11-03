@@ -13,7 +13,7 @@ SĄŽININGAI APIE DUOMENIS
 • Sumos palieka įrenginį tik per tavo eksportą ar Android atsarginę kopiją. Kainoms į poros biržą siunčiami tik porų simboliai; taip pat valiutų kursai (Frankfurter), rinkos duomenys ir logotipai (CoinGecko, Binance), duomenų veidrodžiai (GitHub). Jei stebi adresus ar xpub, vieši grandinės mazgai mato adresus (xpub atveju – išvestinius) ir tavo IP.
 
 STEBIMŲ SĄRAŠAS
-• 81 rinka 70-yje biržų: spot ir ateities sandoriai, DEX žetonai per DexScreener, pasirinktinai akcijos, auksas ir valiutos (TradFi)
+• 80 rinkų 69 biržose: spot ir ateities sandoriai, DEX žetonai per DexScreener, pasirinktinai akcijos, auksas ir valiutos (TradFi)
 • Antra eilutė „≈ vertė“ viena iš 31 valiutos (EUR, CHF, USD …), perskaičiuota kursu
 • Mini diagrama ir % pokytis per 24 val. arba nuo 00:00 tavo laiko juostoje
 • Grupės, mėgstamos, vilkimas ir pastaba monetai

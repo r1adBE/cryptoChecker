@@ -179,8 +179,8 @@ internal fun RowInfo(
                             staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
                             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
                             status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
-                            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.» bzw. «Binance · letzter Handel
-                            // vor 90 Min.», Zeit der Börse wie das Widget) — der Kopf nennt nur die jüngste Zeit
+                            // Aktuell: nur die Börse, das Alter steht im Kopf («Börsenkurse · vor 2 Min.»); nur ein
+                            // deutlich älterer letzter Handel laut Börse steht dahinter («Binance · letzter Handel vor 40 Min.»)
                             status.age != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.age}"
                             else -> watch.exchangeName
                         },

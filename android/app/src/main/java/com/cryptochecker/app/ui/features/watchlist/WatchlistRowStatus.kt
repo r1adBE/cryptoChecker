@@ -39,16 +39,18 @@ internal class WatchRowStatus(
      */
     val trade: String? = null,
     /**
-     * Alter der gesunden Zeitzeile ohne Warnung und ohne «unverändert seit»: «letzter Handel vor 90 Min.» mit Zeit der
-     * Börse, sonst «vor 3 Min.» seit dem Abruf ([PriceFreshness.rowAgeTime], wie das Widget); sonst null.
+     * Sichtbares Alter der gesunden Zeitzeile ohne Warnung und ohne «unverändert seit»: nur «letzter Handel vor 40 Min.»,
+     * wenn die Börse einen Handel deutlich vor dem Abruf meldet ([PriceFreshness.rowTradeAgeTime]); sonst null — die
+     * Zeile zeigt nur die Börse, das Alter des Abrufs steht im Kopf.
      */
     val age: String? = null,
-    /** [age] nennt den letzten Handel laut Börse (wird dann auch vorgelesen). */
-    val ageIsTrade: Boolean = false,
-) {
-    /** Im Zeilensatz nur der letzte Handel; das Alter des Abrufs sagt schon die Frische. */
-    val spokenAge: String? get() = age?.takeIf { ageIsTrade }
-}
+    /**
+     * Im Zeilensatz der letzte Handel laut Börse bei jeder gesunden Zeile mit Zeit der Börse
+     * ([PriceFreshness.rowAgeTime]); das Alter des Abrufs sagt schon die Frische. Der Screenreader liest den Kopf
+     * nicht mit jeder Zeile.
+     */
+    val spokenAge: String? = null,
+)
 
 @Composable
 internal fun watchRowStatus(
@@ -110,15 +112,19 @@ internal fun watchRowStatus(
     } else {
         null
     }
-    // Gesund: Alter wie das Widget (Zeit der Börse, sonst Abruf) — mit Zeit der Börse dasselbe Wort wie die Warnung
-    val ageIsTrade = PriceFreshness.hasExchangeTime(watch)
-    val ageText = PriceFreshness.rowAgeTime(watch)?.takeIf { warningText == null && unchangedText == null }?.let {
-        if (ageIsTrade) stringResource(R.string.watchlist_row_last_trade_age, ago(it, now)) else ago(it, now)
+    // Gesund: sichtbar nur die Börse — der Kopf nennt das Alter. «letzter Handel vor …» nur, wenn die Börse einen
+    // Handel deutlich vor dem Abruf meldet; vorgelesen wird der letzte Handel bei jeder Zeile mit Zeit der Börse
+    val healthy = warningText == null && unchangedText == null
+    val ageText = PriceFreshness.rowTradeAgeTime(watch, outdatedAfter)?.takeIf { healthy }?.let {
+        stringResource(R.string.watchlist_row_last_trade_age, ago(it, now))
+    }
+    val spokenText = PriceFreshness.rowAgeTime(watch)?.takeIf { healthy && PriceFreshness.hasExchangeTime(watch) }?.let {
+        stringResource(R.string.watchlist_row_last_trade_age, ago(it, now))
     }
     return WatchRowStatus(
         warningText, errorText, staleText, showErrorLine, unchangedText, pausedText,
         trade = tradeAge?.takeIf { warningText == tradeText },
         age = ageText,
-        ageIsTrade = ageIsTrade && ageText != null,
+        spokenAge = spokenText,
     )
 }

@@ -63,6 +63,20 @@ class PriceFreshnessTest {
     }
 
     @Test
+    fun rowTradeAgeParity() {
+        data["rowTradeAge"].list().forEach { raw ->
+            val c = raw.obj()
+            val lastUpdate = c["lastUpdateAge"].num()?.let { now - it.toLong() } ?: 0L
+            val exchangeTime = c["exchangeTimeAge"].num()?.let { now - it.toLong() }
+            assertEquals(
+                c["name"] as String,
+                c["expected"].num()?.let { now - it.toLong() },
+                PriceFreshness.rowTradeAgeTime(lastUpdate, exchangeTime, c["outdatedAfter"].num()!!.toLong()),
+            )
+        }
+    }
+
+    @Test
     fun nextParity() {
         data["next"].list().forEach { raw ->
             val c = raw.obj()
@@ -106,7 +120,7 @@ class PriceFreshnessTest {
 
     @Test
     fun rowAgeIsTheTradeTimeNotTheFetch() {
-        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: die Zeile nennt den Handel wie das Widget
+        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: der Zeilensatz nennt den Handel wie das Widget
         val quiet = watch(exchangeTime = now - 90 * 60_000L)
         assertEquals(now - 90 * 60_000L, PriceFreshness.rowAgeTime(quiet))
         assertTrue(PriceFreshness.hasExchangeTime(quiet))
@@ -122,6 +136,20 @@ class PriceFreshnessTest {
     fun delistedPairHasNoRowAge() {
         val delisted = watch(error = NotTraded.MARKER)
         assertNull(PriceFreshness.rowAgeTime(delisted))
+        assertNull(PriceFreshness.rowTradeAgeTime(delisted.copy(exchangeTime = now - 90 * 60_000L), 2_700_000L))
+    }
+
+    @Test
+    fun healthyRowShowsOnlyAClearlyOlderTrade() {
+        // Handel kurz vor dem Abruf: nur die Börse (das Alter steht im Kopf); 90 Min. vorher: «letzter Handel vor …»
+        assertNull(PriceFreshness.rowTradeAgeTime(watch(exchangeTime = now - 60_000L), 2_700_000L))
+        assertNull(PriceFreshness.rowTradeAgeTime(watch(), 2_700_000L))
+        assertEquals(now - 90 * 60_000L, PriceFreshness.rowTradeAgeTime(watch(exchangeTime = now - 90 * 60_000L), 2_700_000L))
+        assertNull(PriceFreshness.rowTradeAgeTime(watch(exchangeTime = now - 90 * 60_000L, disabled = true), 2_700_000L))
+        // max(Intervall, 15 Min.): live 15 Min., 60-Min.-Intervall 60 Min.
+        assertEquals(15 * 60_000L, PriceFreshness.tradeAgeShownAfterMillis(120_000L))
+        assertEquals(15 * 60_000L, PriceFreshness.tradeAgeShownAfterMillis(2_700_000L))
+        assertEquals(60 * 60_000L, PriceFreshness.tradeAgeShownAfterMillis(10_800_000L))
     }
 
     @Test

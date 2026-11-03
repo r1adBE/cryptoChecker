@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 /// «Paar hinzufügen» (Gegenstück zu `ExplorerScreen.kt`): oben die Coin-Suche (Coin finden, dann sein
-/// Paar) und die Markt-Chips, darunter ohne Suchbegriff «Beliebt», zuletzt genutzte und alle Börsen; eine Börse
+/// Paar) und die Markt-Chips, darunter ohne Suchbegriff zuletzt genutzte und alle Börsen; eine Börse
 /// öffnet ihre Paare (Paar wählen, mehrere Paare auf einmal) bzw. die Suche nach DEX-Pools.
 ///
 /// Kein eigener Tab: Die Merkliste schiebt die Seite auf ihren `NavigationStack`
@@ -53,8 +53,6 @@ struct ExplorerScreen: View {
             .watchlistLockedHint { vm.show(ExplorerMessage(text: $0, showView: false, long: true, kind: .error)) }
             .animation(.spring(duration: 0.35), value: vm.message)
             // Aus «Heute auffällig» (Markt-Tab): gleich mit dem Coin als Suchbegriff
-            // «Beliebt» aus der gespeicherten Liste der Start-Börse (kein Abruf)
-            .onAppear { vm.refreshPopular() }
             .onChange(of: router.explorerSearch, initial: true) { _, incoming in
                 guard let incoming else { return }
                 vm.setSearchQuery(incoming)

@@ -13,7 +13,7 @@ GODĪGI PAR DATIEM
 • Summas atstāj ierīci tikai ar tavu eksportu vai Android sistēmas dublējumu. Cenām uz attiecīgā pāra biržu tiek sūtīti tikai pāru simboli; kā arī valūtu kursi (Frankfurter), tirgus dati un logotipi (CoinGecko, Binance), datu spoguļi (GitHub). Ja vēro adreses vai xpub, publiskie blokķēdes mezgli redz adreses (xpub gadījumā – atvasinātās) un tavu IP.
 
 VĒROJAMO SARAKSTS
-• 81 tirgus 70 biržās: spot un nākotnes līgumi, DEX žetoni caur DexScreener, pēc izvēles akcijas, zelts un valūtas (TradFi)
+• 80 tirgu 69 biržās: spot un nākotnes līgumi, DEX žetoni caur DexScreener, pēc izvēles akcijas, zelts un valūtas (TradFi)
 • Otrā rinda „≈ vērtība“ vienā no 31 valūtas (EUR, CHF, USD …), pārrēķināta pēc kursa
 • Mini diagramma un % izmaiņas 24 h laikā vai kopš 00:00 tavā laika joslā
 • Grupas, izlase, vilkšana un piezīme katrai monētai

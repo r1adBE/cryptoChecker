@@ -13,7 +13,7 @@ MƏLUMATLAR BARƏDƏ DÜRÜST
 • Məbləğlər cihazı yalnız sənin ixracınla və ya Android sistem ehtiyat nüsxəsi ilə tərk edir. Qiymətlər üçün müvafiq cütün birjasına yalnız cüt tikerləri gedir; həmçinin məzənnələr (Frankfurter), bazar məlumatları və loqolar (CoinGecko, Binance), məlumat güzgüləri (GitHub). Ünvanları və ya xpub-ı izləyirsənsə, açıq blokçeyn qovşaqları ünvanları (xpub üçün törədilənləri) və IP-ni görür.
 
 İZLƏMƏ SİYAHISI
-• 70 birjada 81 bazar: spot və fyuçerslər, DexScreener vasitəsilə DEX tokenləri, istəyə görə səhmlər, qızıl və FX (TradFi)
+• 69 birjada 80 bazar: spot və fyuçerslər, DexScreener vasitəsilə DEX tokenləri, istəyə görə səhmlər, qızıl və FX (TradFi)
 • 31 valyutadan birində (EUR, CHF, USD …) FX məzənnəsi ilə çevrilmiş ikinci sətir «≈ dəyər»
 • Mini qrafik və 24 saat ərzində və ya saat qurşağında 00:00-dan bəri % dəyişiklik
 • Qruplar, seçilmişlər, drag & drop və hər koin üçün qeyd

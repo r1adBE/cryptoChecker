@@ -13,7 +13,7 @@ HONESTA COS DATOS
 • As cantidades só saen do dispositivo coa túa exportación ou a copia do sistema Android. Para os prezos, só os tickers van ao exchange de cada par; ademais, tipos de cambio (Frankfurter), datos de mercado e logotipos (CoinGecko, Binance), espellos de datos (GitHub). Se segues enderezos ou unha xpub, os nodos públicos de blockchain ven os enderezos (cunha xpub, os derivados) e a túa IP.
 
 LISTA
-• 81 mercados en 70 exchanges: spot e futuros, tokens DEX vía DexScreener, opcionalmente accións, ouro e divisas (TradFi)
+• 80 mercados en 69 exchanges: spot e futuros, tokens DEX vía DexScreener, opcionalmente accións, ouro e divisas (TradFi)
 • Segunda liña «≈ valor» nunha de 31 moedas (EUR, CHF, USD …), ao tipo de cambio
 • Minigráfico e variación en % en 24 h ou desde as 00:00 no teu fuso horario
 • Grupos, favoritos, ordenar arrastrando, unha nota por moeda

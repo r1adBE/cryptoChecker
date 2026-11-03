@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 /**
  * Zustand der Seite «Paar hinzufügen»: Coin-Suche (Coin zuerst, dann seine Paare über alle Börsen), Markt-Chips,
- * «Beliebt», die Börsen und darin die Paar-Auswahl (Börse → Coin → Gegenwährung), «Alle …-Paare», DEX-Suche und das
+ * die Börsen und darin die Paar-Auswahl (Börse → Coin → Gegenwährung), «Alle …-Paare», DEX-Suche und das
  * Übernehmen in die Merkliste.
  *
  * Datenschutz der Suche: Sie läuft nur auf dem Gerät — gespeicherte Paarlisten und das Namensverzeichnis.
@@ -63,7 +63,7 @@ class ExplorerViewModel @Inject constructor(
     internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
     internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
-    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]). */
+    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]); Börsen-Logos. */
     internal val exchangeRanking: com.cryptochecker.app.data.ExchangeRankingStore,
 ) : ViewModel() {
 
@@ -167,8 +167,6 @@ class ExplorerViewModel @Inject constructor(
     /** Markt-Chip über Börsen und Treffern ([setMarketFilter]); «Alle» zu Beginn. */
     val marketFilter: StateFlow<MarketFilter> = hits.market.asStateFlow()
 
-    /** «Beliebt»: rund sechs Paare der Start-Börse, ein Tipp nimmt sie auf ([PopularPairs]). */
-    val popularPairs: StateFlow<List<SearchHit>> = hits.popular.asStateFlow()
 
     /** «Zuletzt genutzte Börsen» (Schlüssel, neueste zuerst), nur auf dem Gerät. */
     val recentExchanges: StateFlow<List<String>> = recentSearchStore.exchanges
@@ -282,8 +280,8 @@ class ExplorerViewModel @Inject constructor(
             collectHttpLog()
         }
         viewModelScope.launch { collectBulkRunner() }
-        // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung)
-        viewModelScope.launch { exchangeRanking.ensureLoaded() }
+        // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung); mit Logos die Börsen-Logos
+        viewModelScope.launch { exchangeRanking.ensureLoadedWithLogos(settingsRepository.cached.coinLogos) }
     }
 
     val pageState: StateFlow<ExplorerLoad> = reloadExchanges
@@ -302,8 +300,6 @@ class ExplorerViewModel @Inject constructor(
             val selected = exchange.value
             if (selected != null && selected !in exchangeList) exchange.value = null
 
-            // «Beliebt» aus der gespeicherten Liste der Start-Börse (kein Abruf)
-            refreshPopular(exchangeList, scope)
             ExplorerLoad.Ready(buildSelection(exchangeList, categories))
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ExplorerLoad.Loading)

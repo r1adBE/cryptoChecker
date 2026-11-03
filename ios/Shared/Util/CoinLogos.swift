@@ -196,6 +196,8 @@ enum CoinLogos {
 
     /// Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo).
     static let tradFiPrefix = "TRADFI:"
+    /// Vorsilbe der Schlüssel für Börsen-Logos (`ExchangeLogos`): «EXCHANGE:binance».
+    static let exchangePrefix = "EXCHANGE:"
 
     /// Schlüssel des Logos für ein TradFi-Paar: «TRADFI:NVDA».
     /// Aktien-Logo auf dem Bild-Server von Binance («…/static/stock/BYD.png») für ein TradFi-Kürzel;
@@ -372,8 +374,13 @@ enum CoinLogos {
     }
 
     /// Dateiname im Bild-Zwischenspeicher; nur Symbole aus A–Z und 0–9 (sonst nil → Initialen);
-    /// TradFi-Logos als «T_NVDA.png».
+    /// TradFi-Logos als «T_NVDA.png», Börsen-Logos als «X_binance.png» (Kennung: a–z, 0–9, «_», «-»).
     static func fileName(_ symbol: String) -> String? {
+        if symbol.hasPrefix(exchangePrefix) {
+            let id = String(symbol.dropFirst(exchangePrefix.count))
+            let ok = id.unicodeScalars.allSatisfy { ("a"..."z").contains($0) || ("0"..."9").contains($0) || $0 == "_" || $0 == "-" }
+            return !id.isEmpty && ok ? "X_" + id + ".png" : nil
+        }
         if symbol.hasPrefix(tradFiPrefix) {
             let raw = displaySymbol(symbol).trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
             guard !raw.isEmpty, isPlain(raw) else { return nil }

@@ -1,5 +1,5 @@
 {
-  "_comment": "Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (MarketFilter: welche Börsen-Art ein Chip zeigt), «Zuletzt genutzte Börsen» (neueste zuerst, jede einmal, höchstens recentMax), «Beliebt» (Start-Auswahl, dann Ausweich-Liste, dann popularExtra; mit Paarliste nur verfügbare; höchstens popularCount), Zeichen der Börsen (Anfangsbuchstaben, Farbe aus dem ersten Wort) und Börsen zum Suchtext (ein Wort ab 3 Zeichen nennt den Namen, höchstens exchangeSearchLimit). Android: ExplorerBrowseParityTest.kt (MarketFilter, RecentExchanges, PopularPairs, ExchangeMark, ExchangeSearch), iOS: ExplorerBrowseParityTests (ExplorerMarketFilter, ExplorerRecentExchanges, ExplorerPopularPairs, ExplorerExchangeMark, ExplorerExchangeSearch).",
+  "_comment": "Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (MarketFilter: welche Börsen-Art ein Chip zeigt), «Zuletzt genutzte Börsen» (neueste zuerst, jede einmal, höchstens recentMax), Zeichen der Börsen (Anfangsbuchstaben, Farbe aus dem ersten Wort) und Börsen zum Suchtext (ein Wort ab 3 Zeichen nennt den Namen, höchstens exchangeSearchLimit). Android: ExplorerBrowseParityTest.kt (MarketFilter, RecentExchanges, ExchangeMark, ExchangeSearch), iOS: ExplorerBrowseParityTests (ExplorerMarketFilter, ExplorerRecentExchanges, ExplorerExchangeMark, ExplorerExchangeSearch).",
   "markets": [
     {
       "filter": "ALL",
@@ -107,100 +107,6 @@
     },
     {
       "text": "",
-      "expected": []
-    }
-  ],
-  "popularCount": 6,
-  "popularExtra": [
-    "DOGE",
-    "ADA",
-    "TRX",
-    "LTC"
-  ],
-  "popular": [
-    {
-      "starter": [
-        "BTC",
-        "ETH",
-        "XRP",
-        "BNB",
-        "SOL"
-      ],
-      "fallback": [
-        "BTC",
-        "ETH",
-        "XRP",
-        "BNB",
-        "SOL"
-      ],
-      "available": null,
-      "expected": [
-        "BTC",
-        "ETH",
-        "XRP",
-        "BNB",
-        "SOL",
-        "DOGE"
-      ]
-    },
-    {
-      "starter": [
-        "BTC",
-        "ETH",
-        "BNB",
-        "SOL",
-        "DOGE"
-      ],
-      "fallback": [
-        "BTC",
-        "ETH",
-        "BNB",
-        "SOL",
-        "DOGE"
-      ],
-      "available": null,
-      "expected": [
-        "BTC",
-        "ETH",
-        "BNB",
-        "SOL",
-        "DOGE",
-        "ADA"
-      ]
-    },
-    {
-      "starter": [
-        "btc",
-        " eth ",
-        "XRP"
-      ],
-      "fallback": [
-        "BTC",
-        "SOL"
-      ],
-      "available": [
-        "BTC",
-        "ETH",
-        "SOL",
-        "ADA",
-        "LTC"
-      ],
-      "expected": [
-        "BTC",
-        "ETH",
-        "SOL",
-        "ADA",
-        "LTC"
-      ]
-    },
-    {
-      "starter": [
-        "BTC"
-      ],
-      "fallback": [
-        "ETH"
-      ],
-      "available": [],
       "expected": []
     }
   ],

@@ -138,7 +138,6 @@
     <string name="explorer_section_futures">ฟิวเจอร์ส</string>
     <string name="explorer_section_forex">ฟอเร็กซ์ (อัตราอ้างอิง)</string>
     <string name="explorer_market_forex">ฟอเร็กซ์</string>
-    <string name="explorer_popular_title">ยอดนิยม</string>
     <string name="explorer_recent_exchanges_title">กระดานเทรดที่ใช้ล่าสุด</string>
     <string name="explorer_all_exchanges_title">กระดานเทรดทั้งหมด</string>
     <string name="explorer_exchanges_title">กระดานเทรด</string>

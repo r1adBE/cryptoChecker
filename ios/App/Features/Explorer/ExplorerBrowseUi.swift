@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips, «Beliebt», «Zuletzt genutzte Börsen» und «Alle
-/// Börsen». Wie `ExplorerBrowseUi.kt`.
+/// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips, «Zuletzt genutzte Börsen» und «Alle Börsen». Wie `ExplorerBrowseUi.kt`.
 extension ExplorerScreen {
     // MARK: Markt-Chips
 
@@ -74,22 +73,9 @@ extension ExplorerScreen {
         return ExplorerExchangeSearch.find(vm.searchQuery, offered) { $0.name }
     }
 
-    /// «Beliebt» (Paare der Start-Börse, ein Tipp nimmt auf), «Zuletzt genutzte Börsen», «Alle Börsen».
+    /// «Zuletzt genutzte Börsen», «Alle Börsen».
     @ViewBuilder
     var browseSections: some View {
-        let market = vm.marketFilter
-        let popular = vm.popularPairs.filter { market.allows($0.exchange.category) }
-        if !popular.isEmpty {
-            sectionLabel(L("explorer_popular_title"))
-                .padding(.top, Spacing.sm)
-            ExplorerGroupTargetSelector()
-            LazyVStack(spacing: Spacing.sm) {
-                ForEach(popular) { hit in
-                    searchHitRow(hit)
-                }
-            }
-        }
-
         let shown = shownExchanges
         let byKey = Dictionary(shown.map { ($0.key, $0) }, uniquingKeysWith: { first, _ in first })
         let recent = vm.recentExchanges.compactMap { byKey[$0] }
@@ -135,7 +121,7 @@ extension ExplorerScreen {
                 withAnimation(.snappy(duration: 0.3)) { vm.openExchange(exchange) }
             } label: {
                 HStack(spacing: Spacing.md) {
-                    ExplorerExchangeMarkView(name: exchange.name, size: 38)
+                    ExplorerExchangeMarkView(key: exchange.key, name: exchange.name, size: 38)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(exchange.name)
                             .font(.headline)
@@ -179,28 +165,5 @@ extension ExplorerScreen {
         .padding(.vertical, Spacing.xs)
         .frame(minHeight: 56)
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-    }
-}
-
-/// Zeichen einer Börse: farbiger Kreis mit dem Anfangsbuchstaben (`ExplorerExchangeMark`), Farben wie die Ersatz-Kreise
-/// der Coins (`CoinLogoPlaceholder`, mindestens 4.5:1). Rein dekorativ. Wie `ExchangeMarkBadge` (Android).
-struct ExplorerExchangeMarkView: View {
-    let name: String
-    let size: CGFloat
-    @Environment(\.colorScheme) private var colorScheme
-
-    var body: some View {
-        let dark = colorScheme == .dark
-        let key = ExplorerExchangeMark.colorKey(name)
-        let initials = ExplorerExchangeMark.initials(name)
-        ZStack {
-            Circle().fill(CoinLogoPlaceholder.fill(key, dark: dark))
-            Text(verbatim: initials)
-                .font(.system(size: size * (initials.count == 1 ? 0.42 : 0.36), weight: .bold))
-                .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
-                .lineLimit(1)
-        }
-        .frame(width: size, height: size)
-        .accessibilityHidden(true)
     }
 }

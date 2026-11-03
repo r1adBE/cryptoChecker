@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">फ्युचर्स</string>
     <string name="explorer_section_forex">फरेक्स (सन्दर्भ दर)</string>
     <string name="explorer_market_forex">फरेक्स</string>
-    <string name="explorer_popular_title">लोकप्रिय</string>
     <string name="explorer_recent_exchanges_title">हालै प्रयोग गरिएका एक्सचेन्जहरू</string>
     <string name="explorer_all_exchanges_title">सबै एक्सचेन्ज</string>
     <string name="explorer_exchanges_title">एक्सचेन्जहरू</string>

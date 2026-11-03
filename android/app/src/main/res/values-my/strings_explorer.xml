@@ -138,7 +138,6 @@
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_forex">Forex (ရည်ညွှန်းနှုန်း)</string>
     <string name="explorer_market_forex">Forex</string>
-    <string name="explorer_popular_title">လူကြိုက်များ</string>
     <string name="explorer_recent_exchanges_title">မကြာသေးမီက သုံးခဲ့သော လဲလှယ်ရေးဌာနများ</string>
     <string name="explorer_all_exchanges_title">လဲလှယ်ရေးဌာန အားလုံး</string>
     <string name="explorer_exchanges_title">လဲလှယ်ရေးဌာနများ</string>

@@ -13,7 +13,7 @@ EERLIK OOR DIE DATA
 • Bedrae verlaat die toestel slegs via jou uitvoer of Android-stelselrugsteun. Vir pryse gaan slegs paartickers na die betrokke paar se beurs; plus wisselkoerse (Frankfurter), markdata en logo's (CoinGecko, Binance), dataspieëls (GitHub). As jy adresse of 'n xpub volg, sien openbare blokkettingnodusse die adresse (vir 'n xpub, die afgeleides) en jou IP.
 
 VOLGLYS
-• 81 markte op 70 beurse: spot en futures, DEX-tokens via DexScreener, opsioneel aandele, goud en FX (TradFi)
+• 80 markte op 69 beurse: spot en futures, DEX-tokens via DexScreener, opsioneel aandele, goud en FX (TradFi)
 • Tweede reël “≈ waarde” in een van 31 geldeenhede (EUR, CHF, USD …), teen die FX-koers omgereken
 • Minigrafiek en %-verandering oor 24 h of sedert 00:00 in jou tydsone
 • Groepe, gunstelinge, sleep-en-los en 'n nota per munt

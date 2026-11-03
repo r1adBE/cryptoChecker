@@ -46,6 +46,19 @@ final class PriceFreshnessTests: XCTestCase {
         }
     }
 
+    func testRowTradeAgeParity() throws {
+        let data = try S.fixture("price_freshness")
+        let now = S.millis(data["now"])
+        for c in S.list(data["rowTradeAge"]) {
+            let lastUpdate = optionalMillis(c["lastUpdateAge"]).map { now - $0 } ?? 0
+            let exchangeTime = optionalMillis(c["exchangeTimeAge"]).map { now - $0 }
+            let expected = optionalMillis(c["expected"]).map { now - $0 }
+            XCTAssertEqual(PriceFreshness.rowTradeAgeTime(lastUpdate: lastUpdate, exchangeTime: exchangeTime,
+                                                          outdatedAfter: S.millis(c["outdatedAfter"])),
+                           expected, c["name"] as? String ?? "")
+        }
+    }
+
     func testNextParity() throws {
         let data = try S.fixture("price_freshness")
         for c in S.list(data["next"]) {
@@ -85,7 +98,7 @@ final class PriceFreshnessTests: XCTestCase {
     }
 
     func testRowAgeIsTheTradeTimeNotTheFetch() {
-        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: die Zeile nennt den Handel wie das Widget
+        // Abruf vor 10 s, letzter Handel laut Börse vor 90 Min.: der Zeilensatz nennt den Handel wie das Widget
         let quiet = watch(exchangeTime: now - 90 * 60_000)
         XCTAssertEqual(PriceFreshness.rowAgeTime(quiet), now - 90 * 60_000)
         XCTAssertTrue(PriceFreshness.hasExchangeTime(quiet))
@@ -101,6 +114,22 @@ final class PriceFreshnessTests: XCTestCase {
 
     func testDelistedPairHasNoRowAge() {
         XCTAssertNil(PriceFreshness.rowAgeTime(watch(error: NotTraded.marker)))
+        XCTAssertNil(PriceFreshness.rowTradeAgeTime(watch(exchangeTime: now - 90 * 60_000, error: NotTraded.marker),
+                                                    outdatedAfter: 2_700_000))
+    }
+
+    func testHealthyRowShowsOnlyAClearlyOlderTrade() {
+        // Handel kurz vor dem Abruf: nur die Börse (das Alter steht im Kopf); 90 Min. vorher: «letzter Handel vor …»
+        XCTAssertNil(PriceFreshness.rowTradeAgeTime(watch(exchangeTime: now - 60_000), outdatedAfter: 2_700_000))
+        XCTAssertNil(PriceFreshness.rowTradeAgeTime(watch(), outdatedAfter: 2_700_000))
+        XCTAssertEqual(PriceFreshness.rowTradeAgeTime(watch(exchangeTime: now - 90 * 60_000), outdatedAfter: 2_700_000),
+                       now - 90 * 60_000)
+        XCTAssertNil(PriceFreshness.rowTradeAgeTime(watch(exchangeTime: now - 90 * 60_000, disabled: true),
+                                                    outdatedAfter: 2_700_000))
+        // max(Intervall, 15 Min.): live 15 Min., 60-Min.-Intervall 60 Min.
+        XCTAssertEqual(PriceFreshness.tradeAgeShownAfterMillis(outdatedAfter: 120_000), 15 * 60_000)
+        XCTAssertEqual(PriceFreshness.tradeAgeShownAfterMillis(outdatedAfter: 2_700_000), 15 * 60_000)
+        XCTAssertEqual(PriceFreshness.tradeAgeShownAfterMillis(outdatedAfter: 10_800_000), 60 * 60_000)
     }
 
     func testStaleFollowsTheAlarmBlock() {

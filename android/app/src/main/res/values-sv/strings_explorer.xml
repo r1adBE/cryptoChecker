@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Terminer</string>
     <string name="explorer_section_forex">Forex (referenskurs)</string>
     <string name="explorer_market_forex">Valuta</string>
-    <string name="explorer_popular_title">Populära</string>
     <string name="explorer_recent_exchanges_title">Senast använda börser</string>
     <string name="explorer_all_exchanges_title">Alla börser</string>
     <string name="explorer_exchanges_title">Börser</string>

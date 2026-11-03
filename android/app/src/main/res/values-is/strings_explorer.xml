@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Framvirkir samningar</string>
     <string name="explorer_section_forex">Gjaldeyrir (viðmiðunargengi)</string>
     <string name="explorer_market_forex">Gjaldeyrir</string>
-    <string name="explorer_popular_title">Vinsælt</string>
     <string name="explorer_recent_exchanges_title">Nýlega notaðar kauphallir</string>
     <string name="explorer_all_exchanges_title">Allar kauphallir</string>
     <string name="explorer_exchanges_title">Kauphallir</string>

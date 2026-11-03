@@ -138,7 +138,6 @@
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_forex">Forex (អត្រាយោង)</string>
     <string name="explorer_market_forex">Forex</string>
-    <string name="explorer_popular_title">ពេញនិយម</string>
     <string name="explorer_recent_exchanges_title">ផ្សារប្តូរដែលបានប្រើថ្មីៗ</string>
     <string name="explorer_all_exchanges_title">ផ្សារប្តូរទាំងអស់</string>
     <string name="explorer_exchanges_title">ផ្សារប្តូរ</string>

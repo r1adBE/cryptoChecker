@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">ფიუჩერსები</string>
     <string name="explorer_section_forex">Forex (საორიენტაციო კურსი)</string>
     <string name="explorer_market_forex">ვალუტა</string>
-    <string name="explorer_popular_title">პოპულარული</string>
     <string name="explorer_recent_exchanges_title">ბოლოს გამოყენებული ბირჟები</string>
     <string name="explorer_all_exchanges_title">ყველა ბირჟა</string>
     <string name="explorer_exchanges_title">ბირჟები</string>

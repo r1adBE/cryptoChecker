@@ -1,4 +1,4 @@
-// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (Alle · Spot · Futures · DEX · Devisen), «Beliebt»,
+// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (Alle · Spot · Futures · DEX · Devisen),
 // «Zuletzt genutzte Börsen» und das Zeichen der Börsen. Reine Logik (testbar); gleich in iOS `ExplorerBrowse.swift`,
 // gemeinsame Fälle in `testdata/parity/explorer_browse.json`.
 package com.cryptochecker.app.ui.features.explorer
@@ -50,16 +50,7 @@ object RecentExchanges {
     fun encode(list: List<String>): String = list.joinToString("\n")
 }
 
-/**
- * «Beliebt»: rund [COUNT] Coins der Start-Börse (Binance, in den USA Binance.US) als …/USDT-Paare — zuerst die
- * gespeicherte Start-Auswahl (grösste Coins), dann die Ausweich-Liste, dann [EXTRA]. Liegt die Paarliste der
- * Start-Börse schon auf dem Gerät ([available] = Basis-Kürzel mit Paar in USDT), nur Coins mit Paar; null = keine
- * Liste, dann ungeprüft. Kein Abruf. Wie iOS `ExplorerPopularPairs`.
- */
-object PopularPairs {
-    const val COUNT = 6
-
-    /** Weitere grosse Coins, falls die Start-Auswahl weniger als [COUNT] liefert. */
+/** Weitere grosse Coins, falls die Start-Auswahl weniger als [COUNT] liefert. */
     val EXTRA = listOf("DOGE", "ADA", "TRX", "LTC")
 
     fun pick(starter: List<String>, fallback: List<String>, available: Set<String>?): List<String> =
@@ -71,7 +62,7 @@ object PopularPairs {
 }
 
 /**
- * Zeichen einer Börse in den Listen (es gibt keine Börsen-Logos auf dem Gerät und keinen Abruf dafür): farbiger Kreis
+ * Ersatz-Zeichen einer Börse in den Listen (solange ihr Logo lädt oder fehlt, [ExchangeMarkBadge]): farbiger Kreis
  * mit dem Anfangsbuchstaben, bei zwei Wörtern beide («Bybit Futures» → «BF»). Die Farbe folgt aus dem ersten Wort
  * ([colorKey]), so haben «Bybit» und «Bybit Futures» dieselbe. Wie iOS `ExplorerExchangeMark`.
  */

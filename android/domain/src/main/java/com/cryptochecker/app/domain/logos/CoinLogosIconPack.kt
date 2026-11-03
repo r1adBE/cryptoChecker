@@ -13,7 +13,7 @@ private const val ICON_PACK_HEADER_MAX = 64 * 1024
 
 /** Name eines Icons im Paket («btc»); null bei TradFi oder ungültigem Kürzel. */
 fun CoinLogos.bundledIconName(symbol: String): String? {
-    if (symbol.startsWith(TRADFI_PREFIX)) return null
+    if (symbol.startsWith(TRADFI_PREFIX) || symbol.startsWith(EXCHANGE_PREFIX)) return null
     val key = normalize(symbol)
     if (fileName(key) == null) return null
     return key.lowercase()

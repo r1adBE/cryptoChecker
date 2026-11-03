@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_forex">Forex (kursi i referencës)</string>
     <string name="explorer_market_forex">Valuta</string>
-    <string name="explorer_popular_title">Të njohura</string>
     <string name="explorer_recent_exchanges_title">Bursat e përdorura së fundi</string>
     <string name="explorer_all_exchanges_title">Të gjitha bursat</string>
     <string name="explorer_exchanges_title">Bursat</string>

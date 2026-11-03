@@ -79,7 +79,6 @@ object ExchangesConfig {
         Bit2Me(),
         Valr(),
         WazirX(),
-        OkexTr(),
         Quidax(),
         Buda(),
         Swyftx(),

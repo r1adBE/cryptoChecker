@@ -28,7 +28,7 @@ object ExchangeOrder {
         "Upbit" to "upbit", "Bithumb" to "bithumb", "BitFlyer" to "bitflyer", "Bitbank" to "bitbank",
         "Coincheck" to "coincheck", "Btcturk" to "btcturk", "Paribu" to "paribu", "Icrypex" to "icrypex",
         "Bitso" to "bitso", "MercadoBitcoin" to "mercado_bitcoin", "Indodax" to "indodax", "ZebPay" to "zebpay",
-        "CoinDcx" to "coindcx", "HashKey" to "hashkey_exchange", "IndependentReserve" to "independent_reserve",
+        "CoinDcx" to "coindcx", "HashKey" to "hashkey", "IndependentReserve" to "independent_reserve",
         "BtcMarkets" to "btcmarkets", "Luno" to "luno", "Latoken" to "latoken", "NonKyc" to "nonkyc_io",
         "GmoCoin" to "gmo_japan",
         "CoinJar" to "coinjar",

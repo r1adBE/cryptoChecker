@@ -1,6 +1,6 @@
 import Foundation
 
-// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (Alle · Spot · Futures · DEX · Devisen), «Beliebt»,
+// Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (Alle · Spot · Futures · DEX · Devisen),
 // «Zuletzt genutzte Börsen» und das Zeichen der Börsen. Reine Logik (testbar); gleich in Android `ExplorerBrowse.kt`,
 // gemeinsame Fälle in `Parity/explorer_browse.json`.
 
@@ -61,25 +61,7 @@ enum ExplorerRecentExchanges {
     }
 }
 
-/// «Beliebt»: rund `count` Coins der Start-Börse (Binance, in den USA Binance.US) als …/USDT-Paare — zuerst die
-/// gespeicherte Start-Auswahl, dann die Ausweich-Liste, dann `extra`. Mit Paarliste der Start-Börse auf dem Gerät
-/// (`available` = Basis-Kürzel mit Spot-Paar in USDT) nur Coins mit Paar; nil = ungeprüft. Kein Abruf.
-/// Wie Android `PopularPairs`.
-enum ExplorerPopularPairs {
-    static let count = 6
-    static let extra = ["DOGE", "ADA", "TRX", "LTC"]
-
-    static func pick(starter: [String], fallback: [String], available: Set<String>?) -> [String] {
-        var seen = Set<String>()
-        let all = (starter + fallback + extra).map { $0.trimmingCharacters(in: .whitespaces).uppercased() }
-        let picked = all.filter { symbol in
-            !symbol.isEmpty && (available.map { $0.contains(symbol) } ?? true) && seen.insert(symbol).inserted
-        }
-        return Array(picked.prefix(count))
-    }
-}
-
-/// Zeichen einer Börse in den Listen (keine Börsen-Logos auf dem Gerät, kein Abruf dafür): farbiger Kreis mit dem
+/// Ersatz-Zeichen einer Börse in den Listen (solange ihr Logo lädt oder fehlt, `ExplorerExchangeMarkView`): Kreis mit dem
 /// Anfangsbuchstaben, bei zwei Wörtern beide («Bybit Futures» → «BF»); Farbe aus dem ersten Wort (`colorKey`).
 /// Wie Android `ExchangeMark`.
 enum ExplorerExchangeMark {

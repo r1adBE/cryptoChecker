@@ -1,0 +1,417 @@
+{
+  "_comment": "Börsen-Logos (ExchangeLogos): Zuordnung aller Börsen-Schlüssel (Logo, Symbol oder bewusst keins), feste Reihenfolge, Dateinamen, Seiten der CoinGecko-Börsenliste (weiterlesen nur solange Kennungen fehlen), Einzelseite, erneuter Versuch. Android ExchangeLogosParityTest, iOS ExchangeLogosParityTests.",
+  "keys": {
+    "Coinbase": {
+      "logo": "EXCHANGE:gdax"
+    },
+    "Kraken": {
+      "logo": "EXCHANGE:kraken"
+    },
+    "GateIo": {
+      "logo": "EXCHANGE:gate"
+    },
+    "Binance": {
+      "logo": "EXCHANGE:binance"
+    },
+    "BinanceUs": {
+      "logo": "EXCHANGE:binance_us"
+    },
+    "Kucoin": {
+      "logo": "EXCHANGE:kucoin"
+    },
+    "Okex": {
+      "logo": "EXCHANGE:okex"
+    },
+    "OkexFutures": {
+      "logo": "EXCHANGE:okex"
+    },
+    "BinanceFutures": {
+      "logo": "EXCHANGE:binance"
+    },
+    "Bybit": {
+      "logo": "EXCHANGE:bybit_spot"
+    },
+    "BybitFutures": {
+      "logo": "EXCHANGE:bybit_spot"
+    },
+    "Bitget": {
+      "logo": "EXCHANGE:bitget"
+    },
+    "BitgetFutures": {
+      "logo": "EXCHANGE:bitget"
+    },
+    "Mexc": {
+      "logo": "EXCHANGE:mxc"
+    },
+    "MexcFutures": {
+      "logo": "EXCHANGE:mxc"
+    },
+    "Htx": {
+      "logo": "EXCHANGE:huobi"
+    },
+    "HtxFutures": {
+      "logo": "EXCHANGE:huobi"
+    },
+    "Bitfinex": {
+      "logo": "EXCHANGE:bitfinex"
+    },
+    "Bitstamp": {
+      "logo": "EXCHANGE:bitstamp"
+    },
+    "Bitvavo": {
+      "logo": "EXCHANGE:bitvavo"
+    },
+    "CryptoCom": {
+      "logo": "EXCHANGE:crypto_com"
+    },
+    "Gemini": {
+      "logo": "EXCHANGE:gemini"
+    },
+    "Hyperliquid": {
+      "logo": "EXCHANGE:hyperliquid-spot"
+    },
+    "Aster": {
+      "logo": "EXCHANGE:aster-spot"
+    },
+    "BingX": {
+      "logo": "EXCHANGE:bingx"
+    },
+    "BingXFutures": {
+      "logo": "EXCHANGE:bingx"
+    },
+    "Lighter": {
+      "logo": "EXCHANGE:lighter-spot"
+    },
+    "Woo": {
+      "logo": "EXCHANGE:wootrade"
+    },
+    "WooFutures": {
+      "logo": "EXCHANGE:wootrade"
+    },
+    "Deribit": {
+      "logo": "EXCHANGE:deribit_spot"
+    },
+    "Phemex": {
+      "logo": "EXCHANGE:phemex"
+    },
+    "PhemexFutures": {
+      "logo": "EXCHANGE:phemex"
+    },
+    "BitunixFutures": {
+      "logo": "EXCHANGE:bitunix"
+    },
+    "Poloniex": {
+      "logo": "EXCHANGE:poloniex"
+    },
+    "OneTrading": {
+      "logo": "EXCHANGE:bitpanda"
+    },
+    "Upbit": {
+      "logo": "EXCHANGE:upbit"
+    },
+    "Bithumb": {
+      "logo": "EXCHANGE:bithumb"
+    },
+    "BitFlyer": {
+      "logo": "EXCHANGE:bitflyer"
+    },
+    "Bitbank": {
+      "logo": "EXCHANGE:bitbank"
+    },
+    "Coincheck": {
+      "logo": "EXCHANGE:coincheck"
+    },
+    "Btcturk": {
+      "logo": "EXCHANGE:btcturk"
+    },
+    "Paribu": {
+      "logo": "EXCHANGE:paribu"
+    },
+    "Icrypex": {
+      "logo": "EXCHANGE:icrypex"
+    },
+    "Bitso": {
+      "logo": "EXCHANGE:bitso"
+    },
+    "MercadoBitcoin": {
+      "logo": "EXCHANGE:mercado_bitcoin"
+    },
+    "Indodax": {
+      "logo": "EXCHANGE:indodax"
+    },
+    "ZebPay": {
+      "logo": "EXCHANGE:zebpay"
+    },
+    "CoinDcx": {
+      "logo": "EXCHANGE:coindcx"
+    },
+    "HashKey": {
+      "logo": "EXCHANGE:hashkey"
+    },
+    "IndependentReserve": {
+      "logo": "EXCHANGE:independent_reserve"
+    },
+    "BtcMarkets": {
+      "logo": "EXCHANGE:btcmarkets"
+    },
+    "Luno": {
+      "logo": "EXCHANGE:luno"
+    },
+    "Bitpanda": {
+      "none": true
+    },
+    "Bitkub": {
+      "logo": "EXCHANGE:bitkub"
+    },
+    "BinanceTh": {
+      "logo": "EXCHANGE:binance"
+    },
+    "CoinsPh": {
+      "logo": "EXCHANGE:coinspro"
+    },
+    "Coinone": {
+      "logo": "EXCHANGE:coinone"
+    },
+    "WhiteBit": {
+      "logo": "EXCHANGE:whitebit"
+    },
+    "CoinSpot": {
+      "none": true
+    },
+    "MaxMaicoin": {
+      "logo": "EXCHANGE:max_maicoin"
+    },
+    "BitoPro": {
+      "logo": "EXCHANGE:bitopro"
+    },
+    "BinanceTr": {
+      "logo": "EXCHANGE:binance"
+    },
+    "Foxbit": {
+      "logo": "EXCHANGE:foxbit"
+    },
+    "Bit2Me": {
+      "logo": "EXCHANGE:bit2me"
+    },
+    "Valr": {
+      "logo": "EXCHANGE:valr"
+    },
+    "WazirX": {
+      "logo": "EXCHANGE:wazirx"
+    },
+    "Quidax": {
+      "none": true
+    },
+    "Buda": {
+      "logo": "EXCHANGE:buda"
+    },
+    "Swyftx": {
+      "none": true
+    },
+    "Tokocrypto": {
+      "logo": "EXCHANGE:toko_crypto"
+    },
+    "UpbitTh": {
+      "logo": "EXCHANGE:upbit"
+    },
+    "UpbitId": {
+      "logo": "EXCHANGE:upbit_indonesia"
+    },
+    "Ndax": {
+      "none": true
+    },
+    "CoinJar": {
+      "logo": "EXCHANGE:coinjar"
+    },
+    "GmoCoin": {
+      "logo": "EXCHANGE:gmo_japan"
+    },
+    "BitOasis": {
+      "none": true
+    },
+    "Latoken": {
+      "logo": "EXCHANGE:latoken"
+    },
+    "NonKyc": {
+      "logo": "EXCHANGE:nonkyc_io"
+    },
+    "DexScreener": {
+      "symbol": "DEX"
+    },
+    "EcbReference": {
+      "symbol": "FOREX"
+    }
+  },
+  "order_head": [
+    "EXCHANGE:gdax",
+    "EXCHANGE:kraken",
+    "EXCHANGE:gate",
+    "EXCHANGE:binance",
+    "EXCHANGE:binance_us",
+    "EXCHANGE:kucoin",
+    "EXCHANGE:okex",
+    "EXCHANGE:bybit_spot"
+  ],
+  "order_tail": "EXCHANGE:nonkyc_io",
+  "fileNames": [
+    {
+      "key": "EXCHANGE:binance",
+      "file": "X_binance.png"
+    },
+    {
+      "key": "EXCHANGE:hyperliquid-spot",
+      "file": "X_hyperliquid-spot.png"
+    },
+    {
+      "key": "EXCHANGE:aster-spot",
+      "file": "X_aster-spot.png"
+    },
+    {
+      "key": "EXCHANGE:",
+      "file": null
+    },
+    {
+      "key": "EXCHANGE:Binance",
+      "file": null
+    },
+    {
+      "key": "EXCHANGE:a/b",
+      "file": null
+    },
+    {
+      "key": "EXCHANGE:a.b",
+      "file": null
+    }
+  ],
+  "page": {
+    "rows": [
+      {
+        "id": "binance",
+        "image": "https://coin-images.coingecko.com/markets/images/52/small/binance.jpg?1706864274"
+      },
+      {
+        "id": "binance",
+        "image": "https://coin-images.coingecko.com/markets/images/99/small/other.jpg"
+      },
+      {
+        "id": "kraken",
+        "image": "https://evil.example.com/kraken.png"
+      },
+      {
+        "id": "gdax",
+        "image": null
+      },
+      {
+        "id": "bybit_spot",
+        "image": "https://coin-images.coingecko.com/markets/images/missing_small.png"
+      },
+      {
+        "id": "deribit_spot",
+        "image": " https://coin-images.coingecko.com/markets/images/1144/small/deribit-spot.jpg "
+      },
+      {
+        "id": "unknown",
+        "image": "https://coin-images.coingecko.com/markets/images/7/small/u.png"
+      }
+    ],
+    "expectedRows": 7,
+    "expected": {
+      "binance": "https://coin-images.coingecko.com/markets/images/52/small/binance.jpg?1706864274",
+      "deribit_spot": "https://coin-images.coingecko.com/markets/images/1144/small/deribit-spot.jpg",
+      "unknown": "https://coin-images.coingecko.com/markets/images/7/small/u.png"
+    },
+    "logoImages": {
+      "EXCHANGE:binance": "https://coin-images.coingecko.com/markets/images/52/small/binance.jpg?1706864274",
+      "EXCHANGE:deribit_spot": "https://coin-images.coingecko.com/markets/images/1144/small/deribit-spot.jpg"
+    }
+  },
+  "detail": [
+    {
+      "body": {
+        "name": "LATOKEN",
+        "image": "https://coin-images.coingecko.com/markets/images/124/small/latoken.png?1706864301",
+        "tickers": []
+      },
+      "expected": "https://coin-images.coingecko.com/markets/images/124/small/latoken.png?1706864301"
+    },
+    {
+      "body": {
+        "name": "X",
+        "image": "https://coin-images.coingecko.com/markets/images/missing_small.png"
+      },
+      "expected": null
+    },
+    {
+      "body": {
+        "name": "Y"
+      },
+      "expected": null
+    }
+  ],
+  "nextPage": [
+    {
+      "page": 1,
+      "rows": 250,
+      "missing": 3,
+      "expected": true
+    },
+    {
+      "page": 1,
+      "rows": 250,
+      "missing": 0,
+      "expected": false
+    },
+    {
+      "page": 4,
+      "rows": 184,
+      "missing": 2,
+      "expected": false
+    },
+    {
+      "page": 5,
+      "rows": 250,
+      "missing": 2,
+      "expected": false
+    },
+    {
+      "page": 4,
+      "rows": 250,
+      "missing": 1,
+      "expected": true
+    }
+  ],
+  "retry": [
+    {
+      "complete": true,
+      "attemptAt": 1000,
+      "now": 172801000,
+      "expected": false
+    },
+    {
+      "complete": false,
+      "attemptAt": 1000,
+      "now": 86400999,
+      "expected": false
+    },
+    {
+      "complete": false,
+      "attemptAt": 1000,
+      "now": 86401000,
+      "expected": true
+    },
+    {
+      "complete": false,
+      "attemptAt": 0,
+      "now": 5000,
+      "expected": true
+    },
+    {
+      "complete": false,
+      "attemptAt": 9000,
+      "now": 5000,
+      "expected": true
+    }
+  ],
+  "perPage": 250,
+  "maxPages": 5
+}

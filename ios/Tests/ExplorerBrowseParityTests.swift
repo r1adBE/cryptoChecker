@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Übersicht von «Paar hinzufügen» (`Parity/explorer_browse.json`): Markt-Chips, «Zuletzt genutzte Börsen», «Beliebt»,
+/// Übersicht von «Paar hinzufügen» (`Parity/explorer_browse.json`): Markt-Chips, «Zuletzt genutzte Börsen»,
 /// Zeichen der Börsen und Börsen zum Suchtext. Gegenstück: `ExplorerBrowseParityTest.kt`.
 final class ExplorerBrowseParityTests: XCTestCase {
     private typealias S = TestSupport
@@ -29,18 +29,6 @@ final class ExplorerBrowseParityTests: XCTestCase {
             let decoded = ExplorerRecentExchanges.decode(c["text"] as? String)
             XCTAssertEqual(decoded, strings(c["expected"]), "\(c)")
             XCTAssertEqual(ExplorerRecentExchanges.decode(ExplorerRecentExchanges.encode(decoded)), decoded)
-        }
-    }
-
-    func testBeliebtePaare() throws {
-        let data = try S.fixture("explorer_browse")
-        XCTAssertEqual(S.number(data["popularCount"]).map { Int($0) }, ExplorerPopularPairs.count)
-        XCTAssertEqual(strings(data["popularExtra"]), ExplorerPopularPairs.extra)
-        for c in S.list(data["popular"]) {
-            let available = (c["available"] as? [String]).map { Set($0) }
-            let actual = ExplorerPopularPairs.pick(starter: strings(c["starter"]), fallback: strings(c["fallback"]),
-                                                   available: available)
-            XCTAssertEqual(actual, strings(c["expected"]), "\(c)")
         }
     }
 

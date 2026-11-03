@@ -13,7 +13,7 @@ HEIÐARLEGT UM GÖGNIN
 • Upphæðir fara aðeins af tækinu með útflutningi þínum eða kerfisafriti Android. Fyrir verð fara aðeins auðkenni paranna til kauphallar þeirra; auk þess gengi (Frankfurter), markaðsgögn og merki (CoinGecko, Binance), gagnaspeglar (GitHub). Ef þú vaktar vistföng eða xpub sjá opinberir blockchain-hnútar vistföngin (fyrir xpub þau útleiddu) og IP-töluna.
 
 VAKTLISTI
-• 81 markaður á 70 kauphöllum: spot og framvirkir samningar, DEX-tókar í gegnum DexScreener, að vali hlutabréf, gull og gjaldeyrir (TradFi)
+• 80 markaðir á 69 kauphöllum: spot og framvirkir samningar, DEX-tókar í gegnum DexScreener, að vali hlutabréf, gull og gjaldeyrir (TradFi)
 • Önnur lína „≈ virði“ í einum af 31 gjaldmiðli (EUR, CHF, USD …), umreiknað á gengi
 • Smágraf og %-breyting á 24 klst. eða frá 00:00 í þínu tímabelti
 • Hópar, uppáhöld, drag & drop og athugasemd á mynt

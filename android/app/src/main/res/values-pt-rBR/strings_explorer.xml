@@ -164,7 +164,6 @@
     <string name="explorer_section_futures">Futuros</string>
     <string name="explorer_section_forex">Forex (taxa de referência)</string>
     <string name="explorer_market_forex">Câmbio</string>
-    <string name="explorer_popular_title">Populares</string>
     <string name="explorer_recent_exchanges_title">Corretoras usadas recentemente</string>
     <string name="explorer_all_exchanges_title">Todas as corretoras</string>
     <string name="explorer_exchanges_title">Corretoras</string>

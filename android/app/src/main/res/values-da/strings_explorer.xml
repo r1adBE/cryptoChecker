@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_forex">Forex (referencekurs)</string>
     <string name="explorer_market_forex">Valuta</string>
-    <string name="explorer_popular_title">Populære</string>
     <string name="explorer_recent_exchanges_title">Senest brugte børser</string>
     <string name="explorer_all_exchanges_title">Alle børser</string>
     <string name="explorer_exchanges_title">Børser</string>

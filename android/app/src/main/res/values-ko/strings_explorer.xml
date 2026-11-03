@@ -138,7 +138,6 @@
     <string name="explorer_section_futures">선물</string>
     <string name="explorer_section_forex">외환(기준 환율)</string>
     <string name="explorer_market_forex">외환</string>
-    <string name="explorer_popular_title">인기</string>
     <string name="explorer_recent_exchanges_title">최근 사용한 거래소</string>
     <string name="explorer_all_exchanges_title">전체 거래소</string>
     <string name="explorer_exchanges_title">거래소</string>

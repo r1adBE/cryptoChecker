@@ -177,7 +177,6 @@
     <string name="explorer_section_futures">Kontrakty terminowe</string>
     <string name="explorer_section_forex">Forex (kurs referencyjny)</string>
     <string name="explorer_market_forex">Waluty</string>
-    <string name="explorer_popular_title">Popularne</string>
     <string name="explorer_recent_exchanges_title">Ostatnio używane giełdy</string>
     <string name="explorer_all_exchanges_title">Wszystkie giełdy</string>
     <string name="explorer_exchanges_title">Giełdy</string>

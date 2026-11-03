@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Фјучерси</string>
     <string name="explorer_section_forex">Форекс (референтен курс)</string>
     <string name="explorer_market_forex">Девизи</string>
-    <string name="explorer_popular_title">Популарно</string>
     <string name="explorer_recent_exchanges_title">Неодамна користени берзи</string>
     <string name="explorer_all_exchanges_title">Сите берзи</string>
     <string name="explorer_exchanges_title">Берзи</string>

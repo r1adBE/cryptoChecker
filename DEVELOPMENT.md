@@ -461,7 +461,6 @@ Rules:
 | MEXC Futures | – fallback candles | `riseFallRate` is the change since 00:00 UTC+8, not rolling; the day values in `riseFallRates` are not used either |
 | NDAX | – fallback candles | `percentChange` without documented window (like Paribu) |
 | NonKYC | – fallback candles | no documented rolling 24 h field |
-| OKX TR | `open24h` | price 24 h ago (like OKX) |
 | OKX, OKX Futures | `open24h` | price 24 h ago; `sodUtc0`/`sodUtc8` not used |
 | One Trading | `price_change_percentage` | percent |
 | Paribu | – fallback candles | `percentChange` is percent, but its window is not documented |
@@ -1368,6 +1367,9 @@ shared building blocks instead of styling numbers by hand:
   threshold) shows «Price unchanged since HH:MM» instead of a fresh time — in the row and in the
   widgets (not on pairs that are already outdated, deactivated or failing). Never stamp a price
   with the fetch time and present it as the exchange's time; alarms use none of these fields.
+  The healthy watchlist row shows only the exchange (the header names the age); «last trade … ago» follows only
+  when the exchange's trade time is more than max(refresh interval, 15 min) before the fetch
+  (`rowTradeAgeTime`, `tradeAgeShownAfterMillis`). The screen-reader sentence keeps the age on every row.
 
 ## 16. Portfolio and backup rules
 
@@ -2533,7 +2535,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `WatchlistEditController`, `WatchlistRefreshController`, plus the injected `WatchlistSheetData` (iOS: data helpers of
   `WatchlistRow`) and `WatchlistGroupFilter`; the screen collects one `WatchlistUiState` and the live-price map; explorer VM →
   `ExplorerSearchActions`, `ExplorerSelectionActions`, `ExplorerBulkActions`, `ExplorerDexActions`,
-  `ExplorerBrowseActions` (market chips, open/close an exchange, «Popular»; pure logic in `ExplorerBrowse`, views in
+  `ExplorerBrowseActions` (market chips, open/close an exchange; pure logic in `ExplorerBrowse`, views in
   `ExplorerBrowseUi`, both platforms); iOS
   `ExplorerRecentSearches`/`ExplorerQuickFilter` (as Android), `ExplorerPicker`, `ExplorerFeedback`; Android
   `ExplorerExchangePairs` (pairs of an opened exchange); market VM (`InfoViewModel` / `CycleViewModel`) → `MarketDataLoaders`,
@@ -3244,6 +3246,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   accordion and step UI removed; no extra price requests (privacy); shared overview cases for both platforms.
 * Build 187: 24 exchanges added (adapters, fixtures, recordings, privacy hosts); HTTP 451 shown as region-blocked;
   Binance TR and Tokocrypto built from docs/ccxt, not reachable from the build environment (owner tests via VPN).
+* Build 188: row age only for an old last trade (`PriceFreshness`, parity `rowTradeAge`); exchange logos from the
+  CoinGecko exchange lists (further pages only while gaps remain, 1-day retry), HashKey id unified; «Beliebt» removed; OKX TR removed.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

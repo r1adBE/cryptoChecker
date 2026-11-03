@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Ֆյուչերսներ</string>
     <string name="explorer_section_forex">Forex (հղումային փոխարժեք)</string>
     <string name="explorer_market_forex">Արտարժույթ</string>
-    <string name="explorer_popular_title">Հայտնի</string>
     <string name="explorer_recent_exchanges_title">Վերջերս օգտագործված բորսաներ</string>
     <string name="explorer_all_exchanges_title">Բոլոր բորսաները</string>
     <string name="explorer_exchanges_title">Բորսաներ</string>

@@ -78,7 +78,6 @@ class ExchangeKeyTest {
         Bit2Me() to "Bit2Me",
         Valr() to "Valr",
         WazirX() to "WazirX",
-        OkexTr() to "OkexTr",
         Quidax() to "Quidax",
         Buda() to "Buda",
         Swyftx() to "Swyftx",

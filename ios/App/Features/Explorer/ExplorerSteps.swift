@@ -10,7 +10,7 @@ extension ExplorerScreen {
     var exchangeHeader: some View {
         ExplorerStepCard {
             HStack(spacing: Spacing.md) {
-                ExplorerExchangeMarkView(name: vm.exchange?.name ?? "", size: 40)
+                ExplorerExchangeMarkView(key: vm.exchange?.key ?? "", name: vm.exchange?.name ?? "", size: 40)
                 Text(vm.exchange?.name ?? "")
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(AppColors.onSurface)

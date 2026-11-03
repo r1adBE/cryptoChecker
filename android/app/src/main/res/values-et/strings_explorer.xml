@@ -151,7 +151,6 @@
     <string name="explorer_section_futures">Futuurid</string>
     <string name="explorer_section_forex">Forex (viitekurss)</string>
     <string name="explorer_market_forex">Valuuta</string>
-    <string name="explorer_popular_title">Populaarsed</string>
     <string name="explorer_recent_exchanges_title">Hiljuti kasutatud börsid</string>
     <string name="explorer_all_exchanges_title">Kõik börsid</string>
     <string name="explorer_exchanges_title">Börsid</string>

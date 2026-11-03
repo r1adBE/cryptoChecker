@@ -12,6 +12,8 @@ import Foundation
 ///  - `unchangedSince`: nur OHNE Zeit der Börse — ist der Kurs länger als `unchangedAfterMillis`
 ///    gleich geblieben, zeigt die Zeile «Kurs unverändert seit HH:MM» statt frisch zu wirken.
 ///    Grenze: max(1 Stunde, Veraltet-Grenze aus `OutdatedRule`, also 3 × Intervall).
+///  - `rowTradeAgeTime`: die gesunde Zeile zeigt nur die Börse; «letzter Handel vor …» nur, wenn die Börse einen
+///    Handel deutlich vor dem Abruf meldet (max(Intervall, 15 Min.)).
 ///  - `nextPriceChangedAt`: neuer `priceChangedAt` nach einem erfolgreichen Abruf.
 /// `lastUpdate` bleibt der letzte erfolgreiche Abruf; Alarme nutzen nichts davon.
 /// Wie `PriceFreshness.kt` (Parity `price_freshness.json`).
@@ -29,10 +31,9 @@ enum PriceFreshness {
         freshnessTime(lastUpdate: watch.lastUpdate, exchangeTime: watch.exchangeTime)
     }
 
-    /// Zeit hinter der Börse in der gesunden Zeitzeile: `freshnessTime` wie das Widget — mit Zeit der Börse
-    /// «letzter Handel vor …» (`hasExchangeTime`), sonst «vor …» seit dem Abruf. Sonst wirkte ein stehender
-    /// Kurs nach jedem Abruf frisch. Deaktiviert, nicht mehr gehandelt oder noch nie abgefragt nil (dort steht
-    /// kein Alter — wie bei deaktiviert nur die Börse).
+    /// Alter des Kurses im Zeilensatz von VoiceOver: `freshnessTime` wie das Widget — mit Zeit der Börse
+    /// «letzter Handel vor …» (`hasExchangeTime`), sonst «vor …» seit dem Abruf. Sichtbar steht es nur noch über
+    /// `rowTradeAgeTime`. Deaktiviert, nicht mehr gehandelt oder noch nie abgefragt nil.
     static func rowAgeTime(_ watch: Watch) -> Int64? {
         guard !watch.disabled, !watch.isNotTraded, watch.lastUpdate > 0 else { return nil }
         return freshnessTime(watch)
@@ -40,6 +41,33 @@ enum PriceFreshness {
 
     /// Meldet die Börse eine eigene Zeit (letzter Handel)?
     static func hasExchangeTime(_ watch: Watch) -> Bool { (watch.exchangeTime ?? 0) > 0 }
+
+    /// Untergrenze, ab der der letzte Handel in der gesunden Zeile steht: 15 Minuten vor dem Abruf.
+    static let tradeAgeMinMillis: Int64 = 15 * 60_000
+
+    /// Veraltet-Grenze = 3 × Intervall (`OutdatedRule.afterMillis`).
+    private static let outdatedPerInterval: Int64 = 3
+
+    /// Ab diesem Abstand Abruf − letzter Handel nennt die gesunde Zeile «letzter Handel vor …»: max(Intervall, 15 Min.).
+    /// Das Intervall steckt in der Veraltet-Grenze (`OutdatedRule`: 3 × Intervall, mind. 15 Min.; live 2 Min.),
+    /// also max(15 Min., Grenze / 3).
+    static func tradeAgeShownAfterMillis(outdatedAfter: Int64) -> Int64 {
+        max(tradeAgeMinMillis, outdatedAfter / outdatedPerInterval)
+    }
+
+    /// Zeit des letzten Handels, wenn die gesunde Zeile ihn nennen soll («Binance · letzter Handel vor 40 Min.»): die
+    /// Börse meldet eine Zeit, die deutlich vor dem Abruf liegt (`tradeAgeShownAfterMillis`). Sonst nil — die Zeile
+    /// zeigt nur die Börse, das Alter steht im Kopf («Börsenkurse · vor 2 Min.»).
+    static func rowTradeAgeTime(lastUpdate: Int64, exchangeTime: Int64?, outdatedAfter: Int64) -> Int64? {
+        guard lastUpdate > 0, let exchangeTime, exchangeTime > 0 else { return nil }
+        return lastUpdate - exchangeTime > tradeAgeShownAfterMillis(outdatedAfter: outdatedAfter) ? exchangeTime : nil
+    }
+
+    /// Wie oben für ein Paar; deaktiviert oder nicht mehr gehandelt nie (dort steht anderes).
+    static func rowTradeAgeTime(_ watch: Watch, outdatedAfter: Int64) -> Int64? {
+        guard !watch.disabled, !watch.isNotTraded else { return nil }
+        return rowTradeAgeTime(lastUpdate: watch.lastUpdate, exchangeTime: watch.exchangeTime, outdatedAfter: outdatedAfter)
+    }
 
     /// Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt.
     enum StaleReason: String { case fetch = "FETCH", trade = "TRADE" }

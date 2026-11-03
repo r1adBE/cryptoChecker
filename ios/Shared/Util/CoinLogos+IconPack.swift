@@ -20,7 +20,7 @@ extension CoinLogos {
 
     /// Name eines Icons im Paket («btc»); nil bei TradFi oder ungültigem Kürzel — wie Android.
     static func bundledIconName(_ symbol: String) -> String? {
-        if symbol.hasPrefix(tradFiPrefix) { return nil }
+        if symbol.hasPrefix(tradFiPrefix) || symbol.hasPrefix(exchangePrefix) { return nil }
         let key = normalize(symbol)
         guard fileName(key) != nil else { return nil }
         return key.lowercased()

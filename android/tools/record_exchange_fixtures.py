@@ -328,11 +328,6 @@ EXCHANGES = [
      "single": "https://api.wazirx.com/sapi/v1/ticker/24hr?symbol=btcinr",
      "bulk": "https://api.wazirx.com/sapi/v1/tickers/24hr",
      "pairs": "https://api.wazirx.com/sapi/v1/exchangeInfo"},
-    # OKX TR: Paarliste aus den Instrumenten (gross), nur TRY
-    {"exchangeKey": "OkexTr", "pair": pair("BTC", "TRY", "BTC-TRY"),
-     "single": "https://tr.okx.com/api/v5/market/ticker?instId=BTC-TRY",
-     "bulk": "https://tr.okx.com/api/v5/market/tickers?instType=SPOT",
-     "pairs": "https://tr.okx.com/api/v5/public/instruments?instType=SPOT"},
     {"exchangeKey": "Quidax", "pair": pair("BTC", "NGN", "btcngn"),
      "single": "https://app.quidax.io/api/v1/markets/tickers/btcngn",
      "bulk": "https://app.quidax.io/api/v1/markets/tickers",

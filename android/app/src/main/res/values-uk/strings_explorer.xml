@@ -177,7 +177,6 @@
     <string name="explorer_section_futures">Ф’ючерси</string>
     <string name="explorer_section_forex">Forex (референсний курс)</string>
     <string name="explorer_market_forex">Валюти</string>
-    <string name="explorer_popular_title">Популярне</string>
     <string name="explorer_recent_exchanges_title">Нещодавні біржі</string>
     <string name="explorer_all_exchanges_title">Усі біржі</string>
     <string name="explorer_exchanges_title">Біржі</string>

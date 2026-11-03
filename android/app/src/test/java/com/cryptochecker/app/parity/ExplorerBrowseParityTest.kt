@@ -3,7 +3,6 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.ui.features.explorer.ExchangeMark
 import com.cryptochecker.app.ui.features.explorer.ExchangeSearch
 import com.cryptochecker.app.ui.features.explorer.MarketFilter
-import com.cryptochecker.app.ui.features.explorer.PopularPairs
 import com.cryptochecker.app.ui.features.explorer.RecentExchanges
 import com.cryptochecker.marketdata.model.ExchangeCategory
 import org.junit.Assert.assertEquals
@@ -11,7 +10,7 @@ import org.junit.Test
 
 /**
  * Übersicht von «Paar hinzufügen» (`testdata/parity/explorer_browse.json`): Markt-Chips, «Zuletzt genutzte Börsen»,
- * «Beliebt», Zeichen der Börsen und Börsen zum Suchtext. Gegenstück: `Tests/ExplorerBrowseParityTests.swift`.
+ * Zeichen der Börsen und Börsen zum Suchtext. Gegenstück: `Tests/ExplorerBrowseParityTests.swift`.
  */
 class ExplorerBrowseParityTest {
 
@@ -41,17 +40,6 @@ class ExplorerBrowseParityTest {
             val decoded = RecentExchanges.decode(c["text"] as String)
             assertEquals(c.toString(), strings(c["expected"]), decoded)
             assertEquals(decoded, RecentExchanges.decode(RecentExchanges.encode(decoded)))
-        }
-    }
-
-    @Test
-    fun beliebtePaare() {
-        assertEquals(fixture["popularCount"].num()!!.toInt(), PopularPairs.COUNT)
-        assertEquals(strings(fixture["popularExtra"]), PopularPairs.EXTRA)
-        for (c in fixture["popular"].list().map { it.obj() }) {
-            val available = c["available"]?.let { strings(it).toSet() }
-            val actual = PopularPairs.pick(strings(c["starter"]), strings(c["fallback"]), available)
-            assertEquals(c.toString(), strings(c["expected"]), actual)
         }
     }
 

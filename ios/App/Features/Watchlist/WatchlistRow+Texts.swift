@@ -5,7 +5,8 @@ import UIKit
 // VoiceOver-Satz. Eigene Datei neben `WatchlistRow.swift` (Anordnung, Gesten, Moment «Erst-Hinzufügen»).
 
 extension WatchlistRow {
-    /// Zeitzeile: aktuell «Binance · vor 3 Min.», nicht aktuell
+    /// Zeitzeile: aktuell nur «Binance» (das Alter steht im Kopf), letzter Handel laut Börse deutlich vor dem Abruf
+    /// «Binance · letzter Handel vor 40 Min.»; nicht aktuell
     /// «Binance · vor 13 Min.» (wie Android); letzte Abfrage gescheitert
     /// «Vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
     /// «Binance · veraltet · vor 4 Min.»; Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre,
@@ -31,8 +32,8 @@ extension WatchlistRow {
         guard stale else {
             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (`PriceFreshness`)
             if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.exchangeName)) · \(unchanged)", false, unchanged) }
-            // Aktuell: Alter klein dahinter («Binance · vor 3 Min.» bzw. «Binance · letzter Handel vor 90 Min.», Zeit
-            // der Börse wie das Widget) — der Kopf nennt nur die jüngste Zeit (wie Android)
+            // Aktuell: nur die Börse, das Alter steht im Kopf («Börsenkurse · vor 2 Min.»); nur ein deutlich älterer
+            // letzter Handel laut Börse steht dahinter («Binance · letzter Handel vor 40 Min.») — wie Android
             if let age = ageText { return ("\(BidiText.isolate(watch.exchangeName)) · \(age)", false, nil) }
             return (watch.exchangeName, false, nil)
         }
@@ -48,20 +49,20 @@ extension WatchlistRow {
         return L("watchlist_row_last_trade_age", WatchlistTime.ago(watch.exchangeTime ?? 0, now: now))
     }
 
-    /// Alter der gesunden Zeitzeile: «letzter Handel vor 90 Min.» mit Zeit der Börse, sonst «vor 3 Min.» seit dem
-    /// Abruf (`PriceFreshness.rowAgeTime`, wie das Widget). Wie Android `WatchRowStatus.age`.
+    /// Sichtbares Alter der gesunden Zeitzeile: nur «letzter Handel vor 40 Min.», wenn die Börse einen Handel deutlich
+    /// vor dem Abruf meldet (`PriceFreshness.rowTradeAgeTime`); sonst nil. Wie Android `WatchRowStatus.age`.
     private var ageText: String? {
-        guard let time = PriceFreshness.rowAgeTime(watch) else { return nil }
-        let ago = WatchlistTime.ago(time, now: now)
-        return PriceFreshness.hasExchangeTime(watch) ? L("watchlist_row_last_trade_age", ago) : ago
+        guard let time = PriceFreshness.rowTradeAgeTime(watch, outdatedAfter: staleAfter) else { return nil }
+        return L("watchlist_row_last_trade_age", WatchlistTime.ago(time, now: now))
     }
 
-    /// Im Zeilensatz nur der letzte Handel (gesunde Zeile); das Alter des Abrufs sagt schon die Frische.
-    /// Wie Android `WatchRowStatus.spokenAge`.
+    /// Im Zeilensatz der letzte Handel laut Börse bei jeder gesunden Zeile mit Zeit der Börse
+    /// (`PriceFreshness.rowAgeTime`); das Alter des Abrufs sagt schon die Frische, den Kopf liest VoiceOver nicht
+    /// mit jeder Zeile. Wie Android `WatchRowStatus.spokenAge`.
     private var spokenTradeAge: String? {
         guard !off, PriceFreshness.hasExchangeTime(watch), !stale, unchangedText == nil,
-              !timeLine.warning else { return nil }
-        return ageText
+              !timeLine.warning, let time = PriceFreshness.rowAgeTime(watch) else { return nil }
+        return L("watchlist_row_last_trade_age", WatchlistTime.ago(time, now: now))
     }
 
     /// «Binance · pausiert bis 19:45» (`RowPause`); nil = Börse nicht pausiert.

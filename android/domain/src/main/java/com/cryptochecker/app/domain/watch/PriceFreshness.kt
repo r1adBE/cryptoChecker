@@ -16,6 +16,8 @@ import com.cryptochecker.app.domain.alarm.AlarmFreshness
  *  - [unchangedSince]: nur OHNE Zeit der Börse — ist der Kurs länger als [unchangedAfterMillis]
  *    gleich geblieben, zeigt die Zeile «Kurs unverändert seit HH:MM» statt frisch zu wirken.
  *    Grenze: max(1 Stunde, Veraltet-Grenze aus `OutdatedRule`, also 3 × Intervall).
+ *  - [rowTradeAgeTime]: die gesunde Zeile zeigt nur die Börse; «letzter Handel vor …» nur, wenn die Börse einen
+ *    Handel deutlich vor dem Abruf meldet (max(Intervall, 15 Min.)).
  *  - [nextPriceChangedAt]: neuer `priceChangedAt` nach einem erfolgreichen Abruf.
  * `lastUpdate` bleibt der letzte erfolgreiche Abruf; Alarme nutzen nichts davon.
  * Reine Logik ohne Android (PriceFreshnessTest, Parity `testdata/parity/price_freshness.json`,
@@ -26,6 +28,9 @@ object PriceFreshness {
     /** Untergrenze für «Kurs unverändert seit»: 1 Stunde. */
     const val UNCHANGED_MIN_MILLIS = 60 * 60_000L
 
+    /** Veraltet-Grenze = 3 × Intervall ([com.cryptochecker.app.domain.refresh.OutdatedRule.afterMillis]). */
+    private const val OUTDATED_PER_INTERVAL = 3L
+
     /** Zeitpunkt für Alter und «veraltet»: Zeit der Börse, sonst letzter erfolgreicher Abruf. */
     fun freshnessTime(lastUpdate: Long, exchangeTime: Long?): Long =
         exchangeTime?.takeIf { it > 0 } ?: lastUpdate
@@ -33,16 +38,41 @@ object PriceFreshness {
     fun freshnessTime(watch: WatchEntity): Long = freshnessTime(watch.lastUpdate, watch.exchangeTime)
 
     /**
-     * Zeit hinter der Börse in der gesunden Zeitzeile: [freshnessTime] wie das Widget — mit Zeit der Börse
-     * «letzter Handel vor …» ([hasExchangeTime]), sonst «vor …» seit dem Abruf. Sonst wirkte ein stehender
-     * Kurs nach jedem Abruf frisch. Deaktiviert, nicht mehr gehandelt oder noch nie abgefragt null (dort steht
-     * kein Alter — wie bei deaktiviert nur die Börse).
+     * Alter des Kurses im Zeilensatz des Screenreaders: [freshnessTime] wie das Widget — mit Zeit der Börse
+     * «letzter Handel vor …» ([hasExchangeTime]), sonst «vor …» seit dem Abruf. Sichtbar steht es nur noch über
+     * [rowTradeAgeTime]. Deaktiviert, nicht mehr gehandelt oder noch nie abgefragt null.
      */
     fun rowAgeTime(watch: WatchEntity): Long? =
         if (watch.disabled || watch.isNotTraded || watch.lastUpdate <= 0) null else freshnessTime(watch)
 
     /** Meldet die Börse eine eigene Zeit (letzter Handel)? */
     fun hasExchangeTime(watch: WatchEntity): Boolean = (watch.exchangeTime ?: 0L) > 0
+
+    /** Untergrenze, ab der der letzte Handel in der gesunden Zeile steht: 15 Minuten vor dem Abruf. */
+    const val TRADE_AGE_MIN_MILLIS = 15 * 60_000L
+
+    /**
+     * Ab diesem Abstand Abruf − letzter Handel nennt die gesunde Zeile «letzter Handel vor …»: max(Intervall, 15 Min.).
+     * Das Intervall steckt in der Veraltet-Grenze ([com.cryptochecker.app.domain.refresh.OutdatedRule]: 3 × Intervall,
+     * mind. 15 Min.; live 2 Min.), also max(15 Min., Grenze / 3).
+     */
+    fun tradeAgeShownAfterMillis(outdatedAfterMillis: Long): Long =
+        maxOf(TRADE_AGE_MIN_MILLIS, outdatedAfterMillis / OUTDATED_PER_INTERVAL)
+
+    /**
+     * Zeit des letzten Handels, wenn die gesunde Zeile ihn nennen soll («Binance · letzter Handel vor 40 Min.»): die
+     * Börse meldet eine Zeit, die deutlich vor dem Abruf liegt ([tradeAgeShownAfterMillis]). Sonst null — die Zeile
+     * zeigt nur die Börse, das Alter steht im Kopf («Börsenkurse · vor 2 Min.»).
+     */
+    fun rowTradeAgeTime(lastUpdate: Long, exchangeTime: Long?, outdatedAfterMillis: Long): Long? {
+        if (lastUpdate <= 0 || exchangeTime == null || exchangeTime <= 0) return null
+        return exchangeTime.takeIf { lastUpdate - it > tradeAgeShownAfterMillis(outdatedAfterMillis) }
+    }
+
+    /** Wie oben für ein Paar; deaktiviert oder nicht mehr gehandelt nie (dort steht anderes). */
+    fun rowTradeAgeTime(watch: WatchEntity, outdatedAfterMillis: Long): Long? =
+        if (watch.disabled || watch.isNotTraded) null
+        else rowTradeAgeTime(watch.lastUpdate, watch.exchangeTime, outdatedAfterMillis)
 
     /** Warum ein Kurs «veraltet» ist: Abruf zu alt bzw. letzter Handel laut Börse zu alt. */
     enum class StaleReason { FETCH, TRADE }
