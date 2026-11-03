@@ -94,7 +94,16 @@ final class WatchPairsParityTests: XCTestCase {
                                    time: Int64(TestSupport.number(o["time"]) ?? 0))
         }
         let picked = WatchPhoneQuotes.pick(rows, coins: strings(p["coins"]))
-        XCTAssertEqual(picked, expected, p["name"] as? String ?? "")
+        // Kurse mit Toleranz: die Umrechnung darf in der letzten Stelle von Android abweichen (0.07 vs 0.07000000000000003)
+        XCTAssertEqual(picked.count, expected.count, p["name"] as? String ?? "")
+        for (got, want) in zip(picked, expected) {
+            XCTAssertEqual(got.symbol, want.symbol)
+            XCTAssertEqual(got.price, want.price, accuracy: abs(want.price) * 1e-9)
+            XCTAssertEqual(got.change24h == nil, want.change24h == nil)
+            if let g = got.change24h, let w = want.change24h { XCTAssertEqual(g, w, accuracy: 1e-9) }
+            XCTAssertEqual(got.exchange, want.exchange)
+            XCTAssertEqual(got.time, want.time)
+        }
         XCTAssertEqual(WatchPhoneQuotes.fromJson(WatchPhoneQuotes.toJson(picked)), picked)
     }
 
