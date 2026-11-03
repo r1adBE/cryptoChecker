@@ -82,7 +82,7 @@ final class MissingEntryNotTradedTests: XCTestCase {
             XCTAssertEqual(actual, c["confirm"] as? Bool, c["name"] as? String ?? "")
         }
         let flagged = ExchangesConfig.all.filter(\.singleTickerReadsFullList)
-        XCTAssertEqual(Set(flagged.map(\.key)), ["Lighter", "Hyperliquid"])
+        XCTAssertEqual(Set(flagged.map(\.key)), ["Lighter", "Hyperliquid", "Bitpanda", "CoinSpot", "Ndax"])
         // Nur sinnvoll, wo die Liste vollständig ist
         XCTAssertTrue(flagged.allSatisfy(\.bulkTickersComplete))
     }

@@ -81,7 +81,7 @@ class MissingEntryNotTradedTest {
     }
 
     /**
-     * Ausserhalb des Sammelpfads: nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid) oder der
+     * Ausserhalb des Sammelpfads: nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid, Bitpanda, CoinSpot, NDAX) oder der
      * Laufzeit-Kontrakt abgelaufen ist.
      */
     @Test
@@ -93,7 +93,7 @@ class MissingEntryNotTradedTest {
             assertEquals(c["name"] as String, c["confirm"], actual)
         }
         val flagged = ExchangesConfig.EXCHANGES.values.filter { it.singleTickerReadsFullList }
-        assertEquals(setOf("Lighter", "Hyperliquid"), flagged.map { it.key }.toSet())
+        assertEquals(setOf("Lighter", "Hyperliquid", "Bitpanda", "CoinSpot", "Ndax"), flagged.map { it.key }.toSet())
         // Nur sinnvoll, wo die Liste vollständig ist
         assertTrue(flagged.all { it.bulkTickersComplete })
     }
