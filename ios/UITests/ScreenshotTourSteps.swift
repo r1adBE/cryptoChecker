@@ -110,12 +110,14 @@ extension ScreenshotTourTests {
         try require(app.navigationBars["Last refresh"].waitForExistence(timeout: uiTimeout), "refresh report missing")
     }
 
-    /// Merkliste › «+» (Paar hinzufügen).
+    /// Merkliste › «+» (Paar hinzufügen): Suchfeld, Markt-Chips und die Übersicht der Börsen («Alle Börsen»).
     @MainActor
     func openExplorer(_ app: XCUIApplication) throws {
         try toWatchlist(app)
         try tap(app, UiTestTags.watchlistAddPair)
         try requireTag(app, UiTestTags.explorerSearch)
+        try requireTag(app, UiTestTags.explorerMarket("ALL"))
+        try requireTag(app, UiTestTags.explorerExchange("Binance"))
     }
 
     /// Menü «More options» der Merkliste öffnen und den Eintrag `label` wählen.

@@ -52,7 +52,6 @@
         <item quantity="other">%1$d pares · atualizado %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pares</string>
-    <string name="explorer_precise_title">Avançado / por exchange</string>
     <string name="explorer_price_loading">A carregar preço…</string>
     <string name="explorer_select_exchange_hint">Escolhe uma exchange – os pares carregam automaticamente.</string>
     <string name="explorer_select_placeholder">Seleciona</string>
@@ -163,7 +162,11 @@
     <string name="bulk_undo_expired">Já não é possível anular – os pares ficam na lista de acompanhamento.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futuros</string>
-    <string name="explorer_section_dex">Pools DEX</string>
     <string name="explorer_section_forex">Forex (taxa de referência)</string>
+    <string name="explorer_market_forex">Divisas</string>
+    <string name="explorer_popular_title">Populares</string>
+    <string name="explorer_recent_exchanges_title">Plataformas usadas recentemente</string>
+    <string name="explorer_all_exchanges_title">Todas as plataformas</string>
+    <string name="explorer_exchanges_title">Plataformas</string>
     <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes.</string>
 </resources>

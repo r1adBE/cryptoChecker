@@ -30,6 +30,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.exchange.DexPool
 import com.cryptochecker.marketdata.util.DisplayFormat
 
@@ -156,10 +157,16 @@ private fun formatDexPrice(value: Double): String = when {
 /** Treffer «DexScreener» der Coin-Suche: [name] der Börse, [match] der getippte DEX-Name und der übrige Suchtext. */
 class DexSearchHit(val name: String, val match: DexNames.Match)
 
-/** DexScreener-Treffer zum Suchtext, sofern DexScreener angeboten wird («Token & TradFi»); null = keiner. */
-internal fun dexSearchHit(query: String, selection: ExplorerSelection): DexSearchHit? {
+/**
+ * DexScreener-Treffer zum Suchtext, sofern DexScreener angeboten wird («Token & TradFi») und der Markt-Chip DEX zulässt;
+ * mit dem Chip «DEX» auch ohne DEX-Namen (der ganze Suchtext geht in die DEX-Suche). null = keiner.
+ */
+internal fun dexSearchHit(query: String, selection: ExplorerSelection, market: MarketFilter = MarketFilter.ALL): DexSearchHit? {
     val dex = selection.exchanges.firstOrNull { it.key == DEX_EXCHANGE_KEY } ?: return null
-    return DexNames.match(query)?.let { DexSearchHit(dex.name, it) }
+    if (!market.allows(ExchangeCategory.DEX)) return null
+    val match = DexNames.match(query)
+        ?: query.trim().takeIf { market == MarketFilter.DEX && it.isNotEmpty() }?.let { DexNames.Match(null, it) }
+    return match?.let { DexSearchHit(dex.name, it) }
 }
 
 /**

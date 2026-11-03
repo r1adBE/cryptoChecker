@@ -44,7 +44,6 @@
         <item quantity="other">%1$d cặp · cập nhật %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Cặp</string>
-    <string name="explorer_precise_title">Nâng cao / theo sàn</string>
     <string name="explorer_price_loading">Đang tải giá…</string>
     <string name="explorer_select_exchange_hint">Chọn một sàn – các cặp sẽ tự động tải.</string>
     <string name="explorer_select_placeholder">Vui lòng chọn</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">Không thể hoàn tác nữa – các cặp vẫn ở trong danh sách theo dõi.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Hợp đồng tương lai</string>
-    <string name="explorer_section_dex">Pool DEX</string>
     <string name="explorer_section_forex">Ngoại hối (tỷ giá tham chiếu)</string>
+    <string name="explorer_market_forex">Ngoại hối</string>
+    <string name="explorer_popular_title">Phổ biến</string>
+    <string name="explorer_recent_exchanges_title">Sàn dùng gần đây</string>
+    <string name="explorer_all_exchanges_title">Tất cả các sàn</string>
+    <string name="explorer_exchanges_title">Sàn</string>
     <string name="explorer_forex_hint">Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu (qua Frankfurter), không trực tiếp – không có cảnh báo.</string>
 </resources>

@@ -29,8 +29,8 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 /**
- * Zustand der Seite «Paar hinzufügen»: Coin-Suche (Coin zuerst, dann seine Paare über alle Börsen), die
- * Auswahl «Erweitert / nach Börse» (Börse → Coin → Gegenwährung), «Alle …-Paare», DEX-Suche und das
+ * Zustand der Seite «Paar hinzufügen»: Coin-Suche (Coin zuerst, dann seine Paare über alle Börsen), Markt-Chips,
+ * «Beliebt», die Börsen und darin die Paar-Auswahl (Börse → Coin → Gegenwährung), «Alle …-Paare», DEX-Suche und das
  * Übernehmen in die Merkliste.
  *
  * Datenschutz der Suche: Sie läuft nur auf dem Gerät — gespeicherte Paarlisten und das Namensverzeichnis.
@@ -164,6 +164,15 @@ class ExplorerViewModel @Inject constructor(
     /** Stand der Paarlisten für die Suche (fehlende, Laden). */
     val searchLists: StateFlow<SearchLists> = lists.asStateFlow()
 
+    /** Markt-Chip über Börsen und Treffern ([setMarketFilter]); «Alle» zu Beginn. */
+    val marketFilter: StateFlow<MarketFilter> = hits.market.asStateFlow()
+
+    /** «Beliebt»: rund sechs Paare der Start-Börse, ein Tipp nimmt sie auf ([PopularPairs]). */
+    val popularPairs: StateFlow<List<SearchHit>> = hits.popular.asStateFlow()
+
+    /** «Zuletzt genutzte Börsen» (Schlüssel, neueste zuerst), nur auf dem Gerät. */
+    val recentExchanges: StateFlow<List<String>> = recentSearchStore.exchanges
+
     /** «Zuletzt gesucht» (höchstens 8, neueste zuerst) als Chips unter dem leeren Suchfeld. */
     val recentSearches: StateFlow<List<String>> = recentSearchStore.items
 
@@ -293,6 +302,8 @@ class ExplorerViewModel @Inject constructor(
             val selected = exchange.value
             if (selected != null && selected !in exchangeList) exchange.value = null
 
+            // «Beliebt» aus der gespeicherten Liste der Start-Börse (kein Abruf)
+            refreshPopular(exchangeList, scope)
             ExplorerLoad.Ready(buildSelection(exchangeList, categories))
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ExplorerLoad.Loading)

@@ -48,7 +48,6 @@
         <item quantity="other">%1$d pare · bygewerk %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pare</string>
-    <string name="explorer_precise_title">Gevorderd / per beurs</string>
     <string name="explorer_price_loading">Laai prys…</string>
     <string name="explorer_select_exchange_hint">Kies \'n beurs – sy handelspare laai outomaties.</string>
     <string name="explorer_select_placeholder">Kies asseblief</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Ontdoen is nie meer moontlik nie – die pare bly in die volglys.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX-poele</string>
     <string name="explorer_section_forex">Forex (verwysingskoers)</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">Gewild</string>
+    <string name="explorer_recent_exchanges_title">Onlangs gebruikte beurse</string>
+    <string name="explorer_all_exchanges_title">Alle beurse</string>
+    <string name="explorer_exchanges_title">Beurse</string>
     <string name="explorer_forex_hint">Daaglikse koers van die Europese Sentrale Bank (via Frankfurter), nie regstreeks nie – geen alarms nie.</string>
 </resources>

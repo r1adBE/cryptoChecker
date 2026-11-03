@@ -48,7 +48,6 @@
         <item quantity="other">%1$d хос · шинэчилсэн %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Хос</string>
-    <string name="explorer_precise_title">Нарийвчилсан / биржээр</string>
     <string name="explorer_price_loading">Ханш ачаалж байна…</string>
     <string name="explorer_select_exchange_hint">Бирж сонгоно уу – түүний арилжааны хос автоматаар ачаалагдана.</string>
     <string name="explorer_select_placeholder">Сонгоно уу</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Буцаах боломжгүй болсон – хосууд ажиглах жагсаалтад үлдэнэ.</string>
     <string name="explorer_section_spot">Спот</string>
     <string name="explorer_section_futures">Фьючерс</string>
-    <string name="explorer_section_dex">DEX пул</string>
     <string name="explorer_section_forex">Forex (лавлах ханш)</string>
+    <string name="explorer_market_forex">Валют</string>
+    <string name="explorer_popular_title">Түгээмэл</string>
+    <string name="explorer_recent_exchanges_title">Саяхан ашигласан биржүүд</string>
+    <string name="explorer_all_exchanges_title">Бүх бирж</string>
+    <string name="explorer_exchanges_title">Биржүүд</string>
     <string name="explorer_forex_hint">Европын Төв Банкны өдрийн ханш (Frankfurter-ээр), шууд биш – дохио алга.</string>
 </resources>

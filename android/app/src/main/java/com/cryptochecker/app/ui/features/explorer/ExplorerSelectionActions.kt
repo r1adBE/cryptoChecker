@@ -1,6 +1,6 @@
-// Auswahl «Erweitert / nach Börse» (Teil von `ExplorerViewModel`): Börse, Coin, Gegenwährung, Laufzeit,
+// Paar-Auswahl einer geöffneten Börse (Teil von `ExplorerViewModel`): Börse, Coin, Gegenwährung, Laufzeit,
 // Paarliste neu laden, Kurs erneut holen und das gewählte Paar hinzufügen.
-// Eigene Datei, weil der Schritt-für-Schritt-Ablauf eine eigene Aufgabe ist; Erweiterungsfunktionen auf dem
+// Eigene Datei, weil die Auswahl nach Börse eine eigene Aufgabe ist; Erweiterungsfunktionen auf dem
 // ViewModel (wie `ExplorerSelectionActions.swift`).
 package com.cryptochecker.app.ui.features.explorer
 

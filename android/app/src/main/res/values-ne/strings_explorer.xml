@@ -48,7 +48,6 @@
         <item quantity="other">%1$d जोडीहरू · %2$s मा अपडेट गरिएको</item>
     </plurals>
     <string name="explorer_pairs_title">जोडीहरू</string>
-    <string name="explorer_precise_title">उन्नत / एक्सचेन्जअनुसार</string>
     <string name="explorer_price_loading">मूल्य लोड हुँदैछ…</string>
     <string name="explorer_select_exchange_hint">एक्सचेन्ज छान्नुहोस् – त्यसका ट्रेडिङ जोडीहरू आफैं लोड हुन्छन्।</string>
     <string name="explorer_select_placeholder">कृपया छान्नुहोस्</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">अब अनडू सम्भव छैन – जोडीहरू वाचलिस्टमा रहन्छन्।</string>
     <string name="explorer_section_spot">स्पट</string>
     <string name="explorer_section_futures">फ्युचर्स</string>
-    <string name="explorer_section_dex">DEX पूलहरू</string>
     <string name="explorer_section_forex">फरेक्स (सन्दर्भ दर)</string>
+    <string name="explorer_market_forex">फरेक्स</string>
+    <string name="explorer_popular_title">लोकप्रिय</string>
+    <string name="explorer_recent_exchanges_title">हालै प्रयोग गरिएका एक्सचेन्जहरू</string>
+    <string name="explorer_all_exchanges_title">सबै एक्सचेन्ज</string>
+    <string name="explorer_exchanges_title">एक्सचेन्जहरू</string>
     <string name="explorer_forex_hint">युरोपेली केन्द्रीय बैंकको दैनिक दर (Frankfurter मार्फत), लाइभ होइन – अलर्ट छैन।</string>
 </resources>

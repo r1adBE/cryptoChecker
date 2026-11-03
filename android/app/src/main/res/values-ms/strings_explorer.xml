@@ -44,7 +44,6 @@
         <item quantity="other">%1$d pasangan · dikemas kini %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pasangan</string>
-    <string name="explorer_precise_title">Lanjutan / mengikut bursa</string>
     <string name="explorer_price_loading">Memuatkan harga…</string>
     <string name="explorer_select_exchange_hint">Pilih bursa – pasangan dagangannya dimuatkan secara automatik.</string>
     <string name="explorer_select_placeholder">Sila pilih</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">Buat asal tidak lagi boleh – pasangan kekal dalam senarai pantau.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Niaga hadapan</string>
-    <string name="explorer_section_dex">Kolam DEX</string>
     <string name="explorer_section_forex">Forex (kadar rujukan)</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">Popular</string>
+    <string name="explorer_recent_exchanges_title">Bursa yang baru digunakan</string>
+    <string name="explorer_all_exchanges_title">Semua bursa</string>
+    <string name="explorer_exchanges_title">Bursa</string>
     <string name="explorer_forex_hint">Kadar harian Bank Pusat Eropah (melalui Frankfurter), bukan langsung – tiada amaran.</string>
 </resources>

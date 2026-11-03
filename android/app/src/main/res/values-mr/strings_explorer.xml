@@ -48,7 +48,6 @@
         <item quantity="other">%1$d जोड्या · %2$s अपडेट</item>
     </plurals>
     <string name="explorer_pairs_title">जोड्या</string>
-    <string name="explorer_precise_title">प्रगत / एक्सचेंजनुसार</string>
     <string name="explorer_price_loading">किंमत लोड होत आहे…</string>
     <string name="explorer_select_exchange_hint">एक्सचेंज निवडा – त्याच्या ट्रेडिंग जोड्या आपोआप लोड होतात.</string>
     <string name="explorer_select_placeholder">कृपया निवडा</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">पूर्ववत करणे आता शक्य नाही – जोड्या वॉचलिस्टमध्ये राहतात.</string>
     <string name="explorer_section_spot">स्पॉट</string>
     <string name="explorer_section_futures">फ्युचर्स</string>
-    <string name="explorer_section_dex">DEX पूल</string>
     <string name="explorer_section_forex">फॉरेक्स (संदर्भ दर)</string>
+    <string name="explorer_market_forex">फॉरेक्स</string>
+    <string name="explorer_popular_title">लोकप्रिय</string>
+    <string name="explorer_recent_exchanges_title">अलीकडे वापरलेली एक्सचेंज</string>
+    <string name="explorer_all_exchanges_title">सर्व एक्सचेंज</string>
+    <string name="explorer_exchanges_title">एक्सचेंज</string>
     <string name="explorer_forex_hint">युरोपियन सेंट्रल बँकेचा दैनिक दर (Frankfurter द्वारे), लाइव्ह नाही – अलर्ट नाहीत.</string>
 </resources>

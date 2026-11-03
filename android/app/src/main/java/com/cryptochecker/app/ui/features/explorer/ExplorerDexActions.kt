@@ -57,13 +57,15 @@ fun ExplorerViewModel.clearDexMessage() {
 }
 
 /**
- * Treffer «DexScreener» der Coin-Suche angetippt («uniswap pepe»): Suche leeren, DexScreener wählen und die DEX-Suche
+ * Treffer «DexScreener» der Coin-Suche angetippt («uniswap pepe»): Suche leeren, DexScreener öffnen (auch unter
+ * «Zuletzt genutzte Börsen») und die DEX-Suche
  * mit dem übrigen Suchtext [token] vorbelegen (leer = leeres Feld). Gesucht wird erst auf «Suchen».
  */
 fun ExplorerViewModel.openDexSearch(token: String) {
     val selection = (pageState.value as? ExplorerLoad.Ready)?.selection ?: return
     val target = selection.exchanges.firstOrNull { it.key == DEX_KEY } ?: return
     setSearchQuery("")
+    recentSearchStore.addExchange(target.key)
     selectExchange(target)
     dex.prefill.value = DexPrefill(token, (dex.prefill.value?.serial ?: 0) + 1)
 }

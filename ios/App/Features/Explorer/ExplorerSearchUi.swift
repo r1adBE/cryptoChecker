@@ -104,8 +104,9 @@ extension ExplorerScreen {
     var searchResults: some View {
         let pairs = vm.showPairHits ? vm.pairHits : []
         let busy = vm.searchLists.reading || vm.searchLists.progress != nil
+        let exchanges = exchangeHits
         return VStack(alignment: .leading, spacing: 8) {
-            if vm.coinHits.isEmpty && pairs.isEmpty && vm.dexSearchHit == nil && !busy {
+            if vm.coinHits.isEmpty && pairs.isEmpty && vm.dexSearchHit == nil && exchanges.isEmpty && !busy {
                 VStack(spacing: Spacing.sm) {
                     HStack(spacing: Spacing.sm) {
                         Image(systemName: "magnifyingglass")
@@ -114,11 +115,10 @@ extension ExplorerScreen {
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     // Der Weg nach Börse bleibt erreichbar, ohne erst das Suchfeld zu leeren (wie Android)
+                    // Suche leeren: die Übersicht der Börsen zeigt sich
                     Button(L("explorer_search_choose_manually")) {
-                        vm.setSearchQuery("")
                         searchFocused = false
-                        ExplorerSectionMemory.precise = true
-                        withAnimation(.snappy(duration: 0.3)) { showPrecise = true }
+                        withAnimation(.snappy(duration: 0.3)) { vm.setSearchQuery("") }
                     }
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(accent.primary)
@@ -134,6 +134,12 @@ extension ExplorerScreen {
                         coinRow(coin)
                     }
                 }
+            }
+            // Börsen, die der Suchtext nennt: antippen öffnet ihre Paare (wie Android)
+            if !exchanges.isEmpty {
+                sectionLabel(L("explorer_exchanges_title"))
+                    .padding(.top, Spacing.sm)
+                exchangeRows(exchanges)
             }
             // DEX-Pools gibt es nur über DexScreener: beim Namen einer DEX gleich den Weg dorthin zeigen (wie Android)
             if let hit = vm.dexSearchHit {
@@ -221,7 +227,7 @@ extension ExplorerScreen {
     }
 
     /// Kleine Überschrift über einem Abschnitt der Treffer.
-    private func sectionLabel(_ text: String) -> some View {
+    func sectionLabel(_ text: String) -> some View {
         Text(text)
             .font(.footnote.weight(.semibold))
             .foregroundStyle(AppColors.onSurfaceVariant)
@@ -230,9 +236,13 @@ extension ExplorerScreen {
             .accessibilityAddTraits(.isHeader)
     }
 
-    /// Fehlende Paarlisten mit «Listen laden», beim Laden der Fortschritt (`ExplorerListsOffer`).
+    /// Fehlende Paarlisten mit «Listen laden», beim Laden der Fortschritt (`ExplorerListsOffer`). Unter «DEX» keines:
+    /// DEX-Pools haben keine Paarlisten (wie Android).
+    @ViewBuilder
     private var listsOffer: some View {
-        ExplorerListsOffer(lists: vm.searchLists) { vm.loadMissingLists() }
+        if vm.marketFilter != .dex {
+            ExplorerListsOffer(lists: vm.searchLists) { vm.loadMissingLists() }
+        }
     }
 
     /// Ein Coin: Plakette, Name und Kürzel, darunter an wie vielen Börsen (oder «noch nicht geladen»).
@@ -307,7 +317,7 @@ extension ExplorerScreen {
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.large, style: .continuous))
     }
 
-    private func searchHitRow(_ hit: ExplorerSearchHit) -> some View {
+    func searchHitRow(_ hit: ExplorerSearchHit) -> some View {
         let inList = vm.isInWatchlist(hit.exchange, hit.pair)
         return Button {
             vm.addSearchHit(hit)

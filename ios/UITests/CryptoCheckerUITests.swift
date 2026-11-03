@@ -237,6 +237,11 @@ final class CryptoCheckerUITests: XCTestCase {
     @MainActor
     private func addBitcoinFromSearch(_ app: XCUIApplication) {
         tap(app, UiTestTags.watchlistAddPair)
+        // Übersicht: Markt-Chips («Alle» gewählt) und die Börsen; Spot und zurück zu «Alle» (wie Android)
+        XCTAssertTrue(app.tagged(UiTestTags.explorerExchange("Binance")).waitForExistence(timeout: uiTimeout),
+                      "exchange overview missing")
+        tap(app, UiTestTags.explorerMarket("SPOT"))
+        tap(app, UiTestTags.explorerMarket("ALL"))
         // «\n» = Suchen: Tastatur zu, damit nichts die Treffer verdeckt
         enterText(app, UiTestTags.explorerSearch, "btc\n")
         // Paarlisten liegen noch nicht auf dem Gerät: «Listen laden» (Antworten der Fake-Börsen)

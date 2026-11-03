@@ -1,10 +1,10 @@
-// «Erweitert / nach Börse» in Schritten (Börse → Paar → hinzufügen, wahlweise mehrere Paare auf einmal)
-// und die Zeile «Börse fehlt?».
-// Eigene Datei, weil der Schritt-Ablauf neben der Coin-Suche ein eigener Weg ist; `ExplorerScreen` ordnet
-// nur an.
+// Paare einer geöffneten Börse (aus «Alle Börsen», «Zuletzt genutzte Börsen» oder der Suche): Kopf mit Zurück, Stand
+// der Paarliste, darunter Paar wählen bzw. mehrere Paare auf einmal oder — bei DexScreener — die DEX-Suche; dazu die
+// Zeile «Börse fehlt?». Eigene Datei, weil `ExplorerScreen` nur anordnet (wie `ExplorerExchangePairs.swift`).
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,14 +27,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
+import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.marketdata.model.ExchangeCategory
 
 /**
- * «Erweitert / nach Börse» in Schritten, nacheinander freigeschaltet: 1. Börse (Paare laden von selbst) →
- * 2. Paar → hinzufügen. Mit «mehrere Paare auf einmal» zwei Register statt zweier Karten.
+ * Paare der gewählten Börse: «Alle Börsen» (zurück), Kopf der Börse ([ExchangeHeaderCard]), dann Paar wählen und
+ * hinzufügen — mit «mehrere Paare auf einmal» zwei Register — bzw. bei DexScreener die DEX-Suche.
  */
 @Composable
-internal fun PreciseSelection(
+internal fun ExchangePairs(
     sections: ExplorerSectionsState,
+    onClose: () -> Unit,
     selection: ExplorerSelection,
     actions: PairActions,
     bulk: BulkActions,
@@ -70,22 +73,24 @@ internal fun PreciseSelection(
     val syncing = pairListSync.inProgress
     val pairSelected = hasPairs && coin != null && quote != null
 
-    ExchangeStepCard(
-        exchanges = selection.exchanges,
-        categories = selection.exchangeCategories,
+    if (chosen == null) return
+    TextButton(onClick = onClose, contentPadding = PaddingValues(horizontal = Spacing.sm)) {
+        Icon(painterResource(R.drawable.ic_arrow_back), contentDescription = null, modifier = Modifier.size(18.dp))
+        Text(stringResource(R.string.explorer_all_exchanges_title), modifier = Modifier.padding(start = Spacing.xs))
+    }
+    val forex = selection.exchangeCategories.getOrNull(selection.exchanges.indexOf(chosen)) == ExchangeCategory.FOREX
+    ExchangeHeaderCard(
         exchange = chosen,
         isDex = isDex,
+        isForex = forex,
         hasPairs = hasPairs,
         syncing = syncing,
         canReloadPairs = canReloadPairs,
         syncError = pairListSync.error,
         pairList = pairList,
-        favorites = favorites,
-        onExchangeChanged = actions.onExchangeChanged,
         onReload = actions.onReloadPairs,
     )
 
-    if (chosen == null) return
     if (isDex) {
         StepCard { DexSearchSection(dex, groupTarget) }
         return
@@ -118,7 +123,6 @@ internal fun PreciseSelection(
             onRetryPrice = actions.onRetryPrice,
             onReload = actions.onReloadPairs,
             onAdd = actions.onAdd,
-            showHeader = !withTabs,
         )
     } else {
         // ── Mehrere Paare auf einmal (Register) ──

@@ -28,52 +28,6 @@ struct ExplorerStepCard<Content: View>: View {
     }
 }
 
-/// Kopfzeile eines Schritts: Kreis mit Nummer (erledigt: Häkchen). Aktiv oder erledigt leuchtet
-/// der Kreis in der Themenfarbe, sonst bleibt alles gedämpft.
-struct ExplorerStepHeader: View {
-    let number: Int
-    let title: String
-    let active: Bool
-    let done: Bool
-    @Environment(\.appAccent) var accent
-    @Environment(\.onAccent) var onAccent
-
-    private var lit: Bool { active || done }
-
-    var body: some View {
-        HStack(spacing: Spacing.sm) {
-            // Erledigt: kleines Häkchen auf neutralem Grund (keine gefüllte Akzent-Plakette, die wie eine Checkbox
-            // wirkt); offen bzw. aktiv: Nummer — wie Android
-            badge
-                .frame(width: done ? 20 : 24, height: done ? 20 : 24)
-                .animation(.spring(duration: 0.35), value: done)
-            Text(title)
-                .font(.headline)
-                .foregroundStyle(lit ? AppColors.onSurface : AppColors.onSurfaceVariant)
-        }
-        .padding(.bottom, 12)
-    }
-
-    private var badge: some View {
-        ZStack {
-            Circle()
-                .fill(lit && !done ? AnyShapeStyle(accent.primary.gradient) : AnyShapeStyle(AppColors.containerHighest))
-            if done {
-                Image(systemName: "checkmark")
-                    .scaledFont(size: 10, weight: .bold, relativeTo: .caption)
-                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .transition(.scale.combined(with: .opacity))
-            } else {
-                Text(verbatim: LocaleNumbers.integer(number))
-                    .scaledFont(size: 12, weight: .bold, design: .rounded, relativeTo: .caption)
-                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                    .foregroundStyle(lit ? onAccent : AppColors.onSurfaceVariant)
-            }
-        }
-    }
-}
-
 /// Kleiner erklärender Text unter einem Schritt.
 struct ExplorerHint: View {
     let text: String

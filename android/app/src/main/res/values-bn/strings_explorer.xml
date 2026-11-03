@@ -48,7 +48,6 @@
         <item quantity="other">%1$dটি পেয়ার · আপডেট %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">পেয়ার</string>
-    <string name="explorer_precise_title">উন্নত / এক্সচেঞ্জ অনুযায়ী</string>
     <string name="explorer_price_loading">দাম লোড হচ্ছে…</string>
     <string name="explorer_select_exchange_hint">একটি এক্সচেঞ্জ বেছে নিন – এর ট্রেডিং পেয়ার স্বয়ংক্রিয়ভাবে লোড হবে।</string>
     <string name="explorer_select_placeholder">অনুগ্রহ করে বেছে নিন</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">আর পূর্বাবস্থায় ফেরানো সম্ভব নয় – পেয়ারগুলো ওয়াচলিস্টে থাকবে।</string>
     <string name="explorer_section_spot">স্পট</string>
     <string name="explorer_section_futures">ফিউচার্স</string>
-    <string name="explorer_section_dex">DEX পুল</string>
     <string name="explorer_section_forex">ফরেক্স (রেফারেন্স রেট)</string>
+    <string name="explorer_market_forex">ফরেক্স</string>
+    <string name="explorer_popular_title">জনপ্রিয়</string>
+    <string name="explorer_recent_exchanges_title">সম্প্রতি ব্যবহৃত এক্সচেঞ্জ</string>
+    <string name="explorer_all_exchanges_title">সব এক্সচেঞ্জ</string>
+    <string name="explorer_exchanges_title">এক্সচেঞ্জ</string>
     <string name="explorer_forex_hint">ইউরোপীয় কেন্দ্রীয় ব্যাংকের দৈনিক হার (Frankfurter-এর মাধ্যমে), লাইভ নয় – কোনো অ্যালার্ট নেই।</string>
 </resources>

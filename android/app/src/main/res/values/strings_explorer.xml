@@ -48,7 +48,6 @@
         <item quantity="other">%1$d pairs · updated %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pairs</string>
-    <string name="explorer_precise_title">Advanced / by exchange</string>
     <string name="explorer_price_loading">Loading price…</string>
     <string name="explorer_select_exchange_hint">Choose an exchange – its trading pairs load automatically.</string>
     <string name="explorer_select_placeholder">Please select</string>
@@ -155,7 +154,12 @@
     <string name="bulk_undo_expired">Undo is no longer possible – the pairs stay in the watchlist.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX pools</string>
     <string name="explorer_section_forex">Forex (reference rate)</string>
+    <string name="explorer_market_dex" translatable="false">DEX</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">Popular</string>
+    <string name="explorer_recent_exchanges_title">Recently used exchanges</string>
+    <string name="explorer_all_exchanges_title">All exchanges</string>
+    <string name="explorer_exchanges_title">Exchanges</string>
     <string name="explorer_forex_hint">Daily rate of the European Central Bank (via Frankfurter), not live – no alerts.</string>
 </resources>

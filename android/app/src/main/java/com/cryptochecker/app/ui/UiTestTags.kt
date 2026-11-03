@@ -45,6 +45,12 @@ object UiTestTags {
     fun explorerCoin(symbol: String, tradFi: Boolean = false): String =
         EXPLORER_COIN + symbol + if (tradFi) "_tradfi" else ""
 
+    /** Markt-Chip von «Paar hinzufügen» («explorer_market_ALL», «…_SPOT», «…_FUTURES», «…_DEX», «…_FOREX»). */
+    fun explorerMarket(filter: String): String = "explorer_market_$filter"
+
+    /** Börse in den Listen von «Paar hinzufügen» («explorer_exchange_Binance»). */
+    fun explorerExchange(key: String): String = "explorer_exchange_$key"
+
     // ── Alarme ──
     const val ALARM_THRESHOLD = "alarm_threshold"
     const val ALARM_SAVE = "alarm_save"

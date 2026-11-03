@@ -48,7 +48,6 @@
         <item quantity="other">%1$d զույգ · թարմացվել է %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Զույգեր</string>
-    <string name="explorer_precise_title">Ընդլայնված / ըստ բորսայի</string>
     <string name="explorer_price_loading">Գինը բեռնվում է…</string>
     <string name="explorer_select_exchange_hint">Ընտրիր բորսա – դրա առևտրային զույգերը կբեռնվեն ավտոմատ։</string>
     <string name="explorer_select_placeholder">Խնդրում ենք ընտրել</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Հետարկումն այլևս հնարավոր չէ – զույգերը մնում են դիտացանկում։</string>
     <string name="explorer_section_spot">Սպոտ</string>
     <string name="explorer_section_futures">Ֆյուչերսներ</string>
-    <string name="explorer_section_dex">DEX պուլեր</string>
     <string name="explorer_section_forex">Forex (հղումային փոխարժեք)</string>
+    <string name="explorer_market_forex">Արտարժույթ</string>
+    <string name="explorer_popular_title">Հայտնի</string>
+    <string name="explorer_recent_exchanges_title">Վերջերս օգտագործված բորսաներ</string>
+    <string name="explorer_all_exchanges_title">Բոլոր բորսաները</string>
+    <string name="explorer_exchanges_title">Բորսաներ</string>
     <string name="explorer_forex_hint">Եվրոպական կենտրոնական բանկի օրական փոխարժեքը (Frankfurter-ի միջոցով), ոչ իրական ժամանակում – առանց ահազանգերի։</string>
 </resources>

@@ -48,7 +48,6 @@
         <item quantity="other">%1$d ജോഡികൾ · %2$s പുതുക്കി</item>
     </plurals>
     <string name="explorer_pairs_title">ജോഡികൾ</string>
-    <string name="explorer_precise_title">വിപുലമായത് / എക്സ്ചേഞ്ച് പ്രകാരം</string>
     <string name="explorer_price_loading">വില ലോഡ് ചെയ്യുന്നു…</string>
     <string name="explorer_select_exchange_hint">ഒരു എക്സ്ചേഞ്ച് തിരഞ്ഞെടുക്കുക – അതിന്റെ ട്രേഡിംഗ് ജോഡികൾ സ്വയമേവ ലോഡ് ആകും.</string>
     <string name="explorer_select_placeholder">ദയവായി തിരഞ്ഞെടുക്കുക</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">പഴയപടിയാക്കൽ ഇനി സാധ്യമല്ല – ജോഡികൾ വാച്ച്‌ലിസ്റ്റിൽ തുടരും.</string>
     <string name="explorer_section_spot">സ്പോട്ട്</string>
     <string name="explorer_section_futures">ഫ്യൂച്ചേഴ്സ്</string>
-    <string name="explorer_section_dex">DEX പൂളുകൾ</string>
     <string name="explorer_section_forex">ഫോറെക്സ് (റഫറൻസ് നിരക്ക്)</string>
+    <string name="explorer_market_forex">ഫോറെക്സ്</string>
+    <string name="explorer_popular_title">ജനപ്രിയം</string>
+    <string name="explorer_recent_exchanges_title">അടുത്തിടെ ഉപയോഗിച്ച എക്സ്ചേഞ്ചുകൾ</string>
+    <string name="explorer_all_exchanges_title">എല്ലാ എക്സ്ചേഞ്ചുകളും</string>
+    <string name="explorer_exchanges_title">എക്സ്ചേഞ്ചുകൾ</string>
     <string name="explorer_forex_hint">യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക് (Frankfurter വഴി), ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
 </resources>

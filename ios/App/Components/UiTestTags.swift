@@ -50,6 +50,12 @@ enum UiTestTags {
         "explorer_coin_" + symbol + (tradFi ? "_tradfi" : "")
     }
 
+    /// Markt-Chip von «Paar hinzufügen» («explorer_market_ALL», «…_SPOT», «…_FUTURES», «…_DEX», «…_FOREX»).
+    static func explorerMarket(_ filter: String) -> String { "explorer_market_" + filter }
+
+    /// Börse in den Listen von «Paar hinzufügen» («explorer_exchange_Binance»).
+    static func explorerExchange(_ key: String) -> String { "explorer_exchange_" + key }
+
     // MARK: Alarme
     static let alarmThreshold = "alarm_threshold"
     static let alarmSave = "alarm_save"

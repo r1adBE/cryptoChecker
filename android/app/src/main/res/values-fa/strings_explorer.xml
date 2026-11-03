@@ -48,7 +48,6 @@
         <item quantity="other">%1$d جفت · به‌روزرسانی %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">جفت‌ها</string>
-    <string name="explorer_precise_title">پیشرفته / بر اساس صرافی</string>
     <string name="explorer_price_loading">در حال بارگیری قیمت…</string>
     <string name="explorer_select_exchange_hint">یک صرافی انتخاب کن – جفت‌ها خودکار بارگیری می‌شوند.</string>
     <string name="explorer_select_placeholder">لطفاً انتخاب کن</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">واگرد دیگر ممکن نیست – جفت‌ها در واچ‌لیست می‌مانند.</string>
     <string name="explorer_section_spot">اسپات</string>
     <string name="explorer_section_futures">فیوچرز</string>
-    <string name="explorer_section_dex">استخرهای DEX</string>
     <string name="explorer_section_forex">فارکس (نرخ مرجع)</string>
+    <string name="explorer_market_forex">فارکس</string>
+    <string name="explorer_popular_title">محبوب</string>
+    <string name="explorer_recent_exchanges_title">صرافی‌های اخیراً استفاده‌شده</string>
+    <string name="explorer_all_exchanges_title">همه صرافی‌ها</string>
+    <string name="explorer_exchanges_title">صرافی‌ها</string>
     <string name="explorer_forex_hint">نرخ روزانهٔ بانک مرکزی اروپا (از طریق Frankfurter)، نه زنده – بدون هشدار.</string>
 </resources>

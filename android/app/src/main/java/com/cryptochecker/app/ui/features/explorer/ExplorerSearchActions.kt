@@ -114,9 +114,11 @@ internal fun ExplorerViewModel.runSearch() {
     // Stand jetzt festhalten (nicht erst im Hintergrund lesen)
     val scope = assetScope.value
     val hidden = hiddenAlpha.value
-    val exchanges = searchableExchanges.filter { scope.allowsExchange(it.key) }
+    // Markt-Chip: nur Börsen dieser Art (Coins, Paar-Treffer und die Börsen eines Coins)
+    val market = hits.market.value
+    val exchanges = searchableExchanges.filter { scope.allowsExchange(it.key) && market.allowsExchange(it.key) }
     val picked = hits.chosenCoin.value
-    val includeUnlisted = unloadedExchanges.isNotEmpty()
+    val includeUnlisted = unloadedExchanges.any { market.allowsExchange(it.key) }
     val preference = pairPreference(exchanges)
     // Alpha-Kennzeichen («α») und Namen gegen Fehltreffer
     val alphaSymbols = coinLogoRepository.alphaSymbols.value

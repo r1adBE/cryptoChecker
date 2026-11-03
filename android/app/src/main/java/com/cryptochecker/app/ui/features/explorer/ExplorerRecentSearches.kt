@@ -37,7 +37,8 @@ object RecentSearches {
 }
 
 /**
- * Speicher für «Zuletzt gesucht»: nur auf dem Gerät (eigene SharedPreferences «recent_searches»).
+ * Speicher für «Zuletzt gesucht» und «Zuletzt genutzte Börsen» ([RecentExchanges]): nur auf dem Gerät (eigene
+ * SharedPreferences «recent_searches»).
  * Nicht in der Systemsicherung — die Sicherungsregeln (backup_rules.xml,
  * data_extraction_rules.xml) nehmen nur ausdrücklich Genanntes auf — und nicht in der
  * App-Sicherung; wird nirgends hin gesendet.
@@ -63,8 +64,21 @@ class RecentSearchStore @Inject constructor(
         prefs.edit { remove(KEY) }
     }
 
+    private val _exchanges = MutableStateFlow(RecentExchanges.decode(prefs.getString(KEY_EXCHANGES, null)))
+
+    /** Schlüssel der zuletzt geöffneten Börsen, neueste zuerst (höchstens [RecentExchanges.MAX]). */
+    val exchanges: StateFlow<List<String>> = _exchanges.asStateFlow()
+
+    fun addExchange(key: String) {
+        val updated = RecentExchanges.add(_exchanges.value, key)
+        if (updated == _exchanges.value) return
+        _exchanges.value = updated
+        prefs.edit { putString(KEY_EXCHANGES, RecentExchanges.encode(updated)) }
+    }
+
     private companion object {
         const val PREFS = "recent_searches"
         const val KEY = "queries"
+        const val KEY_EXCHANGES = "exchanges"
     }
 }

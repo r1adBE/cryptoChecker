@@ -52,7 +52,6 @@
         <item quantity="other">%1$d pāri · atjaunināts %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pāri</string>
-    <string name="explorer_precise_title">Papildu / pēc biržas</string>
     <string name="explorer_price_loading">Ielādē cenu…</string>
     <string name="explorer_select_exchange_hint">Izvēlies biržu – tās tirdzniecības pāri ielādēsies automātiski.</string>
     <string name="explorer_select_placeholder">Lūdzu, izvēlies</string>
@@ -163,7 +162,11 @@
     <string name="bulk_undo_expired">Atsaukt vairs nav iespējams – pāri paliek vērojamo sarakstā.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Nākotnes līgumi</string>
-    <string name="explorer_section_dex">DEX pūli</string>
     <string name="explorer_section_forex">Forex (atsauces kurss)</string>
+    <string name="explorer_market_forex">Valūtas</string>
+    <string name="explorer_popular_title">Populāri</string>
+    <string name="explorer_recent_exchanges_title">Nesen izmantotās biržas</string>
+    <string name="explorer_all_exchanges_title">Visas biržas</string>
+    <string name="explorer_exchanges_title">Biržas</string>
     <string name="explorer_forex_hint">Eiropas Centrālās bankas dienas kurss (caur Frankfurter), nav tiešraidē – bez brīdinājumiem.</string>
 </resources>

@@ -50,8 +50,8 @@ struct ExplorerMessage: Equatable, Identifiable {
 }
 
 /// Steuerung der Seite «Paar hinzufügen» (Gegenstück zu `ExplorerViewModel.kt`): Coin-Suche (Coin zuerst,
-/// dann seine Paare über alle Börsen), «Erweitert / nach Börse» (Börse → Coin → Gegenwährung), Kurs zeigen,
-/// mehrere Paare sammeln, DEX-Pools finden.
+/// dann seine Paare über alle Börsen), Markt-Chips, «Beliebt», die Börsen und darin die Paar-Auswahl (Börse → Coin →
+/// Gegenwährung), Kurs zeigen, mehrere Paare sammeln, DEX-Pools finden.
 ///
 /// Datenschutz der Suche: Sie läuft nur auf dem Gerät — gespeicherte Paarlisten und das Namensverzeichnis.
 /// Fehlt die Liste einer Börse, wird sie nicht still geholt; die Seite bietet an, die vollständigen
@@ -114,6 +114,15 @@ final class ExplorerViewModel: ObservableObject {
     @Published var searchLists = ExplorerSearchLists()
     /// Letzte Suchbegriffe (max. 8, jüngster vorne), nur lokal gespeichert.
     @Published var recentSearches: [String] = ExplorerRecentSearches.load()
+
+    // MARK: Veröffentlichter Zustand – Übersicht
+
+    /// Markt-Chip über Börsen und Treffern (`setMarketFilter`); «Alle» zu Beginn.
+    @Published var marketFilter: ExplorerMarketFilter = .all
+    /// «Beliebt»: rund sechs Paare der Start-Börse (`ExplorerPopularPairs`), ein Tipp nimmt sie auf.
+    @Published var popularPairs: [ExplorerSearchHit] = []
+    /// «Zuletzt genutzte Börsen» (Schlüssel, neueste zuerst), nur lokal gespeichert.
+    @Published var recentExchanges: [String] = ExplorerRecentExchanges.load()
 
     // MARK: Veröffentlichter Zustand – DEX
 

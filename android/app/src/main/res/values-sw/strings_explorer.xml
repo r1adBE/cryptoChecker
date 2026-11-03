@@ -48,7 +48,6 @@
         <item quantity="other">jozi %1$d · zimesasishwa %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Jozi</string>
-    <string name="explorer_precise_title">Kina / kwa jukwaa</string>
     <string name="explorer_price_loading">Inapakia bei…</string>
     <string name="explorer_select_exchange_hint">Chagua jukwaa – jozi zake za biashara zinapakiwa kiotomatiki.</string>
     <string name="explorer_select_placeholder">Tafadhali chagua</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Kutendua hakuwezekani tena – jozi zinabaki kwenye orodha ya ufuatiliaji.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">Pool za DEX</string>
     <string name="explorer_section_forex">Forex (kiwango cha marejeleo)</string>
+    <string name="explorer_market_forex">Fedha za kigeni</string>
+    <string name="explorer_popular_title">Maarufu</string>
+    <string name="explorer_recent_exchanges_title">Masoko yaliyotumika hivi karibuni</string>
+    <string name="explorer_all_exchanges_title">Masoko yote</string>
+    <string name="explorer_exchanges_title">Masoko</string>
     <string name="explorer_forex_hint">Kiwango cha kila siku cha Benki Kuu ya Ulaya (kupitia Frankfurter), si cha moja kwa moja – hakuna kengele.</string>
 </resources>

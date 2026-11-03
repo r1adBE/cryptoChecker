@@ -48,7 +48,6 @@
         <item quantity="other">%1$d par · oppdatert %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Par</string>
-    <string name="explorer_precise_title">Avansert / etter børs</string>
     <string name="explorer_price_loading">Henter kurs…</string>
     <string name="explorer_select_exchange_hint">Velg en børs – handelsparene hentes automatisk.</string>
     <string name="explorer_select_placeholder">Velg</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Angre er ikke lenger mulig – parene blir værende i overvåkingslisten.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX-pooler</string>
     <string name="explorer_section_forex">Forex (referansekurs)</string>
+    <string name="explorer_market_forex">Valuta</string>
+    <string name="explorer_popular_title">Populære</string>
+    <string name="explorer_recent_exchanges_title">Nylig brukte børser</string>
+    <string name="explorer_all_exchanges_title">Alle børser</string>
+    <string name="explorer_exchanges_title">Børser</string>
     <string name="explorer_forex_hint">Dagskurs fra Den europeiske sentralbanken (via Frankfurter), ikke live – ingen alarmer.</string>
 </resources>

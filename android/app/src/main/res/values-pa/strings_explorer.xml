@@ -48,7 +48,6 @@
         <item quantity="other">%1$d ਜੋੜੇ · ਅੱਪਡੇਟ %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">ਜੋੜੇ</string>
-    <string name="explorer_precise_title">ਉੱਨਤ / ਐਕਸਚੇਂਜ ਮੁਤਾਬਕ</string>
     <string name="explorer_price_loading">ਕੀਮਤ ਲੋਡ ਹੋ ਰਹੀ ਹੈ…</string>
     <string name="explorer_select_exchange_hint">ਕੋਈ ਐਕਸਚੇਂਜ ਚੁਣੋ – ਇਸਦੇ ਵਪਾਰਕ ਜੋੜੇ ਆਪਣੇ-ਆਪ ਲੋਡ ਹੋਣਗੇ।</string>
     <string name="explorer_select_placeholder">ਕਿਰਪਾ ਕਰਕੇ ਚੁਣੋ</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">ਹੁਣ ਵਾਪਸ ਕਰਨਾ ਸੰਭਵ ਨਹੀਂ – ਜੋੜੇ ਵਾਚਲਿਸਟ ਵਿੱਚ ਰਹਿਣਗੇ।</string>
     <string name="explorer_section_spot">ਸਪਾਟ</string>
     <string name="explorer_section_futures">ਫਿਊਚਰਜ਼</string>
-    <string name="explorer_section_dex">DEX ਪੂਲ</string>
     <string name="explorer_section_forex">ਫਾਰੇਕਸ (ਹਵਾਲਾ ਦਰ)</string>
+    <string name="explorer_market_forex">ਫਾਰੇਕਸ</string>
+    <string name="explorer_popular_title">ਪ੍ਰਸਿੱਧ</string>
+    <string name="explorer_recent_exchanges_title">ਹਾਲ ਹੀ ਵਿੱਚ ਵਰਤੇ ਐਕਸਚੇਂਜ</string>
+    <string name="explorer_all_exchanges_title">ਸਾਰੇ ਐਕਸਚੇਂਜ</string>
+    <string name="explorer_exchanges_title">ਐਕਸਚੇਂਜ</string>
     <string name="explorer_forex_hint">ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ (Frankfurter ਰਾਹੀਂ), ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
 </resources>

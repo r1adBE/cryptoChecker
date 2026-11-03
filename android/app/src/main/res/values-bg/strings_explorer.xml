@@ -48,7 +48,6 @@
         <item quantity="other">%1$d двойки · обновено %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Двойки</string>
-    <string name="explorer_precise_title">Разширено / по борса</string>
     <string name="explorer_price_loading">Зареждане на курса…</string>
     <string name="explorer_select_exchange_hint">Избери борса – търговските ѝ двойки се зареждат автоматично.</string>
     <string name="explorer_select_placeholder">Избери</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Отмяната вече не е възможна – двойките остават в списъка.</string>
     <string name="explorer_section_spot">Спот</string>
     <string name="explorer_section_futures">Фючърси</string>
-    <string name="explorer_section_dex">DEX пулове</string>
     <string name="explorer_section_forex">Forex (референтен курс)</string>
+    <string name="explorer_market_forex">Валути</string>
+    <string name="explorer_popular_title">Популярни</string>
+    <string name="explorer_recent_exchanges_title">Наскоро използвани борси</string>
+    <string name="explorer_all_exchanges_title">Всички борси</string>
+    <string name="explorer_exchanges_title">Борси</string>
     <string name="explorer_forex_hint">Дневен курс на Европейската централна банка (чрез Frankfurter), не на живо – без аларми.</string>
 </resources>

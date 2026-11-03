@@ -52,7 +52,6 @@
         <item quantity="other">%1$d parells · actualitzat %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Parells</string>
-    <string name="explorer_precise_title">Avançat / per exchange</string>
     <string name="explorer_price_loading">S\'està carregant el preu…</string>
     <string name="explorer_select_exchange_hint">Tria un exchange – els seus parells de negociació es carreguen automàticament.</string>
     <string name="explorer_select_placeholder">Selecciona</string>
@@ -163,7 +162,11 @@
     <string name="bulk_undo_expired">Ja no es pot desfer – els parells es queden a la llista.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futurs</string>
-    <string name="explorer_section_dex">Pools DEX</string>
     <string name="explorer_section_forex">Forex (tipus de referència)</string>
+    <string name="explorer_market_forex">Divises</string>
+    <string name="explorer_popular_title">Populars</string>
+    <string name="explorer_recent_exchanges_title">Plataformes usades recentment</string>
+    <string name="explorer_all_exchanges_title">Totes les plataformes</string>
+    <string name="explorer_exchanges_title">Plataformes</string>
     <string name="explorer_forex_hint">Tipus diari del Banc Central Europeu (via Frankfurter), no en directe – sense alarmes.</string>
 </resources>

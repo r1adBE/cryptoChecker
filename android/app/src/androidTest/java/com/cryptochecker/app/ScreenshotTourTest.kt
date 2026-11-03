@@ -248,11 +248,13 @@ class ScreenshotTourTest {
         nav.waitForTag(UiTestTags.ALARM_CARD)
     }
 
-    /** Merkliste › «Paar hinzufügen». */
+    /** Merkliste › «Paar hinzufügen»: Suchfeld, Markt-Chips und die Übersicht der Börsen («Alle Börsen»). */
     private fun openExplorer() {
         nav.toWatchlist()
         nav.clickTag(UiTestTags.WATCHLIST_ADD_PAIR)
         nav.waitForTag(UiTestTags.EXPLORER_SEARCH)
+        nav.waitForTag(UiTestTags.explorerMarket("ALL"))
+        nav.waitForTag(UiTestTags.explorerExchange("Binance"))
     }
 
     /**

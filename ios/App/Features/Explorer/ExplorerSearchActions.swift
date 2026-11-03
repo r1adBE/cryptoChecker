@@ -104,7 +104,7 @@ extension ExplorerViewModel {
     }
 
     /// Coins, Paar-Treffer und — bei angetipptem Coin — seine Paare neu berechnen (entprellt).
-    private func runSearch() {
+    func runSearch() {
         searchTask?.cancel()
         let query = searchQuery.trimmingCharacters(in: .whitespaces)
         if query.isEmpty {
@@ -116,11 +116,13 @@ extension ExplorerViewModel {
         // Alles, was die Suche braucht, jetzt festhalten (läuft danach abseits des Hauptthreads)
         let scope = assetScope
         let hidden = hiddenAlpha
-        let candidates = searchExchanges.filter { scope.allowsExchange($0.key) }
+        // Markt-Chip: nur Börsen dieser Art (Coins, Paar-Treffer und die Börsen eines Coins) — wie Android
+        let market = marketFilter
+        let candidates = searchExchanges.filter { scope.allowsExchange($0.key) && market.allows($0.category) }
         let lists = searchCache
         let names = nameIndex
         let picked = pickedCoin
-        let includeUnlisted = !unloadedExchanges.isEmpty
+        let includeUnlisted = unloadedExchanges.contains { market.allows($0.category) }
         let preference = pairPreference(candidates)
         // «α»-Kennzeichen je Treffer und Namen gegen falsche Alpha-Zuordnung
         let alphaSymbols = CoinLogoStore.alphaSymbols

@@ -56,7 +56,6 @@
         <item quantity="other">%1$d porų · atnaujinta %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Poros</string>
-    <string name="explorer_precise_title">Išplėstinis / pagal biržą</string>
     <string name="explorer_price_loading">Įkeliama kaina…</string>
     <string name="explorer_select_exchange_hint">Pasirink biržą – jos prekybos poros įkeliamos automatiškai.</string>
     <string name="explorer_select_placeholder">Pasirink</string>
@@ -176,7 +175,11 @@
     <string name="bulk_undo_expired">Anuliuoti nebegalima – poros lieka stebimų sąraše.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Ateities sandoriai</string>
-    <string name="explorer_section_dex">DEX fondai</string>
     <string name="explorer_section_forex">Forex (orientacinis kursas)</string>
+    <string name="explorer_market_forex">Valiutos</string>
+    <string name="explorer_popular_title">Populiarūs</string>
+    <string name="explorer_recent_exchanges_title">Neseniai naudotos biržos</string>
+    <string name="explorer_all_exchanges_title">Visos biržos</string>
+    <string name="explorer_exchanges_title">Biržos</string>
     <string name="explorer_forex_hint">Europos centrinio banko dienos kursas (per Frankfurter), ne tiesioginis – įspėjimų nėra.</string>
 </resources>

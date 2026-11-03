@@ -48,7 +48,6 @@
         <item quantity="other">%1$d pares · na-update %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Mga pares</string>
-    <string name="explorer_precise_title">Advanced / ayon sa exchange</string>
     <string name="explorer_price_loading">Nilo-load ang presyo…</string>
     <string name="explorer_select_exchange_hint">Pumili ng exchange – awtomatikong maglo-load ang mga trading pair nito.</string>
     <string name="explorer_select_placeholder">Pumili</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Hindi na puwedeng i-undo – mananatili ang mga pares sa watchlist.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">Mga DEX pool</string>
     <string name="explorer_section_forex">Forex (reference rate)</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">Sikat</string>
+    <string name="explorer_recent_exchanges_title">Mga kamakailang ginamit na exchange</string>
+    <string name="explorer_all_exchanges_title">Lahat ng exchange</string>
+    <string name="explorer_exchanges_title">Mga exchange</string>
     <string name="explorer_forex_hint">Daily rate ng European Central Bank (sa pamamagitan ng Frankfurter), hindi live – walang alerto.</string>
 </resources>

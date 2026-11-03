@@ -52,7 +52,6 @@
         <item quantity="other">%1$d de perechi · actualizat %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Perechi</string>
-    <string name="explorer_precise_title">Avansat / după bursă</string>
     <string name="explorer_price_loading">Se încarcă prețul…</string>
     <string name="explorer_select_exchange_hint">Alege o bursă – perechile se încarcă automat.</string>
     <string name="explorer_select_placeholder">Selectează</string>
@@ -163,7 +162,11 @@
     <string name="bulk_undo_expired">Anularea nu mai este posibilă – perechile rămân în lista de urmărire.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">Pooluri DEX</string>
     <string name="explorer_section_forex">Forex (curs de referință)</string>
+    <string name="explorer_market_forex">Valute</string>
+    <string name="explorer_popular_title">Populare</string>
+    <string name="explorer_recent_exchanges_title">Burse folosite recent</string>
+    <string name="explorer_all_exchanges_title">Toate bursele</string>
+    <string name="explorer_exchanges_title">Burse</string>
     <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme.</string>
 </resources>

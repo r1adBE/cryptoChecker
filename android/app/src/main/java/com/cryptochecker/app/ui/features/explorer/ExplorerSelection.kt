@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
- * Auswahl «Erweitert / nach Börse» nach dem Laden der Börsen: die feste Börsenliste und die laufend
+ * Börsen und Paar-Auswahl nach dem Laden der Börsen: die feste Börsenliste und die laufend
  * wechselnden Teile als Flows (vom [ExplorerViewModel] gehalten). Wie die `@Published`-Felder von
  * `ExplorerViewModel.swift`.
  */
@@ -107,7 +107,7 @@ sealed interface ExplorerLoad {
 /**
  * Börsenauswahl in Abschnitten Spot · Futures · DEX-Pools · Forex ([ExchangeOrder]), darin nach dem Volumen am Tag der
  * Installation; ohne Ranking bleibt die alphabetische Reihenfolge von [alphabetical]. Liefert die Börsen und je
- * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerExchangeSections.swift).
+ * Eintrag den Abschnitt. Wie iOS `ExchangeOrder.sections` in «Alle Börsen» (`ExplorerBrowseUi.swift`).
  */
 internal fun exchangeSections(
     alphabetical: List<ExchangeInfo>,
@@ -120,7 +120,7 @@ internal fun exchangeSections(
         sections.flatMap { (category, keys) -> keys.map { category } }
 }
 
-/** Auswahl «Erweitert / nach Börse» zur geladenen Börsenliste ([ExplorerViewModel.pageState]). */
+/** Börsen und Paar-Auswahl zur geladenen Börsenliste ([ExplorerViewModel.pageState]). */
 internal fun ExplorerViewModel.buildSelection(
     exchangeList: List<ExchangeInfo>,
     categories: List<ExchangeCategory>,

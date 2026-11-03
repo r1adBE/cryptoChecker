@@ -48,7 +48,6 @@
         <item quantity="other">%1$d Paare · aktualisiert %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Paare</string>
-    <string name="explorer_precise_title">Erweitert / nach Börse</string>
     <string name="explorer_price_loading">Kurs wird geladen…</string>
     <string name="explorer_select_exchange_hint">Wähle eine Börse – ihre Handelspaare laden automatisch.</string>
     <string name="explorer_select_placeholder">Bitte auswählen</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Rückgängig ist nicht mehr möglich – die Paare bleiben in der Merkliste.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX-Pools</string>
     <string name="explorer_section_forex">Forex (Referenzkurs)</string>
+    <string name="explorer_market_forex">Devisen</string>
+    <string name="explorer_popular_title">Beliebt</string>
+    <string name="explorer_recent_exchanges_title">Zuletzt genutzte Börsen</string>
+    <string name="explorer_all_exchanges_title">Alle Börsen</string>
+    <string name="explorer_exchanges_title">Börsen</string>
     <string name="explorer_forex_hint">Tageskurs der Europäischen Zentralbank (über Frankfurter), nicht live – keine Alarme.</string>
 </resources>

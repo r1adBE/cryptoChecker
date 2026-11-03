@@ -2,8 +2,8 @@ import SwiftUI
 import UIKit
 
 /// «Paar hinzufügen» (Gegenstück zu `ExplorerScreen.kt`): oben die Coin-Suche (Coin finden, dann sein
-/// Paar), darunter eingeklappt «Erweitert / nach Börse» Schritt für Schritt, die Sammelaufnahme mehrerer
-/// Paare und die Suche nach DEX-Pools.
+/// Paar) und die Markt-Chips, darunter ohne Suchbegriff «Beliebt», zuletzt genutzte und alle Börsen; eine Börse
+/// öffnet ihre Paare (Paar wählen, mehrere Paare auf einmal) bzw. die Suche nach DEX-Pools.
 ///
 /// Kein eigener Tab: Die Merkliste schiebt die Seite auf ihren `NavigationStack`
 /// (`AppRouter.showExplorer` – «+», Shortcut, Widget, Link "add"), «Heute auffällig» auf den Stapel
@@ -17,8 +17,7 @@ struct ExplorerScreen: View {
 
     @State var picker: ExplorerPickerKind?
     @State var showSyncSheet = false
-    // Offen/zu gilt für die ganze Sitzung (ExplorerSectionMemory), nicht nur für diese Ansicht
-    @State var showPrecise: Bool
+    // Register gilt für die ganze Sitzung (ExplorerSectionMemory), nicht nur für diese Ansicht
     @State var showBulk: Bool
     @State var showBulkList = false
     /// Vorschau «Alle …-Paare» ganz aufgeklappt (sonst nur die ersten `bulkPreviewRows`).
@@ -34,7 +33,6 @@ struct ExplorerScreen: View {
 
     init() {
         _showBulk = State(initialValue: ExplorerSectionMemory.bulk)
-        _showPrecise = State(initialValue: ExplorerSectionMemory.precise)
     }
 
     /// Steht ein Suchbegriff im Feld?
@@ -55,6 +53,8 @@ struct ExplorerScreen: View {
             .watchlistLockedHint { vm.show(ExplorerMessage(text: $0, showView: false, long: true, kind: .error)) }
             .animation(.spring(duration: 0.35), value: vm.message)
             // Aus «Heute auffällig» (Markt-Tab): gleich mit dem Coin als Suchbegriff
+            // «Beliebt» aus der gespeicherten Liste der Start-Börse (kein Abruf)
+            .onAppear { vm.refreshPopular() }
             .onChange(of: router.explorerSearch, initial: true) { _, incoming in
                 guard let incoming else { return }
                 vm.setSearchQuery(incoming)
@@ -101,6 +101,10 @@ struct ExplorerScreen: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 searchField
+                // Markt-Chips filtern Börsen und Treffer; bei offener Börse gehören sie nicht dazu (wie Android)
+                if searching || vm.exchange == nil {
+                    marketChips
+                }
 
                 if searching, let coin = vm.pickedCoin {
                     // Angetippter Coin: Vorschlag oben, darunter seine übrigen Paare
@@ -134,48 +138,56 @@ struct ExplorerScreen: View {
         }
     }
 
-    /// Ohne Suchbegriff: letzte Suchen, Hinweis zur Coin-Suche, eingeklappt «Erweitert / nach Börse», Börsen-Wunsch.
+    /// Ohne Suchbegriff: letzte Suchen, Hinweis zur Coin-Suche und die Übersicht der Börsen — oder, mit geöffneter
+    /// Börse, ihre Paare —, dann der Börsen-Wunsch. Wie `BrowseContent` (Android).
     private var browseContent: some View {
         Group {
-            // Letzte Suchbegriffe als Chips (nur lokal)
-            if !vm.recentSearches.isEmpty {
-                recentSearchChips
-            }
-
-            // Hauptweg ist die Coin-Suche; die Auswahl nach Börse startet eingeklappt
-            Text(L("explorer_search_intro"))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 4)
-
-            preciseToggle
-                .padding(.top, 8)
-
-            if showPrecise {
-                preciseSteps
+            if vm.exchange != nil {
+                exchangePairs
+                    .transition(.opacity)
+            } else {
+                // Letzte Suchbegriffe als Chips (nur lokal)
+                if !vm.recentSearches.isEmpty {
+                    recentSearchChips
+                }
+                // Hauptweg ist die Coin-Suche; darunter die Börsen
+                Text(L("explorer_search_intro"))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 4)
+                browseSections
             }
 
             // Fehlende Börse → GitHub-Vorlage «Exchange request»
             if let target = URL(string: AppLinks.exchangeRequest) {
                 exchangeMissingRow(target)
+                    .padding(.top, Spacing.sm)
             }
         }
     }
 
-    /// Schritt 1 und darunter je nach Börse DEX-Suche oder Paar-Auswahl/Sammelaufnahme.
+    /// Paare der geöffneten Börse: «Alle Börsen» (zurück), Kopf der Börse, dann DEX-Suche bzw. Paar-Auswahl und
+    /// Sammelaufnahme. Wie `ExchangePairs` (Android).
     @ViewBuilder
-    private var preciseSteps: some View {
-        exchangeStep
-            .transition(.opacity.combined(with: .move(edge: .top)))
+    private var exchangePairs: some View {
+        Button {
+            withAnimation(.snappy(duration: 0.3)) { vm.closeExchange() }
+        } label: {
+            Label(L("explorer_all_exchanges_title"), systemImage: "chevron.backward")
+                .font(.subheadline.weight(.semibold))
+                .padding(.vertical, Spacing.xs)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(accent.primary)
 
-        if vm.exchange != nil {
-            if vm.isDex {
-                dexSection
-                    .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
-            } else {
-                exchangeSection
-            }
+        exchangeHeader
+        if vm.isDex {
+            dexSection
+                .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
+        } else {
+            exchangeSection
         }
     }
 
@@ -217,41 +229,6 @@ struct ExplorerScreen: View {
         .font(.footnote)
         .frame(maxWidth: .infinity)
         .padding(.top, 4)
-    }
-
-    // MARK: «Erweitert / nach Börse» auf-/zuklappen
-
-    private var preciseToggle: some View {
-        Button(action: togglePrecise) {
-            HStack(spacing: Spacing.sm) {
-                Image(systemName: "slider.horizontal.3")
-                    .foregroundStyle(accent.primary)
-                Text(L("explorer_precise_title"))
-                    .font(.headline)
-                    .foregroundStyle(AppColors.onSurface)
-                Spacer()
-                // Pfeil überall einheitlich: Themenfarbe, zeigt nach unten (zu) bzw. oben (offen)
-                Image(systemName: "chevron.down")
-                    .font(.footnote.weight(.bold))
-                    .foregroundStyle(accent.primary)
-                    .rotationEffect(.degrees(showPrecise ? 180 : 0))
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, Spacing.lg)
-            .background(AppColors.container, in: cardShape)
-            .contentShape(cardShape)
-        }
-        .buttonStyle(.plain)
-    }
-
-    private var cardShape: RoundedRectangle {
-        RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-    }
-
-    private func togglePrecise() {
-        let open = !showPrecise
-        ExplorerSectionMemory.precise = open
-        withAnimation(.snappy(duration: 0.3)) { showPrecise = open }
     }
 
     // MARK: Überlagerungen
@@ -311,19 +288,8 @@ struct ExplorerScreen: View {
     private func pickerSheet(_ kind: ExplorerPickerKind) -> some View {
         switch kind {
         case .exchange:
-            let offered = vm.exchanges
-            ExplorerPickerSheet(
-                title: L("explorer_field_exchange"),
-                items: offered.map(\.name),
-                selected: vm.exchange?.name,
-                favoriteKind: .EXCHANGE,
-                sections: vm.marketSections.map { (title: $0.title, items: $0.exchanges.map(\.name)) },
-                subtitles: vm.dexPickerSubtitles,
-                data: data
-            ) { name in
-                guard let chosen = offered.first(where: { $0.name == name }) else { return }
-                withAnimation(.snappy(duration: 0.3)) { vm.selectExchange(chosen) }
-            }
+            // Börsen wählt die Übersicht («Alle Börsen»), keine Auswahlliste mehr
+            EmptyView()
         case .base:
             ExplorerPickerSheet(
                 title: L("explorer_field_coin"),
@@ -363,18 +329,13 @@ enum ExplorerPickerKind: String, Identifiable {
     var id: String { rawValue }
 }
 
-/// Ob «Erweitert / nach Börse» und «Mehrere Paare auf einmal» offen sind, bleibt bis zum Beenden der App
-/// erhalten. Anfangs beide zu, weil die Suche der Hauptweg ist. Gegenstück zu `ExplorerSectionsState`
-/// (`rememberExplorerSections`) in `ExplorerComponents.kt`.
+/// Ob das Register «Mehrere Paare auf einmal» gewählt ist, bleibt bis zum Beenden der App erhalten; anfangs «Paar
+/// wählen». Gegenstück zu `ExplorerSectionsState` (`rememberExplorerSections`) in `ExplorerComponents.kt`.
 enum ExplorerSectionMemory {
     // Hinter einer Sperre statt `nonisolated(unsafe)`: thread-sicher, ohne Aufrufer an den MainActor zu binden
-    private static let state = LockedBox((precise: false, bulk: false))
-    static var precise: Bool {
-        get { state.read { $0.precise } }
-        set { state.write { $0.precise = newValue } }
-    }
+    private static let state = LockedBox(false)
     static var bulk: Bool {
-        get { state.read { $0.bulk } }
-        set { state.write { $0.bulk = newValue } }
+        get { state.read { $0 } }
+        set { state.write { $0 = newValue } }
     }
 }

@@ -1,10 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,21 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
-import com.cryptochecker.app.ui.components.ExpandChevronIcon
-import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 
-/** Fläche für einen Schritt. */
+/** Fläche einer Karte (Börse, Paar, DEX-Suche). */
 @Composable
 internal fun StepCard(content: @Composable ColumnScope.() -> Unit) {
     Card(
@@ -49,27 +39,24 @@ internal fun StepHint(text: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * Auf-/Zuklappen der Seite «Paar hinzufügen». Die Navigation hält es für die ganze Sitzung (jedes Öffnen
- * der Seite, auch nach einem Tab-Wechsel) und speichert es mit [rememberExplorerSections] — es übersteht
- * Drehen und Prozess-Neustart; jede Komposition (z. B. ein UI-Test) hat ihren eigenen Stand.
- * Standard: beides eingeklappt — die Suche ist der Hauptweg.
+ * Register der Paar-Auswahl einer Börse («Paar wählen» | «Mehrere Paare auf einmal»). Die Navigation hält es für die
+ * ganze Sitzung (jedes Öffnen der Seite, auch nach einem Tab-Wechsel) und speichert es mit [rememberExplorerSections] —
+ * es übersteht Drehen und Prozess-Neustart; jede Komposition (z. B. ein UI-Test) hat ihren eigenen Stand.
+ * Standard: «Paar wählen».
  */
 @Stable
-class ExplorerSectionsState(precise: Boolean = false, bulk: Boolean = false) {
-    /** «Erweitert / nach Börse» aufgeklappt. */
-    var precise by mutableStateOf(precise)
-
+class ExplorerSectionsState(bulk: Boolean = false) {
     /** Register «Mehrere Paare auf einmal» gewählt (sonst «Paar wählen»). */
     var bulk by mutableStateOf(bulk)
 }
 
-/** Speichert [ExplorerSectionsState] als zwei Wahrheitswerte (precise, bulk). */
-private val explorerSectionsSaver: Saver<ExplorerSectionsState, List<Boolean>> = Saver(
-    save = { arrayListOf(it.precise, it.bulk) },
-    restore = { ExplorerSectionsState(precise = it[0], bulk = it[1]) },
+/** Speichert [ExplorerSectionsState] als Wahrheitswert (bulk). */
+private val explorerSectionsSaver: Saver<ExplorerSectionsState, Boolean> = Saver(
+    save = { it.bulk },
+    restore = { ExplorerSectionsState(bulk = it) },
 )
 
-/** Gespeicherter Stand der aufklappbaren Bereiche ([ExplorerSectionsState]). */
+/** Gespeicherter Stand der Register ([ExplorerSectionsState]). */
 @Composable
 fun rememberExplorerSections(): ExplorerSectionsState =
     rememberSaveable(saver = explorerSectionsSaver) { ExplorerSectionsState() }
@@ -90,73 +77,10 @@ internal fun ExplorerModeTabs(bulk: Boolean, onSelect: (Boolean) -> Unit, modifi
     )
 }
 
-/** Kopfzeile eines aufklappbaren Bereichs: Titel und Pfeil, als Ganzes antippbar. */
-@Composable
-internal fun SectionToggle(title: String, expanded: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.surfaceContainer)
-            .toggleable(value = expanded, role = Role.Button, onValueChange = { onToggle() })
-            .padding(horizontal = 16.dp, vertical = Spacing.lg)
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.weight(1f)
-        )
-        // Auf-/Zuklapp-Pfeil überall gleich: Themenfarbe, unten (zu) bzw. oben (offen)
-        ExpandChevronIcon(expanded = expanded)
-    }
-}
-
 /** Anzeigename einer Laufzeit; ohne Kontrakt «Spot». */
 @Composable
 internal fun contractName(type: FuturesContractType): String =
     if (type == FuturesContractType.NONE) stringResource(R.string.explorer_contract_spot) else type.toString()
-
-/**
- * Schritt-Kopf: Nummer im Kreis, aktiv bzw. erledigt in der Akzentfarbe,
- * noch nicht erreichbar blass. Zeigt auf einen Blick, was als Nächstes kommt.
- */
-@Composable
-internal fun StepHeader(number: Int, title: String, active: Boolean, done: Boolean) {
-    val lit = active || done
-    val accent = MaterialTheme.colorScheme.primary
-    // Erledigt: kleines Häkchen auf neutralem Grund (keine gefüllte Akzent-Plakette, die wie eine Checkbox wirkt);
-    // offen bzw. aktiv: Nummer
-    val badge = if (done) 20.dp else 24.dp
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 8.dp)
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(badge)
-                .clip(CircleShape)
-                .background(if (lit && !done) accent else MaterialTheme.colorScheme.surfaceVariant)
-        ) {
-            Text(
-                text = if (done) "✓" else LocaleNumbers.integer(number),
-                style = MaterialTheme.typography.labelMedium,
-                color = when {
-                    done -> MaterialTheme.colorScheme.onSurfaceVariant
-                    lit -> AppColors.onAccent
-                    else -> MaterialTheme.colorScheme.onSurfaceVariant
-                }
-            )
-        }
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            color = if (lit) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = Spacing.sm)
-        )
-    }
-}
 
 /** Favoriten der drei Auswahllisten. */
 class FavoritesUi(
@@ -164,4 +88,32 @@ class FavoritesUi(
     val coins: Set<String> = emptySet(),
     val quotes: Set<String> = emptySet(),
     val onToggle: (FavoriteKind, String) -> Unit = { _, _ -> },
+)
+
+/** Rückrufe für Börse, Paar und «Zur Merkliste». */
+internal class PairActions(
+    val onCoinChanged: (String?) -> Unit,
+    val onQuoteChanged: (String?) -> Unit,
+    val onContractChanged: (FuturesContractType?) -> Unit,
+    /** Kurs des gewählten Paars neu laden. */
+    val onRetryPrice: () -> Unit,
+    val onReloadPairs: () -> Unit,
+    val onAdd: () -> Unit,
+    /** Rückmeldung zu «Zur Merkliste» wurde gezeigt. */
+    val onAddShown: () -> Unit,
+)
+
+/** Rückrufe für «Mehrere Paare auf einmal». */
+internal class BulkActions(
+    val onApply: () -> Unit,
+    val onSelectPair: (ExchangePair) -> Unit,
+    val onAddAll: () -> Unit,
+    val onAddAllShown: () -> Unit,
+    /** Ergebnis wird gezeigt: im Runner als gemeldet markieren. */
+    val onAddAllClaimed: () -> Unit,
+    /** «Rückgängig» nach dem Hinzufügen: diese neu angelegten Paare wieder entfernen. */
+    val onUndo: (List<Long>) -> Unit,
+    val onQuoteChanged: (String) -> Unit,
+    /** Liste offen: Kennzahlen für die Schnellfilter laden (eine Sammelabfrage). */
+    val onNeedStats: () -> Unit,
 )

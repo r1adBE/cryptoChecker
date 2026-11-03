@@ -56,7 +56,6 @@
         <item quantity="other">%1$d par · aktualizacja %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Pary</string>
-    <string name="explorer_precise_title">Zaawansowane / według giełdy</string>
     <string name="explorer_price_loading">Wczytywanie kursu…</string>
     <string name="explorer_select_exchange_hint">Wybierz giełdę – jej pary wczytają się automatycznie.</string>
     <string name="explorer_select_placeholder">Wybierz</string>
@@ -176,7 +175,11 @@
     <string name="bulk_undo_expired">Cofnięcie nie jest już możliwe – pary zostają na liście obserwowanych.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Kontrakty terminowe</string>
-    <string name="explorer_section_dex">Pule DEX</string>
     <string name="explorer_section_forex">Forex (kurs referencyjny)</string>
+    <string name="explorer_market_forex">Waluty</string>
+    <string name="explorer_popular_title">Popularne</string>
+    <string name="explorer_recent_exchanges_title">Ostatnio używane giełdy</string>
+    <string name="explorer_all_exchanges_title">Wszystkie giełdy</string>
+    <string name="explorer_exchanges_title">Giełdy</string>
     <string name="explorer_forex_hint">Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alarmów.</string>
 </resources>

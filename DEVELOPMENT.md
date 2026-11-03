@@ -2509,9 +2509,11 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   watchlist VM → controllers that own their state privately: `WatchlistStarterController`,
   `WatchlistEditController`, `WatchlistRefreshController`, plus the injected `WatchlistSheetData` (iOS: data helpers of
   `WatchlistRow`) and `WatchlistGroupFilter`; the screen collects one `WatchlistUiState` and the live-price map; explorer VM →
-  `ExplorerSearchActions`, `ExplorerSelectionActions`, `ExplorerBulkActions`, `ExplorerDexActions`; iOS
+  `ExplorerSearchActions`, `ExplorerSelectionActions`, `ExplorerBulkActions`, `ExplorerDexActions`,
+  `ExplorerBrowseActions` (market chips, open/close an exchange, «Popular»; pure logic in `ExplorerBrowse`, views in
+  `ExplorerBrowseUi`, both platforms); iOS
   `ExplorerRecentSearches`/`ExplorerQuickFilter` (as Android), `ExplorerPicker`, `ExplorerFeedback`; Android
-  `ExplorerPreciseSelection`; market VM (`InfoViewModel` / `CycleViewModel`) → `MarketDataLoaders`,
+  `ExplorerExchangePairs` (pairs of an opened exchange); market VM (`InfoViewModel` / `CycleViewModel`) → `MarketDataLoaders`,
   `MarketDataSync`, Android `MarketPreviewActions`; `CryptoPulseCard` → `CryptoPulseParts`; `MarketRow` →
   `MarketSectionHeader`, iOS `ExchangeInfo` and `MarketCoinSheets` (as Android); `WatchWhyFactors` →
   `WatchWhyTexts`, Android `WatchWhyAllValues`, `WatchWhyReasons`; `WatchlistRow` → `WatchlistRowParts`,
@@ -3215,6 +3217,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 185: logos – Binance symbol list first, `CoinLogoQueue` (6 parallel, 4 per host, fixed order for everyone),
   `CoinLogoPlaceholder` (colour from symbol, AA contrast, fade-in); spot card by name identity; iOS `BlockedSources.clearForTest`;
   te/ta polite form, he/da quotes, ka/hy/lv/nb texts.
+* Build 186: add-pair overview with market chips (All/Spot/Futures/DEX/Forex), popular pairs, recent and all exchanges;
+  accordion and step UI removed; no extra price requests (privacy); shared overview cases for both platforms.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

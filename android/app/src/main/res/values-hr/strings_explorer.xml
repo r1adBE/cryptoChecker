@@ -52,7 +52,6 @@
         <item quantity="other">%1$d parova · ažurirano %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Parovi</string>
-    <string name="explorer_precise_title">Napredno / po burzi</string>
     <string name="explorer_price_loading">Učitavanje cijene…</string>
     <string name="explorer_select_exchange_hint">Odaberi burzu – njezini parovi za trgovanje učitavaju se automatski.</string>
     <string name="explorer_select_placeholder">Odaberi</string>
@@ -163,7 +162,11 @@
     <string name="bulk_undo_expired">Poništavanje više nije moguće – parovi ostaju na popisu praćenja.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX poolovi</string>
     <string name="explorer_section_forex">Forex (referentni tečaj)</string>
+    <string name="explorer_market_forex">Devize</string>
+    <string name="explorer_popular_title">Popularno</string>
+    <string name="explorer_recent_exchanges_title">Nedavno korištene burze</string>
+    <string name="explorer_all_exchanges_title">Sve burze</string>
+    <string name="explorer_exchanges_title">Burze</string>
     <string name="explorer_forex_hint">Dnevni tečaj Europske središnje banke (putem Frankfurtera), ne uživo – nema alarma.</string>
 </resources>

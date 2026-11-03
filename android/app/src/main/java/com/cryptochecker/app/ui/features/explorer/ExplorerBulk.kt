@@ -47,7 +47,7 @@ private const val BULK_PREVIEW_ROWS = 25
 /**
  * Mehrere Paare auf einmal (Expertenfunktion, eingeklappt bis man sie öffnet): Gegenwährung
  * wählen, «Alle …-Paare» übernehmen, Zusammenfassung mit Ziel-Gruppe und «Alle hinzufügen»;
- * die Liste der Paare nur auf Wunsch — ein Tipp wählt das Paar oben in Schritt 2.
+ * die Liste der Paare nur auf Wunsch — ein Tipp wählt das Paar oben in «Paar wählen».
  */
 @Composable
 internal fun BulkPairsCard(
@@ -201,7 +201,7 @@ internal fun BulkPairsCard(
                     val sortedPairs = remember(pairs, stats, filter) {
                         QuickFilters.sort(pairs, filter) { p -> p.pairId?.let { stats[it] } }
                     }
-                    // Antippbare Vorschau: wählt das Paar oben in Schritt 2. Keine eigene rollende
+                    // Antippbare Vorschau: wählt das Paar oben in «Paar wählen». Keine eigene rollende
                     // Liste in der rollenden Seite (Scrollen im Scrollen): erst die ersten Paare,
                     // «Alle anzeigen» klappt den Rest auf.
                     var showAllPairs by rememberSaveable(quote) { mutableStateOf(false) }

@@ -39,8 +39,14 @@ internal class ExplorerBulkState {
     var statsLoadedAt = 0L
 }
 
-/** Treffer der Suche über alle Börsen und der darin gewählte Coin. */
+/** Treffer der Suche über alle Börsen, der darin gewählte Coin, der Markt-Chip und «Beliebt». */
 internal class ExplorerSearchHits {
+    /** Gewählter Markt-Chip (Alle · Spot · Futures · DEX · Devisen); filtert Börsen und Treffer. */
+    val market = MutableStateFlow(MarketFilter.ALL)
+
+    /** «Beliebt»: Paare der Start-Börse ([PopularPairs]), ohne Suchbegriff gezeigt. */
+    val popular = MutableStateFlow<List<SearchHit>>(emptyList())
+
     /** Gefundene Paare. */
     val pairs = MutableStateFlow<List<SearchHit>>(emptyList())
 

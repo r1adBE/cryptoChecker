@@ -44,7 +44,6 @@
         <item quantity="other">%1$d ຄູ່ · ອັບເດດ %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">ຄູ່ເທຣດ</string>
-    <string name="explorer_precise_title">ຂັ້ນສູງ / ຕາມກະດານແລກປ່ຽນ</string>
     <string name="explorer_price_loading">ກຳລັງໂຫຼດລາຄາ…</string>
     <string name="explorer_select_exchange_hint">ເລືອກກະດານແລກປ່ຽນ – ຄູ່ເທຣດຂອງມັນຈະໂຫຼດອັດຕະໂນມັດ.</string>
     <string name="explorer_select_placeholder">ກະລຸນາເລືອກ</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">ຍົກເລີກບໍ່ໄດ້ອີກແລ້ວ – ຄູ່ເທຣດຍັງຢູ່ໃນລາຍການຕິດຕາມ.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX pools</string>
     <string name="explorer_section_forex">Forex (ອັດຕາອ້າງອີງ)</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">ຍອດນິຍົມ</string>
+    <string name="explorer_recent_exchanges_title">ກະດານແລກປ່ຽນທີ່ໃຊ້ຫຼ້າສຸດ</string>
+    <string name="explorer_all_exchanges_title">ກະດານແລກປ່ຽນທັງໝົດ</string>
+    <string name="explorer_exchanges_title">ກະດານແລກປ່ຽນ</string>
     <string name="explorer_forex_hint">ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ (ຜ່ານ Frankfurter), ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
 </resources>

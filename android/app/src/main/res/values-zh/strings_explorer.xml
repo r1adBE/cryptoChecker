@@ -44,7 +44,6 @@
         <item quantity="other">%1$d 个交易对 · 更新于 %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">交易对</string>
-    <string name="explorer_precise_title">高级 / 按交易所</string>
     <string name="explorer_price_loading">正在加载价格…</string>
     <string name="explorer_select_exchange_hint">选择交易所后，交易对会自动加载。</string>
     <string name="explorer_select_placeholder">请选择</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">已无法撤销，交易对会保留在自选中。</string>
     <string name="explorer_section_spot">现货</string>
     <string name="explorer_section_futures">期货</string>
-    <string name="explorer_section_dex">DEX 池</string>
     <string name="explorer_section_forex">外汇（参考汇率）</string>
+    <string name="explorer_market_forex">外汇</string>
+    <string name="explorer_popular_title">热门</string>
+    <string name="explorer_recent_exchanges_title">最近使用的交易所</string>
+    <string name="explorer_all_exchanges_title">所有交易所</string>
+    <string name="explorer_exchanges_title">交易所</string>
     <string name="explorer_forex_hint">欧洲中央银行的每日汇率（通过 Frankfurter），非实时——没有提醒。</string>
 </resources>

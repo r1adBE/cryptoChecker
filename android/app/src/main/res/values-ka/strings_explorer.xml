@@ -48,7 +48,6 @@
         <item quantity="other">%1$d წყვილი · განახლდა %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">წყვილები</string>
-    <string name="explorer_precise_title">გაფართოებული / ბირჟის მიხედვით</string>
     <string name="explorer_price_loading">ფასი იტვირთება…</string>
     <string name="explorer_select_exchange_hint">აირჩიე ბირჟა – მისი სავაჭრო წყვილები ავტომატურად ჩაიტვირთება.</string>
     <string name="explorer_select_placeholder">აირჩიე</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">დაბრუნება აღარ არის შესაძლებელი – წყვილები დაკვირვების სიაში რჩება.</string>
     <string name="explorer_section_spot">სპოტი</string>
     <string name="explorer_section_futures">ფიუჩერსები</string>
-    <string name="explorer_section_dex">DEX პულები</string>
     <string name="explorer_section_forex">Forex (საორიენტაციო კურსი)</string>
+    <string name="explorer_market_forex">ვალუტა</string>
+    <string name="explorer_popular_title">პოპულარული</string>
+    <string name="explorer_recent_exchanges_title">ბოლოს გამოყენებული ბირჟები</string>
+    <string name="explorer_all_exchanges_title">ყველა ბირჟა</string>
+    <string name="explorer_exchanges_title">ბირჟები</string>
     <string name="explorer_forex_hint">ევროპის ცენტრალური ბანკის დღიური კურსი (Frankfurter-ის მეშვეობით), არა რეალურ დროში – განგაშების გარეშე.</string>
 </resources>

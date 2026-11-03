@@ -19,6 +19,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,12 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.components.HttpLogPanel
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.features.loading.SkeletonLoadingScreen
-import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -48,7 +47,7 @@ fun ExplorerScreen(
     onOpenWatchlist: () -> Unit = {},
     onBack: () -> Unit = {},
     explorerViewModel: ExplorerViewModel = hiltViewModel(),
-    /** Auf-/zugeklappte Bereiche; die Navigation gibt den Stand der Sitzung mit. */
+    /** Register der Paar-Auswahl; die Navigation gibt den Stand der Sitzung mit. */
     sections: ExplorerSectionsState = rememberExplorerSections(),
 ) {
     val vm = explorerViewModel
@@ -75,6 +74,19 @@ fun ExplorerScreen(
     val dexMessage by vm.dexMessage.collectAsStateWithLifecycle()
     val dexPrefill by vm.dexPrefill.collectAsStateWithLifecycle()
     val showHttpLog by vm.showHttpLog.collectAsStateWithLifecycle()
+    // Übersicht: Markt-Chip, «Beliebt», zuletzt genutzte Börsen
+    val market by vm.marketFilter.collectAsStateWithLifecycle()
+    val popular by vm.popularPairs.collectAsStateWithLifecycle()
+    val recentExchanges by vm.recentExchanges.collectAsStateWithLifecycle()
+
+    // Jedes Öffnen der Seite beginnt bei der Übersicht (wie iOS); Drehen behält die offene Börse
+    var opened by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        if (!opened) {
+            opened = true
+            vm.closeExchange()
+        }
+    }
 
     when (val state = pageState) {
         is ExplorerLoad.Loading -> PlainExplorerPage(onBack) { SkeletonLoadingScreen() }
@@ -82,13 +94,20 @@ fun ExplorerScreen(
         is ExplorerLoad.Ready -> ExplorerPage(
             selection = state.selection,
             onOpenDex = vm::openDexSearch,
+            onCloseExchange = vm::closeExchange,
+            browse = BrowseUi(
+                market = market,
+                onMarket = vm::setMarketFilter,
+                popular = popular,
+                recent = recentExchanges,
+                onOpenExchange = vm::openExchange,
+            ),
             sections = sections,
             httpLogText = vm.httpLogText,
             showHttpLog = showHttpLog,
             onOpenWatchlist = onOpenWatchlist,
             onBack = onBack,
             actions = PairActions(
-                onExchangeChanged = vm::selectExchange,
                 onCoinChanged = vm::selectCoin,
                 onQuoteChanged = vm::selectQuote,
                 onContractChanged = vm::selectContract,
@@ -114,7 +133,8 @@ fun ExplorerScreen(
                 showPairs = showPairHits,
                 pickedCoin = pickedCoin,
                 pickedCoinPairs = pickedCoinPairs,
-                lists = searchLists,
+                // DEX-Pools haben keine Paarlisten: unter «DEX» kein Angebot, Listen zu laden
+                lists = if (market == MarketFilter.DEX) SearchLists() else searchLists,
                 watched = watchedKeys,
                 onQueryChange = vm::setSearchQuery,
                 onPickCoin = vm::pickCoin,
@@ -123,7 +143,8 @@ fun ExplorerScreen(
                 recent = recentSearches,
                 onConfirm = vm::confirmSearch,
                 onClearRecent = vm::clearRecentSearches,
-                dexHit = dexSearchHit(searchQuery, state.selection),
+                dexHit = dexSearchHit(searchQuery, state.selection, market),
+                exchanges = exchangeHits(searchQuery, state.selection, market),
             ),
             favorites = FavoritesUi(
                 exchanges = favoriteExchanges,
@@ -148,35 +169,6 @@ fun ExplorerScreen(
         )
     }
 }
-
-/** Rückrufe für Börse, Paar und «Zur Merkliste». */
-internal class PairActions(
-    val onExchangeChanged: (ExchangeInfo?) -> Unit,
-    val onCoinChanged: (String?) -> Unit,
-    val onQuoteChanged: (String?) -> Unit,
-    val onContractChanged: (FuturesContractType?) -> Unit,
-    /** Kurs des gewählten Paars neu laden. */
-    val onRetryPrice: () -> Unit,
-    val onReloadPairs: () -> Unit,
-    val onAdd: () -> Unit,
-    /** Rückmeldung zu «Zur Merkliste» wurde gezeigt. */
-    val onAddShown: () -> Unit,
-)
-
-/** Rückrufe für «Mehrere Paare auf einmal». */
-internal class BulkActions(
-    val onApply: () -> Unit,
-    val onSelectPair: (ExchangePair) -> Unit,
-    val onAddAll: () -> Unit,
-    val onAddAllShown: () -> Unit,
-    /** Ergebnis wird gezeigt: im Runner als gemeldet markieren. */
-    val onAddAllClaimed: () -> Unit,
-    /** «Rückgängig» nach dem Hinzufügen: diese neu angelegten Paare wieder entfernen. */
-    val onUndo: (List<Long>) -> Unit,
-    val onQuoteChanged: (String) -> Unit,
-    /** Liste offen: Kennzahlen für die Schnellfilter laden (eine Sammelabfrage). */
-    val onNeedStats: () -> Unit,
-)
 
 /** Gerüst mit Kopf «Paar hinzufügen» für Laden und Fehler. */
 @Composable
@@ -204,15 +196,18 @@ private fun ExplorerTopBar(onBack: () -> Unit) {
 }
 
 /**
- * Die Seite: oben die Coin-Suche (der Hauptweg: Coin finden, dann sein Paar), darunter eingeklappt
- * «Erweitert / nach Börse» in Schritten — Börse ([ExchangeStepCard]), Paar ([PairStepCard]) bzw. DEX-Suche,
- * mehrere Paare auf einmal ([BulkPairsCard]) — und «Börse fehlt?». Rückmeldungen als Snackbar ([ExplorerFeedback]).
+ * Die Seite: oben die Coin-Suche (der Hauptweg: Coin finden, dann sein Paar) und die Markt-Chips ([MarketChips]),
+ * darunter ohne Suchbegriff die Übersicht ([BrowseSections]: «Beliebt», zuletzt genutzte und alle Börsen) bzw. die Paare
+ * der geöffneten Börse ([ExchangePairs]: Paar, mehrere Paare auf einmal oder DEX-Suche) — und «Börse fehlt?».
+ * Rückmeldungen als Snackbar ([ExplorerFeedback]).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExplorerPage(
     selection: ExplorerSelection,
     onOpenDex: (String) -> Unit,
+    onCloseExchange: () -> Unit,
+    browse: BrowseUi,
     sections: ExplorerSectionsState,
     httpLogText: StateFlow<String>,
     showHttpLog: Boolean,
@@ -234,8 +229,9 @@ private fun ExplorerPage(
 
     val logText by httpLogText.collectAsStateWithLifecycle()
 
-    // Zurück mit gewähltem Coin: erst zu den Treffern, nicht gleich aus der Seite
+    // Zurück mit gewähltem Coin: erst zu den Treffern, nicht gleich aus der Seite; mit offener Börse zur Übersicht
     BackHandler(enabled = search.query.isNotBlank() && search.pickedCoin != null) { search.onPickCoin(null) }
+    BackHandler(enabled = search.query.isBlank() && exchange != null, onBack = onCloseExchange)
 
     val snackbar = remember { SnackbarHostState() }
     var askBulkConfirm by remember { mutableStateOf(false) }
@@ -284,21 +280,25 @@ private fun ExplorerPage(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             SearchField(search)
+            val exchangeOpen = search.query.isBlank() && exchange != null
+            // Markt-Chips filtern Börsen und Treffer; bei offener Börse gehören sie nicht dazu
+            if (!exchangeOpen) MarketChips(browse.market, browse.onMarket, Modifier.padding(bottom = Spacing.xs))
 
             val pickedCoin = search.pickedCoin
             when {
-                // Angetippter Coin: Vorschlag oben, darunter seine übrigen Paare
+                // Angetippter Coin: Vorschlag oben, darunter seine übrigen Paare (Börsen nach dem Markt-Chip)
                 search.query.isNotBlank() && pickedCoin != null -> CoinPairs(pickedCoin, search, groupTarget)
                 // Während der Suche nur die Treffer
-                search.query.isNotBlank() -> SearchResults(search, groupTarget, onChooseManually = {
-                    search.onQueryChange("")
-                    sections.precise = true
-                }, onOpenDex = { token ->
-                    sections.precise = true
-                    onOpenDex(token)
-                })
+                search.query.isNotBlank() -> SearchResults(
+                    search, groupTarget,
+                    onChooseManually = { search.onQueryChange("") },
+                    onOpenDex = onOpenDex,
+                    exchangeRows = { list -> ExchangeRows(list, categoriesOf(selection), favorites, browse.onOpenExchange) },
+                )
                 else -> BrowseContent(
                     sections = sections,
+                    browse = browse,
+                    onCloseExchange = onCloseExchange,
                     search = search,
                     selection = selection,
                     actions = actions,
@@ -318,12 +318,14 @@ private fun ExplorerPage(
 }
 
 /**
- * Ohne Suchbegriff: «Zuletzt gesucht», ein Satz zur Coin-Suche, eingeklappt «Erweitert / nach Börse»
- * und «Börse fehlt?». Steht in der Spalte der Seite (kein eigenes Layout).
+ * Ohne Suchbegriff: «Zuletzt gesucht», ein Satz zur Coin-Suche und die Übersicht der Börsen — oder, mit geöffneter
+ * Börse, ihre Paare —, dann «Börse fehlt?». Steht in der Spalte der Seite (kein eigenes Layout).
  */
 @Composable
 private fun BrowseContent(
     sections: ExplorerSectionsState,
+    browse: BrowseUi,
+    onCloseExchange: () -> Unit,
     search: SearchUi,
     selection: ExplorerSelection,
     actions: PairActions,
@@ -337,22 +339,11 @@ private fun BrowseContent(
     showHttpLog: Boolean,
     logText: String,
 ) {
-    // «Zuletzt gesucht» als Chips (nur auf dem Gerät)
-    RecentSearchChips(search, Modifier.padding(bottom = 8.dp))
-    // Hauptweg ist die Coin-Suche; die Auswahl nach Börse liegt eingeklappt darunter
-    StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))
-
-    // Auf-/zugeklappt merkt sich die Sitzung, nicht nur dieser Bildschirm ([ExplorerSectionsState])
-    val precise = sections.precise
-    SectionToggle(
-        title = stringResource(R.string.explorer_precise_title),
-        expanded = precise,
-        onToggle = { sections.precise = !precise },
-        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
-    )
-    if (precise) {
-        PreciseSelection(
+    val exchange by selection.exchange.collectAsStateWithLifecycle()
+    if (exchange != null) {
+        ExchangePairs(
             sections = sections,
+            onClose = onCloseExchange,
             selection = selection,
             actions = actions,
             bulk = bulk,
@@ -363,8 +354,15 @@ private fun BrowseContent(
             onToggleBulkList = onToggleBulkList,
             onAskBulkConfirm = onAskBulkConfirm,
         )
+    } else {
+        // «Zuletzt gesucht» als Chips (nur auf dem Gerät)
+        RecentSearchChips(search, Modifier.padding(bottom = Spacing.sm))
+        // Hauptweg ist die Coin-Suche; darunter die Börsen
+        StepHint(stringResource(R.string.explorer_search_intro), Modifier.padding(start = 4.dp, end = 4.dp))
+        BrowseSections(browse, selection, search, favorites, groupTarget)
     }
 
+    Spacer(modifier = Modifier.size(Spacing.lg))
     ExchangeMissingRow()
 
     // Entwickleroption: HTTP-Protokoll (Einstellungen › Über die App › Entwickler, nur Debug)

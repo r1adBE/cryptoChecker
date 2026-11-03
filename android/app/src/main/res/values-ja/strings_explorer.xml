@@ -44,7 +44,6 @@
         <item quantity="other">%1$d ペア · 更新 %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">ペア</string>
-    <string name="explorer_precise_title">詳細 / 取引所から</string>
     <string name="explorer_price_loading">価格を読み込み中…</string>
     <string name="explorer_select_exchange_hint">取引所を選ぶと、取引ペアが自動で読み込まれます。</string>
     <string name="explorer_select_placeholder">選択してください</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">元に戻せる時間が過ぎました。ペアはウォッチリストに残ります。</string>
     <string name="explorer_section_spot">現物</string>
     <string name="explorer_section_futures">先物</string>
-    <string name="explorer_section_dex">DEXプール</string>
     <string name="explorer_section_forex">外国為替（参照レート）</string>
+    <string name="explorer_market_forex">外国為替</string>
+    <string name="explorer_popular_title">人気</string>
+    <string name="explorer_recent_exchanges_title">最近使った取引所</string>
+    <string name="explorer_all_exchanges_title">すべての取引所</string>
+    <string name="explorer_exchanges_title">取引所</string>
     <string name="explorer_forex_hint">欧州中央銀行の日次レート（Frankfurter経由）です。リアルタイムではなく、アラームはありません。</string>
 </resources>

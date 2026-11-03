@@ -1,25 +1,21 @@
 import SwiftUI
 
-/// Die zwei Schritte der genauen Auswahl: 1 = Börse samt Abgleich der Paarliste, 2 = Paar mit
-/// Kursvorschau und Aufnahme. Gegenstück zu `ExplorerSteps.kt`.
+/// Paare einer geöffneten Börse: Kopf der Börse samt Abgleich der Paarliste, dann Paar mit Kursvorschau und
+/// Aufnahme. Gegenstück zu `ExplorerSteps.kt`.
 extension ExplorerScreen {
-    // MARK: Schritt 1 – Börse
+    // MARK: Kopf der Börse
 
-    var exchangeStep: some View {
-        ExplorerStepCard(highlighted: vm.exchange == nil) {
-            ExplorerStepHeader(
-                number: 1,
-                title: L("explorer_field_exchange"),
-                active: true,
-                done: exchangeReady
-            )
-            HStack(spacing: 8) {
-                ExplorerPickerField(
-                    label: L("explorer_field_exchange"),
-                    value: vm.exchange?.name,
-                    placeholder: L("explorer_select_placeholder")
-                ) { picker = .exchange }
-
+    /// Zeichen und Name (Überschrift), rechts «Paare neu laden»; darunter Ladebalken, Fehler oder Zahl der Paare und
+    /// bei den EZB-Kursen der Hinweis «Tageskurs …». Wie `ExchangeHeaderCard` (Android).
+    var exchangeHeader: some View {
+        ExplorerStepCard {
+            HStack(spacing: Spacing.md) {
+                ExplorerExchangeMarkView(name: vm.exchange?.name ?? "", size: 40)
+                Text(vm.exchange?.name ?? "")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(AppColors.onSurface)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityAddTraits(.isHeader)
                 if !vm.isDex {
                     reloadPairsButton
                 }
@@ -31,12 +27,6 @@ extension ExplorerScreen {
                 ExplorerHint(text: L("explorer_forex_hint"))
             }
         }
-    }
-
-    /// Schritt 1 erledigt: Börse gewählt und Paare da (bzw. DEX, dort gibt es keine Liste).
-    private var exchangeReady: Bool {
-        guard vm.exchange != nil else { return false }
-        return vm.isDex || vm.hasPairs
     }
 
     /// Neu laden geht erst mit gewählter Börse, die das kann, und nicht doppelt.
@@ -72,12 +62,10 @@ extension ExplorerScreen {
         }
     }
 
-    /// Zeile unter der Börse: Hinweis, Ladebalken, Fehler oder Anzahl Paare mit Datum.
+    /// Zeile unter der Börse: Ladebalken, Fehler oder Anzahl Paare mit Datum.
     @ViewBuilder
     private var exchangeStatusLine: some View {
-        if vm.exchange == nil {
-            ExplorerHint(text: L("explorer_select_exchange_hint"))
-        } else if vm.isDex {
+        if vm.exchange == nil || vm.isDex {
             EmptyView()
         } else if vm.syncing {
             pairsLoadingBar
@@ -125,20 +113,10 @@ extension ExplorerScreen {
         return TickerView.sameDayTimeOrDate(info.lastSyncDate)
     }
 
-    // MARK: Schritt 2 – Paar
+    // MARK: Paar
 
     var pairStep: some View {
         ExplorerStepCard(highlighted: vm.hasPairs && !vm.pairSelected) {
-            // Mit Registern steht der Titel bereits im Register
-            if !bulkTabbed {
-                ExplorerStepHeader(
-                    number: 2,
-                    title: L("explorer_step_pair"),
-                    active: vm.hasPairs,
-                    done: vm.pairSelected
-                )
-            }
-
             if vm.hasPairs {
                 pairFields
                 ExplorerHint(text: L("hint_favorites_list"))

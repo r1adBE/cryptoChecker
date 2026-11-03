@@ -3,9 +3,9 @@ import Accessibility
 import SwiftUI
 import UIKit
 
-// Auswahl «Erweitert / nach Börse» (Teil von `ExplorerViewModel`): Börse, Coin, Gegenwährung, Laufzeit,
+// Paar-Auswahl einer geöffneten Börse (Teil von `ExplorerViewModel`): Börse, Coin, Gegenwährung, Laufzeit,
 // Paarliste neu laden, Kurs holen und das gewählte Paar hinzufügen.
-// Eigene Datei, weil der Schritt-für-Schritt-Ablauf eine eigene Aufgabe ist; der Zustand bleibt in der Klasse
+// Eigene Datei, weil die Auswahl nach Börse eine eigene Aufgabe ist; der Zustand bleibt in der Klasse
 // (wie `ExplorerSelectionActions.kt`).
 
 extension ExplorerViewModel {
@@ -76,7 +76,7 @@ extension ExplorerViewModel {
     func isStill(_ key: String) -> Bool { exchange?.key == key }
 
     /// Was zur vorigen Börse gehörte (Liste, Kurs, Sammelaufnahme, DEX, Kennzahlen), verwerfen.
-    private func clearSelectionResults() {
+    func clearSelectionResults() {
         syncTask?.cancel()
         syncTask = nil
         pairListSync = ExplorerPairListSync()

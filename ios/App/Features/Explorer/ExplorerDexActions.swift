@@ -9,10 +9,14 @@ import UIKit
 extension ExplorerViewModel {
     /// Suchtext nennt eine DEX («uniswap pepe»): Treffer DexScreener samt Name der Börse, sofern sie angeboten wird
     /// («Token & TradFi»); nil = keiner. Wie `dexSearchHit` (Android).
+    /// Mit dem Markt-Chip «DEX» auch ohne DEX-Namen (der ganze Suchtext geht in die DEX-Suche); andere Chips ausser
+    /// «Alle» zeigen ihn nicht.
     var dexSearchHit: (name: String, match: DexNames.Match)? {
-        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }),
-              let match = DexNames.match(searchQuery) else { return nil }
-        return (dex.name, match)
+        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }), marketFilter.allows(.dex) else { return nil }
+        let term = searchQuery.trimmingCharacters(in: .whitespaces)
+        if let match = DexNames.match(searchQuery) { return (dex.name, match) }
+        guard marketFilter == .dex, !term.isEmpty else { return nil }
+        return (dex.name, DexNames.Match(dexName: nil, token: term))
     }
 
     /// Treffer DexScreener angetippt: Suche leeren und DexScreener wählen (das Suchfeld belegt die Ansicht vor).
@@ -20,6 +24,7 @@ extension ExplorerViewModel {
     func openDexSearch() {
         guard let dex = exchanges.first(where: { $0.key == Self.dexKey }) else { return }
         setSearchQuery("")
+        rememberExchange(dex.key)
         selectExchange(dex)
     }
 

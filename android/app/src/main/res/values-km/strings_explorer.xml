@@ -44,7 +44,6 @@
         <item quantity="other">%1$d គូ · បានធ្វើបច្ចុប្បន្នភាព %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">គូ</string>
-    <string name="explorer_precise_title">កម្រិតខ្ពស់ / តាមផ្សារប្តូរ</string>
     <string name="explorer_price_loading">កំពុងផ្ទុកតម្លៃ…</string>
     <string name="explorer_select_exchange_hint">ជ្រើសរើសផ្សារប្តូរ – គូជួញដូររបស់វានឹងផ្ទុកដោយស្វ័យប្រវត្តិ។</string>
     <string name="explorer_select_placeholder">សូមជ្រើសរើស</string>
@@ -137,7 +136,11 @@
     <string name="bulk_undo_expired">មិនអាចមិនធ្វើវិញបានទៀតទេ – គូនៅតែក្នុងបញ្ជីតាមដាន។</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX pools</string>
     <string name="explorer_section_forex">Forex (អត្រាយោង)</string>
+    <string name="explorer_market_forex">Forex</string>
+    <string name="explorer_popular_title">ពេញនិយម</string>
+    <string name="explorer_recent_exchanges_title">ផ្សារប្តូរដែលបានប្រើថ្មីៗ</string>
+    <string name="explorer_all_exchanges_title">ផ្សារប្តូរទាំងអស់</string>
+    <string name="explorer_exchanges_title">ផ្សារប្តូរ</string>
     <string name="explorer_forex_hint">អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប (តាមរយៈ Frankfurter) មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។</string>
 </resources>

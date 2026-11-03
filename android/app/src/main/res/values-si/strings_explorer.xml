@@ -48,7 +48,6 @@
         <item quantity="other">යුගල %1$d · %2$s යාවත්කාලීන කළා</item>
     </plurals>
     <string name="explorer_pairs_title">යුගල</string>
-    <string name="explorer_precise_title">උසස් / හුවමාරුව අනුව</string>
     <string name="explorer_price_loading">මිල පූරණය වෙමින්…</string>
     <string name="explorer_select_exchange_hint">හුවමාරුවක් තෝරන්න – එහි වෙළඳ යුගල ස්වයංක්‍රීයව පූරණය වේ.</string>
     <string name="explorer_select_placeholder">කරුණාකර තෝරන්න</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">පසුගමනය තවදුරටත් කළ නොහැක – යුගල නිරීක්ෂණ ලැයිස්තුවේ පවතී.</string>
     <string name="explorer_section_spot">ස්පොට්</string>
     <string name="explorer_section_futures">ෆියුචර්ස්</string>
-    <string name="explorer_section_dex">DEX සංචිත</string>
     <string name="explorer_section_forex">විදේශ විනිමය (යොමු අනුපාතය)</string>
+    <string name="explorer_market_forex">විදේශ විනිමය</string>
+    <string name="explorer_popular_title">ජනප්‍රිය</string>
+    <string name="explorer_recent_exchanges_title">මෑතකදී භාවිත කළ හුවමාරු</string>
+    <string name="explorer_all_exchanges_title">සියලු හුවමාරු</string>
+    <string name="explorer_exchanges_title">හුවමාරු</string>
     <string name="explorer_forex_hint">යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය (Frankfurter හරහා), සජීවී නොවේ – ඇඟවීම් නැත.</string>
 </resources>

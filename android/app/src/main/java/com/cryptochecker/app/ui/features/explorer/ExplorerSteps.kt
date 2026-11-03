@@ -1,7 +1,5 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import androidx.compose.runtime.remember
-import com.cryptochecker.marketdata.model.ExchangeCategory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
@@ -38,60 +38,36 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.util.DisplayFormat
 
-/** Abstand zwischen den Feldern innerhalb eines Schritts. */
+/** Abstand zwischen den Feldern innerhalb einer Karte. */
 private val FieldGap = 12.dp
 
 // =================================================================================================
-// Schritt 1: Börse
+// Kopf der Börse
 // =================================================================================================
 
-/** Schritt 1: Börse wählen und Paare neu laden; darunter Ladeanzeige, Fehler oder Zahl der Paare. */
+/**
+ * Kopf der geöffneten Börse: Zeichen und Name (Überschrift), rechts «Paare neu laden»; darunter Ladebalken, Fehler oder
+ * Zahl der Paare und bei den EZB-Kursen der Hinweis «Tageskurs …».
+ */
 @Composable
-internal fun ExchangeStepCard(
-    exchanges: List<ExchangeInfo>,
-    /** Abschnitt je Börse (gleiche Länge wie [exchanges]): Titelzeilen der Auswahl. */
-    categories: List<ExchangeCategory>,
-    exchange: ExchangeInfo?,
+internal fun ExchangeHeaderCard(
+    exchange: ExchangeInfo,
     isDex: Boolean,
+    isForex: Boolean,
     hasPairs: Boolean,
     syncing: Boolean,
     canReloadPairs: Boolean,
     syncError: String?,
     pairList: ExchangePairsInfo?,
-    favorites: FavoritesUi,
-    onExchangeChanged: (ExchangeInfo?) -> Unit,
     onReload: () -> Unit,
 ) {
-    val exchangeLabel = stringResource(R.string.explorer_field_exchange)
-    val titles = ExchangeCategory.entries.associateWith { stringResource(sectionTitle(it)) }
-    val sections = remember(categories, titles) { categories.map { titles.getValue(it) } }
-    // DEX-Pools gibt es nur über DexScreener: Eintrag und Abschnitt nennen bekannte DEX («Uniswap, PancakeSwap, …»)
-    val dexSubtitle = stringResource(R.string.dex_picker_subtitle)
-    val dexName = exchanges.firstOrNull { it.key == DEX_EXCHANGE_KEY }?.name
-    val subtitles = remember(dexName, titles, dexSubtitle) {
-        if (dexName == null) emptyMap() else mapOf(dexName to dexSubtitle, titles.getValue(ExchangeCategory.DEX) to dexSubtitle)
-    }
     StepCard {
-        StepHeader(
-            number = 1,
-            title = exchangeLabel,
-            active = true,
-            done = exchange != null && (hasPairs || isDex),
-        )
         Row(verticalAlignment = Alignment.CenterVertically) {
-            DropdownField(
-                modifier = Modifier.weight(1f),
-                // Angezeigt wird der Name («Crypto.com», «Bybit Futures»), nicht die Kennung
-                itemList = exchanges.map(ExchangeInfo::name),
-                selectedIndex = exchanges.indexOf(exchange),
-                label = exchangeLabel,
-                searchable = true,
-                emptyText = stringResource(R.string.explorer_select_placeholder),
-                favorites = favorites.exchanges,
-                onToggleFavorite = { favorites.onToggle(FavoriteKind.EXCHANGE, it) },
-                onValueChange = { picked -> onExchangeChanged(exchanges[picked]) },
-                sections = sections.takeIf { it.size == exchanges.size },
-                subtitles = subtitles,
+            ExchangeMarkBadge(exchange.name, size = 40.dp, modifier = Modifier.padding(end = Spacing.md))
+            Text(
+                text = exchange.name,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f).semantics { heading() },
             )
             if (!isDex) {
                 Spacer(modifier = Modifier.size(8.dp))
@@ -99,7 +75,6 @@ internal fun ExchangeStepCard(
             }
         }
         ExchangeStatus(
-            exchange = exchange,
             isDex = isDex,
             hasPairs = hasPairs,
             syncing = syncing,
@@ -108,20 +83,9 @@ internal fun ExchangeStepCard(
             pairList = pairList,
             onReload = onReload,
         )
-        // EZB-Referenzkurse: täglich, nicht live, keine Alarme — gleich bei der Wahl sagen
-        if (exchange != null && categories.getOrNull(exchanges.indexOf(exchange)) == ExchangeCategory.FOREX) {
-            StepHint(stringResource(R.string.explorer_forex_hint))
-        }
+        // EZB-Referenzkurse: täglich, nicht live, keine Alarme — gleich beim Öffnen sagen
+        if (isForex) StepHint(stringResource(R.string.explorer_forex_hint))
     }
-}
-
-/** Titel eines Abschnitts der Börsenauswahl. */
-@androidx.annotation.StringRes
-private fun sectionTitle(category: ExchangeCategory): Int = when (category) {
-    ExchangeCategory.SPOT -> R.string.explorer_section_spot
-    ExchangeCategory.FUTURES -> R.string.explorer_section_futures
-    ExchangeCategory.DEX -> R.string.explorer_section_dex
-    ExchangeCategory.FOREX -> R.string.explorer_section_forex
 }
 
 /** Runder Knopf «Paare neu laden» neben der Börse; aktiv erst mit gewählter Börse. */
@@ -139,10 +103,9 @@ private fun ReloadPairsButton(enabled: Boolean, onClick: () -> Unit) {
     }
 }
 
-/** Zeile unter der Börse: Hinweis, Ladebalken, Fehler mit «Erneut» oder Stand der Paarliste. */
+/** Zeile unter der Börse: Ladebalken, Fehler mit «Erneut» oder Stand der Paarliste. */
 @Composable
 private fun ExchangeStatus(
-    exchange: ExchangeInfo?,
     isDex: Boolean,
     hasPairs: Boolean,
     syncing: Boolean,
@@ -152,7 +115,6 @@ private fun ExchangeStatus(
     onReload: () -> Unit,
 ) {
     when {
-        exchange == null -> StepHint(stringResource(R.string.explorer_select_exchange_hint))
         isDex -> Unit
         syncing -> Column(modifier = Modifier.padding(top = FieldGap)) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
@@ -195,11 +157,11 @@ private fun ErrorWithRetry(text: String, onRetry: () -> Unit, modifier: Modifier
 }
 
 // =================================================================================================
-// Schritt 2: Paar
+// Paar
 // =================================================================================================
 
 /**
- * Schritt 2: Basis, Gegenwährung und (bei mehreren Laufzeiten) Kontrakt untereinander; darunter
+ * Paar: Basis, Gegenwährung und (bei mehreren Laufzeiten) Kontrakt untereinander; darunter
  * Kurs, Ziel-Gruppe und «Zur Merkliste».
  */
 @Composable
@@ -223,19 +185,8 @@ internal fun PairStepCard(
     onRetryPrice: () -> Unit,
     onReload: () -> Unit,
     onAdd: () -> Unit,
-    /** Kopf «2 Paar wählen» zeigen; unter den Registern nicht (dort steht der Titel schon). */
-    showHeader: Boolean = true,
 ) {
     StepCard {
-        if (showHeader) {
-            StepHeader(
-                number = 2,
-                title = stringResource(R.string.explorer_step_pair),
-                active = hasPairs,
-                done = pairSelected,
-            )
-        }
-
         when {
             hasPairs -> {
                 PairPickers(

@@ -48,7 +48,6 @@
         <item quantity="other">%1$d ஜோடிகள் · %2$s புதுப்பிக்கப்பட்டது</item>
     </plurals>
     <string name="explorer_pairs_title">ஜோடிகள்</string>
-    <string name="explorer_precise_title">மேம்பட்டது / எக்ஸ்சேஞ்ச் வாரியாக</string>
     <string name="explorer_price_loading">விலையை ஏற்றுகிறது…</string>
     <string name="explorer_select_exchange_hint">ஒரு எக்ஸ்சேஞ்சைத் தேர்ந்தெடுக்கவும் – அதன் வர்த்தக ஜோடிகள் தானாக ஏற்றப்படும்.</string>
     <string name="explorer_select_placeholder">தேர்ந்தெடுக்கவும்</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">செயல்தவிர்ப்பு இனி சாத்தியமில்லை – ஜோடிகள் கண்காணிப்புப் பட்டியலில் இருக்கும்.</string>
     <string name="explorer_section_spot">ஸ்பாட்</string>
     <string name="explorer_section_futures">ஃபியூச்சர்ஸ்</string>
-    <string name="explorer_section_dex">DEX பூல்கள்</string>
     <string name="explorer_section_forex">Forex (குறிப்பு விகிதம்)</string>
+    <string name="explorer_market_forex">அந்நியச் செலாவணி</string>
+    <string name="explorer_popular_title">பிரபலமானவை</string>
+    <string name="explorer_recent_exchanges_title">சமீபத்தில் பயன்படுத்திய எக்ஸ்சேஞ்சுகள்</string>
+    <string name="explorer_all_exchanges_title">அனைத்து எக்ஸ்சேஞ்சுகள்</string>
+    <string name="explorer_exchanges_title">எக்ஸ்சேஞ்சுகள்</string>
     <string name="explorer_forex_hint">ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம் (Frankfurter வழியாக), நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை.</string>
 </resources>

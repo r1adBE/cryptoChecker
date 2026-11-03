@@ -48,7 +48,6 @@
         <item quantity="other">%1$d جوڑے · اپ ڈیٹ %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">جوڑے</string>
-    <string name="explorer_precise_title">اعلیٰ درجے کا / ایکسچینج کے مطابق</string>
     <string name="explorer_price_loading">قیمت لوڈ ہو رہی ہے…</string>
     <string name="explorer_select_exchange_hint">کوئی ایکسچینج منتخب کریں – اس کے ٹریڈنگ جوڑے خود بخود لوڈ ہوں گے۔</string>
     <string name="explorer_select_placeholder">براہ کرم منتخب کریں</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">اب کالعدم کرنا ممکن نہیں – جوڑے واچ لسٹ میں رہیں گے۔</string>
     <string name="explorer_section_spot">اسپاٹ</string>
     <string name="explorer_section_futures">فیوچرز</string>
-    <string name="explorer_section_dex">DEX پولز</string>
     <string name="explorer_section_forex">فاریکس (حوالہ جاتی شرح)</string>
+    <string name="explorer_market_forex">فاریکس</string>
+    <string name="explorer_popular_title">مقبول</string>
+    <string name="explorer_recent_exchanges_title">حال ہی میں استعمال شدہ ایکسچینجز</string>
+    <string name="explorer_all_exchanges_title">تمام ایکسچینجز</string>
+    <string name="explorer_exchanges_title">ایکسچینجز</string>
     <string name="explorer_forex_hint">یورپی مرکزی بینک کی روزانہ شرح (Frankfurter کے ذریعے)، لائیو نہیں – کوئی الرٹ نہیں۔</string>
 </resources>

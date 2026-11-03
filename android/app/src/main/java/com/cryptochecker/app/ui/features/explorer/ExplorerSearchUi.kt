@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.ALPHA_GLYPH
 import com.cryptochecker.app.ui.components.CoinBadge
@@ -63,8 +64,10 @@ class SearchUi(
     /** Taste «Suchen»: Begriff für «Zuletzt gesucht» merken. */
     val onConfirm: () -> Unit = {},
     val onClearRecent: () -> Unit = {},
-    /** Suchtext nennt eine DEX («uniswap pepe»): Treffer DexScreener ([DexSearchHitRow]); null = keiner. */
+    /** Suchtext nennt eine DEX («uniswap pepe») oder Markt-Chip «DEX»: Treffer DexScreener ([DexSearchHitRow]); null = keiner. */
     val dexHit: DexSearchHit? = null,
+    /** Börsen, die der Suchtext nennt («kraken»), nach dem Markt-Chip ([exchangeHits]). */
+    val exchanges: List<ExchangeInfo> = emptyList(),
 ) {
     fun isWatched(hit: SearchHit): Boolean = watchKey(
         hit.exchange.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name
@@ -151,10 +154,12 @@ internal fun SearchResults(
     search: SearchUi,
     groupTarget: GroupTargetUi,
     modifier: Modifier = Modifier,
-    /** Kein Treffer: Suche leeren und «Erweitert / nach Börse» aufklappen (Börse und Paar selbst wählen). */
+    /** Kein Treffer: Suche leeren — die Übersicht der Börsen zeigt sich (Börse und Paar selbst wählen). */
     onChooseManually: (() -> Unit)? = null,
     /** Treffer DexScreener angetippt: DEX-Suche öffnen, vorbelegt mit dem übrigen Suchtext. */
     onOpenDex: (String) -> Unit = {},
+    /** Zeilen der gefundenen Börsen ([SearchUi.exchanges]); antippen öffnet ihre Paare. */
+    exchangeRows: @Composable (List<ExchangeInfo>) -> Unit = {},
 ) {
     val pairs = if (search.showPairs) search.pairs else emptyList()
     Column(
@@ -162,7 +167,7 @@ internal fun SearchResults(
         verticalArrangement = Arrangement.spacedBy(Spacing.xs)
     ) {
         val busy = search.lists.reading || search.lists.progress != null
-        if (search.coins.isEmpty() && pairs.isEmpty() && search.dexHit == null && !busy) {
+        if (search.coins.isEmpty() && pairs.isEmpty() && search.dexHit == null && search.exchanges.isEmpty() && !busy) {
             Text(
                 text = stringResource(R.string.explorer_search_empty),
                 style = MaterialTheme.typography.bodyMedium,
@@ -179,6 +184,11 @@ internal fun SearchResults(
         if (search.coins.isNotEmpty()) {
             SectionLabel(stringResource(R.string.explorer_coins_title))
             search.coins.forEach { coin -> CoinRow(coin, onClick = { search.onPickCoin(coin) }) }
+        }
+        // Börsen, die der Suchtext nennt: antippen öffnet ihre Paare
+        if (search.exchanges.isNotEmpty()) {
+            SectionLabel(stringResource(R.string.explorer_exchanges_title), Modifier.padding(top = Spacing.sm))
+            exchangeRows(search.exchanges)
         }
         // DEX-Pools gibt es nur über DexScreener: beim Namen einer DEX gleich den Weg dorthin zeigen
         search.dexHit?.let { hit -> DexSearchHitRow(hit, onOpenDex) }

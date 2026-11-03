@@ -1,36 +1,11 @@
 import Foundation
 
-/// Börsenauswahl in Abschnitten: Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem
-/// Volumen am Tag der Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch.
-/// Gegenstück zu den Abschnitten der Börsen-`DropdownField` (Android `ExplorerSteps.kt`).
+/// Börsen der Übersicht: Abschnitte Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem Volumen am Tag der
+/// Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch — die Liste «Alle Börsen»
+/// (`ExplorerBrowseUi.swift`) ordnet so. Wie `exchangeSections` (Android `ExplorerSelection.kt`).
 extension ExplorerViewModel {
-    /// Abschnitte der angebotenen Börsen (`exchanges`, «Token & TradFi» beachtet) mit übersetztem Titel.
-    var marketSections: [(title: String, exchanges: [Exchange])] {
-        // Eingabe alphabetisch (`allExchanges`); ohne Ranking bleibt diese Reihenfolge je Abschnitt
-        ExchangeOrder.sections(of: exchanges, volumes: exchangeRanking).map { section in
-            (ExplorerViewModel.sectionTitle(section.category), section.exchanges)
-        }
-    }
-
-    /// DEX-Pools gibt es nur über DexScreener: Eintrag und Abschnitt der Auswahl nennen bekannte DEX
-    /// («Uniswap, PancakeSwap, …»). Wie `ExchangeStepCard` (Android).
-    var dexPickerSubtitles: [String: String] {
-        guard let dex = exchanges.first(where: { $0.key == Self.dexKey }) else { return [:] }
-        let subtitle = L("dex_picker_subtitle")
-        return [dex.name: subtitle, Self.sectionTitle(.dex): subtitle]
-    }
-
     /// Gewählte Quelle ist ein täglicher Referenzkurs (EZB): Hinweis unter der Börse.
     var isReferenceRate: Bool { exchange?.priceIsDailyReference == true }
-
-    nonisolated static func sectionTitle(_ category: ExchangeCategory) -> String {
-        switch category {
-        case .spot: return L("explorer_section_spot")
-        case .futures: return L("explorer_section_futures")
-        case .dex: return L("explorer_section_dex")
-        case .forex: return L("explorer_section_forex")
-        }
-    }
 
     /// Fehlt das Ranking, einmal je Sitzung von CoinGecko holen; danach gilt es sofort.
     func loadExchangeRanking() {

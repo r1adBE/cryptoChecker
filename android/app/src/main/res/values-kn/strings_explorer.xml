@@ -48,7 +48,6 @@
         <item quantity="other">%1$d ಜೋಡಿಗಳು · %2$s ಅಪ್‌ಡೇಟ್ ಆಗಿವೆ</item>
     </plurals>
     <string name="explorer_pairs_title">ಜೋಡಿಗಳು</string>
-    <string name="explorer_precise_title">ಸುಧಾರಿತ / ಎಕ್ಸ್‌ಚೇಂಜ್ ಪ್ರಕಾರ</string>
     <string name="explorer_price_loading">ಬೆಲೆ ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
     <string name="explorer_select_exchange_hint">ಒಂದು ಎಕ್ಸ್‌ಚೇಂಜ್ ಆರಿಸಿ – ಅದರ ಟ್ರೇಡಿಂಗ್ ಜೋಡಿಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೋಡ್ ಆಗುತ್ತವೆ.</string>
     <string name="explorer_select_placeholder">ದಯವಿಟ್ಟು ಆಯ್ಕೆಮಾಡಿ</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">ಇನ್ನು ರದ್ದುಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ – ಜೋಡಿಗಳು ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.</string>
     <string name="explorer_section_spot">ಸ್ಪಾಟ್</string>
     <string name="explorer_section_futures">ಫ್ಯೂಚರ್ಸ್</string>
-    <string name="explorer_section_dex">DEX ಪೂಲ್‌ಗಳು</string>
     <string name="explorer_section_forex">Forex (ಉಲ್ಲೇಖ ದರ)</string>
+    <string name="explorer_market_forex">ಫಾರೆಕ್ಸ್</string>
+    <string name="explorer_popular_title">ಜನಪ್ರಿಯ</string>
+    <string name="explorer_recent_exchanges_title">ಇತ್ತೀಚೆಗೆ ಬಳಸಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
+    <string name="explorer_all_exchanges_title">ಎಲ್ಲಾ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
+    <string name="explorer_exchanges_title">ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
     <string name="explorer_forex_hint">ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ (Frankfurter ಮೂಲಕ), ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
 </resources>

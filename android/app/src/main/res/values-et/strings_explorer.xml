@@ -48,7 +48,6 @@
         <item quantity="other">%1$d paari · uuendatud %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Paarid</string>
-    <string name="explorer_precise_title">Täpsem / börsi järgi</string>
     <string name="explorer_price_loading">Hinna laadimine…</string>
     <string name="explorer_select_exchange_hint">Vali börs – selle kauplemispaarid laaditakse automaatselt.</string>
     <string name="explorer_select_placeholder">Palun vali</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">Tagasivõtmine pole enam võimalik – paarid jäävad jälgimisloendisse.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futuurid</string>
-    <string name="explorer_section_dex">DEX-basseinid</string>
     <string name="explorer_section_forex">Forex (viitekurss)</string>
+    <string name="explorer_market_forex">Valuuta</string>
+    <string name="explorer_popular_title">Populaarsed</string>
+    <string name="explorer_recent_exchanges_title">Hiljuti kasutatud börsid</string>
+    <string name="explorer_all_exchanges_title">Kõik börsid</string>
+    <string name="explorer_exchanges_title">Börsid</string>
     <string name="explorer_forex_hint">Euroopa Keskpanga päevakurss (Frankfurteri kaudu), mitte reaalajas – hoiatusi pole.</string>
 </resources>

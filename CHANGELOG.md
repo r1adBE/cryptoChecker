@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 186)
+
+* Add pair, redesigned: search on top, chips All · Spot · Futures · DEX · Forex below. Without search text you see popular pairs, recently used exchanges and all exchanges of the chosen kind; a coin shows the exchanges that list it. The «Advanced / by exchange» section is gone.
+
 ## 16.2.2 (build 185)
 
 * Coin logos appear much faster after installing: Binance logos come first, several images load at once, in the same order for everyone. Until a logo is there, a coloured circle with the initials stands in; the logo fades in (no fade with Reduce Motion). Also in the widgets.

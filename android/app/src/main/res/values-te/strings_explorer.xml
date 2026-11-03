@@ -48,7 +48,6 @@
         <item quantity="other">%1$d జతలు · %2$s అప్‌డేట్ అయ్యాయి</item>
     </plurals>
     <string name="explorer_pairs_title">జతలు</string>
-    <string name="explorer_precise_title">అధునాతనం / ఎక్స్ఛేంజ్ వారీగా</string>
     <string name="explorer_price_loading">ధర లోడ్ అవుతోంది…</string>
     <string name="explorer_select_exchange_hint">ఒక ఎక్స్ఛేంజ్‌ను ఎంచుకోండి – దాని ట్రేడింగ్ జతలు ఆటోమేటిక్‌గా లోడ్ అవుతాయి.</string>
     <string name="explorer_select_placeholder">దయచేసి ఎంచుకోండి</string>
@@ -150,7 +149,11 @@
     <string name="bulk_undo_expired">ఇకపై రద్దు చేయడం సాధ్యం కాదు – జతలు వాచ్‌లిస్ట్‌లోనే ఉంటాయి.</string>
     <string name="explorer_section_spot">స్పాట్</string>
     <string name="explorer_section_futures">ఫ్యూచర్స్</string>
-    <string name="explorer_section_dex">DEX పూల్‌లు</string>
     <string name="explorer_section_forex">Forex (రిఫరెన్స్ రేటు)</string>
+    <string name="explorer_market_forex">ఫారెక్స్</string>
+    <string name="explorer_popular_title">జనాదరణ పొందినవి</string>
+    <string name="explorer_recent_exchanges_title">ఇటీవల ఉపయోగించిన ఎక్స్ఛేంజ్‌లు</string>
+    <string name="explorer_all_exchanges_title">అన్ని ఎక్స్ఛేంజ్‌లు</string>
+    <string name="explorer_exchanges_title">ఎక్స్ఛేంజ్‌లు</string>
     <string name="explorer_forex_hint">యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు (Frankfurter ద్వారా), లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
 </resources>

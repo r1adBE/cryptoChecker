@@ -1,0 +1,307 @@
+{
+  "_comment": "Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (MarketFilter: welche Börsen-Art ein Chip zeigt), «Zuletzt genutzte Börsen» (neueste zuerst, jede einmal, höchstens recentMax), «Beliebt» (Start-Auswahl, dann Ausweich-Liste, dann popularExtra; mit Paarliste nur verfügbare; höchstens popularCount), Zeichen der Börsen (Anfangsbuchstaben, Farbe aus dem ersten Wort) und Börsen zum Suchtext (ein Wort ab 3 Zeichen nennt den Namen, höchstens exchangeSearchLimit). Android: ExplorerBrowseParityTest.kt (MarketFilter, RecentExchanges, PopularPairs, ExchangeMark, ExchangeSearch), iOS: ExplorerBrowseParityTests (ExplorerMarketFilter, ExplorerRecentExchanges, ExplorerPopularPairs, ExplorerExchangeMark, ExplorerExchangeSearch).",
+  "markets": [
+    {
+      "filter": "ALL",
+      "shows": [
+        "SPOT",
+        "FUTURES",
+        "DEX",
+        "FOREX"
+      ]
+    },
+    {
+      "filter": "SPOT",
+      "shows": [
+        "SPOT"
+      ]
+    },
+    {
+      "filter": "FUTURES",
+      "shows": [
+        "FUTURES"
+      ]
+    },
+    {
+      "filter": "DEX",
+      "shows": [
+        "DEX"
+      ]
+    },
+    {
+      "filter": "FOREX",
+      "shows": [
+        "FOREX"
+      ]
+    }
+  ],
+  "recentMax": 4,
+  "recent": [
+    {
+      "list": [],
+      "add": "Kraken",
+      "expected": [
+        "Kraken"
+      ]
+    },
+    {
+      "list": [
+        "Binance",
+        "Kraken"
+      ],
+      "add": "Kraken",
+      "expected": [
+        "Kraken",
+        "Binance"
+      ]
+    },
+    {
+      "list": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "add": "E",
+      "expected": [
+        "E",
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "list": [
+        "Binance"
+      ],
+      "add": "   ",
+      "expected": [
+        "Binance"
+      ]
+    },
+    {
+      "list": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "add": "",
+      "expected": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    }
+  ],
+  "recentDecode": [
+    {
+      "text": "Kraken\n\nBinance\nKraken\n  Bybit  ",
+      "expected": [
+        "Kraken",
+        "Binance",
+        "Bybit"
+      ]
+    },
+    {
+      "text": "",
+      "expected": []
+    }
+  ],
+  "popularCount": 6,
+  "popularExtra": [
+    "DOGE",
+    "ADA",
+    "TRX",
+    "LTC"
+  ],
+  "popular": [
+    {
+      "starter": [
+        "BTC",
+        "ETH",
+        "XRP",
+        "BNB",
+        "SOL"
+      ],
+      "fallback": [
+        "BTC",
+        "ETH",
+        "XRP",
+        "BNB",
+        "SOL"
+      ],
+      "available": null,
+      "expected": [
+        "BTC",
+        "ETH",
+        "XRP",
+        "BNB",
+        "SOL",
+        "DOGE"
+      ]
+    },
+    {
+      "starter": [
+        "BTC",
+        "ETH",
+        "BNB",
+        "SOL",
+        "DOGE"
+      ],
+      "fallback": [
+        "BTC",
+        "ETH",
+        "BNB",
+        "SOL",
+        "DOGE"
+      ],
+      "available": null,
+      "expected": [
+        "BTC",
+        "ETH",
+        "BNB",
+        "SOL",
+        "DOGE",
+        "ADA"
+      ]
+    },
+    {
+      "starter": [
+        "btc",
+        " eth ",
+        "XRP"
+      ],
+      "fallback": [
+        "BTC",
+        "SOL"
+      ],
+      "available": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "ADA",
+        "LTC"
+      ],
+      "expected": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "ADA",
+        "LTC"
+      ]
+    },
+    {
+      "starter": [
+        "BTC"
+      ],
+      "fallback": [
+        "ETH"
+      ],
+      "available": [],
+      "expected": []
+    }
+  ],
+  "marks": [
+    {
+      "name": "Binance",
+      "initials": "B",
+      "colorKey": "BINANCE"
+    },
+    {
+      "name": "Bybit Futures",
+      "initials": "BF",
+      "colorKey": "BYBIT"
+    },
+    {
+      "name": "Crypto.com",
+      "initials": "C",
+      "colorKey": "CRYPTO.COM"
+    },
+    {
+      "name": "Binance.US",
+      "initials": "B",
+      "colorKey": "BINANCE.US"
+    },
+    {
+      "name": "  kraken  pro  x",
+      "initials": "KP",
+      "colorKey": "KRAKEN"
+    },
+    {
+      "name": "",
+      "initials": "?",
+      "colorKey": "?"
+    }
+  ],
+  "exchangeSearchLimit": 5,
+  "exchangeSearch": [
+    {
+      "query": "kraken",
+      "names": [
+        "Binance",
+        "Kraken",
+        "Kraken Futures",
+        "Bybit"
+      ],
+      "expected": [
+        "Kraken",
+        "Kraken Futures"
+      ]
+    },
+    {
+      "query": "btc kraken",
+      "names": [
+        "Binance",
+        "Kraken"
+      ],
+      "expected": [
+        "Kraken"
+      ]
+    },
+    {
+      "query": "cryptocom",
+      "names": [
+        "Crypto.com",
+        "Coinbase"
+      ],
+      "expected": [
+        "Crypto.com"
+      ]
+    },
+    {
+      "query": "by",
+      "names": [
+        "Bybit"
+      ],
+      "expected": []
+    },
+    {
+      "query": "futures",
+      "names": [
+        "A Futures",
+        "B Futures",
+        "C Futures",
+        "D Futures",
+        "E Futures",
+        "F Futures"
+      ],
+      "expected": [
+        "A Futures",
+        "B Futures",
+        "C Futures",
+        "D Futures",
+        "E Futures"
+      ]
+    },
+    {
+      "query": "   ",
+      "names": [
+        "Binance"
+      ],
+      "expected": []
+    }
+  ]
+}

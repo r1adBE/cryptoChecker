@@ -60,7 +60,6 @@
         <item quantity="other">%1$d péire · nuashonraithe %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Péirí</string>
-    <string name="explorer_precise_title">Ardleibhéal / de réir malartáin</string>
     <string name="explorer_price_loading">Praghas á lódáil…</string>
     <string name="explorer_select_exchange_hint">Roghnaigh malartán – lódáiltear a phéirí trádála go huathoibríoch.</string>
     <string name="explorer_select_placeholder">Roghnaigh</string>
@@ -189,7 +188,11 @@
     <string name="bulk_undo_expired">Níl aisiompú indéanta a thuilleadh – fanann na péirí sa liosta faire.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Todhchaíochtaí</string>
-    <string name="explorer_section_dex">Comhthiomsuithe DEX</string>
     <string name="explorer_section_forex">Malairt eachtrach (ráta tagartha)</string>
+    <string name="explorer_market_forex">Malairt eachtrach</string>
+    <string name="explorer_popular_title">Coitianta</string>
+    <string name="explorer_recent_exchanges_title">Malartáin a úsáideadh le déanaí</string>
+    <string name="explorer_all_exchanges_title">Gach malartán</string>
+    <string name="explorer_exchanges_title">Malartáin</string>
     <string name="explorer_forex_hint">Ráta laethúil an Bhainc Ceannais Eorpaigh (trí Frankfurter), ní beo – gan foláirimh.</string>
 </resources>

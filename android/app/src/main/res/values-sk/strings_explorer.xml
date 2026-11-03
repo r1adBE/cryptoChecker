@@ -56,7 +56,6 @@
         <item quantity="other">%1$d párov · aktualizované %2$s</item>
     </plurals>
     <string name="explorer_pairs_title">Páry</string>
-    <string name="explorer_precise_title">Rozšírené / podľa burzy</string>
     <string name="explorer_price_loading">Načítava sa kurz…</string>
     <string name="explorer_select_exchange_hint">Vyber burzu – jej obchodné páry sa načítajú automaticky.</string>
     <string name="explorer_select_placeholder">Vyber</string>
@@ -176,7 +175,11 @@
     <string name="bulk_undo_expired">Vrátenie už nie je možné – páry zostávajú v zozname.</string>
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
-    <string name="explorer_section_dex">DEX pooly</string>
     <string name="explorer_section_forex">Forex (referenčný kurz)</string>
+    <string name="explorer_market_forex">Devízy</string>
+    <string name="explorer_popular_title">Obľúbené</string>
+    <string name="explorer_recent_exchanges_title">Nedávno použité burzy</string>
+    <string name="explorer_all_exchanges_title">Všetky burzy</string>
+    <string name="explorer_exchanges_title">Burzy</string>
     <string name="explorer_forex_hint">Denný kurz Európskej centrálnej banky (cez Frankfurter), nie naživo – žiadne alarmy.</string>
 </resources>

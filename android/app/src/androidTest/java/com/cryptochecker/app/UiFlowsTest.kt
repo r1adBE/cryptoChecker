@@ -212,6 +212,10 @@ class UiFlowsTest {
     /** Ablauf 1: über die Coin-Suche Bitcoin hinzufügen, zurück zur Merkliste; gibt die Id des Paars zurück. */
     private fun addBitcoinFromSearch(): Long {
         clickTag(UiTestTags.WATCHLIST_ADD_PAIR)
+        // Übersicht: Markt-Chips («Alle» gewählt) und die Börsen; Spot und zurück zu «Alle»
+        waitForTag(UiTestTags.explorerExchange("Binance"))
+        clickTag(UiTestTags.explorerMarket("SPOT"))
+        clickTag(UiTestTags.explorerMarket("ALL"))
         inputTag(UiTestTags.EXPLORER_SEARCH, "btc")
         // Paarlisten liegen noch nicht auf dem Gerät: «Listen laden» (Antworten der Fake-Börsen)
         val coin = UiTestTags.explorerCoin("BTC")

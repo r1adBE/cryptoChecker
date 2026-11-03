@@ -7,13 +7,8 @@ extension ExplorerScreen {
     /// Suche nach Token auf dezentralen Börsen. Ein Pool = ein Paar auf einer
     /// bestimmten DEX und Chain; der Kurs kommt in USD.
     var dexSection: some View {
+        // Name «DexScreener» steht schon im Kopf der Börse (`exchangeHeader`)
         ExplorerStepCard {
-            HStack(spacing: Spacing.sm) {
-                Image(systemName: "drop.fill")
-                    .foregroundStyle(accent.primary)
-                Text("DexScreener").font(.headline)
-            }
-            .padding(.bottom, 8)
             Text(L("dex_intro"))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
@@ -118,13 +113,11 @@ extension ExplorerScreen {
         .accessibilityHint(L("dex_search"))
     }
 
-    /// DexScreener wählen, «Erweitert / nach Börse» aufklappen und die DEX-Suche mit `prefill` vorbelegen.
+    /// DexScreener öffnen und die DEX-Suche mit `prefill` vorbelegen.
     private func openDex(prefill: String) {
         searchFocused = false
-        vm.openDexSearch()
+        withAnimation(.snappy(duration: 0.3)) { vm.openDexSearch() }
         dexQuery = prefill
-        ExplorerSectionMemory.precise = true
-        withAnimation(.snappy(duration: 0.3)) { showPrecise = true }
     }
 
     private func runDexSearch() {
