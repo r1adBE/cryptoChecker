@@ -95,16 +95,22 @@ final class WatchPairsParityTests: XCTestCase {
         }
         let picked = WatchPhoneQuotes.pick(rows, coins: strings(p["coins"]))
         // Kurse mit Toleranz: die Umrechnung darf in der letzten Stelle von Android abweichen (0.07 vs 0.07000000000000003)
-        XCTAssertEqual(picked.count, expected.count, p["name"] as? String ?? "")
-        for (got, want) in zip(picked, expected) {
-            XCTAssertEqual(got.symbol, want.symbol)
-            XCTAssertEqual(got.price, want.price, accuracy: abs(want.price) * 1e-9)
-            XCTAssertEqual(got.change24h == nil, want.change24h == nil)
-            if let g = got.change24h, let w = want.change24h { XCTAssertEqual(g, w, accuracy: 1e-9) }
-            XCTAssertEqual(got.exchange, want.exchange)
-            XCTAssertEqual(got.time, want.time)
+        assertQuotes(picked, expected, p["name"] as? String ?? "")
+        // Hin und zurück über JSON: gleicher Inhalt (JSON schreibt Kurse auf die kürzeste Darstellung)
+        assertQuotes(try XCTUnwrap(WatchPhoneQuotes.fromJson(WatchPhoneQuotes.toJson(picked))), picked, "json")
+    }
+
+    private func assertQuotes(_ got: [WatchPhoneQuotes.Quote], _ want: [WatchPhoneQuotes.Quote], _ name: String,
+                              file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(got.count, want.count, name, file: file, line: line)
+        for (g, w) in zip(got, want) {
+            XCTAssertEqual(g.symbol, w.symbol, name, file: file, line: line)
+            XCTAssertEqual(g.price, w.price, accuracy: abs(w.price) * 1e-9, name, file: file, line: line)
+            XCTAssertEqual(g.change24h == nil, w.change24h == nil, name, file: file, line: line)
+            if let a = g.change24h, let b = w.change24h { XCTAssertEqual(a, b, accuracy: 1e-9, name, file: file, line: line) }
+            XCTAssertEqual(g.exchange, w.exchange, name, file: file, line: line)
+            XCTAssertEqual(g.time, w.time, name, file: file, line: line)
         }
-        XCTAssertEqual(WatchPhoneQuotes.fromJson(WatchPhoneQuotes.toJson(picked)), picked)
     }
 
     func testSelfFetch() throws {
