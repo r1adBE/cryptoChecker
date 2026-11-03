@@ -105,11 +105,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Atualizar – novamente possível dentro de %1$d s</string>
     <string name="settings_watch">Relógio</string>
-    <string name="settings_watch_hint">Moedas para a app do relógio no Wear OS (até %1$d, preço face ao USDT). Só esta lista vai para o relógio, através dos serviços Google Play; o relógio obtém os preços sozinho.</string>
+    <string name="settings_watch_hint">Moedas para a app do relógio no Wear OS (até %1$d, preço face ao USDT).</string>
     <string name="settings_watch_mode_phone">Como o telemóvel (favoritos ★)</string>
     <string name="settings_watch_mode_own">Lista própria</string>
     <string name="settings_watch_own_title">Lista própria: %1$d de %2$d</string>
     <string name="settings_watch_none">Ainda sem favoritos</string>
+    <string name="settings_watch_prices">Preços no relógio</string>
+    <string name="settings_watch_prices_phone">Preços do telemóvel; caso contrário, o relógio obtém-nos</string>
+    <string name="settings_watch_prices_self">O relógio obtém-nos sempre</string>
+    <string name="settings_watch_portfolio">Valor do portfólio no relógio</string>
+    <string name="settings_watch_portfolio_hint">O valor fica visível no pulso.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Sem linha USDT em «Lista»</string>

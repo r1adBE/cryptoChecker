@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Orodha: kama simu</string>
     <string name="watch_mode_own">Orodha: yako mwenyewe</string>
     <string name="watch_phone_empty">Hakuna vipendwa kwenye simu</string>
+    <string name="watch_portfolio">Jalada</string>
+    <string name="watch_portfolio_today">%1$s leo</string>
+    <string name="a11y_watch_portfolio_hidden">kiasi kimefichwa</string>
     <string name="a11y_watch_outdated">Bei imepitwa na wakati</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ilisasishwa mara ya mwisho dakika %1$d iliyopita</item>

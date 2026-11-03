@@ -1,0 +1,634 @@
+{
+ "description": "Uhr und Handy (Build 191): WatchInterval (Intervall des Handys auf 15–60 Min. begrenzt; selbst neu laden ab Intervall − 5 Min.), WatchSettings mit Kursquelle src (phone|self, unbekannt → phone) und Intervall i (fehlt → 15, begrenzt) — beide immer vom Handy beim Zusammenführen; WatchPhoneQuotes.pick (Paare gegen USDT, Spot, nicht deaktiviert, Kurs > 0, Zeit > 0; je Coin der neueste, gleich alt: kleinere sortOrder; Reihenfolge der Coins, ohne Doppelte), fromJson (ungültige Einträge fallen weg, unlesbar → null), selfFetch (ohne Kurs immer; vom Handy gelieferte Coins mit Handy nur, wenn veraltet > 45 Min.; sonst auf Wunsch oder ab Intervall − 5 Min.); WatchPortfolio.message (Schalter oder Portfolio aus → clear; ohne Aufnahme → null; verborgen oder gesperrt → ohne Zahlen) und fromJson; WatchCache.mergeTimed (je Coin die neuere Zeit, nur Coins aus keep). Android marketdata/watch + wear WatchCache, iOS WatchCore.",
+ "interval": [
+  {
+   "minutes": 15,
+   "clamped": 15,
+   "refetchAfterMillis": 600000
+  },
+  {
+   "minutes": 5,
+   "clamped": 15,
+   "refetchAfterMillis": 600000
+  },
+  {
+   "minutes": 30,
+   "clamped": 30,
+   "refetchAfterMillis": 1500000
+  },
+  {
+   "minutes": 60,
+   "clamped": 60,
+   "refetchAfterMillis": 3300000
+  },
+  {
+   "minutes": 1440,
+   "clamped": 60,
+   "refetchAfterMillis": 3300000
+  }
+ ],
+ "settingsJson": [
+  {
+   "name": "alt ohne src und i",
+   "text": "{\"v\":2,\"mode\":\"phone\",\"own\":[\"BTC\"],\"phone\":[\"ETH\"],\"r\":3}",
+   "source": "phone",
+   "interval": 15
+  },
+  {
+   "name": "immer selbst, 30 Min.",
+   "text": "{\"v\":2,\"mode\":\"own\",\"own\":[\"BTC\"],\"phone\":[],\"r\":1,\"src\":\"self\",\"i\":30}",
+   "source": "self",
+   "interval": 30
+  },
+  {
+   "name": "Intervall begrenzt",
+   "text": "{\"v\":2,\"mode\":\"own\",\"own\":[],\"phone\":[],\"r\":0,\"src\":\"phone\",\"i\":1440}",
+   "source": "phone",
+   "interval": 60
+  },
+  {
+   "name": "zu kurz begrenzt",
+   "text": "{\"v\":2,\"mode\":\"own\",\"own\":[],\"phone\":[],\"r\":0,\"i\":1}",
+   "source": "phone",
+   "interval": 15
+  },
+  {
+   "name": "unbekannte Quelle",
+   "text": "{\"v\":2,\"mode\":\"own\",\"own\":[],\"phone\":[],\"r\":0,\"src\":\"cloud\",\"i\":60}",
+   "source": "phone",
+   "interval": 60
+  }
+ ],
+ "settingsMerge": [
+  {
+   "name": "Uhr übernimmt Quelle und Intervall vom Handy, Wahl bleibt (höhere Nummer)",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [],
+    "revision": 5,
+    "source": "phone",
+    "interval": 15
+   },
+   "remote": {
+    "mode": "phone",
+    "own": [
+     "ETH"
+    ],
+    "phone": [
+     "SOL"
+    ],
+    "revision": 2,
+    "source": "self",
+    "interval": 60
+   },
+   "remoteIsPhone": true,
+   "expected": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "SOL"
+    ],
+    "revision": 5,
+    "source": "self",
+    "interval": 60
+   }
+  },
+  {
+   "name": "Handy behält Quelle und Intervall, Wahl der Uhr (höhere Nummer)",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ADA"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 30
+   },
+   "remote": {
+    "mode": "phone",
+    "own": [
+     "ETH"
+    ],
+    "phone": [],
+    "revision": 4,
+    "source": "self",
+    "interval": 60
+   },
+   "remoteIsPhone": false,
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "ETH"
+    ],
+    "phone": [
+     "ADA"
+    ],
+    "revision": 4,
+    "source": "phone",
+    "interval": 30
+   }
+  }
+ ],
+ "pick": {
+  "coins": [
+   "BTC",
+   "ETH",
+   "SOL",
+   "XRP",
+   "BTC",
+   "DOGE"
+  ],
+  "rows": [
+   {
+    "base": "BTC",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": false,
+    "price": 67000.5,
+    "change24h": 1.25,
+    "exchange": "Binance",
+    "time": 1799999880000,
+    "sortOrder": 3
+   },
+   {
+    "base": "btc",
+    "quote": "usdt",
+    "spot": true,
+    "disabled": false,
+    "price": 67010.0,
+    "change24h": 1.3,
+    "exchange": "Bybit",
+    "time": 1799999940000,
+    "sortOrder": 5
+   },
+   {
+    "base": "BTC",
+    "quote": "CHF",
+    "spot": true,
+    "disabled": false,
+    "price": 60000.0,
+    "change24h": 1.0,
+    "exchange": "Kraken",
+    "time": 1800000000000,
+    "sortOrder": 0
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "spot": false,
+    "disabled": false,
+    "price": 3000.0,
+    "change24h": 0.5,
+    "exchange": "Binance Futures",
+    "time": 1800000000000,
+    "sortOrder": 1
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": false,
+    "price": 2999.0,
+    "change24h": null,
+    "exchange": "OKX",
+    "time": 1799999700000,
+    "sortOrder": 9
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": false,
+    "price": 2998.0,
+    "change24h": -0.4,
+    "exchange": "Coinbase",
+    "time": 1799999700000,
+    "sortOrder": 2
+   },
+   {
+    "base": "SOL",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": true,
+    "price": 150.0,
+    "change24h": 2.0,
+    "exchange": "Binance",
+    "time": 1800000000000,
+    "sortOrder": 4
+   },
+   {
+    "base": "XRP",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": false,
+    "price": 0.0,
+    "change24h": 2.0,
+    "exchange": "Binance",
+    "time": 1800000000000,
+    "sortOrder": 6
+   },
+   {
+    "base": "DOGE",
+    "quote": "USDT",
+    "spot": true,
+    "disabled": false,
+    "price": 0.12,
+    "change24h": 3.5,
+    "exchange": "Binance",
+    "time": 0,
+    "sortOrder": 7
+   }
+  ],
+  "expected": [
+   {
+    "symbol": "BTC",
+    "price": 67010.0,
+    "change24h": 1.3,
+    "exchange": "Bybit",
+    "time": 1799999940000
+   },
+   {
+    "symbol": "ETH",
+    "price": 2998.0,
+    "change24h": -0.4,
+    "exchange": "Coinbase",
+    "time": 1799999700000
+   }
+  ]
+ },
+ "quotesJson": [
+  {
+   "name": "gültig, ungültige fallen weg",
+   "text": "{\"v\":1,\"q\":[{\"s\":\"BTC\",\"p\":67000.5,\"c\":1.25,\"x\":\"Binance\",\"t\":1799999880000},{\"s\":\"ETH\",\"p\":3000,\"x\":\"OKX\",\"t\":1799999700000},{\"s\":\"btc\",\"p\":1,\"t\":1},{\"s\":\"SOL\",\"p\":0,\"t\":5},{\"s\":\"ADA\",\"p\":0.5},{\"s\":\"BTC\",\"p\":2,\"t\":3}]}",
+   "expected": [
+    {
+     "symbol": "BTC",
+     "price": 67000.5,
+     "change24h": 1.25,
+     "exchange": "Binance",
+     "time": 1799999880000
+    },
+    {
+     "symbol": "ETH",
+     "price": 3000,
+     "change24h": null,
+     "exchange": "OKX",
+     "time": 1799999700000
+    }
+   ]
+  },
+  {
+   "name": "leer",
+   "text": "{\"v\":1,\"q\":[]}",
+   "expected": []
+  },
+  {
+   "name": "ohne Liste",
+   "text": "{\"v\":1}",
+   "expected": null
+  },
+  {
+   "name": "kaputt",
+   "text": "{\"v\":",
+   "expected": null
+  }
+ ],
+ "selfFetch": {
+  "now": 1800000000000,
+  "shown": [
+   "BTC",
+   "ETH",
+   "SOL",
+   "ADA"
+  ],
+  "times": {
+   "BTC": 1799998800000,
+   "ETH": 1799997000000,
+   "SOL": 1799999280000
+  },
+  "phoneCoins": [
+   "BTC",
+   "ETH"
+  ],
+  "cases": [
+   {
+    "name": "mit Handy: Handy-Coins nur veraltet, übrige ab Intervall − 5",
+    "usePhone": true,
+    "interval": 15,
+    "force": false,
+    "expected": [
+     "ETH",
+     "SOL",
+     "ADA"
+    ]
+   },
+   {
+    "name": "mit Handy, auf Wunsch: Handy-Coins trotzdem nicht",
+    "usePhone": true,
+    "interval": 30,
+    "force": true,
+    "expected": [
+     "ETH",
+     "SOL",
+     "ADA"
+    ]
+   },
+   {
+    "name": "mit Handy, 30 Min.: SOL noch frisch",
+    "usePhone": true,
+    "interval": 30,
+    "force": false,
+    "expected": [
+     "ETH",
+     "ADA"
+    ]
+   },
+   {
+    "name": "ohne Handy: alles ab Intervall − 5",
+    "usePhone": false,
+    "interval": 15,
+    "force": false,
+    "expected": [
+     "BTC",
+     "ETH",
+     "SOL",
+     "ADA"
+    ]
+   },
+   {
+    "name": "ohne Handy, 60 Min.",
+    "usePhone": false,
+    "interval": 60,
+    "force": false,
+    "expected": [
+     "ADA"
+    ]
+   },
+   {
+    "name": "ohne Handy, auf Wunsch: alles",
+    "usePhone": false,
+    "interval": 60,
+    "force": true,
+    "expected": [
+     "BTC",
+     "ETH",
+     "SOL",
+     "ADA"
+    ]
+   }
+  ]
+ },
+ "portfolioMessage": [
+  {
+   "name": "Schalter aus",
+   "onWatch": false,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": false,
+   "total": 1000.0,
+   "changePercent": 1.5,
+   "currency": "CHF",
+   "time": 1800000000000,
+   "expected": "clear"
+  },
+  {
+   "name": "Portfolio aus",
+   "onWatch": true,
+   "portfolioEnabled": false,
+   "hidden": false,
+   "locked": false,
+   "total": 1000.0,
+   "changePercent": 1.5,
+   "currency": "CHF",
+   "time": 1800000000000,
+   "expected": "clear"
+  },
+  {
+   "name": "noch keine Aufnahme",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": false,
+   "total": null,
+   "changePercent": null,
+   "currency": null,
+   "time": 0,
+   "expected": null
+  },
+  {
+   "name": "Wert",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": false,
+   "total": 12345.67,
+   "changePercent": -2.5,
+   "currency": "chf",
+   "time": 1800000000000,
+   "expected": {
+    "total": 12345.67,
+    "changePercent": -2.5,
+    "currency": "CHF",
+    "time": 1800000000000,
+    "hidden": false
+   }
+  },
+  {
+   "name": "ohne Veränderung",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": false,
+   "total": 0.0,
+   "changePercent": null,
+   "currency": "USD",
+   "time": 1800000000000,
+   "expected": {
+    "total": 0.0,
+    "changePercent": null,
+    "currency": "USD",
+    "time": 1800000000000,
+    "hidden": false
+   }
+  },
+  {
+   "name": "Beträge verbergen",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": true,
+   "locked": false,
+   "total": 12345.67,
+   "changePercent": 1.0,
+   "currency": "EUR",
+   "time": 1800000000000,
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "EUR",
+    "time": 1800000000000,
+    "hidden": true
+   }
+  },
+  {
+   "name": "Portfolio-Sperre",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": true,
+   "total": 12345.67,
+   "changePercent": 1.0,
+   "currency": "EUR",
+   "time": 1800000000000,
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "EUR",
+    "time": 1800000000000,
+    "hidden": true
+   }
+  }
+ ],
+ "portfolioJson": [
+  {
+   "name": "Löschen",
+   "text": "{\"v\":1,\"on\":false}",
+   "expected": "clear"
+  },
+  {
+   "name": "Wert",
+   "text": "{\"v\":1,\"on\":true,\"h\":false,\"cur\":\"CHF\",\"t\":1800000000000,\"tot\":12345.67,\"pct\":-2.5}",
+   "expected": {
+    "total": 12345.67,
+    "changePercent": -2.5,
+    "currency": "CHF",
+    "time": 1800000000000,
+    "hidden": false
+   }
+  },
+  {
+   "name": "verborgen: Zahlen fallen weg",
+   "text": "{\"v\":1,\"on\":true,\"h\":true,\"cur\":\"CHF\",\"t\":1800000000000,\"tot\":12345.67,\"pct\":1}",
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "CHF",
+    "time": 1800000000000,
+    "hidden": true
+   }
+  },
+  {
+   "name": "ohne Zeit",
+   "text": "{\"v\":1,\"on\":true,\"h\":false,\"cur\":\"CHF\",\"tot\":1}",
+   "expected": null
+  },
+  {
+   "name": "ungültige Währung",
+   "text": "{\"v\":1,\"on\":true,\"h\":false,\"cur\":\"chf\",\"t\":1800000000000,\"tot\":1}",
+   "expected": null
+  },
+  {
+   "name": "ohne on",
+   "text": "{\"v\":1}",
+   "expected": null
+  },
+  {
+   "name": "kaputt",
+   "text": "nope",
+   "expected": null
+  }
+ ],
+ "cacheTimed": [
+  {
+   "name": "neuere Zeit ersetzt, ältere nicht, nur keep",
+   "old": [
+    {
+     "symbol": "BTC",
+     "price": 1.0,
+     "change24h": null,
+     "source": "Binance",
+     "time": 1799999400000
+    },
+    {
+     "symbol": "ETH",
+     "price": 2.0,
+     "change24h": 1.0,
+     "source": "Binance",
+     "time": 1799999940000
+    },
+    {
+     "symbol": "OLD",
+     "price": 3.0,
+     "change24h": null,
+     "source": "Binance",
+     "time": 1799999940000
+    }
+   ],
+   "fresh": [
+    {
+     "symbol": "BTC",
+     "price": 1.5,
+     "change24h": 0.5,
+     "source": "Bybit",
+     "time": 1799999700000
+    },
+    {
+     "symbol": "ETH",
+     "price": 2.5,
+     "change24h": 2.0,
+     "source": "OKX",
+     "time": 1799999820000
+    },
+    {
+     "symbol": "SOL",
+     "price": 4.0,
+     "change24h": null,
+     "source": "Coinbase",
+     "time": 1799999880000
+    },
+    {
+     "symbol": "XRP",
+     "price": 5.0,
+     "change24h": null,
+     "source": "Coinbase",
+     "time": 1800000000000
+    }
+   ],
+   "keep": [
+    "BTC",
+    "ETH",
+    "SOL"
+   ],
+   "expected": [
+    {
+     "symbol": "BTC",
+     "price": 1.5,
+     "change24h": 0.5,
+     "source": "Bybit",
+     "time": 1799999700000
+    },
+    {
+     "symbol": "ETH",
+     "price": 2.0,
+     "change24h": 1.0,
+     "source": "Binance",
+     "time": 1799999940000
+    },
+    {
+     "symbol": "SOL",
+     "price": 4.0,
+     "change24h": null,
+     "source": "Coinbase",
+     "time": 1799999880000
+    }
+   ]
+  }
+ ]
+}

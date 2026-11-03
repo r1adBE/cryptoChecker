@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">జాబితా: ఫోన్‌లో లాగే</string>
     <string name="watch_mode_own">జాబితా: సొంతం</string>
     <string name="watch_phone_empty">ఫోన్‌లో ఇష్టమైనవి లేవు</string>
+    <string name="watch_portfolio">పోర్ట్‌ఫోలియో</string>
+    <string name="watch_portfolio_today">ఈరోజు %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">మొత్తం దాచబడింది</string>
     <string name="a11y_watch_outdated">ధర పాతది</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>

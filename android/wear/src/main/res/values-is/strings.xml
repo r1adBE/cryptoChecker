@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Listi: eins og síminn</string>
     <string name="watch_mode_own">Listi: eigin</string>
     <string name="watch_phone_empty">Engin uppáhöld í símanum</string>
+    <string name="watch_portfolio">Eignasafn</string>
+    <string name="watch_portfolio_today">%1$s í dag</string>
+    <string name="a11y_watch_portfolio_hidden">upphæð falin</string>
     <string name="a11y_watch_outdated">Verð úrelt</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">síðast uppfært fyrir %1$d mínútu</item>

@@ -107,11 +107,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Atnaujinti – vėl galima po %1$d s</string>
     <string name="settings_watch">Laikrodis</string>
-    <string name="settings_watch_hint">Monetos laikrodžio programai Wear OS (iki %1$d, kaina USDT). Į laikrodį per Google Play paslaugas siunčiamas tik šis sąrašas; kainas laikrodis gauna pats.</string>
+    <string name="settings_watch_hint">Monetos laikrodžio programai Wear OS (iki %1$d, kaina USDT).</string>
     <string name="settings_watch_mode_phone">Kaip telefone (mėgstamos ★)</string>
     <string name="settings_watch_mode_own">Savas sąrašas</string>
     <string name="settings_watch_own_title">Savas sąrašas: %1$d iš %2$d</string>
     <string name="settings_watch_none">Mėgstamų dar nėra</string>
+    <string name="settings_watch_prices">Kainos laikrodyje</string>
+    <string name="settings_watch_prices_phone">Kainos iš telefono, kitaip laikrodis gauna pats</string>
+    <string name="settings_watch_prices_self">Laikrodis visada gauna pats</string>
+    <string name="settings_watch_portfolio">Portfelio vertė laikrodyje</string>
+    <string name="settings_watch_portfolio_hint">Vertė matoma ant riešo.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">„Sąraše“ nėra USDT eilutės</string>

@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">重新整理 – %1$d 秒後可以再用</string>
     <string name="settings_watch">手錶</string>
-    <string name="settings_watch_hint">Wear OS 手錶 App 用嘅幣（最多 %1$d 隻，以 USDT 計價）。只有呢個清單會經 Google Play services 傳去手錶；手錶會自己擷取價格。</string>
+    <string name="settings_watch_hint">Wear OS 手錶 App 用嘅幣（最多 %1$d 隻，以 USDT 計價）。</string>
     <string name="settings_watch_mode_phone">同手機一樣（最愛 ★）</string>
     <string name="settings_watch_mode_own">自訂清單</string>
     <string name="settings_watch_own_title">自訂清單：%1$d／%2$d</string>
     <string name="settings_watch_none">暫時未有最愛</string>
+    <string name="settings_watch_prices">手錶上嘅價格</string>
+    <string name="settings_watch_prices_phone">價格由手機提供，否則手錶自己擷取</string>
+    <string name="settings_watch_prices_self">手錶一律自己擷取</string>
+    <string name="settings_watch_portfolio">手錶上嘅投資組合價值</string>
+    <string name="settings_watch_portfolio_hint">數值會喺手腕上顯示。</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">「清單」冇 USDT 一行</string>

@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// Liste der Coins mit Kurs und 24 h (Börse klein), darunter «Aktualisieren», Umschalter der Liste und (eigene Liste)
-/// «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
+/// Oben der Portfolio-Wert vom iPhone (falls dort eingeschaltet), dann die Coins mit Kurs und 24 h (Börse klein), darunter
+/// «Aktualisieren», Umschalter der Liste und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
 /// jede Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
@@ -12,12 +12,23 @@ struct WatchQuoteList: View {
         }
         .navigationTitle("Crypto Checker")
         .task { model.refresh() }
+        // Offen: im Intervall des iPhones, nur was fällig ist (`WatchInterval`)
+        .task(id: model.settings.interval) {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(WatchInterval.clamp(model.settings.interval) * 60))
+                guard !Task.isCancelled else { return }
+                model.refresh(force: false)
+            }
+        }
     }
 
     private func list(now: Int64) -> some View {
         let coins = model.settings.shown
         let phone = model.settings.mode == .phone
         return List {
+            if let p = model.portfolio {
+                portfolioRow(p, now: now)
+            }
             if coins.isEmpty {
                 Text(WatchText.t(phone ? "watch_phone_empty" : "watch_empty"))
                     .multilineTextAlignment(.center)
@@ -41,6 +52,21 @@ struct WatchQuoteList: View {
         let time = WatchCache.listTime(model.quotes, coins: coins)
         guard time > 0 else { return "" }
         return WatchText.t("watch_updated", WatchText.date(time).formatted(date: .omitted, time: .shortened))
+    }
+
+    /// «Portfolio» vom iPhone (nur mit Schalter dort); veraltet grau mit Alter — wie Android `PortfolioRow`.
+    private func portfolioRow(_ p: WatchPortfolio, now: Int64) -> some View {
+        let outdated = WatchFreshness.isOutdated(p.time, now: now)
+        let spoken = WatchText.portfolioSpoken(p)
+        return VStack(alignment: .leading, spacing: 2) {
+            Text(WatchText.t("watch_portfolio")).font(.footnote).foregroundStyle(.secondary)
+            Text(WatchText.portfolioTotal(p)).font(.headline).lineLimit(1).minimumScaleFactor(0.7)
+                .foregroundStyle(outdated ? HierarchicalShapeStyle.secondary : HierarchicalShapeStyle.primary)
+            Text(WatchText.portfolioToday(p) + (outdated ? "  ·  " + WatchText.ago(p.time, now: now) : ""))
+                .font(.footnote).foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(outdated ? spoken + ", " + WatchText.spokenAge(p.time, now: now) : spoken)
     }
 
     private func row(_ coin: String, now: Int64) -> some View {

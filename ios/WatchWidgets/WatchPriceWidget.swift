@@ -2,8 +2,10 @@ import SwiftUI
 import WidgetKit
 
 /// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
-/// mit Kurs, als Zeile «BTC +1.2%». Ist sein gespeicherter Kurs älter als 10 Minuten, lädt sie neu (Zeitleiste alle
-/// 15 Minuten); ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
+/// mit Kurs, als Zeile «BTC +1.2%». Zeitleiste im Intervall des iPhones (`WatchInterval`); geladen wird nur, was nach
+/// `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
+/// Verbindung nicht: sie verlässt sich auf das Alter der Kurse vom iPhone), sonst ab dem Intervall weniger 5 Minuten;
+/// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
 /// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «+1.2%  ·  vor 47 Min.», als
 /// Zeile ohne Platz dafür; VoiceOver nennt das Alter immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
@@ -19,8 +21,6 @@ struct WatchPriceEntry: TimelineEntry {
 }
 
 struct WatchPriceProvider: TimelineProvider {
-    private static let maxAgeMs: Int64 = 10 * 60_000
-
     func placeholder(in context: Context) -> WatchPriceEntry {
         WatchPriceEntry(date: Date(), coin: "BTC", price: WatchText.price(67_420), change: WatchText.change(1.2))
     }
@@ -33,14 +33,19 @@ struct WatchPriceProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPriceEntry>) -> Void) {
         Task {
-            let coins = WatchStore.settings.shown
+            let settings = WatchStore.settings
+            let coins = settings.shown
             let first = coins.first
-            var cached = first.flatMap { WatchStore.quotes()[$0] }
-            if let first, cached.map({ WatchStore.now() - $0.time > Self.maxAgeMs }) ?? true {
+            let stored = WatchStore.quotes()
+            var cached = first.flatMap { stored[$0] }
+            let need = WatchPhoneQuotes.selfFetch(coins, times: stored.mapValues(\.time), phoneCoins: WatchStore.phoneCoins,
+                                                  usePhone: settings.source == .phone,
+                                                  intervalMinutes: settings.interval, now: WatchStore.now(), force: false)
+            if let first, !need.isEmpty {
                 let startedAt = WatchStore.now()
                 // Höchstens 20 s für alle Börsen zusammen (wie Android), danach der gespeicherte Kurs
                 let fresh = await WatchQuoteFetch.within(seconds: WatchQuoteFetch.complicationTimeoutSeconds) {
-                    await WatchPriceSource.fetch(coins)
+                    await WatchPriceSource.fetch(need)
                 }
                 // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
                 // (Uhr-App) schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
@@ -49,7 +54,7 @@ struct WatchPriceProvider: TimelineProvider {
                 }
             }
             let now = Date()
-            let next = now.addingTimeInterval(TimeInterval(WatchFreshness.updateMinutes * 60))
+            let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(settings.interval) * 60))
             var entries = [Self.entry(first, cached, at: now)]
             // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
             if let time = cached?.time {
@@ -122,7 +127,15 @@ struct WatchPriceWidgetView: View {
     }
 }
 
+/// Komplikationen der Apple-Watch-App: Kurs des ersten Coins und Portfolio-Wert vom iPhone.
 @main
+struct WatchComplicationBundle: WidgetBundle {
+    var body: some Widget {
+        WatchPriceWidget()
+        WatchPortfolioWidget()
+    }
+}
+
 struct WatchPriceWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "WatchPriceWidget", provider: WatchPriceProvider()) { entry in

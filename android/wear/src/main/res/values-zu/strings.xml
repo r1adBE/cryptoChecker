@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Uhlu: njengocingo</string>
     <string name="watch_mode_own">Uhlu: olwakho</string>
     <string name="watch_phone_empty">Azikho izintandokazi ocingweni</string>
+    <string name="watch_portfolio">I-portfolio</string>
+    <string name="watch_portfolio_today">%1$s namuhla</string>
+    <string name="a11y_watch_portfolio_hidden">inani lifihliwe</string>
     <string name="a11y_watch_outdated">Intengo indala</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">kubuyekezwe ekugcineni umzuzu ongu-%1$d odlule</item>

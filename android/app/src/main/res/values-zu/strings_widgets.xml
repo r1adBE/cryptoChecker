@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Vuselela – kungenzeka futhi ngemuva kuka-%1$d s</string>
     <string name="settings_watch">Iwashi</string>
-    <string name="settings_watch_hint">Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$d, intengo ngokuqhathaniswa ne-USDT). Lolu hlu kuphela oluya ewashini, ngama-Google Play services; iwashi lilanda izintengo ngokwalo.</string>
+    <string name="settings_watch_hint">Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$d, intengo ngokuqhathaniswa ne-USDT).</string>
     <string name="settings_watch_mode_phone">Njengocingo (izintandokazi ★)</string>
     <string name="settings_watch_mode_own">Uhlu lwakho</string>
     <string name="settings_watch_own_title">Uhlu lwakho: %1$d kwangu-%2$d</string>
     <string name="settings_watch_none">Azikho izintandokazi okwamanje</string>
+    <string name="settings_watch_prices">Izintengo ewashini</string>
+    <string name="settings_watch_prices_phone">Izintengo ezivela kufoni, uma kungenjalo iwashi lizilanda ngokwalo</string>
+    <string name="settings_watch_prices_self">Iwashi lihlala lizilanda ngokwalo</string>
+    <string name="settings_watch_portfolio">Inani le-portfolio ewashini</string>
+    <string name="settings_watch_portfolio_hint">Inani liyabonakala esihlakaleni.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Awukho umugqa we-USDT ku-“Uhlu”</string>

@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Luettelo: kuten puhelimessa</string>
     <string name="watch_mode_own">Luettelo: oma</string>
     <string name="watch_phone_empty">Puhelimessa ei ole suosikkeja</string>
+    <string name="watch_portfolio">Salkku</string>
+    <string name="watch_portfolio_today">%1$s tänään</string>
+    <string name="a11y_watch_portfolio_hidden">summa piilotettu</string>
     <string name="a11y_watch_outdated">Kurssi vanhentunut</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">päivitetty viimeksi %1$d minuutti sitten</item>

@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 191)
+
+* Watch (Wear OS and Apple Watch): with the phone nearby the watch shows the phone's prices and follows its update interval (15–60 min); without the phone it fetches prices itself as before. Choose «prices from the phone, otherwise itself» or «always fetch itself» in the settings.
+* Watch: optional portfolio total and today's change, in the watch app and as a complication (off by default; hidden amounts show «•••»).
+
 ## 16.2.2 (build 190)
 
 * Live prices: a quiet pair on a running live stream no longer turns «outdated» after two minutes; freshness follows the last live tick.

@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Listă: ca pe telefon</string>
     <string name="watch_mode_own">Listă: proprie</string>
     <string name="watch_phone_empty">Nu există favorite pe telefon</string>
+    <string name="watch_portfolio">Portofoliu</string>
+    <string name="watch_portfolio_today">%1$s azi</string>
+    <string name="a11y_watch_portfolio_hidden">sumă ascunsă</string>
     <string name="a11y_watch_outdated">Curs învechit</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizat ultima dată acum %1$d minut</item>

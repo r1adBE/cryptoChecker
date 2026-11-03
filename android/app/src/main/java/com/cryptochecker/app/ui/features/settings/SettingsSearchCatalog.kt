@@ -145,6 +145,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("widgets.watch", stringResource(R.string.settings_watch), stringResource(R.string.settings_widgets),
         SettingsSearchTarget.Page(SettingsPage.WIDGETS, "widgets.watch"),
         stringResource(R.string.settings_watch_mode_own), "Wear OS")
+    add("widgets.watch_prices", stringResource(R.string.settings_watch_prices), stringResource(R.string.settings_widgets),
+        SettingsSearchTarget.Page(SettingsPage.WIDGETS, "widgets.watch_prices"),
+        stringResource(R.string.settings_watch_prices_phone), stringResource(R.string.settings_watch_prices_self))
 
     // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe ebenfalls unter «Alarme»
     val alarms = stringResource(R.string.settings_row_alarms)
@@ -215,6 +218,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("portfolio.hide", stringResource(R.string.portfolio_hide_amounts), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.hide"),
         stringResource(R.string.portfolio_hide_amounts_hint))
+    add("portfolio.watch", stringResource(R.string.settings_watch_portfolio), portfolio,
+        SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.watch"),
+        stringResource(R.string.settings_watch_portfolio_hint), "Wear OS")
     add("portfolio.cost_method", stringResource(R.string.settings_cost_method), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.cost_method"),
         stringResource(R.string.settings_cost_method_fifo), stringResource(R.string.settings_cost_method_average))

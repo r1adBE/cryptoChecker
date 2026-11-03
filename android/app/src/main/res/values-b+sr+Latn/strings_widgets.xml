@@ -106,11 +106,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Osveži – ponovo moguće za %1$d s</string>
     <string name="settings_watch">Sat</string>
-    <string name="settings_watch_hint">Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$d, cene u odnosu na USDT). Na sat ide samo ovaj spisak, putem Google Play usluga; sat sam preuzima cene.</string>
+    <string name="settings_watch_hint">Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$d, cene u odnosu na USDT).</string>
     <string name="settings_watch_mode_phone">Kao na telefonu (favoriti ★)</string>
     <string name="settings_watch_mode_own">Sopstveni spisak</string>
     <string name="settings_watch_own_title">Sopstveni spisak: %1$d od %2$d</string>
     <string name="settings_watch_none">Još nema favorita</string>
+    <string name="settings_watch_prices">Cene na satu</string>
+    <string name="settings_watch_prices_phone">Cene sa telefona, inače sat sam preuzima</string>
+    <string name="settings_watch_prices_self">Sat uvek sam preuzima</string>
+    <string name="settings_watch_portfolio">Vrednost portfolija na satu</string>
+    <string name="settings_watch_portfolio_hint">Vrednost je vidljiva na ručnom zglobu.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Nema reda USDT u „Spisak“</string>

@@ -45,6 +45,32 @@ enum WatchText {
         return [t("a11y_watch_outdated"), updated].compactMap { $0 }.joined(separator: ", ")
     }
 
+    /// Portfolio-Wert «CHF 12’345.67»; verborgen «•••», ohne Wert «—» (wie Android `WatchPortfolioText.total`).
+    static func portfolioTotal(_ p: WatchPortfolio) -> String {
+        if p.hidden { return "•••" }
+        guard let total = p.total else { return "—" }
+        return total.formatted(.currency(code: p.currency).locale(Locale.current))
+    }
+
+    /// Kurz für kleine Komplikationen «12K»; verborgen «•••».
+    static func portfolioCompact(_ p: WatchPortfolio) -> String {
+        if p.hidden { return "•••" }
+        guard let total = p.total else { return "—" }
+        return total.formatted(.number.notation(.compactName).precision(.significantDigits(3)).locale(Locale.current))
+    }
+
+    /// «+1.20 % heute»; verborgen «•••».
+    static func portfolioToday(_ p: WatchPortfolio) -> String {
+        p.hidden ? "•••" : t("watch_portfolio_today", change(p.changePercent))
+    }
+
+    /// Für VoiceOver: «Portfolio, CHF 12’345.67, +1.20 % heute» bzw. «Portfolio, Beträge verborgen».
+    static func portfolioSpoken(_ p: WatchPortfolio) -> String {
+        let title = t("watch_portfolio")
+        return p.hidden ? "\(title), \(t("a11y_watch_portfolio_hidden"))"
+            : "\(title), \(portfolioTotal(p)), \(portfolioToday(p))"
+    }
+
     /// Epoch-ms → Datum.
     static func date(_ millis: Int64) -> Date { Date(timeIntervalSince1970: TimeInterval(millis) / 1000) }
 }

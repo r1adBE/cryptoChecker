@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">فهرست: مثل تلفن</string>
     <string name="watch_mode_own">فهرست: خودم</string>
     <string name="watch_phone_empty">در تلفن علاقه‌مندی‌ای نیست</string>
+    <string name="watch_portfolio">پرتفوی</string>
+    <string name="watch_portfolio_today">%1$s امروز</string>
+    <string name="a11y_watch_portfolio_hidden">مبلغ پنهان</string>
     <string name="a11y_watch_outdated">قیمت قدیمی است</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">آخرین به‌روزرسانی %1$d دقیقه پیش</item>

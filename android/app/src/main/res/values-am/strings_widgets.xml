@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ያድሱ – ከ%1$d ሰ በኋላ እንደገና ይቻላል</string>
     <string name="settings_watch">ሰዓት</string>
-    <string name="settings_watch_hint">በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$d፣ ከUSDT አንጻር ዋጋ)። ወደ ሰዓቱ የሚሄደው ይህ ዝርዝር ብቻ ነው፣ በGoogle Play services በኩል፤ ሰዓቱ ዋጋዎችን ራሱ ያመጣል።</string>
+    <string name="settings_watch_hint">በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$d፣ ከUSDT አንጻር ዋጋ)።</string>
     <string name="settings_watch_mode_phone">እንደ ስልኩ (ተወዳጆች ★)</string>
     <string name="settings_watch_mode_own">የራስ ዝርዝር</string>
     <string name="settings_watch_own_title">የራስ ዝርዝር፦ %1$d ከ%2$d</string>
     <string name="settings_watch_none">እስካሁን ምንም ተወዳጅ የለም</string>
+    <string name="settings_watch_prices">በሰዓቱ ላይ ዋጋዎች</string>
+    <string name="settings_watch_prices_phone">ዋጋዎች ከስልኩ፣ ካልሆነ ራሱ ያመጣል</string>
+    <string name="settings_watch_prices_self">ሁልጊዜ ራሱ ያመጣል</string>
+    <string name="settings_watch_portfolio">በሰዓቱ ላይ የፖርትፎሊዮ ዋጋ</string>
+    <string name="settings_watch_portfolio_hint">ዋጋው በእጅ አንጓ ላይ ይታያል።</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">በ«ዝርዝር» ውስጥ የUSDT መስመር የለም</string>

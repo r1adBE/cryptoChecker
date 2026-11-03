@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Frissítés – újra lehetséges %1$d mp múlva</string>
     <string name="settings_watch">Óra</string>
-    <string name="settings_watch_hint">Coinok a Wear OS-es óraalkalmazáshoz (legfeljebb %1$d, USDT-hez mért ár). Csak ez a lista kerül az órára, a Google Play-szolgáltatásokon keresztül; az árakat az óra maga kéri le.</string>
+    <string name="settings_watch_hint">Coinok a Wear OS-es óraalkalmazáshoz (legfeljebb %1$d, USDT-hez mért ár).</string>
     <string name="settings_watch_mode_phone">Mint a telefonon (kedvencek ★)</string>
     <string name="settings_watch_mode_own">Saját lista</string>
     <string name="settings_watch_own_title">Saját lista: %1$d / %2$d</string>
     <string name="settings_watch_none">Még nincsenek kedvencek</string>
+    <string name="settings_watch_prices">Árak az órán</string>
+    <string name="settings_watch_prices_phone">Árak a telefonról, különben az óra maga kéri le</string>
+    <string name="settings_watch_prices_self">Az óra mindig maga kéri le</string>
+    <string name="settings_watch_portfolio">Portfólióérték az órán</string>
+    <string name="settings_watch_portfolio_hint">Az érték látható a csuklón.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">A „Lista” nézetben nincs USDT-sor</string>

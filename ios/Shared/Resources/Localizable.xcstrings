@@ -31762,6 +31762,461 @@
         }
       }
     },
+    "a11y_watch_portfolio_hidden" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bedrag versteek"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "መጠኑ ተደብቋል"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المبلغ مخفي"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "məbləğ gizlədilib"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "сумата е скрита"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "পরিমাণ লুকানো"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iznos skriven"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "import amagat"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "částka skryta"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "beløb skjult"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Betrag verborgen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "κρυφό ποσό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amount hidden"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "importe oculto"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "summa peidetud"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zenbatekoa ezkutatuta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مبلغ پنهان"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "summa piilotettu"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nakatago ang halaga"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "montant masqué"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "méid i bhfolach"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "importe oculto"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "રકમ છુપાવેલી છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסכום מוסתר"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "राशि छिपी है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iznos skriven"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "összeg elrejtve"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "գումարը թաքցված է"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "jumlah disembunyikan"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "upphæð falin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "importo nascosto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金額非表示"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "თანხა დამალულია"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "сома жасырылған"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ចំនួនត្រូវបានលាក់"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮೊತ್ತ ಮರೆಮಾಡಲಾಗಿದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "금액 숨김"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຈຳນວນຖືກເຊື່ອງໄວ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "suma paslėpta"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "summa paslēpta"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "износот е скриен"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "തുക മറച്ചിരിക്കുന്നു"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "дүнг нуусан"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रक्कम लपवली आहे"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amaun disembunyikan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ပမာဏ ဖျောက်ထားသည်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "beløp skjult"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रकम लुकाइएको"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bedrag verborgen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰਕਮ ਲੁਕੀ ਹੋਈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kwota ukryta"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "montante oculto"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "valor oculto"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sumă ascunsă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "сумма скрыта"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ප්‍රමාණය සඟවා ඇත"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "suma skrytá"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "znesek skrit"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shuma e fshehur"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "износ скривен"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iznos skriven"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "belopp dolt"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kiasi kimefichwa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தொகை மறைக்கப்பட்டது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మొత్తం దాచబడింది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ซ่อนจำนวนเงินแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tutar gizli"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "суму приховано"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رقم چھپی ہوئی"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "miqdor yashirilgan"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "số tiền bị ẩn"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金額已隱藏"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金额已隐藏"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金額已隱藏"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "inani lifihliwe"
+          }
+        }
+      }
+    },
     "a11y_watch_row" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -370796,451 +371251,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Munte vir die Apple Watch-app (tot %1$ld, geprys teen USDT). Slegs hierdie lys gaan direk via WatchConnectivity na die horlosie; die horlosie haal self pryse."
+            "value" : "Munte vir die Apple Watch-app (tot %1$ld, geprys teen USDT)."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ለApple Watch መተግበሪያ ሳንቲሞች (እስከ %1$ld፣ ከUSDT አንጻር ዋጋ)። ወደ ሰዓቱ የሚሄደው ይህ ዝርዝር ብቻ ነው፣ በቀጥታ በWatchConnectivity በኩል፤ ሰዓቱ ዋጋዎችን ራሱ ያመጣል።"
+            "value" : "ለApple Watch መተግበሪያ ሳንቲሞች (እስከ %1$ld፣ ከUSDT አንጻር ዋጋ)።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عملات لتطبيق Apple Watch (حتى %1$ld، السعر مقابل USDT). تُرسَل هذه القائمة فقط إلى الساعة مباشرةً عبر WatchConnectivity، والساعة تجلب الأسعار بنفسها."
+            "value" : "عملات لتطبيق Apple Watch (حتى %1$ld، السعر مقابل USDT)."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch tətbiqi üçün koinlər (%1$ld-dək, USDT ilə qiymətləndirilir). Saata yalnız bu siyahı birbaşa WatchConnectivity vasitəsilə gedir; saat qiymətləri özü alır."
+            "value" : "Apple Watch tətbiqi üçün koinlər (%1$ld-dək, USDT ilə qiymətləndirilir)."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети за приложението за Apple Watch (до %1$ld, курс спрямо USDT). Към часовника отива само този списък, директно чрез WatchConnectivity; курсовете часовникът извлича сам."
+            "value" : "Монети за приложението за Apple Watch (до %1$ld, курс спрямо USDT)."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$ldটি, USDT-এর বিপরীতে দাম)। শুধু এই তালিকাটি সরাসরি WatchConnectivity-এর মাধ্যমে ঘড়িতে যায়; ঘড়ি নিজেই দাম আনে।"
+            "value" : "Apple Watch অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$ldটি, USDT-এর বিপরীতে দাম)।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na Apple Watchu (do %1$ld, cijene u odnosu na USDT). Na sat ide samo ovaj spisak, direktno putem WatchConnectivityja; sat sam dohvaća cijene."
+            "value" : "Kriptovalute za aplikaciju na Apple Watchu (do %1$ld, cijene u odnosu na USDT)."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedes per a l'app de l'Apple Watch (fins a %1$ld, cotitzades en USDT). Al rellotge només hi va aquesta llista, directament mitjançant WatchConnectivity; el rellotge obté els preus per si mateix."
+            "value" : "Monedes per a l'app de l'Apple Watch (fins a %1$ld, cotitzades en USDT)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mince pro aplikaci na Apple Watch (až %1$ld, cena vůči USDT). Do hodinek jde jen tento seznam, přímo přes WatchConnectivity; ceny si hodinky stahují samy."
+            "value" : "Mince pro aplikaci na Apple Watch (až %1$ld, cena vůči USDT)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins til Apple Watch-appen (op til %1$ld, kurs mod USDT). Kun denne liste sendes til uret, direkte via WatchConnectivity; uret henter selv kurserne."
+            "value" : "Coins til Apple Watch-appen (op til %1$ld, kurs mod USDT)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins für die Apple-Watch-App (bis %1$ld, Kurs gegen USDT). Nur diese Liste geht an die Uhr, direkt über WatchConnectivity; die Kurse holt die Uhr selbst."
+            "value" : "Coins für die Apple-Watch-App (bis %1$ld, Kurs gegen USDT)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Νομίσματα για την εφαρμογή Apple Watch (έως %1$ld, τιμή έναντι USDT). Στο ρολόι πηγαίνει μόνο αυτή η λίστα, απευθείας μέσω WatchConnectivity· τις τιμές τις φέρνει το ίδιο το ρολόι."
+            "value" : "Νομίσματα για την εφαρμογή Apple Watch (έως %1$ld, τιμή έναντι USDT)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins for the Apple Watch app (up to %1$ld, priced against USDT). Only this list goes to the watch, directly via WatchConnectivity; the watch fetches prices itself."
+            "value" : "Coins for the Apple Watch app (up to %1$ld, priced against USDT)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedas para la app del Apple Watch (hasta %1$ld, precio frente a USDT). Al reloj solo va esta lista, directamente mediante WatchConnectivity; el reloj obtiene los precios por sí mismo."
+            "value" : "Monedas para la app del Apple Watch (hasta %1$ld, precio frente a USDT)."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mündid Apple Watchi rakenduse jaoks (kuni %1$ld, hind USDT suhtes). Kellale saadetakse otse WatchConnectivity kaudu ainult see loend; hinnad hangib kell ise."
+            "value" : "Mündid Apple Watchi rakenduse jaoks (kuni %1$ld, hind USDT suhtes)."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch aplikaziorako txanponak (gehienez %1$ld, USDTren aurka kotizatuak). Zerrenda hau bakarrik joaten da erlojura, zuzenean WatchConnectivity bidez; erlojuak berak eskuratzen ditu prezioak."
+            "value" : "Apple Watch aplikaziorako txanponak (gehienez %1$ld, USDTren aurka kotizatuak)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "کوین‌ها برای برنامه Apple Watch (حداکثر %1$ld، قیمت در برابر USDT). فقط همین فهرست مستقیم از طریق WatchConnectivity به ساعت می‌رود؛ ساعت قیمت‌ها را خودش می‌گیرد."
+            "value" : "کوین‌ها برای برنامه Apple Watch (حداکثر %1$ld، قیمت در برابر USDT)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kolikot Apple Watch -sovellukseen (enintään %1$ld, hinta USDT:tä vastaan). Kelloon siirtyy vain tämä luettelo suoraan WatchConnectivityn kautta; hinnat kello hakee itse."
+            "value" : "Kolikot Apple Watch -sovellukseen (enintään %1$ld, hinta USDT:tä vastaan)."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mga coin para sa Apple Watch app (hanggang %1$ld, may presyo laban sa USDT). Ang listahang ito lang ang napupunta sa relo, direkta sa pamamagitan ng WatchConnectivity; ang relo mismo ang kumukuha ng mga presyo."
+            "value" : "Mga coin para sa Apple Watch app (hanggang %1$ld, may presyo laban sa USDT)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cryptos pour l’app Apple Watch (jusqu’à %1$ld, cours face à l’USDT). Seule cette liste est envoyée à la montre, directement via WatchConnectivity ; la montre récupère les cours elle-même."
+            "value" : "Cryptos pour l’app Apple Watch (jusqu’à %1$ld, cours face à l’USDT)."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Boinn don aip Apple Watch (suas le %1$ld, praghas in aghaidh USDT). Ní théann ach an liosta seo chuig an uaireadóir, go díreach trí WatchConnectivity; faigheann an t-uaireadóir na praghsanna é féin."
+            "value" : "Boinn don aip Apple Watch (suas le %1$ld, praghas in aghaidh USDT)."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para a app do Apple Watch (ata %1$ld, cotizadas en USDT). Ao reloxo só vai esta lista, directamente a través de WatchConnectivity; o reloxo obtén os prezos por si mesmo."
+            "value" : "Moedas para a app do Apple Watch (ata %1$ld, cotizadas en USDT)."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ઍપ માટે કૉઇન (%1$ld સુધી, USDT સામે ભાવ). ફક્ત આ યાદી સીધી WatchConnectivity દ્વારા વૉચ પર જાય છે; વૉચ ભાવ જાતે મેળવે છે."
+            "value" : "Apple Watch ઍપ માટે કૉઇન (%1$ld સુધી, USDT સામે ભાવ)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מטבעות לאפליקציית Apple Watch (עד %1$ld, מחיר מול USDT). רק הרשימה הזו עוברת לשעון, ישירות דרך WatchConnectivity; את המחירים השעון מביא בעצמו."
+            "value" : "מטבעות לאפליקציית Apple Watch (עד %1$ld, מחיר מול USDT)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ऐप के लिए कॉइन (अधिकतम %1$ld, USDT के मुकाबले कीमत)। घड़ी पर सिर्फ़ यही सूची जाती है, सीधे WatchConnectivity के ज़रिए; कीमतें घड़ी ख़ुद लाती है।"
+            "value" : "Apple Watch ऐप के लिए कॉइन (अधिकतम %1$ld, USDT के मुकाबले कीमत)।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na Apple Watchu (do %1$ld, cijene u odnosu na USDT). Na sat ide samo ovaj popis, izravno putem WatchConnectivityja; sat sam dohvaća cijene."
+            "value" : "Kriptovalute za aplikaciju na Apple Watchu (do %1$ld, cijene u odnosu na USDT)."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coinok az Apple Watch-alkalmazáshoz (legfeljebb %1$ld, USDT-hez mért ár). Csak ez a lista kerül az órára, közvetlenül a WatchConnectivityn keresztül; az árakat az óra maga kéri le."
+            "value" : "Coinok az Apple Watch-alkalmazáshoz (legfeljebb %1$ld, USDT-hez mért ár)."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Կոիններ Apple Watch հավելվածի համար (մինչև %1$ld, գնանշված USDT-ով)։ Ժամացույցին է գնում միայն այս ցանկը՝ ուղղակիորեն WatchConnectivity-ի միջոցով. ժամացույցն ինքն է ստանում գները։"
+            "value" : "Կոիններ Apple Watch հավելվածի համար (մինչև %1$ld, գնանշված USDT-ով)։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koin untuk aplikasi Apple Watch (maks. %1$ld, harga terhadap USDT). Hanya daftar ini yang dikirim ke jam, langsung lewat WatchConnectivity; harga diambil oleh jam sendiri."
+            "value" : "Koin untuk aplikasi Apple Watch (maks. %1$ld, harga terhadap USDT)."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myntir fyrir Apple Watch-forritið (allt að %1$ld, verð á móti USDT). Aðeins þessi listi fer í úrið, beint í gegnum WatchConnectivity; úrið sækir verðin sjálft."
+            "value" : "Myntir fyrir Apple Watch-forritið (allt að %1$ld, verð á móti USDT)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coin per l’app Apple Watch (fino a %1$ld, prezzo rispetto a USDT). All’orologio va solo questa lista, direttamente tramite WatchConnectivity; i prezzi li scarica l’orologio stesso."
+            "value" : "Coin per l’app Apple Watch (fino a %1$ld, prezzo rispetto a USDT)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch アプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、WatchConnectivity で直接送られます。価格はウォッチが自分で取得します。"
+            "value" : "Apple Watch アプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "მონეტები Apple Watch-ის აპისთვის (მაქსიმუმ %1$ld, ფასი USDT-ში). საათზე მხოლოდ ეს სია გადადის, პირდაპირ WatchConnectivity-ით; საათი ფასებს თავად იღებს."
+            "value" : "მონეტები Apple Watch-ის აპისთვის (მაქსიმუმ %1$ld, ფასი USDT-ში)."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch қолданбасына арналған монеталар (%1$ld дейін, USDT бойынша бағаланады). Сағатқа тек осы тізім WatchConnectivity арқылы тікелей жіберіледі; сағат бағамдарды өзі алады."
+            "value" : "Apple Watch қолданбасына арналған монеталар (%1$ld дейін, USDT бойынша бағаланады)."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "កាក់សម្រាប់កម្មវិធី Apple Watch (រហូតដល់ %1$ld កំណត់តម្លៃទល់នឹង USDT)។ មានតែបញ្ជីនេះប៉ុណ្ណោះដែលទៅកាន់នាឡិកា ដោយផ្ទាល់តាមរយៈ WatchConnectivity។ នាឡិកាទាញយកតម្លៃដោយខ្លួនឯង។"
+            "value" : "កាក់សម្រាប់កម្មវិធី Apple Watch (រហូតដល់ %1$ld កំណត់តម្លៃទល់នឹង USDT)។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$ld ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ). ಈ ಪಟ್ಟಿ ಮಾತ್ರ WatchConnectivity ಮೂಲಕ ನೇರವಾಗಿ ವಾಚ್‌ಗೆ ಹೋಗುತ್ತದೆ; ವಾಚ್ ಬೆಲೆಗಳನ್ನು ತಾನೇ ಪಡೆಯುತ್ತದೆ."
+            "value" : "Apple Watch ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$ld ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ)."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다. 워치에는 이 목록만 WatchConnectivity로 직접 전송되며, 가격은 워치가 직접 가져옵니다."
+            "value" : "Apple Watch 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ຫຼຽນສຳລັບແອັບ Apple Watch (ສູງສຸດ %1$ld, ລາຄາທຽບກັບ USDT). ສະເພາະລາຍການນີ້ທີ່ສົ່ງໄປໂມງ, ໂດຍກົງຜ່ານ WatchConnectivity; ໂມງດຶງລາຄາເອງ."
+            "value" : "ຫຼຽນສຳລັບແອັບ Apple Watch (ສູງສຸດ %1$ld, ລາຄາທຽບກັບ USDT)."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monetos Apple Watch programai (iki %1$ld, kaina USDT). Į laikrodį tiesiogiai per WatchConnectivity siunčiamas tik šis sąrašas; kainas laikrodis gauna pats."
+            "value" : "Monetos Apple Watch programai (iki %1$ld, kaina USDT)."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monētas Apple Watch lietotnei (līdz %1$ld, cena pret USDT). Uz pulksteni tieši caur WatchConnectivity tiek sūtīts tikai šis saraksts; cenas pulkstenis iegūst pats."
+            "value" : "Monētas Apple Watch lietotnei (līdz %1$ld, cena pret USDT)."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети за апликацијата за Apple Watch (до %1$ld, со цена против USDT). Само оваа листа оди на часовникот, директно преку WatchConnectivity; часовникот сам ги презема цените."
+            "value" : "Монети за апликацијата за Apple Watch (до %1$ld, со цена против USDT)."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ആപ്പിനുള്ള കോയിനുകൾ (%1$ld വരെ, USDT-ക്കെതിരായ വില). ഈ ലിസ്റ്റ് മാത്രമാണ് WatchConnectivity വഴി നേരിട്ട് വാച്ചിലേക്ക് പോകുന്നത്; വാച്ച് സ്വയം വിലകൾ ലഭ്യമാക്കുന്നു."
+            "value" : "Apple Watch ആപ്പിനുള്ള കോയിനുകൾ (%1$ld വരെ, USDT-ക്കെതിരായ വില)."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch аппын зоос (%1$ld хүртэл, USDT-тэй харьцуулан үнэлнэ). Цаг руу зөвхөн энэ жагсаалтыг WatchConnectivity-ээр шууд илгээнэ; цаг ханшийг өөрөө татна."
+            "value" : "Apple Watch аппын зоос (%1$ld хүртэл, USDT-тэй харьцуулан үнэлнэ)."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ॲपसाठी कॉइन (%1$ld पर्यंत, USDT विरुद्ध किंमत). फक्त ही यादी थेट WatchConnectivity द्वारे वॉचवर जाते; वॉच किमती स्वतः आणते."
+            "value" : "Apple Watch ॲपसाठी कॉइन (%1$ld पर्यंत, USDT विरुद्ध किंमत)."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koin untuk apl Apple Watch (sehingga %1$ld, diberi harga berbanding USDT). Hanya senarai ini dihantar ke jam tangan, terus melalui WatchConnectivity; jam tangan mengambil harga sendiri."
+            "value" : "Koin untuk apl Apple Watch (sehingga %1$ld, diberi harga berbanding USDT)."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch အက်ပ်အတွက် ကွိုင်များ (%1$ld အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။ ဤစာရင်းကိုသာ WatchConnectivity မှတစ်ဆင့် နာရီသို့ တိုက်ရိုက် ပို့သည်၊ နာရီက ဈေးနှုန်းများကို ကိုယ်တိုင် ရယူသည်။"
+            "value" : "Apple Watch အက်ပ်အတွက် ကွိုင်များ (%1$ld အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mynter for Apple Watch-appen (opptil %1$ld, kurs mot USDT). Bare denne listen sendes til klokken, direkte via WatchConnectivity; kursene henter klokken selv."
+            "value" : "Mynter for Apple Watch-appen (opptil %1$ld, kurs mot USDT)."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch एपका लागि कोइनहरू (%1$ld सम्म, USDT मा मूल्य)। यो सूची मात्र WatchConnectivity मार्फत सिधै घडीमा जान्छ; घडीले मूल्यहरू आफैं ल्याउँछ।"
+            "value" : "Apple Watch एपका लागि कोइनहरू (%1$ld सम्म, USDT मा मूल्य)।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Munten voor de Apple Watch-app (max. %1$ld, koers tegen USDT). Alleen deze lijst gaat naar het horloge, direct via WatchConnectivity; de koersen haalt het horloge zelf op."
+            "value" : "Munten voor de Apple Watch-app (max. %1$ld, koers tegen USDT)."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$ld, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)। ਸਿਰਫ਼ ਇਹੀ ਸੂਚੀ ਸਿੱਧੀ WatchConnectivity ਰਾਹੀਂ ਘੜੀ ’ਤੇ ਜਾਂਦੀ ਹੈ; ਘੜੀ ਕੀਮਤਾਂ ਖੁਦ ਲਿਆਉਂਦੀ ਹੈ।"
+            "value" : "Apple Watch ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$ld, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monety dla aplikacji na Apple Watch (do %1$ld, kurs względem USDT). Do zegarka trafia tylko ta lista, bezpośrednio przez WatchConnectivity; kursy zegarek pobiera sam."
+            "value" : "Monety dla aplikacji na Apple Watch (do %1$ld, kurs względem USDT)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para a app do Apple Watch (até %1$ld, preço face ao USDT). Só esta lista vai para o relógio, diretamente através do WatchConnectivity; o relógio obtém os preços sozinho."
+            "value" : "Moedas para a app do Apple Watch (até %1$ld, preço face ao USDT)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para o app do Apple Watch (até %1$ld, preço em relação ao USDT). Só esta lista vai para o relógio, diretamente pelo WatchConnectivity; o relógio busca os preços sozinho."
+            "value" : "Moedas para o app do Apple Watch (até %1$ld, preço em relação ao USDT)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monede pentru aplicația Apple Watch (până la %1$ld, preț față de USDT). Doar această listă ajunge pe ceas, direct prin WatchConnectivity; prețurile le preia ceasul singur."
+            "value" : "Monede pentru aplicația Apple Watch (până la %1$ld, preț față de USDT)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монеты для приложения на Apple Watch (до %1$ld, цена к USDT). На часы передаётся только этот список, напрямую через WatchConnectivity; цены часы загружают сами."
+            "value" : "Монеты для приложения на Apple Watch (до %1$ld, цена к USDT)."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch යෙදුම සඳහා කාසි (%1$ld දක්වා, USDT එදිරිව මිල). WatchConnectivity හරහා කෙලින්ම ඔරලෝසුවට යන්නේ මෙම ලැයිස්තුව පමණි; ඔරලෝසුව මිල ගණන් තනිවම ලබා ගනී."
+            "value" : "Apple Watch යෙදුම සඳහා කාසි (%1$ld දක්වා, USDT එදිරිව මිල)."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coiny pre aplikáciu Apple Watch (až %1$ld, kurz voči USDT). Do hodiniek ide iba tento zoznam, priamo cez WatchConnectivity; kurzy si hodinky načítajú samy."
+            "value" : "Coiny pre aplikáciu Apple Watch (až %1$ld, kurz voči USDT)."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kovanci za aplikacijo Apple Watch (do %1$ld, tečaj proti USDT). Na uro gre samo ta seznam, neposredno prek WatchConnectivity; tečaje ura pridobi sama."
+            "value" : "Kovanci za aplikacijo Apple Watch (do %1$ld, tečaj proti USDT)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedha për aplikacionin e Apple Watch (deri në %1$ld, çmimi ndaj USDT). Në orë shkon vetëm kjo listë, drejtpërdrejt përmes WatchConnectivity; çmimet i merr vetë ora."
+            "value" : "Monedha për aplikacionin e Apple Watch (deri në %1$ld, çmimi ndaj USDT)."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Криптовалуте за апликацију на Apple Watch-у (до %1$ld, цене у односу на USDT). На сат иде само овај списак, директно путем WatchConnectivity-ја; сат сам преузима цене."
+            "value" : "Криптовалуте за апликацију на Apple Watch-у (до %1$ld, цене у односу на USDT)."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na Apple Watch-u (do %1$ld, cene u odnosu na USDT). Na sat ide samo ovaj spisak, direktno putem WatchConnectivity-ja; sat sam preuzima cene."
+            "value" : "Kriptovalute za aplikaciju na Apple Watch-u (do %1$ld, cene u odnosu na USDT)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mynt för Apple Watch-appen (upp till %1$ld, kurs mot USDT). Bara den här listan skickas till klockan, direkt via WatchConnectivity; kurserna hämtar klockan själv."
+            "value" : "Mynt för Apple Watch-appen (upp till %1$ld, kurs mot USDT)."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sarafu za programu ya Apple Watch (hadi %1$ld, bei dhidi ya USDT). Orodha hii pekee ndiyo inaenda kwenye saa, moja kwa moja kupitia WatchConnectivity; saa inapata bei yenyewe."
+            "value" : "Sarafu za programu ya Apple Watch (hadi %1$ld, bei dhidi ya USDT)."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ஆப்புக்கான காயின்கள் (%1$ld வரை, USDT க்கு எதிரான விலையில்). இந்தப் பட்டியல் மட்டுமே WatchConnectivity வழியாக நேரடியாகக் கடிகாரத்துக்குச் செல்லும்; கடிகாரம் விலைகளைத் தானே பெறும்."
+            "value" : "Apple Watch ஆப்புக்கான காயின்கள் (%1$ld வரை, USDT க்கு எதிரான விலையில்)."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch యాప్ కోసం కాయిన్‌లు (%1$ld వరకు, USDTతో ధర). ఈ జాబితా మాత్రమే WatchConnectivity ద్వారా నేరుగా వాచ్‌కు వెళ్తుంది; వాచ్ ధరలను స్వయంగా తెచ్చుకుంటుంది."
+            "value" : "Apple Watch యాప్ కోసం కాయిన్‌లు (%1$ld వరకు, USDTతో ధర)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เหรียญสำหรับแอป Apple Watch (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้โดยตรงผ่าน WatchConnectivity ส่วนราคานาฬิกาดึงเอง"
+            "value" : "เหรียญสำหรับแอป Apple Watch (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch uygulaması için coinler (en fazla %1$ld, USDT karşısında fiyat). Saate yalnızca bu liste gider, doğrudan WatchConnectivity üzerinden; fiyatları saat kendisi alır."
+            "value" : "Apple Watch uygulaması için coinler (en fazla %1$ld, USDT karşısında fiyat)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети для застосунку на Apple Watch (до %1$ld, ціна до USDT). На годинник передається лише цей список, напряму через WatchConnectivity; ціни годинник завантажує сам."
+            "value" : "Монети для застосунку на Apple Watch (до %1$ld, ціна до USDT)."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$ld، USDT کے مقابل قیمت)۔ صرف یہی فہرست براہِ راست WatchConnectivity کے ذریعے گھڑی پر جاتی ہے؛ گھڑی قیمتیں خود حاصل کرتی ہے۔"
+            "value" : "Apple Watch ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$ld، USDT کے مقابل قیمت)۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch ilovasi uchun tangalar (%1$ld tagacha, USDT’ga nisbatan baholanadi). Soatga faqat shu roʻyxat toʻgʻridan-toʻgʻri WatchConnectivity orqali yuboriladi; soat kurslarni oʻzi oladi."
+            "value" : "Apple Watch ilovasi uchun tangalar (%1$ld tagacha, USDT’ga nisbatan baholanadi)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Các coin cho ứng dụng Apple Watch (tối đa %1$ld, giá so với USDT). Chỉ danh sách này được gửi trực tiếp đến đồng hồ qua WatchConnectivity; đồng hồ tự lấy giá."
+            "value" : "Các coin cho ứng dụng Apple Watch (tối đa %1$ld, giá so với USDT)."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch App 用嘅幣（最多 %1$ld 隻，以 USDT 計價）。只有呢個清單會經 WatchConnectivity 直接傳去手錶；手錶會自己擷取價格。"
+            "value" : "Apple Watch App 用嘅幣（最多 %1$ld 隻，以 USDT 計價）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch 应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。只有此列表会通过 WatchConnectivity 直接发送到手表；价格由手表自行获取。"
+            "value" : "Apple Watch 应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apple Watch App 中顯示的幣種（最多 %1$ld 個，以 USDT 計價）。只有此清單會透過 WatchConnectivity 直接傳送到手錶；價格由手錶自行取得。"
+            "value" : "Apple Watch App 中顯示的幣種（最多 %1$ld 個，以 USDT 計價）。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ama-coin e-app ye-Apple Watch (kuze kufike ku-%1$ld, intengo ngokuqhathaniswa ne-USDT). Lolu hlu kuphela oluya ewashini, ngqo nge-WatchConnectivity; iwashi lilanda izintengo ngokwalo."
+            "value" : "Ama-coin e-app ye-Apple Watch (kuze kufike ku-%1$ld, intengo ngokuqhathaniswa ne-USDT)."
           }
         }
       }
@@ -790486,451 +790941,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Munte vir die horlosie-app op Wear OS (tot %1$ld, geprys teen USDT). Slegs hierdie lys gaan na die horlosie, via Google Play services; die horlosie haal self pryse."
+            "value" : "Munte vir die horlosie-app op Wear OS (tot %1$ld, geprys teen USDT)."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$ld፣ ከUSDT አንጻር ዋጋ)። ወደ ሰዓቱ የሚሄደው ይህ ዝርዝር ብቻ ነው፣ በGoogle Play services በኩል፤ ሰዓቱ ዋጋዎችን ራሱ ያመጣል።"
+            "value" : "በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$ld፣ ከUSDT አንጻር ዋጋ)።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عملات لتطبيق الساعة على Wear OS (حتى %1$ld، السعر مقابل USDT). تُرسَل هذه القائمة فقط إلى الساعة عبر خدمات Google Play، والساعة تجلب الأسعار بنفسها."
+            "value" : "عملات لتطبيق الساعة على Wear OS (حتى %1$ld، السعر مقابل USDT)."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS saat tətbiqi üçün koinlər (%1$ld-dək, USDT ilə qiymətləndirilir). Saata yalnız bu siyahı Google Play xidmətləri vasitəsilə gedir; saat qiymətləri özü alır."
+            "value" : "Wear OS saat tətbiqi üçün koinlər (%1$ld-dək, USDT ilə qiymətləndirilir)."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети за приложението на часовник с Wear OS (до %1$ld, курс спрямо USDT). Към часовника отива само този списък, чрез услугите на Google Play; курсовете часовникът извлича сам."
+            "value" : "Монети за приложението на часовник с Wear OS (до %1$ld, курс спрямо USDT)."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS-এর ঘড়ি অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$ldটি, USDT-এর বিপরীতে দাম)। শুধু এই তালিকাটি Google Play services-এর মাধ্যমে ঘড়িতে যায়; ঘড়ি নিজেই দাম আনে।"
+            "value" : "Wear OS-এর ঘড়ি অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$ldটি, USDT-এর বিপরীতে দাম)।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cijene u odnosu na USDT). Na sat ide samo ovaj spisak, putem Google Play usluga; sat sam dohvaća cijene."
+            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cijene u odnosu na USDT)."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedes per a l'app del rellotge amb Wear OS (fins a %1$ld, cotitzades en USDT). Al rellotge només hi va aquesta llista, mitjançant els serveis de Google Play; el rellotge obté els preus per si mateix."
+            "value" : "Monedes per a l'app del rellotge amb Wear OS (fins a %1$ld, cotitzades en USDT)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mince pro aplikaci na hodinkách s Wear OS (až %1$ld, cena vůči USDT). Do hodinek jde jen tento seznam, přes služby Google Play; ceny si hodinky stahují samy."
+            "value" : "Mince pro aplikaci na hodinkách s Wear OS (až %1$ld, cena vůči USDT)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins til ur-appen på Wear OS (op til %1$ld, kurs mod USDT). Kun denne liste sendes til uret, via Google Play-tjenester; uret henter selv kurserne."
+            "value" : "Coins til ur-appen på Wear OS (op til %1$ld, kurs mod USDT)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins für die Uhr-App auf Wear OS (bis %1$ld, Kurs gegen USDT). Nur diese Liste geht an die Uhr, über die Google Play-Dienste; die Kurse holt die Uhr selbst."
+            "value" : "Coins für die Uhr-App auf Wear OS (bis %1$ld, Kurs gegen USDT)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Νομίσματα για την εφαρμογή ρολογιού σε Wear OS (έως %1$ld, τιμή έναντι USDT). Στο ρολόι πηγαίνει μόνο αυτή η λίστα, μέσω των υπηρεσιών Google Play· τις τιμές τις φέρνει το ίδιο το ρολόι."
+            "value" : "Νομίσματα για την εφαρμογή ρολογιού σε Wear OS (έως %1$ld, τιμή έναντι USDT)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coins for the watch app on Wear OS (up to %1$ld, priced against USDT). Only this list goes to the watch, via Google Play services; the watch fetches prices itself."
+            "value" : "Coins for the watch app on Wear OS (up to %1$ld, priced against USDT)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedas para la app del reloj en Wear OS (hasta %1$ld, precio frente a USDT). Al reloj solo va esta lista, mediante los servicios de Google Play; el reloj obtiene los precios por sí mismo."
+            "value" : "Monedas para la app del reloj en Wear OS (hasta %1$ld, precio frente a USDT)."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mündid Wear OS-i kellarakenduse jaoks (kuni %1$ld, hind USDT suhtes). Kellale saadetakse Google Play teenuste kaudu ainult see loend; hinnad hangib kell ise."
+            "value" : "Mündid Wear OS-i kellarakenduse jaoks (kuni %1$ld, hind USDT suhtes)."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS erlojuko aplikaziorako txanponak (gehienez %1$ld, USDTren aurka kotizatuak). Zerrenda hau bakarrik joaten da erlojura, Google Play zerbitzuen bidez; erlojuak berak eskuratzen ditu prezioak."
+            "value" : "Wear OS erlojuko aplikaziorako txanponak (gehienez %1$ld, USDTren aurka kotizatuak)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "کوین‌ها برای برنامه ساعت روی Wear OS (حداکثر %1$ld، قیمت در برابر USDT). فقط همین فهرست از طریق خدمات Google Play به ساعت می‌رود؛ ساعت قیمت‌ها را خودش می‌گیرد."
+            "value" : "کوین‌ها برای برنامه ساعت روی Wear OS (حداکثر %1$ld، قیمت در برابر USDT)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kolikot Wear OS -kellosovellukseen (enintään %1$ld, hinta USDT:tä vastaan). Kelloon siirtyy vain tämä luettelo Google Play -palveluiden kautta; hinnat kello hakee itse."
+            "value" : "Kolikot Wear OS -kellosovellukseen (enintään %1$ld, hinta USDT:tä vastaan)."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mga coin para sa watch app sa Wear OS (hanggang %1$ld, may presyo laban sa USDT). Ang listahang ito lang ang napupunta sa relo, sa pamamagitan ng Google Play services; ang relo mismo ang kumukuha ng mga presyo."
+            "value" : "Mga coin para sa watch app sa Wear OS (hanggang %1$ld, may presyo laban sa USDT)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cryptos pour l’app montre sur Wear OS (jusqu’à %1$ld, cours face à l’USDT). Seule cette liste est envoyée à la montre, via les services Google Play ; la montre récupère les cours elle-même."
+            "value" : "Cryptos pour l’app montre sur Wear OS (jusqu’à %1$ld, cours face à l’USDT)."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Boinn don aip uaireadóra ar Wear OS (suas le %1$ld, praghas in aghaidh USDT). Ní théann ach an liosta seo chuig an uaireadóir, trí sheirbhísí Google Play; faigheann an t-uaireadóir na praghsanna é féin."
+            "value" : "Boinn don aip uaireadóra ar Wear OS (suas le %1$ld, praghas in aghaidh USDT)."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para a app do reloxo con Wear OS (ata %1$ld, cotizadas en USDT). Ao reloxo só vai esta lista, a través dos servizos de Google Play; o reloxo obtén os prezos por si mesmo."
+            "value" : "Moedas para a app do reloxo con Wear OS (ata %1$ld, cotizadas en USDT)."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS પરની વૉચ ઍપ માટે કૉઇન (%1$ld સુધી, USDT સામે ભાવ). ફક્ત આ યાદી Google Play સેવાઓ દ્વારા વૉચ પર જાય છે; વૉચ ભાવ જાતે મેળવે છે."
+            "value" : "Wear OS પરની વૉચ ઍપ માટે કૉઇન (%1$ld સુધી, USDT સામે ભાવ)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מטבעות לאפליקציית השעון ב-Wear OS (עד %1$ld, מחיר מול USDT). רק הרשימה הזו עוברת לשעון, דרך שירותי Google Play; את המחירים השעון מביא בעצמו."
+            "value" : "מטבעות לאפליקציית השעון ב-Wear OS (עד %1$ld, מחיר מול USDT)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS पर घड़ी ऐप के लिए कॉइन (अधिकतम %1$ld, USDT के मुकाबले कीमत)। घड़ी पर सिर्फ़ यही सूची जाती है, Google Play सेवाओं के ज़रिए; कीमतें घड़ी ख़ुद लाती है।"
+            "value" : "Wear OS पर घड़ी ऐप के लिए कॉइन (अधिकतम %1$ld, USDT के मुकाबले कीमत)।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cijene u odnosu na USDT). Na sat ide samo ovaj popis, putem Google Play usluga; sat sam dohvaća cijene."
+            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cijene u odnosu na USDT)."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coinok a Wear OS-es óraalkalmazáshoz (legfeljebb %1$ld, USDT-hez mért ár). Csak ez a lista kerül az órára, a Google Play-szolgáltatásokon keresztül; az árakat az óra maga kéri le."
+            "value" : "Coinok a Wear OS-es óraalkalmazáshoz (legfeljebb %1$ld, USDT-hez mért ár)."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Կոիններ Wear OS ժամացույցի հավելվածի համար (մինչև %1$ld, գնանշված USDT-ով)։ Ժամացույցին է գնում միայն այս ցանկը՝ Google Play ծառայությունների միջոցով. ժամացույցն ինքն է ստանում գները։"
+            "value" : "Կոիններ Wear OS ժամացույցի հավելվածի համար (մինչև %1$ld, գնանշված USDT-ով)։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koin untuk aplikasi jam tangan di Wear OS (maks. %1$ld, harga terhadap USDT). Hanya daftar ini yang dikirim ke jam, lewat layanan Google Play; harga diambil oleh jam sendiri."
+            "value" : "Koin untuk aplikasi jam tangan di Wear OS (maks. %1$ld, harga terhadap USDT)."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myntir fyrir úraforritið á Wear OS (allt að %1$ld, verð á móti USDT). Aðeins þessi listi fer í úrið, í gegnum Google Play-þjónustu; úrið sækir verðin sjálft."
+            "value" : "Myntir fyrir úraforritið á Wear OS (allt að %1$ld, verð á móti USDT)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coin per l’app orologio su Wear OS (fino a %1$ld, prezzo rispetto a USDT). All’orologio va solo questa lista, tramite Google Play Services; i prezzi li scarica l’orologio stesso."
+            "value" : "Coin per l’app orologio su Wear OS (fino a %1$ld, prezzo rispetto a USDT)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS のウォッチアプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、Google Play 開発者サービス経由です。価格はウォッチが自分で取得します。"
+            "value" : "Wear OS のウォッチアプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$ld, ფასი USDT-ში). საათზე მხოლოდ ეს სია გადადის Google Play-ს სერვისებით; საათი ფასებს თავად იღებს."
+            "value" : "მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$ld, ფასი USDT-ში)."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS жүйесіндегі сағат қолданбасына арналған монеталар (%1$ld дейін, USDT бойынша бағаланады). Сағатқа тек осы тізім Google Play қызметтері арқылы жіберіледі; сағат бағамдарды өзі алады."
+            "value" : "Wear OS жүйесіндегі сағат қолданбасына арналған монеталар (%1$ld дейін, USDT бойынша бағаланады)."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$ld កំណត់តម្លៃទល់នឹង USDT)។ មានតែបញ្ជីនេះប៉ុណ្ណោះដែលទៅកាន់នាឡិកា តាមរយៈ Google Play services។ នាឡិកាទាញយកតម្លៃដោយខ្លួនឯង។"
+            "value" : "កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$ld កំណត់តម្លៃទល់នឹង USDT)។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS ನಲ್ಲಿನ ವಾಚ್ ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$ld ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ). ಈ ಪಟ್ಟಿ ಮಾತ್ರ Google Play ಸೇವೆಗಳ ಮೂಲಕ ವಾಚ್‌ಗೆ ಹೋಗುತ್ತದೆ; ವಾಚ್ ಬೆಲೆಗಳನ್ನು ತಾನೇ ಪಡೆಯುತ್ತದೆ."
+            "value" : "Wear OS ನಲ್ಲಿನ ವಾಚ್ ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$ld ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ)."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS 워치 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다. 워치에는 이 목록만 Google Play 서비스를 통해 전송되며, 가격은 워치가 직접 가져옵니다."
+            "value" : "Wear OS 워치 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$ld, ລາຄາທຽບກັບ USDT). ສະເພາະລາຍການນີ້ທີ່ສົ່ງໄປໂມງ, ຜ່ານ Google Play services; ໂມງດຶງລາຄາເອງ."
+            "value" : "ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$ld, ລາຄາທຽບກັບ USDT)."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monetos laikrodžio programai Wear OS (iki %1$ld, kaina USDT). Į laikrodį per Google Play paslaugas siunčiamas tik šis sąrašas; kainas laikrodis gauna pats."
+            "value" : "Monetos laikrodžio programai Wear OS (iki %1$ld, kaina USDT)."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monētas pulksteņa lietotnei Wear OS (līdz %1$ld, cena pret USDT). Uz pulksteni caur Google Play pakalpojumiem tiek sūtīts tikai šis saraksts; cenas pulkstenis iegūst pats."
+            "value" : "Monētas pulksteņa lietotnei Wear OS (līdz %1$ld, cena pret USDT)."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети за апликацијата за часовник на Wear OS (до %1$ld, со цена против USDT). Само оваа листа оди на часовникот, преку Google Play services; часовникот сам ги презема цените."
+            "value" : "Монети за апликацијата за часовник на Wear OS (до %1$ld, со цена против USDT)."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS-ലെ വാച്ച് ആപ്പിനുള്ള കോയിനുകൾ (%1$ld വരെ, USDT-ക്കെതിരായ വില). ഈ ലിസ്റ്റ് മാത്രമാണ് Google Play സേവനങ്ങൾ വഴി വാച്ചിലേക്ക് പോകുന്നത്; വാച്ച് സ്വയം വിലകൾ ലഭ്യമാക്കുന്നു."
+            "value" : "Wear OS-ലെ വാച്ച് ആപ്പിനുള്ള കോയിനുകൾ (%1$ld വരെ, USDT-ക്കെതിരായ വില)."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS дээрх цагны аппын зоос (%1$ld хүртэл, USDT-тэй харьцуулан үнэлнэ). Цаг руу зөвхөн энэ жагсаалтыг Google Play-ийн үйлчилгээгээр илгээнэ; цаг ханшийг өөрөө татна."
+            "value" : "Wear OS дээрх цагны аппын зоос (%1$ld хүртэл, USDT-тэй харьцуулан үнэлнэ)."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS वरील वॉच ॲपसाठी कॉइन (%1$ld पर्यंत, USDT विरुद्ध किंमत). फक्त ही यादी Google Play सेवांद्वारे वॉचवर जाते; वॉच किमती स्वतः आणते."
+            "value" : "Wear OS वरील वॉच ॲपसाठी कॉइन (%1$ld पर्यंत, USDT विरुद्ध किंमत)."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koin untuk apl jam tangan pada Wear OS (sehingga %1$ld, diberi harga berbanding USDT). Hanya senarai ini dihantar ke jam tangan, melalui perkhidmatan Google Play; jam tangan mengambil harga sendiri."
+            "value" : "Koin untuk apl jam tangan pada Wear OS (sehingga %1$ld, diberi harga berbanding USDT)."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ကွိုင်များ (%1$ld အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။ ဤစာရင်းကိုသာ Google Play services မှတစ်ဆင့် နာရီသို့ ပို့သည်၊ နာရီက ဈေးနှုန်းများကို ကိုယ်တိုင် ရယူသည်။"
+            "value" : "Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ကွိုင်များ (%1$ld အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mynter for klokkeappen på Wear OS (opptil %1$ld, kurs mot USDT). Bare denne listen sendes til klokken, via Google Play-tjenester; kursene henter klokken selv."
+            "value" : "Mynter for klokkeappen på Wear OS (opptil %1$ld, kurs mot USDT)."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS को घडी एपका लागि कोइनहरू (%1$ld सम्म, USDT मा मूल्य)। यो सूची मात्र Google Play services मार्फत घडीमा जान्छ; घडीले मूल्यहरू आफैं ल्याउँछ।"
+            "value" : "Wear OS को घडी एपका लागि कोइनहरू (%1$ld सम्म, USDT मा मूल्य)।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Munten voor de horloge-app op Wear OS (max. %1$ld, koers tegen USDT). Alleen deze lijst gaat naar het horloge, via Google Play-services; de koersen haalt het horloge zelf op."
+            "value" : "Munten voor de horloge-app op Wear OS (max. %1$ld, koers tegen USDT)."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS ’ਤੇ ਘੜੀ ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$ld, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)। ਸਿਰਫ਼ ਇਹੀ ਸੂਚੀ Google Play services ਰਾਹੀਂ ਘੜੀ ’ਤੇ ਜਾਂਦੀ ਹੈ; ਘੜੀ ਕੀਮਤਾਂ ਖੁਦ ਲਿਆਉਂਦੀ ਹੈ।"
+            "value" : "Wear OS ’ਤੇ ਘੜੀ ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$ld, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monety dla aplikacji na zegarek z Wear OS (do %1$ld, kurs względem USDT). Do zegarka trafia tylko ta lista, przez Usługi Google Play; kursy zegarek pobiera sam."
+            "value" : "Monety dla aplikacji na zegarek z Wear OS (do %1$ld, kurs względem USDT)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para a app do relógio no Wear OS (até %1$ld, preço face ao USDT). Só esta lista vai para o relógio, através dos serviços Google Play; o relógio obtém os preços sozinho."
+            "value" : "Moedas para a app do relógio no Wear OS (até %1$ld, preço face ao USDT)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moedas para o app do relógio no Wear OS (até %1$ld, preço em relação ao USDT). Só esta lista vai para o relógio, pelos serviços do Google Play; o relógio busca os preços sozinho."
+            "value" : "Moedas para o app do relógio no Wear OS (até %1$ld, preço em relação ao USDT)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monede pentru aplicația de ceas pe Wear OS (până la %1$ld, preț față de USDT). Doar această listă ajunge pe ceas, prin serviciile Google Play; prețurile le preia ceasul singur."
+            "value" : "Monede pentru aplicația de ceas pe Wear OS (până la %1$ld, preț față de USDT)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монеты для приложения на часах с Wear OS (до %1$ld, цена к USDT). На часы передаётся только этот список, через сервисы Google Play; цены часы загружают сами."
+            "value" : "Монеты для приложения на часах с Wear OS (до %1$ld, цена к USDT)."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$ld දක්වා, USDT එදිරිව මිල). Google Play services හරහා ඔරලෝසුවට යන්නේ මෙම ලැයිස්තුව පමණි; ඔරලෝසුව මිල ගණන් තනිවම ලබා ගනී."
+            "value" : "Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$ld දක්වා, USDT එදිරිව මිල)."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Coiny pre aplikáciu na hodinkách s Wear OS (až %1$ld, kurz voči USDT). Do hodiniek ide iba tento zoznam, cez služby Google Play; kurzy si hodinky načítajú samy."
+            "value" : "Coiny pre aplikáciu na hodinkách s Wear OS (až %1$ld, kurz voči USDT)."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kovanci za aplikacijo na uri Wear OS (do %1$ld, tečaj proti USDT). Na uro gre samo ta seznam, prek storitev Google Play; tečaje ura pridobi sama."
+            "value" : "Kovanci za aplikacijo na uri Wear OS (do %1$ld, tečaj proti USDT)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monedha për aplikacionin e orës në Wear OS (deri në %1$ld, çmimi ndaj USDT). Në orë shkon vetëm kjo listë, përmes shërbimeve të Google Play; çmimet i merr vetë ora."
+            "value" : "Monedha për aplikacionin e orës në Wear OS (deri në %1$ld, çmimi ndaj USDT)."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Криптовалуте за апликацију на сату с Wear OS-ом (до %1$ld, цене у односу на USDT). На сат иде само овај списак, путем Google Play услуга; сат сам преузима цене."
+            "value" : "Криптовалуте за апликацију на сату с Wear OS-ом (до %1$ld, цене у односу на USDT)."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cene u odnosu na USDT). Na sat ide samo ovaj spisak, putem Google Play usluga; sat sam preuzima cene."
+            "value" : "Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$ld, cene u odnosu na USDT)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mynt för klockappen på Wear OS (upp till %1$ld, kurs mot USDT). Bara den här listan skickas till klockan, via Google Play-tjänster; kurserna hämtar klockan själv."
+            "value" : "Mynt för klockappen på Wear OS (upp till %1$ld, kurs mot USDT)."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sarafu za programu ya saa kwenye Wear OS (hadi %1$ld, bei dhidi ya USDT). Orodha hii pekee ndiyo inaenda kwenye saa, kupitia huduma za Google Play; saa inapata bei yenyewe."
+            "value" : "Sarafu za programu ya saa kwenye Wear OS (hadi %1$ld, bei dhidi ya USDT)."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$ld வரை, USDT க்கு எதிரான விலையில்). இந்தப் பட்டியல் மட்டுமே Google Play சேவைகள் வழியாகக் கடிகாரத்துக்குச் செல்லும்; கடிகாரம் விலைகளைத் தானே பெறும்."
+            "value" : "Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$ld வரை, USDT க்கு எதிரான விலையில்)."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OSలోని వాచ్ యాప్ కోసం కాయిన్‌లు (%1$ld వరకు, USDTతో ధర). ఈ జాబితా మాత్రమే Google Play సేవల ద్వారా వాచ్‌కు వెళ్తుంది; వాచ్ ధరలను స్వయంగా తెచ్చుకుంటుంది."
+            "value" : "Wear OSలోని వాచ్ యాప్ కోసం కాయిన్‌లు (%1$ld వరకు, USDTతో ధర)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เหรียญสำหรับแอปนาฬิกาบน Wear OS (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้ผ่านบริการ Google Play ส่วนราคานาฬิกาดึงเอง"
+            "value" : "เหรียญสำหรับแอปนาฬิกาบน Wear OS (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS saat uygulaması için coinler (en fazla %1$ld, USDT karşısında fiyat). Saate yalnızca bu liste gider, Google Play Hizmetleri üzerinden; fiyatları saat kendisi alır."
+            "value" : "Wear OS saat uygulaması için coinler (en fazla %1$ld, USDT karşısında fiyat)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Монети для застосунку на годиннику з Wear OS (до %1$ld, ціна до USDT). На годинник передається лише цей список, через сервіси Google Play; ціни годинник завантажує сам."
+            "value" : "Монети для застосунку на годиннику з Wear OS (до %1$ld, ціна до USDT)."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS پر گھڑی ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$ld، USDT کے مقابل قیمت)۔ صرف یہی فہرست Google Play services کے ذریعے گھڑی پر جاتی ہے؛ گھڑی قیمتیں خود حاصل کرتی ہے۔"
+            "value" : "Wear OS پر گھڑی ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$ld، USDT کے مقابل قیمت)۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS’dagi soat ilovasi uchun tangalar (%1$ld tagacha, USDT’ga nisbatan baholanadi). Soatga faqat shu roʻyxat Google Play xizmatlari orqali yuboriladi; soat kurslarni oʻzi oladi."
+            "value" : "Wear OS’dagi soat ilovasi uchun tangalar (%1$ld tagacha, USDT’ga nisbatan baholanadi)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Các coin cho ứng dụng đồng hồ trên Wear OS (tối đa %1$ld, giá so với USDT). Chỉ danh sách này được gửi đến đồng hồ qua dịch vụ Google Play; đồng hồ tự lấy giá."
+            "value" : "Các coin cho ứng dụng đồng hồ trên Wear OS (tối đa %1$ld, giá so với USDT)."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS 手錶 App 用嘅幣（最多 %1$ld 隻，以 USDT 計價）。只有呢個清單會經 Google Play services 傳去手錶；手錶會自己擷取價格。"
+            "value" : "Wear OS 手錶 App 用嘅幣（最多 %1$ld 隻，以 USDT 計價）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS 手表应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。只有此列表会通过 Google Play 服务发送到手表；价格由手表自行获取。"
+            "value" : "Wear OS 手表应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wear OS 手錶應用程式中顯示的幣種（最多 %1$ld 個，以 USDT 計價）。只有此清單會透過 Google Play 服務發送到手錶；價格由手錶自行取得。"
+            "value" : "Wear OS 手錶應用程式中顯示的幣種（最多 %1$ld 個，以 USDT 計價）。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$ld, intengo ngokuqhathaniswa ne-USDT). Lolu hlu kuphela oluya ewashini, ngama-Google Play services; iwashi lilanda izintengo ngokwalo."
+            "value" : "Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$ld, intengo ngokuqhathaniswa ne-USDT)."
           }
         }
       }
@@ -792751,6 +793206,2281 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uhlu lwakho: %1$ld kwangu-%2$ld"
+          }
+        }
+      }
+    },
+    "settings_watch_portfolio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuljewaarde op die horlosie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "በሰዓቱ ላይ የፖርትፎሊዮ ዋጋ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قيمة المحفظة على الساعة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatda portfel dəyəri"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стойност на портфолиото на часовника"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়িতে পোর্টফোলিওর মূল্য"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrijednost portfolija na satu"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor de la cartera al rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnota portfolia na hodinkách"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljeværdi på uret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Wert auf der Uhr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αξία χαρτοφυλακίου στο ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio value on the watch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor de la cartera en el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelli väärtus kellas"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zorroaren balioa erlojuan"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارزش پرتفوی روی ساعت"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkun arvo kellossa"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halaga ng portfolio sa relo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valeur du portefeuille sur la montre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luach na punainne ar an uaireadóir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor da carteira no reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "વૉચ પર પોર્ટફોલિયો મૂલ્ય"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שווי התיק בשעון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी पर पोर्टफ़ोलियो मूल्य"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrijednost portfelja na satu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólióérték az órán"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Պորտֆելի արժեքը ժամացույցում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai portofolio di jam tangan"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virði eignasafns á úrinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valore del portafoglio sull’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチにポートフォリオ評価額を表示"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პორტფელის ღირებულება საათზე"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сағаттағы портфель құны"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "តម្លៃផលប័ត្រនៅលើនាឡិកា"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ವಾಚ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮೌಲ್ಯ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "워치에 포트폴리오 가치 표시"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ມູນຄ່າພອດໂຟລິໂອໃນໂມງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelio vertė laikrodyje"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfeļa vērtība pulkstenī"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вредност на портфолиото на часовникот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ചിൽ പോർട്ട്ഫോളിയോ മൂല്യം"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цаган дээрх багцын үнэ цэнэ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉचवर पोर्टफोलिओ मूल्य"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai portfolio pada jam tangan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီပေါ်ရှိ ပေါ့ဖိုလီယို တန်ဖိုး"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljeverdi på klokken"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीमा पोर्टफोलियो मूल्य"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfoliowaarde op het horloge"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ’ਤੇ ਪੋਰਟਫੋਲੀਓ ਮੁੱਲ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wartość portfela na zegarku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor do portfólio no relógio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor do portfólio no relógio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valoarea portofoliului pe ceas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стоимость портфеля на часах"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුවේ කළඹ වටිනාකම"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnota portfólia na hodinkách"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrednost portfelja na uri"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlera e portofolit në orë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вредност портфолија на сату"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrednost portfolija na satu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljvärde på klockan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thamani ya jalada kwenye saa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரத்தில் போர்ட்ஃபோலியோ மதிப்பு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "వాచ్‌లో పోర్ట్‌ఫోలియో విలువ"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มูลค่าพอร์ตโฟลิโอบนนาฬิกา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatte portföy değeri"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вартість портфеля на годиннику"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گھڑی پر پورٹ فولیو کی مالیت"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soatda portfel qiymati"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá trị danh mục trên đồng hồ"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶上嘅投資組合價值"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手表上的投资组合价值"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶上的投資組合價值"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inani le-portfolio ewashini"
+          }
+        }
+      }
+    },
+    "settings_watch_portfolio_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die waarde is op die pols sigbaar."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋው በእጅ አንጓ ላይ ይታያል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "القيمة ظاهرة على المعصم."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dəyər biləkdə görünür."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стойността се вижда на китката."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মূল্যটি কবজিতে দেখা যায়।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrijednost je vidljiva na zglobu."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El valor és visible al canell."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnota je vidět na zápěstí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Værdien kan ses på håndleddet."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Wert ist am Handgelenk sichtbar."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η αξία φαίνεται στον καρπό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The value is visible on the wrist."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El valor es visible en la muñeca."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Väärtus on randmel näha."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balioa eskumuturrean ikusten da."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این مقدار روی مچ دیده می‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arvo näkyy ranteessa."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nakikita ang halaga sa pulso."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La valeur est visible au poignet."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tá an luach le feiceáil ar an rí."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O valor vese no pulso."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મૂલ્ય કાંડા પર દેખાય છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הערך גלוי על פרק כף היד."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य कलाई पर दिखता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrijednost je vidljiva na zapešću."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az érték látható a csuklón."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Արժեքը տեսանելի է դաստակին։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai terlihat di pergelangan tangan."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virðið sést á úlnliðnum."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il valore è visibile al polso."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "評価額は手首で見えるようになります。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ღირებულება მაჯაზე ჩანს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Құн білекте көрінеді."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "តម្លៃនេះមើលឃើញនៅលើកដៃ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮೌಲ್ಯವು ಮಣಿಕಟ್ಟಿನ ಮೇಲೆ ಕಾಣುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가치가 손목에 표시됩니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ມູນຄ່າຈະເຫັນໄດ້ຢູ່ຂໍ້ມື."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vertė matoma ant riešo."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vērtība ir redzama uz plaukstas locītavas."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вредноста е видлива на зглобот."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "മൂല്യം കൈത്തണ്ടയിൽ കാണാം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Үнэ цэнэ бугуйн дээр харагдана."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य मनगटावर दिसते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nilai kelihatan pada pergelangan tangan."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "တန်ဖိုးကို လက်ကောက်ဝတ်ပေါ်တွင် မြင်ရသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verdien er synlig på håndleddet."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य नाडीमा देखिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De waarde is zichtbaar op de pols."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮੁੱਲ ਗੁੱਟ ’ਤੇ ਦਿਖਦਾ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wartość jest widoczna na nadgarstku."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O valor fica visível no pulso."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O valor fica visível no pulso."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valoarea este vizibilă la încheietură."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стоимость видна на запястье."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "වටිනාකම මැණික්කටුවේ පෙනේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodnota je viditeľná na zápästí."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrednost je vidna na zapestju."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlera duket në kyç."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вредност је видљива на ручном зглобу."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrednost je vidljiva na ručnom zglobu."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Värdet syns på handleden."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thamani inaonekana kwenye kifundo cha mkono."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மதிப்பு மணிக்கட்டில் தெரியும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "విలువ మణికట్టుపై కనిపిస్తుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มูลค่าจะแสดงบนข้อมือ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Değer bilekte görünür."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вартість видно на зап’ясті."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مالیت کلائی پر نظر آتی ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qiymat bilakda koʻrinadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá trị hiển thị trên cổ tay."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "數值會喺手腕上顯示。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此数值会显示在手腕上。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此數值會顯示在手腕上。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inani liyabonakala esihlakaleni."
+          }
+        }
+      }
+    },
+    "settings_watch_prices" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pryse op die horlosie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "በሰዓቱ ላይ ዋጋዎች"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأسعار على الساعة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatda qiymətlər"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Курсове на часовника"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়িতে দাম"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijene na satu"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preus al rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceny na hodinkách"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser på uret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurse auf der Uhr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τιμές στο ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prices on the watch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios en el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinnad kellas"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezioak erlojuan"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت‌ها روی ساعت"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinnat kellossa"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga presyo sa relo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours sur la montre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Praghsanna ar an uaireadóir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezos no reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "વૉચ પર ભાવ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחירים בשעון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी पर कीमतें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijene na satu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Árak az órán"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Գները ժամացույցում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga di jam tangan"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verð á úrinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzi sull’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチの価格"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასები საათზე"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сағаттағы бағалар"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "តម្លៃនៅលើនាឡិកា"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ವಾಚ್‌ನಲ್ಲಿ ಬೆಲೆಗಳು"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "워치의 가격"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ລາຄາໃນໂມງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kainos laikrodyje"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenas pulkstenī"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цени на часовникот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ചിലെ വിലകൾ"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цаган дээрх үнэ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉचवरील किमती"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga pada jam tangan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီပေါ်ရှိ ဈေးနှုန်းများ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser på klokken"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीमा मूल्यहरू"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koersen op het horloge"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ’ਤੇ ਕੀਮਤਾਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursy na zegarku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preços no relógio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preços no relógio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prețuri pe ceas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цены на часах"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුවේ මිල"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzy na hodinkách"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tečaji na uri"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çmimet në orë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цене на сату"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cene na satu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser på klockan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei kwenye saa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரத்தில் விலைகள்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "వాచ్‌లో ధరలు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคาบนนาฬิกา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatte fiyatlar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ціни на годиннику"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گھڑی پر قیمتیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soatdagi narxlar"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá trên đồng hồ"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶上嘅價格"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手表上的价格"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶上的價格"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izintengo ewashini"
+          }
+        }
+      }
+    },
+    "settings_watch_prices_phone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pryse van die foon, anders self haal"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋዎች ከስልኩ፣ ካልሆነ ራሱ ያመጣል"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأسعار من الهاتف، وإلا تجلبها الساعة بنفسها"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qiymətlər telefondan, əks halda saat özü alır"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Курсове от телефона, иначе часовникът сам"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দাম ফোন থেকে, নইলে ঘড়ি নিজেই আনে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijene s telefona, inače sat sam dohvaća"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preus del telèfon; si no, els obté el rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceny z telefonu, jinak si je hodinky stáhnou samy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser fra telefonen, ellers henter uret selv"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurse vom Handy, sonst selbst"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τιμές από το τηλέφωνο, αλλιώς τις φέρνει το ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prices from the phone, otherwise fetch itself"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios del teléfono; si no, los obtiene el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinnad telefonist, muidu hangib kell ise"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezioak telefonotik; bestela, erlojuak berak eskuratzen ditu"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت‌ها از گوشی، وگرنه ساعت خودش می‌گیرد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinnat puhelimesta, muuten kello hakee itse"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga presyo mula sa telepono, kung hindi ay ang relo mismo ang kukuha"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours du téléphone, sinon la montre les récupère"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Praghsanna ón bhfón, nó faigheann an t-uaireadóir iad féin"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezos do teléfono; se non, obtenos o reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ભાવ ફોનમાંથી, નહીં તો વૉચ જાતે મેળવે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחירים מהטלפון, אחרת השעון מביא בעצמו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कीमतें फ़ोन से, वरना घड़ी ख़ुद लाती है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijene s telefona, inače sat sam dohvaća"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Árak a telefonról, különben az óra maga kéri le"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Գները հեռախոսից, այլապես ժամացույցն ինքն է ստանում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga dari ponsel, jika tidak jam mengambil sendiri"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verð úr símanum, annars sækir úrið sjálft"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzi dal telefono, altrimenti li scarica l’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートフォンの価格を使用（なければウォッチが取得）"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასები ტელეფონიდან, სხვა შემთხვევაში საათი თავად იღებს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Бағалар телефоннан, әйтпесе сағат өзі алады"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "តម្លៃពីទូរសព្ទ បើមិនដូច្នោះទេ នាឡិកាទាញយកដោយខ្លួនឯង"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆಗಳು ಫೋನ್‌ನಿಂದ, ಇಲ್ಲದಿದ್ದರೆ ವಾಚ್ ತಾನೇ ಪಡೆಯುತ್ತದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴대폰의 가격 사용(없으면 워치가 직접 가져옴)"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ລາຄາຈາກໂທລະສັບ, ຖ້າບໍ່ມີ ໂມງດຶງເອງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kainos iš telefono, kitaip laikrodis gauna pats"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenas no tālruņa, citādi pulkstenis iegūst pats"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цени од телефонот, инаку часовникот сам презема"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലകൾ ഫോണിൽ നിന്ന്, അല്ലെങ്കിൽ വാച്ച് സ്വയം എടുക്കും"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Үнийг утаснаас, эс бөгөөс цаг өөрөө татна"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "किमती फोनवरून, नाहीतर वॉच स्वतः आणते"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga daripada telefon, jika tidak jam mengambil sendiri"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ဖုန်းမှ ဈေးနှုန်းများ၊ မရပါက နာရီက ကိုယ်တိုင် ရယူသည်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser fra telefonen, ellers henter klokken selv"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्यहरू फोनबाट, नत्र घडीले आफैं ल्याउँछ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koersen van de telefoon, anders haalt het horloge ze zelf"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੀਮਤਾਂ ਫ਼ੋਨ ਤੋਂ, ਨਹੀਂ ਤਾਂ ਘੜੀ ਖੁਦ ਲਿਆਉਂਦੀ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursy z telefonu, w przeciwnym razie zegarek pobiera sam"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preços do telemóvel; caso contrário, o relógio obtém-nos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preços do celular; senão, o relógio busca sozinho"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prețuri de pe telefon, altfel ceasul le preia singur"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цены с телефона, иначе часы загружают сами"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිල දුරකථනයෙන්, නැතහොත් ඔරලෝසුව තනිවම ලබා ගනී"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurzy z telefónu, inak si ich hodinky načítajú samy"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tečaji iz telefona, sicer jih ura pridobi sama"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çmimet nga telefoni, përndryshe i merr vetë ora"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цене са телефона, иначе сат сам преузима"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cene sa telefona, inače sat sam preuzima"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurser från telefonen, annars hämtar klockan själv"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei kutoka kwa simu, vinginevyo saa inapata yenyewe"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலைகள் ஃபோனிலிருந்து, இல்லையெனில் கடிகாரம் தானே பெறும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధరలు ఫోన్ నుండి, లేకపోతే వాచ్ స్వయంగా తెచ్చుకుంటుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้ราคาจากโทรศัพท์ ถ้าไม่มีนาฬิกาดึงเอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyatlar telefondan, yoksa saat kendisi alır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ціни з телефона, інакше годинник завантажує сам"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمتیں فون سے، ورنہ گھڑی خود حاصل کرتی ہے"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Narxlar telefondan, aks holda soat oʻzi oladi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá từ điện thoại, nếu không thì đồng hồ tự lấy"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格由手機提供，否則手錶自己擷取"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格由手机提供，否则由手表自行获取"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格由手機提供，否則由手錶自行取得"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izintengo ezivela kufoni, uma kungenjalo iwashi lizilanda ngokwalo"
+          }
+        }
+      }
+    },
+    "settings_watch_prices_self" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haal altyd self"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ሁልጊዜ ራሱ ያመጣል"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجلبها الساعة بنفسها دائمًا"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Həmişə saat özü alır"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Часовникът винаги извлича сам"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়ি সবসময় নিজেই আনে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat uvijek sam dohvaća"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El rellotge els obté sempre"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodinky stahují vždy samy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uret henter altid selv"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer selbst abrufen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το ρολόι τις φέρνει πάντα μόνο του"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always fetch itself"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El reloj los obtiene siempre"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kell hangib alati ise"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlojuak berak eskuratzen ditu beti"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ساعت همیشه خودش می‌گیرد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kello hakee aina itse"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laging ang relo mismo ang kumukuha"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La montre les récupère toujours"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faigheann an t-uaireadóir iad féin i gcónaí"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O reloxo obtenos sempre"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "વૉચ હંમેશાં જાતે મેળવે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "השעון תמיד מביא בעצמו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी हमेशा ख़ुद लाती है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat uvijek sam dohvaća"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az óra mindig maga kéri le"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ժամացույցը միշտ ինքն է ստանում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jam selalu mengambil sendiri"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úrið sækir alltaf sjálft"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’orologio li scarica sempre"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "常にウォッチが取得"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საათი ყოველთვის თავად იღებს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сағат әрқашан өзі алады"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "នាឡិកាទាញយកដោយខ្លួនឯងជានិច្ច"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ವಾಚ್ ಯಾವಾಗಲೂ ತಾನೇ ಪಡೆಯುತ್ತದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "항상 워치가 직접 가져옴"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ໂມງດຶງເອງສະເໝີ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laikrodis visada gauna pats"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pulkstenis vienmēr iegūst pats"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Часовникот секогаш сам презема"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ച് എപ്പോഴും സ്വയം എടുക്കും"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цаг үргэлж өөрөө татна"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉच नेहमी स्वतः आणते"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jam sentiasa mengambil sendiri"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီက အမြဲ ကိုယ်တိုင် ရယူသည်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klokken henter alltid selv"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीले सधैं आफैं ल्याउँछ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het horloge haalt ze altijd zelf"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ਹਮੇਸ਼ਾ ਖੁਦ ਲਿਆਉਂਦੀ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zegarek zawsze pobiera sam"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O relógio obtém-nos sempre"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O relógio sempre busca sozinho"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceasul le preia mereu singur"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Часы всегда загружают сами"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුව සැමවිටම තනිවම ලබා ගනී"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodinky načítajú vždy samy"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ura jih vedno pridobi sama"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ora i merr gjithmonë vetë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сат увек сам преузима"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat uvek sam preuzima"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klockan hämtar alltid själv"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saa inapata yenyewe kila wakati"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரம் எப்போதும் தானே பெறும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "వాచ్ ఎల్లప్పుడూ స్వయంగా తెచ్చుకుంటుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นาฬิกาดึงเองเสมอ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saat her zaman kendisi alır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Годинник завжди завантажує сам"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گھڑی ہمیشہ خود حاصل کرتی ہے"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soat har doim oʻzi oladi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đồng hồ luôn tự lấy"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶一律自己擷取"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始终由手表自行获取"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一律由手錶自行取得"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iwashi lihlala lizilanda ngokwalo"
           }
         }
       }
@@ -940183,6 +942913,916 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Azikho izintandokazi ocingweni"
+          }
+        }
+      }
+    },
+    "watch_portfolio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeulje"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ፖርትፎሊዮ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المحفظة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfel"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфолио"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "পোর্টফোলিও"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cartera"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefølje"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χαρτοφυλάκιο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cartera"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfell"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zorroa"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پرتفوی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkku"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuille"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Punann"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carteira"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "પોર્ટફોલિયો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תיק השקעות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelj"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Պորտֆել"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofolio"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eignasafn"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portafoglio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオ"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პორტფელი"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ផលប័ត្រ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪೋರ್ಟ್‌ಫೋಲಿಯೊ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ພອດໂຟລິໂອ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelis"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelis"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфолио"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പോർട്ട്ഫോളിയോ"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Багц"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफोलिओ"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ပေါ့ဖိုလီယို"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefølje"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफोलियो"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪੋਰਟਫੋਲੀਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfel"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoliu"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "කළඹ"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólio"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfelj"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoli"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфолио"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfölj"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jalada"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "போர்ட்ஃபோலியோ"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పోర్ట్‌ఫోలియో"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "พอร์ตโฟลิโอ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Портфель"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پورٹ فولیو"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danh mục"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投資組合"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投資組合"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-portfolio"
+          }
+        }
+      }
+    },
+    "watch_portfolio_today" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vandag"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዛሬ %1$@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ اليوم"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bu gün %1$@"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ днес"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আজ %1$@"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ danas"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ avui"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ dnes"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ i dag"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ heute"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ σήμερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hoy"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "täna %1$@"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gaur %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ امروز"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ tänään"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ngayon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ aujourd’hui"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ inniu"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hoxe"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "આજે %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ היום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आज %1$@"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ danas"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ma %1$@"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "այսօր %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hari ini"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ í dag"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ oggi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日 %1$@"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "დღეს %1$@"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "бүгін %1$@"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ថ្ងៃនេះ %1$@"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಇಂದು %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 %1$@"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ມື້ນີ້ %1$@"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "šiandien %1$@"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "šodien %1$@"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ денес"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഇന്ന് %1$@"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "өнөөдөр %1$@"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आज %1$@"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hari ini"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ယနေ့ %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ i dag"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आज %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vandaag"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਅੱਜ %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ dziś"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hoje"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hoje"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ azi"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ сегодня"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "අද %1$@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ dnes"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ danes"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sot"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ данас"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ danas"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ i dag"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ leo"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இன்று %1$@"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఈరోజు %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "วันนี้ %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bugün %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ сьогодні"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آج %1$@"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bugun %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hôm nay"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日 %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日 %1$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日 %1$@"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ namuhla"
           }
         }
       }

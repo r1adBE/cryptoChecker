@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">רשימה: כמו בטלפון</string>
     <string name="watch_mode_own">רשימה: אישית</string>
     <string name="watch_phone_empty">אין מועדפים בטלפון</string>
+    <string name="watch_portfolio">תיק השקעות</string>
+    <string name="watch_portfolio_today">%1$s היום</string>
+    <string name="a11y_watch_portfolio_hidden">הסכום מוסתר</string>
     <string name="a11y_watch_outdated">השער לא עדכני</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">עודכן לאחרונה לפני %1$d דקה</item>

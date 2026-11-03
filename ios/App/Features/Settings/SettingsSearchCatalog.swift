@@ -100,6 +100,9 @@ enum SettingsSearchCatalog {
         addPage("page.widgets", .widgets, L("settings_widgets"))
         add("widgets.watch", L("settings_watch"), L("settings_widgets"), .page(.widgets, anchor: "widgets.watch"),
             [L("settings_watch_mode_own"), "watchOS", "Apple Watch"])
+        add("widgets.watch_prices", L("settings_watch_prices"), L("settings_widgets"),
+            .page(.widgets, anchor: "widgets.watch_prices"),
+            [L("settings_watch_prices_phone"), L("settings_watch_prices_self")])
 
         // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe auf «Alarme»
         let alarms = L("settings_row_alarms")
@@ -152,6 +155,8 @@ enum SettingsSearchCatalog {
             [L("settings_portfolio_lock_hint")])
         add("portfolio.hide", L("portfolio_hide_amounts"), portfolio, .page(.portfolio, anchor: "portfolio.hide"),
             [L("portfolio_hide_amounts_hint")])
+        add("portfolio.watch", L("settings_watch_portfolio"), portfolio, .page(.portfolio, anchor: "portfolio.watch"),
+            [L("settings_watch_portfolio_hint"), "Apple Watch"])
         add("portfolio.cost_method", L("settings_cost_method"), portfolio, .page(.portfolio, anchor: "portfolio.cost_method"),
             [L("settings_cost_method_fifo"), L("settings_cost_method_average")])
         add("portfolio.tax_template", L("tax_template_title"), portfolio, .page(.portfolio, anchor: "portfolio.tax_template"),

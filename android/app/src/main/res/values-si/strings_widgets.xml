@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">නැවුම් කරන්න – %1$d s කින් නැවත හැකිය</string>
     <string name="settings_watch">ඔරලෝසුව</string>
-    <string name="settings_watch_hint">Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$d දක්වා, USDT එදිරිව මිල). Google Play services හරහා ඔරලෝසුවට යන්නේ මෙම ලැයිස්තුව පමණි; ඔරලෝසුව මිල ගණන් තනිවම ලබා ගනී.</string>
+    <string name="settings_watch_hint">Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$d දක්වා, USDT එදිරිව මිල).</string>
     <string name="settings_watch_mode_phone">දුරකථනය මෙන් (ප්‍රියතම ★)</string>
     <string name="settings_watch_mode_own">තමන්ගේම ලැයිස්තුව</string>
     <string name="settings_watch_own_title">තමන්ගේම ලැයිස්තුව: %2$d න් %1$d</string>
     <string name="settings_watch_none">තවම ප්‍රියතම නැත</string>
+    <string name="settings_watch_prices">ඔරලෝසුවේ මිල</string>
+    <string name="settings_watch_prices_phone">මිල දුරකථනයෙන්, නැතහොත් ඔරලෝසුව තනිවම ලබා ගනී</string>
+    <string name="settings_watch_prices_self">ඔරලෝසුව සැමවිටම තනිවම ලබා ගනී</string>
+    <string name="settings_watch_portfolio">ඔරලෝසුවේ කළඹ වටිනාකම</string>
+    <string name="settings_watch_portfolio_hint">වටිනාකම මැණික්කටුවේ පෙනේ.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“ලැයිස්තුව” හි USDT පේළියක් නැත</string>

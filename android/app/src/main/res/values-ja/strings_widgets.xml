@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">更新 – %1$d 秒後に再度可能</string>
     <string name="settings_watch">ウォッチ</string>
-    <string name="settings_watch_hint">Wear OS のウォッチアプリに表示するコイン（最大 %1$d 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、Google Play 開発者サービス経由です。価格はウォッチが自分で取得します。</string>
+    <string name="settings_watch_hint">Wear OS のウォッチアプリに表示するコイン（最大 %1$d 件、USDT 建て価格）。</string>
     <string name="settings_watch_mode_phone">スマホと同じ（お気に入り ★）</string>
     <string name="settings_watch_mode_own">独自リスト</string>
     <string name="settings_watch_own_title">独自リスト：%1$d / %2$d</string>
     <string name="settings_watch_none">お気に入りはまだありません</string>
+    <string name="settings_watch_prices">ウォッチの価格</string>
+    <string name="settings_watch_prices_phone">スマートフォンの価格を使用（なければウォッチが取得）</string>
+    <string name="settings_watch_prices_self">常にウォッチが取得</string>
+    <string name="settings_watch_portfolio">ウォッチにポートフォリオ評価額を表示</string>
+    <string name="settings_watch_portfolio_hint">評価額は手首で見えるようになります。</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">「リスト」では USDT の行なし</string>

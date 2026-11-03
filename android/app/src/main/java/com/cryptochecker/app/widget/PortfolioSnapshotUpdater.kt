@@ -68,6 +68,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
     private val addressRefresher: WatchedAddressRefresher,
     /** Live-Kurs USDT/USD: Faktor USDT → Währung der Aufnahme ([PortfolioWidgetChart.usdtFactor]). */
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    /** Portfolio-Wert auf der Uhr (nur mit Schalter): nach jeder Aufnahme senden, ohne eigene Abfrage. */
+    private val watchFeed: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchFeed>,
 ) {
     private val mutex = Mutex()
 
@@ -311,6 +313,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
             snapshot
         }
         widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
+        // Portfolio-Wert auf der Uhr (nur mit Schalter, sonst nichts)
+        if (recorded != null) watchFeed.get().portfolioRecorded()
         // Portfolio-Alarme nach jeder neuen Aufnahme (Fehler bleiben still)
         if (recorded != null) {
             try {

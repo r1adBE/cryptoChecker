@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ໂຫຼດຄືນໃໝ່ – ເຮັດໄດ້ອີກໃນ %1$d ວິ.</string>
     <string name="settings_watch">ໂມງ</string>
-    <string name="settings_watch_hint">ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$d, ລາຄາທຽບກັບ USDT). ສະເພາະລາຍການນີ້ທີ່ສົ່ງໄປໂມງ, ຜ່ານ Google Play services; ໂມງດຶງລາຄາເອງ.</string>
+    <string name="settings_watch_hint">ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$d, ລາຄາທຽບກັບ USDT).</string>
     <string name="settings_watch_mode_phone">ຄືກັບໂທລະສັບ (ລາຍການທີ່ມັກ ★)</string>
     <string name="settings_watch_mode_own">ລາຍການຂອງຕົນເອງ</string>
     <string name="settings_watch_own_title">ລາຍການຂອງຕົນເອງ: %1$d ຈາກ %2$d</string>
     <string name="settings_watch_none">ຍັງບໍ່ມີລາຍການທີ່ມັກ</string>
+    <string name="settings_watch_prices">ລາຄາໃນໂມງ</string>
+    <string name="settings_watch_prices_phone">ລາຄາຈາກໂທລະສັບ, ຖ້າບໍ່ມີ ໂມງດຶງເອງ</string>
+    <string name="settings_watch_prices_self">ໂມງດຶງເອງສະເໝີ</string>
+    <string name="settings_watch_portfolio">ມູນຄ່າພອດໂຟລິໂອໃນໂມງ</string>
+    <string name="settings_watch_portfolio_hint">ມູນຄ່າຈະເຫັນໄດ້ຢູ່ຂໍ້ມື.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">ບໍ່ມີເສັ້ນ USDT ໃນ “ລາຍການ”</string>

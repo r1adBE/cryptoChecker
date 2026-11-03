@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Danh sách: giống điện thoại</string>
     <string name="watch_mode_own">Danh sách: riêng</string>
     <string name="watch_phone_empty">Không có mục yêu thích trên điện thoại</string>
+    <string name="watch_portfolio">Danh mục</string>
+    <string name="watch_portfolio_today">%1$s hôm nay</string>
+    <string name="a11y_watch_portfolio_hidden">số tiền bị ẩn</string>
     <string name="a11y_watch_outdated">Giá đã cũ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">cập nhật lần cuối %1$d phút trước</item>

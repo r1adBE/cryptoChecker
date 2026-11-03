@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Siyahı: telefondakı kimi</string>
     <string name="watch_mode_own">Siyahı: öz siyahın</string>
     <string name="watch_phone_empty">Telefonda seçilmişlər yoxdur</string>
+    <string name="watch_portfolio">Portfel</string>
+    <string name="watch_portfolio_today">bu gün %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">məbləğ gizlədilib</string>
     <string name="a11y_watch_outdated">Qiymət köhnəlib</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">son yenilənmə %1$d dəqiqə əvvəl</item>

@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lista: si në telefon</string>
     <string name="watch_mode_own">Lista: imja</string>
     <string name="watch_phone_empty">Nuk ka të preferuara në telefon</string>
+    <string name="watch_portfolio">Portofoli</string>
+    <string name="watch_portfolio_today">%1$s sot</string>
+    <string name="a11y_watch_portfolio_hidden">shuma e fshehur</string>
     <string name="a11y_watch_outdated">Kursi është i vjetëruar</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">përditësuar së fundi para %1$d minute</item>

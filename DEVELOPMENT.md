@@ -3261,6 +3261,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   CC0 pack removed; runtime exchange-logo download of 188 removed; exchange logos independent of the logo switch.
 * Build 190: `LiveStatus.freshnessTime` (last tick of a healthy stream); Wear SHORT_TEXT age, `WatchPriceSource` 20 s deadline and
   cancellation; BEA full-year PCE schedule; Mercado Bitcoin/LATOKEN counted as blocked in the live check; APK size gate 32 MB (language splits).
+* Build 191: watch prices from the phone (Data Layer / WatchConnectivity, at most once a minute), `WatchInterval` clamp 15–60 min,
+  source setting, opt-in portfolio total + complication (hidden amounts and portfolio lock → «•••»).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

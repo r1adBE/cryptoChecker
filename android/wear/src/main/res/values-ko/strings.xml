@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">목록: 휴대전화와 동일</string>
     <string name="watch_mode_own">목록: 직접 고른 목록</string>
     <string name="watch_phone_empty">휴대전화에 즐겨찾기가 없습니다</string>
+    <string name="watch_portfolio">포트폴리오</string>
+    <string name="watch_portfolio_today">오늘 %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">금액 숨김</string>
     <string name="a11y_watch_outdated">시세가 오래됨</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">마지막 업데이트: %1$d분 전</item>

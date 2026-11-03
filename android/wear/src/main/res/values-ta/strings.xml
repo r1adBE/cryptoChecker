@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">பட்டியல்: ஃபோனில் உள்ளபடி</string>
     <string name="watch_mode_own">பட்டியல்: தனிப்பட்டது</string>
     <string name="watch_phone_empty">ஃபோனில் பிடித்தவை இல்லை</string>
+    <string name="watch_portfolio">போர்ட்ஃபோலியோ</string>
+    <string name="watch_portfolio_today">இன்று %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">தொகை மறைக்கப்பட்டது</string>
     <string name="a11y_watch_outdated">விலை காலாவதியானது</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d நிமிடத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>

@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lista: jak w telefonie</string>
     <string name="watch_mode_own">Lista: własna</string>
     <string name="watch_phone_empty">Brak ulubionych w telefonie</string>
+    <string name="watch_portfolio">Portfel</string>
+    <string name="watch_portfolio_today">%1$s dziś</string>
+    <string name="a11y_watch_portfolio_hidden">kwota ukryta</string>
     <string name="a11y_watch_outdated">Kurs nieaktualny</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ostatnia aktualizacja %1$d minutę temu</item>

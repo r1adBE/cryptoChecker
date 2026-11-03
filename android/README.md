@@ -20,9 +20,10 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 ## Schwerpunkte von 16.2.2
 
-* **Wear-OS-App** (Modul `wear`) — Kurse und 24 h der Lieblings-Coins direkt von den Börsen (Binance, sonst Bybit/OKX),
-  Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich der Wahl mit dem Handy über die Wear-Daten-Schicht,
-  Komplikation mit dem ersten Coin; alter Kurs grau mit Alter.
+* **Wear-OS-App** (Modul `wear`) — Kurse und 24 h der Lieblings-Coins vom Handy (die es schon hat) oder ohne Handy
+  bzw. mit «Immer selbst abrufen» direkt von den Börsen (Binance, sonst Bybit/OKX), im Intervall des Handys (15–60 Min.,
+  `WatchInterval`); Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich über die Wear-Daten-Schicht;
+  Komplikationen mit dem ersten Coin und (nur mit Schalter) dem Portfolio-Wert; alter Kurs grau mit Alter.
 * **Preis-Overlay** (optional, Berechtigung «Über anderen Apps einblenden») — Pille mit bis zu 3 Paaren der dauerhaften
   Kurs-Mitteilung über anderen Apps, verschiebbar, Tippen öffnet die App (`overlay/`).
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über

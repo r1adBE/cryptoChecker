@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Liosta: cosúil leis an bhfón</string>
     <string name="watch_mode_own">Liosta: féin</string>
     <string name="watch_phone_empty">Gan ceanáin ar an bhfón</string>
+    <string name="watch_portfolio">Punann</string>
+    <string name="watch_portfolio_today">%1$s inniu</string>
+    <string name="a11y_watch_portfolio_hidden">méid i bhfolach</string>
     <string name="a11y_watch_outdated">Praghas as dáta</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nuashonraithe %1$d nóiméad ó shin</item>

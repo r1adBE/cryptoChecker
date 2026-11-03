@@ -30,8 +30,14 @@ extension AppData {
             updateLiveStream()
         }
         if old.backgroundIntervalMinutes != settings.backgroundIntervalMinutes {
-            // Neues Intervall: vorgemerkte Aktualisierung ersetzen
+            // Neues Intervall: vorgemerkte Aktualisierung ersetzen; die Uhr folgt dem Takt
             BackgroundRefresh.scheduleRefresh(settings: settings, replace: true)
+            PhoneWatchLink.shared.intervalChanged(settings.backgroundIntervalMinutes)
+        }
+        if old.portfolioEnabled != settings.portfolioEnabled || old.hidePortfolioAmounts != settings.hidePortfolioAmounts
+            || old.appLock != settings.appLock {
+            // Portfolio-Wert auf der Uhr: zeigen, als «•••» oder entfernen
+            PhoneWatchLink.shared.portfolioChanged(settings)
         }
         if old.fearGreedBelow != settings.fearGreedBelow || old.fearGreedAbove != settings.fearGreedAbove
             || old.indicatorAlerts != settings.indicatorAlerts {

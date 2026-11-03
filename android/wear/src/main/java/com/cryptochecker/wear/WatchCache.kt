@@ -35,6 +35,25 @@ object WatchCache {
         return out
     }
 
+    /**
+     * Kurse vom Handy ([fresh], je Coin mit der Zeit des Abrufs auf dem Handy) in [old] übernehmen: ein Coin wird nur
+     * ersetzt, wenn sein gespeicherter Stand nicht neuer ist (ein eigener Abruf der Uhr danach bleibt); nur Coins aus
+     * [keep]. Wie iOS `WatchCache.mergeTimed` (Paritäts-Fixture `watch_link.json`, Abschnitt «cacheTimed»).
+     */
+    fun mergeTimed(
+        old: Map<String, WatchCached>,
+        fresh: Map<String, WatchCached>,
+        keep: Collection<String>,
+    ): Map<String, WatchCached> {
+        val out = LinkedHashMap<String, WatchCached>()
+        old.forEach { (coin, cached) -> if (coin in keep) out[coin] = cached }
+        fresh.forEach { (coin, cached) ->
+            val stored = out[coin]
+            if (coin in keep && cached.time > 0L && (stored == null || stored.time <= cached.time)) out[coin] = cached
+        }
+        return out
+    }
+
     /** Stand der Liste [coins]: Zeit des ältesten gezeigten Kurses (0 = keiner geladen). */
     fun listTime(cache: Map<String, WatchCached>, coins: List<String>): Long =
         coins.mapNotNull { cache[it]?.time }.minOrNull() ?: 0L

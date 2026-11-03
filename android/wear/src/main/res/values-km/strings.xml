@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">បញ្ជី៖ ដូចទូរសព្ទ</string>
     <string name="watch_mode_own">បញ្ជី៖ ផ្ទាល់ខ្លួន</string>
     <string name="watch_phone_empty">គ្មានចំណូលចិត្តនៅលើទូរសព្ទទេ</string>
+    <string name="watch_portfolio">ផលប័ត្រ</string>
+    <string name="watch_portfolio_today">ថ្ងៃនេះ %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">ចំនួនត្រូវបានលាក់</string>
     <string name="a11y_watch_outdated">តម្លៃហួសសម័យ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d នាទីមុន</item>

@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">รีเฟรช – ทำได้อีกครั้งใน %1$d วิ</string>
     <string name="settings_watch">นาฬิกา</string>
-    <string name="settings_watch_hint">เหรียญสำหรับแอปนาฬิกาบน Wear OS (สูงสุด %1$d เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้ผ่านบริการ Google Play ส่วนราคานาฬิกาดึงเอง</string>
+    <string name="settings_watch_hint">เหรียญสำหรับแอปนาฬิกาบน Wear OS (สูงสุด %1$d เหรียญ ราคาเทียบ USDT)</string>
     <string name="settings_watch_mode_phone">เหมือนโทรศัพท์ (รายการโปรด ★)</string>
     <string name="settings_watch_mode_own">รายการของตัวเอง</string>
     <string name="settings_watch_own_title">รายการของตัวเอง: %1$d จาก %2$d</string>
     <string name="settings_watch_none">ยังไม่มีรายการโปรด</string>
+    <string name="settings_watch_prices">ราคาบนนาฬิกา</string>
+    <string name="settings_watch_prices_phone">ใช้ราคาจากโทรศัพท์ ถ้าไม่มีนาฬิกาดึงเอง</string>
+    <string name="settings_watch_prices_self">นาฬิกาดึงเองเสมอ</string>
+    <string name="settings_watch_portfolio">มูลค่าพอร์ตโฟลิโอบนนาฬิกา</string>
+    <string name="settings_watch_portfolio_hint">มูลค่าจะแสดงบนข้อมือ</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">ไม่มีบรรทัด USDT ใน “รายการ”</string>

@@ -3,6 +3,8 @@ package com.cryptochecker.wear
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
+import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,8 +13,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * Speicher der Uhr (eigene kleine Datei, nicht gesichert): Wahl der Liste und die zuletzt geladenen Kurse, je Coin mit
- * dem Start seines Abrufs ([WatchCached.time]) — die Komplikation zeigt sie auch ohne Netz. Beides liegt zusätzlich als
+ * Speicher der Uhr (eigene kleine Datei, nicht gesichert): Wahl der Liste, die zuletzt geladenen Kurse, je Coin mit
+ * dem Start seines Abrufs ([WatchCached.time]) — die Komplikation zeigt sie auch ohne Netz —, die Coins der letzten
+ * Kurse vom Handy ([phoneCoins]) und der Portfolio-Wert vom Handy ([portfolioFlow]). Wahl, Kurse und Wert liegen als
  * [StateFlow] einmal im Prozess: Uhr-App, [WatchDataListener] (Handy) und Komplikation schreiben und lesen denselben
  * Stand, die offene Liste folgt also auch Änderungen vom Handy.
  */
@@ -25,6 +28,12 @@ class WatchStore(context: Context) {
 
     /** Zuletzt geladene Kurse je Coin. */
     val quotesFlow: StateFlow<Map<String, WatchCached>> = state.quotes.asStateFlow()
+
+    /** Portfolio-Wert vom Handy; null = keiner (Schalter auf dem Handy aus oder nie gesendet). */
+    val portfolioFlow: StateFlow<WatchPortfolio?> = state.portfolio.asStateFlow()
+
+    /** Coins der letzten Kurse vom Handy ([WatchPhoneQuotes.selfFetch]). */
+    val phoneCoins: Set<String> get() = prefs.getStringSet(KEY_PHONE_COINS, null).orEmpty()
 
     val settings: WatchSettings get() = state.settings.value
 
@@ -51,25 +60,57 @@ class WatchStore(context: Context) {
      */
     fun mergeQuotes(fresh: Map<String, WatchQuote>, startedAt: Long): Map<String, WatchCached> = synchronized(LOCK) {
         val keep = state.settings.value.let { it.own + it.phone }
-        val merged = WatchCache.merge(state.quotes.value, fresh, startedAt, keep)
+        writeQuotes(WatchCache.merge(state.quotes.value, fresh, startedAt, keep), null)
+    }
+
+    /**
+     * Kurse vom Handy übernehmen ([WatchCache.mergeTimed], je Coin mit der Zeit des Handys) und die gelieferten Coins
+     * als [phoneCoins] merken; Ergebnis = neuer Stand.
+     */
+    fun takePhoneQuotes(quotes: List<WatchPhoneQuotes.Quote>): Map<String, WatchCached> = synchronized(LOCK) {
+        val keep = state.settings.value.let { it.own + it.phone }
+        val fresh = quotes.associate { it.symbol to WatchCached(WatchQuote(it.symbol, it.price, it.change24h, it.exchange), it.time) }
+        writeQuotes(WatchCache.mergeTimed(state.quotes.value, fresh, keep), quotes.map { it.symbol }.toSet())
+    }
+
+    /** Portfolio-Wert vom Handy speichern bzw. bei [WatchPortfolio.Message.Clear] entfernen. */
+    fun takePortfolio(message: WatchPortfolio.Message) {
+        synchronized(LOCK) {
+            val value = (message as? WatchPortfolio.Message.Value)?.portfolio
+            prefs.edit { if (value == null) remove(KEY_PORTFOLIO) else putString(KEY_PORTFOLIO, WatchPortfolio.toJson(message)) }
+            state.portfolio.value = value
+        }
+    }
+
+    /** Kurse speichern (und mit [phone] die Coins vom Handy); nur unter [LOCK]. */
+    private fun writeQuotes(merged: Map<String, WatchCached>, phone: Set<String>?): Map<String, WatchCached> {
         val list = JSONArray()
         merged.values.forEach { c ->
             val o = JSONObject().put("s", c.quote.symbol).put("p", c.quote.price).put("x", c.quote.source).put("t", c.time)
             c.quote.change24h?.let { o.put("c", it) }
             list.put(o)
         }
-        prefs.edit { putString(KEY_QUOTES, JSONObject().put("q", list).toString()) }
+        prefs.edit {
+            putString(KEY_QUOTES, JSONObject().put("q", list).toString())
+            phone?.let { putStringSet(KEY_PHONE_COINS, it) }
+        }
         state.quotes.value = merged
-        merged
+        return merged
     }
 
     /** Stand im Prozess: einmal aus der Datei gelesen, danach nur noch über diese Klasse geändert. */
-    private class State(val settings: MutableStateFlow<WatchSettings>, val quotes: MutableStateFlow<Map<String, WatchCached>>)
+    private class State(
+        val settings: MutableStateFlow<WatchSettings>,
+        val quotes: MutableStateFlow<Map<String, WatchCached>>,
+        val portfolio: MutableStateFlow<WatchPortfolio?>,
+    )
 
     private companion object {
         const val PREFS = "watch"
         const val KEY_SETTINGS = "settings"
         const val KEY_QUOTES = "quotes"
+        const val KEY_PHONE_COINS = "phone_coins"
+        const val KEY_PORTFOLIO = "portfolio"
         val LOCK = Any()
 
         @Volatile
@@ -79,6 +120,9 @@ class WatchStore(context: Context) {
             shared ?: State(
                 MutableStateFlow(WatchSettings.fromJson(prefs.getString(KEY_SETTINGS, null)) ?: WatchSettings()),
                 MutableStateFlow(readQuotes(prefs.getString(KEY_QUOTES, null))),
+                MutableStateFlow(
+                    (WatchPortfolio.fromJson(prefs.getString(KEY_PORTFOLIO, null)) as? WatchPortfolio.Message.Value)?.portfolio
+                ),
             ).also { shared = it }
         }
 

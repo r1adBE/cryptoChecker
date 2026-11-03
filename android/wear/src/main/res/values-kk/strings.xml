@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Тізім: телефондағыдай</string>
     <string name="watch_mode_own">Тізім: жеке</string>
     <string name="watch_phone_empty">Телефонда таңдаулылар жоқ</string>
+    <string name="watch_portfolio">Портфель</string>
+    <string name="watch_portfolio_today">бүгін %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">сома жасырылған</string>
     <string name="a11y_watch_outdated">Бағам ескірген</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>

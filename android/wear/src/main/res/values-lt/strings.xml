@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Sąrašas: kaip telefone</string>
     <string name="watch_mode_own">Sąrašas: savas</string>
     <string name="watch_phone_empty">Telefone nėra mėgstamų</string>
+    <string name="watch_portfolio">Portfelis</string>
+    <string name="watch_portfolio_today">šiandien %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">suma paslėpta</string>
     <string name="a11y_watch_outdated">Kaina pasenusi</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">paskutinį kartą atnaujinta prieš %1$d minutę</item>

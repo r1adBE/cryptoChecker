@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Rifresko – sërish e mundur pas %1$d s</string>
     <string name="settings_watch">Ora</string>
-    <string name="settings_watch_hint">Monedha për aplikacionin e orës në Wear OS (deri në %1$d, çmimi ndaj USDT). Në orë shkon vetëm kjo listë, përmes shërbimeve të Google Play; çmimet i merr vetë ora.</string>
+    <string name="settings_watch_hint">Monedha për aplikacionin e orës në Wear OS (deri në %1$d, çmimi ndaj USDT).</string>
     <string name="settings_watch_mode_phone">Si në telefon (të preferuarat ★)</string>
     <string name="settings_watch_mode_own">Lista ime</string>
     <string name="settings_watch_own_title">Lista ime: %1$d nga %2$d</string>
     <string name="settings_watch_none">Ende pa të preferuara</string>
+    <string name="settings_watch_prices">Çmimet në orë</string>
+    <string name="settings_watch_prices_phone">Çmimet nga telefoni, përndryshe i merr vetë ora</string>
+    <string name="settings_watch_prices_self">Ora i merr gjithmonë vetë</string>
+    <string name="settings_watch_portfolio">Vlera e portofolit në orë</string>
+    <string name="settings_watch_portfolio_hint">Vlera duket në kyç.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Pa rreshtin USDT te «Listë»</string>

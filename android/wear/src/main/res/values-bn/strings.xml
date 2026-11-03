@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">তালিকা: ফোনের মতো</string>
     <string name="watch_mode_own">তালিকা: নিজস্ব</string>
     <string name="watch_phone_empty">ফোনে কোনো প্রিয় নেই</string>
+    <string name="watch_portfolio">পোর্টফোলিও</string>
+    <string name="watch_portfolio_today">আজ %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">পরিমাণ লুকানো</string>
     <string name="a11y_watch_outdated">দাম পুরোনো</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">শেষ আপডেট %1$d মিনিট আগে</item>

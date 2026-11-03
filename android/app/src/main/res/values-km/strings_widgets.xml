@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ផ្ទុកឡើងវិញ – អាចធ្វើបានម្តងទៀតក្នុងរយៈពេល %1$d វិនាទី</string>
     <string name="settings_watch">នាឡិកា</string>
-    <string name="settings_watch_hint">កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$d កំណត់តម្លៃទល់នឹង USDT)។ មានតែបញ្ជីនេះប៉ុណ្ណោះដែលទៅកាន់នាឡិកា តាមរយៈ Google Play services។ នាឡិកាទាញយកតម្លៃដោយខ្លួនឯង។</string>
+    <string name="settings_watch_hint">កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$d កំណត់តម្លៃទល់នឹង USDT)។</string>
     <string name="settings_watch_mode_phone">ដូចទូរសព្ទ (ចំណូលចិត្ត ★)</string>
     <string name="settings_watch_mode_own">បញ្ជីផ្ទាល់ខ្លួន</string>
     <string name="settings_watch_own_title">បញ្ជីផ្ទាល់ខ្លួន៖ %1$d ក្នុងចំណោម %2$d</string>
     <string name="settings_watch_none">មិនទាន់មានចំណូលចិត្តទេ</string>
+    <string name="settings_watch_prices">តម្លៃនៅលើនាឡិកា</string>
+    <string name="settings_watch_prices_phone">តម្លៃពីទូរសព្ទ បើមិនដូច្នោះទេ នាឡិកាទាញយកដោយខ្លួនឯង</string>
+    <string name="settings_watch_prices_self">នាឡិកាទាញយកដោយខ្លួនឯងជានិច្ច</string>
+    <string name="settings_watch_portfolio">តម្លៃផលប័ត្រនៅលើនាឡិកា</string>
+    <string name="settings_watch_portfolio_hint">តម្លៃនេះមើលឃើញនៅលើកដៃ។</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">គ្មានបន្ទាត់ USDT នៅក្នុង «បញ្ជី»</string>

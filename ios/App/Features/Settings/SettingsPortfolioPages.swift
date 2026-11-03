@@ -5,6 +5,7 @@ import UIKit
 @MainActor
 struct PortfolioSettingsPage: View {
     @EnvironmentObject private var data: AppData
+    @ObservedObject private var watchLink = PhoneWatchLink.shared
     @State private var toast: ToastMessage?
     /// Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).
     @State private var deviceSecure = AppLock.canAuthenticate()
@@ -49,6 +50,14 @@ struct PortfolioSettingsPage: View {
                         isOn: $data.settings.hidePortfolioAmounts
                     )
                     .settingsAnchor("portfolio.hide")
+                    RowDivider()
+                    // Gesamtwert auf der Apple Watch (Standard aus) — wie Android `WatchPortfolioSwitch`
+                    SwitchRow(
+                        title: L("settings_watch_portfolio"),
+                        subtitle: L("settings_watch_portfolio_hint"),
+                        isOn: Binding(get: { watchLink.portfolioOnWatch }, set: { watchLink.setPortfolioOnWatch($0) })
+                    )
+                    .settingsAnchor("portfolio.watch")
                 }
                 // Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio — wie Android
                 if data.settings.portfolioEnabled {

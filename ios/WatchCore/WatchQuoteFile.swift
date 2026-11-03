@@ -23,10 +23,21 @@ struct WatchQuoteFile: Sendable {
     /// und schreiben; Ergebnis = neuer Stand, nil = die Datei war nicht zugänglich (nichts geschrieben).
     @discardableResult
     func merge(_ fresh: [String: WatchQuote], startedAt: Int64, keep: [String]) -> [String: WatchCached]? {
+        update { WatchCache.merge($0, fresh: fresh, startedAt: startedAt, keep: keep) }
+    }
+
+    /// Kurse vom iPhone (je Coin mit eigener Zeit) übernehmen (`WatchCache.mergeTimed`) und schreiben; wie `merge`.
+    @discardableResult
+    func mergeTimed(_ fresh: [String: WatchCached], keep: [String]) -> [String: WatchCached]? {
+        update { WatchCache.mergeTimed($0, fresh: fresh, keep: keep) }
+    }
+
+    /// Lesen, ändern (`change`) und schreiben als ein koordinierter Schritt; nil = nicht zugänglich (nichts geschrieben).
+    private func update(_ change: ([String: WatchCached]) -> [String: WatchCached]) -> [String: WatchCached]? {
         var result: [String: WatchCached]?
         var error: NSError?
         NSFileCoordinator().coordinate(writingItemAt: url, options: .forMerging, error: &error) { url in
-            let merged = WatchCache.merge(Self.decode(url), fresh: fresh, startedAt: startedAt, keep: keep)
+            let merged = change(Self.decode(url))
             guard let data = try? JSONEncoder().encode(Array(merged.values)),
                   (try? data.write(to: url, options: .atomic)) != nil else { return }
             // Kurse sind nur ein Zwischenspeicher: nicht sichern (atomares Schreiben legt die Datei jedes Mal neu an)

@@ -76,6 +76,10 @@ enum PortfolioWidgetStore {
         return true
     }
 
+    /// Nach jedem neu gespeicherten Stand (im Prozess, der gespeichert hat): die App gibt den Wert an die Uhr weiter,
+    /// falls «Portfolio-Wert auf der Uhr» an ist (`PhoneWatchLink`).
+    static let savedNotification = Notification.Name("PortfolioWidgetStore.saved")
+
     /// true, wenn sich der Stand geändert (und versiegelt gespeichert) hat.
     @discardableResult
     static func save(_ snapshot: PortfolioWidgetSnapshot) -> Bool {
@@ -83,7 +87,9 @@ enum PortfolioWidgetStore {
         // Nicht versiegelt speicherbar (Schlüssel gerade nicht lesbar, Datei nicht schreibbar): nichts ablegen — kein
         // Ausweichen in die App-Group-Einstellungen, dort stünden die Beträge im Klartext. Das
         // Widget zeigt den letzten versiegelten Stand oder keine Werte; die nächste Aktualisierung versucht es neu.
-        return writeSnapshotFile(data)
+        guard writeSnapshotFile(data) else { return false }
+        NotificationCenter.default.post(name: savedNotification, object: nil)
+        return true
     }
 
     /// Schreibt die Datei versiegelt und setzt das Backup-Merkmal neu (das atomare Schreiben verliert es). false = nicht

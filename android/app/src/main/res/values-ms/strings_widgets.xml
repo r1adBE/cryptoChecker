@@ -101,11 +101,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Muat semula – boleh lagi dalam %1$d s</string>
     <string name="settings_watch">Jam tangan</string>
-    <string name="settings_watch_hint">Koin untuk apl jam tangan pada Wear OS (sehingga %1$d, diberi harga berbanding USDT). Hanya senarai ini dihantar ke jam tangan, melalui perkhidmatan Google Play; jam tangan mengambil harga sendiri.</string>
+    <string name="settings_watch_hint">Koin untuk apl jam tangan pada Wear OS (sehingga %1$d, diberi harga berbanding USDT).</string>
     <string name="settings_watch_mode_phone">Seperti telefon (kegemaran ★)</string>
     <string name="settings_watch_mode_own">Senarai sendiri</string>
     <string name="settings_watch_own_title">Senarai sendiri: %1$d daripada %2$d</string>
     <string name="settings_watch_none">Belum ada kegemaran</string>
+    <string name="settings_watch_prices">Harga pada jam tangan</string>
+    <string name="settings_watch_prices_phone">Harga daripada telefon, jika tidak jam mengambil sendiri</string>
+    <string name="settings_watch_prices_self">Jam sentiasa mengambil sendiri</string>
+    <string name="settings_watch_portfolio">Nilai portfolio pada jam tangan</string>
+    <string name="settings_watch_portfolio_hint">Nilai kelihatan pada pergelangan tangan.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Tiada baris USDT dalam “Senarai”</string>

@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Listahan: gaya ng phone</string>
     <string name="watch_mode_own">Listahan: sarili</string>
     <string name="watch_phone_empty">Walang paborito sa phone</string>
+    <string name="watch_portfolio">Portfolio</string>
+    <string name="watch_portfolio_today">%1$s ngayon</string>
+    <string name="a11y_watch_portfolio_hidden">nakatago ang halaga</string>
     <string name="a11y_watch_outdated">Luma na ang presyo</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">huling na-update %1$d minuto ang nakalipas</item>

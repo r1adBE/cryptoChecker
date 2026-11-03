@@ -1,18 +1,37 @@
 import Foundation
 import WatchConnectivity
 
-/// Abgleich der Wahl mit dem iPhone über WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server):
-/// je Seite der Anwendungskontext `["json": WatchSettings]` — nur Coin-Kürzel und Wahl, keine Kurse oder Beträge.
-/// Gegenstück auf dem iPhone: `PhoneWatchLink`. Ohne gekoppeltes iPhone: nichts (die Uhr nutzt ihre eigene Liste).
+/// Abgleich mit dem iPhone über WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server): je Seite der
+/// Anwendungskontext mit `json` = `WatchSettings` (Coin-Kürzel, Wahl, Kursquelle, Intervall); vom iPhone dazu `quotes`
+/// (Kurse, die das iPhone schon hat, `WatchPhoneQuotes`) und — nur mit dem Schalter auf dem iPhone — `portfolio`
+/// (`WatchPortfolio`). Gegenstück auf dem iPhone: `PhoneWatchLink`. Ohne gekoppeltes iPhone: nichts (die Uhr nutzt ihre
+/// eigene Liste und fragt die Kurse selbst ab).
 final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     static let shared = WatchLink()
     private static let key = "json"
+    private static let quotesKey = "quotes"
+    private static let portfolioKey = "portfolio"
+
+    /// iPhone gerade erreichbar? Sonst fragt die Uhr selbst ab (`WatchPhoneQuotes.selfFetch`); ohne Sitzung: nein.
+    var phoneReachable: Bool {
+        WCSession.isSupported() && WCSession.default.activationState == .activated && WCSession.default.isReachable
+    }
 
     /// Einmal beim Start der App.
     func activate() {
         guard WCSession.isSupported() else { return }
         WCSession.default.delegate = self
         WCSession.default.activate()
+    }
+
+    /// Hintergrund-Aufgabe von WatchConnectivity: aktivieren und warten, bis ausstehende Inhalte zugestellt sind
+    /// (höchstens 5 s); die Übernahme läuft über die Delegate-Aufrufe.
+    func receivePending() async {
+        activate()
+        for _ in 0..<20 {
+            guard WCSession.isSupported(), WCSession.default.hasContentPending else { return }
+            try? await Task.sleep(for: .milliseconds(250))
+        }
     }
 
     /// Eigenen Stand ans iPhone geben (dort gewinnt die höhere Änderungsnummer). Vor der Aktivierung geht nichts weg;
@@ -28,9 +47,12 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState,
                  error: Error?) {
         guard activationState == .activated else { return }
-        let json = session.receivedApplicationContext[Self.key] as? String
+        let context = session.receivedApplicationContext
+        let json = context[Self.key] as? String
+        let quotes = context[Self.quotesKey] as? String
+        let portfolio = context[Self.portfolioKey] as? String
         Task { @MainActor in
-            WatchModel.shared.takeFromPhone(json)
+            WatchModel.shared.takeFromPhone(json, quotes: quotes, portfolio: portfolio)
             // Änderungen vor der Aktivierung gingen nicht weg: den aktuellen Stand jetzt senden (wie `PhoneWatchLink`)
             self.publish(WatchModel.shared.settings)
         }
@@ -38,6 +60,8 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         let json = applicationContext[Self.key] as? String
-        Task { @MainActor in WatchModel.shared.takeFromPhone(json) }
+        let quotes = applicationContext[Self.quotesKey] as? String
+        let portfolio = applicationContext[Self.portfolioKey] as? String
+        Task { @MainActor in WatchModel.shared.takeFromPhone(json, quotes: quotes, portfolio: portfolio) }
     }
 }

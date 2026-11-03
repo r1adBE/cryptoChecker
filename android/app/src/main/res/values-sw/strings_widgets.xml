@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Onyesha upya – inawezekana tena baada ya sekunde %1$d</string>
     <string name="settings_watch">Saa</string>
-    <string name="settings_watch_hint">Sarafu za programu ya saa kwenye Wear OS (hadi %1$d, bei dhidi ya USDT). Orodha hii pekee ndiyo inaenda kwenye saa, kupitia huduma za Google Play; saa inapata bei yenyewe.</string>
+    <string name="settings_watch_hint">Sarafu za programu ya saa kwenye Wear OS (hadi %1$d, bei dhidi ya USDT).</string>
     <string name="settings_watch_mode_phone">Kama simu (vipendwa ★)</string>
     <string name="settings_watch_mode_own">Orodha yako</string>
     <string name="settings_watch_own_title">Orodha yako: %1$d kati ya %2$d</string>
     <string name="settings_watch_none">Bado hakuna vipendwa</string>
+    <string name="settings_watch_prices">Bei kwenye saa</string>
+    <string name="settings_watch_prices_phone">Bei kutoka kwa simu, vinginevyo saa inapata yenyewe</string>
+    <string name="settings_watch_prices_self">Saa inapata yenyewe kila wakati</string>
+    <string name="settings_watch_portfolio">Thamani ya jalada kwenye saa</string>
+    <string name="settings_watch_portfolio_hint">Thamani inaonekana kwenye kifundo cha mkono.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Hakuna mstari wa USDT kwenye “Orodha”</string>

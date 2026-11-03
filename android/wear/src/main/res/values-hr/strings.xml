@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Popis: kao na mobitelu</string>
     <string name="watch_mode_own">Popis: vlastiti</string>
     <string name="watch_phone_empty">Nema favorita na mobitelu</string>
+    <string name="watch_portfolio">Portfelj</string>
+    <string name="watch_portfolio_today">%1$s danas</string>
+    <string name="a11y_watch_portfolio_hidden">iznos skriven</string>
     <string name="a11y_watch_outdated">Cijena zastarjela</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">posljednje ažuriranje prije %1$d minute</item>

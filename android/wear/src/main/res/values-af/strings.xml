@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lys: soos foon</string>
     <string name="watch_mode_own">Lys: eie</string>
     <string name="watch_phone_empty">Geen gunstelinge op die foon nie</string>
+    <string name="watch_portfolio">Portefeulje</string>
+    <string name="watch_portfolio_today">%1$s vandag</string>
+    <string name="a11y_watch_portfolio_hidden">bedrag versteek</string>
     <string name="a11y_watch_outdated">Prys verouderd</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">laas %1$d minuut gelede bygewerk</item>

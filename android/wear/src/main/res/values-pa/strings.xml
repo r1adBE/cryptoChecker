@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">ਸੂਚੀ: ਫ਼ੋਨ ਵਾਂਗ</string>
     <string name="watch_mode_own">ਸੂਚੀ: ਆਪਣੀ</string>
     <string name="watch_phone_empty">ਫ਼ੋਨ ’ਤੇ ਕੋਈ ਮਨਪਸੰਦ ਨਹੀਂ</string>
+    <string name="watch_portfolio">ਪੋਰਟਫੋਲੀਓ</string>
+    <string name="watch_portfolio_today">ਅੱਜ %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">ਰਕਮ ਲੁਕੀ ਹੋਈ</string>
     <string name="a11y_watch_outdated">ਕੀਮਤ ਪੁਰਾਣੀ ਹੈ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>

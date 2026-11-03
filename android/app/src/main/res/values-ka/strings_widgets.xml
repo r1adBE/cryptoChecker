@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">განახლება – ისევ შესაძლებელი იქნება %1$d წმ-ში</string>
     <string name="settings_watch">საათი</string>
-    <string name="settings_watch_hint">მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$d, ფასი USDT-ში). საათზე მხოლოდ ეს სია გადადის Google Play-ს სერვისებით; საათი ფასებს თავად იღებს.</string>
+    <string name="settings_watch_hint">მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$d, ფასი USDT-ში).</string>
     <string name="settings_watch_mode_phone">როგორც ტელეფონზე (რჩეულები ★)</string>
     <string name="settings_watch_mode_own">საკუთარი სია</string>
     <string name="settings_watch_own_title">საკუთარი სია: %1$d / %2$d</string>
     <string name="settings_watch_none">რჩეულები ჯერ არ არის</string>
+    <string name="settings_watch_prices">ფასები საათზე</string>
+    <string name="settings_watch_prices_phone">ფასები ტელეფონიდან, სხვა შემთხვევაში საათი თავად იღებს</string>
+    <string name="settings_watch_prices_self">საათი ყოველთვის თავად იღებს</string>
+    <string name="settings_watch_portfolio">პორტფელის ღირებულება საათზე</string>
+    <string name="settings_watch_portfolio_hint">ღირებულება მაჯაზე ჩანს.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«სია»-ში USDT სტრიქონი არ არის</string>

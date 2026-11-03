@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Список: як на телефоні</string>
     <string name="watch_mode_own">Список: власний</string>
     <string name="watch_phone_empty">На телефоні немає обраного</string>
+    <string name="watch_portfolio">Портфель</string>
+    <string name="watch_portfolio_today">%1$s сьогодні</string>
+    <string name="a11y_watch_portfolio_hidden">суму приховано</string>
     <string name="a11y_watch_outdated">Курс застарів</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">востаннє оновлено %1$d хвилину тому</item>

@@ -34,7 +34,8 @@
             </intent-filter>
         </activity>
 
-        <!-- Wahl und Favoriten vom Handy (Wear-Daten-Schicht, nur Coin-Kürzel) -->
+        <!-- Vom Handy über die Wear-Daten-Schicht: Wahl und Coin-Kürzel, Kurse, die das Handy schon hat, und (nur mit
+             Schalter) der Portfolio-Wert (/cc/watch, /cc/watch/quotes, /cc/watch/portfolio) -->
         <service
             android:name=".WatchDataListener"
             android:exported="true">
@@ -52,6 +53,25 @@
             android:exported="true"
             android:icon="@mipmap/ic_watch"
             android:label="@string/watch_complication_label"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter>
+                <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="SHORT_TEXT,LONG_TEXT" />
+            <meta-data
+                android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="900" />
+        </service>
+
+        <!-- Portfolio-Wert vom Handy (nur mit «Portfolio-Wert auf der Uhr»); neu gezeichnet bei jedem neuen Wert,
+             alle 15 Min. nur für das Alter -->
+        <service
+            android:name=".PortfolioComplicationService"
+            android:exported="true"
+            android:icon="@mipmap/ic_watch"
+            android:label="@string/watch_portfolio"
             android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
             <intent-filter>
                 <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />

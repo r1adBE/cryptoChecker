@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">रिफ्रेस – %1$d s मा फेरि सम्भव</string>
     <string name="settings_watch">घडी</string>
-    <string name="settings_watch_hint">Wear OS को घडी एपका लागि कोइनहरू (%1$d सम्म, USDT मा मूल्य)। यो सूची मात्र Google Play services मार्फत घडीमा जान्छ; घडीले मूल्यहरू आफैं ल्याउँछ।</string>
+    <string name="settings_watch_hint">Wear OS को घडी एपका लागि कोइनहरू (%1$d सम्म, USDT मा मूल्य)।</string>
     <string name="settings_watch_mode_phone">फोनजस्तै (मनपर्ने ★)</string>
     <string name="settings_watch_mode_own">आफ्नै सूची</string>
     <string name="settings_watch_own_title">आफ्नै सूची: %2$d मध्ये %1$d</string>
     <string name="settings_watch_none">अहिलेसम्म कुनै मनपर्ने छैन</string>
+    <string name="settings_watch_prices">घडीमा मूल्यहरू</string>
+    <string name="settings_watch_prices_phone">मूल्यहरू फोनबाट, नत्र घडीले आफैं ल्याउँछ</string>
+    <string name="settings_watch_prices_self">घडीले सधैं आफैं ल्याउँछ</string>
+    <string name="settings_watch_portfolio">घडीमा पोर्टफोलियो मूल्य</string>
+    <string name="settings_watch_portfolio_hint">मूल्य नाडीमा देखिन्छ।</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">“सूची” मा USDT पङ्क्ति छैन</string>

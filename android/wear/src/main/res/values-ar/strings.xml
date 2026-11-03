@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">القائمة: مثل الهاتف</string>
     <string name="watch_mode_own">القائمة: خاصة</string>
     <string name="watch_phone_empty">لا توجد مفضلة على الهاتف</string>
+    <string name="watch_portfolio">المحفظة</string>
+    <string name="watch_portfolio_today">%1$s اليوم</string>
+    <string name="a11y_watch_portfolio_hidden">المبلغ مخفي</string>
     <string name="a11y_watch_outdated">السعر قديم</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">آخر تحديث قبل %1$d دقيقة</item>

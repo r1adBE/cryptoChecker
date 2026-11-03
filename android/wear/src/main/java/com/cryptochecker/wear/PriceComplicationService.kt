@@ -15,14 +15,17 @@ import androidx.wear.watchface.complications.data.TimeDifferenceStyle
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
+import com.cryptochecker.marketdata.watch.WatchSettings
 import kotlinx.coroutines.CancellationException
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 /**
- * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Ist sein gespeicherter Kurs
- * älter als [MAX_AGE_MS], lädt sie neu (Zifferblatt fragt etwa alle 15 min, Manifest); ohne Netz oder ohne neuen
- * Kurs für diesen Coin der letzte. Veraltet ([WatchFreshness], 45 Min. ab dem Stand seines Abrufs): lang mit Alter
+ * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Das Zifferblatt fragt etwa alle
+ * 15 min (Manifest, fest); geladen wird nur, was nach [WatchPhoneQuotes.selfFetch] fällig ist: nichts, solange das
+ * Handy frische Kurse liefert, sonst ab dem Intervall des Handys weniger 5 Min. ([WatchInterval]); ohne Netz oder ohne
+ * neuen Kurs für diesen Coin der letzte. Veraltet ([WatchFreshness], 45 Min. ab dem Stand seines Abrufs): lang mit Alter
  * «… +1.2%  ·  vor 47 Min.», kurz mit dem Alter im Titel «BTC 47m» (vom Zifferblatt fortgezählt, [shortTitle]); die
  * Beschreibung für den Screenreader nennt es immer. Farben bestimmt das Zifferblatt (kein Abblassen möglich). Tippen
  * öffnet die Uhr-App.
@@ -34,14 +37,18 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val store = WatchStore(this)
-        val favorites = store.shown
+        val settings = store.settings
+        val favorites = settings.shown
         val coin = favorites.firstOrNull() ?: return NoDataComplicationData()
         var cached = store.quotes()[coin]
-        if (cached == null || System.currentTimeMillis() - cached.time > MAX_AGE_MS) {
+        val usePhone = settings.source == WatchSettings.Source.PHONE && WatchDataLayer.phoneConnected(this)
+        val need = WatchPhoneQuotes.selfFetch(favorites, store.quotes().mapValues { it.value.time }, store.phoneCoins,
+            usePhone, settings.interval, System.currentTimeMillis(), force = false)
+        if (need.isNotEmpty()) {
             val startedAt = System.currentTimeMillis()
             // Abbruch des Aufrufs nicht schlucken; höchstens [WatchPriceSource.FETCH_DEADLINE_MS], danach der gespeicherte Kurs
             val fresh = try {
-                WatchPriceSource.fetch(favorites)
+                WatchPriceSource.fetch(need)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -108,7 +115,4 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
             .setMinimumTimeUnit(TimeUnit.MINUTES)
             .build()
 
-    private companion object {
-        const val MAX_AGE_MS = 10 * 60_000L
-    }
 }

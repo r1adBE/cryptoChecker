@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Seznam: kot na telefonu</string>
     <string name="watch_mode_own">Seznam: lasten</string>
     <string name="watch_phone_empty">Na telefonu ni priljubljenih</string>
+    <string name="watch_portfolio">Portfelj</string>
+    <string name="watch_portfolio_today">%1$s danes</string>
+    <string name="a11y_watch_portfolio_hidden">znesek skrit</string>
     <string name="a11y_watch_outdated">Tečaj je zastarel</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nazadnje posodobljeno pred %1$d minuto</item>

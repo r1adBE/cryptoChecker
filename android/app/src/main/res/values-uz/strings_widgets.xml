@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yangilash – %1$d s dan keyin yana mumkin</string>
     <string name="settings_watch">Soat</string>
-    <string name="settings_watch_hint">Wear OS’dagi soat ilovasi uchun tangalar (%1$d tagacha, USDT’ga nisbatan baholanadi). Soatga faqat shu roʻyxat Google Play xizmatlari orqali yuboriladi; soat kurslarni oʻzi oladi.</string>
+    <string name="settings_watch_hint">Wear OS’dagi soat ilovasi uchun tangalar (%1$d tagacha, USDT’ga nisbatan baholanadi).</string>
     <string name="settings_watch_mode_phone">Telefondagidek (sevimlilar ★)</string>
     <string name="settings_watch_mode_own">Alohida roʻyxat</string>
     <string name="settings_watch_own_title">Alohida roʻyxat: %2$d tadan %1$d ta</string>
     <string name="settings_watch_none">Hozircha sevimlilar yoʻq</string>
+    <string name="settings_watch_prices">Soatdagi narxlar</string>
+    <string name="settings_watch_prices_phone">Narxlar telefondan, aks holda soat oʻzi oladi</string>
+    <string name="settings_watch_prices_self">Soat har doim oʻzi oladi</string>
+    <string name="settings_watch_portfolio">Soatda portfel qiymati</string>
+    <string name="settings_watch_portfolio_hint">Qiymat bilakda koʻrinadi.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Roʻyxat»da USDT qatori yoʻq</string>

@@ -6,7 +6,9 @@ import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.watch.WatchCoins
+import com.cryptochecker.marketdata.watch.WatchInterval
 import com.cryptochecker.marketdata.watch.WatchSettings
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.CapabilityClient
@@ -33,15 +35,18 @@ import javax.inject.Singleton
 
 /**
  * Coin-Liste der Wear-OS-App vom Handy aus (Einstellungen › Widgets › Uhr): Wahl «Wie Handy» (Basis-Coins
- * der Favoriten ★ der Merkliste, höchstens 8) oder «Eigene Liste». Übertragen wird nur [WatchSettings] als JSON über
- * die Wear-Daten-Schicht (Google Play-Dienste) unter [PATH] — keine Kurse, Beträge oder Portfolio-Daten. Veröffentlicht
- * wird nur, wenn eine Uhr die App hat (Fähigkeit [CAPABILITY], auch wenn sie gerade nicht verbunden ist). Ohne Play-Dienste
- * oder ohne Uhr: nichts, die Einstellung bleibt lokal. Gegenstück: `WatchDataLayer` in `:wear`.
+ * der Favoriten ★ der Merkliste, höchstens 8) oder «Eigene Liste», dazu die Kursquelle der Uhr ([WatchSettings.source])
+ * und das Intervall der Kurs-Aktualisierung ([WatchSettings.interval], [WatchInterval.clamp]). Übertragen wird
+ * [WatchSettings] als JSON über die Wear-Daten-Schicht (Google Play-Dienste) unter [PATH]; Kurse und Portfolio-Wert
+ * schickt [PhoneWatchFeed] über [put]. Veröffentlicht wird nur, wenn eine Uhr die App hat (Fähigkeit [CAPABILITY], auch
+ * wenn sie gerade nicht verbunden ist). Ohne Play-Dienste oder ohne Uhr: nichts, die Einstellung bleibt lokal.
+ * Gegenstück: `WatchDataLayer` in `:wear`.
  */
 @Singleton
 class PhoneWatchSync @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val watchRepository: WatchRepository,
+    private val settingsRepository: SettingsRepository,
 ) {
     private val scope = appScope(Dispatchers.IO, "PhoneWatchSync")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
@@ -71,6 +76,19 @@ class PhoneWatchSync @Inject constructor(
                 .catch { }
                 .collect { phone -> update(publish = true) { it.copy(phone = phone) } }
         }
+        // Intervall der Kurs-Aktualisierung: die Uhr lädt im selben Takt (begrenzt, [WatchInterval])
+        scope.launch {
+            settingsRepository.settings
+                .map { WatchInterval.clamp(it.backgroundIntervalMinutes) }
+                .distinctUntilChanged()
+                .catch { }
+                .collect { minutes -> update(publish = true) { it.copy(interval = minutes) } }
+        }
+    }
+
+    /** «Kurse vom Handy, sonst selbst» / «Immer selbst abrufen» — bestimmt nur das Handy (keine Änderungsnummer). */
+    fun setSource(source: WatchSettings.Source) = scope.launch {
+        update(publish = true) { it.copy(source = source) }
     }
 
     /** Wahl «Wie Handy» / «Eigene Liste» ändern. */
@@ -131,14 +149,20 @@ class PhoneWatchSync @Inject constructor(
         if (publish) publishing.publish({ _state.value }) { publish(it) }
     }
 
-    private suspend fun publish(settings: WatchSettings) = withContext(Dispatchers.IO) {
+    private suspend fun publish(settings: WatchSettings) = put(PATH, settings.toJson())
+
+    /**
+     * [json] unter [path] in die Daten-Schicht legen (dringend, damit die Uhr es gleich bekommt) — nur, wenn eine Uhr die
+     * App hat; Fehler bleiben still. Gleicher Inhalt wie zuvor löst auf der Uhr keine Änderung aus.
+     */
+    internal suspend fun put(path: String, json: String) = withContext(Dispatchers.IO) {
         runCatchingCancellable {
             val nodes = Tasks.await(
                 Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
                 TIMEOUT_S, TimeUnit.SECONDS
             ).nodes
             if (nodes.isEmpty()) return@runCatchingCancellable
-            val request = PutDataMapRequest.create(PATH).apply { dataMap.putString(DATA_KEY, settings.toJson()) }
+            val request = PutDataMapRequest.create(path).apply { dataMap.putString(DATA_KEY, json) }
                 .asPutDataRequest().setUrgent()
             Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
         }

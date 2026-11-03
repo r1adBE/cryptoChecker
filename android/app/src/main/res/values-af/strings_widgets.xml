@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Herlaai – weer moontlik oor %1$d s</string>
     <string name="settings_watch">Horlosie</string>
-    <string name="settings_watch_hint">Munte vir die horlosie-app op Wear OS (tot %1$d, geprys teen USDT). Slegs hierdie lys gaan na die horlosie, via Google Play services; die horlosie haal self pryse.</string>
+    <string name="settings_watch_hint">Munte vir die horlosie-app op Wear OS (tot %1$d, geprys teen USDT).</string>
     <string name="settings_watch_mode_phone">Soos foon (gunstelinge ★)</string>
     <string name="settings_watch_mode_own">Eie lys</string>
     <string name="settings_watch_own_title">Eie lys: %1$d van %2$d</string>
     <string name="settings_watch_none">Nog geen gunstelinge nie</string>
+    <string name="settings_watch_prices">Pryse op die horlosie</string>
+    <string name="settings_watch_prices_phone">Pryse van die foon, anders self haal</string>
+    <string name="settings_watch_prices_self">Haal altyd self</string>
+    <string name="settings_watch_portfolio">Portefeuljewaarde op die horlosie</string>
+    <string name="settings_watch_portfolio_hint">Die waarde is op die pols sigbaar.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Geen USDT-reël in “Lys” nie</string>

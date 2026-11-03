@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">ලැයිස්තුව: දුරකථනය මෙන්</string>
     <string name="watch_mode_own">ලැයිස්තුව: තමන්ගේම</string>
     <string name="watch_phone_empty">දුරකථනයේ ප්‍රියතම කිසිවක් නැත</string>
+    <string name="watch_portfolio">කළඹ</string>
+    <string name="watch_portfolio_today">අද %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">ප්‍රමාණය සඟවා ඇත</string>
     <string name="a11y_watch_outdated">මිල යල් පැන ගොස් ඇත</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>

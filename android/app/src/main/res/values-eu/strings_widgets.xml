@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Eguneratu – berriro posible %1$d s barru</string>
     <string name="settings_watch">Erlojua</string>
-    <string name="settings_watch_hint">Wear OS erlojuko aplikaziorako txanponak (gehienez %1$d, USDTren aurka kotizatuak). Zerrenda hau bakarrik joaten da erlojura, Google Play zerbitzuen bidez; erlojuak berak eskuratzen ditu prezioak.</string>
+    <string name="settings_watch_hint">Wear OS erlojuko aplikaziorako txanponak (gehienez %1$d, USDTren aurka kotizatuak).</string>
     <string name="settings_watch_mode_phone">Telefonoan bezala (gogokoak ★)</string>
     <string name="settings_watch_mode_own">Zerrenda propioa</string>
     <string name="settings_watch_own_title">Zerrenda propioa: %1$d / %2$d</string>
     <string name="settings_watch_none">Oraindik ez dago gogokorik</string>
+    <string name="settings_watch_prices">Prezioak erlojuan</string>
+    <string name="settings_watch_prices_phone">Prezioak telefonotik; bestela, erlojuak berak eskuratzen ditu</string>
+    <string name="settings_watch_prices_self">Erlojuak berak eskuratzen ditu beti</string>
+    <string name="settings_watch_portfolio">Zorroaren balioa erlojuan</string>
+    <string name="settings_watch_portfolio_hint">Balioa eskumuturrean ikusten da.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">USDT lerrorik ez «Zerrenda» aukeran</string>

@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yenilə – %1$d san sonra yenidən mümkün olacaq</string>
     <string name="settings_watch">Saat</string>
-    <string name="settings_watch_hint">Wear OS saat tətbiqi üçün koinlər (%1$d-dək, USDT ilə qiymətləndirilir). Saata yalnız bu siyahı Google Play xidmətləri vasitəsilə gedir; saat qiymətləri özü alır.</string>
+    <string name="settings_watch_hint">Wear OS saat tətbiqi üçün koinlər (%1$d-dək, USDT ilə qiymətləndirilir).</string>
     <string name="settings_watch_mode_phone">Telefondakı kimi (seçilmişlər ★)</string>
     <string name="settings_watch_mode_own">Öz siyahın</string>
     <string name="settings_watch_own_title">Öz siyahın: %1$d / %2$d</string>
     <string name="settings_watch_none">Hələ seçilmiş yoxdur</string>
+    <string name="settings_watch_prices">Saatda qiymətlər</string>
+    <string name="settings_watch_prices_phone">Qiymətlər telefondan, əks halda saat özü alır</string>
+    <string name="settings_watch_prices_self">Həmişə saat özü alır</string>
+    <string name="settings_watch_portfolio">Saatda portfel dəyəri</string>
+    <string name="settings_watch_portfolio_hint">Dəyər biləkdə görünür.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Siyahı»da USDT sətri yoxdur</string>

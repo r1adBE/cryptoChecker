@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lista: som telefonen</string>
     <string name="watch_mode_own">Lista: egen</string>
     <string name="watch_phone_empty">Inga favoriter på telefonen</string>
+    <string name="watch_portfolio">Portfölj</string>
+    <string name="watch_portfolio_today">%1$s i dag</string>
+    <string name="a11y_watch_portfolio_hidden">belopp dolt</string>
     <string name="a11y_watch_outdated">Kursen är inaktuell</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">senast uppdaterad för %1$d minut sedan</item>

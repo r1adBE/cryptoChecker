@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Saraksts: kā tālrunī</string>
     <string name="watch_mode_own">Saraksts: savs</string>
     <string name="watch_phone_empty">Tālrunī nav izlases</string>
+    <string name="watch_portfolio">Portfelis</string>
+    <string name="watch_portfolio_today">šodien %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">summa paslēpta</string>
     <string name="a11y_watch_outdated">Cena novecojusi</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d minūtēm</item>

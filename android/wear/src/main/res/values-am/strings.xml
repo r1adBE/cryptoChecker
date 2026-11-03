@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">ዝርዝር፦ እንደ ስልኩ</string>
     <string name="watch_mode_own">ዝርዝር፦ የራስ</string>
     <string name="watch_phone_empty">በስልኩ ላይ ምንም ተወዳጅ የለም</string>
+    <string name="watch_portfolio">ፖርትፎሊዮ</string>
+    <string name="watch_portfolio_today">ዛሬ %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">መጠኑ ተደብቋል</string>
     <string name="a11y_watch_outdated">ዋጋው ጊዜው ያለፈበት ነው</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ከ%1$d ደቂቃ በፊት ተዘምኗል</item>

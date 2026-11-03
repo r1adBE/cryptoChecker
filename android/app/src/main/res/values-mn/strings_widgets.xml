@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Шинэчлэх – %1$d с-ийн дараа дахин боломжтой</string>
     <string name="settings_watch">Ухаалаг цаг</string>
-    <string name="settings_watch_hint">Wear OS дээрх цагны аппын зоос (%1$d хүртэл, USDT-тэй харьцуулан үнэлнэ). Цаг руу зөвхөн энэ жагсаалтыг Google Play-ийн үйлчилгээгээр илгээнэ; цаг ханшийг өөрөө татна.</string>
+    <string name="settings_watch_hint">Wear OS дээрх цагны аппын зоос (%1$d хүртэл, USDT-тэй харьцуулан үнэлнэ).</string>
     <string name="settings_watch_mode_phone">Утастай адил (дуртай ★)</string>
     <string name="settings_watch_mode_own">Тусдаа жагсаалт</string>
     <string name="settings_watch_own_title">Тусдаа жагсаалт: %2$d-аас %1$d</string>
     <string name="settings_watch_none">Одоогоор дуртай зоос алга</string>
+    <string name="settings_watch_prices">Цаган дээрх үнэ</string>
+    <string name="settings_watch_prices_phone">Үнийг утаснаас, эс бөгөөс цаг өөрөө татна</string>
+    <string name="settings_watch_prices_self">Цаг үргэлж өөрөө татна</string>
+    <string name="settings_watch_portfolio">Цаган дээрх багцын үнэ цэнэ</string>
+    <string name="settings_watch_portfolio_hint">Үнэ цэнэ бугуйн дээр харагдана.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">«Жагсаалт»-д USDT мөр алга</string>

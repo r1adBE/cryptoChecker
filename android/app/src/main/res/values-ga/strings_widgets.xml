@@ -109,11 +109,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Athnuaigh – indéanta arís i gceann %1$d s</string>
     <string name="settings_watch">Uaireadóir</string>
-    <string name="settings_watch_hint">Boinn don aip uaireadóra ar Wear OS (suas le %1$d, praghas in aghaidh USDT). Ní théann ach an liosta seo chuig an uaireadóir, trí sheirbhísí Google Play; faigheann an t-uaireadóir na praghsanna é féin.</string>
+    <string name="settings_watch_hint">Boinn don aip uaireadóra ar Wear OS (suas le %1$d, praghas in aghaidh USDT).</string>
     <string name="settings_watch_mode_phone">Cosúil leis an bhfón (ceanáin ★)</string>
     <string name="settings_watch_mode_own">Liosta féin</string>
     <string name="settings_watch_own_title">Liosta féin: %1$d as %2$d</string>
     <string name="settings_watch_none">Gan ceanáin fós</string>
+    <string name="settings_watch_prices">Praghsanna ar an uaireadóir</string>
+    <string name="settings_watch_prices_phone">Praghsanna ón bhfón, nó faigheann an t-uaireadóir iad féin</string>
+    <string name="settings_watch_prices_self">Faigheann an t-uaireadóir iad féin i gcónaí</string>
+    <string name="settings_watch_portfolio">Luach na punainne ar an uaireadóir</string>
+    <string name="settings_watch_portfolio_hint">Tá an luach le feiceáil ar an rí.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Gan líne USDT i “Liosta”</string>

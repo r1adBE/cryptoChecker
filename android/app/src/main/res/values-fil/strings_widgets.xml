@@ -103,11 +103,16 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">I-refresh – puwede ulit sa loob ng %1$d s</string>
     <string name="settings_watch">Relo</string>
-    <string name="settings_watch_hint">Mga coin para sa watch app sa Wear OS (hanggang %1$d, may presyo laban sa USDT). Ang listahang ito lang ang napupunta sa relo, sa pamamagitan ng Google Play services; ang relo mismo ang kumukuha ng mga presyo.</string>
+    <string name="settings_watch_hint">Mga coin para sa watch app sa Wear OS (hanggang %1$d, may presyo laban sa USDT).</string>
     <string name="settings_watch_mode_phone">Gaya ng phone (mga paborito ★)</string>
     <string name="settings_watch_mode_own">Sariling listahan</string>
     <string name="settings_watch_own_title">Sariling listahan: %1$d sa %2$d</string>
     <string name="settings_watch_none">Wala pang paborito</string>
+    <string name="settings_watch_prices">Mga presyo sa relo</string>
+    <string name="settings_watch_prices_phone">Mga presyo mula sa telepono, kung hindi ay ang relo mismo ang kukuha</string>
+    <string name="settings_watch_prices_self">Laging ang relo mismo ang kumukuha</string>
+    <string name="settings_watch_portfolio">Halaga ng portfolio sa relo</string>
+    <string name="settings_watch_portfolio_hint">Nakikita ang halaga sa pulso.</string>
 
     <!-- Nur iOS: Untertitel von «Umrechnung + USDT» in der Einrichtung des Portfolio-Widgets – die Ansicht «Liste» hat keine USDT-Zeile und zeigt dort «Umrechnung» (App Intents können die Möglichkeit nicht je Ansicht ausblenden; Android bietet sie bei «Liste» nicht an) -->
     <string name="widget_portfolio_display_not_list" tools:ignore="UnusedResources">Walang linya ng USDT sa “Listahan”</string>

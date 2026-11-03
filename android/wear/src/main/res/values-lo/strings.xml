@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">ລາຍການ: ຄືກັບໂທລະສັບ</string>
     <string name="watch_mode_own">ລາຍການ: ຂອງຕົນເອງ</string>
     <string name="watch_phone_empty">ບໍ່ມີລາຍການທີ່ມັກໃນໂທລະສັບ</string>
+    <string name="watch_portfolio">ພອດໂຟລິໂອ</string>
+    <string name="watch_portfolio_today">ມື້ນີ້ %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">ຈຳນວນຖືກເຊື່ອງໄວ້</string>
     <string name="a11y_watch_outdated">ລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ນາທີກ່ອນ</item>

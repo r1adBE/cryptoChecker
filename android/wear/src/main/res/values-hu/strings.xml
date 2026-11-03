@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lista: mint a telefonon</string>
     <string name="watch_mode_own">Lista: saját</string>
     <string name="watch_phone_empty">Nincsenek kedvencek a telefonon</string>
+    <string name="watch_portfolio">Portfólió</string>
+    <string name="watch_portfolio_today">ma %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">összeg elrejtve</string>
     <string name="a11y_watch_outdated">Az árfolyam elavult</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">utoljára frissítve %1$d perce</item>

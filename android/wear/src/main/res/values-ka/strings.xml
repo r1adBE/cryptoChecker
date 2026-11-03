@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">სია: როგორც ტელეფონზე</string>
     <string name="watch_mode_own">სია: საკუთარი</string>
     <string name="watch_phone_empty">ტელეფონზე რჩეულები არ არის</string>
+    <string name="watch_portfolio">პორტფელი</string>
+    <string name="watch_portfolio_today">დღეს %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">თანხა დამალულია</string>
     <string name="a11y_watch_outdated">ფასი მოძველებულია</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ბოლოს განახლდა %1$d წუთის წინ</item>

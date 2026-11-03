@@ -114,6 +114,9 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                         onCheckedChange = viewModel::setHidePortfolioAmounts
                     )
                 }
+                RowDivider()
+                // Gesamtwert auf der Wear-OS-Uhr (Standard aus)
+                WatchPortfolioSwitch()
             }
             // Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio (wer nur Alarme will, sieht
             // keine Buchhaltung); die Werte bleiben beim Ausblenden erhalten

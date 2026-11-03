@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">ലിസ്റ്റ്: ഫോണിലേതുപോലെ</string>
     <string name="watch_mode_own">ലിസ്റ്റ്: സ്വന്തം</string>
     <string name="watch_phone_empty">ഫോണിൽ പ്രിയപ്പെട്ടവയൊന്നുമില്ല</string>
+    <string name="watch_portfolio">പോർട്ട്ഫോളിയോ</string>
+    <string name="watch_portfolio_today">ഇന്ന് %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">തുക മറച്ചിരിക്കുന്നു</string>
     <string name="a11y_watch_outdated">വില പഴയതാണ്</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>

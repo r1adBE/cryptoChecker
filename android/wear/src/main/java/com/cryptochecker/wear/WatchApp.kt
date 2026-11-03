@@ -35,6 +35,9 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.ToggleChip
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchInterval
+import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
+import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import kotlinx.coroutines.delay
 import java.text.DateFormat
@@ -44,9 +47,11 @@ import java.util.Date
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
  * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Umschalter der Liste und (eigene Liste) «Coins
  * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Wahl und Kurse kommen aus dem gemeinsamen [WatchStore]
- * (auch Änderungen vom Handy, solange die App offen ist). Lädt beim Öffnen und bei jeder anderen Liste ([WatchFetcher]:
- * ein neuer Abruf bricht den alten ab), sonst nur über «Aktualisieren». Veraltete Kurse ([WatchFreshness], je Coin ab
- * dem Stand seines Abrufs) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
+ * (auch Änderungen vom Handy, solange die App offen ist). Kurse vom Handy (Wahl «Kurse vom Handy, sonst selbst» und
+ * Handy verbunden) übernimmt sie, ohne selbst abzufragen; sonst lädt sie beim Öffnen, bei jeder anderen Liste
+ * ([WatchFetcher]: ein neuer Abruf bricht den alten ab), über «Aktualisieren» und offen im Intervall des Handys
+ * ([WatchInterval]). Oben der Portfolio-Wert vom Handy, falls dort eingeschaltet. Veraltete Kurse ([WatchFreshness], je
+ * Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
  */
 @Composable
 fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
@@ -54,6 +59,8 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         val context = LocalContext.current
         val settings by store.settingsFlow.collectAsState()
         val cache by store.quotesFlow.collectAsState()
+        val portfolio by store.portfolioFlow.collectAsState()
+        var pulled by remember { mutableStateOf(false) }
         var choosing by remember { mutableStateOf(false) }
         // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 45 Min. auch ohne neue Kurse)
         var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -67,6 +74,12 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
                     store.mergeQuotes(quotes, startedAt)
                     onQuotesChanged()
                 },
+                plan = { coins, force ->
+                    val s = store.settings
+                    val usePhone = s.source == WatchSettings.Source.PHONE && WatchDataLayer.phoneConnected(context)
+                    WatchPhoneQuotes.selfFetch(coins, store.quotes().mapValues { it.value.time }, store.phoneCoins, usePhone,
+                        s.interval, System.currentTimeMillis(), force)
+                },
             )
         }
         val loading by fetcher.loading.collectAsState()
@@ -78,9 +91,19 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
             WatchDataLayer.publish(context, store)
         }
 
-        // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten)
-        LaunchedEffect(Unit) { WatchDataLayer.pull(context, store) }
-        LaunchedEffect(settings.shown) { fetcher.refresh() }
+        // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten, Kurse, Portfolio-Wert), erst dann laden
+        LaunchedEffect(Unit) {
+            WatchDataLayer.pull(context, store)
+            pulled = true
+        }
+        LaunchedEffect(settings.shown, pulled) { if (pulled) fetcher.refresh() }
+        // Offen: im Intervall des Handys, nur was fällig ist
+        LaunchedEffect(settings.interval, pulled) {
+            while (pulled) {
+                delay(WatchInterval.clamp(settings.interval) * 60_000L)
+                fetcher.refresh(force = false)
+            }
+        }
         LaunchedEffect(Unit) {
             while (true) {
                 now = System.currentTimeMillis()
@@ -93,7 +116,7 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
             if (choosing) {
                 ChooseList(settings.own) { coin -> change { it.copy(own = WatchCoins.toggle(it.own, coin)) } }
             } else {
-                QuoteList(settings, cache, now, loading, failed,
+                QuoteList(settings, cache, portfolio, now, loading, failed,
                     onRefresh = { fetcher.refresh() },
                     onToggleMode = {
                         change {
@@ -110,6 +133,7 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
 private fun QuoteList(
     settings: WatchSettings,
     cache: Map<String, WatchCached>,
+    portfolio: WatchPortfolio?,
     now: Long,
     loading: Boolean,
     failed: Boolean,
@@ -120,6 +144,7 @@ private fun QuoteList(
     val coins = settings.shown
     val phone = settings.mode == WatchSettings.Mode.PHONE
     ScalingLazyColumn(state = rememberScalingLazyListState(), modifier = Modifier.fillMaxWidth()) {
+        portfolio?.let { p -> item { PortfolioRow(p, now) } }
         if (coins.isEmpty()) {
             item {
                 Text(stringResource(if (phone) R.string.watch_phone_empty else R.string.watch_empty), textAlign = TextAlign.Center)

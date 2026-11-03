@@ -63,6 +63,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     /** Coin-Liste der Wear-OS-App: folgt den Favoriten und gleicht mit der Uhr ab, sobald der Prozess läuft. */
     @Inject lateinit var phoneWatchSync: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchSync>
+    @Inject lateinit var phoneWatchFeed: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchFeed>
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
@@ -155,8 +156,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Preis-Overlay (nur mit Schalter, dauerhafter Kurs-Mitteilung und Berechtigung sichtbar)
         priceOverlay.get().start()
 
-        // Uhr-App (Wear OS): Liste «Wie Handy» folgt den Favoriten
+        // Uhr-App (Wear OS): Liste «Wie Handy» folgt den Favoriten; Kurse und (mit Schalter) Portfolio-Wert an die Uhr
         phoneWatchSync.get().start()
+        phoneWatchFeed.get().start()
 
         // Widget: eine abgelaufene «Neuer Versuch um …»-Uhrzeit (Prozess endete vor dem Löschen) weg, Kopf neu zeichnen
         scope.launch { widgetRetry.get().clearIfExpired(System.currentTimeMillis()) }

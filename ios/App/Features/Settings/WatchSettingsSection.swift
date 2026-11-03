@@ -1,7 +1,8 @@
 import SwiftUI
 
 /// «Widgets» › Uhr: Coin-Liste der Apple-Watch-App vom iPhone aus wählen — «Wie iPhone» (Favoriten ★) oder
-/// eine eigene Liste mit bis zu `WatchCoins.max` Coins. Abgleich: `PhoneWatchLink`. Wie Android `WatchSettingsCard`.
+/// eine eigene Liste mit bis zu `WatchCoins.max` Coins; darunter «Kurse auf der Uhr»: vom iPhone (Standard; ohne
+/// Verbindung fragt die Uhr selbst) oder immer selbst. Abgleich: `PhoneWatchLink`. Wie Android `WatchSettingsCard`.
 @MainActor
 struct WatchSettingsSection: View {
     @ObservedObject private var link = PhoneWatchLink.shared
@@ -32,6 +33,20 @@ struct WatchSettingsSection: View {
                     }
                 }
             }
+            VStack(alignment: .leading, spacing: 0) {
+                Text(L("settings_watch_prices"))
+                    .font(.body)
+                    .padding(.bottom, Spacing.xs)
+                    .accessibilityAddTraits(.isHeader)
+                ForEach([WatchSettings.Source.phone, .alwaysSelf], id: \.self) { source in
+                    SettingsChoiceRow(
+                        title: L(source == .phone ? "settings_watch_prices_phone" : "settings_watch_prices_self"),
+                        selected: s.source == source
+                    ) { link.setSource(source) }
+                }
+            }
+            .padding(.vertical, Spacing.sm)
+            .settingsAnchor("widgets.watch_prices")
         }
         .settingsAnchor("widgets.watch")
     }

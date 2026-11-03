@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Списак: као на телефону</string>
     <string name="watch_mode_own">Списак: сопствени</string>
     <string name="watch_phone_empty">Нема фаворита на телефону</string>
+    <string name="watch_portfolio">Портфолио</string>
+    <string name="watch_portfolio_today">%1$s данас</string>
+    <string name="a11y_watch_portfolio_hidden">износ скривен</string>
     <string name="a11y_watch_outdated">Цена застарела</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">последње ажурирање пре %1$d минуте</item>

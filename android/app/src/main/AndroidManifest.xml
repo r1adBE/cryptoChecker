@@ -291,7 +291,8 @@
             android:name=".notification.AlarmActionReceiver"
             android:exported="false" />
 
-        <!-- Uhr-App: Wahl und eigene Liste der Uhr über die Wear-Daten-Schicht (nur Coin-Kürzel) -->
+        <!-- Uhr-App: Wahl und eigene Liste der Uhr über die Wear-Daten-Schicht (nur Coin-Kürzel); nur genau dieser Pfad,
+             nicht die Kurse und der Portfolio-Wert, die das Handy selbst unter /cc/watch/… ablegt -->
         <service
             android:name=".wearable.PhoneWatchListener"
             android:exported="true">
@@ -299,7 +300,7 @@
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
                 <data
                     android:host="*"
-                    android:pathPrefix="/cc/watch"
+                    android:path="/cc/watch"
                     android:scheme="wear" />
             </intent-filter>
         </service>

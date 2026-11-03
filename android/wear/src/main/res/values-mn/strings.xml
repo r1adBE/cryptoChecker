@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Жагсаалт: утастай адил</string>
     <string name="watch_mode_own">Жагсаалт: тусдаа</string>
     <string name="watch_phone_empty">Утсанд дуртай зоос алга</string>
+    <string name="watch_portfolio">Багц</string>
+    <string name="watch_portfolio_today">өнөөдөр %1$s</string>
+    <string name="a11y_watch_portfolio_hidden">дүнг нуусан</string>
     <string name="a11y_watch_outdated">Ханш хуучирсан</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">сүүлд %1$d минутын өмнө шинэчилсэн</item>

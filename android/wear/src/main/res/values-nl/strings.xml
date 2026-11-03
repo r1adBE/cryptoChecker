@@ -12,6 +12,9 @@
     <string name="watch_mode_phone">Lijst: zoals telefoon</string>
     <string name="watch_mode_own">Lijst: eigen</string>
     <string name="watch_phone_empty">Geen favorieten op de telefoon</string>
+    <string name="watch_portfolio">Portfolio</string>
+    <string name="watch_portfolio_today">%1$s vandaag</string>
+    <string name="a11y_watch_portfolio_hidden">bedrag verborgen</string>
     <string name="a11y_watch_outdated">Koers verouderd</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">laatst bijgewerkt %1$d minuut geleden</item>

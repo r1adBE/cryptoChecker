@@ -27,6 +27,19 @@ enum WatchCache {
         return out
     }
 
+    /// Kurse vom iPhone (`fresh`, je Coin mit der Zeit des Abrufs auf dem iPhone) in `old` übernehmen: ein Coin wird nur
+    /// ersetzt, wenn sein gespeicherter Stand nicht neuer ist (ein eigener Abruf der Uhr danach bleibt); nur Coins aus
+    /// `keep`. Wie Android `WatchCache.mergeTimed` (`Parity/watch_link.json`, Abschnitt «cacheTimed»).
+    static func mergeTimed(_ old: [String: WatchCached], fresh: [String: WatchCached],
+                           keep: [String]) -> [String: WatchCached] {
+        let kept = Set(keep)
+        var out = old.filter { kept.contains($0.key) }
+        for (coin, cached) in fresh where kept.contains(coin) && cached.time > 0 && (out[coin]?.time ?? .min) <= cached.time {
+            out[coin] = cached
+        }
+        return out
+    }
+
     /// Stand der Liste `coins`: Zeit des ältesten gezeigten Kurses (0 = keiner geladen).
     static func listTime(_ cache: [String: WatchCached], coins: [String]) -> Int64 {
         coins.compactMap { cache[$0]?.time }.min() ?? 0

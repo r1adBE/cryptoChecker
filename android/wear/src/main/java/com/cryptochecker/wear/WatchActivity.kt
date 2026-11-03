@@ -17,9 +17,13 @@ class WatchActivity : ComponentActivity() {
 }
 
 /** Komplikationen neu zeichnen lassen (neue Kurse oder anderer erster Favorit). */
-fun requestComplicationUpdate(context: Context) {
+fun requestComplicationUpdate(context: Context) = requestUpdate(context, PriceComplicationService::class.java)
+
+/** Portfolio-Komplikation neu zeichnen lassen (neuer Wert vom Handy oder entfernt). */
+fun requestPortfolioComplicationUpdate(context: Context) = requestUpdate(context, PortfolioComplicationService::class.java)
+
+private fun requestUpdate(context: Context, service: Class<*>) {
     runCatching {
-        ComplicationDataSourceUpdateRequester.create(context, ComponentName(context, PriceComplicationService::class.java))
-            .requestUpdateAll()
+        ComplicationDataSourceUpdateRequester.create(context, ComponentName(context, service)).requestUpdateAll()
     }
 }
