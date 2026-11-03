@@ -1,8 +1,9 @@
 import Foundation
 
 /// Kurse vom iPhone für die Uhr: Das iPhone schickt für die Coins der Uhr (beide Listen) die Kurse, die es ohnehin schon
-/// hat (Merkliste, Paar gegen `quoteAsset`, Spot, nicht deaktiviert) — samt 24 h, Börse und Zeit seines Abrufs, ohne
-/// eigene Abfrage für die Uhr. Die Uhr übernimmt sie und fragt selbst nur, was das iPhone nicht liefert (`selfFetch`).
+/// hat — samt 24 h, Börse und Zeit seines Abrufs, ohne eigene Abfrage für die Uhr. Eigene Liste (Kürzel): Paar der
+/// Merkliste gegen `quoteAsset`, Spot, nicht deaktiviert; «Wie iPhone» (`WatchPair`-Schlüssel): genau das Paar des
+/// Favoriten (Börse und Kontrakt, auch Futures/Perp und andere Börsen). Die Uhr übernimmt sie und fragt selbst nur, was das iPhone nicht liefert (`selfFetch`).
 /// Wie Android `WatchPhoneQuotes` (`Parity/watch_link.json`).
 enum WatchPhoneQuotes {
     static let quoteAsset = "USDT"
@@ -10,7 +11,8 @@ enum WatchPhoneQuotes {
     /// Höchstzahl je Sendung: eigene Liste und Liste des iPhones.
     static let max = 2 * WatchCoins.max
 
-    /// Paar der Merkliste des iPhones, nur was die Uhr braucht; `time` = letzter Abruf (Epoch-ms).
+    /// Paar der Merkliste des iPhones, nur was die Uhr braucht; `time` = letzter Abruf (Epoch-ms); `contract` = Marke wie
+    /// `WatchPair.contract` (leer = Spot).
     struct Row: Equatable, Sendable {
         var base: String
         var quote: String
@@ -21,9 +23,11 @@ enum WatchPhoneQuotes {
         var exchange: String
         var time: Int64
         var sortOrder: Int
+        var contract: String = ""
     }
 
-    /// Kurs eines Coins vom iPhone; `time` = Abruf des iPhones (Epoch-ms), gilt auf der Uhr als Stand des Kurses.
+    /// Kurs vom iPhone; `symbol` = Schlüssel der Uhr (Kürzel oder `WatchPair.key`); `time` = Abruf des iPhones
+    /// (Epoch-ms), gilt auf der Uhr als Stand des Kurses.
     struct Quote: Equatable, Sendable {
         let symbol: String
         let price: Double
@@ -32,24 +36,36 @@ enum WatchPhoneQuotes {
         let time: Int64
     }
 
-    /// Je Coin aus `coins` (Reihenfolge bleibt) der neueste brauchbare Kurs; gleich alt: das Paar weiter oben.
+    /// Je Schlüssel aus `coins` (Reihenfolge bleibt) der neueste brauchbare Kurs; gleich alt: das Paar weiter oben.
+    /// Kürzel: jedes Spot-Paar gegen USDT; `WatchPair`-Schlüssel: nur genau dieses Paar (Basis, Gegenwährung, Börse,
+    /// Kontrakt).
     static func pick(_ rows: [Row], coins: [String]) -> [Quote] {
-        let usable: [(quote: Quote, order: Int)] = rows.compactMap { r in
-            guard let price = r.price, price.isFinite, price > 0,
-                  r.quote.trimmingCharacters(in: .whitespaces).uppercased() == quoteAsset,
-                  r.spot, !r.disabled, r.time > 0 else { return nil }
-            let change = r.change24h.flatMap { $0.isFinite ? $0 : nil }
-            let symbol = r.base.trimmingCharacters(in: .whitespaces).uppercased()
-            return (Quote(symbol: symbol, price: price, change24h: change, exchange: r.exchange, time: r.time),
-                    r.sortOrder)
+        let usable: [Candidate] = rows.compactMap { r in
+            guard let price = r.price, price.isFinite, price > 0, !r.disabled, r.time > 0 else { return nil }
+            let usdtSpot = r.quote.trimmingCharacters(in: .whitespaces).uppercased() == quoteAsset && r.spot
+            let coin = usdtSpot ? r.base.trimmingCharacters(in: .whitespaces).uppercased() : nil
+            let pair = WatchPair.of(base: r.base, quote: r.quote, exchange: r.exchange, contract: r.contract)?.key
+            return Candidate(coin: coin, pair: pair, price: price, change24h: r.change24h.flatMap { $0.isFinite ? $0 : nil },
+                             exchange: r.exchange, time: r.time, order: r.sortOrder)
         }
         var seen = Set<String>()
         let wanted = coins.filter { seen.insert($0).inserted }.prefix(Self.max)
-        return wanted.compactMap { coin in
-            let newest = usable.filter { $0.quote.symbol == coin }
-                .min { a, b in a.quote.time != b.quote.time ? a.quote.time > b.quote.time : a.order < b.order }
-            return newest?.quote
+        return wanted.compactMap { key in
+            let newest = usable.filter { $0.coin == key || $0.pair == key }
+                .min { a, b in a.time != b.time ? a.time > b.time : a.order < b.order }
+            return newest.map { Quote(symbol: key, price: $0.price, change24h: $0.change24h, exchange: $0.exchange,
+                                      time: $0.time) }
         }
+    }
+
+    private struct Candidate {
+        let coin: String?
+        let pair: String?
+        let price: Double
+        let change24h: Double?
+        let exchange: String
+        let time: Int64
+        let order: Int
     }
 
     static func toJson(_ quotes: [Quote]) -> String {
@@ -62,7 +78,8 @@ enum WatchPhoneQuotes {
         return String(data: data, encoding: .utf8) ?? "{}"
     }
 
-    /// Liest `text`; Unlesbares → nil, ungültige Einträge (Kürzel, Kurs ≤ 0, ohne Zeit) fallen weg, höchstens `max`.
+    /// Liest `text`; Unlesbares → nil, ungültige Einträge (Schlüssel weder Kürzel noch `WatchPair.key`, Kurs ≤ 0, ohne
+    /// Zeit) fallen weg, höchstens `max`.
     static func fromJson(_ text: String?) -> [Quote]? {
         guard let data = text?.data(using: .utf8),
               let o = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
@@ -70,7 +87,8 @@ enum WatchPhoneQuotes {
         var out: [Quote] = []
         for item in list {
             guard let q = item as? [String: Any],
-                  let symbol = q["s"] as? String, symbol.range(of: "^[A-Z0-9]{2,12}$", options: .regularExpression) != nil,
+                  let symbol = q["s"] as? String,
+                  symbol.range(of: "^[A-Z0-9]{2,12}$", options: .regularExpression) != nil || WatchPair.parse(symbol) != nil,
                   let price = (q["p"] as? NSNumber)?.doubleValue, price.isFinite, price > 0,
                   let time = (q["t"] as? NSNumber)?.int64Value, time > 0,
                   !out.contains(where: { $0.symbol == symbol }) else { continue }
@@ -85,10 +103,12 @@ enum WatchPhoneQuotes {
     /// Coins aus `shown`, die die Uhr selbst abfragt. Ohne Kurs immer. Mit Kursen vom iPhone (`usePhone`: Wahl «Kurse vom
     /// Handy» und iPhone verbunden) nie für einen Coin, den das iPhone liefert (`phoneCoins`), solange dessen Kurs nicht
     /// veraltet ist (`WatchFreshness`) — auch nicht auf «Aktualisieren». Sonst auf Wunsch (`force`) oder ab
-    /// `WatchInterval.refetchAfterMillis`. `times` = Stand je Coin auf der Uhr.
+    /// `WatchInterval.refetchAfterMillis`. `times` = Stand je Coin auf der Uhr. Nie für ein Paar, das die Uhr nicht
+    /// selbst abfragen kann (`WatchPair.selfFetchable`: Pool, Laufzeit-Kontrakt) — das kommt nur vom iPhone.
     static func selfFetch(_ shown: [String], times: [String: Int64], phoneCoins: Set<String>, usePhone: Bool,
                           intervalMinutes: Int, now: Int64, force: Bool) -> [String] {
         shown.filter { coin in
+            if WatchPair.parse(coin)?.selfFetchable == false { return false }
             let time = times[coin] ?? 0
             if time <= 0 { return true }
             if usePhone && phoneCoins.contains(coin) { return WatchFreshness.isOutdated(time, now: now) }

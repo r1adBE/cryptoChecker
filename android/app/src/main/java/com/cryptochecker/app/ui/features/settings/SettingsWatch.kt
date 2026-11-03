@@ -26,6 +26,7 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.wearable.PhoneWatchFeed
 import com.cryptochecker.app.wearable.PhoneWatchSync
 import com.cryptochecker.marketdata.watch.WatchCoins
+import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -67,7 +68,8 @@ internal fun WatchSettingsCard(viewModel: WatchSettingsViewModel = hiltViewModel
             selected = state.mode == WatchSettings.Mode.PHONE,
             onClick = { viewModel.setMode(WatchSettings.Mode.PHONE) },
             title = stringResource(R.string.settings_watch_mode_phone),
-            subtitle = state.phone.joinToString(" · ").ifEmpty { stringResource(R.string.settings_watch_none) },
+            subtitle = state.phoneKeys.joinToString(" · ") { WatchPair.label(it) }
+                .ifEmpty { stringResource(R.string.settings_watch_none) },
         )
         RadioRow(
             selected = state.mode == WatchSettings.Mode.OWN,

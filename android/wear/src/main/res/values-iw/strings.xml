@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s היום</string>
     <string name="a11y_watch_portfolio_hidden">הסכום מוסתר</string>
     <string name="a11y_watch_outdated">השער לא עדכני</string>
+    <string name="a11y_watch_no_price_unreachable">אין מחיר, אין גישה אל %1$s</string>
+    <string name="a11y_watch_no_price_phone_only">אין מחיר, השעון לא יכול לטעון את הצמד הזה</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">עודכן לאחרונה לפני %1$d דקה</item>
         <item quantity="two">עודכן לאחרונה לפני %1$d דקות</item>

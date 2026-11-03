@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s сьогодні</string>
     <string name="a11y_watch_portfolio_hidden">суму приховано</string>
     <string name="a11y_watch_outdated">Курс застарів</string>
+    <string name="a11y_watch_no_price_unreachable">немає курсу, %1$s недоступна</string>
+    <string name="a11y_watch_no_price_phone_only">немає курсу, годинник не може завантажити цю пару</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">востаннє оновлено %1$d хвилину тому</item>
         <item quantity="few">востаннє оновлено %1$d хвилини тому</item>

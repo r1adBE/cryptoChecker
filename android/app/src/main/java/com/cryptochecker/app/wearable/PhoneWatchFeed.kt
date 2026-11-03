@@ -10,6 +10,7 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
@@ -33,8 +34,8 @@ import javax.inject.Singleton
 
 /**
  * Was das Handy der Wear-OS-App ausser der Wahl schickt (über [PhoneWatchSync.put], Wear-Daten-Schicht):
- *  - Kurse ([QUOTES_PATH]): für beide Listen der Uhr die Kurse, die die Merkliste schon hat ([WatchPhoneQuotes.pick]) —
- *    keine eigene Abfrage für die Uhr; höchstens einmal je [MIN_GAP_MS] (Live-Kurse ändern sich laufend). Nicht bei
+ *  - Kurse ([QUOTES_PATH]): für beide Listen der Uhr die Kurse, die die Merkliste schon hat ([WatchPhoneQuotes.pick];
+ *    «Wie Handy»: genau das Paar jedes Favoriten, auch Futures/Perp und andere Börsen) — keine eigene Abfrage für die Uhr; höchstens einmal je [MIN_GAP_MS] (Live-Kurse ändern sich laufend). Nicht bei
  *    «Immer selbst abrufen».
  *  - Portfolio-Wert ([PORTFOLIO_PATH]): nur mit «Portfolio-Wert auf der Uhr» (Standard aus) und nur Gesamtwert,
  *    Veränderung heute, Währung und Zeit ([WatchPortfolio]); verborgen bzw. gesperrt ohne Zahlen; Schalter oder Portfolio
@@ -141,9 +142,10 @@ class PhoneWatchFeed @Inject constructor(
                     exchange = it.exchangeName,
                     time = it.lastUpdate,
                     sortOrder = it.sortOrder,
+                    contract = WatchPair.contractOf(it.contractShortName, it.pairId != null),
                 )
             }
-            return WatchPhoneQuotes.toJson(WatchPhoneQuotes.pick(rows, settings.own + settings.phone))
+            return WatchPhoneQuotes.toJson(WatchPhoneQuotes.pick(rows, settings.kept))
         }
     }
 }

@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchInterval
+import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchSettings
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.CapabilityClient
@@ -35,8 +37,8 @@ import javax.inject.Singleton
 
 /**
  * Coin-Liste der Wear-OS-App vom Handy aus (Einstellungen › Widgets › Uhr): Wahl «Wie Handy» (Basis-Coins
- * der Favoriten ★ der Merkliste, höchstens 8) oder «Eigene Liste», dazu die Kursquelle der Uhr ([WatchSettings.source])
- * und das Intervall der Kurs-Aktualisierung ([WatchSettings.interval], [WatchInterval.clamp]). Übertragen wird
+ * der Favoriten ★ der Merkliste, höchstens 8, je Coin mit dem Paar des Favoriten, [favorites]) oder «Eigene Liste»,
+ * dazu die Kursquelle der Uhr ([WatchSettings.source]) und das Intervall der Kurs-Aktualisierung ([WatchSettings.interval], [WatchInterval.clamp]). Übertragen wird
  * [WatchSettings] als JSON über die Wear-Daten-Schicht (Google Play-Dienste) unter [PATH]; Kurse und Portfolio-Wert
  * schickt [PhoneWatchFeed] über [put]. Veröffentlicht wird nur, wenn eine Uhr die App hat (Fähigkeit [CAPABILITY], auch
  * wenn sie gerade nicht verbunden ist). Ohne Play-Dienste oder ohne Uhr: nichts, die Einstellung bleibt lokal.
@@ -51,6 +53,7 @@ class PhoneWatchSync @Inject constructor(
     private val scope = appScope(Dispatchers.IO, "PhoneWatchSync")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val lock = Mutex()
+    private val changing = Mutex()
     private val publishing = SerialPublisher()
     private val _state = MutableStateFlow(WatchSettings())
     private var started = false
@@ -71,10 +74,10 @@ class PhoneWatchSync @Inject constructor(
         scope.launch {
             lock.withLock { ensureLoaded() }
             watchRepository.observeWatches()
-                .map { watches -> WatchCoins.fromFavorites(watches.filter { it.favorite }.sortedBy { it.sortOrder }.map { it.baseAsset }) }
+                .map { watches -> favorites(watches) }
                 .distinctUntilChanged()
                 .catch { }
-                .collect { phone -> update(publish = true) { it.copy(phone = phone) } }
+                .collect { (phone, pairs) -> update(publish = true) { it.copy(phone = phone, pairs = pairs) } }
         }
         // Intervall der Kurs-Aktualisierung: die Uhr lädt im selben Takt (begrenzt, [WatchInterval])
         scope.launch {
@@ -93,12 +96,25 @@ class PhoneWatchSync @Inject constructor(
 
     /** Wahl «Wie Handy» / «Eigene Liste» ändern. */
     fun setMode(mode: WatchSettings.Mode) = scope.launch {
-        update(publish = true) { it.copy(mode = mode).nextRevision() }
+        change { it.copy(mode = mode) }
     }
 
     /** Coin der eigenen Liste an- oder abwählen (höchstens [WatchCoins.MAX]). */
     fun toggleOwn(coin: String) = scope.launch {
-        update(publish = true) { it.copy(own = WatchCoins.toggle(it.own, coin)).nextRevision() }
+        change { it.copy(own = WatchCoins.toggle(it.own, coin)) }
+    }
+
+    /**
+     * Eigene Änderung von Wahl oder eigener Liste: zuerst den neuesten Stand der Uhr aus der Daten-Schicht (auch ohne
+     * Verbindung der zuletzt bekannte) zusammenführen, dann mit max(Handy, Uhr) + 1 speichern und veröffentlichen
+     * ([WatchSettings.change]) — sonst bliebe die Uhr bei ihrer Wahl, wenn sie schon weiter gezählt hatte. Nacheinander
+     * ([changing]), damit zwei schnelle Änderungen nicht dieselbe Nummer bekommen.
+     */
+    private suspend fun change(edit: (WatchSettings) -> WatchSettings) {
+        changing.withLock {
+            val watch = watchSettings()
+            update(publish = true) { WatchSettings.change(it, watch, isPhone = true, edit) }
+        }
     }
 
     /** Stand der Uhr im Hintergrund übernehmen (Seite «Widgets» geöffnet). */
@@ -199,6 +215,19 @@ class PhoneWatchSync @Inject constructor(
         private const val PREFS = "watch_sync"
         private const val KEY = "settings"
         private const val TIMEOUT_S = 10L
+
+        /**
+         * «Wie Handy»: Basis-Coins der Favoriten ([WatchCoins.fromFavorites]) und je Coin das Paar des ersten Favoriten
+         * ([WatchPair]: Börse und Kontrakt wie in der Merkliste, z. B. BANK/USDT Perp bei Binance Futures).
+         */
+        internal fun favorites(watches: List<WatchEntity>): Pair<List<String>, List<WatchPair>> {
+            val favorites = watches.filter { it.favorite }.sortedBy { it.sortOrder }
+            val bases = favorites.map { it.baseAsset }
+            val pairs = favorites.map {
+                WatchPair.of(it.baseAsset, it.quoteAsset, it.exchangeName, WatchPair.contractOf(it.contractShortName, it.pairId != null))
+            }
+            return WatchCoins.fromFavorites(bases) to WatchCoins.favoritePairs(bases, pairs)
+        }
 
         /** Geänderte Einträge unter [PATH] aus [events] — sofort gelesen, solange der Puffer gültig ist. */
         fun changed(events: DataEventBuffer): List<Item> = events

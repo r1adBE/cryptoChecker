@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">այսօր %1$s</string>
     <string name="a11y_watch_portfolio_hidden">գումարը թաքցված է</string>
     <string name="a11y_watch_outdated">Գինը հնացած է</string>
+    <string name="a11y_watch_no_price_unreachable">գին չկա, %1$s-ը հասանելի չէ</string>
+    <string name="a11y_watch_no_price_phone_only">գին չկա, ժամացույցը չի կարող բեռնել այս զույգը</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
         <item quantity="other">վերջին թարմացումը՝ %1$d րոպե առաջ</item>

@@ -32,6 +32,16 @@ enum WatchCoins {
         return Array(unique(cleaned).prefix(max))
     }
 
+    /// Paare zu `fromFavorites`: je Coin das Paar des ersten Favoriten mit dieser Basis (`pairs` gleich lang und gleich
+    /// geordnet wie `bases`, nil = kein gültiges Paar); ohne Paar zeigt die Uhr den Coin wie bisher gegen USDT.
+    static func favoritePairs(_ bases: [String], pairs: [WatchPair?]) -> [WatchPair] {
+        let cleaned = bases.map { $0.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() }
+        return fromFavorites(bases).compactMap { coin in
+            guard let i = cleaned.firstIndex(of: coin), i < pairs.count else { return nil }
+            return pairs[i]
+        }
+    }
+
     private static func isSymbol(_ s: String) -> Bool {
         (2...12).contains(s.count) && s.unicodeScalars.allSatisfy { ("A"..."Z").contains($0) || ("0"..."9").contains($0) }
     }

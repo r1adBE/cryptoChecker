@@ -31307,6 +31307,916 @@
         }
       }
     },
+    "a11y_watch_no_price_phone_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, die horlosie kan hierdie paar nie laai nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋ የለም፣ ሰዓቱ ይህን ጥንድ መጫን አይችልም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سعر، لا تستطيع الساعة تحميل هذا الزوج"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "qiymət yoxdur, saat bu cütü yükləyə bilmir"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "няма цена, часовникът не може да зареди тази двойка"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দাম নেই, ঘড়ি এই জোড়াটি লোড করতে পারে না"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, sat ne može učitati ovaj par"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sense preu, el rellotge no pot carregar aquest parell"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žádná cena, hodinky tento pár nemohou načíst"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, uret kan ikke hente dette par"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Kurs, die Uhr kann dieses Paar nicht abrufen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "καμία τιμή, το ρολόι δεν μπορεί να φορτώσει αυτό το ζεύγος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no price, the watch cannot load this pair"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin precio, el reloj no puede cargar este par"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hind puudub, kell ei saa seda paari laadida"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preziorik ez, erlojuak ezin du bikote hau kargatu"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمتی نیست، ساعت نمی‌تواند این جفت را بارگیری کند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ei hintaa, kello ei voi ladata tätä paria"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "walang presyo, hindi ma-load ng relo ang pares na ito"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucun cours, la montre ne peut pas charger cette paire"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gan phraghas, ní féidir leis an uaireadóir an péire seo a lódáil"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sen prezo, o reloxo non pode cargar este par"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "કોઈ ભાવ નથી, ઘડિયાળ આ જોડી લોડ કરી શકતી નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מחיר, השעון לא יכול לטעון את הצמד הזה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई भाव नहीं, घड़ी यह जोड़ी लोड नहीं कर सकती"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, sat ne može učitati ovaj par"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nincs árfolyam, az óra nem tudja betölteni ezt a párt"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "գին չկա, ժամացույցը չի կարող բեռնել այս զույգը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tidak ada harga, jam tidak dapat memuat pasangan ini"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ekkert verð, úrið getur ekki sótt þetta par"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessun prezzo, l'orologio non può caricare questa coppia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格なし、この通貨ペアはウォッチで読み込めません"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასი არ არის, საათი ამ წყვილს ვერ ჩატვირთავს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "баға жоқ, сағат бұл жұпты жүктей алмайды"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "គ្មានតម្លៃ, នាឡិកាមិនអាចផ្ទុកគូនេះបានទេ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ ಈ ಜೋಡಿಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗದು"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 없음, 시계에서 이 페어를 불러올 수 없습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ມີລາຄາ, ໂມງບໍ່ສາມາດໂຫຼດຄູ່ນີ້ໄດ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kainos nėra, laikrodis negali įkelti šios poros"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nav cenas, pulkstenis nevar ielādēt šo pāri"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цена, часовникот не може да го вчита овој пар"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലയില്ല, വാച്ചിന് ഈ ജോഡി ലോഡ് ചെയ്യാനാകില്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ханш алга, цаг энэ хосыг ачаалж чадахгүй"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भाव नाही, घड्याळ ही जोडी लोड करू शकत नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tiada harga, jam tidak dapat memuatkan pasangan ini"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "စျေးနှုန်းမရှိ၊ နာရီက ဤအတွဲကို ဖွင့်၍ မရပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, klokken kan ikke hente dette paret"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य छैन, घडीले यो जोडी लोड गर्न सक्दैन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, het horloge kan dit paar niet laden"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਇਹ ਜੋੜੀ ਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦੀ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "brak kursu, zegarek nie może wczytać tej pary"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, o relógio não consegue carregar este par"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, o relógio não consegue carregar este par"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "niciun preț, ceasul nu poate încărca această pereche"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нет курса, часы не могут загрузить эту пару"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිලක් නැත, ඔරලෝසුවට මෙම යුගලය පූරණය කළ නොහැක"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žiadna cena, hodinky nemôžu načítať tento pár"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ni tečaja, ura ne more naložiti tega para"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pa çmim, ora nuk mund ta ngarkojë këtë çift"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цене, сат не може да учита овај пар"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cene, sat ne može da učita ovaj par"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, klockan kan inte hämta det här paret"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hakuna bei, saa haiwezi kupakia jozi hii"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலை இல்லை, கடிகாரத்தால் இந்த ஜோடியை ஏற்ற முடியாது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధర లేదు, వాచ్ ఈ జతను లోడ్ చేయలేదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีราคา นาฬิกาโหลดคู่นี้ไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fiyat yok, saat bu çifti yükleyemiyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "немає курсу, годинник не може завантажити цю пару"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کوئی قیمت نہیں، گھڑی یہ جوڑا لوڈ نہیں کر سکتی"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "narx yoʻq, soat bu juftlikni yuklay olmaydi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không có giá, đồng hồ không tải được cặp này"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇價格，手錶載入唔到呢個交易對"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无价格，手表无法加载此交易对"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無價格，手錶無法載入此交易對"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alikho intengo, iwashi alikwazi ukulayisha lesi sibhangqa"
+          }
+        }
+      }
+    },
+    "a11y_watch_no_price_unreachable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, %1$@ nie bereikbaar nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋ የለም፣ %1$@ አይደረስም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سعر، تعذّر الوصول إلى %1$@"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "qiymət yoxdur, %1$@ əlçatan deyil"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "няма цена, %1$@ не е достъпна"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দাম নেই, %1$@-এ পৌঁছানো যাচ্ছে না"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, %1$@ nije dostupan"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sense preu, %1$@ no és accessible"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žádná cena, %1$@ není dostupná"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, %1$@ kan ikke nås"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Kurs, %1$@ nicht erreichbar"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "καμία τιμή, το %1$@ δεν είναι διαθέσιμο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no price, %1$@ not reachable"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin precio, %1$@ no disponible"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hind puudub, %1$@ pole kättesaadav"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preziorik ez, %1$@ ez dago eskuragarri"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمتی نیست، %1$@ در دسترس نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ei hintaa, %1$@ ei vastaa"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "walang presyo, hindi maabot ang %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucun cours, %1$@ injoignable"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gan phraghas, níl %1$@ ar fáil"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sen prezo, %1$@ non está dispoñible"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "કોઈ ભાવ નથી, %1$@ સુધી પહોંચી શકાતું નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מחיר, אין גישה אל %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई भाव नहीं, %1$@ तक पहुँच नहीं"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, %1$@ nije dostupan"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nincs árfolyam, %1$@ nem érhető el"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "գին չկա, %1$@-ը հասանելի չէ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tidak ada harga, %1$@ tidak dapat dijangkau"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ekkert verð, %1$@ næst ekki"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessun prezzo, %1$@ non raggiungibile"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格なし、%1$@ に接続できません"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასი არ არის, %1$@ მიუწვდომელია"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "баға жоқ, %1$@ қолжетімсіз"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "គ្មានតម្លៃ, មិនអាចភ្ជាប់ទៅ %1$@ បានទេ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆ ಇಲ್ಲ, %1$@ ತಲುಪಲಾಗುತ್ತಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 없음, %1$@에 연결할 수 없습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ມີລາຄາ, ບໍ່ສາມາດເຊື່ອມຕໍ່ %1$@ ໄດ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kainos nėra, %1$@ nepasiekiama"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nav cenas, %1$@ nav sasniedzama"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цена, %1$@ не е достапна"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലയില്ല, %1$@ ലഭ്യമല്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ханш алга, %1$@-д холбогдох боломжгүй"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भाव नाही, %1$@ पर्यंत पोहोचता येत नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tiada harga, %1$@ tidak dapat dicapai"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "စျေးနှုန်းမရှိ၊ %1$@ ကို ဆက်သွယ်၍ မရပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, %1$@ kan ikke nås"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य छैन, %1$@ सम्म पुग्न सकिएन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, %1$@ niet bereikbaar"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੋਈ ਭਾਅ ਨਹੀਂ, %1$@ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "brak kursu, %1$@ jest niedostępna"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, %1$@ inacessível"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, %1$@ indisponível"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "niciun preț, %1$@ nu poate fi accesat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нет курса, %1$@ недоступна"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිලක් නැත, %1$@ වෙත ළඟා විය නොහැක"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žiadna cena, %1$@ nie je dostupná"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ni tečaja, %1$@ ni dosegljiva"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pa çmim, %1$@ nuk arrihet"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цене, %1$@ није доступан"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cene, %1$@ nije dostupan"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, %1$@ kan inte nås"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hakuna bei, %1$@ haipatikani"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலை இல்லை, %1$@ ஐ அணுக முடியவில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధర లేదు, %1$@ అందుబాటులో లేదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีราคา เชื่อมต่อ %1$@ ไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fiyat yok, %1$@ erişilemiyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "немає курсу, %1$@ недоступна"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کوئی قیمت نہیں، %1$@ تک رسائی نہیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "narx yoʻq, %1$@ mavjud emas"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không có giá, không kết nối được %1$@"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇價格，連唔到 %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无价格，无法连接 %1$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無價格，無法連線 %1$@"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alikho intengo, i-%1$@ ayitholakali"
+          }
+        }
+      }
+    },
     "a11y_watch_outdated" : {
       "extractionState" : "manual",
       "localizations" : {

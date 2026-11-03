@@ -1,6 +1,7 @@
 import Foundation
 
-/// Kurs eines Coins gegen USDT auf der Uhr: letzter Kurs, Änderung über 24 h in Prozent (nil = unbekannt), Börse.
+/// Kurs auf der Uhr: `symbol` = Schlüssel (Kürzel gegen USDT oder Paar des iPhones, `WatchPair.key`), letzter Kurs,
+/// Änderung über 24 h in Prozent (nil = unbekannt), Börse, die ihn geliefert hat.
 struct WatchQuote: Codable, Equatable, Sendable {
     let symbol: String
     let price: Double
@@ -121,9 +122,27 @@ enum WatchQuoteFetch {
         }
     }
 
+    /// Favoriten des iPhones mit Paar (`WatchPair`) je für sich zuerst bei dessen Börse und Kontraktart
+    /// (`WatchPairQuotes`), Kürzel der eigenen Liste gemeinsam (Binance, dann Bybit, dann OKX).
     static func fetch(_ coins: [String], get: @escaping @Sendable (URL) async -> Data?) async -> [String: WatchQuote] {
         var seen = Set<String>()
-        let wanted = Array(coins.filter { seen.insert($0).inserted }.prefix(WatchCoins.max))
+        let all = Array(coins.filter { seen.insert($0).inserted }.prefix(WatchCoins.max))
+        let pairs = all.compactMap(WatchPair.parse)
+        let pairKeys = Set(pairs.map(\.key))
+        async let paired = withTaskGroup(of: WatchQuote?.self, returning: [WatchQuote].self) { group in
+            for pair in pairs { group.addTask { await WatchPairQuotes.fetch(pair, get: get) } }
+            var out: [WatchQuote] = []
+            for await q in group { if let q { out.append(q) } }
+            return out
+        }
+        let spot = await coinQuotes(all.filter { !pairKeys.contains($0) }, get: get)
+        let favorites = await paired
+        return WatchQuoteParser.merge(Array(spot.values), favorites)
+    }
+
+    /// Kürzel gegen USDT (Spot): Binance für alle, dann nur die fehlenden bei Bybit, dann OKX.
+    private static func coinQuotes(_ wanted: [String],
+                                   get: @escaping @Sendable (URL) async -> Data?) async -> [String: WatchQuote] {
         guard !wanted.isEmpty else { return [:] }
         var binance: [WatchQuote] = []
         if let url = WatchQuoteParser.binanceURL(wanted), let data = await get(url) {

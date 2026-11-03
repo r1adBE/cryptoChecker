@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s sot</string>
     <string name="a11y_watch_portfolio_hidden">shuma e fshehur</string>
     <string name="a11y_watch_outdated">Kursi është i vjetëruar</string>
+    <string name="a11y_watch_no_price_unreachable">pa çmim, %1$s nuk arrihet</string>
+    <string name="a11y_watch_no_price_phone_only">pa çmim, ora nuk mund ta ngarkojë këtë çift</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">përditësuar së fundi para %1$d minute</item>
         <item quantity="other">përditësuar së fundi para %1$d minutash</item>

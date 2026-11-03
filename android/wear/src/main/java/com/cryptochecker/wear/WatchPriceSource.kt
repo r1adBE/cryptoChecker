@@ -1,6 +1,7 @@
 package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchCoins
+import com.cryptochecker.marketdata.watch.WatchPair
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -21,7 +22,8 @@ import java.net.URL
  * Coins in einer Abfrage), fehlende Coins bzw. bei Fehler/Sperre (z. B. HTTP 451) Bybit, dann OKX — dort je fehlendem
  * Coin eine kleine Abfrage (parallel), nie die ganze Spot-Liste. Höchstens [WatchCoins.MAX] Coins, also höchstens so
  * viele Abfragen je Ausweich-Börse. Antworten höchstens [MAX_BYTES] gross, je Abfrage [TIMEOUT_MS], der ganze Abruf
- * höchstens [FETCH_DEADLINE_MS] (wie die Apple Watch, `WatchQuoteFetch.complicationTimeoutSeconds`). Ein Abbruch
+ * höchstens [FETCH_DEADLINE_MS] (wie die Apple Watch, `WatchQuoteFetch.complicationTimeoutSeconds`). Favoriten des
+ * Handys mit Paar ([WatchPair]) zuerst bei dessen Börse und Kontraktart ([WatchPairQuotes]). Ein Abbruch
  * (Frist, Ansicht weg, neuer Abruf) wird nie geschluckt und schliesst die laufende Verbindung sofort.
  */
 object WatchPriceSource {
@@ -48,7 +50,33 @@ object WatchPriceSource {
      * Tests (`WatchQuotesParityTest`). Ergebnis in der Reihenfolge von [coins].
      */
     suspend fun fetch(coins: List<String>, get: suspend (String) -> String): Map<String, WatchQuote> {
-        val wanted = coins.distinct().take(WatchCoins.MAX)
+        val all = coins.distinct().take(WatchCoins.MAX)
+        if (all.isEmpty()) return emptyMap()
+        // Favoriten des Handys (Paar mit Börse und Kontrakt) je für sich, Kürzel der eigenen Liste gemeinsam
+        val pairs = all.mapNotNull { WatchPair.parse(it) }
+        val wanted = all - pairs.map { it.key }.toSet()
+        val (spot, paired) = coroutineScope {
+            val favorites = pairs.map { p -> async { pairQuote(p, get) } }
+            coinQuotes(wanted, get) to favorites.awaitAll().filterNotNull()
+        }
+        val merged = WatchQuotes.merge(spot.values.toList(), paired)
+        return all.mapNotNull { c -> merged[c]?.let { c to it } }.toMap(LinkedHashMap())
+    }
+
+    /**
+     * Paar eines Favoriten: nacheinander bei den Börsen aus [WatchPairQuotes.venues] (die des Handys zuerst), bis eine
+     * einen Kurs liefert; Fehler oder fehlendes Paar → die nächste. Keine → null.
+     */
+    private suspend fun pairQuote(pair: WatchPair, get: suspend (String) -> String): WatchQuote? {
+        for (venue in WatchPairQuotes.venues(pair)) {
+            val quote = orEmpty { listOfNotNull(WatchPairQuotes.parse(venue, get(WatchPairQuotes.url(venue, pair)), pair)) }
+            if (quote.isNotEmpty()) return quote.first()
+        }
+        return null
+    }
+
+    /** Kürzel gegen USDT (Spot): Binance für alle, dann nur die fehlenden bei Bybit, dann OKX. */
+    private suspend fun coinQuotes(wanted: List<String>, get: suspend (String) -> String): Map<String, WatchQuote> {
         if (wanted.isEmpty()) return emptyMap()
         val binance = orEmpty { WatchQuotes.binance(get(WatchQuotes.binanceUrl(wanted)), wanted) }
         var merged = WatchQuotes.merge(binance)
@@ -60,8 +88,7 @@ object WatchPriceSource {
             val okx = perCoin(wanted - merged.keys, get, WatchQuotes::okxUrl, WatchQuotes::okx)
             merged = WatchQuotes.merge(merged.values.toList(), okx)
         }
-        // Reihenfolge der Favoriten
-        return wanted.mapNotNull { c -> merged[c]?.let { c to it } }.toMap(LinkedHashMap())
+        return merged
     }
 
     /** Je Coin eine Abfrage (gleichzeitig); ein Fehler betrifft nur diesen Coin. */

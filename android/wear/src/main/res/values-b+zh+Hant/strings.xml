@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">今日 %1$s</string>
     <string name="a11y_watch_portfolio_hidden">金額已隱藏</string>
     <string name="a11y_watch_outdated">價格已過時</string>
+    <string name="a11y_watch_no_price_unreachable">無價格，無法連線 %1$s</string>
+    <string name="a11y_watch_no_price_phone_only">無價格，手錶無法載入此交易對</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">最後更新於 %1$d 分鐘前</item>
     </plurals>

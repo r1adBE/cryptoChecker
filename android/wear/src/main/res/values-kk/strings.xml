@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">бүгін %1$s</string>
     <string name="a11y_watch_portfolio_hidden">сома жасырылған</string>
     <string name="a11y_watch_outdated">Бағам ескірген</string>
+    <string name="a11y_watch_no_price_unreachable">баға жоқ, %1$s қолжетімсіз</string>
+    <string name="a11y_watch_no_price_phone_only">баға жоқ, сағат бұл жұпты жүктей алмайды</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>
         <item quantity="other">соңғы жаңарту %1$d минут бұрын</item>

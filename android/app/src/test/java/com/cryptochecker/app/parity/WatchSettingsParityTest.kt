@@ -65,6 +65,33 @@ class WatchSettingsParityTest {
         }
     }
 
+    /**
+     * Eigene Änderung gewinnt auch, wenn die andere Seite weiter gezählt hatte: erst deren Stand, dann die Änderung mit
+     * max + 1 — und die andere Seite übernimmt das Ergebnis ([WatchSettings.merge]).
+     */
+    @Test
+    fun change() {
+        for (c in data.getValue("change").list().map { it.obj() }) {
+            val name = c["name"] as String
+            val isPhone = c["isPhone"] as Boolean
+            val remote = c["remote"]?.let { settings(it) }
+            val edit = c["edit"].obj()
+            val result = WatchSettings.change(settings(c["local"]), remote, isPhone) { s ->
+                when {
+                    edit["mode"] != null -> s.copy(mode = WatchSettings.Mode.entries.first { it.key == edit["mode"] })
+                    else -> s.copy(own = WatchCoins.toggle(s.own, edit["toggle"] as String))
+                }
+            }
+            assertEquals(name, settings(c["expected"]), result)
+            if (remote != null) {
+                val adopted = WatchSettings.merge(remote, result, remoteIsPhone = isPhone)
+                assertEquals(name, result.mode, adopted.mode)
+                assertEquals(name, result.own, adopted.own)
+                assertEquals(name, result.revision, adopted.revision)
+            }
+        }
+    }
+
     @Test
     fun nextRevision() {
         for (c in data.getValue("nextRevision").list().map { it.obj() }) {

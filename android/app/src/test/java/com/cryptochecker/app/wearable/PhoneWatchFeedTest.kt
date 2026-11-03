@@ -9,8 +9,9 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Kurse für die Uhr aus der Merkliste ([PhoneWatchFeed.quotesJson]): nur Spot gegen USDT (keine Futures, keine
- * DEX-Pools mit Kennung), beide Listen der Uhr, nichts bei «Immer selbst abrufen». Wie iOS `PhoneWatchLinkTests`.
+ * Kurse für die Uhr aus der Merkliste ([PhoneWatchFeed.quotesJson]): Kürzel nur Spot gegen USDT (keine Futures, keine
+ * DEX-Pools mit Kennung), beide Listen der Uhr; Favoriten mit Paar genau dieses Paar; nichts bei «Immer selbst
+ * abrufen». Wie iOS `PhoneWatchLinkTests`.
  */
 class PhoneWatchFeedTest {
 
@@ -32,6 +33,27 @@ class PhoneWatchFeedTest {
         assertEquals(listOf("BTC", "ADA"), quotes?.map { it.symbol })
         assertEquals(67_000.0, quotes?.first()?.price)
         assertEquals("Binance", quotes?.first()?.exchange)
+    }
+
+    /**
+     * «Wie Handy»: die Uhr bekommt das Paar des Favoriten (Binance Futures, Perp) samt dessen Kurs — nicht einen
+     * Spot-Kurs einer anderen Börse. Wie iOS `testSourceFollowsThePhonesPair`.
+     */
+    @Test
+    fun sourceFollowsThePhonesPair() {
+        val bank = watch("BANK", price = 0.0712, contract = FuturesContractType.PERPETUAL)
+            .copy(exchangeName = "Binance Futures", favorite = true)
+        val spot = watch("BANK", price = 0.07).copy(exchangeName = "Bybit")
+        val eur = watch("BTC", quote = "EUR", price = 60_000.0).copy(exchangeName = "Kraken", favorite = true, sortOrder = 1)
+        val (phone, pairs) = PhoneWatchSync.favorites(listOf(bank, spot, eur))
+        assertEquals(listOf("BANK", "BTC"), phone)
+        assertEquals(listOf("BANK/USDT|Binance Futures|Perp", "BTC/EUR|Kraken|"), pairs.map { it.key })
+        assertEquals(listOf("BANK Perp", "BTC/EUR"), pairs.map { it.label })
+        val settings = WatchSettings(mode = WatchSettings.Mode.PHONE, own = listOf("BANK"), phone = phone, pairs = pairs)
+        val quotes = WatchPhoneQuotes.fromJson(PhoneWatchFeed.quotesJson(listOf(bank, spot, eur), settings))!!
+        assertEquals(listOf("BANK", "BANK/USDT|Binance Futures|Perp", "BTC/EUR|Kraken|"), quotes.map { it.symbol })
+        assertEquals(listOf("Bybit", "Binance Futures", "Kraken"), quotes.map { it.exchange })
+        assertEquals(listOf(0.07, 0.0712, 60_000.0), quotes.map { it.price })
     }
 
     @Test

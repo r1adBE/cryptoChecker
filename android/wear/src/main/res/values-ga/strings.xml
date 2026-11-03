@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s inniu</string>
     <string name="a11y_watch_portfolio_hidden">méid i bhfolach</string>
     <string name="a11y_watch_outdated">Praghas as dáta</string>
+    <string name="a11y_watch_no_price_unreachable">gan phraghas, níl %1$s ar fáil</string>
+    <string name="a11y_watch_no_price_phone_only">gan phraghas, ní féidir leis an uaireadóir an péire seo a lódáil</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nuashonraithe %1$d nóiméad ó shin</item>
         <item quantity="two">nuashonraithe %1$d nóiméad ó shin</item>

@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">bugün %1$s</string>
     <string name="a11y_watch_portfolio_hidden">tutar gizli</string>
     <string name="a11y_watch_outdated">Fiyat güncel değil</string>
+    <string name="a11y_watch_no_price_unreachable">fiyat yok, %1$s erişilemiyor</string>
+    <string name="a11y_watch_no_price_phone_only">fiyat yok, saat bu çifti yükleyemiyor</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">son güncelleme %1$d dakika önce</item>
         <item quantity="other">son güncelleme %1$d dakika önce</item>

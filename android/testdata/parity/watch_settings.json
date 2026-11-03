@@ -1,5 +1,5 @@
 {
- "description": "Uhr-Apps: WatchCoins.toggle (max 8), cleanOwn (nur Top-30, ohne Doppelte, max 8), fromFavorites (gross, gültige Kürzel [A-Z0-9]{2,12}, ohne Doppelte, max 8); WatchSettings.fromJson (unbekannter Modus → own; Listen bereinigt; kaputt → null), shown, merge (Wahl und eigene Liste von der Seite mit der höheren Änderungsnummer revision, JSON-Schlüssel r; Gleichstand: Stand des Handys auf beiden Geräten; Handy-Liste immer vom Handy), nextRevision (eigene Änderung: revision + 1). Android marketdata/watch, iOS WatchCore.",
+ "description": "Uhr-Apps: WatchCoins.toggle (max 8), cleanOwn (nur Top-30, ohne Doppelte, max 8), fromFavorites (gross, gültige Kürzel [A-Z0-9]{2,12}, ohne Doppelte, max 8); WatchSettings.fromJson (unbekannter Modus → own; Listen bereinigt; kaputt → null), shown, merge (Wahl und eigene Liste von der Seite mit der höheren Änderungsnummer revision, JSON-Schlüssel r; Gleichstand: Stand des Handys auf beiden Geräten; Handy-Liste immer vom Handy), nextRevision (eigene Änderung: revision + 1). Android marketdata/watch, iOS WatchCore. change (eigene Änderung: erst den neuesten bekannten Stand der anderen Seite zusammenführen, dann bearbeiten, Nummer = max(lokal, andere Seite) + 1; danach übernimmt die andere Seite die Änderung — Uhr 5, Handy 3 ändert → Handy gewinnt).",
  "top": [
   "BTC",
   "ETH",
@@ -347,6 +347,145 @@
   {
    "revision": 41,
    "expected": 42
+  }
+ ],
+ "change": [
+  {
+   "name": "Uhr 5, Handy 3 wählt «Wie Handy» → 6, die Uhr übernimmt es",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "revision": 3
+   },
+   "remote": {
+    "mode": "own",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "revision": 5
+   },
+   "isPhone": true,
+   "edit": {
+    "mode": "phone"
+   },
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "revision": 6
+   }
+  },
+  {
+   "name": "Handy 9, Uhr 7 wählt einen Coin → 10 auf der Liste des Handys-Stands",
+   "local": {
+    "mode": "phone",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "revision": 7
+   },
+   "remote": {
+    "mode": "own",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "revision": 9
+   },
+   "isPhone": false,
+   "edit": {
+    "toggle": "ADA"
+   },
+   "expected": {
+    "mode": "own",
+    "own": [
+     "SOL",
+     "ADA"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "revision": 10
+   }
+  },
+  {
+   "name": "Ohne Stand der anderen Seite: eigene Nummer + 1",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [],
+    "revision": 4
+   },
+   "remote": null,
+   "isPhone": true,
+   "edit": {
+    "mode": "phone"
+   },
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "BTC"
+    ],
+    "phone": [],
+    "revision": 5
+   }
+  },
+  {
+   "name": "Andere Seite niedriger: eigene Nummer + 1, eigene Wahl als Grundlage",
+   "local": {
+    "mode": "phone",
+    "own": [
+     "BTC",
+     "ETH"
+    ],
+    "phone": [
+     "DOGE"
+    ],
+    "revision": 8
+   },
+   "remote": {
+    "mode": "own",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "revision": 2
+   },
+   "isPhone": false,
+   "edit": {
+    "toggle": "BTC"
+   },
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "ETH"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "revision": 9
+   }
   }
  ]
 }

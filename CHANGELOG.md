@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 193)
+
+* Watch: choosing «Like phone» on the phone now sticks on the watch, whichever side changed last.
+* Watch: favourites show the phone's exact pair and exchange, including futures (e.g. Binance Futures · BANK Perp); when the watch fetches itself it asks that exchange first.
+
 ## 16.2.2 (build 192)
 
 * Watchlist: right after installing, a calm line «Loading logos …» explains the letter circles; it disappears once the first logo load is done.

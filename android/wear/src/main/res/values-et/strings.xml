@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">täna %1$s</string>
     <string name="a11y_watch_portfolio_hidden">summa peidetud</string>
     <string name="a11y_watch_outdated">Hind aegunud</string>
+    <string name="a11y_watch_no_price_unreachable">hind puudub, %1$s pole kättesaadav</string>
+    <string name="a11y_watch_no_price_phone_only">hind puudub, kell ei saa seda paari laadida</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">viimati uuendatud %1$d minut tagasi</item>
         <item quantity="other">viimati uuendatud %1$d minutit tagasi</item>

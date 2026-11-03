@@ -75,7 +75,8 @@ struct WatchPriceProvider: TimelineProvider {
         let time = cached?.time ?? 0
         let now = Int64(date.timeIntervalSince1970 * 1000)
         let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
-        return WatchPriceEntry(date: date, coin: coin, price: q.map { WatchText.price($0.price) } ?? "—",
+        // Paar des iPhones wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert
+        return WatchPriceEntry(date: date, coin: WatchPair.label(of: coin), price: q.map { WatchText.price($0.price) } ?? "—",
                                change: WatchText.change(q?.change24h),
                                age: outdated ? WatchText.ago(time, now: now) : nil,
                                spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil)

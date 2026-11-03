@@ -42,10 +42,10 @@ enum WatchStore {
     @discardableResult
     static func mergeQuotes(_ fresh: [String: WatchQuote], startedAt: Int64) -> [String: WatchCached]? {
         let choice = settings
-        return quoteFile.merge(fresh, startedAt: startedAt, keep: choice.own + choice.phone)
+        return quoteFile.merge(fresh, startedAt: startedAt, keep: choice.kept)
     }
 
-    /// Coins der letzten Kurse vom iPhone (`WatchPhoneQuotes.selfFetch`).
+    /// Schlüssel (Coins bzw. Paare) der letzten Kurse vom iPhone (`WatchPhoneQuotes.selfFetch`).
     static var phoneCoins: Set<String> {
         Set(defaults.stringArray(forKey: keyPhoneCoins) ?? [])
     }
@@ -60,7 +60,7 @@ enum WatchStore {
                                                      source: q.exchange), time: q.time))
         }, uniquingKeysWith: { a, _ in a })
         defaults.set(quotes.map(\.symbol), forKey: keyPhoneCoins)
-        return quoteFile.mergeTimed(fresh, keep: choice.own + choice.phone)
+        return quoteFile.mergeTimed(fresh, keep: choice.kept)
     }
 
     /// Portfolio-Wert vom iPhone; nil = keiner (Schalter auf dem iPhone aus oder nie gesendet).

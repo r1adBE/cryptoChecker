@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s dnes</string>
     <string name="a11y_watch_portfolio_hidden">suma skrytá</string>
     <string name="a11y_watch_outdated">Kurz je zastaraný</string>
+    <string name="a11y_watch_no_price_unreachable">žiadna cena, %1$s nie je dostupná</string>
+    <string name="a11y_watch_no_price_phone_only">žiadna cena, hodinky nemôžu načítať tento pár</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">naposledy aktualizované pred %1$d minútou</item>
         <item quantity="few">naposledy aktualizované pred %1$d minútami</item>

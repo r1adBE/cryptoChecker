@@ -20,6 +20,9 @@
     <string name="a11y_watch_portfolio_hidden">amount hidden</string>
     <!-- Veraltet (WatchFreshness): «Kurs veraltet, zuletzt aktualisiert vor 47 Minuten» — wie a11y_price_outdated / a11y_updated_* der Handy-App -->
     <string name="a11y_watch_outdated">Price outdated</string>
+    <!-- Kein Kurs («—»), Grund für den Screenreader: %1$s = Börse des Paars vom Handy («Binance Futures») -->
+    <string name="a11y_watch_no_price_unreachable">no price, %1$s not reachable</string>
+    <string name="a11y_watch_no_price_phone_only">no price, the watch cannot load this pair</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">last updated %1$d minute ago</item>
         <item quantity="other">last updated %1$d minutes ago</item>

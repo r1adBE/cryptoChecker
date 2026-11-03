@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">आज %1$s</string>
     <string name="a11y_watch_portfolio_hidden">राशि छिपी है</string>
     <string name="a11y_watch_outdated">भाव पुराना है</string>
+    <string name="a11y_watch_no_price_unreachable">कोई भाव नहीं, %1$s तक पहुँच नहीं</string>
+    <string name="a11y_watch_no_price_phone_only">कोई भाव नहीं, घड़ी यह जोड़ी लोड नहीं कर सकती</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">अंतिम अपडेट %1$d मिनट पहले</item>
         <item quantity="other">अंतिम अपडेट %1$d मिनट पहले</item>

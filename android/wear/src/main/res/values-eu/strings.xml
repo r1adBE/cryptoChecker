@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">gaur %1$s</string>
     <string name="a11y_watch_portfolio_hidden">zenbatekoa ezkutatuta</string>
     <string name="a11y_watch_outdated">Prezio zaharkitua</string>
+    <string name="a11y_watch_no_price_unreachable">preziorik ez, %1$s ez dago eskuragarri</string>
+    <string name="a11y_watch_no_price_phone_only">preziorik ez, erlojuak ezin du bikote hau kargatu</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">azkenekoz eguneratua duela %1$d minutu</item>
         <item quantity="other">azkenekoz eguneratua duela %1$d minutu</item>

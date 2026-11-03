@@ -5,8 +5,9 @@ import org.json.JSONObject
 
 /**
  * Kurse vom Handy für die Uhr: Das Handy schickt für die Coins der Uhr (beide Listen) die Kurse, die es ohnehin schon
- * hat (Merkliste, Paar gegen [QUOTE_ASSET], Spot, nicht deaktiviert) — samt 24 h, Börse und Zeit seines Abrufs, ohne
- * eigene Abfrage für die Uhr. Die Uhr übernimmt sie und fragt selbst nur, was das Handy nicht liefert ([selfFetch]).
+ * hat — samt 24 h, Börse und Zeit seines Abrufs, ohne eigene Abfrage für die Uhr. Eigene Liste (Kürzel): Paar der
+ * Merkliste gegen [QUOTE_ASSET], Spot, nicht deaktiviert; «Wie Handy» ([WatchPair]-Schlüssel): genau das Paar des
+ * Favoriten (Börse und Kontrakt, auch Futures/Perp und andere Börsen). Die Uhr übernimmt sie und fragt selbst nur, was das Handy nicht liefert ([selfFetch]).
  * Wie iOS `WatchPhoneQuotes` (Paritäts-Fixture `watch_link.json`).
  */
 object WatchPhoneQuotes {
@@ -17,7 +18,10 @@ object WatchPhoneQuotes {
 
     private val SYMBOL = Regex("[A-Z0-9]{2,12}")
 
-    /** Paar der Merkliste des Handys, nur was die Uhr braucht; [time] = letzter Abruf (Epoch-ms). */
+    /**
+     * Paar der Merkliste des Handys, nur was die Uhr braucht; [time] = letzter Abruf (Epoch-ms); [contract] = Marke wie
+     * [WatchPair.contract] (leer = Spot).
+     */
     data class Row(
         val base: String,
         val quote: String,
@@ -28,26 +32,43 @@ object WatchPhoneQuotes {
         val exchange: String,
         val time: Long,
         val sortOrder: Int,
+        val contract: String = "",
     )
 
-    /** Kurs eines Coins vom Handy; [time] = Abruf des Handys (Epoch-ms), gilt auf der Uhr als Stand des Kurses. */
+    /**
+     * Kurs vom Handy; [symbol] = Schlüssel der Uhr (Kürzel oder [WatchPair.key]); [time] = Abruf des Handys (Epoch-ms),
+     * gilt auf der Uhr als Stand des Kurses.
+     */
     data class Quote(val symbol: String, val price: Double, val change24h: Double?, val exchange: String, val time: Long)
 
-    /** Je Coin aus [coins] (Reihenfolge bleibt) der neueste brauchbare Kurs; gleich alt: das Paar weiter oben. */
+    /**
+     * Je Schlüssel aus [coins] (Reihenfolge bleibt) der neueste brauchbare Kurs; gleich alt: das Paar weiter oben. Kürzel:
+     * jedes Spot-Paar gegen USDT; [WatchPair]-Schlüssel: nur genau dieses Paar (Basis, Gegenwährung, Börse, Kontrakt).
+     */
     fun pick(rows: List<Row>, coins: List<String>): List<Quote> {
         val usable = rows.mapNotNull { r ->
             val price = r.price?.takeIf { it.isFinite() && it > 0.0 } ?: return@mapNotNull null
-            if (r.quote.trim().uppercase() != QUOTE_ASSET || !r.spot || r.disabled || r.time <= 0L) return@mapNotNull null
-            Candidate(Quote(r.base.trim().uppercase(), price, r.change24h?.takeIf { it.isFinite() }, r.exchange, r.time), r.sortOrder)
+            if (r.disabled || r.time <= 0L) return@mapNotNull null
+            val coin = r.base.trim().uppercase().takeIf { r.quote.trim().uppercase() == QUOTE_ASSET && r.spot }
+            val pair = WatchPair.of(r.base, r.quote, r.exchange, r.contract)?.key
+            Candidate(coin, pair, price, r.change24h?.takeIf { it.isFinite() }, r.exchange, r.time, r.sortOrder)
         }
-        return coins.distinct().take(MAX).mapNotNull { coin ->
-            usable.filter { it.quote.symbol == coin }
-                .minWithOrNull(compareByDescending<Candidate> { it.quote.time }.thenBy { it.sortOrder })
-                ?.quote
+        return coins.distinct().take(MAX).mapNotNull { key ->
+            usable.filter { it.coin == key || it.pair == key }
+                .minWithOrNull(compareByDescending<Candidate> { it.time }.thenBy { it.sortOrder })
+                ?.let { Quote(key, it.price, it.change24h, it.exchange, it.time) }
         }
     }
 
-    private class Candidate(val quote: Quote, val sortOrder: Int)
+    private class Candidate(
+        val coin: String?,
+        val pair: String?,
+        val price: Double,
+        val change24h: Double?,
+        val exchange: String,
+        val time: Long,
+        val sortOrder: Int,
+    )
 
     fun toJson(quotes: List<Quote>): String {
         val list = JSONArray()
@@ -59,14 +80,17 @@ object WatchPhoneQuotes {
         return JSONObject().put("v", 1).put("q", list).toString()
     }
 
-    /** Liest [text]; Unlesbares → null, ungültige Einträge (Kürzel, Kurs ≤ 0, ohne Zeit) fallen weg, höchstens [MAX]. */
+    /**
+     * Liest [text]; Unlesbares → null, ungültige Einträge (Schlüssel weder Kürzel noch [WatchPair.key], Kurs ≤ 0, ohne
+     * Zeit) fallen weg, höchstens [MAX].
+     */
     fun fromJson(text: String?): List<Quote>? {
         val o = text?.let { runCatching { JSONObject(it) }.getOrNull() } ?: return null
         val list = o.optJSONArray("q") ?: return null
         val out = ArrayList<Quote>()
         for (i in 0 until list.length()) {
             val q = list.optJSONObject(i) ?: continue
-            val symbol = q.optString("s").takeIf { SYMBOL.matches(it) } ?: continue
+            val symbol = q.optString("s").takeIf { SYMBOL.matches(it) || WatchPair.parse(it) != null } ?: continue
             val price = q.optDouble("p").takeIf { it.isFinite() && it > 0.0 } ?: continue
             val time = q.optLong("t").takeIf { it > 0L } ?: continue
             if (out.any { it.symbol == symbol }) continue
@@ -80,7 +104,8 @@ object WatchPhoneQuotes {
      * Coins aus [shown], die die Uhr selbst abfragt. Ohne Kurs immer. Mit Kursen vom Handy ([usePhone]: Wahl «Kurse vom
      * Handy» und Handy verbunden) nie für einen Coin, den das Handy liefert ([phoneCoins]), solange dessen Kurs nicht
      * veraltet ist ([WatchFreshness]) — auch nicht auf «Aktualisieren». Sonst auf Wunsch ([force]) oder ab
-     * [WatchInterval.refetchAfterMillis]. [times] = Stand je Coin auf der Uhr.
+     * [WatchInterval.refetchAfterMillis]. [times] = Stand je Coin auf der Uhr. Nie für ein Paar, das die Uhr nicht selbst
+     * abfragen kann ([WatchPair.selfFetchable]: Pool, Laufzeit-Kontrakt) — das kommt nur vom Handy.
      */
     fun selfFetch(
         shown: List<String>,
@@ -93,6 +118,7 @@ object WatchPhoneQuotes {
     ): List<String> = shown.filter { coin ->
         val time = times[coin] ?: 0L
         when {
+            WatchPair.parse(coin)?.selfFetchable == false -> false
             time <= 0L -> true
             usePhone && coin in phoneCoins -> WatchFreshness.isOutdated(time, now)
             force -> true

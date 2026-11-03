@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">bu gün %1$s</string>
     <string name="a11y_watch_portfolio_hidden">məbləğ gizlədilib</string>
     <string name="a11y_watch_outdated">Qiymət köhnəlib</string>
+    <string name="a11y_watch_no_price_unreachable">qiymət yoxdur, %1$s əlçatan deyil</string>
+    <string name="a11y_watch_no_price_phone_only">qiymət yoxdur, saat bu cütü yükləyə bilmir</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">son yenilənmə %1$d dəqiqə əvvəl</item>
         <item quantity="other">son yenilənmə %1$d dəqiqə əvvəl</item>

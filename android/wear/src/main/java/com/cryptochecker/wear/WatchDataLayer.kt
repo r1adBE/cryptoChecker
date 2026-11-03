@@ -15,6 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
@@ -50,6 +52,23 @@ object WatchDataLayer {
      */
     fun publish(context: Context, store: WatchStore) {
         processScope.launch { publishing.publish({ store.settings }) { publish(context, it) } }
+    }
+
+    private val changing = Mutex()
+
+    /**
+     * Eigene Änderung auf der Uhr ([edit], ohne Änderungsnummer): zuerst den neuesten Stand des Handys aus der
+     * Daten-Schicht (auch ohne Verbindung der zuletzt bekannte) zusammenführen, dann mit max(Uhr, Handy) + 1 speichern
+     * ([WatchSettings.change]) und veröffentlichen. Nacheinander ([changing]); läuft in [processScope] weiter.
+     */
+    fun change(context: Context, store: WatchStore, edit: (WatchSettings) -> WatchSettings) {
+        processScope.launch {
+            changing.withLock {
+                val phone = runCatching { newestRemote(context, items(context, PATH)) }.getOrNull()
+                store.updateSettings { WatchSettings.change(it, phone, isPhone = false, edit) }
+            }
+            publish(context, store)
+        }
     }
 
     private suspend fun publish(context: Context, settings: WatchSettings) = withContext(Dispatchers.IO) {

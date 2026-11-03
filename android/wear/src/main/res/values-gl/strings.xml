@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s hoxe</string>
     <string name="a11y_watch_portfolio_hidden">importe oculto</string>
     <string name="a11y_watch_outdated">Prezo desactualizado</string>
+    <string name="a11y_watch_no_price_unreachable">sen prezo, %1$s non está dispoñible</string>
+    <string name="a11y_watch_no_price_phone_only">sen prezo, o reloxo non pode cargar este par</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizado por última vez hai %1$d minuto</item>
         <item quantity="other">actualizado por última vez hai %1$d minutos</item>

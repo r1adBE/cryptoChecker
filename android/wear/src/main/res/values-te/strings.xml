@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">ఈరోజు %1$s</string>
     <string name="a11y_watch_portfolio_hidden">మొత్తం దాచబడింది</string>
     <string name="a11y_watch_outdated">ధర పాతది</string>
+    <string name="a11y_watch_no_price_unreachable">ధర లేదు, %1$s అందుబాటులో లేదు</string>
+    <string name="a11y_watch_no_price_phone_only">ధర లేదు, వాచ్ ఈ జతను లోడ్ చేయలేదు</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>
         <item quantity="other">%1$d నిమిషాల క్రితం చివరిగా అప్‌డేట్ అయింది</item>

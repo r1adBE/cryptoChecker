@@ -22,7 +22,7 @@ struct WatchSettingsSection: View {
                         label: { L($0 == .phone ? "settings_watch_mode_phone" : "settings_watch_mode_own") },
                         onSelect: { link.setMode($0) })
             // Coins, die die Uhr gerade zeigt
-            Text(verbatim: s.shown.isEmpty ? L("settings_watch_none") : s.shown.joined(separator: " · "))
+            Text(verbatim: s.shown.isEmpty ? L("settings_watch_none") : s.shown.map { WatchPair.label(of: $0) }.joined(separator: " · "))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
             if s.mode == .own {

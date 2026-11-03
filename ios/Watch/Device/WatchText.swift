@@ -21,6 +21,14 @@ enum WatchText {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
+    /// Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, das die Uhr selbst abfragen kann →
+    /// dessen Börse nicht erreichbar; sonst (Pool, Laufzeit-Kontrakt) kann die Uhr das Paar nicht selbst laden. Wie
+    /// Android `missingReason`.
+    static func missingReason(_ key: String) -> String {
+        guard let pair = WatchPair.parse(key) else { return t("watch_error") }
+        return pair.selfFetchable ? t("a11y_watch_no_price_unreachable", pair.exchange) : t("a11y_watch_no_price_phone_only")
+    }
+
     /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).
     static func change(_ value: Double?) -> String { WatchPercent.change(value) }
 

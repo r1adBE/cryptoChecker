@@ -32,12 +32,12 @@ class WatchStore(context: Context) {
     /** Portfolio-Wert vom Handy; null = keiner (Schalter auf dem Handy aus oder nie gesendet). */
     val portfolioFlow: StateFlow<WatchPortfolio?> = state.portfolio.asStateFlow()
 
-    /** Coins der letzten Kurse vom Handy ([WatchPhoneQuotes.selfFetch]). */
+    /** Schlüssel (Coins bzw. Paare) der letzten Kurse vom Handy ([WatchPhoneQuotes.selfFetch]). */
     val phoneCoins: Set<String> get() = prefs.getStringSet(KEY_PHONE_COINS, null).orEmpty()
 
     val settings: WatchSettings get() = state.settings.value
 
-    /** Coins, die die Uhr gerade zeigt. */
+    /** Schlüssel (Coins bzw. Paare des Handys), die die Uhr gerade zeigt. */
     val shown: List<String> get() = settings.shown
 
     /** Wahl ändern ([change] bekommt den aktuellen Stand), speichern; Ergebnis = neuer Stand. */
@@ -59,7 +59,7 @@ class WatchStore(context: Context) {
      * geschrieben hat.
      */
     fun mergeQuotes(fresh: Map<String, WatchQuote>, startedAt: Long): Map<String, WatchCached> = synchronized(LOCK) {
-        val keep = state.settings.value.let { it.own + it.phone }
+        val keep = state.settings.value.kept
         writeQuotes(WatchCache.merge(state.quotes.value, fresh, startedAt, keep), null)
     }
 
@@ -68,7 +68,7 @@ class WatchStore(context: Context) {
      * als [phoneCoins] merken; Ergebnis = neuer Stand.
      */
     fun takePhoneQuotes(quotes: List<WatchPhoneQuotes.Quote>): Map<String, WatchCached> = synchronized(LOCK) {
-        val keep = state.settings.value.let { it.own + it.phone }
+        val keep = state.settings.value.kept
         val fresh = quotes.associate { it.symbol to WatchCached(WatchQuote(it.symbol, it.price, it.change24h, it.exchange), it.time) }
         writeQuotes(WatchCache.mergeTimed(state.quotes.value, fresh, keep), quotes.map { it.symbol }.toSet())
     }

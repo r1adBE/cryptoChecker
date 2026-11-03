@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s heute</string>
     <string name="a11y_watch_portfolio_hidden">Betrag verborgen</string>
     <string name="a11y_watch_outdated">Kurs veraltet</string>
+    <string name="a11y_watch_no_price_unreachable">kein Kurs, %1$s nicht erreichbar</string>
+    <string name="a11y_watch_no_price_phone_only">kein Kurs, die Uhr kann dieses Paar nicht abrufen</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">zuletzt aktualisiert vor %1$d Minute</item>
         <item quantity="other">zuletzt aktualisiert vor %1$d Minuten</item>

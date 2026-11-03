@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s azi</string>
     <string name="a11y_watch_portfolio_hidden">sumă ascunsă</string>
     <string name="a11y_watch_outdated">Curs învechit</string>
+    <string name="a11y_watch_no_price_unreachable">niciun preț, %1$s nu poate fi accesat</string>
+    <string name="a11y_watch_no_price_phone_only">niciun preț, ceasul nu poate încărca această pereche</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizat ultima dată acum %1$d minut</item>
         <item quantity="few">actualizat ultima dată acum %1$d minute</item>

@@ -15,6 +15,7 @@ import androidx.wear.watchface.complications.data.TimeDifferenceStyle
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchSettings
 import kotlinx.coroutines.CancellationException
@@ -70,7 +71,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         } else {
             null
         }
-        return data(request.complicationType, coin, WatchFormat.price(q.price), WatchFormat.change(q.change24h), age, tap)
+        // Paar des Handys wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert
+        return data(request.complicationType, WatchPair.label(coin), WatchFormat.price(q.price), WatchFormat.change(q.change24h), age, tap)
     }
 
     /** Alter veralteter Kurse: kurz für die lange Komplikation, ausgeschrieben für den Screenreader; [time] = Stand. */

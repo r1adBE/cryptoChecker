@@ -1,5 +1,6 @@
 package com.cryptochecker.wear
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,7 @@ import androidx.wear.compose.material.ToggleChip
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchFreshness
 import com.cryptochecker.marketdata.watch.WatchInterval
+import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
@@ -85,11 +87,8 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         val loading by fetcher.loading.collectAsState()
         val failed by fetcher.failed.collectAsState()
 
-        /** Änderung auf der Uhr: mit nächster Änderungsnummer speichern und den aktuellen Stand ans Handy geben. */
-        fun change(edit: (WatchSettings) -> WatchSettings) {
-            store.updateSettings { edit(it).nextRevision() }
-            WatchDataLayer.publish(context, store)
-        }
+        /** Änderung auf der Uhr: nach dem Stand des Handys mit höherer Nummer speichern und ans Handy geben. */
+        fun change(edit: (WatchSettings) -> WatchSettings) = WatchDataLayer.change(context, store, edit)
 
         // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten, Kurse, Portfolio-Wert), erst dann laden
         LaunchedEffect(Unit) {
@@ -119,9 +118,9 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
                 QuoteList(settings, cache, portfolio, now, loading, failed,
                     onRefresh = { fetcher.refresh() },
                     onToggleMode = {
-                        change {
-                            it.copy(mode = if (it.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE)
-                        }
+                        // Ziel nach der gezeigten Wahl, nicht nach einem neueren Stand des Handys
+                        val target = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
+                        change { it.copy(mode = target) }
                     },
                     onChoose = { choosing = true })
             }
@@ -150,8 +149,8 @@ private fun QuoteList(
                 Text(stringResource(if (phone) R.string.watch_phone_empty else R.string.watch_empty), textAlign = TextAlign.Center)
             }
         }
-        coins.forEach { coin ->
-            item { QuoteRow(coin, cache[coin], now) }
+        coins.forEach { key ->
+            item { QuoteRow(key, cache[key], now, loading) }
         }
         item {
             // Stand der Liste = ältester gezeigter Kurs (je Coin eigene Zeit)
@@ -186,18 +185,25 @@ private fun QuoteList(
 }
 
 /**
- * Zeile eines Coins: sieht aus wie ein Chip, hat aber keine Aktion (neu laden nur über «Aktualisieren», wie iOS) — für
- * den Screenreader ein Text ohne Rolle «Schaltfläche». Veraltet: Kurs grau, Alter statt Börse.
+ * Zeile eines Coins bzw. Paars des Handys ([key], Anzeige [WatchPair.label], z. B. «BANK Perp»): sieht aus wie ein
+ * Chip, hat aber keine Aktion (neu laden nur über «Aktualisieren», wie iOS) — für den Screenreader ein Text ohne Rolle
+ * «Schaltfläche». Unter dem Kurs die Börse, die ihn geliefert hat. Veraltet: Kurs grau, Alter statt Börse. Ohne Kurs
+ * «—» und, sobald nichts mehr lädt, der Grund im Screenreader ([missingReason]).
  */
 @Composable
-private fun QuoteRow(coin: String, cached: WatchCached?, now: Long) {
+private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Boolean) {
     val context = LocalContext.current
+    val coin = WatchPair.label(key)
     val q = cached?.quote
     val price = q?.let { WatchFormat.price(it.price) } ?: "—"
     val change = WatchFormat.change(q?.change24h)
     val outdated = cached != null && WatchFreshness.isOutdated(cached.time, now)
     val row = stringResource(R.string.a11y_watch_row, coin, price, change)
-    val spoken = if (cached != null && outdated) "$row, ${WatchAge.spoken(context, cached.time, now)}" else row
+    val spoken = when {
+        cached != null && outdated -> "$row, ${WatchAge.spoken(context, cached.time, now)}"
+        cached == null && !loading -> "$row, ${missingReason(context, key)}"
+        else -> row
+    }
     val detail = if (cached != null && outdated) WatchAge.short(cached.time, now) else q?.source
     Column(
         verticalArrangement = Arrangement.Center,
@@ -236,6 +242,19 @@ private fun ChooseList(own: List<String>, onToggle: (String) -> Unit) {
                 )
             }
         }
+    }
+}
+
+/**
+ * Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, das die Uhr selbst abfragen kann → dessen
+ * Börse nicht erreichbar; sonst (Pool, Laufzeit-Kontrakt) kann die Uhr das Paar nicht selbst laden.
+ */
+internal fun missingReason(context: Context, key: String): String {
+    val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_error)
+    return if (pair.selfFetchable) {
+        context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
+    } else {
+        context.getString(R.string.a11y_watch_no_price_phone_only)
     }
 }
 

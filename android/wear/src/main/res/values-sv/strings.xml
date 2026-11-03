@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s i dag</string>
     <string name="a11y_watch_portfolio_hidden">belopp dolt</string>
     <string name="a11y_watch_outdated">Kursen är inaktuell</string>
+    <string name="a11y_watch_no_price_unreachable">ingen kurs, %1$s kan inte nås</string>
+    <string name="a11y_watch_no_price_phone_only">ingen kurs, klockan kan inte hämta det här paret</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">senast uppdaterad för %1$d minut sedan</item>
         <item quantity="other">senast uppdaterad för %1$d minuter sedan</item>

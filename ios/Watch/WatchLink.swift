@@ -34,6 +34,13 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
         }
     }
 
+    /// Zuletzt empfangener Stand des iPhones (Anwendungskontext) für eigene Änderungen (`WatchSettings.change`); nil =
+    /// keiner oder Sitzung nicht aktiv.
+    var phoneSettings: WatchSettings? {
+        guard WCSession.isSupported(), WCSession.default.activationState == .activated else { return nil }
+        return WatchSettings.fromJson(WCSession.default.receivedApplicationContext[Self.key] as? String)
+    }
+
     /// Eigenen Stand ans iPhone geben (dort gewinnt die höhere Änderungsnummer). Vor der Aktivierung geht nichts weg;
     /// `activationDidComplete` sendet den dann aktuellen Stand nach.
     func publish(_ settings: WatchSettings) {

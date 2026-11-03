@@ -51,6 +51,32 @@ final class WatchSettingsParityTests: XCTestCase {
         }
     }
 
+    /// Eigene Änderung gewinnt auch, wenn die andere Seite weiter gezählt hatte: erst deren Stand, dann die Änderung mit
+    /// max + 1 — und die andere Seite übernimmt das Ergebnis (`WatchSettings.merge`).
+    func testChange() throws {
+        let data = try TestSupport.fixture("watch_settings")
+        for c in TestSupport.list(data["change"]) {
+            let name = c["name"] as? String ?? ""
+            let isPhone = c["isPhone"] as? Bool ?? false
+            let remote = (c["remote"] as? [String: Any]).map { settings($0) }
+            let edit = c["edit"] as? [String: Any] ?? [:]
+            let result = WatchSettings.change(settings(c["local"]), remote: remote, isPhone: isPhone) { s in
+                if let mode = edit["mode"] as? String {
+                    s.mode = WatchSettings.Mode(rawValue: mode) ?? .own
+                } else {
+                    s.own = WatchCoins.toggle(s.own, edit["toggle"] as? String ?? "")
+                }
+            }
+            XCTAssertEqual(result, settings(c["expected"]), name)
+            if let remote {
+                let adopted = WatchSettings.merge(remote, result, remoteIsPhone: isPhone)
+                XCTAssertEqual(adopted.mode, result.mode, name)
+                XCTAssertEqual(adopted.own, result.own, name)
+                XCTAssertEqual(adopted.revision, result.revision, name)
+            }
+        }
+    }
+
     func testNextRevision() throws {
         let data = try TestSupport.fixture("watch_settings")
         for c in TestSupport.list(data["nextRevision"]) {

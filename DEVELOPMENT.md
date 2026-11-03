@@ -3264,6 +3264,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 191: watch prices from the phone (Data Layer / WatchConnectivity, at most once a minute), `WatchInterval` clamp 15–60 min,
   source setting, opt-in portfolio total + complication (hidden amounts and portfolio lock → «•••»).
 * Build 192: `LogoLoadingHint` flag (pending images in the first logo run; `.first_load_done` in the logo folder).
+* Build 193: watch choice revision = max(local, other side) + 1 before a change; phone sends each favourite as pair (exchange,
+  contract) with price (`watch_pairs.json`); watch self-fetch from the same exchange/contract first (Binance USDⓈ-M, Bybit linear, OKX swap).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

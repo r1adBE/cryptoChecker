@@ -33,4 +33,11 @@ object WatchCoins {
      */
     fun fromFavorites(bases: List<String>): List<String> =
         bases.map { it.trim().uppercase() }.filter { SYMBOL.matches(it) }.distinct().take(MAX)
+
+    /**
+     * Paare zu [fromFavorites]: je Coin das Paar des ersten Favoriten mit dieser Basis ([pairs] gleich lang und gleich
+     * geordnet wie [bases], null = kein gültiges Paar); ohne Paar zeigt die Uhr den Coin wie bisher gegen USDT.
+     */
+    fun favoritePairs(bases: List<String>, pairs: List<WatchPair?>): List<WatchPair> =
+        fromFavorites(bases).mapNotNull { coin -> pairs.getOrNull(bases.indexOfFirst { it.trim().uppercase() == coin }) }
 }

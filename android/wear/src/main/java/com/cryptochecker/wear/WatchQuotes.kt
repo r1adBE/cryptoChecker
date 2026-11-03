@@ -4,7 +4,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URLEncoder
 
-/** Kurs eines Coins gegen USDT auf der Uhr: letzter Kurs, Änderung über 24 h in Prozent (null = unbekannt), Börse. */
+/**
+ * Kurs auf der Uhr: [symbol] = Schlüssel (Kürzel gegen USDT oder Paar des Handys, `WatchPair.key`), letzter Kurs,
+ * Änderung über 24 h in Prozent (null = unbekannt), Börse, die ihn geliefert hat.
+ */
 data class WatchQuote(val symbol: String, val price: Double, val change24h: Double?, val source: String)
 
 /**

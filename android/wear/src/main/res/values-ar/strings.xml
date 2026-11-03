@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s اليوم</string>
     <string name="a11y_watch_portfolio_hidden">المبلغ مخفي</string>
     <string name="a11y_watch_outdated">السعر قديم</string>
+    <string name="a11y_watch_no_price_unreachable">لا يوجد سعر، تعذّر الوصول إلى %1$s</string>
+    <string name="a11y_watch_no_price_phone_only">لا يوجد سعر، لا تستطيع الساعة تحميل هذا الزوج</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">آخر تحديث قبل %1$d دقيقة</item>
         <item quantity="one">آخر تحديث قبل %1$d دقيقة</item>

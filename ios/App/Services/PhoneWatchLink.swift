@@ -2,7 +2,7 @@ import Foundation
 import WatchConnectivity
 
 /// Apple-Watch-App vom iPhone aus: Coin-Liste (Einstellungen › Widgets › Uhr: «Wie iPhone» = Basis-Coins der
-/// Favoriten ★, höchstens 8, oder «Eigene Liste»), Kursquelle der Uhr (`WatchSettings.source`) und Intervall der
+/// Favoriten ★, höchstens 8, je mit dem Paar des Favoriten, oder «Eigene Liste»), Kursquelle der Uhr (`WatchSettings.source`) und Intervall der
 /// Kurs-Aktualisierung (`WatchSettings.interval`, `WatchInterval.clamp`). Dazu im selben Anwendungskontext von
 /// WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server):
 ///  - `quotes`: für beide Listen der Uhr die Kurse, die die Merkliste schon hat (`WatchPhoneQuotes.pick`) — keine eigene
@@ -27,7 +27,7 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     @Published private(set) var portfolioOnWatch: Bool
     /// Zuletzt berechnete Kurse bzw. Portfolio-Stand für den Anwendungskontext (jede Sendung trägt alles).
     private var quotesJson: String?
-    /// Paare der Merkliste gegen USDT (Spot), aus denen `quotesJson` entsteht — neu gewählt bei jeder anderen Liste.
+    /// Paare der Merkliste, aus denen `quotesJson` entsteht — neu gewählt bei jeder anderen Liste.
     private var quoteRows: [WatchPhoneQuotes.Row] = []
     private var portfolioJson: String?
     private var lastSent = Date.distantPast
@@ -55,11 +55,11 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
 
     /// Merkliste geändert (jede Übernahme in `AppData.snapshot`): Liste «Wie iPhone» und Kurse nachführen.
     func favoritesChanged(_ watches: [Watch]) {
-        let bases = watches.filter(\.favorite).sorted { ($0.sortOrder, $0.id) < ($1.sortOrder, $1.id) }.map(\.baseAsset)
-        let phone = WatchCoins.fromFavorites(bases)
-        if phone != settings.phone {
+        let (phone, pairs) = Self.favorites(watches)
+        if phone != settings.phone || pairs != settings.pairs {
             var next = settings
             next.phone = phone
+            next.pairs = pairs
             update(next, publish: true)
         }
         quoteRows = Self.quoteRows(watches)
@@ -68,22 +68,31 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
 
     /// Kurse für beide Listen der Uhr neu wählen; geändert → senden (höchstens einmal je `minGap`).
     private func refreshQuotes() {
-        let quotes = WatchPhoneQuotes.toJson(WatchPhoneQuotes.pick(quoteRows, coins: settings.own + settings.phone))
+        let quotes = WatchPhoneQuotes.toJson(WatchPhoneQuotes.pick(quoteRows, coins: settings.kept))
         guard quotes != quotesJson else { return }
         quotesJson = quotes
         sendSoon()
     }
 
     func setMode(_ mode: WatchSettings.Mode) {
-        var next = settings
-        next.mode = mode
-        update(next.nextRevision(), publish: true)
+        change { $0.mode = mode }
     }
 
     func toggleOwn(_ coin: String) {
-        var next = settings
-        next.own = WatchCoins.toggle(settings.own, coin)
-        update(next.nextRevision(), publish: true)
+        change { $0.own = WatchCoins.toggle($0.own, coin) }
+    }
+
+    /// Eigene Änderung von Wahl oder eigener Liste: zuerst den zuletzt empfangenen Stand der Uhr zusammenführen, dann
+    /// mit max(iPhone, Uhr) + 1 speichern und senden (`WatchSettings.change`) — sonst bliebe die Uhr bei ihrer Wahl, wenn
+    /// sie schon weiter gezählt hatte. Wie Android `PhoneWatchSync.change`.
+    private func change(_ edit: (inout WatchSettings) -> Void) {
+        update(WatchSettings.change(settings, remote: Self.watchSettings(), isPhone: true, edit), publish: true)
+    }
+
+    /// Zuletzt empfangener Stand der Uhr (Anwendungskontext); nil = keiner oder Sitzung nicht aktiv.
+    private static func watchSettings() -> WatchSettings? {
+        guard WCSession.isSupported(), WCSession.default.activationState == .activated else { return nil }
+        return WatchSettings.fromJson(WCSession.default.receivedApplicationContext[contextKey] as? String)
     }
 
     /// «Kurse vom Handy, sonst selbst» / «Immer selbst abrufen» — bestimmt nur das iPhone (keine Änderungsnummer).
@@ -157,14 +166,29 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         lastSent = Date()
     }
 
-    /// Paare der Merkliste, aus denen die Uhr Kurse bekommen kann (gegen USDT, Spot); gesendet werden sie nur bei «Kurse
-    /// vom Handy, sonst selbst» (`send`). Wie Android `PhoneWatchFeed.quotesJson`.
+    /// Paare der Merkliste, aus denen die Uhr Kurse bekommen kann (eigene Liste: gegen USDT, Spot; «Wie iPhone»: genau
+    /// das Paar des Favoriten, auch Futures/Perp und andere Börsen); gesendet werden sie nur bei «Kurse vom Handy, sonst
+    /// selbst» (`send`). Wie Android `PhoneWatchFeed.quotesJson`.
     static func quoteRows(_ watches: [Watch]) -> [WatchPhoneQuotes.Row] {
-        watches.filter { $0.quoteAsset.uppercased() == WatchPhoneQuotes.quoteAsset }.map {
+        watches.map {
             WatchPhoneQuotes.Row(base: $0.baseAsset, quote: $0.quoteAsset, spot: $0.contractType == .none && $0.pairId == nil,
                                  disabled: $0.disabled, price: $0.lastPrice, change24h: $0.change24h,
-                                 exchange: $0.exchangeName, time: $0.lastUpdate, sortOrder: $0.sortOrder)
+                                 exchange: $0.exchangeName, time: $0.lastUpdate, sortOrder: $0.sortOrder,
+                                 contract: WatchPair.contract(short: $0.contractShortName, hasPairId: $0.pairId != nil))
         }
+    }
+
+    /// «Wie iPhone»: Basis-Coins der Favoriten (`WatchCoins.fromFavorites`) und je Coin das Paar des ersten Favoriten
+    /// (`WatchPair`: Börse und Kontrakt wie in der Merkliste, z. B. BANK/USDT Perp bei Binance Futures). Wie Android
+    /// `PhoneWatchSync.favorites`.
+    static func favorites(_ watches: [Watch]) -> (phone: [String], pairs: [WatchPair]) {
+        let favorites = watches.filter(\.favorite).sorted { ($0.sortOrder, $0.id) < ($1.sortOrder, $1.id) }
+        let bases = favorites.map(\.baseAsset)
+        let pairs = favorites.map {
+            WatchPair.of(base: $0.baseAsset, quote: $0.quoteAsset, exchange: $0.exchangeName,
+                         contract: WatchPair.contract(short: $0.contractShortName, hasPairId: $0.pairId != nil))
+        }
+        return (WatchCoins.fromFavorites(bases), WatchCoins.favoritePairs(bases, pairs: pairs))
     }
 
     /// Stand der Uhr: Wahl und eigene Liste nur bei höherer Änderungsnummer (Gleichstand: eigene); iPhone-Liste,

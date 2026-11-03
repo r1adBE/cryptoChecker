@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">%1$s vandag</string>
     <string name="a11y_watch_portfolio_hidden">bedrag versteek</string>
     <string name="a11y_watch_outdated">Prys verouderd</string>
+    <string name="a11y_watch_no_price_unreachable">geen koers, %1$s nie bereikbaar nie</string>
+    <string name="a11y_watch_no_price_phone_only">geen koers, die horlosie kan hierdie paar nie laai nie</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">laas %1$d minuut gelede bygewerk</item>
         <item quantity="other">laas %1$d minute gelede bygewerk</item>

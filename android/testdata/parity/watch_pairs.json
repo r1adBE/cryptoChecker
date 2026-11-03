@@ -1,0 +1,577 @@
+{
+ "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» = Paar mit Kennung; ungültig → null; nur Spot und Perp fragt die Uhr selbst ab), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore.",
+ "pairs": [
+  {
+   "name": "Perp bei Binance Futures",
+   "base": " bank ",
+   "quote": "usdt",
+   "exchange": "Binance Futures",
+   "contract": "Perp",
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "label": "BANK Perp",
+   "selfFetchable": true
+  },
+  {
+   "name": "Spot gegen EUR bei Kraken",
+   "base": "BTC",
+   "quote": "EUR",
+   "exchange": "Kraken",
+   "contract": "",
+   "key": "BTC/EUR|Kraken|",
+   "label": "BTC/EUR",
+   "selfFetchable": true
+  },
+  {
+   "name": "Quartal: nur vom Handy",
+   "base": "BTC",
+   "quote": "USDT",
+   "exchange": "Binance Futures",
+   "contract": "1Q",
+   "key": "BTC/USDT|Binance Futures|1Q",
+   "label": "BTC 1Q",
+   "selfFetchable": false
+  },
+  {
+   "name": "Pool: ohne Marke angezeigt, nur vom Handy",
+   "base": "PEPE",
+   "quote": "WETH",
+   "exchange": "DexScreener",
+   "contract": "Pool",
+   "key": "PEPE/WETH|DexScreener|Pool",
+   "label": "PEPE/WETH",
+   "selfFetchable": false
+  },
+  {
+   "name": "«|» in der Börse fällt weg",
+   "base": "ETH",
+   "quote": "USDT",
+   "exchange": "Odd|Name",
+   "contract": "",
+   "key": "ETH/USDT|OddName|",
+   "label": "ETH",
+   "selfFetchable": true
+  },
+  {
+   "name": "ungültige Basis",
+   "base": "bad-symbol",
+   "quote": "USDT",
+   "exchange": "Binance",
+   "contract": "",
+   "key": null
+  },
+  {
+   "name": "ungültige Gegenwährung",
+   "base": "BTC",
+   "quote": "X",
+   "exchange": "Binance",
+   "contract": "",
+   "key": null
+  },
+  {
+   "name": "ohne Börse",
+   "base": "BTC",
+   "quote": "USDT",
+   "exchange": "  ",
+   "contract": "",
+   "key": null
+  }
+ ],
+ "contractOf": [
+  {
+   "short": null,
+   "hasPairId": false,
+   "expected": ""
+  },
+  {
+   "short": null,
+   "hasPairId": true,
+   "expected": "Pool"
+  },
+  {
+   "short": "Perp",
+   "hasPairId": true,
+   "expected": "Perp"
+  }
+ ],
+ "parse": [
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "valid": true
+  },
+  {
+   "key": "BTC",
+   "valid": false
+  },
+  {
+   "key": "BTC/USDT|Binance",
+   "valid": false
+  },
+  {
+   "key": "btc/usdt|Binance|",
+   "valid": false
+  },
+  {
+   "key": "BTC/USDT/X|Binance|",
+   "valid": false
+  }
+ ],
+ "labelOf": [
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "label": "BANK Perp"
+  },
+  {
+   "key": "SOL",
+   "label": "SOL"
+  }
+ ],
+ "favoritePairs": [
+  {
+   "name": "je Coin der erste Favorit; ohne gültiges Paar nur das Kürzel",
+   "bases": [
+    "bank",
+    "BTC",
+    "BANK",
+    "ETH"
+   ],
+   "pairs": [
+    {
+     "base": "BANK",
+     "quote": "USDT",
+     "exchange": "Binance Futures",
+     "contract": "Perp"
+    },
+    null,
+    {
+     "base": "BANK",
+     "quote": "USDT",
+     "exchange": "Bybit",
+     "contract": ""
+    },
+    {
+     "base": "ETH",
+     "quote": "EUR",
+     "exchange": "Kraken",
+     "contract": ""
+    }
+   ],
+   "expected": [
+    "BANK/USDT|Binance Futures|Perp",
+    "ETH/EUR|Kraken|"
+   ]
+  }
+ ],
+ "settings": [
+  {
+   "name": "Paare zu den Favoriten, Reihenfolge von phone, fremde fallen weg",
+   "text": "{\"v\":2,\"mode\":\"phone\",\"own\":[\"SOL\"],\"phone\":[\"BANK\",\"BTC\",\"ETH\"],\"r\":4,\"pp\":[{\"b\":\"ETH\",\"q\":\"USDT\",\"x\":\"OKX\",\"c\":\"\"},{\"b\":\"BANK\",\"q\":\"USDT\",\"x\":\"Binance Futures\",\"c\":\"Perp\"},{\"b\":\"DOGE\",\"q\":\"USDT\",\"x\":\"Binance\",\"c\":\"\"},{\"b\":\"BTC\",\"q\":\"?\",\"x\":\"Binance\",\"c\":\"\"}]}",
+   "phoneKeys": [
+    "BANK/USDT|Binance Futures|Perp",
+    "BTC",
+    "ETH/USDT|OKX|"
+   ],
+   "shown": [
+    "BANK/USDT|Binance Futures|Perp",
+    "BTC",
+    "ETH/USDT|OKX|"
+   ],
+   "kept": [
+    "SOL",
+    "BANK/USDT|Binance Futures|Perp",
+    "BTC",
+    "ETH/USDT|OKX|"
+   ]
+  },
+  {
+   "name": "ohne pp (ältere Handy-App): Kürzel wie bisher",
+   "text": "{\"v\":2,\"mode\":\"phone\",\"own\":[\"SOL\"],\"phone\":[\"BANK\"],\"r\":4}",
+   "phoneKeys": [
+    "BANK"
+   ],
+   "shown": [
+    "BANK"
+   ],
+   "kept": [
+    "SOL",
+    "BANK"
+   ]
+  }
+ ],
+ "merge": [
+  {
+   "name": "Uhr übernimmt die Paare des Handys, auch wenn ihre Wahl gewinnt",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "revision": 9,
+    "pairs": [
+     {
+      "base": "ETH",
+      "quote": "USDT",
+      "exchange": "Bybit",
+      "contract": ""
+     }
+    ]
+   },
+   "remote": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "BANK"
+    ],
+    "revision": 2,
+    "pairs": [
+     {
+      "base": "BANK",
+      "quote": "USDT",
+      "exchange": "Binance Futures",
+      "contract": "Perp"
+     }
+    ]
+   },
+   "remoteIsPhone": true,
+   "expected": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BANK"
+    ],
+    "revision": 9,
+    "pairs": [
+     {
+      "base": "BANK",
+      "quote": "USDT",
+      "exchange": "Binance Futures",
+      "contract": "Perp"
+     }
+    ]
+   }
+  }
+ ],
+ "pick": {
+  "name": "Quelle folgt dem Paar des Handys: Binance Futures Perp, nicht der neuere Spot-Kurs von Bybit",
+  "coins": [
+   "BANK",
+   "BANK/USDT|Binance Futures|Perp",
+   "BTC/EUR|Kraken|",
+   "PEPE/WETH|DexScreener|Pool",
+   "ETH/USDT|OKX|"
+  ],
+  "rows": [
+   {
+    "base": "BANK",
+    "quote": "USDT",
+    "spot": false,
+    "contract": "Perp",
+    "disabled": false,
+    "price": 0.0712,
+    "change24h": 2.5,
+    "exchange": "Binance Futures",
+    "time": 1800000000000,
+    "sortOrder": 0
+   },
+   {
+    "base": "BANK",
+    "quote": "USDT",
+    "spot": true,
+    "contract": "",
+    "disabled": false,
+    "price": 0.07,
+    "change24h": 2.0,
+    "exchange": "Bybit",
+    "time": 1800000060000,
+    "sortOrder": 4
+   },
+   {
+    "base": "BANK",
+    "quote": "USDT",
+    "spot": false,
+    "contract": "Perp",
+    "disabled": false,
+    "price": 0.0713,
+    "change24h": 2.6,
+    "exchange": "Bybit Futures",
+    "time": 1800000120000,
+    "sortOrder": 5
+   },
+   {
+    "base": "BTC",
+    "quote": "EUR",
+    "spot": true,
+    "contract": "",
+    "disabled": false,
+    "price": 60000.0,
+    "change24h": null,
+    "exchange": "Kraken",
+    "time": 1800000000000,
+    "sortOrder": 1
+   },
+   {
+    "base": "PEPE",
+    "quote": "WETH",
+    "spot": false,
+    "contract": "Pool",
+    "disabled": false,
+    "price": 4e-09,
+    "change24h": -1.0,
+    "exchange": "DexScreener",
+    "time": 1800000000000,
+    "sortOrder": 2
+   },
+   {
+    "base": "ETH",
+    "quote": "USDT",
+    "spot": true,
+    "contract": "",
+    "disabled": true,
+    "price": 3000.0,
+    "change24h": null,
+    "exchange": "OKX",
+    "time": 1800000000000,
+    "sortOrder": 3
+   }
+  ],
+  "expected": [
+   {
+    "symbol": "BANK",
+    "price": 0.07,
+    "change24h": 2.0,
+    "exchange": "Bybit",
+    "time": 1800000060000
+   },
+   {
+    "symbol": "BANK/USDT|Binance Futures|Perp",
+    "price": 0.0712,
+    "change24h": 2.5,
+    "exchange": "Binance Futures",
+    "time": 1800000000000
+   },
+   {
+    "symbol": "BTC/EUR|Kraken|",
+    "price": 60000.0,
+    "change24h": null,
+    "exchange": "Kraken",
+    "time": 1800000000000
+   },
+   {
+    "symbol": "PEPE/WETH|DexScreener|Pool",
+    "price": 4e-09,
+    "change24h": -1.0,
+    "exchange": "DexScreener",
+    "time": 1800000000000
+   }
+  ]
+ },
+ "selfFetch": {
+  "now": 1800000000000,
+  "shown": [
+   "BANK/USDT|Binance Futures|Perp",
+   "BTC/USDT|Binance Futures|1Q",
+   "PEPE/WETH|DexScreener|Pool",
+   "SOL"
+  ],
+  "times": {},
+  "phoneCoins": [],
+  "usePhone": false,
+  "interval": 15,
+  "force": true,
+  "expected": [
+   "BANK/USDT|Binance Futures|Perp",
+   "SOL"
+  ]
+ },
+ "venues": [
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "expected": [
+    "Binance Futures",
+    "Bybit Futures",
+    "OKX Futures"
+   ]
+  },
+  {
+   "key": "BANK/USDT|Bybit Futures|Perp",
+   "expected": [
+    "Bybit Futures",
+    "Binance Futures",
+    "OKX Futures"
+   ]
+  },
+  {
+   "key": "BTC/EUR|okx|",
+   "expected": [
+    "OKX",
+    "Binance",
+    "Bybit"
+   ]
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "expected": [
+    "Binance",
+    "Bybit",
+    "OKX"
+   ]
+  },
+  {
+   "key": "BTC/USDT|Binance Futures|1Q",
+   "expected": []
+  },
+  {
+   "key": "PEPE/WETH|DexScreener|Pool",
+   "expected": []
+  }
+ ],
+ "urls": [
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "venue": "Binance Futures",
+   "url": "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BANKUSDT"
+  },
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "venue": "Bybit Futures",
+   "url": "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BANKUSDT"
+  },
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "venue": "OKX Futures",
+   "url": "https://www.okx.com/api/v5/market/ticker?instId=BANK-USDT-SWAP"
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "venue": "Binance",
+   "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCEUR"
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "venue": "Bybit",
+   "url": "https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCEUR"
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "venue": "OKX",
+   "url": "https://www.okx.com/api/v5/market/ticker?instId=BTC-EUR"
+  }
+ ],
+ "fetch": [
+  {
+   "name": "Quelle folgt dem Paar des Handys: eine Abfrage bei Binance Futures",
+   "coins": [
+    "BANK/USDT|Binance Futures|Perp"
+   ],
+   "responses": {
+    "binanceFutures:BANKUSDT": "{\"symbol\":\"BANKUSDT\",\"priceChange\":\"0\",\"priceChangePercent\":\"2.5\",\"lastPrice\":\"0.0712\",\"openPrice\":\"1\",\"closeTime\":1700000000000}"
+   },
+   "requests": [
+    "binanceFutures:BANKUSDT"
+   ],
+   "expected": [
+    [
+     "BANK/USDT|Binance Futures|Perp",
+     "Binance Futures",
+     0.0712,
+     2.5
+    ]
+   ]
+  },
+  {
+   "name": "Binance Futures nicht erreichbar: Bybit linear, ehrlich als Bybit Futures",
+   "coins": [
+    "BANK/USDT|Binance Futures|Perp"
+   ],
+   "responses": {
+    "binanceFutures:BANKUSDT": null,
+    "bybitLinear:BANKUSDT": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"BANKUSDT\",\"lastPrice\":\"0.0713\",\"price24hPcnt\":\"0.026\"}]}}"
+   },
+   "requests": [
+    "binanceFutures:BANKUSDT",
+    "bybitLinear:BANKUSDT"
+   ],
+   "expected": [
+    [
+     "BANK/USDT|Binance Futures|Perp",
+     "Bybit Futures",
+     0.0713,
+     2.6
+    ]
+   ]
+  },
+  {
+   "name": "Paar fehlt bei Binance Futures und Bybit: OKX Swap",
+   "coins": [
+    "BANK/USDT|Binance Futures|Perp"
+   ],
+   "responses": {
+    "binanceFutures:BANKUSDT": "{\"symbol\":\"OTHERUSDT\",\"priceChange\":\"0\",\"priceChangePercent\":\"1\",\"lastPrice\":\"1\",\"openPrice\":\"1\",\"closeTime\":1700000000000}",
+    "bybitLinear:BANKUSDT": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"time\":1}",
+    "okx:BANK-USDT-SWAP": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instId\":\"BANK-USDT-SWAP\",\"last\":\"0.08\",\"open24h\":\"0.1\"}]}"
+   },
+   "requests": [
+    "binanceFutures:BANKUSDT",
+    "bybitLinear:BANKUSDT",
+    "okx:BANK-USDT-SWAP"
+   ],
+   "expected": [
+    [
+     "BANK/USDT|Binance Futures|Perp",
+     "OKX Futures",
+     0.08,
+     -20.0
+    ]
+   ]
+  },
+  {
+   "name": "nirgends erreichbar: kein Kurs",
+   "coins": [
+    "BANK/USDT|Binance Futures|Perp"
+   ],
+   "responses": {},
+   "requests": [
+    "binanceFutures:BANKUSDT",
+    "bybitLinear:BANKUSDT",
+    "okx:BANK-USDT-SWAP"
+   ],
+   "expected": []
+  },
+  {
+   "name": "Spot-Paar einer anderen Börse und Kürzel der eigenen Liste zusammen; Laufzeit-Kontrakt ohne Abfrage",
+   "coins": [
+    "SOL",
+    "BTC/EUR|Kraken|",
+    "BTC/USDT|Binance Futures|1Q"
+   ],
+   "responses": {
+    "binance": "[{\"symbol\":\"SOLUSDT\",\"priceChange\":\"0\",\"priceChangePercent\":\"1\",\"lastPrice\":\"150\",\"openPrice\":\"1\",\"closeTime\":1700000000000}]",
+    "binance:BTCEUR": "{\"symbol\":\"BTCEUR\",\"priceChange\":\"0\",\"priceChangePercent\":\"-1.5\",\"lastPrice\":\"60000\",\"openPrice\":\"1\",\"closeTime\":1700000000000}"
+   },
+   "requests": [
+    "binance",
+    "binance:BTCEUR"
+   ],
+   "expected": [
+    [
+     "SOL",
+     "Binance",
+     150.0,
+     1.0
+    ],
+    [
+     "BTC/EUR|Kraken|",
+     "Binance",
+     60000.0,
+     -1.5
+    ]
+   ]
+  }
+ ]
+}

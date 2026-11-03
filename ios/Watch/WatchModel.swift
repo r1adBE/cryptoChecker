@@ -92,9 +92,10 @@ final class WatchModel {
         }
     }
 
-    /// Änderung auf der Uhr: mit nächster Änderungsnummer speichern, den aktuellen Stand ans iPhone geben, neu laden.
-    func change(_ next: WatchSettings) {
-        settings = next.nextRevision()
+    /// Änderung auf der Uhr: nach dem zuletzt empfangenen Stand des iPhones mit max(Uhr, iPhone) + 1 speichern
+    /// (`WatchSettings.change`), den aktuellen Stand ans iPhone geben, neu laden.
+    func change(_ edit: (inout WatchSettings) -> Void) {
+        settings = WatchSettings.change(settings, remote: WatchLink.shared.phoneSettings, isPhone: false, edit)
         WatchStore.settings = settings
         WatchLink.shared.publish(settings)
         WatchComplications.reload()
@@ -102,14 +103,12 @@ final class WatchModel {
     }
 
     func toggleMode() {
-        var next = settings
-        next.mode = settings.mode == .phone ? .own : .phone
-        change(next)
+        // Ziel nach der gezeigten Wahl, nicht nach einem neueren Stand des iPhones
+        let target: WatchSettings.Mode = settings.mode == .phone ? .own : .phone
+        change { $0.mode = target }
     }
 
     func toggle(_ coin: String) {
-        var next = settings
-        next.own = WatchCoins.toggle(settings.own, coin)
-        change(next)
+        change { $0.own = WatchCoins.toggle($0.own, coin) }
     }
 }

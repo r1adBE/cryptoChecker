@@ -16,6 +16,8 @@
     <string name="watch_portfolio_today">วันนี้ %1$s</string>
     <string name="a11y_watch_portfolio_hidden">ซ่อนจำนวนเงินแล้ว</string>
     <string name="a11y_watch_outdated">ราคาไม่เป็นปัจจุบัน</string>
+    <string name="a11y_watch_no_price_unreachable">ไม่มีราคา เชื่อมต่อ %1$s ไม่ได้</string>
+    <string name="a11y_watch_no_price_phone_only">ไม่มีราคา นาฬิกาโหลดคู่นี้ไม่ได้</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d นาทีที่แล้ว</item>
     </plurals>

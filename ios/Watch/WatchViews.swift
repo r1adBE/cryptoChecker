@@ -69,14 +69,19 @@ struct WatchQuoteList: View {
         .accessibilityLabel(outdated ? spoken + ", " + WatchText.spokenAge(p.time, now: now) : spoken)
     }
 
-    private func row(_ coin: String, now: Int64) -> some View {
-        let cached = model.quotes[coin]
+    /// Zeile eines Coins bzw. Paars des iPhones (`key`, Anzeige `WatchPair.label(of:)`, z. B. «BANK Perp»); darunter die
+    /// Börse, die den Kurs geliefert hat. Ohne Kurs «—» und, sobald nichts mehr lädt, der Grund für VoiceOver
+    /// (`WatchText.missingReason`) — wie Android `QuoteRow`.
+    private func row(_ key: String, now: Int64) -> some View {
+        let coin = WatchPair.label(of: key)
+        let cached = model.quotes[key]
         let q = cached?.quote
         let time = cached?.time ?? 0
         let price = q.map { WatchText.price($0.price) } ?? "—"
         let change = WatchText.change(q?.change24h)
         let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
-        let spoken = WatchText.t("a11y_watch_row", coin, price, change)
+        let line = WatchText.t("a11y_watch_row", coin, price, change)
+        let spoken = cached == nil && !model.loading ? line + ", " + WatchText.missingReason(key) : line
         // Veraltet: Kurs grau, Alter statt Börse
         let detail = outdated ? WatchText.ago(time, now: now) : q?.source
         return VStack(alignment: .leading, spacing: 2) {
