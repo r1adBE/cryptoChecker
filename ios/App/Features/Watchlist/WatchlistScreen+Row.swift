@@ -23,10 +23,11 @@ extension WatchlistScreen {
         let usdtNotes = convertUsdtNotes
         return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay,
                                 state: data.refreshState) { shown, status in
-            // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
+            // Am Live-Strom: 2 Min. ab dem letzten Takt (wie die Status-Pille)
             let staleAfter = LiveStatus.staleAfterMillis(onLiveSocket: status.onLive, pollingAfter: pollingStaleAfter)
             WatchlistRow(
-                watch: shown,
+                // Am Live-Strom: Frische am letzten Takt, nicht am letzten Kurswechsel (wie die Status-Pille)
+                watch: shown.atHeartbeat(onLiveSocket: status.onLive, now: now),
                 alarmCount: counts[watch.id] ?? 0,
                 alarmFiredAt: firedAt,
                 kind: kinds[watch.id] ?? .TOKEN,

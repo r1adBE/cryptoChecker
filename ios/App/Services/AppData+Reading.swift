@@ -240,6 +240,12 @@ extension AppData {
         LiveStatus.staleAfterMillis(onLiveSocket: refreshState.liveWatchIds.contains(watchId),
                                     pollingAfter: staleAfterMillis)
     }
+
+    /// Paar mit der Zeit, an der seine Frische gemessen wird: am Live-Strom der letzte Takt (`Watch.atHeartbeat`).
+    /// Liest den Live-Stand nur, wie `staleAfterMillis(for:)`.
+    func atHeartbeat(_ watch: Watch, now: Int64) -> Watch {
+        watch.atHeartbeat(onLiveSocket: refreshState.liveWatchIds.contains(watch.id), now: now)
+    }
 }
 
 /// Zwischenspeicher der abgeleiteten Listen von `AppData` (AppData+Reading.swift): gilt für genau einen Stand

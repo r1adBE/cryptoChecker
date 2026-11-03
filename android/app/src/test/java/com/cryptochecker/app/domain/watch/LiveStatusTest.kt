@@ -29,6 +29,19 @@ class LiveStatusTest {
     }
 
     @Test
+    fun livePairFreshnessIsMeasuredAtTheLastTick() {
+        val now = 100 * min
+        // Ruhiges Paar am Strom: letzter Kurswechsel vor 40 Min., Takt höchstens 30 s alt — nicht veraltet
+        val time = LiveStatus.freshnessTime(lastUpdate = now - 40 * min, onLiveSocket = true, now = now)
+        assertEquals(now - 30_000L, time)
+        assertTrue(now - time <= LiveStatus.staleAfterMillis(onLiveSocket = true, pollingAfter = 45 * min))
+        // Jüngerer Kurswechsel bleibt, nie rückwärts
+        assertEquals(now - 5_000L, LiveStatus.freshnessTime(now - 5_000L, onLiveSocket = true, now = now))
+        // Nicht am Strom: der letzte Abruf
+        assertEquals(now - 40 * min, LiveStatus.freshnessTime(now - 40 * min, onLiveSocket = false, now = now))
+    }
+
+    @Test
     fun liveOnlyWhenAllPairsOnSocketAndFresh() {
         assertTrue(LiveStatus.allLive(listOf(1L, 2L), setOf(1L, 2L, 3L), stale = 0))
         // Ein Paar abgefragt (Börse ohne WebSocket): kein «Live»

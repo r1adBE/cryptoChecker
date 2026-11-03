@@ -52,7 +52,7 @@ final class WatchCacheTests: XCTestCase {
         XCTAssertEqual(WatchCache.listTime(cache, coins: coins), 1_000)
     }
 
-    /// Komplikation: Gesamt-Zeitgrenze des Abrufs wie Android `withTimeoutOrNull(FETCH_TIMEOUT_MS)`.
+    /// Komplikation: Gesamt-Zeitgrenze des Abrufs wie Android `WatchPriceSource.within(FETCH_DEADLINE_MS)`.
     func testComplicationFetchIsBoundedByAnOverallDeadline() async {
         XCTAssertEqual(WatchQuoteFetch.complicationTimeoutSeconds, 20)
         let quick = await WatchQuoteFetch.within(seconds: 5) {

@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
+import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.isNotTraded
 
 /**
@@ -47,22 +48,38 @@ internal object LiveOverlay {
             ),
         )
     }
+
+    /**
+     * Frische eines Paars am Live-Strom ([onLiveSocket]) am letzten Takt messen ([LiveStatus.freshnessTime]): Ein ruhiges
+     * Paar, dessen Strom gesund ist, wird nicht «veraltet», obwohl `lastUpdate` nur mit einem Kurswechsel weiterrückt.
+     * Für Zeile, Paarseite, Status-Pille und «nur veraltete» gleich; gespeichert wird nichts davon.
+     */
+    fun atHeartbeat(watch: WatchEntity, onLiveSocket: Boolean, now: Long): WatchEntity {
+        if (!onLiveSocket || watch.isNotTraded || watch.disabled) return watch
+        val time = LiveStatus.freshnessTime(watch.lastUpdate, onLiveSocket = true, now = now)
+        return if (time == watch.lastUpdate) watch else watch.copy(lastUpdate = time)
+    }
 }
 
 /**
  * Ein Paar mit seinem Live-Kurs darüber, als eigener Neuzusammensetzungs-Bereich: [live] wird
  * hier über `derivedStateOf` nur für DIESES Paar gelesen — ein Tick setzt also nur die Zeile
  * (bzw. das offene Aktionsblatt) neu zusammen, deren Kurs sich geändert hat, nicht den Bildschirm.
+ * Am Live-Strom ([onLiveSocket]) gilt als Zeit der letzte Takt ([LiveOverlay.atHeartbeat], [now]).
  */
 @Composable
 internal fun WithLiveQuote(
     watch: WatchEntity,
     live: State<Map<Long, LiveQuote>>,
     rollingBasis: Boolean,
+    onLiveSocket: Boolean = false,
+    now: Long = 0L,
     content: @Composable (WatchEntity) -> Unit,
 ) {
     val quote by remember(watch.id, live) { derivedStateOf { live.value[watch.id] } }
-    val shown = remember(watch, quote, rollingBasis) { LiveOverlay.apply(watch, quote, rollingBasis) }
+    val shown = remember(watch, quote, rollingBasis, onLiveSocket, now) {
+        LiveOverlay.atHeartbeat(LiveOverlay.apply(watch, quote, rollingBasis), onLiveSocket, now)
+    }
     content(shown)
 }
 

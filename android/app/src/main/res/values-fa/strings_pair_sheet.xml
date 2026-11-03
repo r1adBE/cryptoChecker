@@ -17,7 +17,6 @@
     <string name="sheet_chart_today">امروز</string>
     <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
     <string name="sheet_chart_volume">حجم %1$s</string>
-    <string name="sheet_more">بیشتر</string>
 
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">فروش</string>

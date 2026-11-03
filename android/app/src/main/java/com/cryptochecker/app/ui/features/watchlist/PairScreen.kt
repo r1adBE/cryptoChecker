@@ -191,7 +191,11 @@ internal fun PairScreen(
             val signals = if (isPreview) emptyList() else ActivityAnalyzer.applySensitivity(
                 state.content.activity[shown.id]?.active(now).orEmpty(), state.display.activitySensitivity,
             )
-            WithLiveQuote(shown, livePrices, rollingBasis = !isPreview && !state.display.changeBasis.isDay) { live ->
+            WithLiveQuote(
+                shown, livePrices, rollingBasis = !isPreview && !state.display.changeBasis.isDay,
+                // Am Live-Strom: Frische am letzten Takt (wie Zeile und Status-Pille)
+                onLiveSocket = !isPreview && shown.id in state.live.liveWatchIds, now = now,
+            ) { live ->
                 PairPageContent(
                     watch = if (isPreview) shown else live,
                     isPreview = isPreview,

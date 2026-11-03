@@ -1,12 +1,16 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 
 /**
  * «Live» muss stimmen: Frische-Schwelle je Paar und das Wort «Live» in der Status-Pille.
  *
  *  - Paar am Live-Strom (seine Börse liefert gerade per WebSocket Kurse, nur bei «Live, solange
- *    offen»): veraltet nach [LIVE_STALE_MILLIS] (2 Min.) ohne neuen Kurs.
+ *    offen»): Frische am letzten Takt des Stroms gemessen ([freshnessTime]), nicht am letzten
+ *    Kurswechsel — ein ruhiges Paar an einem gesunden Strom ist nicht veraltet. Bleiben die Takte
+ *    aus, fällt das Paar aus dem Strom ([LiveRules.FRESH_MILLIS]) und es gilt die Abfrage-Schwelle;
+ *    [LIVE_STALE_MILLIS] (2 Min.) bleibt die Schwelle am Strom.
  *  - sonst die Abfrage-Schwelle: dreimal das Hintergrund-Intervall, mindestens 15 Min.
  *    ([OutdatedRule]). Das gilt in beiden Modi — auch bei «Live, solange offen» fragt die App
  *    Börsen ohne WebSocket bei offener Merkliste nicht selbst im Takt ab (nur Hintergrund oder
@@ -26,9 +30,18 @@ object LiveStatus {
     fun pollingStaleAfterMillis(backgroundIntervalMinutes: Int): Long =
         OutdatedRule.afterMillis(backgroundIntervalMinutes)
 
-    /** Schwelle eines Paars: am Strom 2 Min., sonst die Abfrage-Schwelle [pollingAfter]. */
+    /** Schwelle eines Paars: am Strom 2 Min. (ab [freshnessTime]), sonst die Abfrage-Schwelle [pollingAfter]. */
     fun staleAfterMillis(onLiveSocket: Boolean, pollingAfter: Long): Long =
         if (onLiveSocket) minOf(LIVE_STALE_MILLIS, pollingAfter) else pollingAfter
+
+    /**
+     * Zeit, an der die Frische eines Paars gemessen wird. Am Live-Strom ([onLiveSocket]: letzter Takt höchstens
+     * [LiveRules.FRESH_MILLIS] alt) der letzte Takt — auch ein Takt ohne Kurswechsel bestätigt den Kurs. Vorsichtig
+     * die früheste mögliche Taktzeit (jetzt − [LiveRules.FRESH_MILLIS]), nie vor [lastUpdate]. Sonst [lastUpdate]
+     * (letzter Abruf bzw. Kurswechsel). Nur für die Anzeige; gespeichert bleibt `lastUpdate`.
+     */
+    fun freshnessTime(lastUpdate: Long, onLiveSocket: Boolean, now: Long): Long =
+        if (onLiveSocket) maxOf(lastUpdate, now - LiveRules.FRESH_MILLIS) else lastUpdate
 
     /**
      * «Live» in der Pille? Nur mit mindestens einem Paar, keinem veralteten ([stale]) und allen

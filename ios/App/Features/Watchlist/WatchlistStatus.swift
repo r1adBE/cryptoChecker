@@ -11,7 +11,9 @@ extension WatchlistScreen {
         let liveIds = state.liveWatchIds
         // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert;
         // deaktivierte Paare zählen gar nicht (weder veraltet noch gescheitert noch «aktuell»)
+        // Am Live-Strom zählt der letzte Takt, nicht der letzte Kurswechsel (`Watch.atHeartbeat`, wie die Zeilen)
         let traded = DisabledView.active(watches) { $0.disabled }.filter { !ConnectionErrors.isNotTraded($0.lastError) }
+            .map { $0.atHeartbeat(onLiveSocket: liveIds.contains($0.id), now: now) }
         let allDisabled = !watches.isEmpty && watches.allSatisfy(\.disabled)
         let staleCount = traded.filter {
             WatchlistTime.isStale($0, now: now, staleAfter: LiveStatus.staleAfterMillis(

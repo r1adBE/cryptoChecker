@@ -17,7 +17,6 @@
     <string name="sheet_chart_today">오늘</string>
     <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
     <string name="sheet_chart_volume">거래량 %1$s</string>
-    <string name="sheet_more">더보기</string>
 
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">매도호가</string>

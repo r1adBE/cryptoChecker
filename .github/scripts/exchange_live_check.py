@@ -12,8 +12,10 @@ when an adapter changes its URL or fields.
 Result handling (GitHub Actions, gh CLI with GITHUB_TOKEN):
   - any failure: open ONE issue "Exchange API check failed" or update the open one
   - all pass:    close that issue (with a comment) if it is open
-Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs)
-count as "skipped", not as failure: GitHub's runners are in the US. Skipped
+Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs, or
+the exchange's own block answer listed under "blocked", e.g. Mercado Bitcoin's
+302 without Location to «Página indisponível») count as "skipped", not as failure:
+GitHub's runners are in the US. Skipped
 exchanges are listed in the job summary and in the issue.
 Binance Spot is also checked via data-api.binance.vision (same schema as
 api.binance.com, not geo-blocked; the apps read it for candles and portfolio
@@ -51,7 +53,8 @@ TIMEOUT_SECONDS = 20
 USER_AGENT = "CryptoChecker-ExchangeLiveCheck/1.0 (+https://github.com/r1adBE/cryptoChecker)"
 
 # Path into the response: key (str) or index (int)
-# key, name, URL, paths of the required fields (numeric), optional POST body, geo = 403 counts as blocked
+# key, name, URL, paths of the required fields (numeric), optional POST body, geo = 403 counts as blocked,
+# blocked = further status codes the exchange answers cloud IPs with (counted as blocked, not failed)
 EXCHANGES = [
     {"key": "coinbase", "name": "Coinbase",
      "url": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
@@ -200,7 +203,9 @@ EXCHANGES = [
     {"key": "bitso", "name": "Bitso",
      "url": "https://bitso.com/api/v3/ticker?book=btc_mxn",
      "fields": [["payload", "last"], ["payload", "volume"]]},
-    {"key": "mercadobitcoin", "name": "Mercado Bitcoin",
+    {"key": "mercadobitcoin", "name": "Mercado Bitcoin", "blocked": [302],
+     # Cloud IPs (US runner, 03.11.2026): every path of api.mercadobitcoin.net, even /api/v4/docs, answers 302 without
+     # Location with the HTML page «Página indisponível» (Cloudflare) - a block, not a moved endpoint
      "url": "https://api.mercadobitcoin.net/api/v4/tickers?symbols=BTC-BRL",
      "fields": [[0, "last"], [0, "open"], [0, "vol"]]},
     {"key": "luno", "name": "Luno",
@@ -302,8 +307,9 @@ EXCHANGES = [
     {"key": "btcmarkets", "name": "BTC Markets",
      "url": "https://api.btcmarkets.net/v3/markets/BTC-AUD/ticker",
      "fields": [["lastPrice"], ["price24h"], ["volume24h"]]},
-    {"key": "latoken", "name": "LATOKEN",
-     # BTC/USDT via the currency IDs (like the adapter, see exchange_latoken.json)
+    {"key": "latoken", "name": "LATOKEN", "geo": True,
+     # BTC/USDT via the currency IDs (like the adapter, see exchange_latoken.json). Cloud IPs (03.11.2026): every path
+     # of api.latoken.com, even /v2/time, answers 403 «Attention Required! | Cloudflare» (also with a browser user agent)
      "url": "https://api.latoken.com/v2/ticker/92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
      "fields": [["lastPrice"], ["change24h"], ["volume24h"]]},
     {"key": "nonkyc", "name": "NonKYC",
@@ -386,7 +392,7 @@ def check(entry):
     if status == 0 or status >= 500 or status == 429:
         time.sleep(3)
         status, body = fetch(entry)
-    if status == 451 or (status == 403 and entry.get("geo")):
+    if status == 451 or (status == 403 and entry.get("geo")) or status in entry.get("blocked", ()):
         return SKIP, f"HTTP {status} (geo-blocked from this runner)"
     if status != 200:
         return FAIL, f"HTTP {status}" if status else f"no connection ({body})"

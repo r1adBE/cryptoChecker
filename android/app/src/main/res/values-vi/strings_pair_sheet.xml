@@ -17,7 +17,6 @@
     <string name="sheet_chart_today">Hôm nay</string>
     <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
     <string name="sheet_chart_volume">KL %1$s</string>
-    <string name="sheet_more">Thêm</string>
 
     <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
     <string name="ticker_ask">Giá bán</string>

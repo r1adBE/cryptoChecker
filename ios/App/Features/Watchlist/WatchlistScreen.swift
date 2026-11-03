@@ -148,7 +148,7 @@ struct WatchlistScreen: View {
         switch quickView {
         case .activity: visible = hot
         case .stale: visible = groupVisible.filter {
-            WatchlistTime.isStale($0, now: now, staleAfter: data.staleAfterMillis(for: $0.id))
+            WatchlistTime.isStale(data.atHeartbeat($0, now: now), now: now, staleAfter: data.staleAfterMillis(for: $0.id))
         }
         case .disabled: visible = DisabledView.only(groupVisible) { $0.disabled }
         case nil: visible = groupVisible

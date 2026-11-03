@@ -22,6 +22,18 @@ final class LiveStatusTests: XCTestCase {
         XCTAssertEqual(0, LiveStatus.staleAfterMillis(onLiveSocket: true, pollingAfter: 0))
     }
 
+    func testLivePairFreshnessIsMeasuredAtTheLastTick() {
+        let now = 100 * min
+        // Ruhiges Paar am Strom: letzter Kurswechsel vor 40 Min., Takt höchstens 30 s alt — nicht veraltet
+        let time = LiveStatus.freshnessTime(lastUpdate: now - 40 * min, onLiveSocket: true, now: now)
+        XCTAssertEqual(now - 30_000, time)
+        XCTAssertTrue(now - time <= LiveStatus.staleAfterMillis(onLiveSocket: true, pollingAfter: 45 * min))
+        // Jüngerer Kurswechsel bleibt, nie rückwärts
+        XCTAssertEqual(now - 5_000, LiveStatus.freshnessTime(lastUpdate: now - 5_000, onLiveSocket: true, now: now))
+        // Nicht am Strom: der letzte Abruf
+        XCTAssertEqual(now - 40 * min, LiveStatus.freshnessTime(lastUpdate: now - 40 * min, onLiveSocket: false, now: now))
+    }
+
     func testLiveOnlyWhenAllPairsOnSocketAndFresh() {
         XCTAssertTrue(LiveStatus.allLive(tradedIds: [1, 2], liveIds: [1, 2, 3], stale: 0))
         // Ein Paar abgefragt (Börse ohne WebSocket): kein «Live»

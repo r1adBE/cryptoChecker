@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 190)
+
+* Live prices: a quiet pair on a running live stream no longer turns «outdated» after two minutes; freshness follows the last live tick.
+* Wear OS: the short complication shows the age of an old price; the watch price fetch has a total time limit.
+* Macro calendar: PCE dates for the whole year.
+
 ## 16.2.2 (build 189)
 
 * Exchange logos and current logos of the 100 largest coins are built into the app: visible at once, no download. The old icon pack is gone, so the app is smaller (Android about 0.5 MB, iOS about 1.3 MB).

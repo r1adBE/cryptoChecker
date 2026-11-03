@@ -9,7 +9,8 @@ Sources (official, public, no key):
   - Federal Reserve FOMC calendar, decision = 2nd meeting day 14:00 ET
       https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
   - BEA release schedule (Personal Income and Outlays = PCE), 08:30 ET
-      https://www.bea.gov/news/schedule
+      https://www.bea.gov/news/schedule/full (the whole year) plus
+      https://www.bea.gov/news/schedule (only the next weeks, but early next-year dates once announced)
 
 The workflow macro-calendar.yml writes it to the branch «macro» (pages.yml serves it at
 https://r1adbe.github.io/cryptoChecker/macro/events.json); the default --output docs/macro/events.json is
@@ -64,7 +65,11 @@ BLS_URLS = [
     "https://www.bls.gov/schedule/news_release/empSit.htm",
 ]
 FOMC_URL = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
-BEA_URL = "https://www.bea.gov/news/schedule"
+# The short schedule lists only the next two or three releases; the full one the whole year (both read, merged)
+BEA_URLS = [
+    "https://www.bea.gov/news/schedule/full",
+    "https://www.bea.gov/news/schedule",
+]
 
 SOURCE_TEXT = ("BLS release schedule (CPI, PPI, Employment Situation); Federal Reserve FOMC calendar "
                "(statement 14:00 ET, 2nd meeting day); BEA release schedule (Personal Income and Outlays)")
@@ -246,14 +251,15 @@ def parse_fomc(page):
 
 
 def parse_bea(page):
-    """BEA release schedule: 'October 29 8:30 AM News Personal Income and Outlays, September 2026'.
+    """BEA release schedule: 'October 29 8:30 AM News Personal Income and Outlays, September 2026'
+    (a combined release: '..., October and November 2025' - the last month counts).
     The date cell has no year: release year = reference year, +1 if the release month is
     before the reference month (December data released in January)."""
     text = html_to_text(page)
     rx = re.compile(
         r"(" + MONTH_RE + r")\.?\s+(\d{1,2})(?:,\s*(\d{4}))?\s+"
         r"(\d{1,2}:\d{2}\s*[AaPp]\.?\s*[Mm]\.?)\s+(?:(?:N\s*ews|D\s*ata|A\s*rticle|R\s*elease)\s+)?"
-        r"Personal Income and Outlays,\s+(" + MONTH_RE + r")\.?\s+(\d{4})")
+        r"Personal Income and Outlays,\s+(?:" + MONTH_RE + r"\.?\s+and\s+)?(" + MONTH_RE + r")\.?\s+(\d{4})")
     out = []
     for m in rx.finditer(text):
         month = month_number(m.group(1))
@@ -315,16 +321,20 @@ def collect(fetcher=fetch, warn=print):
     if bls:
         results["BLS"] = bls
 
-    for name, url, parser in (("FOMC", FOMC_URL, parse_fomc), ("BEA", BEA_URL, parse_bea)):
-        try:
-            found = parser(fetcher(url))
-        except SourceError as exc:
-            warn(f"warning: {exc}")
-            continue
+    for name, urls, parser in (("FOMC", [FOMC_URL], parse_fomc), ("BEA", BEA_URLS, parse_bea)):
+        found = []
+        for url in urls:
+            try:
+                page_events = parser(fetcher(url))
+            except SourceError as exc:
+                warn(f"warning: {exc}")
+                continue
+            if not page_events:
+                warn(f"warning: no events parsed from {url}")
+            # Both BEA pages list the next releases: each date once
+            found.extend(e for e in page_events if e not in found)
         if found:
             results[name] = found
-        else:
-            warn(f"warning: no events parsed from {url}")
     return results
 
 
@@ -571,6 +581,11 @@ def recorded_pages_test():
     pce = parse_bea(recorded("bea_schedule"))
     assert [e["time"] for e in pce] == ["2026-10-29T12:30:00Z", "2026-11-25T13:30:00Z",
                                         "2026-12-23T13:30:00Z"], pce
+    # Full year (3 Nov 2026): 13 releases, the first a combined one (October and November 2025) at 10:00 ET
+    full = parse_bea(recorded("bea_schedule_full"))
+    assert len(full) == 13, len(full)
+    assert full[0] == {"type": "PCE", "time": "2026-01-22T15:00:00Z"}, full[0]
+    assert full[-1] == {"type": "PCE", "time": "2026-12-23T13:30:00Z"}, full[-1]
 
 
 def self_test():
@@ -586,6 +601,16 @@ def self_test():
                                                      ("NFP", "2026-11-06T13:30:00Z")], bls
     page = parse_bls_release_page(SAMPLE_BLS_PAGE, "PPI")
     assert page == [{"type": "PPI", "time": "2026-10-15T12:30:00Z"}], page
+    # Both BEA pages: dates from the full and the short schedule, each once
+    pages = {BEA_URLS[0]: SAMPLE_BEA, BEA_URLS[1]: SAMPLE_BEA.split("<tr><td>December")[0]}
+
+    def fake_fetch(url):
+        if url in pages:
+            return pages[url]
+        raise SourceError(url)
+    bea = collect(fetcher=fake_fetch, warn=lambda _msg: None)["BEA"]
+    assert [e["time"] for e in bea] == ["2026-10-29T12:30:00Z", "2026-12-23T13:30:00Z",
+                                        "2027-01-29T13:30:00Z"], bea
     recorded_pages_test()
     print("macro_calendar self-test ok")
     return 0

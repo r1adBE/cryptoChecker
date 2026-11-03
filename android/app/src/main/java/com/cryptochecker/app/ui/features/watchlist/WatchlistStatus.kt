@@ -155,11 +155,15 @@ internal data class WatchlistStatus(
     companion object {
         /**
          * Gehandeltes, aktives Paar ohne frischen Kurs (gleiche Regel wie Zeile und Status).
-         * [staleAfter] ist die Abfrage-Schwelle; Paare in [liveIds] (am Live-Strom) gelten schon
-         * nach 2 Min. ohne Kurs als veraltet ([LiveStatus.staleAfterMillis]).
+         * [staleAfter] ist die Abfrage-Schwelle; Paare in [liveIds] (am Live-Strom) messen am letzten Takt
+         * ([LiveOverlay.atHeartbeat]) mit 2 Min. ([LiveStatus.staleAfterMillis]) — ruhig heisst nicht veraltet.
          */
-        fun isStale(watch: WatchEntity, now: Long, staleAfter: Long, liveIds: Set<Long> = emptySet()): Boolean =
-            PriceFreshness.isStale(watch, now, LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter))
+        fun isStale(watch: WatchEntity, now: Long, staleAfter: Long, liveIds: Set<Long> = emptySet()): Boolean {
+            val onLive = watch.id in liveIds
+            return PriceFreshness.isStale(
+                LiveOverlay.atHeartbeat(watch, onLive, now), now, LiveStatus.staleAfterMillis(onLive, staleAfter),
+            )
+        }
 
         fun of(
             visible: List<WatchEntity>,
@@ -171,15 +175,17 @@ internal data class WatchlistStatus(
             // Deaktivierte Paare zählen nicht mit (weder veraltet noch gescheitert noch «aktuell»)
             val traded = DisabledView.active(visible) { it.disabled }.filterNot { isNotTraded(it.lastError) }
             val stale = traded.count { isStale(it, now, staleAfter, liveIds) }
+            // Zeiten wie die Zeilen: am Live-Strom der letzte Takt
+            val times = traded.map { LiveOverlay.atHeartbeat(it, it.id in liveIds, now).lastUpdate }
             return WatchlistStatus(
                 traded = traded.size,
                 stale = stale,
                 failed = traded.count { it.lastError != null },
-                newest = traded.maxOfOrNull { it.lastUpdate } ?: 0L,
+                newest = times.maxOrNull() ?: 0L,
                 offline = traded.isNotEmpty() && traded.all { isConnectionError(it.lastError) },
                 deviceOffline = !online && traded.isNotEmpty(),
                 allLive = LiveStatus.allLive(traded.map { it.id }, liveIds, stale),
-                shownTime = LiveStatus.shownTime(traded.map { it.lastUpdate }),
+                shownTime = LiveStatus.shownTime(times),
             )
         }
     }

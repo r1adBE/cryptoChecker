@@ -342,4 +342,17 @@ extension Watch {
             live: quote.change24h, existing: change24h)
         return copy
     }
+
+    /// Frische am Live-Strom (`onLiveSocket`) am letzten Takt messen (`LiveStatus.freshnessTime`): Ein ruhiges Paar,
+    /// dessen Strom gesund ist, wird nicht «veraltet», obwohl `lastUpdate` nur mit einem Kurswechsel weiterrückt. Für
+    /// Zeile, Paarseite, Status-Pille und «nur veraltete» gleich; gespeichert wird nichts davon — wie Android
+    /// `LiveOverlay.atHeartbeat`.
+    func atHeartbeat(onLiveSocket: Bool, now: Int64) -> Watch {
+        guard onLiveSocket, !isNotTraded, !disabled else { return self }
+        let time = LiveStatus.freshnessTime(lastUpdate: lastUpdate, onLiveSocket: true, now: now)
+        guard time != lastUpdate else { return self }
+        var copy = self
+        copy.lastUpdate = time
+        return copy
+    }
 }

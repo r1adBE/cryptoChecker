@@ -77,7 +77,8 @@ struct PairScreen: View {
         // Eben hinzugefügt: die Vorschau bleibt stehen, bis der neue Eintrag einen Kurs (oder Fehler) hat
         if let watch = data.watch(currentId),
            !(adding && preview != nil && watch.lastUpdate <= 0 && watch.lastError == nil) {
-            content(watch)
+            // Am Live-Strom: Frische am letzten Takt (wie Zeile und Status-Pille)
+            content(data.atHeartbeat(watch, now: now))
         } else if let preview {
             previewContent(previewQuoted ?? preview)
         } else {

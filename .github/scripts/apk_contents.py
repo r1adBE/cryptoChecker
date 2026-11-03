@@ -11,7 +11,7 @@ Appends findings for annotate.py:
   - native debug symbols in the AAB (ndk.debugSymbolLevel)              -> notice if missing
     (expected: SQLCipher ships prebuilt, stripped libraries and AGP needs an installed NDK to
     extract symbols; no NDK is installed on purpose, a mismatching NDK version could break the build)
-  - release APK larger than APK_WARN_MB (baseline 17.6 MB)              -> warning
+  - release APK larger than APK_WARN_MB (baseline 26.7 MB, see below)   -> warning
   - size of APK and AAB, list of native libraries                        -> notice
 
 Usage: python3 -I apk_contents.py <apk> <aab or -> <findings file>
@@ -22,9 +22,12 @@ import sys
 import zipfile
 
 PAGE_16K = 16384
-# Warning threshold for the release APK: baseline 17.6 MB, a jump beyond this means a new
-# dependency or resources that were not shrunk
-APK_WARN_MB = 22
+# Warning threshold for the release APK: baseline 26.7 MB, a jump beyond this means a new
+# dependency or resources that were not shrunk. The universal APK carries every language: resources.arsc alone is
+# about 14.9 MB (75 languages, stored uncompressed as Android requires since targetSdk 30). Play installs from the
+# AAB with language, density and ABI splits, so users download far less (apkanalyzer estimate about 13.3 MB for
+# the baseline). Languages are not removed to meet a size figure; the threshold follows the baseline instead.
+APK_WARN_MB = 32
 
 
 def elf_min_load_align(data):
@@ -78,9 +81,12 @@ def main():
             apk_size = os.path.getsize(apk)
             sizes.append(f"APK {os.path.basename(apk)} {mb(apk_size)}")
             if apk_size > APK_WARN_MB * 1024 * 1024:
-                add("warning", f"Release APK is {mb(apk_size)}, more than {APK_WARN_MB} MB (baseline 17.6 MB): "
+                add("warning", f"Release APK is {mb(apk_size)}, more than {APK_WARN_MB} MB (baseline 26.7 MB): "
                                "check new dependencies, native libraries and resource shrinking "
                                "(apkanalyzer / Android Studio «Analyze APK»)")
+            if "resources.arsc" in names:
+                # All 75 languages; Play delivers only the device's language split
+                sizes.append(f"resources.arsc {mb(z.getinfo('resources.arsc').file_size)}")
             if "assets/dexopt/baseline.prof" not in names:
                 add("warning", "Release APK contains no baseline profile (assets/dexopt/baseline.prof): "
                                "app/src/main/baseline-prof.txt or the :baselineprofile output was not packaged")

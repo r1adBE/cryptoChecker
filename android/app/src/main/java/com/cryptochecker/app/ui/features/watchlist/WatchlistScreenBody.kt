@@ -264,8 +264,9 @@ internal fun WatchlistBody(
                         alarmFiredAt = alarmFiredAt[watch.id] ?: 0L,
                         kind = kinds[watch.id] ?: AssetKind.TOKEN,
                         now = now,
-                        // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
+                        // Am Live-Strom: 2 Min. ab dem letzten Takt, nicht ab dem letzten Kurswechsel (wie die Status-Pille)
                         staleAfter = LiveStatus.staleAfterMillis(watch.id in liveIds, staleAfter),
+                        onLiveSocket = watch.id in liveIds,
                         convertTarget = display.convertTarget,
                         convertRates = live.convertRates,
                         convertFxTimes = live.convertFxTimes,

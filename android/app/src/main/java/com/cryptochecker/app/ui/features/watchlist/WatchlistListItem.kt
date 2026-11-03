@@ -70,6 +70,8 @@ internal fun LazyItemScope.WatchlistItem(
     alarmCount: Int,
     now: Long,
     staleAfter: Long,
+    /** Paar am Live-Strom: Frische am letzten Takt ([LiveOverlay.atHeartbeat]). */
+    onLiveSocket: Boolean = false,
     convertTarget: String?,
     /** Letzte Alarm-Auslösung des Paars (Epoch-ms, 0 = nie), für «Alarm ausgelöst» im Screenreader. */
     alarmFiredAt: Long = 0L,
@@ -179,7 +181,7 @@ internal fun LazyItemScope.WatchlistItem(
             else Modifier.animateItem()
         ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
     ) {
-        WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis) { shown ->
+        WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis, onLiveSocket = onLiveSocket, now = now) { shown ->
             // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
             val dated = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
                 convertedFxTime(shown, convertFxTimes, now)?.let {
