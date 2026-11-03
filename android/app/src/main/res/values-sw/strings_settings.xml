@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ni programu huria (MIT License).</string>
     <string name="licenses_font_title">Fonti ya Rubik</string>
-    <string name="licenses_icons_bundled_text">Imejumuishwa na programu: aikoni kutoka “Cryptocurrency Icons” za Christopher Downer na wachangiaji (github.com/spothq/cryptocurrency-icons), zilizotolewa chini ya CC0 1.0 Universal. Zinaonyeshwa hadi nembo za CoinGecko au Binance zipakiwe. Majina na nembo zinabaki kuwa alama za biashara za miradi yake.</string>
-    <string name="licenses_icons_title">Aikoni mbadala za sarafu</string>
+    <string name="licenses_logos_trademarks">Majina na nembo ni alama za biashara za wamiliki wake.</string>
     <string name="licenses_libraries_intro">Programu inatumia maktaba hizi chini ya Apache License 2.0:</string>
     <string name="licenses_libraries_title">Maktaba za Android</string>
 

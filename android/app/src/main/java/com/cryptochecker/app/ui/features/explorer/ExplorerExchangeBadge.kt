@@ -13,7 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -30,14 +30,16 @@ import androidx.compose.ui.unit.Dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.domain.market.ExchangeLogos
-import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
- * Zeichen einer Börse in den Listen: echtes Logo ([ExchangeLogos], vom Gerät über [LocalCoinLogoSource] — nur mit
- * Schalter «In der App»), DexScreener und EZB-Referenzkurse ein festes Symbol ([ExchangeLogos.Symbol]), sonst und
- * solange das Logo lädt oder fehlt der farbige Kreis mit den Anfangsbuchstaben ([ExchangeMark]; Farben wie die
- * Ersatz-Kreise der Coins, [CoinLogoPlaceholder], mindestens 4.5:1). Rein dekorativ (der Name steht daneben).
+ * Zeichen einer Börse in den Listen: echtes Logo ([ExchangeLogos], mitgeliefert in [ExchangeLogoPack] — immer,
+ * auch mit ausgeschaltetem Logo-Schalter, denn es wird nichts geladen), DexScreener und EZB-Referenzkurse ein festes Symbol
+ * ([ExchangeLogos.Symbol]), sonst (Paket unlesbar) der farbige Kreis mit den Anfangsbuchstaben
+ * ([ExchangeMark]; Farben wie die Ersatz-Kreise der Coins, [CoinLogoPlaceholder], mindestens 4.5:1). Rein dekorativ
+ * (der Name steht daneben).
  * Wie iOS `ExplorerExchangeMarkView`.
  */
 @Composable
@@ -53,16 +55,16 @@ internal fun ExchangeMarkBadge(key: String, name: String, size: Dp, modifier: Mo
     }
 }
 
-/** Geladenes Logo der Börse vom Gerät; null = Schalter aus, keins zugeordnet oder (noch) nicht da. */
+/** Mitgeliefertes Logo der Börse; null = keins zugeordnet oder (beim ersten Mal) noch nicht gelesen. */
 @Composable
 private fun exchangeLogo(key: String): Bitmap? {
-    val source = LocalCoinLogoSource.current
-    val logoKey = ExchangeLogos.logoKey(key).takeIf { source != null }
-    val state = remember(logoKey, source) { mutableStateOf(logoKey?.let { source?.cached(it) }) }
-    // Neue Logos auf dem Gerät: fehlendes erneut versuchen
-    val revision = source?.revision?.collectAsState()?.value ?: 0
-    LaunchedEffect(logoKey, source, revision) {
-        if (state.value == null && logoKey != null) state.value = source?.load(logoKey)
+    val context = LocalContext.current.applicationContext
+    val name = ExchangeLogos.logoName(key)
+    val state = remember(name) { mutableStateOf(name?.let { ExchangeLogoPack.cached(it) }) }
+    LaunchedEffect(name) {
+        if (state.value == null && name != null) {
+            state.value = withContext(Dispatchers.IO) { ExchangeLogoPack.load(context, name) }
+        }
     }
     return state.value
 }

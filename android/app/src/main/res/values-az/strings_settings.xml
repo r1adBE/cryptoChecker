@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker açıq mənbəlidir (MIT lisenziyası).</string>
     <string name="licenses_font_title">Rubik şrifti</string>
-    <string name="licenses_icons_bundled_text">Tətbiqlə birlikdə: Christopher Downer və iştirakçıların «Cryptocurrency Icons» ikonları (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ilə yayımlanıb. CoinGecko və ya Binance loqoları yüklənənə qədər göstərilir. Adlar və loqolar öz layihələrinin ticarət nişanları olaraq qalır.</string>
-    <string name="licenses_icons_title">Ehtiyat koin ikonları</string>
+    <string name="licenses_logos_trademarks">Adlar və loqolar müvafiq sahiblərinin ticarət nişanlarıdır.</string>
     <string name="licenses_libraries_intro">Tətbiq bu kitabxanalardan Apache License 2.0 ilə istifadə edir:</string>
     <string name="licenses_libraries_title">Android kitabxanaları</string>
 

@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker는 오픈 소스입니다(MIT 라이선스).</string>
     <string name="licenses_font_title">Rubik 글꼴</string>
-    <string name="licenses_icons_bundled_text">앱에 포함: Christopher Downer와 기여자들의 “Cryptocurrency Icons”(github.com/spothq/cryptocurrency-icons) 아이콘으로, CC0 1.0 Universal로 공개되었습니다. CoinGecko 또는 Binance 로고를 불러올 때까지 표시됩니다. 이름과 로고는 각 프로젝트의 상표로 남습니다.</string>
-    <string name="licenses_icons_title">대체 코인 아이콘</string>
+    <string name="licenses_logos_trademarks">이름과 로고는 각 소유자의 상표입니다.</string>
     <string name="licenses_libraries_intro">앱은 다음 라이브러리를 Apache License 2.0에 따라 사용합니다:</string>
     <string name="licenses_libraries_title">Android 라이브러리</string>
 

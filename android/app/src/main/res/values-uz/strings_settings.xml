@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ochiq manbali (MIT License).</string>
     <string name="licenses_font_title">Rubik shrifti</string>
-    <string name="licenses_icons_bundled_text">Ilova bilan birga keladi: Christopher Downer va hissa qoʻshuvchilarning «Cryptocurrency Icons» belgilari (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal litsenziyasi ostida chiqarilgan. Ular CoinGecko yoki Binance logotiplari yuklanguncha koʻrsatiladi. Nomlar va logotiplar oʻz loyihalarining tovar belgilari boʻlib qoladi.</string>
-    <string name="licenses_icons_title">Zaxira tanga belgilari</string>
+    <string name="licenses_logos_trademarks">Nomlar va logotiplar tegishli egalarining savdo belgilaridir.</string>
     <string name="licenses_libraries_intro">Ilova Apache License 2.0 ostida quyidagi kutubxonalardan foydalanadi:</string>
     <string name="licenses_libraries_title">Android kutubxonalari</string>
 

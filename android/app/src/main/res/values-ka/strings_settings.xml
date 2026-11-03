@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ღია კოდისაა (MIT ლიცენზია).</string>
     <string name="licenses_font_title">შრიფტი Rubik</string>
-    <string name="licenses_icons_bundled_text">აპს თან ახლავს: ხატულები «Cryptocurrency Icons»-იდან, ავტორები Christopher Downer და მონაწილეები (github.com/spothq/cryptocurrency-icons), გამოქვეყნებული CC0 1.0 Universal-ით. ისინი ჩანს, სანამ CoinGecko-ს ან Binance-ის ლოგოები ჩაიტვირთება. სახელები და ლოგოები მათი პროექტების სავაჭრო ნიშნებად რჩება.</string>
-    <string name="licenses_icons_title">მონეტების სარეზერვო ხატულები</string>
+    <string name="licenses_logos_trademarks">სახელები და ლოგოები მათი შესაბამისი მფლობელების სავაჭრო ნიშნებია.</string>
     <string name="licenses_libraries_intro">აპი ამ ბიბლიოთეკებს Apache License 2.0-ით იყენებს:</string>
     <string name="licenses_libraries_title">Android ბიბლიოთეკები</string>
 

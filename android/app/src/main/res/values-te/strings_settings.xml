@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ఓపెన్ సోర్స్ (MIT License).</string>
     <string name="licenses_font_title">Rubik టైప్‌ఫేస్</string>
-    <string name="licenses_icons_bundled_text">యాప్‌తో పాటు వచ్చేవి: Christopher Downer, సహకారుల “Cryptocurrency Icons” నుండి ఐకాన్‌లు (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal కింద విడుదలయ్యాయి. CoinGecko లేదా Binance లోగోలు లోడ్ అయ్యే వరకు అవి చూపబడతాయి. పేర్లు, లోగోలు వాటి ప్రాజెక్ట్‌ల ట్రేడ్‌మార్క్‌లుగానే ఉంటాయి.</string>
-    <string name="licenses_icons_title">ప్రత్యామ్నాయ కాయిన్ ఐకాన్‌లు</string>
+    <string name="licenses_logos_trademarks">పేర్లు మరియు లోగోలు వాటి సంబంధిత యజమానుల ట్రేడ్‌మార్క్‌లు.</string>
     <string name="licenses_libraries_intro">యాప్ ఈ లైబ్రరీలను Apache License 2.0 కింద ఉపయోగిస్తుంది:</string>
     <string name="licenses_libraries_title">Android లైబ్రరీలు</string>
 

@@ -62,6 +62,10 @@ struct LicensesSheet: View {
                         .font(.caption.monospaced())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
+                // Mitgelieferte Coin- und Börsen-Logos — wie Android
+                Text(L("licenses_logos_trademarks"))
+                    .font(.subheadline)
+                    .foregroundStyle(AppColors.onSurface)
                 // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
                 Text(verbatim: DataFreshness.poweredByCoinGecko)
                     .font(.subheadline)
@@ -71,14 +75,6 @@ struct LicensesSheet: View {
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurface)
                     .padding(.bottom, Spacing.xs)
-                // Ersatz-Logos: freies Icon-Paket, CC0 1.0 — wie Android
-                Text(L("licenses_icons_title"))
-                    .sectionTitleStyle()
-                    .accessibilityAddTraits(.isHeader)
-                    .padding(.top, Spacing.sm)
-                Text(L("licenses_icons_bundled_text"))
-                    .font(.subheadline)
-                    .foregroundStyle(AppColors.onSurface)
             }
             .textSelection(.enabled)
             .frame(maxWidth: .infinity, alignment: .leading)

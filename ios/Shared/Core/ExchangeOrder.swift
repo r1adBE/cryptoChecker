@@ -117,8 +117,7 @@ enum ExchangeOrder {
 
 /// Gespeichertes Ranking der Börsen (`ExchangeOrder.parseVolumes`), Stand des ersten erfolgreichen Abrufs nach der
 /// Installation; nicht in der Sicherung. Fehlt es, holt `ensureLoaded` beide Listen höchstens einmal je App-Sitzung
-/// (beim Öffnen des Explorers); danach nie wieder; «429» wird einmal nach der verlangten Pause wiederholt. Seite 1 der
-/// Spot-Liste geht an die Börsen-Logos (`ExchangeLogoStore.offerFirstPage`). Wie Android `ExchangeRankingStore`.
+/// (beim Öffnen des Explorers); danach nie wieder. Wie Android `ExchangeRankingStore`.
 @MainActor
 enum ExchangeRankingStore {
     nonisolated static let volumesKey = "exchangeRanking.volumes"
@@ -150,11 +149,9 @@ enum ExchangeRankingStore {
         if triedThisSession || volumes(defaults: defaults) != nil { return false }
         triedThisSession = true
         do {
-            let spot = try await ExchangeLogoStore.callCoinGecko(ExchangeOrder.spotURL)
-            ExchangeLogoStore.offerFirstPage(spot)
-            try? await Task.sleep(nanoseconds: UInt64(CoinLogos.pagePauseMillis) * 1_000_000)
-            let derivatives = try await ExchangeLogoStore.callCoinGecko(ExchangeOrder.derivativesURL)
-            let parsed = try ExchangeOrder.parseVolumes(spotBody: spot, derivativesBody: derivatives)
+            async let spot = ExchangeHTTP.call(ExchangeOrder.spotURL, session: ExchangeHTTP.bulkSession)
+            async let derivatives = ExchangeHTTP.call(ExchangeOrder.derivativesURL, session: ExchangeHTTP.bulkSession)
+            let parsed = try ExchangeOrder.parseVolumes(spotBody: try await spot, derivativesBody: try await derivatives)
             if parsed.isEmpty { return false }
             save(parsed, defaults: defaults)
             return true

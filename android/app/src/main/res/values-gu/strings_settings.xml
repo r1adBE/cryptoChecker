@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ઓપન સોર્સ છે (MIT License).</string>
     <string name="licenses_font_title">Rubik ટાઇપફેસ</string>
-    <string name="licenses_icons_bundled_text">ઍપ સાથે સામેલ: Christopher Downer અને યોગદાનકર્તાઓના “Cryptocurrency Icons” માંથી આઇકન (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal હેઠળ પ્રકાશિત. CoinGecko કે Binance લોગો લોડ થાય ત્યાં સુધી તે બતાવાય છે. નામો અને લોગો તેમના પ્રોજેક્ટના ટ્રેડમાર્ક રહે છે.</string>
-    <string name="licenses_icons_title">વૈકલ્પિક કૉઇન આઇકન</string>
+    <string name="licenses_logos_trademarks">નામો અને લોગો તેમના સંબંધિત માલિકોના ટ્રેડમાર્ક છે.</string>
     <string name="licenses_libraries_intro">ઍપ Apache License 2.0 હેઠળ આ લાઇબ્રેરીઓ વાપરે છે:</string>
     <string name="licenses_libraries_title">Android લાઇબ્રેરીઓ</string>
 

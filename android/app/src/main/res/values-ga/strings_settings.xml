@@ -248,8 +248,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Is foinse oscailte é Crypto Checker (MIT License).</string>
     <string name="licenses_font_title">Cló Rubik</string>
-    <string name="licenses_icons_bundled_text">Pacáilte leis an aip: deilbhíní ó “Cryptocurrency Icons” le Christopher Downer agus rannpháirtithe (github.com/spothq/cryptocurrency-icons), eisithe faoi CC0 1.0 Universal. Taispeántar iad go dtí go lódáiltear lógónna CoinGecko nó Binance. Fanann ainmneacha agus lógónna ina dtrádmharcanna dá dtionscadail.</string>
-    <string name="licenses_icons_title">Deilbhíní bonn cúltaca</string>
+    <string name="licenses_logos_trademarks">Is trádmharcanna a n-úinéirí féin iad na hainmneacha agus na lógónna.</string>
     <string name="licenses_libraries_intro">Úsáideann an aip na leabharlanna seo faoi Apache License 2.0:</string>
     <string name="licenses_libraries_title">Leabharlanna Android</string>
 

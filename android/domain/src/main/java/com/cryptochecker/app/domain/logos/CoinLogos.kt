@@ -20,10 +20,9 @@ import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
  * - TradFi-Paare (Aktien, Rohstoffe, Devisen; Kennzeichen der Paarliste) nie aus CoinGecko: Dort
  *   heisst oft ein fremder Token gleich («CAT», «NVDA»). Ihr Logo kommt nur aus der Binance-Liste
  *   ([pickTradFi], Schlüssel [tradFiKey]); ohne Treffer Initialen.
- * - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS ([isAllowedUrl]). Kein eigenes
- *   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
- * - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, [ICON_PACK_FILE],
- *   rund 480 grössere Coins) — sofort und ohne Netz; Reihenfolge: Binance-Liste (gelistete Krypto-Kürzel) →
+ * - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS ([isAllowedUrl]).
+ * - Mitgeliefert: die Logos der 100 grössten Coins nach Marktkapitalisierung ([ICON_PACK_FILE]) — sofort und
+ *   ohne Netz; Reihenfolge: Binance-Liste (gelistete Krypto-Kürzel) →
  *   CoinGecko → übrige Binance-Liste/Alpha → mitgeliefertes Icon → Ersatz-Kreis. Kein Abruf bei jsDelivr mehr.
  * - Kein Logo (unbekannt, Fehler, noch nicht geladen): farbiger Kreis mit [initials] ([CoinLogoPlaceholder]) — nie ein
  *   kaputtes Bild.
@@ -257,9 +256,6 @@ object CoinLogos {
     /** Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo). */
     const val TRADFI_PREFIX = "TRADFI:"
 
-    /** Vorsilbe der Schlüssel für Börsen-Logos ([com.cryptochecker.app.domain.market.ExchangeLogos]): «EXCHANGE:binance». */
-    const val EXCHANGE_PREFIX = "EXCHANGE:"
-
     /** Schlüssel des Logos für ein TradFi-Paar: «TRADFI:NVDA» (Symbol unverändert, ohne Hebel-Präfix-Regel). */
     fun tradFiKey(symbol: String): String = TRADFI_PREFIX + symbol.trim().uppercase()
 
@@ -334,14 +330,15 @@ object CoinLogos {
         return out
     }
 
-    // ---- Mitgelieferte Icons: «Cryptocurrency Icons» 0.18.1 (CC0 1.0, github.com/spothq/cryptocurrency-icons)
+    // ---- Mitgelieferte Logos der 100 grössten Coins
 
     /**
-     * Mitgeliefertes Icon-Paket: die 64-px-PNGs (`32@2x/color`) der rund 480 grösseren Coins in einer
+     * Mitgeliefertes Logo-Paket: die Logos der 100 grössten Coins nach Marktkapitalisierung (80-px-PNGs) in einer
      * Datei (Android `assets/`, iOS `Shared/Resources` für App und Widgets; erzeugt mit
-     * `android/tools/gen_coin_assets.py`). Vorrang haben immer die geladenen Logos der Listen.
+     * `android/tools/gen_logo_packs.py`, Quellen in `android/tools/logo_packs_manifest.json`). Vorrang haben immer
+     * die geladenen Logos der Listen.
      */
-    const val ICON_PACK_FILE = "coin_icons.bin"
+    const val ICON_PACK_FILE = "coin_logos.bin"
 
     // Icon-Paket lesen (bundledIconName, parseIconPack): CoinLogosIconPack.kt
 
@@ -374,15 +371,9 @@ object CoinLogos {
 
     /**
      * Dateiname im Bild-Zwischenspeicher. Nur Symbole aus A–Z und 0–9 (sonst null → Initialen),
-     * damit zwei Symbole nie dieselbe Datei teilen; TradFi-Logos als «T_NVDA.png», Börsen-Logos als «X_binance.png»
-     * (Kennung bei CoinGecko: a–z, 0–9, «_», «-»).
+     * damit zwei Symbole nie dieselbe Datei teilen; TradFi-Logos als «T_NVDA.png».
      */
     fun fileName(symbol: String): String? {
-        if (symbol.startsWith(EXCHANGE_PREFIX)) {
-            val id = symbol.removePrefix(EXCHANGE_PREFIX)
-            if (id.isEmpty() || id.any { it !in 'a'..'z' && it !in '0'..'9' && it != '_' && it != '-' }) return null
-            return "X_$id.png"
-        }
         if (symbol.startsWith(TRADFI_PREFIX)) {
             val raw = symbol.removePrefix(TRADFI_PREFIX).trim().uppercase()
             if (raw.isEmpty() || raw.any { it !in 'A'..'Z' && it !in '0'..'9' }) return null

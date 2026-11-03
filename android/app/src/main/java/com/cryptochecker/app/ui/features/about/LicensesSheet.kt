@@ -79,7 +79,7 @@ private val ANDROID_LIBRARIES = listOf(
 )
 
 /**
- * Lizenzhinweise: die App selbst (MIT), Schrift Rubik (OFL), Ersatz-Icons (CC0),
+ * Lizenzhinweise: die App selbst (MIT), Marken der mitgelieferten Logos, Schrift Rubik (OFL),
  * Android-Bibliotheken (Apache 2.0) und SQLCipher (BSD-Stil, mit SQLite gemeinfrei). Die Lizenztexte liegen unübersetzt in
  * `assets/licenses/`; übersetzt sind nur Titel und Einleitungen.
  */
@@ -122,6 +122,8 @@ fun LicensesContent() {
             BodyText(stringResource(R.string.licenses_app_intro))
             LicenseText(app)
             LicenseText(thirdParty)
+            // Mitgelieferte Coin- und Börsen-Logos — wie iOS
+            BodyText(stringResource(R.string.licenses_logos_trademarks))
             // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
             BodyText(DataFreshness.POWERED_BY_COINGECKO)
             // Ersatz-Wechselkurse von open.er-api.com: verlangte Quellenangabe (nicht übersetzt)
@@ -130,11 +132,6 @@ fun LicensesContent() {
             SectionDivider()
             SectionTitle(stringResource(R.string.licenses_font_title))
             LicenseText(font)
-
-            // Ersatz-Logos: freies Icon-Paket, CC0 1.0
-            SectionDivider()
-            SectionTitle(stringResource(R.string.licenses_icons_title))
-            BodyText(stringResource(R.string.licenses_icons_bundled_text))
 
             SectionDivider()
             SectionTitle(stringResource(R.string.licenses_libraries_title))

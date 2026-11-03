@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 189)
+
+* Exchange logos and current logos of the 100 largest coins are built into the app: visible at once, no download. The old icon pack is gone, so the app is smaller (Android about 0.5 MB, iOS about 1.3 MB).
+* Licences: names and logos are trademarks of their owners.
+
 ## 16.2.2 (build 188)
 
 * Watchlist: a healthy row shows just the exchange; the age appears only when the last trade is clearly older than the update (the header already shows the time).

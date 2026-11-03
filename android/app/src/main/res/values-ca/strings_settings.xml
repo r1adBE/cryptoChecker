@@ -246,8 +246,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker és de codi obert (llicència MIT).</string>
     <string name="licenses_font_title">Tipus de lletra Rubik</string>
-    <string name="licenses_icons_bundled_text">Inclosos amb l\'app: icones de «Cryptocurrency Icons» de Christopher Downer i col·laboradors (github.com/spothq/cryptocurrency-icons), publicades sota CC0 1.0 Universal. Es mostren fins que es carreguen els logotips de CoinGecko o Binance. Els noms i logotips continuen sent marques dels seus projectes.</string>
-    <string name="licenses_icons_title">Icones de monedes alternatives</string>
+    <string name="licenses_logos_trademarks">Els noms i els logotips són marques dels seus respectius titulars.</string>
     <string name="licenses_libraries_intro">L\'app fa servir aquestes biblioteques sota la llicència Apache 2.0:</string>
     <string name="licenses_libraries_title">Biblioteques d\'Android</string>
 

@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker er åpen kildekode (MIT-lisens).</string>
     <string name="licenses_font_title">Skrifttypen Rubik</string>
-    <string name="licenses_icons_bundled_text">Følger med appen: ikoner fra «Cryptocurrency Icons» av Christopher Downer og bidragsytere (github.com/spothq/cryptocurrency-icons), utgitt under CC0 1.0 Universal. De vises til logoer fra CoinGecko eller Binance er lastet. Navn og logoer forblir varemerker for sine prosjekter.</string>
-    <string name="licenses_icons_title">Reserveikoner for coins</string>
+    <string name="licenses_logos_trademarks">Navn og logoer er varemerker som tilhører sine respektive eiere.</string>
     <string name="licenses_libraries_intro">Appen bruker disse bibliotekene under Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-biblioteker</string>
 

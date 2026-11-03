@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ialah sumber terbuka (Lesen MIT).</string>
     <string name="licenses_font_title">Fon Rubik</string>
-    <string name="licenses_icons_bundled_text">Disertakan bersama apl: ikon daripada “Cryptocurrency Icons” oleh Christopher Downer dan penyumbang (github.com/spothq/cryptocurrency-icons), dikeluarkan di bawah CC0 1.0 Universal. Ikon ini ditunjukkan sehingga logo CoinGecko atau Binance dimuatkan. Nama dan logo kekal sebagai tanda dagangan projek masing-masing.</string>
-    <string name="licenses_icons_title">Ikon koin sandaran</string>
+    <string name="licenses_logos_trademarks">Nama dan logo ialah tanda dagangan pemilik masing-masing.</string>
     <string name="licenses_libraries_intro">Apl ini menggunakan pustaka ini di bawah Apache License 2.0:</string>
     <string name="licenses_libraries_title">Pustaka Android</string>
 

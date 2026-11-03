@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker on avatud lähtekoodiga (MIT-litsents).</string>
     <string name="licenses_font_title">Kirjatüüp Rubik</string>
-    <string name="licenses_icons_bundled_text">Rakendusega kaasas: ikoonid kogumikust „Cryptocurrency Icons“, autorid Christopher Downer ja kaasautorid (github.com/spothq/cryptocurrency-icons), avaldatud litsentsiga CC0 1.0 Universal. Neid näidatakse, kuni CoinGecko või Binance’i logod on laaditud. Nimed ja logod jäävad vastavate projektide kaubamärkideks.</string>
-    <string name="licenses_icons_title">Varumüntide ikoonid</string>
+    <string name="licenses_logos_trademarks">Nimed ja logod on nende vastavate omanike kaubamärgid.</string>
     <string name="licenses_libraries_intro">Rakendus kasutab neid teeke Apache License 2.0 alusel:</string>
     <string name="licenses_libraries_title">Androidi teegid</string>
 

@@ -385767,916 +385767,6 @@
         }
       }
     },
-    "licenses_icons_bundled_text" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saam met die app ingesluit: ikone uit “Cryptocurrency Icons” deur Christopher Downer en bydraers (github.com/spothq/cryptocurrency-icons), vrygestel onder CC0 1.0 Universal. Hulle word gewys totdat CoinGecko- of Binance-logo's gelaai is. Name en logo's bly handelsmerke van hul projekte."
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ከመተግበሪያው ጋር የተካተተ፦ በChristopher Downer እና አስተዋጽዖ አበርካቾች የተሠሩ ከ«Cryptocurrency Icons» የመጡ አዶዎች (github.com/spothq/cryptocurrency-icons)፣ በCC0 1.0 Universal ስር የተለቀቁ። የCoinGecko ወይም የBinance አርማዎች እስኪጫኑ ድረስ ይታያሉ። ስሞችና አርማዎች የየፕሮጀክቶቻቸው የንግድ ምልክቶች ሆነው ይቆያሉ።"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مضمّنة في التطبيق: أيقونات من «Cryptocurrency Icons» لـ Christopher Downer والمساهمين (github.com/spothq/cryptocurrency-icons)، الصادرة بترخيص CC0 1.0 Universal. تظهر إلى أن تُحمَّل شعارات CoinGecko أو Binance. تبقى الأسماء والشعارات علامات تجارية لمشاريعها."
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tətbiqlə birlikdə: Christopher Downer və iştirakçıların «Cryptocurrency Icons» ikonları (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ilə yayımlanıb. CoinGecko və ya Binance loqoları yüklənənə qədər göstərilir. Adlar və loqolar öz layihələrinin ticarət nişanları olaraq qalır."
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Включени в приложението: икони от „Cryptocurrency Icons“ на Christopher Downer и сътрудници (github.com/spothq/cryptocurrency-icons), издадени под CC0 1.0 Universal. Показват се, докато не се заредят логата от CoinGecko или Binance. Имената и логата остават търговски марки на съответните проекти."
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "অ্যাপের সঙ্গে দেওয়া: Christopher Downer ও অবদানকারীদের “Cryptocurrency Icons” থেকে আইকন (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal-এর অধীনে প্রকাশিত। CoinGecko বা Binance-এর লোগো লোড না হওয়া পর্যন্ত এগুলো দেখায়। নাম ও লোগো তাদের প্রকল্পের ট্রেডমার্ক থাকে।"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isporučeno s aplikacijom: ikone iz „Cryptocurrency Icons“ autora Christophera Downera i saradnika (github.com/spothq/cryptocurrency-icons), objavljene pod licencom CC0 1.0 Universal. Prikazuju se dok se ne učitaju logotipi s CoinGecka ili Binancea. Nazivi i logotipi ostaju zaštitni znakovi svojih projekata."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclosos amb l'app: icones de «Cryptocurrency Icons» de Christopher Downer i col·laboradors (github.com/spothq/cryptocurrency-icons), publicades sota CC0 1.0 Universal. Es mostren fins que es carreguen els logotips de CoinGecko o Binance. Els noms i logotips continuen sent marques dels seus projectes."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Součást aplikace: ikony z „Cryptocurrency Icons“ od Christophera Downera a přispěvatelů (github.com/spothq/cryptocurrency-icons), vydané pod CC0 1.0 Universal. Zobrazují se, dokud se nenačtou loga z CoinGecko nebo Binance. Názvy a loga zůstávají ochrannými známkami svých projektů."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Følger med appen: ikoner fra «Cryptocurrency Icons» af Christopher Downer og bidragydere (github.com/spothq/cryptocurrency-icons), udgivet under CC0 1.0 Universal. De vises, indtil logoer fra CoinGecko eller Binance er indlæst. Navne og logoer forbliver varemærker for deres projekter."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "In der App enthalten: Icons aus «Cryptocurrency Icons» von Christopher Downer und Mitwirkenden (github.com/spothq/cryptocurrency-icons), freigegeben unter CC0 1.0 Universal. Sie erscheinen, bis die Logos von CoinGecko oder Binance geladen sind. Namen und Logos bleiben Marken der jeweiligen Projekte."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Περιλαμβάνονται στην εφαρμογή: εικονίδια από το «Cryptocurrency Icons» του Christopher Downer και συνεισφερόντων (github.com/spothq/cryptocurrency-icons), με άδεια CC0 1.0 Universal. Εμφανίζονται μέχρι να φορτωθούν τα λογότυπα του CoinGecko ή της Binance. Τα ονόματα και τα λογότυπα παραμένουν εμπορικά σήματα των έργων τους."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bundled with the app: icons from “Cryptocurrency Icons” by Christopher Downer and contributors (github.com/spothq/cryptocurrency-icons), released under CC0 1.0 Universal. They are shown until CoinGecko or Binance logos are loaded. Names and logos remain trademarks of their projects."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluidos en la app: iconos de «Cryptocurrency Icons» de Christopher Downer y colaboradores (github.com/spothq/cryptocurrency-icons), publicados bajo CC0 1.0 Universal. Se muestran hasta que se cargan los logotipos de CoinGecko o Binance. Los nombres y logotipos siguen siendo marcas de sus proyectos."
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rakendusega kaasas: ikoonid kogumikust „Cryptocurrency Icons“, autorid Christopher Downer ja kaasautorid (github.com/spothq/cryptocurrency-icons), avaldatud litsentsiga CC0 1.0 Universal. Neid näidatakse, kuni CoinGecko või Binance’i logod on laaditud. Nimed ja logod jäävad vastavate projektide kaubamärkideks."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aplikazioarekin batera: Christopher Downer-en eta laguntzaileen «Cryptocurrency Icons» ikonoak (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal lizentziapean argitaratuak. CoinGecko edo Binance logoak kargatu arte erakusten dira. Izenak eta logoak beren proiektuen marka dira."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "همراه برنامه: نمادهایی از «Cryptocurrency Icons» اثر Christopher Downer و مشارکت‌کنندگان (github.com/spothq/cryptocurrency-icons) که با مجوز CC0 1.0 Universal منتشر شده‌اند. تا زمانی که لوگوهای CoinGecko یا Binance بارگیری شوند نمایش داده می‌شوند. نام‌ها و لوگوها همچنان علامت تجاری پروژه‌های خود هستند."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sovelluksen mukana: kuvakkeet kokoelmasta ”Cryptocurrency Icons” (Christopher Downer ja muut tekijät, github.com/spothq/cryptocurrency-icons), julkaistu lisenssillä CC0 1.0 Universal. Ne näkyvät, kunnes CoinGeckon tai Binancen logot on ladattu. Nimet ja logot ovat edelleen projektiensa tavaramerkkejä."
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kasama sa app: mga icon mula sa “Cryptocurrency Icons” ni Christopher Downer at mga kontribyutor (github.com/spothq/cryptocurrency-icons), inilabas sa ilalim ng CC0 1.0 Universal. Ipinapakita ang mga ito hanggang ma-load ang mga logo ng CoinGecko o Binance. Nananatiling trademark ng kanilang mga proyekto ang mga pangalan at logo."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclus dans l’app : icônes de « Cryptocurrency Icons » de Christopher Downer et contributeurs (github.com/spothq/cryptocurrency-icons), publiées sous CC0 1.0 Universal. Elles s’affichent jusqu’au chargement des logos de CoinGecko ou Binance. Les noms et logos restent des marques de leurs projets."
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pacáilte leis an aip: deilbhíní ó “Cryptocurrency Icons” le Christopher Downer agus rannpháirtithe (github.com/spothq/cryptocurrency-icons), eisithe faoi CC0 1.0 Universal. Taispeántar iad go dtí go lódáiltear lógónna CoinGecko nó Binance. Fanann ainmneacha agus lógónna ina dtrádmharcanna dá dtionscadail."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluídas coa app: iconas de «Cryptocurrency Icons» de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicadas baixo CC0 1.0 Universal. Móstranse ata que se cargan os logotipos de CoinGecko ou Binance. Os nomes e logotipos seguen sendo marcas dos seus proxectos."
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ઍપ સાથે સામેલ: Christopher Downer અને યોગદાનકર્તાઓના “Cryptocurrency Icons” માંથી આઇકન (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal હેઠળ પ્રકાશિત. CoinGecko કે Binance લોગો લોડ થાય ત્યાં સુધી તે બતાવાય છે. નામો અને લોગો તેમના પ્રોજેક્ટના ટ્રેડમાર્ક રહે છે."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "כלולים באפליקציה: סמלים מתוך «Cryptocurrency Icons» של Christopher Downer ותורמים (github.com/spothq/cryptocurrency-icons), שפורסמו תחת CC0 1.0 Universal. הם מוצגים עד שהלוגואים של CoinGecko או Binance נטענים. השמות והלוגואים נשארים סימנים מסחריים של הפרויקטים שלהם."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ऐप के साथ शामिल: Christopher Downer और योगदानकर्ताओं के “Cryptocurrency Icons” (github.com/spothq/cryptocurrency-icons) से आइकन, जो CC0 1.0 Universal के तहत जारी हैं। ये तब तक दिखते हैं जब तक CoinGecko या Binance के लोगो लोड नहीं हो जाते। नाम और लोगो अपने-अपने प्रोजेक्ट के ट्रेडमार्क बने रहते हैं।"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isporučeno s aplikacijom: ikone iz „Cryptocurrency Icons“ autora Christophera Downera i suradnika (github.com/spothq/cryptocurrency-icons), objavljene pod licencom CC0 1.0 Universal. Prikazuju se dok se ne učitaju logotipi s CoinGecka ili Binancea. Nazivi i logotipi ostaju zaštitni znakovi svojih projekata."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Az alkalmazás része: ikonok a „Cryptocurrency Icons” gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Հավելվածի հետ միասին՝ «Cryptocurrency Icons»-ի պատկերակներ, հեղինակ՝ Christopher Downer և մասնակիցներ (github.com/spothq/cryptocurrency-icons), թողարկված CC0 1.0 Universal-ով։ Դրանք ցուցադրվում են, մինչև CoinGecko-ի կամ Binance-ի լոգոները բեռնվեն։ Անուններն ու լոգոները մնում են իրենց նախագծերի ապրանքանիշերը։"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disertakan dalam aplikasi: ikon dari “Cryptocurrency Icons” oleh Christopher Downer dan kontributor (github.com/spothq/cryptocurrency-icons), dirilis di bawah CC0 1.0 Universal. Ikon ini tampil sampai logo dari CoinGecko atau Binance dimuat. Nama dan logo tetap merupakan merek dagang proyek masing-masing."
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fylgir forritinu: tákn úr „Cryptocurrency Icons“ eftir Christopher Downer og fleiri (github.com/spothq/cryptocurrency-icons), gefin út undir CC0 1.0 Universal. Þau eru sýnd þar til merki frá CoinGecko eða Binance hafa hlaðist. Heiti og merki eru áfram vörumerki viðkomandi verkefna."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluse nell’app: icone da «Cryptocurrency Icons» di Christopher Downer e collaboratori (github.com/spothq/cryptocurrency-icons), rilasciate con licenza CC0 1.0 Universal. Vengono mostrate finché non sono caricati i loghi di CoinGecko o Binance. Nomi e loghi restano marchi dei rispettivi progetti."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アプリに同梱：Christopher Downer 氏と貢献者による「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）のアイコンで、CC0 1.0 Universal で公開されています。CoinGecko または Binance のロゴが読み込まれるまで表示されます。名称とロゴは各プロジェクトの商標です。"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "აპს თან ახლავს: ხატულები «Cryptocurrency Icons»-იდან, ავტორები Christopher Downer და მონაწილეები (github.com/spothq/cryptocurrency-icons), გამოქვეყნებული CC0 1.0 Universal-ით. ისინი ჩანს, სანამ CoinGecko-ს ან Binance-ის ლოგოები ჩაიტვირთება. სახელები და ლოგოები მათი პროექტების სავაჭრო ნიშნებად რჩება."
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Қолданбамен бірге жеткізіледі: Christopher Downer және қатысушылардың «Cryptocurrency Icons» белгішелері (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal лицензиясымен жарияланған. Олар CoinGecko немесе Binance логотиптері жүктелгенше көрсетіледі. Атаулар мен логотиптер өз жобаларының сауда белгілері болып қалады."
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ភ្ជាប់មកជាមួយកម្មវិធី៖ រូបតំណាងពី «Cryptocurrency Icons» ដោយ Christopher Downer និងអ្នករួមចំណែក (github.com/spothq/cryptocurrency-icons) ចេញផ្សាយក្រោម CC0 1.0 Universal។ វាត្រូវបានបង្ហាញរហូតដល់រូបសញ្ញា CoinGecko ឬ Binance ត្រូវបានផ្ទុក។ ឈ្មោះ និងរូបសញ្ញានៅតែជាពាណិជ្ជសញ្ញារបស់គម្រោងរបស់វា។"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ಆ್ಯಪ್‌ನೊಂದಿಗೆ ಸೇರಿಸಲಾಗಿದೆ: Christopher Downer ಮತ್ತು ಕೊಡುಗೆದಾರರ “Cryptocurrency Icons” ನಿಂದ ಐಕಾನ್‌ಗಳು (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ಅಡಿಯಲ್ಲಿ ಬಿಡುಗಡೆಯಾಗಿದೆ. CoinGecko ಅಥವಾ Binance ಲೋಗೋಗಳು ಲೋಡ್ ಆಗುವವರೆಗೆ ಅವುಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತದೆ. ಹೆಸರುಗಳು ಮತ್ತು ಲೋಗೋಗಳು ಅವುಗಳ ಯೋಜನೆಗಳ ಟ್ರೇಡ್‌ಮಾರ್ಕ್‌ಗಳಾಗಿಯೇ ಉಳಿಯುತ್ತವೆ."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "앱에 포함: Christopher Downer와 기여자들의 “Cryptocurrency Icons”(github.com/spothq/cryptocurrency-icons) 아이콘으로, CC0 1.0 Universal로 공개되었습니다. CoinGecko 또는 Binance 로고를 불러올 때까지 표시됩니다. 이름과 로고는 각 프로젝트의 상표로 남습니다."
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ມາພ້ອມກັບແອັບ: ໄອຄອນຈາກ “Cryptocurrency Icons” ໂດຍ Christopher Downer ແລະ ຜູ້ຮ່ວມພັດທະນາ (github.com/spothq/cryptocurrency-icons), ເຜີຍແຜ່ພາຍໃຕ້ CC0 1.0 Universal. ພວກມັນຈະສະແດງຈົນກວ່າໂລໂກ້ CoinGecko ຫຼື Binance ຈະຖືກໂຫຼດ. ຊື່ ແລະ ໂລໂກ້ຍັງເປັນເຄື່ອງໝາຍການຄ້າຂອງໂຄງການຂອງພວກມັນ."
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Įtraukta į programėlę: piktogramos iš „Cryptocurrency Icons“, kurias sukūrė Christopher Downer ir bendraautoriai (github.com/spothq/cryptocurrency-icons), išleistos pagal CC0 1.0 Universal. Jos rodomos, kol įkeliami CoinGecko ar Binance logotipai. Pavadinimai ir logotipai lieka atitinkamų projektų prekių ženklais."
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iekļauts lietotnē: ikonas no „Cryptocurrency Icons“, ko izveidoja Christopher Downer un līdzautori (github.com/spothq/cryptocurrency-icons), izdotas ar CC0 1.0 Universal. Tās tiek rādītas, līdz ielādēti CoinGecko vai Binance logotipi. Nosaukumi un logotipi paliek attiecīgo projektu preču zīmes."
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вклучени во апликацијата: икони од „Cryptocurrency Icons“ од Christopher Downer и соработниците (github.com/spothq/cryptocurrency-icons), објавени под CC0 1.0 Universal. Се прикажуваат додека не се вчитаат логоата од CoinGecko или Binance. Имињата и логоата остануваат заштитни знаци на нивните проекти."
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ആപ്പിനൊപ്പം ഉൾപ്പെടുത്തിയത്: Christopher Downer-ന്റെയും സംഭാവന ചെയ്തവരുടെയും “Cryptocurrency Icons”-ൽ നിന്നുള്ള ഐക്കണുകൾ (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal പ്രകാരം പ്രസിദ്ധീകരിച്ചത്. CoinGecko അല്ലെങ്കിൽ Binance ലോഗോകൾ ലോഡ് ആകുന്നതുവരെ ഇവ കാണിക്കുന്നു. പേരുകളും ലോഗോകളും അവയുടെ പ്രോജക്റ്റുകളുടെ വ്യാപാരമുദ്രകളായി തുടരുന്നു."
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Апптай хамт ирдэг: Christopher Downer болон хувь нэмэр оруулагчдын «Cryptocurrency Icons» дүрс (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal лицензээр гаргасан. CoinGecko эсвэл Binance-ийн лого ачаалагдах хүртэл харагдана. Нэр болон лого нь өөрсдийн төслийн барааны тэмдэг хэвээр байна."
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ॲपसोबत समाविष्ट: Christopher Downer आणि योगदानकर्त्यांच्या “Cryptocurrency Icons” मधील आयकन (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal अंतर्गत प्रकाशित. CoinGecko किंवा Binance लोगो लोड होईपर्यंत ते दाखवले जातात. नावे आणि लोगो त्यांच्या प्रकल्पांचे ट्रेडमार्क राहतात."
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disertakan bersama apl: ikon daripada “Cryptocurrency Icons” oleh Christopher Downer dan penyumbang (github.com/spothq/cryptocurrency-icons), dikeluarkan di bawah CC0 1.0 Universal. Ikon ini ditunjukkan sehingga logo CoinGecko atau Binance dimuatkan. Nama dan logo kekal sebagai tanda dagangan projek masing-masing."
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "အက်ပ်နှင့်အတူ ပါဝင်သည်- Christopher Downer နှင့် ပါဝင်ကူညီသူများ၏ “Cryptocurrency Icons” မှ အိုင်ကွန်များ (github.com/spothq/cryptocurrency-icons)၊ CC0 1.0 Universal အောက်တွင် ထုတ်ဝေထားသည်။ ၎င်းတို့ကို CoinGecko သို့မဟုတ် Binance လိုဂိုများ ဖွင့်ပြီးသည်အထိ ပြသည်။ အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပရောဂျက်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်နေဆဲ ဖြစ်သည်။"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Følger med appen: ikoner fra «Cryptocurrency Icons» av Christopher Downer og bidragsytere (github.com/spothq/cryptocurrency-icons), utgitt under CC0 1.0 Universal. De vises til logoer fra CoinGecko eller Binance er lastet. Navn og logoer forblir varemerker for sine prosjekter."
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "एपसँगै समावेश: Christopher Downer र योगदानकर्ताहरूको “Cryptocurrency Icons” बाट आइकनहरू (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal अन्तर्गत जारी। CoinGecko वा Binance लोगो लोड नभएसम्म यिनीहरू देखाइन्छन्। नाम र लोगोहरू तिनका परियोजनाका ट्रेडमार्क रहन्छन्।"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Meegeleverd met de app: iconen uit ‘Cryptocurrency Icons’ van Christopher Downer en bijdragers (github.com/spothq/cryptocurrency-icons), vrijgegeven onder CC0 1.0 Universal. Ze worden getoond tot de logo’s van CoinGecko of Binance geladen zijn. Namen en logo’s blijven merken van hun projecten."
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ਐਪ ਨਾਲ ਸ਼ਾਮਲ: Christopher Downer ਅਤੇ ਯੋਗਦਾਨੀਆਂ ਦੇ “Cryptocurrency Icons” ਤੋਂ ਆਈਕਨ (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal ਅਧੀਨ ਜਾਰੀ। ਇਹ ਉਦੋਂ ਤੱਕ ਦਿਖਾਏ ਜਾਂਦੇ ਹਨ ਜਦੋਂ ਤੱਕ CoinGecko ਜਾਂ Binance ਦੇ ਲੋਗੋ ਲੋਡ ਨਾ ਹੋਣ। ਨਾਮ ਅਤੇ ਲੋਗੋ ਆਪਣੇ ਪ੍ਰੋਜੈਕਟਾਂ ਦੇ ਟ੍ਰੇਡਮਾਰਕ ਰਹਿੰਦੇ ਹਨ।"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dołączone do aplikacji: ikony z „Cryptocurrency Icons” autorstwa Christophera Downera i współtwórców (github.com/spothq/cryptocurrency-icons), udostępnione na licencji CC0 1.0 Universal. Są widoczne, dopóki nie wczytają się loga z CoinGecko lub Binance. Nazwy i loga pozostają znakami towarowymi swoich projektów."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluídos na app: ícones de «Cryptocurrency Icons» de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. São mostrados até os logótipos da CoinGecko ou da Binance serem carregados. Os nomes e logótipos continuam a ser marcas dos respetivos projetos."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluídos no app: ícones de “Cryptocurrency Icons” de Christopher Downer e colaboradores (github.com/spothq/cryptocurrency-icons), publicados sob CC0 1.0 Universal. Eles aparecem até os logos da CoinGecko ou da Binance serem carregados. Nomes e logos continuam sendo marcas dos respectivos projetos."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incluse în aplicație: pictograme din „Cryptocurrency Icons” de Christopher Downer și colaboratori (github.com/spothq/cryptocurrency-icons), publicate sub CC0 1.0 Universal. Sunt afișate până se încarcă logourile de la CoinGecko sau Binance. Numele și logourile rămân mărci ale proiectelor lor."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "В составе приложения: значки из «Cryptocurrency Icons» Кристофера Дауэра (Christopher Downer) и соавторов (github.com/spothq/cryptocurrency-icons), выпущенные под CC0 1.0 Universal. Они показываются, пока не загрузятся логотипы CoinGecko или Binance. Названия и логотипы остаются товарными знаками своих проектов."
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "යෙදුම සමඟ ඇතුළත්: Christopher Downer සහ දායකයින්ගේ “Cryptocurrency Icons” හි නිරූපක (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal යටතේ නිකුත් කර ඇත. CoinGecko හෝ Binance ලාංඡන පූරණය වන තුරු ඒවා පෙන්වයි. නම් සහ ලාංඡන ඒවායේ ව්‍යාපෘතිවල වෙළඳ ලකුණු ලෙස පවතී."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Súčasť aplikácie: ikony z „Cryptocurrency Icons“ od Christophera Downera a prispievateľov (github.com/spothq/cryptocurrency-icons), vydané pod licenciou CC0 1.0 Universal. Zobrazujú sa, kým sa nenačítajú logá z CoinGecko alebo Binance. Názvy a logá zostávajú ochrannými známkami svojich projektov."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Priloženo aplikaciji: ikone iz „Cryptocurrency Icons“ avtorja Christopherja Downerja in sodelavcev (github.com/spothq/cryptocurrency-icons), izdane pod licenco CC0 1.0 Universal. Prikazujejo se, dokler se ne naložijo logotipi CoinGecko ali Binance. Imena in logotipi ostanejo blagovne znamke svojih projektov."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Të përfshira në aplikacion: ikona nga «Cryptocurrency Icons» nga Christopher Downer dhe kontribuuesit (github.com/spothq/cryptocurrency-icons), të publikuara nën CC0 1.0 Universal. Shfaqen derisa të ngarkohen logot e CoinGecko ose Binance. Emrat dhe logot mbeten marka të projekteve të tyre."
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Испоручено с апликацијом: иконе из „Cryptocurrency Icons“ аутора Кристофера Даунера и сарадника (github.com/spothq/cryptocurrency-icons), објављене под лиценцом CC0 1.0 Universal. Приказују се док се не учитају логотипи с CoinGecko-а или Binance-а. Називи и логотипи остају заштитни знакови својих пројеката."
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isporučeno s aplikacijom: ikone iz „Cryptocurrency Icons“ autora Kristofera Daunera i saradnika (github.com/spothq/cryptocurrency-icons), objavljene pod licencom CC0 1.0 Universal. Prikazuju se dok se ne učitaju logotipi s CoinGecko-a ili Binance-a. Nazivi i logotipi ostaju zaštitni znakovi svojih projekata."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ingår i appen: ikoner från ”Cryptocurrency Icons” av Christopher Downer med bidragsgivare (github.com/spothq/cryptocurrency-icons), släppta under CC0 1.0 Universal. De visas tills logotyper från CoinGecko eller Binance har hämtats. Namn och logotyper förblir varumärken för respektive projekt."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Imejumuishwa na programu: aikoni kutoka “Cryptocurrency Icons” za Christopher Downer na wachangiaji (github.com/spothq/cryptocurrency-icons), zilizotolewa chini ya CC0 1.0 Universal. Zinaonyeshwa hadi nembo za CoinGecko au Binance zipakiwe. Majina na nembo zinabaki kuwa alama za biashara za miradi yake."
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ஆப்புடன் சேர்க்கப்பட்டவை: Christopher Downer மற்றும் பங்களிப்பாளர்களின் “Cryptocurrency Icons” இலிருந்து ஐகான்கள் (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal இன் கீழ் வெளியிடப்பட்டவை. CoinGecko அல்லது Binance லோகோக்கள் ஏற்றப்படும் வரை அவை காட்டப்படும். பெயர்களும் லோகோக்களும் அவற்றின் திட்டங்களின் வர்த்தகச் சின்னங்களாகவே இருக்கும்."
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "యాప్‌తో పాటు వచ్చేవి: Christopher Downer, సహకారుల “Cryptocurrency Icons” నుండి ఐకాన్‌లు (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal కింద విడుదలయ్యాయి. CoinGecko లేదా Binance లోగోలు లోడ్ అయ్యే వరకు అవి చూపబడతాయి. పేర్లు, లోగోలు వాటి ప్రాజెక్ట్‌ల ట్రేడ్‌మార్క్‌లుగానే ఉంటాయి."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "รวมมากับแอป: ไอคอนจาก “Cryptocurrency Icons” โดย Christopher Downer และผู้ร่วมพัฒนา (github.com/spothq/cryptocurrency-icons) ซึ่งเผยแพร่ภายใต้ CC0 1.0 Universal จะแสดงจนกว่าโลโก้จาก CoinGecko หรือ Binance จะโหลดเสร็จ ชื่อและโลโก้ยังคงเป็นเครื่องหมายการค้าของโครงการนั้น ๆ"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uygulamayla birlikte gelir: Christopher Downer ve katkıda bulunanların “Cryptocurrency Icons” setinden simgeler (github.com/spothq/cryptocurrency-icons); CC0 1.0 Universal ile yayımlanmıştır. CoinGecko veya Binance logoları yüklenene kadar gösterilir. Adlar ve logolar ilgili projelerin markaları olarak kalır."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "У складі застосунку: значки з «Cryptocurrency Icons» Крістофера Дауера (Christopher Downer) і співавторів (github.com/spothq/cryptocurrency-icons), випущені під CC0 1.0 Universal. Вони показуються, доки не завантажаться логотипи CoinGecko або Binance. Назви та логотипи залишаються торговельними марками своїх проєктів."
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ایپ کے ساتھ شامل: Christopher Downer اور معاونین کے “Cryptocurrency Icons” سے آئیکنز (github.com/spothq/cryptocurrency-icons)، CC0 1.0 Universal کے تحت جاری۔ یہ تب تک دکھائے جاتے ہیں جب تک CoinGecko یا Binance کے لوگوز لوڈ نہ ہوں۔ نام اور لوگوز اپنے منصوبوں کے ٹریڈ مارکس رہتے ہیں۔"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ilova bilan birga keladi: Christopher Downer va hissa qoʻshuvchilarning «Cryptocurrency Icons» belgilari (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal litsenziyasi ostida chiqarilgan. Ular CoinGecko yoki Binance logotiplari yuklanguncha koʻrsatiladi. Nomlar va logotiplar oʻz loyihalarining tovar belgilari boʻlib qoladi."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Đi kèm ứng dụng: biểu tượng từ “Cryptocurrency Icons” của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng."
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "隨 App 附帶：來自 Christopher Downer 同其他貢獻者嘅「Cryptocurrency Icons」圖示（github.com/spothq/cryptocurrency-icons），以 CC0 1.0 Universal 發布。會顯示到 CoinGecko 或 Binance 標誌載入為止。名稱同標誌仍然係各項目嘅商標。"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "随应用附带：Christopher Downer 及贡献者的“Cryptocurrency Icons”（github.com/spothq/cryptocurrency-icons）中的图标，以 CC0 1.0 Universal 发布。在 CoinGecko 或 Binance 的图标加载前显示。名称和标志仍为各自项目的商标。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "隨應用程式附帶：Christopher Downer 及貢獻者的 「Cryptocurrency Icons」（github.com/spothq/cryptocurrency-icons）中的圖示，以 CC0 1.0 Universal 發布。在 CoinGecko 或 Binance 的圖示載入前顯示。名稱和標誌仍為各自專案的商標。"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kuhlanganiswe ne-app: izithonjana ezivela ku-“Cryptocurrency Icons” zika-Christopher Downer nabanikeli (github.com/spothq/cryptocurrency-icons), ezikhishwe ngaphansi kwe-CC0 1.0 Universal. Ziboniswa kuze kulayishwe amalogo e-CoinGecko noma e-Binance. Amagama namalogo ahlala engama-trademark amaphrojekthi awo."
-          }
-        }
-      }
-    },
-    "licenses_icons_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rugsteun-muntikone"
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ተተኪ የሳንቲም አዶዎች"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "أيقونات العملات البديلة"
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ehtiyat koin ikonları"
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Резервни икони на монети"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "বিকল্প কয়েন আইকন"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zamjenske ikone kriptovaluta"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icones de monedes alternatives"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Náhradní ikony mincí"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reserve-coinikoner"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ersatz-Coin-Icons"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Εναλλακτικά εικονίδια νομισμάτων"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fallback coin icons"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iconos de monedas de reserva"
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Varumüntide ikoonid"
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Txanponen ordezko ikonoak"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نمادهای جایگزین سکه"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Varakolikkokuvakkeet"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mga fallback na icon ng coin"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icônes de coins de secours"
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deilbhíní bonn cúltaca"
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iconas de moedas alternativas"
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "વૈકલ્પિક કૉઇન આઇકન"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "סמלי מטבעות חלופיים"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "वैकल्पिक कॉइन आइकन"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zamjenske ikone kriptovaluta"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tartalék coin-ikonok"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Կոինների պահեստային պատկերակներ"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ikon koin cadangan"
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vara-tákn mynta"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icone delle monete di riserva"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "代替コインアイコン"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "მონეტების სარეზერვო ხატულები"
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Резервтік монета белгішелері"
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "រូបតំណាងកាក់បម្រុង"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ಪರ್ಯಾಯ ಕಾಯಿನ್ ಐಕಾನ್‌ಗಳು"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "대체 코인 아이콘"
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ໄອຄອນຫຼຽນສຳຮອງ"
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Atsarginės monetų piktogramos"
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rezerves monētu ikonas"
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Резервни икони на монети"
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "പകരം ഉപയോഗിക്കുന്ന കോയിൻ ഐക്കണുകൾ"
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нөөц зоосны дүрс"
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "पर्यायी कॉइन आयकन"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ikon koin sandaran"
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "အရန် ကွိုင် အိုင်ကွန်များ"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reserveikoner for coins"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "वैकल्पिक कोइन आइकनहरू"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reserve-munticonen"
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ਬਦਲਵੇਂ ਕੌਇਨ ਆਈਕਨ"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zapasowe ikony monet"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ícones de moedas alternativos"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ícones de moedas alternativos"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pictograme de rezervă pentru monede"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запасные значки монет"
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "අමතර කාසි නිරූපක"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Náhradné ikony coinov"
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nadomestne ikone kovancev"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ikona rezervë të monedhave"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Заменске иконе криптовалута"
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zamenske ikone kriptovaluta"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reservikoner för mynt"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aikoni mbadala za sarafu"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "மாற்று காயின் ஐகான்கள்"
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ప్రత్యామ్నాయ కాయిన్ ఐకాన్‌లు"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ไอคอนเหรียญสำรอง"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yedek coin simgeleri"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запасні значки монет"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "متبادل کوائن آئیکنز"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zaxira tanga belgilari"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Biểu tượng coin dự phòng"
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "備用幣種圖示"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "备用币种图标"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "備用幣種圖示"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Izithonjana zama-coin ezisekelayo"
-          }
-        }
-      }
-    },
     "licenses_libraries_intro" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -387583,6 +386673,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Izinqolobane ze-Android"
+          }
+        }
+      }
+    },
+    "licenses_logos_trademarks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name en logo's is handelsmerke van hul onderskeie eienaars."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ስሞች እና አርማዎች የየባለቤቶቻቸው የንግድ ምልክቶች ናቸው።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأسماء والشعارات علامات تجارية لمالكيها."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adlar və loqolar müvafiq sahiblərinin ticarət nişanlarıdır."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имената и логата са търговски марки на съответните им собственици."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "নাম ও লোগো তাদের নিজ নিজ মালিকের ট্রেডমার্ক।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazivi i logotipi su žigovi njihovih vlasnika."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Els noms i els logotips són marques dels seus respectius titulars."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názvy a loga jsou ochranné známky příslušných vlastníků."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navne og logoer er varemærker tilhørende deres respektive ejere."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namen und Logos sind Marken ihrer Inhaber."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τα ονόματα και τα λογότυπα είναι εμπορικά σήματα των αντίστοιχων κατόχων τους."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Names and logos are trademarks of their respective owners."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los nombres y logotipos son marcas de sus respectivos titulares."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimed ja logod on nende vastavate omanike kaubamärgid."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izenak eta logotipoak beren jabeen marka erregistratuak dira."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام‌ها و نشان‌ها علائم تجاری مالکان مربوطه هستند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimet ja logot ovat omistajiensa tavaramerkkejä."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ang mga pangalan at logo ay mga trademark ng kani-kanilang may-ari."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les noms et logos sont des marques de leurs propriétaires respectifs."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Is trádmharcanna a n-úinéirí féin iad na hainmneacha agus na lógónna."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os nomes e logotipos son marcas dos seus respectivos titulares."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "નામો અને લોગો તેમના સંબંધિત માલિકોના ટ્રેડમાર્ક છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "השמות והסמלילים הם סימנים מסחריים של בעליהם."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नाम और लोगो उनके संबंधित स्वामियों के ट्रेडमार्क हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazivi i logotipi zaštitni su znakovi njihovih vlasnika."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A nevek és logók a tulajdonosaik védjegyei."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Անվանումները և լոգոները իրենց սեփականատերերի ապրանքային նշաններն են։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nama dan logo adalah merek dagang dari pemiliknya masing-masing."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nöfn og merki eru vörumerki viðkomandi eigenda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nomi e loghi sono marchi dei rispettivi proprietari."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称およびロゴは各所有者の商標です。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "სახელები და ლოგოები მათი შესაბამისი მფლობელების სავაჭრო ნიშნებია."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Атаулар мен логотиптер тиісті иелерінің сауда белгілері болып табылады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ឈ្មោះ និងនិមិត្តសញ្ញា គឺជាពាណិជ្ជសញ្ញារបស់ម្ចាស់រៀងៗខ្លួន។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಹೆಸರುಗಳು ಮತ್ತು ಲೋಗೋಗಳು ಅವುಗಳ ಮಾಲೀಕರ ಟ್ರೇಡ್‌ಮಾರ್ಕ್‌ಗಳಾಗಿವೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름과 로고는 각 소유자의 상표입니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຊື່ ແລະ ໂລໂກ້ ແມ່ນເຄື່ອງໝາຍການຄ້າຂອງເຈົ້າຂອງແຕ່ລະລາຍ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pavadinimai ir logotipai yra atitinkamų savininkų prekių ženklai."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nosaukumi un logotipi ir to attiecīgo īpašnieku preču zīmes."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имињата и логоата се заштитни знаци на нивните сопственици."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പേരുകളും ലോഗോകളും അതത് ഉടമകളുടെ വ്യാപാരമുദ്രകളാണ്."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нэр болон лого нь тус тусын эзэмшигчийн барааны тэмдэг юм."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नावे आणि लोगो त्यांच्या संबंधित मालकांचे ट्रेडमार्क आहेत."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nama dan logo ialah tanda dagangan pemilik masing-masing."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပိုင်ရှင်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်ပါသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navn og logoer er varemerker som tilhører sine respektive eiere."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नाम र लोगोहरू तिनका सम्बन्धित मालिकहरूका ट्रेडमार्क हुन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namen en logo’s zijn handelsmerken van hun respectieve eigenaren."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਨਾਮ ਅਤੇ ਲੋਗੋ ਉਹਨਾਂ ਦੇ ਸਬੰਧਤ ਮਾਲਕਾਂ ਦੇ ਟ੍ਰੇਡਮਾਰਕ ਹਨ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwy i logotypy są znakami towarowymi ich właścicieli."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os nomes e logótipos são marcas dos respetivos titulares."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os nomes e logotipos são marcas de seus respectivos proprietários."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numele și siglele sunt mărci ale proprietarilor lor."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Названия и логотипы являются товарными знаками их владельцев."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "නම් සහ ලාංඡන ඒවායේ අදාළ හිමිකරුවන්ගේ වෙළඳ ලකුණු වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názvy a logá sú ochranné známky príslušných vlastníkov."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imena in logotipi so blagovne znamke njihovih lastnikov."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emrat dhe logot janë marka tregtare të pronarëve përkatës."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Називи и логотипи су жигови њихових власника."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazivi i logotipi su žigovi njihovih vlasnika."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namn och logotyper är varumärken som tillhör respektive ägare."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Majina na nembo ni alama za biashara za wamiliki wake."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பெயர்களும் இலச்சினைகளும் அவற்றின் உரிமையாளர்களின் வர்த்தக முத்திரைகள்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పేర్లు మరియు లోగోలు వాటి సంబంధిత యజమానుల ట్రేడ్‌మార్క్‌లు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ชื่อและโลโก้เป็นเครื่องหมายการค้าของเจ้าของแต่ละราย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adlar ve logolar ilgili sahiplerinin ticari markalarıdır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назви та логотипи є торговельними марками їхніх власників."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام اور لوگو اپنے متعلقہ مالکان کے ٹریڈ مارک ہیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nomlar va logotiplar tegishli egalarining savdo belgilaridir."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên và biểu trưng là nhãn hiệu của chủ sở hữu tương ứng."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名稱同標誌係其各自擁有人嘅商標。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称和标志是其各自所有者的商标。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名稱與標誌為其各自所有人的商標。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amagama namalogo ayizimpawu zokuhweba zabanikazi bawo."
           }
         }
       }

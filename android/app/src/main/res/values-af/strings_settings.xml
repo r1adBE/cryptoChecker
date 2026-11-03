@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker is oopbron (MIT License).</string>
     <string name="licenses_font_title">Rubik-lettertipe</string>
-    <string name="licenses_icons_bundled_text">Saam met die app ingesluit: ikone uit “Cryptocurrency Icons” deur Christopher Downer en bydraers (github.com/spothq/cryptocurrency-icons), vrygestel onder CC0 1.0 Universal. Hulle word gewys totdat CoinGecko- of Binance-logo\'s gelaai is. Name en logo\'s bly handelsmerke van hul projekte.</string>
-    <string name="licenses_icons_title">Rugsteun-muntikone</string>
+    <string name="licenses_logos_trademarks">Name en logo\'s is handelsmerke van hul onderskeie eienaars.</string>
     <string name="licenses_libraries_intro">Die app gebruik hierdie biblioteke onder die Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-biblioteke</string>
 

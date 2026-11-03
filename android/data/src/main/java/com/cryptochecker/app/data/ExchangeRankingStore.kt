@@ -2,11 +2,11 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.data.remote.callExchange
+import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
-import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.market.ExchangeOrder
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,15 +21,13 @@ import javax.inject.Singleton
 /**
  * Handelsvolumen der Börsen am Tag der Installation für die Reihenfolge der Börsenauswahl
  * ([ExchangeOrder]): einmal die beiden öffentlichen Börsenlisten von CoinGecko — für alle Nutzer dieselben Abfragen —,
- * danach nie wieder; «429» wird einmal nach der verlangten Pause wiederholt. Seite 1 der Spot-Liste geht an die
- * Börsen-Logos ([ExchangeLogoStore.offerFirstPage]). Kleine Einstellungsdatei, nicht in der Sicherung (gilt je Gerät). Scheitert der Abruf, gilt die
+ * danach nie wieder. Kleine Einstellungsdatei, nicht in der Sicherung (gilt je Gerät). Scheitert der Abruf, gilt die
  * bisherige Reihenfolge; nächster Versuch in der nächsten App-Sitzung. Wie iOS `ExchangeRankingStore`.
  */
 @Singleton
 class ExchangeRankingStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
-    private val exchangeLogos: ExchangeLogoStore,
 ) {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val state by lazy { MutableStateFlow(load()) }
@@ -48,10 +46,8 @@ class ExchangeRankingStore @Inject constructor(
             if (state.value != null || tried) return
             tried = true
             try {
-                val spot = httpClient.callCoinGecko(ExchangeOrder.SPOT_URL)
-                exchangeLogos.offerFirstPage(spot)
-                delay(CoinLogos.PAGE_PAUSE_MILLIS)
-                val derivatives = httpClient.callCoinGecko(ExchangeOrder.DERIVATIVES_URL)
+                val spot = httpClient.callExchange(ExchangeOrder.SPOT_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
+                val derivatives = httpClient.callExchange(ExchangeOrder.DERIVATIVES_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
                 val parsed = ExchangeOrder.parseVolumes(spot, derivatives)
                 if (parsed.isEmpty()) return
                 prefs.edit {
@@ -64,12 +60,6 @@ class ExchangeRankingStore @Inject constructor(
                 Timber.i("Börsen-Ranking nicht geladen: %s", e.message)
             }
         }
-    }
-
-    /** Wie [ensureLoaded]; mit [logos] (Schalter «In der App») danach die Börsen-Logos ([ExchangeLogoStore.ensure]). */
-    suspend fun ensureLoadedWithLogos(logos: Boolean) {
-        ensureLoaded()
-        if (logos) exchangeLogos.ensure()
     }
 
     private fun load(): Map<String, Double>? {

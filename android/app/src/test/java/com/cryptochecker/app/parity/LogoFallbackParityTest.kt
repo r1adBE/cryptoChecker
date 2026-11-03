@@ -85,7 +85,7 @@ class LogoFallbackParityTest {
         }
     }
 
-    /** Das mitgelieferte Paket selbst: lesbar, alle Einträge PNG, BTC und ETH dabei. */
+    /** Das mitgelieferte Paket selbst (Logos der 100 grössten Coins): lesbar, alle Einträge PNG, BTC und ETH dabei. */
     @Test
     fun iconPack_bundledAsset() {
         val file = File(ParityJson.dir(), "../../app/src/main/assets/" + CoinLogos.ICON_PACK_FILE)
@@ -94,7 +94,7 @@ class LogoFallbackParityTest {
         val index = CoinLogos.parseIconPack(bytes)
         assertNotNull(index)
         if (index == null) return
-        assertTrue("zu wenige Icons: ${index.size}", index.size > 400)
+        assertEquals("Logos im Paket", 100, index.size)
         assertTrue("btc" in index && "eth" in index)
         index.values.forEach { slice ->
             assertEquals(0x89.toByte(), bytes[slice.offset])

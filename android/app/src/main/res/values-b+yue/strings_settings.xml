@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker 係開源軟件（MIT License）。</string>
     <string name="licenses_font_title">Rubik 字體</string>
-    <string name="licenses_icons_bundled_text">隨 App 附帶：來自 Christopher Downer 同其他貢獻者嘅「Cryptocurrency Icons」圖示（github.com/spothq/cryptocurrency-icons），以 CC0 1.0 Universal 發布。會顯示到 CoinGecko 或 Binance 標誌載入為止。名稱同標誌仍然係各項目嘅商標。</string>
-    <string name="licenses_icons_title">備用幣種圖示</string>
+    <string name="licenses_logos_trademarks">名稱同標誌係其各自擁有人嘅商標。</string>
     <string name="licenses_libraries_intro">App 以 Apache License 2.0 使用以下程式庫：</string>
     <string name="licenses_libraries_title">Android 程式庫</string>
 

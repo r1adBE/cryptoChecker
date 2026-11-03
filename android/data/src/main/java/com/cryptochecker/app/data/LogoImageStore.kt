@@ -41,7 +41,7 @@ import com.cryptochecker.app.data.LogoImageCodec.pngBytes
 
 /**
  * Coin-Logos auf dem Gerät: Bilder im Speicher ([memory]) und in Dateien, das mitgelieferte Icon-Paket
- * ([CoinLogos.ICON_PACK_FILE], CC0) und das Laden fehlender Bilder von den Bildservern ([downloadMissing]) —
+ * ([CoinLogos.ICON_PACK_FILE], die 100 grössten Coins) und das Laden fehlender Bilder von den Bildservern ([downloadMissing]) —
  * für alle in derselben Reihenfolge, höchstens [CoinLogoQueue.MAX_PARALLEL] gleichzeitig, je Server
  * [CoinLogoQueue.PER_HOST_PARALLEL]; bremst ein Server (429/403/503), pausiert nur dieser.
  * Welche Bilder es gibt, sagt die Zuordnung von [CoinListSync]. Teil von [CoinLogoRepository].
@@ -116,7 +116,7 @@ class LogoImageStore @Inject constructor(
         bytes?.let { b -> CoinLogos.parseIconPack(b)?.let { b to it } }
     }
 
-    /** Mitgeliefertes Icon (CC0) für [symbol]; null, wenn das Paket es nicht kennt. */
+    /** Mitgeliefertes Logo (die 100 grössten Coins) für [symbol]; null, wenn das Paket es nicht kennt. */
     private fun bundled(symbol: String): Bitmap? {
         val name = CoinLogos.bundledIconName(symbol) ?: return null
         val key = BUNDLED_MEMORY_PREFIX + name

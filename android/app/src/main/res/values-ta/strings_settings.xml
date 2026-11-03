@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker திறந்த மூலமானது (MIT License).</string>
     <string name="licenses_font_title">Rubik எழுத்துரு</string>
-    <string name="licenses_icons_bundled_text">ஆப்புடன் சேர்க்கப்பட்டவை: Christopher Downer மற்றும் பங்களிப்பாளர்களின் “Cryptocurrency Icons” இலிருந்து ஐகான்கள் (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal இன் கீழ் வெளியிடப்பட்டவை. CoinGecko அல்லது Binance லோகோக்கள் ஏற்றப்படும் வரை அவை காட்டப்படும். பெயர்களும் லோகோக்களும் அவற்றின் திட்டங்களின் வர்த்தகச் சின்னங்களாகவே இருக்கும்.</string>
-    <string name="licenses_icons_title">மாற்று காயின் ஐகான்கள்</string>
+    <string name="licenses_logos_trademarks">பெயர்களும் இலச்சினைகளும் அவற்றின் உரிமையாளர்களின் வர்த்தக முத்திரைகள்.</string>
     <string name="licenses_libraries_intro">ஆப் இந்த லைப்ரரிகளை Apache License 2.0 இன் கீழ் பயன்படுத்துகிறது:</string>
     <string name="licenses_libraries_title">Android லைப்ரரிகள்</string>
 

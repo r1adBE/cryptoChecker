@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker là mã nguồn mở (Giấy phép MIT).</string>
     <string name="licenses_font_title">Phông chữ Rubik</string>
-    <string name="licenses_icons_bundled_text">Đi kèm ứng dụng: biểu tượng từ “Cryptocurrency Icons” của Christopher Downer và những người đóng góp (github.com/spothq/cryptocurrency-icons), phát hành theo CC0 1.0 Universal. Chúng hiển thị cho đến khi logo từ CoinGecko hoặc Binance được tải. Tên và logo vẫn là nhãn hiệu của các dự án tương ứng.</string>
-    <string name="licenses_icons_title">Biểu tượng coin dự phòng</string>
+    <string name="licenses_logos_trademarks">Tên và biểu trưng là nhãn hiệu của chủ sở hữu tương ứng.</string>
     <string name="licenses_libraries_intro">Ứng dụng sử dụng các thư viện này theo Apache License 2.0:</string>
     <string name="licenses_libraries_title">Thư viện Android</string>
 

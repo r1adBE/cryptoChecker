@@ -3,7 +3,8 @@ package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.domain.logos.CoinLogos.IconSlice
 
 // Mitgeliefertes Icon-Paket (Teil von [CoinLogos]): Name eines Icons und Inhaltsverzeichnis des Pakets
-// ([CoinLogos.ICON_PACK_FILE]). Erweiterungsfunktionen, damit `CoinLogos.parseIconPack(…)` usw. bleiben; gleich in
+// ([CoinLogos.ICON_PACK_FILE]; dasselbe Format hat das Paket der Börsen-Logos). Erweiterungsfunktionen, damit
+// `CoinLogos.parseIconPack(…)` usw. bleiben; gleich in
 // iOS `CoinLogos+IconPack.swift`.
 
 private const val ICON_PACK_MAGIC = "CCIP1"
@@ -13,7 +14,7 @@ private const val ICON_PACK_HEADER_MAX = 64 * 1024
 
 /** Name eines Icons im Paket («btc»); null bei TradFi oder ungültigem Kürzel. */
 fun CoinLogos.bundledIconName(symbol: String): String? {
-    if (symbol.startsWith(TRADFI_PREFIX) || symbol.startsWith(EXCHANGE_PREFIX)) return null
+    if (symbol.startsWith(TRADFI_PREFIX)) return null
     val key = normalize(symbol)
     if (fileName(key) == null) return null
     return key.lowercase()

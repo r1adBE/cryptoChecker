@@ -247,8 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker yra atvirojo kodo (MIT licencija).</string>
     <string name="licenses_font_title">Šriftas Rubik</string>
-    <string name="licenses_icons_bundled_text">Įtraukta į programėlę: piktogramos iš „Cryptocurrency Icons“, kurias sukūrė Christopher Downer ir bendraautoriai (github.com/spothq/cryptocurrency-icons), išleistos pagal CC0 1.0 Universal. Jos rodomos, kol įkeliami CoinGecko ar Binance logotipai. Pavadinimai ir logotipai lieka atitinkamų projektų prekių ženklais.</string>
-    <string name="licenses_icons_title">Atsarginės monetų piktogramos</string>
+    <string name="licenses_logos_trademarks">Pavadinimai ir logotipai yra atitinkamų savininkų prekių ženklai.</string>
     <string name="licenses_libraries_intro">Programėlė naudoja šias bibliotekas pagal Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android bibliotekos</string>
 

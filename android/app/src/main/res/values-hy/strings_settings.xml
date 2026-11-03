@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker-ը բաց կոդով է (MIT լիցենզիա)։</string>
     <string name="licenses_font_title">Rubik տառատեսակ</string>
-    <string name="licenses_icons_bundled_text">Հավելվածի հետ միասին՝ «Cryptocurrency Icons»-ի պատկերակներ, հեղինակ՝ Christopher Downer և մասնակիցներ (github.com/spothq/cryptocurrency-icons), թողարկված CC0 1.0 Universal-ով։ Դրանք ցուցադրվում են, մինչև CoinGecko-ի կամ Binance-ի լոգոները բեռնվեն։ Անուններն ու լոգոները մնում են իրենց նախագծերի ապրանքանիշերը։</string>
-    <string name="licenses_icons_title">Կոինների պահեստային պատկերակներ</string>
+    <string name="licenses_logos_trademarks">Անվանումները և լոգոները իրենց սեփականատերերի ապրանքային նշաններն են։</string>
     <string name="licenses_libraries_intro">Հավելվածն օգտագործում է այս գրադարանները Apache License 2.0-ով՝</string>
     <string name="licenses_libraries_title">Android գրադարաններ</string>
 

@@ -21,10 +21,11 @@ The full license texts ship inside the Android app
   Compose (UI, UI Util, Material 3, ConstraintLayout), Kotlin standard library,
   kotlinx.coroutines, kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
 
-- Fallback coin icons (Android and iOS)
-  "Cryptocurrency Icons" by Christopher Downer and contributors
-  (https://github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal.
-  Names and logos remain trademarks of their projects.
+- Bundled logos (Android and iOS)
+  Logos of the 100 largest coins and of the exchanges (coin_logos.bin,
+  exchange_logos.bin; sources in android/tools/logo_packs_manifest.json).
+  Names and logos are trademarks of their respective owners; they are not
+  part of the Software and are not covered by the MIT License in LICENSE.
 
 The iOS app uses no third-party libraries or fonts (system frameworks only).
 
@@ -40,7 +41,7 @@ Data is fetched at runtime directly from the providers; none of it is part of
 the Software or covered by the MIT License in LICENSE, and each provider's
 terms apply.
 
-- CoinGecko (market data, coin logos): "Powered by CoinGecko"
+- CoinGecko (market data, coin and exchange logos): "Powered by CoinGecko"
   (https://www.coingecko.com), as required by the CoinGecko API terms.
 - Coin Metrics Community API (on-chain values): licensed under Creative
   Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0). Non-commercial use

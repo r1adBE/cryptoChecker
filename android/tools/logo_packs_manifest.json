@@ -1,0 +1,1707 @@
+{
+ "coin_logos.bin": [
+  {
+   "coingecko": "bitcoin",
+   "fetched": "2026-11-03",
+   "name": "btc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "4f040bab8721eae1b5fa12fbffeac366351d6428541a65ca66400d078e466a48",
+   "rank": 1,
+   "sha256": "1eb4e75d64a76a5d1fba301715ae227c683b34e8f75291670cdf7ae2a59de86f",
+   "source": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+   "symbol": "BTC"
+  },
+  {
+   "coingecko": "ethereum",
+   "fetched": "2026-11-03",
+   "name": "eth",
+   "pack": "coin_logos.bin",
+   "png_sha256": "e65b41f63b18739c5f9e33bd4f89f10235629f87a3fed2711dbd0f029427bd96",
+   "rank": 2,
+   "sha256": "d90e937d915ab0c865ff6e335361386c56524d4d33fb66f2f04defe1500082eb",
+   "source": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+   "symbol": "ETH"
+  },
+  {
+   "coingecko": "tether",
+   "fetched": "2026-11-03",
+   "name": "usdt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "a0917a3fd4ffe5d8b5b19d5031a31f13a3992dc5308039e7c0de1dd9ce849896",
+   "rank": 3,
+   "sha256": "fe92c0abef2d3d775e50e42fc693394737571b498e7ed71ae07b82cf4d537d36",
+   "source": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+   "symbol": "USDT"
+  },
+  {
+   "coingecko": "binancecoin",
+   "fetched": "2026-11-03",
+   "name": "bnb",
+   "pack": "coin_logos.bin",
+   "png_sha256": "92b1debf5f482c6d2cd99b2e32c1491311d3144ee1ef646babb6d9822089fa8d",
+   "rank": 4,
+   "sha256": "72a5e32484f693a8a2d6f8310d364c4362911daf764603e955c79e17fffb33e0",
+   "source": "https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970",
+   "symbol": "BNB"
+  },
+  {
+   "coingecko": "ripple",
+   "fetched": "2026-11-03",
+   "name": "xrp",
+   "pack": "coin_logos.bin",
+   "png_sha256": "d23ef144baa2056e12b5e9716c99f804cd726459d0c216adfe1d761bf601cfcc",
+   "rank": 5,
+   "sha256": "3672b3785d85e582ef497a6588dbe75cef4c60f982f678549f309fe784400a2b",
+   "source": "https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442",
+   "symbol": "XRP"
+  },
+  {
+   "coingecko": "usd-coin",
+   "fetched": "2026-11-03",
+   "name": "usdc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1ecb3a4533b2e2986224b820bfeba4cda44c8c3c811fab0021ed1183eee8ff24",
+   "rank": 6,
+   "sha256": "816df62109661d5ab41cd89093223a1cabb88a5e20bf2a382a80f7873be90266",
+   "source": "https://coin-images.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+   "symbol": "USDC"
+  },
+  {
+   "coingecko": "solana",
+   "fetched": "2026-11-03",
+   "name": "sol",
+   "pack": "coin_logos.bin",
+   "png_sha256": "73ac36a41e0b341815ea50475966c1933cf888d830e3bb16b376efc672683d08",
+   "rank": 7,
+   "sha256": "78ee4d656f4f152a90d733f4eaaa4e1685e25bc654087acdb62bfe494d668976",
+   "source": "https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756",
+   "symbol": "SOL"
+  },
+  {
+   "coingecko": "tron",
+   "fetched": "2026-11-03",
+   "name": "trx",
+   "pack": "coin_logos.bin",
+   "png_sha256": "53ebfcbef4805757a3d2716ceae08c4693dce67c785f9799bcd23008dde6716d",
+   "rank": 8,
+   "sha256": "8166615a145929317baf335da364249129548f110436ba92efdb31c6a8fc1b57",
+   "source": "https://coin-images.coingecko.com/coins/images/1094/large/photo_2026-04-13_09-59-16.png?1776048311",
+   "symbol": "TRX"
+  },
+  {
+   "coingecko": "hyperliquid",
+   "fetched": "2026-11-03",
+   "name": "hype",
+   "pack": "coin_logos.bin",
+   "png_sha256": "551d84db9a904987c15345a7a0d23165747ecde3eb1ca6622b8ab566b1ad72dd",
+   "rank": 10,
+   "sha256": "83dc5d30805ef25dab066f2ee2f37b98e8d965a98ed6801aae67e344961f4387",
+   "source": "https://coin-images.coingecko.com/coins/images/50882/large/hyperliquid.jpg?1729431300",
+   "symbol": "HYPE"
+  },
+  {
+   "coingecko": "zcash",
+   "fetched": "2026-11-03",
+   "name": "zec",
+   "pack": "coin_logos.bin",
+   "png_sha256": "d35a042de0849f30cffbe16b9af7de897c4a0acc6c0f99e34dc7f4aef8fda1e6",
+   "rank": 11,
+   "sha256": "986527ef2114e02c1018ecf772beee5c7e46eee4d6ffa35eb72dada86ea73902",
+   "source": "https://coin-images.coingecko.com/coins/images/486/large/Brandmark-Yellow_%281%29.png?1785810558",
+   "symbol": "ZEC"
+  },
+  {
+   "coingecko": "monero",
+   "fetched": "2026-11-03",
+   "name": "xmr",
+   "pack": "coin_logos.bin",
+   "png_sha256": "5754c65c71e7f8832337c0580c0267305d6857c55463725b41ab0423c4fca719",
+   "rank": 12,
+   "sha256": "bc24821e2cb359f3f92dba07eb71f742fe3f6322ba15f29287da1f1a39f513fb",
+   "source": "https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png?1696501460",
+   "symbol": "XMR"
+  },
+  {
+   "coingecko": "dogecoin",
+   "fetched": "2026-11-03",
+   "name": "doge",
+   "pack": "coin_logos.bin",
+   "png_sha256": "e52e56c79a95036c1837cc5cc1fb67a8520e9e99b9b1db7e7da1bbe1451dcd85",
+   "rank": 13,
+   "sha256": "dfd796d328361fe576c6cffe68b37eebcc32697c769356429b83e38d1bc122c5",
+   "source": "https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409",
+   "symbol": "DOGE"
+  },
+  {
+   "coingecko": "whitebit",
+   "fetched": "2026-11-03",
+   "name": "wbt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "46b58f03cf121692cfbbed60efa63c71e5aff74b889a23dbeef4b511b183b112",
+   "rank": 15,
+   "sha256": "8eb600a946c0a7b4b4e1c1b7a79314c789705e06374a6cdee7a341e09592420c",
+   "source": "https://coin-images.coingecko.com/coins/images/27045/large/wbt_token.png?1696526096",
+   "symbol": "WBT"
+  },
+  {
+   "coingecko": "leo-token",
+   "fetched": "2026-11-03",
+   "name": "leo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1a17ad09c98f67982fcc6e4c22001493fe8b6f6ff9b7cb29e2ec37cc37a4833a",
+   "rank": 16,
+   "sha256": "06bdb38899f0922ad9d079537abdec1e643536f855085cb1fafb3b0df86bc648",
+   "source": "https://coin-images.coingecko.com/coins/images/8418/large/leo-token.png?1696508607",
+   "symbol": "LEO"
+  },
+  {
+   "coingecko": "chainlink",
+   "fetched": "2026-11-03",
+   "name": "link",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c5de14e91ca54530916f605a985968554876e236a19b67723ada23888d74d85b",
+   "rank": 17,
+   "sha256": "191802e85520793ab9ce22367d36aacd56dd2067b0e5db8daf83216694673ddd",
+   "source": "https://coin-images.coingecko.com/coins/images/877/large/Chainlink_Logo_500.png?1760023405",
+   "symbol": "LINK"
+  },
+  {
+   "coingecko": "cardano",
+   "fetched": "2026-11-03",
+   "name": "ada",
+   "pack": "coin_logos.bin",
+   "png_sha256": "e915bbc449884bf5205cb94c6351b1e4adb25b4021bfef9c365a76dc00be30a2",
+   "rank": 18,
+   "sha256": "75a1e59c7d8ea27c5bfc5ec8fd3cae02ac22d187e03d688674e64cec81c413c9",
+   "source": "https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090",
+   "symbol": "ADA"
+  },
+  {
+   "coingecko": "stellar",
+   "fetched": "2026-11-03",
+   "name": "xlm",
+   "pack": "coin_logos.bin",
+   "png_sha256": "3f9eb935ad5873878640f5d6d12cb7cb029e3a8eee6cfcd545ec0031077ca076",
+   "rank": 19,
+   "sha256": "8d9e4ab1078ae82707c1f3f1febaaf88db496719b10077a19869c21e85cdb530",
+   "source": "https://coin-images.coingecko.com/coins/images/100/large/fmpFRHHQ_400x400.jpg?1735231350",
+   "symbol": "XLM"
+  },
+  {
+   "coingecko": "bitcoin-cash",
+   "fetched": "2026-11-03",
+   "name": "bch",
+   "pack": "coin_logos.bin",
+   "png_sha256": "b174ebcc37ab7a817dc4a09a6b40fe0b3c222137445c22834867693c38716979",
+   "rank": 20,
+   "sha256": "e995b5711e4371d683b41a50409997881964d6e5e0fe23b3171fcef34c37048f",
+   "source": "https://coin-images.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png?1696501932",
+   "symbol": "BCH"
+  },
+  {
+   "coingecko": "near",
+   "fetched": "2026-11-03",
+   "name": "near",
+   "pack": "coin_logos.bin",
+   "png_sha256": "ba3c00e63b3466fdd42be04ab3c4670c9941a25744fe0d578e7271cac7f4b0a3",
+   "rank": 21,
+   "sha256": "f639d8ffc1e5e50eca4717a01a7758a1b433c443f9079bfe230697b574f8dd3b",
+   "source": "https://coin-images.coingecko.com/coins/images/10365/large/near.jpg?1696510367",
+   "symbol": "NEAR"
+  },
+  {
+   "coingecko": "rain",
+   "fetched": "2026-11-03",
+   "name": "rain",
+   "pack": "coin_logos.bin",
+   "png_sha256": "96fae17969464ab132d1522b762c7bcb204322cb1acd4838613cd9b49bf4c156",
+   "rank": 22,
+   "sha256": "ca397636ce96707bc5ffcbee9e386378232068dc272938bcfa7847983f76af35",
+   "source": "https://coin-images.coingecko.com/coins/images/69134/large/Rain_logo_1_.png?1762952191",
+   "symbol": "RAIN"
+  },
+  {
+   "coingecko": "dai",
+   "fetched": "2026-11-03",
+   "name": "dai",
+   "pack": "coin_logos.bin",
+   "png_sha256": "15edbd8e325c310db1e103ad5fae774ad53bc4ad79daa72d785046e98831d97d",
+   "rank": 23,
+   "sha256": "81567b24f87c8eb080ceb774429476b78c8b895d17895299c23afc6c3b6453c1",
+   "source": "https://coin-images.coingecko.com/coins/images/9956/large/Badge_Dai.png?1696509996",
+   "symbol": "DAI"
+  },
+  {
+   "coingecko": "ethena-usde",
+   "fetched": "2026-11-03",
+   "name": "usde",
+   "pack": "coin_logos.bin",
+   "png_sha256": "001e7698039d9ca40ef8a46363363e1a8165a70e608d168be285ecb19201794f",
+   "rank": 24,
+   "sha256": "1d707231c854ebefa980cc7c594dabc838e2558ba5a4c08d02fc8d9d5ef62328",
+   "source": "https://coin-images.coingecko.com/coins/images/33613/large/usde.png?1733810059",
+   "symbol": "USDE"
+  },
+  {
+   "coingecko": "uniswap",
+   "fetched": "2026-11-03",
+   "name": "uni",
+   "pack": "coin_logos.bin",
+   "png_sha256": "803d82af5602b1fffc1189d0f3fcea370abc593e58c372839f734256f4d4e7bc",
+   "rank": 25,
+   "sha256": "6d4549504ac05756a4dd78fdfb9fc22dafe1b16e24f4813791c29feca4a8b41d",
+   "source": "https://coin-images.coingecko.com/coins/images/12504/large/uniswap-logo.png?1720676669",
+   "symbol": "UNI"
+  },
+  {
+   "coingecko": "litecoin",
+   "fetched": "2026-11-03",
+   "name": "ltc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "da0c6a57ee8910f6c869c03ca026cb016eb239b5e3a009f2b8da7d91d26e38e7",
+   "rank": 26,
+   "sha256": "169ed6742d2bc4098e00de38a610578bd6e98227e13a8b38ad47cd977056385e",
+   "source": "https://coin-images.coingecko.com/coins/images/2/large/litecoin.png?1696501400",
+   "symbol": "LTC"
+  },
+  {
+   "coingecko": "usd1-wlfi",
+   "fetched": "2026-11-03",
+   "name": "usd1",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c5addbbbcdf6ec562f74d66ff66cfd97ac72ac33026e8dc804603353cddc3ae1",
+   "rank": 27,
+   "sha256": "34ae1878df898b7f996704958dcfd5124627f6f3edd45ae87de1c60bd899742c",
+   "source": "https://coin-images.coingecko.com/coins/images/54977/large/USD1_1000x1000_transparent.png?1749297002",
+   "symbol": "USD1"
+  },
+  {
+   "coingecko": "canton-network",
+   "fetched": "2026-11-03",
+   "name": "cc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "3dc9855ca95816447675bd6163e7b85221ad0f5268ef077fe55f1414d3758a34",
+   "rank": 28,
+   "sha256": "8a8344e6b6f965853277230aecd3c8b59c39db61c2a5a08f2c2a8525e837b696",
+   "source": "https://coin-images.coingecko.com/coins/images/70468/large/Canton-Ticker_%281%29.png?1762826299",
+   "symbol": "CC"
+  },
+  {
+   "coingecko": "avalanche-2",
+   "fetched": "2026-11-03",
+   "name": "avax",
+   "pack": "coin_logos.bin",
+   "png_sha256": "dc29d998fa7b08f9df941d2f0897c31e5609ee64bcd944d319efac1c9a3794dc",
+   "rank": 29,
+   "sha256": "4e526eae268f39ddfbe403879dc7a340a2ae760d539b678d95d7e1f59341b1ca",
+   "source": "https://coin-images.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369",
+   "symbol": "AVAX"
+  },
+  {
+   "coingecko": "sui",
+   "fetched": "2026-11-03",
+   "name": "sui",
+   "pack": "coin_logos.bin",
+   "png_sha256": "80952314edc7535ac117b8aaa2664b7e885b98fa07f610e6d8ba363ad27835f4",
+   "rank": 30,
+   "sha256": "0ee671f74cdc25b815784e56d7048c2cb7c3fdf245907df5580738ccb5a3fb67",
+   "source": "https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290",
+   "symbol": "SUI"
+  },
+  {
+   "coingecko": "the-open-network",
+   "fetched": "2026-11-03",
+   "name": "gram",
+   "pack": "coin_logos.bin",
+   "png_sha256": "f1421807ad4ed2f8687b392bb6929869c7934b1561dda9e4e6d63b66210384ca",
+   "rank": 31,
+   "sha256": "374f256cd2031b4b2526b4950533b2bf3788fa9b3f4c78118af079157061e764",
+   "source": "https://coin-images.coingecko.com/coins/images/17980/large/Gram_Circular_Badge.png?1781524778",
+   "symbol": "GRAM"
+  },
+  {
+   "coingecko": "tether-gold",
+   "fetched": "2026-11-03",
+   "name": "xaut",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c9363ea80dc4156960cbf2b136fa734da9e6faab5d70f7a0d994297bafcecc06",
+   "rank": 32,
+   "sha256": "97589822037ef0687f42cf967da99ceecc2c53e0b67422c8927bbf00c1a0e932",
+   "source": "https://coin-images.coingecko.com/coins/images/10481/large/logo.png?1774627372",
+   "symbol": "XAUT"
+  },
+  {
+   "coingecko": "hedera-hashgraph",
+   "fetched": "2026-11-03",
+   "name": "hbar",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c978162bddc2242c5847ed92c4bf0760edc8c7264ce1c8b77a0af4bc277a3ef3",
+   "rank": 33,
+   "sha256": "271ec24bf7dbca1308fdf4f7ce13596ebc1cd82a3f488c8196b6c2ebc280ebee",
+   "source": "https://coin-images.coingecko.com/coins/images/3688/large/hbar.png?1696504364",
+   "symbol": "HBAR"
+  },
+  {
+   "coingecko": "global-dollar",
+   "fetched": "2026-11-03",
+   "name": "usdg",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c336015942dae636560dcb7dd4beff2d3566c44bbec408ca545439d9a7f72fc4",
+   "rank": 34,
+   "sha256": "f398f6aad2fe260847cda3d99336fd2a514766f14634f8f1a3c255d218d4a4c3",
+   "source": "https://coin-images.coingecko.com/coins/images/51281/large/GDN_USDG_Token_200x200.png?1730484111",
+   "symbol": "USDG"
+  },
+  {
+   "coingecko": "quant-network",
+   "fetched": "2026-11-03",
+   "name": "qnt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "4774c575132c6e393c343ec53cec90a355d82c0405a78d32d0f7438659ce174c",
+   "rank": 35,
+   "sha256": "0a0671eb2b61379d5e720f2e99f68b29075deae0de67f2b77c0a686912835f74",
+   "source": "https://coin-images.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070",
+   "symbol": "QNT"
+  },
+  {
+   "coingecko": "paypal-usd",
+   "fetched": "2026-11-03",
+   "name": "pyusd",
+   "pack": "coin_logos.bin",
+   "png_sha256": "d9c0915c36f221de52daac1ab35767e8bd69ae4ed6af336d55bd0b9e420b454d",
+   "rank": 36,
+   "sha256": "fffc4f413fcf4d225a3685540e2b4037760b13eef9b2daf60718ee2cd3d0a00d",
+   "source": "https://coin-images.coingecko.com/coins/images/31212/large/PYUSD_Token_Logo_2x.png?1765987788",
+   "symbol": "PYUSD"
+  },
+  {
+   "coingecko": "shiba-inu",
+   "fetched": "2026-11-03",
+   "name": "shib",
+   "pack": "coin_logos.bin",
+   "png_sha256": "eb59aa0dc0ed0e7a6a93e4ccfd3d025a601e3906b1d36b3c2de8b2145e2c303c",
+   "rank": 37,
+   "sha256": "4cfd9e2396a4fa9f58841261a5a2f74809e2f02cd515a686b707fcdd95a94a80",
+   "source": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
+   "symbol": "SHIB"
+  },
+  {
+   "coingecko": "bittensor",
+   "fetched": "2026-11-03",
+   "name": "tao",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9befb9e42cbfe78b92c7d12b9d2657023806d20e491f21774a7c2468a6fbb19d",
+   "rank": 38,
+   "sha256": "68609e9dc5f0438ef2cc70d81d6bba3124db9e35ae3024eb8a8157c0611a6230",
+   "source": "https://coin-images.coingecko.com/coins/images/28452/large/ARUsPeNQ_400x400.jpeg?1696527447",
+   "symbol": "TAO"
+  },
+  {
+   "coingecko": "ripple-usd",
+   "fetched": "2026-11-03",
+   "name": "rlusd",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9097f321e3b3b8f361615b7108d3ccbfb6b827a203efa72bf2408f35691b70b3",
+   "rank": 39,
+   "sha256": "ac61a8bf2a6402dc5eaab072a7c2180c5e7257716cfeaa458eb3ed923dcac841",
+   "source": "https://coin-images.coingecko.com/coins/images/39651/large/RLUSD_200x200_%281%29.png?1727376633",
+   "symbol": "RLUSD"
+  },
+  {
+   "coingecko": "crypto-com-chain",
+   "fetched": "2026-11-03",
+   "name": "cro",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7373cdbecb791fdc8cbfa232cbac3f74ab9cb583afda473864b9df3b6c90a833",
+   "rank": 40,
+   "sha256": "9762fc0053892b70002ef12213de0a5d1f29243b6d6784ee9966d22911858fa7",
+   "source": "https://coin-images.coingecko.com/coins/images/7310/large/cro_token_logo.png?1696507599",
+   "symbol": "CRO"
+  },
+  {
+   "coingecko": "ondo-us-dollar-yield",
+   "fetched": "2026-11-03",
+   "name": "usdy",
+   "pack": "coin_logos.bin",
+   "png_sha256": "edbe94d7d0f9f781268e4734548da12f6c08ded43ecaa56929944a7c0d337f47",
+   "rank": 41,
+   "sha256": "27816df22253a33b0d393a92c8fb117652b9d2cf62a0350b33def44b4ab1de50",
+   "source": "https://coin-images.coingecko.com/coins/images/31700/large/usdy_%281%29.png?1696530524",
+   "symbol": "USDY"
+  },
+  {
+   "coingecko": "okb",
+   "fetched": "2026-11-03",
+   "name": "okb",
+   "pack": "coin_logos.bin",
+   "png_sha256": "24bf29e0cc52f5ea5719c10e6977b9740e762c6211e6d84145a1f423515de456",
+   "rank": 42,
+   "sha256": "abba7b628877f42e5a6f26a7f0757f6ffbcc940dd25cf1b7bad3ed070ddabafc",
+   "source": "https://coin-images.coingecko.com/coins/images/4463/large/WeChat_Image_20220118095654.png?1696505053",
+   "symbol": "OKB"
+  },
+  {
+   "coingecko": "ethena",
+   "fetched": "2026-11-03",
+   "name": "ena",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9f8550275a1af59e401a3945ec7d93f003f2e3d09a67711fae0d78efff3dadfe",
+   "rank": 43,
+   "sha256": "91bdb1eaa04d308b48d8164826454cfdf816faae154f4f4d9dfb72f61af4505f",
+   "source": "https://coin-images.coingecko.com/coins/images/36530/large/ethena.png?1711701436",
+   "symbol": "ENA"
+  },
+  {
+   "coingecko": "hashnote-usyc",
+   "fetched": "2026-11-03",
+   "name": "usyc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "389201f295642bb6da21d521b21e89ff3b5a85c8223468b18da4d2bd6b09d00a",
+   "rank": 44,
+   "sha256": "690b5e8f2c47bbe8b0d95a871e28813f13bd411a04ac892ed8ea0f7e0ff1485b",
+   "source": "https://coin-images.coingecko.com/coins/images/51054/large/Hashnote_SDYC_200x200.png?1730370965",
+   "symbol": "USYC"
+  },
+  {
+   "coingecko": "blackrock-usd-institutional-digital-liquidity-fund",
+   "fetched": "2026-11-03",
+   "name": "buidl",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9b99619c5bc8ad859be65334c3a82f10b6f39b40e067fd52d5e3ff194d5e50e6",
+   "rank": 45,
+   "sha256": "4b22ae0499ec74d0f0bc41ffcc5cbdbe7eb215f6b68794167799a0df556712c5",
+   "source": "https://coin-images.coingecko.com/coins/images/36291/large/blackrock.png?1711013223",
+   "symbol": "BUIDL"
+  },
+  {
+   "coingecko": "pepe",
+   "fetched": "2026-11-03",
+   "name": "pepe",
+   "pack": "coin_logos.bin",
+   "png_sha256": "f8f3c89fd015dbb1e963c4420ae1f788d8ff2f9726a38c49b2ad1e6951a051ff",
+   "rank": 46,
+   "sha256": "f7ada49ac8d38875c30aac25c1cc312b0e86165dc22dd400d28e04820afc6f86",
+   "source": "https://coin-images.coingecko.com/coins/images/29850/large/pepe-token.jpeg?1696528776",
+   "symbol": "PEPE"
+  },
+  {
+   "coingecko": "aave",
+   "fetched": "2026-11-03",
+   "name": "aave",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7b488ea57766cbe5a4c2217b0e8a0db8c47e7b45d605211533d8aa79a88ff1b3",
+   "rank": 47,
+   "sha256": "7ad5bcef2935069bff0dc7329dd8d4300a7893483a647accb75d6a55c9f30feb",
+   "source": "https://coin-images.coingecko.com/coins/images/12645/large/aave-token-round.png?1720472354",
+   "symbol": "AAVE"
+  },
+  {
+   "coingecko": "memecore",
+   "fetched": "2026-11-03",
+   "name": "m",
+   "pack": "coin_logos.bin",
+   "png_sha256": "2444db834c05f1b0c90749d9c45f0b8f85deb6ad96b6f8f1865fe5cf8c8ac1be",
+   "rank": 48,
+   "sha256": "6660b6f02a05106b26b90927555965d9fbfbb7f8e9b8a512303e01bf7933609e",
+   "source": "https://coin-images.coingecko.com/coins/images/53247/large/square-bg-transparent.png?1752637478",
+   "symbol": "M"
+  },
+  {
+   "coingecko": "ondo-finance",
+   "fetched": "2026-11-03",
+   "name": "ondo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "af5e909cabf9935b575546ef0b777c5a8cf936f7013027f50f440e3e0abfb59c",
+   "rank": 49,
+   "sha256": "a3720ec69081c0e17fcc097b74f8ae641bb083e4a5ece9d626d94922bdeaea30",
+   "source": "https://coin-images.coingecko.com/coins/images/26580/large/ONDO.png?1696525656",
+   "symbol": "ONDO"
+  },
+  {
+   "coingecko": "spiko-amundi-overnight-swap-fund-eur",
+   "fetched": "2026-11-03",
+   "name": "eursafo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1f61c5438f5e806db230033ca1bd7c91a502ed232d1b11e6d3f96d5afdcd89c9",
+   "rank": 50,
+   "sha256": "2335474f28462fd39278211e519bcfd8ce40de88134798828ee2108bb04ce88b",
+   "source": "https://coin-images.coingecko.com/coins/images/102172591/large/Fund_eurSAF0.png?1774104814",
+   "symbol": "EURSAFO"
+  },
+  {
+   "coingecko": "falcon-finance",
+   "fetched": "2026-11-03",
+   "name": "usdf",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7008f7c18ab0f5bd1e6a7939d8f8b5956ef2590725af77a5114f18deee7fa5ba",
+   "rank": 51,
+   "sha256": "50da85765466fb5e39beca9fc816f5e036cb53091cb95ab9114a4b27ce37a1c7",
+   "source": "https://coin-images.coingecko.com/coins/images/54558/large/ff_200_X_200.png?1740741076",
+   "symbol": "USDF"
+  },
+  {
+   "coingecko": "pump-fun",
+   "fetched": "2026-11-03",
+   "name": "pump",
+   "pack": "coin_logos.bin",
+   "png_sha256": "88003d4778dd8656073d49252138ff2ce5eda4da8332e937f299a7d20560c339",
+   "rank": 52,
+   "sha256": "5f836ab6c463f4ae31d40c21c850ff14df73b9a8950ea736bf141fd797fea028",
+   "source": "https://coin-images.coingecko.com/coins/images/67164/large/pump.jpg?1751949376",
+   "symbol": "PUMP"
+  },
+  {
+   "coingecko": "pax-gold",
+   "fetched": "2026-11-03",
+   "name": "paxg",
+   "pack": "coin_logos.bin",
+   "png_sha256": "18d2bedd125308c409a30e1ca9f7e8f0aff5ca474532ae34078ae70430a04e01",
+   "rank": 53,
+   "sha256": "9670f46f2983cfcb60d784837a9043b1f51551fa3f5522d2b808e897fd23cfaa",
+   "source": "https://coin-images.coingecko.com/coins/images/9519/large/asset-paxg.png?1785284785",
+   "symbol": "PAXG"
+  },
+  {
+   "coingecko": "aster-2",
+   "fetched": "2026-11-03",
+   "name": "aster",
+   "pack": "coin_logos.bin",
+   "png_sha256": "88bc2cdbd62acd44d8943439ead84de257b3831577ad70ab7d66a1c4d6cfa15b",
+   "rank": 54,
+   "sha256": "a70b6144324d3580d45e5d871ee9a26a4b257169c2b9c6df79683827ee251ade",
+   "source": "https://coin-images.coingecko.com/coins/images/69040/large/_ASTER.png?1757326782",
+   "symbol": "ASTER"
+  },
+  {
+   "coingecko": "world-liberty-financial",
+   "fetched": "2026-11-03",
+   "name": "wlfi",
+   "pack": "coin_logos.bin",
+   "png_sha256": "4544b8f09b07dd271cdb71a14e16364d5f63de49a925a0f35791bd4f52bc03a5",
+   "rank": 55,
+   "sha256": "98d8053e3dc64afd44982cefc1b5c330ca2b39ab738bbfb2eac5241baa76c61b",
+   "source": "https://coin-images.coingecko.com/coins/images/50767/large/wlfi.png?1756438915",
+   "symbol": "WLFI"
+  },
+  {
+   "coingecko": "united-stables",
+   "fetched": "2026-11-03",
+   "name": "u",
+   "pack": "coin_logos.bin",
+   "png_sha256": "12f4fdae540f455bfaafc8c0b1d760842812a3e2f0b1a85e5025ea6d85546ac1",
+   "rank": 56,
+   "sha256": "a6d6f84ea576b3e6d6ea00f70ef57424c01b4e9064ccb3a6e02f5d067484f0fc",
+   "source": "https://coin-images.coingecko.com/coins/images/71157/large/united-stables-logo.jpg?1766061640",
+   "symbol": "U"
+  },
+  {
+   "coingecko": "polkadot",
+   "fetched": "2026-11-03",
+   "name": "dot",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9c22194c97a403c54263d46665cc46030caee69bbc902025a2993ba6e1fa12d4",
+   "rank": 57,
+   "sha256": "27c17e5c28b9f1367c97b2d35a55d9076f51c2d01986573fe7ad274dd09a9d9c",
+   "source": "https://coin-images.coingecko.com/coins/images/12171/large/polkadot.jpg?1766533446",
+   "symbol": "DOT"
+  },
+  {
+   "coingecko": "mantle",
+   "fetched": "2026-11-03",
+   "name": "mnt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "388eb6450b664a65c5bf98061355140e2ba863c2c208cf6bcf8ec3a7d86bd422",
+   "rank": 58,
+   "sha256": "70d42fe92fa6901d1f30e10feb9757ead1d49cb1dc80b8feffce72864b35ea5d",
+   "source": "https://coin-images.coingecko.com/coins/images/30980/large/MNT_Token_Logo.png?1765516974",
+   "symbol": "MNT"
+  },
+  {
+   "coingecko": "sky",
+   "fetched": "2026-11-03",
+   "name": "sky",
+   "pack": "coin_logos.bin",
+   "png_sha256": "06fe4f0fd865097d4716ff7209e54450c6e9cf34a550d4acaebd64faa4b80762",
+   "rank": 59,
+   "sha256": "472829b890e1e392c1fdb85b101c3f097237cace6a2b799affaee46adffeb0f5",
+   "source": "https://coin-images.coingecko.com/coins/images/39925/large/sky.jpg?1724827980",
+   "symbol": "SKY"
+  },
+  {
+   "coingecko": "morpho",
+   "fetched": "2026-11-03",
+   "name": "morpho",
+   "pack": "coin_logos.bin",
+   "png_sha256": "e7539e168a16fb0bc0f8371686866553719f19bcf00515028213c81674e7740a",
+   "rank": 60,
+   "sha256": "f0f3afdfda62c302aec5e955ba659086d6fb4ddf9d1d86a5164d5971d2dd82dc",
+   "source": "https://coin-images.coingecko.com/coins/images/29837/large/Morpho-token-icon.png?1726771230",
+   "symbol": "MORPHO"
+  },
+  {
+   "coingecko": "usdd",
+   "fetched": "2026-11-03",
+   "name": "usdd",
+   "pack": "coin_logos.bin",
+   "png_sha256": "358f33ca95a3aa5bf31ae933a9a0aa316b30aa70ab8612398c1d5a690b12ad2f",
+   "rank": 61,
+   "sha256": "b9d85ce5917174af4bf1d3da7846275591060ccd058891b4803534a1884631d0",
+   "source": "https://coin-images.coingecko.com/coins/images/25380/large/UUSD.jpg?1696524513",
+   "symbol": "USDD"
+  },
+  {
+   "coingecko": "bitway",
+   "fetched": "2026-11-03",
+   "name": "btw",
+   "pack": "coin_logos.bin",
+   "png_sha256": "2678c4f8e0ba951b63507799dac343acc935557f43d2f16aa67d5dbb5851f1c2",
+   "rank": 62,
+   "sha256": "d75f7ed58866c8aa790379c3b7b63782e3cbaa8a143f37673e556e323bf4118e",
+   "source": "https://coin-images.coingecko.com/coins/images/71205/large/BTW_Token_200x200.png?1786291907",
+   "symbol": "BTW"
+  },
+  {
+   "coingecko": "htx-dao",
+   "fetched": "2026-11-03",
+   "name": "htx",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1e898ac2ac19fb9804c7f4f7b89d7b9feef8d71bceb81312fb53179c8e38455b",
+   "rank": 63,
+   "sha256": "a3c143ceea3a99fa414fee255e4d0bf4911c6242dc945228f763895a0b1630e2",
+   "source": "https://coin-images.coingecko.com/coins/images/35491/large/Frame_1321318576.png?1708908626",
+   "symbol": "HTX"
+  },
+  {
+   "coingecko": "worldcoin-wld",
+   "fetched": "2026-11-03",
+   "name": "wld",
+   "pack": "coin_logos.bin",
+   "png_sha256": "935d6fa30c5de13a0801eb5670fd68a9b6639b8305af8fad2a6ed1f15c1d99b8",
+   "rank": 64,
+   "sha256": "ebbccc9ba2160d314a3adf7fa2576668fbeb7881979b9521bb70bec49d4566a8",
+   "source": "https://coin-images.coingecko.com/coins/images/31069/large/worldcoin.jpeg?1696529903",
+   "symbol": "WLD"
+  },
+  {
+   "coingecko": "internet-computer",
+   "fetched": "2026-11-03",
+   "name": "icp",
+   "pack": "coin_logos.bin",
+   "png_sha256": "b03b55b02e21e7eeba48d73dee88bd2c8142a9a5df7eab32019036ac5e88176a",
+   "rank": 65,
+   "sha256": "adb21622de85a1b0f8a0acf7d2270173c193f2cc16b5b649f6b341b8ffa5c8bb",
+   "source": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180",
+   "symbol": "ICP"
+  },
+  {
+   "coingecko": "bfusd",
+   "fetched": "2026-11-03",
+   "name": "bfusd",
+   "pack": "coin_logos.bin",
+   "png_sha256": "33d9ddaa669be35b65ecb0f1711a65293d83690fd398c51ce428557046e473da",
+   "rank": 66,
+   "sha256": "cfac5f7af12c538795970fed433687bf6d646f503baa07a7365c534ae2b11e06",
+   "source": "https://coin-images.coingecko.com/coins/images/68227/large/bfusd.png?1755132827",
+   "symbol": "BFUSD"
+  },
+  {
+   "coingecko": "usdgo",
+   "fetched": "2026-11-03",
+   "name": "usdgo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "feefc711001cf140788a8409341376c8d3473961ee885d5a300ce7f830ae50bb",
+   "rank": 67,
+   "sha256": "8afd88465317ba7f573f443e3260bf02339de7b26da483ea7302f726891d1019",
+   "source": "https://coin-images.coingecko.com/coins/images/102172077/large/USDGO_Primary_Icon.png?1789694084",
+   "symbol": "USDGO"
+  },
+  {
+   "coingecko": "bitget-token",
+   "fetched": "2026-11-03",
+   "name": "bgb",
+   "pack": "coin_logos.bin",
+   "png_sha256": "60b8f8b033b2ce7ebe1146f23651583706c2c5beb97dfb30ffdc3338a6d34d2e",
+   "rank": 68,
+   "sha256": "0100c3dd3fcb0a42d3a6bd761771819f6c31c7f745994621a9d25871b5b2334e",
+   "source": "https://coin-images.coingecko.com/coins/images/11610/large/Bitget_logo.png?1736925727",
+   "symbol": "BGB"
+  },
+  {
+   "coingecko": "just",
+   "fetched": "2026-11-03",
+   "name": "jst",
+   "pack": "coin_logos.bin",
+   "png_sha256": "c982807e4c80e3f373134b0c07f8d5510b8b21302dcdadd192bf6eee2d2ac337",
+   "rank": 69,
+   "sha256": "ed00c69a0c34fc983bf11d6f980b9e9908d264923c8f77884c376922e9643800",
+   "source": "https://coin-images.coingecko.com/coins/images/11095/large/JUST.jpg?1696511035",
+   "symbol": "JST"
+  },
+  {
+   "coingecko": "ethereum-classic",
+   "fetched": "2026-11-03",
+   "name": "etc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "4fbde23b301c71e1535d33ac3b0c0a9d740b9bec783ee0ab2676e96a82a33462",
+   "rank": 70,
+   "sha256": "769e22256768d688270424ed1f980a3f6aacd299c4c4ca20d2415ef6dcaffc01",
+   "source": "https://coin-images.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717",
+   "symbol": "ETC"
+  },
+  {
+   "coingecko": "arbitrum",
+   "fetched": "2026-11-03",
+   "name": "arb",
+   "pack": "coin_logos.bin",
+   "png_sha256": "8dd7725a0452498fb9669dbfbdc418194e9c350096225680b022c35bafddfce9",
+   "rank": 71,
+   "sha256": "af3101b00a90c0c3d892e2202d38794ec2172d07580b0be2123fd340c0ee8141",
+   "source": "https://coin-images.coingecko.com/coins/images/16547/large/arb.jpg?1721358242",
+   "symbol": "ARB"
+  },
+  {
+   "coingecko": "venice-token",
+   "fetched": "2026-11-03",
+   "name": "vvv",
+   "pack": "coin_logos.bin",
+   "png_sha256": "02b0e0b75c4cdcab4270946e990969fd135944b3577c5451492fde670da908ff",
+   "rank": 72,
+   "sha256": "b6644efa710212de2dd11b620840502e76fd0da4f97d60f9295d65b5efb0d39f",
+   "source": "https://coin-images.coingecko.com/coins/images/54023/large/VVV_Token_Transparent.png?1741856877",
+   "symbol": "VVV"
+  },
+  {
+   "coingecko": "gatechain-token",
+   "fetched": "2026-11-03",
+   "name": "gt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "01efac8bf339221c364c6e506515e6327dcc2602a2344ae6d7c771efb9ab3956",
+   "rank": 73,
+   "sha256": "be7f4a7e90096d45dfa4978988548c5f3c40b84757b2f5bf7d8bdef76d4261fc",
+   "source": "https://coin-images.coingecko.com/coins/images/8183/large/200X200.png?1735246724",
+   "symbol": "GT"
+  },
+  {
+   "coingecko": "kucoin-shares",
+   "fetched": "2026-11-03",
+   "name": "kcs",
+   "pack": "coin_logos.bin",
+   "png_sha256": "46f514499c863895ee388175fc4a7bae9b680124bbfa3047c04933f7ec5e7a63",
+   "rank": 74,
+   "sha256": "2fb92d19f3fe5d751710ead6a1e70e65cf6d4ecc9136ffca0a766ba692abaf5b",
+   "source": "https://coin-images.coingecko.com/coins/images/1047/large/sa9z79.png?1696502152",
+   "symbol": "KCS"
+  },
+  {
+   "coingecko": "polygon-ecosystem-token",
+   "fetched": "2026-11-03",
+   "name": "pol",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7847c2114e9f07ed846db23f171d1a3cf134425fbeeadc2e76cd4233be359894",
+   "rank": 75,
+   "sha256": "c84c849e4c1f8972718cd55772e7bac7137ef98bbb9ffc5c1462b007f7960b02",
+   "source": "https://coin-images.coingecko.com/coins/images/32440/large/pol.png?1759114181",
+   "symbol": "POL"
+  },
+  {
+   "coingecko": "open-usd",
+   "fetched": "2026-11-03",
+   "name": "ousd",
+   "pack": "coin_logos.bin",
+   "png_sha256": "23d44dee45e395ef468ed7b45bb4dfc4fe0019aad8f574dfe831ba4ce670dbf2",
+   "rank": 76,
+   "sha256": "ee5899ccb74f95e2a44457924c4c4350a177171ed9f8c6785391a032e75b9261",
+   "source": "https://coin-images.coingecko.com/coins/images/102174264/large/open_standard.png?1782864430",
+   "symbol": "OUSD"
+  },
+  {
+   "coingecko": "kaspa",
+   "fetched": "2026-11-03",
+   "name": "kas",
+   "pack": "coin_logos.bin",
+   "png_sha256": "0539a423a7d5e4ec91523f6671b6966befa9b3f4fbae0131ffcb5c92a14d1c9a",
+   "rank": 77,
+   "sha256": "37018f6a4d134a5bca96b77a1b49ccb54af5f6972d0b29894b04073260027bd4",
+   "source": "https://coin-images.coingecko.com/coins/images/25751/large/kaspa-icon-exchanges.png?1696524837",
+   "symbol": "KAS"
+  },
+  {
+   "coingecko": "pi-network",
+   "fetched": "2026-11-03",
+   "name": "pi",
+   "pack": "coin_logos.bin",
+   "png_sha256": "b3c04c89d919a65fc6f5e522d01ccf88b9e0d18991551d782fc1f5d2ed45e005",
+   "rank": 78,
+   "sha256": "e8f5d3b2458db22231cd770961c4b60c2b6f3bdc1991ed82a020dbdeeff18d6e",
+   "source": "https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576",
+   "symbol": "PI"
+  },
+  {
+   "coingecko": "algorand",
+   "fetched": "2026-11-03",
+   "name": "algo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "a51a145b7f0e214c061c2dd3a795663fa1f4859172ab56bdaa56c95ce7becb68",
+   "rank": 79,
+   "sha256": "1535c54391a8d14d7577112e8259f6ef4a3866cebbfa60481a88ea1215f10da1",
+   "source": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978",
+   "symbol": "ALGO"
+  },
+  {
+   "coingecko": "jupiter-exchange-solana",
+   "fetched": "2026-11-03",
+   "name": "jup",
+   "pack": "coin_logos.bin",
+   "png_sha256": "00d9d4c66fa2c04dca894557429dec1ac642c166153f015f5ce896e5889717c9",
+   "rank": 80,
+   "sha256": "e220edacf548d1dac6a10bafcecdb0e5c55991138605b530af1c02c2d73baa9b",
+   "source": "https://coin-images.coingecko.com/coins/images/34188/large/jup.png?1704266489",
+   "symbol": "JUP"
+  },
+  {
+   "coingecko": "render-token",
+   "fetched": "2026-11-03",
+   "name": "render",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9432cec9776947eee2e9ecef94c8ab7e1d6ac63deba06f8e99a443a430ecb68d",
+   "rank": 81,
+   "sha256": "80e6fa401dbbeaad577ff66238f211606da8d358b61d6427bfef0042cd3c7905",
+   "source": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529",
+   "symbol": "RENDER"
+  },
+  {
+   "coingecko": "lighter",
+   "fetched": "2026-11-03",
+   "name": "lit",
+   "pack": "coin_logos.bin",
+   "png_sha256": "f760d22b2c997378bc03f989fe23f1437da15d6e2abef9de53fab7ba5da3ca3d",
+   "rank": 82,
+   "sha256": "ff807dd8522a9abc1a2ef4764e3e5464f1bd1caaf87e7314b40195629128a22b",
+   "source": "https://coin-images.coingecko.com/coins/images/71121/large/lighter.png?1765888098",
+   "symbol": "LIT"
+  },
+  {
+   "coingecko": "cosmos",
+   "fetched": "2026-11-03",
+   "name": "atom",
+   "pack": "coin_logos.bin",
+   "png_sha256": "8498b498718c685ad47ca092458166eef9ea738ccb0e74c85051ef6a7ba5c933",
+   "rank": 83,
+   "sha256": "54df6d2ee5669b27bbf23f5cfba45e6059c810a088d97d393832f886ba4abc0e",
+   "source": "https://coin-images.coingecko.com/coins/images/1481/large/cosmos_hub.png?1696502525",
+   "symbol": "ATOM"
+  },
+  {
+   "coingecko": "nexo",
+   "fetched": "2026-11-03",
+   "name": "nexo",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1513882780e883cc6d6221601b1d434735053555ac69317bdf207269efe955c4",
+   "rank": 84,
+   "sha256": "3920ea267de9a79d695a7e62ca394d8149fdb7a657d2e627ea508a5a2c748a7f",
+   "source": "https://coin-images.coingecko.com/coins/images/3695/large/CG-nexo-token-200x200_2x.png?1730414360",
+   "symbol": "NEXO"
+  },
+  {
+   "coingecko": "filecoin",
+   "fetched": "2026-11-03",
+   "name": "fil",
+   "pack": "coin_logos.bin",
+   "png_sha256": "b493c7059aad767e96872624b4b1306b338f075d05710fbb35a649baf7947ca7",
+   "rank": 85,
+   "sha256": "d4f017b54ed7f80371d155f8003c6ca7f2ac5b4c7c5cc2550567b4c1c2dfbee3",
+   "source": "https://coin-images.coingecko.com/coins/images/12817/large/filecoin.png?1696512609",
+   "symbol": "FIL"
+  },
+  {
+   "coingecko": "injective-protocol",
+   "fetched": "2026-11-03",
+   "name": "inj",
+   "pack": "coin_logos.bin",
+   "png_sha256": "620b2f2e37942654e64eb57e56d8beb1ee7aac9fb6675138bf8c6c209629d029",
+   "rank": 86,
+   "sha256": "4be37cc68051d2b40cd50716acaa8ba8bb34959f9ed4bb509ed36733da3a0fd6",
+   "source": "https://coin-images.coingecko.com/coins/images/12882/large/Other_200x200.png?1738782212",
+   "symbol": "INJ"
+  },
+  {
+   "coingecko": "gho",
+   "fetched": "2026-11-03",
+   "name": "gho",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7acd4c0319c035233c4b4fb90f10afb104419f1aa5fbd4777df33e9e2fcd0b3b",
+   "rank": 87,
+   "sha256": "23d784b3b8097c7d47ca5841f59bf332814f0bde6ac7c90221d9d942196d2be3",
+   "source": "https://coin-images.coingecko.com/coins/images/30663/large/gho-token-logo.png?1720517092",
+   "symbol": "GHO"
+  },
+  {
+   "coingecko": "layerzero",
+   "fetched": "2026-11-03",
+   "name": "zro",
+   "pack": "coin_logos.bin",
+   "png_sha256": "8c46ed61ff63b520cde6f41e619f81211525809e721aa2a890c95fcb1884034a",
+   "rank": 88,
+   "sha256": "51877810623370e5189c4ba7e59dd9a9014f668cf24492af25cd3b7cef71ca3d",
+   "source": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208",
+   "symbol": "ZRO"
+  },
+  {
+   "coingecko": "midnight-3",
+   "fetched": "2026-11-03",
+   "name": "night",
+   "pack": "coin_logos.bin",
+   "png_sha256": "ab3bbb674ae981910a3bb064fef070283fe48c0cf5af52dbf75369492374899d",
+   "rank": 89,
+   "sha256": "c921af90962d6a178bb08afe712360a0913ca29df9761bc4ce10d25f5d114d16",
+   "source": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080",
+   "symbol": "NIGHT"
+  },
+  {
+   "coingecko": "superstate-short-duration-us-government-securities-fund-ustb",
+   "fetched": "2026-11-03",
+   "name": "ustb",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1449c250ebeb5460463805afb4340aaa9f377b43458f21cc0c05ff37445f671b",
+   "rank": 90,
+   "sha256": "e00770147b7e04836f29d42c4e26f3fd131c575b34e5dea5471410aab6cfecf1",
+   "source": "https://coin-images.coingecko.com/coins/images/35012/large/Invesco_icon_lg.png?1780816895",
+   "symbol": "USTB"
+  },
+  {
+   "coingecko": "xdce-crowd-sale",
+   "fetched": "2026-11-03",
+   "name": "xdc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "99a6488fb3ec116add5b9812027586c70f5ef84be542e230f71b65398ecacd17",
+   "rank": 91,
+   "sha256": "3ce9f390c85e42a3d0fdb09bf405571c6142707cb179d41987457ed2213d2b2c",
+   "source": "https://coin-images.coingecko.com/coins/images/2912/large/xdc-icon.png?1696503661",
+   "symbol": "XDC"
+  },
+  {
+   "coingecko": "blockstack",
+   "fetched": "2026-11-03",
+   "name": "stx",
+   "pack": "coin_logos.bin",
+   "png_sha256": "03632938727a6f24c39231b9df52a5f06d758d929ce3c68b335630efcc4c02ce",
+   "rank": 92,
+   "sha256": "51fb5cc12cdc6b368faf3fed7845f06968b8f4fa064dc612f4da709bf346eded",
+   "source": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332",
+   "symbol": "STX"
+  },
+  {
+   "coingecko": "dash",
+   "fetched": "2026-11-03",
+   "name": "dash",
+   "pack": "coin_logos.bin",
+   "png_sha256": "7946b9c64f13f3bd08907da612fd2f4ec9a0eea075cfb09c92c52288f86b96bc",
+   "rank": 93,
+   "sha256": "3d1cee5580a62f595d30eea4cb31f701b276cc3b227b5f2d6a27513c703870c3",
+   "source": "https://coin-images.coingecko.com/coins/images/19/large/dash-logo.png?1696501423",
+   "symbol": "DASH"
+  },
+  {
+   "coingecko": "pancakeswap-token",
+   "fetched": "2026-11-03",
+   "name": "cake",
+   "pack": "coin_logos.bin",
+   "png_sha256": "87b2174be56ad7ded0a8a61f6137a5c4912864ab28349bd8bda74dea8fa476d5",
+   "rank": 94,
+   "sha256": "777b3d184b11d75e0e5be7391d24e838248e79acb5384e3b29ee4810a292b67f",
+   "source": "https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440",
+   "symbol": "CAKE"
+  },
+  {
+   "coingecko": "ether-fi",
+   "fetched": "2026-11-03",
+   "name": "ethfi",
+   "pack": "coin_logos.bin",
+   "png_sha256": "9ab8e384a92184d3f252bf25599e6bad8a6a0f69bfabb93055839ca94adec3e4",
+   "rank": 95,
+   "sha256": "98a4df07771160109216fd82a34d1537af3f4567b8cb6328eed267ab5d4dcb39",
+   "source": "https://coin-images.coingecko.com/coins/images/35958/large/etherfi.jpeg?1710254562",
+   "symbol": "ETHFI"
+  },
+  {
+   "coingecko": "beldex",
+   "fetched": "2026-11-03",
+   "name": "bdx",
+   "pack": "coin_logos.bin",
+   "png_sha256": "31eee61c5254b7003e1542f7c9e2bcb1d5ed51ccf7328e49c7573315e69ecd22",
+   "rank": 96,
+   "sha256": "2b41c6f39f7ea1633e6621f13bd4770c11bcbb99ea9f83339ec451ae3c8bd844",
+   "source": "https://coin-images.coingecko.com/coins/images/5111/large/Beldex.png?1696505631",
+   "symbol": "BDX"
+  },
+  {
+   "coingecko": "janus-henderson-anemoy-aaa-clo-fund",
+   "fetched": "2026-11-03",
+   "name": "jaaa",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1cf72eb7e2a3c51cf98f1b9d0744c6ca9a525ffbe38f3e04c0dab6688a2337c1",
+   "rank": 97,
+   "sha256": "a7023ae72db84449e38055abe8eed6301c2dfcf69094b073d0f945a481f845d6",
+   "source": "https://coin-images.coingecko.com/coins/images/70446/large/jaaa.png?1762078666",
+   "symbol": "JAAA"
+  },
+  {
+   "coingecko": "usual-usd",
+   "fetched": "2026-11-03",
+   "name": "usd0",
+   "pack": "coin_logos.bin",
+   "png_sha256": "40292c27a1703b6735608287b4b95c641ddab85533693d1ab6c445364769bc05",
+   "rank": 98,
+   "sha256": "1401cc0bf24ec31e30142bbc871870bba2821d6e6e62f094c3472fe9b47f9ecb",
+   "source": "https://coin-images.coingecko.com/coins/images/38272/large/USD0LOGO.png?1716962811",
+   "symbol": "USD0"
+  },
+  {
+   "coingecko": "aptos",
+   "fetched": "2026-11-03",
+   "name": "apt",
+   "pack": "coin_logos.bin",
+   "png_sha256": "abf92d6efeb051ce064337c72f107ead233fb5454dcd767ea820d784edf507d9",
+   "rank": 99,
+   "sha256": "b619106017a1a80b87c1e092b57420d81b86312ad44dbc3716bbd7dbdad93e29",
+   "source": "https://coin-images.coingecko.com/coins/images/26455/large/Aptos-Network-Profile-Picture_%281%29.png?1788259511",
+   "symbol": "APT"
+  },
+  {
+   "coingecko": "flare-networks",
+   "fetched": "2026-11-03",
+   "name": "flr",
+   "pack": "coin_logos.bin",
+   "png_sha256": "fe10af68f74d9436de3f7baaaf04f8ea5cbfabd168287aec45df334b250e8ec8",
+   "rank": 100,
+   "sha256": "6fe91bad842e54582f8315ba5a99a49fbb85509ee419fabb1bb44c2da7a4262e",
+   "source": "https://coin-images.coingecko.com/coins/images/28624/large/FLR-icon200x200.png?1696527609",
+   "symbol": "FLR"
+  },
+  {
+   "coingecko": "euro-coin",
+   "fetched": "2026-11-03",
+   "name": "eurc",
+   "pack": "coin_logos.bin",
+   "png_sha256": "1383a75c6e22880f7ff8988da24f30d402a62a338ccdcb6e3150c1c36dba0e1a",
+   "rank": 102,
+   "sha256": "29e32eb50953f258a193dd00a9ba6fbb5a27edf1b0f4469039924d8a9fb7b647",
+   "source": "https://coin-images.coingecko.com/coins/images/26045/large/EURC.png?1769615705",
+   "symbol": "EURC"
+  },
+  {
+   "coingecko": "pearl-2",
+   "fetched": "2026-11-03",
+   "name": "pearl",
+   "pack": "coin_logos.bin",
+   "png_sha256": "bb6d70f4e2d7a291a41aae9f64ea6259a8990db0c9a60a7e6bce8ca2062cb451",
+   "rank": 103,
+   "sha256": "4bf3f2f14a7d9042c08cfb9468f82f05960f61273815ec92686b7f1f65d83ef1",
+   "source": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
+   "symbol": "PEARL"
+  }
+ ],
+ "coin_logos.bin skipped": [
+  {
+   "reason": "unsupported image format (PNG or JPEG expected)",
+   "source": "https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683",
+   "symbol": "USDS"
+  }
+ ],
+ "exchange_logos.bin": [
+  {
+   "coingecko": "gdax",
+   "fetched": "2026-11-03",
+   "name": "gdax",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "31fd752b3ecff2ebe9cbed7c7aed36669dc7ebe74db95bd55430b2ac14676719",
+   "sha256": "400919ee894c3ea048c372cf6a276c862cdb6bdc51fb95074859065d37a3b8fb",
+   "source": "https://coin-images.coingecko.com/markets/images/23/large/Coinbase_Coin_Primary.png?1706864258"
+  },
+  {
+   "coingecko": "kraken",
+   "fetched": "2026-11-03",
+   "name": "kraken",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "54ed4611ae93ece730356bdf62d526793ec9d736dc328d61e3e3cac106edca76",
+   "sha256": "6636971325030b708de3e25162c846c6bed8d2f66a80c9dbc0ac87b7031f7da5",
+   "source": "https://coin-images.coingecko.com/markets/images/29/large/kraken.jpg?1706864265"
+  },
+  {
+   "coingecko": "gate",
+   "fetched": "2026-11-03",
+   "name": "gate",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "631f4d680bc4d61e0d5b823740825780c65d149f031dce3d3e4aa563ad53cf4d",
+   "sha256": "aa543a2417f25744b191cbe88d21fa7fa7b543ee9a29e8d1801405f18caa00dd",
+   "source": "https://coin-images.coingecko.com/markets/images/60/large/Frame_1.png?1747795534"
+  },
+  {
+   "coingecko": "binance",
+   "fetched": "2026-11-03",
+   "name": "binance",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "87b51e274094d8430fb64d4d2e80da7df4dcfb3e249ef9df649e29b76e8dc80e",
+   "sha256": "63bbebe845ff49a693c8718af60f9a5a8fabf4f9e8d3bc69b2bef10794333979",
+   "source": "https://coin-images.coingecko.com/markets/images/52/large/binance.jpg?1706864274"
+  },
+  {
+   "coingecko": "binance_us",
+   "fetched": "2026-11-03",
+   "name": "binanceus",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "8fc810092d32c41811d556c04143929575a8ded3f9fbadf17afdd525fb43668b",
+   "sha256": "046ccb9a0b0eac5ae8acfb53b61e39d9049b093b054d8cccd5e46772a8732551",
+   "source": "https://coin-images.coingecko.com/markets/images/469/large/Binance.png?1706864454"
+  },
+  {
+   "coingecko": "kucoin",
+   "fetched": "2026-11-03",
+   "name": "kucoin",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "ab0cb428ad70d4fb83d863802f32b7f4f5b9ae68398c4e2461b8eb2df00fd061",
+   "sha256": "7082d8c20a7bc8f73790ddafa0c365afc960eed58c4dfdb6826f43a0ec945904",
+   "source": "https://coin-images.coingecko.com/markets/images/61/large/kucoin.png?1706864282"
+  },
+  {
+   "coingecko": "okex",
+   "fetched": "2026-11-03",
+   "name": "okex",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "3c451c7174c5a7b24cbffb5444a26aa91055511642cfefd03c87e7e8ed373da8",
+   "sha256": "4efcce6b3da7672895382546c9ce3a7ff88c8784f85fc14676a6c2d251f80677",
+   "source": "https://coin-images.coingecko.com/markets/images/96/large/WeChat_Image_20220117220452.png?1706864283"
+  },
+  {
+   "coingecko": "bybit_spot",
+   "fetched": "2026-11-03",
+   "name": "bybit",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "d31b48e5bc3e430213a25c633d5410e490d69212e75a4cdf5bed9640f25d06f0",
+   "sha256": "c4c584511394aac9c6acef54373ceaca17b212faacf2bf7b8a2da2fe3adb25c9",
+   "source": "https://coin-images.coingecko.com/markets/images/698/large/bybit_spot.png?1706864649"
+  },
+  {
+   "coingecko": "bitget",
+   "fetched": "2026-11-03",
+   "name": "bitget",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "4fca164888374fdc5fedd5697e7528693747ee085b3add06ce9205b72606d132",
+   "sha256": "d130b08924c868b7970034d1f6f49af573bf69960c5de5bd4abcbf5ad0ff866b",
+   "source": "https://coin-images.coingecko.com/markets/images/540/large/2023-07-25_21.47.43.jpg?1706864507"
+  },
+  {
+   "coingecko": "mxc",
+   "fetched": "2026-11-03",
+   "name": "mexc",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "7a425ac724edebf83d7fb44ac5d1d762051cb200f7c7cc16d61e8954b3bbc501",
+   "sha256": "ec9fb4965bd5a4e15cbb5d3ad0e86bc9ac7beb5df619cf8aac30eb381c384654",
+   "source": "https://coin-images.coingecko.com/markets/images/409/large/164286be-32a5-4b58-978c-d072eea00eb9.jpeg?1775619316"
+  },
+  {
+   "coingecko": "huobi",
+   "fetched": "2026-11-03",
+   "name": "htx",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "c81705f6b853679113941b651525b19f81c831d365d9ac168edfa00ce9015d63",
+   "sha256": "6db10f769bb1a1fdbde3a735c9608bf4fb037934a0bd451f8592680a9df205bb",
+   "source": "https://coin-images.coingecko.com/markets/images/25/large/htx.png?1721712842"
+  },
+  {
+   "coingecko": "bitfinex",
+   "fetched": "2026-11-03",
+   "name": "bitfinex",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "4d577947f430cba3006305571d6e2a64eff67cf92be170cdc12352a1d3196ba4",
+   "sha256": "5548187b046058cbd8a3bd3ef2f1e93d450b592e4c150638b2df4f2d7488e30e",
+   "source": "https://coin-images.coingecko.com/markets/images/4/large/BItfinex.png?1706864245"
+  },
+  {
+   "coingecko": "bitstamp",
+   "fetched": "2026-11-03",
+   "name": "bitstamp",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "8b8366b44a5eabc2079662610a1a1c721c8c4ce7ea3e5ef1d454a2180c76ea72",
+   "sha256": "93fe7a9d91dde953a9d2b0be05cca1bb8046e8b095ae594a65e5d648b9c65d30",
+   "source": "https://coin-images.coingecko.com/markets/images/9/large/bitstamp.jpg?1706864251"
+  },
+  {
+   "coingecko": "bitvavo",
+   "fetched": "2026-11-03",
+   "name": "bitvavo",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "72e9f5b03c8da28e898558c90fc606e37304930ee617d93ca0e802048a0118a9",
+   "sha256": "c5f0f06df3c162ea9dccf5181c2a88fcaacd426f67fe00ac55ecb9810de6f12e",
+   "source": "https://coin-images.coingecko.com/markets/images/714/large/bitvavo-mark-square-black.png?1706864670"
+  },
+  {
+   "coingecko": "crypto_com",
+   "fetched": "2026-11-03",
+   "name": "cryptocom",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "fae68a3bc2fba7c6d3062f5a48197daf7930f852e73e15a796d602683dd64189",
+   "sha256": "f3e3368ba86b2cd3e0a9c485873a06fec4fbb099a1e37742234fa0d9dd73bfab",
+   "source": "https://coin-images.coingecko.com/markets/images/589/large/h2oMjPp6_400x400.jpg?1706864542"
+  },
+  {
+   "coingecko": "gemini",
+   "fetched": "2026-11-03",
+   "name": "gemini",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "5270fc7a644fd80901e3e2079b4d9e4a0c1a84b94ac2ad09e4c564221d2af7b3",
+   "sha256": "2d23381bded7e51b684228b53e3610d1717cd52c6753235b864e6cf99d7cd452",
+   "source": "https://coin-images.coingecko.com/markets/images/50/large/gemini.png?1706864273"
+  },
+  {
+   "coingecko": "hyperliquid-spot",
+   "fetched": "2026-11-03",
+   "name": "hyperliquid",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "237865f6bb53f15076852c306dab54abe49a9ae70d4428136e385c618f098293",
+   "sha256": "11806249aefbd634a6b51793732a8b01d978419029f13981f81640e6d99e9477",
+   "source": "https://coin-images.coingecko.com/markets/images/1571/large/PFP.png?1714470912"
+  },
+  {
+   "coingecko": "aster-spot",
+   "fetched": "2026-11-03",
+   "name": "aster",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "88bc2cdbd62acd44d8943439ead84de257b3831577ad70ab7d66a1c4d6cfa15b",
+   "sha256": "b9a03e17c141dd17457e93545ba74f29731e93561bd6b7dcf0eab4e963389cac",
+   "source": "https://coin-images.coingecko.com/markets/images/22102/large/_ASTER.png?1758244334"
+  },
+  {
+   "coingecko": "bingx",
+   "fetched": "2026-11-03",
+   "name": "bingx",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "1a1dc8b5bd0edf28fa2089a19f000b95d79504e69a43ee6e4afe44f75fe77b7d",
+   "sha256": "943e387a073c35af603cf3b256ea9a1c688d77c4eec05ff86e594624901b4881",
+   "source": "https://coin-images.coingecko.com/markets/images/812/large/YtFwQwJr_400x400.jpg?1706864837"
+  },
+  {
+   "coingecko": "lighter-spot",
+   "fetched": "2026-11-03",
+   "name": "lighter",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "f760d22b2c997378bc03f989fe23f1437da15d6e2abef9de53fab7ba5da3ca3d",
+   "sha256": "39a3907d0c2b60e285e804a6cad37d5315c0c013b561bf7ee76c3996dc8a39a9",
+   "source": "https://coin-images.coingecko.com/markets/images/22183/large/lighter.png?1767692181"
+  },
+  {
+   "coingecko": "wootrade",
+   "fetched": "2026-11-03",
+   "name": "woo",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "1378d3913f498d603d092c6957a8e794585b3c3fac70b44fed7e7ed6ad420f49",
+   "sha256": "8ccd59b0cd6cfdc8f7790d655de5421c0bbbdddbbd8f762226f492057c93efb6",
+   "source": "https://coin-images.coingecko.com/markets/images/683/large/woo.png?1706864629"
+  },
+  {
+   "coingecko": "deribit_spot",
+   "fetched": "2026-11-03",
+   "name": "deribit",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "005ca2e298aabb182db2f6092bdd33dc9c1ce57b2ab01fdf1d4fecdf2390592d",
+   "sha256": "9cbdcf3be443410aaa7780277432bfa6757962acc7f57f40a1af11b9a50ff6b3",
+   "source": "https://coin-images.coingecko.com/markets/images/1144/large/deribit-spot.jpg?1756737820"
+  },
+  {
+   "coingecko": "phemex",
+   "fetched": "2026-11-03",
+   "name": "phemex",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "a982d065924f601fc0995dc752668404aff99fff18803a1d19bfb3546804a333",
+   "sha256": "9a9450cbf051df6044574bf9ba9f2c8232c86921bb918fbe0bfb3e1a84ad5ba6",
+   "source": "https://coin-images.coingecko.com/markets/images/564/large/phemex-exchange-new-logo.png?1763018222"
+  },
+  {
+   "coingecko": "bitunix",
+   "fetched": "2026-11-03",
+   "name": "bitunix",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "72b7dc50606ec8c757853ce3ae7f4c32fc27a25cb0d51a0324eb1aa2afedab34",
+   "sha256": "ce967e05bce158f6071b3d0f8946fd9a9795781de170bc8f6180a3a9f6eb9b93",
+   "source": "https://coin-images.coingecko.com/markets/images/1185/large/APP_icon_1024.png?1706865197"
+  },
+  {
+   "coingecko": "poloniex",
+   "fetched": "2026-11-03",
+   "name": "poloniex",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "84c9b49396b3e81fc33d351afffeaf3c126350db42cc1c9aaaa677a915bd6846",
+   "sha256": "0ada4c90b054b198d620f2ca1a526f24e3077009fbfb39845bcf6817ee357a0b",
+   "source": "https://coin-images.coingecko.com/markets/images/37/large/poloniex.png?1706864269"
+  },
+  {
+   "coingecko": "bitpanda",
+   "fetched": "2026-11-03",
+   "name": "onetrading",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "41b6694b8c330ec91cf8b6d603aed64555b2c4cef04a0e50da1f359cbe583e79",
+   "sha256": "4e53f13f20e67b88ec4e27ebedbaed6476e0ed1c462b31e3bdf27187b21b15e3",
+   "source": "https://coin-images.coingecko.com/markets/images/474/large/app-icon_%281%29.png?1740474944"
+  },
+  {
+   "coingecko": "upbit",
+   "fetched": "2026-11-03",
+   "name": "upbit",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "a07e69201522c8217c2c0415b7521b57300cce025b9ec8ef6a91f4a6604d3606",
+   "sha256": "d8918e18c2583996d733bcf822293d23df3023ed49ab1d35ff557d9278648fe1",
+   "source": "https://coin-images.coingecko.com/markets/images/117/large/upbit.png?1706864294"
+  },
+  {
+   "coingecko": "bithumb",
+   "fetched": "2026-11-03",
+   "name": "bithumb",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "fdc44a8acb70ffd1e141181399e47429112e74c323273494b56be2ff51869c3d",
+   "sha256": "48e5bcf9652272af82da3738cb80856612837baef3f3c0c4c98bcf00ec8d886f",
+   "source": "https://coin-images.coingecko.com/markets/images/6/large/bithumb_BI.png?1706864248"
+  },
+  {
+   "coingecko": "bitflyer",
+   "fetched": "2026-11-03",
+   "name": "bitflyer",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "b422f2ffabdd1fa8a8516a75658d23dd55446c4a55a7e11ff9d377ba412276e9",
+   "sha256": "1fcb50c0686310083e707bfdd18c60312ee38ef825d48576daeccb2a5247e42f",
+   "source": "https://coin-images.coingecko.com/markets/images/5/large/bitFlyer-logo.png?1706864247"
+  },
+  {
+   "coingecko": "bitbank",
+   "fetched": "2026-11-03",
+   "name": "bitbank",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "ea76c760b09e23d5c7d352e1f4362952d79a0d9fcc9490398efd574d5ce1a081",
+   "sha256": "5d72e70ca23d8caac56396859e706797e92f5ccf71be423dde45c5c860a1453c",
+   "source": "https://coin-images.coingecko.com/markets/images/122/large/bitbank.jpg?1706864298"
+  },
+  {
+   "coingecko": "coincheck",
+   "fetched": "2026-11-03",
+   "name": "coincheck",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "879af516a6c14fa10cf5258a1cb5966cf9d7faeb00c371aaa3914a1599cce97b",
+   "sha256": "e4aa699b6e6bdd6db00f2340118db25958552070d371a1390b0f03d2cf704c29",
+   "source": "https://coin-images.coingecko.com/markets/images/18/large/Coincheck.jpg?1706864255"
+  },
+  {
+   "coingecko": "btcturk",
+   "fetched": "2026-11-03",
+   "name": "btcturk",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "1aeac1604eb8b456ffe7f9602702dfe8d69bc5658b66b40a0ab0370df055bc5d",
+   "sha256": "64aacbc9a6e67b1bab8dcfff3f4dfc45b8372f18352cfcc3cddbe6d075f86d76",
+   "source": "https://coin-images.coingecko.com/markets/images/223/large/btctrurk_kripto.png?1706864333"
+  },
+  {
+   "coingecko": "paribu",
+   "fetched": "2026-11-03",
+   "name": "paribu",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "c73360303fb098532b1fcd518f03c1251f4edfbe16416dc6580d05a7cda3035f",
+   "sha256": "b994af9d208af1cf23cbdbcf369893ba59288ef63e0b463ca2a501881583d422",
+   "source": "https://coin-images.coingecko.com/markets/images/136/large/paribu-new-logo.png?1763018109"
+  },
+  {
+   "coingecko": "icrypex",
+   "fetched": "2026-11-03",
+   "name": "icrypex",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "338c2559c8dfa04a549d5e28a788cf0d20640d66f83aa70e2e3870db6c8febbe",
+   "sha256": "8ac98d1949e13e5c25781fde6a8be49b5e5ff8ebe6d2af475d6407d8714cf37e",
+   "source": "https://coin-images.coingecko.com/markets/images/1222/large/X.png?1706865230"
+  },
+  {
+   "coingecko": "bitso",
+   "fetched": "2026-11-03",
+   "name": "bitso",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "d2e543c93c1cd2e64cf14351a1fc634f3cccf5a78b16ba35c098e37d285e4e6f",
+   "sha256": "89078f868f72265c3c601ad46dac10d9bc8ca4cf9b7327c0b4c234579b928c17",
+   "source": "https://coin-images.coingecko.com/markets/images/8/large/Bitso-icon-dark.png?1706864249"
+  },
+  {
+   "coingecko": "mercado_bitcoin",
+   "fetched": "2026-11-03",
+   "name": "mercadobitcoin",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "756d2a61df7f46717f727eac92c252cfdc2cf99e0571b137e6f056349c6b72bf",
+   "sha256": "8800684b792db5434fa25eb0e9ba50adec52a0a3eef7c1e7df163a4c92de9e0d",
+   "source": "https://coin-images.coingecko.com/markets/images/34/large/logo_MB_hexagono.png?1706864267"
+  },
+  {
+   "coingecko": "indodax",
+   "fetched": "2026-11-03",
+   "name": "indodax",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "52f2f52c9de998c71f18c9dd4ebc7c2f50157f05a0d8ab2a232fd9c432300048",
+   "sha256": "723615e5743d562669e1b9eaae108a05d2e91714dfb924eb1da53fbc17bf3aa7",
+   "source": "https://coin-images.coingecko.com/markets/images/3/large/logogram-Indodax-new-_JPG_format.jpg?1706864243"
+  },
+  {
+   "coingecko": "zebpay",
+   "fetched": "2026-11-03",
+   "name": "zebpay",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "02f21eb70323054ffd089ebce4d60df48439181c883bf0ec2f2e8e48ad437094",
+   "sha256": "1bbb30c573fd4fa901a3c332e2453b339a82fe6f64ed7659aa175c19df6a6810",
+   "source": "https://coin-images.coingecko.com/markets/images/151/large/Zebpay.jpg?1706864313"
+  },
+  {
+   "coingecko": "coindcx",
+   "fetched": "2026-11-03",
+   "name": "coindcx",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "630b5aeb766dec5b7d8c11dae3923c0fa9df3a977e399ac18d10f241bc1506a2",
+   "sha256": "5e80c7463c191917887b14b65afcd6feb6a218081f3d8618771c3a105cff573c",
+   "source": "https://coin-images.coingecko.com/markets/images/520/large/coindcx.png?1706864493"
+  },
+  {
+   "coingecko": "hashkey",
+   "fetched": "2026-11-03",
+   "name": "hashkey",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "f0940eb7872d6aa1df905165ddd4343fb8789c1ae27e930ecfb189934fe4d1b3",
+   "sha256": "ba7487e9db54995f793cd40935a7613c15d20aaad73b3db5fa9aa912e3011e5f",
+   "source": "https://coin-images.coingecko.com/markets/images/22385/large/HashKey_logo.png?1792487793"
+  },
+  {
+   "coingecko": "independent_reserve",
+   "fetched": "2026-11-03",
+   "name": "independentreserve",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "4b8048c7f7d0024ffcf006ece1c2a0080c85b0163b76790f8d3701cf25fca2c2",
+   "sha256": "10e01f2df17e821d34e4c95c40411199956564d03f2aab762d205010fc4a1cac",
+   "source": "https://coin-images.coingecko.com/markets/images/389/large/x_V5Jquo_400x400.png?1706864404"
+  },
+  {
+   "coingecko": "btcmarkets",
+   "fetched": "2026-11-03",
+   "name": "btcmarkets",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "89db2b431d4e9f79145cda9b6f784660e3c3e47d25cdce47640afe4e3585cf53",
+   "sha256": "22c5cd9f820dfae8e4d4982106c7e0fd0ec4de52cf3d5c61d1d806453893cfc1",
+   "source": "https://coin-images.coingecko.com/markets/images/237/large/btc-markets-logo.png?1791319912"
+  },
+  {
+   "coingecko": "luno",
+   "fetched": "2026-11-03",
+   "name": "luno",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "f0627fedb2ba3ada5481bd0692bfea3e0a11e612d63cca59bdd1f2f2c502614e",
+   "sha256": "ebcbbf39a1d1f4b75a774d147b51bc5909235981307be88a2a59ec8c8c2b52e7",
+   "source": "https://coin-images.coingecko.com/markets/images/33/large/RGB_LUNO_SYMBOL_NAVY_BLUE_1.png?1706864266"
+  },
+  {
+   "coingecko": "bitkub",
+   "fetched": "2026-11-03",
+   "name": "bitkub",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "400ef1108e5129607e5a4cf990b1a668fa9c5ecbabb55cfaab60fa5ed11c823c",
+   "sha256": "5287000df78b71c04a4ebe8b2d70f279642b5db8a57651796c49905e8d2e9794",
+   "source": "https://coin-images.coingecko.com/markets/images/249/large/bitkub.png?1706864345"
+  },
+  {
+   "coingecko": "coinspro",
+   "fetched": "2026-11-03",
+   "name": "coinsph",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "db3000040ea4a57f96ecd5aff4934e86cab0387f948f69ccadda23855956fb62",
+   "sha256": "4e53fddfb130c5f012aa5b39b00eed0f34c5cb579b8d3cd13bf63d114eb88af1",
+   "source": "https://coin-images.coingecko.com/markets/images/999/large/coinspro.png?1706864987"
+  },
+  {
+   "coingecko": "coinone",
+   "fetched": "2026-11-03",
+   "name": "coinone",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "7c8af620fa58076fc0fb9184ce7c4f41ae22abab0f59920f77a254a4150fd430",
+   "sha256": "4263a359ab125f46c9ba58bff532dacad05b1dd3478da815ab93e04bc1cb138a",
+   "source": "https://coin-images.coingecko.com/markets/images/20/large/coinone_circle_500x500.png?1706864256"
+  },
+  {
+   "coingecko": "whitebit",
+   "fetched": "2026-11-03",
+   "name": "whitebit",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "e08c8d2d0835934140bb940fe3b2858b91b340a26ccf604e6dc12521123f4bec",
+   "sha256": "972338a611348eeccddbfb7120987b98e3ad731a36521440a17cfafece9448a0",
+   "source": "https://coin-images.coingecko.com/markets/images/418/large/800_800.jpg?1706864419"
+  },
+  {
+   "coingecko": "max_maicoin",
+   "fetched": "2026-11-03",
+   "name": "maxmaicoin",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "80d35badecd3ec5d9935125cca2c4a3753bcc1ea86baa74e64951857c697de97",
+   "sha256": "9a78ce49e5a760855857423f8bb4b6c9836377ab4808d316834820de12dbcf55",
+   "source": "https://coin-images.coingecko.com/markets/images/218/large/max.jpg?1706864331"
+  },
+  {
+   "coingecko": "bitopro",
+   "fetched": "2026-11-03",
+   "name": "bitopro",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "3bec5249c1a967db4e43711504218e33d59969e818cb51b65d828c659121d369",
+   "sha256": "3c297e35044dc6e30f469a041ab14f97fea064240b5a22aea19ff5bee2a4b74b",
+   "source": "https://coin-images.coingecko.com/markets/images/358/large/bitopro_coingecko_250x250_%281%29.png?1706864386"
+  },
+  {
+   "coingecko": "foxbit",
+   "fetched": "2026-11-03",
+   "name": "foxbit",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "7c578b38900ed46933918ef148bce7ee01d0c133349275dc079659a406394334",
+   "sha256": "1cf042b62e3701fd120867d6f23d14f605e2a5f73873c23434c2f646980a9689",
+   "source": "https://coin-images.coingecko.com/markets/images/864/large/foxbit.jpeg?1706864880"
+  },
+  {
+   "coingecko": "bit2me",
+   "fetched": "2026-11-03",
+   "name": "bit2me",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "a8ead41c6b4edf5fa29e6aa97cfeb42de389463b8725054ad832f15efe2a1280",
+   "sha256": "45faa5d7e90ff3743a067635684a315b67bb50c65ecd8f1e4ac81fbdc37b162d",
+   "source": "https://coin-images.coingecko.com/markets/images/1137/large/bit2me.png?1706865155"
+  },
+  {
+   "coingecko": "valr",
+   "fetched": "2026-11-03",
+   "name": "valr",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "7b74ea3be90d7480696ee12dad71e93094b98b4422dccd6c684880c3a1a22a22",
+   "sha256": "7accf10e3d79e61bf7f38b81bb44f13b3ac3d76283d26fe66856466d9adcabd4",
+   "source": "https://coin-images.coingecko.com/markets/images/1036/large/VALR.png?1720089142"
+  },
+  {
+   "coingecko": "wazirx",
+   "fetched": "2026-11-03",
+   "name": "wazirx",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "ead9dc544b5c0b35ed4b47369258960609a29808c5fc6ed86bc0975402a082ce",
+   "sha256": "87ad81c26f4b558c748cd6b82c08e1d7c283f5c3b10756ce7f1e750da9fd1c70",
+   "source": "https://coin-images.coingecko.com/markets/images/274/large/wazirx.jpg?1706864354"
+  },
+  {
+   "coingecko": "buda",
+   "fetched": "2026-11-03",
+   "name": "buda",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "18e030f7282ca646f606f35a1a9e09978e9556636af8761a08b87d4a8c661d1c",
+   "sha256": "e16cc727ee8f48cf12fc4d119921552aa1fb9b6baa70b7e4b16482f101a15189",
+   "source": "https://coin-images.coingecko.com/markets/images/22208/large/logobuda.png?1770799125"
+  },
+  {
+   "coingecko": "toko_crypto",
+   "fetched": "2026-11-03",
+   "name": "tokocrypto",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "1e00fee7212e3336eb4188af15255cdde10db360474872c7a6796f4cde7794d6",
+   "sha256": "de8c54c4d8cd70f10179dfecc83946c51c7dd7ff62891e2580366049bfddd679",
+   "source": "https://coin-images.coingecko.com/markets/images/501/large/toko.png?1706864476"
+  },
+  {
+   "coingecko": "upbit_indonesia",
+   "fetched": "2026-11-03",
+   "name": "upbitid",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "e5eaf08e64d28ed4ab9c89c36effed06b4377cc89d5167e42d019e01de6733e4",
+   "sha256": "a234bc0db2d2e5d3fc29972c18ce2da3c5c94892c49fd6536112e7aa21189111",
+   "source": "https://coin-images.coingecko.com/markets/images/483/large/UM9P5MNb_400x400.png?1706864466"
+  },
+  {
+   "coingecko": "coinjar",
+   "fetched": "2026-11-03",
+   "name": "coinjar",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "1006ca467635f402f3fd682f2ef718747a3354ab7311dae50202f0358dfc5823",
+   "sha256": "09a62f0e1e00d146743afe31de42a69c29dc8284aef315b09f612a0bcf997380",
+   "source": "https://coin-images.coingecko.com/markets/images/176/large/Logomark_2022200h_thumb.png?1706864322"
+  },
+  {
+   "coingecko": "gmo_japan",
+   "fetched": "2026-11-03",
+   "name": "gmocoin",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "0a79911a55e0d942e2c2e6b78c8b39353f3bba8d4458c28a572e3c7d951fd09c",
+   "sha256": "e12949da854e6c7c9001422ebfb3d4e085e1e914d2830df85c5264580ff63a3a",
+   "source": "https://coin-images.coingecko.com/markets/images/430/large/gmo_z_com.png?1706864428"
+  },
+  {
+   "coingecko": "latoken",
+   "fetched": "2026-11-03",
+   "name": "latoken",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "a10045d879a5386a97027694704b39f4ff3b4b64d9ddab43ace9e1651484d37a",
+   "sha256": "923391fd5ad7299607c57a14946cf1655c14f3ef6301cf00f3cafc41959a4860",
+   "source": "https://coin-images.coingecko.com/markets/images/124/large/latoken.png?1706864301"
+  },
+  {
+   "coingecko": "nonkyc_io",
+   "fetched": "2026-11-03",
+   "name": "nonkyc",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "e354859c124acaf1b252a69f6404cc2916016c98d7297d41bff60f0638475356",
+   "sha256": "f3f8a5a2fa5d92206f7b816b3af359812c3a52ceed5f3d2611367e286d46b582",
+   "source": "https://coin-images.coingecko.com/markets/images/1281/large/NKYC-Logo.png?1706865279"
+  },
+  {
+   "appstore": "1449018960",
+   "fetched": "2026-11-03",
+   "name": "bitpanda",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "e405c20fab013d5eee27e66ed27e0707535cf9c731d100f982d4e42800c227c2",
+   "sha256": "75a744ef93ed4c74b61ee38dd940f8fe8012e098a0370d8f49ae66ec900aab41",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/29/8e/27/298e2730-fffb-a108-cc2b-6adbecaa907c/AppIcon-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/256x256bb.png"
+  },
+  {
+   "appstore": "1541949985",
+   "fetched": "2026-11-03",
+   "name": "coinspot",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "655d41ada49040408585481ef773ee024bbdf6e57716985405bb1d9e173de61d",
+   "sha256": "786b1ba22c3a3f1a4af38949c3b39a7b60868e31882c7d33b422e8a64bf99d8c",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e3/9a/09/e39a09b6-1051-0cd4-8197-e96e96f97b1d/AppIcon-0-0-1x_U007epad-0-9-0-0-85-220.png/256x256bb.png"
+  },
+  {
+   "appstore": "6742988930",
+   "fetched": "2026-11-03",
+   "name": "quidax",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "3b542b6d14f02b14d03999c998e2825e7e9d8a4101f5e87229dda8e53dfc2a3c",
+   "sha256": "995152f67cdf620ac17f370ad57172868c32624635e2eba4ab0c8eee0c3bb518",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/84/45/c484452e-11fa-929e-6a98-41a3408612a0/AppIcon-0-0-1x_U007emarketing-0-6-0-85-220.png/256x256bb.png"
+  },
+  {
+   "appstore": "1516986805",
+   "fetched": "2026-11-03",
+   "name": "swyftx",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "fab56e9444bb2189c2e86f8643a7296924bf09cbbeacb4559361fc5b64804c71",
+   "sha256": "4e9ffadd3de124b062da3c3974267fbbe6a269130f543a046730da34ce2f3d94",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5e/2b/18/5e2b18d8-9e45-e8da-4feb-cab0f7942c51/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/256x256bb.png"
+  },
+  {
+   "appstore": "1412219882",
+   "fetched": "2026-11-03",
+   "name": "ndax",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "4c66f4b76257bf72ed991b811a00756ac8dca77e51bb5c5bf5e43d051dd0072c",
+   "sha256": "abeba264df3038d9b56c0917dfaf81ee9d03549969774507772b31f8c773aa21",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/46/7d/5a/467d5aa3-646f-94e4-bb05-32eabc6e001a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/256x256bb.png"
+  },
+  {
+   "appstore": "1521661794",
+   "fetched": "2026-11-03",
+   "name": "bitoasis",
+   "pack": "exchange_logos.bin",
+   "png_sha256": "4f7d3be37c4d3140581f9a142c597790661c0626232a5569cb75addf4afd90ad",
+   "sha256": "5030b37854c69172194d5159b28ff1d087326af63d38502d9b6b9723f5b57942",
+   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e5/c2/3b/e5c23baa-fa0d-6818-4bda-f4a6e235ae00/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.jpeg/256x256bb.png"
+  }
+ ]
+}

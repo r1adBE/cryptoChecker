@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker – ашық бастапқы кодты (MIT License).</string>
     <string name="licenses_font_title">Rubik қарпі</string>
-    <string name="licenses_icons_bundled_text">Қолданбамен бірге жеткізіледі: Christopher Downer және қатысушылардың «Cryptocurrency Icons» белгішелері (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal лицензиясымен жарияланған. Олар CoinGecko немесе Binance логотиптері жүктелгенше көрсетіледі. Атаулар мен логотиптер өз жобаларының сауда белгілері болып қалады.</string>
-    <string name="licenses_icons_title">Резервтік монета белгішелері</string>
+    <string name="licenses_logos_trademarks">Атаулар мен логотиптер тиісті иелерінің сауда белгілері болып табылады.</string>
     <string name="licenses_libraries_intro">Қолданба Apache License 2.0 бойынша мына кітапханаларды пайдаланады:</string>
     <string name="licenses_libraries_title">Android кітапханалары</string>
 

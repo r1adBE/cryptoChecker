@@ -83,7 +83,7 @@ final class LogoFallbackTests: XCTestCase {
         }
     }
 
-    /// Das mitgelieferte Paket der App: lesbar, BTC und ETH dabei, Icons als Bild lesbar.
+    /// Das mitgelieferte Paket der App (Logos der 100 grössten Coins): lesbar, BTC und ETH dabei, als Bild lesbar.
     func testBundledIconPack() throws {
         XCTAssertNotNil(CoinLogoStore.bundled("BTC"))
         XCTAssertNotNil(CoinLogoStore.bundled("eth"))

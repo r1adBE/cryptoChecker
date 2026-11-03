@@ -249,8 +249,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker مفتوح المصدر (ترخيص MIT).</string>
     <string name="licenses_font_title">خط Rubik</string>
-    <string name="licenses_icons_bundled_text">مضمّنة في التطبيق: أيقونات من «Cryptocurrency Icons» لـ Christopher Downer والمساهمين (github.com/spothq/cryptocurrency-icons)، الصادرة بترخيص CC0 1.0 Universal. تظهر إلى أن تُحمَّل شعارات CoinGecko أو Binance. تبقى الأسماء والشعارات علامات تجارية لمشاريعها.</string>
-    <string name="licenses_icons_title">أيقونات العملات البديلة</string>
+    <string name="licenses_logos_trademarks">الأسماء والشعارات علامات تجارية لمالكيها.</string>
     <string name="licenses_libraries_intro">يستخدم التطبيق هذه المكتبات بموجب Apache License 2.0:</string>
     <string name="licenses_libraries_title">مكتبات Android</string>
 

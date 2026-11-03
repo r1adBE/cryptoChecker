@@ -17,7 +17,7 @@ import UIKit
 ///    Binance gelisteten schon vor der ersten Seite der Rangliste, die grössten 1000, während die übrigen
 ///    Seiten laden. Später fehlen nur neu dazugekommene oder geänderte.
 /// 4. Angezeigt wird nur aus Speicher und Datei (`stored`, `logo`); fehlt ein geladenes Logo, das
-///    mitgelieferte Icon-Paket (`CoinLogos.iconPackName`, CC0), sonst Initialen.
+///    mitgelieferte Logo-Paket (`CoinLogos.iconPackName`, die 100 grössten Coins), sonst Initialen.
 ///
 /// Alle drei Schalter «Coin-Logos» aus → `syncAll` lädt keine Bilder.
 ///

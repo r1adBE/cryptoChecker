@@ -142,15 +142,15 @@ CoinGecko ranking (`/coins/markets`, pages 1–10), the public Binance symbol li
 Binance Alpha token list (lists refreshed daily), and downloads the logos of **all** coins in
 them directly from the CoinGecko and Binance image servers — on the first sync, afterwards only
 new or changed logos — never a single coin, so nobody learns what is on a watchlist. As an
-offline fallback the apps ship the free icon set
-[«Cryptocurrency Icons»](https://github.com/spothq/cryptocurrency-icons) 0.18.1 (CC0 1.0) as
-`coin_icons.bin`. US stock names come directly from the Nasdaq symbol directory. Logos are
+offline fallback the apps ship the current logos of the 100 largest coins (`coin_logos.bin`),
+and the exchange logos in «Add pair» ship with the apps (`exchange_logos.bin`, nothing is
+downloaded for them); both built by `android/tools/gen_logo_packs.py`. US stock names come directly from the Nasdaq symbol directory. Logos are
 trademarks of their projects. The settings page «Coin logos» shows «Powered by CoinGecko».
 
 > **Deutsch:** Keine Logo-Dateien auf GitHub: Die App lädt die Rangliste von CoinGecko und die
 > Listen von Binance (täglich) selbst und alle Logos direkt von deren Bildservern — für alle
-> gleich, danach nur neue oder geänderte. Als Ersatz ohne Netz liegt das freie Icon-Paket
-> «Cryptocurrency Icons» (CC0) bei.
+> gleich, danach nur neue oder geänderte. Als Ersatz ohne Netz liegen die Logos der 100
+> grössten Coins bei, die Börsen-Logos werden mitgeliefert (kein Abruf).
 
 ## Portfolio (optional, off by default)
 

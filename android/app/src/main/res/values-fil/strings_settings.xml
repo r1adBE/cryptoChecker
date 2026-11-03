@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Open source ang Crypto Checker (MIT License).</string>
     <string name="licenses_font_title">Typeface na Rubik</string>
-    <string name="licenses_icons_bundled_text">Kasama sa app: mga icon mula sa “Cryptocurrency Icons” ni Christopher Downer at mga kontribyutor (github.com/spothq/cryptocurrency-icons), inilabas sa ilalim ng CC0 1.0 Universal. Ipinapakita ang mga ito hanggang ma-load ang mga logo ng CoinGecko o Binance. Nananatiling trademark ng kanilang mga proyekto ang mga pangalan at logo.</string>
-    <string name="licenses_icons_title">Mga fallback na icon ng coin</string>
+    <string name="licenses_logos_trademarks">Ang mga pangalan at logo ay mga trademark ng kani-kanilang may-ari.</string>
     <string name="licenses_libraries_intro">Ginagamit ng app ang mga library na ito sa ilalim ng Apache License 2.0:</string>
     <string name="licenses_libraries_title">Mga Android library</string>
 

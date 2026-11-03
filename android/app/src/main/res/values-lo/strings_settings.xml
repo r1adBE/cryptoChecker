@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker ເປັນໂອເພັນຊອດ (MIT License).</string>
     <string name="licenses_font_title">ຟອນ Rubik</string>
-    <string name="licenses_icons_bundled_text">ມາພ້ອມກັບແອັບ: ໄອຄອນຈາກ “Cryptocurrency Icons” ໂດຍ Christopher Downer ແລະ ຜູ້ຮ່ວມພັດທະນາ (github.com/spothq/cryptocurrency-icons), ເຜີຍແຜ່ພາຍໃຕ້ CC0 1.0 Universal. ພວກມັນຈະສະແດງຈົນກວ່າໂລໂກ້ CoinGecko ຫຼື Binance ຈະຖືກໂຫຼດ. ຊື່ ແລະ ໂລໂກ້ຍັງເປັນເຄື່ອງໝາຍການຄ້າຂອງໂຄງການຂອງພວກມັນ.</string>
-    <string name="licenses_icons_title">ໄອຄອນຫຼຽນສຳຮອງ</string>
+    <string name="licenses_logos_trademarks">ຊື່ ແລະ ໂລໂກ້ ແມ່ນເຄື່ອງໝາຍການຄ້າຂອງເຈົ້າຂອງແຕ່ລະລາຍ.</string>
     <string name="licenses_libraries_intro">ແອັບໃຊ້ໄລບຣາຣີເຫຼົ່ານີ້ພາຍໃຕ້ Apache License 2.0:</string>
     <string name="licenses_libraries_title">ໄລບຣາຣີ Android</string>
 

@@ -247,8 +247,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker má otvorený zdrojový kód (licencia MIT).</string>
     <string name="licenses_font_title">Písmo Rubik</string>
-    <string name="licenses_icons_bundled_text">Súčasť aplikácie: ikony z „Cryptocurrency Icons“ od Christophera Downera a prispievateľov (github.com/spothq/cryptocurrency-icons), vydané pod licenciou CC0 1.0 Universal. Zobrazujú sa, kým sa nenačítajú logá z CoinGecko alebo Binance. Názvy a logá zostávajú ochrannými známkami svojich projektov.</string>
-    <string name="licenses_icons_title">Náhradné ikony coinov</string>
+    <string name="licenses_logos_trademarks">Názvy a logá sú ochranné známky príslušných vlastníkov.</string>
     <string name="licenses_libraries_intro">Aplikácia používa tieto knižnice pod licenciou Apache License 2.0:</string>
     <string name="licenses_libraries_title">Knižnice Android</string>
 

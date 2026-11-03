@@ -246,8 +246,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker est open source (licence MIT).</string>
     <string name="licenses_font_title">Police Rubik</string>
-    <string name="licenses_icons_bundled_text">Inclus dans l’app : icônes de « Cryptocurrency Icons » de Christopher Downer et contributeurs (github.com/spothq/cryptocurrency-icons), publiées sous CC0 1.0 Universal. Elles s’affichent jusqu’au chargement des logos de CoinGecko ou Binance. Les noms et logos restent des marques de leurs projets.</string>
-    <string name="licenses_icons_title">Icônes de coins de secours</string>
+    <string name="licenses_logos_trademarks">Les noms et logos sont des marques de leurs propriétaires respectifs.</string>
     <string name="licenses_libraries_intro">L\'app utilise ces bibliothèques sous Apache License 2.0 :</string>
     <string name="licenses_libraries_title">Bibliothèques Android</string>
 

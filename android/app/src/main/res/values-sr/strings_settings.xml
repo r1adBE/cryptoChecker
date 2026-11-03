@@ -246,8 +246,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker је отвореног кода (MIT License).</string>
     <string name="licenses_font_title">Фонт Rubik</string>
-    <string name="licenses_icons_bundled_text">Испоручено с апликацијом: иконе из „Cryptocurrency Icons“ аутора Кристофера Даунера и сарадника (github.com/spothq/cryptocurrency-icons), објављене под лиценцом CC0 1.0 Universal. Приказују се док се не учитају логотипи с CoinGecko-а или Binance-а. Називи и логотипи остају заштитни знакови својих пројеката.</string>
-    <string name="licenses_icons_title">Заменске иконе криптовалута</string>
+    <string name="licenses_logos_trademarks">Називи и логотипи су жигови њихових власника.</string>
     <string name="licenses_libraries_intro">Апликација користи ове библиотеке под лиценцом Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android библиотеке</string>
 

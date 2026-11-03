@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">A Crypto Checker nyílt forráskódú (MIT-licenc).</string>
     <string name="licenses_font_title">Rubik betűtípus</string>
-    <string name="licenses_icons_bundled_text">Az alkalmazás része: ikonok a „Cryptocurrency Icons” gyűjteményből (Christopher Downer és közreműködők, github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal licenccel. Addig látszanak, amíg a CoinGecko vagy a Binance logói be nem töltődnek. A nevek és logók a projektjeik védjegyei maradnak.</string>
-    <string name="licenses_icons_title">Tartalék coin-ikonok</string>
+    <string name="licenses_logos_trademarks">A nevek és logók a tulajdonosaik védjegyei.</string>
     <string name="licenses_libraries_intro">Az alkalmazás ezeket a könyvtárakat az Apache License 2.0 alapján használja:</string>
     <string name="licenses_libraries_title">Android-könyvtárak</string>
 

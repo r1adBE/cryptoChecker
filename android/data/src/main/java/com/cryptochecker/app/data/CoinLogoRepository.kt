@@ -31,7 +31,7 @@ import javax.inject.Singleton
  *    1000, während die übrigen Seiten noch laden. Später fehlen nur neu dazugekommene oder geänderte. Bremst ein Bild-Server
  *    (429/403/503), pausiert nur dieser.
  * 4. Angezeigt wird nur aus Speicher und Datei ([logo]); fehlt ein geladenes Logo, das
- *    mitgelieferte Icon-Paket ([CoinLogos.ICON_PACK_FILE], CC0), sonst Initialen.
+ *    mitgelieferte Logo-Paket ([CoinLogos.ICON_PACK_FILE], die 100 grössten Coins), sonst Initialen.
  *
  * Alle drei Schalter «Coin-Logos» aus → [startSync] lädt keine Bilder.
  *

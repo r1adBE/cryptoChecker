@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker е с отворен код (лиценз MIT).</string>
     <string name="licenses_font_title">Шрифт Rubik</string>
-    <string name="licenses_icons_bundled_text">Включени в приложението: икони от „Cryptocurrency Icons“ на Christopher Downer и сътрудници (github.com/spothq/cryptocurrency-icons), издадени под CC0 1.0 Universal. Показват се, докато не се заредят логата от CoinGecko или Binance. Имената и логата остават търговски марки на съответните проекти.</string>
-    <string name="licenses_icons_title">Резервни икони на монети</string>
+    <string name="licenses_logos_trademarks">Имената и логата са търговски марки на съответните им собственици.</string>
     <string name="licenses_libraries_intro">Приложението използва тези библиотеки под Apache License 2.0:</string>
     <string name="licenses_libraries_title">Библиотеки за Android</string>
 

@@ -246,8 +246,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker הוא קוד פתוח (רישיון MIT).</string>
     <string name="licenses_font_title">הגופן Rubik</string>
-    <string name="licenses_icons_bundled_text">כלולים באפליקציה: סמלים מתוך «Cryptocurrency Icons» של Christopher Downer ותורמים (github.com/spothq/cryptocurrency-icons), שפורסמו תחת CC0 1.0 Universal. הם מוצגים עד שהלוגואים של CoinGecko או Binance נטענים. השמות והלוגואים נשארים סימנים מסחריים של הפרויקטים שלהם.</string>
-    <string name="licenses_icons_title">סמלי מטבעות חלופיים</string>
+    <string name="licenses_logos_trademarks">השמות והסמלילים הם סימנים מסחריים של בעליהם.</string>
     <string name="licenses_libraries_intro">האפליקציה משתמשת בספריות אלה תחת Apache License 2.0:</string>
     <string name="licenses_libraries_title">ספריות Android</string>
 

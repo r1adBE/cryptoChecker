@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker විවෘත මූලාශ්‍රයකි (MIT License).</string>
     <string name="licenses_font_title">Rubik අකුරු මුහුණත</string>
-    <string name="licenses_icons_bundled_text">යෙදුම සමඟ ඇතුළත්: Christopher Downer සහ දායකයින්ගේ “Cryptocurrency Icons” හි නිරූපක (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal යටතේ නිකුත් කර ඇත. CoinGecko හෝ Binance ලාංඡන පූරණය වන තුරු ඒවා පෙන්වයි. නම් සහ ලාංඡන ඒවායේ ව්‍යාපෘතිවල වෙළඳ ලකුණු ලෙස පවතී.</string>
-    <string name="licenses_icons_title">අමතර කාසි නිරූපක</string>
+    <string name="licenses_logos_trademarks">නම් සහ ලාංඡන ඒවායේ අදාළ හිමිකරුවන්ගේ වෙළඳ ලකුණු වේ.</string>
     <string name="licenses_libraries_intro">යෙදුම Apache License 2.0 යටතේ මෙම පුස්තකාල භාවිත කරයි:</string>
     <string name="licenses_libraries_title">Android පුස්තකාල</string>
 

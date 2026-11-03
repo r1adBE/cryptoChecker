@@ -63,7 +63,7 @@ class ExplorerViewModel @Inject constructor(
     internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
     internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
-    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]); Börsen-Logos. */
+    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]). */
     internal val exchangeRanking: com.cryptochecker.app.data.ExchangeRankingStore,
 ) : ViewModel() {
 
@@ -280,8 +280,8 @@ class ExplorerViewModel @Inject constructor(
             collectHttpLog()
         }
         viewModelScope.launch { collectBulkRunner() }
-        // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung); mit Logos die Börsen-Logos
-        viewModelScope.launch { exchangeRanking.ensureLoadedWithLogos(settingsRepository.cached.coinLogos) }
+        // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung)
+        viewModelScope.launch { exchangeRanking.ensureLoaded() }
     }
 
     val pageState: StateFlow<ExplorerLoad> = reloadExchanges

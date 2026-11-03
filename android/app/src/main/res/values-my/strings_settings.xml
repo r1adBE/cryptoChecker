@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker သည် open source (MIT License) ဖြစ်သည်။</string>
     <string name="licenses_font_title">Rubik စာလုံးပုံစံ</string>
-    <string name="licenses_icons_bundled_text">အက်ပ်နှင့်အတူ ပါဝင်သည်- Christopher Downer နှင့် ပါဝင်ကူညီသူများ၏ “Cryptocurrency Icons” မှ အိုင်ကွန်များ (github.com/spothq/cryptocurrency-icons)၊ CC0 1.0 Universal အောက်တွင် ထုတ်ဝေထားသည်။ ၎င်းတို့ကို CoinGecko သို့မဟုတ် Binance လိုဂိုများ ဖွင့်ပြီးသည်အထိ ပြသည်။ အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပရောဂျက်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်နေဆဲ ဖြစ်သည်။</string>
-    <string name="licenses_icons_title">အရန် ကွိုင် အိုင်ကွန်များ</string>
+    <string name="licenses_logos_trademarks">အမည်များနှင့် လိုဂိုများသည် ၎င်းတို့၏ ပိုင်ရှင်များ၏ ကုန်အမှတ်တံဆိပ်များ ဖြစ်ပါသည်။</string>
     <string name="licenses_libraries_intro">အက်ပ်သည် ဤ library များကို Apache License 2.0 အောက်တွင် အသုံးပြုသည်:</string>
     <string name="licenses_libraries_title">Android library များ</string>
 

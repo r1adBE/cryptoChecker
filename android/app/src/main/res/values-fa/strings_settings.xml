@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker متن‌باز است (مجوز MIT).</string>
     <string name="licenses_font_title">قلم Rubik</string>
-    <string name="licenses_icons_bundled_text">همراه برنامه: نمادهایی از «Cryptocurrency Icons» اثر Christopher Downer و مشارکت‌کنندگان (github.com/spothq/cryptocurrency-icons) که با مجوز CC0 1.0 Universal منتشر شده‌اند. تا زمانی که لوگوهای CoinGecko یا Binance بارگیری شوند نمایش داده می‌شوند. نام‌ها و لوگوها همچنان علامت تجاری پروژه‌های خود هستند.</string>
-    <string name="licenses_icons_title">نمادهای جایگزین سکه</string>
+    <string name="licenses_logos_trademarks">نام‌ها و نشان‌ها علائم تجاری مالکان مربوطه هستند.</string>
     <string name="licenses_libraries_intro">برنامه از این کتابخانه‌ها تحت Apache License 2.0 استفاده می‌کند:</string>
     <string name="licenses_libraries_title">کتابخانه‌های Android</string>
 

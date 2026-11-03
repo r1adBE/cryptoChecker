@@ -3,10 +3,10 @@ import Foundation
 // Mitgeliefertes Icon-Paket (Teil von `CoinLogos`) — wie `CoinLogosIconPack.kt` (Android).
 
 extension CoinLogos {
-    /// Mitgeliefertes Icon-Paket: die 64-px-PNGs (`32@2x/color`) der rund 480 grösseren Coins in einer
-    /// Datei (`Shared/Resources`, App und Widgets; Android `assets/`; erzeugt mit
-    /// `android/tools/gen_coin_assets.py`). Vorrang haben immer die geladenen Logos der Listen.
-    static let iconPackName = "coin_icons"
+    /// Mitgeliefertes Logo-Paket: die Logos der 100 grössten Coins nach Marktkapitalisierung (80-px-PNGs) in einer
+    /// Datei (`Shared/Resources`, App und Widgets; Android `assets/`; erzeugt mit `android/tools/gen_logo_packs.py`).
+    /// Vorrang haben immer die geladenen Logos der Listen. Dasselbe Format hat das Paket der Börsen-Logos.
+    static let iconPackName = "coin_logos"
     static let iconPackExtension = "bin"
     private static let iconPackMagic = "CCIP1"
     /// Höchstgrösse des Inhaltsverzeichnisses (Schutz gegen kaputte Dateien).
@@ -20,7 +20,7 @@ extension CoinLogos {
 
     /// Name eines Icons im Paket («btc»); nil bei TradFi oder ungültigem Kürzel — wie Android.
     static func bundledIconName(_ symbol: String) -> String? {
-        if symbol.hasPrefix(tradFiPrefix) || symbol.hasPrefix(exchangePrefix) { return nil }
+        if symbol.hasPrefix(tradFiPrefix) { return nil }
         let key = normalize(symbol)
         guard fileName(key) != nil else { return nil }
         return key.lowercased()

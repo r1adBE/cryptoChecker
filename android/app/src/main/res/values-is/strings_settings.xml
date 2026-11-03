@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker er opinn hugbúnaður (MIT License).</string>
     <string name="licenses_font_title">Leturgerðin Rubik</string>
-    <string name="licenses_icons_bundled_text">Fylgir forritinu: tákn úr „Cryptocurrency Icons“ eftir Christopher Downer og fleiri (github.com/spothq/cryptocurrency-icons), gefin út undir CC0 1.0 Universal. Þau eru sýnd þar til merki frá CoinGecko eða Binance hafa hlaðist. Heiti og merki eru áfram vörumerki viðkomandi verkefna.</string>
-    <string name="licenses_icons_title">Vara-tákn mynta</string>
+    <string name="licenses_logos_trademarks">Nöfn og merki eru vörumerki viðkomandi eigenda.</string>
     <string name="licenses_libraries_intro">Forritið notar þessi söfn undir Apache License 2.0:</string>
     <string name="licenses_libraries_title">Android-söfn</string>
 

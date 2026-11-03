@@ -47,7 +47,7 @@ extension CoinLogoStore {
         return IconPack(bytes: data, index: index)
     }()
 
-    /// Mitgeliefertes Icon (CC0) für `symbol`; nil, wenn das Paket es nicht kennt.
+    /// Mitgeliefertes Logo (die 100 grössten Coins) für `symbol`; nil, wenn das Paket es nicht kennt.
     static func bundled(_ symbol: String) -> UIImage? {
         guard let name = CoinLogos.bundledIconName(symbol) else { return nil }
         let key = bundledMemoryPrefix + name

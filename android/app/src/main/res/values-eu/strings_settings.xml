@@ -245,8 +245,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker kode irekikoa da (MIT lizentzia).</string>
     <string name="licenses_font_title">Rubik letra-tipoa</string>
-    <string name="licenses_icons_bundled_text">Aplikazioarekin batera: Christopher Downer-en eta laguntzaileen «Cryptocurrency Icons» ikonoak (github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal lizentziapean argitaratuak. CoinGecko edo Binance logoak kargatu arte erakusten dira. Izenak eta logoak beren proiektuen marka dira.</string>
-    <string name="licenses_icons_title">Txanponen ordezko ikonoak</string>
+    <string name="licenses_logos_trademarks">Izenak eta logotipoak beren jabeen marka erregistratuak dira.</string>
     <string name="licenses_libraries_intro">Aplikazioak liburutegi hauek erabiltzen ditu Apache License 2.0 lizentziapean:</string>
     <string name="licenses_libraries_title">Android liburutegiak</string>
 

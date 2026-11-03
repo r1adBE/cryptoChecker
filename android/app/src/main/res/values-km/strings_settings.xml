@@ -244,8 +244,7 @@
     <!-- Lizenzhinweise -->
     <string name="licenses_app_intro">Crypto Checker គឺជាកូដបើកចំហ (MIT License)។</string>
     <string name="licenses_font_title">ពុម្ពអក្សរ Rubik</string>
-    <string name="licenses_icons_bundled_text">ភ្ជាប់មកជាមួយកម្មវិធី៖ រូបតំណាងពី «Cryptocurrency Icons» ដោយ Christopher Downer និងអ្នករួមចំណែក (github.com/spothq/cryptocurrency-icons) ចេញផ្សាយក្រោម CC0 1.0 Universal។ វាត្រូវបានបង្ហាញរហូតដល់រូបសញ្ញា CoinGecko ឬ Binance ត្រូវបានផ្ទុក។ ឈ្មោះ និងរូបសញ្ញានៅតែជាពាណិជ្ជសញ្ញារបស់គម្រោងរបស់វា។</string>
-    <string name="licenses_icons_title">រូបតំណាងកាក់បម្រុង</string>
+    <string name="licenses_logos_trademarks">ឈ្មោះ និងនិមិត្តសញ្ញា គឺជាពាណិជ្ជសញ្ញារបស់ម្ចាស់រៀងៗខ្លួន។</string>
     <string name="licenses_libraries_intro">កម្មវិធីប្រើបណ្ណាល័យទាំងនេះក្រោម Apache License 2.0៖</string>
     <string name="licenses_libraries_title">បណ្ណាល័យ Android</string>
 

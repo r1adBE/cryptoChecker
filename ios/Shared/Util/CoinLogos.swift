@@ -20,10 +20,9 @@ import Foundation
 /// - TradFi-Paare (Aktien, Rohstoffe, Devisen; Kennzeichen der Paarliste) nie aus CoinGecko: Dort
 ///   heisst oft ein fremder Token gleich («CAT», «NVDA»). Ihr Logo kommt nur aus der Binance-Liste
 ///   (`pickTradFi`, Schlüssel `tradFiKey`); ohne Treffer Initialen.
-/// - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS (`isAllowedURL`). Kein eigenes
-///   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
-/// - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackName`, rund
-///   480 grössere Coins) — sofort und ohne Netz; Reihenfolge: Binance-Liste (gelistete Krypto-Kürzel) →
+/// - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS (`isAllowedURL`).
+/// - Mitgeliefert: die Logos der 100 grössten Coins nach Marktkapitalisierung (`iconPackName`) — sofort und
+///   ohne Netz; Reihenfolge: Binance-Liste (gelistete Krypto-Kürzel) →
 ///   CoinGecko → übrige Binance-Liste/Alpha → mitgeliefertes Icon → Ersatz-Kreis. Kein Abruf bei jsDelivr mehr.
 /// - Kein Logo (unbekannt, Fehler, noch nicht geladen): farbiger Kreis mit `initials` (`CoinLogoPlaceholder`) — nie
 ///   ein kaputtes Bild.
@@ -196,8 +195,6 @@ enum CoinLogos {
 
     /// Vorsilbe der Schlüssel für TradFi-Logos (eigener Namensraum, nie ein Krypto-Logo).
     static let tradFiPrefix = "TRADFI:"
-    /// Vorsilbe der Schlüssel für Börsen-Logos (`ExchangeLogos`): «EXCHANGE:binance».
-    static let exchangePrefix = "EXCHANGE:"
 
     /// Schlüssel des Logos für ein TradFi-Paar: «TRADFI:NVDA».
     /// Aktien-Logo auf dem Bild-Server von Binance («…/static/stock/BYD.png») für ein TradFi-Kürzel;
@@ -374,13 +371,8 @@ enum CoinLogos {
     }
 
     /// Dateiname im Bild-Zwischenspeicher; nur Symbole aus A–Z und 0–9 (sonst nil → Initialen);
-    /// TradFi-Logos als «T_NVDA.png», Börsen-Logos als «X_binance.png» (Kennung: a–z, 0–9, «_», «-»).
+    /// TradFi-Logos als «T_NVDA.png».
     static func fileName(_ symbol: String) -> String? {
-        if symbol.hasPrefix(exchangePrefix) {
-            let id = String(symbol.dropFirst(exchangePrefix.count))
-            let ok = id.unicodeScalars.allSatisfy { ("a"..."z").contains($0) || ("0"..."9").contains($0) || $0 == "_" || $0 == "-" }
-            return !id.isEmpty && ok ? "X_" + id + ".png" : nil
-        }
         if symbol.hasPrefix(tradFiPrefix) {
             let raw = displaySymbol(symbol).trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
             guard !raw.isEmpty, isPlain(raw) else { return nil }

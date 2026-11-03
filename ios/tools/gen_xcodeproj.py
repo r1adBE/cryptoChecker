@@ -41,7 +41,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "188"
+CURRENT_PROJECT_VERSION = "189"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -117,7 +117,8 @@ FILE_TYPES = {
     ".bin": "file",
 }
 # .txt: Lizenztexte (App/Resources/Licenses), nur im App-Ziel
-# .bin: mitgeliefertes Icon-Paket (Shared/Resources/coin_icons.bin, App und Widgets)
+# .bin: mitgelieferte Logo-Pakete (Shared/Resources/coin_logos.bin, App und Widgets; App/Resources/exchange_logos.bin,
+# nur die App)
 RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".storyboard", ".xcprivacy", ".wav", ".txt", ".bin"}
 # Testdaten, die die Tests neben ihrer Quelle lesen (#filePath): nicht ins Projekt, ohne Hinweis
 # (Tests/Csv, UITests/Fixtures).
