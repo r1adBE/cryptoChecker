@@ -153,12 +153,12 @@ class PortfolioTxFormTest {
         assertEquals(0, dec("1000").compareTo(PortfolioTxForm.fiatToUsdt(dec("898.2"), rate)))
         // ohne bzw. unplausibler USDT/USD-Kurs: × 1; ohne Devisenkurs: keiner
         assertEquals(0, dec("0.9").compareTo(PortfolioTxForm.entryRate(dec("0.9"), null)))
-        assertEquals(0, dec("0.9").compareTo(PortfolioTxForm.entryRate(dec("0.9"), dec("3"))))
+        assertEquals(0, dec("0.9").compareTo(PortfolioTxForm.entryRate(dec("0.9"), dec("3.5"))))
         assertEquals(null, PortfolioTxForm.entryRate(null, dec("0.998")))
         // Vermerk «USDT = 1 angenommen» genau dann, wenn der Faktor mit × 1 rechnet
         assertEquals(false, PortfolioTxForm.entryUsdtAssumed(dec("0.9"), dec("0.998")))
         assertEquals(true, PortfolioTxForm.entryUsdtAssumed(dec("0.9"), null))
-        assertEquals(true, PortfolioTxForm.entryUsdtAssumed(dec("0.9"), dec("3")))
+        assertEquals(true, PortfolioTxForm.entryUsdtAssumed(dec("0.9"), dec("3.5")))
         assertEquals(true, PortfolioTxForm.entryUsdtAssumed(dec("0.9"), BigDecimal.ZERO))
         assertEquals(false, PortfolioTxForm.entryUsdtAssumed(null, null))
     }

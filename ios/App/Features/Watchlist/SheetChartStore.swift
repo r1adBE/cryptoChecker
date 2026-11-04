@@ -141,11 +141,13 @@ final class SheetChartStore: Sendable {
             let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
             // USDT → USD je Tag zum Marktkurs wie der Wertverlauf: heute Live-Kurs, davor die Tagesschlüsse derselben Abfrage
             // wie das Portfolio (auch ohne Portfolio, sonst fehlte der Verlauf); fehlt einer, ein Kurs für die ganze Reihe
-            var usdt: UsdtUsdRates? = nil
+            let usdt: UsdtUsdRates?
             if requests.contains(where: \.convert) {
                 var daily = await PortfolioHistorySource.usdtUsdDaily(days: SheetChartStore.fxDays)
                 if daily.isEmpty { daily = PortfolioHistorySource.cachedUsdtUsdDaily() }
                 usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: daily)
+            } else {
+                usdt = nil
             }
             let today = SheetChart.utcEpochDay(EpochTime.nowMillis)
             for request in requests {
