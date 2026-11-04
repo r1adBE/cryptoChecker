@@ -276,8 +276,8 @@ object WatchedAddressRules {
     /**
      * Eigene Einzahlungen ([PortfolioTxType.DEPOSIT]) und Umbuchungen ([PortfolioTxType.TRANSFER]) im Coin der Adresse,
      * deren Menge (oder erhaltene Menge nach Coin-Gebühr) dem aktuellen Guthaben oder einem beobachteten Zugang
-     * (erste Beobachtung, Zunahme zwischen zwei Beobachtungen) auf ± 1 % entspricht — dann liegt derselbe Betrag sehr
-     * wahrscheinlich doppelt im Portfolio (Zeilen-Warnung, «Zählen» / «Nur anzeigen»). Zeitlich aufsteigend, je
+     * (erste Beobachtung, Zunahme zwischen zwei Beobachtungen) auf ± 1 % entspricht — dann ist derselbe Betrag sehr
+     * wahrscheinlich doppelt erfasst (einmal automatisch «Nur anzeigen», [overlapMatched]). Zeitlich aufsteigend, je
      * Transaktion einmal (Reihenfolge bei gleicher Zeit wie die Eingabe). Adress-Einzahlungen (negative Id) zählen nicht.
      */
     fun transferMatches(a: WatchedAddress, trades: List<PortfolioTrade>): List<PortfolioTrade> {
@@ -302,19 +302,6 @@ object WatchedAddressRules {
             val list = targets[PortfolioCalculator.normalizeCoin(t.coin)] ?: return@filter false
             list.any { goal -> nearlyEqual(t.amount, goal) || nearlyEqual(t.received, goal) }
         }.sortedBy { it.time }
-    }
-
-    /**
-     * Coin-Detail: Treffer ([transferMatches]) aller ZÄHLENDEN Adressen im Coin [coin] — je Transaktion einmal, zeitlich
-     * aufsteigend (gleiche Zeit: Reihenfolge der Adressen). «Nur anzeigen» zählt nicht doppelt, also keine Warnung.
-     */
-    fun transferMatchesFor(coin: String, addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): List<PortfolioTrade> {
-        val c = PortfolioCalculator.normalizeCoin(coin)
-        return addresses.filter { it.countInPortfolio }
-            .flatMap { transferMatches(it, trades) }
-            .filter { PortfolioCalculator.normalizeCoin(it.coin) == c }
-            .distinctBy { it.id }
-            .sortedBy { it.time }
     }
 
     /** |[x] − [goal]| ≤ [tolerance] von [goal] (goal > 0; Standard 1 %). */

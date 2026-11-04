@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Alamat awam (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) atau xpub</string>
     <string name="portfolio_address_label">Label (pilihan)</string>
     <string name="portfolio_address_not_since_buy">Daripada alamat · tidak termasuk dalam “Sejak pembelian”: %1$s</string>
-    <string name="portfolio_address_overlap">Juga ada dalam transaksi anda sendiri: %1$s – kedua-duanya dijumlahkan. Koin yang sama? Pilih “Tunjuk sahaja”.</string>
+    <string name="portfolio_address_overlap">Juga ada dalam transaksi anda sendiri: %1$s – hanya lebihan pada alamat yang dikira.</string>
     <string name="portfolio_address_overlap_ask">Anda sudah merekod %1$s dengan transaksi anda sendiri. Kira baki alamat ini dalam portfolio, atau tunjukkan sahaja?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” kini ditunjukkan sahaja, tidak dikira – %2$s juga ada dalam transaksi anda.</string>
     <string name="portfolio_address_overlap_title">Koin yang sama seperti dalam transaksi anda?</string>
-    <string name="portfolio_address_overlap_tx">Jumlah sama seperti deposit/pindahan anda sendiri (%1$s) – mungkin dikira dua kali.</string>
     <string name="portfolio_address_period_observed">Alamat yang dipantau dikira dari baki pertama yang diperhatikan; perubahan kemudian ialah aliran masuk/keluar, bukan keuntungan.</string>
     <string name="portfolio_address_privacy">Hanya alamat awam dihantar kepada %1$s – tidak sekali-kali kunci atau frasa benih. Penyedia melihatnya bersama alamat IP anda. Disemak paling kerap setiap 10 minit.</string>
     <string name="portfolio_address_remove">Alih keluar alamat</string>

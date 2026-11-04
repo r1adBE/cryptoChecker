@@ -256,7 +256,7 @@ enum AddressCostLots {
 
     /// Bewegungen bis zum Abruf des Guthabens (`lastUpdated`; unbekannt = alle): nur sie stecken schon im Guthaben, eine
     /// spätere Buchung zählt allein als Buchung — wie der Stichtag (`AddressCutoff`) mit seiner Beobachtung. Wie Android.
-    private static func fetched(_ a: WatchedAddress, _ trades: [PortfolioTx]) -> [PortfolioTx] {
+    static func fetched(_ a: WatchedAddress, _ trades: [PortfolioTx]) -> [PortfolioTx] {
         a.lastUpdated <= 0 ? trades : trades.filter { $0.time <= a.lastUpdated }
     }
 

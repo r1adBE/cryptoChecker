@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Açıq ünvan (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) və ya xpub</string>
     <string name="portfolio_address_label">Ad (istəyə görə)</string>
     <string name="portfolio_address_not_since_buy">Ünvandan · «Alışdan bəri»-yə daxil deyil: %1$s</string>
-    <string name="portfolio_address_overlap">Öz əməliyyatlarında da var: %1$s – hər ikisi toplanır. Eyni koinlərdir? «Yalnız göstər» seç.</string>
+    <string name="portfolio_address_overlap">Öz əməliyyatlarında da var: %1$s – yalnız ünvanın bundan artıq saxladığı hesablanır.</string>
     <string name="portfolio_address_overlap_ask">%1$s artıq öz əməliyyatlarınla qeyd olunur. Bu ünvanın balansı portfelə əlavə edilsin, yoxsa yalnız göstərilsin?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» indi yalnız göstərilir, hesablanmır – %2$s əməliyyatlarında da var.</string>
     <string name="portfolio_address_overlap_title">Əməliyyatlarındakı eyni koinlərdir?</string>
-    <string name="portfolio_address_overlap_tx">Öz depozitin/köçürmən (%1$s) ilə eyni məbləğ – çox güman ki, iki dəfə hesablanıb.</string>
     <string name="portfolio_address_period_observed">İzlənən ünvanlar ilk müşahidə olunan balansdan hesablanır; sonrakı dəyişikliklər daxilolma/çıxış sayılır, gəlir deyil.</string>
     <string name="portfolio_address_privacy">%1$s xidmətinə yalnız açıq ünvan göndərilir – heç vaxt açarlar və ya seed ifadələri. Provayder onu IP ünvanınla birlikdə görür. Ən çoxu 10 dəqiqədən bir yoxlanılır.</string>
     <string name="portfolio_address_remove">Ünvanı sil</string>

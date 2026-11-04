@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Јавна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Ознака (необавезно)</string>
     <string name="portfolio_address_not_since_buy">С адресе · није у „Од куповине“: %1$s</string>
-    <string name="portfolio_address_overlap">И у твојим сопственим трансакцијама: %1$s – сабирају се обоје. Исте криптовалуте? Изабери „Само прикажи“.</string>
+    <string name="portfolio_address_overlap">И у твојим сопственим трансакцијама: %1$s – рачуна се само оно што адреса држи преко тога.</string>
     <string name="portfolio_address_overlap_ask">%1$s већ бележиш сопственим трансакцијама. Додати стање ове адресе портфолију или га само приказати?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ се сада само приказује, не урачунава – %2$s се појављују и у твојим трансакцијама.</string>
     <string name="portfolio_address_overlap_title">Исте криптовалуте као у твојим трансакцијама?</string>
-    <string name="portfolio_address_overlap_tx">Исти износ као твоја сопствена уплата/пренос (%1$s) – вероватно урачунато двапут.</string>
     <string name="portfolio_address_period_observed">Праћене адресе рачунају се од првог уоченог стања; касније промене су приливи/одливи, а не добит.</string>
     <string name="portfolio_address_privacy">На %1$s шаље се само јавна адреса – никада кључеви ни сид фразе. Пружалац је види заједно с твојом IP адресом. Проверава се највише сваких 10 минута.</string>
     <string name="portfolio_address_remove">Уклони адресу</string>

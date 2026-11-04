@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioOpenLot
-import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.CoinBadge
@@ -49,7 +48,6 @@ internal fun PositionCard(
     p: CoinPosition,
     addressAmount: java.math.BigDecimal? = null,
     overlap: Boolean = false,
-    matches: List<PortfolioTrade> = emptyList(),
     /** «ohne Kaufpreis» antippen: Einträge ohne Einstand ([PortfolioCostGapsSheet]); null = nicht antippbar. */
     onMissingCost: (() -> Unit)? = null,
     /** «Aus Adresse» antippen: Einstand für Adressguthaben ([PortfolioAddressLotsSheet]); null = nicht antippbar. */
@@ -109,19 +107,8 @@ internal fun PositionCard(
                 color = if (onAddressCost != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.costLink(onAddressCost).padding(top = 4.dp)
             )
-            // Adresse und eigene Transaktionen im selben Coin: werden addiert — Hinweis statt stiller Doppelzählung;
-            // gleiche Menge wie eine eigene Einzahlung/Umbuchung ([WatchedAddressRules.transferMatchesFor]): deutlicher
-            if (matches.isNotEmpty()) {
-                Text(
-                    stringResource(
-                        R.string.portfolio_address_overlap_tx,
-                        maskAmount(matches.joinToString(", ") { PortfolioFormat.amount(it.amount, p.coin) }),
-                    ),
-                    style = MaterialTheme.typography.label,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-            } else if (overlap) {
+            // Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand zählt ([AddressSurplus])
+            if (overlap) {
                 Text(
                     stringResource(R.string.portfolio_address_overlap, p.coin),
                     style = MaterialTheme.typography.label,

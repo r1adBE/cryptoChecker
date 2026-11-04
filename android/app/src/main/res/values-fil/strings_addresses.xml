@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Pampublikong address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Label (opsyonal)</string>
     <string name="portfolio_address_not_since_buy">Mula sa address · wala sa “Mula nang bilhin”: %1$s</string>
-    <string name="portfolio_address_overlap">Nasa sarili mong mga transaksyon din: %1$s – parehong idinadagdag. Parehong mga coin? Piliin ang “Ipakita lang”.</string>
+    <string name="portfolio_address_overlap">Nasa sarili mong mga transaksyon din: %1$s – ang sobra lang na hawak ng address ang binibilang.</string>
     <string name="portfolio_address_overlap_ask">Itinatala mo na ang %1$s sa sarili mong mga transaksyon. Idagdag ang balanse ng address na ito sa portfolio, o ipakita lang ito?</string>
     <string name="portfolio_address_overlap_auto">Ipinapakita na lang ang “%1$s”, hindi binibilang – lumalabas din ang %2$s sa mga transaksyon mo.</string>
     <string name="portfolio_address_overlap_title">Parehong mga coin ng mga transaksyon mo?</string>
-    <string name="portfolio_address_overlap_tx">Kapareho ng halaga ng sarili mong deposit/transfer (%1$s) – malamang dalawang beses nabilang.</string>
     <string name="portfolio_address_period_observed">Binibilang ang mga binabantayang address mula sa unang nakitang balanse nila; ang mga sumunod na pagbabago ay pagpasok/paglabas, hindi kita.</string>
     <string name="portfolio_address_privacy">Ang pampublikong address lang ang ipinapadala sa %1$s – hindi kailanman ang mga key o seed phrase. Nakikita ito ng provider kasama ng IP address mo. Sinusuri nang hindi hihigit sa isang beses kada 10 minuto.</string>
     <string name="portfolio_address_remove">Alisin ang address</string>

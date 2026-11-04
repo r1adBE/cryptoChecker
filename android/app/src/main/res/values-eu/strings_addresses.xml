@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Helbide publikoa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) edo xpub</string>
     <string name="portfolio_address_label">Etiketa (aukerakoa)</string>
     <string name="portfolio_address_not_since_buy">Helbidetik · ez dago «Erosketaz geroztik» atalean: %1$s</string>
-    <string name="portfolio_address_overlap">Zure transakzioetan ere bai: %1$s – biak batzen dira. Txanpon berak dira? Aukeratu «Erakutsi soilik».</string>
+    <string name="portfolio_address_overlap">Zure transakzioetan ere bai: %1$s – helbideak gehiago duena bakarrik zenbatzen da.</string>
     <string name="portfolio_address_overlap_ask">Zure transakzioekin erregistratzen duzu jada: %1$s. Helbide honen saldoa zorroari gehitu nahi diozu, ala erakutsi soilik?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» erakutsi soilik egiten da orain, ez da zenbatzen – %2$s zure transakzioetan ere agertzen dira.</string>
     <string name="portfolio_address_overlap_title">Zure transakzioetako txanpon berak?</string>
-    <string name="portfolio_address_overlap_tx">Zure gordailu/transferentziaren kopuru bera (%1$s) – litekeena da bi aldiz zenbatzea.</string>
     <string name="portfolio_address_period_observed">Jarraitutako helbideak behatutako lehen saldotik zenbatzen dira; geroagoko aldaketak sarrerak/irteerak dira, ez irabaziak.</string>
     <string name="portfolio_address_privacy">Helbide publikoa bakarrik bidaltzen zaio honi: %1$s – inoiz ez gakoak edo hazi-esaldiak. Hornitzaileak zure IP helbidearekin batera ikusten du. Gehienez 10 minuturo egiaztatzen da.</string>
     <string name="portfolio_address_remove">Kendu helbidea</string>

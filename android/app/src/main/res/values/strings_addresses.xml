@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Public address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) or xpub</string>
     <string name="portfolio_address_label">Label (optional)</string>
     <string name="portfolio_address_not_since_buy">From address · not in “Since purchase”: %1$s</string>
-    <string name="portfolio_address_overlap">Also in your own transactions: %1$s – both are added. Same coins? Choose “Show only”.</string>
+    <string name="portfolio_address_overlap">Also in your own transactions: %1$s – only what the address holds beyond them counts.</string>
     <string name="portfolio_address_overlap_ask">You already record %1$s with your own transactions. Add this address\'s balance to the portfolio, or only show it?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” is now shown only, not counted – %2$s also appear in your transactions.</string>
     <string name="portfolio_address_overlap_title">Same coins as your transactions?</string>
-    <string name="portfolio_address_overlap_tx">Same amount as your own deposit/transfer (%1$s) – likely counted twice.</string>
     <string name="portfolio_address_period_observed">Watched addresses count from their first observed balance; later changes are inflows/outflows, not gain.</string>
     <string name="portfolio_address_privacy">Only the public address is sent to %1$s – never keys or seed phrases. The provider sees it together with your IP address. Checked at most every 10 minutes.</string>
     <string name="portfolio_address_remove">Remove address</string>

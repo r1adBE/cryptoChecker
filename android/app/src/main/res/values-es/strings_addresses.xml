@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Dirección pública (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Etiqueta (opcional)</string>
     <string name="portfolio_address_not_since_buy">Desde dirección · no incluido en «Desde la compra»: %1$s</string>
-    <string name="portfolio_address_overlap">También en tus propias transacciones: %1$s; se suman ambos. ¿Las mismas monedas? Elige «Solo mostrar».</string>
+    <string name="portfolio_address_overlap">También en tus propias transacciones: %1$s; solo cuenta lo que la dirección tiene de más.</string>
     <string name="portfolio_address_overlap_ask">Ya registras %1$s con tus propias transacciones. ¿Sumar el saldo de esta dirección a la cartera o solo mostrarlo?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ahora solo se muestra y no se suma: %2$s también aparecen en tus transacciones.</string>
     <string name="portfolio_address_overlap_title">¿Las mismas monedas que en tus transacciones?</string>
-    <string name="portfolio_address_overlap_tx">Misma cantidad que tu propio depósito/transferencia (%1$s): probablemente contado dos veces.</string>
     <string name="portfolio_address_period_observed">Las direcciones vigiladas cuentan desde el primer saldo observado; los cambios posteriores son entradas/salidas, no ganancia.</string>
     <string name="portfolio_address_privacy">Solo se envía la dirección pública a %1$s, nunca claves ni frases semilla. El proveedor la ve junto con tu dirección IP. Se consulta como máximo cada 10 minutos.</string>
     <string name="portfolio_address_remove">Quitar dirección</string>

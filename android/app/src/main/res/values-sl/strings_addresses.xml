@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Javni naslov (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ali xpub</string>
     <string name="portfolio_address_label">Oznaka (neobvezno)</string>
     <string name="portfolio_address_not_since_buy">Z naslova · ni v „Od nakupa“: %1$s</string>
-    <string name="portfolio_address_overlap">Tudi v tvojih lastnih transakcijah: %1$s – oboje se sešteje. Isti kovanci? Izberi „Samo prikaži“.</string>
+    <string name="portfolio_address_overlap">Tudi v tvojih lastnih transakcijah: %1$s – šteje le tisto, kar ima naslov več.</string>
     <string name="portfolio_address_overlap_ask">%1$s že beležiš z lastnimi transakcijami. Naj se stanje tega naslova šteje v portfelj ali naj se samo prikaže?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ se zdaj samo prikazuje in ne šteje – %2$s so tudi v tvojih transakcijah.</string>
     <string name="portfolio_address_overlap_title">Isti kovanci kot v tvojih transakcijah?</string>
-    <string name="portfolio_address_overlap_tx">Enaka količina kot tvoj lastni polog/prenos (%1$s) – verjetno šteto dvakrat.</string>
     <string name="portfolio_address_period_observed">Spremljani naslovi štejejo od prvega opaženega stanja; poznejše spremembe so prilivi/odlivi, ne dobiček.</string>
     <string name="portfolio_address_privacy">Na %1$s se pošlje samo javni naslov – nikoli ključi ali semenske besede. Ponudnik ga vidi skupaj s tvojim naslovom IP. Preverja se največ vsakih 10 minut.</string>
     <string name="portfolio_address_remove">Odstrani naslov</string>

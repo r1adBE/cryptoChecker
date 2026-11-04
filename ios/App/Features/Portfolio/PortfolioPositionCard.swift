@@ -19,10 +19,8 @@ struct PortfolioPositionCard: View {
     let position: CoinPosition
     /// Teil aus beobachteten Adressen («Aus Adresse · ohne Kaufpreis»); nil = keiner.
     var addressAmount: Decimal? = nil
-    /// Adresse und eigene Transaktionen im selben Coin: werden addiert — Hinweis statt stiller Doppelzählung.
+    /// Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand zählt (`AddressSurplus`).
     var overlap = false
-    /// Eigene Einzahlung/Umbuchung = Guthaben/Zugang einer zählenden Adresse (± 1 %): deutliche Warnung wie bei der Adresse.
-    var matches: [PortfolioTx] = []
     /// «ohne Kaufpreis» antippen: Einträge ohne Einstand (`PortfolioCostGapsSheet`); nil = nicht antippbar.
     var onMissingCost: (() -> Void)? = nil
     /// «Aus Adresse» antippen: Einstand für Adressguthaben (`PortfolioAddressLotsSheet`); nil = nicht antippbar.
@@ -72,15 +70,7 @@ struct PortfolioPositionCard: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
                     .costLink(onAddressCost)
-                if !matches.isEmpty {
-                    let amounts: String = matches.map { t -> String in PortfolioFormat.exactAmount(t.amountExact, p.coin) }
-                        .joined(separator: ", ")
-                    Text(L("portfolio_address_overlap_tx", PortfolioInsights.mask(amounts, hidden: hideAmounts)))
-                        .font(.caption)
-                        .foregroundStyle(AppColors.error)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.top, 2)
-                } else if overlap {
+                if overlap {
                     Text(L("portfolio_address_overlap", p.coin))
                         .font(.caption)
                         .foregroundStyle(AppColors.error)

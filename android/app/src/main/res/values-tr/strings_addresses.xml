@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Herkese açık adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) veya xpub</string>
     <string name="portfolio_address_label">Etiket (isteğe bağlı)</string>
     <string name="portfolio_address_not_since_buy">Adresten · “Alıştan beri” dışında: %1$s</string>
-    <string name="portfolio_address_overlap">Kendi işlemlerinde de var: %1$s – ikisi de toplanır. Aynı coin\'ler mi? “Yalnızca göster” seç.</string>
+    <string name="portfolio_address_overlap">Kendi işlemlerinde de var: %1$s – yalnızca adresin bunun üzerinde tuttuğu kısım sayılır.</string>
     <string name="portfolio_address_overlap_ask">%1$s zaten kendi işlemlerinle kayıtlı. Bu adresin bakiyesi portföye eklensin mi yoksa yalnızca gösterilsin mi?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” artık yalnızca gösteriliyor, sayılmıyor – %2$s işlemlerinde de var.</string>
     <string name="portfolio_address_overlap_title">İşlemlerindeki coin\'lerle aynı mı?</string>
-    <string name="portfolio_address_overlap_tx">Kendi yatırma/transferinle aynı miktar (%1$s) – muhtemelen iki kez sayılıyor.</string>
     <string name="portfolio_address_period_observed">İzlenen adresler ilk görülen bakiyeden itibaren sayılır; sonraki değişiklikler giriş/çıkıştır, kâr değil.</string>
     <string name="portfolio_address_privacy">%1$s hizmetine yalnızca herkese açık adres gönderilir – asla anahtar ya da seed ifadesi değil. Sağlayıcı onu IP adresinle birlikte görür. En fazla 10 dakikada bir sorgulanır.</string>
     <string name="portfolio_address_remove">Adresi kaldır</string>

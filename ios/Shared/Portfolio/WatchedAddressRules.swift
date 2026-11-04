@@ -289,8 +289,8 @@ enum WatchedAddressRules {
 
     /// Eigene Einzahlungen (`.DEPOSIT`) und Umbuchungen (`.TRANSFER`) im Coin der Adresse, deren Menge (oder erhaltene
     /// Menge nach Coin-Gebühr) dem aktuellen Guthaben oder einem beobachteten Zugang (erste Beobachtung, Zunahme zwischen
-    /// zwei Beobachtungen) auf ± 1 % entspricht — dann liegt derselbe Betrag sehr wahrscheinlich doppelt im Portfolio
-    /// (Zeilen-Warnung, «Zählen» / «Nur anzeigen»). Zeitlich aufsteigend, je Transaktion einmal (Reihenfolge bei gleicher
+    /// zwei Beobachtungen) auf ± 1 % entspricht — dann ist derselbe Betrag sehr wahrscheinlich doppelt erfasst (einmal
+    /// automatisch «Nur anzeigen», `overlapMatched`). Zeitlich aufsteigend, je Transaktion einmal (Reihenfolge bei gleicher
     /// Zeit wie die Eingabe). Adress-Einzahlungen (negative Id) zählen nicht. Wie Android.
     static func transferMatches(_ a: WatchedAddress, txs: [PortfolioTx]) -> [PortfolioTx] {
         var counted = a
@@ -319,23 +319,6 @@ enum WatchedAddressRules {
         }
         // Stabil sortieren (gleiche Zeit: Reihenfolge der Eingabe, wie Kotlin `sortedBy`)
         return hits.sorted { l, r -> Bool in
-            l.element.time != r.element.time ? l.element.time < r.element.time : l.offset < r.offset
-        }.map(\.element)
-    }
-
-    /// Coin-Detail: Treffer (`transferMatches`) aller ZÄHLENDEN Adressen im Coin `coin` — je Transaktion einmal, zeitlich
-    /// aufsteigend (gleiche Zeit: Reihenfolge der Adressen). «Nur anzeigen» zählt nicht doppelt, also keine Warnung. Wie Android.
-    static func transferMatches(coin: String, addresses: [WatchedAddress], txs: [PortfolioTx]) -> [PortfolioTx] {
-        let c = PortfolioCalculator.normalizeCoin(coin)
-        var seen = Set<Int64>()
-        var hits: [PortfolioTx] = []
-        for a in addresses where a.countInPortfolio {
-            for t in transferMatches(a, txs: txs) where PortfolioCalculator.normalizeCoin(t.coin) == c {
-                if seen.insert(t.id).inserted { hits.append(t) }
-            }
-        }
-        // Stabil sortieren (gleiche Zeit: Reihenfolge wie gefunden, wie Kotlin `sortedBy`)
-        return hits.enumerated().sorted { l, r -> Bool in
             l.element.time != r.element.time ? l.element.time < r.element.time : l.offset < r.offset
         }.map(\.element)
     }

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Adreça pública (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Etiqueta (opcional)</string>
     <string name="portfolio_address_not_since_buy">De l\'adreça · no inclòs a «Des de la compra»: %1$s</string>
-    <string name="portfolio_address_overlap">També a les teves transaccions: %1$s – se sumen totes dues. Són les mateixes monedes? Tria «Només mostra».</string>
+    <string name="portfolio_address_overlap">També a les teves transaccions: %1$s – només compta el que l\'adreça té de més.</string>
     <string name="portfolio_address_overlap_ask">Ja registres %1$s amb les teves transaccions. Vols sumar el saldo d\'aquesta adreça a la cartera o només mostrar-lo?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ara només es mostra, no es compta – %2$s també apareixen a les teves transaccions.</string>
     <string name="portfolio_address_overlap_title">Les mateixes monedes que les teves transaccions?</string>
-    <string name="portfolio_address_overlap_tx">Mateixa quantitat que el teu dipòsit/transferència (%1$s) – probablement es compta dues vegades.</string>
     <string name="portfolio_address_period_observed">Les adreces seguides compten des del primer saldo observat; els canvis posteriors són entrades/sortides, no guanys.</string>
     <string name="portfolio_address_privacy">Només s\'envia l\'adreça pública a %1$s – mai claus ni frases de recuperació. El proveïdor la veu juntament amb la teva adreça IP. Es comprova com a màxim cada 10 minuts.</string>
     <string name="portfolio_address_remove">Elimina l\'adreça</string>

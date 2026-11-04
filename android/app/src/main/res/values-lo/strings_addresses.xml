@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">ທີ່ຢູ່ສາທາລະນະ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ຫຼື xpub</string>
     <string name="portfolio_address_label">ປ້າຍຊື່ (ບໍ່ບັງຄັບ)</string>
     <string name="portfolio_address_not_since_buy">ຈາກທີ່ຢູ່ · ບໍ່ຢູ່ໃນ “ນັບແຕ່ຊື້”: %1$s</string>
-    <string name="portfolio_address_overlap">ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$s – ທັງສອງຖືກບວກລວມ. ແມ່ນຫຼຽນດຽວກັນບໍ? ເລືອກ “ສະແດງເທົ່ານັ້ນ”.</string>
+    <string name="portfolio_address_overlap">ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$s – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າເທົ່ານັ້ນ.</string>
     <string name="portfolio_address_overlap_ask">ທ່ານບັນທຶກ %1$s ດ້ວຍທຸລະກຳຂອງທ່ານເອງແລ້ວ. ບວກຍອດເງິນຂອງທີ່ຢູ່ນີ້ເຂົ້າໃນພອດໂຟລິໂອ ຫຼື ພຽງແຕ່ສະແດງມັນ?</string>
     <string name="portfolio_address_overlap_auto">ຕອນນີ້ “%1$s” ສະແດງເທົ່ານັ້ນ, ບໍ່ນັບລວມ – %2$s ມີຢູ່ໃນທຸລະກຳຂອງທ່ານນຳ.</string>
     <string name="portfolio_address_overlap_title">ຫຼຽນດຽວກັນກັບທຸລະກຳຂອງທ່ານບໍ?</string>
-    <string name="portfolio_address_overlap_tx">ຈຳນວນດຽວກັນກັບການຝາກ/ການໂອນຂອງທ່ານເອງ (%1$s) – ອາດຖືກນັບສອງເທື່ອ.</string>
     <string name="portfolio_address_period_observed">ທີ່ຢູ່ທີ່ຕິດຕາມຈະນັບຈາກຍອດເງິນທີ່ເຫັນຄັ້ງທຳອິດ; ການປ່ຽນແປງຫຼັງຈາກນັ້ນແມ່ນເງິນເຂົ້າ/ອອກ, ບໍ່ແມ່ນກຳໄລ.</string>
     <string name="portfolio_address_privacy">ສົ່ງພຽງແຕ່ທີ່ຢູ່ສາທາລະນະໄປຫາ %1$s – ບໍ່ສົ່ງກະແຈ ຫຼື seed phrase ເດັດຂາດ. ຜູ້ໃຫ້ບໍລິການເຫັນມັນພ້ອມກັບທີ່ຢູ່ IP ຂອງທ່ານ. ກວດສອບຫຼາຍສຸດທຸກໆ 10 ນາທີ.</string>
     <string name="portfolio_address_remove">ລຶບທີ່ຢູ່ອອກ</string>

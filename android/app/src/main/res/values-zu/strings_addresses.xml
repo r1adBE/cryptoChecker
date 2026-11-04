@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Ikheli lomphakathi (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) noma i-xpub</string>
     <string name="portfolio_address_label">Ilebula (uyazikhethela)</string>
     <string name="portfolio_address_not_since_buy">Kusuka ekhelini · akukho ku-“Kusukela ekuthengeni”: %1$s</string>
-    <string name="portfolio_address_overlap">Kukhona nasemisebenzini yakho: %1$s – kokubili kuyangezwa. Ama-coin afanayo? Khetha “Bonisa kuphela”.</string>
+    <string name="portfolio_address_overlap">Kukhona nasemisebenzini yakho: %1$s – kubalwa kuphela lokho ikheli elinakho okwengeziwe.</string>
     <string name="portfolio_address_overlap_ask">Usuvele ubhala i-%1$s ngemisebenzi yakho. Engeza ibhalansi yaleli kheli ku-portfolio, noma ulibonise kuphela?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” manje kuyabonakala kuphela, akubalwa – i-%2$s ivela nasemisebenzini yakho.</string>
     <string name="portfolio_address_overlap_title">Ama-coin afanayo nawemisebenzi yakho?</string>
-    <string name="portfolio_address_overlap_tx">Inani elifanayo nediphozithi/ukudlulisa kwakho (%1$s) – kungenzeka kubalwe kabili.</string>
     <string name="portfolio_address_period_observed">Amakheli abukwayo abalwa kusukela ebhalansini yawo yokuqala ebonakele; izinguquko zakamuva zingukungena/ukuphuma, hhayi inzuzo.</string>
     <string name="portfolio_address_privacy">Ikheli lomphakathi kuphela elithunyelwa ku-%1$s – hhayi okhiye noma ama-seed phrase. Umhlinzeki ulibona kanye nekheli lakho le-IP. Kuhlolwa kungadluli kanye emizuzwini engu-10.</string>
     <string name="portfolio_address_remove">Susa ikheli</string>

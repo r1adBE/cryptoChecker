@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">عوامی پتہ (BTC، ETH &amp; EVM، SOL، TRX، XRP، LTC، TON، ADA) یا xpub</string>
     <string name="portfolio_address_label">لیبل (اختیاری)</string>
     <string name="portfolio_address_not_since_buy">پتے سے · “خریداری کے بعد سے” میں شامل نہیں: %1$s</string>
-    <string name="portfolio_address_overlap">آپ کے اپنے لین دین میں بھی ہے: %1$s – دونوں جمع ہو رہے ہیں۔ وہی کوائنز؟ “صرف دکھائیں” منتخب کریں۔</string>
+    <string name="portfolio_address_overlap">آپ کے اپنے لین دین میں بھی ہے: %1$s – صرف وہی گنا جاتا ہے جو پتے پر اس سے زیادہ ہے۔</string>
     <string name="portfolio_address_overlap_ask">%1$s پہلے سے آپ کے اپنے لین دین میں درج ہے۔ اس پتے کا بیلنس پورٹ فولیو میں شامل کریں، یا صرف دکھائیں؟</string>
     <string name="portfolio_address_overlap_auto">“%1$s” اب صرف دکھایا جا رہا ہے، شمار نہیں ہو رہا – %2$s آپ کے لین دین میں بھی موجود ہیں۔</string>
     <string name="portfolio_address_overlap_title">آپ کے لین دین والے ہی کوائنز؟</string>
-    <string name="portfolio_address_overlap_tx">آپ کے اپنے ڈپازٹ/ٹرانسفر (%1$s) جتنی ہی رقم – شاید دو بار شمار ہوئی ہے۔</string>
     <string name="portfolio_address_period_observed">زیرِ نگرانی پتے اپنے پہلے دیکھے گئے بیلنس سے شمار ہوتے ہیں؛ بعد کی تبدیلیاں آمد/اخراج ہیں، منافع نہیں۔</string>
     <string name="portfolio_address_privacy">%1$s کو صرف عوامی پتہ بھیجا جاتا ہے – کبھی کیز یا سیڈ فریز نہیں۔ فراہم کنندہ اسے آپ کے IP پتے کے ساتھ دیکھتا ہے۔ زیادہ سے زیادہ ہر 10 منٹ میں ایک بار جانچا جاتا ہے۔</string>
     <string name="portfolio_address_remove">پتہ ہٹائیں</string>

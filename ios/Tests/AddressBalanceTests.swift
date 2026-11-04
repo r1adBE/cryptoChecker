@@ -430,15 +430,11 @@ final class AddressBalanceTests: XCTestCase {
             tx(8, "btc", .DEPOSIT, "0.3", 100),                    // erste Beobachtung
         ]
         XCTAssertEqual(WatchedAddressRules.transferMatches(a, txs: txs).map(\.id), [8, 2, 1, 4])
-        // «Nur anzeigen» ändert die Erkennung nicht (Hinweis bleibt prüfbar)
+        // «Nur anzeigen» ändert die Erkennung nicht
         var showOnly = a
         showOnly.countInPortfolio = false
         XCTAssertEqual(WatchedAddressRules.transferMatches(showOnly, txs: txs).count, 4)
         // Ohne geladenes Guthaben: nichts
         XCTAssertTrue(WatchedAddressRules.transferMatches(WatchedAddress(chain: .BTC, address: "x"), txs: txs).isEmpty)
-        // Coin-Detail: alle zählenden Adressen des Coins, je Transaktion einmal; «Nur anzeigen» warnt nicht
-        XCTAssertEqual(WatchedAddressRules.transferMatches(coin: "btc", addresses: [a, a], txs: txs).map(\.id), [8, 2, 1, 4])
-        XCTAssertTrue(WatchedAddressRules.transferMatches(coin: "BTC", addresses: [showOnly], txs: txs).isEmpty)
-        XCTAssertTrue(WatchedAddressRules.transferMatches(coin: "ETH", addresses: [a], txs: txs).isEmpty)
     }
 }

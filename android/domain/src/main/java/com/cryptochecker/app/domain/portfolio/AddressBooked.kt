@@ -23,6 +23,7 @@ data class AddressMove(val time: Long, val amount: BigDecimal)
  * [AddressCostLots.movesOwners], nur bis zum Abruf des Guthabens). Ihre Zeit wird auf die letzte Beobachtung begrenzt:
  * das zuletzt geladene Guthaben enthält sie wie auf der Karte. Vor der ersten Beobachtung zählt die Adresse nicht (nie
  * rückwirkend); die Buchungen selbst zählen ab ihrer Zeit. Die letzte Stufe ist so der Adress-Teil der Karte.
+ * Danach zählt je Coin über alle Adressen nur der Mehrbestand über den eigenen Bestand ([AddressSurplus], [withLedger]).
  */
 object AddressBooked {
 
@@ -50,7 +51,24 @@ object AddressBooked {
                 if (moves.isNotEmpty()) out[series.first()] = out[series.first()].copy(moves = moves)
             }
         }
+        withLedger(out, addresses, real)
         return out
+    }
+
+    /**
+     * An der ersten Reihe je Coin der eigene Bestand als Stufen ([AddressSurplus.ledgerSteps], Zeiten bis zur letzten
+     * Beobachtung des Coins) — [AddressBalanceHistory.trades] zählt dann nur den Mehrbestand ([AddressSurplus.steps]).
+     */
+    private fun withLedger(out: MutableList<AddressBalanceHistory>, addresses: List<WatchedAddress>, real: List<PortfolioTrade>) {
+        if (real.isEmpty() || out.isEmpty()) return
+        val net = AddressSurplus.netMoves(real)
+        val recorded = AddressSurplus.recordedMoves(addresses, real)
+        for (coin in out.map { PortfolioCalculator.normalizeCoin(it.coin) }.distinct()) {
+            val series = out.indices.filter { PortfolioCalculator.normalizeCoin(out[it].coin) == coin }
+            val last = series.maxOf { i -> out[i].observations.maxOf { it.time } }
+            val steps = AddressSurplus.ledgerSteps(net[coin].orEmpty(), recorded[coin].orEmpty(), last)
+            if (steps.any { it.balance.signum() > 0 }) out[series.first()] = out[series.first()].copy(ledger = steps)
+        }
     }
 
     /** Gleiche Adresse und gleicher Coin (Reihen, die [held] zusammen rechnet). */

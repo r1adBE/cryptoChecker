@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">公開地址（BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA）或 xpub</string>
     <string name="portfolio_address_label">標籤（選填）</string>
     <string name="portfolio_address_not_since_buy">來自地址 · 不計入 「自買入」：%1$s</string>
-    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——兩者會相加。是同一批幣？請選擇 「僅顯示」。</string>
+    <string name="portfolio_address_overlap">你自己的交易中也有：%1$s——只計入地址多出的部分。</string>
     <string name="portfolio_address_overlap_ask">你已用自己的交易記錄了 %1$s。要把此地址的餘額計入投資組合，還是僅顯示？</string>
     <string name="portfolio_address_overlap_auto">「%1$s」 現在僅顯示，不計入——%2$s 也出現在你的交易中。</string>
     <string name="portfolio_address_overlap_title">與你交易中的幣相同？</string>
-    <string name="portfolio_address_overlap_tx">與你自己的存入/轉移（%1$s）數量相同——可能被重複計算。</string>
     <string name="portfolio_address_period_observed">觀察的地址從首次觀察到的餘額開始計算；之後的變化屬於流入/流出，不算收益。</string>
     <string name="portfolio_address_privacy">只向 %1$s 發送公開地址——絕不發送金鑰或助記詞。服務方會同時看到你的 IP 地址。最多每 10 分鐘查詢一次。</string>
     <string name="portfolio_address_remove">移除地址</string>

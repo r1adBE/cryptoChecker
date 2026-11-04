@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
@@ -58,8 +57,6 @@ internal fun AddressRow(
     now: Long,
     hideAmounts: Boolean,
     overlap: List<String>,
-    matches: List<PortfolioTrade>,
-    onCount: () -> Unit,
     onRemove: () -> Unit,
     onCountTokens: (Boolean) -> Unit,
     onNetworks: (List<String>) -> Unit,
@@ -153,31 +150,8 @@ internal fun AddressRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            // Eigene Einzahlung/Umbuchung mit gleicher Menge ([WatchedAddressRules.transferMatches]): deutliche Warnung
-            // mit derselben Wahl wie beim Hinzufügen — «Nur anzeigen» (sicher, vorn) oder «Zählen»
-            if (matches.isNotEmpty() && a.countInPortfolio) {
-                val amounts = if (hideAmounts) "•••" else matches.joinToString(", ") {
-                    PortfolioFormat.amount(it.amount, com.cryptochecker.app.domain.portfolio.PortfolioCalculator.normalizeCoin(it.coin))
-                }
-                Text(
-                    stringResource(R.string.portfolio_address_overlap_tx, amounts),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.error,
-                )
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextButton(onClick = { onShowOnly(true) }) {
-                        Text(
-                            stringResource(R.string.portfolio_address_show_only_short),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
-                    TextButton(onClick = onCount) {
-                        Text(stringResource(R.string.portfolio_address_count), style = MaterialTheme.typography.labelLarge)
-                    }
-                }
-            } else if (overlap.isNotEmpty() && a.countInPortfolio) {
-                // Dieselben Coins wie eigene Transaktionen: Hinweis (zählt doppelt, wenn es dieselben sind) —
+            if (overlap.isNotEmpty() && a.countInPortfolio) {
+                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand zählt) —
                 // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(

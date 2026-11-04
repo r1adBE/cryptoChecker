@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">පොදු ලිපිනය (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) හෝ xpub</string>
     <string name="portfolio_address_label">ලේබලය (විකල්ප)</string>
     <string name="portfolio_address_not_since_buy">ලිපිනයෙන් · “මිලදී ගැනීමේ සිට” හි නැත: %1$s</string>
-    <string name="portfolio_address_overlap">ඔබේම ගනුදෙනුවලද ඇත: %1$s – දෙකම එකතු කෙරේ. එකම කාසිද? “පෙන්වීම පමණක්” තෝරන්න.</string>
+    <string name="portfolio_address_overlap">ඔබේම ගනුදෙනුවලද ඇත: %1$s – ලිපිනයේ ඊට වඩා ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ.</string>
     <string name="portfolio_address_overlap_ask">ඔබ දැනටමත් %1$s ඔබේම ගනුදෙනු සමඟ සටහන් කරයි. මෙම ලිපිනයේ ශේෂය කළඹට එක් කරන්නද, නැතහොත් පෙන්වීම පමණක්ද?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” දැන් පෙන්වනු පමණි, ගණනය නොකෙරේ – %2$s ඔබේ ගනුදෙනුවලද ඇත.</string>
     <string name="portfolio_address_overlap_title">ඔබේ ගනුදෙනුවල ඇති කාසිම ද?</string>
-    <string name="portfolio_address_overlap_tx">ඔබේම තැන්පතුව/මාරුව (%1$s) හා සමාන ප්‍රමාණය – බොහෝ විට දෙවරක් ගණනය වී ඇත.</string>
     <string name="portfolio_address_period_observed">නිරීක්ෂිත ලිපින ගණනය වන්නේ ඒවායේ මුලින්ම දුටු ශේෂයේ සිටය; පසු වෙනස්කම් ලැබීම්/යැවීම් වේ, ලාභ නොවේ.</string>
     <string name="portfolio_address_privacy">%1$s වෙත යවන්නේ පොදු ලිපිනය පමණි – කිසිවිටෙක යතුරු හෝ සීඩ් වාක්‍ය නොවේ. සපයන්නා එය ඔබේ IP ලිපිනය සමඟ දකී. උපරිම වශයෙන් සෑම මිනිත්තු 10 කට වරක් පරීක්ෂා කෙරේ.</string>
     <string name="portfolio_address_remove">ලිපිනය ඉවත් කරන්න</string>

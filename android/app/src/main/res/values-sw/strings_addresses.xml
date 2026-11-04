@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Anwani ya umma (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) au xpub</string>
     <string name="portfolio_address_label">Lebo (si lazima)</string>
     <string name="portfolio_address_not_since_buy">Kutoka anwani · haimo kwenye “Tangu ununuzi”: %1$s</string>
-    <string name="portfolio_address_overlap">Pia iko kwenye miamala yako mwenyewe: %1$s – zote mbili zinaongezwa. Sarafu zile zile? Chagua “Onyesha tu”.</string>
+    <string name="portfolio_address_overlap">Pia iko kwenye miamala yako mwenyewe: %1$s – kinachohesabiwa ni ziada iliyo kwenye anwani tu.</string>
     <string name="portfolio_address_overlap_ask">Tayari unarekodi %1$s kwa miamala yako mwenyewe. Uongeze salio la anwani hii kwenye jalada, au uionyeshe tu?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” sasa inaonyeshwa tu, haihesabiwi – %2$s pia zinaonekana kwenye miamala yako.</string>
     <string name="portfolio_address_overlap_title">Sarafu zile zile kama za miamala yako?</string>
-    <string name="portfolio_address_overlap_tx">Kiasi sawa na amana/uhamisho wako mwenyewe (%1$s) – huenda kimehesabiwa mara mbili.</string>
     <string name="portfolio_address_period_observed">Anwani zinazofuatiliwa zinahesabiwa kuanzia salio lao la kwanza lililoonekana; mabadiliko ya baadaye ni uingiaji/utokaji, si faida.</string>
     <string name="portfolio_address_privacy">Anwani ya umma pekee ndiyo inatumwa kwa %1$s – kamwe si funguo wala seed phrase. Mtoa huduma anaiona pamoja na anwani yako ya IP. Hukaguliwa mara moja kila dakika 10 zaidi.</string>
     <string name="portfolio_address_remove">Ondoa anwani</string>

@@ -438,13 +438,9 @@ class AddressBalanceParityTest {
             tx(8, "btc", PortfolioTxType.DEPOSIT, "0.3", 100),          // erste Beobachtung
         )
         assertEquals(listOf(8L, 2L, 1L, 4L), WatchedAddressRules.transferMatches(a, trades).map { it.id })
-        // «Nur anzeigen» ändert die Erkennung nicht (Hinweis bleibt prüfbar)
+        // «Nur anzeigen» ändert die Erkennung nicht
         assertEquals(4, WatchedAddressRules.transferMatches(a.copy(countInPortfolio = false), trades).size)
         // Ohne geladenes Guthaben: nichts
         assertEquals(emptyList<PortfolioTrade>(), WatchedAddressRules.transferMatches(WatchedAddress(chain = AddressChain.BTC, address = "x"), trades))
-        // Coin-Detail: alle zählenden Adressen des Coins, je Transaktion einmal; «Nur anzeigen» warnt nicht
-        assertEquals(listOf(8L, 2L, 1L, 4L), WatchedAddressRules.transferMatchesFor("btc", listOf(a, a), trades).map { it.id })
-        assertEquals(emptyList<PortfolioTrade>(), WatchedAddressRules.transferMatchesFor("BTC", listOf(a.copy(countInPortfolio = false)), trades))
-        assertEquals(emptyList<PortfolioTrade>(), WatchedAddressRules.transferMatchesFor("ETH", listOf(a), trades))
     }
 }

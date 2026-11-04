@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Δημόσια διεύθυνση (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ή xpub</string>
     <string name="portfolio_address_label">Ετικέτα (προαιρετικά)</string>
     <string name="portfolio_address_not_since_buy">Από διεύθυνση · εκτός «Από την αγορά»: %1$s</string>
-    <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – προστίθενται και τα δύο. Ίδια νομίσματα; Επίλεξε «Μόνο προβολή».</string>
+    <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – μετράει μόνο ό,τι επιπλέον έχει η διεύθυνση.</string>
     <string name="portfolio_address_overlap_ask">Καταγράφεις ήδη το %1$s με δικές σου συναλλαγές. Να προστεθεί το υπόλοιπο αυτής της διεύθυνσης στο χαρτοφυλάκιο ή μόνο να εμφανίζεται;</string>
     <string name="portfolio_address_overlap_auto">Το «%1$s» πλέον μόνο εμφανίζεται, δεν μετράται – τα %2$s υπάρχουν και στις συναλλαγές σου.</string>
     <string name="portfolio_address_overlap_title">Ίδια νομίσματα με τις συναλλαγές σου;</string>
-    <string name="portfolio_address_overlap_tx">Ίδια ποσότητα με τη δική σου κατάθεση/μεταφορά (%1$s) – μάλλον μετριέται διπλά.</string>
     <string name="portfolio_address_period_observed">Οι παρακολουθούμενες διευθύνσεις μετρούν από το πρώτο παρατηρημένο υπόλοιπο· οι μεταγενέστερες αλλαγές είναι εισροές/εκροές, όχι κέρδος.</string>
     <string name="portfolio_address_privacy">Στο %1$s στέλνεται μόνο η δημόσια διεύθυνση – ποτέ κλειδιά ή φράσεις seed. Ο πάροχος τη βλέπει μαζί με τη διεύθυνση IP σου. Έλεγχος το πολύ κάθε 10 λεπτά.</string>
     <string name="portfolio_address_remove">Αφαίρεση διεύθυνσης</string>

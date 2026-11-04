@@ -478382,451 +478382,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ook in jou eie transaksies: %1$@ – albei word bygetel. Dieselfde munte? Kies “Wys slegs”."
+            "value" : "Ook in jou eie transaksies: %1$@ – net wat die adres meer hou, tel."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "በራስዎ ግብይቶች ውስጥም አለ፦ %1$@ – ሁለቱም ይደመራሉ። ተመሳሳይ ሳንቲሞች ናቸው? «ያሳዩ ብቻ»ን ይምረጡ።"
+            "value" : "በራስዎ ግብይቶች ውስጥም አለ፦ %1$@ – የሚቆጠረው አድራሻው ከዚያ በላይ የያዘው ብቻ ነው።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "موجودة أيضًا في معاملاتك: %1$@ – يُجمع الاثنان. نفس العملات؟ اختر «العرض فقط»."
+            "value" : "موجودة أيضًا في معاملاتك: %1$@ – لا يُحتسب إلا ما يزيد في العنوان عنها."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Öz əməliyyatlarında da var: %1$@ – hər ikisi toplanır. Eyni koinlərdir? «Yalnız göstər» seç."
+            "value" : "Öz əməliyyatlarında da var: %1$@ – yalnız ünvanın bundan artıq saxladığı hesablanır."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Също в собствените ти транзакции: %1$@ – двете се събират. Същите монети? Избери „Само показвай“."
+            "value" : "Също в собствените ти транзакции: %1$@ – брои се само това, което адресът държи в повече."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "আপনার নিজের লেনদেনেও আছে: %1$@ – দুটোই যোগ হচ্ছে। একই কয়েন? “শুধু দেখান” বেছে নিন।"
+            "value" : "আপনার নিজের লেনদেনেও আছে: %1$@ – ঠিকানায় এর বেশি যা আছে, শুধু সেটুকুই গণনা হয়।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim vlastitim transakcijama: %1$@ – sabiraju se oboje. Iste kriptovalute? Odaberi „Samo prikaži“."
+            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži preko toga."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "També a les teves transaccions: %1$@ – se sumen totes dues. Són les mateixes monedes? Tria «Només mostra»."
+            "value" : "També a les teves transaccions: %1$@ – només compta el que l'adreça té de més."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Také ve tvých vlastních transakcích: %1$@ – sčítá se obojí. Stejné mince? Zvol „Jen zobrazit“."
+            "value" : "Také ve tvých vlastních transakcích: %1$@ – započítá se jen to, co adresa drží navíc."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Også i dine egne transaktioner: %1$@ – begge lægges sammen. Samme coins? Vælg «Vis kun»."
+            "value" : "Også i dine egne transaktioner: %1$@ – kun det, adressen har ud over dem, tæller."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auch in deinen eigenen Transaktionen: %1$@ – beides wird addiert. Dieselben Coins? Wähle «Nur anzeigen»."
+            "value" : "Auch in deinen eigenen Transaktionen: %1$@ – es zählt nur, was die Adresse darüber hinaus hält."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Και στις δικές σου συναλλαγές: %1$@ – προστίθενται και τα δύο. Ίδια νομίσματα; Επίλεξε «Μόνο προβολή»."
+            "value" : "Και στις δικές σου συναλλαγές: %1$@ – μετράει μόνο ό,τι επιπλέον έχει η διεύθυνση."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Also in your own transactions: %1$@ – both are added. Same coins? Choose “Show only”."
+            "value" : "Also in your own transactions: %1$@ – only what the address holds beyond them counts."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "También en tus propias transacciones: %1$@; se suman ambos. ¿Las mismas monedas? Elige «Solo mostrar»."
+            "value" : "También en tus propias transacciones: %1$@; solo cuenta lo que la dirección tiene de más."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ka sinu enda tehingutes: %1$@ – mõlemad liidetakse. Samad mündid? Vali „Ainult näita“."
+            "value" : "Ka sinu enda tehingutes: %1$@ – arvesse läheb ainult see, mida aadressil on rohkem."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zure transakzioetan ere bai: %1$@ – biak batzen dira. Txanpon berak dira? Aukeratu «Erakutsi soilik»."
+            "value" : "Zure transakzioetan ere bai: %1$@ – helbideak gehiago duena bakarrik zenbatzen da."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "در تراکنش‌های خودت هم هست: %1$@ – هر دو جمع می‌شوند. همان سکه‌ها؟ «فقط نمایش» را انتخاب کن."
+            "value" : "در تراکنش‌های خودت هم هست: %1$@ – فقط مقداری که آدرس بیشتر از آن دارد حساب می‌شود."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myös omissa tapahtumissasi: %1$@ – molemmat lasketaan yhteen. Samat kolikot? Valitse ”Näytä vain”."
+            "value" : "Myös omissa tapahtumissasi: %1$@ – vain osoitteen ylimääräinen saldo lasketaan."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nasa sarili mong mga transaksyon din: %1$@ – parehong idinadagdag. Parehong mga coin? Piliin ang “Ipakita lang”."
+            "value" : "Nasa sarili mong mga transaksyon din: %1$@ – ang sobra lang na hawak ng address ang binibilang."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aussi dans tes propres transactions : %1$@ – les deux sont additionnés. Mêmes coins ? Choisis « Afficher seulement »."
+            "value" : "Aussi dans tes propres transactions : %1$@ – seul ce que l'adresse détient en plus est compté."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I d’idirbhearta féin freisin: %1$@ – cuirtear an dá cheann leis. Na boinn chéanna? Roghnaigh “Taispeáin amháin”."
+            "value" : "I d’idirbhearta féin freisin: %1$@ – ní áirítear ach an méid breise atá ag an seoladh."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tamén nas túas transaccións: %1$@ – súmanse as dúas. Son as mesmas moedas? Escolle «Só mostrar»."
+            "value" : "Tamén nas túas transaccións: %1$@ – só conta o que o enderezo ten de máis."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "તમારા પોતાના વ્યવહારોમાં પણ છે: %1$@ – બંને ઉમેરાય છે. એ જ કૉઇન છે? “ફક્ત બતાવો” પસંદ કરો."
+            "value" : "તમારા પોતાના વ્યવહારોમાં પણ છે: %1$@ – સરનામે તેનાથી વધુ જે છે, ફક્ત તે જ ગણાય છે."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מופיע גם בעסקאות שלך: %1$@ – שניהם מתווספים. אותם מטבעות? בחרו «הצגה בלבד»."
+            "value" : "מופיע גם בעסקאות שלך: %1$@ – נספר רק מה שיש בכתובת מעבר לזה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "आपके अपने लेन-देन में भी: %1$@ – दोनों जोड़े जाते हैं। वही कॉइन? “सिर्फ़ दिखाएँ” चुनें।"
+            "value" : "आपके अपने लेन-देन में भी: %1$@ – पते पर इससे ज़्यादा जो है, सिर्फ़ वही गिना जाता है।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim vlastitim transakcijama: %1$@ – zbrajaju se oboje. Iste kriptovalute? Odaberi „Samo prikaži“."
+            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži iznad toga."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját tranzakcióidban is: %1$@ – mindkettő összeadódik. Ugyanazok a coinok? Válaszd ezt: „Csak megjelenítés”."
+            "value" : "A saját tranzakcióidban is: %1$@ – csak az számít, amennyivel több van a címen."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Նաև քո սեփական գործարքներում՝ %1$@ – երկուսն էլ գումարվում են։ Նույն կոիննե՞րն են։ Ընտրիր «Միայն ցույց տալ»։"
+            "value" : "Նաև քո սեփական գործարքներում՝ %1$@ – հաշվվում է միայն այն, ինչ հասցեն ավել ունի։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juga ada di transaksimu sendiri: %1$@ – keduanya dijumlahkan. Koin yang sama? Pilih “Hanya tampilkan”."
+            "value" : "Juga ada di transaksimu sendiri: %1$@ – hanya kelebihan di alamat yang dihitung."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Líka í þínum eigin færslum: %1$@ – hvort tveggja er lagt saman. Sömu myntir? Veldu „Aðeins sýna“."
+            "value" : "Líka í þínum eigin færslum: %1$@ – aðeins það sem vistfangið á umfram telst með."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anche nelle tue transazioni: %1$@ – vengono sommati entrambi. Stesse monete? Scegli «Mostra soltanto»."
+            "value" : "Anche nelle tue transazioni: %1$@ – conta solo ciò che l'indirizzo ha in più."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自分の取引にもあります：%1$@ – 両方が合算されます。同じコインなら「表示のみ」を選んでください。"
+            "value" : "自分の取引にもあります：%1$@ – アドレスがそれより多く持つ分だけが加算されます。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ასევე შენს საკუთარ ტრანზაქციებშია: %1$@ – ორივე იკრიბება. იგივე მონეტებია? აირჩიე «მხოლოდ ჩვენება»."
+            "value" : "ასევე შენს საკუთარ ტრანზაქციებშია: %1$@ – ითვლება მხოლოდ ის, რაც მისამართზე მეტია."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Өз транзакцияларыңызда да бар: %1$@ – екеуі де қосылады. Монеталар бірдей ме? «Тек көрсету» таңдаңыз."
+            "value" : "Өз транзакцияларыңызда да бар: %1$@ – тек мекенжайдағы артық бөлігі ғана есептеледі."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$@ – ទាំងពីរត្រូវបានបូកបញ្ចូល។ កាក់ដូចគ្នាមែនទេ? សូមជ្រើស «បង្ហាញតែប៉ុណ្ណោះ»។"
+            "value" : "ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$@ – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប៉ុណ្ណោះដែលត្រូវរាប់។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$@ – ಎರಡನ್ನೂ ಕೂಡಿಸಲಾಗುತ್ತದೆ. ಅದೇ ಕಾಯಿನ್‌ಗಳೇ? “ತೋರಿಸಿ ಮಾತ್ರ” ಆಯ್ಕೆಮಾಡಿ."
+            "value" : "ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$@ – ವಿಳಾಸದಲ್ಲಿ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 거래에도 있습니다: %1$@ – 둘 다 합산됩니다. 같은 코인인가요? “표시만”을 선택하세요."
+            "value" : "내 거래에도 있습니다: %1$@ – 주소에 그보다 더 있는 만큼만 합산됩니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$@ – ທັງສອງຖືກບວກລວມ. ແມ່ນຫຼຽນດຽວກັນບໍ? ເລືອກ “ສະແດງເທົ່ານັ້ນ”."
+            "value" : "ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$@ – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າເທົ່ານັ້ນ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taip pat yra tavo transakcijose: %1$@ – sumuojama abu. Tos pačios monetos? Pasirink „Tik rodyti“."
+            "value" : "Taip pat yra tavo transakcijose: %1$@ – skaičiuojama tik tai, ką adresas turi daugiau."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ir arī tavos darījumos: %1$@ – tiek saskaitīts abos. Tās pašas monētas? Izvēlies „Tikai rādīt“."
+            "value" : "Ir arī tavos darījumos: %1$@ – tiek skaitīts tikai tas, kas adresē ir vairāk."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "И во твоите трансакции: %1$@ – се додаваат двете. Исти монети? Избери „Само прикажи“."
+            "value" : "И во твоите трансакции: %1$@ – се брои само она што адресата го има повеќе."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$@ – രണ്ടും കൂട്ടിച്ചേർക്കുന്നു. ഒരേ കോയിനുകളാണോ? “കാണിക്കുക മാത്രം” തിരഞ്ഞെടുക്കുക."
+            "value" : "നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$@ – വിലാസത്തിൽ അതിലധികമുള്ളത് മാത്രമേ കണക്കാക്കൂ."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Таны өөрийн гүйлгээнд ч бас байна: %1$@ – хоёулаа нэмэгдэнэ. Ижил зоос уу? «Зөвхөн харуулах»-ыг сонгоно уу."
+            "value" : "Таны өөрийн гүйлгээнд ч бас байна: %1$@ – зөвхөн хаяг дээрх илүү хэсгийг тооцно."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$@ – दोन्ही जोडले जातात. तेच कॉइन आहेत? “फक्त दाखवा” निवडा."
+            "value" : "तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$@ – पत्त्यावर त्याहून जास्त असलेलेच मोजले जाते."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juga ada dalam transaksi anda sendiri: %1$@ – kedua-duanya dijumlahkan. Koin yang sama? Pilih “Tunjuk sahaja”."
+            "value" : "Juga ada dalam transaksi anda sendiri: %1$@ – hanya lebihan pada alamat yang dikira."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$@ – နှစ်ခုလုံးကို ပေါင်းထည့်ထားသည်။ ကွိုင် တူသလား။ “ပြရုံသာ” ကို ရွေးပါ။"
+            "value" : "သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$@ – လိပ်စာတွင် ပိုနေသည့်ပမာဏကိုသာ ရေတွက်ပါသည်။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Også i dine egne transaksjoner: %1$@ – begge legges sammen. Samme coins? Velg «Bare vis»."
+            "value" : "Også i dine egne transaksjoner: %1$@ – bare det adressen har utover dem, telles."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "तपाईंका आफ्नै कारोबारमा पनि छ: %1$@ – दुवै जोडिन्छन्। उही कोइन हुन्? “देखाउने मात्र” छान्नुहोस्।"
+            "value" : "तपाईंका आफ्नै कारोबारमा पनि छ: %1$@ – ठेगानामा योभन्दा बढी भएको मात्र गनिन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ook in je eigen transacties: %1$@ – beide worden opgeteld. Dezelfde munten? Kies ‘Alleen tonen’."
+            "value" : "Ook in je eigen transacties: %1$@ – alleen wat het adres meer heeft, telt mee."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$@ – ਦੋਵੇਂ ਜੋੜੇ ਜਾ ਰਹੇ ਹਨ। ਉਹੀ ਕੌਇਨ? “ਸਿਰਫ਼ ਦਿਖਾਓ” ਚੁਣੋ।"
+            "value" : "ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$@ – ਪਤੇ ਉੱਤੇ ਇਸ ਤੋਂ ਵੱਧ ਜੋ ਹੈ, ਸਿਰਫ਼ ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Także w twoich transakcjach: %1$@ – oba są sumowane. Te same monety? Wybierz „Tylko pokaż”."
+            "value" : "Także w twoich transakcjach: %1$@ – liczy się tylko to, co adres ma ponad nie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também nas tuas próprias transações: %1$@ – ambos são somados. As mesmas moedas? Escolhe «Apenas mostrar»."
+            "value" : "Também nas tuas próprias transações: %1$@ – só conta o que o endereço tem a mais."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também nas suas próprias transações: %1$@ – os dois são somados. As mesmas moedas? Escolha “Só mostrar”."
+            "value" : "Também nas suas próprias transações: %1$@ – só conta o que o endereço tem a mais."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Și în propriile tranzacții: %1$@ – ambele se adună. Aceleași monede? Alege „Doar afișează”."
+            "value" : "Și în propriile tranzacții: %1$@ – se numără doar ce are adresa în plus."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Также в твоих собственных транзакциях: %1$@ – учитывается и то и другое. Те же монеты? Выбери «Только показывать»."
+            "value" : "Также в твоих собственных транзакциях: %1$@ – учитывается только то, что на адресе сверх этого."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ඔබේම ගනුදෙනුවලද ඇත: %1$@ – දෙකම එකතු කෙරේ. එකම කාසිද? “පෙන්වීම පමණක්” තෝරන්න."
+            "value" : "ඔබේම ගනුදෙනුවලද ඇත: %1$@ – ලිපිනයේ ඊට වඩා ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aj vo vlastných transakciách: %1$@ – obe sa sčítajú. Rovnaké coiny? Vyber „Iba zobraziť“."
+            "value" : "Aj vo vlastných transakciách: %1$@ – započíta sa len to, čo má adresa navyše."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tudi v tvojih lastnih transakcijah: %1$@ – oboje se sešteje. Isti kovanci? Izberi „Samo prikaži“."
+            "value" : "Tudi v tvojih lastnih transakcijah: %1$@ – šteje le tisto, kar ima naslov več."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edhe në transaksionet e tua: %1$@ – mblidhen të dyja. Të njëjtat monedha? Zgjidh «Vetëm shfaq»."
+            "value" : "Edhe në transaksionet e tua: %1$@ – numërohet vetëm ajo që adresa ka më shumë."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "И у твојим сопственим трансакцијама: %1$@ – сабирају се обоје. Исте криптовалуте? Изабери „Само прикажи“."
+            "value" : "И у твојим сопственим трансакцијама: %1$@ – рачуна се само оно што адреса држи преко тога."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim sopstvenim transakcijama: %1$@ – sabiraju se oboje. Iste kriptovalute? Izaberi „Samo prikaži“."
+            "value" : "I u tvojim sopstvenim transakcijama: %1$@ – računa se samo ono što adresa drži preko toga."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finns även i dina egna transaktioner: %1$@ – båda läggs ihop. Samma mynt? Välj ”Visa bara”."
+            "value" : "Finns även i dina egna transaktioner: %1$@ – bara det adressen har utöver dem räknas."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pia iko kwenye miamala yako mwenyewe: %1$@ – zote mbili zinaongezwa. Sarafu zile zile? Chagua “Onyesha tu”."
+            "value" : "Pia iko kwenye miamala yako mwenyewe: %1$@ – kinachohesabiwa ni ziada iliyo kwenye anwani tu."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – இரண்டும் கூட்டப்படும். அதே காயின்களா? “காட்ட மட்டும்” என்பதைத் தேர்ந்தெடுக்கவும்."
+            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – முகவரியில் அதைவிடக் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – రెండూ కలపబడతాయి. అవే కాయిన్‌లా? “చూపండి మాత్రమే” ఎంచుకోండి."
+            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – చిరునామాలో దానికంటే ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "มีในรายการของคุณเองด้วย: %1$@ – ทั้งสองจะถูกรวมกัน เป็นเหรียญเดียวกันหรือไม่? เลือก “แสดงอย่างเดียว”"
+            "value" : "มีในรายการของคุณเองด้วย: %1$@ – นับเฉพาะส่วนที่ที่อยู่มีมากกว่าเท่านั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi işlemlerinde de var: %1$@ – ikisi de toplanır. Aynı coin'ler mi? “Yalnızca göster” seç."
+            "value" : "Kendi işlemlerinde de var: %1$@ – yalnızca adresin bunun üzerinde tuttuğu kısım sayılır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Також у твоїх власних транзакціях: %1$@ – враховується і те й інше. Ті самі монети? Вибери «Лише показувати»."
+            "value" : "Також у твоїх власних транзакціях: %1$@ – враховується лише те, що на адресі понад це."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آپ کے اپنے لین دین میں بھی ہے: %1$@ – دونوں جمع ہو رہے ہیں۔ وہی کوائنز؟ “صرف دکھائیں” منتخب کریں۔"
+            "value" : "آپ کے اپنے لین دین میں بھی ہے: %1$@ – صرف وہی گنا جاتا ہے جو پتے پر اس سے زیادہ ہے۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oʻz tranzaksiyalaringizda ham bor: %1$@ – ikkalasi ham qoʻshiladi. Tangalar bir xilmi? «Faqat koʻrsatish»ni tanlang."
+            "value" : "Oʻz tranzaksiyalaringizda ham bor: %1$@ – faqat manzildagi ortiqcha qismi hisoblanadi."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cũng có trong giao dịch của bạn: %1$@ – cả hai đều được cộng. Cùng một coin? Hãy chọn “Chỉ hiển thị”."
+            "value" : "Cũng có trong giao dịch của bạn: %1$@ – chỉ tính phần địa chỉ có nhiều hơn."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己嘅交易入面都有：%1$@ – 兩樣都會加埋。係咪同一批幣？揀「只顯示」。"
+            "value" : "你自己嘅交易入面都有：%1$@ – 只會計地址多出嚟嘅部分。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——两者会相加。是同一批币？请选择“仅显示”。"
+            "value" : "你自己的交易中也有：%1$@——只计入地址多出的部分。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——兩者會相加。是同一批幣？請選擇 「僅顯示」。"
+            "value" : "你自己的交易中也有：%1$@——只計入地址多出的部分。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kukhona nasemisebenzini yakho: %1$@ – kokubili kuyangezwa. Ama-coin afanayo? Khetha “Bonisa kuphela”."
+            "value" : "Kukhona nasemisebenzini yakho: %1$@ – kubalwa kuphela lokho ikheli elinakho okwengeziwe."
           }
         }
       }
@@ -480192,461 +480192,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ama-coin afanayo nawemisebenzi yakho?"
-          }
-        }
-      }
-    },
-    "portfolio_address_overlap_tx" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dieselfde bedrag as jou eie deposito/oordrag (%1$@) – waarskynlik twee keer getel."
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ከራስዎ ገቢ/ዝውውር (%1$@) ጋር ተመሳሳይ መጠን – ምናልባት ሁለት ጊዜ ተቆጥሯል።"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نفس كمية إيداعك/تحويلك (%1$@) – على الأرجح محتسبة مرتين."
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Öz depozitin/köçürmən (%1$@) ilə eyni məbləğ – çox güman ki, iki dəfə hesablanıb."
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Същото количество като собствения ти депозит/прехвърляне (%1$@) – вероятно се брои двойно."
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "আপনার নিজের জমা/ট্রান্সফারের (%1$@) সমান পরিমাণ – সম্ভবত দুবার গোনা হয়েছে।"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isti iznos kao tvoja vlastita uplata/prijenos (%1$@) – vjerovatno uračunato dvaput."
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mateixa quantitat que el teu dipòsit/transferència (%1$@) – probablement es compta dues vegades."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stejné množství jako tvůj vklad/převod (%1$@) – nejspíš se počítá dvakrát."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Samme mængde som din egen indbetaling/overførsel (%1$@) – tælles sandsynligvis dobbelt."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gleiche Menge wie deine eigene Einzahlung/Umbuchung (%1$@) – zählt wohl doppelt."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ίδια ποσότητα με τη δική σου κατάθεση/μεταφορά (%1$@) – μάλλον μετριέται διπλά."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Same amount as your own deposit/transfer (%1$@) – likely counted twice."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Misma cantidad que tu propio depósito/transferencia (%1$@): probablemente contado dos veces."
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sama kogus nagu sinu enda sissemaksel/ülekandel (%1$@) – tõenäoliselt arvestatud kaks korda."
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zure gordailu/transferentziaren kopuru bera (%1$@) – litekeena da bi aldiz zenbatzea."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "همان مقدارِ واریز/انتقال خودت (%1$@) – احتمالاً دو بار حساب می‌شود."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sama määrä kuin oma talletuksesi/siirtosi (%1$@) – todennäköisesti laskettu kahdesti."
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kapareho ng halaga ng sarili mong deposit/transfer (%1$@) – malamang dalawang beses nabilang."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Même quantité que ton propre dépôt/transfert (%1$@) – probablement compté deux fois."
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An méid céanna le do thaisce/d’aistriú féin (%1$@) – comhairthe faoi dhó is dócha."
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A mesma cantidade que o teu depósito/transferencia (%1$@) – probablemente contado dúas veces."
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "તમારી પોતાની ડિપોઝિટ/ટ્રાન્સફર (%1$@) જેટલી જ રકમ – કદાચ બે વાર ગણાયું છે."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "אותה כמות כמו ההפקדה/ההעברה שלך (%1$@) – כנראה נספרת פעמיים."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "आपके अपने जमा/ट्रांसफ़र (%1$@) जितनी ही मात्रा – शायद दो बार गिनी जा रही है।"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isti iznos kao tvoja vlastita uplata/prijenos (%1$@) – vjerojatno uračunato dvaput."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ugyanannyi, mint a saját befizetésed/átvezetésed (%1$@) – valószínűleg kétszer számít."
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Նույն գումարը, ինչ քո սեփական մուտքագրումը/փոխանցումը (%1$@) – հավանաբար հաշվվել է երկու անգամ։"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jumlah sama dengan setoran/transfermu sendiri (%1$@) – kemungkinan dihitung dua kali."
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sama upphæð og þín eigin innlögn/millifærsla (%1$@) – líklega talið tvisvar."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stessa quantità del tuo deposito/trasferimento (%1$@) – probabilmente contato due volte."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自分の入庫/振替（%1$@）と同じ数量です – 二重に計上されている可能性があります。"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "იგივე თანხაა, რაც შენი შეტანა/გადარიცხვა (%1$@) – სავარაუდოდ ორჯერ ითვლება."
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Өз депозитіңізбен/аударымыңызбен бірдей сома (%1$@) – екі рет есептелуі мүмкін."
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ចំនួនដូចគ្នានឹងការដាក់ប្រាក់/ការផ្ទេររបស់អ្នក (%1$@) – ទំនងជារាប់ពីរដង។"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ನಿಮ್ಮ ಸ್ವಂತ ಠೇವಣಿ/ವರ್ಗಾವಣೆಯ (%1$@) ಅದೇ ಮೊತ್ತ – ಬಹುಶಃ ಎರಡು ಬಾರಿ ಎಣಿಸಲಾಗಿದೆ."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "직접 입력한 입금/이체(%1$@)와 같은 수량입니다 – 이중으로 계산되었을 수 있습니다."
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ຈຳນວນດຽວກັນກັບການຝາກ/ການໂອນຂອງທ່ານເອງ (%1$@) – ອາດຖືກນັບສອງເທື່ອ."
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toks pat kiekis kaip tavo įnašo / pervedimo (%1$@) – tikriausiai skaičiuojama dukart."
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tāds pats daudzums kā tavai iemaksai/pārskaitījumam (%1$@) – droši vien tiek skaitīts divreiz."
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ист износ како твојот уплата/трансфер (%1$@) – веројатно е вброено двапати."
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "നിങ്ങളുടെ സ്വന്തം നിക്ഷേപം/കൈമാറ്റത്തിന്റെ (%1$@) അതേ തുക – രണ്ടുതവണ കണക്കാക്കിയിരിക്കാൻ സാധ്യത."
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Таны өөрийн орлого/шилжүүлэгтэй ижил дүн (%1$@) – хоёр удаа тооцогдсон байж магадгүй."
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "तुमच्या स्वतःच्या जमा/हस्तांतरणाइतकीच रक्कम (%1$@) – बहुधा दोनदा मोजली गेली."
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jumlah sama seperti deposit/pindahan anda sendiri (%1$@) – mungkin dikira dua kali."
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "သင့်ကိုယ်ပိုင် အပ်ငွေ/လွှဲငွေ (%1$@) နှင့် ပမာဏ တူသည် – နှစ်ခါ တွက်မိနိုင်သည်။"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Samme mengde som ditt eget innskudd/overføring (%1$@) – telles trolig dobbelt."
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "तपाईंको आफ्नै जम्मा/स्थानान्तरण (%1$@) जत्तिकै रकम – सम्भवतः दुई पटक गणना भएको।"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zelfde hoeveelheid als je eigen storting/overboeking (%1$@) – waarschijnlijk dubbel geteld."
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ਤੁਹਾਡੇ ਆਪਣੇ ਜਮ੍ਹਾਂ/ਟ੍ਰਾਂਸਫਰ (%1$@) ਜਿੰਨੀ ਹੀ ਰਕਮ – ਸ਼ਾਇਦ ਦੋ ਵਾਰ ਗਿਣੀ ਗਈ।"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ta sama ilość co twoja wpłata/przeniesienie (%1$@) – prawdopodobnie liczone podwójnie."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A mesma quantidade do teu depósito/transferência (%1$@) – provavelmente contado duas vezes."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A mesma quantidade do seu depósito/transferência (%1$@) – provavelmente contado duas vezes."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aceeași cantitate ca propria depunere/transfer (%1$@) – probabil numărată de două ori."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "То же количество, что и твоё пополнение/перевод (%1$@) – вероятно учтено дважды."
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ඔබේම තැන්පතුව/මාරුව (%1$@) හා සමාන ප්‍රමාණය – බොහෝ විට දෙවරක් ගණනය වී ඇත."
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rovnaké množstvo ako tvoj vlastný vklad/presun (%1$@) – asi sa počíta dvakrát."
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enaka količina kot tvoj lastni polog/prenos (%1$@) – verjetno šteto dvakrat."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E njëjta sasi si depozita/transferimi yt (%1$@) – ndoshta llogaritet dy herë."
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Исти износ као твоја сопствена уплата/пренос (%1$@) – вероватно урачунато двапут."
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Isti iznos kao tvoja sopstvena uplata/prenos (%1$@) – verovatno uračunato dvaput."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Samma mängd som din egen insättning/överföring (%1$@) – räknas troligen dubbelt."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kiasi sawa na amana/uhamisho wako mwenyewe (%1$@) – huenda kimehesabiwa mara mbili."
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "உங்கள் சொந்த வைப்பு/பரிமாற்றத்தின் அதே தொகை (%1$@) – இரண்டு முறை கணக்கிடப்பட்டிருக்கலாம்."
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "మీ సొంత డిపాజిట్/బదిలీ (%1$@) లాంటి మొత్తమే – రెండుసార్లు లెక్కించబడి ఉండవచ్చు."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "จำนวนเท่ากับการฝาก/โอนย้ายของคุณเอง (%1$@) – อาจถูกนับซ้ำ"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kendi yatırma/transferinle aynı miktar (%1$@) – muhtemelen iki kez sayılıyor."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Та сама кількість, що й твоє поповнення/переказ (%1$@) – імовірно враховано двічі."
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آپ کے اپنے ڈپازٹ/ٹرانسفر (%1$@) جتنی ہی رقم – شاید دو بار شمار ہوئی ہے۔"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oʻz depozitingiz/oʻtkazmangiz bilan bir xil miqdor (%1$@) – ehtimol ikki marta hisoblangan."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cùng số lượng với lệnh nạp/chuyển của bạn (%1$@) – có thể bị tính hai lần."
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "同你自己嘅存入／轉賬（%1$@）數量一樣 – 好可能計咗兩次。"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "与你自己的存入/转移（%1$@）数量相同——可能被重复计算。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "與你自己的存入/轉移（%1$@）數量相同——可能被重複計算。"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inani elifanayo nediphozithi/ukudlulisa kwakho (%1$@) – kungenzeka kubalwe kabili."
           }
         }
       }

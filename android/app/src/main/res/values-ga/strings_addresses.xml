@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Seoladh poiblí (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) nó xpub</string>
     <string name="portfolio_address_label">Lipéad (roghnach)</string>
     <string name="portfolio_address_not_since_buy">Ó sheoladh · ní in “Ón gceannach”: %1$s</string>
-    <string name="portfolio_address_overlap">I d’idirbhearta féin freisin: %1$s – cuirtear an dá cheann leis. Na boinn chéanna? Roghnaigh “Taispeáin amháin”.</string>
+    <string name="portfolio_address_overlap">I d’idirbhearta féin freisin: %1$s – ní áirítear ach an méid breise atá ag an seoladh.</string>
     <string name="portfolio_address_overlap_ask">Taifeadann tú %1$s cheana le d’idirbhearta féin. An gcuirfear iarmhéid an tseolta seo leis an bpunann, nó an dtaispeánfar amháin é?</string>
     <string name="portfolio_address_overlap_auto">Taispeántar “%1$s” amháin anois, ní chomhairtear é – tá %2$s i d’idirbhearta freisin.</string>
     <string name="portfolio_address_overlap_title">Na boinn chéanna le d’idirbhearta?</string>
-    <string name="portfolio_address_overlap_tx">An méid céanna le do thaisce/d’aistriú féin (%1$s) – comhairthe faoi dhó is dócha.</string>
     <string name="portfolio_address_period_observed">Comhairtear seoltaí faire ón gcéad iarmhéid a breathnaíodh; is insreabhadh/eis-sreabhadh athruithe níos déanaí, ní gnóthachan.</string>
     <string name="portfolio_address_privacy">Ní sheoltar ach an seoladh poiblí chuig %1$s – eochracha nó frásaí síl riamh. Feiceann an soláthraí é in éineacht le do sheoladh IP. Seiceáiltear é uair sa 10 nóiméad ar a mhéad.</string>
     <string name="portfolio_address_remove">Bain an seoladh</string>

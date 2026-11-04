@@ -1975,6 +1975,16 @@ the tests named here.
   wallet, capped at the holding before the recorded movements of that wallet (observed balance + recorded outflows −
   recorded inflows, all dates, as FIFO per wallet books them); only the rest stays address part without cost basis.
   Periods and history count them like buys from their date, as the card and the cut-off do.
+* **Only the surplus counts.** A counting address adds per coin only what it holds beyond own holdings:
+  `AddressSurplus.counted` = max(0, address part − own holdings). Address part = summed balance of all counting
+  addresses of the coin minus what lots and recorded movements of the address wallets already book; own holdings =
+  holdings of the own transactions (`PortfolioHoldingsBook`, default method) minus the recorded inflows of the address
+  wallets (already in the balance), never below 0. Several counting addresses of one coin are summed first, own
+  holdings are subtracted once. Card, rows, alarms, widgets and watch (`AddressSurplus.parts` via
+  `AddressBalance.trades`) and periods, history, cut-off and CH wealth (`AddressBalanceHistory.trades` with the ledger
+  steps from `AddressBooked.histories`, at every observation) use this one rule. Examples (`address_surplus.json`):
+  own 1.00 BTC and address 1.00 → 0; address 1.06 → 0.06; coin only on the address → in full; address below own
+  holdings → 0. The automatic «Show only» switch below is unchanged.
 * **Networks for watched addresses.** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
   on the device, gap 20 on the first scan; Taproot accounts only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
@@ -2066,8 +2076,8 @@ the tests named here.
   address matches. Never decide silently.
 * **Overlap auto-switch.** A counting address whose overlap was never decided (`overlapChecked`) switches to
   «Show only» automatically once, with a hint and Undo, only when the amounts of all its coins match the
-  transactions (`WatchedAddressRules.overlapAutoShowOnly`); otherwise it keeps counting and the «Also in own
-  transactions» hint stays. Any choice by the user sets `overlapChecked`.
+  transactions (`WatchedAddressRules.overlapAutoShowOnly`); otherwise it keeps counting (only the surplus over own
+  holdings, see above) and the «Also in own transactions» hint stays. Any choice by the user sets `overlapChecked`.
 * **Tax template texts = formulas.** Every sentence in `tax_note_*` / `tax_line_*` must describe what the
   engine does; a change to an engine needs its text in all 31 languages and a worked example in
   `tax_templates.json` (parity tested). CSV cell texts contain no `;` or `,`.
@@ -3293,6 +3303,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   per-stable state, one switch; iOS `StableDepegPlanner` at the three call sites.
 * Build 197: chart loads `usdtUsdDaily`, never mixes measured and assumed USDT/USD (one rate + note); daily close band 0.05–3.0;
   24 h value same rule; watch remembers the fetch outcome per pair (not listed vs. not reachable; HTTP 400 = not listed).
+* Build 198: `AddressSurplus` (Android/iOS): counting addresses add max(0, address part − own holdings) per coin, own holdings
+  without recorded inflows to the address wallets; overlap warning `portfolio_address_overlap_tx` removed.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

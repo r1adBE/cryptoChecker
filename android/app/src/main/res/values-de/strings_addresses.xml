@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Öffentliche Adresse (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) oder xpub</string>
     <string name="portfolio_address_label">Bezeichnung (optional)</string>
     <string name="portfolio_address_not_since_buy">Aus Adresse · nicht in «Seit Kauf»: %1$s</string>
-    <string name="portfolio_address_overlap">Auch in deinen eigenen Transaktionen: %1$s – beides wird addiert. Dieselben Coins? Wähle «Nur anzeigen».</string>
+    <string name="portfolio_address_overlap">Auch in deinen eigenen Transaktionen: %1$s – es zählt nur, was die Adresse darüber hinaus hält.</string>
     <string name="portfolio_address_overlap_ask">Du erfasst %1$s schon mit eigenen Transaktionen. Soll das Guthaben dieser Adresse zum Portfolio zählen oder nur angezeigt werden?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» wird jetzt nur angezeigt, nicht gezählt – %2$s stehen auch in deinen Transaktionen.</string>
     <string name="portfolio_address_overlap_title">Dieselben Coins wie in deinen Transaktionen?</string>
-    <string name="portfolio_address_overlap_tx">Gleiche Menge wie deine eigene Einzahlung/Umbuchung (%1$s) – zählt wohl doppelt.</string>
     <string name="portfolio_address_period_observed">Beobachtete Adressen zählen ab dem ersten beobachteten Guthaben; spätere Änderungen sind Zu-/Abflüsse, kein Gewinn.</string>
     <string name="portfolio_address_privacy">Gesendet wird nur die öffentliche Adresse an %1$s – nie Schlüssel oder Seed-Wörter. Der Anbieter sieht sie zusammen mit deiner IP-Adresse. Abgefragt höchstens alle 10 Minuten.</string>
     <string name="portfolio_address_remove">Adresse entfernen</string>

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Adres publiczny (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) lub xpub</string>
     <string name="portfolio_address_label">Etykieta (opcjonalnie)</string>
     <string name="portfolio_address_not_since_buy">Z adresu · poza „Od zakupu”: %1$s</string>
-    <string name="portfolio_address_overlap">Także w twoich transakcjach: %1$s – oba są sumowane. Te same monety? Wybierz „Tylko pokaż”.</string>
+    <string name="portfolio_address_overlap">Także w twoich transakcjach: %1$s – liczy się tylko to, co adres ma ponad nie.</string>
     <string name="portfolio_address_overlap_ask">Zapisujesz już %1$s we własnych transakcjach. Wliczać saldo tego adresu do portfela czy tylko je pokazywać?</string>
     <string name="portfolio_address_overlap_auto">„%1$s” jest teraz tylko pokazywany, nie wliczany – %2$s są też w twoich transakcjach.</string>
     <string name="portfolio_address_overlap_title">Te same monety co w twoich transakcjach?</string>
-    <string name="portfolio_address_overlap_tx">Ta sama ilość co twoja wpłata/przeniesienie (%1$s) – prawdopodobnie liczone podwójnie.</string>
     <string name="portfolio_address_period_observed">Obserwowane adresy liczą się od pierwszego zaobserwowanego salda; późniejsze zmiany to wpływy/odpływy, nie zysk.</string>
     <string name="portfolio_address_privacy">Do %1$s wysyłany jest tylko publiczny adres – nigdy klucze ani frazy seed. Dostawca widzi go razem z twoim adresem IP. Sprawdzany najwyżej co 10 minut.</string>
     <string name="portfolio_address_remove">Usuń adres</string>

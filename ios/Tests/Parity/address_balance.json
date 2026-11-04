@@ -1343,7 +1343,7 @@
     ]
   },
   "portfolioMerge": {
-    "_comment": "Adress-Guthaben im Rechner: withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (nicht der ganze Coin ohne Kaufpreis). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; nicht 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt.",
+    "_comment": "Adress-Guthaben im Rechner: withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (nicht der ganze Coin ohne Kaufpreis). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; nicht 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt. Nur Mehrbestand (AddressSurplus): je Coin zaehlt die Adresse nur, was sie ueber die eigenen Transaktionen hinaus haelt (summary: BTC 0.5 auf Adressen − 0.2 eigene = 0.3); die heldSince-Faelle buchen DOGE, damit die Einzahlungen gleich bleiben.",
     "todayUtcDay": 20000,
     "addresses": [
       {
@@ -1377,7 +1377,7 @@
         "name": "erste Transaktion aelter als ein Jahr",
         "trades": [
           {
-            "coin": "BTC",
+            "coin": "DOGE",
             "type": "BUY",
             "amount": "1",
             "price": "20000",
@@ -1390,7 +1390,7 @@
         "name": "erste Transaktion juenger",
         "trades": [
           {
-            "coin": "BTC",
+            "coin": "DOGE",
             "type": "BUY",
             "amount": "1",
             "price": "20000",
@@ -1419,7 +1419,7 @@
         {
           "coin": "BTC",
           "type": "BUY",
-          "amount": "1",
+          "amount": "0.2",
           "price": "20000",
           "time": 1720000000000
         }
@@ -1428,15 +1428,15 @@
         "BTC": 30000,
         "ETH": 2000
       },
-      "totalValue": 47500,
-      "btcHoldings": "1.5",
-      "btcPricedHoldings": "1",
+      "totalValue": 17500,
+      "btcHoldings": "0.5",
+      "btcPricedHoldings": "0.2",
       "costMissing": false,
       "missingCostCoins": [],
-      "unrealized": 10000,
-      "invested": 20000,
-      "btcAddressHoldings": "0.5",
-      "addressValue": 17500
+      "unrealized": 2000,
+      "invested": 4000,
+      "btcAddressHoldings": "0.3",
+      "addressValue": 11500
     },
     "periodGain": {
       "trades": [],

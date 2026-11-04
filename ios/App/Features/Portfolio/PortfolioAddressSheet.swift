@@ -24,9 +24,6 @@ struct PortfolioAddressSheet: View {
     @State private var now = EpochTime.nowMillis
     /// Beim Hinzufügen: Coin schon mit eigenen Transaktionen erfasst → fragen «Zählen» / «Nur anzeigen».
     @State private var askOverlap: AddressChain?
-    /// «Zählen» nach der Warnung zu einer gleich grossen Einzahlung: für dieses Blatt bestätigt (nur im Speicher,
-    /// allgemeiner Hinweis bleibt) — wie Android.
-    @State private var countConfirmed: Set<Int64> = []
     /// «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber).
     @State private var lotsFor: WatchedAddress?
     /// Eigenes Banner im Blatt («entfernt» mit «Rückgängig», Sperre): das des Portfolio-Tabs läge dahinter — wie Android.
@@ -223,11 +220,6 @@ struct PortfolioAddressSheet: View {
             return "\(amount) (\(net.name))"
         }
         let overlap = WatchedAddressRules.overlap(a, ownCoins: ownCoins)
-        // Eigene Einzahlungen/Umbuchungen mit gleicher Menge wie Guthaben bzw. beobachteter Zugang (± 1 %)
-        let matches: [PortfolioTx] = countConfirmed.contains(a.id) ? [] : WatchedAddressRules.transferMatches(a, txs: data.portfolio)
-        let matchText: String = data.settings.hidePortfolioAmounts ? "•••" : matches.map { t -> String in
-            PortfolioFormat.exactAmount(t.amountExact, PortfolioCalculator.normalizeCoin(t.coin))
-        }.joined(separator: ", ")
         let tokenText: String = data.settings.hidePortfolioAmounts ? "•••" : tokenParts.joined(separator: " · ")
         return VStack(alignment: .leading, spacing: 4) {
             VStack(alignment: .leading, spacing: 2) {
@@ -265,14 +257,8 @@ struct PortfolioAddressSheet: View {
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                // Gleich grosse eigene Einzahlung/Umbuchung: deutliche Warnung; sonst dieselben Coins wie eigene
-                // Transaktionen: Hinweis (zählt doppelt, wenn es dieselben sind)
-                if !matches.isEmpty && a.countInPortfolio {
-                    Text(L("portfolio_address_overlap_tx", matchText))
-                        .font(.caption2)
-                        .foregroundStyle(AppColors.error)
-                        .fixedSize(horizontal: false, vertical: true)
-                } else if !overlap.isEmpty && a.countInPortfolio {
+                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand zählt)
+                if !overlap.isEmpty && a.countInPortfolio {
                     Text(L("portfolio_address_overlap", overlap.joined(separator: ", ")))
                         .font(.caption2)
                         .foregroundStyle(AppColors.error)
@@ -280,20 +266,7 @@ struct PortfolioAddressSheet: View {
                 }
             }
             .accessibilityElement(children: .combine)
-            // Gleich grosse Einzahlung: dieselbe Wahl wie beim Hinzufügen — «Nur anzeigen» (sicher, vorn) oder «Zählen»
-            if !matches.isEmpty && a.countInPortfolio {
-                HStack(spacing: 16) {
-                    Button(L("portfolio_address_show_only_short")) {
-                        data.setWatchedAddressCountInPortfolio(a.id, on: false)
-                    }
-                    .font(.subheadline.weight(.semibold))
-                    Button(L("portfolio_address_count")) { countConfirmed.insert(a.id) }
-                        .font(.subheadline)
-                }
-                .buttonStyle(.borderless)
-                .tint(accent.primary)
-                .frame(minHeight: 44)
-            } else if !overlap.isEmpty && a.countInPortfolio {
+            if !overlap.isEmpty && a.countInPortfolio {
                 // Hinweis bleibt, solange die Adresse zählt — «Nur anzeigen» mit einem Tipp (wie Android)
                 Button(L("portfolio_address_show_only_short")) {
                     data.setWatchedAddressCountInPortfolio(a.id, on: false)

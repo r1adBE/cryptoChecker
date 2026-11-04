@@ -346,18 +346,16 @@ enum AddressBalance {
 
     /// Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis (`holdings`) für den Teil OHNE Eröffnungsposten,
     /// Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe (`AddressCostLots.trades`). Erfasste Bewegungen
-    /// der Adress-Wallets in `realTrades` stecken schon im Guthaben (`AddressCostLots.accounted`) — nie doppelt.
+    /// der Adress-Wallets in `realTrades` stecken schon im Guthaben (`AddressCostLots.accounted`) — nie doppelt. Gezählt
+    /// wird nur der Mehrbestand über die eigenen Transaktionen (`AddressSurplus.parts`).
     static func trades(_ addresses: [WatchedAddress], realTrades: [PortfolioTx], todayUtcDay: Int64) -> [PortfolioTx] {
         let held = holdings(addresses)
         guard !held.isEmpty else { return [] }
         let time = heldSince(realTrades, todayUtcDay: todayUtcDay)
         let ids = tradeIds(held.map(\.coin))
-        let accounted = AddressCostLots.accounted(addresses, real: realTrades)
-        let parts: [PortfolioTx] = held.compactMap { item in
-            guard let total = PortfolioDecimal.parse(item.amount), let id = ids[item.coin] else { return nil }
-            let amount: Decimal = total - (accounted[item.coin] ?? 0)
-            guard amount > 0 else { return nil }
-            return PortfolioTx(id: id, coin: item.coin, type: .DEPOSIT, amountExact: amount,
+        let parts: [PortfolioTx] = AddressSurplus.parts(addresses, real: realTrades).compactMap { item in
+            guard let id = ids[item.coin] else { return nil }
+            return PortfolioTx(id: id, coin: item.coin, type: .DEPOSIT, amountExact: item.amount,
                                priceExact: nil, time: time)
         }
         return parts + AddressCostLots.trades(addresses, real: realTrades)
@@ -377,12 +375,13 @@ enum AddressBalance {
                              todayUtcDay: Int64(PortfolioHistory.epochDay(utcMillis: EpochTime.nowMillis)))
     }
 
-    /// Guthaben aller Adressen für `coin` OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den
-    /// echten Transaktionen `realTrades` wie im Rechner; nil = keins geladen.
+    /// Gezählter Adress-Teil für `coin` OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den
+    /// echten Transaktionen `realTrades` wie im Rechner (`AddressSurplus.parts`); nil = keins geladen.
     static func amount(for coin: String, addresses: [WatchedAddress], realTrades: [PortfolioTx] = []) -> Decimal? {
         let key = PortfolioCalculator.normalizeCoin(coin)
-        let accounted = AddressCostLots.accounted(addresses, real: realTrades)[key] ?? 0
-        return holdings(addresses).first(where: { $0.coin == key }).flatMap { PortfolioDecimal.parse($0.amount) }
-            .map { max(0, $0 - accounted) }
+        guard holdings(addresses).contains(where: { $0.coin == key && PortfolioDecimal.parse($0.amount) != nil }) else {
+            return nil
+        }
+        return AddressSurplus.parts(addresses, real: realTrades).first(where: { $0.coin == key })?.amount ?? 0
     }
 }

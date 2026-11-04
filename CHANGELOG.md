@@ -2,7 +2,7 @@
 
 ## 16.2.2 – first public release
 
-* Last price straight from the exchange that lists the pair – 56 markets on 45 exchanges, including futures and DEX pools.
+* Last price straight from the exchange that lists the pair – 80 markets on 69 exchanges, including futures and DEX pools.
 * Alerts run locally on the device when the app checks prices (with the app closed, often only after hours) – no account, no server.
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * Watch apps for Wear OS and Apple Watch with a complication: prices of your favourite coins straight from the exchange; on Android an optional price overlay above other apps.
@@ -15,6 +15,12 @@
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 198)
+
+* Watched addresses that count in the portfolio add only what they hold beyond your own transactions, per coin (e.g. staking rewards or an airdrop) – nothing counts twice in the total, alerts, widgets, the watch and the Swiss wealth-tax cutoff.
+* The warning «probably counts twice» for addresses is gone, it no longer applies.
+* Public changelog header: 80 markets on 69 exchanges.
 
 ## 16.2.2 (build 197)
 

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">საჯარო მისამართი (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ან xpub</string>
     <string name="portfolio_address_label">დასახელება (სურვილისამებრ)</string>
     <string name="portfolio_address_not_since_buy">მისამართიდან · არ შედის «შეძენის შემდეგ»-ში: %1$s</string>
-    <string name="portfolio_address_overlap">ასევე შენს საკუთარ ტრანზაქციებშია: %1$s – ორივე იკრიბება. იგივე მონეტებია? აირჩიე «მხოლოდ ჩვენება».</string>
+    <string name="portfolio_address_overlap">ასევე შენს საკუთარ ტრანზაქციებშია: %1$s – ითვლება მხოლოდ ის, რაც მისამართზე მეტია.</string>
     <string name="portfolio_address_overlap_ask">%1$s უკვე აღრიცხული გაქვს საკუთარი ტრანზაქციებით. დავამატო ამ მისამართის ნაშთი პორტფელს თუ მხოლოდ ვაჩვენო?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ახლა მხოლოდ ჩანს და არ ითვლება – %2$s შენს ტრანზაქციებშიც არის.</string>
     <string name="portfolio_address_overlap_title">იგივე მონეტებია, რაც შენს ტრანზაქციებში?</string>
-    <string name="portfolio_address_overlap_tx">იგივე თანხაა, რაც შენი შეტანა/გადარიცხვა (%1$s) – სავარაუდოდ ორჯერ ითვლება.</string>
     <string name="portfolio_address_period_observed">დაკვირვებადი მისამართები ითვლება პირველი დაფიქსირებული ნაშთიდან; შემდგომი ცვლილებები შემოსვლა/გასვლაა და არა მოგება.</string>
     <string name="portfolio_address_privacy">%1$s-ს მხოლოდ საჯარო მისამართი ეგზავნება – არასოდეს გასაღებები ან seed ფრაზები. მომწოდებელი მას შენს IP მისამართთან ერთად ხედავს. მოწმდება მაქსიმუმ ყოველ 10 წუთში.</string>
     <string name="portfolio_address_remove">მისამართის წაშლა</string>

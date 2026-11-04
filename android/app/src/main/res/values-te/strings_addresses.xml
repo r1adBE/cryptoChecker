@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">పబ్లిక్ అడ్రస్ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) లేదా xpub</string>
     <string name="portfolio_address_label">లేబుల్ (ఐచ్ఛికం)</string>
     <string name="portfolio_address_not_since_buy">అడ్రస్ నుండి · “కొనుగోలు నుండి”లో లేదు: %1$s</string>
-    <string name="portfolio_address_overlap">మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$s – రెండూ కలపబడతాయి. అవే కాయిన్‌లా? “చూపండి మాత్రమే” ఎంచుకోండి.</string>
+    <string name="portfolio_address_overlap">మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$s – చిరునామాలో దానికంటే ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది.</string>
     <string name="portfolio_address_overlap_ask">మీరు ఇప్పటికే %1$sను మీ సొంత లావాదేవీలతో నమోదు చేస్తున్నారు. ఈ అడ్రస్ బ్యాలెన్స్‌ను పోర్ట్‌ఫోలియోకు జోడించాలా, లేదా చూపించడం మాత్రమేనా?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ఇప్పుడు చూపబడుతుంది మాత్రమే, లెక్కించబడదు – %2$s మీ లావాదేవీలలో కూడా ఉన్నాయి.</string>
     <string name="portfolio_address_overlap_title">మీ లావాదేవీలలోని అవే కాయిన్‌లా?</string>
-    <string name="portfolio_address_overlap_tx">మీ సొంత డిపాజిట్/బదిలీ (%1$s) లాంటి మొత్తమే – రెండుసార్లు లెక్కించబడి ఉండవచ్చు.</string>
     <string name="portfolio_address_period_observed">పర్యవేక్షిస్తున్న అడ్రస్‌లు మొదట గమనించిన బ్యాలెన్స్ నుండి లెక్కించబడతాయి; తర్వాతి మార్పులు ఇన్‌ఫ్లో/అవుట్‌ఫ్లోలు, లాభం కాదు.</string>
     <string name="portfolio_address_privacy">పబ్లిక్ అడ్రస్ మాత్రమే %1$sకు పంపబడుతుంది – కీలు లేదా సీడ్ ఫ్రేజ్‌లు ఎప్పుడూ కాదు. ప్రొవైడర్ దాన్ని మీ IP అడ్రస్‌తో కలిపి చూస్తారు. గరిష్ఠంగా 10 నిమిషాలకు ఒకసారి తనిఖీ చేయబడుతుంది.</string>
     <string name="portfolio_address_remove">అడ్రస్‌ను తీసివేయండి</string>

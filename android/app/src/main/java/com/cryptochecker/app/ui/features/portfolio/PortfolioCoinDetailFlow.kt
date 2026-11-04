@@ -11,10 +11,8 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
-import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -32,8 +30,6 @@ internal data class CoinDetailUi(
     val ledger: CoinLedger,
     /** Guthaben beobachteter Adressen (> 0); null = keins. */
     val addressAmount: BigDecimal?,
-    /** Eigene Einzahlung/Umbuchung = Guthaben/Zugang einer zählenden Adresse (± 1 %). */
-    val addressMatches: List<PortfolioTrade>,
     /** Erste zählende Adresse mit Guthaben in diesem Coin (Einstand für Adressguthaben); null = keine. */
     val lotAddress: WatchedAddress?,
 )
@@ -52,9 +48,8 @@ internal fun coinDetail(
     // Gebühr-Zeilen zum Tageskurs wie auf der Karte ([marketPriceAt], hier [CoinFeePrices])
     val ledger = PortfolioCalculator.ledger(symbol, calc.map { it.toTrade() }, currentPrice, method, feePrice)
     val addressAmount = AddressBalance.amountFor(symbol, addresses, all.map { it.toTrade() })?.takeIf { it.signum() > 0 }
-    val matches = WatchedAddressRules.transferMatchesFor(symbol, addresses, own.map { it.toTrade() })
     val lotAddress = AddressCostLots.counted(addresses).firstOrNull { (_, balances) -> (balances[symbol]?.signum() ?: 0) > 0 }?.first
-    return CoinDetailUi(all, own, ledger, addressAmount, matches, lotAddress)
+    return CoinDetailUi(all, own, ledger, addressAmount, lotAddress)
 }
 
 /**

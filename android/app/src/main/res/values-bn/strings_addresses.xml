@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">পাবলিক ঠিকানা (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) অথবা xpub</string>
     <string name="portfolio_address_label">লেবেল (ঐচ্ছিক)</string>
     <string name="portfolio_address_not_since_buy">ঠিকানা থেকে · “কেনার পর থেকে”-তে নেই: %1$s</string>
-    <string name="portfolio_address_overlap">আপনার নিজের লেনদেনেও আছে: %1$s – দুটোই যোগ হচ্ছে। একই কয়েন? “শুধু দেখান” বেছে নিন।</string>
+    <string name="portfolio_address_overlap">আপনার নিজের লেনদেনেও আছে: %1$s – ঠিকানায় এর বেশি যা আছে, শুধু সেটুকুই গণনা হয়।</string>
     <string name="portfolio_address_overlap_ask">%1$s আপনি ইতিমধ্যে নিজের লেনদেনে লিখে রাখছেন। এই ঠিকানার ব্যালেন্স পোর্টফোলিওতে যোগ করবেন, নাকি শুধু দেখাবেন?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” এখন শুধু দেখানো হচ্ছে, গণনায় ধরা হচ্ছে না – %2$s আপনার লেনদেনেও আছে।</string>
     <string name="portfolio_address_overlap_title">আপনার লেনদেনের মতো একই কয়েন?</string>
-    <string name="portfolio_address_overlap_tx">আপনার নিজের জমা/ট্রান্সফারের (%1$s) সমান পরিমাণ – সম্ভবত দুবার গোনা হয়েছে।</string>
     <string name="portfolio_address_period_observed">নজরে রাখা ঠিকানা প্রথম দেখা ব্যালেন্স থেকে গোনা হয়; পরের পরিবর্তনগুলো আগমন/নির্গমন, লাভ নয়।</string>
     <string name="portfolio_address_privacy">%1$s-এ শুধু পাবলিক ঠিকানা পাঠানো হয় – কখনো কী বা সিড ফ্রেজ নয়। প্রদানকারী এটি আপনার IP ঠিকানার সঙ্গে দেখতে পায়। সর্বোচ্চ প্রতি 10 মিনিটে একবার যাচাই হয়।</string>
     <string name="portfolio_address_remove">ঠিকানা সরান</string>

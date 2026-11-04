@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">ಸಾರ್ವಜನಿಕ ವಿಳಾಸ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ಅಥವಾ xpub</string>
     <string name="portfolio_address_label">ಲೇಬಲ್ (ಐಚ್ಛಿಕ)</string>
     <string name="portfolio_address_not_since_buy">ವಿಳಾಸದಿಂದ · “ಖರೀದಿಯಿಂದ” ದಲ್ಲಿ ಇಲ್ಲ: %1$s</string>
-    <string name="portfolio_address_overlap">ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$s – ಎರಡನ್ನೂ ಕೂಡಿಸಲಾಗುತ್ತದೆ. ಅದೇ ಕಾಯಿನ್‌ಗಳೇ? “ತೋರಿಸಿ ಮಾತ್ರ” ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="portfolio_address_overlap">ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$s – ವಿಳಾಸದಲ್ಲಿ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="portfolio_address_overlap_ask">ನೀವು ಈಗಾಗಲೇ %1$s ಅನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳೊಂದಿಗೆ ದಾಖಲಿಸುತ್ತಿದ್ದೀರಿ. ಈ ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್ ಅನ್ನು ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಕೆ, ಅಥವಾ ತೋರಿಸಿದರೆ ಸಾಕೆ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ಈಗ ತೋರಿಸಲಾಗುತ್ತದೆ ಮಾತ್ರ, ಎಣಿಸಲಾಗುವುದಿಲ್ಲ – %2$s ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇವೆ.</string>
     <string name="portfolio_address_overlap_title">ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲಿರುವ ಅದೇ ಕಾಯಿನ್‌ಗಳೇ?</string>
-    <string name="portfolio_address_overlap_tx">ನಿಮ್ಮ ಸ್ವಂತ ಠೇವಣಿ/ವರ್ಗಾವಣೆಯ (%1$s) ಅದೇ ಮೊತ್ತ – ಬಹುಶಃ ಎರಡು ಬಾರಿ ಎಣಿಸಲಾಗಿದೆ.</string>
     <string name="portfolio_address_period_observed">ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳನ್ನು ಮೊದಲು ಗಮನಿಸಿದ ಬ್ಯಾಲೆನ್ಸ್‌ನಿಂದ ಎಣಿಸಲಾಗುತ್ತದೆ; ನಂತರದ ಬದಲಾವಣೆಗಳು ಒಳಹರಿವು/ಹೊರಹರಿವು, ಲಾಭವಲ್ಲ.</string>
     <string name="portfolio_address_privacy">ಸಾರ್ವಜನಿಕ ವಿಳಾಸವನ್ನು ಮಾತ್ರ %1$s ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ – ಕೀಗಳು ಅಥವಾ ಸೀಡ್ ಫ್ರೇಸ್‌ಗಳನ್ನು ಎಂದಿಗೂ ಅಲ್ಲ. ಪೂರೈಕೆದಾರರು ಅದನ್ನು ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ನೋಡುತ್ತಾರೆ. ಗರಿಷ್ಠ 10 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="portfolio_address_remove">ವಿಳಾಸ ತೆಗೆದುಹಾಕಿ</string>

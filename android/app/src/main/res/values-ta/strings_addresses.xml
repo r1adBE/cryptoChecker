@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">பொது முகவரி (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) அல்லது xpub</string>
     <string name="portfolio_address_label">லேபிள் (விருப்பத்தேர்வு)</string>
     <string name="portfolio_address_not_since_buy">முகவரியிலிருந்து · “வாங்கியதிலிருந்து” இல் இல்லை: %1$s</string>
-    <string name="portfolio_address_overlap">உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$s – இரண்டும் கூட்டப்படும். அதே காயின்களா? “காட்ட மட்டும்” என்பதைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="portfolio_address_overlap">உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$s – முகவரியில் அதைவிடக் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்.</string>
     <string name="portfolio_address_overlap_ask">%1$s ஐ ஏற்கெனவே உங்கள் சொந்தப் பரிவர்த்தனைகளுடன் பதிவுசெய்கிறீர்கள். இந்த முகவரியின் இருப்பைப் போர்ட்ஃபோலியோவில் சேர்க்கவா, அல்லது காட்ட மட்டுமா?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” இப்போது காட்டப்படுகிறது மட்டும், கணக்கிடப்படவில்லை – %2$s உங்கள் பரிவர்த்தனைகளிலும் உள்ளன.</string>
     <string name="portfolio_address_overlap_title">உங்கள் பரிவர்த்தனைகளில் உள்ள அதே காயின்களா?</string>
-    <string name="portfolio_address_overlap_tx">உங்கள் சொந்த வைப்பு/பரிமாற்றத்தின் அதே தொகை (%1$s) – இரண்டு முறை கணக்கிடப்பட்டிருக்கலாம்.</string>
     <string name="portfolio_address_period_observed">கண்காணிக்கப்படும் முகவரிகள் முதலில் கவனிக்கப்பட்ட இருப்பிலிருந்து கணக்கிடப்படும்; பிந்தைய மாற்றங்கள் உள்வரவு/வெளிச்செலவு, லாபம் அல்ல.</string>
     <string name="portfolio_address_privacy">பொது முகவரி மட்டுமே %1$s க்கு அனுப்பப்படும் – கீகளோ சீட் சொற்றொடர்களோ ஒருபோதும் இல்லை. வழங்குநர் அதை உங்கள் IP முகவரியுடன் சேர்த்துப் பார்ப்பார். அதிகபட்சம் 10 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>
     <string name="portfolio_address_remove">முகவரியை அகற்றவும்</string>

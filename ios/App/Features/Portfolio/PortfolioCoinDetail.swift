@@ -41,8 +41,6 @@ struct PortfolioCoinDetail: View {
         List {
             if let ledger {
                 PortfolioPositionCard(position: ledger.position, addressAmount: fromAddress, overlap: !own.isEmpty,
-                                      matches: WatchedAddressRules.transferMatches(coin: coin, addresses: data.watchedAddresses,
-                                                                                   txs: own),
                                       onMissingCost: { costGapsOpen = true },
                                       onAddressCost: lotAddress.map { a -> () -> Void in { lotsFor = a } })
                     .portfolioListRow(top: 4, bottom: 4)

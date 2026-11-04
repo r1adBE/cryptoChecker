@@ -355,17 +355,15 @@ object AddressBalance {
     /**
      * Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis ([holdings]) für den Teil OHNE Eröffnungsposten,
      * Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe ([AddressCostLots.trades]). Erfasste Bewegungen
-     * der Adress-Wallets in [realTrades] stecken schon im Guthaben ([AddressCostLots.accounted]) — nie doppelt.
+     * der Adress-Wallets in [realTrades] stecken schon im Guthaben ([AddressCostLots.accounted]) — nie doppelt. Gezählt
+     * wird nur der Mehrbestand über die eigenen Transaktionen ([AddressSurplus.parts]).
      */
     fun trades(addresses: List<WatchedAddress>, realTrades: List<PortfolioTrade>, todayUtcDay: Long): List<PortfolioTrade> {
         val held = holdings(addresses)
         if (held.isEmpty()) return emptyList()
         val time = heldSince(realTrades, todayUtcDay)
         val ids = tradeIds(held.map { it.first })
-        val accounted = AddressCostLots.accounted(addresses, realTrades)
-        return held.mapNotNull { (coin, text) ->
-            val amount = PortfolioDecimal.parse(text)?.let { it - (accounted[coin] ?: BigDecimal.ZERO) }?.takeIf { it.signum() > 0 }
-                ?: return@mapNotNull null
+        return AddressSurplus.parts(addresses, realTrades).map { (coin, amount) ->
             PortfolioTrade(id = ids.getValue(coin), coin = coin, type = PortfolioTxType.DEPOSIT, amount = amount, priceUsdt = null, time = time)
         } + AddressCostLots.trades(addresses, realTrades)
     }
@@ -381,13 +379,12 @@ object AddressBalance {
     }
 
     /**
-     * Guthaben aller Adressen für [coin] OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den
-     * echten Transaktionen [realTrades] wie im Rechner ([trades]); null = keins geladen.
+     * Gezählter Adress-Teil für [coin] OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den
+     * echten Transaktionen [realTrades] wie im Rechner ([trades], [AddressSurplus.parts]); null = keins geladen.
      */
     fun amountFor(coin: String, addresses: List<WatchedAddress>, realTrades: List<PortfolioTrade> = emptyList()): BigDecimal? {
         val key = PortfolioCalculator.normalizeCoin(coin)
-        val accounted = AddressCostLots.accounted(addresses, realTrades)[key] ?: BigDecimal.ZERO
-        return holdings(addresses).firstOrNull { it.first == key }?.let { PortfolioDecimal.parse(it.second) }
-            ?.let { (it - accounted).max(BigDecimal.ZERO) }
+        if (holdings(addresses).none { it.first == key && PortfolioDecimal.parse(it.second) != null }) return null
+        return AddressSurplus.parts(addresses, realTrades).firstOrNull { it.first == key }?.second ?: BigDecimal.ZERO
     }
 }

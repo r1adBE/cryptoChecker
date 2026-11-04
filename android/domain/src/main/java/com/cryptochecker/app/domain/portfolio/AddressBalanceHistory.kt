@@ -40,6 +40,11 @@ data class AddressBalanceHistory(
      * ersten Reihe je Adresse und Coin, gesetzt von [AddressBooked.histories]; [trades] rechnet sie heraus.
      */
     val moves: List<AddressMove> = emptyList(),
+    /**
+     * Eigener Bestand des Coins als Stufen ([AddressSurplus.ledgerSteps]) — nur an der ersten Reihe je Coin, gesetzt von
+     * [AddressBooked.histories]; [trades] zählt dann nur den Mehrbestand aller Adressen des Coins ([AddressSurplus.steps]).
+     */
+    val ledger: List<AddressObservation> = emptyList(),
 ) {
     val coin: String get() = token ?: chain.coin
 
@@ -83,7 +88,8 @@ data class AddressBalanceHistory(
          * Einzahlung (+) bzw. Auszahlung (−) der Differenz OHNE Preis mit negativer Id
          * ([AddressBalance.isAddressTrade]) — [PortfolioPeriodChange] und [PortfolioHistory] bewerten sie zum
          * Marktkurs ihres Zeitpunkts. Dieselbe Adresse (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe).
-         * Reihen mit gebuchten Bewegungen ([moves]) zählen ohne sie ([AddressBooked.held]).
+         * Reihen mit gebuchten Bewegungen ([moves]) zählen ohne sie ([AddressBooked.held]). Mit eigenem Bestand ([ledger])
+         * zählen alle Adressen des Coins zusammen nur den Mehrbestand ([AddressSurplus.steps]).
          */
         fun trades(histories: List<AddressBalanceHistory>): List<PortfolioTrade> {
             val out = ArrayList<PortfolioTrade>()
@@ -94,10 +100,10 @@ data class AddressBalanceHistory(
             }
             var nextId = -1_000_001L
             for (h in kept) {
-                // Mit gebuchten Bewegungen: alle Reihen dieser Adresse und dieses Coins zusammen ohne sie ([AddressBooked.held])
-                val group = kept.filter { AddressBooked.sameGroup(it, h) }
-                val steps = if (group.all { it.moves.isEmpty() }) h.observations.sortedBy { it.time }
-                else if (group.first() === h) AddressBooked.held(group) else continue
+                val sameCoin = kept.filter { PortfolioCalculator.normalizeCoin(it.coin) == PortfolioCalculator.normalizeCoin(h.coin) }
+                val ledger = sameCoin.firstOrNull { it.ledger.isNotEmpty() }?.ledger
+                val steps = if (ledger == null) partSteps(h, kept) ?: continue
+                else if (sameCoin.first() === h) AddressSurplus.steps(sameCoin.mapNotNull { partSteps(it, kept) }, ledger) else continue
                 var previous = BigDecimal.ZERO
                 for (o in steps) {
                     if (o.balance.signum() < 0) continue
@@ -115,6 +121,16 @@ data class AddressBalanceHistory(
                 }
             }
             return out
+        }
+
+        /**
+         * Stufen der Reihe [h] in [trades]: ohne gebuchte Bewegungen ihrer Adresse und ihres Coins die Beobachtungen; mit
+         * ihnen alle Reihen dieser Adresse und dieses Coins zusammen ohne sie ([AddressBooked.held]) an der ersten, sonst null.
+         */
+        private fun partSteps(h: AddressBalanceHistory, kept: List<AddressBalanceHistory>): List<AddressObservation>? {
+            val group = kept.filter { AddressBooked.sameGroup(it, h) }
+            return if (group.all { it.moves.isEmpty() }) h.observations.sortedBy { it.time }
+            else if (group.first() === h) AddressBooked.held(group) else null
         }
 
         /**

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Openbare adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
     <string name="portfolio_address_label">Etiket (opsioneel)</string>
     <string name="portfolio_address_not_since_buy">Vanaf adres · nie in “Sedert aankoop” nie: %1$s</string>
-    <string name="portfolio_address_overlap">Ook in jou eie transaksies: %1$s – albei word bygetel. Dieselfde munte? Kies “Wys slegs”.</string>
+    <string name="portfolio_address_overlap">Ook in jou eie transaksies: %1$s – net wat die adres meer hou, tel.</string>
     <string name="portfolio_address_overlap_ask">Jy teken %1$s reeds met jou eie transaksies aan. Voeg hierdie adres se saldo by die portefeulje, of wys dit slegs?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” word nou slegs gewys, nie getel nie – %2$s kom ook in jou transaksies voor.</string>
     <string name="portfolio_address_overlap_title">Dieselfde munte as jou transaksies?</string>
-    <string name="portfolio_address_overlap_tx">Dieselfde bedrag as jou eie deposito/oordrag (%1$s) – waarskynlik twee keer getel.</string>
     <string name="portfolio_address_period_observed">Gevolgde adresse tel vanaf hul eerste waargenome saldo; latere veranderinge is in- en uitvloei, nie wins nie.</string>
     <string name="portfolio_address_privacy">Slegs die openbare adres word na %1$s gestuur – nooit sleutels of saadfrases nie. Die verskaffer sien dit saam met jou IP-adres. Hoogstens elke 10 minute gekontroleer.</string>
     <string name="portfolio_address_remove">Verwyder adres</string>

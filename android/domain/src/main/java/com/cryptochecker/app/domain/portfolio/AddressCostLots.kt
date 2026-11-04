@@ -234,7 +234,7 @@ object AddressCostLots {
      * Bewegungen bis zum Abruf des Guthabens ([WatchedAddress.lastUpdated]; unbekannt = alle): nur sie stecken schon im
      * Guthaben, eine spätere Buchung zählt allein als Buchung — wie der Stichtag ([AddressCutoff]) mit seiner Beobachtung.
      */
-    private fun fetched(a: WatchedAddress, trades: List<PortfolioTrade>): List<PortfolioTrade> =
+    fun fetched(a: WatchedAddress, trades: List<PortfolioTrade>): List<PortfolioTrade> =
         if (a.lastUpdated <= 0) trades else trades.filter { it.time <= a.lastUpdated }
 
     /** Zählende Adressen ([counted]) mit ihrer Abdeckung; die erfassten Bewegungen [trades] je Wallet nur einmal ([movesOwners]). */

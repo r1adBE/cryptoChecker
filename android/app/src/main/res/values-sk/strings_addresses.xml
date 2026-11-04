@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Verejná adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) alebo xpub</string>
     <string name="portfolio_address_label">Označenie (voliteľné)</string>
     <string name="portfolio_address_not_since_buy">Z adresy · nie je v „Od nákupu“: %1$s</string>
-    <string name="portfolio_address_overlap">Aj vo vlastných transakciách: %1$s – obe sa sčítajú. Rovnaké coiny? Vyber „Iba zobraziť“.</string>
+    <string name="portfolio_address_overlap">Aj vo vlastných transakciách: %1$s – započíta sa len to, čo má adresa navyše.</string>
     <string name="portfolio_address_overlap_ask">%1$s už zaznamenávaš vlastnými transakciami. Má sa zostatok tejto adresy započítať do portfólia, alebo sa má iba zobraziť?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ sa teraz iba zobrazuje, nezapočítava sa – %2$s sú aj v tvojich transakciách.</string>
     <string name="portfolio_address_overlap_title">Rovnaké coiny ako v tvojich transakciách?</string>
-    <string name="portfolio_address_overlap_tx">Rovnaké množstvo ako tvoj vlastný vklad/presun (%1$s) – asi sa počíta dvakrát.</string>
     <string name="portfolio_address_period_observed">Sledované adresy sa počítajú od prvého zisteného zostatku; neskoršie zmeny sú prítoky/odtoky, nie zisk.</string>
     <string name="portfolio_address_privacy">Na %1$s sa posiela iba verejná adresa – nikdy kľúče ani seed frázy. Poskytovateľ ju vidí spolu s tvojou IP adresou. Kontroluje sa najviac každých 10 minút.</string>
     <string name="portfolio_address_remove">Odstrániť adresu</string>

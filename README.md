@@ -165,8 +165,9 @@ export it yourself.
 
 A watched address counts once: a booked transfer to or from its wallet (wallet = address label) is already in its
 on-chain balance, so the portfolio card, the cut-off CSV and the CH wealth value add only the part not covered by
-bookings or cost-basis lots (cut-off: balance observed by that day, bookings up to that balance check). Only lots
-dated after the last balance check before the cut-off can be missing — the file and the tax card then say so; in
+bookings or cost-basis lots (cut-off: balance observed by that day, bookings up to that balance check). Per coin it
+then adds only what all counting addresses hold beyond your own transactions (own 1.00 BTC, address 1.06 → 0.06; a
+coin only on the address counts in full). Only lots dated after the last balance check before the cut-off can be missing — the file and the tax card then say so; in
 the DE summary the €256 limit for other income is marked «estimated» when a reward was valued at the daily close.
 
 > **Deutsch:** Freiwilliges Portfolio auf dem Gerät (aus ab Werk): selbst erfasste Transaktionen,

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Ochiq manzil (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) yoki xpub</string>
     <string name="portfolio_address_label">Nom (ixtiyoriy)</string>
     <string name="portfolio_address_not_since_buy">Manzildan · «Xariddan beri» ichida emas: %1$s</string>
-    <string name="portfolio_address_overlap">Oʻz tranzaksiyalaringizda ham bor: %1$s – ikkalasi ham qoʻshiladi. Tangalar bir xilmi? «Faqat koʻrsatish»ni tanlang.</string>
+    <string name="portfolio_address_overlap">Oʻz tranzaksiyalaringizda ham bor: %1$s – faqat manzildagi ortiqcha qismi hisoblanadi.</string>
     <string name="portfolio_address_overlap_ask">%1$s allaqachon oʻz tranzaksiyalaringizda hisobga olingan. Bu manzil balansini portfelga qoʻshasizmi yoki faqat koʻrsatasizmi?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» endi faqat koʻrsatiladi, hisobga olinmaydi – %2$s tranzaksiyalaringizda ham bor.</string>
     <string name="portfolio_address_overlap_title">Tangalar tranzaksiyalaringizdagi bilan bir xilmi?</string>
-    <string name="portfolio_address_overlap_tx">Oʻz depozitingiz/oʻtkazmangiz bilan bir xil miqdor (%1$s) – ehtimol ikki marta hisoblangan.</string>
     <string name="portfolio_address_period_observed">Kuzatilayotgan manzillar birinchi kuzatilgan balansdan hisoblanadi; keyingi oʻzgarishlar – kirim/chiqim, foyda emas.</string>
     <string name="portfolio_address_privacy">%1$s xizmatiga faqat ochiq manzil yuboriladi – hech qachon kalitlar yoki seed-iboralar emas. Provayder uni IP manzilingiz bilan birga koʻradi. Koʻpi bilan har 10 daqiqada tekshiriladi.</string>
     <string name="portfolio_address_remove">Manzilni oʻchirish</string>

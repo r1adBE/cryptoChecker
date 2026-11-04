@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">អាសយដ្ឋានសាធារណៈ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ឬ xpub</string>
     <string name="portfolio_address_label">ស្លាក (ស្រេចចិត្ត)</string>
     <string name="portfolio_address_not_since_buy">ពីអាសយដ្ឋាន · មិននៅក្នុង «តាំងពីការទិញ»៖ %1$s</string>
-    <string name="portfolio_address_overlap">ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$s – ទាំងពីរត្រូវបានបូកបញ្ចូល។ កាក់ដូចគ្នាមែនទេ? សូមជ្រើស «បង្ហាញតែប៉ុណ្ណោះ»។</string>
+    <string name="portfolio_address_overlap">ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$s – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប៉ុណ្ណោះដែលត្រូវរាប់។</string>
     <string name="portfolio_address_overlap_ask">អ្នកបានកត់ត្រា %1$s ជាមួយប្រតិបត្តិការផ្ទាល់ខ្លួនរួចហើយ។ បូកសមតុល្យនៃអាសយដ្ឋាននេះទៅក្នុងផលប័ត្រ ឬគ្រាន់តែបង្ហាញវា?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ឥឡូវគ្រាន់តែបង្ហាញ មិនរាប់បញ្ចូលទេ – %2$s ក៏មាននៅក្នុងប្រតិបត្តិការរបស់អ្នកដែរ។</string>
     <string name="portfolio_address_overlap_title">កាក់ដូចគ្នានឹងប្រតិបត្តិការរបស់អ្នកមែនទេ?</string>
-    <string name="portfolio_address_overlap_tx">ចំនួនដូចគ្នានឹងការដាក់ប្រាក់/ការផ្ទេររបស់អ្នក (%1$s) – ទំនងជារាប់ពីរដង។</string>
     <string name="portfolio_address_period_observed">អាសយដ្ឋានដែលតាមដានត្រូវបានរាប់ចាប់ពីសមតុល្យដែលឃើញដំបូង។ ការប្រែប្រួលក្រោយៗគឺជាលំហូរចូល/ចេញ មិនមែនជាប្រាក់ចំណេញទេ។</string>
     <string name="portfolio_address_privacy">មានតែអាសយដ្ឋានសាធារណៈប៉ុណ្ណោះត្រូវបានផ្ញើទៅ %1$s – មិនដែលផ្ញើសោ ឬ seed phrase ទេ។ អ្នកផ្តល់សេវាឃើញវារួមជាមួយអាសយដ្ឋាន IP របស់អ្នក។ ពិនិត្យយ៉ាងច្រើនរៀងរាល់ 10 នាទីម្តង។</string>
     <string name="portfolio_address_remove">ដកអាសយដ្ឋានចេញ</string>

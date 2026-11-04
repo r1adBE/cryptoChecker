@@ -16,7 +16,8 @@ struct AddressMove: Equatable, Sendable {
 /// t, 0) — `held`. Gebuchte Bewegungen = wirksame Posten (`AddressCostLots.coverage`) und erfasste Bewegungen der Wallet
 /// (`AddressCostLots.recordedMove`, nur die verrechnende Adresse, nur bis zum Abruf des Guthabens); ihre Zeit wird auf die
 /// letzte Beobachtung begrenzt (das zuletzt geladene Guthaben enthält sie wie auf der Karte). Vor der ersten Beobachtung
-/// zählt die Adresse nicht; die letzte Stufe ist der Adress-Teil der Karte. Regeln wie Android (dort beschrieben).
+/// zählt die Adresse nicht; die letzte Stufe ist der Adress-Teil der Karte. Danach zählt je Coin über alle Adressen nur der
+/// Mehrbestand über den eigenen Bestand (`AddressSurplus`, `withLedger`). Regeln wie Android (dort beschrieben).
 enum AddressBooked {
 
     /// Reihen wie `AddressBalanceHistory.of`, an der ersten Reihe je Adresse und Coin die gebuchten Bewegungen (`moves`);
@@ -50,7 +51,27 @@ enum AddressBooked {
                 if !moves.isEmpty { out[first].moves = moves }
             }
         }
+        withLedger(&out, addresses, real: real)
         return out
+    }
+
+    /// An der ersten Reihe je Coin der eigene Bestand als Stufen (`AddressSurplus.ledgerSteps`, Zeiten bis zur letzten
+    /// Beobachtung des Coins) — `AddressBalanceHistory.trades` zählt dann nur den Mehrbestand (`AddressSurplus.steps`).
+    private static func withLedger(_ out: inout [AddressBalanceHistory], _ addresses: [WatchedAddress], real: [PortfolioTx]) {
+        guard !real.isEmpty, !out.isEmpty else { return }
+        let net = AddressSurplus.netMoves(real)
+        let recorded = AddressSurplus.recordedMoves(addresses, real: real)
+        var coins: [String] = []
+        for h in out where !coins.contains(PortfolioCalculator.normalizeCoin(h.coin)) {
+            coins.append(PortfolioCalculator.normalizeCoin(h.coin))
+        }
+        for coin in coins {
+            let series = out.indices.filter { PortfolioCalculator.normalizeCoin(out[$0].coin) == coin }
+            guard let first = series.first else { continue }
+            let last = series.compactMap { i in out[i].observations.map(\.time).max() }.max() ?? 0
+            let steps = AddressSurplus.ledgerSteps(net: net[coin] ?? [], recorded: recorded[coin] ?? [], last: last)
+            if steps.contains(where: { $0.balance > 0 }) { out[first].ledger = steps }
+        }
     }
 
     /// Gleiche Adresse und gleicher Coin (Reihen, die `held` zusammen rechnet).

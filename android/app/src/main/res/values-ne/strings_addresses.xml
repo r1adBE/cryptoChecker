@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">सार्वजनिक ठेगाना (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) वा xpub</string>
     <string name="portfolio_address_label">लेबल (ऐच्छिक)</string>
     <string name="portfolio_address_not_since_buy">ठेगानाबाट · “खरिददेखि” मा समावेश छैन: %1$s</string>
-    <string name="portfolio_address_overlap">तपाईंका आफ्नै कारोबारमा पनि छ: %1$s – दुवै जोडिन्छन्। उही कोइन हुन्? “देखाउने मात्र” छान्नुहोस्।</string>
+    <string name="portfolio_address_overlap">तपाईंका आफ्नै कारोबारमा पनि छ: %1$s – ठेगानामा योभन्दा बढी भएको मात्र गनिन्छ।</string>
     <string name="portfolio_address_overlap_ask">तपाईंले %1$s आफ्नै कारोबारहरूमा पहिले नै राख्नुभएको छ। यो ठेगानाको ब्यालेन्स पोर्टफोलियोमा जोड्ने, वा देखाउने मात्र?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” अब देखाइन्छ मात्र, गणना गरिँदैन – %2$s तपाईंका कारोबारमा पनि छन्।</string>
     <string name="portfolio_address_overlap_title">तपाईंका कारोबारकै कोइन हुन्?</string>
-    <string name="portfolio_address_overlap_tx">तपाईंको आफ्नै जम्मा/स्थानान्तरण (%1$s) जत्तिकै रकम – सम्भवतः दुई पटक गणना भएको।</string>
     <string name="portfolio_address_period_observed">हेरिएका ठेगानाहरू पहिलो पटक देखिएको ब्यालेन्सबाट गणना हुन्छन्; पछिका परिवर्तनहरू आगमन/बहिर्गमन हुन्, नाफा होइन।</string>
     <string name="portfolio_address_privacy">%1$s लाई सार्वजनिक ठेगाना मात्र पठाइन्छ – कुञ्जी वा सीड फ्रेज कहिल्यै पठाइँदैन। प्रदायकले यसलाई तपाईंको IP ठेगानासँगै देख्छ। बढीमा हरेक 10 मिनेटमा जाँच गरिन्छ।</string>
     <string name="portfolio_address_remove">ठेगाना हटाउनुहोस्</string>

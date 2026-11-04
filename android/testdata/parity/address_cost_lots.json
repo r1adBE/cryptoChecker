@@ -13,17 +13,18 @@
         {"id": 2, "coin": "BTC", "type": "SELL", "amount": "0.5", "price": "30000", "time": 1700000000000, "exchange": "Binance"}
       ],
       "coverage": [{"address": 1, "coin": "BTC", "lotted": "0.3", "excess": "0", "unlotted": "0.2"}],
-      "addressPart": {"BTC": "0.2"},
-      "booked": {"BTC": "0.2"},
+      "_comment": "Nur Mehrbestand (AddressSurplus): Adress-Teil 0,2 gegen eigenen Bestand 0,5 auf Binance → 0; Karte 0,8 (eigener Bestand samt Posten).",
+      "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000001000, "coin": "BTC", "amount": "0.3", "price": "10000", "time": 1600000000000, "exchange": "Cold"}],
       "holdingsAt": {"BTC": "0.5"},
       "methods": {
-        "FIFO": {"BTC": {"holdings": "1.0", "address": "0.2", "cost": "16000", "realized": "8000"}},
-        "FIFO_WALLET": {"BTC": {"holdings": "1.0", "address": "0.2", "cost": "13000", "realized": "5000"}},
-        "AVERAGE": {"BTC": {"holdings": "1.0", "address": "0.2", "cost": "14153.84615384615384615384615384615", "realized": "6153.846153846153846153846153846154"}}
+        "FIFO": {"BTC": {"holdings": "0.8", "address": "0", "cost": "16000", "realized": "8000"}},
+        "FIFO_WALLET": {"BTC": {"holdings": "0.8", "address": "0", "cost": "13000", "realized": "5000"}},
+        "AVERAGE": {"BTC": {"holdings": "0.8", "address": "0", "cost": "14153.84615384615384615384615384615", "realized": "6153.846153846153846153846153846154"}}
       },
-      "fr": {"price": "30000", "cost": "7666.666666666666666666666666666667", "addressValueIncluded": true},
-      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.8"}, "address": {"BTC": "0.2"}, "lots": 1, "note": false}
+      "fr": {"price": "30000", "cost": "8846.153846153846153846153846153846", "addressValueIncluded": false},
+      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.8"}, "address": {}, "lots": 1, "note": false}
     },
     {
       "name": "lots above balance are consumed oldest first",
@@ -163,16 +164,16 @@
     },
     {
       "name": "no lots: recorded transfer to the address counts once",
-      "_comment": "Guthaben 1,3 enthält die Umbuchung Binance → Ledger 0,3 auch ohne Einstandsposten; Adress-Teil 1,0, Bestand 1,4 statt 1,7 (Karte, Stichtag, CH-Vermögen).",
+      "_comment": "Guthaben 1,3 enthält die Umbuchung Binance → Ledger 0,3 auch ohne Einstandsposten; Adress-Teil 1,0; nur Mehrbestand über den eigenen Bestand ausserhalb der Adress-Wallet (0,4 − 0,3 = 0,1): 0,9, Bestand 1,3 (Karte, Stichtag, CH-Vermögen).",
       "addresses": [{"id": 9, "chain": "BTC", "address": "bc1qtestnolotin", "label": "Ledger", "lastBalance": "1.3", "lastUpdated": 1703980800000}],
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Ledger"}, {"id": 3, "coin": "BTC", "type": "SELL", "amount": "0.1", "price": "30000", "time": 1650000000000, "exchange": "Binance"}],
       "coverage": [],
-      "addressPart": {"BTC": "1.0"},
-      "booked": {"BTC": "1"},
+      "addressPart": {"BTC": "0.9"},
+      "booked": {"BTC": "0.9"},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.4"},
-      "methods": {"FIFO": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}, "AVERAGE": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}},
-      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.4"}, "address": {"BTC": "1.0"}, "lots": 0, "note": false}
+      "methods": {"FIFO": {"BTC": {"holdings": "1.3", "address": "0.9", "cost": "8000", "realized": "1000"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.3", "address": "0.9", "cost": "8000", "realized": "1000"}}, "AVERAGE": {"BTC": {"holdings": "1.3", "address": "0.9", "cost": "8000", "realized": "1000"}}},
+      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.4"}, "address": {"BTC": "0.9"}, "lots": 0, "note": false}
     },
     {
       "name": "no lots: recorded transfer away from the address is not missing",
@@ -215,16 +216,16 @@
     },
     {
       "name": "movement after the balance check counts only as booking",
-      "_comment": "Guthaben 1,0 abgerufen vor der Umbuchung Binance → Ledger 0,3 — sie steckt noch nicht darin und zählt nur als Buchung (Karte und Stichtag: 1,5).",
+      "_comment": "Guthaben 1,0 abgerufen vor der Umbuchung Binance → Ledger 0,3 — sie steckt noch nicht darin und zählt nur als Buchung; nur Mehrbestand über die eigenen 0,5: Adress-Teil 0,5 (Karte und Stichtag: 1,0).",
       "addresses": [{"id": 13, "chain": "BTC", "address": "bc1qteststale", "label": "Ledger", "lastBalance": "1.0", "lastUpdated": 1650000000000}],
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1680000000000, "transferFrom": "Binance", "transferTo": "Ledger"}],
       "coverage": [],
-      "addressPart": {"BTC": "1.0"},
-      "booked": {"BTC": "1"},
+      "addressPart": {"BTC": "0.5"},
+      "booked": {"BTC": "0.5"},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.5"},
-      "methods": {"FIFO": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}, "AVERAGE": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}},
-      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.5"}, "address": {"BTC": "1.0"}, "lots": 0, "note": false}
+      "methods": {"FIFO": {"BTC": {"holdings": "1.0", "address": "0.5", "cost": "10000", "realized": "0"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.0", "address": "0.5", "cost": "10000", "realized": "0"}}, "AVERAGE": {"BTC": {"holdings": "1.0", "address": "0.5", "cost": "10000", "realized": "0"}}},
+      "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.5"}, "address": {"BTC": "0.5"}, "lots": 0, "note": false}
     },
     {
       "name": "lot after the balance check: cutoff note",
@@ -310,7 +311,8 @@
           {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"},
           {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1726704000000, "transferFrom": "Binance", "transferTo": "Ledger"}
         ],
-        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "0.8"}], "holdings": "1.5", "gain": 7500.0, "percent": 10.0, "firstPoint": 75000.0, "lastPoint": 82500.0}
+        "_comment": "Nur Mehrbestand: Reihe ohne das Gebuchte 0,8, eigener Bestand ausserhalb der Adress-Wallet 0,5 (ab der Umbuchung 0,2) → 0,3, dann 0,6.",
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "0.3"}, {"time": 1726790400000, "type": "DEPOSIT", "amount": "0.3"}], "holdings": "1.3", "gain": 6500.0, "percent": 10.0, "firstPoint": 65000.0, "lastPoint": 71500.0}
       },
       {
         "name": "FIFO per wallet: sale from the address wallet uses the lot, not the observed balance",
@@ -325,7 +327,7 @@
       },
       {
         "name": "FIFO: own sale beyond own holdings leaves the address part alone",
-        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
+        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0. Nur Mehrbestand: 1,5 − eigene 0,5 = 1,0, nach dem Verkauf 0,5 − 0 = 0,5.",
         "method": "FIFO",
         "addresses": [
           {"id": 23, "chain": "BTC", "address": "bc1qtestperiodthree", "label": "Ledger", "lastBalance": "0.5", "lastUpdated": 1727827200000, "observations": [{"t": 1726272000000, "b": "1.5"}, {"t": 1727827200000, "b": "0.5"}]}
@@ -334,11 +336,11 @@
           {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"},
           {"id": 2, "coin": "BTC", "type": "SELL", "amount": "1.0", "price": "50000", "time": 1727654400000, "exchange": "Binance"}
         ],
-        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1.5"}, {"time": 1727827200000, "type": "WITHDRAWAL", "amount": "1"}], "holdings": "0.5", "gain": 2500.0, "percent": 2.5, "firstPoint": 100000.0, "lastPoint": 27500.0}
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1"}, {"time": 1727827200000, "type": "WITHDRAWAL", "amount": "0.5"}], "holdings": "0.5", "gain": 2500.0, "percent": 3.3333333333333335, "firstPoint": 75000.0, "lastPoint": 27500.0}
       },
       {
         "name": "average cost: own sale beyond own holdings leaves the address part alone",
-        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0.",
+        "_comment": "Befund 1 (Re-Review 166): eigener Verkauf über den eigenen Bestand (0,5) hinaus nimmt nichts vom Adress-Teil — eigener Topf bei allen Methoden wie auf der Karte (0 eigen + 0,5 Adresse). Vorher ein Topf: Bestand Ende 0, Gewinn 0. Nur Mehrbestand: 1,5 − eigene 0,5 = 1,0, nach dem Verkauf 0,5 − 0 = 0,5.",
         "method": "AVERAGE",
         "addresses": [
           {"id": 23, "chain": "BTC", "address": "bc1qtestperiodthree", "label": "Ledger", "lastBalance": "0.5", "lastUpdated": 1727827200000, "observations": [{"t": 1726272000000, "b": "1.5"}, {"t": 1727827200000, "b": "0.5"}]}
@@ -347,7 +349,7 @@
           {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"},
           {"id": 2, "coin": "BTC", "type": "SELL", "amount": "1.0", "price": "50000", "time": 1727654400000, "exchange": "Binance"}
         ],
-        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1.5"}, {"time": 1727827200000, "type": "WITHDRAWAL", "amount": "1"}], "holdings": "0.5", "gain": 2500.0, "percent": 2.5, "firstPoint": 100000.0, "lastPoint": 27500.0}
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1"}, {"time": 1727827200000, "type": "WITHDRAWAL", "amount": "0.5"}], "holdings": "0.5", "gain": 2500.0, "percent": 3.3333333333333335, "firstPoint": 75000.0, "lastPoint": 27500.0}
       },
       {
         "name": "observation inside the 7 days: the new balance is a flow at the market price",
@@ -358,7 +360,8 @@
         "trades": [
           {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"}
         ],
-        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1"}, {"time": 1727654400000, "type": "DEPOSIT", "amount": "0.4"}], "holdings": "1.9", "gain": 9500.0, "percent": 10.0, "firstPoint": 75000.0, "lastPoint": 104500.0}
+        "_comment": "Nur Mehrbestand: 1,0 − eigene 0,5 = 0,5, dann 1,4 − 0,5 = 0,9.",
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "0.5"}, {"time": 1727654400000, "type": "DEPOSIT", "amount": "0.4"}], "holdings": "1.4", "gain": 7000.0, "percent": 10.0, "firstPoint": 50000.0, "lastPoint": 77000.0}
       },
       {
         "name": "FIFO per wallet: recorded transfer to the address inside the 7 days counts once",
@@ -370,7 +373,8 @@
           {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"},
           {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1727654400000, "transferFrom": "Binance", "transferTo": "Ledger"}
         ],
-        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "1"}], "holdings": "1.5", "gain": 7500.0, "percent": 10.0, "firstPoint": 75000.0, "lastPoint": 82500.0}
+        "_comment": "Nur Mehrbestand: 1,0 − eigene 0,5 = 0,5; nach der Umbuchung (schon im Guthaben) 1,3 − 0,3 − (0,5 − 0,3) = 0,8.",
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "0.5"}, {"time": 1727740800000, "type": "DEPOSIT", "amount": "0.3"}], "holdings": "1.3", "gain": 6500.0, "percent": 10.0, "firstPoint": 50000.0, "lastPoint": 71500.0}
       }
     ]
   },

@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">عنوان عام (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) أو xpub</string>
     <string name="portfolio_address_label">التسمية (اختياري)</string>
     <string name="portfolio_address_not_since_buy">من عنوان · خارج «منذ الشراء»: %1$s</string>
-    <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – يُجمع الاثنان. نفس العملات؟ اختر «العرض فقط».</string>
+    <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – لا يُحتسب إلا ما يزيد في العنوان عنها.</string>
     <string name="portfolio_address_overlap_ask">أنت تسجّل %1$s بالفعل بمعاملاتك. هل يُضاف رصيد هذا العنوان إلى المحفظة أم يُعرض فقط؟</string>
     <string name="portfolio_address_overlap_auto">«%1$s» يُعرض الآن فقط ولا يُحتسب – %2$s موجودة أيضًا في معاملاتك.</string>
     <string name="portfolio_address_overlap_title">نفس العملات الموجودة في معاملاتك؟</string>
-    <string name="portfolio_address_overlap_tx">نفس كمية إيداعك/تحويلك (%1$s) – على الأرجح محتسبة مرتين.</string>
     <string name="portfolio_address_period_observed">تُحتسب العناوين المراقَبة من أول رصيد مرصود؛ والتغييرات اللاحقة تدفقات داخلة/خارجة وليست ربحًا.</string>
     <string name="portfolio_address_privacy">يُرسَل العنوان العام فقط إلى %1$s – لا مفاتيح ولا عبارات استرداد (seed) أبدًا. يراه المزوّد مع عنوان IP الخاص بك. يُفحص مرة كل 10 دقائق على الأكثر.</string>
     <string name="portfolio_address_remove">إزالة العنوان</string>

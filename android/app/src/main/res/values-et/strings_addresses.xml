@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Avalik aadress (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) või xpub</string>
     <string name="portfolio_address_label">Nimi (valikuline)</string>
     <string name="portfolio_address_not_since_buy">Aadressilt · pole „Ostust alates“ osas: %1$s</string>
-    <string name="portfolio_address_overlap">Ka sinu enda tehingutes: %1$s – mõlemad liidetakse. Samad mündid? Vali „Ainult näita“.</string>
+    <string name="portfolio_address_overlap">Ka sinu enda tehingutes: %1$s – arvesse läheb ainult see, mida aadressil on rohkem.</string>
     <string name="portfolio_address_overlap_ask">Sa juba arvestad %1$s oma tehingutega. Kas lisada selle aadressi saldo portfelli või ainult näidata seda?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ on nüüd ainult näidatud, mitte arvestatud – %2$s on ka sinu tehingutes.</string>
     <string name="portfolio_address_overlap_title">Samad mündid nagu sinu tehingutes?</string>
-    <string name="portfolio_address_overlap_tx">Sama kogus nagu sinu enda sissemaksel/ülekandel (%1$s) – tõenäoliselt arvestatud kaks korda.</string>
     <string name="portfolio_address_period_observed">Jälgitavaid aadresse arvestatakse esimesest täheldatud saldost; hilisemad muutused on sisse-/väljavoolud, mitte kasum.</string>
     <string name="portfolio_address_privacy">Teenusele %1$s saadetakse ainult avalik aadress – mitte kunagi võtmeid ega taastefraase. Teenusepakkuja näeb seda koos sinu IP-aadressiga. Kontrollitakse kõige rohkem iga 10 minuti järel.</string>
     <string name="portfolio_address_remove">Eemalda aadress</string>

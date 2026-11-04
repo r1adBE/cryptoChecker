@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Adresë publike (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ose xpub</string>
     <string name="portfolio_address_label">Etiketa (opsionale)</string>
     <string name="portfolio_address_not_since_buy">Nga adresa · jo në «Që nga blerja»: %1$s</string>
-    <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – mblidhen të dyja. Të njëjtat monedha? Zgjidh «Vetëm shfaq».</string>
+    <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – numërohet vetëm ajo që adresa ka më shumë.</string>
     <string name="portfolio_address_overlap_ask">E regjistron tashmë %1$s me transaksionet e tua. Të llogaritet balanca e kësaj adrese në portofol apo vetëm të shfaqet?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» tani vetëm shfaqet, nuk llogaritet – %2$s shfaqen edhe në transaksionet e tua.</string>
     <string name="portfolio_address_overlap_title">Të njëjtat monedha si në transaksionet e tua?</string>
-    <string name="portfolio_address_overlap_tx">E njëjta sasi si depozita/transferimi yt (%1$s) – ndoshta llogaritet dy herë.</string>
     <string name="portfolio_address_period_observed">Adresat e ndjekura llogariten nga balanca e parë e vërejtur; ndryshimet e mëvonshme janë hyrje/dalje, jo fitim.</string>
     <string name="portfolio_address_privacy">Te %1$s dërgohet vetëm adresa publike – kurrë çelësa ose fraza seed. Ofruesi e sheh bashkë me adresën tënde IP. Kontrollohet jo më shpesh se çdo 10 minuta.</string>
     <string name="portfolio_address_remove">Hiq adresën</string>

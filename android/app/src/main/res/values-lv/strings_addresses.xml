@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Publiska adrese (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) vai xpub</string>
     <string name="portfolio_address_label">Nosaukums (nav obligāts)</string>
     <string name="portfolio_address_not_since_buy">No adreses · nav iekļauts „Kopš pirkuma“: %1$s</string>
-    <string name="portfolio_address_overlap">Ir arī tavos darījumos: %1$s – tiek saskaitīts abos. Tās pašas monētas? Izvēlies „Tikai rādīt“.</string>
+    <string name="portfolio_address_overlap">Ir arī tavos darījumos: %1$s – tiek skaitīts tikai tas, kas adresē ir vairāk.</string>
     <string name="portfolio_address_overlap_ask">Tu jau uzskaiti %1$s ar saviem darījumiem. Ieskaitīt šīs adreses atlikumu portfelī vai tikai to rādīt?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ tagad tikai tiek rādīts, netiek ieskaitīts – %2$s ir arī tavos darījumos.</string>
     <string name="portfolio_address_overlap_title">Tās pašas monētas kā tavos darījumos?</string>
-    <string name="portfolio_address_overlap_tx">Tāds pats daudzums kā tavai iemaksai/pārskaitījumam (%1$s) – droši vien tiek skaitīts divreiz.</string>
     <string name="portfolio_address_period_observed">Vērojamās adreses tiek skaitītas no pirmā novērotā atlikuma; vēlākas izmaiņas ir ienākumi/izejas, nevis peļņa.</string>
     <string name="portfolio_address_privacy">Uz %1$s tiek sūtīta tikai publiskā adrese – nekad atslēgas vai atkopšanas frāzes. Pakalpojuma sniedzējs to redz kopā ar tavu IP adresi. Pārbaude ne biežāk kā ik pēc 10 minūtēm.</string>
     <string name="portfolio_address_remove">Noņemt adresi</string>

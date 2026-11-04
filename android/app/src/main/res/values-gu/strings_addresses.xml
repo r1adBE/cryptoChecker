@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">સાર્વજનિક સરનામું (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) અથવા xpub</string>
     <string name="portfolio_address_label">લેબલ (વૈકલ્પિક)</string>
     <string name="portfolio_address_not_since_buy">સરનામા પરથી · “ખરીદીથી” માં નથી: %1$s</string>
-    <string name="portfolio_address_overlap">તમારા પોતાના વ્યવહારોમાં પણ છે: %1$s – બંને ઉમેરાય છે. એ જ કૉઇન છે? “ફક્ત બતાવો” પસંદ કરો.</string>
+    <string name="portfolio_address_overlap">તમારા પોતાના વ્યવહારોમાં પણ છે: %1$s – સરનામે તેનાથી વધુ જે છે, ફક્ત તે જ ગણાય છે.</string>
     <string name="portfolio_address_overlap_ask">તમે %1$s પહેલેથી પોતાના વ્યવહારો તરીકે નોંધો છો. આ સરનામાનું બેલેન્સ પોર્ટફોલિયોમાં ઉમેરવું છે કે ફક્ત બતાવવું છે?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” હવે ફક્ત બતાવાય છે, ગણાતું નથી – %2$s તમારા વ્યવહારોમાં પણ છે.</string>
     <string name="portfolio_address_overlap_title">તમારા વ્યવહારો જેવા જ કૉઇન છે?</string>
-    <string name="portfolio_address_overlap_tx">તમારી પોતાની ડિપોઝિટ/ટ્રાન્સફર (%1$s) જેટલી જ રકમ – કદાચ બે વાર ગણાયું છે.</string>
     <string name="portfolio_address_period_observed">જોવાતાં સરનામાં તેમના પહેલી વાર દેખાયેલા બેલેન્સથી ગણાય છે; પછીના ફેરફારો આવક/જાવક છે, નફો નથી.</string>
     <string name="portfolio_address_privacy">ફક્ત સાર્વજનિક સરનામું %1$s ને મોકલાય છે – ક્યારેય કી કે સીડ ફ્રેઝ નહીં. પ્રદાતા તેને તમારા IP સરનામા સાથે જુએ છે. વધુમાં વધુ દર 10 મિનિટે તપાસાય છે.</string>
     <string name="portfolio_address_remove">સરનામું દૂર કરો</string>

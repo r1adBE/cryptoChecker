@@ -775,7 +775,7 @@
       }
     },
     {
-      "name": "recorded transfer to an address without lot: counted once",
+      "name": "recorded transfer to an address without lot: counted once, only the surplus over own holdings",
       "methods": [
         "FIFO",
         "FIFO_WALLET",
@@ -828,17 +828,17 @@
         "rows": [
           [
             "BTC",
-            "1.4",
-            "126000",
-            "100800",
+            "1.3",
+            "117000",
+            "93600",
             false
           ]
         ],
-        "totalUsdt": "126000",
-        "totalTarget": "100800",
+        "totalUsdt": "117000",
+        "totalTarget": "93600",
         "incomplete": false,
         "noFx": false,
-        "moneyTotal": "100800.00",
+        "moneyTotal": "93600.00",
         "addressNote": false
       }
     },

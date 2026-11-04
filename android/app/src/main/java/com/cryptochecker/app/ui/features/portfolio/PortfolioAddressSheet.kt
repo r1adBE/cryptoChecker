@@ -90,8 +90,6 @@ internal fun PortfolioAddressSheet(
     }
     // Eigene Einzahlungen/Umbuchungen: gleiche Menge wie Guthaben bzw. beobachteter Zugang = sehr wahrscheinlich doppelt
     val trades = remember(transactions) { transactions.orEmpty().map { it.toTrade() } }
-    // «Zählen» nach dieser Warnung: für dieses Blatt bestätigt (nur im Speicher, allgemeiner Hinweis bleibt)
-    var countConfirmed by remember { mutableStateOf(emptySet<Long>()) }
     // Beim Hinzufügen: Coin schon mit eigenen Transaktionen erfasst → fragen «Zählen» / «Nur anzeigen»
     var askOverlap by remember { mutableStateOf<AddressChain?>(null) }
     // Nicht «saveable»: eine versehentlich eingefügte Seed-Phrase soll nicht im gesicherten Zustand landen
@@ -279,12 +277,9 @@ internal fun PortfolioAddressSheet(
                     )
                 }
                 items(addresses, key = { "a:${it.id}" }) { a ->
-                    val matches = remember(a, trades) { WatchedAddressRules.transferMatches(a, trades) }
                     AddressRow(
                         a, now, hideAmounts,
                         overlap = WatchedAddressRules.overlap(a, ownCoins),
-                        matches = if (a.id in countConfirmed) emptyList() else matches,
-                        onCount = { countConfirmed = countConfirmed + a.id },
                         onRemove = { askRemove = a },
                         onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
                         onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },

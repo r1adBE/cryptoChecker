@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Публичный адрес (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Метка (необязательно)</string>
     <string name="portfolio_address_not_since_buy">С адреса · не входит в «С покупки»: %1$s</string>
-    <string name="portfolio_address_overlap">Также в твоих собственных транзакциях: %1$s – учитывается и то и другое. Те же монеты? Выбери «Только показывать».</string>
+    <string name="portfolio_address_overlap">Также в твоих собственных транзакциях: %1$s – учитывается только то, что на адресе сверх этого.</string>
     <string name="portfolio_address_overlap_ask">Ты уже учитываешь %1$s в собственных транзакциях. Добавить баланс этого адреса в портфель или только показывать?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» теперь только показывается и не учитывается – %2$s есть и в твоих транзакциях.</string>
     <string name="portfolio_address_overlap_title">Те же монеты, что в твоих транзакциях?</string>
-    <string name="portfolio_address_overlap_tx">То же количество, что и твоё пополнение/перевод (%1$s) – вероятно учтено дважды.</string>
     <string name="portfolio_address_period_observed">Отслеживаемые адреса учитываются с первого замеченного баланса; дальнейшие изменения – это поступления/списания, а не прибыль.</string>
     <string name="portfolio_address_privacy">В %1$s отправляется только публичный адрес – никогда ключи или seed-фразы. Провайдер видит его вместе с твоим IP-адресом. Проверка не чаще чем раз в 10 минут.</string>
     <string name="portfolio_address_remove">Удалить адрес</string>

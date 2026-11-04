@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Offentlig adresse (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eller xpub</string>
     <string name="portfolio_address_label">Etikett (valgfritt)</string>
     <string name="portfolio_address_not_since_buy">Fra adresse · ikke i «Siden kjøp»: %1$s</string>
-    <string name="portfolio_address_overlap">Også i dine egne transaksjoner: %1$s – begge legges sammen. Samme coins? Velg «Bare vis».</string>
+    <string name="portfolio_address_overlap">Også i dine egne transaksjoner: %1$s – bare det adressen har utover dem, telles.</string>
     <string name="portfolio_address_overlap_ask">Du registrerer allerede %1$s med egne transaksjoner. Skal saldoen for denne adressen telle med i porteføljen eller bare vises?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» vises nå bare og telles ikke med – %2$s finnes også i transaksjonene dine.</string>
     <string name="portfolio_address_overlap_title">Samme coins som i transaksjonene dine?</string>
-    <string name="portfolio_address_overlap_tx">Samme mengde som ditt eget innskudd/overføring (%1$s) – telles trolig dobbelt.</string>
     <string name="portfolio_address_period_observed">Overvåkede adresser teller fra den første observerte saldoen; senere endringer er inn-/utstrømmer, ikke gevinst.</string>
     <string name="portfolio_address_privacy">Bare den offentlige adressen sendes til %1$s – aldri nøkler eller seed-fraser. Leverandøren ser den sammen med IP-adressen din. Sjekkes høyst hvert 10. minutt.</string>
     <string name="portfolio_address_remove">Fjern adresse</string>

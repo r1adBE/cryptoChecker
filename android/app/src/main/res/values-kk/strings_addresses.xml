@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Ашық мекенжай (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) немесе xpub</string>
     <string name="portfolio_address_label">Белгі (міндетті емес)</string>
     <string name="portfolio_address_not_since_buy">Мекенжайдан · «Сатып алғаннан бері» ішінде емес: %1$s</string>
-    <string name="portfolio_address_overlap">Өз транзакцияларыңызда да бар: %1$s – екеуі де қосылады. Монеталар бірдей ме? «Тек көрсету» таңдаңыз.</string>
+    <string name="portfolio_address_overlap">Өз транзакцияларыңызда да бар: %1$s – тек мекенжайдағы артық бөлігі ғана есептеледі.</string>
     <string name="portfolio_address_overlap_ask">%1$s өз транзакцияларыңызда есепке алынған. Осы мекенжай балансын портфельге қосу керек пе, әлде тек көрсету керек пе?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» енді тек көрсетіледі, есепке алынбайды – %2$s транзакцияларыңызда да бар.</string>
     <string name="portfolio_address_overlap_title">Монеталар транзакцияларыңыздағымен бірдей ме?</string>
-    <string name="portfolio_address_overlap_tx">Өз депозитіңізбен/аударымыңызбен бірдей сома (%1$s) – екі рет есептелуі мүмкін.</string>
     <string name="portfolio_address_period_observed">Бақыланатын мекенжайлар алғаш байқалған балансынан бастап есептеледі; кейінгі өзгерістер – кіріс/шығыс, пайда емес.</string>
     <string name="portfolio_address_privacy">%1$s қызметіне тек ашық мекенжай жіберіледі – ешқашан кілттер немесе seed-фразалар емес. Провайдер оны IP мекенжайыңызбен бірге көреді. Ең жиі 10 минут сайын тексеріледі.</string>
     <string name="portfolio_address_remove">Мекенжайды жою</string>

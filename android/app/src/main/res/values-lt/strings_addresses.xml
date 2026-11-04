@@ -7,11 +7,10 @@
     <string name="portfolio_address_hint">Viešas adresas (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) arba xpub</string>
     <string name="portfolio_address_label">Pavadinimas (neprivaloma)</string>
     <string name="portfolio_address_not_since_buy">Iš adreso · neįtraukta į „Nuo pirkimo“: %1$s</string>
-    <string name="portfolio_address_overlap">Taip pat yra tavo transakcijose: %1$s – sumuojama abu. Tos pačios monetos? Pasirink „Tik rodyti“.</string>
+    <string name="portfolio_address_overlap">Taip pat yra tavo transakcijose: %1$s – skaičiuojama tik tai, ką adresas turi daugiau.</string>
     <string name="portfolio_address_overlap_ask">%1$s jau registruoji savo transakcijomis. Įtraukti šio adreso likutį į portfelį ar tik jį rodyti?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ dabar tik rodomas, neįskaičiuojamas – %2$s yra ir tavo transakcijose.</string>
     <string name="portfolio_address_overlap_title">Tos pačios monetos kaip tavo transakcijose?</string>
-    <string name="portfolio_address_overlap_tx">Toks pat kiekis kaip tavo įnašo / pervedimo (%1$s) – tikriausiai skaičiuojama dukart.</string>
     <string name="portfolio_address_period_observed">Stebimi adresai skaičiuojami nuo pirmojo pastebėto likučio; vėlesni pokyčiai yra įplaukos / išmokos, ne pelnas.</string>
     <string name="portfolio_address_privacy">Į %1$s siunčiamas tik viešas adresas – niekada ne raktai ar atkūrimo frazės. Teikėjas jį mato kartu su tavo IP adresu. Tikrinama ne dažniau kaip kas 10 minučių.</string>
     <string name="portfolio_address_remove">Pašalinti adresą</string>

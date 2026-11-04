@@ -52,6 +52,9 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     /// Gebuchte Bewegungen, die diese Reihe enthält (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet) — nur an der
     /// ersten Reihe je Adresse und Coin, gesetzt von `AddressBooked.histories`; `trades` rechnet sie heraus.
     var moves: [AddressMove] = []
+    /// Eigener Bestand des Coins als Stufen (`AddressSurplus.ledgerSteps`) — nur an der ersten Reihe je Coin, gesetzt von
+    /// `AddressBooked.histories`; `trades` zählt dann nur den Mehrbestand aller Adressen des Coins (`AddressSurplus.steps`).
+    var ledger: [AddressObservation] = []
 
     private enum CodingKeys: String, CodingKey { case chain, address, observations, token, key }
 
@@ -85,7 +88,8 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     /// (+) bzw. Auszahlung (−) der Differenz OHNE Preis mit negativer Id (`AddressBalance.isAddressTrade`) —
     /// `PortfolioPeriodChange` und `PortfolioHistory` bewerten sie zum Marktkurs ihres Zeitpunkts. Dieselbe Adresse
     /// (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe). Reihen mit gebuchten Bewegungen (`moves`) zählen
-    /// ohne sie (`AddressBooked.held`). Wie Android.
+    /// ohne sie (`AddressBooked.held`). Mit eigenem Bestand (`ledger`) zählen alle Adressen des Coins zusammen nur den
+    /// Mehrbestand (`AddressSurplus.steps`). Wie Android.
     static func trades(_ histories: [AddressBalanceHistory]) -> [PortfolioTx] {
         var out: [PortfolioTx] = []
         var kept: [AddressBalanceHistory] = []
@@ -96,15 +100,16 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
         }
         var nextId: Int64 = -1_000_001
         for (index, h) in kept.enumerated() {
-            // Mit gebuchten Bewegungen: alle Reihen dieser Adresse und dieses Coins zusammen ohne sie (`AddressBooked.held`)
-            let group = kept.indices.filter { AddressBooked.sameGroup(kept[$0], h) }
+            let sameCoin = kept.indices.filter {
+                PortfolioCalculator.normalizeCoin(kept[$0].coin) == PortfolioCalculator.normalizeCoin(h.coin)
+            }
+            let ledger = sameCoin.first(where: { !kept[$0].ledger.isEmpty }).map { kept[$0].ledger }
             let steps: [AddressObservation]
-            if group.allSatisfy({ kept[$0].moves.isEmpty }) {
-                steps = h.observations.enumerated()
-                    .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
-                    .map(\.element)
-            } else if group.first == index {
-                steps = AddressBooked.held(group.map { kept[$0] })
+            if let ledger {
+                guard sameCoin.first == index else { continue }
+                steps = AddressSurplus.steps(sameCoin.compactMap { partSteps($0, kept) }, ledger: ledger)
+            } else if let own = partSteps(index, kept) {
+                steps = own
             } else {
                 continue
             }
@@ -119,6 +124,19 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
             }
         }
         return out
+    }
+
+    /// Stufen der Reihe `kept[index]` in `trades`: ohne gebuchte Bewegungen ihrer Adresse und ihres Coins die Beobachtungen;
+    /// mit ihnen alle Reihen dieser Adresse und dieses Coins zusammen ohne sie (`AddressBooked.held`) an der ersten, sonst nil.
+    private static func partSteps(_ index: Int, _ kept: [AddressBalanceHistory]) -> [AddressObservation]? {
+        let h = kept[index]
+        let group = kept.indices.filter { AddressBooked.sameGroup(kept[$0], h) }
+        if group.allSatisfy({ kept[$0].moves.isEmpty }) {
+            return h.observations.enumerated()
+                .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
+                .map(\.element)
+        }
+        return group.first == index ? AddressBooked.held(group.map { kept[$0] }) : nil
     }
 
     /// Beobachtung nach einem erfolgreichen Abruf speichern: gleiches Guthaben wie die letzte Beobachtung → Reihe
