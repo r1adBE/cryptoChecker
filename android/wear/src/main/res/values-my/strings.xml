@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">ဈေးနှုန်း ခေတ်မမီတော့ပါ</string>
     <string name="a11y_watch_no_price_unreachable">စျေးနှုန်းမရှိ၊ %1$s ကို ဆက်သွယ်၍ မရပါ</string>
     <string name="a11y_watch_no_price_phone_only">စျေးနှုန်းမရှိ၊ နာရီက ဤအတွဲကို ဖွင့်၍ မရပါ</string>
+    <string name="a11y_watch_no_price_via_phone">စျေးနှုန်းမရှိ၊ နာရီသည် %1$s စျေးနှုန်းများကို ဖုန်းမှသာ ရယူပါသည်</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d မိနစ်က</item>
     </plurals>

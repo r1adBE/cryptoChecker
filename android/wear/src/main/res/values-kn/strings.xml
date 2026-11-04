@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">ಬೆಲೆ ಹಳೆಯದು</string>
     <string name="a11y_watch_no_price_unreachable">ಬೆಲೆ ಇಲ್ಲ, %1$s ತಲುಪಲಾಗುತ್ತಿಲ್ಲ</string>
     <string name="a11y_watch_no_price_phone_only">ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ ಈ ಜೋಡಿಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗದು</string>
+    <string name="a11y_watch_no_price_via_phone">ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ %1$s ಬೆಲೆಗಳನ್ನು ಫೋನ್‌ನಿಂದ ಮಾತ್ರ ಪಡೆಯುತ್ತದೆ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d ನಿಮಿಷದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
         <item quantity="other">%1$d ನಿಮಿಷಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>

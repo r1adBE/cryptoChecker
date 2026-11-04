@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Giá đã cũ</string>
     <string name="a11y_watch_no_price_unreachable">không có giá, không kết nối được %1$s</string>
     <string name="a11y_watch_no_price_phone_only">không có giá, đồng hồ không tải được cặp này</string>
+    <string name="a11y_watch_no_price_via_phone">không có giá, đồng hồ chỉ nhận giá %1$s qua điện thoại</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">cập nhật lần cuối %1$d phút trước</item>
     </plurals>

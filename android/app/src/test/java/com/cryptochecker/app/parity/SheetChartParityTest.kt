@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.widget.WidgetCandle
@@ -32,13 +33,26 @@ class SheetChartParityTest {
         for (raw in cases) {
             val c = raw.obj()
             val name = c["name"] as String
+            // Tag darf gebrochen sein (Stundenkerzen: 20.5 = 12:00 UTC am Tag 20)
             val candles = c["candles"].list().map { pair ->
                 val (day, price) = pair.list().map { it.num()!! }
-                WidgetCandle(openTime = day.toLong() * 86_400_000L, open = price, high = price, low = price, close = price)
+                WidgetCandle(openTime = (day * 86_400_000.0).toLong(), open = price, high = price, low = price, close = price)
             }
-            val rates = (c["dailyRates"] as Map<*, *>?)?.entries?.associate { (k, v) -> (k as String).toLong() to v.num()!! }
+            val rates = byDay(c["dailyRates"])
             val request = SheetCandleRequest("BTC", "USDT", convert = c["convert"] as Boolean)
-            val result = SheetChart.accept(candles, request, c["price"].num(), rates, c["currentRate"].num(), c["usdtUsd"].num())
+            val live = c["usdtLive"].num()
+            val daily = byDay(c["usdtDaily"])
+            val usdt = if (live != null || daily != null) UsdtUsdRates(live, daily.orEmpty()) else null
+            val today = c["today"].num()?.toLong() ?: Math.floorDiv(candles.last().openTime, 86_400_000L)
+            val result = SheetChart.accept(candles, request, c["price"].num(), rates, c["currentRate"].num(), usdt, today)
+            val assumed = c["usdtAssumed"] as Boolean?
+            if (assumed != null) {
+                assertNotNull("$name: note needs a chart", result)
+                val note = SheetChart.usdtParityNote(
+                    SheetChart.fxMode(request, rates), "BTC/USDT", SheetChart.usdtApproximate(result!!, usdt, today),
+                )
+                assertEquals("$name: note «USDT = 1 assumed»", assumed, note)
+            }
             val e = c["expected"]
             if (e == null) {
                 assertNull("$name: expected no chart", result)
@@ -49,6 +63,9 @@ class SheetChartParityTest {
             near("$name last", e.obj()["last"].num()!!, result.last().close)
         }
     }
+
+    private fun byDay(raw: Any?): Map<Long, Double>? =
+        (raw as Map<*, *>?)?.entries?.associate { (k, v) -> (k as String).toLong() to v.num()!! }
 
     @Test
     fun widget() {
@@ -74,7 +91,7 @@ class SheetChartParityTest {
             val c = raw.obj()
             val name = c["name"] as String
             val closes = c["closes"].list().map { it.num()!! }
-            val result = SheetChart.sparklineFor(closes, c["price"].num(), c["quoteUsd"].num())
+            val result = SheetChart.sparklineFor(closes, c["price"].num(), c["quoteUsd"].num(), c["usdtUsd"].num())
             assertEquals(name, c["shown"] as Boolean, result != null)
             if (result != null) assertEquals(name, closes, result)
         }

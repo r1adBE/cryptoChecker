@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import kotlin.math.abs
 
 /**
@@ -28,7 +29,7 @@ data class DayReference(val open: Double, val lastClose: Double) {
  *  1. Kerzen des Paars selbst (USD-artige Quotes teilen sich die USDT-Reihe des
  *     Mini-Charts): aktueller Kurs gegen die Eröffnung vor 24 h.
  *  2. Fiat-Quote ohne eigene Kerzen (z. B. BTC/CHF): USDT-Reihe, in Fiat umgerechnet mit dem
- *     Devisenkurs an BEIDEN Enden (jetzt und vor 24 h); fehlt einer, kein Wert — nie der
+ *     Devisenkurs und USDT/USD an BEIDEN Enden (jetzt und vor 24 h); fehlt ein Devisenkurs, kein Wert — nie der
  *     USDT-Prozentwert als Fiat-Wert ([fromUsdtSeries]). Der Hinweis im Aktionsblatt nennt
  *     dann «Anbieter USDT» ([candleSourceName]).
  *  3. Sonst nichts (null → Anzeige «—»), nie die Veränderung seit der letzten Abfrage.
@@ -182,23 +183,39 @@ object DayChange {
     const val USDT_QUOTE = "USDT"
 
     /**
-     * 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × [usdToQuote] (Fiat je
-     * USD jetzt, USDT gilt als USD) gegen Eröffnung × [usdToQuoteAtOpen] (Fiat je USD vor 24 h).
-     * Fehlt einer der beiden Kurse (null, nicht endlich, ≤ 0) → null: der USDT-Prozentwert ist
+     * 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × [usdtUsd] × [usdToQuote] (USDT/USD
+     * und Fiat je USD jetzt) gegen Eröffnung × [usdtUsdAtOpen] × [usdToQuoteAtOpen] (vor 24 h) — so zählt ein
+     * USDT-Depeg mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD jetzt = Live-Kurs
+     * ([PortfolioStables.usdtUsdLive]), zur Eröffnung = Tagesschluss jenes Tags ([PortfolioStables.usdtUsd]); fehlt
+     * einer, gilt dort 1 (Näherung, [usdtSeriesApproximate]).
+     * Fehlt einer der beiden Devisenkurse (null, nicht endlich, ≤ 0) → null: der USDT-Prozentwert ist
      * kein Fiat-Wert (Wechselkursbewegung fehlt), also lieber «—».
      * Kursabstand-Prüfung wie [fromPrice] ([MAX_PRICE_GAP]): weicht der Paarkurs (in Fiat) um mehr
      * als 25 % vom umgerechneten letzten Schluss ab, gehört die Reihe wohl zu einem anderen Token
      * → null. Ohne Paarkurs entfällt nur diese Prüfung.
      */
-    fun fromUsdtSeries(price: Double?, reference: DayReference?, usdToQuote: Double?, usdToQuoteAtOpen: Double?): Double? {
+    fun fromUsdtSeries(
+        price: Double?,
+        reference: DayReference?,
+        usdToQuote: Double?,
+        usdToQuoteAtOpen: Double?,
+        usdtUsd: Double? = null,
+        usdtUsdAtOpen: Double? = null,
+    ): Double? {
         val ref = reference ?: return null
-        val rate = usdToQuote?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-        val rateAtOpen = usdToQuoteAtOpen?.takeIf { it.isFinite() && it > 0.0 } ?: return null
+        val fx = usdToQuote?.takeIf { it.isFinite() && it > 0.0 } ?: return null
+        val fxAtOpen = usdToQuoteAtOpen?.takeIf { it.isFinite() && it > 0.0 } ?: return null
+        val rate = fx * PortfolioStables.usdtUsdLive(usdtUsd).rate
+        val rateAtOpen = fxAtOpen * PortfolioStables.usdtUsd(usdtUsdAtOpen).rate
         val p = price?.takeIf { it.isFinite() && it > 0.0 }
         if (p != null && abs(p / (ref.lastClose * rate) - 1.0) > MAX_PRICE_GAP) return null
         val open = ref.open * rateAtOpen
         return (ref.lastClose * rate - open) / open * 100.0
     }
+
+    /** Rechnet [fromUsdtSeries] an einem Ende mit USDT = 1 (kein Live-Kurs bzw. kein Tagesschluss USDT/USD)? */
+    fun usdtSeriesApproximate(usdtUsd: Double?, usdtUsdAtOpen: Double?): Boolean =
+        PortfolioStables.usdtUsdLive(usdtUsd).approximate || PortfolioStables.usdtUsd(usdtUsdAtOpen).approximate
 
     /**
      * Auswahl in fester Reihenfolge (siehe Klassenbeschreibung).
@@ -207,6 +224,8 @@ object DayChange {
      * @param quoteIsFiat Quote ist eine Landeswährung (EUR, CHF, …)
      * @param usdToQuote Fiat je USD jetzt ([fromUsdtSeries]); null = unbekannt
      * @param usdToQuoteAtOpen Fiat je USD zur Eröffnung der Reihe (vor 24 h bzw. Tagesbeginn); null = unbekannt
+     * @param usdtUsd USDT/USD jetzt (Live-Kurs); null = 1 (Näherung)
+     * @param usdtUsdAtOpen USDT/USD-Tagesschluss am Tag der Eröffnung; null = 1 (Näherung)
      */
     fun select(
         price: Double?,
@@ -215,9 +234,11 @@ object DayChange {
         quoteIsFiat: Boolean,
         usdToQuote: Double? = null,
         usdToQuoteAtOpen: Double? = null,
+        usdtUsd: Double? = null,
+        usdtUsdAtOpen: Double? = null,
     ): Double? {
         if (pairReference != null) return fromPrice(price, pairReference)
-        if (quoteIsFiat) return fromUsdtSeries(price, usdtReference, usdToQuote, usdToQuoteAtOpen)
+        if (quoteIsFiat) return fromUsdtSeries(price, usdtReference, usdToQuote, usdToQuoteAtOpen, usdtUsd, usdtUsdAtOpen)
         return null
     }
 }

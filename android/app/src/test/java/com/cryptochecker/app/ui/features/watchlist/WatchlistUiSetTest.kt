@@ -43,13 +43,13 @@ class WatchlistConversionNoteTest {
 
     @Test
     fun chartFromUsdtSeriesNotesUsdtParity() {
-        // Ohne Marktkurs USDT/USD: USDT = 1 angenommen
-        assertTrue(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", null))
-        assertTrue(SheetChart.usdtParityNote(SheetChartFx.CURRENT, null, null))
-        // Mit Marktkurs gerechnet: kein Vermerk (wie Transaktionsblatt und Portfolio-Alarm)
-        assertFalse(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", 0.999))
-        assertFalse(SheetChart.usdtParityNote(SheetChartFx.NONE, "BTC/CHF", null))
-        assertFalse(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDC", null))
+        // An mindestens einem Tag ohne Marktkurs USDT/USD: USDT = 1 angenommen
+        assertTrue(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", usdtApproximate = true))
+        assertTrue(SheetChart.usdtParityNote(SheetChartFx.CURRENT, null, usdtApproximate = true))
+        // Jeder Tag mit Marktkurs gerechnet: kein Vermerk (wie Transaktionsblatt und Portfolio-Alarm)
+        assertFalse(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", usdtApproximate = false))
+        assertFalse(SheetChart.usdtParityNote(SheetChartFx.NONE, "BTC/CHF", usdtApproximate = true))
+        assertFalse(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDC", usdtApproximate = true))
     }
 }
 

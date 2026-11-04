@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Praghas as dáta</string>
     <string name="a11y_watch_no_price_unreachable">gan phraghas, níl %1$s ar fáil</string>
     <string name="a11y_watch_no_price_phone_only">gan phraghas, ní féidir leis an uaireadóir an péire seo a lódáil</string>
+    <string name="a11y_watch_no_price_via_phone">gan phraghas, ní fhaigheann an t-uaireadóir praghsanna %1$s ach ón bhfón</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nuashonraithe %1$d nóiméad ó shin</item>
         <item quantity="two">nuashonraithe %1$d nóiméad ó shin</item>

@@ -1,6 +1,8 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
+import com.cryptochecker.app.domain.portfolio.UsdtUsd
+import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import com.cryptochecker.app.widget.ChartLevels
 import com.cryptochecker.app.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartGeometry
@@ -118,8 +120,10 @@ object SheetChart {
      *    Dazu ein gemeinsamer Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
      *  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
      *    des Paars entspricht (Verlauf in Prozent wie [DayChange.fromSeries]).
-     *  - USDT → USD mit dem Marktkurs [usdtUsd] (wie Portfolio, [PortfolioStables.usdtUsdLive]); ohne ihn 1 (Näherung,
-     *    [usdtParityNote]).
+     *  - USDT → USD je Kerze mit dem Marktkurs IHRES Tags ([usdt], wie der Wertverlauf des Portfolios,
+     *    [UsdtUsdRates.on]): ab [todayEpochDay] (UTC) der Live-Kurs, davor der Tagesschluss USDT/USD dieses Tags; fehlt er,
+     *    gilt 1 (Näherung, [usdtApproximate] → [usdtParityNote]). Ohne [usdt] überall 1. Auch ohne Tageskurse
+     *    (ein Devisenkurs): so zeigt der Verlauf in Fiat einen USDT-Depeg.
      * @param currentRate aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse)
      */
     fun accept(
@@ -128,7 +132,8 @@ object SheetChart {
         price: Double?,
         dailyRates: Map<Long, Double>? = null,
         currentRate: Double? = null,
-        usdtUsd: Double? = null,
+        usdt: UsdtUsdRates? = null,
+        todayEpochDay: Long = utcEpochDay(System.currentTimeMillis()),
     ): List<WidgetCandle>? {
         val clean = candles.orEmpty().filter {
             it.open.isFinite() && it.high.isFinite() && it.low.isFinite() && it.close.isFinite() &&
@@ -143,15 +148,17 @@ object SheetChart {
             return clean
         }
         val sorted = sortedRates(dailyRates)
-        val usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
+        // USDT/USD je Kerze (Tag der Kerze)
+        val u = clean.map { usdtOn(usdt, it.openTime, todayEpochDay).rate }
         if (sorted.isEmpty()) {
             val rate = currentRate?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-            if (abs(p / (last * rate * usdt) - 1.0) > DayChange.MAX_PRICE_GAP) return null
-            val factor = p / last
+            val lastUsd = last * u.last()
+            if (abs(p / (lastUsd * rate) - 1.0) > DayChange.MAX_PRICE_GAP) return null
+            val anchor = p / lastUsd
             // Umsatz in der Quote mit demselben Faktor (USDT → Quote des Paars, Näherung)
-            return clean.map { it.scaled(factor) }
+            return clean.mapIndexed { i, c -> c.scaled(u[i] * anchor) }
         }
-        val rates = clean.map { rateFor(sorted, it.openTime) * usdt }
+        val rates = clean.mapIndexed { i, c -> rateFor(sorted, c.openTime) * u[i] }
         val converted = last * rates.last()
         if (abs(p / converted - 1.0) > DayChange.MAX_PRICE_GAP) return null
         val anchor = p / converted
@@ -161,16 +168,18 @@ object SheetChart {
     /**
      * Mini-Chart der Merkliste: Die Reihe ist immer die USDT-Reihe des Basis-Assets (oft von einer
      * anderen Börse als das Paar, z. B. Binance für ein Kraken-Paar). Gezeigt nur bei gleichem Token
-     * — wie [accept]: letzter Schluss gegen Kurs des Paars [price] × [quoteUsd] (USD je Einheit der
-     * Quote, z. B. 1 für USDT, ~1.1 für EUR) höchstens [DayChange.MAX_PRICE_GAP] daneben.
+     * — wie [accept]: letzter Schluss (USDT) gegen Kurs des Paars [price] × [quoteUsd] (USD je Einheit der
+     * Quote, z. B. ~1.1 für EUR; für USDT schon mit USDT/USD) ÷ USDT/USD [usdtUsd] (Live-Kurs, derselbe wie in
+     * [quoteUsd]; ohne ihn 1) höchstens [DayChange.MAX_PRICE_GAP] daneben. Gezeigt wird nur die Form (ohne Werte).
      * Ohne Kurs oder ohne Umrechnungsfaktor nicht prüfbar → null (kein Mini-Chart).
      */
-    fun sparklineFor(closes: List<Double>?, price: Double?, quoteUsd: Double?): List<Double>? {
+    fun sparklineFor(closes: List<Double>?, price: Double?, quoteUsd: Double?, usdtUsd: Double? = null): List<Double>? {
         val values = closes?.takeIf { it.size >= 2 } ?: return null
         val last = values.last().takeIf { it.isFinite() && it > 0.0 } ?: return null
         val p = price?.takeIf { it.isFinite() && it > 0.0 } ?: return null
         val rate = quoteUsd?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-        return values.takeIf { abs(p * rate / last - 1.0) <= DayChange.MAX_PRICE_GAP }
+        val usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
+        return values.takeIf { abs(p * rate / (last * usdt) - 1.0) <= DayChange.MAX_PRICE_GAP }
     }
 
     /** Art der Umrechnung für die Zeile unter dem Chart (wie [accept] sie anwendet). */
@@ -193,12 +202,20 @@ object SheetChart {
     }
 
     /**
-     * Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]) und ohne Marktkurs USDT/USD ([usdtUsd], wie
-     * [accept]) mit USDT = 1 USD. Nur bei Umrechnung aus USDT — wie Transaktionsblatt und Portfolio-Alarm.
+     * Hängt die Umrechnung von [candles] an mindestens einem Tag an USDT = 1 — heute ohne Live-Kurs, ein früherer Tag
+     * ohne Tagesschluss USDT/USD ([UsdtUsdRates.on], wie [accept])? Ohne [usdt] immer. Wie
+     * [com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.usdtApproximate].
      */
-    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?, usdtUsd: Double?): Boolean {
-        if (fx == SheetChartFx.NONE || !PortfolioStables.usdtUsdLive(usdtUsd).approximate) return false
+    fun usdtApproximate(candles: List<WidgetCandle>, usdt: UsdtUsdRates?, todayEpochDay: Long): Boolean =
+        candles.any { usdtOn(usdt, it.openTime, todayEpochDay).approximate }
+
+    /**
+     * Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
+     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]) und an mindestens einem Tag mit USDT = 1 USD
+     * ([usdtApproximate]). Nur bei Umrechnung aus USDT — wie Transaktionsblatt und Portfolio-Alarm.
+     */
+    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?, usdtApproximate: Boolean): Boolean {
+        if (fx == SheetChartFx.NONE || !usdtApproximate) return false
         val source = sourcePair?.substringAfterLast('/', "")?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: USDT
         return source == USDT
     }
@@ -215,6 +232,12 @@ object SheetChart {
         val day = Math.floorDiv(openTime, DAY_MILLIS)
         return com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.rateOn(sorted, day) ?: sorted.first().second
     }
+
+    /** USDT/USD am (UTC-)Tag der Kerze ([UsdtUsdRates.on]); ohne [usdt] 1 als Näherung. */
+    private fun usdtOn(usdt: UsdtUsdRates?, openTime: Long, todayEpochDay: Long): UsdtUsd =
+        (usdt ?: NO_USDT).on(utcEpochDay(openTime), todayEpochDay)
+
+    private val NO_USDT = UsdtUsdRates(live = null)
 
     private fun WidgetCandle.scaled(factor: Double): WidgetCandle =
         copy(open = open * factor, high = high * factor, low = low * factor, close = close * factor,

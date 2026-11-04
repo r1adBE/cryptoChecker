@@ -218,14 +218,14 @@ final class SheetChartRulesTests: XCTestCase {
         XCTAssertNil(SheetChart.todayRateCaption(.current, sourcePair: "BTC/USDT", quote: " "))
     }
 
-    /// Vermerk «USDT = 1 angenommen» nur bei Umrechnung aus der USDT-Reihe ohne Marktkurs USDT/USD (wie Android).
+    /// Vermerk «USDT = 1 angenommen» nur bei Umrechnung aus der USDT-Reihe mit einem Tag ohne USDT/USD (wie Android).
     func testUsdtParityNoteOnlyForUsdtSeries() {
-        XCTAssertTrue(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtUsd: nil))
-        XCTAssertTrue(SheetChart.usdtParityNote(.current, sourcePair: nil, usdtUsd: nil))
-        // Mit Marktkurs gerechnet: kein Vermerk (wie Transaktionsblatt und Portfolio-Alarm)
-        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtUsd: 0.999))
-        XCTAssertFalse(SheetChart.usdtParityNote(.none, sourcePair: "BTC/CHF", usdtUsd: nil))
-        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDC", usdtUsd: nil))
+        XCTAssertTrue(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtApproximate: true))
+        XCTAssertTrue(SheetChart.usdtParityNote(.current, sourcePair: nil, usdtApproximate: true))
+        // Jeder Tag mit Marktkurs gerechnet: kein Vermerk (wie Transaktionsblatt und Portfolio-Alarm)
+        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtApproximate: false))
+        XCTAssertFalse(SheetChart.usdtParityNote(.none, sourcePair: "BTC/CHF", usdtApproximate: true))
+        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDC", usdtApproximate: true))
     }
 
     func testFxWithoutDailyRatesUsesCurrentFactor() throws {

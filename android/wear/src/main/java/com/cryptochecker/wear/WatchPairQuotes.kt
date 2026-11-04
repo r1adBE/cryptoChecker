@@ -31,6 +31,14 @@ object WatchPairQuotes {
         return listOfNotNull(own) + (kind - setOfNotNull(own))
     }
 
+    /**
+     * Fragt die Uhr die Börse des Paars selbst ab (erste in [venues])? Nein bei Börsen, die sie nicht kennt (Kraken-Spot-Paar:
+     * nur Binance, Bybit, OKX) und bei Paaren, die sie gar nicht selbst lädt — dann sagt «—» nicht «Kraken nicht
+     * erreichbar» (`missingReason`).
+     */
+    fun asksOwnExchange(pair: WatchPair): Boolean =
+        venues(pair).firstOrNull()?.label?.equals(pair.exchange, ignoreCase = true) == true
+
     /** Abfrage eines Paars bei [venue] (Kürzel nur `[A-Z0-9]`, siehe [WatchPair.of]). */
     fun url(venue: Venue, pair: WatchPair): String {
         val symbol = pair.base + pair.quote

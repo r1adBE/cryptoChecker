@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">මිල යල් පැන ගොස් ඇත</string>
     <string name="a11y_watch_no_price_unreachable">මිලක් නැත, %1$s වෙත ළඟා විය නොහැක</string>
     <string name="a11y_watch_no_price_phone_only">මිලක් නැත, ඔරලෝසුවට මෙම යුගලය පූරණය කළ නොහැක</string>
+    <string name="a11y_watch_no_price_via_phone">මිලක් නැත, ඔරලෝසුවට %1$s මිල ලැබෙන්නේ දුරකථනයෙන් පමණි</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>
         <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>

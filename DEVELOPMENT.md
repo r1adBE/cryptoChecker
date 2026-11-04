@@ -2285,7 +2285,12 @@ Change a rule → change the JSON first, then both implementations.
   coin's USDT candles and converts **each candle with that day's rate** (Frankfurter time series,
   the one the portfolio value history uses; at most once per currency every 6 h). Only if the series
   is missing it uses today's rate and the caption says «(current rate)» instead of «converted at
-  daily rates». Never convert a whole history with one rate silently.
+  daily rates». Never convert a whole history with one rate silently. USDT → USD likewise per candle, like the
+  portfolio value history (`UsdtUsdRates.on`): today the live rate, earlier days the USDT/USD daily close the portfolio
+  already stored (`PortfolioHistorySource.cachedUsdtUsdDaily`, no request of its own); a day without one counts as 1 and
+  the chart says «USDT = 1 assumed» (`SheetChart.usdtApproximate` → `usdtParityNote`, also with a live rate). The 24 h
+  fallback `DayChange.fromUsdtSeries` takes USDT/USD at both ends too (`usdtUsd`, `usdtUsdAtOpen`; parity
+  `day_change.json`, `sheet_chart.json`); the mini chart's same-token check divides by the live USDT/USD.
 * **Chart cache invalidation.** The stored chart (`SheetChart` cache, keyed by base and quote) is
   dropped on a manual refresh, pull-to-refresh, and when the live price has moved more than 3 % since
   it was stored (`SheetChart.PRICE_JUMP`, `priceJumped`). Axis minimum: a span of 1 % (±0.5 %) around
@@ -3268,6 +3273,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   contract) with price (`watch_pairs.json`); watch self-fetch from the same exchange/contract first (Binance USDⓈ-M, Bybit linear, OKX swap).
 * Build 194: `WatchPair.contractOf` → Pool only for DexScreener (pool id in the key); spot = contract NONE; iOS coin favourites
   through AppData; watch self-fetch only for venues it can query; SheetChart uses USDT/USD; Wear reload on source change.
+* Build 195: SheetChart/WatchSheetChart and sparkline use USDT/USD per day (cached portfolio closes, live today); note per approximated day;
+  `DayChange.fromUsdtSeries` with USDT/USD at both ends; watch reason «only from the phone» for venues it cannot query.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

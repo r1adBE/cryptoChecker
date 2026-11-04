@@ -414,8 +414,14 @@ final class ParityFixtureTests: XCTestCase {
                                           usdtReference: reference(c["usdt"]),
                                           quoteIsFiat: c["quoteIsFiat"] as? Bool ?? false,
                                           usdToQuote: S.number(c["usdToQuote"]),
-                                          usdToQuoteAtOpen: S.number(c["usdToQuoteAtOpen"]))
+                                          usdToQuoteAtOpen: S.number(c["usdToQuoteAtOpen"]),
+                                          usdtUsd: S.number(c["usdtUsd"]), usdtUsdAtOpen: S.number(c["usdtUsdAtOpen"]))
             S.assertNumber(actual, S.number(c["expected"]), accuracy: 1e-9, "select: \(c["name"] ?? "")")
+            if let approximate = c["usdtApproximate"] as? Bool {
+                XCTAssertEqual(DayChange.usdtSeriesApproximate(usdtUsd: S.number(c["usdtUsd"]),
+                                                               usdtUsdAtOpen: S.number(c["usdtUsdAtOpen"])),
+                               approximate, "usdtApproximate: \(c["name"] ?? "")")
+            }
         }
         for c in S.list(data["reference"]) {
             let valid = DayReference.of(open: S.number(c["open"]), lastClose: S.number(c["lastClose"])) != nil

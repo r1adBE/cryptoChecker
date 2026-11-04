@@ -21,12 +21,17 @@ enum WatchText {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
-    /// Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, das die Uhr selbst abfragen kann →
-    /// dessen Börse nicht erreichbar; sonst (Pool, Laufzeit-Kontrakt) kann die Uhr das Paar nicht selbst laden. Wie
-    /// Android `missingReason`.
+    /// Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, dessen Börse die Uhr selbst abfragt
+    /// (`WatchPairQuotes.asksOwnExchange`) → diese Börse nicht erreichbar; Paar einer Börse, die die Uhr nicht abfragt
+    /// (z. B. Kraken-Spot: nur Binance, Bybit, OKX) → Kurse dieser Börse nur vom iPhone; sonst (Pool, Laufzeit-Kontrakt)
+    /// kann die Uhr das Paar nicht selbst laden. Wie Android `missingReason`.
     static func missingReason(_ key: String) -> String {
         guard let pair = WatchPair.parse(key) else { return t("watch_error") }
-        return pair.selfFetchable ? t("a11y_watch_no_price_unreachable", pair.exchange) : t("a11y_watch_no_price_phone_only")
+        guard pair.selfFetchable else { return t("a11y_watch_no_price_phone_only") }
+        // Börse, die die Uhr nicht abfragt (z. B. Kraken-Spot): nicht «nicht erreichbar», sondern «nur vom iPhone»
+        return WatchPairQuotes.asksOwnExchange(pair)
+            ? t("a11y_watch_no_price_unreachable", pair.exchange)
+            : t("a11y_watch_no_price_via_phone", pair.exchange)
     }
 
     /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).

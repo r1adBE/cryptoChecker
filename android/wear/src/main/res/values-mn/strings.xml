@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Ханш хуучирсан</string>
     <string name="a11y_watch_no_price_unreachable">ханш алга, %1$s-д холбогдох боломжгүй</string>
     <string name="a11y_watch_no_price_phone_only">ханш алга, цаг энэ хосыг ачаалж чадахгүй</string>
+    <string name="a11y_watch_no_price_via_phone">ханш алга, цаг %1$s-ийн ханшийг зөвхөн утаснаас авдаг</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">сүүлд %1$d минутын өмнө шинэчилсэн</item>
         <item quantity="other">сүүлд %1$d минутын өмнө шинэчилсэн</item>

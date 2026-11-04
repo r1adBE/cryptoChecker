@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Η τιμή δεν είναι επίκαιρη</string>
     <string name="a11y_watch_no_price_unreachable">καμία τιμή, το %1$s δεν είναι διαθέσιμο</string>
     <string name="a11y_watch_no_price_phone_only">καμία τιμή, το ρολόι δεν μπορεί να φορτώσει αυτό το ζεύγος</string>
+    <string name="a11y_watch_no_price_via_phone">καμία τιμή, το ρολόι λαμβάνει τιμές του %1$s μόνο από το τηλέφωνο</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">τελευταία ενημέρωση πριν από %1$d λεπτό</item>
         <item quantity="other">τελευταία ενημέρωση πριν από %1$d λεπτά</item>

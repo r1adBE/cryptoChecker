@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 195)
+
+* Charts in a fiat currency convert each day with that day's USDT/USD close, so a USDT depeg shows in the history; «USDT = 1 assumed» appears whenever a day had to be approximated.
+* Watch: for pairs it cannot fetch itself (e.g. Kraken spot) the screen reader says the watch gets them only from the phone.
+
 ## 16.2.2 (build 194)
 
 * Watch: normal spot pairs (e.g. Binance BTC/USDT) get their price again – from the phone or, without the phone, from the exchange; only DexScreener pools are pools, and two pools with the same pair stay apart.

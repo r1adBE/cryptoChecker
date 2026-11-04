@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Precio desactualizado</string>
     <string name="a11y_watch_no_price_unreachable">sin precio, %1$s no disponible</string>
     <string name="a11y_watch_no_price_phone_only">sin precio, el reloj no puede cargar este par</string>
+    <string name="a11y_watch_no_price_via_phone">sin precio, el reloj solo recibe los precios de %1$s desde el teléfono</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">última actualización hace %1$d minuto</item>
         <item quantity="many">última actualización hace %1$d minutos</item>

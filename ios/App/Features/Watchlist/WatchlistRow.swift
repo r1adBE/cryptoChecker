@@ -255,7 +255,8 @@ struct WatchlistRow: View {
                 } else if fallback, await Self.sparklineFallbackAllowed(watch) {
                     let cached = await WatchlistSparklineStore.shared.cached(base: base)
                     sparkline = SheetChart.sparklineFor(cached, price: watch.lastPrice,
-                                                        quoteUsd: CurrencyConverter.cachedRate(quote: quote, target: "USD"))
+                                                        quoteUsd: CurrencyConverter.cachedRate(quote: quote, target: "USD"),
+                                                        usdtUsd: DepegAlarmCheck.liveUsdtUsd())
                 }
             }
             var first = true
@@ -270,11 +271,12 @@ struct WatchlistRow: View {
                     // Reihe eines klar anders benannten Tokens: lieber kein Chart
                     let allowed: Bool = await Self.sparklineFallbackAllowed(watch)
                     foreign = !allowed
-                    // USDT-Reihe nur bei gleichem Token wie das Paar (letzter Schluss gegen Kurs × USD je Quote)
+                    // USDT-Reihe nur bei gleichem Token wie das Paar (letzter Schluss gegen Kurs × USD je Quote ÷ USDT/USD)
                     var quoteUsd = CurrencyConverter.cachedRate(quote: quote, target: "USD")
                     if loaded != nil, quoteUsd == nil { quoteUsd = await CurrencyConverter.rate(quote: quote, target: "USD") }
                     if Task.isCancelled { break }
-                    closes = allowed ? SheetChart.sparklineFor(loaded, price: watch.lastPrice, quoteUsd: quoteUsd) : nil
+                    closes = allowed ? SheetChart.sparklineFor(loaded, price: watch.lastPrice, quoteUsd: quoteUsd,
+                                                               usdtUsd: DepegAlarmCheck.liveUsdtUsd()) : nil
                 }
                 // Später fehlgeschlagene Abrufe lassen den letzten Verlauf stehen
                 if closes != nil || first || foreign { sparkline = closes }

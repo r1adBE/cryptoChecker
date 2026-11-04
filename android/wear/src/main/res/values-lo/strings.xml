@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">ລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
     <string name="a11y_watch_no_price_unreachable">ບໍ່ມີລາຄາ, ບໍ່ສາມາດເຊື່ອມຕໍ່ %1$s ໄດ້</string>
     <string name="a11y_watch_no_price_phone_only">ບໍ່ມີລາຄາ, ໂມງບໍ່ສາມາດໂຫຼດຄູ່ນີ້ໄດ້</string>
+    <string name="a11y_watch_no_price_via_phone">ບໍ່ມີລາຄາ, ໂມງຮັບລາຄາ %1$s ຈາກໂທລະສັບເທົ່ານັ້ນ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">ອັບເດດຫຼ້າສຸດເມື່ອ %1$d ນາທີກ່ອນ</item>
     </plurals>

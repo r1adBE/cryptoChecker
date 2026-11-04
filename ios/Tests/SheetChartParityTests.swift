@@ -16,22 +16,33 @@ final class SheetChartParityTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 8)
         for c in cases {
             let name = c["name"] as? String ?? ""
+            // Tag darf gebrochen sein (Stundenkerzen: 20.5 = 12:00 UTC am Tag 20)
             let candles: [MarketCandle] = (c["candles"] as? [Any] ?? []).compactMap { raw in
                 guard let pair = raw as? [Any], pair.count == 2,
                       let day = TestSupport.number(pair[0]), let price = TestSupport.number(pair[1]) else { return nil }
-                return MarketCandle(openTime: Int64(day) * 86_400_000, open: price, high: price, low: price,
+                return MarketCandle(openTime: Int64(day * 86_400_000), open: price, high: price, low: price,
                                     close: price, volume: 0, quoteVolume: nil)
             }
-            var rates: [Int: Double]? = nil
-            if let raw = c["dailyRates"] as? [String: Any] {
-                var out: [Int: Double] = [:]
-                for (k, v) in raw { if let d = Int(k), let n = TestSupport.number(v) { out[d] = n } }
-                rates = out
-            }
+            let rates = byDay(c["dailyRates"])
             let request = SheetCandleRequest(base: "BTC", quote: "USDT", convert: c["convert"] as? Bool ?? false)
+            let live = TestSupport.number(c["usdtLive"])
+            let daily = byDay(c["usdtDaily"])
+            let usdt: UsdtUsdRates? = live != nil || daily != nil ? UsdtUsdRates(live: live, daily: daily ?? [:]) : nil
+            let today = TestSupport.number(c["today"]).map { Int($0) }
+                ?? SheetChart.utcEpochDay(candles.last?.openTime ?? 0)
             let result = SheetChart.accept(candles, request: request, price: TestSupport.number(c["price"]),
                                            dailyRates: rates, currentRate: TestSupport.number(c["currentRate"]),
-                                           usdtUsd: TestSupport.number(c["usdtUsd"]))
+                                           usdt: usdt, todayEpochDay: today)
+            if let assumed = c["usdtAssumed"] as? Bool {
+                if let result {
+                    let note = SheetChart.usdtParityNote(
+                        SheetChart.fxMode(request, dailyRates: rates), sourcePair: "BTC/USDT",
+                        usdtApproximate: SheetChart.usdtApproximate(result, usdt: usdt, todayEpochDay: today))
+                    XCTAssertEqual(note, assumed, "\(name): note «USDT = 1 assumed»")
+                } else {
+                    XCTFail("\(name): note needs a chart")
+                }
+            }
             guard let e = c["expected"] as? [String: Any] else {
                 XCTAssertNil(result, "\(name): expected no chart")
                 continue
@@ -43,6 +54,13 @@ final class SheetChartParityTests: XCTestCase {
             near("\(name) first", TestSupport.number(e["first"]), result.first?.close)
             near("\(name) last", TestSupport.number(e["last"]), result.last?.close)
         }
+    }
+
+    private func byDay(_ raw: Any?) -> [Int: Double]? {
+        guard let raw = raw as? [String: Any] else { return nil }
+        var out: [Int: Double] = [:]
+        for (k, v) in raw { if let d = Int(k), let n = TestSupport.number(v) { out[d] = n } }
+        return out
     }
 
     func testWidget() throws {
@@ -68,7 +86,8 @@ final class SheetChartParityTests: XCTestCase {
             let name = c["name"] as? String ?? ""
             let closes = (c["closes"] as? [Any] ?? []).compactMap { TestSupport.number($0) }
             let result = SheetChart.sparklineFor(closes, price: TestSupport.number(c["price"]),
-                                                 quoteUsd: TestSupport.number(c["quoteUsd"]))
+                                                 quoteUsd: TestSupport.number(c["quoteUsd"]),
+                                                 usdtUsd: TestSupport.number(c["usdtUsd"]))
             XCTAssertEqual(result != nil, c["shown"] as? Bool ?? false, name)
             if let result { XCTAssertEqual(result, closes, name) }
         }

@@ -171,8 +171,8 @@ class CurrencyConverter @Inject constructor(
     fun usdtMeasured(): Flow<Boolean> =
         depegReadings.reading.map { DepegAlarm.liveUsdtUsd(it, System.currentTimeMillis()) != null }.distinctUntilChanged()
 
-    /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1). */
-    private fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
+    /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1). Auch für den Mini-Chart. */
+    fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
 
     /**
      * Einheiten der Ziel-Stablecoin-Währung [code] je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und

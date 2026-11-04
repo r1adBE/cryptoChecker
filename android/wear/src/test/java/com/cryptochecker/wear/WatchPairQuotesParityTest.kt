@@ -57,6 +57,7 @@ class WatchPairQuotesParityTest {
         for (c in objects(data.getJSONArray("venues"))) {
             val pair = WatchPair.parse(c.getString("key"))!!
             assertEquals(c.getString("key"), strings(c.getJSONArray("expected")), WatchPairQuotes.venues(pair).map { it.label })
+            if (c.has("asksOwn")) assertEquals("asksOwn ${c.getString("key")}", c.getBoolean("asksOwn"), WatchPairQuotes.asksOwnExchange(pair))
         }
     }
 

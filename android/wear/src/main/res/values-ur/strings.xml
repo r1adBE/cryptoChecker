@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">قیمت پرانی ہے</string>
     <string name="a11y_watch_no_price_unreachable">کوئی قیمت نہیں، %1$s تک رسائی نہیں</string>
     <string name="a11y_watch_no_price_phone_only">کوئی قیمت نہیں، گھڑی یہ جوڑا لوڈ نہیں کر سکتی</string>
+    <string name="a11y_watch_no_price_via_phone">کوئی قیمت نہیں، گھڑی %1$s کی قیمتیں صرف فون سے حاصل کرتی ہے</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">آخری اپ ڈیٹ %1$d منٹ پہلے</item>
         <item quantity="other">آخری اپ ڈیٹ %1$d منٹ پہلے</item>

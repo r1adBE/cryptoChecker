@@ -29,6 +29,13 @@ enum WatchPairQuotes {
         return [own] + kind.filter { $0 != own }
     }
 
+    /// Fragt die Uhr die Börse des Paars selbst ab (erste in `venues`)? Nein bei Börsen, die sie nicht kennt (Kraken-Spot-
+    /// Paar: nur Binance, Bybit, OKX) und bei Paaren, die sie gar nicht selbst lädt — dann sagt «—» nicht «Kraken nicht
+    /// erreichbar» (`WatchText.missingReason`). Wie Android.
+    static func asksOwnExchange(_ pair: WatchPair) -> Bool {
+        venues(pair).first?.label.caseInsensitiveCompare(pair.exchange) == .orderedSame
+    }
+
     /// Abfrage eines Paars bei `venue` (Kürzel nur `[A-Z0-9]`, siehe `WatchPair.of`).
     static func url(_ venue: Venue, _ pair: WatchPair) -> URL? {
         let symbol = pair.base + pair.quote

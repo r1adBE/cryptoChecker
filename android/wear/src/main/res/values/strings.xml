@@ -23,6 +23,7 @@
     <!-- Kein Kurs («—»), Grund für den Screenreader: %1$s = Börse des Paars vom Handy («Binance Futures») -->
     <string name="a11y_watch_no_price_unreachable">no price, %1$s not reachable</string>
     <string name="a11y_watch_no_price_phone_only">no price, the watch cannot load this pair</string>
+    <string name="a11y_watch_no_price_via_phone">no price, the watch gets %1$s prices only from the phone</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">last updated %1$d minute ago</item>
         <item quantity="other">last updated %1$d minutes ago</item>

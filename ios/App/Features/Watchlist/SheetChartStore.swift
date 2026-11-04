@@ -92,7 +92,7 @@ final class SheetChartStore: Sendable {
         private var ratesLoaded = false
 
         func check(_ raw: [MarketCandle], request: SheetCandleRequest, quote: String, price: Double?,
-                   usdtUsd: Double?) async -> Bool {
+                   usdt: UsdtUsdRates?, today: Int) async -> Bool {
             // Tageskurse nur für die Ausweich-Reihe
             if request.convert && !ratesLoaded {
                 let today = LocalDay(epochMillisUTC: EpochTime.nowMillis)
@@ -104,7 +104,7 @@ final class SheetChartStore: Sendable {
             var current: Double? = nil
             if request.convert, rates?.isEmpty ?? true { current = await FxRateSource.usdTo(quote) }
             accepted = SheetChart.accept(raw, request: request, price: price, dailyRates: rates, currentRate: current,
-                                         usdtUsd: usdtUsd)
+                                         usdt: usdt, todayEpochDay: today)
             return accepted != nil
         }
     }
@@ -137,8 +137,12 @@ final class SheetChartStore: Sendable {
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der Name
             // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token)
             let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
-            // USDT → USD zum Marktkurs; ohne Messung 1 (Vermerk «USDT = 1 angenommen», `SheetChart.usdtParityNote`)
-            let usdtUsd = DepegAlarmCheck.liveUsdtUsd()
+            // USDT → USD je Tag zum Marktkurs wie der Wertverlauf: heute Live-Kurs, davor die schon gespeicherten
+            // Tagesschlüsse des Portfolios (ohne Netz); Tag ohne Kurs 1 (Vermerk «USDT = 1 angenommen», `usdtParityNote`)
+            let usdt: UsdtUsdRates? = requests.contains(where: \.convert)
+                ? UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: PortfolioHistorySource.cachedUsdtUsdDaily())
+                : nil
+            let today = SheetChart.utcEpochDay(EpochTime.nowMillis)
             for request in requests {
                 if Task.isCancelled { return nil }
                 let attempt = Attempt()
@@ -147,7 +151,7 @@ final class SheetChartStore: Sendable {
                     preferFutures: pair.isFutures, identityName: identityName
                 ) { raw in
                     // Fremde Reihe gleichen Kürzels: nächste Quelle der Kette
-                    await attempt.check(raw, request: request, quote: quote, price: price, usdtUsd: usdtUsd)
+                    await attempt.check(raw, request: request, quote: quote, price: price, usdt: usdt, today: today)
                 }
                 let accepted = await attempt.accepted
                 let rates = await attempt.rates
@@ -156,7 +160,9 @@ final class SheetChartStore: Sendable {
                     let source = "\(request.base)/\(request.quote)"
                     let info = SheetChartInfo(provider: sourced.provider, sourcePair: source, fx: fx,
                                               fetchedAt: EpochTime.nowMillis,
-                                              usdtAssumed: SheetChart.usdtParityNote(fx, sourcePair: source, usdtUsd: usdtUsd))
+                                              usdtAssumed: SheetChart.usdtParityNote(
+                                                  fx, sourcePair: source,
+                                                  usdtApproximate: SheetChart.usdtApproximate(candles, usdt: usdt, todayEpochDay: today)))
                     return (candles: candles, converted: request.convert, info: info)
                 }
             }

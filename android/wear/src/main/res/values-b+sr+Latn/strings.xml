@@ -19,6 +19,7 @@
     <string name="a11y_watch_outdated">Cena zastarela</string>
     <string name="a11y_watch_no_price_unreachable">nema cene, %1$s nije dostupan</string>
     <string name="a11y_watch_no_price_phone_only">nema cene, sat ne može da učita ovaj par</string>
+    <string name="a11y_watch_no_price_via_phone">nema cene, sat dobija cene sa %1$s samo preko telefona</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">poslednje ažuriranje pre %1$d minute</item>
         <item quantity="few">poslednje ažuriranje pre %1$d minute</item>

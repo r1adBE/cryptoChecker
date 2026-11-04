@@ -213,6 +213,19 @@ enum PortfolioHistorySource {
         ownMemory.withLock { $0.get(coin) }
     }
 
+    /// Wie `usdtUsdDaily`, nur was schon da ist (Speicher, Gerät) — ohne Netz, ohne Altersgrenze (Chart im Aktionsblatt
+    /// der Merkliste). Wie Android `cachedUsdtUsdDaily`.
+    static func cachedUsdtUsdDaily() -> [Int: Double] {
+        func cached(_ coin: String, _ pair: CandlePair) -> [Int: Double] {
+            let route = pair.cacheKey
+            if let hit = cachedOwn(coin), hit.entry.route == route { return hit.entry.entry.closes }
+            guard let stored = CycleCache.read(ownCacheKey(coin), as: PortfolioOwnCloses.self),
+                  stored.value.route == route else { return [:] }
+            return stored.value.entry.closes
+        }
+        return HistoricCloseChain.fillUsdtUsd(cached(usdtUsdKey, usdtUsdPair), cached(usdtUsdFillKey, usdtUsdFillPair))
+    }
+
     private static func rememberOwn(_ coin: String, _ entry: PortfolioOwnCloses, at: Int64) {
         ownMemory.withLock { $0.set(coin, (entry: entry, at: at)) }
     }

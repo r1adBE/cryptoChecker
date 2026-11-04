@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Tečaj je zastarel</string>
     <string name="a11y_watch_no_price_unreachable">ni tečaja, %1$s ni dosegljiva</string>
     <string name="a11y_watch_no_price_phone_only">ni tečaja, ura ne more naložiti tega para</string>
+    <string name="a11y_watch_no_price_via_phone">ni tečaja, ura prejema tečaje z %1$s samo prek telefona</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nazadnje posodobljeno pred %1$d minuto</item>
         <item quantity="two">nazadnje posodobljeno pred %1$d minutama</item>

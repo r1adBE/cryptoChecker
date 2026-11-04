@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Verð úrelt</string>
     <string name="a11y_watch_no_price_unreachable">ekkert verð, %1$s næst ekki</string>
     <string name="a11y_watch_no_price_phone_only">ekkert verð, úrið getur ekki sótt þetta par</string>
+    <string name="a11y_watch_no_price_via_phone">ekkert verð, úrið fær verð frá %1$s aðeins í gegnum símann</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">síðast uppfært fyrir %1$d mínútu</item>
         <item quantity="other">síðast uppfært fyrir %1$d mínútum</item>

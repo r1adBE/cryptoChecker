@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Curs învechit</string>
     <string name="a11y_watch_no_price_unreachable">niciun preț, %1$s nu poate fi accesat</string>
     <string name="a11y_watch_no_price_phone_only">niciun preț, ceasul nu poate încărca această pereche</string>
+    <string name="a11y_watch_no_price_via_phone">niciun preț, ceasul primește prețurile de pe %1$s doar de la telefon</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizat ultima dată acum %1$d minut</item>
         <item quantity="few">actualizat ultima dată acum %1$d minute</item>

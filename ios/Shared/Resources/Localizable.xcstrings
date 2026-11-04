@@ -32217,6 +32217,461 @@
         }
       }
     },
+    "a11y_watch_no_price_via_phone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, die horlosie kry %1$@-koerse net van die foon"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋ የለም፣ ሰዓቱ የ%1$@ ዋጋዎችን የሚያገኘው ከስልኩ ብቻ ነው"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سعر، تحصل الساعة على أسعار %1$@ من الهاتف فقط"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "qiymət yoxdur, saat %1$@ qiymətlərini yalnız telefondan alır"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "няма цена, часовникът получава цените от %1$@ само от телефона"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দাম নেই, ঘড়ি %1$@-এর দাম শুধু ফোন থেকে পায়"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, sat dobija cijene sa %1$@ samo preko telefona"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sense preu, el rellotge només rep els preus de %1$@ des del telèfon"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žádná cena, ceny z %1$@ dostávají hodinky jen z telefonu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, uret får kun kurser fra %1$@ via telefonen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Kurs, Kurse von %1$@ erhält die Uhr nur vom Handy"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "καμία τιμή, το ρολόι λαμβάνει τιμές του %1$@ μόνο από το τηλέφωνο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no price, the watch gets %1$@ prices only from the phone"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin precio, el reloj solo recibe los precios de %1$@ desde el teléfono"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hind puudub, kell saab %1$@ hindu ainult telefonist"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preziorik ez, erlojuak %1$@ prezioak telefonotik soilik jasotzen ditu"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمتی نیست، ساعت قیمت‌های %1$@ را فقط از تلفن می‌گیرد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ei hintaa, kello saa %1$@-hinnat vain puhelimelta"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "walang presyo, sa telepono lang kinukuha ng relo ang mga presyo ng %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucun cours, la montre ne reçoit les cours de %1$@ que via le téléphone"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gan phraghas, ní fhaigheann an t-uaireadóir praghsanna %1$@ ach ón bhfón"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sen prezo, o reloxo só recibe os prezos de %1$@ desde o teléfono"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "કોઈ ભાવ નથી, ઘડિયાળ %1$@ ના ભાવ ફક્ત ફોનમાંથી મેળવે છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מחיר, השעון מקבל מחירים של %1$@ רק מהטלפון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई भाव नहीं, घड़ी %1$@ के भाव केवल फ़ोन से पाती है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, sat dobiva cijene s %1$@ samo putem telefona"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nincs árfolyam, az óra a(z) %1$@ árfolyamait csak a telefonról kapja"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "գին չկա, ժամացույցը %1$@-ի գները ստանում է միայն հեռախոսից"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tidak ada harga, jam hanya mendapat harga %1$@ dari ponsel"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ekkert verð, úrið fær verð frá %1$@ aðeins í gegnum símann"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessun prezzo, l'orologio riceve i prezzi di %1$@ solo dal telefono"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格なし、%1$@ の価格はスマートフォン経由でのみウォッチに届きます"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასი არ არის, საათი %1$@-ის ფასებს მხოლოდ ტელეფონიდან იღებს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "баға жоқ, сағат %1$@ бағаларын тек телефоннан алады"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "គ្មានតម្លៃ, នាឡិកាទទួលតម្លៃ %1$@ ពីទូរសព្ទតែប៉ុណ្ណោះ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ %1$@ ಬೆಲೆಗಳನ್ನು ಫೋನ್‌ನಿಂದ ಮಾತ್ರ ಪಡೆಯುತ್ತದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 없음, 시계는 %1$@ 가격을 휴대폰에서만 받습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ມີລາຄາ, ໂມງຮັບລາຄາ %1$@ ຈາກໂທລະສັບເທົ່ານັ້ນ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kainos nėra, %1$@ kainas laikrodis gauna tik iš telefono"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nav cenas, %1$@ cenas pulkstenis saņem tikai no tālruņa"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цена, часовникот ги добива цените од %1$@ само од телефонот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലയില്ല, വാച്ചിന് %1$@ വിലകൾ ഫോണിൽ നിന്ന് മാത്രമേ ലഭിക്കൂ"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ханш алга, цаг %1$@-ийн ханшийг зөвхөн утаснаас авдаг"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भाव नाही, घड्याळाला %1$@ चे भाव फक्त फोनवरून मिळतात"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tiada harga, jam hanya mendapat harga %1$@ daripada telefon"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "စျေးနှုန်းမရှိ၊ နာရီသည် %1$@ စျေးနှုန်းများကို ဖုန်းမှသာ ရယူပါသည်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, klokken får kurser fra %1$@ bare via telefonen"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य छैन, घडीले %1$@ का मूल्यहरू फोनबाट मात्र पाउँछ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, het horloge krijgt koersen van %1$@ alleen via de telefoon"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਨੂੰ %1$@ ਦੇ ਭਾਅ ਸਿਰਫ਼ ਫ਼ੋਨ ਤੋਂ ਮਿਲਦੇ ਹਨ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "brak kursu, zegarek otrzymuje kursy z %1$@ tylko z telefonu"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, o relógio só recebe as cotações de %1$@ através do telemóvel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, o relógio só recebe as cotações de %1$@ pelo celular"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "niciun preț, ceasul primește prețurile de pe %1$@ doar de la telefon"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нет курса, курсы %1$@ часы получают только с телефона"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිලක් නැත, ඔරලෝසුවට %1$@ මිල ලැබෙන්නේ දුරකථනයෙන් පමණි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žiadna cena, ceny z %1$@ dostávajú hodinky len z telefónu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ni tečaja, ura prejema tečaje z %1$@ samo prek telefona"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pa çmim, ora i merr çmimet e %1$@ vetëm nga telefoni"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цене, сат добија цене са %1$@ само преко телефона"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cene, sat dobija cene sa %1$@ samo preko telefona"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, klockan får kurser från %1$@ bara via telefonen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hakuna bei, saa inapata bei za %1$@ kutoka kwa simu pekee"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலை இல்லை, கடிகாரம் %1$@ விலைகளை தொலைபேசியிலிருந்து மட்டுமே பெறுகிறது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధర లేదు, వాచ్ %1$@ ధరలను ఫోన్ నుండి మాత్రమే పొందుతుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีราคา นาฬิกาได้รับราคาจาก %1$@ ผ่านโทรศัพท์เท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fiyat yok, saat %1$@ fiyatlarını yalnızca telefondan alır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "немає курсу, курси %1$@ годинник отримує лише з телефона"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کوئی قیمت نہیں، گھڑی %1$@ کی قیمتیں صرف فون سے حاصل کرتی ہے"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "narx yoʻq, soat %1$@ narxlarini faqat telefondan oladi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không có giá, đồng hồ chỉ nhận giá %1$@ qua điện thoại"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇價格，手錶只會經手機攞 %1$@ 嘅價格"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无价格，手表只能通过手机获取 %1$@ 的价格"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無價格，手錶只能透過手機取得 %1$@ 的價格"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alikho intengo, iwashi lithola izintengo ze-%1$@ kuphela ocingweni"
+          }
+        }
+      }
+    },
     "a11y_watch_outdated" : {
       "extractionState" : "manual",
       "localizations" : {

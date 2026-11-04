@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Kursi është i vjetëruar</string>
     <string name="a11y_watch_no_price_unreachable">pa çmim, %1$s nuk arrihet</string>
     <string name="a11y_watch_no_price_phone_only">pa çmim, ora nuk mund ta ngarkojë këtë çift</string>
+    <string name="a11y_watch_no_price_via_phone">pa çmim, ora i merr çmimet e %1$s vetëm nga telefoni</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">përditësuar së fundi para %1$d minute</item>
         <item quantity="other">përditësuar së fundi para %1$d minutash</item>

@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Cotação desatualizada</string>
     <string name="a11y_watch_no_price_unreachable">sem cotação, %1$s indisponível</string>
     <string name="a11y_watch_no_price_phone_only">sem cotação, o relógio não consegue carregar este par</string>
+    <string name="a11y_watch_no_price_via_phone">sem cotação, o relógio só recebe as cotações de %1$s pelo celular</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">última atualização há %1$d minuto</item>
         <item quantity="many">última atualização há %1$d minutos</item>

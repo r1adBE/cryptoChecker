@@ -131,6 +131,9 @@ final class WatchPairsParityTests: XCTestCase {
         for c in TestSupport.list(data["venues"]) {
             let pair = try XCTUnwrap(WatchPair.parse(c["key"] as? String ?? ""))
             XCTAssertEqual(WatchPairQuotes.venues(pair).map(\.label), strings(c["expected"]), pair.key)
+            if let asksOwn = c["asksOwn"] as? Bool {
+                XCTAssertEqual(WatchPairQuotes.asksOwnExchange(pair), asksOwn, "asksOwn \(pair.key)")
+            }
         }
         for c in TestSupport.list(data["urls"]) {
             let pair = try XCTUnwrap(WatchPair.parse(c["key"] as? String ?? ""))

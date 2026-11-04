@@ -476,8 +476,13 @@ class ParityFixturesTest {
                 c["price"].num(), reference(c["pair"]), reference(c["usdt"]), c["quoteIsFiat"] as Boolean,
                 usdToQuote = c["usdToQuote"].num(),
                 usdToQuoteAtOpen = c["usdToQuoteAtOpen"].num(),
+                usdtUsd = c["usdtUsd"].num(),
+                usdtUsdAtOpen = c["usdtUsdAtOpen"].num(),
             )
             assertNumber(c["expected"].num(), actual, 1e-9, "select: ${c["name"]}")
+            (c["usdtApproximate"] as Boolean?)?.let {
+                assertEquals("usdtApproximate: ${c["name"]}", it, DayChange.usdtSeriesApproximate(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num()))
+            }
         }
         data["reference"].list().forEach { raw ->
             val c = raw.obj()

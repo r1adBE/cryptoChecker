@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Цената е застарена</string>
     <string name="a11y_watch_no_price_unreachable">нема цена, %1$s не е достапна</string>
     <string name="a11y_watch_no_price_phone_only">нема цена, часовникот не може да го вчита овој пар</string>
+    <string name="a11y_watch_no_price_via_phone">нема цена, часовникот ги добива цените од %1$s само од телефонот</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">последно ажурирано пред %1$d минута</item>
         <item quantity="other">последно ажурирано пред %1$d минути</item>

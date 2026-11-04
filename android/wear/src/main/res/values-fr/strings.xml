@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Cours obsolète</string>
     <string name="a11y_watch_no_price_unreachable">aucun cours, %1$s injoignable</string>
     <string name="a11y_watch_no_price_phone_only">aucun cours, la montre ne peut pas charger cette paire</string>
+    <string name="a11y_watch_no_price_via_phone">aucun cours, la montre ne reçoit les cours de %1$s que via le téléphone</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">dernière mise à jour il y a %1$d minute</item>
         <item quantity="many">dernière mise à jour il y a %1$d minutes</item>

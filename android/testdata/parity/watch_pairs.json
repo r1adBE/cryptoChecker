@@ -1,5 +1,5 @@
 {
- "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» + 8 Hex-Stellen (FNV-1a der Kennung) = DexScreener-Pool, die Kennung einer Börse (BTCUSDT, XBTUSDT) macht kein Pool; ungültig → null; nur Spot und Perp der Börsen, die die Uhr kennt (Binance/Bybit/OKX Futures), fragt die Uhr selbst ab — Perp anderer Börsen wie Bitget oder Hyperliquid nur vom Handy), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore.",
+ "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» + 8 Hex-Stellen (FNV-1a der Kennung) = DexScreener-Pool, die Kennung einer Börse (BTCUSDT, XBTUSDT) macht kein Pool; ungültig → null; nur Spot und Perp der Börsen, die die Uhr kennt (Binance/Bybit/OKX Futures), fragt die Uhr selbst ab — Perp anderer Börsen wie Bitget oder Hyperliquid nur vom Handy), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore. venues.asksOwn = WatchPairQuotes.asksOwnExchange: the watch asks the pair's own exchange itself (first venue); false for exchanges it does not query (e.g. Kraken spot) and for pairs it never loads — the «—» reason then must not say «<exchange> not reachable» (a11y_watch_no_price_via_phone / _phone_only).",
  "pairs": [
   {
    "name": "Perp bei Binance Futures",
@@ -467,7 +467,8 @@
     "Binance Futures",
     "Bybit Futures",
     "OKX Futures"
-   ]
+   ],
+   "asksOwn": true
   },
   {
    "key": "BANK/USDT|Bybit Futures|Perp",
@@ -475,7 +476,8 @@
     "Bybit Futures",
     "Binance Futures",
     "OKX Futures"
-   ]
+   ],
+   "asksOwn": true
   },
   {
    "key": "BTC/EUR|okx|",
@@ -483,7 +485,8 @@
     "OKX",
     "Binance",
     "Bybit"
-   ]
+   ],
+   "asksOwn": true
   },
   {
    "key": "BTC/EUR|Kraken|",
@@ -491,15 +494,18 @@
     "Binance",
     "Bybit",
     "OKX"
-   ]
+   ],
+   "asksOwn": false
   },
   {
    "key": "BTC/USDT|Bitget Futures|Perp",
-   "expected": []
+   "expected": [],
+   "asksOwn": false
   },
   {
    "key": "BTC/USDC|Hyperliquid|Perp",
-   "expected": []
+   "expected": [],
+   "asksOwn": false
   },
   {
    "key": "BANK/USDT|okx futures|Perp",
@@ -507,15 +513,27 @@
     "OKX Futures",
     "Binance Futures",
     "Bybit Futures"
-   ]
+   ],
+   "asksOwn": true
   },
   {
    "key": "BTC/USDT|Binance Futures|1Q",
-   "expected": []
+   "expected": [],
+   "asksOwn": false
   },
   {
    "key": "PEPE/WETH|DexScreener|Pool995b79ee",
-   "expected": []
+   "expected": [],
+   "asksOwn": false
+  },
+  {
+   "key": "BTC/EUR|Bitstamp|",
+   "expected": [
+    "Binance",
+    "Bybit",
+    "OKX"
+   ],
+   "asksOwn": false
   }
  ],
  "urls": [

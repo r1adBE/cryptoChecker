@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Kurs forældet</string>
     <string name="a11y_watch_no_price_unreachable">ingen kurs, %1$s kan ikke nås</string>
     <string name="a11y_watch_no_price_phone_only">ingen kurs, uret kan ikke hente dette par</string>
+    <string name="a11y_watch_no_price_via_phone">ingen kurs, uret får kun kurser fra %1$s via telefonen</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">senest opdateret for %1$d minut siden</item>
         <item quantity="other">senest opdateret for %1$d minutter siden</item>

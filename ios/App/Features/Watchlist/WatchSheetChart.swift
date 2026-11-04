@@ -127,12 +127,15 @@ enum SheetChart {
     ///    Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
     ///  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
     ///    des Paars entspricht (Verlauf in Prozent wie `DayChange.fromSeries`).
-    ///  - USDT → USD mit dem Marktkurs `usdtUsd` (wie Portfolio, `PortfolioStables.usdtUsdLive`); ohne ihn 1
-    ///    (Näherung, `usdtParityNote`).
+    ///  - USDT → USD je Kerze mit dem Marktkurs IHRES Tags (`usdt`, wie der Wertverlauf des Portfolios,
+    ///    `UsdtUsdRates.on`): ab `todayEpochDay` (UTC) der Live-Kurs, davor der Tagesschluss USDT/USD dieses Tags; fehlt er,
+    ///    gilt 1 (Näherung, `usdtApproximate` → `usdtParityNote`). Ohne `usdt` überall 1. Auch ohne Tageskurse
+    ///    (ein Devisenkurs): so zeigt der Verlauf in Fiat einen USDT-Depeg.
     ///  - `currentRate`: aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse).
     static func accept(_ candles: [MarketCandle]?, request: SheetCandleRequest, price: Double?,
                        dailyRates: [Int: Double]? = nil, currentRate: Double? = nil,
-                       usdtUsd: Double? = nil) -> [MarketCandle]? {
+                       usdt: UsdtUsdRates? = nil,
+                       todayEpochDay: Int = SheetChart.utcEpochDay(EpochTime.nowMillis)) -> [MarketCandle]? {
         let clean = WidgetChartGeometry.clean(candles ?? [])
         guard clean.count >= 2, let last = clean.last?.close else { return nil }
         // Gleicher Token? Ohne Kurs des Paars nicht prüfbar (auch nicht beim Paar selbst)
@@ -142,16 +145,19 @@ enum SheetChart {
             return clean
         }
         let sorted = sortedRates(dailyRates)
-        let usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
+        // USDT/USD je Kerze (Tag der Kerze)
+        let u = clean.map { usdtOn(usdt, openTime: $0.openTime, todayEpochDay: todayEpochDay).rate }
+        let lastUsdt = u.last ?? 1
         guard let firstRate = sorted.first?.rate else {
             guard let rate = currentRate, rate.isFinite, rate > 0 else { return nil }
-            if abs(pairPrice / (last * rate * usdt) - 1) > DayChange.maxPriceGap { return nil }
-            let factor = pairPrice / last
+            let lastUsd = last * lastUsdt
+            if abs(pairPrice / (lastUsd * rate) - 1) > DayChange.maxPriceGap { return nil }
+            let anchor = pairPrice / lastUsd
             // Umsatz in der Quote mit demselben Faktor (USDT → Quote des Paars, Näherung)
-            return clean.map { scaled($0, factor) }
+            return zip(clean, u).map { scaled($0.0, $0.1 * anchor) }
         }
-        let rates = clean.map { (PortfolioHistoryFx.rateOn(sorted, day: utcEpochDay($0.openTime)) ?? firstRate) * usdt }
-        let converted = last * (rates.last ?? firstRate * usdt)
+        let rates = zip(clean, u).map { (PortfolioHistoryFx.rateOn(sorted, day: utcEpochDay($0.0.openTime)) ?? firstRate) * $0.1 }
+        let converted = last * (rates.last ?? firstRate * lastUsdt)
         if abs(pairPrice / converted - 1) > DayChange.maxPriceGap { return nil }
         let anchor = pairPrice / converted
         return zip(clean, rates).map { scaled($0.0, $0.1 * anchor) }
@@ -159,14 +165,16 @@ enum SheetChart {
 
     /// Mini-Chart der Merkliste: Die Reihe ist immer die USDT-Reihe des Basis-Assets (oft von einer
     /// anderen Börse als das Paar, z. B. Binance für ein Kraken-Paar). Gezeigt nur bei gleichem Token
-    /// — wie `accept`: letzter Schluss gegen Kurs des Paars `price` × `quoteUsd` (USD je Einheit der
-    /// Quote, z. B. 1 für USDT, ~1.1 für EUR) höchstens `DayChange.maxPriceGap` daneben.
+    /// — wie `accept`: letzter Schluss (USDT) gegen Kurs des Paars `price` × `quoteUsd` (USD je Einheit der
+    /// Quote, z. B. ~1.1 für EUR; für USDT schon mit USDT/USD) ÷ USDT/USD `usdtUsd` (Live-Kurs, derselbe wie in
+    /// `quoteUsd`; ohne ihn 1) höchstens `DayChange.maxPriceGap` daneben. Gezeigt wird nur die Form (ohne Werte).
     /// Ohne Kurs oder ohne Umrechnungsfaktor nicht prüfbar → nil (kein Mini-Chart).
-    static func sparklineFor(_ closes: [Double]?, price: Double?, quoteUsd: Double?) -> [Double]? {
+    static func sparklineFor(_ closes: [Double]?, price: Double?, quoteUsd: Double?, usdtUsd: Double? = nil) -> [Double]? {
         guard let closes, closes.count >= 2, let last = closes.last, last.isFinite, last > 0,
               let p = price, p.isFinite, p > 0,
               let rate = quoteUsd, rate.isFinite, rate > 0 else { return nil }
-        return abs(p * rate / last - 1) <= DayChange.maxPriceGap ? closes : nil
+        let usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
+        return abs(p * rate / (last * usdt) - 1) <= DayChange.maxPriceGap ? closes : nil
     }
 
     /// Bereitet Kerzen für den Canvas vor (rein, ohne Main-Thread): bereinigen, Achse
@@ -200,11 +208,23 @@ enum SheetChart {
         return (source, target)
     }
 
+    /// Hängt die Umrechnung von `candles` an mindestens einem Tag an USDT = 1 — heute ohne Live-Kurs, ein früherer Tag
+    /// ohne Tagesschluss USDT/USD (`UsdtUsdRates.on`, wie `accept`)? Ohne `usdt` immer. Wie
+    /// `PortfolioHistoryFx.usdtApproximate` und Android.
+    static func usdtApproximate(_ candles: [MarketCandle], usdt: UsdtUsdRates?, todayEpochDay: Int) -> Bool {
+        candles.contains { usdtOn(usdt, openTime: $0.openTime, todayEpochDay: todayEpochDay).approximate }
+    }
+
+    /// USDT/USD am (UTC-)Tag der Kerze (`UsdtUsdRates.on`); ohne `usdt` 1 als Näherung.
+    private static func usdtOn(_ usdt: UsdtUsdRates?, openTime: Int64, todayEpochDay: Int) -> UsdtUsd {
+        (usdt ?? UsdtUsdRates(live: nil)).on(utcEpochDay(openTime), todayEpochDay: todayEpochDay)
+    }
+
     /// Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-    /// umgerechnet (`.daily` bzw. `.current`) und ohne Marktkurs USDT/USD (`usdtUsd`, wie `accept`) mit USDT = 1 USD.
+    /// umgerechnet (`.daily` bzw. `.current`) und an mindestens einem Tag mit USDT = 1 USD (`usdtApproximate`).
     /// Nur bei Umrechnung aus USDT — wie Transaktionsblatt, Portfolio-Alarm und Android.
-    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?, usdtUsd: Double?) -> Bool {
-        guard fx != .none, PortfolioStables.usdtUsdLive(usdtUsd).approximate else { return false }
+    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?, usdtApproximate: Bool) -> Bool {
+        guard fx != .none, usdtApproximate else { return false }
         var source = "USDT"
         if let pair = sourcePair, let slash = pair.lastIndex(of: "/") {
             let tail = pair[pair.index(after: slash)...].trimmingCharacters(in: .whitespaces).uppercased()

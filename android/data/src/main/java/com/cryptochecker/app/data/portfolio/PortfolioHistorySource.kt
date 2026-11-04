@@ -203,8 +203,11 @@ class PortfolioHistorySource @Inject constructor(
         }
     }
 
-    /** Wie [usdtUsdDaily], nur was schon da ist (Speicher, Gerät) — ohne Netz, ohne Altersgrenze (Widget). */
-    private suspend fun cachedUsdtUsdDaily(): Map<Long, Double> {
+    /**
+     * Wie [usdtUsdDaily], nur was schon da ist (Speicher, Gerät) — ohne Netz, ohne Altersgrenze (Widget, Chart im
+     * Aktionsblatt der Merkliste).
+     */
+    suspend fun cachedUsdtUsdDaily(): Map<Long, Double> {
         suspend fun cachedOwn(key: String, pair: CandlePair): Map<Long, Double> {
             val route = pair.cacheKey
             val entry = ownMemory[key]?.first?.takeIf { it.route == route }

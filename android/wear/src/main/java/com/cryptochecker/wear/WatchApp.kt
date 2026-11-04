@@ -247,15 +247,17 @@ private fun ChooseList(own: List<String>, onToggle: (String) -> Unit) {
 }
 
 /**
- * Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, das die Uhr selbst abfragen kann → dessen
- * Börse nicht erreichbar; sonst (Pool, Laufzeit-Kontrakt) kann die Uhr das Paar nicht selbst laden.
+ * Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, dessen Börse die Uhr selbst abfragt
+ * ([WatchPairQuotes.asksOwnExchange]) → diese Börse nicht erreichbar; Paar einer Börse, die die Uhr nicht abfragt
+ * (z. B. Kraken-Spot: nur Binance, Bybit, OKX) → Kurse dieser Börse nur vom Handy; sonst (Pool, Laufzeit-Kontrakt)
+ * kann die Uhr das Paar nicht selbst laden. Wie iOS `WatchText.missingReason`.
  */
 internal fun missingReason(context: Context, key: String): String {
     val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_error)
-    return if (pair.selfFetchable) {
-        context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
-    } else {
-        context.getString(R.string.a11y_watch_no_price_phone_only)
+    return when {
+        !pair.selfFetchable -> context.getString(R.string.a11y_watch_no_price_phone_only)
+        WatchPairQuotes.asksOwnExchange(pair) -> context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
+        else -> context.getString(R.string.a11y_watch_no_price_via_phone, pair.exchange)
     }
 }
 

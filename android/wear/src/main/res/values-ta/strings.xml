@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">விலை காலாவதியானது</string>
     <string name="a11y_watch_no_price_unreachable">விலை இல்லை, %1$s ஐ அணுக முடியவில்லை</string>
     <string name="a11y_watch_no_price_phone_only">விலை இல்லை, கடிகாரத்தால் இந்த ஜோடியை ஏற்ற முடியாது</string>
+    <string name="a11y_watch_no_price_via_phone">விலை இல்லை, கடிகாரம் %1$s விலைகளை தொலைபேசியிலிருந்து மட்டுமே பெறுகிறது</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d நிமிடத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
         <item quantity="other">%1$d நிமிடங்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>

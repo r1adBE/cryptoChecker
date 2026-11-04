@@ -18,6 +18,7 @@
     <string name="a11y_watch_outdated">Kurssi vanhentunut</string>
     <string name="a11y_watch_no_price_unreachable">ei hintaa, %1$s ei vastaa</string>
     <string name="a11y_watch_no_price_phone_only">ei hintaa, kello ei voi ladata tätä paria</string>
+    <string name="a11y_watch_no_price_via_phone">ei hintaa, kello saa %1$s-hinnat vain puhelimelta</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">päivitetty viimeksi %1$d minuutti sitten</item>
         <item quantity="other">päivitetty viimeksi %1$d minuuttia sitten</item>

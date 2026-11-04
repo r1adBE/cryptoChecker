@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
+import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
@@ -11,6 +12,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
+import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
 import com.cryptochecker.app.domain.watch.SheetChartCache
@@ -34,7 +36,9 @@ import javax.inject.Singleton
  * sonst die Ausweich-Kette ([CandleDataSource], Futures-Paare zuerst USDⓈ-M): Paar zuerst, bei
  * Fiat-Quotes ersatzweise die USDT-Reihe umgerechnet (siehe [SheetChart.requests]) — je Kerze mit dem
  * Devisenkurs ihres Tags (dieselben EZB-Tageskurse wie der Wertverlauf des Portfolios,
- * [HistoricPriceSource.usdToSeries]); ohne Tageskurse mit einem Faktor (aktueller Kurs).
+ * [HistoricPriceSource.usdToSeries]); ohne Tageskurse mit einem Faktor (aktueller Kurs). USDT → USD je Kerze wie der
+ * Wertverlauf ([UsdtUsdRates]): heute der Live-Kurs, davor die schon gespeicherten USDT/USD-Tagesschlüsse des Portfolios
+ * ([PortfolioHistorySource.cachedUsdtUsdDaily], keine eigene Abfrage); Tag ohne Kurs = 1 mit Vermerk.
  * Jede Reihe gilt nur, wenn sie (umgerechnet) zum Kurs des Paars passt (gleicher Token,
  * [SheetChart.accept]); passt die Reihe einer Quelle nicht, ist die nächste der Kette dran.
  * TradFi-Paare und DEX-Pools nie aus der Kette ([OwnCandlePolicy.allowsFallback]).
@@ -51,6 +55,8 @@ class SheetChartRepository @Inject constructor(
     private val tokenIdentityStore: TokenIdentityStore,
     /** Live-Kurs USDT/USD für die Umrechnung der USDT-Reihe in Fiat (wie Portfolio und Alarme). */
     private val depegReadings: DepegReadingStore,
+    /** Gespeicherte USDT/USD-Tagesschlüsse (nur lesen, kein Netz). */
+    private val historySource: PortfolioHistorySource,
 ) {
     private val cache = SheetChartCache()
 
@@ -115,8 +121,9 @@ class SheetChartRepository @Inject constructor(
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der
             // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token)
             val identityName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset)
-            // USDT → USD zum Marktkurs; ohne Messung 1 (Vermerk «USDT = 1 angenommen», [SheetChart.usdtParityNote])
-            val usdtUsd = depegReadings.liveUsdtUsd()
+            // USDT → USD je Tag zum Marktkurs; Tag ohne Kurs 1 (Vermerk «USDT = 1 angenommen», [SheetChart.usdtParityNote])
+            val usdt = usdtRates(quoteIsFiat)
+            val today = SheetChart.utcEpochDay(System.currentTimeMillis())
             for (request in SheetChart.requests(watch.baseAsset, watch.quoteAsset, quoteIsFiat)) {
                 var accepted: List<WidgetCandle>? = null
                 var rates: Map<Long, Double>? = null
@@ -137,7 +144,7 @@ class SheetChartRepository @Inject constructor(
                             val dayRates = rates
                             // Ohne Tageskurse: aktueller Devisenkurs für die Prüfung auf gleichen Token
                             val current = if (request.convert && dayRates.isNullOrEmpty()) currentRate(quote) else null
-                            val ok = SheetChart.accept(raw, request, watch.lastPrice, dayRates, current, usdtUsd)
+                            val ok = SheetChart.accept(raw, request, watch.lastPrice, dayRates, current, usdt, today)
                             accepted = ok
                             // Fremde Reihe gleichen Kürzels: nächste Quelle der Kette
                             ok != null
@@ -159,13 +166,33 @@ class SheetChartRepository @Inject constructor(
                     sourcePair = "${request.base}/${request.quote}",
                     fx = fx,
                     fetchedAt = System.currentTimeMillis(),
-                    usdtAssumed = SheetChart.usdtParityNote(fx, "${request.base}/${request.quote}", usdtUsd),
+                    usdtAssumed = SheetChart.usdtParityNote(
+                        fx, "${request.base}/${request.quote}", SheetChart.usdtApproximate(candles, usdt, today),
+                    ),
                 )
                 cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, exchange)
                 return@withContext result
             }
             SheetChartResult.NoData
         }
+    }
+
+    /**
+     * USDT/USD für die Umrechnung der Ausweich-Reihe: Live-Kurs ([DepegReadingStore.liveUsdtUsd]) und die gespeicherten
+     * Tagesschlüsse ([PortfolioHistorySource.cachedUsdtUsdDaily]: Speicher/Gerät, ohne Netz — geladen nur vom Portfolio).
+     * Nur bei Fiat-Quote nötig; null sonst.
+     */
+    private suspend fun usdtRates(quoteIsFiat: Boolean): UsdtUsdRates? {
+        if (!quoteIsFiat) return null
+        val daily = try {
+            withContext(Dispatchers.IO) { historySource.cachedUsdtUsdDaily() }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.d(e, "USDT/USD-Tagesschlüsse für das Aktionsblatt nicht lesbar")
+            emptyMap()
+        }
+        return UsdtUsdRates(depegReadings.liveUsdtUsd(), daily)
     }
 
     /** Kerze für Blatt und Widget; Umsatz in der Quote für die Volumen-Balken. */

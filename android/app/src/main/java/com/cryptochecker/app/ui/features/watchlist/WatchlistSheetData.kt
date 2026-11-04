@@ -94,6 +94,7 @@ class WatchlistSheetData @Inject constructor(
         if (!fallbackSeriesAllowed(watch, sparklineRepository.sparklineProvider(watch.baseAsset))) return null
         return SheetChart.sparklineFor(
             sparklineRepository.cached(watch.baseAsset), watch.lastPrice, currencyConverter.cachedRate(watch.conversionQuote, USD),
+            currencyConverter.liveUsdtUsd(),
         )
     }
 
@@ -124,7 +125,7 @@ class WatchlistSheetData @Inject constructor(
         // Reihe eines anderen Tokens (Name klar verschieden): lieber kein Chart
         if (!fallbackSeriesAllowed(watch, sparklineRepository.sparklineProvider(watch.baseAsset))) return null
         val quoteUsd = currencyConverter.cachedRate(watch.conversionQuote, USD) ?: currencyConverter.rate(watch.conversionQuote, USD)
-        return SheetChart.sparklineFor(closes, watch.lastPrice, quoteUsd)
+        return SheetChart.sparklineFor(closes, watch.lastPrice, quoteUsd, currencyConverter.liveUsdtUsd())
     }
 
     /**

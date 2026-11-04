@@ -24,7 +24,7 @@ struct DayReference: Sendable, Equatable {
 ///  1. Kerzen des Paars selbst (USD-artige Quotes teilen sich die USDT-Reihe des
 ///     Mini-Charts): aktueller Kurs gegen die Eröffnung vor 24 h.
 ///  2. Fiat-Quote ohne eigene Kerzen (z. B. BTC/CHF): USDT-Reihe, in Fiat umgerechnet mit dem
-///     Devisenkurs an BEIDEN Enden (jetzt und vor 24 h); fehlt einer, kein Wert — nie der
+///     Devisenkurs und USDT/USD an BEIDEN Enden (jetzt und vor 24 h); fehlt ein Devisenkurs, kein Wert — nie der
 ///     USDT-Prozentwert als Fiat-Wert (`fromUsdtSeries`). Der Hinweis im Aktionsblatt nennt
 ///     dann «Anbieter USDT» (`candleSourceName`).
 ///  3. Sonst nichts (nil → Anzeige «—»), nie die Veränderung seit der letzten Abfrage.
@@ -58,17 +58,23 @@ enum DayChange {
         return (ref.lastClose - ref.open) / ref.open * 100
     }
 
-    /// 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × `usdToQuote` (Fiat je
-    /// USD jetzt, USDT gilt als USD) gegen Eröffnung × `usdToQuoteAtOpen` (Fiat je USD vor 24 h).
-    /// Fehlt einer der beiden Kurse (nil, nicht endlich, ≤ 0) → nil: der USDT-Prozentwert ist kein
+    /// 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × `usdtUsd` × `usdToQuote` (USDT/USD und
+    /// Fiat je USD jetzt) gegen Eröffnung × `usdtUsdAtOpen` × `usdToQuoteAtOpen` (vor 24 h) — so zählt ein USDT-Depeg
+    /// mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD jetzt = Live-Kurs
+    /// (`PortfolioStables.usdtUsdLive`), zur Eröffnung = Tagesschluss jenes Tags (`PortfolioStables.usdtUsd`); fehlt
+    /// einer, gilt dort 1 (Näherung, `usdtSeriesApproximate`).
+    /// Fehlt einer der beiden Devisenkurse (nil, nicht endlich, ≤ 0) → nil: der USDT-Prozentwert ist kein
     /// Fiat-Wert, also lieber «—». Kursabstand-Prüfung wie `fromPrice` (`maxPriceGap`) gegen den
     /// umgerechneten letzten Schluss; ohne Paarkurs entfällt nur diese Prüfung.
     /// Wie `DayChange.fromUsdtSeries` (Android).
     static func fromUsdtSeries(_ price: Double?, _ reference: DayReference?, usdToQuote: Double?,
-                               usdToQuoteAtOpen: Double?) -> Double? {
+                               usdToQuoteAtOpen: Double?, usdtUsd: Double? = nil,
+                               usdtUsdAtOpen: Double? = nil) -> Double? {
         guard let ref = reference,
-              let rate = usdToQuote, rate.isFinite, rate > 0,
-              let rateAtOpen = usdToQuoteAtOpen, rateAtOpen.isFinite, rateAtOpen > 0 else { return nil }
+              let fx = usdToQuote, fx.isFinite, fx > 0,
+              let fxAtOpen = usdToQuoteAtOpen, fxAtOpen.isFinite, fxAtOpen > 0 else { return nil }
+        let rate: Double = fx * PortfolioStables.usdtUsdLive(usdtUsd).rate
+        let rateAtOpen: Double = fxAtOpen * PortfolioStables.usdtUsd(usdtUsdAtOpen).rate
         if let p = price, p.isFinite, p > 0 {
             let gap: Double = abs(p / (ref.lastClose * rate) - 1)
             if gap > maxPriceGap { return nil }
@@ -78,6 +84,11 @@ enum DayChange {
         return (last - open) / open * 100
     }
 
+    /// Rechnet `fromUsdtSeries` an einem Ende mit USDT = 1 (kein Live-Kurs bzw. kein Tagesschluss USDT/USD)? Wie Android.
+    static func usdtSeriesApproximate(usdtUsd: Double?, usdtUsdAtOpen: Double?) -> Bool {
+        PortfolioStables.usdtUsdLive(usdtUsd).approximate || PortfolioStables.usdtUsd(usdtUsdAtOpen).approximate
+    }
+
     /// Auswahl in fester Reihenfolge (siehe oben).
     /// - Parameters:
     ///   - pairReference: Kerzen des Paars in seiner Quote (bzw. USDT bei USD-artigen Quotes)
@@ -85,11 +96,15 @@ enum DayChange {
     ///   - quoteIsFiat: Quote ist eine Landeswährung (EUR, CHF, …)
     ///   - usdToQuote: Fiat je USD jetzt (`fromUsdtSeries`); nil = unbekannt
     ///   - usdToQuoteAtOpen: Fiat je USD zur Eröffnung der Reihe (vor 24 h bzw. Tagesbeginn); nil = unbekannt
+    ///   - usdtUsd: USDT/USD jetzt (Live-Kurs); nil = 1 (Näherung)
+    ///   - usdtUsdAtOpen: USDT/USD-Tagesschluss am Tag der Eröffnung; nil = 1 (Näherung)
     static func select(price: Double?, pairReference: DayReference?, usdtReference: DayReference?,
-                       quoteIsFiat: Bool, usdToQuote: Double? = nil, usdToQuoteAtOpen: Double? = nil) -> Double? {
+                       quoteIsFiat: Bool, usdToQuote: Double? = nil, usdToQuoteAtOpen: Double? = nil,
+                       usdtUsd: Double? = nil, usdtUsdAtOpen: Double? = nil) -> Double? {
         if let pairReference { return fromPrice(price, pairReference) }
         if quoteIsFiat {
-            return fromUsdtSeries(price, usdtReference, usdToQuote: usdToQuote, usdToQuoteAtOpen: usdToQuoteAtOpen)
+            return fromUsdtSeries(price, usdtReference, usdToQuote: usdToQuote, usdToQuoteAtOpen: usdToQuoteAtOpen,
+                                  usdtUsd: usdtUsd, usdtUsdAtOpen: usdtUsdAtOpen)
         }
         return nil
     }
