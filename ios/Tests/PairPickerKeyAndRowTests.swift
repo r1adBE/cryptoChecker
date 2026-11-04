@@ -33,7 +33,7 @@ final class PairPickerKeyAndRowTests: XCTestCase {
         let overview = try feature("Alarms/AlarmsOverviewScreen.swift")
         XCTAssertTrue(overview.contains("verticalPadding: 8, dimsLabel: false)"))
         let components = try String(contentsOf: app("Components/Components.swift"), encoding: .utf8)
-        XCTAssertTrue(components.contains(".opacity(enabled || !dimsLabel ? 1 : 0.5)"))
+        XCTAssertTrue(components.contains(".opacity(enabled || !dimsLabel ? 1 : ColorTokens.disabledRowAlpha)"))
     }
 
     /// Portfolio-Zeile mit ungültiger Schwelle nennt «löschen und neu anlegen» (kein Editor), nicht «anpassen».
