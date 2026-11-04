@@ -49,7 +49,7 @@ class MemoryCacheBoundTest {
         val files = listOf(
             "data/remote/VolumeDataSource.kt", "data/remote/NearExtremeDataSource.kt",
             "data/portfolio/PortfolioHistorySource.kt", "domain/alarm/DerivativesAlarmData.kt",
-            "domain/watch/SheetChart.kt", "widget/SingleWidgetRenderer.kt",
+            "domain/watch/SheetChartCache.kt", "widget/SingleWidgetRenderer.kt",
         )
         for (name in files) {
             val path = "src/main/java/com/cryptochecker/app/$name"
