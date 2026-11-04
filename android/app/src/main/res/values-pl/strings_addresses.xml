@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Adres publiczny (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) lub xpub</string>
     <string name="portfolio_address_label">Etykieta (opcjonalnie)</string>
     <string name="portfolio_address_not_since_buy">Z adresu · poza „Od zakupu”: %1$s</string>
-    <string name="portfolio_address_overlap">Także w twoich transakcjach: %1$s – liczy się tylko to, co adres ma ponad nie.</string>
+    <string name="portfolio_address_overlap">Także w twoich transakcjach: %1$s – liczy się tylko to, co adres ma ponad twoje transakcje w tym wallecie.</string>
     <string name="portfolio_address_overlap_ask">Zapisujesz już %1$s we własnych transakcjach. Wliczać saldo tego adresu do portfela czy tylko je pokazywać?</string>
     <string name="portfolio_address_overlap_auto">„%1$s” jest teraz tylko pokazywany, nie wliczany – %2$s są też w twoich transakcjach.</string>
     <string name="portfolio_address_overlap_title">Te same monety co w twoich transakcjach?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Tylko pokaż, nie wliczaj do portfela</string>
     <string name="portfolio_address_show_only_short">Tylko pokaż</string>
     <string name="portfolio_address_tokens">Wliczaj tokeny</string>
+    <string name="portfolio_address_withdrawal_match">Ta sama ilość co twoje przeniesienie do „%1$s” – ustaw ten adres jako cel, inaczej liczy się podwójnie.</string>
     <string name="portfolio_address_xpub_privacy">Xpub ujawnia wszystkie adresy tego walleta. Są wyprowadzane na twoim urządzeniu; do %1$s trafiają tylko pojedyncze adresy – przy pierwszym wyszukiwaniu co najmniej 40 zapytań, później mniej. Klucze prywatne (xprv) nigdy nie są akceptowane.</string>
     <string name="portfolio_address_xpub_gap">Wyszukiwanie kończy się po %1$d nieużywanych adresach z rzędu (standard BIP44 stosowany przez większość portfeli). Używany adres za tą luką nie jest liczony – dodaj go osobno.</string>
     <string name="portfolio_address_xpub_used">Używane adresy: %1$d</string>

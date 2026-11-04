@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Бүгін %1$s %2$s</string>
     <string name="macro_item_tomorrow">Ертең %1$s %2$s</string>
+    <string name="macro_more_dates_later">Келесі күндер дереккөз жариялағаннан кейін қосылады.</string>
     <string name="macro_nfp">АҚШ жұмыспен қамту есебі</string>
     <string name="macro_pce">АҚШ тұтыну шығындарының бағалары (PCE)</string>
     <string name="macro_ppi">АҚШ өндіруші бағалары (PPI)</string>

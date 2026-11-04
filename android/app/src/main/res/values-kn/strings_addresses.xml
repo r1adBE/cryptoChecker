@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">ಸಾರ್ವಜನಿಕ ವಿಳಾಸ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ಅಥವಾ xpub</string>
     <string name="portfolio_address_label">ಲೇಬಲ್ (ಐಚ್ಛಿಕ)</string>
     <string name="portfolio_address_not_since_buy">ವಿಳಾಸದಿಂದ · “ಖರೀದಿಯಿಂದ” ದಲ್ಲಿ ಇಲ್ಲ: %1$s</string>
-    <string name="portfolio_address_overlap">ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$s – ವಿಳಾಸದಲ್ಲಿ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="portfolio_address_overlap">ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$s – ಈ ವ್ಯಾಲೆಟ್‌ನಲ್ಲಿನ ನಿಮ್ಮ ವಹಿವಾಟುಗಳಿಗಿಂತ ವಿಳಾಸದಲ್ಲಿ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="portfolio_address_overlap_ask">ನೀವು ಈಗಾಗಲೇ %1$s ಅನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳೊಂದಿಗೆ ದಾಖಲಿಸುತ್ತಿದ್ದೀರಿ. ಈ ವಿಳಾಸದ ಬ್ಯಾಲೆನ್ಸ್ ಅನ್ನು ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಕೆ, ಅಥವಾ ತೋರಿಸಿದರೆ ಸಾಕೆ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ಈಗ ತೋರಿಸಲಾಗುತ್ತದೆ ಮಾತ್ರ, ಎಣಿಸಲಾಗುವುದಿಲ್ಲ – %2$s ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇವೆ.</string>
     <string name="portfolio_address_overlap_title">ನಿಮ್ಮ ವಹಿವಾಟುಗಳಲ್ಲಿರುವ ಅದೇ ಕಾಯಿನ್‌ಗಳೇ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ತೋರಿಸಿ ಮಾತ್ರ, ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಡಿ</string>
     <string name="portfolio_address_show_only_short">ತೋರಿಸಿ ಮಾತ್ರ</string>
     <string name="portfolio_address_tokens">ಟೋಕನ್‌ಗಳನ್ನು ಎಣಿಸಿ</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” ಗೆ ನಿಮ್ಮ ವರ್ಗಾವಣೆಯಷ್ಟೇ ಮೊತ್ತ – ಗಮ್ಯಸ್ಥಾನವನ್ನು ಈ ವಿಳಾಸಕ್ಕೆ ಹೊಂದಿಸಿ, ಇಲ್ಲದಿದ್ದರೆ ಎರಡು ಬಾರಿ ಎಣಿಕೆಯಾಗುತ್ತದೆ.</string>
     <string name="portfolio_address_xpub_privacy">xpub ಈ ವ್ಯಾಲೆಟ್‌ನ ಎಲ್ಲಾ ವಿಳಾಸಗಳನ್ನು ಬಹಿರಂಗಪಡಿಸುತ್ತದೆ. ಅವುಗಳನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಪಡೆಯಲಾಗುತ್ತದೆ; ಪ್ರತ್ಯೇಕ ವಿಳಾಸಗಳನ್ನು ಮಾತ್ರ %1$s ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ – ಮೊದಲ ಸ್ಕ್ಯಾನ್‌ನಲ್ಲಿ ಕನಿಷ್ಠ 40 ವಿನಂತಿಗಳು, ನಂತರ ಕಡಿಮೆ. ಖಾಸಗಿ ಕೀಗಳನ್ನು (xprv) ಎಂದಿಗೂ ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
     <string name="portfolio_address_xpub_gap">ಸತತ %1$d ಬಳಸದ ವಿಳಾಸಗಳ ನಂತರ ಹುಡುಕಾಟ ನಿಲ್ಲುತ್ತದೆ (ಹೆಚ್ಚಿನ ವ್ಯಾಲೆಟ್‌ಗಳು ಬಳಸುವ BIP44 ಮಾನದಂಡ). ಆ ಅಂತರದ ಆಚೆಗಿನ ಬಳಸಿದ ವಿಳಾಸವನ್ನು ಎಣಿಸಲಾಗುವುದಿಲ್ಲ – ಅದನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಸೇರಿಸಿ.</string>
     <string name="portfolio_address_xpub_used">ಬಳಕೆಯಲ್ಲಿರುವ ವಿಳಾಸಗಳು: %1$d</string>

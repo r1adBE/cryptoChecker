@@ -182,7 +182,7 @@ struct PortfolioCsvImportSheet: View {
                     Button(L("portfolio_csv_import_confirm", total), action: confirm)
                         .accessibilityIdentifier(UiTestTags.csvImportConfirm)
                         .fontWeight(.semibold)
-                        .disabled(total == 0 || saveRun.phase != nil
+                        .appDisabled(total == 0 || saveRun.phase != nil
                                   || !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices)
                                   || !CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead))
                 }

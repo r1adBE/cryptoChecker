@@ -111,7 +111,7 @@ extension PairScreen {
                     .font(.footnote.weight(.semibold))
                     .buttonStyle(.borderless)
                     .tint(accent.primary)
-                    .disabled(refreshState.refreshingWatchIds.contains(watch.id))
+                    .appDisabled(refreshState.refreshingWatchIds.contains(watch.id))
                 }
             } else if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
                 // Jeder andere Fehler (auch ohne älteren Kurs): Fehlertext plus «Erneut versuchen» als nächster
@@ -127,7 +127,7 @@ extension PairScreen {
                     .font(.footnote.weight(.semibold))
                     .buttonStyle(.borderless)
                     .tint(accent.primary)
-                    .disabled(refreshState.refreshingWatchIds.contains(watch.id))
+                    .appDisabled(refreshState.refreshingWatchIds.contains(watch.id))
                 }
             } else if let error = watch.lastError, !error.isEmpty {
                 Text(ConnectionErrors.display(error))

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">સાર્વજનિક સરનામું (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) અથવા xpub</string>
     <string name="portfolio_address_label">લેબલ (વૈકલ્પિક)</string>
     <string name="portfolio_address_not_since_buy">સરનામા પરથી · “ખરીદીથી” માં નથી: %1$s</string>
-    <string name="portfolio_address_overlap">તમારા પોતાના વ્યવહારોમાં પણ છે: %1$s – સરનામે તેનાથી વધુ જે છે, ફક્ત તે જ ગણાય છે.</string>
+    <string name="portfolio_address_overlap">તમારા પોતાના વ્યવહારોમાં પણ છે: %1$s – આ વૉલેટમાંના તમારા વ્યવહારો કરતાં સરનામે જે વધુ છે, ફક્ત તે જ ગણાય છે.</string>
     <string name="portfolio_address_overlap_ask">તમે %1$s પહેલેથી પોતાના વ્યવહારો તરીકે નોંધો છો. આ સરનામાનું બેલેન્સ પોર્ટફોલિયોમાં ઉમેરવું છે કે ફક્ત બતાવવું છે?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” હવે ફક્ત બતાવાય છે, ગણાતું નથી – %2$s તમારા વ્યવહારોમાં પણ છે.</string>
     <string name="portfolio_address_overlap_title">તમારા વ્યવહારો જેવા જ કૉઇન છે?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ફક્ત બતાવો, પોર્ટફોલિયોમાં ઉમેરશો નહીં</string>
     <string name="portfolio_address_show_only_short">ફક્ત બતાવો</string>
     <string name="portfolio_address_tokens">ટોકન ગણો</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” પર તમારા ટ્રાન્સફર જેટલી જ રકમ – લક્ષ્ય આ સરનામું રાખો, નહીં તો તે બે વાર ગણાશે.</string>
     <string name="portfolio_address_xpub_privacy">xpub આ વૉલેટનાં બધાં સરનામાં જાહેર કરે છે. તે તમારા ડિવાઇસ પર જ મેળવાય છે; ફક્ત અલગ-અલગ સરનામાં %1$s ને મોકલાય છે – પહેલા સ્કૅનમાં ઓછામાં ઓછી 40 વિનંતીઓ, પછી ઓછી. ખાનગી કી (xprv) ક્યારેય સ્વીકારાતી નથી.</string>
     <string name="portfolio_address_xpub_gap">સળંગ %1$d વણવપરાયેલાં સરનામાં પછી શોધ અટકે છે (મોટા ભાગનાં વૉલેટ વાપરે છે તે BIP44 ધોરણ). તે ગાળા પછીનું વપરાયેલું સરનામું ગણાતું નથી – તેને અલગથી ઉમેરો.</string>
     <string name="portfolio_address_xpub_used">વપરાશમાં સરનામાં: %1$d</string>

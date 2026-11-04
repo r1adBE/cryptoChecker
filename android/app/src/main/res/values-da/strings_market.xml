@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">I dag %1$s %2$s</string>
     <string name="macro_item_tomorrow">I morgen %1$s %2$s</string>
+    <string name="macro_more_dates_later">Flere datoer følger, så snart kilden offentliggør dem.</string>
     <string name="macro_nfp">amerikansk jobrapport</string>
     <string name="macro_pce">amerikansk PCE-inflation</string>
     <string name="macro_ppi">amerikanske producentpriser (PPI)</string>

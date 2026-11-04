@@ -307,13 +307,13 @@ struct PricePairsPage: View {
                     }
                     .buttonStyle(.bordered)
                     .frame(maxWidth: .infinity)
-                    .disabled(!data.watches.contains { !$0.notificationEnabled })
+                    .appDisabled(!data.watches.contains { !$0.notificationEnabled })
                     Button(L("settings_price_pairs_all_off")) {
                         data.withWatchlistConfirm { data.setAllNotifications(false) }
                     }
                     .buttonStyle(.bordered)
                     .frame(maxWidth: .infinity)
-                    .disabled(!data.watches.contains { $0.notificationEnabled })
+                    .appDisabled(!data.watches.contains { $0.notificationEnabled })
                 }
                 .padding(.vertical, 8)
                 ForEach(data.watches) { watch in

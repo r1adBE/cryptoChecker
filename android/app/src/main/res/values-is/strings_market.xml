@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Í dag %1$s %2$s</string>
     <string name="macro_item_tomorrow">Á morgun %1$s %2$s</string>
+    <string name="macro_more_dates_later">Fleiri dagsetningar bætast við um leið og heimildin birtir þær.</string>
     <string name="macro_nfp">Atvinnuskýrsla Bandaríkjanna</string>
     <string name="macro_pce">Neysluverð í Bandaríkjunum (PCE)</string>
     <string name="macro_ppi">Framleiðsluverð í Bandaríkjunum (PPI)</string>

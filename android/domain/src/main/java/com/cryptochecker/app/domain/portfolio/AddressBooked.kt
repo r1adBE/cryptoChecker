@@ -23,7 +23,7 @@ data class AddressMove(val time: Long, val amount: BigDecimal)
  * [AddressCostLots.movesOwners], nur bis zum Abruf des Guthabens). Ihre Zeit wird auf die letzte Beobachtung begrenzt:
  * das zuletzt geladene Guthaben enthält sie wie auf der Karte. Vor der ersten Beobachtung zählt die Adresse nicht (nie
  * rückwirkend); die Buchungen selbst zählen ab ihrer Zeit. Die letzte Stufe ist so der Adress-Teil der Karte.
- * Danach zählt je Coin über alle Adressen nur der Mehrbestand über den eigenen Bestand ([AddressSurplus], [withLedger]).
+ * Danach zählt je Coin und Wallet nur der Mehrbestand über den eigenen Bestand dieser Wallet ([AddressSurplus], [withLedger]).
  */
 object AddressBooked {
 
@@ -56,18 +56,22 @@ object AddressBooked {
     }
 
     /**
-     * An der ersten Reihe je Coin der eigene Bestand als Stufen ([AddressSurplus.ledgerSteps], Zeiten bis zur letzten
-     * Beobachtung des Coins) — [AddressBalanceHistory.trades] zählt dann nur den Mehrbestand ([AddressSurplus.steps]).
+     * An der ersten Reihe je Coin und Wallet ([AddressBalanceHistory.wallet]) der eigene Bestand dieser Wallet als Stufen
+     * ([AddressSurplus.ledgerSteps], Zeiten bis zur letzten Beobachtung des Coins in der Wallet) —
+     * [AddressBalanceHistory.trades] zählt dann nur den Mehrbestand ([AddressSurplus.steps]).
      */
     private fun withLedger(out: MutableList<AddressBalanceHistory>, addresses: List<WatchedAddress>, real: List<PortfolioTrade>) {
         if (real.isEmpty() || out.isEmpty()) return
-        val net = AddressSurplus.netMoves(real)
-        val recorded = AddressSurplus.recordedMoves(addresses, real)
-        for (coin in out.map { PortfolioCalculator.normalizeCoin(it.coin) }.distinct()) {
-            val series = out.indices.filter { PortfolioCalculator.normalizeCoin(out[it].coin) == coin }
+        val moves = AddressSurplus.walletMoves(addresses, real)
+        for ((coin, wallet) in out.map { PortfolioCalculator.normalizeCoin(it.coin) to it.wallet }.distinct()) {
+            val m = moves[wallet] ?: continue
+            // Keine erfasste Bewegung dieses Coins in der Wallet: Adressen einzeln wie ohne eigene Transaktionen
+            val net = m.all[coin] ?: continue
+            val series = out.indices.filter { out[it].wallet == wallet && PortfolioCalculator.normalizeCoin(out[it].coin) == coin }
             val last = series.maxOf { i -> out[i].observations.maxOf { it.time } }
-            val steps = AddressSurplus.ledgerSteps(net[coin].orEmpty(), recorded[coin].orEmpty(), last)
-            if (steps.any { it.balance.signum() > 0 }) out[series.first()] = out[series.first()].copy(ledger = steps)
+            val absorbed = series.any { out[it].chain == m.owner.chain && WatchedAddressRules.sameAddress(m.owner.chain, out[it].address, m.owner.address) }
+            val steps = AddressSurplus.ledgerSteps(net, m.fetched[coin].orEmpty(), last, absorbed)
+            out[series.first()] = out[series.first()].copy(ledger = steps)
         }
     }
 
@@ -78,15 +82,16 @@ object AddressBooked {
 
     /**
      * Stufen der Reihen [group] (eine Adresse, ein Coin) ohne gebuchte Bewegungen: zu jeder Beobachtungszeit Summe der
-     * zuletzt beobachteten Guthaben minus Bewegungen bis dahin, nie unter 0; aufsteigend.
+     * zuletzt beobachteten Guthaben minus Bewegungen bis dahin, mit [floor] nie unter 0 (ohne: für [AddressSurplus.steps],
+     * das Übersteigen zieht dort von den übrigen Adressen der Wallet ab); aufsteigend.
      */
-    fun held(group: List<AddressBalanceHistory>): List<AddressObservation> {
+    fun held(group: List<AddressBalanceHistory>, floor: Boolean = true): List<AddressObservation> {
         val series = group.map { h -> h.observations.filter { it.balance.signum() >= 0 }.sortedBy { it.time } }
         val moves = group.flatMap { it.moves }
         return series.flatten().map { it.time }.distinct().sorted().map { t ->
             val observed = series.fold(BigDecimal.ZERO) { sum, list -> sum + (list.lastOrNull { it.time <= t }?.balance ?: BigDecimal.ZERO) }
             val booked = moves.filter { it.time <= t }.fold(BigDecimal.ZERO) { sum, m -> sum + m.amount }
-            AddressObservation(t, (observed - booked).max(BigDecimal.ZERO))
+            AddressObservation(t, if (floor) (observed - booked).max(BigDecimal.ZERO) else observed - booked)
         }
     }
 }

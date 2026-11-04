@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DexNames
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
@@ -80,7 +81,8 @@ internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
             Spacer(modifier = Modifier.size(8.dp))
             Button(
                 onClick = { dex.onSearch(query) },
-                enabled = query.isNotBlank() && !dex.searching
+                enabled = query.isNotBlank() && !dex.searching,
+                colors = DisabledColors.button(),
             ) {
                 Text(stringResource(R.string.dex_search))
             }

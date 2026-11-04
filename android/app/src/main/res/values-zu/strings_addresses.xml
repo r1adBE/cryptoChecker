@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Ikheli lomphakathi (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) noma i-xpub</string>
     <string name="portfolio_address_label">Ilebula (uyazikhethela)</string>
     <string name="portfolio_address_not_since_buy">Kusuka ekhelini · akukho ku-“Kusukela ekuthengeni”: %1$s</string>
-    <string name="portfolio_address_overlap">Kukhona nasemisebenzini yakho: %1$s – kubalwa kuphela lokho ikheli elinakho okwengeziwe.</string>
+    <string name="portfolio_address_overlap">Kukhona nasemisebenzini yakho: %1$s – kubalwa kuphela lokho ikheli elinakho ngaphezu kwemisebenzi yakho kule-wallet.</string>
     <string name="portfolio_address_overlap_ask">Usuvele ubhala i-%1$s ngemisebenzi yakho. Engeza ibhalansi yaleli kheli ku-portfolio, noma ulibonise kuphela?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” manje kuyabonakala kuphela, akubalwa – i-%2$s ivela nasemisebenzini yakho.</string>
     <string name="portfolio_address_overlap_title">Ama-coin afanayo nawemisebenzi yakho?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Bonisa kuphela, ungangezi ku-portfolio</string>
     <string name="portfolio_address_show_only_short">Bonisa kuphela</string>
     <string name="portfolio_address_tokens">Bala amathokheni</string>
+    <string name="portfolio_address_withdrawal_match">Inani elifanayo nokudlulisa kwakho kuya ku-“%1$s” – setha leli kheli njengendawo okuyiwa kuyo, uma kungenjalo kubalwa kabili.</string>
     <string name="portfolio_address_xpub_privacy">I-xpub iveza wonke amakheli ale wallet. Akhiqizwa kudivayisi yakho; amakheli ngamanye kuphela athunyelwa ku-%1$s – okungenani izicelo ezingu-40 ekuskeneni kokuqala, kamuva zibe ncane. Okhiye abayimfihlo (xprv) abamukelwa neze.</string>
     <string name="portfolio_address_xpub_gap">Ukusesha kuma ngemuva kwamakheli angu-%1$d alandelanayo angasetshenziswanga (izinga le-BIP44 elisetshenziswa ama-wallet amaningi). Ikheli elisetshenzisiwe elingaphezu kwaleso sikhala alibalwa – lengeze ngokwehlukile.</string>
     <string name="portfolio_address_xpub_used">Amakheli asetshenziswayo: %1$d</string>

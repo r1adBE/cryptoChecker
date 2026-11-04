@@ -20,7 +20,7 @@ extension PortfolioCsvImportSheet {
                 Button(L("explorer_bulk_show_all", links.count)) { showAllLinks = true }
                     .font(.subheadline)
                     .buttonStyle(.borderless)
-                    .disabled(rereading)
+                    .appDisabled(rereading)
             }
         }
         .sheet(isPresented: $showAllLinks) {
@@ -89,7 +89,7 @@ extension PortfolioCsvImportSheet {
                 }
                 .font(.subheadline)
                 .buttonStyle(.borderless)
-                .disabled(rereading)
+                .appDisabled(rereading)
             }
             ForEach(withdrawals.prefix(Self.listRows), id: \.importKey) { tx in
                 withdrawalRow(tx, destination: destinations[tx.importKey])
@@ -98,7 +98,7 @@ extension PortfolioCsvImportSheet {
                 Button(L("explorer_bulk_show_all", withdrawals.count)) { showAllWithdrawals = true }
                     .font(.subheadline)
                     .buttonStyle(.borderless)
-                    .disabled(rereading)
+                    .appDisabled(rereading)
             }
         }
         .sheet(isPresented: $showAllWithdrawals) {
@@ -151,7 +151,7 @@ extension PortfolioCsvImportSheet {
         }
         .buttonStyle(.borderless)
         .accessibilityAddTraits(selected ? .isSelected : [])
-        .disabled(rereading)
+        .appDisabled(rereading)
     }
 
     /// Alle Auszahlungen gleich («Alle auf eigene Wallet» / «Alle verlassen das Portfolio»).

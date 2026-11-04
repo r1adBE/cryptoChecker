@@ -33,7 +33,6 @@ struct WatchlistSelectionBar: View {
             action(symbol: "trash", title: L("action_delete"), color: AppColors.error, perform: onDelete)
         }
         .disabled(!enabled)
-        .opacity(enabled ? 1 : 0.4)
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(AppColors.containerHighest, in: RoundedRectangle(cornerRadius: Radius.large, style: .continuous))
@@ -50,7 +49,8 @@ struct WatchlistSelectionBar: View {
                     .font(.caption.weight(.medium))
                     .lineLimit(1)
             }
-            .foregroundStyle(color)
+            // Gesperrt (nichts gewählt) grau in `AppColors.disabledContent` (≥ 3:1) statt Deckkraft 0.4 — wie Android
+            .foregroundStyle(count > 0 ? color : AppColors.disabledContent)
             .frame(maxWidth: .infinity, minHeight: 48)
             .contentShape(Rectangle())
         }

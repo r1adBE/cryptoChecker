@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Δημόσια διεύθυνση (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ή xpub</string>
     <string name="portfolio_address_label">Ετικέτα (προαιρετικά)</string>
     <string name="portfolio_address_not_since_buy">Από διεύθυνση · εκτός «Από την αγορά»: %1$s</string>
-    <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – μετράει μόνο ό,τι επιπλέον έχει η διεύθυνση.</string>
+    <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – μετράει μόνο ό,τι έχει η διεύθυνση επιπλέον από τις συναλλαγές σου σε αυτό το πορτοφόλι.</string>
     <string name="portfolio_address_overlap_ask">Καταγράφεις ήδη το %1$s με δικές σου συναλλαγές. Να προστεθεί το υπόλοιπο αυτής της διεύθυνσης στο χαρτοφυλάκιο ή μόνο να εμφανίζεται;</string>
     <string name="portfolio_address_overlap_auto">Το «%1$s» πλέον μόνο εμφανίζεται, δεν μετράται – τα %2$s υπάρχουν και στις συναλλαγές σου.</string>
     <string name="portfolio_address_overlap_title">Ίδια νομίσματα με τις συναλλαγές σου;</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Μόνο προβολή, χωρίς προσθήκη στο χαρτοφυλάκιο</string>
     <string name="portfolio_address_show_only_short">Μόνο προβολή</string>
     <string name="portfolio_address_tokens">Συμπερίληψη tokens</string>
+    <string name="portfolio_address_withdrawal_match">Ίδια ποσότητα με τη μεταφορά σου προς «%1$s» – όρισε ως προορισμό αυτή τη διεύθυνση, αλλιώς μετράει διπλά.</string>
     <string name="portfolio_address_xpub_privacy">Ένα xpub αποκαλύπτει όλες τις διευθύνσεις αυτού του πορτοφολιού. Παράγονται στη συσκευή σου· στο %1$s στέλνονται μόνο μεμονωμένες διευθύνσεις – τουλάχιστον 40 αιτήματα στην πρώτη αναζήτηση, μετά λιγότερα. Ιδιωτικά κλειδιά (xprv) δεν γίνονται ποτέ δεκτά.</string>
     <string name="portfolio_address_xpub_gap">Η αναζήτηση σταματά μετά από %1$d αχρησιμοποίητες διευθύνσεις στη σειρά (το πρότυπο BIP44 που χρησιμοποιούν τα περισσότερα πορτοφόλια). Μια χρησιμοποιημένη διεύθυνση πέρα από αυτό το κενό δεν μετράται – πρόσθεσέ την ξεχωριστά.</string>
     <string name="portfolio_address_xpub_used">Διευθύνσεις σε χρήση: %1$d</string>

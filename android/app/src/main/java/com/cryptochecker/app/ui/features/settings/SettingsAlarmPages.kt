@@ -26,6 +26,7 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.rememberAlarmTest
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.PercentText
 
 // ── Alarme ───────────────────────────────────────────────────────────────────
@@ -270,11 +271,13 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                         viewModel.setAllPairNotifications(true, askPermissionAfterWrite(uiEvents.requestNotifications, true))
                     },
                     enabled = watches.any { !it.notificationEnabled },
+                    colors = DisabledColors.filledTonalButton(),
                     modifier = Modifier.weight(1f)
                 ) { Text(stringResource(R.string.settings_price_pairs_all_on)) }
                 FilledTonalButton(
                     onClick = { viewModel.setAllPairNotifications(false) },
                     enabled = watches.any { it.notificationEnabled },
+                    colors = DisabledColors.filledTonalButton(),
                     modifier = Modifier.weight(1f)
                 ) { Text(stringResource(R.string.settings_price_pairs_all_off)) }
         }

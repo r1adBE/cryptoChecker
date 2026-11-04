@@ -15,9 +15,9 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * «Nur Mehrbestand» ([AddressSurplus], `testdata/parity/address_surplus.json`): Karte, Reihe (Zeiträume/Verlauf) und
- * Stichtag zählen je Coin nur, was die zählenden Adressen über die eigenen Transaktionen hinaus halten. Gegenstück:
- * `Tests/AddressSurplusParityTests.swift`.
+ * «Nur Mehrbestand, gleiche Wallet» ([AddressSurplus], `testdata/parity/address_surplus.json`): Karte, Detail, Reihe
+ * (Zeiträume/Verlauf) und Stichtag zählen je Coin nur, was die zählenden Adressen über die eigenen Transaktionen IHRER
+ * Wallet hinaus halten; Bestände anderer Wallets ziehen nichts ab. Gegenstück: `Tests/AddressSurplusParityTests.swift`.
  */
 class AddressSurplusParityTest {
 
@@ -27,7 +27,7 @@ class AddressSurplusParityTest {
         val o = raw.obj()
         return WatchedAddress(
             id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
-            lastBalance = o["lastBalance"] as String?, lastUpdated = o["lastUpdated"].num()!!.toLong(),
+            label = o["label"] as String?, lastBalance = o["lastBalance"] as String?, lastUpdated = o["lastUpdated"].num()!!.toLong(),
         )
     }
 
@@ -54,7 +54,7 @@ class AddressSurplusParityTest {
     }
 
     @Test
-    fun cardHistoryAndCutoffCountOnlyTheSurplus() {
+    fun cardHistoryAndCutoffCountOnlyTheSurplusOfTheSameWallet() {
         val today = data["today"].num()!!.toLong()
         val cutoff = data["cutoff"].num()!!.toLong()
         for (raw in data["cases"].list()) {

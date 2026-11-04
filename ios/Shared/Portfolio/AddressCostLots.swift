@@ -311,8 +311,20 @@ enum AddressCostLots {
     /// Kann negativ sein. Wie Android.
     static func accounted(_ addresses: [WatchedAddress], real: [PortfolioTx] = []) -> [String: Decimal] {
         var out: [String: Decimal] = [:]
-        for (_, covered) in countedCoverage(addresses, real) {
-            for c in covered where c.accounted != 0 { out[c.coin] = (out[c.coin] ?? 0) + c.accounted }
+        for coins in accountedByWallet(addresses, real: real).values {
+            for (coin, v) in coins { out[coin, default: 0] += v }
+        }
+        return out
+    }
+
+    /// `accounted` je Wallet (`PortfolioWallets.key` von `walletName`) — für «Nur Mehrbestand» je Wallet
+    /// (`AddressSurplus`). Wie Android.
+    static func accountedByWallet(_ addresses: [WatchedAddress], real: [PortfolioTx] = []) -> [String: [String: Decimal]] {
+        var out: [String: [String: Decimal]] = [:]
+        for (a, covered) in countedCoverage(addresses, real) {
+            let key = PortfolioWallets.key(walletName(a))
+            if out[key] == nil { out[key] = [:] }
+            for c in covered where c.accounted != 0 { out[key, default: [:]][c.coin, default: 0] += c.accounted }
         }
         return out
     }

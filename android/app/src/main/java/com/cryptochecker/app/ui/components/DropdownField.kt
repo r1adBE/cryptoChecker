@@ -57,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 
 /** Mindesthöhe einer Zeile der Aufklappliste (zugleich Tippfläche des Sterns). */
@@ -157,7 +158,7 @@ fun DropdownField(
                         if (!focus.isFocused) typed = null
                     }
                 },
-            enabled = enabled,
+            enabled = enabled, colors = DisabledColors.outlinedTextField(),
             readOnly = !searchable,
             textStyle = if (showsEmptyText) {
                 LocalTextStyle.current.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -182,11 +183,10 @@ fun DropdownField(
             singleLine = true,
             maxLines = 1,
         )
-
         ExposedDropdownMenu(expanded = open, onDismissRequest = { close() }) {
             val listState = rememberLazyListState()
             if (entries.isEmpty()) {
-                DropdownMenuItem(text = { Text("—") }, onClick = {}, enabled = false)
+                DropdownMenuItem(text = { Text("—") }, onClick = {}, enabled = false, colors = DisabledColors.menuItem())
             } else {
                 ComboList(
                     entries = entries,

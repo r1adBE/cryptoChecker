@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.logoRes
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 
@@ -63,6 +64,7 @@ fun AppMenuHead(
             }
         },
         enabled = !refreshing && refreshEnabled,
+        colors = DisabledColors.menuItem(),
         onClick = { onClose(); onRefresh() }
     )
 }

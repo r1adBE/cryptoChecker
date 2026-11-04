@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.TextLimit
 
 /**
@@ -62,7 +63,7 @@ fun GroupNameDialog(
             LaunchedEffect(Unit) { runCatchingCancellable { focusRequester.requestFocus() } }
         },
         confirmButton = {
-            TextButton(enabled = trimmed.isNotEmpty(), onClick = { onConfirm(trimmed) }) {
+            TextButton(enabled = trimmed.isNotEmpty(), colors = DisabledColors.textButton(), onClick = { onConfirm(trimmed) }) {
                 Text(confirmText)
             }
         },

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Javna adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ili xpub</string>
     <string name="portfolio_address_label">Oznaka (neobavezno)</string>
     <string name="portfolio_address_not_since_buy">S adrese · nije u „Od kupnje“: %1$s</string>
-    <string name="portfolio_address_overlap">I u tvojim vlastitim transakcijama: %1$s – računa se samo ono što adresa drži iznad toga.</string>
+    <string name="portfolio_address_overlap">I u tvojim vlastitim transakcijama: %1$s – računa se samo ono što adresa drži iznad tvojih transakcija u ovom novčaniku.</string>
     <string name="portfolio_address_overlap_ask">%1$s već bilježiš vlastitim transakcijama. Dodati stanje ove adrese portfelju ili ga samo prikazati?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ se sada samo prikazuje, ne uračunava – %2$s se pojavljuju i u tvojim transakcijama.</string>
     <string name="portfolio_address_overlap_title">Iste kriptovalute kao u tvojim transakcijama?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Samo prikaži, ne dodaji u portfelj</string>
     <string name="portfolio_address_show_only_short">Samo prikaži</string>
     <string name="portfolio_address_tokens">Uračunaj tokene</string>
+    <string name="portfolio_address_withdrawal_match">Ista količina kao tvoj prijenos na „%1$s“ – postavi ovu adresu kao odredište, inače se računa dvaput.</string>
     <string name="portfolio_address_xpub_privacy">Xpub otkriva sve adrese ovog novčanika. One se izvode na tvojem uređaju; na %1$s šalju se samo pojedinačne adrese – barem 40 upita pri prvom skeniranju, kasnije manje. Privatni ključevi (xprv) nikada se ne prihvaćaju.</string>
     <string name="portfolio_address_xpub_gap">Pretraživanje se zaustavlja nakon %1$d neiskorištenih adresa zaredom (standard BIP44 koji koristi većina novčanika). Iskorištena adresa iza tog razmaka ne uračunava se – dodaj je zasebno.</string>
     <string name="portfolio_address_xpub_used">Adrese u upotrebi: %1$d</string>

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Bu gün %1$s %2$s</string>
     <string name="macro_item_tomorrow">Sabah %1$s %2$s</string>
+    <string name="macro_more_dates_later">Növbəti tarixlər mənbə dərc edən kimi əlavə olunacaq.</string>
     <string name="macro_nfp">ABŞ məşğulluq hesabatı</string>
     <string name="macro_pce">ABŞ istehlak xərcləri qiymətləri (PCE)</string>
     <string name="macro_ppi">ABŞ istehsalçı qiymətləri (PPI)</string>

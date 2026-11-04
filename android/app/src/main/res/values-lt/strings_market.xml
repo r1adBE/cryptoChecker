@@ -226,6 +226,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Šiandien %1$s %2$s</string>
     <string name="macro_item_tomorrow">Rytoj %1$s %2$s</string>
+    <string name="macro_more_dates_later">Kitos datos bus pridėtos, kai šaltinis jas paskelbs.</string>
     <string name="macro_nfp">JAV darbo rinkos ataskaita</string>
     <string name="macro_pce">JAV vartojimo išlaidų kainos (PCE)</string>
     <string name="macro_ppi">JAV gamintojų kainos (PPI)</string>

@@ -224,6 +224,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Hoje %1$s %2$s</string>
     <string name="macro_item_tomorrow">Amanhã %1$s %2$s</string>
+    <string name="macro_more_dates_later">Mais datas serão adicionadas assim que a fonte as publicar.</string>
     <string name="macro_nfp">relatório de emprego dos EUA</string>
     <string name="macro_pce">inflação PCE dos EUA</string>
     <string name="macro_ppi">preços no produtor dos EUA (IPP)</string>

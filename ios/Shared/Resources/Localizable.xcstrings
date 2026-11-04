@@ -396687,6 +396687,461 @@
         }
       }
     },
+    "macro_more_dates_later" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verdere datums volg sodra die bron dit publiseer."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ተጨማሪ ቀኖች ምንጩ እንዳሳተማቸው ይከተላሉ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستُضاف مواعيد أخرى فور نشرها من المصدر."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Növbəti tarixlər mənbə dərc edən kimi əlavə olunacaq."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Следващите дати ще бъдат добавени, щом източникът ги публикува."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "উৎস প্রকাশ করলেই পরবর্তী তারিখগুলো যোগ হবে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daljnji termini slijede čim ih izvor objavi."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les dates següents s'afegiran quan la font les publiqui."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Další termíny přibudou, jakmile je zdroj zveřejní."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flere datoer følger, så snart kilden offentliggør dem."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weitere Termine folgen, sobald die Quelle sie veröffentlicht."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Περισσότερες ημερομηνίες θα ακολουθήσουν μόλις τις δημοσιεύσει η πηγή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Further dates will follow once the source publishes them."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habrá más fechas en cuanto la fuente las publique."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Järgmised kuupäevad lisanduvad, kui allikas need avaldab."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data gehiago gehituko dira iturriak argitaratu bezain laster."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاریخ‌های بعدی به‌محض انتشار توسط منبع اضافه می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisää päivämääriä tulee, kun lähde julkaisee ne."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Susunod ang iba pang petsa kapag nailathala na ng pinagmulan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D'autres dates suivront dès que la source les publiera."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiocfaidh tuilleadh dátaí chomh luath agus a fhoilsíonn an fhoinse iad."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haberá máis datas en canto a fonte as publique."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સ્રોત પ્રકાશિત કરે એટલે આગળની તારીખો ઉમેરાશે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מועדים נוספים יתווספו ברגע שהמקור יפרסם אותם."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आगे की तारीखें स्रोत के प्रकाशित करते ही जोड़ी जाएँगी।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daljnji termini slijede čim ih izvor objavi."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "További időpontok akkor jelennek meg, amikor a forrás közzéteszi őket."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Հաջորդ ամսաթվերը կավելանան, երբ աղբյուրը դրանք հրապարակի։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanggal berikutnya menyusul setelah sumber menerbitkannya."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fleiri dagsetningar bætast við um leið og heimildin birtir þær."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altre date seguiranno non appena la fonte le pubblicherà."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今後の日程は、発表元が公開しだい追加されます。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "შემდეგი თარიღები დაემატება, როგორც კი წყარო მათ გამოაქვეყნებს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Келесі күндер дереккөз жариялағаннан кейін қосылады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "កាលបរិច្ឆេទបន្ទាប់នឹងមាន នៅពេលប្រភពផ្សព្វផ្សាយ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮೂಲವು ಪ್ರಕಟಿಸಿದ ತಕ್ಷಣ ಮುಂದಿನ ದಿನಾಂಕಗಳನ್ನು ಸೇರಿಸಲಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이후 일정은 출처에서 발표하는 대로 추가됩니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ວັນທີຕໍ່ໄປຈະຕາມມາເມື່ອແຫຼ່ງຂໍ້ມູນເຜີຍແຜ່."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitos datos bus pridėtos, kai šaltinis jas paskelbs."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nākamie datumi tiks pievienoti, tiklīdz avots tos publicēs."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Следните датуми ќе бидат додадени штом изворот ги објави."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഉറവിടം പ്രസിദ്ധീകരിക്കുന്ന മുറയ്ക്ക് തുടർന്നുള്ള തീയതികൾ ചേർക്കും."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дараагийн огноонууд эх сурвалж нийтэлмэгц нэмэгдэнэ."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्रोताने प्रसिद्ध करताच पुढील तारखा जोडल्या जातील."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarikh seterusnya akan menyusul sebaik sahaja sumber menerbitkannya."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နောက်ထပ်ရက်စွဲများကို ရင်းမြစ်က ထုတ်ပြန်သည်နှင့် ထည့်ပါမည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flere datoer kommer så snart kilden publiserer dem."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्रोतले प्रकाशित गरेपछि थप मितिहरू थपिनेछन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer datums volgen zodra de bron ze publiceert."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਰੋਤ ਵੱਲੋਂ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੇ ਹੀ ਅਗਲੀਆਂ ਤਾਰੀਖਾਂ ਜੋੜੀਆਂ ਜਾਣਗੀਆਂ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kolejne terminy pojawią się, gdy źródło je opublikuje."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais datas serão adicionadas assim que a fonte as publicar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais datas serão adicionadas assim que a fonte as publicar."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alte date vor urma de îndată ce sursa le publică."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Следующие даты появятся, как только источник их опубликует."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මූලාශ්‍රය ප්‍රකාශ කළ වහාම ඉදිරි දින එක් කෙරේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďalšie termíny pribudnú, keď ich zdroj zverejní."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nadaljnji datumi bodo dodani, ko jih vir objavi."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data të tjera do të shtohen sapo burimi t'i publikojë."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Даљи термини следе чим их извор објави."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalji termini slede čim ih izvor objavi."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fler datum följer så snart källan publicerar dem."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarehe zaidi zitafuata mara chanzo kitakapozichapisha."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மூலம் வெளியிட்டதும் அடுத்த தேதிகள் சேர்க்கப்படும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మూలం ప్రచురించగానే తదుపరి తేదీలు జోడించబడతాయి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "วันที่ถัดไปจะแสดงเมื่อแหล่งข้อมูลเผยแพร่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diğer tarihler kaynak yayımlar yayımlamaz eklenecek."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Наступні дати з’являться, щойно джерело їх опублікує."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ماخذ کے شائع کرتے ہی مزید تاریخیں شامل کی جائیں گی۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keyingi sanalar manba eʼlon qilishi bilan qoʻshiladi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Các ngày tiếp theo sẽ có khi nguồn công bố."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "之後嘅日期會喺來源公佈之後列出。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后续日期将在来源公布后列出。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後續日期將在來源公布後列出。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezinye izinsuku zizolandela uma umthombo uzishicilela."
+          }
+        }
+      }
+    },
     "macro_nfp" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -478382,451 +478837,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ook in jou eie transaksies: %1$@ – net wat die adres meer hou, tel."
+            "value" : "Ook in jou eie transaksies: %1$@ – net wat die adres meer hou as jou transaksies in hierdie beursie, tel."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "በራስዎ ግብይቶች ውስጥም አለ፦ %1$@ – የሚቆጠረው አድራሻው ከዚያ በላይ የያዘው ብቻ ነው።"
+            "value" : "በራስዎ ግብይቶች ውስጥም አለ፦ %1$@ – የሚቆጠረው አድራሻው በዚህ ቦርሳ ውስጥ ካሉት ግብይቶችዎ በላይ የያዘው ብቻ ነው።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "موجودة أيضًا في معاملاتك: %1$@ – لا يُحتسب إلا ما يزيد في العنوان عنها."
+            "value" : "موجودة أيضًا في معاملاتك: %1$@ – لا يُحتسب إلا ما يزيد في العنوان عن معاملاتك في هذه المحفظة."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Öz əməliyyatlarında da var: %1$@ – yalnız ünvanın bundan artıq saxladığı hesablanır."
+            "value" : "Öz əməliyyatlarında da var: %1$@ – yalnız ünvanın bu pulqabıdakı əməliyyatlarından artıq saxladığı hesablanır."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Също в собствените ти транзакции: %1$@ – брои се само това, което адресът държи в повече."
+            "value" : "Също в собствените ти транзакции: %1$@ – брои се само това, което адресът държи над транзакциите ти в този портфейл."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "আপনার নিজের লেনদেনেও আছে: %1$@ – ঠিকানায় এর বেশি যা আছে, শুধু সেটুকুই গণনা হয়।"
+            "value" : "আপনার নিজের লেনদেনেও আছে: %1$@ – এই ওয়ালেটে আপনার লেনদেনের চেয়ে ঠিকানায় যা বেশি আছে, শুধু সেটুকুই গণনা হয়।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži preko toga."
+            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži preko tvojih transakcija u ovom novčaniku."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "També a les teves transaccions: %1$@ – només compta el que l'adreça té de més."
+            "value" : "També a les teves transaccions: %1$@ – només compta el que l'adreça té de més respecte a les teves transaccions en aquest moneder."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Také ve tvých vlastních transakcích: %1$@ – započítá se jen to, co adresa drží navíc."
+            "value" : "Také ve tvých vlastních transakcích: %1$@ – započítá se jen to, co adresa drží navíc oproti tvým transakcím v této peněžence."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Også i dine egne transaktioner: %1$@ – kun det, adressen har ud over dem, tæller."
+            "value" : "Også i dine egne transaktioner: %1$@ – kun det, adressen har ud over dine transaktioner i denne wallet, tæller."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auch in deinen eigenen Transaktionen: %1$@ – es zählt nur, was die Adresse darüber hinaus hält."
+            "value" : "Auch in deinen eigenen Transaktionen: %1$@ – es zählt nur, was die Adresse über deine Transaktionen in dieser Wallet hinaus hält."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Και στις δικές σου συναλλαγές: %1$@ – μετράει μόνο ό,τι επιπλέον έχει η διεύθυνση."
+            "value" : "Και στις δικές σου συναλλαγές: %1$@ – μετράει μόνο ό,τι έχει η διεύθυνση επιπλέον από τις συναλλαγές σου σε αυτό το πορτοφόλι."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Also in your own transactions: %1$@ – only what the address holds beyond them counts."
+            "value" : "Also in your own transactions: %1$@ – only what the address holds beyond your transactions in this wallet counts."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "También en tus propias transacciones: %1$@; solo cuenta lo que la dirección tiene de más."
+            "value" : "También en tus propias transacciones: %1$@; solo cuenta lo que la dirección tiene de más respecto a tus transacciones en esta wallet."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ka sinu enda tehingutes: %1$@ – arvesse läheb ainult see, mida aadressil on rohkem."
+            "value" : "Ka sinu enda tehingutes: %1$@ – arvesse läheb ainult see, mida aadressil on rohkem kui sinu tehingutes selles rahakotis."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zure transakzioetan ere bai: %1$@ – helbideak gehiago duena bakarrik zenbatzen da."
+            "value" : "Zure transakzioetan ere bai: %1$@ – helbideak kartera honetako zure transakzioek baino gehiago duena bakarrik zenbatzen da."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "در تراکنش‌های خودت هم هست: %1$@ – فقط مقداری که آدرس بیشتر از آن دارد حساب می‌شود."
+            "value" : "در تراکنش‌های خودت هم هست: %1$@ – فقط مقداری که آدرس بیشتر از تراکنش‌هایت در این کیف پول دارد حساب می‌شود."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Myös omissa tapahtumissasi: %1$@ – vain osoitteen ylimääräinen saldo lasketaan."
+            "value" : "Myös omissa tapahtumissasi: %1$@ – vain se, mitä osoitteessa on enemmän kuin tapahtumissasi tässä lompakossa, lasketaan."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nasa sarili mong mga transaksyon din: %1$@ – ang sobra lang na hawak ng address ang binibilang."
+            "value" : "Nasa sarili mong mga transaksyon din: %1$@ – ang sobra lang na hawak ng address kumpara sa mga transaksyon mo sa wallet na ito ang binibilang."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aussi dans tes propres transactions : %1$@ – seul ce que l'adresse détient en plus est compté."
+            "value" : "Aussi dans tes propres transactions : %1$@ – seul ce que l'adresse détient en plus de tes transactions dans ce wallet est compté."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I d’idirbhearta féin freisin: %1$@ – ní áirítear ach an méid breise atá ag an seoladh."
+            "value" : "I d’idirbhearta féin freisin: %1$@ – ní áirítear ach an méid atá ag an seoladh thar d’idirbhearta sa sparán seo."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tamén nas túas transaccións: %1$@ – só conta o que o enderezo ten de máis."
+            "value" : "Tamén nas túas transaccións: %1$@ – só conta o que o enderezo ten de máis respecto das túas transaccións neste moedeiro."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "તમારા પોતાના વ્યવહારોમાં પણ છે: %1$@ – સરનામે તેનાથી વધુ જે છે, ફક્ત તે જ ગણાય છે."
+            "value" : "તમારા પોતાના વ્યવહારોમાં પણ છે: %1$@ – આ વૉલેટમાંના તમારા વ્યવહારો કરતાં સરનામે જે વધુ છે, ફક્ત તે જ ગણાય છે."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מופיע גם בעסקאות שלך: %1$@ – נספר רק מה שיש בכתובת מעבר לזה."
+            "value" : "מופיע גם בעסקאות שלך: %1$@ – נספר רק מה שיש בכתובת מעבר לעסקאות שלך בארנק הזה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "आपके अपने लेन-देन में भी: %1$@ – पते पर इससे ज़्यादा जो है, सिर्फ़ वही गिना जाता है।"
+            "value" : "आपके अपने लेन-देन में भी: %1$@ – इस वॉलेट में आपके लेन-देन से ज़्यादा जो पते पर है, सिर्फ़ वही गिना जाता है।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži iznad toga."
+            "value" : "I u tvojim vlastitim transakcijama: %1$@ – računa se samo ono što adresa drži iznad tvojih transakcija u ovom novčaniku."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját tranzakcióidban is: %1$@ – csak az számít, amennyivel több van a címen."
+            "value" : "A saját tranzakcióidban is: %1$@ – csak az számít, amennyivel több van a címen, mint a tranzakcióidban ebben a tárcában."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Նաև քո սեփական գործարքներում՝ %1$@ – հաշվվում է միայն այն, ինչ հասցեն ավել ունի։"
+            "value" : "Նաև քո սեփական գործարքներում՝ %1$@ – հաշվվում է միայն այն, ինչ հասցեն ավել ունի այս դրամապանակում քո գործարքներից։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juga ada di transaksimu sendiri: %1$@ – hanya kelebihan di alamat yang dihitung."
+            "value" : "Juga ada di transaksimu sendiri: %1$@ – hanya kelebihan di alamat dibanding transaksimu di dompet ini yang dihitung."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Líka í þínum eigin færslum: %1$@ – aðeins það sem vistfangið á umfram telst með."
+            "value" : "Líka í þínum eigin færslum: %1$@ – aðeins það sem vistfangið á umfram færslurnar þínar í þessu veski telst með."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anche nelle tue transazioni: %1$@ – conta solo ciò che l'indirizzo ha in più."
+            "value" : "Anche nelle tue transazioni: %1$@ – conta solo ciò che l'indirizzo ha in più rispetto alle tue transazioni in questo wallet."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自分の取引にもあります：%1$@ – アドレスがそれより多く持つ分だけが加算されます。"
+            "value" : "自分の取引にもあります：%1$@ – このウォレットでの取引より、アドレスが多く持つ分だけが加算されます。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ასევე შენს საკუთარ ტრანზაქციებშია: %1$@ – ითვლება მხოლოდ ის, რაც მისამართზე მეტია."
+            "value" : "ასევე შენს საკუთარ ტრანზაქციებშია: %1$@ – ითვლება მხოლოდ ის, რაც მისამართზე მეტია, ვიდრე შენს ტრანზაქციებში ამ საფულეში."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Өз транзакцияларыңызда да бар: %1$@ – тек мекенжайдағы артық бөлігі ғана есептеледі."
+            "value" : "Өз транзакцияларыңызда да бар: %1$@ – тек мекенжайдағы осы әмияндағы транзакцияларыңыздан артық бөлігі ғана есептеледі."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$@ – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប៉ុណ្ណោះដែលត្រូវរាប់។"
+            "value" : "ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$@ – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប្រតិបត្តិការរបស់អ្នកក្នុងកាបូបនេះប៉ុណ្ណោះដែលត្រូវរាប់។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$@ – ವಿಳಾಸದಲ್ಲಿ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ."
+            "value" : "ನಿಮ್ಮ ಸ್ವಂತ ವಹಿವಾಟುಗಳಲ್ಲೂ ಇದೆ: %1$@ – ಈ ವ್ಯಾಲೆಟ್‌ನಲ್ಲಿನ ನಿಮ್ಮ ವಹಿವಾಟುಗಳಿಗಿಂತ ವಿಳಾಸದಲ್ಲಿ ಹೆಚ್ಚಿರುವುದನ್ನು ಮಾತ್ರ ಎಣಿಸಲಾಗುತ್ತದೆ."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "내 거래에도 있습니다: %1$@ – 주소에 그보다 더 있는 만큼만 합산됩니다."
+            "value" : "내 거래에도 있습니다: %1$@ – 이 지갑의 거래보다 주소에 더 있는 만큼만 합산됩니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$@ – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າເທົ່ານັ້ນ."
+            "value" : "ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$@ – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າທຸລະກຳຂອງທ່ານໃນກະເປົາເງິນນີ້ເທົ່ານັ້ນ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taip pat yra tavo transakcijose: %1$@ – skaičiuojama tik tai, ką adresas turi daugiau."
+            "value" : "Taip pat yra tavo transakcijose: %1$@ – skaičiuojama tik tai, ką adresas turi daugiau nei tavo transakcijos šioje piniginėje."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ir arī tavos darījumos: %1$@ – tiek skaitīts tikai tas, kas adresē ir vairāk."
+            "value" : "Ir arī tavos darījumos: %1$@ – tiek skaitīts tikai tas, kas adresē ir vairāk nekā tavos darījumos šajā maciņā."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "И во твоите трансакции: %1$@ – се брои само она што адресата го има повеќе."
+            "value" : "И во твоите трансакции: %1$@ – се брои само она што адресата го има повеќе од твоите трансакции во овој паричник."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$@ – വിലാസത്തിൽ അതിലധികമുള്ളത് മാത്രമേ കണക്കാക്കൂ."
+            "value" : "നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$@ – ഈ വാലറ്റിലെ നിങ്ങളുടെ ഇടപാടുകളേക്കാൾ വിലാസത്തിൽ അധികമുള്ളത് മാത്രമേ കണക്കാക്കൂ."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Таны өөрийн гүйлгээнд ч бас байна: %1$@ – зөвхөн хаяг дээрх илүү хэсгийг тооцно."
+            "value" : "Таны өөрийн гүйлгээнд ч бас байна: %1$@ – зөвхөн хаяг дээр энэ түрийвч дэх таны гүйлгээнээс илүү байгаа хэсгийг тооцно."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$@ – पत्त्यावर त्याहून जास्त असलेलेच मोजले जाते."
+            "value" : "तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$@ – या वॉलेटमधील तुमच्या व्यवहारांपेक्षा पत्त्यावर जास्त असलेलेच मोजले जाते."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Juga ada dalam transaksi anda sendiri: %1$@ – hanya lebihan pada alamat yang dikira."
+            "value" : "Juga ada dalam transaksi anda sendiri: %1$@ – hanya lebihan pada alamat berbanding transaksi anda dalam dompet ini yang dikira."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$@ – လိပ်စာတွင် ပိုနေသည့်ပမာဏကိုသာ ရေတွက်ပါသည်။"
+            "value" : "သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$@ – ဤပိုက်ဆံအိတ်ရှိ သင့်ငွေပေးငွေယူများထက် လိပ်စာတွင် ပိုနေသည့်ပမာဏကိုသာ ရေတွက်ပါသည်။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Også i dine egne transaksjoner: %1$@ – bare det adressen har utover dem, telles."
+            "value" : "Også i dine egne transaksjoner: %1$@ – bare det adressen har utover transaksjonene dine i denne walleten, telles."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "तपाईंका आफ्नै कारोबारमा पनि छ: %1$@ – ठेगानामा योभन्दा बढी भएको मात्र गनिन्छ।"
+            "value" : "तपाईंका आफ्नै कारोबारमा पनि छ: %1$@ – यो वालेटमा तपाईंका कारोबारभन्दा ठेगानामा बढी भएको मात्र गनिन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ook in je eigen transacties: %1$@ – alleen wat het adres meer heeft, telt mee."
+            "value" : "Ook in je eigen transacties: %1$@ – alleen wat het adres meer heeft dan je transacties in deze wallet, telt mee."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$@ – ਪਤੇ ਉੱਤੇ ਇਸ ਤੋਂ ਵੱਧ ਜੋ ਹੈ, ਸਿਰਫ਼ ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
+            "value" : "ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$@ – ਇਸ ਵਾਲਿਟ ਵਿੱਚ ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਤੋਂ ਵੱਧ ਜੋ ਪਤੇ ਉੱਤੇ ਹੈ, ਸਿਰਫ਼ ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Także w twoich transakcjach: %1$@ – liczy się tylko to, co adres ma ponad nie."
+            "value" : "Także w twoich transakcjach: %1$@ – liczy się tylko to, co adres ma ponad twoje transakcje w tym wallecie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também nas tuas próprias transações: %1$@ – só conta o que o endereço tem a mais."
+            "value" : "Também nas tuas próprias transações: %1$@ – só conta o que o endereço tem a mais do que as tuas transações nesta carteira."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também nas suas próprias transações: %1$@ – só conta o que o endereço tem a mais."
+            "value" : "Também nas suas próprias transações: %1$@ – só conta o que o endereço tem a mais do que suas transações nesta carteira."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Și în propriile tranzacții: %1$@ – se numără doar ce are adresa în plus."
+            "value" : "Și în propriile tranzacții: %1$@ – se numără doar ce are adresa în plus față de tranzacțiile tale din acest wallet."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Также в твоих собственных транзакциях: %1$@ – учитывается только то, что на адресе сверх этого."
+            "value" : "Также в твоих собственных транзакциях: %1$@ – учитывается только то, что на адресе сверх твоих транзакций в этом кошельке."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ඔබේම ගනුදෙනුවලද ඇත: %1$@ – ලිපිනයේ ඊට වඩා ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ."
+            "value" : "ඔබේම ගනුදෙනුවලද ඇත: %1$@ – මෙම පසුම්බියේ ඔබේ ගනුදෙනුවලට වඩා ලිපිනයේ ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aj vo vlastných transakciách: %1$@ – započíta sa len to, čo má adresa navyše."
+            "value" : "Aj vo vlastných transakciách: %1$@ – započíta sa len to, čo má adresa navyše oproti tvojim transakciám v tejto peňaženke."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tudi v tvojih lastnih transakcijah: %1$@ – šteje le tisto, kar ima naslov več."
+            "value" : "Tudi v tvojih lastnih transakcijah: %1$@ – šteje le tisto, kar ima naslov več od tvojih transakcij v tej denarnici."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edhe në transaksionet e tua: %1$@ – numërohet vetëm ajo që adresa ka më shumë."
+            "value" : "Edhe në transaksionet e tua: %1$@ – numërohet vetëm ajo që adresa ka më shumë se transaksionet e tua në këtë wallet."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "И у твојим сопственим трансакцијама: %1$@ – рачуна се само оно што адреса држи преко тога."
+            "value" : "И у твојим сопственим трансакцијама: %1$@ – рачуна се само оно што адреса држи преко твојих трансакција у овом новчанику."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I u tvojim sopstvenim transakcijama: %1$@ – računa se samo ono što adresa drži preko toga."
+            "value" : "I u tvojim sopstvenim transakcijama: %1$@ – računa se samo ono što adresa drži preko tvojih transakcija u ovom novčaniku."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finns även i dina egna transaktioner: %1$@ – bara det adressen har utöver dem räknas."
+            "value" : "Finns även i dina egna transaktioner: %1$@ – bara det adressen har utöver dina transaktioner i den här walleten räknas."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pia iko kwenye miamala yako mwenyewe: %1$@ – kinachohesabiwa ni ziada iliyo kwenye anwani tu."
+            "value" : "Pia iko kwenye miamala yako mwenyewe: %1$@ – kinachohesabiwa ni ziada tu iliyo kwenye anwani juu ya miamala yako katika wallet hii."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – முகவரியில் அதைவிடக் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்."
+            "value" : "உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$@ – இந்த வாலட்டில் உள்ள உங்கள் பரிவர்த்தனைகளைவிட முகவரியில் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – చిరునామాలో దానికంటే ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది."
+            "value" : "మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$@ – ఈ వాలెట్‌లోని మీ లావాదేవీల కంటే చిరునామాలో ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "มีในรายการของคุณเองด้วย: %1$@ – นับเฉพาะส่วนที่ที่อยู่มีมากกว่าเท่านั้น"
+            "value" : "มีในรายการของคุณเองด้วย: %1$@ – นับเฉพาะส่วนที่ที่อยู่มีมากกว่ารายการของคุณในวอลเล็ตนี้เท่านั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi işlemlerinde de var: %1$@ – yalnızca adresin bunun üzerinde tuttuğu kısım sayılır."
+            "value" : "Kendi işlemlerinde de var: %1$@ – yalnızca adresin bu cüzdandaki işlemlerinin üzerinde tuttuğu kısım sayılır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Також у твоїх власних транзакціях: %1$@ – враховується лише те, що на адресі понад це."
+            "value" : "Також у твоїх власних транзакціях: %1$@ – враховується лише те, що на адресі понад твої транзакції в цьому гаманці."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آپ کے اپنے لین دین میں بھی ہے: %1$@ – صرف وہی گنا جاتا ہے جو پتے پر اس سے زیادہ ہے۔"
+            "value" : "آپ کے اپنے لین دین میں بھی ہے: %1$@ – صرف وہی گنا جاتا ہے جو پتے پر اس والیٹ میں آپ کے لین دین سے زیادہ ہے۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oʻz tranzaksiyalaringizda ham bor: %1$@ – faqat manzildagi ortiqcha qismi hisoblanadi."
+            "value" : "Oʻz tranzaksiyalaringizda ham bor: %1$@ – faqat manzildagi shu hamyondagi tranzaksiyalaringizdan ortiqcha qismi hisoblanadi."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cũng có trong giao dịch của bạn: %1$@ – chỉ tính phần địa chỉ có nhiều hơn."
+            "value" : "Cũng có trong giao dịch của bạn: %1$@ – chỉ tính phần địa chỉ có nhiều hơn giao dịch của bạn trong ví này."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己嘅交易入面都有：%1$@ – 只會計地址多出嚟嘅部分。"
+            "value" : "你自己嘅交易入面都有：%1$@ – 只會計地址比你喺呢個錢包嘅交易多出嚟嘅部分。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——只计入地址多出的部分。"
+            "value" : "你自己的交易中也有：%1$@——只计入地址比你在此钱包中的交易多出的部分。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你自己的交易中也有：%1$@——只計入地址多出的部分。"
+            "value" : "你自己的交易中也有：%1$@——只計入地址比你在此錢包中的交易多出的部分。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kukhona nasemisebenzini yakho: %1$@ – kubalwa kuphela lokho ikheli elinakho okwengeziwe."
+            "value" : "Kukhona nasemisebenzini yakho: %1$@ – kubalwa kuphela lokho ikheli elinakho ngaphezu kwemisebenzi yakho kule-wallet."
           }
         }
       }
@@ -490568,6 +491023,461 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "portfolio_address_withdrawal_match" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieselfde hoeveelheid as jou oordrag na “%1$@” – stel die bestemming op hierdie adres, anders tel dit dubbel."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ወደ «%1$@» ካደረጉት ዝውውር ጋር ተመሳሳይ መጠን – መድረሻውን ወደዚህ አድራሻ ያቀናብሩ፤ ያለበለዚያ ሁለት ጊዜ ይቆጠራል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نفس كمية تحويلك إلى «%1$@» – اجعل الوجهة هذا العنوان، وإلا فستُحتسب مرتين."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%1$@» köçürməninlə eyni miqdar – hədəfi bu ünvan et, yoxsa iki dəfə sayılır."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Същото количество като прехвърлянето ти към „%1$@“ – задай този адрес като цел, иначе се брои двойно."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@”-এ আপনার স্থানান্তরের সমান পরিমাণ – গন্তব্য এই ঠিকানায় সেট করুন, নইলে দুবার গণনা হবে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ista količina kao tvoj prijenos na „%1$@“ – postavi ovu adresu kao odredište, inače se računa dvaput."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La mateixa quantitat que la teva transferència a «%1$@»: posa aquesta adreça com a destinació o comptarà dues vegades."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stejné množství jako tvůj převod do „%1$@“ – nastav cíl na tuto adresu, jinak se započítá dvakrát."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samme mængde som din overførsel til «%1$@» – sæt modtageren til denne adresse, ellers tæller den dobbelt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gleiche Menge wie deine Umbuchung nach «%1$@» – Ziel auf diese Adresse setzen, sonst zählt sie doppelt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ίδια ποσότητα με τη μεταφορά σου προς «%1$@» – όρισε ως προορισμό αυτή τη διεύθυνση, αλλιώς μετράει διπλά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Same amount as your transfer to “%1$@” – set the target to this address, or it counts twice."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La misma cantidad que tu transferencia a «%1$@»: pon esta dirección como destino o contará dos veces."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sama kogus kui sinu ülekanne sihtkohta „%1$@“ – määra sihtkohaks see aadress, muidu läheb see topelt arvesse."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%1$@»(e)ra egindako transferentziaren kantitate bera – jarri helbide hau helmuga gisa; bestela, bi aldiz zenbatuko da."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همان مقدار انتقالت به «%1$@» – مقصد را این آدرس بگذار، وگرنه دو بار حساب می‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sama määrä kuin siirtosi kohteeseen ”%1$@” – aseta kohteeksi tämä osoite, muuten se lasketaan kahdesti."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapareho ng halaga ng transfer mo sa “%1$@” – itakda ang address na ito bilang destinasyon, kung hindi ay dodoble ang bilang."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Même quantité que ton transfert vers « %1$@ » – choisis cette adresse comme destination, sinon il compte deux fois."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An méid céanna le d’aistriú chuig “%1$@” – socraigh an seoladh seo mar cheann scríbe, nó áireofar faoi dhó é."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mesma cantidade cá túa transferencia a «%1$@»: pon este enderezo como destino ou contará dúas veces."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” પર તમારા ટ્રાન્સફર જેટલી જ રકમ – લક્ષ્ય આ સરનામું રાખો, નહીં તો તે બે વાર ગણાશે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אותה כמות כמו ההעברה שלך אל «%1$@» – הגדר את הכתובת הזו כיעד, אחרת היא תיספר פעמיים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” में आपके ट्रांसफ़र जितनी ही मात्रा – लक्ष्य यह पता चुनें, वरना यह दो बार गिनी जाएगी।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ista količina kao tvoj prijenos na „%1$@“ – postavi ovu adresu kao odredište, inače se računa dvaput."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ugyanannyi, mint az átvezetésed ide: „%1$@” – állítsd be célnak ezt a címet, különben kétszer számít."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Նույն քանակը, ինչ քո փոխանցումը դեպի «%1$@» – նպատակակետ դարձրու այս հասցեն, այլապես այն կհաշվվի երկու անգամ։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jumlah sama dengan transfermu ke “%1$@” – jadikan alamat ini tujuannya, kalau tidak akan terhitung dua kali."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sama magn og millifærslan þín til „%1$@“ – veldu þetta vistfang sem viðtakanda, annars telst hún tvisvar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stessa quantità del tuo trasferimento a «%1$@» – imposta questo indirizzo come destinazione, altrimenti conta due volte."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「%1$@」への振替と同じ数量です – 振替先をこのアドレスにしてください。そうしないと二重に計上されます。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "იგივე რაოდენობა, რაც შენი გადარიცხვა «%1$@»-ზე – დანიშნულებად ეს მისამართი დააყენე, თორემ ორჯერ ჩაითვლება."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%1$@» қарай аударымыңызбен бірдей мөлшер – мақсат ретінде осы мекенжайды орнатыңыз, әйтпесе екі рет есептеледі."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ចំនួនដូចការផ្ទេររបស់អ្នកទៅ «%1$@» – សូមកំណត់គោលដៅជាអាសយដ្ឋាននេះ បើមិនដូច្នោះទេ វានឹងត្រូវរាប់ពីរដង។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” ಗೆ ನಿಮ್ಮ ವರ್ಗಾವಣೆಯಷ್ಟೇ ಮೊತ್ತ – ಗಮ್ಯಸ್ಥಾನವನ್ನು ಈ ವಿಳಾಸಕ್ಕೆ ಹೊಂದಿಸಿ, ಇಲ್ಲದಿದ್ದರೆ ಎರಡು ಬಾರಿ ಎಣಿಕೆಯಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@”(으)로 보낸 이체와 같은 수량입니다 – 대상을 이 주소로 설정하세요. 그렇지 않으면 두 번 합산됩니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຈຳນວນດຽວກັບການໂອນຂອງທ່ານໄປ “%1$@” – ກະລຸນາຕັ້ງປາຍທາງເປັນທີ່ຢູ່ນີ້, ບໍ່ດັ່ງນັ້ນຈະຖືກນັບສອງເທື່ອ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toks pat kiekis kaip tavo pervedimas į „%1$@“ – nustatyk šį adresą kaip paskirtį, kitaip jis bus skaičiuojamas dukart."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tāds pats daudzums kā tavam pārskaitījumam uz „%1$@“ – iestati šo adresi kā galamērķi, citādi tas tiek skaitīts divreiz."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Иста количина како твојот пренос кон „%1$@“ – постави ја оваа адреса како цел, инаку се брои двапати."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@”-ലേക്കുള്ള നിങ്ങളുടെ കൈമാറ്റത്തിന്റെ അതേ അളവ് – ലക്ഷ്യം ഈ വിലാസമാക്കുക, അല്ലെങ്കിൽ രണ്ടുതവണ കണക്കാക്കും."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%1$@» руу хийсэн шилжүүлэгтэй ижил хэмжээ – хүлээн авагчийг энэ хаяг болгоно уу, эс бөгөөс хоёр дахин тооцогдоно."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” कडे केलेल्या तुमच्या हस्तांतरणाइतकीच रक्कम – लक्ष्य हा पत्ता ठेवा, नाहीतर ती दोनदा मोजली जाईल."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jumlah yang sama seperti pemindahan anda ke “%1$@” – tetapkan alamat ini sebagai destinasi, jika tidak ia dikira dua kali."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” သို့ သင့်လွှဲပြောင်းမှုနှင့် ပမာဏတူသည် – ဦးတည်ရာကို ဤလိပ်စာအဖြစ် သတ်မှတ်ပါ၊ မဟုတ်ပါက နှစ်ကြိမ်ရေတွက်ပါမည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samme mengde som overføringen din til «%1$@» – sett mottakeren til denne adressen, ellers telles den dobbelt."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” मा गरिएको तपाईंको स्थानान्तरण जत्तिकै मात्रा – गन्तव्य यही ठेगाना राख्नुहोस्, नत्र यो दुई पटक गनिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zelfde hoeveelheid als je overboeking naar ‘%1$@’ – stel dit adres in als bestemming, anders telt die dubbel."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” ਵੱਲ ਤੁਹਾਡੇ ਟ੍ਰਾਂਸਫਰ ਜਿੰਨੀ ਹੀ ਮਾਤਰਾ – ਟਿਕਾਣਾ ਇਹ ਪਤਾ ਰੱਖੋ, ਨਹੀਂ ਤਾਂ ਇਹ ਦੋ ਵਾਰ ਗਿਣੀ ਜਾਵੇਗੀ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta sama ilość co twoje przeniesienie do „%1$@” – ustaw ten adres jako cel, inaczej liczy się podwójnie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mesma quantidade que a tua transferência para «%1$@» – define este endereço como destino, senão conta duas vezes."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mesma quantidade da sua transferência para “%1$@” – defina este endereço como destino, senão ela conta duas vezes."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceeași cantitate ca transferul tău către „%1$@” – setează această adresă ca destinație, altfel contează de două ori."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "То же количество, что и твой перевод в «%1$@» – укажи этот адрес как получателя, иначе он учитывается дважды."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” වෙත ඔබේ මාරු කිරීමට සමාන ප්‍රමාණයකි – ගමනාන්තය මෙම ලිපිනය ලෙස සකසන්න, නැතහොත් එය දෙවරක් ගණන් වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rovnaké množstvo ako tvoj prevod do „%1$@“ – nastav cieľ na túto adresu, inak sa započíta dvakrát."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enaka količina kot tvoj prenos v „%1$@“ – nastavi ta naslov kot cilj, sicer šteje dvakrat."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E njëjta sasi si transferimi yt te «%1$@» – vendos këtë adresë si destinacion, përndryshe numërohet dy herë."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Иста количина као твој пренос на „%1$@“ – постави ову адресу као одредиште, иначе се рачуна двапут."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ista količina kao tvoj prenos na „%1$@“ – postavi ovu adresu kao odredište, inače se računa dvaput."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samma mängd som din överföring till ”%1$@” – ange den här adressen som mottagare, annars räknas den dubbelt."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiasi sawa na uhamisho wako kwenda “%1$@” – weka anwani hii kuwa mahali pa kufikia, la sivyo itahesabiwa mara mbili."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@”-க்கு நீங்கள் செய்த பரிமாற்றத்தின் அதே அளவு – இலக்கை இந்த முகவரியாக அமையுங்கள், இல்லையெனில் இருமுறை கணக்கிடப்படும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@”కు మీ బదిలీకి సమాన మొత్తం – గమ్యాన్ని ఈ చిరునామాగా సెట్ చేయండి, లేకపోతే రెండుసార్లు లెక్కించబడుతుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จำนวนเท่ากับการโอนของคุณไปยัง “%1$@” – โปรดตั้งปลายทางเป็นที่อยู่นี้ มิฉะนั้นจะนับซ้ำสองครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” hedefine yaptığın transferle aynı miktar – hedefi bu adres yap, yoksa iki kez sayılır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Та сама кількість, що й твій переказ до «%1$@» – вкажи цю адресу як отримувача, інакше він рахується двічі."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%1$@” کی طرف آپ کی منتقلی جتنی ہی مقدار – منزل یہ پتہ رکھیں، ورنہ یہ دو بار گنی جائے گی۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«%1$@» ga qilgan oʻtkazmangiz bilan bir xil miqdor – manzil sifatida shu manzilni tanlang, aks holda ikki marta hisoblanadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cùng số lượng với giao dịch chuyển của bạn tới “%1$@” – hãy đặt đích là địa chỉ này, nếu không sẽ bị tính hai lần."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同你轉去「%1$@」嘅數量一樣 – 將目的地改做呢個地址，唔係就會計兩次。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "与你转到“%1$@”的数量相同——请把目标设为此地址，否则会重复计算。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "與你轉到「%1$@」的數量相同——請把目的地設為此地址，否則會重複計算。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inani elifanayo nokudlulisa kwakho kuya ku-“%1$@” – setha leli kheli njengendawo okuyiwa kuyo, uma kungenjalo kubalwa kabili."
           }
         }
       }

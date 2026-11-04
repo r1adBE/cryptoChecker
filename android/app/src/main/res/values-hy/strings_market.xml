@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Այսօր %1$s %2$s</string>
     <string name="macro_item_tomorrow">Վաղը %1$s %2$s</string>
+    <string name="macro_more_dates_later">Հաջորդ ամսաթվերը կավելանան, երբ աղբյուրը դրանք հրապարակի։</string>
     <string name="macro_nfp">ԱՄՆ աշխատաշուկայի զեկույց</string>
     <string name="macro_pce">ԱՄՆ սպառողական ծախսերի գներ (PCE)</string>
     <string name="macro_ppi">ԱՄՆ արտադրողների գներ (PPI)</string>

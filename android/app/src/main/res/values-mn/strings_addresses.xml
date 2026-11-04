@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Нийтийн хаяг (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) эсвэл xpub</string>
     <string name="portfolio_address_label">Нэр (заавал биш)</string>
     <string name="portfolio_address_not_since_buy">Хаягаас · «Худалдан авснаас хойш»-д ороогүй: %1$s</string>
-    <string name="portfolio_address_overlap">Таны өөрийн гүйлгээнд ч бас байна: %1$s – зөвхөн хаяг дээрх илүү хэсгийг тооцно.</string>
+    <string name="portfolio_address_overlap">Таны өөрийн гүйлгээнд ч бас байна: %1$s – зөвхөн хаяг дээр энэ түрийвч дэх таны гүйлгээнээс илүү байгаа хэсгийг тооцно.</string>
     <string name="portfolio_address_overlap_ask">Та %1$s-г өөрийн гүйлгээгээр аль хэдийн бүртгэсэн. Энэ хаягийн үлдэгдлийг багцад нэмэх үү, эсвэл зөвхөн харуулах уу?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» одоо зөвхөн харагдана, тооцохгүй – %2$s таны гүйлгээнд ч бас байна.</string>
     <string name="portfolio_address_overlap_title">Таны гүйлгээнийхтэй ижил зоос уу?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Зөвхөн харуулах, багцад нэмэхгүй</string>
     <string name="portfolio_address_show_only_short">Зөвхөн харуулах</string>
     <string name="portfolio_address_tokens">Токеныг тооцох</string>
+    <string name="portfolio_address_withdrawal_match">«%1$s» руу хийсэн шилжүүлэгтэй ижил хэмжээ – хүлээн авагчийг энэ хаяг болгоно уу, эс бөгөөс хоёр дахин тооцогдоно.</string>
     <string name="portfolio_address_xpub_privacy">xpub нь энэ түрийвчний бүх хаягийг илчилнэ. Тэдгээрийг таны төхөөрөмж дээр гаргана; %1$s руу зөвхөн тусдаа хаягуудыг илгээнэ – анхны хайлтад дор хаяж 40 хүсэлт, дараа нь цөөн. Хувийн түлхүүрийг (xprv) хэзээ ч хүлээн авахгүй.</string>
     <string name="portfolio_address_xpub_gap">Хайлт дараалсан %1$d ашиглагдаагүй хаягийн дараа зогсоно (ихэнх түрийвчний ашигладаг BIP44 стандарт). Энэ зайнаас цааших ашигласан хаягийг тооцохгүй – түүнийг тусад нь нэмнэ үү.</string>
     <string name="portfolio_address_xpub_used">Ашигласан хаяг: %1$d</string>

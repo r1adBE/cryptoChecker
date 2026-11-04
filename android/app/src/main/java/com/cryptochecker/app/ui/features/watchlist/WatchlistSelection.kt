@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,6 +23,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.DisabledColors
 
 /**
  * Leiste der Mehrfachauswahl unten über der Liste: Favorit · Gruppe · Deaktivieren · Vergleichen · Löschen für
@@ -112,14 +112,15 @@ private fun RowScope.SelectionAction(
         modifier = Modifier
             .weight(1f)
             .clickable(enabled = enabled, role = Role.Button, onClickLabel = description, onClick = onClick)
-            .alpha(if (enabled) 1f else 0.38f)
             .padding(vertical = 8.dp)
     ) {
-        Icon(painterResource(icon), contentDescription = null, tint = tint, modifier = Modifier.size(22.dp))
+        // Gesperrt grau in [DisabledColors.content] (≥ 3:1) statt Deckkraft 0.38 (unter 3:1)
+        val color = if (enabled) tint else DisabledColors.content
+        Icon(painterResource(icon), contentDescription = null, tint = color, modifier = Modifier.size(22.dp))
         Text(
             text = label,
             style = MaterialTheme.typography.labelMedium,
-            color = tint,
+            color = color,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = 2.dp)

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Հանրային հասցե (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) կամ xpub</string>
     <string name="portfolio_address_label">Անվանում (ըստ ցանկության)</string>
     <string name="portfolio_address_not_since_buy">Հասցեից · ներառված չէ «Գնումից ի վեր»-ում՝ %1$s</string>
-    <string name="portfolio_address_overlap">Նաև քո սեփական գործարքներում՝ %1$s – հաշվվում է միայն այն, ինչ հասցեն ավել ունի։</string>
+    <string name="portfolio_address_overlap">Նաև քո սեփական գործարքներում՝ %1$s – հաշվվում է միայն այն, ինչ հասցեն ավել ունի այս դրամապանակում քո գործարքներից։</string>
     <string name="portfolio_address_overlap_ask">%1$s-ը դու արդեն գրանցում ես քո սեփական գործարքներով։ Ավելացնե՞լ այս հասցեի մնացորդը պորտֆելին, թե՞ միայն ցույց տալ։</string>
     <string name="portfolio_address_overlap_auto">«%1$s»-ը այժմ միայն ցուցադրվում է, չի հաշվվում – %2$s-ը նաև քո գործարքներում են։</string>
     <string name="portfolio_address_overlap_title">Նույն կոիննե՞րն են, ինչ քո գործարքներում</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Միայն ցույց տալ, չավելացնել պորտֆելին</string>
     <string name="portfolio_address_show_only_short">Միայն ցույց տալ</string>
     <string name="portfolio_address_tokens">Հաշվել տոկենները</string>
+    <string name="portfolio_address_withdrawal_match">Նույն քանակը, ինչ քո փոխանցումը դեպի «%1$s» – նպատակակետ դարձրու այս հասցեն, այլապես այն կհաշվվի երկու անգամ։</string>
     <string name="portfolio_address_xpub_privacy">xpub-ը բացահայտում է այս դրամապանակի բոլոր հասցեները։ Դրանք ստացվում են քո սարքում. %1$s-ին ուղարկվում են միայն առանձին հասցեներ – առաջին սկանավորման ժամանակ առնվազն 40 հարցում, հետագայում՝ ավելի քիչ։ Մասնավոր բանալիներ (xprv) երբեք չեն ընդունվում։</string>
     <string name="portfolio_address_xpub_gap">Որոնումը դադարում է անընդմեջ %1$d չօգտագործված հասցեից հետո (BIP44 ստանդարտ, որն օգտագործում են դրամապանակների մեծ մասը)։ Այդ բացից այն կողմ օգտագործված հասցեն չի հաշվվում – ավելացրու այն առանձին։</string>
     <string name="portfolio_address_xpub_used">Օգտագործվող հասցեներ՝ %1$d</string>

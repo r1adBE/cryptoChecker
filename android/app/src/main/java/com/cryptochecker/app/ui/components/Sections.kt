@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.title
 import androidx.compose.foundation.text.InlineTextContent
@@ -102,6 +103,8 @@ fun SectionCard(
 /**
  * Schalterzeile: die ganze Zeile ist antippbar, nicht nur der Schalter. [icon] (optional)
  * zeigt dasselbe Zeichen wie anderswo, z. B. das Auge der Kurs-Benachrichtigung in der Zeile.
+ * Gesperrt zeigt der Schalter [DisabledColors.switch]; mit [dimLabel] auch Titel, Untertitel und Symbol in
+ * [DisabledColors.content] (≥ 3:1, wie iOS `SwitchRow(dimsLabel:)`), sonst bleiben sie voll deckend.
  */
 @Composable
 fun SwitchRow(
@@ -111,7 +114,9 @@ fun SwitchRow(
     subtitle: String? = null,
     enabled: Boolean = true,
     @DrawableRes icon: Int? = null,
+    dimLabel: Boolean = false,
 ) {
+    val dimmed = dimLabel && !enabled
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -128,22 +133,26 @@ fun SwitchRow(
             Icon(
                 painterResource(icon),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                tint = if (dimmed) DisabledColors.content else MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(end = 12.dp).size(20.dp)
             )
         }
         Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                title,
+                style = MaterialTheme.typography.bodyLarge,
+                color = if (dimmed) DisabledColors.content else Color.Unspecified,
+            )
             if (!subtitle.isNullOrEmpty()) {
                 BoltHintText(
                     subtitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = if (dimmed) DisabledColors.content else MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
         // Klick läuft über die Zeile (toggleable), sonst würde doppelt geschaltet.
-        Switch(checked = checked, onCheckedChange = null, enabled = enabled)
+        Switch(checked = checked, onCheckedChange = null, enabled = enabled, colors = DisabledColors.switch())
     }
 }
 

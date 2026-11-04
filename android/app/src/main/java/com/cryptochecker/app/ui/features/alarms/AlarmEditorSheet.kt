@@ -32,6 +32,7 @@ import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -215,6 +216,7 @@ internal fun AlarmEditorSheet(
                 Button(
                     onClick = onConfirm,
                     enabled = draft.isValid,
+                    colors = DisabledColors.button(),
                     modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm).testTag(UiTestTags.ALARM_SAVE)
                 ) {
                     Text(stringResource(if (draft.id == 0L) R.string.alarm_create else R.string.action_save))

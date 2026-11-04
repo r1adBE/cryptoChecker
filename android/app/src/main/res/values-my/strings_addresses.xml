@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">အများသုံး လိပ်စာ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) သို့မဟုတ် xpub</string>
     <string name="portfolio_address_label">အမည်တံဆိပ် (ရွေးချယ်နိုင်)</string>
     <string name="portfolio_address_not_since_buy">လိပ်စာမှ · “ဝယ်ကတည်းက” တွင် မပါ: %1$s</string>
-    <string name="portfolio_address_overlap">သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$s – လိပ်စာတွင် ပိုနေသည့်ပမာဏကိုသာ ရေတွက်ပါသည်။</string>
+    <string name="portfolio_address_overlap">သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများတွင်လည်း ပါသည်: %1$s – ဤပိုက်ဆံအိတ်ရှိ သင့်ငွေပေးငွေယူများထက် လိပ်စာတွင် ပိုနေသည့်ပမာဏကိုသာ ရေတွက်ပါသည်။</string>
     <string name="portfolio_address_overlap_ask">%1$s ကို သင့်ကိုယ်ပိုင် ငွေပေးငွေယူများဖြင့် မှတ်တမ်းတင်ပြီးဖြစ်သည်။ ဤလိပ်စာ၏ လက်ကျန်ကို ပေါ့ဖိုလီယိုထဲ ပေါင်းထည့်မလား၊ သို့မဟုတ် ပြရုံသာ ပြမလား။</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ကို ယခု ပြရုံသာ ပြပြီး ထည့်မတွက်ပါ – %2$s သည် သင့်ငွေပေးငွေယူများတွင်လည်း ပါသည်။</string>
     <string name="portfolio_address_overlap_title">သင့်ငွေပေးငွေယူများနှင့် ကွိုင် တူသလား။</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ပြရုံသာ၊ ပေါ့ဖိုလီယိုထဲ မပေါင်းထည့်ပါ</string>
     <string name="portfolio_address_show_only_short">ပြရုံသာ</string>
     <string name="portfolio_address_tokens">တိုကင်များ ထည့်တွက်ရန်</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” သို့ သင့်လွှဲပြောင်းမှုနှင့် ပမာဏတူသည် – ဦးတည်ရာကို ဤလိပ်စာအဖြစ် သတ်မှတ်ပါ၊ မဟုတ်ပါက နှစ်ကြိမ်ရေတွက်ပါမည်။</string>
     <string name="portfolio_address_xpub_privacy">xpub တစ်ခုသည် ဤပိုက်ဆံအိတ်၏ လိပ်စာအားလုံးကို ဖော်ပြသည်။ ၎င်းတို့ကို သင့်စက်ပေါ်တွင် ထုတ်ယူပြီး လိပ်စာတစ်ခုချင်းစီကိုသာ %1$s သို့ ပို့သည် – ပထမဆုံး စကင်တွင် အနည်းဆုံး တောင်းဆိုမှု 40 ခု၊ နောက်ပိုင်း ပိုနည်းသည်။ ပုဂ္ဂလိကသော့ (xprv) ကို ဘယ်တော့မှ လက်မခံပါ။</string>
     <string name="portfolio_address_xpub_gap">အသုံးမပြုရသေးသော လိပ်စာ %1$d ခု ဆက်တိုက်တွေ့ပြီးနောက် ရှာဖွေမှု ရပ်သည် (ပိုက်ဆံအိတ် အများစုသုံးသော BIP44 စံ)။ ထိုကွာဟချက်ကျော်ရှိ အသုံးပြုထားသော လိပ်စာကို ထည့်မတွက်ပါ – သီးခြား ထည့်ပါ။</string>
     <string name="portfolio_address_xpub_used">အသုံးပြုနေသော လိပ်စာများ: %1$d</string>

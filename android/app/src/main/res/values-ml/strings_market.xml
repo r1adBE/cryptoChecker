@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ഇന്ന് %1$s %2$s</string>
     <string name="macro_item_tomorrow">നാളെ %1$s %2$s</string>
+    <string name="macro_more_dates_later">ഉറവിടം പ്രസിദ്ധീകരിക്കുന്ന മുറയ്ക്ക് തുടർന്നുള്ള തീയതികൾ ചേർക്കും.</string>
     <string name="macro_nfp">US തൊഴിൽ റിപ്പോർട്ട്</string>
     <string name="macro_pce">US ഉപഭോക്തൃ ചെലവ് വിലകൾ (PCE)</string>
     <string name="macro_ppi">US ഉൽപ്പാദക വിലകൾ (PPI)</string>

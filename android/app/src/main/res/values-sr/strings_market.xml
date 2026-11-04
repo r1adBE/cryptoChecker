@@ -224,6 +224,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Данас %1$s %2$s</string>
     <string name="macro_item_tomorrow">Сутра %1$s %2$s</string>
+    <string name="macro_more_dates_later">Даљи термини следе чим их извор објави.</string>
     <string name="macro_nfp">Амерички извештај о запослености</string>
     <string name="macro_pce">Америчке цене личне потрошње (PCE)</string>
     <string name="macro_ppi">Америчке произвођачке цене (PPI)</string>

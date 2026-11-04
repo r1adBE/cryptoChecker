@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Өнөөдөр %1$s %2$s</string>
     <string name="macro_item_tomorrow">Маргааш %1$s %2$s</string>
+    <string name="macro_more_dates_later">Дараагийн огноонууд эх сурвалж нийтэлмэгц нэмэгдэнэ.</string>
     <string name="macro_nfp">АНУ-ын ажлын байрны тайлан</string>
     <string name="macro_pce">АНУ-ын хэрэглээний зардлын үнэ (PCE)</string>
     <string name="macro_ppi">АНУ-ын үйлдвэрлэгчийн үнэ (PPI)</string>

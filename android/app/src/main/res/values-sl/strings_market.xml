@@ -226,6 +226,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Danes %1$s %2$s</string>
     <string name="macro_item_tomorrow">Jutri %1$s %2$s</string>
+    <string name="macro_more_dates_later">Nadaljnji datumi bodo dodani, ko jih vir objavi.</string>
     <string name="macro_nfp">Poročilo o trgu dela v ZDA</string>
     <string name="macro_pce">Cene potrošnje v ZDA (PCE)</string>
     <string name="macro_ppi">Cene proizvajalcev v ZDA (PPI)</string>

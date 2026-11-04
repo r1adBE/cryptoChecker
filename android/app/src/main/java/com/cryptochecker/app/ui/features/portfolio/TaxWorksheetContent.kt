@@ -38,6 +38,7 @@ import com.cryptochecker.app.ui.features.about.FEEDBACK_LABEL
 import com.cryptochecker.app.ui.features.about.FEEDBACK_URL
 import com.cryptochecker.app.ui.features.about.linkedText
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.LocaleNumbers
@@ -128,7 +129,7 @@ internal fun TaxWorksheetTemplateSection(
     if (suggestion != null) {
         val suggestionName = stringResource(taxTemplateLabel(suggestion))
         TaxWorksheetHint(stringResource(R.string.tax_template_suggestion, suggestionName))
-        TextButton(enabled = !running, onClick = { onSelect(suggestion) }) {
+        TextButton(enabled = !running, colors = DisabledColors.textButton(), onClick = { onSelect(suggestion) }) {
             Text(stringResource(R.string.tax_template_use, suggestionName))
         }
     }
@@ -193,22 +194,38 @@ internal fun TaxWorksheetYearSection(
     taxTemplateNotes(template).forEach { TaxWorksheetHint(it) }
     // Steuer-CSV nach den Regeln des Landes: kann von «realisiert» im Portfolio abweichen
     TaxWorksheetHint(stringResource(R.string.tax_export_realized_differs))
-    TextButton(enabled = !running, onClick = onGains, modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_GAINS)) {
+    TextButton(
+        enabled = !running,
+        colors = DisabledColors.textButton(),
+        onClick = onGains,
+        modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_GAINS),
+    ) {
         Text(stringResource(R.string.tax_export_gains))
     }
-    TextButton(enabled = !running, onClick = onIncome, modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_INCOME)) {
+    TextButton(
+        enabled = !running,
+        colors = DisabledColors.textButton(),
+        onClick = onIncome,
+        modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_INCOME),
+    ) {
         Text(stringResource(R.string.tax_export_income))
     }
     // Bestand am Ende des Steuerjahrs (Stichtag-Export mit Kopfzeilen der Arbeitsunterlage)
     TextButton(
         enabled = !running,
+        colors = DisabledColors.textButton(),
         onClick = onHoldings,
         modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_HOLDINGS),
     ) {
         Text(stringResource(R.string.tax_export_holdings_cutoff, period.end.format(dates)))
     }
     // Jahresübersicht der Vorlage: Orientierung, keine Steuerberatung (CSV + Karte)
-    TextButton(enabled = !running, onClick = onSummary, modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_SUMMARY)) {
+    TextButton(
+        enabled = !running,
+        colors = DisabledColors.textButton(),
+        onClick = onSummary,
+        modifier = Modifier.testTag(UiTestTags.TAX_WORKSHEET_SUMMARY),
+    ) {
         Text(stringResource(R.string.tax_export_summary, stringResource(taxTemplateLabel(template))))
     }
     if (running) {

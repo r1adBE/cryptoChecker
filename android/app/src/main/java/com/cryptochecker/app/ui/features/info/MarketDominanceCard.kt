@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.foundation.background
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -152,7 +153,7 @@ private fun AltSeasonAsOfRow(asOf: Long, refreshing: Boolean, onRefresh: () -> U
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f)
         )
-        TextButton(onClick = onRefresh, enabled = enabled) {
+        TextButton(onClick = onRefresh, enabled = enabled, colors = DisabledColors.textButton()) {
             Text(stringResource(R.string.action_refresh), style = MaterialTheme.typography.labelMedium)
         }
     }

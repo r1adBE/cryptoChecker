@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Bugun %1$s %2$s</string>
     <string name="macro_item_tomorrow">Ertaga %1$s %2$s</string>
+    <string name="macro_more_dates_later">Keyingi sanalar manba eʼlon qilishi bilan qoʻshiladi.</string>
     <string name="macro_nfp">AQSH bandlik hisoboti</string>
     <string name="macro_pce">AQSH isteʼmol xarajatlari narxlari (PCE)</string>
     <string name="macro_ppi">AQSH ishlab chiqaruvchi narxlari (PPI)</string>

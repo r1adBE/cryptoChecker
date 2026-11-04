@@ -79,7 +79,7 @@ struct WatchGroupSheet: View {
                     ToolbarItem(placement: .confirmationAction) {
                         Button(L("action_save"), action: saveNew)
                             .fontWeight(.semibold)
-                            .disabled(trimmed.isEmpty)
+                            .appDisabled(trimmed.isEmpty)
                     }
                 }
             }

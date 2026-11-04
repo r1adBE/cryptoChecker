@@ -57,6 +57,8 @@ internal fun AddressRow(
     now: Long,
     hideAmounts: Boolean,
     overlap: List<String>,
+    /** Ziel-Wallet einer eigenen Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch]); null = keine. */
+    withdrawalTarget: String?,
     onRemove: () -> Unit,
     onCountTokens: (Boolean) -> Unit,
     onNetworks: (List<String>) -> Unit,
@@ -150,8 +152,15 @@ internal fun AddressRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            if (overlap.isNotEmpty() && a.countInPortfolio) {
-                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand zählt) —
+            if (withdrawalTarget != null && a.countInPortfolio) {
+                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis, ohne Knöpfe, Summen unverändert
+                Text(
+                    stringResource(R.string.portfolio_address_withdrawal_match, withdrawalTarget),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error,
+                )
+            } else if (overlap.isNotEmpty() && a.countInPortfolio) {
+                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt) —
                 // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(

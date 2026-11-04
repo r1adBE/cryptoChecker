@@ -280,8 +280,8 @@ enum WatchedAddressRules {
     /// Beim Hinzufügen (Guthaben noch unbekannt): schon eigene Transaktionen im Coin des Netzes?
     static func overlapAtAdd(_ chain: AddressChain, ownCoins: Set<String>) -> Bool { ownCoins.contains(chain.coin) }
 
-    /// Toleranz für `transferMatches`: ± 1 % des Guthabens bzw. der Änderung.
-    private static let matchTolerance: Decimal = Decimal(string: "0.01") ?? 0
+    /// Toleranz für `transferMatches` und `AddressWithdrawalMatch`: ± 1 % des Guthabens bzw. der Änderung.
+    static let matchTolerance: Decimal = Decimal(string: "0.01") ?? 0
 
     /// Toleranz für «Guthaben ≈ eigener Bestand» (`overlapMatched`, einmal automatisch «Nur anzeigen»): ± 5 % — Gebühren,
     /// Staub und kleine nicht gebuchte Zugänge trennen Buchung und Kette oft um mehr als 1 % (sonst zählten beide). Wie Android.
@@ -293,6 +293,24 @@ enum WatchedAddressRules {
     /// automatisch «Nur anzeigen», `overlapMatched`). Zeitlich aufsteigend, je Transaktion einmal (Reihenfolge bei gleicher
     /// Zeit wie die Eingabe). Adress-Einzahlungen (negative Id) zählen nicht. Wie Android.
     static func transferMatches(_ a: WatchedAddress, txs: [PortfolioTx]) -> [PortfolioTx] {
+        let targets = matchTargets(a)
+        if targets.isEmpty { return [] }
+        let hits: [(offset: Int, element: PortfolioTx)] = txs.enumerated().filter { pair -> Bool in
+            let t = pair.element
+            if AddressBalance.isAddressTrade(t.id) { return false }
+            guard t.type == .DEPOSIT || t.type == .TRANSFER,
+                  let list = targets[PortfolioCalculator.normalizeCoin(t.coin)] else { return false }
+            return list.contains { goal -> Bool in nearlyEqual(t.amountExact, goal) || nearlyEqual(t.receivedExact, goal) }
+        }
+        // Stabil sortieren (gleiche Zeit: Reihenfolge der Eingabe, wie Kotlin `sortedBy`)
+        return hits.sorted { l, r -> Bool in
+            l.element.time != r.element.time ? l.element.time < r.element.time : l.offset < r.offset
+        }.map(\.element)
+    }
+
+    /// Mengen der Adresse `a` je Coin, mit denen eine eigene Buchung übereinstimmen kann: aktuelles Guthaben und jeder
+    /// beobachtete Zugang (erste Beobachtung, Zunahme zwischen zwei Beobachtungen); nur > 0. Wie Android.
+    static func matchTargets(_ a: WatchedAddress) -> [String: [Decimal]] {
         var counted = a
         counted.countInPortfolio = true
         var targets: [String: [Decimal]] = [:]
@@ -309,22 +327,11 @@ enum WatchedAddressRules {
                 before = o.balance
             }
         }
-        if targets.isEmpty { return [] }
-        let hits: [(offset: Int, element: PortfolioTx)] = txs.enumerated().filter { pair -> Bool in
-            let t = pair.element
-            if AddressBalance.isAddressTrade(t.id) { return false }
-            guard t.type == .DEPOSIT || t.type == .TRANSFER,
-                  let list = targets[PortfolioCalculator.normalizeCoin(t.coin)] else { return false }
-            return list.contains { goal -> Bool in nearlyEqual(t.amountExact, goal) || nearlyEqual(t.receivedExact, goal) }
-        }
-        // Stabil sortieren (gleiche Zeit: Reihenfolge der Eingabe, wie Kotlin `sortedBy`)
-        return hits.sorted { l, r -> Bool in
-            l.element.time != r.element.time ? l.element.time < r.element.time : l.offset < r.offset
-        }.map(\.element)
+        return targets
     }
 
     /// |x − goal| ≤ `tolerance` von goal (goal > 0; Standard 1 %).
-    private static func nearlyEqual(_ x: Decimal, _ goal: Decimal, tolerance: Decimal = matchTolerance) -> Bool {
+    static func nearlyEqual(_ x: Decimal, _ goal: Decimal, tolerance: Decimal = matchTolerance) -> Bool {
         let diff: Decimal = x - goal
         let limit: Decimal = PortfolioDecimal.multiply(goal, tolerance)
         return x > 0 && abs(diff) <= limit

@@ -262,8 +262,8 @@ object WatchedAddressRules {
     /** Beim Hinzufügen (Guthaben noch unbekannt): schon eigene Transaktionen im Coin des Netzes? */
     fun overlapAtAdd(chain: AddressChain, ownCoins: Set<String>): Boolean = chain.coin in ownCoins
 
-    /** Toleranz für [transferMatches]: ± 1 % des Guthabens bzw. der Änderung. */
-    private val MATCH_TOLERANCE = BigDecimal("0.01")
+    /** Toleranz für [transferMatches] und [AddressWithdrawalMatch]: ± 1 % des Guthabens bzw. der Änderung. */
+    internal val MATCH_TOLERANCE = BigDecimal("0.01")
 
     /**
      * Toleranz für «Guthaben ≈ eigener Bestand» ([overlapMatched], einmal automatisch «Nur anzeigen»): ± 5 % des Guthabens.
@@ -281,6 +281,21 @@ object WatchedAddressRules {
      * Transaktion einmal (Reihenfolge bei gleicher Zeit wie die Eingabe). Adress-Einzahlungen (negative Id) zählen nicht.
      */
     fun transferMatches(a: WatchedAddress, trades: List<PortfolioTrade>): List<PortfolioTrade> {
+        val targets = matchTargets(a)
+        if (targets.isEmpty()) return emptyList()
+        return trades.filter { t ->
+            if (AddressBalance.isAddressTrade(t.id)) return@filter false
+            if (t.type != PortfolioTxType.DEPOSIT && t.type != PortfolioTxType.TRANSFER) return@filter false
+            val list = targets[PortfolioCalculator.normalizeCoin(t.coin)] ?: return@filter false
+            list.any { goal -> nearlyEqual(t.amount, goal) || nearlyEqual(t.received, goal) }
+        }.sortedBy { it.time }
+    }
+
+    /**
+     * Mengen der Adresse [a] je Coin, mit denen eine eigene Buchung übereinstimmen kann: aktuelles Guthaben und jeder
+     * beobachtete Zugang (erste Beobachtung, Zunahme zwischen zwei Beobachtungen); nur > 0.
+     */
+    internal fun matchTargets(a: WatchedAddress): Map<String, List<BigDecimal>> {
         val counted = a.copy(countInPortfolio = true)
         val targets = HashMap<String, MutableList<BigDecimal>>()
         fun target(coin: String, value: BigDecimal?) {
@@ -295,17 +310,11 @@ object WatchedAddressRules {
                 before = o.balance
             }
         }
-        if (targets.isEmpty()) return emptyList()
-        return trades.filter { t ->
-            if (AddressBalance.isAddressTrade(t.id)) return@filter false
-            if (t.type != PortfolioTxType.DEPOSIT && t.type != PortfolioTxType.TRANSFER) return@filter false
-            val list = targets[PortfolioCalculator.normalizeCoin(t.coin)] ?: return@filter false
-            list.any { goal -> nearlyEqual(t.amount, goal) || nearlyEqual(t.received, goal) }
-        }.sortedBy { it.time }
+        return targets
     }
 
     /** |[x] − [goal]| ≤ [tolerance] von [goal] (goal > 0; Standard 1 %). */
-    private fun nearlyEqual(x: BigDecimal, goal: BigDecimal, tolerance: BigDecimal = MATCH_TOLERANCE): Boolean =
+    internal fun nearlyEqual(x: BigDecimal, goal: BigDecimal, tolerance: BigDecimal = MATCH_TOLERANCE): Boolean =
         x.signum() > 0 && (x - goal).abs() <= goal.multiply(tolerance, PortfolioDecimal.MC)
 
     /**

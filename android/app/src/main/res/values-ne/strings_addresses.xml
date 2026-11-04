@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">सार्वजनिक ठेगाना (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) वा xpub</string>
     <string name="portfolio_address_label">लेबल (ऐच्छिक)</string>
     <string name="portfolio_address_not_since_buy">ठेगानाबाट · “खरिददेखि” मा समावेश छैन: %1$s</string>
-    <string name="portfolio_address_overlap">तपाईंका आफ्नै कारोबारमा पनि छ: %1$s – ठेगानामा योभन्दा बढी भएको मात्र गनिन्छ।</string>
+    <string name="portfolio_address_overlap">तपाईंका आफ्नै कारोबारमा पनि छ: %1$s – यो वालेटमा तपाईंका कारोबारभन्दा ठेगानामा बढी भएको मात्र गनिन्छ।</string>
     <string name="portfolio_address_overlap_ask">तपाईंले %1$s आफ्नै कारोबारहरूमा पहिले नै राख्नुभएको छ। यो ठेगानाको ब्यालेन्स पोर्टफोलियोमा जोड्ने, वा देखाउने मात्र?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” अब देखाइन्छ मात्र, गणना गरिँदैन – %2$s तपाईंका कारोबारमा पनि छन्।</string>
     <string name="portfolio_address_overlap_title">तपाईंका कारोबारकै कोइन हुन्?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">देखाउने मात्र, पोर्टफोलियोमा नजोड्ने</string>
     <string name="portfolio_address_show_only_short">देखाउने मात्र</string>
     <string name="portfolio_address_tokens">टोकनहरू गणना गर्नुहोस्</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” मा गरिएको तपाईंको स्थानान्तरण जत्तिकै मात्रा – गन्तव्य यही ठेगाना राख्नुहोस्, नत्र यो दुई पटक गनिन्छ।</string>
     <string name="portfolio_address_xpub_privacy">xpub ले यो वालेटका सबै ठेगानाहरू खुलाउँछ। ती तपाईंकै डिभाइसमा निकालिन्छन्; %1$s लाई एक्लाएक्लै ठेगानाहरू मात्र पठाइन्छन् – पहिलो स्क्यानमा कम्तीमा 40 अनुरोध, पछि कम। निजी कुञ्जी (xprv) कहिल्यै स्वीकार गरिँदैन।</string>
     <string name="portfolio_address_xpub_gap">लगातार %1$d प्रयोग नभएका ठेगानापछि खोज रोकिन्छ (धेरैजसो वालेटले प्रयोग गर्ने BIP44 मानक)। त्यो अन्तरभन्दा परको प्रयोग भएको ठेगाना गणना हुँदैन – त्यसलाई छुट्टै थप्नुहोस्।</string>
     <string name="portfolio_address_xpub_used">प्रयोगमा रहेका ठेगाना: %1$d</string>

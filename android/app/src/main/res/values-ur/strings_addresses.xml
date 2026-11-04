@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">عوامی پتہ (BTC، ETH &amp; EVM، SOL، TRX، XRP، LTC، TON، ADA) یا xpub</string>
     <string name="portfolio_address_label">لیبل (اختیاری)</string>
     <string name="portfolio_address_not_since_buy">پتے سے · “خریداری کے بعد سے” میں شامل نہیں: %1$s</string>
-    <string name="portfolio_address_overlap">آپ کے اپنے لین دین میں بھی ہے: %1$s – صرف وہی گنا جاتا ہے جو پتے پر اس سے زیادہ ہے۔</string>
+    <string name="portfolio_address_overlap">آپ کے اپنے لین دین میں بھی ہے: %1$s – صرف وہی گنا جاتا ہے جو پتے پر اس والیٹ میں آپ کے لین دین سے زیادہ ہے۔</string>
     <string name="portfolio_address_overlap_ask">%1$s پہلے سے آپ کے اپنے لین دین میں درج ہے۔ اس پتے کا بیلنس پورٹ فولیو میں شامل کریں، یا صرف دکھائیں؟</string>
     <string name="portfolio_address_overlap_auto">“%1$s” اب صرف دکھایا جا رہا ہے، شمار نہیں ہو رہا – %2$s آپ کے لین دین میں بھی موجود ہیں۔</string>
     <string name="portfolio_address_overlap_title">آپ کے لین دین والے ہی کوائنز؟</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">صرف دکھائیں، پورٹ فولیو میں شامل نہ کریں</string>
     <string name="portfolio_address_show_only_short">صرف دکھائیں</string>
     <string name="portfolio_address_tokens">ٹوکنز شمار کریں</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” کی طرف آپ کی منتقلی جتنی ہی مقدار – منزل یہ پتہ رکھیں، ورنہ یہ دو بار گنی جائے گی۔</string>
     <string name="portfolio_address_xpub_privacy">xpub اس والیٹ کے تمام پتے ظاہر کر دیتا ہے۔ پتے آپ کے آلے پر ہی اخذ کیے جاتے ہیں؛ %1$s کو صرف الگ الگ پتے بھیجے جاتے ہیں – پہلے اسکین پر کم از کم 40 درخواستیں، بعد میں کم۔ پرائیویٹ کیز (xprv) کبھی قبول نہیں کی جاتیں۔</string>
     <string name="portfolio_address_xpub_gap">تلاش لگاتار %1$d غیر استعمال شدہ پتوں کے بعد رک جاتی ہے (BIP44 معیار جو زیادہ تر والیٹس استعمال کرتے ہیں)۔ اس فاصلے کے بعد کا کوئی استعمال شدہ پتہ شمار نہیں ہوتا – اسے الگ سے شامل کریں۔</string>
     <string name="portfolio_address_xpub_used">زیرِ استعمال پتے: %1$d</string>

@@ -31,8 +31,10 @@ data class MacroEvent(val type: MacroEventType, val time: Long)
  *
  * @param items Termine in zeitlicher Reihenfolge
  * @param released alle Termine liegen schon mehr als 2 h zurück («… veröffentlicht»)
+ * @param seriesEnds ein Termin ist der letzte bekannte seiner Reihe — die Quelle hat noch keine weiteren veröffentlicht
+ *   (z. B. BEA PCE nur bis Dezember); die Zeile zeigt dann «Weitere Termine folgen, …» ([MacroCalendar.hint])
  */
-data class MacroHint(val items: List<MacroHintItem>, val released: Boolean) {
+data class MacroHint(val items: List<MacroHintItem>, val released: Boolean, val seriesEnds: Boolean = false) {
     /** Alle Termine heute (Ortszeit). */
     val allToday: Boolean get() = items.all { !it.tomorrow }
 
@@ -124,7 +126,8 @@ object MacroCalendar {
     /**
      * Hinweis zur Zeit [now] in der Zeitzone [zone]: Termine von heute (Ortsdatum) und
      * solche in den nächsten [LOOKAHEAD_MILLIS]. Sind alle schon mehr als 2 h vorbei,
-     * heisst es «veröffentlicht» (nur noch heute). null = kein Hinweis.
+     * heisst es «veröffentlicht» (nur noch heute). [MacroHint.seriesEnds], wenn nach einem gezeigten Termin keiner
+     * derselben Art mehr bekannt ist. null = kein Hinweis.
      */
     fun hint(events: List<MacroEvent>, now: Long, zone: ZoneId): MacroHint? {
         val today = localDate(now, zone)
@@ -137,7 +140,9 @@ object MacroCalendar {
             .map { MacroHintItem(it, tomorrow = localDate(it.time, zone).isAfter(today)) }
         if (items.isEmpty()) return null
         val released = items.all { now >= it.event.time + RELEASED_AFTER_MILLIS }
-        return MacroHint(items, released)
+        // Danach kein Termin derselben Art mehr in der Datei: die Reihe endet im gezeigten Bereich
+        val ends = items.any { item -> events.none { it.type == item.event.type && it.time > item.event.time } }
+        return MacroHint(items, released, ends)
     }
 
     /** Termin näher als so viel (davor oder danach): Hinweis oben im Abschnitt «Jetzt». */

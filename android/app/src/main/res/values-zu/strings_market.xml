@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Namuhla %1$s %2$s</string>
     <string name="macro_item_tomorrow">Kusasa %1$s %2$s</string>
+    <string name="macro_more_dates_later">Ezinye izinsuku zizolandela uma umthombo uzishicilela.</string>
     <string name="macro_nfp">Umbiko wemisebenzi wase-US</string>
     <string name="macro_pce">Izintengo zokusebenzisa kwabathengi e-US (PCE)</string>
     <string name="macro_ppi">Izintengo zabakhiqizi e-US (PPI)</string>

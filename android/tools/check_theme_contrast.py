@@ -6,8 +6,10 @@ Prüft die Themenfarben (alle Akzentfarben, hell und dunkel, normal und hoher Ko
 Paare: Haupt-, Neben- und Warntext, Fehlerfarbe, Platzhalter (beide Plattformen onSurfaceVariant),
 Akzent als Schrift auf allen Flächen und auf den hellen Akzent-Containern, Symbole in
 `outline`; dazu Schrift und Symbole auf den Auswahl-Tönungen und den iOS-Fehlerflächen (Deckkraft je
-Verwendung, über Seite/Blatt/Menü). Deaktivierte Texte (Material: onSurface · 0.38,
-iOS: System) sind nach WCAG 1.4.3 ausgenommen und werden nur gemeldet.
+Verwendung, über Seite/Blatt/Menü). Gesperrte Elemente (O-04; WCAG nimmt sie aus, die App hält trotzdem 3:1):
+Schrift und Symbole onSurface · 0.55 auf allen Flächen und auf der gesperrten Knopffläche (onSurface · 0.12),
+gesperrter Schalter (Knopf surface auf der Spur), abgeblendete Zeilen (Haupt- und Nebentext · 0.7) ≥ 3:1 —
+Android `DisabledColors.kt`, iOS `ColorTokens.disabled*` (abgeglichen in [source_mismatches]).
 
 Werte wie AppColorSchemes.kt / ErrorColors.kt / AppColors.kt (Android) bzw. ios/Shared/Util/Theme.swift;
 primary, Neben-/Haupttext, outline und Fehlerfarbe gleicht das Skript mit dem Quelltext ab ([source_mismatches]).
@@ -74,7 +76,10 @@ TINT_BASES = ("Lowest", "surface", "Low", "Container")
 # Fehlertext steht dunkel nicht auf der Auswahlfläche #333333 und nicht auf Highest #353535; dort nur als Symbol
 # (Snackbar-Rand und -Symbol, ≥ 3:1). Hell steht er auf allen Flächen.
 ERROR_SYMBOL_ONLY_DARK = ("Auswahl", "Highest")
-DISABLED_ALPHA = 0.38
+# Gesperrt (Android DisabledColors.kt, iOS ColorTokens): Schrift/Symbole, Knopffläche, abgeblendete Zeile
+DISABLED_CONTENT_ALPHA = 0.55
+DISABLED_CONTAINER_ALPHA = 0.12
+DISABLED_ROW_ALPHA = 0.7
 
 
 def over(fg, alpha, bg):
@@ -112,8 +117,16 @@ def pairs():
                 yield "Fehler", f"error {where}", ERROR[d], bg, 4.5, False
             yield "Warnung", f"warningText {where}", WARNING_TEXT[d], bg, 4.5, False
             yield "Warnung", f"warning (Symbol) {where}", WARNING_ICON[d], bg, 3.0, False
-            yield "Deaktiviert", f"onSurface·{DISABLED_ALPHA} {where}", over(ON_SURFACE[d], DISABLED_ALPHA, bg), \
-                bg, 4.5, True
+            disabled = over(ON_SURFACE[d], DISABLED_CONTENT_ALPHA, bg)
+            yield "Gesperrt", f"onSurface·{DISABLED_CONTENT_ALPHA} {where}", disabled, bg, 3.0, False
+            box = over(ON_SURFACE[d], DISABLED_CONTAINER_ALPHA, bg)
+            yield "Gesperrt (Knopf)", f"onSurface·{DISABLED_CONTENT_ALPHA} auf Knopffläche {where}", \
+                over(ON_SURFACE[d], DISABLED_CONTENT_ALPHA, box), box, 3.0, False
+            yield "Gesperrt (Schalter)", f"Knopf surface auf Spur {where}", DARK_SURFACES["surface"] if d \
+                else LIGHT_SURFACES["surface"], disabled, 3.0, False
+            for name, fg in (("onSurface", ON_SURFACE[d]), ("onSurfaceVariant", ON_SURFACE_VARIANT[d])):
+                yield "Gesperrt (Zeile)", f"{name}·{DISABLED_ROW_ALPHA} {where}", over(fg, DISABLED_ROW_ALPHA, bg), \
+                    bg, 3.0, False
             for acc in ACCENTS:
                 yield "Akzent", f"{acc} primary {where}", PRIMARY[acc][d], bg, 4.5, False
                 yield "Akzent hoher Kontrast", f"{acc} primary HK {where}", PRIMARY[acc][2 + d], bg, 7.0, False
@@ -170,6 +183,15 @@ def source_mismatches():
     if f"ErrorLight = Color(0xFF{ERROR[0]:06X})" not in errors or \
             f"ErrorDark = Color(0xFF{ERROR[1]:06X})" not in errors:
         out.append("ErrorColors.kt: Fehlerfarbe weicht ab")
+    disabled_kt = read(THEME_KT + "DisabledColors.kt") or ""
+    for key, value in (("DISABLED_CONTENT_ALPHA", DISABLED_CONTENT_ALPHA), ("DISABLED_CONTAINER_ALPHA",
+                       DISABLED_CONTAINER_ALPHA), ("DISABLED_ROW_ALPHA", DISABLED_ROW_ALPHA)):
+        if f"const val {key} = {value}f" not in disabled_kt:
+            out.append(f"DisabledColors.kt: {key} nicht {value}")
+        swift_key = "disabled" + "".join(w.capitalize() for w in key.split("_")[1:]) + "Alpha"
+        swift_key = swift_key.replace("AlphaAlpha", "Alpha")
+        if f"static let {swift_key} = {value}" not in swift:
+            out.append(f"Theme.swift: ColorTokens.{swift_key} nicht {value}")
     if f"static let error = Pair(light: 0x{ERROR[0]:06X}, dark: 0x{ERROR[1]:06X})" not in swift:
         out.append("Theme.swift: ColorTokens.error weicht ab")
     for key, pair in (("onSurfaceVariant", ON_SURFACE_VARIANT), ("outline", OUTLINE), ("onSurface", ON_SURFACE)):
@@ -178,10 +200,50 @@ def source_mismatches():
     return out
 
 
+# Material-Elemente, die gesperrt Materials 0.38 zeigten, wenn sie keine `colors = DisabledColors.*()` bekommen
+SPERRBAR = ("TextButton", "Button", "FilledTonalButton", "OutlinedButton", "ElevatedButton", "FilterChip", "Switch",
+            "DropdownMenuItem", "OutlinedTextField", "TextField", "FilledTonalIconButton", "SegmentedButton")
+APP_SRC = "android/app/src/main/java"
+
+
+def ungeschuetzt_gesperrt():
+    """Aufrufe eines Material-Elements aus [SPERRBAR] mit `enabled = …` (nicht `true`) ohne `colors =` (Datei:Zeile)."""
+    import re
+    out = []
+    for folder, _, files in os.walk(os.path.join(ROOT, APP_SRC)):
+        for name in files:
+            if not name.endswith(".kt"):
+                continue
+            path = os.path.join(folder, name)
+            with open(path, encoding="utf-8") as f:
+                text = f.read()
+            for m in re.finditer(r"\benabled\s*=\s*(?!true\b)", text):
+                depth, i = 0, m.start() - 1
+                while i >= 0 and not (text[i] == "(" and depth == 0):
+                    depth += {")": 1, "(": -1}.get(text[i], 0)
+                    i -= 1
+                j = i - 1
+                while j >= 0 and (text[j].isalnum() or text[j] in "_."):
+                    j -= 1
+                if i < 0 or text[j + 1:i] not in SPERRBAR:
+                    continue
+                depth, k = 0, i
+                while k < len(text):
+                    depth += {"(": 1, ")": -1}.get(text[k], 0)
+                    if depth == 0:
+                        break
+                    k += 1
+                if "colors =" not in text[i:k]:
+                    out.append(f"{os.path.relpath(path, ROOT)}:{text.count(chr(10), 0, i) + 1} {text[j + 1:i]}")
+    return out
+
+
 def check(show_all=False):
     failures, exempt = [], []
     for line in source_mismatches():
         failures.append("Quelltext: " + line)
+    for line in ungeschuetzt_gesperrt():
+        failures.append("Gesperrt ohne DisabledColors: " + line)
     for group, label, fg, bg, floor, is_exempt in pairs():
         r = contrast(fg, bg)
         line = f"{group:<28}{label:<62}#{fg:06X} / #{bg:06X}  {r:5.2f} (≥ {floor})"
@@ -190,7 +252,7 @@ def check(show_all=False):
         if r < floor:
             (exempt if is_exempt else failures).append(line)
     if exempt:
-        print("Ausgenommen (WCAG 1.4.3, deaktiviert), nur gemeldet:")
+        print("Ausgenommen, nur gemeldet:")
         for line in exempt:
             print("  " + line)
     if failures:

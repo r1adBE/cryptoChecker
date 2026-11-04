@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">ይፋዊ አድራሻ (BTC፣ ETH &amp; EVM፣ SOL፣ TRX፣ XRP፣ LTC፣ TON፣ ADA) ወይም xpub</string>
     <string name="portfolio_address_label">መለያ ስም (አማራጭ)</string>
     <string name="portfolio_address_not_since_buy">ከአድራሻ · በ«ከግዢ ወዲህ» ውስጥ የለም፦ %1$s</string>
-    <string name="portfolio_address_overlap">በራስዎ ግብይቶች ውስጥም አለ፦ %1$s – የሚቆጠረው አድራሻው ከዚያ በላይ የያዘው ብቻ ነው።</string>
+    <string name="portfolio_address_overlap">በራስዎ ግብይቶች ውስጥም አለ፦ %1$s – የሚቆጠረው አድራሻው በዚህ ቦርሳ ውስጥ ካሉት ግብይቶችዎ በላይ የያዘው ብቻ ነው።</string>
     <string name="portfolio_address_overlap_ask">%1$sን አስቀድመው በራስዎ ግብይቶች ይመዘግባሉ። የዚህን አድራሻ ቀሪ ሂሳብ ወደ ፖርትፎሊዮው ይደምሩ ወይስ ያሳዩት ብቻ?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» አሁን የሚታይ ብቻ ነው፣ አይቆጠርም – %2$s በግብይቶችዎ ውስጥም ይገኛሉ።</string>
     <string name="portfolio_address_overlap_title">ከግብይቶችዎ ጋር ተመሳሳይ ሳንቲሞች?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ያሳዩ ብቻ፣ ወደ ፖርትፎሊዮ አይደምሩ</string>
     <string name="portfolio_address_show_only_short">ያሳዩ ብቻ</string>
     <string name="portfolio_address_tokens">ቶከኖችን ይቁጠሩ</string>
+    <string name="portfolio_address_withdrawal_match">ወደ «%1$s» ካደረጉት ዝውውር ጋር ተመሳሳይ መጠን – መድረሻውን ወደዚህ አድራሻ ያቀናብሩ፤ ያለበለዚያ ሁለት ጊዜ ይቆጠራል።</string>
     <string name="portfolio_address_xpub_privacy">xpub የዚህን ቦርሳ ሁሉንም አድራሻዎች ይገልጣል። በመሣሪያዎ ላይ ይመነጫሉ፤ ወደ %1$s የሚላኩት ነጠላ አድራሻዎች ብቻ ናቸው – በመጀመሪያው ፍተሻ ቢያንስ 40 ጥያቄዎች፣ በኋላ ያነሱ። የግል ቁልፎች (xprv) በፍጹም አይቀበሉም።</string>
     <string name="portfolio_address_xpub_gap">ፍለጋው በተከታታይ %1$d ጥቅም ላይ ያልዋሉ አድራሻዎች በኋላ ይቆማል (አብዛኞቹ ቦርሳዎች የሚጠቀሙበት የBIP44 መስፈርት)። ከዚያ ክፍተት ባሻገር ያለ ጥቅም ላይ የዋለ አድራሻ አይቆጠርም – ለብቻው ያክሉት።</string>
     <string name="portfolio_address_xpub_used">ጥቅም ላይ ያሉ አድራሻዎች፦ %1$d</string>

@@ -285,9 +285,19 @@ object AddressCostLots {
      */
     fun accounted(addresses: List<WatchedAddress>, real: List<PortfolioTrade> = emptyList()): Map<String, BigDecimal> {
         val out = LinkedHashMap<String, BigDecimal>()
-        for ((_, covered) in countedCoverage(addresses, real)) {
+        for (coins in accountedByWallet(addresses, real).values) {
+            for ((coin, v) in coins) out[coin] = (out[coin] ?: BigDecimal.ZERO) + v
+        }
+        return out
+    }
+
+    /** [accounted] je Wallet ([PortfolioWallets.key] von [walletName]) — für «Nur Mehrbestand» je Wallet ([AddressSurplus]). */
+    fun accountedByWallet(addresses: List<WatchedAddress>, real: List<PortfolioTrade> = emptyList()): Map<String, Map<String, BigDecimal>> {
+        val out = LinkedHashMap<String, LinkedHashMap<String, BigDecimal>>()
+        for ((a, covered) in countedCoverage(addresses, real)) {
+            val w = out.getOrPut(PortfolioWallets.key(walletName(a))) { LinkedHashMap() }
             for (c in covered) {
-                if (c.accounted.signum() != 0) out[c.coin] = (out[c.coin] ?: BigDecimal.ZERO) + c.accounted
+                if (c.accounted.signum() != 0) w[c.coin] = (w[c.coin] ?: BigDecimal.ZERO) + c.accounted
             }
         }
         return out

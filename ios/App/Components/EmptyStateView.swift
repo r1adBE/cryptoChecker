@@ -98,7 +98,8 @@ extension View {
     }
 }
 
-/// Gefüllter Knopf in der Akzentfarbe.
+/// Gefüllter Knopf in der Akzentfarbe; gesperrt grau (`AppColors.disabledContent` auf `disabledContainer`, ≥ 3:1)
+/// wie Android `DisabledColors.button`.
 struct AccentButtonStyle: ButtonStyle {
     @Environment(\.appAccent) private var accent
     @Environment(\.onAccent) private var onAccent
@@ -106,22 +107,22 @@ struct AccentButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundStyle(onAccent)
-            .background(accent.primary.opacity(isEnabled ? 1 : 0.4), in: Capsule())
+            .foregroundStyle(isEnabled ? onAccent : AppColors.disabledContent)
+            .background(isEnabled ? accent.primary : AppColors.disabledContainer, in: Capsule())
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
     }
 }
 
-/// Getönter Knopf (Akzent-Container).
+/// Getönter Knopf (Akzent-Container); gesperrt grau wie `AccentButtonStyle` (Android `DisabledColors.filledTonalButton`).
 struct TonalButtonStyle: ButtonStyle {
     @Environment(\.appAccent) private var accent
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundStyle(accent.onContainer)
-            .background(accent.container.opacity(isEnabled ? 1 : 0.4), in: Capsule())
+            .foregroundStyle(isEnabled ? accent.onContainer : AppColors.disabledContent)
+            .background(isEnabled ? accent.container : AppColors.disabledContainer, in: Capsule())
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
     }

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ఈరోజు %1$s %2$s</string>
     <string name="macro_item_tomorrow">రేపు %1$s %2$s</string>
+    <string name="macro_more_dates_later">మూలం ప్రచురించగానే తదుపరి తేదీలు జోడించబడతాయి.</string>
     <string name="macro_nfp">US ఉద్యోగాల నివేదిక</string>
     <string name="macro_pce">US వినియోగదారుల వ్యయ ధరలు (PCE)</string>
     <string name="macro_ppi">US ఉత్పత్తిదారుల ధరలు (PPI)</string>

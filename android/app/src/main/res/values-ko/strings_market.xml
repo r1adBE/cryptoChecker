@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">오늘 %1$s %2$s</string>
     <string name="macro_item_tomorrow">내일 %1$s %2$s</string>
+    <string name="macro_more_dates_later">이후 일정은 출처에서 발표하는 대로 추가됩니다.</string>
     <string name="macro_nfp">미국 고용보고서</string>
     <string name="macro_pce">미국 PCE 물가지수</string>
     <string name="macro_ppi">미국 생산자물가지수(PPI)</string>

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ዛሬ %1$s %2$s</string>
     <string name="macro_item_tomorrow">ነገ %1$s %2$s</string>
+    <string name="macro_more_dates_later">ተጨማሪ ቀኖች ምንጩ እንዳሳተማቸው ይከተላሉ።</string>
     <string name="macro_nfp">የአሜሪካ የሥራ ሪፖርት</string>
     <string name="macro_pce">የአሜሪካ የሸማቾች ወጪ ዋጋዎች (PCE)</string>
     <string name="macro_ppi">የአሜሪካ የአምራች ዋጋዎች (PPI)</string>

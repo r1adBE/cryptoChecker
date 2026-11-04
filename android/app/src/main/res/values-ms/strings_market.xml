@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Hari ini %1$s %2$s</string>
     <string name="macro_item_tomorrow">Esok %1$s %2$s</string>
+    <string name="macro_more_dates_later">Tarikh seterusnya akan menyusul sebaik sahaja sumber menerbitkannya.</string>
     <string name="macro_nfp">Laporan pekerjaan AS</string>
     <string name="macro_pce">Harga perbelanjaan pengguna AS (PCE)</string>
     <string name="macro_ppi">Harga pengeluar AS (PPI)</string>

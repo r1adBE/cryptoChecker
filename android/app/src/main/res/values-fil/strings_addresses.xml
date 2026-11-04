@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Pampublikong address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Label (opsyonal)</string>
     <string name="portfolio_address_not_since_buy">Mula sa address · wala sa “Mula nang bilhin”: %1$s</string>
-    <string name="portfolio_address_overlap">Nasa sarili mong mga transaksyon din: %1$s – ang sobra lang na hawak ng address ang binibilang.</string>
+    <string name="portfolio_address_overlap">Nasa sarili mong mga transaksyon din: %1$s – ang sobra lang na hawak ng address kumpara sa mga transaksyon mo sa wallet na ito ang binibilang.</string>
     <string name="portfolio_address_overlap_ask">Itinatala mo na ang %1$s sa sarili mong mga transaksyon. Idagdag ang balanse ng address na ito sa portfolio, o ipakita lang ito?</string>
     <string name="portfolio_address_overlap_auto">Ipinapakita na lang ang “%1$s”, hindi binibilang – lumalabas din ang %2$s sa mga transaksyon mo.</string>
     <string name="portfolio_address_overlap_title">Parehong mga coin ng mga transaksyon mo?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Ipakita lang, huwag idagdag sa portfolio</string>
     <string name="portfolio_address_show_only_short">Ipakita lang</string>
     <string name="portfolio_address_tokens">Isama ang mga token</string>
+    <string name="portfolio_address_withdrawal_match">Kapareho ng halaga ng transfer mo sa “%1$s” – itakda ang address na ito bilang destinasyon, kung hindi ay dodoble ang bilang.</string>
     <string name="portfolio_address_xpub_privacy">Inilalantad ng xpub ang lahat ng address ng wallet na ito. Hinahango ang mga ito sa device mo; mga indibidwal na address lang ang ipinapadala sa %1$s – hindi bababa sa 40 request sa unang scan, mas kaunti pagkatapos. Hindi kailanman tinatanggap ang mga private key (xprv).</string>
     <string name="portfolio_address_xpub_gap">Humihinto ang paghahanap pagkatapos ng %1$d sunod-sunod na hindi nagamit na address (ang BIP44 standard na gamit ng karamihan ng wallet). Hindi binibilang ang nagamit na address na lampas sa puwang na iyon – idagdag ito nang hiwalay.</string>
     <string name="portfolio_address_xpub_used">Mga address na ginagamit: %1$d</string>

@@ -222,7 +222,8 @@ private fun UnusualSkeleton() {
  * aufgeklappt unter «Mehr Marktdaten») nur bei einem Termin in ±2 h ([MacroCalendar.isImminent]), sonst
  * auf der Unterseite «Daten». Rechnet jede Minute neu (Wechsel des Platzes, «veröffentlicht», Mitternacht).
  * Grau, ohne Bedeutungsfarbe; für den Screenreader ein Element, dazu das Info-Zeichen
- * ([MarketInfoButton]) als eigener Knopf.
+ * ([MarketInfoButton]) als eigener Knopf. Endet eine Reihe im gezeigten Bereich ([MacroHint.seriesEnds]), steht
+ * darunter «Weitere Termine folgen, …» ([MacroTexts.rowText]).
  */
 @Composable
 internal fun MacroHintRow(events: List<MacroEvent>, atTop: Boolean) {
@@ -237,7 +238,7 @@ internal fun MacroHintRow(events: List<MacroEvent>, atTop: Boolean) {
     val hint = remember(events, now / 60_000L) { MacroCalendar.hint(events, now, ZoneId.systemDefault()) } ?: return
     if (MacroCalendar.isImminent(hint, now) != atTop) return
     val context = LocalContext.current
-    val text = MacroTexts.hint(context, hint)
+    val text = MacroTexts.rowText(context, hint)
     val title = stringResource(R.string.macro_title)
     // Unter «Daten» eine Karte wie die übrigen (Titel mit Strich in der Karte, nicht aufklappbar)
     if (!atTop) {

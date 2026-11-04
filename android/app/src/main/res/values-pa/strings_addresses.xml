@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">ਜਨਤਕ ਪਤਾ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ਜਾਂ xpub</string>
     <string name="portfolio_address_label">ਲੇਬਲ (ਵਿਕਲਪਿਕ)</string>
     <string name="portfolio_address_not_since_buy">ਪਤੇ ਤੋਂ · “ਖਰੀਦ ਤੋਂ ਬਾਅਦ” ਵਿੱਚ ਨਹੀਂ: %1$s</string>
-    <string name="portfolio_address_overlap">ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$s – ਪਤੇ ਉੱਤੇ ਇਸ ਤੋਂ ਵੱਧ ਜੋ ਹੈ, ਸਿਰਫ਼ ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="portfolio_address_overlap">ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹੈ: %1$s – ਇਸ ਵਾਲਿਟ ਵਿੱਚ ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਤੋਂ ਵੱਧ ਜੋ ਪਤੇ ਉੱਤੇ ਹੈ, ਸਿਰਫ਼ ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।</string>
     <string name="portfolio_address_overlap_ask">%1$s ਪਹਿਲਾਂ ਹੀ ਤੁਹਾਡੇ ਆਪਣੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਦਰਜ ਹੈ। ਇਸ ਪਤੇ ਦਾ ਬੈਲੈਂਸ ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਜੋੜਨਾ ਹੈ, ਜਾਂ ਸਿਰਫ਼ ਦਿਖਾਉਣਾ ਹੈ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ਹੁਣ ਸਿਰਫ਼ ਦਿਖਾਇਆ ਜਾ ਰਿਹਾ ਹੈ, ਗਿਣਿਆ ਨਹੀਂ ਜਾ ਰਿਹਾ – %2$s ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਵੀ ਹਨ।</string>
     <string name="portfolio_address_overlap_title">ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਵਾਲੇ ਹੀ ਕੌਇਨ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ਸਿਰਫ਼ ਦਿਖਾਓ, ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਨਾ ਜੋੜੋ</string>
     <string name="portfolio_address_show_only_short">ਸਿਰਫ਼ ਦਿਖਾਓ</string>
     <string name="portfolio_address_tokens">ਟੋਕਨ ਗਿਣਤੀ ਵਿੱਚ ਲਓ</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” ਵੱਲ ਤੁਹਾਡੇ ਟ੍ਰਾਂਸਫਰ ਜਿੰਨੀ ਹੀ ਮਾਤਰਾ – ਟਿਕਾਣਾ ਇਹ ਪਤਾ ਰੱਖੋ, ਨਹੀਂ ਤਾਂ ਇਹ ਦੋ ਵਾਰ ਗਿਣੀ ਜਾਵੇਗੀ।</string>
     <string name="portfolio_address_xpub_privacy">xpub ਇਸ ਵਾਲਿਟ ਦੇ ਸਾਰੇ ਪਤੇ ਜ਼ਾਹਰ ਕਰ ਦਿੰਦਾ ਹੈ। ਪਤੇ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ’ਤੇ ਹੀ ਬਣਾਏ ਜਾਂਦੇ ਹਨ; %1$s ਨੂੰ ਸਿਰਫ਼ ਵੱਖ-ਵੱਖ ਪਤੇ ਭੇਜੇ ਜਾਂਦੇ ਹਨ – ਪਹਿਲੇ ਸਕੈਨ ’ਤੇ ਘੱਟੋ-ਘੱਟ 40 ਬੇਨਤੀਆਂ, ਬਾਅਦ ਵਿੱਚ ਘੱਟ। ਪ੍ਰਾਈਵੇਟ ਕੀਜ਼ (xprv) ਕਦੇ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ।</string>
     <string name="portfolio_address_xpub_gap">ਲਗਾਤਾਰ %1$d ਨਾ-ਵਰਤੇ ਪਤਿਆਂ ਤੋਂ ਬਾਅਦ ਖੋਜ ਰੁਕ ਜਾਂਦੀ ਹੈ (BIP44 ਮਿਆਰ ਜੋ ਜ਼ਿਆਦਾਤਰ ਵਾਲਿਟ ਵਰਤਦੇ ਹਨ)। ਉਸ ਪਾੜੇ ਤੋਂ ਅੱਗੇ ਦਾ ਕੋਈ ਵਰਤਿਆ ਪਤਾ ਨਹੀਂ ਗਿਣਿਆ ਜਾਂਦਾ – ਉਸਨੂੰ ਵੱਖਰੇ ਤੌਰ ’ਤੇ ਜੋੜੋ।</string>
     <string name="portfolio_address_xpub_used">ਵਰਤੋਂ ਵਿੱਚ ਪਤੇ: %1$d</string>

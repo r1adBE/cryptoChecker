@@ -181,7 +181,7 @@
       ]
     },
     {
-      "name": "recorded transfer to an address without lot: address row without the transfer, only the surplus over own holdings",
+      "name": "recorded transfer to an address without lot: address row without the transfer",
       "date": "2023-12-31",
       "zone": "UTC",
       "method": "FIFO_WALLET",
@@ -231,8 +231,8 @@
       "expected": [
         "Coin;Menge;Kurs USDT;Wert USDT;Kurs;Wert;Hinweis",
         "BTC;0.4;40000;16000.00;0.9;14400.00;",
-        "BTC;0.9;40000;36000.00;0.9;32400.00;aus Adresse",
-        "Total;;;52000.00;0.9;46800.00;"
+        "BTC;1;40000;40000.00;0.9;36000.00;aus Adresse",
+        "Total;;;56000.00;0.9;50400.00;"
       ]
     },
     {

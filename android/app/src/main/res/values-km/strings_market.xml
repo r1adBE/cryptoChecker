@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ថ្ងៃនេះ %1$s %2$s</string>
     <string name="macro_item_tomorrow">ថ្ងៃស្អែក %1$s %2$s</string>
+    <string name="macro_more_dates_later">កាលបរិច្ឆេទបន្ទាប់នឹងមាន នៅពេលប្រភពផ្សព្វផ្សាយ។</string>
     <string name="macro_nfp">របាយការណ៍ការងារសហរដ្ឋអាមេរិក</string>
     <string name="macro_pce">តម្លៃចំណាយអ្នកប្រើប្រាស់សហរដ្ឋអាមេរិក (PCE)</string>
     <string name="macro_ppi">តម្លៃអ្នកផលិតសហរដ្ឋអាមេរិក (PPI)</string>

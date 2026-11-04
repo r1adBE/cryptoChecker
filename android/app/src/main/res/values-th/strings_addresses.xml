@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">ที่อยู่สาธารณะ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) หรือ xpub</string>
     <string name="portfolio_address_label">ป้ายชื่อ (ไม่บังคับ)</string>
     <string name="portfolio_address_not_since_buy">จากที่อยู่ · ไม่รวมใน “ตั้งแต่ซื้อ”: %1$s</string>
-    <string name="portfolio_address_overlap">มีในรายการของคุณเองด้วย: %1$s – นับเฉพาะส่วนที่ที่อยู่มีมากกว่าเท่านั้น</string>
+    <string name="portfolio_address_overlap">มีในรายการของคุณเองด้วย: %1$s – นับเฉพาะส่วนที่ที่อยู่มีมากกว่ารายการของคุณในวอลเล็ตนี้เท่านั้น</string>
     <string name="portfolio_address_overlap_ask">คุณบันทึก %1$s ด้วยรายการของคุณเองอยู่แล้ว จะรวมยอดของที่อยู่นี้ในพอร์ตหรือแค่แสดงเท่านั้น?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” จะแสดงอย่างเดียวและไม่นับรวมแล้ว – %2$s มีอยู่ในรายการของคุณด้วย</string>
     <string name="portfolio_address_overlap_title">เหรียญเดียวกับในรายการของคุณหรือไม่?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">แสดงอย่างเดียว ไม่รวมในพอร์ต</string>
     <string name="portfolio_address_show_only_short">แสดงอย่างเดียว</string>
     <string name="portfolio_address_tokens">นับรวมโทเคน</string>
+    <string name="portfolio_address_withdrawal_match">จำนวนเท่ากับการโอนของคุณไปยัง “%1$s” – โปรดตั้งปลายทางเป็นที่อยู่นี้ มิฉะนั้นจะนับซ้ำสองครั้ง</string>
     <string name="portfolio_address_xpub_privacy">xpub เปิดเผยที่อยู่ทั้งหมดของวอลเล็ตนี้ ที่อยู่จะถูกสร้างบนอุปกรณ์ของคุณ ส่งไปยัง %1$s เฉพาะที่อยู่ทีละรายการ – การค้นหาครั้งแรกอย่างน้อย 40 คำขอ หลังจากนั้นน้อยลง ไม่รับคีย์ส่วนตัว (xprv) เด็ดขาด</string>
     <string name="portfolio_address_xpub_gap">การค้นหาจะหยุดหลังพบที่อยู่ที่ไม่ได้ใช้ติดต่อกัน %1$d รายการ (มาตรฐาน BIP44 ที่วอลเล็ตส่วนใหญ่ใช้) ที่อยู่ที่ใช้แล้วซึ่งอยู่ถัดจากช่วงนี้จะไม่ถูกนับ – ให้เพิ่มแยกต่างหาก</string>
     <string name="portfolio_address_xpub_used">ที่อยู่ที่ใช้งาน: %1$d</string>

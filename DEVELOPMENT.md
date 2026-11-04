@@ -1039,6 +1039,10 @@ differ briefly and the apps keep their cache. A deployment never signs bytes it 
 The apps accept a downloaded calendar only if that hash is in a valid manifest
 (`MacroCalendar.parseVerified` with `MirrorTrust`); a changed, unlisted or unverifiable file counts as a download
 error: the cache (also expired) or else the built-in `macro_events.json` is used, as before.
+When a date in the note is the last known one of its series (no later date of that type in the file, e.g. BEA
+publishes PCE only until December), `MacroHint.seriesEnds` adds one line «Further dates will follow once the source
+publishes them.» (`macro_more_dates_later`, `MacroTexts.rowText` / `MacroCalendar.rowText`; not in the morning
+notification).
 
 *Reserve key*: the apps and `mirror_data.py` (`PUBLIC_KEYS`) accept a second public key,
 `RESERVE_PUBLIC_KEY` (`productionReservePublicKey` in `mirror_signature.json`). Its private key is not a secret on
@@ -1975,16 +1979,25 @@ the tests named here.
   wallet, capped at the holding before the recorded movements of that wallet (observed balance + recorded outflows −
   recorded inflows, all dates, as FIFO per wallet books them); only the rest stays address part without cost basis.
   Periods and history count them like buys from their date, as the card and the cut-off do.
-* **Only the surplus counts.** A counting address adds per coin only what it holds beyond own holdings:
-  `AddressSurplus.counted` = max(0, address part − own holdings). Address part = summed balance of all counting
-  addresses of the coin minus what lots and recorded movements of the address wallets already book; own holdings =
-  holdings of the own transactions (`PortfolioHoldingsBook`, default method) minus the recorded inflows of the address
-  wallets (already in the balance), never below 0. Several counting addresses of one coin are summed first, own
-  holdings are subtracted once. Card, rows, alarms, widgets and watch (`AddressSurplus.parts` via
-  `AddressBalance.trades`) and periods, history, cut-off and CH wealth (`AddressBalanceHistory.trades` with the ledger
-  steps from `AddressBooked.histories`, at every observation) use this one rule. Examples (`address_surplus.json`):
-  own 1.00 BTC and address 1.00 → 0; address 1.06 → 0.06; coin only on the address → in full; address below own
-  holdings → 0. The automatic «Show only» switch below is unchanged.
+* **Only the surplus over the same wallet counts.** A counting address adds per coin only what it holds beyond the own
+  holdings recorded in ITS wallet (`AddressCostLots.walletName`, compared via `PortfolioWallets.key`); holdings in other
+  wallets (exchange, other address) never reduce it. `AddressSurplus.counted` = max(0, address part − own holdings of the
+  wallet). Address part = summed balance of the counting addresses of that wallet minus what lots and recorded movements
+  of the wallet already book (`AddressCostLots.accountedByWallet`); own holdings of the wallet = its recorded movements
+  (`AddressCostLots.recordedMove`) minus those already in the balance (up to the balance check of the settling address),
+  never below 0, plus recorded inflows beyond the settling address's balance (history: negative steps of
+  `AddressBooked.held(floor = false)`). Several counting addresses of one wallet are summed first, the wallet's own holdings
+  are subtracted once; wallets are independent. Without lots a wallet thus shows max(own entries of the wallet, balance).
+  Card, rows, detail, alarms, widgets and watch (`AddressSurplus.parts` via `AddressBalance.trades`) and periods, history,
+  cut-off and CH wealth (`AddressBalanceHistory.trades` with the ledger steps per coin and wallet from
+  `AddressBooked.histories`, at every observation) use this one rule. Examples (`address_surplus.json`): exchange 1 BTC +
+  cold-wallet address 1 → 2; own 1.00 in the address wallet + address 1.06 → 1.06; recorded transfer exchange → address
+  wallet 1 + address 1 → 1; coin only on the address → in full. The automatic «Show only» switch below is unchanged.
+  Hint only (`AddressWithdrawalMatch`, `address_withdrawal_match.json`): an own transfer from another wallet into
+  another wallet than the address's whose amount matches the balance or an observed inflow (± 1 %, as
+  `transferMatches`) and that is not also recorded into the address wallet shows `portfolio_address_withdrawal_match`
+  with the target wallet of the first match (`AddressWithdrawalMatch.targetWallet`) on the address row and the coin card — no change of totals, no buttons (a recorded withdrawal leaves the portfolio,
+  no hint).
 * **Networks for watched addresses.** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
   on the device, gap 20 on the first scan; Taproot accounts only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
@@ -2491,6 +2504,13 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0`:
   2.23:1 on `#FBF9F6`, deliberately below 3:1 – the only outline of a control is
   `outline`. Dark mode: `#474747`.
+* **Disabled controls stay readable (≥ 3:1).** Material's 0.38 (light 2.3:1) is replaced: disabled text, icons,
+  switch tracks/borders and segment borders use `onSurface` · 0.55 (Android `DisabledColors.content`, iOS
+  `AppColors.disabledContent`), disabled button fills `onSurface` · 0.12, dimmed rows 0.7 (secondary text ≥ 3:1).
+  Every Material element with `enabled = …` passes `DisabledColors.*()`; iOS buttons without their own style use
+  `.appDisabled(_:)`, `AccentButtonStyle`/`TonalButtonStyle` grey out themselves. System menus, pickers and the
+  system switch on iOS keep Apple's disabled look. Checked by `check_theme_contrast.py`, `ThemeContrastTest`,
+  `ThemeContrastTests`.
 * **Fixed exchange price colours** (decision: «colours like every exchange; the accent
   colour must not confuse»). «Fresh», «Traditional» and «Colour vision» keep one tone per direction for every
   accent; only the two «Calm» schemes dodge a similar accent. Each colour is the nearest (CIEDE2000) to the
@@ -3305,6 +3325,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   24 h value same rule; watch remembers the fetch outcome per pair (not listed vs. not reachable; HTTP 400 = not listed).
 * Build 198: `AddressSurplus` (Android/iOS): counting addresses add max(0, address part − own holdings) per coin, own holdings
   without recorded inflows to the address wallets; overlap warning `portfolio_address_overlap_tx` removed.
+* Build 199: `AddressSurplus` per wallet (address subtracts only own holdings of its wallet); `AddressWithdrawalMatch` (±1 %)
+  names the transfer target wallet; disabled colours ≥ 3:1 (contrast script covers them); macro calendar «more dates follow».
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

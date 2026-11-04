@@ -40,6 +40,7 @@ import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.BidiText
@@ -172,7 +173,7 @@ internal fun AlarmGroupCard(
                         )
                     }
                 }
-                Switch(checked = alarm.enabled, onCheckedChange = null, enabled = canToggle)
+                Switch(checked = alarm.enabled, onCheckedChange = null, enabled = canToggle, colors = DisabledColors.switch())
             }
         }
         Box(modifier = Modifier.padding(bottom = Spacing.xs))
@@ -249,7 +250,12 @@ internal fun PortfolioAlarmsCard(
                             color = if (invalid) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
-                    Switch(checked = alarm.enabled, onCheckedChange = null, enabled = !invalid || alarm.enabled)
+                    Switch(
+                        checked = alarm.enabled,
+                        onCheckedChange = null,
+                        enabled = !invalid || alarm.enabled,
+                        colors = DisabledColors.switch(),
+                    )
                 }
                 IconButton(onClick = { onDelete(alarm) }) {
                     Icon(

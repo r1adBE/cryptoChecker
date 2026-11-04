@@ -271,6 +271,30 @@ final class MarketTabCacheTests: XCTestCase {
         XCTAssertFalse(imminent(cpiTime + 2 * hour + minute))
     }
 
+    /// K-05: Zeile «Weitere Termine folgen» nur, wenn eine Reihe im gezeigten Bereich endet — wie Android
+    /// `MacroCalendarTest.hint_seriesEnds_onlyWhenNoLaterDateOfTheSameTypeIsKnown`.
+    func testMacroSeriesEndsOnlyWhenNoLaterDateOfTheSameTypeIsKnown() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Europe/Zurich")!
+        func t(_ iso: String) throws -> Int64 { try XCTUnwrap(MacroCalendar.parseInstant(iso)) }
+        let events = [MacroEvent(type: .CPI, time: try t("2026-12-10T13:30:00Z")),
+                      MacroEvent(type: .PCE, time: try t("2026-12-23T13:30:00Z")),
+                      MacroEvent(type: .CPI, time: try t("2027-01-13T13:30:00Z"))]
+        func ends(_ list: [MacroEvent], _ at: String) throws -> Bool {
+            try XCTUnwrap(MacroCalendar.hint(list, now: try t(at), calendar: calendar)).seriesEnds
+        }
+        // CPI geht weiter; PCE endet erst ausserhalb des gezeigten Bereichs
+        XCTAssertFalse(try ends(events, "2026-12-10T07:00:00Z"))
+        // Letzter bekannter PCE-Termin im Hinweis, auch noch nach der Veröffentlichung
+        XCTAssertTrue(try ends(events, "2026-12-23T07:00:00Z"))
+        XCTAssertTrue(try ends(events, "2026-12-23T18:00:00Z"))
+        // Die Quelle hat den nächsten PCE-Termin veröffentlicht: keine Zeile
+        let next = MacroEvent(type: .PCE, time: try t("2027-01-29T13:30:00Z"))
+        XCTAssertFalse(try ends(events + [next], "2026-12-23T07:00:00Z"))
+        let hint = try XCTUnwrap(MacroCalendar.hint(events, now: try t("2026-12-23T07:00:00Z"), calendar: calendar))
+        XCTAssertTrue(MacroCalendar.rowText(hint).hasSuffix("\n" + L("macro_more_dates_later")))
+    }
+
     func testWidgetFearGreedOnlyWithin24Hours() {
         XCTAssertEqual(FearGreedShared.showable(.init(value: 72, time: now - hour), now: now), 72)
         XCTAssertEqual(FearGreedShared.showable(.init(value: 72, time: now - 24 * hour), now: now), 72)

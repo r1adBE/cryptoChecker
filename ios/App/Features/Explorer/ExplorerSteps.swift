@@ -44,9 +44,9 @@ extension ExplorerScreen {
                 .font(.title3.weight(.semibold))
                 .symbolEffect(.pulse, isActive: vm.syncing)
                 .frame(width: 56, height: 56)
-                .background(accent.container.opacity(dim ? 0.4 : 1),
+                .background(dim ? AppColors.disabledContainer : accent.container,
                             in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-                .foregroundStyle(accent.onContainer.opacity(dim ? 0.5 : 1))
+                .foregroundStyle(dim ? AppColors.disabledContent : accent.onContainer)
         }
         .buttonStyle(ExplorerPressStyle())
         .disabled(dim)
@@ -174,7 +174,7 @@ extension ExplorerScreen {
                 .font(.footnote.weight(.semibold))
                 .tint(accent.primary)
                 .buttonStyle(.borderless)
-                .disabled(!vm.canReloadPairs)
+                .appDisabled(!vm.canReloadPairs)
         }
     }
 

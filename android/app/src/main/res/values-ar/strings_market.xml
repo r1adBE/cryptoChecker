@@ -230,6 +230,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">اليوم %1$s %2$s</string>
     <string name="macro_item_tomorrow">غدًا %1$s %2$s</string>
+    <string name="macro_more_dates_later">ستُضاف مواعيد أخرى فور نشرها من المصدر.</string>
     <string name="macro_nfp">تقرير الوظائف الأمريكي</string>
     <string name="macro_pce">مؤشر أسعار PCE الأمريكي</string>
     <string name="macro_ppi">أسعار المنتجين الأمريكية (PPI)</string>

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Seoladh poiblí (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) nó xpub</string>
     <string name="portfolio_address_label">Lipéad (roghnach)</string>
     <string name="portfolio_address_not_since_buy">Ó sheoladh · ní in “Ón gceannach”: %1$s</string>
-    <string name="portfolio_address_overlap">I d’idirbhearta féin freisin: %1$s – ní áirítear ach an méid breise atá ag an seoladh.</string>
+    <string name="portfolio_address_overlap">I d’idirbhearta féin freisin: %1$s – ní áirítear ach an méid atá ag an seoladh thar d’idirbhearta sa sparán seo.</string>
     <string name="portfolio_address_overlap_ask">Taifeadann tú %1$s cheana le d’idirbhearta féin. An gcuirfear iarmhéid an tseolta seo leis an bpunann, nó an dtaispeánfar amháin é?</string>
     <string name="portfolio_address_overlap_auto">Taispeántar “%1$s” amháin anois, ní chomhairtear é – tá %2$s i d’idirbhearta freisin.</string>
     <string name="portfolio_address_overlap_title">Na boinn chéanna le d’idirbhearta?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Taispeáin amháin, ná cuir leis an bpunann</string>
     <string name="portfolio_address_show_only_short">Taispeáin amháin</string>
     <string name="portfolio_address_tokens">Comhair comharthaí</string>
+    <string name="portfolio_address_withdrawal_match">An méid céanna le d’aistriú chuig “%1$s” – socraigh an seoladh seo mar cheann scríbe, nó áireofar faoi dhó é.</string>
     <string name="portfolio_address_xpub_privacy">Nochtann xpub gach seoladh den sparán seo. Díorthaítear iad ar do ghléas; ní sheoltar ach seoltaí aonair chuig %1$s – 40 iarratas ar a laghad ag an gcéad scanadh, níos lú ina dhiaidh sin. Ní ghlactar le heochracha príobháideacha (xprv) riamh.</string>
     <string name="portfolio_address_xpub_gap">Stopann an cuardach tar éis %1$d seoladh nár úsáideadh as a chéile (caighdeán BIP44 a úsáideann formhór na sparán). Ní chomhairtear seoladh úsáidte taobh thall den bhearna sin – cuir leis ar leith é.</string>
     <string name="portfolio_address_xpub_used">Seoltaí in úsáid: %1$d</string>

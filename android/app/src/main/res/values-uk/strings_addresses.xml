@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Публічна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) або xpub</string>
     <string name="portfolio_address_label">Мітка (необов’язково)</string>
     <string name="portfolio_address_not_since_buy">З адреси · не входить у «З купівлі»: %1$s</string>
-    <string name="portfolio_address_overlap">Також у твоїх власних транзакціях: %1$s – враховується лише те, що на адресі понад це.</string>
+    <string name="portfolio_address_overlap">Також у твоїх власних транзакціях: %1$s – враховується лише те, що на адресі понад твої транзакції в цьому гаманці.</string>
     <string name="portfolio_address_overlap_ask">Ти вже враховуєш %1$s у власних транзакціях. Додати баланс цієї адреси до портфеля чи лише показувати?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» тепер лише показується й не враховується – %2$s є і у твоїх транзакціях.</string>
     <string name="portfolio_address_overlap_title">Ті самі монети, що у твоїх транзакціях?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Лише показувати, не додавати до портфеля</string>
     <string name="portfolio_address_show_only_short">Лише показувати</string>
     <string name="portfolio_address_tokens">Враховувати токени</string>
+    <string name="portfolio_address_withdrawal_match">Та сама кількість, що й твій переказ до «%1$s» – вкажи цю адресу як отримувача, інакше він рахується двічі.</string>
     <string name="portfolio_address_xpub_privacy">Xpub розкриває всі адреси цього гаманця. Вони обчислюються на твоєму пристрої; до %1$s надсилаються лише окремі адреси – під час першого пошуку щонайменше 40 запитів, потім менше. Приватні ключі (xprv) ніколи не приймаються.</string>
     <string name="portfolio_address_xpub_gap">Пошук зупиняється після %1$d невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додай її окремо.</string>
     <string name="portfolio_address_xpub_used">Використані адреси: %1$d</string>

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Adresse publique (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ou xpub</string>
     <string name="portfolio_address_label">Libellé (facultatif)</string>
     <string name="portfolio_address_not_since_buy">Depuis l’adresse · hors « Depuis l\'achat » : %1$s</string>
-    <string name="portfolio_address_overlap">Aussi dans tes propres transactions : %1$s – seul ce que l\'adresse détient en plus est compté.</string>
+    <string name="portfolio_address_overlap">Aussi dans tes propres transactions : %1$s – seul ce que l\'adresse détient en plus de tes transactions dans ce wallet est compté.</string>
     <string name="portfolio_address_overlap_ask">Tu saisis déjà %1$s avec tes propres transactions. Ajouter le solde de cette adresse au portefeuille ou seulement l’afficher ?</string>
     <string name="portfolio_address_overlap_auto">« %1$s » est désormais seulement affiché, pas compté – %2$s figurent aussi dans tes transactions.</string>
     <string name="portfolio_address_overlap_title">Mêmes coins que dans tes transactions ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Afficher seulement, sans ajouter au portefeuille</string>
     <string name="portfolio_address_show_only_short">Afficher seulement</string>
     <string name="portfolio_address_tokens">Compter les tokens</string>
+    <string name="portfolio_address_withdrawal_match">Même quantité que ton transfert vers « %1$s » – choisis cette adresse comme destination, sinon il compte deux fois.</string>
     <string name="portfolio_address_xpub_privacy">Un xpub révèle toutes les adresses de ce wallet. Elles sont dérivées sur ton appareil ; seules des adresses individuelles sont envoyées à %1$s – au moins 40 requêtes lors de la première recherche, moins ensuite. Les clés privées (xprv) ne sont jamais acceptées.</string>
     <string name="portfolio_address_xpub_gap">La recherche s\'arrête après %1$d adresses inutilisées consécutives (norme BIP44 utilisée par la plupart des portefeuilles). Une adresse utilisée au-delà de cet écart n\'est pas comptée – ajoute-la séparément.</string>
     <string name="portfolio_address_xpub_used">Adresses utilisées : %1$d</string>

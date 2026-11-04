@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">공개 주소 (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) 또는 xpub</string>
     <string name="portfolio_address_label">이름(선택)</string>
     <string name="portfolio_address_not_since_buy">주소에서 · “매수 이후”에 포함 안 됨: %1$s</string>
-    <string name="portfolio_address_overlap">내 거래에도 있습니다: %1$s – 주소에 그보다 더 있는 만큼만 합산됩니다.</string>
+    <string name="portfolio_address_overlap">내 거래에도 있습니다: %1$s – 이 지갑의 거래보다 주소에 더 있는 만큼만 합산됩니다.</string>
     <string name="portfolio_address_overlap_ask">%1$s은(는) 이미 직접 입력한 거래로 기록 중입니다. 이 주소의 잔액을 포트폴리오에 포함할까요, 아니면 표시만 할까요?</string>
     <string name="portfolio_address_overlap_auto">“%1$s”은(는) 이제 표시만 되고 계산되지 않습니다 – %2$s은(는) 내 거래에도 있습니다.</string>
     <string name="portfolio_address_overlap_title">거래와 같은 코인인가요?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">표시만(포트폴리오에 포함 안 함)</string>
     <string name="portfolio_address_show_only_short">표시만</string>
     <string name="portfolio_address_tokens">토큰 포함</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s”(으)로 보낸 이체와 같은 수량입니다 – 대상을 이 주소로 설정하세요. 그렇지 않으면 두 번 합산됩니다.</string>
     <string name="portfolio_address_xpub_privacy">xpub는 이 지갑의 모든 주소를 드러냅니다. 주소는 기기에서 생성되며 %1$s에는 개별 주소만 전송됩니다 – 첫 검색 때 최소 40회 요청, 이후에는 더 적게. 개인 키(xprv)는 절대 받지 않습니다.</string>
     <string name="portfolio_address_xpub_gap">사용하지 않은 주소가 연속으로 %1$d개 나오면 검색을 멈춥니다(대부분의 지갑이 쓰는 BIP44 표준). 그 간격 뒤에 있는 사용된 주소는 계산되지 않으니 따로 추가하세요.</string>
     <string name="portfolio_address_xpub_used">사용 중인 주소: %1$d</string>

@@ -1,0 +1,328 @@
+{
+  "_comment": "Hinweis auf eine Umbuchung, die nicht in die Adress-Wallet erfasst ist (AddressWithdrawalMatch, Android + iOS): eigene Umbuchung aus einer anderen in eine andere Wallet als die Adresse (Bezeichnung, sonst gekuerzte Adresse), deren Menge (oder Menge nach Coin-Gebuehr) dem Guthaben oder einem beobachteten Zugang auf +- 1 % entspricht und nicht schon als Umbuchung/Einzahlung in die Adress-Wallet erfasst ist; nur zaehlende Adressen. Eine erfasste Auszahlung nimmt die Coins aus dem Portfolio (kein Hinweis). matches = Ids der Treffer, zeitlich; target = Ziel-Wallet des ersten Treffers (Platzhalter im Hinweis); matchesFor BTC ueber alle Adressen gleich.",
+  "cases": [
+    {
+      "name": "transfer into another wallet with the address amount: hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "matches": [
+        2
+      ],
+      "target": "Ledger"
+    },
+    {
+      "name": "transfer into the address wallet: no hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Cold"
+        }
+      ],
+      "matches": [],
+      "target": null
+    },
+    {
+      "name": "same amount also recorded into the address wallet: no hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725667200000,
+          "transferFrom": "Binance",
+          "transferTo": "Cold"
+        }
+      ],
+      "matches": [],
+      "target": null
+    },
+    {
+      "name": "recorded withdrawal leaves the portfolio: no hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "exchange": "Binance"
+        }
+      ],
+      "matches": [],
+      "target": null
+    },
+    {
+      "name": "within 1 percent: hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.995",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "matches": [
+        2
+      ],
+      "target": "Ledger"
+    },
+    {
+      "name": "2 percent apart: no hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.98",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "matches": [],
+      "target": null
+    },
+    {
+      "name": "show only: no hint",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000,
+        "countInPortfolio": false
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "matches": [],
+      "target": null
+    },
+    {
+      "name": "address without label: wallet is the short address",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "matches": [
+        2
+      ],
+      "target": "Ledger"
+    },
+    {
+      "name": "two transfers into other wallets: the first names its target",
+      "address": {
+        "id": 1,
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "label": "Cold",
+        "lastBalance": "1.0",
+        "lastUpdated": 1727740800000
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1.0",
+          "time": 1725494400000,
+          "transferFrom": "Binance",
+          "transferTo": "Trezor"
+        }
+      ],
+      "matches": [
+        3,
+        2
+      ],
+      "target": "Trezor"
+    }
+  ]
+}

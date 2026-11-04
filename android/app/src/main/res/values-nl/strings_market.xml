@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Vandaag %1$s %2$s</string>
     <string name="macro_item_tomorrow">Morgen %1$s %2$s</string>
+    <string name="macro_more_dates_later">Meer datums volgen zodra de bron ze publiceert.</string>
     <string name="macro_nfp">Amerikaans banenrapport</string>
     <string name="macro_pce">Amerikaanse PCE-inflatie</string>
     <string name="macro_ppi">Amerikaanse producentenprijzen (PPI)</string>

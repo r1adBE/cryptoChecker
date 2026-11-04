@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Openbaar adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
     <string name="portfolio_address_label">Label (optioneel)</string>
     <string name="portfolio_address_not_since_buy">Van adres · niet in ‘Sinds aankoop’: %1$s</string>
-    <string name="portfolio_address_overlap">Ook in je eigen transacties: %1$s – alleen wat het adres meer heeft, telt mee.</string>
+    <string name="portfolio_address_overlap">Ook in je eigen transacties: %1$s – alleen wat het adres meer heeft dan je transacties in deze wallet, telt mee.</string>
     <string name="portfolio_address_overlap_ask">Je legt %1$s al vast met eigen transacties. Het saldo van dit adres bij het portfolio optellen of alleen tonen?</string>
     <string name="portfolio_address_overlap_auto">‘%1$s’ wordt nu alleen getoond, niet meegeteld – %2$s staan ook in je transacties.</string>
     <string name="portfolio_address_overlap_title">Dezelfde munten als in je transacties?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Alleen tonen, niet bij portfolio optellen</string>
     <string name="portfolio_address_show_only_short">Alleen tonen</string>
     <string name="portfolio_address_tokens">Tokens meetellen</string>
+    <string name="portfolio_address_withdrawal_match">Zelfde hoeveelheid als je overboeking naar ‘%1$s’ – stel dit adres in als bestemming, anders telt die dubbel.</string>
     <string name="portfolio_address_xpub_privacy">Een xpub onthult alle adressen van deze wallet. Ze worden op je apparaat afgeleid; naar %1$s gaan alleen losse adressen – bij de eerste zoektocht minstens 40 verzoeken, daarna minder. Privésleutels (xprv) worden nooit geaccepteerd.</string>
     <string name="portfolio_address_xpub_gap">Het zoeken stopt na %1$d ongebruikte adressen op rij (de BIP44-standaard die de meeste wallets gebruiken). Een gebruikt adres voorbij dat gat wordt niet meegeteld – voeg het apart toe.</string>
     <string name="portfolio_address_xpub_used">Gebruikte adressen: %1$d</string>

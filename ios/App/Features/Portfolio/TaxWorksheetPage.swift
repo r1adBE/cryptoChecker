@@ -121,7 +121,7 @@ struct TaxWorksheetPage: View {
             } label: {
                 Text(L(taxTemplate.labelKey))
                     .font(.body.weight(.semibold))
-                    .foregroundStyle(accent.primary)
+                    .foregroundStyle(run.running ? AppColors.disabledContent : accent.primary)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .disabled(run.running)
@@ -174,7 +174,7 @@ struct TaxWorksheetPage: View {
                 .padding(.horizontal, 4)
             Button(L("tax_template_use", name)) { data.settings.taxTemplate = suggestion }
                 .font(.footnote.weight(.semibold))
-                .disabled(run.running)
+                .appDisabled(run.running)
                 .padding(.horizontal, 4)
         }
     }

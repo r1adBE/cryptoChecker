@@ -61,6 +61,13 @@ object MacroTexts {
         }
     }
 
+    /**
+     * Text der Zeile «Wirtschaftsdaten» im Markt-Tab: [hint], endet eine Reihe ([MacroHint.seriesEnds]) darunter
+     * «Weitere Termine folgen, sobald die Quelle sie veröffentlicht.» — wie iOS `MacroCalendar.rowText`.
+     */
+    fun rowText(context: Context, hint: MacroHint): String =
+        if (hint.seriesEnds) hint(context, hint) + "\n" + context.getString(R.string.macro_more_dates_later) else hint(context, hint)
+
     /** Text der Morgen-Meldung: die Termine von heute. */
     fun todayText(context: Context, events: List<MacroEvent>): String =
         if (events.size == 1) {

@@ -5,7 +5,7 @@ import XCTest
 /// WCAG-Kontrast der Themenfarben (`ColorTokens`, `AccentColor`) — wie `ThemeContrastTest.kt` (Android) und
 /// android/tools/check_theme_contrast.py: Haupt-, Neben- und Warntext in Hell und Dunkel auf allen Flächen
 /// ≥ 4.5:1; auf den Auswahl-Tönungen (`accent.tint`, bis 0.16 mit Schrift) Schrift ≥ 4.5:1 und Symbole in
-/// primary/outline ≥ 3:1.
+/// primary/outline ≥ 3:1; gesperrte Elemente (`AppColors.disabledContent`) ≥ 3:1.
 final class ThemeContrastTests: XCTestCase {
 
     /// Höchste Deckkraft einer Tönung, auf der Schrift steht (Auswahl-Listen, Hinweiskarten, Merkliste-Zeile).
@@ -76,6 +76,29 @@ final class ThemeContrastTests: XCTestCase {
                     for fg in [primary, ColorTokens.onSurfaceVariant.hex(dark: dark)] {
                         XCTAssertGreaterThanOrEqual(Self.ratio(fg, bg), 3, "Stern " + label)
                     }
+                }
+            }
+        }
+    }
+
+    /// Gesperrte Elemente (O-04): Schrift und Symbole in `AppColors.disabledContent` (onSurface · 0.55) ≥ 3:1 auf allen
+    /// Flächen und auf der gesperrten Knopffläche (onSurface · 0.12 darüber), abgeblendete Zeilen (· 0.7) mit Haupt- und
+    /// Nebentext ≥ 3:1; und deutlich blasser als Nebentext. Wie Android `ThemeContrastTest`, check_theme_contrast.py.
+    func testDisabledContentReachesThreeToOne() {
+        for dark in [false, true] {
+            let on = ColorTokens.onSurface.hex(dark: dark)
+            let variant = ColorTokens.onSurfaceVariant.hex(dark: dark)
+            for bg in Self.surfaces(dark: dark) {
+                let label = "dark=\(dark) auf \(Self.hex(bg))"
+                let content = Self.over(on, alpha: ColorTokens.disabledContentAlpha, on: bg)
+                XCTAssertGreaterThanOrEqual(Self.ratio(content, bg), 3, "gesperrt " + label)
+                XCTAssertLessThan(Self.ratio(content, bg), Self.ratio(variant, bg), "blasser als Nebentext " + label)
+                let container = Self.over(on, alpha: ColorTokens.disabledContainerAlpha, on: bg)
+                let onContainer = Self.over(on, alpha: ColorTokens.disabledContentAlpha, on: container)
+                XCTAssertGreaterThanOrEqual(Self.ratio(onContainer, container), 3, "gesperrter Knopf " + label)
+                for fg in [on, variant] {
+                    let row = Self.over(fg, alpha: ColorTokens.disabledRowAlpha, on: bg)
+                    XCTAssertGreaterThanOrEqual(Self.ratio(row, bg), 3, "abgeblendete Zeile " + label)
                 }
             }
         }

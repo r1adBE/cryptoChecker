@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Offentlig adress (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eller xpub</string>
     <string name="portfolio_address_label">Etikett (valfritt)</string>
     <string name="portfolio_address_not_since_buy">Från adress · inte i ”Sedan köp”: %1$s</string>
-    <string name="portfolio_address_overlap">Finns även i dina egna transaktioner: %1$s – bara det adressen har utöver dem räknas.</string>
+    <string name="portfolio_address_overlap">Finns även i dina egna transaktioner: %1$s – bara det adressen har utöver dina transaktioner i den här walleten räknas.</string>
     <string name="portfolio_address_overlap_ask">Du registrerar redan %1$s med egna transaktioner. Ska saldot för den här adressen räknas in i portföljen eller bara visas?</string>
     <string name="portfolio_address_overlap_auto">”%1$s” visas nu bara och räknas inte – %2$s finns även i dina transaktioner.</string>
     <string name="portfolio_address_overlap_title">Samma mynt som i dina transaktioner?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Visa bara, räkna inte in i portföljen</string>
     <string name="portfolio_address_show_only_short">Visa bara</string>
     <string name="portfolio_address_tokens">Räkna med tokens</string>
+    <string name="portfolio_address_withdrawal_match">Samma mängd som din överföring till ”%1$s” – ange den här adressen som mottagare, annars räknas den dubbelt.</string>
     <string name="portfolio_address_xpub_privacy">En xpub avslöjar alla adresser i den här walleten. De härleds på din enhet; bara enskilda adresser skickas till %1$s – minst 40 förfrågningar vid första sökningen, sedan färre. Privata nycklar (xprv) godtas aldrig.</string>
     <string name="portfolio_address_xpub_gap">Sökningen avbryts efter %1$d oanvända adresser i rad (BIP44-standarden som de flesta plånböcker använder). En använd adress efter det glappet räknas inte – lägg till den separat.</string>
     <string name="portfolio_address_xpub_used">Använda adresser: %1$d</string>

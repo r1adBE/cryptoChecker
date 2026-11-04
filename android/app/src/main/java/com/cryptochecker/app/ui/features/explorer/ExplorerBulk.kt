@@ -31,6 +31,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.saveable.rememberSaveable
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
@@ -124,6 +125,7 @@ internal fun BulkPairsCard(
             FilledTonalButton(
                 modifier = Modifier.fillMaxWidth().padding(top = gap),
                 enabled = quote != null && !syncing,
+                colors = DisabledColors.filledTonalButton(),
                 onClick = onApply
             ) {
                 Text(text = stringResource(id = R.string.bulk_all_pairs, quote.orEmpty()))
@@ -161,6 +163,7 @@ internal fun BulkPairsCard(
                 Button(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                     enabled = !adding && !syncing && newCount > 0,
+                    colors = DisabledColors.button(),
                     onClick = onAddAll
                 ) {
                     if (adding) {

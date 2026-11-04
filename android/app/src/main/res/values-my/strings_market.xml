@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ယနေ့ %1$s %2$s</string>
     <string name="macro_item_tomorrow">မနက်ဖြန် %1$s %2$s</string>
+    <string name="macro_more_dates_later">နောက်ထပ်ရက်စွဲများကို ရင်းမြစ်က ထုတ်ပြန်သည်နှင့် ထည့်ပါမည်။</string>
     <string name="macro_nfp">အမေရိကန် အလုပ်အကိုင် အစီရင်ခံစာ</string>
     <string name="macro_pce">အမေရိကန် စားသုံးသူ အသုံးစရိတ် ဈေးနှုန်း (PCE)</string>
     <string name="macro_ppi">အမေရိကန် ထုတ်လုပ်သူ ဈေးနှုန်း (PPI)</string>

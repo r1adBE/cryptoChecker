@@ -191,7 +191,7 @@ fun PortfolioDetailScreen(
                     ) {
                         item(key = "summary") {
                             PositionCard(
-                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(),
+                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(), withdrawalTarget = d.withdrawalTarget,
                                 onMissingCost = { costGapsOpen = true },
                                 onAddressCost = d.lotAddress?.let { a -> { lotsFor = a.id } },
                             )

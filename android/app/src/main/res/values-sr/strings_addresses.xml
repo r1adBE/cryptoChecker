@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Јавна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Ознака (необавезно)</string>
     <string name="portfolio_address_not_since_buy">С адресе · није у „Од куповине“: %1$s</string>
-    <string name="portfolio_address_overlap">И у твојим сопственим трансакцијама: %1$s – рачуна се само оно што адреса држи преко тога.</string>
+    <string name="portfolio_address_overlap">И у твојим сопственим трансакцијама: %1$s – рачуна се само оно што адреса држи преко твојих трансакција у овом новчанику.</string>
     <string name="portfolio_address_overlap_ask">%1$s већ бележиш сопственим трансакцијама. Додати стање ове адресе портфолију или га само приказати?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ се сада само приказује, не урачунава – %2$s се појављују и у твојим трансакцијама.</string>
     <string name="portfolio_address_overlap_title">Исте криптовалуте као у твојим трансакцијама?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Само прикажи, не додаји у портфолио</string>
     <string name="portfolio_address_show_only_short">Само прикажи</string>
     <string name="portfolio_address_tokens">Урачунај токене</string>
+    <string name="portfolio_address_withdrawal_match">Иста количина као твој пренос на „%1$s“ – постави ову адресу као одредиште, иначе се рачуна двапут.</string>
     <string name="portfolio_address_xpub_privacy">Xpub открива све адресе овог новчаника. Оне се изводе на твом уређају; на %1$s шаљу се само појединачне адресе – барем 40 упита при првом скенирању, касније мање. Приватни кључеви (xprv) никада се не прихватају.</string>
     <string name="portfolio_address_xpub_gap">Претраживање се зауставља након %1$d неискоришћених адреса заредом (стандард BIP44 који користи већина новчаника). Искоришћена адреса иза тог размака не урачунава се – додај је засебно.</string>
     <string name="portfolio_address_xpub_used">Адресе у употреби: %1$d</string>

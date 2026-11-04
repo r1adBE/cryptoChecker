@@ -75,7 +75,7 @@ struct PortfolioAddressSheet: View {
                     } label: {
                         Text(L("portfolio_address_add")).frame(maxWidth: .infinity)
                     }
-                    .disabled(!canAdd)
+                    .appDisabled(!canAdd)
                 } footer: {
                     // Wer die Adresse sieht (Anbieter des erkannten Netzes); xpub: was er verrät und wie viele Anfragen
                     Text(Self.privacy(check, btcServer: data.settings.addressServerBtc))
@@ -220,6 +220,8 @@ struct PortfolioAddressSheet: View {
             return "\(amount) (\(net.name))"
         }
         let overlap = WatchedAddressRules.overlap(a, ownCoins: ownCoins)
+        // Gleiche Menge wie eine eigene Umbuchung in eine andere Wallet: nur Hinweis (wie Android)
+        let withdrawalTarget = AddressWithdrawalMatch.targetWallet(AddressWithdrawalMatch.matches(a, txs: data.portfolio))
         let tokenText: String = data.settings.hidePortfolioAmounts ? "•••" : tokenParts.joined(separator: " · ")
         return VStack(alignment: .leading, spacing: 4) {
             VStack(alignment: .leading, spacing: 2) {
@@ -257,8 +259,14 @@ struct PortfolioAddressSheet: View {
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand zählt)
-                if !overlap.isEmpty && a.countInPortfolio {
+                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis, ohne Knöpfe; sonst dieselben Coins
+                // wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt)
+                if let withdrawalTarget, a.countInPortfolio {
+                    Text(L("portfolio_address_withdrawal_match", withdrawalTarget))
+                        .font(.caption2)
+                        .foregroundStyle(AppColors.error)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else if !overlap.isEmpty && a.countInPortfolio {
                     Text(L("portfolio_address_overlap", overlap.joined(separator: ", ")))
                         .font(.caption2)
                         .foregroundStyle(AppColors.error)
@@ -266,7 +274,7 @@ struct PortfolioAddressSheet: View {
                 }
             }
             .accessibilityElement(children: .combine)
-            if !overlap.isEmpty && a.countInPortfolio {
+            if withdrawalTarget == nil && !overlap.isEmpty && a.countInPortfolio {
                 // Hinweis bleibt, solange die Adresse zählt — «Nur anzeigen» mit einem Tipp (wie Android)
                 Button(L("portfolio_address_show_only_short")) {
                     data.setWatchedAddressCountInPortfolio(a.id, on: false)

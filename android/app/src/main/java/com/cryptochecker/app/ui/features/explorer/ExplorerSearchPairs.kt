@@ -26,6 +26,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.ALPHA_GLYPH
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.FuturesContractType
 
@@ -98,6 +99,7 @@ private fun SuggestedPairCard(hit: SearchHit, watched: Boolean, onAdd: () -> Uni
         Button(
             onClick = onAdd,
             enabled = !watched,
+            colors = DisabledColors.button(),
             modifier = Modifier.fillMaxWidth().padding(top = Spacing.md).heightIn(min = 48.dp).testTag(UiTestTags.EXPLORER_SUGGESTED_ADD)
         ) {
             Icon(

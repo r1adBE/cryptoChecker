@@ -6,6 +6,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
+import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.CoinLedger
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -30,6 +31,8 @@ internal data class CoinDetailUi(
     val ledger: CoinLedger,
     /** Guthaben beobachteter Adressen (> 0); null = keins. */
     val addressAmount: BigDecimal?,
+    /** Ziel-Wallet einer Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch.matchesFor]); null = keine. */
+    val withdrawalTarget: String?,
     /** Erste zählende Adresse mit Guthaben in diesem Coin (Einstand für Adressguthaben); null = keine. */
     val lotAddress: WatchedAddress?,
 )
@@ -49,7 +52,9 @@ internal fun coinDetail(
     val ledger = PortfolioCalculator.ledger(symbol, calc.map { it.toTrade() }, currentPrice, method, feePrice)
     val addressAmount = AddressBalance.amountFor(symbol, addresses, all.map { it.toTrade() })?.takeIf { it.signum() > 0 }
     val lotAddress = AddressCostLots.counted(addresses).firstOrNull { (_, balances) -> (balances[symbol]?.signum() ?: 0) > 0 }?.first
-    return CoinDetailUi(all, own, ledger, addressAmount, lotAddress)
+    val matches = AddressWithdrawalMatch.matchesFor(symbol, addresses, all.map { it.toTrade() })
+    val withdrawalTarget = AddressWithdrawalMatch.targetWallet(matches)
+    return CoinDetailUi(all, own, ledger, addressAmount, withdrawalTarget, lotAddress)
 }
 
 /**

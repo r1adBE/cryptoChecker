@@ -126,10 +126,11 @@ struct SwitchRow<Label: View>: View {
     @Environment(\.appAccent) private var accent
 
     var body: some View {
+        // Gesperrt: Schalter grau statt Akzent, Zeile 0.7 (Nebentext ≥ 3:1; 0.5 hielt 2.3:1) — wie Android `SwitchRow`
         toggle
-            .tint(accent.primary)
+            .tint(enabled ? accent.primary : AppColors.disabledContent)
             .disabled(!enabled)
-            .opacity(enabled || !dimsLabel ? 1 : 0.5)
+            .opacity(enabled || !dimsLabel ? 1 : ColorTokens.disabledRowAlpha)
             .padding(.vertical, verticalPadding)
     }
 
@@ -140,6 +141,17 @@ struct SwitchRow<Label: View>: View {
         } else {
             Toggle(isOn: $isOn, label: label)
         }
+    }
+}
+
+extension View {
+    /// Gesperrter Knopf ohne eigenen Stil (Symbolleiste, `.borderless`, `.bordered`, Formular): `.disabled` und die
+    /// Schrift gesperrt in `AppColors.disabledContent` (≥ 3:1) statt des blassen Systemgraus; frei die Akzentfarbe
+    /// (`.tint`) wie bisher. Eigene Stile (`AccentButtonStyle`, `TonalButtonStyle`) lesen `isEnabled` selbst. Wie Android
+    /// `DisabledColors`.
+    func appDisabled(_ disabled: Bool) -> some View {
+        foregroundStyle(disabled ? AnyShapeStyle(AppColors.disabledContent) : AnyShapeStyle(.tint))
+            .disabled(disabled)
     }
 }
 

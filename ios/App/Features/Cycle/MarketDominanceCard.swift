@@ -80,7 +80,7 @@ struct CycleDominanceRows: View {
                 Button(L("action_refresh"), action: onRefreshAltSeason)
                     .font(.caption.weight(.semibold))
                     .buttonStyle(.borderless)
-                    .disabled(!enabled)
+                    .appDisabled(!enabled)
             }
             .padding(.top, 8)
         }

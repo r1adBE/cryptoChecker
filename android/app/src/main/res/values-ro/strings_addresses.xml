@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Adresă publică (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) sau xpub</string>
     <string name="portfolio_address_label">Etichetă (opțional)</string>
     <string name="portfolio_address_not_since_buy">Din adresă · nu e inclus în „De la cumpărare”: %1$s</string>
-    <string name="portfolio_address_overlap">Și în propriile tranzacții: %1$s – se numără doar ce are adresa în plus.</string>
+    <string name="portfolio_address_overlap">Și în propriile tranzacții: %1$s – se numără doar ce are adresa în plus față de tranzacțiile tale din acest wallet.</string>
     <string name="portfolio_address_overlap_ask">Înregistrezi deja %1$s cu propriile tranzacții. Adaugi soldul acestei adrese la portofoliu sau doar îl afișezi?</string>
     <string name="portfolio_address_overlap_auto">„%1$s” este acum doar afișat, nu inclus – %2$s apar și în tranzacțiile tale.</string>
     <string name="portfolio_address_overlap_title">Aceleași monede ca în tranzacțiile tale?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Doar afișează, nu adăuga la portofoliu</string>
     <string name="portfolio_address_show_only_short">Doar afișează</string>
     <string name="portfolio_address_tokens">Include tokenurile</string>
+    <string name="portfolio_address_withdrawal_match">Aceeași cantitate ca transferul tău către „%1$s” – setează această adresă ca destinație, altfel contează de două ori.</string>
     <string name="portfolio_address_xpub_privacy">Un xpub dezvăluie toate adresele acestui wallet. Ele sunt derivate pe dispozitivul tău; la %1$s ajung doar adrese individuale – cel puțin 40 de cereri la prima căutare, apoi mai puține. Cheile private (xprv) nu sunt acceptate niciodată.</string>
     <string name="portfolio_address_xpub_gap">Căutarea se oprește după %1$d adrese nefolosite consecutive (standardul BIP44 folosit de majoritatea portofelelor). O adresă folosită dincolo de acest gol nu este numărată – adaug-o separat.</string>
     <string name="portfolio_address_xpub_used">Adrese folosite: %1$d</string>

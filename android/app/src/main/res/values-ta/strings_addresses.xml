@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">பொது முகவரி (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) அல்லது xpub</string>
     <string name="portfolio_address_label">லேபிள் (விருப்பத்தேர்வு)</string>
     <string name="portfolio_address_not_since_buy">முகவரியிலிருந்து · “வாங்கியதிலிருந்து” இல் இல்லை: %1$s</string>
-    <string name="portfolio_address_overlap">உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$s – முகவரியில் அதைவிடக் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்.</string>
+    <string name="portfolio_address_overlap">உங்கள் சொந்தப் பரிவர்த்தனைகளிலும் உள்ளது: %1$s – இந்த வாலட்டில் உள்ள உங்கள் பரிவர்த்தனைகளைவிட முகவரியில் கூடுதலாக உள்ளது மட்டுமே கணக்கிடப்படும்.</string>
     <string name="portfolio_address_overlap_ask">%1$s ஐ ஏற்கெனவே உங்கள் சொந்தப் பரிவர்த்தனைகளுடன் பதிவுசெய்கிறீர்கள். இந்த முகவரியின் இருப்பைப் போர்ட்ஃபோலியோவில் சேர்க்கவா, அல்லது காட்ட மட்டுமா?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” இப்போது காட்டப்படுகிறது மட்டும், கணக்கிடப்படவில்லை – %2$s உங்கள் பரிவர்த்தனைகளிலும் உள்ளன.</string>
     <string name="portfolio_address_overlap_title">உங்கள் பரிவர்த்தனைகளில் உள்ள அதே காயின்களா?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">காட்ட மட்டும், போர்ட்ஃபோலியோவில் சேர்க்க வேண்டாம்</string>
     <string name="portfolio_address_show_only_short">காட்ட மட்டும்</string>
     <string name="portfolio_address_tokens">டோக்கன்களைக் கணக்கிடவும்</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s”-க்கு நீங்கள் செய்த பரிமாற்றத்தின் அதே அளவு – இலக்கை இந்த முகவரியாக அமையுங்கள், இல்லையெனில் இருமுறை கணக்கிடப்படும்.</string>
     <string name="portfolio_address_xpub_privacy">ஒரு xpub இந்த வாலட்டின் எல்லா முகவரிகளையும் வெளிப்படுத்தும். அவை உங்கள் சாதனத்திலேயே பெறப்படுகின்றன; தனித்தனி முகவரிகள் மட்டுமே %1$s க்கு அனுப்பப்படும் – முதல் ஸ்கேனில் குறைந்தது 40 கோரிக்கைகள், பின்னர் குறைவாக. தனிப்பட்ட கீகள் (xprv) ஒருபோதும் ஏற்கப்படாது.</string>
     <string name="portfolio_address_xpub_gap">தொடர்ச்சியாக %1$d பயன்படுத்தப்படாத முகவரிகளுக்குப் பிறகு தேடல் நிற்கும் (பெரும்பாலான வாலட்கள் பயன்படுத்தும் BIP44 தரநிலை). அந்த இடைவெளிக்கு அப்பாலுள்ள பயன்படுத்தப்பட்ட முகவரி கணக்கிடப்படாது – அதைத் தனியாகச் சேர்க்கவும்.</string>
     <string name="portfolio_address_xpub_used">பயன்பாட்டிலுள்ள முகவரிகள்: %1$d</string>

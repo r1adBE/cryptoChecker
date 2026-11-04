@@ -224,6 +224,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">היום %1$s %2$s</string>
     <string name="macro_item_tomorrow">מחר %1$s %2$s</string>
+    <string name="macro_more_dates_later">מועדים נוספים יתווספו ברגע שהמקור יפרסם אותם.</string>
     <string name="macro_nfp">דוח התעסוקה בארה״ב</string>
     <string name="macro_pce">מדד PCE בארה״ב</string>
     <string name="macro_ppi">מדד המחירים לייצרן בארה״ב (PPI)</string>

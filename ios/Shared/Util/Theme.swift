@@ -264,6 +264,15 @@ enum ColorTokens {
     /// Ethereum-Blau: hell dunkler (#627EEA hielt auf #E5E2DB nur ≈ 2.85:1), ≥ 3:1 als Grafik;
     /// dunkel das Original (≥ 3.3:1 bis #353535). Wie Android `AssetPalette.ethereum`.
     static let ethereum = Pair(light: 0x4C64D0, dark: 0x627EEA)
+
+    /// Gesperrte Schrift und Symbole: `onSurface` · 0.55 — ≥ 3:1 auf allen Flächen in Hell und Dunkel, auch auf der
+    /// gesperrten Knopffläche (`disabledContainerAlpha`); das Systemgrau gesperrter Knöpfe und Materials 0.38 hielten
+    /// hell unter 3:1. Wie Android `DISABLED_CONTENT_ALPHA`.
+    static let disabledContentAlpha = 0.55
+    /// Gesperrte Knopffläche: `onSurface` · 0.12 (wie Android).
+    static let disabledContainerAlpha = 0.12
+    /// Ganze Zeile abgeblendet (Haupt- und Nebentext): 0.7 hält Nebentext ≥ 3:1 (0.5 hielt 2.3:1). Wie Android.
+    static let disabledRowAlpha = 0.7
 }
 
 extension Color {
@@ -294,6 +303,11 @@ enum AppColors {
     static let outlineVariant = Color(uiColor: .contrastDynamic(ColorTokens.outlineVariant, high: ColorTokens.onSurface,
                                                                highAlpha: 0.6))
     static let error = Color.dynamic(ColorTokens.error)
+    /// Gesperrte Schrift, Symbole und Schalter (≥ 3:1, `ColorTokens.disabledContentAlpha`) — wie Android
+    /// `DisabledColors.content`.
+    static let disabledContent = onSurface.opacity(ColorTokens.disabledContentAlpha)
+    /// Gesperrte Knopffläche — wie Android `DisabledColors.container`.
+    static let disabledContainer = onSurface.opacity(ColorTokens.disabledContainerAlpha)
 
     // Semantische Farben (wie Android `AppColors`): Akzent = `AccentColor.primary`,
     // steigend/fallend immer aus `PriceColorScheme`/`PriceColors`, «in Ordnung» = `PriceColors.ok`.

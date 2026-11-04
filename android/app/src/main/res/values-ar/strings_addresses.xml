@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">عنوان عام (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) أو xpub</string>
     <string name="portfolio_address_label">التسمية (اختياري)</string>
     <string name="portfolio_address_not_since_buy">من عنوان · خارج «منذ الشراء»: %1$s</string>
-    <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – لا يُحتسب إلا ما يزيد في العنوان عنها.</string>
+    <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – لا يُحتسب إلا ما يزيد في العنوان عن معاملاتك في هذه المحفظة.</string>
     <string name="portfolio_address_overlap_ask">أنت تسجّل %1$s بالفعل بمعاملاتك. هل يُضاف رصيد هذا العنوان إلى المحفظة أم يُعرض فقط؟</string>
     <string name="portfolio_address_overlap_auto">«%1$s» يُعرض الآن فقط ولا يُحتسب – %2$s موجودة أيضًا في معاملاتك.</string>
     <string name="portfolio_address_overlap_title">نفس العملات الموجودة في معاملاتك؟</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">العرض فقط، دون إضافة إلى المحفظة</string>
     <string name="portfolio_address_show_only_short">العرض فقط</string>
     <string name="portfolio_address_tokens">احتساب الرموز المميزة</string>
+    <string name="portfolio_address_withdrawal_match">نفس كمية تحويلك إلى «%1$s» – اجعل الوجهة هذا العنوان، وإلا فستُحتسب مرتين.</string>
     <string name="portfolio_address_xpub_privacy">يكشف xpub جميع عناوين هذه المحفظة الرقمية. تُشتق على جهازك؛ ولا تُرسل إلى %1$s إلا عناوين منفردة – 40 طلبًا على الأقل في البحث الأول ثم أقل. لا تُقبل المفاتيح الخاصة (xprv) أبدًا.</string>
     <string name="portfolio_address_xpub_gap">يتوقف البحث عندما يبلغ عدد العناوين غير المستخدمة المتتالية %1$d (معيار BIP44 الذي تستخدمه معظم المحافظ). لا يُحتسب عنوان مستخدم يقع بعد هذه الفجوة – أضفه بشكل منفصل.</string>
     <string name="portfolio_address_xpub_used">العناوين المستخدمة: %1$d</string>

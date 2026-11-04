@@ -48,6 +48,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /** So viele Auszahlungen bzw. Umbuchungen einzeln im Vorschau-Blatt; alle über «Alle anzeigen». Wie iOS. */
@@ -82,10 +83,18 @@ internal fun WithdrawalChoices(
     // «Alle …» nur bei mehreren Auszahlungen
     if (withdrawals.size > 1) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.TRANSFER) }, enabled = enabled) {
+            TextButton(
+                onClick = { onAllChoices(CsvWithdrawalChoice.TRANSFER) },
+                enabled = enabled,
+                colors = DisabledColors.textButton(),
+            ) {
                 Text(stringResource(R.string.portfolio_csv_import_all_transfer))
             }
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.WITHDRAWAL) }, enabled = enabled) {
+            TextButton(
+                onClick = { onAllChoices(CsvWithdrawalChoice.WITHDRAWAL) },
+                enabled = enabled,
+                colors = DisabledColors.textButton(),
+            ) {
                 Text(stringResource(R.string.portfolio_csv_import_all_withdrawal))
             }
         }
@@ -94,7 +103,7 @@ internal fun WithdrawalChoices(
         WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled)
     }
     if (withdrawals.size > PREVIEW_LIST_ROWS) {
-        TextButton(onClick = { showAll = true }, enabled = enabled) {
+        TextButton(onClick = { showAll = true }, enabled = enabled, colors = DisabledColors.textButton()) {
             Text(stringResource(R.string.explorer_bulk_show_all, withdrawals.size))
         }
     }
@@ -123,12 +132,14 @@ private fun WithdrawalChoiceRow(
                 selected = choice == CsvWithdrawalChoice.TRANSFER,
                 onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.TRANSFER) },
                 enabled = enabled,
+                colors = DisabledColors.filterChip(),
                 label = { Text(stringResource(R.string.portfolio_csv_import_choice_transfer)) },
             )
             FilterChip(
                 selected = choice == CsvWithdrawalChoice.WITHDRAWAL,
                 onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.WITHDRAWAL) },
                 enabled = enabled,
+                colors = DisabledColors.filterChip(),
                 label = { Text(stringResource(R.string.portfolio_csv_import_choice_withdrawal)) },
             )
         }
@@ -157,7 +168,7 @@ internal fun TransferLinks(
     PreviewHint(stringResource(R.string.portfolio_csv_import_transfers_hint))
     links.take(PREVIEW_LIST_ROWS).forEach { link -> TransferLinkRow(link, link.key in linked, onLink, enabled) }
     if (links.size > PREVIEW_LIST_ROWS) {
-        TextButton(onClick = { showAll = true }, enabled = enabled) {
+        TextButton(onClick = { showAll = true }, enabled = enabled, colors = DisabledColors.textButton()) {
             Text(stringResource(R.string.explorer_bulk_show_all, links.size))
         }
     }
@@ -201,7 +212,13 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
         }
         Spacer(Modifier.width(12.dp))
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur, Screenreader liest «Als eine Umbuchung buchen»
-        Switch(checked = on, onCheckedChange = null, enabled = enabled, modifier = Modifier.semantics { contentDescription = linkLabel })
+        Switch(
+            checked = on,
+            onCheckedChange = null,
+            enabled = enabled,
+            colors = DisabledColors.switch(),
+            modifier = Modifier.semantics { contentDescription = linkLabel },
+        )
     }
 }
 

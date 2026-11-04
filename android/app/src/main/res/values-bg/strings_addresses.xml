@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Публичен адрес (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Етикет (по избор)</string>
     <string name="portfolio_address_not_since_buy">От адрес · не е в „От покупката“: %1$s</string>
-    <string name="portfolio_address_overlap">Също в собствените ти транзакции: %1$s – брои се само това, което адресът държи в повече.</string>
+    <string name="portfolio_address_overlap">Също в собствените ти транзакции: %1$s – брои се само това, което адресът държи над транзакциите ти в този портфейл.</string>
     <string name="portfolio_address_overlap_ask">Вече записваш %1$s със собствени транзакции. Салдото на този адрес да се включи ли в портфолиото, или само да се показва?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ вече само се показва, без да се включва – %2$s са и в транзакциите ти.</string>
     <string name="portfolio_address_overlap_title">Същите монети като в транзакциите ти?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Само показвай, без да включваш в портфолиото</string>
     <string name="portfolio_address_show_only_short">Само показвай</string>
     <string name="portfolio_address_tokens">Включи токените</string>
+    <string name="portfolio_address_withdrawal_match">Същото количество като прехвърлянето ти към „%1$s“ – задай този адрес като цел, иначе се брои двойно.</string>
     <string name="portfolio_address_xpub_privacy">Един xpub разкрива всички адреси на този портфейл. Те се извеждат на устройството ти; към %1$s отиват само отделни адреси – при първото търсене поне 40 заявки, после по-малко. Частни ключове (xprv) никога не се приемат.</string>
     <string name="portfolio_address_xpub_gap">Търсенето спира след %1$d поредни неизползвани адреса (стандартът BIP44, който ползват повечето портфейли). Използван адрес след тази празнина не се включва – добави го отделно.</string>
     <string name="portfolio_address_xpub_used">Използвани адреси: %1$d</string>

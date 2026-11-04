@@ -31,6 +31,7 @@ import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
@@ -130,6 +131,7 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                 Button(
                     onClick = { editing = AddressCostLot(0, a.chain.coin, System.currentTimeMillis(), java.math.BigDecimal.ZERO) },
                     enabled = a.costLots.size < AddressCostLots.MAX_LOTS,
+                    colors = DisabledColors.button(),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.xl, vertical = Spacing.sm)
                 ) { Text(stringResource(R.string.address_lots_add)) }
             }

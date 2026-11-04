@@ -347,7 +347,7 @@ enum AddressBalance {
     /// Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis (`holdings`) für den Teil OHNE Eröffnungsposten,
     /// Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe (`AddressCostLots.trades`). Erfasste Bewegungen
     /// der Adress-Wallets in `realTrades` stecken schon im Guthaben (`AddressCostLots.accounted`) — nie doppelt. Gezählt
-    /// wird nur der Mehrbestand über die eigenen Transaktionen (`AddressSurplus.parts`).
+    /// wird nur der Mehrbestand über die eigenen Transaktionen derselben Wallet (`AddressSurplus.parts`).
     static func trades(_ addresses: [WatchedAddress], realTrades: [PortfolioTx], todayUtcDay: Int64) -> [PortfolioTx] {
         let held = holdings(addresses)
         guard !held.isEmpty else { return [] }

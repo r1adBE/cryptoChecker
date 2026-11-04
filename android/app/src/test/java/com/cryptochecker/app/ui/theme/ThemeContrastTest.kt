@@ -12,7 +12,8 @@ import org.junit.Test
  * WCAG-Kontrast der Themenfarben aus den echten Schemata [appColorScheme], ergänzend zu [AccentContrastTest]
  * (Akzent, warme Flächen) und [ErrorContrastTest]: Haupt-, Neben- und Warntext in Hell und Dunkel auf allen
  * Flächen ≥ 4.5:1; auf den Auswahl-Tönungen ([AppColors.accentTint], bis 0.16 mit Schrift) Schrift ≥ 4.5:1 und
- * Symbole in primary/outline ≥ 3:1. Gleiche Paare: android/tools/check_theme_contrast.py, iOS `ThemeContrastTests`.
+ * Symbole in primary/outline ≥ 3:1; gesperrte Elemente ([DisabledColors]) ≥ 3:1. Gleiche Paare:
+ * android/tools/check_theme_contrast.py, iOS `ThemeContrastTests`.
  */
 class ThemeContrastTest {
 
@@ -76,6 +77,33 @@ class ThemeContrastTest {
                 assertTrue("Schrift $where", ratio(s.onSurface, bg) >= 4.5)
                 for (fg in listOf(s.primary, s.onSurfaceVariant)) {
                     assertTrue("Stern $where: %.2f".format(ratio(fg, bg)), ratio(fg, bg) >= 3.0)
+                }
+            }
+        }
+    }
+
+    /**
+     * Gesperrte Elemente (O-04, [DisabledColors]): Schrift und Symbole in onSurface · [DISABLED_CONTENT_ALPHA] ≥ 3:1 auf
+     * allen Flächen und auf der gesperrten Knopffläche (onSurface · [DISABLED_CONTAINER_ALPHA] darüber), blasser als
+     * Nebentext; gesperrter Schalter (Knopf in surface auf der Spur) ≥ 3:1; abgeblendete Zeilen ([DISABLED_ROW_ALPHA]) mit
+     * Haupt- und Nebentext ≥ 3:1.
+     */
+    @Test
+    fun `gesperrte Schrift Symbole und Schalter erreichen 3 zu 1`() {
+        for (accent in AccentColor.entries) for (dark in listOf(false, true)) {
+            val s = appColorScheme(accent, dark)
+            for (bg in surfaces(dark, accent)) {
+                val where = "${accent.name}/dark=$dark auf %06X".format(bg.toArgb() and 0xFFFFFF)
+                val content = s.onSurface.copy(alpha = DISABLED_CONTENT_ALPHA).compositeOver(bg)
+                assertTrue("gesperrt $where: %.2f".format(ratio(content, bg)), ratio(content, bg) >= 3.0)
+                assertTrue("blasser als Nebentext $where", ratio(content, bg) < ratio(s.onSurfaceVariant, bg))
+                val container = s.onSurface.copy(alpha = DISABLED_CONTAINER_ALPHA).compositeOver(bg)
+                val onContainer = s.onSurface.copy(alpha = DISABLED_CONTENT_ALPHA).compositeOver(container)
+                assertTrue("gesperrter Knopf $where", ratio(onContainer, container) >= 3.0)
+                assertTrue("gesperrter Schalter $where", ratio(s.surface, content) >= 3.0)
+                for (fg in listOf(s.onSurface, s.onSurfaceVariant)) {
+                    val row = fg.copy(alpha = DISABLED_ROW_ALPHA).compositeOver(bg)
+                    assertTrue("abgeblendete Zeile $where: %.2f".format(ratio(row, bg)), ratio(row, bg) >= 3.0)
                 }
             }
         }

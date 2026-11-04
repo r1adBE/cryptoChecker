@@ -52,9 +52,12 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     /// Gebuchte Bewegungen, die diese Reihe enthält (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet) — nur an der
     /// ersten Reihe je Adresse und Coin, gesetzt von `AddressBooked.histories`; `trades` rechnet sie heraus.
     var moves: [AddressMove] = []
-    /// Eigener Bestand des Coins als Stufen (`AddressSurplus.ledgerSteps`) — nur an der ersten Reihe je Coin, gesetzt von
-    /// `AddressBooked.histories`; `trades` zählt dann nur den Mehrbestand aller Adressen des Coins (`AddressSurplus.steps`).
+    /// Eigener Bestand des Coins in der Wallet dieser Reihe als Stufen (`AddressSurplus.ledgerSteps`) — nur an der ersten
+    /// Reihe je Coin und Wallet, gesetzt von `AddressBooked.histories`; `trades` zählt dann nur den Mehrbestand der
+    /// Adressen dieser Wallet (`AddressSurplus.steps`).
     var ledger: [AddressObservation] = []
+    /// Wallet der Adresse (`PortfolioWallets.key` von `AddressCostLots.walletName`), gesetzt von `of`.
+    var wallet: String = PortfolioWallets.unspecified
 
     private enum CodingKeys: String, CodingKey { case chain, address, observations, token, key }
 
@@ -88,8 +91,8 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     /// (+) bzw. Auszahlung (−) der Differenz OHNE Preis mit negativer Id (`AddressBalance.isAddressTrade`) —
     /// `PortfolioPeriodChange` und `PortfolioHistory` bewerten sie zum Marktkurs ihres Zeitpunkts. Dieselbe Adresse
     /// (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe). Reihen mit gebuchten Bewegungen (`moves`) zählen
-    /// ohne sie (`AddressBooked.held`). Mit eigenem Bestand (`ledger`) zählen alle Adressen des Coins zusammen nur den
-    /// Mehrbestand (`AddressSurplus.steps`). Wie Android.
+    /// ohne sie (`AddressBooked.held`). Mit eigenem Bestand (`ledger`) zählen die Adressen des Coins in derselben Wallet
+    /// (`wallet`) zusammen nur den Mehrbestand (`AddressSurplus.steps`). Wie Android.
     static func trades(_ histories: [AddressBalanceHistory]) -> [PortfolioTx] {
         var out: [PortfolioTx] = []
         var kept: [AddressBalanceHistory] = []
@@ -100,14 +103,15 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
         }
         var nextId: Int64 = -1_000_001
         for (index, h) in kept.enumerated() {
-            let sameCoin = kept.indices.filter {
-                PortfolioCalculator.normalizeCoin(kept[$0].coin) == PortfolioCalculator.normalizeCoin(h.coin)
+            let sameWallet = kept.indices.filter {
+                kept[$0].wallet == h.wallet
+                    && PortfolioCalculator.normalizeCoin(kept[$0].coin) == PortfolioCalculator.normalizeCoin(h.coin)
             }
-            let ledger = sameCoin.first(where: { !kept[$0].ledger.isEmpty }).map { kept[$0].ledger }
+            let ledger = sameWallet.first(where: { !kept[$0].ledger.isEmpty }).map { kept[$0].ledger }
             let steps: [AddressObservation]
             if let ledger {
-                guard sameCoin.first == index else { continue }
-                steps = AddressSurplus.steps(sameCoin.compactMap { partSteps($0, kept) }, ledger: ledger)
+                guard sameWallet.first == index else { continue }
+                steps = AddressSurplus.steps(sameWallet.compactMap { partSteps($0, kept, floor: false) }, ledger: ledger)
             } else if let own = partSteps(index, kept) {
                 steps = own
             } else {
@@ -128,15 +132,15 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
 
     /// Stufen der Reihe `kept[index]` in `trades`: ohne gebuchte Bewegungen ihrer Adresse und ihres Coins die Beobachtungen;
     /// mit ihnen alle Reihen dieser Adresse und dieses Coins zusammen ohne sie (`AddressBooked.held`) an der ersten, sonst nil.
-    private static func partSteps(_ index: Int, _ kept: [AddressBalanceHistory]) -> [AddressObservation]? {
+    private static func partSteps(_ index: Int, _ kept: [AddressBalanceHistory], floor: Bool = true) -> [AddressObservation]? {
         let h = kept[index]
         let group = kept.indices.filter { AddressBooked.sameGroup(kept[$0], h) }
         if group.allSatisfy({ kept[$0].moves.isEmpty }) {
-            return h.observations.enumerated()
+            return h.observations.enumerated().filter { $0.element.balance >= 0 }
                 .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
                 .map(\.element)
         }
-        return group.first == index ? AddressBooked.held(group.map { kept[$0] }) : nil
+        return group.first == index ? AddressBooked.held(group.map { kept[$0] }, floor: floor) : nil
     }
 
     /// Beobachtung nach einem erfolgreichen Abruf speichern: gleiches Guthaben wie die letzte Beobachtung → Reihe
@@ -162,7 +166,10 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
             if obs.isEmpty, let balance = PortfolioDecimal.parse(a.lastBalance), balance >= 0, a.lastUpdated > 0 {
                 obs = [AddressObservation(time: a.lastUpdated, balance: balance)]
             }
-            if !obs.isEmpty { out.append(AddressBalanceHistory(chain: a.chain, address: a.address, observations: obs)) }
+            let wallet = PortfolioWallets.key(AddressCostLots.walletName(a))
+            if !obs.isEmpty {
+                out.append(AddressBalanceHistory(chain: a.chain, address: a.address, observations: obs, wallet: wallet))
+            }
             var series: [(asset: ChainAssets.Asset, list: [AddressObservation])] = []
             for (key, list) in a.tokenObservations {
                 guard let asset = ChainAssets.resolve(a.chain, key), !list.isEmpty, WatchedAddressRules.counts(a, key) else { continue }
@@ -170,7 +177,7 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
             }
             for item in series.sorted(by: { $0.asset.order < $1.asset.order }) {
                 out.append(AddressBalanceHistory(chain: a.chain, address: a.address, observations: item.list,
-                                                 token: item.asset.coin, key: item.asset.key))
+                                                 token: item.asset.coin, key: item.asset.key, wallet: wallet))
             }
         }
         return out

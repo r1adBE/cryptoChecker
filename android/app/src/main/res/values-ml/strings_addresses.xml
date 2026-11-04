@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">പൊതു വിലാസം (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) അല്ലെങ്കിൽ xpub</string>
     <string name="portfolio_address_label">ലേബൽ (ഓപ്ഷണൽ)</string>
     <string name="portfolio_address_not_since_buy">വിലാസത്തിൽ നിന്ന് · “വാങ്ങിയതുമുതൽ” എന്നതിൽ ഇല്ല: %1$s</string>
-    <string name="portfolio_address_overlap">നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$s – വിലാസത്തിൽ അതിലധികമുള്ളത് മാത്രമേ കണക്കാക്കൂ.</string>
+    <string name="portfolio_address_overlap">നിങ്ങളുടെ സ്വന്തം ഇടപാടുകളിലും ഉണ്ട്: %1$s – ഈ വാലറ്റിലെ നിങ്ങളുടെ ഇടപാടുകളേക്കാൾ വിലാസത്തിൽ അധികമുള്ളത് മാത്രമേ കണക്കാക്കൂ.</string>
     <string name="portfolio_address_overlap_ask">%1$s നിങ്ങൾ ഇതിനകം സ്വന്തം ഇടപാടുകളായി രേഖപ്പെടുത്തുന്നുണ്ട്. ഈ വിലാസത്തിന്റെ ബാലൻസ് പോർട്ട്ഫോളിയോയിൽ ചേർക്കണോ, അതോ കാണിക്കുക മാത്രം മതിയോ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ഇപ്പോൾ കാണിക്കുക മാത്രം ചെയ്യുന്നു, കണക്കാക്കുന്നില്ല – %2$s നിങ്ങളുടെ ഇടപാടുകളിലും ഉണ്ട്.</string>
     <string name="portfolio_address_overlap_title">നിങ്ങളുടെ ഇടപാടുകളിലെ അതേ കോയിനുകളാണോ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">കാണിക്കുക മാത്രം, പോർട്ട്ഫോളിയോയിൽ ചേർക്കരുത്</string>
     <string name="portfolio_address_show_only_short">കാണിക്കുക മാത്രം</string>
     <string name="portfolio_address_tokens">ടോക്കണുകൾ കണക്കാക്കുക</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s”-ലേക്കുള്ള നിങ്ങളുടെ കൈമാറ്റത്തിന്റെ അതേ അളവ് – ലക്ഷ്യം ഈ വിലാസമാക്കുക, അല്ലെങ്കിൽ രണ്ടുതവണ കണക്കാക്കും.</string>
     <string name="portfolio_address_xpub_privacy">ഒരു xpub ഈ വാലറ്റിന്റെ എല്ലാ വിലാസങ്ങളും വെളിപ്പെടുത്തുന്നു. അവ നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ കണ്ടെത്തുന്നു; ഓരോ വിലാസവും മാത്രമാണ് %1$s-ലേക്ക് അയയ്ക്കുന്നത് – ആദ്യ സ്കാനിൽ കുറഞ്ഞത് 40 അഭ്യർത്ഥനകൾ, പിന്നീട് കുറവ്. സ്വകാര്യ കീകൾ (xprv) ഒരിക്കലും സ്വീകരിക്കില്ല.</string>
     <string name="portfolio_address_xpub_gap">തുടർച്ചയായി ഉപയോഗിക്കാത്ത %1$d വിലാസങ്ങൾക്ക് ശേഷം തിരയൽ നിർത്തുന്നു (മിക്ക വാലറ്റുകളും ഉപയോഗിക്കുന്ന BIP44 സ്റ്റാൻഡേർഡ്). ആ വിടവിനപ്പുറമുള്ള ഉപയോഗിച്ച വിലാസം കണക്കാക്കില്ല – അത് പ്രത്യേകം ചേർക്കുക.</string>
     <string name="portfolio_address_xpub_used">ഉപയോഗത്തിലുള്ള വിലാസങ്ങൾ: %1$d</string>

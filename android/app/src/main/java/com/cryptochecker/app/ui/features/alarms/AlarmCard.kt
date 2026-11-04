@@ -49,6 +49,7 @@ import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.openAppNotificationSettings
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.MomentText
 
 @Composable
@@ -218,6 +219,7 @@ internal fun AlarmCard(
                     checked = alarm.enabled,
                     onCheckedChange = onToggle,
                     enabled = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled),
+                    colors = DisabledColors.switch(),
                     modifier = Modifier.semantics { contentDescription = title }
                 )
             }

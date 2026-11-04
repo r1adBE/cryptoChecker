@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Openbare adres (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) of xpub</string>
     <string name="portfolio_address_label">Etiket (opsioneel)</string>
     <string name="portfolio_address_not_since_buy">Vanaf adres · nie in “Sedert aankoop” nie: %1$s</string>
-    <string name="portfolio_address_overlap">Ook in jou eie transaksies: %1$s – net wat die adres meer hou, tel.</string>
+    <string name="portfolio_address_overlap">Ook in jou eie transaksies: %1$s – net wat die adres meer hou as jou transaksies in hierdie beursie, tel.</string>
     <string name="portfolio_address_overlap_ask">Jy teken %1$s reeds met jou eie transaksies aan. Voeg hierdie adres se saldo by die portefeulje, of wys dit slegs?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” word nou slegs gewys, nie getel nie – %2$s kom ook in jou transaksies voor.</string>
     <string name="portfolio_address_overlap_title">Dieselfde munte as jou transaksies?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Wys slegs, moenie by portefeulje voeg nie</string>
     <string name="portfolio_address_show_only_short">Wys slegs</string>
     <string name="portfolio_address_tokens">Tel tokens</string>
+    <string name="portfolio_address_withdrawal_match">Dieselfde hoeveelheid as jou oordrag na “%1$s” – stel die bestemming op hierdie adres, anders tel dit dubbel.</string>
     <string name="portfolio_address_xpub_privacy">\'n xpub onthul alle adresse van hierdie beursie. Hulle word op jou toestel afgelei; slegs individuele adresse word na %1$s gestuur – minstens 40 versoeke met die eerste skandering, later minder. Privaat sleutels (xprv) word nooit aanvaar nie.</string>
     <string name="portfolio_address_xpub_gap">Die soektog stop ná %1$d ongebruikte adresse agter mekaar (die BIP44-standaard wat die meeste beursies gebruik). \'n Gebruikte adres anderkant daardie gaping word nie getel nie – voeg dit apart by.</string>
     <string name="portfolio_address_xpub_used">Adresse in gebruik: %1$d</string>

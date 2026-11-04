@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">საჯარო მისამართი (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ან xpub</string>
     <string name="portfolio_address_label">დასახელება (სურვილისამებრ)</string>
     <string name="portfolio_address_not_since_buy">მისამართიდან · არ შედის «შეძენის შემდეგ»-ში: %1$s</string>
-    <string name="portfolio_address_overlap">ასევე შენს საკუთარ ტრანზაქციებშია: %1$s – ითვლება მხოლოდ ის, რაც მისამართზე მეტია.</string>
+    <string name="portfolio_address_overlap">ასევე შენს საკუთარ ტრანზაქციებშია: %1$s – ითვლება მხოლოდ ის, რაც მისამართზე მეტია, ვიდრე შენს ტრანზაქციებში ამ საფულეში.</string>
     <string name="portfolio_address_overlap_ask">%1$s უკვე აღრიცხული გაქვს საკუთარი ტრანზაქციებით. დავამატო ამ მისამართის ნაშთი პორტფელს თუ მხოლოდ ვაჩვენო?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ახლა მხოლოდ ჩანს და არ ითვლება – %2$s შენს ტრანზაქციებშიც არის.</string>
     <string name="portfolio_address_overlap_title">იგივე მონეტებია, რაც შენს ტრანზაქციებში?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">მხოლოდ ჩვენება, პორტფელს არ დაემატოს</string>
     <string name="portfolio_address_show_only_short">მხოლოდ ჩვენება</string>
     <string name="portfolio_address_tokens">ტოკენების დათვლა</string>
+    <string name="portfolio_address_withdrawal_match">იგივე რაოდენობა, რაც შენი გადარიცხვა «%1$s»-ზე – დანიშნულებად ეს მისამართი დააყენე, თორემ ორჯერ ჩაითვლება.</string>
     <string name="portfolio_address_xpub_privacy">xpub ამ საფულის ყველა მისამართს ავლენს. ისინი შენს მოწყობილობაზე გამოითვლება; %1$s-ს მხოლოდ ცალკეული მისამართები ეგზავნება – პირველი სკანირებისას მინიმუმ 40 მოთხოვნა, შემდეგ ნაკლები. პირადი გასაღებები (xprv) არასოდეს მიიღება.</string>
     <string name="portfolio_address_xpub_gap">ძებნა წყდება ზედიზედ %1$d გამოუყენებელი მისამართის შემდეგ (BIP44 სტანდარტი, რომელსაც საფულეების უმეტესობა იყენებს). ამ შუალედის მიღმა გამოყენებული მისამართი არ ითვლება – დაამატე ცალკე.</string>
     <string name="portfolio_address_xpub_used">გამოყენებული მისამართები: %1$d</string>

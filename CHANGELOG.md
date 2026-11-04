@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 199)
+
+* Watched addresses subtract only what you recorded in the address's own wallet – an exchange balance plus a separate cold wallet now add up (1 + 1 = 2).
+* Hint when a recorded transfer went to another wallet than the watched address: set the transfer's target to this address, otherwise it counts twice.
+* Disabled buttons and texts are grey with at least 3:1 contrast in light and dark mode.
+* Macro calendar: below the last known date of a series, «More dates follow once the source publishes them».
+
 ## 16.2.2 (build 198)
 
 * Watched addresses that count in the portfolio add only what they hold beyond your own transactions, per coin (e.g. staking rewards or an airdrop) – nothing counts twice in the total, alerts, widgets, the watch and the Swiss wealth-tax cutoff.

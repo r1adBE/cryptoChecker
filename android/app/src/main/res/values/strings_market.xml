@@ -225,6 +225,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Today %1$s %2$s</string>
     <string name="macro_item_tomorrow">Tomorrow %1$s %2$s</string>
+    <string name="macro_more_dates_later">Further dates will follow once the source publishes them.</string>
     <string name="macro_nfp">US jobs report</string>
     <string name="macro_pce">US consumer spending prices (PCE)</string>
     <string name="macro_ppi">US producer prices (PPI)</string>

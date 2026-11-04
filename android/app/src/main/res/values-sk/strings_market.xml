@@ -226,6 +226,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Dnes %1$s %2$s</string>
     <string name="macro_item_tomorrow">Zajtra %1$s %2$s</string>
+    <string name="macro_more_dates_later">Ďalšie termíny pribudnú, keď ich zdroj zverejní.</string>
     <string name="macro_nfp">Správa o trhu práce v USA</string>
     <string name="macro_pce">Ceny spotrebiteľských výdavkov v USA (PCE)</string>
     <string name="macro_ppi">Ceny výrobcov v USA (PPI)</string>

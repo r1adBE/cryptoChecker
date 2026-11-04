@@ -45,6 +45,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
@@ -262,6 +263,7 @@ internal fun EntryCurrencyRow(
                 selected = fiat,
                 onClick = onFiat,
                 enabled = fiatEnabled || fiat,
+                colors = DisabledColors.segmentedButton(),
                 shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
                 icon = {}
             ) { Text(currency, maxLines = 1) }

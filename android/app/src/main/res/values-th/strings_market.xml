@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">วันนี้ %1$s %2$s</string>
     <string name="macro_item_tomorrow">พรุ่งนี้ %1$s %2$s</string>
+    <string name="macro_more_dates_later">วันที่ถัดไปจะแสดงเมื่อแหล่งข้อมูลเผยแพร่</string>
     <string name="macro_nfp">รายงานการจ้างงานสหรัฐฯ</string>
     <string name="macro_pce">เงินเฟ้อ PCE สหรัฐฯ</string>
     <string name="macro_ppi">ดัชนีราคาผู้ผลิตสหรัฐฯ (PPI)</string>

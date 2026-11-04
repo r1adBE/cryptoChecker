@@ -48,6 +48,8 @@ internal fun PositionCard(
     p: CoinPosition,
     addressAmount: java.math.BigDecimal? = null,
     overlap: Boolean = false,
+    /** Ziel-Wallet einer eigenen Umbuchung gleicher Menge ([AddressWithdrawalMatch]): Hinweis statt [overlap]; null = keine. */
+    withdrawalTarget: String? = null,
     /** «ohne Kaufpreis» antippen: Einträge ohne Einstand ([PortfolioCostGapsSheet]); null = nicht antippbar. */
     onMissingCost: (() -> Unit)? = null,
     /** «Aus Adresse» antippen: Einstand für Adressguthaben ([PortfolioAddressLotsSheet]); null = nicht antippbar. */
@@ -107,8 +109,15 @@ internal fun PositionCard(
                 color = if (onAddressCost != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.costLink(onAddressCost).padding(top = 4.dp)
             )
-            // Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand zählt ([AddressSurplus])
-            if (overlap) {
+            // Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand über die Wallet zählt ([AddressSurplus])
+            if (withdrawalTarget != null) {
+                Text(
+                    stringResource(R.string.portfolio_address_withdrawal_match, withdrawalTarget),
+                    style = MaterialTheme.typography.label,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            } else if (overlap) {
                 Text(
                     stringResource(R.string.portfolio_address_overlap, p.coin),
                     style = MaterialTheme.typography.label,

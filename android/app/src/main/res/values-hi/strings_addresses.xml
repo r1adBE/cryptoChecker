@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">सार्वजनिक पता (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) या xpub</string>
     <string name="portfolio_address_label">लेबल (वैकल्पिक)</string>
     <string name="portfolio_address_not_since_buy">पते से · “खरीद से” में शामिल नहीं: %1$s</string>
-    <string name="portfolio_address_overlap">आपके अपने लेन-देन में भी: %1$s – पते पर इससे ज़्यादा जो है, सिर्फ़ वही गिना जाता है।</string>
+    <string name="portfolio_address_overlap">आपके अपने लेन-देन में भी: %1$s – इस वॉलेट में आपके लेन-देन से ज़्यादा जो पते पर है, सिर्फ़ वही गिना जाता है।</string>
     <string name="portfolio_address_overlap_ask">आप %1$s को पहले से अपने लेन-देन से दर्ज करते हैं। इस पते का बैलेंस पोर्टफ़ोलियो में जोड़ें या सिर्फ़ दिखाएँ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$s आपके लेन-देन में भी हैं।</string>
     <string name="portfolio_address_overlap_title">आपके लेन-देन वाले ही कॉइन?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">सिर्फ़ दिखाएँ, पोर्टफ़ोलियो में न जोड़ें</string>
     <string name="portfolio_address_show_only_short">सिर्फ़ दिखाएँ</string>
     <string name="portfolio_address_tokens">टोकन गिनें</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” में आपके ट्रांसफ़र जितनी ही मात्रा – लक्ष्य यह पता चुनें, वरना यह दो बार गिनी जाएगी।</string>
     <string name="portfolio_address_xpub_privacy">xpub इस वॉलेट के सभी पते उजागर करता है। वे आपके डिवाइस पर बनाए जाते हैं; %1$s को सिर्फ़ अलग-अलग पते भेजे जाते हैं – पहली खोज में कम से कम 40 अनुरोध, बाद में कम। निजी कुंजियाँ (xprv) कभी स्वीकार नहीं की जातीं।</string>
     <string name="portfolio_address_xpub_gap">लगातार %1$d अप्रयुक्त पतों के बाद खोज रुक जाती है (BIP44 मानक, जिसका उपयोग अधिकांश वॉलेट करते हैं)। इस अंतराल के बाद का कोई उपयोग किया गया पता नहीं गिना जाता – उसे अलग से जोड़ें।</string>
     <string name="portfolio_address_xpub_used">उपयोग में पते: %1$d</string>

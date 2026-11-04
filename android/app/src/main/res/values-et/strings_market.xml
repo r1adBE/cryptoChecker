@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Täna %1$s %2$s</string>
     <string name="macro_item_tomorrow">Homme %1$s %2$s</string>
+    <string name="macro_more_dates_later">Järgmised kuupäevad lisanduvad, kui allikas need avaldab.</string>
     <string name="macro_nfp">USA tööturuaruanne</string>
     <string name="macro_pce">USA tarbimiskulutuste hinnad (PCE)</string>
     <string name="macro_ppi">USA tootjahinnad (PPI)</string>

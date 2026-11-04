@@ -96,7 +96,7 @@ struct PortfolioAddressLotsSheet: View {
                 Button(L("address_lots_add")) {
                     editing = AddressCostLot(id: 0, coin: a.chain.coin, time: EpochTime.nowMillis, amount: 0)
                 }
-                .disabled(a.costLots.count >= AddressCostLots.maxLots)
+                .appDisabled(a.costLots.count >= AddressCostLots.maxLots)
             }
         }
     }

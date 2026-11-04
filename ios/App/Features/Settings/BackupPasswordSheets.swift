@@ -102,7 +102,7 @@ struct BackupExportSheet: View {
                     }
                     .accessibilityIdentifier(UiTestTags.backupExportConfirm)
                     .fontWeight(.semibold)
-                    .disabled(!canExport)
+                    .appDisabled(!canExport)
                 }
             }
             .alert(L("backup_plain_confirm_title"), isPresented: $confirmPlain) {
@@ -184,7 +184,7 @@ struct BackupImportPasswordSheet: View {
                     Button(L("backup_password_continue"), action: submit)
                         .accessibilityIdentifier(UiTestTags.backupRestoreSubmit)
                         .fontWeight(.semibold)
-                        .disabled(password.isEmpty || checking)
+                        .appDisabled(password.isEmpty || checking)
                 }
             }
         }

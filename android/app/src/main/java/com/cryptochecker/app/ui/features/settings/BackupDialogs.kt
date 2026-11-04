@@ -39,6 +39,7 @@ import androidx.compose.runtime.LaunchedEffect
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
+import com.cryptochecker.app.ui.theme.DisabledColors
 
 /*
  * Passwortschutz der Sicherungsdatei (BackupCrypto). Passwörter nur in `remember`
@@ -140,7 +141,12 @@ internal fun BackupExportDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = confirm, enabled = canExport, modifier = Modifier.testTag(UiTestTags.BACKUP_EXPORT_CONFIRM)) {
+            TextButton(
+                onClick = confirm,
+                enabled = canExport,
+                colors = DisabledColors.textButton(),
+                modifier = Modifier.testTag(UiTestTags.BACKUP_EXPORT_CONFIRM),
+            ) {
                 Text(stringResource(R.string.backup_export))
             }
         },
@@ -249,6 +255,7 @@ internal fun BackupPasswordDialog(
             TextButton(
                 onClick = submit,
                 enabled = password.isNotEmpty() && !checking,
+                colors = DisabledColors.textButton(),
                 modifier = Modifier.testTag(UiTestTags.BACKUP_RESTORE_SUBMIT),
             ) {
                 Text(stringResource(R.string.backup_password_continue))

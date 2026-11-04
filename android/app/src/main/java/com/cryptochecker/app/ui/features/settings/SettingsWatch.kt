@@ -21,6 +21,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.wearable.PhoneWatchFeed
@@ -93,6 +94,7 @@ internal fun WatchSettingsCard(viewModel: WatchSettingsViewModel = hiltViewModel
                         selected = selected,
                         onClick = { viewModel.toggle(coin) },
                         enabled = selected || state.own.size < WatchCoins.MAX,
+                        colors = DisabledColors.filterChip(),
                         label = { Text(coin) },
                     )
                 }

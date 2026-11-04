@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Денес %1$s %2$s</string>
     <string name="macro_item_tomorrow">Утре %1$s %2$s</string>
+    <string name="macro_more_dates_later">Следните датуми ќе бидат додадени штом изворот ги објави.</string>
     <string name="macro_nfp">Извештај за вработеност во САД</string>
     <string name="macro_pce">Цени на потрошувачка во САД (PCE)</string>
     <string name="macro_ppi">Цени на производители во САД (PPI)</string>

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">இன்று %1$s %2$s</string>
     <string name="macro_item_tomorrow">நாளை %1$s %2$s</string>
+    <string name="macro_more_dates_later">மூலம் வெளியிட்டதும் அடுத்த தேதிகள் சேர்க்கப்படும்.</string>
     <string name="macro_nfp">அமெரிக்க வேலைவாய்ப்பு அறிக்கை</string>
     <string name="macro_pce">அமெரிக்க நுகர்வோர் செலவின விலைகள் (PCE)</string>
     <string name="macro_ppi">அமெரிக்க உற்பத்தியாளர் விலைகள் (PPI)</string>

@@ -55,11 +55,13 @@ import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.features.settings.AddressServerViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
@@ -280,6 +282,9 @@ internal fun PortfolioAddressSheet(
                     AddressRow(
                         a, now, hideAmounts,
                         overlap = WatchedAddressRules.overlap(a, ownCoins),
+                        withdrawalTarget = remember(a, trades) {
+                            AddressWithdrawalMatch.targetWallet(AddressWithdrawalMatch.matches(a, trades))
+                        },
                         onRemove = { askRemove = a },
                         onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
                         onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
@@ -342,6 +347,7 @@ internal fun PortfolioAddressSheet(
                             // Zustimmung vor der ersten Adresse und vor dem ersten xpub/Deskriptor ([AddressServer.consentNeeded])
                             onClick = { if (AddressServer.consentNeeded(addresses, check)) askPrivacy = true else addChecked() },
                             enabled = canAdd,
+                            colors = DisabledColors.button(),
                             modifier = Modifier.fillMaxWidth().padding(top = Spacing.md, bottom = Spacing.lg)
                         ) {
                             Text(stringResource(R.string.portfolio_address_add))

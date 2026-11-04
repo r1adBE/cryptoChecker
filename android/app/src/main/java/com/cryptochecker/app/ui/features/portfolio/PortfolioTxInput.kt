@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
 import java.time.Instant
@@ -77,6 +78,7 @@ internal fun DateDialog(selected: Long, onSelect: (LocalDate) -> Unit, onDismiss
         confirmButton = {
             TextButton(
                 enabled = state.selectedDateMillis != null,
+                colors = DisabledColors.textButton(),
                 onClick = {
                     state.selectedDateMillis?.let { utc ->
                         onSelect(Instant.ofEpochMilli(utc).atZone(ZoneOffset.UTC).toLocalDate())

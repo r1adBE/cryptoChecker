@@ -7,6 +7,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.label
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -74,7 +75,7 @@ internal fun GroupDialog(
         },
         confirmButton = {
             if (creating) {
-                TextButton(enabled = trimmed.isNotEmpty(), onClick = { onSelect(trimmed) }) {
+                TextButton(enabled = trimmed.isNotEmpty(), colors = DisabledColors.textButton(), onClick = { onSelect(trimmed) }) {
                     Text(stringResource(R.string.action_save))
                 }
             }

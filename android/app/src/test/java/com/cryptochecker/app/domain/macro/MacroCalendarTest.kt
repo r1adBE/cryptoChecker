@@ -138,6 +138,24 @@ class MacroCalendarTest {
         assertEquals(listOf(false, true), hint.items.map { it.tomorrow })
     }
 
+    /** K-05: Zeile «Weitere Termine folgen» nur, wenn eine Reihe im gezeigten Bereich endet (wie iOS `MarketSetTests`). */
+    @Test
+    fun hint_seriesEnds_onlyWhenNoLaterDateOfTheSameTypeIsKnown() {
+        val cpiToday = MacroEvent(MacroEventType.CPI, t("2026-12-10T13:30:00Z"))
+        val cpiLater = MacroEvent(MacroEventType.CPI, t("2027-01-13T13:30:00Z"))
+        val pceLast = MacroEvent(MacroEventType.PCE, t("2026-12-23T13:30:00Z"))
+        val events = listOf(cpiToday, pceLast, cpiLater)
+        // CPI geht weiter; PCE endet erst ausserhalb des gezeigten Bereichs
+        assertFalse(MacroCalendar.hint(events, t("2026-12-10T07:00:00Z"), zurich)!!.seriesEnds)
+        // Letzter bekannter PCE-Termin im Hinweis, auch noch nach der Veröffentlichung
+        assertTrue(MacroCalendar.hint(events, t("2026-12-23T07:00:00Z"), zurich)!!.seriesEnds)
+        assertTrue(MacroCalendar.hint(events, t("2026-12-23T18:00:00Z"), zurich)!!.released)
+        assertTrue(MacroCalendar.hint(events, t("2026-12-23T18:00:00Z"), zurich)!!.seriesEnds)
+        // Die Quelle hat den nächsten PCE-Termin veröffentlicht: keine Zeile
+        val pceNext = MacroEvent(MacroEventType.PCE, t("2027-01-29T13:30:00Z"))
+        assertFalse(MacroCalendar.hint(events + pceNext, t("2026-12-23T07:00:00Z"), zurich)!!.seriesEnds)
+    }
+
     @Test
     fun hint_nothingNear_null() {
         val far = MacroEvent(MacroEventType.CPI, t("2026-10-20T12:30:00Z"))

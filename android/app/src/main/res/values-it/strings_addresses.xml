@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Indirizzo pubblico (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Etichetta (facoltativa)</string>
     <string name="portfolio_address_not_since_buy">Da indirizzo · non in «Dall\'acquisto»: %1$s</string>
-    <string name="portfolio_address_overlap">Anche nelle tue transazioni: %1$s – conta solo ciò che l\'indirizzo ha in più.</string>
+    <string name="portfolio_address_overlap">Anche nelle tue transazioni: %1$s – conta solo ciò che l\'indirizzo ha in più rispetto alle tue transazioni in questo wallet.</string>
     <string name="portfolio_address_overlap_ask">Registri già %1$s con le tue transazioni. Aggiungere il saldo di questo indirizzo al portafoglio o solo mostrarlo?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ora viene solo mostrato, non conteggiato – %2$s compaiono anche nelle tue transazioni.</string>
     <string name="portfolio_address_overlap_title">Stesse monete delle tue transazioni?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Mostra soltanto, non sommare al portafoglio</string>
     <string name="portfolio_address_show_only_short">Mostra soltanto</string>
     <string name="portfolio_address_tokens">Conteggia i token</string>
+    <string name="portfolio_address_withdrawal_match">Stessa quantità del tuo trasferimento a «%1$s» – imposta questo indirizzo come destinazione, altrimenti conta due volte.</string>
     <string name="portfolio_address_xpub_privacy">Un xpub rivela tutti gli indirizzi di questo wallet. Vengono derivati sul tuo dispositivo; a %1$s vengono inviati solo singoli indirizzi – almeno 40 richieste alla prima scansione, poi meno. Le chiavi private (xprv) non vengono mai accettate.</string>
     <string name="portfolio_address_xpub_gap">La ricerca si ferma dopo %1$d indirizzi inutilizzati consecutivi (lo standard BIP44 usato dalla maggior parte dei wallet). Un indirizzo usato oltre questo intervallo non viene contato – aggiungilo separatamente.</string>
     <string name="portfolio_address_xpub_used">Indirizzi in uso: %1$d</string>

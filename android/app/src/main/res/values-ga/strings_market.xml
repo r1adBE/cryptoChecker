@@ -228,6 +228,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Inniu %1$s %2$s</string>
     <string name="macro_item_tomorrow">Amárach %1$s %2$s</string>
+    <string name="macro_more_dates_later">Tiocfaidh tuilleadh dátaí chomh luath agus a fhoilsíonn an fhoinse iad.</string>
     <string name="macro_nfp">Tuarascáil fostaíochta SAM</string>
     <string name="macro_pce">Praghsanna caiteachais tomhaltóirí SAM (PCE)</string>
     <string name="macro_ppi">Praghsanna táirgeoirí SAM (PPI)</string>

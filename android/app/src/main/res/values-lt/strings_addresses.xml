@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Viešas adresas (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) arba xpub</string>
     <string name="portfolio_address_label">Pavadinimas (neprivaloma)</string>
     <string name="portfolio_address_not_since_buy">Iš adreso · neįtraukta į „Nuo pirkimo“: %1$s</string>
-    <string name="portfolio_address_overlap">Taip pat yra tavo transakcijose: %1$s – skaičiuojama tik tai, ką adresas turi daugiau.</string>
+    <string name="portfolio_address_overlap">Taip pat yra tavo transakcijose: %1$s – skaičiuojama tik tai, ką adresas turi daugiau nei tavo transakcijos šioje piniginėje.</string>
     <string name="portfolio_address_overlap_ask">%1$s jau registruoji savo transakcijomis. Įtraukti šio adreso likutį į portfelį ar tik jį rodyti?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ dabar tik rodomas, neįskaičiuojamas – %2$s yra ir tavo transakcijose.</string>
     <string name="portfolio_address_overlap_title">Tos pačios monetos kaip tavo transakcijose?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Tik rodyti, neįtraukti į portfelį</string>
     <string name="portfolio_address_show_only_short">Tik rodyti</string>
     <string name="portfolio_address_tokens">Įskaičiuoti žetonus</string>
+    <string name="portfolio_address_withdrawal_match">Toks pat kiekis kaip tavo pervedimas į „%1$s“ – nustatyk šį adresą kaip paskirtį, kitaip jis bus skaičiuojamas dukart.</string>
     <string name="portfolio_address_xpub_privacy">xpub atskleidžia visus šios piniginės adresus. Jie išvedami tavo įrenginyje; į %1$s siunčiami tik pavieniai adresai – pirmą kartą ieškant bent 40 užklausų, vėliau mažiau. Privatūs raktai (xprv) niekada nepriimami.</string>
     <string name="portfolio_address_xpub_gap">Paieška sustoja po %1$d nenaudotų adresų iš eilės (BIP44 standartas, kurį naudoja dauguma piniginių). Naudotas adresas už šio tarpo neįskaičiuojamas – pridėk jį atskirai.</string>
     <string name="portfolio_address_xpub_used">Naudojami adresai: %1$d</string>

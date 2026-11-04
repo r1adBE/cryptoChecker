@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">सार्वजनिक पत्ता (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) किंवा xpub</string>
     <string name="portfolio_address_label">लेबल (ऐच्छिक)</string>
     <string name="portfolio_address_not_since_buy">पत्त्यावरून · “खरेदीपासून” मध्ये नाही: %1$s</string>
-    <string name="portfolio_address_overlap">तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$s – पत्त्यावर त्याहून जास्त असलेलेच मोजले जाते.</string>
+    <string name="portfolio_address_overlap">तुमच्या स्वतःच्या व्यवहारांतही आहे: %1$s – या वॉलेटमधील तुमच्या व्यवहारांपेक्षा पत्त्यावर जास्त असलेलेच मोजले जाते.</string>
     <string name="portfolio_address_overlap_ask">तुम्ही %1$s आधीच स्वतःच्या व्यवहारांसह नोंदवता. या पत्त्याची शिल्लक पोर्टफोलिओमध्ये जोडायची की फक्त दाखवायची?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” आता फक्त दाखवला जातो, मोजला जात नाही – %2$s तुमच्या व्यवहारांतही आहेत.</string>
     <string name="portfolio_address_overlap_title">तुमच्या व्यवहारांतलेच कॉइन आहेत?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">फक्त दाखवा, पोर्टफोलिओमध्ये जोडू नका</string>
     <string name="portfolio_address_show_only_short">फक्त दाखवा</string>
     <string name="portfolio_address_tokens">टोकन मोजा</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” कडे केलेल्या तुमच्या हस्तांतरणाइतकीच रक्कम – लक्ष्य हा पत्ता ठेवा, नाहीतर ती दोनदा मोजली जाईल.</string>
     <string name="portfolio_address_xpub_privacy">xpub मुळे या वॉलेटचे सर्व पत्ते उघड होतात. ते तुमच्या डिव्हाइसवर काढले जातात; फक्त स्वतंत्र पत्ते %1$s ला पाठवले जातात – पहिल्या स्कॅनमध्ये किमान 40 विनंत्या, नंतर कमी. खासगी की (xprv) कधीही स्वीकारल्या जात नाहीत.</string>
     <string name="portfolio_address_xpub_gap">सलग %1$d न वापरलेल्या पत्त्यांनंतर शोध थांबतो (बहुतेक वॉलेट वापरतात ते BIP44 मानक). त्या अंतरापलीकडील वापरलेला पत्ता मोजला जात नाही – तो वेगळा जोडा.</string>
     <string name="portfolio_address_xpub_used">वापरात असलेले पत्ते: %1$d</string>

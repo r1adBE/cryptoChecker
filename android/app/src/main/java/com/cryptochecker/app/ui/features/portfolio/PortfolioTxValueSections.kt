@@ -31,6 +31,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.SwitchRow
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.TextLimit
@@ -276,6 +277,6 @@ internal fun TxActionsRow(isEdit: Boolean, saving: Boolean, onDelete: () -> Unit
         Spacer(Modifier.weight(1f))
         TextButton(onClick = onCancel) { Text(stringResource(R.string.action_cancel)) }
         Spacer(Modifier.width(8.dp))
-        Button(onClick = onSave, enabled = !saving) { Text(stringResource(R.string.action_save)) }
+        Button(onClick = onSave, enabled = !saving, colors = DisabledColors.button()) { Text(stringResource(R.string.action_save)) }
     }
 }

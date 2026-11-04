@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Hôm nay %1$s %2$s</string>
     <string name="macro_item_tomorrow">Ngày mai %1$s %2$s</string>
+    <string name="macro_more_dates_later">Các ngày tiếp theo sẽ có khi nguồn công bố.</string>
     <string name="macro_nfp">báo cáo việc làm Mỹ</string>
     <string name="macro_pce">lạm phát PCE Mỹ</string>
     <string name="macro_ppi">giá sản xuất Mỹ (PPI)</string>

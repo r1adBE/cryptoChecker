@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">आज %1$s %2$s</string>
     <string name="macro_item_tomorrow">कल %1$s %2$s</string>
+    <string name="macro_more_dates_later">आगे की तारीखें स्रोत के प्रकाशित करते ही जोड़ी जाएँगी।</string>
     <string name="macro_nfp">अमेरिकी जॉब्स रिपोर्ट</string>
     <string name="macro_pce">अमेरिकी PCE महँगाई</string>
     <string name="macro_ppi">अमेरिकी उत्पादक मूल्य (PPI)</string>

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Adresë publike (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ose xpub</string>
     <string name="portfolio_address_label">Etiketa (opsionale)</string>
     <string name="portfolio_address_not_since_buy">Nga adresa · jo në «Që nga blerja»: %1$s</string>
-    <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – numërohet vetëm ajo që adresa ka më shumë.</string>
+    <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – numërohet vetëm ajo që adresa ka më shumë se transaksionet e tua në këtë wallet.</string>
     <string name="portfolio_address_overlap_ask">E regjistron tashmë %1$s me transaksionet e tua. Të llogaritet balanca e kësaj adrese në portofol apo vetëm të shfaqet?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» tani vetëm shfaqet, nuk llogaritet – %2$s shfaqen edhe në transaksionet e tua.</string>
     <string name="portfolio_address_overlap_title">Të njëjtat monedha si në transaksionet e tua?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Vetëm shfaq, mos e llogarit në portofol</string>
     <string name="portfolio_address_show_only_short">Vetëm shfaq</string>
     <string name="portfolio_address_tokens">Llogarit tokenët</string>
+    <string name="portfolio_address_withdrawal_match">E njëjta sasi si transferimi yt te «%1$s» – vendos këtë adresë si destinacion, përndryshe numërohet dy herë.</string>
     <string name="portfolio_address_xpub_privacy">Një xpub zbulon të gjitha adresat e këtij wallet-i. Ato derivohen në pajisjen tënde; te %1$s dërgohen vetëm adresa të veçanta – të paktën 40 kërkesa në kërkimin e parë, më pas më pak. Çelësat privatë (xprv) nuk pranohen kurrë.</string>
     <string name="portfolio_address_xpub_gap">Kërkimi ndalon pas %1$d adresash të papërdorura radhazi (standardi BIP44 që përdorin shumica e portofolave). Një adresë e përdorur përtej këtij boshllëku nuk numërohet – shtoje veçmas.</string>
     <string name="portfolio_address_xpub_used">Adresa në përdorim: %1$d</string>

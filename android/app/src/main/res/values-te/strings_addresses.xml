@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">పబ్లిక్ అడ్రస్ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) లేదా xpub</string>
     <string name="portfolio_address_label">లేబుల్ (ఐచ్ఛికం)</string>
     <string name="portfolio_address_not_since_buy">అడ్రస్ నుండి · “కొనుగోలు నుండి”లో లేదు: %1$s</string>
-    <string name="portfolio_address_overlap">మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$s – చిరునామాలో దానికంటే ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది.</string>
+    <string name="portfolio_address_overlap">మీ సొంత లావాదేవీలలో కూడా ఉంది: %1$s – ఈ వాలెట్‌లోని మీ లావాదేవీల కంటే చిరునామాలో ఎక్కువ ఉన్నది మాత్రమే లెక్కించబడుతుంది.</string>
     <string name="portfolio_address_overlap_ask">మీరు ఇప్పటికే %1$sను మీ సొంత లావాదేవీలతో నమోదు చేస్తున్నారు. ఈ అడ్రస్ బ్యాలెన్స్‌ను పోర్ట్‌ఫోలియోకు జోడించాలా, లేదా చూపించడం మాత్రమేనా?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” ఇప్పుడు చూపబడుతుంది మాత్రమే, లెక్కించబడదు – %2$s మీ లావాదేవీలలో కూడా ఉన్నాయి.</string>
     <string name="portfolio_address_overlap_title">మీ లావాదేవీలలోని అవే కాయిన్‌లా?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">చూపండి మాత్రమే, పోర్ట్‌ఫోలియోకు జోడించవద్దు</string>
     <string name="portfolio_address_show_only_short">చూపండి మాత్రమే</string>
     <string name="portfolio_address_tokens">టోకెన్‌లను లెక్కించండి</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s”కు మీ బదిలీకి సమాన మొత్తం – గమ్యాన్ని ఈ చిరునామాగా సెట్ చేయండి, లేకపోతే రెండుసార్లు లెక్కించబడుతుంది.</string>
     <string name="portfolio_address_xpub_privacy">xpub ఈ వాలెట్ అన్ని అడ్రస్‌లను బహిర్గతం చేస్తుంది. అవి మీ పరికరంలోనే రూపొందించబడతాయి; వ్యక్తిగత అడ్రస్‌లు మాత్రమే %1$sకు పంపబడతాయి – మొదటి స్కాన్‌లో కనీసం 40 రిక్వెస్ట్‌లు, తర్వాత తక్కువ. ప్రైవేట్ కీలు (xprv) ఎప్పుడూ అంగీకరించబడవు.</string>
     <string name="portfolio_address_xpub_gap">వరుసగా %1$d ఉపయోగించని అడ్రస్‌ల తర్వాత శోధన ఆగిపోతుంది (చాలా వాలెట్‌లు ఉపయోగించే BIP44 ప్రమాణం). ఆ అంతరం దాటిన ఉపయోగించిన అడ్రస్ లెక్కించబడదు – దాన్ని విడిగా జోడించండి.</string>
     <string name="portfolio_address_xpub_used">ఉపయోగంలో ఉన్న అడ్రస్‌లు: %1$d</string>

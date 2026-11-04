@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Ma %1$s %2$s</string>
     <string name="macro_item_tomorrow">Holnap %1$s %2$s</string>
+    <string name="macro_more_dates_later">További időpontok akkor jelennek meg, amikor a forrás közzéteszi őket.</string>
     <string name="macro_nfp">amerikai munkaerőpiaci jelentés</string>
     <string name="macro_pce">amerikai PCE-infláció</string>
     <string name="macro_ppi">amerikai termelői árak (PPI)</string>

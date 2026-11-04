@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Verejná adresa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) alebo xpub</string>
     <string name="portfolio_address_label">Označenie (voliteľné)</string>
     <string name="portfolio_address_not_since_buy">Z adresy · nie je v „Od nákupu“: %1$s</string>
-    <string name="portfolio_address_overlap">Aj vo vlastných transakciách: %1$s – započíta sa len to, čo má adresa navyše.</string>
+    <string name="portfolio_address_overlap">Aj vo vlastných transakciách: %1$s – započíta sa len to, čo má adresa navyše oproti tvojim transakciám v tejto peňaženke.</string>
     <string name="portfolio_address_overlap_ask">%1$s už zaznamenávaš vlastnými transakciami. Má sa zostatok tejto adresy započítať do portfólia, alebo sa má iba zobraziť?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ sa teraz iba zobrazuje, nezapočítava sa – %2$s sú aj v tvojich transakciách.</string>
     <string name="portfolio_address_overlap_title">Rovnaké coiny ako v tvojich transakciách?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Iba zobraziť, nezapočítať do portfólia</string>
     <string name="portfolio_address_show_only_short">Iba zobraziť</string>
     <string name="portfolio_address_tokens">Započítať tokeny</string>
+    <string name="portfolio_address_withdrawal_match">Rovnaké množstvo ako tvoj prevod do „%1$s“ – nastav cieľ na túto adresu, inak sa započíta dvakrát.</string>
     <string name="portfolio_address_xpub_privacy">Xpub odhalí všetky adresy tejto peňaženky. Odvodzujú sa v tvojom zariadení; na %1$s idú iba jednotlivé adresy – pri prvom hľadaní najmenej 40 dopytov, potom menej. Súkromné kľúče (xprv) sa nikdy neprijímajú.</string>
     <string name="portfolio_address_xpub_gap">Hľadanie skončí po %1$d nepoužitých adresách za sebou (štandard BIP44, ktorý používa väčšina peňaženiek). Použitá adresa za touto medzerou sa nezapočíta – pridaj ju samostatne.</string>
     <string name="portfolio_address_xpub_used">Použité adresy: %1$d</string>

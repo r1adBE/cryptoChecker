@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Heute %1$s %2$s</string>
     <string name="macro_item_tomorrow">Morgen %1$s %2$s</string>
+    <string name="macro_more_dates_later">Weitere Termine folgen, sobald die Quelle sie veröffentlicht.</string>
     <string name="macro_nfp">US-Arbeitsmarktdaten</string>
     <string name="macro_pce">US-Konsumausgaben-Preise (PCE)</string>
     <string name="macro_ppi">US-Erzeugerpreise (PPI)</string>

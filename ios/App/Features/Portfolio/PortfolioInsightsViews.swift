@@ -177,7 +177,7 @@ struct PortfolioAlarmSheet: View {
                         onSave(kind, value, repeating)
                         dismiss()
                     }
-                    .disabled(!valid)
+                    .appDisabled(!valid)
                 }
             }
             .onAppear { focused = true }

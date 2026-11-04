@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.PercentText
 import androidx.compose.ui.graphics.lerp
 import com.cryptochecker.app.ui.components.AppCard
@@ -244,6 +245,7 @@ internal fun PortfolioAlarmDialog(
         confirmButton = {
             TextButton(
                 enabled = valid,
+                colors = DisabledColors.textButton(),
                 onClick = { threshold?.let { onSave(kind, it, repeating) } }
             ) { Text(stringResource(R.string.action_save)) }
         },

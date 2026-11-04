@@ -118,7 +118,7 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             SettingsAnchor("futures.alpha") {
                 // «inkl. Alpha-Tokens» über QTLY; gehört zu Token, bei «Nur TradFi» gesperrt wie QTLY
                 val enabled = settings.assetScope.allowsTokens
-                Box(Modifier.alpha(if (enabled) 1f else DISABLED_ALPHA)) {
+                Box {
                     SwitchRow(
                         title = stringResource(R.string.settings_asset_scope_alpha),
                         subtitle = stringResource(
@@ -128,6 +128,7 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                         checked = settings.includeAlphaTokens,
                         onCheckedChange = viewModel::setIncludeAlphaTokens,
                         enabled = enabled,
+                        dimLabel = true,
                     )
                 }
             }
@@ -136,7 +137,7 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 // Bei «Nur TradFi» gesperrt und ausgegraut; der Wert bleibt und gilt weiter für
                 // gemerkte Laufzeit-Futures (Aktualisierung, PriceFetcher)
                 val enabled = settings.assetScope.allowsTokens
-                Box(Modifier.alpha(if (enabled) 1f else DISABLED_ALPHA)) {
+                Box {
                     SwitchRow(
                         title = stringResource(R.string.settings_rolling_futures_qtly),
                         subtitle = stringResource(
@@ -146,6 +147,7 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                         checked = settings.includeRollingFutures,
                         onCheckedChange = viewModel::setIncludeRollingFutures,
                         enabled = enabled,
+                        dimLabel = true,
                     )
                 }
             }
@@ -156,9 +158,6 @@ internal fun ExchangesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
         }
     }
 }
-
-/** Deckkraft der gesperrten QTLY-Zeile (wie `SwitchRow(enabled:)` in iOS). */
-private const val DISABLED_ALPHA = 0.5f
 
 /**
  * «Nur Token / Nur TradFi / Token und TradFi» als Einfach-Auswahl ([RadioRow]) mit Symbolen wie bei

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">ທີ່ຢູ່ສາທາລະນະ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ຫຼື xpub</string>
     <string name="portfolio_address_label">ປ້າຍຊື່ (ບໍ່ບັງຄັບ)</string>
     <string name="portfolio_address_not_since_buy">ຈາກທີ່ຢູ່ · ບໍ່ຢູ່ໃນ “ນັບແຕ່ຊື້”: %1$s</string>
-    <string name="portfolio_address_overlap">ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$s – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າເທົ່ານັ້ນ.</string>
+    <string name="portfolio_address_overlap">ມີຢູ່ໃນທຸລະກຳຂອງທ່ານເອງນຳ: %1$s – ນັບສະເພາະສ່ວນທີ່ທີ່ຢູ່ມີຫຼາຍກວ່າທຸລະກຳຂອງທ່ານໃນກະເປົາເງິນນີ້ເທົ່ານັ້ນ.</string>
     <string name="portfolio_address_overlap_ask">ທ່ານບັນທຶກ %1$s ດ້ວຍທຸລະກຳຂອງທ່ານເອງແລ້ວ. ບວກຍອດເງິນຂອງທີ່ຢູ່ນີ້ເຂົ້າໃນພອດໂຟລິໂອ ຫຼື ພຽງແຕ່ສະແດງມັນ?</string>
     <string name="portfolio_address_overlap_auto">ຕອນນີ້ “%1$s” ສະແດງເທົ່ານັ້ນ, ບໍ່ນັບລວມ – %2$s ມີຢູ່ໃນທຸລະກຳຂອງທ່ານນຳ.</string>
     <string name="portfolio_address_overlap_title">ຫຼຽນດຽວກັນກັບທຸລະກຳຂອງທ່ານບໍ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">ສະແດງເທົ່ານັ້ນ, ບໍ່ບວກເຂົ້າພອດໂຟລິໂອ</string>
     <string name="portfolio_address_show_only_short">ສະແດງເທົ່ານັ້ນ</string>
     <string name="portfolio_address_tokens">ນັບໂທເຄັນ</string>
+    <string name="portfolio_address_withdrawal_match">ຈຳນວນດຽວກັບການໂອນຂອງທ່ານໄປ “%1$s” – ກະລຸນາຕັ້ງປາຍທາງເປັນທີ່ຢູ່ນີ້, ບໍ່ດັ່ງນັ້ນຈະຖືກນັບສອງເທື່ອ.</string>
     <string name="portfolio_address_xpub_privacy">xpub ເປີດເຜີຍທີ່ຢູ່ທັງໝົດຂອງກະເປົາເງິນນີ້. ທີ່ຢູ່ເຫຼົ່ານັ້ນຖືກສ້າງຂຶ້ນໃນອຸປະກອນຂອງທ່ານ; ສົ່ງພຽງແຕ່ທີ່ຢູ່ແຕ່ລະອັນໄປຫາ %1$s – ຢ່າງໜ້ອຍ 40 ຄຳຂໍໃນການສະແກນຄັ້ງທຳອິດ, ຫຼັງຈາກນັ້ນໜ້ອຍລົງ. ບໍ່ຮັບກະແຈສ່ວນຕົວ (xprv) ເດັດຂາດ.</string>
     <string name="portfolio_address_xpub_gap">ການຄົ້ນຫາຈະຢຸດຫຼັງຈາກພົບທີ່ຢູ່ທີ່ບໍ່ໄດ້ໃຊ້ %1$d ອັນຕິດກັນ (ມາດຕະຖານ BIP44 ທີ່ກະເປົາເງິນສ່ວນໃຫຍ່ໃຊ້). ທີ່ຢູ່ທີ່ໃຊ້ແລ້ວທີ່ຢູ່ເກີນຊ່ວງນັ້ນຈະບໍ່ຖືກນັບ – ໃຫ້ເພີ່ມມັນແຍກຕ່າງຫາກ.</string>
     <string name="portfolio_address_xpub_used">ທີ່ຢູ່ທີ່ກຳລັງໃຊ້: %1$d</string>

@@ -226,6 +226,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Сегодня %1$s %2$s</string>
     <string name="macro_item_tomorrow">Завтра %1$s %2$s</string>
+    <string name="macro_more_dates_later">Следующие даты появятся, как только источник их опубликует.</string>
     <string name="macro_nfp">отчёт по рынку труда США</string>
     <string name="macro_pce">инфляция PCE в США</string>
     <string name="macro_ppi">цены производителей в США (PPI)</string>

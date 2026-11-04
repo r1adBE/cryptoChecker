@@ -48,6 +48,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.util.BidiText
@@ -244,7 +245,8 @@ internal fun WatchEditSheet(
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
                 Button(
                     onClick = { viewModel.save(watch.id) },
-                    enabled = changed && !state.saving && !state.syncing && !state.duplicate
+                    enabled = changed && !state.saving && !state.syncing && !state.duplicate,
+                    colors = DisabledColors.button(),
                 ) {
                     if (state.saving) {
                         CircularProgressIndicator(

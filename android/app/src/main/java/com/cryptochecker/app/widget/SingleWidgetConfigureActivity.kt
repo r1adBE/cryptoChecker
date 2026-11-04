@@ -53,6 +53,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.util.PercentText
 import dagger.hilt.android.AndroidEntryPoint
@@ -267,6 +268,7 @@ private fun SingleWidgetConfigureContent(
             Button(
                 onClick = { selected?.let { viewModel.apply(appWidgetId, it, chartRange, chartType, theme, opacity, onDone) } },
                 enabled = selected != null,
+                colors = DisabledColors.button(),
                 modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
             ) {
                 Text(stringResource(R.string.action_save))

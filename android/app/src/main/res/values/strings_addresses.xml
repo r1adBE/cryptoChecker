@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Public address (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) or xpub</string>
     <string name="portfolio_address_label">Label (optional)</string>
     <string name="portfolio_address_not_since_buy">From address · not in “Since purchase”: %1$s</string>
-    <string name="portfolio_address_overlap">Also in your own transactions: %1$s – only what the address holds beyond them counts.</string>
+    <string name="portfolio_address_overlap">Also in your own transactions: %1$s – only what the address holds beyond your transactions in this wallet counts.</string>
     <string name="portfolio_address_overlap_ask">You already record %1$s with your own transactions. Add this address\'s balance to the portfolio, or only show it?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” is now shown only, not counted – %2$s also appear in your transactions.</string>
     <string name="portfolio_address_overlap_title">Same coins as your transactions?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Show only, don\'t add to portfolio</string>
     <string name="portfolio_address_show_only_short">Show only</string>
     <string name="portfolio_address_tokens">Count tokens</string>
+    <string name="portfolio_address_withdrawal_match">Same amount as your transfer to “%1$s” – set the target to this address, or it counts twice.</string>
     <string name="portfolio_address_xpub_privacy">An xpub reveals all addresses of this wallet. They are derived on your device; only individual addresses are sent to %1$s – at least 40 requests on the first scan, later fewer. Private keys (xprv) are never accepted.</string>
     <!-- Kein Plural nötig: Zahl ist die feste Lückengrösse (XpubScan.GAP), nie 1 -->
     <string name="portfolio_address_xpub_gap" tools:ignore="PluralsCandidate">The search stops after %1$d unused addresses in a row (the BIP44 standard most wallets use). A used address beyond that gap is not counted – add it separately.</string>

@@ -46,6 +46,7 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -217,10 +218,12 @@ private fun AddressServerFields(state: AddressServerState, viewModel: AddressSer
         TextButton(
             onClick = { viewModel.requestSave(check.url, state.server, onAsk = { askPublic = true }, onDone = onSaved) },
             enabled = check.problem == null && check.url != state.server,
+            colors = DisabledColors.textButton(),
         ) { Text(stringResource(R.string.action_save)) }
         TextButton(
             onClick = { check.url?.let { viewModel.test(it) } },
             enabled = check.problem == null && check.url != null && test !is AddressServerTest.Running,
+            colors = DisabledColors.textButton(),
         ) { Text(stringResource(R.string.settings_address_server_test)) }
     }
     val status = state.server?.let { stringResource(R.string.settings_address_server_active, AddressServer.host(it)) }

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Javni naslov (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ali xpub</string>
     <string name="portfolio_address_label">Oznaka (neobvezno)</string>
     <string name="portfolio_address_not_since_buy">Z naslova · ni v „Od nakupa“: %1$s</string>
-    <string name="portfolio_address_overlap">Tudi v tvojih lastnih transakcijah: %1$s – šteje le tisto, kar ima naslov več.</string>
+    <string name="portfolio_address_overlap">Tudi v tvojih lastnih transakcijah: %1$s – šteje le tisto, kar ima naslov več od tvojih transakcij v tej denarnici.</string>
     <string name="portfolio_address_overlap_ask">%1$s že beležiš z lastnimi transakcijami. Naj se stanje tega naslova šteje v portfelj ali naj se samo prikaže?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ se zdaj samo prikazuje in ne šteje – %2$s so tudi v tvojih transakcijah.</string>
     <string name="portfolio_address_overlap_title">Isti kovanci kot v tvojih transakcijah?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Samo prikaži, ne štej v portfelj</string>
     <string name="portfolio_address_show_only_short">Samo prikaži</string>
     <string name="portfolio_address_tokens">Štej tudi žetone</string>
+    <string name="portfolio_address_withdrawal_match">Enaka količina kot tvoj prenos v „%1$s“ – nastavi ta naslov kot cilj, sicer šteje dvakrat.</string>
     <string name="portfolio_address_xpub_privacy">Xpub razkrije vse naslove te denarnice. Izpeljejo se v tvoji napravi; na %1$s gredo samo posamezni naslovi – pri prvem iskanju vsaj 40 poizvedb, pozneje manj. Zasebni ključi (xprv) niso nikoli sprejeti.</string>
     <string name="portfolio_address_xpub_gap">Iskanje se ustavi po %1$d zaporednih neuporabljenih naslovih (standard BIP44, ki ga uporablja večina denarnic). Uporabljen naslov za to vrzeljo se ne šteje – dodaj ga posebej.</string>
     <string name="portfolio_address_xpub_used">Uporabljeni naslovi: %1$d</string>

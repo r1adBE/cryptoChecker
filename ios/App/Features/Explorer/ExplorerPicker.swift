@@ -50,7 +50,7 @@ struct ExplorerPickerField: View {
         }
         .buttonStyle(ExplorerPressStyle())
         .disabled(!enabled)
-        .opacity(enabled ? 1 : 0.6)
+        .opacity(enabled ? 1 : ColorTokens.disabledRowAlpha)
     }
 
     private var captionAndValue: some View {

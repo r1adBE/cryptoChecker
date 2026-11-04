@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Avalik aadress (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) või xpub</string>
     <string name="portfolio_address_label">Nimi (valikuline)</string>
     <string name="portfolio_address_not_since_buy">Aadressilt · pole „Ostust alates“ osas: %1$s</string>
-    <string name="portfolio_address_overlap">Ka sinu enda tehingutes: %1$s – arvesse läheb ainult see, mida aadressil on rohkem.</string>
+    <string name="portfolio_address_overlap">Ka sinu enda tehingutes: %1$s – arvesse läheb ainult see, mida aadressil on rohkem kui sinu tehingutes selles rahakotis.</string>
     <string name="portfolio_address_overlap_ask">Sa juba arvestad %1$s oma tehingutega. Kas lisada selle aadressi saldo portfelli või ainult näidata seda?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ on nüüd ainult näidatud, mitte arvestatud – %2$s on ka sinu tehingutes.</string>
     <string name="portfolio_address_overlap_title">Samad mündid nagu sinu tehingutes?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Ainult näita, ära lisa portfelli</string>
     <string name="portfolio_address_show_only_short">Ainult näita</string>
     <string name="portfolio_address_tokens">Arvesta tokeneid</string>
+    <string name="portfolio_address_withdrawal_match">Sama kogus kui sinu ülekanne sihtkohta „%1$s“ – määra sihtkohaks see aadress, muidu läheb see topelt arvesse.</string>
     <string name="portfolio_address_xpub_privacy">xpub paljastab selle rahakoti kõik aadressid. Need tuletatakse sinu seadmes; teenusele %1$s saadetakse ainult üksikud aadressid – esimesel otsingul vähemalt 40 päringut, hiljem vähem. Privaatvõtmeid (xprv) ei aktsepteerita kunagi.</string>
     <string name="portfolio_address_xpub_gap">Otsing peatub pärast %1$d kasutamata aadressi järjest (BIP44 standard, mida enamik rahakotte kasutab). Kasutatud aadressi pärast seda vahet ei arvestata – lisa see eraldi.</string>
     <string name="portfolio_address_xpub_used">Kasutusel aadresse: %1$d</string>

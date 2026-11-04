@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">今日 %1$s %2$s</string>
     <string name="macro_item_tomorrow">明日 %1$s %2$s</string>
+    <string name="macro_more_dates_later">今後の日程は、発表元が公開しだい追加されます。</string>
     <string name="macro_nfp">米雇用統計</string>
     <string name="macro_pce">米PCE物価指数</string>
     <string name="macro_ppi">米生産者物価指数（PPI）</string>

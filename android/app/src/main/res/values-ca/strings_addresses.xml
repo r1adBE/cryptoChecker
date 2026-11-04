@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Adreça pública (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) o xpub</string>
     <string name="portfolio_address_label">Etiqueta (opcional)</string>
     <string name="portfolio_address_not_since_buy">De l\'adreça · no inclòs a «Des de la compra»: %1$s</string>
-    <string name="portfolio_address_overlap">També a les teves transaccions: %1$s – només compta el que l\'adreça té de més.</string>
+    <string name="portfolio_address_overlap">També a les teves transaccions: %1$s – només compta el que l\'adreça té de més respecte a les teves transaccions en aquest moneder.</string>
     <string name="portfolio_address_overlap_ask">Ja registres %1$s amb les teves transaccions. Vols sumar el saldo d\'aquesta adreça a la cartera o només mostrar-lo?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ara només es mostra, no es compta – %2$s també apareixen a les teves transaccions.</string>
     <string name="portfolio_address_overlap_title">Les mateixes monedes que les teves transaccions?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Només mostra, no ho sumis a la cartera</string>
     <string name="portfolio_address_show_only_short">Només mostra</string>
     <string name="portfolio_address_tokens">Compta els tokens</string>
+    <string name="portfolio_address_withdrawal_match">La mateixa quantitat que la teva transferència a «%1$s»: posa aquesta adreça com a destinació o comptarà dues vegades.</string>
     <string name="portfolio_address_xpub_privacy">Una xpub revela totes les adreces d\'aquest moneder. Es deriven al teu dispositiu; a %1$s només s\'envien adreces individuals – com a mínim 40 sol·licituds en la primera exploració, després menys. Les claus privades (xprv) no s\'accepten mai.</string>
     <string name="portfolio_address_xpub_gap">La cerca s\'atura després de %1$d adreces seguides sense ús (l\'estàndard BIP44 que fan servir la majoria de moneders). Una adreça usada més enllà d\'aquest buit no es compta – afegeix-la per separat.</string>
     <string name="portfolio_address_xpub_used">Adreces en ús: %1$d</string>

@@ -224,6 +224,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Avui %1$s %2$s</string>
     <string name="macro_item_tomorrow">Demà %1$s %2$s</string>
+    <string name="macro_more_dates_later">Les dates següents s\'afegiran quan la font les publiqui.</string>
     <string name="macro_nfp">Informe d\'ocupació dels EUA</string>
     <string name="macro_pce">Preus de la despesa en consum dels EUA (PCE)</string>
     <string name="macro_ppi">Preus de producció dels EUA (PPI)</string>

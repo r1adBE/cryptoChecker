@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
@@ -49,6 +50,7 @@ internal fun PairPrimaryButton(
     Button(
         onClick = onClick,
         enabled = enabled,
+        colors = DisabledColors.button(),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(horizontal = Spacing.lg, vertical = Spacing.md),
         modifier = modifier.fillMaxWidth().heightIn(min = 48.dp)

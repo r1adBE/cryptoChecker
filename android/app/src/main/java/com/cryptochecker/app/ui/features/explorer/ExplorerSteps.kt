@@ -34,6 +34,7 @@ import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.components.Ticker
 import com.cryptochecker.app.ui.features.watchlist.friendlyError
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.util.DisplayFormat
@@ -94,6 +95,7 @@ private fun ReloadPairsButton(enabled: Boolean, onClick: () -> Unit) {
     FilledTonalIconButton(
         onClick = onClick,
         enabled = enabled,
+        colors = DisabledColors.filledTonalIconButton(),
         modifier = Modifier.size(52.dp),
     ) {
         Icon(
@@ -278,7 +280,7 @@ private fun NoPairsYetRow(canReloadPairs: Boolean, onReload: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f),
         )
-        TextButton(onClick = onReload, enabled = canReloadPairs) {
+        TextButton(onClick = onReload, enabled = canReloadPairs, colors = DisabledColors.textButton()) {
             Text(stringResource(R.string.explorer_reload_pairs))
         }
     }
@@ -289,6 +291,7 @@ private fun AddToWatchlistButton(enabled: Boolean, onClick: () -> Unit) {
     Button(
         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
         enabled = enabled,
+        colors = DisabledColors.button(),
         onClick = onClick,
     ) {
         Icon(

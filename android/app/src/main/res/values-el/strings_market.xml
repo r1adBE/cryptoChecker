@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Σήμερα %1$s %2$s</string>
     <string name="macro_item_tomorrow">Αύριο %1$s %2$s</string>
+    <string name="macro_more_dates_later">Περισσότερες ημερομηνίες θα ακολουθήσουν μόλις τις δημοσιεύσει η πηγή.</string>
     <string name="macro_nfp">έκθεση απασχόλησης ΗΠΑ</string>
     <string name="macro_pce">πληθωρισμός PCE ΗΠΑ</string>
     <string name="macro_ppi">τιμές παραγωγού ΗΠΑ (PPI)</string>

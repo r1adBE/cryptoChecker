@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">පොදු ලිපිනය (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) හෝ xpub</string>
     <string name="portfolio_address_label">ලේබලය (විකල්ප)</string>
     <string name="portfolio_address_not_since_buy">ලිපිනයෙන් · “මිලදී ගැනීමේ සිට” හි නැත: %1$s</string>
-    <string name="portfolio_address_overlap">ඔබේම ගනුදෙනුවලද ඇත: %1$s – ලිපිනයේ ඊට වඩා ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ.</string>
+    <string name="portfolio_address_overlap">ඔබේම ගනුදෙනුවලද ඇත: %1$s – මෙම පසුම්බියේ ඔබේ ගනුදෙනුවලට වඩා ලිපිනයේ ඇති ප්‍රමාණය පමණක් ගණන් කෙරේ.</string>
     <string name="portfolio_address_overlap_ask">ඔබ දැනටමත් %1$s ඔබේම ගනුදෙනු සමඟ සටහන් කරයි. මෙම ලිපිනයේ ශේෂය කළඹට එක් කරන්නද, නැතහොත් පෙන්වීම පමණක්ද?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” දැන් පෙන්වනු පමණි, ගණනය නොකෙරේ – %2$s ඔබේ ගනුදෙනුවලද ඇත.</string>
     <string name="portfolio_address_overlap_title">ඔබේ ගනුදෙනුවල ඇති කාසිම ද?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">පෙන්වීම පමණක්, කළඹට එක් නොකරන්න</string>
     <string name="portfolio_address_show_only_short">පෙන්වීම පමණක්</string>
     <string name="portfolio_address_tokens">ටෝකන ගණනය කරන්න</string>
+    <string name="portfolio_address_withdrawal_match">“%1$s” වෙත ඔබේ මාරු කිරීමට සමාන ප්‍රමාණයකි – ගමනාන්තය මෙම ලිපිනය ලෙස සකසන්න, නැතහොත් එය දෙවරක් ගණන් වේ.</string>
     <string name="portfolio_address_xpub_privacy">xpub එකක් මෙම පසුම්බියේ සියලු ලිපින හෙළි කරයි. ඒවා ඔබේ උපාංගයේ ව්‍යුත්පන්න කෙරේ; %1$s වෙත යවන්නේ තනි ලිපින පමණි – පළමු ස්කෑන් කිරීමේදී අවම වශයෙන් ඉල්ලීම් 40 ක්, පසුව අඩුවෙන්. පුද්ගලික යතුරු (xprv) කිසිවිටෙක පිළිගනු නොලැබේ.</string>
     <string name="portfolio_address_xpub_gap">භාවිත නොකළ ලිපින %1$d ක් අඛණ්ඩව ආවාට පසු සෙවීම නතර වේ (බොහෝ පසුම්බි භාවිත කරන BIP44 සම්මතය). එම පරතරයෙන් ඔබ්බට ඇති භාවිත කළ ලිපිනයක් ගණනය නොකෙරේ – එය වෙනම එක් කරන්න.</string>
     <string name="portfolio_address_xpub_used">භාවිතයේ ඇති ලිපින: %1$d</string>

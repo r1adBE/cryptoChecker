@@ -78,7 +78,7 @@ struct WatchEditSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("action_save")) { save() }
                         .fontWeight(.semibold)
-                        .disabled(!canSave)
+                        .appDisabled(!canSave)
                 }
             }
             .sheet(item: $picker) { kind in
@@ -166,7 +166,7 @@ struct WatchEditSheet: View {
                         .font(.footnote.weight(.semibold))
                         .tint(accent.primary)
                         .buttonStyle(.borderless)
-                        .disabled(!vm.canReloadPairs)
+                        .appDisabled(!vm.canReloadPairs)
                 }
             }
         }

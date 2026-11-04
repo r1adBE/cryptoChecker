@@ -16,8 +16,8 @@ struct AddressMove: Equatable, Sendable {
 /// t, 0) — `held`. Gebuchte Bewegungen = wirksame Posten (`AddressCostLots.coverage`) und erfasste Bewegungen der Wallet
 /// (`AddressCostLots.recordedMove`, nur die verrechnende Adresse, nur bis zum Abruf des Guthabens); ihre Zeit wird auf die
 /// letzte Beobachtung begrenzt (das zuletzt geladene Guthaben enthält sie wie auf der Karte). Vor der ersten Beobachtung
-/// zählt die Adresse nicht; die letzte Stufe ist der Adress-Teil der Karte. Danach zählt je Coin über alle Adressen nur der
-/// Mehrbestand über den eigenen Bestand (`AddressSurplus`, `withLedger`). Regeln wie Android (dort beschrieben).
+/// zählt die Adresse nicht; die letzte Stufe ist der Adress-Teil der Karte. Danach zählt je Coin und Wallet nur der
+/// Mehrbestand über den eigenen Bestand dieser Wallet (`AddressSurplus`, `withLedger`). Regeln wie Android (dort beschrieben).
 enum AddressBooked {
 
     /// Reihen wie `AddressBalanceHistory.of`, an der ersten Reihe je Adresse und Coin die gebuchten Bewegungen (`moves`);
@@ -55,22 +55,28 @@ enum AddressBooked {
         return out
     }
 
-    /// An der ersten Reihe je Coin der eigene Bestand als Stufen (`AddressSurplus.ledgerSteps`, Zeiten bis zur letzten
-    /// Beobachtung des Coins) — `AddressBalanceHistory.trades` zählt dann nur den Mehrbestand (`AddressSurplus.steps`).
+    /// An der ersten Reihe je Coin und Wallet (`AddressBalanceHistory.wallet`) der eigene Bestand dieser Wallet als Stufen
+    /// (`AddressSurplus.ledgerSteps`, Zeiten bis zur letzten Beobachtung des Coins in der Wallet) —
+    /// `AddressBalanceHistory.trades` zählt dann nur den Mehrbestand (`AddressSurplus.steps`).
     private static func withLedger(_ out: inout [AddressBalanceHistory], _ addresses: [WatchedAddress], real: [PortfolioTx]) {
         guard !real.isEmpty, !out.isEmpty else { return }
-        let net = AddressSurplus.netMoves(real)
-        let recorded = AddressSurplus.recordedMoves(addresses, real: real)
-        var coins: [String] = []
-        for h in out where !coins.contains(PortfolioCalculator.normalizeCoin(h.coin)) {
-            coins.append(PortfolioCalculator.normalizeCoin(h.coin))
+        let moves = AddressSurplus.walletMoves(addresses, real: real)
+        var groups: [(coin: String, wallet: String)] = []
+        for h in out {
+            let coin = PortfolioCalculator.normalizeCoin(h.coin)
+            if !groups.contains(where: { $0.coin == coin && $0.wallet == h.wallet }) { groups.append((coin, h.wallet)) }
         }
-        for coin in coins {
-            let series = out.indices.filter { PortfolioCalculator.normalizeCoin(out[$0].coin) == coin }
+        for (coin, wallet) in groups {
+            // Keine erfasste Bewegung dieses Coins in der Wallet: Adressen einzeln wie ohne eigene Transaktionen
+            guard let m = moves[wallet], let net = m.all[coin] else { continue }
+            let series = out.indices.filter { out[$0].wallet == wallet && PortfolioCalculator.normalizeCoin(out[$0].coin) == coin }
             guard let first = series.first else { continue }
             let last = series.compactMap { i in out[i].observations.map(\.time).max() }.max() ?? 0
-            let steps = AddressSurplus.ledgerSteps(net: net[coin] ?? [], recorded: recorded[coin] ?? [], last: last)
-            if steps.contains(where: { $0.balance > 0 }) { out[first].ledger = steps }
+            let absorbed = series.contains {
+                out[$0].chain == m.owner.chain && WatchedAddressRules.sameAddress(m.owner.chain, out[$0].address, m.owner.address)
+            }
+            out[first].ledger = AddressSurplus.ledgerSteps(net: net, recorded: m.fetched[coin] ?? [], last: last,
+                                                           absorbed: absorbed)
         }
     }
 
@@ -81,8 +87,9 @@ enum AddressBooked {
     }
 
     /// Stufen der Reihen `group` (eine Adresse, ein Coin) ohne gebuchte Bewegungen: zu jeder Beobachtungszeit Summe der
-    /// zuletzt beobachteten Guthaben minus Bewegungen bis dahin, nie unter 0; aufsteigend.
-    static func held(_ group: [AddressBalanceHistory]) -> [AddressObservation] {
+    /// zuletzt beobachteten Guthaben minus Bewegungen bis dahin, mit `floor` nie unter 0 (ohne: für `AddressSurplus.steps`,
+    /// das Übersteigen zieht dort von den übrigen Adressen der Wallet ab); aufsteigend.
+    static func held(_ group: [AddressBalanceHistory], floor: Bool = true) -> [AddressObservation] {
         let series = group.map { h in
             h.observations.enumerated().filter { $0.element.balance >= 0 }
                 .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
@@ -93,7 +100,7 @@ enum AddressBooked {
         return times.map { t in
             let observed = series.reduce(Decimal(0)) { sum, list in sum + (list.last(where: { $0.time <= t })?.balance ?? 0) }
             let booked = moves.filter { $0.time <= t }.reduce(Decimal(0)) { $0 + $1.amount }
-            return AddressObservation(time: t, balance: Swift.max(observed - booked, 0))
+            return AddressObservation(time: t, balance: floor ? Swift.max(observed - booked, 0) : observed - booked)
         }
     }
 }

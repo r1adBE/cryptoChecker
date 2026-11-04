@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Opinbert vistfang (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eða xpub</string>
     <string name="portfolio_address_label">Merki (valfrjálst)</string>
     <string name="portfolio_address_not_since_buy">Frá vistfangi · ekki í „Frá kaupum“: %1$s</string>
-    <string name="portfolio_address_overlap">Líka í þínum eigin færslum: %1$s – aðeins það sem vistfangið á umfram telst með.</string>
+    <string name="portfolio_address_overlap">Líka í þínum eigin færslum: %1$s – aðeins það sem vistfangið á umfram færslurnar þínar í þessu veski telst með.</string>
     <string name="portfolio_address_overlap_ask">Þú skráir %1$s nú þegar með eigin færslum. Bæta stöðu þessa vistfangs við eignasafnið eða aðeins sýna hana?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ er nú aðeins sýnt, ekki talið með – %2$s birtast líka í færslunum þínum.</string>
     <string name="portfolio_address_overlap_title">Sömu myntir og í færslunum þínum?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Aðeins sýna, ekki bæta við eignasafnið</string>
     <string name="portfolio_address_show_only_short">Aðeins sýna</string>
     <string name="portfolio_address_tokens">Telja tóka</string>
+    <string name="portfolio_address_withdrawal_match">Sama magn og millifærslan þín til „%1$s“ – veldu þetta vistfang sem viðtakanda, annars telst hún tvisvar.</string>
     <string name="portfolio_address_xpub_privacy">xpub sýnir öll vistföng þessa veskis. Þau eru leidd út á tækinu þínu; aðeins stök vistföng eru send til %1$s – minnst 40 fyrirspurnir við fyrstu skönnun, síðar færri. Einkalyklar (xprv) eru aldrei samþykktir.</string>
     <string name="portfolio_address_xpub_gap">Leitin stöðvast eftir %1$d ónotuð vistföng í röð (BIP44-staðallinn sem flest veski nota). Notað vistfang handan þess bils er ekki talið með – bættu því við sérstaklega.</string>
     <string name="portfolio_address_xpub_used">Vistföng í notkun: %1$d</string>

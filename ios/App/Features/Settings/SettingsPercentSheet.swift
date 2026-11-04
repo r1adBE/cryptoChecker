@@ -66,7 +66,7 @@ struct SettingsPercentSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("action_save"), action: save)
                         .fontWeight(.semibold)
-                        .disabled(parsed == nil)
+                        .appDisabled(parsed == nil)
                 }
             }
             .onAppear { focused = true }

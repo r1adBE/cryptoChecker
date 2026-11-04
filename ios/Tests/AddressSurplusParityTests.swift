@@ -1,8 +1,9 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «Nur Mehrbestand» (`AddressSurplus`, `address_surplus.json`): Karte, Reihe (Zeiträume/Verlauf) und Stichtag zählen je
-/// Coin nur, was die zählenden Adressen über die eigenen Transaktionen hinaus halten. Wie `AddressSurplusParityTest.kt`.
+/// «Nur Mehrbestand, gleiche Wallet» (`AddressSurplus`, `address_surplus.json`): Karte, Detail, Reihe (Zeiträume/Verlauf)
+/// und Stichtag zählen je Coin nur, was die zählenden Adressen über die eigenen Transaktionen IHRER Wallet hinaus halten;
+/// Bestände anderer Wallets ziehen nichts ab. Wie `AddressSurplusParityTest.kt`.
 final class AddressSurplusParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -13,7 +14,8 @@ final class AddressSurplusParityTests: XCTestCase {
 
     private func address(_ o: [String: Any]) -> WatchedAddress {
         WatchedAddress(id: int64(o["id"]), chain: AddressChain(rawValue: o["chain"] as? String ?? "") ?? .BTC,
-                       address: o["address"] as? String ?? "", lastBalance: o["lastBalance"] as? String,
+                       address: o["address"] as? String ?? "", label: o["label"] as? String,
+                       lastBalance: o["lastBalance"] as? String,
                        lastUpdated: int64(o["lastUpdated"]))
     }
 
@@ -39,7 +41,7 @@ final class AddressSurplusParityTests: XCTestCase {
         }
     }
 
-    func testCardHistoryAndCutoffCountOnlyTheSurplus() throws {
+    func testCardHistoryAndCutoffCountOnlyTheSurplusOfTheSameWallet() throws {
         let data = try S.fixture("address_surplus")
         let today = int64(data["today"])
         let cutoff = int64(data["cutoff"])

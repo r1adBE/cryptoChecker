@@ -335,7 +335,7 @@ struct PortfolioTxSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("action_save"), action: save)
-                        .fontWeight(.semibold).disabled(saving)
+                        .fontWeight(.semibold).appDisabled(saving)
                 }
             }
         }

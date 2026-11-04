@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Alamat awam (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) atau xpub</string>
     <string name="portfolio_address_label">Label (pilihan)</string>
     <string name="portfolio_address_not_since_buy">Daripada alamat · tidak termasuk dalam “Sejak pembelian”: %1$s</string>
-    <string name="portfolio_address_overlap">Juga ada dalam transaksi anda sendiri: %1$s – hanya lebihan pada alamat yang dikira.</string>
+    <string name="portfolio_address_overlap">Juga ada dalam transaksi anda sendiri: %1$s – hanya lebihan pada alamat berbanding transaksi anda dalam dompet ini yang dikira.</string>
     <string name="portfolio_address_overlap_ask">Anda sudah merekod %1$s dengan transaksi anda sendiri. Kira baki alamat ini dalam portfolio, atau tunjukkan sahaja?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” kini ditunjukkan sahaja, tidak dikira – %2$s juga ada dalam transaksi anda.</string>
     <string name="portfolio_address_overlap_title">Koin yang sama seperti dalam transaksi anda?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Tunjuk sahaja, jangan kira dalam portfolio</string>
     <string name="portfolio_address_show_only_short">Tunjuk sahaja</string>
     <string name="portfolio_address_tokens">Kira token</string>
+    <string name="portfolio_address_withdrawal_match">Jumlah yang sama seperti pemindahan anda ke “%1$s” – tetapkan alamat ini sebagai destinasi, jika tidak ia dikira dua kali.</string>
     <string name="portfolio_address_xpub_privacy">xpub mendedahkan semua alamat dompet ini. Alamat dijana pada peranti anda; hanya alamat individu dihantar kepada %1$s – sekurang-kurangnya 40 permintaan pada imbasan pertama, kemudian lebih sedikit. Kunci peribadi (xprv) tidak sekali-kali diterima.</string>
     <string name="portfolio_address_xpub_gap">Carian berhenti selepas %1$d alamat tidak digunakan berturut-turut (piawai BIP44 yang digunakan kebanyakan dompet). Alamat yang digunakan selepas jurang itu tidak dikira – tambahkannya secara berasingan.</string>
     <string name="portfolio_address_xpub_used">Alamat digunakan: %1$d</string>

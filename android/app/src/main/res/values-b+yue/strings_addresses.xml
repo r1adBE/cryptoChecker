@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">公開地址（BTC、ETH &amp; EVM、SOL、TRX、XRP、LTC、TON、ADA）或 xpub</string>
     <string name="portfolio_address_label">標籤（可選）</string>
     <string name="portfolio_address_not_since_buy">來自地址 · 唔計入「買入至今」：%1$s</string>
-    <string name="portfolio_address_overlap">你自己嘅交易入面都有：%1$s – 只會計地址多出嚟嘅部分。</string>
+    <string name="portfolio_address_overlap">你自己嘅交易入面都有：%1$s – 只會計地址比你喺呢個錢包嘅交易多出嚟嘅部分。</string>
     <string name="portfolio_address_overlap_ask">你已經用自己嘅交易記錄咗 %1$s。要將呢個地址嘅結餘加入投資組合，定係只顯示？</string>
     <string name="portfolio_address_overlap_auto">「%1$s」而家只顯示、唔計入 – %2$s 亦喺你嘅交易入面。</string>
     <string name="portfolio_address_overlap_title">同你嘅交易係同一批幣？</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">只顯示，唔加入投資組合</string>
     <string name="portfolio_address_show_only_short">只顯示</string>
     <string name="portfolio_address_tokens">計入代幣</string>
+    <string name="portfolio_address_withdrawal_match">同你轉去「%1$s」嘅數量一樣 – 將目的地改做呢個地址，唔係就會計兩次。</string>
     <string name="portfolio_address_xpub_privacy">xpub 會披露呢個錢包嘅所有地址。地址喺你部裝置上推導；只會將個別地址傳送去 %1$s – 第一次掃描最少 40 個請求，之後會少啲。永遠唔接受私鑰（xprv）。</string>
     <string name="portfolio_address_xpub_gap">連續 %1$d 個未用過嘅地址之後就會停止搜尋（大部分錢包採用嘅 BIP44 標準）。超出呢個間隔嘅已用地址唔會計入 – 請另外加入。</string>
     <string name="portfolio_address_xpub_used">使用中嘅地址：%1$d</string>

@@ -141,7 +141,7 @@ struct CycleMacroHintRow: View {
             TimelineView(.everyMinute) { context in
                 let now = Int64(context.date.timeIntervalSince1970 * 1000)
                 if let hint = MacroCalendar.hint(events, now: now), MacroCalendar.isImminent(hint, now: now) == atTop {
-                    let text = MacroCalendar.hintText(hint)
+                    let text = MacroCalendar.rowText(hint)
                     if atTop {
                         topBox(text)
                     } else {

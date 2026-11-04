@@ -55,6 +55,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import java.time.ZoneId
 
@@ -199,6 +200,7 @@ internal fun CsvImportPreviewSheet(
                 Button(
                     onClick = onConfirm,
                     enabled = total > 0 && allDecided && !rereading,
+                    colors = DisabledColors.button(),
                     modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_CONFIRM),
                 ) {
                     Text(stringResource(R.string.portfolio_csv_import_confirm, total))
@@ -220,6 +222,7 @@ private fun ZonePicker(zone: String, onZone: (String) -> Unit, enabled: Boolean)
                 selected = z == zone,
                 onClick = { if (z != zone) onZone(z) },
                 enabled = enabled,
+                colors = DisabledColors.filterChip(),
                 label = { Text(if (z == device) stringResource(R.string.portfolio_csv_import_zone_device, z) else z) },
             )
         }
@@ -237,6 +240,7 @@ private fun DateOrderPicker(order: CsvDateOrder, onDateOrder: (CsvDateOrder) -> 
                 selected = o == order,
                 onClick = { if (o != order) onDateOrder(o) },
                 enabled = enabled,
+                colors = DisabledColors.filterChip(),
                 label = {
                     Text(
                         stringResource(
@@ -264,6 +268,7 @@ private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> 
                     selected = m == mark,
                     onClick = { if (m != mark) onDecimalMark(m) },
                     enabled = enabled,
+                    colors = DisabledColors.filterChip(),
                     label = { Text("$sample = ${CsvImport.text(value)}", style = MaterialTheme.typography.bodyMedium.tabularNumbers()) },
                 )
             }

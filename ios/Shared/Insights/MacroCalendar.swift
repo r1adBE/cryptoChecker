@@ -28,10 +28,12 @@ struct MacroHintItem: Equatable, Sendable {
     let tomorrow: Bool
 }
 
-/// Hinweis «Wirtschaftsdaten»; `released` = alle Termine mehr als 2 h vorbei.
+/// Hinweis «Wirtschaftsdaten»; `released` = alle Termine mehr als 2 h vorbei; `seriesEnds` = ein Termin ist der letzte
+/// bekannte seiner Reihe (die Quelle hat noch keine weiteren veröffentlicht, z. B. BEA PCE nur bis Dezember) — wie Android.
 struct MacroHint: Equatable, Sendable {
     let items: [MacroHintItem]
     let released: Bool
+    var seriesEnds = false
 
     var allToday: Bool { items.allSatisfy { !$0.tomorrow } }
     var allTomorrow: Bool { items.allSatisfy { $0.tomorrow } }
@@ -112,7 +114,9 @@ enum MacroCalendar {
             }
         guard !items.isEmpty else { return nil }
         let released = items.allSatisfy { now >= $0.event.time + releasedAfterMillis }
-        return MacroHint(items: items, released: released)
+        // Danach kein Termin derselben Art mehr in der Datei: die Reihe endet im gezeigten Bereich
+        let ends = items.contains { item in !events.contains { $0.type == item.event.type && $0.time > item.event.time } }
+        return MacroHint(items: items, released: released, seriesEnds: ends)
     }
 
     /// Termin näher als so viel (davor oder danach): Hinweis oben im Abschnitt «Jetzt».
@@ -167,6 +171,12 @@ enum MacroCalendar {
             L(item.tomorrow ? "macro_item_tomorrow" : "macro_item_today", time(item.event.time), label(item.event.type))
         }
         return L("macro_hint_list", parts.joined(separator: " · "))
+    }
+
+    /// Text der Zeile «Wirtschaftsdaten» (Markt-Tab): `hintText`, endet eine Reihe (`seriesEnds`) darunter
+    /// «Weitere Termine folgen, sobald die Quelle sie veröffentlicht.» — wie Android `MacroTexts.rowText`.
+    static func rowText(_ hint: MacroHint) -> String {
+        hint.seriesEnds ? hintText(hint) + "\n" + L("macro_more_dates_later") : hintText(hint)
     }
 
     /// Text der Morgen-Mitteilung: die Termine des Tages.

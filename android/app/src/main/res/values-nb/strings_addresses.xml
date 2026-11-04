@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Offentlig adresse (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) eller xpub</string>
     <string name="portfolio_address_label">Etikett (valgfritt)</string>
     <string name="portfolio_address_not_since_buy">Fra adresse · ikke i «Siden kjøp»: %1$s</string>
-    <string name="portfolio_address_overlap">Også i dine egne transaksjoner: %1$s – bare det adressen har utover dem, telles.</string>
+    <string name="portfolio_address_overlap">Også i dine egne transaksjoner: %1$s – bare det adressen har utover transaksjonene dine i denne walleten, telles.</string>
     <string name="portfolio_address_overlap_ask">Du registrerer allerede %1$s med egne transaksjoner. Skal saldoen for denne adressen telle med i porteføljen eller bare vises?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» vises nå bare og telles ikke med – %2$s finnes også i transaksjonene dine.</string>
     <string name="portfolio_address_overlap_title">Samme coins som i transaksjonene dine?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Bare vis, ikke tell med i porteføljen</string>
     <string name="portfolio_address_show_only_short">Bare vis</string>
     <string name="portfolio_address_tokens">Regn med tokens</string>
+    <string name="portfolio_address_withdrawal_match">Samme mengde som overføringen din til «%1$s» – sett mottakeren til denne adressen, ellers telles den dobbelt.</string>
     <string name="portfolio_address_xpub_privacy">En xpub avslører alle adressene i denne walleten. De utledes på enheten din; bare enkeltadresser sendes til %1$s – minst 40 forespørsler ved første søk, senere færre. Private nøkler (xprv) godtas aldri.</string>
     <string name="portfolio_address_xpub_gap">Søket stopper etter %1$d ubrukte adresser på rad (BIP44-standarden de fleste lommebøker bruker). En brukt adresse etter dette gapet telles ikke med – legg den til separat.</string>
     <string name="portfolio_address_xpub_used">Adresser i bruk: %1$d</string>

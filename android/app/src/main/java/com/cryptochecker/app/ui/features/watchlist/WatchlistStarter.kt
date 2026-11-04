@@ -42,6 +42,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterSelection
 import com.cryptochecker.app.ui.components.readableWidth
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
@@ -203,6 +204,7 @@ internal fun StarterPicker(
             Button(
                 onClick = onAdd,
                 enabled = selectedCount > 0 && !adding,
+                colors = DisabledColors.button(),
                 // Kennung für den Baseline-Profile-Generator
                 modifier = Modifier.padding(top = 16.dp).fillMaxWidth().heightIn(min = 48.dp).testTag(UiTestTags.STARTER_ADD)
             ) {

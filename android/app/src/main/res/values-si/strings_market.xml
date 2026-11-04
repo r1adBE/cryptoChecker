@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">අද %1$s %2$s</string>
     <string name="macro_item_tomorrow">හෙට %1$s %2$s</string>
+    <string name="macro_more_dates_later">මූලාශ්‍රය ප්‍රකාශ කළ වහාම ඉදිරි දින එක් කෙරේ.</string>
     <string name="macro_nfp">එ.ජ. රැකියා වාර්තාව</string>
     <string name="macro_pce">එ.ජ. පාරිභෝගික වියදම් මිල (PCE)</string>
     <string name="macro_ppi">එ.ජ. නිෂ්පාදක මිල (PPI)</string>

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Leo %1$s %2$s</string>
     <string name="macro_item_tomorrow">Kesho %1$s %2$s</string>
+    <string name="macro_more_dates_later">Tarehe zaidi zitafuata mara chanzo kitakapozichapisha.</string>
     <string name="macro_nfp">Ripoti ya ajira ya Marekani</string>
     <string name="macro_pce">Bei za matumizi ya walaji Marekani (PCE)</string>
     <string name="macro_ppi">Bei za wazalishaji Marekani (PPI)</string>

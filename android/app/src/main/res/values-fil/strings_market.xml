@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Ngayon %1$s %2$s</string>
     <string name="macro_item_tomorrow">Bukas %1$s %2$s</string>
+    <string name="macro_more_dates_later">Susunod ang iba pang petsa kapag nailathala na ng pinagmulan.</string>
     <string name="macro_nfp">Jobs report ng US</string>
     <string name="macro_pce">Presyo ng consumer spending sa US (PCE)</string>
     <string name="macro_ppi">Producer prices ng US (PPI)</string>

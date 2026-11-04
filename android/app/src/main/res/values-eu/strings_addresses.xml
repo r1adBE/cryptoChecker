@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Helbide publikoa (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) edo xpub</string>
     <string name="portfolio_address_label">Etiketa (aukerakoa)</string>
     <string name="portfolio_address_not_since_buy">Helbidetik · ez dago «Erosketaz geroztik» atalean: %1$s</string>
-    <string name="portfolio_address_overlap">Zure transakzioetan ere bai: %1$s – helbideak gehiago duena bakarrik zenbatzen da.</string>
+    <string name="portfolio_address_overlap">Zure transakzioetan ere bai: %1$s – helbideak kartera honetako zure transakzioek baino gehiago duena bakarrik zenbatzen da.</string>
     <string name="portfolio_address_overlap_ask">Zure transakzioekin erregistratzen duzu jada: %1$s. Helbide honen saldoa zorroari gehitu nahi diozu, ala erakutsi soilik?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» erakutsi soilik egiten da orain, ez da zenbatzen – %2$s zure transakzioetan ere agertzen dira.</string>
     <string name="portfolio_address_overlap_title">Zure transakzioetako txanpon berak?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Erakutsi soilik, ez gehitu zorroari</string>
     <string name="portfolio_address_show_only_short">Erakutsi soilik</string>
     <string name="portfolio_address_tokens">Zenbatu tokenak</string>
+    <string name="portfolio_address_withdrawal_match">«%1$s»(e)ra egindako transferentziaren kantitate bera – jarri helbide hau helmuga gisa; bestela, bi aldiz zenbatuko da.</string>
     <string name="portfolio_address_xpub_privacy">Xpub batek kartera honen helbide guztiak agerian uzten ditu. Zure gailuan eratortzen dira; banakako helbideak bakarrik bidaltzen zaizkio honi: %1$s – gutxienez 40 eskaera lehen eskaneatzean, gero gutxiago. Gako pribatuak (xprv) ez dira inoiz onartzen.</string>
     <string name="portfolio_address_xpub_gap">Bilaketa gelditu egiten da jarraian erabili gabeko %1$d helbideren ondoren (kartera gehienek erabiltzen duten BIP44 estandarra). Hutsune horretatik haragoko helbide erabili bat ez da zenbatzen – gehitu bereizita.</string>
     <string name="portfolio_address_xpub_used">Erabilitako helbideak: %1$d</string>

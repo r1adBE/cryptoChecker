@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Ochiq manzil (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) yoki xpub</string>
     <string name="portfolio_address_label">Nom (ixtiyoriy)</string>
     <string name="portfolio_address_not_since_buy">Manzildan · «Xariddan beri» ichida emas: %1$s</string>
-    <string name="portfolio_address_overlap">Oʻz tranzaksiyalaringizda ham bor: %1$s – faqat manzildagi ortiqcha qismi hisoblanadi.</string>
+    <string name="portfolio_address_overlap">Oʻz tranzaksiyalaringizda ham bor: %1$s – faqat manzildagi shu hamyondagi tranzaksiyalaringizdan ortiqcha qismi hisoblanadi.</string>
     <string name="portfolio_address_overlap_ask">%1$s allaqachon oʻz tranzaksiyalaringizda hisobga olingan. Bu manzil balansini portfelga qoʻshasizmi yoki faqat koʻrsatasizmi?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» endi faqat koʻrsatiladi, hisobga olinmaydi – %2$s tranzaksiyalaringizda ham bor.</string>
     <string name="portfolio_address_overlap_title">Tangalar tranzaksiyalaringizdagi bilan bir xilmi?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Faqat koʻrsatish, portfelga qoʻshmaslik</string>
     <string name="portfolio_address_show_only_short">Faqat koʻrsatish</string>
     <string name="portfolio_address_tokens">Tokenlarni hisobga olish</string>
+    <string name="portfolio_address_withdrawal_match">«%1$s» ga qilgan oʻtkazmangiz bilan bir xil miqdor – manzil sifatida shu manzilni tanlang, aks holda ikki marta hisoblanadi.</string>
     <string name="portfolio_address_xpub_privacy">xpub bu hamyonning barcha manzillarini ochib beradi. Ular qurilmangizda hosil qilinadi; %1$s xizmatiga faqat alohida manzillar yuboriladi – birinchi qidiruvda kamida 40 ta soʻrov, keyin kamroq. Maxfiy kalitlar (xprv) hech qachon qabul qilinmaydi.</string>
     <string name="portfolio_address_xpub_gap">Qidiruv ketma-ket %1$d ta ishlatilmagan manzildan keyin toʻxtaydi (koʻp hamyonlar ishlatadigan BIP44 standarti). Bu oraliqdan keyingi ishlatilgan manzil hisoblanmaydi – uni alohida qoʻshing.</string>
     <string name="portfolio_address_xpub_used">Ishlatilgan manzillar: %1$d</string>

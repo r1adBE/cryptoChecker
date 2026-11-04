@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Anwani ya umma (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) au xpub</string>
     <string name="portfolio_address_label">Lebo (si lazima)</string>
     <string name="portfolio_address_not_since_buy">Kutoka anwani · haimo kwenye “Tangu ununuzi”: %1$s</string>
-    <string name="portfolio_address_overlap">Pia iko kwenye miamala yako mwenyewe: %1$s – kinachohesabiwa ni ziada iliyo kwenye anwani tu.</string>
+    <string name="portfolio_address_overlap">Pia iko kwenye miamala yako mwenyewe: %1$s – kinachohesabiwa ni ziada tu iliyo kwenye anwani juu ya miamala yako katika wallet hii.</string>
     <string name="portfolio_address_overlap_ask">Tayari unarekodi %1$s kwa miamala yako mwenyewe. Uongeze salio la anwani hii kwenye jalada, au uionyeshe tu?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” sasa inaonyeshwa tu, haihesabiwi – %2$s pia zinaonekana kwenye miamala yako.</string>
     <string name="portfolio_address_overlap_title">Sarafu zile zile kama za miamala yako?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Onyesha tu, usiongeze kwenye jalada</string>
     <string name="portfolio_address_show_only_short">Onyesha tu</string>
     <string name="portfolio_address_tokens">Hesabu tokeni</string>
+    <string name="portfolio_address_withdrawal_match">Kiasi sawa na uhamisho wako kwenda “%1$s” – weka anwani hii kuwa mahali pa kufikia, la sivyo itahesabiwa mara mbili.</string>
     <string name="portfolio_address_xpub_privacy">xpub hufichua anwani zote za wallet hii. Zinatolewa kwenye kifaa chako; anwani moja moja pekee ndizo zinatumwa kwa %1$s – angalau maombi 40 kwenye uchanganuzi wa kwanza, baadaye machache zaidi. Funguo za siri (xprv) hazikubaliwi kamwe.</string>
     <string name="portfolio_address_xpub_gap">Utafutaji unasimama baada ya anwani %1$d mfululizo ambazo hazijatumika (kiwango cha BIP44 kinachotumiwa na wallet nyingi). Anwani iliyotumika nje ya pengo hilo haihesabiwi – iongeze kando.</string>
     <string name="portfolio_address_xpub_used">Anwani zinazotumika: %1$d</string>

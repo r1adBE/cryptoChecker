@@ -1,5 +1,5 @@
 {
-  "_comment": "Nur Mehrbestand (AddressSurplus, Android + iOS): eine Adresse, die zum Portfolio zaehlt, zaehlt je Coin nur max(0, Adress-Teil − eigener Bestand). Mehrere Adressen desselben Coins: erst summiert, dann der eigene Bestand einmal abgezogen. addressPart = Karte (AddressBalance.withAddresses/split), holdings = Bestand der Karte (FIFO), booked = letzte Stufe der Reihe (AddressBooked, Zeitraeume/Verlauf), cutoff = Adress-Teil am Stichtag (AddressCutoff, CH-Vermoegen). counted = Regel allein [Adresse, eigener Bestand, gezaehlt].",
+  "_comment": "Nur Mehrbestand, gleiche Wallet (AddressSurplus, Android + iOS): eine Adresse, die zum Portfolio zaehlt, zaehlt je Coin nur max(0, Adress-Teil − eigener Bestand IHRER Wallet) (Wallet = Bezeichnung, sonst gekuerzte Adresse); Bestaende anderer Wallets (Boerse, andere Adresse) ziehen nichts ab. Mehrere Adressen derselben Wallet: erst summiert, dann der eigene Bestand der Wallet einmal abgezogen; verschiedene Wallets unabhaengig. addressPart = Karte (AddressBalance.withAddresses/split), holdings = Bestand der Karte (FIFO), booked = letzte Stufe der Reihe (AddressBooked, Zeitraeume/Verlauf), cutoff = Adress-Teil am Stichtag (AddressCutoff, CH-Vermoegen). counted = Regel allein [Adresse, eigener Bestand, gezaehlt].",
   "today": 20000,
   "cutoff": 1735689599999,
   "counted": [
@@ -31,13 +31,14 @@
   ],
   "cases": [
     {
-      "name": "equal amounts: nothing added",
+      "name": "exchange 1 + watched cold wallet 1 (no own entries in its wallet): 2",
       "addresses": [
         {
           "id": 1,
           "chain": "BTC",
           "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
-          "lastBalance": "1.00",
+          "label": "Cold",
+          "lastBalance": "1",
           "lastUpdated": 1727740800000
         }
       ],
@@ -46,26 +47,33 @@
           "id": 1,
           "coin": "BTC",
           "type": "BUY",
-          "amount": "1.00",
+          "amount": "1",
           "price": "40000",
           "time": 1724976000000,
           "exchange": "Binance"
         }
       ],
-      "addressPart": {},
-      "holdings": {
+      "addressPart": {
         "BTC": "1"
       },
-      "booked": {},
-      "cutoffAddress": {}
+      "holdings": {
+        "BTC": "2"
+      },
+      "booked": {
+        "BTC": "1"
+      },
+      "cutoffAddress": {
+        "BTC": "1"
+      }
     },
     {
-      "name": "address 1.06 against own 1.00: 0.06 added",
+      "name": "own 1.00 recorded in the address wallet + address 1.06: 1.06 in total",
       "addresses": [
         {
           "id": 1,
           "chain": "BTC",
           "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+          "label": "Ledger",
           "lastBalance": "1.06",
           "lastUpdated": 1727740800000
         }
@@ -78,7 +86,7 @@
           "amount": "1.00",
           "price": "40000",
           "time": 1724976000000,
-          "exchange": "Binance"
+          "exchange": "Ledger"
         }
       ],
       "addressPart": {
@@ -93,6 +101,45 @@
       "cutoffAddress": {
         "BTC": "0.06"
       }
+    },
+    {
+      "name": "recorded transfer exchange to the address wallet 1 + address 1: 1 in total",
+      "addresses": [
+        {
+          "id": 1,
+          "chain": "BTC",
+          "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+          "label": "Ledger",
+          "lastBalance": "1",
+          "lastUpdated": 1727740800000
+        }
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1725580800000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        }
+      ],
+      "addressPart": {},
+      "holdings": {
+        "BTC": "1"
+      },
+      "booked": {},
+      "cutoffAddress": {}
     },
     {
       "name": "coin only on the address (airdrop) counts fully",
@@ -131,12 +178,13 @@
       }
     },
     {
-      "name": "address less than own holdings: nothing added",
+      "name": "address less than own holdings of its wallet: nothing added",
       "addresses": [
         {
           "id": 1,
           "chain": "BTC",
           "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+          "label": "Ledger",
           "lastBalance": "0.4",
           "lastUpdated": 1727740800000
         }
@@ -149,7 +197,7 @@
           "amount": "1.0",
           "price": "40000",
           "time": 1724976000000,
-          "exchange": "Binance"
+          "exchange": "Ledger"
         }
       ],
       "addressPart": {},
@@ -160,12 +208,13 @@
       "cutoffAddress": {}
     },
     {
-      "name": "two addresses of the same coin: own holdings subtracted once",
+      "name": "two addresses in different wallets: each against its own wallet only",
       "addresses": [
         {
           "id": 1,
           "chain": "BTC",
           "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+          "label": "Cold A",
           "lastBalance": "0.6",
           "lastUpdated": 1727654400000
         },
@@ -173,6 +222,7 @@
           "id": 2,
           "chain": "BTC",
           "address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+          "label": "Cold B",
           "lastBalance": "0.7",
           "lastUpdated": 1727740800000
         }
@@ -185,7 +235,51 @@
           "amount": "1.0",
           "price": "40000",
           "time": 1724976000000,
-          "exchange": "Binance"
+          "exchange": "Cold A"
+        }
+      ],
+      "addressPart": {
+        "BTC": "0.7"
+      },
+      "holdings": {
+        "BTC": "1.7"
+      },
+      "booked": {
+        "BTC": "0.7"
+      },
+      "cutoffAddress": {
+        "BTC": "0.7"
+      }
+    },
+    {
+      "name": "two addresses in the same wallet: summed, own holdings of the wallet subtracted once",
+      "addresses": [
+        {
+          "id": 1,
+          "chain": "BTC",
+          "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+          "label": "Ledger",
+          "lastBalance": "0.6",
+          "lastUpdated": 1727654400000
+        },
+        {
+          "id": 2,
+          "chain": "BTC",
+          "address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+          "label": "Ledger",
+          "lastBalance": "0.7",
+          "lastUpdated": 1727740800000
+        }
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1.0",
+          "price": "40000",
+          "time": 1724976000000,
+          "exchange": "Ledger"
         }
       ],
       "addressPart": {

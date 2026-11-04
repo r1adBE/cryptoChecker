@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Publiska adrese (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) vai xpub</string>
     <string name="portfolio_address_label">Nosaukums (nav obligāts)</string>
     <string name="portfolio_address_not_since_buy">No adreses · nav iekļauts „Kopš pirkuma“: %1$s</string>
-    <string name="portfolio_address_overlap">Ir arī tavos darījumos: %1$s – tiek skaitīts tikai tas, kas adresē ir vairāk.</string>
+    <string name="portfolio_address_overlap">Ir arī tavos darījumos: %1$s – tiek skaitīts tikai tas, kas adresē ir vairāk nekā tavos darījumos šajā maciņā.</string>
     <string name="portfolio_address_overlap_ask">Tu jau uzskaiti %1$s ar saviem darījumiem. Ieskaitīt šīs adreses atlikumu portfelī vai tikai to rādīt?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ tagad tikai tiek rādīts, netiek ieskaitīts – %2$s ir arī tavos darījumos.</string>
     <string name="portfolio_address_overlap_title">Tās pašas monētas kā tavos darījumos?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Tikai rādīt, neieskaitīt portfelī</string>
     <string name="portfolio_address_show_only_short">Tikai rādīt</string>
     <string name="portfolio_address_tokens">Ieskaitīt žetonus</string>
+    <string name="portfolio_address_withdrawal_match">Tāds pats daudzums kā tavam pārskaitījumam uz „%1$s“ – iestati šo adresi kā galamērķi, citādi tas tiek skaitīts divreiz.</string>
     <string name="portfolio_address_xpub_privacy">xpub atklāj visas šī maciņa adreses. Tās tiek atvasinātas tavā ierīcē; uz %1$s tiek sūtītas tikai atsevišķas adreses – pirmajā meklēšanā vismaz 40 pieprasījumi, vēlāk mazāk. Privātās atslēgas (xprv) nekad netiek pieņemtas.</string>
     <string name="portfolio_address_xpub_gap">Meklēšana apstājas pēc %1$d neizmantotām adresēm pēc kārtas (BIP44 standarts, ko izmanto lielākā daļa maciņu). Izmantota adrese aiz šīs atstarpes netiek ieskaitīta – pievieno to atsevišķi.</string>
     <string name="portfolio_address_xpub_used">Izmantotās adreses: %1$d</string>

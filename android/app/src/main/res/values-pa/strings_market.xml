@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">ਅੱਜ %1$s %2$s</string>
     <string name="macro_item_tomorrow">ਕੱਲ੍ਹ %1$s %2$s</string>
+    <string name="macro_more_dates_later">ਸਰੋਤ ਵੱਲੋਂ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੇ ਹੀ ਅਗਲੀਆਂ ਤਾਰੀਖਾਂ ਜੋੜੀਆਂ ਜਾਣਗੀਆਂ।</string>
     <string name="macro_nfp">ਅਮਰੀਕੀ ਨੌਕਰੀਆਂ ਦੀ ਰਿਪੋਰਟ</string>
     <string name="macro_pce">ਅਮਰੀਕੀ ਖਪਤਕਾਰ ਖਰਚ ਕੀਮਤਾਂ (PCE)</string>
     <string name="macro_ppi">ਅਮਰੀਕੀ ਉਤਪਾਦਕ ਕੀਮਤਾਂ (PPI)</string>

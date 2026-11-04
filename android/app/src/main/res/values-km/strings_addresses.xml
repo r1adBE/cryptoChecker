@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">អាសយដ្ឋានសាធារណៈ (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ឬ xpub</string>
     <string name="portfolio_address_label">ស្លាក (ស្រេចចិត្ត)</string>
     <string name="portfolio_address_not_since_buy">ពីអាសយដ្ឋាន · មិននៅក្នុង «តាំងពីការទិញ»៖ %1$s</string>
-    <string name="portfolio_address_overlap">ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$s – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប៉ុណ្ណោះដែលត្រូវរាប់។</string>
+    <string name="portfolio_address_overlap">ក៏មាននៅក្នុងប្រតិបត្តិការផ្ទាល់ខ្លួនដែរ៖ %1$s – មានតែចំនួនដែលអាសយដ្ឋានមានលើសប្រតិបត្តិការរបស់អ្នកក្នុងកាបូបនេះប៉ុណ្ណោះដែលត្រូវរាប់។</string>
     <string name="portfolio_address_overlap_ask">អ្នកបានកត់ត្រា %1$s ជាមួយប្រតិបត្តិការផ្ទាល់ខ្លួនរួចហើយ។ បូកសមតុល្យនៃអាសយដ្ឋាននេះទៅក្នុងផលប័ត្រ ឬគ្រាន់តែបង្ហាញវា?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» ឥឡូវគ្រាន់តែបង្ហាញ មិនរាប់បញ្ចូលទេ – %2$s ក៏មាននៅក្នុងប្រតិបត្តិការរបស់អ្នកដែរ។</string>
     <string name="portfolio_address_overlap_title">កាក់ដូចគ្នានឹងប្រតិបត្តិការរបស់អ្នកមែនទេ?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">បង្ហាញតែប៉ុណ្ណោះ កុំបូកចូលផលប័ត្រ</string>
     <string name="portfolio_address_show_only_short">បង្ហាញតែប៉ុណ្ណោះ</string>
     <string name="portfolio_address_tokens">រាប់ថូខឹន</string>
+    <string name="portfolio_address_withdrawal_match">ចំនួនដូចការផ្ទេររបស់អ្នកទៅ «%1$s» – សូមកំណត់គោលដៅជាអាសយដ្ឋាននេះ បើមិនដូច្នោះទេ វានឹងត្រូវរាប់ពីរដង។</string>
     <string name="portfolio_address_xpub_privacy">xpub បង្ហាញអាសយដ្ឋានទាំងអស់នៃកាបូបនេះ។ អាសយដ្ឋានទាំងនោះត្រូវបានបង្កើតនៅលើឧបករណ៍របស់អ្នក។ មានតែអាសយដ្ឋាននីមួយៗប៉ុណ្ណោះត្រូវបានផ្ញើទៅ %1$s – យ៉ាងហោចណាស់ 40 សំណើនៅពេលស្កេនលើកដំបូង ក្រោយមកតិចជាងនេះ។ សោឯកជន (xprv) មិនដែលត្រូវបានទទួលយកទេ។</string>
     <string name="portfolio_address_xpub_gap">ការស្វែងរកឈប់បន្ទាប់ពីអាសយដ្ឋានមិនបានប្រើ %1$d ជាប់ៗគ្នា (ស្តង់ដារ BIP44 ដែលកាបូបភាគច្រើនប្រើ)។ អាសយដ្ឋានដែលបានប្រើហួសចន្លោះនោះមិនត្រូវបានរាប់ទេ – សូមបន្ថែមវាដោយឡែក។</string>
     <string name="portfolio_address_xpub_used">អាសយដ្ឋានកំពុងប្រើ៖ %1$d</string>

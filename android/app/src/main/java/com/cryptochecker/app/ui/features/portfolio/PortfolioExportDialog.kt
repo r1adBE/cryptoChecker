@@ -32,6 +32,7 @@ import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.LocaleNumbers
 import java.time.LocalDate
@@ -159,6 +160,7 @@ fun PortfolioExportDialog(
         confirmButton = {
             TextButton(
                 enabled = !running,
+                colors = DisabledColors.textButton(),
                 onClick = { viewModel.dismissFailure(); launcher.launch(CutoffExport.fileName(date)) }
             ) { Text(stringResource(R.string.portfolio_export_button)) }
         },

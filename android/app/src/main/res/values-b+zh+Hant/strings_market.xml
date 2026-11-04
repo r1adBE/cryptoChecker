@@ -220,6 +220,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">今天 %1$s %2$s</string>
     <string name="macro_item_tomorrow">明天 %1$s %2$s</string>
+    <string name="macro_more_dates_later">後續日期將在來源公布後列出。</string>
     <string name="macro_nfp">美國非農就業報告</string>
     <string name="macro_pce">美國 PCE 物價指數</string>
     <string name="macro_ppi">美國生產者物價指數（PPI）</string>

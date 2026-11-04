@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Tänään %1$s %2$s</string>
     <string name="macro_item_tomorrow">Huomenna %1$s %2$s</string>
+    <string name="macro_more_dates_later">Lisää päivämääriä tulee, kun lähde julkaisee ne.</string>
     <string name="macro_nfp">Yhdysvaltain työllisyysraportti</string>
     <string name="macro_pce">Yhdysvaltain PCE-inflaatio</string>
     <string name="macro_ppi">Yhdysvaltain tuottajahinnat (PPI)</string>

@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.ui.components.DialogText
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
@@ -279,6 +280,7 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
             confirmButton = {
                 TextButton(
                     enabled = parsed != null,
+                    colors = DisabledColors.textButton(),
                     onClick = {
                         parsed?.let(onSelected)
                         editing = false

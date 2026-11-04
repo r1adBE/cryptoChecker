@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Јавна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Ознака (опционално)</string>
     <string name="portfolio_address_not_since_buy">Од адреса · не е во „Од купувањето“: %1$s</string>
-    <string name="portfolio_address_overlap">И во твоите трансакции: %1$s – се брои само она што адресата го има повеќе.</string>
+    <string name="portfolio_address_overlap">И во твоите трансакции: %1$s – се брои само она што адресата го има повеќе од твоите трансакции во овој паричник.</string>
     <string name="portfolio_address_overlap_ask">%1$s веќе го водиш со свои трансакции. Да го додадам салдото на оваа адреса во портфолиото или само да го прикажам?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ сега само се прикажува, не се вбројува – %2$s се појавуваат и во твоите трансакции.</string>
     <string name="portfolio_address_overlap_title">Исти монети како во твоите трансакции?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Само прикажи, не додавај во портфолиото</string>
     <string name="portfolio_address_show_only_short">Само прикажи</string>
     <string name="portfolio_address_tokens">Вброј токени</string>
+    <string name="portfolio_address_withdrawal_match">Иста количина како твојот пренос кон „%1$s“ – постави ја оваа адреса како цел, инаку се брои двапати.</string>
     <string name="portfolio_address_xpub_privacy">xpub ги открива сите адреси на овој паричник. Тие се изведуваат на твојот уред; до %1$s се испраќаат само поединечни адреси – најмалку 40 барања при првото скенирање, подоцна помалку. Приватни клучеви (xprv) никогаш не се прифаќаат.</string>
     <string name="portfolio_address_xpub_gap">Пребарувањето застанува по %1$d неискористени адреси по ред (стандардот BIP44 што го користат повеќето паричници). Искористена адреса по таа празнина не се вбројува – додај ја посебно.</string>
     <string name="portfolio_address_xpub_used">Адреси во употреба: %1$d</string>

@@ -7,7 +7,7 @@
     <string name="portfolio_address_hint">Enderezo público (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ou xpub</string>
     <string name="portfolio_address_label">Etiqueta (opcional)</string>
     <string name="portfolio_address_not_since_buy">Do enderezo · non incluído en «Desde a compra»: %1$s</string>
-    <string name="portfolio_address_overlap">Tamén nas túas transaccións: %1$s – só conta o que o enderezo ten de máis.</string>
+    <string name="portfolio_address_overlap">Tamén nas túas transaccións: %1$s – só conta o que o enderezo ten de máis respecto das túas transaccións neste moedeiro.</string>
     <string name="portfolio_address_overlap_ask">Xa rexistras %1$s coas túas transaccións. Queres sumar o saldo deste enderezo á carteira ou só mostralo?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» agora só se mostra, non se conta – %2$s tamén aparecen nas túas transaccións.</string>
     <string name="portfolio_address_overlap_title">As mesmas moedas que as túas transaccións?</string>
@@ -17,6 +17,7 @@
     <string name="portfolio_address_show_only">Só mostrar, non sumar á carteira</string>
     <string name="portfolio_address_show_only_short">Só mostrar</string>
     <string name="portfolio_address_tokens">Contar tokens</string>
+    <string name="portfolio_address_withdrawal_match">A mesma cantidade cá túa transferencia a «%1$s»: pon este enderezo como destino ou contará dúas veces.</string>
     <string name="portfolio_address_xpub_privacy">Unha xpub revela todos os enderezos deste moedeiro. Derívanse no teu dispositivo; a %1$s só se envían enderezos individuais – polo menos 40 solicitudes na primeira exploración, despois menos. As claves privadas (xprv) nunca se aceptan.</string>
     <string name="portfolio_address_xpub_gap">A busca detense despois de %1$d enderezos seguidos sen uso (o estándar BIP44 que usan a maioría dos moedeiros). Un enderezo usado máis alá dese oco non se conta – engádeo por separado.</string>
     <string name="portfolio_address_xpub_used">Enderezos en uso: %1$d</string>

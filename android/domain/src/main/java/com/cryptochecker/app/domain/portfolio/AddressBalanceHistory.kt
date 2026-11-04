@@ -41,10 +41,13 @@ data class AddressBalanceHistory(
      */
     val moves: List<AddressMove> = emptyList(),
     /**
-     * Eigener Bestand des Coins als Stufen ([AddressSurplus.ledgerSteps]) — nur an der ersten Reihe je Coin, gesetzt von
-     * [AddressBooked.histories]; [trades] zählt dann nur den Mehrbestand aller Adressen des Coins ([AddressSurplus.steps]).
+     * Eigener Bestand des Coins in der Wallet dieser Reihe als Stufen ([AddressSurplus.ledgerSteps]) — nur an der ersten
+     * Reihe je Coin und Wallet, gesetzt von [AddressBooked.histories]; [trades] zählt dann nur den Mehrbestand der
+     * Adressen dieser Wallet ([AddressSurplus.steps]).
      */
     val ledger: List<AddressObservation> = emptyList(),
+    /** Wallet der Adresse ([PortfolioWallets.key] von [AddressCostLots.walletName]), gesetzt von [of]. */
+    val wallet: String = PortfolioWallets.UNSPECIFIED,
 ) {
     val coin: String get() = token ?: chain.coin
 
@@ -89,7 +92,7 @@ data class AddressBalanceHistory(
          * ([AddressBalance.isAddressTrade]) — [PortfolioPeriodChange] und [PortfolioHistory] bewerten sie zum
          * Marktkurs ihres Zeitpunkts. Dieselbe Adresse (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe).
          * Reihen mit gebuchten Bewegungen ([moves]) zählen ohne sie ([AddressBooked.held]). Mit eigenem Bestand ([ledger])
-         * zählen alle Adressen des Coins zusammen nur den Mehrbestand ([AddressSurplus.steps]).
+         * zählen die Adressen des Coins in derselben Wallet ([wallet]) zusammen nur den Mehrbestand ([AddressSurplus.steps]).
          */
         fun trades(histories: List<AddressBalanceHistory>): List<PortfolioTrade> {
             val out = ArrayList<PortfolioTrade>()
@@ -100,10 +103,10 @@ data class AddressBalanceHistory(
             }
             var nextId = -1_000_001L
             for (h in kept) {
-                val sameCoin = kept.filter { PortfolioCalculator.normalizeCoin(it.coin) == PortfolioCalculator.normalizeCoin(h.coin) }
-                val ledger = sameCoin.firstOrNull { it.ledger.isNotEmpty() }?.ledger
+                val sameWallet = kept.filter { it.wallet == h.wallet && PortfolioCalculator.normalizeCoin(it.coin) == PortfolioCalculator.normalizeCoin(h.coin) }
+                val ledger = sameWallet.firstOrNull { it.ledger.isNotEmpty() }?.ledger
                 val steps = if (ledger == null) partSteps(h, kept) ?: continue
-                else if (sameCoin.first() === h) AddressSurplus.steps(sameCoin.mapNotNull { partSteps(it, kept) }, ledger) else continue
+                else if (sameWallet.first() === h) AddressSurplus.steps(sameWallet.mapNotNull { partSteps(it, kept, floor = false) }, ledger) else continue
                 var previous = BigDecimal.ZERO
                 for (o in steps) {
                     if (o.balance.signum() < 0) continue
@@ -127,10 +130,10 @@ data class AddressBalanceHistory(
          * Stufen der Reihe [h] in [trades]: ohne gebuchte Bewegungen ihrer Adresse und ihres Coins die Beobachtungen; mit
          * ihnen alle Reihen dieser Adresse und dieses Coins zusammen ohne sie ([AddressBooked.held]) an der ersten, sonst null.
          */
-        private fun partSteps(h: AddressBalanceHistory, kept: List<AddressBalanceHistory>): List<AddressObservation>? {
+        private fun partSteps(h: AddressBalanceHistory, kept: List<AddressBalanceHistory>, floor: Boolean = true): List<AddressObservation>? {
             val group = kept.filter { AddressBooked.sameGroup(it, h) }
-            return if (group.all { it.moves.isEmpty() }) h.observations.sortedBy { it.time }
-            else if (group.first() === h) AddressBooked.held(group) else null
+            return if (group.all { it.moves.isEmpty() }) h.observations.filter { it.balance.signum() >= 0 }.sortedBy { it.time }
+            else if (group.first() === h) AddressBooked.held(group, floor) else null
         }
 
         /**
@@ -150,13 +153,14 @@ data class AddressBalanceHistory(
                     val balance = PortfolioDecimal.parse(a.lastBalance)?.takeIf { it.signum() >= 0 }
                     if (balance != null && a.lastUpdated > 0) listOf(AddressObservation(a.lastUpdated, balance)) else emptyList()
                 }
-                if (obs.isNotEmpty()) out += AddressBalanceHistory(a.chain, a.address, obs)
+                val wallet = PortfolioWallets.key(AddressCostLots.walletName(a))
+                if (obs.isNotEmpty()) out += AddressBalanceHistory(a.chain, a.address, obs, wallet = wallet)
                 val series = a.tokenObservations.entries.mapNotNull { (key, list) ->
                     val asset = ChainAssets.resolve(a.chain, key) ?: return@mapNotNull null
                     if (list.isEmpty() || !WatchedAddressRules.counts(a, key)) null else asset to list
                 }
                 for ((asset, list) in series.sortedBy { it.first.order }) {
-                    out += AddressBalanceHistory(a.chain, a.address, list, token = asset.coin, key = asset.key)
+                    out += AddressBalanceHistory(a.chain, a.address, list, token = asset.coin, key = asset.key, wallet = wallet)
                 }
             }
             return out

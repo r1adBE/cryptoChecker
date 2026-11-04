@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Bugün %1$s %2$s</string>
     <string name="macro_item_tomorrow">Yarın %1$s %2$s</string>
+    <string name="macro_more_dates_later">Diğer tarihler kaynak yayımlar yayımlamaz eklenecek.</string>
     <string name="macro_nfp">ABD istihdam raporu</string>
     <string name="macro_pce">ABD PCE enflasyonu</string>
     <string name="macro_ppi">ABD üretici fiyatları (ÜFE)</string>

@@ -222,6 +222,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">আজ %1$s %2$s</string>
     <string name="macro_item_tomorrow">আগামীকাল %1$s %2$s</string>
+    <string name="macro_more_dates_later">উৎস প্রকাশ করলেই পরবর্তী তারিখগুলো যোগ হবে।</string>
     <string name="macro_nfp">মার্কিন চাকরির প্রতিবেদন</string>
     <string name="macro_pce">মার্কিন ভোক্তা ব্যয়ের মূল্য (PCE)</string>
     <string name="macro_ppi">মার্কিন উৎপাদক মূল্য (PPI)</string>

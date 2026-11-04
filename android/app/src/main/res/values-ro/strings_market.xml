@@ -224,6 +224,7 @@
     <string name="macro_item">%1$s %2$s</string>
     <string name="macro_item_today">Azi %1$s %2$s</string>
     <string name="macro_item_tomorrow">Mâine %1$s %2$s</string>
+    <string name="macro_more_dates_later">Alte date vor urma de îndată ce sursa le publică.</string>
     <string name="macro_nfp">raportul locurilor de muncă din SUA</string>
     <string name="macro_pce">inflația PCE din SUA</string>
     <string name="macro_ppi">prețurile de producție din SUA (PPI)</string>

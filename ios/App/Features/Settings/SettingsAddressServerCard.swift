@@ -51,9 +51,9 @@ struct SettingsAddressServerCard: View {
                 }
                 HStack(spacing: Spacing.lg) {
                     Button(L("action_save")) { requestSave(check.url, saved: saved) }
-                        .disabled(check.problem != nil || check.url == saved)
+                        .appDisabled(check.problem != nil || check.url == saved)
                     Button(L("settings_address_server_test")) { runTest(check.url) }
-                        .disabled(check.problem != nil || check.url == nil || test.isRunning)
+                        .appDisabled(check.problem != nil || check.url == nil || test.isRunning)
                 }
                 .font(.body)
                 .padding(.vertical, Spacing.sm)
