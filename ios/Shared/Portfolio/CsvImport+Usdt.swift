@@ -15,7 +15,7 @@ extension CsvImport {
         return floorDiv(floorDiv(timeMillis, 1000) + offset, 86_400)
     }
 
-    /// USDT/USD-Tagesschluss am Tag `day` aus `usdtUsd` (Tag → Schluss), nur plausibel (`PortfolioStables.usdtUsd`);
+    /// USDT/USD-Tagesschluss am Tag `day` aus `usdtUsd` (Tag → Schluss), nur im Einbruch-Bereich 0.05…3 (`PortfolioStables.usdtUsd`);
     /// nil = keiner (kein Schluss eines anderen Tags) — wie `TaxExport.usdtUsdOn`. Wie Android.
     static func usdtUsdOn(_ usdtUsd: [Int: Decimal]?, day: Int64) -> Decimal? {
         guard let close = usdtUsd?[Int(day)], close > 0,

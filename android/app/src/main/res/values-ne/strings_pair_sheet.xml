@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">%1$s मा इतिहास, आजको दरमा %2$s मा रूपान्तरित</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD को इतिहास उपलब्ध छैन – पूरै चार्ट आजको USDT/USD दरमा</string>
     <string name="converted_unsure">रूपान्तरण अनिश्चित</string>
 </resources>

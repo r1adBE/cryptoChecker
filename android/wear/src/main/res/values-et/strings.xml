@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">hind puudub, %1$s pole kättesaadav</string>
     <string name="a11y_watch_no_price_phone_only">hind puudub, kell ei saa seda paari laadida</string>
     <string name="a11y_watch_no_price_via_phone">hind puudub, kell saab %1$s hindu ainult telefonist</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">hind puudub, börsid pole praegu kättesaadavad</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">viimati uuendatud %1$d minut tagasi</item>
         <item quantity="other">viimati uuendatud %1$d minutit tagasi</item>

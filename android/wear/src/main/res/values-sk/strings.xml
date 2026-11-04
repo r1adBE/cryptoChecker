@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">žiadna cena, %1$s nie je dostupná</string>
     <string name="a11y_watch_no_price_phone_only">žiadna cena, hodinky nemôžu načítať tento pár</string>
     <string name="a11y_watch_no_price_via_phone">žiadna cena, ceny z %1$s dostávajú hodinky len z telefónu</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">žiadna cena, burzy sú teraz nedostupné</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">naposledy aktualizované pred %1$d minútou</item>
         <item quantity="few">naposledy aktualizované pred %1$d minútami</item>

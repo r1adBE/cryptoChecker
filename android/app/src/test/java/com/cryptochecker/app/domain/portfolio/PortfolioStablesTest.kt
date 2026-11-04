@@ -115,21 +115,34 @@ class PortfolioStablesTest {
         assertEquals(5.0, change.percent!!, d)
     }
 
-    /** Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie iOS. */
+    /** USDT/USD live und Tagesschluss — gleicher Einbruch-Bereich 0.05…3, ein echter Einbruch zählt. Wie iOS. */
     @Test
-    fun usdtUsdLiveKeepsConfirmedBreak() {
+    fun usdtUsdKeepsBreakLiveAndDaily() {
         assertEquals(UsdtUsd(0.3, approximate = false), PortfolioStables.usdtUsdLive(0.3))
         assertEquals(UsdtUsd(2.0, approximate = false), PortfolioStables.usdtUsdLive(2.0))
         assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(0.04))
         assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(3.5))
         assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsdLive(null))
-        // Tagesschluss (eine Quelle, kein Abgleich): 0.3 bleibt unplausibel
-        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsd(0.3))
-        // Heute gilt der Live-Kurs auch im Einbruch, frühere Tage nur ein plausibler Schluss
-        val rates = UsdtUsdRates(0.3, mapOf(5L to 0.3))
-        assertEquals(0.3, rates.on(7, 7).rate, 0.0)
-        assertTrue(rates.on(5, 7).approximate)
-        assertTrue(PortfolioStables.isUsdtBreak(0.3))
+        // Tagesschluss: derselbe Bereich wie live (sonst gestern 1, heute 0.40 — eine erfundene Stufe)
+        assertEquals(UsdtUsd(0.4, approximate = false), PortfolioStables.usdtUsd(0.4))
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsd(0.04))
+        assertEquals(PortfolioStables.USDT_USD_FALLBACK, PortfolioStables.usdtUsd(3.5))
+        // Gespeicherter Schluss 0.40 und live 0.40: beide Tage 0.40, keine Stufe
+        val rates = UsdtUsdRates(0.4, mapOf(5L to 0.4, 6L to 0.4))
+        assertEquals(0.4, rates.on(7, 7).rate, 0.0)
+        assertEquals(UsdtUsd(0.4, approximate = false), rates.on(6, 7))
+        assertTrue(PortfolioStables.isUsdtBreak(0.4))
         assertFalse(PortfolioStables.isUsdtBreak(0.99))
+        // Normalbereich nur noch für die Wahl der Quelle
+        assertTrue(PortfolioStables.isUsdtNormal(0.99))
+        assertFalse(PortfolioStables.isUsdtNormal(0.4))
+        assertFalse(PortfolioStables.isUsdtNormal(Double.NaN))
+    }
+
+    /** Lückenfüller USDT/USD: Einbruch aus einer Quelle bleibt; sind sich zwei Quellen uneins, gilt der normale Wert. */
+    @Test
+    fun fillUsdtUsdKeepsSingleSourceBreak() {
+        val out = HistoricCloseChain.fillUsdtUsd(mapOf(1L to 0.4, 2L to 0.4), mapOf(2L to 1.0, 3L to 0.41))
+        assertEquals(mapOf(1L to 0.4, 2L to 1.0), out)
     }
 }

@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Verlauf in %1$s, mit heutigem Kurs in %2$s umgerechnet</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD-Verlauf nicht verfügbar – ganzer Chart mit heutigem USDT/USD-Kurs</string>
     <string name="converted_unsure">Umrechnung unsicher</string>
 </resources>

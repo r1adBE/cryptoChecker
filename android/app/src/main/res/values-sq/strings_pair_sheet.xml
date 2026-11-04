@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Ecuria në %1$s, e konvertuar në %2$s me kursin e sotëm</string>
+    <string name="sheet_chart_usdt_history_missing">Historiku USDT/USD nuk është i disponueshëm – i gjithë grafiku me kursin e sotëm USDT/USD</string>
     <string name="converted_unsure">Konvertim i pasigurt</string>
 </resources>

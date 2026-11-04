@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">nincs árfolyam, %1$s nem érhető el</string>
     <string name="a11y_watch_no_price_phone_only">nincs árfolyam, az óra nem tudja betölteni ezt a párt</string>
     <string name="a11y_watch_no_price_via_phone">nincs árfolyam, az óra a(z) %1$s árfolyamait csak a telefonról kapja</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">nincs árfolyam, a tőzsdék most nem érhetők el</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">utoljára frissítve %1$d perce</item>
         <item quantity="other">utoljára frissítve %1$d perce</item>

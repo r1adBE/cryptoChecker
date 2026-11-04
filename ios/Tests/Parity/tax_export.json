@@ -903,11 +903,11 @@
   ]
  },
  "usdtMarket": {
-  "_comment": "USDT zum Marktkurs: TaxExport.rateOn mit usdtUsd (USDT/USD-Tagesschluss je Datum, Tag = Datum der Arbeitsunterlage) = Devisenkurs (rates oben, CHF) × USDT/USD DES Tags; ohne (plausiblen, 0.5..1.5) Schluss × 1 und usdtApproximateOn = true. rateOn: [Datum, Währung, erwarteter Kurs, usdtApproximateOn]. Zeilen gainRows/incomeRows (FIFO, Steuerjahr 2025, CHF) mit usdtUsd: Beträge CHF und usdtApproximate; ohne usdtUsd (null) USDT = 1 (gainsPar/incomePar). incomeLines: Zeilen der Einkünfte-CSV (Semikolon/Punkt) mit Vermerk usdtAssumed.",
+  "_comment": "USDT zum Marktkurs: TaxExport.rateOn mit usdtUsd (USDT/USD-Tagesschluss je Datum, Tag = Datum der Arbeitsunterlage) = Devisenkurs (rates oben, CHF) × USDT/USD DES Tags; ohne Schluss im Einbruch-Bereich 0.05..3 (wie live, PortfolioStables.usdtUsd) × 1 und usdtApproximateOn = true. rateOn: [Datum, Währung, erwarteter Kurs, usdtApproximateOn]. Zeilen gainRows/incomeRows (FIFO, Steuerjahr 2025, CHF) mit usdtUsd: Beträge CHF und usdtApproximate; ohne usdtUsd (null) USDT = 1 (gainsPar/incomePar). incomeLines: Zeilen der Einkünfte-CSV (Semikolon/Punkt) mit Vermerk usdtAssumed.",
   "usdtUsd": {
    "20213": "0.97",
    "20270": "0.98",
-   "20087": "3"
+   "20087": "5"
   },
   "rateOn": [
    [

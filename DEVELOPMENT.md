@@ -1629,7 +1629,8 @@ the tests named here.
     → `PortfolioHistoryUi.chainSources` → caption `portfolio_history_chain_sources` («Daily prices: Kraken (PEPE)
     (instead of Binance)», `PortfolioExchangeRoute.sourcesText`).
   - USDT/USD daily closes: Kraken `USDTZUSD` first; if Kraken misses a day of the last 600 (unreachable, gap),
-    Coinbase `USDT-USD` fills it (`fillUsdtUsd`: only plausible 0.5 … 1.5 values, Kraken wins; cached
+    Coinbase `USDT-USD` fills it (`fillUsdtUsd`: Kraken wins unless it is outside the normal 0.5 … 1.5 and Coinbase
+    is inside – `PortfolioStables.isUsdtNormal` only picks the source; a crash only one source has stays; cached
     `phisto_USDTUSDCB`). Only after both, a day falls back to «USDT = 1 assumed».
   - FX is untouched: `usdTo` (Frankfurter answers a weekend/holiday with the last business day) and `usdToSeries`
     (from `LEAD_DAYS` = 7 days earlier, gaps filled with the previous rate by `PortfolioHistoryFx.rateOn`) do not use
@@ -2098,7 +2099,8 @@ the tests named here.
   sources. Readings are display-only (settings line «Monitored»); valuation still uses USDT alone.
 * **USDT at market price.** USDT stays the internal unit (1 USDT = 1 USDT, all
   ledgers/history in USDT), but USDT → fiat (USD included; USD itself stays 1) uses the USDT/USD market price like
-  USDC/DAI: `PortfolioStables.usdtUsd` (plausible 0.5…1.5, else **1 marked approximate** – never silent, values never
+  USDC/DAI: `PortfolioStables.usdtUsd` (break band 0.05…3 for the live rate and daily closes alike, so a real crash
+  such as 0.40 is kept and a history across it has no invented step; else **1 marked approximate** – never silent, values never
   go blank), `usdtTo` (USD→target × USDT/USD), `UsdtUsdRates` (live from today, daily close before; a day without
   close = 1 approximate). Wired through `PortfolioHistoryFx.convert/rateFunction` (`usdt`, flag `usdtApproximate`,
   `convertsUsdt`, `usdParity` for USD), `PortfolioExchangeRoute.toUsdt/ownDailyUsdt` (USD/fiat quotes ÷ USDT/USD),
@@ -2293,10 +2295,15 @@ Change a rule → change the JSON first, then both implementations.
   the one the portfolio value history uses; at most once per currency every 6 h). Only if the series
   is missing it uses today's rate and the caption says «(current rate)» instead of «converted at
   daily rates». Never convert a whole history with one rate silently. USDT → USD likewise per candle, like the
-  portfolio value history (`UsdtUsdRates.on`): today the live rate, earlier days the USDT/USD daily close the portfolio
-  already stored (`PortfolioHistorySource.cachedUsdtUsdDaily`, no request of its own); a day without one counts as 1 and
-  the chart says «USDT = 1 assumed» (`SheetChart.usdtApproximate` → `usdtParityNote`, also with a live rate). The 24 h
-  fallback `DayChange.fromUsdtSeries` takes USDT/USD at both ends too (`usdtUsd`, `usdtUsdAtOpen`; parity
+  portfolio value history (`UsdtUsdRates.on`): today the live rate, earlier days the USDT/USD daily close, loaded
+  through the portfolio's own source (`PortfolioHistorySource.usdtUsdDaily`: Kraken, gaps Coinbase, same cache – also
+  for watchlist-only users). Per candle only when EVERY candle has its rate (`SheetChart.usdtSeries`); otherwise one
+  rate for the whole series – the live rate with the note «USDT/USD history not available»
+  (`usdtHistoryNote`, `sheet_chart_usdt_history_missing`), without a live rate 1 with «USDT = 1 assumed»
+  (`usdtParityNote`) – never 1 in the past and live today (an invented step at the UTC day boundary). The 24 h
+  fallback `DayChange.fromUsdtSeries` takes USDT/USD at both ends too (`usdtUsd`, `usdtUsdAtOpen`), by the same rule
+  (`DayChange.usdtEnds`: both measured, else one rate for both ends – live, else 1; flags `usdtSeriesHistoryMissing` /
+  `usdtSeriesApproximate`; parity
   `day_change.json`, `sheet_chart.json`); the mini chart's same-token check divides by the live USDT/USD.
 * **Chart cache invalidation.** The stored chart (`SheetChart` cache, keyed by base and quote) is
   dropped on a manual refresh, pull-to-refresh, and when the live price has moved more than 3 % since
@@ -3284,6 +3291,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `DayChange.fromUsdtSeries` with USDT/USD at both ends; watch reason «only from the phone» for venues it cannot query.
 * Build 196: `StableDepeg` checks USDC (Kraken + cross rate) and held/watched stables (stored pair lists, two sources required);
   per-stable state, one switch; iOS `StableDepegPlanner` at the three call sites.
+* Build 197: chart loads `usdtUsdDaily`, never mixes measured and assumed USDT/USD (one rate + note); daily close band 0.05–3.0;
+  24 h value same rule; watch remembers the fetch outcome per pair (not listed vs. not reachable; HTTP 400 = not listed).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

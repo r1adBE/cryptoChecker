@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">walang presyo, hindi maabot ang %1$s</string>
     <string name="a11y_watch_no_price_phone_only">walang presyo, hindi ma-load ng relo ang pares na ito</string>
     <string name="a11y_watch_no_price_via_phone">walang presyo, sa telepono lang kinukuha ng relo ang mga presyo ng %1$s</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">walang presyo, hindi maabot ang mga exchange ngayon</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">huling na-update %1$d minuto ang nakalipas</item>
         <item quantity="other">huling na-update %1$d minuto ang nakalipas</item>

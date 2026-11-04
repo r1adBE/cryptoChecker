@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">គ្មានតម្លៃ, មិនអាចភ្ជាប់ទៅ %1$s បានទេ</string>
     <string name="a11y_watch_no_price_phone_only">គ្មានតម្លៃ, នាឡិកាមិនអាចផ្ទុកគូនេះបានទេ</string>
     <string name="a11y_watch_no_price_via_phone">គ្មានតម្លៃ, នាឡិកាទទួលតម្លៃ %1$s ពីទូរសព្ទតែប៉ុណ្ណោះ</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">គ្មានតម្លៃ, ឥឡូវនេះមិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d នាទីមុន</item>
     </plurals>

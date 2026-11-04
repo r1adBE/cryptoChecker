@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">preziorik ez, %1$s ez dago eskuragarri</string>
     <string name="a11y_watch_no_price_phone_only">preziorik ez, erlojuak ezin du bikote hau kargatu</string>
     <string name="a11y_watch_no_price_via_phone">preziorik ez, erlojuak %1$s prezioak telefonotik soilik jasotzen ditu</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">preziorik ez, burtsak ez daude orain eskuragarri</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">azkenekoz eguneratua duela %1$d minutu</item>
         <item quantity="other">azkenekoz eguneratua duela %1$d minutu</item>

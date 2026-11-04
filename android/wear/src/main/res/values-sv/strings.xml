@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ingen kurs, %1$s kan inte nås</string>
     <string name="a11y_watch_no_price_phone_only">ingen kurs, klockan kan inte hämta det här paret</string>
     <string name="a11y_watch_no_price_via_phone">ingen kurs, klockan får kurser från %1$s bara via telefonen</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ingen kurs, börserna kan inte nås just nu</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">senast uppdaterad för %1$d minut sedan</item>
         <item quantity="other">senast uppdaterad för %1$d minuter sedan</item>

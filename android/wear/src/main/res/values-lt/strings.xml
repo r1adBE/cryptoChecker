@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">kainos nėra, %1$s nepasiekiama</string>
     <string name="a11y_watch_no_price_phone_only">kainos nėra, laikrodis negali įkelti šios poros</string>
     <string name="a11y_watch_no_price_via_phone">kainos nėra, %1$s kainas laikrodis gauna tik iš telefono</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">kainos nėra, biržos šiuo metu nepasiekiamos</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">paskutinį kartą atnaujinta prieš %1$d minutę</item>
         <item quantity="few">paskutinį kartą atnaujinta prieš %1$d minutes</item>

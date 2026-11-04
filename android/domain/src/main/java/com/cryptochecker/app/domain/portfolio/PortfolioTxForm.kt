@@ -221,7 +221,7 @@ object PortfolioTxForm {
     /**
      * Faktor USDT → Anzeigewährung für die Eingabe (wie CSV-Import, Steuer-Export
      * `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung [usdToFiat] × USDT/USD [usdtUsd] (heute der
-     * Live-Kurs, sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs ([PortfolioStables.usdtUsd])
+     * Live-Kurs, sonst der Tagesschluss DES Tags). Ohne gültigen USDT/USD-Kurs im Einbruch-Bereich 0.05…3 ([PortfolioStables.usdtUsd])
      * × 1 (Näherung). [fiatToUsdt]/[usdtToFiat] rechnen mit diesem Faktor. null ohne Devisenkurs. Wie iOS.
      */
     fun entryRate(usdToFiat: BigDecimal?, usdtUsd: BigDecimal?): BigDecimal? {

@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">قیمتی نیست، %1$s در دسترس نیست</string>
     <string name="a11y_watch_no_price_phone_only">قیمتی نیست، ساعت نمی‌تواند این جفت را بارگیری کند</string>
     <string name="a11y_watch_no_price_via_phone">قیمتی نیست، ساعت قیمت‌های %1$s را فقط از تلفن می‌گیرد</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">قیمتی نیست، صرافی‌ها اکنون در دسترس نیستند</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">آخرین به‌روزرسانی %1$d دقیقه پیش</item>
         <item quantity="other">آخرین به‌روزرسانی %1$d دقیقه پیش</item>

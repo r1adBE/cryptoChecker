@@ -122,13 +122,16 @@ enum HistoricCloseChain {
         nameOk && PricePlausibility.acceptSourceClose(latest, primary: false, sourceLatest: latest, current: current)
     }
 
-    /// USDT/USD-Tagesschlüsse: `primary` (Kraken) gilt; Tage ohne Schluss dort füllt `secondary` (z. B. Coinbase), aber
-    /// nur plausible Werte (`PortfolioStables.usdtUsd` ohne Näherung). Erst danach gilt «USDT = 1 angenommen».
+    /// USDT/USD-Tagesschlüsse: `primary` (Kraken) gilt; Tage ohne Schluss dort füllt `secondary` (z. B. Coinbase).
+    /// Plausibilität nur für die Wahl der Quelle (`PortfolioStables.isUsdtNormal`, 0.5…1.5): ein Wert von `secondary`
+    /// ausserhalb füllt nichts; liegt `primary` ausserhalb, aber `secondary` im Normalbereich, gilt `secondary` (zwei
+    /// Quellen uneins → der normale Wert). Ein Einbruch, den nur eine Quelle hat, bleibt stehen (Umrechnung dann mit
+    /// `PortfolioStables.usdtUsd`, Einbruch-Bereich 0.05…3). Erst danach gilt «USDT = 1 angenommen». Wie Android.
     static func fillUsdtUsd(_ primary: [Int: Double], _ secondary: [Int: Double]) -> [Int: Double] {
         if secondary.isEmpty { return primary }
         var out: [Int: Double] = [:]
-        for (day, v) in secondary where !PortfolioStables.usdtUsd(v).approximate { out[day] = v }
-        for (day, v) in primary where !PortfolioStables.usdtUsd(v).approximate || out[day] == nil { out[day] = v }
+        for (day, v) in secondary where PortfolioStables.isUsdtNormal(v) { out[day] = v }
+        for (day, v) in primary where PortfolioStables.isUsdtNormal(v) || out[day] == nil { out[day] = v }
         return out
     }
 }

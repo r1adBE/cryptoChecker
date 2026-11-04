@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">%1$s 기준 추이, 오늘 환율로 %2$s 환산</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD 기록을 사용할 수 없습니다 – 차트 전체를 오늘 USDT/USD 환율로 환산</string>
     <string name="converted_unsure">환산 불확실</string>
 </resources>

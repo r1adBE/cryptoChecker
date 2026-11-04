@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">لا يوجد سعر، تعذّر الوصول إلى %1$s</string>
     <string name="a11y_watch_no_price_phone_only">لا يوجد سعر، لا تستطيع الساعة تحميل هذا الزوج</string>
     <string name="a11y_watch_no_price_via_phone">لا يوجد سعر، تحصل الساعة على أسعار %1$s من الهاتف فقط</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">لا يوجد سعر، تعذّر الوصول إلى المنصات حاليًا</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">آخر تحديث قبل %1$d دقيقة</item>
         <item quantity="one">آخر تحديث قبل %1$d دقيقة</item>

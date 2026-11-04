@@ -123,14 +123,17 @@ enum WatchQuoteFetch {
     }
 
     /// Favoriten des iPhones mit Paar (`WatchPair`) je für sich zuerst bei dessen Börse und Kontraktart
-    /// (`WatchPairQuotes`), Kürzel der eigenen Liste gemeinsam (Binance, dann Bybit, dann OKX).
-    static func fetch(_ coins: [String], get: @escaping @Sendable (URL) async -> Data?) async -> [String: WatchQuote] {
+    /// (`WatchPairQuotes`), Kürzel der eigenen Liste gemeinsam (Binance, dann Bybit, dann OKX). Je Paar geht das
+    /// Ergebnis an `record` (`WatchPairOutcomes`, Grund bei «—»). `get`: nil = keine Antwort; HTTP 400 = Antwort.
+    static func fetch(_ coins: [String],
+                      record: @escaping @Sendable (String, WatchPairQuotes.Outcome) -> Void = { WatchPairOutcomes.record($0, $1) },
+                      get: @escaping @Sendable (URL) async -> Data?) async -> [String: WatchQuote] {
         var seen = Set<String>()
         let all = Array(coins.filter { seen.insert($0).inserted }.prefix(WatchCoins.max))
         let pairs = all.compactMap(WatchPair.parse)
         let pairKeys = Set(pairs.map(\.key))
         async let paired = withTaskGroup(of: WatchQuote?.self, returning: [WatchQuote].self) { group in
-            for pair in pairs { group.addTask { await WatchPairQuotes.fetch(pair, get: get) } }
+            for pair in pairs { group.addTask { await WatchPairQuotes.fetch(pair, get: get, record: record) } }
             var out: [WatchQuote] = []
             for await q in group { if let q { out.append(q) } }
             return out

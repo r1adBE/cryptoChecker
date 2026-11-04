@@ -21,7 +21,15 @@ final class UsdtDepegFiatTests: XCTestCase {
         XCTAssertEqual(try XCTUnwrap(DayChange.fromUsdtSeries(81_000, ref, usdToQuote: 0.9, usdToQuoteAtOpen: 0.9)),
                        0, accuracy: 1e-9)
         XCTAssertTrue(DayChange.usdtSeriesApproximate(usdtUsd: nil, usdtUsdAtOpen: 1.0))
-        XCTAssertTrue(DayChange.usdtSeriesApproximate(usdtUsd: 0.9, usdtUsdAtOpen: nil))
+        // Kein Schluss zur Eröffnung, live 0.90: beide Enden 0.90 → 0 % statt erfundener −10 %
+        XCTAssertFalse(DayChange.usdtSeriesApproximate(usdtUsd: 0.9, usdtUsdAtOpen: nil))
+        XCTAssertTrue(DayChange.usdtSeriesHistoryMissing(usdtUsd: 0.9, usdtUsdAtOpen: nil))
+        XCTAssertEqual(try XCTUnwrap(DayChange.fromUsdtSeries(81_000, ref, usdToQuote: 0.9, usdToQuoteAtOpen: 0.9,
+                                                              usdtUsd: 0.9)), 0, accuracy: 1e-9)
+        // Schluss da, aber kein Live-Kurs: beide Enden 1 → 0 % statt +11 %
+        XCTAssertTrue(DayChange.usdtSeriesApproximate(usdtUsd: nil, usdtUsdAtOpen: 0.9))
+        XCTAssertEqual(try XCTUnwrap(DayChange.fromUsdtSeries(90_000, ref, usdToQuote: 0.9, usdToQuoteAtOpen: 0.9,
+                                                              usdtUsdAtOpen: 0.9)), 0, accuracy: 1e-9)
         // Ohne Devisenkurs zur Eröffnung weiterhin kein Wert
         XCTAssertNil(DayChange.fromUsdtSeries(81_000, ref, usdToQuote: 0.9, usdToQuoteAtOpen: nil,
                                               usdtUsd: 0.9, usdtUsdAtOpen: 1.0))
@@ -44,19 +52,37 @@ final class UsdtDepegFiatTests: XCTestCase {
         XCTAssertFalse(SheetChart.usdtApproximate(daily, usdt: usdt, todayEpochDay: 21))
     }
 
-    func testNoteFollowsTheDaysNotTheLiveRate() throws {
+    func testMissingHistoryNeverInventsAStep() throws {
         let rates: [Int: Double] = [20: 0.9, 21: 0.9]
-        // Live-Kurs da, aber kein Schluss für Tag 20: Vermerk (vorher fälschlich keiner)
+        // Review 195: nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
         let noClose = UsdtUsdRates(live: 0.9)
         let chart = try XCTUnwrap(SheetChart.accept(flat, request: fallback, price: 81_000, dailyRates: rates,
                                                     usdt: noClose, todayEpochDay: 21))
-        let approximate = SheetChart.usdtApproximate(chart, usdt: noClose, todayEpochDay: 21)
-        XCTAssertTrue(approximate)
-        XCTAssertTrue(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtApproximate: approximate))
-        // Schluss für Tag 20, aber kein Live-Kurs für heute: ebenfalls Vermerk
-        XCTAssertTrue(SheetChart.usdtApproximate(flat, usdt: UsdtUsdRates(live: nil, daily: [20: 1.0]), todayEpochDay: 21))
-        // Gar nichts: immer Vermerk
+        XCTAssertEqual(chart[0].close, 81_000, accuracy: 1e-6)
+        XCTAssertEqual(chart[1].close, 81_000, accuracy: 1e-6)
+        let series = SheetChart.usdtSeries(chart, usdt: noClose, todayEpochDay: 21)
+        XCTAssertFalse(series.approximate)
+        XCTAssertTrue(series.historyMissing)
+        XCTAssertTrue(SheetChart.usdtHistoryNote(.daily, sourcePair: "BTC/USDT", historyMissing: series.historyMissing))
+        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT", usdtApproximate: series.approximate))
+        // Mit einem Devisenkurs ebenso
+        let current = try XCTUnwrap(SheetChart.accept(flat, request: fallback, price: 81_000, currentRate: 0.9,
+                                                      usdt: noClose, todayEpochDay: 21))
+        XCTAssertEqual(current[0].close, current[1].close, accuracy: 1e-6)
+        // Schluss für Tag 20, aber kein Live-Kurs: ganze Reihe 1, Vermerk «USDT = 1»
+        let noLive = SheetChart.usdtSeries(flat, usdt: UsdtUsdRates(live: nil, daily: [20: 1.0]), todayEpochDay: 21)
+        XCTAssertEqual(noLive.rates, [1, 1])
+        XCTAssertTrue(noLive.approximate)
+        XCTAssertFalse(noLive.historyMissing)
+        // Gar nichts: immer Vermerk «USDT = 1»
         XCTAssertTrue(SheetChart.usdtApproximate(flat, usdt: nil, todayEpochDay: 21))
+        // Echter Einbruch: Schluss 0.40 gespeichert und live 0.40 → beide Tage 0.40, keine Stufe
+        let crash = UsdtUsdRates(live: 0.4, daily: [20: 0.4])
+        let crashed = try XCTUnwrap(SheetChart.accept(flat, request: fallback, price: 36_000, dailyRates: rates,
+                                                      usdt: crash, todayEpochDay: 21))
+        XCTAssertEqual(crashed[0].close, 36_000, accuracy: 1e-6)
+        XCTAssertEqual(crashed[1].close, 36_000, accuracy: 1e-6)
+        XCTAssertFalse(SheetChart.usdtSeries(crashed, usdt: crash, todayEpochDay: 21).historyMissing)
     }
 
     func testSparklineCheckDividesByUsdtUsd() {

@@ -130,14 +130,17 @@ object HistoricCloseChain {
         nameOk && PricePlausibility.acceptSourceClose(latest, primary = false, sourceLatest = latest, current = current)
 
     /**
-     * USDT/USD-Tagesschlüsse: [primary] (Kraken) gilt; Tage ohne Schluss dort füllt [secondary] (z. B. Coinbase), aber
-     * nur plausible Werte ([PortfolioStables.usdtUsd] ohne Näherung). Erst danach gilt «USDT = 1 angenommen».
+     * USDT/USD-Tagesschlüsse: [primary] (Kraken) gilt; Tage ohne Schluss dort füllt [secondary] (z. B. Coinbase).
+     * Plausibilität nur für die Wahl der Quelle ([PortfolioStables.isUsdtNormal], 0.5…1.5): ein Wert von [secondary]
+     * ausserhalb füllt nichts; liegt [primary] ausserhalb, aber [secondary] im Normalbereich, gilt [secondary] (zwei
+     * Quellen uneins → der normale Wert). Ein Einbruch, den nur eine Quelle hat, bleibt stehen (Umrechnung dann mit
+     * [PortfolioStables.usdtUsd], Einbruch-Bereich 0.05…3). Erst danach gilt «USDT = 1 angenommen».
      */
     fun fillUsdtUsd(primary: Map<Long, Double>, secondary: Map<Long, Double>): Map<Long, Double> {
         if (secondary.isEmpty()) return primary
         val out = HashMap<Long, Double>(primary.size + secondary.size)
-        secondary.forEach { (day, v) -> if (!PortfolioStables.usdtUsd(v).approximate) out[day] = v }
-        primary.forEach { (day, v) -> if (!PortfolioStables.usdtUsd(v).approximate || day !in out) out[day] = v }
+        secondary.forEach { (day, v) -> if (PortfolioStables.isUsdtNormal(v)) out[day] = v }
+        primary.forEach { (day, v) -> if (PortfolioStables.isUsdtNormal(v) || day !in out) out[day] = v }
         return out
     }
 }

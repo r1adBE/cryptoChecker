@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ไม่มีราคา เชื่อมต่อ %1$s ไม่ได้</string>
     <string name="a11y_watch_no_price_phone_only">ไม่มีราคา นาฬิกาโหลดคู่นี้ไม่ได้</string>
     <string name="a11y_watch_no_price_via_phone">ไม่มีราคา นาฬิกาได้รับราคาจาก %1$s ผ่านโทรศัพท์เท่านั้น</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ไม่มีราคา ขณะนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d นาทีที่แล้ว</item>
     </plurals>

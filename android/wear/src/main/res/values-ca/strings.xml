@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">sense preu, %1$s no és accessible</string>
     <string name="a11y_watch_no_price_phone_only">sense preu, el rellotge no pot carregar aquest parell</string>
     <string name="a11y_watch_no_price_via_phone">sense preu, el rellotge només rep els preus de %1$s des del telèfon</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">sense preu, els exchanges ara no són accessibles</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualitzat per última vegada fa %1$d minut</item>
         <item quantity="many">actualitzat per última vegada fa %1$d minuts</item>

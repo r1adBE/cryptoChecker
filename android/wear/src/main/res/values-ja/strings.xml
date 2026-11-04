@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">価格なし、%1$s に接続できません</string>
     <string name="a11y_watch_no_price_phone_only">価格なし、この通貨ペアはウォッチで読み込めません</string>
     <string name="a11y_watch_no_price_via_phone">価格なし、%1$s の価格はスマートフォン経由でのみウォッチに届きます</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">価格なし、現在取引所に接続できません</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">最終更新：%1$d分前</item>
     </plurals>

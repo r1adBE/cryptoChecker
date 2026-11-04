@@ -163,7 +163,7 @@ object TaxExport {
     }
 
     /**
-     * USDT/USD-Tagesschluss am [date] aus [usdtUsd] (Tag → Schluss), nur plausibel ([PortfolioStables.usdtUsd]); null =
+     * USDT/USD-Tagesschluss am [date] aus [usdtUsd] (Tag → Schluss), nur im Einbruch-Bereich 0.05…3 ([PortfolioStables.usdtUsd]); null =
      * keiner (kein Schluss eines anderen Tags).
      */
     fun usdtUsdOn(usdtUsd: Map<Long, BigDecimal>?, date: LocalDate): BigDecimal? =

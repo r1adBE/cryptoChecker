@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">%1$s дахь түүх, өнөөдрийн ханшаар %2$s руу хөрвүүлсэн</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD-ийн түүх байхгүй – бүх график өнөөдрийн USDT/USD ханшаар</string>
     <string name="converted_unsure">Хөрвүүлэлт тодорхойгүй</string>
 </resources>

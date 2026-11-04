@@ -483,6 +483,9 @@ class ParityFixturesTest {
             (c["usdtApproximate"] as Boolean?)?.let {
                 assertEquals("usdtApproximate: ${c["name"]}", it, DayChange.usdtSeriesApproximate(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num()))
             }
+            (c["usdtHistoryMissing"] as Boolean?)?.let {
+                assertEquals("usdtHistoryMissing: ${c["name"]}", it, DayChange.usdtSeriesHistoryMissing(c["usdtUsd"].num(), c["usdtUsdAtOpen"].num()))
+            }
         }
         data["reference"].list().forEach { raw ->
             val c = raw.obj()

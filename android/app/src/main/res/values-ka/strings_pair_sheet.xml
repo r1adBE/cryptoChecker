@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">ისტორია %1$s-ში, გადაანგარიშებული %2$s-ში დღევანდელი კურსით</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD-ის ისტორია მიუწვდომელია – მთელი დიაგრამა დღევანდელი USDT/USD კურსით</string>
     <string name="converted_unsure">გადაანგარიშება საეჭვოა</string>
 </resources>

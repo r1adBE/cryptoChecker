@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">मूल्य छैन, %1$s सम्म पुग्न सकिएन</string>
     <string name="a11y_watch_no_price_phone_only">मूल्य छैन, घडीले यो जोडी लोड गर्न सक्दैन</string>
     <string name="a11y_watch_no_price_via_phone">मूल्य छैन, घडीले %1$s का मूल्यहरू फोनबाट मात्र पाउँछ</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">मूल्य छैन, अहिले एक्सचेन्जहरूमा पुग्न सकिएन</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d मिनेटअघि अन्तिम पटक अपडेट गरिएको</item>
         <item quantity="other">%1$d मिनेटअघि अन्तिम पटक अपडेट गरिएको</item>

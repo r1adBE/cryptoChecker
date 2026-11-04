@@ -1,3 +1,4 @@
+import os
 import XCTest
 @testable import CryptoChecker
 
@@ -150,7 +151,8 @@ final class WatchPairsParityTests: XCTestCase {
             // null bzw. fehlend = HTTP-Fehler, Sperre oder kein Netz
             let responses = (c["responses"] as? [String: Any] ?? [:]).compactMapValues { $0 as? String }
             let log = RequestLog()
-            let result = await WatchQuoteFetch.fetch(strings(c["coins"])) { url in
+            let outcomes = OutcomeLog()
+            let result = await WatchQuoteFetch.fetch(strings(c["coins"]), record: { outcomes.set($0, $1.rawValue) }) { url in
                 let key = pairRequestKey(url)
                 await log.add(key)
                 return responses[key].map { Data($0.utf8) }
@@ -165,8 +167,36 @@ final class WatchPairsParityTests: XCTestCase {
                 XCTAssertEqual(q.price, TestSupport.number(e[2]) ?? .nan, accuracy: 1e-9, name)
                 XCTAssertEqual(q.change24h ?? .nan, TestSupport.number(e[3]) ?? .nan, accuracy: 1e-9, name)
             }
+            if let expectedOutcomes = c["outcomes"] as? [String: String] {
+                XCTAssertEqual(outcomes.all, expectedOutcomes, "\(name) outcomes")
+            }
         }
     }
+
+    func testAnswered() throws {
+        for c in TestSupport.list(try TestSupport.fixture("watch_pairs")["answered"]) {
+            let body = (c["body"] as? String).map { Data($0.utf8) }
+            XCTAssertEqual(WatchPairQuotes.answered(body), c["expected"] as? Bool, "answered \(String(describing: c["body"]))")
+        }
+    }
+
+    /// Grund bei «—» aus dem letzten eigenen Abruf (Review 195: «nur vom iPhone» nur, wenn die Börsen das Paar nicht
+    /// führen). Wie Android.
+    func testMissing() throws {
+        for c in TestSupport.list(try TestSupport.fixture("watch_pairs")["missing"]) {
+            let pair = try XCTUnwrap(WatchPair.parse(c["key"] as? String ?? ""))
+            let outcome = (c["outcome"] as? String).flatMap(WatchPairQuotes.Outcome.init(rawValue:))
+            XCTAssertEqual(WatchPairQuotes.missingReason(pair, outcome: outcome).rawValue, c["expected"] as? String,
+                           "\(pair.key) \(String(describing: outcome))")
+        }
+    }
+}
+
+/// Ergebnisse je Paar aus dem Abruf (gleichzeitig geschrieben).
+private final class OutcomeLog: Sendable {
+    private let state = OSAllocatedUnfairLock(initialState: [String: String]())
+    func set(_ key: String, _ value: String) { state.withLock { $0[key] = value } }
+    var all: [String: String] { state.withLock { $0 } }
 }
 
 /// Schlüssel einer Abfrage wie im Fixture: binance (alle Kürzel), binance:<SYMBOL>, binanceFutures:<SYMBOL>,

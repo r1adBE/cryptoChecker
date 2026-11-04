@@ -46,17 +46,22 @@ object WatchPriceSource {
         withTimeoutOrNull(millis) { run() }.orEmpty()
 
     /**
-     * Ablauf mit austauschbarer Abfrage [get] (URL → Antwort; wirft bei HTTP-Fehler, Sperre oder ohne Netz) — für die
-     * Tests (`WatchQuotesParityTest`). Ergebnis in der Reihenfolge von [coins].
+     * Ablauf mit austauschbarer Abfrage [get] (URL → Antwort; wirft bei HTTP-Fehler, Sperre oder ohne Netz; HTTP 400 =
+     * Antwort «Paar unbekannt») — für die Tests (`WatchQuotesParityTest`). Ergebnis in der Reihenfolge von [coins]. Je
+     * Paar eines Favoriten geht das Ergebnis an [record] ([WatchPairOutcomes], Grund bei «—»).
      */
-    suspend fun fetch(coins: List<String>, get: suspend (String) -> String): Map<String, WatchQuote> {
+    suspend fun fetch(
+        coins: List<String>,
+        record: (String, WatchPairQuotes.Outcome) -> Unit = WatchPairOutcomes::record,
+        get: suspend (String) -> String,
+    ): Map<String, WatchQuote> {
         val all = coins.distinct().take(WatchCoins.MAX)
         if (all.isEmpty()) return emptyMap()
         // Favoriten des Handys (Paar mit Börse und Kontrakt) je für sich, Kürzel der eigenen Liste gemeinsam
         val pairs = all.mapNotNull { WatchPair.parse(it) }
         val wanted = all - pairs.map { it.key }.toSet()
         val (spot, paired) = coroutineScope {
-            val favorites = pairs.map { p -> async { pairQuote(p, get) } }
+            val favorites = pairs.map { p -> async { pairQuote(p, get, record) } }
             coinQuotes(wanted, get) to favorites.awaitAll().filterNotNull()
         }
         val merged = WatchQuotes.merge(spot.values.toList(), paired)
@@ -65,13 +70,28 @@ object WatchPriceSource {
 
     /**
      * Paar eines Favoriten: nacheinander bei den Börsen aus [WatchPairQuotes.venues] (die des Handys zuerst), bis eine
-     * einen Kurs liefert; Fehler oder fehlendes Paar → die nächste. Keine → null.
+     * einen Kurs liefert; Fehler oder fehlendes Paar → die nächste. Keine → null. Ergebnis an [record]: bis eine Antwort
+     * da ist «nicht erreichbar» (endet der Abruf an der Frist, stimmt das), dann [WatchPairQuotes.Outcome].
      */
-    private suspend fun pairQuote(pair: WatchPair, get: suspend (String) -> String): WatchQuote? {
-        for (venue in WatchPairQuotes.venues(pair)) {
-            val quote = orEmpty { listOfNotNull(WatchPairQuotes.parse(venue, get(WatchPairQuotes.url(venue, pair)), pair)) }
-            if (quote.isNotEmpty()) return quote.first()
+    private suspend fun pairQuote(
+        pair: WatchPair,
+        get: suspend (String) -> String,
+        record: (String, WatchPairQuotes.Outcome) -> Unit,
+    ): WatchQuote? {
+        val venues = WatchPairQuotes.venues(pair)
+        if (venues.isEmpty()) return null
+        record(pair.key, WatchPairQuotes.Outcome.UNREACHABLE)
+        val answers = ArrayList<Boolean>(venues.size)
+        for (venue in venues) {
+            val body = orNull { get(WatchPairQuotes.url(venue, pair)) }
+            val quote = body?.let { b -> orNull { WatchPairQuotes.parse(venue, b, pair) } }
+            if (quote != null) {
+                record(pair.key, WatchPairQuotes.Outcome.QUOTE)
+                return quote
+            }
+            answers += WatchPairQuotes.answered(body)
         }
+        record(pair.key, WatchPairQuotes.outcomeWithoutQuote(answers))
         return null
     }
 
@@ -107,14 +127,17 @@ object WatchPriceSource {
      * Fehler einer Abfrage → leer (die nächste Börse versucht es); ein Abbruch geht weiter — auch wenn er sich als
      * Lesefehler der geschlossenen Verbindung zeigt ([ensureActive]).
      */
-    private suspend inline fun orEmpty(block: () -> List<WatchQuote>): List<WatchQuote> =
+    private suspend inline fun orEmpty(block: () -> List<WatchQuote>): List<WatchQuote> = orNull(block).orEmpty()
+
+    /** Wie [orEmpty] für einen Wert: Fehler → null, ein Abbruch geht weiter. */
+    private suspend inline fun <T> orNull(block: () -> T?): T? =
         try {
             block()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()
-            emptyList()
+            null
         }
 
     /**
@@ -149,6 +172,8 @@ object WatchPriceSource {
         connection.setRequestProperty("User-Agent", USER_AGENT)
         connection.setRequestProperty("Accept", "application/json")
         val code = connection.responseCode
+        // HTTP 400 = Antwort «Paar unbekannt» (Binance `-1121`): Inhalt lesen, die Auswertung findet keinen Kurs
+        if (code == 400) return connection.errorStream?.use { String(it.readNBytesLimited(MAX_BYTES), Charsets.UTF_8) }.orEmpty()
         if (code !in 200..299) throw IllegalStateException("HTTP $code")
         return connection.inputStream.use { input ->
             val bytes = input.readNBytesLimited(MAX_BYTES)

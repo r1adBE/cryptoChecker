@@ -39,6 +39,69 @@ object WatchPairQuotes {
     fun asksOwnExchange(pair: WatchPair): Boolean =
         venues(pair).firstOrNull()?.label?.equals(pair.exchange, ignoreCase = true) == true
 
+    /** Ergebnis des letzten eigenen Abrufs eines Paars — für den Grund bei «—» ([missingReason]). */
+    enum class Outcome {
+        /** Eine Börse lieferte einen Kurs. */
+        QUOTE,
+
+        /** Alle gefragten Börsen antworteten, keine führt das Paar. */
+        NOT_LISTED,
+
+        /** Gefragt, aber mindestens eine Börse antwortete nicht (Netz, Sperre, Frist) und keine lieferte einen Kurs. */
+        UNREACHABLE,
+    }
+
+    /**
+     * Hat eine Börse geantwortet? Ja bei JSON (Objekt oder Liste) — auch «Paar unbekannt», z. B. Binance HTTP 400
+     * `{"code":-1121}`, Bybit `retCode` 10001, OKX `code` 51001. Nein ohne Antwort (null) oder bei anderem Inhalt (Sperr-
+     * oder Anmeldeseite eines WLANs): daraus folgt nicht, dass das Paar fehlt.
+     */
+    fun answered(body: String?): Boolean {
+        val text = body?.trim().orEmpty()
+        return try {
+            when {
+                text.startsWith("{") -> JSONObject(text).length() >= 0
+                text.startsWith("[") -> JSONArray(text).length() >= 0
+                else -> false
+            }
+        } catch (e: org.json.JSONException) {
+            false
+        }
+    }
+
+    /** Ergebnis ohne Kurs aus den Antworten der gefragten Börsen ([answered] je Börse): alle → NOT_LISTED, sonst UNREACHABLE. */
+    fun outcomeWithoutQuote(answers: List<Boolean>): Outcome =
+        if (answers.isNotEmpty() && answers.all { it }) Outcome.NOT_LISTED else Outcome.UNREACHABLE
+
+    /** Grund für «—» eines Paars ([missingReason]). */
+    enum class Missing {
+        /** Pool, Laufzeit-Kontrakt, unbekannte Kontrakt-Börse: «die Uhr kann dieses Paar nicht abrufen». */
+        PHONE_ONLY,
+
+        /** «Kurse von <Börse> erhält die Uhr nur vom Handy». */
+        VIA_PHONE,
+
+        /** «<Börse> nicht erreichbar» (eigene Börse des Paars, noch kein eigenes Ergebnis). */
+        OWN_UNREACHABLE,
+
+        /** «Börsen gerade nicht erreichbar». */
+        UNREACHABLE,
+    }
+
+    /**
+     * Grund für «—»: [WatchPair.selfFetchable] nein → [Missing.PHONE_ONLY]; die Uhr hat gefragt ([outcome]) und keine
+     * gefragte Börse führt das Paar → [Missing.VIA_PHONE]; gefragt, aber keine antwortete → [Missing.UNREACHABLE]; noch
+     * kein eigenes Ergebnis → wie bisher: eigene Börse ([asksOwnExchange]) → [Missing.OWN_UNREACHABLE], sonst
+     * [Missing.VIA_PHONE]. Wie iOS (`watch_pairs.json` › «missing»).
+     */
+    fun missingReason(pair: WatchPair, outcome: Outcome?): Missing = when {
+        !pair.selfFetchable -> Missing.PHONE_ONLY
+        outcome == Outcome.NOT_LISTED -> Missing.VIA_PHONE
+        outcome == Outcome.UNREACHABLE -> Missing.UNREACHABLE
+        asksOwnExchange(pair) -> Missing.OWN_UNREACHABLE
+        else -> Missing.VIA_PHONE
+    }
+
     /** Abfrage eines Paars bei [venue] (Kürzel nur `[A-Z0-9]`, siehe [WatchPair.of]). */
     fun url(venue: Venue, pair: WatchPair): String {
         val symbol = pair.base + pair.quote

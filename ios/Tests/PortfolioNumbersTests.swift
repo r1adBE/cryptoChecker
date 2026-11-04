@@ -109,21 +109,33 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(delta?.percent ?? .nan, 5, accuracy: d)
     }
 
-    /// Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie Android.
-    func testUsdtUsdLiveKeepsConfirmedBreak() {
+    /// USDT/USD live und Tagesschluss — gleicher Einbruch-Bereich 0.05…3, ein echter Einbruch zählt. Wie Android.
+    func testUsdtUsdKeepsBreakLiveAndDaily() {
         XCTAssertEqual(PortfolioStables.usdtUsdLive(0.3), UsdtUsd(rate: 0.3, approximate: false))
         XCTAssertEqual(PortfolioStables.usdtUsdLive(2.0), UsdtUsd(rate: 2.0, approximate: false))
         XCTAssertEqual(PortfolioStables.usdtUsdLive(0.04), PortfolioStables.usdtUsdFallback)
         XCTAssertEqual(PortfolioStables.usdtUsdLive(3.5), PortfolioStables.usdtUsdFallback)
         XCTAssertEqual(PortfolioStables.usdtUsdLive(nil), PortfolioStables.usdtUsdFallback)
-        // Tagesschluss (eine Quelle, kein Abgleich): 0.3 bleibt unplausibel
-        XCTAssertEqual(PortfolioStables.usdtUsd(0.3), PortfolioStables.usdtUsdFallback)
-        // Heute gilt der Live-Kurs auch im Einbruch, frühere Tage nur ein plausibler Schluss
-        let rates = UsdtUsdRates(live: 0.3, daily: [5: 0.3])
-        XCTAssertEqual(rates.on(7, todayEpochDay: 7).rate, 0.3)
-        XCTAssertTrue(rates.on(5, todayEpochDay: 7).approximate)
-        XCTAssertTrue(PortfolioStables.isUsdtBreak(0.3))
+        // Tagesschluss: derselbe Bereich wie live (sonst gestern 1, heute 0.40 — eine erfundene Stufe)
+        XCTAssertEqual(PortfolioStables.usdtUsd(0.4), UsdtUsd(rate: 0.4, approximate: false))
+        XCTAssertEqual(PortfolioStables.usdtUsd(0.04), PortfolioStables.usdtUsdFallback)
+        XCTAssertEqual(PortfolioStables.usdtUsd(3.5), PortfolioStables.usdtUsdFallback)
+        // Gespeicherter Schluss 0.40 und live 0.40: beide Tage 0.40, keine Stufe
+        let rates = UsdtUsdRates(live: 0.4, daily: [5: 0.4, 6: 0.4])
+        XCTAssertEqual(rates.on(7, todayEpochDay: 7).rate, 0.4)
+        XCTAssertEqual(rates.on(6, todayEpochDay: 7), UsdtUsd(rate: 0.4, approximate: false))
+        XCTAssertTrue(PortfolioStables.isUsdtBreak(0.4))
         XCTAssertFalse(PortfolioStables.isUsdtBreak(0.99))
+        // Normalbereich nur noch für die Wahl der Quelle
+        XCTAssertTrue(PortfolioStables.isUsdtNormal(0.99))
+        XCTAssertFalse(PortfolioStables.isUsdtNormal(0.4))
+        XCTAssertFalse(PortfolioStables.isUsdtNormal(.nan))
+    }
+
+    /// Lückenfüller USDT/USD: Einbruch aus einer Quelle bleibt; sind sich zwei Quellen uneins, gilt der normale Wert.
+    func testFillUsdtUsdKeepsSingleSourceBreak() {
+        let out = HistoricCloseChain.fillUsdtUsd([1: 0.4, 2: 0.4], [2: 1.0, 3: 0.41])
+        XCTAssertEqual(out, [1: 0.4, 2: 1.0])
     }
 
     func testConversionUsesPortfolioStableRule() {

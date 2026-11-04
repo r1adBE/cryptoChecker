@@ -247,17 +247,19 @@ private fun ChooseList(own: List<String>, onToggle: (String) -> Unit) {
 }
 
 /**
- * Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, dessen Börse die Uhr selbst abfragt
- * ([WatchPairQuotes.asksOwnExchange]) → diese Börse nicht erreichbar; Paar einer Börse, die die Uhr nicht abfragt
- * (z. B. Kraken-Spot: nur Binance, Bybit, OKX) → Kurse dieser Börse nur vom Handy; sonst (Pool, Laufzeit-Kontrakt)
- * kann die Uhr das Paar nicht selbst laden. Wie iOS `WatchText.missingReason`.
+ * Grund für «—» ([WatchPairQuotes.missingReason] mit dem letzten eigenen Abruf, [WatchPairOutcomes]): Pool, Laufzeit-
+ * Kontrakt → die Uhr kann das Paar nicht selbst laden; gefragt, aber keine gefragte Börse führt das Paar (z. B. ein
+ * Kraken-Paar, das Binance, Bybit und OKX nicht haben) → Kurse dieser Börse nur vom Handy; gefragt, aber keine Börse
+ * antwortete → Börsen gerade nicht erreichbar; noch nicht gefragt → eigene Börse nicht erreichbar bzw. nur vom Handy.
+ * Wie iOS `WatchText.missingReason`.
  */
 internal fun missingReason(context: Context, key: String): String {
     val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_error)
-    return when {
-        !pair.selfFetchable -> context.getString(R.string.a11y_watch_no_price_phone_only)
-        WatchPairQuotes.asksOwnExchange(pair) -> context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
-        else -> context.getString(R.string.a11y_watch_no_price_via_phone, pair.exchange)
+    return when (WatchPairQuotes.missingReason(pair, WatchPairOutcomes[pair.key])) {
+        WatchPairQuotes.Missing.PHONE_ONLY -> context.getString(R.string.a11y_watch_no_price_phone_only)
+        WatchPairQuotes.Missing.OWN_UNREACHABLE -> context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
+        WatchPairQuotes.Missing.UNREACHABLE -> context.getString(R.string.a11y_watch_no_price_exchanges_unreachable)
+        WatchPairQuotes.Missing.VIA_PHONE -> context.getString(R.string.a11y_watch_no_price_via_phone, pair.exchange)
     }
 }
 

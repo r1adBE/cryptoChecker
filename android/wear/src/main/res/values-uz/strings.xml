@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">narx yoʻq, %1$s mavjud emas</string>
     <string name="a11y_watch_no_price_phone_only">narx yoʻq, soat bu juftlikni yuklay olmaydi</string>
     <string name="a11y_watch_no_price_via_phone">narx yoʻq, soat %1$s narxlarini faqat telefondan oladi</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">narx yoʻq, birjalar hozir javob bermayapti</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">oxirgi yangilanish %1$d daqiqa oldin</item>
         <item quantity="other">oxirgi yangilanish %1$d daqiqa oldin</item>

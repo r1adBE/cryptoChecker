@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ფასი არ არის, %1$s მიუწვდომელია</string>
     <string name="a11y_watch_no_price_phone_only">ფასი არ არის, საათი ამ წყვილს ვერ ჩატვირთავს</string>
     <string name="a11y_watch_no_price_via_phone">ფასი არ არის, საათი %1$s-ის ფასებს მხოლოდ ტელეფონიდან იღებს</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ფასი არ არის, ბირჟები ახლა მიუწვდომელია</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ბოლოს განახლდა %1$d წუთის წინ</item>
         <item quantity="other">ბოლოს განახლდა %1$d წუთის წინ</item>

@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">가격 없음, %1$s에 연결할 수 없습니다</string>
     <string name="a11y_watch_no_price_phone_only">가격 없음, 시계에서 이 페어를 불러올 수 없습니다</string>
     <string name="a11y_watch_no_price_via_phone">가격 없음, 시계는 %1$s 가격을 휴대폰에서만 받습니다</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">가격 없음, 지금은 거래소에 연결할 수 없습니다</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">마지막 업데이트: %1$d분 전</item>
     </plurals>

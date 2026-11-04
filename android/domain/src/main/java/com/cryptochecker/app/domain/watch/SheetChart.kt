@@ -56,7 +56,8 @@ sealed interface SheetChartResult {
      * Kerzen in der Quote des Paars; [converted] = aus der USDT-Reihe umgerechnet.
      * Für die Zeile unter dem Chart: [provider] = Börse der Kerzen («Binance», «Coinbase» …),
      * [sourcePair] = abgefragte Reihe («BTC/USDT»), [fx] = Art der Umrechnung,
-     * [fetchedAt] = Abfragezeit (Epoch-ms; 0 = unbekannt), [usdtAssumed] = mit USDT = 1 umgerechnet ([usdtParityNote]).
+     * [fetchedAt] = Abfragezeit (Epoch-ms; 0 = unbekannt), [usdtAssumed] = mit USDT = 1 umgerechnet ([usdtParityNote]),
+     * [usdtHistoryMissing] = Tagesschlüsse USDT/USD fehlten, ganze Reihe mit dem Live-Kurs umgerechnet ([usdtHistoryNote]).
      */
     data class Ready(
         val candles: List<WidgetCandle>,
@@ -66,6 +67,7 @@ sealed interface SheetChartResult {
         val fx: SheetChartFx = SheetChartFx.NONE,
         val fetchedAt: Long = 0L,
         val usdtAssumed: Boolean = false,
+        val usdtHistoryMissing: Boolean = false,
     ) : SheetChartResult
 }
 
@@ -120,9 +122,8 @@ object SheetChart {
      *    Dazu ein gemeinsamer Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
      *  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
      *    des Paars entspricht (Verlauf in Prozent wie [DayChange.fromSeries]).
-     *  - USDT → USD je Kerze mit dem Marktkurs IHRES Tags ([usdt], wie der Wertverlauf des Portfolios,
-     *    [UsdtUsdRates.on]): ab [todayEpochDay] (UTC) der Live-Kurs, davor der Tagesschluss USDT/USD dieses Tags; fehlt er,
-     *    gilt 1 (Näherung, [usdtApproximate] → [usdtParityNote]). Ohne [usdt] überall 1. Auch ohne Tageskurse
+     *  - USDT → USD nach [usdtSeries]: je Kerze der Marktkurs IHRES Tags, wenn es ihn für JEDE Kerze gibt; sonst EIN Kurs
+     *    für die ganze Reihe (nie gestern 1 und heute live — das wäre eine nie gemessene Stufe). Auch ohne Tageskurse
      *    (ein Devisenkurs): so zeigt der Verlauf in Fiat einen USDT-Depeg.
      * @param currentRate aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse)
      */
@@ -148,8 +149,8 @@ object SheetChart {
             return clean
         }
         val sorted = sortedRates(dailyRates)
-        // USDT/USD je Kerze (Tag der Kerze)
-        val u = clean.map { usdtOn(usdt, it.openTime, todayEpochDay).rate }
+        // USDT/USD je Kerze (Tag der Kerze), sonst ein Kurs für alle
+        val u = usdtSeries(clean, usdt, todayEpochDay).rates
         if (sorted.isEmpty()) {
             val rate = currentRate?.takeIf { it.isFinite() && it > 0.0 } ?: return null
             val lastUsd = last * u.last()
@@ -201,21 +202,42 @@ object SheetChart {
         return source to target
     }
 
+    /** USDT/USD je Kerze; [approximate] = USDT = 1, [historyMissing] = ganze Reihe mit dem Live-Kurs ([usdtSeries]). */
+    data class UsdtSeries(val rates: List<Double>, val approximate: Boolean, val historyMissing: Boolean)
+
     /**
-     * Hängt die Umrechnung von [candles] an mindestens einem Tag an USDT = 1 — heute ohne Live-Kurs, ein früherer Tag
-     * ohne Tagesschluss USDT/USD ([UsdtUsdRates.on], wie [accept])? Ohne [usdt] immer. Wie
-     * [com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx.usdtApproximate].
+     * USDT/USD je Kerze wie der Wertverlauf ([UsdtUsdRates.on]: ab [todayEpochDay] der Live-Kurs, davor der Tagesschluss
+     * DES Tags) — aber nur, wenn es den Kurs für JEDE Kerze gibt. Fehlt er an einem Tag (z. B. keine Tagesschlüsse, weil
+     * sie nicht zu laden waren) oder heute der Live-Kurs, gilt EIN Kurs für die ganze Reihe: der Live-Kurs, sonst 1
+     * (Näherung). So entsteht nie eine Stufe aus «früher 1, heute live», die wie gemessen aussähe; der Vermerk sagt, was
+     * fehlte ([usdtHistoryNote] bzw. [usdtParityNote]). Ohne [usdt] überall 1.
      */
+    fun usdtSeries(candles: List<WidgetCandle>, usdt: UsdtUsdRates?, todayEpochDay: Long): UsdtSeries {
+        val perDay = candles.map { usdtOn(usdt, it.openTime, todayEpochDay) }
+        if (perDay.none { it.approximate }) return UsdtSeries(perDay.map { it.rate }, approximate = false, historyMissing = false)
+        val one = (usdt ?: NO_USDT).current()
+        return UsdtSeries(List(candles.size) { one.rate }, approximate = one.approximate, historyMissing = !one.approximate)
+    }
+
+    /** Rechnet die Umrechnung mit USDT = 1 ([usdtSeries])? Ohne [usdt] immer. */
     fun usdtApproximate(candles: List<WidgetCandle>, usdt: UsdtUsdRates?, todayEpochDay: Long): Boolean =
-        candles.any { usdtOn(usdt, it.openTime, todayEpochDay).approximate }
+        usdtSeries(candles, usdt, todayEpochDay).approximate
 
     /**
      * Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]) und an mindestens einem Tag mit USDT = 1 USD
-     * ([usdtApproximate]). Nur bei Umrechnung aus USDT — wie Transaktionsblatt und Portfolio-Alarm.
+     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]) und mit USDT = 1 USD ([usdtApproximate]). Nur bei
+     * Umrechnung aus USDT — wie Transaktionsblatt und Portfolio-Alarm.
      */
-    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?, usdtApproximate: Boolean): Boolean {
-        if (fx == SheetChartFx.NONE || !usdtApproximate) return false
+    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?, usdtApproximate: Boolean): Boolean =
+        usdtApproximate && convertsUsdt(fx, sourcePair)
+
+    /** Vermerk «USDT/USD-Verlauf nicht verfügbar»: Umrechnung aus USDT, ganze Reihe mit dem Live-Kurs ([usdtSeries]). */
+    fun usdtHistoryNote(fx: SheetChartFx, sourcePair: String?, historyMissing: Boolean): Boolean =
+        historyMissing && convertsUsdt(fx, sourcePair)
+
+    /** Umrechnung der USDT-Reihe in Fiat (nicht die Kerzen des Paars, nicht eine andere Reihe)? */
+    private fun convertsUsdt(fx: SheetChartFx, sourcePair: String?): Boolean {
+        if (fx == SheetChartFx.NONE) return false
         val source = sourcePair?.substringAfterLast('/', "")?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: USDT
         return source == USDT
     }

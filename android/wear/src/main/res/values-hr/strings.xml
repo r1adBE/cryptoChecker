@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">nema cijene, %1$s nije dostupan</string>
     <string name="a11y_watch_no_price_phone_only">nema cijene, sat ne može učitati ovaj par</string>
     <string name="a11y_watch_no_price_via_phone">nema cijene, sat dobiva cijene s %1$s samo putem telefona</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">nema cijene, burze trenutačno nisu dostupne</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">posljednje ažuriranje prije %1$d minute</item>
         <item quantity="few">posljednje ažuriranje prije %1$d minute</item>

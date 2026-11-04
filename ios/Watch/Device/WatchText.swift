@@ -21,17 +21,18 @@ enum WatchText {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
-    /// Grund für «—»: Kürzel der eigenen Liste → Börsen nicht erreichbar; Paar, dessen Börse die Uhr selbst abfragt
-    /// (`WatchPairQuotes.asksOwnExchange`) → diese Börse nicht erreichbar; Paar einer Börse, die die Uhr nicht abfragt
-    /// (z. B. Kraken-Spot: nur Binance, Bybit, OKX) → Kurse dieser Börse nur vom iPhone; sonst (Pool, Laufzeit-Kontrakt)
-    /// kann die Uhr das Paar nicht selbst laden. Wie Android `missingReason`.
+    /// Grund für «—» (`WatchPairQuotes.missingReason` mit dem letzten eigenen Abruf, `WatchPairOutcomes`): Pool,
+    /// Laufzeit-Kontrakt → die Uhr kann das Paar nicht selbst laden; gefragt, aber keine gefragte Börse führt das Paar
+    /// → Kurse dieser Börse nur vom iPhone; gefragt, aber keine Börse antwortete → Börsen gerade nicht erreichbar; noch
+    /// nicht gefragt → eigene Börse nicht erreichbar bzw. nur vom iPhone. Wie Android `missingReason`.
     static func missingReason(_ key: String) -> String {
         guard let pair = WatchPair.parse(key) else { return t("watch_error") }
-        guard pair.selfFetchable else { return t("a11y_watch_no_price_phone_only") }
-        // Börse, die die Uhr nicht abfragt (z. B. Kraken-Spot): nicht «nicht erreichbar», sondern «nur vom iPhone»
-        return WatchPairQuotes.asksOwnExchange(pair)
-            ? t("a11y_watch_no_price_unreachable", pair.exchange)
-            : t("a11y_watch_no_price_via_phone", pair.exchange)
+        switch WatchPairQuotes.missingReason(pair, outcome: WatchPairOutcomes.outcome(pair.key)) {
+        case .phoneOnly: return t("a11y_watch_no_price_phone_only")
+        case .ownUnreachable: return t("a11y_watch_no_price_unreachable", pair.exchange)
+        case .unreachable: return t("a11y_watch_no_price_exchanges_unreachable")
+        case .viaPhone: return t("a11y_watch_no_price_via_phone", pair.exchange)
+        }
     }
 
     /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).

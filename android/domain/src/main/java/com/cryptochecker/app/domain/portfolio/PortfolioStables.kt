@@ -64,7 +64,13 @@ object PortfolioStables {
         return if (live.isFinite() && kotlin.math.abs(live - 1.0) <= MAX_FALLBACK_DEVIATION) 1.0 else null
     }
 
-    /** Plausibler Marktkurs USDT/USD (wie [com.cryptochecker.app.domain.alarm.DepegAlarm]): sonst Börsenfehler. */
+    /**
+     * Normalbereich USDT/USD. Nur noch eine Plausibilitätsgrenze für ANDERES als die Umrechnung: die Depeg-Messung
+     * ([com.cryptochecker.app.domain.alarm.DepegAlarm], [com.cryptochecker.app.domain.alarm.StableDepeg]: ein Kurs
+     * ausserhalb zählt erst, wenn zwei Quellen ihn bestätigen), die Anzeige «USDT-Einbruch» ([isUsdtBreak]) und die Wahl
+     * zwischen zwei Quellen eines Tagesschlusses ([isUsdtNormal], [HistoricCloseChain.fillUsdtUsd]). Umgerechnet wird
+     * mit [usdtUsd] im Einbruch-Bereich.
+     */
     const val USDT_USD_MIN = 0.5
     const val USDT_USD_MAX = 1.5
 
@@ -72,33 +78,30 @@ object PortfolioStables {
     val USDT_USD_FALLBACK = UsdtUsd(1.0, approximate = true)
 
     /**
-     * USDT in USD aus einem Marktkurs [market] (live oder Tagesschluss): gültig und plausibel
-     * ([USDT_USD_MIN]…[USDT_USD_MAX]) → dieser Kurs; sonst [USDT_USD_FALLBACK] (1, Näherung).
-     */
-    fun usdtUsd(market: Double?): UsdtUsd {
-        val m = market?.takeIf { it.isFinite() && it >= USDT_USD_MIN && it <= USDT_USD_MAX } ?: return USDT_USD_FALLBACK
-        return UsdtUsd(m, approximate = false)
-    }
-
-    /**
-     * Einbruch-Bereich des LIVE-Kurses USDT/USD: ausserhalb [USDT_USD_MIN]…[USDT_USD_MAX], aber innerhalb
-     * [USDT_USD_BREAK_MIN]…[USDT_USD_BREAK_MAX] zählt ein Kurs nur, wenn die Depeg-Messung ihn von mindestens zwei
-     * Quellen bestätigt hat ([com.cryptochecker.app.domain.alarm.DepegAlarm.measure]). Ein echter USDT-Einbruch (z. B.
-     * 0.30) soll mit dem Marktkurs bewertet werden statt still mit 1.
+     * Einbruch-Bereich USDT/USD: so weit gilt ein Kurs für die Umrechnung — live wie Tagesschluss. Ein echter
+     * USDT-Einbruch (z. B. 0.40) soll mit dem Marktkurs bewertet werden statt still mit 1; erst ausserhalb (Börsenfehler,
+     * 0, Unsinn) gilt [USDT_USD_FALLBACK]. Live-Kurse ausserhalb des Normalbereichs hat die Depeg-Messung schon mit
+     * zwei Quellen bestätigt ([com.cryptochecker.app.domain.alarm.DepegAlarm.measure]).
      */
     const val USDT_USD_BREAK_MIN = 0.05
     const val USDT_USD_BREAK_MAX = 3.0
 
     /**
-     * USDT in USD aus dem Live-Kurs [live] ([com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd], schon von der
-     * Messung geprüft): gültig und im Einbruch-Bereich → dieser Kurs; sonst [USDT_USD_FALLBACK]. Tagesschlüsse bleiben
-     * bei [usdtUsd] (eine einzelne Quelle, kein Abgleich).
+     * USDT in USD aus einem Marktkurs [market] (live oder Tagesschluss USDT/USD): gültig und im Einbruch-Bereich
+     * ([USDT_USD_BREAK_MIN]…[USDT_USD_BREAK_MAX]) → dieser Kurs; sonst [USDT_USD_FALLBACK] (1, Näherung). Dieselbe Grenze
+     * für Live-Kurs und Tagesschluss — sonst zeigte ein Verlauf über einen echten Einbruch gestern 1 und heute 0.40.
      */
-    fun usdtUsdLive(live: Double?): UsdtUsd {
-        val m = live?.takeIf { it.isFinite() && it >= USDT_USD_BREAK_MIN && it <= USDT_USD_BREAK_MAX }
+    fun usdtUsd(market: Double?): UsdtUsd {
+        val m = market?.takeIf { it.isFinite() && it >= USDT_USD_BREAK_MIN && it <= USDT_USD_BREAK_MAX }
             ?: return USDT_USD_FALLBACK
         return UsdtUsd(m, approximate = false)
     }
+
+    /** USDT in USD aus dem Live-Kurs [live] ([com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd]): wie [usdtUsd]. */
+    fun usdtUsdLive(live: Double?): UsdtUsd = usdtUsd(live)
+
+    /** Liegt [rate] im Normalbereich ([USDT_USD_MIN]…[USDT_USD_MAX])? Nur Plausibilität (Wahl der Quelle), keine Umrechnung. */
+    fun isUsdtNormal(rate: Double): Boolean = rate.isFinite() && rate >= USDT_USD_MIN && rate <= USDT_USD_MAX
 
     /** Liegt [rate] ausserhalb des Normalbereichs (bestätigter USDT-Einbruch, Anzeige «USDT-Einbruch»)? */
     fun isUsdtBreak(rate: Double): Boolean = rate.isFinite() && (rate < USDT_USD_MIN || rate > USDT_USD_MAX)
@@ -120,11 +123,11 @@ data class UsdtUsd(val rate: Double, val approximate: Boolean)
  * Marktkurse USDT/USD für Umrechnungen in Fiat: [live] = aktueller Kurs (Kraken USDT/USD bzw. Binance USDC/USDT wie der
  * Depeg-Alarm, [com.cryptochecker.app.domain.alarm.DepegAlarm.measure]); [daily] = Tagesschluss je Tag (Tage seit
  * 1970-01-01). Ab [todayEpochDay] gilt der Live-Kurs, davor der Schluss DES Tags — fehlt er, 1 als Näherung
- * ([PortfolioStables.usdtUsd]), kein Schluss eines anderen Tags.
+ * ([PortfolioStables.usdtUsd], gleicher Einbruch-Bereich wie live), kein Schluss eines anderen Tags.
  */
 data class UsdtUsdRates(val live: Double?, val daily: Map<Long, Double> = emptyMap()) {
 
-    /** Aktueller Kurs (oder Ersatz 1, Näherung); bestätigter Einbruch zählt ([PortfolioStables.usdtUsdLive]). */
+    /** Aktueller Kurs (oder Ersatz 1, Näherung); ein Einbruch zählt ([PortfolioStables.usdtUsdLive]). */
     fun current(): UsdtUsd = PortfolioStables.usdtUsdLive(live)
 
     /** Kurs für den Tag [day]: ab [todayEpochDay] [current], sonst Tagesschluss oder Ersatz 1 (Näherung). */

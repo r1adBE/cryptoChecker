@@ -185,9 +185,9 @@ object DayChange {
     /**
      * 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × [usdtUsd] × [usdToQuote] (USDT/USD
      * und Fiat je USD jetzt) gegen Eröffnung × [usdtUsdAtOpen] × [usdToQuoteAtOpen] (vor 24 h) — so zählt ein
-     * USDT-Depeg mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD jetzt = Live-Kurs
-     * ([PortfolioStables.usdtUsdLive]), zur Eröffnung = Tagesschluss jenes Tags ([PortfolioStables.usdtUsd]); fehlt
-     * einer, gilt dort 1 (Näherung, [usdtSeriesApproximate]).
+     * USDT-Depeg mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD nach [usdtEnds]: beide Enden
+     * gemessen (jetzt Live-Kurs, zur Eröffnung Tagesschluss jenes Tags) — sonst EIN Kurs für beide Enden (Live-Kurs,
+     * sonst 1), nie gemessen gegen angenommen (wie der Chart, [SheetChart.usdtSeries]).
      * Fehlt einer der beiden Devisenkurse (null, nicht endlich, ≤ 0) → null: der USDT-Prozentwert ist
      * kein Fiat-Wert (Wechselkursbewegung fehlt), also lieber «—».
      * Kursabstand-Prüfung wie [fromPrice] ([MAX_PRICE_GAP]): weicht der Paarkurs (in Fiat) um mehr
@@ -205,17 +205,36 @@ object DayChange {
         val ref = reference ?: return null
         val fx = usdToQuote?.takeIf { it.isFinite() && it > 0.0 } ?: return null
         val fxAtOpen = usdToQuoteAtOpen?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-        val rate = fx * PortfolioStables.usdtUsdLive(usdtUsd).rate
-        val rateAtOpen = fxAtOpen * PortfolioStables.usdtUsd(usdtUsdAtOpen).rate
+        val ends = usdtEnds(usdtUsd, usdtUsdAtOpen)
+        val rate = fx * ends.now
+        val rateAtOpen = fxAtOpen * ends.atOpen
         val p = price?.takeIf { it.isFinite() && it > 0.0 }
         if (p != null && abs(p / (ref.lastClose * rate) - 1.0) > MAX_PRICE_GAP) return null
         val open = ref.open * rateAtOpen
         return (ref.lastClose * rate - open) / open * 100.0
     }
 
-    /** Rechnet [fromUsdtSeries] an einem Ende mit USDT = 1 (kein Live-Kurs bzw. kein Tagesschluss USDT/USD)? */
-    fun usdtSeriesApproximate(usdtUsd: Double?, usdtUsdAtOpen: Double?): Boolean =
-        PortfolioStables.usdtUsdLive(usdtUsd).approximate || PortfolioStables.usdtUsd(usdtUsdAtOpen).approximate
+    /** USDT/USD an beiden Enden; [approximate] = USDT = 1, [historyMissing] = beide Enden mit dem Live-Kurs. */
+    data class UsdtEnds(val now: Double, val atOpen: Double, val approximate: Boolean, val historyMissing: Boolean)
+
+    /**
+     * USDT/USD für [fromUsdtSeries]: jetzt der Live-Kurs, zur Eröffnung der Tagesschluss — nur wenn BEIDE gemessen sind
+     * ([PortfolioStables.usdtUsd], 0.05…3). Sonst EIN Kurs für beide Enden: der Live-Kurs ([historyMissing]), ohne ihn 1
+     * ([approximate]) — so entsteht nie eine Veränderung aus «Eröffnung 1, jetzt live».
+     */
+    fun usdtEnds(usdtUsd: Double?, usdtUsdAtOpen: Double?): UsdtEnds {
+        val now = PortfolioStables.usdtUsdLive(usdtUsd)
+        val open = PortfolioStables.usdtUsd(usdtUsdAtOpen)
+        if (!now.approximate && !open.approximate) return UsdtEnds(now.rate, open.rate, approximate = false, historyMissing = false)
+        return UsdtEnds(now.rate, now.rate, approximate = now.approximate, historyMissing = !now.approximate)
+    }
+
+    /** Rechnet [fromUsdtSeries] mit USDT = 1 ([usdtEnds])? */
+    fun usdtSeriesApproximate(usdtUsd: Double?, usdtUsdAtOpen: Double?): Boolean = usdtEnds(usdtUsd, usdtUsdAtOpen).approximate
+
+    /** Fehlte der Tagesschluss zur Eröffnung, sodass beide Enden den Live-Kurs tragen ([usdtEnds])? */
+    fun usdtSeriesHistoryMissing(usdtUsd: Double?, usdtUsdAtOpen: Double?): Boolean =
+        usdtEnds(usdtUsd, usdtUsdAtOpen).historyMissing
 
     /**
      * Auswahl in fester Reihenfolge (siehe Klassenbeschreibung).

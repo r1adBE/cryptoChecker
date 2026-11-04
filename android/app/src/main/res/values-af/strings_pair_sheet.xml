@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Geskiedenis in %1$s, teen vandag se koers na %2$s omgereken</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD-geskiedenis nie beskikbaar nie – hele grafiek teen vandag se USDT/USD-koers</string>
     <string name="converted_unsure">Omskakeling onseker</string>
 </resources>

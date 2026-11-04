@@ -24,14 +24,15 @@ enum WatchPriceSource {
     }
 
     /// Antwort als Strom gelesen und nach `maxBytes` abgebrochen (die Abfrage wird dann beendet, der Rest nicht mehr
-    /// geladen); HTTP-Fehler, Sperre oder kein Netz = nil.
+    /// geladen); HTTP-Fehler, Sperre oder kein Netz = nil; HTTP 400 (Paar unbekannt) = Antwort wie Android.
     private static func get(_ url: URL, session: URLSession) async -> Data? {
         var request = URLRequest(url: url, timeoutInterval: timeout)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         guard let result = try? await session.bytes(for: request) else { return nil }
         let (bytes, response) = result
-        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+        // HTTP 400 = Antwort «Paar unbekannt» (Binance `-1121`): Inhalt lesen, die Auswertung findet keinen Kurs
+        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) || http.statusCode == 400 else {
             bytes.task.cancel()
             return nil
         }

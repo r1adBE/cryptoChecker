@@ -1,5 +1,5 @@
 {
- "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» + 8 Hex-Stellen (FNV-1a der Kennung) = DexScreener-Pool, die Kennung einer Börse (BTCUSDT, XBTUSDT) macht kein Pool; ungültig → null; nur Spot und Perp der Börsen, die die Uhr kennt (Binance/Bybit/OKX Futures), fragt die Uhr selbst ab — Perp anderer Börsen wie Bitget oder Hyperliquid nur vom Handy), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore. venues.asksOwn = WatchPairQuotes.asksOwnExchange: the watch asks the pair's own exchange itself (first venue); false for exchanges it does not query (e.g. Kraken spot) and for pairs it never loads — the «—» reason then must not say «<exchange> not reachable» (a11y_watch_no_price_via_phone / _phone_only).",
+ "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» + 8 Hex-Stellen (FNV-1a der Kennung) = DexScreener-Pool, die Kennung einer Börse (BTCUSDT, XBTUSDT) macht kein Pool; ungültig → null; nur Spot und Perp der Börsen, die die Uhr kennt (Binance/Bybit/OKX Futures), fragt die Uhr selbst ab — Perp anderer Börsen wie Bitget oder Hyperliquid nur vom Handy), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore. venues.asksOwn = WatchPairQuotes.asksOwnExchange: the watch asks the pair's own exchange itself (first venue); false for exchanges it does not query (e.g. Kraken spot) and for pairs it never loads — the «—» reason then must not say «<exchange> not reachable» (a11y_watch_no_price_via_phone / _phone_only). fetch.outcomes (optional) = WatchPairOutcomes after the fetch per pair key (QUOTE / NOT_LISTED = every asked exchange answered with JSON but none lists the pair, e.g. Binance HTTP 400 {\"code\":-1121} which the watch reads as an answer / UNREACHABLE = at least one asked exchange did not answer and none had a price); pairs without venues get none. answered = WatchPairQuotes.answered(body): JSON object or list = an answer, null/HTML/broken = none. missing = WatchPairQuotes.missingReason(pair, outcome): PHONE_ONLY (not selfFetchable), VIA_PHONE (NOT_LISTED, or no outcome yet and the watch does not ask the pair's own exchange), UNREACHABLE (asked, none answered: «exchanges not reachable right now», a11y_watch_no_price_exchanges_unreachable), OWN_UNREACHABLE (no outcome yet, own exchange asked first: «<exchange> not reachable»).",
  "pairs": [
   {
    "name": "Perp bei Binance Futures",
@@ -587,7 +587,10 @@
      0.0712,
      2.5
     ]
-   ]
+   ],
+   "outcomes": {
+    "BANK/USDT|Binance Futures|Perp": "QUOTE"
+   }
   },
   {
    "name": "Binance Futures nicht erreichbar: Bybit linear, ehrlich als Bybit Futures",
@@ -609,7 +612,10 @@
      0.0713,
      2.6
     ]
-   ]
+   ],
+   "outcomes": {
+    "BANK/USDT|Binance Futures|Perp": "QUOTE"
+   }
   },
   {
    "name": "Paar fehlt bei Binance Futures und Bybit: OKX Swap",
@@ -633,7 +639,10 @@
      0.08,
      -20.0
     ]
-   ]
+   ],
+   "outcomes": {
+    "BANK/USDT|Binance Futures|Perp": "QUOTE"
+   }
   },
   {
    "name": "nirgends erreichbar: kein Kurs",
@@ -646,7 +655,10 @@
     "bybitLinear:BANKUSDT",
     "okx:BANK-USDT-SWAP"
    ],
-   "expected": []
+   "expected": [],
+   "outcomes": {
+    "BANK/USDT|Binance Futures|Perp": "UNREACHABLE"
+   }
   },
   {
    "name": "Spot-Paar einer anderen Börse und Kürzel der eigenen Liste zusammen; Laufzeit-Kontrakt ohne Abfrage",
@@ -676,7 +688,152 @@
      60000.0,
      -1.5
     ]
-   ]
+   ],
+   "outcomes": {
+    "BTC/EUR|Kraken|": "QUOTE"
+   }
+  },
+  {
+   "name": "Kraken-Paar, das Binance, Bybit und OKX nicht führen (alle antworten, Binance mit HTTP 400): NOT_LISTED → «nur vom Handy»",
+   "coins": [
+    "XYZ/EUR|Kraken|"
+   ],
+   "responses": {
+    "binance:XYZEUR": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+    "bybit:XYZEUR": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"time\":1}",
+    "okx:XYZ-EUR": "{\"code\":\"51001\",\"msg\":\"Instrument ID doesn't exist.\",\"data\":[]}"
+   },
+   "requests": [
+    "binance:XYZEUR",
+    "bybit:XYZEUR",
+    "okx:XYZ-EUR"
+   ],
+   "expected": [],
+   "outcomes": {
+    "XYZ/EUR|Kraken|": "NOT_LISTED"
+   }
+  },
+  {
+   "name": "Kraken-Paar: Binance führt es nicht, Bybit antwortet nicht, OKX führt es nicht: UNREACHABLE (Bybit könnte es haben)",
+   "coins": [
+    "XYZ/EUR|Kraken|"
+   ],
+   "responses": {
+    "binance:XYZEUR": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+    "bybit:XYZEUR": null,
+    "okx:XYZ-EUR": "{\"code\":\"51001\",\"msg\":\"Instrument ID doesn't exist.\",\"data\":[]}"
+   },
+   "requests": [
+    "binance:XYZEUR",
+    "bybit:XYZEUR",
+    "okx:XYZ-EUR"
+   ],
+   "expected": [],
+   "outcomes": {
+    "XYZ/EUR|Kraken|": "UNREACHABLE"
+   }
+  },
+  {
+   "name": "Kraken-Paar hinter einer WLAN-Anmeldeseite (HTML statt JSON): keine Antwort, UNREACHABLE",
+   "coins": [
+    "BTC/EUR|Kraken|"
+   ],
+   "responses": {
+    "binance:BTCEUR": "<html><body>Login</body></html>",
+    "bybit:BTCEUR": "<html></html>",
+    "okx:BTC-EUR": "<html></html>"
+   },
+   "requests": [
+    "binance:BTCEUR",
+    "bybit:BTCEUR",
+    "okx:BTC-EUR"
+   ],
+   "expected": [],
+   "outcomes": {
+    "BTC/EUR|Kraken|": "UNREACHABLE"
+   }
+  }
+ ],
+ "answered": [
+  {
+   "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
+   "expected": true
+  },
+  {
+   "body": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"time\":1}",
+   "expected": true
+  },
+  {
+   "body": "[]",
+   "expected": true
+  },
+  {
+   "body": null,
+   "expected": false
+  },
+  {
+   "body": "",
+   "expected": false
+  },
+  {
+   "body": "<html><body>Login</body></html>",
+   "expected": false
+  },
+  {
+   "body": "{\"code\":",
+   "expected": false
+  }
+ ],
+ "missing": [
+  {
+   "key": "BTC/EUR|Kraken|",
+   "outcome": null,
+   "expected": "VIA_PHONE"
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "outcome": "NOT_LISTED",
+   "expected": "VIA_PHONE"
+  },
+  {
+   "key": "BTC/EUR|Kraken|",
+   "outcome": "UNREACHABLE",
+   "expected": "UNREACHABLE"
+  },
+  {
+   "key": "BTC/EUR|okx|",
+   "outcome": "QUOTE",
+   "expected": "OWN_UNREACHABLE"
+  },
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "outcome": null,
+   "expected": "OWN_UNREACHABLE"
+  },
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "outcome": "UNREACHABLE",
+   "expected": "UNREACHABLE"
+  },
+  {
+   "key": "BANK/USDT|Binance Futures|Perp",
+   "outcome": "NOT_LISTED",
+   "expected": "VIA_PHONE"
+  },
+  {
+   "key": "BTC/USDT|Binance Futures|1Q",
+   "outcome": "UNREACHABLE",
+   "expected": "PHONE_ONLY"
+  },
+  {
+   "key": "PEPE/WETH|DexScreener|Pool995b79ee",
+   "outcome": null,
+   "expected": "PHONE_ONLY"
+  },
+  {
+   "key": "BTC/USDT|Bitget Futures|Perp",
+   "outcome": null,
+   "expected": "PHONE_ONLY"
   }
  ]
 }

@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Kasaysayan sa %1$s, na-convert sa %2$s sa rate ngayon</string>
+    <string name="sheet_chart_usdt_history_missing">Walang kasaysayan ng USDT/USD – buong chart sa USDT/USD rate ngayon</string>
     <string name="converted_unsure">Hindi tiyak ang conversion</string>
 </resources>

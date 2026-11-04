@@ -36,6 +36,55 @@ enum WatchPairQuotes {
         venues(pair).first?.label.caseInsensitiveCompare(pair.exchange) == .orderedSame
     }
 
+    /// Ergebnis des letzten eigenen Abrufs eines Paars — für den Grund bei «—» (`missingReason`). Wie Android.
+    enum Outcome: String, Sendable {
+        /// Eine Börse lieferte einen Kurs.
+        case quote = "QUOTE"
+        /// Alle gefragten Börsen antworteten, keine führt das Paar.
+        case notListed = "NOT_LISTED"
+        /// Gefragt, aber mindestens eine Börse antwortete nicht (Netz, Sperre, Frist) und keine lieferte einen Kurs.
+        case unreachable = "UNREACHABLE"
+    }
+
+    /// Hat eine Börse geantwortet? Ja bei JSON (Objekt oder Liste) — auch «Paar unbekannt», z. B. Binance HTTP 400
+    /// `{"code":-1121}`, Bybit `retCode` 10001, OKX `code` 51001. Nein ohne Antwort (nil) oder bei anderem Inhalt (Sperr-
+    /// oder Anmeldeseite eines WLANs): daraus folgt nicht, dass das Paar fehlt. Wie Android.
+    static func answered(_ data: Data?) -> Bool {
+        guard let data, let root = try? JSONSerialization.jsonObject(with: data) else { return false }
+        return root is [String: Any] || root is [Any]
+    }
+
+    /// Ergebnis ohne Kurs aus den Antworten der gefragten Börsen (`answered` je Börse): alle → `.notListed`, sonst
+    /// `.unreachable`. Wie Android `outcomeWithoutQuote`.
+    static func outcomeWithoutQuote(_ answers: [Bool]) -> Outcome {
+        !answers.isEmpty && answers.allSatisfy { $0 } ? .notListed : .unreachable
+    }
+
+    /// Grund für «—» eines Paars (`missingReason`). Wie Android `Missing`.
+    enum Missing: String, Sendable {
+        /// Pool, Laufzeit-Kontrakt, unbekannte Kontrakt-Börse: «die Uhr kann dieses Paar nicht abrufen».
+        case phoneOnly = "PHONE_ONLY"
+        /// «Kurse von <Börse> erhält die Uhr nur vom iPhone».
+        case viaPhone = "VIA_PHONE"
+        /// «<Börse> nicht erreichbar» (eigene Börse des Paars, noch kein eigenes Ergebnis).
+        case ownUnreachable = "OWN_UNREACHABLE"
+        /// «Börsen gerade nicht erreichbar».
+        case unreachable = "UNREACHABLE"
+    }
+
+    /// Grund für «—»: `selfFetchable` nein → `.phoneOnly`; die Uhr hat gefragt (`outcome`) und keine gefragte Börse
+    /// führt das Paar → `.viaPhone`; gefragt, aber keine antwortete → `.unreachable`; noch kein eigenes Ergebnis → wie
+    /// bisher: eigene Börse (`asksOwnExchange`) → `.ownUnreachable`, sonst `.viaPhone`. Wie Android
+    /// (`watch_pairs.json` › «missing»).
+    static func missingReason(_ pair: WatchPair, outcome: Outcome?) -> Missing {
+        guard pair.selfFetchable else { return .phoneOnly }
+        switch outcome {
+        case .notListed: return .viaPhone
+        case .unreachable: return .unreachable
+        case .quote, nil: return asksOwnExchange(pair) ? .ownUnreachable : .viaPhone
+        }
+    }
+
     /// Abfrage eines Paars bei `venue` (Kürzel nur `[A-Z0-9]`, siehe `WatchPair.of`).
     static func url(_ venue: Venue, _ pair: WatchPair) -> URL? {
         let symbol = pair.base + pair.quote
@@ -76,12 +125,25 @@ enum WatchPairQuotes {
     }
 
     /// Paar eines Favoriten: nacheinander bei den Börsen aus `venues` (die des iPhones zuerst), bis eine einen Kurs
-    /// liefert; Fehler (nil) oder fehlendes Paar → die nächste. Keine → nil.
-    static func fetch(_ pair: WatchPair, get: @escaping @Sendable (URL) async -> Data?) async -> WatchQuote? {
-        for venue in venues(pair) {
+    /// liefert; Fehler (nil) oder fehlendes Paar → die nächste. Keine → nil. Ergebnis an `record`: bis eine Antwort da
+    /// ist «nicht erreichbar» (endet der Abruf an der Frist, stimmt das), dann `Outcome`. Wie Android `pairQuote`.
+    static func fetch(_ pair: WatchPair, get: @escaping @Sendable (URL) async -> Data?,
+                      record: @Sendable (String, Outcome) -> Void = { WatchPairOutcomes.record($0, $1) }) async -> WatchQuote? {
+        let all = venues(pair)
+        guard !all.isEmpty else { return nil }
+        record(pair.key, .unreachable)
+        var answers: [Bool] = []
+        for venue in all {
             guard !Task.isCancelled else { return nil }
-            if let url = url(venue, pair), let data = await get(url), let q = parse(venue, data, pair) { return q }
+            var data: Data?
+            if let url = url(venue, pair) { data = await get(url) }
+            if let data, let q = parse(venue, data, pair) {
+                record(pair.key, .quote)
+                return q
+            }
+            answers.append(answered(data))
         }
+        record(pair.key, outcomeWithoutQuote(answers))
         return nil
     }
 

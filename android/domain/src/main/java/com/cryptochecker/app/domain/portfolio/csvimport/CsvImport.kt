@@ -262,7 +262,7 @@ object CsvImport {
     }
 
     /**
-     * USDT/USD-Tagesschluss am Tag [day] aus [usdtUsd] (Tag → Schluss), nur plausibel ([PortfolioStables.usdtUsd]);
+     * USDT/USD-Tagesschluss am Tag [day] aus [usdtUsd] (Tag → Schluss), nur im Einbruch-Bereich 0.05…3 ([PortfolioStables.usdtUsd]);
      * null = keiner (kein Schluss eines anderen Tags) — wie `TaxExport.usdtUsdOn`.
      */
     fun usdtUsdOn(usdtUsd: Map<Long, BigDecimal>?, day: Long): BigDecimal? =

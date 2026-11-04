@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">দাম নেই, %1$s-এ পৌঁছানো যাচ্ছে না</string>
     <string name="a11y_watch_no_price_phone_only">দাম নেই, ঘড়ি এই জোড়াটি লোড করতে পারে না</string>
     <string name="a11y_watch_no_price_via_phone">দাম নেই, ঘড়ি %1$s-এর দাম শুধু ফোন থেকে পায়</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">দাম নেই, এই মুহূর্তে এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">শেষ আপডেট %1$d মিনিট আগে</item>
         <item quantity="other">শেষ আপডেট %1$d মিনিট আগে</item>

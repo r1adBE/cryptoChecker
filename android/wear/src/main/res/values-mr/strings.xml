@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">भाव नाही, %1$s पर्यंत पोहोचता येत नाही</string>
     <string name="a11y_watch_no_price_phone_only">भाव नाही, घड्याळ ही जोडी लोड करू शकत नाही</string>
     <string name="a11y_watch_no_price_via_phone">भाव नाही, घड्याळाला %1$s चे भाव फक्त फोनवरून मिळतात</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">भाव नाही, सध्या एक्सचेंजशी संपर्क होत नाही</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">शेवटचे अपडेट %1$d मिनिटापूर्वी</item>
         <item quantity="other">शेवटचे अपडेट %1$d मिनिटांपूर्वी</item>

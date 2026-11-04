@@ -75,8 +75,9 @@ class WatchPairQuotesParityTest {
             val name = c.getString("name")
             val responses = c.getJSONObject("responses")
             val requests = Collections.synchronizedList(ArrayList<String>())
+            val outcomes = java.util.concurrent.ConcurrentHashMap<String, String>()
             val result = runBlocking {
-                WatchPriceSource.fetch(strings(c.getJSONArray("coins"))) { url ->
+                WatchPriceSource.fetch(strings(c.getJSONArray("coins")), record = { k, o -> outcomes[k] = o.name }) { url ->
                     val key = key(url)
                     requests += key
                     // null bzw. fehlend = HTTP-Fehler, Sperre oder kein Netz
@@ -93,6 +94,27 @@ class WatchPairQuotesParityTest {
                 assertEquals(name, e.getDouble(2), q.price, 1e-9)
                 assertEquals(name, e.getDouble(3), q.change24h!!, 1e-9)
             }
+            c.optJSONObject("outcomes")?.let { o ->
+                assertEquals("$name outcomes", o.keys().asSequence().associateWith { o.getString(it) }, outcomes.toMap())
+            }
+        }
+    }
+
+    @Test
+    fun answered() {
+        for (c in objects(data.getJSONArray("answered"))) {
+            val body = if (c.isNull("body")) null else c.getString("body")
+            assertEquals("answered $body", c.getBoolean("expected"), WatchPairQuotes.answered(body))
+        }
+    }
+
+    /** Grund bei «—» aus dem letzten eigenen Abruf (Review 195: «nur vom Handy» nur, wenn die Börsen das Paar nicht führen). */
+    @Test
+    fun missing() {
+        for (c in objects(data.getJSONArray("missing"))) {
+            val pair = WatchPair.parse(c.getString("key"))!!
+            val outcome = if (c.isNull("outcome")) null else WatchPairQuotes.Outcome.valueOf(c.getString("outcome"))
+            assertEquals("${pair.key} $outcome", c.getString("expected"), WatchPairQuotes.missingReason(pair, outcome).name)
         }
     }
 }

@@ -8,7 +8,9 @@ import SwiftUI
 /// der EIGENEN Börse des Paars (`OwnCandleDataSource`, z. B. Kraken-Paar → Kraken); sonst die
 /// Ausweich-Kette (`CandleDataSource`, Futures-Paare zuerst USDⓈ-M); bei Fiat-Quotes ersatzweise die
 /// USDT-Reihe, je Kerze mit dem Devisenkurs ihres Tags umgerechnet (dieselben EZB-Tageskurse wie der
-/// Wertverlauf, `HistoricPriceSource.usdToSeries`). Jede Reihe gilt nur bei gleichem Token
+/// Wertverlauf, `HistoricPriceSource.usdToSeries`); USDT → USD wie der Wertverlauf: heute der Live-Kurs, davor die
+/// USDT/USD-Tagesschlüsse derselben Quelle wie das Portfolio (`PortfolioHistorySource.usdtUsdDaily`: Kraken, Lücken
+/// Coinbase, 12 h gespeichert); fehlt einer, trägt die ganze Reihe EINEN Kurs (`SheetChart.usdtSeries`). Jede Reihe gilt nur bei gleichem Token
 /// (`SheetChart.accept`); passt die Reihe einer Quelle nicht, ist die nächste der Kette dran.
 /// TradFi-Paare und DEX-Pools nie aus der Kette (`OwnCandlePolicy.allowsFallback`).
 /// Im Speicher je Paar (mit Börse) und Zeitraum 5, 30 bzw. 60 Minuten (nur Erfolge); verworfen beim
@@ -137,11 +139,14 @@ final class SheetChartStore: Sendable {
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der Name
             // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token)
             let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
-            // USDT → USD je Tag zum Marktkurs wie der Wertverlauf: heute Live-Kurs, davor die schon gespeicherten
-            // Tagesschlüsse des Portfolios (ohne Netz); Tag ohne Kurs 1 (Vermerk «USDT = 1 angenommen», `usdtParityNote`)
-            let usdt: UsdtUsdRates? = requests.contains(where: \.convert)
-                ? UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: PortfolioHistorySource.cachedUsdtUsdDaily())
-                : nil
+            // USDT → USD je Tag zum Marktkurs wie der Wertverlauf: heute Live-Kurs, davor die Tagesschlüsse derselben Abfrage
+            // wie das Portfolio (auch ohne Portfolio, sonst fehlte der Verlauf); fehlt einer, ein Kurs für die ganze Reihe
+            var usdt: UsdtUsdRates? = nil
+            if requests.contains(where: \.convert) {
+                var daily = await PortfolioHistorySource.usdtUsdDaily(days: SheetChartStore.fxDays)
+                if daily.isEmpty { daily = PortfolioHistorySource.cachedUsdtUsdDaily() }
+                usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: daily)
+            }
             let today = SheetChart.utcEpochDay(EpochTime.nowMillis)
             for request in requests {
                 if Task.isCancelled { return nil }
@@ -158,11 +163,13 @@ final class SheetChartStore: Sendable {
                 if let sourced, let candles = accepted {
                     let fx = SheetChart.fxMode(request, dailyRates: rates)
                     let source = "\(request.base)/\(request.quote)"
+                    let series = SheetChart.usdtSeries(candles, usdt: usdt, todayEpochDay: today)
                     let info = SheetChartInfo(provider: sourced.provider, sourcePair: source, fx: fx,
                                               fetchedAt: EpochTime.nowMillis,
                                               usdtAssumed: SheetChart.usdtParityNote(
-                                                  fx, sourcePair: source,
-                                                  usdtApproximate: SheetChart.usdtApproximate(candles, usdt: usdt, todayEpochDay: today)))
+                                                  fx, sourcePair: source, usdtApproximate: series.approximate),
+                                              usdtHistoryMissing: SheetChart.usdtHistoryNote(
+                                                  fx, sourcePair: source, historyMissing: series.historyMissing))
                     return (candles: candles, converted: request.convert, info: info)
                 }
             }

@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">qiymət yoxdur, %1$s əlçatan deyil</string>
     <string name="a11y_watch_no_price_phone_only">qiymət yoxdur, saat bu cütü yükləyə bilmir</string>
     <string name="a11y_watch_no_price_via_phone">qiymət yoxdur, saat %1$s qiymətlərini yalnız telefondan alır</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">qiymət yoxdur, birjalar hazırda əlçatan deyil</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">son yenilənmə %1$d dəqiqə əvvəl</item>
         <item quantity="other">son yenilənmə %1$d dəqiqə əvvəl</item>

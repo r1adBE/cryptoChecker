@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Umlando nge-%1$s, uguqulelwe ku-%2$s ngezinga lanamuhla</string>
+    <string name="sheet_chart_usdt_history_missing">Umlando we-USDT/USD awutholakali – lonke ishadi ngezinga le-USDT/USD lanamuhla</string>
     <string name="converted_unsure">Ukuguqula akuqinisekile</string>
 </resources>

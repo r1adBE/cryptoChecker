@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ዋጋ የለም፣ %1$s አይደረስም</string>
     <string name="a11y_watch_no_price_phone_only">ዋጋ የለም፣ ሰዓቱ ይህን ጥንድ መጫን አይችልም</string>
     <string name="a11y_watch_no_price_via_phone">ዋጋ የለም፣ ሰዓቱ የ%1$s ዋጋዎችን የሚያገኘው ከስልኩ ብቻ ነው</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ዋጋ የለም፣ ልውውጦች አሁን ሊደረስባቸው አልቻለም</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ከ%1$d ደቂቃ በፊት ተዘምኗል</item>
         <item quantity="other">ከ%1$d ደቂቃዎች በፊት ተዘምኗል</item>

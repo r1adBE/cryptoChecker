@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">kein Kurs, %1$s nicht erreichbar</string>
     <string name="a11y_watch_no_price_phone_only">kein Kurs, die Uhr kann dieses Paar nicht abrufen</string>
     <string name="a11y_watch_no_price_via_phone">kein Kurs, Kurse von %1$s erhält die Uhr nur vom Handy</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">kein Kurs, Börsen gerade nicht erreichbar</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">zuletzt aktualisiert vor %1$d Minute</item>
         <item quantity="other">zuletzt aktualisiert vor %1$d Minuten</item>

@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Stair in %1$s, tiontaithe go %2$s ag ráta an lae inniu</string>
+    <string name="sheet_chart_usdt_history_missing">Níl stair USDT/USD ar fáil – an chairt ar fad ag ráta USDT/USD an lae inniu</string>
     <string name="converted_unsure">Tiontú éiginnte</string>
 </resources>

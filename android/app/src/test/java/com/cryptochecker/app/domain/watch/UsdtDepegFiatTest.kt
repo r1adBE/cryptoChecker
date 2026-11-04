@@ -29,7 +29,13 @@ class UsdtDepegFiatTest {
         // Ohne USDT/USD: 0 % (Näherung, markiert)
         assertEquals(0.0, DayChange.fromUsdtSeries(81_000.0, ref, 0.9, 0.9)!!, 1e-9)
         assertTrue(DayChange.usdtSeriesApproximate(null, 1.0))
-        assertTrue(DayChange.usdtSeriesApproximate(0.9, null))
+        // Kein Schluss zur Eröffnung, live 0.90: beide Enden 0.90 → 0 % statt erfundener −10 %
+        assertFalse(DayChange.usdtSeriesApproximate(0.9, null))
+        assertTrue(DayChange.usdtSeriesHistoryMissing(0.9, null))
+        assertEquals(0.0, DayChange.fromUsdtSeries(81_000.0, ref, 0.9, 0.9, usdtUsd = 0.9)!!, 1e-9)
+        // Schluss da, aber kein Live-Kurs: beide Enden 1 → 0 % statt +11 %
+        assertTrue(DayChange.usdtSeriesApproximate(null, 0.9))
+        assertEquals(0.0, DayChange.fromUsdtSeries(90_000.0, ref, 0.9, 0.9, usdtUsdAtOpen = 0.9)!!, 1e-9)
         // Ohne Devisenkurs zur Eröffnung weiterhin kein Wert
         assertNull(DayChange.fromUsdtSeries(81_000.0, ref, 0.9, null, usdtUsd = 0.9, usdtUsdAtOpen = 1.0))
     }
@@ -50,18 +56,34 @@ class UsdtDepegFiatTest {
     }
 
     @Test
-    fun noteFollowsTheDaysNotTheLiveRate() {
+    fun missingHistoryNeverInventsAStep() {
         val rates = mapOf(20L to 0.9, 21L to 0.9)
-        // Live-Kurs da, aber kein Schluss für Tag 20: Vermerk (vorher fälschlich keiner)
+        // Review 195: nur Merkliste (keine gespeicherten Schlüsse), live 0.90, BTC flach in USDT → keine Stufe
         val noClose = UsdtUsdRates(live = 0.9)
-        val chart = SheetChart.accept(flat, fallback, 81_000.0, rates, usdt = noClose, todayEpochDay = 21)
-        assertNotNull(chart)
-        assertTrue(SheetChart.usdtApproximate(chart!!, noClose, 21))
-        assertTrue(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", SheetChart.usdtApproximate(chart, noClose, 21)))
-        // Schluss für Tag 20, aber kein Live-Kurs für heute: ebenfalls Vermerk
-        assertTrue(SheetChart.usdtApproximate(flat, UsdtUsdRates(live = null, daily = mapOf(20L to 1.0)), 21))
-        // Gar nichts: immer Vermerk
+        val chart = SheetChart.accept(flat, fallback, 81_000.0, rates, usdt = noClose, todayEpochDay = 21)!!
+        assertEquals(81_000.0, chart.first().close, 1e-6)
+        assertEquals(81_000.0, chart.last().close, 1e-6)
+        val series = SheetChart.usdtSeries(chart, noClose, 21)
+        assertFalse(series.approximate)
+        assertTrue(series.historyMissing)
+        assertTrue(SheetChart.usdtHistoryNote(SheetChartFx.DAILY, "BTC/USDT", series.historyMissing))
+        assertFalse(SheetChart.usdtParityNote(SheetChartFx.DAILY, "BTC/USDT", series.approximate))
+        // Mit einem Devisenkurs ebenso
+        val current = SheetChart.accept(flat, fallback, 81_000.0, currentRate = 0.9, usdt = noClose, todayEpochDay = 21)!!
+        assertEquals(current.first().close, current.last().close, 1e-6)
+        // Schluss für Tag 20, aber kein Live-Kurs: ganze Reihe 1, Vermerk «USDT = 1»
+        val noLive = SheetChart.usdtSeries(flat, UsdtUsdRates(live = null, daily = mapOf(20L to 1.0)), 21)
+        assertEquals(listOf(1.0, 1.0), noLive.rates)
+        assertTrue(noLive.approximate)
+        assertFalse(noLive.historyMissing)
+        // Gar nichts: immer Vermerk «USDT = 1»
         assertTrue(SheetChart.usdtApproximate(flat, null, 21))
+        // Echter Einbruch: Schluss 0.40 gespeichert und live 0.40 → beide Tage 0.40, keine Stufe
+        val crash = UsdtUsdRates(live = 0.4, daily = mapOf(20L to 0.4))
+        val crashed = SheetChart.accept(flat, fallback, 36_000.0, rates, usdt = crash, todayEpochDay = 21)!!
+        assertEquals(36_000.0, crashed.first().close, 1e-6)
+        assertEquals(36_000.0, crashed.last().close, 1e-6)
+        assertFalse(SheetChart.usdtSeries(crashed, crash, 21).historyMissing)
     }
 
     @Test

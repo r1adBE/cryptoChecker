@@ -54,33 +54,37 @@ enum PortfolioStables {
         return live.isFinite && abs(live - 1) <= maxFallbackDeviation ? 1 : nil
     }
 
-    /// Plausibler Marktkurs USDT/USD (wie `DepegAlarm`): sonst Börsenfehler.
+    /// Normalbereich USDT/USD. Nur noch eine Plausibilitätsgrenze für ANDERES als die Umrechnung: die Depeg-Messung
+    /// (`DepegAlarm`, `StableDepeg`: ein Kurs ausserhalb zählt erst, wenn zwei Quellen ihn bestätigen), die Anzeige
+    /// «USDT-Einbruch» (`isUsdtBreak`) und die Wahl zwischen zwei Quellen eines Tagesschlusses (`isUsdtNormal`,
+    /// `HistoricCloseChain.fillUsdtUsd`). Umgerechnet wird mit `usdtUsd` im Einbruch-Bereich. Wie Android.
     static let usdtUsdMin = 0.5
     static let usdtUsdMax = 1.5
 
     /// Ersatz ohne Marktkurs USDT/USD: 1, als Näherung markiert.
     static let usdtUsdFallback = UsdtUsd(rate: 1, approximate: true)
 
-    /// USDT in USD aus einem Marktkurs `market` (live oder Tagesschluss): gültig und plausibel
-    /// (`usdtUsdMin`…`usdtUsdMax`) → dieser Kurs; sonst `usdtUsdFallback` (1, Näherung).
-    static func usdtUsd(_ market: Double?) -> UsdtUsd {
-        guard let m = market, m.isFinite, m >= usdtUsdMin, m <= usdtUsdMax else { return usdtUsdFallback }
-        return UsdtUsd(rate: m, approximate: false)
-    }
-
-    /// Einbruch-Bereich des LIVE-Kurses USDT/USD: ausserhalb `usdtUsdMin`…`usdtUsdMax`, aber innerhalb
-    /// `usdtUsdBreakMin`…`usdtUsdBreakMax` zählt ein Kurs nur, wenn die Depeg-Messung ihn von mindestens zwei Quellen
-    /// bestätigt hat (`DepegAlarm.measure`). Ein echter USDT-Einbruch (z. B. 0.30) soll mit dem Marktkurs bewertet
-    /// werden statt still mit 1. Wie Android.
+    /// Einbruch-Bereich USDT/USD: so weit gilt ein Kurs für die Umrechnung — live wie Tagesschluss. Ein echter
+    /// USDT-Einbruch (z. B. 0.40) soll mit dem Marktkurs bewertet werden statt still mit 1; erst ausserhalb
+    /// (Börsenfehler, 0, Unsinn) gilt `usdtUsdFallback`. Live-Kurse ausserhalb des Normalbereichs hat die Depeg-Messung
+    /// schon mit zwei Quellen bestätigt (`DepegAlarm.measure`). Wie Android.
     static let usdtUsdBreakMin = 0.05
     static let usdtUsdBreakMax = 3.0
 
-    /// USDT in USD aus dem Live-Kurs `live` (`DepegAlarm.liveUsdtUsd`, schon von der Messung geprüft): gültig und im
-    /// Einbruch-Bereich → dieser Kurs; sonst `usdtUsdFallback`. Tagesschlüsse bleiben bei `usdtUsd` (eine einzelne
-    /// Quelle, kein Abgleich).
-    static func usdtUsdLive(_ live: Double?) -> UsdtUsd {
-        guard let m = live, m.isFinite, m >= usdtUsdBreakMin, m <= usdtUsdBreakMax else { return usdtUsdFallback }
+    /// USDT in USD aus einem Marktkurs `market` (live oder Tagesschluss USDT/USD): gültig und im Einbruch-Bereich
+    /// (`usdtUsdBreakMin`…`usdtUsdBreakMax`) → dieser Kurs; sonst `usdtUsdFallback` (1, Näherung). Dieselbe Grenze für
+    /// Live-Kurs und Tagesschluss — sonst zeigte ein Verlauf über einen echten Einbruch gestern 1 und heute 0.40.
+    static func usdtUsd(_ market: Double?) -> UsdtUsd {
+        guard let m = market, m.isFinite, m >= usdtUsdBreakMin, m <= usdtUsdBreakMax else { return usdtUsdFallback }
         return UsdtUsd(rate: m, approximate: false)
+    }
+
+    /// USDT in USD aus dem Live-Kurs `live` (`DepegAlarm.liveUsdtUsd`): wie `usdtUsd`.
+    static func usdtUsdLive(_ live: Double?) -> UsdtUsd { usdtUsd(live) }
+
+    /// Liegt `rate` im Normalbereich (`usdtUsdMin`…`usdtUsdMax`)? Nur Plausibilität (Wahl der Quelle), keine Umrechnung.
+    static func isUsdtNormal(_ rate: Double) -> Bool {
+        rate.isFinite && rate >= usdtUsdMin && rate <= usdtUsdMax
     }
 
     /// Liegt `rate` ausserhalb des Normalbereichs (bestätigter USDT-Einbruch, Anzeige «USDT-Einbruch»)?
@@ -105,12 +109,13 @@ struct UsdtUsd: Equatable, Sendable {
 
 /// Marktkurse USDT/USD für Umrechnungen in Fiat: `live` = aktueller Kurs (Kraken USDT/USD bzw. Binance USDC/USDT wie der
 /// Depeg-Alarm, `DepegAlarm.measure`); `daily` = Tagesschluss je Tag (epochDay). Ab `todayEpochDay` gilt der Live-Kurs,
-/// davor der Schluss DES Tags — fehlt er, 1 als Näherung (`PortfolioStables.usdtUsd`), kein Schluss eines anderen Tags.
+/// davor der Schluss DES Tags — fehlt er, 1 als Näherung (`PortfolioStables.usdtUsd`, gleicher Einbruch-Bereich wie live),
+/// kein Schluss eines anderen Tags.
 struct UsdtUsdRates: Equatable, Sendable {
     var live: Double?
     var daily: [Int: Double] = [:]
 
-    /// Aktueller Kurs (oder Ersatz 1, Näherung); bestätigter Einbruch zählt (`PortfolioStables.usdtUsdLive`).
+    /// Aktueller Kurs (oder Ersatz 1, Näherung); ein Einbruch zählt (`PortfolioStables.usdtUsdLive`).
     func current() -> UsdtUsd { PortfolioStables.usdtUsdLive(live) }
 
     /// Kurs für den Tag `day`: ab `todayEpochDay` `current`, sonst Tagesschluss oder Ersatz 1 (Näherung).

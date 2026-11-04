@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ਕੋਈ ਭਾਅ ਨਹੀਂ, %1$s ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
     <string name="a11y_watch_no_price_phone_only">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਇਹ ਜੋੜੀ ਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦੀ</string>
     <string name="a11y_watch_no_price_via_phone">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਨੂੰ %1$s ਦੇ ਭਾਅ ਸਿਰਫ਼ ਫ਼ੋਨ ਤੋਂ ਮਿਲਦੇ ਹਨ</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਹੁਣ ਐਕਸਚੇਂਜਾਂ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>
         <item quantity="other">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>

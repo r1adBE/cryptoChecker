@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">tidak ada harga, %1$s tidak dapat dijangkau</string>
     <string name="a11y_watch_no_price_phone_only">tidak ada harga, jam tidak dapat memuat pasangan ini</string>
     <string name="a11y_watch_no_price_via_phone">tidak ada harga, jam hanya mendapat harga %1$s dari ponsel</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">tidak ada harga, bursa saat ini tidak dapat dijangkau</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">terakhir diperbarui %1$d menit lalu</item>
     </plurals>

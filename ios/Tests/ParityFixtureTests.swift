@@ -422,6 +422,11 @@ final class ParityFixtureTests: XCTestCase {
                                                                usdtUsdAtOpen: S.number(c["usdtUsdAtOpen"])),
                                approximate, "usdtApproximate: \(c["name"] ?? "")")
             }
+            if let missing = c["usdtHistoryMissing"] as? Bool {
+                XCTAssertEqual(DayChange.usdtSeriesHistoryMissing(usdtUsd: S.number(c["usdtUsd"]),
+                                                                  usdtUsdAtOpen: S.number(c["usdtUsdAtOpen"])),
+                               missing, "usdtHistoryMissing: \(c["name"] ?? "")")
+            }
         }
         for c in S.list(data["reference"]) {
             let valid = DayReference.of(open: S.number(c["open"]), lastClose: S.number(c["lastClose"])) != nil

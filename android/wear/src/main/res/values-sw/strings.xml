@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">hakuna bei, %1$s haipatikani</string>
     <string name="a11y_watch_no_price_phone_only">hakuna bei, saa haiwezi kupakia jozi hii</string>
     <string name="a11y_watch_no_price_via_phone">hakuna bei, saa inapata bei za %1$s kutoka kwa simu pekee</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">hakuna bei, majukwaa hayapatikani kwa sasa</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ilisasishwa mara ya mwisho dakika %1$d iliyopita</item>
         <item quantity="other">ilisasishwa mara ya mwisho dakika %1$d zilizopita</item>

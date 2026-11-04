@@ -31307,6 +31307,461 @@
         }
       }
     },
+    "a11y_watch_no_price_exchanges_unreachable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, beurse tans nie bereikbaar nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋ የለም፣ ልውውጦች አሁን ሊደረስባቸው አልቻለም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سعر، تعذّر الوصول إلى المنصات حاليًا"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "qiymət yoxdur, birjalar hazırda əlçatan deyil"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "няма цена, борсите в момента са недостъпни"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দাম নেই, এই মুহূর্তে এক্সচেঞ্জে পৌঁছানো যাচ্ছে না"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, berze trenutno nisu dostupne"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sense preu, els exchanges ara no són accessibles"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žádná cena, burzy jsou teď nedostupné"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, børserne kan ikke nås lige nu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Kurs, Börsen gerade nicht erreichbar"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "καμία τιμή, τα ανταλλακτήρια δεν είναι διαθέσιμα αυτή τη στιγμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no price, exchanges not reachable right now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin precio, exchanges no disponibles en este momento"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hind puudub, börsid pole praegu kättesaadavad"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "preziorik ez, burtsak ez daude orain eskuragarri"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمتی نیست، صرافی‌ها اکنون در دسترس نیستند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ei hintaa, pörssejä ei juuri nyt tavoiteta"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "walang presyo, hindi maabot ang mga exchange ngayon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucun cours, plateformes injoignables pour le moment"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gan phraghas, ní féidir na malartáin a bhaint amach faoi láthair"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sen prezo, exchanges non accesibles neste momento"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "કોઈ ભાવ નથી, અત્યારે એક્સચેન્જ સુધી પહોંચી શકાતું નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין מחיר, אין כרגע גישה לבורסות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई भाव नहीं, अभी एक्सचेंज तक पहुँच नहीं"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cijene, burze trenutačno nisu dostupne"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nincs árfolyam, a tőzsdék most nem érhetők el"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "գին չկա, բորսաները հիմա հասանելի չեն"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tidak ada harga, bursa saat ini tidak dapat dijangkau"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ekkert verð, ekki næst í kauphallir í augnablikinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessun prezzo, exchange non raggiungibili al momento"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格なし、現在取引所に接続できません"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასი არ არის, ბირჟები ახლა მიუწვდომელია"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "баға жоқ, биржалар қазір қолжетімсіз"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "គ្មានតម្លៃ, ឥឡូវនេះមិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆ ಇಲ್ಲ, ಈಗ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳನ್ನು ತಲುಪಲಾಗುತ್ತಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 없음, 지금은 거래소에 연결할 수 없습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ມີລາຄາ, ຕອນນີ້ເຊື່ອມຕໍ່ກະດານແລກປ່ຽນບໍ່ໄດ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kainos nėra, biržos šiuo metu nepasiekiamos"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nav cenas, biržas pašlaik nav sasniedzamas"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цена, берзите моментално не се достапни"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വിലയില്ല, ഇപ്പോൾ എക്സ്ചേഞ്ചുകളിൽ എത്താനാകുന്നില്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ханш алга, бирж одоогоор холбогдохгүй байна"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भाव नाही, सध्या एक्सचेंजशी संपर्क होत नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tiada harga, bursa tidak dapat dihubungi sekarang"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "စျေးနှုန်းမရှိ၊ ယခု လဲလှယ်ရေးဌာနများကို ချိတ်ဆက်၍မရပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, børsene kan ikke nås akkurat nå"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य छैन, अहिले एक्सचेन्जहरूमा पुग्न सकिएन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen koers, beurzen nu niet bereikbaar"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੋਈ ਭਾਅ ਨਹੀਂ, ਹੁਣ ਐਕਸਚੇਂਜਾਂ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "brak kursu, giełdy są teraz niedostępne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, exchanges inacessíveis de momento"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem cotação, exchanges indisponíveis no momento"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "niciun preț, bursele nu răspund acum"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нет курса, биржи сейчас недоступны"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිලක් නැත, දැන් හුවමාරුවලට ළඟා විය නොහැක"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "žiadna cena, burzy sú teraz nedostupné"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ni tečaja, borze trenutno niso dosegljive"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pa çmim, bursat nuk arrihen tani"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "нема цене, берзе тренутно нису доступне"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nema cene, berze trenutno nisu dostupne"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingen kurs, börserna kan inte nås just nu"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hakuna bei, majukwaa hayapatikani kwa sasa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலை இல்லை, இப்போது எக்ஸ்சேஞ்ச்களை அணுக முடியவில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధర లేదు, ఇప్పుడు ఎక్స్ఛేంజ్‌లు అందుబాటులో లేవు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีราคา ขณะนี้เชื่อมต่อกระดานเทรดไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fiyat yok, borsalara şu anda ulaşılamıyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "немає курсу, біржі зараз недоступні"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کوئی قیمت نہیں، ابھی ایکسچینجز تک رسائی نہیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "narx yoʻq, birjalar hozir javob bermayapti"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không có giá, hiện không kết nối được sàn"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇價格，暫時連唔到交易所"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无价格，目前无法连接交易所"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無價格，目前無法連線交易所"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alikho intengo, ama-exchange awatholakali okwamanje"
+          }
+        }
+      }
+    },
     "a11y_watch_no_price_phone_only" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -806401,6 +806856,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Namuhla"
+          }
+        }
+      }
+    },
+    "sheet_chart_usdt_history_missing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-geskiedenis nie beskikbaar nie – hele grafiek teen vandag se USDT/USD-koers"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የUSDT/USD ታሪክ አይገኝም – ሙሉው ገበታ በዛሬው የUSDT/USD ተመን"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سجل USDT/USD غير متاح – الرسم البياني كله بسعر USDT/USD اليوم"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD tarixçəsi mövcud deyil – bütün qrafik bugünkü USDT/USD məzənnəsi ilə"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Няма история на USDT/USD – цялата графика по днешния курс USDT/USD"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-এর ইতিহাস পাওয়া যায়নি – পুরো চার্ট আজকের USDT/USD হারে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historija USDT/USD nije dostupna – cijeli grafikon po današnjem kursu USDT/USD"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'historial USDT/USD no està disponible – tot el gràfic al tipus USDT/USD d'avui"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historie USDT/USD není k dispozici – celý graf dnešním kurzem USDT/USD"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-historik ikke tilgængelig – hele grafen med dagens USDT/USD-kurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-Verlauf nicht verfügbar – ganzer Chart mit heutigem USDT/USD-Kurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το ιστορικό USDT/USD δεν είναι διαθέσιμο – όλο το γράφημα με τη σημερινή ισοτιμία USDT/USD"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD history not available – whole chart at today's USDT/USD rate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de USDT/USD no disponible – todo el gráfico con el tipo USDT/USD de hoy"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD ajalugu pole saadaval – kogu graafik tänase USDT/USD kursiga"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD historia ez dago eskuragarri – grafiko osoa gaurko USDT/USD tasan"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سابقه USDT/USD در دسترس نیست – کل نمودار با نرخ امروز USDT/USD"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-historiaa ei ole saatavilla – koko kaavio tämän päivän USDT/USD-kurssilla"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walang kasaysayan ng USDT/USD – buong chart sa USDT/USD rate ngayon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique USDT/USD indisponible – tout le graphique au cours USDT/USD du jour"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níl stair USDT/USD ar fáil – an chairt ar fad ag ráta USDT/USD an lae inniu"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de USDT/USD non dispoñible – todo o gráfico ao tipo USDT/USD de hoxe"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD નો ઇતિહાસ ઉપલબ્ધ નથી – આખો ચાર્ટ આજના USDT/USD દરે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "היסטוריית USDT/USD אינה זמינה – כל הגרף לפי שער USDT/USD של היום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD का इतिहास उपलब्ध नहीं – पूरा चार्ट आज के USDT/USD रेट पर"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povijest USDT/USD nije dostupna – cijeli grafikon po današnjem tečaju USDT/USD"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-előzmények nem érhetők el – a teljes diagram a mai USDT/USD-árfolyamon"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-ի պատմությունը հասանելի չէ – ամբողջ գծապատկերը այսօրվա USDT/USD փոխարժեքով"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riwayat USDT/USD tidak tersedia – seluruh grafik dengan kurs USDT/USD hari ini"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saga USDT/USD er ekki tiltæk – allt grafið á USDT/USD-gengi dagsins"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Storico USDT/USD non disponibile – tutto il grafico al cambio USDT/USD di oggi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD の履歴を取得できません – チャート全体を本日の USDT/USD レートで換算"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-ის ისტორია მიუწვდომელია – მთელი დიაგრამა დღევანდელი USDT/USD კურსით"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD тарихы қолжетімсіз – бүкіл диаграмма бүгінгі USDT/USD бағамымен"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "មិនមានប្រវត្តិ USDT/USD – តារាងទាំងមូលតាមអត្រា USDT/USD ថ្ងៃនេះ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD ಇತಿಹಾಸ ಲಭ್ಯವಿಲ್ಲ – ಸಂಪೂರ್ಣ ಚಾರ್ಟ್ ಇಂದಿನ USDT/USD ದರದಲ್ಲಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD 기록을 사용할 수 없습니다 – 차트 전체를 오늘 USDT/USD 환율로 환산"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ມີປະຫວັດ USDT/USD – ແຜນພູມທັງໝົດຕາມອັດຕາ USDT/USD ມື້ນີ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD istorija nepasiekiama – visas grafikas šiandienos USDT/USD kursu"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD vēsture nav pieejama – viss grafiks pēc šodienas USDT/USD kursa"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Историјата на USDT/USD не е достапна – целиот графикон по денешниот курс USDT/USD"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD ചരിത്രം ലഭ്യമല്ല – മുഴുവൻ ചാർട്ടും ഇന്നത്തെ USDT/USD നിരക്കിൽ"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-ийн түүх байхгүй – бүх график өнөөдрийн USDT/USD ханшаар"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD चा इतिहास उपलब्ध नाही – संपूर्ण चार्ट आजच्या USDT/USD दराने"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sejarah USDT/USD tidak tersedia – seluruh carta pada kadar USDT/USD hari ini"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD သမိုင်း မရရှိနိုင်ပါ – ဇယားတစ်ခုလုံးကို ယနေ့ USDT/USD နှုန်းဖြင့်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-historikk er ikke tilgjengelig – hele grafen med dagens USDT/USD-kurs"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD को इतिहास उपलब्ध छैन – पूरै चार्ट आजको USDT/USD दरमा"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-verloop niet beschikbaar – hele grafiek tegen de USDT/USD-koers van vandaag"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD ਦਾ ਇਤਿਹਾਸ ਉਪਲਬਧ ਨਹੀਂ – ਪੂਰਾ ਚਾਰਟ ਅੱਜ ਦੀ USDT/USD ਦਰ ’ਤੇ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historia USDT/USD niedostępna – cały wykres po dzisiejszym kursie USDT/USD"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico de USDT/USD indisponível – todo o gráfico à taxa USDT/USD de hoje"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico de USDT/USD indisponível – todo o gráfico pela cotação USDT/USD de hoje"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Istoricul USDT/USD nu este disponibil – tot graficul la cursul USDT/USD de azi"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "История USDT/USD недоступна – весь график по сегодняшнему курсу USDT/USD"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD ඉතිහාසය ලබා ගත නොහැක – සම්පූර්ණ ප්‍රස්ථාරය අද USDT/USD අනුපාතයට"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "História USDT/USD nie je k dispozícii – celý graf dnešným kurzom USDT/USD"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zgodovina USDT/USD ni na voljo – celoten graf po današnjem tečaju USDT/USD"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historiku USDT/USD nuk është i disponueshëm – i gjithë grafiku me kursin e sotëm USDT/USD"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Историја USDT/USD није доступна – цео графикон по данашњем курсу USDT/USD"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Istorija USDT/USD nije dostupna – ceo grafikon po današnjem kursu USDT/USD"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD-historik är inte tillgänglig – hela diagrammet med dagens USDT/USD-kurs"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historia ya USDT/USD haipatikani – chati nzima kwa kiwango cha leo cha USDT/USD"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD வரலாறு கிடைக்கவில்லை – முழு விளக்கப்படமும் இன்றைய USDT/USD விகிதத்தில்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD చరిత్ర అందుబాటులో లేదు – మొత్తం చార్ట్ ఈరోజు USDT/USD రేటుతో"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีประวัติ USDT/USD – ทั้งกราฟใช้อัตรา USDT/USD ของวันนี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD geçmişi mevcut değil – tüm grafik bugünkü USDT/USD kuruyla"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Історія USDT/USD недоступна – увесь графік за сьогоднішнім курсом USDT/USD"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD کی تاریخ دستیاب نہیں – پورا چارٹ آج کی USDT/USD شرح پر"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USDT/USD tarixi mavjud emas – butun grafik bugungi USDT/USD kursi boʻyicha"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có lịch sử USDT/USD – toàn bộ biểu đồ theo tỷ giá USDT/USD hôm nay"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇 USDT/USD 歷史 – 成個圖表按今日 USDT/USD 匯率"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法获取 USDT/USD 历史 – 整个图表按今日 USDT/USD 汇率"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法取得 USDT/USD 歷史 – 整個圖表按今日 USDT/USD 匯率"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umlando we-USDT/USD awutholakali – lonke ishadi ngezinga le-USDT/USD lanamuhla"
           }
         }
       }

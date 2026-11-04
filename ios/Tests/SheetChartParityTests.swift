@@ -43,6 +43,16 @@ final class SheetChartParityTests: XCTestCase {
                     XCTFail("\(name): note needs a chart")
                 }
             }
+            if let missing = c["usdtHistoryMissing"] as? Bool {
+                if let result {
+                    let note = SheetChart.usdtHistoryNote(
+                        SheetChart.fxMode(request, dailyRates: rates), sourcePair: "BTC/USDT",
+                        historyMissing: SheetChart.usdtSeries(result, usdt: usdt, todayEpochDay: today).historyMissing)
+                    XCTAssertEqual(note, missing, "\(name): note «USDT/USD history not available»")
+                } else {
+                    XCTFail("\(name): note needs a chart")
+                }
+            }
             guard let e = c["expected"] as? [String: Any] else {
                 XCTAssertNil(result, "\(name): expected no chart")
                 continue

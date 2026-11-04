@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Historia kwa %1$s, imebadilishwa kuwa %2$s kwa kiwango cha leo</string>
+    <string name="sheet_chart_usdt_history_missing">Historia ya USDT/USD haipatikani – chati nzima kwa kiwango cha leo cha USDT/USD</string>
     <string name="converted_unsure">Ubadilishaji hauna uhakika</string>
 </resources>

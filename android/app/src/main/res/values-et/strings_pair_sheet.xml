@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Ajalugu valuutas %1$s, teisendatud valuutasse %2$s tänase kursiga</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD ajalugu pole saadaval – kogu graafik tänase USDT/USD kursiga</string>
     <string name="converted_unsure">Teisendus ebakindel</string>
 </resources>

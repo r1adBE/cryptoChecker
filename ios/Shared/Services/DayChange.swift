@@ -60,9 +60,9 @@ enum DayChange {
 
     /// 24-h-Veränderung eines Fiat-Paars aus der USDT-Reihe: letzter Schluss × `usdtUsd` × `usdToQuote` (USDT/USD und
     /// Fiat je USD jetzt) gegen Eröffnung × `usdtUsdAtOpen` × `usdToQuoteAtOpen` (vor 24 h) — so zählt ein USDT-Depeg
-    /// mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD jetzt = Live-Kurs
-    /// (`PortfolioStables.usdtUsdLive`), zur Eröffnung = Tagesschluss jenes Tags (`PortfolioStables.usdtUsd`); fehlt
-    /// einer, gilt dort 1 (Näherung, `usdtSeriesApproximate`).
+    /// mit (BTC in USDT flach, USDT/USD 1.00 → 0.90: −10 % in Fiat). USDT/USD nach `usdtEnds`: beide Enden gemessen
+    /// (jetzt Live-Kurs, zur Eröffnung Tagesschluss jenes Tags) — sonst EIN Kurs für beide Enden (Live-Kurs, sonst 1),
+    /// nie gemessen gegen angenommen (wie der Chart, `SheetChart.usdtSeries`).
     /// Fehlt einer der beiden Devisenkurse (nil, nicht endlich, ≤ 0) → nil: der USDT-Prozentwert ist kein
     /// Fiat-Wert, also lieber «—». Kursabstand-Prüfung wie `fromPrice` (`maxPriceGap`) gegen den
     /// umgerechneten letzten Schluss; ohne Paarkurs entfällt nur diese Prüfung.
@@ -73,8 +73,9 @@ enum DayChange {
         guard let ref = reference,
               let fx = usdToQuote, fx.isFinite, fx > 0,
               let fxAtOpen = usdToQuoteAtOpen, fxAtOpen.isFinite, fxAtOpen > 0 else { return nil }
-        let rate: Double = fx * PortfolioStables.usdtUsdLive(usdtUsd).rate
-        let rateAtOpen: Double = fxAtOpen * PortfolioStables.usdtUsd(usdtUsdAtOpen).rate
+        let ends = usdtEnds(usdtUsd: usdtUsd, usdtUsdAtOpen: usdtUsdAtOpen)
+        let rate: Double = fx * ends.now
+        let rateAtOpen: Double = fxAtOpen * ends.atOpen
         if let p = price, p.isFinite, p > 0 {
             let gap: Double = abs(p / (ref.lastClose * rate) - 1)
             if gap > maxPriceGap { return nil }
@@ -84,9 +85,34 @@ enum DayChange {
         return (last - open) / open * 100
     }
 
-    /// Rechnet `fromUsdtSeries` an einem Ende mit USDT = 1 (kein Live-Kurs bzw. kein Tagesschluss USDT/USD)? Wie Android.
+    /// USDT/USD an beiden Enden; `approximate` = USDT = 1, `historyMissing` = beide Enden mit dem Live-Kurs.
+    struct UsdtEnds: Equatable, Sendable {
+        let now: Double
+        let atOpen: Double
+        let approximate: Bool
+        let historyMissing: Bool
+    }
+
+    /// USDT/USD für `fromUsdtSeries`: jetzt der Live-Kurs, zur Eröffnung der Tagesschluss — nur wenn BEIDE gemessen sind
+    /// (`PortfolioStables.usdtUsd`, 0.05…3). Sonst EIN Kurs für beide Enden: der Live-Kurs (`historyMissing`), ohne ihn
+    /// 1 (`approximate`) — so entsteht nie eine Veränderung aus «Eröffnung 1, jetzt live». Wie Android.
+    static func usdtEnds(usdtUsd: Double?, usdtUsdAtOpen: Double?) -> UsdtEnds {
+        let now = PortfolioStables.usdtUsdLive(usdtUsd)
+        let open = PortfolioStables.usdtUsd(usdtUsdAtOpen)
+        if !now.approximate && !open.approximate {
+            return UsdtEnds(now: now.rate, atOpen: open.rate, approximate: false, historyMissing: false)
+        }
+        return UsdtEnds(now: now.rate, atOpen: now.rate, approximate: now.approximate, historyMissing: !now.approximate)
+    }
+
+    /// Rechnet `fromUsdtSeries` mit USDT = 1 (`usdtEnds`)? Wie Android.
     static func usdtSeriesApproximate(usdtUsd: Double?, usdtUsdAtOpen: Double?) -> Bool {
-        PortfolioStables.usdtUsdLive(usdtUsd).approximate || PortfolioStables.usdtUsd(usdtUsdAtOpen).approximate
+        usdtEnds(usdtUsd: usdtUsd, usdtUsdAtOpen: usdtUsdAtOpen).approximate
+    }
+
+    /// Fehlte der Tagesschluss zur Eröffnung, sodass beide Enden den Live-Kurs tragen (`usdtEnds`)? Wie Android.
+    static func usdtSeriesHistoryMissing(usdtUsd: Double?, usdtUsdAtOpen: Double?) -> Bool {
+        usdtEnds(usdtUsd: usdtUsd, usdtUsdAtOpen: usdtUsdAtOpen).historyMissing
     }
 
     /// Auswahl in fester Reihenfolge (siehe oben).

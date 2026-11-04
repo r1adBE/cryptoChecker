@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">ధర లేదు, %1$s అందుబాటులో లేదు</string>
     <string name="a11y_watch_no_price_phone_only">ధర లేదు, వాచ్ ఈ జతను లోడ్ చేయలేదు</string>
     <string name="a11y_watch_no_price_via_phone">ధర లేదు, వాచ్ %1$s ధరలను ఫోన్ నుండి మాత్రమే పొందుతుంది</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">ధర లేదు, ఇప్పుడు ఎక్స్ఛేంజ్‌లు అందుబాటులో లేవు</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>
         <item quantity="other">%1$d నిమిషాల క్రితం చివరిగా అప్‌డేట్ అయింది</item>

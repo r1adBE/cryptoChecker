@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">баға жоқ, %1$s қолжетімсіз</string>
     <string name="a11y_watch_no_price_phone_only">баға жоқ, сағат бұл жұпты жүктей алмайды</string>
     <string name="a11y_watch_no_price_via_phone">баға жоқ, сағат %1$s бағаларын тек телефоннан алады</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">баға жоқ, биржалар қазір қолжетімсіз</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>
         <item quantity="other">соңғы жаңарту %1$d минут бұрын</item>

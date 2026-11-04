@@ -205,7 +205,7 @@ enum PortfolioTxForm {
 
     /// Faktor USDT → Anzeigewährung für die Eingabe (wie CSV-Import, Steuer-Export
     /// `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung `usdToFiat` × USDT/USD `usdtUsd` (heute der Live-Kurs,
-    /// sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs (`PortfolioStables.usdtUsd`) × 1
+    /// sonst der Tagesschluss DES Tags). Ohne gültigen USDT/USD-Kurs im Einbruch-Bereich 0.05…3 (`PortfolioStables.usdtUsd`) × 1
     /// (Näherung). `fiatToUsdt`/`usdtToFiat` rechnen mit diesem Faktor. nil ohne Devisenkurs — wie `entryRate` (Kotlin).
     static func entryRate(usdToFiat: Decimal?, usdtUsd: Decimal?) -> Decimal? {
         guard let usdToFiat, usdToFiat > 0 else { return nil }

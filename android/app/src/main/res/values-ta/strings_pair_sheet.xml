@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">%1$s இல் வரலாறு, இன்றைய விகிதத்தில் %2$s க்கு மாற்றப்பட்டது</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD வரலாறு கிடைக்கவில்லை – முழு விளக்கப்படமும் இன்றைய USDT/USD விகிதத்தில்</string>
     <string name="converted_unsure">மாற்றம் உறுதியில்லை</string>
 </resources>

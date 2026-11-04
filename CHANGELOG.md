@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 197)
+
+* Fiat charts load the USDT/USD daily closes themselves (Kraken, gaps from Coinbase); if the history is missing they use one rate for the whole chart and say so, instead of drawing a step that was never measured.
+* A real USDT crash below 0.50 is kept in the daily closes (band 0.05–3.0, like the live rate).
+* Watch: «only from the phone» when the asked exchanges do not list the pair, «exchanges not reachable right now» when they did not answer.
+
 ## 16.2.2 (build 196)
 
 * Depeg alarm: besides USDT it now watches USDC (Kraken USDC/USD and the Binance cross rate), and further stablecoins you hold or watch (e.g. DAI, FDUSD, PYUSD) when two exchanges quote them. The settings show which stablecoins are watched; the notification names the coin.

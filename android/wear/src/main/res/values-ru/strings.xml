@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">нет курса, %1$s недоступна</string>
     <string name="a11y_watch_no_price_phone_only">нет курса, часы не могут загрузить эту пару</string>
     <string name="a11y_watch_no_price_via_phone">нет курса, курсы %1$s часы получают только с телефона</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">нет курса, биржи сейчас недоступны</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">последнее обновление %1$d минуту назад</item>
         <item quantity="few">последнее обновление %1$d минуты назад</item>

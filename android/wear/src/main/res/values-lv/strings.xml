@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">nav cenas, %1$s nav sasniedzama</string>
     <string name="a11y_watch_no_price_phone_only">nav cenas, pulkstenis nevar ielādēt šo pāri</string>
     <string name="a11y_watch_no_price_via_phone">nav cenas, %1$s cenas pulkstenis saņem tikai no tālruņa</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">nav cenas, biržas pašlaik nav sasniedzamas</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d minūtēm</item>
         <item quantity="one">pēdējoreiz atjaunināts pirms %1$d minūtes</item>

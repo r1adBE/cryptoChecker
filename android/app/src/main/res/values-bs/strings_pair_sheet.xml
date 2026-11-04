@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Historija u %1$s, preračunato u %2$s po današnjem kursu</string>
+    <string name="sheet_chart_usdt_history_missing">Historija USDT/USD nije dostupna – cijeli grafikon po današnjem kursu USDT/USD</string>
     <string name="converted_unsure">Preračun nesiguran</string>
 </resources>

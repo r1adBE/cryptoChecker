@@ -38,13 +38,15 @@ enum SheetChartFx: Equatable, Sendable {
 
 /// Herkunft für die Zeile unter dem Chart: Börse der Kerzen («Binance», «Coinbase» …), abgefragte
 /// Reihe («BTC/USDT»), Art der Umrechnung, Abfragezeit (Epoch-ms; 0 = unbekannt) und ob mit USDT = 1
-/// umgerechnet wurde (`SheetChart.usdtParityNote`).
+/// umgerechnet wurde (`SheetChart.usdtParityNote`) bzw. ganz mit dem Live-Kurs, weil Tagesschlüsse USDT/USD fehlten
+/// (`SheetChart.usdtHistoryNote`).
 struct SheetChartInfo: Equatable, Sendable {
     var provider: String? = nil
     var sourcePair: String? = nil
     var fx: SheetChartFx = .none
     var fetchedAt: Int64 = 0
     var usdtAssumed = false
+    var usdtHistoryMissing = false
 }
 
 /// Ergebnis für das Blatt: gar nicht zeigen, keine Kerzen oder fertige Kerzen.
@@ -127,9 +129,8 @@ enum SheetChart {
     ///    Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
     ///  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
     ///    des Paars entspricht (Verlauf in Prozent wie `DayChange.fromSeries`).
-    ///  - USDT → USD je Kerze mit dem Marktkurs IHRES Tags (`usdt`, wie der Wertverlauf des Portfolios,
-    ///    `UsdtUsdRates.on`): ab `todayEpochDay` (UTC) der Live-Kurs, davor der Tagesschluss USDT/USD dieses Tags; fehlt er,
-    ///    gilt 1 (Näherung, `usdtApproximate` → `usdtParityNote`). Ohne `usdt` überall 1. Auch ohne Tageskurse
+    ///  - USDT → USD nach `usdtSeries`: je Kerze der Marktkurs IHRES Tags, wenn es ihn für JEDE Kerze gibt; sonst EIN Kurs
+    ///    für die ganze Reihe (nie gestern 1 und heute live — das wäre eine nie gemessene Stufe). Auch ohne Tageskurse
     ///    (ein Devisenkurs): so zeigt der Verlauf in Fiat einen USDT-Depeg.
     ///  - `currentRate`: aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse).
     static func accept(_ candles: [MarketCandle]?, request: SheetCandleRequest, price: Double?,
@@ -145,8 +146,8 @@ enum SheetChart {
             return clean
         }
         let sorted = sortedRates(dailyRates)
-        // USDT/USD je Kerze (Tag der Kerze)
-        let u = clean.map { usdtOn(usdt, openTime: $0.openTime, todayEpochDay: todayEpochDay).rate }
+        // USDT/USD je Kerze (Tag der Kerze), sonst ein Kurs für alle
+        let u = usdtSeries(clean, usdt: usdt, todayEpochDay: todayEpochDay).rates
         let lastUsdt = u.last ?? 1
         guard let firstRate = sorted.first?.rate else {
             guard let rate = currentRate, rate.isFinite, rate > 0 else { return nil }
@@ -206,31 +207,6 @@ enum SheetChart {
             if !tail.isEmpty { source = tail }
         }
         return (source, target)
-    }
-
-    /// Hängt die Umrechnung von `candles` an mindestens einem Tag an USDT = 1 — heute ohne Live-Kurs, ein früherer Tag
-    /// ohne Tagesschluss USDT/USD (`UsdtUsdRates.on`, wie `accept`)? Ohne `usdt` immer. Wie
-    /// `PortfolioHistoryFx.usdtApproximate` und Android.
-    static func usdtApproximate(_ candles: [MarketCandle], usdt: UsdtUsdRates?, todayEpochDay: Int) -> Bool {
-        candles.contains { usdtOn(usdt, openTime: $0.openTime, todayEpochDay: todayEpochDay).approximate }
-    }
-
-    /// USDT/USD am (UTC-)Tag der Kerze (`UsdtUsdRates.on`); ohne `usdt` 1 als Näherung.
-    private static func usdtOn(_ usdt: UsdtUsdRates?, openTime: Int64, todayEpochDay: Int) -> UsdtUsd {
-        (usdt ?? UsdtUsdRates(live: nil)).on(utcEpochDay(openTime), todayEpochDay: todayEpochDay)
-    }
-
-    /// Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-    /// umgerechnet (`.daily` bzw. `.current`) und an mindestens einem Tag mit USDT = 1 USD (`usdtApproximate`).
-    /// Nur bei Umrechnung aus USDT — wie Transaktionsblatt, Portfolio-Alarm und Android.
-    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?, usdtApproximate: Bool) -> Bool {
-        guard fx != .none, usdtApproximate else { return false }
-        var source = "USDT"
-        if let pair = sourcePair, let slash = pair.lastIndex(of: "/") {
-            let tail = pair[pair.index(after: slash)...].trimmingCharacters(in: .whitespaces).uppercased()
-            if !tail.isEmpty { source = tail }
-        }
-        return source == "USDT"
     }
 
     /// Gültige Tageskurse aufsteigend nach Tag.

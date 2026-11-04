@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">無價格，無法連線 %1$s</string>
     <string name="a11y_watch_no_price_phone_only">無價格，手錶無法載入此交易對</string>
     <string name="a11y_watch_no_price_via_phone">無價格，手錶只能透過手機取得 %1$s 的價格</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">無價格，目前無法連線交易所</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">最後更新於 %1$d 分鐘前</item>
     </plurals>

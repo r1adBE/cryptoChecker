@@ -19,6 +19,7 @@
     <string name="a11y_watch_no_price_unreachable">alikho intengo, i-%1$s ayitholakali</string>
     <string name="a11y_watch_no_price_phone_only">alikho intengo, iwashi alikwazi ukulayisha lesi sibhangqa</string>
     <string name="a11y_watch_no_price_via_phone">alikho intengo, iwashi lithola izintengo ze-%1$s kuphela ocingweni</string>
+    <string name="a11y_watch_no_price_exchanges_unreachable">alikho intengo, ama-exchange awatholakali okwamanje</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">kubuyekezwe ekugcineni umzuzu ongu-%1$d odlule</item>
         <item quantity="other">kubuyekezwe ekugcineni imizuzu engu-%1$d edlule</item>

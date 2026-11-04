@@ -53,6 +53,13 @@ class SheetChartParityTest {
                 )
                 assertEquals("$name: note «USDT = 1 assumed»", assumed, note)
             }
+            (c["usdtHistoryMissing"] as Boolean?)?.let { missing ->
+                assertNotNull("$name: note needs a chart", result)
+                val note = SheetChart.usdtHistoryNote(
+                    SheetChart.fxMode(request, rates), "BTC/USDT", SheetChart.usdtSeries(result!!, usdt, today).historyMissing,
+                )
+                assertEquals("$name: note «USDT/USD history not available»", missing, note)
+            }
             val e = c["expected"]
             if (e == null) {
                 assertNull("$name: expected no chart", result)

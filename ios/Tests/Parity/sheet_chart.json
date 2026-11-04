@@ -1,5 +1,5 @@
 {
-  "description": "Shared cases for the action-sheet chart and the watchlist mini chart (Android SheetChart.accept / SheetChart.sparklineFor, iOS the same names in WatchSheetChart.swift). 'accept': candles as [UTC epoch day, price] (open = high = low = close = price, openTime = day × 86 400 000); convert = USDT fallback converted to the fiat quote; dailyRates = fiat per USD per UTC day; currentRate = fiat per USD now; expected = first/last close of the accepted series or null (no chart). The fallback is only used when last close × rate (rate of the last candle's day, else currentRate) is within 25 % of the pair price; no pair price or no rate at all = null. 'sparkline': USDT closes of the base asset, pair price and USD per unit of the quote; shown only within 25 % (last close vs price × quoteUsd). Numbers compared with tolerance 1e-9 (relative). 'widget': single-widget chart (Android/iOS WidgetChartGeometry.pairCandles): candles of the pair from the fallback chain (same layout as 'accept'), shown only when the last close is within 25 % of the pair price; no price = no chart (not checkable); invalid candles are dropped first, fewer than 2 = no chart. USDT → USD per candle like the portfolio value history (UsdtUsdRates.on): usdtLive = live USDT/USD (used for candles on or after 'today', UTC epoch day, default = day of the last candle), usdtDaily = USDT/USD daily close per UTC day (earlier candles); a day without a (plausible) rate counts as 1 (approximation); without usdtLive and usdtDaily everything at 1. usdtAssumed (optional) = expected note «USDT = 1 assumed» (SheetChart.usdtParityNote with SheetChart.usdtApproximate over the accepted candles: true as soon as one used day was approximated). 'sparkline' usdtUsd = live USDT/USD (optional, default 1): check is price × quoteUsd ÷ usdtUsd against the last USDT close (quoteUsd of a USDT quote already carries USDT/USD).",
+  "description": "Shared cases for the action-sheet chart and the watchlist mini chart (Android SheetChart.accept / SheetChart.sparklineFor, iOS the same names in WatchSheetChart.swift). 'accept': candles as [UTC epoch day, price] (open = high = low = close = price, openTime = day × 86 400 000); convert = USDT fallback converted to the fiat quote; dailyRates = fiat per USD per UTC day; currentRate = fiat per USD now; expected = first/last close of the accepted series or null (no chart). The fallback is only used when last close × rate (rate of the last candle's day, else currentRate) is within 25 % of the pair price; no pair price or no rate at all = null. 'sparkline': USDT closes of the base asset, pair price and USD per unit of the quote; shown only within 25 % (last close vs price × quoteUsd). Numbers compared with tolerance 1e-9 (relative). 'widget': single-widget chart (Android/iOS WidgetChartGeometry.pairCandles): candles of the pair from the fallback chain (same layout as 'accept'), shown only when the last close is within 25 % of the pair price; no price = no chart (not checkable); invalid candles are dropped first, fewer than 2 = no chart. USDT → USD per candle like the portfolio value history (UsdtUsdRates.on): usdtLive = live USDT/USD (used for candles on or after 'today', UTC epoch day, default = day of the last candle), usdtDaily = USDT/USD daily close per UTC day (earlier candles); a rate counts within the break band 0.05..3 (live and daily close alike). Per candle only when EVERY candle has its rate (SheetChart.usdtSeries); otherwise ONE rate for the whole series: the live rate, else 1 (approximation) — never 1 in the past and live today (an invented step). Without usdtLive and usdtDaily everything at 1. usdtAssumed (optional) = expected note «USDT = 1 assumed» (SheetChart.usdtParityNote with SheetChart.usdtApproximate over the accepted candles: the series used 1). usdtHistoryMissing (optional) = expected note «USDT/USD history not available» (SheetChart.usdtHistoryNote with SheetChart.usdtSeries(...).historyMissing: the whole series carries the live rate because a daily close was missing). 'sparkline' usdtUsd = live USDT/USD (optional, default 1): check is price × quoteUsd ÷ usdtUsd against the last USDT close (quoteUsd of a USDT quote already carries USDT/USD).",
   "accept": [
     {
       "name": "pair candles within 25 % are kept unchanged",
@@ -284,7 +284,8 @@
       "expected": {
         "first": 56.7,
         "last": 63
-      }
+      },
+      "usdtHistoryMissing": false
     },
     {
       "name": "same without USDT/USD (USDT = 1): 30 % off, no chart",
@@ -333,7 +334,8 @@
       "expected": {
         "first": 56.7,
         "last": 63
-      }
+      },
+      "usdtHistoryMissing": false
     },
     {
       "name": "implausible USDT/USD (40) counts as missing: USDT = 1",
@@ -386,7 +388,8 @@
       "expected": {
         "first": 90000,
         "last": 81000
-      }
+      },
+      "usdtHistoryMissing": false
     },
     {
       "name": "review 194 with one current FX rate: the depeg still shows (-10 % in CHF)",
@@ -413,10 +416,11 @@
       "expected": {
         "first": 90000,
         "last": 81000
-      }
+      },
+      "usdtHistoryMissing": false
     },
     {
-      "name": "live USDT/USD but no close for the earlier day: 1 there and the note is shown",
+      "name": "live USDT/USD but no close for the earlier day: whole series at the live rate (no invented step), note «history not available»",
       "convert": true,
       "candles": [
         [
@@ -437,11 +441,12 @@
       "usdtLive": 0.9,
       "usdtDaily": {},
       "today": 21,
-      "usdtAssumed": true,
+      "usdtAssumed": false,
       "expected": {
-        "first": 90000,
+        "first": 81000,
         "last": 81000
-      }
+      },
+      "usdtHistoryMissing": true
     },
     {
       "name": "no USDT/USD at all: USDT = 1 on every day (depeg not visible) and the note is shown",
@@ -503,6 +508,214 @@
       "expected": {
         "first": 90000,
         "last": 81000
+      },
+      "usdtHistoryMissing": false
+    },
+    {
+      "name": "review 195: watchlist-only user (no stored USDT/USD closes), live 0.90, BTC flat in USDT: no step, one rate, note",
+      "convert": true,
+      "candles": [
+        [
+          19,
+          100000
+        ],
+        [
+          20,
+          100000
+        ],
+        [
+          20.5,
+          100000
+        ],
+        [
+          21,
+          100000
+        ],
+        [
+          21.5,
+          100000
+        ]
+      ],
+      "price": 81000,
+      "dailyRates": {
+        "19": 0.9,
+        "20": 0.9,
+        "21": 0.9
+      },
+      "currentRate": null,
+      "usdtLive": 0.9,
+      "usdtDaily": {},
+      "today": 21,
+      "usdtAssumed": false,
+      "usdtHistoryMissing": true,
+      "expected": {
+        "first": 81000,
+        "last": 81000
+      }
+    },
+    {
+      "name": "review 195: same with one current FX rate: no step",
+      "convert": true,
+      "candles": [
+        [
+          20,
+          100000
+        ],
+        [
+          20.5,
+          100000
+        ],
+        [
+          21,
+          100000
+        ]
+      ],
+      "price": 81000,
+      "dailyRates": null,
+      "currentRate": 0.9,
+      "usdtLive": 0.9,
+      "usdtDaily": {},
+      "today": 21,
+      "usdtAssumed": false,
+      "usdtHistoryMissing": true,
+      "expected": {
+        "first": 81000,
+        "last": 81000
+      }
+    },
+    {
+      "name": "review 195: one earlier close missing among present ones: whole series at the live rate",
+      "convert": true,
+      "candles": [
+        [
+          19,
+          100000
+        ],
+        [
+          20,
+          100000
+        ],
+        [
+          21,
+          100000
+        ]
+      ],
+      "price": 81000,
+      "dailyRates": {
+        "19": 0.9,
+        "20": 0.9,
+        "21": 0.9
+      },
+      "currentRate": null,
+      "usdtLive": 0.9,
+      "usdtDaily": {
+        "20": 1.0
+      },
+      "today": 21,
+      "usdtAssumed": false,
+      "usdtHistoryMissing": true,
+      "expected": {
+        "first": 81000,
+        "last": 81000
+      }
+    },
+    {
+      "name": "review 195: real crash 0.40 stored and live 0.40, BTC flat in USDT: kept at 0.40 on both days (no step)",
+      "convert": true,
+      "candles": [
+        [
+          20,
+          100000
+        ],
+        [
+          21,
+          100000
+        ]
+      ],
+      "price": 36000,
+      "dailyRates": {
+        "20": 0.9,
+        "21": 0.9
+      },
+      "currentRate": null,
+      "usdtLive": 0.4,
+      "usdtDaily": {
+        "20": 0.4
+      },
+      "today": 21,
+      "usdtAssumed": false,
+      "usdtHistoryMissing": false,
+      "expected": {
+        "first": 36000,
+        "last": 36000
+      }
+    },
+    {
+      "name": "review 195: real depeg history 1.00 -> 0.40 measured: shown per day",
+      "convert": true,
+      "candles": [
+        [
+          19,
+          100000
+        ],
+        [
+          20,
+          100000
+        ],
+        [
+          21,
+          100000
+        ]
+      ],
+      "price": 36000,
+      "dailyRates": {
+        "19": 0.9,
+        "20": 0.9,
+        "21": 0.9
+      },
+      "currentRate": null,
+      "usdtLive": 0.4,
+      "usdtDaily": {
+        "19": 1.0,
+        "20": 0.4
+      },
+      "today": 21,
+      "usdtAssumed": false,
+      "usdtHistoryMissing": false,
+      "expected": {
+        "first": 90000,
+        "last": 36000
+      }
+    },
+    {
+      "name": "review 195: closes present but no live rate: whole series at 1 (no step), note «USDT = 1 assumed»",
+      "convert": true,
+      "candles": [
+        [
+          20,
+          100000
+        ],
+        [
+          21,
+          100000
+        ]
+      ],
+      "price": 90000,
+      "dailyRates": {
+        "20": 0.9,
+        "21": 0.9
+      },
+      "currentRate": null,
+      "usdtLive": null,
+      "usdtDaily": {
+        "20": 0.9
+      },
+      "today": 21,
+      "usdtAssumed": true,
+      "usdtHistoryMissing": false,
+      "expected": {
+        "first": 90000,
+        "last": 90000
       }
     }
   ],

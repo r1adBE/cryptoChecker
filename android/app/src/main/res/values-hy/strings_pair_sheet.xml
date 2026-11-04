@@ -97,5 +97,6 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Պատմությունը՝ %1$s-ով, փոխարկված %2$s-ի այսօրվա փոխարժեքով</string>
+    <string name="sheet_chart_usdt_history_missing">USDT/USD-ի պատմությունը հասանելի չէ – ամբողջ գծապատկերը այսօրվա USDT/USD փոխարժեքով</string>
     <string name="converted_unsure">Փոխարկումն անվստահելի է</string>
 </resources>
