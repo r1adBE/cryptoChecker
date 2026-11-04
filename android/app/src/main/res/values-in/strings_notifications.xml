@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Buka exchange</string>
     <string name="notification_depeg_text">Nilai di aplikasi memakai harga pasar ini.</string>
     <string name="notification_depeg_title">USDT di %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s di %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s menyimpang dari 1 USD setidaknya sebesar batas depeg.</string>
     <string name="notification_fng_above">Indeks naik di atas %1$d – menurut indeks ini, pasar sedang serakah.</string>
     <string name="notification_fng_below">Indeks turun di bawah %1$d – menurut indeks ini, pasar sedang takut.</string>
     <string name="notification_fng_title">Indeks suasana (Fear &amp; Greed): %1$d</string>

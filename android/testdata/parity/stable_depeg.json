@@ -1,0 +1,58 @@
+{
+  "description": "Depeg alarm for further stablecoins (Android StableDepeg.kt / iOS StableDepeg.swift). coins: fixed order of the further stablecoins (USD_STABLES without USD and USDT) = order of the settings line and notification index. watched: watchlist base assets and portfolio coins (any case, spaces trimmed) -> checked stablecoins: USDC always, the others only when held or watched, in coins order. pickPair: spot pairs [base, quote, pairId] of one exchange -> pair of the coin with quote USD, then USDC, then USDT (quote any case; null = none). toUsd: price in quote -> USD: USD as is, USDT times usdtUsd, USDC times usdcUsd (rates of this run; missing rate, other quote or invalid price -> null, never an assumed 1); tolerance 1e-12. measure: one source per exchange (usd null = missing, cross = converted via another stablecoin); prints outside 0.05..3 are exchange errors, inside 0.5..1.5 a print counts, in the break range only when another source agrees within 5 % of the larger value; price = the accepted value closest to 1; alarmable = with requireTwo at least two accepted sources, otherwise at least one accepted direct source (never a cross rate alone); no accepted source -> null. requireTwo is false only for USDC. lineItems: watched list, last USDT reading and readings per coin (ageMillis = now - reading time) -> [coin, price] for USDT then watched coins in coins order; price only when the reading is at most 6 hours old (same rule as liveUsdtUsd), else null.",
+  "coins": ["USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1", "RLUSD", "PYUSD", "USDP", "GUSD"],
+  "requireTwo": [
+    {"coin": "USDC", "expected": false},
+    {"coin": "usdc", "expected": false},
+    {"coin": "DAI", "expected": true},
+    {"coin": "FDUSD", "expected": true}
+  ],
+  "watched": [
+    {"watchBases": [], "holdings": [], "expected": ["USDC"]},
+    {"watchBases": ["BTC", "dai"], "holdings": ["PYUSD", " usde "], "expected": ["USDC", "DAI", "USDE", "PYUSD"]},
+    {"watchBases": ["USDT", "USD"], "holdings": ["ETH"], "expected": ["USDC"]},
+    {"watchBases": ["USDC"], "holdings": ["FDUSD", "FDUSD"], "expected": ["USDC", "FDUSD"]},
+    {"watchBases": ["GUSD", "TUSD"], "holdings": ["BUSD"], "expected": ["USDC", "BUSD", "TUSD", "GUSD"]}
+  ],
+  "pickPair": [
+    {"coin": "DAI", "pairs": [["DAI", "USDT", "DAIUSDT"], ["DAI", "USD", "DAIUSD"]], "expected": ["DAI", "USD", "DAIUSD"]},
+    {"coin": "FDUSD", "pairs": [["FDUSD", "TRY", "FDUSDTRY"], ["FDUSD", "USDT", "FDUSDUSDT"]], "expected": ["FDUSD", "USDT", "FDUSDUSDT"]},
+    {"coin": "PYUSD", "pairs": [["PYUSD", "EUR", "PYUSDEUR"], ["BTC", "USD", "XBTUSD"]], "expected": null},
+    {"coin": "DAI", "pairs": [["dai", "usdc", null], ["DAI", "usdt", null]], "expected": ["dai", "usdc", null]},
+    {"coin": "TUSD", "pairs": [], "expected": null}
+  ],
+  "toUsd": [
+    {"price": 0.999, "quote": "USD", "usdtUsd": null, "usdcUsd": null, "expected": 0.999},
+    {"price": 1.001, "quote": "USDT", "usdtUsd": 0.998, "usdcUsd": null, "expected": 0.998998},
+    {"price": 1.0, "quote": "USDT", "usdtUsd": null, "usdcUsd": 1.0, "expected": null},
+    {"price": 0.99, "quote": "usdc", "usdtUsd": null, "usdcUsd": 1.0, "expected": 0.99},
+    {"price": 0.99, "quote": "USDC", "usdtUsd": 1.0, "usdcUsd": null, "expected": null},
+    {"price": 1.0, "quote": "EUR", "usdtUsd": 1.0, "usdcUsd": 1.0, "expected": null},
+    {"price": 0, "quote": "USD", "usdtUsd": null, "usdcUsd": null, "expected": null},
+    {"price": null, "quote": "USD", "usdtUsd": null, "usdcUsd": null, "expected": null},
+    {"price": 1.0, "quote": "USDT", "usdtUsd": 0, "usdcUsd": null, "expected": null}
+  ],
+  "measure": [
+    {"name": "USDC normal", "requireTwo": false, "sources": [{"usd": 0.9998, "cross": false}, {"usd": 0.9995, "cross": true}], "expected": 0.9998, "alarmable": true},
+    {"name": "USDC both off", "requireTwo": false, "sources": [{"usd": 0.97, "cross": false}, {"usd": 0.975, "cross": true}], "expected": 0.975, "alarmable": true},
+    {"name": "USDC Kraken only", "requireTwo": false, "sources": [{"usd": 0.97, "cross": false}, {"usd": null, "cross": true}], "expected": 0.97, "alarmable": true},
+    {"name": "USDC cross only", "requireTwo": false, "sources": [{"usd": null, "cross": false}, {"usd": 0.97, "cross": true}], "expected": 0.97, "alarmable": false},
+    {"name": "USDC cross off, Kraken normal", "requireTwo": false, "sources": [{"usd": 1.0, "cross": false}, {"usd": 0.97, "cross": true}], "expected": 1.0, "alarmable": true},
+    {"name": "single break print", "requireTwo": false, "sources": [{"usd": 0.3, "cross": false}, {"usd": null, "cross": true}], "expected": null, "alarmable": false},
+    {"name": "confirmed break", "requireTwo": false, "sources": [{"usd": 0.30, "cross": false}, {"usd": 0.31, "cross": true}], "expected": 0.31, "alarmable": true},
+    {"name": "direct out of range", "requireTwo": false, "sources": [{"usd": 5.0, "cross": false}, {"usd": 0.999, "cross": true}], "expected": 0.999, "alarmable": false},
+    {"name": "other two sources", "requireTwo": true, "sources": [{"usd": 0.98, "cross": false}, {"usd": 0.985, "cross": true}], "expected": 0.985, "alarmable": true},
+    {"name": "other one source", "requireTwo": true, "sources": [{"usd": 0.95, "cross": false}, {"usd": null, "cross": false}], "expected": 0.95, "alarmable": false},
+    {"name": "other one source, break", "requireTwo": true, "sources": [{"usd": 0.3, "cross": false}], "expected": null, "alarmable": false},
+    {"name": "other three sources", "requireTwo": true, "sources": [{"usd": 0.99, "cross": false}, {"usd": 0.95, "cross": true}, {"usd": 1.2, "cross": true}], "expected": 0.99, "alarmable": true},
+    {"name": "other, one rejected", "requireTwo": true, "sources": [{"usd": 0.96, "cross": false}, {"usd": 0.02, "cross": true}], "expected": 0.96, "alarmable": false},
+    {"name": "no source", "requireTwo": true, "sources": [], "expected": null, "alarmable": false},
+    {"name": "zero print", "requireTwo": false, "sources": [{"usd": 0, "cross": false}], "expected": null, "alarmable": false}
+  ],
+  "lineItems": [
+    {"watched": ["USDC", "DAI"], "usdt": {"price": 0.9986, "ageMillis": 60000}, "readings": {"USDC": {"price": 0.9998, "ageMillis": 1000}, "DAI": {"price": 0.99, "ageMillis": 25200000}}, "expected": [["USDT", 0.9986], ["USDC", 0.9998], ["DAI", null]]},
+    {"watched": [], "usdt": null, "readings": {}, "expected": [["USDT", null]]},
+    {"watched": ["DAI", "USDC"], "usdt": {"price": 1.0, "ageMillis": 21600000}, "readings": {"DAI": {"price": 1.0002, "ageMillis": 0}}, "expected": [["USDT", 1.0], ["USDC", null], ["DAI", 1.0002]]},
+    {"watched": ["USDC"], "usdt": {"price": 1.0, "ageMillis": 21600001}, "readings": {"USDC": {"price": 1.0, "ageMillis": -120000}}, "expected": [["USDT", null], ["USDC", null]]}
+  ]
+}

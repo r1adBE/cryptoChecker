@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">開啟交易所</string>
     <string name="notification_depeg_text">App 入面嘅數值用緊呢個市場價格。</string>
     <string name="notification_depeg_title">USDT 報 %1$s USD（%2$s）</string>
+    <string name="notification_depeg_stable_title">%1$s 報 %2$s USD（%3$s）</string>
+    <string name="notification_depeg_stable_text">%1$s 偏離 1 USD 至少達到脫鈎門檻。</string>
     <string name="notification_fng_above">指數升穿 %1$d – 按呢個量度，市場情緒偏貪婪。</string>
     <string name="notification_fng_below">指數跌穿 %1$d – 按呢個量度，市場情緒偏恐慌。</string>
     <string name="notification_fng_title">情緒指數（Fear &amp; Greed）：%1$d</string>

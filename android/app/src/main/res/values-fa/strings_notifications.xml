@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">باز کردن صرافی</string>
     <string name="notification_depeg_text">مقادیر در برنامه با این قیمت بازار حساب می‌شوند.</string>
     <string name="notification_depeg_title">USDT روی %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s روی %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s دست‌کم به اندازهٔ حد جدا شدن از دلار از 1 USD فاصله گرفته است.</string>
     <string name="notification_fng_above">شاخص به بالای %1$d رسید – طبق این شاخص، طمع بر بازار حاکم است.</string>
     <string name="notification_fng_below">شاخص به زیر %1$d رسید – طبق این شاخص، ترس بر بازار حاکم است.</string>
     <string name="notification_fng_title">شاخص حال‌وهوا (Fear &amp; Greed): %1$d</string>

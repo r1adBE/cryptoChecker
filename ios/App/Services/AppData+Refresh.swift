@@ -91,7 +91,8 @@ extension AppData {
         if DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
                                     hasPortfolioData: hasPortfolio, fiatConversion: fiat) {
             Task.detached(priority: .utility) {
-                await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
+                await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat,
+                                               stables: { await StableDepegPlanner.plan() })
             }
         }
     }

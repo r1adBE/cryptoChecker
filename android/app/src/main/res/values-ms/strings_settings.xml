@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Laporkan nyahpasak USDT</string>
     <string name="settings_depeg_alarm_hint">Memberitahu sekali apabila USDT menyimpang daripada 1 USD sebanyak paras itu (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Paras nyahpasak</string>
+    <string name="settings_depeg_watched">Dipantau: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: beritahu apabila melebihi</string>
     <string name="settings_fng_below">Fear &amp; Greed: beritahu apabila di bawah</string>
     <string name="settings_gas_alert_hint">Memberitahu sekali apabila yuran biasa turun di bawah had. Disemak semasa kemas kini harga, paling kerap setiap 10 minit.</string>

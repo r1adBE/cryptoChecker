@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">ბირჟის გახსნა</string>
     <string name="notification_depeg_text">აპის მნიშვნელობები ამ საბაზრო ფასს იყენებს.</string>
     <string name="notification_depeg_title">USDT %1$s USD-ზეა (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD-ზეა (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD-ს სულ მცირე Depeg-ის ზღვრით გადაუხვევს.</string>
     <string name="notification_fng_above">ინდექსი %1$d-ს გადააჭარბა – ამ საზომით ბაზრის განწყობა ხარბია.</string>
     <string name="notification_fng_below">ინდექსი %1$d-ზე დაბლა ჩამოვიდა – ამ საზომით ბაზრის განწყობა შიშიანია.</string>
     <string name="notification_fng_title">განწყობის ინდექსი (Fear &amp; Greed): %1$d</string>

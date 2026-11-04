@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Отвори берза</string>
     <string name="notification_depeg_text">Вредностите во апликацијата ја користат оваа пазарна цена.</string>
     <string name="notification_depeg_title">USDT на %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s на %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s отстапува од 1 USD барем за прагот за depeg.</string>
     <string name="notification_fng_above">Индексот порасна над %1$d – според оваа мерка, расположението на пазарот е алчно.</string>
     <string name="notification_fng_below">Индексот падна под %1$d – според оваа мерка, расположението на пазарот е исплашено.</string>
     <string name="notification_fng_title">Индекс на расположение (Fear &amp; Greed): %1$d</string>

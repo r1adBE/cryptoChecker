@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Повідомляти про відв’язку USDT</string>
     <string name="settings_depeg_alarm_hint">Повідомляє один раз, коли USDT відхиляється від 1 USD на поріг (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Поріг відв’язки</string>
+    <string name="settings_depeg_watched">Відстежуються: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: повідомляти вище</string>
     <string name="settings_fng_below">Fear &amp; Greed: повідомляти нижче</string>
     <string name="settings_gas_alert_hint">Повідомляє один раз, коли звичайна комісія опускається нижче межі. Перевіряється під час оновлення курсів, не частіше ніж раз на 10 хвилин.</string>

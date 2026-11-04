@@ -101,6 +101,16 @@ class MarketAlertResetTest {
     }
 
     @Test
+    fun `depeg off also re-arms further stablecoins`() {
+        val prefs = FakePrefs()
+        val usdc = DepegAlarmPrefs.STABLE_ARMED_TENTHS_PREFIX + "USDC"
+        prefs.edit().putBoolean(DepegAlarmPrefs.STABLE_ARMED_PREFIX + "USDC", false).putInt(usdc, 5).apply()
+        MarketAlertReset.depegOff(prefs)
+        assertEquals(0, prefs.getInt(usdc, -1))
+        assertTrue(DepegAlarm.armedFor(false, prefs.getInt(usdc, -1), 5))
+    }
+
+    @Test
     fun `indicator off forgets crossed state and its bound`() {
         val prefs = FakePrefs()
         val kind = IndicatorAlertKind.MAYER_ABOVE

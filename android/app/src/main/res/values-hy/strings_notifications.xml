@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Բացել բորսան</string>
     <string name="notification_depeg_text">Հավելվածի արժեքներն օգտագործում են այս շուկայական գինը։</string>
     <string name="notification_depeg_title">USDT-ն %1$s USD է (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s-ն %2$s USD է (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s-ն 1 USD-ից շեղվում է առնվազն depeg-ի շեմով։</string>
     <string name="notification_fng_above">Ինդեքսը բարձրացավ %1$d-ից վեր – ըստ այս չափման՝ շուկայի տրամադրությունը ագահ է։</string>
     <string name="notification_fng_below">Ինդեքսն իջավ %1$d-ից ցած – ըստ այս չափման՝ շուկայի տրամադրությունը վախեցած է։</string>
     <string name="notification_fng_title">Տրամադրության ինդեքս (Fear &amp; Greed)՝ %1$d</string>

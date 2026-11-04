@@ -40,7 +40,7 @@ extension PortfolioModel {
         let settings = data.settings
         let hasPortfolio = data.hasPortfolioData
         Task { [weak self] in
-            await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
+            await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, stables: { await StableDepegPlanner.plan() })
             self?.recomputeHistory()
         }
         // Adress-Guthaben zuerst (fällige Adressen), dann mit ihnen rechnen

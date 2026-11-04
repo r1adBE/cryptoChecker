@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Fungua jukwaa</string>
     <string name="notification_depeg_text">Thamani kwenye programu zinatumia bei hii ya soko.</string>
     <string name="notification_depeg_title">USDT kwa USD %1$s (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s kwa USD %2$s (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s imepotoka kutoka USD 1 kwa angalau kiwango cha depeg.</string>
     <string name="notification_fng_above">Kielezo kimepanda juu ya %1$d – kwa kipimo hiki, hisia ya soko ni ya tamaa.</string>
     <string name="notification_fng_below">Kielezo kimeshuka chini ya %1$d – kwa kipimo hiki, hisia ya soko ni ya hofu.</string>
     <string name="notification_fng_title">Kielezo cha hisia (Fear &amp; Greed): %1$d</string>

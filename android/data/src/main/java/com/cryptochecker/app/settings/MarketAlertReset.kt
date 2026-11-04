@@ -34,9 +34,14 @@ object MarketAlertReset {
         prefs.edit { putLong(key, 0.0.toRawBits()) }
     }
 
-    /** USDT-Depeg-Alarm aus: Schwelle «aus» (0) merken — beim Wiedereinschalten ist er scharf (`DepegAlarm.armedFor`). */
+    /** Depeg-Alarm aus (USDT und weitere Stablecoins): Schwelle «aus» (0) merken — beim Wiedereinschalten ist er scharf (`DepegAlarm.armedFor`). */
     fun depegOff(prefs: SharedPreferences) {
-        prefs.edit { putInt(DepegAlarmPrefs.KEY_ARMED_TENTHS, 0) }
+        // Weitere Stablecoins: je gemerkte Schwelle ebenso «aus» (0)
+        val stables = prefs.all.keys.filter { it.startsWith(DepegAlarmPrefs.STABLE_ARMED_TENTHS_PREFIX) }
+        prefs.edit {
+            putInt(DepegAlarmPrefs.KEY_ARMED_TENTHS, 0)
+            stables.forEach { putInt(it, 0) }
+        }
     }
 
     suspend fun fearGreedOff(context: Context, below: Boolean) =

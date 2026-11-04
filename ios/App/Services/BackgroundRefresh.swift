@@ -336,7 +336,8 @@ enum BackgroundRefresh {
                                         hasPortfolioData: hasPortfolio, fiatConversion: fiat)
                 && !Task.isCancelled && RefreshBudget.shouldRun(.gas, remaining: deadline.remaining()) {
                 _ = await RefreshDeadline.run(within: deadline.allowance(wanted: Int64.max)) {
-                    await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
+                    await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat,
+                                                   stables: { await StableDepegPlanner.plan() })
                 }
             }
             // Fear & Greed und Kennzahlen in derselben Aufgabe: nur wenn fällig, höchstens bis zur Endzeit

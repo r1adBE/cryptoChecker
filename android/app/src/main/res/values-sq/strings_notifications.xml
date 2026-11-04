@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Hap bursën</string>
     <string name="notification_depeg_text">Vlerat në aplikacion përdorin këtë çmim tregu.</string>
     <string name="notification_depeg_title">USDT në %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s në %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s devijon nga 1 USD të paktën sa kufiri i humbjes së lidhjes.</string>
     <string name="notification_fng_above">Indeksi u ngrit mbi %1$d – sipas këtij indeksi, në treg mbizotëron lakmia.</string>
     <string name="notification_fng_below">Indeksi ra nën %1$d – sipas këtij indeksi, në treg mbizotëron frika.</string>
     <string name="notification_fng_title">Indeksi i disponimit (Fear &amp; Greed): %1$d</string>

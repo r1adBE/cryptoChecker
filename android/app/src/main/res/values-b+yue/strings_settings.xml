@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">通報 USDT 脫鈎</string>
     <string name="settings_depeg_alarm_hint">USDT 偏離 1 USD 達到門檻時通知一次（Kraken USDT/USD、Coinbase USDT/USD、Binance USDC/USDT）。</string>
     <string name="settings_depeg_threshold">脫鈎門檻</string>
+    <string name="settings_depeg_watched">監察緊：%1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed：高於以下數值時通知</string>
     <string name="settings_fng_below">Fear &amp; Greed：低於以下數值時通知</string>
     <string name="settings_gas_alert_hint">正常手續費跌穿上限時通知一次。喺價格更新期間檢查，最多每 10 分鐘一次。</string>

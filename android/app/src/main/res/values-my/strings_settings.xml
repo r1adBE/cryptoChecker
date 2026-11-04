@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT depeg သတင်းပို့ရန်</string>
     <string name="settings_depeg_alarm_hint">USDT သည် 1 USD မှ သတ်မှတ်ချက်အတိုင်း သွေဖည်သွားသည့်အခါ တစ်ကြိမ် အသိပေးသည် (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)။</string>
     <string name="settings_depeg_threshold">Depeg သတ်မှတ်ချက်</string>
+    <string name="settings_depeg_watched">စောင့်ကြည့်နေသည်- %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: အထက်ဆိုလျှင် အသိပေးရန်</string>
     <string name="settings_fng_below">Fear &amp; Greed: အောက်ဆိုလျှင် အသိပေးရန်</string>
     <string name="settings_gas_alert_hint">ပုံမှန် အခကြေးငွေသည် ကန့်သတ်ချက်အောက် ကျသွားသည့်အခါ တစ်ကြိမ် အသိပေးသည်။ ဈေးနှုန်း အပ်ဒိတ်များအတွင်း အများဆုံး မိနစ် 10 တစ်ကြိမ် စစ်ဆေးသည်။</string>

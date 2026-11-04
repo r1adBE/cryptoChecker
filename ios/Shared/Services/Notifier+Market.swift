@@ -92,17 +92,21 @@ extension Notifier {
     /// («Alarm-Signal», zeitkritisch; in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall
     /// an der Grenze). Aktion «Börse öffnen» öffnet die Seite USDC/USDT der Hauptbörse — kein Handel in der App.
     /// - Returns: true, wenn die Mitteilung angenommen wurde (`DepegAlarmCheck` hält den Alarm sonst scharf).
-    static func showDepeg(title: String, body: String, exchangeUrl: String, settings: AppSettings) async -> Bool {
+    /// Weitere Stablecoins (`StableDepegCheck`): eigene `id` je Stablecoin; ohne `exchangeUrl` kein Knopf.
+    static func showDepeg(title: String, body: String, exchangeUrl: String?, settings: AppSettings,
+                          id: String = depegId) async -> Bool {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
-        content.categoryIdentifier = categoryDepeg
+        if let exchangeUrl {
+            content.categoryIdentifier = categoryDepeg
+            content.userInfo = [userInfoExchangeUrl: exchangeUrl]
+        }
         content.threadIdentifier = "alarms"
-        content.userInfo = [userInfoExchangeUrl: exchangeUrl]
         content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
-        return await postChecked(id: depegId, content: content)
+        return await postChecked(id: id, content: content)
     }
 }

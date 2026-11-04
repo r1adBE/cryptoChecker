@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Bika ukuphambuka kwe-USDT</string>
     <string name="settings_depeg_alarm_hint">Yazisa kanye lapho i-USDT iphambuka ku-1 USD ngomkhawulo (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Umkhawulo wokuphambuka</string>
+    <string name="settings_depeg_watched">Kuyabhekwa: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: yazisa uma ingaphezulu</string>
     <string name="settings_fng_below">Fear &amp; Greed: yazisa uma ingaphansi</string>
     <string name="settings_gas_alert_hint">Yazisa kanye lapho imali evamile yehla ngaphansi komkhawulo. Kuhlolwa ngesikhathi sokubuyekezwa kwentengo, kungadluli kanye emizuzwini engu-10.</string>

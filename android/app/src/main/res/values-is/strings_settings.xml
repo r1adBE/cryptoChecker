@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Tilkynna depeg á USDT</string>
     <string name="settings_depeg_alarm_hint">Lætur vita einu sinni þegar USDT víkur frá 1 USD um mörkin (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Mörk fyrir depeg</string>
+    <string name="settings_depeg_watched">Vaktað: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: láta vita yfir</string>
     <string name="settings_fng_below">Fear &amp; Greed: láta vita undir</string>
     <string name="settings_gas_alert_hint">Lætur vita einu sinni þegar venjulega gjaldið fer undir mörkin. Athugað við verðuppfærslur, í mesta lagi á 10 mínútna fresti.</string>

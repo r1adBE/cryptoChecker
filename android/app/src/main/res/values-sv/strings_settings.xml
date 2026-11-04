@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Meddela USDT-depeg</string>
     <string name="settings_depeg_alarm_hint">Meddelar en gång när USDT avviker från 1 USD med gränsen (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-gräns</string>
+    <string name="settings_depeg_watched">Bevakas: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: meddela över</string>
     <string name="settings_fng_below">Fear &amp; Greed: meddela under</string>
     <string name="settings_gas_alert_hint">Meddelar en gång när den normala avgiften sjunker under gränsen. Kontrolleras vid kursuppdatering, högst var 10:e minut.</string>

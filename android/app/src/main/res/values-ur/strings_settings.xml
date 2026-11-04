@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT ڈی پیگ کی اطلاع دیں</string>
     <string name="settings_depeg_alarm_hint">جب USDT حد کے مطابق 1 USD سے ہٹے تو ایک بار اطلاع دیتا ہے (Kraken USDT/USD، Coinbase USDT/USD، Binance USDC/USDT)۔</string>
     <string name="settings_depeg_threshold">ڈی پیگ کی حد</string>
+    <string name="settings_depeg_watched">زیرِ نگرانی: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: اس سے اوپر اطلاع دیں</string>
     <string name="settings_fng_below">Fear &amp; Greed: اس سے نیچے اطلاع دیں</string>
     <string name="settings_gas_alert_hint">جب عام فیس حد سے نیچے آئے تو ایک بار اطلاع دیتا ہے۔ قیمت کی اپ ڈیٹس کے دوران جانچا جاتا ہے، زیادہ سے زیادہ ہر 10 منٹ میں۔</string>

@@ -73,6 +73,20 @@ final class MarketAlertResetTests: XCTestCase {
         XCTAssertFalse(DepegAlarmCheck.mayStore(generation: generation, defaults: defaults))
     }
 
+    /// «Aus» macht auch die weiteren Stablecoins wieder scharf (je gemerkte Schwelle 0). Wie Android.
+    func testDepegOffAlsoReArmsFurtherStablecoins() {
+        let key = StableDepegCheck.keyArmedTenthsPrefix + "USDC"
+        defaults.set(5, forKey: key)
+        var old = AppSettings()
+        old.depegAlarm = true
+        var off = old
+        off.depegAlarm = false
+        MarketAlertReset.settingsChanged(from: old, to: off, defaults: defaults)
+        XCTAssertEqual(defaults.object(forKey: key) as? Int, 0)
+        // Nie gemerkt: bleibt ohne Eintrag
+        XCTAssertNil(defaults.object(forKey: StableDepegCheck.keyArmedTenthsPrefix + "DAI"))
+    }
+
     /// «Aus» während einer laufenden Zonen-Prüfung: Sie schreibt danach ihren Stand nicht mehr (wie die Sperre auf Android).
     func testZoneOffStopsARunningCheckFromStoring() {
         let generation = defaults.integer(forKey: ZoneCheck.keyResetGeneration)

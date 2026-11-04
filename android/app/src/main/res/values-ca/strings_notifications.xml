@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Obre l\'exchange</string>
     <string name="notification_depeg_text">Els valors de l\'app fan servir aquest preu de mercat.</string>
     <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s a %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s es desvia d’1 USD almenys el llindar de pèrdua de paritat.</string>
     <string name="notification_fng_above">L\'índex ha pujat per sobre de %1$d – segons aquesta mesura, l\'estat d\'ànim del mercat és de cobdícia.</string>
     <string name="notification_fng_below">L\'índex ha baixat per sota de %1$d – segons aquesta mesura, l\'estat d\'ànim del mercat és de por.</string>
     <string name="notification_fng_title">Índex d\'ànim (Fear &amp; Greed): %1$d</string>

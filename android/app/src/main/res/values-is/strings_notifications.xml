@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Opna kauphöll</string>
     <string name="notification_depeg_text">Gildi í forritinu nota þetta markaðsverð.</string>
     <string name="notification_depeg_title">USDT á %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s á %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s víkur frá 1 USD um að minnsta kosti mörkin fyrir depeg.</string>
     <string name="notification_fng_above">Vísitalan fór yfir %1$d – samkvæmt þessum mælikvarða er markaðsstemningin gráðug.</string>
     <string name="notification_fng_below">Vísitalan fór undir %1$d – samkvæmt þessum mælikvarða er markaðsstemningin hrædd.</string>
     <string name="notification_fng_title">Stemningsvísitala (Fear &amp; Greed): %1$d</string>

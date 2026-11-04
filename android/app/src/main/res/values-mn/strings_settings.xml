@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT-ийн депегийг мэдэгдэх</string>
     <string name="settings_depeg_alarm_hint">USDT 1 USD-ээс босгын хэмжээгээр хазайхад нэг удаа мэдэгдэнэ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Депегийн босго</string>
+    <string name="settings_depeg_watched">Хянаж буй: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: дээш бол мэдэгдэх</string>
     <string name="settings_fng_below">Fear &amp; Greed: доош бол мэдэгдэх</string>
     <string name="settings_gas_alert_hint">Ердийн шимтгэл хязгаараас доош ороход нэг удаа мэдэгдэнэ. Ханшийн шинэчлэлийн үеэр, хамгийн олондоо 10 минут тутам шалгана.</string>

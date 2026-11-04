@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Iulat ang depeg ng USDT</string>
     <string name="settings_depeg_alarm_hint">Nagno-notify nang isang beses kapag lumihis ang USDT mula 1 USD nang ayon sa threshold (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Threshold ng depeg</string>
+    <string name="settings_depeg_watched">Binabantayan: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: mag-notify kapag lampas</string>
     <string name="settings_fng_below">Fear &amp; Greed: mag-notify kapag mababa sa</string>
     <string name="settings_gas_alert_hint">Nagno-notify nang isang beses kapag bumaba ang normal na fee sa ilalim ng limitasyon. Sinusuri sa mga update ng presyo, hindi hihigit sa isang beses kada 10 minuto.</string>

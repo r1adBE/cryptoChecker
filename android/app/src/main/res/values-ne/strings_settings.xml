@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT डिपेग रिपोर्ट गर्नुहोस्</string>
     <string name="settings_depeg_alarm_hint">USDT सीमा जति 1 USD बाट टाढिँदा एक पटक सूचित गर्छ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)।</string>
     <string name="settings_depeg_threshold">डिपेग सीमा</string>
+    <string name="settings_depeg_watched">निगरानीमा: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: यसभन्दा माथि सूचित गर्नुहोस्</string>
     <string name="settings_fng_below">Fear &amp; Greed: यसभन्दा तल सूचित गर्नुहोस्</string>
     <string name="settings_gas_alert_hint">सामान्य शुल्क सीमाभन्दा तल झर्दा एक पटक सूचित गर्छ। मूल्य अपडेटका बेला, बढीमा हरेक 10 मिनेटमा जाँच गरिन्छ।</string>

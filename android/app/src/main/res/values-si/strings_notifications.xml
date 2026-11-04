@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">හුවමාරුව විවෘත කරන්න</string>
     <string name="notification_depeg_text">යෙදුමේ අගයන් මෙම වෙළඳපොළ මිල භාවිත කරයි.</string>
     <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD වලින් අවම වශයෙන් Depeg සීමාව තරම් අපගමනය වී ඇත.</string>
     <string name="notification_fng_above">දර්ශකය %1$d ට වඩා ඉහළ ගියේය – මෙම මිනුම අනුව වෙළඳපොළ මනෝභාවය කෑදරයි.</string>
     <string name="notification_fng_below">දර්ශකය %1$d ට වඩා පහළ වැටුණි – මෙම මිනුම අනුව වෙළඳපොළ මනෝභාවය බියෙන් පිරී ඇත.</string>
     <string name="notification_fng_title">මනෝභාව දර්ශකය (Fear &amp; Greed): %1$d</string>

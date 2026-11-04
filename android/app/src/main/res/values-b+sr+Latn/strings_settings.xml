@@ -168,6 +168,7 @@
     <string name="settings_depeg_alarm">Javi odvajanje USDT-a od dolara</string>
     <string name="settings_depeg_alarm_hint">Obaveštava jednom kada USDT odstupi od 1 USD za iznos praga (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Prag odvajanja</string>
+    <string name="settings_depeg_watched">Prati se: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: obavesti iznad</string>
     <string name="settings_fng_below">Fear &amp; Greed: obavesti ispod</string>
     <string name="settings_gas_alert_hint">Obaveštava jednom kada normalna naknada padne ispod granice. Proverava se tokom ažuriranja cena, najviše svakih 10 minuta.</string>

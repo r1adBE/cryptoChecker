@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Пријави depeg на USDT</string>
     <string name="settings_depeg_alarm_hint">Известува еднаш кога USDT ќе отстапи од 1 USD за прагот (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Праг за depeg</string>
+    <string name="settings_depeg_watched">Се следат: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: извести над</string>
     <string name="settings_fng_below">Fear &amp; Greed: извести под</string>
     <string name="settings_gas_alert_hint">Известува еднаш кога нормалната провизија ќе падне под границата. Се проверува при ажурирањата на цените, најмногу на секои 10 минути.</string>

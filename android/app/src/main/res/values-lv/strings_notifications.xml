@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Atvērt biržu</string>
     <string name="notification_depeg_text">Vērtības lietotnē tiek rēķinātas ar šo tirgus cenu.</string>
     <string name="notification_depeg_title">USDT pie %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s pie %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s novirzās no 1 USD vismaz par piesaistes zuduma slieksni.</string>
     <string name="notification_fng_above">Indekss pakāpās virs %1$d – pēc šī rādītāja tirgus noskaņojums ir alkatīgs.</string>
     <string name="notification_fng_below">Indekss nokritās zem %1$d – pēc šī rādītāja tirgus noskaņojums ir bailīgs.</string>
     <string name="notification_fng_title">Noskaņojuma indekss (Fear &amp; Greed): %1$d</string>

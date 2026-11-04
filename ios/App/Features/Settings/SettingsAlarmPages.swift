@@ -41,7 +41,17 @@ struct AlarmSettingsPage: View {
                 },
                 onSelect: { data.settings.depegThresholdTenths = DepegAlarm.threshold($0) }
             )
+            // USDT, USDC und gehaltene bzw. gemerkte Stablecoins mit letztem Kurs — wie `DepegWatchedLine` (Android)
+            SettingsHint(text: L("settings_depeg_watched", depegWatchedText))
         }
+    }
+
+    /// «USDT 0.9998 · USDC 1.0001 · DAI» (`StableDepeg.lineItems`: Kurs höchstens 6 Std. alt, sonst nur das Kürzel).
+    private var depegWatchedText: String {
+        StableDepeg.lineItems(watched: StableDepegCheck.watched, usdt: DepegAlarmCheck.lastReading,
+                              readings: StableDepegCheck.readings, now: EpochTime.nowMillis)
+            .map { item in item.price.map { "\(item.coin) \(LocaleNumbers.decimal($0, maxDecimals: 4))" } ?? item.coin }
+            .joined(separator: " · ")
     }
 
     var body: some View {

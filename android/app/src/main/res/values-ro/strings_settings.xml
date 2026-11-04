@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Anunță depeg-ul USDT</string>
     <string name="settings_depeg_alarm_hint">Anunță o dată când USDT se abate de la 1 USD cu pragul (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Prag de depeg</string>
+    <string name="settings_depeg_watched">Monitorizate: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: anunță peste</string>
     <string name="settings_fng_below">Fear &amp; Greed: anunță sub</string>
     <string name="settings_gas_alert_hint">Anunță o dată când comisionul normal scade sub limită. Verificat la actualizarea cursurilor, cel mult la 10 minute.</string>

@@ -2089,6 +2089,13 @@ the tests named here.
 * **USDT depeg alarm.** Pure rule in `DepegAlarm` (parity `depeg_alarm.json`): both sources must deviate,
   fire once per episode, re-arm at half the threshold, quiet hours hold it. Its reading doubles as the live
   USDT/USD price of the valuation (`DepegAlarm.liveUsdtUsd`, ≤ 30 min, 0.5…1.5).
+* **Further stablecoins in the depeg alarm.** Pure rule in `StableDepeg` (parity `stable_depeg.json`), run by
+  `StableDepegChecker` / `StableDepegCheck` right after the USDT measurement, only with the alarm on, same switch,
+  threshold and hysteresis, own state per coin (`DepegAlarmPrefs.STABLE_ARMED_*` / `depeg_stable_armed_*`, reset by
+  `MarketAlertReset.depegOff`). USDC always: Kraken `USDCUSD` + Binance USDC/USDT × direct USDT/USD (no extra request;
+  Coinbase has no `USDC-USD` product). Others only when in watchlist or portfolio, one spot pair per exchange from the
+  stored pair lists of Kraken/Coinbase/Binance (never loaded here; iOS `StableDepegPlanner`); they need two accepted
+  sources. Readings are display-only (settings line «Monitored»); valuation still uses USDT alone.
 * **USDT at market price.** USDT stays the internal unit (1 USDT = 1 USDT, all
   ledgers/history in USDT), but USDT → fiat (USD included; USD itself stays 1) uses the USDT/USD market price like
   USDC/DAI: `PortfolioStables.usdtUsd` (plausible 0.5…1.5, else **1 marked approximate** – never silent, values never
@@ -3275,6 +3282,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   through AppData; watch self-fetch only for venues it can query; SheetChart uses USDT/USD; Wear reload on source change.
 * Build 195: SheetChart/WatchSheetChart and sparkline use USDT/USD per day (cached portfolio closes, live today); note per approximated day;
   `DayChange.fromUsdtSeries` with USDT/USD at both ends; watch reason «only from the phone» for venues it cannot query.
+* Build 196: `StableDepeg` checks USDC (Kraken + cross rate) and held/watched stables (stored pair lists, two sources required);
+  per-stable state, one switch; iOS `StableDepegPlanner` at the three call sites.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

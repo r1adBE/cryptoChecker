@@ -346,6 +346,8 @@ class AppNotifier @Inject constructor(
         const val TEST_ALARM_NOTIFICATION_ID = 7
         /** USDT-Depeg-Alarm (eine Meldung, ersetzt die vorige). */
         const val DEPEG_NOTIFICATION_ID = 8
+        /** Weitere Stablecoins des Depeg-Alarms: je Stablecoin eine Meldung (Basis + `StableDepeg.notificationIndex`). */
+        const val DEPEG_STABLE_NOTIFICATION_BASE_ID = 7_500
         /** Zusammenfassungen der Gruppen Kurs-Mitteilungen bzw. Alarme. */
         internal const val PRICE_SUMMARY_ID = 9
         internal const val ALARM_SUMMARY_ID = 10
@@ -370,6 +372,8 @@ class AppNotifier @Inject constructor(
         internal const val TARGET_REQUEST_BASE = 410_000
         /** Knopf «Börse öffnen» der Depeg-Meldung. */
         internal const val DEPEG_EXCHANGE_REQUEST_CODE = 420_000
+        /** Knopf «Börse öffnen» der Meldung eines weiteren Stablecoins: Basis + `StableDepeg.notificationIndex`. */
+        internal const val DEPEG_STABLE_EXCHANGE_REQUEST_BASE = 420_001
         internal const val WHY_REQUEST_BASE = 500_000L
         /** Knöpfe «1 h später» bzw. «Anpassen» der Alarm-Meldung: Basis plus Alarm-Id (eigene Bereiche). */
         internal const val SNOOZE_REQUEST_BASE = 600_000_000L

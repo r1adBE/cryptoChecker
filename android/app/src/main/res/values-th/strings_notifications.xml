@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">เปิดกระดานเทรด</string>
     <string name="notification_depeg_text">ค่าในแอปคำนวณด้วยราคาตลาดนี้</string>
     <string name="notification_depeg_title">USDT ที่ %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s ที่ %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s เบี่ยงจาก 1 USD อย่างน้อยเท่าเกณฑ์การหลุดหมุด</string>
     <string name="notification_fng_above">ดัชนีขึ้นเหนือ %1$d – ตามดัชนีนี้ ตลาดอยู่ในภาวะโลภ</string>
     <string name="notification_fng_below">ดัชนีลดต่ำกว่า %1$d – ตามดัชนีนี้ ตลาดอยู่ในภาวะกลัว</string>
     <string name="notification_fng_title">ดัชนีอารมณ์ตลาด (Fear &amp; Greed): %1$d</string>

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Abrir exchange</string>
     <string name="notification_depeg_text">Os valores no app usam este preço de mercado.</string>
     <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s a %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s se desvia de 1 USD pelo menos o limite de depeg.</string>
     <string name="notification_fng_above">O índice subiu acima de %1$d – segundo esse índice, a ganância predomina no mercado.</string>
     <string name="notification_fng_below">O índice caiu abaixo de %1$d – segundo esse índice, o medo predomina no mercado.</string>
     <string name="notification_fng_title">Índice de sentimento (Fear &amp; Greed): %1$d</string>

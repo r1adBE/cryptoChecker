@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">एक्सचेन्ज खोल्नुहोस्</string>
     <string name="notification_depeg_text">एपका मानहरूले यही बजार मूल्य प्रयोग गर्छन्।</string>
     <string name="notification_depeg_title">USDT %1$s USD मा (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD मा (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD बाट कम्तीमा डिपेग सीमा जति विचलित भएको छ।</string>
     <string name="notification_fng_above">सूचकांक %1$d भन्दा माथि गयो – यो मापनअनुसार बजारको मुड लोभी छ।</string>
     <string name="notification_fng_below">सूचकांक %1$d भन्दा तल झर्‍यो – यो मापनअनुसार बजारको मुड डराएको छ।</string>
     <string name="notification_fng_title">मुड सूचकांक (Fear &amp; Greed): %1$d</string>

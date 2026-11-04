@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">פתיחת הבורסה</string>
     <string name="notification_depeg_text">הערכים באפליקציה מחושבים לפי מחיר השוק הזה.</string>
     <string name="notification_depeg_title">USDT ב-%1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s ב-%2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s סוטה מ-1 USD לפחות בסף שבירת ההצמדה.</string>
     <string name="notification_fng_above">המדד עלה מעל %1$d – לפי מדד זה שוררת בשוק תאוות בצע.</string>
     <string name="notification_fng_below">המדד ירד מתחת ל-%1$d – לפי מדד זה שורר בשוק פחד.</string>
     <string name="notification_fng_title">מדד מצב הרוח (Fear &amp; Greed): %1$d</string>

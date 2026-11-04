@@ -44,5 +44,8 @@ object DepegAlarmPrefs {
     const val PREFS = "depeg_alarm"
     /** Schwelle in Zehntelprozent, zu der der gemerkte Zustand «scharf» gehört; 0 = zwischendurch ausgeschaltet. */
     const val KEY_ARMED_TENTHS = "armed_tenths"
+    /** Weitere Stablecoins (`StableDepeg`): «scharf» und die zugehörige Schwelle je Kürzel (Präfix + Kürzel). */
+    const val STABLE_ARMED_PREFIX = "stable_armed_state_"
+    const val STABLE_ARMED_TENTHS_PREFIX = "stable_armed_tenths_"
     val lock = Mutex()
 }

@@ -51,6 +51,8 @@ class DepegAlarmChecker @Inject constructor(
     private val readingStore: DepegReadingStore,
     /** Portfolio vorhanden? Dann wird auch ohne Alarm gemessen. */
     private val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
+    /** Weitere Stablecoins (USDC, gehaltene bzw. gemerkte), nur mit eingeschaltetem Alarm. */
+    private val stables: StableDepegChecker,
 ) {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
@@ -69,7 +71,7 @@ class DepegAlarmChecker @Inject constructor(
         if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
 
-        val measurement = fetchUsdt(now)
+        val (measurement, binanceUsdc) = fetchUsdt(now)
         if (measurement == null) {
             // Keine Quelle: nächster Versuch frühestens in 2 Minuten
             prefs.edit { putLong(KEY_LAST_CHECK, now - MIN_INTERVAL_MILLIS + RETRY_AFTER_FAILURE_MILLIS) }
@@ -79,13 +81,17 @@ class DepegAlarmChecker @Inject constructor(
         readingStore.save(measurement.price, now, measurement.viaUsdc)
         // Alarm aus: nur gemessen (Portfolio), nichts melden
         if (!settings.depegAlarm) return@withLock
-        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
-        if (!DepegAlarm.mayAlarm(measurement)) return@withLock
-        val price = measurement.price
-        val deviation = DepegAlarm.deviationPercent(price)
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
         val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
         val mayFire = QuietHours.mayFire(hold, notifier.canShowDepegAlarm())
+        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
+        if (DepegAlarm.mayAlarm(measurement)) evaluateUsdt(settings, measurement.price, mayFire)
+        // Weitere Stablecoins im selben Takt; USDT/USD nur aus direkten Quellen als Umrechnung
+        stables.check(settings, measurement.price.takeUnless { measurement.viaUsdc }, binanceUsdc, mayFire, now)
+    }
+
+    private suspend fun evaluateUsdt(settings: com.cryptochecker.app.settings.AppSettings, price: Double, mayFire: Boolean) {
+        val deviation = DepegAlarm.deviationPercent(price)
         // Gemerkter Zustand gilt nur für die Schwelle, zu der er gehört (geändert oder zwischendurch aus: scharf)
         val tenths = DepegAlarm.threshold(settings.depegThresholdTenths)
         val storedTenths = if (prefs.contains(KEY_ARMED_TENTHS)) prefs.getInt(KEY_ARMED_TENTHS, 0) else null
@@ -142,8 +148,11 @@ class DepegAlarmChecker @Inject constructor(
         return notifier.showDepeg(title, context.getString(R.string.notification_depeg_text), DepegAlarm.exchangeUrl(keys))
     }
 
-    /** USDT in USD aus den drei Quellen (parallel, [DepegAlarm.measure]); pausierte Börsen bleiben aussen vor. */
-    private suspend fun fetchUsdt(now: Long): DepegAlarm.Measurement? = coroutineScope {
+    /**
+     * USDT in USD aus den drei Quellen (parallel, [DepegAlarm.measure]); pausierte Börsen bleiben aussen vor. Dazu der
+     * letzte Kurs Binance USDC/USDT (Kreuzkurs für USDC, [StableDepegChecker]) — keine eigene Anfrage.
+     */
+    private suspend fun fetchUsdt(now: Long): Pair<DepegAlarm.Measurement?, Double?> = coroutineScope {
         val backoff = refreshStats.backoffStates()
         fun available(key: String) = !ExchangeBackoff.isPaused(backoff[key], now) && BlockedSources.groupPausedUntil(key) == null
         val kraken = async {
@@ -155,7 +164,8 @@ class DepegAlarmChecker @Inject constructor(
         val binance = async {
             if (available(DepegAlarm.BINANCE_KEY)) last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID, now) else null
         }
-        DepegAlarm.measure(kraken.await(), coinbase.await(), binance.await())
+        val usdc = binance.await()
+        DepegAlarm.measure(kraken.await(), coinbase.await(), usdc) to usdc
     }
 
     /**

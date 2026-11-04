@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">ເປີດກະດານແລກປ່ຽນ</string>
     <string name="notification_depeg_text">ຄ່າໃນແອັບໃຊ້ລາຄາຕະຫຼາດນີ້.</string>
     <string name="notification_depeg_title">USDT ທີ່ %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s ທີ່ %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s ເບນຈາກ 1 USD ຢ່າງໜ້ອຍເທົ່າເກນ depeg.</string>
     <string name="notification_fng_above">ດັດຊະນີຂຶ້ນເກີນ %1$d – ຕາມຕົວວັດນີ້, ອາລົມຕະຫຼາດແມ່ນໂລບ.</string>
     <string name="notification_fng_below">ດັດຊະນີລົງຕ່ຳກວ່າ %1$d – ຕາມຕົວວັດນີ້, ອາລົມຕະຫຼາດແມ່ນຢ້ານ.</string>
     <string name="notification_fng_title">ດັດຊະນີອາລົມ (Fear &amp; Greed): %1$d</string>

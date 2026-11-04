@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Jakinarazi USDTren parekotasun-galera</string>
     <string name="settings_depeg_alarm_hint">Behin abisatzen du USDT 1 USDtik muga adina desbideratzen denean (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Parekotasun-galeraren muga</string>
+    <string name="settings_depeg_watched">Jarraipenean: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: abisatu honen gainetik</string>
     <string name="settings_fng_below">Fear &amp; Greed: abisatu honen azpitik</string>
     <string name="settings_gas_alert_hint">Behin abisatzen du komisio normala mugaren azpitik jaisten denean. Prezio-eguneratzeetan egiaztatzen da, gehienez 10 minuturo.</string>

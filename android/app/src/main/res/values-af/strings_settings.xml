@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Meld USDT-depeg</string>
     <string name="settings_depeg_alarm_hint">Stel een keer in kennis wanneer USDT met die drempel van 1 USD afwyk (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-drempel</string>
+    <string name="settings_depeg_watched">Gemonitor: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: stel in kennis bo</string>
     <string name="settings_fng_below">Fear &amp; Greed: stel in kennis onder</string>
     <string name="settings_gas_alert_hint">Stel een keer in kennis wanneer die normale fooi onder die limiet daal. Tydens prysbywerkings gekontroleer, hoogstens elke 10 minute.</string>

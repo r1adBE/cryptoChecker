@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">လဲလှယ်ရေးဌာန ဖွင့်ရန်</string>
     <string name="notification_depeg_text">အက်ပ်ရှိ တန်ဖိုးများသည် ဤဈေးကွက်ဈေးနှုန်းကို အသုံးပြုသည်။</string>
     <string name="notification_depeg_title">USDT သည် %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s သည် %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s သည် 1 USD မှ အနည်းဆုံး Depeg သတ်မှတ်ချက်အထိ သွေဖည်နေပါသည်။</string>
     <string name="notification_fng_above">ညွှန်းကိန်းသည် %1$d ထက် တက်သွားသည် – ဤတိုင်းတာချက်အရ ဈေးကွက်စိတ်ခံစားမှုသည် လောဘကြီးနေသည်။</string>
     <string name="notification_fng_below">ညွှန်းကိန်းသည် %1$d အောက် ကျသွားသည် – ဤတိုင်းတာချက်အရ ဈေးကွက်စိတ်ခံစားမှုသည် ကြောက်ရွံ့နေသည်။</string>
     <string name="notification_fng_title">စိတ်ခံစားမှု ညွှန်းကိန်း (Fear &amp; Greed): %1$d</string>

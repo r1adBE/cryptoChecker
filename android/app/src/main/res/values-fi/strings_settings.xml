@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Ilmoita USDT:n kytköksen pettämisestä</string>
     <string name="settings_depeg_alarm_hint">Ilmoittaa kerran, kun USDT poikkeaa 1 USD:sta rajan verran (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Kytköksen poikkeamaraja</string>
+    <string name="settings_depeg_watched">Seurataan: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: ilmoita yli</string>
     <string name="settings_fng_below">Fear &amp; Greed: ilmoita alle</string>
     <string name="settings_gas_alert_hint">Ilmoittaa kerran, kun normaali maksu laskee rajan alle. Tarkistetaan hintapäivityksen yhteydessä, enintään 10 minuutin välein.</string>

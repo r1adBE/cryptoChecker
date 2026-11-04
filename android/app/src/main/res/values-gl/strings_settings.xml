@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Avisar da perda de paridade do USDT</string>
     <string name="settings_depeg_alarm_hint">Avisa unha vez cando o USDT se desvía de 1 USD no limiar (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Limiar de perda de paridade</string>
+    <string name="settings_depeg_watched">En seguimento: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: avisar por riba de</string>
     <string name="settings_fng_below">Fear &amp; Greed: avisar por debaixo de</string>
     <string name="settings_gas_alert_hint">Avisa unha vez cando a comisión normal baixa do límite. Compróbase durante as actualizacións de prezo, como moito cada 10 minutos.</string>

@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Pranešti apie USDT atsiejimą</string>
     <string name="settings_depeg_alarm_hint">Vieną kartą praneša, kai USDT nukrypsta nuo 1 USD ribine verte (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Atsiejimo riba</string>
+    <string name="settings_depeg_watched">Stebima: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: pranešti virš</string>
     <string name="settings_fng_below">Fear &amp; Greed: pranešti žemiau</string>
     <string name="settings_gas_alert_hint">Vieną kartą praneša, kai įprastas komisinis mokestis nukrenta žemiau ribos. Tikrinama atnaujinant kainas, ne dažniau kaip kas 10 minučių.</string>

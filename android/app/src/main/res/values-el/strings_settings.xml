@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Ειδοποίηση για depeg του USDT</string>
     <string name="settings_depeg_alarm_hint">Ειδοποιεί μία φορά όταν το USDT αποκλίνει από το 1 USD κατά το όριο (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Όριο depeg</string>
+    <string name="settings_depeg_watched">Παρακολουθούνται: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: ειδοποίηση πάνω από</string>
     <string name="settings_fng_below">Fear &amp; Greed: ειδοποίηση κάτω από</string>
     <string name="settings_gas_alert_hint">Ειδοποιεί μία φορά όταν το κανονικό τέλος πέσει κάτω από το όριο. Ελέγχεται κατά την ενημέρωση τιμών, το πολύ κάθε 10 λεπτά.</string>

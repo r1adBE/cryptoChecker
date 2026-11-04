@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT டீபெக்கைத் தெரிவிக்கவும்</string>
     <string name="settings_depeg_alarm_hint">USDT 1 USD இலிருந்து வரம்பு அளவுக்கு விலகும்போது ஒருமுறை தெரிவிக்கும் (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">டீபெக் வரம்பு</string>
+    <string name="settings_depeg_watched">கண்காணிப்பில்: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: இதற்கு மேல் தெரிவிக்கவும்</string>
     <string name="settings_fng_below">Fear &amp; Greed: இதற்குக் கீழ் தெரிவிக்கவும்</string>
     <string name="settings_gas_alert_hint">சாதாரணக் கட்டணம் வரம்புக்குக் கீழ் குறையும்போது ஒருமுறை தெரிவிக்கும். விலைப் புதுப்பிப்புகளின்போது, அதிகபட்சம் 10 நிமிடங்களுக்கு ஒருமுறை சரிபார்க்கப்படும்.</string>

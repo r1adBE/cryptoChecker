@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT depeg-i barədə bildir</string>
     <string name="settings_depeg_alarm_hint">USDT 1 USD-dən hədd qədər kənara çıxanda bir dəfə xəbər verir (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg həddi</string>
+    <string name="settings_depeg_watched">İzlənilir: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: bu həddən yuxarı bildir</string>
     <string name="settings_fng_below">Fear &amp; Greed: bu həddən aşağı bildir</string>
     <string name="settings_gas_alert_hint">Normal komissiya limitdən aşağı düşəndə bir dəfə xəbər verir. Qiymət yeniləmələri zamanı, ən çoxu 10 dəqiqədən bir yoxlanılır.</string>

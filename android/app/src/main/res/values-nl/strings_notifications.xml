@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Beurs openen</string>
     <string name="notification_depeg_text">Waarden in de app rekenen met deze marktkoers.</string>
     <string name="notification_depeg_title">USDT op %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s op %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s wijkt minstens de depeg-grens af van 1 USD.</string>
     <string name="notification_fng_above">De index is boven %1$d gestegen – volgens deze index geldt de markt als hebzuchtig.</string>
     <string name="notification_fng_below">De index is onder %1$d gezakt – volgens deze index geldt de markt als angstig.</string>
     <string name="notification_fng_title">Stemmingsindex (Fear &amp; Greed): %1$d</string>

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">এক্সচেঞ্জ খুলুন</string>
     <string name="notification_depeg_text">অ্যাপের মানগুলো এই বাজারদর ব্যবহার করে।</string>
     <string name="notification_depeg_title">USDT %1$s USD-এ (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD-এ (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD থেকে অন্তত ডিপেগ সীমা পরিমাণ সরে গেছে।</string>
     <string name="notification_fng_above">সূচকটি %1$d-এর উপরে উঠেছে – এই মাপকাঠিতে বাজারের মনোভাব লোভী।</string>
     <string name="notification_fng_below">সূচকটি %1$d-এর নিচে নেমেছে – এই মাপকাঠিতে বাজারের মনোভাব ভীত।</string>
     <string name="notification_fng_title">মনোভাব সূচক (Fear &amp; Greed): %1$d</string>

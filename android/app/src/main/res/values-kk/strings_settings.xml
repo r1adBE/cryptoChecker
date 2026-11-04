@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT депегі туралы хабарлау</string>
     <string name="settings_depeg_alarm_hint">USDT 1 USD-ден шек мөлшеріне ауытқығанда бір рет хабарлайды (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Депег шегі</string>
+    <string name="settings_depeg_watched">Бақылауда: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: жоғары болса хабарлау</string>
     <string name="settings_fng_below">Fear &amp; Greed: төмен болса хабарлау</string>
     <string name="settings_gas_alert_hint">Қалыпты комиссия шектен төмен түскенде бір рет хабарлайды. Бағам жаңартулары кезінде, ең жиі 10 минут сайын тексеріледі.</string>

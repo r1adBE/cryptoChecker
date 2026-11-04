@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Sporoči depeg USDT</string>
     <string name="settings_depeg_alarm_hint">Sporoči enkrat, ko USDT za mejo odstopi od 1 USD (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Meja depega</string>
+    <string name="settings_depeg_watched">Spremljano: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: sporoči nad</string>
     <string name="settings_fng_below">Fear &amp; Greed: sporoči pod</string>
     <string name="settings_gas_alert_hint">Sporoči enkrat, ko običajna provizija pade pod mejo. Preverja se ob posodabljanju tečajev, največ vsakih 10 minut.</string>

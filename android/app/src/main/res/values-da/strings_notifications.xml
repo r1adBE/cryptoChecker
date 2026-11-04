@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Åbn børs</string>
     <string name="notification_depeg_text">Værdier i appen regner med denne markedskurs.</string>
     <string name="notification_depeg_title">USDT på %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s på %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s afviger fra 1 USD med mindst depeg-grænsen.</string>
     <string name="notification_fng_above">Indekset steg over %1$d – ifølge dette indeks regnes markedet som grådigt.</string>
     <string name="notification_fng_below">Indekset faldt under %1$d – ifølge dette indeks regnes markedet som bange.</string>
     <string name="notification_fng_title">Stemningsindeks (Fear &amp; Greed): %1$d</string>

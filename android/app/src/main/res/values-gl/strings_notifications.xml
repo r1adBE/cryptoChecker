@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Abrir exchange</string>
     <string name="notification_depeg_text">Os valores da app usan este prezo de mercado.</string>
     <string name="notification_depeg_title">USDT a %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s a %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s desvíase de 1 USD polo menos o limiar de perda de paridade.</string>
     <string name="notification_fng_above">O índice subiu por riba de %1$d – segundo esta medida, o ánimo do mercado é de cobiza.</string>
     <string name="notification_fng_below">O índice baixou por debaixo de %1$d – segundo esta medida, o ánimo do mercado é de medo.</string>
     <string name="notification_fng_title">Índice de ánimo (Fear &amp; Greed): %1$d</string>

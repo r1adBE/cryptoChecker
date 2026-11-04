@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Ripoti USDT kupoteza thamani yake ya 1 USD</string>
     <string name="settings_depeg_alarm_hint">Inaarifu mara moja USDT inapoachana na USD 1 kwa kiwango kilichowekwa (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Kiwango cha depeg</string>
+    <string name="settings_depeg_watched">Inafuatiliwa: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: arifu ikiwa juu ya</string>
     <string name="settings_fng_below">Fear &amp; Greed: arifu ikiwa chini ya</string>
     <string name="settings_gas_alert_hint">Inaarifu mara moja ada ya kawaida inaposhuka chini ya kikomo. Hukaguliwa wakati wa masasisho ya bei, mara moja kila dakika 10 zaidi.</string>

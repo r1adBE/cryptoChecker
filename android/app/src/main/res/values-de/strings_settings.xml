@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT-Depeg melden</string>
     <string name="settings_depeg_alarm_hint">Meldet einmal, wenn USDT von 1 USD um die eingestellte Schwelle abweicht (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-Schwelle</string>
+    <string name="settings_depeg_watched">Überwacht: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: melden über</string>
     <string name="settings_fng_below">Fear &amp; Greed: melden unter</string>
     <string name="settings_gas_alert_hint">Meldet einmal, wenn die normale Gebühr unter die Grenze fällt. Geprüft wird bei der Kursaktualisierung, höchstens alle 10 Minuten.</string>

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Отвори борсата</string>
     <string name="notification_depeg_text">Стойностите в приложението се изчисляват с тази пазарна цена.</string>
     <string name="notification_depeg_title">USDT на %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s на %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s се отклонява от 1 USD поне с прага за depeg.</string>
     <string name="notification_fng_above">Индексът се покачи над %1$d – по тази мярка настроението на пазара е алчно.</string>
     <string name="notification_fng_below">Индексът падна под %1$d – по тази мярка настроението на пазара е уплашено.</string>
     <string name="notification_fng_title">Индекс на настроението (Fear &amp; Greed): %1$d</string>

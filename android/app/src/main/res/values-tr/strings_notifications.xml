@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Borsayı aç</string>
     <string name="notification_depeg_text">Uygulamadaki değerler bu piyasa fiyatıyla hesaplanır.</string>
     <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s, 1 USD’den en az depeg eşiği kadar sapıyor.</string>
     <string name="notification_fng_above">Endeks %1$d üstüne çıktı – bu endekse göre piyasada açgözlülük hâkim.</string>
     <string name="notification_fng_below">Endeks %1$d altına düştü – bu endekse göre piyasada korku hâkim.</string>
     <string name="notification_fng_title">Duygu endeksi (Fear &amp; Greed): %1$d</string>

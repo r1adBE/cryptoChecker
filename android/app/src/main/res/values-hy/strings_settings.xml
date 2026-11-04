@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Հաղորդել USDT-ի depeg-ի մասին</string>
     <string name="settings_depeg_alarm_hint">Մեկ անգամ ծանուցում է, երբ USDT-ն 1 USD-ից շեղվում է շեմի չափով (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)։</string>
     <string name="settings_depeg_threshold">Depeg-ի շեմ</string>
+    <string name="settings_depeg_watched">Հսկվում են՝ %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed՝ ծանուցել բարձր</string>
     <string name="settings_fng_below">Fear &amp; Greed՝ ծանուցել ցածր</string>
     <string name="settings_gas_alert_hint">Մեկ անգամ ծանուցում է, երբ սովորական միջնորդավճարն իջնում է սահմանից ցածր։ Ստուգվում է գների թարմացման ժամանակ, առավելագույնը 10 րոպեն մեկ։</string>

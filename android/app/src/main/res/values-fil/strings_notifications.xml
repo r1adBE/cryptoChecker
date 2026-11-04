@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Buksan ang exchange</string>
     <string name="notification_depeg_text">Ginagamit ng mga value sa app ang market price na ito.</string>
     <string name="notification_depeg_title">USDT sa %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s sa %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">Lumilihis ang %1$s sa 1 USD nang hindi bababa sa threshold ng depeg.</string>
     <string name="notification_fng_above">Tumaas ang index nang lampas %1$d – ayon sa sukatang ito, sakim ang mood ng market.</string>
     <string name="notification_fng_below">Bumaba ang index nang mas mababa sa %1$d – ayon sa sukatang ito, takot ang mood ng market.</string>
     <string name="notification_fng_title">Mood index (Fear &amp; Greed): %1$d</string>

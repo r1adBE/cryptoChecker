@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT ਡੀਪੈੱਗ ਦੀ ਸੂਚਨਾ ਦਿਓ</string>
     <string name="settings_depeg_alarm_hint">ਜਦੋਂ USDT ਸੀਮਾ ਮੁਤਾਬਕ 1 USD ਤੋਂ ਹਟੇ ਤਾਂ ਇੱਕ ਵਾਰ ਸੂਚਿਤ ਕਰਦਾ ਹੈ (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)।</string>
     <string name="settings_depeg_threshold">ਡੀਪੈੱਗ ਸੀਮਾ</string>
+    <string name="settings_depeg_watched">ਨਿਗਰਾਨੀ ਹੇਠ: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: ਇਸ ਤੋਂ ਉੱਪਰ ਸੂਚਿਤ ਕਰੋ</string>
     <string name="settings_fng_below">Fear &amp; Greed: ਇਸ ਤੋਂ ਹੇਠਾਂ ਸੂਚਿਤ ਕਰੋ</string>
     <string name="settings_gas_alert_hint">ਜਦੋਂ ਆਮ ਫੀਸ ਸੀਮਾ ਤੋਂ ਹੇਠਾਂ ਆਵੇ ਤਾਂ ਇੱਕ ਵਾਰ ਸੂਚਿਤ ਕਰਦਾ ਹੈ। ਕੀਮਤ ਅੱਪਡੇਟਾਂ ਦੌਰਾਨ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਹਰ 10 ਮਿੰਟ ਵਿੱਚ।</string>

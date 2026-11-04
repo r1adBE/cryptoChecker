@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Tuairiscigh depeg USDT</string>
     <string name="settings_depeg_alarm_hint">Cuireann sé in iúl uair amháin nuair a imíonn USDT ó 1 USD faoin tairseach (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Tairseach depeg</string>
+    <string name="settings_depeg_watched">Faoi fhaire: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: cuir in iúl os cionn</string>
     <string name="settings_fng_below">Fear &amp; Greed: cuir in iúl faoi</string>
     <string name="settings_gas_alert_hint">Cuireann sé in iúl uair amháin nuair a thiteann an ghnáth-tháille faoin teorainn. Seiceáilte le linn nuashonruithe praghais, uair sa 10 nóiméad ar a mhéad.</string>

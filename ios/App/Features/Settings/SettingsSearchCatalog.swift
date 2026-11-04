@@ -124,7 +124,7 @@ enum SettingsSearchCatalog {
         add("alarms.badge", L("settings_app_badge"), alarms, .page(.alarms, anchor: "alarms.badge"),
             [L("ios_settings_app_badge_hint")])
         add("alarms.depeg", L("settings_depeg_alarm"), alarms, .page(.alarms, anchor: "alarms.depeg"),
-            [L("settings_depeg_alarm_hint"), "USDT", "Depeg"])
+            [L("settings_depeg_alarm_hint"), "USDT", "USDC", "Depeg"])
         add("alarms.test", L("alarm_test"), alarms, .page(.alarms, anchor: "alarms.test"), [L("alarm_test_hint")])
         let market = L("settings_market_alerts")
         add("page.market_alerts", market, alarms, .page(.marketAlerts, anchor: nil))

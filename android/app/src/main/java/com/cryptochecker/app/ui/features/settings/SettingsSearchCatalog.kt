@@ -179,7 +179,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         stringResource(R.string.settings_app_badge_hint))
     add("alarms.depeg", stringResource(R.string.settings_depeg_alarm), alarms,
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.depeg"),
-        stringResource(R.string.settings_depeg_alarm_hint), "USDT", "Depeg")
+        stringResource(R.string.settings_depeg_alarm_hint), "USDT", "USDC", "Depeg")
     add("alarms.test", stringResource(R.string.alarm_test), alarms,
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.test"),
         stringResource(R.string.alarm_test_hint))

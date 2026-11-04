@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Ziņot par USDT piesaistes zudumu</string>
     <string name="settings_depeg_alarm_hint">Vienreiz paziņo, kad USDT novirzās no 1 USD par slieksni (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Piesaistes zuduma slieksnis</string>
+    <string name="settings_depeg_watched">Uzrauga: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: paziņot virs</string>
     <string name="settings_fng_below">Fear &amp; Greed: paziņot zem</string>
     <string name="settings_gas_alert_hint">Vienreiz paziņo, kad parastā maksa nokrītas zem robežas. Pārbauda cenu atjaunināšanas laikā, ne biežāk kā ik pēc 10 minūtēm.</string>

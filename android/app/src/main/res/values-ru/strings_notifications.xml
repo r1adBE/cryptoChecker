@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Открыть биржу</string>
     <string name="notification_depeg_text">Значения в приложении считаются по этому рыночному курсу.</string>
     <string name="notification_depeg_title">USDT по %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s по %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s отклоняется от 1 USD как минимум на порог отвязки.</string>
     <string name="notification_fng_above">Индекс поднялся выше %1$d — по этому индексу на рынке жадность.</string>
     <string name="notification_fng_below">Индекс упал ниже %1$d — по этому индексу на рынке страх.</string>
     <string name="notification_fng_title">Индекс настроений (Fear &amp; Greed): %1$d</string>

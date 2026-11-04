@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">דיווח על שבירת הצמדה של USDT</string>
     <string name="settings_depeg_alarm_hint">מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">סף שבירת הצמדה</string>
+    <string name="settings_depeg_watched">במעקב: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: הודעה מעל</string>
     <string name="settings_fng_below">Fear &amp; Greed: הודעה מתחת ל-</string>
     <string name="settings_gas_alert_hint">מתריע פעם אחת כשהעמלה הרגילה יורדת מתחת לסף. נבדק בעדכון המחירים, לכל היותר כל 10 דקות.</string>

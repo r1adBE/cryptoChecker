@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Hlásiť depeg USDT</string>
     <string name="settings_depeg_alarm_hint">Ozve sa raz, keď sa USDT odchýli od 1 USD o hranicu (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Hranica depegu</string>
+    <string name="settings_depeg_watched">Sledované: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: hlásiť nad</string>
     <string name="settings_fng_below">Fear &amp; Greed: hlásiť pod</string>
     <string name="settings_gas_alert_hint">Ozve sa raz, keď normálny poplatok klesne pod hranicu. Kontroluje sa pri aktualizácii kurzov, najviac každých 10 minút.</string>

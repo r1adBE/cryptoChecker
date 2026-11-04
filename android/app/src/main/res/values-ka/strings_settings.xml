@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT-ის depeg-ის შეტყობინება</string>
     <string name="settings_depeg_alarm_hint">ერთხელ გაცნობებს, როცა USDT 1 USD-ს ზღვრის ოდენობით გადაიხრება (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-ის ზღვარი</string>
+    <string name="settings_depeg_watched">მონიტორინგში: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: შეტყობინება ზემოთ</string>
     <string name="settings_fng_below">Fear &amp; Greed: შეტყობინება ქვემოთ</string>
     <string name="settings_gas_alert_hint">ერთხელ გაცნობებს, როცა ჩვეულებრივი საკომისიო ლიმიტზე დაბლა ჩამოვა. მოწმდება ფასების განახლებისას, მაქსიმუმ ყოველ 10 წუთში.</string>

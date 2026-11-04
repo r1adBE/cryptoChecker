@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 196)
+
+* Depeg alarm: besides USDT it now watches USDC (Kraken USDC/USD and the Binance cross rate), and further stablecoins you hold or watch (e.g. DAI, FDUSD, PYUSD) when two exchanges quote them. The settings show which stablecoins are watched; the notification names the coin.
+
 ## 16.2.2 (build 195)
 
 * Charts in a fiat currency convert each day with that day's USDT/USD close, so a USDT depeg shows in the history; «USDT = 1 assumed» appears whenever a day had to be approximated.

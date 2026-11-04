@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Laporkan depeg USDT</string>
     <string name="settings_depeg_alarm_hint">Memberi tahu sekali saat USDT menyimpang dari 1 USD sebesar batas (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Batas depeg</string>
+    <string name="settings_depeg_watched">Dipantau: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: beri tahu di atas</string>
     <string name="settings_fng_below">Fear &amp; Greed: beri tahu di bawah</string>
     <string name="settings_gas_alert_hint">Memberi tahu sekali saat biaya normal turun di bawah batas. Diperiksa saat pembaruan harga, paling sering setiap 10 menit.</string>

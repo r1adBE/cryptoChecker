@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">ایکسچینج کھولیں</string>
     <string name="notification_depeg_text">ایپ میں قدریں یہی مارکیٹ قیمت استعمال کرتی ہیں۔</string>
     <string name="notification_depeg_title">USDT %1$s USD پر (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD پر (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD سے کم از کم ڈی پیگ کی حد جتنا ہٹ گیا ہے۔</string>
     <string name="notification_fng_above">انڈیکس %1$d سے اوپر چلا گیا – اس پیمانے سے مارکیٹ کا موڈ لالچی ہے۔</string>
     <string name="notification_fng_below">انڈیکس %1$d سے نیچے آ گیا – اس پیمانے سے مارکیٹ کا موڈ خوفزدہ ہے۔</string>
     <string name="notification_fng_title">موڈ انڈیکس (Fear &amp; Greed): %1$d</string>

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ ತೆರೆಯಿರಿ</string>
     <string name="notification_depeg_text">ಆ್ಯಪ್‌ನಲ್ಲಿನ ಮೌಲ್ಯಗಳು ಈ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಯನ್ನು ಬಳಸುತ್ತವೆ.</string>
     <string name="notification_depeg_title">USDT %1$s USD ನಲ್ಲಿ (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD ನಲ್ಲಿ (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD ನಿಂದ ಕನಿಷ್ಠ ಡಿಪೆಗ್ ಮಿತಿಯಷ್ಟು ವಿಚಲಿಸಿದೆ.</string>
     <string name="notification_fng_above">ಸೂಚ್ಯಂಕ %1$d ಮೀರಿ ಏರಿದೆ – ಈ ಅಳತೆಯ ಪ್ರಕಾರ ಮಾರುಕಟ್ಟೆಯ ಮನಸ್ಥಿತಿ ದುರಾಸೆಯದ್ದಾಗಿದೆ.</string>
     <string name="notification_fng_below">ಸೂಚ್ಯಂಕ %1$d ಗಿಂತ ಕೆಳಗೆ ಇಳಿದಿದೆ – ಈ ಅಳತೆಯ ಪ್ರಕಾರ ಮಾರುಕಟ್ಟೆಯ ಮನಸ್ಥಿತಿ ಭಯದ್ದಾಗಿದೆ.</string>
     <string name="notification_fng_title">ಮನಸ್ಥಿತಿ ಸೂಚ್ಯಂಕ (Fear &amp; Greed): %1$d</string>

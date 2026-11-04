@@ -221,6 +221,8 @@ internal fun AlarmsPage(
                     optionLabel = { PercentText.unsigned(it / 10.0, 1, minDecimals = 0) },
                     onSelected = viewModel::setDepegThreshold
                 )
+                // USDT, USDC und gehaltene bzw. gemerkte Stablecoins mit letztem Kurs
+                DepegWatchedLine()
             }
             RowDivider()
             // Beispiel-Alarm mit Ton, Vibration und Sprachausgabe (ohne Nachtruhe)

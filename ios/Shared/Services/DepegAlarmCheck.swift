@@ -31,7 +31,10 @@ enum DepegAlarmCheck {
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne Alarm und ohne Portfolio.
     /// - Parameter hasPortfolioData: Transaktionen oder beobachtete Adressen vorhanden (`AppData.hasPortfolioData`).
     /// - Parameter fiatConversion: Fiat-Alarm bzw. ≈ Umrechnung über USDT (`FiatAlarmGuard.needsUsdtMeasurement`).
-    static func runIfDue(settings: AppSettings, hasPortfolioData: Bool, fiatConversion: Bool = false) async {
+    /// - Parameter stables: weitere Stablecoins (`StableDepegCheck`, nur mit Alarm); `plan` wird erst bei fälliger
+    ///   Prüfung erstellt (`StableDepegPlanner.plan`, liest Merkliste, Portfolio und gespeicherte Paarlisten).
+    static func runIfDue(settings: AppSettings, hasPortfolioData: Bool, fiatConversion: Bool = false,
+                         stables: (@Sendable () async -> StableDepegCheck.Plan)? = nil) async {
         guard DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
                                        hasPortfolioData: hasPortfolioData, fiatConversion: fiatConversion) else { return }
         let defaults = SharedStorage.defaults
@@ -41,7 +44,8 @@ enum DepegAlarmCheck {
         defaults.set(Double(now), forKey: keyLastCheck)
         let generation = defaults.integer(forKey: keyResetGeneration)
 
-        guard let measurement = await fetchUsdt(now: now) else {
+        let (fetched, binanceUsdc) = await fetchUsdt(now: now)
+        guard let measurement = fetched else {
             defaults.set(Double(now - minInterval + retryAfterFailure), forKey: keyLastCheck)
             return
         }
@@ -51,13 +55,22 @@ enum DepegAlarmCheck {
         defaults.set(measurement.viaUsdc, forKey: keyLastPriceViaUsdc)
         // Alarm aus: nur gemessen (Portfolio), nichts melden
         guard settings.depegAlarm else { return }
-        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
-        guard DepegAlarm.mayAlarm(measurement) else { return }
-        let price = measurement.price
-        let deviation = DepegAlarm.deviationPercent(price)
         // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Mitteilung scharf bleiben
         let deliverable = await Notifier.isAuthorized()
         let mayFire = QuietHours.mayFire(holdAlarms: QuietHours.holdsAlarmsNow(settings), deliverable: deliverable)
+        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
+        if DepegAlarm.mayAlarm(measurement) {
+            await evaluateUsdt(measurement.price, settings: settings, mayFire: mayFire, generation: generation)
+        }
+        // Weitere Stablecoins im selben Takt; USDT/USD nur aus direkten Quellen als Umrechnung
+        let plan = await stables?() ?? StableDepegCheck.Plan()
+        await StableDepegCheck.run(plan: plan, settings: settings, usdtUsd: measurement.viaUsdc ? nil : measurement.price,
+                                   binanceUsdcUsdt: binanceUsdc, mayFire: mayFire, now: now, generation: generation)
+    }
+
+    private static func evaluateUsdt(_ price: Double, settings: AppSettings, mayFire: Bool, generation: Int) async {
+        let defaults = SharedStorage.defaults
+        let deviation = DepegAlarm.deviationPercent(price)
         // Gemerkter Zustand gilt nur für die Schwelle, zu der er gehört (geändert oder zwischendurch aus: scharf)
         let tenths = DepegAlarm.threshold(settings.depegThresholdTenths)
         let armed = DepegAlarm.armedFor(storedArmed: defaults.object(forKey: keyArmed) as? Bool ?? true,
@@ -106,8 +119,9 @@ enum DepegAlarmCheck {
         )
     }
 
-    /// USDT in USD aus den drei Quellen (parallel, `DepegAlarm.measure`); pausierte Börsen bleiben aussen vor.
-    private static func fetchUsdt(now: Int64) async -> DepegAlarm.Measurement? {
+    /// USDT in USD aus den drei Quellen (parallel, `DepegAlarm.measure`); pausierte Börsen bleiben aussen vor. Dazu der
+    /// letzte Kurs Binance USDC/USDT (Kreuzkurs für USDC, `StableDepegCheck`) — keine eigene Anfrage.
+    private static func fetchUsdt(now: Int64) async -> (DepegAlarm.Measurement?, Double?) {
         let backoff = SharedStorage.exchangeBackoff
         func available(_ key: String) -> Bool {
             !ExchangeBackoff.isPaused(backoff[key], now: now) && BlockedSources.groupPausedUntil(key) == nil
@@ -124,13 +138,13 @@ enum DepegAlarmCheck {
         let k = await kraken
         let c = await coinbase
         let b = await binance
-        return DepegAlarm.measure(kraken: k, coinbase: c, binanceUsdc: b)
+        return (DepegAlarm.measure(kraken: k, coinbase: c, binanceUsdc: b), b)
     }
 
     /// Letzter Kurs eines Paars; nicht abgefragt (`enabled` false) oder Fehler: nil (still). Laut Börse älter als
     /// 2 Std.: ebenfalls nil (`DepegAlarm.usablePrice`) — keine Messung, kein Alarm, die Bewertung fällt zurück wie
     /// ohne frische Messung. Wie Android.
-    private static func lastPrice(_ enabled: Bool, now: Int64, _ exchangeKey: String, _ info: ExchangePair) async -> Double? {
+    static func lastPrice(_ enabled: Bool, now: Int64, _ exchangeKey: String, _ info: ExchangePair) async -> Double? {
         guard enabled, let exchange = ExchangesConfig.exchange(exchangeKey),
               let ticker = try? await ExchangeService.fetchTicker(exchange: exchange, info: info) else { return nil }
         return DepegAlarm.usablePrice(last: ticker.last, exchangeTime: ticker.exchangeTime, now: now)

@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Teata USDT sidumise kaotusest</string>
     <string name="settings_depeg_alarm_hint">Teavitab üks kord, kui USDT kaldub 1 USD-st läve võrra kõrvale (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Sidumise kaotuse lävi</string>
+    <string name="settings_depeg_watched">Jälgitakse: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: teavita üle</string>
     <string name="settings_fng_below">Fear &amp; Greed: teavita alla</string>
     <string name="settings_gas_alert_hint">Teavitab üks kord, kui tavaline tasu langeb alla piiri. Kontrollitakse hinnauuenduste ajal, kõige rohkem iga 10 minuti järel.</string>

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">எக்ஸ்சேஞ்சைத் திறக்கவும்</string>
     <string name="notification_depeg_text">ஆப்பில் உள்ள மதிப்புகள் இந்தச் சந்தை விலையைப் பயன்படுத்துகின்றன.</string>
     <string name="notification_depeg_title">USDT %1$s USD இல் (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s %2$s USD இல் (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s 1 USD இலிருந்து குறைந்தது டீபெக் வரம்பு அளவு விலகியுள்ளது.</string>
     <string name="notification_fng_above">குறியீடு %1$d க்கு மேல் உயர்ந்தது – இந்த அளவீட்டின்படி சந்தை மனநிலை பேராசையாக உள்ளது.</string>
     <string name="notification_fng_below">குறியீடு %1$d க்குக் கீழ் சரிந்தது – இந்த அளவீட்டின்படி சந்தை மனநிலை அச்சமாக உள்ளது.</string>
     <string name="notification_fng_title">மனநிலைக் குறியீடு (Fear &amp; Greed): %1$d</string>

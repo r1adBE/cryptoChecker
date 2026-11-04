@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">USDT-depeg jelzése</string>
     <string name="settings_depeg_alarm_hint">Egyszer jelez, ha az USDT a határral eltér 1 USD-tól (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Depeg-határ</string>
+    <string name="settings_depeg_watched">Figyelt: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: értesítés felette</string>
     <string name="settings_fng_below">Fear &amp; Greed: értesítés alatta</string>
     <string name="settings_gas_alert_hint">Egyszer értesít, ha a normál díj a határ alá esik. Az árfrissítéskor ellenőrizzük, legfeljebb 10 percenként.</string>

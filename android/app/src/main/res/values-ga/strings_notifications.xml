@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Oscail an malartán</string>
     <string name="notification_depeg_text">Úsáideann luachanna san aip an praghas margaidh seo.</string>
     <string name="notification_depeg_title">USDT ag %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s ag %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">Tá %1$s imithe ó 1 USD ar a laghad faoin tairseach depeg.</string>
     <string name="notification_fng_above">D’ardaigh an t-innéacs os cionn %1$d – de réir an tomhais seo, tá meon an mhargaidh santach.</string>
     <string name="notification_fng_below">Thit an t-innéacs faoi %1$d – de réir an tomhais seo, tá meon an mhargaidh eaglach.</string>
     <string name="notification_fng_title">Innéacs meoin (Fear &amp; Greed): %1$d</string>

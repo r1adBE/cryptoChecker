@@ -265,22 +265,30 @@ fun AppNotifier.showTestAlarm() {
 fun AppNotifier.canShowDepegAlarm(): Boolean = canShowPortfolioAlarm()
 
 /**
- * USDT weicht um die Schwelle von 1 USD ab: Kanal der Kursalarme (in der Nachtruhe löst der
- * Alarm gar nicht aus, lautlos nur als Rückfall an der Grenze). Knopf «Börse öffnen» öffnet die
- * Seite USDC/USDT der Hauptbörse ([exchangeUrl], https) — kein Handel in der App.
+ * USDT (bzw. ein weiterer Stablecoin, je Stablecoin eigene [notificationId]) weicht um die Schwelle von 1 USD ab: Kanal
+ * der Kursalarme (in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall an der Grenze). Knopf «Börse
+ * öffnen» öffnet die Seite USDC/USDT der Hauptbörse ([exchangeUrl], https; null = kein Knopf) — kein Handel in der App.
  * @return true erst, wenn die Meldung unter den offenen Mitteilungen steht ([awaitActive]).
  */
-suspend fun AppNotifier.showDepeg(title: String, text: String, exchangeUrl: String): Boolean {
+suspend fun AppNotifier.showDepeg(
+    title: String,
+    text: String,
+    exchangeUrl: String?,
+    notificationId: Int = DEPEG_NOTIFICATION_ID,
+    requestCode: Int = DEPEG_EXCHANGE_REQUEST_CODE,
+): Boolean {
     val settings = settingsRepository.cached
     val quiet = isQuietNow()
     val channelId = channelIdFor(AppNotifierDeliveryPlan.alarmChannel(quiet), settings.alarmSignal)
-    val openExchange = PendingIntent.getActivity(
-        context,
-        DEPEG_EXCHANGE_REQUEST_CODE,
-        Intent(Intent.ACTION_VIEW, exchangeUrl.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-    )
-    val notification = NotificationCompat.Builder(context, channelId)
+    val openExchange = exchangeUrl?.let { url ->
+        PendingIntent.getActivity(
+            context,
+            requestCode,
+            Intent(Intent.ACTION_VIEW, url.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+    val builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_stat_depeg)
         .setColor(settings.accentColor.seed)
         .setContentTitle(title)
@@ -293,11 +301,12 @@ suspend fun AppNotifier.showDepeg(title: String, text: String, exchangeUrl: Stri
         .setSilent(quiet)
         .setGroup(Group.ALARMS.key)
         .setContentIntent(openAppIntent(null))
-        .addAction(0, context.getString(R.string.notification_depeg_action_exchange), openExchange)
-        .build()
-    makeRoomForAlarm(DEPEG_NOTIFICATION_ID)
+    // Knopf «Börse öffnen» nur mit passender Seite (USDT, USDC: USDC/USDT der Hauptbörse)
+    openExchange?.let { builder.addAction(0, context.getString(R.string.notification_depeg_action_exchange), it) }
+    val notification = builder.build()
+    makeRoomForAlarm(notificationId)
     // Zeit vor dem Melden: nur eine Meldung ab da bestätigt den Alarm (awaitActive)
     val postedAt = System.currentTimeMillis()
-    if (!notifyInGroup(DEPEG_NOTIFICATION_ID, notification, Group.ALARMS)) return false
-    return awaitActive(DEPEG_NOTIFICATION_ID, postedAt)
+    if (!notifyInGroup(notificationId, notification, Group.ALARMS)) return false
+    return awaitActive(notificationId, postedAt)
 }

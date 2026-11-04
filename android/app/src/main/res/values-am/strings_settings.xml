@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">የUSDT ዲፔግን ሪፖርት ያድርጉ</string>
     <string name="settings_depeg_alarm_hint">USDT ከ1 USD በገደቡ መጠን ሲርቅ አንድ ጊዜ ያሳውቃል (Kraken USDT/USD፣ Coinbase USDT/USD፣ Binance USDC/USDT)።</string>
     <string name="settings_depeg_threshold">የዲፔግ ገደብ</string>
+    <string name="settings_depeg_watched">በክትትል ላይ፦ %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed፦ ከ… በላይ ሲሆን ያሳውቁ</string>
     <string name="settings_fng_below">Fear &amp; Greed፦ ከ… በታች ሲሆን ያሳውቁ</string>
     <string name="settings_gas_alert_hint">መደበኛው ክፍያ ከገደቡ በታች ሲወርድ አንድ ጊዜ ያሳውቃል። በዋጋ ዝማኔዎች ወቅት፣ ቢበዛ በየ10 ደቂቃው ይፈተሻል።</string>

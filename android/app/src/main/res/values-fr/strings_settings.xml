@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Signaler un depeg de l’USDT</string>
     <string name="settings_depeg_alarm_hint">T’avertit une fois lorsque l’écart de l’USDT par rapport à 1 USD atteint le seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Seuil de depeg</string>
+    <string name="settings_depeg_watched">Sous surveillance : %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed : prévenir au-dessus</string>
     <string name="settings_fng_below">Fear &amp; Greed : prévenir sous</string>
     <string name="settings_gas_alert_hint">Prévient une fois quand les frais normaux passent sous la limite. Vérifié lors de la mise à jour des cours, au plus toutes les 10 minutes.</string>

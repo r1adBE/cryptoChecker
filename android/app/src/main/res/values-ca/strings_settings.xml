@@ -167,6 +167,7 @@
     <string name="settings_depeg_alarm">Avisa de la pèrdua de paritat de l\'USDT</string>
     <string name="settings_depeg_alarm_hint">Avisa un cop quan l\'USDT es desvia d\'1 USD en el llindar (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Llindar de pèrdua de paritat</string>
+    <string name="settings_depeg_watched">En seguiment: %1$s</string>
     <string name="settings_fng_above">Fear &amp; Greed: avisa per sobre de</string>
     <string name="settings_fng_below">Fear &amp; Greed: avisa per sota de</string>
     <string name="settings_gas_alert_hint">Avisa un cop quan la comissió normal baixa per sota del límit. Es comprova durant les actualitzacions de preu, com a màxim cada 10 minuts.</string>

@@ -35,6 +35,10 @@ class PortfolioRepository @Inject constructor(
     /** Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? */
     suspend fun hasData(): Boolean = portfolioDao.getCoins().isNotEmpty() || watchedAddressDao.getAll().isNotEmpty()
 
+    /** Coins des Portfolios: aus Transaktionen und beobachteten Adressen (Netz-Coin und zählende Token). */
+    suspend fun holdingCoins(): List<String> =
+        portfolioDao.getCoins() + getWatchedAddresses().flatMap { w -> listOf(w.chain.coin) + w.tokenHoldings().map { it.coin } }
+
     /**
      * Neu anlegen (id 0) oder ändern. Coin wird vereinheitlicht (Grossbuchstaben).
      * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])

@@ -7,6 +7,8 @@
     <string name="notification_depeg_action_exchange">Deschide bursa</string>
     <string name="notification_depeg_text">Valorile din aplicație folosesc acest preț de piață.</string>
     <string name="notification_depeg_title">USDT la %1$s USD (%2$s)</string>
+    <string name="notification_depeg_stable_title">%1$s la %2$s USD (%3$s)</string>
+    <string name="notification_depeg_stable_text">%1$s se abate de la 1 USD cu cel puțin pragul de depeg.</string>
     <string name="notification_fng_above">Indicele a urcat peste %1$d – după acest indice, pe piață domină lăcomia.</string>
     <string name="notification_fng_below">Indicele a scăzut sub %1$d – după acest indice, pe piață domină frica.</string>
     <string name="notification_fng_title">Indicele de sentiment (Fear &amp; Greed): %1$d</string>
