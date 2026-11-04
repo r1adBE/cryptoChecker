@@ -37,6 +37,7 @@ class AddressSurplusParityTest {
             id = o["id"].num()!!.toLong(), coin = o["coin"] as String, type = PortfolioTxType.valueOf(o["type"] as String),
             amount = BigDecimal(o["amount"] as String), priceUsdt = (o["price"] as String?)?.let(::BigDecimal),
             time = o["time"].num()!!.toLong(), exchange = o["exchange"] as String?,
+            transferFrom = o["transferFrom"] as String?, transferTo = o["transferTo"] as String?,
         )
     }
 

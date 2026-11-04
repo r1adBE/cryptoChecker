@@ -20,10 +20,13 @@ final class AddressSurplusParityTests: XCTestCase {
     }
 
     private func trade(_ o: [String: Any]) -> PortfolioTx {
-        PortfolioTx(id: int64(o["id"]), coin: o["coin"] as? String ?? "",
-                    type: PortfolioTxType(rawValue: o["type"] as? String ?? "") ?? .BUY,
-                    amountExact: dec(o["amount"]) ?? 0, priceExact: dec(o["price"]), time: int64(o["time"]),
-                    exchange: o["exchange"] as? String)
+        var t = PortfolioTx(id: int64(o["id"]), coin: o["coin"] as? String ?? "",
+                            type: PortfolioTxType(rawValue: o["type"] as? String ?? "") ?? .BUY,
+                            amountExact: dec(o["amount"]) ?? 0, priceExact: dec(o["price"]), time: int64(o["time"]),
+                            exchange: o["exchange"] as? String)
+        t.transferFrom = o["transferFrom"] as? String
+        t.transferTo = o["transferTo"] as? String
+        return t
     }
 
     private func same(_ label: String, _ expected: Any?, _ actual: [String: Decimal]) {
