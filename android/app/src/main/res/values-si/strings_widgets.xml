@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">නැවුම් කරන්න – %1$d s කින් නැවත හැකිය</string>
     <string name="settings_watch">ඔරලෝසුව</string>
-    <string name="settings_watch_hint">Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$d දක්වා, USDT එදිරිව මිල).</string>
+    <string name="settings_watch_hint">Wear OS හි ඔරලෝසු යෙදුම සඳහා කාසි (%1$d දක්වා). ප්‍රියතම ★ අනාගත ගිවිසුම් සහ වෙනත් මිල මුදල් ඇතුළුව නිවැරදි යුගලය තබා ගනී; තමන්ගේම ලැයිස්තුවේ මිල USDT එදිරිවයි.</string>
     <string name="settings_watch_mode_phone">දුරකථනය මෙන් (ප්‍රියතම ★)</string>
     <string name="settings_watch_mode_own">තමන්ගේම ලැයිස්තුව</string>
     <string name="settings_watch_own_title">තමන්ගේම ලැයිස්තුව: %2$d න් %1$d</string>

@@ -109,7 +109,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Athnuaigh – indéanta arís i gceann %1$d s</string>
     <string name="settings_watch">Uaireadóir</string>
-    <string name="settings_watch_hint">Boinn don aip uaireadóra ar Wear OS (suas le %1$d, praghas in aghaidh USDT).</string>
+    <string name="settings_watch_hint">Boinn don aip uaireadóra ar Wear OS (suas le %1$d). Coinníonn ceanáin ★ a bpéire cruinn, lena n-áirítear todhchaíochtaí agus airgeadraí luachana eile; tá praghas an liosta féin in aghaidh USDT.</string>
     <string name="settings_watch_mode_phone">Cosúil leis an bhfón (ceanáin ★)</string>
     <string name="settings_watch_mode_own">Liosta féin</string>
     <string name="settings_watch_own_title">Liosta féin: %1$d as %2$d</string>

@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">రిఫ్రెష్ – %1$d సె.లో మళ్లీ సాధ్యం</string>
     <string name="settings_watch">వాచ్</string>
-    <string name="settings_watch_hint">Wear OSలోని వాచ్ యాప్ కోసం కాయిన్‌లు (%1$d వరకు, USDTతో ధర).</string>
+    <string name="settings_watch_hint">Wear OSలోని వాచ్ యాప్ కోసం కాయిన్‌లు (%1$d వరకు). ఇష్టమైనవి ★ ఫ్యూచర్స్, ఇతర కోట్ కరెన్సీలతో సహా తమ ఖచ్చితమైన జతను ఉంచుకుంటాయి; సొంత జాబితా ధర USDTతో ఉంటుంది.</string>
     <string name="settings_watch_mode_phone">ఫోన్‌లో లాగే (ఇష్టమైనవి ★)</string>
     <string name="settings_watch_mode_own">సొంత జాబితా</string>
     <string name="settings_watch_own_title">సొంత జాబితా: %2$dలో %1$d</string>

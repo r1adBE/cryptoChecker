@@ -105,7 +105,7 @@
     <string name="widget_refresh_blocked_a11y">Refresh – possible again in %1$d s</string>
     <!-- Uhr (Widgets-Seite): settings_watch_hint %1$d = Höchstzahl; settings_watch_own_title %1$d gewählt, %2$d Höchstzahl -->
     <string name="settings_watch">Watch</string>
-    <string name="settings_watch_hint">Coins for the watch app on Wear OS (up to %1$d, priced against USDT).</string>
+    <string name="settings_watch_hint">Coins for the watch app on Wear OS (up to %1$d). Favorites ★ keep their exact pair, including futures and other quote currencies; your own list is priced against USDT.</string>
     <string name="settings_watch_mode_phone">Like phone (favorites ★)</string>
     <string name="settings_watch_mode_own">Own list</string>
     <string name="settings_watch_own_title">Own list: %1$d of %2$d</string>

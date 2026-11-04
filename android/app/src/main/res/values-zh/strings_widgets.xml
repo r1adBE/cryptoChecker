@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">刷新 – %1$d 秒后可再次刷新</string>
     <string name="settings_watch">手表</string>
-    <string name="settings_watch_hint">Wear OS 手表应用中显示的币种（最多 %1$d 个，以 USDT 计价）。</string>
+    <string name="settings_watch_hint">Wear OS 手表应用中显示的币种（最多 %1$d 个）。收藏 ★ 会保留其确切交易对，包括期货及其他报价货币；自定义列表以 USDT 计价。</string>
     <string name="settings_watch_mode_phone">与手机相同（收藏 ★）</string>
     <string name="settings_watch_mode_own">自定义列表</string>
     <string name="settings_watch_own_title">自定义列表：%1$d / %2$d</string>

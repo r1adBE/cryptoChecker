@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ያድሱ – ከ%1$d ሰ በኋላ እንደገና ይቻላል</string>
     <string name="settings_watch">ሰዓት</string>
-    <string name="settings_watch_hint">በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$d፣ ከUSDT አንጻር ዋጋ)።</string>
+    <string name="settings_watch_hint">በWear OS ላይ ላለው የሰዓት መተግበሪያ ሳንቲሞች (እስከ %1$d)። ተወዳጆች ★ የወደፊት ውሎችንና ሌሎች የዋጋ ምንዛሪዎችን ጨምሮ ትክክለኛ ጥንዳቸውን ይይዛሉ፤ የራስ ዝርዝሩ ከUSDT አንጻር ዋጋ ይሰጠዋል።</string>
     <string name="settings_watch_mode_phone">እንደ ስልኩ (ተወዳጆች ★)</string>
     <string name="settings_watch_mode_own">የራስ ዝርዝር</string>
     <string name="settings_watch_own_title">የራስ ዝርዝር፦ %1$d ከ%2$d</string>

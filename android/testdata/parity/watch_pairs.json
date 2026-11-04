@@ -1,5 +1,5 @@
 {
- "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» = Paar mit Kennung; ungültig → null; nur Spot und Perp fragt die Uhr selbst ab), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore.",
+ "description": "Uhr «Wie Handy» mit dem Paar des Favoriten (Build 193): WatchPair (Schlüssel «BASE/QUOTE|Börse|Kontrakt», Anzeige «BANK Perp»/«BTC/EUR», Kontrakt-Marke: leer = Spot, Kurzform des Handys «Perp», «1Q» …, «Pool» + 8 Hex-Stellen (FNV-1a der Kennung) = DexScreener-Pool, die Kennung einer Börse (BTCUSDT, XBTUSDT) macht kein Pool; ungültig → null; nur Spot und Perp der Börsen, die die Uhr kennt (Binance/Bybit/OKX Futures), fragt die Uhr selbst ab — Perp anderer Börsen wie Bitget oder Hyperliquid nur vom Handy), WatchCoins.favoritePairs (je Coin das Paar des ersten Favoriten), WatchSettings mit «pp» (Paare zu phone, Reihenfolge von phone, shown/kept mit Paar-Schlüsseln, ohne pp wie bisher Kürzel; merge: Paare immer vom Handy), WatchPhoneQuotes.pick (Paar-Schlüssel: genau dieses Paar, Börse und Kontrakt — die Quelle folgt dem Paar des Handys; Kürzel wie bisher nur USDT-Spot) und selfFetch (Pool/Laufzeit-Kontrakt nie selbst), WatchPairQuotes (Börsen-Reihenfolge: die des Handys zuerst, dann die anderen gleicher Art — Spot: Binance, Bybit, OKX; Perp: Binance Futures (fapi), Bybit Futures (linear), OKX Futures (SWAP); Abfrage-Adressen; Abruf: andere Börse nur, wenn die des Handys nicht antwortet oder das Paar fehlt, Börse im Ergebnis = die liefernde; Abfrage-Schlüssel binance:<SYMBOL>, binanceFutures:<SYMBOL>, bybit:<SYMBOL>, bybitLinear:<SYMBOL>, okx:<INST-ID>; fehlend/null = HTTP-Fehler). Android marketdata/watch + wear WatchPairQuotes, iOS WatchCore.",
  "pairs": [
   {
    "name": "Perp bei Binance Futures",
@@ -22,6 +22,26 @@
    "selfFetchable": true
   },
   {
+   "name": "Perp bei Bitget Futures: Uhr kennt die Börse nicht, nur vom Handy",
+   "base": "BTC",
+   "quote": "USDT",
+   "exchange": "Bitget Futures",
+   "contract": "Perp",
+   "key": "BTC/USDT|Bitget Futures|Perp",
+   "label": "BTC Perp",
+   "selfFetchable": false
+  },
+  {
+   "name": "Perp bei Hyperliquid: nur vom Handy",
+   "base": "BTC",
+   "quote": "USDC",
+   "exchange": "Hyperliquid",
+   "contract": "Perp",
+   "key": "BTC/USDC|Hyperliquid|Perp",
+   "label": "BTC/USDC Perp",
+   "selfFetchable": false
+  },
+  {
    "name": "Quartal: nur vom Handy",
    "base": "BTC",
    "quote": "USDT",
@@ -36,8 +56,8 @@
    "base": "PEPE",
    "quote": "WETH",
    "exchange": "DexScreener",
-   "contract": "Pool",
-   "key": "PEPE/WETH|DexScreener|Pool",
+   "contract": "Pool995b79ee",
+   "key": "PEPE/WETH|DexScreener|Pool995b79ee",
    "label": "PEPE/WETH",
    "selfFetchable": false
   },
@@ -78,18 +98,52 @@
  ],
  "contractOf": [
   {
+   "name": "Spot ohne Kennung",
    "short": null,
-   "hasPairId": false,
+   "exchangeKey": "Binance",
+   "pairId": null,
    "expected": ""
   },
   {
+   "name": "Binance-Spot mit Börsen-Kennung bleibt Spot",
    "short": null,
-   "hasPairId": true,
-   "expected": "Pool"
+   "exchangeKey": "Binance",
+   "pairId": "BTCUSDT",
+   "expected": ""
   },
   {
+   "name": "Kraken-Spot mit Börsen-Kennung bleibt Spot",
+   "short": null,
+   "exchangeKey": "Kraken",
+   "pairId": "XBTUSDT",
+   "expected": ""
+  },
+  {
+   "name": "DexScreener-Pool: Marke mit den Stellen seiner Kennung",
+   "short": null,
+   "exchangeKey": "DexScreener",
+   "pairId": "ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f",
+   "expected": "Pool995b79ee"
+  },
+  {
+   "name": "zweiter Pool mit gleicher Basis/Quote: eigene Marke",
+   "short": null,
+   "exchangeKey": "DexScreener",
+   "pairId": "ethereum/0x11950d141ecb863f01007add7d1a342041227b58",
+   "expected": "Pool0275864c"
+  },
+  {
+   "name": "DexScreener ohne Kennung: Spot",
+   "short": null,
+   "exchangeKey": "DexScreener",
+   "pairId": "",
+   "expected": ""
+  },
+  {
+   "name": "Kurzform gewinnt",
    "short": "Perp",
-   "hasPairId": true,
+   "exchangeKey": "Binance Futures",
+   "pairId": "BANKUSDT",
    "expected": "Perp"
   }
  ],
@@ -123,6 +177,10 @@
   {
    "key": "SOL",
    "label": "SOL"
+  },
+  {
+   "key": "PEPE/WETH|DexScreener|Pool995b79ee",
+   "label": "PEPE/WETH"
   }
  ],
  "favoritePairs": [
@@ -258,12 +316,12 @@
   }
  ],
  "pick": {
-  "name": "Quelle folgt dem Paar des Handys: Binance Futures Perp, nicht der neuere Spot-Kurs von Bybit",
+  "name": "Quelle folgt dem Paar des Handys: Binance Futures Perp, nicht der neuere Spot-Kurs von Bybit; zwei Pools mit gleicher Basis/Quote bleiben getrennt (der markierte, nicht der neuere)",
   "coins": [
    "BANK",
    "BANK/USDT|Binance Futures|Perp",
    "BTC/EUR|Kraken|",
-   "PEPE/WETH|DexScreener|Pool",
+   "PEPE/WETH|DexScreener|Pool995b79ee",
    "ETH/USDT|OKX|"
   ],
   "rows": [
@@ -319,13 +377,25 @@
     "base": "PEPE",
     "quote": "WETH",
     "spot": false,
-    "contract": "Pool",
+    "contract": "Pool995b79ee",
     "disabled": false,
     "price": 4e-09,
     "change24h": -1.0,
     "exchange": "DexScreener",
     "time": 1800000000000,
     "sortOrder": 2
+   },
+   {
+    "base": "PEPE",
+    "quote": "WETH",
+    "spot": false,
+    "contract": "Pool0275864c",
+    "disabled": false,
+    "price": 5e-09,
+    "change24h": 3.0,
+    "exchange": "DexScreener",
+    "time": 1800000120000,
+    "sortOrder": 6
    },
    {
     "base": "ETH",
@@ -363,7 +433,7 @@
     "time": 1800000000000
    },
    {
-    "symbol": "PEPE/WETH|DexScreener|Pool",
+    "symbol": "PEPE/WETH|DexScreener|Pool995b79ee",
     "price": 4e-09,
     "change24h": -1.0,
     "exchange": "DexScreener",
@@ -375,8 +445,9 @@
   "now": 1800000000000,
   "shown": [
    "BANK/USDT|Binance Futures|Perp",
+   "BTC/USDT|Bitget Futures|Perp",
    "BTC/USDT|Binance Futures|1Q",
-   "PEPE/WETH|DexScreener|Pool",
+   "PEPE/WETH|DexScreener|Pool995b79ee",
    "SOL"
   ],
   "times": {},
@@ -423,11 +494,27 @@
    ]
   },
   {
+   "key": "BTC/USDT|Bitget Futures|Perp",
+   "expected": []
+  },
+  {
+   "key": "BTC/USDC|Hyperliquid|Perp",
+   "expected": []
+  },
+  {
+   "key": "BANK/USDT|okx futures|Perp",
+   "expected": [
+    "OKX Futures",
+    "Binance Futures",
+    "Bybit Futures"
+   ]
+  },
+  {
    "key": "BTC/USDT|Binance Futures|1Q",
    "expected": []
   },
   {
-   "key": "PEPE/WETH|DexScreener|Pool",
+   "key": "PEPE/WETH|DexScreener|Pool995b79ee",
    "expected": []
   }
  ],

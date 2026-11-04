@@ -37,12 +37,14 @@ enum SheetChartFx: Equatable, Sendable {
 }
 
 /// Herkunft für die Zeile unter dem Chart: Börse der Kerzen («Binance», «Coinbase» …), abgefragte
-/// Reihe («BTC/USDT»), Art der Umrechnung und Abfragezeit (Epoch-ms; 0 = unbekannt).
+/// Reihe («BTC/USDT»), Art der Umrechnung, Abfragezeit (Epoch-ms; 0 = unbekannt) und ob mit USDT = 1
+/// umgerechnet wurde (`SheetChart.usdtParityNote`).
 struct SheetChartInfo: Equatable, Sendable {
     var provider: String? = nil
     var sourcePair: String? = nil
     var fx: SheetChartFx = .none
     var fetchedAt: Int64 = 0
+    var usdtAssumed = false
 }
 
 /// Ergebnis für das Blatt: gar nicht zeigen, keine Kerzen oder fertige Kerzen.
@@ -125,9 +127,12 @@ enum SheetChart {
     ///    Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
     ///  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
     ///    des Paars entspricht (Verlauf in Prozent wie `DayChange.fromSeries`).
+    ///  - USDT → USD mit dem Marktkurs `usdtUsd` (wie Portfolio, `PortfolioStables.usdtUsdLive`); ohne ihn 1
+    ///    (Näherung, `usdtParityNote`).
     ///  - `currentRate`: aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse).
     static func accept(_ candles: [MarketCandle]?, request: SheetCandleRequest, price: Double?,
-                       dailyRates: [Int: Double]? = nil, currentRate: Double? = nil) -> [MarketCandle]? {
+                       dailyRates: [Int: Double]? = nil, currentRate: Double? = nil,
+                       usdtUsd: Double? = nil) -> [MarketCandle]? {
         let clean = WidgetChartGeometry.clean(candles ?? [])
         guard clean.count >= 2, let last = clean.last?.close else { return nil }
         // Gleicher Token? Ohne Kurs des Paars nicht prüfbar (auch nicht beim Paar selbst)
@@ -137,15 +142,16 @@ enum SheetChart {
             return clean
         }
         let sorted = sortedRates(dailyRates)
+        let usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
         guard let firstRate = sorted.first?.rate else {
             guard let rate = currentRate, rate.isFinite, rate > 0 else { return nil }
-            if abs(pairPrice / (last * rate) - 1) > DayChange.maxPriceGap { return nil }
+            if abs(pairPrice / (last * rate * usdt) - 1) > DayChange.maxPriceGap { return nil }
             let factor = pairPrice / last
             // Umsatz in der Quote mit demselben Faktor (USDT → Quote des Paars, Näherung)
             return clean.map { scaled($0, factor) }
         }
-        let rates = clean.map { PortfolioHistoryFx.rateOn(sorted, day: utcEpochDay($0.openTime)) ?? firstRate }
-        let converted = last * (rates.last ?? firstRate)
+        let rates = clean.map { (PortfolioHistoryFx.rateOn(sorted, day: utcEpochDay($0.openTime)) ?? firstRate) * usdt }
+        let converted = last * (rates.last ?? firstRate * usdt)
         if abs(pairPrice / converted - 1) > DayChange.maxPriceGap { return nil }
         let anchor = pairPrice / converted
         return zip(clean, rates).map { scaled($0.0, $0.1 * anchor) }
@@ -195,9 +201,10 @@ enum SheetChart {
     }
 
     /// Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-    /// umgerechnet (`.daily` bzw. `.current`), also mit USDT = 1 USD. Nur bei Umrechnung aus USDT — wie Android.
-    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?) -> Bool {
-        guard fx != .none else { return false }
+    /// umgerechnet (`.daily` bzw. `.current`) und ohne Marktkurs USDT/USD (`usdtUsd`, wie `accept`) mit USDT = 1 USD.
+    /// Nur bei Umrechnung aus USDT — wie Transaktionsblatt, Portfolio-Alarm und Android.
+    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?, usdtUsd: Double?) -> Bool {
+        guard fx != .none, PortfolioStables.usdtUsdLive(usdtUsd).approximate else { return false }
         var source = "USDT"
         if let pair = sourcePair, let slash = pair.lastIndex(of: "/") {
             let tail = pair[pair.index(after: slash)...].trimmingCharacters(in: .whitespaces).uppercased()

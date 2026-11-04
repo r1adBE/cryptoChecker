@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">განახლება – ისევ შესაძლებელი იქნება %1$d წმ-ში</string>
     <string name="settings_watch">საათი</string>
-    <string name="settings_watch_hint">მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$d, ფასი USDT-ში).</string>
+    <string name="settings_watch_hint">მონეტები Wear OS-ის საათის აპისთვის (მაქსიმუმ %1$d). რჩეულები ★ ინარჩუნებს ზუსტ წყვილს, მათ შორის ფიუჩერსებსა და სხვა საკოტირებო ვალუტებს; საკუთარ სიაში ფასი USDT-შია.</string>
     <string name="settings_watch_mode_phone">როგორც ტელეფონზე (რჩეულები ★)</string>
     <string name="settings_watch_mode_own">საკუთარი სია</string>
     <string name="settings_watch_own_title">საკუთარი სია: %1$d / %2$d</string>

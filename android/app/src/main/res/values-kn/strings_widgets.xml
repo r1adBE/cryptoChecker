@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ರಿಫ್ರೆಶ್ – %1$d ಸೆ. ನಲ್ಲಿ ಮತ್ತೆ ಸಾಧ್ಯ</string>
     <string name="settings_watch">ವಾಚ್</string>
-    <string name="settings_watch_hint">Wear OS ನಲ್ಲಿನ ವಾಚ್ ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$d ವರೆಗೆ, USDT ವಿರುದ್ಧ ಬೆಲೆ).</string>
+    <string name="settings_watch_hint">Wear OS ನಲ್ಲಿನ ವಾಚ್ ಆ್ಯಪ್‌ಗಾಗಿ ಕಾಯಿನ್‌ಗಳು (%1$d ವರೆಗೆ). ಮೆಚ್ಚಿನವು ★ ಫ್ಯೂಚರ್ಸ್ ಮತ್ತು ಇತರ ಕೋಟ್ ಕರೆನ್ಸಿಗಳೂ ಸೇರಿ ತಮ್ಮ ನಿಖರ ಜೋಡಿಯನ್ನು ಉಳಿಸಿಕೊಳ್ಳುತ್ತವೆ; ಸ್ವಂತ ಪಟ್ಟಿಯ ಬೆಲೆ USDT ವಿರುದ್ಧ.</string>
     <string name="settings_watch_mode_phone">ಫೋನ್‌ನಂತೆ (ಮೆಚ್ಚಿನವು ★)</string>
     <string name="settings_watch_mode_own">ಸ್ವಂತ ಪಟ್ಟಿ</string>
     <string name="settings_watch_own_title">ಸ್ವಂತ ಪಟ್ಟಿ: %2$d ರಲ್ಲಿ %1$d</string>

@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Osvježi – ponovo moguće za %1$d s</string>
     <string name="settings_watch">Sat</string>
-    <string name="settings_watch_hint">Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$d, cijene u odnosu na USDT).</string>
+    <string name="settings_watch_hint">Kriptovalute za aplikaciju na satu s Wear OS-om (do %1$d). Favoriti ★ zadržavaju svoj tačan par, uključujući fjučerse i druge kotirne valute; vlastiti spisak ima cijene u odnosu na USDT.</string>
     <string name="settings_watch_mode_phone">Kao na mobitelu (favoriti ★)</string>
     <string name="settings_watch_mode_own">Vlastiti spisak</string>
     <string name="settings_watch_own_title">Vlastiti spisak: %1$d od %2$d</string>

@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Onyesha upya – inawezekana tena baada ya sekunde %1$d</string>
     <string name="settings_watch">Saa</string>
-    <string name="settings_watch_hint">Sarafu za programu ya saa kwenye Wear OS (hadi %1$d, bei dhidi ya USDT).</string>
+    <string name="settings_watch_hint">Sarafu za programu ya saa kwenye Wear OS (hadi %1$d). Vipendwa ★ huhifadhi jozi yake kamili, pamoja na mikataba ya baadaye na sarafu nyingine za bei; orodha yako ina bei dhidi ya USDT.</string>
     <string name="settings_watch_mode_phone">Kama simu (vipendwa ★)</string>
     <string name="settings_watch_mode_own">Orodha yako</string>
     <string name="settings_watch_own_title">Orodha yako: %1$d kati ya %2$d</string>

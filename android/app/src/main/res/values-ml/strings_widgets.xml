@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">പുതുക്കുക – %1$d സെ. കഴിഞ്ഞ് വീണ്ടും സാധ്യമാകും</string>
     <string name="settings_watch">വാച്ച്</string>
-    <string name="settings_watch_hint">Wear OS-ലെ വാച്ച് ആപ്പിനുള്ള കോയിനുകൾ (%1$d വരെ, USDT-ക്കെതിരായ വില).</string>
+    <string name="settings_watch_hint">Wear OS-ലെ വാച്ച് ആപ്പിനുള്ള കോയിനുകൾ (%1$d വരെ). പ്രിയപ്പെട്ടവ ★ ഫ്യൂച്ചറുകളും മറ്റ് ക്വോട്ട് കറൻസികളും ഉൾപ്പെടെ അവയുടെ കൃത്യമായ ജോഡി നിലനിർത്തുന്നു; സ്വന്തം ലിസ്റ്റിന്റെ വില USDT-ക്കെതിരെയാണ്.</string>
     <string name="settings_watch_mode_phone">ഫോണിലേതുപോലെ (പ്രിയപ്പെട്ടവ ★)</string>
     <string name="settings_watch_mode_own">സ്വന്തം ലിസ്റ്റ്</string>
     <string name="settings_watch_own_title">സ്വന്തം ലിസ്റ്റ്: %2$d-ൽ %1$d</string>

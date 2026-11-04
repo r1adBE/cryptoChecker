@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ផ្ទុកឡើងវិញ – អាចធ្វើបានម្តងទៀតក្នុងរយៈពេល %1$d វិនាទី</string>
     <string name="settings_watch">នាឡិកា</string>
-    <string name="settings_watch_hint">កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$d កំណត់តម្លៃទល់នឹង USDT)។</string>
+    <string name="settings_watch_hint">កាក់សម្រាប់កម្មវិធីនាឡិកានៅលើ Wear OS (រហូតដល់ %1$d)។ ចំណូលចិត្ត ★ រក្សាគូពិតប្រាកដរបស់វា រួមទាំងកិច្ចសន្យាអនាគត និងរូបិយប័ណ្ណតម្លៃផ្សេងទៀត។ បញ្ជីផ្ទាល់ខ្លួនកំណត់តម្លៃទល់នឹង USDT។</string>
     <string name="settings_watch_mode_phone">ដូចទូរសព្ទ (ចំណូលចិត្ត ★)</string>
     <string name="settings_watch_mode_own">បញ្ជីផ្ទាល់ខ្លួន</string>
     <string name="settings_watch_own_title">បញ្ជីផ្ទាល់ខ្លួន៖ %1$d ក្នុងចំណោម %2$d</string>

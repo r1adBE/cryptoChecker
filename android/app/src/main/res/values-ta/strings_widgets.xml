@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">புதுப்பிக்கவும் – %1$d வி. இல் மீண்டும் சாத்தியம்</string>
     <string name="settings_watch">கடிகாரம்</string>
-    <string name="settings_watch_hint">Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$d வரை, USDT க்கு எதிரான விலையில்).</string>
+    <string name="settings_watch_hint">Wear OS இல் உள்ள கடிகார ஆப்புக்கான காயின்கள் (%1$d வரை). பிடித்தவை ★ ஃப்யூச்சர்ஸ் மற்றும் பிற மேற்கோள் நாணயங்கள் உட்பட தங்கள் சரியான ஜோடியை வைத்திருக்கும்; தனிப் பட்டியலின் விலை USDT க்கு எதிரானது.</string>
     <string name="settings_watch_mode_phone">ஃபோனில் உள்ளபடி (பிடித்தவை ★)</string>
     <string name="settings_watch_mode_own">தனிப் பட்டியல்</string>
     <string name="settings_watch_own_title">தனிப் பட்டியல்: %2$d இல் %1$d</string>

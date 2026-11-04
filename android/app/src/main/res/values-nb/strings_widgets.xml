@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Oppdater – mulig igjen om %1$d s</string>
     <string name="settings_watch">Klokke</string>
-    <string name="settings_watch_hint">Mynter for klokkeappen på Wear OS (opptil %1$d, kurs mot USDT).</string>
+    <string name="settings_watch_hint">Mynter for klokkeappen på Wear OS (opptil %1$d). Favoritter ★ beholder det nøyaktige paret sitt, også futures og andre kursvalutaer; egen liste har kurs mot USDT.</string>
     <string name="settings_watch_mode_phone">Som telefonen (favoritter ★)</string>
     <string name="settings_watch_mode_own">Egen liste</string>
     <string name="settings_watch_own_title">Egen liste: %1$d av %2$d</string>

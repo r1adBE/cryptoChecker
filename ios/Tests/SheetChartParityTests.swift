@@ -30,7 +30,8 @@ final class SheetChartParityTests: XCTestCase {
             }
             let request = SheetCandleRequest(base: "BTC", quote: "USDT", convert: c["convert"] as? Bool ?? false)
             let result = SheetChart.accept(candles, request: request, price: TestSupport.number(c["price"]),
-                                           dailyRates: rates, currentRate: TestSupport.number(c["currentRate"]))
+                                           dailyRates: rates, currentRate: TestSupport.number(c["currentRate"]),
+                                           usdtUsd: TestSupport.number(c["usdtUsd"]))
             guard let e = c["expected"] as? [String: Any] else {
                 XCTAssertNil(result, "\(name): expected no chart")
                 continue

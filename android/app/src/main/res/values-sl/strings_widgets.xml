@@ -107,7 +107,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Osveži – spet mogoče čez %1$d s</string>
     <string name="settings_watch">Ura</string>
-    <string name="settings_watch_hint">Kovanci za aplikacijo na uri Wear OS (do %1$d, tečaj proti USDT).</string>
+    <string name="settings_watch_hint">Kovanci za aplikacijo na uri Wear OS (do %1$d). Priljubljeni ★ ohranijo svoj natančen par, tudi terminske pogodbe in druge kotacijske valute; lasten seznam ima tečaj proti USDT.</string>
     <string name="settings_watch_mode_phone">Kot na telefonu (priljubljeni ★)</string>
     <string name="settings_watch_mode_own">Lasten seznam</string>
     <string name="settings_watch_own_title">Lasten seznam: %1$d od %2$d</string>

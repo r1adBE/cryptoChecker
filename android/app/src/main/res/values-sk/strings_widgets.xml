@@ -107,7 +107,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Obnoviť – znova možné o %1$d s</string>
     <string name="settings_watch">Hodinky</string>
-    <string name="settings_watch_hint">Coiny pre aplikáciu na hodinkách s Wear OS (až %1$d, kurz voči USDT).</string>
+    <string name="settings_watch_hint">Coiny pre aplikáciu na hodinkách s Wear OS (až %1$d). Obľúbené ★ si ponechajú presný pár vrátane futures a iných kotačných mien; vlastný zoznam má kurz voči USDT.</string>
     <string name="settings_watch_mode_phone">Ako v telefóne (obľúbené ★)</string>
     <string name="settings_watch_mode_own">Vlastný zoznam</string>
     <string name="settings_watch_own_title">Vlastný zoznam: %1$d z %2$d</string>

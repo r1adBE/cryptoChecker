@@ -38,7 +38,7 @@ class SheetChartParityTest {
             }
             val rates = (c["dailyRates"] as Map<*, *>?)?.entries?.associate { (k, v) -> (k as String).toLong() to v.num()!! }
             val request = SheetCandleRequest("BTC", "USDT", convert = c["convert"] as Boolean)
-            val result = SheetChart.accept(candles, request, c["price"].num(), rates, c["currentRate"].num())
+            val result = SheetChart.accept(candles, request, c["price"].num(), rates, c["currentRate"].num(), c["usdtUsd"].num())
             val e = c["expected"]
             if (e == null) {
                 assertNull("$name: expected no chart", result)

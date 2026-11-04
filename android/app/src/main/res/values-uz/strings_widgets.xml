@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yangilash – %1$d s dan keyin yana mumkin</string>
     <string name="settings_watch">Soat</string>
-    <string name="settings_watch_hint">Wear OS’dagi soat ilovasi uchun tangalar (%1$d tagacha, USDT’ga nisbatan baholanadi).</string>
+    <string name="settings_watch_hint">Wear OS’dagi soat ilovasi uchun tangalar (%1$d tagacha). Sevimlilar ★ fyucherslar va boshqa kotirovka valyutalari bilan birga aniq juftligini saqlaydi; alohida roʻyxat USDT’ga nisbatan baholanadi.</string>
     <string name="settings_watch_mode_phone">Telefondagidek (sevimlilar ★)</string>
     <string name="settings_watch_mode_own">Alohida roʻyxat</string>
     <string name="settings_watch_own_title">Alohida roʻyxat: %2$d tadan %1$d ta</string>

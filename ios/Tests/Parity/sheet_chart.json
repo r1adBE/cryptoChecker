@@ -1,5 +1,5 @@
 {
-  "description": "Shared cases for the action-sheet chart and the watchlist mini chart (Android SheetChart.accept / SheetChart.sparklineFor, iOS the same names in WatchSheetChart.swift). 'accept': candles as [UTC epoch day, price] (open = high = low = close = price, openTime = day × 86 400 000); convert = USDT fallback converted to the fiat quote; dailyRates = fiat per USD per UTC day; currentRate = fiat per USD now; expected = first/last close of the accepted series or null (no chart). The fallback is only used when last close × rate (rate of the last candle's day, else currentRate) is within 25 % of the pair price; no pair price or no rate at all = null. 'sparkline': USDT closes of the base asset, pair price and USD per unit of the quote; shown only within 25 % (last close vs price × quoteUsd). Numbers compared with tolerance 1e-9 (relative). 'widget': single-widget chart (Android/iOS WidgetChartGeometry.pairCandles): candles of the pair from the fallback chain (same layout as 'accept'), shown only when the last close is within 25 % of the pair price; no price = no chart (not checkable); invalid candles are dropped first, fewer than 2 = no chart.",
+  "description": "Shared cases for the action-sheet chart and the watchlist mini chart (Android SheetChart.accept / SheetChart.sparklineFor, iOS the same names in WatchSheetChart.swift). 'accept': candles as [UTC epoch day, price] (open = high = low = close = price, openTime = day × 86 400 000); convert = USDT fallback converted to the fiat quote; dailyRates = fiat per USD per UTC day; currentRate = fiat per USD now; expected = first/last close of the accepted series or null (no chart). The fallback is only used when last close × rate (rate of the last candle's day, else currentRate) is within 25 % of the pair price; no pair price or no rate at all = null. 'sparkline': USDT closes of the base asset, pair price and USD per unit of the quote; shown only within 25 % (last close vs price × quoteUsd). Numbers compared with tolerance 1e-9 (relative). 'widget': single-widget chart (Android/iOS WidgetChartGeometry.pairCandles): candles of the pair from the fallback chain (same layout as 'accept'), shown only when the last close is within 25 % of the pair price; no price = no chart (not checkable); invalid candles are dropped first, fewer than 2 = no chart. usdtUsd = live USDT/USD (optional): the USDT series is converted USDT → USD at this market rate, without it at 1 (approximation, note «USDT = 1 assumed»).",
   "accept": [
     {
       "name": "pair candles within 25 % are kept unchanged",
@@ -257,6 +257,94 @@
       "expected": {
         "first": 61,
         "last": 61
+      }
+    },
+    {
+      "name": "USDT depegged to 0.70, current rate: matches only with USDT/USD",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          90
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 63,
+      "dailyRates": null,
+      "currentRate": 0.9,
+      "usdtUsd": 0.7,
+      "expected": {
+        "first": 56.7,
+        "last": 63
+      }
+    },
+    {
+      "name": "same without USDT/USD (USDT = 1): 30 % off, no chart",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          90
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 63,
+      "dailyRates": null,
+      "currentRate": 0.9,
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "USDT depegged to 0.70, daily rates: each candle × rate × USDT/USD",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          90
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 63,
+      "dailyRates": {
+        "1": 0.9,
+        "2": 0.9
+      },
+      "currentRate": null,
+      "usdtUsd": 0.7,
+      "expected": {
+        "first": 56.7,
+        "last": 63
+      }
+    },
+    {
+      "name": "implausible USDT/USD (40) counts as missing: USDT = 1",
+      "convert": true,
+      "candles": [
+        [
+          1,
+          90
+        ],
+        [
+          2,
+          100
+        ]
+      ],
+      "price": 90,
+      "dailyRates": null,
+      "currentRate": 0.9,
+      "usdtUsd": 40,
+      "expected": {
+        "first": 81,
+        "last": 90
       }
     }
   ],

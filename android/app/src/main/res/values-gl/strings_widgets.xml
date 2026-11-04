@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Actualizar – posible de novo en %1$d s</string>
     <string name="settings_watch">Reloxo</string>
-    <string name="settings_watch_hint">Moedas para a app do reloxo con Wear OS (ata %1$d, cotizadas en USDT).</string>
+    <string name="settings_watch_hint">Moedas para a app do reloxo con Wear OS (ata %1$d). Os favoritos ★ manteñen o seu par exacto, incluídos futuros e outras moedas de cotización; a lista propia cotiza en USDT.</string>
     <string name="settings_watch_mode_phone">Como no móbil (favoritos ★)</string>
     <string name="settings_watch_mode_own">Lista propia</string>
     <string name="settings_watch_own_title">Lista propia: %1$d de %2$d</string>

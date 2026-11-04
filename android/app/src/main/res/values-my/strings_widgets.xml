@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ပြန်တင်ရန် – %1$d စက္ကန့်အတွင်း ထပ်လုပ်နိုင်မည်</string>
     <string name="settings_watch">နာရီ</string>
-    <string name="settings_watch_hint">Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ကွိုင်များ (%1$d အထိ၊ USDT ဖြင့် ဈေးနှုန်း)။</string>
+    <string name="settings_watch_hint">Wear OS ပေါ်ရှိ နာရီအက်ပ်အတွက် ကွိုင်များ (%1$d အထိ)။ အကြိုက်ဆုံး ★ များသည် ဖျူချာများနှင့် အခြား ဈေးနှုန်းငွေကြေးများအပါအဝင် တိကျသော အတွဲကို ဆက်ထားပါသည်။ ကိုယ်ပိုင် စာရင်းကို USDT ဖြင့် ဈေးနှုန်းသတ်မှတ်ပါသည်။</string>
     <string name="settings_watch_mode_phone">ဖုန်းအတိုင်း (အကြိုက်ဆုံး ★)</string>
     <string name="settings_watch_mode_own">ကိုယ်ပိုင် စာရင်း</string>
     <string name="settings_watch_own_title">ကိုယ်ပိုင် စာရင်း: %2$d အနက် %1$d</string>

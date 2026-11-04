@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Actualizează – din nou posibil în %1$d s</string>
     <string name="settings_watch">Ceas</string>
-    <string name="settings_watch_hint">Monede pentru aplicația de ceas pe Wear OS (până la %1$d, preț față de USDT).</string>
+    <string name="settings_watch_hint">Monede pentru aplicația de ceas pe Wear OS (până la %1$d). Favoritele ★ își păstrează perechea exactă, inclusiv futures și alte monede de cotare; lista proprie are preț față de USDT.</string>
     <string name="settings_watch_mode_phone">Ca pe telefon (favorite ★)</string>
     <string name="settings_watch_mode_own">Listă proprie</string>
     <string name="settings_watch_own_title">Listă proprie: %1$d din %2$d</string>

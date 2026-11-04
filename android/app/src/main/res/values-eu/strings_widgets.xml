@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Eguneratu – berriro posible %1$d s barru</string>
     <string name="settings_watch">Erlojua</string>
-    <string name="settings_watch_hint">Wear OS erlojuko aplikaziorako txanponak (gehienez %1$d, USDTren aurka kotizatuak).</string>
+    <string name="settings_watch_hint">Wear OS erlojuko aplikaziorako txanponak (gehienez %1$d). Gogokoek ★ beren bikote zehatza gordetzen dute, etorkizunekoak eta beste kotizazio-txanponak barne; zerrenda propioa USDTren aurka kotizatzen da.</string>
     <string name="settings_watch_mode_phone">Telefonoan bezala (gogokoak ★)</string>
     <string name="settings_watch_mode_own">Zerrenda propioa</string>
     <string name="settings_watch_own_title">Zerrenda propioa: %1$d / %2$d</string>

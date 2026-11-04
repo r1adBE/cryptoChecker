@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 import SwiftUI
 
@@ -51,6 +52,8 @@ final class CycleViewModel: ObservableObject {
     /// Coins mit USDT-Paar auf Binance (sonst eine kurze Standardliste).
     @Published var coins: [String] = CycleViewModel.fallbackCoins
     @Published private(set) var selectedCoin: String = "ETH"
+    /// Coin-Favoriten: Spiegel von `AppData.favorites[.COIN]` (eine Menge für Markt und Explorer, wie Android
+    /// `FavoritesRepository`); geschrieben wird nur über `AppData.toggleFavorite`.
     @Published private(set) var favoriteCoins: Set<String> = []
     /// Netzwerkgebühren (#167).
     @Published var gas: CycleLoad<GasReport> = .loading
@@ -114,7 +117,13 @@ final class CycleViewModel: ObservableObject {
     static func coinKey(_ symbol: String) -> String { "coinind_" + symbol }
 
 
-    init() {}
+    /// Besitzer der Favoriten (Markt-Stern und Explorer schreiben dieselbe Menge).
+    private let data: AppData
+
+    init(data: AppData = .shared) {
+        self.data = data
+        data.$favorites.map { $0[.COIN] ?? [] }.removeDuplicates().assign(to: &$favoriteCoins)
+    }
 
     /// Ältester gezeigter Stand, solange ein Bereich mit gezeigten Daten neu lädt; sonst nil.
     var refreshingSince: Int64? {
@@ -123,10 +132,9 @@ final class CycleViewModel: ObservableObject {
         return CycleCachePolicy.asOf(stamps: stamps, shown: shown, refreshing: refreshingKeys)
     }
 
-    /// Beim Erscheinen des Tabs: Favoriten auffrischen, Gespeichertes sofort zeigen und
+    /// Beim Erscheinen des Tabs: Gespeichertes sofort zeigen und
     /// nur Abgelaufenes neu laden (auch nach einem Tab-Wechsel).
     func onAppear() {
-        favoriteCoins = SharedStorage.favorites(.COIN)
         halving = BitcoinHalving.info()
         loadHalvingEstimate(force: false)
         loadAll(force: false)
@@ -257,15 +265,10 @@ final class CycleViewModel: ObservableObject {
         loadCoin(force: false)
     }
 
+    /// Über den einen Besitzer (`AppData`), nicht direkt auf die Platte — sonst überschriebe der Explorer mit seinem
+    /// älteren Stand den Stern des Markts (und umgekehrt).
     func toggleFavoriteCoin(_ symbol: String) {
-        var favorites = SharedStorage.favorites(.COIN)
-        if favorites.contains(symbol) {
-            favorites.remove(symbol)
-        } else {
-            favorites.insert(symbol)
-        }
-        SharedStorage.setFavorites(.COIN, favorites)
-        favoriteCoins = favorites
+        data.toggleFavorite(.COIN, symbol)
     }
 
 }

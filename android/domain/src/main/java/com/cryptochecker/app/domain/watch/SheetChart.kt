@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.widget.ChartLevels
 import com.cryptochecker.app.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartGeometry
@@ -53,7 +54,7 @@ sealed interface SheetChartResult {
      * Kerzen in der Quote des Paars; [converted] = aus der USDT-Reihe umgerechnet.
      * Für die Zeile unter dem Chart: [provider] = Börse der Kerzen («Binance», «Coinbase» …),
      * [sourcePair] = abgefragte Reihe («BTC/USDT»), [fx] = Art der Umrechnung,
-     * [fetchedAt] = Abfragezeit (Epoch-ms; 0 = unbekannt).
+     * [fetchedAt] = Abfragezeit (Epoch-ms; 0 = unbekannt), [usdtAssumed] = mit USDT = 1 umgerechnet ([usdtParityNote]).
      */
     data class Ready(
         val candles: List<WidgetCandle>,
@@ -62,6 +63,7 @@ sealed interface SheetChartResult {
         val sourcePair: String? = null,
         val fx: SheetChartFx = SheetChartFx.NONE,
         val fetchedAt: Long = 0L,
+        val usdtAssumed: Boolean = false,
     ) : SheetChartResult
 }
 
@@ -116,6 +118,8 @@ object SheetChart {
      *    Dazu ein gemeinsamer Faktor, damit der letzte Schluss dem Kurs des Paars entspricht.
      *  - Ohne Tageskurse: USDT-Reihe mit einem Faktor so skaliert, dass der letzte Schluss dem Kurs
      *    des Paars entspricht (Verlauf in Prozent wie [DayChange.fromSeries]).
+     *  - USDT → USD mit dem Marktkurs [usdtUsd] (wie Portfolio, [PortfolioStables.usdtUsdLive]); ohne ihn 1 (Näherung,
+     *    [usdtParityNote]).
      * @param currentRate aktueller Devisenkurs Fiat je USD der Quote (nur für die Prüfung ohne Tageskurse)
      */
     fun accept(
@@ -124,6 +128,7 @@ object SheetChart {
         price: Double?,
         dailyRates: Map<Long, Double>? = null,
         currentRate: Double? = null,
+        usdtUsd: Double? = null,
     ): List<WidgetCandle>? {
         val clean = candles.orEmpty().filter {
             it.open.isFinite() && it.high.isFinite() && it.low.isFinite() && it.close.isFinite() &&
@@ -138,14 +143,15 @@ object SheetChart {
             return clean
         }
         val sorted = sortedRates(dailyRates)
+        val usdt = PortfolioStables.usdtUsdLive(usdtUsd).rate
         if (sorted.isEmpty()) {
             val rate = currentRate?.takeIf { it.isFinite() && it > 0.0 } ?: return null
-            if (abs(p / (last * rate) - 1.0) > DayChange.MAX_PRICE_GAP) return null
+            if (abs(p / (last * rate * usdt) - 1.0) > DayChange.MAX_PRICE_GAP) return null
             val factor = p / last
             // Umsatz in der Quote mit demselben Faktor (USDT → Quote des Paars, Näherung)
             return clean.map { it.scaled(factor) }
         }
-        val rates = clean.map { rateFor(sorted, it.openTime) }
+        val rates = clean.map { rateFor(sorted, it.openTime) * usdt }
         val converted = last * rates.last()
         if (abs(p / converted - 1.0) > DayChange.MAX_PRICE_GAP) return null
         val anchor = p / converted
@@ -188,10 +194,11 @@ object SheetChart {
 
     /**
      * Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
-     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]), also mit USDT = 1 USD. Nur bei Umrechnung aus USDT.
+     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]) und ohne Marktkurs USDT/USD ([usdtUsd], wie
+     * [accept]) mit USDT = 1 USD. Nur bei Umrechnung aus USDT — wie Transaktionsblatt und Portfolio-Alarm.
      */
-    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?): Boolean {
-        if (fx == SheetChartFx.NONE) return false
+    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?, usdtUsd: Double?): Boolean {
+        if (fx == SheetChartFx.NONE || !PortfolioStables.usdtUsdLive(usdtUsd).approximate) return false
         val source = sourcePair?.substringAfterLast('/', "")?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: USDT
         return source == USDT
     }
@@ -344,57 +351,4 @@ object SheetChart {
 
     private const val USDT = "USDT"
     private const val DAY_MILLIS = 86_400_000L
-}
-
-/**
- * Kerzen des Blatts je Paar und Zeitraum im Speicher: 5 Minuten (24 h),
- * 30 Minuten (7 und 30 Tage) bzw. 60 Minuten (1 Jahr), siehe [SheetChartRange.cacheMillis]. Nur Erfolge.
- * Zusätzlich verworfen: von Hand aktualisiert ([invalidate], [invalidateAll]) oder der Live-Kurs
- * ist seit dem Speichern um mehr als [SheetChart.PRICE_JUMP] gesprungen ([SheetChart.priceJumped]).
- */
-class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
-    private class Entry(val time: Long, val value: SheetChartResult.Ready, val price: Double?)
-
-    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
-    private val entries = com.cryptochecker.app.data.BoundedCache<String, Entry>(com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES)
-
-    /**
-     * [price] = aktueller Kurs des Paars; null = Sprung nicht prüfen. [exchange] = Börse des Paars
-     * (eigene Kerzen je Börse, z. B. `CandlePair.cacheKey`); leer = nur Kürzel.
-     */
-    fun get(base: String, quote: String, range: SheetChartRange, price: Double? = null, exchange: String = ""): SheetChartResult.Ready? {
-        val k = key(base, quote, range, exchange)
-        val entry = entries[k] ?: return null
-        val age = now() - entry.time
-        // Bezug: Kurs beim Speichern (Kerzen und Kurs dürfen je nach Börse leicht auseinanderliegen)
-        val reference = entry.price ?: entry.value.candles.lastOrNull()?.close
-        if (age in 0 until range.cacheMillis && !SheetChart.priceJumped(reference, price)) return entry.value
-        entries.remove(k)
-        return null
-    }
-
-    /** [price] = Kurs des Paars beim Laden (Bezug für den Sprung). */
-    fun put(
-        base: String, quote: String, range: SheetChartRange, value: SheetChartResult.Ready, price: Double? = null,
-        exchange: String = "",
-    ) {
-        entries[key(base, quote, range, exchange)] = Entry(now(), value, price?.takeIf { it.isFinite() && it > 0.0 })
-    }
-
-    /** Alle Zeiträume eines Paars verwerfen (Aktualisieren im Blatt). */
-    fun invalidate(base: String, quote: String, exchange: String = "") {
-        val prefix = prefix(base, quote, exchange)
-        entries.removeKeysIf { it.startsWith(prefix) }
-    }
-
-    /** Alles verwerfen (nach unten ziehen in der Merkliste). */
-    fun invalidateAll() {
-        entries.clear()
-    }
-
-    private fun prefix(base: String, quote: String, exchange: String): String =
-        (if (exchange.isEmpty()) "" else "$exchange#") + "${base.trim().uppercase()}|${quote.trim().uppercase()}|"
-
-    private fun key(base: String, quote: String, range: SheetChartRange, exchange: String): String =
-        prefix(base, quote, exchange) + range.name
 }

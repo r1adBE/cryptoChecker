@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yenilə – %1$d san sonra yenidən mümkün olacaq</string>
     <string name="settings_watch">Saat</string>
-    <string name="settings_watch_hint">Wear OS saat tətbiqi üçün koinlər (%1$d-dək, USDT ilə qiymətləndirilir).</string>
+    <string name="settings_watch_hint">Wear OS saat tətbiqi üçün koinlər (%1$d-dək). Seçilmişlər ★ fyuçerslər və digər kotirovka valyutaları da daxil olmaqla dəqiq cütlərini saxlayır; öz siyahı USDT ilə qiymətləndirilir.</string>
     <string name="settings_watch_mode_phone">Telefondakı kimi (seçilmişlər ★)</string>
     <string name="settings_watch_mode_own">Öz siyahın</string>
     <string name="settings_watch_own_title">Öz siyahın: %1$d / %2$d</string>

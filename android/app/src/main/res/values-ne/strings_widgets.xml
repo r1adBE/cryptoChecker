@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">रिफ्रेस – %1$d s मा फेरि सम्भव</string>
     <string name="settings_watch">घडी</string>
-    <string name="settings_watch_hint">Wear OS को घडी एपका लागि कोइनहरू (%1$d सम्म, USDT मा मूल्य)।</string>
+    <string name="settings_watch_hint">Wear OS को घडी एपका लागि कोइनहरू (%1$d सम्म)। मनपर्ने ★ ले फ्युचर्स र अन्य कोट मुद्रासहित आफ्नो सही जोडी कायम राख्छन्; आफ्नै सूचीको मूल्य USDT मा हुन्छ।</string>
     <string name="settings_watch_mode_phone">फोनजस्तै (मनपर्ने ★)</string>
     <string name="settings_watch_mode_own">आफ्नै सूची</string>
     <string name="settings_watch_own_title">आफ्नै सूची: %2$d मध्ये %1$d</string>

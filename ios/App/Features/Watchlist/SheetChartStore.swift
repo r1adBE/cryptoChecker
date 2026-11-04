@@ -91,7 +91,8 @@ final class SheetChartStore: Sendable {
         private(set) var rates: [Int: Double]?
         private var ratesLoaded = false
 
-        func check(_ raw: [MarketCandle], request: SheetCandleRequest, quote: String, price: Double?) async -> Bool {
+        func check(_ raw: [MarketCandle], request: SheetCandleRequest, quote: String, price: Double?,
+                   usdtUsd: Double?) async -> Bool {
             // Tageskurse nur für die Ausweich-Reihe
             if request.convert && !ratesLoaded {
                 let today = LocalDay(epochMillisUTC: EpochTime.nowMillis)
@@ -102,7 +103,8 @@ final class SheetChartStore: Sendable {
             // Ohne Tageskurse: aktueller Devisenkurs für die Prüfung auf gleichen Token
             var current: Double? = nil
             if request.convert, rates?.isEmpty ?? true { current = await FxRateSource.usdTo(quote) }
-            accepted = SheetChart.accept(raw, request: request, price: price, dailyRates: rates, currentRate: current)
+            accepted = SheetChart.accept(raw, request: request, price: price, dailyRates: rates, currentRate: current,
+                                         usdtUsd: usdtUsd)
             return accepted != nil
         }
     }
@@ -135,6 +137,8 @@ final class SheetChartStore: Sendable {
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der Name
             // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token)
             let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
+            // USDT → USD zum Marktkurs; ohne Messung 1 (Vermerk «USDT = 1 angenommen», `SheetChart.usdtParityNote`)
+            let usdtUsd = DepegAlarmCheck.liveUsdtUsd()
             for request in requests {
                 if Task.isCancelled { return nil }
                 let attempt = Attempt()
@@ -143,14 +147,16 @@ final class SheetChartStore: Sendable {
                     preferFutures: pair.isFutures, identityName: identityName
                 ) { raw in
                     // Fremde Reihe gleichen Kürzels: nächste Quelle der Kette
-                    await attempt.check(raw, request: request, quote: quote, price: price)
+                    await attempt.check(raw, request: request, quote: quote, price: price, usdtUsd: usdtUsd)
                 }
                 let accepted = await attempt.accepted
                 let rates = await attempt.rates
                 if let sourced, let candles = accepted {
-                    let info = SheetChartInfo(provider: sourced.provider, sourcePair: "\(request.base)/\(request.quote)",
-                                              fx: SheetChart.fxMode(request, dailyRates: rates),
-                                              fetchedAt: EpochTime.nowMillis)
+                    let fx = SheetChart.fxMode(request, dailyRates: rates)
+                    let source = "\(request.base)/\(request.quote)"
+                    let info = SheetChartInfo(provider: sourced.provider, sourcePair: source, fx: fx,
+                                              fetchedAt: EpochTime.nowMillis,
+                                              usdtAssumed: SheetChart.usdtParityNote(fx, sourcePair: source, usdtUsd: usdtUsd))
                     return (candles: candles, converted: request.convert, info: info)
                 }
             }

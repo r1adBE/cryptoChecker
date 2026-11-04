@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">रिफ्रेश – %1$d से. नंतर पुन्हा शक्य</string>
     <string name="settings_watch">वॉच</string>
-    <string name="settings_watch_hint">Wear OS वरील वॉच ॲपसाठी कॉइन (%1$d पर्यंत, USDT विरुद्ध किंमत).</string>
+    <string name="settings_watch_hint">Wear OS वरील वॉच ॲपसाठी कॉइन (%1$d पर्यंत). आवडते ★ फ्युचर्स आणि इतर कोट चलनांसह त्यांची नेमकी जोडी ठेवतात; स्वतःच्या यादीची किंमत USDT विरुद्ध असते.</string>
     <string name="settings_watch_mode_phone">फोनप्रमाणे (आवडते ★)</string>
     <string name="settings_watch_mode_own">स्वतःची यादी</string>
     <string name="settings_watch_own_title">स्वतःची यादी: %2$d पैकी %1$d</string>

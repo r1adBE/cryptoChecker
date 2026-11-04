@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Թարմացնել – կրկին հնարավոր կլինի %1$d վ-ից</string>
     <string name="settings_watch">Ժամացույց</string>
-    <string name="settings_watch_hint">Կոիններ Wear OS ժամացույցի հավելվածի համար (մինչև %1$d, գնանշված USDT-ով)։</string>
+    <string name="settings_watch_hint">Կոիններ Wear OS ժամացույցի հավելվածի համար (մինչև %1$d)։ Ընտրյալները ★ պահպանում են իրենց ճշգրիտ զույգը, ներառյալ ֆյուչերսները և գնանշման այլ արժույթները, իսկ սեփական ցանկը գնանշվում է USDT-ով։</string>
     <string name="settings_watch_mode_phone">Ինչպես հեռախոսում (ընտրյալներ ★)</string>
     <string name="settings_watch_mode_own">Սեփական ցանկ</string>
     <string name="settings_watch_own_title">Սեփական ցանկ՝ %1$d / %2$d</string>

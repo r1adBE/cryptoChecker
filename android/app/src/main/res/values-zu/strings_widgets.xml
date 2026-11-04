@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Vuselela – kungenzeka futhi ngemuva kuka-%1$d s</string>
     <string name="settings_watch">Iwashi</string>
-    <string name="settings_watch_hint">Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$d, intengo ngokuqhathaniswa ne-USDT).</string>
+    <string name="settings_watch_hint">Ama-coin e-app yewashi ku-Wear OS (kuze kufike ku-%1$d). Izintandokazi ★ zigcina ipheya yazo eqondile, kuhlanganise nama-futures nezinye izimali zentengo; uhlu lwakho lunentengo ngokuqhathaniswa ne-USDT.</string>
     <string name="settings_watch_mode_phone">Njengocingo (izintandokazi ★)</string>
     <string name="settings_watch_mode_own">Uhlu lwakho</string>
     <string name="settings_watch_own_title">Uhlu lwakho: %1$d kwangu-%2$d</string>

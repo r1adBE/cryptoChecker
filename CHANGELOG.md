@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 194)
+
+* Watch: normal spot pairs (e.g. Binance BTC/USDT) get their price again – from the phone or, without the phone, from the exchange; only DexScreener pools are pools, and two pools with the same pair stay apart.
+* Watch: perps of exchanges the watch cannot ask itself show only the phone's price; the complication names the actual source.
+* iOS: starring a coin in the market no longer removes stars set in the pair search.
+* Charts in a fiat currency use the measured USDT/USD rate; «USDT = 1» appears only when it is an assumption.
+* Wear OS: changing the price source reloads at once. Watch hint text updated.
+
 ## 16.2.2 (build 193)
 
 * Watch: choosing «Like phone» on the phone now sticks on the watch, whichever side changed last.

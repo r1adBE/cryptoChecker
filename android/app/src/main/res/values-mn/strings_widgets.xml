@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Шинэчлэх – %1$d с-ийн дараа дахин боломжтой</string>
     <string name="settings_watch">Ухаалаг цаг</string>
-    <string name="settings_watch_hint">Wear OS дээрх цагны аппын зоос (%1$d хүртэл, USDT-тэй харьцуулан үнэлнэ).</string>
+    <string name="settings_watch_hint">Wear OS дээрх цагны аппын зоос (%1$d хүртэл). Дуртай ★ нь фьючерс болон бусад үнийн валютыг оруулаад яг өөрийн хосоо хадгална; тусдаа жагсаалт USDT-тэй харьцуулан үнэлэгдэнэ.</string>
     <string name="settings_watch_mode_phone">Утастай адил (дуртай ★)</string>
     <string name="settings_watch_mode_own">Тусдаа жагсаалт</string>
     <string name="settings_watch_own_title">Тусдаа жагсаалт: %2$d-аас %1$d</string>

@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Herlaai – weer moontlik oor %1$d s</string>
     <string name="settings_watch">Horlosie</string>
-    <string name="settings_watch_hint">Munte vir die horlosie-app op Wear OS (tot %1$d, geprys teen USDT).</string>
+    <string name="settings_watch_hint">Munte vir die horlosie-app op Wear OS (tot %1$d). Gunstelinge ★ behou hul presiese paar, ook termynkontrakte en ander kwotasiegeldeenhede; die eie lys word teen USDT geprys.</string>
     <string name="settings_watch_mode_phone">Soos foon (gunstelinge ★)</string>
     <string name="settings_watch_mode_own">Eie lys</string>
     <string name="settings_watch_own_title">Eie lys: %1$d van %2$d</string>

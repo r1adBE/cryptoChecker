@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">새로고침 – %1$d초 후 다시 가능</string>
     <string name="settings_watch">워치</string>
-    <string name="settings_watch_hint">Wear OS 워치 앱의 코인(최대 %1$d개, USDT 기준 가격)입니다.</string>
+    <string name="settings_watch_hint">Wear OS 워치 앱의 코인(최대 %1$d개)입니다. 즐겨찾기 ★는 선물과 다른 견적 통화를 포함해 정확한 페어를 그대로 유지합니다. 직접 고른 목록은 USDT 기준 가격입니다.</string>
     <string name="settings_watch_mode_phone">휴대전화와 동일(즐겨찾기 ★)</string>
     <string name="settings_watch_mode_own">직접 고른 목록</string>
     <string name="settings_watch_own_title">직접 고른 목록: %1$d/%2$d</string>

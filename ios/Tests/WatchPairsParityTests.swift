@@ -42,9 +42,11 @@ final class WatchPairsParityTests: XCTestCase {
             XCTAssertEqual(p?.selfFetchable, c["selfFetchable"] as? Bool, name)
             XCTAssertEqual(WatchPair.parse(key), p, name)
         }
+        // Pool nur bei DexScreener (WatchIdentity.pool), mit den Stellen seiner Kennung; Börsen-Kennungen bleiben Spot
         for c in TestSupport.list(data["contractOf"]) {
-            XCTAssertEqual(WatchPair.contract(short: c["short"] as? String, hasPairId: c["hasPairId"] as? Bool ?? false),
-                           c["expected"] as? String)
+            let pool = WatchIdentity.pool(exchangeKey: c["exchangeKey"] as? String ?? "", pairId: c["pairId"] as? String)
+            XCTAssertEqual(WatchPair.contract(short: c["short"] as? String, pool: pool), c["expected"] as? String,
+                           c["name"] as? String ?? "")
         }
         for c in TestSupport.list(data["parse"]) {
             let key = c["key"] as? String ?? ""

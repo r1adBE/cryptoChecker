@@ -95,7 +95,8 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
             WatchDataLayer.pull(context, store)
             pulled = true
         }
-        LaunchedEffect(settings.shown, pulled) { if (pulled) fetcher.refresh() }
+        // Neu laden bei anderer Liste und bei anderer Kursquelle («Immer selbst abrufen» sofort), wie iOS takeFromPhone
+        LaunchedEffect(settings.shown, settings.source, pulled) { if (pulled) fetcher.refresh() }
         // Offen: im Intervall des Handys, nur was fällig ist
         LaunchedEffect(settings.interval, pulled) {
             while (pulled) {

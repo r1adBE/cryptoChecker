@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ਤਾਜ਼ਾ ਕਰੋ – %1$d ਸਕਿੰਟ ਵਿੱਚ ਦੁਬਾਰਾ ਸੰਭਵ</string>
     <string name="settings_watch">ਘੜੀ</string>
-    <string name="settings_watch_hint">Wear OS ’ਤੇ ਘੜੀ ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$d, USDT ਦੇ ਮੁਕਾਬਲੇ ਕੀਮਤ)।</string>
+    <string name="settings_watch_hint">Wear OS ’ਤੇ ਘੜੀ ਐਪ ਲਈ ਕੌਇਨ (ਵੱਧ ਤੋਂ ਵੱਧ %1$d)। ਮਨਪਸੰਦ ★ ਫਿਊਚਰਜ਼ ਅਤੇ ਹੋਰ ਕੋਟ ਮੁਦਰਾਵਾਂ ਸਮੇਤ ਆਪਣੀ ਸਹੀ ਜੋੜੀ ਰੱਖਦੇ ਹਨ; ਆਪਣੀ ਸੂਚੀ ਦੀ ਕੀਮਤ USDT ਦੇ ਮੁਕਾਬਲੇ ਹੁੰਦੀ ਹੈ।</string>
     <string name="settings_watch_mode_phone">ਫ਼ੋਨ ਵਾਂਗ (ਮਨਪਸੰਦ ★)</string>
     <string name="settings_watch_mode_own">ਆਪਣੀ ਸੂਚੀ</string>
     <string name="settings_watch_own_title">ਆਪਣੀ ਸੂਚੀ: %2$d ਵਿੱਚੋਂ %1$d</string>

@@ -224,7 +224,7 @@ class PhoneWatchSync @Inject constructor(
             val favorites = watches.filter { it.favorite }.sortedBy { it.sortOrder }
             val bases = favorites.map { it.baseAsset }
             val pairs = favorites.map {
-                WatchPair.of(it.baseAsset, it.quoteAsset, it.exchangeName, WatchPair.contractOf(it.contractShortName, it.pairId != null))
+                WatchPair.of(it.baseAsset, it.quoteAsset, it.exchangeName, PhoneWatchFeed.watchContract(it))
             }
             return WatchCoins.fromFavorites(bases) to WatchCoins.favoritePairs(bases, pairs)
         }

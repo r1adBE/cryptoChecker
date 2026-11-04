@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Atsvaidzināt – atkal iespējams pēc %1$d s</string>
     <string name="settings_watch">Pulkstenis</string>
-    <string name="settings_watch_hint">Monētas pulksteņa lietotnei Wear OS (līdz %1$d, cena pret USDT).</string>
+    <string name="settings_watch_hint">Monētas pulksteņa lietotnei Wear OS (līdz %1$d). Izlase ★ saglabā precīzo pāri, arī nākotnes līgumus un citas kotācijas valūtas; sava saraksta cena ir pret USDT.</string>
     <string name="settings_watch_mode_phone">Kā tālrunī (izlase ★)</string>
     <string name="settings_watch_mode_own">Savs saraksts</string>
     <string name="settings_watch_own_title">Savs saraksts: %1$d no %2$d</string>

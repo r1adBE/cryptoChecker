@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">রিফ্রেশ – %1$d সে. পরে আবার সম্ভব</string>
     <string name="settings_watch">ঘড়ি</string>
-    <string name="settings_watch_hint">Wear OS-এর ঘড়ি অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$dটি, USDT-এর বিপরীতে দাম)।</string>
+    <string name="settings_watch_hint">Wear OS-এর ঘড়ি অ্যাপের জন্য কয়েন (সর্বোচ্চ %1$dটি)। প্রিয় ★ ফিউচার ও অন্যান্য কোট মুদ্রাসহ তাদের সঠিক জোড়া রাখে; নিজস্ব তালিকার দাম USDT-এর বিপরীতে।</string>
     <string name="settings_watch_mode_phone">ফোনের মতো (প্রিয় ★)</string>
     <string name="settings_watch_mode_own">নিজস্ব তালিকা</string>
     <string name="settings_watch_own_title">নিজস্ব তালিকা: %2$dটির মধ্যে %1$dটি</string>

@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">تازه‌سازی – دوباره ممکن در %1$d ثانیه</string>
     <string name="settings_watch">ساعت</string>
-    <string name="settings_watch_hint">کوین‌ها برای برنامه ساعت روی Wear OS (حداکثر %1$d، قیمت در برابر USDT).</string>
+    <string name="settings_watch_hint">کوین‌ها برای برنامه ساعت روی Wear OS (حداکثر %1$d). علاقه‌مندی‌ها ★ جفت دقیق خود را نگه می‌دارند، از جمله قراردادهای آتی و ارزهای قیمت‌گذاری دیگر؛ فهرست خودم در برابر USDT قیمت‌گذاری می‌شود.</string>
     <string name="settings_watch_mode_phone">مثل تلفن (علاقه‌مندی‌ها ★)</string>
     <string name="settings_watch_mode_own">فهرست خودم</string>
     <string name="settings_watch_own_title">فهرست خودم: %1$d از %2$d</string>

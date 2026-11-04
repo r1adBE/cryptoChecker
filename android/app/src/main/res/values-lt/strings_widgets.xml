@@ -107,7 +107,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Atnaujinti – vėl galima po %1$d s</string>
     <string name="settings_watch">Laikrodis</string>
-    <string name="settings_watch_hint">Monetos laikrodžio programai Wear OS (iki %1$d, kaina USDT).</string>
+    <string name="settings_watch_hint">Monetos laikrodžio programai Wear OS (iki %1$d). Mėgstamos ★ išlaiko tikslią porą, įskaitant ateities sandorius ir kitas kotavimo valiutas; savo sąrašo kaina USDT.</string>
     <string name="settings_watch_mode_phone">Kaip telefone (mėgstamos ★)</string>
     <string name="settings_watch_mode_own">Savas sąrašas</string>
     <string name="settings_watch_own_title">Savas sąrašas: %1$d iš %2$d</string>

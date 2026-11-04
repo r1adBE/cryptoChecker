@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">I-refresh – puwede ulit sa loob ng %1$d s</string>
     <string name="settings_watch">Relo</string>
-    <string name="settings_watch_hint">Mga coin para sa watch app sa Wear OS (hanggang %1$d, may presyo laban sa USDT).</string>
+    <string name="settings_watch_hint">Mga coin para sa watch app sa Wear OS (hanggang %1$d). Pinananatili ng mga paborito ★ ang eksaktong pair nila, kasama ang futures at iba pang quote currency; ang sariling listahan ay may presyo laban sa USDT.</string>
     <string name="settings_watch_mode_phone">Gaya ng phone (mga paborito ★)</string>
     <string name="settings_watch_mode_own">Sariling listahan</string>
     <string name="settings_watch_own_title">Sariling listahan: %1$d sa %2$d</string>

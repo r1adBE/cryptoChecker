@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Обнови – отново възможно след %1$d с</string>
     <string name="settings_watch">Часовник</string>
-    <string name="settings_watch_hint">Монети за приложението на часовник с Wear OS (до %1$d, курс спрямо USDT).</string>
+    <string name="settings_watch_hint">Монети за приложението на часовник с Wear OS (до %1$d). Любимите ★ запазват точната си двойка, включително фючърси и други котировъчни валути; собственият списък е с курс спрямо USDT.</string>
     <string name="settings_watch_mode_phone">Като на телефона (любими ★)</string>
     <string name="settings_watch_mode_own">Собствен списък</string>
     <string name="settings_watch_own_title">Собствен списък: %1$d от %2$d</string>

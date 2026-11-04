@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Жаңарту – %1$d с кейін қайта мүмкін</string>
     <string name="settings_watch">Сағат</string>
-    <string name="settings_watch_hint">Wear OS жүйесіндегі сағат қолданбасына арналған монеталар (%1$d дейін, USDT бойынша бағаланады).</string>
+    <string name="settings_watch_hint">Wear OS жүйесіндегі сағат қолданбасына арналған монеталар (%1$d дейін). Таңдаулылар ★ фьючерстер мен басқа баға валюталарын қоса нақты жұбын сақтайды; жеке тізім USDT бойынша бағаланады.</string>
     <string name="settings_watch_mode_phone">Телефондағыдай (таңдаулылар ★)</string>
     <string name="settings_watch_mode_own">Жеке тізім</string>
     <string name="settings_watch_own_title">Жеке тізім: %2$d ішінен %1$d</string>

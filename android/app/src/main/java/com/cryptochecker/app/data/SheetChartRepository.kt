@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
@@ -48,6 +49,8 @@ class SheetChartRepository @Inject constructor(
     private val historicPriceSource: HistoricPriceSource,
     private val fxRateSource: FxRateSource,
     private val tokenIdentityStore: TokenIdentityStore,
+    /** Live-Kurs USDT/USD für die Umrechnung der USDT-Reihe in Fiat (wie Portfolio und Alarme). */
+    private val depegReadings: DepegReadingStore,
 ) {
     private val cache = SheetChartCache()
 
@@ -112,6 +115,8 @@ class SheetChartRepository @Inject constructor(
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der
             // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token)
             val identityName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset)
+            // USDT → USD zum Marktkurs; ohne Messung 1 (Vermerk «USDT = 1 angenommen», [SheetChart.usdtParityNote])
+            val usdtUsd = depegReadings.liveUsdtUsd()
             for (request in SheetChart.requests(watch.baseAsset, watch.quoteAsset, quoteIsFiat)) {
                 var accepted: List<WidgetCandle>? = null
                 var rates: Map<Long, Double>? = null
@@ -132,7 +137,7 @@ class SheetChartRepository @Inject constructor(
                             val dayRates = rates
                             // Ohne Tageskurse: aktueller Devisenkurs für die Prüfung auf gleichen Token
                             val current = if (request.convert && dayRates.isNullOrEmpty()) currentRate(quote) else null
-                            val ok = SheetChart.accept(raw, request, watch.lastPrice, dayRates, current)
+                            val ok = SheetChart.accept(raw, request, watch.lastPrice, dayRates, current, usdtUsd)
                             accepted = ok
                             // Fremde Reihe gleichen Kürzels: nächste Quelle der Kette
                             ok != null
@@ -146,13 +151,15 @@ class SheetChartRepository @Inject constructor(
                 }
                 val candles = accepted
                 if (sourced == null || candles == null) continue
+                val fx = SheetChart.fxMode(request, rates)
                 val result = SheetChartResult.Ready(
                     candles = candles,
                     converted = request.convert,
                     provider = sourced.provider,
                     sourcePair = "${request.base}/${request.quote}",
-                    fx = SheetChart.fxMode(request, rates),
+                    fx = fx,
                     fetchedAt = System.currentTimeMillis(),
+                    usdtAssumed = SheetChart.usdtParityNote(fx, "${request.base}/${request.quote}", usdtUsd),
                 )
                 cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, exchange)
                 return@withContext result

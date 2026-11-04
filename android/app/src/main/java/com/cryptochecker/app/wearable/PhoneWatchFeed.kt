@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.appScope
@@ -132,20 +133,29 @@ class PhoneWatchFeed @Inject constructor(
         internal fun quotesJson(watches: List<WatchEntity>, settings: WatchSettings): String? {
             if (settings.source == WatchSettings.Source.SELF) return null
             val rows = watches.map {
+                val contract = watchContract(it)
                 WatchPhoneQuotes.Row(
                     base = it.baseAsset,
                     quote = it.quoteAsset,
-                    spot = it.contractType == FuturesContractType.NONE && it.pairId == null,
+                    // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
+                    spot = it.contractType == FuturesContractType.NONE && contract.isEmpty(),
                     disabled = it.disabled,
                     price = it.lastPrice,
                     change24h = it.change24h,
                     exchange = it.exchangeName,
                     time = it.lastUpdate,
                     sortOrder = it.sortOrder,
-                    contract = WatchPair.contractOf(it.contractShortName, it.pairId != null),
+                    contract = contract,
                 )
             }
             return WatchPhoneQuotes.toJson(WatchPhoneQuotes.pick(rows, settings.kept))
         }
+
+        /**
+         * Kontrakt-Marke der Uhr ([WatchPair.contractOf]): Kurzform des Kontrakts, Pool nur bei DexScreener
+         * ([WatchIdentity.pool], mit der Kennung des Pools), sonst Spot. Wie iOS `PhoneWatchLink.watchContract`.
+         */
+        internal fun watchContract(w: WatchEntity): String =
+            WatchPair.contractOf(w.contractShortName, WatchIdentity.pool(w.exchangeKey, w.pairId))
     }
 }

@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Actualiser – de nouveau possible dans %1$d s</string>
     <string name="settings_watch">Montre</string>
-    <string name="settings_watch_hint">Cryptos pour l’app montre sur Wear OS (jusqu’à %1$d, cours face à l’USDT).</string>
+    <string name="settings_watch_hint">Cryptos pour l’app montre sur Wear OS (jusqu’à %1$d). Les favoris ★ gardent leur paire exacte, y compris les futures et les autres devises de cotation ; la liste perso est cotée face à l’USDT.</string>
     <string name="settings_watch_mode_phone">Comme le téléphone (favoris ★)</string>
     <string name="settings_watch_mode_own">Liste perso</string>
     <string name="settings_watch_own_title">Liste perso : %1$d sur %2$d</string>

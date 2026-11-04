@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Освежи – поново могуће за %1$d с</string>
     <string name="settings_watch">Сат</string>
-    <string name="settings_watch_hint">Криптовалуте за апликацију на сату с Wear OS-ом (до %1$d, цене у односу на USDT).</string>
+    <string name="settings_watch_hint">Криптовалуте за апликацију на сату с Wear OS-ом (до %1$d). Фаворити ★ задржавају свој тачан пар, укључујући фјучерсе и друге котирне валуте; сопствени списак има цене у односу на USDT.</string>
     <string name="settings_watch_mode_phone">Као на телефону (фаворити ★)</string>
     <string name="settings_watch_mode_own">Сопствени списак</string>
     <string name="settings_watch_own_title">Сопствени списак: %1$d од %2$d</string>

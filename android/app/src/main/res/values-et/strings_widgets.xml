@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Värskenda – uuesti võimalik %1$d s pärast</string>
     <string name="settings_watch">Kell</string>
-    <string name="settings_watch_hint">Mündid Wear OS-i kellarakenduse jaoks (kuni %1$d, hind USDT suhtes).</string>
+    <string name="settings_watch_hint">Mündid Wear OS-i kellarakenduse jaoks (kuni %1$d). Lemmikud ★ säilitavad oma täpse paari, sh futuurid ja muud noteerimisvaluutad; oma loendi hind on USDT suhtes.</string>
     <string name="settings_watch_mode_phone">Nagu telefonis (lemmikud ★)</string>
     <string name="settings_watch_mode_own">Oma loend</string>
     <string name="settings_watch_own_title">Oma loend: %1$d / %2$d</string>

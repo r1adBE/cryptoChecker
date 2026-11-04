@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ໂຫຼດຄືນໃໝ່ – ເຮັດໄດ້ອີກໃນ %1$d ວິ.</string>
     <string name="settings_watch">ໂມງ</string>
-    <string name="settings_watch_hint">ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$d, ລາຄາທຽບກັບ USDT).</string>
+    <string name="settings_watch_hint">ຫຼຽນສຳລັບແອັບໂມງໃນ Wear OS (ສູງສຸດ %1$d). ລາຍການທີ່ມັກ ★ ຮັກສາຄູ່ທີ່ແນ່ນອນ ລວມທັງສັນຍາລ່ວງໜ້າ ແລະ ສະກຸນເງິນອ້າງອີງອື່ນໆ; ລາຍການຂອງຕົນເອງລາຄາທຽບກັບ USDT.</string>
     <string name="settings_watch_mode_phone">ຄືກັບໂທລະສັບ (ລາຍການທີ່ມັກ ★)</string>
     <string name="settings_watch_mode_own">ລາຍການຂອງຕົນເອງ</string>
     <string name="settings_watch_own_title">ລາຍການຂອງຕົນເອງ: %1$d ຈາກ %2$d</string>

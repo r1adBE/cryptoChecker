@@ -170,12 +170,20 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     /// das Paar des Favoriten, auch Futures/Perp und andere Börsen); gesendet werden sie nur bei «Kurse vom Handy, sonst
     /// selbst» (`send`). Wie Android `PhoneWatchFeed.quotesJson`.
     static func quoteRows(_ watches: [Watch]) -> [WatchPhoneQuotes.Row] {
-        watches.map {
-            WatchPhoneQuotes.Row(base: $0.baseAsset, quote: $0.quoteAsset, spot: $0.contractType == .none && $0.pairId == nil,
-                                 disabled: $0.disabled, price: $0.lastPrice, change24h: $0.change24h,
-                                 exchange: $0.exchangeName, time: $0.lastUpdate, sortOrder: $0.sortOrder,
-                                 contract: WatchPair.contract(short: $0.contractShortName, hasPairId: $0.pairId != nil))
+        watches.map { w -> WatchPhoneQuotes.Row in
+            let contract = watchContract(w)
+            // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
+            return WatchPhoneQuotes.Row(base: w.baseAsset, quote: w.quoteAsset, spot: w.contractType == .none && contract.isEmpty,
+                                        disabled: w.disabled, price: w.lastPrice, change24h: w.change24h,
+                                        exchange: w.exchangeName, time: w.lastUpdate, sortOrder: w.sortOrder,
+                                        contract: contract)
         }
+    }
+
+    /// Kontrakt-Marke der Uhr (`WatchPair.contract(short:pool:)`): Kurzform des Kontrakts, Pool nur bei DexScreener
+    /// (`WatchIdentity.pool`, mit der Kennung des Pools), sonst Spot. Wie Android `PhoneWatchFeed.watchContract`.
+    static func watchContract(_ w: Watch) -> String {
+        WatchPair.contract(short: w.contractShortName, pool: WatchIdentity.pool(exchangeKey: w.exchangeKey, pairId: w.pairId))
     }
 
     /// «Wie iPhone»: Basis-Coins der Favoriten (`WatchCoins.fromFavorites`) und je Coin das Paar des ersten Favoriten
@@ -186,7 +194,7 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         let bases = favorites.map(\.baseAsset)
         let pairs = favorites.map {
             WatchPair.of(base: $0.baseAsset, quote: $0.quoteAsset, exchange: $0.exchangeName,
-                         contract: WatchPair.contract(short: $0.contractShortName, hasPairId: $0.pairId != nil))
+                         contract: watchContract($0))
         }
         return (WatchCoins.fromFavorites(bases), WatchCoins.favoritePairs(bases, pairs: pairs))
     }

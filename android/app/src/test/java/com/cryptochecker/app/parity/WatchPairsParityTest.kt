@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -49,8 +50,10 @@ class WatchPairsParityTest {
             assertEquals(name, c["selfFetchable"], p.selfFetchable)
             assertEquals(name, p, WatchPair.parse(p.key))
         }
+        // Pool nur bei DexScreener (WatchIdentity.pool), mit den Stellen seiner Kennung; Börsen-Kennungen bleiben Spot
         for (c in data.getValue("contractOf").list().map { it.obj() }) {
-            assertEquals(c["expected"], WatchPair.contractOf(c["short"] as String?, c["hasPairId"] as Boolean))
+            val pool = WatchIdentity.pool(c["exchangeKey"] as String, c["pairId"] as String?)
+            assertEquals(c["name"] as String, c["expected"], WatchPair.contractOf(c["short"] as String?, pool))
         }
         for (c in data.getValue("parse").list().map { it.obj() }) {
             assertEquals(c["key"] as String, c["valid"], WatchPair.parse(c["key"] as String) != null)

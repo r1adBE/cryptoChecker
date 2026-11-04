@@ -101,7 +101,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Muat semula – boleh lagi dalam %1$d s</string>
     <string name="settings_watch">Jam tangan</string>
-    <string name="settings_watch_hint">Koin untuk apl jam tangan pada Wear OS (sehingga %1$d, diberi harga berbanding USDT).</string>
+    <string name="settings_watch_hint">Koin untuk apl jam tangan pada Wear OS (sehingga %1$d). Kegemaran ★ mengekalkan pasangan tepatnya, termasuk niaga hadapan dan mata wang sebut harga lain; senarai sendiri diberi harga berbanding USDT.</string>
     <string name="settings_watch_mode_phone">Seperti telefon (kegemaran ★)</string>
     <string name="settings_watch_mode_own">Senarai sendiri</string>
     <string name="settings_watch_own_title">Senarai sendiri: %1$d daripada %2$d</string>

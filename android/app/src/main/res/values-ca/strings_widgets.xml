@@ -105,7 +105,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Actualitza – es podrà tornar a fer d\'aquí a %1$d s</string>
     <string name="settings_watch">Rellotge</string>
-    <string name="settings_watch_hint">Monedes per a l\'app del rellotge amb Wear OS (fins a %1$d, cotitzades en USDT).</string>
+    <string name="settings_watch_hint">Monedes per a l\'app del rellotge amb Wear OS (fins a %1$d). Els preferits ★ mantenen el parell exacte, inclosos futurs i altres monedes de cotització; la llista pròpia cotitza en USDT.</string>
     <string name="settings_watch_mode_phone">Com al mòbil (preferits ★)</string>
     <string name="settings_watch_mode_own">Llista pròpia</string>
     <string name="settings_watch_own_title">Llista pròpia: %1$d de %2$d</string>

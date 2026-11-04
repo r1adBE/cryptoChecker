@@ -103,7 +103,7 @@
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">ریفریش – %1$d سیکنڈ میں دوبارہ ممکن</string>
     <string name="settings_watch">گھڑی</string>
-    <string name="settings_watch_hint">Wear OS پر گھڑی ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$d، USDT کے مقابل قیمت)۔</string>
+    <string name="settings_watch_hint">Wear OS پر گھڑی ایپ کے لیے کوائنز (زیادہ سے زیادہ %1$d)۔ پسندیدہ ★ فیوچرز اور دیگر کوٹ کرنسیوں سمیت اپنا درست جوڑا برقرار رکھتے ہیں؛ اپنی فہرست کی قیمت USDT کے مقابل ہوتی ہے۔</string>
     <string name="settings_watch_mode_phone">فون کی طرح (پسندیدہ ★)</string>
     <string name="settings_watch_mode_own">اپنی فہرست</string>
     <string name="settings_watch_own_title">اپنی فہرست: %2$d میں سے %1$d</string>
