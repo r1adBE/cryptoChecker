@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Sledované adresy sa počítajú od prvého zisteného zostatku; neskoršie zmeny sú prítoky/odtoky, nie zisk.</string>
     <string name="portfolio_address_privacy">Na %1$s sa posiela iba verejná adresa – nikdy kľúče ani seed frázy. Poskytovateľ ju vidí spolu s tvojou IP adresou. Kontroluje sa najviac každých 10 minút.</string>
     <string name="portfolio_address_remove">Odstrániť adresu</string>
+    <string name="portfolio_address_retarget">Zmeniť cieľ</string>
+    <string name="portfolio_address_retarget_ask">Prevod %1$s: cieľ „%2$s“ → „%3$s“?</string>
+    <string name="portfolio_address_retarget_confirm">Zmeniť</string>
     <string name="portfolio_address_show_only">Iba zobraziť, nezapočítať do portfólia</string>
     <string name="portfolio_address_show_only_short">Iba zobraziť</string>
     <string name="portfolio_address_tokens">Započítať tokeny</string>

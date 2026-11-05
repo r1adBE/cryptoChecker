@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">ທີ່ຢູ່ທີ່ຕິດຕາມຈະນັບຈາກຍອດເງິນທີ່ເຫັນຄັ້ງທຳອິດ; ການປ່ຽນແປງຫຼັງຈາກນັ້ນແມ່ນເງິນເຂົ້າ/ອອກ, ບໍ່ແມ່ນກຳໄລ.</string>
     <string name="portfolio_address_privacy">ສົ່ງພຽງແຕ່ທີ່ຢູ່ສາທາລະນະໄປຫາ %1$s – ບໍ່ສົ່ງກະແຈ ຫຼື seed phrase ເດັດຂາດ. ຜູ້ໃຫ້ບໍລິການເຫັນມັນພ້ອມກັບທີ່ຢູ່ IP ຂອງທ່ານ. ກວດສອບຫຼາຍສຸດທຸກໆ 10 ນາທີ.</string>
     <string name="portfolio_address_remove">ລຶບທີ່ຢູ່ອອກ</string>
+    <string name="portfolio_address_retarget">ປ່ຽນປາຍທາງ</string>
+    <string name="portfolio_address_retarget_ask">ການໂອນ %1$s: ປາຍທາງ “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">ປ່ຽນ</string>
     <string name="portfolio_address_show_only">ສະແດງເທົ່ານັ້ນ, ບໍ່ບວກເຂົ້າພອດໂຟລິໂອ</string>
     <string name="portfolio_address_show_only_short">ສະແດງເທົ່ານັ້ນ</string>
     <string name="portfolio_address_tokens">ນັບໂທເຄັນ</string>

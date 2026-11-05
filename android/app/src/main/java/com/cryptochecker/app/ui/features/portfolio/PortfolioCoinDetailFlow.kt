@@ -31,8 +31,8 @@ internal data class CoinDetailUi(
     val ledger: CoinLedger,
     /** Guthaben beobachteter Adressen (> 0); null = keins. */
     val addressAmount: BigDecimal?,
-    /** Ziel-Wallet einer Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch.matchesFor]); null = keine. */
-    val withdrawalTarget: String?,
+    /** Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch.retargetFor]); null = keine. */
+    val retarget: AddressWithdrawalMatch.Retarget?,
     /** Erste zählende Adresse mit Guthaben in diesem Coin (Einstand für Adressguthaben); null = keine. */
     val lotAddress: WatchedAddress?,
 )
@@ -52,9 +52,8 @@ internal fun coinDetail(
     val ledger = PortfolioCalculator.ledger(symbol, calc.map { it.toTrade() }, currentPrice, method, feePrice)
     val addressAmount = AddressBalance.amountFor(symbol, addresses, all.map { it.toTrade() })?.takeIf { it.signum() > 0 }
     val lotAddress = AddressCostLots.counted(addresses).firstOrNull { (_, balances) -> (balances[symbol]?.signum() ?: 0) > 0 }?.first
-    val matches = AddressWithdrawalMatch.matchesFor(symbol, addresses, all.map { it.toTrade() })
-    val withdrawalTarget = AddressWithdrawalMatch.targetWallet(matches)
-    return CoinDetailUi(all, own, ledger, addressAmount, withdrawalTarget, lotAddress)
+    val retarget = AddressWithdrawalMatch.retargetFor(symbol, addresses, all.map { it.toTrade() })
+    return CoinDetailUi(all, own, ledger, addressAmount, retarget, lotAddress)
 }
 
 /**

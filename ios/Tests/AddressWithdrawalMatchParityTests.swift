@@ -40,6 +40,35 @@ final class AddressWithdrawalMatchParityTests: XCTestCase {
             XCTAssertEqual(AddressWithdrawalMatch.targetWallet(matches), c["target"] as? String, name + " (Ziel)")
             XCTAssertEqual(AddressWithdrawalMatch.matches(coin: "btc", addresses: [a], txs: txs).map(\.id), expected,
                            name + " (Coin)")
+            // «Ziel ändern»: genannte Umbuchung → Adress-Wallet; danach kein Hinweis mehr
+            let want = c["retarget"] as? [String: Any]
+            let r = AddressWithdrawalMatch.retarget(a, txs: txs)
+            XCTAssertEqual(r?.tx.id, want.map { int64($0["id"]) }, name + " (Ändern)")
+            XCTAssertEqual(r?.from, want?["from"] as? String, name + " (von)")
+            XCTAssertEqual(r?.to, want?["to"] as? String, name + " (nach)")
+            XCTAssertEqual(AddressWithdrawalMatch.retarget(coin: "BTC", addresses: [a], txs: txs), r, name + " (Karte)")
+            if let r {
+                let after = txs.map { t -> PortfolioTx in
+                    var u = t
+                    if t.id == r.tx.id { u.transferTo = r.to }
+                    return u
+                }
+                XCTAssertEqual(AddressWithdrawalMatch.matches(a, txs: after).map(\.id), [], name + " (danach)")
+                XCTAssertNil(AddressWithdrawalMatch.retarget(coin: "BTC", addresses: [a], txs: after), name + " (danach Karte)")
+            }
         }
+    }
+
+    /// Coin-Karte mit zwei Adressen: Ziel ist die Wallet der Adresse, zu der die genannte Umbuchung passt. Wie Android.
+    func testCardTargetsTheMatchingAddress() throws {
+        let data = try S.fixture("address_withdrawal_match")
+        let c = try XCTUnwrap(S.list(data["cases"]).first { !(($0["matches"] as? [Any]) ?? []).isEmpty })
+        let txs = S.list(c["trades"]).map(trade)
+        let hit = address(c["address"] as? [String: Any] ?? [:])
+        let other = WatchedAddress(id: 9, chain: .BTC, address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+                                   label: "Spare", lastBalance: "7", lastUpdated: hit.lastUpdated, countInPortfolio: true)
+        let r = AddressWithdrawalMatch.retarget(coin: "BTC", addresses: [other, hit], txs: txs)
+        XCTAssertEqual(r?.to, "Cold")
+        XCTAssertEqual(r?.tx.id, 2)
     }
 }

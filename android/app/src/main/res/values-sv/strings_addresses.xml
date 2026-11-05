@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Bevakade adresser räknas från det första observerade saldot; senare ändringar är in-/utflöden, inte vinst.</string>
     <string name="portfolio_address_privacy">Bara den offentliga adressen skickas till %1$s – aldrig nycklar eller seedfraser. Leverantören ser den tillsammans med din IP-adress. Kontrolleras högst var 10:e minut.</string>
     <string name="portfolio_address_remove">Ta bort adress</string>
+    <string name="portfolio_address_retarget">Byt mottagare</string>
+    <string name="portfolio_address_retarget_ask">Överföring %1$s: mottagare ”%2$s” → ”%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">Byt</string>
     <string name="portfolio_address_show_only">Visa bara, räkna inte in i portföljen</string>
     <string name="portfolio_address_show_only_short">Visa bara</string>
     <string name="portfolio_address_tokens">Räkna med tokens</string>

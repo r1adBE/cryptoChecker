@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">पाहिले जाणारे पत्ते त्यांच्या पहिल्यांदा दिसलेल्या शिलकीपासून मोजले जातात; नंतरचे बदल जमा/खर्च आहेत, नफा नाही.</string>
     <string name="portfolio_address_privacy">फक्त सार्वजनिक पत्ता %1$s ला पाठवला जातो – कधीही की किंवा सीड फ्रेज नाही. प्रदात्याला तो तुमच्या IP पत्त्यासह दिसतो. जास्तीत जास्त दर 10 मिनिटांनी तपासले जाते.</string>
     <string name="portfolio_address_remove">पत्ता काढा</string>
+    <string name="portfolio_address_retarget">लक्ष्य बदला</string>
+    <string name="portfolio_address_retarget_ask">हस्तांतरण %1$s: लक्ष्य “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">बदला</string>
     <string name="portfolio_address_show_only">फक्त दाखवा, पोर्टफोलिओमध्ये जोडू नका</string>
     <string name="portfolio_address_show_only_short">फक्त दाखवा</string>
     <string name="portfolio_address_tokens">टोकन मोजा</string>

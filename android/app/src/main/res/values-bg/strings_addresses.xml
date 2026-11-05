@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Следените адреси се броят от първото наблюдавано салдо; по-късните промени са входящи/изходящи потоци, не печалба.</string>
     <string name="portfolio_address_privacy">Към %1$s се изпраща само публичният адрес – никога ключове или seed фрази. Доставчикът го вижда заедно с твоя IP адрес. Проверява се най-често на всеки 10 минути.</string>
     <string name="portfolio_address_remove">Премахни адреса</string>
+    <string name="portfolio_address_retarget">Смени целта</string>
+    <string name="portfolio_address_retarget_ask">Прехвърляне %1$s: цел „%2$s“ → „%3$s“?</string>
+    <string name="portfolio_address_retarget_confirm">Смени</string>
     <string name="portfolio_address_show_only">Само показвай, без да включваш в портфолиото</string>
     <string name="portfolio_address_show_only_short">Само показвай</string>
     <string name="portfolio_address_tokens">Включи токените</string>

@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Les adresses suivies comptent à partir du premier solde observé ; les changements ultérieurs sont des entrées/sorties, pas un gain.</string>
     <string name="portfolio_address_privacy">Seule l’adresse publique est envoyée à %1$s – jamais de clés ni de seed phrase. Le fournisseur la voit avec ton adresse IP. Interrogée au plus toutes les 10 minutes.</string>
     <string name="portfolio_address_remove">Supprimer l’adresse</string>
+    <string name="portfolio_address_retarget">Changer la destination</string>
+    <string name="portfolio_address_retarget_ask">Transfert de %1$s : destination « %2$s » → « %3$s » ?</string>
+    <string name="portfolio_address_retarget_confirm">Changer</string>
     <string name="portfolio_address_show_only">Afficher seulement, sans ajouter au portefeuille</string>
     <string name="portfolio_address_show_only_short">Afficher seulement</string>
     <string name="portfolio_address_tokens">Compter les tokens</string>

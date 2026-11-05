@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">ที่อยู่ที่ติดตามจะนับตั้งแต่ยอดคงเหลือแรกที่พบ การเปลี่ยนแปลงหลังจากนั้นเป็นเงินเข้า/ออก ไม่ใช่กำไร</string>
     <string name="portfolio_address_privacy">ส่งเฉพาะที่อยู่สาธารณะไปยัง %1$s – ไม่ส่งคีย์หรือ seed phrase เด็ดขาด ผู้ให้บริการจะเห็นที่อยู่นี้พร้อมที่อยู่ IP ของคุณ ตรวจสอบไม่บ่อยกว่าทุก 10 นาที</string>
     <string name="portfolio_address_remove">ลบที่อยู่</string>
+    <string name="portfolio_address_retarget">เปลี่ยนปลายทาง</string>
+    <string name="portfolio_address_retarget_ask">การโอน %1$s: ปลายทาง “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">เปลี่ยน</string>
     <string name="portfolio_address_show_only">แสดงอย่างเดียว ไม่รวมในพอร์ต</string>
     <string name="portfolio_address_show_only_short">แสดงอย่างเดียว</string>
     <string name="portfolio_address_tokens">นับรวมโทเคน</string>

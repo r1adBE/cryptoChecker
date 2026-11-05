@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 202)
+
+* Watched addresses: the hint about a transfer into another wallet now has a «Change target» button; after a short confirmation the transfer points to the address's wallet and nothing counts twice.
+
 ## 16.2.2 (build 201)
 
 * Forex in two groups: «Live (exchange)» with real fiat pairs of Kraken and Bitstamp (alerts, live stream) and reference rates.

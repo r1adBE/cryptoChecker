@@ -282,14 +282,17 @@ internal fun PortfolioAddressSheet(
                     AddressRow(
                         a, now, hideAmounts,
                         overlap = WatchedAddressRules.overlap(a, ownCoins),
-                        withdrawalTarget = remember(a, trades) {
-                            AddressWithdrawalMatch.targetWallet(AddressWithdrawalMatch.matches(a, trades))
-                        },
+                        retarget = remember(a, trades) { AddressWithdrawalMatch.retarget(a, trades) },
                         onRemove = { askRemove = a },
                         onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
                         onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
                         onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
                         onCostLots = { lotsFor = a.id },
+                        onRetarget = { r ->
+                            viewModel.retargetTransfer(r.trade.id, r.to) { result ->
+                                if (result != PortfolioWriteResult.OK) banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+                            }
+                        },
                         trades = trades,
                         allAddresses = addresses,
                     )

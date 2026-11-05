@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Comhairtear seoltaí faire ón gcéad iarmhéid a breathnaíodh; is insreabhadh/eis-sreabhadh athruithe níos déanaí, ní gnóthachan.</string>
     <string name="portfolio_address_privacy">Ní sheoltar ach an seoladh poiblí chuig %1$s – eochracha nó frásaí síl riamh. Feiceann an soláthraí é in éineacht le do sheoladh IP. Seiceáiltear é uair sa 10 nóiméad ar a mhéad.</string>
     <string name="portfolio_address_remove">Bain an seoladh</string>
+    <string name="portfolio_address_retarget">Athraigh an ceann scríbe</string>
+    <string name="portfolio_address_retarget_ask">Aistriú %1$s: ceann scríbe “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">Athraigh</string>
     <string name="portfolio_address_show_only">Taispeáin amháin, ná cuir leis an bpunann</string>
     <string name="portfolio_address_show_only_short">Taispeáin amháin</string>
     <string name="portfolio_address_tokens">Comhair comharthaí</string>

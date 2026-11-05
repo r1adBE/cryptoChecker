@@ -1,5 +1,5 @@
 {
-  "_comment": "Hinweis auf eine Umbuchung, die nicht in die Adress-Wallet erfasst ist (AddressWithdrawalMatch, Android + iOS): eigene Umbuchung aus einer anderen in eine andere Wallet als die Adresse (Bezeichnung, sonst gekuerzte Adresse), deren Menge (oder Menge nach Coin-Gebuehr) dem Guthaben oder einem beobachteten Zugang auf +- 1 % entspricht und nicht schon als Umbuchung/Einzahlung in die Adress-Wallet erfasst ist; nur zaehlende Adressen. Eine erfasste Auszahlung nimmt die Coins aus dem Portfolio (kein Hinweis). matches = Ids der Treffer, zeitlich; target = Ziel-Wallet des ersten Treffers (Platzhalter im Hinweis); matchesFor BTC ueber alle Adressen gleich.",
+  "_comment": "Hinweis auf eine Umbuchung, die nicht in die Adress-Wallet erfasst ist (AddressWithdrawalMatch, Android + iOS): eigene Umbuchung aus einer anderen in eine andere Wallet als die Adresse (Bezeichnung, sonst gekuerzte Adresse), deren Menge (oder Menge nach Coin-Gebuehr) dem Guthaben oder einem beobachteten Zugang auf +- 1 % entspricht und nicht schon als Umbuchung/Einzahlung in die Adress-Wallet erfasst ist; nur zaehlende Adressen. Eine erfasste Auszahlung nimmt die Coins aus dem Portfolio (kein Hinweis). matches = Ids der Treffer, zeitlich; target = Ziel-Wallet des ersten Treffers (Platzhalter im Hinweis); matchesFor BTC ueber alle Adressen gleich. retarget = Aktion \"Ziel aendern\" am Hinweis: id der genannten Umbuchung (erster Treffer mit Ziel), from = bisheriges Ziel, to = Adress-Wallet (null ohne Hinweis); nach dem Aendern des Ziels auf to gibt es keinen Treffer mehr.",
   "cases": [
     {
       "name": "transfer into another wallet with the address amount: hint",
@@ -34,7 +34,12 @@
       "matches": [
         2
       ],
-      "target": "Ledger"
+      "target": "Ledger",
+      "retarget": {
+        "id": 2,
+        "from": "Ledger",
+        "to": "Cold"
+      }
     },
     {
       "name": "transfer into the address wallet: no hint",
@@ -67,7 +72,8 @@
         }
       ],
       "matches": [],
-      "target": null
+      "target": null,
+      "retarget": null
     },
     {
       "name": "same amount also recorded into the address wallet: no hint",
@@ -109,7 +115,8 @@
         }
       ],
       "matches": [],
-      "target": null
+      "target": null,
+      "retarget": null
     },
     {
       "name": "recorded withdrawal leaves the portfolio: no hint",
@@ -141,7 +148,8 @@
         }
       ],
       "matches": [],
-      "target": null
+      "target": null,
+      "retarget": null
     },
     {
       "name": "within 1 percent: hint",
@@ -176,7 +184,12 @@
       "matches": [
         2
       ],
-      "target": "Ledger"
+      "target": "Ledger",
+      "retarget": {
+        "id": 2,
+        "from": "Ledger",
+        "to": "Cold"
+      }
     },
     {
       "name": "2 percent apart: no hint",
@@ -209,7 +222,8 @@
         }
       ],
       "matches": [],
-      "target": null
+      "target": null,
+      "retarget": null
     },
     {
       "name": "show only: no hint",
@@ -243,7 +257,8 @@
         }
       ],
       "matches": [],
-      "target": null
+      "target": null,
+      "retarget": null
     },
     {
       "name": "address without label: wallet is the short address",
@@ -277,7 +292,12 @@
       "matches": [
         2
       ],
-      "target": "Ledger"
+      "target": "Ledger",
+      "retarget": {
+        "id": 2,
+        "from": "Ledger",
+        "to": "bc1qw5\u2026f3t4"
+      }
     },
     {
       "name": "two transfers into other wallets: the first names its target",
@@ -322,7 +342,12 @@
         3,
         2
       ],
-      "target": "Trezor"
+      "target": "Trezor",
+      "retarget": {
+        "id": 3,
+        "from": "Trezor",
+        "to": "Cold"
+      }
     }
   ]
 }

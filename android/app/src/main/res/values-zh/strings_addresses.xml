@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">观察的地址从首次观察到的余额开始计算；之后的变化属于流入/流出，不算收益。</string>
     <string name="portfolio_address_privacy">只向 %1$s 发送公开地址——绝不发送密钥或助记词。服务方会同时看到你的 IP 地址。最多每 10 分钟查询一次。</string>
     <string name="portfolio_address_remove">移除地址</string>
+    <string name="portfolio_address_retarget">更改目标</string>
+    <string name="portfolio_address_retarget_ask">转移 %1$s：目标“%2$s”→“%3$s”？</string>
+    <string name="portfolio_address_retarget_confirm">更改</string>
     <string name="portfolio_address_show_only">仅显示，不计入投资组合</string>
     <string name="portfolio_address_show_only_short">仅显示</string>
     <string name="portfolio_address_tokens">计入代币</string>

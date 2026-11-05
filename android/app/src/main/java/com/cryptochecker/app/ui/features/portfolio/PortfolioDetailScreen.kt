@@ -191,9 +191,16 @@ fun PortfolioDetailScreen(
                     ) {
                         item(key = "summary") {
                             PositionCard(
-                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(), withdrawalTarget = d.withdrawalTarget,
+                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(), retarget = d.retarget,
                                 onMissingCost = { costGapsOpen = true },
                                 onAddressCost = d.lotAddress?.let { a -> { lotsFor = a.id } },
+                                onRetarget = { r ->
+                                    viewModel.retargetTransfer(r.trade.id, r.to) { result ->
+                                        if (result != PortfolioWriteResult.OK) {
+                                            banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+                                        }
+                                    }
+                                },
                             )
                         }
                         // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion

@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">हेरिएका ठेगानाहरू पहिलो पटक देखिएको ब्यालेन्सबाट गणना हुन्छन्; पछिका परिवर्तनहरू आगमन/बहिर्गमन हुन्, नाफा होइन।</string>
     <string name="portfolio_address_privacy">%1$s लाई सार्वजनिक ठेगाना मात्र पठाइन्छ – कुञ्जी वा सीड फ्रेज कहिल्यै पठाइँदैन। प्रदायकले यसलाई तपाईंको IP ठेगानासँगै देख्छ। बढीमा हरेक 10 मिनेटमा जाँच गरिन्छ।</string>
     <string name="portfolio_address_remove">ठेगाना हटाउनुहोस्</string>
+    <string name="portfolio_address_retarget">गन्तव्य बदल्नुहोस्</string>
+    <string name="portfolio_address_retarget_ask">स्थानान्तरण %1$s: गन्तव्य “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">बदल्नुहोस्</string>
     <string name="portfolio_address_show_only">देखाउने मात्र, पोर्टफोलियोमा नजोड्ने</string>
     <string name="portfolio_address_show_only_short">देखाउने मात्र</string>
     <string name="portfolio_address_tokens">टोकनहरू गणना गर्नुहोस्</string>

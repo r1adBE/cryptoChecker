@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Відстежувані адреси враховуються з першого зафіксованого балансу; подальші зміни – це надходження/списання, а не прибуток.</string>
     <string name="portfolio_address_privacy">До %1$s надсилається лише публічна адреса – ніколи ключі чи seed-фрази. Провайдер бачить її разом із твоєю IP-адресою. Перевірка не частіше ніж раз на 10 хвилин.</string>
     <string name="portfolio_address_remove">Видалити адресу</string>
+    <string name="portfolio_address_retarget">Змінити отримувача</string>
+    <string name="portfolio_address_retarget_ask">Переказ %1$s: отримувач «%2$s» → «%3$s»?</string>
+    <string name="portfolio_address_retarget_confirm">Змінити</string>
     <string name="portfolio_address_show_only">Лише показувати, не додавати до портфеля</string>
     <string name="portfolio_address_show_only_short">Лише показувати</string>
     <string name="portfolio_address_tokens">Враховувати токени</string>

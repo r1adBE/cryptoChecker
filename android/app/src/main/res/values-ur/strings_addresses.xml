@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">زیرِ نگرانی پتے اپنے پہلے دیکھے گئے بیلنس سے شمار ہوتے ہیں؛ بعد کی تبدیلیاں آمد/اخراج ہیں، منافع نہیں۔</string>
     <string name="portfolio_address_privacy">%1$s کو صرف عوامی پتہ بھیجا جاتا ہے – کبھی کیز یا سیڈ فریز نہیں۔ فراہم کنندہ اسے آپ کے IP پتے کے ساتھ دیکھتا ہے۔ زیادہ سے زیادہ ہر 10 منٹ میں ایک بار جانچا جاتا ہے۔</string>
     <string name="portfolio_address_remove">پتہ ہٹائیں</string>
+    <string name="portfolio_address_retarget">منزل بدلیں</string>
+    <string name="portfolio_address_retarget_ask">منتقلی %1$s: منزل “%2$s” ← “%3$s”؟</string>
+    <string name="portfolio_address_retarget_confirm">بدلیں</string>
     <string name="portfolio_address_show_only">صرف دکھائیں، پورٹ فولیو میں شامل نہ کریں</string>
     <string name="portfolio_address_show_only_short">صرف دکھائیں</string>
     <string name="portfolio_address_tokens">ٹوکنز شمار کریں</string>

@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">නිරීක්ෂිත ලිපින ගණනය වන්නේ ඒවායේ මුලින්ම දුටු ශේෂයේ සිටය; පසු වෙනස්කම් ලැබීම්/යැවීම් වේ, ලාභ නොවේ.</string>
     <string name="portfolio_address_privacy">%1$s වෙත යවන්නේ පොදු ලිපිනය පමණි – කිසිවිටෙක යතුරු හෝ සීඩ් වාක්‍ය නොවේ. සපයන්නා එය ඔබේ IP ලිපිනය සමඟ දකී. උපරිම වශයෙන් සෑම මිනිත්තු 10 කට වරක් පරීක්ෂා කෙරේ.</string>
     <string name="portfolio_address_remove">ලිපිනය ඉවත් කරන්න</string>
+    <string name="portfolio_address_retarget">ගමනාන්තය වෙනස් කරන්න</string>
+    <string name="portfolio_address_retarget_ask">මාරු කිරීම %1$s: ගමනාන්තය “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">වෙනස් කරන්න</string>
     <string name="portfolio_address_show_only">පෙන්වීම පමණක්, කළඹට එක් නොකරන්න</string>
     <string name="portfolio_address_show_only_short">පෙන්වීම පමණක්</string>
     <string name="portfolio_address_tokens">ටෝකන ගණනය කරන්න</string>

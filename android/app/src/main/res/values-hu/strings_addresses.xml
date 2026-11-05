@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">A figyelt címek az első észlelt egyenlegtől számítanak; a későbbi változások be- és kiáramlások, nem nyereség.</string>
     <string name="portfolio_address_privacy">Csak a nyilvános cím kerül elküldésre ide: %1$s – soha kulcs vagy seed-szavak. A szolgáltató az IP-címeddel együtt látja. Legfeljebb 10 percenként lekérdezve.</string>
     <string name="portfolio_address_remove">Cím eltávolítása</string>
+    <string name="portfolio_address_retarget">Cél módosítása</string>
+    <string name="portfolio_address_retarget_ask">Átvezetés %1$s: cél „%2$s” → „%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">Módosítás</string>
     <string name="portfolio_address_show_only">Csak megjelenítés, nem számít a portfólióba</string>
     <string name="portfolio_address_show_only_short">Csak megjelenítés</string>
     <string name="portfolio_address_tokens">Tokenek beszámítása</string>

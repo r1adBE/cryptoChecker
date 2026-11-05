@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Jälgitavaid aadresse arvestatakse esimesest täheldatud saldost; hilisemad muutused on sisse-/väljavoolud, mitte kasum.</string>
     <string name="portfolio_address_privacy">Teenusele %1$s saadetakse ainult avalik aadress – mitte kunagi võtmeid ega taastefraase. Teenusepakkuja näeb seda koos sinu IP-aadressiga. Kontrollitakse kõige rohkem iga 10 minuti järel.</string>
     <string name="portfolio_address_remove">Eemalda aadress</string>
+    <string name="portfolio_address_retarget">Muuda sihtkohta</string>
+    <string name="portfolio_address_retarget_ask">Ülekanne %1$s: sihtkoht „%2$s“ → „%3$s“?</string>
+    <string name="portfolio_address_retarget_confirm">Muuda</string>
     <string name="portfolio_address_show_only">Ainult näita, ära lisa portfelli</string>
     <string name="portfolio_address_show_only_short">Ainult näita</string>
     <string name="portfolio_address_tokens">Arvesta tokeneid</string>

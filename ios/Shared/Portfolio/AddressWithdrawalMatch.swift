@@ -7,7 +7,8 @@ import Foundation
 /// Adress-Wallet (`AddressCostLots.walletName`, `PortfolioWallets.key`) — die Coins stehen dann in jener Wallet und auf
 /// der Adresse —, deren Menge oder Menge nach Coin-Gebühr dem Guthaben oder einem
 /// beobachteten Zugang (`WatchedAddressRules.matchTargets`) auf ± 1 % entspricht — ausser eine erfasste Umbuchung bzw.
-/// Einzahlung IN die Adress-Wallet entspricht derselben Menge. Nur zählende Adressen; nur Hinweis. Wie Android.
+/// Einzahlung IN die Adress-Wallet entspricht derselben Menge. Nur zählende Adressen; Summen unverändert, einzige
+/// Aktion «Ziel ändern» (`retarget`: Ziel der genannten Umbuchung → Adress-Wallet). Wie Android.
 enum AddressWithdrawalMatch {
 
     /// Treffer der Adresse `a` in den eigenen Transaktionen `txs`, zeitlich aufsteigend (stabil), je Transaktion einmal.
@@ -43,10 +44,35 @@ enum AddressWithdrawalMatch {
     /// Ziel-Wallet des ersten Treffers (zeitlich) für den Hinweis «… Umbuchung nach «Ledger» …»; ohne Treffer/Namen nil.
     /// Wie Android.
     static func targetWallet(_ matches: [PortfolioTx]) -> String? {
-        for t in matches {
-            if let name = t.transferTo?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty { return name }
-        }
-        return nil
+        named(matches)?.transferTo?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Die Umbuchung, die der Hinweis nennt (`targetWallet`): erster Treffer (zeitlich) mit Ziel-Namen; sonst nil.
+    static func named(_ matches: [PortfolioTx]) -> PortfolioTx? {
+        matches.first { !($0.transferTo?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "").isEmpty }
+    }
+
+    /// «Ziel ändern»: Umbuchung `tx` (die der Hinweis nennt) von `from` in die Adress-Wallet `to`. Wie Android.
+    struct Retarget: Equatable {
+        let tx: PortfolioTx
+        let from: String
+        let to: String
+    }
+
+    /// «Ziel ändern» an der Adresszeile von `a`: genannte Umbuchung (`named`) → Adress-Wallet; ohne Hinweis nil.
+    static func retarget(_ a: WatchedAddress, txs: [PortfolioTx]) -> Retarget? {
+        guard let t = named(matches(a, txs: txs)) else { return nil }
+        return Retarget(tx: t, from: (t.transferTo ?? "").trimmingCharacters(in: .whitespacesAndNewlines),
+                        to: AddressCostLots.walletName(a))
+    }
+
+    /// «Ziel ändern» an der Coin-Karte: genannte Umbuchung aus `matches(coin:)` → Wallet der ersten Adresse (in
+    /// Listenfolge), zu der sie passt; ohne Hinweis nil. Wie Android `retargetFor`.
+    static func retarget(coin: String, addresses: [WatchedAddress], txs: [PortfolioTx]) -> Retarget? {
+        guard let t = named(matches(coin: coin, addresses: addresses, txs: txs)),
+              let a = addresses.first(where: { x in matches(x, txs: txs).contains { $0.id == t.id } }) else { return nil }
+        return Retarget(tx: t, from: (t.transferTo ?? "").trimmingCharacters(in: .whitespacesAndNewlines),
+                        to: AddressCostLots.walletName(a))
     }
 
     /// Coin-Karte: Treffer (`matches`) aller zählenden Adressen im Coin `coin`, je Transaktion einmal, zeitlich aufsteigend.

@@ -2041,8 +2041,13 @@ the tests named here.
   Hint only (`AddressWithdrawalMatch`, `address_withdrawal_match.json`): an own transfer from another wallet into
   another wallet than the address's whose amount matches the balance or an observed inflow (± 1 %, as
   `transferMatches`) and that is not also recorded into the address wallet shows `portfolio_address_withdrawal_match`
-  with the target wallet of the first match (`AddressWithdrawalMatch.targetWallet`) on the address row and the coin card — no change of totals, no buttons (a recorded withdrawal leaves the portfolio,
-  no hint).
+  with the target wallet of the first match (`AddressWithdrawalMatch.targetWallet`) on the address row and the coin card — no change of totals (a recorded withdrawal leaves the portfolio,
+  no hint). Its one action «Change target» (`portfolio_address_retarget`, `RetargetHint` / `PortfolioRetargetHint.swift`)
+  asks first (`portfolio_address_retarget_ask`: amount, old target → address wallet) and then sets `transferTo` of the
+  named transfer (`AddressWithdrawalMatch.retarget` / `retargetFor`: first match with a target name; on the coin card the
+  wallet of the first address it matches) to `AddressCostLots.walletName` through the normal save path
+  (`retargetTransfer` → `PortfolioRepository.save`, iOS `AppData.savePortfolioTx`; not written → banner); afterwards
+  nothing matches, the hint is gone (fixture field `retarget`).
 * **Networks for watched addresses.** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
   on the device, gap 20 on the first scan; Taproot accounts only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
@@ -3376,6 +3381,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   Data Portal for history with the 90-day and full-history files as fallback; cross rates as before (5 significant digits).
 * Build 201: `ReferenceRates` picks one source per currency (ECB > NBU > NBP table B), cross rates from the same publication;
   `NbuReference`/`NbpReference` cached until the next publication; forex chip with live fiat pairs (Kraken, Bitstamp).
+* Build 202: `AddressWithdrawalMatch.retarget` changes the named transfer's target to the address wallet (confirmation, normal
+  save path); hint button on the address row and the coin card.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

@@ -15,6 +15,9 @@
     <string name="portfolio_address_period_observed">Praćene adrese računaju se od prvog uočenog stanja; kasnije promene su prilivi/odlivi, a ne dobit.</string>
     <string name="portfolio_address_privacy">Na %1$s šalje se samo javna adresa – nikada ključevi ni sid fraze. Pružalac je vidi zajedno s tvojom IP adresom. Proverava se najviše svakih 10 minuta.</string>
     <string name="portfolio_address_remove">Ukloni adresu</string>
+    <string name="portfolio_address_retarget">Promeni odredište</string>
+    <string name="portfolio_address_retarget_ask">Prenos %1$s: odredište „%2$s“ → „%3$s“?</string>
+    <string name="portfolio_address_retarget_confirm">Promeni</string>
     <string name="portfolio_address_show_only">Samo prikaži, ne dodaji u portfolio</string>
     <string name="portfolio_address_show_only_short">Samo prikaži</string>
     <string name="portfolio_address_tokens">Uračunaj tokene</string>

@@ -4,8 +4,9 @@ package com.cryptochecker.app.domain.portfolio
 /**
  * Mit «Nur gleiche Wallet» ([AddressSurplus]) zählt eine Adresse neben Beständen anderer Wallets ganz. Wer die Abhebung
  * von der Börse auf die Adresse als Umbuchung in eine ANDERE Wallet erfasst (z. B. «Ledger» statt der Bezeichnung der
- * Adresse), hat dieselben Coins zweimal: in jener Wallet und auf der Adresse. Nur Hinweis an Adresszeile und
- * Coin-Karte, keine Änderung der Summen, keine Knöpfe. Eine erfasste Auszahlung ([PortfolioTxType.WITHDRAWAL]) nimmt die
+ * Adresse), hat dieselben Coins zweimal: in jener Wallet und auf der Adresse. Hinweis an Adresszeile und Coin-Karte,
+ * Summen unverändert; einzige Aktion «Ziel ändern» ([retarget]) setzt das Ziel der genannten Umbuchung auf die
+ * Adress-Wallet (danach kein Treffer mehr). Eine erfasste Auszahlung ([PortfolioTxType.WITHDRAWAL]) nimmt die
  * Coins aus dem Portfolio — sie zählen dann nur einmal (über die Adresse), also kein Hinweis.
  *
  * Treffer = eigene Umbuchung ([PortfolioTxType.TRANSFER]) im Coin der Adresse aus einer ANDEREN Wallet in eine ANDERE
@@ -42,8 +43,28 @@ object AddressWithdrawalMatch {
     }
 
     /** Ziel-Wallet des ersten Treffers (zeitlich) für den Hinweis «… Umbuchung nach «Ledger» …»; ohne Treffer/Namen null. */
-    fun targetWallet(matches: List<PortfolioTrade>): String? =
-        matches.firstNotNullOfOrNull { t -> t.transferTo?.trim()?.takeIf { it.isNotEmpty() } }
+    fun targetWallet(matches: List<PortfolioTrade>): String? = named(matches)?.transferTo?.trim()
+
+    /** Die Umbuchung, die der Hinweis nennt ([targetWallet]): erster Treffer (zeitlich) mit Ziel-Namen; sonst null. */
+    fun named(matches: List<PortfolioTrade>): PortfolioTrade? =
+        matches.firstOrNull { t -> !t.transferTo?.trim().isNullOrEmpty() }
+
+    /** «Ziel ändern»: Umbuchung [trade] (die der Hinweis nennt) von [from] in die Adress-Wallet [to]. */
+    data class Retarget(val trade: PortfolioTrade, val from: String, val to: String)
+
+    /** «Ziel ändern» an der Adresszeile von [a]: genannte Umbuchung ([named]) → Adress-Wallet; ohne Hinweis null. */
+    fun retarget(a: WatchedAddress, trades: List<PortfolioTrade>): Retarget? =
+        named(matches(a, trades))?.let { t -> Retarget(t, t.transferTo.orEmpty().trim(), AddressCostLots.walletName(a)) }
+
+    /**
+     * «Ziel ändern» an der Coin-Karte: genannte Umbuchung aus [matchesFor] → Wallet der ersten Adresse (in Listenfolge),
+     * zu der sie passt; ohne Hinweis null.
+     */
+    fun retargetFor(coin: String, addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): Retarget? {
+        val t = named(matchesFor(coin, addresses, trades)) ?: return null
+        val a = addresses.firstOrNull { x -> matches(x, trades).any { it.id == t.id } } ?: return null
+        return Retarget(t, t.transferTo.orEmpty().trim(), AddressCostLots.walletName(a))
+    }
 
     /** Coin-Karte: Treffer ([matches]) aller zählenden Adressen im Coin [coin], je Transaktion einmal, zeitlich aufsteigend. */
     fun matchesFor(coin: String, addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): List<PortfolioTrade> {

@@ -6,6 +6,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import java.math.BigDecimal
 
@@ -48,6 +49,31 @@ class AddressWithdrawalMatchParityTest {
             assertEquals(name, expected, matches.map { it.id })
             assertEquals("$name (Ziel)", c["target"] as String?, AddressWithdrawalMatch.targetWallet(matches))
             assertEquals("$name (Coin)", expected, AddressWithdrawalMatch.matchesFor("btc", listOf(a), trades).map { it.id })
+            // «Ziel ändern»: genannte Umbuchung → Adress-Wallet; danach kein Hinweis mehr
+            val want = (c["retarget"] as Map<*, *>?)
+            val r = AddressWithdrawalMatch.retarget(a, trades)
+            assertEquals("$name (Ändern)", want?.get("id").num()?.toLong(), r?.trade?.id)
+            assertEquals("$name (von)", want?.get("from"), r?.from)
+            assertEquals("$name (nach)", want?.get("to"), r?.to)
+            assertEquals("$name (Karte)", r, AddressWithdrawalMatch.retargetFor("BTC", listOf(a), trades))
+            if (r != null) {
+                val after = trades.map { if (it.id == r.trade.id) it.copy(transferTo = r.to) else it }
+                assertEquals("$name (danach)", emptyList<Long>(), AddressWithdrawalMatch.matches(a, after).map { it.id })
+                assertNull("$name (danach Karte)", AddressWithdrawalMatch.retargetFor("BTC", listOf(a), after))
+            }
         }
+    }
+
+    /** Coin-Karte mit zwei Adressen: Ziel ist die Wallet der Adresse, zu der die genannte Umbuchung passt. */
+    @Test
+    fun cardTargetsTheMatchingAddress() {
+        val cases = data["cases"].list().map { it.obj() }
+        val c = cases.first { (it["matches"] as List<*>).isNotEmpty() }
+        val trades = c["trades"].list().map(::trade)
+        val hit = address(c["address"])
+        val other = hit.copy(id = 9, address = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq", label = "Spare", lastBalance = "7")
+        val r = AddressWithdrawalMatch.retargetFor("BTC", listOf(other, hit), trades)
+        assertEquals("Cold", r?.to)
+        assertEquals(2L, r?.trade?.id)
     }
 }

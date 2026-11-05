@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Anwani zinazofuatiliwa zinahesabiwa kuanzia salio lao la kwanza lililoonekana; mabadiliko ya baadaye ni uingiaji/utokaji, si faida.</string>
     <string name="portfolio_address_privacy">Anwani ya umma pekee ndiyo inatumwa kwa %1$s – kamwe si funguo wala seed phrase. Mtoa huduma anaiona pamoja na anwani yako ya IP. Hukaguliwa mara moja kila dakika 10 zaidi.</string>
     <string name="portfolio_address_remove">Ondoa anwani</string>
+    <string name="portfolio_address_retarget">Badilisha mahali pa kufikia</string>
+    <string name="portfolio_address_retarget_ask">Uhamisho %1$s: mahali pa kufikia “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">Badilisha</string>
     <string name="portfolio_address_show_only">Onyesha tu, usiongeze kwenye jalada</string>
     <string name="portfolio_address_show_only_short">Onyesha tu</string>
     <string name="portfolio_address_tokens">Hesabu tokeni</string>

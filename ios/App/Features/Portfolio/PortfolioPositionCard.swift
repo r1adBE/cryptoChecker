@@ -21,8 +21,10 @@ struct PortfolioPositionCard: View {
     var addressAmount: Decimal? = nil
     /// Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand über die Wallet zählt (`AddressSurplus`).
     var overlap = false
-    /// Ziel-Wallet einer eigenen Umbuchung gleicher Menge (`AddressWithdrawalMatch`): Hinweis statt `overlap`; nil = keine.
-    var withdrawalTarget: String? = nil
+    /// Eigene Umbuchung gleicher Menge (`AddressWithdrawalMatch.retarget(coin:)`): Hinweis statt `overlap`; nil = keine.
+    var retarget: AddressWithdrawalMatch.Retarget? = nil
+    /// «Ziel ändern» am Umbuchungs-Hinweis angetippt (Rückfrage beim Aufrufer, `retargetConfirmation`).
+    var onRetarget: ((AddressWithdrawalMatch.Retarget) -> Void)? = nil
     /// «ohne Kaufpreis» antippen: Einträge ohne Einstand (`PortfolioCostGapsSheet`); nil = nicht antippbar.
     var onMissingCost: (() -> Void)? = nil
     /// «Aus Adresse» antippen: Einstand für Adressguthaben (`PortfolioAddressLotsSheet`); nil = nicht antippbar.
@@ -72,12 +74,15 @@ struct PortfolioPositionCard: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
                     .costLink(onAddressCost)
-                if let withdrawalTarget {
-                    Text(L("portfolio_address_withdrawal_match", withdrawalTarget))
+                if let retarget {
+                    Text(L("portfolio_address_withdrawal_match", retarget.from))
                         .font(.caption)
                         .foregroundStyle(AppColors.error)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 2)
+                    if let onRetarget {
+                        PortfolioRetargetButton { onRetarget(retarget) }
+                    }
                 } else if overlap {
                     Text(L("portfolio_address_overlap", p.coin))
                         .font(.caption)

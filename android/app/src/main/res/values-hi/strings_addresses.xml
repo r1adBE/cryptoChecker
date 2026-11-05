@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">देखे जा रहे पते पहली बार देखे गए बैलेंस से गिने जाते हैं; बाद के बदलाव आवक/जावक हैं, लाभ नहीं।</string>
     <string name="portfolio_address_privacy">%1$s को सिर्फ़ सार्वजनिक पता भेजा जाता है – कभी भी कुंजियाँ या seed phrase नहीं। प्रदाता इसे आपके IP पते के साथ देखता है। अधिकतम हर 10 मिनट में जाँचा जाता है।</string>
     <string name="portfolio_address_remove">पता हटाएँ</string>
+    <string name="portfolio_address_retarget">लक्ष्य बदलें</string>
+    <string name="portfolio_address_retarget_ask">ट्रांसफ़र %1$s: लक्ष्य “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">बदलें</string>
     <string name="portfolio_address_show_only">सिर्फ़ दिखाएँ, पोर्टफ़ोलियो में न जोड़ें</string>
     <string name="portfolio_address_show_only_short">सिर्फ़ दिखाएँ</string>
     <string name="portfolio_address_tokens">टोकन गिनें</string>

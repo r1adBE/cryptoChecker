@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳನ್ನು ಮೊದಲು ಗಮನಿಸಿದ ಬ್ಯಾಲೆನ್ಸ್‌ನಿಂದ ಎಣಿಸಲಾಗುತ್ತದೆ; ನಂತರದ ಬದಲಾವಣೆಗಳು ಒಳಹರಿವು/ಹೊರಹರಿವು, ಲಾಭವಲ್ಲ.</string>
     <string name="portfolio_address_privacy">ಸಾರ್ವಜನಿಕ ವಿಳಾಸವನ್ನು ಮಾತ್ರ %1$s ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ – ಕೀಗಳು ಅಥವಾ ಸೀಡ್ ಫ್ರೇಸ್‌ಗಳನ್ನು ಎಂದಿಗೂ ಅಲ್ಲ. ಪೂರೈಕೆದಾರರು ಅದನ್ನು ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ನೋಡುತ್ತಾರೆ. ಗರಿಷ್ಠ 10 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="portfolio_address_remove">ವಿಳಾಸ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="portfolio_address_retarget">ಗಮ್ಯಸ್ಥಾನ ಬದಲಿಸಿ</string>
+    <string name="portfolio_address_retarget_ask">ವರ್ಗಾವಣೆ %1$s: ಗಮ್ಯಸ್ಥಾನ “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">ಬದಲಿಸಿ</string>
     <string name="portfolio_address_show_only">ತೋರಿಸಿ ಮಾತ್ರ, ಪೋರ್ಟ್‌ಫೋಲಿಯೊಗೆ ಸೇರಿಸಬೇಡಿ</string>
     <string name="portfolio_address_show_only_short">ತೋರಿಸಿ ಮಾತ್ರ</string>
     <string name="portfolio_address_tokens">ಟೋಕನ್‌ಗಳನ್ನು ಎಣಿಸಿ</string>

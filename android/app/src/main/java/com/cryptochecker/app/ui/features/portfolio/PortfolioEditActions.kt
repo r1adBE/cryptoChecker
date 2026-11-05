@@ -146,6 +146,29 @@ fun PortfolioViewModel.save(draft: TxDraft, onAskEnablePortfolio: () -> Unit = {
     }
 }
 
+/**
+ * «Ziel ändern» am Umbuchungs-Hinweis ([AddressWithdrawalMatch.Retarget][com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch.Retarget]):
+ * Ziel-Wallet der Umbuchung [id] auf [to] — derselbe Schreibweg wie Ändern im Blatt ([PortfolioRepository.save][com.cryptochecker.app.data.portfolio.PortfolioRepository.save],
+ * gleiche Prüfung); danach zählt nichts doppelt, der Hinweis entfällt. [onResult] mit dem Ergebnis (nicht geschrieben →
+ * Hinweis statt still); fehlt die Umbuchung inzwischen: [PortfolioWriteResult.FAILED].
+ */
+fun PortfolioViewModel.retargetTransfer(id: Long, to: String, onResult: (PortfolioWriteResult) -> Unit = {}) {
+    viewModelScope.launch {
+        val tx = retargeted(transactions.value.orEmpty(), id, to)
+        val result = if (tx == null) PortfolioWriteResult.FAILED else portfolioWrite("Ziel ändern") { repository.save(tx) }.first
+        onResult(result)
+        // Wie Speichern mit Ziel-Wallet: gleich neu bewerten
+        if (result == PortfolioWriteResult.OK) refresh(force = true)
+    }
+}
+
+/** Umbuchung [id] aus [all] mit Ziel [to] (gekürzt wie im Feld, [PortfolioTxForm.MAX_ROUTE]); keine Umbuchung/leer: null. */
+internal fun retargeted(all: List<PortfolioTxEntity>, id: Long, to: String): PortfolioTxEntity? {
+    val target = com.cryptochecker.app.util.TextLimit.takeGraphemes(to.trim(), PortfolioTxForm.MAX_ROUTE).trim()
+    if (target.isEmpty()) return null
+    return all.firstOrNull { it.id == id && it.type == PortfolioTxType.TRANSFER }?.copy(transferTo = target)
+}
+
 /** «Portfolio-Tab einschalten?» › Einschalten: Tab erscheint sofort; Logos und Widget wie beim Schalter. */
 fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
     viewModelScope.launch {

@@ -28,6 +28,8 @@ struct PortfolioAddressSheet: View {
     @State private var lotsFor: WatchedAddress?
     /// Eigenes Banner im Blatt («entfernt» mit «Rückgängig», Sperre): das des Portfolio-Tabs läge dahinter — wie Android.
     @State private var banner: WatchlistBannerMessage?
+    /// «Ziel ändern» am Umbuchungs-Hinweis: Rückfrage offen.
+    @State private var askRetarget: AddressWithdrawalMatch.Retarget?
 
     var body: some View {
         let addresses = data.watchedAddresses
@@ -107,6 +109,9 @@ struct PortfolioAddressSheet: View {
                 Button(L("action_cancel"), role: .cancel) {}
             } message: { chain in
                 Text(L("portfolio_address_overlap_ask", chain.coin))
+            }
+            .retargetConfirmation($askRetarget, hideAmounts: data.settings.hidePortfolioAmounts) { r in
+                PortfolioRetarget.apply(r, data: data, banner: $banner)
             }
             .sheet(item: $lotsFor) { a in
                 PortfolioAddressLotsSheet(addressId: a.id)
@@ -220,8 +225,8 @@ struct PortfolioAddressSheet: View {
             return "\(amount) (\(net.name))"
         }
         let overlap = WatchedAddressRules.overlap(a, ownCoins: ownCoins)
-        // Gleiche Menge wie eine eigene Umbuchung in eine andere Wallet: nur Hinweis (wie Android)
-        let withdrawalTarget = AddressWithdrawalMatch.targetWallet(AddressWithdrawalMatch.matches(a, txs: data.portfolio))
+        // Gleiche Menge wie eine eigene Umbuchung in eine andere Wallet: Hinweis mit «Ziel ändern» (wie Android)
+        let retarget = AddressWithdrawalMatch.retarget(a, txs: data.portfolio)
         let tokenText: String = data.settings.hidePortfolioAmounts ? "•••" : tokenParts.joined(separator: " · ")
         return VStack(alignment: .leading, spacing: 4) {
             VStack(alignment: .leading, spacing: 2) {
@@ -259,10 +264,10 @@ struct PortfolioAddressSheet: View {
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis, ohne Knöpfe; sonst dieselben Coins
-                // wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt)
-                if let withdrawalTarget, a.countInPortfolio {
-                    Text(L("portfolio_address_withdrawal_match", withdrawalTarget))
+                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis (Knopf darunter); sonst dieselben
+                // Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt)
+                if let retarget, a.countInPortfolio {
+                    Text(L("portfolio_address_withdrawal_match", retarget.from))
                         .font(.caption2)
                         .foregroundStyle(AppColors.error)
                         .fixedSize(horizontal: false, vertical: true)
@@ -274,7 +279,10 @@ struct PortfolioAddressSheet: View {
                 }
             }
             .accessibilityElement(children: .combine)
-            if withdrawalTarget == nil && !overlap.isEmpty && a.countInPortfolio {
+            if let retarget, a.countInPortfolio {
+                // «Ziel ändern»: erst die Rückfrage (wie Android)
+                PortfolioRetargetButton { askRetarget = retarget }
+            } else if !overlap.isEmpty && a.countInPortfolio {
                 // Hinweis bleibt, solange die Adresse zählt — «Nur anzeigen» mit einem Tipp (wie Android)
                 Button(L("portfolio_address_show_only_short")) {
                     data.setWatchedAddressCountInPortfolio(a.id, on: false)

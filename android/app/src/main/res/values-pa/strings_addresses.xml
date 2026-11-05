@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਆਪਣੇ ਪਹਿਲੇ ਦੇਖੇ ਗਏ ਬੈਲੈਂਸ ਤੋਂ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਬਾਅਦ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਆਮਦ/ਨਿਕਾਸੀ ਹਨ, ਮੁਨਾਫ਼ਾ ਨਹੀਂ।</string>
     <string name="portfolio_address_privacy">%1$s ਨੂੰ ਸਿਰਫ਼ ਜਨਤਕ ਪਤਾ ਭੇਜਿਆ ਜਾਂਦਾ ਹੈ – ਕਦੇ ਵੀ ਕੀਜ਼ ਜਾਂ ਸੀਡ ਫ੍ਰੇਜ਼ ਨਹੀਂ। ਪ੍ਰਦਾਤਾ ਇਸਨੂੰ ਤੁਹਾਡੇ IP ਪਤੇ ਦੇ ਨਾਲ ਦੇਖਦਾ ਹੈ। ਵੱਧ ਤੋਂ ਵੱਧ ਹਰ 10 ਮਿੰਟ ਵਿੱਚ ਇੱਕ ਵਾਰ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ।</string>
     <string name="portfolio_address_remove">ਪਤਾ ਹਟਾਓ</string>
+    <string name="portfolio_address_retarget">ਟਿਕਾਣਾ ਬਦਲੋ</string>
+    <string name="portfolio_address_retarget_ask">ਟ੍ਰਾਂਸਫਰ %1$s: ਟਿਕਾਣਾ “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">ਬਦਲੋ</string>
     <string name="portfolio_address_show_only">ਸਿਰਫ਼ ਦਿਖਾਓ, ਪੋਰਟਫੋਲੀਓ ਵਿੱਚ ਨਾ ਜੋੜੋ</string>
     <string name="portfolio_address_show_only_short">ਸਿਰਫ਼ ਦਿਖਾਓ</string>
     <string name="portfolio_address_tokens">ਟੋਕਨ ਗਿਣਤੀ ਵਿੱਚ ਲਓ</string>

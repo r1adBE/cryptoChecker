@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioOpenLot
 import com.cryptochecker.app.ui.components.AppCard
@@ -48,8 +49,10 @@ internal fun PositionCard(
     p: CoinPosition,
     addressAmount: java.math.BigDecimal? = null,
     overlap: Boolean = false,
-    /** Ziel-Wallet einer eigenen Umbuchung gleicher Menge ([AddressWithdrawalMatch]): Hinweis statt [overlap]; null = keine. */
-    withdrawalTarget: String? = null,
+    /** Eigene Umbuchung gleicher Menge ([AddressWithdrawalMatch.retargetFor]): Hinweis statt [overlap]; null = keine. */
+    retarget: AddressWithdrawalMatch.Retarget? = null,
+    /** «Ziel ändern» am Umbuchungs-Hinweis bestätigt ([RetargetHint]). */
+    onRetarget: (AddressWithdrawalMatch.Retarget) -> Unit = {},
     /** «ohne Kaufpreis» antippen: Einträge ohne Einstand ([PortfolioCostGapsSheet]); null = nicht antippbar. */
     onMissingCost: (() -> Unit)? = null,
     /** «Aus Adresse» antippen: Einstand für Adressguthaben ([PortfolioAddressLotsSheet]); null = nicht antippbar. */
@@ -110,11 +113,9 @@ internal fun PositionCard(
                 modifier = Modifier.costLink(onAddressCost).padding(top = 4.dp)
             )
             // Adresse und eigene Transaktionen im selben Coin: Hinweis, dass nur der Mehrbestand über die Wallet zählt ([AddressSurplus])
-            if (withdrawalTarget != null) {
-                Text(
-                    stringResource(R.string.portfolio_address_withdrawal_match, withdrawalTarget),
-                    style = MaterialTheme.typography.label,
-                    color = MaterialTheme.colorScheme.error,
+            if (retarget != null) {
+                RetargetHint(
+                    retarget, MaterialTheme.typography.label, LocalHidePortfolioAmounts.current, onRetarget,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             } else if (overlap) {

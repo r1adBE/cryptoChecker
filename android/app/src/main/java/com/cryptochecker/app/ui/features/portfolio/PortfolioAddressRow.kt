@@ -35,6 +35,7 @@ import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
+import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
@@ -57,14 +58,16 @@ internal fun AddressRow(
     now: Long,
     hideAmounts: Boolean,
     overlap: List<String>,
-    /** Ziel-Wallet einer eigenen Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch]); null = keine. */
-    withdrawalTarget: String?,
+    /** Eigene Umbuchung gleicher Menge in eine andere Wallet ([AddressWithdrawalMatch.retarget]); null = keine. */
+    retarget: AddressWithdrawalMatch.Retarget?,
     onRemove: () -> Unit,
     onCountTokens: (Boolean) -> Unit,
     onNetworks: (List<String>) -> Unit,
     onShowOnly: (Boolean) -> Unit,
     /** «Einstand für Adressguthaben» ([PortfolioAddressLotsSheet]). */
     onCostLots: () -> Unit = {},
+    /** «Ziel ändern» am Umbuchungs-Hinweis bestätigt ([RetargetHint]). */
+    onRetarget: (AddressWithdrawalMatch.Retarget) -> Unit = {},
     /** Echte Transaktionen und alle Adressen: Abdeckung der Posten wie im Rechner ([AddressCostLots.coverage]). */
     trades: List<PortfolioTrade> = emptyList(),
     allAddresses: List<WatchedAddress> = listOf(a),
@@ -152,13 +155,9 @@ internal fun AddressRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            if (withdrawalTarget != null && a.countInPortfolio) {
-                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis, ohne Knöpfe, Summen unverändert
-                Text(
-                    stringResource(R.string.portfolio_address_withdrawal_match, withdrawalTarget),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.error,
-                )
+            if (retarget != null && a.countInPortfolio) {
+                // Nicht in die Adress-Wallet erfasste Abhebung gleicher Menge: Hinweis mit «Ziel ändern», Summen unverändert
+                RetargetHint(retarget, MaterialTheme.typography.labelSmall, hideAmounts, onRetarget)
             } else if (overlap.isNotEmpty() && a.countInPortfolio) {
                 // Dieselben Coins wie eigene Transaktionen: Hinweis (nur der Mehrbestand über diese Wallet zählt) —
                 // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp

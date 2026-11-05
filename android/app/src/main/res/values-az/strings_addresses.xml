@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">İzlənən ünvanlar ilk müşahidə olunan balansdan hesablanır; sonrakı dəyişikliklər daxilolma/çıxış sayılır, gəlir deyil.</string>
     <string name="portfolio_address_privacy">%1$s xidmətinə yalnız açıq ünvan göndərilir – heç vaxt açarlar və ya seed ifadələri. Provayder onu IP ünvanınla birlikdə görür. Ən çoxu 10 dəqiqədən bir yoxlanılır.</string>
     <string name="portfolio_address_remove">Ünvanı sil</string>
+    <string name="portfolio_address_retarget">Hədəfi dəyiş</string>
+    <string name="portfolio_address_retarget_ask">Köçürmə %1$s: hədəf «%2$s» → «%3$s»?</string>
+    <string name="portfolio_address_retarget_confirm">Dəyiş</string>
     <string name="portfolio_address_show_only">Yalnız göstər, portfelə əlavə etmə</string>
     <string name="portfolio_address_show_only_short">Yalnız göstər</string>
     <string name="portfolio_address_tokens">Tokenləri hesabla</string>

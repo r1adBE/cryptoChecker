@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Alamat yang dipantau dikira dari baki pertama yang diperhatikan; perubahan kemudian ialah aliran masuk/keluar, bukan keuntungan.</string>
     <string name="portfolio_address_privacy">Hanya alamat awam dihantar kepada %1$s – tidak sekali-kali kunci atau frasa benih. Penyedia melihatnya bersama alamat IP anda. Disemak paling kerap setiap 10 minit.</string>
     <string name="portfolio_address_remove">Alih keluar alamat</string>
+    <string name="portfolio_address_retarget">Tukar destinasi</string>
+    <string name="portfolio_address_retarget_ask">Pemindahan %1$s: destinasi “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">Tukar</string>
     <string name="portfolio_address_show_only">Tunjuk sahaja, jangan kira dalam portfolio</string>
     <string name="portfolio_address_show_only_short">Tunjuk sahaja</string>
     <string name="portfolio_address_tokens">Kira token</string>

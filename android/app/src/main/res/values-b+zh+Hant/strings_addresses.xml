@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">觀察的地址從首次觀察到的餘額開始計算；之後的變化屬於流入/流出，不算收益。</string>
     <string name="portfolio_address_privacy">只向 %1$s 發送公開地址——絕不發送金鑰或助記詞。服務方會同時看到你的 IP 地址。最多每 10 分鐘查詢一次。</string>
     <string name="portfolio_address_remove">移除地址</string>
+    <string name="portfolio_address_retarget">變更目的地</string>
+    <string name="portfolio_address_retarget_ask">轉移 %1$s：目的地「%2$s」→「%3$s」？</string>
+    <string name="portfolio_address_retarget_confirm">變更</string>
     <string name="portfolio_address_show_only">僅顯示，不計入投資組合</string>
     <string name="portfolio_address_show_only_short">僅顯示</string>
     <string name="portfolio_address_tokens">計入代幣</string>

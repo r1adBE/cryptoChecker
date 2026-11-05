@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">စောင့်ကြည့်သော လိပ်စာများကို ပထမဆုံး တွေ့ရှိသည့် လက်ကျန်မှ စတင်တွက်သည်၊ နောက်ပိုင်း ပြောင်းလဲမှုများသည် ငွေဝင်/ငွေထွက်ဖြစ်ပြီး အမြတ်မဟုတ်ပါ။</string>
     <string name="portfolio_address_privacy">အများသုံး လိပ်စာကိုသာ %1$s သို့ ပို့သည် – သော့ သို့မဟုတ် seed phrase ကို ဘယ်တော့မှ မပို့ပါ။ ဝန်ဆောင်မှုပေးသူသည် ၎င်းကို သင့် IP လိပ်စာနှင့်အတူ မြင်ရသည်။ အများဆုံး မိနစ် 10 တစ်ကြိမ် စစ်ဆေးသည်။</string>
     <string name="portfolio_address_remove">လိပ်စာ ဖယ်ရှားရန်</string>
+    <string name="portfolio_address_retarget">ဦးတည်ရာ ပြောင်းပါ</string>
+    <string name="portfolio_address_retarget_ask">လွှဲပြောင်းမှု %1$s – ဦးတည်ရာ “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">ပြောင်းပါ</string>
     <string name="portfolio_address_show_only">ပြရုံသာ၊ ပေါ့ဖိုလီယိုထဲ မပေါင်းထည့်ပါ</string>
     <string name="portfolio_address_show_only_short">ပြရုံသာ</string>
     <string name="portfolio_address_tokens">တိုကင်များ ထည့်တွက်ရန်</string>

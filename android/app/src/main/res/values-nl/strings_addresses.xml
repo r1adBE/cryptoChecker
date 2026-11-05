@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Gevolgde adressen tellen vanaf het eerst waargenomen saldo; latere wijzigingen zijn in-/uitstromen, geen winst.</string>
     <string name="portfolio_address_privacy">Alleen het openbare adres wordt naar %1$s gestuurd – nooit sleutels of seedzinnen. De aanbieder ziet het samen met je IP-adres. Hooguit elke 10 minuten opgevraagd.</string>
     <string name="portfolio_address_remove">Adres verwijderen</string>
+    <string name="portfolio_address_retarget">Bestemming wijzigen</string>
+    <string name="portfolio_address_retarget_ask">Overboeking %1$s: bestemming ‘%2$s’ → ‘%3$s’?</string>
+    <string name="portfolio_address_retarget_confirm">Wijzigen</string>
     <string name="portfolio_address_show_only">Alleen tonen, niet bij portfolio optellen</string>
     <string name="portfolio_address_show_only_short">Alleen tonen</string>
     <string name="portfolio_address_tokens">Tokens meetellen</string>

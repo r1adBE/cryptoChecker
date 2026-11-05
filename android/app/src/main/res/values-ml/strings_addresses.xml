@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ ആദ്യം കണ്ട ബാലൻസ് മുതൽ കണക്കാക്കുന്നു; പിന്നീടുള്ള മാറ്റങ്ങൾ വരവ്/പോക്ക് ആണ്, ലാഭമല്ല.</string>
     <string name="portfolio_address_privacy">പൊതു വിലാസം മാത്രമാണ് %1$s-ലേക്ക് അയയ്ക്കുന്നത് – കീകളോ സീഡ് ഫ്രേസുകളോ ഒരിക്കലുമില്ല. ദാതാവ് അത് നിങ്ങളുടെ IP വിലാസത്തോടൊപ്പം കാണുന്നു. പരമാവധി 10 മിനിറ്റിലൊരിക്കൽ പരിശോധിക്കുന്നു.</string>
     <string name="portfolio_address_remove">വിലാസം നീക്കം ചെയ്യുക</string>
+    <string name="portfolio_address_retarget">ലക്ഷ്യം മാറ്റുക</string>
+    <string name="portfolio_address_retarget_ask">കൈമാറ്റം %1$s: ലക്ഷ്യം “%2$s” → “%3$s”?</string>
+    <string name="portfolio_address_retarget_confirm">മാറ്റുക</string>
     <string name="portfolio_address_show_only">കാണിക്കുക മാത്രം, പോർട്ട്ഫോളിയോയിൽ ചേർക്കരുത്</string>
     <string name="portfolio_address_show_only_short">കാണിക്കുക മാത്രം</string>
     <string name="portfolio_address_tokens">ടോക്കണുകൾ കണക്കാക്കുക</string>

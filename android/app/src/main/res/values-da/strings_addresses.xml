@@ -14,6 +14,9 @@
     <string name="portfolio_address_period_observed">Overvågede adresser tæller fra den første observerede saldo; senere ændringer er ind-/udstrømninger, ikke gevinst.</string>
     <string name="portfolio_address_privacy">Kun den offentlige adresse sendes til %1$s – aldrig nøgler eller seed-sætninger. Udbyderen ser den sammen med din IP-adresse. Tjekkes højst hvert 10. minut.</string>
     <string name="portfolio_address_remove">Fjern adresse</string>
+    <string name="portfolio_address_retarget">Skift modtager</string>
+    <string name="portfolio_address_retarget_ask">Overførsel %1$s: modtager «%2$s» → «%3$s»?</string>
+    <string name="portfolio_address_retarget_confirm">Skift</string>
     <string name="portfolio_address_show_only">Vis kun, tæl ikke med i porteføljen</string>
     <string name="portfolio_address_show_only_short">Vis kun</string>
     <string name="portfolio_address_tokens">Medregn tokens</string>

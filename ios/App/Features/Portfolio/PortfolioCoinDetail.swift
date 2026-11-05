@@ -19,6 +19,8 @@ struct PortfolioCoinDetail: View {
     @State private var costGapsOpen = false
     @State private var lotsFor: WatchedAddress?
     @State private var banner: WatchlistBannerMessage?
+    /// «Ziel ändern» am Umbuchungs-Hinweis: Rückfrage offen.
+    @State private var askRetarget: AddressWithdrawalMatch.Retarget?
     @State private var deleteTick = 0
     /// Im Hintergrund gerechnet (`PortfolioModel.coinLedger`); bis zum neuen Ergebnis bleibt das letzte.
     @State private var ledger: CoinLedger?
@@ -41,8 +43,9 @@ struct PortfolioCoinDetail: View {
         List {
             if let ledger {
                 PortfolioPositionCard(position: ledger.position, addressAmount: fromAddress, overlap: !own.isEmpty,
-                                      withdrawalTarget: AddressWithdrawalMatch.targetWallet(
-                                          AddressWithdrawalMatch.matches(coin: coin, addresses: data.watchedAddresses, txs: all)),
+                                      retarget: AddressWithdrawalMatch.retarget(coin: coin, addresses: data.watchedAddresses,
+                                                                                txs: all),
+                                      onRetarget: { askRetarget = $0 },
                                       onMissingCost: { costGapsOpen = true },
                                       onAddressCost: lotAddress.map { a -> () -> Void in { lotsFor = a } })
                     .portfolioListRow(top: 4, bottom: 4)
@@ -127,6 +130,9 @@ struct PortfolioCoinDetail: View {
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
         .haptic(.destructive, trigger: deleteTick)
+        .retargetConfirmation($askRetarget, hideAmounts: data.settings.hidePortfolioAmounts) { r in
+            PortfolioRetarget.apply(r, data: data, banner: $banner)
+        }
         .sheet(isPresented: $costGapsOpen) {
             PortfolioCostGapsSheet(coin: coin) { tx in
                 costGapsOpen = false
