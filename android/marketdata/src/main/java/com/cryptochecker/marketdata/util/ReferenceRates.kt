@@ -97,9 +97,9 @@ object ReferenceRates {
 
     // ── Kurse ──
 
-    /** Einheiten [quote] je 1 [base] aus einer Veröffentlichung [day] (5 Stellen); null ohne beide Kurse. */
+    /** Einheiten [quote] je 1 [base] aus einer Veröffentlichung [day] (5 Stellen); null ohne beide Kurse oder für [EXCLUDED]. */
     fun cross(day: Map<String, Double>, base: String, quote: String): Double? {
-        if (base == quote) return null
+        if (base == quote || base in EXCLUDED || quote in EXCLUDED) return null
         val baseRate = day[base]?.takeIf { it > 0.0 && it.isFinite() } ?: return null
         val quoteRate = day[quote]?.takeIf { it > 0.0 && it.isFinite() } ?: return null
         return EcbRates.round5(baseRate / quoteRate)

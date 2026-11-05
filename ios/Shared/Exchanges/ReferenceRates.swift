@@ -61,9 +61,10 @@ enum ReferenceRates {
 
     // MARK: Kurse
 
-    /// Einheiten `quote` je 1 `base` aus einer Veröffentlichung (5 Stellen); nil ohne beide Kurse.
+    /// Einheiten `quote` je 1 `base` aus einer Veröffentlichung (5 Stellen); nil ohne beide Kurse oder für `excluded`.
     static func cross(_ day: Day, base: String, quote: String) -> Double? {
-        guard base != quote, let b = day[base], b > 0, b.isFinite, let q = day[quote], q > 0, q.isFinite else { return nil }
+        guard base != quote, !excluded.contains(base), !excluded.contains(quote),
+              let b = day[base], b > 0, b.isFinite, let q = day[quote], q > 0, q.isFinite else { return nil }
         return EcbRates.round5(b / q)
     }
 
