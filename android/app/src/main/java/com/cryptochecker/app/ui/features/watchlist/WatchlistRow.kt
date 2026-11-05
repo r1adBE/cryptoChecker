@@ -181,10 +181,10 @@ internal fun WatchRow(
     val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text -> { onSourceHint(text) } }
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
-    // Stundenkurs (abgeschlossene Kerze ohne letzten Abschluss, WOO X Spot) bzw. EZB-Referenzkurs: wie im Blatt benannt
+    // Stundenkurs (abgeschlossene Kerze ohne letzten Abschluss, WOO X Spot) bzw. Referenzkurs (EZB, NBU, NBP): wie im Blatt
     val rowExchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
     val hourlyPrice = !markPrice && watch.lastPrice != null && (rowExchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current)
-    val dailyReference = !markPrice && watch.lastPrice != null && rowExchange.priceIsDailyReference
+    val reference = com.cryptochecker.marketdata.model.ReferenceSource.of(watch.exchangeKey)?.takeIf { !markPrice && watch.lastPrice != null }
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
     // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»
     val notTraded = isNotTraded(watch.lastError)
@@ -213,7 +213,7 @@ internal fun WatchRow(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
             if (hourlyPrice) stringResource(R.string.watch_price_hourly) else null,
-            if (dailyReference) stringResource(R.string.watch_price_reference) else null,
+            reference?.let { com.cryptochecker.app.ui.components.referencePeriodText(it) },
             (convertedA11y ?: converted)?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
             chartSource?.takeIf { sparkline != null && sparkline.size >= 2 }?.let { stringResource(R.string.watch_row_source_chart, it) },
@@ -314,7 +314,7 @@ internal fun WatchRow(
                     onChangeMarkerClick = showSourceHint,
                     markPrice = markPrice,
                     hourlyPrice = hourlyPrice,
-                    dailyReference = dailyReference,
+                    reference = reference,
                     largePrice = largePrice,
                     modifier = priceModifier,
                 )

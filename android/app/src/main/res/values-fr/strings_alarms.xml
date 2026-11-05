@@ -190,6 +190,7 @@
     <string name="alarm_reliability_storage_no_key">Alertes en pause en arrière-plan – liste non enregistrée</string>
     <string name="alarms_limit_reached">Une paire peut avoir au maximum %1$s alertes.</string>
     <string name="alarms_reference_rate_hint">Les taux de référence de la BCE ne sont fixés qu’une fois par jour – il n’y a pas d’alertes pour eux.</string>
+    <string name="alarms_reference_rate_hint_bank">Les taux de référence des banques centrales ne sont fixés que chaque jour ou chaque semaine – il n’y a pas d’alertes pour eux.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Une baisse doit être inférieure à 100 pour cent.</string>

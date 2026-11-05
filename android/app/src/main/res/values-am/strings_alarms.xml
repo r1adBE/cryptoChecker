@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">ማንቂያዎች ከበስተጀርባ ቆመዋል – የክትትል ዝርዝሩ አልተቀመጠም</string>
     <string name="alarms_limit_reached">አንድ ጥንድ ቢበዛ %1$s ማንቂያዎች ሊኖሩት ይችላል።</string>
     <string name="alarms_reference_rate_hint">የECB የማጣቀሻ ተመኖች የሚወሰኑት በቀን አንድ ጊዜ ብቻ ነው – ለእነሱ ማንቂያዎች የሉም።</string>
+    <string name="alarms_reference_rate_hint_bank">የማዕከላዊ ባንኮች የማጣቀሻ ተመኖች የሚወሰኑት በየቀኑ ወይም በየሳምንቱ ብቻ ነው – ለእነሱ ማንቂያዎች የሉም።</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">መውረዱ ከ100 መቶኛ ያነሰ መሆን አለበት።</string>

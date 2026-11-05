@@ -86,6 +86,13 @@ final class WatchedAddressAndAlarmStatusTests: XCTestCase {
         XCTAssertNil(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: false))
         XCTAssertFalse(Woo().priceIsHourlyClose) // letzter Abschluss statt Stundenkurs
         XCTAssertFalse(WooFutures().priceIsHourlyClose)
+        // Referenzkurse: EZB und NBU täglich, NBP wöchentlich (wie Android `PriceKindLabelTest`)
+        XCTAssertEqual(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: false, dailyReference: true),
+                       .dailyReference)
+        XCTAssertEqual(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: false, weeklyReference: true),
+                       .weeklyReference)
+        XCTAssertTrue(NbuReference().priceIsDailyReference)
+        XCTAssertFalse(NbpReference().priceIsDailyReference)
     }
 
     // MARK: Karte «Ersten Alarm setzen»

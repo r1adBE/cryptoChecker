@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Сите берзи</string>
     <string name="explorer_exchanges_title">Берзи</string>
     <string name="explorer_forex_hint">Дневен курс на Европската централна банка, не во живо – нема аларми.</string>
+    <string name="explorer_forex_live">Во живо (берза)</string>
+    <string name="explorer_forex_reference">Референтен курс</string>
+    <string name="explorer_forex_hint_bank">Референтен курс на централна банка, не во живо – нема аларми.</string>
+    <string name="explorer_source_ecb">Извор: ЕЦБ</string>
+    <string name="explorer_source_nbu">Извор: Народна банка на Украина</string>
+    <string name="explorer_source_nbp">Извор: Народна банка на Полска</string>
+    <string name="explorer_source_converted">пресметано</string>
 </resources>

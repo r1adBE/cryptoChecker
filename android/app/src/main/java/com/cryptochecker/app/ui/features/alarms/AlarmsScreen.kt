@@ -166,7 +166,7 @@ fun AlarmsScreen(
         snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
         if (alarms.isEmpty() && referenceRate) {
-            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote() }
+            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote(watch?.exchangeKey) }
         } else if (alarms.isEmpty() && lowLiquidity) {
             // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
             Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
@@ -195,7 +195,7 @@ fun AlarmsScreen(
                         item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
                     }
                     if (referenceRate) {
-                        item(key = "reference_rate") { ReferenceRateNote() }
+                        item(key = "reference_rate") { ReferenceRateNote(watch?.exchangeKey) }
                     }
                     if (alarmsFull) {
                         item(key = "alarm_limit") { AlarmLimitNote() }

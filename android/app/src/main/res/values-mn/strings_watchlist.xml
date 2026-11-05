@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Биржээр эрэмбэлэх</string>
     <string name="watchlist_limit_reached">Таны ажиглах жагсаалт дээд тал нь %1$s хостой байж болно.</string>
     <string name="watch_price_reference">лавлах ханш, өдрийн</string>
+    <string name="watch_price_reference_weekly">лавлах ханш, долоо хоногийн</string>
     <string name="watch_price_daily">өдрийн</string>
+    <string name="watch_price_weekly">долоо хоногийн</string>
     <string name="watchlist_compare">Харьцуулах</string>
     <string name="watchlist_compare_hint">Харьцуулахын тулд 2-оос 4 хос сонгоно уу.</string>
     <string name="compare_title">Харьцуулалт</string>

@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">બૅકગ્રાઉન્ડમાં એલર્ટ થોભાવ્યા – વૉચલિસ્ટ સેવ થઈ નથી</string>
     <string name="alarms_limit_reached">એક જોડી માટે વધુમાં વધુ %1$s એલર્ટ હોઈ શકે છે.</string>
     <string name="alarms_reference_rate_hint">ECB સંદર્ભ દરો દિવસમાં ફક્ત એક જ વાર નક્કી થાય છે – તેમના માટે એલર્ટ નથી.</string>
+    <string name="alarms_reference_rate_hint_bank">કેન્દ્રીય બૅન્કોના સંદર્ભ દરો ફક્ત દૈનિક અથવા સાપ્તાહિક નક્કી થાય છે – તેમના માટે એલર્ટ નથી.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ઘટાડો 100 ટકાથી ઓછો હોવો જોઈએ.</string>

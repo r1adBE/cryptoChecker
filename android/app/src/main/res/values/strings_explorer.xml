@@ -161,4 +161,11 @@
     <string name="explorer_all_exchanges_title">All exchanges</string>
     <string name="explorer_exchanges_title">Exchanges</string>
     <string name="explorer_forex_hint">Daily rate of the European Central Bank, not live – no alerts.</string>
+    <string name="explorer_forex_live">Live (exchange)</string>
+    <string name="explorer_forex_reference">Reference rate</string>
+    <string name="explorer_forex_hint_bank">Reference rate of a central bank, not live – no alerts.</string>
+    <string name="explorer_source_ecb">Source: ECB</string>
+    <string name="explorer_source_nbu">Source: National Bank of Ukraine</string>
+    <string name="explorer_source_nbp">Source: National Bank of Poland</string>
+    <string name="explorer_source_converted">converted</string>
 </resources>

@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">所有交易所</string>
     <string name="explorer_exchanges_title">交易所</string>
     <string name="explorer_forex_hint">欧洲中央银行的每日汇率，非实时——没有提醒。</string>
+    <string name="explorer_forex_live">实时（交易所）</string>
+    <string name="explorer_forex_reference">参考汇率</string>
+    <string name="explorer_forex_hint_bank">中央银行的参考汇率，非实时——没有提醒。</string>
+    <string name="explorer_source_ecb">来源：欧洲央行</string>
+    <string name="explorer_source_nbu">来源：乌克兰国家银行</string>
+    <string name="explorer_source_nbp">来源：波兰国家银行</string>
+    <string name="explorer_source_converted">已换算</string>
 </resources>

@@ -53,6 +53,14 @@ terms apply.
   EUR (cross rates, 5 significant digits) and the change against the previous
   ECB day are calculated by the apps from these rates. Terms:
   https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html
+- National Bank of Ukraine (bank.gov.ua): official exchange rates of the
+  hryvnia, for currencies the ECB does not list. Source: National Bank of
+  Ukraine. Rates against USD and EUR (cross rates, 5 significant digits) and the
+  change against the previous publication are calculated by the apps.
+- National Bank of Poland (api.nbp.pl): average exchange rates of tables A and B,
+  for the remaining currencies. Source: Narodowy Bank Polski. Rates against USD
+  and EUR (cross rates of the same publication date, 5 significant digits) and
+  the change against the previous week's table are calculated by the apps.
 - ExchangeRate-API (open.er-api.com, fallback FX rates): "Rates By Exchange
   Rate API" (https://www.exchangerate-api.com).
 - Exchanges and other price sources named in the privacy policy (for example

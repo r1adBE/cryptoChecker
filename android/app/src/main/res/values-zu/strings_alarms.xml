@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Ama-alamu amisiwe ngemuva – uhlu lokubuka alulondolozwanga</string>
     <string name="alarms_limit_reached">Ipheya lingaba nama-alamu angu-%1$s ubuningi.</string>
     <string name="alarms_reference_rate_hint">Amazinga ereferensi e-ECB abekwa kanye ngosuku kuphela – awekho ama-alamu awo.</string>
+    <string name="alarms_reference_rate_hint_bank">Amazinga ereferensi amabhange amakhulu abekwa nsuku zonke noma masonto onke kuphela – awekho ama-alamu awo.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Ukwehla kumele kube ngaphansi kwamaphesenti angu-100.</string>

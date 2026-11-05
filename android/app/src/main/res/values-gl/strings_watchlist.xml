@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Ordenar por exchange</string>
     <string name="watchlist_limit_reached">A túa lista pode ter como moito %1$s pares.</string>
     <string name="watch_price_reference">tipo de referencia, diario</string>
+    <string name="watch_price_reference_weekly">tipo de referencia, semanal</string>
     <string name="watch_price_daily">diario</string>
+    <string name="watch_price_weekly">semanal</string>
     <string name="watchlist_compare">Comparar</string>
     <string name="watchlist_compare_hint">Selecciona de 2 a 4 pares para comparalos.</string>
     <string name="compare_title">Comparación</string>

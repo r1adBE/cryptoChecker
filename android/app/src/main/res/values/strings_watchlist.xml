@@ -225,7 +225,9 @@
     <string name="watchlist_sort_by_exchange">Sort by exchange</string>
     <string name="watchlist_limit_reached">Your watchlist can have at most %1$s pairs.</string>
     <string name="watch_price_reference">reference rate, daily</string>
+    <string name="watch_price_reference_weekly">reference rate, weekly</string>
     <string name="watch_price_daily">daily</string>
+    <string name="watch_price_weekly">weekly</string>
     <!-- Vergleichsansicht -->
     <string name="watchlist_compare">Compare</string>
     <string name="watchlist_compare_hint">Select 2 to 4 pairs to compare.</string>

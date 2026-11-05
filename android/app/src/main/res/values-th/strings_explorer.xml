@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">กระดานเทรดทั้งหมด</string>
     <string name="explorer_exchanges_title">กระดานเทรด</string>
     <string name="explorer_forex_hint">อัตรารายวันของธนาคารกลางยุโรป ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน</string>
+    <string name="explorer_forex_live">เรียลไทม์ (กระดานเทรด)</string>
+    <string name="explorer_forex_reference">อัตราอ้างอิง</string>
+    <string name="explorer_forex_hint_bank">อัตราอ้างอิงของธนาคารกลาง ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน</string>
+    <string name="explorer_source_ecb">แหล่งที่มา: ECB</string>
+    <string name="explorer_source_nbu">แหล่งที่มา: ธนาคารแห่งชาติยูเครน</string>
+    <string name="explorer_source_nbp">แหล่งที่มา: ธนาคารแห่งชาติโปแลนด์</string>
+    <string name="explorer_source_converted">แปลงค่าแล้ว</string>
 </resources>

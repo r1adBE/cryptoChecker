@@ -254,7 +254,9 @@
     <string name="watchlist_sort_by_exchange">Sórtáil de réir malartáin</string>
     <string name="watchlist_limit_reached">Is féidir %1$s péire ar a mhéad a bheith i do liosta faire.</string>
     <string name="watch_price_reference">ráta tagartha, laethúil</string>
+    <string name="watch_price_reference_weekly">ráta tagartha, seachtainiúil</string>
     <string name="watch_price_daily">laethúil</string>
+    <string name="watch_price_weekly">seachtainiúil</string>
     <string name="watchlist_compare">Cuir i gcomparáid</string>
     <string name="watchlist_compare_hint">Roghnaigh 2 go 4 phéire le cur i gcomparáid.</string>
     <string name="compare_title">Comparáid</string>

@@ -2,6 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.ui.features.explorer.ExchangeMark
 import com.cryptochecker.app.ui.features.explorer.ExchangeSearch
+import com.cryptochecker.app.ui.features.explorer.ForexLive
 import com.cryptochecker.app.ui.features.explorer.MarketFilter
 import com.cryptochecker.app.ui.features.explorer.RecentExchanges
 import com.cryptochecker.marketdata.model.ExchangeCategory
@@ -59,5 +60,15 @@ class ExplorerBrowseParityTest {
             val actual = ExchangeSearch.find(c["query"] as String, strings(c["names"])) { it }
             assertEquals(c.toString(), strings(c["expected"]), actual)
         }
+    }
+
+    @Test
+    fun devisenLiveNurFiatPaare() {
+        val data = fixture["forexLive"].obj()
+        assertEquals(strings(data["exchanges"]), ForexLive.EXCHANGES)
+        for (c in data["pairs"].list().map { it.obj() }) {
+            assertEquals(c.toString(), c["fiat"], ForexLive.isFiatPair(c["base"] as String, c["quote"] as String))
+        }
+        for (c in data["live"].list().map { it.obj() }) assertEquals(c.toString(), c["live"], ForexLive.isLive(c["key"] as String))
     }
 }

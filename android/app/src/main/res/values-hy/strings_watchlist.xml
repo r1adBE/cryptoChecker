@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Դասավորել ըստ բորսայի</string>
     <string name="watchlist_limit_reached">Դիտացանկը կարող է ունենալ առավելագույնը %1$s զույգ։</string>
     <string name="watch_price_reference">հղումային փոխարժեք, օրական</string>
+    <string name="watch_price_reference_weekly">հղումային փոխարժեք, շաբաթական</string>
     <string name="watch_price_daily">օրական</string>
+    <string name="watch_price_weekly">շաբաթական</string>
     <string name="watchlist_compare">Համեմատել</string>
     <string name="watchlist_compare_hint">Ընտրիր 2-ից 4 զույգ՝ համեմատելու համար։</string>
     <string name="compare_title">Համեմատություն</string>

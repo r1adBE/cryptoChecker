@@ -91,7 +91,7 @@ internal fun PairAlarmsSection(
             com.cryptochecker.app.ui.components.NotificationsOffBanner()
         }
         when {
-            limits.referenceRate -> ReferenceRateNote()
+            limits.referenceRate -> ReferenceRateNote(watch.exchangeKey)
             limits.lowLiquidity -> DexLowLiquidityNote()
             limits.full -> AlarmLimitNote()
         }

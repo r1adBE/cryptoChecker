@@ -242,7 +242,9 @@
     <string name="watchlist_sort_by_exchange">Razvrsti po borzi</string>
     <string name="watchlist_limit_reached">Tvoj seznam ima lahko največ %1$s parov.</string>
     <string name="watch_price_reference">referenčni tečaj, dnevni</string>
+    <string name="watch_price_reference_weekly">referenčni tečaj, tedenski</string>
     <string name="watch_price_daily">dnevno</string>
+    <string name="watch_price_weekly">tedensko</string>
     <string name="watchlist_compare">Primerjaj</string>
     <string name="watchlist_compare_hint">Za primerjavo izberi 2 do 4 pare.</string>
     <string name="compare_title">Primerjava</string>

@@ -328,6 +328,24 @@ EXCHANGES = [
      "url": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?lastNObservations=1"
             "&format=jsondata&detail=dataonly",
      "fields": [["dataSets", 0, "series", "0:0:0:0:0", "observations", "0", 0]]},
+    # Reference rates of the National Bank of Ukraine and the National Bank of Poland (ReferenceRates.kt /
+    # ReferenceRates.swift): the NBU range the pairs read (last 7 days up to today in Kyiv, UTC+2 here) and
+    # the currency list of their pair list; NBP tables A (USD/EUR of the same day) and B (weekly) as the app requests them
+    {"key": "nbureference", "name": "National Bank of Ukraine (last 7 days)",
+     "url": "https://bank.gov.ua/NBU_Exchange/exchange_site?start="
+            + time.strftime("%Y%m%d", time.gmtime(time.time() + 2 * 3600 - 7 * 86400))
+            + "&end=" + time.strftime("%Y%m%d", time.gmtime(time.time() + 2 * 3600))
+            + "&sort=exchangedate&order=desc&json",
+     "fields": [[0, "rate_per_unit"]]},
+    {"key": "nbulist", "name": "National Bank of Ukraine (currency list)",
+     "url": "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json",
+     "fields": [[0, "rate"]]},
+    {"key": "nbptablea", "name": "National Bank of Poland (table A, USD/EUR)",
+     "url": "https://api.nbp.pl/api/exchangerates/tables/A/last/15?format=json",
+     "fields": [[0, "rates", 0, "mid"]]},
+    {"key": "nbpreference", "name": "National Bank of Poland (table B, weekly)",
+     "url": "https://api.nbp.pl/api/exchangerates/tables/B/last/2?format=json",
+     "fields": [[1, "rates", 0, "mid"]]},
 ]
 
 OK, FAIL, SKIP = "ok", "fail", "skip"

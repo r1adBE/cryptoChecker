@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">背景提示已暫停 – 自選清單未儲存</string>
     <string name="alarms_limit_reached">每個交易對最多可以有 %1$s 個提示。</string>
     <string name="alarms_reference_rate_hint">ECB 參考匯率每日只定一次 – 冇提示可用。</string>
+    <string name="alarms_reference_rate_hint_bank">中央銀行嘅參考匯率只係每日或者每週定一次 – 冇提示可用。</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">跌幅必須少過 100 百分比。</string>

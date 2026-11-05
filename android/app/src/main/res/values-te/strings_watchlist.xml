@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">ఎక్స్ఛేంజ్ వారీగా క్రమబద్ధీకరించండి</string>
     <string name="watchlist_limit_reached">మీ వాచ్‌లిస్ట్‌లో గరిష్ఠంగా %1$s జతలు ఉండవచ్చు.</string>
     <string name="watch_price_reference">రిఫరెన్స్ రేటు, రోజువారీ</string>
+    <string name="watch_price_reference_weekly">రిఫరెన్స్ రేటు, వారానికోసారి</string>
     <string name="watch_price_daily">రోజువారీ</string>
+    <string name="watch_price_weekly">వారానికోసారి</string>
     <string name="watchlist_compare">పోల్చండి</string>
     <string name="watchlist_compare_hint">పోల్చడానికి 2 నుండి 4 జతలను ఎంచుకోండి.</string>
     <string name="compare_title">పోలిక</string>

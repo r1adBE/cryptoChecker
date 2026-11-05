@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Visas biržas</string>
     <string name="explorer_exchanges_title">Biržas</string>
     <string name="explorer_forex_hint">Eiropas Centrālās bankas dienas kurss, nav tiešraidē – bez brīdinājumiem.</string>
+    <string name="explorer_forex_live">Tiešraidē (birža)</string>
+    <string name="explorer_forex_reference">Atsauces kurss</string>
+    <string name="explorer_forex_hint_bank">Centrālās bankas atsauces kurss, nav tiešraidē – bez brīdinājumiem.</string>
+    <string name="explorer_source_ecb">Avots: ECB</string>
+    <string name="explorer_source_nbu">Avots: Ukrainas Nacionālā banka</string>
+    <string name="explorer_source_nbp">Avots: Polijas Nacionālā banka</string>
+    <string name="explorer_source_converted">pārrēķināts</string>
 </resources>

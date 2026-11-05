@@ -229,7 +229,9 @@
     <string name="watchlist_sort_by_exchange">Ordenar por corretora</string>
     <string name="watchlist_limit_reached">Sua lista de acompanhamento pode ter no máximo %1$s pares.</string>
     <string name="watch_price_reference">taxa de referência, diária</string>
+    <string name="watch_price_reference_weekly">taxa de referência, semanal</string>
     <string name="watch_price_daily">diária</string>
+    <string name="watch_price_weekly">semanal</string>
     <string name="watchlist_compare">Comparar</string>
     <string name="watchlist_compare_hint">Selecione de 2 a 4 pares para comparar.</string>
     <string name="compare_title">Comparação</string>

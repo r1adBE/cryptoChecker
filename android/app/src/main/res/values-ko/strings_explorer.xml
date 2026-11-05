@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">전체 거래소</string>
     <string name="explorer_exchanges_title">거래소</string>
     <string name="explorer_forex_hint">유럽중앙은행의 일일 환율입니다. 실시간이 아니며 경보가 없습니다.</string>
+    <string name="explorer_forex_live">실시간(거래소)</string>
+    <string name="explorer_forex_reference">기준 환율</string>
+    <string name="explorer_forex_hint_bank">중앙은행의 기준 환율입니다. 실시간이 아니며 경보가 없습니다.</string>
+    <string name="explorer_source_ecb">출처: ECB</string>
+    <string name="explorer_source_nbu">출처: 우크라이나 국립은행</string>
+    <string name="explorer_source_nbp">출처: 폴란드 국립은행</string>
+    <string name="explorer_source_converted">환산됨</string>
 </resources>

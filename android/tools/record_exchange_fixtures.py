@@ -396,6 +396,16 @@ EXCHANGES = [
      "single": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
      "bulk": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
      "pairs": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"},
+    # Referenzkurse von NBU und NBP (ReferenceRates.kt / ReferenceRates.swift): Einzel- und Sammelkurs lesen dieselben
+    # Antworten (bei der NBP zwei, verbunden); Paarliste gemeinsam mit EZB/NBU (pairListCombined), darum ohne «pairs»
+    {"exchangeKey": "NbuReference", "pair": pair("AED", "USD", "AEDUSD"),
+     "single": ["https://bank.gov.ua/NBU_Exchange/exchange_site?start={kyiv-7}&end={kyiv}&sort=exchangedate&order=desc&json"],
+     "bulk": ["https://bank.gov.ua/NBU_Exchange/exchange_site?start={kyiv-7}&end={kyiv}&sort=exchangedate&order=desc&json"]},
+    {"exchangeKey": "NbpReference", "pair": pair("NGN", "USD", "NGNUSD"),
+     "single": ["https://api.nbp.pl/api/exchangerates/tables/A/last/15?format=json",
+                "https://api.nbp.pl/api/exchangerates/tables/B/last/2?format=json"],
+     "bulk": ["https://api.nbp.pl/api/exchangerates/tables/A/last/15?format=json",
+              "https://api.nbp.pl/api/exchangerates/tables/B/last/2?format=json"]},
 ]
 
 
@@ -456,8 +466,35 @@ def fetch(url, post, limit):
     return 0, "unreachable"
 
 
+# Referenzkurse aus mehreren Antworten (MultiResponseSource: NBU, NBP): die Antworten mit diesem Zeichen verbunden
+# (wie MultiResponseSource.SEPARATOR); «{kyiv}»/«{kyiv-7}» in einer Adresse = heutiges Kiewer Datum (UTC+2) bzw. 7 Tage davor
+JOIN_SEPARATOR = "\u001e"
+
+
+def expand(url):
+    """Platzhalter «{kyiv}» und «{kyiv-7}» als «yyyyMMdd» (NBU-Abfrage über die letzten Tage)."""
+    today = time.gmtime(time.time() + 2 * 3600)
+    week_ago = time.gmtime(time.time() + 2 * 3600 - 7 * 86400)
+    return url.replace("{kyiv}", time.strftime("%Y%m%d", today)).replace("{kyiv-7}", time.strftime("%Y%m%d", week_ago))
+
+
+def record_joined(entry, kind, urls, recorded_at):
+    """Mehrere Adressen zusammen (MultiResponseSource): jede einzeln geholt und geprüft, dann verbunden."""
+    bodies = []
+    for url in urls:
+        case, note = record_one(entry, kind, expand(url), recorded_at)
+        if case is None:
+            return None, note
+        bodies.append(case["body"])
+    case["request"] = " + ".join("GET " + expand(u) for u in urls)
+    case["body"] = JOIN_SEPARATOR.join(bodies)
+    return case, ""
+
+
 def record_one(entry, kind, url, recorded_at):
     """Ein Fall oder (None, Grund)."""
+    if isinstance(url, list):
+        return record_joined(entry, kind, url, recorded_at)
     post = entry.get("post")
     if entry.get("stamp"):
         url += ("&" if "?" in url else "?") + f"timestamp={int(time.time() * 1000)}"

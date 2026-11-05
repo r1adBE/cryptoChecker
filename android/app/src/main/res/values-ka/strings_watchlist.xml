@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">დალაგება ბირჟის მიხედვით</string>
     <string name="watchlist_limit_reached">დაკვირვების სიაში მაქსიმუმ %1$s წყვილი შეიძლება იყოს.</string>
     <string name="watch_price_reference">საორიენტაციო კურსი, დღიური</string>
+    <string name="watch_price_reference_weekly">საორიენტაციო კურსი, ყოველკვირეული</string>
     <string name="watch_price_daily">დღიური</string>
+    <string name="watch_price_weekly">ყოველკვირეული</string>
     <string name="watchlist_compare">შედარება</string>
     <string name="watchlist_compare_hint">შესადარებლად აირჩიე 2-დან 4-მდე წყვილი.</string>
     <string name="compare_title">შედარება</string>

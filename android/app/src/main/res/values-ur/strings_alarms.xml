@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">پس منظر میں الرٹس موقوف – واچ لسٹ محفوظ نہیں ہوئی</string>
     <string name="alarms_limit_reached">ایک جوڑے کے زیادہ سے زیادہ %1$s الرٹس ہو سکتے ہیں۔</string>
     <string name="alarms_reference_rate_hint">ECB کی حوالہ جاتی شرحیں دن میں صرف ایک بار طے ہوتی ہیں – ان کے لیے کوئی الرٹ نہیں۔</string>
+    <string name="alarms_reference_rate_hint_bank">مرکزی بینکوں کی حوالہ جاتی شرحیں صرف روزانہ یا ہفتہ وار طے ہوتی ہیں – ان کے لیے کوئی الرٹ نہیں۔</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">کمی 100 فیصد سے کم ہونی چاہیے۔</string>

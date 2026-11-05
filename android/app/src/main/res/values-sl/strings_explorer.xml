@@ -181,4 +181,11 @@
     <string name="explorer_all_exchanges_title">Vse borze</string>
     <string name="explorer_exchanges_title">Borze</string>
     <string name="explorer_forex_hint">Dnevni tečaj Evropske centralne banke, ne v živo – brez alarmov.</string>
+    <string name="explorer_forex_live">V živo (borza)</string>
+    <string name="explorer_forex_reference">Referenčni tečaj</string>
+    <string name="explorer_forex_hint_bank">Referenčni tečaj centralne banke, ne v živo – brez alarmov.</string>
+    <string name="explorer_source_ecb">Vir: ECB</string>
+    <string name="explorer_source_nbu">Vir: Narodna banka Ukrajine</string>
+    <string name="explorer_source_nbp">Vir: Narodna banka Poljske</string>
+    <string name="explorer_source_converted">preračunano</string>
 </resources>

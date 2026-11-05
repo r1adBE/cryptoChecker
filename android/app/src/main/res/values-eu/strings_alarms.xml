@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmak pausatuta atzeko planoan – zerrenda ez da gorde</string>
     <string name="alarms_limit_reached">Pare batek gehienez %1$s alarma izan ditzake.</string>
     <string name="alarms_reference_rate_hint">EBZren erreferentzia-tasak egunean behin bakarrik finkatzen dira – ez dago haietarako alarmarik.</string>
+    <string name="alarms_reference_rate_hint_bank">Banku zentralen erreferentzia-tasak egunero edo astero bakarrik finkatzen dira – ez dago haietarako alarmarik.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Jaitsiera batek 100 ehuneko baino txikiagoa izan behar du.</string>

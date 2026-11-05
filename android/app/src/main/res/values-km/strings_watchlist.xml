@@ -206,7 +206,9 @@
     <string name="watchlist_sort_by_exchange">តម្រៀបតាមផ្សារប្តូរ</string>
     <string name="watchlist_limit_reached">បញ្ជីតាមដានរបស់អ្នកអាចមានគូយ៉ាងច្រើន %1$s។</string>
     <string name="watch_price_reference">អត្រាយោង ប្រចាំថ្ងៃ</string>
+    <string name="watch_price_reference_weekly">អត្រាយោង ប្រចាំសប្តាហ៍</string>
     <string name="watch_price_daily">ប្រចាំថ្ងៃ</string>
+    <string name="watch_price_weekly">ប្រចាំសប្តាហ៍</string>
     <string name="watchlist_compare">ប្រៀបធៀប</string>
     <string name="watchlist_compare_hint">ជ្រើសរើសគូពី 2 ដល់ 4 ដើម្បីប្រៀបធៀប។</string>
     <string name="compare_title">ការប្រៀបធៀប</string>

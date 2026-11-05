@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಅಲರ್ಟ್‌ಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ – ವಾಚ್‌ಲಿಸ್ಟ್ ಉಳಿಸಲಾಗಿಲ್ಲ</string>
     <string name="alarms_limit_reached">ಒಂದು ಜೋಡಿಗೆ ಗರಿಷ್ಠ %1$s ಅಲರ್ಟ್‌ಗಳು ಇರಬಹುದು.</string>
     <string name="alarms_reference_rate_hint">ECB ಉಲ್ಲೇಖ ದರಗಳನ್ನು ದಿನಕ್ಕೆ ಒಮ್ಮೆ ಮಾತ್ರ ನಿಗದಿಪಡಿಸಲಾಗುತ್ತದೆ – ಅವುಗಳಿಗೆ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="alarms_reference_rate_hint_bank">ಕೇಂದ್ರ ಬ್ಯಾಂಕ್‌ಗಳ ಉಲ್ಲೇಖ ದರಗಳನ್ನು ದೈನಂದಿನ ಅಥವಾ ಸಾಪ್ತಾಹಿಕವಾಗಿ ಮಾತ್ರ ನಿಗದಿಪಡಿಸಲಾಗುತ್ತದೆ – ಅವುಗಳಿಗೆ ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ಇಳಿಕೆ 100 ಶೇಕಡಾಕ್ಕಿಂತ ಕಡಿಮೆ ಇರಬೇಕು.</string>

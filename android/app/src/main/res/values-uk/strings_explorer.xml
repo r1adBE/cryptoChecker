@@ -181,4 +181,11 @@
     <string name="explorer_all_exchanges_title">Усі біржі</string>
     <string name="explorer_exchanges_title">Біржі</string>
     <string name="explorer_forex_hint">Денний курс Європейського центрального банку, не в реальному часі – без сигналів.</string>
+    <string name="explorer_forex_live">Наживо (біржа)</string>
+    <string name="explorer_forex_reference">Референсний курс</string>
+    <string name="explorer_forex_hint_bank">Референсний курс центрального банку, не в реальному часі – без сигналів.</string>
+    <string name="explorer_source_ecb">Джерело: ЄЦБ</string>
+    <string name="explorer_source_nbu">Джерело: Національний банк України</string>
+    <string name="explorer_source_nbp">Джерело: Національний банк Польщі</string>
+    <string name="explorer_source_converted">перераховано</string>
 </resources>

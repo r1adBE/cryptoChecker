@@ -1,5 +1,5 @@
 {
-  "_comment": "Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (MarketFilter: welche Börsen-Art ein Chip zeigt), «Zuletzt genutzte Börsen» (neueste zuerst, jede einmal, höchstens recentMax), Zeichen der Börsen (Anfangsbuchstaben, Farbe aus dem ersten Wort) und Börsen zum Suchtext (ein Wort ab 3 Zeichen nennt den Namen, höchstens exchangeSearchLimit). Android: ExplorerBrowseParityTest.kt (MarketFilter, RecentExchanges, ExchangeMark, ExchangeSearch), iOS: ExplorerBrowseParityTests (ExplorerMarketFilter, ExplorerRecentExchanges, ExplorerExchangeMark, ExplorerExchangeSearch).",
+  "_comment": "Übersicht von «Paar hinzufügen» ohne Suchbegriff: Markt-Chips (MarketFilter: welche Börsen-Art ein Chip zeigt), «Zuletzt genutzte Börsen» (neueste zuerst, jede einmal, höchstens recentMax), Zeichen der Börsen (Anfangsbuchstaben, Farbe aus dem ersten Wort) und Börsen zum Suchtext (ein Wort ab 3 Zeichen nennt den Namen, höchstens exchangeSearchLimit) und die Gruppe «Live (Börse)» unter «Devisen» (forexLive: Börsen in Reihenfolge, Fiat-Paar = beide Seiten aus der EZB-Liste und verschieden). Android: ExplorerBrowseParityTest.kt (MarketFilter, RecentExchanges, ExchangeMark, ExchangeSearch), iOS: ExplorerBrowseParityTests (ExplorerMarketFilter, ExplorerRecentExchanges, ExplorerExchangeMark, ExplorerExchangeSearch).",
   "markets": [
     {
       "filter": "ALL",
@@ -209,5 +209,66 @@
       ],
       "expected": []
     }
-  ]
+  ],
+  "forexLive": {
+    "exchanges": [
+      "Kraken",
+      "Bitstamp"
+    ],
+    "pairs": [
+      {
+        "base": "EUR",
+        "quote": "USD",
+        "fiat": true
+      },
+      {
+        "base": "usd",
+        "quote": "jpy",
+        "fiat": true
+      },
+      {
+        "base": "AUD",
+        "quote": "JPY",
+        "fiat": true
+      },
+      {
+        "base": "BTC",
+        "quote": "USD",
+        "fiat": false
+      },
+      {
+        "base": "USDT",
+        "quote": "USD",
+        "fiat": false
+      },
+      {
+        "base": "EUR",
+        "quote": "EUR",
+        "fiat": false
+      },
+      {
+        "base": "PAXG",
+        "quote": "EUR",
+        "fiat": false
+      }
+    ],
+    "live": [
+      {
+        "key": "Kraken",
+        "live": true
+      },
+      {
+        "key": "Bitstamp",
+        "live": true
+      },
+      {
+        "key": "Binance",
+        "live": false
+      },
+      {
+        "key": "EcbReference",
+        "live": false
+      }
+    ]
+  }
 }

@@ -196,6 +196,7 @@
     <string name="alarm_reliability_storage_no_key">Оповещения в фоне приостановлены – список не сохранён</string>
     <string name="alarms_limit_reached">У пары может быть не больше %1$s оповещений.</string>
     <string name="alarms_reference_rate_hint">Референсные курсы ЕЦБ устанавливаются только раз в день – оповещений для них нет.</string>
+    <string name="alarms_reference_rate_hint_bank">Референсные курсы центральных банков устанавливаются только ежедневно или еженедельно – оповещений для них нет.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Падение должно быть меньше 100 процентов.</string>

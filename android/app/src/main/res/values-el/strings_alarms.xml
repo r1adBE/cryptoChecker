@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Οι συναγερμοί στο παρασκήνιο σε παύση – η λίστα δεν έχει αποθηκευτεί</string>
     <string name="alarms_limit_reached">Ένα ζεύγος μπορεί να έχει έως %1$s συναγερμούς.</string>
     <string name="alarms_reference_rate_hint">Οι ισοτιμίες αναφοράς της ΕΚΤ ορίζονται μόνο μία φορά την ημέρα – δεν υπάρχουν συναγερμοί γι’ αυτές.</string>
+    <string name="alarms_reference_rate_hint_bank">Οι ισοτιμίες αναφοράς των κεντρικών τραπεζών ορίζονται μόνο ημερησίως ή εβδομαδιαίως – δεν υπάρχουν συναγερμοί γι’ αυτές.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Μια πτώση πρέπει να είναι κάτω από 100 τοις εκατό.</string>

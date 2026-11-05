@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Sordi börsi järgi</string>
     <string name="watchlist_limit_reached">Sinu jälgimisloendis saab olla kuni %1$s paari.</string>
     <string name="watch_price_reference">viitekurss, iga päev</string>
+    <string name="watch_price_reference_weekly">viitekurss, iganädalane</string>
     <string name="watch_price_daily">iga päev</string>
+    <string name="watch_price_weekly">iganädalane</string>
     <string name="watchlist_compare">Võrdle</string>
     <string name="watchlist_compare_hint">Võrdlemiseks märgi 2 kuni 4 paari.</string>
     <string name="compare_title">Võrdlus</string>

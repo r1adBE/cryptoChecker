@@ -103,7 +103,7 @@ struct AlarmsScreen: View {
             if alarms.isEmpty && blocked {
                 ScrollView {
                     Group {
-                        if referenceRate { ReferenceRateAlarmNote() } else { DexLowLiquidityNote() }
+                        if referenceRate { ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey) } else { DexLowLiquidityNote() }
                     }
                     .padding(16)
                 }
@@ -131,7 +131,7 @@ struct AlarmsScreen: View {
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                     if referenceRate {
-                        ReferenceRateAlarmNote()
+                        ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
                             .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)

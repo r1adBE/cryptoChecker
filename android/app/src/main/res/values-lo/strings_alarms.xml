@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">ສັນຍານເຕືອນຢຸດຊົ່ວຄາວໃນພື້ນຫຼັງ – ລາຍການຕິດຕາມບໍ່ໄດ້ບັນທຶກ</string>
     <string name="alarms_limit_reached">ຄູ່ເທຣດໜຶ່ງມີສັນຍານເຕືອນໄດ້ສູງສຸດ %1$s ອັນ.</string>
     <string name="alarms_reference_rate_hint">ອັດຕາອ້າງອີງ ECB ຖືກກຳນົດມື້ລະຄັ້ງເທົ່ານັ້ນ – ບໍ່ມີສັນຍານເຕືອນສຳລັບມັນ.</string>
+    <string name="alarms_reference_rate_hint_bank">ອັດຕາອ້າງອີງຂອງທະນາຄານກາງຖືກກຳນົດລາຍວັນ ຫຼື ລາຍອາທິດເທົ່ານັ້ນ – ບໍ່ມີສັນຍານເຕືອນສຳລັບມັນ.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ການລົງຕ້ອງໜ້ອຍກວ່າ 100 ເປີເຊັນ.</string>

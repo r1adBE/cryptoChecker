@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Todas as plataformas</string>
     <string name="explorer_exchanges_title">Plataformas</string>
     <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu, não em tempo real – sem alarmes.</string>
+    <string name="explorer_forex_live">Em direto (plataforma)</string>
+    <string name="explorer_forex_reference">Taxa de referência</string>
+    <string name="explorer_forex_hint_bank">Taxa de referência de um banco central, não em tempo real – sem alarmes.</string>
+    <string name="explorer_source_ecb">Fonte: BCE</string>
+    <string name="explorer_source_nbu">Fonte: Banco Nacional da Ucrânia</string>
+    <string name="explorer_source_nbp">Fonte: Banco Nacional da Polónia</string>
+    <string name="explorer_source_converted">convertido</string>
 </resources>

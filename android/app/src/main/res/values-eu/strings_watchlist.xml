@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Ordenatu burtsaren arabera</string>
     <string name="watchlist_limit_reached">Zure zerrendak gehienez %1$s pare izan ditzake.</string>
     <string name="watch_price_reference">erreferentzia-tasa, egunekoa</string>
+    <string name="watch_price_reference_weekly">erreferentzia-tasa, astekoa</string>
     <string name="watch_price_daily">egunekoa</string>
+    <string name="watch_price_weekly">astekoa</string>
     <string name="watchlist_compare">Konparatu</string>
     <string name="watchlist_compare_hint">Hautatu 2 eta 4 pare artean konparatzeko.</string>
     <string name="compare_title">Konparazioa</string>

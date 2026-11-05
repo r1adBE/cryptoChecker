@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">ब्याकग्राउन्डमा अलर्टहरू रोकिएका छन् – वाचलिस्ट सेभ भएको छैन</string>
     <string name="alarms_limit_reached">एउटा जोडीमा बढीमा %1$s अलर्ट हुन सक्छन्।</string>
     <string name="alarms_reference_rate_hint">ECB सन्दर्भ दरहरू दिनमा एक पटक मात्र तय हुन्छन् – तिनका लागि अलर्ट छैनन्।</string>
+    <string name="alarms_reference_rate_hint_bank">केन्द्रीय बैंकहरूको सन्दर्भ दर दैनिक वा साप्ताहिक मात्र तय हुन्छन् – तिनका लागि अलर्ट छैनन्।</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">गिरावट 100 प्रतिशतभन्दा कम हुनुपर्छ।</string>

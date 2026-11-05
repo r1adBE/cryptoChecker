@@ -36,8 +36,10 @@ import com.cryptochecker.app.ui.components.Ticker
 import com.cryptochecker.app.ui.features.watchlist.friendlyError
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.ReferenceSourceLine
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.util.DisplayFormat
+import com.cryptochecker.marketdata.model.ReferenceSource
 
 /** Abstand zwischen den Feldern innerhalb einer Karte. */
 private val FieldGap = 12.dp
@@ -84,8 +86,11 @@ internal fun ExchangeHeaderCard(
             pairList = pairList,
             onReload = onReload,
         )
-        // EZB-Referenzkurse: täglich, nicht live, keine Alarme — gleich beim Öffnen sagen
-        if (isForex) StepHint(stringResource(R.string.explorer_forex_hint))
+        // Referenzkurse: nicht live, keine Alarme — gleich beim Öffnen sagen (EZB «Tageskurs …», NBU/NBP «Zentralbank»)
+        val reference = ReferenceSource.of(exchange.key).takeIf { isForex }
+        if (reference != null) {
+            StepHint(stringResource(if (reference == ReferenceSource.ECB) R.string.explorer_forex_hint else R.string.explorer_forex_hint_bank))
+        }
     }
 }
 
@@ -187,6 +192,8 @@ internal fun PairStepCard(
     onRetryPrice: () -> Unit,
     onReload: () -> Unit,
     onAdd: () -> Unit,
+    /** Referenzkurs: Quellzeile unter dem Kurs ([ReferenceSourceLine]); null = Börse. */
+    reference: ReferenceSource? = null,
 ) {
     StepCard {
         when {
@@ -211,7 +218,7 @@ internal fun PairStepCard(
         // Der Kurs lädt von selbst, sobald ein Paar gewählt ist — er steht über dem Knopf
         if (pairSelected) {
             Column(modifier = Modifier.padding(top = FieldGap)) {
-                PairPrice(price, onRetry = onRetryPrice)
+                PairPrice(price, onRetry = onRetryPrice, reference = reference)
             }
         }
 
@@ -308,7 +315,7 @@ private fun AddToWatchlistButton(enabled: Boolean, onClick: () -> Unit) {
 
 /** Kurs des gewählten Paars: lädt noch, Fehler mit «Erneut» oder die Kennzahlen. */
 @Composable
-private fun PairPrice(result: ExchangeTickerResult?, onRetry: () -> Unit) {
+private fun PairPrice(result: ExchangeTickerResult?, onRetry: () -> Unit, reference: ReferenceSource?) {
     if (result == null) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
@@ -343,4 +350,6 @@ private fun PairPrice(result: ExchangeTickerResult?, onRetry: () -> Unit) {
         base = result.pairInfo.base,
         currencyQuote = result.pairInfo.quote,
     )
+    // Referenzkurs: «Quelle: …», bei Kreuzkurs «· umgerechnet» (die Vorschau zeigt keine Veränderung)
+    reference?.let { ReferenceSourceLine(it, result.pairInfo.base, hasChange = false, Modifier.padding(top = Spacing.xs)) }
 }

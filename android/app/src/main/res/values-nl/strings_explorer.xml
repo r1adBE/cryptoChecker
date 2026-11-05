@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Alle beurzen</string>
     <string name="explorer_exchanges_title">Beurzen</string>
     <string name="explorer_forex_hint">Dagkoers van de Europese Centrale Bank, niet live – geen alarmen.</string>
+    <string name="explorer_forex_live">Live (beurs)</string>
+    <string name="explorer_forex_reference">Referentiekoers</string>
+    <string name="explorer_forex_hint_bank">Referentiekoers van een centrale bank, niet live – geen alarmen.</string>
+    <string name="explorer_source_ecb">Bron: ECB</string>
+    <string name="explorer_source_nbu">Bron: Nationale Bank van Oekraïne</string>
+    <string name="explorer_source_nbp">Bron: Nationale Bank van Polen</string>
+    <string name="explorer_source_converted">omgerekend</string>
 </resources>

@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Összes tőzsde</string>
     <string name="explorer_exchanges_title">Tőzsdék</string>
     <string name="explorer_forex_hint">Az Európai Központi Bank napi árfolyama, nem élő – nincs riasztás.</string>
+    <string name="explorer_forex_live">Élő (tőzsde)</string>
+    <string name="explorer_forex_reference">Referencia-árfolyam</string>
+    <string name="explorer_forex_hint_bank">Egy központi bank referencia-árfolyama, nem élő – nincs riasztás.</string>
+    <string name="explorer_source_ecb">Forrás: EKB</string>
+    <string name="explorer_source_nbu">Forrás: Ukrajna Nemzeti Bankja</string>
+    <string name="explorer_source_nbp">Forrás: Lengyel Nemzeti Bank</string>
+    <string name="explorer_source_converted">átszámítva</string>
 </resources>

@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Totes les plataformes</string>
     <string name="explorer_exchanges_title">Plataformes</string>
     <string name="explorer_forex_hint">Tipus diari del Banc Central Europeu, no en directe – sense alarmes.</string>
+    <string name="explorer_forex_live">En directe (plataforma)</string>
+    <string name="explorer_forex_reference">Tipus de referència</string>
+    <string name="explorer_forex_hint_bank">Tipus de referència d’un banc central, no en directe – sense alarmes.</string>
+    <string name="explorer_source_ecb">Font: BCE</string>
+    <string name="explorer_source_nbu">Font: Banc Nacional d’Ucraïna</string>
+    <string name="explorer_source_nbp">Font: Banc Nacional de Polònia</string>
+    <string name="explorer_source_converted">convertit</string>
 </resources>

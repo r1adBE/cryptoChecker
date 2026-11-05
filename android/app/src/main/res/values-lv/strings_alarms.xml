@@ -190,6 +190,7 @@
     <string name="alarm_reliability_storage_no_key">Brīdinājumi fonā apturēti – vērojamo saraksts nav saglabāts</string>
     <string name="alarms_limit_reached">Pārim var būt ne vairāk kā %1$s brīdinājumi.</string>
     <string name="alarms_reference_rate_hint">ECB atsauces kursi tiek noteikti tikai reizi dienā – tiem nav brīdinājumu.</string>
+    <string name="alarms_reference_rate_hint_bank">Centrālo banku atsauces kursi tiek noteikti tikai katru dienu vai katru nedēļu – tiem nav brīdinājumu.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Kritumam jābūt mazākam par 100 procentiem.</string>

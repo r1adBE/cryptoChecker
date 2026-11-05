@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">பின்னணியில் விழிப்பூட்டல்கள் இடைநிறுத்தப்பட்டன – கண்காணிப்புப் பட்டியல் சேமிக்கப்படவில்லை</string>
     <string name="alarms_limit_reached">ஒரு ஜோடிக்கு அதிகபட்சம் %1$s விழிப்பூட்டல்கள் இருக்கலாம்.</string>
     <string name="alarms_reference_rate_hint">ECB குறிப்பு விகிதங்கள் ஒரு நாளைக்கு ஒருமுறை மட்டுமே நிர்ணயிக்கப்படுகின்றன – அவற்றுக்கு விழிப்பூட்டல்கள் இல்லை.</string>
+    <string name="alarms_reference_rate_hint_bank">மத்திய வங்கிகளின் குறிப்பு விகிதங்கள் தினசரி அல்லது வாராந்திரமாக மட்டுமே நிர்ணயிக்கப்படுகின்றன – அவற்றுக்கு விழிப்பூட்டல்கள் இல்லை.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">வீழ்ச்சி 100 சதவீதத்துக்கும் குறைவாக இருக்க வேண்டும்.</string>

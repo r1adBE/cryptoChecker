@@ -206,7 +206,9 @@
     <string name="watchlist_sort_by_exchange">ຈັດລຽງຕາມກະດານແລກປ່ຽນ</string>
     <string name="watchlist_limit_reached">ລາຍການຕິດຕາມຂອງທ່ານມີໄດ້ສູງສຸດ %1$s ຄູ່.</string>
     <string name="watch_price_reference">ອັດຕາອ້າງອີງ, ລາຍວັນ</string>
+    <string name="watch_price_reference_weekly">ອັດຕາອ້າງອີງ, ລາຍອາທິດ</string>
     <string name="watch_price_daily">ລາຍວັນ</string>
+    <string name="watch_price_weekly">ລາຍອາທິດ</string>
     <string name="watchlist_compare">ປຽບທຽບ</string>
     <string name="watchlist_compare_hint">ເລືອກ 2 ຫາ 4 ຄູ່ເທຣດເພື່ອປຽບທຽບ.</string>
     <string name="compare_title">ການປຽບທຽບ</string>

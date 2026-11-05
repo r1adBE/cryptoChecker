@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">ყველა ბირჟა</string>
     <string name="explorer_exchanges_title">ბირჟები</string>
     <string name="explorer_forex_hint">ევროპის ცენტრალური ბანკის დღიური კურსი, არა რეალურ დროში – განგაშების გარეშე.</string>
+    <string name="explorer_forex_live">პირდაპირ (ბირჟა)</string>
+    <string name="explorer_forex_reference">საორიენტაციო კურსი</string>
+    <string name="explorer_forex_hint_bank">ცენტრალური ბანკის საორიენტაციო კურსი, არა რეალურ დროში – განგაშების გარეშე.</string>
+    <string name="explorer_source_ecb">წყარო: ევროპის ცენტრალური ბანკი</string>
+    <string name="explorer_source_nbu">წყარო: უკრაინის ეროვნული ბანკი</string>
+    <string name="explorer_source_nbp">წყარო: პოლონეთის ეროვნული ბანკი</string>
+    <string name="explorer_source_converted">გადაანგარიშებული</string>
 </resources>

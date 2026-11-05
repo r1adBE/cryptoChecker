@@ -206,7 +206,9 @@
     <string name="watchlist_sort_by_exchange">လဲလှယ်ရေးဌာနအလိုက် စီရန်</string>
     <string name="watchlist_limit_reached">သင့်စောင့်ကြည့်စာရင်းတွင် အတွဲ အများဆုံး %1$s ခုသာ ရှိနိုင်သည်။</string>
     <string name="watch_price_reference">ရည်ညွှန်းနှုန်း၊ နေ့စဉ်</string>
+    <string name="watch_price_reference_weekly">ရည်ညွှန်းနှုန်း၊ အပတ်စဉ်</string>
     <string name="watch_price_daily">နေ့စဉ်</string>
+    <string name="watch_price_weekly">အပတ်စဉ်</string>
     <string name="watchlist_compare">နှိုင်းယှဉ်ရန်</string>
     <string name="watchlist_compare_hint">နှိုင်းယှဉ်ရန် အတွဲ 2 မှ 4 ခု ရွေးပါ။</string>
     <string name="compare_title">နှိုင်းယှဉ်ချက်</string>

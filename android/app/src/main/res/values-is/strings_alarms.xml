@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Viðvaranir í bakgrunni í bið – vaktlisti ekki vistaður</string>
     <string name="alarms_limit_reached">Par getur haft í mesta lagi %1$s viðvaranir.</string>
     <string name="alarms_reference_rate_hint">Viðmiðunargengi Seðlabanka Evrópu er aðeins ákveðið einu sinni á dag – engar viðvaranir eru fyrir það.</string>
+    <string name="alarms_reference_rate_hint_bank">Viðmiðunargengi seðlabanka er aðeins ákveðið daglega eða vikulega – engar viðvaranir eru fyrir það.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Lækkun verður að vera minni en 100 prósent.</string>

@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">पार्श्वभूमीत अलर्ट थांबवले – वॉचलिस्ट सेव्ह झालेली नाही</string>
     <string name="alarms_limit_reached">एका जोडीसाठी जास्तीत जास्त %1$s अलर्ट असू शकतात.</string>
     <string name="alarms_reference_rate_hint">ECB संदर्भ दर दिवसातून फक्त एकदाच ठरतात – त्यांच्यासाठी अलर्ट नाहीत.</string>
+    <string name="alarms_reference_rate_hint_bank">केंद्रीय बँकांचे संदर्भ दर फक्त दररोज किंवा दर आठवड्याला ठरतात – त्यांच्यासाठी अलर्ट नाहीत.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">घसरण 100 टक्क्यांपेक्षा कमी असावी.</string>

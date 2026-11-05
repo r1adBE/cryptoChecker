@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Арын горимын дохио түр зогссон – ажиглах жагсаалт хадгалагдаагүй</string>
     <string name="alarms_limit_reached">Нэг хос дээд тал нь %1$s дохиотой байж болно.</string>
     <string name="alarms_reference_rate_hint">ЕТБ-ны лавлах ханшийг өдөрт нэг л удаа тогтоодог – тэдгээрт дохио байхгүй.</string>
+    <string name="alarms_reference_rate_hint_bank">Төв банкуудын лавлах ханшийг зөвхөн өдөр бүр эсвэл долоо хоног бүр тогтоодог – тэдгээрт дохио байхгүй.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Бууралт 100 хувиас бага байх ёстой.</string>

@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Όλα τα ανταλλακτήρια</string>
     <string name="explorer_exchanges_title">Ανταλλακτήρια</string>
     <string name="explorer_forex_hint">Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας, όχι ζωντανά – χωρίς συναγερμούς.</string>
+    <string name="explorer_forex_live">Ζωντανά (ανταλλακτήριο)</string>
+    <string name="explorer_forex_reference">Ισοτιμία αναφοράς</string>
+    <string name="explorer_forex_hint_bank">Ισοτιμία αναφοράς κεντρικής τράπεζας, όχι ζωντανά – χωρίς συναγερμούς.</string>
+    <string name="explorer_source_ecb">Πηγή: ΕΚΤ</string>
+    <string name="explorer_source_nbu">Πηγή: Εθνική Τράπεζα της Ουκρανίας</string>
+    <string name="explorer_source_nbp">Πηγή: Εθνική Τράπεζα της Πολωνίας</string>
+    <string name="explorer_source_converted">με μετατροπή</string>
 </resources>

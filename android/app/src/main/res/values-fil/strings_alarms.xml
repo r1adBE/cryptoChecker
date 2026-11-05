@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Naka-pause ang mga alerto sa background – hindi na-save ang watchlist</string>
     <string name="alarms_limit_reached">Hanggang %1$s alerto lang ang puwede sa isang pares.</string>
     <string name="alarms_reference_rate_hint">Isang beses lang kada araw itinatakda ang mga reference rate ng ECB – walang alerto para sa mga ito.</string>
+    <string name="alarms_reference_rate_hint_bank">Araw-araw o lingguhan lang itinatakda ang mga reference rate ng mga central bank – walang alerto para sa mga ito.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Dapat ay mas mababa sa 100 porsiyento ang pagbaba.</string>

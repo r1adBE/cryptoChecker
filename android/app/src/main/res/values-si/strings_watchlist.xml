@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">හුවමාරුව අනුව පෙළගස්වන්න</string>
     <string name="watchlist_limit_reached">ඔබේ නිරීක්ෂණ ලැයිස්තුවට උපරිම යුගල %1$s ක් තිබිය හැක.</string>
     <string name="watch_price_reference">යොමු අනුපාතය, දෛනික</string>
+    <string name="watch_price_reference_weekly">යොමු අනුපාතය, සතිපතා</string>
     <string name="watch_price_daily">දෛනික</string>
+    <string name="watch_price_weekly">සතිපතා</string>
     <string name="watchlist_compare">සංසන්දනය</string>
     <string name="watchlist_compare_hint">සංසන්දනය කිරීමට යුගල 2 සිට 4 දක්වා තෝරන්න.</string>
     <string name="compare_title">සංසන්දනය</string>

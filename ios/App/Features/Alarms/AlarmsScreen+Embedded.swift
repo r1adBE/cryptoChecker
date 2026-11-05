@@ -19,7 +19,7 @@ extension AlarmsScreen {
                 NotificationsOffBanner()
             }
             if referenceRate {
-                ReferenceRateAlarmNote()
+                ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
             } else if lowLiquidity {
                 DexLowLiquidityNote()
             } else if !WatchlistLimits.canAddAlarm(alarms.count) {

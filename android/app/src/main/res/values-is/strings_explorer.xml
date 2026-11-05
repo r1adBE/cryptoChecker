@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Allar kauphallir</string>
     <string name="explorer_exchanges_title">Kauphallir</string>
     <string name="explorer_forex_hint">Dagsgengi Seðlabanka Evrópu, ekki í beinni – engar viðvaranir.</string>
+    <string name="explorer_forex_live">Í beinni (kauphöll)</string>
+    <string name="explorer_forex_reference">Viðmiðunargengi</string>
+    <string name="explorer_forex_hint_bank">Viðmiðunargengi seðlabanka, ekki í beinni – engar viðvaranir.</string>
+    <string name="explorer_source_ecb">Heimild: Seðlabanki Evrópu</string>
+    <string name="explorer_source_nbu">Heimild: Seðlabanki Úkraínu</string>
+    <string name="explorer_source_nbp">Heimild: Seðlabanki Póllands</string>
+    <string name="explorer_source_converted">umreiknað</string>
 </resources>

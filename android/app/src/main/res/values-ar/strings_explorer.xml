@@ -207,4 +207,11 @@
     <string name="explorer_all_exchanges_title">كل المنصات</string>
     <string name="explorer_exchanges_title">المنصات</string>
     <string name="explorer_forex_hint">السعر اليومي للبنك المركزي الأوروبي، ليس مباشرًا – بلا تنبيهات.</string>
+    <string name="explorer_forex_live">مباشر (المنصة)</string>
+    <string name="explorer_forex_reference">سعر مرجعي</string>
+    <string name="explorer_forex_hint_bank">سعر مرجعي لبنك مركزي، ليس مباشرًا – بلا تنبيهات.</string>
+    <string name="explorer_source_ecb">المصدر: البنك المركزي الأوروبي</string>
+    <string name="explorer_source_nbu">المصدر: البنك الوطني الأوكراني</string>
+    <string name="explorer_source_nbp">المصدر: البنك الوطني البولندي</string>
+    <string name="explorer_source_converted">محوَّل</string>
 </resources>

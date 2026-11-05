@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">በልውውጥ ይደርድሩ</string>
     <string name="watchlist_limit_reached">የክትትል ዝርዝርዎ ቢበዛ %1$s ጥንዶች ሊኖሩት ይችላል።</string>
     <string name="watch_price_reference">የማጣቀሻ ተመን፣ ዕለታዊ</string>
+    <string name="watch_price_reference_weekly">የማጣቀሻ ተመን፣ ሳምንታዊ</string>
     <string name="watch_price_daily">ዕለታዊ</string>
+    <string name="watch_price_weekly">ሳምንታዊ</string>
     <string name="watchlist_compare">ያነጻጽሩ</string>
     <string name="watchlist_compare_hint">ለማነጻጸር ከ2 እስከ 4 ጥንዶችን ይምረጡ።</string>
     <string name="compare_title">ንጽጽር</string>

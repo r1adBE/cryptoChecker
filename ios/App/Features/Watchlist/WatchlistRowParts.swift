@@ -7,10 +7,11 @@ import UIKit
 
 extension WatchlistRow {
     /// Kleine Marke hinter dem Kurs: «Stundenkurs» (`hourlyClose`: letzter Kurs war ein Stundenkurs, WOO X Spot ohne
-    /// letzten Abschluss) bzw. «täglich» (EZB-Referenzkurs, vorgelesen «Referenzkurs, täglich»); sonst nil.
+    /// letzten Abschluss) bzw. «täglich»/«wöchentlich» (Referenzkurs von EZB, NBU oder NBP, vorgelesen «Referenzkurs,
+    /// täglich»); sonst nil.
     static func priceMarker(_ exchange: Exchange?, hourlyClose: Bool = false) -> String? {
         if hourlyClose || exchange?.priceIsHourlyClose == true { return L("watch_price_hourly") }
-        if exchange?.priceIsDailyReference == true { return L("watch_price_daily") }
+        if let source = ReferenceSource.of(exchange?.key) { return ReferenceSourceText.periodShort(source) }
         return nil
     }
 

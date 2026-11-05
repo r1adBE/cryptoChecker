@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Panga kwa jukwaa</string>
     <string name="watchlist_limit_reached">Orodha yako ya ufuatiliaji inaweza kuwa na jozi %1$s zaidi.</string>
     <string name="watch_price_reference">kiwango cha marejeleo, kila siku</string>
+    <string name="watch_price_reference_weekly">kiwango cha marejeleo, kila wiki</string>
     <string name="watch_price_daily">kila siku</string>
+    <string name="watch_price_weekly">kila wiki</string>
     <string name="watchlist_compare">Linganisha</string>
     <string name="watchlist_compare_hint">Chagua jozi 2 hadi 4 ili kulinganisha.</string>
     <string name="compare_title">Ulinganisho</string>

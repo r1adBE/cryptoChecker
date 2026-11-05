@@ -49,4 +49,16 @@ final class ExplorerBrowseParityTests: XCTestCase {
             XCTAssertEqual(actual, strings(c["expected"]), query)
         }
     }
+
+    func testDevisenLiveNurFiatPaare() throws {
+        let data = try XCTUnwrap(try S.fixture("explorer_browse")["forexLive"] as? [String: Any])
+        XCTAssertEqual(ExplorerForexLive.exchanges, strings(data["exchanges"]))
+        for c in S.list(data["pairs"]) {
+            XCTAssertEqual(ExplorerForexLive.isFiatPair(c["base"] as? String ?? "", c["quote"] as? String ?? ""),
+                           c["fiat"] as? Bool, "\(c)")
+        }
+        for c in S.list(data["live"]) {
+            XCTAssertEqual(ExplorerForexLive.isLive(c["key"] as? String ?? ""), c["live"] as? Bool, "\(c)")
+        }
+    }
 }

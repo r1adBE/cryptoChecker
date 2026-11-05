@@ -229,7 +229,9 @@
     <string name="watchlist_sort_by_exchange">Trier par plateforme</string>
     <string name="watchlist_limit_reached">Ta liste de suivi peut contenir au maximum %1$s paires.</string>
     <string name="watch_price_reference">taux de référence, quotidien</string>
+    <string name="watch_price_reference_weekly">taux de référence, hebdomadaire</string>
     <string name="watch_price_daily">quotidien</string>
+    <string name="watch_price_weekly">hebdomadaire</string>
     <string name="watchlist_compare">Comparer</string>
     <string name="watchlist_compare_hint">Sélectionne 2 à 4 paires pour comparer.</string>
     <string name="compare_title">Comparaison</string>

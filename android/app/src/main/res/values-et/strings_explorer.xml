@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Kõik börsid</string>
     <string name="explorer_exchanges_title">Börsid</string>
     <string name="explorer_forex_hint">Euroopa Keskpanga päevakurss, mitte reaalajas – hoiatusi pole.</string>
+    <string name="explorer_forex_live">Reaalajas (börs)</string>
+    <string name="explorer_forex_reference">Viitekurss</string>
+    <string name="explorer_forex_hint_bank">Keskpanga viitekurss, mitte reaalajas – hoiatusi pole.</string>
+    <string name="explorer_source_ecb">Allikas: EKP</string>
+    <string name="explorer_source_nbu">Allikas: Ukraina Rahvuspank</string>
+    <string name="explorer_source_nbp">Allikas: Poola Rahvuspank</string>
+    <string name="explorer_source_converted">ümber arvestatud</string>
 </resources>

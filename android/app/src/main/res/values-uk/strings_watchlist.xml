@@ -241,7 +241,9 @@
     <string name="watchlist_sort_by_exchange">Сортувати за біржею</string>
     <string name="watchlist_limit_reached">У списку може бути не більше %1$s пар.</string>
     <string name="watch_price_reference">референсний курс, щоденно</string>
+    <string name="watch_price_reference_weekly">референсний курс, щотижня</string>
     <string name="watch_price_daily">щоденно</string>
+    <string name="watch_price_weekly">щотижня</string>
     <string name="watchlist_compare">Порівняти</string>
     <string name="watchlist_compare_hint">Познач від 2 до 4 пар для порівняння.</string>
     <string name="compare_title">Порівняння</string>

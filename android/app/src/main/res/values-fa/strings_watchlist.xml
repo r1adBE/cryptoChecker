@@ -217,7 +217,9 @@
     <string name="watchlist_sort_by_exchange">مرتب‌سازی بر اساس صرافی</string>
     <string name="watchlist_limit_reached">واچ‌لیستت حداکثر می‌تواند %1$s جفت داشته باشد.</string>
     <string name="watch_price_reference">نرخ مرجع، روزانه</string>
+    <string name="watch_price_reference_weekly">نرخ مرجع، هفتگی</string>
     <string name="watch_price_daily">روزانه</string>
+    <string name="watch_price_weekly">هفتگی</string>
     <string name="watchlist_compare">مقایسه</string>
     <string name="watchlist_compare_hint">برای مقایسه ۲ تا ۴ جفت را انتخاب کن.</string>
     <string name="compare_title">مقایسه</string>

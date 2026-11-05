@@ -36,7 +36,10 @@ enum ExchangeLogos {
     ]
 
     /// Festes Symbol statt Logo.
-    static let symbols: [String: Symbol] = ["DexScreener": .dex, "EcbReference": .forex]
+    static let symbols: [String: Symbol] = [
+        "DexScreener": .dex,
+        "EcbReference": .forex, "NbuReference": .forex, "NbpReference": .forex,
+    ]
 
     /// Name des Logos im Paket; mehrere Börsen teilen eines. nil = festes Symbol bzw. unbekannte Börse.
     static func logoName(_ exchangeKey: String) -> String? { logos[exchangeKey] }

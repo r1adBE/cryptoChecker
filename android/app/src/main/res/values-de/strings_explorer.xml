@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Alle Börsen</string>
     <string name="explorer_exchanges_title">Börsen</string>
     <string name="explorer_forex_hint">Tageskurs der Europäischen Zentralbank, nicht live – keine Alarme.</string>
+    <string name="explorer_forex_live">Live (Börse)</string>
+    <string name="explorer_forex_reference">Referenzkurs</string>
+    <string name="explorer_forex_hint_bank">Referenzkurs einer Zentralbank, nicht live – keine Alarme.</string>
+    <string name="explorer_source_ecb">Quelle: EZB</string>
+    <string name="explorer_source_nbu">Quelle: Nationalbank der Ukraine</string>
+    <string name="explorer_source_nbp">Quelle: Polnische Nationalbank</string>
+    <string name="explorer_source_converted">umgerechnet</string>
 </resources>

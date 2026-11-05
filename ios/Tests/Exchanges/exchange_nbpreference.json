@@ -1,0 +1,160 @@
+{
+  "exchange": "NbpReference",
+  "description": "Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Body = the two responses joined with U+001E (MultiResponseSource.SEPARATOR): NBP table A (last 15, daily) and table B (last 2, weekly), cut down from the live responses of 5 November 2026 (ZWL hand-added to test the withdrawn-code exclusion). Pair X/USD or X/EUR = PLN rate of X (table B) / PLN rate of the quote from table A of the same effectiveDate, 5 significant digits; change against the previous table B (one week).",
+  "endpoints": {
+    "single": "GET https://api.nbp.pl/api/exchangerates/tables/A/last/15?format=json + GET https://api.nbp.pl/api/exchangerates/tables/B/last/2?format=json (joined)",
+    "bulk": "same responses",
+    "pairs": "combined: ECB daily + NBU list + NBP tables B and A"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "NGN/USD: table B with USD from table A of the same Wednesday, change against the previous week",
+      "exchangeKey": "NbpReference",
+      "pair": {
+        "base": "NGN",
+        "quote": "USD",
+        "id": "NGNUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}, {\"table\": \"A\", \"no\": \"215/A/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9097}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.4014}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003983}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3321}]}]\u001e[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+      "expect": {
+        "last": 0.0007443,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": -0.06042296072506609,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "CLP (only in table A) against the euro, weekly like table B",
+      "exchangeKey": "NbpReference",
+      "pair": {
+        "base": "CLP",
+        "quote": "EUR",
+        "id": "CLPEUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}, {\"table\": \"A\", \"no\": \"215/A/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9097}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.4014}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003983}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3321}]}]\u001e[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+      "expect": {
+        "last": 0.00090494,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": -0.8730323909257144,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "table A of the newest Wednesday missing: no cross rate across different days",
+      "exchangeKey": "NbpReference",
+      "pair": {
+        "base": "NGN",
+        "quote": "USD",
+        "id": "NGNUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}]\u001e[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "withdrawn code ZWL: no data",
+      "exchangeKey": "NbpReference",
+      "pair": {
+        "base": "ZWL",
+        "quote": "USD",
+        "id": "ZWLUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}, {\"table\": \"A\", \"no\": \"215/A/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9097}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.4014}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003983}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3321}]}]\u001e[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "maintenance page: no data, no error text",
+      "exchangeKey": "NbpReference",
+      "pair": {
+        "base": "NGN",
+        "quote": "USD",
+        "id": "NGNUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<html>maintenance</html>\u001e<html>maintenance</html>",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "both tables for every pair: each currency against USD and EUR, ZWL and XDR left out",
+      "exchangeKey": "NbpReference",
+      "requestId": 0,
+      "body": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}, {\"table\": \"A\", \"no\": \"215/A/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9097}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.4014}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003983}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3321}]}]\u001e[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+      "expect": {
+        "count": 16,
+        "tickers": {
+          "NGNUSD": {
+            "last": 0.0007443,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": -0.06042296072506609,
+            "exchangeTime": null,
+            "markFallback": false
+          },
+          "KESEUR": {
+            "last": 0.0068421,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": -1.085699415948647,
+            "exchangeTime": null,
+            "markFallback": false
+          },
+          "ZWGUSD": {
+            "last": 0.036985,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": -0.3072859106714547,
+            "exchangeTime": null,
+            "markFallback": false
+          }
+        }
+      }
+    }
+  ]
+}

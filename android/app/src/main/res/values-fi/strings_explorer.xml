@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Kaikki pörssit</string>
     <string name="explorer_exchanges_title">Pörssit</string>
     <string name="explorer_forex_hint">Euroopan keskuspankin päiväkurssi, ei reaaliaikainen – ei hälytyksiä.</string>
+    <string name="explorer_forex_live">Reaaliaikainen (pörssi)</string>
+    <string name="explorer_forex_reference">Viitekurssi</string>
+    <string name="explorer_forex_hint_bank">Keskuspankin viitekurssi, ei reaaliaikainen – ei hälytyksiä.</string>
+    <string name="explorer_source_ecb">Lähde: EKP</string>
+    <string name="explorer_source_nbu">Lähde: Ukrainan kansallispankki</string>
+    <string name="explorer_source_nbp">Lähde: Puolan kansallispankki</string>
+    <string name="explorer_source_converted">muunnettu</string>
 </resources>

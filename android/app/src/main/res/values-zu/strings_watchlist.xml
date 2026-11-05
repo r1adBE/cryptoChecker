@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Hlunga nge-exchange</string>
     <string name="watchlist_limit_reached">Uhlu lwakho lokubuka lungaba namapheya angu-%1$s ubuningi.</string>
     <string name="watch_price_reference">izinga lereferensi, nsuku zonke</string>
+    <string name="watch_price_reference_weekly">izinga lereferensi, masonto onke</string>
     <string name="watch_price_daily">nsuku zonke</string>
+    <string name="watch_price_weekly">masonto onke</string>
     <string name="watchlist_compare">Qhathanisa</string>
     <string name="watchlist_compare_hint">Khetha amapheya angu-2 kuya ku-4 ukuze uqhathanise.</string>
     <string name="compare_title">Ukuqhathanisa</string>

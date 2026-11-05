@@ -190,6 +190,7 @@
     <string name="alarm_reliability_storage_no_key">ההתראות מושהות ברקע – רשימת המעקב לא נשמרה</string>
     <string name="alarms_limit_reached">לצמד יכולות להיות עד %1$s התראות.</string>
     <string name="alarms_reference_rate_hint">שערי הייחוס של הבנק המרכזי האירופי נקבעים פעם ביום בלבד – אין עבורם התראות.</string>
+    <string name="alarms_reference_rate_hint_bank">שערי הייחוס של בנקים מרכזיים נקבעים רק מדי יום או מדי שבוע – אין עבורם התראות.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ירידה חייבת להיות פחות מ-100 אחוז.</string>

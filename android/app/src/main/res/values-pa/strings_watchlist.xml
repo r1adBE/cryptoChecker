@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">ਐਕਸਚੇਂਜ ਮੁਤਾਬਕ ਕ੍ਰਮਬੱਧ ਕਰੋ</string>
     <string name="watchlist_limit_reached">ਤੁਹਾਡੀ ਵਾਚਲਿਸਟ ਵਿੱਚ ਵੱਧ ਤੋਂ ਵੱਧ %1$s ਜੋੜੇ ਹੋ ਸਕਦੇ ਹਨ।</string>
     <string name="watch_price_reference">ਹਵਾਲਾ ਦਰ, ਰੋਜ਼ਾਨਾ</string>
+    <string name="watch_price_reference_weekly">ਹਵਾਲਾ ਦਰ, ਹਫ਼ਤਾਵਾਰ</string>
     <string name="watch_price_daily">ਰੋਜ਼ਾਨਾ</string>
+    <string name="watch_price_weekly">ਹਫ਼ਤਾਵਾਰ</string>
     <string name="watchlist_compare">ਤੁਲਨਾ ਕਰੋ</string>
     <string name="watchlist_compare_hint">ਤੁਲਨਾ ਲਈ 2 ਤੋਂ 4 ਜੋੜੇ ਚੁਣੋ।</string>
     <string name="compare_title">ਤੁਲਨਾ</string>

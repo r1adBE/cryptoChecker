@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">განგაშები ფონურ რეჟიმში შეჩერებულია – დაკვირვების სია არ შენახულა</string>
     <string name="alarms_limit_reached">წყვილს შეიძლება ჰქონდეს მაქსიმუმ %1$s განგაში.</string>
     <string name="alarms_reference_rate_hint">ევროპის ცენტრალური ბანკის საორიენტაციო კურსები დღეში მხოლოდ ერთხელ დგინდება – მათთვის განგაშები არ არის.</string>
+    <string name="alarms_reference_rate_hint_bank">ცენტრალური ბანკების საორიენტაციო კურსები მხოლოდ ყოველდღიურად ან ყოველკვირეულად დგინდება – მათთვის განგაშები არ არის.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ვარდნა 100 პროცენტზე ნაკლები უნდა იყოს.</string>

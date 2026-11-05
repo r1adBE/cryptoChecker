@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">နောက်ခံတွင် သတိပေးချက်များ ခေတ္တရပ်ထားသည် – စောင့်ကြည့်စာရင်း မသိမ်းရသေးပါ</string>
     <string name="alarms_limit_reached">အတွဲတစ်ခုတွင် သတိပေးချက် အများဆုံး %1$s ခု ရှိနိုင်သည်။</string>
     <string name="alarms_reference_rate_hint">ECB ရည်ညွှန်းနှုန်းများကို တစ်ရက်လျှင် တစ်ကြိမ်သာ သတ်မှတ်သည် – ၎င်းတို့အတွက် သတိပေးချက် မရှိပါ။</string>
+    <string name="alarms_reference_rate_hint_bank">ဗဟိုဘဏ်များ၏ ရည်ညွှန်းနှုန်းများကို နေ့စဉ် သို့မဟုတ် အပတ်စဉ်သာ သတ်မှတ်သည် – ၎င်းတို့အတွက် သတိပေးချက် မရှိပါ။</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ကျဆင်းမှုသည် 100 ရာခိုင်နှုန်းထက် နည်းရမည်။</string>

@@ -41,12 +41,15 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.referencePeriodText
+import com.cryptochecker.app.ui.components.referenceSourceName
 import com.cryptochecker.app.ui.features.watchlist.MinTouchTarget
 import com.cryptochecker.app.ui.features.watchlist.fadeEnd
 import com.cryptochecker.app.ui.navigation.cappedTabSize
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.ExchangeCategory
+import com.cryptochecker.marketdata.model.ReferenceSource
 
 /** Zustand und Aktionen der Übersicht (Markt-Chip, zuletzt genutzte Börsen). */
 class BrowseUi(
@@ -131,6 +134,7 @@ internal fun BrowseSections(
     favorites: FavoritesUi,
 ) {
     val categories = remember(selection) { selection.exchanges.zip(selection.exchangeCategories).toMap() }
+    if (browse.market == MarketFilter.FOREX) return ForexSections(browse, selection, categories, favorites)
     val shown = selection.exchanges.filter { browse.market.allows(categories[it] ?: ExchangeCategory.SPOT) }
 
     val byKey = shown.associateBy { it.key }
@@ -153,6 +157,26 @@ internal fun BrowseSections(
         val (favored, others) = shown.partition { it.name in favorites.exchanges }
         ExchangeRows(favored + others, categories, favorites, browse.onOpenExchange)
     }
+}
+
+/**
+ * Chip «Devisen» in zwei Gruppen: «Live (Börse)» — Kraken und Bitstamp mit echten Fiat-Paaren ([ForexLive], geöffnet nur
+ * diese Paare) — und «Referenzkurs» (EZB, NBU, NBP; Takt und Quelle in der Zeile). Wie iOS `ForexSections`.
+ */
+@Composable
+private fun ForexSections(
+    browse: BrowseUi,
+    selection: ExplorerSelection,
+    categories: Map<ExchangeInfo, ExchangeCategory>,
+    favorites: FavoritesUi,
+) {
+    val live = ForexLive.EXCHANGES.mapNotNull { key -> selection.exchanges.firstOrNull { it.key == key } }
+    if (live.isNotEmpty()) {
+        SectionLabel(stringResource(R.string.explorer_forex_live), Modifier.padding(top = Spacing.md))
+        ExchangeRows(live, categories, favorites, browse.onOpenExchange)
+    }
+    SectionLabel(stringResource(R.string.explorer_forex_reference), Modifier.padding(top = Spacing.md))
+    ExchangeRows(selection.exchanges.filter { categories[it] == ExchangeCategory.FOREX }, categories, favorites, browse.onOpenExchange)
 }
 
 /** Liste von Börsen-Zeilen mit kleinem Abstand. */
@@ -178,7 +202,8 @@ internal fun ExchangeRows(
 
 /**
  * Eine Börse: Logo bzw. Zeichen ([ExchangeMarkBadge]), Name und — bei DexScreener die bekannten DEX («Uniswap, PancakeSwap …»),
- * bei den EZB-Kursen «Forex (Referenzkurs)» —, rechts der Stern (Favorit) und der Pfeil. Ein Fokus für die Zeile.
+ * bei Referenzkursen Takt und Quelle («Referenzkurs, wöchentlich · Quelle: Polnische Nationalbank») —, rechts der Stern
+ * (Favorit) und der Pfeil. Ein Fokus für die Zeile.
  */
 @Composable
 private fun ExchangeRow(
@@ -190,7 +215,9 @@ private fun ExchangeRow(
 ) {
     val subtitle = when (category) {
         ExchangeCategory.DEX -> stringResource(R.string.dex_picker_subtitle)
-        ExchangeCategory.FOREX -> stringResource(R.string.explorer_section_forex)
+        ExchangeCategory.FOREX -> ReferenceSource.of(exchange.key)?.let { source ->
+            referencePeriodText(source).replaceFirstChar { it.titlecase() } + " · " + referenceSourceName(source)
+        } ?: stringResource(R.string.explorer_section_forex)
         else -> null
     }
     Row(

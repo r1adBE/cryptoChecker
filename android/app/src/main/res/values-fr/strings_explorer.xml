@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Toutes les plateformes</string>
     <string name="explorer_exchanges_title">Plateformes</string>
     <string name="explorer_forex_hint">Cours quotidien de la Banque centrale européenne, pas en direct – pas d’alertes.</string>
+    <string name="explorer_forex_live">En direct (plateforme)</string>
+    <string name="explorer_forex_reference">Taux de référence</string>
+    <string name="explorer_forex_hint_bank">Taux de référence d’une banque centrale, pas en direct – pas d’alertes.</string>
+    <string name="explorer_source_ecb">Source : BCE</string>
+    <string name="explorer_source_nbu">Source : Banque nationale d’Ukraine</string>
+    <string name="explorer_source_nbp">Source : Banque nationale de Pologne</string>
+    <string name="explorer_source_converted">converti</string>
 </resources>

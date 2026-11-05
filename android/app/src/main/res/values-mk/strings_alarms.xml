@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Алармите во позадина се паузирани – листата за следење не е зачувана</string>
     <string name="alarms_limit_reached">Еден пар може да има најмногу %1$s аларми.</string>
     <string name="alarms_reference_rate_hint">Референтните курсеви на ЕЦБ се утврдуваат само еднаш дневно – за нив нема аларми.</string>
+    <string name="alarms_reference_rate_hint_bank">Референтните курсеви на централните банки се утврдуваат само дневно или неделно – за нив нема аларми.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Падот мора да биде помал од 100 проценти.</string>

@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Arka planda alarmlar duraklatıldı – liste kaydedilmedi</string>
     <string name="alarms_limit_reached">Bir çiftin en fazla %1$s alarmı olabilir.</string>
     <string name="alarms_reference_rate_hint">ECB referans kurları günde yalnızca bir kez belirlenir – bunlar için alarm yoktur.</string>
+    <string name="alarms_reference_rate_hint_bank">Merkez bankalarının referans kurları yalnızca günlük ya da haftalık belirlenir – bunlar için alarm yoktur.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Bir düşüş yüzde 100\'den az olmalı.</string>

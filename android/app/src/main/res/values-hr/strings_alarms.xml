@@ -190,6 +190,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmi u pozadini pauzirani – popis praćenja nije spremljen</string>
     <string name="alarms_limit_reached">Par može imati najviše %1$s alarma.</string>
     <string name="alarms_reference_rate_hint">Referentni tečajevi ECB-a utvrđuju se samo jednom dnevno – za njih nema alarma.</string>
+    <string name="alarms_reference_rate_hint_bank">Referentni tečajevi središnjih banaka utvrđuju se samo dnevno ili tjedno – za njih nema alarma.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Pad mora biti manji od 100 posto.</string>

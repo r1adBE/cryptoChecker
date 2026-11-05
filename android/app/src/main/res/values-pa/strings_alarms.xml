@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">ਪਿਛੋਕੜ ਵਿੱਚ ਅਲਰਟ ਰੁਕੇ ਹੋਏ – ਵਾਚਲਿਸਟ ਸੰਭਾਲੀ ਨਹੀਂ ਗਈ</string>
     <string name="alarms_limit_reached">ਇੱਕ ਜੋੜੇ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ %1$s ਅਲਰਟ ਹੋ ਸਕਦੇ ਹਨ।</string>
     <string name="alarms_reference_rate_hint">ECB ਹਵਾਲਾ ਦਰਾਂ ਦਿਨ ਵਿੱਚ ਸਿਰਫ਼ ਇੱਕ ਵਾਰ ਤੈਅ ਹੁੰਦੀਆਂ ਹਨ – ਇਨ੍ਹਾਂ ਲਈ ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
+    <string name="alarms_reference_rate_hint_bank">ਕੇਂਦਰੀ ਬੈਂਕਾਂ ਦੀਆਂ ਹਵਾਲਾ ਦਰਾਂ ਸਿਰਫ਼ ਰੋਜ਼ਾਨਾ ਜਾਂ ਹਫ਼ਤਾਵਾਰ ਤੈਅ ਹੁੰਦੀਆਂ ਹਨ – ਇਨ੍ਹਾਂ ਲਈ ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ਗਿਰਾਵਟ 100 ਪ੍ਰਤੀਸ਼ਤ ਤੋਂ ਘੱਟ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</string>

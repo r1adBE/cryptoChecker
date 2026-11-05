@@ -230,7 +230,9 @@
     <string name="watchlist_sort_by_exchange">Ordena per exchange</string>
     <string name="watchlist_limit_reached">La teva llista pot tenir com a màxim %1$s parells.</string>
     <string name="watch_price_reference">tipus de referència, diari</string>
+    <string name="watch_price_reference_weekly">tipus de referència, setmanal</string>
     <string name="watch_price_daily">diari</string>
+    <string name="watch_price_weekly">setmanal</string>
     <string name="watchlist_compare">Compara</string>
     <string name="watchlist_compare_hint">Selecciona de 2 a 4 parells per comparar-los.</string>
     <string name="compare_title">Comparació</string>

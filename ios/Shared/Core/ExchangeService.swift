@@ -120,6 +120,8 @@ enum ExchangeService {
     /// - Parameter lowMemory: Widget (`LowMemoryBulk`): nach gescheiterter gefilterter Anfrage nicht ungefiltert
     ///   nachladen und die Alpha-Token-Liste auslassen (deren Paare gelten als unvollständig → Einzelabfragen).
     static func fetchBulkTickers(exchange: Exchange, pairIds: [String], lowMemory: Bool = false) async -> BulkTickers {
+        // Referenzkurse aus mehreren Antworten (NBU, NBP): gemeinsam geholt und behalten (`MultiResponses`)
+        if let multi = exchange as? MultiResponseSource { return await MultiResponses.bulk(multi) }
         guard exchange.bulkTickersNumOfRequests > 0 else { return BulkTickers() }
         // Lange Listen verteilt die Börse auf mehrere gefilterte Anfragen
         let callCount = exchange.bulkTickersRequestCount(pairIds: pairIds)
@@ -263,6 +265,7 @@ enum ExchangeService {
     /// Kurs eines Paars. Die erste Anfrage muss gelingen; weitere (z. B. Volumen aus einer zweiten Quelle) ergänzen
     /// nur und dürfen scheitern, ohne den Kurs zu verwerfen.
     static func fetchTicker(exchange: Exchange, info: PairQuery) async throws -> Ticker {
+        if let multi = exchange as? MultiResponseSource { return try await MultiResponses.ticker(multi, info: info) }
         var ticker = Ticker()
         try await loadTickerCall(0, exchange: exchange, info: info, into: &ticker)
         for call in stride(from: 1, to: exchange.tickerCallCount(info), by: 1) {

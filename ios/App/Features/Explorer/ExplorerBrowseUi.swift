@@ -73,9 +73,33 @@ extension ExplorerScreen {
         return ExplorerExchangeSearch.find(vm.searchQuery, offered) { $0.name }
     }
 
-    /// «Zuletzt genutzte Börsen», «Alle Börsen».
+    /// «Zuletzt genutzte Börsen», «Alle Börsen»; unter «Devisen» die Gruppen «Live (Börse)» und «Referenzkurs».
     @ViewBuilder
     var browseSections: some View {
+        if vm.marketFilter == .forex {
+            forexSections
+        } else {
+            allSections
+        }
+    }
+
+    /// Chip «Devisen»: «Live (Börse)» — Kraken und Bitstamp mit echten Fiat-Paaren (`ExplorerForexLive`, geöffnet nur
+    /// diese Paare) — und «Referenzkurs» (EZB, NBU, NBP; Takt und Quelle in der Zeile). Wie Android `ForexSections`.
+    @ViewBuilder
+    private var forexSections: some View {
+        let live = ExplorerForexLive.exchanges.compactMap { key in vm.exchanges.first { $0.key == key } }
+        if !live.isEmpty {
+            sectionLabel(L("explorer_forex_live"))
+                .padding(.top, Spacing.sm)
+            exchangeRows(live)
+        }
+        sectionLabel(L("explorer_forex_reference"))
+            .padding(.top, Spacing.sm)
+        exchangeRows(shownExchanges)
+    }
+
+    @ViewBuilder
+    private var allSections: some View {
         let shown = shownExchanges
         let byKey = Dictionary(shown.map { ($0.key, $0) }, uniquingKeysWith: { first, _ in first })
         let recent = vm.recentExchanges.compactMap { byKey[$0] }
@@ -97,6 +121,12 @@ extension ExplorerScreen {
         }
     }
 
+    /// Erster Buchstabe gross («reference rate, daily» → «Reference rate, daily»). Wie Android `titlecase`.
+    private static func capitalizedFirst(_ text: String) -> String {
+        guard let first = text.first else { return text }
+        return String(first).uppercased() + text.dropFirst()
+    }
+
     /// Keine LazyVStack: rund 60 Zeilen, alle sofort da (auch für VoiceOver und UI-Tests ausserhalb des Bildes).
     func exchangeRows(_ list: [Exchange]) -> some View {
         VStack(spacing: Spacing.sm) {
@@ -106,13 +136,16 @@ extension ExplorerScreen {
         }
     }
 
-    /// Eine Börse: Zeichen, Name und — bei DexScreener die bekannten DEX, bei den EZB-Kursen «Forex (Referenzkurs)» —,
-    /// rechts der Stern (Favorit) und der Pfeil. Wie `ExchangeRow` (Android).
+    /// Eine Börse: Zeichen, Name und — bei DexScreener die bekannten DEX, bei Referenzkursen Takt und Quelle
+    /// («Referenzkurs, wöchentlich · Quelle: Polnische Nationalbank») —, rechts der Stern (Favorit) und der Pfeil. Wie
+    /// `ExchangeRow` (Android).
     private func exchangeRow(_ exchange: Exchange) -> some View {
         let starred = (data.favorites[.EXCHANGE] ?? []).contains(exchange.name)
         let subtitle: String? = switch exchange.category {
         case .dex: L("dex_picker_subtitle")
-        case .forex: L("explorer_section_forex")
+        case .forex: ReferenceSource.of(exchange.key).map {
+            Self.capitalizedFirst(ReferenceSourceText.period($0)) + " · " + ReferenceSourceText.name($0)
+        } ?? L("explorer_section_forex")
         default: nil
         }
         return HStack(spacing: Spacing.md) {

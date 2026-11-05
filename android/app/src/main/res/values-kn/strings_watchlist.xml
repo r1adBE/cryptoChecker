@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ</string>
     <string name="watchlist_limit_reached">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ %1$s ಜೋಡಿಗಳು ಇರಬಹುದು.</string>
     <string name="watch_price_reference">ಉಲ್ಲೇಖ ದರ, ದೈನಂದಿನ</string>
+    <string name="watch_price_reference_weekly">ಉಲ್ಲೇಖ ದರ, ಸಾಪ್ತಾಹಿಕ</string>
     <string name="watch_price_daily">ದೈನಂದಿನ</string>
+    <string name="watch_price_weekly">ಸಾಪ್ತಾಹಿಕ</string>
     <string name="watchlist_compare">ಹೋಲಿಸಿ</string>
     <string name="watchlist_compare_hint">ಹೋಲಿಸಲು 2 ರಿಂದ 4 ಜೋಡಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="compare_title">ಹೋಲಿಕೆ</string>

@@ -4,8 +4,8 @@ import Foundation
 /// Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch — die Liste «Alle Börsen»
 /// (`ExplorerBrowseUi.swift`) ordnet so. Wie `exchangeSections` (Android `ExplorerSelection.kt`).
 extension ExplorerViewModel {
-    /// Gewählte Quelle ist ein täglicher Referenzkurs (EZB): Hinweis unter der Börse.
-    var isReferenceRate: Bool { exchange?.priceIsDailyReference == true }
+    /// Gewählte Quelle ist ein Referenzkurs (EZB, NBU, NBP): Hinweis unter der Börse.
+    var isReferenceRate: Bool { ReferenceSource.of(exchange?.key) != nil }
 
     /// Fehlt das Ranking, einmal je Sitzung von CoinGecko holen; danach gilt es sofort.
     func loadExchangeRanking() {

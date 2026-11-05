@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">පසුබිමේ ඇඟවීම් නවතා ඇත – නිරීක්ෂණ ලැයිස්තුව සුරැකී නැත</string>
     <string name="alarms_limit_reached">යුගලයකට උපරිම ඇඟවීම් %1$s ක් තිබිය හැක.</string>
     <string name="alarms_reference_rate_hint">ECB යොමු අනුපාත දිනකට එක් වරක් පමණක් තීරණය වේ – ඒවා සඳහා ඇඟවීම් නැත.</string>
+    <string name="alarms_reference_rate_hint_bank">මහ බැංකුවල යොමු අනුපාත දෛනිකව හෝ සතිපතා පමණක් තීරණය වේ – ඒවා සඳහා ඇඟවීම් නැත.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">පහත වැටීමක් ප්‍රතිශත 100 ට වඩා අඩු විය යුතුය.</string>

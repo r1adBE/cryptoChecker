@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmas en pausa en segundo plano – a lista non se gardou</string>
     <string name="alarms_limit_reached">Un par pode ter como moito %1$s alarmas.</string>
     <string name="alarms_reference_rate_hint">Os tipos de referencia do BCE só se fixan unha vez ao día – non hai alarmas para eles.</string>
+    <string name="alarms_reference_rate_hint_bank">Os tipos de referencia dos bancos centrais só se fixan a diario ou cada semana – non hai alarmas para eles.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Unha baixada debe ser inferior ao 100 por cento.</string>

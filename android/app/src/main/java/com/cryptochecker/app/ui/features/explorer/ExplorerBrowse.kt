@@ -3,10 +3,11 @@
 // gemeinsame Fälle in `testdata/parity/explorer_browse.json`.
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.ExchangeCategory
 
-/** Markt-Chip über den Börsen und Treffern; [ALL] = alles (Standard), [FOREX] = EZB-Referenzkurse. */
+/** Markt-Chip über den Börsen und Treffern; [ALL] = alles (Standard), [FOREX] = Devisen (Referenzkurse, live: [ForexLive]). */
 enum class MarketFilter {
     ALL, SPOT, FUTURES, DEX, FOREX;
 
@@ -27,6 +28,26 @@ enum class MarketFilter {
         fun categoryOf(exchangeKey: String): ExchangeCategory =
             ExchangesConfig.EXCHANGES[exchangeKey]?.category ?: ExchangeCategory.SPOT
     }
+}
+
+/**
+ * Chip «Devisen», Gruppe «Live (Börse)»: echte Fiat-Fiat-Paare von Kraken und Bitstamp — gewöhnliche Paare mit Alarmen
+ * und Live-Strom (EUR/USD, USD/JPY …). Aus dieser Gruppe geöffnet zeigt die Börse nur ihre Fiat-Paare ([isFiatPair]);
+ * die Gruppe «Referenzkurs» sind die Börsen der Art [ExchangeCategory.FOREX] (EZB, NBU, NBP). Wie iOS
+ * `ExplorerForexLive`, gemeinsame Fälle in `explorer_browse.json` («forexLive»).
+ */
+object ForexLive {
+    /** Börsen mit echten Devisenpaaren, in dieser Reihenfolge. */
+    val EXCHANGES = listOf("Kraken", "Bitstamp")
+
+    private val FIAT: Set<String> = FxCurrencies.ALL.toSet()
+
+    /** Gehört [exchangeKey] zur Gruppe «Live (Börse)»? */
+    fun isLive(exchangeKey: String): Boolean = exchangeKey in EXCHANGES
+
+    /** Beide Seiten Fiat-Währungen (EZB-Liste, [FxCurrencies]) und verschieden: ein Devisenpaar. */
+    fun isFiatPair(base: String, quote: String): Boolean =
+        base != quote && base.uppercase() in FIAT && quote.uppercase() in FIAT
 }
 
 /**

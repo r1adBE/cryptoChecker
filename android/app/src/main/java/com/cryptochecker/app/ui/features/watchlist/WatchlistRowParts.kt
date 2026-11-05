@@ -188,8 +188,8 @@ internal fun RowPrice(
     markPrice: Boolean = false,
     /** Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot): klein «Stundenkurs» wie im Aktionsblatt. */
     hourlyPrice: Boolean = false,
-    /** Täglicher EZB-Referenzkurs (Forex): klein «täglich». */
-    dailyReference: Boolean = false,
+    /** Referenzkurs (EZB, NBU, NBP): klein «täglich» bzw. «wöchentlich» nach dem Takt der Quelle. */
+    reference: com.cryptochecker.marketdata.model.ReferenceSource? = null,
     /**
      * Kurs eine Stufe grösser (`titleLarge` statt `titleMedium`, [com.cryptochecker.app.util.DenseRowText.largePrice]);
      * bei grosser Schrift neben dem Paar oder in schmalen Zeilen die alte Stufe.
@@ -235,12 +235,13 @@ internal fun RowPrice(
                         maxLines = 1,
                         modifier = Modifier.alignByBaseline().padding(start = 4.dp)
                     )
-                    if (markPrice || hourlyPrice || dailyReference) {
+                    if (markPrice || hourlyPrice || reference != null) {
                         Text(
                             text = stringResource(
                                 when {
                                     markPrice -> R.string.watch_change_mark
                                     hourlyPrice -> R.string.watch_price_hourly
+                                    reference?.weekly == true -> R.string.watch_price_weekly
                                     else -> R.string.watch_price_daily
                                 },
                             ),

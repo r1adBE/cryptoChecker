@@ -217,7 +217,9 @@
     <string name="watchlist_sort_by_exchange">Rendit sipas bursës</string>
     <string name="watchlist_limit_reached">Lista jote e ndjekjes mund të ketë më së shumti %1$s çifte.</string>
     <string name="watch_price_reference">kursi i referencës, ditor</string>
+    <string name="watch_price_reference_weekly">kursi i referencës, javor</string>
     <string name="watch_price_daily">ditor</string>
+    <string name="watch_price_weekly">javor</string>
     <string name="watchlist_compare">Krahaso</string>
     <string name="watchlist_compare_hint">Shëno 2 deri në 4 çifte për t’i krahasuar.</string>
     <string name="compare_title">Krahasim</string>

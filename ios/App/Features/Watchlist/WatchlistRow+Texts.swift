@@ -121,13 +121,12 @@ extension WatchlistRow {
                 let hourlyPrice = !markPrice && watch.lastPrice != nil
                     && (HourlyCloseStore.contains(watch.id)
                         || ExchangesConfig.exchange(watch.exchangeKey)?.priceIsHourlyClose == true)
-                // EZB-Referenzkurs: «Referenzkurs, täglich» wie die Marke der Zeile
-                let referencePrice = !markPrice && watch.lastPrice != nil
-                    && ExchangesConfig.exchange(watch.exchangeKey)?.priceIsDailyReference == true
+                // Referenzkurs (EZB, NBU, NBP): «Referenzkurs, täglich/wöchentlich» wie die Marke der Zeile
+                let reference = !markPrice && watch.lastPrice != nil ? ReferenceSource.of(watch.exchangeKey) : nil
                 let parts = [changeMarker.map { L("change_candle_source", $0) },
                              markPrice ? L("watch_price_mark_fallback") : nil,
                              hourlyPrice ? L("watch_price_hourly") : nil,
-                             referencePrice ? L("watch_price_reference") : nil].compactMap { $0 }
+                             reference.map(ReferenceSourceText.period)].compactMap { $0 }
                 return parts.isEmpty ? nil : parts.joined(separator: ", ")
             }(),
             converted: convertedA11y ?? converted,

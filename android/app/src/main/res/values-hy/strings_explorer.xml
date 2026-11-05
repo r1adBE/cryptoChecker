@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Բոլոր բորսաները</string>
     <string name="explorer_exchanges_title">Բորսաներ</string>
     <string name="explorer_forex_hint">Եվրոպական կենտրոնական բանկի օրական փոխարժեքը, ոչ իրական ժամանակում – առանց ահազանգերի։</string>
+    <string name="explorer_forex_live">Ուղիղ (բորսա)</string>
+    <string name="explorer_forex_reference">Հղումային փոխարժեք</string>
+    <string name="explorer_forex_hint_bank">Կենտրոնական բանկի հղումային փոխարժեք, ոչ իրական ժամանակում – առանց ահազանգերի։</string>
+    <string name="explorer_source_ecb">Աղբյուր՝ ԵԿԲ</string>
+    <string name="explorer_source_nbu">Աղբյուր՝ Ուկրաինայի ազգային բանկ</string>
+    <string name="explorer_source_nbp">Աղբյուր՝ Լեհաստանի ազգային բանկ</string>
+    <string name="explorer_source_converted">վերահաշվարկված</string>
 </resources>

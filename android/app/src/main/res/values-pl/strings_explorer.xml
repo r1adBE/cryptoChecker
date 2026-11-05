@@ -181,4 +181,11 @@
     <string name="explorer_all_exchanges_title">Wszystkie giełdy</string>
     <string name="explorer_exchanges_title">Giełdy</string>
     <string name="explorer_forex_hint">Dzienny kurs Europejskiego Banku Centralnego, nie na żywo – bez alarmów.</string>
+    <string name="explorer_forex_live">Na żywo (giełda)</string>
+    <string name="explorer_forex_reference">Kurs referencyjny</string>
+    <string name="explorer_forex_hint_bank">Kurs referencyjny banku centralnego, nie na żywo – bez alarmów.</string>
+    <string name="explorer_source_ecb">Źródło: EBC</string>
+    <string name="explorer_source_nbu">Źródło: Narodowy Bank Ukrainy</string>
+    <string name="explorer_source_nbp">Źródło: Narodowy Bank Polski</string>
+    <string name="explorer_source_converted">przeliczony</string>
 </resources>

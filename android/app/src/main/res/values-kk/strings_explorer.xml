@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Барлық биржалар</string>
     <string name="explorer_exchanges_title">Биржалар</string>
     <string name="explorer_forex_hint">Еуропалық орталық банктің күндік бағамы, нақты уақытта емес – ескерту жоқ.</string>
+    <string name="explorer_forex_live">Тікелей (биржа)</string>
+    <string name="explorer_forex_reference">Анықтамалық бағам</string>
+    <string name="explorer_forex_hint_bank">Орталық банктің анықтамалық бағамы, нақты уақытта емес – ескерту жоқ.</string>
+    <string name="explorer_source_ecb">Дереккөз: ЕОБ</string>
+    <string name="explorer_source_nbu">Дереккөз: Украина Ұлттық банкі</string>
+    <string name="explorer_source_nbp">Дереккөз: Польша Ұлттық банкі</string>
+    <string name="explorer_source_converted">қайта есептелген</string>
 </resources>

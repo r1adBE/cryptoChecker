@@ -38,6 +38,7 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.CoinBadge
+import com.cryptochecker.app.ui.components.ReferenceSourceLine
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.display
 import com.cryptochecker.app.ui.theme.headline
@@ -46,6 +47,7 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.marketdata.model.ReferenceSource
 
 /**
  * Deaktiviertes Paar: ruhiger Hinweis unter dem Kurs («Deaktiviert · Keine Abfragen, keine Meldungen», Stand des
@@ -169,16 +171,19 @@ internal fun PairHeader(
         if (watch.lastPrice != null) {
             // Börse meldet den Mittelkurs (z. B. Hyperliquid), fehlte er den Mark-Preis; WOO X Spot: Stundenkurs
             val exchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
-            val midText = when (com.cryptochecker.app.domain.watch.PriceKindLabel.of(
+            val kind = com.cryptochecker.app.domain.watch.PriceKindLabel.of(
                 priceIsMid = exchange.priceIsMid,
                 markFallback = watch.id in LocalMarkFallback.current,
                 hourlyClose = exchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current,
                 dailyReference = exchange.priceIsDailyReference,
-            )) {
+                weeklyReference = ReferenceSource.of(watch.exchangeKey)?.weekly == true,
+            )
+            val midText = when (kind) {
                 com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)
                 com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
                 com.cryptochecker.app.domain.watch.PriceKindLabel.HOURLY -> " · " + stringResource(R.string.watch_price_hourly)
                 com.cryptochecker.app.domain.watch.PriceKindLabel.DAILY_REFERENCE -> " · " + stringResource(R.string.watch_price_reference)
+                com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE -> " · " + stringResource(R.string.watch_price_reference_weekly)
                 null -> ""
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -192,8 +197,11 @@ internal fun PairHeader(
                         mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(exchange.changeIsMark, headerChangeView.basis),
                     )
                 }
+                // Wöchentlicher Referenzkurs: Veränderung gegen die Vorwoche — kein «24h», der Takt steht in midText
+                val basisText = if (kind == com.cryptochecker.app.domain.watch.PriceKindLabel.WEEKLY_REFERENCE) ""
+                else " · ${ChangeBasisText.shortLabel(headerChangeView.basis)}"
                 Text(
-                    text = " · ${ChangeBasisText.shortLabel(headerChangeView.basis)}$midText",
+                    text = "$basisText$midText",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 3.dp)
@@ -212,6 +220,10 @@ internal fun PairHeader(
     }
     // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert
     DexTokenAddressLine(watch)
+    // Referenzkurs: «Quelle: EZB · umgerechnet» (Hinweis bei Kreuzkurs oder berechneter Veränderung)
+    ReferenceSource.of(watch.exchangeKey)?.takeIf { watch.lastPrice != null }?.let { source ->
+        ReferenceSourceLine(source, watch.baseAsset, hasChange = watch.shownChange(headerChangeView) != null, Modifier.padding(top = 2.dp))
+    }
     // Herkunft aus der Zeile: «Änderung & Chart: Binance»; sonst Änderung aus fremden Kerzen
     val sourceNote = rowSource?.takeIf { watch.lastPrice != null && !preview }?.let { rowSourceText(it) } ?: candleNote
     if (sourceNote != null) {

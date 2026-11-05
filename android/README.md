@@ -5,8 +5,9 @@ Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was b
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 80 Märkte: 78 auf 69 Börsen (teils mit Spot und Futures),
-dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen. 75 Sprachen, kein Konto,
+Sprachausgabe und Startbildschirm-Widgets über 82 Märkte: 78 auf 69 Börsen (teils mit Spot und Futures),
+dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und Referenzkurse von EZB, Nationalbank der Ukraine und
+Polnischer Nationalbank für Devisen. 75 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
 r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)
@@ -29,7 +30,8 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
   alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
   Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. Bitunix Futures; DEX-Pools mit GeckoTerminal als
-  Reserve; Devisen als tägliche EZB-Referenzkurse (direkt von der EZB), nie live und ohne Alarme.
+  Reserve; Devisen als Referenzkurse direkt von EZB und NBU (täglich) bzw. NBP (wöchentlich), nie live und ohne
+  Alarme, mit Quellzeile; dazu live Fiat-Paare von Kraken und Bitstamp.
 * **Einstellungen** — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung) ·
   Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App) ·
   «App zurücksetzen». «Token & TradFi» und %-Änderung auf der Seite «Merkliste», Markt-Meldungen und Sprachausgabe
@@ -214,8 +216,10 @@ Migrationstest mit Daten (`RoomSchemaRulesTest`).
 
 ## Umfang
 
-* 80 Märkte: 78 auf 69 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
-  Reserve) und EZB-Referenzkurse für Devisen. Die vollständige Liste in Anzeigereihenfolge steht in
+* 82 Märkte: 78 auf 69 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
+  Reserve) und Referenzkurse für Devisen von EZB (täglich), Nationalbank der Ukraine (täglich) und Polnischer
+  Nationalbank (wöchentlich) — jede aktuelle Währung aus genau einer Quelle, gegen USD und EUR. Unter «Devisen» dazu
+  echte Fiat-Paare von Kraken und Bitstamp live (mit Alarmen). Die vollständige Liste in Anzeigereihenfolge steht in
   `marketdata/src/main/java/com/cryptochecker/marketdata/config/ExchangesConfig.kt`.
   Xcalibra ist seit Januar 2025 geschlossen.
 * Belegt abgeschaltete Dienste entfernt: die alte Poloniex-Legacy-API (28.02.2023; Poloniex selbst läuft über die

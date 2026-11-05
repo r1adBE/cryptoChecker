@@ -22,9 +22,10 @@ extension ExplorerScreen {
             }
 
             exchangeStatusLine
-            // EZB-Referenzkurse: täglich festgelegt, nicht live, keine Alarme
+            // Referenzkurse: nicht live, keine Alarme (EZB «Tageskurs …», NBU/NBP «Zentralbank»)
             if vm.isReferenceRate {
-                ExplorerHint(text: L("explorer_forex_hint"))
+                let ecb = ReferenceSource.of(vm.exchange?.key).map { $0 == .ecb } ?? true
+                ExplorerHint(text: L(ecb ? "explorer_forex_hint" : "explorer_forex_hint_bank"))
             }
         }
     }
@@ -211,8 +212,14 @@ extension ExplorerScreen {
     private var priceCardContent: some View {
         switch vm.price {
         case .some(.loaded(let price, let pair)):
-            TickerView(ticker: price, base: pair.base, quote: pair.quote)
-                .padding(Spacing.md)
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                TickerView(ticker: price, base: pair.base, quote: pair.quote)
+                // Referenzkurs: «Quelle: …», bei Kreuzkurs «· umgerechnet» (die Vorschau zeigt keine Veränderung)
+                if let source = ReferenceSource.of(vm.exchange?.key) {
+                    ReferenceSourceLine(source: source, base: pair.base, hasChange: false)
+                }
+            }
+            .padding(Spacing.md)
         case .some(.failed(let reason)):
             ExplorerErrorRow(message: reason) { vm.retryPrice() }
                 .padding(.top, -10)

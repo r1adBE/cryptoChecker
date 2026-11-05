@@ -9,6 +9,14 @@ example CoinGecko, Binance, alternative.me, Coin Metrics) and is subject to the
 terms of those providers. It is not part of the Software and is not covered by
 the MIT License.
 
+Foreign exchange reference rates
+
+Reference rates come from the European Central Bank (source: ECB), the National
+Bank of Ukraine (source: National Bank of Ukraine) and the National Bank of
+Poland (source: Narodowy Bank Polski). Rates against other currencies (cross
+rates) and the change against the previous publication are calculated by the
+apps from these rates; the apps mark such values as converted.
+
 Alarm sounds
 
 The four iOS alarm sounds (cc_chime, cc_crystal, cc_dingdong, cc_pulse) are

@@ -230,7 +230,9 @@
     <string name="watchlist_sort_by_exchange">Сортирај по берзи</string>
     <string name="watchlist_limit_reached">Твој списак праћења може имати највише %1$s парова.</string>
     <string name="watch_price_reference">референтни курс, дневно</string>
+    <string name="watch_price_reference_weekly">референтни курс, недељно</string>
     <string name="watch_price_daily">дневно</string>
+    <string name="watch_price_weekly">недељно</string>
     <string name="watchlist_compare">Упореди</string>
     <string name="watchlist_compare_hint">Изабери 2 до 4 пара за поређење.</string>
     <string name="compare_title">Поређење</string>

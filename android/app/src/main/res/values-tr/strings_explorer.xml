@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Tüm borsalar</string>
     <string name="explorer_exchanges_title">Borsalar</string>
     <string name="explorer_forex_hint">Avrupa Merkez Bankası’nın günlük kuru, canlı değil – alarm yok.</string>
+    <string name="explorer_forex_live">Canlı (borsa)</string>
+    <string name="explorer_forex_reference">Referans kur</string>
+    <string name="explorer_forex_hint_bank">Bir merkez bankasının referans kuru, canlı değil – alarm yok.</string>
+    <string name="explorer_source_ecb">Kaynak: ECB</string>
+    <string name="explorer_source_nbu">Kaynak: Ukrayna Ulusal Bankası</string>
+    <string name="explorer_source_nbp">Kaynak: Polonya Ulusal Bankası</string>
+    <string name="explorer_source_converted">çevrilmiş</string>
 </resources>

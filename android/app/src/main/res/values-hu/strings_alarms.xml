@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Riasztások szüneteltetve a háttérben – a figyelőlista nincs mentve</string>
     <string name="alarms_limit_reached">Egy párhoz legfeljebb %1$s riasztás tartozhat.</string>
     <string name="alarms_reference_rate_hint">Az EKB referencia-árfolyamait csak naponta egyszer rögzítik – ezekre nincs riasztás.</string>
+    <string name="alarms_reference_rate_hint_bank">A központi bankok referencia-árfolyamait csak naponta vagy hetente rögzítik – ezekre nincs riasztás.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Egy esésnek 100 százalék alatt kell lennie.</string>

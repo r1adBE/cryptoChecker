@@ -241,7 +241,9 @@
     <string name="watchlist_sort_by_exchange">Сортировать по бирже</string>
     <string name="watchlist_limit_reached">В списке может быть не больше %1$s пар.</string>
     <string name="watch_price_reference">референсный курс, ежедневно</string>
+    <string name="watch_price_reference_weekly">референсный курс, еженедельно</string>
     <string name="watch_price_daily">ежедневно</string>
+    <string name="watch_price_weekly">еженедельно</string>
     <string name="watchlist_compare">Сравнить</string>
     <string name="watchlist_compare_hint">Отметь от 2 до 4 пар для сравнения.</string>
     <string name="compare_title">Сравнение</string>

@@ -1,0 +1,725 @@
+{
+  "_comment": "Referenzkurse der Zentralbanken neben der EZB (ReferenceRates, ReferenceSource, NbuReference, NbpReference): Quelle je Währung (EZB > NBU > NBP, ohne Metalle/XDR und zurückgezogene Codes), Lesen der NBU-Tage (calcdate = Veröffentlichung, Wochenende wiederholt Freitag) und der NBP-Tabellen (B mit A desselben effectiveDate), Kreuzkurse auf 5 signifikante Stellen, Veränderung gegen die vorige Veröffentlichung, Gültigkeit der behaltenen Antworten, Hinweis «umgerechnet». Bodies gekürzt aus echten Antworten (NBU nur mit den gelesenen Feldern) vom 5. November 2026 (ZWL in Tabelle B von Hand ergänzt). Android: ReferenceRatesParityTest.kt; iOS: ReferenceRatesParityTests.swift.",
+  "bodies": {
+    "nbu": "[{\"exchangedate\": \"05.11.2026\", \"cc\": \"EUR\", \"rate\": 51.2489, \"units\": 1, \"rate_per_unit\": 51.2489, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"05.11.2026\", \"cc\": \"HUF\", \"rate\": 14.1032, \"units\": 100, \"rate_per_unit\": 0.141032, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"05.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0674, \"units\": 100, \"rate_per_unit\": 0.100674, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"05.11.2026\", \"cc\": \"XAU\", \"rate\": 184042.87, \"units\": 1, \"rate_per_unit\": 184042.87, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"05.11.2026\", \"cc\": \"USD\", \"rate\": 45.5375, \"units\": 1, \"rate_per_unit\": 45.5375, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"05.11.2026\", \"cc\": \"AED\", \"rate\": 12.3979, \"units\": 1, \"rate_per_unit\": 12.3979, \"calcdate\": \"04.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0942, \"units\": 100, \"rate_per_unit\": 0.100942, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"HUF\", \"rate\": 14.014, \"units\": 100, \"rate_per_unit\": 0.14014, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"USD\", \"rate\": 45.666, \"units\": 1, \"rate_per_unit\": 45.666, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"XAU\", \"rate\": 179459.21, \"units\": 1, \"rate_per_unit\": 179459.21, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"AED\", \"rate\": 12.4329, \"units\": 1, \"rate_per_unit\": 12.4329, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"04.11.2026\", \"cc\": \"EUR\", \"rate\": 51.0582, \"units\": 1, \"rate_per_unit\": 51.0582, \"calcdate\": \"03.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"XAU\", \"rate\": 177632.58, \"units\": 1, \"rate_per_unit\": 177632.58, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"USD\", \"rate\": 45.5348, \"units\": 1, \"rate_per_unit\": 45.5348, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"AED\", \"rate\": 12.3972, \"units\": 1, \"rate_per_unit\": 12.3972, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"EUR\", \"rate\": 51.0527, \"units\": 1, \"rate_per_unit\": 51.0527, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"HUF\", \"rate\": 14.0072, \"units\": 100, \"rate_per_unit\": 0.140072, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"03.11.2026\", \"cc\": \"KZT\", \"rate\": 10.064, \"units\": 100, \"rate_per_unit\": 0.10064, \"calcdate\": \"02.11.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"USD\", \"rate\": 45.3526, \"units\": 1, \"rate_per_unit\": 45.3526, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"AED\", \"rate\": 12.3476, \"units\": 1, \"rate_per_unit\": 12.3476, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"EUR\", \"rate\": 50.6843, \"units\": 1, \"rate_per_unit\": 50.6843, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"HUF\", \"rate\": 13.8382, \"units\": 100, \"rate_per_unit\": 0.138382, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0064, \"units\": 100, \"rate_per_unit\": 0.100064, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"XAU\", \"rate\": 179378.88, \"units\": 1, \"rate_per_unit\": 179378.88, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"EUR\", \"rate\": 50.7666, \"units\": 1, \"rate_per_unit\": 50.7666, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8354, \"units\": 100, \"rate_per_unit\": 0.138354, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0177, \"units\": 100, \"rate_per_unit\": 0.100177, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"USD\", \"rate\": 45.5923, \"units\": 1, \"rate_per_unit\": 45.5923, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"XAU\", \"rate\": 184747.11, \"units\": 1, \"rate_per_unit\": 184747.11, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"AED\", \"rate\": 12.4128, \"units\": 1, \"rate_per_unit\": 12.4128, \"calcdate\": \"28.10.2026\"}]",
+    "nbuWeekend": "[{\"exchangedate\": \"02.11.2026\", \"cc\": \"USD\", \"rate\": 45.3526, \"units\": 1, \"rate_per_unit\": 45.3526, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"AED\", \"rate\": 12.3476, \"units\": 1, \"rate_per_unit\": 12.3476, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"EUR\", \"rate\": 50.6843, \"units\": 1, \"rate_per_unit\": 50.6843, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"HUF\", \"rate\": 13.8382, \"units\": 100, \"rate_per_unit\": 0.138382, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0064, \"units\": 100, \"rate_per_unit\": 0.100064, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"02.11.2026\", \"cc\": \"XAU\", \"rate\": 179378.88, \"units\": 1, \"rate_per_unit\": 179378.88, \"calcdate\": \"30.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"01.11.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"31.10.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"AED\", \"rate\": 12.3957, \"units\": 1, \"rate_per_unit\": 12.3957, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"EUR\", \"rate\": 50.6796, \"units\": 1, \"rate_per_unit\": 50.6796, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8491, \"units\": 100, \"rate_per_unit\": 0.138491, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0506, \"units\": 100, \"rate_per_unit\": 0.100506, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"USD\", \"rate\": 45.5293, \"units\": 1, \"rate_per_unit\": 45.5293, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"30.10.2026\", \"cc\": \"XAU\", \"rate\": 183039.35, \"units\": 1, \"rate_per_unit\": 183039.35, \"calcdate\": \"29.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"EUR\", \"rate\": 50.7666, \"units\": 1, \"rate_per_unit\": 50.7666, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"HUF\", \"rate\": 13.8354, \"units\": 100, \"rate_per_unit\": 0.138354, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"KZT\", \"rate\": 10.0177, \"units\": 100, \"rate_per_unit\": 0.100177, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"USD\", \"rate\": 45.5923, \"units\": 1, \"rate_per_unit\": 45.5923, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"XAU\", \"rate\": 184747.11, \"units\": 1, \"rate_per_unit\": 184747.11, \"calcdate\": \"28.10.2026\"}, {\"exchangedate\": \"29.10.2026\", \"cc\": \"AED\", \"rate\": 12.4128, \"units\": 1, \"rate_per_unit\": 12.4128, \"calcdate\": \"28.10.2026\"}]",
+    "nbpA": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}, {\"table\": \"A\", \"no\": \"215/A/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9097}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.4014}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003983}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3321}]}]",
+    "nbpAMissing": "[{\"table\": \"A\", \"no\": \"210/A/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9624}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.409}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.004025}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3486}]}, {\"table\": \"A\", \"no\": \"212/A/NBP/2026\", \"effectiveDate\": \"2026-10-30\", \"rates\": [{\"currency\": \"dolar amerykański\", \"code\": \"USD\", \"mid\": 3.9251}, {\"currency\": \"euro\", \"code\": \"EUR\", \"mid\": 4.3955}, {\"currency\": \"peso chilijskie\", \"code\": \"CLP\", \"mid\": 0.003982}, {\"currency\": \"SDR (MFW)\", \"code\": \"XDR\", \"mid\": 5.3415}]}]",
+    "nbpB": "[{\"table\": \"B\", \"no\": \"043/B/NBP/2026\", \"effectiveDate\": \"2026-10-28\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0791}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.002951}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002577}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030498}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.147}]}, {\"table\": \"B\", \"no\": \"044/B/NBP/2026\", \"effectiveDate\": \"2026-11-04\", \"rates\": [{\"currency\": \"dirham ZEA (Zjednoczone Emiraty Arabskie)\", \"code\": \"AED\", \"mid\": 1.0654}, {\"currency\": \"naira (Nigeria)\", \"code\": \"NGN\", \"mid\": 0.00291}, {\"currency\": \"peso argentyńskie\", \"code\": \"ARS\", \"mid\": 0.002524}, {\"currency\": \"szyling kenijski\", \"code\": \"KES\", \"mid\": 0.030115}, {\"currency\": \"złoto Zimbabwe\", \"code\": \"ZWG\", \"mid\": 0.1446}, {\"currency\": \"(hand-added withdrawn code)\", \"code\": \"ZWL\", \"mid\": 0.0123}]}]",
+    "garbage": "<html>maintenance</html>"
+  },
+  "nbuRangeUrl": {
+    "today": "2026-11-05",
+    "expected": "https://bank.gov.ua/NBU_Exchange/exchange_site?start=20261029&end=20261105&sort=exchangedate&order=desc&json"
+  },
+  "tickers": [
+    {
+      "source": "NBU",
+      "bodies": [
+        "nbu"
+      ],
+      "publications": 2,
+      "expected": {
+        "AEDUSD": {
+          "last": 0.27226,
+          "change": 0.0
+        },
+        "AEDEUR": {
+          "last": 0.24192,
+          "change": -0.6488706365503073
+        },
+        "KZTUSD": {
+          "last": 0.0022108,
+          "change": 0.018096272167943656
+        },
+        "UAHUSD": {
+          "last": 0.02196,
+          "change": 0.2831308795323753
+        },
+        "UAHEUR": {
+          "last": 0.019513,
+          "change": -0.3676282869543151
+        },
+        "HUFUSD": {
+          "last": 0.0030971,
+          "change": 0.9221845672575665
+        }
+      },
+      "absent": [
+        "XAUUSD",
+        "XAUEUR",
+        "USDUSD"
+      ]
+    },
+    {
+      "source": "NBU",
+      "bodies": [
+        "nbuWeekend"
+      ],
+      "publications": 2,
+      "expected": {
+        "AEDUSD": {
+          "last": 0.27226,
+          "change": 0.0
+        },
+        "UAHEUR": {
+          "last": 0.01973,
+          "change": -0.01013581998782957
+        }
+      },
+      "absent": [
+        "XAUUSD"
+      ]
+    },
+    {
+      "source": "NBP",
+      "bodies": [
+        "nbpA",
+        "nbpB"
+      ],
+      "publications": 2,
+      "expected": {
+        "NGNUSD": {
+          "last": 0.0007443,
+          "change": -0.06042296072506609
+        },
+        "NGNEUR": {
+          "last": 0.00066115,
+          "change": -1.2191660067831056
+        },
+        "CLPUSD": {
+          "last": 0.0010187,
+          "change": 0.28548926954123915
+        },
+        "ARSEUR": {
+          "last": 0.00057345,
+          "change": -1.888826156136124
+        },
+        "KESUSD": {
+          "last": 0.0077026,
+          "change": 0.07405578869416056
+        },
+        "ZWGUSD": {
+          "last": 0.036985,
+          "change": -0.3072859106714547
+        },
+        "PLNUSD": {
+          "last": 0.25577,
+          "change": 1.3472282759440561
+        }
+      },
+      "absent": [
+        "ZWLUSD",
+        "XDRUSD"
+      ]
+    },
+    {
+      "source": "NBP",
+      "bodies": [
+        "nbpAMissing",
+        "nbpB"
+      ],
+      "publications": 2,
+      "expected": {},
+      "absent": [
+        "NGNUSD",
+        "NGNEUR",
+        "CLPUSD"
+      ]
+    }
+  ],
+  "assign": {
+    "ecb": [
+      "AUD",
+      "BRL",
+      "CAD",
+      "CHF",
+      "CNY",
+      "CZK",
+      "DKK",
+      "GBP",
+      "HKD",
+      "HUF",
+      "IDR",
+      "ILS",
+      "INR",
+      "ISK",
+      "JPY",
+      "KRW",
+      "MXN",
+      "MYR",
+      "NOK",
+      "NZD",
+      "PHP",
+      "PLN",
+      "RON",
+      "SEK",
+      "SGD",
+      "THB",
+      "TRY",
+      "USD",
+      "ZAR"
+    ],
+    "nbu": [
+      "AED",
+      "AUD",
+      "AZN",
+      "BDT",
+      "CAD",
+      "CHF",
+      "CNY",
+      "CZK",
+      "DKK",
+      "DZD",
+      "EGP",
+      "EUR",
+      "GBP",
+      "GEL",
+      "HKD",
+      "HUF",
+      "IDR",
+      "ILS",
+      "INR",
+      "JPY",
+      "KRW",
+      "KZT",
+      "LBP",
+      "MDL",
+      "MXN",
+      "MYR",
+      "NOK",
+      "NZD",
+      "PLN",
+      "RON",
+      "RSD",
+      "SAR",
+      "SEK",
+      "SGD",
+      "THB",
+      "TND",
+      "TRY",
+      "USD",
+      "VND",
+      "XAG",
+      "XAU",
+      "XDR",
+      "XPD",
+      "XPT",
+      "ZAR"
+    ],
+    "nbp": [
+      "AED",
+      "AFN",
+      "ALL",
+      "AMD",
+      "AOA",
+      "ARS",
+      "AUD",
+      "AWG",
+      "AZN",
+      "BAM",
+      "BBD",
+      "BDT",
+      "BHD",
+      "BIF",
+      "BND",
+      "BOB",
+      "BRL",
+      "BSD",
+      "BWP",
+      "BYN",
+      "BZD",
+      "CAD",
+      "CDF",
+      "CHF",
+      "CLP",
+      "CNY",
+      "COP",
+      "CRC",
+      "CUP",
+      "CVE",
+      "CZK",
+      "DJF",
+      "DKK",
+      "DOP",
+      "DZD",
+      "EGP",
+      "ERN",
+      "ETB",
+      "EUR",
+      "FJD",
+      "GBP",
+      "GEL",
+      "GHS",
+      "GIP",
+      "GMD",
+      "GNF",
+      "GTQ",
+      "GYD",
+      "HKD",
+      "HNL",
+      "HTG",
+      "HUF",
+      "IDR",
+      "ILS",
+      "INR",
+      "IQD",
+      "IRR",
+      "ISK",
+      "JMD",
+      "JOD",
+      "JPY",
+      "KES",
+      "KGS",
+      "KHR",
+      "KMF",
+      "KRW",
+      "KWD",
+      "KZT",
+      "LAK",
+      "LBP",
+      "LKR",
+      "LRD",
+      "LSL",
+      "LYD",
+      "MAD",
+      "MDL",
+      "MGA",
+      "MKD",
+      "MMK",
+      "MNT",
+      "MOP",
+      "MRU",
+      "MUR",
+      "MVR",
+      "MWK",
+      "MXN",
+      "MYR",
+      "MZN",
+      "NAD",
+      "NGN",
+      "NIO",
+      "NOK",
+      "NPR",
+      "NZD",
+      "OMR",
+      "PAB",
+      "PEN",
+      "PGK",
+      "PHP",
+      "PKR",
+      "PYG",
+      "QAR",
+      "RON",
+      "RSD",
+      "RUB",
+      "RWF",
+      "SAR",
+      "SBD",
+      "SCR",
+      "SDG",
+      "SEK",
+      "SGD",
+      "SLE",
+      "SOS",
+      "SRD",
+      "SSP",
+      "STN",
+      "SVC",
+      "SYP",
+      "SZL",
+      "THB",
+      "TJS",
+      "TMT",
+      "TND",
+      "TOP",
+      "TRY",
+      "TTD",
+      "TWD",
+      "TZS",
+      "UAH",
+      "UGX",
+      "USD",
+      "UYU",
+      "UZS",
+      "VES",
+      "VND",
+      "VUV",
+      "WST",
+      "XAF",
+      "XCD",
+      "XCG",
+      "XDR",
+      "XOF",
+      "XPF",
+      "YER",
+      "ZAR",
+      "ZMW",
+      "ZWG",
+      "ZWL"
+    ],
+    "expected": {
+      "AUD": "ECB",
+      "BRL": "ECB",
+      "CAD": "ECB",
+      "CHF": "ECB",
+      "CNY": "ECB",
+      "CZK": "ECB",
+      "DKK": "ECB",
+      "EUR": "ECB",
+      "GBP": "ECB",
+      "HKD": "ECB",
+      "HUF": "ECB",
+      "IDR": "ECB",
+      "ILS": "ECB",
+      "INR": "ECB",
+      "ISK": "ECB",
+      "JPY": "ECB",
+      "KRW": "ECB",
+      "MXN": "ECB",
+      "MYR": "ECB",
+      "NOK": "ECB",
+      "NZD": "ECB",
+      "PHP": "ECB",
+      "PLN": "ECB",
+      "RON": "ECB",
+      "SEK": "ECB",
+      "SGD": "ECB",
+      "THB": "ECB",
+      "TRY": "ECB",
+      "USD": "ECB",
+      "ZAR": "ECB",
+      "AED": "NBU",
+      "AZN": "NBU",
+      "BDT": "NBU",
+      "DZD": "NBU",
+      "EGP": "NBU",
+      "GEL": "NBU",
+      "KZT": "NBU",
+      "LBP": "NBU",
+      "MDL": "NBU",
+      "RSD": "NBU",
+      "SAR": "NBU",
+      "TND": "NBU",
+      "UAH": "NBU",
+      "VND": "NBU",
+      "AFN": "NBP",
+      "ALL": "NBP",
+      "AMD": "NBP",
+      "AOA": "NBP",
+      "ARS": "NBP",
+      "AWG": "NBP",
+      "BAM": "NBP",
+      "BBD": "NBP",
+      "BHD": "NBP",
+      "BIF": "NBP",
+      "BND": "NBP",
+      "BOB": "NBP",
+      "BSD": "NBP",
+      "BWP": "NBP",
+      "BYN": "NBP",
+      "BZD": "NBP",
+      "CDF": "NBP",
+      "CLP": "NBP",
+      "COP": "NBP",
+      "CRC": "NBP",
+      "CUP": "NBP",
+      "CVE": "NBP",
+      "DJF": "NBP",
+      "DOP": "NBP",
+      "ERN": "NBP",
+      "ETB": "NBP",
+      "FJD": "NBP",
+      "GHS": "NBP",
+      "GIP": "NBP",
+      "GMD": "NBP",
+      "GNF": "NBP",
+      "GTQ": "NBP",
+      "GYD": "NBP",
+      "HNL": "NBP",
+      "HTG": "NBP",
+      "IQD": "NBP",
+      "IRR": "NBP",
+      "JMD": "NBP",
+      "JOD": "NBP",
+      "KES": "NBP",
+      "KGS": "NBP",
+      "KHR": "NBP",
+      "KMF": "NBP",
+      "KWD": "NBP",
+      "LAK": "NBP",
+      "LKR": "NBP",
+      "LRD": "NBP",
+      "LSL": "NBP",
+      "LYD": "NBP",
+      "MAD": "NBP",
+      "MGA": "NBP",
+      "MKD": "NBP",
+      "MMK": "NBP",
+      "MNT": "NBP",
+      "MOP": "NBP",
+      "MRU": "NBP",
+      "MUR": "NBP",
+      "MVR": "NBP",
+      "MWK": "NBP",
+      "MZN": "NBP",
+      "NAD": "NBP",
+      "NGN": "NBP",
+      "NIO": "NBP",
+      "NPR": "NBP",
+      "OMR": "NBP",
+      "PAB": "NBP",
+      "PEN": "NBP",
+      "PGK": "NBP",
+      "PKR": "NBP",
+      "PYG": "NBP",
+      "QAR": "NBP",
+      "RUB": "NBP",
+      "RWF": "NBP",
+      "SBD": "NBP",
+      "SCR": "NBP",
+      "SDG": "NBP",
+      "SLE": "NBP",
+      "SOS": "NBP",
+      "SRD": "NBP",
+      "SSP": "NBP",
+      "STN": "NBP",
+      "SVC": "NBP",
+      "SYP": "NBP",
+      "SZL": "NBP",
+      "TJS": "NBP",
+      "TMT": "NBP",
+      "TOP": "NBP",
+      "TTD": "NBP",
+      "TWD": "NBP",
+      "TZS": "NBP",
+      "UGX": "NBP",
+      "UYU": "NBP",
+      "UZS": "NBP",
+      "VES": "NBP",
+      "VUV": "NBP",
+      "WST": "NBP",
+      "XAF": "NBP",
+      "XCD": "NBP",
+      "XCG": "NBP",
+      "XOF": "NBP",
+      "XPF": "NBP",
+      "YER": "NBP",
+      "ZMW": "NBP",
+      "ZWG": "NBP"
+    },
+    "nbuPairs": [
+      "AEDUSD",
+      "AEDEUR",
+      "AZNUSD",
+      "AZNEUR",
+      "BDTUSD",
+      "BDTEUR",
+      "DZDUSD",
+      "DZDEUR",
+      "EGPUSD",
+      "EGPEUR",
+      "GELUSD",
+      "GELEUR",
+      "KZTUSD",
+      "KZTEUR",
+      "LBPUSD",
+      "LBPEUR",
+      "MDLUSD",
+      "MDLEUR",
+      "RSDUSD",
+      "RSDEUR",
+      "SARUSD",
+      "SAREUR",
+      "TNDUSD",
+      "TNDEUR",
+      "UAHUSD",
+      "UAHEUR",
+      "VNDUSD",
+      "VNDEUR"
+    ],
+    "nbpPairsCount": 208,
+    "nbpPairsSample": [
+      "NGNUSD",
+      "NGNEUR",
+      "CLPUSD",
+      "VESEUR",
+      "XCGUSD",
+      "ZWGEUR"
+    ],
+    "absent": [
+      "XAU",
+      "XAG",
+      "XPT",
+      "XPD",
+      "XDR",
+      "ZWL"
+    ]
+  },
+  "expectedWednesday": [
+    {
+      "now": 1793790899000,
+      "utc": "2026-11-04T11:14:59Z",
+      "expected": "2026-10-28"
+    },
+    {
+      "now": 1793790900000,
+      "utc": "2026-11-04T11:15:00Z",
+      "expected": "2026-11-04"
+    },
+    {
+      "now": 1794139200000,
+      "utc": "2026-11-08T12:00:00Z",
+      "expected": "2026-11-04"
+    },
+    {
+      "now": 1782900840000,
+      "utc": "2026-07-01T10:14:00Z",
+      "expected": "2026-06-24"
+    },
+    {
+      "now": 1782900900000,
+      "utc": "2026-07-01T10:15:00Z",
+      "expected": "2026-07-01"
+    },
+    {
+      "now": 1793748600000,
+      "utc": "2026-11-03T23:30:00Z",
+      "expected": "2026-10-28"
+    }
+  ],
+  "validUntil": [
+    {
+      "source": "NBU",
+      "utc": "2026-11-05T10:00:00Z",
+      "now": 1793872800000,
+      "bodies": [
+        "nbu"
+      ],
+      "expected": 1793916000000
+    },
+    {
+      "source": "NBU",
+      "utc": "2026-11-05T21:59:00Z",
+      "now": 1793915940000,
+      "bodies": [
+        "nbu"
+      ],
+      "expected": 1793916000000
+    },
+    {
+      "source": "NBU",
+      "utc": "2026-11-05T22:30:00Z",
+      "now": 1793917800000,
+      "bodies": [
+        "nbu"
+      ],
+      "expected": 1793921400000
+    },
+    {
+      "source": "NBP",
+      "utc": "2026-11-05T10:00:00Z",
+      "now": 1793872800000,
+      "bodies": [
+        "nbpA",
+        "nbpB"
+      ],
+      "expected": 1794395700000
+    },
+    {
+      "source": "NBP",
+      "utc": "2026-11-04T10:00:00Z",
+      "now": 1793786400000,
+      "bodies": [
+        "nbpA",
+        "nbpB"
+      ],
+      "expected": 1793790900000
+    },
+    {
+      "source": "NBP",
+      "utc": "2026-11-05T10:00:00Z",
+      "now": 1793872800000,
+      "bodies": [
+        "nbpAMissing",
+        "nbpB"
+      ],
+      "expected": 1793876400000
+    },
+    {
+      "source": "NBP",
+      "utc": "2026-11-19T10:00:00Z",
+      "now": 1795082400000,
+      "bodies": [
+        "nbpA",
+        "nbpB"
+      ],
+      "expected": 1795086000000
+    },
+    {
+      "source": "NBU",
+      "utc": "2026-11-05T10:00:00Z",
+      "now": 1793872800000,
+      "bodies": [
+        "garbage"
+      ],
+      "expected": 0
+    }
+  ],
+  "converted": [
+    {
+      "source": "ECB",
+      "base": "EUR",
+      "hasChange": false,
+      "expected": false
+    },
+    {
+      "source": "ECB",
+      "base": "EUR",
+      "hasChange": true,
+      "expected": true
+    },
+    {
+      "source": "ECB",
+      "base": "USD",
+      "hasChange": false,
+      "expected": true
+    },
+    {
+      "source": "NBU",
+      "base": "AED",
+      "hasChange": false,
+      "expected": true
+    },
+    {
+      "source": "NBP",
+      "base": "NGN",
+      "hasChange": false,
+      "expected": true
+    }
+  ],
+  "sources": [
+    {
+      "exchangeKey": "EcbReference",
+      "source": "ECB",
+      "weekly": false,
+      "home": "EUR"
+    },
+    {
+      "exchangeKey": "NbuReference",
+      "source": "NBU",
+      "weekly": false,
+      "home": "UAH"
+    },
+    {
+      "exchangeKey": "NbpReference",
+      "source": "NBP",
+      "weekly": true,
+      "home": "PLN"
+    },
+    {
+      "exchangeKey": "Kraken",
+      "source": null
+    }
+  ]
+}

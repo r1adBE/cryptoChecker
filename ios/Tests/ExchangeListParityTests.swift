@@ -56,6 +56,10 @@ final class ExchangeListParityTests: XCTestCase {
         XCTAssertEqual(ExchangesConfig.exchange("DexScreener")?.category, .dex)
         XCTAssertEqual(ExchangesConfig.exchange("EcbReference")?.category, .forex)
         XCTAssertEqual(ExchangesConfig.exchange("EcbReference")?.allowsAlarms, false)
+        for key in ["NbuReference", "NbpReference"] {
+            XCTAssertEqual(ExchangesConfig.exchange(key)?.category, .forex, key)
+            XCTAssertEqual(ExchangesConfig.exchange(key)?.allowsAlarms, false, key)
+        }
         XCTAssertEqual(ExchangesConfig.exchange("Binance")?.allowsAlarms, true)
         for key in ExchangeOrder.derivativesIds.keys {
             XCTAssertEqual(ExchangesConfig.exchange(key)?.category, .futures, key)
@@ -183,6 +187,30 @@ final class ExchangeListParityTests: XCTestCase {
         XCTAssertNotNil(exchange.tickerQueryError(call: 0, info: ExchangePair("EUR", "US", "EURUS")))
         XCTAssertNil(exchange.tickerQueryError(call: 0, info: pair))
         XCTAssertEqual(exchange.name, "ECB")
+    }
+
+    /// NBU und NBP: Einzel- und Sammelkurs aus denselben Antworten, Paarliste gemeinsam mit EZB/NBU. Wie Android
+    /// `NewExchangesTest.bankReferencesReadSharedResponsesAndCombinedLists`.
+    func testBankReferencesReadSharedResponsesAndCombinedLists() throws {
+        let now: Int64 = 1_793_872_800_000 // 2026-11-05 10:00 UTC
+        let nbu = NbuReference()
+        XCTAssertEqual(nbu.responseAddresses(now: now).count, 1)
+        XCTAssertTrue(nbu.responseAddresses(now: now)[0].contains("start=20261029&end=20261105"))
+        XCTAssertTrue(nbu.pairListCombined)
+        XCTAssertEqual((0..<nbu.pairListCallCount).compactMap { nbu.pairListAddress(call: $0) },
+                       [EcbRates.dailyURL, ReferenceRates.nbuListURL])
+        let nbp = NbpReference()
+        XCTAssertEqual(nbp.responseAddresses(now: now), [ReferenceRates.nbpTableAURL, ReferenceRates.nbpTableBURL])
+        XCTAssertEqual(nbp.pairListCallCount, 4)
+        XCTAssertFalse(nbp.priceIsDailyReference)
+        XCTAssertNotNil(nbp.tickerQueryError(call: 0, info: ExchangePair("NGN", "US", "NGNUS")))
+        let ecbDaily = "<Cube><Cube time='2026-11-04'><Cube currency='USD' rate='1.16'/><Cube currency='PLN' rate='4.24'/></Cube></Cube>"
+        let nbuList = #"[{"cc":"AED","rate":12.4},{"cc":"USD","rate":45.5},{"cc":"XAU","rate":170000}]"#
+        let tableB = #"[{"effectiveDate":"2026-11-04","rates":[{"code":"AED","mid":1.06},{"code":"NGN","mid":0.0029}]}]"#
+        XCTAssertEqual(try nbu.readPairListCombined(bodies: [ecbDaily, nbuList]).compactMap(\.pairId).sorted(),
+                       ["AEDEUR", "AEDUSD", "UAHEUR", "UAHUSD"])
+        XCTAssertEqual(try nbp.readPairListCombined(bodies: [ecbDaily, nbuList, tableB, "[]"]).compactMap(\.pairId).sorted(),
+                       ["NGNEUR", "NGNUSD"])
     }
 
     func testEcbReferenceReadsLatestAndPreviousDay() throws {

@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">എക്സ്ചേഞ്ച് പ്രകാരം അടുക്കുക</string>
     <string name="watchlist_limit_reached">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിൽ പരമാവധി %1$s ജോഡികൾ മാത്രം.</string>
     <string name="watch_price_reference">റഫറൻസ് നിരക്ക്, പ്രതിദിനം</string>
+    <string name="watch_price_reference_weekly">റഫറൻസ് നിരക്ക്, പ്രതിവാരം</string>
     <string name="watch_price_daily">പ്രതിദിനം</string>
+    <string name="watch_price_weekly">പ്രതിവാരം</string>
     <string name="watchlist_compare">താരതമ്യം ചെയ്യുക</string>
     <string name="watchlist_compare_hint">താരതമ്യം ചെയ്യാൻ 2 മുതൽ 4 വരെ ജോഡികൾ തിരഞ്ഞെടുക്കുക.</string>
     <string name="compare_title">താരതമ്യം</string>

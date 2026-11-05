@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Бүх бирж</string>
     <string name="explorer_exchanges_title">Биржүүд</string>
     <string name="explorer_forex_hint">Европын Төв Банкны өдрийн ханш, шууд биш – дохио алга.</string>
+    <string name="explorer_forex_live">Шууд (бирж)</string>
+    <string name="explorer_forex_reference">Лавлах ханш</string>
+    <string name="explorer_forex_hint_bank">Төв банкны лавлах ханш, шууд биш – дохио алга.</string>
+    <string name="explorer_source_ecb">Эх сурвалж: ЕТБ</string>
+    <string name="explorer_source_nbu">Эх сурвалж: Украины Үндэсний банк</string>
+    <string name="explorer_source_nbp">Эх сурвалж: Польшийн Үндэсний банк</string>
+    <string name="explorer_source_converted">хөрвүүлсэн</string>
 </resources>

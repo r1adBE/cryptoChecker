@@ -89,9 +89,12 @@ Helper scripts (Python 3, run from `ios/`):
 ## Exchange library
 
 Both apps read **public** price data directly from the exchanges – no API
-keys, no accounts. 80 markets: 78 on 69 exchanges, plus DexScreener (with GeckoTerminal as fallback) and the
-daily ECB reference rates (straight from the ECB, labelled, no alerts). The exchange picker groups them into Spot ·
-Futures · DEX pools · Forex, each sorted by trading volume on the install date:
+keys, no accounts. 82 markets: 78 on 69 exchanges, plus DexScreener (with GeckoTerminal as fallback) and the
+reference rates of three central banks, straight from the banks (labelled, no alerts): the ECB (daily), the National
+Bank of Ukraine (daily) and the National Bank of Poland (weekly) – together every current currency, each from one
+source, against USD and EUR. The exchange picker groups them into Spot · Futures · DEX pools · Forex, each sorted by
+trading volume on the install date; the Forex chip shows live fiat pairs of Kraken and Bitstamp (EUR/USD, USD/JPY …,
+with alerts) next to the reference rates:
 
 * Android: [`android/marketdata`](android/marketdata) (Gradle library module,
   registered in `config/ExchangesConfig.kt`)

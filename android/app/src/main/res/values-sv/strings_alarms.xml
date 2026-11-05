@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Larm pausade i bakgrunden – bevakningslistan är inte sparad</string>
     <string name="alarms_limit_reached">Ett par kan ha högst %1$s larm.</string>
     <string name="alarms_reference_rate_hint">ECB:s referenskurser fastställs bara en gång om dagen – det finns inga larm för dem.</string>
+    <string name="alarms_reference_rate_hint_bank">Centralbankers referenskurser fastställs bara dagligen eller veckovis – det finns inga larm för dem.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">En nedgång måste vara under 100 procent.</string>

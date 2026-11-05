@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 201)
+
+* Forex in two groups: «Live (exchange)» with real fiat pairs of Kraken and Bitstamp (alerts, live stream) and reference rates.
+* Reference rates for practically every currency: ECB first, then the National Bank of Ukraine (daily) and the National Bank of Poland (weekly), each against USD and EUR. Every reference rate names its source, «converted» when the value is a cross rate or a computed change.
+* GitHub Actions: gradle/actions 6.4.1, artifacts kept 14 days.
+
 ## 16.2.2 (build 200)
 
 * Forex reference rates and fiat conversion come straight from the European Central Bank (daily file, 90-day file, ECB Data Portal for older dates) – the third-party mirror is gone. Rates and pairs stay the same.

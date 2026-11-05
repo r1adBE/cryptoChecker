@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Të gjitha bursat</string>
     <string name="explorer_exchanges_title">Bursat</string>
     <string name="explorer_forex_hint">Kursi ditor i Bankës Qendrore Evropiane, jo live – pa alarme.</string>
+    <string name="explorer_forex_live">Live (bursa)</string>
+    <string name="explorer_forex_reference">Kursi i referencës</string>
+    <string name="explorer_forex_hint_bank">Kursi i referencës i një banke qendrore, jo live – pa alarme.</string>
+    <string name="explorer_source_ecb">Burimi: BQE</string>
+    <string name="explorer_source_nbu">Burimi: Banka Kombëtare e Ukrainës</string>
+    <string name="explorer_source_nbp">Burimi: Banka Kombëtare e Polonisë</string>
+    <string name="explorer_source_converted">i konvertuar</string>
 </resources>

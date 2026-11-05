@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Ayusin ayon sa exchange</string>
     <string name="watchlist_limit_reached">Hanggang %1$s pares lang ang puwede sa watchlist mo.</string>
     <string name="watch_price_reference">reference rate, araw-araw</string>
+    <string name="watch_price_reference_weekly">reference rate, lingguhan</string>
     <string name="watch_price_daily">araw-araw</string>
+    <string name="watch_price_weekly">lingguhan</string>
     <string name="watchlist_compare">Ihambing</string>
     <string name="watchlist_compare_hint">Pumili ng 2 hanggang 4 na pares para ihambing.</string>
     <string name="compare_title">Paghahambing</string>

@@ -240,6 +240,12 @@
     },
     "EcbReference": {
       "symbol": "FOREX"
+    },
+    "NbuReference": {
+      "symbol": "FOREX"
+    },
+    "NbpReference": {
+      "symbol": "FOREX"
     }
   },
   "shared": [

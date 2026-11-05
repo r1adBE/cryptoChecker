@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">সব এক্সচেঞ্জ</string>
     <string name="explorer_exchanges_title">এক্সচেঞ্জ</string>
     <string name="explorer_forex_hint">ইউরোপীয় কেন্দ্রীয় ব্যাংকের দৈনিক হার, লাইভ নয় – কোনো অ্যালার্ট নেই।</string>
+    <string name="explorer_forex_live">লাইভ (এক্সচেঞ্জ)</string>
+    <string name="explorer_forex_reference">রেফারেন্স রেট</string>
+    <string name="explorer_forex_hint_bank">কেন্দ্রীয় ব্যাংকের রেফারেন্স রেট, লাইভ নয় – কোনো অ্যালার্ট নেই।</string>
+    <string name="explorer_source_ecb">উৎস: ECB</string>
+    <string name="explorer_source_nbu">উৎস: ইউক্রেনের জাতীয় ব্যাংক</string>
+    <string name="explorer_source_nbp">উৎস: পোল্যান্ডের জাতীয় ব্যাংক</string>
+    <string name="explorer_source_converted">রূপান্তরিত</string>
 </resources>

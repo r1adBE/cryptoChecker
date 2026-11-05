@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Фондағы ескертулер кідіртілді – бақылау тізімі сақталмады</string>
     <string name="alarms_limit_reached">Бір жұпта ең көбі %1$s ескерту болуы мүмкін.</string>
     <string name="alarms_reference_rate_hint">ЕОБ анықтамалық бағамдары күніне бір рет қана белгіленеді – олар үшін ескерту жоқ.</string>
+    <string name="alarms_reference_rate_hint_bank">Орталық банктердің анықтамалық бағамдары тек күн сайын не апта сайын белгіленеді – олар үшін ескерту жоқ.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Төмендеу 100 пайыздан аз болуы керек.</string>

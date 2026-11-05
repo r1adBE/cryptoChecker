@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">כל הבורסות</string>
     <string name="explorer_exchanges_title">בורסות</string>
     <string name="explorer_forex_hint">שער יומי של הבנק המרכזי האירופי, לא בזמן אמת – ללא התראות.</string>
+    <string name="explorer_forex_live">בזמן אמת (בורסה)</string>
+    <string name="explorer_forex_reference">שער ייחוס</string>
+    <string name="explorer_forex_hint_bank">שער ייחוס של בנק מרכזי, לא בזמן אמת – ללא התראות.</string>
+    <string name="explorer_source_ecb">מקור: הבנק המרכזי האירופי</string>
+    <string name="explorer_source_nbu">מקור: הבנק הלאומי של אוקראינה</string>
+    <string name="explorer_source_nbp">מקור: הבנק הלאומי של פולין</string>
+    <string name="explorer_source_converted">מומר</string>
 </resources>

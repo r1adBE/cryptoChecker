@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">అన్ని ఎక్స్ఛేంజ్‌లు</string>
     <string name="explorer_exchanges_title">ఎక్స్ఛేంజ్‌లు</string>
     <string name="explorer_forex_hint">యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు, లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
+    <string name="explorer_forex_live">లైవ్ (ఎక్స్ఛేంజ్)</string>
+    <string name="explorer_forex_reference">రిఫరెన్స్ రేటు</string>
+    <string name="explorer_forex_hint_bank">కేంద్ర బ్యాంక్ రిఫరెన్స్ రేటు, లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
+    <string name="explorer_source_ecb">మూలం: ECB</string>
+    <string name="explorer_source_nbu">మూలం: ఉక్రెయిన్ జాతీయ బ్యాంక్</string>
+    <string name="explorer_source_nbp">మూలం: పోలాండ్ జాతీయ బ్యాంక్</string>
+    <string name="explorer_source_converted">మార్చబడింది</string>
 </resources>

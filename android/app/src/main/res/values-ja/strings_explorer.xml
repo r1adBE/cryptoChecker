@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">すべての取引所</string>
     <string name="explorer_exchanges_title">取引所</string>
     <string name="explorer_forex_hint">欧州中央銀行の日次レートです。リアルタイムではなく、アラームはありません。</string>
+    <string name="explorer_forex_live">リアルタイム（取引所）</string>
+    <string name="explorer_forex_reference">参照レート</string>
+    <string name="explorer_forex_hint_bank">中央銀行の参照レートです。リアルタイムではなく、アラームはありません。</string>
+    <string name="explorer_source_ecb">出典：ECB</string>
+    <string name="explorer_source_nbu">出典：ウクライナ国立銀行</string>
+    <string name="explorer_source_nbp">出典：ポーランド国立銀行</string>
+    <string name="explorer_source_converted">換算済み</string>
 </resources>

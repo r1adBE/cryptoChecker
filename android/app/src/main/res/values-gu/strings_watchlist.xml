@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">એક્સચેન્જ મુજબ ગોઠવો</string>
     <string name="watchlist_limit_reached">તમારી વૉચલિસ્ટમાં વધુમાં વધુ %1$s જોડીઓ હોઈ શકે છે.</string>
     <string name="watch_price_reference">સંદર્ભ દર, દૈનિક</string>
+    <string name="watch_price_reference_weekly">સંદર્ભ દર, સાપ્તાહિક</string>
     <string name="watch_price_daily">દૈનિક</string>
+    <string name="watch_price_weekly">સાપ્તાહિક</string>
     <string name="watchlist_compare">સરખાવો</string>
     <string name="watchlist_compare_hint">સરખામણી માટે 2 થી 4 જોડીઓ પસંદ કરો.</string>
     <string name="compare_title">સરખામણી</string>

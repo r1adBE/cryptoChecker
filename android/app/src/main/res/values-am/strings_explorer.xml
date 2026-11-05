@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">ሁሉም ልውውጦች</string>
     <string name="explorer_exchanges_title">ልውውጦች</string>
     <string name="explorer_forex_hint">የአውሮፓ ማዕከላዊ ባንክ ዕለታዊ ተመን፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።</string>
+    <string name="explorer_forex_live">ቀጥታ (ልውውጥ)</string>
+    <string name="explorer_forex_reference">የማጣቀሻ ተመን</string>
+    <string name="explorer_forex_hint_bank">የማዕከላዊ ባንክ የማጣቀሻ ተመን፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።</string>
+    <string name="explorer_source_ecb">ምንጭ፦ ECB</string>
+    <string name="explorer_source_nbu">ምንጭ፦ የዩክሬን ብሔራዊ ባንክ</string>
+    <string name="explorer_source_nbp">ምንጭ፦ የፖላንድ ብሔራዊ ባንክ</string>
+    <string name="explorer_source_converted">የተለወጠ</string>
 </resources>

@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">背景提醒已暫停 – 自選清單未儲存</string>
     <string name="alarms_limit_reached">每個交易對最多可設定 %1$s 個提醒。</string>
     <string name="alarms_reference_rate_hint">歐洲央行的參考匯率每天只確定一次——因此沒有提醒。</string>
+    <string name="alarms_reference_rate_hint_bank">中央銀行的參考匯率僅每日或每週確定一次——因此沒有提醒。</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">跌幅必須小於百分之一百。</string>

@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Lahat ng exchange</string>
     <string name="explorer_exchanges_title">Mga exchange</string>
     <string name="explorer_forex_hint">Daily rate ng European Central Bank, hindi live – walang alerto.</string>
+    <string name="explorer_forex_live">Live (exchange)</string>
+    <string name="explorer_forex_reference">Reference rate</string>
+    <string name="explorer_forex_hint_bank">Reference rate ng isang central bank, hindi live – walang alerto.</string>
+    <string name="explorer_source_ecb">Pinagmulan: ECB</string>
+    <string name="explorer_source_nbu">Pinagmulan: National Bank of Ukraine</string>
+    <string name="explorer_source_nbp">Pinagmulan: National Bank of Poland</string>
+    <string name="explorer_source_converted">na-convert</string>
 </resources>

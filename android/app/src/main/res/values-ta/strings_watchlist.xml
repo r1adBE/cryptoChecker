@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">எக்ஸ்சேஞ்ச் வாரியாக வரிசைப்படுத்தவும்</string>
     <string name="watchlist_limit_reached">உங்கள் கண்காணிப்புப் பட்டியலில் அதிகபட்சம் %1$s ஜோடிகள் இருக்கலாம்.</string>
     <string name="watch_price_reference">குறிப்பு விகிதம், தினசரி</string>
+    <string name="watch_price_reference_weekly">குறிப்பு விகிதம், வாராந்திர</string>
     <string name="watch_price_daily">தினசரி</string>
+    <string name="watch_price_weekly">வாராந்திர</string>
     <string name="watchlist_compare">ஒப்பிடவும்</string>
     <string name="watchlist_compare_hint">ஒப்பிட 2 முதல் 4 ஜோடிகளைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="compare_title">ஒப்பீடு</string>

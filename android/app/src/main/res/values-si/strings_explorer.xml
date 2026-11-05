@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">සියලු හුවමාරු</string>
     <string name="explorer_exchanges_title">හුවමාරු</string>
     <string name="explorer_forex_hint">යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය, සජීවී නොවේ – ඇඟවීම් නැත.</string>
+    <string name="explorer_forex_live">සජීවී (හුවමාරුව)</string>
+    <string name="explorer_forex_reference">යොමු අනුපාතය</string>
+    <string name="explorer_forex_hint_bank">මහ බැංකුවක යොමු අනුපාතය, සජීවී නොවේ – ඇඟවීම් නැත.</string>
+    <string name="explorer_source_ecb">මූලාශ්‍රය: ECB</string>
+    <string name="explorer_source_nbu">මූලාශ්‍රය: යුක්රේන ජාතික බැංකුව</string>
+    <string name="explorer_source_nbp">මූලාශ්‍රය: පෝලන්ත ජාතික බැංකුව</string>
+    <string name="explorer_source_converted">පරිවර්තිත</string>
 </resources>

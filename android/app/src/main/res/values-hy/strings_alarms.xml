@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Ահազանգերը ֆոնում դադարեցված են – դիտացանկը պահպանված չէ</string>
     <string name="alarms_limit_reached">Զույգը կարող է ունենալ առավելագույնը %1$s ահազանգ։</string>
     <string name="alarms_reference_rate_hint">ԵԿԲ-ի հղումային փոխարժեքները սահմանվում են օրը միայն մեկ անգամ – դրանց համար ահազանգեր չկան։</string>
+    <string name="alarms_reference_rate_hint_bank">Կենտրոնական բանկերի հղումային փոխարժեքները սահմանվում են միայն օրական կամ շաբաթական – դրանց համար ահազանգեր չկան։</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Անկումը պետք է լինի 100 տոկոսից պակաս։</string>

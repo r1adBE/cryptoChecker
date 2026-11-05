@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">പശ്ചാത്തലത്തിൽ അലേർട്ടുകൾ താൽക്കാലികമായി നിർത്തി – വാച്ച്‌ലിസ്റ്റ് സംരക്ഷിച്ചിട്ടില്ല</string>
     <string name="alarms_limit_reached">ഒരു ജോഡിക്ക് പരമാവധി %1$s അലേർട്ടുകൾ.</string>
     <string name="alarms_reference_rate_hint">ECB റഫറൻസ് നിരക്കുകൾ ദിവസത്തിൽ ഒരിക്കൽ മാത്രമേ നിശ്ചയിക്കൂ – അവയ്ക്ക് അലേർട്ടുകളില്ല.</string>
+    <string name="alarms_reference_rate_hint_bank">കേന്ദ്ര ബാങ്കുകളുടെ റഫറൻസ് നിരക്കുകൾ ദിവസേനയോ ആഴ്ചതോറുമോ മാത്രമേ നിശ്ചയിക്കൂ – അവയ്ക്ക് അലേർട്ടുകളില്ല.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ഇടിവ് 100 ശതമാനത്തിൽ കുറവായിരിക്കണം.</string>

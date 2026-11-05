@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">एक्सचेन्जअनुसार क्रमबद्ध गर्नुहोस्</string>
     <string name="watchlist_limit_reached">तपाईंको वाचलिस्टमा बढीमा %1$s जोडी हुन सक्छन्।</string>
     <string name="watch_price_reference">सन्दर्भ दर, दैनिक</string>
+    <string name="watch_price_reference_weekly">सन्दर्भ दर, साप्ताहिक</string>
     <string name="watch_price_daily">दैनिक</string>
+    <string name="watch_price_weekly">साप्ताहिक</string>
     <string name="watchlist_compare">तुलना</string>
     <string name="watchlist_compare_hint">तुलना गर्न 2 देखि 4 जोडी छान्नुहोस्।</string>
     <string name="compare_title">तुलना</string>

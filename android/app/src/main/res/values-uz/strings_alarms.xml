@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Fondagi signallar toʻxtatildi – kuzatuv roʻyxati saqlanmadi</string>
     <string name="alarms_limit_reached">Bir juftlikda koʻpi bilan %1$s ta signal boʻlishi mumkin.</string>
     <string name="alarms_reference_rate_hint">YeMB maʼlumotnoma kurslari kuniga faqat bir marta belgilanadi – ular uchun signallar yoʻq.</string>
+    <string name="alarms_reference_rate_hint_bank">Markaziy banklarning maʼlumotnoma kurslari faqat har kuni yoki har hafta belgilanadi – ular uchun signallar yoʻq.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Pasayish 100 foizdan kam boʻlishi kerak.</string>

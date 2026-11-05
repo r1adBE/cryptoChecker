@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Подреди по борса</string>
     <string name="watchlist_limit_reached">Списъкът ти може да има най-много %1$s двойки.</string>
     <string name="watch_price_reference">референтен курс, дневен</string>
+    <string name="watch_price_reference_weekly">референтен курс, седмичен</string>
     <string name="watch_price_daily">дневно</string>
+    <string name="watch_price_weekly">седмично</string>
     <string name="watchlist_compare">Сравни</string>
     <string name="watchlist_compare_hint">За сравнение маркирай 2 до 4 двойки.</string>
     <string name="compare_title">Сравнение</string>

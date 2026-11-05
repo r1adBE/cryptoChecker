@@ -38,6 +38,7 @@ import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.work.ExactCheckOffer
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.marketdata.model.ReferenceSource
 
 /**
  * EIN Dialog nach dem allerersten Alarm statt mehrerer nacheinander: Bestätigung mit «Alarm testen», dazu optional
@@ -232,11 +233,16 @@ internal fun DexLowLiquidityNote() {
     }
 }
 
-/** EZB-Referenzkurs (Forex, [com.cryptochecker.marketdata.model.Exchange.allowsAlarms] false): keine Alarme. */
+/**
+ * Referenzkurs (Forex, [com.cryptochecker.marketdata.model.Exchange.allowsAlarms] false): keine Alarme. Text der EZB
+ * («einmal täglich») oder — für NBU und NBP der Börse [exchangeKey] — «täglich oder wöchentlich».
+ */
 @Composable
-internal fun ReferenceRateNote() {
+internal fun ReferenceRateNote(exchangeKey: String?) {
+    val source = ReferenceSource.of(exchangeKey)
+    val ecb = source == null || source == ReferenceSource.ECB
     Text(
-        stringResource(R.string.alarms_reference_rate_hint),
+        stringResource(if (ecb) R.string.alarms_reference_rate_hint else R.string.alarms_reference_rate_hint_bank),
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )

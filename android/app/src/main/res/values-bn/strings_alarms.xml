@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">ব্যাকগ্রাউন্ডে অ্যালার্ট বিরত – ওয়াচলিস্ট সংরক্ষিত হয়নি</string>
     <string name="alarms_limit_reached">একটি পেয়ারে সর্বোচ্চ %1$sটি অ্যালার্ট থাকতে পারে।</string>
     <string name="alarms_reference_rate_hint">ECB রেফারেন্স রেট দিনে মাত্র একবার নির্ধারিত হয় – এগুলোর জন্য কোনো অ্যালার্ট নেই।</string>
+    <string name="alarms_reference_rate_hint_bank">কেন্দ্রীয় ব্যাংকের রেফারেন্স রেট শুধু দৈনিক বা সাপ্তাহিকভাবে নির্ধারিত হয় – এগুলোর জন্য কোনো অ্যালার্ট নেই।</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">পতন 100 শতাংশের কম হতে হবে।</string>

@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Sve berze</string>
     <string name="explorer_exchanges_title">Berze</string>
     <string name="explorer_forex_hint">Dnevni kurs Evropske centralne banke, ne uživo – nema alarma.</string>
+    <string name="explorer_forex_live">Uživo (berza)</string>
+    <string name="explorer_forex_reference">Referentni kurs</string>
+    <string name="explorer_forex_hint_bank">Referentni kurs centralne banke, ne uživo – nema alarma.</string>
+    <string name="explorer_source_ecb">Izvor: ECB</string>
+    <string name="explorer_source_nbu">Izvor: Narodna banka Ukrajine</string>
+    <string name="explorer_source_nbp">Izvor: Narodna banka Poljske</string>
+    <string name="explorer_source_converted">preračunato</string>
 </resources>

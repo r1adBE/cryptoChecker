@@ -80,6 +80,10 @@ extension PairScreen {
             header(watch, isPreview: isPreview)
             // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert (eigenes Element, wie Android)
             DexTokenAddressLine(watch: watch)
+            // Referenzkurs: «Quelle: EZB · umgerechnet» (Hinweis bei Kreuzkurs oder berechneter Veränderung)
+            if watch.lastPrice != nil, let source = ReferenceSource.of(watch.exchangeKey) {
+                ReferenceSourceLine(source: source, base: watch.baseAsset, hasChange: changeView.shown(watch) != nil)
+            }
             // Herkunft aus der Zeile: «Änderung & Chart: Binance»; sonst die Änderung aus fremden
             // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher (wie Android)
             if let note = sourceNote(watch) {
@@ -200,18 +204,23 @@ private struct SheetChangeLine: View {
         // (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der jüngsten Stundenkerze. Wie Android
         let exchange = ExchangesConfig.exchange(watch.exchangeKey)
         let mid: String
-        switch PriceKindLabel.of(priceIsMid: exchange?.priceIsMid == true,
-                                 markFallback: MarkFallbackStore.contains(watch.id),
-                                 hourlyClose: exchange?.priceIsHourlyClose == true || HourlyCloseStore.contains(watch.id),
-                                 dailyReference: exchange?.priceIsDailyReference == true) {
+        let kind = PriceKindLabel.of(priceIsMid: exchange?.priceIsMid == true,
+                                     markFallback: MarkFallbackStore.contains(watch.id),
+                                     hourlyClose: exchange?.priceIsHourlyClose == true || HourlyCloseStore.contains(watch.id),
+                                     dailyReference: exchange?.priceIsDailyReference == true,
+                                     weeklyReference: ReferenceSource.of(watch.exchangeKey)?.weekly == true)
+        switch kind {
         case .mark: mid = " · " + L("watch_price_mark_fallback")
         case .mid: mid = " · " + L("watch_price_mid")
         case .hourly: mid = " · " + L("watch_price_hourly")
         case .dailyReference: mid = " · " + L("watch_price_reference")
+        case .weeklyReference: mid = " · " + L("watch_price_reference_weekly")
         case nil: mid = ""
         }
         let updatedPart: String = showUpdated ? " · " + updated : ""
-        let tail: String = " · " + A11y.changeShortLabel(changeView.basis) + mid + updatedPart
+        // Wöchentlicher Referenzkurs: Veränderung gegen die Vorwoche — kein «24h», der Takt steht in `mid` (wie Android)
+        let basis = kind == .weeklyReference ? "" : " · " + A11y.changeShortLabel(changeView.basis)
+        let tail: String = basis + mid + updatedPart
         return HStack(alignment: .firstTextBaseline, spacing: 0) {
             WatchlistDayChangePill(watch: watch, size: .medium, note: note)
                 .environment(\.changeView, view)

@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">सबै एक्सचेन्ज</string>
     <string name="explorer_exchanges_title">एक्सचेन्जहरू</string>
     <string name="explorer_forex_hint">युरोपेली केन्द्रीय बैंकको दैनिक दर, लाइभ होइन – अलर्ट छैन।</string>
+    <string name="explorer_forex_live">लाइभ (एक्सचेन्ज)</string>
+    <string name="explorer_forex_reference">सन्दर्भ दर</string>
+    <string name="explorer_forex_hint_bank">केन्द्रीय बैंकको सन्दर्भ दर, लाइभ होइन – अलर्ट छैन।</string>
+    <string name="explorer_source_ecb">स्रोत: ECB</string>
+    <string name="explorer_source_nbu">स्रोत: युक्रेनको राष्ट्रिय बैंक</string>
+    <string name="explorer_source_nbp">स्रोत: पोल्यान्डको राष्ट्रिय बैंक</string>
+    <string name="explorer_source_converted">रूपान्तरित</string>
 </resources>

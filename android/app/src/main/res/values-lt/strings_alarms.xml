@@ -196,6 +196,7 @@
     <string name="alarm_reliability_storage_no_key">Įspėjimai fone pristabdyti – stebimų sąrašas neišsaugotas</string>
     <string name="alarms_limit_reached">Porai galima nustatyti daugiausia %1$s įspėjimų.</string>
     <string name="alarms_reference_rate_hint">ECB orientaciniai kursai nustatomi tik kartą per dieną – jiems įspėjimų nėra.</string>
+    <string name="alarms_reference_rate_hint_bank">Centrinių bankų orientaciniai kursai nustatomi tik kasdien arba kas savaitę – jiems įspėjimų nėra.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Kritimas turi būti mažesnis nei 100 procentų.</string>

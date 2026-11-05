@@ -196,6 +196,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmy na pozadí pozastavené – zoznam nie je uložený</string>
     <string name="alarms_limit_reached">Pár môže mať najviac %1$s alarmov.</string>
     <string name="alarms_reference_rate_hint">Referenčné kurzy ECB sa stanovujú iba raz denne – preto pre ne nie sú alarmy.</string>
+    <string name="alarms_reference_rate_hint_bank">Referenčné kurzy centrálnych bánk sa stanovujú iba denne alebo týždenne – preto pre ne nie sú alarmy.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Pokles musí byť menší ako 100 percent.</string>

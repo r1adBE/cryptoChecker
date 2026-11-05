@@ -202,6 +202,7 @@
     <string name="alarm_reliability_storage_no_key">Foláirimh sa chúlra ar sos – liosta faire gan sábháil</string>
     <string name="alarms_limit_reached">Is féidir %1$s foláireamh ar a mhéad a bheith ag péire.</string>
     <string name="alarms_reference_rate_hint">Ní shocraítear rátaí tagartha an BCE ach uair sa lá – níl foláirimh ann dóibh.</string>
+    <string name="alarms_reference_rate_hint_bank">Ní shocraítear rátaí tagartha na mbanc ceannais ach go laethúil nó go seachtainiúil – níl foláirimh ann dóibh.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Caithfidh titim a bheith níos lú ná 100 faoin gcéad.</string>

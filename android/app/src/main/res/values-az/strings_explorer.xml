@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Bütün birjalar</string>
     <string name="explorer_exchanges_title">Birjalar</string>
     <string name="explorer_forex_hint">Avropa Mərkəzi Bankının günlük məzənnəsi, canlı deyil – alarmsız.</string>
+    <string name="explorer_forex_live">Canlı (birja)</string>
+    <string name="explorer_forex_reference">İstinad məzənnəsi</string>
+    <string name="explorer_forex_hint_bank">Mərkəzi bankın istinad məzənnəsi, canlı deyil – alarmsız.</string>
+    <string name="explorer_source_ecb">Mənbə: AMB</string>
+    <string name="explorer_source_nbu">Mənbə: Ukrayna Milli Bankı</string>
+    <string name="explorer_source_nbp">Mənbə: Polşa Milli Bankı</string>
+    <string name="explorer_source_converted">çevrilmiş</string>
 </resources>

@@ -95,6 +95,8 @@ class ExchangeKeyTest {
         BitunixFutures() to "BitunixFutures",
         DexScreener() to "DexScreener",
         EcbReference() to "EcbReference",
+        NbuReference() to "NbuReference",
+        NbpReference() to "NbpReference",
         UnknownExchange() to "UnknownExchange",
     )
 

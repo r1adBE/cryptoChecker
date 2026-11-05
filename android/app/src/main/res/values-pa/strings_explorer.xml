@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">ਸਾਰੇ ਐਕਸਚੇਂਜ</string>
     <string name="explorer_exchanges_title">ਐਕਸਚੇਂਜ</string>
     <string name="explorer_forex_hint">ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ, ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
+    <string name="explorer_forex_live">ਲਾਈਵ (ਐਕਸਚੇਂਜ)</string>
+    <string name="explorer_forex_reference">ਹਵਾਲਾ ਦਰ</string>
+    <string name="explorer_forex_hint_bank">ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਹਵਾਲਾ ਦਰ, ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
+    <string name="explorer_source_ecb">ਸਰੋਤ: ECB</string>
+    <string name="explorer_source_nbu">ਸਰੋਤ: ਯੂਕਰੇਨ ਦਾ ਰਾਸ਼ਟਰੀ ਬੈਂਕ</string>
+    <string name="explorer_source_nbp">ਸਰੋਤ: ਪੋਲੈਂਡ ਦਾ ਰਾਸ਼ਟਰੀ ਬੈਂਕ</string>
+    <string name="explorer_source_converted">ਬਦਲੀ ਗਈ</string>
 </resources>

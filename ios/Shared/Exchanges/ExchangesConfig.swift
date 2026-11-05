@@ -26,6 +26,8 @@ enum ExchangesConfig {
         Latoken(), NonKyc(), DexScreener(),
         // Devisen-Referenzkurse der EZB (Abschnitt «Forex», keine Alarme)
         EcbReference(),
+        NbuReference(),
+        NbpReference(),
     ]
 
     /// Suche per Schlüssel; bei doppeltem Schlüssel gewinnt der spätere Eintrag.

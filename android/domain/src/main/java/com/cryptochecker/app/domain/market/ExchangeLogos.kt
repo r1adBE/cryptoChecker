@@ -40,7 +40,10 @@ object ExchangeLogos {
     )
 
     /** Festes Symbol statt Logo. */
-    val SYMBOLS: Map<String, Symbol> = mapOf("DexScreener" to Symbol.DEX, "EcbReference" to Symbol.FOREX)
+    val SYMBOLS: Map<String, Symbol> = mapOf(
+        "DexScreener" to Symbol.DEX,
+        "EcbReference" to Symbol.FOREX, "NbuReference" to Symbol.FOREX, "NbpReference" to Symbol.FOREX,
+    )
 
     /** Name des Logos im Paket; mehrere Börsen teilen eines. null = festes Symbol bzw. unbekannte Börse. */
     fun logoName(exchangeKey: String): String? = LOGOS[exchangeKey]

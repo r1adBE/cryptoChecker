@@ -210,7 +210,8 @@ class ExplorerViewModel @Inject constructor(
 
     /**
      * Paarliste der gewählten Börse, nur mit dem, was «Token & TradFi» zeigt; bei Binance samt
-     * Alpha-Paaren. Neue Alpha-Liste oder Schalter «inkl. Alpha-Tokens» wirken sofort.
+     * Alpha-Paaren. Neue Alpha-Liste oder Schalter «inkl. Alpha-Tokens» wirken sofort. Unter dem Chip «Devisen» zeigt
+     * eine Börse der Gruppe «Live (Börse)» nur ihre Fiat-Paare ([ForexLive]).
      */
     internal val pairList: StateFlow<ExchangePairsInfo?> = exchange
         .combine(pairListChanged) { selected, _ -> selected }
@@ -218,11 +219,15 @@ class ExplorerViewModel @Inject constructor(
         .combine(hiddenAlpha) { (selected, scope), hidden -> Triple(selected, scope, hidden) }
         .combine(coinLogoRepository.alphaTokens) { choice, _ -> choice }
         .combine(coinLogoRepository.alphaNames) { choice, alphaNames -> choice to alphaNames }
-        .map { (choice, alphaNames) ->
+        .combine(hits.market) { choice, market -> choice to market }
+        .map { (named, market) ->
+            val (choice, alphaNames) = named
             val (selected, scope, hidden) = choice
             selected?.let {
-                exchangeRepository.getExchangeCurrencyPairsInfo(it, withAlpha = true)
+                val info = exchangeRepository.getExchangeCurrencyPairsInfo(it, withAlpha = true)
                     .scoped(scope, it.key, hidden, tokenIdentityStore.exchangeNames(it.key), alphaNames)
+                if (market != MarketFilter.FOREX || !ForexLive.isLive(it.key)) info
+                else info.copy(pairs = info.pairs.filter { p -> !p.tradFi && ForexLive.isFiatPair(p.base, p.quote) })
             }
         }
         .flowOn(Dispatchers.Default)

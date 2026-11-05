@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Hoiatused taustal peatatud – jälgimisloend pole salvestatud</string>
     <string name="alarms_limit_reached">Paaril saab olla kuni %1$s hoiatust.</string>
     <string name="alarms_reference_rate_hint">EKP viitekursid määratakse ainult kord päevas – nende jaoks hoiatusi pole.</string>
+    <string name="alarms_reference_rate_hint_bank">Keskpankade viitekursid määratakse ainult iga päev või iga nädal – nende jaoks hoiatusi pole.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Langus peab olema alla 100 protsendi.</string>

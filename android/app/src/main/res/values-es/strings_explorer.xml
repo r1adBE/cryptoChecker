@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Todos los exchanges</string>
     <string name="explorer_exchanges_title">Exchanges</string>
     <string name="explorer_forex_hint">Tipo diario del Banco Central Europeo, no en vivo – sin alarmas.</string>
+    <string name="explorer_forex_live">En vivo (exchange)</string>
+    <string name="explorer_forex_reference">Tipo de referencia</string>
+    <string name="explorer_forex_hint_bank">Tipo de referencia de un banco central, no en vivo – sin alarmas.</string>
+    <string name="explorer_source_ecb">Fuente: BCE</string>
+    <string name="explorer_source_nbu">Fuente: Banco Nacional de Ucrania</string>
+    <string name="explorer_source_nbp">Fuente: Banco Nacional de Polonia</string>
+    <string name="explorer_source_converted">convertido</string>
 </resources>

@@ -194,4 +194,11 @@
     <string name="explorer_all_exchanges_title">Gach malartán</string>
     <string name="explorer_exchanges_title">Malartáin</string>
     <string name="explorer_forex_hint">Ráta laethúil an Bhainc Ceannais Eorpaigh, ní beo – gan foláirimh.</string>
+    <string name="explorer_forex_live">Beo (malartán)</string>
+    <string name="explorer_forex_reference">Ráta tagartha</string>
+    <string name="explorer_forex_hint_bank">Ráta tagartha bainc ceannais, ní beo – gan foláirimh.</string>
+    <string name="explorer_source_ecb">Foinse: BCE</string>
+    <string name="explorer_source_nbu">Foinse: Banc Náisiúnta na hÚcráine</string>
+    <string name="explorer_source_nbp">Foinse: Banc Náisiúnta na Polainne</string>
+    <string name="explorer_source_converted">tiontaithe</string>
 </resources>

@@ -1672,6 +1672,31 @@ the tests named here.
     unchanged; any other base (USD → CHF, USD/JPY pair …) = quote / base rounded to **5 significant digits**
     (`EcbRates.round5`, like the former mirror's «%.5g»: floor(v × 10^k + 0.5) / 10^k with k = 4 − ⌊log10 v⌋;
     exact .5 ties may differ from «%.5g» in the last digit). USD → EUR = round5(1 / USD).
+* **Forex: live fiat pairs and reference rates of three central banks (build 201).** The «Forex» chip of «Add pair»
+  has two groups. «Live (exchange)» = Kraken and Bitstamp (`ForexLive` / `ExplorerForexLive`); opened from there the
+  pair list is filtered to fiat–fiat pairs (both sides in the ECB currency list), otherwise they are ordinary pairs
+  with alerts and the live stream (no adapter filters fiat pairs). «Reference rate» = the `FOREX` sources:
+  - **Source per currency** (`ReferenceRates.assign`, parity fixture `reference_rates.json`): ECB (incl. EUR) >
+    National Bank of Ukraine (incl. UAH) > National Bank of Poland (tables B and A, incl. PLN). Metals/XDR (XAU, XAG,
+    XPT, XPD, XDR) and withdrawn ISO codes (`ReferenceRates.EXCLUDED`: VEF, ZWL, HRK, SLL, ANG, BGN …) never appear.
+    The ECB keeps all ordered pairs (build 200); `NbuReference` / `NbpReference` (`BankReference`) list each of their
+    currencies against USD and EUR only. Their pair lists are `pairListCombined` (ECB daily file, NBU list, NBP tables)
+    so a currency never comes from two sources.
+  - **Rates:** NBU `bank.gov.ua/NBU_Exchange/exchange_site?start=<Kyiv today − 7>&end=<Kyiv today>&json` (one
+    request, all currencies, `rate_per_unit`); a publication is one `calcdate` (weekend days repeat Friday's), change
+    against the previous publication. NBP `tables/A/last/15` + `tables/B/last/2`: X/PLN from table B with USD and EUR
+    from table A of the **same `effectiveDate`** (never across days; missing table A → no rate), change against the
+    previous week. Cross rates r(X) / r(quote) rounded with `EcbRates.round5`. Labels «Referenzkurs, täglich» (NBU) /
+    «wöchentlich» (NBP, no «24h» on the pair page), no alerts.
+  - **One request per source and refresh:** `MultiResponseSource` – the data source (`MultiResponses`, Kotlin
+    `:data` / Swift `Shared/Core`) fetches all addresses together, joins them with U+001E and hands them to the
+    adapter as response 0 of the single or bulk query; kept in memory until `validUntil` (NBU: midnight in Kyiv;
+    NBP: Wednesday 12:15 Warsaw after the expected table, `nbpExpectedWednesday`; missing publication → retry after
+    1 h).
+  - **Source line:** under the price in «Add pair» and on the pair page «Quelle: EZB / Nationalbank der Ukraine /
+    Polnische Nationalbank», plus «· umgerechnet» when the value is a cross rate or a computed change
+    (`ReferenceSource.converted`; the ECB requires a clear notice for modified data). NOTICE and the licence screens
+    name the three banks.
 * **Stablecoins without a daily close («7 d»).** Elsewhere a stablecoin without a price has no
   value (see above). For the «7 d» reference only, a missing close counts as 1
   only while the live price is within **0.1 %** of 1 (`PortfolioStables.fallbackWithoutClose`,
@@ -3349,6 +3374,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   names the transfer target wallet; disabled colours ≥ 3:1 (contrast script covers them); macro calendar «more dates follow».
 * Build 200: Frankfurter replaced by the ECB: `eurofxref-daily.xml` (conversion), `eurofxref-hist-90d.xml` (forex pairs), ECB
   Data Portal for history with the 90-day and full-history files as fallback; cross rates as before (5 significant digits).
+* Build 201: `ReferenceRates` picks one source per currency (ECB > NBU > NBP table B), cross rates from the same publication;
+  `NbuReference`/`NbpReference` cached until the next publication; forex chip with live fiat pairs (Kraken, Bitstamp).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

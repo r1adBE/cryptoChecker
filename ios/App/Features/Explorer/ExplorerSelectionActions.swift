@@ -103,11 +103,16 @@ extension ExplorerViewModel {
     }
 
     /// Auf das reduzieren, was «Token & TradFi» und «inkl. Alpha-Tokens» zeigen; trägt ein Paar
-    /// deutlich einen anderen Namen als das Alpha-Token, gilt es nicht als Alpha (`AssetKind.of`).
+    /// deutlich einen anderen Namen als das Alpha-Token, gilt es nicht als Alpha (`AssetKind.of`). Unter «Devisen» zeigt
+    /// eine Börse der Gruppe «Live (Börse)» nur ihre Fiat-Paare (`ExplorerForexLive`). Wie Android `pairList`.
     private func scopedPairs(_ info: ExchangePairsInfo, exchangeKey: String) -> ExchangePairsInfo {
-        info.scoped(assetScope, exchangeKey: exchangeKey, hiddenAlpha: hiddenAlpha,
-                    pairNames: TokenIdentityStore.shared.exchangeNames(exchangeKey),
-                    alphaNames: CoinLogoStore.alphaNames)
+        let scoped = info.scoped(assetScope, exchangeKey: exchangeKey, hiddenAlpha: hiddenAlpha,
+                                 pairNames: TokenIdentityStore.shared.exchangeNames(exchangeKey),
+                                 alphaNames: CoinLogoStore.alphaNames)
+        guard marketFilter == .forex, ExplorerForexLive.isLive(exchangeKey) else { return scoped }
+        return ExchangePairsInfo(lastSyncDate: scoped.lastSyncDate, pairs: scoped.pairs.filter {
+            !$0.isTradFi && ExplorerForexLive.isFiatPair($0.base, $0.quote)
+        })
     }
 
     // MARK: Paar

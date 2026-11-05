@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">બધાં એક્સચેન્જ</string>
     <string name="explorer_exchanges_title">એક્સચેન્જ</string>
     <string name="explorer_forex_hint">યુરોપિયન સેન્ટ્રલ બૅન્કનો દૈનિક દર, લાઇવ નથી – એલર્ટ નહીં.</string>
+    <string name="explorer_forex_live">લાઇવ (એક્સચેન્જ)</string>
+    <string name="explorer_forex_reference">સંદર્ભ દર</string>
+    <string name="explorer_forex_hint_bank">કેન્દ્રીય બૅન્કનો સંદર્ભ દર, લાઇવ નથી – એલર્ટ નહીં.</string>
+    <string name="explorer_source_ecb">સ્રોત: ECB</string>
+    <string name="explorer_source_nbu">સ્રોત: યુક્રેનની નેશનલ બૅન્ક</string>
+    <string name="explorer_source_nbp">સ્રોત: પોલેન્ડની નેશનલ બૅન્ક</string>
+    <string name="explorer_source_converted">રૂપાંતરિત</string>
 </resources>

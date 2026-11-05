@@ -217,7 +217,9 @@
     <string name="watchlist_sort_by_exchange">Sorteren op beurs</string>
     <string name="watchlist_limit_reached">Je volglijst kan maximaal %1$s paren bevatten.</string>
     <string name="watch_price_reference">referentiekoers, dagelijks</string>
+    <string name="watch_price_reference_weekly">referentiekoers, wekelijks</string>
     <string name="watch_price_daily">dagelijks</string>
+    <string name="watch_price_weekly">wekelijks</string>
     <string name="watchlist_compare">Vergelijken</string>
     <string name="watchlist_compare_hint">Selecteer 2 tot 4 paren om te vergelijken.</string>
     <string name="compare_title">Vergelijking</string>

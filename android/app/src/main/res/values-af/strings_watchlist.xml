@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Sorteer volgens beurs</string>
     <string name="watchlist_limit_reached">Jou volglys kan hoogstens %1$s pare hê.</string>
     <string name="watch_price_reference">verwysingskoers, daagliks</string>
+    <string name="watch_price_reference_weekly">verwysingskoers, weekliks</string>
     <string name="watch_price_daily">daagliks</string>
+    <string name="watch_price_weekly">weekliks</string>
     <string name="watchlist_compare">Vergelyk</string>
     <string name="watchlist_compare_hint">Kies 2 tot 4 pare om te vergelyk.</string>
     <string name="compare_title">Vergelyking</string>

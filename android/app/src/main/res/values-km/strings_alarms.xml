@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">ការដាស់តឿនបានផ្អាកនៅផ្ទៃខាងក្រោយ – បញ្ជីតាមដានមិនត្រូវបានរក្សាទុក</string>
     <string name="alarms_limit_reached">គូមួយអាចមានការដាស់តឿនយ៉ាងច្រើន %1$s។</string>
     <string name="alarms_reference_rate_hint">អត្រាយោង ECB ត្រូវបានកំណត់តែម្តងក្នុងមួយថ្ងៃប៉ុណ្ណោះ – គ្មានការដាស់តឿនសម្រាប់វាទេ។</string>
+    <string name="alarms_reference_rate_hint_bank">អត្រាយោងរបស់ធនាគារកណ្ដាលត្រូវបានកំណត់តែប្រចាំថ្ងៃ ឬប្រចាំសប្តាហ៍ប៉ុណ្ណោះ – គ្មានការដាស់តឿនសម្រាប់វាទេ។</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">ការធ្លាក់ចុះត្រូវតែតិចជាង 100 ភាគរយ។</string>

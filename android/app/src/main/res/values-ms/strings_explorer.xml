@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">Semua bursa</string>
     <string name="explorer_exchanges_title">Bursa</string>
     <string name="explorer_forex_hint">Kadar harian Bank Pusat Eropah, bukan langsung – tiada amaran.</string>
+    <string name="explorer_forex_live">Langsung (bursa)</string>
+    <string name="explorer_forex_reference">Kadar rujukan</string>
+    <string name="explorer_forex_hint_bank">Kadar rujukan bank pusat, bukan langsung – tiada amaran.</string>
+    <string name="explorer_source_ecb">Sumber: ECB</string>
+    <string name="explorer_source_nbu">Sumber: Bank Negara Ukraine</string>
+    <string name="explorer_source_nbp">Sumber: Bank Negara Poland</string>
+    <string name="explorer_source_converted">ditukar</string>
 </resources>

@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">এক্সচেঞ্জ অনুযায়ী সাজান</string>
     <string name="watchlist_limit_reached">আপনার ওয়াচলিস্টে সর্বোচ্চ %1$sটি পেয়ার থাকতে পারে।</string>
     <string name="watch_price_reference">রেফারেন্স রেট, দৈনিক</string>
+    <string name="watch_price_reference_weekly">রেফারেন্স রেট, সাপ্তাহিক</string>
     <string name="watch_price_daily">দৈনিক</string>
+    <string name="watch_price_weekly">সাপ্তাহিক</string>
     <string name="watchlist_compare">তুলনা করুন</string>
     <string name="watchlist_compare_hint">তুলনা করতে 2 থেকে 4টি পেয়ার বেছে নিন।</string>
     <string name="compare_title">তুলনা</string>

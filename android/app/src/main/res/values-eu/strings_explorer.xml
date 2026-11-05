@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Burtsa guztiak</string>
     <string name="explorer_exchanges_title">Burtsak</string>
     <string name="explorer_forex_hint">Europako Banku Zentralaren eguneko tasa, ez zuzenean – alarmarik ez.</string>
+    <string name="explorer_forex_live">Zuzenean (burtsa)</string>
+    <string name="explorer_forex_reference">Erreferentzia-tasa</string>
+    <string name="explorer_forex_hint_bank">Banku zentral baten erreferentzia-tasa, ez zuzenean – alarmarik ez.</string>
+    <string name="explorer_source_ecb">Iturria: EBZ</string>
+    <string name="explorer_source_nbu">Iturria: Ukrainako Banku Nazionala</string>
+    <string name="explorer_source_nbp">Iturria: Poloniako Banku Nazionala</string>
+    <string name="explorer_source_converted">bihurtua</string>
 </resources>

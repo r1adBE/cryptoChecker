@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">എല്ലാ എക്സ്ചേഞ്ചുകളും</string>
     <string name="explorer_exchanges_title">എക്സ്ചേഞ്ചുകൾ</string>
     <string name="explorer_forex_hint">യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക്, ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
+    <string name="explorer_forex_live">ലൈവ് (എക്സ്ചേഞ്ച്)</string>
+    <string name="explorer_forex_reference">റഫറൻസ് നിരക്ക്</string>
+    <string name="explorer_forex_hint_bank">ഒരു കേന്ദ്ര ബാങ്കിന്റെ റഫറൻസ് നിരക്ക്, ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
+    <string name="explorer_source_ecb">ഉറവിടം: ECB</string>
+    <string name="explorer_source_nbu">ഉറവിടം: നാഷണൽ ബാങ്ക് ഓഫ് യുക്രെയ്ൻ</string>
+    <string name="explorer_source_nbp">ഉറവിടം: നാഷണൽ ബാങ്ക് ഓഫ് പോളണ്ട്</string>
+    <string name="explorer_source_converted">പരിവർത്തനം ചെയ്തത്</string>
 </resources>

@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Alarms in die agtergrond onderbreek – volglys nie gestoor nie</string>
     <string name="alarms_limit_reached">\'n Paar kan hoogstens %1$s alarms hê.</string>
     <string name="alarms_reference_rate_hint">ECB-verwysingskoerse word net een keer per dag vasgestel – daar is geen alarms daarvoor nie.</string>
+    <string name="alarms_reference_rate_hint_bank">Verwysingskoerse van sentrale banke word net daagliks of weekliks vasgestel – daar is geen alarms daarvoor nie.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">\'n Daling moet minder as 100 persent wees.</string>

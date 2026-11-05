@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Све берзе</string>
     <string name="explorer_exchanges_title">Берзе</string>
     <string name="explorer_forex_hint">Дневни курс Европске централне банке, не уживо – нема аларма.</string>
+    <string name="explorer_forex_live">Уживо (берза)</string>
+    <string name="explorer_forex_reference">Референтни курс</string>
+    <string name="explorer_forex_hint_bank">Референтни курс централне банке, не уживо – нема аларма.</string>
+    <string name="explorer_source_ecb">Извор: ЕЦБ</string>
+    <string name="explorer_source_nbu">Извор: Народна банка Украјине</string>
+    <string name="explorer_source_nbp">Извор: Народна банка Пољске</string>
+    <string name="explorer_source_converted">прерачунато</string>
 </resources>

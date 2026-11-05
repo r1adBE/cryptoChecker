@@ -26,7 +26,7 @@ package com.cryptochecker.app.domain.portfolio
 object PortfolioExchangeRoute {
 
     /** Märkte ohne Spot-Kurse für Coins (Futures, Optionen, DEX-Pools). */
-    private val NOT_SPOT = setOf("Hyperliquid", "Deribit", "DexScreener", "EcbReference")
+    private val NOT_SPOT = setOf("Hyperliquid", "Deribit", "DexScreener", "EcbReference", "NbuReference", "NbpReference")
 
     /** Standardquelle des Portfolios; dafür braucht es keinen eigenen Weg. */
     const val DEFAULT_EXCHANGE = "Binance"

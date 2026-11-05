@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.util.EcbRates
+import com.cryptochecker.marketdata.util.ReferenceRates
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -15,7 +16,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
 
-/** Bitunix Futures und EZB-Referenzkurse, Kategorien der Registry. Wie iOS `ExchangeListParityTests`. */
+/** Bitunix Futures, Referenzkurse (EZB, NBU, NBP), Kategorien der Registry. Wie iOS `ExchangeListParityTests`. */
 class NewExchangesTest {
 
     @Test
@@ -93,12 +94,41 @@ class NewExchangesTest {
     fun registryCategories() {
         val byCategory = ExchangesConfig.EXCHANGES.values.groupBy({ it.category }, { it.key })
         assertEquals(listOf("DexScreener"), byCategory[ExchangeCategory.DEX])
-        assertEquals(listOf("EcbReference"), byCategory[ExchangeCategory.FOREX])
+        assertEquals(listOf("EcbReference", "NbuReference", "NbpReference"), byCategory[ExchangeCategory.FOREX])
         val futures = byCategory.getValue(ExchangeCategory.FUTURES).toSet()
         assertTrue(ExchangesConfig.EXCHANGES.keys.filter { it.endsWith("Futures") }.all { it in futures })
         assertTrue(setOf("Hyperliquid", "Aster", "Lighter", "Deribit").all { it in futures })
         assertEquals(14, futures.size)
-        // Nur EZB-Kurse ohne Alarme
-        assertEquals(listOf("EcbReference"), ExchangesConfig.EXCHANGES.values.filter { !it.allowsAlarms }.map { it.key })
+        // Nur Referenzkurse ohne Alarme
+        assertEquals(
+            listOf("EcbReference", "NbuReference", "NbpReference"),
+            ExchangesConfig.EXCHANGES.values.filter { !it.allowsAlarms }.map { it.key },
+        )
+    }
+
+    @Test
+    fun bankReferencesReadSharedResponsesAndCombinedLists() {
+        val nbu = NbuReference()
+        val now = 1_793_872_800_000L // 2026-11-05 10:00 UTC
+        assertEquals(1, nbu.responseAddresses(now).size)
+        assertTrue(nbu.responseAddresses(now).single().contains("start=20261029&end=20261105"))
+        assertTrue(nbu.pairListCombined)
+        assertEquals(listOf(EcbRates.DAILY_URL, ReferenceRates.NBU_LIST_URL), (0 until nbu.pairListCallCount).map(nbu::pairListAddress))
+        val nbp = NbpReference()
+        assertEquals(listOf(ReferenceRates.NBP_TABLE_A_URL, ReferenceRates.NBP_TABLE_B_URL), nbp.responseAddresses(now))
+        assertEquals(4, nbp.pairListCallCount)
+        assertFalse(nbp.priceIsDailyReference)
+        assertEquals(ExchangeCategory.FOREX, nbp.category)
+        assertThrows(ExchangeParseException::class.java) { nbp.tickerAddress(0, PairQuery("NGN", "US", "NGNUS", FuturesContractType.NONE)) }
+        // Paarliste: AED kommt von der NBU (die EZB führt es nicht), nie zusätzlich von der NBP
+        val ecbDaily = "<Cube><Cube time='2026-11-04'><Cube currency='USD' rate='1.16'/><Cube currency='PLN' rate='4.24'/></Cube></Cube>"
+        val nbuList = "[{\"cc\":\"AED\",\"rate\":12.4},{\"cc\":\"USD\",\"rate\":45.5},{\"cc\":\"XAU\",\"rate\":170000}]"
+        val tableB = "[{\"effectiveDate\":\"2026-11-04\",\"rates\":[{\"code\":\"AED\",\"mid\":1.06},{\"code\":\"NGN\",\"mid\":0.0029}]}]"
+        val nbuPairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
+        nbu.readPairListCombined(listOf(ecbDaily, nbuList), nbuPairs)
+        assertEquals(listOf("AEDEUR", "AEDUSD", "UAHEUR", "UAHUSD"), nbuPairs.map { it.pairId }.sortedBy { it })
+        val nbpPairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
+        nbp.readPairListCombined(listOf(ecbDaily, nbuList, tableB, "[]"), nbpPairs)
+        assertEquals(listOf("NGNEUR", "NGNUSD"), nbpPairs.map { it.pairId }.sortedBy { it })
     }
 }

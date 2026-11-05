@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Биржа бойынша сұрыптау</string>
     <string name="watchlist_limit_reached">Бақылау тізімінде ең көбі %1$s жұп болуы мүмкін.</string>
     <string name="watch_price_reference">анықтамалық бағам, күндік</string>
+    <string name="watch_price_reference_weekly">анықтамалық бағам, апталық</string>
     <string name="watch_price_daily">күндік</string>
+    <string name="watch_price_weekly">апталық</string>
     <string name="watchlist_compare">Салыстыру</string>
     <string name="watchlist_compare_hint">Салыстыру үшін 2-ден 4-ке дейін жұп таңдаңыз.</string>
     <string name="compare_title">Салыстыру</string>

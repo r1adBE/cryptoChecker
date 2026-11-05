@@ -168,4 +168,11 @@
     <string name="explorer_all_exchanges_title">Toate bursele</string>
     <string name="explorer_exchanges_title">Burse</string>
     <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene, nu în timp real – fără alarme.</string>
+    <string name="explorer_forex_live">În timp real (bursă)</string>
+    <string name="explorer_forex_reference">Curs de referință</string>
+    <string name="explorer_forex_hint_bank">Curs de referință al unei bănci centrale, nu în timp real – fără alarme.</string>
+    <string name="explorer_source_ecb">Sursă: BCE</string>
+    <string name="explorer_source_nbu">Sursă: Banca Națională a Ucrainei</string>
+    <string name="explorer_source_nbp">Sursă: Banca Națională a Poloniei</string>
+    <string name="explorer_source_converted">convertit</string>
 </resources>

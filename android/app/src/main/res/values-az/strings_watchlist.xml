@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Birjaya görə sırala</string>
     <string name="watchlist_limit_reached">İzləmə siyahında ən çoxu %1$s cüt ola bilər.</string>
     <string name="watch_price_reference">istinad məzənnəsi, günlük</string>
+    <string name="watch_price_reference_weekly">istinad məzənnəsi, həftəlik</string>
     <string name="watch_price_daily">günlük</string>
+    <string name="watch_price_weekly">həftəlik</string>
     <string name="watchlist_compare">Müqayisə et</string>
     <string name="watchlist_compare_hint">Müqayisə üçün 2-dən 4-ə qədər cüt seç.</string>
     <string name="compare_title">Müqayisə</string>

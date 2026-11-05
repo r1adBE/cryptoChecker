@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Raða eftir kauphöll</string>
     <string name="watchlist_limit_reached">Vaktlistinn þinn getur haft í mesta lagi %1$s pör.</string>
     <string name="watch_price_reference">viðmiðunargengi, daglegt</string>
+    <string name="watch_price_reference_weekly">viðmiðunargengi, vikulegt</string>
     <string name="watch_price_daily">daglegt</string>
+    <string name="watch_price_weekly">vikulegt</string>
     <string name="watchlist_compare">Bera saman</string>
     <string name="watchlist_compare_hint">Veldu 2 til 4 pör til að bera saman.</string>
     <string name="compare_title">Samanburður</string>

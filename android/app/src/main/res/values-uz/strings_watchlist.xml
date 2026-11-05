@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">Birja boʻyicha saralash</string>
     <string name="watchlist_limit_reached">Kuzatuv roʻyxatingizda koʻpi bilan %1$s ta juftlik boʻlishi mumkin.</string>
     <string name="watch_price_reference">maʼlumotnoma kursi, kunlik</string>
+    <string name="watch_price_reference_weekly">maʼlumotnoma kursi, haftalik</string>
     <string name="watch_price_daily">kunlik</string>
+    <string name="watch_price_weekly">haftalik</string>
     <string name="watchlist_compare">Solishtirish</string>
     <string name="watchlist_compare_hint">Solishtirish uchun 2 dan 4 tagacha juftlik tanlang.</string>
     <string name="compare_title">Solishtirish</string>

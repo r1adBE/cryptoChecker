@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Barcha birjalar</string>
     <string name="explorer_exchanges_title">Birjalar</string>
     <string name="explorer_forex_hint">Yevropa Markaziy bankining kunlik kursi, real vaqtda emas – signallar yoʻq.</string>
+    <string name="explorer_forex_live">Jonli (birja)</string>
+    <string name="explorer_forex_reference">Maʼlumotnoma kursi</string>
+    <string name="explorer_forex_hint_bank">Markaziy bankning maʼlumotnoma kursi, real vaqtda emas – signallar yoʻq.</string>
+    <string name="explorer_source_ecb">Manba: YeMB</string>
+    <string name="explorer_source_nbu">Manba: Ukraina Milliy banki</string>
+    <string name="explorer_source_nbp">Manba: Polsha Milliy banki</string>
+    <string name="explorer_source_converted">qayta hisoblangan</string>
 </resources>

@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">ಎಲ್ಲಾ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
     <string name="explorer_exchanges_title">ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
     <string name="explorer_forex_hint">ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ, ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="explorer_forex_live">ಲೈವ್ (ಎಕ್ಸ್‌ಚೇಂಜ್)</string>
+    <string name="explorer_forex_reference">ಉಲ್ಲೇಖ ದರ</string>
+    <string name="explorer_forex_hint_bank">ಕೇಂದ್ರ ಬ್ಯಾಂಕ್‌ನ ಉಲ್ಲೇಖ ದರ, ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="explorer_source_ecb">ಮೂಲ: ECB</string>
+    <string name="explorer_source_nbu">ಮೂಲ: ಉಕ್ರೇನ್ ರಾಷ್ಟ್ರೀಯ ಬ್ಯಾಂಕ್</string>
+    <string name="explorer_source_nbp">ಮೂಲ: ಪೋಲೆಂಡ್ ರಾಷ್ಟ್ರೀಯ ಬ್ಯಾಂಕ್</string>
+    <string name="explorer_source_converted">ಪರಿವರ್ತಿತ</string>
 </resources>

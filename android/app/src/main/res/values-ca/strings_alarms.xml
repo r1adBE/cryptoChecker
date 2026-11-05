@@ -190,6 +190,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmes en pausa en segon pla – la llista no s\'ha desat</string>
     <string name="alarms_limit_reached">Un parell pot tenir com a màxim %1$s alarmes.</string>
     <string name="alarms_reference_rate_hint">Els tipus de referència del BCE només es fixen un cop al dia – no hi ha alarmes per a aquests tipus.</string>
+    <string name="alarms_reference_rate_hint_bank">Els tipus de referència dels bancs centrals només es fixen cada dia o cada setmana – no hi ha alarmes per a aquests tipus.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Una baixada ha de ser inferior al 100 per cent.</string>

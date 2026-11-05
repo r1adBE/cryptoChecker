@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">Tất cả các sàn</string>
     <string name="explorer_exchanges_title">Sàn</string>
     <string name="explorer_forex_hint">Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu, không trực tiếp – không có cảnh báo.</string>
+    <string name="explorer_forex_live">Trực tiếp (sàn)</string>
+    <string name="explorer_forex_reference">Tỷ giá tham chiếu</string>
+    <string name="explorer_forex_hint_bank">Tỷ giá tham chiếu của một ngân hàng trung ương, không trực tiếp – không có cảnh báo.</string>
+    <string name="explorer_source_ecb">Nguồn: ECB</string>
+    <string name="explorer_source_nbu">Nguồn: Ngân hàng Quốc gia Ukraina</string>
+    <string name="explorer_source_nbp">Nguồn: Ngân hàng Quốc gia Ba Lan</string>
+    <string name="explorer_source_converted">đã quy đổi</string>
 </resources>

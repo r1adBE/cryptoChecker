@@ -41,10 +41,14 @@ struct DexLowLiquidityNote: View {
     }
 }
 
-/// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`): statt «Neuer Alarm» dieser Hinweis. Wie Android.
+/// Quelle ohne Alarme (Referenzkurse, `Exchange.allowsAlarms`): statt «Neuer Alarm» dieser Hinweis — Text der EZB
+/// («einmal täglich») oder für NBU und NBP «täglich oder wöchentlich». Wie Android.
 struct ReferenceRateAlarmNote: View {
+    let exchangeKey: String?
+
     var body: some View {
-        Text(L("alarms_reference_rate_hint"))
+        let ecb = ReferenceSource.of(exchangeKey).map { $0 == .ecb } ?? true
+        return Text(L(ecb ? "alarms_reference_rate_hint" : "alarms_reference_rate_hint_bank"))
             .font(.subheadline)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .fixedSize(horizontal: false, vertical: true)

@@ -181,4 +181,11 @@
     <string name="explorer_all_exchanges_title">Visos biržos</string>
     <string name="explorer_exchanges_title">Biržos</string>
     <string name="explorer_forex_hint">Europos centrinio banko dienos kursas, ne tiesioginis – įspėjimų nėra.</string>
+    <string name="explorer_forex_live">Tiesiogiai (birža)</string>
+    <string name="explorer_forex_reference">Orientacinis kursas</string>
+    <string name="explorer_forex_hint_bank">Centrinio banko orientacinis kursas, ne tiesioginis – įspėjimų nėra.</string>
+    <string name="explorer_source_ecb">Šaltinis: ECB</string>
+    <string name="explorer_source_nbu">Šaltinis: Ukrainos nacionalinis bankas</string>
+    <string name="explorer_source_nbp">Šaltinis: Lenkijos nacionalinis bankas</string>
+    <string name="explorer_source_converted">perskaičiuota</string>
 </resources>

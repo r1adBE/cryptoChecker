@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">బ్యాక్‌గ్రౌండ్‌లో అలర్ట్‌లు పాజ్ అయ్యాయి – వాచ్‌లిస్ట్ సేవ్ కాలేదు</string>
     <string name="alarms_limit_reached">ఒక జతకు గరిష్ఠంగా %1$s అలర్ట్‌లు ఉండవచ్చు.</string>
     <string name="alarms_reference_rate_hint">ECB రిఫరెన్స్ రేట్లు రోజుకు ఒకసారి మాత్రమే నిర్ణయించబడతాయి – వాటికి అలర్ట్‌లు లేవు.</string>
+    <string name="alarms_reference_rate_hint_bank">కేంద్ర బ్యాంకుల రిఫరెన్స్ రేట్లు రోజువారీ లేదా వారానికోసారి మాత్రమే నిర్ణయించబడతాయి – వాటికి అలర్ట్‌లు లేవు.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">తగ్గుదల 100 శాతం కంటే తక్కువగా ఉండాలి.</string>

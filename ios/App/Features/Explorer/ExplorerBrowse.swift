@@ -4,7 +4,8 @@ import Foundation
 // «Zuletzt genutzte Börsen» und das Zeichen der Börsen. Reine Logik (testbar); gleich in Android `ExplorerBrowse.kt`,
 // gemeinsame Fälle in `Parity/explorer_browse.json`.
 
-/// Markt-Chip über den Börsen und Treffern; `.all` = alles (Standard), `.forex` = EZB-Referenzkurse.
+/// Markt-Chip über den Börsen und Treffern; `.all` = alles (Standard), `.forex` = Devisen (Referenzkurse, live:
+/// `ExplorerForexLive`).
 /// Rohwerte wie die Namen in Android (`MarketFilter`).
 enum ExplorerMarketFilter: String, CaseIterable, Sendable {
     case all = "ALL"
@@ -22,6 +23,24 @@ enum ExplorerMarketFilter: String, CaseIterable, Sendable {
         case .dex: return category == .dex
         case .forex: return category == .forex
         }
+    }
+}
+
+/// Chip «Devisen», Gruppe «Live (Börse)»: echte Fiat-Fiat-Paare von Kraken und Bitstamp — gewöhnliche Paare mit Alarmen
+/// und Live-Strom. Aus dieser Gruppe geöffnet zeigt die Börse nur ihre Fiat-Paare (`isFiatPair`); «Referenzkurs» sind
+/// die Börsen der Art `.forex` (EZB, NBU, NBP). Wie Android `ForexLive`, Fälle in `explorer_browse.json` («forexLive»).
+enum ExplorerForexLive {
+    /// Börsen mit echten Devisenpaaren, in dieser Reihenfolge.
+    static let exchanges = ["Kraken", "Bitstamp"]
+
+    private static let fiat = Set(FxRateSource.currencies)
+
+    /// Gehört `exchangeKey` zur Gruppe «Live (Börse)»?
+    static func isLive(_ exchangeKey: String) -> Bool { exchanges.contains(exchangeKey) }
+
+    /// Beide Seiten Fiat-Währungen (EZB-Liste, `FxRateSource.currencies`) und verschieden: ein Devisenpaar.
+    static func isFiatPair(_ base: String, _ quote: String) -> Bool {
+        base != quote && fiat.contains(base.uppercased()) && fiat.contains(quote.uppercased())
     }
 }
 

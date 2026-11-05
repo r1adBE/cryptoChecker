@@ -178,6 +178,7 @@
     <string name="alarm_reliability_storage_no_key">Amaran dijeda di latar belakang – senarai pantau tidak disimpan</string>
     <string name="alarms_limit_reached">Satu pasangan boleh mempunyai paling banyak %1$s amaran.</string>
     <string name="alarms_reference_rate_hint">Kadar rujukan ECB ditetapkan hanya sekali sehari – tiada amaran untuknya.</string>
+    <string name="alarms_reference_rate_hint_bank">Kadar rujukan bank pusat hanya ditetapkan setiap hari atau setiap minggu – tiada amaran untuknya.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Penurunan mesti kurang daripada 100 peratus.</string>

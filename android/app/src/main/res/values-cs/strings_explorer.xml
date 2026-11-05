@@ -181,4 +181,11 @@
     <string name="explorer_all_exchanges_title">Všechny burzy</string>
     <string name="explorer_exchanges_title">Burzy</string>
     <string name="explorer_forex_hint">Denní kurz Evropské centrální banky, ne živě – bez alarmů.</string>
+    <string name="explorer_forex_live">Živě (burza)</string>
+    <string name="explorer_forex_reference">Referenční kurz</string>
+    <string name="explorer_forex_hint_bank">Referenční kurz centrální banky, ne živě – bez alarmů.</string>
+    <string name="explorer_source_ecb">Zdroj: ECB</string>
+    <string name="explorer_source_nbu">Zdroj: Národní banka Ukrajiny</string>
+    <string name="explorer_source_nbp">Zdroj: Polská národní banka</string>
+    <string name="explorer_source_converted">přepočteno</string>
 </resources>

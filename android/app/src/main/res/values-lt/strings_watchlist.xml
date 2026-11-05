@@ -242,7 +242,9 @@
     <string name="watchlist_sort_by_exchange">Rikiuoti pagal biržą</string>
     <string name="watchlist_limit_reached">Tavo stebimų sąraše gali būti daugiausia %1$s porų.</string>
     <string name="watch_price_reference">orientacinis kursas, kasdien</string>
+    <string name="watch_price_reference_weekly">orientacinis kursas, kas savaitę</string>
     <string name="watch_price_daily">kasdien</string>
+    <string name="watch_price_weekly">kas savaitę</string>
     <string name="watchlist_compare">Palyginti</string>
     <string name="watchlist_compare_hint">Pažymėk nuo 2 iki 4 porų palyginimui.</string>
     <string name="compare_title">Palyginimas</string>

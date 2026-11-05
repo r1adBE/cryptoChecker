@@ -217,7 +217,9 @@
     <string name="watchlist_sort_by_exchange">Ταξινόμηση ανά ανταλλακτήριο</string>
     <string name="watchlist_limit_reached">Η λίστα παρακολούθησης μπορεί να έχει έως %1$s ζεύγη.</string>
     <string name="watch_price_reference">ισοτιμία αναφοράς, ημερήσια</string>
+    <string name="watch_price_reference_weekly">ισοτιμία αναφοράς, εβδομαδιαία</string>
     <string name="watch_price_daily">ημερήσια</string>
+    <string name="watch_price_weekly">εβδομαδιαία</string>
     <string name="watchlist_compare">Σύγκριση</string>
     <string name="watchlist_compare_hint">Επίλεξε 2 έως 4 ζεύγη για σύγκριση.</string>
     <string name="compare_title">Σύγκριση</string>

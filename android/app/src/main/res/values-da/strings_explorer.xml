@@ -155,4 +155,11 @@
     <string name="explorer_all_exchanges_title">Alle børser</string>
     <string name="explorer_exchanges_title">Børser</string>
     <string name="explorer_forex_hint">Dagskurs fra Den Europæiske Centralbank, ikke live – ingen alarmer.</string>
+    <string name="explorer_forex_live">Live (børs)</string>
+    <string name="explorer_forex_reference">Referencekurs</string>
+    <string name="explorer_forex_hint_bank">Referencekurs fra en centralbank, ikke live – ingen alarmer.</string>
+    <string name="explorer_source_ecb">Kilde: ECB</string>
+    <string name="explorer_source_nbu">Kilde: Ukraines Nationalbank</string>
+    <string name="explorer_source_nbp">Kilde: Polens Nationalbank</string>
+    <string name="explorer_source_converted">omregnet</string>
 </resources>

@@ -17,7 +17,7 @@ import Foundation
 /// sie in der App Group ab (`PortfolioExchangeRouteStore`) — so nutzt auch das Widget dieselben Kurse.
 enum PortfolioExchangeRoute {
     /// Märkte ohne Spot-Kurse für Coins (Futures, Optionen, DEX-Pools, EZB-Devisen-Referenzkurse).
-    private static let notSpot: Set<String> = ["Hyperliquid", "Deribit", "DexScreener", "EcbReference"]
+    private static let notSpot: Set<String> = ["Hyperliquid", "Deribit", "DexScreener", "EcbReference", "NbuReference", "NbpReference"]
 
     /// Standardquelle des Portfolios.
     static let defaultExchange = "Binance"

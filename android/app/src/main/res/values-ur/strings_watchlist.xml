@@ -218,7 +218,9 @@
     <string name="watchlist_sort_by_exchange">ایکسچینج کے لحاظ سے ترتیب</string>
     <string name="watchlist_limit_reached">آپ کی واچ لسٹ میں زیادہ سے زیادہ %1$s جوڑے ہو سکتے ہیں۔</string>
     <string name="watch_price_reference">حوالہ جاتی شرح، روزانہ</string>
+    <string name="watch_price_reference_weekly">حوالہ جاتی شرح، ہفتہ وار</string>
     <string name="watch_price_daily">روزانہ</string>
+    <string name="watch_price_weekly">ہفتہ وار</string>
     <string name="watchlist_compare">موازنہ کریں</string>
     <string name="watchlist_compare_hint">موازنے کے لیے 2 سے 4 جوڑے منتخب کریں۔</string>
     <string name="compare_title">موازنہ</string>

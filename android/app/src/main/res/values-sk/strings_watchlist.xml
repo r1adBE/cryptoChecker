@@ -242,7 +242,9 @@
     <string name="watchlist_sort_by_exchange">Zoradiť podľa burzy</string>
     <string name="watchlist_limit_reached">Tvoj zoznam môže mať najviac %1$s párov.</string>
     <string name="watch_price_reference">referenčný kurz, denne</string>
+    <string name="watch_price_reference_weekly">referenčný kurz, týždenne</string>
     <string name="watch_price_daily">denne</string>
+    <string name="watch_price_weekly">týždenne</string>
     <string name="watchlist_compare">Porovnať</string>
     <string name="watchlist_compare_hint">Na porovnanie označ 2 až 4 páry.</string>
     <string name="compare_title">Porovnanie</string>

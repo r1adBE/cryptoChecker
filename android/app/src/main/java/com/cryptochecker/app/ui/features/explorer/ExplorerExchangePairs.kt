@@ -29,6 +29,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.ExchangeCategory
+import com.cryptochecker.marketdata.model.ReferenceSource
 
 /**
  * Paare der gewählten Börse: «Alle Börsen» (zurück), Kopf der Börse ([ExchangeHeaderCard]), dann Paar wählen und
@@ -123,6 +124,7 @@ internal fun ExchangePairs(
             onRetryPrice = actions.onRetryPrice,
             onReload = actions.onReloadPairs,
             onAdd = actions.onAdd,
+            reference = ReferenceSource.of(chosen.key),
         )
     } else {
         // ── Mehrere Paare auf einmal (Register) ──

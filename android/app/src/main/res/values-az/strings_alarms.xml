@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmlar arxa fonda dayandırılıb – izləmə siyahısı yadda saxlanılmayıb</string>
     <string name="alarms_limit_reached">Bir cütün ən çoxu %1$s alarmı ola bilər.</string>
     <string name="alarms_reference_rate_hint">AMB-nin istinad məzənnələri gündə yalnız bir dəfə müəyyən edilir – onlar üçün alarm yoxdur.</string>
+    <string name="alarms_reference_rate_hint_bank">Mərkəzi bankların istinad məzənnələri yalnız gündəlik və ya həftəlik müəyyən edilir – onlar üçün alarm yoxdur.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Düşüş 100 faizdən az olmalıdır.</string>

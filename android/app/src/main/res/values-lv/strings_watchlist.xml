@@ -230,7 +230,9 @@
     <string name="watchlist_sort_by_exchange">Kārtot pēc biržas</string>
     <string name="watchlist_limit_reached">Tavā vērojamo sarakstā var būt ne vairāk kā %1$s pāri.</string>
     <string name="watch_price_reference">atsauces kurss, katru dienu</string>
+    <string name="watch_price_reference_weekly">atsauces kurss, katru nedēļu</string>
     <string name="watch_price_daily">katru dienu</string>
+    <string name="watch_price_weekly">katru nedēļu</string>
     <string name="watchlist_compare">Salīdzināt</string>
     <string name="watchlist_compare_hint">Atzīmē 2 līdz 4 pārus salīdzināšanai.</string>
     <string name="compare_title">Salīdzinājums</string>

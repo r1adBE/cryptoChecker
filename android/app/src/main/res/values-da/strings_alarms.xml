@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Alarmer sat på pause i baggrunden – overvågningslisten er ikke gemt</string>
     <string name="alarms_limit_reached">Et par kan højst have %1$s alarmer.</string>
     <string name="alarms_reference_rate_hint">ECB’s referencekurser fastsættes kun én gang om dagen – der er ingen alarmer for dem.</string>
+    <string name="alarms_reference_rate_hint_bank">Centralbankers referencekurser fastsættes kun dagligt eller ugentligt – der er ingen alarmer for dem.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Et fald skal være under 100 procent.</string>

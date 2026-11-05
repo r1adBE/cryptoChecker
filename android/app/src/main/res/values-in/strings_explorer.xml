@@ -142,4 +142,11 @@
     <string name="explorer_all_exchanges_title">Semua bursa</string>
     <string name="explorer_exchanges_title">Bursa</string>
     <string name="explorer_forex_hint">Kurs harian Bank Sentral Eropa, bukan live – tanpa alarm.</string>
+    <string name="explorer_forex_live">Live (bursa)</string>
+    <string name="explorer_forex_reference">Kurs acuan</string>
+    <string name="explorer_forex_hint_bank">Kurs acuan bank sentral, bukan live – tanpa alarm.</string>
+    <string name="explorer_source_ecb">Sumber: ECB</string>
+    <string name="explorer_source_nbu">Sumber: Bank Nasional Ukraina</string>
+    <string name="explorer_source_nbp">Sumber: Bank Nasional Polandia</string>
+    <string name="explorer_source_converted">dikonversi</string>
 </resources>

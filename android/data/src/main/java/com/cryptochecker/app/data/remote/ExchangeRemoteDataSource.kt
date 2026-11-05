@@ -19,6 +19,7 @@ import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.Exchange
+import com.cryptochecker.marketdata.model.MultiResponseSource
 import com.cryptochecker.marketdata.model.PairListPaging
 import com.cryptochecker.marketdata.model.pairListPaging
 import com.cryptochecker.marketdata.model.PostRequest
@@ -155,13 +156,12 @@ class ExchangeRemoteDataSource @Inject constructor(
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Kurse vieler Paare in möglichst wenigen Anfragen, Schlüssel = Paar-Kennung der Börse.
-     *
-     * @param pairIds die beobachteten Paare. Kann die Börse filtern, wird nur nach ihnen gefragt;
-     *   lehnt sie das ab (etwa weil ein Paar nicht mehr gehandelt wird), folgt einmal die
-     *   ungefilterte Abfrage.
+     * Kurse vieler Paare in möglichst wenigen Anfragen, Schlüssel = Paar-Kennung der Börse. [pairIds]: die beobachteten
+     * Paare. Kann die Börse filtern, wird nur nach ihnen gefragt; lehnt sie das ab (etwa weil ein Paar nicht mehr
+     * gehandelt wird), folgt einmal die ungefilterte Abfrage. Referenzkurse aus mehreren Antworten: [MultiResponses].
      */
     suspend fun fetchBulkTickers(exchange: Exchange, pairIds: Collection<String>): BulkTickers {
+        if (exchange is MultiResponseSource) return MultiResponses.bulk(bulkClient, exchange, exchange)
         if (exchange.bulkTickersNumOfRequests <= 0) return BulkTickers()
         // Lange Listen verteilt die Börse auf mehrere gefilterte Anfragen
         val callCount = exchange.bulkTickersRequestCount(pairIds)
@@ -321,11 +321,9 @@ class ExchangeRemoteDataSource @Inject constructor(
     suspend fun searchDexPools(query: String): List<DexPool> =
         DexScreener.parseSearch(httpClient.callExchange(DexScreener.searchUrl(query), null), query)
 
-    /**
-     * Kurs eines Paars. Die erste Anfrage muss gelingen; weitere (z. B. Volumen aus einer zweiten
-     * Quelle) ergänzen nur und dürfen scheitern.
-     */
+    /** Kurs eines Paars. Die erste Anfrage muss gelingen; weitere (z. B. Volumen) ergänzen nur und dürfen scheitern. */
     suspend fun fetchExchangeTicker(exchange: Exchange, checkerInfo: PairQuery): Ticker {
+        if (exchange is MultiResponseSource) return MultiResponses.ticker(bulkClient, exchange, exchange, checkerInfo)
         val ticker = MutableTicker()
         loadTickerCall(ticker, exchange, 0, checkerInfo)
 

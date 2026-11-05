@@ -184,6 +184,7 @@
     <string name="alarm_reliability_storage_no_key">Kengele zimesitishwa chinichini – orodha ya ufuatiliaji haijahifadhiwa</string>
     <string name="alarms_limit_reached">Jozi moja inaweza kuwa na kengele %1$s zaidi.</string>
     <string name="alarms_reference_rate_hint">Viwango vya marejeleo vya ECB huwekwa mara moja tu kwa siku – hakuna kengele kwa ajili yake.</string>
+    <string name="alarms_reference_rate_hint_bank">Viwango vya marejeleo vya benki kuu huwekwa kila siku au kila wiki tu – hakuna kengele kwa ajili yake.</string>
 
     <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Kushuka lazima kuwe chini ya asilimia 100.</string>

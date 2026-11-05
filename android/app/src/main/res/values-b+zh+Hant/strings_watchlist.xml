@@ -205,7 +205,9 @@
     <string name="watchlist_sort_by_exchange">按交易所排序</string>
     <string name="watchlist_limit_reached">自選最多可新增 %1$s 個交易對。</string>
     <string name="watch_price_reference">參考匯率，每日</string>
+    <string name="watch_price_reference_weekly">參考匯率，每週</string>
     <string name="watch_price_daily">每日</string>
+    <string name="watch_price_weekly">每週</string>
     <string name="watchlist_compare">比較</string>
     <string name="watchlist_compare_hint">請選擇 2 到 4 個交易對進行比較。</string>
     <string name="compare_title">比較</string>

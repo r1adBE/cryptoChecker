@@ -93,5 +93,7 @@ object ExchangesConfig {
         NonKyc(),
         DexScreener(),
         EcbReference(),
+        NbuReference(),
+        NbpReference(),
     ).associateBy(Exchange::key)
 }
