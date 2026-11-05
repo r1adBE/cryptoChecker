@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.marketdata.model.ReferenceSource
 
 /**
@@ -46,7 +47,7 @@ fun referencePeriodShort(source: ReferenceSource): String =
 fun ReferenceSourceLine(source: ReferenceSource, base: String, hasChange: Boolean, modifier: Modifier = Modifier) {
     Text(
         text = referenceSourceText(source, base, hasChange),
-        style = MaterialTheme.typography.labelSmall,
+        style = MaterialTheme.typography.label,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = modifier,
     )
