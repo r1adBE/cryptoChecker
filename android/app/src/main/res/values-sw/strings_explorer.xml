@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Masoko yaliyotumika hivi karibuni</string>
     <string name="explorer_all_exchanges_title">Masoko yote</string>
     <string name="explorer_exchanges_title">Masoko</string>
-    <string name="explorer_forex_hint">Kiwango cha kila siku cha Benki Kuu ya Ulaya (kupitia Frankfurter), si cha moja kwa moja – hakuna kengele.</string>
+    <string name="explorer_forex_hint">Kiwango cha kila siku cha Benki Kuu ya Ulaya, si cha moja kwa moja – hakuna kengele.</string>
 </resources>

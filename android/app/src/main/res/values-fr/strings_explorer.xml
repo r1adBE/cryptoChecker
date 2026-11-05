@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Plateformes récemment utilisées</string>
     <string name="explorer_all_exchanges_title">Toutes les plateformes</string>
     <string name="explorer_exchanges_title">Plateformes</string>
-    <string name="explorer_forex_hint">Cours quotidien de la Banque centrale européenne (via Frankfurter), pas en direct – pas d’alertes.</string>
+    <string name="explorer_forex_hint">Cours quotidien de la Banque centrale européenne, pas en direct – pas d’alertes.</string>
 </resources>

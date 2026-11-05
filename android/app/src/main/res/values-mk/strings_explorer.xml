@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Неодамна користени берзи</string>
     <string name="explorer_all_exchanges_title">Сите берзи</string>
     <string name="explorer_exchanges_title">Берзи</string>
-    <string name="explorer_forex_hint">Дневен курс на Европската централна банка (преку Frankfurter), не во живо – нема аларми.</string>
+    <string name="explorer_forex_hint">Дневен курс на Европската централна банка, не во живо – нема аларми.</string>
 </resources>

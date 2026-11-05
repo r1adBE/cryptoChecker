@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">ກະດານແລກປ່ຽນທີ່ໃຊ້ຫຼ້າສຸດ</string>
     <string name="explorer_all_exchanges_title">ກະດານແລກປ່ຽນທັງໝົດ</string>
     <string name="explorer_exchanges_title">ກະດານແລກປ່ຽນ</string>
-    <string name="explorer_forex_hint">ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ (ຜ່ານ Frankfurter), ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
+    <string name="explorer_forex_hint">ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ, ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
 </resources>

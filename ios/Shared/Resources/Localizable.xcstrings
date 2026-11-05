@@ -303276,451 +303276,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daaglikse koers van die Europese Sentrale Bank (via Frankfurter), nie regstreeks nie – geen alarms nie."
+            "value" : "Daaglikse koers van die Europese Sentrale Bank, nie regstreeks nie – geen alarms nie."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "የአውሮፓ ማዕከላዊ ባንክ ዕለታዊ ተመን (በFrankfurter በኩል)፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።"
+            "value" : "የአውሮፓ ማዕከላዊ ባንክ ዕለታዊ ተመን፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "السعر اليومي للبنك المركزي الأوروبي (عبر Frankfurter)، ليس مباشرًا – بلا تنبيهات."
+            "value" : "السعر اليومي للبنك المركزي الأوروبي، ليس مباشرًا – بلا تنبيهات."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avropa Mərkəzi Bankının günlük məzənnəsi (Frankfurter vasitəsilə), canlı deyil – alarmsız."
+            "value" : "Avropa Mərkəzi Bankının günlük məzənnəsi, canlı deyil – alarmsız."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дневен курс на Европейската централна банка (чрез Frankfurter), не на живо – без аларми."
+            "value" : "Дневен курс на Европейската централна банка, не на живо – без аларми."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ইউরোপীয় কেন্দ্রীয় ব্যাংকের দৈনিক হার (Frankfurter-এর মাধ্যমে), লাইভ নয় – কোনো অ্যালার্ট নেই।"
+            "value" : "ইউরোপীয় কেন্দ্রীয় ব্যাংকের দৈনিক হার, লাইভ নয় – কোনো অ্যালার্ট নেই।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dnevni kurs Evropske centralne banke (putem Frankfurtera), ne uživo – nema alarma."
+            "value" : "Dnevni kurs Evropske centralne banke, ne uživo – nema alarma."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipus diari del Banc Central Europeu (via Frankfurter), no en directe – sense alarmes."
+            "value" : "Tipus diari del Banc Central Europeu, no en directe – sense alarmes."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Denní kurz Evropské centrální banky (přes Frankfurter), ne živě – bez alarmů."
+            "value" : "Denní kurz Evropské centrální banky, ne živě – bez alarmů."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dagskurs fra Den Europæiske Centralbank (via Frankfurter), ikke live – ingen alarmer."
+            "value" : "Dagskurs fra Den Europæiske Centralbank, ikke live – ingen alarmer."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tageskurs der Europäischen Zentralbank (über Frankfurter), nicht live – keine Alarme."
+            "value" : "Tageskurs der Europäischen Zentralbank, nicht live – keine Alarme."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς συναγερμούς."
+            "value" : "Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας, όχι ζωντανά – χωρίς συναγερμούς."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daily rate of the European Central Bank (via Frankfurter), not live – no alerts."
+            "value" : "Daily rate of the European Central Bank, not live – no alerts."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipo diario del Banco Central Europeo (vía Frankfurter), no en vivo – sin alarmas."
+            "value" : "Tipo diario del Banco Central Europeo, no en vivo – sin alarmas."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Euroopa Keskpanga päevakurss (Frankfurteri kaudu), mitte reaalajas – hoiatusi pole."
+            "value" : "Euroopa Keskpanga päevakurss, mitte reaalajas – hoiatusi pole."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Europako Banku Zentralaren eguneko tasa (Frankfurter bidez), ez zuzenean – alarmarik ez."
+            "value" : "Europako Banku Zentralaren eguneko tasa, ez zuzenean – alarmarik ez."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نرخ روزانهٔ بانک مرکزی اروپا (از طریق Frankfurter)، نه زنده – بدون هشدار."
+            "value" : "نرخ روزانهٔ بانک مرکزی اروپا، نه زنده – بدون هشدار."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Euroopan keskuspankin päiväkurssi (Frankfurterin kautta), ei reaaliaikainen – ei hälytyksiä."
+            "value" : "Euroopan keskuspankin päiväkurssi, ei reaaliaikainen – ei hälytyksiä."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daily rate ng European Central Bank (sa pamamagitan ng Frankfurter), hindi live – walang alerto."
+            "value" : "Daily rate ng European Central Bank, hindi live – walang alerto."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cours quotidien de la Banque centrale européenne (via Frankfurter), pas en direct – pas d’alertes."
+            "value" : "Cours quotidien de la Banque centrale européenne, pas en direct – pas d’alertes."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ráta laethúil an Bhainc Ceannais Eorpaigh (trí Frankfurter), ní beo – gan foláirimh."
+            "value" : "Ráta laethúil an Bhainc Ceannais Eorpaigh, ní beo – gan foláirimh."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tipo diario do Banco Central Europeo (vía Frankfurter), non en directo – sen alarmas."
+            "value" : "Tipo diario do Banco Central Europeo, non en directo – sen alarmas."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "યુરોપિયન સેન્ટ્રલ બૅન્કનો દૈનિક દર (Frankfurter દ્વારા), લાઇવ નથી – એલર્ટ નહીં."
+            "value" : "યુરોપિયન સેન્ટ્રલ બૅન્કનો દૈનિક દર, લાઇવ નથી – એલર્ટ નહીં."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שער יומי של הבנק המרכזי האירופי (דרך Frankfurter), לא בזמן אמת – ללא התראות."
+            "value" : "שער יומי של הבנק המרכזי האירופי, לא בזמן אמת – ללא התראות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "यूरोपीय सेंट्रल बैंक की दैनिक दर (Frankfurter के ज़रिए), लाइव नहीं – कोई अलार्म नहीं।"
+            "value" : "यूरोपीय सेंट्रल बैंक की दैनिक दर, लाइव नहीं – कोई अलार्म नहीं।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dnevni tečaj Europske središnje banke (putem Frankfurtera), ne uživo – nema alarma."
+            "value" : "Dnevni tečaj Europske središnje banke, ne uživo – nema alarma."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az Európai Központi Bank napi árfolyama (a Frankfurteren keresztül), nem élő – nincs riasztás."
+            "value" : "Az Európai Központi Bank napi árfolyama, nem élő – nincs riasztás."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Եվրոպական կենտրոնական բանկի օրական փոխարժեքը (Frankfurter-ի միջոցով), ոչ իրական ժամանակում – առանց ահազանգերի։"
+            "value" : "Եվրոպական կենտրոնական բանկի օրական փոխարժեքը, ոչ իրական ժամանակում – առանց ահազանգերի։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs harian Bank Sentral Eropa (melalui Frankfurter), bukan live – tanpa alarm."
+            "value" : "Kurs harian Bank Sentral Eropa, bukan live – tanpa alarm."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dagsgengi Seðlabanka Evrópu (í gegnum Frankfurter), ekki í beinni – engar viðvaranir."
+            "value" : "Dagsgengi Seðlabanka Evrópu, ekki í beinni – engar viðvaranir."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cambio giornaliero della Banca centrale europea (tramite Frankfurter), non in tempo reale – niente allarmi."
+            "value" : "Cambio giornaliero della Banca centrale europea, non in tempo reale – niente allarmi."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "欧州中央銀行の日次レート（Frankfurter経由）です。リアルタイムではなく、アラームはありません。"
+            "value" : "欧州中央銀行の日次レートです。リアルタイムではなく、アラームはありません。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ევროპის ცენტრალური ბანკის დღიური კურსი (Frankfurter-ის მეშვეობით), არა რეალურ დროში – განგაშების გარეშე."
+            "value" : "ევროპის ცენტრალური ბანკის დღიური კურსი, არა რეალურ დროში – განგაშების გარეშე."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Еуропалық орталық банктің күндік бағамы (Frankfurter арқылы), нақты уақытта емес – ескерту жоқ."
+            "value" : "Еуропалық орталық банктің күндік бағамы, нақты уақытта емес – ескерту жоқ."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប (តាមរយៈ Frankfurter) មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។"
+            "value" : "អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ (Frankfurter ಮೂಲಕ), ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ."
+            "value" : "ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ, ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "유럽중앙은행의 일일 환율(Frankfurter 경유)입니다. 실시간이 아니며 경보가 없습니다."
+            "value" : "유럽중앙은행의 일일 환율입니다. 실시간이 아니며 경보가 없습니다."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ (ຜ່ານ Frankfurter), ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ."
+            "value" : "ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ, ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Europos centrinio banko dienos kursas (per Frankfurter), ne tiesioginis – įspėjimų nėra."
+            "value" : "Europos centrinio banko dienos kursas, ne tiesioginis – įspėjimų nėra."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eiropas Centrālās bankas dienas kurss (caur Frankfurter), nav tiešraidē – bez brīdinājumiem."
+            "value" : "Eiropas Centrālās bankas dienas kurss, nav tiešraidē – bez brīdinājumiem."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дневен курс на Европската централна банка (преку Frankfurter), не во живо – нема аларми."
+            "value" : "Дневен курс на Европската централна банка, не во живо – нема аларми."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക് (Frankfurter വഴി), ലൈവ് അല്ല – അലേർട്ടുകളില്ല."
+            "value" : "യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക്, ലൈവ് അല്ല – അലേർട്ടുകളില്ല."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Европын Төв Банкны өдрийн ханш (Frankfurter-ээр), шууд биш – дохио алга."
+            "value" : "Европын Төв Банкны өдрийн ханш, шууд биш – дохио алга."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "युरोपियन सेंट्रल बँकेचा दैनिक दर (Frankfurter द्वारे), लाइव्ह नाही – अलर्ट नाहीत."
+            "value" : "युरोपियन सेंट्रल बँकेचा दैनिक दर, लाइव्ह नाही – अलर्ट नाहीत."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kadar harian Bank Pusat Eropah (melalui Frankfurter), bukan langsung – tiada amaran."
+            "value" : "Kadar harian Bank Pusat Eropah, bukan langsung – tiada amaran."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ဥရောပ ဗဟိုဘဏ်၏ နေ့စဉ်နှုန်း (Frankfurter မှတစ်ဆင့်)၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။"
+            "value" : "ဥရောပ ဗဟိုဘဏ်၏ နေ့စဉ်နှုန်း၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dagskurs fra Den europeiske sentralbanken (via Frankfurter), ikke live – ingen alarmer."
+            "value" : "Dagskurs fra Den europeiske sentralbanken, ikke live – ingen alarmer."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "युरोपेली केन्द्रीय बैंकको दैनिक दर (Frankfurter मार्फत), लाइभ होइन – अलर्ट छैन।"
+            "value" : "युरोपेली केन्द्रीय बैंकको दैनिक दर, लाइभ होइन – अलर्ट छैन।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dagkoers van de Europese Centrale Bank (via Frankfurter), niet live – geen alarmen."
+            "value" : "Dagkoers van de Europese Centrale Bank, niet live – geen alarmen."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ (Frankfurter ਰਾਹੀਂ), ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।"
+            "value" : "ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ, ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alarmów."
+            "value" : "Dzienny kurs Europejskiego Banku Centralnego, nie na żywo – bez alarmów."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes."
+            "value" : "Taxa diária do Banco Central Europeu, não em tempo real – sem alarmes."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes."
+            "value" : "Taxa diária do Banco Central Europeu, não em tempo real – sem alarmes."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme."
+            "value" : "Cursul zilnic al Băncii Centrale Europene, nu în timp real – fără alarme."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дневной курс Европейского центрального банка (через Frankfurter), не в реальном времени – без оповещений."
+            "value" : "Дневной курс Европейского центрального банка, не в реальном времени – без оповещений."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය (Frankfurter හරහා), සජීවී නොවේ – ඇඟවීම් නැත."
+            "value" : "යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය, සජීවී නොවේ – ඇඟවීම් නැත."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Denný kurz Európskej centrálnej banky (cez Frankfurter), nie naživo – žiadne alarmy."
+            "value" : "Denný kurz Európskej centrálnej banky, nie naživo – žiadne alarmy."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dnevni tečaj Evropske centralne banke (prek Frankfurter), ne v živo – brez alarmov."
+            "value" : "Dnevni tečaj Evropske centralne banke, ne v živo – brez alarmov."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursi ditor i Bankës Qendrore Evropiane (nëpërmjet Frankfurter), jo live – pa alarme."
+            "value" : "Kursi ditor i Bankës Qendrore Evropiane, jo live – pa alarme."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дневни курс Европске централне банке (путем Frankfurter-а), не уживо – нема аларма."
+            "value" : "Дневни курс Европске централне банке, не уживо – нема аларма."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dnevni kurs Evropske centralne banke (putem Frankfurter-a), ne uživo – nema alarma."
+            "value" : "Dnevni kurs Evropske centralne banke, ne uživo – nema alarma."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dagskurs från Europeiska centralbanken (via Frankfurter), inte live – inga larm."
+            "value" : "Dagskurs från Europeiska centralbanken, inte live – inga larm."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kiwango cha kila siku cha Benki Kuu ya Ulaya (kupitia Frankfurter), si cha moja kwa moja – hakuna kengele."
+            "value" : "Kiwango cha kila siku cha Benki Kuu ya Ulaya, si cha moja kwa moja – hakuna kengele."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம் (Frankfurter வழியாக), நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை."
+            "value" : "ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம், நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు (Frankfurter ద్వారా), లైవ్ కాదు – అలర్ట్‌లు లేవు."
+            "value" : "యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు, లైవ్ కాదు – అలర్ట్‌లు లేవు."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อัตรารายวันของธนาคารกลางยุโรป (ผ่าน Frankfurter) ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน"
+            "value" : "อัตรารายวันของธนาคารกลางยุโรป ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avrupa Merkez Bankası’nın günlük kuru (Frankfurter üzerinden), canlı değil – alarm yok."
+            "value" : "Avrupa Merkez Bankası’nın günlük kuru, canlı değil – alarm yok."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Денний курс Європейського центрального банку (через Frankfurter), не в реальному часі – без сигналів."
+            "value" : "Денний курс Європейського центрального банку, не в реальному часі – без сигналів."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "یورپی مرکزی بینک کی روزانہ شرح (Frankfurter کے ذریعے)، لائیو نہیں – کوئی الرٹ نہیں۔"
+            "value" : "یورپی مرکزی بینک کی روزانہ شرح، لائیو نہیں – کوئی الرٹ نہیں۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yevropa Markaziy bankining kunlik kursi (Frankfurter orqali), real vaqtda emas – signallar yoʻq."
+            "value" : "Yevropa Markaziy bankining kunlik kursi, real vaqtda emas – signallar yoʻq."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu (qua Frankfurter), không trực tiếp – không có cảnh báo."
+            "value" : "Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu, không trực tiếp – không có cảnh báo."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "歐洲中央銀行嘅每日匯率（經 Frankfurter），唔係即時 – 冇提示。"
+            "value" : "歐洲中央銀行嘅每日匯率，唔係即時 – 冇提示。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "欧洲中央银行的每日汇率（通过 Frankfurter），非实时——没有提醒。"
+            "value" : "欧洲中央银行的每日汇率，非实时——没有提醒。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "歐洲中央銀行的每日匯率（透過 Frankfurter），非即時——沒有提醒。"
+            "value" : "歐洲中央銀行的每日匯率，非即時——沒有提醒。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Izinga lansuku zonke le-European Central Bank (nge-Frankfurter), akulona elibukhoma – awekho ama-alamu."
+            "value" : "Izinga lansuku zonke le-European Central Bank, akulona elibukhoma – awekho ama-alamu."
           }
         }
       }

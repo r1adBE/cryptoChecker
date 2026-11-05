@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">בורסות שנעשה בהן שימוש לאחרונה</string>
     <string name="explorer_all_exchanges_title">כל הבורסות</string>
     <string name="explorer_exchanges_title">בורסות</string>
-    <string name="explorer_forex_hint">שער יומי של הבנק המרכזי האירופי (דרך Frankfurter), לא בזמן אמת – ללא התראות.</string>
+    <string name="explorer_forex_hint">שער יומי של הבנק המרכזי האירופי, לא בזמן אמת – ללא התראות.</string>
 </resources>

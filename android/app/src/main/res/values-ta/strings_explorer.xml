@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">சமீபத்தில் பயன்படுத்திய எக்ஸ்சேஞ்சுகள்</string>
     <string name="explorer_all_exchanges_title">அனைத்து எக்ஸ்சேஞ்சுகள்</string>
     <string name="explorer_exchanges_title">எக்ஸ்சேஞ்சுகள்</string>
-    <string name="explorer_forex_hint">ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம் (Frankfurter வழியாக), நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை.</string>
+    <string name="explorer_forex_hint">ஐரோப்பிய மத்திய வங்கியின் தினசரி விகிதம், நேரலை அல்ல – விழிப்பூட்டல்கள் இல்லை.</string>
 </resources>

@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Burse folosite recent</string>
     <string name="explorer_all_exchanges_title">Toate bursele</string>
     <string name="explorer_exchanges_title">Burse</string>
-    <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme.</string>
+    <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene, nu în timp real – fără alarme.</string>
 </resources>

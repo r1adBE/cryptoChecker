@@ -10,7 +10,7 @@ IDATHA EQOTHO
 • “Konga” kuzenzakalela: izintengo zivuselelwa ekuvuleni i-app nangezikhathi ezithile ngemuva. “Bukhoma uma ivuliwe” yengeza izintengo ezibukhoma (Binance, Bybit, OKX, Coinbase, Kraken) uhlu luvuliwe.
 • Ushintsho lwe-% namashadi kuvela kuqala ku-exchange yepheya; uma ingenawo ama-candle: Binance noma Coinbase, futhi uyatshelwa.
 • Fear & Greed, dominance namanani e-on-chain: alternative.me, CoinGecko, Coin Metrics.
-• Amanani aphuma kudivayisi kuphela ngokuthumela kwakho noma ngesipele se-Android. Ezintengweni, ama-ticker kuphela aya ku-exchange yawo; nezinga lokushintshisana (Frankfurter), idatha yemakethe namalogo (CoinGecko, Binance), izibuko zedatha (GitHub). Uma ubuka amakheli/i-xpub, ama-node e-blockchain omphakathi abona amakheli (ku-xpub, akhiqiziwe) ne-IP yakho.
+• Amanani aphuma kudivayisi kuphela ngokuthumela kwakho noma ngesipele se-Android. Ezintengweni, ama-ticker kuphela aya ku-exchange yawo; nezinga lokushintshisana (ECB), idatha yemakethe namalogo (CoinGecko, Binance), izibuko zedatha (GitHub). Uma ubuka amakheli/i-xpub, ama-node e-blockchain omphakathi abona amakheli (ku-xpub, akhiqiziwe) ne-IP yakho.
 
 UHLU LOKUBUKA
 • Izimakethe ezingu-80 kuma-exchange angu-69: spot nama-futures, amathokheni e-DEX nge-DexScreener, uma uthanda izitoko, igolide ne-FX (TradFi)

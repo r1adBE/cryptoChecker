@@ -84,57 +84,12 @@ object PortfolioHistoryFx {
         today.minusDays(days.toLong().coerceAtLeast(0) + LEAD_DAYS) to today
 
     /**
-     * Höchstens so viele Tage je Abfrage der Devisen-Tageskurse: Frankfurter liefert längere Zeiträume nur noch
-     * wöchentlich (ein Kurs je Woche) — «Seit 1. Kauf» und der Stichtag bekämen sonst Wochenkurse.
+     * Währungen für die Abfrage der Euro-Referenzkurse der EZB (sortiert): [currency] und USD (Umrechnung USD → Ziel aus
+     * den beiden Euro-Kursen); EUR selbst ist die Basis der EZB und keine eigene Reihe. BGN nach der Euro-Einführung kommt
+     * aus EUR × 1.95583 ([ratesByDay]), also aus dem USD-Kurs derselben Abfrage — eine Abfrage für alles.
      */
-    const val FX_CHUNK_DAYS = 365
-
-    /**
-     * [from]..[to] (je einschliesslich) in n = ⌈Tage / [maxDays]⌉ gleich lange Stücke (Länge unterscheidet sich höchstens
-     * um einen Tag, die längeren zuerst), aufsteigend und lückenlos; das letzte endet an [to]. Gleich lang statt «volle
-     * Jahre + Rest»: ein Rest von ein, zwei Tagen (Wochenende, Feiertag, heute) hätte bei Frankfurter keinen Kurs und
-     * liesse die ganze Reihe scheitern. Leer, wenn [from] nach [to] liegt.
-     */
-    fun fxChunks(from: LocalDate, to: LocalDate, maxDays: Int = FX_CHUNK_DAYS): List<Pair<LocalDate, LocalDate>> {
-        if (from.isAfter(to) || maxDays <= 0) return emptyList()
-        val days = to.toEpochDay() - from.toEpochDay() + 1
-        val n = (days + maxDays - 1) / maxDays
-        val base = days / n
-        val longer = days % n
-        val out = ArrayList<Pair<LocalDate, LocalDate>>()
-        var start = from
-        for (i in 0 until n) {
-            val len = base + if (i < longer) 1 else 0
-            val end = start.plusDays(len - 1)
-            out += start to end
-            start = end.plusDays(1)
-        }
-        return out
-    }
-
-    /**
-     * Kann das Stück [from]..[to] Tageskurse haben? Die EZB veröffentlicht nur an Werktagen (Mo–Fr), den Kurs von heute
-     * ([today]) erst am Nachmittag. Ein Stück nur aus Samstag/Sonntag bzw. nur aus heute hat oft keinen Kurs — scheitert
-     * seine Abfrage, zählt es als leer statt die ganze Reihe zu verwerfen (Wochenende/heute füllt [rateOn] mit dem Vortag).
-     */
-    fun chunkMayHaveRates(from: LocalDate, to: LocalDate, today: LocalDate): Boolean {
-        var d = from
-        while (!d.isAfter(to)) {
-            val weekend = d.dayOfWeek == java.time.DayOfWeek.SATURDAY || d.dayOfWeek == java.time.DayOfWeek.SUNDAY
-            if (!weekend && d != today) return true
-            d = d.plusDays(1)
-        }
-        return false
-    }
-
-    /**
-     * Währungen für die Abfrage: [currency], bei BGN zusätzlich EUR (Lew nach der Euro-Einführung
-     * aus EUR × 1.95583, siehe [ratesByDay]) — eine Abfrage für beide.
-     */
-    fun requestCurrencies(currency: String): List<String> {
-        val code = CurrencyConversion.normalize(currency)
-        return if (code == "BGN") listOf("BGN", "EUR") else listOf(code)
-    }
+    fun requestCurrencies(currency: String): List<String> =
+        (setOf(CurrencyConversion.normalize(currency), "USD") - "EUR").sorted()
 
     /**
      * Tageskurse aus der Antwort der Zeitreihe (Datum «yyyy-MM-dd» → Währung → Kurs) für [currency]:

@@ -77,8 +77,10 @@ class PortfolioHistoryFxTest {
         assertEquals(0.85 * 1.95583, bgn[day("2026-01-02")]!!, d)
         assertFalse(day("2026-01-05") in bgn)
         assertEquals(2, PortfolioHistoryFx.ratesByDay("EUR", byDate).size)
-        assertEquals(listOf("BGN", "EUR"), PortfolioHistoryFx.requestCurrencies("BGN"))
-        assertEquals(listOf("CHF"), PortfolioHistoryFx.requestCurrencies(" chf "))
+        // Abfrage der EZB: Ziel und USD (EUR ist die Basis, BGN nach 2025 aus EUR = aus dem USD-Kurs)
+        assertEquals(listOf("BGN", "USD"), PortfolioHistoryFx.requestCurrencies("BGN"))
+        assertEquals(listOf("CHF", "USD"), PortfolioHistoryFx.requestCurrencies(" chf "))
+        assertEquals(listOf("USD"), PortfolioHistoryFx.requestCurrencies("EUR"))
     }
 
     @Test
@@ -86,44 +88,6 @@ class PortfolioHistoryFxTest {
         val (from, to) = PortfolioHistoryFx.requestRange(30, LocalDate.of(2026, 10, 6))
         assertEquals(LocalDate.of(2026, 8, 30), from)
         assertEquals(LocalDate.of(2026, 10, 6), to)
-    }
-
-    /** Devisen-Zeitreihe in Stücken von höchstens 365 Tagen (Frankfurter liefert längere Zeiträume nur wöchentlich). */
-    @Test
-    fun fxRequestInChunksOfAtMostOneYear() {
-        val from = LocalDate.of(2023, 1, 1)
-        val to = LocalDate.of(2026, 10, 6)
-        val chunks = PortfolioHistoryFx.fxChunks(from, to)
-        assertEquals(365, PortfolioHistoryFx.FX_CHUNK_DAYS)
-        assertEquals(from, chunks.first().first)
-        assertEquals(to, chunks.last().second)
-        for ((a, b) in chunks) assertTrue(java.time.temporal.ChronoUnit.DAYS.between(a, b) + 1 <= 365)
-        // Lückenlos und ohne Überlappung
-        for ((prev, next) in chunks.zipWithNext()) assertEquals(prev.second.plusDays(1), next.first)
-        assertEquals(4, chunks.size)
-        // Genau ein Jahr: ein Stück; ein Tag: ein Stück; umgekehrt: keins
-        assertEquals(listOf(from to from.plusDays(364)), PortfolioHistoryFx.fxChunks(from, from.plusDays(364)))
-        assertEquals(2, PortfolioHistoryFx.fxChunks(from, from.plusDays(365)).size)
-        assertEquals(listOf(to to to), PortfolioHistoryFx.fxChunks(to, to))
-        assertTrue(PortfolioHistoryFx.fxChunks(to, from).isEmpty())
-    }
-
-    /**
-     * Gleich lange Stücke: kein Rest von ein, zwei Tagen (Wochenende/heute ohne EZB-Kurs liesse die ganze Reihe scheitern).
-     * Wie iOS.
-     */
-    @Test
-    fun fxChunksAreEqualParts() {
-        fun lengths(from: LocalDate, to: LocalDate) =
-            PortfolioHistoryFx.fxChunks(from, to).map { java.time.temporal.ChronoUnit.DAYS.between(it.first, it.second) + 1 }
-        val from = LocalDate.of(2023, 1, 1)
-        // 1375 Tage → 4 Stücke 344/344/344/343
-        assertEquals(listOf(344L, 344L, 344L, 343L), lengths(from, LocalDate.of(2026, 10, 6)))
-        // 367 Tage → 184/183 statt 365 + 2
-        assertEquals(listOf(184L, 183L), lengths(LocalDate.of(2025, 10, 5), LocalDate.of(2026, 10, 6)))
-        assertEquals(listOf(183L, 183L), lengths(from, from.plusDays(365)))
-        assertEquals(listOf(365L, 365L), lengths(from, from.plusDays(729)))
-        assertEquals(listOf(244L, 244L, 243L), lengths(from, from.plusDays(730)))
     }
 
     /** Geladene Devisenkurse gelten bis zum nächsten UTC-Tag; die Abfrage endet am späteren von Geräte- und UTC-Tag. Wie iOS. */
@@ -136,21 +100,6 @@ class PortfolioHistoryFxTest {
         // Westlich von UTC am Abend: Gerätetag noch gestern, UTC schon heute → bis heute abfragen
         assertEquals(day, PortfolioHistoryFx.fxRequestEnd(day.minusDays(1), day))
         assertEquals(day.plusDays(1), PortfolioHistoryFx.fxRequestEnd(day.plusDays(1), day))
-    }
-
-    /** Stück ohne Werktag (nur Sa/So bzw. nur heute): Fehlantwort zählt als leer. Wie iOS. */
-    @Test
-    fun chunkWithoutBusinessDayMayFail() {
-        val fri = LocalDate.of(2026, 10, 16)
-        val sat = fri.plusDays(1)
-        val sun = fri.plusDays(2)
-        val mon = fri.plusDays(3)
-        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sat, sun, sun))
-        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sat, mon, mon))
-        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(fri, fri, fri))
-        assertTrue(PortfolioHistoryFx.chunkMayHaveRates(mon, mon, sun))
-        assertTrue(PortfolioHistoryFx.chunkMayHaveRates(fri, sat, sat))
-        assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sun, sat, sun))
     }
 
     /** USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung. */

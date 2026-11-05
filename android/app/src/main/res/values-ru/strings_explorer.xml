@@ -180,5 +180,5 @@
     <string name="explorer_recent_exchanges_title">Недавние биржи</string>
     <string name="explorer_all_exchanges_title">Все биржи</string>
     <string name="explorer_exchanges_title">Биржи</string>
-    <string name="explorer_forex_hint">Дневной курс Европейского центрального банка (через Frankfurter), не в реальном времени – без оповещений.</string>
+    <string name="explorer_forex_hint">Дневной курс Европейского центрального банка, не в реальном времени – без оповещений.</string>
 </resources>

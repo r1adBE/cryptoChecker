@@ -10,7 +10,7 @@ HONESTA AMB LES DADES
 • «Estalvi» és el mode predeterminat: els preus s'actualitzen en obrir l'app i a intervals en segon pla. «En directe amb l'app oberta» afegeix preus en directe de Binance, Bybit, OKX, Coinbase i Kraken amb la llista oberta.
 • La variació en % i els gràfics vénen primer de l'exchange del parell; si no té espelmes, l'app usa Binance o Coinbase i t'ho diu.
 • Fear & Greed, dominància i valors on-chain d'alternative.me, CoinGecko i Coin Metrics.
-• Les quantitats només surten del dispositiu amb la teva exportació (CSV, còpia) o xifrades en còpies d'iCloud/del dispositiu. Per als preus, només els tickers van a l'exchange de cada parell; a més, tipus de canvi (Frankfurter), dades de mercat i logotips (CoinGecko, Binance), miralls de dades (GitHub). Si segueixes adreces o una xpub, els nodes públics de blockchain veuen les adreces (amb una xpub, les derivades) i la teva IP.
+• Les quantitats només surten del dispositiu amb la teva exportació (CSV, còpia) o xifrades en còpies d'iCloud/del dispositiu. Per als preus, només els tickers van a l'exchange de cada parell; a més, tipus de canvi (BCE), dades de mercat i logotips (CoinGecko, Binance), miralls de dades (GitHub). Si segueixes adreces o una xpub, els nodes públics de blockchain veuen les adreces (amb una xpub, les derivades) i la teva IP.
 
 LLISTA
 • 80 mercats en 69 exchanges: spot i futurs, tokens DEX via DexScreener, opcionalment accions, or i divises (TradFi)

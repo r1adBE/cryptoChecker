@@ -10,7 +10,7 @@ SĄŽININGAI APIE DUOMENIS
 • Numatytasis režimas – „Taupus“: kainos atnaujinamos atidarius programėlę ir intervalais fone. „Tiesiogiai, kol atidaryta“ prideda Binance, Bybit, OKX, Coinbase ir Kraken tiesiogines kainas, kol atidarytas sąrašas.
 • % pokytis ir diagramos pirmiausia iš pačios poros biržos; jei ji neturi žvakių, programėlė naudoja Binance ar Coinbase ir tai nurodo.
 • Fear & Greed, dominavimas, grandinės vertės iš alternative.me, CoinGecko ir Coin Metrics.
-• Sumos palieka įrenginį tik per tavo eksportą ar Android atsarginę kopiją. Kainoms į poros biržą siunčiami tik porų simboliai; taip pat valiutų kursai (Frankfurter), rinkos duomenys ir logotipai (CoinGecko, Binance), duomenų veidrodžiai (GitHub). Jei stebi adresus ar xpub, vieši grandinės mazgai mato adresus (xpub atveju – išvestinius) ir tavo IP.
+• Sumos palieka įrenginį tik per tavo eksportą ar Android atsarginę kopiją. Kainoms į poros biržą siunčiami tik porų simboliai; taip pat valiutų kursai (ECB), rinkos duomenys ir logotipai (CoinGecko, Binance), duomenų veidrodžiai (GitHub). Jei stebi adresus ar xpub, vieši grandinės mazgai mato adresus (xpub atveju – išvestinius) ir tavo IP.
 
 STEBIMŲ SĄRAŠAS
 • 80 rinkų 69 biržose: spot ir ateities sandoriai, DEX žetonai per DexScreener, pasirinktinai akcijos, auksas ir valiutos (TradFi)

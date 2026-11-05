@@ -90,7 +90,7 @@ Helper scripts (Python 3, run from `ios/`):
 
 Both apps read **public** price data directly from the exchanges – no API
 keys, no accounts. 80 markets: 78 on 69 exchanges, plus DexScreener (with GeckoTerminal as fallback) and the
-daily ECB reference rates (via Frankfurter, labelled, no alerts). The exchange picker groups them into Spot ·
+daily ECB reference rates (straight from the ECB, labelled, no alerts). The exchange picker groups them into Spot ·
 Futures · DEX pools · Forex, each sorted by trading volume on the install date:
 
 * Android: [`android/marketdata`](android/marketdata) (Gradle library module,

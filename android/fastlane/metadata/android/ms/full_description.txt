@@ -10,7 +10,7 @@ JUJUR TENTANG DATA
 • “Jimat” ialah lalai: harga dimuat semula apabila apl dibuka dan berselang di latar belakang. “Langsung semasa dibuka” menambah harga langsung Binance, Bybit, OKX, Coinbase dan Kraken semasa senarai pantau dibuka.
 • Perubahan % dan carta datang dahulu daripada bursa pasangan itu; jika tiada lilin, apl menggunakan Binance atau Coinbase dan memberitahu anda.
 • Fear & Greed, dominasi dan nilai on-chain: alternative.me, CoinGecko, Coin Metrics.
-• Amaun keluar dari peranti hanya melalui eksport anda atau sandaran Android. Untuk harga, hanya simbol pasangan dihantar ke bursanya; serta kadar pertukaran (Frankfurter), data pasaran dan logo (CoinGecko, Binance), cermin data (GitHub). Jika anda memantau alamat atau xpub, nod blockchain awam melihat alamat itu (bagi xpub, yang dijana) dan IP anda.
+• Amaun keluar dari peranti hanya melalui eksport anda atau sandaran Android. Untuk harga, hanya simbol pasangan dihantar ke bursanya; serta kadar pertukaran (ECB), data pasaran dan logo (CoinGecko, Binance), cermin data (GitHub). Jika anda memantau alamat atau xpub, nod blockchain awam melihat alamat itu (bagi xpub, yang dijana) dan IP anda.
 
 SENARAI PANTAU
 • 80 pasaran di 69 bursa: spot dan niaga hadapan, token DEX melalui DexScreener, pilihan saham, emas dan FX (TradFi)

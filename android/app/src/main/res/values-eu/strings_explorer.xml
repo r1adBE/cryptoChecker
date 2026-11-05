@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Azkenaldian erabilitako burtsak</string>
     <string name="explorer_all_exchanges_title">Burtsa guztiak</string>
     <string name="explorer_exchanges_title">Burtsak</string>
-    <string name="explorer_forex_hint">Europako Banku Zentralaren eguneko tasa (Frankfurter bidez), ez zuzenean – alarmarik ez.</string>
+    <string name="explorer_forex_hint">Europako Banku Zentralaren eguneko tasa, ez zuzenean – alarmarik ez.</string>
 </resources>

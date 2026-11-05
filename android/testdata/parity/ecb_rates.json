@@ -1,0 +1,332 @@
+{
+  "description": "Euro reference rates straight from the ECB (Android EcbRates.kt / iOS EcbRates.swift). round5: value to 5 significant digits, half up, computed as floor(v x 10^k + 0.5) / 10^k with k = 4 - floor(log10 v) (k < 0: floor(v / 10^-k + 0.5) x 10^-k); values <= 0 or not finite unchanged. cross(day, base, quote): units of quote per 1 base from the euro rates of one day (EUR = 1); base EUR = the ECB value unchanged, any other base = round5(quote / base); null if a side is missing, not > 0 or base == quote. rebase(day, base): cross for every code of the day plus EUR, base itself excluded. parseXml: eurofxref-daily.xml / -hist-90d.xml / -hist.xml, day -> code -> rate, only three-letter A-Z codes with a finite rate > 0, 'only' keeps just those codes, null without a readable day or with DOCTYPE/ENTITY. parseSdmx: ECB Data Portal format=jsondata&detail=dataonly (CURRENCY dimension from structure.dimensions.series, dates from structure.dimensions.observation[0]), empty body = {} (no rates in the range), unreadable = null. recent(days, windowDays): the days on or after newest - windowDays, ascending (expected lists the dates). seriesUrl: codes without EUR, distinct, sorted, joined with +. coveredByHist90d: from >= today - 80 days. Numbers compared with relative tolerance 1e-12 (both platforms use the same IEEE operations; the tolerance only absorbs JSON number parsing).",
+  "round5": [
+    {
+      "value": 0.81547,
+      "expected": 0.81547
+    },
+    {
+      "value": 0.8154749,
+      "expected": 0.81547
+    },
+    {
+      "value": 158.2497,
+      "expected": 158.25
+    },
+    {
+      "value": 18128.97,
+      "expected": 18129.0
+    },
+    {
+      "value": 0.000123456,
+      "expected": 0.00012346
+    },
+    {
+      "value": 123456.7,
+      "expected": 123460.0
+    },
+    {
+      "value": 99999.6,
+      "expected": 100000.0
+    },
+    {
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "value": 12.3455,
+      "expected": 12.346
+    },
+    {
+      "value": 0.88754904,
+      "expected": 0.88755
+    },
+    {
+      "value": 8.45866517106001,
+      "expected": 8.4587
+    },
+    {
+      "value": 18128.89855329724,
+      "expected": 18129.0
+    },
+    {
+      "value": -1.5,
+      "expected": -1.5
+    },
+    {
+      "value": 0.0,
+      "expected": 0.0
+    }
+  ],
+  "day": {
+    "USD": 1.1267,
+    "CHF": 0.9188,
+    "JPY": 178.3,
+    "IDR": 20425.83,
+    "KRW": 1508.18
+  },
+  "cross": [
+    {
+      "base": "USD",
+      "quote": "CHF",
+      "expected": 0.81548
+    },
+    {
+      "base": "USD",
+      "quote": "JPY",
+      "expected": 158.25
+    },
+    {
+      "base": "USD",
+      "quote": "IDR",
+      "expected": 18129.0
+    },
+    {
+      "base": "USD",
+      "quote": "EUR",
+      "expected": 0.88755
+    },
+    {
+      "base": "EUR",
+      "quote": "IDR",
+      "expected": 20425.83
+    },
+    {
+      "base": "EUR",
+      "quote": "USD",
+      "expected": 1.1267
+    },
+    {
+      "base": "JPY",
+      "quote": "KRW",
+      "expected": 8.4587
+    },
+    {
+      "base": "CHF",
+      "quote": "EUR",
+      "expected": 1.0884
+    },
+    {
+      "base": "USD",
+      "quote": "USD",
+      "expected": null
+    },
+    {
+      "base": "USD",
+      "quote": "GBP",
+      "expected": null
+    },
+    {
+      "base": "GBP",
+      "quote": "EUR",
+      "expected": null
+    },
+    {
+      "base": "EUR",
+      "quote": "EUR",
+      "expected": null
+    }
+  ],
+  "rebase": [
+    {
+      "base": "USD",
+      "expected": {
+        "CHF": 0.81548,
+        "JPY": 158.25,
+        "IDR": 18129.0,
+        "KRW": 1338.6,
+        "EUR": 0.88755
+      }
+    },
+    {
+      "base": "EUR",
+      "expected": {
+        "USD": 1.1267,
+        "CHF": 0.9188,
+        "JPY": 178.3,
+        "IDR": 20425.83,
+        "KRW": 1508.18
+      }
+    },
+    {
+      "base": "GBP",
+      "expected": {}
+    }
+  ],
+  "parseXml": [
+    {
+      "name": "daily file as served (single quotes, whitespace)",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\">\n\t<gesmes:subject>Reference rates</gesmes:subject>\n\t<gesmes:Sender>\n\t\t<gesmes:name>European Central Bank</gesmes:name>\n\t</gesmes:Sender>\n\t<Cube>\n\t\t<Cube time='2026-11-04'>\n\t\t\t<Cube currency='USD' rate='1.1267'/>\n\t\t\t<Cube currency='JPY' rate='178.30'/>\n\t\t\t<Cube currency='CHF' rate='0.9188'/>\n\t\t\t<Cube currency='IDR' rate='20425.83'/>\n\t\t</Cube>\n\t</Cube>\n</gesmes:Envelope>\n",
+      "expected": {
+        "2026-11-04": {
+          "USD": 1.1267,
+          "JPY": 178.3,
+          "CHF": 0.9188,
+          "IDR": 20425.83
+        }
+      }
+    },
+    {
+      "name": "90-day format (double quotes, one line): invalid codes and rates dropped",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time=\"2026-11-04\"><Cube currency=\"USD\" rate=\"1.1267\"/><Cube currency=\"CHF\" rate=\"0.9188\"/><Cube currency=\"bad\" rate=\"1.0\"/><Cube currency=\"SEK\" rate=\"0\"/><Cube currency=\"NOK\" rate=\"-2\"/><Cube currency=\"ISK\" rate=\"x\"/></Cube><Cube time=\"2026-11-03\"><Cube currency=\"USD\" rate=\"1.1179\"/><Cube currency=\"CHF\" rate=\"0.9166\"/></Cube></Cube></gesmes:Envelope>",
+      "expected": {
+        "2026-11-03": {
+          "USD": 1.1179,
+          "CHF": 0.9166
+        },
+        "2026-11-04": {
+          "USD": 1.1267,
+          "CHF": 0.9188
+        }
+      }
+    },
+    {
+      "name": "only these codes",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time=\"2026-11-04\"><Cube currency=\"USD\" rate=\"1.1267\"/><Cube currency=\"CHF\" rate=\"0.9188\"/><Cube currency=\"bad\" rate=\"1.0\"/><Cube currency=\"SEK\" rate=\"0\"/><Cube currency=\"NOK\" rate=\"-2\"/><Cube currency=\"ISK\" rate=\"x\"/></Cube><Cube time=\"2026-11-03\"><Cube currency=\"USD\" rate=\"1.1179\"/><Cube currency=\"CHF\" rate=\"0.9166\"/></Cube></Cube></gesmes:Envelope>",
+      "only": [
+        "USD"
+      ],
+      "expected": {
+        "2026-11-03": {
+          "USD": 1.1179
+        },
+        "2026-11-04": {
+          "USD": 1.1267
+        }
+      }
+    },
+    {
+      "name": "DOCTYPE is never read",
+      "body": "<!DOCTYPE x [<!ENTITY e 'a'>]><Cube><Cube time='2026-11-04'><Cube currency='USD' rate='1.1'/></Cube></Cube>",
+      "expected": null
+    },
+    {
+      "name": "maintenance page",
+      "body": "<html><body>maintenance</body></html>",
+      "expected": null
+    },
+    {
+      "name": "not XML",
+      "body": "{\"rates\":{}}",
+      "expected": null
+    },
+    {
+      "name": "truncated",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</g",
+      "expected": null
+    }
+  ],
+  "parseSdmx": [
+    {
+      "name": "recorded answer of the Data Portal (CHF+USD, 4 to 8 January 2024)",
+      "body": "{\"header\":{\"id\":\"f1e0d951-e075-4a47-a850-ffcc5f0efa71\",\"test\":false,\"prepared\":\"2026-11-05T09:46:24.593+01:00\",\"sender\":{\"id\":\"ECB\"}},\"dataSets\":[{\"action\":\"Replace\",\"validFrom\":\"2026-11-05T09:46:24.593+01:00\",\"series\":{\"0:0:0:0:0\":{\"observations\":{\"0\":[0.9313],\"1\":[0.932],\"2\":[0.9308]}},\"0:1:0:0:0\":{\"observations\":{\"0\":[1.0953],\"1\":[1.0921],\"2\":[1.0946]}}}}],\"structure\":{\"links\":[{\"title\":\"Exchange Rates\",\"rel\":\"dataflow\",\"href\":\"https://data-api.ecb.europa.eu:443/service/dataflow/ECB/EXR/1.0\"}],\"name\":\"Exchange Rates\",\"dimensions\":{\"series\":[{\"id\":\"FREQ\",\"name\":\"Frequency\",\"values\":[{\"id\":\"D\",\"name\":\"Daily\"}]},{\"id\":\"CURRENCY\",\"name\":\"Currency\",\"values\":[{\"id\":\"CHF\",\"name\":\"Swiss franc\"},{\"id\":\"USD\",\"name\":\"US dollar\"}]},{\"id\":\"CURRENCY_DENOM\",\"name\":\"Currency denominator\",\"values\":[{\"id\":\"EUR\",\"name\":\"Euro\"}]},{\"id\":\"EXR_TYPE\",\"name\":\"Exchange rate type\",\"values\":[{\"id\":\"SP00\",\"name\":\"Spot\"}]},{\"id\":\"EXR_SUFFIX\",\"name\":\"Series variation - EXR context\",\"values\":[{\"id\":\"A\",\"name\":\"Average\"}]}],\"observation\":[{\"id\":\"TIME_PERIOD\",\"name\":\"Time period or range\",\"role\":\"time\",\"values\":[{\"id\":\"2024-01-04\",\"name\":\"2024-01-04\",\"start\":\"2024-01-04T00:00:00.000+01:00\",\"end\":\"2024-01-04T23:59:59.999+01:00\"},{\"id\":\"2024-01-05\",\"name\":\"2024-01-05\",\"start\":\"2024-01-05T00:00:00.000+01:00\",\"end\":\"2024-01-05T23:59:59.999+01:00\"},{\"id\":\"2024-01-08\",\"name\":\"2024-01-08\",\"start\":\"2024-01-08T00:00:00.000+01:00\",\"end\":\"2024-01-08T23:59:59.999+01:00\"}]}]}}}",
+      "expected": {
+        "2024-01-04": {
+          "CHF": 0.9313,
+          "USD": 1.0953
+        },
+        "2024-01-05": {
+          "CHF": 0.932,
+          "USD": 1.0921
+        },
+        "2024-01-08": {
+          "CHF": 0.9308,
+          "USD": 1.0946
+        }
+      }
+    },
+    {
+      "name": "null observation and invalid code skipped",
+      "body": "{\"dataSets\":[{\"series\":{\"0:0:0:0:0\":{\"observations\":{\"0\":[null],\"1\":[1.2]}},\"0:1:0:0:0\":{\"observations\":{\"0\":[3.0]}}}}],\"structure\":{\"dimensions\":{\"series\":[{\"id\":\"FREQ\",\"values\":[{\"id\":\"D\"}]},{\"id\":\"CURRENCY\",\"values\":[{\"id\":\"USD\"},{\"id\":\"usd\"}]}],\"observation\":[{\"id\":\"TIME_PERIOD\",\"values\":[{\"id\":\"2024-01-04\"},{\"id\":\"2024-01-05\"}]}]}}}",
+      "expected": {
+        "2024-01-05": {
+          "USD": 1.2
+        }
+      }
+    },
+    {
+      "name": "empty body = no rates in the range",
+      "body": "",
+      "expected": {}
+    },
+    {
+      "name": "error page of the gateway",
+      "body": "<html><h1>ECB Data Portal</h1>HTTP status code: 504</html>",
+      "expected": null
+    },
+    {
+      "name": "JSON without structure",
+      "body": "{\"dataSets\":[]}",
+      "expected": null
+    }
+  ],
+  "recent": [
+    {
+      "name": "older than 10 days before the newest day dropped",
+      "days": {
+        "2026-10-12": {
+          "USD": 1.0
+        },
+        "2026-10-16": {
+          "USD": 1.1
+        },
+        "2026-10-26": {
+          "USD": 1.2
+        },
+        "2026-10-23": {
+          "USD": 1.3
+        }
+      },
+      "windowDays": 10,
+      "expected": [
+        "2026-10-16",
+        "2026-10-23",
+        "2026-10-26"
+      ]
+    },
+    {
+      "name": "empty",
+      "days": {},
+      "windowDays": 10,
+      "expected": []
+    }
+  ],
+  "seriesUrl": [
+    {
+      "codes": [
+        "USD",
+        "EUR",
+        "CHF",
+        "USD"
+      ],
+      "from": "2024-01-01",
+      "to": "2024-01-10",
+      "expected": "https://data-api.ecb.europa.eu/service/data/EXR/D.CHF+USD.EUR.SP00.A?startPeriod=2024-01-01&endPeriod=2024-01-10&format=jsondata&detail=dataonly"
+    },
+    {
+      "codes": [
+        "USD"
+      ],
+      "from": "2026-02-20",
+      "to": "2026-03-02",
+      "expected": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?startPeriod=2026-02-20&endPeriod=2026-03-02&format=jsondata&detail=dataonly"
+    }
+  ],
+  "coveredByHist90d": [
+    {
+      "from": "2026-08-17",
+      "today": "2026-11-05",
+      "expected": true
+    },
+    {
+      "from": "2026-08-16",
+      "today": "2026-11-05",
+      "expected": false
+    },
+    {
+      "from": "2026-11-05",
+      "today": "2026-11-05",
+      "expected": true
+    }
+  ]
+}

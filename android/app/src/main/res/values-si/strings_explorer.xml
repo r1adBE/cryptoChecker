@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">මෑතකදී භාවිත කළ හුවමාරු</string>
     <string name="explorer_all_exchanges_title">සියලු හුවමාරු</string>
     <string name="explorer_exchanges_title">හුවමාරු</string>
-    <string name="explorer_forex_hint">යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය (Frankfurter හරහා), සජීවී නොවේ – ඇඟවීම් නැත.</string>
+    <string name="explorer_forex_hint">යුරෝපීය මහ බැංකුවේ දෛනික අනුපාතය, සජීවී නොවේ – ඇඟවීම් නැත.</string>
 </resources>

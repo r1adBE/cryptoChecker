@@ -83,47 +83,11 @@ enum PortfolioHistoryFx {
     /// Android `fxLoadOutdated`.
     static func fxLoadOutdated(loadedTo: LocalDay, utcToday: LocalDay) -> Bool { loadedTo < utcToday }
 
-    /// Höchstens so viele Tage je Abfrage der Devisen-Tageskurse: Frankfurter liefert längere Zeiträume nur noch
-    /// wöchentlich — «Seit 1. Kauf» und der Stichtag bekämen sonst Wochenkurse. Wie Android `FX_CHUNK_DAYS`.
-    static let fxChunkDays = 365
-
-    /// `from`…`to` (je einschliesslich) in n = ⌈Tage / `maxDays`⌉ gleich lange Stücke (Länge unterscheidet sich höchstens um
-    /// einen Tag, die längeren zuerst), aufsteigend und lückenlos; das letzte endet an `to`. Gleich lang statt «volle Jahre
-    /// + Rest»: ein Rest von ein, zwei Tagen (Wochenende, Feiertag, heute) hätte bei Frankfurter keinen Kurs und liesse die
-    /// ganze Reihe scheitern. Leer, wenn `from` nach `to` liegt. Wie Android `fxChunks`.
-    static func fxChunks(from: LocalDay, to: LocalDay, maxDays: Int = fxChunkDays) -> [(from: LocalDay, to: LocalDay)] {
-        guard from <= to, maxDays > 0 else { return [] }
-        let days = to.epochDay - from.epochDay + 1
-        let n = (days + maxDays - 1) / maxDays
-        let base = days / n
-        let longer = days % n
-        var out: [(from: LocalDay, to: LocalDay)] = []
-        var start = from.epochDay
-        for i in 0..<n {
-            let end = start + base + (i < longer ? 1 : 0) - 1
-            out.append((from: LocalDay(epochDay: start), to: LocalDay(epochDay: end)))
-            start = end + 1
-        }
-        return out
-    }
-
-    /// Kann das Stück `from`…`to` Tageskurse haben? Die EZB veröffentlicht nur an Werktagen (Mo–Fr), den Kurs von heute
-    /// (`today`) erst am Nachmittag. Ein Stück nur aus Samstag/Sonntag bzw. nur aus heute hat oft keinen Kurs — scheitert
-    /// seine Abfrage, zählt es als leer statt die ganze Reihe zu verwerfen. Wie Android `chunkMayHaveRates`.
-    static func chunkMayHaveRates(from: LocalDay, to: LocalDay, today: LocalDay) -> Bool {
-        guard from <= to else { return false }
-        for day in from.epochDay...to.epochDay {
-            // 1.1.1970 war ein Donnerstag: (Tag + 3) mod 7 = 0 ist Montag, 5 Samstag, 6 Sonntag
-            let weekday = ((day + 3) % 7 + 7) % 7
-            if weekday < 5 && day != today.epochDay { return true }
-        }
-        return false
-    }
-
-    /// Währungen für die Abfrage: `currency`, bei BGN zusätzlich EUR (eine Abfrage für beide).
+    /// Währungen für die Abfrage der Euro-Referenzkurse der EZB (sortiert): `currency` und USD (Umrechnung USD → Ziel aus
+    /// den beiden Euro-Kursen); EUR selbst ist die Basis der EZB und keine eigene Reihe. BGN nach der Euro-Einführung
+    /// kommt aus EUR × 1.95583 (`ratesByDay`), also aus dem USD-Kurs derselben Abfrage. Wie Android.
     static func requestCurrencies(_ currency: String) -> [String] {
-        let code = CurrencyConversion.normalize(currency)
-        return code == "BGN" ? ["BGN", "EUR"] : [code]
+        Set([CurrencyConversion.normalize(currency), "USD"]).subtracting(["EUR"]).sorted()
     }
 
     /// Tageskurse aus der Antwort der Zeitreihe (Datum «yyyy-MM-dd» → Währung → Kurs) für

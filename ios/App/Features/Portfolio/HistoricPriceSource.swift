@@ -22,7 +22,7 @@ struct HistoricFx: Sendable {
 /// dieser Börse, 1/3…3 wie Binance-Spot), nach Binance und Coinbase noch Kraken → OKX → Bybit (eigene Kerzen, ±25 % und
 /// Name) — nur Hosts, die die App ohnehin anfragt. Der Kurs trägt seine Quelle (`CloseResult.source`).
 /// Stablecoins nach `PortfolioStables`: USDT = 1 ohne Abfrage, andere wie jeder Coin.
-/// Dazu die Devisen-Tageskurse eines Zeitraums für den Wertverlauf (`usdToSeries`, Frankfurter,
+/// Dazu die Devisen-Tageskurse eines Zeitraums für den Wertverlauf (`usdToSeries`, Referenzkurse der EZB,
 /// 6 h im Speicher). Kerzen der Binance-Gruppe und von Coinbase über `HistoricCloseFetch`: je Tag eine Abfrage
 /// (`HistoricDayFetch`) bzw. für viele Tage je Coin und Quelle in Stücken (`HistoricSpanFetch`, `dayClosesUsdt`,
 /// HistoricPriceSource+Span.swift) — gleiche Kette, gleiche Kerze.
@@ -34,6 +34,15 @@ enum HistoricPriceSource {
         let c = PrivateSessionConfig.make(timeout: 10, resource: 15)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
+        c.waitsForConnectivity = false
+        return URLSession(configuration: c)
+    }()
+
+    /// Ganze Geschichte der EZB (gepackt rund 1 MB): eigene Sitzung mit 20 s je Anfrage. Wie Android.
+    private static let historySession: URLSession = {
+        let c = PrivateSessionConfig.make(timeout: 20, resource: 30)
+        c.requestCachePolicy = .reloadIgnoringLocalCacheData
+        c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value]
         c.waitsForConnectivity = false
         return URLSession(configuration: c)
     }()
@@ -199,38 +208,27 @@ enum HistoricPriceSource {
         return close
     }
 
-    /// Devisenkurs USD → `currency` am Tag `day`; USD = 1 (ohne Datum). Frankfurter liefert
-    /// an Wochenenden/Feiertagen den letzten Geschäftstag — dessen Datum steht in `date`.
+    /// So weit sucht `usdTo` vor dem Tag nach dem letzten EZB-Tag (auch über Ostern oder Weihnachten). Wie Android.
+    static let fxLookbackDays = 10
+
+    /// Devisenkurs USD → `currency` am Tag `day`; USD = 1 (ohne Datum). Euro-Referenzkurse der EZB (`ecbDays`): der
+    /// jüngste EZB-Tag ≤ `day` mit USD-Kurs innerhalb von `fxLookbackDays` Tagen — an Wochenenden/Feiertagen der letzte
+    /// Geschäftstag, dessen Datum in `date` steht; Kreuzkurs wie `EcbRates.cross`. Lew nach der Euro-Einführung aus dem
+    /// EUR-Kurs desselben Tags (eine Abfrage). Wie Android.
     static func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFx? {
-        // Unverändert durch die Ausweich-Kette der Kurse: Wochenende/Feiertag → letzter Geschäftstag (Frankfurter)
         let target = currency.trimmingCharacters(in: .whitespaces).uppercased()
         if target == "USD" { return HistoricFx(rate: 1, date: nil) }
-        guard FxRateSource.isCurrencyCode(target) else { return nil }
-        if let fx = await loadUsdTo(target, day: day) { return fx }
+        guard FxRateSource.isCurrencyCode(target), let until = LocalDay(iso: day.iso) else { return nil }
+        let days = await ecbDays(PortfolioHistoryFx.requestCurrencies(target), from: until.plusDays(-fxLookbackDays),
+                                 to: until) ?? [:]
+        guard let date = days.keys.filter({ $0 <= day.iso && days[$0]?["USD"] != nil }).max(),
+              let rates = days[date] else { return nil }
         // Lew ab 2026: aus dem EUR-Kurs desselben Tags (fester Kurs 1.95583)
-        guard target == "BGN", day.iso >= FxRateSource.bgnEuroDay,
-              let eur = await loadUsdTo("EUR", day: day),
-              let bgn = FxRateSource.derivedBgn(currency: target, usdToEur: eur.rate, dayIso: day.iso)
-        else { return nil }
-        return HistoricFx(rate: bgn, date: eur.date)
-    }
-
-    private static func loadUsdTo(_ target: String, day: CutoffDay) async -> HistoricFx? {
-        let urls = [
-            "https://api.frankfurter.app/\(day.iso)?from=USD&to=\(target)",
-            "https://api.frankfurter.dev/v1/\(day.iso)?from=USD&to=\(target)",
-        ]
-        for url in urls {
-            guard let body = try? await ExchangeHTTP.call(url, session: session),
-                  let data = body.data(using: .utf8),
-                  let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
-                  let rates = root["rates"] as? [String: Any],
-                  let rate = (rates[target] as? NSNumber)?.doubleValue,
-                  rate > 0, rate.isFinite
-            else { continue }
-            return HistoricFx(rate: rate, date: root["date"] as? String)
-        }
-        return nil
+        let rate = EcbRates.cross(rates, base: "USD", quote: target)
+            ?? FxRateSource.derivedBgn(currency: target, usdToEur: EcbRates.cross(rates, base: "USD", quote: "EUR"),
+                                       dayIso: day.iso)
+        guard let rate, rate > 0, rate.isFinite else { return nil }
+        return HistoricFx(rate: rate, date: date)
     }
 
     // MARK: Devisen-Tageskurse für den Wertverlauf
@@ -240,10 +238,10 @@ enum HistoricPriceSource {
     private static let fxSeriesCache = OSAllocatedUnfairLock(
         initialState: [String: (rates: [Int: Double], at: Int64)]())
 
-    /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, in Stücken von höchstens
-    /// `PortfolioHistoryFx.fxChunkDays` Tagen): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
-    /// füllt `PortfolioHistoryFx.rateOn` mit dem Vortag. USD: leer (kein Bedarf). 6 h im Speicher.
-    /// nil, wenn kein Kurs zu haben ist oder ein Stück bei beiden Anbietern scheitert.
+    /// Tageskurse USD → `currency` von `from` bis `to` (Euro-Referenzkurse der EZB, eine Abfrage für den ganzen Zeitraum,
+    /// `ecbDays`; Kreuzkurs wie `EcbRates.rebase`): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
+    /// füllt `PortfolioHistoryFx.rateOn` mit dem Vortag. USD: leer (kein Bedarf). 6 h im Speicher. nil, wenn kein Kurs zu
+    /// haben ist. Wie Android.
     static func usdToSeries(_ currency: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return [:] }
@@ -256,54 +254,50 @@ enum HistoricPriceSource {
             return entry.rates
         }
         if let cached { return cached }
-        let symbols = PortfolioHistoryFx.requestCurrencies(target).joined(separator: ",")
-        // In Stücken von höchstens einem Jahr: längere Zeiträume liefert Frankfurter nur wöchentlich. Scheitert ein Stück
-        // bei beiden Anbietern, keine Reihe (lieber keine als eine mit einer Lücke von einem Jahr). Wie Android.
-        // Ein Stück ohne Werktag (nur Wochenende bzw. nur heute) darf scheitern: dort zählt es als leer
-        var merged: [Int: Double] = [:]
-        let today = LocalDay.todayUTC()
-        for chunk in PortfolioHistoryFx.fxChunks(from: from, to: to) {
-            var fetched = await fxSeriesChunk(target, symbols: symbols, from: chunk.from, to: chunk.to)
-            if fetched == nil && !PortfolioHistoryFx.chunkMayHaveRates(from: chunk.from, to: chunk.to, today: today) {
-                fetched = [:]
-            }
-            guard let part = fetched else { return nil }
-            merged.merge(part) { _, new in new }
-        }
-        guard !merged.isEmpty else { return nil }
-        let entry = (rates: merged, at: EpochTime.nowMillis)
+        guard let days = await ecbDays(PortfolioHistoryFx.requestCurrencies(target), from: from, to: to) else { return nil }
+        let series = PortfolioHistoryFx.ratesByDay(target, byDate: days.mapValues { EcbRates.rebase($0, base: "USD") })
+        guard !series.isEmpty else { return nil }
+        let entry = (rates: series, at: EpochTime.nowMillis)
         fxSeriesCache.withLock { $0[key] = entry }
-        return merged
+        return series
     }
 
-    /// Ein Stück der Zeitreihe (`usdToSeries`) von beiden Frankfurter-Adressen: die erste Antwort mit Kursen, sonst eine
-    /// gültige leere (z. B. Zeitraum ohne Kurse dieser Währung); nil, wenn keine Adresse eine gültige Antwort gibt.
-    private static func fxSeriesChunk(_ target: String, symbols: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
-        let urls = [
-            "https://api.frankfurter.app/\(from)..\(to)?from=USD&to=\(symbols)",
-            "https://api.frankfurter.dev/v1/\(from)..\(to)?from=USD&to=\(symbols)",
-        ]
-        var answered = false
-        for url in urls {
-            guard let body = try? await ExchangeHTTP.call(url, session: session),
-                  let data = body.data(using: .utf8),
-                  let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
-                  let rates = root["rates"] as? [String: Any]
-            else { continue }
-            var byDate: [String: [String: Double]] = [:]
-            for (date, value) in rates {
-                guard let day = value as? [String: Any] else { continue }
-                var parsed: [String: Double] = [:]
-                for (code, rate) in day {
-                    if let number = rate as? NSNumber { parsed[code] = number.doubleValue }
-                }
-                byDate[date] = parsed
-            }
-            answered = true
-            let series = PortfolioHistoryFx.ratesByDay(target, byDate: byDate)
-            if !series.isEmpty { return series }
+    /// Ganze Geschichte der EZB für die Währungen eines Schlüssels («CHF+USD») mit Ladezeit (nur im Speicher).
+    private static let fullHistory = OSAllocatedUnfairLock<(key: String, days: EcbRates.Days, at: Int64)?>(
+        initialState: nil)
+
+    /// Euro-Referenzkurse (Tag → Code → Kurs je 1 EUR) der Währungen `codes` von `from` bis `to`: zuerst das ECB Data
+    /// Portal (`EcbRates.seriesURL`, eine Abfrage für alle Währungen, nur Währungen und Zeitraum gehen hinaus).
+    /// Antwortet es nicht, die festen Dateien der EZB (für alle gleich): die letzten 90 Tage (`EcbRates.hist90dURL`),
+    /// wenn sie `from` abdecken, sonst bzw. danach die ganze Geschichte (`EcbRates.histURL`, nur `codes` gelesen und
+    /// `fxSeriesTtlMillis` im Speicher). Leer = gültige Antwort ohne Kurse; nil = keine gültige Antwort. Wie Android.
+    private static func ecbDays(_ codes: [String], from: LocalDay, to: LocalDay) async -> EcbRates.Days? {
+        let series = EcbRates.seriesURL(codes: codes, from: from, to: to)
+        if let body = try? await ExchangeHTTP.call(series, session: session), let days = EcbRates.parseSDMX(body) {
+            return days
         }
-        return answered ? [:] : nil
+        let first = from.description
+        let last = to.description
+        func inRange(_ days: EcbRates.Days) -> EcbRates.Days { days.filter { $0.key >= first && $0.key <= last } }
+        if EcbRates.coveredByHist90d(from: from, today: LocalDay.todayUTC()),
+           let body = try? await ExchangeHTTP.call(EcbRates.hist90dURL, session: session),
+           let days = EcbRates.parseXML(body) {
+            return inRange(days)
+        }
+        let only = Set(codes).subtracting(["EUR"])
+        let key = only.sorted().joined(separator: "+")
+        let now = EpochTime.nowMillis
+        let ttl = fxSeriesTtlMillis
+        let known: EcbRates.Days? = fullHistory.withLock {
+            guard let entry = $0, entry.key == key, now - entry.at >= 0, now - entry.at < ttl else { return nil }
+            return entry.days
+        }
+        if let known { return inRange(known) }
+        guard let body = try? await ExchangeHTTP.call(EcbRates.histURL, session: historySession),
+              let days = EcbRates.parseXML(body, only: only) else { return nil }
+        let entry = (key: key, days: days, at: EpochTime.nowMillis)
+        fullHistory.withLock { $0 = entry }
+        return inRange(days)
     }
 
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).

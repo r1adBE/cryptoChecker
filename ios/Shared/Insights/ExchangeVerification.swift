@@ -6,5 +6,5 @@ import Foundation
 /// der neuesten Aufnahme (`recordedAt`, UTC-Datum) liegt. Wie `ExchangeVerification` (Android).
 enum ExchangeVerification {
     /// UTC-Datum der neuesten aufgezeichneten Antwort.
-    static let lastVerified = LocalDay(2026, 11, 3)
+    static let lastVerified = LocalDay(2026, 11, 5)
 }

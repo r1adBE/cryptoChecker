@@ -10,7 +10,7 @@ ISKRENO O PODACIMA
 • „Štedljivo“ je zadano: cijene se osvježavaju pri otvaranju aplikacije i povremeno u pozadini. „Uživo dok je otvoreno“ dodaje cijene uživo za Binance, Bybit, OKX, Coinbase i Kraken dok je popis praćenja otvoren.
 • % promjena i grafikoni dolaze najprije s burze para; ako nema svijeća, aplikacija koristi Binance ili Coinbase i to kaže.
 • Fear & Greed, dominacija i on-chain vrijednosti s alternative.me, CoinGecka i Coin Metricsa.
-• Iznosi napuštaju uređaj samo kroz tvoj izvoz (CSV, sigurnosna kopija) ili šifrirano u sigurnosnoj kopiji na iCloudu/uređaju. Za cijene burza para dobiva samo oznake parova; uz to tečajevi (Frankfurter), tržišni podaci i logotipi (CoinGecko, Binance), zrcala podataka (GitHub). Ako pratiš adrese ili xpub, javni blockchain čvorovi vide adrese (kod xpuba izvedene) i tvoj IP.
+• Iznosi napuštaju uređaj samo kroz tvoj izvoz (CSV, sigurnosna kopija) ili šifrirano u sigurnosnoj kopiji na iCloudu/uređaju. Za cijene burza para dobiva samo oznake parova; uz to tečajevi (ECB), tržišni podaci i logotipi (CoinGecko, Binance), zrcala podataka (GitHub). Ako pratiš adrese ili xpub, javni blockchain čvorovi vide adrese (kod xpuba izvedene) i tvoj IP.
 
 POPIS PRAĆENJA
 • 80 tržišta na 69 burzi: spot i futures, DEX tokeni putem DexScreenera, po želji dionice, zlato i FX (TradFi)

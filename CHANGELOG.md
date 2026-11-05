@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 200)
+
+* Forex reference rates and fiat conversion come straight from the European Central Bank (daily file, 90-day file, ECB Data Portal for older dates) – the third-party mirror is gone. Rates and pairs stay the same.
+
 ## 16.2.2 (build 199)
 
 * Watched addresses subtract only what you recorded in the address's own wallet – an exchange balance plus a separate cold wallet now add up (1 + 1 = 2).

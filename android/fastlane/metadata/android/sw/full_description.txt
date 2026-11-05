@@ -10,7 +10,7 @@ UKWELI KUHUSU DATA
 • “Kiuchumi” ni chaguomsingi: bei husasishwa unapofungua programu na kwa vipindi chinichini. “Moja kwa moja ikiwa wazi” inaongeza bei hai za Binance, Bybit, OKX, Coinbase na Kraken orodha ikiwa wazi.
 • Mabadiliko ya % na chati hutoka kwanza kwa jukwaa la jozi; likikosa mishumaa, programu hutumia Binance au Coinbase na kukuambia.
 • Fear & Greed, utawala na thamani za on-chain kutoka alternative.me, CoinGecko na Coin Metrics.
-• Kiasi hutoka kwenye kifaa tu kupitia uhamishaji wako au nakala rudufu ya Android. Kwa bei, alama za jozi pekee huenda kwa jukwaa la jozi husika; pia viwango vya ubadilishaji (Frankfurter), data ya soko na nembo (CoinGecko, Binance), vioo vya data (GitHub). Ukifuatilia anwani au xpub, nodi za umma za blockchain zinaona anwani (kwa xpub, zile zilizotolewa) na IP yako.
+• Kiasi hutoka kwenye kifaa tu kupitia uhamishaji wako au nakala rudufu ya Android. Kwa bei, alama za jozi pekee huenda kwa jukwaa la jozi husika; pia viwango vya ubadilishaji (ECB), data ya soko na nembo (CoinGecko, Binance), vioo vya data (GitHub). Ukifuatilia anwani au xpub, nodi za umma za blockchain zinaona anwani (kwa xpub, zile zilizotolewa) na IP yako.
 
 ORODHA YA UFUATILIAJI
 • Masoko 80 kwenye majukwaa 69: spot na futures, tokeni za DEX kupitia DexScreener, hiari hisa, dhahabu na FX (TradFi)

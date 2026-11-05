@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">Bursa yang baru digunakan</string>
     <string name="explorer_all_exchanges_title">Semua bursa</string>
     <string name="explorer_exchanges_title">Bursa</string>
-    <string name="explorer_forex_hint">Kadar harian Bank Pusat Eropah (melalui Frankfurter), bukan langsung – tiada amaran.</string>
+    <string name="explorer_forex_hint">Kadar harian Bank Pusat Eropah, bukan langsung – tiada amaran.</string>
 </resources>

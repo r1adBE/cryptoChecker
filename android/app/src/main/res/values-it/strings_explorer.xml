@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Exchange usati di recente</string>
     <string name="explorer_all_exchanges_title">Tutti gli exchange</string>
     <string name="explorer_exchanges_title">Exchange</string>
-    <string name="explorer_forex_hint">Cambio giornaliero della Banca centrale europea (tramite Frankfurter), non in tempo reale – niente allarmi.</string>
+    <string name="explorer_forex_hint">Cambio giornaliero della Banca centrale europea, non in tempo reale – niente allarmi.</string>
 </resources>

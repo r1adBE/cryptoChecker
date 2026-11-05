@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Mga kamakailang ginamit na exchange</string>
     <string name="explorer_all_exchanges_title">Lahat ng exchange</string>
     <string name="explorer_exchanges_title">Mga exchange</string>
-    <string name="explorer_forex_hint">Daily rate ng European Central Bank (sa pamamagitan ng Frankfurter), hindi live – walang alerto.</string>
+    <string name="explorer_forex_hint">Daily rate ng European Central Bank, hindi live – walang alerto.</string>
 </resources>

@@ -10,7 +10,7 @@ SINCER DESPRE DATE
 • „Economic” este implicit: prețurile se actualizează la deschidere și la intervale în fundal. „Live cât e deschisă” adaugă prețuri live pentru Binance, Bybit, OKX, Coinbase și Kraken cât timp lista e deschisă.
 • Variația în % și graficele vin întâi de la bursa perechii; dacă aceasta nu are lumânări, aplicația folosește Binance sau Coinbase și îți spune.
 • Fear & Greed, dominanță și valori on-chain de la alternative.me, CoinGecko și Coin Metrics.
-• Sumele părăsesc dispozitivul doar prin export (CSV, copie de rezervă) sau criptate în backupul iCloud/al dispozitivului. Pentru prețuri, doar simbolurile perechii ajung la bursa perechii; în plus cursuri valutare (Frankfurter), date de piață și logo-uri (CoinGecko, Binance), oglinzi de date (GitHub). Dacă urmărești adrese sau un xpub, nodurile blockchain publice văd adresele (la xpub, cele derivate) și IP-ul tău.
+• Sumele părăsesc dispozitivul doar prin export (CSV, copie de rezervă) sau criptate în backupul iCloud/al dispozitivului. Pentru prețuri, doar simbolurile perechii ajung la bursa perechii; în plus cursuri valutare (BCE), date de piață și logo-uri (CoinGecko, Binance), oglinzi de date (GitHub). Dacă urmărești adrese sau un xpub, nodurile blockchain publice văd adresele (la xpub, cele derivate) și IP-ul tău.
 
 LISTA DE URMĂRIRE
 • 80 de piețe pe 69 de burse: spot și futures, tokenuri DEX prin DexScreener, opțional acțiuni, aur și valute (TradFi)

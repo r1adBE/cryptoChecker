@@ -29,7 +29,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
   alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
   Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. Bitunix Futures; DEX-Pools mit GeckoTerminal als
-  Reserve; Devisen als tägliche EZB-Referenzkurse (über Frankfurter), nie live und ohne Alarme.
+  Reserve; Devisen als tägliche EZB-Referenzkurse (direkt von der EZB), nie live und ohne Alarme.
 * **Einstellungen** — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung) ·
   Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App) ·
   «App zurücksetzen». «Token & TradFi» und %-Änderung auf der Seite «Merkliste», Markt-Meldungen und Sprachausgabe

@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">最近使用的交易所</string>
     <string name="explorer_all_exchanges_title">所有交易所</string>
     <string name="explorer_exchanges_title">交易所</string>
-    <string name="explorer_forex_hint">歐洲中央銀行的每日匯率（透過 Frankfurter），非即時——沒有提醒。</string>
+    <string name="explorer_forex_hint">歐洲中央銀行的每日匯率，非即時——沒有提醒。</string>
 </resources>

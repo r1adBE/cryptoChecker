@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Zuletzt genutzte Börsen</string>
     <string name="explorer_all_exchanges_title">Alle Börsen</string>
     <string name="explorer_exchanges_title">Börsen</string>
-    <string name="explorer_forex_hint">Tageskurs der Europäischen Zentralbank (über Frankfurter), nicht live – keine Alarme.</string>
+    <string name="explorer_forex_hint">Tageskurs der Europäischen Zentralbank, nicht live – keine Alarme.</string>
 </resources>

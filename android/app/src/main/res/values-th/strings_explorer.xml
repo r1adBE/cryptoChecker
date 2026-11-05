@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">กระดานเทรดที่ใช้ล่าสุด</string>
     <string name="explorer_all_exchanges_title">กระดานเทรดทั้งหมด</string>
     <string name="explorer_exchanges_title">กระดานเทรด</string>
-    <string name="explorer_forex_hint">อัตรารายวันของธนาคารกลางยุโรป (ผ่าน Frankfurter) ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน</string>
+    <string name="explorer_forex_hint">อัตรารายวันของธนาคารกลางยุโรป ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน</string>
 </resources>

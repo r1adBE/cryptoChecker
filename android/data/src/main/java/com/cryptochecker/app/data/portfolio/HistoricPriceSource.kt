@@ -9,7 +9,7 @@ import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.market.DataFreshness
@@ -21,6 +21,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
+import com.cryptochecker.marketdata.util.EcbRates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -32,7 +33,6 @@ import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
-import org.json.JSONObject
 import timber.log.Timber
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -56,8 +56,8 @@ data class HistoricFx(val rate: Double, val date: String?)
  *    einem Treffer dort); sonst ist die nächste Quelle dran. Ohne gültigen aktuellen Kurs keine
  *    Abfrage, der Coin ist «ungeprüft» ([CutoffCloses.unchecked]), ebenso wenn nur nicht passende
  *    Kurse gefunden wurden.
- *  - Devisenkurs USD → Zielwährung dieses Tags (EZB über Frankfurter) und die Tageskurse eines
- *    Zeitraums für den Wertverlauf ([usdToSeries], gleicher Anbieter, 6 h im Speicher).
+ *  - Devisenkurs USD → Zielwährung dieses Tags (Referenzkurse der EZB) und die Tageskurse eines
+ *    Zeitraums für den Wertverlauf ([usdToSeries], gleiche Quelle, 6 h im Speicher).
  *  - Ausweich-Kette ([HistoricCloseChain], HistoricPriceSourceChain.kt): eigene Börse des Coins zuerst (Tageskerzen
  *    dieser Börse, Identitätsprüfung 1/3…3 wie Binance-Spot), nach Binance und Coinbase noch Kraken → OKX → Bybit
  *    (eigene Kerzen dieser Börsen, ±25 % und Name) — nur Hosts, die die App ohnehin anfragt. Der Kurs trägt seine
@@ -245,35 +245,27 @@ class HistoricPriceSource @Inject constructor(
         candles.firstOrNull { it.openTime == start }?.close?.takeIf { it > 0.0 && it.isFinite() }
 
     /**
-     * Devisenkurs USD → [currency] am Tag [date]; USD = 1 (ohne Datum).
-     * Frankfurter liefert an Wochenenden/Feiertagen den letzten Geschäftstag — dessen
-     * Datum steht in [HistoricFx.date]. null, wenn kein Kurs zu haben ist.
+     * Devisenkurs USD → [currency] am Tag [date]; USD = 1 (ohne Datum). Euro-Referenzkurse der EZB ([ecbDays]): der
+     * jüngste EZB-Tag ≤ [date] mit USD-Kurs innerhalb von [FX_LOOKBACK_DAYS] Tagen — an Wochenenden/Feiertagen der
+     * letzte Geschäftstag, dessen Datum in [HistoricFx.date] steht; Kreuzkurs wie [EcbRates.cross]. Lew nach der
+     * Euro-Einführung aus dem EUR-Kurs desselben Tags (eine Abfrage). null, wenn kein Kurs zu haben ist.
      */
     suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? {
-        // Unverändert durch die Ausweich-Kette der Kurse: Wochenende/Feiertag → letzter Geschäftstag (Frankfurter)
         val target = currency.trim().uppercase()
         if (target == "USD") return HistoricFx(1.0, null)
         if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
         return withContext(Dispatchers.IO) {
-            val urls = listOf(
-                "https://api.frankfurter.app/$date?from=USD&to=$target",
-                "https://api.frankfurter.dev/v1/$date?from=USD&to=$target",
-            )
-            for (url in urls) {
-                val body = get(FX_HOST, url) ?: continue
-                val fx = runCatchingCancellable {
-                    val root = JSONObject(body)
-                    val rate = root.getJSONObject("rates").getDouble(target)
-                    HistoricFx(rate, root.optString("date").takeIf { it.isNotEmpty() })
-                }.getOrNull()
-                if (fx != null && fx.rate > 0.0 && fx.rate.isFinite()) return@withContext fx
-            }
-            // Lew nach der Euro-Einführung: EUR × 1.95583 (fester Kurs)
-            if (CurrencyConversion.deriveBgnFromEur(target, date)) {
-                val eur = usdTo("EUR", date)
-                CurrencyConversion.bgnFromEur(eur?.rate)?.let { return@withContext HistoricFx(it, eur?.date) }
-            }
-            null
+            val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), date.minusDays(FX_LOOKBACK_DAYS), date)
+            val (day, rates) = days.orEmpty().entries.filter { it.key <= date.toString() && "USD" in it.value }
+                .maxByOrNull { it.key } ?: return@withContext null
+            val rate = EcbRates.cross(rates, "USD", target)
+                ?: if (CurrencyConversion.deriveBgnFromEur(target, date)) {
+                    // Lew nach der Euro-Einführung: EUR × 1.95583 (fester Kurs)
+                    CurrencyConversion.bgnFromEur(EcbRates.cross(rates, "USD", "EUR"))
+                } else {
+                    null
+                }
+            rate?.takeIf { it > 0.0 && it.isFinite() }?.let { HistoricFx(it, day) }
         }
     }
 
@@ -281,12 +273,10 @@ class HistoricPriceSource @Inject constructor(
     private val fxSeriesCache = ConcurrentHashMap<String, Pair<Map<Long, Double>, Long>>()
 
     /**
-     * Tageskurse USD → [currency] von [from] bis [to] (EZB über Frankfurter, in Stücken von höchstens
-     * [PortfolioHistoryFx.FX_CHUNK_DAYS] Tagen — längere Zeiträume liefert Frankfurter nur wöchentlich): Tag (Tage seit
-     * 1970-01-01) → Kurs, nur Geschäftstage — Wochenenden und Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem
-     * Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null, wenn kein Kurs zu haben ist oder ein Stück mit
-     * Werktag bei beiden Anbietern scheitert (lieber keine Reihe als eine mit einer Lücke von einem Jahr); ein Stück ohne
-     * Werktag ([PortfolioHistoryFx.chunkMayHaveRates]) zählt dann als leer.
+     * Tageskurse USD → [currency] von [from] bis [to] (Euro-Referenzkurse der EZB, eine Abfrage für den ganzen Zeitraum,
+     * [ecbDays]; Kreuzkurs wie [EcbRates.rebase]): Tag (Tage seit 1970-01-01) → Kurs, nur Geschäftstage — Wochenenden und
+     * Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null,
+     * wenn kein Kurs zu haben ist.
      */
     suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
         val target = currency.trim().uppercase()
@@ -296,51 +286,52 @@ class HistoricPriceSource @Inject constructor(
         val now = System.currentTimeMillis()
         fxSeriesCache[key]?.let { (rates, at) -> if (now - at in 0 until FX_SERIES_TTL_MILLIS) return rates }
         return withContext(Dispatchers.IO) {
-            val symbols = PortfolioHistoryFx.requestCurrencies(target).joinToString(",")
-            val merged = HashMap<Long, Double>()
-            val today = LocalDate.now(ZoneOffset.UTC)
-            for ((start, end) in PortfolioHistoryFx.fxChunks(from, to)) {
-                // Stück ohne Werktag (nur Wochenende bzw. nur heute): eine Fehlantwort ist dort normal — leer statt alles verwerfen
-                val part = fxSeriesChunk(target, symbols, start, end)
-                    ?: if (PortfolioHistoryFx.chunkMayHaveRates(start, end, today)) return@withContext null else emptyMap()
-                merged += part
-            }
-            if (merged.isEmpty()) return@withContext null
-            fxSeriesCache[key] = merged to System.currentTimeMillis()
-            merged
+            val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), from, to) ?: return@withContext null
+            val series = PortfolioHistoryFx.ratesByDay(target, days.mapValues { (_, day) -> EcbRates.rebase(day, "USD") })
+            if (series.isEmpty()) return@withContext null
+            fxSeriesCache[key] = series to System.currentTimeMillis()
+            series
         }
     }
 
+    /** Ganze Geschichte der EZB für die Währungen eines Schlüssels («CHF+USD») mit Ladezeit (nur im Speicher). */
+    @Volatile
+    private var fullHistory: Triple<String, Map<String, Map<String, Double>>, Long>? = null
+
     /**
-     * Ein Stück der Zeitreihe ([usdToSeries]) von beiden Frankfurter-Adressen: die erste Antwort mit Kursen, sonst eine
-     * gültige leere (z. B. Zeitraum ohne Kurse dieser Währung); null, wenn keine Adresse eine gültige Antwort gibt.
+     * Euro-Referenzkurse (Tag → Code → Kurs je 1 EUR) der Währungen [codes] von [from] bis [to]: zuerst das ECB Data
+     * Portal ([EcbRates.seriesUrl], eine Abfrage für alle Währungen, nur Währungen und Zeitraum gehen hinaus). Antwortet
+     * es nicht, die festen Dateien der EZB (für alle gleich): die letzten 90 Tage ([EcbRates.HIST_90D_URL]), wenn sie
+     * [from] abdecken, sonst bzw. danach die ganze Geschichte ([EcbRates.HIST_URL], nur [codes] gelesen und
+     * [FX_SERIES_TTL_MILLIS] im Speicher). Leer = gültige Antwort ohne Kurse; null = keine gültige Antwort. Wie iOS.
      */
-    private suspend fun fxSeriesChunk(target: String, symbols: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
-        val urls = listOf(
-            "https://api.frankfurter.app/$from..$to?from=USD&to=$symbols",
-            "https://api.frankfurter.dev/v1/$from..$to?from=USD&to=$symbols",
-        )
-        var answered = false
-        for (url in urls) {
-            val body = get(FX_HOST, url) ?: continue
-            val byDate = runCatchingCancellable {
-                val rates = JSONObject(body).getJSONObject("rates")
-                rates.keys().asSequence().associateWith { date ->
-                    val day = rates.getJSONObject(date)
-                    day.keys().asSequence().associateWith { day.getDouble(it) }
-                }
-            }.getOrNull() ?: continue
-            answered = true
-            val series = PortfolioHistoryFx.ratesByDay(target, byDate)
-            if (series.isNotEmpty()) return series
+    private suspend fun ecbDays(codes: Collection<String>, from: LocalDate, to: LocalDate): Map<String, Map<String, Double>>? {
+        get(FX_HOST, EcbRates.seriesUrl(codes, from, to))?.let(EcbRates::parseSdmx)?.let { return it }
+        val first = from.toString()
+        val last = to.toString()
+        if (EcbRates.coveredByHist90d(from, LocalDate.now(ZoneOffset.UTC))) {
+            get(FX_HOST, EcbRates.HIST_90D_URL)?.let(EcbRates::parseXml)?.let { days -> return days.filterKeys { it in first..last } }
         }
-        return if (answered) emptyMap() else null
+        val only = (codes.toSet() - "EUR")
+        val key = only.sorted().joinToString("+")
+        val now = System.currentTimeMillis()
+        val history = fullHistory?.takeIf { it.first == key && now - it.third in 0 until FX_SERIES_TTL_MILLIS }?.second
+            ?: get(FX_HOST, EcbRates.HIST_URL, HttpBodyLimit.BULK_MAX_BYTES, FULL_HISTORY_TIMEOUT_MILLIS)
+                ?.let { EcbRates.parseXml(it, only) }
+                ?.also { fullHistory = Triple(key, it, System.currentTimeMillis()) }
+            ?: return null
+        return history.filterKeys { it in first..last }
     }
 
     /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */
-    internal suspend fun get(host: String, url: String): String? {
+    internal suspend fun get(
+        host: String,
+        url: String,
+        maxBytes: Long = HttpBodyLimit.DEFAULT_MAX_BYTES,
+        timeoutMillis: Long = REQUEST_TIMEOUT_MILLIS,
+    ): String? {
         val body = try {
-            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
+            withTimeoutOrNull(timeoutMillis) { httpClient.callExchange(url, null, maxBytes) }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()
@@ -356,7 +347,13 @@ class HistoricPriceSource @Inject constructor(
     companion object {
         const val PARALLEL = 4
         const val REQUEST_TIMEOUT_MILLIS = 10_000L
-        const val FX_HOST = "frankfurter"
+        const val FX_HOST = "ecb"
+
+        /** So weit sucht [usdTo] vor dem Tag nach dem letzten EZB-Tag (auch über Ostern oder Weihnachten). */
+        const val FX_LOOKBACK_DAYS = 10L
+
+        /** Zeitgrenze für die ganze Geschichte der EZB (gepackt rund 1 MB). */
+        const val FULL_HISTORY_TIMEOUT_MILLIS = 20_000L
         const val COINBASE_HOST = "api.exchange.coinbase.com"
         const val FX_SERIES_TTL_MILLIS = 6 * 60 * 60_000L
 

@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Nýlega notaðar kauphallir</string>
     <string name="explorer_all_exchanges_title">Allar kauphallir</string>
     <string name="explorer_exchanges_title">Kauphallir</string>
-    <string name="explorer_forex_hint">Dagsgengi Seðlabanka Evrópu (í gegnum Frankfurter), ekki í beinni – engar viðvaranir.</string>
+    <string name="explorer_forex_hint">Dagsgengi Seðlabanka Evrópu, ekki í beinni – engar viðvaranir.</string>
 </resources>

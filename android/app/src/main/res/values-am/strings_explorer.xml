@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">በቅርቡ የተጠቀሙባቸው ልውውጦች</string>
     <string name="explorer_all_exchanges_title">ሁሉም ልውውጦች</string>
     <string name="explorer_exchanges_title">ልውውጦች</string>
-    <string name="explorer_forex_hint">የአውሮፓ ማዕከላዊ ባንክ ዕለታዊ ተመን (በFrankfurter በኩል)፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።</string>
+    <string name="explorer_forex_hint">የአውሮፓ ማዕከላዊ ባንክ ዕለታዊ ተመን፣ ቀጥታ አይደለም – ማንቂያዎች የሉም።</string>
 </resources>

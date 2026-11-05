@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">ბოლოს გამოყენებული ბირჟები</string>
     <string name="explorer_all_exchanges_title">ყველა ბირჟა</string>
     <string name="explorer_exchanges_title">ბირჟები</string>
-    <string name="explorer_forex_hint">ევროპის ცენტრალური ბანკის დღიური კურსი (Frankfurter-ის მეშვეობით), არა რეალურ დროში – განგაშების გარეშე.</string>
+    <string name="explorer_forex_hint">ევროპის ცენტრალური ბანკის დღიური კურსი, არა რეალურ დროში – განგაშების გარეშე.</string>
 </resources>

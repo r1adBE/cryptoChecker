@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Onlangs gebruikte beurse</string>
     <string name="explorer_all_exchanges_title">Alle beurse</string>
     <string name="explorer_exchanges_title">Beurse</string>
-    <string name="explorer_forex_hint">Daaglikse koers van die Europese Sentrale Bank (via Frankfurter), nie regstreeks nie – geen alarms nie.</string>
+    <string name="explorer_forex_hint">Daaglikse koers van die Europese Sentrale Bank, nie regstreeks nie – geen alarms nie.</string>
 </resources>

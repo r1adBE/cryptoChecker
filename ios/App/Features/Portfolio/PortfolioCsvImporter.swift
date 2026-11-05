@@ -46,7 +46,7 @@ struct CsvImportProposals {
 }
 
 /// CSV-Import (Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda) — wie `PortfolioCsvImportViewModel` (Android): Datei
-/// lesen (`CsvImportParser`), Preise mit den Devisen-Tageskursen (EZB über Frankfurter, letzter Geschäftstag ≤ Tag,
+/// lesen (`CsvImportParser`), Preise mit den Devisen-Tageskursen (Referenzkurse der EZB, letzter Geschäftstag ≤ Tag,
 /// `PortfolioHistoryFx.rateOn`) in USDT umrechnen und die Vorschau bauen (`CsvImportMapping.preview`); Umbuchungen zwischen
 /// Börsen schlägt die Vorschau vor (`CsvTransferMatch`).
 enum PortfolioCsvImporter {

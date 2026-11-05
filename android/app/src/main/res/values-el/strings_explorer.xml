@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Πρόσφατα χρησιμοποιημένα ανταλλακτήρια</string>
     <string name="explorer_all_exchanges_title">Όλα τα ανταλλακτήρια</string>
     <string name="explorer_exchanges_title">Ανταλλακτήρια</string>
-    <string name="explorer_forex_hint">Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς συναγερμούς.</string>
+    <string name="explorer_forex_hint">Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας, όχι ζωντανά – χωρίς συναγερμούς.</string>
 </resources>

@@ -160,5 +160,5 @@
     <string name="explorer_recent_exchanges_title">Recently used exchanges</string>
     <string name="explorer_all_exchanges_title">All exchanges</string>
     <string name="explorer_exchanges_title">Exchanges</string>
-    <string name="explorer_forex_hint">Daily rate of the European Central Bank (via Frankfurter), not live – no alerts.</string>
+    <string name="explorer_forex_hint">Daily rate of the European Central Bank, not live – no alerts.</string>
 </resources>

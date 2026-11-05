@@ -170,44 +170,75 @@ final class ExchangeListParityTests: XCTestCase {
 
     // MARK: EZB-Referenzkurse
 
-    func testEcbReferenceGroupsAndAddress() {
-        let groups = EcbReference.bulkGroups(["EURUSD", "EURCHF", "USDJPY", "EURUSD", "eurusd", "EUREUR", "EURUS"])
-        XCTAssertEqual(groups.map { $0.base }, ["EUR", "USD"])
-        XCTAssertEqual(groups.map { $0.symbols }, [["CHF", "USD"], ["JPY"]])
-        // 26.10.2026 12:00 UTC − 10 Tage
-        let now: Int64 = 1_793_016_000_000
-        XCTAssertEqual(EcbReference.startDate(nowMillis: now), "2026-10-16")
-        XCTAssertEqual(EcbReference.seriesURL(base: "EUR", symbols: ["CHF", "USD"], nowMillis: now),
-                       "https://api.frankfurter.dev/v1/2026-10-16..?base=EUR&symbols=CHF,USD")
+    func testEcbReferenceAddressesAndKind() {
         let exchange = EcbReference()
+        let pair = ExchangePair("EUR", "USD", "EURUSD")
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: pair),
+                       "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml")
+        XCTAssertEqual(exchange.bulkTickersURL(call: 0, pairIds: ["EURUSD", "USDJPY"]), EcbRates.hist90dURL)
+        XCTAssertNil(exchange.bulkTickersURL(call: 1, pairIds: ["EURUSD"]))
+        // Eine Datei für alle Paare
+        XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ["EURUSD", "USDJPY", "CHFEUR"]), 1)
+        XCTAssertEqual(exchange.pairListAddress(call: 0), "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")
         XCTAssertNotNil(exchange.tickerQueryError(call: 0, info: ExchangePair("EUR", "US", "EURUS")))
-        XCTAssertNil(exchange.tickerQueryError(call: 0, info: ExchangePair("EUR", "USD", "EURUSD")))
-        XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ["EURUSD", "USDJPY"]), 2)
+        XCTAssertNil(exchange.tickerQueryError(call: 0, info: pair))
+        XCTAssertEqual(exchange.name, "ECB")
     }
 
     func testEcbReferenceReadsLatestAndPreviousDay() throws {
-        let body = """
-        {"amount":1.0,"base":"EUR","start_date":"2026-10-16","end_date":"2026-10-26","rates":{\
-        "2026-10-23":{"CHF":0.9227,"USD":1.1193},"2026-10-26":{"CHF":0.9243,"USD":1.1188},\
-        "2026-10-22":{"CHF":0.9211,"USD":1.1205}}}
-        """
+        let body = "<Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/>"
+            + "</Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='JPY' rate='176.95'/>"
+            + "</Cube><Cube time='2026-10-12'><Cube currency='USD' rate='1.0'/></Cube></Cube>"
+        let window = EcbRates.recent(try XCTUnwrap(EcbRates.parseXML(body)), windowDays: EcbReference.windowDays)
+        // 12. Oktober liegt mehr als 10 Tage vor dem jüngsten Tag
+        XCTAssertEqual(window.count, 2)
         var ticker = Ticker()
-        try EcbReference().readTicker(call: 0, body: body, ticker: &ticker, info: ExchangePair("EUR", "USD", "EURUSD"))
-        XCTAssertEqual(ticker.last, 1.1188, accuracy: 1e-12)
-        XCTAssertEqual(ticker.change24hPercent ?? .nan, (1.1188 / 1.1193 - 1) * 100, accuracy: 1e-9)
+        try EcbReference().readTicker(call: 0, body: body, ticker: &ticker, info: ExchangePair("USD", "JPY", "USDJPY"))
+        XCTAssertEqual(ticker.last, EcbRates.round5(177.31 / 1.1188))
+        let previous = EcbRates.round5(176.95 / 1.1193)
+        XCTAssertEqual(ticker.change24hPercent ?? .nan, (ticker.last - previous) / previous * 100, accuracy: 1e-12)
         XCTAssertNil(ticker.exchangeTime)
         var failed = Set<String>()
         let bulk = try EcbReference().parseBulkTickers(call: 0, body: body, failed: &failed)
-        XCTAssertEqual(Set(bulk.keys), ["EURCHF", "EURUSD"])
+        XCTAssertEqual(Set(bulk.keys), ["EURJPY", "EURUSD", "JPYEUR", "JPYUSD", "USDEUR", "USDJPY"])
         XCTAssertTrue(failed.isEmpty)
         var empty = Ticker()
         XCTAssertThrowsError(try EcbReference().readTicker(call: 0, body: body, ticker: &empty,
-                                                           info: ExchangePair("EUR", "JPY", "EURJPY")))
+                                                           info: ExchangePair("USD", "CHF", "USDCHF")))
+    }
+
+    func testEcbRatesRoundCrossRatesToFiveSignificantDigits() {
+        // Gleiche Werte wie bisher beim Spiegel (USD-Basis, 4.11.2026). Wie Android.
+        let day = ["USD": 1.1267, "CHF": 0.9188, "JPY": 178.3, "IDR": 20425.83]
+        XCTAssertEqual(EcbRates.cross(day, base: "USD", quote: "CHF"), 0.81548)
+        XCTAssertEqual(EcbRates.cross(day, base: "USD", quote: "JPY"), 158.25)
+        XCTAssertEqual(EcbRates.cross(day, base: "USD", quote: "IDR"), 18129)
+        XCTAssertEqual(EcbRates.cross(day, base: "USD", quote: "EUR"), 0.88755)
+        XCTAssertEqual(EcbRates.cross(day, base: "EUR", quote: "IDR"), 20425.83)
+        XCTAssertNil(EcbRates.cross(day, base: "USD", quote: "USD"))
+        XCTAssertNil(EcbRates.cross(day, base: "USD", quote: "GBP"))
+        XCTAssertEqual(EcbRates.round5(123456.7), 123460)
+        XCTAssertEqual(EcbRates.round5(0.000123456), 0.00012346)
+        XCTAssertEqual(Set(EcbRates.rebase(day, base: "USD").keys), ["CHF", "JPY", "IDR", "EUR"])
+    }
+
+    func testEcbDataPortalAddressAndCoverage() throws {
+        XCTAssertEqual(EcbRates.seriesURL(codes: ["USD", "EUR", "CHF", "USD"], from: LocalDay(2024, 1, 1),
+                                          to: LocalDay(2024, 1, 10)),
+                       "https://data-api.ecb.europa.eu/service/data/EXR/D.CHF+USD.EUR.SP00.A"
+                           + "?startPeriod=2024-01-01&endPeriod=2024-01-10&format=jsondata&detail=dataonly")
+        let today = LocalDay(2026, 11, 5)
+        XCTAssertTrue(EcbRates.coveredByHist90d(from: today.plusDays(-80), today: today))
+        XCTAssertFalse(EcbRates.coveredByHist90d(from: today.plusDays(-81), today: today))
+        // DOCTYPE wird nie gelesen
+        XCTAssertNil(EcbRates.parseXML("<!DOCTYPE x><Cube time='2026-10-26'/>"))
+        XCTAssertNil(EcbRates.parseXML("<html>maintenance</html>"))
     }
 
     func testEcbReferencePairList() throws {
-        let pairs = try EcbReference().readPairList(call: 0,
-                                                    body: #"{"CHF":"Swiss Franc","EUR":"Euro","USD":"US Dollar","x1":"?"}"#)
+        let body = "<Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='CHF' rate='0.9243'/>"
+            + "<Cube currency='x1' rate='2'/></Cube></Cube>"
+        let pairs = try EcbReference().readPairList(call: 0, body: body)
         XCTAssertEqual(pairs.count, 6)
         XCTAssertEqual(pairs.first?.pairId, "CHFEUR")
         XCTAssertTrue(pairs.allSatisfy { $0.base != $0.quote && $0.contractType == .none })

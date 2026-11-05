@@ -10,7 +10,7 @@ AUSALT ANDMETEST
 • „Säästlik“ on vaikimisi: hinnad uuenevad rakenduse avamisel ja taustal ajavahemike järel. „Reaalajas, kuni on avatud“ lisab Binance’i, Bybiti, OKX-i, Coinbase’i ja Krakeni reaalajas hinnad, kuni loend on avatud.
 • %-muutus ja graafikud tulevad esmalt paari enda börsilt; kui sellel küünlaid pole, kasutab rakendus Binance’i või Coinbase’i ja ütleb seda.
 • Fear & Greed, dominants ja ahelasisesed väärtused saitidelt alternative.me, CoinGecko ja Coin Metrics.
-• Summad lahkuvad seadmest ainult sinu ekspordi või Androidi süsteemi varukoopia kaudu. Hindade jaoks saadetakse paari börsile ainult paaride sümbolid; lisaks vahetuskursid (Frankfurter), turuandmed ja logod (CoinGecko, Binance), andmepeeglid (GitHub). Kui jälgid aadresse või xpub-i, näevad avalikud plokiahela sõlmed aadresse (xpub-i puhul tuletatuid) ja sinu IP-d.
+• Summad lahkuvad seadmest ainult sinu ekspordi või Androidi süsteemi varukoopia kaudu. Hindade jaoks saadetakse paari börsile ainult paaride sümbolid; lisaks vahetuskursid (ECB), turuandmed ja logod (CoinGecko, Binance), andmepeeglid (GitHub). Kui jälgid aadresse või xpub-i, näevad avalikud plokiahela sõlmed aadresse (xpub-i puhul tuletatuid) ja sinu IP-d.
 
 JÄLGIMISLOEND
 • 80 turgu 69 börsil: spot ja futuurid, DEX-tokenid DexScreeneri kaudu, valikuliselt aktsiad, kuld ja valuutad (TradFi)

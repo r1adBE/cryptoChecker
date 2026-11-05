@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Недавно коришћене берзе</string>
     <string name="explorer_all_exchanges_title">Све берзе</string>
     <string name="explorer_exchanges_title">Берзе</string>
-    <string name="explorer_forex_hint">Дневни курс Европске централне банке (путем Frankfurter-а), не уживо – нема аларма.</string>
+    <string name="explorer_forex_hint">Дневни курс Европске централне банке, не уживо – нема аларма.</string>
 </resources>

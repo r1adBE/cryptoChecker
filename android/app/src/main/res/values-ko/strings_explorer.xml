@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">최근 사용한 거래소</string>
     <string name="explorer_all_exchanges_title">전체 거래소</string>
     <string name="explorer_exchanges_title">거래소</string>
-    <string name="explorer_forex_hint">유럽중앙은행의 일일 환율(Frankfurter 경유)입니다. 실시간이 아니며 경보가 없습니다.</string>
+    <string name="explorer_forex_hint">유럽중앙은행의 일일 환율입니다. 실시간이 아니며 경보가 없습니다.</string>
 </resources>

@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Yaqinda foydalanilgan birjalar</string>
     <string name="explorer_all_exchanges_title">Barcha birjalar</string>
     <string name="explorer_exchanges_title">Birjalar</string>
-    <string name="explorer_forex_hint">Yevropa Markaziy bankining kunlik kursi (Frankfurter orqali), real vaqtda emas – signallar yoʻq.</string>
+    <string name="explorer_forex_hint">Yevropa Markaziy bankining kunlik kursi, real vaqtda emas – signallar yoʻq.</string>
 </resources>

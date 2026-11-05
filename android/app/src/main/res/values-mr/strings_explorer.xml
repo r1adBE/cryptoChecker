@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">अलीकडे वापरलेली एक्सचेंज</string>
     <string name="explorer_all_exchanges_title">सर्व एक्सचेंज</string>
     <string name="explorer_exchanges_title">एक्सचेंज</string>
-    <string name="explorer_forex_hint">युरोपियन सेंट्रल बँकेचा दैनिक दर (Frankfurter द्वारे), लाइव्ह नाही – अलर्ट नाहीत.</string>
+    <string name="explorer_forex_hint">युरोपियन सेंट्रल बँकेचा दैनिक दर, लाइव्ह नाही – अलर्ट नाहीत.</string>
 </resources>

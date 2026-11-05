@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Наскоро използвани борси</string>
     <string name="explorer_all_exchanges_title">Всички борси</string>
     <string name="explorer_exchanges_title">Борси</string>
-    <string name="explorer_forex_hint">Дневен курс на Европейската централна банка (чрез Frankfurter), не на живо – без аларми.</string>
+    <string name="explorer_forex_hint">Дневен курс на Европейската централна банка, не на живо – без аларми.</string>
 </resources>

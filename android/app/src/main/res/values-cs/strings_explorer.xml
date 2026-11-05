@@ -180,5 +180,5 @@
     <string name="explorer_recent_exchanges_title">Nedávno použité burzy</string>
     <string name="explorer_all_exchanges_title">Všechny burzy</string>
     <string name="explorer_exchanges_title">Burzy</string>
-    <string name="explorer_forex_hint">Denní kurz Evropské centrální banky (přes Frankfurter), ne živě – bez alarmů.</string>
+    <string name="explorer_forex_hint">Denní kurz Evropské centrální banky, ne živě – bez alarmů.</string>
 </resources>

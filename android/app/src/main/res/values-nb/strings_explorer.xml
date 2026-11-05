@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Nylig brukte børser</string>
     <string name="explorer_all_exchanges_title">Alle børser</string>
     <string name="explorer_exchanges_title">Børser</string>
-    <string name="explorer_forex_hint">Dagskurs fra Den europeiske sentralbanken (via Frankfurter), ikke live – ingen alarmer.</string>
+    <string name="explorer_forex_hint">Dagskurs fra Den europeiske sentralbanken, ikke live – ingen alarmer.</string>
 </resources>

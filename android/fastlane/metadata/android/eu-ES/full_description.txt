@@ -10,7 +10,7 @@ DATUEKIN ZINTZO
 • «Aurrezlea» da lehenetsia: prezioak irekitzean eta tarteka atzeko planoan eguneratzen dira. «Zuzenean irekita dagoen bitartean»: Binance, Bybit, OKX, Coinbase eta Kraken-en zuzeneko prezioak zerrenda irekita.
 • % aldaketa eta diagramak parearen burtsatik datoz lehenik; kandelarik ez badu, Binance edo Coinbase, eta esaten zaizu.
 • Fear & Greed, nagusitasuna, on-chain balioak: alternative.me, CoinGecko, Coin Metrics.
-• Kopuruak zure esportazioz edo Android-en sistema-babeskopiaz bakarrik irteten dira gailutik. Prezioetarako, tickerrak bakarrik doaz parearen burtsara; gainera, truke-tasak (Frankfurter), merkatu-datuak eta logoak (CoinGecko, Binance), datu-ispiluak (GitHub). Helbideei edo xpub bati jarraituz gero, blockchain-eko nodo publikoek helbideak (xpub-ean, eratorriak) eta zure IPa ikusten dituzte.
+• Kopuruak zure esportazioz edo Android-en sistema-babeskopiaz bakarrik irteten dira gailutik. Prezioetarako, tickerrak bakarrik doaz parearen burtsara; gainera, truke-tasak (ECB), merkatu-datuak eta logoak (CoinGecko, Binance), datu-ispiluak (GitHub). Helbideei edo xpub bati jarraituz gero, blockchain-eko nodo publikoek helbideak (xpub-ean, eratorriak) eta zure IPa ikusten dituzte.
 
 ZERRENDA
 • 80 merkatu 69 burtsatan: spot eta futuroak, DEX tokenak DexScreener bidez, aukeran akzioak, urrea eta dibisak (TradFi)

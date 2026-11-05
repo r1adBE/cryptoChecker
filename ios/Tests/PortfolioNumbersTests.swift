@@ -583,50 +583,16 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(bgn[day("2026-01-02")] ?? .nan, 0.85 * 1.95583, accuracy: d)
         XCTAssertNil(bgn[day("2026-01-05")])
         XCTAssertEqual(PortfolioHistoryFx.ratesByDay("EUR", byDate: byDate).count, 2)
-        XCTAssertEqual(PortfolioHistoryFx.requestCurrencies("BGN"), ["BGN", "EUR"])
-        XCTAssertEqual(PortfolioHistoryFx.requestCurrencies(" chf "), ["CHF"])
+        // Abfrage der EZB: Ziel und USD (EUR ist die Basis, BGN nach 2025 aus EUR = aus dem USD-Kurs)
+        XCTAssertEqual(PortfolioHistoryFx.requestCurrencies("BGN"), ["BGN", "USD"])
+        XCTAssertEqual(PortfolioHistoryFx.requestCurrencies(" chf "), ["CHF", "USD"])
+        XCTAssertEqual(PortfolioHistoryFx.requestCurrencies("EUR"), ["USD"])
     }
 
     func testRequestStartsLeadDaysEarlier() {
         let range = PortfolioHistoryFx.requestRange(days: 30, today: LocalDay(2026, 10, 6))
         XCTAssertEqual(range.from, LocalDay(2026, 8, 30))
         XCTAssertEqual(range.to, LocalDay(2026, 10, 6))
-    }
-
-    /// Devisen-Zeitreihe in Stücken von höchstens 365 Tagen (Frankfurter liefert längere Zeiträume nur wöchentlich).
-    /// Wie Android `fxRequestInChunksOfAtMostOneYear`.
-    func testFxRequestInChunksOfAtMostOneYear() {
-        let from = LocalDay(2023, 1, 1)
-        let to = LocalDay(2026, 10, 6)
-        let chunks = PortfolioHistoryFx.fxChunks(from: from, to: to)
-        XCTAssertEqual(PortfolioHistoryFx.fxChunkDays, 365)
-        XCTAssertEqual(chunks.first?.from, from)
-        XCTAssertEqual(chunks.last?.to, to)
-        for c in chunks { XCTAssertLessThanOrEqual(c.to.epochDay - c.from.epochDay + 1, 365) }
-        for i in 1..<chunks.count { XCTAssertEqual(chunks[i - 1].to.plusDays(1), chunks[i].from) }
-        XCTAssertEqual(chunks.count, 4)
-        let year = PortfolioHistoryFx.fxChunks(from: from, to: from.plusDays(364))
-        XCTAssertEqual(year.count, 1)
-        XCTAssertEqual(year.first?.to, from.plusDays(364))
-        XCTAssertEqual(PortfolioHistoryFx.fxChunks(from: from, to: from.plusDays(365)).count, 2)
-        XCTAssertEqual(PortfolioHistoryFx.fxChunks(from: to, to: to).count, 1)
-        XCTAssertTrue(PortfolioHistoryFx.fxChunks(from: to, to: from).isEmpty)
-    }
-
-    /// Gleich lange Stücke: kein Rest von ein, zwei Tagen (Wochenende/heute ohne EZB-Kurs liesse die ganze Reihe
-    /// scheitern). Wie Android `fxChunksAreEqualParts`.
-    func testFxChunksAreEqualParts() {
-        func lengths(_ from: LocalDay, _ to: LocalDay) -> [Int] {
-            PortfolioHistoryFx.fxChunks(from: from, to: to).map { $0.to.epochDay - $0.from.epochDay + 1 }
-        }
-        let from = LocalDay(2023, 1, 1)
-        // 1375 Tage → 4 Stücke 344/344/344/343 (vorher 365/365/365/280)
-        XCTAssertEqual(lengths(from, LocalDay(2026, 10, 6)), [344, 344, 344, 343])
-        // 367 Tage → 184/183 statt 365 + 2
-        XCTAssertEqual(lengths(LocalDay(2025, 10, 5), LocalDay(2026, 10, 6)), [184, 183])
-        XCTAssertEqual(lengths(from, from.plusDays(365)), [183, 183])
-        XCTAssertEqual(lengths(from, from.plusDays(729)), [365, 365])
-        XCTAssertEqual(lengths(from, from.plusDays(730)), [244, 244, 243])
     }
 
     /// Geladene Devisenkurse gelten bis zum nächsten UTC-Tag; die Abfrage endet am späteren von Geräte- und UTC-Tag. Wie
@@ -639,20 +605,6 @@ final class PortfolioNumbersTests: XCTestCase {
         // Westlich von UTC am Abend: Gerätetag noch gestern, UTC schon heute → bis heute abfragen
         XCTAssertEqual(PortfolioHistoryFx.fxRequestEnd(localToday: day.plusDays(-1), utcToday: day), day)
         XCTAssertEqual(PortfolioHistoryFx.fxRequestEnd(localToday: day.plusDays(1), utcToday: day), day.plusDays(1))
-    }
-
-    /// Stück ohne Werktag (nur Sa/So bzw. nur heute): Fehlantwort zählt als leer. Wie Android `chunkWithoutBusinessDayMayFail`.
-    func testChunkWithoutBusinessDayMayFail() {
-        let fri = LocalDay(2026, 10, 16)
-        let sat = fri.plusDays(1)
-        let sun = fri.plusDays(2)
-        let mon = fri.plusDays(3)
-        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sat, to: sun, today: sun))
-        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sat, to: mon, today: mon))
-        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: fri, to: fri, today: fri))
-        XCTAssertTrue(PortfolioHistoryFx.chunkMayHaveRates(from: mon, to: mon, today: sun))
-        XCTAssertTrue(PortfolioHistoryFx.chunkMayHaveRates(from: fri, to: sat, today: sat))
-        XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sun, to: sat, today: sun))
     }
 
     /// USDT zum Marktkurs: jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag

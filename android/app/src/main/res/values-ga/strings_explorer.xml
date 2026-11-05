@@ -193,5 +193,5 @@
     <string name="explorer_recent_exchanges_title">Malartáin a úsáideadh le déanaí</string>
     <string name="explorer_all_exchanges_title">Gach malartán</string>
     <string name="explorer_exchanges_title">Malartáin</string>
-    <string name="explorer_forex_hint">Ráta laethúil an Bhainc Ceannais Eorpaigh (trí Frankfurter), ní beo – gan foláirimh.</string>
+    <string name="explorer_forex_hint">Ráta laethúil an Bhainc Ceannais Eorpaigh, ní beo – gan foláirimh.</string>
 </resources>

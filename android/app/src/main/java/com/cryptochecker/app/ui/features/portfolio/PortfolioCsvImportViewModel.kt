@@ -77,7 +77,7 @@ sealed interface CsvImportState {
 
 /**
  * CSV-Import (Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda): Datei lesen ([CsvImportParser]), Preise mit den
- * Devisen-Tageskursen (EZB über Frankfurter, letzter Geschäftstag ≤ Tag, [PortfolioHistoryFx.rateOn]) in USDT umrechnen,
+ * Devisen-Tageskursen (Referenzkurse der EZB, letzter Geschäftstag ≤ Tag, [PortfolioHistoryFx.rateOn]) in USDT umrechnen,
  * Vorschau ([CsvImportMapping.preview]: neu / doppelt / übersprungen / ohne Kurs bzw. Preis), Umbuchungen zwischen
  * Börsen vorschlagen ([CsvTransferMatch]: in der Datei und gegen frühere Importe), dann anlegen (mit Herkunftsschlüssel)
  * und verknüpfte gespeicherte Seiten in Umbuchungen ändern. Die erste Transaktion schaltet ein ausgeschaltetes Portfolio

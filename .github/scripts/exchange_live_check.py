@@ -47,6 +47,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from xml.etree import ElementTree
 
 ISSUE_TITLE = "Exchange API check failed"
 TIMEOUT_SECONDS = 20
@@ -318,9 +319,15 @@ EXCHANGES = [
     {"key": "dexscreener", "name": "DexScreener",
      "url": "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
      "fields": [["pairs", 0, "priceNative"], ["pairs", 0, "priceChange", "h24"]]},
-    {"key": "ecbreference", "name": "ECB reference rates (Frankfurter)",
-     "url": "https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD",
-     "fields": [["rates", "USD"]]},
+    # ECB reference rates straight from the ECB (EcbRates.kt / EcbRates.swift): the 90-day file the Forex pairs read
+    # (XML: newest <Cube time> must carry a numeric USD rate) and the Data Portal for historic rates (SDMX-JSON)
+    {"key": "ecbreference", "name": "ECB reference rates (90-day file)",
+     "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+     "xml_rate": "USD"},
+    {"key": "ecbdataportal", "name": "ECB Data Portal (historic rates)",
+     "url": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?lastNObservations=1"
+            "&format=jsondata&detail=dataonly",
+     "fields": [["dataSets", 0, "series", "0:0:0:0:0", "observations", "0", 0]]},
 ]
 
 OK, FAIL, SKIP = "ok", "fail", "skip"
@@ -398,6 +405,8 @@ def check(entry):
         return FAIL, f"HTTP {status}" if status else f"no connection ({body})"
     if len(body) > 2 * 1024 * 1024:
         return FAIL, "response larger than 2 MB"
+    if "xml_rate" in entry:
+        return check_xml_rate(body, entry["xml_rate"])
     try:
         data = json.loads(body)
     except ValueError:
@@ -410,6 +419,26 @@ def check(entry):
     last = float(walk(data, entry["fields"][0]))
     if last <= 0:
         return FAIL, f"{path_text(entry['fields'][0])} is {last}"
+    return OK, ""
+
+
+def check_xml_rate(body, code):
+    """ECB file: the newest <Cube time="..."> must contain <Cube currency=code rate=...> with a rate > 0."""
+    if "<!DOCTYPE" in body or "<!ENTITY" in body:
+        return FAIL, "XML with DOCTYPE/ENTITY"
+    try:
+        root = ElementTree.fromstring(body)
+    except ElementTree.ParseError:
+        return FAIL, "response is not XML"
+    days = [e for e in root.iter() if e.tag.endswith("Cube") and e.get("time")]
+    if not days:
+        return FAIL, "no <Cube time> day"
+    newest = max(days, key=lambda e: e.get("time"))
+    rate = next((c.get("rate") for c in newest if c.get("currency") == code), None)
+    if not numeric(rate):
+        return FAIL, f"missing or non-numeric: {code} on {newest.get('time')}"
+    if float(rate) <= 0:
+        return FAIL, f"{code} is {rate}"
     return OK, ""
 
 

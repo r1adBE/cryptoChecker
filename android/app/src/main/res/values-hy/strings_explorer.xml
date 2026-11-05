@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Վերջերս օգտագործված բորսաներ</string>
     <string name="explorer_all_exchanges_title">Բոլոր բորսաները</string>
     <string name="explorer_exchanges_title">Բորսաներ</string>
-    <string name="explorer_forex_hint">Եվրոպական կենտրոնական բանկի օրական փոխարժեքը (Frankfurter-ի միջոցով), ոչ իրական ժամանակում – առանց ահազանգերի։</string>
+    <string name="explorer_forex_hint">Եվրոպական կենտրոնական բանկի օրական փոխարժեքը, ոչ իրական ժամանակում – առանց ահազանգերի։</string>
 </resources>

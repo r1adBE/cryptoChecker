@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Son kullanılan borsalar</string>
     <string name="explorer_all_exchanges_title">Tüm borsalar</string>
     <string name="explorer_exchanges_title">Borsalar</string>
-    <string name="explorer_forex_hint">Avrupa Merkez Bankası’nın günlük kuru (Frankfurter üzerinden), canlı değil – alarm yok.</string>
+    <string name="explorer_forex_hint">Avrupa Merkez Bankası’nın günlük kuru, canlı değil – alarm yok.</string>
 </resources>

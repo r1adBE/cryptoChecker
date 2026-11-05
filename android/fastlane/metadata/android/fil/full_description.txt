@@ -10,7 +10,7 @@ TAPAT SA DATA
 • Default ang “Matipid”: nagre-refresh ang presyo pagbukas ng app at paminsan-minsan sa background. May live price ang “Live habang bukas” para sa Binance, Bybit, OKX, Coinbase at Kraken habang bukas ang watchlist.
 • Ang % change at chart ay mula muna sa sariling exchange ng pares; kung walang candle, Binance o Coinbase ang gamit at sinasabi iyon ng app.
 • Fear & Greed, dominance at on-chain value mula sa alternative.me, CoinGecko at Coin Metrics.
-• Umaalis lang sa device ang mga halaga sa export mo o Android system backup. Para sa presyo, ticker lang ng pares ang napupunta sa exchange nito; dagdag ang exchange rate (Frankfurter), market data at logo (CoinGecko, Binance), data mirror (GitHub). Kung nagbabantay ka ng address o xpub, nakikita ng pampublikong blockchain node ang mga address (sa xpub, ang hinango) at IP mo.
+• Umaalis lang sa device ang mga halaga sa export mo o Android system backup. Para sa presyo, ticker lang ng pares ang napupunta sa exchange nito; dagdag ang exchange rate (ECB), market data at logo (CoinGecko, Binance), data mirror (GitHub). Kung nagbabantay ka ng address o xpub, nakikita ng pampublikong blockchain node ang mga address (sa xpub, ang hinango) at IP mo.
 
 WATCHLIST
 • 80 na market sa 69 exchange: spot at futures, DEX token sa DexScreener, opsyonal na stocks, ginto at FX (TradFi)

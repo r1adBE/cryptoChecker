@@ -10,7 +10,7 @@ Crypto Checker 會檢查你所用交易所的價格，並在檢查時發現已�
 • 預設為「省電」：開啟應用程式時以及在背景按間隔重新整理價格。選擇「開啟時即時」後，自選清單開啟期間 Binance、Bybit、OKX、Coinbase 和 Kraken 顯示即時價格。
 • 漲跌幅和圖表優先來自該交易對所在的交易所；若其沒有 K 線，應用程式會改用 Binance 或 Coinbase，並加以說明。
 • Fear & Greed、市值佔比和鏈上資料來自 alternative.me、CoinGecko 和 Coin Metrics。
-• 金額僅透過匯出或 Android 備份離開裝置。取得價格時，只把交易對代號發送給該交易對所在的交易所；另外還有匯率（Frankfurter）、市場資料和圖示（CoinGecko、Binance）以及資料鏡像（GitHub）。如果你關注地址或 xpub，公共區塊鏈節點會看到這些地址（xpub 為派生地址）和你的 IP。
+• 金額僅透過匯出或 Android 備份離開裝置。取得價格時，只把交易對代號發送給該交易對所在的交易所；另外還有匯率（ECB）、市場資料和圖示（CoinGecko、Binance）以及資料鏡像（GitHub）。如果你關注地址或 xpub，公共區塊鏈節點會看到這些地址（xpub 為派生地址）和你的 IP。
 
 自選清單
 • 69 家交易所的 80 個市場：現貨和合約，透過 DexScreener 查看 DEX 代幣，還可選股票、黃金和外匯（TradFi）

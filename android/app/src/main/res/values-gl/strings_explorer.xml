@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Plataformas usadas recentemente</string>
     <string name="explorer_all_exchanges_title">Todas as plataformas</string>
     <string name="explorer_exchanges_title">Plataformas</string>
-    <string name="explorer_forex_hint">Tipo diario do Banco Central Europeo (vía Frankfurter), non en directo – sen alarmas.</string>
+    <string name="explorer_forex_hint">Tipo diario do Banco Central Europeo, non en directo – sen alarmas.</string>
 </resources>

@@ -21,7 +21,7 @@ protocol HistoricCloseFetch: Sendable {
 }
 
 /// Je Tag eine Abfrage (Stichtag, Vorschlag beim Erfassen): Binance mit `startTime` und `limit=1`, Coinbase genau über den
-/// Tag. `get`, `series`, `fx`: Netz bzw. eigene Kerzen und Frankfurter (Tests: gespielter Markt).
+/// Tag. `get`, `series`, `fx`: Netz bzw. eigene Kerzen und EZB-Referenzkurse (Tests: gespielter Markt).
 struct HistoricDayFetch: HistoricCloseFetch {
     var get: @Sendable (String, String) async -> String? = { await HistoricPriceSource.get($0, $1) }
     var series: @Sendable (CandlePair, Int64) async -> (close: Double, latest: Double?)? = {

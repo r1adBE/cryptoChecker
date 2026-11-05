@@ -10,7 +10,7 @@ Crypto Checker 會檢查你交易所上嘅價格，檢查到價格到咗你設�
 • 預設係「慳電」：開 App 時同喺背景定時更新價格。「開啟時即時」會喺自選清單開住時，為 Binance、Bybit、OKX、Coinbase 同 Kraken 加入即時價格。
 • 百分比變動同圖表優先來自交易對本身嘅交易所；如果佢冇 K 線，App 會用 Binance 或 Coinbase，並話你知。
 • Fear & Greed、市佔率同鏈上數值來自 alternative.me、CoinGecko 同 Coin Metrics。
-• 金額只會經你嘅匯出或 Android 系統備份離開裝置。查價格時，只有交易對代號會傳去相應交易所；另外仲有匯率（Frankfurter）、市場數據同標誌（CoinGecko、Binance）、數據鏡像（GitHub）。如果你觀察地址或 xpub，公開區塊鏈節點會見到嗰啲地址（xpub 就係推導出嚟嘅地址）同你嘅 IP。
+• 金額只會經你嘅匯出或 Android 系統備份離開裝置。查價格時，只有交易對代號會傳去相應交易所；另外仲有匯率（ECB）、市場數據同標誌（CoinGecko、Binance）、數據鏡像（GitHub）。如果你觀察地址或 xpub，公開區塊鏈節點會見到嗰啲地址（xpub 就係推導出嚟嘅地址）同你嘅 IP。
 
 自選清單
 • 69 個交易所上嘅 80 個市場：現貨同期貨、經 DexScreener 嘅 DEX 代幣，可選股票、黃金同外匯（TradFi）

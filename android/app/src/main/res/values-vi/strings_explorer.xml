@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">Sàn dùng gần đây</string>
     <string name="explorer_all_exchanges_title">Tất cả các sàn</string>
     <string name="explorer_exchanges_title">Sàn</string>
-    <string name="explorer_forex_hint">Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu (qua Frankfurter), không trực tiếp – không có cảnh báo.</string>
+    <string name="explorer_forex_hint">Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu, không trực tiếp – không có cảnh báo.</string>
 </resources>

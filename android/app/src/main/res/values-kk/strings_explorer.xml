@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Жақында пайдаланылған биржалар</string>
     <string name="explorer_all_exchanges_title">Барлық биржалар</string>
     <string name="explorer_exchanges_title">Биржалар</string>
-    <string name="explorer_forex_hint">Еуропалық орталық банктің күндік бағамы (Frankfurter арқылы), нақты уақытта емес – ескерту жоқ.</string>
+    <string name="explorer_forex_hint">Еуропалық орталық банктің күндік бағамы, нақты уақытта емес – ескерту жоқ.</string>
 </resources>

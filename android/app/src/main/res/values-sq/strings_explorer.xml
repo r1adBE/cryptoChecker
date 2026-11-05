@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Bursat e përdorura së fundi</string>
     <string name="explorer_all_exchanges_title">Të gjitha bursat</string>
     <string name="explorer_exchanges_title">Bursat</string>
-    <string name="explorer_forex_hint">Kursi ditor i Bankës Qendrore Evropiane (nëpërmjet Frankfurter), jo live – pa alarme.</string>
+    <string name="explorer_forex_hint">Kursi ditor i Bankës Qendrore Evropiane, jo live – pa alarme.</string>
 </resources>

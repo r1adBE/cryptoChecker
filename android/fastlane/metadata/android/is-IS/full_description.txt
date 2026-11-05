@@ -10,7 +10,7 @@ HEIÐARLEGT UM GÖGNIN
 • „Sparneytið“ er sjálfgefið: verð endurnýjast þegar forritið er opnað og reglulega í bakgrunni. „Í beinni meðan opið“ bætir við verði í beinni fyrir Binance, Bybit, OKX, Coinbase og Kraken meðan vaktlistinn er opinn.
 • %-breyting og gröf koma fyrst frá kauphöll parsins sjálfs; án kerta þar notar forritið Binance eða Coinbase og segir frá því.
 • Fear & Greed, yfirráð og on-chain gildi frá alternative.me, CoinGecko og Coin Metrics.
-• Upphæðir fara aðeins af tækinu með útflutningi þínum eða kerfisafriti Android. Fyrir verð fara aðeins auðkenni paranna til kauphallar þeirra; auk þess gengi (Frankfurter), markaðsgögn og merki (CoinGecko, Binance), gagnaspeglar (GitHub). Ef þú vaktar vistföng eða xpub sjá opinberir blockchain-hnútar vistföngin (fyrir xpub þau útleiddu) og IP-töluna.
+• Upphæðir fara aðeins af tækinu með útflutningi þínum eða kerfisafriti Android. Fyrir verð fara aðeins auðkenni paranna til kauphallar þeirra; auk þess gengi (ECB), markaðsgögn og merki (CoinGecko, Binance), gagnaspeglar (GitHub). Ef þú vaktar vistföng eða xpub sjá opinberir blockchain-hnútar vistföngin (fyrir xpub þau útleiddu) og IP-töluna.
 
 VAKTLISTI
 • 80 markaðir á 69 kauphöllum: spot og framvirkir samningar, DEX-tókar í gegnum DexScreener, að vali hlutabréf, gull og gjaldeyrir (TradFi)

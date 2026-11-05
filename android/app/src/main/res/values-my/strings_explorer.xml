@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">မကြာသေးမီက သုံးခဲ့သော လဲလှယ်ရေးဌာနများ</string>
     <string name="explorer_all_exchanges_title">လဲလှယ်ရေးဌာန အားလုံး</string>
     <string name="explorer_exchanges_title">လဲလှယ်ရေးဌာနများ</string>
-    <string name="explorer_forex_hint">ဥရောပ ဗဟိုဘဏ်၏ နေ့စဉ်နှုန်း (Frankfurter မှတစ်ဆင့်)၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။</string>
+    <string name="explorer_forex_hint">ဥရောပ ဗဟိုဘဏ်၏ နေ့စဉ်နှုန်း၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။</string>
 </resources>

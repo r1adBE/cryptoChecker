@@ -2,8 +2,8 @@ import Foundation
 import os
 
 /// Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio — wie `FxRateSource.kt`.
-/// USDT gilt als USD. Quelle: Frankfurter (EZB, ohne Schlüssel), sonst
-/// open.er-api.com. Neu geholt nach 3 h (`CurrencyConversion.fxStaleMillis`: ab da zeigt die
+/// USDT gilt als USD. Quelle: Referenzkurse der EZB (`eurofxref-daily.xml`, `EcbRates`, ohne Schlüssel; eine Abfrage
+/// für alle Währungen, Kreuzkurs USD → Ziel wie `EcbRates.cross`), sonst open.er-api.com. Neu geholt nach 3 h (`CurrencyConversion.fxStaleMillis`: ab da zeigt die
 /// Merkliste die Uhrzeit des Kurses; im Speicher); schlägt die Abfrage fehl, gilt ein älterer Kurs
 /// bis 24 h. Ohne Kurs bleibt die Zeile weg. Abrufzeit je Währung: `fetchedAt`.
 enum FxRateSource {
@@ -91,9 +91,14 @@ enum FxRateSource {
                 let age = now - known.at
                 if age >= 0 && age < Self.ttlMillis { return known.rate }
             }
-            var fresh = await Self.frankfurter(target)
-            if fresh == nil { fresh = await Self.openErApi(target) }
-            if let fresh {
+            // Eine Abfrage der EZB bringt alle Währungen: alle in den Zwischenspeicher, samt Datum des Tageskurses
+            if let daily = await Self.ecbDaily() {
+                for (code, rate) in daily.rates { Self.put(code, rate, at: now, rateTime: daily.time) }
+                if let known = Self.entry(target), now - known.at >= 0, now - known.at < Self.ttlMillis {
+                    return known.rate
+                }
+            }
+            if let fresh = await Self.openErApi(target) {
                 Self.put(target, fresh.rate, at: now, rateTime: fresh.time)
                 return fresh.rate
             }
@@ -168,11 +173,13 @@ enum FxRateSource {
         }
     }
 
-    /// Kurs und Zeitpunkt des EZB-Tageskurses («date», `FiatAlarmGuard.rateTime(ofIsoDate:)`).
-    private static func frankfurter(_ target: String) async -> (rate: Double, time: Int64?)? {
-        guard let body = await get("https://api.frankfurter.app/latest?from=USD&to=\(target)"),
-              let value = rate(in: body, target) else { return nil }
-        return (rate: value, time: FiatAlarmGuard.rateTime(ofIsoDate: root(body)?["date"] as? String))
+    /// Jüngster EZB-Tageskurs aller Währungen als USD → Währung (`EcbRates.rebase`, EUR eingeschlossen) und Zeitpunkt
+    /// des Tags (`FiatAlarmGuard.rateTime(ofIsoDate:)`); nil ohne lesbare Antwort oder USD-Kurs. Wie Android `ecbDaily`.
+    private static func ecbDaily() async -> (rates: [String: Double], time: Int64?)? {
+        guard let body = await get(EcbRates.dailyURL), let days = EcbRates.parseXML(body),
+              let date = days.keys.max(), let day = days[date] else { return nil }
+        let rates = EcbRates.rebase(day, base: "USD").filter { $0.value > 0 && $0.value.isFinite }
+        return rates.isEmpty ? nil : (rates: rates, time: FiatAlarmGuard.rateTime(ofIsoDate: date))
     }
 
     /// Kurs und Zeitpunkt der letzten Aktualisierung («time_last_update_unix», Sekunden).

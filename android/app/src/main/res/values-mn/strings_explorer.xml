@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Саяхан ашигласан биржүүд</string>
     <string name="explorer_all_exchanges_title">Бүх бирж</string>
     <string name="explorer_exchanges_title">Биржүүд</string>
-    <string name="explorer_forex_hint">Европын Төв Банкны өдрийн ханш (Frankfurter-ээр), шууд биш – дохио алга.</string>
+    <string name="explorer_forex_hint">Европын Төв Банкны өдрийн ханш, шууд биш – дохио алга.</string>
 </resources>

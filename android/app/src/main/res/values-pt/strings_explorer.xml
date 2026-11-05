@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Plataformas usadas recentemente</string>
     <string name="explorer_all_exchanges_title">Todas as plataformas</string>
     <string name="explorer_exchanges_title">Plataformas</string>
-    <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes.</string>
+    <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu, não em tempo real – sem alarmes.</string>
 </resources>

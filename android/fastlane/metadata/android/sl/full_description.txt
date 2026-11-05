@@ -10,7 +10,7 @@ POŠTENO O PODATKIH
 • „Varčno“ je privzeto: tečaji se osvežijo, ko odpreš aplikacijo, in v presledkih v ozadju. „V živo, dokler je odprto“ doda tečaje v živo za Binance, Bybit, OKX, Coinbase in Kraken, dokler je seznam odprt.
 • Sprememba v % in grafi najprej prihajajo z lastne borze para; če ta nima sveč, aplikacija uporabi Binance ali Coinbase in ti to pove.
 • Fear & Greed, dominanca in vrednosti on-chain z alternative.me, CoinGecko in Coin Metrics.
-• Zneski zapustijo napravo samo prek tvojega izvoza ali sistemske varnostne kopije Android. Za tečaje gredo na borzo posameznega para samo oznake parov; poleg tega devizni tečaji (Frankfurter), tržni podatki in logotipi (CoinGecko, Binance), zrcala podatkov (GitHub). Če spremljaš naslove ali xpub, javna vozlišča verige blokov vidijo naslove (pri xpub izpeljane) in tvoj naslov IP.
+• Zneski zapustijo napravo samo prek tvojega izvoza ali sistemske varnostne kopije Android. Za tečaje gredo na borzo posameznega para samo oznake parov; poleg tega devizni tečaji (ECB), tržni podatki in logotipi (CoinGecko, Binance), zrcala podatkov (GitHub). Če spremljaš naslove ali xpub, javna vozlišča verige blokov vidijo naslove (pri xpub izpeljane) in tvoj naslov IP.
 
 SEZNAM
 • 80 trgov na 69 borzah: spot in futures, žetoni DEX prek DexScreener, po želji delnice, zlato in devize (TradFi)

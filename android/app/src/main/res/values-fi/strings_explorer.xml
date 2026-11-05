@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Viimeksi käytetyt pörssit</string>
     <string name="explorer_all_exchanges_title">Kaikki pörssit</string>
     <string name="explorer_exchanges_title">Pörssit</string>
-    <string name="explorer_forex_hint">Euroopan keskuspankin päiväkurssi (Frankfurterin kautta), ei reaaliaikainen – ei hälytyksiä.</string>
+    <string name="explorer_forex_hint">Euroopan keskuspankin päiväkurssi, ei reaaliaikainen – ei hälytyksiä.</string>
 </resources>

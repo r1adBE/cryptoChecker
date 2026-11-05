@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Nemrég használt tőzsdék</string>
     <string name="explorer_all_exchanges_title">Összes tőzsde</string>
     <string name="explorer_exchanges_title">Tőzsdék</string>
-    <string name="explorer_forex_hint">Az Európai Központi Bank napi árfolyama (a Frankfurteren keresztül), nem élő – nincs riasztás.</string>
+    <string name="explorer_forex_hint">Az Európai Központi Bank napi árfolyama, nem élő – nincs riasztás.</string>
 </resources>

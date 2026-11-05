@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Recent gebruikte beurzen</string>
     <string name="explorer_all_exchanges_title">Alle beurzen</string>
     <string name="explorer_exchanges_title">Beurzen</string>
-    <string name="explorer_forex_hint">Dagkoers van de Europese Centrale Bank (via Frankfurter), niet live – geen alarmen.</string>
+    <string name="explorer_forex_hint">Dagkoers van de Europese Centrale Bank, niet live – geen alarmen.</string>
 </resources>

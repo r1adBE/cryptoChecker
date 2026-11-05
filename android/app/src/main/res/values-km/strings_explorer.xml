@@ -141,5 +141,5 @@
     <string name="explorer_recent_exchanges_title">ផ្សារប្តូរដែលបានប្រើថ្មីៗ</string>
     <string name="explorer_all_exchanges_title">ផ្សារប្តូរទាំងអស់</string>
     <string name="explorer_exchanges_title">ផ្សារប្តូរ</string>
-    <string name="explorer_forex_hint">អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប (តាមរយៈ Frankfurter) មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។</string>
+    <string name="explorer_forex_hint">អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។</string>
 </resources>

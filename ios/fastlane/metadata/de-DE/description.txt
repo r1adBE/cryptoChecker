@@ -10,7 +10,7 @@ EHRLICH BEI DEN DATEN
 • «Sparsam» ist voreingestellt: Kurse kommen beim Öffnen und in Abständen im Hintergrund. «Live, solange offen» bringt Live-Kurse für Binance, Bybit, OKX, Coinbase und Kraken, solange die Merkliste offen ist.
 • %-Änderung und Charts kommen zuerst von der Börse des Paars; hat sie keine Kerzen, nimmt die App Binance oder Coinbase und sagt dir das.
 • Fear & Greed, Dominanz und On-Chain-Werte von alternative.me, CoinGecko und Coin Metrics.
-• Beträge verlassen das Gerät nur per Export (CSV, Sicherung) oder verschlüsselt im iCloud-/Geräte-Backup. Für Kurse gehen nur Paar-Kürzel an die Börse des jeweiligen Paars; dazu Devisenkurse (Frankfurter), Marktdaten und Logos (CoinGecko, Binance), Daten-Spiegel (GitHub). Beobachtest du Adressen oder einen xpub, sehen öffentliche Blockchain-Knoten die Adressen (beim xpub die abgeleiteten) und deine IP.
+• Beträge verlassen das Gerät nur per Export (CSV, Sicherung) oder verschlüsselt im iCloud-/Geräte-Backup. Für Kurse gehen nur Paar-Kürzel an die Börse des jeweiligen Paars; dazu Devisenkurse (EZB), Marktdaten und Logos (CoinGecko, Binance), Daten-Spiegel (GitHub). Beobachtest du Adressen oder einen xpub, sehen öffentliche Blockchain-Knoten die Adressen (beim xpub die abgeleiteten) und deine IP.
 
 MERKLISTE
 • 80 Märkte auf 69 Börsen: Spot und Futures, DEX-Token über DexScreener, auf Wunsch Aktien, Gold und Devisen (TradFi)

@@ -38,6 +38,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from xml.etree import ElementTree
 
 TIMEOUT_SECONDS = 30
 # Gleicher User-Agent wie die Android-App (HttpUserAgent.android): Einige Börsen (z. B. Bitvavo hinter einer
@@ -60,7 +61,7 @@ BTC_USDT = ("BTC", "USDT")
 # Schlüssel = ExchangesConfig-Schlüssel (Klassenname). single: Einzelkurs (Anfrage 0);
 # bulk: Sammelabfrage (Anfrage 0), nur wo sie ohne Vorwissen lesbar ist; pairs: Paarliste, nur
 # bei genau einer festen GET-Adresse (SimpleExchange). post = JSON-Körper (POST); geo = 403 gilt als gesperrt;
-# stamp = «timestamp=<jetzt in ms>» beim Abruf anhängen (BingX).
+# stamp = «timestamp=<jetzt in ms>» beim Abruf anhängen (BingX); xml = Antwort ist XML statt JSON (EZB).
 EXCHANGES = [
     {"exchangeKey": "Coinbase", "pair": pair("BTC", "USD", "BTC-USD"),
      "single": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
@@ -389,6 +390,12 @@ EXCHANGES = [
      # Sammelabfrage: mehrere Pools derselben Chain mit Komma (höchstens 30)
      "bulk": "https://api.dexscreener.com/latest/dex/pairs/ethereum/"
              "0x11950d141EcB863F01007AdD7D1A342041227b58,0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f"},
+    # EZB-Referenzkurse direkt von der EZB (XML): Einzel- und Sammelkurs aus den letzten 90 Tagen, Paarliste aus dem
+    # jüngsten Tag (EcbRates.kt / EcbRates.swift)
+    {"exchangeKey": "EcbReference", "pair": pair("EUR", "USD", "EURUSD"), "xml": True,
+     "single": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+     "bulk": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+     "pairs": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"},
 ]
 
 
@@ -465,9 +472,12 @@ def record_one(entry, kind, url, recorded_at):
     if body is None:
         return None, f"larger than {limit // (1024 * 1024)} MB"
     try:
-        json.loads(body)
-    except ValueError:
-        return None, "not JSON"
+        if entry.get("xml"):
+            ElementTree.fromstring(body)
+        else:
+            json.loads(body)
+    except (ValueError, ElementTree.ParseError):
+        return None, "not XML" if entry.get("xml") else "not JSON"
     case = {
         "kind": kind,
         "name": f"recorded {kind} {recorded_at}",

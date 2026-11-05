@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">તાજેતરમાં વપરાયેલાં એક્સચેન્જ</string>
     <string name="explorer_all_exchanges_title">બધાં એક્સચેન્જ</string>
     <string name="explorer_exchanges_title">એક્સચેન્જ</string>
-    <string name="explorer_forex_hint">યુરોપિયન સેન્ટ્રલ બૅન્કનો દૈનિક દર (Frankfurter દ્વારા), લાઇવ નથી – એલર્ટ નહીં.</string>
+    <string name="explorer_forex_hint">યુરોપિયન સેન્ટ્રલ બૅન્કનો દૈનિક દર, લાઇવ નથી – એલર્ટ નહીં.</string>
 </resources>

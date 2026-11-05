@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">حال ہی میں استعمال شدہ ایکسچینجز</string>
     <string name="explorer_all_exchanges_title">تمام ایکسچینجز</string>
     <string name="explorer_exchanges_title">ایکسچینجز</string>
-    <string name="explorer_forex_hint">یورپی مرکزی بینک کی روزانہ شرح (Frankfurter کے ذریعے)، لائیو نہیں – کوئی الرٹ نہیں۔</string>
+    <string name="explorer_forex_hint">یورپی مرکزی بینک کی روزانہ شرح، لائیو نہیں – کوئی الرٹ نہیں۔</string>
 </resources>

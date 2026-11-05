@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Son istifadə olunan birjalar</string>
     <string name="explorer_all_exchanges_title">Bütün birjalar</string>
     <string name="explorer_exchanges_title">Birjalar</string>
-    <string name="explorer_forex_hint">Avropa Mərkəzi Bankının günlük məzənnəsi (Frankfurter vasitəsilə), canlı deyil – alarmsız.</string>
+    <string name="explorer_forex_hint">Avropa Mərkəzi Bankının günlük məzənnəsi, canlı deyil – alarmsız.</string>
 </resources>

@@ -1636,7 +1636,7 @@ the tests named here.
     Coinbase `USDT-USD` fills it (`fillUsdtUsd`: Kraken wins unless it is outside the normal 0.5 … 1.5 and Coinbase
     is inside – `PortfolioStables.isUsdtNormal` only picks the source; a crash only one source has stays; cached
     `phisto_USDTUSDCB`). Only after both, a day falls back to «USDT = 1 assumed».
-  - FX is untouched: `usdTo` (Frankfurter answers a weekend/holiday with the last business day) and `usdToSeries`
+  - FX is untouched: `usdTo` (a weekend/holiday takes the last ECB business day ≤ the date) and `usdToSeries`
     (from `LEAD_DAYS` = 7 days earlier, gaps filled with the previous rate by `PortfolioHistoryFx.rateOn`) do not use
     the chain. Stablecoin rules (`PortfolioStables`) are unchanged.
 * **Prefill only what is true for the chosen date.** The add-transaction sheet prefills
@@ -1652,6 +1652,26 @@ the tests named here.
   after **3 h** (`FxRateSource`, TTL = `CurrencyConversion.FX_STALE_MILLIS`); if the rate
   behind a ≈ value is older than 3 h, the line adds its time («· rate 08:15», `converted_fx_stale`,
   `staleFxTime`).
+* **FX rates straight from the ECB (build 200).** No third-party mirror; `EcbRates` (Kotlin in `:marketdata`,
+  Swift in `Shared/Exchanges`, parity fixture `ecb_rates.json`) holds addresses, parsers and the cross rate.
+  - Current rate (`FxRateSource`): `eurofxref-daily.xml`, one request for **all** currencies (all go into the cache
+    with the ECB date as `rateTime`); a currency the ECB lacks (BGN since 2026) or a failed request → open.er-api.com.
+  - Forex pairs (`EcbReference`, name «ECB»): one request `eurofxref-hist-90d.xml` for every pair (bulk = all ordered
+    pairs of the codes), newest value within 10 days before the newest ECB day, change against the previous ECB day;
+    pair list from `eurofxref-daily.xml` (its codes plus EUR). XML only via SAX (`javax.xml.parsers`) / Foundation
+    `XMLParser`; a body with DOCTYPE/ENTITY is rejected unread.
+  - Historic rates (`HistoricPriceSource.usdTo` / `usdToSeries`): ECB Data Portal
+    `data-api.ecb.europa.eu/service/data/EXR/D.<CUR>+USD.EUR.SP00.A?startPeriod&endPeriod&format=jsondata&detail=dataonly`
+    – one request for target and USD over the whole range (no more yearly chunks; the Data Portal has no weekly
+    thinning). The Data Portal often answers a first-time query only after 30 s with HTTP 504 (measured 5 Nov 2026:
+    1 to 5 of 10 cold queries), so on failure: `eurofxref-hist-90d.xml` if the range starts at most 80 days back,
+    otherwise / then `eurofxref-hist.xml` (all days since 1999, ~1 MB gzip, ~8 MB XML, read with only the needed codes,
+    16 MB body limit, kept 6 h in memory per code set). `usdTo` takes the newest ECB day ≤ date with a USD rate within
+    10 days back; BGN from 2026 = EUR × 1.95583 from the same response.
+  - **Cross rates (same precision as up to build 199):** all ECB values are units per 1 EUR. Base EUR = the ECB value
+    unchanged; any other base (USD → CHF, USD/JPY pair …) = quote / base rounded to **5 significant digits**
+    (`EcbRates.round5`, like the former mirror's «%.5g»: floor(v × 10^k + 0.5) / 10^k with k = 4 − ⌊log10 v⌋;
+    exact .5 ties may differ from «%.5g» in the last digit). USD → EUR = round5(1 / USD).
 * **Stablecoins without a daily close («7 d»).** Elsewhere a stablecoin without a price has no
   value (see above). For the «7 d» reference only, a missing close counts as 1
   only while the live price is within **0.1 %** of 1 (`PortfolioStables.fallbackWithoutClose`,
@@ -1840,8 +1860,8 @@ the tests named here.
   basis, AT and FR never counted it (§ 27a Abs. 4 Z 2 EStG; not part of the French acquisition-price total).
 * **Tax export.** `TaxExport` (Kotlin/Swift, fixture `tax_export.json`): realized gains per year
   (FIFO lot slices or Ø sales; acquired/sold date, holding days, «> 1 year» = sold after acquisition date + 1
-  calendar year, local dates; cost at acquisition-date FX, proceeds at sale-date FX, daily ECB rates via
-  Frankfurter, up to 7 days back), income per year (rewards at value when received), year-end holdings
+  calendar year, local dates; cost at acquisition-date FX, proceeds at sale-date FX, daily ECB rates
+  straight from the ECB, up to 7 days back), income per year (rewards at value when received), year-end holdings
   (cut-off CSV on 31 Dec). Totals only over rows with cost, proceeds and gain known, plus «proceeds without
   purchase price»; header states method, currency, time zone, «not tax advice». Exact decimals, rounding only
   when printing.
@@ -2314,7 +2334,7 @@ Change a rule → change the JSON first, then both implementations.
   dated futures. A new exchange source: object + registry entry on both
   platforms and a case in `own_candles.json`.
 * **Chart FX per candle.** When a fiat pair has no candles of its own, the sheet chart uses the
-  coin's USDT candles and converts **each candle with that day's rate** (Frankfurter time series,
+  coin's USDT candles and converts **each candle with that day's rate** (ECB time series `usdToSeries`,
   the one the portfolio value history uses; at most once per currency every 6 h). Only if the series
   is missing it uses today's rate and the caption says «(current rate)» instead of «converted at
   daily rates». Never convert a whole history with one rate silently. USDT → USD likewise per candle, like the
@@ -3327,6 +3347,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   without recorded inflows to the address wallets; overlap warning `portfolio_address_overlap_tx` removed.
 * Build 199: `AddressSurplus` per wallet (address subtracts only own holdings of its wallet); `AddressWithdrawalMatch` (±1 %)
   names the transfer target wallet; disabled colours ≥ 3:1 (contrast script covers them); macro calendar «more dates follow».
+* Build 200: Frankfurter replaced by the ECB: `eurofxref-daily.xml` (conversion), `eurofxref-hist-90d.xml` (forex pairs), ECB
+  Data Portal for history with the 90-day and full-history files as fallback; cross rates as before (5 significant digits).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

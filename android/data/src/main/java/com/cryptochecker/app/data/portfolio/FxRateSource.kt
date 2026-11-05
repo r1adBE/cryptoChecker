@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +22,8 @@ import javax.inject.Singleton
 
 /**
  * Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio.
- * USDT gilt als USD. Quelle: Frankfurter (EZB, ohne Schlüssel), sonst
- * open.er-api.com. Neu geholt nach 3 h ([CurrencyConversion.FX_STALE_MILLIS]: ab da zeigt die
+ * USDT gilt als USD. Quelle: Referenzkurse der EZB (`eurofxref-daily.xml`, [EcbRates], ohne Schlüssel; eine Abfrage
+ * für alle Währungen, Kreuzkurs USD → Ziel wie [EcbRates.cross]), sonst open.er-api.com. Neu geholt nach 3 h ([CurrencyConversion.FX_STALE_MILLIS]: ab da zeigt die
  * Merkliste die Uhrzeit des Kurses); scheitert das, gilt der letzte Kurs bis 24 h. Ohne Kurs bleibt
  * die Zeile weg. Abrufzeit je Währung: [fetchedAt].
  */
@@ -72,7 +73,15 @@ class FxRateSource @Inject constructor(
      */
     private suspend fun load(target: String, now: Long): Pair<Double, Long>? {
         cache[target]?.let { if (now - it.second in 0 until TTL_MILLIS) return it }
-        val fresh = frankfurter(target) ?: openErApi(target)
+        // Eine Abfrage der EZB bringt alle Währungen: alle in den Zwischenspeicher, samt Datum des Tageskurses
+        ecbDaily()?.let { (rates, time) ->
+            for ((code, rate) in rates) {
+                cache[code] = rate to now
+                time?.let { rateTimes[code] = it } ?: rateTimes.remove(code)
+            }
+        }
+        cache[target]?.let { if (now - it.second in 0 until TTL_MILLIS) return it }
+        val fresh = openErApi(target)
         if (fresh != null) {
             fresh.second?.let { rateTimes[target] = it } ?: rateTimes.remove(target)
             return (fresh.first to now).also { cache[target] = it }
@@ -121,15 +130,16 @@ class FxRateSource @Inject constructor(
     /** BGN ab der Euro-Einführung aus EUR ableiten ([CurrencyConversion.deriveBgnFromEur]). */
     private fun derivesBgn(target: String): Boolean = CurrencyConversion.deriveBgnFromEur(target, LocalDate.now(ZoneOffset.UTC))
 
-    /** Kurs und Zeitpunkt des EZB-Tageskurses («date», [com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf]). */
-    private suspend fun frankfurter(target: String): Pair<Double, Long?>? =
-        get("https://api.frankfurter.app/latest?from=USD&to=$target")?.let { body ->
-            runCatching {
-                val root = JSONObject(body)
-                root.getJSONObject("rates").getDouble(target) to
-                    com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf(root.optString("date"))
-            }.getOrNull()
-        }?.takeIf { it.first > 0.0 }
+    /**
+     * Jüngster EZB-Tageskurs aller Währungen als USD → Währung ([EcbRates.rebase], EUR eingeschlossen) und Zeitpunkt des
+     * Tags ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf]); null ohne lesbare Antwort oder USD-Kurs.
+     */
+    private suspend fun ecbDaily(): Pair<Map<String, Double>, Long?>? {
+        val days = get(EcbRates.DAILY_URL)?.let(EcbRates::parseXml) ?: return null
+        val date = days.keys.max()
+        val rates = EcbRates.rebase(days.getValue(date), "USD").filterValues { it > 0.0 && it.isFinite() }
+        return if (rates.isEmpty()) null else rates to com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf(date)
+    }
 
     /** Kurs und Zeitpunkt der letzten Aktualisierung («time_last_update_unix», Sekunden). */
     private suspend fun openErApi(target: String): Pair<Double, Long?>? =

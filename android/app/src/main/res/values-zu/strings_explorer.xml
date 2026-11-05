@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Ama-exchange asetshenziswe muva nje</string>
     <string name="explorer_all_exchanges_title">Wonke ama-exchange</string>
     <string name="explorer_exchanges_title">Ama-exchange</string>
-    <string name="explorer_forex_hint">Izinga lansuku zonke le-European Central Bank (nge-Frankfurter), akulona elibukhoma – awekho ama-alamu.</string>
+    <string name="explorer_forex_hint">Izinga lansuku zonke le-European Central Bank, akulona elibukhoma – awekho ama-alamu.</string>
 </resources>

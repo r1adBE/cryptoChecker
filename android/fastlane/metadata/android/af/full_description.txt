@@ -10,7 +10,7 @@ EERLIK OOR DIE DATA
 • “Spaarsaam” is die verstek: pryse herlaai wanneer jy die app oopmaak en met tussenposes in die agtergrond. “Regstreeks terwyl oop” voeg regstreekse pryse by vir Binance, Bybit, OKX, Coinbase en Kraken terwyl die volglys oop is.
 • %-verandering en grafieke kom eers van die paar se eie beurs; as dit geen kerse het nie, gebruik die app Binance of Coinbase en sê so.
 • Fear & Greed, dominansie en on-chain-waardes van alternative.me, CoinGecko en Coin Metrics.
-• Bedrae verlaat die toestel slegs via jou uitvoer of Android-stelselrugsteun. Vir pryse gaan slegs paartickers na die betrokke paar se beurs; plus wisselkoerse (Frankfurter), markdata en logo's (CoinGecko, Binance), dataspieëls (GitHub). As jy adresse of 'n xpub volg, sien openbare blokkettingnodusse die adresse (vir 'n xpub, die afgeleides) en jou IP.
+• Bedrae verlaat die toestel slegs via jou uitvoer of Android-stelselrugsteun. Vir pryse gaan slegs paartickers na die betrokke paar se beurs; plus wisselkoerse (ECB), markdata en logo's (CoinGecko, Binance), dataspieëls (GitHub). As jy adresse of 'n xpub volg, sien openbare blokkettingnodusse die adresse (vir 'n xpub, die afgeleides) en jou IP.
 
 VOLGLYS
 • 80 markte op 69 beurse: spot en futures, DEX-tokens via DexScreener, opsioneel aandele, goud en FX (TradFi)

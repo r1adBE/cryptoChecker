@@ -10,7 +10,7 @@ GODĪGI PAR DATIEM
 • „Taupīgi“ ir noklusējums: cenas atjauninās, kad atver lietotni, un ar intervāliem fonā. „Tiešraidē, kamēr atvērts“ pievieno Binance, Bybit, OKX, Coinbase un Kraken tiešraides cenas, kamēr vērojamo saraksts ir atvērts.
 • % izmaiņas un diagrammas vispirms nāk no paša pāra biržas; ja tai nav sveču, lietotne izmanto Binance vai Coinbase un to norāda.
 • Fear & Greed, dominance un ķēdes vērtības no alternative.me, CoinGecko un Coin Metrics.
-• Summas atstāj ierīci tikai ar tavu eksportu vai Android sistēmas dublējumu. Cenām uz attiecīgā pāra biržu tiek sūtīti tikai pāru simboli; kā arī valūtu kursi (Frankfurter), tirgus dati un logotipi (CoinGecko, Binance), datu spoguļi (GitHub). Ja vēro adreses vai xpub, publiskie blokķēdes mezgli redz adreses (xpub gadījumā – atvasinātās) un tavu IP.
+• Summas atstāj ierīci tikai ar tavu eksportu vai Android sistēmas dublējumu. Cenām uz attiecīgā pāra biržu tiek sūtīti tikai pāru simboli; kā arī valūtu kursi (ECB), tirgus dati un logotipi (CoinGecko, Binance), datu spoguļi (GitHub). Ja vēro adreses vai xpub, publiskie blokķēdes mezgli redz adreses (xpub gadījumā – atvasinātās) un tavu IP.
 
 VĒROJAMO SARAKSTS
 • 80 tirgu 69 biržās: spot un nākotnes līgumi, DEX žetoni caur DexScreener, pēc izvēles akcijas, zelts un valūtas (TradFi)

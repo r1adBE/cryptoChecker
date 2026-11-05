@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">हालै प्रयोग गरिएका एक्सचेन्जहरू</string>
     <string name="explorer_all_exchanges_title">सबै एक्सचेन्ज</string>
     <string name="explorer_exchanges_title">एक्सचेन्जहरू</string>
-    <string name="explorer_forex_hint">युरोपेली केन्द्रीय बैंकको दैनिक दर (Frankfurter मार्फत), लाइभ होइन – अलर्ट छैन।</string>
+    <string name="explorer_forex_hint">युरोपेली केन्द्रीय बैंकको दैनिक दर, लाइभ होइन – अलर्ट छैन।</string>
 </resources>

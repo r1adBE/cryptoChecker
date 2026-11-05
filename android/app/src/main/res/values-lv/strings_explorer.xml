@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Nesen izmantotās biržas</string>
     <string name="explorer_all_exchanges_title">Visas biržas</string>
     <string name="explorer_exchanges_title">Biržas</string>
-    <string name="explorer_forex_hint">Eiropas Centrālās bankas dienas kurss (caur Frankfurter), nav tiešraidē – bez brīdinājumiem.</string>
+    <string name="explorer_forex_hint">Eiropas Centrālās bankas dienas kurss, nav tiešraidē – bez brīdinājumiem.</string>
 </resources>

@@ -180,5 +180,5 @@
     <string name="explorer_recent_exchanges_title">Neseniai naudotos biržos</string>
     <string name="explorer_all_exchanges_title">Visos biržos</string>
     <string name="explorer_exchanges_title">Biržos</string>
-    <string name="explorer_forex_hint">Europos centrinio banko dienos kursas (per Frankfurter), ne tiesioginis – įspėjimų nėra.</string>
+    <string name="explorer_forex_hint">Europos centrinio banko dienos kursas, ne tiesioginis – įspėjimų nėra.</string>
 </resources>

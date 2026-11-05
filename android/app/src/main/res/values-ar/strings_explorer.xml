@@ -206,5 +206,5 @@
     <string name="explorer_recent_exchanges_title">المنصات المستخدمة مؤخرًا</string>
     <string name="explorer_all_exchanges_title">كل المنصات</string>
     <string name="explorer_exchanges_title">المنصات</string>
-    <string name="explorer_forex_hint">السعر اليومي للبنك المركزي الأوروبي (عبر Frankfurter)، ليس مباشرًا – بلا تنبيهات.</string>
+    <string name="explorer_forex_hint">السعر اليومي للبنك المركزي الأوروبي، ليس مباشرًا – بلا تنبيهات.</string>
 </resources>

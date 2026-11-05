@@ -1,15 +1,15 @@
 {
   "exchange": "EcbReference",
-  "description": "Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Bodies are raw response text (shortened from live responses recorded on 26 October 2026 by a temporary workflow), expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). ECB reference rates via Frankfurter: newest daily value, change against the previous ECB day.",
+  "description": "Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Bodies are raw response text, hand-written in the format of the live ECB files (eurofxref-hist-90d.xml / eurofxref-daily.xml as recorded on 5 November 2026), expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). ECB euro reference rates straight from the ECB: newest daily value within 10 days of the newest ECB day, change against the previous ECB day; base other than EUR = quotient of the two euro rates rounded to 5 significant digits (EcbRates.cross).",
   "endpoints": {
-    "single": "GET https://api.frankfurter.dev/v1/{today-10d}..?base=EUR&symbols=USD",
-    "bulk": "GET https://api.frankfurter.dev/v1/{today-10d}..?base=EUR&symbols=CHF,USD",
-    "pairs": "GET https://api.frankfurter.dev/v1/currencies"
+    "single": "GET https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+    "bulk": "GET https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+    "pairs": "GET https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
   },
   "cases": [
     {
       "kind": "single",
-      "name": "time series: newest day is the price, change against the previous ECB day (weekend skipped)",
+      "name": "90-day file: newest day is the price, change against the previous ECB day (weekend skipped)",
       "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
@@ -18,7 +18,7 @@
         "contract": "NONE"
       },
       "requestId": 0,
-      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/><Cube currency='CHF' rate='0.9243'/></Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='JPY' rate='176.95'/><Cube currency='CHF' rate='0.9227'/></Cube><Cube time='2026-10-22'><Cube currency='USD' rate='1.1205'/><Cube currency='JPY' rate='176.40'/><Cube currency='CHF' rate='0.9211'/></Cube><Cube time='2026-10-21'><Cube currency='USD' rate='1.1234'/><Cube currency='JPY' rate='176.12'/><Cube currency='CHF' rate='0.9256'/></Cube></Cube></gesmes:Envelope>",
       "expect": {
         "last": 1.1188,
         "bid": -1.0,
@@ -34,7 +34,57 @@
     },
     {
       "kind": "single",
-      "name": "only one day in the window: price without change",
+      "name": "cross rate USD/JPY: quotient of the two euro rates, 5 significant digits per day",
+      "exchangeKey": "EcbReference",
+      "pair": {
+        "base": "USD",
+        "quote": "JPY",
+        "id": "USDJPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/><Cube currency='CHF' rate='0.9243'/></Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='JPY' rate='176.95'/><Cube currency='CHF' rate='0.9227'/></Cube><Cube time='2026-10-22'><Cube currency='USD' rate='1.1205'/><Cube currency='JPY' rate='176.40'/><Cube currency='CHF' rate='0.9211'/></Cube><Cube time='2026-10-21'><Cube currency='USD' rate='1.1234'/><Cube currency='JPY' rate='176.12'/><Cube currency='CHF' rate='0.9256'/></Cube></Cube></gesmes:Envelope>",
+      "expect": {
+        "last": 158.48,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": 0.24669492061483103,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "cross rate CHF/EUR: 1 / euro rate, 5 significant digits",
+      "exchangeKey": "EcbReference",
+      "pair": {
+        "base": "CHF",
+        "quote": "EUR",
+        "id": "CHFEUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/><Cube currency='CHF' rate='0.9243'/></Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='JPY' rate='176.95'/><Cube currency='CHF' rate='0.9227'/></Cube><Cube time='2026-10-22'><Cube currency='USD' rate='1.1205'/><Cube currency='JPY' rate='176.40'/><Cube currency='CHF' rate='0.9211'/></Cube><Cube time='2026-10-21'><Cube currency='USD' rate='1.1234'/><Cube currency='JPY' rate='176.12'/><Cube currency='CHF' rate='0.9256'/></Cube></Cube></gesmes:Envelope>",
+      "expect": {
+        "last": 1.0819,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": -0.17530909761948815,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "only one day in the file: price without change",
       "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
@@ -43,7 +93,7 @@
         "contract": "NONE"
       },
       "requestId": 0,
-      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/><Cube currency='CHF' rate='0.9243'/></Cube></Cube></gesmes:Envelope>",
       "expect": {
         "last": 0.9243,
         "bid": -1.0,
@@ -59,24 +109,32 @@
     },
     {
       "kind": "single",
-      "name": "quote missing in the series: no data, no error text",
+      "name": "a day more than 10 days before the newest ECB day does not count: price without change",
       "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
-        "quote": "JPY",
-        "id": "EURJPY",
+        "quote": "CHF",
+        "id": "EURCHF",
         "contract": "NONE"
       },
       "requestId": 0,
-      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time=\"2026-10-26\"><Cube currency=\"USD\" rate=\"1.1188\"/><Cube currency=\"JPY\" rate=\"177.31\"/><Cube currency=\"CHF\" rate=\"0.9243\"/></Cube><Cube time=\"2026-10-14\"><Cube currency=\"USD\" rate=\"1.1100\"/><Cube currency=\"CHF\" rate=\"0.9300\"/></Cube></Cube></gesmes:Envelope>",
       "expect": {
-        "error": true,
-        "message": null
+        "last": 0.9243,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null,
+        "markFallback": false
       }
     },
     {
       "kind": "single",
-      "name": "unknown currency: Frankfurter answers {message}",
+      "name": "quote missing in the file: no data, no error text",
       "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
@@ -85,20 +143,37 @@
         "contract": "NONE"
       },
       "requestId": 0,
-      "body": "{\"message\":\"not found\"}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='JPY' rate='177.31'/><Cube currency='CHF' rate='0.9243'/></Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='JPY' rate='176.95'/><Cube currency='CHF' rate='0.9227'/></Cube><Cube time='2026-10-22'><Cube currency='USD' rate='1.1205'/><Cube currency='JPY' rate='176.40'/><Cube currency='CHF' rate='0.9211'/></Cube><Cube time='2026-10-21'><Cube currency='USD' rate='1.1234'/><Cube currency='JPY' rate='176.12'/><Cube currency='CHF' rate='0.9256'/></Cube></Cube></gesmes:Envelope>",
       "expect": {
         "error": true,
-        "message": "not found"
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "maintenance page instead of XML: no data, no error text",
+      "exchangeKey": "EcbReference",
+      "pair": {
+        "base": "EUR",
+        "quote": "USD",
+        "id": "EURUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<html><body>maintenance</body></html>",
+      "expect": {
+        "error": true,
+        "message": null
       }
     },
     {
       "kind": "bulk",
-      "name": "one series per base currency: every quote becomes base+quote",
+      "name": "one file for every pair: all ordered pairs of the codes plus EUR, cross rates for other bases",
       "exchangeKey": "EcbReference",
       "requestId": 0,
-      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='CHF' rate='0.9243'/></Cube><Cube time='2026-10-23'><Cube currency='USD' rate='1.1193'/><Cube currency='CHF' rate='0.9227'/></Cube></Cube></gesmes:Envelope>",
       "expect": {
-        "count": 2,
+        "count": 6,
         "tickers": {
           "EURUSD": {
             "last": 1.1188,
@@ -123,16 +198,40 @@
             "change24hPercent": 0.17340414002384805,
             "exchangeTime": null,
             "markFallback": false
+          },
+          "USDCHF": {
+            "last": 0.82615,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": 0.21835385455207418,
+            "exchangeTime": null,
+            "markFallback": false
+          },
+          "CHFEUR": {
+            "last": 1.0819,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": -0.17530909761948815,
+            "exchangeTime": null,
+            "markFallback": false
           }
         }
       }
     },
     {
       "kind": "pairs",
-      "name": "currencies: all ordered pairs of valid three-letter codes",
+      "name": "daily file: all ordered pairs of the valid three-letter codes plus EUR",
       "exchangeKey": "EcbReference",
       "requestId": 0,
-      "body": "{\"AUD\":\"Australian Dollar\",\"CHF\":\"Swiss Franc\",\"EUR\":\"Euro\",\"USD\":\"United States Dollar\",\"xx1\":\"broken\"}",
+      "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\"><gesmes:subject>Reference rates</gesmes:subject><gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender><Cube><Cube time='2026-10-26'><Cube currency='USD' rate='1.1188'/><Cube currency='AUD' rate='1.7000'/><Cube currency='CHF' rate='0.9243'/><Cube currency='xx1' rate='2.0'/></Cube></Cube></gesmes:Envelope>",
       "expect": {
         "count": 12,
         "absent": [

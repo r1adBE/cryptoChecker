@@ -48,6 +48,11 @@ terms apply.
   only: a fork that is monetised (paid app, ads, subscriptions) must not use
   this source without its own license from Coin Metrics.
 - alternative.me (Crypto Fear & Greed Index).
+- European Central Bank (www.ecb.europa.eu, data-api.ecb.europa.eu): euro
+  foreign exchange reference rates. Source: ECB. Rates for a base other than
+  EUR (cross rates, 5 significant digits) and the change against the previous
+  ECB day are calculated by the apps from these rates. Terms:
+  https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html
 - ExchangeRate-API (open.er-api.com, fallback FX rates): "Rates By Exchange
   Rate API" (https://www.exchangerate-api.com).
 - Exchanges and other price sources named in the privacy policy (for example

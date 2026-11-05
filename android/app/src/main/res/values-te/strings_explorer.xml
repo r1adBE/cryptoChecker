@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">ఇటీవల ఉపయోగించిన ఎక్స్ఛేంజ్‌లు</string>
     <string name="explorer_all_exchanges_title">అన్ని ఎక్స్ఛేంజ్‌లు</string>
     <string name="explorer_exchanges_title">ఎక్స్ఛేంజ్‌లు</string>
-    <string name="explorer_forex_hint">యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు (Frankfurter ద్వారా), లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
+    <string name="explorer_forex_hint">యూరోపియన్ సెంట్రల్ బ్యాంక్ రోజువారీ రేటు, లైవ్ కాదు – అలర్ట్‌లు లేవు.</string>
 </resources>

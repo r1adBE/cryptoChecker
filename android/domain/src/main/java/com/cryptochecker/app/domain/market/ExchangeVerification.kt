@@ -11,5 +11,5 @@ import java.time.LocalDate
 object ExchangeVerification {
 
     /** UTC-Datum der neuesten aufgezeichneten Antwort. */
-    val LAST_VERIFIED: LocalDate = LocalDate.of(2026, 11, 3)
+    val LAST_VERIFIED: LocalDate = LocalDate.of(2026, 11, 5)
 }

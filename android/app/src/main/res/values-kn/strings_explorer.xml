@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">ಇತ್ತೀಚೆಗೆ ಬಳಸಿದ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
     <string name="explorer_all_exchanges_title">ಎಲ್ಲಾ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
     <string name="explorer_exchanges_title">ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳು</string>
-    <string name="explorer_forex_hint">ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ (Frankfurter ಮೂಲಕ), ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="explorer_forex_hint">ಯುರೋಪಿಯನ್ ಸೆಂಟ್ರಲ್ ಬ್ಯಾಂಕ್‌ನ ದೈನಂದಿನ ದರ, ಲೈವ್ ಅಲ್ಲ – ಅಲರ್ಟ್‌ಗಳಿಲ್ಲ.</string>
 </resources>

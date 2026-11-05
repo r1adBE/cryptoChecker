@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">Hiljuti kasutatud börsid</string>
     <string name="explorer_all_exchanges_title">Kõik börsid</string>
     <string name="explorer_exchanges_title">Börsid</string>
-    <string name="explorer_forex_hint">Euroopa Keskpanga päevakurss (Frankfurteri kaudu), mitte reaalajas – hoiatusi pole.</string>
+    <string name="explorer_forex_hint">Euroopa Keskpanga päevakurss, mitte reaalajas – hoiatusi pole.</string>
 </resources>

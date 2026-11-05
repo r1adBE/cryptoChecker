@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">ਹਾਲ ਹੀ ਵਿੱਚ ਵਰਤੇ ਐਕਸਚੇਂਜ</string>
     <string name="explorer_all_exchanges_title">ਸਾਰੇ ਐਕਸਚੇਂਜ</string>
     <string name="explorer_exchanges_title">ਐਕਸਚੇਂਜ</string>
-    <string name="explorer_forex_hint">ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ (Frankfurter ਰਾਹੀਂ), ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
+    <string name="explorer_forex_hint">ਯੂਰਪੀ ਕੇਂਦਰੀ ਬੈਂਕ ਦੀ ਰੋਜ਼ਾਨਾ ਦਰ, ਲਾਈਵ ਨਹੀਂ – ਕੋਈ ਅਲਰਟ ਨਹੀਂ।</string>
 </resources>

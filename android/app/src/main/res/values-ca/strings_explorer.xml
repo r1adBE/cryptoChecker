@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Plataformes usades recentment</string>
     <string name="explorer_all_exchanges_title">Totes les plataformes</string>
     <string name="explorer_exchanges_title">Plataformes</string>
-    <string name="explorer_forex_hint">Tipus diari del Banc Central Europeu (via Frankfurter), no en directe – sense alarmes.</string>
+    <string name="explorer_forex_hint">Tipus diari del Banc Central Europeu, no en directe – sense alarmes.</string>
 </resources>

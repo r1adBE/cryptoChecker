@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">صرافی‌های اخیراً استفاده‌شده</string>
     <string name="explorer_all_exchanges_title">همه صرافی‌ها</string>
     <string name="explorer_exchanges_title">صرافی‌ها</string>
-    <string name="explorer_forex_hint">نرخ روزانهٔ بانک مرکزی اروپا (از طریق Frankfurter)، نه زنده – بدون هشدار.</string>
+    <string name="explorer_forex_hint">نرخ روزانهٔ بانک مرکزی اروپا، نه زنده – بدون هشدار.</string>
 </resources>

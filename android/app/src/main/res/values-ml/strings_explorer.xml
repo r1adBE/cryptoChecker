@@ -154,5 +154,5 @@
     <string name="explorer_recent_exchanges_title">അടുത്തിടെ ഉപയോഗിച്ച എക്സ്ചേഞ്ചുകൾ</string>
     <string name="explorer_all_exchanges_title">എല്ലാ എക്സ്ചേഞ്ചുകളും</string>
     <string name="explorer_exchanges_title">എക്സ്ചേഞ്ചുകൾ</string>
-    <string name="explorer_forex_hint">യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക് (Frankfurter വഴി), ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
+    <string name="explorer_forex_hint">യൂറോപ്യൻ സെൻട്രൽ ബാങ്കിന്റെ പ്രതിദിന നിരക്ക്, ലൈവ് അല്ല – അലേർട്ടുകളില്ല.</string>
 </resources>

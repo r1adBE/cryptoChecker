@@ -10,7 +10,7 @@ HONESTA COS DATOS
 • «Aforro» é o modo predeterminado: os prezos actualízanse ao abrir a app e a intervalos en segundo plano. «En directo coa app aberta» engade prezos en directo de Binance, Bybit, OKX, Coinbase e Kraken coa lista aberta.
 • A variación en % e os gráficos veñen primeiro do exchange do par; se non ten velas, a app usa Binance ou Coinbase e dío.
 • Fear & Greed, dominancia e valores on-chain de alternative.me, CoinGecko e Coin Metrics.
-• As cantidades só saen do dispositivo coa túa exportación ou a copia do sistema Android. Para os prezos, só os tickers van ao exchange de cada par; ademais, tipos de cambio (Frankfurter), datos de mercado e logotipos (CoinGecko, Binance), espellos de datos (GitHub). Se segues enderezos ou unha xpub, os nodos públicos de blockchain ven os enderezos (cunha xpub, os derivados) e a túa IP.
+• As cantidades só saen do dispositivo coa túa exportación ou a copia do sistema Android. Para os prezos, só os tickers van ao exchange de cada par; ademais, tipos de cambio (BCE), datos de mercado e logotipos (CoinGecko, Binance), espellos de datos (GitHub). Se segues enderezos ou unha xpub, os nodos públicos de blockchain ven os enderezos (cunha xpub, os derivados) e a túa IP.
 
 LISTA
 • 80 mercados en 69 exchanges: spot e futuros, tokens DEX vía DexScreener, opcionalmente accións, ouro e divisas (TradFi)

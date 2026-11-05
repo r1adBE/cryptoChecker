@@ -167,5 +167,5 @@
     <string name="explorer_recent_exchanges_title">Nedavno korištene berze</string>
     <string name="explorer_all_exchanges_title">Sve berze</string>
     <string name="explorer_exchanges_title">Berze</string>
-    <string name="explorer_forex_hint">Dnevni kurs Evropske centralne banke (putem Frankfurtera), ne uživo – nema alarma.</string>
+    <string name="explorer_forex_hint">Dnevni kurs Evropske centralne banke, ne uživo – nema alarma.</string>
 </resources>
