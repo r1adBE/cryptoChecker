@@ -199,7 +199,7 @@ class LogoLoadingHintParityTest {
         assertTrue(store.contains("Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }"))
         // Erst nach «nichts zu laden» (leere Liste) melden: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
         val empty = store.indexOf("if (pending.isEmpty()) return Downloads()")
-        assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size)") > empty)
+        assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size, last = lastStage)") > empty)
         val line = File(app, "features/watchlist/WatchlistLogoHint.kt").readText()
         assertTrue(line.contains("val source = LocalCoinLogoSource.current ?: return"))
         assertTrue(line.contains("R.string.watchlist_logos_loading"))
