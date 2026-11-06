@@ -128,9 +128,10 @@ final class CoinLogoLoading: ObservableObject {
 
     private func change(_ step: (inout LogoLoadingHint) -> Void) {
         step(&hint)
-        // Monotone Uhr (ms): neuer Prozentwert höchstens etwa einmal je Sekunde, nicht je Bild; nur bei stehender Zeile
-        // (beim Ausblenden bleibt der letzte Wert, beim Einblenden gilt sofort der des neuen Durchgangs)
-        let now = Int64(ProcessInfo.processInfo.systemUptime * 1000)
+        // Monotone Uhr (ms) wie die Sperre (`PortfolioLockPolicy.monotonicSeconds`): neuer Prozentwert höchstens etwa
+        // einmal je Sekunde, nicht je Bild; nur bei stehender Zeile (beim Ausblenden bleibt der letzte Wert, beim
+        // Einblenden gilt sofort der des neuen Durchgangs)
+        let now = Int64(PortfolioLockPolicy.monotonicSeconds() * 1000)
         if hint.visible,
            !visible || LogoLoadingHint.shouldShow(shown: percent, shownAt: shownAt, next: hint.percent, now: now) {
             percent = hint.percent
