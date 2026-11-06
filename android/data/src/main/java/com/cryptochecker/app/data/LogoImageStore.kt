@@ -84,7 +84,7 @@ class LogoImageStore @Inject constructor(
     val revision: StateFlow<Int> = _revision.asStateFlow()
 
     /** «Logos werden geladen · 40 %» (nur erstes Laden, gemerkt im Logo-Ordner): Durchgänge von [CoinListSync], [downloadMissing]. */
-    val loadingHint = LogoLoadingHint { File(imageDir, LogoLoadingHint.DONE_MARKER) }
+    val loadingHint = LogoLoadingHint(doneMarker = { File(imageDir, LogoLoadingHint.DONE_MARKER) })
 
     /** Sofort, ohne Datei und Netz: Bild aus dem Speicher oder null (mitgeliefertes Icon, falls nur das da ist). */
     fun cached(symbol: String): Bitmap? = CoinLogos.fileName(symbol)?.let { name ->

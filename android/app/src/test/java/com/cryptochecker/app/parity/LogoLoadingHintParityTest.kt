@@ -133,7 +133,7 @@ class LogoLoadingHintParityTest {
         val dir = Files.createTempDirectory("logos").toFile()
         try {
             val marker = File(dir, LogoLoadingHint.DONE_MARKER)
-            val hint = LogoLoadingHint { marker }
+            val hint = LogoLoadingHint(doneMarker = { marker })
             fun run(): Boolean {
                 var shown = false
                 runBlocking {
@@ -189,7 +189,7 @@ class LogoLoadingHintParityTest {
         )
         val sync = File(data, "CoinListSync.kt").readText()
         val store = File(data, "LogoImageStore.kt").readText()
-        assertTrue(store.contains("LogoLoadingHint { File(imageDir, LogoLoadingHint.DONE_MARKER) }"))
+        assertTrue(store.contains("LogoLoadingHint(doneMarker = { File(imageDir, LogoLoadingHint.DONE_MARKER) })"))
         assertTrue(Regex("""loadingHint\.during \{ for \(stage in stages\) total \+= imageStore\.downloadMissing""").containsMatchIn(sync))
         // Gesamtzahl erst mit der letzten Stufe (nach der ganzen Rangliste); erledigte und gebremste Bilder zählen
         assertTrue(sync.contains("stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)"))
