@@ -234,4 +234,5 @@
     </plurals>
     <string name="watchlist_footer_full">관심 목록이 가득 찼습니다</string>
     <string name="watchlist_logos_loading">로고 불러오는 중…</string>
+    <string name="watchlist_logos_loading_percent">로고 불러오는 중 · %1$s</string>
 </resources>

@@ -204,7 +204,7 @@ actor CoinLogoStore {
         let wanted = CoinLogos.withStockLogos(current, tradFiBases: Self.tradFiBases)
         var result = DownloadResult()
         if let earlyTask { result = await earlyTask.value }
-        let rest = await Self.downloadMissing(wanted, order: Self.savedMapOrder(), alternates: alternates)
+        let rest = await Self.downloadMissing(wanted, order: Self.savedMapOrder(), alternates: alternates, lastStage: true)
         await CoinLogoLoading.runFinished()
         result.added += rest.added
         result.network = result.network || rest.network

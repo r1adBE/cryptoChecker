@@ -234,4 +234,5 @@
     </plurals>
     <string name="watchlist_footer_full">ウォッチリストは上限です</string>
     <string name="watchlist_logos_loading">ロゴを読み込み中…</string>
+    <string name="watchlist_logos_loading_percent">ロゴを読み込み中 · %1$s</string>
 </resources>

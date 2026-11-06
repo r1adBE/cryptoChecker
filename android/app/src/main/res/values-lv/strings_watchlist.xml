@@ -267,4 +267,5 @@
     </plurals>
     <string name="watchlist_footer_full">Vērojamo saraksts ir pilns</string>
     <string name="watchlist_logos_loading">Notiek logotipu ielāde…</string>
+    <string name="watchlist_logos_loading_percent">Notiek logotipu ielāde · %1$s</string>
 </resources>

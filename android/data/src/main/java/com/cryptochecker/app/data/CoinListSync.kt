@@ -321,20 +321,20 @@ class CoinListSync @Inject constructor(
      * ([logoAlternates]).
      */
     private suspend fun syncAll(): Int = coroutineScope {
-        val stages = Channel<Map<String, String>>(Channel.UNLIMITED)
+        val stages = Channel<Pair<Map<String, String>, Boolean>>(Channel.UNLIMITED)
         val worker = async {
             var total = LogoImageStore.Downloads()
-            imageStore.loadingHint.during { for (stage in stages) total += imageStore.downloadMissing(stage, logoAlternates()) }
+            imageStore.loadingHint.during { for (stage in stages) total += imageStore.downloadMissing(stage.first, logoAlternates(), stage.second) }
             total
         }
         val current = try {
-            symbolMap { partial -> stages.send(CoinLogos.withStockLogos(partial, names.tradFiBases)) }
+            symbolMap { partial -> stages.send(CoinLogos.withStockLogos(partial, names.tradFiBases) to false) }
         } catch (e: Throwable) {
             stages.close()
             throw e
         }
-        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu; die letzte Stufe versucht alle noch fehlenden Bilder
-        stages.send(CoinLogos.withStockLogos(current, names.tradFiBases))
+        // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu; die letzte Stufe (true) versucht alle noch fehlenden Bilder
+        stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)
         stages.close()
         val result = worker.await()
         _retryPending.value = listsNetworkFailed || mapNetworkFailed || result.network

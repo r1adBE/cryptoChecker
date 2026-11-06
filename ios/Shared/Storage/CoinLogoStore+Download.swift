@@ -51,9 +51,10 @@ extension CoinLogoStore {
     /// (`CoinLogoQueue.ordered`) — für alle gleich, nie nach der Merkliste —, mehrere gleichzeitig (`CoinLogoQueue.run`:
     /// je Server `perHostParallel`, insgesamt `maxParallel`). Bremst ein Server nur kurz (bis `shortPauseMaxMillis`),
     /// werden seine Bilder nach der Pause gleich nachgeholt; scheitert ein Bild, kommen die Ersatz-Adressen desselben
-    /// Kürzels dran (`alternates`, `CoinMeta.alternates`) — wie Android `downloadMissing`.
+    /// Kürzels dran (`alternates`, `CoinMeta.alternates`) — wie Android `downloadMissing`. `lastStage`: letzte Stufe des
+    /// Durchgangs (Gesamtzahl für den Hinweis, `CoinLogoLoading`).
     static func downloadMissing(_ all: [String: String], order: [String],
-                                alternates: [String: [String]] = [:]) async -> DownloadResult {
+                                alternates: [String: [String]] = [:], lastStage: Bool = false) async -> DownloadResult {
         // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
         let extraOnly = Set(SharedStorage.defaults.stringArray(forKey: extraOnlyKey) ?? [])
         let unmetered = await UnmeteredNetwork.shared.isUnmetered()
@@ -69,7 +70,7 @@ extension CoinLogoStore {
             failedBefore[name] != nil || fm.fileExists(atPath: directory.appendingPathComponent(name).path)
         }.map { DownloadJob(name: $0.name, url: $0.url, alternates: altByFile[$0.name] ?? []) }
         guard !pending.isEmpty else { return DownloadResult() }
-        await CoinLogoLoading.imagesPending(pending.count)
+        await CoinLogoLoading.imagesPending(pending.count, last: lastStage)
         let attempted = pending.count
         var added = 0
         var newFailures: [String] = []
@@ -83,12 +84,15 @@ extension CoinLogoStore {
                 switch result {
                 case .ok:
                     added += 1
+                    await CoinLogoLoading.imageDone()
                     await CoinLogoRevision.bumpIfDue()
                 case .failed:
                     newFailures.append(job.name)
+                    await CoinLogoLoading.imageDone()
                 case .paused:
-                    // Server bremst: nicht als Fehler
+                    // Server bremst: nicht als Fehler (und kein stehender Prozentwert im Hinweis)
                     roundPaused.append(job)
+                    await CoinLogoLoading.imagesPaused()
                 }
             }
             paused = roundPaused

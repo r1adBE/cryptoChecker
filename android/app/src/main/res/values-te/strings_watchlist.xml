@@ -251,4 +251,5 @@
     </plurals>
     <string name="watchlist_footer_full">వాచ్‌లిస్ట్ నిండింది</string>
     <string name="watchlist_logos_loading">లోగోలు లోడ్ అవుతున్నాయి…</string>
+    <string name="watchlist_logos_loading_percent">లోగోలు లోడ్ అవుతున్నాయి · %1$s</string>
 </resources>

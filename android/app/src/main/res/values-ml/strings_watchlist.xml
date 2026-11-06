@@ -251,4 +251,5 @@
     </plurals>
     <string name="watchlist_footer_full">വാച്ച്‌ലിസ്റ്റ് നിറഞ്ഞു</string>
     <string name="watchlist_logos_loading">ലോഗോകൾ ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="watchlist_logos_loading_percent">ലോഗോകൾ ലോഡ് ചെയ്യുന്നു · %1$s</string>
 </resources>

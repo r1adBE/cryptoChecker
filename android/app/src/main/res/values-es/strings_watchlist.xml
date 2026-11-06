@@ -266,4 +266,5 @@
     </plurals>
     <string name="watchlist_footer_full">Lista de seguimiento llena</string>
     <string name="watchlist_logos_loading">Cargando logos…</string>
+    <string name="watchlist_logos_loading_percent">Cargando logos · %1$s</string>
 </resources>

@@ -283,4 +283,5 @@
     </plurals>
     <string name="watchlist_footer_full">Seznam je poln</string>
     <string name="watchlist_logos_loading">Nalaganje logotipov …</string>
+    <string name="watchlist_logos_loading_percent">Nalaganje logotipov · %1$s</string>
 </resources>

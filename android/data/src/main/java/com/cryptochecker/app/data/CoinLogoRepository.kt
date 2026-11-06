@@ -62,6 +62,9 @@ class CoinLogoRepository @Inject constructor(
     /** Hinweis «Logos werden geladen …» zeigen ([LogoImageStore.loadingHint]). */
     val logosLoading: StateFlow<Boolean> get() = images.loadingHint.visible
 
+    /** Fortschritt im Hinweis («· 40 %», gedrosselt); null = ohne Prozent ([LogoImageStore.loadingHint]). */
+    val logosLoadingPercent: StateFlow<Int?> get() = images.loadingHint.percent
+
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
     val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs
 

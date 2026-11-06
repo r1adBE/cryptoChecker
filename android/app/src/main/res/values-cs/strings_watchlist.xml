@@ -282,4 +282,5 @@
     </plurals>
     <string name="watchlist_footer_full">Seznam sledovaných je plný</string>
     <string name="watchlist_logos_loading">Načítají se loga…</string>
+    <string name="watchlist_logos_loading_percent">Načítají se loga · %1$s</string>
 </resources>

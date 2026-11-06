@@ -14,7 +14,7 @@ import java.nio.file.Files
  * Hinweis «Logos werden geladen …» ([LogoLoadingHint]): gemeinsame Testfälle `coin_logos.json` › `loadingHint` (iOS:
  * `LogoLoadingHintTests.swift`), Ende des Durchgangs auch bei Fehler, und die Anbindung im Quelltext — Durchgang um
  * die Stufen von `CoinListSync`, fehlende Bilder aus `LogoImageStore.downloadMissing`, Zeile nur mit Logo-Quelle
- * (Schalter «Coin-Logos» aus → nie).
+ * (Schalter «Coin-Logos» aus → nie); Fortschritt «· 40 %» nach `coin_logos.json` › `loadingPercent`.
  */
 class LogoLoadingHintParityTest {
 
@@ -47,6 +47,84 @@ class LogoLoadingHintParityTest {
             }
             assertEquals("${case["name"]} › markDone", case["markDone"] as Boolean, markDone)
         }
+    }
+
+    private val percentFixture = ParityJson.load("coin_logos.json")["loadingPercent"].obj()
+
+    /** Ein Schritt der Testfälle («start», «start done», «pending N [last]», «done N», «paused», «finish»). */
+    private fun LogoLoadingHint.step(step: String): Boolean {
+        val parts = step.split(" ")
+        when (parts[0]) {
+            "start" -> runStarted(firstLoadDone = parts.getOrNull(1) == "done")
+            "finish" -> return runFinished()
+            "pending" -> imagesPending(parts[1].toInt(), last = parts.getOrNull(2) == "last")
+            "done" -> repeat(parts[1].toInt()) { imageDone() }
+            "paused" -> imagesPaused()
+            else -> throw AssertionError("unbekannter Schritt $step")
+        }
+        return false
+    }
+
+    @Test
+    fun percentCasesAsFixture() {
+        val cases = percentFixture["cases"].list().map { it.obj() }
+        assertTrue(cases.isNotEmpty())
+        for (case in cases) {
+            val hint = LogoLoadingHint()
+            val steps = case["steps"].list().map { it as String }
+            val expected = case["percent"].list().map { it.num()?.toInt() }
+            assertEquals(case["name"] as String, expected.size, steps.size)
+            steps.forEachIndexed { i, step ->
+                hint.step(step)
+                assertEquals("${case["name"]} › $step", expected[i], hint.currentPercent)
+            }
+        }
+    }
+
+    @Test
+    fun percentRuleAndThrottleAsFixture() {
+        assertEquals(percentFixture["intervalMillis"].num()!!.toLong(), LogoLoadingHint.SHOW_INTERVAL_MILLIS)
+        assertEquals(percentFixture["step"].num()!!.toInt(), LogoLoadingHint.SHOW_STEP)
+        for (row in percentFixture["percentOf"].list().map { r -> r.list().map { it.num()!!.toInt() } }) {
+            assertEquals("percentOf $row", row[2], LogoLoadingHint.percentOf(row[0], row[1]))
+        }
+        for (c in percentFixture["show"].list().map { it.obj() }) {
+            val elapsed = c["elapsed"].num()!!.toLong()
+            val got = LogoLoadingHint.shouldShow(c["shown"].num()?.toInt(), 10_000L, c["next"].num()?.toInt(), 10_000L + elapsed)
+            assertEquals("show $c", c["show"] as Boolean, got)
+        }
+    }
+
+    /** Angezeigter Wert gedrosselt (nicht je Bild), am Ende wieder ohne Prozent. */
+    @Test
+    fun shownPercentIsThrottled() {
+        var now = 50_000L
+        val hint = LogoLoadingHint(clock = { now })
+        hint.runStarted(firstLoadDone = false)
+        hint.imagesPending(100)
+        assertEquals(null, hint.percent.value)
+        hint.imagesPending(100, last = true)
+        assertEquals(0, hint.percent.value)
+        hint.imageDone()
+        assertEquals(0, hint.percent.value)
+        now += 1_000
+        hint.imageDone()
+        assertEquals(2, hint.percent.value)
+        now += 100
+        repeat(5) { hint.imageDone() }
+        assertEquals(7, hint.percent.value)
+        // Am Ende bleibt der Wert, solange die Zeile ausblendet; der nächste Durchgang beginnt ohne
+        assertTrue(hint.runFinished())
+        assertFalse(hint.visible.value)
+        assertEquals(7, hint.percent.value)
+        hint.runStarted(firstLoadDone = false)
+        assertEquals(null, hint.percent.value)
+        hint.imagesPending(4, last = true)
+        hint.imageDone()
+        assertEquals(25, hint.percent.value)
+        // Server bremst: sofort ohne Prozent
+        hint.imagesPaused()
+        assertEquals(null, hint.percent.value)
     }
 
     /** Merk-Datei im Logo-Ordner: nach dem ersten Laden kein Hinweis mehr; fehlt sie (Zwischenspeicher geleert), wieder. */
@@ -113,12 +191,21 @@ class LogoLoadingHintParityTest {
         val store = File(data, "LogoImageStore.kt").readText()
         assertTrue(store.contains("LogoLoadingHint { File(imageDir, LogoLoadingHint.DONE_MARKER) }"))
         assertTrue(Regex("""loadingHint\.during \{ for \(stage in stages\) total \+= imageStore\.downloadMissing""").containsMatchIn(sync))
+        // Gesamtzahl erst mit der letzten Stufe (nach der ganzen Rangliste); erledigte und gebremste Bilder zählen
+        assertTrue(sync.contains("stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)"))
+        assertTrue(store.contains("loadingHint.imagesPending(pending.size, last = lastStage)"))
+        assertTrue(Regex("""Fetched\.OK -> \{\s+loadingHint\.imageDone\(\)""").containsMatchIn(store))
+        assertTrue(store.contains("Fetched.FAILED -> newFailures[job.first] = now.also { loadingHint.imageDone() }"))
+        assertTrue(store.contains("Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }"))
         // Erst nach «nichts zu laden» (leere Liste) melden: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
         val empty = store.indexOf("if (pending.isEmpty()) return Downloads()")
         assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size)") > empty)
         val line = File(app, "features/watchlist/WatchlistLogoHint.kt").readText()
         assertTrue(line.contains("val source = LocalCoinLogoSource.current ?: return"))
         assertTrue(line.contains("R.string.watchlist_logos_loading"))
+        assertTrue(line.contains("R.string.watchlist_logos_loading_percent, PercentText.unsigned(it.toDouble(), 0)"))
+        // Einmal angesagt (ohne Prozent), nicht bei jedem neuen Wert
+        assertTrue(line.contains("AnnounceOnce(stringResource(R.string.watchlist_logos_loading))"))
         val body = File(app, "features/watchlist/WatchlistScreenBody.kt").readText()
         assertTrue(body.contains("WatchlistLogoHint(reduceMotion = reduceMotion)"))
     }

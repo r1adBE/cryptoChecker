@@ -268,4 +268,5 @@
     </plurals>
     <string name="watchlist_footer_full">Spisak praćenja je pun</string>
     <string name="watchlist_logos_loading">Logotipi se učitavaju…</string>
+    <string name="watchlist_logos_loading_percent">Logotipi se učitavaju · %1$s</string>
 </resources>

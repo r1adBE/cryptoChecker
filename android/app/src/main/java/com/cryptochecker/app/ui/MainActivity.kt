@@ -255,6 +255,7 @@ class MainActivity : AppCompatActivity() {
 private class RepositoryLogoSource(private val repository: CoinLogoRepository) : CoinLogoSource {
     override val revision = repository.revision
     override val loading = repository.logosLoading
+    override val loadingPercent = repository.logosLoadingPercent
     override val tradFiPairs = repository.tradFiPairs
     override val names = repository.names
     override fun cached(symbol: String) = repository.cached(symbol)

@@ -250,4 +250,5 @@
     </plurals>
     <string name="watchlist_footer_full">İzleme listesi dolu</string>
     <string name="watchlist_logos_loading">Logolar yükleniyor…</string>
+    <string name="watchlist_logos_loading_percent">Logolar yükleniyor · %1$s</string>
 </resources>

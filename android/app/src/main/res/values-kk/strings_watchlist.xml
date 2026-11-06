@@ -251,4 +251,5 @@
     </plurals>
     <string name="watchlist_footer_full">Бақылау тізімі толы</string>
     <string name="watchlist_logos_loading">Логотиптер жүктелуде…</string>
+    <string name="watchlist_logos_loading_percent">Логотиптер жүктелуде · %1$s</string>
 </resources>

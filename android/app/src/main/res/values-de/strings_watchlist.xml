@@ -256,4 +256,6 @@
     <string name="watchlist_footer_full">Merkliste voll</string>
     <!-- Unter dem Kopf der Merkliste, solange nach der Installation bzw. nach dem Leeren des Zwischenspeichers Logos laden -->
     <string name="watchlist_logos_loading">Logos werden geladen …</string>
+    <!-- Derselbe Hinweis mit Fortschritt, sobald bekannt ist, wie viele Logos laden; %1$s = Prozent in der Schreibweise der Sprache («40 %») -->
+    <string name="watchlist_logos_loading_percent">Logos werden geladen · %1$s</string>
 </resources>

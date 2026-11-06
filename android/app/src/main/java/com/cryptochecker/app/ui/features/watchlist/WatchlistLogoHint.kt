@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
+import com.cryptochecker.app.util.PercentText
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val LOGO_LOADING_TAG = "logo_loading_line"
@@ -32,22 +33,26 @@ const val LOGO_LOADING_TAG = "logo_loading_line"
 /**
  * Eine ruhige Zeile unter dem Status, solange nach der Installation bzw. nach dem Leeren des Zwischenspeichers Logos
  * laden: «Logos werden geladen …» ([CoinLogoSource.loading][com.cryptochecker.app.ui.components.CoinLogoSource.loading],
- * [com.cryptochecker.app.domain.logos.LogoLoadingHint]). Schrift wie der Status («Börsenkurse · gerade eben»), in der
- * ruhigen Nebenfarbe; verschwindet von selbst, wenn der Durchgang endet. Schalter «Coin-Logos › In der App» aus: keine
- * Quelle, keine Zeile. Screenreader: einmal höflich angesagt. Wie iOS `WatchlistLogoHint`.
+ * [com.cryptochecker.app.domain.logos.LogoLoadingHint]), sobald die Gesamtzahl bekannt ist mit Fortschritt «Logos werden
+ * geladen · 40 %» (Prozent in der Schreibweise der Sprache, [PercentText]; gedrosselt). Schrift wie der Status
+ * («Börsenkurse · gerade eben»), in der ruhigen Nebenfarbe; verschwindet von selbst, wenn der Durchgang endet. Schalter
+ * «Coin-Logos › In der App» aus: keine Quelle, keine Zeile. Screenreader: einmal höflich angesagt (ohne Prozent, nicht
+ * bei jedem neuen Wert). Wie iOS `WatchlistLogoHint`.
  */
 @Composable
 internal fun WatchlistLogoHint(reduceMotion: Boolean, modifier: Modifier = Modifier) {
     val source = LocalCoinLogoSource.current ?: return
     val loading by source.loading.collectAsStateWithLifecycle()
+    val percent by source.loadingPercent.collectAsStateWithLifecycle()
     AnimatedVisibility(
         visible = loading,
         enter = if (reduceMotion) EnterTransition.None else fadeIn(tween(HINT_FADE_MILLIS)) + expandVertically(),
         exit = if (reduceMotion) ExitTransition.None else fadeOut(tween(HINT_FADE_MILLIS)) + shrinkVertically(),
         modifier = modifier,
     ) {
-        val text = stringResource(R.string.watchlist_logos_loading)
-        AnnounceOnce(text)
+        AnnounceOnce(stringResource(R.string.watchlist_logos_loading))
+        val text = percent?.let { stringResource(R.string.watchlist_logos_loading_percent, PercentText.unsigned(it.toDouble(), 0)) }
+            ?: stringResource(R.string.watchlist_logos_loading)
         Text(
             text,
             style = MaterialTheme.typography.labelMedium,

@@ -234,4 +234,5 @@
     </plurals>
     <string name="watchlist_footer_full">Danh sách theo dõi đã đầy</string>
     <string name="watchlist_logos_loading">Đang tải logo…</string>
+    <string name="watchlist_logos_loading_percent">Đang tải logo · %1$s</string>
 </resources>

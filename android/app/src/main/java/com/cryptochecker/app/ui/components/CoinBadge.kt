@@ -63,10 +63,14 @@ interface CoinLogoSource {
 
     /** Logos laden gerade nach der Installation bzw. dem Leeren des Zwischenspeichers (Hinweis über der Merkliste). */
     val loading: StateFlow<Boolean> get() = NOT_LOADING
+
+    /** Fortschritt dieses Ladens in Prozent (gedrosselt); null = ohne Prozent (Gesamtzahl noch offen, Server bremst). */
+    val loadingPercent: StateFlow<Int?> get() = NO_PERCENT
 }
 
 /** [CoinLogoSource.loading] ohne Abgleich (Vorschau, Tests). */
 private val NOT_LOADING: StateFlow<Boolean> = MutableStateFlow(false)
+private val NO_PERCENT: StateFlow<Int?> = MutableStateFlow(null)
 
 /**
  * Logo-Quelle der App. null (Schalter «In der App» aus, Vorschau, Tests): keine Plakette.

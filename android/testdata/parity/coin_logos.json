@@ -1073,5 +1073,32 @@
       {"name": "overlapping runs", "steps": ["start", "start done", "pending 2", "finish", "finish"], "visible": [false, false, true, true, false], "markDone": true},
       {"name": "extra finish", "steps": ["finish", "start", "pending 1"], "visible": [false, false, true], "markDone": false}
     ]
+  },
+  "loadingPercent": {
+    "description": "Fortschritt im Hinweis «Logos werden geladen · 40 %» (Android LogoLoadingHint.currentPercent/percentOf/shouldShow, iOS LogoLoadingHint.percent/percentOf/shouldShow). percent = erledigte Bilder des Durchgangs (done N: geladen oder endgültig gescheitert, nicht gebremst) durch alle zu ladenden; bekannt erst mit der letzten Stufe («pending N last»: Gesamtzahl = bisher erledigt + N), vorher laden noch Seiten der Rangliste: null (Hinweis ohne Prozent). Abgerundet, höchstens 99 solange der Durchgang läuft; am Ende (finish) ist der Hinweis weg. «paused»: ein Bild-Server bremst — bis zum Ende des Durchgangs null (kein stehender Wert). Ohne Hinweis (tägliches Nachholen, ausserhalb eines Durchgangs) immer null. percent = Stand nach jedem Schritt (ungedrosselt). percentOf: [done, total, Ergebnis]. show: angezeigt wird ein neuer Wert sofort beim Wechsel von/zu null, sonst erst nach intervalMillis seit dem letzten angezeigten Wert oder bei einem Sprung um mindestens step Punkte.",
+    "intervalMillis": 1000,
+    "step": 5,
+    "cases": [
+      {"name": "unknown total while list pages load", "steps": ["start", "pending 50", "done 10"], "percent": [null, null, null]},
+      {"name": "0 of N", "steps": ["start", "pending 200 last"], "percent": [null, 0]},
+      {"name": "partial over two stages", "steps": ["start", "pending 50", "done 10", "pending 40 last", "done 20"], "percent": [null, null, null, 20, 60]},
+      {"name": "all but one", "steps": ["start", "pending 1000 last", "done 999"], "percent": [null, 0, 99]},
+      {"name": "all done stays below 100 until the end", "steps": ["start", "pending 3 last", "done 2", "done 1", "finish"], "percent": [null, 0, 66, 99, null]},
+      {"name": "server pauses", "steps": ["start", "pending 10 last", "done 4", "paused", "done 2", "finish"], "percent": [null, 0, 40, null, null, null]},
+      {"name": "daily retry after the first load", "steps": ["start done", "pending 4 last", "done 2"], "percent": [null, null, null]},
+      {"name": "outside a run", "steps": ["pending 5 last", "done 1"], "percent": [null, null]},
+      {"name": "next pass starts from zero", "steps": ["start", "pending 10 last", "done 5", "finish", "start", "pending 4"], "percent": [null, 0, 50, null, null, null]}
+    ],
+    "percentOf": [[0, 10, 0], [1, 3, 33], [2, 3, 66], [1, 200, 0], [999, 1000, 99], [1000, 1000, 99], [5, 0, 0]],
+    "show": [
+      {"shown": null, "next": 0, "elapsed": 0, "show": true},
+      {"shown": 40, "next": null, "elapsed": 0, "show": true},
+      {"shown": 40, "next": 41, "elapsed": 200, "show": false},
+      {"shown": 40, "next": 44, "elapsed": 999, "show": false},
+      {"shown": 40, "next": 41, "elapsed": 1000, "show": true},
+      {"shown": 40, "next": 45, "elapsed": 100, "show": true},
+      {"shown": 40, "next": 40, "elapsed": 5000, "show": false},
+      {"shown": null, "next": null, "elapsed": 5000, "show": false}
+    ]
   }
 }

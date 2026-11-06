@@ -83,7 +83,7 @@ class LogoImageStore @Inject constructor(
     /** Steigt, sobald neue Logos auf dem Gerät liegen (Anzeigen laden dann neu). */
     val revision: StateFlow<Int> = _revision.asStateFlow()
 
-    /** «Logos werden geladen …» (nur erstes Laden, gemerkt im Logo-Ordner): Durchgänge von [CoinListSync], [downloadMissing]. */
+    /** «Logos werden geladen · 40 %» (nur erstes Laden, gemerkt im Logo-Ordner): Durchgänge von [CoinListSync], [downloadMissing]. */
     val loadingHint = LogoLoadingHint { File(imageDir, LogoLoadingHint.DONE_MARKER) }
 
     /** Sofort, ohne Datei und Netz: Bild aus dem Speicher oder null (mitgeliefertes Icon, falls nur das da ist). */
@@ -171,9 +171,10 @@ class LogoImageStore @Inject constructor(
      * [CoinLogoQueue.MAX_PARALLEL]). Bremst ein Server
      * nur kurz (Pause bis [SHORT_PAUSE_MAX_MILLIS]), werden seine Bilder nach der Pause gleich nachgeholt.
      * Scheitert ein Bild, kommen die Ersatz-Adressen desselben Kürzels dran ([alternates],
-     * [com.cryptochecker.app.domain.logos.CoinMeta.alternates]).
+     * [com.cryptochecker.app.domain.logos.CoinMeta.alternates]). [lastStage]: letzte Stufe des Durchgangs ([loadingHint]).
      */
-    suspend fun downloadMissing(all: Map<String, String>, alternates: Map<String, List<String>> = emptyMap()): Downloads {
+    suspend fun downloadMissing(all: Map<String, String>, alternates: Map<String, List<String>> = emptyMap(),
+                                lastStage: Boolean = false): Downloads {
         // Mobile Daten: Logos, die nur die Zusatzseiten der Rangliste bringen, erst im WLAN
         val wanted = CoinLogos.downloadable(all, loadExtraOnly(), CoinLogoStorage.isUnmetered(context))
         if (wanted.isEmpty()) return Downloads()
@@ -184,7 +185,7 @@ class LogoImageStore @Inject constructor(
             CoinLogos.downloadJobs(wanted.toList()) { name -> name in failed || File(imageDir, name).isFile }
         }
         if (pending.isEmpty()) return Downloads()
-        loadingHint.imagesPending(pending.size)
+        loadingHint.imagesPending(pending.size, last = lastStage)
         val altByFile = alternates.entries.mapNotNull { (key, urls) -> CoinLogos.fileName(key)?.let { it to urls } }.toMap()
         val attempted = pending.size
         val added = AtomicInteger()
@@ -203,12 +204,13 @@ class LogoImageStore @Inject constructor(
             ) { job, result ->
                 when (result) {
                     Fetched.OK -> {
+                        loadingHint.imageDone()
                         added.incrementAndGet()
                         bumpRevision()
                     }
-                    Fetched.FAILED -> newFailures[job.first] = now
-                    // Server bremst: nicht als Fehler
-                    Fetched.PAUSED -> pausedNow.add(job)
+                    Fetched.FAILED -> newFailures[job.first] = now.also { loadingHint.imageDone() }
+                    // Server bremst: nicht als Fehler (und kein stehender Prozentwert im Hinweis)
+                    Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }
                 }
             }
             paused = pausedNow

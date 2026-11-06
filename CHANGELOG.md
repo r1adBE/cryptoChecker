@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 206)
+
+* The hint «Loading logos» during the first logo load shows the progress in percent (at most 99 % while running).
+
 ## 16.2.2 (build 205)
 
 * Widgets (Android and iOS) show «No connection · as of 14:05» when the device is offline; the last prices stay, and the widget updates by itself when the connection is back.

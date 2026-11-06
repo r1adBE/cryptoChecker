@@ -251,4 +251,5 @@
     </plurals>
     <string name="watchlist_footer_full">የክትትል ዝርዝሩ ሞልቷል</string>
     <string name="watchlist_logos_loading">አርማዎችን በመጫን ላይ…</string>
+    <string name="watchlist_logos_loading_percent">አርማዎችን በመጫን ላይ · %1$s</string>
 </resources>

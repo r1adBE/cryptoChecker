@@ -251,4 +251,5 @@
     </plurals>
     <string name="watchlist_footer_full">Volglys vol</string>
     <string name="watchlist_logos_loading">Logo\'s word gelaai…</string>
+    <string name="watchlist_logos_loading_percent">Logo\'s word gelaai · %1$s</string>
 </resources>
