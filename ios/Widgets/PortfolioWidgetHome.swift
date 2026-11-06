@@ -129,7 +129,7 @@ struct PortfolioHomeView: View {
             }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, at: entry.date,
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
                                                               usdt: spokenHidden ? nil : usdt, hidden: spokenHidden))
     }
 
@@ -160,7 +160,7 @@ struct PortfolioHomeView: View {
             .padding(.top, 4)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, at: entry.date,
+        .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
                                                               usdt: spokenHidden ? nil : usdt, chart: chartText,
                                                               hidden: spokenHidden))
     }
@@ -196,7 +196,7 @@ struct PortfolioHomeView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(PortfolioWidgetText.accessibility(
-            s, plan: plan, outdated: entry.outdated, at: entry.date, usdt: spokenHidden ? nil : usdt, chart: chartText,
+            s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date, usdt: spokenHidden ? nil : usdt, chart: chartText,
             positions: PortfolioWidgetText.positionsAccessibility(shown, currency: s.currency, basis: basis,
                                                                   hidden: spokenHidden),
             hidden: spokenHidden))
@@ -345,7 +345,7 @@ struct PortfolioHomeView: View {
     /// «Stand 15:19 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42»; gewählter Zeitraum ohne
     /// Tageskurse dazu «7T: Portfolio öffnen» (passt es nicht, ohne).
     func footer(_ s: PortfolioWidgetSnapshot, period: String?, hint: String?, extra: String? = nil) -> some View {
-        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, at: entry.date)
+        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, offline: entry.offline, at: entry.date)
         let base = [time, period].compactMap { $0 }.joined(separator: " · ")
         return ViewThatFits(in: .horizontal) {
             if let hint { footerText(base + " · " + hint) }

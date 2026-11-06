@@ -111,7 +111,8 @@ struct PulseHomeView: View {
 
     private func content(_ report: PulseReport, data: PulseMarketData) -> some View {
         let coins = Array(report.coins.prefix(wide ? 3 : 1))
-        let time: String? = data.time > 0 ? L("pulse_updated", PriceFormat.time(data.time)) : nil
+        // «Aktualisiert 14:05»; ohne Internet «Keine Verbindung · Stand 14:05» (`WidgetStatusRule`, wie Android)
+        let time: String? = PulseWidgetText.stand(data.time, offline: entry.offline, at: entry.date)
         // Fear & Greed nur mittel/gross (klein unverändert), in der Zeile des Stands
         let fearGreed: String? = wide ? entry.fearGreed.map(FearGreedShared.line) : nil
         let fearGreedText: Text? = wide ? entry.fearGreed.map { PulseSideLine.fearGreed($0, palette: palette) } : nil

@@ -219,3 +219,55 @@ final class WidgetRowsTests: XCTestCase {
         XCTAssertTrue(WidgetRows.logoKeys(for: watches(5, exchangeKey: CoinLogos.dexExchangeKey)).isEmpty)
     }
 }
+
+// ---- Zeit-Zeile der Widgets (Build 205)
+
+/// Gemeinsame Testfälle `widget_status.json` (Android: `WidgetStatusParityTest`): offline > veraltet > Uhrzeit.
+final class WidgetStatusRuleParityTests: XCTestCase {
+    private typealias S = TestSupport
+
+    func testCases() throws {
+        let cases = S.list(try S.fixture("widget_status")["cases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 6)
+        var seen = Set<String>()
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let online = c["online"] as? Bool ?? true
+            let outdated = c["outdated"] as? Bool ?? false
+            let time = Int64(S.number(c["time"]) ?? 0)
+            let want = c["expected"] as? String ?? ""
+            XCTAssertEqual(WidgetStatusRule.kind(online: online, outdated: outdated, time: time).rawValue, want, name)
+            seen.insert(want)
+        }
+        // Jede Art kommt in den Fällen vor
+        XCTAssertEqual(seen, ["offline", "offlineNoTime", "outdated", "time"])
+        XCTAssertTrue(WidgetStatusRule.Kind.offlineNoTime.isOffline)
+        XCTAssertFalse(WidgetStatusRule.Kind.outdated.isOffline)
+    }
+
+    /// Alle Widgets fragen das Netz beim Erstellen der Timeline ab und zeigen den Text der App
+    /// («Keine Verbindung · Stand …»); der Knopf holt ohne Netz nichts und zeigt keinen Countdown.
+    func testWidgetsShowTheOfflineLine() throws {
+        let ios = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+        func text(_ path: String) throws -> String {
+            try String(contentsOf: ios.appendingPathComponent(path), encoding: .utf8)
+        }
+        let offline = try text("Widgets/WidgetOffline.swift")
+        XCTAssertTrue(offline.contains("L(\"offline_status_since\", WidgetOutdated.stamp(time, at: date))"))
+        XCTAssertTrue(offline.contains("NetworkStatus.shared.isOnlineSettled()"))
+        for path in ["Widgets/WatchlistWidget.swift", "Widgets/SingleWidgetProvider.swift", "Widgets/PortfolioWidget.swift",
+                     "Widgets/PulseWidget.swift"] {
+            let source = try text(path)
+            XCTAssertTrue(source.contains(".offline = await WidgetOffline.isOffline()"), path)
+            XCTAssertTrue(source.contains("var offline = false"), path)
+        }
+        XCTAssertTrue(try text("Widgets/WatchlistWidgetViews.swift").contains("WidgetStatusRule.kind(online: !entry.offline"))
+        XCTAssertTrue(try text("Widgets/WidgetOutdated.swift").contains("if offline { return WidgetOffline.label(watch.lastUpdate, at: date) }"))
+        XCTAssertTrue(try text("Widgets/PortfolioWidgetText.swift").contains("WidgetStatusRule.kind(online: !offline, outdated: outdated, time: s.updatedAt)"))
+        let intent = try text("Widgets/WidgetIntents.swift")
+        let perform = intent.components(separatedBy: "func perform() async throws -> some IntentResult {").last ?? ""
+        let offlineTap = perform.components(separatedBy: "let tap = WidgetRefreshState.onTap(").first ?? ""
+        XCTAssertTrue(offlineTap.contains("if await WidgetOffline.isOffline() {"))
+        XCTAssertFalse(offlineTap.contains("WidgetRefresh.run()") || offlineTap.contains("blockedUntil"))
+    }
+}

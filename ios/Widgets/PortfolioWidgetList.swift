@@ -166,7 +166,7 @@ extension PortfolioHomeView {
     /// «Stand 15:19 · Heute ohne SOL · + 3 weitere»; wird es eng, zuerst ohne «weitere», dann ohne Hinweis —
     /// wie Android (Fusszeile der Liste).
     private func listFooter(_ s: PortfolioWidgetSnapshot, missing: String?, more: String?) -> some View {
-        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, at: entry.date)
+        let time = PortfolioWidgetText.asOf(s, outdated: entry.outdated, offline: entry.offline, at: entry.date)
         let candidates = [[time, missing, more], [time, missing], [time, more], [time]]
             .map { $0.compactMap { $0 }.joined(separator: " · ") }
         var seen = Set<String>()
@@ -326,8 +326,8 @@ extension PortfolioHomeView {
                                    entries: [[PortfolioWidgetEntry]], more: String?,
                                    missing: String?, change: PortfolioListTotalChange?, basis: ChangeBasis,
                                    empty: Bool) -> String {
-        let time = entry.outdated ? WidgetOutdated.spoken(s.updatedAt, at: entry.date)
-            : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: entry.date))
+        let time = entry.outdated && !entry.offline ? WidgetOutdated.spoken(s.updatedAt, at: entry.date)
+            : PortfolioWidgetText.asOf(s, outdated: entry.outdated, offline: entry.offline, at: entry.date)
         let total = L("widget_portfolio_name") + " "
             + (spokenHidden ? L("a11y_amount_hidden") : PortfolioWidgetText.total(s))
         let rows = shown.enumerated().map { index, p in

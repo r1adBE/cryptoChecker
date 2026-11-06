@@ -133,7 +133,7 @@ extension PortfolioHomeView {
 
     private func overviewAccessibility(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan,
                                        figures: [PortfolioFigure], usdt: String?) -> String {
-        let base = PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, at: entry.date,
+        let base = PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, offline: entry.offline, at: entry.date,
                                                      usdt: spokenHidden ? nil : usdt, hidden: spokenHidden,
                                                      overview: true)
         let spoken = figures.map { PortfolioWidgetText.figureAccessibility($0, currency: s.currency, hidden: spokenHidden) }

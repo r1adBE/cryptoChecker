@@ -74,10 +74,12 @@ enum WidgetOutdated {
         return unchanged(since, at: date)
     }
 
-    /// Zeitzeile eines Paars: «veraltet · 06:42», sonst «Kurs unverändert seit 14:05» (nur mit
-    /// `allowsHint`, sonst die Zeit der letzten Änderung), sonst die Zeit laut Börse bzw. des Abrufs.
-    static func timeText(_ watch: Watch, outdated: Bool, at date: Date, afterMillis: Int64,
+    /// Zeitzeile eines Paars: ohne Internet «Keine Verbindung · Stand 14:05» (letzter Abruf, `WidgetStatusRule`),
+    /// sonst «veraltet · 06:42», sonst «Kurs unverändert seit 14:05» (nur mit `allowsHint`, sonst die Zeit der
+    /// letzten Änderung), sonst die Zeit laut Börse bzw. des Abrufs.
+    static func timeText(_ watch: Watch, outdated: Bool, offline: Bool = false, at date: Date, afterMillis: Int64,
                          allowsHint: Bool = true) -> String {
+        if offline { return WidgetOffline.label(watch.lastUpdate, at: date) }
         if outdated { return label(outdatedTime(watch, at: date, afterMillis: afterMillis) ?? watch.lastUpdate, at: date) }
         if allowsHint, let hint = unchanged(watch, at: date, afterMillis: afterMillis) { return hint }
         return PriceFormat.time(WidgetFreshness.priceTime(watch, now: millis(date), afterMillis: afterMillis))

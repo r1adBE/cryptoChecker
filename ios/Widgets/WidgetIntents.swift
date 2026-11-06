@@ -352,6 +352,7 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
 /// Zusatzdaten prüfen App und Hintergrund-Aufgabe — warum, siehe `WidgetRefresh`.
 /// Gleiche 15-s-Sperre wie die App (`WidgetRefreshState`, wie `PriceWidgetProvider` in Android): Läuft schon
 /// eine, nichts tun; eben erst fertig, nichts holen, sondern die Merkliste-Widgets mit Countdown zeichnen.
+/// Ohne Internet: nichts holen und kein Countdown, nur neu zeichnen («Keine Verbindung · Stand 14:05», `WidgetOffline`).
 struct RefreshPricesIntent: AppIntent {
     static let title: LocalizedStringResource = "action_refresh"
     static let isDiscoverable: Bool = false
@@ -359,6 +360,10 @@ struct RefreshPricesIntent: AppIntent {
     init() {}
 
     func perform() async throws -> some IntentResult {
+        if await WidgetOffline.isOffline() {
+            WidgetData.reloadKinds([WidgetData.watchlistKind], reason: "ohne Netz")
+            return .result()
+        }
         let tap = WidgetRefreshState.onTap(running: WidgetRefresh.isRunning,
                                            lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                            now: EpochTime.nowMillis)

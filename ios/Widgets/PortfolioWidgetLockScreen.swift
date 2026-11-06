@@ -74,7 +74,7 @@ private struct PortfolioRectangularA11y: ViewModifier {
     func body(content: Content) -> some View {
         if entry.state == .values, let s = entry.shown {
             content.accessibilityLabel(PortfolioWidgetText.accessibility(
-                s, plan: entry.plan(for: s), outdated: entry.outdated, at: entry.date,
+                s, plan: entry.plan(for: s), outdated: entry.outdated, offline: entry.offline, at: entry.date,
                 hidden: entry.hideAmounts || redactionReasons.contains(.privacy)))
         } else {
             content

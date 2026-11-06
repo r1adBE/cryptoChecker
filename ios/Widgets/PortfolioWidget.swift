@@ -41,6 +41,8 @@ struct PortfolioEntry: TimelineEntry {
 
     /// Beispiel der Galerie: Zeitraum wie gesetzt (24 h, ohne Tagesverlauf kein Hinweis), ohne Regel je Ansicht.
     var isSample = false
+    /// Ohne Internet beim Erstellen (`WidgetOffline`): «Keine Verbindung · Stand 15:19» statt «Stand …».
+    var offline = false
 
     /// Wirksame Anzeige: je Ansicht (`PortfolioWidgetOptions`: Liste ohne «+ USDT»), dann bei einem USD-Stablecoin
     /// «Nur USDT», ohne USDT-Wert nur Umrechnung.
@@ -223,6 +225,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         }
         var entry = PortfolioEntry.current(configuration)
         entry.loadLogos()
+        entry.offline = await WidgetOffline.isOffline()
         // Zweiter Eintrag, sobald die Momentaufnahme veraltet («veraltet · 06:42»)
         var times: [Int64] = []
         if entry.state == .values, let current = entry.snapshot { times = [current.updatedAt] }
@@ -231,7 +234,8 @@ struct PortfolioProvider: AppIntentTimelineProvider {
             later.date = date
             return later
         }
-        let reload = timedOut ? WidgetData.reload(kind: PortfolioWidgetStore.kind, wantsQuickRetry: true)
+        // Ohne Netz ein früher Neuversuch: der Hinweis soll mit dem Netz verschwinden
+        let reload = timedOut || entry.offline ? WidgetData.reload(kind: PortfolioWidgetStore.kind, wantsQuickRetry: true)
                               : WidgetData.nextReload
         return Timeline(entries: entries, policy: .after(reload))
     }

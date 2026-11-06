@@ -34,6 +34,8 @@ struct WatchlistEntry: TimelineEntry {
     /// Gespeicherte Merkliste gerade nicht lesbar (Neustart vor dem ersten Entsperren, `WatchlistStorageLock`): verdeckte
     /// Platzhalter-Zeilen wie beim Laden statt «Noch keine Paare» — Android zeigt dann die gemerkten Zeilen.
     var storageLocked = false
+    /// Ohne Internet beim Erstellen (`WidgetOffline`): Kopf «Keine Verbindung · Stand 14:05» (`WidgetStatusRule`).
+    var offline = false
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
@@ -115,6 +117,7 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         let pricesWritten = await WidgetData.awaitPricesForRefreshTime()
         var entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
         entry.logos = await WidgetLogos.load(for: entry.watches)
+        entry.offline = await WidgetOffline.isOffline()
         // Zweiter Eintrag, sobald die Uhrzeit oder ein Kurs veraltet («veraltet · 06:42»)
         // (deaktivierte Paare werden nie «veraltet»; nur gezeigte Paare, `WidgetRows`)
         let times = [entry.lastRefreshAt] + WidgetRows.shown(entry.watches).filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }.flatMap { WidgetFreshness.outdatedTimes($0, afterMillis: entry.outdatedAfter) }
@@ -132,8 +135,10 @@ struct WatchlistProvider: AppIntentTimelineProvider {
             later.date = unlockDate
             entries = (entries + [later]).sorted { $0.date < $1.date }
         }
-        // Kurse folgen erst noch: ein früher Neuversuch, höchstens einer je Takt (`WidgetCadence`)
-        let reload = WidgetData.reload(kind: WidgetData.watchlistKind, wantsQuickRetry: refreshSoon || !pricesWritten)
+        // Kurse folgen erst noch bzw. ohne Netz (Hinweis soll mit dem Netz verschwinden): ein früher Neuversuch,
+        // höchstens einer je Takt (`WidgetCadence`)
+        let reload = WidgetData.reload(kind: WidgetData.watchlistKind,
+                                       wantsQuickRetry: refreshSoon || !pricesWritten || entry.offline)
         return Timeline(entries: entries, policy: .after(reload))
     }
 }

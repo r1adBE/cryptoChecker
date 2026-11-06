@@ -37,7 +37,7 @@ struct SingleWidgetView: View {
     private var content: some View {
         switch family {
         case .accessoryRectangular:
-            SingleRectangularView(watch: entry.shownWatch, outdated: entry.outdated, date: entry.date,
+            SingleRectangularView(watch: entry.shownWatch, outdated: entry.outdated, offline: entry.offline, date: entry.date,
                                   outdatedAfter: entry.outdatedAfter)
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(Self.url(entry.watch))
@@ -53,12 +53,12 @@ struct SingleWidgetView: View {
                         if family == .systemMedium {
                             SingleMediumView(watch: watch, candles: entry.candles, range: entry.range,
                                              chartType: entry.chartType, palette: palette,
-                                             outdated: entry.outdated, date: entry.date,
+                                             outdated: entry.outdated, offline: entry.offline, date: entry.date,
                                              outdatedAfter: entry.outdatedAfter, foreignChart: entry.foreignChart)
                         } else {
                             SingleSmallView(watch: watch, candles: entry.candles, range: entry.range,
                                             chartType: entry.chartType, palette: palette,
-                                            outdated: entry.outdated, date: entry.date,
+                                            outdated: entry.outdated, offline: entry.offline, date: entry.date,
                                             outdatedAfter: entry.outdatedAfter, foreignChart: entry.foreignChart)
                         }
                     } else {
@@ -95,6 +95,8 @@ private func chartCandles(_ candles: [MarketCandle]?) -> [MarketCandle]? {
 private struct SingleSummaryA11y: ViewModifier {
     let watch: Watch
     var outdated = false
+    /// Ohne Internet: «Keine Verbindung · Stand 14:05» statt der Zeit (`WidgetStatusRule`).
+    var offline = false
     var date = Date()
     /// Grenze «veraltet» (für «Kurs unverändert seit …»).
     var outdatedAfter: Int64 = 0
@@ -106,9 +108,10 @@ private struct SingleSummaryA11y: ViewModifier {
             .accessibilityLabel(A11y.watchRow(watch, stale: spokenState, changeView: ChangeView(basis: changeView.basis)))
     }
 
-    /// «Deaktiviert» bzw. «veraltet, letzte Aktualisierung …» bzw. «Kurs unverändert seit …».
+    /// «Deaktiviert» bzw. «Keine Verbindung · Stand …» bzw. «veraltet, letzte Aktualisierung …» bzw. «Kurs unverändert seit …».
     private var spokenState: String? {
         if watch.disabled { return L("watch_disabled") }
+        if offline { return WidgetOffline.label(watch.lastUpdate, at: date) }
         if outdated { return WidgetOutdated.spoken(watch, at: date, afterMillis: outdatedAfter) }
         return outdatedAfter > 0 ? WidgetOutdated.unchanged(watch, at: date, afterMillis: outdatedAfter) : nil
     }
@@ -129,6 +132,8 @@ private struct SingleSmallView: View {
     let chartType: WidgetChartTypeOption
     let palette: WidgetPalette
     var outdated = false
+    /// Ohne Internet: «Keine Verbindung · Stand 14:05» statt der Zeit (`WidgetStatusRule`).
+    var offline = false
     var date = Date()
     /// Grenze «veraltet» (`WidgetOutdated`), auch für «Kurs unverändert seit …».
     var outdatedAfter: Int64 = 0
@@ -152,7 +157,7 @@ private struct SingleSmallView: View {
                         .padding(.top, 3)
                 }
             }
-            .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
+            .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, offline: offline, date: date, outdatedAfter: outdatedAfter))
             Group {
                 if let candles = chartCandles(candles) {
                     WidgetPriceChartView(candles: candles, type: chartType, range: range, palette: palette,
@@ -167,7 +172,7 @@ private struct SingleSmallView: View {
             .padding(.vertical, 4)
             // «14:05 · 24h»; alter Stand ausgeschrieben: «veraltet · 06:42 · 24h»; stehender Kurs einer
             // Börse ohne eigene Zeit: «Kurs unverändert seit 11:02 · 24h» (wie die Zeile der App)
-            Text(WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
+            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
                 .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
@@ -186,6 +191,8 @@ private struct SingleMediumView: View {
     @Environment(\.changeView) private var changeView
     let palette: WidgetPalette
     var outdated = false
+    /// Ohne Internet: «Keine Verbindung · Stand 14:05» statt der Zeit (`WidgetStatusRule`).
+    var offline = false
     var date = Date()
     /// Grenze «veraltet» (`WidgetOutdated`), auch für «Kurs unverändert seit …».
     var outdatedAfter: Int64 = 0
@@ -197,7 +204,7 @@ private struct SingleMediumView: View {
             // Paar und Kurs wachsen mit Dynamic Type, solange die Spalte in der Höhe Platz hat
             WidgetPrimaryFit(in: .vertical) { scale in summary(scale: scale) }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
+            .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, offline: offline, date: date, outdatedAfter: outdatedAfter))
 
             // Hoch/Tief stehen jetzt als Preisstufen im Chart (oben/unten)
             if let candles = chartCandles(candles) {
@@ -245,7 +252,7 @@ private struct SingleMediumView: View {
             Spacer(minLength: 4)
             // Zeitraum des Charts neben der Uhrzeit, z. B. «14:05 · 7T»; veraltet «veraltet · 06:42 · 7T»;
             // stehender Kurs: «Kurs unverändert seit 11:02 · 7T»
-            Text(WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
+            Text(WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
                 .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)
@@ -292,6 +299,8 @@ private struct SingleChooseView: View {
 private struct SingleRectangularView: View {
     let watch: Watch?
     var outdated = false
+    /// Ohne Internet: «Keine Verbindung · Stand 14:05» statt der Zeit (`WidgetStatusRule`).
+    var offline = false
     var date = Date()
     /// Grenze «veraltet», auch für «Kurs unverändert seit …».
     var outdatedAfter: Int64 = 0
@@ -301,7 +310,7 @@ private struct SingleRectangularView: View {
             // Paar und Kurs wachsen mit Dynamic Type, solange sie in der Höhe Platz haben
             WidgetPrimaryFit(in: .vertical) { scale in content(watch, scale: scale) }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
+                .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, offline: offline, date: date, outdatedAfter: outdatedAfter))
         } else {
             Text(L("single_widget_choose"))
                 .widgetSecondaryFont(13, weight: .semibold)
@@ -348,7 +357,7 @@ private struct SingleRectangularView: View {
     private func rectangularMeta(_ watch: Watch, hint: Bool, scale: CGFloat) -> some View {
         Text(verbatim: watch.disabled ? singleExchangeLine(watch)
              : "\(BidiText.isolate(watch.exchangeName)) · "
-                + WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter, allowsHint: hint))
+                + WidgetOutdated.timeText(watch, outdated: outdated, offline: offline, at: date, afterMillis: outdatedAfter, allowsHint: hint))
             .font(.system(size: 12 * scale))
             .monospacedDigit()
             .foregroundStyle(.secondary)

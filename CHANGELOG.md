@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 205)
+
+* Widgets (Android and iOS) show «No connection · as of 14:05» when the device is offline; the last prices stay, and the widget updates by itself when the connection is back.
+* Android list widget: after a restart only the loader at the bottom is shown, the refresh icon appears with the prices.
+
 ## 16.2.2 (build 204)
 
 * Android widgets: below the grey placeholder rows a small spinner with «Loading prices…» until the app has drawn them.

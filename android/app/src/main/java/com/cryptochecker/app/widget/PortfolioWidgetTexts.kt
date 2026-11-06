@@ -74,15 +74,17 @@ internal fun PortfolioWidgetRenderer.missingText(snapshot: PortfolioSnapshot, pl
     return listOfNotNull(coins, stale, today, period).joinToString(" · ").ifEmpty { null }
 }
 
-/** «Stand 15:19»; alter Stand ausgeschrieben: «veraltet · 06:42». */
+/** «Stand 15:19»; alter Stand ausgeschrieben: «veraltet · 06:42»; ohne Internet «Keine Verbindung · Stand 15:19». */
 internal fun PortfolioWidgetRenderer.timeText(snapshot: PortfolioSnapshot, outdated: Boolean): String =
-    if (outdated) WidgetOutdated.label(context, snapshot.time)
-    else context.getString(R.string.widget_portfolio_as_of, WidgetOutdated.stamp(context, snapshot.time))
+    when (WidgetStatusRule.kind(!offline, outdated, snapshot.time)) {
+        WidgetStatusRule.Kind.OFFLINE, WidgetStatusRule.Kind.OFFLINE_NO_TIME -> WidgetOffline.label(context, snapshot.time)
+        WidgetStatusRule.Kind.OUTDATED -> WidgetOutdated.label(context, snapshot.time)
+        WidgetStatusRule.Kind.TIME -> context.getString(R.string.widget_portfolio_as_of, WidgetOutdated.stamp(context, snapshot.time))
+    }
 
-/** Stand für den Screenreader: «Stand 15:19» bzw. «veraltet, letzte Aktualisierung 06:42». */
+/** Stand für den Screenreader: «Stand 15:19» bzw. «veraltet, letzte Aktualisierung 06:42» bzw. wie [timeText] offline. */
 internal fun PortfolioWidgetRenderer.spokenTime(snapshot: PortfolioSnapshot, outdated: Boolean): String =
-    if (outdated) WidgetOutdated.spoken(context, snapshot.time)
-    else context.getString(R.string.widget_portfolio_as_of, WidgetOutdated.stamp(context, snapshot.time))
+    if (outdated && !offline) WidgetOutdated.spoken(context, snapshot.time) else timeText(snapshot, outdated)
 
 /** Gewählter Zeitraum ohne Tageskurse: «7T folgt» (das Widget zeigt 24 h); sonst null. */
 internal fun PortfolioWidgetRenderer.fallbackHint(plan: PortfolioChartPlan): String? =

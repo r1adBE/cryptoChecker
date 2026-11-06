@@ -40,6 +40,8 @@ struct PulseEntry: TimelineEntry {
     var plainFearGreed: FearGreedShared.Stored? = FearGreedShared.stored()
     /// Breite des Widgets (pt, `context.displaySize`) zum Messen des ersten Satzes; 0 = unbekannt.
     var displayWidth: CGFloat = 0
+    /// Ohne Internet beim Erstellen (`WidgetOffline`): «Keine Verbindung · Stand 14:05» statt «Aktualisiert 14:05».
+    var offline = false
 
     /// Auswertung wie die Karte. Fear & Greed und Gas ändern Schlagzeile, Leitsatz und
     /// Chips nicht (nur die Zusatzsätze der Karte) — das Widget lädt sie deshalb nicht.
@@ -92,7 +94,7 @@ struct PulseEntry: TimelineEntry {
     func at(_ later: Date) -> PulseEntry {
         PulseEntry(date: later, data: data, theme: theme, accent: accent, priceColors: priceColors,
                    highContrast: highContrast, priceColorsInverted: priceColorsInverted, fearGreed: fearGreed,
-                   plainFearGreed: plainFearGreed, displayWidth: displayWidth)
+                   plainFearGreed: plainFearGreed, displayWidth: displayWidth, offline: offline)
     }
 
     /// Beispiel für Galerie und Platzhalter: «Breite Stärke».
@@ -182,11 +184,12 @@ struct PulseProvider: AppIntentTimelineProvider {
 
     func timeline(for configuration: PulseWidgetIntent, in context: Context) async -> Timeline<PulseEntry> {
         let data = await PulseWidgetData.current()
-        // Gleicher Takt wie die anderen Widgets
-        let reload = WidgetData.nextReload
-        return Timeline(entries: Self.entries(Self.entry(data, theme: configuration.theme, width: context.displaySize.width),
-                                              until: reload),
-                        policy: .after(reload))
+        var first = Self.entry(data, theme: configuration.theme, width: context.displaySize.width)
+        first.offline = await WidgetOffline.isOffline()
+        // Gleicher Takt wie die anderen Widgets; ohne Netz ein früher Neuversuch (der Hinweis soll mit dem Netz gehen)
+        let reload = first.offline ? WidgetData.reload(kind: PulseWidgetData.kind, wantsQuickRetry: true)
+            : WidgetData.nextReload
+        return Timeline(entries: Self.entries(first, until: reload), policy: .after(reload))
     }
 
     /// Der Eintrag und je ein weiterer, sobald ein Satz von «Kurz gesagt» auf veralteten Daten stünde
@@ -227,6 +230,16 @@ struct PulseWidget: Widget {
 // MARK: Texte
 
 enum PulseWidgetText {
+    /// Fusszeile: «Aktualisiert 14:05»; ohne Internet «Keine Verbindung · Stand 14:05» (`WidgetStatusRule`, kein
+    /// «veraltet» — der Puls hat eigene Frische). Ohne Zeit nil (wie Android `PulseWidgetTexts.stand`).
+    static func stand(_ time: Int64, offline: Bool, at date: Date) -> String? {
+        switch WidgetStatusRule.kind(online: !offline, outdated: false, time: time) {
+        case .offline: WidgetOffline.label(time, at: date)
+        case .time: time > 0 ? L("pulse_updated", PriceFormat.time(time)) : nil
+        case .offlineNoTime, .outdated: nil
+        }
+    }
+
     /// +1 breit steigend, −1 breit fallend, 0 gemischt oder ruhig — wie die Karte.
     static func direction(_ summary: PulseSummary) -> Int {
         switch summary {

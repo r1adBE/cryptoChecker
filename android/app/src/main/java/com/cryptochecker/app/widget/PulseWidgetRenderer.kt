@@ -43,13 +43,13 @@ class PulseWidgetRenderer @Inject constructor(
     private val pulseData: PulseWidgetData,
     private val cycleCacheStore: CycleCacheStore,
     private val toolkit: WidgetToolkit,
+    private val connectivity: WidgetConnectivity,
 ) {
     /** Abruf im Hintergrund, damit [WidgetUpdater.updateAll] (Kurs-Aktualisierung) nicht auf das Netz wartet. */
     private val backgroundFetch = PulseBackgroundFetch()
 
     /** Hintergrundlauf: den losgelösten Abruf aus [updateWithOthers] höchstens [timeoutMillis] abwarten. */
     suspend fun awaitBackgroundFetch(timeoutMillis: Long): Boolean = backgroundFetch.await(timeoutMillis)
-
     private fun pulseWidgetIds(): IntArray = toolkit.ids(PulseWidgetProvider::class.java)
 
     /**
@@ -97,6 +97,7 @@ class PulseWidgetRenderer @Inject constructor(
         val highContrast = HighContrast.isEffective(context, settings.highContrast)
         widgetPrefs.lastHighContrast = highContrast
         val now = System.currentTimeMillis()
+        val online = connectivity.online()
         // Frischer Stand als eigene, nicht-null Variable (kein Smart Cast über die ?.let-Kette nötig)
         val fresh = value?.takeIf { PulseWidgetMath.isShowable(it.savedAt, now) }
         val report = fresh?.let { CryptoPulse.evaluate(it.value) }
@@ -313,8 +314,7 @@ class PulseWidgetRenderer @Inject constructor(
                     views.setTextColor(id, color)
                 }
 
-                val time = PriceFormat.time(report.time).takeIf { it != "—" }
-                val stand = time?.let { context.getString(R.string.pulse_updated, it) }
+                val stand = PulseWidgetTexts.stand(context, report.time, online)
                 val showTime = stand != null && PulseWidgetMath.showsTime(heightDp)
                 views.setViewVisibility(R.id.pulse_time, if (showTime) View.VISIBLE else View.GONE)
                 views.setTextViewText(R.id.pulse_time, stand.orEmpty())

@@ -26,6 +26,16 @@ import com.cryptochecker.app.util.PriceFormat
  */
 internal object PulseWidgetTexts {
 
+    /**
+     * Fusszeile: «Aktualisiert 14:05»; ohne Internet «Keine Verbindung · Stand 14:05» ([WidgetStatusRule], kein
+     * «veraltet» — der Puls hat eigene Frische, [PulseWidgetMath.isShowable]). Ohne Zeit null.
+     */
+    fun stand(context: Context, time: Long, online: Boolean): String? = when (WidgetStatusRule.kind(online, false, time)) {
+        WidgetStatusRule.Kind.OFFLINE -> WidgetOffline.label(context, time)
+        WidgetStatusRule.Kind.TIME -> PriceFormat.time(time).takeIf { it != "—" }?.let { context.getString(R.string.pulse_updated, it) }
+        else -> null
+    }
+
     fun headline(context: Context, summary: PulseSummary): String = context.getString(
         when (summary) {
             PulseSummary.BROAD_UP, PulseSummary.BROAD_UP_VOLUME -> R.string.pulse_headline_up

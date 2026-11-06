@@ -39,6 +39,8 @@ struct SingleEntry: TimelineEntry {
     var showLogos: Bool
     /// Kerzen einer anderen Börse (Ausweich-Kette): deren Name für «Kraken · Chart: Binance»; nil = eigene Börse.
     var foreignChart: String? = nil
+    /// Ohne Internet beim Erstellen (`WidgetOffline`): «Keine Verbindung · Stand 14:05» statt der Zeit.
+    var offline = false
 
     init(date: Date, watch: Watch?, candles: [MarketCandle]?, range: WidgetChartRangeOption,
          chartType: WidgetChartTypeOption, theme: WidgetThemeOption,
@@ -135,6 +137,7 @@ struct SingleProvider: AppIntentTimelineProvider {
                                 theme: configuration.theme)
         entry.foreignChart = Self.foreignChart(watch, sourced)
         entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
+        entry.offline = await WidgetOffline.isOffline()
         // Zweiter Eintrag, sobald der Kurs veraltet («veraltet · 06:42»)
         var times: [Int64] = []
         // Abruf und (verschoben) letzter Handel laut Börse — Regel der App (`WidgetFreshness.outdatedTimes`)
@@ -146,8 +149,9 @@ struct SingleProvider: AppIntentTimelineProvider {
             later.date = date
             return later
         }
-        // Normaler Takt; zählt im Tageszähler mit (`WidgetCadence.dailyReloadSoftCap`)
-        return Timeline(entries: entries, policy: .after(WidgetData.reload(kind: WidgetData.singleKind, wantsQuickRetry: false)))
+        // Normaler Takt (ohne Netz ein früher Neuversuch); zählt im Tageszähler mit (`WidgetCadence.dailyReloadSoftCap`)
+        return Timeline(entries: entries,
+                        policy: .after(WidgetData.reload(kind: WidgetData.singleKind, wantsQuickRetry: entry.offline)))
     }
 
     private func entry(for configuration: SingleWidgetIntent, watch: Watch?) async -> SingleEntry {

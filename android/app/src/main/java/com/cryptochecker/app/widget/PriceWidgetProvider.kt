@@ -28,6 +28,8 @@ class PriceWidgetProvider : AppWidgetProvider() {
 
     @Inject lateinit var priceRefresher: PriceRefresher
 
+    @Inject lateinit var connectivity: WidgetConnectivity
+
     override fun onReceive(context: Context, intent: Intent) {
         // Ruft die Injektion auf und verteilt an onUpdate/onDeleted.
         super.onReceive(context, intent)
@@ -67,8 +69,14 @@ class PriceWidgetProvider : AppWidgetProvider() {
      * vollständige Aktualisierung, nichts tun (eine wartende des Widgets hält refreshNow mit KEEP fest).
      * Eben erst fertig: nichts holen; die Listen-Widgets zeigen den Countdown (gewöhnlich schon seit dem
      * Zeichnen nach der Aktualisierung), das Neuzeichnen am Ende plant [ListWidgetRenderer].
+     * Ohne Internet: nichts holen und kein Countdown, nur neu zeichnen («Keine Verbindung · Stand 14:05»); kommt das
+     * Netz zurück, holt [com.cryptochecker.app.work.WidgetReconnectWorker] die Kurse ([WidgetConnectivity]).
      */
     private fun onRefreshTap() {
+        if (!connectivity.online()) {
+            launchAsync("Listen-Widgets ohne Netz zeichnen") { widgetUpdater.update(widgetUpdater.widgetIds()) }
+            return
+        }
         val tap = WidgetRefreshState.onTap(
             running = priceRefresher.fullRefreshRunning.value,
             lastFinishedAt = refreshStats.lastFullRefresh(),

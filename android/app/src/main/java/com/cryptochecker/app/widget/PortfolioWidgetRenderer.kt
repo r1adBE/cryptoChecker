@@ -49,7 +49,11 @@ class PortfolioWidgetRenderer @Inject constructor(
     private val fxSource: FxRateSource,
     /** Live-Kurs USDT/USD für das Umrechnen beim Zeichnen ([PortfolioWidgetChart.usdtFactor]). */
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    private val connectivity: WidgetConnectivity,
 ) {
+    /** Beim letzten Zeichnen ohne Internet: «Keine Verbindung · Stand 15:19» ([timeText], [WidgetStatusRule]). */
+    @Volatile internal var offline = false
+
     /**
      * Zuletzt gezeichneter Wertverlauf je Portfolio-Widget und Grösse (Schlüssel
      * Widget-Id × [MAX_PORTFOLIO_SIZES] + Grösse), beim Löschen entfernt ([forget]).
@@ -129,6 +133,7 @@ class PortfolioWidgetRenderer @Inject constructor(
         val outdated = snapshot != null &&
             OutdatedRule.isOutdated(snapshot.time, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
         val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
+        offline = !connectivity.online()
         // Tage der Balken in derselben Zone wie das Zeitgitter und das Einzel-Widget (Chart-Zeitzone der %-Basis,
         // [ChangeBasisMath.chartZone], nicht die Gerätezone). Wie iOS
         val zone = ChangeBasisMath.chartZone(settings.changeBasis.storage)

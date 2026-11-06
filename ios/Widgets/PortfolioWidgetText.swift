@@ -186,10 +186,14 @@ enum PortfolioWidgetText {
         PercentText.unsigned(Swift.min(100, Swift.max(0, percent)), decimals: 1)
     }
 
-    /// «Stand 15:19» bzw. «veraltet · 06:42» (ohne Sekunden).
-    static func asOf(_ s: PortfolioWidgetSnapshot, outdated: Bool, at date: Date) -> String {
-        outdated ? WidgetOutdated.label(s.updatedAt, at: date)
-            : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: date))
+    /// «Stand 15:19» bzw. «veraltet · 06:42» (ohne Sekunden); ohne Internet «Keine Verbindung · Stand 15:19»
+    /// (`WidgetStatusRule`, wie Android `timeText`).
+    static func asOf(_ s: PortfolioWidgetSnapshot, outdated: Bool, offline: Bool = false, at date: Date) -> String {
+        switch WidgetStatusRule.kind(online: !offline, outdated: outdated, time: s.updatedAt) {
+        case .offline, .offlineNoTime: return WidgetOffline.label(s.updatedAt, at: date)
+        case .outdated: return WidgetOutdated.label(s.updatedAt, at: date)
+        case .time: return L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: date))
+        }
     }
 
     /// VoiceOver: «Grösste Positionen: BTC, 60.1% des Portfolios, gestiegen um 125.00 CHF, gestiegen um 1.80% in
@@ -227,11 +231,12 @@ enum PortfolioWidgetText {
 
     /// VoiceOver: «Portfolio 83’170.32 CHF, gesunken um 2.31% in 24 Stunden, Stand 15:19» — danach
     /// ≈ USDT, Chart, Hinweis und Positionen, soweit sichtbar. Veraltet: «veraltet, letzte Aktualisierung 06:42».
-    static func accessibility(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan, outdated: Bool, at date: Date,
+    static func accessibility(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan, outdated: Bool,
+                              offline: Bool = false, at date: Date,
                               usdt: String? = nil, chart: String? = nil, positions: String? = nil,
                               hidden: Bool = false, overview: Bool = false) -> String {
-        let time = outdated ? WidgetOutdated.spoken(s.updatedAt, at: date)
-            : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: date))
+        let time = outdated && !offline ? WidgetOutdated.spoken(s.updatedAt, at: date)
+            : asOf(s, outdated: outdated, offline: offline, at: date)
         let spokenTotal = hidden ? L("a11y_amount_hidden") : total(s)
         return A11y.join([L("widget_portfolio_name") + " " + spokenTotal, spokenChange(plan, s, hidden: hidden), time,
                           usdt.map { L("a11y_converted", $0) }, missing(s, plan: plan, overview: overview), chart, fallbackHint(plan), positions])

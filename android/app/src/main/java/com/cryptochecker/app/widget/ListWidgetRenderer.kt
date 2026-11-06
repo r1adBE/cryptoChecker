@@ -52,6 +52,8 @@ class ListWidgetRenderer @Inject constructor(
     private val snapshot: ListWidgetSnapshot,
     /** Lazy: PriceRefresher zeichnet selbst über WidgetUpdater (sonst ein Abhängigkeitskreis). */
     private val priceRefresher: dagger.Lazy<PriceRefresher>,
+    /** Internet für «Keine Verbindung · Stand 14:05» im Kopf ([WidgetOffline]). */
+    private val connectivity: WidgetConnectivity,
 ) {
     /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
     @Volatile private var unlockScheduledFor = 0L
@@ -119,6 +121,8 @@ class ListWidgetRenderer @Inject constructor(
         val lastRefresh = refreshStats.lastRefresh()
         val now = System.currentTimeMillis()
         val outdated = OutdatedRule.isOutdated(lastRefresh, now, WidgetOutdated.afterMillis(settings))
+        // Ohne Internet: «Keine Verbindung · Stand 14:05» vor «veraltet» und Uhrzeit (WidgetStatusRule)
+        val status = WidgetStatusRule.kind(connectivity.online(), outdated, lastRefresh)
         // In der 15-s-Sperre nach einer vollständigen Aktualisierung (oder einem Tipp): Countdown statt Knopf
         val blockedUntil = WidgetRefreshState.blockedUntil(
             storedUntil = widgetPrefs.refreshBlockedUntil,
@@ -154,7 +158,7 @@ class ListWidgetRenderer @Inject constructor(
                 manager.updateAppWidget(
                     appWidgetId,
                     render(
-                        manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, outdated, inline, title, version, empty,
+                        manager, appWidgetId, colors, accent.logoRes(dark), lastRefresh, status, inline, title, version, empty,
                         lockMillis, lockSeconds,
                     ),
                 )
@@ -178,7 +182,8 @@ class ListWidgetRenderer @Inject constructor(
         background: WidgetColors,
         logoRes: Int,
         lastRefresh: Long,
-        outdated: Boolean,
+        /** Zeit-Zeile: offline, veraltet oder Uhrzeit ([WidgetStatusRule]). */
+        status: WidgetStatusRule.Kind,
         /** Zeilen direkt im Widget (ab Android 12); null = Dienst. */
         inline: RemoteViews.RemoteCollectionItems?,
         /** Titel im Kopf: «Merkliste» oder die gewählte Gruppe ([headerTitle]). */
@@ -203,14 +208,21 @@ class ListWidgetRenderer @Inject constructor(
 
         // Uhrzeit zuerst: Nur daran erkennt man, ob die Daten alt sind. Nie abgeschnitten:
         // erst fällt die Dauer weg, dann wird der Titel kleiner, dann fällt die Uhrzeit weg.
-        // Veraltet: «veraltet · 06:42» ohne Dauer; eng nur «veraltet» (das Wort bleibt).
+        // Veraltet: «veraltet · 06:42» ohne Dauer; eng nur «veraltet» (das Wort bleibt). Offline ebenso mit
+        // «Keine Verbindung · Stand 14:05» bzw. eng «Keine Verbindung».
+        val outdated = status == WidgetStatusRule.Kind.OUTDATED
+        val offline = status == WidgetStatusRule.Kind.OFFLINE || status == WidgetStatusRule.Kind.OFFLINE_NO_TIME
         val header = ListWidgetHeader.layout(
             widthDp = toolkit.sizeDp(manager, appWidgetId).first,
-            time = if (outdated) WidgetOutdated.label(context, lastRefresh) else PriceFormat.time(lastRefresh).takeIf { it != "—" },
-            duration = if (outdated) null else PriceFormat.duration(refreshStats.lastDuration()),
+            time = when {
+                offline -> WidgetOffline.label(context, lastRefresh)
+                outdated -> WidgetOutdated.label(context, lastRefresh)
+                else -> PriceFormat.time(lastRefresh).takeIf { it != "—" }
+            },
+            duration = if (status == WidgetStatusRule.Kind.TIME) PriceFormat.duration(refreshStats.lastDuration()) else null,
             titleWidthDp = { toolkit.textWidthDp(title, it) },
             statusWidthDp = { toolkit.textWidthDp(it, 12f, bold = false, tabular = true) },
-            fallback = if (outdated) context.getString(R.string.widget_outdated) else null,
+            fallback = if (offline) WidgetOffline.short(context) else if (outdated) context.getString(R.string.widget_outdated) else null,
         )
         views.setTextViewText(R.id.widget_title, title)
         views.setTextViewTextSize(R.id.widget_title, TypedValue.COMPLEX_UNIT_SP, header.titleSp)

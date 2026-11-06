@@ -43,6 +43,17 @@ final class NetworkStatus: Sendable {
         return monitor.currentPath.status == .satisfied
     }
 
+    /// Wie `isOnlineFresh`, aber in einem frischen Prozess (Widget-Erweiterung) erst kurz auf die erste Meldung des
+    /// Monitors warten (höchstens `timeoutSeconds`, gewöhnlich wenige Millisekunden) — sonst gälte das Gerät dort
+    /// immer als online. Bleibt die Meldung aus: online (lieber versuchen).
+    func isOnlineSettled(timeoutSeconds: Double = 0.5) async -> Bool {
+        let deadline = Date().addingTimeInterval(timeoutSeconds)
+        while state.withLock({ $0.known }) == nil, Date() < deadline {
+            try? await Task.sleep(nanoseconds: 25_000_000)
+        }
+        return isOnlineFresh
+    }
+
     /// Meldet jede Änderung (auf einer Hintergrund-Warteschlange), solange der Prozess läuft.
     func observe(_ handler: @escaping @Sendable (Bool) -> Void) {
         state.withLock { $0.observers.append(handler) }

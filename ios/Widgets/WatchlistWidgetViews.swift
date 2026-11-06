@@ -108,6 +108,7 @@ struct WatchlistListView: View {
 /// ListWidgetHeader auf Android): `ViewThatFits` nimmt die erste Stufe, die ganz passt —
 /// erst wird der Titel kleiner (die Dauer der Aktualisierung bleibt so sichtbar), dann fällt die Dauer
 /// weg, dann die Uhrzeit. Der Titel bleibt immer. Veraltet: «veraltet · 06:42» ohne Dauer, eng nur «veraltet».
+/// Ohne Internet ebenso «Keine Verbindung · Stand 14:05», eng «Keine Verbindung» (`WidgetStatusRule`).
 private struct WatchlistHeaderTitle: View {
     let entry: WatchlistEntry
     let palette: WidgetPalette
@@ -115,20 +116,28 @@ private struct WatchlistHeaderTitle: View {
     let titleSizes: (normal: CGFloat, small: CGFloat)
     let metaSize: CGFloat
 
-    private var outdated: Bool {
-        WidgetOutdated.isOutdated(entry.lastRefreshAt, at: entry.date, afterMillis: entry.outdatedAfter)
+    private var status: WidgetStatusRule.Kind {
+        WidgetStatusRule.kind(online: !entry.offline,
+                              outdated: WidgetOutdated.isOutdated(entry.lastRefreshAt, at: entry.date,
+                                                                  afterMillis: entry.outdatedAfter),
+                              time: entry.lastRefreshAt)
     }
 
+    private var outdated: Bool { status == .outdated }
+
     var body: some View {
-        let stale = WidgetOutdated.label(entry.lastRefreshAt, at: entry.date)
-        let full = outdated ? stale : WidgetData.refreshMeta(at: entry.lastRefreshAt, duration: entry.lastDuration)
-        let timeOnly = outdated ? stale : WidgetData.refreshMeta(at: entry.lastRefreshAt, duration: 0)
+        let note: String? = status.isOffline ? WidgetOffline.label(entry.lastRefreshAt, at: entry.date)
+            : (outdated ? WidgetOutdated.label(entry.lastRefreshAt, at: entry.date) : nil)
+        let full = note ?? WidgetData.refreshMeta(at: entry.lastRefreshAt, duration: entry.lastDuration)
+        let timeOnly = note ?? WidgetData.refreshMeta(at: entry.lastRefreshAt, duration: 0)
         ViewThatFits(in: .horizontal) {
             row(titleSize: titleSizes.normal, meta: full)
             row(titleSize: titleSizes.small, meta: full)
             row(titleSize: titleSizes.normal, meta: timeOnly)
             row(titleSize: titleSizes.small, meta: timeOnly)
-            if outdated {
+            if status.isOffline {
+                row(titleSize: titleSizes.small, meta: WidgetOffline.short)
+            } else if outdated {
                 row(titleSize: titleSizes.small, meta: L("widget_outdated"))
             }
             HStack(spacing: 0) {

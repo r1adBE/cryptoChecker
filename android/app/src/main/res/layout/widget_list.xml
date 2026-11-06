@@ -101,8 +101,12 @@
                     android:fontFeatureSettings="tnum" />
             </LinearLayout>
 
+            <!-- Im ersten Auftritt (initialLayout) unsichtbar: neben dem Kreisel unten wirkte das stehende Symbol wie eine
+                 zweite Ladeanzeige. INVISIBLE hält die Kopfzeile gleich hoch; jedes Zeichnen setzt es wieder sichtbar
+                 (ListWidgetRenderer.refreshButton) -->
             <ImageView
                 android:id="@+id/widget_refresh"
+                android:visibility="invisible"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="12dp"

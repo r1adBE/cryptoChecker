@@ -50,6 +50,7 @@ class SingleWidgetRenderer @Inject constructor(
     private val toolkit: WidgetToolkit,
     private val coinLogos: WidgetCoinLogos,
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
+    private val connectivity: WidgetConnectivity,
 ) {
     /**
      * Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie).
@@ -92,6 +93,8 @@ class SingleWidgetRenderer @Inject constructor(
         val now = System.currentTimeMillis()
         val outdatedAfter = WidgetOutdated.afterMillis(settings)
         val changeView = toolkit.changeView(settings.changeBasis, now)
+        // Ohne Internet: «Keine Verbindung · Stand 14:05» (letzter Abruf) vor «veraltet» ([WidgetStatusRule])
+        val online = connectivity.online()
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -182,7 +185,11 @@ class SingleWidgetRenderer @Inject constructor(
                 // Börse ohne eigene Zeit, Kurs steht lange: «Kurs unverändert seit 14:05» statt frischer Uhrzeit
                 // (wie die Zeile der App); sonst Zeit laut Börse bzw. letzter Abruf (WidgetFreshness)
                 val unchangedSince = if (off) null else WidgetFreshness.unchangedSince(watch, now, outdatedAfter)
+                val offline = WidgetStatusRule.kind(online, outdated, watch.lastUpdate).let {
+                    it == WidgetStatusRule.Kind.OFFLINE || it == WidgetStatusRule.Kind.OFFLINE_NO_TIME
+                }
                 val timeText = when {
+                    offline -> WidgetOffline.label(context, watch.lastUpdate)
                     outdatedAt != null -> WidgetOutdated.label(context, outdatedAt)
                     unchangedSince != null -> WidgetOutdated.unchanged(context, unchangedSince)
                     else -> PriceFormat.time(WidgetFreshness.priceTime(watch, now, outdatedAfter))
@@ -249,13 +256,14 @@ class SingleWidgetRenderer @Inject constructor(
                         // Frische direkt nach der Veränderung (wie die Merkliste)
                         state = listOf(
                             if (off) context.getString(R.string.watch_disabled) else null,
+                            if (offline) WidgetOffline.label(context, watch.lastUpdate) else null,
                             outdatedAt?.let { WidgetOutdated.spoken(context, it) },
                             unchangedSince?.let { WidgetOutdated.unchanged(context, it) },
                         ),
                         extras = listOf(
                             chartDescription,
                             foreignChart,
-                            if (outdated || unchangedSince != null) null
+                            if (offline || outdated || unchangedSince != null) null
                             else PriceFormat.time(WidgetFreshness.priceTime(watch, now, outdatedAfter)).takeIf { it != "—" },
                         ),
                     )

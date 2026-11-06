@@ -9,6 +9,7 @@ import com.cryptochecker.app.widget.PortfolioDisplay
 import com.cryptochecker.app.widget.PortfolioWidgetOptions
 import com.cryptochecker.app.widget.PortfolioWidgetView
 import com.cryptochecker.app.widget.WidgetListRows
+import com.cryptochecker.app.widget.WidgetStatusRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -172,5 +173,29 @@ class WidgetQuantityParityTest {
         )
         val shown = snapshot.positions.associate { it.symbol to WidgetQuantityFormat.format(it.quantity, ".", ",") }
         assertEquals(mapOf("ETH" to "12.45", "BTC" to "0.5"), shown)
+    }
+}
+
+// ---- Zeit-Zeile der Widgets (Build 205)
+
+/** Gemeinsame Testfälle `widget_status.json` (iOS: `WidgetStatusRuleParityTests`): offline > veraltet > Uhrzeit. */
+class WidgetStatusParityTest {
+
+    private val data = ParityJson.load("widget_status.json")
+
+    /** iOS-Rohwert («offlineNoTime») → Kotlin-Enum-Name («OFFLINE_NO_TIME»). */
+    private fun kind(raw: Any?) = WidgetStatusRule.Kind.valueOf((raw as String).replace(Regex("([A-Z])"), "_$1").uppercase())
+
+    @Test
+    fun cases() {
+        val cases = data["cases"].list()
+        assertTrue(cases.size >= 6)
+        cases.forEach { raw ->
+            val c = raw.obj()
+            val actual = WidgetStatusRule.kind(c["online"] as Boolean, c["outdated"] as Boolean, c["time"].num()!!.toLong())
+            assertEquals(c["name"] as String, kind(c["expected"]), actual)
+        }
+        // Jede Art kommt in den Fällen vor
+        assertEquals(WidgetStatusRule.Kind.entries.toSet(), cases.map { kind(it.obj()["expected"]) }.toSet())
     }
 }

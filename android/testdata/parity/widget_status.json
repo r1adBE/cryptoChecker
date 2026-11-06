@@ -1,0 +1,13 @@
+{
+  "description": "Zeit-Zeile der Widgets (Android WidgetStatusRule.kind / iOS WidgetStatusRule.kind): ohne Internet «Keine Verbindung · Stand 14:05» (offline; ohne bekannte Zeit nur «Keine Verbindung»: offlineNoTime), sonst bei altem Stand «veraltet · 06:42» (outdated), sonst die Uhrzeit (time). Vorrang offline > veraltet > Uhrzeit. time = letzte erfolgreiche Aktualisierung in ms, 0 = keine.",
+  "cases": [
+    {"name": "online, frisch", "online": true, "outdated": false, "time": 1700000000000, "expected": "time"},
+    {"name": "online, veraltet", "online": true, "outdated": true, "time": 1700000000000, "expected": "outdated"},
+    {"name": "offline, frisch", "online": false, "outdated": false, "time": 1700000000000, "expected": "offline"},
+    {"name": "offline schlägt veraltet", "online": false, "outdated": true, "time": 1700000000000, "expected": "offline"},
+    {"name": "offline, nie aktualisiert", "online": false, "outdated": false, "time": 0, "expected": "offlineNoTime"},
+    {"name": "offline, veraltet, ohne Zeit", "online": false, "outdated": true, "time": 0, "expected": "offlineNoTime"},
+    {"name": "online, nie aktualisiert", "online": true, "outdated": false, "time": 0, "expected": "time"},
+    {"name": "offline, Uhr zurückgestellt (negative Zeit)", "online": false, "outdated": false, "time": -5, "expected": "offlineNoTime"}
+  ]
+}
