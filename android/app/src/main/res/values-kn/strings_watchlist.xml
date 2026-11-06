@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">ವಾಚ್‌ಲಿಸ್ಟ್ ತುಂಬಿದೆ</string>
     <string name="watchlist_logos_loading">ಲೋಗೋಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ…</string>
     <string name="watchlist_logos_loading_percent">ಲೋಗೋಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">ಲೋಗೋ ಇಲ್ಲದ %1$d ಕಾಯಿನ್</item>
+        <item quantity="other">ಲೋಗೋ ಇಲ್ಲದ %1$d ಕಾಯಿನ್‌ಗಳು</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">ಸೂಚನೆ ಮುಚ್ಚಿ</string>
+    <string name="watchlist_missing_logos_explain">ಈ ಕಾಯಿನ್‌ಗಳಿಗೆ ಯಾವುದೇ ಲೋಗೋ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಅವುಗಳ ಮೊದಲಕ್ಷರಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
 </resources>

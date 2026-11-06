@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">വാച്ച്‌ലിസ്റ്റ് നിറഞ്ഞു</string>
     <string name="watchlist_logos_loading">ലോഗോകൾ ലോഡ് ചെയ്യുന്നു…</string>
     <string name="watchlist_logos_loading_percent">ലോഗോകൾ ലോഡ് ചെയ്യുന്നു · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">ലോഗോ ഇല്ലാത്ത %1$d കോയിൻ</item>
+        <item quantity="other">ലോഗോ ഇല്ലാത്ത %1$d കോയിനുകൾ</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">അറിയിപ്പ് അടയ്ക്കുക</string>
+    <string name="watchlist_missing_logos_explain">ഈ കോയിനുകൾക്ക് ലോഗോ ലഭ്യമല്ല. ആപ്പ് അവയുടെ ആദ്യാക്ഷരങ്ങൾ കാണിക്കുന്നു.</string>
 </resources>

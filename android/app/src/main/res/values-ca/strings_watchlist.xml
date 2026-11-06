@@ -268,4 +268,11 @@
     <string name="watchlist_footer_full">Llista plena</string>
     <string name="watchlist_logos_loading">S\'estan carregant els logotips…</string>
     <string name="watchlist_logos_loading_percent">S\'estan carregant els logotips · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d moneda sense logotip</item>
+        <item quantity="many">%1$d de monedes sense logotip</item>
+        <item quantity="other">%1$d monedes sense logotip</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Tanca l\'avís</string>
+    <string name="watchlist_missing_logos_explain">No hi ha cap logotip disponible per a aquestes monedes. L\'app mostra les inicials.</string>
 </resources>

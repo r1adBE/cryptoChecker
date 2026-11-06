@@ -34,6 +34,10 @@ class LogoLoadingHint(
 
     /** Die laufenden Durchgänge gehören zum ersten Laden (beim ersten Start gelesen). */
     private var firstLoad = false
+
+    /** Das erste Laden endete eben in diesem Prozess (vor dem Anlegen der Merk-Datei; [firstLoadDone]). */
+    @Volatile
+    private var finishedNow = false
     private val _visible = MutableStateFlow(false)
 
     /** Hinweis zeigen: das erste Laden läuft und hat Bilder zu laden. */
@@ -63,6 +67,7 @@ class LogoLoadingHint(
     fun runStarted(firstLoadDone: Boolean) {
         if (runs == 0) {
             firstLoad = !firstLoadDone
+            finishedNow = firstLoadDone
             // Wert des vorigen Durchgangs (stand beim Ausblenden) nie wieder zeigen
             _percent.value = null
         }
@@ -103,6 +108,8 @@ class LogoLoadingHint(
         if (runs > 0) runs--
         if (runs > 0) return false
         val wasVisible = _visible.value
+        // Vor dem Ausblenden: wer auf das Ende wartet ([firstLoadDone]), sieht es schon erledigt
+        if (wasVisible) finishedNow = true
         _visible.value = false
         done = 0
         total = null
@@ -119,6 +126,14 @@ class LogoLoadingHint(
         _percent.value = next
         shownAt = now
     }
+
+    /**
+     * Ist das erste Laden erledigt (eben beendet oder gemerkt, [doneMarker])? Vorher zeigt die Merkliste keinen Hinweis
+     * «Coins ohne Logo» ([MissingLogoNotice]): Fehlende Logos kommen dann ja noch. Liest die Merk-Datei (nicht im
+     * Haupt-Thread aufrufen).
+     */
+    fun firstLoadDone(): Boolean =
+        finishedNow || doneMarker?.let { runCatching { it().isFile }.getOrDefault(false) } == true
 
     /** [block] als ein Durchgang; endet auch bei Fehler und Abbruch. Liest und schreibt die Merk-Datei [doneMarker]. */
     suspend fun <T> during(block: suspend () -> T): T {

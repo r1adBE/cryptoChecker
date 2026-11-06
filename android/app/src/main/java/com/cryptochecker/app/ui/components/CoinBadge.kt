@@ -66,11 +66,26 @@ interface CoinLogoSource {
 
     /** Fortschritt dieses Ladens in Prozent (gedrosselt); null = ohne Prozent (Gesamtzahl noch offen, Server bremst). */
     val loadingPercent: StateFlow<Int?> get() = NO_PERCENT
+
+    /** Das erste Laden der Logos ist erledigt (vorher kein Hinweis «Coins ohne Logo»); liest eine Datei. */
+    suspend fun firstLoadDone(): Boolean = true
+
+    /** Liegt für [symbol] ein Logo auf dem Gerät (geladen oder mitgeliefert)? Nie Netz. */
+    suspend fun hasLogo(symbol: String): Boolean = load(symbol) != null
+
+    /** Beim ✕ des Hinweises «Coins ohne Logo» gemerkte Coins; null = noch nicht gelesen ([loadMissingDismissed]). */
+    val missingDismissed: StateFlow<Set<String>?> get() = NO_DISMISSED
+
+    suspend fun loadMissingDismissed() {}
+
+    /** ✕ am Hinweis «Coins ohne Logo»: diese Coins merken. */
+    fun dismissMissing(keys: Set<String>) {}
 }
 
 /** [CoinLogoSource.loading] ohne Abgleich (Vorschau, Tests). */
 private val NOT_LOADING: StateFlow<Boolean> = MutableStateFlow(false)
 private val NO_PERCENT: StateFlow<Int?> = MutableStateFlow(null)
+private val NO_DISMISSED: StateFlow<Set<String>?> = MutableStateFlow(emptySet())
 
 /**
  * Logo-Quelle der App. null (Schalter «In der App» aus, Vorschau, Tests): keine Plakette.

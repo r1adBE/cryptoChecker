@@ -23,6 +23,8 @@ struct LogoLoadingHint: Equatable, Sendable {
     private(set) var runs = 0
     /// Die laufenden Durchgänge gehören zum ersten Laden (beim ersten Start gelesen).
     private var firstLoad = false
+    /// Das erste Laden endete eben in diesem Prozess bzw. war schon gemerkt (`CoinLogoLoading.firstLoadDone`).
+    private(set) var finishedNow = false
     /// Hinweis zeigen: das erste Laden läuft und hat Bilder zu laden.
     private(set) var visible = false
     /// Erledigte Bilder des Durchgangs (geladen oder endgültig gescheitert).
@@ -45,7 +47,10 @@ struct LogoLoadingHint: Equatable, Sendable {
 
     /// `firstLoadDone`: das erste Laden ist schon gemerkt (dann nie ein Hinweis).
     mutating func runStarted(firstLoadDone: Bool) {
-        if runs == 0 { firstLoad = !firstLoadDone }
+        if runs == 0 {
+            firstLoad = !firstLoadDone
+            finishedNow = firstLoadDone
+        }
         runs += 1
     }
 
@@ -72,6 +77,7 @@ struct LogoLoadingHint: Equatable, Sendable {
         if runs > 0 { runs -= 1 }
         guard runs == 0 else { return false }
         let wasVisible = visible
+        if wasVisible { finishedNow = true }
         visible = false
         done = 0
         total = nil
@@ -112,6 +118,12 @@ final class CoinLogoLoading: ObservableObject {
     static func runStarted() {
         let done = FileManager.default.fileExists(atPath: markerPath)
         shared.change { $0.runStarted(firstLoadDone: done) }
+    }
+
+    /// Ist das erste Laden erledigt (eben beendet oder gemerkt)? Vorher kein Hinweis «Coins ohne Logo»
+    /// (`MissingLogoNotice`): Fehlende Logos kommen dann ja noch. Wie Android `LogoLoadingHint.firstLoadDone`.
+    static func firstLoadDone() -> Bool {
+        shared.hint.finishedNow || FileManager.default.fileExists(atPath: markerPath)
     }
 
     static func imagesPending(_ count: Int, last: Bool) { shared.change { $0.imagesPending(count, last: last) } }

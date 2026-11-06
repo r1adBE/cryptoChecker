@@ -235,4 +235,9 @@
     <string name="watchlist_footer_full">Danh sách theo dõi đã đầy</string>
     <string name="watchlist_logos_loading">Đang tải logo…</string>
     <string name="watchlist_logos_loading_percent">Đang tải logo · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="other">%1$d coin không có logo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Đóng thông báo</string>
+    <string name="watchlist_missing_logos_explain">Không có logo cho các coin này. Ứng dụng hiển thị chữ viết tắt.</string>
 </resources>

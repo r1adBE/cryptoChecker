@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">ওয়াচলিস্ট পূর্ণ</string>
     <string name="watchlist_logos_loading">লোগো লোড হচ্ছে…</string>
     <string name="watchlist_logos_loading_percent">লোগো লোড হচ্ছে · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">লোগোহীন %1$dটি কয়েন</item>
+        <item quantity="other">লোগোহীন %1$dটি কয়েন</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">বিজ্ঞপ্তি বন্ধ করুন</string>
+    <string name="watchlist_missing_logos_explain">এই কয়েনগুলোর কোনো লোগো পাওয়া যায় না। অ্যাপটি এদের আদ্যক্ষর দেখায়।</string>
 </resources>

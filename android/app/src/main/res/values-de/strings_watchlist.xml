@@ -258,4 +258,13 @@
     <string name="watchlist_logos_loading">Logos werden geladen …</string>
     <!-- Derselbe Hinweis mit Fortschritt, sobald bekannt ist, wie viele Logos laden; %1$s = Prozent in der Schreibweise der Sprache («40 %») -->
     <string name="watchlist_logos_loading_percent">Logos werden geladen · %1$s</string>
+    <!-- Nach dem ersten Laden: Coins der Merkliste ohne Logo (Initialen); Zeile an der Stelle von watchlist_logos_loading und Titel der Liste -->
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d Coin ohne Logo</item>
+        <item quantity="other">%1$d Coins ohne Logo</item>
+    </plurals>
+    <!-- Bedienhilfe des ✕ an dieser Zeile -->
+    <string name="watchlist_missing_logos_dismiss">Hinweis schliessen</string>
+    <!-- Eine Zeile Erklärung in der Liste der Coins ohne Logo -->
+    <string name="watchlist_missing_logos_explain">Für diese Coins ist kein Logo verfügbar. Die App zeigt die Anfangsbuchstaben.</string>
 </resources>

@@ -267,4 +267,11 @@
     <string name="watchlist_footer_full">Liste de suivi pleine</string>
     <string name="watchlist_logos_loading">Chargement des logos…</string>
     <string name="watchlist_logos_loading_percent">Chargement des logos · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d crypto sans logo</item>
+        <item quantity="many">%1$d de cryptos sans logo</item>
+        <item quantity="other">%1$d cryptos sans logo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Fermer l\'avis</string>
+    <string name="watchlist_missing_logos_explain">Aucun logo n\'est disponible pour ces cryptos. L\'app affiche leurs initiales.</string>
 </resources>

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 207)
+
+* Watchlist: after the first logo load, «2 coins without a logo» with a close button; a tap lists them. Closing hides it until another coin without a logo appears; it disappears by itself when the logos arrive.
+
 ## 16.2.2 (build 206)
 
 * The hint «Loading logos» during the first logo load shows the progress in percent (at most 99 % while running).

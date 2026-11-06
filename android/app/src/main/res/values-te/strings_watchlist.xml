@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">వాచ్‌లిస్ట్ నిండింది</string>
     <string name="watchlist_logos_loading">లోగోలు లోడ్ అవుతున్నాయి…</string>
     <string name="watchlist_logos_loading_percent">లోగోలు లోడ్ అవుతున్నాయి · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">లోగో లేని %1$d కాయిన్</item>
+        <item quantity="other">లోగో లేని %1$d కాయిన్‌లు</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">నోటీసును మూసివేయండి</string>
+    <string name="watchlist_missing_logos_explain">ఈ కాయిన్‌లకు లోగో అందుబాటులో లేదు. యాప్ వాటి మొదటి అక్షరాలను చూపుతుంది.</string>
 </resources>

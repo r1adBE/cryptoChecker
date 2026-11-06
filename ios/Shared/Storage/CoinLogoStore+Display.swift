@@ -65,6 +65,12 @@ extension CoinLogoStore {
         Self.stored(symbol)
     }
 
+    /// Liegt für `symbol` ein Logo auf dem Gerät — geladen oder mitgeliefert (`stored`; nie Netz)? Für den Hinweis
+    /// «Coins ohne Logo» (`MissingLogoNotice`), wie Android `CoinLogoRepository.hasLogo`.
+    func hasLogo(_ symbol: String) -> Bool {
+        Self.stored(symbol) != nil
+    }
+
     /// Logos mehrerer Symbole vom Gerät (Widgets).
     static func storedLogos(_ symbols: [String]) -> [String: UIImage] {
         var out: [String: UIImage] = [:]

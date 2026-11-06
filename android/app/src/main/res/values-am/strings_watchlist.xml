@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">የክትትል ዝርዝሩ ሞልቷል</string>
     <string name="watchlist_logos_loading">አርማዎችን በመጫን ላይ…</string>
     <string name="watchlist_logos_loading_percent">አርማዎችን በመጫን ላይ · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d ሳንቲም ያለ አርማ</item>
+        <item quantity="other">%1$d ሳንቲሞች ያለ አርማ</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">ማሳወቂያውን መዝጋት</string>
+    <string name="watchlist_missing_logos_explain">ለእነዚህ ሳንቲሞች ምንም አርማ የለም። መተግበሪያው የመጀመሪያ ፊደሎቻቸውን ያሳያል።</string>
 </resources>

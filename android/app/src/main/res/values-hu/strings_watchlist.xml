@@ -251,4 +251,10 @@
     <string name="watchlist_footer_full">A figyelőlista megtelt</string>
     <string name="watchlist_logos_loading">Logók betöltése…</string>
     <string name="watchlist_logos_loading_percent">Logók betöltése · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d érme logó nélkül</item>
+        <item quantity="other">%1$d érme logó nélkül</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Értesítés bezárása</string>
+    <string name="watchlist_missing_logos_explain">Ezekhez az érmékhez nem érhető el logó. Az alkalmazás a kezdőbetűiket mutatja.</string>
 </resources>

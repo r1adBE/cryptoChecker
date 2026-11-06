@@ -283,4 +283,12 @@
     <string name="watchlist_footer_full">Seznam sledovaných je plný</string>
     <string name="watchlist_logos_loading">Načítají se loga…</string>
     <string name="watchlist_logos_loading_percent">Načítají se loga · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d mince bez loga</item>
+        <item quantity="few">%1$d mince bez loga</item>
+        <item quantity="many">%1$d mince bez loga</item>
+        <item quantity="other">%1$d mincí bez loga</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Zavřít upozornění</string>
+    <string name="watchlist_missing_logos_explain">Pro tyto mince není k dispozici žádné logo. Aplikace zobrazuje jejich iniciály.</string>
 </resources>

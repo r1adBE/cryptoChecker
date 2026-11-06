@@ -8,7 +8,9 @@ import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,6 +47,7 @@ class CoinLogoRepository @Inject constructor(
     private val images: LogoImageStore,
     private val alpha: AlphaTokens,
     private val coinNames: CoinNames,
+    private val missingDismissals: MissingLogoDismissals,
 ) {
     /** Letzter Abgleich scheiterte am fehlenden Netz: [CoinLogoSync] holt ihn nach ([CoinListSync.retryPending]). */
     val retryPending: StateFlow<Boolean> get() = listSync.retryPending
@@ -64,6 +67,19 @@ class CoinLogoRepository @Inject constructor(
 
     /** Fortschritt im Hinweis («· 40 %», gedrosselt); null = ohne Prozent ([LogoImageStore.loadingHint]). */
     val logosLoadingPercent: StateFlow<Int?> get() = images.loadingHint.percent
+
+    /** Das erste Laden der Logos ist erledigt ([com.cryptochecker.app.domain.logos.LogoLoadingHint.firstLoadDone]; Datei). */
+    suspend fun logosFirstLoadDone(): Boolean = withContext(Dispatchers.IO) { images.loadingHint.firstLoadDone() }
+
+    /** Liegt für [symbol] ein Logo auf dem Gerät — geladen oder mitgeliefert ([logo]; nie Netz)? */
+    suspend fun hasLogo(symbol: String): Boolean = images.logo(symbol) != null
+
+    /** Beim ✕ des Hinweises «Coins ohne Logo» gemerkte Coins ([MissingLogoDismissals]); null = noch nicht gelesen. */
+    val missingLogosDismissed: StateFlow<Set<String>?> get() = missingDismissals.keys
+
+    suspend fun loadMissingLogosDismissed() = missingDismissals.load()
+
+    fun dismissMissingLogos(keys: Set<String>) = missingDismissals.dismiss(keys)
 
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
     val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs

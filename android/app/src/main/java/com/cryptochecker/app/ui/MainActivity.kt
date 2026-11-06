@@ -261,4 +261,9 @@ private class RepositoryLogoSource(private val repository: CoinLogoRepository) :
     override fun cached(symbol: String) = repository.cached(symbol)
     override suspend fun load(symbol: String) = repository.logo(symbol)
     override suspend fun loadSavedNames() = repository.loadSavedNames()
+    override suspend fun firstLoadDone() = repository.logosFirstLoadDone()
+    override suspend fun hasLogo(symbol: String) = repository.hasLogo(symbol)
+    override val missingDismissed = repository.missingLogosDismissed
+    override suspend fun loadMissingDismissed() = repository.loadMissingLogosDismissed()
+    override fun dismissMissing(keys: Set<String>) = repository.dismissMissingLogos(keys)
 }

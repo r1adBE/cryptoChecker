@@ -30,6 +30,8 @@ extension WatchlistScreen {
             .frame(minHeight: WatchlistSearch.rowHeight)
             // Logos laden noch (nach der Installation bzw. nach dem Leeren des Zwischenspeichers): eine ruhige Zeile
             if !searching && !selecting && !editMode.isEditing { WatchlistLogoHint() }
+            // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
+            if !searching && !selecting && !editMode.isEditing { WatchlistMissingLogos() }
             // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
             if !searching && !selecting && !editMode.isEditing { AlarmReliabilityLine() }
         }
@@ -37,6 +39,8 @@ extension WatchlistScreen {
         .padding(.bottom, Spacing.xs)
         .readableContentWidth()
         .background(AppColors.background)
+        // Welche Coins der Merkliste kein Logo haben (unsichtbar, auch beim Suchen und Auswählen)
+        .background { WatchlistMissingLogosCheck(watches: data.watches) }
     }
 
     /// Erste Zeile des festen Kopfs: links scrollen die Gruppen-Chips («Alle», Gruppen, «+» für

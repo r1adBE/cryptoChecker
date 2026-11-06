@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">વૉચલિસ્ટ ભરાઈ ગયું</string>
     <string name="watchlist_logos_loading">લોગો લોડ થઈ રહ્યા છે…</string>
     <string name="watchlist_logos_loading_percent">લોગો લોડ થઈ રહ્યા છે · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">લોગો વગરના %1$d કૉઇન</item>
+        <item quantity="other">લોગો વગરના %1$d કૉઇન</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">સૂચના બંધ કરો</string>
+    <string name="watchlist_missing_logos_explain">આ કૉઇન માટે કોઈ લોગો ઉપલબ્ધ નથી. ઍપ તેમના આદ્યાક્ષર બતાવે છે.</string>
 </resources>

@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">Kuzatuv roʻyxati toʻldi</string>
     <string name="watchlist_logos_loading">Logotiplar yuklanmoqda…</string>
     <string name="watchlist_logos_loading_percent">Logotiplar yuklanmoqda · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">Logotipi yoʻq %1$d ta tanga</item>
+        <item quantity="other">Logotipi yoʻq %1$d ta tanga</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Bildirishnomani yopish</string>
+    <string name="watchlist_missing_logos_explain">Bu tangalar uchun logotip mavjud emas. Ilova ularning bosh harflarini koʻrsatadi.</string>
 </resources>

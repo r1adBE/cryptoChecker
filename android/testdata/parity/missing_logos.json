@@ -1,0 +1,46 @@
+{
+  "_doc": "Hinweis «N Coins ohne Logo» (MissingLogoNotice, Build 207). candidates: Paare der Merkliste (Börse, Basis, TradFi) → Schlüssel der Coins, die ein Logo haben sollten (DEX-Pools und Kürzel ohne Dateinamen nie; Hebel-Präfix und Aliase wie beim Laden; TradFi eigener Namensraum; ohne doppelte, Reihenfolge der Merkliste). state: Coins ohne Logo, beim ✕ gemerkter Satz, Logos laden noch, Schalter «Coin-Logos › In der App» → sichtbar und Zahl (unsichtbar: 0).",
+  "candidates": [
+    {
+      "name": "doppelte und Hebel-Präfix",
+      "pairs": [["Binance", "PEPE", false], ["BinanceFutures", "1000PEPE", false], ["Kraken", "XBT", false], ["Binance", "BTC", false]],
+      "keys": ["PEPE", "BTC"]
+    },
+    {
+      "name": "DEX-Pool nie, auch nicht mit bekanntem Kürzel",
+      "pairs": [["DexScreener", "BTC", false], ["DexScreener", "FOO", false], ["Bybit", "FOO", false]],
+      "keys": ["FOO"]
+    },
+    {
+      "name": "TradFi eigener Namensraum neben gleichnamigem Krypto",
+      "pairs": [["BinanceFutures", "NVDA", true], ["Binance", "NVDA", false], ["BybitFutures", "nvda", true]],
+      "keys": ["TRADFI:NVDA", "NVDA"]
+    },
+    {
+      "name": "Kürzel ohne Dateinamen: immer Initialen",
+      "pairs": [["Binance", "BTC-PERP", false], ["Binance", "", false], ["BinanceFutures", "BRK.B", true], ["Binance", "ETH", false]],
+      "keys": ["ETH"]
+    },
+    {
+      "name": "leere Merkliste",
+      "pairs": [],
+      "keys": []
+    }
+  ],
+  "state": [
+    {"name": "zwei ohne Logo", "missing": ["FOO", "BAR"], "dismissed": [], "loading": false, "enabled": true, "visible": true, "count": 2},
+    {"name": "einer", "missing": ["FOO"], "dismissed": [], "loading": false, "enabled": true, "visible": true, "count": 1},
+    {"name": "keiner", "missing": [], "dismissed": [], "loading": false, "enabled": true, "visible": false, "count": 0},
+    {"name": "Logos laden noch", "missing": ["FOO", "BAR"], "dismissed": [], "loading": true, "enabled": true, "visible": false, "count": 0},
+    {"name": "Schalter aus", "missing": ["FOO", "BAR"], "dismissed": [], "loading": false, "enabled": false, "visible": false, "count": 0},
+    {"name": "alle geschlossen", "missing": ["FOO", "BAR"], "dismissed": ["BAR", "FOO"], "loading": false, "enabled": true, "visible": false, "count": 0},
+    {"name": "Teil davon geschlossen (Logo kam)", "missing": ["FOO"], "dismissed": ["BAR", "FOO"], "loading": false, "enabled": true, "visible": false, "count": 0},
+    {"name": "neuer Coin ohne Logo: zurück, Zahl nennt alle", "missing": ["FOO", "BAR", "BAZ"], "dismissed": ["BAR", "FOO"], "loading": false, "enabled": true, "visible": true, "count": 3},
+    {"name": "geschlossen, alter Satz ohne Bezug", "missing": ["TRADFI:NVDA"], "dismissed": ["NVDA"], "loading": false, "enabled": true, "visible": true, "count": 1},
+    {"name": "doppelte zählen einmal", "missing": ["FOO", "FOO"], "dismissed": [], "loading": false, "enabled": true, "visible": true, "count": 1}
+  ],
+  "stored": [
+    {"keys": ["FOO", "TRADFI:NVDA", "BAR"], "text": "BAR\nFOO\nTRADFI:NVDA"},
+    {"keys": [], "text": ""}
+  ]
+}

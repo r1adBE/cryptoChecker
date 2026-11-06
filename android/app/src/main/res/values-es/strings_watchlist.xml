@@ -267,4 +267,11 @@
     <string name="watchlist_footer_full">Lista de seguimiento llena</string>
     <string name="watchlist_logos_loading">Cargando logos…</string>
     <string name="watchlist_logos_loading_percent">Cargando logos · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d moneda sin logo</item>
+        <item quantity="many">%1$d de monedas sin logo</item>
+        <item quantity="other">%1$d monedas sin logo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Cerrar aviso</string>
+    <string name="watchlist_missing_logos_explain">No hay logo disponible para estas monedas. La app muestra sus iniciales.</string>
 </resources>

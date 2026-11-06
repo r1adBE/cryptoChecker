@@ -251,4 +251,10 @@
     <string name="watchlist_footer_full">واچ‌لیست پر است</string>
     <string name="watchlist_logos_loading">در حال بارگیری لوگوها…</string>
     <string name="watchlist_logos_loading_percent">در حال بارگیری لوگوها · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d ارز بدون لوگو</item>
+        <item quantity="other">%1$d ارز بدون لوگو</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">بستن اعلان</string>
+    <string name="watchlist_missing_logos_explain">برای این ارزها لوگویی در دسترس نیست. برنامه حروف اول آن‌ها را نشان می‌دهد.</string>
 </resources>

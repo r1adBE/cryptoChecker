@@ -268,4 +268,11 @@
     <string name="watchlist_footer_full">Vērojamo saraksts ir pilns</string>
     <string name="watchlist_logos_loading">Notiek logotipu ielāde…</string>
     <string name="watchlist_logos_loading_percent">Notiek logotipu ielāde · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="zero">%1$d monētu bez logotipa</item>
+        <item quantity="one">%1$d monēta bez logotipa</item>
+        <item quantity="other">%1$d monētas bez logotipa</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Aizvērt paziņojumu</string>
+    <string name="watchlist_missing_logos_explain">Šīm monētām logotips nav pieejams. Lietotne rāda to iniciāļus.</string>
 </resources>

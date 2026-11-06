@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">ਵਾਚਲਿਸਟ ਭਰ ਗਈ</string>
     <string name="watchlist_logos_loading">ਲੋਗੋ ਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
     <string name="watchlist_logos_loading_percent">ਲੋਗੋ ਲੋਡ ਹੋ ਰਹੇ ਹਨ · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">ਬਿਨਾਂ ਲੋਗੋ ਵਾਲਾ %1$d ਕੌਇਨ</item>
+        <item quantity="other">ਬਿਨਾਂ ਲੋਗੋ ਵਾਲੇ %1$d ਕੌਇਨ</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">ਸੂਚਨਾ ਬੰਦ ਕਰੋ</string>
+    <string name="watchlist_missing_logos_explain">ਇਹਨਾਂ ਕੌਇਨਾਂ ਲਈ ਕੋਈ ਲੋਗੋ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਐਪ ਇਹਨਾਂ ਦੇ ਸ਼ੁਰੂਆਤੀ ਅੱਖਰ ਦਿਖਾਉਂਦੀ ਹੈ।</string>
 </resources>

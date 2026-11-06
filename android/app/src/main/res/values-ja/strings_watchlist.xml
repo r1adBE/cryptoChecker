@@ -235,4 +235,9 @@
     <string name="watchlist_footer_full">ウォッチリストは上限です</string>
     <string name="watchlist_logos_loading">ロゴを読み込み中…</string>
     <string name="watchlist_logos_loading_percent">ロゴを読み込み中 · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="other">ロゴのないコイン %1$d 件</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">お知らせを閉じる</string>
+    <string name="watchlist_missing_logos_explain">これらのコインには利用できるロゴがありません。代わりに頭文字を表示します。</string>
 </resources>

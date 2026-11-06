@@ -251,4 +251,10 @@
     <string name="watchlist_footer_full">Η λίστα παρακολούθησης είναι γεμάτη</string>
     <string name="watchlist_logos_loading">Φόρτωση λογοτύπων…</string>
     <string name="watchlist_logos_loading_percent">Φόρτωση λογοτύπων · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d νόμισμα χωρίς λογότυπο</item>
+        <item quantity="other">%1$d νομίσματα χωρίς λογότυπο</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Κλείσιμο ειδοποίησης</string>
+    <string name="watchlist_missing_logos_explain">Δεν υπάρχει διαθέσιμο λογότυπο για αυτά τα νομίσματα. Η εφαρμογή δείχνει τα αρχικά τους.</string>
 </resources>

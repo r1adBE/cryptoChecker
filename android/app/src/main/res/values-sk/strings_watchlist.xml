@@ -284,4 +284,12 @@
     <string name="watchlist_footer_full">Zoznam je plný</string>
     <string name="watchlist_logos_loading">Načítavajú sa logá…</string>
     <string name="watchlist_logos_loading_percent">Načítavajú sa logá · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d coin bez loga</item>
+        <item quantity="few">%1$d coiny bez loga</item>
+        <item quantity="many">%1$d coinu bez loga</item>
+        <item quantity="other">%1$d coinov bez loga</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Zavrieť upozornenie</string>
+    <string name="watchlist_missing_logos_explain">Pre tieto coiny nie je k dispozícii žiadne logo. Aplikácia zobrazuje ich iniciály.</string>
 </resources>

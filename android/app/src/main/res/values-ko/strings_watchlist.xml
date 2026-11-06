@@ -235,4 +235,9 @@
     <string name="watchlist_footer_full">관심 목록이 가득 찼습니다</string>
     <string name="watchlist_logos_loading">로고 불러오는 중…</string>
     <string name="watchlist_logos_loading_percent">로고 불러오는 중 · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="other">로고 없는 코인 %1$d개</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">알림 닫기</string>
+    <string name="watchlist_missing_logos_explain">이 코인들은 사용할 수 있는 로고가 없습니다. 앱에서 이니셜을 표시합니다.</string>
 </resources>

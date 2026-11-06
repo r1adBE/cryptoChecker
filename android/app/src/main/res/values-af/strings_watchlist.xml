@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">Volglys vol</string>
     <string name="watchlist_logos_loading">Logo\'s word gelaai…</string>
     <string name="watchlist_logos_loading_percent">Logo\'s word gelaai · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d munt sonder logo</item>
+        <item quantity="other">%1$d munte sonder logo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Maak kennisgewing toe</string>
+    <string name="watchlist_missing_logos_explain">Vir hierdie munte is geen logo beskikbaar nie. Die app wys hul voorletters.</string>
 </resources>

@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">Бақылау тізімі толы</string>
     <string name="watchlist_logos_loading">Логотиптер жүктелуде…</string>
     <string name="watchlist_logos_loading_percent">Логотиптер жүктелуде · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">Логотипі жоқ %1$d монета</item>
+        <item quantity="other">Логотипі жоқ %1$d монета</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Хабарламаны жабу</string>
+    <string name="watchlist_missing_logos_explain">Бұл монеталар үшін логотип жоқ. Қолданба олардың бас әріптерін көрсетеді.</string>
 </resources>

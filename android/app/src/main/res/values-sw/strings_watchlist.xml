@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">Orodha ya ufuatiliaji imejaa</string>
     <string name="watchlist_logos_loading">Inapakia nembo…</string>
     <string name="watchlist_logos_loading_percent">Inapakia nembo · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">Sarafu %1$d isiyo na nembo</item>
+        <item quantity="other">Sarafu %1$d zisizo na nembo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Funga arifa</string>
+    <string name="watchlist_missing_logos_explain">Hakuna nembo inayopatikana kwa sarafu hizi. Programu inaonyesha herufi zake za mwanzo.</string>
 </resources>

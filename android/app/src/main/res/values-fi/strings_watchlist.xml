@@ -251,4 +251,10 @@
     <string name="watchlist_footer_full">Seurantalista on täynnä</string>
     <string name="watchlist_logos_loading">Ladataan logoja…</string>
     <string name="watchlist_logos_loading_percent">Ladataan logoja · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d kolikko ilman logoa</item>
+        <item quantity="other">%1$d kolikkoa ilman logoa</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Sulje ilmoitus</string>
+    <string name="watchlist_missing_logos_explain">Näille kolikoille ei ole saatavilla logoa. Sovellus näyttää niiden nimikirjaimet.</string>
 </resources>

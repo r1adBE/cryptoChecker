@@ -268,4 +268,11 @@
     <string name="watchlist_footer_full">Popis praćenja je pun</string>
     <string name="watchlist_logos_loading">Logotipi se učitavaju…</string>
     <string name="watchlist_logos_loading_percent">Logotipi se učitavaju · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d kriptovaluta bez logotipa</item>
+        <item quantity="few">%1$d kriptovalute bez logotipa</item>
+        <item quantity="other">%1$d kriptovaluta bez logotipa</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Zatvori obavijest</string>
+    <string name="watchlist_missing_logos_explain">Za ove kriptovalute logotip nije dostupan. Aplikacija prikazuje njihove inicijale.</string>
 </resources>

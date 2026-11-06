@@ -284,4 +284,12 @@
     <string name="watchlist_footer_full">Stebimų sąrašas pilnas</string>
     <string name="watchlist_logos_loading">Įkeliami logotipai…</string>
     <string name="watchlist_logos_loading_percent">Įkeliami logotipai · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d moneta be logotipo</item>
+        <item quantity="few">%1$d monetos be logotipo</item>
+        <item quantity="many">%1$d monetos be logotipo</item>
+        <item quantity="other">%1$d monetų be logotipo</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Uždaryti pranešimą</string>
+    <string name="watchlist_missing_logos_explain">Šioms monetoms logotipo nėra. Programėlė rodo jų inicialus.</string>
 </resources>

@@ -3390,6 +3390,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `WidgetReconnectWorker` with a network constraint (Android); iOS widget asks for an early reload while offline.
 * Build 206: `LogoLoadingHint` percent (done / to load in the first-load pass, floor, ≤ 99 %, throttled; parity
   `coin_logos.json › loadingPercent`); loading itself unchanged.
+* Build 207: `MissingLogoNotice` (badge rule, dismissed set, hidden while loading or with logos off; parity
+  `missing_logos.json`).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

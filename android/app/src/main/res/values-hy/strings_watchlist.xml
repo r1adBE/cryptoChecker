@@ -252,4 +252,10 @@
     <string name="watchlist_footer_full">Դիտացանկը լցված է</string>
     <string name="watchlist_logos_loading">Լոգոները բեռնվում են…</string>
     <string name="watchlist_logos_loading_percent">Լոգոները բեռնվում են · %1$s</string>
+    <plurals name="watchlist_missing_logos">
+        <item quantity="one">%1$d կոին առանց լոգոյի</item>
+        <item quantity="other">%1$d կոին առանց լոգոյի</item>
+    </plurals>
+    <string name="watchlist_missing_logos_dismiss">Փակել ծանուցումը</string>
+    <string name="watchlist_missing_logos_explain">Այս կոինների համար լոգո հասանելի չէ։ Հավելվածը ցույց է տալիս դրանց սկզբնատառերը։</string>
 </resources>
