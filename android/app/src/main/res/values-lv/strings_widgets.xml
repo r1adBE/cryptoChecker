@@ -8,6 +8,7 @@
     <string name="widget_empty">Vērojamo sarakstā vēl nav pāru.</string>
     <string name="widget_group_hint">Rādīt tikai šīs grupas pārus.</string>
     <string name="widget_kind_single">Viena monēta</string>
+    <string name="widget_loading_prices">Ielādē cenas</string>
     <string name="widget_opacity">Fona necaurredzamība: %1$s</string>
     <string name="widget_pulse_description">Kas tirgū pašlaik izceļas: virsraksts, īss kopsavilkums un Bitcoin, Ethereum un Solana.</string>
 

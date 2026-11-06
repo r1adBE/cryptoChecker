@@ -8,6 +8,7 @@
     <string name="widget_empty">Encara no hi ha parells a la llista.</string>
     <string name="widget_group_hint">Mostra només els parells d\'aquest grup.</string>
     <string name="widget_kind_single">Una moneda</string>
+    <string name="widget_loading_prices">S\'estan carregant els preus</string>
     <string name="widget_opacity">Opacitat del fons: %1$s</string>
     <string name="widget_pulse_description">Què destaca ara mateix al mercat: titular, breu resum i Bitcoin, Ethereum i Solana.</string>
 

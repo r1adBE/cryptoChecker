@@ -8,6 +8,7 @@
     <string name="widget_empty">V zozname zatiaľ nie sú žiadne páry.</string>
     <string name="widget_group_hint">Zobraziť iba páry tejto skupiny.</string>
     <string name="widget_kind_single">Jeden coin</string>
+    <string name="widget_loading_prices">Načítavajú sa kurzy</string>
     <string name="widget_opacity">Krytie pozadia: %1$s</string>
     <string name="widget_pulse_description">Čo práve na trhu vyniká: titulok, krátke zhrnutie a Bitcoin, Ethereum a Solana.</string>
 

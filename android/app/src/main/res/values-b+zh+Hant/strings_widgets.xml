@@ -8,6 +8,7 @@
     <string name="widget_empty">自選清單中還沒有交易對。</string>
     <string name="widget_group_hint">僅顯示此分組的交易對。</string>
     <string name="widget_kind_single">單幣</string>
+    <string name="widget_loading_prices">正在載入價格</string>
     <string name="widget_opacity">背景不透明度：%1$s</string>
     <string name="widget_pulse_description">市場目前亮點：標題、簡短摘要，以及 Bitcoin、Ethereum 和 Solana。</string>
 

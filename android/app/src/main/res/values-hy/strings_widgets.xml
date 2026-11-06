@@ -8,6 +8,7 @@
     <string name="widget_empty">Դիտացանկում դեռ զույգեր չկան։</string>
     <string name="widget_group_hint">Ցույց տալ միայն այս խմբի զույգերը։</string>
     <string name="widget_kind_single">Մեկ կոին</string>
+    <string name="widget_loading_prices">Գները բեռնվում են</string>
     <string name="widget_opacity">Ֆոնի անթափանցիկություն՝ %1$s</string>
     <string name="widget_pulse_description">Ինչն է հիմա աչքի ընկնում շուկայում՝ վերնագիր, կարճ ամփոփում և Bitcoin, Ethereum ու Solana։</string>
 

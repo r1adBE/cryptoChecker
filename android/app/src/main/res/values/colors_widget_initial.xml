@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Erster Auftritt der Widgets (android:initialLayout), bevor die App zeichnet — etwa nach dem Neustart, bis zum
+     ersten Entsperren: Farben des Widget-Themas «System» (WidgetColors, Deckkraft 90 % = DEFAULT_OPACITY), hell hier,
+     dunkel in values-night. Die Platzhalter-Balken (Skelett) sind ein ruhiges Grau ohne Inhalt. Sobald die App
+     zeichnet, gelten die Farben aus WidgetColors (WidgetToolkit.background). -->
+<resources>
+    <!-- Grundfarbe #F1EEE9 mit 90 % Deckkraft -->
+    <color name="widget_initial_background">#E5F1EEE9</color>
+    <!-- Haupttext (Titel, Aktualisieren-Symbol) -->
+    <color name="widget_initial_text">#FF1B1B1B</color>
+    <!-- Platzhalter-Balken: Nebentext #474747 zu etwa 22 % auf der Grundfarbe (1.5:1, ruhig, kein Text) -->
+    <color name="widget_initial_skeleton">#FFC8C4BF</color>
+</resources>

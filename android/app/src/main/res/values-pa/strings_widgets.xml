@@ -8,6 +8,7 @@
     <string name="widget_empty">ਵਾਚਲਿਸਟ ਵਿੱਚ ਹਾਲੇ ਕੋਈ ਜੋੜਾ ਨਹੀਂ।</string>
     <string name="widget_group_hint">ਸਿਰਫ਼ ਇਸ ਗਰੁੱਪ ਦੇ ਜੋੜੇ ਦਿਖਾਓ।</string>
     <string name="widget_kind_single">ਇੱਕ ਕੌਇਨ</string>
+    <string name="widget_loading_prices">ਕੀਮਤਾਂ ਲੋਡ ਹੋ ਰਹੀਆਂ ਹਨ</string>
     <string name="widget_opacity">ਪਿਛੋਕੜ ਦਾ ਧੁੰਦਲਾਪਣ: %1$s</string>
     <string name="widget_pulse_description">ਇਸ ਵੇਲੇ ਬਾਜ਼ਾਰ ਵਿੱਚ ਕੀ ਵੱਖਰਾ ਦਿਖ ਰਿਹਾ ਹੈ: ਸਿਰਲੇਖ, ਛੋਟਾ ਸਾਰ ਅਤੇ Bitcoin, Ethereum ਅਤੇ Solana।</string>
 

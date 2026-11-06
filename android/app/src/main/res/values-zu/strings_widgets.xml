@@ -8,6 +8,7 @@
     <string name="widget_empty">Awekho amapheya ohlwini lokubuka okwamanje.</string>
     <string name="widget_group_hint">Bonisa kuphela amapheya aleli qembu.</string>
     <string name="widget_kind_single">I-coin eyodwa</string>
+    <string name="widget_loading_prices">Ilayisha izintengo</string>
     <string name="widget_opacity">Ukubonakala kwengemuva: %1$s</string>
     <string name="widget_pulse_description">Okugqamayo emakethe njengamanje: isihloko, isifinyezo esifushane ne-Bitcoin, Ethereum ne-Solana.</string>
 

@@ -8,6 +8,7 @@
     <string name="widget_empty">ওয়াচলিস্টে এখনো কোনো পেয়ার নেই।</string>
     <string name="widget_group_hint">শুধু এই গ্রুপের পেয়ার দেখান।</string>
     <string name="widget_kind_single">একক কয়েন</string>
+    <string name="widget_loading_prices">দাম লোড হচ্ছে</string>
     <string name="widget_opacity">পটভূমির অস্বচ্ছতা: %1$s</string>
     <string name="widget_pulse_description">এই মুহূর্তে বাজারে কী চোখে পড়ছে: শিরোনাম, সংক্ষিপ্ত সারাংশ এবং Bitcoin, Ethereum ও Solana।</string>
 

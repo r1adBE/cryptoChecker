@@ -8,6 +8,7 @@
     <string name="widget_empty">વૉચલિસ્ટમાં હજુ કોઈ જોડી નથી.</string>
     <string name="widget_group_hint">ફક્ત આ જૂથની જોડીઓ બતાવો.</string>
     <string name="widget_kind_single">એક કૉઇન</string>
+    <string name="widget_loading_prices">ભાવ લોડ થઈ રહ્યા છે</string>
     <string name="widget_opacity">બૅકગ્રાઉન્ડ અપારદર્શકતા: %1$s</string>
     <string name="widget_pulse_description">અત્યારે માર્કેટમાં શું ધ્યાન ખેંચે છે: હેડલાઇન, ટૂંકો સારાંશ અને Bitcoin, Ethereum તથા Solana.</string>
 

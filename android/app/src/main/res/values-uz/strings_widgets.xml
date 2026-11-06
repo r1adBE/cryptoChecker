@@ -8,6 +8,7 @@
     <string name="widget_empty">Kuzatuv roʻyxatida hali juftliklar yoʻq.</string>
     <string name="widget_group_hint">Faqat shu guruh juftliklarini koʻrsatish.</string>
     <string name="widget_kind_single">Bitta tanga</string>
+    <string name="widget_loading_prices">Kurslar yuklanmoqda</string>
     <string name="widget_opacity">Fon shaffofligi: %1$s</string>
     <string name="widget_pulse_description">Bozorda hozir nima ajralib turibdi: sarlavha, qisqacha xulosa hamda Bitcoin, Ethereum va Solana.</string>
 

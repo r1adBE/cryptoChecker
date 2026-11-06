@@ -8,6 +8,7 @@
     <string name="widget_empty">വാച്ച്‌ലിസ്റ്റിൽ ഇതുവരെ ജോഡികളൊന്നുമില്ല.</string>
     <string name="widget_group_hint">ഈ ഗ്രൂപ്പിലെ ജോഡികൾ മാത്രം കാണിക്കുക.</string>
     <string name="widget_kind_single">ഒറ്റ കോയിൻ</string>
+    <string name="widget_loading_prices">വിലകൾ ലോഡ് ചെയ്യുന്നു</string>
     <string name="widget_opacity">പശ്ചാത്തല അതാര്യത: %1$s</string>
     <string name="widget_pulse_description">മാർക്കറ്റിൽ ഇപ്പോൾ ശ്രദ്ധേയമായത്: തലക്കെട്ട്, ചെറിയ സംഗ്രഹം, Bitcoin, Ethereum, Solana.</string>
 

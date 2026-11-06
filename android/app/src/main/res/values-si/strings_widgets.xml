@@ -8,6 +8,7 @@
     <string name="widget_empty">නිරීක්ෂණ ලැයිස්තුවේ තවම යුගල නැත.</string>
     <string name="widget_group_hint">මෙම කණ්ඩායමේ යුගල පමණක් පෙන්වන්න.</string>
     <string name="widget_kind_single">තනි කාසිය</string>
+    <string name="widget_loading_prices">මිල ගණන් පූරණය වෙමින්</string>
     <string name="widget_opacity">පසුබිම් පාරාන්ධතාව: %1$s</string>
     <string name="widget_pulse_description">දැන් වෙළඳපොළේ කැපී පෙනෙන දේ: සිරස්තලය, කෙටි සාරාංශය සහ Bitcoin, Ethereum සහ Solana.</string>
 

@@ -8,6 +8,7 @@
     <string name="widget_empty">वॉचलिस्टमध्ये अजून एकही जोडी नाही.</string>
     <string name="widget_group_hint">फक्त या गटातील जोड्या दाखवा.</string>
     <string name="widget_kind_single">एक कॉइन</string>
+    <string name="widget_loading_prices">किमती लोड होत आहेत</string>
     <string name="widget_opacity">पार्श्वभूमी अपारदर्शकता: %1$s</string>
     <string name="widget_pulse_description">सध्या मार्केटमध्ये काय लक्षवेधी आहे: मथळा, छोटा सारांश आणि Bitcoin, Ethereum व Solana.</string>
 

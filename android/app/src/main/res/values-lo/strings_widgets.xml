@@ -8,6 +8,7 @@
     <string name="widget_empty">ຍັງບໍ່ມີຄູ່ເທຣດໃນລາຍການຕິດຕາມ.</string>
     <string name="widget_group_hint">ສະແດງສະເພາະຄູ່ເທຣດຂອງກຸ່ມນີ້.</string>
     <string name="widget_kind_single">ຫຼຽນດຽວ</string>
+    <string name="widget_loading_prices">ກຳລັງໂຫຼດລາຄາ</string>
     <string name="widget_opacity">ຄວາມທຶບຂອງພື້ນຫຼັງ: %1$s</string>
     <string name="widget_pulse_description">ສິ່ງທີ່ໂດດເດັ່ນໃນຕະຫຼາດຕອນນີ້: ຫົວຂໍ້, ສະຫຼຸບສັ້ນ ແລະ Bitcoin, Ethereum ແລະ Solana.</string>
 

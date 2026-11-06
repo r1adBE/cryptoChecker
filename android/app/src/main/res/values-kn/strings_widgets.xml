@@ -8,6 +8,7 @@
     <string name="widget_empty">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಇನ್ನೂ ಜೋಡಿಗಳಿಲ್ಲ.</string>
     <string name="widget_group_hint">ಈ ಗುಂಪಿನ ಜೋಡಿಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸಿ.</string>
     <string name="widget_kind_single">ಒಂದೇ ಕಾಯಿನ್</string>
+    <string name="widget_loading_prices">ಬೆಲೆಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ</string>
     <string name="widget_opacity">ಹಿನ್ನೆಲೆ ಅಪಾರದರ್ಶಕತೆ: %1$s</string>
     <string name="widget_pulse_description">ಸದ್ಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಗಮನ ಸೆಳೆಯುತ್ತಿರುವುದು: ಶೀರ್ಷಿಕೆ, ಸಂಕ್ಷಿಪ್ತ ಸಾರಾಂಶ ಮತ್ತು Bitcoin, Ethereum, Solana.</string>
 

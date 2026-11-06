@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grauer Platzhalter-Balken (Skelett) im ersten Auftritt der Widgets: keine Zahlen, keine Animation. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="4dp" />
+    <solid android:color="@color/widget_initial_skeleton" />
+</shape>

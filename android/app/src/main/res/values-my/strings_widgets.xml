@@ -8,6 +8,7 @@
     <string name="widget_empty">စောင့်ကြည့်စာရင်းတွင် အတွဲ မရှိသေးပါ။</string>
     <string name="widget_group_hint">ဤအုပ်စု၏ အတွဲများကိုသာ ပြရန်။</string>
     <string name="widget_kind_single">ကွိုင်တစ်ခုတည်း</string>
+    <string name="widget_loading_prices">ဈေးနှုန်းများ ဖွင့်နေသည်</string>
     <string name="widget_opacity">နောက်ခံ အလင်းပိတ်မှု: %1$s</string>
     <string name="widget_pulse_description">ယခု ဈေးကွက်တွင် ထင်ရှားနေသည့်အရာ- ခေါင်းစဉ်၊ အကျဉ်းချုပ်နှင့် Bitcoin, Ethereum နှင့် Solana။</string>
 

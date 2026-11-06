@@ -3383,6 +3383,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `NbuReference`/`NbpReference` cached until the next publication; forex chip with live fiat pairs (Kraken, Bitstamp).
 * Build 202: `AddressWithdrawalMatch.retarget` changes the named transfer's target to the address wallet (confirmation, normal
   save path); hint button on the address row and the coin card.
+* Build 203: widget initial layouts with day/night `colors_widget_initial` and a static skeleton; `WidgetToolkit.background`
+  hides it on every draw (WidgetInitialLayoutTest).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

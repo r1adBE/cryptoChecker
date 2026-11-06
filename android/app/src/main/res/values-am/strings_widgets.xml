@@ -8,6 +8,7 @@
     <string name="widget_empty">እስካሁን በክትትል ዝርዝሩ ውስጥ ምንም ጥንድ የለም።</string>
     <string name="widget_group_hint">የዚህን ቡድን ጥንዶች ብቻ ያሳዩ።</string>
     <string name="widget_kind_single">ነጠላ ሳንቲም</string>
+    <string name="widget_loading_prices">ዋጋዎችን በመጫን ላይ</string>
     <string name="widget_opacity">የዳራ ግልጽነት፦ %1$s</string>
     <string name="widget_pulse_description">አሁን በገበያው ውስጥ ጎልቶ የሚታየው፦ ርዕስ፣ አጭር ማጠቃለያ እና Bitcoin፣ Ethereum እና Solana።</string>
 

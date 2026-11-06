@@ -8,6 +8,7 @@
     <string name="widget_empty">Oraindik ez dago parerik zerrendan.</string>
     <string name="widget_group_hint">Erakutsi talde honetako pareak soilik.</string>
     <string name="widget_kind_single">Txanpon bakarra</string>
+    <string name="widget_loading_prices">Prezioak kargatzen</string>
     <string name="widget_opacity">Atzeko planoaren opakutasuna: %1$s</string>
     <string name="widget_pulse_description">Une honetan merkatuan nabarmentzen dena: izenburua, laburpen laburra eta Bitcoin, Ethereum eta Solana.</string>
 

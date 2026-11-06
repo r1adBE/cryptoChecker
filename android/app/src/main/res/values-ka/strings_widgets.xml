@@ -8,6 +8,7 @@
     <string name="widget_empty">დაკვირვების სიაში წყვილები ჯერ არ არის.</string>
     <string name="widget_group_hint">მხოლოდ ამ ჯგუფის წყვილების ჩვენება.</string>
     <string name="widget_kind_single">ერთი მონეტა</string>
+    <string name="widget_loading_prices">ფასები იტვირთება</string>
     <string name="widget_opacity">ფონის გაუმჭვირვალობა: %1$s</string>
     <string name="widget_pulse_description">რა გამოირჩევა ბაზარზე ახლა: სათაური, მოკლე შეჯამება და Bitcoin, Ethereum და Solana.</string>
 

@@ -8,6 +8,7 @@
     <string name="widget_empty">Wala pang pares sa watchlist.</string>
     <string name="widget_group_hint">Ipakita lang ang mga pares ng grupong ito.</string>
     <string name="widget_kind_single">Iisang coin</string>
+    <string name="widget_loading_prices">Naglo-load ng mga presyo</string>
     <string name="widget_opacity">Opacity ng background: %1$s</string>
     <string name="widget_pulse_description">Ano ang namumukod sa market ngayon: headline, maikling buod at Bitcoin, Ethereum at Solana.</string>
 

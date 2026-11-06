@@ -8,6 +8,7 @@
     <string name="widget_empty">Още няма двойки в списъка.</string>
     <string name="widget_group_hint">Показвай само двойките от тази група.</string>
     <string name="widget_kind_single">Една монета</string>
+    <string name="widget_loading_prices">Зареждане на курсовете</string>
     <string name="widget_opacity">Непрозрачност на фона: %1$s</string>
     <string name="widget_pulse_description">Какво се откроява в момента на пазара: заглавие, кратко обобщение и Bitcoin, Ethereum и Solana.</string>
 

@@ -8,6 +8,7 @@
     <string name="widget_empty">Na spisku praćenja još nema parova.</string>
     <string name="widget_group_hint">Prikaži samo parove ove grupe.</string>
     <string name="widget_kind_single">Pojedinačna kriptovaluta</string>
+    <string name="widget_loading_prices">Učitavanje cijena</string>
     <string name="widget_opacity">Neprozirnost pozadine: %1$s</string>
     <string name="widget_pulse_description">Šta se trenutno ističe na tržištu: naslov, kratak sažetak te Bitcoin, Ethereum i Solana.</string>
 

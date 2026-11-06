@@ -9,13 +9,14 @@
     android:clipToOutline="true"
     tools:targetApi="31">
 
-    <!-- Fläche mit runden Ecken; Farbe und Deckkraft setzt WidgetUpdater.background -->
+    <!-- Fläche mit runden Ecken; Farbe und Deckkraft setzt WidgetUpdater.background. Bis dahin (erster Auftritt,
+         z. B. nach dem Neustart) Farbe des Themas «System» hell/dunkel: widget_background_initial -->
     <ImageView
         android:id="@+id/widget_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/widget_background"
+        android:src="@drawable/widget_background_initial"
         android:importantForAccessibility="no"
         android:contentDescription="@null" />
 
@@ -64,6 +65,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/tab_watchlist"
+                    android:textColor="@color/widget_initial_text"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -105,6 +107,8 @@
                 android:layout_height="48dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_widget_refresh"
+                android:tint="@color/widget_initial_text"
+                tools:ignore="UseAppTint"
                 android:contentDescription="@string/action_refresh" />
 
             <!-- Statt des Knopfs während der 15-s-Sperre: zählt selbst herunter (ListWidgetRenderer) -->
@@ -119,8 +123,31 @@
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
 
+        <!-- Skelett bis zum ersten Zeichnen: graue Platzhalter-Zeilen statt einer leeren Fläche. Jedes Zeichnen
+             blendet es aus (WidgetToolkit.background) und setzt Liste bzw. «Noch keine Paare» sichtbar -->
+        <LinearLayout
+            android:id="@+id/widget_skeleton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:importantForAccessibility="yes"
+            android:contentDescription="@string/widget_loading_prices">
+
+            <include layout="@layout/widget_skeleton_row" />
+
+            <include layout="@layout/widget_skeleton_row" />
+
+            <include layout="@layout/widget_skeleton_row" />
+
+            <include layout="@layout/widget_skeleton_row" />
+        </LinearLayout>
+
         <ListView
             android:id="@+id/widget_list"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

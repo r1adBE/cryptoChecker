@@ -8,6 +8,7 @@
     <string name="widget_empty">واچ لسٹ میں ابھی کوئی جوڑا نہیں۔</string>
     <string name="widget_group_hint">صرف اس گروپ کے جوڑے دکھائیں۔</string>
     <string name="widget_kind_single">ایک کوائن</string>
+    <string name="widget_loading_prices">قیمتیں لوڈ ہو رہی ہیں</string>
     <string name="widget_opacity">پس منظر کا دھندلاپن: %1$s</string>
     <string name="widget_pulse_description">اس وقت مارکیٹ میں کیا نمایاں ہے: سرخی، مختصر خلاصہ اور Bitcoin، Ethereum اور Solana۔</string>
 

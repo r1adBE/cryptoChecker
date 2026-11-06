@@ -8,6 +8,7 @@
     <string name="widget_empty">Engin pör á vaktlistanum enn.</string>
     <string name="widget_group_hint">Sýna aðeins pör þessa hóps.</string>
     <string name="widget_kind_single">Stök mynt</string>
+    <string name="widget_loading_prices">Hleður verðum</string>
     <string name="widget_opacity">Ógegnsæi bakgrunns: %1$s</string>
     <string name="widget_pulse_description">Hvað sker sig úr á markaðnum núna: fyrirsögn, stutt samantekt og Bitcoin, Ethereum og Solana.</string>
 

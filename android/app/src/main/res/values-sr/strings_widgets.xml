@@ -8,6 +8,7 @@
     <string name="widget_empty">На списку праћења још нема парова.</string>
     <string name="widget_group_hint">Прикажи само парове ове групе.</string>
     <string name="widget_kind_single">Појединачна криптовалута</string>
+    <string name="widget_loading_prices">Учитавање цена</string>
     <string name="widget_opacity">Непрозирност позадине: %1$s</string>
     <string name="widget_pulse_description">Шта се тренутно истиче на тржишту: наслов, кратак сажетак те Биткоин, Етеријум и Солана.</string>
 

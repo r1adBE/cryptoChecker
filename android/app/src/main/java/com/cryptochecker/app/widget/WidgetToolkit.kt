@@ -9,7 +9,9 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.TypedValue
+import android.view.View
 import android.widget.RemoteViews
+import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
@@ -47,8 +49,16 @@ class WidgetToolkit @Inject constructor(
      * als ImageView unter dem Inhalt; Farbe per setColorFilter, Deckkraft per setImageAlpha.
      * Beides geht in RemoteViews ab API 26 — eine Tönung des View-Hintergrunds
      * (setBackgroundTintList) erst ab API 31, setBackgroundColor verlöre die runden Ecken.
+     *
+     * Jedes Zeichnen geht hier durch, darum endet hier auch der erste Auftritt (android:initialLayout, z. B. nach dem
+     * Neustart bis zum ersten Entsperren): Das Bild wechselt von der fest gefärbten Fläche des Themas «System»
+     * (drawable/widget_background_initial, schon mit 90 %) zurück auf die weisse, die hier eingefärbt wird, und das
+     * graue Skelett (R.id.widget_skeleton, in allen vier Start-Layouts dieselbe Id) verschwindet. Layouts ohne
+     * Skelett (Portfolio mittel/gross) übergehen das Ausblenden (RemoteViews lässt fehlende Ids aus).
      */
     fun background(views: RemoteViews, layerId: Int, colors: WidgetColors, opacityPercent: Int) {
+        views.setImageViewResource(layerId, R.drawable.widget_background)
+        views.setViewVisibility(R.id.widget_skeleton, View.GONE)
         val color = colors.colorWithOpacity(opacityPercent)
         views.setInt(layerId, "setColorFilter", color or 0xFF000000.toInt())
         views.setInt(layerId, "setImageAlpha", Color.alpha(color))

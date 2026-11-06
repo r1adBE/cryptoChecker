@@ -8,6 +8,7 @@
     <string name="widget_empty">自選清單暫時未有交易對。</string>
     <string name="widget_group_hint">只顯示呢個群組嘅交易對。</string>
     <string name="widget_kind_single">單一幣種</string>
+    <string name="widget_loading_prices">載入緊價格</string>
     <string name="widget_opacity">背景透明度：%1$s</string>
     <string name="widget_pulse_description">而家市場上最突出嘅情況：標題、簡短總結，以及 Bitcoin、Ethereum 同 Solana。</string>
 

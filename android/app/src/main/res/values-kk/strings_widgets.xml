@@ -8,6 +8,7 @@
     <string name="widget_empty">Бақылау тізімінде әлі жұп жоқ.</string>
     <string name="widget_group_hint">Тек осы топтың жұптарын көрсету.</string>
     <string name="widget_kind_single">Бір монета</string>
+    <string name="widget_loading_prices">Бағамдар жүктелуде</string>
     <string name="widget_opacity">Фон мөлдірлігі: %1$s</string>
     <string name="widget_pulse_description">Нарықта дәл қазір не ерекшеленеді: тақырып, қысқаша түйін және Bitcoin, Ethereum, Solana.</string>
 

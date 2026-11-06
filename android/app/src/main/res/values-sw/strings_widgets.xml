@@ -8,6 +8,7 @@
     <string name="widget_empty">Bado hakuna jozi kwenye orodha ya ufuatiliaji.</string>
     <string name="widget_group_hint">Onyesha tu jozi za kikundi hiki.</string>
     <string name="widget_kind_single">Sarafu moja</string>
+    <string name="widget_loading_prices">Inapakia bei</string>
     <string name="widget_opacity">Uangavu wa mandharinyuma: %1$s</string>
     <string name="widget_pulse_description">Kinachojitokeza sokoni sasa hivi: kichwa, muhtasari mfupi na Bitcoin, Ethereum na Solana.</string>
 

@@ -8,6 +8,7 @@
     <string name="widget_empty">İzləmə siyahısında hələ cüt yoxdur.</string>
     <string name="widget_group_hint">Yalnız bu qrupun cütlərini göstər.</string>
     <string name="widget_kind_single">Tək koin</string>
+    <string name="widget_loading_prices">Qiymətlər yüklənir</string>
     <string name="widget_opacity">Fonun qeyri-şəffaflığı: %1$s</string>
     <string name="widget_pulse_description">Hazırda bazarda nə diqqət çəkir: başlıq, qısa xülasə və Bitcoin, Ethereum və Solana.</string>
 

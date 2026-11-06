@@ -8,6 +8,7 @@
     <string name="widget_empty">Jälgimisloendis pole veel paare.</string>
     <string name="widget_group_hint">Näita ainult selle rühma paare.</string>
     <string name="widget_kind_single">Üks münt</string>
+    <string name="widget_loading_prices">Hindade laadimine</string>
     <string name="widget_opacity">Tausta läbipaistmatus: %1$s</string>
     <string name="widget_pulse_description">Mis turul praegu silma paistab: pealkiri, lühikokkuvõte ning Bitcoin, Ethereum ja Solana.</string>
 

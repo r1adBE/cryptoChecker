@@ -8,6 +8,7 @@
     <string name="widget_empty">មិនទាន់មានគូនៅក្នុងបញ្ជីតាមដានទេ។</string>
     <string name="widget_group_hint">បង្ហាញតែគូនៃក្រុមនេះ។</string>
     <string name="widget_kind_single">កាក់តែមួយ</string>
+    <string name="widget_loading_prices">កំពុងផ្ទុកតម្លៃ</string>
     <string name="widget_opacity">ភាពស្រអាប់ផ្ទៃខាងក្រោយ៖ %1$s</string>
     <string name="widget_pulse_description">អ្វីដែលលេចធ្លោក្នុងទីផ្សារនៅពេលនេះ៖ ចំណងជើង សេចក្តីសង្ខេបខ្លី និង Bitcoin, Ethereum និង Solana។</string>
 

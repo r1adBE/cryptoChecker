@@ -8,6 +8,7 @@
     <string name="widget_empty">Ажиглах жагсаалтад хараахан хос алга.</string>
     <string name="widget_group_hint">Зөвхөн энэ бүлгийн хосыг харуулах.</string>
     <string name="widget_kind_single">Нэг зоос</string>
+    <string name="widget_loading_prices">Ханш ачаалж байна</string>
     <string name="widget_opacity">Дэвсгэрийн тунгалаг байдал: %1$s</string>
     <string name="widget_pulse_description">Зах зээлд яг одоо юу онцгойрч байна: гарчиг, товч дүгнэлт болон Bitcoin, Ethereum, Solana.</string>
 

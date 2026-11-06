@@ -8,6 +8,7 @@
     <string name="widget_empty">Сè уште нема парови во листата за следење.</string>
     <string name="widget_group_hint">Прикажи ги само паровите од оваа група.</string>
     <string name="widget_kind_single">Една монета</string>
+    <string name="widget_loading_prices">Се вчитуваат цените</string>
     <string name="widget_opacity">Непроѕирност на позадината: %1$s</string>
     <string name="widget_pulse_description">Што се издвојува на пазарот во моментов: наслов, кратко резиме и Bitcoin, Ethereum и Solana.</string>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Eine graue Platzhalter-Zeile des Listen-Widgets (widget_list.xml, Skelett): links das Paar, rechts der Kurs.
+     Nur RemoteViews-taugliche Views; für den Screenreader spricht der Behälter «Kurse werden geladen». -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:importantForAccessibility="no">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_skeleton_bar"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_skeleton_bar"
+        android:importantForAccessibility="no"
+        android:contentDescription="@null" />
+</LinearLayout>

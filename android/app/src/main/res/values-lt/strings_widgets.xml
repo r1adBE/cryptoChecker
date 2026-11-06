@@ -8,6 +8,7 @@
     <string name="widget_empty">Stebimų sąraše dar nėra porų.</string>
     <string name="widget_group_hint">Rodyti tik šios grupės poras.</string>
     <string name="widget_kind_single">Viena moneta</string>
+    <string name="widget_loading_prices">Įkeliamos kainos</string>
     <string name="widget_opacity">Fono neskaidrumas: %1$s</string>
     <string name="widget_pulse_description">Kas dabar išsiskiria rinkoje: antraštė, trumpa santrauka ir Bitcoin, Ethereum bei Solana.</string>
 

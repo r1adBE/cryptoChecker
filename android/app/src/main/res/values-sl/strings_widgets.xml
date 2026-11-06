@@ -8,6 +8,7 @@
     <string name="widget_empty">Na seznamu še ni parov.</string>
     <string name="widget_group_hint">Prikaži samo pare te skupine.</string>
     <string name="widget_kind_single">Posamezen kovanec</string>
+    <string name="widget_loading_prices">Nalaganje tečajev</string>
     <string name="widget_opacity">Neprosojnost ozadja: %1$s</string>
     <string name="widget_pulse_description">Kaj trenutno izstopa na trgu: naslov, kratek povzetek ter Bitcoin, Ethereum in Solana.</string>
 

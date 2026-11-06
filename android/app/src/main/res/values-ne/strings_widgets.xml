@@ -8,6 +8,7 @@
     <string name="widget_empty">वाचलिस्टमा अझै कुनै जोडी छैन।</string>
     <string name="widget_group_hint">यो समूहका जोडीहरू मात्र देखाउनुहोस्।</string>
     <string name="widget_kind_single">एकल कोइन</string>
+    <string name="widget_loading_prices">मूल्यहरू लोड हुँदैछन्</string>
     <string name="widget_opacity">पृष्ठभूमि अपारदर्शिता: %1$s</string>
     <string name="widget_pulse_description">अहिले बजारमा के उल्लेखनीय छ: शीर्षक, छोटो सारांश र Bitcoin, Ethereum र Solana।</string>
 

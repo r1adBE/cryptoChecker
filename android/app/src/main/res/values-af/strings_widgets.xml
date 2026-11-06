@@ -8,6 +8,7 @@
     <string name="widget_empty">Nog geen pare in die volglys nie.</string>
     <string name="widget_group_hint">Wys net die pare van hierdie groep.</string>
     <string name="widget_kind_single">Enkelmunt</string>
+    <string name="widget_loading_prices">Laai pryse</string>
     <string name="widget_opacity">Agtergrond-ondeursigtigheid: %1$s</string>
     <string name="widget_pulse_description">Wat nou in die mark opval: opskrif, kort opsomming en Bitcoin, Ethereum en Solana.</string>
 
