@@ -4,6 +4,7 @@
     <!-- Grundfarbe #1F1F1F mit 90 % Deckkraft -->
     <color name="widget_initial_background">#E51F1F1F</color>
     <color name="widget_initial_text">#FFE2E2E2</color>
+    <color name="widget_initial_text_secondary">#FFC6C6C6</color>
     <!-- Platzhalter-Balken: Nebentext #C6C6C6 zu 18 % auf der Grundfarbe (1.5:1, ruhig, kein Text) -->
     <color name="widget_initial_skeleton">#FF3D3D3D</color>
 </resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ladeanzeige im Skelett des ersten Auftritts (in allen vier Start-Layouts innerhalb von R.id.widget_skeleton, darum
+     mit ihm ausgeblendet, WidgetToolkit.background): kleiner System-Kreisel (einzige Animation) und «Kurse werden
+     geladen…» in der Nebentext-Farbe des Themas «System». Der Kreisel steht vorn und hat feste Breite; wird es eng,
+     kürzt der Text (Auslassung), der Kreisel bleibt. Für den Screenreader spricht der Skelett-Behälter
+     («Kurse werden geladen») – Kreisel und Text sind ausgenommen, damit nichts doppelt angesagt wird. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:baselineAligned="false"
+    android:importantForAccessibility="no">
+
+    <ProgressBar
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/widget_initial_text_secondary"
+        android:indeterminateTintMode="src_in"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/starter_loading_prices"
+        android:textColor="@color/widget_initial_text_secondary"
+        android:textSize="12sp"
+        android:importantForAccessibility="no" />
+</LinearLayout>

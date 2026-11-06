@@ -12,9 +12,14 @@ import java.io.File
  * Erster Auftritt der Widgets (android:initialLayout), bevor die App zeichnet — etwa nach dem Neustart bis zum ersten
  * Entsperren (Owner-Meldung Build 202: weisse leere Fläche, auch im Dunkelmodus): Hintergrund im Thema «System»
  * (hell/dunkel über values-night, Deckkraft und Ecken wie später), graues Skelett mit «Kurse werden geladen» statt
- * einer leeren Fläche; jedes Zeichnen blendet das Skelett aus und setzt die einzufärbende Fläche zurück.
+ * einer leeren Fläche, darunter Kreisel und «Kurse werden geladen…» (Build 204); jedes Zeichnen blendet die ganze
+ * Skelett-Gruppe aus und setzt die einzufärbende Fläche zurück.
  */
 class WidgetInitialLayoutTest {
+
+    private companion object {
+        const val LOADING_INCLUDE = "<include layout=\"@layout/widget_skeleton_loading\" />"
+    }
 
     private val initialLayouts = mapOf(
         "price_widget_info.xml" to "widget_list.xml",
@@ -34,13 +39,47 @@ class WidgetInitialLayoutTest {
                 .find(text)?.value
             assertTrue("$layout: Skelett fehlt", skeleton != null)
             assertTrue(layout, skeleton!!.contains("android:contentDescription=\"@string/widget_loading_prices\""))
-            // Statisch: keine Animation, keine Zahlen
-            assertFalse(layout, skeleton.contains("ProgressBar") || text.contains("<ProgressBar"))
+            // Ladeanzeige gehört zur Skelett-Gruppe (gleiche Id, gleiches Ausblenden) und steht unter Zeilen bzw. Linie
+            val group = skeletonGroup(text)
+            assertTrue("$layout: Ladeanzeige fehlt in der Gruppe", group.contains(LOADING_INCLUDE))
+            val placeholders = maxOf(group.lastIndexOf("widget_skeleton_bar"), group.lastIndexOf("widget_skeleton_row"))
+            assertTrue(layout, placeholders > 0 && group.indexOf(LOADING_INCLUDE) > placeholders)
+            assertEquals(layout, 1, text.split(LOADING_INCLUDE).size - 1)
+            // Nur der System-Kreisel animiert, keine Zahlen; der Behälter spricht, sonst nichts in der Gruppe
+            assertFalse(layout, text.contains("<ProgressBar"))
+            assertEquals(layout, 1, Regex("""android:importantForAccessibility="yes"""").findAll(group).count())
+            assertFalse(layout, group.substringAfter(">").contains("@string/widget_loading_prices"))
         }
         // Liste: 3–4 graue Platzhalter-Zeilen; die leere Liste ist bis zum ersten Zeichnen ausgeblendet
         val list = res("layout/widget_list.xml")
         assertTrue(Regex("""<include layout="@layout/widget_skeleton_row" />""").findAll(list).count() in 3..4)
         assertTrue(Regex("""<ListView\s+android:id="@\+id/widget_list"\s+android:visibility="gone"""").containsMatchIn(list))
+    }
+
+    /** Kreisel und «Kurse werden geladen…» (vorhandener Text mit Auslassung), Nebentext-Farbe, Label-Stufe 12 sp. */
+    @Test
+    fun `loading indicator is a tinted system spinner with the existing loading text`() {
+        val row = res("layout/widget_skeleton_loading.xml")
+        val bar = Regex("""<ProgressBar\b[^>]*>""").find(row)?.value
+        assertTrue("Kreisel fehlt", bar != null)
+        assertTrue(bar!!.contains("android:indeterminate=\"true\""))
+        assertTrue(bar.contains("android:layout_width=\"16dp\"") && bar.contains("android:layout_height=\"16dp\""))
+        assertTrue(bar.contains("android:indeterminateTint=\"@color/widget_initial_text_secondary\""))
+        val label = Regex("""<TextView\b[^>]*>""").find(row)?.value
+        assertTrue("Text fehlt", label != null)
+        assertTrue(label!!.contains("android:text=\"@string/starter_loading_prices\""))
+        assertTrue(label.contains("android:textColor=\"@color/widget_initial_text_secondary\""))
+        assertTrue(label.contains("android:textSize=\"${WidgetType.LABEL.toInt()}sp\""))
+        // Eng: der Text kürzt (Auslassung), der Kreisel steht vorn mit fester Breite
+        assertTrue(label.contains("android:ellipsize=\"end\"") && label.contains("android:maxLines=\"1\""))
+        assertTrue(row.indexOf("<ProgressBar") < row.indexOf("<TextView"))
+        // Für den Screenreader ausgenommen: der Skelett-Behälter sagt «Kurse werden geladen» einmal
+        assertEquals(3, Regex("""android:importantForAccessibility="no"""").findAll(row).count())
+        // Vorhandener Text mit Auslassung, in jeder Sprache
+        assertTrue(res("values/strings_onboarding.xml").contains("<string name=\"starter_loading_prices\">Loading prices…</string>"))
+        assertTrue(res("values-de/strings_onboarding.xml").contains("<string name=\"starter_loading_prices\">Kurse werden geladen…</string>"))
+        // Ausgeblendet wird die Ladeanzeige über die Gruppe: keine eigene Id, kein eigener Weg
+        assertFalse(row.contains("android:id="))
     }
 
     @Test
@@ -101,7 +140,28 @@ class WidgetInitialLayoutTest {
             // Skelett sichtbar, aber ruhiger als jeder Text
             val bar = WidgetContrast.ratio(palette.getValue("widget_initial_skeleton"), base)
             assertTrue("dark=$isDark: $bar", bar >= 1.3 && bar < 3.0)
+            // Ladeanzeige: Nebentext des Themas «System», lesbar
+            assertEquals(widget.secondaryTextColor, palette.getValue("widget_initial_text_secondary"))
+            assertTrue(WidgetContrast.ratio(palette.getValue("widget_initial_text_secondary"), base) >= 4.5)
         }
+    }
+
+    /** Text der Gruppe R.id.widget_skeleton bis zu ihrem Ende (Einzelelement oder LinearLayout samt Kindern). */
+    private fun skeletonGroup(layout: String): String {
+        val start = layout.indexOf("android:id=\"@+id/widget_skeleton\"")
+        val open = layout.lastIndexOf('<', start)
+        val tag = Regex("""\w+""").find(layout, open + 1)!!.value
+        val head = layout.indexOf('>', start)
+        if (layout[head - 1] == '/') return layout.substring(open, head + 1)
+        var depth = 1
+        var i = head + 1
+        val token = Regex("""<(/?)$tag\b[^>]*?(/?)>""")
+        while (depth > 0) {
+            val m = token.find(layout, i) ?: return layout.substring(open)
+            if (m.groupValues[1] == "/") depth-- else if (m.groupValues[2] != "/") depth++
+            i = m.range.last + 1
+        }
+        return layout.substring(open, i)
     }
 
     private fun colors(rel: String): Map<String, Int> =

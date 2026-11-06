@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 204)
+
+* Android widgets: below the grey placeholder rows a small spinner with «Loading prices…» until the app has drawn them.
+
 ## 16.2.2 (build 203)
 
 * Android widgets: after a phone restart, until the app has drawn them, they show the system light/dark background with grey placeholder rows instead of a white area.

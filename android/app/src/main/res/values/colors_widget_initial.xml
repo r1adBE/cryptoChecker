@@ -8,6 +8,8 @@
     <color name="widget_initial_background">#E5F1EEE9</color>
     <!-- Haupttext (Titel, Aktualisieren-Symbol) -->
     <color name="widget_initial_text">#FF1B1B1B</color>
+    <!-- Nebentext (Ladeanzeige: Kreisel und «Kurse werden geladen…») -->
+    <color name="widget_initial_text_secondary">#FF474747</color>
     <!-- Platzhalter-Balken: Nebentext #474747 zu etwa 22 % auf der Grundfarbe (1.5:1, ruhig, kein Text) -->
     <color name="widget_initial_skeleton">#FFC8C4BF</color>
 </resources>

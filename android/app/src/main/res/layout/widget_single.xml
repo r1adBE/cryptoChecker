@@ -74,18 +74,29 @@
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
 
-        <!-- Skelett bis zum ersten Zeichnen: eine graue Platzhalter-Zeile statt einer leeren Fläche; jedes Zeichnen
-             blendet sie aus (WidgetToolkit.background) -->
-        <ImageView
+        <!-- Skelett bis zum ersten Zeichnen: eine graue Platzhalter-Zeile und darunter die Ladeanzeige (Kreisel und
+             «Kurse werden geladen…») statt einer leeren Fläche; jedes Zeichnen blendet die ganze Gruppe aus
+             (WidgetToolkit.background). Der Screenreader hört nur den Behälter, Balken und Ladeanzeige sind ausgenommen -->
+        <LinearLayout
             android:id="@+id/widget_skeleton"
             android:layout_width="match_parent"
-            android:layout_height="12dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/widget_skeleton_bar"
+            android:orientation="vertical"
             android:importantForAccessibility="yes"
-            android:contentDescription="@string/widget_loading_prices" />
+            android:contentDescription="@string/widget_loading_prices">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginEnd="24dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/widget_skeleton_bar"
+                android:importantForAccessibility="no"
+                android:contentDescription="@null" />
+
+            <include layout="@layout/widget_skeleton_loading" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/single_exchange"

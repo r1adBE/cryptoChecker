@@ -123,8 +123,11 @@
                 android:fontFeatureSettings="tnum" />
         </LinearLayout>
 
-        <!-- Skelett bis zum ersten Zeichnen: graue Platzhalter-Zeilen statt einer leeren Fläche. Jedes Zeichnen
-             blendet es aus (WidgetToolkit.background) und setzt Liste bzw. «Noch keine Paare» sichtbar -->
+        <!-- Skelett bis zum ersten Zeichnen: graue Platzhalter-Zeilen und darunter die Ladeanzeige (Kreisel und
+             «Kurse werden geladen…») statt einer leeren Fläche. Die Zeilen teilen sich den Platz, die Ladeanzeige
+             steht immer unten (bei kleiner Höhe werden Zeilen abgeschnitten, nicht sie). Jedes Zeichnen blendet die
+             ganze Gruppe aus (WidgetToolkit.background) und setzt Liste bzw. «Noch keine Paare» sichtbar. Der
+             Screenreader hört nur den Behälter, Zeilen und Ladeanzeige sind ausgenommen -->
         <LinearLayout
             android:id="@+id/widget_skeleton"
             android:layout_width="match_parent"
@@ -136,13 +139,25 @@
             android:importantForAccessibility="yes"
             android:contentDescription="@string/widget_loading_prices">
 
-            <include layout="@layout/widget_skeleton_row" />
+            <!-- NestedWeights: nur im ersten Auftritt; die Ladeanzeige bleibt so unten sichtbar -->
+            <LinearLayout
+                tools:ignore="NestedWeights"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:importantForAccessibility="no">
 
-            <include layout="@layout/widget_skeleton_row" />
+                <include layout="@layout/widget_skeleton_row" />
 
-            <include layout="@layout/widget_skeleton_row" />
+                <include layout="@layout/widget_skeleton_row" />
 
-            <include layout="@layout/widget_skeleton_row" />
+                <include layout="@layout/widget_skeleton_row" />
+
+                <include layout="@layout/widget_skeleton_row" />
+            </LinearLayout>
+
+            <include layout="@layout/widget_skeleton_loading" />
         </LinearLayout>
 
         <ListView

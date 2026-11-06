@@ -53,7 +53,8 @@ class WidgetToolkit @Inject constructor(
      * Jedes Zeichnen geht hier durch, darum endet hier auch der erste Auftritt (android:initialLayout, z. B. nach dem
      * Neustart bis zum ersten Entsperren): Das Bild wechselt von der fest gefärbten Fläche des Themas «System»
      * (drawable/widget_background_initial, schon mit 90 %) zurück auf die weisse, die hier eingefärbt wird, und das
-     * graue Skelett (R.id.widget_skeleton, in allen vier Start-Layouts dieselbe Id) verschwindet. Layouts ohne
+     * graue Skelett (R.id.widget_skeleton, in allen vier Start-Layouts dieselbe Id, samt Ladeanzeige
+     * layout/widget_skeleton_loading: Kreisel und «Kurse werden geladen…») verschwindet. Layouts ohne
      * Skelett (Portfolio mittel/gross) übergehen das Ausblenden (RemoteViews lässt fehlende Ids aus).
      */
     fun background(views: RemoteViews, layerId: Int, colors: WidgetColors, opacityPercent: Int) {
