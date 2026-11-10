@@ -7,8 +7,8 @@ import WidgetKit
 /// geladen wird nur, was nach `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
 /// Verbindung nicht: sie verlässt sich auf das Alter der Kurse vom iPhone), sonst ab dem Intervall weniger 5 Minuten;
 /// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
-/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  ·  vor 47 Min.», als
-/// Zeile ohne Platz dafür; sonst rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie
+/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  ·  vor 47 Min.», rund,
+/// Ecke und Zeile knapp «BTC 47m» (`WatchFreshness.shortTitle`, wie Android der Kurztitel); sonst rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie
 /// die Zeile der Uhr-App); VoiceOver nennt Alter und Börse immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
     let date: Date
@@ -24,6 +24,8 @@ struct WatchPriceEntry: TimelineEntry {
     /// Nur bei veraltetem Kurs: Alter kurz («vor 47 Min.») und für VoiceOver.
     var age: String?
     var spokenAge: String?
+    /// Stand des Kurses (Epoch-ms, 0 = keiner): Alter knapp in den kleinen Familien (`WatchFreshness.shortTitle`).
+    var time: Int64 = 0
 
     var outdated: Bool { age != nil }
 }
@@ -98,7 +100,7 @@ struct WatchPriceProvider: TimelineProvider {
                                change: WatchText.change(q?.change24h),
                                compact: q.map { WatchText.compactPrice($0.price) } ?? "—", line: line,
                                source: source, age: age,
-                               spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil)
+                               spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil, time: time)
     }
 }
 
@@ -125,6 +127,9 @@ struct WatchPriceWidgetView: View {
 
     @ViewBuilder private var content: some View {
         let coin = entry.coin ?? "—"
+        let now = Int64(entry.date.timeIntervalSince1970 * 1000)
+        // Veraltet: Alter knapp auch in den kleinen Familien («BTC 47m»), wie Android der Kurztitel
+        let title = WatchFreshness.shortTitle(coin, time: entry.time, now: now)
         switch family {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
@@ -133,13 +138,13 @@ struct WatchPriceWidgetView: View {
                 Text(entry.line).lineLimit(2).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
             }
         case .accessoryInline:
-            // Eine Zeile ohne Platz für das Alter; das System färbt sie selbst
-            Text("\(coin) \(entry.compact)")
+            // Eine Zeile, veraltet mit dem Alter «BTC 84’450 · 47m»; das System färbt sie selbst
+            Text(WatchFreshness.inlineLine("\(coin) \(entry.compact)", time: entry.time, now: now))
         case .accessoryCorner:
-            Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(coin)
+            Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)
         default:
             VStack(spacing: 0) {
-                Text(coin).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(title).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
                 Text(entry.compact).font(.caption).lineLimit(1).minimumScaleFactor(0.5).foregroundStyle(valueStyle)
             }
         }

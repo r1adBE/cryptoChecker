@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Importance élevée – s\'affiche en haut de l\'écran</string>
     <string name="delivery_channel_low">Importance faible – les alertes n\'apparaissent qu\'en silence dans la liste</string>
     <string name="delivery_channel_off">Désactivé – les alertes n\'arrivent pas</string>
-    <string name="delivery_exact_on">Activé – environ toutes les 15 minutes</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Activé – environ toutes les %d minutes</item>
+        <item quantity="many">Activé – environ toutes les %d minutes</item>
+        <item quantity="other">Activé – environ toutes les %d minutes</item>
+    </plurals>
     <string name="delivery_exact_off">Désactivé – Android vérifie irrégulièrement</string>
     <string name="delivery_battery">Optimisation de la batterie</string>
     <string name="delivery_battery_unrestricted">Non restreinte</string>

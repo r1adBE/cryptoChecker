@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Compta les notificacions d\'alarma obertes. Que aparegui un número o un punt depèn de la pantalla d\'inici (p. ex. Samsung: «Mostra amb número»).</string>
     <string name="settings_exact_checks">Comprova puntualment</string>
     <string name="settings_exact_checks_grant">Permet alarmes i recordatoris</string>
-    <string name="settings_exact_checks_hint">Android comprova aproximadament cada 15 minuts, fins i tot quan el dispositiu està inactiu. Gasta una mica més de bateria.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android comprova aproximadament cada %d minuts, fins i tot quan el dispositiu està inactiu. Gasta una mica més de bateria.</item>
+        <item quantity="many">Android comprova aproximadament cada %d minuts, fins i tot quan el dispositiu està inactiu. Gasta una mica més de bateria.</item>
+        <item quantity="other">Android comprova aproximadament cada %d minuts, fins i tot quan el dispositiu està inactiu. Gasta una mica més de bateria.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">No hi ha parells actius – no hi ha res a comprovar.</string>
     <string name="settings_exact_checks_permission_missing">Falta el permís – mentre el dispositiu reposa, Android comprova de manera irregular, de vegades només al cap d\'hores.</string>
     <string name="settings_notification_change">Avisa només si el preu canvia</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">Llavors les teves adreces de Bitcoin i claus xpub es consultaran a nodes públics: %1$s. Veuen aquestes adreces juntament amb la teva adreça IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Fes servir nodes públics</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Desactivada, amb bloqueig</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Torna a calcular tots els anys: també canvien el cost, els guanys realitzats i els fulls fiscals d’anys anteriors.</string>
+    <string name="settings_portfolio_system_backup_confirm">Les teves transaccions, alertes de cartera i adreces seguides aniran llavors a la còpia de seguretat d’Android (p. ex. al teu compte de Google) i a la transferència a un dispositiu nou – només amb xifratge d’extrem a extrem.</string>
 </resources>

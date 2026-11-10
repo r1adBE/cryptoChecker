@@ -5,7 +5,8 @@ import WidgetKit
 /// Abfrage — rund kurz «12.3K» mit Währung, rechteckig «Portfolio / CHF 12’345.67 / +1.20 % heute», als Zeile «CHF
 /// 12’345.67»; verborgen auf dem iPhone «•••». Ohne Wert (Schalter aus oder noch nie einer) nie leer: rund und Ecke
 /// «Portfolio / aus», rechteckig «Portfolio / am Handy einschalten», als Zeile «Portfolio · am Handy einschalten»
-/// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter;
+/// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter, rund, Ecke
+/// und Zeile knapp «USD 47m» (`WatchFreshness.shortTitle`);
 /// VoiceOver nennt es immer. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android `PortfolioComplicationService`.
 struct WatchPortfolioEntry: TimelineEntry {
     let date: Date
@@ -95,6 +96,9 @@ struct WatchPortfolioWidgetView: View {
 
     @ViewBuilder private func value(_ p: WatchPortfolio) -> some View {
         let total = WatchText.portfolioTotal(p)
+        let now = Int64(entry.date.timeIntervalSince1970 * 1000)
+        // Veraltet: Alter knapp auch in den kleinen Familien («USD 47m»), wie Android der Kurztitel
+        let title = WatchFreshness.shortTitle(p.currency, time: p.time, now: now)
         switch family {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
@@ -104,12 +108,12 @@ struct WatchPortfolioWidgetView: View {
                 Text(WatchText.portfolioToday(p) + age).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(.secondary)
             }
         case .accessoryInline:
-            Text(total)
+            Text(WatchFreshness.inlineLine(total, time: p.time, now: now))
         case .accessoryCorner:
-            Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).widgetLabel(p.currency)
+            Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).widgetLabel(title)
         default:
             VStack(spacing: 0) {
-                Text(p.currency).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(title).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
                 Text(WatchText.portfolioCompact(p)).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
                     .foregroundStyle(valueStyle)
             }

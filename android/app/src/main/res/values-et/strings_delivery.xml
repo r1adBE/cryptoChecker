@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Kõrge tähtsus – ilmub ekraanile</string>
     <string name="delivery_channel_low">Madal tähtsus – hoiatused ilmuvad ainult vaikselt loendisse</string>
     <string name="delivery_channel_off">Välja lülitatud – hoiatused ei jõua kohale</string>
-    <string name="delivery_exact_on">Sees – umbes iga 15 minuti järel</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Sees – umbes iga %d minuti järel</item>
+        <item quantity="other">Sees – umbes iga %d minuti järel</item>
+    </plurals>
     <string name="delivery_exact_off">Väljas – Android kontrollib ebaregulaarselt</string>
     <string name="delivery_battery">Aku optimeerimine</string>
     <string name="delivery_battery_unrestricted">Piiranguteta</string>

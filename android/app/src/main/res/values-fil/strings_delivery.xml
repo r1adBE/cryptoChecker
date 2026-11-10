@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Mataas na kahalagahan – lumilitaw sa screen</string>
     <string name="delivery_channel_low">Mababang kahalagahan – tahimik na lumalabas lang ang mga alerto sa listahan</string>
     <string name="delivery_channel_off">Naka-off – hindi darating ang mga alerto</string>
-    <string name="delivery_exact_on">Naka-on – mga bawat 15 minuto</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Naka-on – mga bawat %d minuto</item>
+        <item quantity="other">Naka-on – mga bawat %d minuto</item>
+    </plurals>
     <string name="delivery_exact_off">Naka-off – hindi regular ang pagsusuri ng Android</string>
     <string name="delivery_battery">Battery optimization</string>
     <string name="delivery_battery_unrestricted">Walang limitasyon</string>

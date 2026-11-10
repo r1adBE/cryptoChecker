@@ -3394,6 +3394,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `missing_logos.json`).
 * Build 208: `WatchFormat.compactPrice` (≤ 7 characters, parity `watch_price.json`); portfolio complication hint
   instead of NoData.
+* Build 209: audit fixes (exact cadence = interval with WorkManager dedupe, private portfolio notifications, swipe
+  confirmation, settings confirmations; parity `csv_line_list`, `portfolio_lock_row`, `exact_cadence`, `settings_confirm`).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

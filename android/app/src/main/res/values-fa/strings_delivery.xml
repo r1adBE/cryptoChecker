@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">اهمیت بالا – بالای صفحه نمایش داده می‌شود</string>
     <string name="delivery_channel_low">اهمیت پایین – هشدارها فقط بی‌صدا در فهرست ظاهر می‌شوند</string>
     <string name="delivery_channel_off">خاموش – هشدارها نمی‌رسند</string>
-    <string name="delivery_exact_on">روشن – تقریبا هر ۱۵ دقیقه</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">روشن – تقریبا هر %d دقیقه</item>
+        <item quantity="other">روشن – تقریبا هر %d دقیقه</item>
+    </plurals>
     <string name="delivery_exact_off">خاموش – Android نامنظم بررسی می‌کند</string>
     <string name="delivery_battery">بهینه‌سازی باتری</string>
     <string name="delivery_battery_unrestricted">بدون محدودیت</string>

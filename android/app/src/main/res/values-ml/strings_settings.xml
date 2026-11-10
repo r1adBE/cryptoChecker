@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">തുറന്ന അലേർട്ട് അറിയിപ്പുകൾ എണ്ണുന്നു. ഒരു സംഖ്യയോ ഒരു കുത്തോ കാണിക്കുന്നത് ഹോം സ്ക്രീനിനെ ആശ്രയിച്ചിരിക്കുന്നു (ഉദാ. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">കൃത്യസമയത്ത് പരിശോധിക്കുക</string>
     <string name="settings_exact_checks_grant">അലാറങ്ങളും റിമൈൻഡറുകളും അനുവദിക്കുക</string>
-    <string name="settings_exact_checks_hint">ഉപകരണം നിഷ്‌ക്രിയമായിരിക്കുമ്പോഴും Android ഏകദേശം ഓരോ 15 മിനിറ്റിലും പരിശോധിക്കുന്നു. അൽപ്പം കൂടുതൽ ബാറ്ററി ഉപയോഗിക്കുന്നു.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">ഉപകരണം നിഷ്‌ക്രിയമായിരിക്കുമ്പോഴും Android ഏകദേശം ഓരോ %d മിനിറ്റിലും പരിശോധിക്കുന്നു. അൽപ്പം കൂടുതൽ ബാറ്ററി ഉപയോഗിക്കുന്നു.</item>
+        <item quantity="other">ഉപകരണം നിഷ്‌ക്രിയമായിരിക്കുമ്പോഴും Android ഏകദേശം ഓരോ %d മിനിറ്റിലും പരിശോധിക്കുന്നു. അൽപ്പം കൂടുതൽ ബാറ്ററി ഉപയോഗിക്കുന്നു.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">സജീവ ജോഡികളില്ല – പരിശോധിക്കാൻ ഒന്നുമില്ല.</string>
     <string name="settings_exact_checks_permission_missing">അനുമതിയില്ല – ഉപകരണം വിശ്രമിക്കുമ്പോൾ Android ക്രമരഹിതമായി പരിശോധിക്കുന്നു, ചിലപ്പോൾ മണിക്കൂറുകൾക്ക് ശേഷം മാത്രം.</string>
     <string name="settings_notification_change">വില മാറുമ്പോൾ മാത്രം അറിയിക്കുക</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">അപ്പോൾ നിങ്ങളുടെ Bitcoin വിലാസങ്ങളും xpub കീകളും പൊതു നോഡുകളിൽ അന്വേഷിക്കും: %1$s. അവർ ഈ വിലാസങ്ങൾ നിങ്ങളുടെ IP വിലാസത്തോടൊപ്പം കാണുന്നു.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">പൊതു നോഡുകൾ ഉപയോഗിക്കുക</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ഓഫ്, ലോക്കോടെ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">എല്ലാ വർഷങ്ങളും വീണ്ടും കണക്കാക്കുന്നു: മുൻ വർഷങ്ങളിലെ വാങ്ങൽ ചെലവ്, നേടിയ ലാഭം, നികുതി വർക്ക്‌ഷീറ്റുകൾ എന്നിവയും മാറും.</string>
+    <string name="settings_portfolio_system_backup_confirm">അപ്പോൾ നിങ്ങളുടെ ഇടപാടുകൾ, പോർട്ട്‌ഫോളിയോ അലേർട്ടുകൾ, നിരീക്ഷിക്കുന്ന വിലാസങ്ങൾ എന്നിവ Android ബാക്കപ്പിലേക്കും (ഉദാ. നിങ്ങളുടെ Google അക്കൗണ്ട്) പുതിയ ഉപകരണത്തിലേക്കുള്ള കൈമാറ്റത്തിലേക്കും പോകും – എൻഡ്-ടു-എൻഡ് എൻക്രിപ്റ്റ് ചെയ്താൽ മാത്രം.</string>
 </resources>

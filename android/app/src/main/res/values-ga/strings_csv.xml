@@ -112,4 +112,12 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Ag léamh an chomhaid arís …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d líne</item>
+        <item quantity="two">%d líne</item>
+        <item quantity="few">%d líne</item>
+        <item quantity="many">%d líne</item>
+        <item quantity="other">%d líne</item>
+    </plurals>
 </resources>

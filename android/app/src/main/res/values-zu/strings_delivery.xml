@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Ukubaluleka okuphezulu – kuvela esikrinini</string>
     <string name="delivery_channel_low">Ukubaluleka okuphansi – ama-alamu avela ohlwini kuphela ngokuthula</string>
     <string name="delivery_channel_off">Kuvaliwe – ama-alamu ngeke afike</string>
-    <string name="delivery_exact_on">Kuvuliwe – cishe njalo emizuzwini engu-15</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Kuvuliwe – cishe njalo emizuzwini engu-%d</item>
+        <item quantity="other">Kuvuliwe – cishe njalo emizuzwini engu-%d</item>
+    </plurals>
     <string name="delivery_exact_off">Kuvaliwe – i-Android ihlola ngokungahlelekile</string>
     <string name="delivery_battery">Ukulungiselelwa kwebhethri</string>
     <string name="delivery_battery_unrestricted">Akukhawulelwe</string>

@@ -63,11 +63,12 @@ internal fun themeModeLabel(dark: Boolean?): Int = when (dark) {
     true -> R.string.theme_dark
 }
 
-/** Kurzwert «Portfolio»: «Aus», «Ein» oder «Ein, mit Sperre». */
+/** Kurzwert «Portfolio»: «Aus», «Aus, mit Sperre», «Ein» oder «Ein, mit Sperre». */
 @Composable
 internal fun portfolioSummary(settings: AppSettings): String =
     when (SettingsSummary.portfolio(settings.portfolioEnabled, settings.appLock)) {
         SettingsSummary.Portfolio.OFF -> stringResource(R.string.option_off)
+        SettingsSummary.Portfolio.OFF_LOCKED -> stringResource(R.string.settings_portfolio_value_off_locked)
         SettingsSummary.Portfolio.ON -> stringResource(R.string.settings_summary_on)
         SettingsSummary.Portfolio.LOCKED -> stringResource(R.string.settings_portfolio_value_locked)
     }

@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ഉയർന്ന പ്രാധാന്യം – സ്ക്രീനിൽ പ്രത്യക്ഷപ്പെടും</string>
     <string name="delivery_channel_low">കുറഞ്ഞ പ്രാധാന്യം – അലേർട്ടുകൾ ലിസ്റ്റിൽ നിശബ്ദമായി മാത്രം കാണും</string>
     <string name="delivery_channel_off">ഓഫാക്കി – അലേർട്ടുകൾ എത്തില്ല</string>
-    <string name="delivery_exact_on">ഓൺ – ഏകദേശം ഓരോ 15 മിനിറ്റിലും</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ഓൺ – ഏകദേശം ഓരോ %d മിനിറ്റിലും</item>
+        <item quantity="other">ഓൺ – ഏകദേശം ഓരോ %d മിനിറ്റിലും</item>
+    </plurals>
     <string name="delivery_exact_off">ഓഫ് – Android ക്രമരഹിതമായി പരിശോധിക്കുന്നു</string>
     <string name="delivery_battery">ബാറ്ററി ഒപ്റ്റിമൈസേഷൻ</string>
     <string name="delivery_battery_unrestricted">നിയന്ത്രണമില്ല</string>

@@ -39,7 +39,14 @@
     <string name="settings_app_badge_hint">يعدّ إشعارات التنبيه المفتوحة. تحدد الشاشة الرئيسية ظهور رقم أو نقطة (مثل Samsung: «مع رقم»).</string>
     <string name="settings_exact_checks">الفحص في الموعد</string>
     <string name="settings_exact_checks_grant">السماح بـ «المنبّهات والتذكيرات»</string>
-    <string name="settings_exact_checks_hint">يفحص Android تقريبًا كل 15 دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="zero">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+        <item quantity="one">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+        <item quantity="two">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+        <item quantity="few">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+        <item quantity="many">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+        <item quantity="other">يفحص Android تقريبًا كل %d دقيقة حتى عندما يكون الجهاز خاملًا. يستهلك بطارية أكثر قليلًا.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">لا توجد أزواج مفعّلة – لا شيء للفحص.</string>
     <string name="settings_exact_checks_permission_missing">الإذن مفقود – عندما يكون الجهاز في وضع السكون يفحص Android بشكل غير منتظم، أحيانًا بعد ساعات.</string>
     <string name="settings_notification_change">الإشعار عند تغيّر السعر فقط</string>
@@ -334,4 +341,9 @@
     <string name="settings_address_server_public_text">ستُستعلم عناوين بيتكوين وxpub الخاصة بك عندئذٍ من عُقد عامة: %1$s. وهي ترى هذه العناوين مع عنوان IP الخاص بك.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">استخدام العُقد العامة</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">إيقاف، مع قفل</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">يعيد حساب كل السنوات: تتغير أيضًا تكلفة الشراء والأرباح المحققة وأوراق عمل الضرائب للسنوات السابقة.</string>
+    <string name="settings_portfolio_system_backup_confirm">ستدخل معاملاتك وتنبيهات المحفظة والعناوين المراقبة في نسخة Android الاحتياطية (مثل حساب Google) وفي النقل إلى جهاز جديد – بتشفير تام بين الطرفين فقط.</string>
 </resources>

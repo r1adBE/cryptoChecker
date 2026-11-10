@@ -115,21 +115,26 @@ struct PortfolioCsvImportSheet: View {
                                 .foregroundStyle(AppColors.onSurfaceVariant)
                                 .padding(.leading, 12)
                         }
+                        // Mehr als 8 übersprungen: Rest als «+ N weitere» statt still abgeschnitten — wie Android
+                        let moreSkipped = CsvLineList.moreAfter(total: preview.skipped.count, shown: Self.previewRows)
+                        if moreSkipped > 0 {
+                            hint(L("portfolio_csv_import_more", moreSkipped)).padding(.leading, 12)
+                        }
                     }
+                    // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
                     if !preview.missingFx.isEmpty {
-                        hint(L("portfolio_csv_import_missing_fx", preview.missingFx.map(String.init).joined(separator: ", ")))
+                        linesHint(preview.missingFx) { L("portfolio_csv_import_missing_fx", $0) }
                     }
                     // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
                     if !preview.usdtApproximate.isEmpty {
-                        hint(L("portfolio_usdt_assumed") + " ("
-                             + preview.usdtApproximate.map(String.init).joined(separator: ", ") + ")")
+                        linesHint(preview.usdtApproximate) { L("portfolio_usdt_assumed") + " (\($0))" }
                     }
                     if !preview.missingPrice.isEmpty {
-                        hint(L("portfolio_csv_import_missing_price", preview.missingPrice.map(String.init).joined(separator: ", ")))
+                        linesHint(preview.missingPrice) { L("portfolio_csv_import_missing_price", $0) }
                     }
                     // Fiat-Gebühr im Preis, Gebühr im Coin am Geschäft (statt eigener Gebühr-Zeile) — wie Android
                     if !preview.feeInPrice.isEmpty {
-                        hint(L("portfolio_csv_import_fee_in_price", preview.feeInPrice.map(String.init).joined(separator: ", ")))
+                        linesHint(preview.feeInPrice) { L("portfolio_csv_import_fee_in_price", $0) }
                     }
                     // Kraken: ausstehende und gebuchte Zeile mit anderer Menge — beide übernommen, Bestand prüfen
                     if !preview.pendingDiffers.isEmpty {
@@ -271,6 +276,21 @@ struct PortfolioCsvImportSheet: View {
         Text(text)
             .font(.caption)
             .foregroundStyle(AppColors.onSurfaceVariant)
+    }
+
+    /// Hinweis mit Zeilennummern: oben die Anzahl («12 Zeilen»), darunter der Satz mit den ersten Nummern und
+    /// «+ N weitere» (`CsvLineList`) — VoiceOver liest beides als ein Element. Wie Android `LinesHint`.
+    func linesHint(_ lines: [Int], _ sentence: (String) -> String) -> some View {
+        let list = CsvLineList.of(lines)
+        let numbers = list.shown.map(String.init).joined(separator: ", ")
+            + (list.more > 0 ? " " + L("portfolio_csv_import_more", list.more) : "")
+        return VStack(alignment: .leading, spacing: 0) {
+            Text(L("portfolio_csv_import_line_count", count: list.count))
+                .font(.caption.weight(.medium))
+                .foregroundStyle(AppColors.onSurfaceVariant)
+            hint(sentence(numbers))
+        }
+        .accessibilityElement(children: .combine)
     }
 
     /// «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — zwei Zeilen, je bis zu drei Zeilen hoch

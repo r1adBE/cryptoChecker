@@ -119,4 +119,13 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">تُعاد قراءة الملف …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="zero">الأسطر: %d</item>
+        <item quantity="one">الأسطر: %d</item>
+        <item quantity="two">الأسطر: %d</item>
+        <item quantity="few">الأسطر: %d</item>
+        <item quantity="many">الأسطر: %d</item>
+        <item quantity="other">الأسطر: %d</item>
+    </plurals>
 </resources>

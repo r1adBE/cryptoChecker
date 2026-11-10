@@ -141,11 +141,12 @@ class PriceUpdateScheduler @Inject constructor(
     /** @param forceExact Wecker «Pünktlich prüfen» neu stellen (Neustart, Update, neue Berechtigung). */
     suspend fun apply(settings: AppSettings, forceExact: Boolean = false) {
         // «Wie aktuell?»: Die Hintergrund-Aktualisierung läuft in jeder Wahl (auch «Sparsam») — auch
-        // mit «Pünktlich prüfen» als Netz darunter (doppelte Läufe sperrt BackgroundSchedule.shouldSkip).
+        // mit «Pünktlich prüfen» als Netz darunter (doppelte Läufe sperrt BackgroundSchedule.shouldSkip; solange der
+        // Wecker gestellt ist, mit einem Intervall als Sperrfenster: BackgroundSchedule.dedupeWindowMillis).
         // Nur wenn es etwas zu tun gibt (BackgroundWorkPolicy.periodicNeeded); Änderungen verfolgt [followWork].
         syncPeriodic(periodicNeededNow(settings), settings.backgroundIntervalMinutes)
         // Paare unbekannt: stellen; der Wecker sagt sich beim Auslösen ab, wenn nichts zu prüfen ist
-        exactScheduler.sync(settings.exactChecks, force = forceExact)
+        exactScheduler.sync(settings.exactChecks, force = forceExact, intervalMinutes = settings.backgroundIntervalMinutes)
 
         // Fear-&-Greed-Meldung und eigene Grenzen der Bitcoin-Kennzahlen: zweimal täglich prüfen
         // Eingeschaltete Kennzahl-Grenzen wie die Prüfung selbst (IndicatorAlertRules.active, nur gültige Werte)

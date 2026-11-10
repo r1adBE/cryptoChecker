@@ -91,4 +91,9 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Fitxategia berriro irakurtzen …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">lerro %d</item>
+        <item quantity="other">%d lerro</item>
+    </plurals>
 </resources>

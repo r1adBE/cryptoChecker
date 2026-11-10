@@ -53,8 +53,8 @@ class SettingsSummaryTest {
     // Kurzwert «Aktualisierung» = Wahl von «Wie aktuell?» (UpdateModeTest)
 
     @Test
-    fun portfolio_lockCountsOnlyWhenEnabled() {
-        assertEquals(SettingsSummary.Portfolio.OFF, SettingsSummary.portfolio(enabled = false, lock = true))
+    fun portfolio_lockShownAlsoWhenTabOff() {
+        assertEquals(SettingsSummary.Portfolio.OFF_LOCKED, SettingsSummary.portfolio(enabled = false, lock = true))
         assertEquals(SettingsSummary.Portfolio.OFF, SettingsSummary.portfolio(enabled = false, lock = false))
         assertEquals(SettingsSummary.Portfolio.ON, SettingsSummary.portfolio(enabled = true, lock = false))
         assertEquals(SettingsSummary.Portfolio.LOCKED, SettingsSummary.portfolio(enabled = true, lock = true))

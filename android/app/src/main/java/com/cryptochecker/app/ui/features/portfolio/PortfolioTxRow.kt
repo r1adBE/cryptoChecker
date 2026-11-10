@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +39,27 @@ import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /** Transaktion: Art und Datum, Menge × Preis, Summe; Tausch: «Tausch in ETH» / «Tausch von BTC», «0.1 BTC → 1.6 ETH», Wert. */
+/**
+ * Rückfrage «Transaktion löschen?» — dieselbe im Editor ([PortfolioTxSheet]) und beim Wischen bzw. TalkBack «Löschen»
+ * in der Coin-Ansicht (PortfolioDetailScreen); wie iOS `portfolioTxDeleteConfirmation`.
+ */
+@Composable
+internal fun TxDeleteConfirmDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.portfolio_tx_delete_title)) },
+        text = { Text(stringResource(R.string.portfolio_tx_delete_confirm)) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        }
+    )
+}
+
 @Composable
 internal fun TxRow(tx: PortfolioTxEntity, coin: String, onClick: () -> Unit, onDelete: () -> Unit) {
     // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile

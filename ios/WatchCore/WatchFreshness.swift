@@ -36,4 +36,37 @@ enum WatchFreshness {
         if diff < day { return Age(unit: .hours, count: Int(diff / hour)) }
         return Age(unit: .days, count: Int(min(diff / day, Int64(Int.max))))
     }
+    /// Alter knapp in einer Einheit für kleine Komplikationen («47m», «3h», «2d»; Deutsch «47 Min.»), vom System
+    /// übersetzt; nil unter einer Minute. Wie Android `TimeDifferenceStyle.SHORT_SINGLE_UNIT`.
+    static func shortAge(_ time: Int64, now: Int64, locale: Locale = .current) -> String? {
+        let a = age(time, now: now)
+        let unit: NSCalendar.Unit, seconds: Double
+        switch a.unit {
+        case .justNow: return nil
+        case .minutes: unit = .minute; seconds = Double(a.count) * 60
+        case .hours: unit = .hour; seconds = Double(a.count) * 3_600
+        case .days: unit = .day; seconds = Double(a.count) * 86_400
+        }
+        let f = DateComponentsFormatter()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = locale
+        f.calendar = calendar
+        f.unitsStyle = .abbreviated
+        f.allowedUnits = [unit]
+        f.maximumUnitCount = 1
+        return f.string(from: seconds)
+    }
+
+    /// Titel einer kleinen Komplikation (rund, Ecke): veraltet mit dem Alter «BTC 47m», sonst nur der Titel — wie
+    /// Android `shortTitle`/`aged` (Kurztitel «BTC ^1»).
+    static func shortTitle(_ title: String, time: Int64, now: Int64, locale: Locale = .current) -> String {
+        guard isOutdated(time, now: now), let age = shortAge(time, now: now, locale: locale) else { return title }
+        return title + " " + age
+    }
+
+    /// Zeile (inline): veraltet «BTC 84’450 · 47m», sonst unverändert.
+    static func inlineLine(_ text: String, time: Int64, now: Int64, locale: Locale = .current) -> String {
+        guard isOutdated(time, now: now), let age = shortAge(time, now: now, locale: locale) else { return text }
+        return text + " · " + age
+    }
 }

@@ -1,0 +1,15 @@
+{
+  "_comment": "Rückfragen in Einstellungen › Portfolio: Einstandsmethode wechseln (SettingsConfirm.costMethod: nur bei anderer Methode «Rechnet alle Jahre neu») und «Portfolio in Systemsicherung» (SettingsConfirm.systemBackup: nur beim Einschalten). Gemeinsam für SettingsConfirmParityTest.kt und SettingsConfirmParityTests.swift.",
+  "costMethod": [
+    { "current": "FIFO", "chosen": "FIFO", "expected": false },
+    { "current": "FIFO", "chosen": "FIFO_WALLET", "expected": true },
+    { "current": "FIFO", "chosen": "AVERAGE", "expected": true },
+    { "current": "AVERAGE", "chosen": "FIFO", "expected": true },
+    { "current": "AVERAGE", "chosen": "AVERAGE", "expected": false },
+    { "current": "FIFO_WALLET", "chosen": "FIFO_WALLET", "expected": false }
+  ],
+  "systemBackup": [
+    { "enabling": true, "expected": true },
+    { "enabling": false, "expected": false }
+  ]
+}

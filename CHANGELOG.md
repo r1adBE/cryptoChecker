@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 209)
+
+* Deleting a transaction by swiping asks first, like the editor.
+* Portfolio alerts never show amounts on the lock screen.
+* «Check on time» and the iOS widgets follow the chosen update interval; no double background run.
+* Confirmations before changing the cost method and before turning on «Portfolio in system backup»; the tax worksheet says what the file contains before sharing.
+* CSV import preview lists every skipped row group with «+ N more»; the lock setting shows its real state when the portfolio tab is hidden; Apple Watch small complications show the age of old values; long amounts shrink on Android instead of being cut; larger iOS widget buttons.
+
 ## 16.2.2 (build 208)
 
 * Watch complications (Wear OS and Apple Watch): the small slot shows the price (e.g. 84'450), the long one «BTC • 84'450.00 USDT +1.20%»; the 24 h change is still spoken.

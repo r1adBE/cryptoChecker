@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ಹೆಚ್ಚಿನ ಪ್ರಾಮುಖ್ಯತೆ – ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಕಾಣಿಸುತ್ತದೆ</string>
     <string name="delivery_channel_low">ಕಡಿಮೆ ಪ್ರಾಮುಖ್ಯತೆ – ಅಲರ್ಟ್‌ಗಳು ಪಟ್ಟಿಯಲ್ಲಿ ಶಬ್ದವಿಲ್ಲದೆ ಮಾತ್ರ ಕಾಣಿಸುತ್ತವೆ</string>
     <string name="delivery_channel_off">ಆಫ್ ಮಾಡಲಾಗಿದೆ – ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದಿಲ್ಲ</string>
-    <string name="delivery_exact_on">ಆನ್ – ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ಆನ್ – ಸುಮಾರು ಪ್ರತಿ %d ನಿಮಿಷಕ್ಕೆ</item>
+        <item quantity="other">ಆನ್ – ಸುಮಾರು ಪ್ರತಿ %d ನಿಮಿಷಕ್ಕೆ</item>
+    </plurals>
     <string name="delivery_exact_off">ಆಫ್ – Android ಅನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸುತ್ತದೆ</string>
     <string name="delivery_battery">ಬ್ಯಾಟರಿ ಆಪ್ಟಿಮೈಸೇಶನ್</string>
     <string name="delivery_battery_unrestricted">ನಿರ್ಬಂಧರಹಿತ</string>

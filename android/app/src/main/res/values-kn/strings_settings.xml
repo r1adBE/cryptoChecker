@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ತೆರೆದಿರುವ ಅಲರ್ಟ್ ಅಧಿಸೂಚನೆಗಳನ್ನು ಎಣಿಸುತ್ತದೆ. ಸಂಖ್ಯೆ ಕಾಣಿಸುತ್ತದೆಯೇ ಅಥವಾ ಚುಕ್ಕೆ ಕಾಣಿಸುತ್ತದೆಯೇ ಎಂಬುದು ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ಗೆ ಬಿಟ್ಟದ್ದು (ಉದಾ. Samsung: “ಸಂಖ್ಯೆಯೊಂದಿಗೆ ತೋರಿಸಿ”).</string>
     <string name="settings_exact_checks">ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಪರಿಶೀಲಿಸಿ</string>
     <string name="settings_exact_checks_grant">ಅಲಾರಾಂಗಳು &amp; ಜ್ಞಾಪನೆಗಳನ್ನು ಅನುಮತಿಸಿ</string>
-    <string name="settings_exact_checks_hint">ಸಾಧನ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರೂ Android ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಸ್ವಲ್ಪ ಹೆಚ್ಚು ಬ್ಯಾಟರಿ ಬಳಸುತ್ತದೆ.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">ಸಾಧನ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರೂ Android ಸುಮಾರು ಪ್ರತಿ %d ನಿಮಿಷಕ್ಕೆ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಸ್ವಲ್ಪ ಹೆಚ್ಚು ಬ್ಯಾಟರಿ ಬಳಸುತ್ತದೆ.</item>
+        <item quantity="other">ಸಾಧನ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರೂ Android ಸುಮಾರು ಪ್ರತಿ %d ನಿಮಿಷಕ್ಕೆ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಸ್ವಲ್ಪ ಹೆಚ್ಚು ಬ್ಯಾಟರಿ ಬಳಸುತ್ತದೆ.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">ಸಕ್ರಿಯ ಜೋಡಿಗಳಿಲ್ಲ – ಪರಿಶೀಲಿಸಲು ಏನೂ ಇಲ್ಲ.</string>
     <string name="settings_exact_checks_permission_missing">ಅನುಮತಿ ಇಲ್ಲ – ಸಾಧನ ವಿಶ್ರಾಂತಿಯಲ್ಲಿರುವಾಗ Android ಅನಿಯಮಿತವಾಗಿ, ಕೆಲವೊಮ್ಮೆ ಗಂಟೆಗಳ ನಂತರವೇ ಪರಿಶೀಲಿಸುತ್ತದೆ.</string>
     <string name="settings_notification_change">ಬೆಲೆ ಬದಲಾದಾಗ ಮಾತ್ರ ತಿಳಿಸಿ</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">ಆಗ ನಿಮ್ಮ Bitcoin ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳನ್ನು ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳಲ್ಲಿ ಪ್ರಶ್ನಿಸಲಾಗುತ್ತದೆ: %1$s. ಅವು ಈ ವಿಳಾಸಗಳನ್ನು ನಿಮ್ಮ IP ವಿಳಾಸದೊಂದಿಗೆ ನೋಡುತ್ತವೆ.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ಸಾರ್ವಜನಿಕ ನೋಡ್‌ಗಳನ್ನು ಬಳಸಿ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ಆಫ್, ಲಾಕ್‌ನೊಂದಿಗೆ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">ಎಲ್ಲ ವರ್ಷಗಳನ್ನು ಮರುಲೆಕ್ಕ ಮಾಡುತ್ತದೆ: ಹಿಂದಿನ ವರ್ಷಗಳ ಖರೀದಿ ವೆಚ್ಚ, ಸಾಕ್ಷಾತ್ಕೃತ ಲಾಭ ಮತ್ತು ತೆರಿಗೆ ವರ್ಕ್‌ಶೀಟ್‌ಗಳೂ ಬದಲಾಗುತ್ತವೆ.</string>
+    <string name="settings_portfolio_system_backup_confirm">ಆಗ ನಿಮ್ಮ ವಹಿವಾಟುಗಳು, ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ಎಚ್ಚರಿಕೆಗಳು ಮತ್ತು ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳು Android ಬ್ಯಾಕಪ್‌ಗೆ (ಉದಾ. ನಿಮ್ಮ Google ಖಾತೆ) ಮತ್ತು ಹೊಸ ಸಾಧನಕ್ಕೆ ವರ್ಗಾವಣೆಗೆ ಸೇರುತ್ತವೆ – ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆದಾಗ ಮಾತ್ರ.</string>
 </resources>

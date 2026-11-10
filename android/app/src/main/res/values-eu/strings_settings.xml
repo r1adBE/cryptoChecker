@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Alarma-jakinarazpen irekiak zenbatzen ditu. Zenbaki bat edo puntu bat agertzea hasierako pantailaren araberakoa da (adib. Samsung: «Erakutsi zenbakiarekin»).</string>
     <string name="settings_exact_checks">Egiaztatu garaiz</string>
     <string name="settings_exact_checks_grant">Baimendu alarmak eta gogorarazpenak</string>
-    <string name="settings_exact_checks_hint">Android-ek 15 minuturo gutxi gorabehera egiaztatzen du, gailua inaktibo dagoenean ere. Bateria apur bat gehiago erabiltzen du.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android-ek %d minuturo gutxi gorabehera egiaztatzen du, gailua inaktibo dagoenean ere. Bateria apur bat gehiago erabiltzen du.</item>
+        <item quantity="other">Android-ek %d minuturo gutxi gorabehera egiaztatzen du, gailua inaktibo dagoenean ere. Bateria apur bat gehiago erabiltzen du.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Ez dago pare aktiborik – ez dago ezer egiaztatzeko.</string>
     <string name="settings_exact_checks_permission_missing">Baimena falta da – gailua atsedenean dagoen bitartean, Android-ek modu irregularrean egiaztatzen du, batzuetan ordu batzuen ondoren bakarrik.</string>
     <string name="settings_notification_change">Abisatu prezioa aldatzen denean soilik</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Orduan, zure Bitcoin helbideak eta xpub gakoak nodo publikoetan kontsultatuko dira: %1$s. Helbide horiek zure IP helbidearekin batera ikusten dituzte.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Erabili nodo publikoak</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Desaktibatuta, blokeoarekin</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Urte guztiak berriro kalkulatzen ditu: aurreko urteetako kostua, gauzatutako irabaziak eta zerga-orriak ere aldatzen dira.</string>
+    <string name="settings_portfolio_system_backup_confirm">Zure transakzioak, zorroaren alertak eta jarraitutako helbideak Android-en babeskopian (adib. zure Google kontuan) eta gailu berrira transferitzean sartuko dira – muturretik muturrera enkriptatuta soilik.</string>
 </resources>

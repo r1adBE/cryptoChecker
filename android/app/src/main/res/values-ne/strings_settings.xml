@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">खुला अलर्ट सूचनाहरू गन्छ। संख्या वा थोप्लो देखिने कुरा होम स्क्रिनमा भर पर्छ (जस्तै Samsung: “संख्यासहित देखाउनुहोस्”)।</string>
     <string name="settings_exact_checks">समयमै जाँच गर्नुहोस्</string>
     <string name="settings_exact_checks_grant">अलार्म &amp; रिमाइन्डरलाई अनुमति दिनुहोस्</string>
-    <string name="settings_exact_checks_hint">डिभाइस निष्क्रिय हुँदा पनि Android ले लगभग हरेक 15 मिनेटमा जाँच गर्छ। अलिकति बढी ब्याट्री खर्च गर्छ।</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">डिभाइस निष्क्रिय हुँदा पनि Android ले लगभग हरेक %d मिनेटमा जाँच गर्छ। अलिकति बढी ब्याट्री खर्च गर्छ।</item>
+        <item quantity="other">डिभाइस निष्क्रिय हुँदा पनि Android ले लगभग हरेक %d मिनेटमा जाँच गर्छ। अलिकति बढी ब्याट्री खर्च गर्छ।</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">कुनै सक्रिय जोडी छैन – जाँच गर्न केही छैन।</string>
     <string name="settings_exact_checks_permission_missing">अनुमति छैन – डिभाइस आराममा हुँदा Android ले अनियमित रूपमा जाँच गर्छ, कहिलेकाहीँ घण्टौंपछि मात्र।</string>
     <string name="settings_notification_change">मूल्य परिवर्तन हुँदा मात्र सूचित गर्नुहोस्</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">त्यसपछि तपाईंका Bitcoin ठेगाना र xpub कुञ्जीहरू सार्वजनिक नोडहरूमा सोधिनेछन्: %1$s। तिनीहरूले यी ठेगानाहरू तपाईंको IP ठेगानासँगै देख्छन्।</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">सार्वजनिक नोडहरू प्रयोग गर्नुहोस्</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">बन्द, लकसहित</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">सबै वर्ष फेरि गणना गर्छ: अघिल्ला वर्षहरूको खरिद लागत, प्राप्त नाफा र कर कार्यपत्र पनि बदलिन्छन्।</string>
+    <string name="settings_portfolio_system_backup_confirm">त्यसपछि तपाईंका कारोबार, पोर्टफोलियो अलर्ट र हेरिएका ठेगानाहरू Android ब्याकअप (जस्तै तपाईंको Google खाता) र नयाँ यन्त्रमा स्थानान्तरणमा जान्छन् – केवल एन्ड-टु-एन्ड इन्क्रिप्टेड।</string>
 </resources>

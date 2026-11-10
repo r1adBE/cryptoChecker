@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">រាប់ការជូនដំណឹងការដាស់តឿនដែលបើក។ ថាតើលេខ ឬចំណុចបង្ហាញឡើង គឺអាស្រ័យលើអេក្រង់ដើម (ឧ. Samsung៖ «បង្ហាញជាមួយលេខ»)។</string>
     <string name="settings_exact_checks">ពិនិត្យទាន់ពេល</string>
     <string name="settings_exact_checks_grant">អនុញ្ញាតម៉ោងរោទ៍ &amp; ការរំលឹក</string>
-    <string name="settings_exact_checks_hint">Android ពិនិត្យប្រហែលរៀងរាល់ 15 នាទីម្តង សូម្បីតែពេលឧបករណ៍ទំនេរ។ ប្រើថ្មច្រើនជាងបន្តិច។</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android ពិនិត្យប្រហែលរៀងរាល់ %d នាទីម្តង សូម្បីតែពេលឧបករណ៍ទំនេរ។ ប្រើថ្មច្រើនជាងបន្តិច។</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">គ្មានគូសកម្ម – គ្មានអ្វីត្រូវពិនិត្យទេ។</string>
     <string name="settings_exact_checks_permission_missing">ខ្វះការអនុញ្ញាត – ពេលឧបករណ៍សម្រាក Android ពិនិត្យមិនទៀងទាត់ ពេលខ្លះតែក្រោយច្រើនម៉ោង។</string>
     <string name="settings_notification_change">ជូនដំណឹងតែពេលតម្លៃប្រែប្រួល</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">អាសយដ្ឋាន Bitcoin និងសោ xpub របស់អ្នកនឹងត្រូវបានសួរនៅ node សាធារណៈ៖ %1$s។ ពួកគេឃើញអាសយដ្ឋានទាំងនេះរួមជាមួយអាសយដ្ឋាន IP របស់អ្នក។</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ប្រើ node សាធារណៈ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">បិទ ជាមួយការចាក់សោ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">គណនាឆ្នាំទាំងអស់ឡើងវិញ៖ តម្លៃទិញ ប្រាក់ចំណេញដែលទទួលបាន និងសន្លឹកពន្ធនៃឆ្នាំមុនៗក៏ផ្លាស់ប្ដូរដែរ។</string>
+    <string name="settings_portfolio_system_backup_confirm">ប្រតិបត្តិការ ការជូនដំណឹងផតហ្វូលីយ៉ូ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក Android (ឧ. គណនី Google របស់អ្នក) និងការផ្ទេរទៅឧបករណ៍ថ្មី – តែការអ៊ិនគ្រីបពីចុងដល់ចុងប៉ុណ្ណោះ។</string>
 </resources>

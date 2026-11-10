@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">উচ্চ গুরুত্ব – স্ক্রিনে ভেসে ওঠে</string>
     <string name="delivery_channel_low">কম গুরুত্ব – অ্যালার্ট শুধু নীরবে তালিকায় দেখা যায়</string>
     <string name="delivery_channel_off">বন্ধ করা – অ্যালার্ট পৌঁছাবে না</string>
-    <string name="delivery_exact_on">চালু – প্রায় প্রতি 15 মিনিটে</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">চালু – প্রায় প্রতি %d মিনিটে</item>
+        <item quantity="other">চালু – প্রায় প্রতি %d মিনিটে</item>
+    </plurals>
     <string name="delivery_exact_off">বন্ধ – Android অনিয়মিতভাবে যাচাই করে</string>
     <string name="delivery_battery">ব্যাটারি অপটিমাইজেশন</string>
     <string name="delivery_battery_unrestricted">সীমাহীন</string>

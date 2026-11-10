@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">统计未处理的提醒通知。显示数字还是圆点由主屏幕决定（例如 Samsung：“显示数字”）。</string>
     <string name="settings_exact_checks">准时检查</string>
     <string name="settings_exact_checks_grant">允许“闹钟和提醒”</string>
-    <string name="settings_exact_checks_hint">即使设备处于空闲状态，Android 也会大约每 15 分钟检查一次。会多耗一点电量。</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">即使设备处于空闲状态，Android 也会大约每 %d 分钟检查一次。会多耗一点电量。</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">没有启用的交易对——无需检查。</string>
     <string name="settings_exact_checks_permission_missing">缺少权限——设备静置期间 Android 的检查不规律，有时要隔几小时。</string>
     <string name="settings_notification_change">仅在价格变动时通知</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">之后你的比特币地址和 xpub 将向公共节点查询：%1$s。这些节点会看到这些地址以及你的 IP 地址。</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">使用公共节点</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">关闭，已加锁</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">将重新计算所有年份：以往年份的成本、已实现收益和税务工作表也会改变。</string>
+    <string name="settings_portfolio_system_backup_confirm">届时你的交易、投资组合提醒和关注的地址将进入 Android 备份（例如你的 Google 账号）以及迁移到新设备的数据中——仅限端到端加密。</string>
 </resources>

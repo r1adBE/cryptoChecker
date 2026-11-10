@@ -91,4 +91,9 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">फाइल फेरि पढ्दै …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d पङ्क्ति</item>
+        <item quantity="other">%d पङ्क्तिहरू</item>
+    </plurals>
 </resources>

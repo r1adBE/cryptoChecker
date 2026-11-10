@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Тржишне вредности без забележене цене (накнаде, поклони/плаћања, замене, награде, мрежне накнаде, вредност портфолија) по дневној закључној цени (UTC) на дан трансакције</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">Датотеке садрже стања, износе, датуме и адресе.</string>
 </resources>

@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Conta as notificações de alarme abertas. O ecrã inicial decide se aparece um número ou um ponto (p. ex. Samsung: «Com número»).</string>
     <string name="settings_exact_checks">Verificação pontual</string>
     <string name="settings_exact_checks_grant">Permitir «Alarmes e lembretes»</string>
-    <string name="settings_exact_checks_hint">O Android verifica cerca de 15 em 15 minutos, mesmo com o dispositivo inativo. Gasta um pouco mais de bateria.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">O Android verifica aproximadamente a cada %d minutos, mesmo com o dispositivo inativo. Gasta um pouco mais de bateria.</item>
+        <item quantity="many">O Android verifica aproximadamente a cada %d minutos, mesmo com o dispositivo inativo. Gasta um pouco mais de bateria.</item>
+        <item quantity="other">O Android verifica aproximadamente a cada %d minutos, mesmo com o dispositivo inativo. Gasta um pouco mais de bateria.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Sem pares ativos – nada a verificar.</string>
     <string name="settings_exact_checks_permission_missing">Falta a permissão – com o dispositivo em repouso, o Android verifica de forma irregular, por vezes só após horas.</string>
     <string name="settings_notification_change">Notificar só se o preço mudar</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">Os teus endereços Bitcoin e xpub passam a ser consultados em nós públicos: %1$s. Estes veem os endereços juntamente com o teu endereço IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Usar nós públicos</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Não, com bloqueio</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Recalcula todos os anos: o custo, as mais-valias realizadas e as folhas fiscais de anos anteriores também mudam.</string>
+    <string name="settings_portfolio_system_backup_confirm">As tuas transações, alertas da carteira e endereços seguidos passam então a ir para a cópia de segurança do Android (p. ex. a tua conta Google) e para a transferência para um novo dispositivo – só com encriptação ponto a ponto.</string>
 </resources>

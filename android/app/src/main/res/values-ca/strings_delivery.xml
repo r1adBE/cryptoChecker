@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Importància alta – apareix a la pantalla</string>
     <string name="delivery_channel_low">Importància baixa – les alarmes només apareixen en silenci a la llista</string>
     <string name="delivery_channel_off">Desactivat – les alarmes no arribaran</string>
-    <string name="delivery_exact_on">Activat – aproximadament cada 15 minuts</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Activat – aproximadament cada %d minuts</item>
+        <item quantity="many">Activat – aproximadament cada %d minuts</item>
+        <item quantity="other">Activat – aproximadament cada %d minuts</item>
+    </plurals>
     <string name="delivery_exact_off">Desactivat – Android comprova de manera irregular</string>
     <string name="delivery_battery">Optimització de la bateria</string>
     <string name="delivery_battery_unrestricted">Sense restriccions</string>

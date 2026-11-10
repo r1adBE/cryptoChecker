@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">重要度：高 – 画面上部に表示されます</string>
     <string name="delivery_channel_low">重要度：低 – アラームは一覧に音もなく表示されるだけです</string>
     <string name="delivery_channel_off">オフ – アラームは届きません</string>
-    <string name="delivery_exact_on">オン – 約15分ごと</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">オン – 約%d分ごと</item>
+    </plurals>
     <string name="delivery_exact_off">オフ – Android は不定期に確認します</string>
     <string name="delivery_battery">電池の最適化</string>
     <string name="delivery_battery_unrestricted">制限なし</string>

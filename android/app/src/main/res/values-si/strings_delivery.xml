@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ඉහළ වැදගත්කම – තිරය මත උත්පතනය වේ</string>
     <string name="delivery_channel_low">අඩු වැදගත්කම – ඇඟවීම් ලැයිස්තුවේ නිහඬව පමණක් දිස් වේ</string>
     <string name="delivery_channel_off">අක්‍රිය කර ඇත – ඇඟවීම් නොලැබේ</string>
-    <string name="delivery_exact_on">සක්‍රියයි – ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක්</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">සක්‍රියයි – ආසන්න වශයෙන් සෑම මිනිත්තු %d කට වරක්</item>
+        <item quantity="other">සක්‍රියයි – ආසන්න වශයෙන් සෑම මිනිත්තු %d කට වරක්</item>
+    </plurals>
     <string name="delivery_exact_off">අක්‍රියයි – Android අක්‍රමවත්ව පරීක්ෂා කරයි</string>
     <string name="delivery_battery">බැටරි ප්‍රශස්තකරණය</string>
     <string name="delivery_battery_unrestricted">සීමා නොකළ</string>

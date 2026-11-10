@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">Kepentingan tinggi – muncul pada skrin</string>
     <string name="delivery_channel_low">Kepentingan rendah – amaran hanya muncul secara senyap dalam senarai</string>
     <string name="delivery_channel_off">Dimatikan – amaran tidak akan sampai</string>
-    <string name="delivery_exact_on">Hidup – kira-kira setiap 15 minit</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">Hidup – kira-kira setiap %d minit</item>
+    </plurals>
     <string name="delivery_exact_off">Mati – Android menyemak secara tidak tetap</string>
     <string name="delivery_battery">Pengoptimuman bateri</string>
     <string name="delivery_battery_unrestricted">Tidak terhad</string>

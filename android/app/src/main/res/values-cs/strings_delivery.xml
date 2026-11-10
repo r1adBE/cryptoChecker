@@ -15,7 +15,12 @@
     <string name="delivery_channel_high">Vysoká důležitost – zobrazí se nahoře na obrazovce</string>
     <string name="delivery_channel_low">Nízká důležitost – alarmy se zobrazí jen potichu v seznamu</string>
     <string name="delivery_channel_off">Vypnutý – alarmy nedorazí</string>
-    <string name="delivery_exact_on">Zapnuto – zhruba každých 15 minut</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Zapnuto – zhruba každých %d minut</item>
+        <item quantity="few">Zapnuto – zhruba každých %d minut</item>
+        <item quantity="many">Zapnuto – zhruba každých %d minut</item>
+        <item quantity="other">Zapnuto – zhruba každých %d minut</item>
+    </plurals>
     <string name="delivery_exact_off">Vypnuto – Android kontroluje nepravidelně</string>
     <string name="delivery_battery">Optimalizace baterie</string>
     <string name="delivery_battery_unrestricted">Bez omezení</string>

@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">นับการแจ้งเตือนสัญญาณที่ยังเปิดอยู่ หน้าจอหลักเป็นตัวกำหนดว่าจะแสดงตัวเลขหรือจุด (เช่น Samsung: “แสดงตัวเลข”)</string>
     <string name="settings_exact_checks">ตรวจตรงเวลา</string>
     <string name="settings_exact_checks_grant">อนุญาต “การปลุกและการช่วยเตือน”</string>
-    <string name="settings_exact_checks_hint">Android ตรวจสอบประมาณทุก 15 นาที แม้อุปกรณ์อยู่ในโหมดพัก ใช้แบตเตอรี่มากขึ้นเล็กน้อย</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android ตรวจสอบประมาณทุก %d นาที แม้อุปกรณ์อยู่ในโหมดพัก ใช้แบตเตอรี่มากขึ้นเล็กน้อย</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">ไม่มีคู่ที่ใช้งานอยู่ – ไม่มีอะไรต้องตรวจสอบ</string>
     <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – ขณะเครื่องพัก Android จะตรวจไม่สม่ำเสมอ บางครั้งหลายชั่วโมงต่อครั้ง</string>
     <string name="settings_notification_change">แจ้งเตือนเฉพาะเมื่อราคาเปลี่ยน</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">จากนั้นที่อยู่ Bitcoin และ xpub ของคุณจะถูกสอบถามที่โหนดสาธารณะ: %1$s โหนดเหล่านี้จะเห็นที่อยู่พร้อมกับที่อยู่ IP ของคุณ</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ใช้โหนดสาธารณะ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ปิด พร้อมล็อก</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">คำนวณใหม่ทุกปี: ต้นทุน กำไรที่รับรู้แล้ว และแผ่นงานภาษีของปีก่อน ๆ ก็เปลี่ยนด้วย</string>
+    <string name="settings_portfolio_system_backup_confirm">ธุรกรรม การแจ้งเตือนพอร์ต และที่อยู่ที่ติดตามของคุณจะเข้าไปอยู่ในข้อมูลสำรองของ Android (เช่น บัญชี Google ของคุณ) และการย้ายไปอุปกรณ์ใหม่ – เฉพาะเมื่อเข้ารหัสตั้งแต่ต้นทางถึงปลายทางเท่านั้น</string>
 </resources>

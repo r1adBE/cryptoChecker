@@ -194,6 +194,8 @@ internal fun TaxWorksheetYearSection(
     taxTemplateNotes(template).forEach { TaxWorksheetHint(it) }
     // Steuer-CSV nach den Regeln des Landes: kann von «realisiert» im Portfolio abweichen
     TaxWorksheetHint(stringResource(R.string.tax_export_realized_differs))
+    // Vor dem Speichern bzw. Teilen: was in den Dateien steht
+    TaxWorksheetHint(stringResource(R.string.tax_export_file_contents))
     TextButton(
         enabled = !running,
         colors = DisabledColors.textButton(),

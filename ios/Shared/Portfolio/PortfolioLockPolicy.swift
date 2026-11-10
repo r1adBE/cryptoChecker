@@ -72,9 +72,9 @@ enum PortfolioLockPolicy {
     /// «Zum Portfolio hinzufügen» aus der Merkliste (Blatt zeigt Bestände) verlangt Entsperren, solange gesperrt.
     static func quickAddNeedsUnlock(locked: Bool) -> Bool { locked }
 
-    /// Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio nur mit eingeschaltetem Portfolio
-    /// (der Wert bleibt beim Ausblenden erhalten).
-    static func showSetting(portfolioEnabled: Bool) -> Bool { portfolioEnabled }
+    /// Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio: mit eingeschaltetem Portfolio — und solange die Sperre
+    /// an ist auch ohne (der Wert bleibt beim Ausblenden erhalten; ausschalten muss weiter möglich sein). Wie Android.
+    static func showSetting(portfolioEnabled: Bool, lockOn: Bool) -> Bool { portfolioEnabled || lockOn }
 
     /// Fenster schützen, solange die Sperre an ist und Portfolio-Beträge sichtbar sein können
     /// (Android: FLAG_SECURE). iOS deckt stattdessen die ganze App ab, sobald die Szene nicht

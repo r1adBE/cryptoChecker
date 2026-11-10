@@ -214,6 +214,9 @@ struct TaxWorksheetPage: View {
             // Steuer-CSV nach den Regeln des Landes: kann von «realisiert» im Portfolio abweichen (wie Android)
             PortfolioHint(text: L("tax_export_realized_differs"))
                 .padding(.horizontal, 4)
+            // Vor dem Teilen: was in den Dateien steht — wie Android
+            PortfolioHint(text: L("tax_export_file_contents"))
+                .padding(.horizontal, 4)
             taxButton(L("tax_export_gains"), systemImage: "chart.line.uptrend.xyaxis",
                       tag: UiTestTags.taxWorksheetGains) {
                 startTax(.gains, year: year)

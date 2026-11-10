@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Garrantzi handia – pantailan agertzen da</string>
     <string name="delivery_channel_low">Garrantzi txikia – alarmak isilean agertzen dira zerrendan soilik</string>
     <string name="delivery_channel_off">Desaktibatuta – alarmak ez dira iritsiko</string>
-    <string name="delivery_exact_on">Aktibatuta – 15 minuturo gutxi gorabehera</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Aktibatuta – %d minuturo gutxi gorabehera</item>
+        <item quantity="other">Aktibatuta – %d minuturo gutxi gorabehera</item>
+    </plurals>
     <string name="delivery_exact_off">Desaktibatuta – Android-ek modu irregularrean egiaztatzen du</string>
     <string name="delivery_battery">Bateriaren optimizazioa</string>
     <string name="delivery_battery_unrestricted">Murrizketarik gabe</string>

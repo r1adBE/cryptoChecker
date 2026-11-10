@@ -29,7 +29,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import com.cryptochecker.app.ui.features.settings.exactMinutes
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -331,7 +333,8 @@ private fun deliveryDetail(item: AlarmReadiness.Item, settings: AppSettings, las
         AlarmReadiness.Detail.CHANNEL_HIGH -> stringResource(R.string.delivery_channel_high)
         AlarmReadiness.Detail.CHANNEL_LOW -> stringResource(R.string.delivery_channel_low)
         AlarmReadiness.Detail.CHANNEL_OFF -> stringResource(R.string.delivery_channel_off)
-        AlarmReadiness.Detail.EXACT_ON -> stringResource(R.string.delivery_exact_on)
+        AlarmReadiness.Detail.EXACT_ON -> exactMinutes(settings.backgroundIntervalMinutes)
+            .let { pluralStringResource(R.plurals.delivery_exact_on, it, it) }
         AlarmReadiness.Detail.EXACT_OFF -> stringResource(R.string.delivery_exact_off)
         AlarmReadiness.Detail.EXACT_NO_PERMISSION -> stringResource(R.string.settings_exact_checks_permission_missing)
         AlarmReadiness.Detail.BATTERY_UNRESTRICTED -> stringResource(R.string.delivery_battery_unrestricted)

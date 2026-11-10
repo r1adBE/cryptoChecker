@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Yüksək vaciblik – ekranda açılır</string>
     <string name="delivery_channel_low">Aşağı vaciblik – alarmlar yalnız səssizcə siyahıda görünür</string>
     <string name="delivery_channel_off">Söndürülüb – alarmlar çatmayacaq</string>
-    <string name="delivery_exact_on">Aktiv – təxminən hər 15 dəqiqədən bir</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Aktiv – təxminən hər %d dəqiqədən bir</item>
+        <item quantity="other">Aktiv – təxminən hər %d dəqiqədən bir</item>
+    </plurals>
     <string name="delivery_exact_off">Söndürülüb – Android qeyri-müntəzəm yoxlayır</string>
     <string name="delivery_battery">Batareya optimallaşdırması</string>
     <string name="delivery_battery_unrestricted">Məhdudiyyətsiz</string>

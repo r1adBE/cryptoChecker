@@ -250,7 +250,7 @@ struct PortfolioOpenLotsSection: View {
         if let cost = lot.costUsdt {
             var text = PortfolioInsights.mask(PortfolioFormat.usdtValue(PortfolioDecimal.double(cost)), hidden: hideAmounts)
             if lot.amount > 0 {
-                text += " · Ø " + PortfolioFormat.price(PortfolioDecimal.double(PortfolioDecimal.divide(cost, lot.amount)))
+                text += " · " + L("portfolio_avg_only", PortfolioFormat.price(PortfolioDecimal.double(PortfolioDecimal.divide(cost, lot.amount))))
             }
             detail.append(text)
         } else {

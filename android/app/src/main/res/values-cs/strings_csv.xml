@@ -105,4 +105,11 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Soubor se načítá znovu …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d řádek</item>
+        <item quantity="few">%d řádky</item>
+        <item quantity="many">%d řádku</item>
+        <item quantity="other">%d řádků</item>
+    </plurals>
 </resources>

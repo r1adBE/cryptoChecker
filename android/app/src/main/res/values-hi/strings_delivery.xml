@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">उच्च महत्व – स्क्रीन के ऊपर दिखता है</string>
     <string name="delivery_channel_low">कम महत्व – अलार्म सूची में सिर्फ़ चुपचाप दिखते हैं</string>
     <string name="delivery_channel_off">बंद – अलार्म नहीं पहुँचेंगे</string>
-    <string name="delivery_exact_on">चालू – लगभग हर 15 मिनट</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">चालू – लगभग हर %d मिनट</item>
+        <item quantity="other">चालू – लगभग हर %d मिनट</item>
+    </plurals>
     <string name="delivery_exact_off">बंद – Android अनियमित रूप से जाँचता है</string>
     <string name="delivery_battery">बैटरी ऑप्टिमाइज़ेशन</string>
     <string name="delivery_battery_unrestricted">प्रतिबंधित नहीं</string>

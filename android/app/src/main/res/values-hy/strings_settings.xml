@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Հաշվում է ահազանգերի բաց ծանուցումները։ Թիվ, թե կետ կհայտնվի՝ որոշում է գլխավոր էկրանը (օր.՝ Samsung՝ «Ցույց տալ թվով»)։</string>
     <string name="settings_exact_checks">Ստուգել ճշգրիտ ժամին</string>
     <string name="settings_exact_checks_grant">Թույլատրել զարթուցիչներ &amp; հիշեցումներ</string>
-    <string name="settings_exact_checks_hint">Android-ը ստուգում է մոտավորապես 15 րոպեն մեկ, նույնիսկ երբ սարքը պարապ է։ Մի փոքր ավելի շատ մարտկոց է ծախսում։</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android-ը ստուգում է մոտավորապես %d րոպեն մեկ, նույնիսկ երբ սարքը պարապ է։ Մի փոքր ավելի շատ մարտկոց է ծախսում։</item>
+        <item quantity="other">Android-ը ստուգում է մոտավորապես %d րոպեն մեկ, նույնիսկ երբ սարքը պարապ է։ Մի փոքր ավելի շատ մարտկոց է ծախսում։</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Ակտիվ զույգեր չկան – ստուգելու բան չկա։</string>
     <string name="settings_exact_checks_permission_missing">Թույլտվությունը բացակայում է – երբ սարքը հանգստի վիճակում է, Android-ը ստուգում է անկանոն, երբեմն միայն ժամեր անց։</string>
     <string name="settings_notification_change">Ծանուցել միայն գնի փոփոխության դեպքում</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Քո Bitcoin հասցեներն ու xpub բանալիներն այդ դեպքում կհարցվեն հանրային հանգույցներում՝ %1$s։ Նրանք տեսնում են այդ հասցեները քո IP հասցեի հետ միասին։</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Օգտագործել հանրային հանգույցներ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Անջատված, կողպեքով</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Վերահաշվում է բոլոր տարիները. փոխվում են նաև նախորդ տարիների ձեռքբերման արժեքը, իրացված շահույթը և հարկային թերթիկները։</string>
+    <string name="settings_portfolio_system_backup_confirm">Ձեր գործարքները, պորտֆելի ազդանշանները և դիտարկվող հասցեները այդ դեպքում կներառվեն Android-ի պահուստում (օր.՝ Google հաշվում) և նոր սարք փոխանցելիս – միայն ծայրից ծայր գաղտնագրված։</string>
 </resources>

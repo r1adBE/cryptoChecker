@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// Portfolio als eigener Tab, die Portfolio-Sperre (nur mit eingeschaltetem Portfolio) und die Einstandsmethode.
+/// Portfolio als eigener Tab, die Portfolio-Sperre (mit Portfolio oder solange an) und die Einstandsmethode.
 @MainActor
 struct PortfolioSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -9,6 +9,10 @@ struct PortfolioSettingsPage: View {
     @State private var toast: ToastMessage?
     /// Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).
     @State private var deviceSecure = AppLock.canAuthenticate()
+    /// Rückfragen: andere Einstandsmethode («Rechnet alle Jahre neu») und «Portfolio in Systemsicherung» einschalten.
+    @State private var pendingMethod: CostMethod?
+    @State private var askMethod = false
+    @State private var askSystemBackup = false
     @Environment(\.scenePhase) private var scenePhase
 
     init() {}
@@ -22,8 +26,10 @@ struct PortfolioSettingsPage: View {
                     isOn: $data.settings.portfolioEnabled
                 )
                 .settingsAnchor("portfolio.tab")
-                // Ausgeblendet ohne Portfolio; der Wert bleibt erhalten (Widget und Sicherung bleiben geschützt)
-                if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled) {
+                // Mit Portfolio — und solange die Sperre an ist auch ohne (sie wirkt weiter auf Widget und Sicherung und muss
+                // ausschaltbar bleiben); der Wert bleibt beim Ausblenden erhalten — wie Android
+                if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled,
+                                                   lockOn: data.settings.appLock) {
                     RowDivider()
                     SwitchRow(
                         title: L("settings_portfolio_lock"),
@@ -42,6 +48,8 @@ struct PortfolioSettingsPage: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom, Spacing.sm)
                     }
+                }
+                if data.settings.portfolioEnabled {
                     RowDivider()
                     // «Beträge verbergen»: wie das Auge im Portfolio-Kopf (Portfolio und Widget)
                     SwitchRow(
@@ -74,7 +82,12 @@ struct PortfolioSettingsPage: View {
                                 title: L(Self.costMethodLabelKey(method)),
                                 subtitle: L(Self.costMethodHintKey(method)),
                                 selected: data.settings.costMethod == method
-                            ) { data.settings.costMethod = method }
+                            ) {
+                                if SettingsConfirm.costMethod(current: data.settings.costMethod, chosen: method) {
+                                    pendingMethod = method
+                                    askMethod = true
+                                }
+                            }
                         }
                     }
                     .padding(.vertical, Spacing.sm)
@@ -92,13 +105,16 @@ struct PortfolioSettingsPage: View {
                     subtitle: L("settings_portfolio_system_backup_hint_ios"),
                     isOn: Binding(
                         get: { data.settings.portfolioSystemBackup },
-                        set: { on in setPortfolioSystemBackup(on) }
+                        set: { on in
+                            // Einschalten erst nach der Rückfrage (Daten gehen ins Geräte-Backup); aus sofort — wie Android
+                            if SettingsConfirm.systemBackup(enabling: on) { askSystemBackup = true } else { setPortfolioSystemBackup(on) }
+                        }
                     )
                 )
                 .settingsAnchor("portfolio.system_backup")
             }
             // Ehrlich: Die Sperre schützt die Anzeige; die Daten schützt die Geräteverschlüsselung
-            if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled) {
+            if PortfolioLockPolicy.showSetting(portfolioEnabled: data.settings.portfolioEnabled, lockOn: data.settings.appLock) {
                 SettingsHint(text: L("settings_portfolio_lock_footer"), top: 2)
                     .padding(.horizontal, 16)
             }
@@ -106,6 +122,21 @@ struct PortfolioSettingsPage: View {
             SettingsAddressServerCard()
         }
         .toast($toast)
+        .alert(L("settings_cost_method"), isPresented: $askMethod) {
+            Button(L("delivery_action_change")) {
+                if let method = pendingMethod { data.settings.costMethod = method }
+                pendingMethod = nil
+            }
+            Button(L("action_cancel"), role: .cancel) { pendingMethod = nil }
+        } message: {
+            Text(L("settings_cost_method_confirm"))
+        }
+        .alert(L("settings_portfolio_system_backup"), isPresented: $askSystemBackup) {
+            Button(L("alarms_notifications_turn_on")) { setPortfolioSystemBackup(true) }
+            Button(L("action_cancel"), role: .cancel) {}
+        } message: {
+            Text(L("settings_portfolio_system_backup_confirm_ios"))
+        }
         // Zurück aus den Systemeinstellungen: Gerätecode neu prüfen
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { deviceSecure = AppLock.canAuthenticate() }

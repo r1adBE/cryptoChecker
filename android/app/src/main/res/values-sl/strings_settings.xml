@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Šteje odprta obvestila alarmov. Ali se prikaže številka ali pika, določa začetni zaslon (npr. Samsung: „S številko“).</string>
     <string name="settings_exact_checks">Preverjaj točno</string>
     <string name="settings_exact_checks_grant">Dovoli alarme in opomnike</string>
-    <string name="settings_exact_checks_hint">Android preverja približno vsakih 15 minut, tudi ko naprava miruje. Porabi malo več baterije.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android preverja približno vsakih %d minut, tudi ko naprava miruje. Porabi malo več baterije.</item>
+        <item quantity="two">Android preverja približno vsakih %d minut, tudi ko naprava miruje. Porabi malo več baterije.</item>
+        <item quantity="few">Android preverja približno vsakih %d minut, tudi ko naprava miruje. Porabi malo več baterije.</item>
+        <item quantity="other">Android preverja približno vsakih %d minut, tudi ko naprava miruje. Porabi malo več baterije.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Ni aktivnih parov – ni česa preverjati.</string>
     <string name="settings_exact_checks_permission_missing">Manjka dovoljenje – med mirovanjem naprave Android preverja neredno, včasih šele po urah.</string>
     <string name="settings_notification_change">Sporoči samo ob spremembi tečaja</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Tvoji naslovi Bitcoin in ključi xpub se bodo nato poizvedovali pri javnih vozliščih: %1$s. Ta vidijo te naslove skupaj s tvojim naslovom IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Uporabi javna vozlišča</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Izklopljeno, z zaklepom</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Znova izračuna vsa leta: spremenijo se tudi nabavna vrednost, realizirani dobički in davčni listi preteklih let.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tvoje transakcije, opozorila portfelja in spremljani naslovi bodo nato šli v varnostno kopijo Androida (npr. v tvoj Googlov račun) in v prenos na novo napravo – samo s šifriranjem od konca do konca.</string>
 </resources>

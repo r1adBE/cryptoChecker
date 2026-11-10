@@ -2,9 +2,9 @@ import Accessibility
 import SwiftUI
 
 /// Ein Coin: Kennzahlen und seine Transaktionen — wie `PortfolioDetailScreen.kt`.
-/// Tippen bearbeitet; nach links wischen löscht sofort, mit «Rückgängig» im Banner (wie in der
-/// Merkliste). «+» wählt den Coin schon vor. Ist die letzte Transaktion weg (und «Rückgängig»
-/// vorbei), geht es zurück.
+/// Tippen bearbeitet; nach links wischen (oder VoiceOver «Löschen») fragt wie der Editor
+/// (`portfolioTxDeleteConfirmation`) und löscht erst dann — ohne «Rückgängig», wie der Editor. «+» wählt den Coin schon
+/// vor. Ist die letzte Transaktion weg (und das Banner «entfernt» vorbei), geht es zurück.
 @MainActor
 struct PortfolioCoinDetail: View {
     let coin: String
@@ -22,6 +22,9 @@ struct PortfolioCoinDetail: View {
     /// «Ziel ändern» am Umbuchungs-Hinweis: Rückfrage offen.
     @State private var askRetarget: AddressWithdrawalMatch.Retarget?
     @State private var deleteTick = 0
+    /// Gewischt bzw. VoiceOver «Löschen»: Rückfrage offen für diese Transaktion (bleibt gesetzt, bis «Löschen» sie liest).
+    @State private var pendingDelete: PortfolioTx?
+    @State private var askDelete = false
     /// Im Hintergrund gerechnet (`PortfolioModel.coinLedger`); bis zum neuen Ergebnis bleibt das letzte.
     @State private var ledger: CoinLedger?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -82,14 +85,15 @@ struct PortfolioCoinDetail: View {
                     PortfolioTxRow(tx: tx, coin: coin)
                 }
                 .buttonStyle(.plain)
-                // VoiceOver: Löschen wie nach links wischen (mit «Rückgängig»)
+                // VoiceOver: Löschen wie nach links wischen (mit Rückfrage)
                 .accessibilityActions {
-                    Button(L("action_delete")) { deleteTx(tx) }
+                    Button(L("action_delete")) { confirmDelete(tx) }
                 }
-                // Nach links wischen = löschen ohne Rückfrage (Rückgängig im Banner)
+                // Nach links wischen = dieselbe Rückfrage wie im Editor (ohne Rolle «destruktiv»: die Zeile bleibt
+                // stehen, bis wirklich gelöscht ist)
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     if !voiceOver {
-                        Button(role: .destructive) { deleteTx(tx) } label: {
+                        Button { confirmDelete(tx) } label: {
                             Label(L("action_delete"), systemImage: "trash")
                         }
                         // Systemrot: weisse Schrift bleibt auch im Dunkelmodus lesbar
@@ -130,6 +134,10 @@ struct PortfolioCoinDetail: View {
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
         .haptic(.destructive, trigger: deleteTick)
+        .portfolioTxDeleteConfirmation(isPresented: $askDelete) {
+            if let tx = pendingDelete { deleteTx(tx) }
+            pendingDelete = nil
+        }
         .retargetConfirmation($askRetarget, hideAmounts: data.settings.hidePortfolioAmounts) { r in
             PortfolioRetarget.apply(r, data: data, banner: $banner)
         }
@@ -170,19 +178,17 @@ struct PortfolioCoinDetail: View {
         AddressBalance.amount(for: coin, addresses: data.watchedAddresses, realTrades: data.portfolio).flatMap { $0 > 0 ? $0 : nil }
     }
 
-    /// Nach links gewischt oder VoiceOver «Löschen»: sofort löschen, Banner mit «Rückgängig».
+    /// Nach links gewischt oder VoiceOver «Löschen»: erst fragen (wie der Editor).
+    private func confirmDelete(_ tx: PortfolioTx) {
+        pendingDelete = tx
+        askDelete = true
+    }
+
+    /// Nach «Löschen» in der Rückfrage: löschen wie der Editor (ohne «Rückgängig»), Banner «entfernt».
     private func deleteTx(_ tx: PortfolioTx) {
         let text = L("portfolio_tx_removed")
         // Banner zuerst: sonst ginge die Ansicht bei der letzten Transaktion gleich zurück
-        banner = WatchlistBannerMessage(
-            text: text,
-            action: WatchlistBannerAction.undo {
-                Task { @MainActor in
-                    let saved = await data.restorePortfolioTxs([tx], present: portfolioSpring(reduceMotion))
-                    if !saved { banner = .portfolioNotWritten(data) }
-                }
-            }
-        )
+        banner = WatchlistBannerMessage(text: text)
         Task { @MainActor in
             let deleted = await data.deletePortfolioTx(tx.id, present: portfolioSpring(reduceMotion))
             // Nicht geschrieben: Transaktion bleibt, statt «entfernt / Rückgängig» der Hinweis
@@ -193,6 +199,21 @@ struct PortfolioCoinDetail: View {
             deleteTick += 1
             try? await Task.sleep(nanoseconds: 300_000_000)
             AccessibilityNotification.Announcement(text).post()
+        }
+    }
+}
+
+// MARK: Rückfrage Löschen
+
+extension View {
+    /// Rückfrage «Transaktion löschen?» — dieselbe im Editor (`PortfolioTxSheet`) und beim Wischen bzw. VoiceOver
+    /// «Löschen» in der Coin-Ansicht; wie Android `TxDeleteConfirmDialog`.
+    func portfolioTxDeleteConfirmation(isPresented: Binding<Bool>, onDelete: @escaping () -> Void) -> some View {
+        alert(L("portfolio_tx_delete_title"), isPresented: isPresented) {
+            Button(L("action_delete"), role: .destructive, action: onDelete)
+            Button(L("action_cancel"), role: .cancel) {}
+        } message: {
+            Text(L("portfolio_tx_delete_confirm"))
         }
     }
 }

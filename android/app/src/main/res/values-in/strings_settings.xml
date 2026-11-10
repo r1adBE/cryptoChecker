@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">Menghitung notifikasi alarm yang terbuka. Layar utama menentukan apakah muncul angka atau titik (mis. Samsung: “Dengan angka”).</string>
     <string name="settings_exact_checks">Periksa tepat waktu</string>
     <string name="settings_exact_checks_grant">Izinkan “Alarm &amp; pengingat”</string>
-    <string name="settings_exact_checks_hint">Android memeriksa kira-kira setiap 15 menit, bahkan saat perangkat diam. Memakai sedikit lebih banyak baterai.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android memeriksa kira-kira setiap %d menit, bahkan saat perangkat diam. Memakai sedikit lebih banyak baterai.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Tidak ada pasangan aktif – tidak ada yang diperiksa.</string>
     <string name="settings_exact_checks_permission_missing">Izin tidak ada – saat perangkat diam, Android memeriksa tidak teratur, terkadang baru setelah berjam-jam.</string>
     <string name="settings_notification_change">Beri tahu hanya saat harga berubah</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">Alamat Bitcoin dan xpub milikmu lalu akan ditanyakan ke node publik: %1$s. Node tersebut melihat alamat ini bersama alamat IP-mu.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Pakai node publik</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Mati, dengan kunci</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Menghitung ulang semua tahun: harga perolehan, keuntungan terealisasi, dan lembar pajak tahun-tahun sebelumnya juga berubah.</string>
+    <string name="settings_portfolio_system_backup_confirm">Transaksi, peringatan portofolio, dan alamat yang dipantau akan masuk ke cadangan Android (mis. akun Google kamu) dan ke transfer ke perangkat baru – hanya terenkripsi end-to-end.</string>
 </resources>

@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">විවෘත ඇඟවීම් දැනුම්දීම් ගණන් කරයි. අංකයක් හෝ තිතක් දිස් වන්නේද යන්න මුල් තිරය මත රඳා පවතී (උදා. Samsung: “අංකය සමඟ පෙන්වන්න”).</string>
     <string name="settings_exact_checks">නියමිත වේලාවට පරීක්ෂා කරන්න</string>
     <string name="settings_exact_checks_grant">එලාම් &amp; සිහිකැඳවීම්වලට ඉඩ දෙන්න</string>
-    <string name="settings_exact_checks_hint">උපාංගය අක්‍රියව ඇති විටද Android ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක් පරීක්ෂා කරයි. මඳක් වැඩි බැටරි භාවිත කරයි.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">උපාංගය අක්‍රියව ඇති විටද Android ආසන්න වශයෙන් සෑම මිනිත්තු %d කට වරක් පරීක්ෂා කරයි. මඳක් වැඩි බැටරි භාවිත කරයි.</item>
+        <item quantity="other">උපාංගය අක්‍රියව ඇති විටද Android ආසන්න වශයෙන් සෑම මිනිත්තු %d කට වරක් පරීක්ෂා කරයි. මඳක් වැඩි බැටරි භාවිත කරයි.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">සක්‍රිය යුගල නැත – පරීක්ෂා කිරීමට කිසිවක් නැත.</string>
     <string name="settings_exact_checks_permission_missing">අවසරය නැත – උපාංගය විවේකයේ ඇති විට Android අක්‍රමවත්ව පරීක්ෂා කරයි, සමහර විට පැය ගණනකට පසුව පමණි.</string>
     <string name="settings_notification_change">මිල වෙනස් වූ විට පමණක් දන්වන්න</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">එවිට ඔබේ Bitcoin ලිපින සහ xpub යතුරු පොදු නෝඩ් වලින් විමසනු ලැබේ: %1$s. ඒවාට මෙම ලිපින ඔබේ IP ලිපිනය සමඟ පෙනේ.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">පොදු නෝඩ් භාවිත කරන්න</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">අක්‍රිය, අගුල සමඟ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">සියලු වසර නැවත ගණනය කරයි: පෙර වසරවල මිලදී ගැනීමේ පිරිවැය, ලබාගත් ලාභය සහ බදු පත්‍රිකා ද වෙනස් වේ.</string>
+    <string name="settings_portfolio_system_backup_confirm">එවිට ඔබේ ගනුදෙනු, කළඹ ඇඟවීම් සහ නිරීක්ෂණය කරන ලිපින Android උපස්ථයට (උදා. ඔබේ Google ගිණුමට) සහ නව උපාංගයකට මාරු කිරීමට ඇතුළත් වේ – අන්තයේ සිට අන්තය දක්වා සංකේතනය කළ විට පමණි.</string>
 </resources>

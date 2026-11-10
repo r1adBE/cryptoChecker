@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Numëron njoftimet e hapura të alarmeve. Nëse shfaqet numër apo pikë e vendos ekrani bazë (p.sh. Samsung: «Me numër»).</string>
     <string name="settings_exact_checks">Kontrollo në kohë</string>
     <string name="settings_exact_checks_grant">Lejo «Alarmet dhe rikujtuesit»</string>
-    <string name="settings_exact_checks_hint">Android kontrollon afërsisht çdo 15 minuta, edhe kur pajisja pushon. Harxhon pak më shumë bateri.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android kontrollon afërsisht çdo %d minuta, edhe kur pajisja pushon. Harxhon pak më shumë bateri.</item>
+        <item quantity="other">Android kontrollon afërsisht çdo %d minuta, edhe kur pajisja pushon. Harxhon pak më shumë bateri.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Asnjë çift aktiv – asgjë për të kontrolluar.</string>
     <string name="settings_exact_checks_permission_missing">Mungon leja – kur pajisja pushon, Android kontrollon parregullisht, ndonjëherë vetëm pas orësh.</string>
     <string name="settings_notification_change">Njofto vetëm kur ndryshon çmimi</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Adresat e tua Bitcoin dhe xpub do të pyeten atëherë te nyjet publike: %1$s. Ato i shohin adresat bashkë me adresën tënde IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Përdor nyjet publike</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Joaktiv, me kyçje</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Rillogarit të gjitha vitet: ndryshojnë edhe kostoja e blerjes, fitimet e realizuara dhe fletët tatimore të viteve të mëparshme.</string>
+    <string name="settings_portfolio_system_backup_confirm">Transaksionet, sinjalizimet e portofolit dhe adresat e ndjekura do të shkojnë atëherë në kopjen rezervë të Android (p.sh. në llogarinë tënde Google) dhe në transferimin në një pajisje të re – vetëm me enkriptim nga skaji në skaj.</string>
 </resources>

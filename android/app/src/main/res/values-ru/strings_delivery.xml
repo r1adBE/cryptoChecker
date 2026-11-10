@@ -15,7 +15,12 @@
     <string name="delivery_channel_high">Высокая важность – появляется вверху экрана</string>
     <string name="delivery_channel_low">Низкая важность – оповещения появляются только беззвучно в списке</string>
     <string name="delivery_channel_off">Выключен – оповещения не дойдут</string>
-    <string name="delivery_exact_on">Вкл. – примерно каждые 15 минут</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Вкл. – примерно каждые %d минут</item>
+        <item quantity="few">Вкл. – примерно каждые %d минут</item>
+        <item quantity="many">Вкл. – примерно каждые %d минут</item>
+        <item quantity="other">Вкл. – примерно каждые %d минут</item>
+    </plurals>
     <string name="delivery_exact_off">Выкл. – Android проверяет нерегулярно</string>
     <string name="delivery_battery">Оптимизация батареи</string>
     <string name="delivery_battery_unrestricted">Без ограничений</string>

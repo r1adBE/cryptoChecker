@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Counts open alert notifications. Whether a number or a dot appears is up to the home screen (e.g. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">Check on time</string>
     <string name="settings_exact_checks_grant">Allow alarms &amp; reminders</string>
-    <string name="settings_exact_checks_hint">Android checks about every 15 minutes, even when the device is idle. Uses a little more battery.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android checks about every %d minutes, even when the device is idle. Uses a little more battery.</item>
+        <item quantity="other">Android checks about every %d minutes, even when the device is idle. Uses a little more battery.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">No active pairs – nothing to check.</string>
     <string name="settings_exact_checks_permission_missing">Permission missing – while the device is idle, Android checks irregularly, sometimes only after hours.</string>
     <string name="settings_notification_change">Notify only on price change</string>
@@ -332,4 +335,9 @@
     <string name="settings_address_server_public_text">Your Bitcoin addresses and xpub keys will then be queried at public nodes: %1$s. They see these addresses together with your IP address.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Use public nodes</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Off, with lock</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Recalculates all years: cost basis, realized gains and tax worksheets of earlier years change too.</string>
+    <string name="settings_portfolio_system_backup_confirm">Your transactions, portfolio alerts and watched addresses will then go into the Android backup (e.g. your Google account) and into transfers to a new device – end-to-end encrypted only.</string>
 </resources>

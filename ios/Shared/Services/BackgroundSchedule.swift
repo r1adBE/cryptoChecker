@@ -4,8 +4,14 @@ import Foundation
 /// gegen doppelte Läufe (`shouldSkip`); Wecker «Pünktlich prüfen» und Akku-Hinweis gibt es nur auf
 /// Android (iOS entscheidet allein, wann geprüft wird). Der Rest steht für gleiche Tests auf beiden Seiten.
 enum BackgroundSchedule {
-    /// Abstand der pünktlichen Prüfung (Android); über dem Doze-Minimum (rund 9 Min.).
+    /// Kürzester Abstand der pünktlichen Prüfung (Android); über dem Doze-Minimum (rund 9 Min.).
     static let exactIntervalMillis: Int64 = 15 * 60_000
+
+    /// Abstand der pünktlichen Prüfung = gewähltes Intervall der Hintergrund-Aktualisierung, nie unter
+    /// `exactIntervalMillis` — wie Android `exactIntervalMillis`.
+    static func exactIntervalMillis(backgroundIntervalMinutes: Int) -> Int64 {
+        max(Int64(max(backgroundIntervalMinutes, 0)) * 60_000, exactIntervalMillis)
+    }
 
     /// Lief eine Prüfung mit mindestens einem Kurs vor weniger als so langer Zeit, entfällt die nächste.
     static let dedupeWindowMillis: Int64 = 5 * 60_000
@@ -26,19 +32,27 @@ enum BackgroundSchedule {
         exactState(enabled: enabled, permitted: permitted, hasWork: hasWork) == .active
     }
 
-    static func nextExactAt(now: Int64) -> Int64 { now + exactIntervalMillis }
+    static func nextExactAt(now: Int64, intervalMillis: Int64 = exactIntervalMillis) -> Int64 { now + intervalMillis }
 
     /// Wecker neu stellen? Bei `force`, ohne gestellten, abgelaufen oder unplausibel weit weg (Uhr verstellt).
-    static func needsArm(armedFor: Int64, now: Int64, force: Bool = false) -> Bool {
-        force || armedFor <= now || armedFor > now + exactIntervalMillis
+    static func needsArm(armedFor: Int64, now: Int64, force: Bool = false, intervalMillis: Int64 = exactIntervalMillis) -> Bool {
+        force || armedFor <= now || armedFor > now + intervalMillis
     }
 
     /// Prüfung überspringen? Nur die vom System geplanten Läufe, wenn die letzte Prüfung mit mindestens
-    /// einem Kurs keine `dedupeWindowMillis` her ist. Widget und App laufen immer. Uhr verstellt: nicht.
-    static func shouldSkip(trigger: CheckTrigger, lastFinishedAt: Int64, now: Int64) -> Bool {
+    /// einem Kurs keine `windowMillis` her ist. Widget und App laufen immer. Uhr verstellt: nicht.
+    static func shouldSkip(trigger: CheckTrigger, lastFinishedAt: Int64, now: Int64,
+                           windowMillis: Int64 = dedupeWindowMillis) -> Bool {
         guard trigger.scheduled, lastFinishedAt > 0 else { return false }
         let age = now - lastFinishedAt
-        return age >= 0 && age < dedupeWindowMillis
+        return age >= 0 && age < windowMillis
+    }
+
+    /// Sperrfenster für `shouldSkip` (Android): Mit gestelltem Wecker «Pünktlich prüfen» ist WorkManager nur das Netz
+    /// darunter und entfällt, solange die letzte volle Prüfung kein Intervall her ist; sonst `dedupeWindowMillis`.
+    /// iOS (`bgTask`) nutzt immer `dedupeWindowMillis`. Wie Android `dedupeWindowMillis`.
+    static func dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Bool, intervalMillis: Int64) -> Int64 {
+        trigger == .worker && exactArmed ? max(intervalMillis, dedupeWindowMillis) : dedupeWindowMillis
     }
 
     /// Volle Prüfung für `shouldSkip`? Alle abfragbaren Paare (`attempted`) versucht und mehr als die Hälfte

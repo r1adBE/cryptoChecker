@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valori di mercato senza prezzo registrato (commissioni, regalato/pagato, scambio, ricompense, commissioni di rete, valore del portafoglio) alla chiusura giornaliera (UTC) del giorno della transazione</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">I file contengono saldi, importi, date e indirizzi.</string>
 </resources>

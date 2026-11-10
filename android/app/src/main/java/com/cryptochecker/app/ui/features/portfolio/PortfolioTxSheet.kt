@@ -185,32 +185,25 @@ fun PortfolioTxSheet(
     }
 
     if (askDelete) {
-        AlertDialog(
-            onDismissRequest = { askDelete = false },
-            title = { Text(stringResource(R.string.portfolio_tx_delete_title)) },
-            text = { Text(stringResource(R.string.portfolio_tx_delete_confirm)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    askDelete = false
-                    // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
-                    // Hinweis offen (wie iOS)
-                    viewModel.delete(initial.id) { result ->
-                        if (result == PortfolioWriteResult.OK) {
-                            haptics.play(HapticEvent.DESTRUCTIVE)
-                            onDismiss()
-                        } else {
-                            haptics.play(HapticEvent.ERROR)
-                            val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
-                            scope.launch {
-                                saveErrorHost.showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
-                            }
+        TxDeleteConfirmDialog(
+            onDismiss = { askDelete = false },
+            onConfirm = {
+                askDelete = false
+                // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
+                // Hinweis offen (wie iOS)
+                viewModel.delete(initial.id) { result ->
+                    if (result == PortfolioWriteResult.OK) {
+                        haptics.play(HapticEvent.DESTRUCTIVE)
+                        onDismiss()
+                    } else {
+                        haptics.play(HapticEvent.ERROR)
+                        val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
+                        scope.launch {
+                            saveErrorHost.showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
                         }
                     }
-                }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
+                }
             },
-            dismissButton = {
-                TextButton(onClick = { askDelete = false }) { Text(stringResource(R.string.action_cancel)) }
-            }
         )
     }
 

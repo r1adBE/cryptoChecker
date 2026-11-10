@@ -50,6 +50,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportSkipReason
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
@@ -141,20 +142,31 @@ internal fun CsvImportPreviewSheet(
                         modifier = Modifier.padding(start = 12.dp),
                     )
                 }
+                // Mehr als 8 übersprungen: Rest als «+ N weitere» statt still abgeschnitten
+                val moreSkipped = CsvLineList.moreAfter(preview.skipped.size, PREVIEW_ROWS)
+                if (moreSkipped > 0) {
+                    Text(
+                        stringResource(R.string.portfolio_csv_import_more, moreSkipped),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 12.dp),
+                    )
+                }
             }
+            // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
             if (preview.missingFx.isNotEmpty()) {
-                PreviewHint(stringResource(R.string.portfolio_csv_import_missing_fx, preview.missingFx.joinToString(", ")))
+                LinesHint(preview.missingFx) { stringResource(R.string.portfolio_csv_import_missing_fx, it) }
             }
             // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
             if (preview.usdtApproximate.isNotEmpty()) {
-                PreviewHint(stringResource(R.string.portfolio_usdt_assumed) + " (" + preview.usdtApproximate.joinToString(", ") + ")")
+                LinesHint(preview.usdtApproximate) { stringResource(R.string.portfolio_usdt_assumed) + " ($it)" }
             }
             if (preview.missingPrice.isNotEmpty()) {
-                PreviewHint(stringResource(R.string.portfolio_csv_import_missing_price, preview.missingPrice.joinToString(", ")))
+                LinesHint(preview.missingPrice) { stringResource(R.string.portfolio_csv_import_missing_price, it) }
             }
             // Fiat-Gebühr im Preis, Gebühr im Coin am Geschäft (statt eigener Gebühr-Zeile)
             if (preview.feeInPrice.isNotEmpty()) {
-                PreviewHint(stringResource(R.string.portfolio_csv_import_fee_in_price, preview.feeInPrice.joinToString(", ")))
+                LinesHint(preview.feeInPrice) { stringResource(R.string.portfolio_csv_import_fee_in_price, it) }
             }
             // Kraken: ausstehende und gebuchte Zeile mit anderer Menge — beide übernommen, Bestand prüfen
             if (preview.pendingDiffers.isNotEmpty()) {
@@ -272,6 +284,25 @@ private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> 
                     label = { Text("$sample = ${CsvImport.text(value)}", style = MaterialTheme.typography.bodyMedium.tabularNumbers()) },
                 )
             }
+    }
+}
+
+/**
+ * Ein Hinweis mit Zeilennummern: oben die Anzahl («12 Zeilen»), darunter der Satz mit den ersten Nummern und
+ * «+ N weitere» ([CsvLineList]) — TalkBack liest beides als ein Element (wie iOS `.accessibilityElement(children: .combine)`).
+ */
+@Composable
+private fun LinesHint(lines: List<Int>, sentence: @Composable (String) -> String) {
+    val list = remember(lines) { CsvLineList.of(lines) }
+    val more = if (list.more > 0) " " + stringResource(R.string.portfolio_csv_import_more, list.more) else ""
+    Column(Modifier.semantics(mergeDescendants = true) {}) {
+        Text(
+            pluralStringResource(R.plurals.portfolio_csv_import_line_count, list.count, list.count),
+            style = MaterialTheme.typography.bodySmall,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        PreviewHint(sentence(list.shown.joinToString(", ") + more))
     }
 }
 

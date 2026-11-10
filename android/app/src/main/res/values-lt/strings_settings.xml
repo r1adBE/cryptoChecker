@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Skaičiuoja neperskaitytus įspėjimų pranešimus. Ar rodomas skaičius, ar taškas, sprendžia pagrindinis ekranas (pvz., Samsung: „Rodyti su skaičiumi“).</string>
     <string name="settings_exact_checks">Tikrinti laiku</string>
     <string name="settings_exact_checks_grant">Leisti signalus ir priminimus</string>
-    <string name="settings_exact_checks_hint">Android tikrina maždaug kas 15 minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android tikrina maždaug kas %d minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</item>
+        <item quantity="few">Android tikrina maždaug kas %d minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</item>
+        <item quantity="many">Android tikrina maždaug kas %d minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</item>
+        <item quantity="other">Android tikrina maždaug kas %d minučių, net kai įrenginys neaktyvus. Naudoja šiek tiek daugiau akumuliatoriaus.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nėra aktyvių porų – nėra ko tikrinti.</string>
     <string name="settings_exact_checks_permission_missing">Trūksta leidimo – kai įrenginys ramybės būsenoje, Android tikrina nereguliariai, kartais tik po kelių valandų.</string>
     <string name="settings_notification_change">Pranešti tik pasikeitus kainai</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Tavo Bitcoin adresai ir xpub raktai tada bus tikrinami viešuose mazguose: %1$s. Jie mato šiuos adresus kartu su tavo IP adresu.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Naudoti viešus mazgus</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Išjungta, su užraktu</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Perskaičiuoja visus metus: keičiasi ir ankstesnių metų įsigijimo kaina, realizuotas pelnas bei mokesčių lapai.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tavo operacijos, portfelio įspėjimai ir stebimi adresai tada pateks į Android atsarginę kopiją (pvz., tavo Google paskyroje) ir į perkėlimą į naują įrenginį – tik su ištisiniu šifravimu.</string>
 </resources>

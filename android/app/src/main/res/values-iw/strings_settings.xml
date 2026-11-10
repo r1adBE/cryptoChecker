@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">סופר התראות פתוחות. מסך הבית קובע אם יופיע מספר או נקודה (למשל Samsung: «עם מספר»).</string>
     <string name="settings_exact_checks">בדיקה בזמן</string>
     <string name="settings_exact_checks_grant">לאפשר «שעונים מעוררים ותזכורות»</string>
-    <string name="settings_exact_checks_hint">Android בודק בערך כל 15 דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android בודק בערך כל %d דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</item>
+        <item quantity="two">Android בודק בערך כל %d דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</item>
+        <item quantity="other">Android בודק בערך כל %d דקות, גם כשהמכשיר במנוחה. צורך מעט יותר סוללה.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">אין צמדים פעילים – אין מה לבדוק.</string>
     <string name="settings_exact_checks_permission_missing">חסרה הרשאה – כשהמכשיר במנוחה, Android בודק באופן לא סדיר, לפעמים רק אחרי שעות.</string>
     <string name="settings_notification_change">עדכון רק בשינוי מחיר</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">כתובות הביטקוין וה-xpub שלכם ייבדקו אז בצמתים ציבוריים: %1$s. הם רואים את הכתובות יחד עם כתובת ה-IP שלכם.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">שימוש בצמתים ציבוריים</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">כבוי, עם נעילה</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">מחשב מחדש את כל השנים: גם עלות הרכישה, הרווחים הממומשים וגיליונות המס של שנים קודמות ישתנו.</string>
+    <string name="settings_portfolio_system_backup_confirm">העסקאות, התראות התיק והכתובות שבמעקב יכללו אז בגיבוי של Android (למשל בחשבון Google שלך) ובהעברה למכשיר חדש – רק בהצפנה מקצה לקצה.</string>
 </resources>

@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">Đếm các thông báo cảnh báo đang mở. Màn hình chính quyết định hiện số hay dấu chấm (vd. Samsung: “Có số”).</string>
     <string name="settings_exact_checks">Kiểm tra đúng giờ</string>
     <string name="settings_exact_checks_grant">Cho phép “Báo thức và lời nhắc”</string>
-    <string name="settings_exact_checks_hint">Android kiểm tra khoảng mỗi 15 phút, kể cả khi thiết bị đang nghỉ. Tốn pin hơn một chút.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android kiểm tra khoảng mỗi %d phút, kể cả khi thiết bị đang nghỉ. Tốn pin hơn một chút.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Không có cặp nào đang bật – không có gì để kiểm tra.</string>
     <string name="settings_exact_checks_permission_missing">Thiếu quyền – lúc thiết bị nghỉ, Android kiểm tra không đều, đôi khi sau nhiều giờ.</string>
     <string name="settings_notification_change">Chỉ thông báo khi giá thay đổi</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">Khi đó địa chỉ Bitcoin và xpub của bạn sẽ được truy vấn ở nút công khai: %1$s. Các nút này thấy các địa chỉ cùng với địa chỉ IP của bạn.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Dùng nút công khai</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Tắt, có khóa</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Tính lại tất cả các năm: giá vốn, lãi đã thực hiện và bảng tính thuế của các năm trước cũng thay đổi.</string>
+    <string name="settings_portfolio_system_backup_confirm">Khi đó giao dịch, cảnh báo danh mục và địa chỉ đang theo dõi của bạn sẽ có trong bản sao lưu Android (ví dụ tài khoản Google của bạn) và khi chuyển sang thiết bị mới – chỉ khi được mã hóa đầu cuối.</string>
 </resources>

@@ -51,11 +51,12 @@ enum SettingsSummary {
 
     // MARK: Kurzwerte der Hauptseite
 
-    /// «Portfolio»: Die Sperre zählt nur bei eingeschaltetem Portfolio.
-    enum Portfolio { case off, on, locked }
+    /// «Portfolio»: wirklicher Zustand — auch bei ausgeblendetem Portfolio bleibt eine eingeschaltete Sperre wirksam
+    /// (Portfolio-Widget, Sicherung), also «Aus, mit Sperre». Wie Android.
+    enum Portfolio { case off, offLocked, on, locked }
 
     static func portfolio(enabled: Bool, lock: Bool) -> Portfolio {
-        if !enabled { return .off }
+        if !enabled { return lock ? .offLocked : .off }
         return lock ? .locked : .on
     }
 
@@ -120,10 +121,11 @@ enum SettingsSummary {
         }
     }
 
-    /// «Aus», «Ein» oder «Ein, mit Sperre».
+    /// «Aus», «Aus, mit Sperre», «Ein» oder «Ein, mit Sperre».
     static func portfolioText(_ s: AppSettings) -> String {
         switch portfolio(enabled: s.portfolioEnabled, lock: s.appLock) {
         case .off: return L("option_off")
+        case .offLocked: return L("settings_portfolio_value_off_locked")
         case .on: return L("settings_summary_on")
         case .locked: return L("settings_portfolio_value_locked")
         }

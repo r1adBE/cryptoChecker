@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">მაღალი პრიორიტეტი – ეკრანზე ამოდის</string>
     <string name="delivery_channel_low">დაბალი პრიორიტეტი – განგაშები მხოლოდ ჩუმად ჩნდება სიაში</string>
     <string name="delivery_channel_off">გამორთულია – განგაშები არ მოვა</string>
-    <string name="delivery_exact_on">ჩართულია – დაახლოებით ყოველ 15 წუთში</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ჩართულია – დაახლოებით ყოველ %d წუთში</item>
+        <item quantity="other">ჩართულია – დაახლოებით ყოველ %d წუთში</item>
+    </plurals>
     <string name="delivery_exact_off">გამორთულია – Android არარეგულარულად ამოწმებს</string>
     <string name="delivery_battery">ბატარეის ოპტიმიზაცია</string>
     <string name="delivery_battery_unrestricted">შეზღუდვის გარეშე</string>

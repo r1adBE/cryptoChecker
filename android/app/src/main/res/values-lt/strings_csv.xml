@@ -105,4 +105,11 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Failas skaitomas iš naujo…</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d eilutė</item>
+        <item quantity="few">%d eilutės</item>
+        <item quantity="many">%d eilutės</item>
+        <item quantity="other">%d eilučių</item>
+    </plurals>
 </resources>

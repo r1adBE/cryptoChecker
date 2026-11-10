@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Telt openstaande alarmmeldingen. Of er een getal of een stip verschijnt, bepaalt het startscherm (bijv. Samsung: ‘Met getal’).</string>
     <string name="settings_exact_checks">Op tijd controleren</string>
     <string name="settings_exact_checks_grant">‘Wekkers en herinneringen’ toestaan</string>
-    <string name="settings_exact_checks_hint">Android controleert ongeveer elke 15 minuten, ook als het apparaat in rust is. Kost iets meer batterij.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android controleert ongeveer elke %d minuten, ook als het apparaat in rust is. Kost iets meer batterij.</item>
+        <item quantity="other">Android controleert ongeveer elke %d minuten, ook als het apparaat in rust is. Kost iets meer batterij.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Geen actieve paren – niets te controleren.</string>
     <string name="settings_exact_checks_permission_missing">Toestemming ontbreekt – als het toestel rust, controleert Android onregelmatig, soms pas na uren.</string>
     <string name="settings_notification_change">Alleen melden bij koerswijziging</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Je Bitcoin-adressen en xpubs worden dan bij openbare nodes opgevraagd: %1$s. Die zien deze adressen samen met je IP-adres.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Openbare nodes gebruiken</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Uit, met vergrendeling</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Rekent alle jaren opnieuw: kostprijs, gerealiseerde winsten en belastingoverzichten van eerdere jaren veranderen ook.</string>
+    <string name="settings_portfolio_system_backup_confirm">Je transacties, portefeuillemeldingen en gevolgde adressen gaan dan mee in de Android-back-up (bijv. in je Google-account) en in overzettingen naar een nieuw apparaat – alleen end-to-end versleuteld.</string>
 </resources>

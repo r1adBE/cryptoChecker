@@ -39,7 +39,13 @@
     <string name="settings_app_badge_hint">Comhaireann sé fógraí foláirimh oscailte. Is ag an scáileán baile atá sé an dtaispeántar uimhir nó ponc (m.sh. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">Seiceáil in am</string>
     <string name="settings_exact_checks_grant">Ceadaigh aláraim agus meabhrúcháin</string>
-    <string name="settings_exact_checks_hint">Seiceálann Android thart ar gach 15 nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Seiceálann Android thart ar gach %d nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</item>
+        <item quantity="two">Seiceálann Android thart ar gach %d nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</item>
+        <item quantity="few">Seiceálann Android thart ar gach %d nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</item>
+        <item quantity="many">Seiceálann Android thart ar gach %d nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</item>
+        <item quantity="other">Seiceálann Android thart ar gach %d nóiméad, fiú nuair atá an gléas díomhaoin. Úsáideann sé beagán níos mó ceallraí.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Gan péirí gníomhacha – níl aon rud le seiceáil.</string>
     <string name="settings_exact_checks_permission_missing">Cead ar iarraidh – fad atá an gléas ina scíth, seiceálann Android go mírialta, uaireanta tar éis uaireanta fada.</string>
     <string name="settings_notification_change">Cuir in iúl ach amháin nuair a athraíonn an praghas</string>
@@ -332,4 +338,9 @@
     <string name="settings_address_server_public_text">Fiosrófar do sheoltaí Bitcoin agus d’eochracha xpub ansin ag nóid phoiblí: %1$s. Feiceann siad na seoltaí seo in éineacht le do sheoladh IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Úsáid nóid phoiblí</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Múchta, le glas</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Athríomhann sé gach bliain: athraíonn bunchostas, gnóthachain réadaithe agus bileoga cánach na mblianta roimhe freisin.</string>
+    <string name="settings_portfolio_system_backup_confirm">Rachaidh d’idirbhearta, foláirimh phunann agus seoltaí faoi fhaire ansin i gcúltaca Android (m.sh. i do chuntas Google) agus in aistriú chuig gléas nua – criptithe ó cheann ceann amháin.</string>
 </resources>

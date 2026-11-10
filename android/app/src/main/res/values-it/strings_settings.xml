@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Conta le notifiche di allarme aperte. Se appare un numero o un punto lo decide la schermata Home (ad es. Samsung: «Con numero»).</string>
     <string name="settings_exact_checks">Controllo puntuale</string>
     <string name="settings_exact_checks_grant">Consenti «Sveglie e promemoria»</string>
-    <string name="settings_exact_checks_hint">Android controlla circa ogni 15 minuti, anche quando il dispositivo è inattivo. Consuma un po’ più di batteria.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android controlla circa ogni %d minuti, anche quando il dispositivo è inattivo. Consuma un po’ più di batteria.</item>
+        <item quantity="many">Android controlla circa ogni %d minuti, anche quando il dispositivo è inattivo. Consuma un po’ più di batteria.</item>
+        <item quantity="other">Android controlla circa ogni %d minuti, anche quando il dispositivo è inattivo. Consuma un po’ più di batteria.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nessuna coppia attiva – niente da controllare.</string>
     <string name="settings_exact_checks_permission_missing">Autorizzazione mancante – a dispositivo inattivo Android controlla in modo irregolare, a volte solo dopo ore.</string>
     <string name="settings_notification_change">Notifica solo se il prezzo cambia</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">I tuoi indirizzi Bitcoin e le xpub verranno allora interrogati su nodi pubblici: %1$s. Questi vedono gli indirizzi insieme al tuo indirizzo IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Usa nodi pubblici</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Off, con blocco</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Ricalcola tutti gli anni: cambiano anche costo, guadagni realizzati e fogli fiscali degli anni precedenti.</string>
+    <string name="settings_portfolio_system_backup_confirm">Le tue transazioni, gli avvisi del portafoglio e gli indirizzi seguiti finiranno allora nel backup di Android (ad es. nel tuo account Google) e nel trasferimento a un nuovo dispositivo – solo con crittografia end-to-end.</string>
 </resources>

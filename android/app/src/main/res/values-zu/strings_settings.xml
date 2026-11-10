@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Ibala izaziso zama-alamu ezivulekile. Ukuthi kuvela inombolo noma ichashazi kuncike esikrinini sasekhaya (isb. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">Hlola ngesikhathi</string>
     <string name="settings_exact_checks_grant">Vumela ama-alamu &amp; izikhumbuzi</string>
-    <string name="settings_exact_checks_hint">I-Android ihlola cishe njalo emizuzwini engu-15, ngisho noma idivayisi ingasebenzi. Isebenzisa ibhethri elincane elengeziwe.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">I-Android ihlola cishe njalo emizuzwini engu-%d, ngisho noma idivayisi ingasebenzi. Isebenzisa ibhethri elincane elengeziwe.</item>
+        <item quantity="other">I-Android ihlola cishe njalo emizuzwini engu-%d, ngisho noma idivayisi ingasebenzi. Isebenzisa ibhethri elincane elengeziwe.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Awekho amapheya asebenzayo – akukho okuzohlolwa.</string>
     <string name="settings_exact_checks_permission_missing">Imvume ayikho – lapho idivayisi iphumule, i-Android ihlola ngokungahlelekile, ngezinye izikhathi ngemuva kwamahora kuphela.</string>
     <string name="settings_notification_change">Yazisa kuphela uma intengo ishintsha</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Amakheli akho e-Bitcoin nokhiye be-xpub bese kubuzwa kuma-node omphakathi: %1$s. Abona lawa makheli kanye nekheli lakho le-IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Sebenzisa ama-node omphakathi</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Kuvaliwe, nokhiye</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Ibala kabusha yonke iminyaka: izindleko zokuthenga, inzuzo etholakele namashidi entela eminyaka edlule nakho kuyashintsha.</string>
+    <string name="settings_portfolio_system_backup_confirm">Ukuthengiselana kwakho, izexwayiso zephothifoliyo namakheli owalandelayo kuzongena ekwenzeni isipele kwe-Android (isb. ku-akhawunti yakho ye-Google) nasekudluliseleni kudivayisi entsha – kubethelwe kusukela ekuqaleni kuya ekugcineni kuphela.</string>
 </resources>

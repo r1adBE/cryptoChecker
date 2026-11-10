@@ -105,4 +105,11 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Файл читається знову …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d рядок</item>
+        <item quantity="few">%d рядки</item>
+        <item quantity="many">%d рядків</item>
+        <item quantity="other">%d рядка</item>
+    </plurals>
 </resources>

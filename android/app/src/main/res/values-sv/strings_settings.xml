@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Räknar öppna larmaviseringar. Om en siffra eller en prick visas avgör hemskärmen (t.ex. Samsung: ”Med siffra”).</string>
     <string name="settings_exact_checks">Kontrollera i tid</string>
     <string name="settings_exact_checks_grant">Tillåt ”Alarm och påminnelser”</string>
-    <string name="settings_exact_checks_hint">Android kontrollerar ungefär var 15:e minut, även när enheten vilar. Drar lite mer batteri.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android kontrollerar ungefär var %d:e minut, även när enheten vilar. Drar lite mer batteri.</item>
+        <item quantity="other">Android kontrollerar ungefär var %d:e minut, även när enheten vilar. Drar lite mer batteri.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Inga aktiva par – inget att kontrollera.</string>
     <string name="settings_exact_checks_permission_missing">Behörighet saknas – när enheten vilar kontrollerar Android oregelbundet, ibland först efter timmar.</string>
     <string name="settings_notification_change">Avisera bara vid kursändring</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Dina Bitcoin-adresser och xpub frågas då hos offentliga noder: %1$s. De ser adresserna tillsammans med din IP-adress.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Använd offentliga noder</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Av, med lås</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Räknar om alla år: anskaffningsvärde, realiserade vinster och skatteunderlag för tidigare år ändras också.</string>
+    <string name="settings_portfolio_system_backup_confirm">Dina transaktioner, portföljaviseringar och bevakade adresser följer då med i Android-säkerhetskopian (t.ex. på ditt Google-konto) och vid överföring till en ny enhet – bara end-to-end-krypterat.</string>
 </resources>

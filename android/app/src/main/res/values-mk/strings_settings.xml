@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Ги брои отворените известувања за аларми. Дали ќе се појави број или точка зависи од почетниот екран (на пр. Samsung: „Прикажи со број“).</string>
     <string name="settings_exact_checks">Проверувај навреме</string>
     <string name="settings_exact_checks_grant">Дозволи аларми и потсетници</string>
-    <string name="settings_exact_checks_hint">Android проверува приближно на секои 15 минути, дури и кога уредот мирува. Троши малку повеќе батерија.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android проверува приближно на секои %d минути, дури и кога уредот мирува. Троши малку повеќе батерија.</item>
+        <item quantity="other">Android проверува приближно на секои %d минути, дури и кога уредот мирува. Троши малку повеќе батерија.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Нема активни парови – нема што да се проверува.</string>
     <string name="settings_exact_checks_permission_missing">Недостасува дозвола – додека уредот мирува, Android проверува неправилно, понекогаш дури по неколку часа.</string>
     <string name="settings_notification_change">Извести само при промена на цената</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Твоите Bitcoin-адреси и xpub-клучеви тогаш ќе се бараат на јавни јазли: %1$s. Тие ги гледаат овие адреси заедно со твојата IP-адреса.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Користи јавни јазли</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Исклучено, со заклучување</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Ги пресметува сите години одново: се менуваат и набавната вредност, остварените добивки и даночните листи од претходните години.</string>
+    <string name="settings_portfolio_system_backup_confirm">Твоите трансакции, известувања за портфолиото и следените адреси тогаш одат во резервната копија на Android (на пр. во твојата сметка на Google) и во преносот на нов уред – само со шифрирање од крај до крај.</string>
 </resources>

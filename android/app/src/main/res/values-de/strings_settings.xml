@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Zählt offene Alarm-Benachrichtigungen. Ob eine Zahl oder ein Punkt erscheint, bestimmt der Startbildschirm (z. B. Samsung: «Mit Zahl»).</string>
     <string name="settings_exact_checks">Pünktlich prüfen</string>
     <string name="settings_exact_checks_grant">«Wecker und Erinnerungen» erlauben</string>
-    <string name="settings_exact_checks_hint">Android prüft etwa alle 15 Minuten, auch wenn das Gerät ruht. Braucht etwas mehr Akku.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android prüft etwa alle %d Minuten, auch wenn das Gerät ruht. Braucht etwas mehr Akku.</item>
+        <item quantity="other">Android prüft etwa alle %d Minuten, auch wenn das Gerät ruht. Braucht etwas mehr Akku.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Keine aktiven Paare – nichts zu prüfen.</string>
     <string name="settings_exact_checks_permission_missing">Berechtigung fehlt – bei ruhendem Gerät prüft Android unregelmässig, manchmal erst nach Stunden.</string>
     <string name="settings_notification_change">Nur bei Kursänderung melden</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Deine Bitcoin-Adressen und xpub werden dann bei öffentlichen Knoten abgefragt: %1$s. Diese sehen die Adressen zusammen mit deiner IP-Adresse.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Öffentliche Knoten nutzen</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Aus, mit Sperre</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Rechnet alle Jahre neu: Einstand, realisierte Gewinne und Steuer-Arbeitsblätter früherer Jahre ändern sich auch.</string>
+    <string name="settings_portfolio_system_backup_confirm">Deine Transaktionen, Portfolio-Alarme und beobachteten Adressen kommen dann in die Android-Sicherung (z. B. in dein Google-Konto) und in die Übertragung auf ein neues Gerät – nur Ende-zu-Ende-verschlüsselt.</string>
 </resources>

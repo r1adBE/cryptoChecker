@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ითვლის განგაშების ღია შეტყობინებებს. რიცხვი გამოჩნდება თუ წერტილი, მთავარ ეკრანზეა დამოკიდებული (მაგ. Samsung: «რიცხვით ჩვენება»).</string>
     <string name="settings_exact_checks">შემოწმება ზუსტ დროზე</string>
     <string name="settings_exact_checks_grant">მაღვიძარებისა &amp; შეხსენებების დაშვება</string>
-    <string name="settings_exact_checks_hint">Android ამოწმებს დაახლოებით ყოველ 15 წუთში, მაშინაც კი, როცა მოწყობილობა უმოქმედოა. ცოტა მეტ ბატარეას ხარჯავს.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android ამოწმებს დაახლოებით ყოველ %d წუთში, მაშინაც კი, როცა მოწყობილობა უმოქმედოა. ცოტა მეტ ბატარეას ხარჯავს.</item>
+        <item quantity="other">Android ამოწმებს დაახლოებით ყოველ %d წუთში, მაშინაც კი, როცა მოწყობილობა უმოქმედოა. ცოტა მეტ ბატარეას ხარჯავს.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">აქტიური წყვილები არ არის – შესამოწმებელი არაფერია.</string>
     <string name="settings_exact_checks_permission_missing">ნებართვა აკლია – როცა მოწყობილობა უმოქმედოა, Android არარეგულარულად ამოწმებს, ზოგჯერ მხოლოდ საათების შემდეგ.</string>
     <string name="settings_notification_change">შეტყობინება მხოლოდ ფასის ცვლილებისას</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">შენი Bitcoin მისამართები და xpub გასაღებები მაშინ საჯარო კვანძებში მოწმდება: %1$s. ისინი ამ მისამართებს შენს IP მისამართთან ერთად ხედავენ.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">საჯარო კვანძების გამოყენება</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">გამორთული, დაბლოკვით</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">ხელახლა ითვლის ყველა წელს: იცვლება წინა წლების შეძენის ღირებულება, რეალიზებული მოგება და საგადასახადო ფურცლებიც.</string>
+    <string name="settings_portfolio_system_backup_confirm">თქვენი ტრანზაქციები, პორტფელის შეტყობინებები და თვალყურდევნებული მისამართები მაშინ მოხვდება Android-ის სარეზერვო ასლში (მაგ. თქვენს Google ანგარიშში) და ახალ მოწყობილობაზე გადატანაში – მხოლოდ ბოლომდე დაშიფრული.</string>
 </resources>

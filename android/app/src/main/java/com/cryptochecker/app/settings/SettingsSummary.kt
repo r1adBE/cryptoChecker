@@ -39,11 +39,14 @@ object SettingsSummary {
         else -> Speech.ON
     }
 
-    /** Kurzwert der Zeile «Portfolio»: Die Sperre zählt nur bei eingeschaltetem Portfolio. */
-    enum class Portfolio { OFF, ON, LOCKED }
+    /**
+     * Kurzwert der Zeile «Portfolio»: wirklicher Zustand — auch bei ausgeblendetem Portfolio bleibt eine eingeschaltete
+     * Sperre wirksam (Portfolio-Widget, Sicherung), also «Aus, mit Sperre» statt nur «Aus».
+     */
+    enum class Portfolio { OFF, OFF_LOCKED, ON, LOCKED }
 
     fun portfolio(enabled: Boolean, lock: Boolean): Portfolio = when {
-        !enabled -> Portfolio.OFF
+        !enabled -> if (lock) Portfolio.OFF_LOCKED else Portfolio.OFF
         lock -> Portfolio.LOCKED
         else -> Portfolio.ON
     }

@@ -1,33 +1,49 @@
 import Foundation
 
 /// Takt der Widgets (nur iOS; Android-Widgets holen nichts selbst, sie zeigen den Stand der
-/// Hintergrund-Prüfung): neu zeichnen und Kurse holen etwa alle 45 Minuten. Nach einem misslungenen
+/// Hintergrund-Prüfung): neu zeichnen und Kurse holen im gewählten Intervall der Hintergrund-Aktualisierung
+/// (`AppSettings.backgroundIntervalMinutes`, 15/30/60 Min.), «alt» ab demselben Intervall. Nach einem misslungenen
 /// Versuch oder noch nicht geschriebenen Kursen höchstens EIN früher Neuversuch je Takt — sonst könnte
 /// sich das Merkliste-Widget jede Minute neu laden und das Neuladen-Kontingent von WidgetKit aufbrauchen.
 /// Das Kontingent (rund 40–70 je Tag und Widget) teilen sich alle Widgets einer Art; darum zusätzlich ein
-/// Tageszähler (`dailyReloadSoftCap`): ist er erreicht, gibt es keine frühen Neuversuche mehr, nur den Takt.
+/// Tageszähler (`dailyReloadSoftCap`): ist er erreicht, gibt es keine frühen Neuversuche mehr und der Takt
+/// wird nicht kürzer als `cappedReloadMinutes`. `lastAlarmCheckAt` setzt das Widget weiterhin nicht (nur Kursalarme).
 enum WidgetCadence {
-    /// Normaler Abstand zwischen zwei Zeichnungen (45 statt 30 Minuten: lässt dem Kontingent Luft für
-    /// Neuladen aus der App und nach dem Aktualisieren-Knopf).
-    static let reloadMinutes = 45
-    /// Ab diesem Alter holt das Zeichnen zuerst neue Kurse: unter dem Takt, damit das geplante
-    /// Neuladen sicher holt, ein vorgezogenes (App, anderes Widget) aber nicht gleich noch einmal.
-    static let staleAfterMillis: Int64 = 25 * 60_000
-    /// Nach einem misslungenen Versuch (offline, kein einziger Kurs, Datei nicht schreibbar) so lange
-    /// keinen neuen aus dem Zeichnen heraus — gleiche Grenze wie `staleAfterMillis`.
-    static let retryAfterMillis: Int64 = staleAfterMillis
+    /// Kürzester Takt = kürzeste Wahl des Intervalls (`AppSettings.backgroundIntervalChoices`); WidgetKit lädt
+    /// ohnehin nicht öfter, als das Kontingent zulässt.
+    static let minReloadMinutes = 15
+    /// Ab der Tagesgrenze nicht öfter als so (früherer fester Takt): lässt dem Kontingent Luft bis zum Abend.
+    static let cappedReloadMinutes = 45
+    /// WidgetKit lädt oft etwas vor der geplanten Zeit neu: so viel früher gilt der Stand schon als alt, damit
+    /// das geplante Neuladen sicher holt (sonst erst einen Takt später).
+    static let staleSlackMillis: Int64 = 60_000
     /// Abstand des frühen Neuversuchs.
     static let quickRetrySeconds: Double = 60
+
+    /// Takt in Minuten für das gewählte Intervall (mindestens `minReloadMinutes`).
+    static func reloadMinutes(intervalMinutes: Int) -> Int { max(intervalMinutes, minReloadMinutes) }
+
+    /// Ab diesem Alter holt das Zeichnen zuerst neue Kurse: das Intervall (weniger `staleSlackMillis`).
+    static func staleAfterMillis(intervalMinutes: Int) -> Int64 {
+        Int64(reloadMinutes(intervalMinutes: intervalMinutes)) * 60_000 - staleSlackMillis
+    }
+
+    /// Nach einem misslungenen Versuch so lange keinen neuen aus dem Zeichnen heraus — gleiche Grenze wie
+    /// `staleAfterMillis`.
+    static func retryAfterMillis(intervalMinutes: Int) -> Int64 { staleAfterMillis(intervalMinutes: intervalMinutes) }
 
     /// Nächstes Neuladen: der frühe Neuversuch nur, wenn er gewünscht ist und der letzte mindestens einen
     /// Takt zurückliegt (Uhr zurückgestellt: erlaubt); sonst der normale Takt.
     /// - Returns: Zeitpunkt und ob es der frühe Neuversuch ist (dann `lastQuickRetryAt` merken).
     /// - Parameter reloadsToday: bisher gezählte Neuladen heute (`DailyReloadCounter`); ab `dailyReloadSoftCap`
-    ///   kein früher Neuversuch mehr.
+    ///   kein früher Neuversuch mehr und mindestens `cappedReloadMinutes`.
+    /// - Parameter intervalMinutes: gewähltes Intervall der Hintergrund-Aktualisierung.
     static func nextReload(now: Date, wantsQuickRetry: Bool, lastQuickRetryAt: Date?,
-                           reloadsToday: Int = 0) -> (date: Date, quickRetry: Bool) {
-        let period = Double(reloadMinutes) * 60
-        var allowed = wantsQuickRetry && reloadsToday < dailyReloadSoftCap
+                           reloadsToday: Int = 0, intervalMinutes: Int) -> (date: Date, quickRetry: Bool) {
+        let capped = reloadsToday >= dailyReloadSoftCap
+        let minutes = reloadMinutes(intervalMinutes: intervalMinutes)
+        let period = Double(capped ? max(minutes, cappedReloadMinutes) : minutes) * 60
+        var allowed = wantsQuickRetry && !capped
         if allowed, let last = lastQuickRetryAt {
             let age = now.timeIntervalSince(last)
             allowed = age < 0 || age >= period

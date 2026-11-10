@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Počítá otevřená upozornění na alarmy. Zda se zobrazí číslo, nebo tečka, rozhoduje domovská obrazovka (např. Samsung: „S číslem“).</string>
     <string name="settings_exact_checks">Kontrolovat včas</string>
     <string name="settings_exact_checks_grant">Povolit „Budíky a připomenutí“</string>
-    <string name="settings_exact_checks_hint">Android kontroluje zhruba každých 15 minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android kontroluje zhruba každých %d minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</item>
+        <item quantity="few">Android kontroluje zhruba každých %d minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</item>
+        <item quantity="many">Android kontroluje zhruba každých %d minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</item>
+        <item quantity="other">Android kontroluje zhruba každých %d minut, i když zařízení odpočívá. Spotřebuje trochu víc baterie.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Žádné aktivní páry – není co kontrolovat.</string>
     <string name="settings_exact_checks_permission_missing">Chybí oprávnění – v klidu zařízení kontroluje Android nepravidelně, někdy až po hodinách.</string>
     <string name="settings_notification_change">Oznamovat jen při změně ceny</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Tvoje bitcoinové adresy a xpub se pak budou dotazovat u veřejných uzlů: %1$s. Ty uvidí tyto adresy spolu s tvou IP adresou.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Použít veřejné uzly</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Vyp., se zámkem</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Přepočítá všechny roky: změní se i pořizovací cena, realizované zisky a daňové podklady dřívějších let.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tvoje transakce, upozornění portfolia a sledované adresy pak půjdou do zálohy Androidu (např. do tvého účtu Google) a do přenosu na nové zařízení – jen s koncovým šifrováním.</string>
 </resources>

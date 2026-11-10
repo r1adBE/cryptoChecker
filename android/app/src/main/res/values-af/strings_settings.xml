@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Tel oop alarmkennisgewings. Of \'n getal of \'n kolletjie verskyn, hang van die tuisskerm af (bv. Samsung: “Wys met getal”).</string>
     <string name="settings_exact_checks">Kontroleer betyds</string>
     <string name="settings_exact_checks_grant">Laat wekkers &amp; herinneringe toe</string>
-    <string name="settings_exact_checks_hint">Android kontroleer ongeveer elke 15 minute, selfs wanneer die toestel ledig is. Gebruik \'n bietjie meer battery.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android kontroleer ongeveer elke %d minute, selfs wanneer die toestel ledig is. Gebruik \'n bietjie meer battery.</item>
+        <item quantity="other">Android kontroleer ongeveer elke %d minute, selfs wanneer die toestel ledig is. Gebruik \'n bietjie meer battery.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Geen aktiewe pare nie – niks om te kontroleer nie.</string>
     <string name="settings_exact_checks_permission_missing">Toestemming ontbreek – terwyl die toestel rus, kontroleer Android onreëlmatig, soms eers ná ure.</string>
     <string name="settings_notification_change">Stel net in kennis by prysverandering</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Jou Bitcoin-adresse en xpub-sleutels sal dan by openbare nodusse opgevra word: %1$s. Hulle sien hierdie adresse saam met jou IP-adres.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Gebruik openbare nodusse</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Af, met slot</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Bereken alle jare oor: kosprys, gerealiseerde winste en belastingwerkblaaie van vorige jare verander ook.</string>
+    <string name="settings_portfolio_system_backup_confirm">Jou transaksies, portefeulje-waarskuwings en gevolgde adresse gaan dan in die Android-rugsteun (bv. jou Google-rekening) en in oordragte na \'n nuwe toestel – slegs end-tot-end-geïnkripteer.</string>
 </resources>

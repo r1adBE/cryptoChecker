@@ -168,13 +168,14 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 )
             }
             RowDivider()
-            // «Pünktlich prüfen»: exakter Wecker alle 15 Min., Standard aus
+            // «Pünktlich prüfen»: exakter Wecker im gewählten Intervall, Standard aus
             SettingsAnchor("updates.exact") {
                 Column {
                     ExactChecksRow(
                         enabled = settings.exactChecks,
                         permitted = exactPermitted,
                         hasWork = hasWork,
+                        intervalMinutes = settings.backgroundIntervalMinutes,
                         onToggle = viewModel::setExactChecks,
                     )
                 }

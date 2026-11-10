@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">அதிக முக்கியத்துவம் – திரையில் தோன்றும்</string>
     <string name="delivery_channel_low">குறைந்த முக்கியத்துவம் – விழிப்பூட்டல்கள் பட்டியலில் ஒலியின்றி மட்டும் தோன்றும்</string>
     <string name="delivery_channel_off">முடக்கப்பட்டது – விழிப்பூட்டல்கள் வந்துசேராது</string>
-    <string name="delivery_exact_on">ஆன் – சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும்</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ஆன் – சுமார் ஒவ்வொரு %d நிமிடத்துக்கும்</item>
+        <item quantity="other">ஆன் – சுமார் ஒவ்வொரு %d நிமிடத்துக்கும்</item>
+    </plurals>
     <string name="delivery_exact_off">ஆஃப் – Android ஒழுங்கற்ற இடைவெளிகளில் சரிபார்க்கும்</string>
     <string name="delivery_battery">பேட்டரி மேம்படுத்தல்</string>
     <string name="delivery_battery_unrestricted">கட்டுப்பாடற்றது</string>

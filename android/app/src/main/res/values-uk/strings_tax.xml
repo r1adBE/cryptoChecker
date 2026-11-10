@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Ринкова вартість без указаної ціни (комісії, подаровано/сплачено, обмін, винагороди, мережеві комісії, вартість портфеля) за денною ціною закриття (UTC) дня операції</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">Файли містять залишки, суми, дати й адреси.</string>
 </resources>

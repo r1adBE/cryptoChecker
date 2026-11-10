@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Telur opnar viðvörunartilkynningar. Heimaskjárinn ræður hvort tala eða punktur birtist (t.d. Samsung: „Sýna með tölu“).</string>
     <string name="settings_exact_checks">Athuga á réttum tíma</string>
     <string name="settings_exact_checks_grant">Leyfa vekjara og áminningar</string>
-    <string name="settings_exact_checks_hint">Android athugar á um það bil 15 mínútna fresti, líka þegar tækið er aðgerðalaust. Notar aðeins meiri rafhlöðu.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android athugar á um það bil %d mínútna fresti, líka þegar tækið er aðgerðalaust. Notar aðeins meiri rafhlöðu.</item>
+        <item quantity="other">Android athugar á um það bil %d mínútna fresti, líka þegar tækið er aðgerðalaust. Notar aðeins meiri rafhlöðu.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Engin virk pör – ekkert að athuga.</string>
     <string name="settings_exact_checks_permission_missing">Leyfi vantar – meðan tækið er í hvíld athugar Android óreglulega, stundum ekki fyrr en eftir margar klukkustundir.</string>
     <string name="settings_notification_change">Láta aðeins vita við verðbreytingu</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Bitcoin-vistföng þín og xpub-lyklar verða þá sótt á opinberum hnútum: %1$s. Þeir sjá þessi vistföng ásamt IP-tölunni þinni.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Nota opinbera hnúta</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Af, með lás</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Reiknar öll ár upp á nýtt: kostnaðarverð, innleystur hagnaður og skattablöð fyrri ára breytast líka.</string>
+    <string name="settings_portfolio_system_backup_confirm">Færslurnar þínar, eignasafnsviðvaranir og vaktaðar slóðir fara þá í Android-afritið (t.d. á Google-reikninginn þinn) og í flutning á nýtt tæki – aðeins dulkóðað frá enda til enda.</string>
 </resources>

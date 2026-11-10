@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">اعلان‌های هشدار باز را می‌شمارد. نمایش عدد یا نقطه را صفحهٔ اصلی تعیین می‌کند (مثلاً Samsung: «با عدد»).</string>
     <string name="settings_exact_checks">بررسی سر وقت</string>
     <string name="settings_exact_checks_grant">اجازهٔ «زنگ‌های هشدار و یادآوری‌ها»</string>
-    <string name="settings_exact_checks_hint">Android تقریباً هر 15 دقیقه بررسی می‌کند، حتی وقتی دستگاه بیکار است. کمی باتری بیشتری مصرف می‌کند.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android تقریباً هر %d دقیقه بررسی می‌کند، حتی وقتی دستگاه بیکار است. کمی باتری بیشتری مصرف می‌کند.</item>
+        <item quantity="other">Android تقریباً هر %d دقیقه بررسی می‌کند، حتی وقتی دستگاه بیکار است. کمی باتری بیشتری مصرف می‌کند.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">جفت فعالی نیست – چیزی برای بررسی نیست.</string>
     <string name="settings_exact_checks_permission_missing">مجوز نیست – وقتی دستگاه در حالت استراحت است Android نامنظم بررسی می‌کند، گاهی پس از چند ساعت.</string>
     <string name="settings_notification_change">اعلان فقط هنگام تغییر قیمت</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">در این صورت آدرس‌های بیت‌کوین و xpub تو از گره‌های عمومی پرسیده می‌شوند: %1$s. آن‌ها این آدرس‌ها را همراه با آدرس IP تو می‌بینند.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">استفاده از گره‌های عمومی</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">خاموش، با قفل</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">همهٔ سال‌ها دوباره محاسبه می‌شود: بهای خرید، سود محقق‌شده و برگه‌های مالیاتی سال‌های قبل هم تغییر می‌کنند.</string>
+    <string name="settings_portfolio_system_backup_confirm">در این صورت تراکنش‌ها، هشدارهای سبد و نشانی‌های زیر نظر شما وارد پشتیبان Android (مثلاً حساب Google شما) و انتقال به دستگاه جدید می‌شوند – فقط با رمزگذاری سرتاسری.</string>
 </resources>

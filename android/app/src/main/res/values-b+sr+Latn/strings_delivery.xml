@@ -16,7 +16,11 @@
     <string name="delivery_channel_high">Visoka važnost – pojavljuje se na ekranu</string>
     <string name="delivery_channel_low">Niska važnost – alarmi se samo tiho pojavljuju na spisku</string>
     <string name="delivery_channel_off">Isključeno – alarmi neće stizati</string>
-    <string name="delivery_exact_on">Uključeno – otprilike svakih 15 minuta</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Uključeno – otprilike svakih %d minuta</item>
+        <item quantity="few">Uključeno – otprilike svakih %d minuta</item>
+        <item quantity="other">Uključeno – otprilike svakih %d minuta</item>
+    </plurals>
     <string name="delivery_exact_off">Isključeno – Android proverava neredovno</string>
     <string name="delivery_battery">Optimizacija baterije</string>
     <string name="delivery_battery_unrestricted">Bez ograničenja</string>

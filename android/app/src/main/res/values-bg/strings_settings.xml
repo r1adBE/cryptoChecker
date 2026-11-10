@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Брои отворените известия за аларми. Дали ще се появи число или точка, зависи от началния екран (напр. Samsung: „С число“).</string>
     <string name="settings_exact_checks">Проверявай точно</string>
     <string name="settings_exact_checks_grant">Разреши аларми и напомняния</string>
-    <string name="settings_exact_checks_hint">Android проверява приблизително на всеки 15 минути, дори когато устройството е в покой. Използва малко повече батерия.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android проверява приблизително на всеки %d минути, дори когато устройството е в покой. Използва малко повече батерия.</item>
+        <item quantity="other">Android проверява приблизително на всеки %d минути, дори когато устройството е в покой. Използва малко повече батерия.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Няма активни двойки – няма какво да се проверява.</string>
     <string name="settings_exact_checks_permission_missing">Липсва разрешение – докато устройството е в покой, Android проверява нередовно, понякога едва след часове.</string>
     <string name="settings_notification_change">Известявай само при промяна на курса</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Твоите Bitcoin адреси и xpub ключове тогава ще се проверяват в публични възли: %1$s. Те виждат тези адреси заедно с твоя IP адрес.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Използвай публични възли</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Изкл., със заключване</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Преизчислява всички години: покупната цена, реализираните печалби и данъчните таблици за минали години също се променят.</string>
+    <string name="settings_portfolio_system_backup_confirm">Тогава транзакциите, известията за портфейла и наблюдаваните адреси влизат в резервното копие на Android (напр. в профила ти в Google) и в прехвърлянето на ново устройство – само с криптиране от край до край.</string>
 </resources>

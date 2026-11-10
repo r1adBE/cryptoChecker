@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Importância alta – aparece no topo do ecrã</string>
     <string name="delivery_channel_low">Importância baixa – os alarmes só aparecem em silêncio na lista</string>
     <string name="delivery_channel_off">Desativado – os alarmes não chegam</string>
-    <string name="delivery_exact_on">Ativado – cerca de 15 em 15 minutos</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Ativado – aproximadamente a cada %d minutos</item>
+        <item quantity="many">Ativado – aproximadamente a cada %d minutos</item>
+        <item quantity="other">Ativado – aproximadamente a cada %d minutos</item>
+    </plurals>
     <string name="delivery_exact_off">Desativado – o Android verifica de forma irregular</string>
     <string name="delivery_battery">Otimização da bateria</string>
     <string name="delivery_battery_unrestricted">Sem restrições</string>

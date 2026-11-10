@@ -183,7 +183,7 @@ struct AlarmDeliveryScreen: View {
         case .channelHigh: return L("delivery_channel_high")
         case .channelLow: return L("delivery_channel_low")
         case .channelOff: return L("delivery_channel_off")
-        case .exactOn: return L("delivery_exact_on")
+        case .exactOn: return L("delivery_exact_on", count: max(settings.backgroundIntervalMinutes, 15))
         case .exactOff: return L("delivery_exact_off")
         case .exactNoPermission: return L("settings_exact_checks_permission_missing")
         case .batteryUnrestricted: return L("delivery_battery_unrestricted")

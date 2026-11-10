@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Importanță ridicată – apare în partea de sus a ecranului</string>
     <string name="delivery_channel_low">Importanță scăzută – alarmele apar doar silențios în listă</string>
     <string name="delivery_channel_off">Dezactivat – alarmele nu ajung</string>
-    <string name="delivery_exact_on">Activat – cam la fiecare 15 minute</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Activat – cam la fiecare %d minute</item>
+        <item quantity="few">Activat – cam la fiecare %d minute</item>
+        <item quantity="other">Activat – cam la fiecare %d de minute</item>
+    </plurals>
     <string name="delivery_exact_off">Dezactivat – Android verifică neregulat</string>
     <string name="delivery_battery">Optimizarea bateriei</string>
     <string name="delivery_battery_unrestricted">Nerestricționată</string>

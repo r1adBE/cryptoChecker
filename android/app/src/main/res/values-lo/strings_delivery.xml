@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">ສຳຄັນສູງ – ປາກົດຂຶ້ນເທິງໜ້າຈໍ</string>
     <string name="delivery_channel_low">ສຳຄັນຕ່ຳ – ສັນຍານເຕືອນປາກົດແບບງຽບໆໃນລາຍການເທົ່ານັ້ນ</string>
     <string name="delivery_channel_off">ປິດແລ້ວ – ສັນຍານເຕືອນຈະບໍ່ມາຮອດ</string>
-    <string name="delivery_exact_on">ເປີດ – ປະມານທຸກໆ 15 ນາທີ</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">ເປີດ – ປະມານທຸກໆ %d ນາທີ</item>
+    </plurals>
     <string name="delivery_exact_off">ປິດ – Android ກວດບໍ່ສະໝ່ຳສະເໝີ</string>
     <string name="delivery_battery">ການເພີ່ມປະສິດທິພາບແບັດເຕີຣີ</string>
     <string name="delivery_battery_unrestricted">ບໍ່ຈຳກັດ</string>

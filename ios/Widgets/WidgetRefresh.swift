@@ -15,12 +15,12 @@ import WidgetKit
 /// Hintergrund-Aufgabe: Kerzen und Futures-Daten sprengten Zeit und Speicher der Erweiterung. Die Alarmtöne
 /// liegen auch im Bundle der Erweiterung (`tools/gen_xcodeproj.py`), Ansagen gibt es im Widget nicht.
 enum WidgetRefresh {
-    /// Älter als das → beim Zeichnen zuerst neu holen (`WidgetCadence`).
-    static let staleAfterMillis = WidgetCadence.staleAfterMillis
+    /// Älter als das → beim Zeichnen zuerst neu holen (`WidgetCadence`, gewähltes Intervall).
+    static var staleAfterMillis: Int64 { WidgetCadence.staleAfterMillis(intervalMinutes: WidgetData.intervalMinutes) }
     /// Nach einem misslungenen Versuch so lange keinen neuen aus dem Zeichnen heraus: Sonst bleiben die
     /// Daten «alt», die Widgets laden sich gegenseitig neu und verbrauchen das Neuladen-Kontingent von
     /// WidgetKit (dann stehen sie den Rest des Tages still).
-    static let retryAfterMillis = WidgetCadence.retryAfterMillis
+    static var retryAfterMillis: Int64 { WidgetCadence.retryAfterMillis(intervalMinutes: WidgetData.intervalMinutes) }
     private static let runningKey = "widget_refresh_running_at"
     /// Zeitpunkt des letzten misslungenen Versuchs (App-Group-Speicher, gilt für alle Widgets).
     private static let failedAtKey = "widget_refresh_failed_at"

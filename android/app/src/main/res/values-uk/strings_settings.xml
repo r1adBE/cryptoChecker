@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Рахує відкриті сповіщення про сигнали. Чи буде число, чи крапка, вирішує головний екран (напр. Samsung: «З числом»).</string>
     <string name="settings_exact_checks">Перевіряти вчасно</string>
     <string name="settings_exact_checks_grant">Дозволити «Будильники й нагадування»</string>
-    <string name="settings_exact_checks_hint">Android перевіряє приблизно кожні 15 хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android перевіряє приблизно кожні %d хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</item>
+        <item quantity="few">Android перевіряє приблизно кожні %d хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</item>
+        <item quantity="many">Android перевіряє приблизно кожні %d хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</item>
+        <item quantity="other">Android перевіряє приблизно кожні %d хвилин, навіть коли пристрій у спокої. Витрачає трохи більше батареї.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Немає активних пар – нічого перевіряти.</string>
     <string name="settings_exact_checks_permission_missing">Немає дозволу – коли пристрій у спокої, Android перевіряє нерегулярно, іноді лише через кілька годин.</string>
     <string name="settings_notification_change">Сповіщати лише при зміні ціни</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Тоді твої адреси Bitcoin і xpub запитуватимуться в публічних вузлів: %1$s. Вони бачать ці адреси разом із твоєю IP-адресою.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Використовувати публічні вузли</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Вимк., з блокуванням</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Перераховує всі роки: зміняться й вартість придбання, реалізований прибуток і податкові таблиці попередніх років.</string>
+    <string name="settings_portfolio_system_backup_confirm">Тоді твої транзакції, сповіщення портфеля й відстежувані адреси потраплять до резервної копії Android (напр., у твій обліковий запис Google) і до перенесення на новий пристрій – лише з наскрізним шифруванням.</string>
 </resources>

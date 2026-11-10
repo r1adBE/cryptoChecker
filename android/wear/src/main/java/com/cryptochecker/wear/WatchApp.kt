@@ -216,7 +216,8 @@ private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Bool
             .padding(ChipDefaults.ContentPadding)
             .clearAndSetSemantics { contentDescription = spoken },
     ) {
-        Text("$coin  $price", maxLines = 1, style = MaterialTheme.typography.button,
+        // Zu eng: Schrift schrumpft bis 60 % statt Ziffern abzuschneiden (wie iOS minimumScaleFactor)
+        FitText("$coin  $price", style = MaterialTheme.typography.button,
             color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface)
         Text(change + (detail?.let { "  ·  $it" } ?: ""), maxLines = 1, style = MaterialTheme.typography.caption2,
             color = MaterialTheme.colors.onSurface)

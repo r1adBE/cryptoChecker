@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Жоғары маңыздылық – экранда шығады</string>
     <string name="delivery_channel_low">Төмен маңыздылық – ескертулер тізімде дыбыссыз ғана пайда болады</string>
     <string name="delivery_channel_off">Өшірілген – ескертулер жетпейді</string>
-    <string name="delivery_exact_on">Қосулы – шамамен 15 минут сайын</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Қосулы – шамамен %d минут сайын</item>
+        <item quantity="other">Қосулы – шамамен %d минут сайын</item>
+    </plurals>
     <string name="delivery_exact_off">Өшірулі – Android тұрақсыз тексереді</string>
     <string name="delivery_battery">Батареяны оңтайландыру</string>
     <string name="delivery_battery_unrestricted">Шектеусіз</string>

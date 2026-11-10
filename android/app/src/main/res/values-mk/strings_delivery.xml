@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Висока важност – се појавува на екранот</string>
     <string name="delivery_channel_low">Ниска важност – алармите се појавуваат само тивко во листата</string>
     <string name="delivery_channel_off">Исклучен – алармите нема да стигнат</string>
-    <string name="delivery_exact_on">Вклучено – приближно на секои 15 минути</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Вклучено – приближно на секои %d минути</item>
+        <item quantity="other">Вклучено – приближно на секои %d минути</item>
+    </plurals>
     <string name="delivery_exact_off">Исклучено – Android проверува неправилно</string>
     <string name="delivery_battery">Оптимизација на батеријата</string>
     <string name="delivery_battery_unrestricted">Неограничено</string>

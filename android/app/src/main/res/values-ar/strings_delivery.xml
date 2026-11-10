@@ -15,7 +15,14 @@
     <string name="delivery_channel_high">أهمية عالية – تظهر أعلى الشاشة</string>
     <string name="delivery_channel_low">أهمية منخفضة – تظهر التنبيهات بصمت في القائمة فقط</string>
     <string name="delivery_channel_off">متوقفة – لن تصل التنبيهات</string>
-    <string name="delivery_exact_on">مفعّل – كل 15 دقيقة تقريبًا</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="zero">مفعّل – كل %d دقيقة تقريبًا</item>
+        <item quantity="one">مفعّل – كل %d دقيقة تقريبًا</item>
+        <item quantity="two">مفعّل – كل %d دقيقة تقريبًا</item>
+        <item quantity="few">مفعّل – كل %d دقيقة تقريبًا</item>
+        <item quantity="many">مفعّل – كل %d دقيقة تقريبًا</item>
+        <item quantity="other">مفعّل – كل %d دقيقة تقريبًا</item>
+    </plurals>
     <string name="delivery_exact_off">متوقف – يفحص Android بشكل غير منتظم</string>
     <string name="delivery_battery">تحسين البطارية</string>
     <string name="delivery_battery_unrestricted">غير مقيّد</string>

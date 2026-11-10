@@ -67,7 +67,10 @@ class ExactCheckReceiver : BroadcastReceiver() {
             // Abbruch vor dem Neustellen (Einstellungen, Datenbank, Berechtigung) liesse die Kette sonst abreissen
             var chainHandled = false
             try {
-                val enabled = settingsRepository.current().exactChecks
+                val settings = settingsRepository.current()
+                val enabled = settings.exactChecks
+                // Takt des Weckers = gewähltes Intervall der Hintergrund-Aktualisierung (mindestens 15 Min.)
+                val interval = settings.backgroundIntervalMinutes
                 val hasWork = backgroundCheck.hasWork()
                 val permitted = scheduler.canScheduleExact()
                 // Netz frisch abfragen (der Prozess kann eingefroren gewesen sein) — nur wenn es zählt
@@ -75,7 +78,7 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 when (BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online)) {
                     // Aus, keine Berechtigung mehr oder keine Paare: absagen, nicht neu stellen
                     BackgroundWorkPolicy.FiredAction.CANCEL -> {
-                        scheduler.sync(enabled, hasWork)
+                        scheduler.sync(enabled, hasWork, intervalMinutes = interval)
                         chainHandled = true
                         return@launch
                     }
@@ -84,12 +87,12 @@ class ExactCheckReceiver : BroadcastReceiver() {
                     // «übersprungen» zählte dort als Prüfung, und die Zuverlässigkeitszeile wirkte frisch,
                     // obwohl offline tagelang nichts geprüft wurde
                     BackgroundWorkPolicy.FiredAction.REARM_SKIP_OFFLINE -> {
-                        scheduler.rearm()
+                        scheduler.rearm(interval)
                         chainHandled = true
                         return@launch
                     }
                     BackgroundWorkPolicy.FiredAction.REARM_AND_CHECK -> {
-                        scheduler.rearm()
+                        scheduler.rearm(interval)
                         chainHandled = true
                     }
                 }
@@ -116,7 +119,10 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 // Auch nach Abbruch noch neu stellen (NonCancellable), solange «Pünktlich prüfen» an ist
                 if (!chainHandled) {
                     withContext(NonCancellable) {
-                        runCatchingCancellable { if (settingsRepository.current().exactChecks) scheduler.rearm() }
+                        runCatchingCancellable {
+                            val s = settingsRepository.current()
+                            if (s.exactChecks) scheduler.rearm(s.backgroundIntervalMinutes)
+                        }
                             .onFailure { Timber.w(it, "Pünktliche Prüfung: Wecker nicht neu gestellt") }
                     }
                 }

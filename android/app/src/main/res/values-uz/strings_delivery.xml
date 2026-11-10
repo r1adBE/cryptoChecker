@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Yuqori muhimlik – ekranda chiqadi</string>
     <string name="delivery_channel_low">Past muhimlik – signallar roʻyxatda faqat ovozsiz paydo boʻladi</string>
     <string name="delivery_channel_off">Oʻchirilgan – signallar yetib bormaydi</string>
-    <string name="delivery_exact_on">Yoqiq – taxminan har 15 daqiqada</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Yoqiq – taxminan har %d daqiqada</item>
+        <item quantity="other">Yoqiq – taxminan har %d daqiqada</item>
+    </plurals>
     <string name="delivery_exact_off">Oʻchiq – Android notekis tekshiradi</string>
     <string name="delivery_battery">Batareya optimallashuvi</string>
     <string name="delivery_battery_unrestricted">Cheklanmagan</string>

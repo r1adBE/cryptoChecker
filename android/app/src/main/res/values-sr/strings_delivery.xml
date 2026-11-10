@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Висока важност – појављује се на екрану</string>
     <string name="delivery_channel_low">Ниска важност – аларми се само тихо појављују на списку</string>
     <string name="delivery_channel_off">Искључено – аларми неће стизати</string>
-    <string name="delivery_exact_on">Укључено – отприлике сваких 15 минута</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Укључено – отприлике сваких %d минута</item>
+        <item quantity="few">Укључено – отприлике сваких %d минута</item>
+        <item quantity="other">Укључено – отприлике сваких %d минута</item>
+    </plurals>
     <string name="delivery_exact_off">Искључено – Android проверава нередовно</string>
     <string name="delivery_battery">Оптимизација батерије</string>
     <string name="delivery_battery_unrestricted">Без ограничења</string>

@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Megszámolja a nyitott riasztási értesítéseket. Hogy szám vagy pont jelenik meg, azt a kezdőképernyő dönti el (pl. Samsung: „Számmal”).</string>
     <string name="settings_exact_checks">Pontos ellenőrzés</string>
     <string name="settings_exact_checks_grant">„Ébresztők és emlékeztetők” engedélyezése</string>
-    <string name="settings_exact_checks_hint">Az Android körülbelül 15 percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Az Android körülbelül %d percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</item>
+        <item quantity="other">Az Android körülbelül %d percenként ellenőriz, akkor is, ha az eszköz pihen. Kicsit több akkut fogyaszt.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nincs aktív pár – nincs mit ellenőrizni.</string>
     <string name="settings_exact_checks_permission_missing">Hiányzó engedély – nyugvó eszközön az Android rendszertelenül ellenőriz, néha csak órák múlva.</string>
     <string name="settings_notification_change">Értesítés csak árváltozáskor</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">A Bitcoin-címeidet és az xpubokat ekkor nyilvános csomópontoknál kérdezzük le: %1$s. Ezek a címeket az IP-címeddel együtt látják.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Nyilvános csomópontok használata</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Ki, zárral</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Minden évet újraszámol: a korábbi évek bekerülési értéke, realizált nyeresége és adómunkalapjai is változnak.</string>
+    <string name="settings_portfolio_system_backup_confirm">A tranzakcióid, portfólióriasztásaid és figyelt címeid ekkor bekerülnek az Android biztonsági mentésébe (pl. a Google-fiókodba) és az új eszközre való átvitelbe – csak végponttól végpontig titkosítva.</string>
 </resources>

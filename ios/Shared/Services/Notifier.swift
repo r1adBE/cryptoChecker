@@ -10,7 +10,7 @@ enum Notifier {
     /// Kursalarm eines gehandelten Paars: mit «Was bewegt sich mit?» und «Anpassen»; die übrigen Kategorien der
     /// Paar-Alarme (mit «1 h später») in `Notifier+AlarmActions.swift`.
     static let categoryAlarmWhy = "alarm_why"
-    /// Portfolio-Alarm mit Portfolio-Sperre: neutraler Text auch bei verborgener Vorschau.
+    /// Portfolio-Alarm (immer): neutraler Text auch bei verborgener Vorschau.
     static let categoryPortfolioLocked = "portfolio_locked"
     /// Aktion «Was bewegt sich mit?»: öffnet die App mit dem Blatt des Paars (`AppDelegate`).
     static let actionWhy = "why"
@@ -293,9 +293,10 @@ enum Notifier {
     /// Alarm «Portfolio-Wert» — wie `AppNotifier.showPortfolioAlarm`: gleicher Ton wie Kursalarme
     /// («Alarm-Signal»; in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall an
     /// der Grenze); Tipp öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier.
-    /// Mit Portfolio-Sperre wie die öffentliche Fassung in Android (VISIBILITY_PRIVATE, nur Titel): iOS kann
-    /// den Text nicht je nach Sperrzustand verbergen, darum nur Titel und ein neutraler Text — weder Beträge
-    /// noch Prozent; Einzelheiten erst in der App (`PortfolioAlarmNotice.body`).
+    /// Auf dem Sperrbildschirm immer privat wie Android (VISIBILITY_PRIVATE, öffentlich nur Titel und neutraler Satz) —
+    /// auch ohne Portfolio-Sperre (Entscheid des Inhabers): immer die Kategorie `categoryPortfolioLocked`, deren verborgene
+    /// Vorschau (Systemvorgabe «Vorschau: wenn entsperrt») nur Titel und den neutralen Satz zeigt. Mit Portfolio-Sperre
+    /// ist auch der Text selbst neutral (`PortfolioAlarmNotice.body`), weder Beträge noch Prozent. Kursalarme unverändert.
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
     /// `usdtAssumed`: Alarm in anderer Währung mit USDT = 1 umgerechnet (`PortfolioAlarmLogic.usdtAssumed`) — Vermerk.
     static func showPortfolioAlarm(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings,
@@ -304,7 +305,7 @@ enum Notifier {
         content.title = L("notification_portfolio_alarm_title")
         content.body = PortfolioAlarmNotice.body(alarm, measured: measured, settings: settings, usdtAssumed: usdtAssumed)
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
-        content.categoryIdentifier = settings.appLock ? categoryPortfolioLocked : categoryAlarm
+        content.categoryIdentifier = categoryPortfolioLocked
         content.threadIdentifier = "alarms"
         content.userInfo = ["open": "portfolio"]
         content.interruptionLevel = .timeSensitive

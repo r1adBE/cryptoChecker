@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">重要性高 – 会在屏幕顶部弹出</string>
     <string name="delivery_channel_low">重要性低 – 提醒只会静默出现在列表中</string>
     <string name="delivery_channel_off">已关闭 – 提醒无法送达</string>
-    <string name="delivery_exact_on">开启 – 约每 15 分钟</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">开启 – 约每 %d 分钟</item>
+    </plurals>
     <string name="delivery_exact_off">关闭 – Android 不定期检查</string>
     <string name="delivery_battery">电池优化</string>
     <string name="delivery_battery_unrestricted">不受限制</string>

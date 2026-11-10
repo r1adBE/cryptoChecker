@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ఓపెన్‌గా ఉన్న అలర్ట్ నోటిఫికేషన్‌లను లెక్కిస్తుంది. సంఖ్య కనిపిస్తుందా లేక చుక్క కనిపిస్తుందా అనేది హోమ్ స్క్రీన్‌పై ఆధారపడి ఉంటుంది (ఉదా. Samsung: “సంఖ్యతో చూపు”).</string>
     <string name="settings_exact_checks">సమయానికి తనిఖీ చేయండి</string>
     <string name="settings_exact_checks_grant">అలారాలు &amp; రిమైండర్‌లను అనుమతించండి</string>
-    <string name="settings_exact_checks_hint">పరికరం నిష్క్రియంగా ఉన్నా కూడా Android సుమారు ప్రతి 15 నిమిషాలకు తనిఖీ చేస్తుంది. కొంచెం ఎక్కువ బ్యాటరీ వినియోగిస్తుంది.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">పరికరం నిష్క్రియంగా ఉన్నా కూడా Android సుమారు ప్రతి %d నిమిషాలకు తనిఖీ చేస్తుంది. కొంచెం ఎక్కువ బ్యాటరీ వినియోగిస్తుంది.</item>
+        <item quantity="other">పరికరం నిష్క్రియంగా ఉన్నా కూడా Android సుమారు ప్రతి %d నిమిషాలకు తనిఖీ చేస్తుంది. కొంచెం ఎక్కువ బ్యాటరీ వినియోగిస్తుంది.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">యాక్టివ్ జతలు లేవు – తనిఖీ చేయడానికి ఏమీ లేదు.</string>
     <string name="settings_exact_checks_permission_missing">అనుమతి లేదు – పరికరం విశ్రాంతిలో ఉన్నప్పుడు Android క్రమరహితంగా, కొన్నిసార్లు గంటల తర్వాతే తనిఖీ చేస్తుంది.</string>
     <string name="settings_notification_change">ధర మారినప్పుడు మాత్రమే తెలియజేయండి</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">అప్పుడు మీ Bitcoin అడ్రస్‌లు, xpub కీలు పబ్లిక్ నోడ్‌లలో క్వెరీ చేయబడతాయి: %1$s. అవి ఈ అడ్రస్‌లను మీ IP అడ్రస్‌తో కలిపి చూస్తాయి.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">పబ్లిక్ నోడ్‌లను ఉపయోగించండి</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ఆఫ్, లాక్‌తో</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">అన్ని సంవత్సరాలను మళ్లీ లెక్కిస్తుంది: గత సంవత్సరాల కొనుగోలు ఖర్చు, సాధించిన లాభం, పన్ను వర్క్‌షీట్‌లు కూడా మారతాయి.</string>
+    <string name="settings_portfolio_system_backup_confirm">అప్పుడు మీ లావాదేవీలు, పోర్ట్‌ఫోలియో హెచ్చరికలు, గమనిస్తున్న చిరునామాలు Android బ్యాకప్‌లోకి (ఉదా. మీ Google ఖాతా) మరియు కొత్త పరికరానికి బదిలీలోకి వెళ్తాయి – ఎండ్-టు-ఎండ్ ఎన్‌క్రిప్ట్ అయితేనే.</string>
 </resources>

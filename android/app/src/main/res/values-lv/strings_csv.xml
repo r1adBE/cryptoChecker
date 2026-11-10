@@ -98,4 +98,10 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Fails tiek lasīts no jauna…</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="zero">%d rindu</item>
+        <item quantity="one">%d rinda</item>
+        <item quantity="other">%d rindas</item>
+    </plurals>
 </resources>

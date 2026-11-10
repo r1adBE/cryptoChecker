@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -32,22 +33,29 @@ import com.cryptochecker.app.work.ExactCheckScheduler
 // `SettingsUpdateChecks.swift` (dort ohne Wecker und Akku: iOS entscheidet allein).
 
 /**
- * Schalter «Pünktlich prüfen» (Standard aus): exakter Wecker alle 15 Min. Fehlt «Wecker und
- * Erinnerungen», steht «Berechtigung fehlt» mit Knopf zur Android-Einstellung; WorkManager prüft dann allein.
+ * Schalter «Pünktlich prüfen» (Standard aus): exakter Wecker im gewählten Intervall ([intervalMinutes], mindestens
+ * 15 Min.). Fehlt «Wecker und Erinnerungen», steht «Berechtigung fehlt» mit Knopf zur Android-Einstellung; WorkManager
+ * prüft dann allein.
  */
 @Composable
-internal fun ExactChecksRow(enabled: Boolean, permitted: Boolean, hasWork: Boolean, onToggle: (Boolean) -> Unit) {
+internal fun ExactChecksRow(
+    enabled: Boolean,
+    permitted: Boolean,
+    hasWork: Boolean,
+    intervalMinutes: Int,
+    onToggle: (Boolean) -> Unit,
+) {
     val context = LocalContext.current
     val state = BackgroundSchedule.exactState(enabled, permitted, hasWork)
+    val minutes = exactMinutes(intervalMinutes)
     SwitchRow(
         title = stringResource(R.string.settings_exact_checks),
-        subtitle = stringResource(
-            when (state) {
-                BackgroundSchedule.ExactState.PERMISSION_MISSING -> R.string.settings_exact_checks_permission_missing
-                BackgroundSchedule.ExactState.NOTHING_TO_CHECK -> R.string.settings_exact_checks_nothing
-                BackgroundSchedule.ExactState.OFF, BackgroundSchedule.ExactState.ACTIVE -> R.string.settings_exact_checks_hint
-            }
-        ),
+        subtitle = when (state) {
+            BackgroundSchedule.ExactState.PERMISSION_MISSING -> stringResource(R.string.settings_exact_checks_permission_missing)
+            BackgroundSchedule.ExactState.NOTHING_TO_CHECK -> stringResource(R.string.settings_exact_checks_nothing)
+            BackgroundSchedule.ExactState.OFF, BackgroundSchedule.ExactState.ACTIVE ->
+                pluralStringResource(R.plurals.settings_exact_checks_hint, minutes, minutes)
+        },
         checked = enabled,
         onCheckedChange = onToggle,
     )
@@ -160,3 +168,7 @@ private val CheckResult.labelRes: Int
         CheckResult.FAILED -> R.string.check_result_failed
         CheckResult.SKIPPED -> R.string.check_result_skipped
     }
+
+/** Takt des Weckers «Pünktlich prüfen» in Minuten (gewähltes Intervall, mindestens 15; [BackgroundSchedule.exactIntervalMillis]). */
+internal fun exactMinutes(backgroundIntervalMinutes: Int): Int =
+    (BackgroundSchedule.exactIntervalMillis(backgroundIntervalMinutes) / 60_000L).toInt()

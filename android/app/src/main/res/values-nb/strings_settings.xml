@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Teller åpne alarmvarsler. Om det vises et tall eller en prikk, bestemmer startskjermen (f.eks. Samsung: «Med tall»).</string>
     <string name="settings_exact_checks">Sjekk i tide</string>
     <string name="settings_exact_checks_grant">Tillat «Alarmer og påminnelser»</string>
-    <string name="settings_exact_checks_hint">Android sjekker omtrent hvert 15. minutt, også når enheten hviler. Bruker litt mer batteri.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android sjekker omtrent hvert %d. minutt, også når enheten hviler. Bruker litt mer batteri.</item>
+        <item quantity="other">Android sjekker omtrent hvert %d. minutt, også når enheten hviler. Bruker litt mer batteri.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Ingen aktive par – ingenting å sjekke.</string>
     <string name="settings_exact_checks_permission_missing">Tillatelse mangler – når enheten hviler, sjekker Android uregelmessig, noen ganger først etter timer.</string>
     <string name="settings_notification_change">Varsle bare ved kursendring</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Bitcoin-adressene og xpub-ene dine spørres da hos offentlige noder: %1$s. De ser adressene sammen med IP-adressen din.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Bruk offentlige noder</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Av, med lås</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Beregner alle år på nytt: inngangsverdi, realiserte gevinster og skatteark for tidligere år endres også.</string>
+    <string name="settings_portfolio_system_backup_confirm">Transaksjonene, porteføljevarslene og de fulgte adressene dine kommer da med i Android-sikkerhetskopien (f.eks. på Google-kontoen din) og i overføringer til en ny enhet – bare ende-til-ende-kryptert.</string>
 </resources>

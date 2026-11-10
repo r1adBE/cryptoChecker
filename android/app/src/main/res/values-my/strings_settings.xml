@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">ဖွင့်ထားဆဲ သတိပေးချက် အကြောင်းကြားချက်များကို ရေတွက်သည်။ နံပါတ် သို့မဟုတ် အစက် ပေါ်မည်ဆိုသည်မှာ ပင်မမျက်နှာပြင်ပေါ် မူတည်သည် (ဥပမာ Samsung: “နံပါတ်ဖြင့် ပြရန်”)။</string>
     <string name="settings_exact_checks">အချိန်မှန် စစ်ဆေးရန်</string>
     <string name="settings_exact_checks_grant">နှိုးစက် &amp; သတိရစေချက်များကို ခွင့်ပြုရန်</string>
-    <string name="settings_exact_checks_hint">စက် အသုံးမပြုသည့်အခါတွင်ပင် Android သည် မိနစ် 15 ခန့် တစ်ကြိမ် စစ်ဆေးသည်။ ဘက်ထရီ အနည်းငယ် ပိုသုံးသည်။</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">စက် အသုံးမပြုသည့်အခါတွင်ပင် Android သည် မိနစ် %d ခန့် တစ်ကြိမ် စစ်ဆေးသည်။ ဘက်ထရီ အနည်းငယ် ပိုသုံးသည်။</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">အသက်ဝင်နေသော အတွဲ မရှိ – စစ်ဆေးစရာ မရှိပါ။</string>
     <string name="settings_exact_checks_permission_missing">ခွင့်ပြုချက် မရှိ – စက် နားနေစဉ် Android သည် ပုံမှန်မဟုတ်ဘဲ စစ်ဆေးသည်၊ တစ်ခါတစ်ရံ နာရီပေါင်းများစွာအကြာမှ။</string>
     <string name="settings_notification_change">ဈေးနှုန်း ပြောင်းလဲမှသာ အသိပေးရန်</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">ထို့နောက် သင့် Bitcoin လိပ်စာများနှင့် xpub သော့များကို အများသုံး node များတွင် မေးမြန်းမည်: %1$s။ ၎င်းတို့သည် ဤလိပ်စာများကို သင့် IP လိပ်စာနှင့်အတူ မြင်ရသည်။</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">အများသုံး node များ သုံးရန်</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ပိတ်၊ လော့ခ်ဖြင့်</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">နှစ်အားလုံးကို ပြန်တွက်ပါသည်- ယခင်နှစ်များ၏ ဝယ်ယူကုန်ကျစရိတ်၊ ရရှိပြီးအမြတ်နှင့် အခွန်စာရွက်များလည်း ပြောင်းလဲပါမည်။</string>
+    <string name="settings_portfolio_system_backup_confirm">သင်၏ ငွေလွှဲမှုများ၊ ပေါ့တ်ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် Android အရန်သိမ်းဆည်းမှု (ဥပမာ သင်၏ Google အကောင့်) နှင့် စက်အသစ်သို့ လွှဲပြောင်းမှုတွင် ပါဝင်သွားပါမည် – အစမှအဆုံး ကုဒ်ဝှက်ထားမှသာ။</string>
 </resources>

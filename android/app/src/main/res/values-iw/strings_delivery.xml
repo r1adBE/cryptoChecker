@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">חשיבות גבוהה – מופיעה בראש המסך</string>
     <string name="delivery_channel_low">חשיבות נמוכה – ההתראות מופיעות רק בשקט ברשימה</string>
     <string name="delivery_channel_off">כבוי – ההתראות לא יגיעו</string>
-    <string name="delivery_exact_on">פעיל – בערך כל 15 דקות</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">פעיל – בערך כל %d דקות</item>
+        <item quantity="two">פעיל – בערך כל %d דקות</item>
+        <item quantity="other">פעיל – בערך כל %d דקות</item>
+    </plurals>
     <string name="delivery_exact_off">כבוי – Android בודק באופן לא סדיר</string>
     <string name="delivery_battery">אופטימיזציית סוללה</string>
     <string name="delivery_battery_unrestricted">ללא הגבלה</string>

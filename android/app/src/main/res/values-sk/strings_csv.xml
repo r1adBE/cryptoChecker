@@ -105,4 +105,11 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Súbor sa načítava znova…</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d riadok</item>
+        <item quantity="few">%d riadky</item>
+        <item quantity="many">%d riadka</item>
+        <item quantity="other">%d riadkov</item>
+    </plurals>
 </resources>

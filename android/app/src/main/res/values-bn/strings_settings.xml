@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">খোলা অ্যালার্ট নোটিফিকেশন গোনে। সংখ্যা না বিন্দু দেখাবে তা হোম স্ক্রিনের উপর নির্ভর করে (যেমন Samsung: “সংখ্যাসহ দেখান”)।</string>
     <string name="settings_exact_checks">সময়মতো যাচাই</string>
     <string name="settings_exact_checks_grant">অ্যালার্ম ও রিমাইন্ডারের অনুমতি দিন</string>
-    <string name="settings_exact_checks_hint">ডিভাইস নিষ্ক্রিয় থাকলেও Android প্রায় প্রতি 15 মিনিটে যাচাই করে। একটু বেশি ব্যাটারি লাগে।</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">ডিভাইস নিষ্ক্রিয় থাকলেও Android প্রায় প্রতি %d মিনিটে যাচাই করে। একটু বেশি ব্যাটারি লাগে।</item>
+        <item quantity="other">ডিভাইস নিষ্ক্রিয় থাকলেও Android প্রায় প্রতি %d মিনিটে যাচাই করে। একটু বেশি ব্যাটারি লাগে।</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">কোনো সক্রিয় পেয়ার নেই – যাচাই করার কিছু নেই।</string>
     <string name="settings_exact_checks_permission_missing">অনুমতি নেই – ডিভাইস বিশ্রামে থাকলে Android অনিয়মিতভাবে যাচাই করে, কখনো কয়েক ঘণ্টা পরে।</string>
     <string name="settings_notification_change">শুধু দাম বদলালে জানান</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">আপনার Bitcoin ঠিকানা ও xpub কী তখন পাবলিক নোডে জিজ্ঞাসা করা হবে: %1$s। তারা এই ঠিকানাগুলো আপনার IP ঠিকানার সঙ্গে দেখে।</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">পাবলিক নোড ব্যবহার করুন</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">বন্ধ, লকসহ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">সব বছর আবার হিসাব হবে: আগের বছরগুলোর ক্রয়মূল্য, বাস্তবায়িত লাভ ও কর ওয়ার্কশিটও বদলাবে।</string>
+    <string name="settings_portfolio_system_backup_confirm">তখন আপনার লেনদেন, পোর্টফোলিও অ্যালার্ট ও নজরে রাখা ঠিকানা Android ব্যাকআপে (যেমন আপনার Google অ্যাকাউন্টে) এবং নতুন ডিভাইসে স্থানান্তরে যাবে – শুধু এন্ড-টু-এন্ড এনক্রিপ্টেড।</string>
 </resources>

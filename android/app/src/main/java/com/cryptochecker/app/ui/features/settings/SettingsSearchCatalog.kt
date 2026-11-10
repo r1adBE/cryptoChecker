@@ -3,6 +3,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
@@ -72,7 +73,8 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «Pünktlich prüfen» (exakter Wecker, nur Android): eigener Treffer
     add("updates.exact", stringResource(R.string.settings_exact_checks), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.exact"),
-        stringResource(R.string.settings_exact_checks_hint), stringResource(R.string.settings_exact_checks_grant))
+        exactMinutes(settings.backgroundIntervalMinutes).let { pluralStringResource(R.plurals.settings_exact_checks_hint, it, it) },
+        stringResource(R.string.settings_exact_checks_grant))
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))

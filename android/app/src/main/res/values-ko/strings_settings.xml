@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">열려 있는 경보 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung “숫자 표시”).</string>
     <string name="settings_exact_checks">제때 확인</string>
     <string name="settings_exact_checks_grant">“알람 및 리마인더” 허용</string>
-    <string name="settings_exact_checks_hint">Android는 기기가 대기 중이어도 약 15분마다 확인합니다. 배터리를 조금 더 사용합니다.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android는 기기가 대기 중이어도 약 %d분마다 확인합니다. 배터리를 조금 더 사용합니다.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">활성 거래쌍이 없습니다 – 확인할 것이 없습니다.</string>
     <string name="settings_exact_checks_permission_missing">권한 없음 – 기기가 쉬는 동안 Android는 불규칙하게 확인하며, 몇 시간 뒤에야 확인하기도 합니다.</string>
     <string name="settings_notification_change">가격 변동 시에만 알림</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">그러면 비트코인 주소와 xpub을 공개 노드(%1$s)에 조회합니다. 공개 노드는 이 주소를 IP 주소와 함께 볼 수 있습니다.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">공개 노드 사용</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">끔, 잠금 사용</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">모든 연도를 다시 계산합니다. 이전 연도의 취득가, 실현 손익, 세금 워크시트도 바뀝니다.</string>
+    <string name="settings_portfolio_system_backup_confirm">거래 내역, 포트폴리오 알림, 지켜보는 주소가 Android 백업(예: Google 계정)과 새 기기로의 전송에 포함됩니다. 엔드투엔드 암호화된 경우에만 포함됩니다.</string>
 </resources>

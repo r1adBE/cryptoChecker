@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Markedsverdier uten registrert pris (gebyrer, gitt bort/betalt, bytte, belønninger, nettverksgebyrer, porteføljeverdi) til dagens sluttkurs (UTC) på transaksjonsdagen</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">Filene inneholder beholdninger, beløp, datoer og adresser.</string>
 </resources>

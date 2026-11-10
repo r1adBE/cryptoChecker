@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">기록된 가격이 없는 시장 가치(수수료, 증여/결제, 교환, 보상, 네트워크 수수료, 포트폴리오 가치)는 거래일의 일일 종가(UTC) 기준</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">파일에는 보유량, 금액, 날짜, 주소가 들어 있습니다.</string>
 </resources>

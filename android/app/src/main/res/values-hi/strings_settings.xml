@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: “संख्या के साथ”)।</string>
     <string name="settings_exact_checks">समय पर जाँच</string>
     <string name="settings_exact_checks_grant">“अलार्म और रिमाइंडर” की अनुमति दें</string>
-    <string name="settings_exact_checks_hint">Android लगभग हर 15 मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android लगभग हर %d मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</item>
+        <item quantity="other">Android लगभग हर %d मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">कोई सक्रिय पेयर नहीं – जाँचने को कुछ नहीं।</string>
     <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है, कभी-कभी घंटों बाद।</string>
     <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करें</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">तब आपके Bitcoin पते और xpub सार्वजनिक नोड्स पर पूछे जाएँगे: %1$s। वे इन पतों को आपके IP पते के साथ देखते हैं।</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">सार्वजनिक नोड्स इस्तेमाल करें</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">बंद, लॉक के साथ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">सभी वर्षों की फिर से गणना होगी: पिछले वर्षों की ख़रीद लागत, प्राप्त लाभ और कर वर्कशीट भी बदलेंगी।</string>
+    <string name="settings_portfolio_system_backup_confirm">तब आपके लेन-देन, पोर्टफ़ोलियो अलर्ट और देखे जा रहे पते Android बैकअप (जैसे आपके Google खाते) और नए डिवाइस पर ट्रांसफ़र में जाएँगे – केवल एंड-टू-एंड एन्क्रिप्टेड।</string>
 </resources>

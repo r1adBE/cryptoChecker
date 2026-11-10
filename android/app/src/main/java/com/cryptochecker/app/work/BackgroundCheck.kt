@@ -72,6 +72,8 @@ class BackgroundCheck @Inject constructor(
         networkGuaranteed: Boolean,
         ttsWaitMillis: Long,
         deadlineAt: Long? = null,
+        /** Sperrfenster gegen doppelte geplante Läufe ([BackgroundSchedule.dedupeWindowMillis]). */
+        dedupeWindowMillis: Long = BackgroundSchedule.DEDUPE_WINDOW_MILLIS,
     ): RefreshSummary? {
         val startedAt = System.currentTimeMillis()
         // Geplanter Lauf, während schon einer läuft: überspringen statt doppelt abfragen.
@@ -88,7 +90,9 @@ class BackgroundCheck @Inject constructor(
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
-        val summary = running.withLock { runLocked(trigger, networkGuaranteed, startedAt, deadlineAt) } ?: return null
+        val summary = running.withLock {
+            runLocked(trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis)
+        } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu
         // 20 s und mehr, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg
         try {
@@ -128,9 +132,10 @@ class BackgroundCheck @Inject constructor(
         networkGuaranteed: Boolean,
         startedAt: Long,
         deadlineAt: Long?,
+        dedupeWindowMillis: Long,
     ): RefreshSummary? {
         // Nur die letzte VOLLE Prüfung zählt (Live-Takte und Teil-Läufe nicht: sie prüfen nicht alle Alarme)
-        if (BackgroundSchedule.shouldSkip(trigger, refreshStats.lastFullCheck(), System.currentTimeMillis())) {
+        if (BackgroundSchedule.shouldSkip(trigger, refreshStats.lastFullCheck(), System.currentTimeMillis(), dedupeWindowMillis)) {
             Timber.d("Prüfung (%s) übersprungen: eben erst geprüft", trigger.code)
             log(trigger, CheckResult.SKIPPED, startedAt)
             return null

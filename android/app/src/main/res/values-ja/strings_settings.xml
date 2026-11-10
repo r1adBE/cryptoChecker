@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">未読のアラーム通知を数えます。数字か点かはホーム画面が決めます（例：Samsung「数字で表示」）。</string>
     <string name="settings_exact_checks">時間どおりに確認</string>
     <string name="settings_exact_checks_grant">「アラームとリマインダー」を許可</string>
-    <string name="settings_exact_checks_hint">Android は端末が待機中でも約15分ごとに確認します。バッテリーを少し多く使います。</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android は端末が待機中でも約%d分ごとに確認します。バッテリーを少し多く使います。</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">有効なペアがありません – 確認するものはありません。</string>
     <string name="settings_exact_checks_permission_missing">権限がありません – 端末の休止中は Android の確認が不定期になり、数時間後になることもあります。</string>
     <string name="settings_notification_change">価格変動時のみ通知</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">Bitcoin アドレスと xpub は公開ノード（%1$s）に問い合わせるようになります。公開ノードにはこれらのアドレスと IP アドレスが見えます。</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">公開ノードを使う</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">オフ（ロックあり）</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">すべての年を再計算します。過去の年の取得原価、実現損益、税務用シートも変わります。</string>
+    <string name="settings_portfolio_system_backup_confirm">取引、ポートフォリオのアラート、監視中のアドレスが Android のバックアップ（例：Google アカウント）と新しい端末への移行に含まれます（エンドツーエンド暗号化の場合のみ）。</string>
 </resources>

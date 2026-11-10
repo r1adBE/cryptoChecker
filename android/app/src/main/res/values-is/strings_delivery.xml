@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Mikilvægt – birtist á skjánum</string>
     <string name="delivery_channel_low">Lítið mikilvægt – viðvaranir birtast aðeins hljóðlaust á listanum</string>
     <string name="delivery_channel_off">Slökkt – viðvaranir berast ekki</string>
-    <string name="delivery_exact_on">Á – á um það bil 15 mínútna fresti</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Á – á um það bil %d mínútna fresti</item>
+        <item quantity="other">Á – á um það bil %d mínútna fresti</item>
+    </plurals>
     <string name="delivery_exact_off">Af – Android athugar óreglulega</string>
     <string name="delivery_battery">Rafhlöðusparnaður</string>
     <string name="delivery_battery_unrestricted">Ótakmarkað</string>

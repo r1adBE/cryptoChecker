@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Hög prioritet – visas överst på skärmen</string>
     <string name="delivery_channel_low">Låg prioritet – larm visas bara tyst i listan</string>
     <string name="delivery_channel_off">Avstängd – larm kommer inte fram</string>
-    <string name="delivery_exact_on">På – ungefär var 15:e minut</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">På – ungefär var %d:e minut</item>
+        <item quantity="other">På – ungefär var %d:e minut</item>
+    </plurals>
     <string name="delivery_exact_off">Av – Android kontrollerar oregelbundet</string>
     <string name="delivery_battery">Batterioptimering</string>
     <string name="delivery_battery_unrestricted">Obegränsad</string>

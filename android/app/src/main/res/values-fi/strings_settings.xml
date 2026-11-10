@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Laskee avoimet hälytysilmoitukset. Aloitusnäyttö päättää, näkyykö numero vai piste (esim. Samsung: ”Numerolla”).</string>
     <string name="settings_exact_checks">Tarkista ajallaan</string>
     <string name="settings_exact_checks_grant">Salli ”Herätykset ja muistutukset”</string>
-    <string name="settings_exact_checks_hint">Android tarkistaa noin 15 minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android tarkistaa noin %d minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</item>
+        <item quantity="other">Android tarkistaa noin %d minuutin välein myös laitteen ollessa levossa. Kuluttaa hieman enemmän akkua.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Ei aktiivisia pareja – ei tarkistettavaa.</string>
     <string name="settings_exact_checks_permission_missing">Lupa puuttuu – laitteen levätessä Android tarkistaa epäsäännöllisesti, joskus vasta tuntien päästä.</string>
     <string name="settings_notification_change">Ilmoita vain hinnan muuttuessa</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Bitcoin-osoitteesi ja xpubisi kysytään silloin julkisilta solmuilta: %1$s. Ne näkevät osoitteet yhdessä IP-osoitteesi kanssa.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Käytä julkisia solmuja</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Pois, lukittu</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Laskee kaikki vuodet uudelleen: myös aiempien vuosien hankintameno, toteutuneet voitot ja verolaskelmat muuttuvat.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tapahtumasi, salkun hälytykset ja seuratut osoitteet menevät silloin Androidin varmuuskopioon (esim. Google-tilillesi) ja siirtoon uudelle laitteelle – vain päästä päähän salattuna.</string>
 </resources>

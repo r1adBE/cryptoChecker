@@ -15,7 +15,12 @@
     <string name="delivery_channel_high">Wysoka ważność – pojawia się u góry ekranu</string>
     <string name="delivery_channel_low">Niska ważność – alarmy pojawiają się tylko po cichu na liście</string>
     <string name="delivery_channel_off">Wyłączony – alarmy nie docierają</string>
-    <string name="delivery_exact_on">Włączone – mniej więcej co 15 minut</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Włączone – mniej więcej co %d minut</item>
+        <item quantity="few">Włączone – mniej więcej co %d minut</item>
+        <item quantity="many">Włączone – mniej więcej co %d minut</item>
+        <item quantity="other">Włączone – mniej więcej co %d minut</item>
+    </plurals>
     <string name="delivery_exact_off">Wyłączone – Android sprawdza nieregularnie</string>
     <string name="delivery_battery">Optymalizacja baterii</string>
     <string name="delivery_battery_unrestricted">Bez ograniczeń</string>

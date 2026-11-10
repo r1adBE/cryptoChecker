@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ክፍት የማንቂያ ማሳወቂያዎችን ይቆጥራል። ቁጥር ወይም ነጥብ መታየቱ በመነሻ ማያ ገጹ ይወሰናል (ለምሳሌ Samsung፦ «Show with number»)።</string>
     <string name="settings_exact_checks">በሰዓቱ ይፈትሹ</string>
     <string name="settings_exact_checks_grant">ማንቂያዎችን &amp; አስታዋሾችን ይፍቀዱ</string>
-    <string name="settings_exact_checks_hint">መሣሪያው ሥራ ፈት ቢሆንም Android በግምት በየ15 ደቂቃው ይፈትሻል። ትንሽ ተጨማሪ ባትሪ ይጠቀማል።</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">መሣሪያው ሥራ ፈት ቢሆንም Android በግምት በየ%d ደቂቃው ይፈትሻል። ትንሽ ተጨማሪ ባትሪ ይጠቀማል።</item>
+        <item quantity="other">መሣሪያው ሥራ ፈት ቢሆንም Android በግምት በየ%d ደቂቃው ይፈትሻል። ትንሽ ተጨማሪ ባትሪ ይጠቀማል።</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">ንቁ ጥንዶች የሉም – የሚፈተሽ ነገር የለም።</string>
     <string name="settings_exact_checks_permission_missing">ፈቃድ ጎድሏል – መሣሪያው ሲያርፍ Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል፣ አንዳንዴ ከሰዓታት በኋላ ብቻ።</string>
     <string name="settings_notification_change">በዋጋ ለውጥ ላይ ብቻ ያሳውቁ</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">ያኔ የBitcoin አድራሻዎችዎና የxpub ቁልፎችዎ በይፋዊ ኖዶች ይጠየቃሉ፦ %1$s። እነዚህን አድራሻዎች ከአይፒ አድራሻዎ ጋር አብረው ያያሉ።</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ይፋዊ ኖዶችን ይጠቀሙ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ጠፍቷል፣ ከመቆለፊያ ጋር</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">ሁሉንም ዓመታት እንደገና ያሰላል፦ የግዢ ዋጋ፣ የተረጋገጠ ትርፍ እና የቀደሙ ዓመታት የግብር ሰነዶችም ይለወጣሉ።</string>
+    <string name="settings_portfolio_system_backup_confirm">ግብይቶችዎ፣ የፖርትፎሊዮ ማንቂያዎችዎ እና የሚከታተሏቸው አድራሻዎች ወደ Android ምትኬ (ለምሳሌ የGoogle መለያዎ) እና ወደ አዲስ መሣሪያ ማስተላለፍ ይገባሉ – ከጫፍ-እስከ-ጫፍ በተመሰጠረ ብቻ።</string>
 </resources>

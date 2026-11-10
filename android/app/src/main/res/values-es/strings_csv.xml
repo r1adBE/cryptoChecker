@@ -98,4 +98,10 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Volviendo a leer el archivo …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d línea</item>
+        <item quantity="many">%d de líneas</item>
+        <item quantity="other">%d líneas</item>
+    </plurals>
 </resources>

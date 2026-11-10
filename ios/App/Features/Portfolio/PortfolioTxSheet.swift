@@ -360,20 +360,15 @@ struct PortfolioTxSheet: View {
         .alert(L("portfolio_tx_save_failed"), isPresented: $saveFailed) {
             Button(L("action_close"), role: .cancel) {}
         }
-        .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
-            Button(L("action_delete"), role: .destructive) {
-                saving = true
-                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler
-                Task { @MainActor in
-                    let deleted = await data.deletePortfolioTx(initial.txId)
-                    saving = false
-                    Haptics.play(deleted ? .destructive : .error)
-                    if deleted { dismiss() } else { deleteFailed = true }
-                }
+        .portfolioTxDeleteConfirmation(isPresented: $askDelete) {
+            saving = true
+            // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler
+            Task { @MainActor in
+                let deleted = await data.deletePortfolioTx(initial.txId)
+                saving = false
+                Haptics.play(deleted ? .destructive : .error)
+                if deleted { dismiss() } else { deleteFailed = true }
             }
-            Button(L("action_cancel"), role: .cancel) {}
-        } message: {
-            Text(L("portfolio_tx_delete_confirm"))
         }
         .alert(L(data.portfolioWriteLocked ? "portfolio_storage_locked" : "portfolio_write_failed"), isPresented: $deleteFailed) {
             Button(L("action_close"), role: .cancel) {}

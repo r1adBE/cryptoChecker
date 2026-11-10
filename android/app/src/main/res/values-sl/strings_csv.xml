@@ -105,4 +105,11 @@
 
     <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Ponovno branje datoteke …</string>
+    <!-- CSV-Import-Vorschau: Anzahl Zeilen eines Hinweises (darunter der Satz mit den ersten Zeilennummern) -->
+    <plurals name="portfolio_csv_import_line_count">
+        <item quantity="one">%d vrstica</item>
+        <item quantity="two">%d vrstici</item>
+        <item quantity="few">%d vrstice</item>
+        <item quantity="other">%d vrstic</item>
+    </plurals>
 </resources>

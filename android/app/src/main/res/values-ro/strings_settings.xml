@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Numără notificările de alarmă deschise. Dacă apare un număr sau un punct decide ecranul de pornire (de ex. Samsung: „Cu număr”).</string>
     <string name="settings_exact_checks">Verificare punctuală</string>
     <string name="settings_exact_checks_grant">Permite „Alarme și mementouri”</string>
-    <string name="settings_exact_checks_hint">Android verifică aproximativ la fiecare 15 minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android verifică aproximativ la fiecare %d minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</item>
+        <item quantity="few">Android verifică aproximativ la fiecare %d minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</item>
+        <item quantity="other">Android verifică aproximativ la fiecare %d de minute, chiar și când dispozitivul e inactiv. Consumă puțin mai multă baterie.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nicio pereche activă – nimic de verificat.</string>
     <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – în repaus, Android verifică neregulat, uneori abia după ore.</string>
     <string name="settings_notification_change">Notifică doar la schimbarea prețului</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">Adresele tale Bitcoin și xpub vor fi atunci interogate la noduri publice: %1$s. Acestea văd adresele împreună cu adresa ta IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Folosește noduri publice</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Oprit, cu blocare</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Recalculează toți anii: se schimbă și costul de achiziție, câștigurile realizate și foile fiscale din anii anteriori.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tranzacțiile, alertele de portofoliu și adresele urmărite vor intra atunci în backupul Android (de ex. în contul tău Google) și în transferul pe un dispozitiv nou – doar cu criptare integrală.</string>
 </resources>

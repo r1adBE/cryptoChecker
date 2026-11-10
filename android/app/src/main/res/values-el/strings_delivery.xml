@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Υψηλή σημασία – εμφανίζεται στο πάνω μέρος της οθόνης</string>
     <string name="delivery_channel_low">Χαμηλή σημασία – οι συναγερμοί εμφανίζονται μόνο αθόρυβα στη λίστα</string>
     <string name="delivery_channel_off">Απενεργοποιημένο – οι συναγερμοί δεν φτάνουν</string>
-    <string name="delivery_exact_on">Ενεργό – περίπου κάθε 15 λεπτά</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Ενεργό – περίπου κάθε %d λεπτά</item>
+        <item quantity="other">Ενεργό – περίπου κάθε %d λεπτά</item>
+    </plurals>
     <string name="delivery_exact_off">Ανενεργό – το Android ελέγχει ακανόνιστα</string>
     <string name="delivery_battery">Βελτιστοποίηση μπαταρίας</string>
     <string name="delivery_battery_unrestricted">Χωρίς περιορισμούς</string>

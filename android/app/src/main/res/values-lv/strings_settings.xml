@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Skaita atvērtos brīdinājumu paziņojumus. Vai parādās skaitlis vai punkts, nosaka sākuma ekrāns (piem., Samsung: „Rādīt ar skaitli“).</string>
     <string name="settings_exact_checks">Pārbaudīt laikā</string>
     <string name="settings_exact_checks_grant">Atļaut modinātājus un atgādinājumus</string>
-    <string name="settings_exact_checks_hint">Android pārbauda aptuveni ik pēc 15 minūtēm, pat ja ierīce ir dīkstāvē. Patērē nedaudz vairāk akumulatora.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="zero">Android pārbauda aptuveni ik pēc %d minūtēm, pat ja ierīce ir dīkstāvē. Patērē nedaudz vairāk akumulatora.</item>
+        <item quantity="one">Android pārbauda aptuveni ik pēc %d minūtēm, pat ja ierīce ir dīkstāvē. Patērē nedaudz vairāk akumulatora.</item>
+        <item quantity="other">Android pārbauda aptuveni ik pēc %d minūtēm, pat ja ierīce ir dīkstāvē. Patērē nedaudz vairāk akumulatora.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nav aktīvu pāru – nav ko pārbaudīt.</string>
     <string name="settings_exact_checks_permission_missing">Trūkst atļaujas – kamēr ierīce atpūšas, Android pārbauda neregulāri, dažreiz tikai pēc vairākām stundām.</string>
     <string name="settings_notification_change">Paziņot tikai par cenas izmaiņām</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">Tavas Bitcoin adreses un xpub atslēgas tad tiks pieprasītas publiskajos mezglos: %1$s. Tie redz šīs adreses kopā ar tavu IP adresi.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Izmantot publiskos mezglus</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Izslēgts, ar bloķēšanu</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Pārrēķina visus gadus: mainās arī iepriekšējo gadu iegādes vērtība, realizētā peļņa un nodokļu darba lapas.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tavi darījumi, portfeļa brīdinājumi un vērotās adreses tad nonāks Android dublējumā (piem., tavā Google kontā) un pārsūtīšanā uz jaunu ierīci – tikai ar pilnīgu šifrēšanu.</string>
 </resources>

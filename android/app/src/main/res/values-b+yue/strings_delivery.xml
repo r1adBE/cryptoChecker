@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">高重要性 – 會喺畫面彈出</string>
     <string name="delivery_channel_low">低重要性 – 提示只會靜靜出現喺清單</string>
     <string name="delivery_channel_off">已關閉 – 收唔到提示</string>
-    <string name="delivery_exact_on">開啟 – 大約每 15 分鐘</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">開啟 – 大約每 %d 分鐘</item>
+    </plurals>
     <string name="delivery_exact_off">關閉 – Android 會不定時檢查</string>
     <string name="delivery_battery">電池優化</string>
     <string name="delivery_battery_unrestricted">不受限制</string>

@@ -97,4 +97,16 @@ final class WidgetRefreshStateTests: XCTestCase {
         XCTAssertNil(WidgetRefreshState.unlockAt(blockedUntil: 0, now: now))
         XCTAssertNil(WidgetRefreshState.unlockAt(blockedUntil: now + window + 1, now: now))
     }
+
+    /// Trefferfläche des Knopfs mindestens 44 pt, auch wenn der Kreis 24–26 pt misst.
+    func testTouchTargetAtLeast44Points() {
+        XCTAssertEqual(WidgetRefreshState.minTouchTarget, 44)
+        XCTAssertEqual(WidgetRefreshState.touchOutset(size: 26), 9)
+        XCTAssertEqual(WidgetRefreshState.touchOutset(size: 24), 10)
+        XCTAssertEqual(WidgetRefreshState.touchOutset(size: 44), 0)
+        XCTAssertEqual(WidgetRefreshState.touchOutset(size: 50), 0)
+        for size in [24.0, 26.0] {
+            XCTAssertGreaterThanOrEqual(size + 2 * WidgetRefreshState.touchOutset(size: size), 44)
+        }
+    }
 }

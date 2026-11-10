@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">Mengira pemberitahuan amaran yang terbuka. Sama ada nombor atau titik muncul bergantung pada skrin utama (cth. Samsung: “Tunjuk dengan nombor”).</string>
     <string name="settings_exact_checks">Semak tepat masa</string>
     <string name="settings_exact_checks_grant">Benarkan penggera &amp; peringatan</string>
-    <string name="settings_exact_checks_hint">Android menyemak kira-kira setiap 15 minit, walaupun peranti melahu. Menggunakan sedikit lebih bateri.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android menyemak kira-kira setiap %d minit, walaupun peranti melahu. Menggunakan sedikit lebih bateri.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Tiada pasangan aktif – tiada apa-apa untuk disemak.</string>
     <string name="settings_exact_checks_permission_missing">Kebenaran tiada – semasa peranti rehat, Android menyemak secara tidak tetap, kadangkala selepas berjam-jam.</string>
     <string name="settings_notification_change">Beritahu hanya apabila harga berubah</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">Alamat Bitcoin dan kunci xpub anda kemudian akan ditanya di nod awam: %1$s. Nod itu melihat alamat ini bersama alamat IP anda.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Guna nod awam</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Mati, dengan kunci</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Mengira semula semua tahun: kos perolehan, keuntungan direalisasi dan lembaran cukai tahun sebelumnya juga berubah.</string>
+    <string name="settings_portfolio_system_backup_confirm">Transaksi, amaran portfolio dan alamat yang dipantau anda kemudian akan masuk ke sandaran Android (cth. akaun Google anda) dan pemindahan ke peranti baharu – hanya disulitkan hujung ke hujung.</string>
 </resources>

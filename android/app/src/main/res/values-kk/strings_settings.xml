@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Ашық ескерту хабарландыруларын санайды. Сан немесе нүкте шығуы басты экранға байланысты (мысалы, Samsung: «Санмен көрсету»).</string>
     <string name="settings_exact_checks">Уақытылы тексеру</string>
     <string name="settings_exact_checks_grant">Оятқыштар мен еске салғыштарға рұқсат ету</string>
-    <string name="settings_exact_checks_hint">Android құрылғы бос тұрса да шамамен 15 минут сайын тексереді. Батареяны сәл көбірек жұмсайды.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android құрылғы бос тұрса да шамамен %d минут сайын тексереді. Батареяны сәл көбірек жұмсайды.</item>
+        <item quantity="other">Android құрылғы бос тұрса да шамамен %d минут сайын тексереді. Батареяны сәл көбірек жұмсайды.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Белсенді жұп жоқ – тексеретін ештеңе жоқ.</string>
     <string name="settings_exact_checks_permission_missing">Рұқсат жоқ – құрылғы тыныштықта тұрғанда Android тұрақсыз тексереді, кейде бірнеше сағаттан кейін ғана.</string>
     <string name="settings_notification_change">Тек бағам өзгергенде хабарлау</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Сонда Bitcoin мекенжайларыңыз бен xpub кілттеріңіз ашық түйіндерде сұралады: %1$s. Олар бұл мекенжайларды IP мекенжайыңызбен бірге көреді.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Ашық түйіндерді пайдалану</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Өшірулі, құлыппен</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Барлық жылдарды қайта есептейді: бұрынғы жылдардың сатып алу құны, іске асқан пайдасы мен салық парақтары да өзгереді.</string>
+    <string name="settings_portfolio_system_backup_confirm">Сонда транзакцияларыңыз, портфель ескертулері және бақыланатын мекенжайлар Android сақтық көшірмесіне (мысалы, Google аккаунтыңызға) және жаңа құрылғыға көшіруге кіреді – тек өтпелі шифрлаумен.</string>
 </resources>

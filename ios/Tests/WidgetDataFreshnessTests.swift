@@ -29,43 +29,57 @@ final class WidgetDataFreshnessTests: XCTestCase {
 
     // MARK: Takt (`WidgetCadence`, nur iOS)
 
-    /// Normal etwa alle 45 Minuten; Kurse werden beim geplanten Neuladen sicher geholt.
-    func testCadenceIsAboutFortyFiveMinutes() {
+    /// Takt = gewähltes Intervall (15/30/60 Min.); «alt» ab demselben Intervall (1 Min. Spielraum für frühes Neuladen
+    /// von WidgetKit), damit das geplante Neuladen sicher holt.
+    func testCadenceFollowsChosenInterval() {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
-        let next = WidgetCadence.nextReload(now: now, wantsQuickRetry: false, lastQuickRetryAt: nil)
-        XCTAssertEqual(next.date.timeIntervalSince(now), 45 * 60)
-        XCTAssertFalse(next.quickRetry)
-        XCTAssertLessThan(WidgetCadence.staleAfterMillis, Int64(WidgetCadence.reloadMinutes) * 60_000)
-        XCTAssertGreaterThanOrEqual(WidgetCadence.retryAfterMillis, 20 * 60_000)
+        for minutes in AppSettings.backgroundIntervalChoices {
+            let next = WidgetCadence.nextReload(now: now, wantsQuickRetry: false, lastQuickRetryAt: nil,
+                                                intervalMinutes: minutes)
+            XCTAssertEqual(next.date.timeIntervalSince(now), Double(minutes) * 60, "\(minutes) min")
+            XCTAssertFalse(next.quickRetry)
+            XCTAssertEqual(WidgetCadence.staleAfterMillis(intervalMinutes: minutes), Int64(minutes) * 60_000 - 60_000)
+            XCTAssertLessThan(WidgetCadence.staleAfterMillis(intervalMinutes: minutes), Int64(minutes) * 60_000)
+            XCTAssertEqual(WidgetCadence.retryAfterMillis(intervalMinutes: minutes),
+                           WidgetCadence.staleAfterMillis(intervalMinutes: minutes))
+        }
+        // Unter dem kürzesten Takt (alte oder fremde Einstellung): 15 Min.
+        XCTAssertEqual(WidgetCadence.reloadMinutes(intervalMinutes: 5), 15)
+        XCTAssertEqual(WidgetCadence.nextReload(now: now, wantsQuickRetry: false, lastQuickRetryAt: nil,
+                                                intervalMinutes: 1).date.timeIntervalSince(now), 15 * 60)
     }
 
     /// Höchstens ein früher Neuversuch je Takt — nicht jede Minute.
     func testAtMostOneQuickRetryPerCadence() {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
-        let first = WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil)
+        let first = WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil, intervalMinutes: 30)
         XCTAssertTrue(first.quickRetry)
         XCTAssertEqual(first.date.timeIntervalSince(now), 60)
         // Eine Minute später wieder gewünscht: normaler Takt
         let again = now.addingTimeInterval(60)
-        let second = WidgetCadence.nextReload(now: again, wantsQuickRetry: true, lastQuickRetryAt: now)
+        let second = WidgetCadence.nextReload(now: again, wantsQuickRetry: true, lastQuickRetryAt: now, intervalMinutes: 30)
         XCTAssertFalse(second.quickRetry)
-        XCTAssertEqual(second.date.timeIntervalSince(again), 45 * 60)
+        XCTAssertEqual(second.date.timeIntervalSince(again), 30 * 60)
         // Ein Takt später darf es wieder einen geben; Uhr zurückgestellt ebenso
-        XCTAssertTrue(WidgetCadence.nextReload(now: now.addingTimeInterval(45 * 60), wantsQuickRetry: true,
-                                               lastQuickRetryAt: now).quickRetry)
+        XCTAssertTrue(WidgetCadence.nextReload(now: now.addingTimeInterval(30 * 60), wantsQuickRetry: true,
+                                               lastQuickRetryAt: now, intervalMinutes: 30).quickRetry)
         XCTAssertTrue(WidgetCadence.nextReload(now: now.addingTimeInterval(-60), wantsQuickRetry: true,
-                                               lastQuickRetryAt: now).quickRetry)
+                                               lastQuickRetryAt: now, intervalMinutes: 30).quickRetry)
     }
 
-    /// Tagesgrenze erreicht: kein früher Neuversuch mehr, nur der normale Takt.
+    /// Tagesgrenze erreicht: kein früher Neuversuch mehr, und der Takt nicht kürzer als 45 Min. (Kontingent).
     func testNoQuickRetryAboveDailySoftCap() {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
         let cap = WidgetCadence.dailyReloadSoftCap
         XCTAssertTrue(WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil,
-                                               reloadsToday: cap - 1).quickRetry)
-        let capped = WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil, reloadsToday: cap)
+                                               reloadsToday: cap - 1, intervalMinutes: 15).quickRetry)
+        let capped = WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil, reloadsToday: cap,
+                                              intervalMinutes: 15)
         XCTAssertFalse(capped.quickRetry)
-        XCTAssertEqual(capped.date.timeIntervalSince(now), Double(WidgetCadence.reloadMinutes) * 60)
+        XCTAssertEqual(capped.date.timeIntervalSince(now), Double(WidgetCadence.cappedReloadMinutes) * 60)
+        // Längeres Intervall bleibt auch über der Grenze
+        XCTAssertEqual(WidgetCadence.nextReload(now: now, wantsQuickRetry: false, lastQuickRetryAt: nil, reloadsToday: cap,
+                                                intervalMinutes: 60).date.timeIntervalSince(now), 60 * 60)
     }
 
     /// Zähler je Kalendertag: zählt hoch, beginnt am nächsten Tag bei 0.

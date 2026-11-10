@@ -52,8 +52,15 @@ enum WidgetData {
         }
     }
 
-    /// Normales Neuladen (`WidgetCadence.reloadMinutes`).
-    static var nextReload: Date { Date().addingTimeInterval(Double(WidgetCadence.reloadMinutes) * 60) }
+    /// Gewähltes Intervall der Hintergrund-Aktualisierung — Takt der Widgets (`WidgetCadence`).
+    static var intervalMinutes: Int { SharedStorage.loadSettings().backgroundIntervalMinutes }
+
+    /// Normales Neuladen im Intervall (`WidgetCadence.reloadMinutes`; ab der Tagesgrenze nicht kürzer als
+    /// `WidgetCadence.cappedReloadMinutes`).
+    static var nextReload: Date {
+        WidgetCadence.nextReload(now: Date(), wantsQuickRetry: false, lastQuickRetryAt: nil,
+                                 reloadsToday: reloadCounter.count(), intervalMinutes: intervalMinutes).date
+    }
 
     /// Tageszähler der Neuladen (alle Widget-Arten, App-Group-Defaults).
     static var reloadCounter: DailyReloadCounter { DailyReloadCounter(defaults: SharedStorage.defaults) }
@@ -68,7 +75,7 @@ enum WidgetData {
         let today = reloadCounter.increment(now: now)
         let next = WidgetCadence.nextReload(now: now, wantsQuickRetry: wantsQuickRetry,
                                             lastQuickRetryAt: stored > 0 ? Date(timeIntervalSince1970: stored) : nil,
-                                            reloadsToday: today)
+                                            reloadsToday: today, intervalMinutes: intervalMinutes)
         if next.quickRetry { SharedStorage.defaults.set(now.timeIntervalSince1970, forKey: key) }
         if wantsQuickRetry && !next.quickRetry {
             AppLog.widget.info("Früher Neuversuch ausgelassen (heute \(today, privacy: .public) Neuladen)")

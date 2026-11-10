@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Считает открытые уведомления о сработавших оповещениях. Будет ли число или точка, решает главный экран (напр. Samsung: «С числом»).</string>
     <string name="settings_exact_checks">Проверять вовремя</string>
     <string name="settings_exact_checks_grant">Разрешить «Будильники и напоминания»</string>
-    <string name="settings_exact_checks_hint">Android проверяет примерно каждые 15 минут, даже когда устройство в покое. Расходует чуть больше батареи.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android проверяет примерно каждые %d минут, даже когда устройство в покое. Расходует чуть больше батареи.</item>
+        <item quantity="few">Android проверяет примерно каждые %d минут, даже когда устройство в покое. Расходует чуть больше батареи.</item>
+        <item quantity="many">Android проверяет примерно каждые %d минут, даже когда устройство в покое. Расходует чуть больше батареи.</item>
+        <item quantity="other">Android проверяет примерно каждые %d минут, даже когда устройство в покое. Расходует чуть больше батареи.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Нет активных пар – нечего проверять.</string>
     <string name="settings_exact_checks_permission_missing">Нет разрешения – пока устройство в покое, Android проверяет нерегулярно, иногда лишь через несколько часов.</string>
     <string name="settings_notification_change">Уведомлять только при изменении цены</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Тогда твои адреса Bitcoin и xpub будут запрашиваться у публичных узлов: %1$s. Они видят эти адреса вместе с твоим IP-адресом.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Использовать публичные узлы</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Выкл., с блокировкой</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Пересчитывает все годы: изменятся и стоимость покупки, реализованная прибыль и налоговые таблицы прошлых лет.</string>
+    <string name="settings_portfolio_system_backup_confirm">Тогда твои транзакции, оповещения портфеля и отслеживаемые адреса попадут в резервную копию Android (например, в твой аккаунт Google) и в перенос на новое устройство – только со сквозным шифрованием.</string>
 </resources>

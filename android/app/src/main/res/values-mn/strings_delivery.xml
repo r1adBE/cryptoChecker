@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Өндөр ач холбогдол – дэлгэц дээр гарч ирнэ</string>
     <string name="delivery_channel_low">Бага ач холбогдол – дохио зөвхөн жагсаалтад дуугүй гарна</string>
     <string name="delivery_channel_off">Унтраасан – дохио ирэхгүй</string>
-    <string name="delivery_exact_on">Асаалттай – ойролцоогоор 15 минут тутам</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Асаалттай – ойролцоогоор %d минут тутам</item>
+        <item quantity="other">Асаалттай – ойролцоогоор %d минут тутам</item>
+    </plurals>
     <string name="delivery_exact_off">Унтраалттай – Android жигд бусаар шалгадаг</string>
     <string name="delivery_battery">Батарейн оновчлол</string>
     <string name="delivery_battery_unrestricted">Хязгааргүй</string>

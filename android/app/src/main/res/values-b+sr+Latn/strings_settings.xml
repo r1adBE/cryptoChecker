@@ -40,7 +40,11 @@
     <string name="settings_app_badge_hint">Broji otvorena obaveštenja alarma. Da li će se pojaviti broj ili tačka, odlučuje početni ekran (npr. Samsung: „Prikaži s brojem“).</string>
     <string name="settings_exact_checks">Proveravaj u tačno vreme</string>
     <string name="settings_exact_checks_grant">Dozvoli alarme &amp; podsetnike</string>
-    <string name="settings_exact_checks_hint">Android proverava otprilike svakih 15 minuta, čak i kada uređaj miruje. Troši malo više baterije.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android proverava otprilike svakih %d minuta, čak i kada uređaj miruje. Troši malo više baterije.</item>
+        <item quantity="few">Android proverava otprilike svakih %d minuta, čak i kada uređaj miruje. Troši malo više baterije.</item>
+        <item quantity="other">Android proverava otprilike svakih %d minuta, čak i kada uređaj miruje. Troši malo više baterije.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Nema aktivnih parova – nema šta da se proveri.</string>
     <string name="settings_exact_checks_permission_missing">Nedostaje dozvola – dok uređaj miruje, Android proverava neredovno, ponekad tek nakon nekoliko sati.</string>
     <string name="settings_notification_change">Obavesti samo pri promeni cene</string>
@@ -329,4 +333,9 @@
     <string name="settings_address_server_public_text">Tvoje Bitkoin adrese i xpub ključevi tada će se preuzimati s javnih čvorova: %1$s. Oni vide te adrese zajedno s tvojom IP adresom.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Koristi javne čvorove</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Isključeno, sa zaključavanjem</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Ponovo računa sve godine: menjaju se i nabavna vrednost, ostvareni dobici i poreski radni listovi ranijih godina.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tvoje transakcije, upozorenja portfolija i praćene adrese tada idu u Android rezervnu kopiju (npr. na tvoj Google nalog) i u prenos na novi uređaj – samo uz šifrovanje s kraja na kraj.</string>
 </resources>

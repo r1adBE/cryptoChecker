@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">उघड्या अलर्ट सूचना मोजते. संख्या दिसेल की ठिपका, हे होम स्क्रीनवर अवलंबून आहे (उदा. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">वेळेवर तपासा</string>
     <string name="settings_exact_checks_grant">अलार्म आणि रिमाइंडरना परवानगी द्या</string>
-    <string name="settings_exact_checks_hint">डिव्हाइस निष्क्रिय असतानाही Android साधारण दर 15 मिनिटांनी तपासतो. थोडी जास्त बॅटरी वापरते.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">डिव्हाइस निष्क्रिय असतानाही Android साधारण दर %d मिनिटांनी तपासतो. थोडी जास्त बॅटरी वापरते.</item>
+        <item quantity="other">डिव्हाइस निष्क्रिय असतानाही Android साधारण दर %d मिनिटांनी तपासतो. थोडी जास्त बॅटरी वापरते.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">सक्रिय जोड्या नाहीत – तपासण्यासारखे काही नाही.</string>
     <string name="settings_exact_checks_permission_missing">परवानगी नाही – डिव्हाइस विश्रांतीत असताना Android अनियमितपणे तपासतो, कधीकधी तासांनंतरच.</string>
     <string name="settings_notification_change">फक्त किंमत बदलल्यावर सूचित करा</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">मग तुमचे Bitcoin पत्ते आणि xpub की सार्वजनिक नोड्सवर विचारल्या जातील: %1$s. त्यांना हे पत्ते तुमच्या IP पत्त्यासह दिसतात.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">सार्वजनिक नोड्स वापरा</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">बंद, लॉकसह</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">सर्व वर्षांची पुन्हा गणना होते: मागील वर्षांची खरेदी किंमत, प्राप्त नफा आणि कर वर्कशीटही बदलतात.</string>
+    <string name="settings_portfolio_system_backup_confirm">तेव्हा तुमचे व्यवहार, पोर्टफोलिओ सूचना आणि लक्ष ठेवलेले पत्ते Android बॅकअपमध्ये (उदा. तुमच्या Google खात्यात) आणि नवीन डिव्हाइसवरील हस्तांतरणात जातील – फक्त एंड-टू-एंड एन्क्रिप्टेड.</string>
 </resources>

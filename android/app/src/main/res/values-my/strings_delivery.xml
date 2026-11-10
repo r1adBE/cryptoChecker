@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">အရေးကြီးမှု မြင့် – မျက်နှာပြင်ပေါ်တွင် ပေါ်လာသည်</string>
     <string name="delivery_channel_low">အရေးကြီးမှု နိမ့် – သတိပေးချက်များ စာရင်းထဲတွင် အသံမဲ့သာ ပေါ်သည်</string>
     <string name="delivery_channel_off">ပိတ်ထားသည် – သတိပေးချက်များ ရောက်မည်မဟုတ်ပါ</string>
-    <string name="delivery_exact_on">ဖွင့် – ခန့်မှန်း မိနစ် 15 တစ်ကြိမ်</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">ဖွင့် – ခန့်မှန်း မိနစ် %d တစ်ကြိမ်</item>
+    </plurals>
     <string name="delivery_exact_off">ပိတ် – Android သည် ပုံမှန်မဟုတ်ဘဲ စစ်ဆေးသည်</string>
     <string name="delivery_battery">ဘက်ထရီ ပိုကောင်းအောင်လုပ်ခြင်း</string>
     <string name="delivery_battery_unrestricted">ကန့်သတ်မထား</string>

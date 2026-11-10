@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">ความสำคัญสูง – แสดงที่ด้านบนของหน้าจอ</string>
     <string name="delivery_channel_low">ความสำคัญต่ำ – สัญญาณเตือนแสดงในรายการแบบเงียบเท่านั้น</string>
     <string name="delivery_channel_off">ปิดอยู่ – สัญญาณเตือนจะไม่มาถึง</string>
-    <string name="delivery_exact_on">เปิด – ประมาณทุก 15 นาที</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">เปิด – ประมาณทุก %d นาที</item>
+    </plurals>
     <string name="delivery_exact_off">ปิด – Android ตรวจสอบไม่สม่ำเสมอ</string>
     <string name="delivery_battery">การเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="delivery_battery_unrestricted">ไม่จำกัด</string>

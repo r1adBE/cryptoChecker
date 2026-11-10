@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ਖੁੱਲ੍ਹੀਆਂ ਅਲਰਟ ਸੂਚਨਾਵਾਂ ਗਿਣਦਾ ਹੈ। ਨੰਬਰ ਦਿਖੇ ਜਾਂ ਬਿੰਦੂ, ਇਹ ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਨਿਰਭਰ ਹੈ (ਜਿਵੇਂ Samsung: “ਨੰਬਰ ਨਾਲ ਦਿਖਾਓ”)।</string>
     <string name="settings_exact_checks">ਸਮੇਂ ਸਿਰ ਜਾਂਚ</string>
     <string name="settings_exact_checks_grant">ਅਲਾਰਮਾਂ ਅਤੇ ਰਿਮਾਈਂਡਰਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
-    <string name="settings_exact_checks_hint">ਡਿਵਾਈਸ ਵਿਹਲਾ ਹੋਵੇ ਤਾਂ ਵੀ Android ਲਗਭਗ ਹਰ 15 ਮਿੰਟ ਵਿੱਚ ਜਾਂਚਦਾ ਹੈ। ਥੋੜ੍ਹੀ ਵੱਧ ਬੈਟਰੀ ਲੱਗਦੀ ਹੈ।</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">ਡਿਵਾਈਸ ਵਿਹਲਾ ਹੋਵੇ ਤਾਂ ਵੀ Android ਲਗਭਗ ਹਰ %d ਮਿੰਟ ਵਿੱਚ ਜਾਂਚਦਾ ਹੈ। ਥੋੜ੍ਹੀ ਵੱਧ ਬੈਟਰੀ ਲੱਗਦੀ ਹੈ।</item>
+        <item quantity="other">ਡਿਵਾਈਸ ਵਿਹਲਾ ਹੋਵੇ ਤਾਂ ਵੀ Android ਲਗਭਗ ਹਰ %d ਮਿੰਟ ਵਿੱਚ ਜਾਂਚਦਾ ਹੈ। ਥੋੜ੍ਹੀ ਵੱਧ ਬੈਟਰੀ ਲੱਗਦੀ ਹੈ।</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">ਕੋਈ ਸਰਗਰਮ ਜੋੜਾ ਨਹੀਂ – ਜਾਂਚਣ ਲਈ ਕੁਝ ਨਹੀਂ।</string>
     <string name="settings_exact_checks_permission_missing">ਇਜਾਜ਼ਤ ਨਹੀਂ – ਡਿਵਾਈਸ ਆਰਾਮ ਵਿੱਚ ਹੋਵੇ ਤਾਂ Android ਬੇਨਿਯਮੀ ਨਾਲ ਜਾਂਚਦਾ ਹੈ, ਕਦੇ-ਕਦੇ ਘੰਟਿਆਂ ਬਾਅਦ।</string>
     <string name="settings_notification_change">ਸਿਰਫ਼ ਕੀਮਤ ਬਦਲਣ ’ਤੇ ਸੂਚਿਤ ਕਰੋ</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">ਤੁਹਾਡੇ Bitcoin ਪਤੇ ਅਤੇ xpub ਕੀਜ਼ ਫਿਰ ਜਨਤਕ ਨੋਡਾਂ ’ਤੇ ਪੁੱਛੀਆਂ ਜਾਣਗੀਆਂ: %1$s। ਉਹ ਇਹ ਪਤੇ ਤੁਹਾਡੇ IP ਪਤੇ ਦੇ ਨਾਲ ਦੇਖਦੇ ਹਨ।</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ਜਨਤਕ ਨੋਡ ਵਰਤੋ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ਬੰਦ, ਲੌਕ ਨਾਲ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">ਸਾਰੇ ਸਾਲ ਮੁੜ ਗਿਣਦਾ ਹੈ: ਪਿਛਲੇ ਸਾਲਾਂ ਦੀ ਖ਼ਰੀਦ ਲਾਗਤ, ਪ੍ਰਾਪਤ ਮੁਨਾਫ਼ਾ ਅਤੇ ਟੈਕਸ ਵਰਕਸ਼ੀਟਾਂ ਵੀ ਬਦਲਦੀਆਂ ਹਨ।</string>
+    <string name="settings_portfolio_system_backup_confirm">ਫਿਰ ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ, ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਅਤੇ ਦੇਖੇ ਜਾ ਰਹੇ ਪਤੇ Android ਬੈਕਅੱਪ (ਜਿਵੇਂ ਤੁਹਾਡਾ Google ਖਾਤਾ) ਅਤੇ ਨਵੇਂ ਡੀਵਾਈਸ \'ਤੇ ਟ੍ਰਾਂਸਫ਼ਰ ਵਿੱਚ ਜਾਣਗੇ – ਸਿਰਫ਼ ਐਂਡ-ਟੂ-ਐਂਡ ਇਨਕ੍ਰਿਪਟਡ।</string>
 </resources>

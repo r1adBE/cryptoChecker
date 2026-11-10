@@ -58,8 +58,10 @@ class PortfolioLockPolicyTest {
         assertFalse(PortfolioLockPolicy.systemBackupNeedsUnlock(locked = false, enabling = true))
         assertTrue(PortfolioLockPolicy.quickAddNeedsUnlock(locked = true))
         assertFalse(PortfolioLockPolicy.quickAddNeedsUnlock(locked = false))
-        assertTrue(PortfolioLockPolicy.showSetting(portfolioEnabled = true))
-        assertFalse(PortfolioLockPolicy.showSetting(portfolioEnabled = false))
+        assertTrue(PortfolioLockPolicy.showSetting(portfolioEnabled = true, lockOn = false))
+        assertFalse(PortfolioLockPolicy.showSetting(portfolioEnabled = false, lockOn = false))
+        // Sperre an, Tab aus: Zeile bleibt erreichbar (sonst nicht mehr auszuschalten)
+        assertTrue(PortfolioLockPolicy.showSetting(portfolioEnabled = false, lockOn = true))
     }
 
     /** Android 8/8.1 (API 26/27) kennt requireFlags nicht: Systemsicherung des Portfolios dort immer aus. */

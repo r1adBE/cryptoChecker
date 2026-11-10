@@ -15,7 +15,13 @@
     <string name="delivery_channel_high">Tábhacht ard – nochtann sé ar an scáileán</string>
     <string name="delivery_channel_low">Tábhacht íseal – ní thaispeántar foláirimh ach go ciúin sa liosta</string>
     <string name="delivery_channel_off">Múchta – ní thiocfaidh foláirimh</string>
-    <string name="delivery_exact_on">Ar siúl – thart ar gach 15 nóiméad</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Ar siúl – thart ar gach %d nóiméad</item>
+        <item quantity="two">Ar siúl – thart ar gach %d nóiméad</item>
+        <item quantity="few">Ar siúl – thart ar gach %d nóiméad</item>
+        <item quantity="many">Ar siúl – thart ar gach %d nóiméad</item>
+        <item quantity="other">Ar siúl – thart ar gach %d nóiméad</item>
+    </plurals>
     <string name="delivery_exact_off">Múchta – seiceálann Android go mírialta</string>
     <string name="delivery_battery">Barrfheabhsú ceallraí</string>
     <string name="delivery_battery_unrestricted">Gan srian</string>

@@ -15,7 +15,11 @@
     <string name="delivery_channel_high">Augsta svarība – parādās ekrānā</string>
     <string name="delivery_channel_low">Zema svarība – brīdinājumi tikai klusi parādās sarakstā</string>
     <string name="delivery_channel_off">Izslēgts – brīdinājumi nepienāks</string>
-    <string name="delivery_exact_on">Ieslēgts – aptuveni ik pēc 15 minūtēm</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="zero">Ieslēgts – aptuveni ik pēc %d minūtēm</item>
+        <item quantity="one">Ieslēgts – aptuveni ik pēc %d minūtēm</item>
+        <item quantity="other">Ieslēgts – aptuveni ik pēc %d minūtēm</item>
+    </plurals>
     <string name="delivery_exact_off">Izslēgts – Android pārbauda neregulāri</string>
     <string name="delivery_battery">Akumulatora optimizācija</string>
     <string name="delivery_battery_unrestricted">Neierobežots</string>

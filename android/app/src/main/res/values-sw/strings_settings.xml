@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Inahesabu arifa za kengele zilizo wazi. Kama namba au nukta itaonekana inategemea skrini ya nyumbani (k.m. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">Kagua kwa wakati</string>
     <string name="settings_exact_checks_grant">Ruhusu kengele &amp; vikumbusho</string>
-    <string name="settings_exact_checks_hint">Android hukagua takriban kila dakika 15, hata kifaa kikiwa hakitumiki. Hutumia betri kidogo zaidi.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android hukagua takriban kila dakika %d, hata kifaa kikiwa hakitumiki. Hutumia betri kidogo zaidi.</item>
+        <item quantity="other">Android hukagua takriban kila dakika %d, hata kifaa kikiwa hakitumiki. Hutumia betri kidogo zaidi.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Hakuna jozi zinazotumika – hakuna cha kukagua.</string>
     <string name="settings_exact_checks_permission_missing">Ruhusa haipo – kifaa kikiwa kimepumzika, Android hukagua bila mpangilio, wakati mwingine baada ya saa kadhaa tu.</string>
     <string name="settings_notification_change">Arifu tu bei ikibadilika</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Anwani zako za Bitcoin na funguo za xpub basi zitaulizwa kwenye nodi za umma: %1$s. Zinaona anwani hizi pamoja na anwani yako ya IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Tumia nodi za umma</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Imezimwa, ikiwa na kufuli</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Hukokotoa upya miaka yote: gharama ya ununuzi, faida zilizopatikana na karatasi za kodi za miaka iliyopita pia hubadilika.</string>
+    <string name="settings_portfolio_system_backup_confirm">Miamala yako, arifa za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu ya Android (k.m. akaunti yako ya Google) na kwenye uhamishaji kwenda kifaa kipya – zikiwa zimesimbwa mwanzo hadi mwisho pekee.</string>
 </resources>

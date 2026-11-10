@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ਉੱਚ ਮਹੱਤਤਾ – ਸਕ੍ਰੀਨ ’ਤੇ ਉੱਭਰਦਾ ਹੈ</string>
     <string name="delivery_channel_low">ਘੱਟ ਮਹੱਤਤਾ – ਅਲਰਟ ਸਿਰਫ਼ ਚੁੱਪਚਾਪ ਸੂਚੀ ਵਿੱਚ ਦਿਖਦੇ ਹਨ</string>
     <string name="delivery_channel_off">ਬੰਦ ਕੀਤਾ – ਅਲਰਟ ਨਹੀਂ ਪਹੁੰਚਣਗੇ</string>
-    <string name="delivery_exact_on">ਚਾਲੂ – ਲਗਭਗ ਹਰ 15 ਮਿੰਟ ਵਿੱਚ</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ਚਾਲੂ – ਲਗਭਗ ਹਰ %d ਮਿੰਟ ਵਿੱਚ</item>
+        <item quantity="other">ਚਾਲੂ – ਲਗਭਗ ਹਰ %d ਮਿੰਟ ਵਿੱਚ</item>
+    </plurals>
     <string name="delivery_exact_off">ਬੰਦ – Android ਬੇਨਿਯਮੀ ਨਾਲ ਜਾਂਚਦਾ ਹੈ</string>
     <string name="delivery_battery">ਬੈਟਰੀ ਅਨੁਕੂਲਨ</string>
     <string name="delivery_battery_unrestricted">ਬਿਨਾਂ ਪਾਬੰਦੀ</string>

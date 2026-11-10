@@ -10,21 +10,24 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * «Pünktlich prüfen»: exakter Wecker ([AlarmManager.setExactAndAllowWhileIdle]) alle
- * 15 Minuten, der dieselbe Prüfung wie WorkManager auslöst ([ExactCheckReceiver]). Nach jedem Lauf
- * neu gestellt; nach Neustart/Update/neuer Berechtigung stellt [BootReceiver] ihn neu. WorkManager
- * bleibt als Netz darunter; doppelte Läufe verhindert [BackgroundSchedule.shouldSkip].
+ * «Pünktlich prüfen»: exakter Wecker ([AlarmManager.setExactAndAllowWhileIdle]) im gewählten Intervall
+ * der Hintergrund-Aktualisierung (mindestens 15 Minuten, [BackgroundSchedule.exactIntervalMillis]), der dieselbe Prüfung
+ * wie WorkManager auslöst ([ExactCheckReceiver]). Nach jedem Lauf neu gestellt; nach Neustart/Update/neuer Berechtigung
+ * stellt [BootReceiver] ihn neu. WorkManager bleibt als Netz darunter; solange der Wecker gestellt ist, entfällt ein
+ * WorkManager-Lauf innerhalb eines Intervalls nach der letzten vollen Prüfung ([BackgroundSchedule.dedupeWindowMillis]).
  * Berechtigung SCHEDULE_EXACT_ALARM (nicht USE_EXACT_ALARM): fehlt sie, kein Wecker.
  */
 @Singleton
 class ExactCheckScheduler @Inject constructor(
     @param:ApplicationContext private val context: Context,
+    private val settingsRepository: SettingsRepository,
 ) {
     private val alarmManager: AlarmManager? get() = context.getSystemService()
 
@@ -37,8 +40,14 @@ class ExactCheckScheduler @Inject constructor(
      * Wecker stellen bzw. absagen. [hasWork]: gibt es Paare? Unbekannt (Einstellungen geändert) = true;
      * der Wecker prüft beim Auslösen selbst und sagt sich ab, wenn nichts zu tun ist.
      * [force]: auch einen gestellten Wecker neu stellen (Android hat ihn gelöscht).
+     * [intervalMinutes]: gewähltes Intervall der Hintergrund-Aktualisierung (Standard: zuletzt gelesene Einstellungen).
      */
-    fun sync(enabled: Boolean, hasWork: Boolean = true, force: Boolean = false) {
+    fun sync(
+        enabled: Boolean,
+        hasWork: Boolean = true,
+        force: Boolean = false,
+        intervalMinutes: Int = settingsRepository.cached.backgroundIntervalMinutes,
+    ) {
         val action = BackgroundWorkPolicy.exactAction(
             enabled = enabled,
             permitted = canScheduleExact(),
@@ -48,6 +57,7 @@ class ExactCheckScheduler @Inject constructor(
             armedFor = if (pendingIntentExists(context)) prefs.getLong(KEY_ARMED_FOR, 0L) else 0L,
             now = System.currentTimeMillis(),
             force = force,
+            intervalMillis = BackgroundSchedule.exactIntervalMillis(intervalMinutes),
         )
         when (action) {
             BackgroundWorkPolicy.ExactAction.Cancel -> cancel()
@@ -61,8 +71,15 @@ class ExactCheckScheduler @Inject constructor(
         get() = prefs.getBoolean(KEY_OFFER_SHOWN, false)
         set(value) = prefs.edit { putBoolean(KEY_OFFER_SHOWN, value) }
 
-    /** Nächsten Wecker in 15 Min. stellen (nach jedem Lauf). */
-    fun rearm() = arm(BackgroundSchedule.nextExactAt(System.currentTimeMillis()))
+    /** Nächsten Wecker in einem Intervall stellen (nach jedem Lauf). */
+    fun rearm(intervalMinutes: Int = settingsRepository.cached.backgroundIntervalMinutes) =
+        arm(BackgroundSchedule.nextExactAt(System.currentTimeMillis(), BackgroundSchedule.exactIntervalMillis(intervalMinutes)))
+
+    /**
+     * Wecker gerade gestellt (gemerkt und PendingIntent noch da)? Dann ist WorkManager nur das Netz darunter
+     * ([BackgroundSchedule.dedupeWindowMillis]).
+     */
+    fun isArmed(): Boolean = prefs.contains(KEY_ARMED_FOR) && pendingIntentExists(context)
 
     private fun arm(at: Long) {
         val manager = alarmManager ?: return

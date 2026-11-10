@@ -255,4 +255,6 @@
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">નોંધાયેલા ભાવ વગરનાં માર્કેટ મૂલ્યો (ફી, ભેટ/ચુકવણી, સ્વૉપ, રિવૉર્ડ, નેટવર્ક ફી, પોર્ટફોલિયો મૂલ્ય) વ્યવહારના દિવસના દૈનિક બંધ ભાવે (UTC)</string>
+    <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
+    <string name="tax_export_file_contents">ફાઇલોમાં હોલ્ડિંગ્સ, રકમ, તારીખો અને સરનામાં છે.</string>
 </resources>

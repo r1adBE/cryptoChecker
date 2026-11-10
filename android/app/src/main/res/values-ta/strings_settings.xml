@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">திறந்திருக்கும் விழிப்பூட்டல் அறிவிப்புகளைக் கணக்கிடும். எண் தோன்றுமா புள்ளி தோன்றுமா என்பது முகப்புத் திரையைப் பொறுத்தது (எ.கா. Samsung: “எண்ணுடன் காட்டு”).</string>
     <string name="settings_exact_checks">சரியான நேரத்தில் சரிபார்க்கவும்</string>
     <string name="settings_exact_checks_grant">அலாரங்கள் &amp; நினைவூட்டல்களை அனுமதிக்கவும்</string>
-    <string name="settings_exact_checks_hint">சாதனம் செயலற்று இருந்தாலும் Android சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும் சரிபார்க்கும். சற்று அதிக பேட்டரியைப் பயன்படுத்தும்.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">சாதனம் செயலற்று இருந்தாலும் Android சுமார் ஒவ்வொரு %d நிமிடத்துக்கும் சரிபார்க்கும். சற்று அதிக பேட்டரியைப் பயன்படுத்தும்.</item>
+        <item quantity="other">சாதனம் செயலற்று இருந்தாலும் Android சுமார் ஒவ்வொரு %d நிமிடத்துக்கும் சரிபார்க்கும். சற்று அதிக பேட்டரியைப் பயன்படுத்தும்.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">செயலில் உள்ள ஜோடிகள் இல்லை – சரிபார்க்க எதுவுமில்லை.</string>
     <string name="settings_exact_checks_permission_missing">அனுமதி இல்லை – சாதனம் ஓய்வில் இருக்கும்போது Android ஒழுங்கற்ற இடைவெளிகளில், சில நேரம் மணிநேரங்களுக்குப் பிறகே சரிபார்க்கும்.</string>
     <string name="settings_notification_change">விலை மாறும்போது மட்டும் தெரிவிக்கவும்</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">அப்போது உங்கள் Bitcoin முகவரிகளும் xpub கீகளும் பொது நோட்களில் வினவப்படும்: %1$s. அவை இந்த முகவரிகளை உங்கள் IP முகவரியுடன் சேர்த்துப் பார்க்கும்.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">பொது நோட்களைப் பயன்படுத்தவும்</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ஆஃப், பூட்டுடன்</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">எல்லா ஆண்டுகளையும் மீண்டும் கணக்கிடும்: முந்தைய ஆண்டுகளின் வாங்கிய விலை, ஈட்டிய லாபம், வரி பணித்தாள்களும் மாறும்.</string>
+    <string name="settings_portfolio_system_backup_confirm">அப்போது உங்கள் பரிவர்த்தனைகள், போர்ட்ஃபோலியோ விழிப்பூட்டல்கள், கண்காணிக்கும் முகவரிகள் Android காப்புப்பிரதியிலும் (எ.கா. உங்கள் Google கணக்கு) புதிய சாதனத்துக்கு மாற்றுவதிலும் சேரும் – முழுமையாக மறையாக்கப்பட்டால் மட்டும்.</string>
 </resources>

@@ -39,7 +39,11 @@
     <string name="settings_app_badge_hint">Compte les notifications d’alerte ouvertes. Le lanceur décide s’il affiche un nombre ou un point (p. ex. Samsung : «Avec nombre»).</string>
     <string name="settings_exact_checks">Vérifier à l’heure</string>
     <string name="settings_exact_checks_grant">Autoriser « Alarmes et rappels »</string>
-    <string name="settings_exact_checks_hint">Android vérifie environ toutes les 15 minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android vérifie environ toutes les %d minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</item>
+        <item quantity="many">Android vérifie environ toutes les %d minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</item>
+        <item quantity="other">Android vérifie environ toutes les %d minutes, même quand l’appareil est en veille. Consomme un peu plus de batterie.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Aucune paire active – rien à vérifier.</string>
     <string name="settings_exact_checks_permission_missing">Autorisation manquante – appareil en veille, Android vérifie irrégulièrement, parfois après des heures.</string>
     <string name="settings_notification_change">Notifier seulement si le prix varie</string>
@@ -328,4 +332,9 @@
     <string name="settings_address_server_public_text">Tes adresses Bitcoin et tes xpub seront alors interrogées auprès de nœuds publics : %1$s. Ceux-ci voient ces adresses avec ton adresse IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Utiliser les nœuds publics</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Non, avec verrou</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Recalcule toutes les années : le coût, les gains réalisés et les feuilles fiscales des années précédentes changent aussi.</string>
+    <string name="settings_portfolio_system_backup_confirm">Tes transactions, alertes de portefeuille et adresses suivies iront alors dans la sauvegarde Android (p. ex. ton compte Google) et dans le transfert vers un nouvel appareil – uniquement chiffrées de bout en bout.</string>
 </resources>

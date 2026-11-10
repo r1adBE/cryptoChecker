@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ઊંચું મહત્ત્વ – સ્ક્રીન પર દેખાય છે</string>
     <string name="delivery_channel_low">ઓછું મહત્ત્વ – એલર્ટ ફક્ત યાદીમાં શાંતિથી દેખાય છે</string>
     <string name="delivery_channel_off">બંધ કરેલ – એલર્ટ નહીં પહોંચે</string>
-    <string name="delivery_exact_on">ચાલુ – લગભગ દર 15 મિનિટે</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ચાલુ – લગભગ દર %d મિનિટે</item>
+        <item quantity="other">ચાલુ – લગભગ દર %d મિનિટે</item>
+    </plurals>
     <string name="delivery_exact_off">બંધ – Android અનિયમિત રીતે તપાસે છે</string>
     <string name="delivery_battery">બૅટરી ઑપ્ટિમાઇઝેશન</string>
     <string name="delivery_battery_unrestricted">અપ્રતિબંધિત</string>

@@ -39,7 +39,12 @@
     <string name="settings_app_badge_hint">Liczy otwarte powiadomienia o alarmach. Czy pojawi się liczba, czy kropka, decyduje ekran główny (np. Samsung: „Z liczbą”).</string>
     <string name="settings_exact_checks">Sprawdzaj punktualnie</string>
     <string name="settings_exact_checks_grant">Zezwól na „Alarmy i przypomnienia”</string>
-    <string name="settings_exact_checks_hint">Android sprawdza mniej więcej co 15 minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android sprawdza mniej więcej co %d minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</item>
+        <item quantity="few">Android sprawdza mniej więcej co %d minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</item>
+        <item quantity="many">Android sprawdza mniej więcej co %d minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</item>
+        <item quantity="other">Android sprawdza mniej więcej co %d minut, także gdy urządzenie jest bezczynne. Zużywa nieco więcej baterii.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Brak aktywnych par – nie ma czego sprawdzać.</string>
     <string name="settings_exact_checks_permission_missing">Brak uprawnienia – gdy urządzenie odpoczywa, Android sprawdza nieregularnie, czasem dopiero po godzinach.</string>
     <string name="settings_notification_change">Powiadamiaj tylko przy zmianie ceny</string>
@@ -330,4 +335,9 @@
     <string name="settings_address_server_public_text">Twoje adresy Bitcoin i xpub będą wtedy sprawdzane w publicznych węzłach: %1$s. Widzą one te adresy razem z twoim adresem IP.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Użyj publicznych węzłów</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Wył., z blokadą</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Przelicza wszystkie lata: zmienią się też koszt nabycia, zrealizowane zyski i arkusze podatkowe z wcześniejszych lat.</string>
+    <string name="settings_portfolio_system_backup_confirm">Twoje transakcje, alerty portfela i obserwowane adresy trafią wtedy do kopii zapasowej Androida (np. na Twoje konto Google) i do przenoszenia na nowe urządzenie – tylko z szyfrowaniem end-to-end.</string>
 </resources>

@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">중요도 높음 – 화면 상단에 표시됩니다</string>
     <string name="delivery_channel_low">중요도 낮음 – 경보가 목록에 조용히만 표시됩니다</string>
     <string name="delivery_channel_off">꺼짐 – 경보가 도착하지 않습니다</string>
-    <string name="delivery_exact_on">켬 – 약 15분마다</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">켬 – 약 %d분마다</item>
+    </plurals>
     <string name="delivery_exact_off">끔 – Android가 불규칙하게 확인합니다</string>
     <string name="delivery_battery">배터리 최적화</string>
     <string name="delivery_battery_unrestricted">제한 없음</string>

@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Magas fontosság – a képernyő tetején jelenik meg</string>
     <string name="delivery_channel_low">Alacsony fontosság – a riasztások csak csendben jelennek meg a listában</string>
     <string name="delivery_channel_off">Kikapcsolva – a riasztások nem érkeznek meg</string>
-    <string name="delivery_exact_on">Bekapcsolva – nagyjából 15 percenként</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Bekapcsolva – nagyjából %d percenként</item>
+        <item quantity="other">Bekapcsolva – nagyjából %d percenként</item>
+    </plurals>
     <string name="delivery_exact_off">Kikapcsolva – az Android rendszertelenül ellenőriz</string>
     <string name="delivery_battery">Akkumulátor-optimalizálás</string>
     <string name="delivery_battery_unrestricted">Nincs korlátozva</string>

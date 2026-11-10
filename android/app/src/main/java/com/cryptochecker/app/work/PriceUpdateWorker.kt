@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.notification.AppNotifier
@@ -54,7 +55,15 @@ class PriceUpdateWorker @AssistedInject constructor(
             // nach einer Prüfung, wartet auf Ansagen (höchstens 15 s) und vermerkt «Letzte Prüfungen».
             // Netz garantiert die Bedingung CONNECTED (kein Überspringen wegen veraltetem «offline»).
             val trigger = if (manual) CheckTrigger.WIDGET else CheckTrigger.WORKER
-            val summary = backgroundCheck.run(trigger, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS)
+            // «Pünktlich prüfen» gestellt: der Wecker gibt den Takt vor, dieser Lauf nur, wenn er ein Intervall ausblieb
+            val window = BackgroundSchedule.dedupeWindowMillis(
+                trigger,
+                exactArmed = exactScheduler.isArmed(),
+                intervalMillis = BackgroundSchedule.exactIntervalMillis(settingsRepository.current().backgroundIntervalMinutes),
+            )
+            val summary = backgroundCheck.run(
+                trigger, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS, dedupeWindowMillis = window,
+            )
             // Netz unter dem Wecker «Pünktlich prüfen»: fehlt er (z. B. Paare neu hinzugefügt), neu stellen
             if (BackgroundWorkPolicy.syncsExactAfterRun(manual)) syncExact()
             if (summary == null) return BackgroundWorkPolicy.outcomeAfterRun.toResult()
@@ -98,7 +107,10 @@ class PriceUpdateWorker @AssistedInject constructor(
     /** Wecker «Pünktlich prüfen» abgleichen (stellt nur, wenn keiner gestellt ist); Fehler bleiben still. */
     private suspend fun syncExact() {
         runCatchingCancellable {
-            exactScheduler.sync(settingsRepository.current().exactChecks, hasWork = backgroundCheck.hasWork())
+            val settings = settingsRepository.current()
+            exactScheduler.sync(
+                settings.exactChecks, hasWork = backgroundCheck.hasWork(), intervalMinutes = settings.backgroundIntervalMinutes,
+            )
         }
     }
 

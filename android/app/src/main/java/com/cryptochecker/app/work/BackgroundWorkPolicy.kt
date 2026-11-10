@@ -38,9 +38,11 @@ object BackgroundWorkPolicy {
         armedFor: Long,
         now: Long,
         force: Boolean = false,
+        intervalMillis: Long = BackgroundSchedule.EXACT_INTERVAL_MILLIS,
     ): ExactAction = when {
         !BackgroundSchedule.shouldArmExact(enabled, permitted, hasWork) -> ExactAction.Cancel
-        BackgroundSchedule.needsArm(armedFor, now, force) -> ExactAction.Arm(BackgroundSchedule.nextExactAt(now))
+        BackgroundSchedule.needsArm(armedFor, now, force, intervalMillis) ->
+            ExactAction.Arm(BackgroundSchedule.nextExactAt(now, intervalMillis))
         else -> ExactAction.Keep
     }
 

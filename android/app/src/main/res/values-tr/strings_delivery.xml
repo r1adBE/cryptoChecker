@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Yüksek önem – ekranın üstünde görünür</string>
     <string name="delivery_channel_low">Düşük önem – alarmlar listede yalnızca sessizce görünür</string>
     <string name="delivery_channel_off">Kapatıldı – alarmlar ulaşmaz</string>
-    <string name="delivery_exact_on">Açık – yaklaşık 15 dakikada bir</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Açık – yaklaşık %d dakikada bir</item>
+        <item quantity="other">Açık – yaklaşık %d dakikada bir</item>
+    </plurals>
     <string name="delivery_exact_off">Kapalı – Android düzensiz kontrol eder</string>
     <string name="delivery_battery">Pil optimizasyonu</string>
     <string name="delivery_battery_unrestricted">Kısıtlanmamış</string>

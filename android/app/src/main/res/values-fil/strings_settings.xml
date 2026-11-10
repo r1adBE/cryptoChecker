@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Binibilang ang mga bukas na notification ng alerto. Ang home screen ang nagpapasya kung numero o tuldok ang lalabas (hal. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">Sumuri sa takdang oras</string>
     <string name="settings_exact_checks_grant">Payagan ang mga alarm &amp; paalala</string>
-    <string name="settings_exact_checks_hint">Sumusuri ang Android mga bawat 15 minuto, kahit idle ang device. Gumagamit ng bahagyang mas maraming baterya.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Sumusuri ang Android mga bawat %d minuto, kahit idle ang device. Gumagamit ng bahagyang mas maraming baterya.</item>
+        <item quantity="other">Sumusuri ang Android mga bawat %d minuto, kahit idle ang device. Gumagamit ng bahagyang mas maraming baterya.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Walang aktibong pares – walang susuriin.</string>
     <string name="settings_exact_checks_permission_missing">Walang pahintulot – habang nagpapahinga ang device, hindi regular ang pagsusuri ng Android, minsan pagkalipas lang ng ilang oras.</string>
     <string name="settings_notification_change">Mag-notify lang kapag nagbago ang presyo</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Tatanungin na sa mga pampublikong node ang mga Bitcoin address at xpub key mo: %1$s. Nakikita nila ang mga address na ito kasama ng IP address mo.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Gamitin ang mga pampublikong node</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Naka-off, may lock</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Kinukuwentang muli ang lahat ng taon: magbabago rin ang cost basis, realized na kita at mga tax worksheet ng mga nakaraang taon.</string>
+    <string name="settings_portfolio_system_backup_confirm">Mapupunta noon ang iyong mga transaksyon, alerto ng portfolio at binabantayang address sa Android backup (hal. sa iyong Google account) at sa paglipat sa bagong device – end-to-end encrypted lamang.</string>
 </resources>

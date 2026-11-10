@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">کھلی الرٹ اطلاعات گنتا ہے۔ نمبر دکھے یا نقطہ، یہ ہوم اسکرین پر منحصر ہے (مثلاً Samsung: “نمبر کے ساتھ دکھائیں”)۔</string>
     <string name="settings_exact_checks">بروقت جانچ</string>
     <string name="settings_exact_checks_grant">الارمز اور یاد دہانیوں کی اجازت دیں</string>
-    <string name="settings_exact_checks_hint">آلہ بیکار ہو تب بھی Android تقریباً ہر 15 منٹ میں جانچتا ہے۔ تھوڑی زیادہ بیٹری استعمال ہوتی ہے۔</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">آلہ بیکار ہو تب بھی Android تقریباً ہر %d منٹ میں جانچتا ہے۔ تھوڑی زیادہ بیٹری استعمال ہوتی ہے۔</item>
+        <item quantity="other">آلہ بیکار ہو تب بھی Android تقریباً ہر %d منٹ میں جانچتا ہے۔ تھوڑی زیادہ بیٹری استعمال ہوتی ہے۔</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">کوئی فعال جوڑا نہیں – جانچنے کو کچھ نہیں۔</string>
     <string name="settings_exact_checks_permission_missing">اجازت نہیں – آلہ آرام میں ہو تو Android بے قاعدگی سے جانچتا ہے، کبھی کبھی گھنٹوں بعد۔</string>
     <string name="settings_notification_change">صرف قیمت بدلنے پر اطلاع دیں</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">آپ کے Bitcoin پتے اور xpub کیز پھر عوامی نوڈز پر طلب کی جائیں گی: %1$s۔ وہ یہ پتے آپ کے IP پتے کے ساتھ دیکھتے ہیں۔</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">عوامی نوڈز استعمال کریں</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">بند، لاک کے ساتھ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">تمام برسوں کا دوبارہ حساب ہوتا ہے: پچھلے برسوں کی خریداری لاگت، حاصل شدہ منافع اور ٹیکس ورک شیٹس بھی بدل جاتی ہیں۔</string>
+    <string name="settings_portfolio_system_backup_confirm">پھر آپ کی ٹرانزیکشنز، پورٹ فولیو الرٹس اور زیرِ نگرانی پتے Android بیک اپ (مثلاً آپ کے Google اکاؤنٹ) اور نئے آلے پر منتقلی میں شامل ہوں گے – صرف اینڈ ٹو اینڈ انکرپٹڈ۔</string>
 </resources>

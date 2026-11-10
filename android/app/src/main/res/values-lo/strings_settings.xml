@@ -39,7 +39,9 @@
     <string name="settings_app_badge_hint">ນັບການແຈ້ງເຕືອນສັນຍານເຕືອນທີ່ຍັງເປີດຢູ່. ຈະສະແດງເປັນຕົວເລກ ຫຼື ຈຸດແມ່ນຂຶ້ນກັບໜ້າຈໍຫຼັກ (ເຊັ່ນ Samsung: “ສະແດງພ້ອມຕົວເລກ”).</string>
     <string name="settings_exact_checks">ກວດຕາມເວລາ</string>
     <string name="settings_exact_checks_grant">ອະນຸຍາດໂມງປຸກ &amp; ການເຕືອນຄວາມຈຳ</string>
-    <string name="settings_exact_checks_hint">Android ກວດປະມານທຸກໆ 15 ນາທີ, ເຖິງແມ່ນອຸປະກອນບໍ່ໄດ້ໃຊ້ງານ. ໃຊ້ແບັດເຕີຣີຫຼາຍຂຶ້ນເລັກນ້ອຍ.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="other">Android ກວດປະມານທຸກໆ %d ນາທີ, ເຖິງແມ່ນອຸປະກອນບໍ່ໄດ້ໃຊ້ງານ. ໃຊ້ແບັດເຕີຣີຫຼາຍຂຶ້ນເລັກນ້ອຍ.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">ບໍ່ມີຄູ່ເທຣດທີ່ເປີດຢູ່ – ບໍ່ມີຫຍັງຕ້ອງກວດ.</string>
     <string name="settings_exact_checks_permission_missing">ຂາດການອະນຸຍາດ – ໃນຂະນະທີ່ອຸປະກອນພັກ, Android ກວດບໍ່ສະໝ່ຳສະເໝີ, ບາງຄັ້ງຫຼັງຈາກຫຼາຍຊົ່ວໂມງ.</string>
     <string name="settings_notification_change">ແຈ້ງເຕືອນສະເພາະເມື່ອລາຄາປ່ຽນ</string>
@@ -324,4 +326,9 @@
     <string name="settings_address_server_public_text">ທີ່ຢູ່ Bitcoin ແລະ ກະແຈ xpub ຂອງທ່ານຈະຖືກສອບຖາມທີ່ node ສາທາລະນະ: %1$s. ພວກເຂົາເຫັນທີ່ຢູ່ເຫຼົ່ານີ້ພ້ອມກັບທີ່ຢູ່ IP ຂອງທ່ານ.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">ໃຊ້ node ສາທາລະນະ</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">ປິດ, ພ້ອມລັອກ</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">ຄິດໄລ່ທຸກປີໃໝ່: ຕົ້ນທຶນ, ກຳໄລທີ່ໄດ້ຮັບ ແລະ ແຜ່ນວຽກພາສີຂອງປີກ່ອນໆກໍ່ປ່ຽນນຳ.</string>
+    <string name="settings_portfolio_system_backup_confirm">ທຸລະກຳ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ Android (ເຊັ່ນ ບັນຊີ Google ຂອງທ່ານ) ແລະ ການຍ້າຍໄປອຸປະກອນໃໝ່ – ສະເພາະແບບເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງເທົ່ານັ້ນ.</string>
 </resources>

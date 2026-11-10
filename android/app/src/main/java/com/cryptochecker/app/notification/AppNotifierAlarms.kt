@@ -160,7 +160,9 @@ fun AppNotifier.canShowPortfolioAlarm(): Boolean {
  * Prozent). Gleicher Kanal wie die Paar-Alarme («Alarm-Signal»; in der Nachtruhe löst
  * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp
  * öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier; mit Portfolio-Sperre steht wie
- * auf iOS nur ein neutraler Satz ohne Schwelle, Beträge und Prozente da.
+ * auf iOS nur ein neutraler Satz ohne Schwelle, Beträge und Prozente da. Auf dem Sperrbildschirm immer privat
+ * (VISIBILITY_PRIVATE, öffentlich nur Titel und der neutrale Satz) — auch ohne Portfolio-Sperre (Entscheid des Inhabers;
+ * Kursalarme folgen weiter der Sperre, [lockScreenPrivacy]).
  * @return true erst, wenn die Meldung unter den offenen Mitteilungen steht ([awaitActive]) —
  *   sonst bleibt der Alarm scharf (PortfolioAlarmChecker), wie bei [showAlarm].
  */
@@ -195,17 +197,16 @@ suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured
         .appBadge()
         .setGroup(Group.ALARMS.key)
         .setContentIntent(openTargetIntent(OPEN_PORTFOLIO, PORTFOLIO_REQUEST_CODE))
-    if (settings.appLock) {
-        builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-            .setPublicVersion(
-                NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.drawable.ic_stat_logo)
-                    .setColor(settings.accentColor.seed)
-                    .setContentTitle(title)
-                    .setContentText(locked)
-                    .build()
-            )
-    }
+    // Immer privat auf dem Sperrbildschirm, unabhängig von der Portfolio-Sperre: dort nur Titel und neutraler Satz
+    builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+        .setPublicVersion(
+            NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.ic_stat_logo)
+                .setColor(settings.accentColor.seed)
+                .setContentTitle(title)
+                .setContentText(locked)
+                .build()
+        )
     if (quiet) builder.setSilent(true)
     val id = portfolioAlarmNotificationId(alarm.id)
     makeRoomForAlarm(id)

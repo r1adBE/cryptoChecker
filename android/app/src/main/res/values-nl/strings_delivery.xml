@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Hoge prioriteit – verschijnt boven in beeld</string>
     <string name="delivery_channel_low">Lage prioriteit – alarmen verschijnen alleen stil in de lijst</string>
     <string name="delivery_channel_off">Uitgeschakeld – alarmen komen niet aan</string>
-    <string name="delivery_exact_on">Aan – ongeveer elke 15 minuten</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Aan – ongeveer elke %d minuten</item>
+        <item quantity="other">Aan – ongeveer elke %d minuten</item>
+    </plurals>
     <string name="delivery_exact_off">Uit – Android controleert onregelmatig</string>
     <string name="delivery_battery">Batterijoptimalisatie</string>
     <string name="delivery_battery_unrestricted">Onbeperkt</string>

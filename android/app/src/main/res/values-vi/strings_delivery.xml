@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">Mức quan trọng cao – hiện ở đầu màn hình</string>
     <string name="delivery_channel_low">Mức quan trọng thấp – cảnh báo chỉ hiện im lặng trong danh sách</string>
     <string name="delivery_channel_off">Đã tắt – cảnh báo sẽ không đến</string>
-    <string name="delivery_exact_on">Bật – khoảng 15 phút một lần</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">Bật – khoảng %d phút một lần</item>
+    </plurals>
     <string name="delivery_exact_off">Tắt – Android kiểm tra không đều đặn</string>
     <string name="delivery_battery">Tối ưu hóa pin</string>
     <string name="delivery_battery_unrestricted">Không hạn chế</string>

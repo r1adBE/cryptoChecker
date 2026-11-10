@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Açık alarm bildirimlerini sayar. Sayı mı nokta mı görüneceğine ana ekran karar verir (ör. Samsung: “Sayıyla”).</string>
     <string name="settings_exact_checks">Zamanında kontrol et</string>
     <string name="settings_exact_checks_grant">“Alarmlar ve hatırlatıcılar” izni ver</string>
-    <string name="settings_exact_checks_hint">Android cihaz boştayken bile yaklaşık 15 dakikada bir kontrol eder. Biraz daha fazla pil kullanır.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android cihaz boştayken bile yaklaşık %d dakikada bir kontrol eder. Biraz daha fazla pil kullanır.</item>
+        <item quantity="other">Android cihaz boştayken bile yaklaşık %d dakikada bir kontrol eder. Biraz daha fazla pil kullanır.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Etkin çift yok – kontrol edilecek bir şey yok.</string>
     <string name="settings_exact_checks_permission_missing">İzin eksik – cihaz dinlenirken Android düzensiz kontrol eder, bazen ancak saatler sonra.</string>
     <string name="settings_notification_change">Yalnızca fiyat değişince bildir</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Bitcoin adreslerin ve xpub’ların bundan sonra herkese açık düğümlerde sorgulanır: %1$s. Bu düğümler adresleri IP adresinle birlikte görür.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Herkese açık düğümleri kullan</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Kapalı, kilitli</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Tüm yılları yeniden hesaplar: önceki yılların alış maliyeti, gerçekleşen kazançları ve vergi çalışma sayfaları da değişir.</string>
+    <string name="settings_portfolio_system_backup_confirm">İşlemlerin, portföy uyarıların ve izlenen adreslerin bu durumda Android yedeğine (ör. Google hesabına) ve yeni cihaza aktarıma girer – yalnızca uçtan uca şifreli olarak.</string>
 </resources>

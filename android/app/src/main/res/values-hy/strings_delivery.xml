@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Բարձր կարևորություն – հայտնվում է էկրանին</string>
     <string name="delivery_channel_low">Ցածր կարևորություն – ահազանգերը միայն անձայն հայտնվում են ցանկում</string>
     <string name="delivery_channel_off">Անջատված – ահազանգերը չեն հասնի</string>
-    <string name="delivery_exact_on">Միացված – մոտավորապես 15 րոպեն մեկ</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Միացված – մոտավորապես %d րոպեն մեկ</item>
+        <item quantity="other">Միացված – մոտավորապես %d րոպեն մեկ</item>
+    </plurals>
     <string name="delivery_exact_off">Անջատված – Android-ը ստուգում է անկանոն</string>
     <string name="delivery_battery">Մարտկոցի օպտիմալացում</string>
     <string name="delivery_battery_unrestricted">Առանց սահմանափակման</string>

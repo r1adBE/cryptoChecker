@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">زیادہ اہمیت – اسکرین پر ابھرتا ہے</string>
     <string name="delivery_channel_low">کم اہمیت – الرٹس صرف خاموشی سے فہرست میں نظر آتے ہیں</string>
     <string name="delivery_channel_off">بند کیا گیا – الرٹس نہیں پہنچیں گے</string>
-    <string name="delivery_exact_on">آن – تقریباً ہر 15 منٹ میں</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">آن – تقریباً ہر %d منٹ میں</item>
+        <item quantity="other">آن – تقریباً ہر %d منٹ میں</item>
+    </plurals>
     <string name="delivery_exact_off">بند – Android بے قاعدگی سے جانچتا ہے</string>
     <string name="delivery_battery">بیٹری آپٹیمائزیشن</string>
     <string name="delivery_battery_unrestricted">غیر محدود</string>

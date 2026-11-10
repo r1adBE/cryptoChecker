@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Hoë belangrikheid – verskyn op die skerm</string>
     <string name="delivery_channel_low">Lae belangrikheid – alarms verskyn net stil in die lys</string>
     <string name="delivery_channel_off">Afgeskakel – alarms sal nie aankom nie</string>
-    <string name="delivery_exact_on">Aan – ongeveer elke 15 minute</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Aan – ongeveer elke %d minute</item>
+        <item quantity="other">Aan – ongeveer elke %d minute</item>
+    </plurals>
     <string name="delivery_exact_off">Af – Android kontroleer onreëlmatig</string>
     <string name="delivery_battery">Batteryoptimalisering</string>
     <string name="delivery_battery_unrestricted">Onbeperk</string>

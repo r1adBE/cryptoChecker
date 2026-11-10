@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">ખુલ્લી એલર્ટ સૂચનાઓ ગણે છે. સંખ્યા દેખાય કે ટપકું, તે હોમ સ્ક્રીન પર આધાર રાખે છે (દા.ત. Samsung: “Show with number”).</string>
     <string name="settings_exact_checks">સમયસર તપાસો</string>
     <string name="settings_exact_checks_grant">અલાર્મ અને રિમાઇન્ડરને મંજૂરી આપો</string>
-    <string name="settings_exact_checks_hint">ડિવાઇસ નિષ્ક્રિય હોય ત્યારે પણ Android લગભગ દર 15 મિનિટે તપાસે છે. થોડી વધુ બૅટરી વાપરે છે.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">ડિવાઇસ નિષ્ક્રિય હોય ત્યારે પણ Android લગભગ દર %d મિનિટે તપાસે છે. થોડી વધુ બૅટરી વાપરે છે.</item>
+        <item quantity="other">ડિવાઇસ નિષ્ક્રિય હોય ત્યારે પણ Android લગભગ દર %d મિનિટે તપાસે છે. થોડી વધુ બૅટરી વાપરે છે.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">કોઈ સક્રિય જોડી નથી – તપાસવા જેવું કંઈ નથી.</string>
     <string name="settings_exact_checks_permission_missing">મંજૂરી ખૂટે છે – ડિવાઇસ આરામમાં હોય ત્યારે Android અનિયમિત રીતે તપાસે છે, ક્યારેક કલાકો પછી જ.</string>
     <string name="settings_notification_change">ફક્ત ભાવ બદલાય ત્યારે જાણ કરો</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">ત્યારે તમારાં Bitcoin સરનામાં અને xpub કી સાર્વજનિક નોડ પર પૂછાશે: %1$s. તેઓ આ સરનામાં તમારા IP સરનામા સાથે જુએ છે.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">સાર્વજનિક નોડ વાપરો</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">બંધ, લૉક સાથે</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">બધા વર્ષો ફરી ગણે છે: અગાઉના વર્ષોની ખરીદ કિંમત, પ્રાપ્ત નફો અને કર વર્કશીટ પણ બદલાય છે.</string>
+    <string name="settings_portfolio_system_backup_confirm">ત્યારે તમારા વ્યવહારો, પોર્ટફોલિયો એલર્ટ અને જોવાયેલા સરનામાં Android બેકઅપમાં (જેમ કે તમારું Google એકાઉન્ટ) અને નવા ઉપકરણમાં ટ્રાન્સફરમાં જશે – ફક્ત એન્ડ-ટુ-એન્ડ એન્ક્રિપ્ટેડ.</string>
 </resources>

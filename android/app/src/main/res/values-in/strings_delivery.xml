@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">Prioritas tinggi – muncul di bagian atas layar</string>
     <string name="delivery_channel_low">Prioritas rendah – alarm hanya muncul tanpa suara di daftar</string>
     <string name="delivery_channel_off">Dinonaktifkan – alarm tidak akan sampai</string>
-    <string name="delivery_exact_on">Aktif – kira-kira setiap 15 menit</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">Aktif – kira-kira setiap %d menit</item>
+    </plurals>
     <string name="delivery_exact_off">Nonaktif – Android memeriksa tidak teratur</string>
     <string name="delivery_battery">Pengoptimalan baterai</string>
     <string name="delivery_battery_unrestricted">Tidak dibatasi</string>

@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">ከፍተኛ አስፈላጊነት – በማያ ገጹ ላይ ብቅ ይላል</string>
     <string name="delivery_channel_low">ዝቅተኛ አስፈላጊነት – ማንቂያዎች በዝርዝሩ ውስጥ በጸጥታ ብቻ ይታያሉ</string>
     <string name="delivery_channel_off">ጠፍቷል – ማንቂያዎች አይደርሱም</string>
-    <string name="delivery_exact_on">በርቷል – በግምት በየ15 ደቂቃው</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">በርቷል – በግምት በየ%d ደቂቃው</item>
+        <item quantity="other">በርቷል – በግምት በየ%d ደቂቃው</item>
+    </plurals>
     <string name="delivery_exact_off">ጠፍቷል – Android መደበኛ ባልሆነ ሁኔታ ይፈትሻል</string>
     <string name="delivery_battery">የባትሪ ማመቻቸት</string>
     <string name="delivery_battery_unrestricted">ያልተገደበ</string>

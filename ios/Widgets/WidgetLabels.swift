@@ -134,6 +134,7 @@ struct WidgetRefreshButton: View {
     var body: some View {
         let seconds = WidgetRefreshState.remainingSeconds(blockedUntil: blockedUntil,
                                                           now: Int64(date.timeIntervalSince1970 * 1000))
+        let outset = CGFloat(WidgetRefreshState.touchOutset(size: Double(size)))
         Button(intent: RefreshPricesIntent()) {
             Group {
                 if seconds > 0 {
@@ -153,9 +154,13 @@ struct WidgetRefreshButton: View {
             }
             .frame(width: size, height: size)
             .background(Circle().fill(palette.text.opacity(palette.dark ? 0.12 : 0.08)))
-            .contentShape(Circle())
+            // Trefferfläche mindestens 44 pt (sichtbar bleibt der Kreis in `size`); der negative Abstand gibt dem
+            // Layout die sichtbare Grösse zurück, die Kopfzeile verschiebt sich nicht
+            .padding(outset)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .padding(-outset)
         // VoiceOver: «Aktualisieren – wieder möglich in 12 s» statt der laufenden Ziffern
         .accessibilityLabel(seconds > 0 ? L("widget_refresh_blocked_a11y", seconds) : L("action_refresh"))
     }

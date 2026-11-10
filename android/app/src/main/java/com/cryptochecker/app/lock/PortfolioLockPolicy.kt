@@ -91,10 +91,11 @@ object PortfolioLockPolicy {
     fun quickAddNeedsUnlock(locked: Boolean): Boolean = locked
 
     /**
-     * Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio: nur mit eingeschaltetem Portfolio. Der Wert
-     * bleibt beim Ausblenden erhalten (Portfolio-Widget und Sicherung bleiben geschützt).
+     * Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio: mit eingeschaltetem Portfolio — und solange die Sperre
+     * an ist auch ohne (der Wert bleibt beim Ausblenden erhalten, Portfolio-Widget und Sicherung bleiben geschützt;
+     * ausschalten muss dann weiter möglich sein).
      */
-    fun showSetting(portfolioEnabled: Boolean): Boolean = portfolioEnabled
+    fun showSetting(portfolioEnabled: Boolean, lockOn: Boolean): Boolean = portfolioEnabled || lockOn
 
     /**
      * Fenster schützen (FLAG_SECURE: kein Vorschaubild in «Zuletzt verwendet», keine

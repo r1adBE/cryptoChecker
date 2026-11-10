@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">అధిక ప్రాధాన్యత – స్క్రీన్‌పై కనిపిస్తుంది</string>
     <string name="delivery_channel_low">తక్కువ ప్రాధాన్యత – అలర్ట్‌లు జాబితాలో నిశ్శబ్దంగా మాత్రమే కనిపిస్తాయి</string>
     <string name="delivery_channel_off">ఆఫ్ చేయబడింది – అలర్ట్‌లు చేరవు</string>
-    <string name="delivery_exact_on">ఆన్ – సుమారు ప్రతి 15 నిమిషాలకు</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">ఆన్ – సుమారు ప్రతి %d నిమిషాలకు</item>
+        <item quantity="other">ఆన్ – సుమారు ప్రతి %d నిమిషాలకు</item>
+    </plurals>
     <string name="delivery_exact_off">ఆఫ్ – Android క్రమరహితంగా తనిఖీ చేస్తుంది</string>
     <string name="delivery_battery">బ్యాటరీ ఆప్టిమైజేషన్</string>
     <string name="delivery_battery_unrestricted">పరిమితి లేదు</string>

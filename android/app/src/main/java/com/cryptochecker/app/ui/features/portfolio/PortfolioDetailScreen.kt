@@ -60,8 +60,8 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
- * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen = löschen,
- * mit «Rückgängig» im Banner (wie in der Merkliste).
+ * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen (oder TalkBack «Löschen») =
+ * dieselbe Rückfrage wie im Editor ([TxDeleteConfirmDialog]), erst dann gelöscht — ohne «Rückgängig», wie der Editor.
  */
 @Composable
 fun PortfolioDetailScreen(
@@ -90,21 +90,20 @@ fun PortfolioDetailScreen(
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
     val removedText = stringResource(R.string.portfolio_tx_removed)
+    // Gewischt bzw. TalkBack «Löschen»: Rückfrage offen für diese Transaktion
+    var confirmDelete by remember { mutableStateOf<PortfolioTxEntity?>(null) }
     // Nicht geschrieben: gesperrt bzw. Fehler nennen (wie iOS) statt «entfernt»
     val resources = LocalResources.current
 
-    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist. Auch nicht,
-    // solange ein Löschen auf sein Ergebnis wartet, dessen Banner noch nicht steht oder «Rückgängig» noch schreibt
+    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn das Banner «entfernt» vorbei ist. Auch nicht,
+    // solange ein Löschen auf sein Ergebnis wartet oder dessen Banner noch nicht steht
     val bannerData = banner.host.currentSnackbarData
     var deletesPending by remember { mutableIntStateOf(0) }
     var awaitingBanner by remember { mutableStateOf(false) }
-    var restorePending by remember { mutableStateOf(false) }
     LaunchedEffect(bannerData) { if (bannerData != null) awaitingBanner = false }
-    // «Rückgängig» geschrieben und wieder in der Liste: nicht mehr festhalten
-    LaunchedEffect(own.isNotEmpty(), restorePending) { if (restorePending && own.isNotEmpty()) restorePending = false }
     // Coin nur aus einer Adresse: bleibt offen
     val nothingLeft = all != null && own.isEmpty() && addressAmount == null
-    val holding = bannerData != null || deletesPending > 0 || awaitingBanner || restorePending
+    val holding = bannerData != null || deletesPending > 0 || awaitingBanner
     LaunchedEffect(nothingLeft, holding) {
         if (nothingLeft && !holding) onBack()
     }
@@ -112,24 +111,16 @@ fun PortfolioDetailScreen(
     var sheet by remember { mutableStateOf<TxDraft?>(null) }
 
     val haptics = rememberHaptics()
-    fun undo(tx: PortfolioTxEntity) {
-        restorePending = true
-        viewModel.restore(listOf(tx)) { result ->
-            if (result != PortfolioWriteResult.OK) {
-                restorePending = false
-                banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
-            }
-        }
-    }
+    // Erst nach der Rückfrage: löschen wie der Editor (ohne «Rückgängig»); Banner «entfernt» und Haptik erst nach dem
+    // Ergebnis (wie iOS)
     fun deleteTx(tx: PortfolioTxEntity) {
         deletesPending++
-        // Banner «entfernt» mit «Rückgängig» und Haptik erst nach dem Ergebnis (wie iOS)
         viewModel.delete(tx.id) { result ->
             deletesPending--
             if (result == PortfolioWriteResult.OK) {
                 haptics.play(HapticEvent.DESTRUCTIVE)
                 awaitingBanner = true
-                banner.show(removedText) { undo(tx) }
+                banner.show(removedText)
             } else {
                 banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
             }
@@ -138,6 +129,15 @@ fun PortfolioDetailScreen(
 
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
+    }
+    confirmDelete?.let { tx ->
+        TxDeleteConfirmDialog(
+            onConfirm = {
+                confirmDelete = null
+                deleteTx(tx)
+            },
+            onDismiss = { confirmDelete = null },
+        )
     }
     // «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben
     var costGapsOpen by remember { mutableStateOf(false) }
@@ -227,16 +227,18 @@ fun PortfolioDetailScreen(
                             SwipeActionsRow(
                                 enabled = true,
                                 favorite = false,
-                                onDelete = { deleteTx(tx) },
+                                onDelete = { confirmDelete = tx },
                                 onToggleFavorite = null,
                                 reduceMotion = reduceMotion,
-                                modifier = Modifier.animateItem()
+                                modifier = Modifier.animateItem(),
+                                // Rückfrage statt sofort: die Zeile gleitet zurück, gelöscht wird erst nach «Löschen»
+                                confirmsDelete = true,
                             ) {
                                 TxRow(
                                     tx = tx,
                                     coin = symbol,
                                     onClick = { sheet = tx.toDraft() },
-                                    onDelete = { deleteTx(tx) }
+                                    onDelete = { confirmDelete = tx }
                                 )
                             }
                         }

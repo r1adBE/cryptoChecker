@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Μετρά τις ανοιχτές ειδοποιήσεις συναγερμών. Αν εμφανίζεται αριθμός ή κουκκίδα το αποφασίζει η αρχική οθόνη (π.χ. Samsung: «Με αριθμό»).</string>
     <string name="settings_exact_checks">Έλεγχος στην ώρα του</string>
     <string name="settings_exact_checks_grant">Να επιτρέπονται «Ξυπνητήρια και υπενθυμίσεις»</string>
-    <string name="settings_exact_checks_hint">Το Android ελέγχει περίπου κάθε 15 λεπτά, ακόμη και όταν η συσκευή είναι σε αδράνεια. Καταναλώνει λίγο περισσότερη μπαταρία.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Το Android ελέγχει περίπου κάθε %d λεπτά, ακόμη και όταν η συσκευή είναι σε αδράνεια. Καταναλώνει λίγο περισσότερη μπαταρία.</item>
+        <item quantity="other">Το Android ελέγχει περίπου κάθε %d λεπτά, ακόμη και όταν η συσκευή είναι σε αδράνεια. Καταναλώνει λίγο περισσότερη μπαταρία.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Κανένα ενεργό ζεύγος – τίποτα για έλεγχο.</string>
     <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – όταν η συσκευή ηρεμεί, το Android ελέγχει ακανόνιστα, μερικές φορές μετά από ώρες.</string>
     <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Οι διευθύνσεις Bitcoin και τα xpub σου θα ερωτώνται τότε σε δημόσιους κόμβους: %1$s. Αυτοί βλέπουν τις διευθύνσεις μαζί με τη διεύθυνση IP σου.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Χρήση δημόσιων κόμβων</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Ανενεργό, με κλείδωμα</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Επανυπολογίζει όλα τα έτη: αλλάζουν και το κόστος αγοράς, τα πραγματοποιημένα κέρδη και τα φορολογικά φύλλα προηγούμενων ετών.</string>
+    <string name="settings_portfolio_system_backup_confirm">Οι συναλλαγές, οι ειδοποιήσεις χαρτοφυλακίου και οι παρακολουθούμενες διευθύνσεις σου θα μπαίνουν τότε στο αντίγραφο ασφαλείας Android (π.χ. στον λογαριασμό Google) και στη μεταφορά σε νέα συσκευή – μόνο με κρυπτογράφηση από άκρο σε άκρο.</string>
 </resources>

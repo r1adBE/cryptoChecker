@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Umuhimu wa juu – inaibuka kwenye skrini</string>
     <string name="delivery_channel_low">Umuhimu wa chini – kengele zinaonekana kimya kwenye orodha tu</string>
     <string name="delivery_channel_off">Kimezimwa – kengele hazitafika</string>
-    <string name="delivery_exact_on">Imewashwa – takriban kila dakika 15</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Imewashwa – takriban kila dakika %d</item>
+        <item quantity="other">Imewashwa – takriban kila dakika %d</item>
+    </plurals>
     <string name="delivery_exact_off">Imezimwa – Android hukagua bila mpangilio</string>
     <string name="delivery_battery">Uboreshaji wa betri</string>
     <string name="delivery_battery_unrestricted">Bila vikwazo</string>

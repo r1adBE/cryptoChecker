@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Tärkeys korkea – näkyy näytön yläosassa</string>
     <string name="delivery_channel_low">Tärkeys matala – hälytykset näkyvät vain äänettömästi luettelossa</string>
     <string name="delivery_channel_off">Poistettu käytöstä – hälytykset eivät tule perille</string>
-    <string name="delivery_exact_on">Päällä – noin 15 minuutin välein</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Päällä – noin %d minuutin välein</item>
+        <item quantity="other">Päällä – noin %d minuutin välein</item>
+    </plurals>
     <string name="delivery_exact_off">Pois – Android tarkistaa epäsäännöllisesti</string>
     <string name="delivery_battery">Akun optimointi</string>
     <string name="delivery_battery_unrestricted">Ei rajoitettu</string>

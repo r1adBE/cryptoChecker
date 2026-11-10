@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Loeb avatud hoiatusmärguandeid. Kas kuvatakse arv või punkt, otsustab avakuva (nt Samsung: „Näita numbriga“).</string>
     <string name="settings_exact_checks">Kontrolli õigel ajal</string>
     <string name="settings_exact_checks_grant">Luba alarmid ja meeldetuletused</string>
-    <string name="settings_exact_checks_hint">Android kontrollib umbes iga 15 minuti järel, isegi kui seade on jõude. Kasutab veidi rohkem akut.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android kontrollib umbes iga %d minuti järel, isegi kui seade on jõude. Kasutab veidi rohkem akut.</item>
+        <item quantity="other">Android kontrollib umbes iga %d minuti järel, isegi kui seade on jõude. Kasutab veidi rohkem akut.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Aktiivseid paare pole – pole midagi kontrollida.</string>
     <string name="settings_exact_checks_permission_missing">Luba puudub – kui seade on puhkeolekus, kontrollib Android ebaregulaarselt, mõnikord alles tundide pärast.</string>
     <string name="settings_notification_change">Teavita ainult hinnamuutusel</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Sinu Bitcoini aadresse ja xpub-võtmeid päritakse siis avalikest sõlmedest: %1$s. Need näevad neid aadresse koos sinu IP-aadressiga.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Kasuta avalikke sõlmi</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Väljas, lukuga</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Arvutab kõik aastad ümber: muutuvad ka varasemate aastate soetusmaksumus, realiseeritud kasum ja maksutöölehed.</string>
+    <string name="settings_portfolio_system_backup_confirm">Sinu tehingud, portfelli hoiatused ja jälgitavad aadressid lähevad siis Androidi varukoopiasse (nt sinu Google\'i kontole) ja uude seadmesse ülekandmisse – ainult otsast lõpuni krüpteeritult.</string>
 </resources>

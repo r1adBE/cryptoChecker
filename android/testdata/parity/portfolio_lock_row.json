@@ -1,0 +1,9 @@
+{
+  "_comment": "Einstellungen › Portfolio: Zeile «Portfolio-Sperre» sichtbar (PortfolioLockPolicy.showSetting) und Kurzwert der Zeile «Portfolio» (SettingsSummary.portfolio: off, offLocked, on, locked). Eine eingeschaltete Sperre bleibt bei ausgeblendetem Portfolio wirksam (Widget, Sicherung) — Zeile bleibt erreichbar, Kurzwert sagt «Aus, mit Sperre». Gemeinsam für PortfolioLockRowParityTest.kt und PortfolioLockRowParityTests.swift.",
+  "cases": [
+    { "name": "tab off, lock off", "portfolioEnabled": false, "lock": false, "showSetting": false, "summary": "off" },
+    { "name": "tab off, lock on", "portfolioEnabled": false, "lock": true, "showSetting": true, "summary": "offLocked" },
+    { "name": "tab on, lock off", "portfolioEnabled": true, "lock": false, "showSetting": true, "summary": "on" },
+    { "name": "tab on, lock on", "portfolioEnabled": true, "lock": true, "showSetting": true, "summary": "locked" }
+  ]
+}

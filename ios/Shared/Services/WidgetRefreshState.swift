@@ -65,4 +65,11 @@ enum WidgetRefreshState {
                          windowMillis: Int64 = RefreshDebounce.windowMillis) -> Int64? {
         remainingMillis(blockedUntil: blockedUntil, now: now, windowMillis: windowMillis) > 0 ? blockedUntil : nil
     }
+
+    /// Mindestgrösse der Trefferfläche (Apple HIG: 44 pt) — wie das Android-Listenwidget (48 dp).
+    static let minTouchTarget: Double = 44
+
+    /// Rand um das sichtbare Symbol (`size` pt), damit die Trefferfläche mindestens `minTouchTarget` misst; das
+    /// Layout behält die sichtbare Grösse (negativer Abstand in `WidgetRefreshButton`).
+    static func touchOutset(size: Double) -> Double { max(0, (minTouchTarget - size) / 2) }
 }

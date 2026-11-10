@@ -149,3 +149,15 @@ final class FearGreedBoundChangeTests: XCTestCase {
         XCTAssertTrue(MarketNoticeGate.boundChanged(stored: nil, current: 20))
     }
 }
+
+/// Portfolio-Alarme auf dem Sperrbildschirm immer privat: Kategorie mit neutraler verborgener Vorschau,
+/// unabhängig von der Portfolio-Sperre — wie Android VISIBILITY_PRIVATE.
+final class PortfolioAlarmLockScreenTests: XCTestCase {
+    func testPortfolioAlarmCategoryIsAlwaysPrivate() throws {
+        XCTAssertEqual(Notifier.categoryPortfolioLocked, "portfolio_locked")
+        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+        let source = try String(contentsOf: root.appendingPathComponent("Shared/Services/Notifier.swift"), encoding: .utf8)
+        XCTAssertTrue(source.contains("content.categoryIdentifier = categoryPortfolioLocked\n"))
+        XCTAssertFalse(source.contains("settings.appLock ? categoryPortfolioLocked : categoryAlarm"))
+    }
+}

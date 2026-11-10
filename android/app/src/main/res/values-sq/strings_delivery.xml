@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Rëndësi e lartë – shfaqet në krye të ekranit</string>
     <string name="delivery_channel_low">Rëndësi e ulët – alarmet shfaqen vetëm në heshtje në listë</string>
     <string name="delivery_channel_off">I çaktivizuar – alarmet nuk arrijnë</string>
-    <string name="delivery_exact_on">Aktiv – afërsisht çdo 15 minuta</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Aktiv – afërsisht çdo %d minuta</item>
+        <item quantity="other">Aktiv – afërsisht çdo %d minuta</item>
+    </plurals>
     <string name="delivery_exact_off">Joaktiv – Android kontrollon në mënyrë të parregullt</string>
     <string name="delivery_battery">Optimizimi i baterisë</string>
     <string name="delivery_battery_unrestricted">I pakufizuar</string>

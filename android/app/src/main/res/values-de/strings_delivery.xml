@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Wichtigkeit hoch – erscheint oben auf dem Bildschirm</string>
     <string name="delivery_channel_low">Wichtigkeit niedrig – Alarme erscheinen nur still in der Liste</string>
     <string name="delivery_channel_off">Ausgeschaltet – Alarme kommen nicht an</string>
-    <string name="delivery_exact_on">An – etwa alle 15 Minuten</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">An – etwa alle %d Minuten</item>
+        <item quantity="other">An – etwa alle %d Minuten</item>
+    </plurals>
     <string name="delivery_exact_off">Aus – Android prüft unregelmässig</string>
     <string name="delivery_battery">Akku-Optimierung</string>
     <string name="delivery_battery_unrestricted">Nicht eingeschränkt</string>

@@ -15,7 +15,10 @@
     <string name="delivery_channel_high">Høj prioritet – vises øverst på skærmen</string>
     <string name="delivery_channel_low">Lav prioritet – alarmer vises kun lydløst på listen</string>
     <string name="delivery_channel_off">Slået fra – alarmer når ikke frem</string>
-    <string name="delivery_exact_on">Til – cirka hvert 15. minut</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Til – cirka hvert %d. minut</item>
+        <item quantity="other">Til – cirka hvert %d. minut</item>
+    </plurals>
     <string name="delivery_exact_off">Fra – Android tjekker uregelmæssigt</string>
     <string name="delivery_battery">Batterioptimering</string>
     <string name="delivery_battery_unrestricted">Ikke begrænset</string>

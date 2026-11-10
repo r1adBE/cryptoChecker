@@ -15,7 +15,12 @@
     <string name="delivery_channel_high">Didelė svarba – iššoka ekrane</string>
     <string name="delivery_channel_low">Maža svarba – įspėjimai tik tyliai atsiranda sąraše</string>
     <string name="delivery_channel_off">Išjungta – įspėjimai nepasieks</string>
-    <string name="delivery_exact_on">Įjungta – maždaug kas 15 minučių</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Įjungta – maždaug kas %d minučių</item>
+        <item quantity="few">Įjungta – maždaug kas %d minučių</item>
+        <item quantity="many">Įjungta – maždaug kas %d minučių</item>
+        <item quantity="other">Įjungta – maždaug kas %d minučių</item>
+    </plurals>
     <string name="delivery_exact_off">Išjungta – Android tikrina nereguliariai</string>
     <string name="delivery_battery">Akumuliatoriaus optimizavimas</string>
     <string name="delivery_battery_unrestricted">Neribojama</string>

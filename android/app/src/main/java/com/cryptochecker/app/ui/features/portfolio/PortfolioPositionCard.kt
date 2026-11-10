@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -27,7 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.AddressWithdrawalMatch
 import com.cryptochecker.app.domain.portfolio.CoinPosition
@@ -67,11 +72,19 @@ internal fun PositionCard(
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Text(
+                // Zu eng (grosse Schrift, grosser Betrag): schrittweise bis 60 % kleiner statt Ziffern abzuschneiden
+                // (wie iOS minimumScaleFactor(0.6)); passt es auch dann nicht, sichtbar «…»
+                val headline = MaterialTheme.typography.headlineSmall.tabularNumbers()
+                BasicText(
                     withSmallQuote(p.value?.let { maskAmount(PortfolioFormat.usdt(it)) } ?: "—"),
-                    style = MaterialTheme.typography.headlineSmall.tabularNumbers(),
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 1
+                    style = headline.copy(fontWeight = FontWeight.SemiBold, color = LocalContentColor.current),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    autoSize = TextAutoSize.StepBased(
+                        minFontSize = headline.fontSize * 0.6f,
+                        maxFontSize = headline.fontSize,
+                        stepSize = 0.5.sp,
+                    ),
                 )
             }
         }
@@ -263,7 +276,7 @@ private fun OpenLotRow(lot: PortfolioOpenLot, coin: String, formats: OpenLotForm
     val costText = if (cost != null) {
         val perCoin = if (lot.amount.signum() > 0) cost.divide(lot.amount, java.math.MathContext.DECIMAL128) else null
         maskAmount(PriceFormat.valueWithCurrency(cost.toDouble(), PortfolioFormat.USDT, formats.value)) +
-            (perCoin?.let { " · Ø " + PortfolioFormat.price(it.toDouble()) } ?: "")
+            (perCoin?.let { " · " + stringResource(R.string.portfolio_avg_only, PortfolioFormat.price(it.toDouble())) } ?: "")
     } else stringResource(R.string.portfolio_open_lots_without_price)
     Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(modifier = Modifier.weight(1f)) {

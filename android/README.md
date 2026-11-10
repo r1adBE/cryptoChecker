@@ -113,10 +113,11 @@ scheitert die gefilterte Abfrage, folgt einmal die ungefilterte. Coinbase brauch
 eine Anfrage (`/stats`: Kurs, Hoch/Tief, Volumen und Kurs vor 24 h).
 
 **Pünktlich prüfen** (ab Werk aus) — `work/ExactCheckScheduler.kt` setzt mit `SCHEDULE_EXACT_ALARM`
-einen exakten Wecker etwa alle 15 Minuten (`ExactCheckReceiver` → `BackgroundCheck`, gleiche Prüfung wie der Worker),
-auch im Doze; ohne Berechtigung zurück auf WorkManager. Hinweis bei Akku-Einschränkung. «Letzte Prüfungen»
-(`CheckRunLog`, 20 Einträge in `noBackupFilesDir/check_runs.txt`, iOS gleich) zeigt Auslöser und Ergebnis; zwei Prüfungen
-innerhalb von 5 Minuten werden zusammengelegt (`BackgroundSchedule`).
+einen exakten Wecker im gewählten Intervall der Hintergrund-Aktualisierung (15/30/60 Min., `ExactCheckReceiver` →
+`BackgroundCheck`, gleiche Prüfung wie der Worker), auch im Doze; ohne Berechtigung zurück auf WorkManager. Hinweis bei
+Akku-Einschränkung. «Letzte Prüfungen» (`CheckRunLog`, 20 Einträge in `noBackupFilesDir/check_runs.txt`, iOS gleich) zeigt
+Auslöser und Ergebnis; zwei Prüfungen innerhalb von 5 Minuten werden zusammengelegt, und solange der Wecker gestellt ist,
+läuft WorkManager nur, wenn seit der letzten vollen Prüfung ein Intervall vergangen ist (`BackgroundSchedule`).
 
 **Aktualisierung** — Einstellungen › Kurs-Aktualisierung › «Wie aktuell?» (`settings/UpdateMode.kt`):
 **Sparsam** (Standard, empfohlen) aktualisiert bei geschlossener App über WorkManager im gewählten Intervall

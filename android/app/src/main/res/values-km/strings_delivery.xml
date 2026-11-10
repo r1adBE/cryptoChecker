@@ -15,7 +15,9 @@
     <string name="delivery_channel_high">សំខាន់ខ្លាំង – លេចឡើងលើអេក្រង់</string>
     <string name="delivery_channel_low">សំខាន់តិច – ការដាស់តឿនបង្ហាញតែក្នុងបញ្ជីដោយស្ងាត់ៗ</string>
     <string name="delivery_channel_off">បានបិទ – ការដាស់តឿននឹងមិនមកដល់ទេ</string>
-    <string name="delivery_exact_on">បើក – ប្រហែលរៀងរាល់ 15 នាទីម្តង</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="other">បើក – ប្រហែលរៀងរាល់ %d នាទីម្តង</item>
+    </plurals>
     <string name="delivery_exact_off">បិទ – Android ពិនិត្យមិនទៀងទាត់</string>
     <string name="delivery_battery">ការបង្កើនប្រសិទ្ធភាពថ្ម</string>
     <string name="delivery_battery_unrestricted">គ្មានការរឹតត្បិត</string>

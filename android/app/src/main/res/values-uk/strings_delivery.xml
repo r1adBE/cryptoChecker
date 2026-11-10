@@ -15,7 +15,12 @@
     <string name="delivery_channel_high">Висока важливість – з\'являється вгорі екрана</string>
     <string name="delivery_channel_low">Низька важливість – сигнали з\'являються лише беззвучно у списку</string>
     <string name="delivery_channel_off">Вимкнено – сигнали не надійдуть</string>
-    <string name="delivery_exact_on">Увімк. – приблизно кожні 15 хвилин</string>
+    <plurals name="delivery_exact_on">
+        <item quantity="one">Увімк. – приблизно кожні %d хвилин</item>
+        <item quantity="few">Увімк. – приблизно кожні %d хвилин</item>
+        <item quantity="many">Увімк. – приблизно кожні %d хвилин</item>
+        <item quantity="other">Увімк. – приблизно кожні %d хвилин</item>
+    </plurals>
     <string name="delivery_exact_off">Вимк. – Android перевіряє нерегулярно</string>
     <string name="delivery_battery">Оптимізація батареї</string>
     <string name="delivery_battery_unrestricted">Без обмежень</string>

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
+import com.cryptochecker.app.settings.SettingsConfirm
 import com.cryptochecker.app.settings.deviceRegionLocale
 import com.cryptochecker.app.ui.features.portfolio.taxMethodName
 import com.cryptochecker.app.ui.features.portfolio.TaxTemplateConfirmDialog
@@ -46,11 +48,40 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 
 // ── Portfolio ────────────────────────────────────────────────────────────────
 
-/** Portfolio als eigener Tab, die Portfolio-Sperre (nur mit eingeschaltetem Portfolio) und die Einstandsmethode. */
+/** Portfolio als eigener Tab, die Portfolio-Sperre (mit Portfolio oder solange an) und die Einstandsmethode. */
 @Composable
 internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    // Rückfragen: andere Einstandsmethode («Rechnet alle Jahre neu») und «Portfolio in Systemsicherung» einschalten
+    var pendingMethod by remember { mutableStateOf<CostMethod?>(null) }
+    var confirmSystemBackup by remember { mutableStateOf(false) }
+    val backupReason = stringResource(R.string.portfolio_lock_reason)
+    pendingMethod?.let { method ->
+        PortfolioSettingsConfirmDialog(
+            title = stringResource(R.string.settings_cost_method),
+            text = stringResource(R.string.settings_cost_method_confirm),
+            confirm = stringResource(R.string.delivery_action_change),
+            onConfirm = {
+                pendingMethod = null
+                viewModel.setCostMethod(method)
+            },
+            onDismiss = { pendingMethod = null },
+        )
+    }
+    if (confirmSystemBackup) {
+        PortfolioSettingsConfirmDialog(
+            title = stringResource(R.string.settings_portfolio_system_backup),
+            text = stringResource(R.string.settings_portfolio_system_backup_confirm),
+            confirm = stringResource(R.string.alarms_notifications_turn_on),
+            onConfirm = {
+                confirmSystemBackup = false
+                // Danach wie bisher: solange gesperrt erst entsperren
+                viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, true)
+            },
+            onDismiss = { confirmSystemBackup = false },
+        )
+    }
     SettingsSubPage(title = stringResource(R.string.portfolio_title), onBack = onBack) {
         GroupCard {
             SettingsAnchor("portfolio.tab") {
@@ -61,8 +92,9 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     onCheckedChange = viewModel::setPortfolioEnabled
                 )
             }
-            // Nur mit eingeschaltetem Portfolio; der Wert bleibt beim Ausblenden erhalten
-            if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled)) {
+            // Mit eingeschaltetem Portfolio — und solange die Sperre an ist auch ohne (sie wirkt weiter auf Widget und
+            // Sicherung und muss ausschaltbar bleiben); der Wert bleibt beim Ausblenden erhalten
+            if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled, settings.appLock)) {
                 val unavailableText = stringResource(R.string.app_lock_unavailable)
                 val haptics = rememberHaptics()
                 val reason = stringResource(R.string.portfolio_lock_reason)
@@ -104,6 +136,8 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                         }
                     }
                 }
+            }
+            if (settings.portfolioEnabled) {
                 RowDivider()
                 // «Beträge verbergen»: wie das Auge im Portfolio-Kopf (Portfolio und Widget)
                 SettingsAnchor("portfolio.hide") {
@@ -134,7 +168,9 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                         CostMethod.entries.forEach { method ->
                             RadioRow(
                                 selected = settings.costMethod == method,
-                                onClick = { viewModel.setCostMethod(method) },
+                                onClick = {
+                                    if (SettingsConfirm.costMethod(settings.costMethod, method)) pendingMethod = method
+                                },
                                 title = stringResource(
                                     when (method) {
                                         CostMethod.FIFO -> R.string.settings_cost_method_fifo
@@ -163,7 +199,6 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             }
             RowDivider()
             // Immer sichtbar: Die Daten bleiben auch bei ausgeblendetem Portfolio gespeichert
-            val backupReason = stringResource(R.string.portfolio_lock_reason)
             // Android 8/8.1: aus und gesperrt, mit Begründung (Systemsicherung dort unverschlüsselt)
             val systemBackupSupported = PortfolioLockPolicy.systemBackupSupported(Build.VERSION.SDK_INT)
             SettingsAnchor("portfolio.system_backup") {
@@ -176,13 +211,15 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     checked = settings.portfolioSystemBackup && systemBackupSupported,
                     enabled = systemBackupSupported,
                     onCheckedChange = { on ->
-                        viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, on)
+                        // Einschalten erst nach der Rückfrage (Daten gehen in die Gerätesicherung); aus sofort
+                        if (SettingsConfirm.systemBackup(enabling = on)) confirmSystemBackup = true
+                        else viewModel.setPortfolioSystemBackup(context.findFragmentActivity(), backupReason, on)
                     }
                 )
             }
         }
         // Ehrlich: Die Sperre schützt die Anzeige; die Daten schützt die Geräteverschlüsselung
-        if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled)) {
+        if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled, settings.appLock)) {
             Text(
                 text = stringResource(R.string.settings_portfolio_lock_footer),
                 style = MaterialTheme.typography.bodySmall,
@@ -243,4 +280,22 @@ private fun TaxTemplateRow(selected: TaxTemplate, costMethod: CostMethod, onSele
             TextButton(onClick = { onSelect(suggestion) }) { Text(stringResource(R.string.tax_template_use, name)) }
         }
     }
+}
+
+/** Rückfrage mit Titel, Text, Bestätigen ([confirm]) und «Abbrechen» — Einstandsmethode und Systemsicherung (wie iOS `.alert`). */
+@Composable
+private fun PortfolioSettingsConfirmDialog(
+    title: String,
+    text: String,
+    confirm: String,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = { Text(text) },
+        confirmButton = { TextButton(onClick = onConfirm) { Text(confirm) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
+    )
 }

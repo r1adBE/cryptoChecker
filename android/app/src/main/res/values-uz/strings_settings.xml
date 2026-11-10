@@ -39,7 +39,10 @@
     <string name="settings_app_badge_hint">Ochiq signal bildirishnomalarini sanaydi. Raqam yoki nuqta chiqishi bosh ekranga bogʻliq (masalan, Samsung: «Raqam bilan koʻrsatish»).</string>
     <string name="settings_exact_checks">Oʻz vaqtida tekshirish</string>
     <string name="settings_exact_checks_grant">Budilnik va eslatmalarga ruxsat berish</string>
-    <string name="settings_exact_checks_hint">Android qurilma boʻsh turganda ham taxminan har 15 daqiqada tekshiradi. Batareyani biroz koʻproq sarflaydi.</string>
+    <plurals name="settings_exact_checks_hint">
+        <item quantity="one">Android qurilma boʻsh turganda ham taxminan har %d daqiqada tekshiradi. Batareyani biroz koʻproq sarflaydi.</item>
+        <item quantity="other">Android qurilma boʻsh turganda ham taxminan har %d daqiqada tekshiradi. Batareyani biroz koʻproq sarflaydi.</item>
+    </plurals>
     <string name="settings_exact_checks_nothing">Faol juftliklar yoʻq – tekshiriladigan narsa yoʻq.</string>
     <string name="settings_exact_checks_permission_missing">Ruxsat yoʻq – qurilma tinch turganda Android notekis tekshiradi, baʼzan faqat bir necha soatdan keyin.</string>
     <string name="settings_notification_change">Faqat kurs oʻzgarganda xabar berish</string>
@@ -326,4 +329,9 @@
     <string name="settings_address_server_public_text">Shunda Bitcoin manzillaringiz va xpub kalitlaringiz ochiq tugunlarda soʻraladi: %1$s. Ular bu manzillarni IP manzilingiz bilan birga koʻradi.</string>
     <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
     <string name="settings_address_server_public_confirm">Ochiq tugunlardan foydalanish</string>
+    <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
+    <string name="settings_portfolio_value_off_locked">Oʻchiq, qulf bilan</string>
+    <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
+    <string name="settings_cost_method_confirm">Barcha yillarni qayta hisoblaydi: oldingi yillarning xarid qiymati, amalga oshgan foyda va soliq varaqlari ham o‘zgaradi.</string>
+    <string name="settings_portfolio_system_backup_confirm">Shunda tranzaksiyalaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillar Android zaxira nusxasiga (masalan, Google hisobingizga) va yangi qurilmaga ko‘chirishga kiradi – faqat uchdan-uchgacha shifrlangan holda.</string>
 </resources>
