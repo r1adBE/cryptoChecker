@@ -150,10 +150,5 @@ final class FiatAlarmGuardTests: XCTestCase {
         XCTAssertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(.VALUE_ABOVE, "CHF"), reading))
         XCTAssertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(.VALUE_BELOW, "USDT"), reading))
         XCTAssertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(.CHANGE_UP, "EUR"), reading))
-        var settings = AppSettings()
-        settings.appLock = false
-        settings.hidePortfolioAmounts = false
-        let body = PortfolioAlarmNotice.body(alarm(.VALUE_ABOVE, "EUR"), measured: 950, settings: settings, usdtAssumed: true)
-        XCTAssertTrue(body.hasSuffix(" · " + L("portfolio_usdt_assumed")), body)
     }
 }

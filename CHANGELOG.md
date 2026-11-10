@@ -16,11 +16,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 210)
+
+* iOS: portfolio alerts always show only the neutral sentence – no amount on the lock screen, even with previews set to «Always». The details are in the app.
+
 ## 16.2.2 (build 209)
 
 * Deleting a transaction by swiping asks first, like the editor.
 * Portfolio alerts never show amounts on the lock screen.
-* «Check on time» and the iOS widgets follow the chosen update interval; no double background run.
+* «Check on time» and the iOS widgets follow the chosen update interval; on Android no double background run while the exact check is set (iOS widgets still fetch on their own, as widgets cannot share the app's runs).
 * Confirmations before changing the cost method and before turning on «Portfolio in system backup»; the tax worksheet says what the file contains before sharing.
 * CSV import preview lists every skipped row group with «+ N more»; the lock setting shows its real state when the portfolio tab is hidden; Apple Watch small complications show the age of old values; long amounts shrink on Android instead of being cut; larger iOS widget buttons.
 

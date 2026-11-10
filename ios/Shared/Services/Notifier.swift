@@ -293,21 +293,14 @@ enum Notifier {
     /// Alarm «Portfolio-Wert» — wie `AppNotifier.showPortfolioAlarm`: gleicher Ton wie Kursalarme
     /// («Alarm-Signal»; in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall an
     /// der Grenze); Tipp öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier.
-    /// Auf dem Sperrbildschirm immer privat wie Android (VISIBILITY_PRIVATE, öffentlich nur Titel und neutraler Satz) —
-    /// auch ohne Portfolio-Sperre (Entscheid des Inhabers): immer die Kategorie `categoryPortfolioLocked`, deren verborgene
-    /// Vorschau (Systemvorgabe «Vorschau: wenn entsperrt») nur Titel und den neutralen Satz zeigt. Mit Portfolio-Sperre
-    /// ist auch der Text selbst neutral (`PortfolioAlarmNotice.body`), weder Beträge noch Prozent. Kursalarme unverändert.
+    /// Immer neutral (Entscheid des Inhabers): iOS erkennt nicht, ob die Mitteilung auf dem Sperrbildschirm steht, und mit
+    /// «Vorschau: Immer» wäre dort der ganze Text sichtbar. Deshalb unabhängig von Portfolio-Sperre und Vorschau-Einstellung
+    /// nur Titel und neutraler Satz (`PortfolioAlarmNotice`), weder Betrag, Schwelle noch Prozent; Kategorie
+    /// `categoryPortfolioLocked`. Die Einzelheiten zeigt die App (Alarmliste/Protokoll). Kursalarme unverändert.
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
-    /// `usdtAssumed`: Alarm in anderer Währung mit USDT = 1 umgerechnet (`PortfolioAlarmLogic.usdtAssumed`) — Vermerk.
-    static func showPortfolioAlarm(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings,
-                                   usdtAssumed: Bool = false) async -> Bool {
-        let content = UNMutableNotificationContent()
-        content.title = L("notification_portfolio_alarm_title")
-        content.body = PortfolioAlarmNotice.body(alarm, measured: measured, settings: settings, usdtAssumed: usdtAssumed)
+    static func showPortfolioAlarm(_ alarm: PortfolioAlarm, settings: AppSettings) async -> Bool {
+        let content = PortfolioAlarmNotice.content()
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
-        content.categoryIdentifier = categoryPortfolioLocked
-        content.threadIdentifier = "alarms"
-        content.userInfo = ["open": "portfolio"]
         content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
         badge(content, settings)
@@ -343,16 +336,16 @@ enum Notifier {
     }
 }
 
-/// Text eines Portfolio-Alarms (rein, testbar): mit Portfolio-Sperre nur ein neutraler Satz (wie Android), sonst
-/// Satz und Messwert — mit «Beträge verbergen» ohne Beträge.
+/// Inhalt eines Portfolio-Alarms (rein, testbar): immer nur Titel und neutraler Satz — nie Betrag, Schwelle oder Prozent,
+/// auch ohne Portfolio-Sperre (iOS kann den Sperrbildschirm nicht erkennen). Android zeigt entsperrt die Einzelheiten.
 enum PortfolioAlarmNotice {
-    static func body(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings, usdtAssumed: Bool = false) -> String {
-        if settings.appLock { return L("notification_portfolio_alarm_locked") }
-        let hidden = settings.hidePortfolioAmounts
-        let text = L("notification_portfolio_alarm_text",
-                     PortfolioAlarmTexts.sentence(alarm, basis: settings.changeBasis.storage, hidden: hidden),
-                     PortfolioAlarmTexts.measured(alarm, measured: measured, hidden: hidden))
-        // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter (wie Android)
-        return AlarmTexts.join(text, [usdtAssumed ? L("portfolio_usdt_assumed") : nil])
+    static func content() -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = L("notification_portfolio_alarm_title")
+        content.body = L("notification_portfolio_alarm_locked")
+        content.categoryIdentifier = Notifier.categoryPortfolioLocked
+        content.threadIdentifier = "alarms"
+        content.userInfo = ["open": "portfolio"]
+        return content
     }
 }

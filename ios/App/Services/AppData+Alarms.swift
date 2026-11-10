@@ -227,8 +227,7 @@ extension AppData {
                 // @Sendable bzw. Kopie `[current]`: `deliver` läuft ohne Akteur, die Closures gehören dann nicht dem MainActor
                 canShow: { @Sendable in deliverable },
                 show: { [current] in
-                    await Notifier.showPortfolioAlarm(alarm, measured: value, settings: current,
-                                                      usdtAssumed: PortfolioAlarmLogic.usdtAssumed(alarm, reading))
+                    await Notifier.showPortfolioAlarm(alarm, settings: current)
                 },
                 mark: { await self.markPortfolioAlarmTriggered(alarm, value: value, at: now) },
                 // Wie die Paar-Alarme: nicht gespeichert → Mitteilung weg; nach einem Prozess-Ende

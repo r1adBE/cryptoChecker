@@ -1,8 +1,9 @@
 import XCTest
+import UserNotifications
 @testable import CryptoChecker
 
 /// Gas- und Aktivitätsmeldungen werden nur verbraucht, wenn sie ankommen (wie Kursalarme,
-/// `QuietHours.mayFire`); Portfolio-Alarm mit Portfolio-Sperre ohne Beträge — wie Android.
+/// `QuietHours.mayFire`); Portfolio-Alarm immer neutral, ohne Beträge.
 final class NotificationDeliveryTests: XCTestCase {
     private let now: Int64 = 1_700_000_000_000
 
@@ -79,16 +80,25 @@ final class NotificationDeliveryTests: XCTestCase {
 
     // MARK: Portfolio-Alarm
 
-    func testPortfolioAlarmWithAppLockHasNeutralBody() {
-        let alarm = PortfolioAlarm(id: 1, kind: .CHANGE_UP, threshold: 5, currency: nil)
+    /// Immer neutral, auch ohne Portfolio-Sperre und mit sichtbaren Beträgen: keine Zahl des Alarms (Schwelle,
+    /// Messwert, Prozent) in Titel, Untertitel oder Text — iOS erkennt den Sperrbildschirm nicht («Vorschau: Immer»).
+    func testPortfolioAlarmContentNeverShowsNumbers() {
         var settings = AppSettings()
-        settings.appLock = true
-        XCTAssertEqual(PortfolioAlarmNotice.body(alarm, measured: 6.2, settings: settings),
-                       L("notification_portfolio_alarm_locked"))
-        // Ohne Sperre: Satz und Messwert
         settings.appLock = false
-        XCTAssertNotEqual(PortfolioAlarmNotice.body(alarm, measured: 6.2, settings: settings),
-                          L("notification_portfolio_alarm_locked"))
+        settings.hidePortfolioAmounts = false
+        let alarms = [PortfolioAlarm(id: 7, kind: .CHANGE_UP, threshold: 5.25, currency: nil),
+                      PortfolioAlarm(id: 8, kind: .VALUE_ABOVE, threshold: 12_345.67, currency: "EUR")]
+        let content = PortfolioAlarmNotice.content()
+        let shown = [content.title, content.subtitle, content.body]
+        XCTAssertEqual(content.body, L("notification_portfolio_alarm_locked"))
+        XCTAssertEqual(content.categoryIdentifier, Notifier.categoryPortfolioLocked)
+        XCTAssertNil(shown.joined().rangeOfCharacter(from: .decimalDigits), shown.joined())
+        for alarm in alarms {
+            // Die Einzelheiten, die die App zeigt (Alarmliste), stehen nicht in der Mitteilung
+            let details = [PortfolioAlarmTexts.sentence(alarm, basis: settings.changeBasis.storage, hidden: false),
+                           PortfolioAlarmTexts.measured(alarm, measured: 13_579.5, hidden: false)]
+            for detail in details { XCTAssertFalse(shown.contains { $0.contains(detail) }, detail) }
+        }
     }
 }
 
@@ -157,7 +167,10 @@ final class PortfolioAlarmLockScreenTests: XCTestCase {
         XCTAssertEqual(Notifier.categoryPortfolioLocked, "portfolio_locked")
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let source = try String(contentsOf: root.appendingPathComponent("Shared/Services/Notifier.swift"), encoding: .utf8)
-        XCTAssertTrue(source.contains("content.categoryIdentifier = categoryPortfolioLocked\n"))
+        XCTAssertTrue(source.contains("content.categoryIdentifier = Notifier.categoryPortfolioLocked\n"))
+        // Kein Betrags-Text mehr in der Mitteilung (nur in der App)
+        XCTAssertFalse(source.contains("notification_portfolio_alarm_text"))
+        XCTAssertFalse(source.contains("PortfolioAlarmTexts."))
         XCTAssertFalse(source.contains("settings.appLock ? categoryPortfolioLocked : categoryAlarm"))
     }
 }
