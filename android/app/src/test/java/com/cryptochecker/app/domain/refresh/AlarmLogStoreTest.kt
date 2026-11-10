@@ -45,9 +45,9 @@ class AlarmLogStoreTest {
         store(file, keys).record(listOf(entry(7, AlarmLogOutcome.FIRED, true)), live = false)
 
         assertTrue(file.exists())
-        // Nie Klartext: weder Paar noch Börse lesbar in der Datei
-        // Nie Klartext: weder Paar noch Börse lesbar in der Datei (ganzes Paar «BTC/CHF»: drei zufällige Zeichen wie «BTC» kommen im
-        // Chiffrat ab und zu vor, der Test wäre sonst zufällig rot)
+        // Nie Klartext: weder Paar noch Börse lesbar in der Datei (ganzes Paar «BTC/CHF»: drei zufällige Zeichen wie «BTC»
+        // kommen im Chiffrat ab und zu vor, der Test wäre sonst zufällig rot)
+        val raw = file.readText()
         assertFalse(raw.contains("BTC/CHF"))
         assertFalse(raw.contains("Kraken"))
 
