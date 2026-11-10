@@ -61,7 +61,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let price = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPriceWidget.swift"), encoding: .utf8)
         XCTAssertTrue(price.contains("compact: q.map { WatchText.compactPrice($0.price) } ?? \"—\""))
-        XCTAssertTrue(price.contains("Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(coin)"))
+        XCTAssertTrue(price.contains("Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)"))
         XCTAssertTrue(price.contains("quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt"))
         XCTAssertFalse(price.contains("Text(entry.change).foregroundStyle(valueStyle)"))
         let portfolio = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),

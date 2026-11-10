@@ -8,6 +8,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.DialogText
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,7 +49,7 @@ internal fun TxDeleteConfirmDialog(onConfirm: () -> Unit, onDismiss: () -> Unit)
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_tx_delete_title)) },
-        text = { Text(stringResource(R.string.portfolio_tx_delete_confirm)) },
+        text = { DialogText { Text(stringResource(R.string.portfolio_tx_delete_confirm)) } },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.ui.components.DialogText
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -294,7 +295,7 @@ private fun PortfolioSettingsConfirmDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
-        text = { Text(text) },
+        text = { DialogText { Text(text) } },
         confirmButton = { TextButton(onClick = onConfirm) { Text(confirm) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
     )

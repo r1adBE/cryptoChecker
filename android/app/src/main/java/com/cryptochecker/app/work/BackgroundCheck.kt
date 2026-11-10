@@ -90,9 +90,9 @@ class BackgroundCheck @Inject constructor(
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
-        val summary = running.withLock {
-            runLocked(trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis)
-        } ?: return null
+        val summary = running.withLock { runLocked(
+            trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis,
+        ) } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu
         // 20 s und mehr, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg
         try {
