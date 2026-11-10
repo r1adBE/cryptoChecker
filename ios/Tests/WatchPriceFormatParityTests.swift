@@ -9,6 +9,10 @@ final class WatchPriceFormatParityTests: XCTestCase {
 
     private func language(_ id: String) -> String { String(id.split(separator: "_").first ?? "") }
 
+    /// Tausender-Apostroph der Schweiz: Java/CLDR liefert U+2019 (’), Foundation das ASCII-Zeichen ('). Jede Uhr folgt
+    /// ihrem Handy (gleiche Plattformdaten); verglichen wird darum ohne diesen einen Zeichenunterschied.
+    private func same(_ text: String?) -> String? { text?.replacingOccurrences(of: "\u{2019}", with: "'") }
+
     private func cases(_ block: String) throws -> [[String: Any]] {
         let section = try XCTUnwrap(try S.fixture("watch_price")[block] as? [String: Any])
         let cases = S.list(section["cases"])
@@ -20,8 +24,8 @@ final class WatchPriceFormatParityTests: XCTestCase {
         for c in try cases("compact") {
             let id = c["locale"] as? String ?? ""
             let value = try XCTUnwrap(S.number(c["value"]))
-            XCTAssertEqual(WatchPriceFormat.compactPrice(value, locale: Locale(identifier: id)), c["expected"] as? String,
-                           "\(id) \(value)")
+            let text = WatchPriceFormat.compactPrice(value, locale: Locale(identifier: id))
+            XCTAssertEqual(same(text), same(c["expected"] as? String), "\(id) \(value)")
         }
     }
 
@@ -39,7 +43,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
                                                quote: c["quote"] as? String ?? "", change: S.number(c["change"]),
                                                detail: c["detail"] as? String, locale: Locale(identifier: id),
                                                language: language(id))
-            XCTAssertEqual(actual, c["expected"] as? String, "\(c)")
+            XCTAssertEqual(same(actual), same(c["expected"] as? String), "\(c)")
         }
     }
 
