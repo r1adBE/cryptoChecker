@@ -15,6 +15,8 @@
     <string name="watch_portfolio">போர்ட்ஃபோலியோ</string>
     <string name="watch_portfolio_today">இன்று %1$s</string>
     <string name="a11y_watch_portfolio_hidden">தொகை மறைக்கப்பட்டது</string>
+    <string name="watch_portfolio_off">ஆஃப்</string>
+    <string name="watch_portfolio_turn_on">ஃபோனில் இயக்கவும்</string>
     <string name="a11y_watch_outdated">விலை காலாவதியானது</string>
     <string name="a11y_watch_no_price_unreachable">விலை இல்லை, %1$s ஐ அணுக முடியவில்லை</string>
     <string name="a11y_watch_no_price_phone_only">விலை இல்லை, கடிகாரத்தால் இந்த ஜோடியை ஏற்ற முடியாது</string>

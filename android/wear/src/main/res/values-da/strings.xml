@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portefølje</string>
     <string name="watch_portfolio_today">%1$s i dag</string>
     <string name="a11y_watch_portfolio_hidden">beløb skjult</string>
+    <string name="watch_portfolio_off">fra</string>
+    <string name="watch_portfolio_turn_on">slå til på telefonen</string>
     <string name="a11y_watch_outdated">Kurs forældet</string>
     <string name="a11y_watch_no_price_unreachable">ingen kurs, %1$s kan ikke nås</string>
     <string name="a11y_watch_no_price_phone_only">ingen kurs, uret kan ikke hente dette par</string>

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Cartera</string>
     <string name="watch_portfolio_today">%1$s hoy</string>
     <string name="a11y_watch_portfolio_hidden">importe oculto</string>
+    <string name="watch_portfolio_off">desact.</string>
+    <string name="watch_portfolio_turn_on">activar en el teléfono</string>
     <string name="a11y_watch_outdated">Precio desactualizado</string>
     <string name="a11y_watch_no_price_unreachable">sin precio, %1$s no disponible</string>
     <string name="a11y_watch_no_price_phone_only">sin precio, el reloj no puede cargar este par</string>

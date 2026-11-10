@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfel</string>
     <string name="watch_portfolio_today">bu gün %1$s</string>
     <string name="a11y_watch_portfolio_hidden">məbləğ gizlədilib</string>
+    <string name="watch_portfolio_off">qapalı</string>
+    <string name="watch_portfolio_turn_on">telefonda aktiv edin</string>
     <string name="a11y_watch_outdated">Qiymət köhnəlib</string>
     <string name="a11y_watch_no_price_unreachable">qiymət yoxdur, %1$s əlçatan deyil</string>
     <string name="a11y_watch_no_price_phone_only">qiymət yoxdur, saat bu cütü yükləyə bilmir</string>

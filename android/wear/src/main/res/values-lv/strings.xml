@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfelis</string>
     <string name="watch_portfolio_today">šodien %1$s</string>
     <string name="a11y_watch_portfolio_hidden">summa paslēpta</string>
+    <string name="watch_portfolio_off">izslēgts</string>
+    <string name="watch_portfolio_turn_on">ieslēdziet tālrunī</string>
     <string name="a11y_watch_outdated">Cena novecojusi</string>
     <string name="a11y_watch_no_price_unreachable">nav cenas, %1$s nav sasniedzama</string>
     <string name="a11y_watch_no_price_phone_only">nav cenas, pulkstenis nevar ielādēt šo pāri</string>

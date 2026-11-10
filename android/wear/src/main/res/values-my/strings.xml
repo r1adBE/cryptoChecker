@@ -15,6 +15,8 @@
     <string name="watch_portfolio">ပေါ့ဖိုလီယို</string>
     <string name="watch_portfolio_today">ယနေ့ %1$s</string>
     <string name="a11y_watch_portfolio_hidden">ပမာဏ ဖျောက်ထားသည်</string>
+    <string name="watch_portfolio_off">ပိတ်</string>
+    <string name="watch_portfolio_turn_on">ဖုန်းတွင် ဖွင့်ပေးပါ</string>
     <string name="a11y_watch_outdated">ဈေးနှုန်း ခေတ်မမီတော့ပါ</string>
     <string name="a11y_watch_no_price_unreachable">စျေးနှုန်းမရှိ၊ %1$s ကို ဆက်သွယ်၍ မရပါ</string>
     <string name="a11y_watch_no_price_phone_only">စျေးနှုန်းမရှိ၊ နာရီက ဤအတွဲကို ဖွင့်၍ မရပါ</string>

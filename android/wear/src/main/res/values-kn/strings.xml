@@ -15,6 +15,8 @@
     <string name="watch_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</string>
     <string name="watch_portfolio_today">ಇಂದು %1$s</string>
     <string name="a11y_watch_portfolio_hidden">ಮೊತ್ತ ಮರೆಮಾಡಲಾಗಿದೆ</string>
+    <string name="watch_portfolio_off">ಆಫ್</string>
+    <string name="watch_portfolio_turn_on">ಫೋನ್‌ನಲ್ಲಿ ಆನ್ ಮಾಡಿ</string>
     <string name="a11y_watch_outdated">ಬೆಲೆ ಹಳೆಯದು</string>
     <string name="a11y_watch_no_price_unreachable">ಬೆಲೆ ಇಲ್ಲ, %1$s ತಲುಪಲಾಗುತ್ತಿಲ್ಲ</string>
     <string name="a11y_watch_no_price_phone_only">ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ ಈ ಜೋಡಿಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗದು</string>

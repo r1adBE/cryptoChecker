@@ -1,0 +1,250 @@
+{
+  "description": "Prices on the watch (Android wear WatchFormat / iOS WatchCore WatchPriceFormat). compact = short complication text (~7 chars), locale digits/separators/grouping: >= 1e6 three significant digits + M/B/T, >= 10000 whole, >= 1000 one decimal, >= 10 two decimals, >= 0.01 four significant digits (like the phone app), >= 0.001 three, below with exponent 'e-5'; HALF_UP from the shortest decimal representation; a value rounding into the next step takes that step's rule; not positive -> '—'. line = long/rectangular complication: 'COIN • PRICE QUOTE  CHANGE' plus '  ·  detail' (exchange or age), no price -> 'COIN • —'. portfolio_off = portfolio complication without a value (phone switch off).",
+  "compact": {
+    "cases": [
+      {
+        "value": 84450.12,
+        "locale": "en_US",
+        "expected": "84,450"
+      },
+      {
+        "value": 84450.12,
+        "locale": "de_CH",
+        "expected": "84’450"
+      },
+      {
+        "value": 84450.12,
+        "locale": "de_DE",
+        "expected": "84.450"
+      },
+      {
+        "value": 2234.56,
+        "locale": "en_US",
+        "expected": "2,234.6"
+      },
+      {
+        "value": 2234.56,
+        "locale": "de_CH",
+        "expected": "2’234.6"
+      },
+      {
+        "value": 2234.56,
+        "locale": "de_DE",
+        "expected": "2.234,6"
+      },
+      {
+        "value": 999999.0,
+        "locale": "en_US",
+        "expected": "999,999"
+      },
+      {
+        "value": 999999.6,
+        "locale": "en_US",
+        "expected": "1M"
+      },
+      {
+        "value": 9999.96,
+        "locale": "de_CH",
+        "expected": "10’000"
+      },
+      {
+        "value": 1000.0,
+        "locale": "en_US",
+        "expected": "1,000.0"
+      },
+      {
+        "value": 123.456,
+        "locale": "en_US",
+        "expected": "123.46"
+      },
+      {
+        "value": 10.0,
+        "locale": "en_US",
+        "expected": "10.00"
+      },
+      {
+        "value": 9.99996,
+        "locale": "en_US",
+        "expected": "10.00"
+      },
+      {
+        "value": 1.5,
+        "locale": "en_US",
+        "expected": "1.5"
+      },
+      {
+        "value": 1.0,
+        "locale": "en_US",
+        "expected": "1"
+      },
+      {
+        "value": 0.1234,
+        "locale": "en_US",
+        "expected": "0.1234"
+      },
+      {
+        "value": 0.02468,
+        "locale": "en_US",
+        "expected": "0.02468"
+      },
+      {
+        "value": 0.02468,
+        "locale": "de_DE",
+        "expected": "0,02468"
+      },
+      {
+        "value": 0.01,
+        "locale": "en_US",
+        "expected": "0.01"
+      },
+      {
+        "value": 0.0098765,
+        "locale": "en_US",
+        "expected": "0.00988"
+      },
+      {
+        "value": 0.00099999,
+        "locale": "en_US",
+        "expected": "0.001"
+      },
+      {
+        "value": 1.2345e-05,
+        "locale": "en_US",
+        "expected": "1.23e-5"
+      },
+      {
+        "value": 1.2345e-05,
+        "locale": "de_DE",
+        "expected": "1,23e-5"
+      },
+      {
+        "value": 1.5e-06,
+        "locale": "en_US",
+        "expected": "1.5e-6"
+      },
+      {
+        "value": 1234567.0,
+        "locale": "en_US",
+        "expected": "1.23M"
+      },
+      {
+        "value": 1234567.0,
+        "locale": "de_DE",
+        "expected": "1,23M"
+      },
+      {
+        "value": 2500000000.0,
+        "locale": "en_US",
+        "expected": "2.5B"
+      },
+      {
+        "value": 999950000.0,
+        "locale": "en_US",
+        "expected": "1B"
+      },
+      {
+        "value": 12340000000000.0,
+        "locale": "en_US",
+        "expected": "12.3T"
+      },
+      {
+        "value": 1234567890123456.0,
+        "locale": "en_US",
+        "expected": "1,235T"
+      },
+      {
+        "value": 0.0,
+        "locale": "en_US",
+        "expected": "—"
+      },
+      {
+        "value": -1.0,
+        "locale": "en_US",
+        "expected": "—"
+      }
+    ]
+  },
+  "line": {
+    "cases": [
+      {
+        "coin": "BTC",
+        "price": 84450.0,
+        "quote": "USDT",
+        "change": 1.2,
+        "detail": "Binance",
+        "locale": "en_US",
+        "expected": "BTC • 84,450.00 USDT  +1.20%  ·  Binance"
+      },
+      {
+        "coin": "BTC",
+        "price": 84450.0,
+        "quote": "USDT",
+        "change": 1.2,
+        "detail": "Binance",
+        "locale": "de_CH",
+        "expected": "BTC • 84’450.00 USDT  +1.20%  ·  Binance"
+      },
+      {
+        "coin": "BTC/EUR",
+        "price": 76543.21,
+        "quote": "EUR",
+        "change": -0.5,
+        "detail": "vor 47 Min.",
+        "locale": "de_DE",
+        "expected": "BTC/EUR • 76.543,21 EUR  −0,50 %  ·  vor 47 Min."
+      },
+      {
+        "coin": "BANK Perp",
+        "price": 1.5,
+        "quote": "USDT",
+        "change": null,
+        "detail": null,
+        "locale": "en_US",
+        "expected": "BANK Perp • 1.50 USDT  —"
+      },
+      {
+        "coin": "ETH/USD",
+        "price": 2234.5,
+        "quote": "USD",
+        "change": 0.0,
+        "detail": "",
+        "locale": "en_US",
+        "expected": "ETH/USD • 2,234.50 USD  0.00%"
+      },
+      {
+        "coin": "PEPE",
+        "price": 1.2345e-05,
+        "quote": "USDT",
+        "change": 3.0,
+        "detail": "Bybit",
+        "locale": "en_US",
+        "expected": "PEPE • 0.000012345 USDT  +3.00%  ·  Bybit"
+      },
+      {
+        "coin": "BTC",
+        "price": null,
+        "quote": "USDT",
+        "change": 1.2,
+        "detail": "Binance",
+        "locale": "en_US",
+        "expected": "BTC • —"
+      }
+    ]
+  },
+  "portfolio_off": {
+    "cases": [
+      {
+        "title": "Portfolio",
+        "hint": "am Handy einschalten",
+        "line": "Portfolio · am Handy einschalten",
+        "spoken": "Portfolio, am Handy einschalten"
+      },
+      {
+        "title": "Portfolio",
+        "hint": "turn on on the phone",
+        "line": "Portfolio · turn on on the phone",
+        "spoken": "Portfolio, turn on on the phone"
+      }
+    ]
+  }
+}

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">ፖርትፎሊዮ</string>
     <string name="watch_portfolio_today">ዛሬ %1$s</string>
     <string name="a11y_watch_portfolio_hidden">መጠኑ ተደብቋል</string>
+    <string name="watch_portfolio_off">ጠፍቷል</string>
+    <string name="watch_portfolio_turn_on">በስልኩ ላይ ያብሩ</string>
     <string name="a11y_watch_outdated">ዋጋው ጊዜው ያለፈበት ነው</string>
     <string name="a11y_watch_no_price_unreachable">ዋጋ የለም፣ %1$s አይደረስም</string>
     <string name="a11y_watch_no_price_phone_only">ዋጋ የለም፣ ሰዓቱ ይህን ጥንድ መጫን አይችልም</string>

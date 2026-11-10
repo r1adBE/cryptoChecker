@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portafoglio</string>
     <string name="watch_portfolio_today">%1$s oggi</string>
     <string name="a11y_watch_portfolio_hidden">importo nascosto</string>
+    <string name="watch_portfolio_off">off</string>
+    <string name="watch_portfolio_turn_on">attiva sul telefono</string>
     <string name="a11y_watch_outdated">Prezzo non aggiornato</string>
     <string name="a11y_watch_no_price_unreachable">nessun prezzo, %1$s non raggiungibile</string>
     <string name="a11y_watch_no_price_phone_only">nessun prezzo, l\'orologio non può caricare questa coppia</string>

@@ -8,18 +8,11 @@ enum WatchText {
         return args.isEmpty ? format : String(format: format, locale: Locale.current, arguments: args)
     }
 
-    static func price(_ value: Double) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.locale = Locale.current
-        switch value {
-        case 1000...: f.minimumFractionDigits = 2; f.maximumFractionDigits = 2
-        case 1...: f.minimumFractionDigits = 2; f.maximumFractionDigits = 4
-        case 0.01...: f.minimumFractionDigits = 4; f.maximumFractionDigits = 6
-        default: f.minimumFractionDigits = 8; f.maximumFractionDigits = 10
-        }
-        return f.string(from: NSNumber(value: value)) ?? String(value)
-    }
+    /// Kurs mit festen Nachkommastellen (`WatchPriceFormat.price`, wie Android `WatchFormat.price`).
+    static func price(_ value: Double) -> String { WatchPriceFormat.price(value) }
+
+    /// Kurs knapp für kleine Komplikationen «84’450» (`WatchPriceFormat.compactPrice`).
+    static func compactPrice(_ value: Double) -> String { WatchPriceFormat.compactPrice(value) }
 
     /// Grund für «—» (`WatchPairQuotes.missingReason` mit dem letzten eigenen Abruf, `WatchPairOutcomes`): Pool,
     /// Laufzeit-Kontrakt → die Uhr kann das Paar nicht selbst laden; gefragt, aber keine gefragte Börse führt das Paar

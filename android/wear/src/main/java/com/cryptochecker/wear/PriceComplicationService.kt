@@ -23,7 +23,9 @@ import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 /**
- * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Das Zifferblatt fragt etwa alle
+ * Komplikation: der erste Favorit — kurz «BTC / 84’450» (Kurs knapp, [WatchFormat.compactPrice]; die Änderung nennt die
+ * Beschreibung für den Screenreader), lang «BTC • 84’450.00 USDT  +1.2%» mit der Gegenwährung des Paars
+ * ([WatchFormat.priceLine]). Das Zifferblatt fragt etwa alle
  * 15 min (Manifest, fest); geladen wird nur, was nach [WatchPhoneQuotes.selfFetch] fällig ist: nichts, solange das
  * Handy frische Kurse liefert, sonst ab dem Intervall des Handys weniger 5 Min. ([WatchInterval]); ohne Netz oder ohne
  * neuen Kurs für diesen Coin der letzte. Lang mit der Börse, die den Kurs geliefert hat («… +1.2%  ·  Binance Futures»,
@@ -35,7 +37,7 @@ import java.util.concurrent.TimeUnit
 class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? =
-        data(type, "BTC", WatchFormat.price(67420.0), WatchFormat.change(1.2), "Binance", null, null)
+        data(type, "BTC", WatchPair.USDT, 84_450.0, 1.2, "Binance", null, null)
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val store = WatchStore(this)
@@ -72,9 +74,10 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         } else {
             null
         }
-        // Paar des Handys wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert
+        // Paar des Handys wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert (gegen USDT)
         // Börse, die den Kurs geliefert hat (wie die Zeile der Uhr-App), nicht nur das Paar
-        return data(request.complicationType, WatchPair.label(coin), WatchFormat.price(q.price), WatchFormat.change(q.change24h),
+        val quote = WatchPair.parse(coin)?.quote ?: WatchPair.USDT
+        return data(request.complicationType, WatchPair.label(coin), quote, q.price, q.change24h,
             q.source.takeIf { it.isNotBlank() }, age, tap)
     }
 
@@ -84,23 +87,25 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
     private fun data(
         type: ComplicationType,
         coin: String,
-        price: String,
-        change: String,
+        quote: String,
+        price: Double,
+        change: Double?,
         source: String?,
         age: Age?,
         tap: PendingIntent?,
     ): ComplicationData? {
-        val row = getString(R.string.a11y_watch_row, coin, price, change)
+        // Screenreader mit vollem Kurs und Änderung (kurz steht nur der Kurs)
+        val row = getString(R.string.a11y_watch_row, coin, WatchFormat.price(price), WatchFormat.change(change))
         val description = text(listOfNotNull(row, age?.spoken, source).joinToString(", "))
         // Wie die Zeile der Uhr-App: veraltet das Alter, sonst die Börse
         val detail = age?.short ?: source
         return when (type) {
-            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text(change), description)
+            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text(WatchFormat.compactPrice(price)), description)
                 .setTitle(age?.let { shortTitle(coin, it.time) } ?: text(coin))
                 .apply { tap?.let { setTapAction(it) } }
                 .build()
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
-                text("$price  $change" + (detail?.let { "  ·  $it" } ?: "")), description,
+                text(WatchFormat.priceLine(coin, price, quote, change, detail)), description,
             )
                 .setTitle(text(coin))
                 .apply { tap?.let { setTapAction(it) } }

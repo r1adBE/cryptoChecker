@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s ngayon</string>
     <string name="a11y_watch_portfolio_hidden">nakatago ang halaga</string>
+    <string name="watch_portfolio_off">off</string>
+    <string name="watch_portfolio_turn_on">i-on sa phone</string>
     <string name="a11y_watch_outdated">Luma na ang presyo</string>
     <string name="a11y_watch_no_price_unreachable">walang presyo, hindi maabot ang %1$s</string>
     <string name="a11y_watch_no_price_phone_only">walang presyo, hindi ma-load ng relo ang pares na ito</string>

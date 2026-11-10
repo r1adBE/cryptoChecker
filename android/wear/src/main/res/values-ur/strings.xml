@@ -15,6 +15,8 @@
     <string name="watch_portfolio">پورٹ فولیو</string>
     <string name="watch_portfolio_today">آج %1$s</string>
     <string name="a11y_watch_portfolio_hidden">رقم چھپی ہوئی</string>
+    <string name="watch_portfolio_off">بند</string>
+    <string name="watch_portfolio_turn_on">فون پر آن کریں</string>
     <string name="a11y_watch_outdated">قیمت پرانی ہے</string>
     <string name="a11y_watch_no_price_unreachable">کوئی قیمت نہیں، %1$s تک رسائی نہیں</string>
     <string name="a11y_watch_no_price_phone_only">کوئی قیمت نہیں، گھڑی یہ جوڑا لوڈ نہیں کر سکتی</string>

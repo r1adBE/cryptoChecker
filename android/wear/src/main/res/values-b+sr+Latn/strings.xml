@@ -16,6 +16,8 @@
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s danas</string>
     <string name="a11y_watch_portfolio_hidden">iznos skriven</string>
+    <string name="watch_portfolio_off">isklj.</string>
+    <string name="watch_portfolio_turn_on">uključiti na telefonu</string>
     <string name="a11y_watch_outdated">Cena zastarela</string>
     <string name="a11y_watch_no_price_unreachable">nema cene, %1$s nije dostupan</string>
     <string name="a11y_watch_no_price_phone_only">nema cene, sat ne može da učita ovaj par</string>

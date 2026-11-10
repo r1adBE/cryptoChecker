@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Багц</string>
     <string name="watch_portfolio_today">өнөөдөр %1$s</string>
     <string name="a11y_watch_portfolio_hidden">дүнг нуусан</string>
+    <string name="watch_portfolio_off">унтраалттай</string>
+    <string name="watch_portfolio_turn_on">утсан дээрээ асаана уу</string>
     <string name="a11y_watch_outdated">Ханш хуучирсан</string>
     <string name="a11y_watch_no_price_unreachable">ханш алга, %1$s-д холбогдох боломжгүй</string>
     <string name="a11y_watch_no_price_phone_only">ханш алга, цаг энэ хосыг ачаалж чадахгүй</string>

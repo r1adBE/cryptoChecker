@@ -15,6 +15,8 @@
     <string name="watch_portfolio">پرتفوی</string>
     <string name="watch_portfolio_today">%1$s امروز</string>
     <string name="a11y_watch_portfolio_hidden">مبلغ پنهان</string>
+    <string name="watch_portfolio_off">خاموش</string>
+    <string name="watch_portfolio_turn_on">در تلفن روشن کنید</string>
     <string name="a11y_watch_outdated">قیمت قدیمی است</string>
     <string name="a11y_watch_no_price_unreachable">قیمتی نیست، %1$s در دسترس نیست</string>
     <string name="a11y_watch_no_price_phone_only">قیمتی نیست، ساعت نمی‌تواند این جفت را بارگیری کند</string>

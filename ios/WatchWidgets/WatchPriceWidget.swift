@@ -1,12 +1,13 @@
 import SwiftUI
 import WidgetKit
 
-/// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
-/// mit Kurs, als Zeile «BTC +1.2%». Zeitleiste im Intervall des iPhones (`WatchInterval`); geladen wird nur, was nach
-/// `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
+/// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund, Ecke und als Zeile mit dem Kurs knapp
+/// «BTC / 84’450» (`WatchPriceFormat.compactPrice`; die Änderung nennt VoiceOver), rechteckig «BTC • 84’450.00 USDT
+/// +1.2%» mit der Gegenwährung des Paars (`WatchPriceFormat.line`). Zeitleiste im Intervall des iPhones (`WatchInterval`);
+/// geladen wird nur, was nach `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
 /// Verbindung nicht: sie verlässt sich auf das Alter der Kurse vom iPhone), sonst ab dem Intervall weniger 5 Minuten;
 /// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
-/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «+1.2%  ·  vor 47 Min.», als
+/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  ·  vor 47 Min.», als
 /// Zeile ohne Platz dafür; sonst rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie
 /// die Zeile der Uhr-App); VoiceOver nennt Alter und Börse immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
@@ -14,6 +15,10 @@ struct WatchPriceEntry: TimelineEntry {
     let coin: String?
     let price: String
     let change: String
+    /// Kurs knapp für kleine Familien («84’450»).
+    var compact: String = "—"
+    /// Zeile der rechteckigen Komplikation («BTC • 84’450.00 USDT  +1.20%  ·  Binance»).
+    var line: String = "—"
     /// Börse, die den Kurs geliefert hat (wie die Zeile der Uhr-App); nil ohne Kurs.
     var source: String?
     /// Nur bei veraltetem Kurs: Alter kurz («vor 47 Min.») und für VoiceOver.
@@ -25,7 +30,10 @@ struct WatchPriceEntry: TimelineEntry {
 
 struct WatchPriceProvider: TimelineProvider {
     func placeholder(in context: Context) -> WatchPriceEntry {
-        WatchPriceEntry(date: Date(), coin: "BTC", price: WatchText.price(67_420), change: WatchText.change(1.2),
+        WatchPriceEntry(date: Date(), coin: "BTC", price: WatchText.price(84_450), change: WatchText.change(1.2),
+                        compact: WatchText.compactPrice(84_450),
+                        line: WatchPriceFormat.line(coin: "BTC", price: 84_450, quote: WatchPair.usdt, change: 1.2,
+                                                    detail: "Binance"),
                         source: "Binance")
     }
 
@@ -79,11 +87,17 @@ struct WatchPriceProvider: TimelineProvider {
         let time = cached?.time ?? 0
         let now = Int64(date.timeIntervalSince1970 * 1000)
         let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
-        // Paar des iPhones wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert
-        return WatchPriceEntry(date: date, coin: WatchPair.label(of: coin), price: q.map { WatchText.price($0.price) } ?? "—",
+        // Paar des iPhones wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert (gegen USDT)
+        let label = WatchPair.label(of: coin)
+        let source = q.map(\.source).flatMap { $0.isEmpty ? nil : $0 }
+        let age = outdated ? WatchText.ago(time, now: now) : nil
+        // Wie die Zeile der Uhr-App: veraltet das Alter, sonst die Börse
+        let line = WatchPriceFormat.line(coin: label, price: q?.price, quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt,
+                                         change: q?.change24h, detail: age ?? source)
+        return WatchPriceEntry(date: date, coin: label, price: q.map { WatchText.price($0.price) } ?? "—",
                                change: WatchText.change(q?.change24h),
-                               source: q.map(\.source).flatMap { $0.isEmpty ? nil : $0 },
-                               age: outdated ? WatchText.ago(time, now: now) : nil,
+                               compact: q.map { WatchText.compactPrice($0.price) } ?? "—", line: line,
+                               source: source, age: age,
                                spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil)
     }
 }
@@ -115,21 +129,18 @@ struct WatchPriceWidgetView: View {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
                 Text(coin).font(.headline)
-                Text(entry.price).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
-                // Wie die Zeile der Uhr-App: veraltet das Alter, sonst die Börse
-                Text(entry.change + ((entry.age ?? entry.source).map { "  ·  \($0)" } ?? "")).lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .foregroundStyle(.secondary)
+                // «BTC • 84’450.00 USDT  +1.20%  ·  Binance» (wie Android LONG_TEXT)
+                Text(entry.line).lineLimit(2).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
             }
         case .accessoryInline:
             // Eine Zeile ohne Platz für das Alter; das System färbt sie selbst
-            Text("\(coin) \(entry.change)")
+            Text("\(coin) \(entry.compact)")
         case .accessoryCorner:
-            Text(entry.change).foregroundStyle(valueStyle).widgetLabel(coin)
+            Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(coin)
         default:
             VStack(spacing: 0) {
                 Text(coin).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
-                Text(entry.change).font(.caption).lineLimit(1).minimumScaleFactor(0.5).foregroundStyle(valueStyle)
+                Text(entry.compact).font(.caption).lineLimit(1).minimumScaleFactor(0.5).foregroundStyle(valueStyle)
             }
         }
     }

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfel</string>
     <string name="watch_portfolio_today">bugun %1$s</string>
     <string name="a11y_watch_portfolio_hidden">miqdor yashirilgan</string>
+    <string name="watch_portfolio_off">oʻchiq</string>
+    <string name="watch_portfolio_turn_on">telefonda yoqing</string>
     <string name="a11y_watch_outdated">Kurs eskirgan</string>
     <string name="a11y_watch_no_price_unreachable">narx yoʻq, %1$s mavjud emas</string>
     <string name="a11y_watch_no_price_phone_only">narx yoʻq, soat bu juftlikni yuklay olmaydi</string>

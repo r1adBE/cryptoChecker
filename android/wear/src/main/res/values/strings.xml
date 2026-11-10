@@ -18,6 +18,9 @@
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s today</string>
     <string name="a11y_watch_portfolio_hidden">amount hidden</string>
+    <!-- Portfolio-Komplikation ohne Wert (Schalter «Portfolio-Wert auf der Uhr» aus): kurz watch_portfolio / watch_portfolio_off (möglichst kurz), lang «Portfolio · watch_portfolio_turn_on» -->
+    <string name="watch_portfolio_off">off</string>
+    <string name="watch_portfolio_turn_on">turn on on the phone</string>
     <!-- Veraltet (WatchFreshness): «Kurs veraltet, zuletzt aktualisiert vor 47 Minuten» — wie a11y_price_outdated / a11y_updated_* der Handy-App -->
     <string name="a11y_watch_outdated">Price outdated</string>
     <!-- Kein Kurs («—»), Grund für den Screenreader: %1$s = Börse des Paars vom Handy («Binance Futures») -->

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">I-portfolio</string>
     <string name="watch_portfolio_today">%1$s namuhla</string>
     <string name="a11y_watch_portfolio_hidden">inani lifihliwe</string>
+    <string name="watch_portfolio_off">kuvaliwe</string>
+    <string name="watch_portfolio_turn_on">vula ocingweni</string>
     <string name="a11y_watch_outdated">Intengo indala</string>
     <string name="a11y_watch_no_price_unreachable">alikho intengo, i-%1$s ayitholakali</string>
     <string name="a11y_watch_no_price_phone_only">alikho intengo, iwashi alikwazi ukulayisha lesi sibhangqa</string>

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">పోర్ట్‌ఫోలియో</string>
     <string name="watch_portfolio_today">ఈరోజు %1$s</string>
     <string name="a11y_watch_portfolio_hidden">మొత్తం దాచబడింది</string>
+    <string name="watch_portfolio_off">ఆఫ్</string>
+    <string name="watch_portfolio_turn_on">ఫోన్‌లో ఆన్ చేయండి</string>
     <string name="a11y_watch_outdated">ధర పాతది</string>
     <string name="a11y_watch_no_price_unreachable">ధర లేదు, %1$s అందుబాటులో లేదు</string>
     <string name="a11y_watch_no_price_phone_only">ధర లేదు, వాచ్ ఈ జతను లోడ్ చేయలేదు</string>

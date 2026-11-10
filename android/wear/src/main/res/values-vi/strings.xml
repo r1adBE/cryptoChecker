@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Danh mục</string>
     <string name="watch_portfolio_today">%1$s hôm nay</string>
     <string name="a11y_watch_portfolio_hidden">số tiền bị ẩn</string>
+    <string name="watch_portfolio_off">tắt</string>
+    <string name="watch_portfolio_turn_on">vui lòng bật trên điện thoại</string>
     <string name="a11y_watch_outdated">Giá đã cũ</string>
     <string name="a11y_watch_no_price_unreachable">không có giá, không kết nối được %1$s</string>
     <string name="a11y_watch_no_price_phone_only">không có giá, đồng hồ không tải được cặp này</string>

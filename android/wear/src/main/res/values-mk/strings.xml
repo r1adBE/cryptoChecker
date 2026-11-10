@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Портфолио</string>
     <string name="watch_portfolio_today">%1$s денес</string>
     <string name="a11y_watch_portfolio_hidden">износот е скриен</string>
+    <string name="watch_portfolio_off">искл.</string>
+    <string name="watch_portfolio_turn_on">вклучете на телефонот</string>
     <string name="a11y_watch_outdated">Цената е застарена</string>
     <string name="a11y_watch_no_price_unreachable">нема цена, %1$s не е достапна</string>
     <string name="a11y_watch_no_price_phone_only">нема цена, часовникот не може да го вчита овој пар</string>

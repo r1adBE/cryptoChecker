@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Cartera</string>
     <string name="watch_portfolio_today">%1$s avui</string>
     <string name="a11y_watch_portfolio_hidden">import amagat</string>
+    <string name="watch_portfolio_off">desact.</string>
+    <string name="watch_portfolio_turn_on">activar al mòbil</string>
     <string name="a11y_watch_outdated">Preu desactualitzat</string>
     <string name="a11y_watch_no_price_unreachable">sense preu, %1$s no és accessible</string>
     <string name="a11y_watch_no_price_phone_only">sense preu, el rellotge no pot carregar aquest parell</string>

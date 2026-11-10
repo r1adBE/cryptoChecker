@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s hari ini</string>
     <string name="a11y_watch_portfolio_hidden">amaun disembunyikan</string>
+    <string name="watch_portfolio_off">mati</string>
+    <string name="watch_portfolio_turn_on">sila hidupkan pada telefon</string>
     <string name="a11y_watch_outdated">Harga sudah lapuk</string>
     <string name="a11y_watch_no_price_unreachable">tiada harga, %1$s tidak dapat dicapai</string>
     <string name="a11y_watch_no_price_phone_only">tiada harga, jam tidak dapat memuatkan pasangan ini</string>

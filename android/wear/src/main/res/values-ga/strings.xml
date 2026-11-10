@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Punann</string>
     <string name="watch_portfolio_today">%1$s inniu</string>
     <string name="a11y_watch_portfolio_hidden">méid i bhfolach</string>
+    <string name="watch_portfolio_off">múchta</string>
+    <string name="watch_portfolio_turn_on">cas air ar an bhfón</string>
     <string name="a11y_watch_outdated">Praghas as dáta</string>
     <string name="a11y_watch_no_price_unreachable">gan phraghas, níl %1$s ar fáil</string>
     <string name="a11y_watch_no_price_phone_only">gan phraghas, ní féidir leis an uaireadóir an péire seo a lódáil</string>

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfólió</string>
     <string name="watch_portfolio_today">ma %1$s</string>
     <string name="a11y_watch_portfolio_hidden">összeg elrejtve</string>
+    <string name="watch_portfolio_off">ki</string>
+    <string name="watch_portfolio_turn_on">bekapcsolás a telefonon</string>
     <string name="a11y_watch_outdated">Az árfolyam elavult</string>
     <string name="a11y_watch_no_price_unreachable">nincs árfolyam, %1$s nem érhető el</string>
     <string name="a11y_watch_no_price_phone_only">nincs árfolyam, az óra nem tudja betölteni ezt a párt</string>

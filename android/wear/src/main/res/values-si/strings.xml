@@ -15,6 +15,8 @@
     <string name="watch_portfolio">කළඹ</string>
     <string name="watch_portfolio_today">අද %1$s</string>
     <string name="a11y_watch_portfolio_hidden">ප්‍රමාණය සඟවා ඇත</string>
+    <string name="watch_portfolio_off">අක්‍රිය</string>
+    <string name="watch_portfolio_turn_on">දුරකථනයෙන් සක්‍රිය කරන්න</string>
     <string name="a11y_watch_outdated">මිල යල් පැන ගොස් ඇත</string>
     <string name="a11y_watch_no_price_unreachable">මිලක් නැත, %1$s වෙත ළඟා විය නොහැක</string>
     <string name="a11y_watch_no_price_phone_only">මිලක් නැත, ඔරලෝසුවට මෙම යුගලය පූරණය කළ නොහැක</string>

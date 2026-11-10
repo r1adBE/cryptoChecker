@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portfel</string>
     <string name="watch_portfolio_today">%1$s dziś</string>
     <string name="a11y_watch_portfolio_hidden">kwota ukryta</string>
+    <string name="watch_portfolio_off">wył.</string>
+    <string name="watch_portfolio_turn_on">włącz w telefonie</string>
     <string name="a11y_watch_outdated">Kurs nieaktualny</string>
     <string name="a11y_watch_no_price_unreachable">brak kursu, %1$s jest niedostępna</string>
     <string name="a11y_watch_no_price_phone_only">brak kursu, zegarek nie może wczytać tej pary</string>

@@ -15,6 +15,8 @@
     <string name="watch_portfolio">ພອດໂຟລິໂອ</string>
     <string name="watch_portfolio_today">ມື້ນີ້ %1$s</string>
     <string name="a11y_watch_portfolio_hidden">ຈຳນວນຖືກເຊື່ອງໄວ້</string>
+    <string name="watch_portfolio_off">ປິດ</string>
+    <string name="watch_portfolio_turn_on">ກະລຸນາເປີດໃນໂທລະສັບ</string>
     <string name="a11y_watch_outdated">ລາຄາບໍ່ເປັນປັດຈຸບັນ</string>
     <string name="a11y_watch_no_price_unreachable">ບໍ່ມີລາຄາ, ບໍ່ສາມາດເຊື່ອມຕໍ່ %1$s ໄດ້</string>
     <string name="a11y_watch_no_price_phone_only">ບໍ່ມີລາຄາ, ໂມງບໍ່ສາມາດໂຫຼດຄູ່ນີ້ໄດ້</string>

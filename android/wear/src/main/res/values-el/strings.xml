@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Χαρτοφυλάκιο</string>
     <string name="watch_portfolio_today">%1$s σήμερα</string>
     <string name="a11y_watch_portfolio_hidden">κρυφό ποσό</string>
+    <string name="watch_portfolio_off">ανενεργό</string>
+    <string name="watch_portfolio_turn_on">ενεργοποίηση στο κινητό</string>
     <string name="a11y_watch_outdated">Η τιμή δεν είναι επίκαιρη</string>
     <string name="a11y_watch_no_price_unreachable">καμία τιμή, το %1$s δεν είναι διαθέσιμο</string>
     <string name="a11y_watch_no_price_phone_only">καμία τιμή, το ρολόι δεν μπορεί να φορτώσει αυτό το ζεύγος</string>

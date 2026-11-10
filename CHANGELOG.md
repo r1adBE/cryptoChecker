@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 208)
+
+* Watch complications (Wear OS and Apple Watch): the small slot shows the price (e.g. 84'450), the long one «BTC • 84'450.00 USDT +1.20%»; the 24 h change is still spoken.
+* Portfolio complication: while the phone switch is off it says «Portfolio · turn on on the phone» instead of staying empty.
+
 ## 16.2.2 (build 207)
 
 * Watchlist: after the first logo load, «2 coins without a logo» with a close button; a tap lists them. Closing hides it until another coin without a logo appears; it disappears by itself when the logos arrive.

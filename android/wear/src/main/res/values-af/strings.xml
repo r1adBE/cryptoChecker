@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Portefeulje</string>
     <string name="watch_portfolio_today">%1$s vandag</string>
     <string name="a11y_watch_portfolio_hidden">bedrag versteek</string>
+    <string name="watch_portfolio_off">af</string>
+    <string name="watch_portfolio_turn_on">aanskakel op die foon</string>
     <string name="a11y_watch_outdated">Prys verouderd</string>
     <string name="a11y_watch_no_price_unreachable">geen koers, %1$s nie bereikbaar nie</string>
     <string name="a11y_watch_no_price_phone_only">geen koers, die horlosie kan hierdie paar nie laai nie</string>

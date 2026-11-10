@@ -3,7 +3,9 @@ import WidgetKit
 
 /// Komplikation «Portfolio»: der Wert, den das iPhone schickt (nur mit «Portfolio-Wert auf der Uhr»), ohne eigene
 /// Abfrage — rund kurz «12.3K» mit Währung, rechteckig «Portfolio / CHF 12’345.67 / +1.20 % heute», als Zeile «CHF
-/// 12’345.67»; verborgen auf dem iPhone «•••». Ohne Wert «—». Veraltet (`WatchFreshness`): grau, rechteckig mit Alter;
+/// 12’345.67»; verborgen auf dem iPhone «•••». Ohne Wert (Schalter aus oder noch nie einer) nie leer: rund und Ecke
+/// «Portfolio / aus», rechteckig «Portfolio / am Handy einschalten», als Zeile «Portfolio · am Handy einschalten»
+/// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter;
 /// VoiceOver nennt es immer. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android `PortfolioComplicationService`.
 struct WatchPortfolioEntry: TimelineEntry {
     let date: Date
@@ -51,7 +53,9 @@ struct WatchPortfolioWidgetView: View {
     }
 
     private var spoken: String {
-        guard let p = entry.portfolio else { return WatchText.t("watch_portfolio") + ", —" }
+        guard let p = entry.portfolio else {
+            return WatchPortfolioOff.spoken(title: WatchText.t("watch_portfolio"), hint: WatchText.t("watch_portfolio_turn_on"))
+        }
         let row = WatchText.portfolioSpoken(p)
         return entry.outdated ? row + ", " + WatchText.spokenAge(p.time, now: Int64(entry.date.timeIntervalSince1970 * 1000)) : row
     }
@@ -59,27 +63,54 @@ struct WatchPortfolioWidgetView: View {
     private var valueStyle: HierarchicalShapeStyle { entry.outdated ? .secondary : .primary }
 
     @ViewBuilder private var content: some View {
-        let p = entry.portfolio
-        let total = p.map(WatchText.portfolioTotal) ?? "—"
+        if let p = entry.portfolio {
+            value(p)
+        } else {
+            off
+        }
+    }
+
+    /// Kein Wert vom iPhone (Schalter «Portfolio-Wert auf der Uhr» aus): sagt es, statt «—» zu zeigen.
+    @ViewBuilder private var off: some View {
+        let title = WatchText.t("watch_portfolio")
+        let hint = WatchText.t("watch_portfolio_turn_on")
+        let short = WatchText.t("watch_portfolio_off")
+        switch family {
+        case .accessoryRectangular:
+            VStack(alignment: .leading) {
+                Text(title).font(.headline)
+                Text(hint).lineLimit(2).minimumScaleFactor(0.6).foregroundStyle(.secondary)
+            }
+        case .accessoryInline:
+            Text(WatchPortfolioOff.line(title: title, hint: hint))
+        case .accessoryCorner:
+            Text(short).foregroundStyle(.secondary).widgetLabel(title)
+        default:
+            VStack(spacing: 0) {
+                Text(title).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(short).font(.caption).lineLimit(1).minimumScaleFactor(0.5).foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    @ViewBuilder private func value(_ p: WatchPortfolio) -> some View {
+        let total = WatchText.portfolioTotal(p)
         switch family {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
                 Text(WatchText.t("watch_portfolio")).font(.headline)
                 Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
-                if let p {
-                    let age = entry.outdated ? "  ·  " + WatchText.ago(p.time, now: Int64(entry.date.timeIntervalSince1970 * 1000)) : ""
-                    Text(WatchText.portfolioToday(p) + age).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(.secondary)
-                }
+                let age = entry.outdated ? "  ·  " + WatchText.ago(p.time, now: Int64(entry.date.timeIntervalSince1970 * 1000)) : ""
+                Text(WatchText.portfolioToday(p) + age).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(.secondary)
             }
         case .accessoryInline:
             Text(total)
         case .accessoryCorner:
-            Text(p.map(WatchText.portfolioCompact) ?? "—").foregroundStyle(valueStyle)
-                .widgetLabel(p?.currency ?? WatchText.t("watch_portfolio"))
+            Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).widgetLabel(p.currency)
         default:
             VStack(spacing: 0) {
-                Text(p?.currency ?? "—").font(.caption).lineLimit(1).minimumScaleFactor(0.5)
-                Text(p.map(WatchText.portfolioCompact) ?? "—").font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(p.currency).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(WatchText.portfolioCompact(p)).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
                     .foregroundStyle(valueStyle)
             }
         }

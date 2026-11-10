@@ -15,6 +15,8 @@
     <string name="watch_portfolio">Jalada</string>
     <string name="watch_portfolio_today">%1$s leo</string>
     <string name="a11y_watch_portfolio_hidden">kiasi kimefichwa</string>
+    <string name="watch_portfolio_off">imezimwa</string>
+    <string name="watch_portfolio_turn_on">washa kwenye simu</string>
     <string name="a11y_watch_outdated">Bei imepitwa na wakati</string>
     <string name="a11y_watch_no_price_unreachable">hakuna bei, %1$s haipatikani</string>
     <string name="a11y_watch_no_price_phone_only">hakuna bei, saa haiwezi kupakia jozi hii</string>

@@ -48,6 +48,12 @@ object WatchPortfolioText {
         return CompactDecimalFormat.getInstance(locale, CompactDecimalFormat.CompactStyle.SHORT).format(total)
     }
 
+    /** Lange Komplikation ohne Wert (Schalter aus): «Portfolio · am Handy einschalten». Wie iOS `WatchPortfolioOff.line`. */
+    fun offLine(title: String, hint: String): String = "$title · $hint"
+
+    /** Dasselbe für den Screenreader: «Portfolio, am Handy einschalten». */
+    fun offSpoken(title: String, hint: String): String = "$title, $hint"
+
     /** «+1.20 % heute»; verborgen «•••». */
     fun today(context: Context, p: WatchPortfolio): String =
         if (p.hidden) HIDDEN else context.getString(R.string.watch_portfolio_today, WatchFormat.change(p.changePercent))

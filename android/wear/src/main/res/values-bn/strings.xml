@@ -15,6 +15,8 @@
     <string name="watch_portfolio">পোর্টফোলিও</string>
     <string name="watch_portfolio_today">আজ %1$s</string>
     <string name="a11y_watch_portfolio_hidden">পরিমাণ লুকানো</string>
+    <string name="watch_portfolio_off">বন্ধ</string>
+    <string name="watch_portfolio_turn_on">ফোনে চালু করুন</string>
     <string name="a11y_watch_outdated">দাম পুরোনো</string>
     <string name="a11y_watch_no_price_unreachable">দাম নেই, %1$s-এ পৌঁছানো যাচ্ছে না</string>
     <string name="a11y_watch_no_price_phone_only">দাম নেই, ঘড়ি এই জোড়াটি লোড করতে পারে না</string>

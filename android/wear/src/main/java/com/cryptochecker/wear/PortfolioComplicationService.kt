@@ -7,7 +7,6 @@ import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.data.CountUpTimeReference
 import androidx.wear.watchface.complications.data.LongTextComplicationData
-import androidx.wear.watchface.complications.data.NoDataComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.TimeDifferenceComplicationText
@@ -22,7 +21,8 @@ import java.util.concurrent.TimeUnit
 /**
  * Komplikation «Portfolio»: der Wert, den das Handy schickt (nur mit «Portfolio-Wert auf der Uhr»), ohne eigene
  * Abfrage — kurz «12.3K» mit der Währung als Titel, lang «CHF 12’345.67  +1.20 %» mit «Portfolio» als Titel; verborgen
- * auf dem Handy «•••». Ohne Wert (Schalter aus): keine Daten. Veraltet ([WatchFreshness]): lang mit Alter, kurz mit dem
+ * auf dem Handy «•••». Ohne Wert (Schalter aus oder noch nie einer): kurz «Portfolio / aus», lang «Portfolio · am Handy
+ * einschalten» ([WatchPortfolioText.offLine]), nie leer. Veraltet ([WatchFreshness]): lang mit Alter, kurz mit dem
  * Alter im Titel (vom Zifferblatt fortgezählt), wie [PriceComplicationService]. Neu gezeichnet bei jedem neuen Wert
  * ([WatchDataListener]). Tippen öffnet die Uhr-App. Wie die Apple Watch (`WatchPortfolioWidget`).
  */
@@ -32,11 +32,28 @@ class PortfolioComplicationService : SuspendingComplicationDataSourceService() {
         data(type, WatchPortfolio(12_345.67, 1.2, "USD", System.currentTimeMillis(), hidden = false), null)
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
-        val p = WatchStore(this).portfolioFlow.value ?: return NoDataComplicationData()
         val tap = PendingIntent.getActivity(
             this, 1, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
+        val p = WatchStore(this).portfolioFlow.value ?: return off(request.complicationType, tap)
         return data(request.complicationType, p, tap)
+    }
+
+    /** Kein Wert (Schalter «Portfolio-Wert auf der Uhr» aus): sagt es, statt leer zu bleiben; Tippen öffnet die Uhr-App. */
+    private fun off(type: ComplicationType, tap: PendingIntent): ComplicationData? {
+        val title = getString(R.string.watch_portfolio)
+        val hint = getString(R.string.watch_portfolio_turn_on)
+        val description = text(WatchPortfolioText.offSpoken(title, hint))
+        return when (type) {
+            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text(getString(R.string.watch_portfolio_off)), description)
+                .setTitle(text(title))
+                .setTapAction(tap)
+                .build()
+            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text(WatchPortfolioText.offLine(title, hint)), description)
+                .setTapAction(tap)
+                .build()
+            else -> null
+        }
     }
 
     private fun data(type: ComplicationType, p: WatchPortfolio, tap: PendingIntent?): ComplicationData? {

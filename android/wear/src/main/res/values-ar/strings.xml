@@ -15,6 +15,8 @@
     <string name="watch_portfolio">المحفظة</string>
     <string name="watch_portfolio_today">%1$s اليوم</string>
     <string name="a11y_watch_portfolio_hidden">المبلغ مخفي</string>
+    <string name="watch_portfolio_off">إيقاف</string>
+    <string name="watch_portfolio_turn_on">التفعيل من الهاتف</string>
     <string name="a11y_watch_outdated">السعر قديم</string>
     <string name="a11y_watch_no_price_unreachable">لا يوجد سعر، تعذّر الوصول إلى %1$s</string>
     <string name="a11y_watch_no_price_phone_only">لا يوجد سعر، لا تستطيع الساعة تحميل هذا الزوج</string>
