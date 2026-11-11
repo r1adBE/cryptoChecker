@@ -7,13 +7,13 @@ package com.cryptochecker.app.ui.features.watchlist
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.settings.WatchlistSettings
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.WatchlistSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

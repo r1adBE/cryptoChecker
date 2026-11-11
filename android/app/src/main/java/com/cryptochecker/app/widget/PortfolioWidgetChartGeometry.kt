@@ -1,5 +1,10 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.CandleShape
+import com.cryptochecker.app.domain.widget.ChartGridUnit
+import com.cryptochecker.app.domain.widget.ChartLevels
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate

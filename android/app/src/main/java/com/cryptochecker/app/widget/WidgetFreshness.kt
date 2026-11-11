@@ -1,6 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.watch.LiveStatus

@@ -3,7 +3,7 @@ package com.cryptochecker.app.data
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.MissingLogoNotice
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

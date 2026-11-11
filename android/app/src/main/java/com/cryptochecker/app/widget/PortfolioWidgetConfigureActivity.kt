@@ -45,10 +45,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

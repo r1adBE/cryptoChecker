@@ -31,9 +31,9 @@ import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import kotlin.math.roundToInt
 

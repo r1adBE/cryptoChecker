@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote.candles
 
-import com.cryptochecker.app.data.BoundedCache
-import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.activity.CandleSeries
@@ -10,7 +10,7 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher

@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.remote.VolumeSpike
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -68,7 +69,7 @@ class VolumeSpikeTest {
 
     @Test
     fun foreignCandlesNameTheirExchange() {
-        val kraken = com.cryptochecker.app.data.local.model.WatchEntity(
+        val kraken = com.cryptochecker.app.domain.model.WatchEntity(
             exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
         )
         val spike = VolumeSpike(ratio = 3.0, candleOpenTime = 0L)

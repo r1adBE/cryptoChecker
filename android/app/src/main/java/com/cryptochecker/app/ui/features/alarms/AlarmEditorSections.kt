@@ -2,7 +2,7 @@
 // Eigene Datei, weil `AlarmEditorSheet` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.compose.ui.platform.LocalConfiguration
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -43,19 +43,19 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.layout.Row
 

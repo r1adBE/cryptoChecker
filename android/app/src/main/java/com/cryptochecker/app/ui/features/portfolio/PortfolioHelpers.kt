@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
+import com.cryptochecker.app.alarm.DepegAlarmChecker
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.notification.AppNotifier

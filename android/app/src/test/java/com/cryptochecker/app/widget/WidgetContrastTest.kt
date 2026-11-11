@@ -37,7 +37,7 @@ class WidgetContrastTest {
      */
     @Test
     fun `widgets raise the accent in high contrast like the app`() {
-        for (accent in com.cryptochecker.app.settings.AccentColor.entries) for (dark in listOf(false, true)) {
+        for (accent in com.cryptochecker.app.domain.settings.AccentColor.entries) for (dark in listOf(false, true)) {
             val normal = WidgetColors.of(accent, dark)
             val strong = WidgetColors.of(accent, dark, highContrast = true)
             assertEquals(WidgetContrast.highContrastAccent(normal.accentColor, dark), strong.accentColor)

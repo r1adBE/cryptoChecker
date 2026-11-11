@@ -3,8 +3,8 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import com.cryptochecker.app.domain.watch.SheetCandleRequest
 import com.cryptochecker.app.domain.watch.SheetChart
-import com.cryptochecker.app.widget.WidgetCandle
-import com.cryptochecker.app.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull

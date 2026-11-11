@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.domain.gas.GasAlertLogic
+import com.cryptochecker.app.gas.GasAlertLogic
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules

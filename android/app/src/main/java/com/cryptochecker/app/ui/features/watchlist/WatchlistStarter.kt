@@ -46,7 +46,7 @@ import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.UiTestTags
 
 /**

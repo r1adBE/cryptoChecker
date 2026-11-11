@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.domain.remote.BlockedSources
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient

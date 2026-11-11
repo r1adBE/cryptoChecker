@@ -10,12 +10,12 @@ import com.cryptochecker.app.data.trySaveAlarm
 import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmSaveBuilder
@@ -24,7 +24,7 @@ import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -62,7 +62,7 @@ class AlarmsViewModel @Inject constructor(
     /** Letzter Kurs nur der Mark-Preis ([com.cryptochecker.app.data.MarkFallbackStore]): Alarme warten auf einen Mittelkurs. */
     markFallbackStore: com.cryptochecker.app.data.MarkFallbackStore,
     /** Alarm-Protokoll: «Zuletzt geprüft» im Editor; Löschen eines Alarms entfernt seine letzte Prüfung. */
-    private val alarmLogStore: com.cryptochecker.app.domain.refresh.AlarmLogStore,
+    private val alarmLogStore: com.cryptochecker.app.data.refresh.AlarmLogStore,
 ) : ViewModel() {
 
     /** Letzte Prüfung je Alarm-Id ([com.cryptochecker.app.domain.alarm.AlarmLog]). */

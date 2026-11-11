@@ -1,8 +1,8 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.app.data.remote.FuturesInfo
-import com.cryptochecker.app.data.remote.FuturesParsers
-import com.cryptochecker.app.data.remote.FuturesSources
+import com.cryptochecker.app.domain.remote.FuturesInfo
+import com.cryptochecker.app.domain.remote.FuturesParsers
+import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num

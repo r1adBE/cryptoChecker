@@ -34,7 +34,7 @@ import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**

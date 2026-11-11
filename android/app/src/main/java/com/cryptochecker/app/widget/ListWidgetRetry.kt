@@ -7,9 +7,9 @@ import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
-import com.cryptochecker.app.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job

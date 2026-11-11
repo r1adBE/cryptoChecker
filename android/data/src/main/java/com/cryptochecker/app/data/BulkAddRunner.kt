@@ -1,8 +1,9 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
-import com.cryptochecker.app.util.DefaultDispatcher
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher

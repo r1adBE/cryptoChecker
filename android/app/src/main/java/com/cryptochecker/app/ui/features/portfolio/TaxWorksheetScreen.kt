@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle

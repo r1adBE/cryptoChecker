@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.util.PercentText
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

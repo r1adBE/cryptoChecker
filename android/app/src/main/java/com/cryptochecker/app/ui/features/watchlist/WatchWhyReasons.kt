@@ -44,7 +44,7 @@ import com.cryptochecker.app.ui.components.FactorRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import kotlin.math.roundToInt
 
 /** «1h» und daneben die Änderung als [ChangePill] («—» ohne Daten). */

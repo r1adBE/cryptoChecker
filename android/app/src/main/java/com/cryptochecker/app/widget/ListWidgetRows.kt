@@ -2,6 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.ui.features.watchlist.assetKind
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -11,15 +12,15 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

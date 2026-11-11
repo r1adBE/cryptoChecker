@@ -2316,7 +2316,7 @@ Change a rule → change the JSON first, then both implementations.
   is described by its deviation from 1:1 (notable from 0.5 %, strong from 2 %); market, volatility
   and position factors are dropped. Volume without quote volume is compared in coin units and marked
   «estimated»; with more than 6 of the 24 hours without trades the volume factor is left out.
-* **Futures data per exchange.** `FuturesSources` (`data/remote/FuturesExchanges.kt`, Swift in
+* **Futures data per exchange.** `FuturesSources` (`domain/remote/FuturesExchanges.kt`, Swift in
   `FuturesExchanges.swift`): Binance, Bybit, OKX, WOO X, Bitget, MEXC, HTX, Hyperliquid and Deribit
   perpetuals use their **own** funding rate and open interest – requests go only to the exchange of
   the watched pair. Every other futures exchange (e.g. Phemex), a spot pair or a failing own source
@@ -3431,6 +3431,25 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 214: `DispatcherQualifiers` (:domain) + `DispatcherModule` (:app); `DispatcherInjectionGuardTest` with the
   list of remaining files.
 * Build 215: generated `baseline-prof.txt` and `startup-prof.txt` committed under `app/src/release/generated/baselineProfiles/`.
+* Build 216 (audit C-01, layers; no behaviour change): package = module on Android. Every file of `:domain` is in
+  `com.cryptochecker.app.domain.…` (39 files moved: `util` → `domain/util`, `settings` → `domain/settings`, `widget` →
+  `domain/widget`, `notification` → `domain/notification`, `data/…` → `domain/…` with the same tail, the models
+  `WatchEntity`/`AlarmEntity` → `domain/model`); every file of `:data` is in `com.cryptochecker.app.data.…` (16 moved:
+  `settings` → `data/settings`, `widget` → `data/widget`, `util` → `data/util`, `notification` → `data/notification`,
+  `domain/refresh/AlarmLogStore` → `data/refresh`, `domain/alarm/DerivativesAlarmData` → `data/alarm`); the 9 flows of
+  `:app` that sat in `com.cryptochecker.app.domain` are in `app/…/activity`, `alarm`, `diagnostics`, `gas`, `refresh`.
+  Not moved: everything named in the manifest or persisted by class name (workers, receivers, services, activities,
+  widget providers, `SystemBackupAgent`) and `AppDatabase`/`PortfolioDatabase` (schema directory = class name) – none
+  of them was in a wrong package. `:domain` has no Room and no OkHttp: `WatchEntity`/`AlarmEntity` are plain data
+  classes, the tables are `WatchRow`/`AlarmRow` in `:data` (`data/local/model`, same columns, order, defaults, index
+  and foreign key – schema 1 and its identity hash unchanged) with `toDomain()`/`toRow()`; `WatchDao` keeps its
+  functions for the models (default functions that map) next to the Room functions named `…Row(s)`.
+  `LogoUrlPolicy` decides without a parser library (plus OkHttp's limits: label ≤ 63, host ≤ 253 characters);
+  `LogoUrlPolicyTest` compares it with OkHttp. `domain/gradle.lockfile` lost Room, SQLite, OkHttp, Okio and
+  `startup-runtime`; the other locked versions stay until the next «Supply chain update». `LayerBoundaryTest` keeps
+  the rule: package and folder of every `:domain`/`:data` file, no import of `androidx.room`, `okhttp3` or another
+  app package in `:domain`, only `domain`/`data` imports from the app in `:data`, no `…app.domain` package in `:app`.
+  The committed baseline and startup profiles carry the new class names (renamed in place, not measured again).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

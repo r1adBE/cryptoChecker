@@ -44,7 +44,7 @@ import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.ui.theme.title
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 
 /**

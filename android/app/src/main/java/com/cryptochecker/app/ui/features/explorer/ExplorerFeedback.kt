@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberBulkUndoConfirm

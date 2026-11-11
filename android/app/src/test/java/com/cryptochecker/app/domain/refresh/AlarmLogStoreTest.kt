@@ -1,10 +1,11 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.data.refresh.AlarmLogStore
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
-import com.cryptochecker.app.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -47,7 +48,8 @@ class AlarmLogStoreTest {
         assertTrue(file.exists())
         // Nie Klartext: weder Paar noch Börse lesbar in der Datei (ganzes Paar «BTC/CHF»: drei zufällige Zeichen wie «BTC»
         // kommen im Chiffrat ab und zu vor, der Test wäre sonst zufällig rot)
-        val raw = file.readText()
+        // Byte-genau: ISO-8859-1 bildet jedes Byte auf genau ein Zeichen ab (UTF-8 ersetzte ungültige Folgen)
+        val raw = String(file.readBytes(), Charsets.ISO_8859_1)
         assertFalse(raw.contains("BTC/CHF"))
         assertFalse(raw.contains("Kraken"))
 

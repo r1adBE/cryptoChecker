@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.convert.CurrencyConversion
-import com.cryptochecker.app.util.DecimalText
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.DecimalText
+import com.cryptochecker.app.domain.util.PercentText
 import java.util.Locale
 import kotlin.math.max
 
@@ -17,7 +17,7 @@ data class PortfolioPosition(
     val sharePercent: Double,
     val change24hPercent: Double?,
     /**
-     * Gehaltene Menge als Dezimaltext ([com.cryptochecker.app.util.DecimalText.plain]) für «1.3 BTC» im
+     * Gehaltene Menge als Dezimaltext ([com.cryptochecker.app.domain.util.DecimalText.plain]) für «1.3 BTC» im
      * Widget ([com.cryptochecker.app.util.WidgetQuantityFormat]); null = ohne Menge.
      */
     val quantity: String? = null,

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 
 /**

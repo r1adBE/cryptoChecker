@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.runtime.saveable.Saver
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 
 /**
  * Entwurf im Alarm-Editor über Drehen, Sprachwechsel und Prozess-Neustart retten (`rememberSaveable`):

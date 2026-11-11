@@ -10,11 +10,11 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 
 /**

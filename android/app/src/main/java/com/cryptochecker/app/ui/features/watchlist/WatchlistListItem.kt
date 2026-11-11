@@ -29,8 +29,8 @@ import androidx.compose.ui.zIndex
 import androidx.compose.ui.platform.testTag
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.SparklineRepository
-import com.cryptochecker.app.data.WatchMove
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.WatchMove
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.isNotTraded

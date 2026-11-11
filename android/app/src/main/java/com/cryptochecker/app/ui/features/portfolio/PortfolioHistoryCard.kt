@@ -38,7 +38,7 @@ import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import java.time.LocalDate
 import java.time.ZoneId

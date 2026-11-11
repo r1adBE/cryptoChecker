@@ -4,7 +4,7 @@ package com.cryptochecker.app.domain.watch
  * Obergrenzen der Merkliste überall in der App: höchstens [MAX_PAIRS] Paare und je Paar
  * [MAX_ALARMS_PER_PAIR] Alarme — beim Hinzufügen (einzeln, Sammelaufnahme, Start-Coins, DEX, Vorschau), beim Anlegen
  * von Alarmen (Editor, Schnell-Alarme) und beim Wiederherstellen einer Sicherung
- * ([com.cryptochecker.app.data.BackupRestoreLimits]). Mehr Paare machen jede Aktualisierung, die Widgets und die
+ * ([com.cryptochecker.app.domain.BackupRestoreLimits]). Mehr Paare machen jede Aktualisierung, die Widgets und die
  * Sicherung träge; mehr als zehn Alarme an einem Paar überblickt niemand. Portfolio-Alarme hängen an keinem Paar und
  * sind nicht begrenzt. «Rückgängig» nach dem Leeren bzw. Löschen holt den früheren Stand zurück (der lag schon unter
  * der Grenze) und prüft nicht. Gleich wie iOS `WatchlistLimits`.

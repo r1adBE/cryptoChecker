@@ -6,7 +6,7 @@ import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
-import com.cryptochecker.app.util.json.JsonException
+import com.cryptochecker.app.domain.util.json.JsonException
 import java.io.EOFException
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -36,7 +36,7 @@ open class ExchangeError : Exception {
  * nicht als gewöhnlicher Börsenfehler enden: dann sofort weiterwerfen, sonst nichts tun. Eine
  * abgelaufene INNERE Frist (TimeoutCancellationException, während die eigene Coroutine noch läuft)
  * ist dagegen ein gewöhnlicher Fehler — sonst risse eine einzelne Teilanfrage, die scheitern darf,
- * den ganzen Durchlauf mit (gleich wie [com.cryptochecker.app.data.remote.util.runCatchingCancellable]).
+ * den ganzen Durchlauf mit (gleich wie [com.cryptochecker.app.domain.remote.util.runCatchingCancellable]).
  */
 suspend fun Exception.rethrowIfCritical() {
     // android.os.DeadSystemException (System-Server tot) nach Namen, ohne Android-Typ in :domain

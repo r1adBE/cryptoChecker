@@ -9,7 +9,7 @@ import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.starter.StarterCoins
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

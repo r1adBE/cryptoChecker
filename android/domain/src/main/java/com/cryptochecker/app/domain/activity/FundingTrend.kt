@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.activity
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 import kotlin.math.roundToInt
 
 /** Eine abgerechnete Funding Rate: Zeitpunkt (Epoch-ms) und Satz in % je Periode. */

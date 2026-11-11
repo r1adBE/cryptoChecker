@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.live
 
-import com.cryptochecker.app.data.PairIdentity
+import com.cryptochecker.app.domain.PairIdentity
 import kotlin.math.min
 import kotlin.math.roundToLong
 

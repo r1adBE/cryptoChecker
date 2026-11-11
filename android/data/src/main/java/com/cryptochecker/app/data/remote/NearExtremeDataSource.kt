@@ -1,11 +1,12 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.data.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.data.CacheCodec
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.remote.WindowRanges
 import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -3,14 +3,14 @@ package com.cryptochecker.app.widget
 import android.content.Context
 import android.os.PowerManager
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

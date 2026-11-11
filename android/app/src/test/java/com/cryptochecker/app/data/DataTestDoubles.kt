@@ -3,7 +3,8 @@ package com.cryptochecker.app.data
 import android.content.ContextWrapper
 import android.content.SharedPreferences
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import java.io.File

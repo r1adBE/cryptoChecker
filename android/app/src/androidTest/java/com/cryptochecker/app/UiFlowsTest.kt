@@ -14,9 +14,9 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.DocumentPickerStub
 import com.cryptochecker.app.ui.MainActivity

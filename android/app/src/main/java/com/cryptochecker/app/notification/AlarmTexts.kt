@@ -2,13 +2,13 @@ package com.cryptochecker.app.notification
 
 import android.content.Context
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.convertCurrency
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 
 /** Beschreibt eine Alarmbedingung als Text – für Liste und Benachrichtigung. */

@@ -22,12 +22,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.rememberAlarmTest
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 
 // ── Alarme ───────────────────────────────────────────────────────────────────
 

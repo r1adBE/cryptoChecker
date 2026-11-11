@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.PercentText
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale

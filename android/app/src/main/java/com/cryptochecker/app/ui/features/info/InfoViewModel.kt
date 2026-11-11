@@ -7,15 +7,15 @@ import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
-import com.cryptochecker.app.data.ExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.CycleDataSource
 import com.cryptochecker.app.data.remote.GasDataSource
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.data.remote.UnusualDataSource
-import com.cryptochecker.app.domain.activity.ActivityMonitor
+import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.market.AltSeason
@@ -36,8 +36,8 @@ import com.cryptochecker.app.domain.market.MarketRevealSlot
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -87,7 +87,7 @@ class InfoViewModel @Inject constructor(
     activityRepository: ActivityRepository,
     internal val activityMonitor: ActivityMonitor,
     /** Netz da? Status-Pille «Offline · Stand 14:05» wie in der Merkliste. */
-    internal val connectivity: com.cryptochecker.app.util.ConnectivityMonitor,
+    internal val connectivity: com.cryptochecker.app.data.util.ConnectivityMonitor,
 ) : ViewModel() {
 
     /**

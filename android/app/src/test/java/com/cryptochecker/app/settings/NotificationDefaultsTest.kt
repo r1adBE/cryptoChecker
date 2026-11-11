@@ -1,7 +1,8 @@
 package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.settings.AppSettings
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

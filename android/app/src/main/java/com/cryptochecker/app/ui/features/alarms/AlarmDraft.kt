@@ -4,13 +4,13 @@
 // (wie `AlarmDraft.swift`).
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.alarm.ThresholdParser
-import com.cryptochecker.app.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import java.math.BigDecimal
 import java.math.MathContext
 

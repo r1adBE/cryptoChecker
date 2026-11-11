@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.math.BigDecimal
 import kotlin.math.abs
 import kotlin.math.ln

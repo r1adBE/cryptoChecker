@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.CancellationException

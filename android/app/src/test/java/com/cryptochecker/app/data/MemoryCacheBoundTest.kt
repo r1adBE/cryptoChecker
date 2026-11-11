@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.watch.SheetChartCache
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
@@ -48,7 +50,7 @@ class MemoryCacheBoundTest {
     fun betroffeneKlassenOhneUnbegrenzteMap() {
         val files = listOf(
             "data/remote/VolumeDataSource.kt", "data/remote/NearExtremeDataSource.kt",
-            "data/portfolio/PortfolioHistorySource.kt", "domain/alarm/DerivativesAlarmData.kt",
+            "data/portfolio/PortfolioHistorySource.kt", "data/alarm/DerivativesAlarmData.kt",
             "domain/watch/SheetChartCache.kt", "widget/SingleWidgetRenderer.kt",
         )
         for (name in files) {

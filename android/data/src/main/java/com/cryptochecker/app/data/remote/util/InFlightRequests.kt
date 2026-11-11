@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote.util
 
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

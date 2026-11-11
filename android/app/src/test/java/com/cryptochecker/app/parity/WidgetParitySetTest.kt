@@ -2,7 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
-import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.WidgetQuantityFormat
 import com.cryptochecker.app.widget.PortfolioChartRange
 import com.cryptochecker.app.widget.PortfolioDisplay

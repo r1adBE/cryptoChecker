@@ -8,9 +8,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.AlarmSnoozeStore
 import com.cryptochecker.app.domain.logos.CoinLogos

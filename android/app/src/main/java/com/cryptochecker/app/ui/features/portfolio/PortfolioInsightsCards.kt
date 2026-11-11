@@ -2,12 +2,12 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.DisabledColors
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 import androidx.compose.ui.graphics.lerp
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
-import com.cryptochecker.app.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import androidx.compose.foundation.background

@@ -61,11 +61,11 @@ import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
-import com.cryptochecker.app.util.DecimalText
-import com.cryptochecker.app.util.PercentText
-import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.domain.util.DecimalText
+import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme

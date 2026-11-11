@@ -13,7 +13,7 @@ import com.cryptochecker.app.data.MacroCalendarRepository
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.MacroTexts
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject

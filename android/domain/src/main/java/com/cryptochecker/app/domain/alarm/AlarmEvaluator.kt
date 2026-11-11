@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 

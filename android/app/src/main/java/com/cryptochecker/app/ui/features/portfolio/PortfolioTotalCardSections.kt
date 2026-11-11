@@ -58,7 +58,7 @@ internal fun UsdtNoteLine(usdtNote: DepegAlarm.CardNote?, priceSourceText: Strin
         DepegAlarm.CardNoteKind.USDT_BREAK -> Text(
             stringResource(
                 R.string.portfolio_usdt_break,
-                com.cryptochecker.app.util.LocaleNumbers.decimal(usdtNote.reading?.price ?: 0.0, 4),
+                com.cryptochecker.app.domain.util.LocaleNumbers.decimal(usdtNote.reading?.price ?: 0.0, 4),
             ),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.error,

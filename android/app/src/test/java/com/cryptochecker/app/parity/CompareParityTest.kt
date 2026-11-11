@@ -2,7 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.watch.CompareMath
 import com.cryptochecker.app.domain.watch.ComparePoint
-import com.cryptochecker.app.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetCandle
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

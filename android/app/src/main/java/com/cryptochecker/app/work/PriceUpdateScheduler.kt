@@ -17,14 +17,14 @@ import androidx.work.workDataOf
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
 import com.cryptochecker.app.domain.refresh.RetryWait
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
 import com.cryptochecker.app.widget.PriceWidgetProvider
 import com.cryptochecker.app.widget.PulseWidgetProvider

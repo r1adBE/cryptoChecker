@@ -3,10 +3,10 @@ package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.UsdtUsd
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
-import com.cryptochecker.app.widget.ChartLevels
-import com.cryptochecker.app.widget.WidgetCandle
-import com.cryptochecker.app.widget.WidgetChartGeometry
-import com.cryptochecker.app.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.ChartLevels
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.text.Normalizer
 import java.util.Locale
 

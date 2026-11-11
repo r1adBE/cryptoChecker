@@ -2,7 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
-import com.cryptochecker.app.settings.AssetScope
+import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.app.ui.features.explorer.CoinHit
 import com.cryptochecker.app.ui.features.explorer.CoinPairPreference
 import com.cryptochecker.app.ui.features.explorer.CoinSearch

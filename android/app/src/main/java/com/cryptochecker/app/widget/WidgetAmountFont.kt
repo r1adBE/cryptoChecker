@@ -4,7 +4,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.TypefaceSpan
 import android.widget.RemoteViews
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.util.Locale
 
 /**

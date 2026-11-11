@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 import java.util.concurrent.atomic.AtomicReference
 
 /**

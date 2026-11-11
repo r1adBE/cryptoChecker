@@ -2,10 +2,11 @@
 // letzte abgerechnete Funding Rates mit Ausweich-Kette. Erweiterungsfunktionen; Client und Zwischenspeicher in der Klasse.
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingHistory
 import com.cryptochecker.app.domain.activity.FundingPoint
 import com.cryptochecker.app.domain.activity.FundingTrendRules
+import com.cryptochecker.app.domain.remote.FuturesSources
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import timber.log.Timber

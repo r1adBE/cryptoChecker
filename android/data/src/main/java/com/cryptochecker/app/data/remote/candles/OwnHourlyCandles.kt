@@ -5,8 +5,8 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.DayReferenceCache
-import com.cryptochecker.app.data.BoundedCache
-import com.cryptochecker.app.data.KeyedMutex
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.KeyedMutex
 import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 import javax.inject.Singleton

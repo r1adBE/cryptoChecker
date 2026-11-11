@@ -1,14 +1,15 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext

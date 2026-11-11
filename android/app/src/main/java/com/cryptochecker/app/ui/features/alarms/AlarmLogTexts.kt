@@ -3,12 +3,12 @@ package com.cryptochecker.app.ui.features.alarms
 import android.content.Context
 import android.text.format.DateUtils
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.notification.AlarmTexts
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 
 /**

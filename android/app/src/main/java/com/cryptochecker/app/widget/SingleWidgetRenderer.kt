@@ -1,8 +1,8 @@
 package com.cryptochecker.app.widget
 
 import androidx.core.net.toUri
-import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.data.BoundedCache
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.domain.BoundedCache
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
@@ -19,14 +19,16 @@ import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher

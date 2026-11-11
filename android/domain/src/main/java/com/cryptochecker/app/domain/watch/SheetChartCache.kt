@@ -10,7 +10,7 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     private class Entry(val time: Long, val value: SheetChartResult.Ready, val price: Double?)
 
     /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
-    private val entries = com.cryptochecker.app.data.BoundedCache<String, Entry>(com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES)
+    private val entries = com.cryptochecker.app.domain.BoundedCache<String, Entry>(com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES)
 
     /**
      * [price] = aktueller Kurs des Paars; null = Sprung nicht prüfen. [exchange] = Börse des Paars

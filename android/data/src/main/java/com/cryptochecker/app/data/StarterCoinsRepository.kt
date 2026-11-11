@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.data.remote.callExchange
@@ -9,7 +10,7 @@ import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterPrices
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.ExchangeRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangeInfo
@@ -19,7 +19,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeoutOrNull
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 import javax.inject.Inject
 import javax.inject.Singleton
 

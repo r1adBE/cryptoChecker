@@ -11,6 +11,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
+import com.cryptochecker.app.domain.notification.NotificationBudget
 import com.cryptochecker.app.ui.MainActivity
 import kotlinx.coroutines.delay
 import timber.log.Timber

@@ -1,7 +1,7 @@
 // Speicher und Netz der App: Room-Datenbanken (Merkliste, Alarme, Portfolio) mit DAOs und
-// Verschlüsselung, Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung. Die Pakete bleiben
-// com.cryptochecker.app.*; Hilt-Module (Datenbanken, OkHttp) bleiben in :app. Die Room-Schemas bleiben unter
-// app/schemas (Migrationstests und Schema-Drift-Prüfung lesen sie dort).
+// Verschlüsselung, Einstellungen, Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung. Jede Datei liegt
+// im Paket com.cryptochecker.app.data.* (Paket = Modul, LayerBoundaryTest); Hilt-Module (Datenbanken, OkHttp) bleiben
+// in :app. Die Room-Schemas bleiben unter app/schemas (Migrationstests und Schema-Drift-Prüfung lesen sie dort).
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
@@ -39,7 +39,7 @@ room {
 // Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).
 
 dependencies {
-    // Modelle und Regeln; :domain gibt :marketdata, Coroutines und Room-Runtime weiter
+    // Modelle und Regeln; :domain gibt :marketdata und Coroutines weiter
     api(project(":domain"))
     implementation(libs.androidx.core.ktx)
 

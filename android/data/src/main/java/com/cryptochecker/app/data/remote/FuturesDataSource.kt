@@ -1,7 +1,11 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.FuturesInfo
+import com.cryptochecker.app.domain.remote.FuturesParsers
+import com.cryptochecker.app.domain.remote.FuturesSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingHistory
 import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.async

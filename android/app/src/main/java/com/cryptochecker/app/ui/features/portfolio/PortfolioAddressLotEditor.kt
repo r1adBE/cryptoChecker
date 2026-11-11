@@ -32,7 +32,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
-import com.cryptochecker.app.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.body

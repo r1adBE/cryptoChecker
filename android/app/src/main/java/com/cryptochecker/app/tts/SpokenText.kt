@@ -2,8 +2,8 @@ package com.cryptochecker.app.tts
 
 import android.content.Context
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import dagger.hilt.android.qualifiers.ApplicationContext

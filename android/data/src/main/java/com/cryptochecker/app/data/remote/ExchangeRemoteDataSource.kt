@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.RequestKey
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.exceptions.ExchangeError
 import com.cryptochecker.app.domain.exceptions.ParseError

@@ -32,7 +32,7 @@ import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.util.WidgetQuantityFormat
 import java.util.Locale

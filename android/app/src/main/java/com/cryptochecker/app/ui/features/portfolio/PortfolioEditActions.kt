@@ -4,11 +4,11 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -164,7 +164,7 @@ fun PortfolioViewModel.retargetTransfer(id: Long, to: String, onResult: (Portfol
 
 /** Umbuchung [id] aus [all] mit Ziel [to] (gekürzt wie im Feld, [PortfolioTxForm.MAX_ROUTE]); keine Umbuchung/leer: null. */
 internal fun retargeted(all: List<PortfolioTxEntity>, id: Long, to: String): PortfolioTxEntity? {
-    val target = com.cryptochecker.app.util.TextLimit.takeGraphemes(to.trim(), PortfolioTxForm.MAX_ROUTE).trim()
+    val target = com.cryptochecker.app.domain.util.TextLimit.takeGraphemes(to.trim(), PortfolioTxForm.MAX_ROUTE).trim()
     if (target.isEmpty()) return null
     return all.firstOrNull { it.id == id && it.type == PortfolioTxType.TRANSFER }?.copy(transferTo = target)
 }

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.performance
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.ColumnSort
@@ -18,7 +18,7 @@ import com.cryptochecker.app.ui.features.explorer.watchKey
 import com.cryptochecker.app.ui.features.watchlist.filterByGroup
 import com.cryptochecker.app.ui.features.watchlist.WatchSearchIndex
 import com.cryptochecker.app.ui.features.watchlist.matchesSearch
-import com.cryptochecker.app.widget.WidgetGroupSelection
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue

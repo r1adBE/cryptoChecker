@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetCandle
 
 /** Ein Punkt einer Vergleichslinie: Zeit (Epoch-ms) und Änderung in % seit Beginn des Zeitraums. */
 data class ComparePoint(val time: Long, val percent: Double)

@@ -6,9 +6,9 @@ import android.os.SystemClock
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.util.DefaultDispatcher
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred

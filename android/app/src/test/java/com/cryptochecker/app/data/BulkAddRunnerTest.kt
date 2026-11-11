@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.FakeWatchStore.Companion.pair
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
+import com.cryptochecker.app.domain.BulkAddResult
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.features.explorer.BulkAddResult as ShownResult

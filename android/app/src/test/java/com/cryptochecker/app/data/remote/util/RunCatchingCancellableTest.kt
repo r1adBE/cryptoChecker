@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote.util
 
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers

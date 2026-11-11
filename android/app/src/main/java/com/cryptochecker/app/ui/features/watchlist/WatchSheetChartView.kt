@@ -34,7 +34,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
@@ -51,10 +51,10 @@ import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.widget.WidgetChartRange
-import com.cryptochecker.app.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import java.time.ZoneId
 import java.util.Date
 import java.util.Locale

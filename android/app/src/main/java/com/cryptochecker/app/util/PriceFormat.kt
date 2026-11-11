@@ -1,6 +1,10 @@
 package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.alarm.ThresholdParser
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.DecimalText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.marketdata.util.DisplayFormat
 import java.math.BigDecimal
 import java.math.RoundingMode

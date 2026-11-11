@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.market.DataFreshness
+import com.cryptochecker.app.domain.remote.BlockedSources
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

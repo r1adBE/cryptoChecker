@@ -1,8 +1,10 @@
 package com.cryptochecker.app.util
 
 import android.content.BroadcastReceiver
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
+import com.cryptochecker.app.domain.util.BackgroundErrorCounter
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

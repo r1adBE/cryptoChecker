@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 import java.math.BigDecimal
 
 /** Eine Beobachtung des Guthabens einer Adresse: Zeitpunkt (ms) und Guthaben (exakt, ≥ 0). */

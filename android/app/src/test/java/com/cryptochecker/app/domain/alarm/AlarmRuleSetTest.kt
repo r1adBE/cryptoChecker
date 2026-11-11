@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus.Kind
-import com.cryptochecker.app.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.util.StringResources
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery

@@ -25,11 +25,11 @@ import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.widget.WidgetCandle
-import com.cryptochecker.app.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import java.util.Date
 import kotlin.math.roundToInt
 

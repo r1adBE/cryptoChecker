@@ -10,7 +10,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.alarm.StableDepeg
 import com.cryptochecker.app.domain.alarm.StableDepegStore
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

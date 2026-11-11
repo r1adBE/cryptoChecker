@@ -3,6 +3,8 @@ package com.cryptochecker.app.widget
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
+import com.cryptochecker.app.domain.widget.ChartGridUnit
+import com.cryptochecker.app.domain.widget.WidgetChartType
 
 // Typen des Portfolio-Widgets (Anzeige, Zeitraum, Balken, Plan) — wie iOS `Shared/Portfolio/PortfolioWidgetPlan.swift`.
 // Die Regeln dazu stehen in [PortfolioWidgetChart].

@@ -33,7 +33,7 @@ import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.ExchangeVerification
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

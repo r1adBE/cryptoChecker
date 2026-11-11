@@ -2,8 +2,8 @@ package com.cryptochecker.app.widget
 
 import android.graphics.Color
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
-import com.cryptochecker.app.settings.AccentColor
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.ui.theme.MarketScalePalette
 
 /**

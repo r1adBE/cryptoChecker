@@ -6,7 +6,7 @@ package com.cryptochecker.app.ui.features.alarms
 
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

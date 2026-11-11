@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.market.AltSeason
 import com.cryptochecker.app.domain.market.BitcoinHalving

@@ -53,7 +53,7 @@ import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.ui.UiTestTags
 

@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.PairIdentity
-import com.cryptochecker.app.data.pairIdentity
+import com.cryptochecker.app.domain.PairIdentity
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

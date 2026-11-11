@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
-import com.cryptochecker.app.data.local.model.convertCurrency
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.logos.CoinLogos
@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 
 // Karten der Alarm-Übersicht («Alle Alarme»): je Paar und «Portfolio» — wie iOS `AlarmsOverviewScreen.groupCard`

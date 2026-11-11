@@ -29,7 +29,7 @@ import com.cryptochecker.app.domain.market.DexNames
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.marketdata.model.ExchangeCategory
 import com.cryptochecker.marketdata.model.exchange.DexPool

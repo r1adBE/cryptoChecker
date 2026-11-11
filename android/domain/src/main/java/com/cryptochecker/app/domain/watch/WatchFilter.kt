@@ -9,7 +9,7 @@ package com.cryptochecker.app.domain.watch
  * «QTLY» und eigene Gruppen. Gilt auch für Listen-Widgets. Wie `WatchFilter.swift` (iOS).
  * «Alpha» ([ALPHA]) ist ebenfalls keine Gruppe: nur Paare der Art [AssetKind.ALPHA] (Binance-Alpha-
  * Liste); sie stehen weiterhin auch unter «Token» (ein Alpha-Token ist auch ein Token). Auch in der
- * Einrichtung der Listen-Widgets wählbar (gespeicherte Alpha-Liste, [com.cryptochecker.app.widget.WidgetGroupSelection]).
+ * Einrichtung der Listen-Widgets wählbar (gespeicherte Alpha-Liste, [com.cryptochecker.app.domain.widget.WidgetGroupSelection]).
  */
 object WatchFilter {
     /** Gespeicherter Wert für «FAV» (Steuerzeichen, kann kein Gruppenname sein). */

@@ -2,7 +2,7 @@
 // auswerten und nur die Widgets dieses Paars zeichnen. Erweiterungsfunktion; Abhängigkeiten bleiben in der Klasse.
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

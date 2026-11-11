@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.market.PulseBreadth
 import com.cryptochecker.app.ui.theme.MarketScalePalette
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 
 /** Nebenzeile(n) des Widgets «Was gerade auffällt» mit Farben (wie iOS `PulseSideLine`); gezeichnet in [PulseWidgetRenderer]. */

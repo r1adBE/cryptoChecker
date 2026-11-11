@@ -7,7 +7,7 @@ import com.cryptochecker.app.data.BackupManager.Step
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.json.JSONObject

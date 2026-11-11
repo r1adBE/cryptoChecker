@@ -20,7 +20,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.features.info.InfoViewModel
 import com.cryptochecker.app.ui.features.info.MARKET_COIN_UI_EVENTS
 import com.cryptochecker.app.ui.features.info.previewQuote

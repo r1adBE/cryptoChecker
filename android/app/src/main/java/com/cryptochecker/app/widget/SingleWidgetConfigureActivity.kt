@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.AppColors
 import android.app.Activity
 import android.appwidget.AppWidgetManager
@@ -50,12 +51,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

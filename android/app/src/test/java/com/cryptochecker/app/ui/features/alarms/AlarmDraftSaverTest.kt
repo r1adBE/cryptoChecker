@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.runtime.saveable.SaverScope
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull

@@ -3,7 +3,7 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.ui.features.portfolio.PortfolioFormat
 import com.cryptochecker.app.ui.features.portfolio.signedAxisValue
 import com.cryptochecker.app.ui.features.portfolio.signedValue
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

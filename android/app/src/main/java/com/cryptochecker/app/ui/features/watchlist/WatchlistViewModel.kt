@@ -6,10 +6,10 @@ import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.WatchMove
+import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.WhyReport
@@ -27,8 +27,8 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -350,7 +350,7 @@ class WatchlistViewModel @Inject internal constructor(
 
     suspend fun explain(watch: WatchEntity): WhyReport? = sheetData.explain(watch)
 
-    suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.data.remote.FuturesInfo? = sheetData.fetchFutures(watch)
+    suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.domain.remote.FuturesInfo? = sheetData.fetchFutures(watch)
 
     suspend fun fetchSpot(watch: WatchEntity): com.cryptochecker.app.domain.spot.SpotData? = sheetData.fetchSpot(watch)
 

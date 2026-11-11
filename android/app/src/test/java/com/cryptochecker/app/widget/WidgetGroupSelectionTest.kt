@@ -1,6 +1,7 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

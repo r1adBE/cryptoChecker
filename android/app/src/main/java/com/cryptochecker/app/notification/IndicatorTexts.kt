@@ -3,8 +3,8 @@ package com.cryptochecker.app.notification
 import android.content.Context
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.IndicatorId
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /** Name und Wert einer Bitcoin-Kennzahl für Mitteilungen (ohne Compose) — wie `indicatorName`/`indicatorValue`. */

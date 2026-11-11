@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 
 /**
  * ERC-20-Guthaben beobachteter Ethereum-Adressen: feste, kuratierte Liste (nur Ethereum-Mainnet-Verträge), Abfrage

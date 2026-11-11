@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel
 import com.cryptochecker.app.domain.market.CycleInputs

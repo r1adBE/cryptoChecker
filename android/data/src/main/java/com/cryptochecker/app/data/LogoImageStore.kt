@@ -14,7 +14,7 @@ import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.LogoLoadingHint
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

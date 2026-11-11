@@ -5,7 +5,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables

@@ -21,11 +21,11 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.DexTokenAddressStore
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.DexLiquidity
 import com.cryptochecker.app.domain.watch.DexTokenAddress
 import com.cryptochecker.app.ui.theme.label
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 

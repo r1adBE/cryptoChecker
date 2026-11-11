@@ -8,7 +8,7 @@ import android.widget.RemoteViewsService
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull

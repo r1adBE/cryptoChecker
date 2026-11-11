@@ -1,6 +1,8 @@
 package com.cryptochecker.app.util
 
-import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
+import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
+import com.cryptochecker.app.domain.util.appExceptionHandler
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

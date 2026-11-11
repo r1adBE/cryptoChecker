@@ -40,7 +40,7 @@ import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import kotlinx.coroutines.delay
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind

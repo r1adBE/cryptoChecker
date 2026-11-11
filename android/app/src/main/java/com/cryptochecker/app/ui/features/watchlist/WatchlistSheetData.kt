@@ -8,19 +8,19 @@ import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.SheetChartRepository
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.FuturesDataSource
 import com.cryptochecker.app.data.remote.SpotDataSource
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnHourlyCandles
-import com.cryptochecker.app.domain.activity.ActivityMonitor
+import com.cryptochecker.app.activity.ActivityMonitor
 import com.cryptochecker.app.domain.activity.WhyReport
-import com.cryptochecker.app.domain.refresh.DayReferences
+import com.cryptochecker.app.refresh.DayReferences
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import javax.inject.Inject
 
 class WatchlistSheetData @Inject constructor(
@@ -149,7 +149,7 @@ class WatchlistSheetData @Inject constructor(
      * (Spot, Termin-Futures) aus dem USDT-Perpetual des Coins (Binance, sonst Bybit, OKX); TradFi-Paare
      * ohne Perpetual und DEX-Pools nie. null ohne Daten.
      */
-    suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.data.remote.FuturesInfo? =
+    suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.domain.remote.FuturesInfo? =
         runCatching {
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                 if (watch.contractType.isPerpetual) {

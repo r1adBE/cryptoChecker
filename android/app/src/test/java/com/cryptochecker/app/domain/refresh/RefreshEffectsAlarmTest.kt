@@ -1,15 +1,15 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.remote.VolumeSpike
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.NOW
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.below
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking

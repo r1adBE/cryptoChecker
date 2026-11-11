@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.util.AppVisibility
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.util.StartupClock
 import android.content.Intent
 import android.os.Build
@@ -33,7 +33,7 @@ import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.settings.AppearanceApplier
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

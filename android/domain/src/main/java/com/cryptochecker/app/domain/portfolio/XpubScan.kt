@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 
 /**
  * Zwischenspeicher eines beobachteten xpub/ypub/zpub: abgeleitete Adressen je Kette (0 = Empfang, 1 = Wechselgeld,

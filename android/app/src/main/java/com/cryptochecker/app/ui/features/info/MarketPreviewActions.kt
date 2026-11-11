@@ -3,8 +3,8 @@
 // Eigene Datei, weil die Vorschau ein nicht gespeichertes Paar betrifft und mit den Markt-Karten nichts teilt.
 package com.cryptochecker.app.ui.features.info
 
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers

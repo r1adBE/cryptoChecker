@@ -1,7 +1,7 @@
 package com.cryptochecker.app.performance
 
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.refresh.Fetched
 import com.cryptochecker.app.domain.refresh.RefreshFixture

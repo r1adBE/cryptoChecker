@@ -14,9 +14,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.app.domain.widget.ChartGridUnit
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Locale

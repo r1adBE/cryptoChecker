@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.live
 
-import com.cryptochecker.app.data.PairIdentity
+import com.cryptochecker.app.domain.PairIdentity
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num

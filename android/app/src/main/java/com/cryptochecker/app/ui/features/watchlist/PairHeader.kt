@@ -31,7 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.convert.Sats
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.isNotTraded
@@ -45,7 +45,7 @@ import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.util.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.ReferenceSource
 

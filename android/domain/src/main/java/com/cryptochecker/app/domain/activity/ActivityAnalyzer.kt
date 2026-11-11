@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.activity
 
-import com.cryptochecker.app.data.remote.FuturesSources
+import com.cryptochecker.app.domain.remote.FuturesSources
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -215,7 +215,7 @@ object ActivityAnalyzer {
         now: Long,
         sensitivity: ActivitySensitivity = ActivitySensitivity.NORMAL,
         fundingSource: String? = null,
-        /** Intervall des Kontrakts laut Börse ([com.cryptochecker.app.data.remote.FuturesInfo.fundingIntervalHours]). */
+        /** Intervall des Kontrakts laut Börse ([com.cryptochecker.app.domain.remote.FuturesInfo.fundingIntervalHours]). */
         fundingIntervalHours: Int? = null,
     ): List<ActivitySignal> {
         // Kandidaten mit allen Werten; ob und wie stark sie zählen, entscheiden die Schwellen

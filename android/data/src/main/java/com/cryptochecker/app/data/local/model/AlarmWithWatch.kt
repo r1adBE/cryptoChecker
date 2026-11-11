@@ -1,11 +1,10 @@
 package com.cryptochecker.app.data.local.model
 
-import androidx.room.Embedded
-import androidx.room.Relation
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 
+/** Ein Alarm mit seinem Paar (Alarm-Übersicht); gelesen über [AlarmWithWatchRow]. */
 data class AlarmWithWatch(
-    @Embedded val alarm: AlarmEntity,
-
-    @Relation(parentColumn = "watchId", entityColumn = "id")
+    val alarm: AlarmEntity,
     val watch: WatchEntity,
 )

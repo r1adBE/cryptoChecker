@@ -1,7 +1,7 @@
 package com.cryptochecker.app
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

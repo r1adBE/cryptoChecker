@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectableGroup
 import com.cryptochecker.app.R
-import com.cryptochecker.app.settings.AssetScope
+import com.cryptochecker.app.domain.settings.AssetScope
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

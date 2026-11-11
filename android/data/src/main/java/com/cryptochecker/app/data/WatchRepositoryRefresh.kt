@@ -3,7 +3,9 @@
 package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.ErrorWrite
+import com.cryptochecker.app.domain.PriceWrite
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.refresh.PriceWriteOrder
 import com.cryptochecker.app.domain.refresh.StoredError

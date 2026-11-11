@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.graphics.Color
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
@@ -43,15 +43,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.AssetKindIcon
 import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.LocaleNumbers
 
 /** Mitte: Paar (mit Häkchen des Erst-Moments und ⚡), Börse und Zeit bzw. Warnung, Fehler, Notiz. */
 @Composable

@@ -4,7 +4,7 @@ package com.cryptochecker.app.data
 
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callExchange
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos

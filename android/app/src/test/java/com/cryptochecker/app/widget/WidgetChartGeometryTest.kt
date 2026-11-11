@@ -1,5 +1,13 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.ChartGridUnit
+import com.cryptochecker.app.domain.widget.ChartLevels
+import com.cryptochecker.app.domain.widget.LevelKind
+import com.cryptochecker.app.domain.widget.PlacedLabel
+import com.cryptochecker.app.domain.widget.VSpan
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.BtcFees
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.EvmGas

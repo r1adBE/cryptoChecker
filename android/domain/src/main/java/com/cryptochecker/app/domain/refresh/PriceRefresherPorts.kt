@@ -3,8 +3,8 @@
 // App-Klassen stehen in der App (`PriceRefresherAdapters.kt`), Hilt baut [PriceRefresher] in `RefreshModule`.
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import kotlinx.coroutines.Job

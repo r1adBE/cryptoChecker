@@ -1,6 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

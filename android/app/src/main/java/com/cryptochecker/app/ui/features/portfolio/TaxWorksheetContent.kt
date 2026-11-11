@@ -33,7 +33,7 @@ import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
-import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.ui.features.about.FEEDBACK_LABEL
 import com.cryptochecker.app.ui.features.about.FEEDBACK_URL
 import com.cryptochecker.app.ui.features.about.linkedText
@@ -41,7 +41,7 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

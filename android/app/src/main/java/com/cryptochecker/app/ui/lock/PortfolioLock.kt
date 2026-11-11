@@ -38,8 +38,8 @@ import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

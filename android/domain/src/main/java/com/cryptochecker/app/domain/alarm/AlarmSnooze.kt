@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 
 /**
  * «1 h später» aus der Alarm-Mitteilung: Nur die nächste Meldung wartet bis [snoozeUntil] — wie die Nachtruhe im

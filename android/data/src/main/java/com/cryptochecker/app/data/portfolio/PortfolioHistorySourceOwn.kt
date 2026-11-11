@@ -60,7 +60,7 @@ suspend fun PortfolioHistorySource.routes(coins: Collection<String>): HistoryRou
 /** Wege wie [routes], ohne die Klasse — auch für einzelne Tagesschlüsse ([HistoricPriceSource.dailyCloseUsdt]). */
 suspend fun resolveHistoryRoutes(
     portfolioDao: PortfolioDao,
-    exchangeRepository: com.cryptochecker.app.data.ExchangeRepository,
+    exchangeRepository: com.cryptochecker.app.domain.ExchangeRepository,
     coins: Collection<String>,
 ): HistoryRoutes {
     val wanted = coins.toSet()

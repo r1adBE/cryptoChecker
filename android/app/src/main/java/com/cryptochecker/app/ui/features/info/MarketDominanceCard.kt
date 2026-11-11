@@ -33,8 +33,8 @@ import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.ui.theme.AssetColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import kotlinx.coroutines.delay
 

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.domain.settings.ColorDifference
 import com.cryptochecker.app.parity.ParityJson
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals

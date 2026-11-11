@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.starter.AddMoment
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

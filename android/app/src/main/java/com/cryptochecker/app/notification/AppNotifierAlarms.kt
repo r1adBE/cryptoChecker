@@ -9,8 +9,8 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
@@ -44,7 +44,7 @@ suspend fun AppNotifier.showAlarm(
     derivativesReference: String? = null,
     /**
      * Währung von [price], wenn nicht die Quote des Paars: Kursmarke mit eigener Alarm-Währung
-     * ([com.cryptochecker.app.data.local.model.convertCurrency]) — [price] ist dann schon umgerechnet,
+     * ([com.cryptochecker.app.domain.model.convertCurrency]) — [price] ist dann schon umgerechnet,
      * damit «jetzt …» in derselben Währung steht wie die Schwelle.
      */
     priceCurrency: String? = null,

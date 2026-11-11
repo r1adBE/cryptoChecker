@@ -122,7 +122,7 @@ class LabelValueUsageTest {
         /** Pfadende → Zeilenstücke, die bewusst ein festes «: » behalten. */
         val ALLOWED: Map<String, List<String>> = mapOf(
             // Diagnosebericht zum Kopieren: feste Codes, gleich in jeder Sprache
-            "domain/diagnostics/DiagnosticReport.kt" to listOf("\${it.row.code}: "),
+            "diagnostics/DiagnosticReport.kt" to listOf("\${it.row.code}: "),
             "Services/DiagnosticReport.swift" to listOf("\\(item.row.rawValue): "),
             // Prüfprotokoll des Datenbank-Exports (Diagnose, deutsch)
             "data/local/DatabaseFingerprint.kt" to listOf("\$table: "),

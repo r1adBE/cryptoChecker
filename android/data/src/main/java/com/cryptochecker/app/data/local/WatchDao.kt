@@ -6,11 +6,21 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.data.local.model.AlarmRow
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.local.model.AlarmWithWatchRow
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.data.local.model.WatchRow
+import com.cryptochecker.app.data.local.model.toDomain
+import com.cryptochecker.app.data.local.model.toRow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
+/**
+ * Merkliste und Alarme. Room liest und schreibt Zeilen ([WatchRow], [AlarmRow]: Funktionen auf «…Row(s)»); die
+ * gleichnamigen Funktionen ohne «Row» liefern und nehmen die Fachmodelle aus :domain und bilden an dieser Grenze ab.
+ */
 @Dao
 interface WatchDao {
 
@@ -18,16 +28,24 @@ interface WatchDao {
 
     // Favoriten zuerst, danach in der gewohnten Reihenfolge.
     @Query("SELECT * FROM watches ORDER BY favorite DESC, sortOrder ASC, id ASC")
-    fun observeWatches(): Flow<List<WatchEntity>>
+    fun observeWatchRows(): Flow<List<WatchRow>>
+
+    fun observeWatches(): Flow<List<WatchEntity>> = observeWatchRows().map { rows -> rows.map { it.toDomain() } }
 
     @Query("SELECT * FROM watches ORDER BY favorite DESC, sortOrder ASC, id ASC")
-    suspend fun getWatches(): List<WatchEntity>
+    suspend fun getWatchRows(): List<WatchRow>
+
+    suspend fun getWatches(): List<WatchEntity> = getWatchRows().map { it.toDomain() }
 
     @Query("SELECT * FROM watches WHERE id = :id")
-    suspend fun getWatch(id: Long): WatchEntity?
+    suspend fun getWatchRow(id: Long): WatchRow?
+
+    suspend fun getWatch(id: Long): WatchEntity? = getWatchRow(id)?.toDomain()
 
     @Query("SELECT * FROM watches WHERE id = :id")
-    fun observeWatch(id: Long): Flow<WatchEntity?>
+    fun observeWatchRow(id: Long): Flow<WatchRow?>
+
+    fun observeWatch(id: Long): Flow<WatchEntity?> = observeWatchRow(id).map { it?.toDomain() }
 
     @Query("SELECT COALESCE(MAX(sortOrder), -1) + 1 FROM watches")
     suspend fun nextSortOrder(): Int
@@ -37,10 +55,14 @@ interface WatchDao {
     suspend fun countWatches(): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertWatch(watch: WatchEntity): Long
+    suspend fun insertWatchRow(watch: WatchRow): Long
+
+    suspend fun insertWatch(watch: WatchEntity): Long = insertWatchRow(watch.toRow())
 
     @Update
-    suspend fun updateWatch(watch: WatchEntity)
+    suspend fun updateWatchRow(watch: WatchRow)
+
+    suspend fun updateWatch(watch: WatchEntity) = updateWatchRow(watch.toRow())
 
     @Query("DELETE FROM watches WHERE id = :id")
     suspend fun deleteWatch(id: Long)
@@ -199,22 +221,30 @@ interface WatchDao {
     // ---------------- Alarme ----------------
 
     @Query("SELECT * FROM alarms WHERE watchId = :watchId ORDER BY id ASC")
-    fun observeAlarms(watchId: Long): Flow<List<AlarmEntity>>
+    fun observeAlarmRows(watchId: Long): Flow<List<AlarmRow>>
+
+    fun observeAlarms(watchId: Long): Flow<List<AlarmEntity>> = observeAlarmRows(watchId).map { rows -> rows.map { it.toDomain() } }
 
     @Transaction
     @Query("SELECT * FROM alarms ORDER BY id ASC")
-    fun observeAllAlarms(): Flow<List<AlarmWithWatch>>
+    fun observeAllAlarmRows(): Flow<List<AlarmWithWatchRow>>
+
+    fun observeAllAlarms(): Flow<List<AlarmWithWatch>> = observeAllAlarmRows().map { rows -> rows.map { it.toDomain() } }
 
     /** Alle Alarme eines Paars (auch ausgeschaltete), z. B. für «Rückgängig» nach dem Löschen. */
     @Query("SELECT * FROM alarms WHERE watchId = :watchId ORDER BY id ASC")
-    suspend fun getAlarms(watchId: Long): List<AlarmEntity>
+    suspend fun getAlarmRows(watchId: Long): List<AlarmRow>
+
+    suspend fun getAlarms(watchId: Long): List<AlarmEntity> = getAlarmRows(watchId).map { it.toDomain() }
 
     /** Welche dieser Paare haben mindestens einen Alarm (auch ausgeschaltet)? Für «Rückgängig» nach «Mehrere Paare». */
     @Query("SELECT DISTINCT watchId FROM alarms WHERE watchId IN (:watchIds)")
     suspend fun getWatchIdsWithAlarms(watchIds: List<Long>): List<Long>
 
     @Query("SELECT * FROM alarms WHERE watchId = :watchId AND enabled = 1")
-    suspend fun getEnabledAlarms(watchId: Long): List<AlarmEntity>
+    suspend fun getEnabledAlarmRows(watchId: Long): List<AlarmRow>
+
+    suspend fun getEnabledAlarms(watchId: Long): List<AlarmEntity> = getEnabledAlarmRows(watchId).map { it.toDomain() }
 
     /** Ids aller Alarme (auch ausgeschalteter) — für das Aufräumen des Alarm-Protokolls nach dem Löschen von Paaren. */
     @Query("SELECT id FROM alarms")
@@ -222,10 +252,14 @@ interface WatchDao {
 
     /** Ein Alarm (gespeicherter Stand beim Speichern aus dem Editor); null = gelöscht. */
     @Query("SELECT * FROM alarms WHERE id = :id")
-    suspend fun getAlarm(id: Long): AlarmEntity?
+    suspend fun getAlarmRow(id: Long): AlarmRow?
+
+    suspend fun getAlarm(id: Long): AlarmEntity? = getAlarmRow(id)?.toDomain()
 
     @Query("SELECT * FROM alarms WHERE enabled = 1")
-    suspend fun getAllEnabledAlarms(): List<AlarmEntity>
+    suspend fun getAllEnabledAlarmRows(): List<AlarmRow>
+
+    suspend fun getAllEnabledAlarms(): List<AlarmEntity> = getAllEnabledAlarmRows().map { it.toDomain() }
 
     /** Paare mit mindestens einem aktiven Alarm (nur die Alarm-Tabelle: Kurs-Updates lösen nichts aus). */
     @Query("SELECT DISTINCT watchId FROM alarms WHERE enabled = 1")
@@ -235,10 +269,14 @@ interface WatchDao {
     fun observeEnabledAlarmCount(watchId: Long): Flow<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAlarm(alarm: AlarmEntity): Long
+    suspend fun insertAlarmRow(alarm: AlarmRow): Long
+
+    suspend fun insertAlarm(alarm: AlarmEntity): Long = insertAlarmRow(alarm.toRow())
 
     @Update
-    suspend fun updateAlarm(alarm: AlarmEntity)
+    suspend fun updateAlarmRow(alarm: AlarmRow)
+
+    suspend fun updateAlarm(alarm: AlarmEntity) = updateAlarmRow(alarm.toRow())
 
     @Query("DELETE FROM alarms WHERE id = :id")
     suspend fun deleteAlarm(id: Long)
@@ -313,7 +351,9 @@ interface WatchDao {
     ): Int
 
     @Query("SELECT * FROM alarms ORDER BY id ASC")
-    suspend fun getAllAlarms(): List<AlarmEntity>
+    suspend fun getAllAlarmRows(): List<AlarmRow>
+
+    suspend fun getAllAlarms(): List<AlarmEntity> = getAllAlarmRows().map { it.toDomain() }
 
     /**
      * Paar bearbeitet (andere Börse/anderes Paar): Bezüge, die am alten Kurs hängen, verwerfen —

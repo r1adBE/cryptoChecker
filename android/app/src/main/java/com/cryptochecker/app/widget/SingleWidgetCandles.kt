@@ -4,6 +4,8 @@
 // der Zwischenspeicher bleibt in der Klasse.
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
@@ -16,7 +18,7 @@ import timber.log.Timber
  * [Sourced.provider]: Börse der Kerzen (eigene Börse oder die der Ausweich-Kette; null = unbekannt).
  */
 internal suspend fun SingleWidgetRenderer.chartCandles(
-    watch: com.cryptochecker.app.data.local.model.WatchEntity,
+    watch: com.cryptochecker.app.domain.model.WatchEntity,
     range: WidgetChartRange,
     fetch: Boolean = true,
 ): com.cryptochecker.app.domain.market.Sourced<List<WidgetCandle>>? {

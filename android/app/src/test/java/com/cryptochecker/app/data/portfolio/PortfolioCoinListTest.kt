@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.ExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.fakePortfolioDao
 import com.cryptochecker.app.data.fakeWatchDao

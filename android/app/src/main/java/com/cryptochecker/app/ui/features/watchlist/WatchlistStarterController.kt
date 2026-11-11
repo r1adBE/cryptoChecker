@@ -15,8 +15,8 @@ import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterSelection
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.ExchangePair

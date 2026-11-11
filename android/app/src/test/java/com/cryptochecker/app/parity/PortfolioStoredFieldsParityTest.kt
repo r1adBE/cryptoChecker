@@ -2,7 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonObject
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState

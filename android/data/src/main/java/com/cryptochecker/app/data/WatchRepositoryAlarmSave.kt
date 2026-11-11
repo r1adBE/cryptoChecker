@@ -3,7 +3,7 @@
 package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 
 /** Ausgang von [trySaveAlarm] bzw. [trySaveAlarmMerged]. */

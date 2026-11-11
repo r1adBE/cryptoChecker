@@ -1,11 +1,12 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
-import com.cryptochecker.app.data.local.model.NOTE_MAX
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.BackupRestoreLimits
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
+import com.cryptochecker.app.domain.model.NOTE_MAX
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
 

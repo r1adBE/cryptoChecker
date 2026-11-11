@@ -21,11 +21,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.domain.market.DataFreshness
 
 // ── Darstellung ──────────────────────────────────────────────────────────────

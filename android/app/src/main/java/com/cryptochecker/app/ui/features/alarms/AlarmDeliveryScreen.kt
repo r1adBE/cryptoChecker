@@ -47,8 +47,8 @@ import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.OemBattery
 import com.cryptochecker.app.domain.refresh.CheckRunStore
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.NotificationAsk

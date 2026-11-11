@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.BoundedCache
+import com.cryptochecker.app.domain.BoundedCache
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.CandlePairs
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.remote.VolumeSpike
 import com.cryptochecker.app.domain.watch.DayChange
 import javax.inject.Inject
 import javax.inject.Singleton

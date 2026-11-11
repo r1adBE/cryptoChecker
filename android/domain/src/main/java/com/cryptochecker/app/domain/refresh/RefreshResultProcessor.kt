@@ -1,19 +1,19 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
-import com.cryptochecker.app.data.ErrorWrite
-import com.cryptochecker.app.data.PriceWrite
-import com.cryptochecker.app.data.pairIdentity
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.ErrorWrite
+import com.cryptochecker.app.domain.PriceWrite
+import com.cryptochecker.app.domain.pairIdentity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 
 /**
  * Geholte Kurse speichern und auswerten — gemeinsamer letzter Schritt von voller und einzelner Aktualisierung

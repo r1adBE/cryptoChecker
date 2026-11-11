@@ -5,7 +5,7 @@ import com.cryptochecker.app.data.BackupFields
 import com.cryptochecker.app.data.asDomainJson
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras

@@ -14,15 +14,15 @@ import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.features.watchlist.WatchlistEditController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistRefreshController
@@ -30,7 +30,7 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistSheetData
 import com.cryptochecker.app.ui.features.watchlist.WatchlistStarterController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistUiState
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
-import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

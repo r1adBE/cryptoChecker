@@ -9,10 +9,10 @@ import com.cryptochecker.app.domain.alarm.PortfolioReading
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.notification.activePostTimes
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.IoDispatcher
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

@@ -1,12 +1,13 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.ConnectivityMonitor
-import com.cryptochecker.app.util.IoDispatcher
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -277,9 +278,9 @@ class CoinLogoSync @Inject constructor(
 /** Wo Logos gezeigt werden (Schalter unter Darstellung › Coin-Logos). */
 object CoinLogoUse {
     /** Portfolio-Logos zählen nur mit eingeschaltetem Portfolio-Tab. */
-    fun portfolio(settings: com.cryptochecker.app.settings.AppSettings): Boolean =
+    fun portfolio(settings: com.cryptochecker.app.domain.settings.AppSettings): Boolean =
         settings.portfolioCoinLogos && settings.portfolioEnabled
 
-    fun needed(settings: com.cryptochecker.app.settings.AppSettings): Boolean =
+    fun needed(settings: com.cryptochecker.app.domain.settings.AppSettings): Boolean =
         settings.coinLogos || settings.widgetCoinLogos || portfolio(settings)
 }

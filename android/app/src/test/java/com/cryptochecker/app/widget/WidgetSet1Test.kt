@@ -1,6 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import java.util.Locale
 import org.junit.Assert.assertEquals

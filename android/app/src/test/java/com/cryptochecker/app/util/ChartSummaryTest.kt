@@ -1,5 +1,7 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.util.ChangeDirection
+import com.cryptochecker.app.domain.util.ChartSummary
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

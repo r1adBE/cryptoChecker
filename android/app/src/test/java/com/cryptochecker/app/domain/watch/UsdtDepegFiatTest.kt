@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
-import com.cryptochecker.app.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetCandle
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull

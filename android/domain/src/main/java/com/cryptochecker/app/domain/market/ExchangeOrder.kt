@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.market
 
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.marketdata.model.ExchangeCategory
 
 /**

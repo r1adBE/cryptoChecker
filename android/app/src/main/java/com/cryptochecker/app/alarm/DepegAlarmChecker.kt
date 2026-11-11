@@ -1,0 +1,207 @@
+package com.cryptochecker.app.alarm
+import android.content.Context
+import androidx.core.content.edit
+import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.ExchangeRepository
+import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.domain.alarm.DepegAlarm
+import com.cryptochecker.app.domain.alarm.DepegReadingStore
+import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.model.convertCurrency
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.data.settings.DepegAlarmPrefs
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
+import com.cryptochecker.marketdata.model.ExchangePair
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.sync.withLock
+import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
+import com.cryptochecker.app.notification.canShowDepegAlarm
+import com.cryptochecker.app.notification.showDepeg
+
+/**
+ * Misst nach einer Kursaktualisierung (Vordergrund und Hintergrund) USDT in USD und prüft den USDT-Depeg-Alarm
+ * ([DepegAlarm]): gemessen wird mit eingeschaltetem Alarm ODER sobald ein Portfolio da ist
+ * ([DepegAlarm.shouldMeasure] — die Messung ist der Live-Kurs USDT/USD der Bewertung), höchstens alle
+ * [MIN_INTERVAL_MILLIS], mit den bestehenden Ticker-Abrufen von Kraken (USDT/USD), Coinbase (USDT-USD) und Binance
+ * (USDC/USDT, nur dritte Quelle — [DepegAlarm.measure]). Gemeldet wird nur mit eingeschaltetem Alarm und nie aus
+ * USDC/USDT allein ([DepegAlarm.mayAlarm]). Pausierte Börsen (Backoff, gemeinsame Binance-Pause) werden nicht abgefragt.
+ * Wie `DepegAlarmCheck` (iOS).
+ */
+@Singleton
+class DepegAlarmChecker @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    private val exchangeRepository: ExchangeRepository,
+    private val watchRepository: WatchRepository,
+    private val refreshStats: RefreshStats,
+    private val settingsRepository: SettingsRepository,
+    private val notifier: AppNotifier,
+    /** Letzte Messung: Live-Kurs USDT/USD der Bewertung ([DepegAlarm.liveUsdtUsd]). */
+    private val readingStore: DepegReadingStore,
+    /** Portfolio vorhanden? Dann wird auch ohne Alarm gemessen. */
+    private val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
+    /** Weitere Stablecoins (USDC, gehaltene bzw. gemerkte), nur mit eingeschaltetem Alarm. */
+    private val stables: StableDepegChecker,
+) {
+    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
+
+    /**
+     * Unter der Sperre [DepegAlarmPrefs.lock], geteilt mit dem Zurücksetzen beim Ausschalten
+     * (`MarketAlertReset.depegOff`): eine laufende Prüfung schreibt danach nicht den alten Stand zurück.
+     */
+    suspend fun checkIfDue() = DepegAlarmPrefs.lock.withLock {
+        val settings = settingsRepository.current()
+        // Datenbank nur fragen, wenn das Portfolio eingeschaltet ist und der Alarm allein nicht genügt
+        val hasPortfolio = !settings.depegAlarm && settings.portfolioEnabled && hasPortfolioData()
+        // Fiat-Alarm bzw. ≈ Umrechnung über USDT: Live-Kurs USDT/USD statt still USDT = 1 (nur fragen, wenn sonst nicht gemessen)
+        val fiat = !settings.depegAlarm && !hasPortfolio && fiatConversionInUse(settings)
+        if (!DepegAlarm.shouldMeasure(settings.depegAlarm, settings.portfolioEnabled, hasPortfolio, fiat)) return@withLock
+        val now = System.currentTimeMillis()
+        if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
+        prefs.edit { putLong(KEY_LAST_CHECK, now) }
+
+        val (measurement, binanceUsdc) = fetchUsdt(now)
+        if (measurement == null) {
+            // Keine Quelle: nächster Versuch frühestens in 2 Minuten
+            prefs.edit { putLong(KEY_LAST_CHECK, now - MIN_INTERVAL_MILLIS + RETRY_AFTER_FAILURE_MILLIS) }
+            return@withLock
+        }
+        // Messung merken: Live-Kurs USDT/USD der Bewertung (DepegAlarm.liveUsdtUsd)
+        readingStore.save(measurement.price, now, measurement.viaUsdc)
+        // Alarm aus: nur gemessen (Portfolio), nichts melden
+        if (!settings.depegAlarm) return@withLock
+        // Wie Kursalarme: in der Nachtruhe nicht auslösen, ohne zustellbare Meldung scharf bleiben
+        val hold = QuietHours.holdsAlarms(settings.quietHoursEnabled, settings.quietHoursStart, settings.quietHoursEnd, QuietHours.minuteOfDay())
+        val mayFire = QuietHours.mayFire(hold, notifier.canShowDepegAlarm())
+        // Nur USDC/USDT: weicht USDT oder USDC ab? Nicht unterscheidbar — kein Alarm, Zustand bleibt
+        if (DepegAlarm.mayAlarm(measurement)) evaluateUsdt(settings, measurement.price, mayFire)
+        // Weitere Stablecoins im selben Takt; USDT/USD nur aus direkten Quellen als Umrechnung
+        stables.check(settings, measurement.price.takeUnless { measurement.viaUsdc }, binanceUsdc, mayFire, now)
+    }
+
+    private suspend fun evaluateUsdt(settings: com.cryptochecker.app.domain.settings.AppSettings, price: Double, mayFire: Boolean) {
+        val deviation = DepegAlarm.deviationPercent(price)
+        // Gemerkter Zustand gilt nur für die Schwelle, zu der er gehört (geändert oder zwischendurch aus: scharf)
+        val tenths = DepegAlarm.threshold(settings.depegThresholdTenths)
+        val storedTenths = if (prefs.contains(KEY_ARMED_TENTHS)) prefs.getInt(KEY_ARMED_TENTHS, 0) else null
+        val armedBefore = DepegAlarm.armedFor(prefs.getBoolean(KEY_ARMED, true), storedTenths, tenths)
+        val decision = DepegAlarm.evaluate(deviation, DepegAlarm.thresholdPercent(tenths), armedBefore, mayFire)
+        val posted = decision.fire && notify(price, deviation)
+        prefs.edit {
+            putBoolean(KEY_ARMED, DepegAlarm.armedAfter(decision.fire, posted, armedBefore, decision.armed))
+            putInt(KEY_ARMED_TENTHS, tenths)
+        }
+    }
+
+    /**
+     * Hängt eine Fiat-Umrechnung an USDT ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement]):
+     * ≈ Umrechnung der Merkliste oder ein aktiver Alarm in anderer Währung? Fehler still (false).
+     */
+    private suspend fun fiatConversionInUse(settings: com.cryptochecker.app.domain.settings.AppSettings): Boolean = try {
+        val watches = watchRepository.getWatches().filterNot { it.disabled }
+        val byId = watches.associateBy { it.id }
+        val conversions = watchRepository.getAllEnabledAlarms().mapNotNull { alarm ->
+            val currency = alarm.convertCurrency ?: return@mapNotNull null
+            byId[alarm.watchId]?.let { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) to currency }
+        }
+        com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement(
+            settings.showConverted, settings.portfolioCurrency,
+            watches.map { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) }, conversions,
+            com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES,
+        )
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.d(e, "Depeg: Merkliste nicht lesbar")
+        false
+    }
+
+    /** Transaktionen oder beobachtete Adressen vorhanden? Fehler still (false). */
+    private suspend fun hasPortfolioData(): Boolean = try {
+        portfolioRepository.hasData()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.d(e, "Depeg: Portfolio nicht lesbar")
+        false
+    }
+
+    private suspend fun notify(price: Double, deviation: Double): Boolean {
+        val keys = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled }.map { it.exchangeKey } }.getOrDefault(emptyList())
+        val sign = if (deviation < 0) "−" else "+"
+        val title = context.getString(
+            R.string.notification_depeg_title,
+            LocaleNumbers.decimal(price, 4),
+            sign + PercentText.unsigned(deviation, 2)
+        )
+        return notifier.showDepeg(title, context.getString(R.string.notification_depeg_text), DepegAlarm.exchangeUrl(keys))
+    }
+
+    /**
+     * USDT in USD aus den drei Quellen (parallel, [DepegAlarm.measure]); pausierte Börsen bleiben aussen vor. Dazu der
+     * letzte Kurs Binance USDC/USDT (Kreuzkurs für USDC, [StableDepegChecker]) — keine eigene Anfrage.
+     */
+    private suspend fun fetchUsdt(now: Long): Pair<DepegAlarm.Measurement?, Double?> = coroutineScope {
+        val backoff = refreshStats.backoffStates()
+        fun available(key: String) = !ExchangeBackoff.isPaused(backoff[key], now) && BlockedSources.groupPausedUntil(key) == null
+        val kraken = async {
+            if (available(DepegAlarm.KRAKEN_KEY)) last(DepegAlarm.KRAKEN_KEY, "USDT", "USD", DepegAlarm.KRAKEN_PAIR_ID, now) else null
+        }
+        val coinbase = async {
+            if (available(DepegAlarm.COINBASE_KEY)) last(DepegAlarm.COINBASE_KEY, "USDT", "USD", DepegAlarm.COINBASE_PAIR_ID, now) else null
+        }
+        val binance = async {
+            if (available(DepegAlarm.BINANCE_KEY)) last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID, now) else null
+        }
+        val usdc = binance.await()
+        DepegAlarm.measure(kraken.await(), coinbase.await(), usdc) to usdc
+    }
+
+    /**
+     * Letzter Kurs eines Paars; Fehler still (null). Laut Börse älter als 2 Std.: ebenfalls null
+     * ([DepegAlarm.usablePrice]) — keine Messung, kein Alarm, die Bewertung fällt zurück wie ohne frische Messung.
+     */
+    private suspend fun last(exchangeKey: String, base: String, quote: String, pairId: String, now: Long): Double? =
+        runCatching {
+            exchangeRepository.getExchangeTicker(ExchangeInfo(exchangeKey, exchangeKey), ExchangePair(base, quote, pairId))
+        }.fold(
+            onSuccess = { if (it.error == null) DepegAlarm.usablePrice(it.ticker.last, it.ticker.exchangeTime, now) else null },
+            onFailure = {
+                // Zeitüberschreitung kommt als CancellationException: nur abbrechen, wenn der Lauf selbst abbricht
+                currentCoroutineContext().ensureActive()
+                Timber.d(it, "Depeg: %s nicht erreichbar", exchangeKey)
+                null
+            }
+        )
+
+    internal companion object {
+        /**
+         * Fällig, wenn seit [lastCheck] mindestens [MIN_INTERVAL_MILLIS] vergangen sind. Liegt
+         * [lastCheck] in der Zukunft (Uhr war vorgestellt und wurde zurückgestellt), gilt die Prüfung
+         * ebenfalls als fällig — sonst bliebe sie bis zu jenem Zeitpunkt stumm, womöglich monatelang.
+         */
+        fun isDue(now: Long, lastCheck: Long): Boolean = now - lastCheck !in 0 until MIN_INTERVAL_MILLIS
+
+        const val PREFS = DepegAlarmPrefs.PREFS
+        const val KEY_LAST_CHECK = "last_check"
+        const val KEY_ARMED = "armed"
+        /** Schwelle (Zehntelprozent), zu der [KEY_ARMED] gehört; 0 = zwischendurch ausgeschaltet. */
+        const val KEY_ARMED_TENTHS = DepegAlarmPrefs.KEY_ARMED_TENTHS
+        /** Höchstens alle 5 Minuten (Vordergrund kann viel öfter aktualisieren). */
+        const val MIN_INTERVAL_MILLIS = 5 * 60_000L
+        const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L
+    }
+}

@@ -1,8 +1,8 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.AlarmJson
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmReliability
 import com.cryptochecker.app.domain.alarm.AlarmSnooze

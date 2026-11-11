@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.ui.components.ScreenEvents
 import kotlin.reflect.KProperty
 

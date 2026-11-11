@@ -7,7 +7,7 @@ package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.BackupRestorePolicy
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.components.HapticEvent
 import kotlinx.coroutines.launch

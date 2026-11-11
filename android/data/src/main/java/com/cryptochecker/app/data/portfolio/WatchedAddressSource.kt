@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.callExchange

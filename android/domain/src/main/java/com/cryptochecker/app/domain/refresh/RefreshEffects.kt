@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.local.model.convertCurrency
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
@@ -15,13 +15,13 @@ import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 import kotlin.math.abs
 
 /**

@@ -3,6 +3,9 @@
 package com.cryptochecker.app.widget
 
 import android.appwidget.AppWidgetManager
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.util.PriceFormat
 
 /**

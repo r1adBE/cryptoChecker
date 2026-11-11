@@ -1,5 +1,9 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.UpdateMode
+import com.cryptochecker.app.domain.settings.enablePortfolioForData
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

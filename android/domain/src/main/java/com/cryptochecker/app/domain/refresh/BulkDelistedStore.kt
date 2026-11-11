@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.util.KeyValueStores
+import com.cryptochecker.app.domain.util.KeyValueStores
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton

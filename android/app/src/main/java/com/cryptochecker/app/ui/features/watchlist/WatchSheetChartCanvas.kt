@@ -49,11 +49,11 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.widget.LevelKind
-import com.cryptochecker.app.widget.WidgetCandle
-import com.cryptochecker.app.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.LevelKind
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import com.cryptochecker.app.widget.WidgetChartRange
-import com.cryptochecker.app.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.ZoneId

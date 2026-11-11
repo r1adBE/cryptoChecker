@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
@@ -19,9 +19,9 @@ import com.cryptochecker.app.domain.watch.SheetChartCache
 import com.cryptochecker.app.domain.watch.SheetChartFx
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
-import com.cryptochecker.app.util.DefaultDispatcher
-import com.cryptochecker.app.util.IoDispatcher
-import com.cryptochecker.app.widget.WidgetCandle
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartRange
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher

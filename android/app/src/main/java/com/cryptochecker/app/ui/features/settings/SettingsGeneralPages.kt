@@ -30,8 +30,8 @@ import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.settings.AppLanguages
 import java.util.Locale
 import com.cryptochecker.app.R
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.UpdateMode
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BatteryOptimization

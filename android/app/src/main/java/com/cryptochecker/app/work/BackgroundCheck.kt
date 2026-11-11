@@ -4,9 +4,9 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
@@ -19,8 +19,8 @@ import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshSummary
 import com.cryptochecker.app.tts.TtsSpeaker
-import com.cryptochecker.app.util.BackgroundErrorCounter
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.BackgroundErrorCounter
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.widget.PulseWidgetRenderer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher

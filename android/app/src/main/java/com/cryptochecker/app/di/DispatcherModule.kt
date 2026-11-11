@@ -1,7 +1,7 @@
 package com.cryptochecker.app.di
 
-import com.cryptochecker.app.util.DefaultDispatcher
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.local.model.convertCurrency
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 
 /** Nimmt beobachtete Alarm-Prüfungen entgegen ([RefreshEffects.checkAlarms]); darf nie werfen. */
 fun interface AlarmTraceSink {
@@ -75,7 +75,7 @@ class AlarmLogCollector(private val now: Long) {
                 if (!AlarmLog.covers(alarm.condition)) continue
                 val due = safelyBoolean {
                     alarm.convertCurrency == null &&
-                        alarm.condition != com.cryptochecker.app.data.local.model.AlarmCondition.MOVE_PERCENT_WINDOW &&
+                        alarm.condition != com.cryptochecker.app.domain.model.AlarmCondition.MOVE_PERCENT_WINDOW &&
                         !evaluator.needsReference(alarm, now) &&
                         evaluator.shouldTrigger(alarm, price, watch.previousPrice, now, cooldownMinutes)
                 }

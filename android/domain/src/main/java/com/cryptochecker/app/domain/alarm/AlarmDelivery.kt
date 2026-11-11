@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.notification.NotificationBudget
+import com.cryptochecker.app.domain.notification.NotificationBudget
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
@@ -88,7 +88,7 @@ class AlarmDelivery(
 
 /**
  * Vermerk «Alarm wird gemeldet» (Alarm-Id → Zeitpunkt), dauerhaft in der App
- * ([com.cryptochecker.app.notification.AlarmDeliveryMarkers]), im Test nur im Speicher.
+ * ([com.cryptochecker.app.data.notification.AlarmDeliveryMarkers]), im Test nur im Speicher.
  */
 interface AlarmDeliveryMarkerStore {
     fun get(alarmId: Long): Long?

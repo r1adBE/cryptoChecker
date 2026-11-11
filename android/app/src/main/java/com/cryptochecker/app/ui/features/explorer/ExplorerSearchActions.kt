@@ -6,11 +6,11 @@ package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.domain.market.ExchangeOrder
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.starter.StarterPairs
-import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

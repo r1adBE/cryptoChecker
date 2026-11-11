@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.settings.AppearanceApplier
-import com.cryptochecker.app.settings.PriceColorScheme
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.PriceColorScheme
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -97,7 +97,7 @@ class SettingsViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached)
 
     /** Paare der Merkliste für «Kursmitteilungen › Paare» (Auswahl je Paar). */
-    val watches: StateFlow<List<com.cryptochecker.app.data.local.model.WatchEntity>> = watchRepository.observeWatches()
+    val watches: StateFlow<List<com.cryptochecker.app.domain.model.WatchEntity>> = watchRepository.observeWatches()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private val _languageTag = MutableStateFlow(AppLanguages.currentTag(context))
@@ -266,7 +266,7 @@ class SettingsViewModel @Inject constructor(
      * «Wie aktuell?»: Hintergrund-Aktualisierung neu planen; `LivePriceStream` folgt der
      * Einstellung selbst.
      */
-    fun setUpdateMode(mode: com.cryptochecker.app.settings.UpdateMode) = update {
+    fun setUpdateMode(mode: com.cryptochecker.app.domain.settings.UpdateMode) = update {
         settingsRepository.setUpdateMode(mode)
         scheduler.apply(settingsRepository.current())
     }
@@ -308,7 +308,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     /** «Token & TradFi»: wirkt auf die Paar-Auswahl, nie auf schon gemerkte Paare. */
-    fun setAssetScope(scope: com.cryptochecker.app.settings.AssetScope) = update {
+    fun setAssetScope(scope: com.cryptochecker.app.domain.settings.AssetScope) = update {
         if (settingsRepository.current().assetScope == scope) return@update
         settingsRepository.setAssetScope(scope)
     }

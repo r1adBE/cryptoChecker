@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import android.content.res.Resources
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.exceptions.toExchangeFailure
@@ -10,8 +11,8 @@ import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -46,7 +47,7 @@ class ExchangeRepositoryImpl @Inject constructor(
      * nur, wenn «Token & TradFi» (Einstellungen › Merkliste) sie erlaubt; gespeichert bleibt stets die
      * ganze Liste, damit ein Wechsel ohne neuen Abruf wirkt. Krypto-Paare bleiben hier immer drin
      * (Portfolio, Start-Auswahl, Info); «Nur TradFi» blendet sie erst in der Paar-Auswahl aus
-     * ([com.cryptochecker.app.settings.scoped]).
+     * ([com.cryptochecker.app.domain.settings.scoped]).
      */
     override suspend fun getExchangeCurrencyPairsInfo(exchange: ExchangeInfo, withAlpha: Boolean): ExchangePairsInfo {
         val stored = local.getExchangeData(exchange.key)

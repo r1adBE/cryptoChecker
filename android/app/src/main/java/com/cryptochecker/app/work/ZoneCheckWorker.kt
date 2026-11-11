@@ -1,7 +1,7 @@
 package com.cryptochecker.app.work
 
-import com.cryptochecker.app.settings.MarketAlertReset
-import com.cryptochecker.app.settings.ZoneCheckPrefs
+import com.cryptochecker.app.data.settings.MarketAlertReset
+import com.cryptochecker.app.data.settings.ZoneCheckPrefs
 import androidx.core.content.edit
 import android.content.Context
 import androidx.hilt.work.HiltWorker
@@ -14,7 +14,7 @@ import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
 import com.cryptochecker.app.notification.IndicatorTexts
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.sync.withLock

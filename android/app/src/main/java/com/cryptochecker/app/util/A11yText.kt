@@ -2,6 +2,8 @@ package com.cryptochecker.app.util
 
 import android.content.Context
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.util.ChangeDirection
+import com.cryptochecker.app.domain.util.ChartSummary
 import java.util.Locale
 
 /**

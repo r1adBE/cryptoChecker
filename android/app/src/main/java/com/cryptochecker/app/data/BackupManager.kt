@@ -10,7 +10,7 @@ import com.cryptochecker.app.data.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.BackupJournalCodec.journalJson
 import com.cryptochecker.app.data.BackupWatchlistCodec.alarmToJson
 import com.cryptochecker.app.data.BackupWatchlistCodec.watchToJson
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import android.content.Context
 import android.net.Uri
 import androidx.room.withTransaction
@@ -28,7 +28,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.refresh.PriceRefresher
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -67,7 +67,7 @@ class BackupManager @Inject constructor(
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
     internal val journal = RestoreJournal(
         java.io.File(context.noBackupFilesDir, RestoreJournal.FILE_NAME),
-        com.cryptochecker.app.widget.PortfolioSnapshotKeyStore(
+        com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore(
             RestoreJournal.KEY_ALIAS,
             com.cryptochecker.app.data.local.DatabaseKeyStore.suspectMarker(context),
         ),

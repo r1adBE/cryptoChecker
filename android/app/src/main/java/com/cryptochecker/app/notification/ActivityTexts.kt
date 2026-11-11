@@ -4,8 +4,8 @@ import android.content.Context
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.SignalKind
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.PercentText
 
 /**
  * Texte und Zahlenformate für «Ungewöhnliche Aktivität». Dieselben Sätze in

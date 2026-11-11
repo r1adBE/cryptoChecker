@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 
 /** Paar wird an seiner Börse nicht mehr gehandelt ([NotTraded]). */
 val WatchEntity.isNotTraded: Boolean get() = NotTraded.isMarker(lastError)

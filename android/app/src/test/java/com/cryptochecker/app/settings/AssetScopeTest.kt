@@ -1,6 +1,9 @@
 package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AssetScope
+import com.cryptochecker.app.domain.settings.scoped
 import com.cryptochecker.marketdata.model.ExchangePair
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

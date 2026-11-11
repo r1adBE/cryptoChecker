@@ -35,7 +35,7 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.settings.SettingsConfirm
-import com.cryptochecker.app.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.ui.features.portfolio.taxMethodName
 import com.cryptochecker.app.ui.features.portfolio.TaxTemplateConfirmDialog
 import com.cryptochecker.app.ui.features.portfolio.taxTemplateLabel

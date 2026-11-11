@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.util.KeyValueStores
+import com.cryptochecker.app.domain.util.KeyValueStores
 
 /**
  * Laufende «1 h später»-Pausen je Paar-Alarm ([AlarmSnooze]): Alarm-Id → Ende der Pause. Eigene kleine Datei

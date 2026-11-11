@@ -1,8 +1,10 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingPoint
 import com.cryptochecker.app.domain.activity.FundingTrendRules
+import com.cryptochecker.app.domain.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

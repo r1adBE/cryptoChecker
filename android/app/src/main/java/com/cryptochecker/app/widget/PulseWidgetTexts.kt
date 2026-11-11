@@ -16,8 +16,8 @@ import com.cryptochecker.app.domain.market.PulseDetail
 import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /**

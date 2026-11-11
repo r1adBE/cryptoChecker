@@ -64,7 +64,7 @@ class WidgetCoinLogos @Inject constructor(
      * Schlüssel des Logos für ein Paar: TradFi-Paare im eigenen Namensraum (nie das Logo eines
      * gleichnamigen Krypto-Tokens), sonst das Basis-Symbol.
      */
-    fun logoKey(watch: com.cryptochecker.app.data.local.model.WatchEntity): String =
+    fun logoKey(watch: com.cryptochecker.app.domain.model.WatchEntity): String =
         repository.logoKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
 
     /** Ein Bild für das Einzel-Widget; [logo] = false → Initialen (DEX-Pools). */

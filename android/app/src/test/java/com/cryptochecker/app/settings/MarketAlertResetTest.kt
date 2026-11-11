@@ -1,10 +1,12 @@
 package com.cryptochecker.app.settings
 
 import android.content.SharedPreferences
+import com.cryptochecker.app.data.settings.DepegAlarmPrefs
+import com.cryptochecker.app.data.settings.MarketAlertReset
 import com.cryptochecker.app.domain.alarm.DepegAlarm
-import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
-import com.cryptochecker.app.domain.gas.GasAlertChecker
-import com.cryptochecker.app.domain.gas.GasAlertLogic
+import com.cryptochecker.app.alarm.DepegAlarmChecker
+import com.cryptochecker.app.gas.GasAlertChecker
+import com.cryptochecker.app.gas.GasAlertLogic
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate

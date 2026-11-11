@@ -3,8 +3,8 @@ package com.cryptochecker.app.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.cryptochecker.app.util.KeyValueStore
-import com.cryptochecker.app.util.KeyValueStores
+import com.cryptochecker.app.domain.util.KeyValueStore
+import com.cryptochecker.app.domain.util.KeyValueStores
 
 /** [KeyValueStores] mit SharedPreferences (privat, Dateiname = Name). */
 class SharedPreferencesStores(context: Context) : KeyValueStores {

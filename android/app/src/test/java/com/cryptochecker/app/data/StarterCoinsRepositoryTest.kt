@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.remote.Reply
 import com.cryptochecker.app.data.remote.RouteHttp
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.starter.StarterCoins

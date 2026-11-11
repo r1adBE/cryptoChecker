@@ -37,7 +37,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 
 // ───────────────────────── Fear & Greed ─────────────────────────
 

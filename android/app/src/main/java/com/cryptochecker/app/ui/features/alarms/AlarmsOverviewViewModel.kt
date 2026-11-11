@@ -10,13 +10,13 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.toAlarmReading
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
-import com.cryptochecker.app.util.DefaultDispatcher
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -84,7 +84,7 @@ class AlarmsOverviewViewModel @Inject constructor(
         viewModelScope.launch {
             portfolioAlarmRepository.delete(id)
             // Die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
-            com.cryptochecker.app.data.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
+            com.cryptochecker.app.domain.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
         }
     }
 
@@ -101,7 +101,7 @@ class AlarmsOverviewViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /** Paare der Merkliste (für «Neuer Alarm» in der leeren Übersicht: Paar wählen). */
-    val watches: StateFlow<List<com.cryptochecker.app.data.local.model.WatchEntity>> = watchRepository.observeWatches()
+    val watches: StateFlow<List<com.cryptochecker.app.domain.model.WatchEntity>> = watchRepository.observeWatches()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /**

@@ -42,7 +42,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.cryptochecker.app.lock.findFragmentActivity

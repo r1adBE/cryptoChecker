@@ -4,7 +4,7 @@
 // Eigene Datei, weil es reine Daten und Abbildungen ohne Android-Bezug sind (Unit-Tests in WatchlistUiStateTest).
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.starter.StarterPairs
@@ -15,8 +15,8 @@ import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.LiveStatus
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
-import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.settings.WatchlistSettings
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.data.settings.WatchlistSettings
 
 /** Alles, was der Merkliste-Bildschirm vom ViewModel liest (ohne die Live-Kurse). */
 data class WatchlistUiState(

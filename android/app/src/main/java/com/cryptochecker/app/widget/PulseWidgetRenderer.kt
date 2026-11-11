@@ -8,7 +8,7 @@ import android.content.Intent
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.CachedValue
 import com.cryptochecker.app.data.CycleCacheCodecs
@@ -19,11 +19,11 @@ import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber

@@ -6,14 +6,14 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.refreshNotification
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.ListWidgetRetry
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject

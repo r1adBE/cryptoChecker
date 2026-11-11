@@ -1,9 +1,9 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
-import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
+import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.data.portfolio.PortfolioJson
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

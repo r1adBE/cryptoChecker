@@ -25,7 +25,7 @@ import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 
 // ───────────────────────── Netzwerkgebühren (#167) ─────────────────────────
 

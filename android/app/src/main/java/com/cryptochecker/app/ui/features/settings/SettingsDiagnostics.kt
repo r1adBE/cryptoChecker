@@ -31,16 +31,16 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
-import com.cryptochecker.app.domain.diagnostics.DiagnosticInput
-import com.cryptochecker.app.domain.diagnostics.DiagnosticReport
-import com.cryptochecker.app.domain.diagnostics.DiagnosticSettings
-import com.cryptochecker.app.domain.refresh.AlarmLogStore
+import com.cryptochecker.app.diagnostics.DiagnosticInput
+import com.cryptochecker.app.diagnostics.DiagnosticReport
+import com.cryptochecker.app.diagnostics.DiagnosticSettings
+import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.util.AlarmReadinessProbe
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.time.ZoneId
@@ -123,7 +123,7 @@ class DiagnosticsViewModel @Inject constructor(
                 // Der Release-Build führt kein Fehlerprotokoll (das HTTP-Protokoll gibt es nur im Debug-Build)
                 errorLog = null,
                 // Nur Anzahl Fehler im Hintergrund je Bereich
-                backgroundErrors = com.cryptochecker.app.util.BackgroundErrorCounter.summary(),
+                backgroundErrors = com.cryptochecker.app.domain.util.BackgroundErrorCounter.summary(),
             )
         )
     }

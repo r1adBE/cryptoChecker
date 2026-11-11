@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.market.DataFreshness
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

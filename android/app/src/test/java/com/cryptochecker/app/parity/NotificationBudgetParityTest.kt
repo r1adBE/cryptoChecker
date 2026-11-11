@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.notification.AppNotifierDeliveryPlan
-import com.cryptochecker.app.notification.NotificationBudget
+import com.cryptochecker.app.domain.notification.NotificationBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -22,9 +22,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.LocalReduceMotion
 import com.cryptochecker.app.ui.components.observeReduceMotion
 

@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val LOGO_LOADING_TAG = "logo_loading_line"

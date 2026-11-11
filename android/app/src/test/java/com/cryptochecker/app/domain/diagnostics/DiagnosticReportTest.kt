@@ -1,6 +1,9 @@
 package com.cryptochecker.app.domain.diagnostics
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.diagnostics.DiagnosticInput
+import com.cryptochecker.app.diagnostics.DiagnosticReport
+import com.cryptochecker.app.diagnostics.DiagnosticSettings
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.alarm.AlarmReadiness

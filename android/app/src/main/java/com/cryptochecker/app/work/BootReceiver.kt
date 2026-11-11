@@ -3,7 +3,7 @@ package com.cryptochecker.app.work
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.util.launchAsync
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -103,7 +103,7 @@ internal fun RevealLoadingRow() {
  * Zustand oben im Markt-Tab wie in der Merkliste (statt einer Überschrift «Jetzt»): Punkt und Satz
  * in einer Pille — grün «Alles aktuell · vor 2 Min.» (Stand von «Was gerade auffällt»), während
  * still neu geladen wird neutral «Stand 14:05 · wird aktualisiert…» (ältester gezeigter Stand).
- * Ohne Netz (wie die Merkliste, [com.cryptochecker.app.util.ConnectivityMonitor]) neutral «Offline ·
+ * Ohne Netz (wie die Merkliste, [com.cryptochecker.app.data.util.ConnectivityMonitor]) neutral «Offline ·
  * Stand 14:05» — die Karten zeigen weiter den letzten Stand.
  * Immer gleich hoch, auch ohne Stand — darunter springt nichts. Wie iOS `statusPill`.
  */

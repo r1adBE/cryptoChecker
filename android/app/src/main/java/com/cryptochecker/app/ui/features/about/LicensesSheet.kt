@@ -2,7 +2,7 @@
 
 package com.cryptochecker.app.ui.features.about
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import android.content.Context

@@ -19,7 +19,7 @@ import com.cryptochecker.app.domain.market.BidAskSpread
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.CurrencyText
 import com.cryptochecker.marketdata.util.DisplayFormat

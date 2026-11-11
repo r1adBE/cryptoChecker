@@ -7,11 +7,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.notification.NotificationBudget
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable

@@ -3,8 +3,8 @@ package com.cryptochecker.app.performance
 import com.cryptochecker.app.data.BackupFormat
 import com.cryptochecker.app.data.BackupLimits
 import com.cryptochecker.app.data.BackupWatchlistCodec
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis

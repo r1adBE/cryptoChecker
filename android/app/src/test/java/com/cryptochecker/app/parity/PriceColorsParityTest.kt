@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.settings.AccentColor
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

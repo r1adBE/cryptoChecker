@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.util.IoDispatcher
-import com.cryptochecker.app.util.appScope
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.util.appScope
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchInterval
 import com.cryptochecker.marketdata.watch.WatchPair

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmTemplates.Template
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

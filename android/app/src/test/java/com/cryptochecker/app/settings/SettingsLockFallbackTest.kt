@@ -1,5 +1,8 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.data.settings.SettingsLockFallback
+import com.cryptochecker.app.data.settings.appSettingsOf
+import com.cryptochecker.app.domain.settings.AppSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

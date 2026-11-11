@@ -4,7 +4,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AccentColor
 
 /*
  * Farbschemata je Akzentfarbe, hell und dunkel.

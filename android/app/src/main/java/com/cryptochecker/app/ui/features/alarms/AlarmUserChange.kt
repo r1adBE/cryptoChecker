@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.alarms
 
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.notification.AppNotifier
 import timber.log.Timber
 

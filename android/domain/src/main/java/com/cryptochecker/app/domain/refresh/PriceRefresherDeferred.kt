@@ -2,8 +2,8 @@
 // Erweiterungsfunktionen; Sperre und Abhängigkeiten bleiben in der Klasse.
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import kotlinx.coroutines.Job

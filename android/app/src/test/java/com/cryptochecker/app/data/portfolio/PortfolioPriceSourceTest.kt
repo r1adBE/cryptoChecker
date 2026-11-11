@@ -1,12 +1,12 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.ExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.fakePortfolioDao
 import com.cryptochecker.app.data.fakeWatchDao
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.proxyOf
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.Klines
@@ -18,7 +18,7 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import com.cryptochecker.app.util.KeyValueStore
+import com.cryptochecker.app.domain.util.KeyValueStore
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery

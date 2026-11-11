@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.theme
 
-import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.widget.WidgetContrast
 import org.junit.Assert.assertTrue

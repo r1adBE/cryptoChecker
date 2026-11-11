@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.text.DateFormat
 import java.time.Instant
 import java.time.ZoneId

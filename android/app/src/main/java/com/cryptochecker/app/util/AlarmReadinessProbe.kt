@@ -15,7 +15,7 @@ import androidx.core.net.toUri
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.work.ExactCheckScheduler
 import timber.log.Timber
 

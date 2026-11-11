@@ -1,7 +1,8 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.widget.PortfolioSnapshotSeal.ReadPlan
-import com.cryptochecker.app.widget.PortfolioSnapshotSeal.WritePlan
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal.ReadPlan
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal.WritePlan
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

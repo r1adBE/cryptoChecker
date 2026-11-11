@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.alarms
 
 import androidx.annotation.DrawableRes
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 
 /**
  * Richtungs-Symbol je Bedingung — in der Alarm-Übersicht vor dem Titel und in den Bedingungs-Chips des Editors.

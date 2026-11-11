@@ -4,9 +4,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.BINAN
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUEST_TIMEOUT_MILLIS
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STABLE
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.UNLISTED_RETRY_MILLIS
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.callExchange
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.portfolio.BinanceBatchSplit
 import kotlinx.coroutines.CancellationException

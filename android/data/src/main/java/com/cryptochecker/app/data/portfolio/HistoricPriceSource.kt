@@ -1,10 +1,10 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
-import com.cryptochecker.app.data.BoundedCache
-import com.cryptochecker.app.data.ExchangeRepository
+import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.domain.BoundedCache
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
@@ -21,7 +21,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async

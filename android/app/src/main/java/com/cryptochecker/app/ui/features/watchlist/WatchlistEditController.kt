@@ -7,12 +7,12 @@ import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.RestoreOutcome
 import com.cryptochecker.app.data.restore
-import com.cryptochecker.app.data.WatchMove
+import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.WatchSnapshot
+import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.tryAddWatch
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.AssetKind
@@ -20,7 +20,7 @@ import com.cryptochecker.app.domain.watch.UndoSlot
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.PriceNotificationRule
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -376,7 +376,7 @@ internal class WatchlistEditController @AssistedInject constructor(
 
     /**
      * «Kurs vorlesen» für ein Paar. Einschalten, während die Sprachausgabe aus ist oder «Nur Alarme»
-     * gilt: beides passend umstellen, sonst bliebe der Schalter wirkungslos ([com.cryptochecker.app.settings.AppSettings.speaksPairPrices]).
+     * gilt: beides passend umstellen, sonst bliebe der Schalter wirkungslos ([com.cryptochecker.app.domain.settings.AppSettings.speaksPairPrices]).
      * @return true, wenn die Sprachausgabe dafür eingeschaltet wurde (kurzer Hinweis im Blatt).
      */
     fun setTtsEnabled(watch: WatchEntity, enabled: Boolean): Boolean {

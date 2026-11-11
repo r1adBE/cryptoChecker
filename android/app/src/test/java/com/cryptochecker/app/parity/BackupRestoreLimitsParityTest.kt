@@ -1,12 +1,12 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.BackupRestoreLimits
+import com.cryptochecker.app.domain.BackupRestoreLimits
 import com.cryptochecker.app.data.BackupWatchlistCodec
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
-import com.cryptochecker.app.data.local.model.NOTE_MAX
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
+import com.cryptochecker.app.domain.model.NOTE_MAX
+import com.cryptochecker.app.domain.model.WatchEntity
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals

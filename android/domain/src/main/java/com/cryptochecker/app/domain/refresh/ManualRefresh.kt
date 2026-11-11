@@ -1,14 +1,14 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.util.AppVisibility
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.domain.util.AppVisibility
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.util.DomainLog
+import com.cryptochecker.app.domain.util.DomainLog
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer

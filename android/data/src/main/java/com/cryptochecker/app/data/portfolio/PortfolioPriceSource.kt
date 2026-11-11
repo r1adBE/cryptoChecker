@@ -1,10 +1,10 @@
 package com.cryptochecker.app.data.portfolio
 
 import android.content.Context
-import com.cryptochecker.app.data.ExchangeRepository
+import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callExchange
@@ -17,7 +17,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.app.domain.portfolio.StoredPrice
-import com.cryptochecker.app.util.IoDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher

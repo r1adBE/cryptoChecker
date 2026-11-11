@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import java.util.Locale
 
 /**

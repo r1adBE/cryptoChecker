@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.PairIdentity
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals

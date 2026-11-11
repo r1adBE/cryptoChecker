@@ -4,8 +4,8 @@ import com.cryptochecker.app.data.BackupFields.Type
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.watch.ColumnSort
-import com.cryptochecker.app.settings.AccentColor
-import com.cryptochecker.app.settings.SettingsBackupTarget
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.data.settings.SettingsBackupTarget
 import org.json.JSONObject
 
 /**
@@ -89,7 +89,7 @@ class BackupSettingsCodec(
     suspend fun restoreSettings(o: JSONObject, trusted: Boolean): SettingsRestoreNotes = with(settings) {
         checkSettings(o)
         // «Wie aktuell?»; unbekannt: Einstellung bleibt
-        com.cryptochecker.app.settings.UpdateMode.fromNameOrNull(o.text("updateMode"))?.let { setUpdateMode(it) }
+        com.cryptochecker.app.domain.settings.UpdateMode.fromNameOrNull(o.text("updateMode"))?.let { setUpdateMode(it) }
         setBackgroundInterval(o.int("backgroundIntervalMinutes"))
         setPriceNotifications(o.bool("priceNotifications"))
         setOngoingNotifications(o.bool("ongoingNotifications"))
@@ -100,7 +100,7 @@ class BackupSettingsCodec(
         setAlarmCooldown(o.int("alarmCooldownMinutes"))
         setIncludeRollingFutures(o.bool("includeRollingFutures"))
         // «Token & TradFi»; unbekannt: Einstellung bleibt
-        com.cryptochecker.app.settings.AssetScope.fromNameOrNull(o.text("assetScope"))?.let { setAssetScope(it) }
+        com.cryptochecker.app.domain.settings.AssetScope.fromNameOrNull(o.text("assetScope"))?.let { setAssetScope(it) }
         setIncludeAlphaTokens(o.bool("includeAlphaTokens"))
         setAccentColor(AccentColor.fromName(o.text("accentColor")))
         // null = «Wie das System»
@@ -123,7 +123,7 @@ class BackupSettingsCodec(
         setPortfolioEnabled(o.bool("portfolioEnabled"))
         setPortfolioCurrency(o.text("portfolioCurrency"))
         setShowConverted(o.bool("showConverted"))
-        setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.text("priceColorScheme")))
+        setPriceColorScheme(com.cryptochecker.app.domain.settings.PriceColorScheme.fromName(o.text("priceColorScheme")))
         setWatchlistSparkline(o.bool("watchlistSparkline"))
         setWatchlistNames(o.bool("watchlistNames"))
         setAppIconBadge(o.bool("appIconBadge"))

@@ -15,7 +15,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.util.WidgetQuantityFormat
 

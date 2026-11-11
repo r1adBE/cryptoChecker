@@ -23,7 +23,7 @@ import com.cryptochecker.app.domain.portfolio.TaxRulesDate
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.MonthYearFormat
 import java.time.format.DateTimeFormatter
 

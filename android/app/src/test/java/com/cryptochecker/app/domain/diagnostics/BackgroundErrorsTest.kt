@@ -4,7 +4,7 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.app.util.BackgroundErrorCounter
+import com.cryptochecker.app.domain.util.BackgroundErrorCounter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

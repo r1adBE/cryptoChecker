@@ -17,8 +17,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxMethod
-import com.cryptochecker.app.settings.deviceRegionLocale
-import com.cryptochecker.app.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.map
 import timber.log.Timber

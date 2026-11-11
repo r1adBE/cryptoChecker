@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.util.json.JsonArray
-import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 

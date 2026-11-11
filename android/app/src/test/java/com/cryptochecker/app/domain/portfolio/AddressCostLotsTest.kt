@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonArray
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.toDomain
 import org.junit.Assert.assertEquals

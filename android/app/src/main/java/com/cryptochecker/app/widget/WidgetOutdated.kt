@@ -7,7 +7,7 @@ import android.content.Intent
 import android.text.format.DateUtils
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.refresh.OutdatedRule
-import com.cryptochecker.app.settings.AppSettings
+import com.cryptochecker.app.domain.settings.AppSettings
 import timber.log.Timber
 
 /**

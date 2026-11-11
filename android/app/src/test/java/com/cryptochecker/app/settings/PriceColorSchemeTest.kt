@@ -1,5 +1,8 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.ColorDifference
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

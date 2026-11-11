@@ -2,6 +2,7 @@ package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.market.GasFees
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate

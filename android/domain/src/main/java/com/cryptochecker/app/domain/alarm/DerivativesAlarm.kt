@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.remote.FuturesSources
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.remote.FuturesSources
 import kotlin.math.abs
 
 /**
@@ -62,7 +62,7 @@ object DerivativesAlarm {
     /**
      * Funding für den Vergleich mit der Schwelle: auf [FUNDING_BASIS_HOURS] Stunden umgerechnet, damit
      * Gleiches mit Gleichem verglichen wird. [intervalHours] = Abrechnungsintervall des Kontrakts, wie die
-     * Börse es meldet ([com.cryptochecker.app.data.remote.FuturesInfo.fundingIntervalHours]: eine 4-Stunden-Rate
+     * Börse es meldet ([com.cryptochecker.app.domain.remote.FuturesInfo.fundingIntervalHours]: eine 4-Stunden-Rate
      * zählt doppelt, eine stündliche achtfach); fehlt es, das übliche der Quelle [source]
      * ([FuturesSources.fundingIntervalHours]). Kein oder ungültiger Wert, oder Intervall unbekannt (Quelle mit
      * Intervall je Kontrakt ohne Angabe) → null: lieber kein Alarm als ein falsch umgerechneter.

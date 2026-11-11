@@ -10,8 +10,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
-import com.cryptochecker.app.data.local.model.NOTE_MAX
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.model.NOTE_MAX
+import com.cryptochecker.app.domain.util.TextLimit
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal

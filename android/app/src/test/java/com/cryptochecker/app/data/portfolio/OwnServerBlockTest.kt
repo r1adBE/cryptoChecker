@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient

@@ -32,12 +32,12 @@ import com.cryptochecker.app.domain.portfolio.PortfolioChartAxis
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.widget.LevelKind
-import com.cryptochecker.app.widget.PlacedLabel
-import com.cryptochecker.app.widget.VSpan
-import com.cryptochecker.app.widget.WidgetChartGeometry
+import com.cryptochecker.app.domain.widget.LevelKind
+import com.cryptochecker.app.domain.widget.PlacedLabel
+import com.cryptochecker.app.domain.widget.VSpan
+import com.cryptochecker.app.domain.widget.WidgetChartGeometry
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min

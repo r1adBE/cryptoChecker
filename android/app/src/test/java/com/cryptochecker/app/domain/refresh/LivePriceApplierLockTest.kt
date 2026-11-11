@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.pairIdentity
+import com.cryptochecker.app.domain.pairIdentity
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch

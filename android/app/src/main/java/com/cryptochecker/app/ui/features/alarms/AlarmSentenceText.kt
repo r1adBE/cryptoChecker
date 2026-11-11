@@ -2,9 +2,9 @@ package com.cryptochecker.app.ui.features.alarms
 
 import android.content.Context
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.convertCurrency
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmSavedText
 import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.notification.AlarmTexts

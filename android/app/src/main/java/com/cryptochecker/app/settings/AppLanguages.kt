@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.LocaleList
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import java.util.Locale
 
 /** Eine wählbare Sprache, angezeigt in ihrer eigenen Schreibweise. */
@@ -155,11 +156,11 @@ object AppLanguages {
 
     /**
      * Zahlen-Locale (Anzeige und Eingabe) = App-Sprache + Region des Geräts
-     * ([com.cryptochecker.app.util.LocaleNumbers.formatLocale]): Deutsch auf einem Schweizer
+     * ([com.cryptochecker.app.domain.util.LocaleNumbers.formatLocale]): Deutsch auf einem Schweizer
      * Gerät zeigt «90’000.00» wie die Eingabe, nicht «90.000,00».
      */
     fun applyNumberLocale() {
-        com.cryptochecker.app.util.LocaleNumbers.applyFormatLocale(Locale.getDefault(), deviceRegionLocale().country)
+        com.cryptochecker.app.domain.util.LocaleNumbers.applyFormatLocale(Locale.getDefault(), deviceRegionLocale().country)
         // Kursformate (zwischengespeicherte Trennzeichen) neu aufbauen
         com.cryptochecker.marketdata.util.DisplayFormat.updateLocale()
     }

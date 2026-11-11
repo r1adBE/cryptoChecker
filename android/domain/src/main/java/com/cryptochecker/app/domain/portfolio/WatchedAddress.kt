@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 
 /**
  * Netz einer beobachteten Adresse; [coin] = Coin im Portfolio, [decimals] = kleinste Einheit. ETH steht für die 0x-Adresse

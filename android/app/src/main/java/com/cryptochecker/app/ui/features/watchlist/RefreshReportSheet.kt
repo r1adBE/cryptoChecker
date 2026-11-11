@@ -40,7 +40,7 @@ import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.util.Locale
 
 /**

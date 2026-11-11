@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.update
  *    beim zweiten Versuch nicht übernehmen und wurde gelöscht ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.retryFailed]).
  *    Einmal; Weg zurück ist die eigene Sicherungsdatei.
  *  - [Kind.SETTINGS_RESET]: Die Einstellungsdatei war beschädigt und wurde durch Standardwerte ersetzt
- *    ([com.cryptochecker.app.settings.settingsDataStore]) — Portfolio-Sperre, Intervall und Währung stehen dann still auf
+ *    ([com.cryptochecker.app.data.settings.settingsDataStore]) — Portfolio-Sperre, Intervall und Währung stehen dann still auf
  *    dem Standard (Sperre aus). Bleibt vorgemerkt, bis der Nutzer den Hinweis schliesst, damit er sicher gesehen wird.
  *    Nicht bei einer neuen Installation und nicht, wenn die Datei bloss nicht lesbar war (dann ersetzt DataStore nichts).
  *    Die Sperre gilt danach als an, bis der Nutzer sie selbst setzt ([confirmAppLock]); ein blosser

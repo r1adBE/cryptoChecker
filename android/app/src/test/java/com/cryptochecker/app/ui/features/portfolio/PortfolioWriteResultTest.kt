@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
+import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.CostMethod

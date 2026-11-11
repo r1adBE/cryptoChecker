@@ -2,7 +2,7 @@
 // Eigene Datei, weil es reine Rechnung ohne Android-Bezug ist (wie `WatchlistConversion.swift`).
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.util.PriceFormat
 

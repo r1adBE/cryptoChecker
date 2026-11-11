@@ -4,7 +4,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.BackupManager.Step
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import timber.log.Timber

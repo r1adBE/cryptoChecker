@@ -2,6 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.CandleInterval
+import com.cryptochecker.app.domain.widget.ChartGridUnit
 
 /**
  * Zeitraum des Mini-Charts im Einzel-Widget: Kerzenintervall und Anzahl,

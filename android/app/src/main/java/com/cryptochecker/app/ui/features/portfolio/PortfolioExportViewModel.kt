@@ -26,10 +26,10 @@ import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.settings.deviceRegionLocale
-import com.cryptochecker.app.settings.inputDecimalSeparator
-import com.cryptochecker.app.util.DefaultDispatcher
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.settings.deviceRegionLocale
+import com.cryptochecker.app.domain.settings.inputDecimalSeparator
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException

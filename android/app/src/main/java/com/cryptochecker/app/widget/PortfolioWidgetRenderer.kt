@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
@@ -20,7 +20,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.withOpenToken

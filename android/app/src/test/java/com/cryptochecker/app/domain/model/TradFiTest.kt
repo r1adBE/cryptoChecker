@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.model
 
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.settings.AssetScope
+import com.cryptochecker.app.domain.settings.AssetScope
 import com.cryptochecker.marketdata.util.TradFi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

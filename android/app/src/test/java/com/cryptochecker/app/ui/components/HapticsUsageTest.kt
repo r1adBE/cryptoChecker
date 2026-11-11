@@ -122,6 +122,6 @@ class HapticsUsageTest {
         val BACKGROUND_DIRS = listOf("notification", "widget", "work", "tts")
 
         /** Daten-, Domänen- und Hilfspakete (relativ zu `com/cryptochecker/app`): kein Abspielen, Zuordnen erlaubt. */
-        val NON_UI_DIRS = listOf("data", "domain", "lock", "util", "settings", "di")
+        val NON_UI_DIRS = listOf("data", "activity", "alarm", "diagnostics", "gas", "refresh", "lock", "util", "settings", "di")
     }
 }

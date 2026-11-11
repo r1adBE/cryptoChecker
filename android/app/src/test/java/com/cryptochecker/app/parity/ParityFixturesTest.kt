@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.NearExtreme
@@ -17,7 +17,7 @@ import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.NotTraded
-import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.util.Change24h
 import org.junit.Assert.assertEquals

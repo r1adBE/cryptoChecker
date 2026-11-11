@@ -16,8 +16,8 @@ import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.AppearanceApplier
 import com.cryptochecker.app.settings.PortfolioDataCheck
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
@@ -102,7 +102,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
      */
     override fun onCreate() {
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
-        com.cryptochecker.app.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
+        com.cryptochecker.app.domain.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
         // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner); eine noch nicht
         // verschlüsselte Wiederherstellung (keine Hauptdatenbank) bleibt fürs erste Öffnen
@@ -123,11 +123,11 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
         // Protokoll der Abläufe in :domain (ohne Timber dort) über Timber — wie vorher nur mit Baum sichtbar
-        com.cryptochecker.app.util.DomainLog.sink = com.cryptochecker.app.util.DomainLog.Sink { level, error, message, args ->
+        com.cryptochecker.app.domain.util.DomainLog.sink = com.cryptochecker.app.domain.util.DomainLog.Sink { level, error, message, args ->
             when (level) {
-                com.cryptochecker.app.util.DomainLog.Level.DEBUG -> Timber.d(error, message, *args)
-                com.cryptochecker.app.util.DomainLog.Level.INFO -> Timber.i(error, message, *args)
-                com.cryptochecker.app.util.DomainLog.Level.WARN -> Timber.w(error, message, *args)
+                com.cryptochecker.app.domain.util.DomainLog.Level.DEBUG -> Timber.d(error, message, *args)
+                com.cryptochecker.app.domain.util.DomainLog.Level.INFO -> Timber.i(error, message, *args)
+                com.cryptochecker.app.domain.util.DomainLog.Level.WARN -> Timber.w(error, message, *args)
             }
         }
 

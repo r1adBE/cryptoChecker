@@ -6,13 +6,13 @@ import com.cryptochecker.app.data.BackupJournalCodec.PreviousState
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.local.model.AlarmEntity
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.AlarmEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.BackupManager.Step
-import com.cryptochecker.app.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
-import com.cryptochecker.app.notification.PrefsAlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
 
 /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
 internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {

@@ -64,7 +64,7 @@ import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.LocaleNumbers
 import java.time.ZoneId
 
 /** Titel der Unterseite bzw. ihrer Zeile im Markt-Tab. */

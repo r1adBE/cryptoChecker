@@ -1,6 +1,9 @@
 package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.domain.refresh.OutdatedRule
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.clampAlarmCooldown
+import com.cryptochecker.app.domain.settings.clampBackgroundInterval
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

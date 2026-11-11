@@ -34,8 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.model.GROUP_NAME_MAX
+import com.cryptochecker.app.domain.util.TextLimit
 import androidx.compose.ui.semantics.selected
 
 /**

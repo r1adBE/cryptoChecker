@@ -28,7 +28,7 @@ import com.cryptochecker.app.domain.portfolio.TodayChange
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.watch.ChangeBasis
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +77,7 @@ class PortfolioViewModel @Inject constructor(
     /** Portfolio-Alarm anlegen; dürfen Alarme erscheinen («· Mitteilungen aus» in der Bestätigung)? */
     internal val alarmSaving: PortfolioAlarmSaving,
     /** Netz da? Für die Status-Pille («Offline · Stand 14:05») wie in der Merkliste. */
-    connectivity: com.cryptochecker.app.util.ConnectivityMonitor,
+    connectivity: com.cryptochecker.app.data.util.ConnectivityMonitor,
     /** Letzte Momentaufnahme (nur lesen): «Heute» zum gemerkten Stand, wenn die Kurse veraltet sind. */
     internal val snapshotStore: com.cryptochecker.app.widget.PortfolioSnapshotStore,
     /** Portfolio-Logos abgleichen, wenn das Speichern das Portfolio einschaltet. */

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 216)
+
+* Android, no visible change: clean layer boundaries. Every file now lives in the package of its module, the database rows for watchlist entries and alarms moved into the data layer, and the domain layer no longer depends on Room or OkHttp. A test keeps it that way.
+
 ## 16.2.2 (build 215)
 
 * Android: measured baseline and start-up profile (generated on an API 34 emulator, 12,601 rules for the app) packaged with the app – faster first start and smoother first scrolling after installation.

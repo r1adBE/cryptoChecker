@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
-import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import org.json.JSONArray
 import org.json.JSONObject

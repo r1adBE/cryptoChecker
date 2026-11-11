@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.widget.WidgetCandle
-import com.cryptochecker.app.widget.WidgetChartType
+import com.cryptochecker.app.domain.widget.WidgetCandle
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -385,7 +385,7 @@ class SheetChartTest {
         assertEquals(1.001, other.high, 1e-9)
         // Normale Spanne bleibt unverändert
         assertEquals(
-            com.cryptochecker.app.widget.WidgetChartGeometry.levels(series, WidgetChartType.CANDLES),
+            com.cryptochecker.app.domain.widget.WidgetChartGeometry.levels(series, WidgetChartType.CANDLES),
             SheetChart.axisLevels(series, WidgetChartType.CANDLES, stable = true),
         )
     }

@@ -119,7 +119,7 @@ Akku-Einschränkung. «Letzte Prüfungen» (`CheckRunLog`, 20 Einträge in `noBa
 Auslöser und Ergebnis; zwei Prüfungen innerhalb von 5 Minuten werden zusammengelegt, und solange der Wecker gestellt ist,
 läuft WorkManager nur, wenn seit der letzten vollen Prüfung ein Intervall vergangen ist (`BackgroundSchedule`).
 
-**Aktualisierung** — Einstellungen › Kurs-Aktualisierung › «Wie aktuell?» (`settings/UpdateMode.kt`):
+**Aktualisierung** — Einstellungen › Kurs-Aktualisierung › «Wie aktuell?» (`domain/settings/UpdateMode.kt`):
 **Sparsam** (Standard, empfohlen) aktualisiert bei geschlossener App über WorkManager im gewählten Intervall
 (ab 15 Minuten, Android-Grenze, oft später) und bei jedem Öffnen; **Live, solange offen** holt zusätzlich in der
 geöffneten Merkliste die Kurse der unterstützten Börsen live per WebSocket. Hintergrund und Widgets bleiben bei REST;
@@ -134,15 +134,17 @@ System-Broadcasts.
 marketdata/   Börsen, Handelspaare, Ticker-Parser
 domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff: Regeln und
               Berechnungen (Alarme, Portfolio mit FIFO, Steuer-Engines und CSV-Import, «Warum bewegt
-              es sich?», Frische, Fehlerarten, Markt-Kennzahlen, Futures-Quellen) und die Datenbank-Modelle; gleiche Pakete
-              com.cryptochecker.app.* wie in app/
-data/         Speicher und Netz: Room-Datenbanken mit DAOs und Verschlüsselung,
-              Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung; Schemas weiter unter app/schemas
+              es sich?», Frische, Fehlerarten, Markt-Kennzahlen, Futures-Quellen) und die Fachmodelle (ohne Room,
+              ohne OkHttp); alles im Paket com.cryptochecker.app.domain.*
+data/         Speicher und Netz: Room-Datenbanken mit DAOs, Tabellenzeilen und Verschlüsselung, Einstellungen,
+              Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung; alles im Paket
+              com.cryptochecker.app.data.*; Schemas weiter unter app/schemas
 app/
   data/       Was noch an Mitteilungen, Widgets oder der App-Sperre hängt (Sicherung, Logo-Abgleich, Charts im Blatt)
-  domain/     Abläufe, die noch Speicher oder Netz brauchen: PriceRefresher steuert die Aktualisierung, dazu
-              PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
-              RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)
+  activity/, alarm/, diagnostics/, gas/, refresh/
+              Abläufe, die Speicher, Netz oder Mitteilungen brauchen: Aktivitäts-Prüfung (ActivityMonitor), Depeg-
+              und Gas-Alarme, Diagnosebericht, DayReferences (24-h-/Tages-Bezüge) und die Hüllen der
+              Aktualisierung (RefreshPortAdapters, PriceRefresherAdapters) um die Regeln aus domain/
   di/         Hilt-Module
   lock/       Portfolio-Sperre (Regeln)
   notification/ Kanäle und Benachrichtigungen

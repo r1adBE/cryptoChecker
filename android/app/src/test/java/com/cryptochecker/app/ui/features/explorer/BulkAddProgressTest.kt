@@ -7,7 +7,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.app.data.BulkAddResult as RepoResult
+import com.cryptochecker.app.domain.BulkAddResult as RepoResult
 
 /** Stand der app-weiten Aufnahme ([com.cryptochecker.app.data.BulkAddRunner]) als Anzeige des Explorers. */
 class BulkAddProgressTest {

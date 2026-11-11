@@ -30,9 +30,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.data.remote.FuturesInfo
-import com.cryptochecker.app.data.remote.FuturesSources
+import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.remote.FuturesInfo
+import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.spot.SpotData
 import com.cryptochecker.app.ui.components.ChangePillSize
@@ -42,7 +42,7 @@ import com.cryptochecker.app.ui.components.TonePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.CompactAmount
-import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlin.math.abs

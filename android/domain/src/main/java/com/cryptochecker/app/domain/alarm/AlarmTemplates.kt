@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import java.math.BigDecimal
 import java.math.MathContext
 

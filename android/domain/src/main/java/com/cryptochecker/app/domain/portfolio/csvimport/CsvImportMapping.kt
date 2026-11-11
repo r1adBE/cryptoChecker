@@ -8,7 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import java.math.BigDecimal
 
 /**
@@ -125,7 +125,7 @@ data class CsvWithdrawalProposal(val importKey: String, val choice: CsvWithdrawa
  */
 object CsvImportMapping {
 
-    /** Höchstlänge der Notiz (wie [com.cryptochecker.app.data.local.model.NOTE_MAX]). */
+    /** Höchstlänge der Notiz (wie [com.cryptochecker.app.domain.model.NOTE_MAX]). */
     private const val NOTE_MAX = 120
 
     /** Zeilen je Block beim Umrechnen der Vorschau ([preview]): dazwischen Fortschritt und Abbruch. */

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.live
 
-import com.cryptochecker.app.data.PairIdentity
+import com.cryptochecker.app.domain.PairIdentity
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.live.LiveBackoff
 import com.cryptochecker.app.domain.live.LiveBuffer
@@ -13,11 +13,11 @@ import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.AppVisibility
-import com.cryptochecker.app.util.ConnectivityMonitor
-import com.cryptochecker.app.util.IoDispatcher
-import com.cryptochecker.app.util.appScope
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.domain.util.AppVisibility
+import com.cryptochecker.app.data.util.ConnectivityMonitor
+import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job

@@ -13,7 +13,7 @@ object WidgetStatusRule {
     enum class Kind { OFFLINE, OFFLINE_NO_TIME, OUTDATED, TIME }
 
     /**
-     * @param online Internet laut System (Android: bestätigtes Netz, [com.cryptochecker.app.util.ConnectivityMonitor])
+     * @param online Internet laut System (Android: bestätigtes Netz, [com.cryptochecker.app.data.util.ConnectivityMonitor])
      * @param outdated gezeigter Stand ist veraltet (Regel der jeweiligen Zeile)
      * @param time Zeit der letzten erfolgreichen Aktualisierung (ms); 0 oder kleiner = keine
      */

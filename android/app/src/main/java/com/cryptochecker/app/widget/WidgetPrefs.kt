@@ -3,6 +3,7 @@ package com.cryptochecker.app.widget
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
+import com.cryptochecker.app.domain.widget.WidgetChartType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

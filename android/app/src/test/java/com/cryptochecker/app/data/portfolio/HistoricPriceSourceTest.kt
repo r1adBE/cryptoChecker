@@ -2,7 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.fakePortfolioDao
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.Klines
 import com.cryptochecker.app.data.remote.Reply
 import com.cryptochecker.app.data.remote.RouteHttp

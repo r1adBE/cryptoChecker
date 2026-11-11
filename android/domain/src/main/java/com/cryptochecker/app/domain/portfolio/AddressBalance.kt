@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonObject
 import java.math.BigDecimal
 
 /**

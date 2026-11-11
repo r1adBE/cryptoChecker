@@ -236,7 +236,7 @@ class DatabaseKeyStore(
 
         /**
          * Verdachts-Merker für weitere Keystore-Schlüssel, an denen nicht neu berechenbare Daten hängen (Journal des
-         * Wiederherstellens, Alarm-Protokoll; [com.cryptochecker.app.widget.PortfolioSnapshotKeyStore]): gleicher Ordner,
+         * Wiederherstellens, Alarm-Protokoll; [com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore]): gleicher Ordner,
          * Merker je Alias.
          */
         fun suspectMarker(context: Context) = DatabaseKeyRetry.SuspectMarker(File(context.noBackupFilesDir, DIRECTORY))

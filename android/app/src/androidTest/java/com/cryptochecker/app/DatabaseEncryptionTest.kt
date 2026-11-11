@@ -15,7 +15,7 @@ import com.cryptochecker.app.data.local.DatabaseSystemBackup
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
-import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import java.io.File
 import java.security.KeyStore
 import org.junit.After

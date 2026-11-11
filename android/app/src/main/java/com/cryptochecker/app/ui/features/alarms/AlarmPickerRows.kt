@@ -11,7 +11,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.ui.components.LocalCoinSearchNameSource
 import com.cryptochecker.app.ui.features.explorer.NameMatch
 import com.cryptochecker.app.ui.features.watchlist.searchName

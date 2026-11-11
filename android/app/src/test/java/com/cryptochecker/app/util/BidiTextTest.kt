@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.util.BidiText
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

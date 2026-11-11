@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.theme
 
 import androidx.compose.ui.graphics.toArgb
-import com.cryptochecker.app.settings.AccentColor
-import com.cryptochecker.app.settings.PriceColorScheme
+import com.cryptochecker.app.domain.settings.AccentColor
+import com.cryptochecker.app.domain.settings.PriceColorScheme
 
 /**
  * Art einer kurzen Meldung unten (Snackbar, Banner): bestimmt Rahmen und Symbol, nie den Text.

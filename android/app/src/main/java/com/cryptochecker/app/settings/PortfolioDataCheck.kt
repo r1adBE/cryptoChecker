@@ -4,7 +4,12 @@ import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.data.settings.SettingsKeys
+import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.settingsDataStore
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.settings.AppSettings
+import com.cryptochecker.app.domain.settings.enablePortfolioForData
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
 

@@ -5,6 +5,7 @@ import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
+import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.ui.components.ALPHA_GLYPH
 import com.cryptochecker.app.ui.features.watchlist.assetKind
 import kotlinx.coroutines.flow.combine
@@ -61,13 +62,13 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.BidiText
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.BidiText
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -198,8 +199,8 @@ class WidgetConfigureViewModel @Inject constructor(
 @Composable
 private fun WidgetConfigureContent(
     appWidgetId: Int,
-    accent: com.cryptochecker.app.settings.AccentColor,
-    priceColors: com.cryptochecker.app.settings.PriceColorScheme,
+    accent: com.cryptochecker.app.domain.settings.AccentColor,
+    priceColors: com.cryptochecker.app.domain.settings.PriceColorScheme,
     highContrast: Boolean,
     priceColorsInverted: Boolean,
     onDone: () -> Unit,

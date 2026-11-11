@@ -1,8 +1,8 @@
 // Regeln der beobachteten Adressen (Teil von `WatchedAddress.kt`, gespiegelt in `WatchedAddressRules.swift`).
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.json.JsonObject
-import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.domain.util.json.JsonObject
+import com.cryptochecker.app.domain.util.json.JsonArray
 import java.math.BigDecimal
 
 /** Regeln der beobachteten Adressen (Anzahl, Bezeichnung, Anzeige, Sicherung). */

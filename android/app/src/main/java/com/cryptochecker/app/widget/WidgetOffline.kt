@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 import android.content.Context
 import com.cryptochecker.app.R
-import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.work.WidgetReconnectWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

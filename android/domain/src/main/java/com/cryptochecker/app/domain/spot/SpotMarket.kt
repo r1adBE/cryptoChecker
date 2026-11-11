@@ -4,8 +4,8 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.macro.MiniJson
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.watch.TokenIdentity
-import com.cryptochecker.app.util.LocaleNumbers
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.domain.util.PercentText
 import java.time.Instant
 import java.time.format.DateTimeParseException
 import java.util.Locale

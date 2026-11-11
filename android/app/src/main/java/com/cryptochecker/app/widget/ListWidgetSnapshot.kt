@@ -2,7 +2,9 @@ package com.cryptochecker.app.widget
 
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONArray

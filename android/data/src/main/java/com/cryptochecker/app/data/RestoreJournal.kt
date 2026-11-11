@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.widget.PortfolioSnapshotSeal
+import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
 import java.io.File
 import java.io.IOException
 

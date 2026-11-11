@@ -1,6 +1,7 @@
 package com.cryptochecker.app.util
 
 import android.net.NetworkCapabilities
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

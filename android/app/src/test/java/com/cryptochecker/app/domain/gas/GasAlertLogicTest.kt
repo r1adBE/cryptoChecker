@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.gas
 
 import com.cryptochecker.app.domain.market.GasFees
+import com.cryptochecker.app.gas.GasAlertLogic
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.Locale

@@ -188,7 +188,7 @@ internal fun unusualFactText(context: Context, fact: UnusualFact): String = when
     UnusualFactKind.AGAINST_MARKET -> context.getString(R.string.unusual_fact_against)
     UnusualFactKind.VOLUME -> context.getString(
         R.string.unusual_fact_volume,
-        String.format(com.cryptochecker.app.util.LocaleNumbers.appLocale, "%.1f", fact.volumeRatio ?: 0.0)
+        String.format(com.cryptochecker.app.domain.util.LocaleNumbers.appLocale, "%.1f", fact.volumeRatio ?: 0.0)
     )
     UnusualFactKind.FUNDING_HIGH ->
         context.getString(R.string.unusual_fact_funding_high, ActivityTexts.percent(fact.fundingPercent ?: 0.0, 3))

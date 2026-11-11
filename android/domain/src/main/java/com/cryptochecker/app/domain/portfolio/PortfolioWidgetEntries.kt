@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
-import com.cryptochecker.app.util.TextLimit
+import com.cryptochecker.app.domain.util.TextLimit
 import java.math.BigDecimal
 
 /**

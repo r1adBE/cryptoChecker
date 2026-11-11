@@ -25,7 +25,7 @@ import com.cryptochecker.app.ui.components.pillArrow
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
 import java.text.DateFormat

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import androidx.lifecycle.SavedStateHandle
-import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.model.AlarmCondition
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

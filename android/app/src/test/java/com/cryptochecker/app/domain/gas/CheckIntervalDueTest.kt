@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.gas
 
-import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
+import com.cryptochecker.app.alarm.DepegAlarmChecker
+import com.cryptochecker.app.gas.GasAlertChecker
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

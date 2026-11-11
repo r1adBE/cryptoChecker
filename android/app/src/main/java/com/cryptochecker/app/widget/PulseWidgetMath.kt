@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
-import com.cryptochecker.app.util.PercentText
+import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import java.util.Locale
 import kotlin.math.abs
