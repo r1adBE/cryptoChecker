@@ -1,0 +1,126 @@
+package com.cryptochecker.app.domain.notification
+import com.cryptochecker.app.domain.notification.NotificationBudget
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+/** Höchstens 20 Kurs-Mitteilungen einzeln, Rest in der Sammelmeldung, Alarme haben Vorrang. */
+class NotificationBudgetTest {
+
+    @Test
+    fun `price slots are capped at 20 and leave room for alarms`() {
+        assertEquals(20, NotificationBudget.priceSlots(0))
+        assertEquals(20, NotificationBudget.priceSlots(18))
+        assertEquals(10, NotificationBudget.priceSlots(28))
+        assertEquals(0, NotificationBudget.priceSlots(45))
+        assertEquals(20, NotificationBudget.priceSlots(-3))
+    }
+
+    @Test
+    fun `first run with many pairs shows 20 and puts the rest in the overflow`() {
+        val posts = (1L..120L).toList()
+        val plan = NotificationBudget.planPrices(emptyList(), emptyList(), posts, 20)
+        assertEquals((1L..20L).toList(), plan.individual)
+        assertEquals((21L..120L).toList(), plan.overflow)
+        assertTrue(plan.demoted.isEmpty())
+    }
+
+    @Test
+    fun `shown pairs keep their slot, new ones go to the overflow when full`() {
+        val shown = (1L..20L).toList()
+        val plan = NotificationBudget.planPrices(shown, listOf(30L), listOf(5L, 25L), 20)
+        assertEquals(listOf(5L), plan.individual)
+        // Neueste zuerst, bisherige bleiben
+        assertEquals(listOf(25L, 30L), plan.overflow)
+    }
+
+    @Test
+    fun `overflow pair comes back individually when a slot is free`() {
+        val plan = NotificationBudget.planPrices(listOf(1L, 2L), listOf(7L, 8L), listOf(8L), 20)
+        assertEquals(listOf(8L), plan.individual)
+        assertEquals(listOf(7L), plan.overflow)
+    }
+
+    @Test
+    fun `fewer slots demote the surplus into the overflow`() {
+        val plan = NotificationBudget.planPrices(listOf(1L, 2L, 3L, 4L), emptyList(), listOf(4L), 2)
+        assertEquals(listOf(3L, 4L), plan.demoted)
+        assertTrue(plan.individual.isEmpty())
+        assertEquals(listOf(4L, 3L), plan.overflow)
+    }
+
+    @Test
+    fun `alarm needs room only near the system limit`() {
+        assertEquals(0, NotificationBudget.neededForAlarm(30, alarmShown = false, summaryShown = false))
+        assertEquals(0, NotificationBudget.neededForAlarm(47, alarmShown = false, summaryShown = true))
+        assertEquals(1, NotificationBudget.neededForAlarm(47, alarmShown = false, summaryShown = false))
+        assertEquals(0, NotificationBudget.neededForAlarm(48, alarmShown = true, summaryShown = true))
+        assertEquals(3, NotificationBudget.neededForAlarm(50, alarmShown = false, summaryShown = true))
+    }
+
+    @Test
+    fun `room for alarm comes from price notifications first`() {
+        // Sammelmeldung offen: genau so viele verschieben
+        assertEquals(NotificationBudget.AlarmRoom(2, true, 0), NotificationBudget.roomForAlarm(2, 20, overflowShown = true))
+        // Neue Sammelmeldung kostet einen Platz
+        assertEquals(NotificationBudget.AlarmRoom(3, true, 0), NotificationBudget.roomForAlarm(2, 20, overflowShown = false))
+        // Zu wenige Kurs-Mitteilungen: ganz entfernen, Rest fehlt noch
+        assertEquals(NotificationBudget.AlarmRoom(1, false, 1), NotificationBudget.roomForAlarm(2, 1, overflowShown = false))
+        assertEquals(NotificationBudget.AlarmRoom(0, true, 2), NotificationBudget.roomForAlarm(2, 0, overflowShown = true))
+        assertEquals(NotificationBudget.AlarmRoom(0, true, 0), NotificationBudget.roomForAlarm(0, 20, overflowShown = false))
+    }
+
+    @Test
+    fun `unconfirmed alarm waits for the cooldown before retrying`() {
+        val t = 1_000_000_000L
+        assertFalse(NotificationBudget.retryBlocked(null, t, 15))
+        assertTrue(NotificationBudget.retryBlocked(t, t + 14 * 60_000L, 15))
+        assertFalse(NotificationBudget.retryBlocked(t, t + 15 * 60_000L, 15))
+        // Ohne Abklingzeit mindestens 5 Minuten
+        assertTrue(NotificationBudget.retryBlocked(t, t + 4 * 60_000L, 0))
+        assertFalse(NotificationBudget.retryBlocked(t, t + 5 * 60_000L, 0))
+        // Uhr zurückgestellt: nicht blockieren
+        assertFalse(NotificationBudget.retryBlocked(t, t - 1, 15))
+    }
+
+    @Test
+    fun `more than five posts are spaced out`() {
+        assertEquals(0L, NotificationBudget.postGapMillis(1))
+        assertEquals(0L, NotificationBudget.postGapMillis(5))
+        assertEquals(NotificationBudget.POST_GAP_MILLIS, NotificationBudget.postGapMillis(6))
+        assertEquals(NotificationBudget.POST_GAP_MILLIS, NotificationBudget.postGapMillis(21))
+        // Gedrosselt höchstens 5 je Sekunde
+        assertTrue(1_000L / NotificationBudget.POST_GAP_MILLIS <= NotificationBudget.POSTS_PER_SECOND)
+    }
+
+    @Test
+    fun `alarm counts as shown only with a post time of the new post`() {
+        val start = 1_000_000L
+        // Nicht abfragbar: gilt als gezeigt
+        assertTrue(NotificationBudget.confirmedPost(null, 7, start))
+        // Fehlt: nicht gezeigt
+        assertFalse(NotificationBudget.confirmedPost(mapOf(8 to start), 7, start))
+        // Alte Meldung desselben Alarms (vor dem Melden): bestätigt die neue nicht
+        assertFalse(NotificationBudget.confirmedPost(mapOf(7 to start - 60_000L), 7, start))
+        // Neue Meldung
+        assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start), 7, start))
+        assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start + 40L), 7, start))
+    }
+
+    /**
+     * 48 offene Mitteilungen (47 Alarme + Zusammenfassung) — der neue Alarm verdrängt die älteste statt
+     * endlos still zu scheitern.
+     */
+    @Test
+    fun `bei 48 offenen Alarmen weicht die aelteste Alarm-Meldung`() {
+        val alarms = (1..47).toList() // älteste zuerst
+        val need = NotificationBudget.neededForAlarm(alarms.size + 1, alarmShown = false, summaryShown = true)
+        val room = NotificationBudget.roomForAlarm(need, prices = 0, overflowShown = false)
+        assertEquals(1, room.remaining)
+        assertEquals(listOf(1), NotificationBudget.alarmsToEvict(room.remaining, alarms, newId = 99))
+        // Die neue Meldung selbst (gleicher Alarm, schon offen) weicht nie
+        assertEquals(listOf(2, 3), NotificationBudget.alarmsToEvict(2, listOf(1, 2, 3), newId = 1))
+        assertTrue(NotificationBudget.alarmsToEvict(0, alarms, newId = 99).isEmpty())
+    }
+}

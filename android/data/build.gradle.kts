@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 // Speicher und Netz der App: Room-Datenbanken (Merkliste, Alarme, Portfolio) mit DAOs und
 // Verschlüsselung, Einstellungen, Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung. Jede Datei liegt
 // im Paket com.cryptochecker.app.data.* (Paket = Modul, LayerBoundaryTest); Hilt-Module (Datenbanken, OkHttp) bleiben
@@ -62,10 +64,30 @@ dependencies {
     api(libs.okhttp)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.timber)
+
+    // Tests der Datenschicht (src/test, Audit C-03): dieselbe Umgebung wie die Unit-Tests von :app — echtes org.json
+    // (AOSP-Code, vor android.jar; die Codecs und Parser hier lesen damit), virtuelle Zeit (runTest) und ein echter
+    // lokaler HTTP-Server für die Netzschicht (ExchangeHttpTest)
+    testImplementation(libs.junit)
+    testImplementation(libs.android.json)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.okhttp.mockwebserver3)
 }
 
-// Testabdeckung nur auf Anfrage (wie :domain); die Tests der Datenschicht laufen vorerst in :app, dessen Bericht
-// :data mitmisst
+// JVM-Unit-Tests mit fester Sprache und Zeitzone wie in :app (app/build.gradle.kts, testOptions); fehlgeschlagene
+// Tests mit voller Meldung im Log
+tasks.withType<Test>().configureEach {
+    systemProperty("user.language", "en")
+    systemProperty("user.country", "US")
+    systemProperty("user.timezone", "UTC")
+    testLogging {
+        events("failed")
+        exceptionFormat = TestExceptionFormat.FULL
+    }
+}
+
+// Testabdeckung nur auf Anfrage (wie :domain); der Bericht von :app (koverXmlReportDebug) führt die Tests
+// dieses Moduls mit denen von :app zusammen
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
 }

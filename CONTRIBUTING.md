@@ -80,7 +80,8 @@ prefix, in all languages. To fix or add a translation:
 ## Pull requests
 
 * Small, focused changes with a short description of what and why.
-* Add or update unit tests for logic changes (`android/app/src/test`).
+* Add or update unit tests for logic changes, in the module of the code (`android/domain/src/test`,
+  `android/data/src/test`; `android/app/src/test` for the app, the parity fixtures and the source guards).
 * Never commit API keys, tokens, keystores, `keystore.properties`,
   `local.properties`, certificates or provisioning profiles.
 * Never add third-party API data (e.g. CoinGecko market data), logos or name

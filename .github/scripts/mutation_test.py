@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Mutation tests for the Android portfolio and tax logic (workflow «Mutation tests», mutation.yml).
 
-For every target file (pure Kotlin logic under android/app/src/main/java/.../domain: FIFO, average cost, fee
+For every target file (pure Kotlin logic under android/domain/src/main/java/.../domain: FIFO, average cost, fee
 expenses, display-currency conversion, the tax engines, the tax export rows, the CSV import parsers and the currency
 conversion of domain/convert) the script creates mutants by
-fixed rules, runs the unit-test classes configured for that file with Gradle and reports whether the tests noticed
+fixed rules, runs the unit-test classes configured for that file with Gradle (each in the module that holds it:
+android/<app|domain|data>/src/test) and reports whether the tests noticed
 the change («killed», tests red) or not («survived»). The file is always restored afterwards (try/finally, also on
 Ctrl-C / SIGTERM of a cancelled run; written atomically via a temporary file in the same folder and os.replace, so
 the file is never left half written; the restored bytes are checked).
@@ -32,7 +33,8 @@ of killed mutants, a warning per surviving mutant (file:line, the change), a not
 only when the script itself fails: target file missing, a test pattern that matches no test, a file that could not
 be restored. Surviving mutants never fail the run.
 
-Usage (from the repository root, after a green `./gradlew :app:testDebugUnitTest` in android/):
+Usage (from the repository root, after a green
+`./gradlew :app:testDebugUnitTest :domain:testDebugUnitTest :data:testDebugUnitTest` in android/):
   python3 -I .github/scripts/mutation_test.py --findings FILE [--per-file 4] [--max-total 50] [--time-limit 60]
           [--mutant-timeout 900] [--only TEXT] [--target PATH=PATTERN[,PATTERN…]] [--online] [--repo DIR]
   python3 -I .github/scripts/mutation_test.py --list [--only TEXT]   (show the selected mutants, run nothing)
@@ -49,13 +51,13 @@ import sys
 import tempfile
 import time
 
-PORTFOLIO = "android/app/src/main/java/com/cryptochecker/app/domain/portfolio/"
+PORTFOLIO = "android/domain/src/main/java/com/cryptochecker/app/domain/portfolio/"
 PARITY_PORTFOLIO = "*.PortfolioParityTest"
 PARITY_TAX = "*.TaxTemplatesParityTest"
 PARITY_EXPORT = "*.TaxExportParityTest"
 CSV_IMPORT = PORTFOLIO + "csvimport/"
 CSV_PARSER_TESTS = ["*.CsvImportParityTest", "*.CsvExchangeImportParityTest", "*.CsvTokenizeLimitsTest"]
-CONVERT = "android/app/src/main/java/com/cryptochecker/app/domain/convert/"
+CONVERT = "android/domain/src/main/java/com/cryptochecker/app/domain/convert/"
 
 # Target file (relative to the repository root) -> Gradle test filters (--tests) that cover it
 TARGETS = [
@@ -79,14 +81,19 @@ TARGETS = [
 ]
 
 
+# Modules with unit tests that may cover a target; the first one is the fallback for an unknown test class
+TEST_MODULES = ("app", "domain", "data")
+MODULE_OF_PATH = re.compile(r"^android/(?:%s)/" % "|".join(TEST_MODULES))
+
+
 def located(path, root="."):
-    """Part of the domain logic lives in android/domain; same package path there. Resolved against the
-    repository root (--repo), never against the working directory."""
+    """A target that moved to another module keeps its package path there (android/<module>/src/main/…). Resolved
+    against the repository root (--repo), never against the working directory."""
     if os.path.exists(os.path.join(root, path)):
         return path
-    for module in ("domain", "data"):
-        moved = path.replace("android/app/", f"android/{module}/", 1)
-        if os.path.exists(os.path.join(root, moved)):
+    for module in TEST_MODULES:
+        moved = MODULE_OF_PATH.sub(f"android/{module}/", path, count=1)
+        if moved != path and os.path.exists(os.path.join(root, moved)):
             return moved
     return path
 
@@ -483,11 +490,40 @@ def classify(returncode, output):
     return "killed"
 
 
-def gradle_command(android_dir, patterns, online):
+def test_classes(android_dir):
+    """Test class name -> module, read from android/<module>/src/test (`class Name` at the start of a line)."""
+    found = {}
+    for module in TEST_MODULES:
+        for folder, _, names in os.walk(os.path.join(android_dir, module, "src", "test")):
+            for name in names:
+                if not name.endswith(".kt"):
+                    continue
+                with open(os.path.join(folder, name), encoding="utf-8", errors="replace") as f:
+                    for cls in TEST_CLASS.findall(f.read()):
+                        found.setdefault(cls, module)
+    return found
+
+
+TEST_CLASS = re.compile(r"^(?:(?:internal|open|abstract)\s+)*class\s+(\w+)", re.M)
+
+
+def module_of(pattern, classes):
+    """Module whose test task runs the pattern («*.NameTest» -> where class NameTest lives); unknown: the first."""
+    return classes.get(pattern.rsplit(".", 1)[-1], TEST_MODULES[0])
+
+
+def gradle_command(android_dir, patterns, online, classes=None):
+    """One Gradle call; every pattern goes to the test task of its module (a --tests filter that matches nothing in
+    a task fails that task with «No tests found», so a pattern must never be given to the wrong module)."""
     gradlew = os.path.join(android_dir, "gradlew")
-    cmd = [gradlew if os.path.isfile(gradlew) else "gradle", ":app:testDebugUnitTest"]
-    for p in patterns:
-        cmd += ["--tests", p]
+    classes = test_classes(android_dir) if classes is None else classes
+    cmd = [gradlew if os.path.isfile(gradlew) else "gradle"]
+    for module in TEST_MODULES:
+        own = [p for p in patterns if module_of(p, classes) == module]
+        if own:
+            cmd.append(f":{module}:testDebugUnitTest")
+            for p in own:
+                cmd += ["--tests", p]
     cmd.append("-q")
     if not online:
         cmd.append("--offline")
@@ -524,6 +560,7 @@ def run(args, targets, runner=gradle_runner, clock=time.monotonic):
     start = clock()
     not_run = 0
     bad_patterns = set()
+    classes = test_classes(android_dir)
     for i, m in enumerate(plan):
         if clock() - start > args.time_limit * 60:
             not_run = len(plan) - i
@@ -532,7 +569,7 @@ def run(args, targets, runner=gradle_runner, clock=time.monotonic):
             continue
         full = os.path.join(repo, m.path)
         new_text = m.apply(texts[m.path].decode("utf-8"))
-        cmd = gradle_command(android_dir, patterns_of[m.path], args.online)
+        cmd = gradle_command(android_dir, patterns_of[m.path], args.online, classes)
         print(f"[{i + 1}/{len(plan)}] {m.path}:{m.line} {m.describe()}", flush=True)
         try:
             with mutated(full, texts[m.path], new_text):
@@ -813,14 +850,39 @@ def self_test():
     for name in (CSV_IMPORT + "CsvImportParser.kt", CONVERT + "CurrencyConversion.kt"):
         assert located(name, repo) in paths, name
 
-    # Moved files resolve against the given root (android/domain), independent of the working directory
+    # Moved files resolve against the given root (another module), independent of the working directory
     with tempfile.TemporaryDirectory() as tmp:
-        moved = CONVERT.replace("android/app/", "android/domain/", 1) + "CurrencyConversion.kt"
+        moved = CONVERT.replace("android/domain/", "android/data/", 1) + "CurrencyConversion.kt"
+        assert moved != CONVERT + "CurrencyConversion.kt"
         os.makedirs(os.path.join(tmp, os.path.dirname(moved)))
         open(os.path.join(tmp, moved), "w").close()
         assert located(CONVERT + "CurrencyConversion.kt", tmp) == moved
         assert located(CSV_IMPORT + "CsvImportParser.kt", tmp) == CSV_IMPORT + "CsvImportParser.kt"
         assert dict(parse_targets(None, tmp))[moved] == ["*.CurrencyConversionTest", "*.CurrencyConversionParityTest"]
+
+    # Every pattern runs in the test task of the module that holds the class; unknown classes stay with :app
+    with tempfile.TemporaryDirectory() as tmp:
+        for module, name, text in (("app", "AParityTest.kt", "/** x */\nclass AParityTest {\n}\n"),
+                                   ("domain", "BSetTest.kt", "class BTest {\n}\n\ninternal class B2Test\n"),
+                                   ("data", "CTest.kt", "// class BTest\nclass CTest : Base() {\n    class Inner\n}\n")):
+            folder = os.path.join(tmp, module, "src", "test", "java", "p")
+            os.makedirs(folder)
+            with open(os.path.join(folder, name), "w", encoding="utf-8") as f:
+                f.write(text)
+        classes = test_classes(tmp)
+        assert classes == {"AParityTest": "app", "BTest": "domain", "B2Test": "domain", "CTest": "data"}, classes
+        cmd = gradle_command(tmp, ["*.BTest", "*.AParityTest", "*.CTest", "*.B2Test", "*.Unknown"], online=False)
+        assert cmd[1:] == [":app:testDebugUnitTest", "--tests", "*.AParityTest", "--tests", "*.Unknown",
+                           ":domain:testDebugUnitTest", "--tests", "*.BTest", "--tests", "*.B2Test",
+                           ":data:testDebugUnitTest", "--tests", "*.CTest", "-q", "--offline"], cmd
+        assert gradle_command(tmp, ["*.BTest"], online=True)[1:] == [":domain:testDebugUnitTest", "--tests", "*.BTest", "-q"]
+
+    # The configured patterns name test classes of this checkout (a renamed or deleted class would run nowhere)
+    android = os.path.join(repo, "android")
+    if os.path.isdir(os.path.join(android, "app", "src", "test")):
+        known = test_classes(android)
+        unknown = sorted({p for _, tests in targets for p in tests if p.rsplit(".", 1)[-1] not in known})
+        assert not unknown, unknown
     print("mutation_test self-test ok")
     return 0
 

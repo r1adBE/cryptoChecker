@@ -497,7 +497,23 @@ tax with 10 000 transactions; most also compare against a quarter of the size to
 the normal run: their timings vary when lint or other tests run in parallel. The *Android* workflow runs them in their
 own step («Performance tests») with nothing else running; `-PperformanceTests=true` includes them in a normal run.
 
-Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
+Where the tests live (audit C-03): a logic test sits in the module it tests, in the package of its subject –
+`android/domain/src/test` (needs only `:domain`/`:marketdata`), `android/data/src/test` (needs only `:data` and
+`:domain`), `android/marketdata/src/test`, `android/wear/src/test`. `android/app/src/test` keeps the tests of the app
+itself and everything that needs a helper of the `:app` tests, because test helpers are not shared between modules
+(no test fixtures): the parity fixtures (`ParityJson`), source guards (`SourceGuard`, tests that read sources of
+several modules), tests with the refresh fakes or string resources, the exchange contract tests (real `org.json`
+over `:marketdata`) and the performance tests. `:domain` and `:data` run their tests in the same environment as
+`:app` (en-US/UTC, real `org.json`, `kotlinx-coroutines-test`; `:data` also MockWebServer). `LayerBoundaryTest`
+checks that a test under `domain/src/test` or `data/src/test` keeps to its module (package = module and folder,
+from the app only `domain` – for `:data` also `data` – imports, no Room/OkHttp import in `:domain`) and that no
+module loses `@Test` methods. `./gradlew testDebugUnitTest` (as in the *Android* workflow) runs
+`:app:testDebugUnitTest`, `:domain:testDebugUnitTest`, `:data:testDebugUnitTest`, `:marketdata:testDebugUnitTest`
+and `:wear:testDebugUnitTest`; one class: `./gradlew :domain:testDebugUnitTest --tests '*.PortfolioFifoTest'` (a
+`--tests` filter belongs to the task of the module that holds the class).
+
+Reports: `android/<module>/build/reports/tests/testDebugUnitTest/index.html` (`app`, `domain`, `data`, `marketdata`,
+`wear`).
 
 Source guards (`FileLengthTest`, `HapticsUsageTest`, contrast and backup-rule checks …) fail when a file they read is
 missing (`SourceGuard`). Swift sources count as optional locally: in an
@@ -911,9 +927,11 @@ raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without
   `-Pcoverage=true` (no new plugin or dependency; lock files and `verification-metadata.xml` already cover it). The
   step «Unit tests» runs `testDebugUnitTest` once with `-Pcoverage=true` and writes `:app:koverXmlReportDebug` and
   `:marketdata:koverXmlReportDebug`; the gate step only reads these reports (no tests run again). `:app` merges
-  `:marketdata`, `:domain` and `:data` into its report (`kover(project(…))` in `app/build.gradle.kts`): most of their
-  tests run in `:app` (e.g. the exchange parsers in `ExchangeContractTest` with `testdata/exchanges/exchange_*.json`
-  and `recorded/*.json`), which their own reports would miss. `.github/scripts/coverage_summary.py --merged app
+  `:marketdata`, `:domain` and `:data` into its report (`kover(project(…))` in `app/build.gradle.kts`): the report
+  counts the unit tests of all four modules together – the logic tests in `:domain` and `:data` and the tests in
+  `:app` that cover the other modules (e.g. the exchange parsers in `ExchangeContractTest` with
+  `testdata/exchanges/exchange_*.json` and `recorded/*.json`, the parity fixtures), which a module's own report
+  would miss. `.github/scripts/coverage_summary.py --merged app
   --min-logic 65 --min-module data=57 app=app domain=domain data=data marketdata=marketdata` attributes every file to
   the module whose `src/main` contains it and prints per module and in total; every module must be listed, or its
   files count as generated and drop out of *logic*. `:marketdata`'s own report is listed as «own tests only». Second
@@ -942,7 +960,8 @@ raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without
   single-platform test; network sources take an OkHttp `Interceptor` as fake provider (e.g. `FxRateSourceTest`).
 
 **Mutation tests (portfolio and tax logic).** `.github/workflows/mutation.yml` (Saturdays and by hand, never a required
-check) first runs `./gradlew :app:testDebugUnitTest` (must be green), then `.github/scripts/mutation_test.py` (standard
+check) first runs `./gradlew :app:testDebugUnitTest :domain:testDebugUnitTest :data:testDebugUnitTest` (must be
+green), then `.github/scripts/mutation_test.py` (standard
 library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoLots`,
 `PortfolioCalculatorAverage`, `PortfolioFeeExpenses`, `PortfolioCostFx`, `TaxEngineCore/Uk/Ca/Fr/At/Jp` and
 `TaxExportRows` under `domain/portfolio` – it creates mutants by fixed rules (`<`↔`<=`, `>`↔`>=`, `==`↔`!=`, `&&`↔`||`,
@@ -950,7 +969,9 @@ library only, `--self-test` without Gradle). For each target file – `Portfolio
 and `return` of a constant of the declared type; never in strings, comments or generics), at most 4 per file and 50 in
 total, chosen deterministically (hash of file, line, column and rule), no new mutant after 55 minutes. Each mutant is
 written into the file, the test classes listed for that file in `TARGETS` run with
-`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also
+`./gradlew :<module>:testDebugUnitTest --tests '<pattern>' … -q --offline` (every pattern with the test task of the
+module that holds the class – `app`, `domain` or `data`, read from `src/test`; the self-test fails for a pattern
+without a class), and the file is restored in a `finally` (also
 when the run is cancelled; written
 atomically via a temporary file and `os.replace`). A Gradle run that hits the mutant timeout counts as killed; the
 script then stops the Gradle daemons (`gradlew --stop`), so a hung test run does not block the next mutant. The
@@ -3450,6 +3471,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   the rule: package and folder of every `:domain`/`:data` file, no import of `androidx.room`, `okhttp3` or another
   app package in `:domain`, only `domain`/`data` imports from the app in `:data`, no `…app.domain` package in `:app`.
   The committed baseline and startup profiles carry the new class names (renamed in place, not measured again).
+* Build 217 (audit C-03): unit tests of `:domain` and `:data` live in those modules; `LayerBoundaryTest` checks package, imports and minimum counts; `mutation_test.py` routes each test to its module.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

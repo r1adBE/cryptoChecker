@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 216
+        versionCode = 217
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -319,7 +319,8 @@ dependencies {
     // gegen die Android-Stubs («Method … not mocked»). Muss vor android.jar im Test-Classpath liegen.
     testImplementation(libs.android.json)
     // Virtuelle Zeit (runTest, StandardTestDispatcher), Flows prüfen (Turbine) und ein echter lokaler HTTP-Server
-    // für die Netzschicht (ExchangeHttpTest: 429/Retry-After, Grössengrenze, callTimeout) — ohne Robolectric
+    // für die Netzschicht (MirrorLoadLimitTest; ExchangeHttpTest mit 429/Retry-After, Grössengrenze, callTimeout
+    // läuft seit Audit C-03 in :data) — ohne Robolectric
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.okhttp.mockwebserver3)
@@ -356,8 +357,9 @@ tasks.withType<Test>().configureEach {
 
 // Testabdeckung nur auf Anfrage (CI-Schritt «Coverage (logic gate)»: -Pcoverage=true, Bericht
 // :app:koverXmlReportDebug), sonst laufen die Unit-Tests ohne Instrumentierung. Die CI prüft daraus eine
-// Mindestabdeckung der Logik (MIN_LOGIC in android.yml). Der Bericht von :app misst :marketdata
-// mit: die Börsen-Parser laufen vor allem in den Vertragstests von :app (contract/), nicht in :marketdata selbst.
+// Mindestabdeckung der Logik (MIN_LOGIC in android.yml). Der Bericht von :app führt über die kover-Abhängigkeiten
+// unten die Unit-Tests aller vier Module zusammen (Variante debug): die Tests der Fachlogik und der Datenschicht
+// laufen in :domain bzw. :data (Audit C-03), die Börsen-Parser vor allem in den Vertragstests von :app (contract/).
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
     dependencies {

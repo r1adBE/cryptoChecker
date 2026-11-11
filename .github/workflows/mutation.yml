@@ -60,13 +60,14 @@ jobs:
           cache-read-only: true
 
       # Mutants are only meaningful against green tests; this run also fills the Gradle caches, so the mutant runs
-      # below work with --offline
+      # below work with --offline. The test classes of the targets live in :app (parity fixtures) and :domain;
+      # mutation_test.py gives every --tests pattern to the task of its module
       - name: Baseline unit tests
         env:
           REQUIRE_IOS_SOURCES: 'true'
         run: |
           chmod +x gradlew
-          ./gradlew :app:testDebugUnitTest --stacktrace
+          ./gradlew :app:testDebugUnitTest :domain:testDebugUnitTest :data:testDebugUnitTest --stacktrace
 
       - name: Mutation tests
         working-directory: ${{ github.workspace }}

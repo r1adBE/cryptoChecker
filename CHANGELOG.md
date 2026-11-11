@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 217)
+
+* Android, no visible change: 208 test files moved into the modules they test (domain and data layer); the number of tests is unchanged and a guard keeps it from dropping.
+
 ## 16.2.2 (build 216)
 
 * Android, no visible change: clean layer boundaries. Every file now lives in the package of its module, the database rows for watchlist entries and alarms moved into the data layer, and the domain layer no longer depends on Room or OkHttp. A test keeps it that way.

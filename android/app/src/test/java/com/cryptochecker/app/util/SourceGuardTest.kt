@@ -26,17 +26,24 @@ class SourceGuardTest {
 
     /**
      * Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
-     * nutzt [SourceGuard] — kein stilles `if (exists())`/`return` mehr. Kommentare zählen nicht.
+     * nutzt [SourceGuard] — kein stilles `if (exists())`/`return` mehr. Kommentare zählen nicht. Gelesen werden die
+     * Tests von `:app` und die nach `:domain`/`:data` verschobenen (dort gibt es [SourceGuard] nicht: ein iOS-Leser
+     * gehört nach `:app`).
      */
     @Test
     fun jederIosLeserNutztSourceGuard() {
         val root = SourceGuard.android(
             listOf("src/test/java", "app/src/test/java", "android/app/src/test/java").map(::File).firstOrNull { it.isDirectory },
             "src/test/java",
-        )
-        val offenders = root.walkTopDown().filter { it.isFile && it.extension == "kt" }
-            .filter { readsIosWithoutGuard(it.readText()) }
-            .map { it.relativeTo(root).invariantSeparatorsPath }.toList()
+        ).absoluteFile
+        // root = <android>/app/src/test/java
+        val android = root.parentFile.parentFile.parentFile.parentFile
+        val roots = listOf(root) + listOf("domain", "data").map { SourceGuard.android(File(android, "$it/src/test/java").takeIf(File::isDirectory), "$it/src/test/java") }
+        val offenders = roots.flatMap { dir ->
+            dir.walkTopDown().filter { it.isFile && it.extension == "kt" }
+                .filter { readsIosWithoutGuard(it.readText()) }
+                .map { it.relativeTo(android).invariantSeparatorsPath }.toList()
+        }
         assertTrue("iOS-Pfad ohne SourceGuard:\n" + offenders.joinToString("\n"), offenders.isEmpty())
     }
 

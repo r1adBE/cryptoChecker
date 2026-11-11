@@ -98,9 +98,10 @@ jobs:
       - name: Manifest policy self-test
         run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/manifest_policy.py" --self-test
 
-      # testDebugUnitTest of all modules, including the Android/iOS parity cases in testdata/parity
-      # (ParityFixturesTest), ONCE and with Kover (-Pcoverage=true): the coverage reports of :app and :marketdata for
-      # the step «Coverage (logic gate)» come from this same run.
+      # testDebugUnitTest of all modules (:app, :domain, :data, :marketdata, :wear — the logic tests live in the
+      # module they test), including the Android/iOS parity cases in testdata/parity (ParityFixturesTest), ONCE and
+      # with Kover (-Pcoverage=true): the coverage reports of :app (merged over the tests of all its modules) and
+      # :marketdata for the step «Coverage (logic gate)» come from this same run.
       # The source guards must find the Swift sources (whole repo checked out); without the variable a missing ios/
       # only marks those tests as skipped (Android-only checkout)
       - name: Unit tests
@@ -252,9 +253,10 @@ jobs:
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
 
       # Unit-test line coverage of :app, :domain, :data and :marketdata as ONE notice: total and «logic» (without
-      # Compose/widget rendering, activities and generated code). The :app report also measures the other modules (their tests
-      # run mostly in :app); every module must be listed, or its files count as generated (no sources found) and drop
-      # out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
+      # Compose/widget rendering, activities and generated code). The :app report merges the unit tests of :app, :domain,
+      # :data and :marketdata (kover dependencies in app/build.gradle.kts: the tests of the logic and of the data layer
+      # run in :domain and :data, the exchange parsers mostly in :app); every module must be listed, or its files count
+      # as generated (no sources found) and drop out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
       # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
       # Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
       # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
