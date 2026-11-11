@@ -3400,6 +3400,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 211: audit fixes: forced backup password with portfolio data, `HideOverlaysEffect`, `network_security_config`,
   watchlist legend, alert editor hint, late-check rule by duration; screenshots guarded by
   `android_emulator_idle.sh` and a focus check in the tour; deterministic demo candles.
+* Build 212: dependency update through «Supply chain update» (verification metadata, keyring, lock files).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

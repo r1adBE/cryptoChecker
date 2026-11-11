@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 212)
+
+* Dependency update: Android Gradle Plugin 9.5.1, Gradle 9.9.1, KSP 2.3.13, lifecycle 2.11.0, datastore 1.3.0, OkHttp 5.5.1, SQLCipher 4.20.0, kotlinx-serialization 1.12.0, wear-compose 1.7.1, play-services-wearable 20.0.1; checksums, signatures and lock files regenerated.
+
 ## 16.2.2 (build 211)
 
 * A backup that contains portfolio data always needs a password.
