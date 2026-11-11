@@ -728,6 +728,32 @@ git worktree add ../cc-screenshots origin/screenshots              # or: git arc
 git show origin/screenshots:android/dark/01_watchlist.png > /tmp/01_watchlist.png
 ```
 
+**Baseline profile** (`.github/workflows/baseline-profile.yml`, by hand only: *Actions › Baseline profile › Run
+workflow*): generates the measured baseline profile of the Android app. The build never generates it itself
+(`baselineProfile { automaticGenerationDuringBuild = false; saveInSrc = true }` in `android/app/build.gradle.kts`):
+the profile is a committed source file, so the release build stays reproducible and needs no device. The workflow
+builds `:app` as `nonMinifiedRelease` plus the generator APK, boots the API 34 `google_apis` x86_64 emulator of the
+device tests (userdebug image with root, which the collection needs – not `google_play`) and runs
+`./gradlew :app:generateBaselineProfile`; `BaselineProfileGenerator` (module `:baselineprofile`) starts the app cold
+several times, takes over the starter coins on the fresh install, scrolls the watchlist, opens a pair page and the
+tabs Market, Portfolio (switched on once under Settings › Portfolio) and Settings. It finds the UI through the test
+tags of `UiTestTags` (`testTagsAsResourceId` on the Scaffold of `AppNavHost`); rename a tag on both sides. The
+release build has no demo mode, so the starter coins and the Market tab need the network: without it the run goes
+on, and the step «Check profile» warns about every screen without a rule (it fails without a profile or with fewer
+than 100 rules for the app). To commit the result:
+
+1. Run the workflow on the commit to measure (normally `main`) and download the artifact `baseline-profile`
+   (kept 14 days; on failure `baseline-profile-logs` holds the Gradle log, the logcat and the test results).
+2. Put its files into `android/app/src/release/generated/baselineProfiles/` (`baseline-prof.txt`, and
+   `startup-prof.txt`, which R8 uses to lay out the DEX files for the start) and commit them unchanged.
+3. The next build packages the profile: AGP merges it with the hand-written `android/app/src/main/baseline-prof.txt`
+   (the fallback while no measured profile is committed; remove its package wildcards only as a separate, measured
+   step). `apk_contents.py` warns when the release APK or AAB carries no profile.
+
+Repeat after larger changes to the start, the watchlist, the pair page or the tabs. Dependency verification applies
+to this run as to every build; its artifacts are written by *Supply chain update* (steps «baseline profile module»
+and «device tests») – after a dependency change run that workflow first.
+
 **CI gates** (`.github/workflows/android.yml`, on pushes to `main` and pull requests touching
 `android/` or the Swift sources checked by the source guards, and on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
@@ -770,7 +796,7 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   has no lock file, DEFAULT once it has one (a different version fails the build; configurations without an entry,
   e.g. ones resolved only on a device, stay allowed). Both files are **generated, never edited by hand**: run
   *Actions › Supply chain update › Run workflow* (`.github/workflows/supply-chain-update.yml`) on `main`. It runs the
-  CI task set with `--write-verification-metadata sha256 --write-locks` (plus Kover, the baseline-profile module and,
+  CI task set with `--write-verification-metadata sha256 --write-locks` (plus Kover, the baseline-profile module with the app's `nonMinifiedRelease` build and,
   optionally, one device-test class on an emulator; Windows and macOS add their aapt2 builds for local builds), checks
   the result (`.github/scripts/supply_chain_files.py`) and force-pushes ONLY these files to the branch
   `supply-chain/update`; open a pull request from it and merge once CI is green. Repeat after every change to
@@ -3401,6 +3427,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   watchlist legend, alert editor hint, late-check rule by duration; screenshots guarded by
   `android_emulator_idle.sh` and a focus check in the tour; deterministic demo candles.
 * Build 212: dependency update through «Supply chain update» (verification metadata, keyring, lock files).
+* Build 213: `baseline-profile.yml` + generator journey (start, watchlist, pair page, tabs); `baselineProfile { saveInSrc }`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

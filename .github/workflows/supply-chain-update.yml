@@ -115,12 +115,17 @@ jobs:
           ./gradlew $GRADLE_WRITE_FLAGS -Pcoverage=true :app:koverXmlReportDebug :marketdata:koverXmlReportDebug \
             || echo "::warning::Kover run failed; its artifacts may be missing from the checksums"
 
-      # Baseline-profile generator module (local ./gradlew :app:generateBaselineProfile); checksums only
+      # Baseline-profile generator module and the app build it measures (baseline-profile.yml: ./gradlew
+      # :app:generateBaselineProfile builds :app as nonMinifiedRelease; the device tooling comes from the device-test
+      # step below); checksums only. Two calls: a failure of one does not drop the artifacts of the other
       - name: Write checksums (baseline profile module)
         run: |
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS :baselineprofile:assemble \
             || echo "::warning:::baselineprofile:assemble failed; its artifacts may be missing from the checksums"
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS :app:assembleNonMinifiedRelease \
+            || echo "::warning:::app:assembleNonMinifiedRelease failed; its artifacts may be missing from the checksums"
 
       - name: Enable KVM
         if: inputs.device_tests

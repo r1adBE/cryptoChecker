@@ -19,6 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
@@ -191,6 +193,8 @@ fun AppNavHost(
         LocalTabReselect provides tabReselect,
     ) {
         Scaffold(
+            // testTags als Ressourcen-Id für alle Seiten (Tableiste, Paarseite): Baseline-Profile-Generator (UiAutomator)
+            modifier = Modifier.semantics { testTagsAsResourceId = true },
             bottomBar = {
                 if (currentTab != null) {
                     AppTabBar(

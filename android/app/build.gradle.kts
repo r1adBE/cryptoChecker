@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 212
+        versionCode = 213
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -224,6 +224,15 @@ androidComponents {
             variant.sources.java?.addStaticSourceDirectory("src/withoutHttpLog/java")
         }
     }
+}
+
+// Baseline Profile: das gemessene Profil wird NICHT beim Bauen erzeugt (reproduzierbarer Build, kein Gerät nötig),
+// sondern vom Workflow «Baseline profile» (./gradlew :app:generateBaselineProfile auf einem Emulator) und liegt
+// eingecheckt in src/release/generated/baselineProfiles/ (baseline-prof.txt, startup-prof.txt). AGP führt es mit
+// src/main/baseline-prof.txt zusammen; fehlt es, gilt nur diese von Hand geschriebene Datei.
+baselineProfile {
+    automaticGenerationDuringBuild = false
+    saveInSrc = true
 }
 
 // Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).

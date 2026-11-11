@@ -1,0 +1,155 @@
+# Generates the measured baseline profile of the Android app on an emulator and offers it as the run artifact
+# «baseline-profile» (nothing is committed or pushed; see DEVELOPMENT.md, «Baseline profile», for how to commit it).
+# By hand only: Actions › Baseline profile › Run workflow – after larger changes to the start, the watchlist, the pair
+# page or the tabs.
+# What runs: ./gradlew :app:generateBaselineProfile. The baseline profile plugin builds the app as «nonMinifiedRelease»
+# (release without R8, debug-signed), installs it with the test APK of :baselineprofile on the connected device
+# (baselineProfile { useConnectedDevices = true }) and runs BaselineProfileGenerator several times: cold start,
+# starter coins on the fresh install, scrolling the watchlist, a pair page, the tabs Market, Portfolio and Settings.
+# The result is written to android/app/src/release/generated/baselineProfiles/ (baseline-prof.txt, startup-prof.txt).
+# Emulator: the same API 34 «google_apis» x86_64 image as android-device-tests.yml – a userdebug image with root,
+# which the profile collection needs (a «google_play» image has none).
+# Network: the release build has no demo mode (the fake exchanges live in androidTest), so the starter coins and the
+# Market tab load real public data; without it the generator carries on and the step «Check profile» warns about the
+# screens that are missing from the profile.
+# Dependency verification is on as in every build: the artifacts of this run are written by supply-chain-update.yml
+# (steps «baseline profile module» and «device tests»).
+name: Baseline profile
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: baseline-profile-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: android
+    env:
+      PROFILE_DIR: app/src/release/generated/baselineProfiles
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Same toolchain as android-device-tests.yml: Java 17, Gradle with cache.
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-read-only: true
+
+      # Hardware acceleration for the x86_64 emulator (see reactivecircus/android-emulator-runner).
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # Build both APKs before the emulator starts, so its boot time is not wasted. A profile from an earlier
+      # commit must not pass as the result of this run: the folder starts empty.
+      - name: Build the app (nonMinifiedRelease) and the generator APK
+        run: |
+          chmod +x gradlew
+          rm -rf "$PROFILE_DIR"
+          set -o pipefail
+          ./gradlew :app:assembleNonMinifiedRelease :baselineprofile:assemble --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-apks.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-apks.log"; exit 1; }
+
+      # Every line runs on its own; a failed Gradle run only leaves a marker, so the logcat is still saved and the
+      # step «Check profile» reports the reason. First line: no error dialogs, emulator idle (a system dialog over
+      # the app would stop the generator from finding the watchlist).
+      - name: Generate the baseline profile (API 34)
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          script: |
+            bash "$GITHUB_WORKSPACE/.github/scripts/android_emulator_idle.sh" prepare
+            ./gradlew :app:generateBaselineProfile -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile --stacktrace > "$RUNNER_TEMP/gradle-profile.log" 2>&1 || touch "$RUNNER_TEMP/profile-failed"
+            tail -n 150 "$RUNNER_TEMP/gradle-profile.log" || true
+            adb logcat -d > "$RUNNER_TEMP/logcat.txt" 2>/dev/null || true
+
+      # Red without a profile of this run. Warnings name the screens the generator did not reach (class names are
+      # readable: the profile comes from the build without R8).
+      - name: Check profile
+        if: always()
+        run: |
+          set -u
+          if [ -f "$RUNNER_TEMP/profile-failed" ]; then
+            bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-profile.log"
+            echo "::error title=Baseline profile::generateBaselineProfile failed (see the artifact baseline-profile-logs)"
+            exit 1
+          fi
+          F="$PROFILE_DIR/baseline-prof.txt"
+          if [ ! -s "$F" ]; then
+            echo "::error title=Baseline profile::$F was not written"
+            find app/src -path '*generated/baselineProfiles*' -type f 2>/dev/null || true
+            exit 1
+          fi
+          APP_LINES=$(grep -c 'Lcom/cryptochecker/app/' "$F" || true)
+          if [ "${APP_LINES:-0}" -lt 100 ]; then
+            echo "::error title=Baseline profile::only ${APP_LINES:-0} rules for com.cryptochecker.app in $F – the app did not run"
+            exit 1
+          fi
+          for part in ui/features/watchlist/WatchlistList ui/features/watchlist/PairScreen ui/features/info/ \
+            ui/features/portfolio/ ui/features/settings/; do
+            grep -q "Lcom/cryptochecker/app/$part" "$F" \
+              || echo "::warning title=Baseline profile::no rule for $part – the generator did not reach this screen (network? changed test tags?)"
+          done
+          {
+            echo "### Baseline profile"
+            echo "Commit: \`$GITHUB_SHA\` ($GITHUB_REF_NAME)"
+            echo ""
+            echo "| File | Lines | Rules for com.cryptochecker.app |"
+            echo "| --- | ---: | ---: |"
+            for f in "$PROFILE_DIR"/*.txt; do
+              echo "| \`android/$f\` | $(wc -l < "$f") | $(grep -c 'Lcom/cryptochecker/app/' "$f" || true) |"
+            done
+            echo ""
+            echo "Download the artifact \`baseline-profile\` and commit its files to \`android/$PROFILE_DIR/\` (DEVELOPMENT.md, «Baseline profile»)."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The files as they belong into android/app/src/release/generated/baselineProfiles/
+      - name: Upload profile
+        if: success()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: baseline-profile
+          path: android/app/src/release/generated/baselineProfiles/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload logs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: baseline-profile-logs
+          path: |
+            ${{ runner.temp }}/gradle-apks.log
+            ${{ runner.temp }}/gradle-profile.log
+            ${{ runner.temp }}/logcat.txt
+            android/baselineprofile/build/outputs/
+            android/baselineprofile/build/reports/
+          if-no-files-found: ignore
+          retention-days: 14

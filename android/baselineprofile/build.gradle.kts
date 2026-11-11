@@ -1,6 +1,6 @@
-// Erzeugt das Baseline Profile der App: startet sie, scrollt die Merkliste und öffnet ein
-// Aktionsblatt (BaselineProfileGenerator). Läuft nur auf einem Gerät/Emulator (API 28+):
-//   ./gradlew :app:generateBaselineProfile
+// Erzeugt das Baseline Profile der App: startet sie, scrollt die Merkliste, öffnet eine Paarseite
+// und die Tabs (BaselineProfileGenerator). Läuft nur auf einem Gerät/Emulator (API 28+):
+//   ./gradlew :app:generateBaselineProfile      (in der CI: Workflow «Baseline profile»)
 // Ergebnis: app/src/release/generated/baselineProfiles/ (einchecken). Siehe DEVELOPMENT.md.
 plugins {
     alias(libs.plugins.android.test)

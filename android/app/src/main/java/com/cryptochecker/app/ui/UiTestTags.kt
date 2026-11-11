@@ -4,7 +4,8 @@ package com.cryptochecker.app.ui
  * Stabile Kennungen für UI-Tests (`Modifier.testTag`) — nur dort, wo Text zu brüchig wäre (Sprache,
  * gleiche Beschriftung mehrfach, Felder ohne Text). Reine Semantik, kein Verhalten. Gleiche Namen wie
  * `UiTestTags.swift` (iOS: `accessibilityIdentifier`), damit beide UI-Tests dieselben Abläufe gleich
- * ansprechen. `watchlist`, `watch_row` und `starter_add` nutzt auch der Baseline-Profile-Generator.
+ * ansprechen. `watchlist`, `watch_row`, `starter_add`, `pair_screen`
+ * und die Tabs (`tab_…`) nutzt auch der Baseline-Profile-Generator (gleiche Namen dort als Konstanten).
  */
 object UiTestTags {
     // ── Tableiste ──
