@@ -28,7 +28,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -48,9 +51,11 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportFormat
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportSkipReason
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
@@ -76,8 +81,11 @@ internal fun CsvImportPreviewSheet(
     onZone: (String) -> Unit,
     onDateOrder: (CsvDateOrder) -> Unit,
     onDecimalMark: (Char) -> Unit,
+    /** «Erneut versuchen» bei Zeilen ohne Tageskurs: Kurse neu laden und die Vorschau neu bewerten. */
+    onReloadRates: () -> Unit,
     onDismiss: () -> Unit,
-    onConfirm: () -> Unit,
+    /** «Importieren» mit der Bestätigung der Zeilen ohne Tageskurs und den Vermerken in der Sprache der App. */
+    onConfirm: (CsvRateConsent) -> Unit,
     /** Lesart geändert, Datei wird neu gelesen — Knopf aus, Vorschau gedimmt. */
     rereading: Boolean = false,
 ) {
@@ -90,6 +98,14 @@ internal fun CsvImportPreviewSheet(
     val withdrawals = remember(txs) { txs.filter { it.type == PortfolioTxType.WITHDRAWAL } }
     val allDecided = remember(txs, choices) { CsvImportMapping.allWithdrawalsDecided(txs, choices) }
     val dim = if (rereading) 0.4f else 1f
+    // «Trotzdem importieren»: gilt nur für GENAU diese Vorschau — neu geladen oder neu gelesen ist sie wieder offen
+    var ratesAccepted by remember(preview) { mutableStateOf(false) }
+    val ratesOk = CsvImportRateGate.canImport(preview.missingFx.size, ratesAccepted)
+    val consent = CsvRateConsent(
+        accepted = ratesAccepted,
+        priceNote = stringResource(R.string.portfolio_csv_note_price_no_rate),
+        feeNote = stringResource(R.string.portfolio_csv_note_fee_no_rate),
+    )
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -154,9 +170,15 @@ internal fun CsvImportPreviewSheet(
                 }
             }
             // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
+            // Ohne Tageskurs fehlten Preis bzw. Gebühr dauerhaft: erst neu laden oder ausdrücklich trotzdem importieren
             if (preview.missingFx.isNotEmpty()) {
+                // Keine gültige Antwort beim Laden — etwas anderes als «für Währung bzw. Tag gibt es keinen Kurs»
+                if (preview.ratesFailed) PreviewHint(stringResource(R.string.portfolio_csv_import_rates_failed))
                 LinesHint(preview.missingFx) { stringResource(R.string.portfolio_csv_import_missing_fx, it) }
+                CsvRateGate(ratesAccepted, { ratesAccepted = it }, onReloadRates, enabled = !rereading)
             }
+            // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
+            if (preview.dayRates) PreviewHint(stringResource(R.string.portfolio_csv_import_fx_zone, preview.fxZone))
             // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
             if (preview.usdtApproximate.isNotEmpty()) {
                 LinesHint(preview.usdtApproximate) { stringResource(R.string.portfolio_usdt_assumed) + " ($it)" }
@@ -210,8 +232,8 @@ internal fun CsvImportPreviewSheet(
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
                 Spacer(Modifier.width(8.dp))
                 Button(
-                    onClick = onConfirm,
-                    enabled = total > 0 && allDecided && !rereading,
+                    onClick = { onConfirm(consent) },
+                    enabled = total > 0 && allDecided && !rereading && ratesOk,
                     colors = DisabledColors.button(),
                     modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_CONFIRM),
                 ) {

@@ -22,13 +22,15 @@ struct CsvImportLoaded: Identifiable {
     var proposals = CsvImportProposals(list: [], links: [])
 }
 
-/// Kurse einer Datei für die Vorschau: Devisen-Tageskurse je Währung (`PortfolioCsvImporter.fetchRates`) und
+/// Kurse einer Datei für die Vorschau: Devisen-Tageskurse je Währung (`PortfolioCsvImporter.fetchRatesChecked`) und
 /// USDT/USD-Tagesschlüsse (`fetchUsdtUsd`; leer = keine, Näherung markiert).
 struct CsvImportRates: Sendable {
     var fx: [String: [(day: Int, rate: Double)]]
     var usdtUsd: [Int: Decimal]
     /// Tage, für die geladen wurde (`CsvImportRateDays.of`); ein Neu-Lesen darüber hinaus lädt neu.
     var days: [String: ClosedRange<Int64>] = [:]
+    /// Tageskurse einer gebrauchten Währung liessen sich nicht laden (`CsvImportPreview.ratesFailed`).
+    var failed = false
 }
 
 /// Vorschläge zu einer Vorschau: je Auszahlung (`CsvImportMapping.proposeWithdrawals`) und mögliche Umbuchungen
@@ -79,11 +81,15 @@ enum PortfolioCsvImporter {
     /// Lesen, Zerlegen, Umrechnen und die Vorschläge (`addresses`, `stored` vom Aufrufer) laufen abseits des
     /// Haupt-Threads (`CsvImportBackground`) und brechen mit dem Aufrufer ab (Prüfung nach dem Lesen, zwischen den
     /// Blöcken des Umrechnens und vor den Vorschlägen); `progress` meldet gedrosselt «Zeile X von Y» beim Umrechnen —
-    /// wie Android `buildPreview`. Nach einem Abbruch das Ergebnis verwerfen (`Task.isCancelled`).
+    /// wie Android `buildPreview`. Nach einem Abbruch das Ergebnis verwerfen (`Task.isCancelled`). `templateZone` =
+    /// Zeitzone der gewählten Steuer-Vorlage (`TaxTemplate.zoneId`; nil = Neutral): der Kurstag wie im Steuer-Export
+    /// (`CsvImportParser.fxZoneFor`).
     static func load(_ url: URL, existingKeys: Set<String>, addresses: [WatchedAddress] = [],
-                     stored: [CsvStoredMove] = [], progress: @escaping @Sendable (CsvImportProgress) -> Void = { _ in })
+                     stored: [CsvStoredMove] = [], templateZone: String? = nil,
+                     progress: @escaping @Sendable (CsvImportProgress) -> Void = { _ in })
         async -> Result<CsvImportLoaded, CsvImportRefusal> {
         let deviceZone = TimeZone.current.identifier
+        let fxZone = CsvImportParser.fxZoneFor(templateZone: templateZone, deviceZone: deviceZone)
         typealias Read = Result<(text: String, result: CsvImportResult), CsvImportRefusal>
         let read = await CsvImportBackground.run { () -> Read in
             let scoped = url.startAccessingSecurityScopedResource()
@@ -92,7 +98,7 @@ enum PortfolioCsvImporter {
             case .success(let data):
                 // UTF-8, sonst Windows-1252 (Excel), BOM weg — wie Android
                 let text = CsvImportParser.decode(data)
-                return .success((text: text, result: CsvImportParser.parse(text, deviceZone: deviceZone)))
+                return .success((text: text, result: CsvImportParser.parse(text, deviceZone: deviceZone, fxZone: fxZone)))
             case .failure(let refusal):
                 return .failure(refusal)
             }
@@ -107,7 +113,8 @@ enum PortfolioCsvImporter {
         }
         // Abgebrochen: der Aufrufer verwirft das Ergebnis (`Task.isCancelled`), ohne Tageskurse zu laden
         guard !Task.isCancelled else { return .failure(.unreadable) }
-        let rates = await fetchRates(result)
+        let fetched = await fetchRatesChecked(result)
+        let rates = fetched.rates
         let usdtUsd = await fetchUsdtUsd(result)
         typealias Mapped = (preview: CsvImportPreview, proposals: CsvImportProposals)
         let built = await CsvImportBackground.run { () -> Mapped? in
@@ -126,7 +133,8 @@ enum PortfolioCsvImporter {
             return (preview: preview, proposals: CsvImportProposals.of(preview, addresses: addresses, stored: stored))
         }
         // Abgebrochen: der Aufrufer verwirft das Ergebnis (`Task.isCancelled`)
-        guard let mapped = built else { return .failure(.unreadable) }
+        guard var mapped = built else { return .failure(.unreadable) }
+        mapped.preview.ratesFailed = fetched.failed
         // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (wie Android)
         if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: mapped.preview) { return .failure(refusal) }
         return .success(CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates,
@@ -149,32 +157,41 @@ enum PortfolioCsvImporter {
     /// `refetch` = Tageskurse und USDT/USD-Tagesschlüsse für den neuen Zeitraum neu laden (andere Reihenfolge Tag/Monat
     /// bzw. anderes Dezimalzeichen); sonst bleiben `known` samt USDT/USD — ausser ein Tag liegt nun ausserhalb der
     /// geladenen (`CsvImportRateDays.cover`; eine andere Zeitzone schob eine Zeile auf den nächsten Tag): dann ebenfalls
-    /// neu laden, sonst gälte still der Kurs des Vortags — wie Android `prepare` bzw. `reparse`.
-    static func reread(_ text: String, choice: CsvReadChoice, deviceZone: String, existingKeys: Set<String>,
+    /// neu laden, sonst gälte still der Kurs des Vortags — wie Android `prepare` bzw. `reparse`. `fxZone` = Zeitzone der
+    /// Tageskurse wie beim Laden (`CsvImportResult.fxZone`). «Erneut versuchen» bei Zeilen ohne Tageskurs ist dasselbe
+    /// mit `refetch`.
+    static func reread(_ text: String, choice: CsvReadChoice, deviceZone: String, fxZone: String, existingKeys: Set<String>,
                        known: CsvImportRates, refetch: Bool) async -> (preview: CsvImportPreview, rates: CsvImportRates) {
         let result = CsvImportParser.parse(text, deviceZone: deviceZone, zone: choice.zone, dateOrder: choice.dateOrder,
-                                           decimalMark: choice.decimalMark)
+                                           decimalMark: choice.decimalMark, fxZone: fxZone)
         var rates = known
         let days = CsvImportRateDays.of(result.rows, zone: result.fxZone)
         if refetch || !CsvImportRateDays.cover(known.days, days) {
-            rates = CsvImportRates(fx: await fetchRates(result), usdtUsd: await fetchUsdtUsd(result), days: days)
+            let fetched = await fetchRatesChecked(result)
+            rates = CsvImportRates(fx: fetched.rates, usdtUsd: await fetchUsdtUsd(result), days: days, failed: fetched.failed)
         }
-        let preview = mapPreview(result, existingKeys: existingKeys, rates: rates.fx, withdrawalsAsTransfer: false,
+        var preview = mapPreview(result, existingKeys: existingKeys, rates: rates.fx, withdrawalsAsTransfer: false,
                                  usdtUsd: rates.usdtUsd)
+        preview.ratesFailed = rates.failed
         return (preview: preview, rates: rates)
     }
 
-    /// Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage).
-    static func fetchRates(_ result: CsvImportResult) async -> [String: [(day: Int, rate: Double)]] {
+    /// Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage). `failed` =
+    /// für mindestens eine Währung kam keine gültige Antwort — etwas anderes als «für die Währung gibt es keinen Kurs».
+    static func fetchRatesChecked(_ result: CsvImportResult) async
+        -> (rates: [String: [(day: Int, rate: Double)]], failed: Bool) {
         var rates: [String: [(day: Int, rate: Double)]] = [:]
+        var failed = false
         for (currency, days) in CsvImportMapping.fxNeeds(result.rows, zone: result.fxZone) {
             let from = LocalDay(epochDay: Int(days.lowerBound) - PortfolioHistoryFx.leadDays)
             let to = LocalDay(epochDay: Int(days.upperBound))
-            if let series = await HistoricPriceSource.usdToSeries(currency, from: from, to: to) {
+            let load = await HistoricPriceSource.usdToSeriesChecked(currency, from: from, to: to)
+            if load.failed { failed = true }
+            if let series = load.rates {
                 rates[currency] = series.map { (day: $0.key, rate: $0.value) }.sorted { $0.day < $1.day }
             }
         }
-        return rates
+        return (rates: rates, failed: failed)
     }
 
     /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung); `onRow` nach jedem Block

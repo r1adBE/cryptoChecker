@@ -32,7 +32,7 @@ RINKA
 
 DAUGIAU
 • Valdikliai: stebimų sąrašas, portfelio suma, viena moneta su diagrama, Kripto pulsas; Wear OS
-• Portfelis pasirinktinai (įjunk nustatymuose): pirkimai, pardavimai, apsikeitimai, pervedimai, atlygiai, įnašai ir išėmimai; FIFO (numatytasis) arba vidurkis (Ø); tik skaitomi adresai be atkūrimo frazės BTC (įsk. xpub), ETH ir EVM grandinėms, SOL, TRX, XRP, LTC, ADA ir TON; CSV importas iš Relai, Swissquote, Bitpanda, Kraken, Binance ir Coinbase; metų apžvalga CSV; savas užraktas. Bitpanda ir Swissquote: savos kainos nėra, tik CSV.
+• Portfelis pasirinktinai (įjunk nustatymuose): pirkimai, pardavimai, apsikeitimai, pervedimai, atlygiai, įnašai ir išėmimai; FIFO (numatytasis) arba vidurkis (Ø); tik skaitomi adresai be atkūrimo frazės BTC (įsk. xpub), ETH ir EVM grandinėms, SOL, TRX, XRP, LTC, ADA ir TON; CSV importas iš Relai, Swissquote, Bitpanda, Kraken, Binance ir Coinbase; metų apžvalga CSV; savas užraktas. Swissquote: savos kainos nėra, tik CSV.
 • Įskaitoma visiems: žalia/raudona arba mėlyna/oranžinė, ženklas ir rodyklė, o ne vien spalva; TalkBack eilutę perskaito vienu sakiniu
 • Atsarginė kopija ir atkūrimas į failą – ir tarp Android bei iPhone
 • Šviesus ir tamsus režimas, penkios akcento spalvos, 75 kalbos

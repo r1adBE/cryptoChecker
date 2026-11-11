@@ -12,6 +12,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
@@ -37,6 +38,12 @@ class BackupAlarmsParityTest {
             if (c.has("windowHours")) assertEquals(c.getString("name"), c.getInt("windowHours"), alarm?.windowHours)
             // Fallend ≥ 100 % ausgeschaltet übernommen
             if (c.has("expectedEnabled")) assertEquals(c.getString("name"), c.getBoolean("expectedEnabled"), alarm?.enabled)
+            // Aus einer Sicherung geladen → scharf: keine Auslösung, kein «gemeldet»
+            if (c.optBoolean("expectedArmed")) {
+                assertEquals(c.getString("name"), 0L, alarm?.lastTriggeredAt)
+                assertEquals(c.getString("name"), 0L, alarm?.referenceAt)
+                assertNull(c.getString("name"), alarm?.lastTriggeredPrice)
+            }
         }
         // Liste: ungültige werden gezählt, nicht still verworfen
         val list = JSONArray().apply { for (i in 0 until cases.length()) put(cases.getJSONObject(i).getJSONObject("alarm")) }

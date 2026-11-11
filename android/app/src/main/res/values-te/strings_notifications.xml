@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">నోటిఫికేషన్‌లను అనుమతించాలా?</string>
     <string name="notification_portfolio_alarm_locked">మీ అలర్ట్ ట్రిగ్గర్ అయింది – వివరాల కోసం యాప్‌ను తెరవండి.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ఇప్పుడు %2$s</string>
     <string name="notification_portfolio_alarm_title">పోర్ట్‌ఫోలియో విలువ</string>
     <string name="notification_price_change">%1$s, %2$s నుండి (%3$s క్రితం)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s నుండి</string>

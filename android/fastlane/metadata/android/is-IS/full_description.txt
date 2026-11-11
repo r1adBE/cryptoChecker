@@ -32,7 +32,7 @@ MARKAÐUR
 
 MEIRA
 • Græjur: vaktlisti, heildarvirði eignasafns, stök mynt með grafi, Rafmyntapúls; Wear OS
-• Eignasafn að vali (í Stillingum): kaup, sala, skipti, millifærslur, umbun, innlagnir og úttektir; FIFO (sjálfgefið) eða meðaltal (Ø); vistföng aðeins til lestrar án endurheimtarorða fyrir BTC (þ.m.t. xpub), ETH og EVM-net, SOL, TRX, XRP, LTC, ADA og TON; CSV-innflutningur frá Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; ársyfirlit sem CSV; eigin lás. Bitpanda og Swissquote: ekkert eigið verð, aðeins CSV.
+• Eignasafn að vali (í Stillingum): kaup, sala, skipti, millifærslur, umbun, innlagnir og úttektir; FIFO (sjálfgefið) eða meðaltal (Ø); vistföng aðeins til lestrar án endurheimtarorða fyrir BTC (þ.m.t. xpub), ETH og EVM-net, SOL, TRX, XRP, LTC, ADA og TON; CSV-innflutningur frá Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; ársyfirlit sem CSV; eigin lás. Swissquote: ekkert eigið verð, aðeins CSV.
 • Læsilegt fyrir alla: grænt/rautt eða blátt/appelsínugult, formerki og ör í stað litar eingöngu; TalkBack les hverja línu sem eina setningu
 • Öryggisafrit og endurheimt í skrá – líka milli Android og iPhone
 • Ljós og dökk stilling, 5 áherslulitir, 75 tungumál

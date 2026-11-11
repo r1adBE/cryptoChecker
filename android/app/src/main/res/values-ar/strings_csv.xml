@@ -128,4 +128,11 @@
         <item quantity="many">الأسطر: %d</item>
         <item quantity="other">الأسطر: %d</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">الأسعار اليومية حسب اليوم التقويمي في: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">تعذّر تحميل الأسعار اليومية.</string>
+    <string name="portfolio_csv_import_anyway">استيراد على أي حال</string>
+    <string name="portfolio_csv_import_anyway_hint">بلا سعر يومي يبقى السعر أو الرسوم مفقودة نهائيًا. يمكن إعادة المحاولة أو الاستيراد على أي حال – وعندها تحصل تلك المعاملات على ملاحظة.</string>
+    <string name="portfolio_csv_note_price_no_rate">السعر بلا سعر يومي</string>
+    <string name="portfolio_csv_note_fee_no_rate">الرسوم بلا سعر يومي</string>
 </resources>

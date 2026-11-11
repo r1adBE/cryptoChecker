@@ -96,4 +96,11 @@
         <item quantity="one">%d سطر</item>
         <item quantity="other">%d سطر</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">نرخ‌های روزانه بر اساس روز تقویمی در: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">بارگیری نرخ‌های روزانه ممکن نشد.</string>
+    <string name="portfolio_csv_import_anyway">در هر صورت وارد کردن</string>
+    <string name="portfolio_csv_import_anyway_hint">بدون نرخ روزانه، قیمت یا کارمزد برای همیشه خالی می‌ماند. دوباره تلاش کن یا در هر صورت وارد کن – آن تراکنش‌ها یادداشت می‌گیرند.</string>
+    <string name="portfolio_csv_note_price_no_rate">قیمت بدون نرخ روزانه</string>
+    <string name="portfolio_csv_note_fee_no_rate">کارمزد بدون نرخ روزانه</string>
 </resources>

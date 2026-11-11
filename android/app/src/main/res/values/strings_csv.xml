@@ -97,4 +97,11 @@
         <item quantity="one">%d line</item>
         <item quantity="other">%d lines</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Daily rates use the calendar day in: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Daily rates could not be loaded.</string>
+    <string name="portfolio_csv_import_anyway">Import anyway</string>
+    <string name="portfolio_csv_import_anyway_hint">Without a daily rate, the price or fee stays missing for good. Retry, or import anyway – those transactions then get a note.</string>
+    <string name="portfolio_csv_note_price_no_rate">Price without daily rate</string>
+    <string name="portfolio_csv_note_fee_no_rate">Fee without daily rate</string>
 </resources>

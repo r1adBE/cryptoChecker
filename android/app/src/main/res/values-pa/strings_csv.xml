@@ -96,4 +96,11 @@
         <item quantity="one">%d ਲਾਈਨ</item>
         <item quantity="other">%d ਲਾਈਨਾਂ</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਇਸ ਟਾਈਮ ਜ਼ੋਨ ਦੇ ਕੈਲੰਡਰ ਦਿਨ ਅਨੁਸਾਰ: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀਆਂ।</string>
+    <string name="portfolio_csv_import_anyway">ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ</string>
+    <string name="portfolio_csv_import_anyway_hint">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ ਜਾਂ ਫੀਸ ਹਮੇਸ਼ਾ ਲਈ ਗਾਇਬ ਰਹਿੰਦੀ ਹੈ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਜਾਂ ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ – ਉਦੋਂ ਉਨ੍ਹਾਂ ਲੈਣ-ਦੇਣ ਨਾਲ ਇੱਕ ਨੋਟ ਜੁੜੇਗਾ।</string>
+    <string name="portfolio_csv_note_price_no_rate">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ</string>
+    <string name="portfolio_csv_note_fee_no_rate">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਫੀਸ</string>
 </resources>

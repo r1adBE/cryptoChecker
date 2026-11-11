@@ -161,7 +161,7 @@ final class FearGreedBoundChangeTests: XCTestCase {
 }
 
 /// Portfolio-Alarme auf dem Sperrbildschirm immer privat: Kategorie mit neutraler verborgener Vorschau,
-/// unabhängig von der Portfolio-Sperre — wie Android VISIBILITY_PRIVATE.
+/// unabhängig von der Portfolio-Sperre — Android gleich (neutraler Inhalt, dazu VISIBILITY_PRIVATE).
 final class PortfolioAlarmLockScreenTests: XCTestCase {
     func testPortfolioAlarmCategoryIsAlwaysPrivate() throws {
         XCTAssertEqual(Notifier.categoryPortfolioLocked, "portfolio_locked")

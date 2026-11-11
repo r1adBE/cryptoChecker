@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Хабарландыруларға рұқсат ету керек пе?</string>
     <string name="notification_portfolio_alarm_locked">Ескертуіңіз іске қосылды – толығырақ білу үшін қолданбаны ашыңыз.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – қазір %2$s</string>
     <string name="notification_portfolio_alarm_title">Портфель құны</string>
     <string name="notification_price_change">%1$s, %2$s бастап (%3$s бұрын)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s бастап</string>

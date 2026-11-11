@@ -132,14 +132,13 @@ class PortfolioAlarmChecker @Inject constructor(
                     // [AlarmDelivery] mit dauerhaftem Vermerk (wie iOS `AlarmDelivery.portfolio`): ein Prozess-Ende
                     // zwischen Melden und Speichern klingelt nicht ein zweites Mal.
                     is PortfolioAlarmDecision.Fire -> {
-                        // Alarm in anderer Währung ohne Messung USDT/USD: «USDT = 1 angenommen» im Text
-                        val usdtAssumed = PortfolioAlarmLogic.usdtAssumed(alarm.toInput(), reading)
+                        // Die Mitteilung ist immer neutral (ohne Schwelle, Messwert, Vermerk): nur die Kennung geht mit
                         val notificationId = AppNotifier.portfolioAlarmNotificationId(alarm.id)
                         delivery.deliver(
                             alarm.id, now, settings.alarmCooldownMinutes, holdAlarms,
                             canShow = { notifier.canShowPortfolioAlarm() },
                             show = {
-                                notifier.showPortfolioAlarm(alarm, decision.measured, usdtAssumed).also {
+                                notifier.showPortfolioAlarm(alarm.id).also {
                                     if (!it) Timber.w("Portfolio-Alarm %d: Meldung nicht bestätigt, bleibt scharf", alarm.id)
                                 }
                             },

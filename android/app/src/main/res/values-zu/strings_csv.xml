@@ -96,4 +96,11 @@
         <item quantity="one">umugqa ongu-%d</item>
         <item quantity="other">imigqa engu-%d</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Amazinga ansuku zonke ngokosuku lwekhalenda ku: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Amazinga ansuku zonke awakwazanga ukulayishwa.</string>
+    <string name="portfolio_csv_import_anyway">Ngenisa noma kunjalo</string>
+    <string name="portfolio_csv_import_anyway_hint">Ngaphandle kwezinga losuku, intengo noma imali ekhokhwayo ihlala ingekho unomphela. Zama futhi, noma ngenisa noma kunjalo – leyo misebenzi izothola inothi.</string>
+    <string name="portfolio_csv_note_price_no_rate">Intengo engenalo izinga losuku</string>
+    <string name="portfolio_csv_note_fee_no_rate">Imali ekhokhwayo engenalo izinga losuku</string>
 </resources>

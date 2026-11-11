@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Leisti pranešimus?</string>
     <string name="notification_portfolio_alarm_locked">Tavo įspėjimas suveikė – atidaryk programėlę, kad pamatytum detales.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – dabar %2$s</string>
     <string name="notification_portfolio_alarm_title">Portfelio vertė</string>
     <string name="notification_price_change">%1$s, nuo %2$s (prieš %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, nuo %2$s</string>

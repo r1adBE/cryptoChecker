@@ -96,4 +96,11 @@
         <item quantity="one">%d satır</item>
         <item quantity="other">%d satır</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Günlük kurlar şu saat dilimindeki takvim gününe göre: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Günlük kurlar yüklenemedi.</string>
+    <string name="portfolio_csv_import_anyway">Yine de içe aktar</string>
+    <string name="portfolio_csv_import_anyway_hint">Günlük kur olmadan fiyat veya ücret kalıcı olarak eksik kalır. Yeniden dene veya yine de içe aktar – bu işlemlere o zaman bir not eklenir.</string>
+    <string name="portfolio_csv_note_price_no_rate">Günlük kur olmadan fiyat</string>
+    <string name="portfolio_csv_note_fee_no_rate">Günlük kur olmadan ücret</string>
 </resources>

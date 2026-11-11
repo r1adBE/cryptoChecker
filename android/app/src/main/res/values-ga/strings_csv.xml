@@ -120,4 +120,11 @@
         <item quantity="many">%d líne</item>
         <item quantity="other">%d líne</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Rátaí laethúla de réir an lae féilire in: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Níorbh fhéidir na rátaí laethúla a lódáil.</string>
+    <string name="portfolio_csv_import_anyway">Iompórtáil mar sin féin</string>
+    <string name="portfolio_csv_import_anyway_hint">Gan ráta laethúil, bíonn an praghas nó an táille in easnamh go buan. Bain triail eile as, nó iompórtáil mar sin féin – gheobhaidh na hidirbhearta sin nóta ansin.</string>
+    <string name="portfolio_csv_note_price_no_rate">Praghas gan ráta laethúil</string>
+    <string name="portfolio_csv_note_fee_no_rate">Táille gan ráta laethúil</string>
 </resources>

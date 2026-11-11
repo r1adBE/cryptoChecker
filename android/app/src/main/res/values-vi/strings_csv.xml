@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d dòng</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Tỷ giá ngày tính theo ngày lịch ở múi giờ: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Không tải được tỷ giá ngày.</string>
+    <string name="portfolio_csv_import_anyway">Vẫn nhập</string>
+    <string name="portfolio_csv_import_anyway_hint">Không có tỷ giá ngày, giá hoặc phí sẽ thiếu vĩnh viễn. Vui lòng thử lại hoặc vẫn nhập – các giao dịch đó sẽ có ghi chú.</string>
+    <string name="portfolio_csv_note_price_no_rate">Giá không có tỷ giá ngày</string>
+    <string name="portfolio_csv_note_fee_no_rate">Phí không có tỷ giá ngày</string>
 </resources>

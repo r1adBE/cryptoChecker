@@ -96,4 +96,11 @@
         <item quantity="one">%d Zeile</item>
         <item quantity="other">%d Zeilen</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Tageskurse nach dem Kalendertag in: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Tageskurse konnten nicht geladen werden.</string>
+    <string name="portfolio_csv_import_anyway">Trotzdem importieren</string>
+    <string name="portfolio_csv_import_anyway_hint">Ohne Tageskurs fehlen Preis bzw. Gebühr dauerhaft. Versuch es erneut oder importiere trotzdem – diese Transaktionen erhalten dann einen Vermerk.</string>
+    <string name="portfolio_csv_note_price_no_rate">Preis ohne Tageskurs</string>
+    <string name="portfolio_csv_note_fee_no_rate">Gebühr ohne Tageskurs</string>
 </resources>

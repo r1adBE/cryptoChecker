@@ -32,7 +32,7 @@ Crypto Checker 會檢查你交易所上嘅價格，檢查到價格到咗你設�
 
 更多
 • 小工具：自選清單、投資組合總值、單一幣種連圖表、加密市場脈搏；Wear OS
-• 投資組合可選（喺設定開啟）：買入、賣出、兌換、轉賬、獎勵、存入同提取；FIFO（預設）或平均（Ø）；毋須助記詞嘅唯讀地址，支援 BTC（包括 xpub）、ETH 同 EVM 鏈、SOL、TRX、XRP、LTC、ADA 同 TON；可由 Relai、Swissquote、Bitpanda、Kraken、Binance 同 Coinbase 匯入 CSV；年度概覽匯出做 CSV；有獨立鎖。Bitpanda 同 Swissquote：冇自己嘅價格，只限 CSV。
+• 投資組合可選（喺設定開啟）：買入、賣出、兌換、轉賬、獎勵、存入同提取；FIFO（預設）或平均（Ø）；毋須助記詞嘅唯讀地址，支援 BTC（包括 xpub）、ETH 同 EVM 鏈、SOL、TRX、XRP、LTC、ADA 同 TON；可由 Relai、Swissquote、Bitpanda、Kraken、Binance 同 Coinbase 匯入 CSV；年度概覽匯出做 CSV；有獨立鎖。Swissquote：冇自己嘅價格，只限 CSV。
 • 人人都睇得清楚：綠／紅或藍／橙，用符號同箭咀而唔係只靠顏色；TalkBack 會將每一行讀成一句
 • 備份同還原到檔案 – Android 同 iPhone 之間都得
 • 淺色同深色模式、五種強調色、75 種語言

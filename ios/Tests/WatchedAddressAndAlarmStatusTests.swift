@@ -29,10 +29,12 @@ final class WatchedAddressAndAlarmStatusTests: XCTestCase {
 
     func testBackupCountsWatchedAddressesAsPortfolioData() {
         // Nur Adressen (auch xpub) ohne Trades: Bestände stehen trotzdem in der Datei
-        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 1))
-        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 3, watchedAddresses: 0))
-        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 3, watchedAddresses: 2))
-        XCTAssertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 0))
+        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 1, portfolioAlarms: 0))
+        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 3, watchedAddresses: 0, portfolioAlarms: 0))
+        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 3, watchedAddresses: 2, portfolioAlarms: 0))
+        XCTAssertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 0, portfolioAlarms: 0))
+        // Nur ein Portfolio-Alarm: die Betragsschwelle steht in der Datei
+        XCTAssertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 0, portfolioAlarms: 1))
     }
 
     func testBackupWithPortfolioDataNeedsPassword() {

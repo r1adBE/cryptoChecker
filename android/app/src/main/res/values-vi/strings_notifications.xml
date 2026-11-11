@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Cho phép thông báo?</string>
     <string name="notification_portfolio_alarm_locked">Cảnh báo của bạn đã kích hoạt – mở ứng dụng để xem chi tiết.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – hiện %2$s</string>
     <string name="notification_portfolio_alarm_title">Giá trị danh mục</string>
     <string name="notification_price_change">%1$s, từ %2$s (%3$s trước)</string>
     <string name="notification_price_change_no_age">%1$s, từ %2$s</string>

@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">ಅಧಿಸೂಚನೆಗಳನ್ನು ಅನುಮತಿಸಬೇಕೆ?</string>
     <string name="notification_portfolio_alarm_locked">ನಿಮ್ಮ ಅಲರ್ಟ್ ಟ್ರಿಗರ್ ಆಗಿದೆ – ವಿವರಗಳಿಗಾಗಿ ಆ್ಯಪ್ ತೆರೆಯಿರಿ.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ಈಗ %2$s</string>
     <string name="notification_portfolio_alarm_title">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮೌಲ್ಯ</string>
     <string name="notification_price_change">%1$s, %2$s ನಿಂದ (%3$s ಹಿಂದೆ)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s ನಿಂದ</string>

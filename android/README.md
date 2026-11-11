@@ -196,7 +196,7 @@ Einstellungen (`SettingsScreen`, `SettingsComponents`, `SettingsPickers`, je Gru
 ## Bauen
 
 ```bash
-./gradlew test
+./gradlew testDebugUnitTest
 ./gradlew :app:assembleDebug
 ```
 

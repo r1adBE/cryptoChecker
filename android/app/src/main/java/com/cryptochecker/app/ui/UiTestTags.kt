@@ -66,6 +66,8 @@ object UiTestTags {
     const val PORTFOLIO_IMPORT_CSV = "portfolio_import_csv"
     const val PORTFOLIO_IMPORTS = "portfolio_imports"
     const val CSV_IMPORT_CONFIRM = "csv_import_confirm"
+    const val CSV_IMPORT_RELOAD_RATES = "csv_import_reload_rates"
+    const val CSV_IMPORT_ANYWAY = "csv_import_anyway"
     const val IMPORT_UNDO = "import_undo"
     const val IMPORT_UNDO_CONFIRM = "import_undo_confirm"
     private const val PORTFOLIO_COIN = "portfolio_coin_"

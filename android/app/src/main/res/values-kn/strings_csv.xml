@@ -96,4 +96,11 @@
         <item quantity="one">%d ಸಾಲು</item>
         <item quantity="other">%d ಸಾಲುಗಳು</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">ದೈನಂದಿನ ದರಗಳು ಈ ಸಮಯ ವಲಯದ ಕ್ಯಾಲೆಂಡರ್ ದಿನದ ಪ್ರಕಾರ: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">ದೈನಂದಿನ ದರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ.</string>
+    <string name="portfolio_csv_import_anyway">ಆದರೂ ಆಮದು ಮಾಡಿ</string>
+    <string name="portfolio_csv_import_anyway_hint">ದೈನಂದಿನ ದರವಿಲ್ಲದೆ ಬೆಲೆ ಅಥವಾ ಶುಲ್ಕ ಶಾಶ್ವತವಾಗಿ ಕಾಣೆಯಾಗುತ್ತದೆ. ಮರುಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಆದರೂ ಆಮದು ಮಾಡಿ – ಆಗ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ.</string>
+    <string name="portfolio_csv_note_price_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಬೆಲೆ</string>
+    <string name="portfolio_csv_note_fee_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಶುಲ್ಕ</string>
 </resources>

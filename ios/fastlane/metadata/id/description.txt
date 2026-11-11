@@ -31,7 +31,7 @@ PASAR
 
 LAINNYA
 • Widget untuk Layar Utama dan Layar Terkunci, Aktivitas Langsung untuk satu koin; Apple Watch
-• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, ADA, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote: tanpa harga sendiri, hanya lewat CSV.
+• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, ADA, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Swissquote: tanpa harga sendiri, hanya lewat CSV.
 • Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna, Dynamic Type; VoiceOver membacakan tiap baris sebagai satu kalimat
 • Cadangkan & pulihkan lewat app File
 • Mode terang dan gelap, lima warna aksen, 75 bahasa

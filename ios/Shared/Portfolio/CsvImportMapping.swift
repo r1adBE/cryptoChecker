@@ -12,7 +12,8 @@ struct CsvImportTx: Equatable {
     let feeUnit: PortfolioFeeUnit?
     let feeCoin: String?
     let feeCoinAmount: Decimal?
-    let note: String?
+    /// Art aus der Datei; beim Speichern kommt der Vermerk «… ohne Tageskurs» dazu (`CsvImportRateGate.mark`).
+    var note: String?
     let importKey: String
     /// Umbuchung: wohin (`applyWithdrawalChoices`: passende beobachtete Adresse; verknüpfte Umbuchung `CsvTransferMatch`:
     /// Börse der Einzahlung); nil = keine Angabe.
@@ -32,6 +33,8 @@ struct CsvImportTx: Equatable {
     /// Staking-Umbuchung (`CsvImportKind.TRANSFER`: «Unstaking», «Redeem»): nie eine Auszahlung
     /// (`CsvTransferMatch.storedWithdrawal`) — wie Kotlin.
     var stakingMove = false
+    /// Preis bzw. Gebühr fehlt, weil der Tageskurs fehlt (`CsvImportRateGate.missing`); beim Speichern Vermerk in der Notiz.
+    var missingRate: CsvMissingRate? = nil
 }
 
 /// Vorschau eines Imports — wie `CsvImportPreview` (Kotlin).
@@ -40,7 +43,8 @@ struct CsvImportPreview {
     let transactions: [CsvImportTx]
     let duplicates: Int
     let skipped: [CsvImportSkip]
-    /// Zeilen ohne Tageskurs (ohne Preis bzw. Gebühr übernommen).
+    /// Zeilen ohne Tageskurs: «Importieren» gesperrt, bis die Kurse da sind oder der Import ausdrücklich trotzdem
+    /// verlangt wird — dann mit Vermerk an jeder betroffenen Transaktion (`CsvImportRateGate`). Wie Android.
     let missingFx: [Int]
     /// Kauf/Verkauf ohne Preis in der Datei (ohne Preis übernommen).
     let missingPrice: [Int]
@@ -66,6 +70,13 @@ struct CsvImportPreview {
     var pendingDiffers: [Int] = []
     /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross».
     var tooLarge = false
+    /// Zeitzone der Tageskurse (`CsvImportResult.fxZone`: Steuer-Vorlage, Neutral = Gerät); gezeigt, wenn `dayRates`.
+    var fxZone: String = CsvImportParser.defaultZone
+    /// Mindestens eine neue Zeile ist mit einem Kurs ihres Tags umgerechnet (`CsvImportPriced.dayRate`).
+    var dayRates = false
+    /// Tageskurse einer gebrauchten Währung liessen sich nicht laden (keine gültige Antwort) — von der App gesetzt; die
+    /// Vorschau unterscheidet es von «für diese Währung bzw. diesen Tag gibt es keinen Kurs». Wie Android.
+    var ratesFailed = false
 }
 
 /// Wahl je Auszahlung der Vorschau (`CsvImportMapping.proposeWithdrawals`) — wie Kotlin.
@@ -90,7 +101,8 @@ struct CsvWithdrawalProposal: Equatable, Sendable {
 /// Menge × Tagesschluss ihres Tags, ohne Kurs unbekannt — nie 0; mit der Art als Notiz); Gebühr im
 /// Coin → Gebühr in Coin, Tausch mit Gebühr im erhaltenen Coin (auch USDT) → Gebühr im erhaltenen Coin (feeCoin = toCoin),
 /// in Fiat/USD → USDT, in anderem Coin → Gebühr im dritten Coin; Fiat-Gebühr ohne Tageskurs
-/// fällt weg (die Zeile steht dann unter `missingFx`). Option `withdrawalsAsTransfer`: Auszahlungen werden Umbuchungen (Ziel aus der Datei, die Formate liefern
+/// fehlt (Zeile unter `missingFx`, «Importieren» erst mit Kurs oder ausdrücklich trotzdem, dann mit Vermerk:
+/// `CsvImportRateGate`). Option `withdrawalsAsTransfer`: Auszahlungen werden Umbuchungen (Ziel aus der Datei, die Formate liefern
 /// keins → nil); Gebühr-Zeilen bleiben Veräusserungen zum Tageskurs.
 /// Tausch-Zeile → Tausch mit erhaltenem Coin/Menge, Wert aus dem Fiat-Betrag der Datei (sonst unbekannt).
 enum CsvImportMapping {
@@ -145,7 +157,7 @@ enum CsvImportMapping {
                 feeCoin = unit
                 feeCoinAmount = rowFee
             }
-            // sonst: Fiat-Gebühr ohne Tageskurs — weggelassen, die Zeile steht unter missingFx (`CsvImport.priceInUsdt`)
+            // sonst: Fiat-Gebühr ohne Tageskurs — fehlt, Zeile unter missingFx, Vermerk beim Speichern (`CsvImportRateGate`)
         }
         var note: String?
         // Gebühr/Umbuchung: Art als Notiz; Belohnung nur als Zins (AT: Anschaffungskosten = Wert, wie Android)
@@ -167,7 +179,8 @@ enum CsvImportMapping {
                            // Eigene Merker: Gebühr-Zeile, Zins und Staking-Umbuchung — die Notiz bleibt nur zur Anzeige
                            feeRow: row.kind == .FEE,
                            interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind),
-                           stakingMove: row.kind == .TRANSFER)
+                           stakingMove: row.kind == .TRANSFER,
+                           missingRate: CsvImportRateGate.missing(p))
     }
 
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
@@ -193,12 +206,13 @@ enum CsvImportMapping {
         let fresh = split.fresh.filter { !held.contains($0.key) }
         var skipped = result.skipped + split.fresh.filter { held.contains($0.key) }
             .map { CsvImportSkip(line: $0.line, reason: .POSSIBLE_DUPLICATE) }
-        // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone` = Gerät, wie der Steuer-Export), wie Android
+        // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone`: Steuer-Vorlage, Neutral = Gerät — wie der Steuer-Export)
+        let fxZone = zone ?? result.fxZone
         var priced: [CsvImportPriced] = []
         priced.reserveCapacity(fresh.count)
         for start in stride(from: 0, to: fresh.count, by: previewBlock) {
             let block = Array(fresh[start..<min(start + previewBlock, fresh.count)])
-            priced += CsvImport.priceInUsdt(block, zone: zone ?? result.fxZone, usdtUsd: usdtUsd, fx: fx)
+            priced += CsvImport.priceInUsdt(block, zone: fxZone, usdtUsd: usdtUsd, fx: fx)
             try onRow(priced.count, fresh.count)
         }
         // Zeilen, die das Speichern ablehnen würde (`unsavableReason`), schon hier als übersprungen: Vorschau und
@@ -233,7 +247,8 @@ enum CsvImportMapping {
                                 usdtApproximate: kept.filter(\.usdtApproximate).map(\.row.line),
                                 feeInPrice: kept.filter(\.row.feeInPrice).map(\.row.line),
                                 pendingDiffers: kept.filter(\.row.pendingDiffers).map(\.row.line),
-                                tooLarge: result.tooLarge)
+                                tooLarge: result.tooLarge,
+                                fxZone: fxZone, dayRates: kept.contains { $0.dayRate })
     }
 
     /// Höchstlänge des erhaltenen Coins eines Tauschs — dieselbe Grenze wie beim Speichern (`PortfolioTx.maxFeeCoin`).
@@ -355,7 +370,7 @@ enum CsvImportMapping {
                                time: tx.time, fee: tx.fee, feeUnit: tx.feeUnit, feeCoin: tx.feeCoin,
                                feeCoinAmount: tx.feeCoinAmount, note: tx.note, importKey: tx.importKey,
                                transferTo: destination, transferFrom: tx.transferFrom, toCoin: tx.toCoin, toAmount: tx.toAmount,
-                               swapValueUsdt: tx.swapValueUsdt)
+                               swapValueUsdt: tx.swapValueUsdt, missingRate: tx.missingRate)
         }
     }
 

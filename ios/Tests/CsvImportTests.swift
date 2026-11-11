@@ -179,11 +179,19 @@ final class CsvImportTests: XCTestCase {
             for (cur, v) in (c["rates"] as? [String: Any]) ?? [:] { rates[cur] = byDay(v) }
             let usdtUsd = byDay(c["usdtUsd"])
             let currency = string(c["currency"]) ?? ""
-            let result = CsvImportParser.parse(string(c["csv"]) ?? "", deviceZone: "UTC")
+            // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät) — beim Import wie im Export
+            let deviceZone = string(c["deviceZone"]) ?? "UTC"
+            let template = try XCTUnwrap(TaxTemplate(rawValue: string(c["template"]) ?? "NEUTRAL"), name)
+            let fxZone = CsvImportParser.fxZoneFor(templateZone: template.zoneId, deviceZone: deviceZone)
+            if let expected = string(c["fxZone"]) { XCTAssertEqual(fxZone, expected, "\(name) fxZone") }
+            let result = CsvImportParser.parse(string(c["csv"]) ?? "", deviceZone: deviceZone, fxZone: fxZone)
+            XCTAssertEqual(result.fxZone, fxZone, "\(name) result.fxZone")
             let preview = CsvImportMapping.preview(result, existingKeys: [], usdtUsd: usdtUsd) { cur, d in rates[cur]?[Int(d)] }
             XCTAssertEqual(preview.transactions.map { text($0.priceUsdt) }, (c["priceUsdt"] as? [Any] ?? []).map { string($0) },
                            "\(name) priceUsdt")
             XCTAssertEqual(preview.usdtApproximate, (c["usdtApproximate"] as? [Any] ?? []).map { int($0) }, "\(name) usdtApproximate")
+            XCTAssertEqual(preview.fxZone, fxZone, "\(name) preview.fxZone")
+            XCTAssertTrue(preview.dayRates, "\(name) dayRates")
             let trades = preview.transactions.enumerated().map { item -> PortfolioTx in
                 let t = item.element
                 var tx = PortfolioTx(id: Int64(item.offset + 1), coin: t.coin, type: t.type, amountExact: t.amount, priceExact: t.priceUsdt,
@@ -192,8 +200,9 @@ final class CsvImportTests: XCTestCase {
                 tx.feeCoinAmountExact = t.feeCoinAmount
                 return tx
             }
-            let zone = try XCTUnwrap(TimeZone(identifier: "UTC"))
-            let rows = TaxExport.gainRows(trades, method: TaxMethod.of(.FIFO), period: TaxTemplate.NEUTRAL.period(int(c["year"])),
+            let device = try XCTUnwrap(TimeZone(identifier: deviceZone), name)
+            let zone = template.zone(device: device)
+            let rows = TaxExport.gainRows(trades, method: TaxMethod.of(.FIFO), period: template.period(int(c["year"])),
                                           timeZone: zone, currency: currency, rates: rates[currency] ?? [:], usdtUsd: usdtUsd)
             let expected = S.list(c["gains"])
             XCTAssertEqual(rows.count, expected.count, "\(name) rows")
@@ -204,6 +213,46 @@ final class CsvImportTests: XCTestCase {
                 XCTAssertEqual(r.gainTarget.map { CutoffExport.money($0) }, string(e["gainTarget"]), "\(name) gain")
                 XCTAssertEqual(r.usdtApproximate, e["usdtApproximate"] as? Bool, "\(name) usdtApproximate")
             }
+        }
+    }
+
+    /// Kein stiller Verlust (`rateGate`): «Importieren» mit Zeilen ohne Tageskurs nur nach Bestätigung; was fehlt, steht an
+    /// der Transaktion und kommt beim Speichern als Vermerk in die Notiz. Wie Android `rateGate`.
+    func testRateGate() throws {
+        let c = try XCTUnwrap(try S.fixture("csv_import")["rateGate"] as? [String: Any])
+        for g in S.list(c["gate"]) {
+            let missing = int(g["missingFx"])
+            let accepted = g["accepted"] as? Bool ?? false
+            XCTAssertEqual(CsvImportRateGate.canImport(missingFx: missing, accepted: accepted), g["expected"] as? Bool,
+                           "gate \(missing) \(accepted)")
+        }
+        var rates: [String: [Int64: Decimal]] = [:]
+        for (cur, byDay) in (c["rates"] as? [String: Any]) ?? [:] {
+            var m: [Int64: Decimal] = [:]
+            for (d, v) in (byDay as? [String: Any]) ?? [:] {
+                m[day(d)] = Decimal(string: string(v) ?? "", locale: Locale(identifier: "en_US_POSIX"))
+            }
+            rates[cur] = m
+        }
+        let consent = CsvRateConsent(accepted: true, priceNote: string(c["priceNote"]) ?? "", feeNote: string(c["feeNote"]) ?? "")
+        let preview = CsvImportMapping.preview(CsvImportParser.parse(string(c["csv"]) ?? ""), existingKeys: []) { cur, d in
+            rates[cur]?[d]
+        }
+        XCTAssertEqual(preview.missingFx, (c["missingFx"] as? [Any] ?? []).map { int($0) })
+        XCTAssertEqual(preview.dayRates, c["dayRates"] as? Bool)
+        let marked = CsvImportRateGate.mark(preview.transactions, consent: consent)
+        let expected = S.list(c["txs"])
+        XCTAssertEqual(preview.transactions.map(\.line), expected.map { int($0["line"]) })
+        for (i, e) in expected.enumerated() where i < marked.count {
+            XCTAssertEqual(preview.transactions[i].missingRate?.rawValue, string(e["missingRate"]), "tx \(int(e["line"])) missingRate")
+            XCTAssertEqual(marked[i].note, string(e["note"]), "tx \(int(e["line"])) note")
+        }
+        let notes = S.list(c["notes"])
+        XCTAssertGreaterThanOrEqual(notes.count, 6)
+        for n in notes {
+            let missing = string(n["missing"]).flatMap(CsvMissingRate.init(rawValue:))
+            XCTAssertEqual(CsvImportRateGate.note(string(n["note"]), missing: missing, consent: consent), string(n["expected"]),
+                           "note \(n)")
         }
     }
 

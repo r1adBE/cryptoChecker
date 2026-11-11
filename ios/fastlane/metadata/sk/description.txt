@@ -32,7 +32,7 @@ TRH
 
 ĎALŠIE
 • Widgety na ploche a zamknutej obrazovke, živá aktivita pre jeden coin; Apple Watch
-• Portfólio voliteľne (zapni ho v nastaveniach): nákupy, predaje, výmeny, presuny, odmeny, vklady a výbery; FIFO (predvolené) alebo priemer (Ø); adresy iba na čítanie bez seedu pre BTC (vrát. xpub), ETH a siete EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; ročný prehľad ako CSV; vlastný zámok. Bitpanda a Swissquote: bez vlastného kurzu, iba CSV.
+• Portfólio voliteľne (zapni ho v nastaveniach): nákupy, predaje, výmeny, presuny, odmeny, vklady a výbery; FIFO (predvolené) alebo priemer (Ø); adresy iba na čítanie bez seedu pre BTC (vrát. xpub), ETH a siete EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; ročný prehľad ako CSV; vlastný zámok. Swissquote: bez vlastného kurzu, iba CSV.
 • Čitateľné pre všetkých: zelená/červená alebo modrá/oranžová, znamienko a šípka namiesto samotnej farby, Dynamic Type; VoiceOver prečíta každý riadok ako jednu vetu
 • Záloha a obnovenie cez aplikáciu Súbory
 • Svetlý a tmavý režim, päť farieb zvýraznenia, 75 jazykov

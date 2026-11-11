@@ -32,7 +32,7 @@ Crypto Checker በልውውጥዎ ላይ ያሉ ዋጋዎችን ይፈትሻል�
 
 ተጨማሪ
 • ዊጀቶች፦ የክትትል ዝርዝር፣ የፖርትፎሊዮ ጠቅላላ፣ ነጠላ ሳንቲም ከገበታ ጋር፣ የክሪፕቶ ምት፤ Wear OS
-• ፖርትፎሊዮ እንደ አማራጭ (በቅንብሮች ውስጥ ያብሩት)፦ ግዢዎች፣ ሽያጮች፣ ስዋፖች፣ ዝውውሮች፣ ሽልማቶች፣ ገቢዎችና ማውጣቶች፤ FIFO (ነባሪ) ወይም አማካይ (Ø)፤ ያለ seed የሚነበቡ ብቻ አድራሻዎች ለBTC (xpubን ጨምሮ)፣ ለETH & EVM ቼይኖች፣ ለSOL፣ TRX፣ XRP፣ LTC፣ ADA እና TON፤ CSV ማስመጣት ከRelai፣ Swissquote፣ Bitpanda፣ Kraken፣ Binance እና Coinbase፤ የዓመት አጠቃላይ እይታ እንደ CSV፤ የራሱ መቆለፊያ። Bitpanda እና Swissquote፦ የራሳቸው ዋጋ የላቸውም፣ CSV ብቻ።
+• ፖርትፎሊዮ እንደ አማራጭ (በቅንብሮች ውስጥ ያብሩት)፦ ግዢዎች፣ ሽያጮች፣ ስዋፖች፣ ዝውውሮች፣ ሽልማቶች፣ ገቢዎችና ማውጣቶች፤ FIFO (ነባሪ) ወይም አማካይ (Ø)፤ ያለ seed የሚነበቡ ብቻ አድራሻዎች ለBTC (xpubን ጨምሮ)፣ ለETH & EVM ቼይኖች፣ ለSOL፣ TRX፣ XRP፣ LTC፣ ADA እና TON፤ CSV ማስመጣት ከRelai፣ Swissquote፣ Bitpanda፣ Kraken፣ Binance እና Coinbase፤ የዓመት አጠቃላይ እይታ እንደ CSV፤ የራሱ መቆለፊያ። Swissquote፦ የራሱ ዋጋ የለውም፣ CSV ብቻ።
 • ለሁሉም የሚነበብ፦ አረንጓዴ/ቀይ ወይም ሰማያዊ/ብርቱካናማ፣ ከቀለም ብቻ ይልቅ ምልክትና ቀስት፤ TalkBack እያንዳንዱን ረድፍ እንደ አንድ ዓረፍተ ነገር ያነባል
 • ወደ ፋይል ምትኬ & መልሶ ማግኛ – በAndroid እና በiPhone መካከልም
 • ብሩህና ጨለማ ሁነታ፣ አምስት የአክሰንት ቀለሞች፣ 75 ቋንቋዎች

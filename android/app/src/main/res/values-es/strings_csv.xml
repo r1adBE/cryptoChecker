@@ -104,4 +104,11 @@
         <item quantity="many">%d de líneas</item>
         <item quantity="other">%d líneas</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Cambios diarios según el día natural en: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">No se pudieron cargar los cambios diarios.</string>
+    <string name="portfolio_csv_import_anyway">Importar de todos modos</string>
+    <string name="portfolio_csv_import_anyway_hint">Sin cambio diario, el precio o la comisión faltan de forma permanente. Reintenta o importa de todos modos: esas transacciones llevarán una nota.</string>
+    <string name="portfolio_csv_note_price_no_rate">Precio sin cambio diario</string>
+    <string name="portfolio_csv_note_fee_no_rate">Comisión sin cambio diario</string>
 </resources>

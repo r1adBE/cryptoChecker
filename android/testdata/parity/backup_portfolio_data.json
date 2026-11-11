@@ -1,0 +1,11 @@
+{
+  "_comment": "Sicherung: enthält die Datei Portfolio-Daten (PortfolioLockPolicy.backupHasPortfolioData)? Transaktionen, beobachtete Adressen (auch xpub) und Portfolio-Alarme (Betragsschwelle) zählen gleich. Dann ist das Passwort Pflicht (backupExportRequiresPassword; backupExportAllowed mit/ohne Passwort) und Sichern verlangt im gesperrten Zustand Entsperren (backupExportNeedsUnlock). Gemeinsam für BackupPortfolioDataParityTest.kt und BackupPortfolioDataParityTests.swift.",
+  "cases": [
+    { "name": "nothing", "transactions": 0, "watchedAddresses": 0, "portfolioAlarms": 0, "hasPortfolioData": false, "allowedWithoutPassword": true, "needsUnlockWhenLocked": false },
+    { "name": "transactions only", "transactions": 3, "watchedAddresses": 0, "portfolioAlarms": 0, "hasPortfolioData": true, "allowedWithoutPassword": false, "needsUnlockWhenLocked": true },
+    { "name": "watched address only", "transactions": 0, "watchedAddresses": 1, "portfolioAlarms": 0, "hasPortfolioData": true, "allowedWithoutPassword": false, "needsUnlockWhenLocked": true },
+    { "name": "portfolio alarm only", "transactions": 0, "watchedAddresses": 0, "portfolioAlarms": 1, "hasPortfolioData": true, "allowedWithoutPassword": false, "needsUnlockWhenLocked": true },
+    { "name": "several portfolio alarms after all transactions were deleted", "transactions": 0, "watchedAddresses": 0, "portfolioAlarms": 4, "hasPortfolioData": true, "allowedWithoutPassword": false, "needsUnlockWhenLocked": true },
+    { "name": "everything", "transactions": 2, "watchedAddresses": 2, "portfolioAlarms": 2, "hasPortfolioData": true, "allowedWithoutPassword": false, "needsUnlockWhenLocked": true }
+  ]
+}

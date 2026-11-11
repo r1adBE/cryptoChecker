@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">सूचनांना परवानगी द्यायची?</string>
     <string name="notification_portfolio_alarm_locked">तुमचा अलर्ट वाजला – तपशीलांसाठी ॲप उघडा.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – आता %2$s</string>
     <string name="notification_portfolio_alarm_title">पोर्टफोलिओ मूल्य</string>
     <string name="notification_price_change">%1$s, %2$s पासून (%3$s पूर्वी)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s पासून</string>

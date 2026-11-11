@@ -104,4 +104,11 @@
         <item quantity="one">%d rinda</item>
         <item quantity="other">%d rindas</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dienas kursi pēc kalendārās dienas šeit: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Dienas kursus neizdevās ielādēt.</string>
+    <string name="portfolio_csv_import_anyway">Tomēr importēt</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez dienas kursa cena vai maksa trūkst neatgriezeniski. Mēģini vēlreiz vai tomēr importē – šie darījumi tad saņems piezīmi.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cena bez dienas kursa</string>
+    <string name="portfolio_csv_note_fee_no_rate">Maksa bez dienas kursa</string>
 </resources>

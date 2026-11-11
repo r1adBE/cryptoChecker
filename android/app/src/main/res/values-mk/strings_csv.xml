@@ -96,4 +96,11 @@
         <item quantity="one">%d ред</item>
         <item quantity="other">%d реда</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Дневни курсеви според календарскиот ден во: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Дневните курсеви не можеа да се вчитаат.</string>
+    <string name="portfolio_csv_import_anyway">Сепак увези</string>
+    <string name="portfolio_csv_import_anyway_hint">Без дневен курс цената или провизијата трајно недостасуваат. Обиди се повторно или сепак увези – тие трансакции тогаш добиваат белешка.</string>
+    <string name="portfolio_csv_note_price_no_rate">Цена без дневен курс</string>
+    <string name="portfolio_csv_note_fee_no_rate">Провизија без дневен курс</string>
 </resources>

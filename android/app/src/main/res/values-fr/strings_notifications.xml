@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Autoriser les notifications ?</string>
     <string name="notification_portfolio_alarm_locked">Ton alerte s’est déclenchée – ouvre l’app pour les détails.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – actuellement %2$s</string>
     <string name="notification_portfolio_alarm_title">Valeur du portefeuille</string>
     <string name="notification_price_change">%1$s, depuis %2$s (il y a %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, depuis %2$s</string>

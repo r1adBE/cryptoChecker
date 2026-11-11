@@ -96,4 +96,11 @@
         <item quantity="one">%d पंक्ति</item>
         <item quantity="other">%d पंक्तियाँ</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">दैनिक भाव इस समय क्षेत्र के कैलेंडर दिन के अनुसार: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">दैनिक भाव लोड नहीं हो सके।</string>
+    <string name="portfolio_csv_import_anyway">फिर भी आयात करें</string>
+    <string name="portfolio_csv_import_anyway_hint">दैनिक भाव के बिना कीमत या शुल्क स्थायी रूप से छूट जाता है। फिर से कोशिश करें, या फिर भी आयात करें – तब उन लेन-देन में एक नोट जुड़ेगा।</string>
+    <string name="portfolio_csv_note_price_no_rate">दैनिक भाव के बिना कीमत</string>
+    <string name="portfolio_csv_note_fee_no_rate">दैनिक भाव के बिना शुल्क</string>
 </resources>

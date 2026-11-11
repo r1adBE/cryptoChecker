@@ -32,7 +32,7 @@ MARK
 
 MEER
 • Legstukke: volglys, portefeuljetotaal, enkelmunt met grafiek, Kriptopols; Wear OS
-• Portefeulje opsioneel (skakel aan in Instellings): aankope, verkope, ruilings, oordragte, belonings, deposito's en onttrekkings; FIFO (verstek) of gemiddeld (Ø); leesalleen-adresse sonder 'n seed vir BTC (insl. xpub), ETH- & EVM-kettings, SOL, TRX, XRP, LTC, ADA en TON; CSV-invoer van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroorsig as CSV; sy eie slot. Bitpanda en Swissquote: geen eie prys nie, slegs CSV.
+• Portefeulje opsioneel (skakel aan in Instellings): aankope, verkope, ruilings, oordragte, belonings, deposito's en onttrekkings; FIFO (verstek) of gemiddeld (Ø); leesalleen-adresse sonder 'n seed vir BTC (insl. xpub), ETH- & EVM-kettings, SOL, TRX, XRP, LTC, ADA en TON; CSV-invoer van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroorsig as CSV; sy eie slot. Swissquote: geen eie prys nie, slegs CSV.
 • Leesbaar vir almal: groen/rooi of blou/oranje, teken en pyl, nie net kleur nie; TalkBack lees elke ry as een sin
 • Rugsteun & herstel na 'n lêer – ook tussen Android en iPhone
 • Lig- en donkermodus, vyf aksentkleure, 75 tale

@@ -96,4 +96,11 @@
         <item quantity="one">%d sor</item>
         <item quantity="other">%d sor</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Napi árfolyamok a naptári nap szerint itt: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">A napi árfolyamokat nem sikerült betölteni.</string>
+    <string name="portfolio_csv_import_anyway">Importálás mégis</string>
+    <string name="portfolio_csv_import_anyway_hint">Napi árfolyam nélkül az ár vagy a díj véglegesen hiányzik. Próbáld újra, vagy importáld mégis – ezek a tranzakciók ekkor megjegyzést kapnak.</string>
+    <string name="portfolio_csv_note_price_no_rate">Ár napi árfolyam nélkül</string>
+    <string name="portfolio_csv_note_fee_no_rate">Díj napi árfolyam nélkül</string>
 </resources>

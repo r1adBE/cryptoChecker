@@ -96,4 +96,11 @@
         <item quantity="one">%d rresht</item>
         <item quantity="other">%d rreshta</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Kurset ditore sipas ditës kalendarike në: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Kurset ditore nuk u ngarkuan dot.</string>
+    <string name="portfolio_csv_import_anyway">Importo gjithsesi</string>
+    <string name="portfolio_csv_import_anyway_hint">Pa kurs ditor, çmimi ose tarifa mungojnë përgjithmonë. Riprovo ose importo gjithsesi – ato transaksione marrin atëherë një shënim.</string>
+    <string name="portfolio_csv_note_price_no_rate">Çmim pa kurs ditor</string>
+    <string name="portfolio_csv_note_fee_no_rate">Tarifë pa kurs ditor</string>
 </resources>

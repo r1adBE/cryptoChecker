@@ -70,6 +70,9 @@ class BackupManager @Inject constructor(
     internal val watchDao: WatchDao get() = stores.watchDao
     internal val portfolioDao: PortfolioDao get() = stores.portfolioDao
     internal val portfolioAlarmDao: PortfolioAlarmDao get() = stores.portfolioAlarmDao
+
+    /** Anzahl Portfolio-Alarme, die [exportJson] schreibt — zählen als Portfolio-Daten (Passwort Pflicht). */
+    suspend fun portfolioAlarmCount(): Int = portfolioAlarmRepository.getAll().size
     internal val watchedAddressDao: WatchedAddressDao get() = stores.watchedAddressDao
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
     internal val journal = RestoreJournal(

@@ -32,7 +32,7 @@ IMAKETHE
 
 OKUNYE
 • Amawijethi: uhlu lokubuka, isamba se-portfolio, i-coin eyodwa neshadi
-• I-portfolio uma uthanda (ku-Izilungiselelo): ukuthenga, ukuthengisa, ama-swap, ukudlulisa, imivuzo, amadiphozithi nokukhipha; FIFO (ezenzakalelayo) noma isilinganiso (Ø); amakheli okufunda kuphela ngaphandle kwe-seed: BTC (ne-xpub), ETH ne-EVM, SOL, TRX, XRP, LTC, ADA, TON; ukungenisa i-CSV ye-Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; isifinyezo sonyaka (CSV); ukhiye wayo. Bitpanda ne-Swissquote: azinantengo yazo, i-CSV kuphela.
+• I-portfolio uma uthanda (ku-Izilungiselelo): ukuthenga, ukuthengisa, ama-swap, ukudlulisa, imivuzo, amadiphozithi nokukhipha; FIFO (ezenzakalelayo) noma isilinganiso (Ø); amakheli okufunda kuphela ngaphandle kwe-seed: BTC (ne-xpub), ETH ne-EVM, SOL, TRX, XRP, LTC, ADA, TON; ukungenisa i-CSV ye-Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; isifinyezo sonyaka (CSV); ukhiye wayo. Swissquote: ayinantengo yayo, i-CSV kuphela.
 • Kufundeka kubo bonke: okuluhlaza/okubomvu noma okwesibhakabhaka/okusawolintshi, uphawu nomcibisholo, hhayi umbala kuphela; TalkBack ifunda umugqa njengomusho owodwa
 • Isipele/ukubuyisela efayeleni – ne-Android ↔ iPhone
 • Imodi ekhanyayo/emnyama, imibala emi-5 yokugqamisa, izilimi ezingu-75

@@ -96,4 +96,11 @@
         <item quantity="one">%d regel</item>
         <item quantity="other">%d regels</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dagkoersen volgens de kalenderdag in: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Dagkoersen konden niet worden geladen.</string>
+    <string name="portfolio_csv_import_anyway">Toch importeren</string>
+    <string name="portfolio_csv_import_anyway_hint">Zonder dagkoers ontbreken prijs of kosten blijvend. Probeer het opnieuw of importeer toch – die transacties krijgen dan een notitie.</string>
+    <string name="portfolio_csv_note_price_no_rate">Prijs zonder dagkoers</string>
+    <string name="portfolio_csv_note_fee_no_rate">Kosten zonder dagkoers</string>
 </resources>

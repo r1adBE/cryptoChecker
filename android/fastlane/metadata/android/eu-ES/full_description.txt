@@ -32,7 +32,7 @@ MERKATUA
 
 GEHIAGO
 • Widgetak: zerrenda, zorroaren guztizkoa, txanpon bat diagramarekin, Kripto-pultsua; Wear OS
-• Zorroa aukeran (Ezarpenetan): erosketak, salmentak, trukeak, transferentziak, sariak, gordailuak, erretiratzeak; FIFO (lehenetsia) edo batez bestekoa (Ø); seedik gabeko irakurketa-helbideak: BTC (xpub barne), ETH eta EVM kateak, SOL, TRX, XRP, LTC, ADA, TON; CSV inportazioa: Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; urteko laburpena CSVn; blokeo propioa. Bitpanda eta Swissquote: prezio propiorik ez, CSV soilik.
+• Zorroa aukeran (Ezarpenetan): erosketak, salmentak, trukeak, transferentziak, sariak, gordailuak, erretiratzeak; FIFO (lehenetsia) edo batez bestekoa (Ø); seedik gabeko irakurketa-helbideak: BTC (xpub barne), ETH eta EVM kateak, SOL, TRX, XRP, LTC, ADA, TON; CSV inportazioa: Relai, Swissquote, Bitpanda, Kraken, Binance, Coinbase; urteko laburpena CSVn; blokeo propioa. Swissquote: prezio propiorik ez, CSV soilik.
 • Guztiontzat irakurgarria: berdea/gorria edo urdina/laranja, zeinua eta gezia, ez kolorea soilik; TalkBack-ek errenkada esaldi bakar gisa irakurtzen du
 • Babeskopia eta leheneratzea fitxategi batera – Android eta iPhone artean ere
 • Modu argia eta iluna, bost kolore nagusi, 75 hizkuntza

@@ -469731,461 +469731,6 @@
         }
       }
     },
-    "notification_portfolio_alarm_text" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nou %2$@"
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – አሁን %2$@"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – الآن %2$@"
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – indi %2$@"
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – сега %2$@"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – এখন %2$@"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – sada %2$@"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ara %2$@"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nyní %2$@"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nu %2$@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – jetzt %2$@"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – τώρα %2$@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – now %2$@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ahora %2$@"
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nüüd %2$@"
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – orain %2$@"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – اکنون %2$@"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nyt %2$@"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ngayon %2$@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – actuellement %2$@"
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – anois %2$@"
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – agora %2$@"
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – હવે %2$@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – עכשיו %2$@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – अभी %2$@"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – sada %2$@"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – most %2$@"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – հիմա %2$@"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – sekarang %2$@"
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – núna %2$@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ora %2$@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – 現在 %2$@"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ახლა %2$@"
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – қазір %2$@"
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ឥឡូវ %2$@"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ಈಗ %2$@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – 현재 %2$@"
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ຕອນນີ້ %2$@"
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – dabar %2$@"
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – tagad %2$@"
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – сега %2$@"
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ഇപ്പോൾ %2$@"
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – одоо %2$@"
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – आता %2$@"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – kini %2$@"
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ယခု %2$@"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nå %2$@"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – अहिले %2$@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nu %2$@"
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ਹੁਣ %2$@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – teraz %2$@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – agora %2$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – agora %2$@"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – acum %2$@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – сейчас %2$@"
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – දැන් %2$@"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – teraz %2$@"
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – zdaj %2$@"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – tani %2$@"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – сада %2$@"
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – sada %2$@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – nu %2$@"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – sasa %2$@"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – இப்போது %2$@"
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ఇప్పుడు %2$@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – ตอนนี้ %2$@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – şimdi %2$@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – зараз %2$@"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – اب %2$@"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – hozir %2$@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – hiện %2$@"
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – 而家 %2$@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@——当前 %2$@"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@——目前 %2$@"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – manje %2$@"
-          }
-        }
-      }
-    },
     "notification_portfolio_alarm_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -533459,6 +533004,916 @@
         }
       }
     },
+    "portfolio_csv_import_anyway" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voer tog in"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ቢሆንም ያስመጡ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استيراد على أي حال"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yenə də idxal et"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортирай въпреки това"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "তবুও ইমপোর্ট করুন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ipak uvezi"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importa igualment"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přesto importovat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importér alligevel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trotzdem importieren"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εισαγωγή ούτως ή άλλως"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import anyway"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar de todos modos"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impordi siiski"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inportatu hala ere"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در هر صورت وارد کردن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuo silti"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-import pa rin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importer quand même"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iompórtáil mar sin féin"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar igualmente"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "તેમ છતાં ઇમ્પોર્ટ કરો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ייבוא בכל זאת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फिर भी आयात करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ipak uvezi"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importálás mégis"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Այնուամենայնիվ ներմուծել"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tetap impor"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flytja inn samt"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importa comunque"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このまま読み込む"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "მაინც იმპორტი"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Бәрібір импорттау"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "នាំចូលយ៉ាងណាក៏ដោយ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಆದರೂ ಆಮದು ಮಾಡಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그래도 가져오기"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ນຳເຂົ້າຢູ່ດີ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis tiek importuoti"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomēr importēt"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сепак увези"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "എന്നിരുന്നാലും ഇമ്പോർട്ട് ചെയ്യുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Гэсэн ч импортлох"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "तरीही इम्पोर्ट करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import juga"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "မည်သို့ပင်ဖြစ်စေ တင်သွင်းရန်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importer likevel"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "तैपनि आयात गर्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toch importeren"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importuj mimo to"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar mesmo assim"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importar mesmo assim"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importă oricum"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всё равно импортировать"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "එසේ වුවත් ආයාත කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napriek tomu importovať"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vseeno uvozi"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importo gjithsesi"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ипак увези"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ipak uvezi"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importera ändå"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leta hata hivyo"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இருப்பினும் இறக்குமதி செய்யவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "అయినా ఇంపోర్ట్ చేయండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นำเข้าต่อไป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yine de içe aktar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Усе одно імпортувати"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پھر بھی امپورٹ کریں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baribir import qilish"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vẫn nhập"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "照樣匯入"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍要导入"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仍要匯入"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngenisa noma kunjalo"
+          }
+        }
+      }
+    },
+    "portfolio_csv_import_anyway_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonder 'n daaglikse koers ontbreek die prys of fooi permanent. Probeer weer, of voer tog in – daardie transaksies kry dan 'n nota."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዕለታዊ ተመን ከሌለ ዋጋው ወይም ክፍያው ለዘለቄታው ይጎድላል። እንደገና ይሞክሩ፣ ወይም ቢሆንም ያስመጡ – እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلا سعر يومي يبقى السعر أو الرسوم مفقودة نهائيًا. يمكن إعادة المحاولة أو الاستيراد على أي حال – وعندها تحصل تلك المعاملات على ملاحظة."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük məzənnə olmadan qiymət və ya komissiya həmişəlik çatışmayacaq. Yenidən cəhd et və ya yenə də idxal et – həmin əməliyyatlara qeyd əlavə olunacaq."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без дневен курс цената или таксата липсват трайно. Опитай отново или импортирай въпреки това – тези транзакции получават бележка."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দৈনিক হার ছাড়া দাম বা ফি স্থায়ীভাবে বাদ থেকে যাবে। আবার চেষ্টা করুন, অথবা তবুও ইমপোর্ট করুন – তখন ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez dnevnog kursa cijena ili naknada trajno nedostaju. Pokušaj ponovo ili ipak uvezi – te transakcije tada dobijaju bilješku."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense tipus diari, el preu o la comissió falten de manera permanent. Torna-ho a provar o importa igualment: aquestes transaccions rebran una nota."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez denního kurzu cena nebo poplatek trvale chybí. Zkus to znovu, nebo importuj přesto – tyto transakce pak dostanou poznámku."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uden dagskurs mangler pris eller gebyr permanent. Prøv igen, eller importér alligevel – de transaktioner får så en note."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Tageskurs fehlen Preis bzw. Gebühr dauerhaft. Versuch es erneut oder importiere trotzdem – diese Transaktionen erhalten dann einen Vermerk."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς ημερήσια ισοτιμία, η τιμή ή η χρέωση λείπουν οριστικά. Δοκίμασε ξανά ή κάνε εισαγωγή ούτως ή άλλως – αυτές οι συναλλαγές θα έχουν τότε σημείωση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without a daily rate, the price or fee stays missing for good. Retry, or import anyway – those transactions then get a note."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin cambio diario, el precio o la comisión faltan de forma permanente. Reintenta o importa de todos modos: esas transacciones llevarán una nota."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilma päevakursita jääb hind või tasu püsivalt puudu. Proovi uuesti või impordi siiski – need tehingud saavad siis märkuse."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eguneko truke-tasarik gabe, prezioa edo komisioa betiko faltako da. Saiatu berriro edo inportatu hala ere: transakzio horiek ohar bat izango dute."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون نرخ روزانه، قیمت یا کارمزد برای همیشه خالی می‌ماند. دوباره تلاش کن یا در هر صورت وارد کن – آن تراکنش‌ها یادداشت می‌گیرند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilman päiväkurssia hinta tai kulu jää pysyvästi puuttumaan. Yritä uudelleen tai tuo silti – nämä tapahtumat saavat silloin muistiinpanon."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapag walang daily rate, permanenteng mawawala ang presyo o fee. Subukan ulit, o i-import pa rin – magkakaroon ng tala ang mga transaksyong iyon."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans cours journalier, le prix ou les frais manquent définitivement. Réessaie ou importe quand même : ces transactions porteront alors une note."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gan ráta laethúil, bíonn an praghas nó an táille in easnamh go buan. Bain triail eile as, nó iompórtáil mar sin féin – gheobhaidh na hidirbhearta sin nóta ansin."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sen tipo diario, o prezo ou a comisión faltan de forma permanente. Téntao de novo ou importa igualmente: esas transaccións levarán unha nota."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દૈનિક દર વગર ભાવ અથવા ફી કાયમ માટે ખૂટે છે. ફરી પ્રયાસ કરો, અથવા તેમ છતાં ઇમ્પોર્ટ કરો – ત્યારે તે વ્યવહારોમાં નોંધ ઉમેરાશે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בלי שער יומי, המחיר או העמלה יחסרו לצמיתות. אפשר לנסות שוב או לייבא בכל זאת – לעסקאות האלה תתווסף הערה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक भाव के बिना कीमत या शुल्क स्थायी रूप से छूट जाता है। फिर से कोशिश करें, या फिर भी आयात करें – तब उन लेन-देन में एक नोट जुड़ेगा।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez dnevnog tečaja cijena ili naknada trajno nedostaju. Pokušaj ponovno ili ipak uvezi – te transakcije tada dobivaju bilješku."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napi árfolyam nélkül az ár vagy a díj véglegesen hiányzik. Próbáld újra, vagy importáld mégis – ezek a tranzakciók ekkor megjegyzést kapnak."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Առանց օրական փոխարժեքի գինը կամ միջնորդավճարը մշտապես կբացակայի։ Կրկին փորձիր կամ այնուամենայնիվ ներմուծիր – այդ գործարքները նշում կստանան։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanpa kurs harian, harga atau biaya hilang secara permanen. Coba lagi, atau tetap impor – transaksi tersebut akan diberi catatan."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Án dagsgengis vantar verð eða gjald til frambúðar. Reyndu aftur eða flyttu inn samt – þær færslur fá þá athugasemd."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senza cambio giornaliero, il prezzo o la commissione mancano in modo permanente. Riprova oppure importa comunque: quelle transazioni riceveranno una nota."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日次レートがないと、価格または手数料が欠けたままになります。再試行するか、このまま読み込んでください – その取引にはメモが付きます。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "დღიური კურსის გარეშე ფასი ან საკომისიო სამუდამოდ აკლია. სცადე ხელახლა ან მაინც შემოიტანე – ამ ტრანზაქციებს შენიშვნა დაერთვება."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Күндік бағамсыз баға немесе комиссия біржола жетіспейді. Қайталап көріңіз немесе бәрібір импорттаңыз – ол транзакцияларға ескертпе қосылады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បើគ្មានអត្រាប្រចាំថ្ងៃ តម្លៃ ឬកម្រៃនឹងខ្វះជាអចិន្ត្រៃយ៍។ សូមព្យាយាមម្តងទៀត ឬនាំចូលយ៉ាងណាក៏ដោយ – ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ದೈನಂದಿನ ದರವಿಲ್ಲದೆ ಬೆಲೆ ಅಥವಾ ಶುಲ್ಕ ಶಾಶ್ವತವಾಗಿ ಕಾಣೆಯಾಗುತ್ತದೆ. ಮರುಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಆದರೂ ಆಮದು ಮಾಡಿ – ಆಗ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일별 환율이 없으면 가격 또는 수수료가 영구히 빠집니다. 다시 시도하거나 그래도 가져오세요 – 해당 거래에는 메모가 붙습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຖ້າບໍ່ມີອັດຕາລາຍວັນ ລາຄາ ຫຼື ຄ່າທຳນຽມຈະຂາດຫາຍຢ່າງຖາວອນ. ກະລຸນາລອງໃໝ່ ຫຼື ນຳເຂົ້າຢູ່ດີ – ທຸລະກຳເຫຼົ່ານັ້ນຈະມີໝາຍເຫດ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Be dienos kurso kainos arba komisinio mokesčio trūks visam laikui. Bandyk dar kartą arba vis tiek importuok – tos transakcijos tada gaus pastabą."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez dienas kursa cena vai maksa trūkst neatgriezeniski. Mēģini vēlreiz vai tomēr importē – šie darījumi tad saņems piezīmi."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без дневен курс цената или провизијата трајно недостасуваат. Обиди се повторно или сепак увези – тие трансакции тогаш добиваат белешка."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിദിന നിരക്കില്ലെങ്കിൽ വിലയോ ഫീസോ സ്ഥിരമായി നഷ്ടമാകും. വീണ്ടും ശ്രമിക്കുക, അല്ലെങ്കിൽ എന്നിരുന്നാലും ഇമ്പോർട്ട് ചെയ്യുക – അപ്പോൾ ആ ഇടപാടുകൾക്ക് ഒരു കുറിപ്പ് ലഭിക്കും."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Өдрийн ханшгүй бол үнэ эсвэл шимтгэл бүрмөсөн дутуу үлдэнэ. Дахин оролдоно уу, эсвэл гэсэн ч импортолно уу – тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दराशिवाय किंमत किंवा शुल्क कायमचे गहाळ राहते. पुन्हा प्रयत्न करा, किंवा तरीही इम्पोर्ट करा – तेव्हा त्या व्यवहारांना एक टीप जोडली जाईल."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanpa kadar harian, harga atau yuran akan hilang secara kekal. Sila cuba lagi, atau import juga – transaksi tersebut akan diberi nota."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နေ့စဉ်နှုန်းမရှိလျှင် ဈေးနှုန်း သို့မဟုတ် အခကြေးငွေ အမြဲတမ်း ပျောက်နေပါမည်။ ထပ်စမ်းပါ၊ သို့မဟုတ် မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါ – ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uten dagskurs mangler pris eller gebyr permanent. Prøv igjen, eller importer likevel – de transaksjonene får da et notat."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दरबिना मूल्य वा शुल्क स्थायी रूपमा छुट्छ। फेरि प्रयास गर्नुहोस्, वा तैपनि आयात गर्नुहोस् – त्यसपछि ती कारोबारहरूमा टिप्पणी थपिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zonder dagkoers ontbreken prijs of kosten blijvend. Probeer het opnieuw of importeer toch – die transacties krijgen dan een notitie."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ ਜਾਂ ਫੀਸ ਹਮੇਸ਼ਾ ਲਈ ਗਾਇਬ ਰਹਿੰਦੀ ਹੈ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਜਾਂ ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ – ਉਦੋਂ ਉਨ੍ਹਾਂ ਲੈਣ-ਦੇਣ ਨਾਲ ਇੱਕ ਨੋਟ ਜੁੜੇਗਾ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez kursu dziennego ceny lub opłaty zabraknie na stałe. Spróbuj ponownie albo importuj mimo to – te transakcje dostaną wtedy notatkę."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem cotação diária, o preço ou a comissão ficam em falta de forma permanente. Tenta novamente ou importa mesmo assim – essas transações recebem então uma nota."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem cotação diária, o preço ou a taxa ficam faltando de forma permanente. Tente novamente ou importe mesmo assim – essas transações recebem então uma nota."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără curs zilnic, prețul sau comisionul lipsesc definitiv. Reîncearcă sau importă oricum – acele tranzacții primesc atunci o notă."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без дневного курса цена или комиссия останутся пустыми навсегда. Повтори попытку или всё равно импортируй – у этих транзакций появится заметка."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දෛනික අනුපාතයක් නැතිව මිල හෝ ගාස්තුව ස්ථිරවම අඩු වේ. යළි උත්සාහ කරන්න, නැතහොත් එසේ වුවත් ආයාත කරන්න – එවිට එම ගනුදෙනුවලට සටහනක් එක් වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez denného kurzu cena alebo poplatok natrvalo chýbajú. Skús to znova alebo importuj napriek tomu – tieto transakcie potom dostanú poznámku."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brez dnevnega tečaja cena ali provizija trajno manjkata. Poskusi znova ali vseeno uvozi – te transakcije potem dobijo opombo."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa kurs ditor, çmimi ose tarifa mungojnë përgjithmonë. Riprovo ose importo gjithsesi – ato transaksione marrin atëherë një shënim."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без дневног курса цена или накнада трајно недостају. Покушај поново или ипак увези – те трансакције тада добијају белешку."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez dnevnog kursa cena ili naknada trajno nedostaju. Pokušaj ponovo ili ipak uvezi – te transakcije tada dobijaju belešku."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utan dagskurs saknas pris eller avgift permanent. Försök igen, eller importera ändå – de transaktionerna får då en anteckning."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bila kiwango cha siku, bei au ada hukosekana kabisa. Jaribu tena, au leta hata hivyo – miamala hiyo itapata dokezo."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தினசரி விகிதம் இல்லாமல் விலை அல்லது கட்டணம் நிரந்தரமாக விடுபடும். மீண்டும் முயலவும், அல்லது இருப்பினும் இறக்குமதி செய்யவும் – அப்போது அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రోజువారీ రేటు లేకపోతే ధర లేదా ఫీజు శాశ్వతంగా లోపిస్తుంది. మళ్లీ ప్రయత్నించండి, లేదా అయినా ఇంపోర్ట్ చేయండి – అప్పుడు ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หากไม่มีอัตรารายวัน ราคาหรือค่าธรรมเนียมจะขาดหายอย่างถาวร โปรดลองใหม่ หรือนำเข้าต่อไป – รายการเหล่านั้นจะมีหมายเหตุกำกับ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük kur olmadan fiyat veya ücret kalıcı olarak eksik kalır. Yeniden dene veya yine de içe aktar – bu işlemlere o zaman bir not eklenir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без денного курсу ціна або комісія залишаться порожніми назавжди. Повтори спробу або все одно імпортуй – ці транзакції тоді отримають нотатку."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روزانہ شرح کے بغیر قیمت یا فیس مستقل طور پر غائب رہتی ہے۔ دوبارہ کوشش کریں، یا پھر بھی امپورٹ کریں – تب ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik kurssiz narx yoki komissiya butunlay yetishmay qoladi. Qayta urinib koʻring yoki baribir import qiling – oʻsha tranzaksiyalarga izoh qoʻshiladi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có tỷ giá ngày, giá hoặc phí sẽ thiếu vĩnh viễn. Vui lòng thử lại hoặc vẫn nhập – các giao dịch đó sẽ có ghi chú."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇每日匯率，價格或者手續費會永久缺失。請重試，或者照樣匯入 – 嗰啲交易會加上備註。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有每日汇率，价格或手续费将永久缺失。请重试，或仍要导入——这些交易将加上备注。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有每日匯率，價格或手續費將永久缺失。請重試，或仍要匯入——這些交易將加上備註。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngaphandle kwezinga losuku, intengo noma imali ekhokhwayo ihlala ingekho unomphela. Zama futhi, noma ngenisa noma kunjalo – leyo misebenzi izothola inothi."
+          }
+        }
+      }
+    },
     "portfolio_csv_import_choice_proposed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -542348,6 +542803,461 @@
         }
       }
     },
+    "portfolio_csv_import_fx_zone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daaglikse koerse volgens die kalenderdag in: %1$@"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዕለታዊ ተመኖች በዚህ የሰዓት ሰቅ የቀን መቁጠሪያ ቀን መሠረት፦ %1$@"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأسعار اليومية حسب اليوم التقويمي في: %1$@"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük məzənnələr bu saat qurşağının təqvim gününə görə: %1$@"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневни курсове по календарния ден в: %1$@"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দৈনিক হার এই টাইম জোনের ক্যালেন্ডার দিন অনুযায়ী: %1$@"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni kursevi prema kalendarskom danu u: %1$@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipus diaris segons el dia natural a: %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denní kurzy podle kalendářního dne v: %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskurser efter kalenderdagen i: %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tageskurse nach dem Kalendertag in: %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ημερήσιες ισοτιμίες με βάση την ημερολογιακή ημέρα σε: %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily rates use the calendar day in: %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambios diarios según el día natural en: %1$@"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Päevakursid kalendripäeva järgi ajavööndis: %1$@"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eguneko truke-tasak egutegiko egunaren arabera hemen: %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نرخ‌های روزانه بر اساس روز تقویمی در: %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Päiväkurssit kalenteripäivän mukaan aikavyöhykkeellä: %1$@"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga daily rate ayon sa araw sa kalendaryo sa: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours journaliers selon le jour civil dans : %1$@"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rátaí laethúla de réir an lae féilire in: %1$@"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipos diarios segundo o día natural en: %1$@"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દૈનિક દરો આ ટાઇમ ઝોનના કૅલેન્ડર દિવસ પ્રમાણે: %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שערים יומיים לפי היום הקלנדרי ב: %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक भाव इस समय क्षेत्र के कैलेंडर दिन के अनुसार: %1$@"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni tečajevi prema kalendarskom danu u: %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Napi árfolyamok a naptári nap szerint itt: %1$@"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Օրական փոխարժեքները՝ ըստ օրացուցային օրվա այստեղ՝ %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs harian menurut hari kalender di: %1$@"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagsgengi miðað við almanaksdag í: %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambi giornalieri secondo il giorno di calendario in: %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日次レートの基準日（暦日）のタイムゾーン：%1$@"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "დღიური კურსები კალენდარული დღის მიხედვით აქ: %1$@"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Күндік бағамдар осы уақыт белдеуінің күнтізбелік күні бойынша: %1$@"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "អត្រាប្រចាំថ្ងៃតាមថ្ងៃប្រតិទិននៅ៖ %1$@"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ದೈನಂದಿನ ದರಗಳು ಈ ಸಮಯ ವಲಯದ ಕ್ಯಾಲೆಂಡರ್ ದಿನದ ಪ್ರಕಾರ: %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일별 환율 기준일(달력 날짜)의 시간대: %1$@"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ອັດຕາລາຍວັນຕາມວັນປະຕິທິນໃນ: %1$@"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dienos kursai pagal kalendorinę dieną: %1$@"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dienas kursi pēc kalendārās dienas šeit: %1$@"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневни курсеви според календарскиот ден во: %1$@"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിദിന നിരക്കുകൾ ഈ സമയമേഖലയിലെ കലണ്ടർ ദിവസം അനുസരിച്ച്: %1$@"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Өдрийн ханшийг энэ цагийн бүсийн хуанлийн өдрөөр тооцно: %1$@"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दर या वेळ क्षेत्रातील कॅलेंडर दिवसानुसार: %1$@"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kadar harian mengikut hari kalendar di: %1$@"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နေ့စဉ်နှုန်းများကို ဤအချိန်ဇုန်၏ ပြက္ခဒိန်နေ့အလိုက် တွက်သည်: %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskurser etter kalenderdagen i: %1$@"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दरहरू यो समय क्षेत्रको पात्रो दिनअनुसार: %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagkoersen volgens de kalenderdag in: %1$@"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਇਸ ਟਾਈਮ ਜ਼ੋਨ ਦੇ ਕੈਲੰਡਰ ਦਿਨ ਅਨੁਸਾਰ: %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursy dzienne według dnia kalendarzowego w: %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cotações diárias segundo o dia de calendário em: %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cotações diárias conforme o dia do calendário em: %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cursuri zilnice după ziua calendaristică din: %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневные курсы по календарному дню в: %1$@"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දෛනික අනුපාත මෙම වේලා කලාපයේ දින දර්ශන දිනය අනුව: %1$@"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denné kurzy podľa kalendárneho dňa v: %1$@"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni tečaji po koledarskem dnevu v: %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurset ditore sipas ditës kalendarike në: %1$@"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневни курсеви према календарском дану у: %1$@"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni kursevi prema kalendarskom danu u: %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskurser enligt kalenderdagen i: %1$@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viwango vya kila siku kulingana na siku ya kalenda katika: %1$@"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தினசரி விகிதங்கள் இந்த நேர மண்டலத்தின் நாள்காட்டி நாளின்படி: %1$@"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రోజువారీ రేట్లు ఈ టైమ్ జోన్ క్యాలెండర్ రోజు ప్రకారం: %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อัตรารายวันตามวันปฏิทินใน: %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük kurlar şu saat dilimindeki takvim gününe göre: %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Денні курси за календарним днем у: %1$@"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روزانہ شرحیں اس ٹائم زون کے کیلنڈر دن کے مطابق: %1$@"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik kurslar shu vaqt mintaqasidagi kalendar kuni boʻyicha: %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tỷ giá ngày tính theo ngày lịch ở múi giờ: %1$@"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日匯率按呢個時區嘅曆日計：%1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日汇率按此时区的日历日计算：%1$@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日匯率依此時區的日曆日計算：%1$@"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amazinga ansuku zonke ngokosuku lwekhalenda ku: %1$@"
+          }
+        }
+      }
+    },
     "portfolio_csv_import_line" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -548958,6 +549868,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Umugqa %1$@ kwengu-%2$@"
+          }
+        }
+      }
+    },
+    "portfolio_csv_import_rates_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daaglikse koerse kon nie gelaai word nie."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዕለታዊ ተመኖችን መጫን አልተቻለም።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر تحميل الأسعار اليومية."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük məzənnələri yükləmək mümkün olmadı."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневните курсове не можаха да се заредят."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দৈনিক হার লোড করা যায়নি।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni kursevi se nisu mogli učitati."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No s'han pogut carregar els tipus diaris."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denní kurzy se nepodařilo načíst."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskurserne kunne ikke hentes."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tageskurse konnten nicht geladen werden."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ήταν δυνατή η φόρτωση των ημερήσιων ισοτιμιών."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily rates could not be loaded."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron cargar los cambios diarios."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Päevakursse ei õnnestunud laadida."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezin izan dira eguneko truke-tasak kargatu."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بارگیری نرخ‌های روزانه ممکن نشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Päiväkursseja ei voitu ladata."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi ma-load ang mga daily rate."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de charger les cours journaliers."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níorbh fhéidir na rátaí laethúla a lódáil."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non se puideron cargar os tipos diarios."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દૈનિક દરો લોડ થઈ શક્યા નથી."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לטעון את השערים היומיים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक भाव लोड नहीं हो सके।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni tečajevi nisu se mogli učitati."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A napi árfolyamokat nem sikerült betölteni."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Չհաջողվեց բեռնել օրական փոխարժեքները։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs harian tidak dapat dimuat."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekki tókst að sækja dagsgengi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile caricare i cambi giornalieri."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日次レートを読み込めませんでした。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "დღიური კურსების ჩატვირთვა ვერ მოხერხდა."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Күндік бағамдарды жүктеу мүмкін болмады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "មិនអាចផ្ទុកអត្រាប្រចាំថ្ងៃបានទេ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ದೈನಂದಿನ ದರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일별 환율을 불러오지 못했습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ສາມາດໂຫຼດອັດຕາລາຍວັນໄດ້."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nepavyko įkelti dienos kursų."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dienas kursus neizdevās ielādēt."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневните курсеви не можеа да се вчитаат."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിദിന നിരക്കുകൾ ലോഡ് ചെയ്യാനായില്ല."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Өдрийн ханшийг ачаалж чадсангүй."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दर लोड करता आले नाहीत."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kadar harian tidak dapat dimuatkan."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နေ့စဉ်နှုန်းများကို ဖတ်၍မရပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskursene kunne ikke lastes inn."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दरहरू लोड गर्न सकिएन।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagkoersen konden niet worden geladen."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀਆਂ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się wczytać kursów dziennych."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as cotações diárias."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível carregar as cotações diárias."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cursurile zilnice nu au putut fi încărcate."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось загрузить дневные курсы."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දෛනික අනුපාත පූරණය කළ නොහැකි විය."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denné kurzy sa nepodarilo načítať."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevnih tečajev ni bilo mogoče naložiti."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurset ditore nuk u ngarkuan dot."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дневни курсеви нису могли да се учитају."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevni kursevi nisu mogli da se učitaju."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dagskurserna kunde inte läsas in."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viwango vya kila siku havikuweza kupakiwa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தினசரி விகிதங்களை ஏற்ற முடியவில்லை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రోజువారీ రేట్లను లోడ్ చేయలేకపోయాం."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โหลดอัตรารายวันไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük kurlar yüklenemedi."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося завантажити денні курси."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روزانہ شرحیں لوڈ نہیں ہو سکیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik kurslarni yuklab boʻlmadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không tải được tỷ giá ngày."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每日匯率載入唔到。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法加载每日汇率。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無法載入每日匯率。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amazinga ansuku zonke awakwazanga ukulayishwa."
           }
         }
       }
@@ -556815,6 +558180,916 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Idivayisi (%1$@)"
+          }
+        }
+      }
+    },
+    "portfolio_csv_note_fee_no_rate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fooi sonder daaglikse koers"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ክፍያ ያለ ዕለታዊ ተመን"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الرسوم بلا سعر يومي"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük məzənnəsiz komissiya"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Такса без дневен курс"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দৈনিক হার ছাড়া ফি"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naknada bez dnevnog kursa"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comissió sense tipus diari"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poplatek bez denního kurzu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebyr uden dagskurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebühr ohne Tageskurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρέωση χωρίς ημερήσια ισοτιμία"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fee without daily rate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisión sin cambio diario"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasu ilma päevakursita"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Komisioa eguneko truke-tasarik gabe"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کارمزد بدون نرخ روزانه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kulu ilman päiväkurssia"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fee na walang daily rate"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frais sans cours journalier"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táille gan ráta laethúil"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisión sen tipo diario"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દૈનિક દર વગરની ફી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עמלה בלי שער יומי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक भाव के बिना शुल्क"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naknada bez dnevnog tečaja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Díj napi árfolyam nélkül"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Միջնորդավճար առանց օրական փոխարժեքի"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biaya tanpa kurs harian"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gjald án dagsgengis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commissione senza cambio giornaliero"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日次レートなしの手数料"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საკომისიო დღიური კურსის გარეშე"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Күндік бағамсыз комиссия"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "កម្រៃគ្មានអត្រាប្រចាំថ្ងៃ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ದೈನಂದಿನ ದರವಿಲ್ಲದ ಶುಲ್ಕ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일별 환율 없는 수수료"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຄ່າທຳນຽມບໍ່ມີອັດຕາລາຍວັນ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Komisinis mokestis be dienos kurso"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maksa bez dienas kursa"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Провизија без дневен курс"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിദിന നിരക്കില്ലാത്ത ഫീസ്"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Өдрийн ханшгүй шимтгэл"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दराशिवाय शुल्क"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yuran tanpa kadar harian"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နေ့စဉ်နှုန်းမပါသော အခကြေးငွေ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebyr uten dagskurs"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दरबिनाको शुल्क"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kosten zonder dagkoers"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਫੀਸ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opłata bez kursu dziennego"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comissão sem cotação diária"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taxa sem cotação diária"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comision fără curs zilnic"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комиссия без дневного курса"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දෛනික අනුපාතයක් නැති ගාස්තුව"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poplatok bez denného kurzu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provizija brez dnevnega tečaja"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarifë pa kurs ditor"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Накнада без дневног курса"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naknada bez dnevnog kursa"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avgift utan dagskurs"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ada bila kiwango cha siku"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தினசரி விகிதம் இல்லாத கட்டணம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రోజువారీ రేటు లేని ఫీజు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค่าธรรมเนียมไม่มีอัตรารายวัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük kur olmadan ücret"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комісія без денного курсу"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روزانہ شرح کے بغیر فیس"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik kurssiz komissiya"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phí không có tỷ giá ngày"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手續費冇每日匯率"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手续费无每日汇率"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手續費無每日匯率"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imali ekhokhwayo engenalo izinga losuku"
+          }
+        }
+      }
+    },
+    "portfolio_csv_note_price_no_rate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prys sonder daaglikse koers"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ዋጋ ያለ ዕለታዊ ተመን"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السعر بلا سعر يومي"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük məzənnəsiz qiymət"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цена без дневен курс"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দৈনিক হার ছাড়া দাম"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijena bez dnevnog kursa"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preu sense tipus diari"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena bez denního kurzu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pris uden dagskurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preis ohne Tageskurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τιμή χωρίς ημερήσια ισοτιμία"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price without daily rate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precio sin cambio diario"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hind ilma päevakursita"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezioa eguneko truke-tasarik gabe"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت بدون نرخ روزانه"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinta ilman päiväkurssia"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presyo na walang daily rate"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prix sans cours journalier"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Praghas gan ráta laethúil"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezo sen tipo diario"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "દૈનિક દર વગરનો ભાવ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מחיר בלי שער יומי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक भाव के बिना कीमत"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cijena bez dnevnog tečaja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ár napi árfolyam nélkül"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Գին առանց օրական փոխարժեքի"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga tanpa kurs harian"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verð án dagsgengis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzo senza cambio giornaliero"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日次レートなしの価格"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასი დღიური კურსის გარეშე"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Күндік бағамсыз баға"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "តម្លៃគ្មានអត្រាប្រចាំថ្ងៃ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ದೈನಂದಿನ ದರವಿಲ್ಲದ ಬೆಲೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일별 환율 없는 가격"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ລາຄາບໍ່ມີອັດຕາລາຍວັນ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaina be dienos kurso"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena bez dienas kursa"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цена без дневен курс"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിദിന നിരക്കില്ലാത്ത വില"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Өдрийн ханшгүй үнэ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दराशिवाय किंमत"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harga tanpa kadar harian"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နေ့စဉ်နှုန်းမပါသော ဈေးနှုန်း"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pris uten dagskurs"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "दैनिक दरबिनाको मूल्य"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prijs zonder dagkoers"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena bez kursu dziennego"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço sem cotação diária"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço sem cotação diária"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preț fără curs zilnic"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цена без дневного курса"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දෛනික අනුපාතයක් නැති මිල"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena bez denného kurzu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena brez dnevnega tečaja"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çmim pa kurs ditor"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цена без дневног курса"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cena bez dnevnog kursa"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pris utan dagskurs"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei bila kiwango cha siku"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தினசரி விகிதம் இல்லாத விலை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రోజువారీ రేటు లేని ధర"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคาไม่มีอัตรารายวัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Günlük kur olmadan fiyat"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ціна без денного курсу"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روزانہ شرح کے بغیر قیمت"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunlik kurssiz narx"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giá không có tỷ giá ngày"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格冇每日匯率"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格无每日汇率"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格無每日匯率"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intengo engenalo izinga losuku"
           }
         }
       }

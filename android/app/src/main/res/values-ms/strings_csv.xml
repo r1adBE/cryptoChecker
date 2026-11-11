@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d baris</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Kadar harian mengikut hari kalendar di: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Kadar harian tidak dapat dimuatkan.</string>
+    <string name="portfolio_csv_import_anyway">Import juga</string>
+    <string name="portfolio_csv_import_anyway_hint">Tanpa kadar harian, harga atau yuran akan hilang secara kekal. Sila cuba lagi, atau import juga – transaksi tersebut akan diberi nota.</string>
+    <string name="portfolio_csv_note_price_no_rate">Harga tanpa kadar harian</string>
+    <string name="portfolio_csv_note_fee_no_rate">Yuran tanpa kadar harian</string>
 </resources>

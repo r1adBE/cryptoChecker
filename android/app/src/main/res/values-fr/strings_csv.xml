@@ -104,4 +104,11 @@
         <item quantity="many">%d de lignes</item>
         <item quantity="other">%d lignes</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Cours journaliers selon le jour civil dans : %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Impossible de charger les cours journaliers.</string>
+    <string name="portfolio_csv_import_anyway">Importer quand même</string>
+    <string name="portfolio_csv_import_anyway_hint">Sans cours journalier, le prix ou les frais manquent définitivement. Réessaie ou importe quand même : ces transactions porteront alors une note.</string>
+    <string name="portfolio_csv_note_price_no_rate">Prix sans cours journalier</string>
+    <string name="portfolio_csv_note_fee_no_rate">Frais sans cours journalier</string>
 </resources>

@@ -23,6 +23,7 @@ and string literals are ignored. File names and texts in annotations are escaped
 import os
 import re
 import sys
+import time
 
 DEPS_WARN = None  # no warning tier: the ceiling below is today's maximum
 DEPS_CEILING = 13  # AlarmsViewModel, ExplorerViewModel, InfoViewModel, PortfolioSnapshotUpdater, SettingsViewModel
@@ -181,8 +182,14 @@ def flatten_body(body):
 
 
 CLASS_RE = re.compile(r"\bclass\s+(\w+)")
+# One annotation in front of a property: `@Name`, optionally `()` (blanks allowed before and inside), then at least
+# one blank. The blanks after the name are consumed by ONE loop: either `()` and its blanks follow, or the look-behind
+# confirms that a blank was consumed. Two adjacent loops over the same characters (`[ \t]*(?:\(\s*\))?[ \t]+`, the
+# earlier form) match the same text in many ways and backtrack needlessly (CodeQL «inefficient regular
+# expression»); the self-test compares both forms on the Kotlin sources of the repository.
+PROPERTY_ANNOTATION = r"@\w+[ \t]*(?:\(\s*\)[ \t]+|(?<=[ \t]))"
 PROPERTY_RE = re.compile(
-    r"(?:^|[\n;])[ \t]*((?:@\w+[ \t]*(?:\(\s*\))?[ \t]+)*)"
+    r"(?:^|[\n;])[ \t]*((?:" + PROPERTY_ANNOTATION + r")*)"
     r"((?:(?:private|internal|protected|public|override|lateinit|const|open|final|abstract)[ \t]+)*)"
     r"(?:val|var)[ \t]+\w", re.M)
 
@@ -645,7 +652,56 @@ def self_test_functions():
     assert evaluate_functions("Swift", [], ceiling=1) == ([], 0)
 
 
+PROPERTY_SAMPLES = (
+    "val a = 1", "  var b: Int", "\nprivate val c", ";internal lateinit var d", "@Inject val e", "@Inject() var f",
+    "@Inject ( ) private val g", "@A @B()  @C\tprotected override val h", "@A(\n) val i", "@A(x) val j", "@Aval k",
+    "@A()val l", "x val m", "privateval n", "private  \t final var o", "@A  \t\n val p", "val", "var  ", "@ val q",
+    "fun f() { val r = 1 }; val s", "@A.B val t", "@A @ val u; @B @C() const val v",
+)
+
+
+def property_matches(pattern, text):
+    return [(m.start(), m.end(), m.group(1), m.group(2)) for m in pattern.finditer(text)]
+
+
+def self_test_property_regex():
+    """PROPERTY_RE matches exactly what its earlier form matched (samples, flattened class bodies and whole
+    files of the repository's Kotlin sources, when the script lies in a checkout) and stays fast on hostile input."""
+    # The earlier form, rebuilt here from its annotation part only for this comparison (never used for scanning)
+    earlier_annotation = "@\\w+[ \\t]*" + "(?:\\(\\s*\\))?" + "[ \\t]+"
+    assert PROPERTY_ANNOTATION in PROPERTY_RE.pattern
+    earlier = re.compile(PROPERTY_RE.pattern.replace(PROPERTY_ANNOTATION, earlier_annotation), re.M)
+    assert earlier.pattern != PROPERTY_RE.pattern
+    texts = list(PROPERTY_SAMPLES) + ["\n".join(PROPERTY_SAMPLES), ";".join(PROPERTY_SAMPLES), SAMPLE]
+    assert len(property_matches(PROPERTY_RE, "\n".join(PROPERTY_SAMPLES))) == 13
+    here = os.path.dirname(os.path.abspath(__file__))
+    files = 0
+    for root in (os.path.join(here, "..", ".."), os.path.join(here, "..", "..", "..")):  # published / private layout
+        if files or not os.path.isdir(os.path.join(root, "android")):
+            continue
+        for path in kotlin_files(root):
+            files += 1
+            with open(path, encoding="utf-8") as f:
+                source = f.read()
+            code = code_only(source)
+            texts += [source, code] + [flatten_body(body) for _, _, _, _, body, _ in classes(code) if body]
+    for text in texts:
+        assert property_matches(PROPERTY_RE, text) == property_matches(earlier, text), text[:200]
+    hostile = (
+        "\n@a" + " " * 200000 + "x", ";" + " \t" * 100000 + "x", "@a(" + " \n" * 100000 + "x",
+        "\n" + "@a " * 50000 + "x", "\n" + "@a() " * 40000 + "x", "private " * 30000 + "x",
+        "\n@a" + " " * 100000 + "(" + " " * 100000 + "x", ";@a " * 50000, "\n" * 100000 + " " * 100000,
+    )
+    started = time.monotonic()
+    for text in hostile:
+        assert property_matches(PROPERTY_RE, text) == [], text[:40]
+    elapsed = time.monotonic() - started
+    assert elapsed < 5, f"PROPERTY_RE needs {elapsed:.1f} s on hostile input"
+    return files
+
+
 def self_test():
+    compared = self_test_property_regex()
     rows = measure(SAMPLE)
     by_name = {name: (deps, props) for name, _, deps, props in rows}
     assert by_name.get("SampleViewModel") == (4, 6), by_name
@@ -668,7 +724,7 @@ def self_test():
     lines, code = evaluate([("b.kt", "Mid", 2, 14, 3)], deps_warn=15, deps_ceiling=20, props_ceiling=61)
     assert code == 0 and not any(x.startswith(("::error ", "::warning ")) for x in lines), lines
     self_test_functions()
-    print("code_metrics self-test ok")
+    print(f"code_metrics self-test ok (property pattern compared on {compared} Kotlin files)")
     return 0
 
 

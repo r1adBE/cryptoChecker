@@ -52,6 +52,12 @@ subprojects {
     }
 }
 
+// Jede Test-Aufgabe kennt die Dateien, die die Tests ausserhalb ihres Klassenpfads lesen (gemeinsame Testfälle,
+// Swift-Quellen, Nachbarmodule …): eine Änderung dort lässt die Tests neu laufen und ändert den Cache-Schlüssel.
+subprojects {
+    apply(from = rootProject.file("gradle/test-inputs.gradle.kts"))
+}
+
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

@@ -104,4 +104,11 @@
         <item quantity="few">%d retka</item>
         <item quantity="other">%d redaka</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dnevni tečajevi prema kalendarskom danu u: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Dnevni tečajevi nisu se mogli učitati.</string>
+    <string name="portfolio_csv_import_anyway">Ipak uvezi</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez dnevnog tečaja cijena ili naknada trajno nedostaju. Pokušaj ponovno ili ipak uvezi – te transakcije tada dobivaju bilješku.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cijena bez dnevnog tečaja</string>
+    <string name="portfolio_csv_note_fee_no_rate">Naknada bez dnevnog tečaja</string>
 </resources>

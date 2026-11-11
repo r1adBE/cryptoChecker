@@ -104,4 +104,11 @@
         <item quantity="two">%d שורות</item>
         <item quantity="other">%d שורות</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">שערים יומיים לפי היום הקלנדרי ב: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">לא ניתן היה לטעון את השערים היומיים.</string>
+    <string name="portfolio_csv_import_anyway">ייבוא בכל זאת</string>
+    <string name="portfolio_csv_import_anyway_hint">בלי שער יומי, המחיר או העמלה יחסרו לצמיתות. אפשר לנסות שוב או לייבא בכל זאת – לעסקאות האלה תתווסף הערה.</string>
+    <string name="portfolio_csv_note_price_no_rate">מחיר בלי שער יומי</string>
+    <string name="portfolio_csv_note_fee_no_rate">עמלה בלי שער יומי</string>
 </resources>

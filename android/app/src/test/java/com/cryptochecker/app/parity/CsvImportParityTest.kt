@@ -14,6 +14,9 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.classify
 import com.cryptochecker.app.domain.portfolio.csvimport.parseNumber
@@ -24,6 +27,7 @@ import java.time.Instant
 import java.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Gemeinsame Testfälle `csv_import.json` (iOS: `CsvImportTests.swift`). */
@@ -179,10 +183,18 @@ class CsvImportParityTest {
             val rates = c["rates"].obj().mapValues { (_, v) -> byDay(v) }
             val usdtUsd = byDay(c["usdtUsd"])
             val currency = c["currency"] as String
-            val result = CsvImportParser.parse(c["csv"] as String, "UTC")
+            // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät) — beim Import wie im Export
+            val deviceZone = c["deviceZone"] as String? ?: "UTC"
+            val template = TaxTemplate.valueOf(c["template"] as String? ?: "NEUTRAL")
+            val fxZone = CsvImportParser.fxZoneFor(template.zoneId, deviceZone)
+            (c["fxZone"] as String?)?.let { assertEquals("$name fxZone", it, fxZone) }
+            val result = CsvImportParser.parse(c["csv"] as String, deviceZone, fxZone = fxZone)
+            assertEquals("$name result.fxZone", fxZone, result.fxZone)
             val preview = CsvImportMapping.preview(result, emptySet(), usdtUsd = usdtUsd) { cur, day -> rates[cur]?.get(day) }
             assertEquals("$name priceUsdt", c["priceUsdt"], preview.transactions.map { text(it.priceUsdt) })
             assertEquals("$name usdtApproximate", c["usdtApproximate"].list().map { it.num()!!.toInt() }, preview.usdtApproximate)
+            assertEquals("$name preview.fxZone", fxZone, preview.fxZone)
+            assertTrue("$name dayRates", preview.dayRates)
             val trades = preview.transactions.mapIndexed { i, t ->
                 PortfolioTrade(
                     id = i + 1L, coin = t.coin, type = t.type, amount = t.amount, priceUsdt = t.priceUsdt, time = t.time,
@@ -190,8 +202,8 @@ class CsvImportParityTest {
                 )
             }
             val rows = TaxExport.gainRows(
-                trades, TaxMethod.of(CostMethod.FIFO), TaxTemplate.NEUTRAL.period(c["year"].num()!!.toInt()),
-                java.time.ZoneId.of("UTC"), currency, rates[currency] ?: emptyMap(), usdtUsd = usdtUsd,
+                trades, TaxMethod.of(CostMethod.FIFO), template.period(c["year"].num()!!.toInt()),
+                template.zone(java.time.ZoneId.of(deviceZone)), currency, rates[currency] ?: emptyMap(), usdtUsd = usdtUsd,
             )
             val expected = c["gains"].list().map { it.obj() }
             assertEquals("$name rows", expected.size, rows.size)
@@ -426,5 +438,37 @@ class CsvImportParityTest {
         // Belohnung mit Preis: Schlüssel mit Preis
         val reward = result.rows.single { it.line == c["rewardLine"].num()!!.toInt() }
         assertEquals(c["key"], reward.key)
+    }
+
+    /**
+     * Kein stiller Verlust (`rateGate`): «Importieren» mit Zeilen ohne Tageskurs nur nach Bestätigung; was fehlt, steht an
+     * der Transaktion und kommt beim Speichern als Vermerk in die Notiz. Gegenstück: `testRateGate` (iOS).
+     */
+    @Test
+    fun rateGate() {
+        val c = data["rateGate"].obj()
+        c["gate"].list().map { it.obj() }.forEach { g ->
+            val missing = g["missingFx"].num()!!.toInt()
+            val accepted = g["accepted"] as Boolean
+            assertEquals("gate $missing $accepted", g["expected"], CsvImportRateGate.canImport(missing, accepted))
+        }
+        val rates = c["rates"].obj().mapValues { (_, byDay) ->
+            byDay.obj().entries.associate { LocalDate.parse(it.key).toEpochDay() to BigDecimal(it.value as String) }
+        }
+        val consent = CsvRateConsent(accepted = true, priceNote = c["priceNote"] as String, feeNote = c["feeNote"] as String)
+        val preview = CsvImportMapping.preview(CsvImportParser.parse(c["csv"] as String), emptySet()) { cur, day -> rates[cur]?.get(day) }
+        assertEquals(c["missingFx"].list().map { it.num()!!.toInt() }, preview.missingFx)
+        assertEquals(c["dayRates"], preview.dayRates)
+        val marked = CsvImportRateGate.mark(preview.transactions, consent)
+        val expected = c["txs"].list().map { it.obj() }
+        assertEquals(expected.map { it["line"].num()!!.toInt() }, preview.transactions.map { it.line })
+        expected.forEachIndexed { i, e ->
+            assertEquals("tx ${e["line"]} missingRate", e["missingRate"], preview.transactions[i].missingRate?.name)
+            assertEquals("tx ${e["line"]} note", e["note"], marked[i].note)
+        }
+        c["notes"].list().map { it.obj() }.forEach { n ->
+            val missing = (n["missing"] as String?)?.let { CsvMissingRate.valueOf(it) }
+            assertEquals("note $n", n["expected"], CsvImportRateGate.note(n["note"] as String?, missing, consent))
+        }
     }
 }

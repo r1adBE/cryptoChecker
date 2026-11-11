@@ -32,7 +32,7 @@ TRŽIŠTE
 
 JOŠ
 • Widgeti: popis praćenja, ukupna vrijednost portfelja, pojedinačna kriptovaluta s grafikonom, Kripto puls; Wear OS
-• Portfelj po želji (uključi ga u Postavkama): kupnje, prodaje, zamjene, prijenosi, nagrade, uplate i isplate; FIFO (zadano) ili prosjek (Ø); adrese samo za čitanje bez seeda za BTC (uklj. xpub), ETH i EVM mreže, SOL, TRX, XRP, LTC, ADA i TON; CSV uvoz iz Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; godišnji pregled kao CSV; vlastito zaključavanje. Bitpanda i Swissquote: bez vlastite cijene, samo CSV.
+• Portfelj po želji (uključi ga u Postavkama): kupnje, prodaje, zamjene, prijenosi, nagrade, uplate i isplate; FIFO (zadano) ili prosjek (Ø); adrese samo za čitanje bez seeda za BTC (uklj. xpub), ETH i EVM mreže, SOL, TRX, XRP, LTC, ADA i TON; CSV uvoz iz Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; godišnji pregled kao CSV; vlastito zaključavanje. Swissquote: bez vlastite cijene, samo CSV.
 • Čitljivo za sve: zeleno/crveno ili plavo/narančasto, predznak i strelica umjesto samo boje; TalkBack čita svaki redak kao jednu rečenicu
 • Sigurnosna kopija i vraćanje u datoteku – i između Androida i iPhonea
 • Svijetli i tamni način, pet boja naglaska, 75 jezika

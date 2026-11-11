@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Разрешить уведомления?</string>
     <string name="notification_portfolio_alarm_locked">Твоё оповещение сработало – открой приложение, чтобы узнать подробности.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – сейчас %2$s</string>
     <string name="notification_portfolio_alarm_title">Стоимость портфеля</string>
     <string name="notification_price_change">%1$s, с %2$s (%3$s назад)</string>
     <string name="notification_price_change_no_age">%1$s, с %2$s</string>

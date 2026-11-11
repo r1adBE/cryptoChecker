@@ -24,6 +24,12 @@ final class BackupAlarmsParityTests: XCTestCase {
             if let expectedEnabled = c["expectedEnabled"] as? Bool {
                 XCTAssertEqual(parsed?.enabled, expectedEnabled, c["name"] as? String ?? "")
             }
+            // Aus einer Sicherung geladen → scharf: keine Auslösung, kein «gemeldet»
+            if c["expectedArmed"] as? Bool == true {
+                XCTAssertEqual(parsed?.lastTriggeredAt, 0, c["name"] as? String ?? "")
+                XCTAssertEqual(parsed?.referenceAt, 0, c["name"] as? String ?? "")
+                XCTAssertNil(parsed?.lastTriggeredPrice, c["name"] as? String ?? "")
+            }
         }
     }
 }

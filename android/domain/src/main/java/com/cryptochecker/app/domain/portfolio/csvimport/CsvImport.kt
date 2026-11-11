@@ -288,23 +288,26 @@ object CsvImport {
         val day = epochDay(row.timeMillis, zone)
         val close = usdtUsdOn(usdtUsd, day)
         var usdtApproximate = false
+        var dayRate = false
         // Einheiten der Währung je 1 USDT; USDT selbst 1
         fun rate(currency: String): BigDecimal? {
             if (currency == PortfolioStables.VALUATION) return BigDecimal.ONE
+            dayRate = true
             val fxRate = if (currency in USD_LIKE) BigDecimal.ONE else fx(currency, day)?.takeIf { it.signum() > 0 } ?: return null
             if (usdtUsd == null) return fxRate
             if (close == null) { usdtApproximate = true; return fxRate }
             return fxRate.multiply(close, PortfolioDecimal.MC)
         }
-        var needsFx = false
+        var priceNeedsFx = false
+        var feeNeedsFx = false
         val priceUsdt = row.price?.let { p ->
             val r = row.quote?.let { rate(it) }
-            if (r == null) { needsFx = true; null } else toUsdt(p, r)
+            if (r == null) { priceNeedsFx = true; null } else toUsdt(p, r)
         }
         // Tausch: Wert aus der Datei (Fiat) zum Tageskurs
         val swapValueUsdt = row.swapValue?.let { v ->
             val r = row.quote?.let { rate(it) }
-            if (r == null) { needsFx = true; null } else toUsdt(v, r)
+            if (r == null) { priceNeedsFx = true; null } else toUsdt(v, r)
         }
         // Gebühr in der Preiswährung, in USD/USDT oder in einer anderen Fiat-Währung (Kauf in USD, Gebühr in EUR; Tausch
         // ohne Fiat-Wert mit EUR-Gebühr): zum Tageskurs ihrer Währung — ohne Kurs nie still weggelassen, sondern needsFx
@@ -312,16 +315,19 @@ object CsvImport {
         val feeUnit = row.feeUnit
         val feeUsdt = if (row.fee != null && feeUnit != null && (feeUnit == row.quote || feeUnit in USD_LIKE || isFiat(feeUnit))) {
             val r = rate(feeUnit)
-            if (r == null) { needsFx = true; null } else toUsdt(row.fee, r)
+            if (r == null) { feeNeedsFx = true; null } else toUsdt(row.fee, r)
         } else null
         CsvImportPriced(
             row = row,
             priceUsdt = priceUsdt,
             feeUsdt = feeUsdt,
-            needsFx = needsFx,
+            needsFx = priceNeedsFx || feeNeedsFx,
             missingPrice = row.price == null && (row.kind == CsvImportKind.BUY || row.kind == CsvImportKind.SELL),
             swapValueUsdt = swapValueUsdt,
             usdtApproximate = usdtApproximate,
+            priceNeedsFx = priceNeedsFx,
+            feeNeedsFx = feeNeedsFx,
+            dayRate = dayRate,
         )
     }
 

@@ -16,6 +16,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 221)
+
+Fixes from the audit of build 220:
+
+* Android: a portfolio alert never shows an amount or threshold in the notification, whatever the lock-screen setting (as on iOS).
+* iOS: alerts restored from a backup over existing data are armed again.
+* CSV import: the day of the daily rate follows the time zone of the selected tax template; rows without a daily rate block the import until you retry or confirm, and get a permanent note.
+* A backup that contains portfolio alerts always needs a password.
+* Store description: only Swissquote is "CSV only". Privacy page: the watchlist is backed up with its groups and notes.
+* Tests declare the files they read, so they run again when fixtures or Swift sources change.
+
 ## 16.2.2 (build 220)
 
 * Code scanning (CodeQL) runs as its own workflow: Kotlin/Java compiled once with dependency verification on; Swift, Python and the workflows as before.

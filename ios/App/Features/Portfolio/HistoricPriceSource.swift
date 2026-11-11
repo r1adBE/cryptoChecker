@@ -243,9 +243,16 @@ enum HistoricPriceSource {
     /// füllt `PortfolioHistoryFx.rateOn` mit dem Vortag. USD: leer (kein Bedarf). 6 h im Speicher. nil, wenn kein Kurs zu
     /// haben ist. Wie Android.
     static func usdToSeries(_ currency: String, from: LocalDay, to: LocalDay) async -> [Int: Double]? {
+        await usdToSeriesChecked(currency, from: from, to: to).rates
+    }
+
+    /// Wie `usdToSeries`, sagt aber, WARUM nichts kam: `failed` = keine gültige Antwort (Netz, Dienst) — im Unterschied zu
+    /// «für diese Währung bzw. diesen Zeitraum gibt es keinen Kurs» (der CSV-Import nennt beides getrennt). Wie Android.
+    static func usdToSeriesChecked(_ currency: String, from: LocalDay, to: LocalDay) async
+        -> (rates: [Int: Double]?, failed: Bool) {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        if target == "USD" { return [:] }
-        guard FxRateSource.isCurrencyCode(target), from <= to else { return nil }
+        if target == "USD" { return ([:], false) }
+        guard FxRateSource.isCurrencyCode(target), from <= to else { return (nil, false) }
         let key = "\(target)|\(from)|\(to)"
         let now = EpochTime.nowMillis
         let ttl = fxSeriesTtlMillis
@@ -253,13 +260,15 @@ enum HistoricPriceSource {
             guard let entry = $0[key], now - entry.at >= 0, now - entry.at < ttl else { return nil }
             return entry.rates
         }
-        if let cached { return cached }
-        guard let days = await ecbDays(PortfolioHistoryFx.requestCurrencies(target), from: from, to: to) else { return nil }
+        if let cached { return (cached, false) }
+        guard let days = await ecbDays(PortfolioHistoryFx.requestCurrencies(target), from: from, to: to) else {
+            return (nil, true)
+        }
         let series = PortfolioHistoryFx.ratesByDay(target, byDate: days.mapValues { EcbRates.rebase($0, base: "USD") })
-        guard !series.isEmpty else { return nil }
+        guard !series.isEmpty else { return (nil, false) }
         let entry = (rates: series, at: EpochTime.nowMillis)
         fxSeriesCache.withLock { $0[key] = entry }
-        return series
+        return (series, false)
     }
 
     /// Ganze Geschichte der EZB für die Währungen eines Schlüssels («CHF+USD») mit Ladezeit (nur im Speicher).

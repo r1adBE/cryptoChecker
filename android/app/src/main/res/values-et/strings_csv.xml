@@ -96,4 +96,11 @@
         <item quantity="one">%d rida</item>
         <item quantity="other">%d rida</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Päevakursid kalendripäeva järgi ajavööndis: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Päevakursse ei õnnestunud laadida.</string>
+    <string name="portfolio_csv_import_anyway">Impordi siiski</string>
+    <string name="portfolio_csv_import_anyway_hint">Ilma päevakursita jääb hind või tasu püsivalt puudu. Proovi uuesti või impordi siiski – need tehingud saavad siis märkuse.</string>
+    <string name="portfolio_csv_note_price_no_rate">Hind ilma päevakursita</string>
+    <string name="portfolio_csv_note_fee_no_rate">Tasu ilma päevakursita</string>
 </resources>

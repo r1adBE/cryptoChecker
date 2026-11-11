@@ -32,7 +32,7 @@ MARKET
 
 MORE
 • Widgets: watchlist, portfolio total, single coin with chart, Crypto pulse; Wear OS
-• Portfolio optional (turn it on in Settings): buys, sells, swaps, transfers, rewards, deposits and withdrawals; FIFO (default) or average (Ø); read-only addresses without a seed for BTC (incl. xpub), ETH & EVM chains, SOL, TRX, XRP, LTC, ADA and TON; CSV import from Relai, Swissquote, Bitpanda, Kraken, Binance and Coinbase; year overview as CSV; its own lock. Bitpanda and Swissquote: no price of their own, CSV only.
+• Portfolio optional (turn it on in Settings): buys, sells, swaps, transfers, rewards, deposits and withdrawals; FIFO (default) or average (Ø); read-only addresses without a seed for BTC (incl. xpub), ETH & EVM chains, SOL, TRX, XRP, LTC, ADA and TON; CSV import from Relai, Swissquote, Bitpanda, Kraken, Binance and Coinbase; year overview as CSV; its own lock. Swissquote: no price of its own, CSV only.
 • Readable for everyone: green/red or blue/orange, sign and arrow instead of color alone; TalkBack reads each row as one sentence
 • Backup & restore to a file – also between Android and iPhone
 • Light and dark mode, five accent colors, 75 languages

@@ -32,7 +32,7 @@ MERCAT
 
 MÉS
 • Widgets: llista, total de la cartera, una moneda amb gràfic, Pols cripto; Wear OS
-• Cartera opcional (a Configuració): compres, vendes, intercanvis, transferències, recompenses, dipòsits i retirades; FIFO (predeterminat) o mitjana (Ø); adreces de només lectura sense seed per a BTC (incl. xpub), ETH i cadenes EVM, SOL, TRX, XRP, LTC, ADA i TON; importació CSV de Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; resum anual en CSV; bloqueig propi. Bitpanda i Swissquote: sense preu propi, només CSV.
+• Cartera opcional (a Configuració): compres, vendes, intercanvis, transferències, recompenses, dipòsits i retirades; FIFO (predeterminat) o mitjana (Ø); adreces de només lectura sense seed per a BTC (incl. xpub), ETH i cadenes EVM, SOL, TRX, XRP, LTC, ADA i TON; importació CSV de Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; resum anual en CSV; bloqueig propi. Swissquote: sense preu propi, només CSV.
 • Llegible per a tothom: verd/vermell o blau/taronja, signe i fletxa, no només color; TalkBack llegeix cada fila com una frase
 • Còpia de seguretat i restauració en un fitxer – també entre Android i iPhone
 • Mode clar i fosc, cinc colors d'èmfasi, 75 llengües

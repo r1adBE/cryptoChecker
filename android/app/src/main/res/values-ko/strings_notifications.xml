@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">알림을 허용할까요?</string>
     <string name="notification_portfolio_alarm_locked">경보가 울렸습니다. 자세한 내용은 앱을 여세요.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – 현재 %2$s</string>
     <string name="notification_portfolio_alarm_title">포트폴리오 가치</string>
     <string name="notification_price_change">%1$s, %2$s 대비 (%3$s 전)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s 대비</string>

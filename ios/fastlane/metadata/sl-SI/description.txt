@@ -32,7 +32,7 @@ TRG
 
 ŠE VEČ
 • Pripomočki za domači in zaklenjeni zaslon, dejavnost v živo za en kovanec
-• Portfelj neobvezno (vklopi ga v nastavitvah): nakupi, prodaje, zamenjave, prenosi, nagrade, pologi in dvigi; FIFO (privzeto) ali povprečje (Ø); naslovi samo za branje brez semena za BTC (vklj. xpub), ETH in verige EVM, SOL, TRX, XRP, LTC, ADA in TON; uvoz CSV iz Relai, Swissquote, Bitpanda, Kraken, Binance in Coinbase; letni pregled kot CSV; lasten zaklep. Bitpanda in Swissquote: brez lastnega tečaja, samo CSV.
+• Portfelj neobvezno (vklopi ga v nastavitvah): nakupi, prodaje, zamenjave, prenosi, nagrade, pologi in dvigi; FIFO (privzeto) ali povprečje (Ø); naslovi samo za branje brez semena za BTC (vklj. xpub), ETH in verige EVM, SOL, TRX, XRP, LTC, ADA in TON; uvoz CSV iz Relai, Swissquote, Bitpanda, Kraken, Binance in Coinbase; letni pregled kot CSV; lasten zaklep. Swissquote: brez lastnega tečaja, samo CSV.
 • Berljivo za vse: zeleno/rdeče ali modro/oranžno, predznak in puščica namesto same barve, Dynamic Type; VoiceOver vsako vrstico prebere kot en stavek
 • Varnostna kopija in obnovitev prek aplikacije Datoteke
 • Svetli in temni način, pet barv poudarka, 75 jezikov

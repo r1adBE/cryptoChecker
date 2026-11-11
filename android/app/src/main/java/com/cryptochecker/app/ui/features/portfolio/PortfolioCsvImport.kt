@@ -165,6 +165,7 @@ fun PortfolioCsvImportFlow(
             onZone = viewModel::setZone,
             onDateOrder = viewModel::setDateOrder,
             onDecimalMark = viewModel::setDecimalMark,
+            onReloadRates = viewModel::reloadRates,
             onDismiss = close,
             // Während des Neu-Lesens kein «Importieren»
             rereading = s.rereading,

@@ -53,15 +53,16 @@ object PortfolioLockPolicy {
     ): Boolean = backgroundSince > 0L && (now - backgroundSince > limitMillis || now < backgroundSince)
 
     /**
-     * Enthält eine Sicherung Portfolio-Daten? Eigene Trades und beobachtete Adressen (auch xpub) zählen
-     * gleich: beide verraten Bestände. Dann verlangt Sichern im gesperrten Zustand Entsperren, und der
-     * Passwortschutz ist vorgewählt.
+     * Enthält eine Sicherung Portfolio-Daten? Eigene Trades, beobachtete Adressen (auch xpub) und Portfolio-Alarme
+     * zählen gleich: Trades und Adressen verraten Bestände, die Schwelle eines Alarms («über 250’000 CHF») die
+     * Grössenordnung des Vermögens. Dann verlangt Sichern im gesperrten Zustand Entsperren, und das Passwort ist
+     * Pflicht. Gemeinsame Fälle: `backup_portfolio_data.json`.
      */
-    fun backupHasPortfolioData(transactions: Int, watchedAddresses: Int): Boolean =
-        transactions > 0 || watchedAddresses > 0
+    fun backupHasPortfolioData(transactions: Int, watchedAddresses: Int, portfolioAlarms: Int): Boolean =
+        transactions > 0 || watchedAddresses > 0 || portfolioAlarms > 0
 
     /**
-     * Sichern nur mit Passwort? Mit Portfolio-Daten (Trades, Adressen, xpub) immer — eine solche Datei entsteht nie
+     * Sichern nur mit Passwort? Mit Portfolio-Daten (Trades, Adressen, xpub, Portfolio-Alarme) immer — eine solche Datei entsteht nie
      * unverschlüsselt. Ohne Portfolio-Daten bleibt der Schutz wählbar. Einlesen alter unverschlüsselter Dateien bleibt möglich.
      */
     fun backupExportRequiresPassword(hasPortfolioData: Boolean): Boolean = hasPortfolioData

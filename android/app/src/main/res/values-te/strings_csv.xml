@@ -96,4 +96,11 @@
         <item quantity="one">%d పంక్తి</item>
         <item quantity="other">%d పంక్తులు</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">రోజువారీ రేట్లు ఈ టైమ్ జోన్ క్యాలెండర్ రోజు ప్రకారం: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">రోజువారీ రేట్లను లోడ్ చేయలేకపోయాం.</string>
+    <string name="portfolio_csv_import_anyway">అయినా ఇంపోర్ట్ చేయండి</string>
+    <string name="portfolio_csv_import_anyway_hint">రోజువారీ రేటు లేకపోతే ధర లేదా ఫీజు శాశ్వతంగా లోపిస్తుంది. మళ్లీ ప్రయత్నించండి, లేదా అయినా ఇంపోర్ట్ చేయండి – అప్పుడు ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది.</string>
+    <string name="portfolio_csv_note_price_no_rate">రోజువారీ రేటు లేని ధర</string>
+    <string name="portfolio_csv_note_fee_no_rate">రోజువారీ రేటు లేని ఫీజు</string>
 </resources>

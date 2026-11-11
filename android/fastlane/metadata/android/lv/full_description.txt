@@ -32,7 +32,7 @@ TIRGUS
 
 VAIRĀK
 • Logrīki: vērojamo saraksts, portfeļa kopsumma, viena monēta ar diagrammu, Kripto pulss; Wear OS
-• Portfelis pēc izvēles (ieslēdz iestatījumos): pirkumi, pārdošanas, maiņas, pārvedumi, atlīdzības, iemaksas un izmaksas; FIFO (noklusējums) vai vidējais (Ø); tikai lasāmas adreses bez seed frāzes BTC (ieskaitot xpub), ETH un EVM ķēdēm, SOL, TRX, XRP, LTC, ADA un TON; CSV imports no Relai, Swissquote, Bitpanda, Kraken, Binance un Coinbase; gada pārskats CSV; sava bloķēšana. Bitpanda un Swissquote: savas cenas nav, tikai CSV.
+• Portfelis pēc izvēles (ieslēdz iestatījumos): pirkumi, pārdošanas, maiņas, pārvedumi, atlīdzības, iemaksas un izmaksas; FIFO (noklusējums) vai vidējais (Ø); tikai lasāmas adreses bez seed frāzes BTC (ieskaitot xpub), ETH un EVM ķēdēm, SOL, TRX, XRP, LTC, ADA un TON; CSV imports no Relai, Swissquote, Bitpanda, Kraken, Binance un Coinbase; gada pārskats CSV; sava bloķēšana. Swissquote: savas cenas nav, tikai CSV.
 • Salasāms visiem: zaļš/sarkans vai zils/oranžs, zīme un bultiņa, nevis tikai krāsa; TalkBack katru rindu nolasa kā vienu teikumu
 • Dublēšana un atjaunošana failā – arī starp Android un iPhone
 • Gaišais un tumšais režīms, piecas akcenta krāsas, 75 valodas

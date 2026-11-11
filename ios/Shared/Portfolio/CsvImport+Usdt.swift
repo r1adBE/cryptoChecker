@@ -35,24 +35,29 @@ extension CsvImport {
             let day = epochDay(row.timeMillis, zone: zone)
             let close = usdtUsdOn(usdtUsd, day: day)
             var usdtApproximate = false
-            var needsFx = false
+            var priceNeedsFx = false
+            var feeNeedsFx = false
+            // Kurs eines Tags gebraucht (alles ausser USDT selbst) — wie Android `dayRate`
+            var dayRate = false
             var priceUsdt: Decimal?
             if let p = row.price {
+                if usesDay(row.quote) { dayRate = true }
                 if let q = row.quote, let r = usdtRate(q, day, fx, usdtUsd: usdtUsd, close: close) {
                     if r.approximate { usdtApproximate = true }
                     priceUsdt = toUsdt(p, r.rate)
                 } else {
-                    needsFx = true
+                    priceNeedsFx = true
                 }
             }
             // Tausch: Wert aus der Datei (Fiat) zum Tageskurs
             var swapValueUsdt: Decimal?
             if let v = row.swapValue {
+                if usesDay(row.quote) { dayRate = true }
                 if let q = row.quote, let r = usdtRate(q, day, fx, usdtUsd: usdtUsd, close: close) {
                     if r.approximate { usdtApproximate = true }
                     swapValueUsdt = toUsdt(v, r.rate)
                 } else {
-                    needsFx = true
+                    priceNeedsFx = true
                 }
             }
             // Gebühr in der Preiswährung, in USD/USDT oder in einer anderen Fiat-Währung (Kauf in USD, Gebühr in EUR;
@@ -60,17 +65,24 @@ extension CsvImport {
             // sondern needsFx wie Preis und Wert. Wie Android
             var feeUsdt: Decimal?
             if let fee = row.fee, let unit = row.feeUnit, unit == row.quote || usdLike.contains(unit) || isFiat(unit) {
+                if usesDay(unit) { dayRate = true }
                 if let r = usdtRate(unit, day, fx, usdtUsd: usdtUsd, close: close) {
                     if r.approximate { usdtApproximate = true }
                     feeUsdt = toUsdt(fee, r.rate)
                 } else {
-                    needsFx = true
+                    feeNeedsFx = true
                 }
             }
-            return CsvImportPriced(row: row, priceUsdt: priceUsdt, feeUsdt: feeUsdt, needsFx: needsFx,
+            return CsvImportPriced(row: row, priceUsdt: priceUsdt, feeUsdt: feeUsdt, needsFx: priceNeedsFx || feeNeedsFx,
                                    missingPrice: row.price == nil && (row.kind == .BUY || row.kind == .SELL),
-                                   swapValueUsdt: swapValueUsdt, usdtApproximate: usdtApproximate)
+                                   swapValueUsdt: swapValueUsdt, usdtApproximate: usdtApproximate,
+                                   priceNeedsFx: priceNeedsFx, feeNeedsFx: feeNeedsFx, dayRate: dayRate)
         }
+    }
+
+    /// Betrag in `currency` braucht den Kurs seines Tags: jede Währung ausser USDT selbst (nil = kein Betrag).
+    private static func usesDay(_ currency: String?) -> Bool {
+        currency != nil && currency != PortfolioStables.valuation
     }
 
     /// Einheiten der Währung je 1 USDT am Tag (wie Android `rate` in `priceInUsdt`): USDT 1; sonst Devisenkurs

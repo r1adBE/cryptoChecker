@@ -96,4 +96,11 @@
         <item quantity="one">%d qator</item>
         <item quantity="other">%d qator</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Kunlik kurslar shu vaqt mintaqasidagi kalendar kuni boʻyicha: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Kunlik kurslarni yuklab boʻlmadi.</string>
+    <string name="portfolio_csv_import_anyway">Baribir import qilish</string>
+    <string name="portfolio_csv_import_anyway_hint">Kunlik kurssiz narx yoki komissiya butunlay yetishmay qoladi. Qayta urinib koʻring yoki baribir import qiling – oʻsha tranzaksiyalarga izoh qoʻshiladi.</string>
+    <string name="portfolio_csv_note_price_no_rate">Kunlik kurssiz narx</string>
+    <string name="portfolio_csv_note_fee_no_rate">Kunlik kurssiz komissiya</string>
 </resources>

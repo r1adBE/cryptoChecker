@@ -192,11 +192,12 @@ struct BackupSettingsPage: View {
         encryptedFile = nil
     }
 
-    /// Sichern: Enthält die Datei Portfolio-Daten (Trades oder beobachtete Adressen inkl. xpub) und ist
-    /// gesperrt, erst entsperren — wie Android.
+    /// Sichern: Enthält die Datei Portfolio-Daten (Trades, beobachtete Adressen inkl. xpub oder Portfolio-Alarme)
+    /// und ist gesperrt, erst entsperren — wie Android.
     private func startExport() {
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
-            transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count)
+            transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
+            portfolioAlarms: data.portfolioAlarms.count)
         Task {
             let open = await AppLock.shared.requireUnlock { locked in
                 PortfolioLockPolicy.backupExportNeedsUnlock(locked: locked, hasPortfolioData: hasPortfolio)
@@ -213,7 +214,8 @@ struct BackupSettingsPage: View {
     private func export(password: String?) {
         // Mit Portfolio-Daten nie ohne Passwort (das Blatt erzwingt es schon; hier nochmals vor dem Schreiben)
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
-            transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count)
+            transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
+            portfolioAlarms: data.portfolioAlarms.count)
         guard PortfolioLockPolicy.backupExportAllowed(hasPassword: password != nil, hasPortfolioData: hasPortfolio) else {
             fail("backup_failed")
             return

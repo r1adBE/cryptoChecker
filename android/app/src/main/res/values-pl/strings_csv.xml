@@ -112,4 +112,11 @@
         <item quantity="many">%d wierszy</item>
         <item quantity="other">%d wiersza</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Kursy dzienne według dnia kalendarzowego w: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Nie udało się wczytać kursów dziennych.</string>
+    <string name="portfolio_csv_import_anyway">Importuj mimo to</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez kursu dziennego ceny lub opłaty zabraknie na stałe. Spróbuj ponownie albo importuj mimo to – te transakcje dostaną wtedy notatkę.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cena bez kursu dziennego</string>
+    <string name="portfolio_csv_note_fee_no_rate">Opłata bez kursu dziennego</string>
 </resources>

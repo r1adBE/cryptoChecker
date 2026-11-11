@@ -12,7 +12,9 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledExcept
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
@@ -66,8 +68,10 @@ internal class CsvImportSavePlan(
  * (Id folgt der Zeit), in Zeilen umwandeln und den Lauf kennzeichnen («Import rückgängig»: Format, [now], Hash der
  * Zeilenschlüssel). Neue Zeilen, die gegen eine gespeicherte Seite aufgehen, kommen als Ersatz mit
  * ([CsvTransferMatch.withFallbacks]): gespeichert nur, wenn die Verknüpfung beim Speichern nicht mehr geht. Bei grossen
- * Dateien rechenintensiv, darum im Hintergrund aufgerufen.
- * @return null, wenn nicht jede Auszahlung (ohne verknüpfte Umbuchung) eine Wahl hat
+ * Dateien rechenintensiv, darum im Hintergrund aufgerufen. Zeilen ohne Tageskurs ([CsvImportPreview.missingFx]): nur mit
+ * ausdrücklicher Bestätigung ([consent], [CsvImportRateGate.canImport]); jede betroffene Transaktion bekommt dann ihren
+ * Vermerk in die Notiz ([CsvImportRateGate.mark]) — auch als Ersatzzeile.
+ * @return null, wenn nicht jede Auszahlung (ohne verknüpfte Umbuchung) eine Wahl hat oder die Bestätigung fehlt
  */
 internal fun prepareCsvImport(
     preview: CsvImportPreview,
@@ -76,10 +80,12 @@ internal fun prepareCsvImport(
     choices: Map<String, CsvWithdrawalChoice>,
     destinations: Map<String, String?>,
     now: Long,
+    consent: CsvRateConsent = CsvRateConsent(),
 ): CsvImportSavePlan? {
+    if (!CsvImportRateGate.canImport(preview.missingFx.size, consent.accepted)) return null
     val plan = CsvTransferMatch.apply(preview.transactions, links, linked)
     if (!CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices)) return null
-    val rows = CsvTransferMatch.withFallbacks(preview.transactions, plan)
+    val rows = CsvImportRateGate.mark(CsvTransferMatch.withFallbacks(preview.transactions, plan), consent)
     val txs = CsvImportMapping.insertOrder(CsvImportMapping.applyWithdrawalChoices(rows, choices, destinations))
     val batch = PortfolioImportBatch.newId(preview.format.name, now, txs.map { it.importKey })
     return CsvImportSavePlan(txs.map { it.toEntity() }, batch, plan.storedUpdates, CsvTransferMatch.fallbacks(plan))

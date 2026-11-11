@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d 行</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">每日匯率依此時區的日曆日計算：%1$s</string>
+    <string name="portfolio_csv_import_rates_failed">無法載入每日匯率。</string>
+    <string name="portfolio_csv_import_anyway">仍要匯入</string>
+    <string name="portfolio_csv_import_anyway_hint">沒有每日匯率，價格或手續費將永久缺失。請重試，或仍要匯入——這些交易將加上備註。</string>
+    <string name="portfolio_csv_note_price_no_rate">價格無每日匯率</string>
+    <string name="portfolio_csv_note_fee_no_rate">手續費無每日匯率</string>
 </resources>

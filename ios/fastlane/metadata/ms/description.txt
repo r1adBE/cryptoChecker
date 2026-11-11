@@ -32,7 +32,7 @@ PASARAN
 
 LAGI
 • Widget Skrin Utama dan Skrin Kunci, Aktiviti Langsung bagi satu koin; Apple Watch
-• Portfolio pilihan (dalam Tetapan): belian, jualan, tukaran, pindahan, ganjaran, deposit dan pengeluaran; FIFO (lalai) atau purata (Ø); alamat baca sahaja tanpa frasa benih: BTC (termasuk xpub), rangkaian ETH & EVM, SOL, TRX, XRP, LTC, ADA dan TON; import CSV daripada Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan (CSV); kunci sendiri. Bitpanda, Swissquote: CSV sahaja, tiada harga sendiri.
+• Portfolio pilihan (dalam Tetapan): belian, jualan, tukaran, pindahan, ganjaran, deposit dan pengeluaran; FIFO (lalai) atau purata (Ø); alamat baca sahaja tanpa frasa benih: BTC (termasuk xpub), rangkaian ETH & EVM, SOL, TRX, XRP, LTC, ADA dan TON; import CSV daripada Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan (CSV); kunci sendiri. Swissquote: CSV sahaja, tiada harga sendiri.
 • Mudah dibaca: hijau/merah atau biru/oren, tanda dan anak panah, bukan warna sahaja, Jenis Dinamik; VoiceOver membaca setiap baris sebagai ayat
 • Sandaran & pemulihan melalui apl Fail
 • Mod cerah dan gelap, lima warna aksen, 75 bahasa

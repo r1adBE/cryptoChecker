@@ -337,7 +337,7 @@ enum Notifier {
 }
 
 /// Inhalt eines Portfolio-Alarms (rein, testbar): immer nur Titel und neutraler Satz — nie Betrag, Schwelle oder Prozent,
-/// auch ohne Portfolio-Sperre (iOS kann den Sperrbildschirm nicht erkennen). Android zeigt entsperrt die Einzelheiten.
+/// auch ohne Portfolio-Sperre (iOS kann den Sperrbildschirm nicht erkennen). Android gleich (`PortfolioAlarmNotice.kt`).
 enum PortfolioAlarmNotice {
     static func content() -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()

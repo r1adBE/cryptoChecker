@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d 行</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">日次レートの基準日（暦日）のタイムゾーン：%1$s</string>
+    <string name="portfolio_csv_import_rates_failed">日次レートを読み込めませんでした。</string>
+    <string name="portfolio_csv_import_anyway">このまま読み込む</string>
+    <string name="portfolio_csv_import_anyway_hint">日次レートがないと、価格または手数料が欠けたままになります。再試行するか、このまま読み込んでください – その取引にはメモが付きます。</string>
+    <string name="portfolio_csv_note_price_no_rate">日次レートなしの価格</string>
+    <string name="portfolio_csv_note_fee_no_rate">日次レートなしの手数料</string>
 </resources>

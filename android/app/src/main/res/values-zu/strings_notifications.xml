@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Vumela izaziso?</string>
     <string name="notification_portfolio_alarm_locked">I-alamu yakho ikhalile – vula i-app ukuze uthole imininingwane.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – manje %2$s</string>
     <string name="notification_portfolio_alarm_title">Inani le-portfolio</string>
     <string name="notification_price_change">%1$s, kusuka ku-%2$s (%3$s edlule)</string>
     <string name="notification_price_change_no_age">%1$s, kusuka ku-%2$s</string>

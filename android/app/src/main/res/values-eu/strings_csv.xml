@@ -96,4 +96,11 @@
         <item quantity="one">lerro %d</item>
         <item quantity="other">%d lerro</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Eguneko truke-tasak egutegiko egunaren arabera hemen: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Ezin izan dira eguneko truke-tasak kargatu.</string>
+    <string name="portfolio_csv_import_anyway">Inportatu hala ere</string>
+    <string name="portfolio_csv_import_anyway_hint">Eguneko truke-tasarik gabe, prezioa edo komisioa betiko faltako da. Saiatu berriro edo inportatu hala ere: transakzio horiek ohar bat izango dute.</string>
+    <string name="portfolio_csv_note_price_no_rate">Prezioa eguneko truke-tasarik gabe</string>
+    <string name="portfolio_csv_note_fee_no_rate">Komisioa eguneko truke-tasarik gabe</string>
 </resources>

@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Permiți notificările?</string>
     <string name="notification_portfolio_alarm_locked">Alarma ta s-a declanșat – deschide aplicația pentru detalii.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – acum %2$s</string>
     <string name="notification_portfolio_alarm_title">Valoarea portofoliului</string>
     <string name="notification_price_change">%1$s, de la %2$s (acum %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, de la %2$s</string>

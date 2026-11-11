@@ -96,4 +96,11 @@
         <item quantity="one">%d տող</item>
         <item quantity="other">%d տող</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Օրական փոխարժեքները՝ ըստ օրացուցային օրվա այստեղ՝ %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Չհաջողվեց բեռնել օրական փոխարժեքները։</string>
+    <string name="portfolio_csv_import_anyway">Այնուամենայնիվ ներմուծել</string>
+    <string name="portfolio_csv_import_anyway_hint">Առանց օրական փոխարժեքի գինը կամ միջնորդավճարը մշտապես կբացակայի։ Կրկին փորձիր կամ այնուամենայնիվ ներմուծիր – այդ գործարքները նշում կստանան։</string>
+    <string name="portfolio_csv_note_price_no_rate">Գին առանց օրական փոխարժեքի</string>
+    <string name="portfolio_csv_note_fee_no_rate">Միջնորդավճար առանց օրական փոխարժեքի</string>
 </resources>

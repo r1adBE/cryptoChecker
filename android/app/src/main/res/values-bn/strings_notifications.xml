@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">নোটিফিকেশনের অনুমতি দেবেন?</string>
     <string name="notification_portfolio_alarm_locked">আপনার অ্যালার্ট চালু হয়েছে – বিস্তারিত জানতে অ্যাপ খুলুন।</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – এখন %2$s</string>
     <string name="notification_portfolio_alarm_title">পোর্টফোলিওর মূল্য</string>
     <string name="notification_price_change">%1$s, %2$s থেকে (%3$s আগে)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s থেকে</string>

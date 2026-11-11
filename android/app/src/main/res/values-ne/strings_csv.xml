@@ -96,4 +96,11 @@
         <item quantity="one">%d पङ्क्ति</item>
         <item quantity="other">%d पङ्क्तिहरू</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">दैनिक दरहरू यो समय क्षेत्रको पात्रो दिनअनुसार: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">दैनिक दरहरू लोड गर्न सकिएन।</string>
+    <string name="portfolio_csv_import_anyway">तैपनि आयात गर्नुहोस्</string>
+    <string name="portfolio_csv_import_anyway_hint">दैनिक दरबिना मूल्य वा शुल्क स्थायी रूपमा छुट्छ। फेरि प्रयास गर्नुहोस्, वा तैपनि आयात गर्नुहोस् – त्यसपछि ती कारोबारहरूमा टिप्पणी थपिन्छ।</string>
+    <string name="portfolio_csv_note_price_no_rate">दैनिक दरबिनाको मूल्य</string>
+    <string name="portfolio_csv_note_fee_no_rate">दैनिक दरबिनाको शुल्क</string>
 </resources>

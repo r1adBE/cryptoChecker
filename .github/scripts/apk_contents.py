@@ -25,8 +25,11 @@ PAGE_16K = 16384
 # Warning threshold for the release APK: baseline 26.7 MB, a jump beyond this means a new
 # dependency or resources that were not shrunk. The universal APK carries every language: resources.arsc alone is
 # about 14.9 MB (75 languages, stored uncompressed as Android requires since targetSdk 30). Play installs from the
-# AAB with language, density and ABI splits, so users download far less (apkanalyzer estimate about 13.3 MB for
-# the baseline). Languages are not removed to meet a size figure; the threshold follows the baseline instead.
+# AAB with density and ABI splits only: the language split is switched off (android/app/build.gradle.kts,
+# `bundle { language { enableSplit = false } }`) because the app has its own language choice, so every installation
+# carries all 75 languages. The download is compressed and therefore smaller than the file (apkanalyzer estimate
+# about 13.3 MB for the baseline). Languages are not removed to meet a size figure; the threshold follows the
+# baseline instead.
 APK_WARN_MB = 32
 
 

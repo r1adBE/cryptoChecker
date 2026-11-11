@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 220 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 221 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -202,7 +202,7 @@ Sicherungsdateien sind zwischen Android und iOS **austauschbar**: Eine auf Andro
 lässt sich unter iOS wiederherstellen und umgekehrt. Die JSON-Datei (`cryptochecker-backup-JJJJ-MM-TT`)
 enthält Merkliste (inkl. Notizen und Gruppen), Alarme (inkl. Alarmwährung), Favoriten, Portfolio und
 Einstellungen (inkl. Umrechnung, Kursfarben, Farbtausch, hoher Kontrast, Mini-Chart, Nachtruhe, Portfolio-Sperre, Spalten-Sortierung der Merkliste, «inkl. Alpha-Tokens») im selben Format wie unter Android. Enthält sie
-Portfolio-Daten (Transaktionen oder beobachtete Adressen), ist das Passwort Pflicht (`PortfolioLockPolicy.backupExportRequiresPassword`,
+Portfolio-Daten (Transaktionen, beobachtete Adressen oder Portfolio-Alarme), ist das Passwort Pflicht (`PortfolioLockPolicy.backupExportRequiresPassword`,
 gleich wie Android); ohne Portfolio-Daten bleibt es freiwillig. Ist die Portfolio-Sperre
 gesperrt, verlangen Sichern (mit Portfolio-Daten) und Wiederherstellen zuerst das Entsperren. Sperrt sich die Sitzung
 wieder, während Export-Optionen, Passwort-Blatt oder die Rückfrage «Ersetzen?» offen sind, schliessen sie sich; ein schon

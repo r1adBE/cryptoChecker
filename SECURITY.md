@@ -128,9 +128,10 @@ keys or other secrets never belong in this repository.
   (Android: FLAG_SECURE and no recents preview; iOS: privacy cover), portfolio
   widgets show no values, and portfolio alarms show only a neutral sentence
   without threshold or amount. Independently of the lock, a portfolio alarm never
-  shows an amount on the lock screen (Android: private notification with a
-  neutral public version; iOS: the notification itself carries no amount – the
-  details are in the app). «Hide amounts» also applies to widgets and notifications. When the
+  shows an amount on the lock screen: on both platforms the notification itself
+  carries only a title and a neutral sentence – no threshold, amount or percentage
+  in any field – so it does not depend on the system's lock-screen setting
+  (Android additionally marks it private); the details are in the app. «Hide amounts» also applies to widgets and notifications. When the
   session locks again (more than 60 s in the background), open portfolio sheets and
   backup dialogs close; a file picked or a password check finishing after that is
   discarded until the user unlocks again.
@@ -141,8 +142,9 @@ keys or other secrets never belong in this repository.
   no such switch.
 * **Backups.** Exported via the system file picker only (no temporary copies),
   encrypted with a password – optional for a file without portfolio data, always
-  required once the file contains portfolio data (transactions or watched
-  addresses; the app offers no export without a password then) (format v3: AES-256-GCM, key from Argon2id
+  required once the file contains portfolio data (transactions, watched
+  addresses or portfolio alarms, whose thresholds hint at the size of the holdings;
+  the app offers no export without a password then) (format v3: AES-256-GCM, key from Argon2id
   per RFC 9106 with 64 MiB memory, 3 passes, 1 lane and a random 16-byte salt; the
   file header with all parameters is authenticated as AAD, so a modified header
   fails like a wrong password). Parameters read from a
@@ -253,7 +255,7 @@ keys or other secrets never belong in this repository.
 ### Kurz auf Deutsch
 
 Alle Daten (Merkliste, Alarme, Portfolio) gehen nie an den Entwickler. Unter Android nimmt die
-Systemsicherung (Google-Konto, Geräteübertragung) die Merkliste samt Menge und Notiz mit, sobald sie
+Systemsicherung (Google-Konto, Geräteübertragung) die Merkliste samt Gruppen und Notizen mit, sobald sie
 eingeschaltet ist, das Portfolio nur mit dem Schalter «Portfolio in Systemsicherung». Zusätzlich zur
 Verschlüsselung des Betriebssystems sind sie verschlüsselt
 gespeichert (Android: SQLCipher, Schlüssel im Android Keystore; iOS: AES-256-GCM,
@@ -329,4 +331,15 @@ Deliberate trade-offs, stated so that nobody relies on more than the app does:
   own: the keys are not bound to that authentication, the watchlist and alarms
   stay visible, and the lock does not protect system or device backups or
   exported backup files. On an unlocked phone the app can read everything;
-  the lock only decides what it shows.
+  the lock only decides what it shows. The app trusts the result of the
+  system's biometric / device-credential prompt and no key depends on it, so on
+  a rooted, jailbroken or otherwise instrumented (hooked) device the lock can be
+  bypassed.
+* **The deep-link secret is not a credential.** Links from the app's own
+  widgets carry a random per-install secret (`OpenTargetGuard`) so that other
+  apps and web pages cannot open protected screens through `cryptochecker://`.
+  On iOS it is stored in the app-group preferences, not in the Keychain (on
+  Android in the app's private preferences): it is readable only inside the
+  app's sandbox / app group, guards navigation only – it unlocks nothing and
+  the portfolio lock applies regardless – and it may appear in an unencrypted
+  local device backup.

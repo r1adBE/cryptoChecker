@@ -52,7 +52,7 @@ Command line (JDK 17 or newer):
 
 ```sh
 cd android
-./gradlew test             # unit tests
+./gradlew testDebugUnitTest # unit tests (as in CI)
 ./gradlew assembleDebug    # app/build/outputs/apk/debug/
 ```
 

@@ -96,4 +96,11 @@
         <item quantity="one">%d வரி</item>
         <item quantity="other">%d வரிகள்</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">தினசரி விகிதங்கள் இந்த நேர மண்டலத்தின் நாள்காட்டி நாளின்படி: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">தினசரி விகிதங்களை ஏற்ற முடியவில்லை.</string>
+    <string name="portfolio_csv_import_anyway">இருப்பினும் இறக்குமதி செய்யவும்</string>
+    <string name="portfolio_csv_import_anyway_hint">தினசரி விகிதம் இல்லாமல் விலை அல்லது கட்டணம் நிரந்தரமாக விடுபடும். மீண்டும் முயலவும், அல்லது இருப்பினும் இறக்குமதி செய்யவும் – அப்போது அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்.</string>
+    <string name="portfolio_csv_note_price_no_rate">தினசரி விகிதம் இல்லாத விலை</string>
+    <string name="portfolio_csv_note_fee_no_rate">தினசரி விகிதம் இல்லாத கட்டணம்</string>
 </resources>

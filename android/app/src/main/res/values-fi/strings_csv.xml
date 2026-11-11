@@ -96,4 +96,11 @@
         <item quantity="one">%d rivi</item>
         <item quantity="other">%d riviä</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Päiväkurssit kalenteripäivän mukaan aikavyöhykkeellä: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Päiväkursseja ei voitu ladata.</string>
+    <string name="portfolio_csv_import_anyway">Tuo silti</string>
+    <string name="portfolio_csv_import_anyway_hint">Ilman päiväkurssia hinta tai kulu jää pysyvästi puuttumaan. Yritä uudelleen tai tuo silti – nämä tapahtumat saavat silloin muistiinpanon.</string>
+    <string name="portfolio_csv_note_price_no_rate">Hinta ilman päiväkurssia</string>
+    <string name="portfolio_csv_note_fee_no_rate">Kulu ilman päiväkurssia</string>
 </resources>

@@ -123,8 +123,9 @@ data class CsvImportResult(
     /** Erkannte Spalten der Kopfzeile (Name wie in der Datei) — Vorschau. */
     val columns: List<String> = emptyList(),
     /**
-     * Zeitzone der Tageskurse (Devisen) = Zeitzone des Geräts, wie der Steuer-Export (`TaxExport.localDate`) — sonst
-     * fiele ein Geschäft nahe Mitternacht beim Import auf einen anderen Kurstag als im Export.
+     * Zeitzone der Tageskurse (Devisen, USDT/USD) = Zeitzone der gewählten Steuer-Vorlage, Neutral die des Geräts
+     * ([CsvImportParser.fxZoneFor]) — dieselbe wie im Steuer-Export (`TaxTemplate.zone`); sonst fiele ein Geschäft nahe
+     * Mitternacht beim Import auf einen anderen Kurstag als im Export. Die Vorschau nennt sie.
      */
     val fxZone: String = CsvImportParser.DEFAULT_ZONE,
     /** Zu viele Zellen je Zeile oder Datensätze ([CsvImportParser.MAX_CELLS_PER_ROW], [CsvImportParser.MAX_ROWS]). */
@@ -147,6 +148,8 @@ data class CsvImportSplit(val fresh: List<CsvImportRow>, val duplicates: List<Cs
  * @param swapValueUsdt Tausch: Wert in USDT; null = unbekannt (kein Wert in der Datei oder kein Tageskurs)
  * @param usdtApproximate USD/Fiat mit USDT = 1 USD umgerechnet, weil der USDT/USD-Tagesschluss DES Tags fehlt
  *   (Näherung wie `TaxExport.usdtApproximateOn` — die Vorschau nennt die Zeile)
+ * @param priceNeedsFx [needsFx] wegen des Preises bzw. Tausch-Werts; [feeNeedsFx] wegen der Gebühr ([CsvImportRateGate.missing])
+ * @param dayRate ein Betrag der Zeile hängt am Kurstag (Fiat/USD, nicht USDT) — die Vorschau nennt dann die Zeitzone
  */
 data class CsvImportPriced(
     val row: CsvImportRow,
@@ -156,4 +159,7 @@ data class CsvImportPriced(
     val missingPrice: Boolean,
     val swapValueUsdt: BigDecimal? = null,
     val usdtApproximate: Boolean = false,
+    val priceNeedsFx: Boolean = false,
+    val feeNeedsFx: Boolean = false,
+    val dayRate: Boolean = false,
 )

@@ -112,4 +112,11 @@
         <item quantity="many">%d eilutės</item>
         <item quantity="other">%d eilučių</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dienos kursai pagal kalendorinę dieną: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Nepavyko įkelti dienos kursų.</string>
+    <string name="portfolio_csv_import_anyway">Vis tiek importuoti</string>
+    <string name="portfolio_csv_import_anyway_hint">Be dienos kurso kainos arba komisinio mokesčio trūks visam laikui. Bandyk dar kartą arba vis tiek importuok – tos transakcijos tada gaus pastabą.</string>
+    <string name="portfolio_csv_note_price_no_rate">Kaina be dienos kurso</string>
+    <string name="portfolio_csv_note_fee_no_rate">Komisinis mokestis be dienos kurso</string>
 </resources>

@@ -32,7 +32,7 @@ TURG
 
 VEEL
 • Vidinad: jälgimisloend, portfelli koguväärtus, üks münt koos graafikuga, Krüptopulss; Wear OS
-• Portfell valikuline (lülita sisse seadetes): ostud, müügid, vahetused, ülekanded, preemiad, sisse- ja väljamaksed; FIFO (vaikimisi) või keskmine (Ø); ainult lugemiseks aadressid ilma taastefraasita BTC (sh xpub), ETH ja EVM-ahelate, SOL, TRX, XRP, LTC, ADA ja TON jaoks; CSV-import Relaist, Swissquote’ist, Bitpandast, Krakenist, Binance’ist ja Coinbase’ist; aastaülevaade CSV-na; oma lukk. Bitpanda ja Swissquote: oma hinda pole, ainult CSV.
+• Portfell valikuline (lülita sisse seadetes): ostud, müügid, vahetused, ülekanded, preemiad, sisse- ja väljamaksed; FIFO (vaikimisi) või keskmine (Ø); ainult lugemiseks aadressid ilma taastefraasita BTC (sh xpub), ETH ja EVM-ahelate, SOL, TRX, XRP, LTC, ADA ja TON jaoks; CSV-import Relaist, Swissquote’ist, Bitpandast, Krakenist, Binance’ist ja Coinbase’ist; aastaülevaade CSV-na; oma lukk. Swissquote: oma hinda pole, ainult CSV.
 • Kõigile loetav: roheline/punane või sinine/oranž, märk ja nool, mitte ainult värv; TalkBack loeb iga rea ette ühe lausena
 • Varundamine ja taastamine faili – ka Androidi ja iPhone’i vahel
 • Hele ja tume režiim, viis rõhuvärvi, 75 keelt

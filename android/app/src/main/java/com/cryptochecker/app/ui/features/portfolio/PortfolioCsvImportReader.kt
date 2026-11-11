@@ -39,6 +39,8 @@ internal class CsvImportInput(
     val text: String, val result: CsvImportResult, val keys: Set<String>,
     val rates: Map<String, List<Pair<Long, Double>>>, val usdtUsd: Map<Long, BigDecimal>,
     val choice: CsvReadChoice, val rateDays: Map<String, LongRange> = emptyMap(),
+    /** Tageskurse einer gebrauchten Währung liessen sich nicht laden ([CsvImportPreview.ratesFailed]). */
+    val ratesFailed: Boolean = false,
 )
 
 /** Datei lesen, zerlegen und Kurse laden für [PortfolioCsvImportViewModel]. */
@@ -47,6 +49,8 @@ internal class PortfolioCsvImportReader(
     private val repository: PortfolioRepository,
     private val historic: HistoricPriceSource,
     private val historySource: PortfolioHistorySource,
+    /** Zeitzone der gewählten Steuer-Vorlage (`TaxTemplate.zoneId`; null = Neutral) für [CsvImportParser.fxZoneFor]. */
+    private val templateZone: suspend () -> String?,
 ) {
     /** Nie ungebremst lesen (wie die Sicherung); UTF-8, sonst Windows-1252 (Excel), BOM weg. */
     suspend fun readText(uri: Uri): String = withContext(Dispatchers.IO) {
@@ -61,14 +65,18 @@ internal class PortfolioCsvImportReader(
     private suspend fun load(text: String, result: CsvImportResult, choice: CsvReadChoice): CsvImportInput {
         // Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage)
         val rates = HashMap<String, List<Pair<Long, Double>>>()
+        // Keine gültige Antwort (auch eine Ausnahme) ist etwas anderes als «für die Währung gibt es keinen Kurs»
+        var failed = false
         for ((currency, days) in CsvImportMapping.fxNeeds(result.rows, result.fxZone)) {
             val from = LocalDate.ofEpochDay(days.first - PortfolioHistoryFx.LEAD_DAYS)
-            val series = runCatchingCancellable { historic.usdToSeries(currency, from, LocalDate.ofEpochDay(days.last)) }.getOrNull()
+            val load = runCatchingCancellable { historic.usdToSeriesChecked(currency, from, LocalDate.ofEpochDay(days.last)) }.getOrNull()
+            if (load == null || load.failed) failed = true
+            val series = load?.rates
             if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
         }
         val keys = repository.importKeys()
         val days = CsvImportRateDays.of(result.rows, result.fxZone)
-        return CsvImportInput(text, result, keys, rates, usdtUsdCloses(result), choice, days)
+        return CsvImportInput(text, result, keys, rates, usdtUsdCloses(result), choice, days, failed)
     }
 
     /**
@@ -81,11 +89,16 @@ internal class PortfolioCsvImportReader(
         if (!CsvImportRateDays.cover(read.rateDays, CsvImportRateDays.of(result.rows, result.fxZone))) {
             return load(read.text, result, choice)
         }
-        return CsvImportInput(read.text, result, read.keys, read.rates, read.usdtUsd, choice, read.rateDays)
+        return CsvImportInput(read.text, result, read.keys, read.rates, read.usdtUsd, choice, read.rateDays, read.ratesFailed)
     }
 
-    private suspend fun parse(text: String, choice: CsvReadChoice): CsvImportResult = withContext(Dispatchers.Default) {
-        CsvImportParser.parse(text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)
+    /** Tageskurse in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export ([CsvImportParser.fxZoneFor]). */
+    private suspend fun parse(text: String, choice: CsvReadChoice): CsvImportResult {
+        val device = ZoneId.systemDefault().id
+        val fxZone = CsvImportParser.fxZoneFor(templateZone(), device)
+        return withContext(Dispatchers.Default) {
+            CsvImportParser.parse(text, device, choice.zone, choice.dateOrder, choice.decimalMark, fxZone)
+        }
     }
 
     /**
@@ -129,5 +142,5 @@ internal suspend fun mapCsvPreview(
     }
     CsvImportMapping.preview(read.result, read.keys, usdtUsd = read.usdtUsd, onRow = onRow) { currency, day ->
         read.rates[currency]?.let { PortfolioHistoryFx.rateOn(it, day) }?.let { PortfolioDecimal.of(it) }
-    }
+    }.copy(ratesFailed = read.ratesFailed)
 }

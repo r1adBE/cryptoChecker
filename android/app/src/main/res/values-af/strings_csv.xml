@@ -96,4 +96,11 @@
         <item quantity="one">%d reël</item>
         <item quantity="other">%d reëls</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Daaglikse koerse volgens die kalenderdag in: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Daaglikse koerse kon nie gelaai word nie.</string>
+    <string name="portfolio_csv_import_anyway">Voer tog in</string>
+    <string name="portfolio_csv_import_anyway_hint">Sonder \'n daaglikse koers ontbreek die prys of fooi permanent. Probeer weer, of voer tog in – daardie transaksies kry dan \'n nota.</string>
+    <string name="portfolio_csv_note_price_no_rate">Prys sonder daaglikse koers</string>
+    <string name="portfolio_csv_note_fee_no_rate">Fooi sonder daaglikse koers</string>
 </resources>

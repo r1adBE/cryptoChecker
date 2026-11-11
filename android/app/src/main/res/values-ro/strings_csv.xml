@@ -104,4 +104,11 @@
         <item quantity="few">%d rânduri</item>
         <item quantity="other">%d de rânduri</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Cursuri zilnice după ziua calendaristică din: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Cursurile zilnice nu au putut fi încărcate.</string>
+    <string name="portfolio_csv_import_anyway">Importă oricum</string>
+    <string name="portfolio_csv_import_anyway_hint">Fără curs zilnic, prețul sau comisionul lipsesc definitiv. Reîncearcă sau importă oricum – acele tranzacții primesc atunci o notă.</string>
+    <string name="portfolio_csv_note_price_no_rate">Preț fără curs zilnic</string>
+    <string name="portfolio_csv_note_fee_no_rate">Comision fără curs zilnic</string>
 </resources>

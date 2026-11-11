@@ -112,4 +112,11 @@
         <item quantity="many">%d строк</item>
         <item quantity="other">%d строки</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Дневные курсы по календарному дню в: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Не удалось загрузить дневные курсы.</string>
+    <string name="portfolio_csv_import_anyway">Всё равно импортировать</string>
+    <string name="portfolio_csv_import_anyway_hint">Без дневного курса цена или комиссия останутся пустыми навсегда. Повтори попытку или всё равно импортируй – у этих транзакций появится заметка.</string>
+    <string name="portfolio_csv_note_price_no_rate">Цена без дневного курса</string>
+    <string name="portfolio_csv_note_fee_no_rate">Комиссия без дневного курса</string>
 </resources>

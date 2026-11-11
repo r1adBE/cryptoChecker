@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d ແຖວ</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">ອັດຕາລາຍວັນຕາມວັນປະຕິທິນໃນ: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">ບໍ່ສາມາດໂຫຼດອັດຕາລາຍວັນໄດ້.</string>
+    <string name="portfolio_csv_import_anyway">ນຳເຂົ້າຢູ່ດີ</string>
+    <string name="portfolio_csv_import_anyway_hint">ຖ້າບໍ່ມີອັດຕາລາຍວັນ ລາຄາ ຫຼື ຄ່າທຳນຽມຈະຂາດຫາຍຢ່າງຖາວອນ. ກະລຸນາລອງໃໝ່ ຫຼື ນຳເຂົ້າຢູ່ດີ – ທຸລະກຳເຫຼົ່ານັ້ນຈະມີໝາຍເຫດ.</string>
+    <string name="portfolio_csv_note_price_no_rate">ລາຄາບໍ່ມີອັດຕາລາຍວັນ</string>
+    <string name="portfolio_csv_note_fee_no_rate">ຄ່າທຳນຽມບໍ່ມີອັດຕາລາຍວັນ</string>
 </resources>

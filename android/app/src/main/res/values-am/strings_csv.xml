@@ -96,4 +96,11 @@
         <item quantity="one">%d መስመር</item>
         <item quantity="other">%d መስመሮች</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">ዕለታዊ ተመኖች በዚህ የሰዓት ሰቅ የቀን መቁጠሪያ ቀን መሠረት፦ %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">ዕለታዊ ተመኖችን መጫን አልተቻለም።</string>
+    <string name="portfolio_csv_import_anyway">ቢሆንም ያስመጡ</string>
+    <string name="portfolio_csv_import_anyway_hint">ዕለታዊ ተመን ከሌለ ዋጋው ወይም ክፍያው ለዘለቄታው ይጎድላል። እንደገና ይሞክሩ፣ ወይም ቢሆንም ያስመጡ – እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>
+    <string name="portfolio_csv_note_price_no_rate">ዋጋ ያለ ዕለታዊ ተመን</string>
+    <string name="portfolio_csv_note_fee_no_rate">ክፍያ ያለ ዕለታዊ ተመን</string>
 </resources>

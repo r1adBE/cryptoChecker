@@ -96,4 +96,11 @@
         <item quantity="one">%d γραμμή</item>
         <item quantity="other">%d γραμμές</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Ημερήσιες ισοτιμίες με βάση την ημερολογιακή ημέρα σε: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Δεν ήταν δυνατή η φόρτωση των ημερήσιων ισοτιμιών.</string>
+    <string name="portfolio_csv_import_anyway">Εισαγωγή ούτως ή άλλως</string>
+    <string name="portfolio_csv_import_anyway_hint">Χωρίς ημερήσια ισοτιμία, η τιμή ή η χρέωση λείπουν οριστικά. Δοκίμασε ξανά ή κάνε εισαγωγή ούτως ή άλλως – αυτές οι συναλλαγές θα έχουν τότε σημείωση.</string>
+    <string name="portfolio_csv_note_price_no_rate">Τιμή χωρίς ημερήσια ισοτιμία</string>
+    <string name="portfolio_csv_note_fee_no_rate">Χρέωση χωρίς ημερήσια ισοτιμία</string>
 </resources>

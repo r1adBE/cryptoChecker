@@ -91,14 +91,16 @@ extension AppData {
         }
     }
 
-    /// Nach einer Wiederherstellung: alles neu übernehmen.
+    /// Nach einer Wiederherstellung (und beim Zurückrollen): alles neu übernehmen.
     func replaceAll(snapshot newSnapshot: SharedStorage.Snapshot, settings newSettings: AppSettings?, favorites newFavorites: [FavoriteKind: Set<String>]) {
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren — sonst könnte ein
         // Signal kurz beim falschen Paar stehen, wenn die Ids übereinstimmen.
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }
         ActivityRepository.retain([])
         activityReports = [:]
-        mutate { s in s = newSnapshot }
+        // Ganzen Stand ersetzen, ohne Abgleich mit der Datei: Ein Alarm gleicher Id, der seit der Sicherung gemeldet hat,
+        // ist nach dem Einspielen scharf wie in der Sicherung (`SharedStorage.replaceFiles`), nicht «gemeldet»
+        mutate({ s in s = newSnapshot }, replacing: true)
         // Paar der Live-Aktivität gibt es evtl. nicht mehr (beendet sie dann)
         let watches = snapshot.watches
         Task { await LiveActivityController.update(watches: watches) }

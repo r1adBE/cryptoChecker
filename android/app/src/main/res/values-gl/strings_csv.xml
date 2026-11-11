@@ -96,4 +96,11 @@
         <item quantity="one">%d liña</item>
         <item quantity="other">%d liñas</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Tipos diarios segundo o día natural en: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Non se puideron cargar os tipos diarios.</string>
+    <string name="portfolio_csv_import_anyway">Importar igualmente</string>
+    <string name="portfolio_csv_import_anyway_hint">Sen tipo diario, o prezo ou a comisión faltan de forma permanente. Téntao de novo ou importa igualmente: esas transaccións levarán unha nota.</string>
+    <string name="portfolio_csv_note_price_no_rate">Prezo sen tipo diario</string>
+    <string name="portfolio_csv_note_fee_no_rate">Comisión sen tipo diario</string>
 </resources>

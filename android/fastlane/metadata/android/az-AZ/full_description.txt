@@ -32,7 +32,7 @@ BAZAR
 
 DAHA ÇOX
 • Vidcetlər: izləmə siyahısı, portfelin cəmi, qrafikli tək koin
-• İstəyə görə portfel (Ayarlarda aktiv et): alışlar, satışlar, mübadilələr, köçürmələr, mükafatlar, depozitlər və çıxarışlar; FIFO (standart) və ya orta (Ø); seed olmadan yalnız baxış üçün ünvanlar: BTC (xpub daxil), ETH & EVM şəbəkələri, SOL, TRX, XRP, LTC, ADA və TON; Relai, Swissquote, Bitpanda, Kraken, Binance və Coinbase-dən CSV idxalı; CSV kimi illik icmal; öz kilidi. Bitpanda və Swissquote: öz qiyməti yoxdur, yalnız CSV.
+• İstəyə görə portfel (Ayarlarda aktiv et): alışlar, satışlar, mübadilələr, köçürmələr, mükafatlar, depozitlər və çıxarışlar; FIFO (standart) və ya orta (Ø); seed olmadan yalnız baxış üçün ünvanlar: BTC (xpub daxil), ETH & EVM şəbəkələri, SOL, TRX, XRP, LTC, ADA və TON; Relai, Swissquote, Bitpanda, Kraken, Binance və Coinbase-dən CSV idxalı; CSV kimi illik icmal; öz kilidi. Swissquote: öz qiyməti yoxdur, yalnız CSV.
 • Hamı üçün oxunaqlı: yaşıl/qırmızı və ya mavi/narıncı, yalnız rəng əvəzinə işarə və ox; TalkBack hər sətri bir cümlə kimi oxuyur
 • Fayla ehtiyat nüsxə və bərpa – Android və iPhone arasında da
 • Açıq və tünd rejim, beş vurğu rəngi, 75 dil

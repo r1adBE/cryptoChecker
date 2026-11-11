@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Vols permetre les notificacions?</string>
     <string name="notification_portfolio_alarm_locked">S\'ha disparat la teva alarma – obre l\'app per veure\'n els detalls.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ara %2$s</string>
     <string name="notification_portfolio_alarm_title">Valor de la cartera</string>
     <string name="notification_price_change">%1$s, des de %2$s (fa %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, des de %2$s</string>

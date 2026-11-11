@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">დავუშვა შეტყობინებები?</string>
     <string name="notification_portfolio_alarm_locked">შენი განგაში ამოქმედდა – დეტალებისთვის გახსენი აპი.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ახლა %2$s</string>
     <string name="notification_portfolio_alarm_title">პორტფელის ღირებულება</string>
     <string name="notification_price_change">%1$s, %2$s-დან (%3$s წინ)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s-დან</string>

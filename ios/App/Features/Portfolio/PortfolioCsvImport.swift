@@ -43,6 +43,8 @@ struct PortfolioCsvImportSheet: View {
     @State var remapGeneration = 0
     /// Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt (wie Android).
     @State var rereading = false
+    /// «Trotzdem importieren» bei Zeilen ohne Tageskurs: gilt nur für die gezeigte Vorschau (`CsvImportRateGate`).
+    @State var ratesAccepted = false
     /// Gewählte Umbuchungen angewendet, gemerkt statt bei jeder Auswertung von `body` neu
     /// (`updatePlan` nach jeder Änderung von Vorschau, Kandidaten oder Wahl) — wie Android `remember`.
     @State var plan: CsvTransferPlan
@@ -122,9 +124,15 @@ struct PortfolioCsvImportSheet: View {
                         }
                     }
                     // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
+                    // Ohne Tageskurs fehlten Preis bzw. Gebühr dauerhaft: erst neu laden oder ausdrücklich trotzdem
                     if !preview.missingFx.isEmpty {
+                        // Keine gültige Antwort beim Laden — etwas anderes als «kein Kurs für Währung bzw. Tag»
+                        if preview.ratesFailed { hint(L("portfolio_csv_import_rates_failed")) }
                         linesHint(preview.missingFx) { L("portfolio_csv_import_missing_fx", $0) }
+                        rateGate
                     }
+                    // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
+                    if preview.dayRates { hint(L("portfolio_csv_import_fx_zone", preview.fxZone)) }
                     // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
                     if !preview.usdtApproximate.isEmpty {
                         linesHint(preview.usdtApproximate) { L("portfolio_usdt_assumed") + " (\($0))" }
@@ -189,7 +197,8 @@ struct PortfolioCsvImportSheet: View {
                         .fontWeight(.semibold)
                         .appDisabled(total == 0 || saveRun.phase != nil
                                   || !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices)
-                                  || !CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead))
+                                  || !CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead)
+                                  || !CsvImportRateGate.canImport(missingFx: preview.missingFx.count, accepted: ratesAccepted))
                 }
             }
         }
@@ -242,8 +251,10 @@ struct PortfolioCsvImportSheet: View {
         let text = loaded.text
         let existingKeys = loaded.existingKeys
         let known = rates ?? CsvImportRates(fx: loaded.rates, usdtUsd: loaded.usdtUsd,
-                                            days: CsvImportRateDays.of(loaded.result.rows, zone: loaded.result.fxZone))
+                                            days: CsvImportRateDays.of(loaded.result.rows, zone: loaded.result.fxZone),
+                                            failed: loaded.preview.ratesFailed)
         let deviceZone = TimeZone.current.identifier
+        let fxZone = loaded.result.fxZone
         let choice = chosenRead
         let refetch = ratesStale
         let addresses = data.watchedAddresses
@@ -255,7 +266,7 @@ struct PortfolioCsvImportSheet: View {
         typealias Remapped = (preview: CsvImportPreview, rates: CsvImportRates, proposals: CsvImportProposals)
         Task { @MainActor in
             let computed = await Task.detached(priority: .userInitiated) { () -> Remapped in
-                let read = await PortfolioCsvImporter.reread(text, choice: choice, deviceZone: deviceZone,
+                let read = await PortfolioCsvImporter.reread(text, choice: choice, deviceZone: deviceZone, fxZone: fxZone,
                                                              existingKeys: existingKeys, known: known, refetch: refetch)
                 return (preview: read.preview, rates: read.rates,
                         proposals: CsvImportProposals.of(read.preview, addresses: addresses, stored: stored))
@@ -266,6 +277,8 @@ struct PortfolioCsvImportSheet: View {
             rates = computed.rates
             if refetch { ratesStale = false }
             preview = computed.preview
+            // Neue Vorschau: Zeilen ohne Tageskurs brauchen wieder eine eigene Bestätigung
+            ratesAccepted = false
             builtWith = choice
             rereading = false
             applyProposals(computed.proposals)
@@ -313,6 +326,10 @@ struct PortfolioCsvImportSheet: View {
     private func confirm() {
         // Nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
         guard CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead) else { return }
+        // Zeilen ohne Tageskurs: nur mit ausdrücklicher Bestätigung; die Vermerke in der Sprache der App
+        let consent = CsvRateConsent(accepted: ratesAccepted, priceNote: L("portfolio_csv_note_price_no_rate"),
+                                     feeNote: L("portfolio_csv_note_fee_no_rate"))
+        guard CsvImportRateGate.canImport(missingFx: preview.missingFx.count, accepted: consent.accepted) else { return }
         let plan = CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked)
         // Jede Auszahlung (ohne verknüpfte Umbuchung) braucht eine Wahl (der Knopf ist sonst aus) — wie Android
         guard CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices: choices) else { return }
@@ -320,7 +337,8 @@ struct PortfolioCsvImportSheet: View {
         for p in proposals { destinations[p.importKey] = p.transferTo }
         // Datei «neueste zuerst»: älteste zuerst speichern (Id folgt der Zeit) — wie Android. Neue Zeilen, die gegen eine
         // gespeicherte Seite aufgehen, als Ersatz dabei: gespeichert nur, wenn die Verknüpfung beim Speichern nicht geht
-        let rows = CsvTransferMatch.withFallbacks(preview.transactions, plan: plan)
+        // Jede betroffene Transaktion (auch als Ersatzzeile) bekommt ihren Vermerk in die Notiz — wie Android
+        let rows = CsvImportRateGate.mark(CsvTransferMatch.withFallbacks(preview.transactions, plan: plan), consent: consent)
         let txs: [CsvImportTx] = CsvImportMapping.insertOrder(
             CsvImportMapping.applyWithdrawalChoices(rows, choices: choices, destinations: destinations))
         // Kennung dieses Importlaufs («Import rückgängig»): Format, Zeit, Hash der Zeilenschlüssel — wie Android

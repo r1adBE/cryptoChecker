@@ -161,6 +161,32 @@ extension PortfolioCsvImportSheet {
         choices = next
     }
 
+    /// Zeilen ohne Tageskurs: Erklärung, «Erneut versuchen» (Kurse neu laden) und der Schalter «Trotzdem importieren» —
+    /// erst mit ihm ist «Importieren» frei, die betroffenen Transaktionen bekommen dann einen Vermerk
+    /// (`CsvImportRateGate`). Wie Android `CsvRateGate`.
+    var rateGate: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            hint(L("portfolio_csv_import_anyway_hint"))
+            Button(L("action_retry")) { reloadRates() }
+                .font(.subheadline)
+                .buttonStyle(.borderless)
+                .appDisabled(rereading)
+                .accessibilityIdentifier(UiTestTags.csvImportReloadRates)
+            Toggle(L("portfolio_csv_import_anyway"), isOn: $ratesAccepted)
+                .font(.subheadline)
+                .tint(accent.primary)
+                .disabled(rereading)
+                .accessibilityIdentifier(UiTestTags.csvImportAnyway)
+        }
+    }
+
+    /// «Erneut versuchen»: Tageskurse und USDT/USD-Schlüsse neu laden und die Vorschau neu bewerten (`remap` mit
+    /// `ratesStale`) — wie Android `reloadRates`.
+    func reloadRates() {
+        ratesStale = true
+        remap()
+    }
+
     /// «Zeiten ohne Zeitzone gelesen als: …» mit Auswahl Gerät / Europe/Zurich / UTC.
     var zonePicker: some View {
         let device: String = TimeZone.current.identifier

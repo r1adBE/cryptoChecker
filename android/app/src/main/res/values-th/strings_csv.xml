@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">%d บรรทัด</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">อัตรารายวันตามวันปฏิทินใน: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">โหลดอัตรารายวันไม่ได้</string>
+    <string name="portfolio_csv_import_anyway">นำเข้าต่อไป</string>
+    <string name="portfolio_csv_import_anyway_hint">หากไม่มีอัตรารายวัน ราคาหรือค่าธรรมเนียมจะขาดหายอย่างถาวร โปรดลองใหม่ หรือนำเข้าต่อไป – รายการเหล่านั้นจะมีหมายเหตุกำกับ</string>
+    <string name="portfolio_csv_note_price_no_rate">ราคาไม่มีอัตรารายวัน</string>
+    <string name="portfolio_csv_note_fee_no_rate">ค่าธรรมเนียมไม่มีอัตรารายวัน</string>
 </resources>

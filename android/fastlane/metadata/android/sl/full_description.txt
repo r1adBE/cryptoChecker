@@ -32,7 +32,7 @@ TRG
 
 ŠE VEČ
 • Pripomočki: seznam, skupna vrednost portfelja, posamezen kovanec z grafom, Kripto utrip; Wear OS
-• Portfelj neobvezno (vklopi ga v nastavitvah): nakupi, prodaje, zamenjave, prenosi, nagrade, pologi in dvigi; FIFO (privzeto) ali povprečje (Ø); naslovi samo za branje brez semena za BTC (vklj. xpub), ETH in verige EVM, SOL, TRX, XRP, LTC, ADA in TON; uvoz CSV iz Relai, Swissquote, Bitpanda, Kraken, Binance in Coinbase; letni pregled kot CSV; lasten zaklep. Bitpanda in Swissquote: brez lastnega tečaja, samo CSV.
+• Portfelj neobvezno (vklopi ga v nastavitvah): nakupi, prodaje, zamenjave, prenosi, nagrade, pologi in dvigi; FIFO (privzeto) ali povprečje (Ø); naslovi samo za branje brez semena za BTC (vklj. xpub), ETH in verige EVM, SOL, TRX, XRP, LTC, ADA in TON; uvoz CSV iz Relai, Swissquote, Bitpanda, Kraken, Binance in Coinbase; letni pregled kot CSV; lasten zaklep. Swissquote: brez lastnega tečaja, samo CSV.
 • Berljivo za vse: zeleno/rdeče ali modro/oranžno, predznak in puščica namesto same barve; TalkBack vsako vrstico prebere kot en stavek
 • Varnostna kopija in obnovitev v datoteko – tudi med Androidom in iPhonom
 • Svetli in temni način, pet barv poudarka, 75 jezikov

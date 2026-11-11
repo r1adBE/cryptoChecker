@@ -3315,7 +3315,7 @@
       "text": "€ Ÿä"
     }
   ],
-  "_fxDayComment": "Tageskurs-Tag des Imports = Ortstag des Geräts wie im Steuer-Export (CsvImportResult.fxZone), nicht die Zeitzone der Datei: Kauf 23:30 UTC = 01:30 Zürich am 2.5. → Kurs des 2.5. (60000 / 0.95).",
+  "_fxDayComment": "Tageskurs-Tag des Imports ohne Steuer-Vorlage (Neutral) = Ortstag des Geräts wie im Steuer-Export (CsvImportResult.fxZone; mit Vorlage deren Zeitzone, siehe usdtRoundTrip), nicht die Zeitzone der Datei: Kauf 23:30 UTC = 01:30 Zürich am 2.5. → Kurs des 2.5. (60000 / 0.95).",
   "fxDay": {
     "file": "generic_utc_fiat",
     "deviceZone": "Europe/Zurich",
@@ -3329,7 +3329,7 @@
     "line": 2,
     "priceUsdt": "63157.89473684210526315789473684211"
   },
-  "_usdtRoundTripComment": "USDT zum Marktkurs, Rundlauf Import → Steuer-Export: CsvImportMapping.preview mit usdtUsd (Datum → USDT/USD-Schluss) und fx (rates, Datum → Einheiten je USD), Zeitzone UTC; die Transaktionen (Id = Reihenfolge ab 1) gehen in TaxExport.gainRows (FIFO, Steuerjahr year, currency, dieselben rates und usdtUsd). Erwartet: priceUsdt je Zeile (exakter Text), Zeilen mit Näherung (usdtApproximate, kein Schluss DES Tags → × 1) und Beträge der Gewinnzeile auf 2 Stellen (CutoffExport.money): ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand; CHF-Kauf/Verkauf zu gleichem CHF-Preis an Tagen mit verschiedenem USDT/USD ergibt keinen Scheingewinn.",
+  "_usdtRoundTripComment": "USDT zum Marktkurs, Rundlauf Import → Steuer-Export: CsvImportMapping.preview mit usdtUsd (Datum → USDT/USD-Schluss) und fx (rates, Datum → Einheiten je USD), Zeitzone UTC; die Transaktionen (Id = Reihenfolge ab 1) gehen in TaxExport.gainRows (FIFO, Steuerjahr year, currency, dieselben rates und usdtUsd). Erwartet: priceUsdt je Zeile (exakter Text), Zeilen mit Näherung (usdtApproximate, kein Schluss DES Tags → × 1) und Beträge der Gewinnzeile auf 2 Stellen (CutoffExport.money): ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand; CHF-Kauf/Verkauf zu gleichem CHF-Preis an Tagen mit verschiedenem USDT/USD ergibt keinen Scheingewinn. Optional je Fall: deviceZone (Zeitzone des Geräts, fehlt = UTC) und template (Steuer-Vorlage, fehlt = NEUTRAL): der Import rechnet den Kurstag in fxZone = CsvImportParser.fxZoneFor(Zeitzone der Vorlage, deviceZone) — dieselbe Zone, in der der Export rechnet (TaxTemplate.zone); erwartet fxZone. «coinbase_usd_la_device_us_template»: Gerät Los Angeles, Vorlage US, Kauf am 3.3. um 22:00 Ortszeit = 4.3. in New York → Schluss des 4.3. (0.995) beim Import UND im Export, Einstand wieder 10 000.00 USD (mit dem Gerätetag 3.3. wären es 9 969.94).",
   "usdtRoundTrip": [
     {
       "name": "coinbase_usd",
@@ -3410,6 +3410,35 @@
           "proceedsTarget": "12000.00",
           "gainTarget": "2000.00",
           "usdtApproximate": true
+        }
+      ]
+    },
+    {
+      "name": "coinbase_usd_la_device_us_template",
+      "csv": "ID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes\ncb-5,2025-03-04 06:00:00 UTC,Buy,BTC,0.5,USD,$20000.00,$10000.00,$10000.00,$0.00,Bought 0.5 BTC\ncb-6,2025-06-02 10:00:00 UTC,Sell,BTC,0.5,USD,$24000.00,$12000.00,$12000.00,$0.00,Sold 0.5 BTC\n",
+      "deviceZone": "America/Los_Angeles",
+      "template": "US",
+      "fxZone": "America/New_York",
+      "currency": "USD",
+      "year": 2025,
+      "rates": {},
+      "usdtUsd": {
+        "2025-03-03": "0.998",
+        "2025-03-04": "0.995",
+        "2025-06-02": "1.002"
+      },
+      "priceUsdt": [
+        "20100.50251256281407035175879396985",
+        "23952.09580838323353293413173652695"
+      ],
+      "usdtApproximate": [],
+      "gains": [
+        {
+          "coin": "BTC",
+          "costTarget": "10000.00",
+          "proceedsTarget": "12000.00",
+          "gainTarget": "2000.00",
+          "usdtApproximate": false
         }
       ]
     }
@@ -3603,6 +3632,104 @@
       "expected": false
     }
   ],
+  "_rateGateComment": "No silent permanent loss (Android/iOS CsvImportRateGate). gate: «Import» with rows without a daily rate (missingFx = count) only after the explicit confirmation (accepted) — canImport. csv with rates (date → units per USD, exact day) through CsvImportMapping.preview without usdtUsd: expected missingFx lines, dayRates (a row was converted with a rate of its day) and per transaction missingRate (what is lost: PRICE, FEE, PRICE_AND_FEE; null = nothing) and its note after CsvImportRateGate.mark with priceNote/feeNote (the app passes them in its language). notes: CsvImportRateGate.note(note, missing, consent) — markers first, then the note from the file, joined with « · », cut to 120 characters.",
+  "rateGate": {
+    "gate": [
+      {
+        "missingFx": 0,
+        "accepted": false,
+        "expected": true
+      },
+      {
+        "missingFx": 0,
+        "accepted": true,
+        "expected": true
+      },
+      {
+        "missingFx": 1,
+        "accepted": false,
+        "expected": false
+      },
+      {
+        "missingFx": 3,
+        "accepted": false,
+        "expected": false
+      },
+      {
+        "missingFx": 3,
+        "accepted": true,
+        "expected": true
+      }
+    ],
+    "csv": "Timestamp,Type,Asset,Amount,Price,Currency,Fee,Fee Currency\n2024-03-01T10:00:00Z,Buy,BTC,0.1,60000,USD,5,EUR\n2024-03-02T10:00:00Z,Buy,ETH,1,3000,USD,4,GBP\n2024-03-03T10:00:00Z,Buy,ETH,1,3000,GBP,4,GBP\n2024-03-04T10:00:00Z,Sell,ETH,1,3000,GBP,,\n",
+    "rates": {
+      "EUR": {
+        "2024-03-01": "0.92"
+      }
+    },
+    "priceNote": "Preis ohne Tageskurs",
+    "feeNote": "Gebühr ohne Tageskurs",
+    "missingFx": [
+      3,
+      4,
+      5
+    ],
+    "dayRates": true,
+    "txs": [
+      {
+        "line": 2,
+        "missingRate": null,
+        "note": null
+      },
+      {
+        "line": 3,
+        "missingRate": "FEE",
+        "note": "Gebühr ohne Tageskurs"
+      },
+      {
+        "line": 4,
+        "missingRate": "PRICE_AND_FEE",
+        "note": "Preis ohne Tageskurs · Gebühr ohne Tageskurs"
+      },
+      {
+        "line": 5,
+        "missingRate": "PRICE",
+        "note": "Preis ohne Tageskurs"
+      }
+    ],
+    "notes": [
+      {
+        "note": null,
+        "missing": null,
+        "expected": null
+      },
+      {
+        "note": "Staking reward",
+        "missing": null,
+        "expected": "Staking reward"
+      },
+      {
+        "note": null,
+        "missing": "PRICE",
+        "expected": "Preis ohne Tageskurs"
+      },
+      {
+        "note": "Unstaking",
+        "missing": "FEE",
+        "expected": "Gebühr ohne Tageskurs · Unstaking"
+      },
+      {
+        "note": "  ",
+        "missing": "FEE",
+        "expected": "Gebühr ohne Tageskurs"
+      },
+      {
+        "note": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "missing": "PRICE_AND_FEE",
+        "expected": "Preis ohne Tageskurs · Gebühr ohne Tageskurs · xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    ]
+  },
   "_unsavableComment": "Zeilen, die das Speichern ablehnen würde, zeigt die Vorschau als übersprungen (Android CsvImportMapping.unsavableReason / iOS gleichnamig; gleiche Regel beim Speichern: Android storable nach cleanForSave, iOS AppData.cleanedPortfolioTx). Reihenfolge: coin nach trim/gross leer → MISSING_FIELD; amount auf 18 Nachkommastellen gerundet (halbe auf gerade) ≤ 0 → AMOUNT_TOO_SMALL; eine Zahl gespeichert nicht mehr lesbar (amount, fee in Coin-Einheiten, beim Tausch toAmount: auf 18 Nachkommastellen gerundet ab 10^30) oder priceUsdt nach PortfolioDecimal.price ab 10^30 bzw. > 0, aber gerundet 0 → BAD_NUMBER; nur type SWAP: toCoin (trim/gross) fehlt, leer, länger als 15 Zeichen oder gleich coin, oder toAmount fehlt bzw. gerundet ≤ 0 → INVALID_SWAP; sonst null. toCoin/toAmount bei anderen Arten ohne Bedeutung. Fehlende Felder fee/priceUsdt = keine. Die Vorschau hängt diese Gründe an die übersprungenen Zeilen (stabil nach Zeile sortiert, Datei-Gründe zuerst) und lässt die Zeilen auch aus missingFx, missingPrice, usdtApproximate und stableSwaps weg.",
   "unsavable": [
     {

@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">അറിയിപ്പുകൾ അനുവദിക്കണോ?</string>
     <string name="notification_portfolio_alarm_locked">നിങ്ങളുടെ അലേർട്ട് മുഴങ്ങി – വിശദാംശങ്ങൾക്ക് ആപ്പ് തുറക്കുക.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ഇപ്പോൾ %2$s</string>
     <string name="notification_portfolio_alarm_title">പോർട്ട്ഫോളിയോ മൂല്യം</string>
     <string name="notification_price_change">%1$s, %2$s-ൽ നിന്ന് (%3$s മുമ്പ്)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s-ൽ നിന്ന്</string>

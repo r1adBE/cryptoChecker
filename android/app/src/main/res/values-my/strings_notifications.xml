@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">အကြောင်းကြားချက်များကို ခွင့်ပြုမလား။</string>
     <string name="notification_portfolio_alarm_locked">သင့်သတိပေးချက် ဖြစ်ပေါ်ခဲ့သည် – အသေးစိတ်အတွက် အက်ပ်ကို ဖွင့်ပါ။</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – ယခု %2$s</string>
     <string name="notification_portfolio_alarm_title">ပေါ့ဖိုလီယို တန်ဖိုး</string>
     <string name="notification_price_change">%1$s, %2$s မှ (%3$s က)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s မှ</string>

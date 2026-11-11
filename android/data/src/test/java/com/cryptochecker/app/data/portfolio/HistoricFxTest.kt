@@ -11,6 +11,7 @@ import com.cryptochecker.marketdata.util.EcbRates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -181,6 +182,10 @@ class HistoricFxTest {
         val empty = RouteHttp { if (it.startsWith("https://data-api.ecb.europa.eu/")) Reply("") else null }
         assertNull(source(empty).usdToSeries("CHF", from, to))
         assertEquals(1, empty.requested.size)
+        // … und kein Ladefehler: «für diese Währung bzw. diesen Zeitraum gibt es keinen Kurs»
+        val none = source(empty).usdToSeriesChecked("CHF", from, to)
+        assertNull(none.rates)
+        assertFalse(none.failed)
     }
 
     @Test
@@ -189,5 +194,11 @@ class HistoricFxTest {
         assertNull(source(offline).usdToSeries("CHF", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5)))
         // Data Portal, dann die ganze Geschichte
         assertEquals(2, offline.requested.size)
+        // Keine gültige Antwort ist ein Ladefehler (der CSV-Import nennt ihn getrennt von «kein Kurs»)
+        val failed = source(RouteHttp { null }).usdToSeriesChecked("CHF", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5))
+        assertNull(failed.rates)
+        assertTrue(failed.failed)
+        // Ungültige Währung: kein Kurs, aber kein Ladefehler
+        assertFalse(source(RouteHttp { null }).usdToSeriesChecked("SWISS", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5)).failed)
     }
 }

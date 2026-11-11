@@ -112,4 +112,11 @@
         <item quantity="few">%d vrstice</item>
         <item quantity="other">%d vrstic</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dnevni tečaji po koledarskem dnevu v: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Dnevnih tečajev ni bilo mogoče naložiti.</string>
+    <string name="portfolio_csv_import_anyway">Vseeno uvozi</string>
+    <string name="portfolio_csv_import_anyway_hint">Brez dnevnega tečaja cena ali provizija trajno manjkata. Poskusi znova ali vseeno uvozi – te transakcije potem dobijo opombo.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cena brez dnevnega tečaja</string>
+    <string name="portfolio_csv_note_fee_no_rate">Provizija brez dnevnega tečaja</string>
 </resources>

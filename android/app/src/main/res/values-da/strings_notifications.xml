@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Tillad notifikationer?</string>
     <string name="notification_portfolio_alarm_locked">Din alarm er udløst – åbn appen for detaljer.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – nu %2$s</string>
     <string name="notification_portfolio_alarm_title">Porteføljeværdi</string>
     <string name="notification_price_change">%1$s, fra %2$s (for %3$s siden)</string>
     <string name="notification_price_change_no_age">%1$s, fra %2$s</string>

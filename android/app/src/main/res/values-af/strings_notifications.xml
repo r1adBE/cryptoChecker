@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Laat kennisgewings toe?</string>
     <string name="notification_portfolio_alarm_locked">Jou alarm het afgegaan – open die app vir besonderhede.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – nou %2$s</string>
     <string name="notification_portfolio_alarm_title">Portefeuljewaarde</string>
     <string name="notification_price_change">%1$s, vanaf %2$s (%3$s gelede)</string>
     <string name="notification_price_change_no_age">%1$s, vanaf %2$s</string>

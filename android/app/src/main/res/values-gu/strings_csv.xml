@@ -96,4 +96,11 @@
         <item quantity="one">%d પંક્તિ</item>
         <item quantity="other">%d પંક્તિઓ</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">દૈનિક દરો આ ટાઇમ ઝોનના કૅલેન્ડર દિવસ પ્રમાણે: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">દૈનિક દરો લોડ થઈ શક્યા નથી.</string>
+    <string name="portfolio_csv_import_anyway">તેમ છતાં ઇમ્પોર્ટ કરો</string>
+    <string name="portfolio_csv_import_anyway_hint">દૈનિક દર વગર ભાવ અથવા ફી કાયમ માટે ખૂટે છે. ફરી પ્રયાસ કરો, અથવા તેમ છતાં ઇમ્પોર્ટ કરો – ત્યારે તે વ્યવહારોમાં નોંધ ઉમેરાશે.</string>
+    <string name="portfolio_csv_note_price_no_rate">દૈનિક દર વગરનો ભાવ</string>
+    <string name="portfolio_csv_note_fee_no_rate">દૈનિક દર વગરની ફી</string>
 </resources>

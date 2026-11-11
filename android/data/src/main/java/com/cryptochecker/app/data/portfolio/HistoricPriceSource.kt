@@ -280,19 +280,27 @@ class HistoricPriceSource @Inject constructor(
      * Feiertage füllt [PortfolioHistoryFx.rateOn] mit dem Vortag. USD: leere Karte (kein Bedarf). 6 h im Speicher. null,
      * wenn kein Kurs zu haben ist.
      */
-    suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? {
+    suspend fun usdToSeries(currency: String, from: LocalDate, to: LocalDate): Map<Long, Double>? =
+        usdToSeriesChecked(currency, from, to).rates
+
+    /**
+     * Wie [usdToSeries], sagt aber, WARUM nichts kam: [FxSeriesLoad.failed] = keine gültige Antwort (Netz, Dienst) —
+     * im Unterschied zu «für diese Währung bzw. diesen Zeitraum gibt es keinen Kurs» (der CSV-Import nennt beides getrennt).
+     */
+    suspend fun usdToSeriesChecked(currency: String, from: LocalDate, to: LocalDate): FxSeriesLoad {
         val target = currency.trim().uppercase()
-        if (target == "USD") return emptyMap()
-        if (target.length != 3 || !target.all { it in 'A'..'Z' } || from.isAfter(to)) return null
+        if (target == "USD") return FxSeriesLoad(emptyMap())
+        if (target.length != 3 || !target.all { it in 'A'..'Z' } || from.isAfter(to)) return FxSeriesLoad(null)
         val key = "$target|$from|$to"
         val now = System.currentTimeMillis()
-        fxSeriesCache[key]?.let { (rates, at) -> if (now - at in 0 until FX_SERIES_TTL_MILLIS) return rates }
+        fxSeriesCache[key]?.let { (rates, at) -> if (now - at in 0 until FX_SERIES_TTL_MILLIS) return FxSeriesLoad(rates) }
         return withContext(ioDispatcher) {
-            val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), from, to) ?: return@withContext null
+            val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), from, to)
+                ?: return@withContext FxSeriesLoad(null, failed = true)
             val series = PortfolioHistoryFx.ratesByDay(target, days.mapValues { (_, day) -> EcbRates.rebase(day, "USD") })
-            if (series.isEmpty()) return@withContext null
+            if (series.isEmpty()) return@withContext FxSeriesLoad(null)
             fxSeriesCache[key] = series to System.currentTimeMillis()
-            series
+            FxSeriesLoad(series)
         }
     }
 
@@ -362,3 +370,6 @@ class HistoricPriceSource @Inject constructor(
         fun isAsset(s: String) = s.isNotEmpty() && s.length <= 15 && s.all { it.isLetterOrDigit() }
     }
 }
+
+/** Ergebnis von [HistoricPriceSource.usdToSeriesChecked]: [rates] wie `usdToSeries`; [failed] = keine gültige Antwort. */
+class FxSeriesLoad(val rates: Map<Long, Double>?, val failed: Boolean = false)

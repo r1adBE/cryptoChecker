@@ -114,7 +114,9 @@ struct CsvImportResult {
     var decimalMark: Character? = nil
     /// Erkannte Spalten der Kopfzeile (Name wie in der Datei) — Vorschau.
     var columns: [String] = []
-    /// Zeitzone der Tageskurse (Devisen) = Zeitzone des Geräts, wie der Steuer-Export — wie Android `fxZone`.
+    /// Zeitzone der Tageskurse (Devisen, USDT/USD) = Zeitzone der gewählten Steuer-Vorlage, Neutral die des Geräts
+    /// (`CsvImportParser.fxZoneFor`) — dieselbe wie im Steuer-Export (`TaxTemplate.zone`); die Vorschau nennt sie. Wie
+    /// Android `fxZone`.
     var fxZone: String = CsvImportParser.defaultZone
     /// Zu viele Zellen je Zeile oder Datensätze (`CsvImportParser.maxCellsPerRow`, `maxRows`) — wie Android.
     var tooLarge = false
@@ -145,6 +147,11 @@ struct CsvImportPriced {
     /// USD/Fiat mit USDT = 1 USD umgerechnet, weil der USDT/USD-Tagesschluss DES Tags fehlt (Näherung wie
     /// `TaxExport.usdtApproximateOn` — die Vorschau nennt die Zeile). Wie Android.
     var usdtApproximate = false
+    /// `needsFx` wegen des Preises bzw. Tausch-Werts; `feeNeedsFx` wegen der Gebühr (`CsvImportRateGate.missing`).
+    var priceNeedsFx = false
+    var feeNeedsFx = false
+    /// Ein Betrag der Zeile hängt am Kurstag (Fiat/USD, nicht USDT) — die Vorschau nennt dann die Zeitzone. Wie Android.
+    var dayRate = false
 }
 
 /// Schlüssel, Duplikate und Umrechnung in USDT — wie Android (`CsvImport`).

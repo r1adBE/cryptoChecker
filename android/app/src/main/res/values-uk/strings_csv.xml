@@ -112,4 +112,11 @@
         <item quantity="many">%d рядків</item>
         <item quantity="other">%d рядка</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Денні курси за календарним днем у: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Не вдалося завантажити денні курси.</string>
+    <string name="portfolio_csv_import_anyway">Усе одно імпортувати</string>
+    <string name="portfolio_csv_import_anyway_hint">Без денного курсу ціна або комісія залишаться порожніми назавжди. Повтори спробу або все одно імпортуй – ці транзакції тоді отримають нотатку.</string>
+    <string name="portfolio_csv_note_price_no_rate">Ціна без денного курсу</string>
+    <string name="portfolio_csv_note_fee_no_rate">Комісія без денного курсу</string>
 </resources>

@@ -285,8 +285,9 @@ final class AppData: ObservableObject {
 
     /// - Parameter widgetKinds: nur diese Widget-Arten neu laden; nil = alle.
     /// Für die Erweiterungen (`AppData+…`): jede Änderung am gespeicherten Stand läuft hierüber.
+    /// - Parameter replacing: nur Wiederherstellen/Zurückrollen — die Datei wird ohne Abgleich ersetzt.
     func mutate(_ body: (inout SharedStorage.Snapshot) -> Void, reloadWidgets: Bool = true, widgetKinds: [String]? = nil,
-                quiet: Bool = false) {
+                quiet: Bool = false, replacing: Bool = false) {
         var s = snapshot
         body(&s)
         quietPriceSave = quiet
@@ -301,15 +302,15 @@ final class AppData: ObservableObject {
         }
         // Wartende Kurse stecken schon in `s`: sie kommen mit diesem Schreiben, samt ihren Widget-Wünschen
         let widgets = foldPendingPriceSave(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
-        writeSnapshot(s, durability: .full, reloadWidgets: widgets.reload, widgetKinds: widgets.kinds)
+        writeSnapshot(s, durability: .full, reloadWidgets: widgets.reload, widgetKinds: widgets.kinds, replacing: replacing)
         followBackgroundDemand() // Bedarf der Hintergrund-Aktualisierung
     }
 
     /// Stand `s` im Hintergrund speichern; die Widgets erst danach neu laden (sie lesen die Datei). Danach: warten
     /// Portfolio-Alarme auf den Schlüssel (nie Klartext), nennt das Portfolio es. Nur Kurse: Barriere (`Durability`).
     func writeSnapshot(_ s: SharedStorage.Snapshot, durability: ProtectedFile.Durability, reloadWidgets: Bool,
-                       widgetKinds: [String]?) {
-        SharedStorage.saveSnapshotInBackground(s, durability: durability, done: { [weak self] in
+                       widgetKinds: [String]?, replacing: Bool = false) {
+        SharedStorage.saveSnapshotInBackground(s, durability: durability, replacing: replacing, done: { [weak self] in
             if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
             // Nur bei Änderung veröffentlichen (auch nach den zusammengefassten Live-Kursen)
             let waiting = SharedStorage.watchlistPending

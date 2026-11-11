@@ -20,10 +20,12 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRefusal
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
@@ -44,37 +46,6 @@ import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
-/** Ablauf des CSV-Imports. */
-sealed interface CsvImportState {
-    data object Idle : CsvImportState
-    data object Loading : CsvImportState
-    /**
-     * [rereading]: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt.
-     * [choice]: Lesart, mit der GENAU diese Vorschau gebaut wurde ([CsvReadChoice.canConfirm]).
-     */
-    data class Preview(
-        val preview: CsvImportPreview,
-        val rereading: Boolean = false,
-        val choice: CsvReadChoice = CsvReadChoice(),
-    ) : CsvImportState
-    /** Keine unterstützte Zeile (fremdes Format, leere Datei, nicht lesbar). */
-    data object Unreadable : CsvImportState
-    /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. */
-    data object TooLarge : CsvImportState
-    data object Saving : CsvImportState
-    /** Portfolio gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]): nichts gelesen bzw. geschrieben. */
-    data object Locked : CsvImportState
-    /** Schreiben fehlgeschlagen: nichts importiert — gemeldet statt «0 importiert». */
-    data object SaveFailed : CsvImportState
-    /**
-     * Gespeichert: [count] Zeilen, [enabled] = Portfolio dabei eingeschaltet. Als Zustand (nicht als Rückruf), damit
-     * das Ergebnis ein Drehen übersteht; die Ansicht meldet es und setzt zurück ([PortfolioCsvImportViewModel.reset]).
-     */
-    data class Done(val count: Int, val enabled: Boolean) : CsvImportState
-    /** «Abbrechen» beim Speichern: nichts gespeichert; die Ansicht schliesst und setzt zurück. */
-    data object Cancelled : CsvImportState
-}
-
 /**
  * CSV-Import (Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda): Datei lesen ([CsvImportParser]), Preise mit den
  * Devisen-Tageskursen (Referenzkurse der EZB, letzter Geschäftstag ≤ Tag, [PortfolioHistoryFx.rateOn]) in USDT umrechnen,
@@ -94,7 +65,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
 ) : ViewModel() {
 
-    private val reader = PortfolioCsvImportReader(context, repository, historic, historySource)
+    private val reader = PortfolioCsvImportReader(context, repository, historic, historySource) {
+        settingsRepository.current().taxTemplate.zoneId
+    }
 
     private val _state = MutableStateFlow<CsvImportState>(CsvImportState.Idle)
     val state: StateFlow<CsvImportState> = _state.asStateFlow()
@@ -260,6 +233,12 @@ class PortfolioCsvImportViewModel @Inject constructor(
     fun setDecimalMark(mark: Char) = reread(chosen.copy(decimalMark = mark)) { read, choice -> reader.prepare(read.text, choice) }
 
     /**
+     * «Erneut versuchen» bei Zeilen ohne Tageskurs: Text im Speicher mit derselben Lesart neu lesen und die Tageskurse
+     * neu laden — die Vorschau wird neu bewertet ([CsvImportRateGate]).
+     */
+    fun reloadRates() = reread(chosen) { read, choice -> reader.prepare(read.text, choice) }
+
+    /**
      * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Die Vorschau steht solange auf
      * «wird neu gelesen» (Knopf aus, gedimmt); übernommen wird nur das Ergebnis der letzten Wahl. Scheitert das Lesen,
      * gilt wieder die Lesart der gezeigten Vorschau. [input] und die Vorschläge erst nach der
@@ -293,12 +272,15 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Neue Transaktionen anlegen und gewählte Umbuchungen mit gespeicherten Seiten verknüpfen ([saveCsvImport]). Erst
      * [CsvImportState.Saving], dann im Hintergrund vorbereiten ([prepareCsvImport]) und speichern. Ergebnis als Zustand:
      * [CsvImportState.Done] (Anzahl, eingeschaltet) bzw. [CsvImportState.Cancelled] nach «Abbrechen» ([cancelLoad]) —
-     * dann ist nichts gespeichert. Ablauf und Ergebnis: [runCsvImportSave].
+     * dann ist nichts gespeichert. Ablauf und Ergebnis: [runCsvImportSave]. [consent]: Bestätigung «Trotzdem
+     * importieren» der Zeilen ohne Tageskurs samt den Vermerken in der Sprache der App ([CsvImportRateGate]).
      */
-    fun confirm() {
+    fun confirm(consent: CsvRateConsent = CsvRateConsent()) {
         val shown = _state.value as? CsvImportState.Preview ?: return
         // Nicht während des Neu-Lesens und nur mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
         if (!CsvReadChoice.canConfirm(shown.rereading, shown.choice, chosen)) return
+        // Zeilen ohne Tageskurs: nur mit ausdrücklicher Bestätigung (sonst fehlten Preis bzw. Gebühr still und dauerhaft)
+        if (!CsvImportRateGate.canImport(shown.preview.missingFx.size, consent.accepted)) return
         val links = _links.value
         val linked = _linked.value
         val choices = _choices.value
@@ -310,7 +292,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
             val result = runCsvImportSave(
                 prepare = {
                     withContext(Dispatchers.Default) {
-                        prepareCsvImport(shown.preview, links, linked, choices, destinations, System.currentTimeMillis())
+                        prepareCsvImport(shown.preview, links, linked, choices, destinations, System.currentTimeMillis(), consent)
                     }
                 },
                 cancelled = saveCancelled::get,

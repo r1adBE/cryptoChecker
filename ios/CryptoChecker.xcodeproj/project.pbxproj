@@ -223,6 +223,7 @@
 		19F9FF5C21ADBE1176337E17 /* WatchMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838B8CB0D6ADC73911E83F /* WatchMotion.swift */; };
 		1A1224F770ECE19A11CCCFC6 /* Erc20Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA24988BDA185D6737F4EAC8 /* Erc20Tokens.swift */; };
 		1A501164BE9AB3C3D8457ED1 /* exchange_nbureference.json in Resources */ = {isa = PBXBuildFile; fileRef = 73BFDEBEF3F17AD7E31BE72E /* exchange_nbureference.json */; };
+		1A50EDADD79EBA147ADDCE12 /* CsvImportRateGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87E5663E6F12AA6082D9DE /* CsvImportRateGate.swift */; };
 		1A84D5F2982F43C6B18D81D6 /* Indodax.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E99E7360455D50B5E406FC /* Indodax.swift */; };
 		1A9A7EE8064C8271FA09B935 /* ExplorerComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15852DDAC270AFAAF7007373 /* ExplorerComponents.swift */; };
 		1AC90B62973F17D0B37EC08B /* WatchlistDayChangePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFD348055FF5C692443E75 /* WatchlistDayChangePill.swift */; };
@@ -638,6 +639,7 @@
 		4F199602A44C8A544349DD25 /* recorded_quidax.json in Resources */ = {isa = PBXBuildFile; fileRef = 155F5045F51236CD9278AEC2 /* recorded_quidax.json */; };
 		4F1B21F9ADB08AEBD64F7A48 /* exchange_latoken.json in Resources */ = {isa = PBXBuildFile; fileRef = 74F115154581E0487A0E0390 /* exchange_latoken.json */; };
 		4F2DDE2101D227A128E784DB /* BackupVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53611CF6939D5F039062131 /* BackupVersion.swift */; };
+		4F339D1961511E767E4A42A5 /* CsvImportRateGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87E5663E6F12AA6082D9DE /* CsvImportRateGate.swift */; };
 		4F3F20807A64697B24485374 /* SettingsUpdateChecks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43077468D4753C9A7F440775 /* SettingsUpdateChecks.swift */; };
 		4F496CD58966ABD83BFFCD3A /* WatchlistConfirmCallGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F7459549464535FAC4000F /* WatchlistConfirmCallGuard.swift */; };
 		4F59B47B77DD33F85A362249 /* WatchlistRefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A3E133371E941968C74AEC /* WatchlistRefreshState.swift */; };
@@ -943,6 +945,7 @@
 		70A79048FA175CBFE0A60B55 /* recorded_bitvavo.json in Resources */ = {isa = PBXBuildFile; fileRef = 01E31E0B8E761FB4D04D6E25 /* recorded_bitvavo.json */; };
 		70D6A8D24FCAB2FFEACBA9ED /* DateFormatterCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1B4D67303EC6D6B1D5B06D /* DateFormatterCache.swift */; };
 		70F60F4DAE5E362331F6FBDD /* recorded_independentreserve.json in Resources */ = {isa = PBXBuildFile; fileRef = 8109FEF562E9EC518DA76A29 /* recorded_independentreserve.json */; };
+		70F98B83DB26FECC48EB769F /* RestoreReplaceWriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48435419FBF7FEDF75C6661 /* RestoreReplaceWriteTests.swift */; };
 		7108552A367997104F43C34D /* AlarmBellRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59FEE3D8D6B287780505FE /* AlarmBellRoute.swift */; };
 		710C9107A373386389AC52EA /* BackgroundRefresh+Demand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC487A0E26A83C2622D92632 /* BackgroundRefresh+Demand.swift */; };
 		710EDB71CCBE72C9ED7EEF52 /* CsvImportProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A2EEF88AB2EBD5D30F6BE3 /* CsvImportProgress.swift */; };
@@ -1937,6 +1940,7 @@
 		F4973EA99612C7B931E6041A /* BackgroundDemandFollowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD282CB638FF42D609EE73 /* BackgroundDemandFollowTests.swift */; };
 		F49A2AD97E6A61845A69E70D /* Ndax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EB9A2C4E5998E49D27ED07 /* Ndax.swift */; };
 		F4B12B570215CEAEC4AEA7BC /* PortfolioCsvImportProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584D4A0E76FEE4887639925 /* PortfolioCsvImportProgress.swift */; };
+		F4B65DC8F50175CDFD373699 /* backup_portfolio_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EB433C0B594B4275376FFB0 /* backup_portfolio_data.json */; };
 		F4B8EF784F3B52933659CE4B /* host_group_backoff.json in Resources */ = {isa = PBXBuildFile; fileRef = BBF2256F970ECB1A41253AB6 /* host_group_backoff.json */; };
 		F4E1FD19D9D908129BAC81C3 /* exchange_bitopro.json in Resources */ = {isa = PBXBuildFile; fileRef = 674CC288AA14C8B860C4A697 /* exchange_bitopro.json */; };
 		F51694249E508B391EC2E91C /* PrivateSessionConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA184AE91BEB38B6729EC001 /* PrivateSessionConfigTests.swift */; };
@@ -1959,6 +1963,7 @@
 		F6F5540991699B9ACA11C8C1 /* WatchlistSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9578356FCAAAD3153C467D /* WatchlistSheets.swift */; };
 		F7275982B0A9B6D7A37113F5 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCC539C791A54F9722BB8A /* Skeleton.swift */; };
 		F735771723B1CCDFCA31C933 /* LocalDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A07126109DC278D5FDC57 /* LocalDay.swift */; };
+		F73B42E2EF0C8319997C7F2E /* BackupPortfolioDataParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F25848AE6964CE6A46AD4AC /* BackupPortfolioDataParityTests.swift */; };
 		F75D413DF34A27A255F8CC66 /* NotificationTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB29406F86388615A75123B0 /* NotificationTap.swift */; };
 		F75F9AA50C0578EA4B969F25 /* AlarmTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45CA5F3AC337753B893A728 /* AlarmTexts.swift */; };
 		F77962EE05C1F332C41D5D78 /* exchange_paribu.json in Resources */ = {isa = PBXBuildFile; fileRef = E705EA191C2390D91B86DB51 /* exchange_paribu.json */; };
@@ -2550,6 +2555,7 @@
 		4E161B3A5FA8ED3EC41680F0 /* CoinCycleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinCycleModel.swift; sourceTree = "<group>"; };
 		4E5E0F3F9334620273098D1A /* BoundedCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedCacheTests.swift; sourceTree = "<group>"; };
 		4EB0F9EF6683F511178C0EF3 /* CycleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleScreen.swift; sourceTree = "<group>"; };
+		4EB433C0B594B4275376FFB0 /* backup_portfolio_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = backup_portfolio_data.json; sourceTree = "<group>"; };
 		4F38FFB60F542E8E4C26C1CC /* HashKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashKey.swift; sourceTree = "<group>"; };
 		4F4212616BF3A9511EF18D39 /* Valr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valr.swift; sourceTree = "<group>"; };
 		4FE7BA3406BF725EDE5CD28B /* PortfolioCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioCompare.swift; sourceTree = "<group>"; };
@@ -2851,6 +2857,7 @@
 		7EAE28FC833DE3481BC249CD /* ExplorerBulkActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerBulkActions.swift; sourceTree = "<group>"; };
 		7EC1768A2833472F563BE8C1 /* Latoken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Latoken.swift; sourceTree = "<group>"; };
 		7EC39F8766CDC9E6503B1879 /* DenseRowText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenseRowText.swift; sourceTree = "<group>"; };
+		7F25848AE6964CE6A46AD4AC /* BackupPortfolioDataParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPortfolioDataParityTests.swift; sourceTree = "<group>"; };
 		7F945B2FDD8843A87275BF1C /* SettingsPercentInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPercentInputTests.swift; sourceTree = "<group>"; };
 		7FC0196163F9BBB9827A5784 /* portfolio_lock_row.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = portfolio_lock_row.json; sourceTree = "<group>"; };
 		7FD3033F69A0EA73CE896087 /* recorded_wazirx.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_wazirx.json; sourceTree = "<group>"; };
@@ -2938,6 +2945,7 @@
 		8E09C5495ACA845882223CA6 /* RtlChevronUsageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RtlChevronUsageTests.swift; sourceTree = "<group>"; };
 		8E0F7A852689D89CCA9F2F28 /* PortfolioWidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioWidgetSnapshot.swift; sourceTree = "<group>"; };
 		8E6C7F3D4A52BC91CC916E08 /* AppLogFileOpsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogFileOpsTests.swift; sourceTree = "<group>"; };
+		8E87E5663E6F12AA6082D9DE /* CsvImportRateGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvImportRateGate.swift; sourceTree = "<group>"; };
 		8EAA89E10BB1A80BCE7D24F6 /* MarketInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketInsights.swift; sourceTree = "<group>"; };
 		8ECDFAAF30C2149D96BCD584 /* RestoreSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreSteps.swift; sourceTree = "<group>"; };
 		8EDCC539C791A54F9722BB8A /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
@@ -3569,6 +3577,7 @@
 		F44B0FDCF3AAC6154BB1191B /* cc_chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cc_chime.wav; sourceTree = "<group>"; };
 		F467D32F7C1452F79036FB98 /* CsvImportParser+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CsvImportParser+Text.swift"; sourceTree = "<group>"; };
 		F46A9C7134CCE1B3F3217CD1 /* HistoricCloseChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricCloseChain.swift; sourceTree = "<group>"; };
+		F48435419FBF7FEDF75C6661 /* RestoreReplaceWriteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreReplaceWriteTests.swift; sourceTree = "<group>"; };
 		F4A3AA4E06F9DE0467A6BE6F /* recorded_nbpreference.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_nbpreference.json; sourceTree = "<group>"; };
 		F4B0329669E28ACFCDFBBA8C /* Argon2RandomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argon2RandomTests.swift; sourceTree = "<group>"; };
 		F50D38E3AF219E0DB4E7786E /* holdings_method.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = holdings_method.json; sourceTree = "<group>"; };
@@ -3959,6 +3968,7 @@
 				400960D6FBA69442AA3AE7C7 /* CsvImportParser.swift */,
 				25A2EEF88AB2EBD5D30F6BE3 /* CsvImportProgress.swift */,
 				A9D3F265EDCF1736DE47C286 /* CsvImportRateDays.swift */,
+				8E87E5663E6F12AA6082D9DE /* CsvImportRateGate.swift */,
 				A283D77099AFA1ABC83CB1DD /* CsvImportRefusal.swift */,
 				DC754D523C0C033205BAE91A /* CsvImportRow.swift */,
 				768F0BD5E836F27CA58BB1E2 /* CsvImportTime.swift */,
@@ -4709,6 +4719,7 @@
 				A67E2513E16C1C517F27DB52 /* backup_entries.json */,
 				31A031375B320CB3F8D1EF9D /* backup_limits.json */,
 				151275CF3434DCE8999D0D79 /* backup_passwords.json */,
+				4EB433C0B594B4275376FFB0 /* backup_portfolio_data.json */,
 				3CF0BF88527AAD2254CA038A /* backup_result_dialog.json */,
 				64F4F802A89E73E04CF1B10C /* backup_settings.json */,
 				696D92BA5F1F2E8C36E8CAC0 /* binance_alpha.json */,
@@ -5023,6 +5034,7 @@
 				7136C7B770E5247742DBAF51 /* BackupCryptoTests.swift */,
 				1973B8976CC6FEDDD2F4D46F /* BackupExclusionTests.swift */,
 				352B41CFB2778AA67D0F25E0 /* BackupPerformanceTests.swift */,
+				7F25848AE6964CE6A46AD4AC /* BackupPortfolioDataParityTests.swift */,
 				DC033E593279FF1FF0C92150 /* BackupRestoreLimitsTests.swift */,
 				AFD70BF3717A2B8CC9854DBF /* BackupRestorePolicyTests.swift */,
 				3F76DAEAED9668785E0B4192 /* BackupResultDialogParityTests.swift */,
@@ -5238,6 +5250,7 @@
 				B77F0C854619A6305DEC07F6 /* ResetCleanupTests.swift */,
 				09E0A45540014D5262032A68 /* ResponseLimitStubTests.swift */,
 				C236E19A30631315B456C7EB /* RestoreJournalGateTests.swift */,
+				F48435419FBF7FEDF75C6661 /* RestoreReplaceWriteTests.swift */,
 				15DFB1C6A54393D1E5B47E86 /* RestoreStepsTests.swift */,
 				96E39490294A7CFF258B788B /* RowPauseTests.swift */,
 				8E09C5495ACA845882223CA6 /* RtlChevronUsageTests.swift */,
@@ -5984,6 +5997,7 @@
 				56BEC75FCAE08189FDD6D26E /* backup_entries.json in Resources */,
 				1078CF2A4D685931D913547F /* backup_limits.json in Resources */,
 				A862D6778C41E4B3BC3A1AE8 /* backup_passwords.json in Resources */,
+				F4B65DC8F50175CDFD373699 /* backup_portfolio_data.json in Resources */,
 				29605B8A357366AF181CB7EE /* backup_result_dialog.json in Resources */,
 				C17E8DA009C2BAAC56E40547 /* backup_settings.json in Resources */,
 				3C5C4D2317A75E0A26BA54C4 /* binance_alpha.json in Resources */,
@@ -6392,6 +6406,7 @@
 				2E04CEDA2E0B9B97E6820278 /* CsvImportParser.swift in Sources */,
 				928BC91ADECA798819604917 /* CsvImportProgress.swift in Sources */,
 				73E0495B29ECF4AAE2562A15 /* CsvImportRateDays.swift in Sources */,
+				4F339D1961511E767E4A42A5 /* CsvImportRateGate.swift in Sources */,
 				80DB14B45C22DEF014A45540 /* CsvImportRefusal.swift in Sources */,
 				EBD4791B1FD7A268A9118109 /* CsvImportRow.swift in Sources */,
 				1849740065D9DCE5F25EFECE /* CsvImportTime.swift in Sources */,
@@ -6737,6 +6752,7 @@
 				B89E05B8DE726336B5540D08 /* BackupCryptoTests.swift in Sources */,
 				3D678698FF77E7704A30B702 /* BackupExclusionTests.swift in Sources */,
 				CD0A58A8D4012156E93ED497 /* BackupPerformanceTests.swift in Sources */,
+				F73B42E2EF0C8319997C7F2E /* BackupPortfolioDataParityTests.swift in Sources */,
 				825173FE7F474B8D3A0DCFB8 /* BackupRestoreLimitsTests.swift in Sources */,
 				B5E7845FD7B692E5CDB1B0B7 /* BackupRestorePolicyTests.swift in Sources */,
 				042CCA2DEAC7A6BD88E64CA5 /* BackupResultDialogParityTests.swift in Sources */,
@@ -6952,6 +6968,7 @@
 				7701A007F168B2E1C43C352D /* ResetCleanupTests.swift in Sources */,
 				093745D26C7565F2F9273035 /* ResponseLimitStubTests.swift in Sources */,
 				1BA4E93F0D0432675DA81987 /* RestoreJournalGateTests.swift in Sources */,
+				70F98B83DB26FECC48EB769F /* RestoreReplaceWriteTests.swift in Sources */,
 				6EAAAFD0414316F6C04F71AB /* RestoreStepsTests.swift in Sources */,
 				8BA906B2CA6142B5B0CF00A9 /* RowPauseTests.swift in Sources */,
 				0A209F15BB4976E8821E3675 /* RtlChevronUsageTests.swift in Sources */,
@@ -7253,6 +7270,7 @@
 				ED086B07AEB17B1BB9D38B3C /* CsvImportParser.swift in Sources */,
 				710EDB71CCBE72C9ED7EEF52 /* CsvImportProgress.swift in Sources */,
 				176702633F8E51A485E05566 /* CsvImportRateDays.swift in Sources */,
+				1A50EDADD79EBA147ADDCE12 /* CsvImportRateGate.swift in Sources */,
 				46F558A092CD3A6BD9FDC1EF /* CsvImportRefusal.swift in Sources */,
 				BAC77A68BD0E123BBB1BC184 /* CsvImportRow.swift in Sources */,
 				BF6FA728EC6CF0D5A64C3A4B /* CsvImportTime.swift in Sources */,
@@ -7983,7 +8001,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8010,7 +8028,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8031,7 +8049,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8061,7 +8079,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WatchWidgets/CryptoCheckerWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8090,7 +8108,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8109,7 +8127,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8196,7 +8214,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8225,7 +8243,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8251,7 +8269,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -8273,7 +8291,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8303,7 +8321,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Watch/CryptoCheckerWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -8335,7 +8353,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 220;
+				CURRENT_PROJECT_VERSION = 221;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

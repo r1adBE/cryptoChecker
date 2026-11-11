@@ -67,6 +67,8 @@ enum UiTestTags {
     static let portfolioImportCsv = "portfolio_import_csv"
     static let portfolioImports = "portfolio_imports"
     static let csvImportConfirm = "csv_import_confirm"
+    static let csvImportReloadRates = "csv_import_reload_rates"
+    static let csvImportAnyway = "csv_import_anyway"
     static let importUndo = "import_undo"
     static let importUndoConfirm = "import_undo_confirm"
 

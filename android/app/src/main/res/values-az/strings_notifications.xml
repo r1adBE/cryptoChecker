@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Bildirişlərə icazə verilsin?</string>
     <string name="notification_portfolio_alarm_locked">Alarmın işə düşdü – təfərrüatlar üçün tətbiqi aç.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – indi %2$s</string>
     <string name="notification_portfolio_alarm_title">Portfelin dəyəri</string>
     <string name="notification_price_change">%1$s, %2$s-dən (%3$s əvvəl)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s-dən</string>

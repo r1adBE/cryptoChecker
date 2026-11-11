@@ -11,7 +11,6 @@ import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.alarm.NearExtreme
@@ -156,33 +155,22 @@ fun AppNotifier.canShowPortfolioAlarm(): Boolean {
 }
 
 /**
- * Alarm «Portfolio-Wert» ([measured] = Gesamtwert in der Alarmwährung bzw. Veränderung in
- * Prozent). Gleicher Kanal wie die Paar-Alarme («Alarm-Signal»; in der Nachtruhe löst
- * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp
- * öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier; mit Portfolio-Sperre steht wie
- * auf iOS nur ein neutraler Satz ohne Schwelle, Beträge und Prozente da. Auf dem Sperrbildschirm immer privat
- * (VISIBILITY_PRIVATE, öffentlich nur Titel und der neutrale Satz) — auch ohne Portfolio-Sperre (Entscheid des Inhabers;
- * Kursalarme folgen weiter der Sperre, [lockScreenPrivacy]).
+ * Alarm «Portfolio-Wert» [alarmId]. Gleicher Kanal wie die Paar-Alarme («Alarm-Signal»; in der Nachtruhe löst
+ * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp öffnet den Portfolio-Tab.
+ * Immer neutral wie iOS `PortfolioAlarmNotice.content()` (Entscheid des Inhabers): nur Titel und neutraler Satz
+ * ([PortfolioAlarmNotice]) — weder Schwelle, Betrag noch Prozent in Titel, Text, grossem Text, Ticker oder
+ * Vorlesetext, unabhängig von der Portfolio-Sperre und davon, ob das System sensible Inhalte auf dem Sperrbildschirm
+ * zeigt. Darum nimmt die Funktion nur die Kennung entgegen; die Einzelheiten zeigt die App (Alarmliste/Protokoll).
+ * Zusätzlich VISIBILITY_PRIVATE mit derselben neutralen öffentlichen Fassung. Kursalarme folgen weiter der Sperre
+ * ([lockScreenPrivacy]).
  * @return true erst, wenn die Meldung unter den offenen Mitteilungen steht ([awaitActive]) —
  *   sonst bleibt der Alarm scharf (PortfolioAlarmChecker), wie bei [showAlarm].
  */
-suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured: Double, usdtAssumed: Boolean = false): Boolean {
+suspend fun AppNotifier.showPortfolioAlarm(alarmId: Long): Boolean {
     val settings = settingsRepository.cached
-    val title = context.getString(R.string.notification_portfolio_alarm_title)
-    val locked = context.getString(R.string.notification_portfolio_alarm_locked)
-    val body = if (settings.appLock) {
-        locked
-    } else {
-        // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter ([PortfolioAlarmLogic.usdtAssumed])
-        AlarmTextNote.join(
-            context.getString(
-                R.string.notification_portfolio_alarm_text,
-                PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis.storage, settings.hidePortfolioAmounts),
-                PortfolioAlarmTexts.measured(alarm, measured, settings.hidePortfolioAmounts)
-            ),
-            listOf(if (usdtAssumed) context.getString(R.string.portfolio_usdt_assumed) else null),
-        )
-    }
+    val notice = PortfolioAlarmNotice.content { context.getString(it) }
+    val title = notice.title
+    val body = notice.text
     val quiet = isQuietNow()
     val channelId = channelIdFor(AppNotifierDeliveryPlan.alarmChannel(quiet), settings.alarmSignal)
     val builder = NotificationCompat.Builder(context, channelId)
@@ -197,18 +185,18 @@ suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured
         .appBadge()
         .setGroup(Group.ALARMS.key)
         .setContentIntent(openTargetIntent(OPEN_PORTFOLIO, PORTFOLIO_REQUEST_CODE))
-    // Immer privat auf dem Sperrbildschirm, unabhängig von der Portfolio-Sperre: dort nur Titel und neutraler Satz
+    // Zusätzlich privat auf dem Sperrbildschirm; die öffentliche Fassung trägt denselben neutralen Satz
     builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
         .setPublicVersion(
             NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_stat_logo)
                 .setColor(settings.accentColor.seed)
                 .setContentTitle(title)
-                .setContentText(locked)
+                .setContentText(body)
                 .build()
         )
     if (quiet) builder.setSilent(true)
-    val id = portfolioAlarmNotificationId(alarm.id)
+    val id = portfolioAlarmNotificationId(alarmId)
     makeRoomForAlarm(id)
     // Zeit vor dem Melden: nur eine Meldung ab da bestätigt den Alarm (awaitActive)
     val postedAt = System.currentTimeMillis()

@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -48,6 +49,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
@@ -219,6 +221,38 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
             colors = DisabledColors.switch(),
             modifier = Modifier.semantics { contentDescription = linkLabel },
         )
+    }
+}
+
+/**
+ * Zeilen ohne Tageskurs: Erklärung, «Erneut versuchen» (Kurse neu laden) und der Schalter «Trotzdem importieren» —
+ * erst mit ihm ist «Importieren» frei, die betroffenen Transaktionen bekommen dann einen Vermerk
+ * (`CsvImportRateGate`). Wie iOS `rateGate`.
+ */
+@Composable
+internal fun CsvRateGate(accepted: Boolean, onAccepted: (Boolean) -> Unit, onReload: () -> Unit, enabled: Boolean) {
+    val label = stringResource(R.string.portfolio_csv_import_anyway)
+    PreviewHint(stringResource(R.string.portfolio_csv_import_anyway_hint))
+    TextButton(
+        onClick = onReload,
+        enabled = enabled,
+        colors = DisabledColors.textButton(),
+        modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_RELOAD_RATES),
+    ) {
+        Text(stringResource(R.string.action_retry))
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(value = accepted, enabled = enabled, role = Role.Switch, onValueChange = onAccepted)
+            .testTag(UiTestTags.CSV_IMPORT_ANYWAY)
+            .padding(vertical = 4.dp),
+    ) {
+        Text(label, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+        Spacer(Modifier.width(12.dp))
+        // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur
+        Switch(checked = accepted, onCheckedChange = null, enabled = enabled, colors = DisabledColors.switch())
     }
 }
 

@@ -11,8 +11,8 @@ Android (Android Studio or JDK 17+):
 
 ```sh
 cd android
-./gradlew test            # unit tests (Windows: gradlew.bat test)
-./gradlew assembleDebug   # debug APK
+./gradlew testDebugUnitTest   # unit tests as in CI (Windows: gradlew.bat testDebugUnitTest)
+./gradlew assembleDebug       # debug APK
 ```
 
 iOS: open `ios/CryptoChecker.xcodeproj` in Xcode 26 (or newer; App Store uploads

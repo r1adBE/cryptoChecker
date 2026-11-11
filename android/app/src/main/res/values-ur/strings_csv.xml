@@ -96,4 +96,11 @@
         <item quantity="one">%d سطر</item>
         <item quantity="other">%d سطریں</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">روزانہ شرحیں اس ٹائم زون کے کیلنڈر دن کے مطابق: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">روزانہ شرحیں لوڈ نہیں ہو سکیں۔</string>
+    <string name="portfolio_csv_import_anyway">پھر بھی امپورٹ کریں</string>
+    <string name="portfolio_csv_import_anyway_hint">روزانہ شرح کے بغیر قیمت یا فیس مستقل طور پر غائب رہتی ہے۔ دوبارہ کوشش کریں، یا پھر بھی امپورٹ کریں – تب ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔</string>
+    <string name="portfolio_csv_note_price_no_rate">روزانہ شرح کے بغیر قیمت</string>
+    <string name="portfolio_csv_note_fee_no_rate">روزانہ شرح کے بغیر فیس</string>
 </resources>

@@ -96,4 +96,11 @@
         <item quantity="one">පේළි %d</item>
         <item quantity="other">පේළි %d</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">දෛනික අනුපාත මෙම වේලා කලාපයේ දින දර්ශන දිනය අනුව: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">දෛනික අනුපාත පූරණය කළ නොහැකි විය.</string>
+    <string name="portfolio_csv_import_anyway">එසේ වුවත් ආයාත කරන්න</string>
+    <string name="portfolio_csv_import_anyway_hint">දෛනික අනුපාතයක් නැතිව මිල හෝ ගාස්තුව ස්ථිරවම අඩු වේ. යළි උත්සාහ කරන්න, නැතහොත් එසේ වුවත් ආයාත කරන්න – එවිට එම ගනුදෙනුවලට සටහනක් එක් වේ.</string>
+    <string name="portfolio_csv_note_price_no_rate">දෛනික අනුපාතයක් නැති මිල</string>
+    <string name="portfolio_csv_note_fee_no_rate">දෛනික අනුපාතයක් නැති ගාස්තුව</string>
 </resources>

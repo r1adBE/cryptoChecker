@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">सूचनाहरूलाई अनुमति दिने?</string>
     <string name="notification_portfolio_alarm_locked">तपाईंको अलर्ट ट्रिगर भयो – विवरणका लागि एप खोल्नुहोस्।</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – अहिले %2$s</string>
     <string name="notification_portfolio_alarm_title">पोर्टफोलियो मूल्य</string>
     <string name="notification_price_change">%1$s, %2$s बाट (%3$s अघि)</string>
     <string name="notification_price_change_no_age">%1$s, %2$s बाट</string>

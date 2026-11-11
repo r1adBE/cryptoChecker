@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Να επιτρέπονται οι ειδοποιήσεις;</string>
     <string name="notification_portfolio_alarm_locked">Ο συναγερμός σου ενεργοποιήθηκε – άνοιξε την εφαρμογή για λεπτομέρειες.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – τώρα %2$s</string>
     <string name="notification_portfolio_alarm_title">Αξία χαρτοφυλακίου</string>
     <string name="notification_price_change">%1$s, από %2$s (πριν από %3$s)</string>
     <string name="notification_price_change_no_age">%1$s, από %2$s</string>

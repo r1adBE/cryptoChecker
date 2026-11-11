@@ -31,7 +31,7 @@ MARCHÉ
 
 ET AUSSI
 • Widgets pour l’écran d’accueil et de verrouillage, Activité en direct pour une crypto ; Apple Watch
-• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Bitpanda et Swissquote : pas de cours propre, CSV uniquement.
+• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Swissquote : pas de cours propre, CSV uniquement.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur, Dynamic Type ; VoiceOver lit chaque ligne comme une phrase
 • Sauvegarde et restauration via l’app Fichiers
 • Modes clair et sombre, cinq couleurs d’accent, 75 langues

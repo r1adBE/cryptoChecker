@@ -132,10 +132,11 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
 
 /** Portfolio-Daten in der Sicherung? Nicht lesbar = ja (lieber Passwort verlangen). */
 private suspend fun SettingsViewModel.backupHasPortfolioData(): Boolean = try {
-    // Beobachtete Adressen sind auch Portfolio-Daten
+    // Beobachtete Adressen und Portfolio-Alarme (Betragsschwellen) sind auch Portfolio-Daten
     PortfolioLockPolicy.backupHasPortfolioData(
         transactions = portfolioRepository.getTransactions().size,
         watchedAddresses = portfolioRepository.getWatchedAddresses().size,
+        portfolioAlarms = backupManager.portfolioAlarmCount(),
     )
 } catch (e: kotlinx.coroutines.CancellationException) {
     throw e

@@ -114,8 +114,10 @@ enum CsvImportParser {
     /// mit anderer `zone` noch einmal lesen (die Datei wird nicht neu gelesen). `dateOrder` = in der Vorschau gewählte
     /// Reihenfolge Tag/Monat; gilt nur bei mehrdeutigen Daten (`CsvImportResult.dateOrderAmbiguous`). `decimalMark` = in der
     /// Vorschau gewähltes Dezimalzeichen («.» oder «,»); gilt nur, wenn die Datei keines verrät (`decimalAmbiguous`).
+    /// `fxZone` = Zeitzone der Tageskurse (Regel `fxZoneFor`; nil = `deviceZone`).
     static func parse(_ text: String, deviceZone: String = defaultZone, zone: String? = nil,
-                      dateOrder: CsvDateOrder? = nil, decimalMark: Character? = nil) -> CsvImportResult {
+                      dateOrder: CsvDateOrder? = nil, decimalMark: Character? = nil,
+                      fxZone: String? = nil) -> CsvImportResult {
         var scalars = Array(text.unicodeScalars)
         if scalars.first == "\u{FEFF}" { scalars.removeFirst() }
         // Zeilenenden vereinheitlichen (CRLF/CR → LF)
@@ -158,11 +160,18 @@ enum CsvImportParser {
                                        zone: zoneFor(format, deviceZone: deviceZone, override: override),
                                        chosenOrder: dateOrder, chosenMark: decimalMark)
                     result.columns = header.recognized()
-                    result.fxZone = deviceZone
+                    result.fxZone = fxZone ?? deviceZone
                     return result
                 }
             }
         }
         return empty
     }
+
+    /// Zeitzone der Tageskurse beim Import: die der gewählten Steuer-Vorlage (`templateZone` = `TaxTemplate.zoneId`), ohne
+    /// Vorlage (Neutral, nil) die des Geräts — dieselbe Zone, in der der Steuer-Export den Kurstag bestimmt
+    /// (`TaxTemplate.zone`). So ergibt ein Kauf über 10 000 USD im Export wieder 10 000 USD, auch wenn das Gerät in einer
+    /// anderen Zeitzone steht als die Vorlage. Wird die Vorlage NACH dem Import gewechselt, bleibt der Import beim Tag der
+    /// alten Zone (die Transaktion speichert USDT, nicht den Originalbetrag). Wie Android `fxZoneFor`.
+    static func fxZoneFor(templateZone: String?, deviceZone: String) -> String { templateZone ?? deviceZone }
 }

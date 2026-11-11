@@ -112,4 +112,11 @@
         <item quantity="many">%d řádku</item>
         <item quantity="other">%d řádků</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Denní kurzy podle kalendářního dne v: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Denní kurzy se nepodařilo načíst.</string>
+    <string name="portfolio_csv_import_anyway">Přesto importovat</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez denního kurzu cena nebo poplatek trvale chybí. Zkus to znovu, nebo importuj přesto – tyto transakce pak dostanou poznámku.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cena bez denního kurzu</string>
+    <string name="portfolio_csv_note_fee_no_rate">Poplatek bez denního kurzu</string>
 </resources>

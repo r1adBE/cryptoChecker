@@ -96,4 +96,11 @@
         <item quantity="one">%d linje</item>
         <item quantity="other">%d linjer</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Dagskurser etter kalenderdagen i: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Dagskursene kunne ikke lastes inn.</string>
+    <string name="portfolio_csv_import_anyway">Importer likevel</string>
+    <string name="portfolio_csv_import_anyway_hint">Uten dagskurs mangler pris eller gebyr permanent. Prøv igjen, eller importer likevel – de transaksjonene får da et notat.</string>
+    <string name="portfolio_csv_note_price_no_rate">Pris uten dagskurs</string>
+    <string name="portfolio_csv_note_fee_no_rate">Gebyr uten dagskurs</string>
 </resources>

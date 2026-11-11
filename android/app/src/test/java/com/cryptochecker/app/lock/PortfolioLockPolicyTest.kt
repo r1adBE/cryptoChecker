@@ -167,10 +167,12 @@ class PortfolioLockPolicyTest {
     @Test
     fun backupCountsWatchedAddressesAsPortfolioData() {
         // Nur Adressen (auch xpub) ohne Trades: Bestände stehen trotzdem in der Datei
-        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 1))
-        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 0))
-        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 2))
-        assertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 0))
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 1, portfolioAlarms = 0))
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 0, portfolioAlarms = 0))
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 2, portfolioAlarms = 0))
+        assertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 0, portfolioAlarms = 0))
+        // Nur ein Portfolio-Alarm: die Betragsschwelle steht in der Datei
+        assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 0, portfolioAlarms = 1))
     }
 
     @Test

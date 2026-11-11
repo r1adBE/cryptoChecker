@@ -96,4 +96,11 @@
         <item quantity="one">%dটি লাইন</item>
         <item quantity="other">%dটি লাইন</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">দৈনিক হার এই টাইম জোনের ক্যালেন্ডার দিন অনুযায়ী: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">দৈনিক হার লোড করা যায়নি।</string>
+    <string name="portfolio_csv_import_anyway">তবুও ইমপোর্ট করুন</string>
+    <string name="portfolio_csv_import_anyway_hint">দৈনিক হার ছাড়া দাম বা ফি স্থায়ীভাবে বাদ থেকে যাবে। আবার চেষ্টা করুন, অথবা তবুও ইমপোর্ট করুন – তখন ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।</string>
+    <string name="portfolio_csv_note_price_no_rate">দৈনিক হার ছাড়া দাম</string>
+    <string name="portfolio_csv_note_fee_no_rate">দৈনিক হার ছাড়া ফি</string>
 </resources>

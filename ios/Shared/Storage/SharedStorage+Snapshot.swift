@@ -115,16 +115,25 @@ extension SharedStorage {
     /// (`mergeNewerPrices`, `mergeNewerAlarmTriggers`) — sonst überschriebe ein älterer Stand im Speicher
     /// der App sie wieder (und der Alarm meldete sich ein zweites Mal).
     /// - Parameter durability: `.barrier` nur für reine Kurs-Speicherungen (Live-Takt).
+    /// - Parameter replacing: true nur beim Wiederherstellen und Zurückrollen (`AppData.replaceAll`): der ganze Stand
+    ///   ersetzt die Datei ohne Abgleich (`replaceFiles`) — eingespielte Alarme sind scharf wie in der Sicherung.
     static func saveSnapshotInBackground(_ snapshot: Snapshot, durability: ProtectedFile.Durability = .full,
+                                         replacing: Bool = false,
                                          done: (@MainActor @Sendable () -> Void)? = nil) {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
         queuedWrites.write { $0 &+= 1 }
         snapshotWriter.async {
             let include = loadSettings().portfolioSystemBackup
+            let replace = replacesFile(requested: replacing, pending: replacePendingBox.current)
             let written = coordinated(writing: true) { () -> Bool in
-                mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
-                                   includePortfolioInBackup: include, durability: durability)
+                if replace {
+                    return replaceFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
+                                        includePortfolioInBackup: include)
+                }
+                return mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
+                                          includePortfolioInBackup: include, durability: durability)
             }
+            if replace { replacePendingBox.current = !written }
             // Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
             lastQueuedWriteBox.current = written
             if let done { DispatchQueue.main.async(execute: done) }
@@ -134,6 +143,14 @@ extension SharedStorage {
     /// Ergebnis des zuletzt über die Warteschlange ausgeführten Schreibens (true = `watchlist.json`
     /// geschrieben). Nur auf `snapshotWriter` gesetzt und gelesen.
     private static let lastQueuedWriteBox = LockedBox(true)
+
+    /// Ein Ersetzen (`replacing`) steht noch nicht auf der Platte (z. B. Schlüssel fehlte): Die Datei hält dann noch den
+    /// Stand VOR dem Wiederherstellen. Nur auf `snapshotWriter` gesetzt und gelesen.
+    private static let replacePendingBox = LockedBox(false)
+
+    /// Ohne Abgleich schreiben? Verlangt (Wiederherstellen, Zurückrollen) oder ein früheres Ersetzen ist noch offen —
+    /// sonst holte das nächste gewöhnliche Schreiben die alten Auslösungen der Datei doch noch in den eingespielten Stand.
+    static func replacesFile(requested: Bool, pending: Bool) -> Bool { requested || pending }
 
     /// Zahl der bisher eingereihten Schreibvorgänge (`saveSnapshotInBackground`) — für `snapshotWritesDrained`.
     private static let queuedWrites = LockedBox(0)
@@ -159,6 +176,20 @@ extension SharedStorage {
         }
         return writeFiles(s, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                           includePortfolioInBackup: includePortfolioInBackup, keys: keys, durability: durability)
+    }
+
+    /// Ganzen Stand ersetzen, OHNE Kurse und Auslösungen der Datei zu übernehmen (nur innerhalb von `coordinated`):
+    /// Wiederherstellen und Zurückrollen. Ein Alarm der Sicherung mit gleicher Id und gleichen Werten wie ein inzwischen
+    /// gemeldeter bliebe sonst «gemeldet» bzw. aus (`mergeNewerAlarmTriggers`) — er ist scharf wie in der Sicherung
+    /// (Android ersetzt die Tabelle in einer Transaktion).
+    /// - Returns: true, wenn `watchlist.json` geschrieben wurde; false auch bei gerade nicht zugreifbarer Datei.
+    @discardableResult
+    static func replaceFiles(_ snapshot: Snapshot, watchlist: URL, portfolioAlarms: URL,
+                             includePortfolioInBackup: Bool, keys: StorageKey = .shared) -> Bool {
+        // Gerade nicht lesbar (Datenschutz): auch nicht überschreiben; unlesbare Datei wird beim Lesen gesichert
+        if case .inaccessible = readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys) { return false }
+        return writeFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
+                          includePortfolioInBackup: includePortfolioInBackup, keys: keys)
     }
 
     // MARK: Abstimmung über NSFileCoordinator

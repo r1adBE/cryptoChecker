@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">通知を許可しますか？</string>
     <string name="notification_portfolio_alarm_locked">アラームが作動しました。詳細はアプリで確認してください。</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – 現在 %2$s</string>
     <string name="notification_portfolio_alarm_title">ポートフォリオ評価額</string>
     <string name="notification_price_change">%1$s、%2$s から（%3$s前）</string>
     <string name="notification_price_change_no_age">%1$s、%2$s から</string>

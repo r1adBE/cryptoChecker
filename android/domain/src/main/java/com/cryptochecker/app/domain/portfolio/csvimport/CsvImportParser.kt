@@ -116,7 +116,8 @@ object CsvImportParser {
      * im Speicher mit anderer [zone] noch einmal lesen (die Datei wird nicht neu gelesen). [dateOrder] = in der Vorschau
      * gewählte Reihenfolge Tag/Monat; gilt nur bei mehrdeutigen Daten ([CsvImportResult.dateOrderAmbiguous]).
      * [decimalMark] = in der Vorschau gewähltes Dezimalzeichen ('.' oder ','); gilt nur, wenn die Datei keines verrät
-     * ([CsvImportResult.decimalAmbiguous]).
+     * ([CsvImportResult.decimalAmbiguous]). [fxZone] = Zeitzone der Tageskurse (Regel [fxZoneFor];
+     * null = [deviceZone]).
      */
     fun parse(
         text: String,
@@ -124,6 +125,7 @@ object CsvImportParser {
         zone: String? = null,
         dateOrder: CsvDateOrder? = null,
         decimalMark: Char? = null,
+        fxZone: String? = null,
     ): CsvImportResult {
         val clean = text.removePrefix("\uFEFF").replace("\r\n", "\n").replace('\r', '\n')
         val firstLine = clean.split('\n').firstOrNull { it.isNotBlank() }
@@ -147,12 +149,21 @@ object CsvImportParser {
                     return build(
                         format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), dateOrder,
                         decimalMark,
-                    ).copy(columns = header.recognized(), fxZone = deviceZone)
+                    ).copy(columns = header.recognized(), fxZone = fxZone ?: deviceZone)
                 }
             }
         }
         return CsvImportResult(CsvImportFormat.UNKNOWN, emptyList(), emptyList())
     }
+
+    /**
+     * Zeitzone der Tageskurse beim Import: die der gewählten Steuer-Vorlage ([templateZone] = `TaxTemplate.zoneId`),
+     * ohne Vorlage (Neutral, null) die des Geräts — dieselbe Zone, in der der Steuer-Export den Kurstag bestimmt
+     * (`TaxTemplate.zone`). So ergibt ein Kauf über 10 000 USD im Export wieder 10 000 USD, auch wenn das Gerät in einer
+     * anderen Zeitzone steht als die Vorlage. Wird die Vorlage NACH dem Import gewechselt, bleibt der Import beim Tag der
+     * alten Zone (die Transaktion speichert USDT, nicht den Originalbetrag). Wie iOS `CsvImportParser.fxZoneFor`.
+     */
+    fun fxZoneFor(templateZone: String?, deviceZone: String): String = templateZone ?: deviceZone
 
     /** Datei über [MAX_CELLS_PER_ROW]/[MAX_ROWS]: ohne Zeilen, die Vorschau meldet sie als nicht lesbar. */
     private fun tooLarge() = CsvImportResult(CsvImportFormat.UNKNOWN, emptyList(), emptyList(), tooLarge = true)

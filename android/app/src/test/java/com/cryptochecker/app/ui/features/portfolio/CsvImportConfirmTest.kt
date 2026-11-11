@@ -6,6 +6,8 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
@@ -65,6 +67,27 @@ class CsvImportConfirmTest {
         assertEquals("Ledger", transfer.transferTo)
         assertTrue(plan.batch, plan.batch.startsWith("RELAI:42:"))
         assertTrue(plan.storedUpdates.isEmpty())
+    }
+
+    /** Zeilen ohne Tageskurs: ohne Bestätigung kein Plan (Vorschau bleibt); mit ihr trägt die Transaktion den Vermerk. */
+    @Test
+    fun prepareNeedsConsentForRowsWithoutRateAndMarksThem() {
+        val gated = preview.copy(
+            transactions = listOf(
+                tx(2, PortfolioTxType.BUY, 3_000L).copy(priceUsdt = null, missingRate = CsvMissingRate.PRICE),
+                tx(4, PortfolioTxType.BUY, 1_000L),
+            ),
+            missingFx = listOf(2),
+        )
+        assertNull(prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L))
+        val refused = CsvRateConsent(accepted = false, priceNote = "Preis ohne Tageskurs", feeNote = "Gebühr ohne Tageskurs")
+        assertNull(prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L, consent = refused))
+        val plan = prepareCsvImport(gated, emptyList(), emptySet(), emptyMap(), emptyMap(), now = 1L, consent = refused.copy(accepted = true))
+        assertNotNull(plan)
+        plan ?: return
+        // Älteste zuerst: Zeile 4, dann Zeile 2 mit Vermerk
+        assertEquals(listOf(null, "Preis ohne Tageskurs"), plan.entities.map { it.note })
+        assertNull(plan.entities[1].priceUsdt)
     }
 
     @Test

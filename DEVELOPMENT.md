@@ -489,7 +489,7 @@ of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
 
 ```sh
 cd android
-./gradlew testDebugUnitTest        # or: ./gradlew test (debug + release, all modules)
+./gradlew testDebugUnitTest        # as in CI; ./gradlew test also runs the release variants (twice the time)
 ./gradlew :app:testDebugUnitTest -PperformanceTests=only   # performance tests alone (timings)
 ```
 
@@ -520,6 +520,17 @@ Source guards (`FileLengthTest`, `HapticsUsageTest`, contrast and backup-rule ch
 missing (`SourceGuard`). Swift sources count as optional locally: in an
 Android-only checkout those tests are reported as skipped; the *Android* workflow sets `REQUIRE_IOS_SOURCES=true`, so
 there a missing Swift file fails the run.
+
+**What the tests read is a task input.** Parity tests and source guards read files outside their module's classpath
+(from `user.dir` upwards): `android/testdata`, the Swift sources under `ios/`, sources and tests of the sibling
+modules, `app/schemas`, the Play texts, the privacy page, `LICENSE`. `android/gradle/test-inputs.gradle.kts` (applied
+to every module by the root build script) declares these as inputs of every `Test` task – as file trees with
+relative path sensitivity, so a folder missing from the checkout (no `ios/`) is simply empty, and both layouts work
+(`public/.github` in the private tree, `.github` next to `android/` in the published repository) – plus
+`REQUIRE_IOS_SOURCES` as an input property. A change to a fixture, a Swift file or a sibling module therefore re-runs
+the tests and changes the build-cache key; `--rerun-tasks` is not needed. `TestInputsGuardTest` (`:app`) reads every
+string literal of the unit tests of all modules: one that names an existing place in the tree must lie under a
+declared root, so a new read location fails that test until it is added to `testInputRoots`.
 
 **Shared test cases (parity).** `android/testdata/parity/*.json` hold input → expected
 result for alarms (crossing, re-arm, cooldown, volume spike), threshold parsing, the basis
@@ -2999,15 +3010,20 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
   below 15 minutes (`BackgroundSchedule.exactIntervalMillis`, parity `exact_cadence.json`). While it is armed, a
   WorkManager run is skipped unless a whole interval has passed since the last full check – WorkManager stays
   scheduled as the net below the alarm. iOS widgets reload at the same interval.
-* **Portfolio alarms are private on the lock screen** – always, also without the portfolio lock: Android
-  `VISIBILITY_PRIVATE` with a public version that holds only the title and a neutral sentence; iOS
-  `PortfolioAlarmNotice` puts no amount into any notification field. Price alarms keep following the lock setting.
+* **Portfolio alarms are private on the lock screen** – always, also without the portfolio lock: on both platforms
+  `PortfolioAlarmNotice` puts only the title and a neutral sentence into the notification, no threshold, amount or
+  percentage in any field (Android `showPortfolioAlarm(alarmId)` receives nothing else). `VISIBILITY_PRIVATE` alone
+  would not do: Android shows the full text of a private notification unless the user hides sensitive content on the
+  lock screen. Android still sets it, with the same neutral public version. The details are in the app (alarm list
+  and log). Price alarms keep following the lock setting.
 * **Sensitive screens hide foreign overlays** (Android 12+): `HideOverlaysEffect` (`ui/lock/HideOverlays.kt`,
   counted per window by `OverlayShield`) is active on the portfolio, the portfolio settings and the restore and
   «Reset app» confirmations; the app's own price overlay disappears with them.
 * **A backup with portfolio data needs a password.** `PortfolioLockPolicy.backupExportRequiresPassword`: with at
-  least one transaction or watched address the password switch is on and locked and there is no «export without a
-  password»; a file without portfolio data keeps the choice. Old unencrypted files can still be restored.
+  least one transaction, watched address or portfolio alarm (`backupHasPortfolioData`, parity
+  `backup_portfolio_data.json` – an alarm threshold such as «above 250,000 CHF» reveals the size of the holdings) the
+  password switch is on and locked and there is no «export without a password», and exporting while locked asks to
+  unlock first; a file without portfolio data keeps the choice. Old unencrypted files can still be restored.
 * **Destructive or far-reaching taps ask first.** Swiping a transaction away asks like the editor (no Undo banner
   afterwards); changing the cost method and switching «Portfolio in system backup» on ask too (parity
   `settings_confirm.json`).
@@ -3580,6 +3596,7 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
 * Build 218 (audit C-02): `code_metrics.py` measures function length (ceilings Kotlin 326, Swift 356); `TaxYearSummaryBuilder`, `PortfolioFifoBook`, `ExplorerSearchData`; constructor ceiling 13, ViewModel properties 26; dispatcher allowlist 5 files.
 * Build 219: documents only (section 20 added), store descriptions, privacy page sentence on the backup password, licences sheet.
 * Build 220: `codeql.yml` (advanced setup) replaces GitHub's default CodeQL setup, whose autobuild of all variants ran out of memory.
+* Build 221 (audit of 220: S-01, S-03, S-05, F-01, F-02, F-03, U-01, C-01): `PortfolioAlarmNotice.kt`, `SharedStorage.replaceFiles`, `CsvImportParser.fxZoneFor`, rate gate in the CSV preview, `gradle/test-inputs.gradle.kts` + `TestInputsGuardTest`, `PROPERTY_RE` without backtracking.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

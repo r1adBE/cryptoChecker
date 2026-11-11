@@ -26,7 +26,6 @@
     <string name="notification_permission_preprompt_title">Izinkan notifikasi?</string>
     <string name="notification_portfolio_alarm_locked">Alarm kamu berbunyi – buka aplikasi untuk detailnya.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
-    <string name="notification_portfolio_alarm_text">%1$s – sekarang %2$s</string>
     <string name="notification_portfolio_alarm_title">Nilai portofolio</string>
     <string name="notification_price_change">%1$s, dari %2$s (%3$s lalu)</string>
     <string name="notification_price_change_no_age">%1$s, dari %2$s</string>

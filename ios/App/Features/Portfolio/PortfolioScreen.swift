@@ -230,13 +230,15 @@ struct PortfolioScreen: View {
             let keys = data.portfolioImportKeys
             let addresses = data.watchedAddresses
             let stored = data.portfolio.compactMap(PortfolioCsvImporter.storedMove)
+            // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
+            let templateZone = data.settings.taxTemplate.zoneId
             let report = csvLoad.begin(.loading)
             csvLoad.attach(Task {
                 // Lesen und Zuordnen zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
                 let backgroundTask = BackgroundTaskGuard.begin("csvImport")
                 defer { backgroundTask.end() }
                 let outcome = await PortfolioCsvImporter.load(url, existingKeys: keys, addresses: addresses,
-                                                              stored: stored, progress: report)
+                                                              stored: stored, templateZone: templateZone, progress: report)
                 // «Abbrechen»: nichts zeigen, gespeichert war ohnehin nichts
                 guard !Task.isCancelled else { return }
                 csvLoad.end()

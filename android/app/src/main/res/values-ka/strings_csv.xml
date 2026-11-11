@@ -96,4 +96,11 @@
         <item quantity="one">%d სტრიქონი</item>
         <item quantity="other">%d სტრიქონი</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">დღიური კურსები კალენდარული დღის მიხედვით აქ: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">დღიური კურსების ჩატვირთვა ვერ მოხერხდა.</string>
+    <string name="portfolio_csv_import_anyway">მაინც იმპორტი</string>
+    <string name="portfolio_csv_import_anyway_hint">დღიური კურსის გარეშე ფასი ან საკომისიო სამუდამოდ აკლია. სცადე ხელახლა ან მაინც შემოიტანე – ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>
+    <string name="portfolio_csv_note_price_no_rate">ფასი დღიური კურსის გარეშე</string>
+    <string name="portfolio_csv_note_fee_no_rate">საკომისიო დღიური კურსის გარეშე</string>
 </resources>

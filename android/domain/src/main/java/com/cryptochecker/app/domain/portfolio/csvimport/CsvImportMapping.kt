@@ -47,44 +47,8 @@ data class CsvImportTx(
     val interest: Boolean = false,
     /** Staking-Umbuchung ([CsvImportKind.TRANSFER]: «Unstaking», «Redeem»): nie eine Auszahlung ([CsvTransferMatch.storedWithdrawal]). */
     val stakingMove: Boolean = false,
-)
-
-/**
- * Vorschau eines Imports: neue Transaktionen, Doppelte (schon importiert), übersprungene Zeilen mit Grund,
- * Zeilen ohne Tageskurs ([missingFx]) bzw. ohne Preis in der Datei ([missingPrice]) — beide werden trotzdem
- * übernommen (ohne Preis bzw. ohne Gebühr), aber genannt.
- */
-data class CsvImportPreview(
-    val format: CsvImportFormat,
-    val transactions: List<CsvImportTx>,
-    val duplicates: Int,
-    val skipped: List<CsvImportSkip>,
-    val missingFx: List<Int>,
-    val missingPrice: List<Int>,
-    /** Zeitzone der Zeiten ohne Versatz ([CsvImportResult.zone]) und ob es solche gibt (Auswahl in der Vorschau). */
-    val zone: String = CsvImportParser.DEFAULT_ZONE,
-    val localTimes: Boolean = false,
-    /** Reihenfolge Tag/Monat ([CsvImportResult.dateOrder]) und ob die Datei sie offen lässt (Auswahl in der Vorschau). */
-    val dateOrder: CsvDateOrder = CsvDateOrder.DAY_FIRST,
-    val dateOrderAmbiguous: Boolean = false,
-    /** Mindestens eine neue Zeile ist ein Kauf/Verkauf gegen Stablecoin, gebucht als Tausch ([CsvImportRow.stableSwap]). */
-    val stableSwaps: Boolean = false,
-    /** Mehrdeutige Zahl und gelesenes Dezimalzeichen ([CsvImportResult.decimalSample]); Auswahl in der Vorschau. */
-    val decimalSample: String? = null,
-    val decimalMark: Char? = null,
-    /** Erkannte Spalten ([CsvImportResult.columns]). */
-    val columns: List<String> = emptyList(),
-    /**
-     * Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
-     * [CsvImportPriced.usdtApproximate]) — die Vorschau nennt sie wie [missingFx].
-     */
-    val usdtApproximate: List<Int> = emptyList(),
-    /** Zeilen mit Fiat-Gebühr im Preis und Gebühr im Coin am Geschäft ([CsvImportRow.feeInPrice]) — Hinweis. */
-    val feeInPrice: List<Int> = emptyList(),
-    /** Kraken: ausstehende und gebuchte Zeile mit anderer Menge, beide übernommen ([CsvImportRow.pendingDiffers]). */
-    val pendingDiffers: List<Int> = emptyList(),
-    /** Datei über den Grenzen des Zerlegens ([CsvImportResult.tooLarge]): keine Zeilen, Meldung «zu gross». */
-    val tooLarge: Boolean = false,
+    /** Preis bzw. Gebühr fehlt, weil der Tageskurs fehlt ([CsvImportRateGate.missing]); beim Speichern Vermerk in der Notiz. */
+    val missingRate: CsvMissingRate? = null,
 )
 
 /** Wahl je Auszahlung der Vorschau ([CsvImportMapping.proposeWithdrawals]). */
@@ -120,8 +84,9 @@ data class CsvWithdrawalProposal(val importKey: String, val choice: CsvWithdrawa
  *  - Preis: umgerechnet in USDT ([CsvImport.priceInUsdt]); fehlt der Preis oder der Tageskurs, ohne Preis.
  *  - Gebühr im Coin der Zeile → Gebühr in Coin; Tausch mit Gebühr im erhaltenen Coin (auch USDT) → Gebühr im
  *    erhaltenen Coin (feeCoin = toCoin: weniger erhalten, Erlös = Wert des Tauschs); in Fiat/USD → USDT-Gebühr (umgerechnet); in einem anderen
- *    Coin → Gebühr im dritten Coin (ohne Preis = unvollständig); Fiat-Gebühr ohne Tageskurs fällt weg
- *    (die Zeile steht dann unter [CsvImportPreview.missingFx]).
+ *    Coin → Gebühr im dritten Coin (ohne Preis = unvollständig); Fiat-Gebühr ohne Tageskurs fehlt: die Zeile steht
+ *    unter [CsvImportPreview.missingFx], «Importieren» erst nach «Erneut laden» mit Kurs oder ausdrücklich trotzdem —
+ *    dann mit Vermerk in der Notiz ([CsvImportRateGate]).
  */
 object CsvImportMapping {
 
@@ -164,7 +129,7 @@ object CsvImportMapping {
                 p.feeUsdt != null -> { fee = p.feeUsdt.takeIf { it.signum() > 0 }; feeUnit = fee?.let { PortfolioFeeUnit.QUOTE } }
                 // Jede Fiat-Währung mit Tageskurs ([CsvImport.isFiat]) ist Geld, nie ein «dritter Coin»
                 !CsvImport.isFiat(unit) && unit != row.quote && unit != "USDT" -> { feeCoin = unit; feeCoinAmount = rowFee }
-                else -> Unit // Fiat-Gebühr ohne Tageskurs: weggelassen, die Zeile steht unter missingFx ([CsvImport.priceInUsdt])
+                else -> Unit // Fiat-Gebühr ohne Tageskurs: fehlt, Zeile unter missingFx, Vermerk beim Speichern ([CsvImportRateGate])
             }
         }
         return CsvImportTx(
@@ -192,6 +157,7 @@ object CsvImportMapping {
             feeRow = row.kind == CsvImportKind.FEE,
             interest = row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind),
             stakingMove = row.kind == CsvImportKind.TRANSFER,
+            missingRate = CsvImportRateGate.missing(p),
         )
     }
 
@@ -250,6 +216,8 @@ object CsvImportMapping {
             feeInPrice = keptPriced.filter { it.row.feeInPrice }.map { it.row.line },
             pendingDiffers = keptPriced.filter { it.row.pendingDiffers }.map { it.row.line },
             tooLarge = result.tooLarge,
+            fxZone = zone,
+            dayRates = keptPriced.any { it.dayRate },
         )
     }
 

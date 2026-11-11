@@ -88,4 +88,11 @@
     <plurals name="portfolio_csv_import_line_count">
         <item quantity="other">စာကြောင်း %d ကြောင်း</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">နေ့စဉ်နှုန်းများကို ဤအချိန်ဇုန်၏ ပြက္ခဒိန်နေ့အလိုက် တွက်သည်: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">နေ့စဉ်နှုန်းများကို ဖတ်၍မရပါ။</string>
+    <string name="portfolio_csv_import_anyway">မည်သို့ပင်ဖြစ်စေ တင်သွင်းရန်</string>
+    <string name="portfolio_csv_import_anyway_hint">နေ့စဉ်နှုန်းမရှိလျှင် ဈေးနှုန်း သို့မဟုတ် အခကြေးငွေ အမြဲတမ်း ပျောက်နေပါမည်။ ထပ်စမ်းပါ၊ သို့မဟုတ် မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါ – ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။</string>
+    <string name="portfolio_csv_note_price_no_rate">နေ့စဉ်နှုန်းမပါသော ဈေးနှုန်း</string>
+    <string name="portfolio_csv_note_fee_no_rate">နေ့စဉ်နှုန်းမပါသော အခကြေးငွေ</string>
 </resources>

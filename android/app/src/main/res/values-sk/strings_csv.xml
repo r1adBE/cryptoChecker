@@ -112,4 +112,11 @@
         <item quantity="many">%d riadka</item>
         <item quantity="other">%d riadkov</item>
     </plurals>
+    <!-- CSV-Import: Zeitzone des Kurstags, Tageskurse nicht geladen, «Trotzdem importieren» bei Zeilen ohne Tageskurs und die Vermerke in der Notiz -->
+    <string name="portfolio_csv_import_fx_zone">Denné kurzy podľa kalendárneho dňa v: %1$s</string>
+    <string name="portfolio_csv_import_rates_failed">Denné kurzy sa nepodarilo načítať.</string>
+    <string name="portfolio_csv_import_anyway">Napriek tomu importovať</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez denného kurzu cena alebo poplatok natrvalo chýbajú. Skús to znova alebo importuj napriek tomu – tieto transakcie potom dostanú poznámku.</string>
+    <string name="portfolio_csv_note_price_no_rate">Cena bez denného kurzu</string>
+    <string name="portfolio_csv_note_fee_no_rate">Poplatok bez denného kurzu</string>
 </resources>
