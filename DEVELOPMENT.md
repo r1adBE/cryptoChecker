@@ -3430,6 +3430,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 * Build 213: `baseline-profile.yml` + generator journey (start, watchlist, pair page, tabs); `baselineProfile { saveInSrc }`.
 * Build 214: `DispatcherQualifiers` (:domain) + `DispatcherModule` (:app); `DispatcherInjectionGuardTest` with the
   list of remaining files.
+* Build 215: generated `baseline-prof.txt` and `startup-prof.txt` committed under `app/src/release/generated/baselineProfiles/`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

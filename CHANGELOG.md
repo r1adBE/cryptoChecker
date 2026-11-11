@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 215)
+
+* Android: measured baseline and start-up profile (generated on an API 34 emulator, 12,601 rules for the app) packaged with the app – faster first start and smoother first scrolling after installation.
+
 ## 16.2.2 (build 214)
 
 * Android, internal: 40 classes get their coroutine dispatcher through Hilt (`@IoDispatcher`, `@DefaultDispatcher`) instead of a hard-wired one; a guard test keeps the remaining count from growing. No behaviour change.
