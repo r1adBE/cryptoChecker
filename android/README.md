@@ -177,15 +177,15 @@ Einstellungen (`SettingsScreen`, `SettingsComponents`, `SettingsPickers`, je Gru
 ```
 
 **JDK 17** (Android Studio bringt es mit), compileSdk 37, targetSdk 36, minSdk 26.
-Beim ersten Öffnen lädt Android Studio Gradle 9.8.1 und, falls nötig, die
+Beim ersten Öffnen lädt Android Studio Gradle 9.9.1 und, falls nötig, die
 SDK-Plattform 37.
 
 | Baustein | Version |
 |---|---|
-| Android Gradle Plugin | 9.4.1 (Kotlin eingebaut, ohne `org.jetbrains.kotlin.android`) |
-| Gradle | 9.8.1 |
+| Android Gradle Plugin | 9.5.1 (Kotlin eingebaut, ohne `org.jetbrains.kotlin.android`) |
+| Gradle | 9.9.1 |
 | Kotlin | 2.4.21 (K2, Compose-Compiler-Plugin, kotlinx-serialization) |
-| KSP | 2.3.12 (ersetzt kapt) |
+| KSP | 2.3.13 (ersetzt kapt) |
 | Compose BOM | 2026.09.00 |
 | Hilt | 2.60.1 |
 | androidx.hilt | 1.4.0 |
@@ -193,7 +193,7 @@ SDK-Plattform 37.
 | Coroutines | 1.11.0 |
 | Room | 2.8.5 |
 | WorkManager | 2.12.0 |
-| OkHttp | 5.5.0 |
+| OkHttp | 5.5.1 |
 
 Alle Versionen, Bibliotheken und Plugins stehen im Versionskatalog `gradle/libs.versions.toml`;
 die Buildskripte sind in Kotlin DSL (`settings.gradle.kts`, `build.gradle.kts`, `app/build.gradle.kts`,
