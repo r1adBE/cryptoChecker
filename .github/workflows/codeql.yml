@@ -2,7 +2,8 @@
 # runs «gradlew assemble» for every variant under the CodeQL tracer, which ran out of memory on the hosted runner
 # (red in 3 of 7 runs), and it switches Gradle's dependency verification off. Here Kotlin/Java is built by hand:
 # one variant (debug) of :app (with :marketdata, :domain, :data) and :wear, compile only, verification and
-# lock files on. Swift uses CodeQL's autobuild on the same macOS image as ios.yml; Python and the workflows need
+# lock files on. Swift is built by hand as well (Debug for the simulator, one architecture, the scheme of ios.yml –
+# CodeQL's autobuild made a Release build of every target and needed about an hour); Python and the workflows need
 # no build. Results: Security › Code scanning. Requires «CodeQL analysis: Advanced» in the repository settings –
 # while the default setup is on, GitHub rejects the uploads of this workflow.
 name: CodeQL
@@ -26,7 +27,7 @@ jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 60
+    timeout-minutes: 90
     permissions:
       contents: read
       security-events: write   # upload of the results
@@ -44,7 +45,7 @@ jobs:
             build-mode: manual
             runner: ubuntu-24.04
           - language: swift
-            build-mode: autobuild
+            build-mode: manual
             runner: macos-26
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -81,6 +82,29 @@ jobs:
             -Pkotlin.compiler.execution.strategy=in-process \
             :app:compileDebugKotlin :app:compileDebugJavaWithJavac \
             :wear:compileDebugKotlin :wear:compileDebugJavaWithJavac
+
+      # Same scheme as ios.yml (app, widgets, watch app, watch widgets); Debug and one architecture keep the traced
+      # build short. The log goes to a file, the end and the compiler errors are printed.
+      - name: Build Swift (Debug, simulator, compile only)
+        if: matrix.language == 'swift'
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-build-codeql.log"
+          set +e
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedDataCodeQL" \
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 40 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
 
       - name: Analyze
         uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
