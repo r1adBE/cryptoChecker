@@ -11,13 +11,14 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.marketdata.model.exchange.DexPool
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -29,6 +30,7 @@ class ExchangeRepositoryImpl @Inject constructor(
     private val settings: SettingsRepository,
     private val tokenIdentityStore: TokenIdentityStore,
     private val coinLogos: CoinLogoRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ExchangeRepository {
 
     override suspend fun getExchangeList(): List<ExchangeInfo> =
@@ -112,7 +114,7 @@ class ExchangeRepositoryImpl @Inject constructor(
         // Paarliste und volle Coin-Namen («gleicher Token», aus derselben Paarliste) gehören zusammen: nach dem Abruf
         // beide speichern, auch wenn der Aufrufer gerade abbricht — sonst Paare neu, Namen alt. Die Namen schreiben
         // eine Datei, darum nicht im Kontext des Aufrufers (Explorer: Haupt-Thread).
-        withContext(NonCancellable + Dispatchers.IO) {
+        withContext(NonCancellable + ioDispatcher) {
             local.saveExchangeData(exchange.key, fresh)
             tokenIdentityStore.saveExchange(exchange.key, fresh.baseNames)
         }

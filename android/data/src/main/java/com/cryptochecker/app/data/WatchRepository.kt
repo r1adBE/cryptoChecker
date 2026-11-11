@@ -13,9 +13,10 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.domain.watch.WatchEdit
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.ExchangePair
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -30,6 +31,7 @@ class WatchRepository @Inject constructor(
     private val alarmLogStore: AlarmLogStore,
     /** Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
     private val deliveryMarkers: AlarmDeliveryMarkers,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
 
@@ -128,7 +130,7 @@ class WatchRepository @Inject constructor(
      */
     private suspend fun forgetDeletedAlarms() {
         val ids = watchDao.getAlarmIds().toHashSet()
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             alarmLogStore.retainAlarms(ids)
             // Nicht bei Kopie im Speicher — der nächste Prozess bringt die Alarme der Datei zurück
             if (AlarmDeliveryMarkers.prunable()) deliveryMarkers.retain(ids)
@@ -332,7 +334,7 @@ class WatchRepository @Inject constructor(
         watchDao.deleteAlarm(id)
         // Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); nicht bei
         // Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
-        if (AlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
+        if (AlarmDeliveryMarkers.prunable()) withContext(ioDispatcher) { deliveryMarkers.remove(listOf(id)) }
         return true
     }
 

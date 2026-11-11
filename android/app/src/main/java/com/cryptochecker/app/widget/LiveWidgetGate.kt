@@ -6,9 +6,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.core.content.ContextCompat
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,9 +33,10 @@ import javax.inject.Singleton
 class LiveWidgetGate @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val widgetUpdater: WidgetUpdater,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val gate = WidgetScreenGate()
-    private val scope = appScope(Dispatchers.IO, "LiveWidgetGate")
+    private val scope = appScope(ioDispatcher, "LiveWidgetGate")
     private val receiverLock = Any()
     private var receiverRegistered = false
 

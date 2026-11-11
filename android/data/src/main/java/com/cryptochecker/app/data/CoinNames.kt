@@ -7,9 +7,10 @@ import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,6 +38,7 @@ import com.cryptochecker.app.domain.logos.withStockNames
 class CoinNames @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val apiClient: OkHttpClient,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val prefs by lazy { CoinLogoStorage.prefs(context) }
     private val namesFile by lazy { File(context.noBackupFilesDir, NAMES_FILE) }
@@ -126,7 +128,7 @@ class CoinNames @Inject constructor(
     /** Wie [loadSavedNames]; nur mit gehaltener [namesMutex]. */
     private suspend fun loadSavedNamesLocked() {
         if (baseNames.isNotEmpty()) return
-        val saved = withContext(Dispatchers.IO) {
+        val saved = withContext(ioDispatcher) {
             CoinLogos.decodeNames(CoinLogoStorage.readNonBlank(namesFile))
         }
         if (saved.isEmpty()) return
@@ -151,7 +153,7 @@ class CoinNames @Inject constructor(
         namesMutex.withLock {
             loadSavedNamesLocked()
             val merged = CoinLists.publishNames(baseNames, namesFromSnapshot, listNames)
-            withContext(Dispatchers.IO) {
+            withContext(ioDispatcher) {
                 runCatchingCancellable {
                     namesFile.parentFile?.mkdirs()
                     namesFile.writeText(CoinLogos.encodeNames(merged))
@@ -191,7 +193,7 @@ class CoinNames @Inject constructor(
     suspend fun refreshStockNames() = stockMutex.withLock {
         if (_tradFiBases.value.isEmpty()) return@withLock
         if (stockNames == null) {
-            stockNames = withContext(Dispatchers.IO) {
+            stockNames = withContext(ioDispatcher) {
                 CoinLogos.decodeNames(runCatchingCancellable { stockNamesFile.readText() }.getOrNull())
             }
             publishNames()
@@ -200,7 +202,7 @@ class CoinNames @Inject constructor(
         if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_TIME, 0L), now, CoinLogos.STOCK_NAMES_TTL_MILLIS) && !stockNames.isNullOrEmpty()) return@withLock
         if (CoinLogos.isFresh(prefs.getLong(KEY_STOCK_NAMES_ATTEMPT, 0L), now, CoinLogoStorage.MAP_RETRY_MILLIS)) return@withLock
         prefs.edit { putLong(KEY_STOCK_NAMES_ATTEMPT, now) }
-        val fresh = withContext(Dispatchers.IO) {
+        val fresh = withContext(ioDispatcher) {
             val out = LinkedHashMap<String, String>()
             for (url in listOf(CoinLogos.NASDAQ_LISTED_URL, CoinLogos.OTHER_LISTED_URL)) {
                 try {
@@ -214,7 +216,7 @@ class CoinNames @Inject constructor(
             out
         }
         if (fresh.isEmpty()) return@withLock
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             runCatchingCancellable {
                 stockNamesFile.parentFile?.mkdirs()
                 stockNamesFile.writeText(CoinLogos.encodeNames(fresh))

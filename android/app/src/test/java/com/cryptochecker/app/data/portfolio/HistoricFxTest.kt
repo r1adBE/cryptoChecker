@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.marketdata.util.EcbRates
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -30,8 +31,9 @@ class HistoricFxTest {
     val temp = TemporaryFolder()
 
     private fun source(http: RouteHttp) = HistoricPriceSource(
-        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client), fakePortfolioDao(),
+        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(),
         unusedExchangeRepository(),
+        ioDispatcher = Dispatchers.IO,
     )
 
     private val saturday = LocalDate.of(2024, 1, 6)

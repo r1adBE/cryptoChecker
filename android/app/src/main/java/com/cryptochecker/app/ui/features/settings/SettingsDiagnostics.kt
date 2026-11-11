@@ -40,11 +40,12 @@ import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AlarmReadinessProbe
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.time.ZoneId
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -67,6 +68,7 @@ class DiagnosticsViewModel @Inject constructor(
     private val alarmLogStore: AlarmLogStore,
     private val refreshStats: RefreshStats,
     private val watchRepository: WatchRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _preview = MutableStateFlow<String?>(null)
@@ -74,7 +76,7 @@ class DiagnosticsViewModel @Inject constructor(
     /** Text der Vorschau; null = keine Vorschau offen. */
     val preview: StateFlow<String?> = _preview.asStateFlow()
 
-    suspend fun build(context: Context): String = withContext(Dispatchers.IO) {
+    suspend fun build(context: Context): String = withContext(ioDispatcher) {
         val settings = runCatchingCancellable { settingsRepository.settings.first() }.getOrDefault(settingsRepository.cached)
         val alarms = runCatchingCancellable { watchRepository.observeAllAlarms().first() }.getOrDefault(emptyList())
         val activeAlarms = alarms.count { it.alarm.enabled }
@@ -137,7 +139,7 @@ class DiagnosticsViewModel @Inject constructor(
     /** Vorschau ohne Teilen geschlossen: eine vom letzten Teilen noch liegende Berichtsdatei gleich mit löschen ([DiagnosticsFiles]). */
     fun cancel(cacheDir: File) {
         dismiss()
-        viewModelScope.launch(Dispatchers.IO) { DiagnosticsFiles.clear(cacheDir) }
+        viewModelScope.launch(ioDispatcher) { DiagnosticsFiles.clear(cacheDir) }
     }
 }
 

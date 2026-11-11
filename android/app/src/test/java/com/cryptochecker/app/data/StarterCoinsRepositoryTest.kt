@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.marketdata.model.ExchangePair
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -56,7 +57,7 @@ class StarterCoinsRepositoryTest {
     )
 
     private fun repo(http: RouteHttp, exchanges: ExchangeRepository = exchanges(lastSync = 1L)) =
-        StarterCoinsRepository(context, http.client, exchanges)
+        StarterCoinsRepository(context, http.client, exchanges, ioDispatcher = Dispatchers.IO)
 
     @Test
     fun binanceGeoBlockIsProbedAndRemembered() = runBlocking {
@@ -119,7 +120,7 @@ class StarterCoinsRepositoryTest {
 
         // Neues Gerät ohne Zwischenspeicher: keine Liste überhaupt bzw. Rangliste offline → kein Ergebnis
         fun newDevice(http: RouteHttp, exchanges: ExchangeRepository) =
-            StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges)
+            StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges, ioDispatcher = Dispatchers.IO)
         assertNull(newDevice(noList, exchanges(lastSync = 0L, pairs = emptyList())).fresh("DE"))
         assertNull(newDevice(RouteHttp { null }, exchanges(lastSync = 1L)).fresh("CH"))
     }
@@ -140,7 +141,7 @@ class StarterCoinsRepositoryTest {
         assertEquals(coins, starter.universe(force = true))
         assertEquals(2, http.requested.size)
         // Ohne Stand und offline: nichts
-        assertNull(StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges(1L)).universe())
+        assertNull(StarterCoinsRepository(FolderContext(temp.newFolder()), http.client, exchanges(1L), ioDispatcher = Dispatchers.IO).universe())
     }
 
     @Test

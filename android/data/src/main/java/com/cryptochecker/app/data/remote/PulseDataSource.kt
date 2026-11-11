@@ -9,7 +9,8 @@ import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.domain.market.MoverCoin
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.domain.starter.StarterCoins
-import kotlinx.coroutines.Dispatchers
+import com.cryptochecker.app.util.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
@@ -45,12 +46,13 @@ class PulseDataSource @Inject constructor(
     private val futuresDataSource: FuturesDataSource,
     private val insightsDataSource: InsightsDataSource,
     private val gasDataSource: GasDataSource,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val mutex = Mutex()
 
     /** Frische Eingaben; höchstens ein Abruf gleichzeitig. Fehlende Quellen bleiben null. */
     suspend fun fetchInput(): PulseInput = mutex.withLock {
-        withContext(Dispatchers.IO) { load() }
+        withContext(ioDispatcher) { load() }
     }
 
     private suspend fun load(): PulseInput = coroutineScope {

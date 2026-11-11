@@ -84,6 +84,7 @@ class WatchlistLockDeviceTest {
         repo = WatchRepository(
             db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys),
             AlarmDeliveryMarkers(context),
+            ioDispatcher = Dispatchers.IO,
         )
         runBlocking {
             watchId = checkNotNull(repo.addWatch(BINANCE, ExchangePair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))

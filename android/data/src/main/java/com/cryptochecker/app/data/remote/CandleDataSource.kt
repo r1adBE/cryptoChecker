@@ -8,8 +8,9 @@ import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EpochTime
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
@@ -53,6 +54,7 @@ enum class CandleInterval(val binanceCode: String, val millis: Long) {
 class CandleDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
     private val tokenIdentityStore: TokenIdentityStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private enum class Source(val key: String) {
         BINANCE_VISION("data-api.binance.vision"),
@@ -106,7 +108,7 @@ class CandleDataSource @Inject constructor(
         val n = limit.coerceIn(2, MAX_LIMIT)
         val memoKey = "$b|$q|${interval.name}|${if (preferFutures) "F" else "S"}"
 
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val preferred = working[memoKey]
                 ?.takeIf { System.currentTimeMillis() - it.second in 0 until WORKING_MILLIS }
                 ?.first

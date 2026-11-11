@@ -22,6 +22,7 @@ import com.cryptochecker.app.util.KeyValueStore
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -75,8 +76,9 @@ class PortfolioPriceSourceTest {
         txs: List<PortfolioTxEntity> = emptyList(),
         context: FolderContext = this.context,
     ) = PortfolioPriceSource(
-        context, http.client, CandleDataSource(http.client, names), exchanges, fakeWatchDao { watches },
-        fakePortfolioDao { txs }, FxRateSource(http.client), names, DepegReadingStore { EmptyStore },
+        context, http.client, CandleDataSource(http.client, names, ioDispatcher = Dispatchers.IO), exchanges, fakeWatchDao { watches },
+        fakePortfolioDao { txs }, FxRateSource(http.client, ioDispatcher = Dispatchers.IO), names, DepegReadingStore { EmptyStore },
+        ioDispatcher = Dispatchers.IO,
     )
 
     private val tickers = "https://data-api.binance.vision/api/v3/ticker/price?symbols="

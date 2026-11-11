@@ -12,8 +12,9 @@ import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.notification.activePostTimes
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
@@ -31,6 +32,7 @@ class PortfolioAlarmRepository @Inject constructor(
     private val dao: PortfolioAlarmDao,
     /** Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
 
@@ -50,7 +52,7 @@ class PortfolioAlarmRepository @Inject constructor(
     suspend fun delete(id: Long) {
         dao.delete(id)
         // Nicht bei Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
-        if (PortfolioAlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
+        if (PortfolioAlarmDeliveryMarkers.prunable()) withContext(ioDispatcher) { deliveryMarkers.remove(listOf(id)) }
     }
 
     suspend fun setEnabled(id: Long, enabled: Boolean) {
@@ -64,7 +66,7 @@ class PortfolioAlarmRepository @Inject constructor(
         dao.deleteAll()
         alarms.forEach { dao.insert(it.copy(referenceAt = 0, lastTriggeredAt = 0, lastTriggeredValue = null)) }
         // Alle Alarme ersetzt (Ids können sich decken) — alte Vermerke gelten nicht mehr
-        withContext(Dispatchers.IO) { deliveryMarkers.retain(emptySet()) }
+        withContext(ioDispatcher) { deliveryMarkers.retain(emptySet()) }
     }
 }
 

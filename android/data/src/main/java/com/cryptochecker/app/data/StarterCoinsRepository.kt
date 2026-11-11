@@ -9,10 +9,11 @@ import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
 import com.cryptochecker.app.domain.starter.StarterPrices
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -40,6 +41,7 @@ class StarterCoinsRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
     private val exchangeRepository: ExchangeRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val mutex = Mutex()
@@ -58,7 +60,7 @@ class StarterCoinsRepository @Inject constructor(
     suspend fun probeBinance(deviceRegion: String?): Boolean {
         if (!StarterPairs.shouldProbe(deviceRegion)) return false
         val before = binanceBlocked
-        val code: Int? = withContext(Dispatchers.IO) {
+        val code: Int? = withContext(ioDispatcher) {
             try {
                 kotlinx.coroutines.withTimeout(PROBE_TIMEOUT_MILLIS) {
                     httpClient.callExchange(StarterPairs.BINANCE_PROBE_URL, null)
@@ -89,7 +91,7 @@ class StarterCoinsRepository @Inject constructor(
      * sonst neu ermittelt. null bei jedem Fehler.
      */
     suspend fun fresh(regionCountry: String?): List<StarterPairs.Coin>? = mutex.withLock {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val now = System.currentTimeMillis()
             if (StarterCoins.isFresh(prefs.getLong(timeKey(regionCountry), 0L), now)) {
                 StarterCoins.decode(prefs.getString(coinsKey(regionCountry), null))?.let { return@withContext it }
@@ -123,7 +125,7 @@ class StarterCoinsRepository @Inject constructor(
      * (auch abgelaufen), sonst null.
      */
     suspend fun universe(force: Boolean = false): List<MarketUniverse.Coin>? = universeMutex.withLock {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val now = System.currentTimeMillis()
             val cached = runCatchingCancellable { MarketUniverse.decode(prefs.getString(KEY_UNIVERSE, null)) }.getOrNull()
             if (!force && cached != null && MarketUniverse.isFresh(prefs.getLong(KEY_UNIVERSE_TIME, 0L), now)) {
@@ -165,7 +167,7 @@ class StarterCoinsRepository @Inject constructor(
         priceCache?.let { (cachedKey, time, prices) ->
             if (cachedKey == key && StarterPrices.isFresh(time, now)) return@withLock prices
         }
-        val prices = withContext(Dispatchers.IO) {
+        val prices = withContext(ioDispatcher) {
             try {
                 binancePrices(bases, StarterPairs.START_QUOTE, us = exchangeKey == StarterPairs.BINANCE_US_KEY)
             } catch (e: CancellationException) {

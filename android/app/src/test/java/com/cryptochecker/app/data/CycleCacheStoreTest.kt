@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.market.CycleCachePolicy
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -31,7 +32,7 @@ class CycleCacheStoreTest {
     @Test
     fun writtenValueIsReadBackWithTimeAndProvider() = runBlocking {
         val root = temp.newFolder()
-        val store = CycleCacheStore(FolderContext(root))
+        val store = CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO)
         assertNull("noch nichts gespeichert", store.read("fng", codec))
 
         store.write("fng", "gier" to 72, savedAt = 1_700_000_000_000L, codec = codec, provider = "alternative.me")
@@ -44,7 +45,7 @@ class CycleCacheStoreTest {
 
         // Überschreiben ohne Anbieter: Anbieter unbekannt
         store.write("fng", "angst" to 20, savedAt = 1_700_000_100_000L, codec = codec)
-        val again = CycleCacheStore(FolderContext(root)).read("fng", codec)!!
+        val again = CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO).read("fng", codec)!!
         assertEquals("angst" to 20, again.value)
         assertNull(again.provider)
     }
@@ -52,7 +53,7 @@ class CycleCacheStoreTest {
     @Test
     fun foreignOldOrBrokenFilesCountAsMissing() = runBlocking {
         val root = temp.newFolder()
-        val store = CycleCacheStore(FolderContext(root))
+        val store = CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO)
         store.write("coin_ETH", "x" to 1, savedAt = 5L, codec = codec)
         val target = file(root, "coin_ETH")
         val good = JSONObject(target.readText())
@@ -83,7 +84,7 @@ class CycleCacheStoreTest {
     @Test
     fun failingEncoderWritesNothing() = runBlocking {
         val root = temp.newFolder()
-        val store = CycleCacheStore(FolderContext(root))
+        val store = CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO)
         val broken = CacheCodec<String>(encode = { error("kaputt") }, decode = { it.getString("s") })
         store.write("broken", "x", savedAt = 1L, codec = broken)
         assertFalse(file(root, "broken").exists())
@@ -96,7 +97,7 @@ class CycleCacheStoreTest {
         // «cycle» ist eine Datei statt eines Ordners: nicht anlegbar, Schreiben entfällt still
         File(root, "cache").mkdirs()
         File(root, "cache/cycle").writeText("kein Ordner")
-        val store = CycleCacheStore(FolderContext(root))
+        val store = CycleCacheStore(FolderContext(root), ioDispatcher = Dispatchers.IO)
         store.write("fng", "x" to 1, savedAt = 1L, codec = codec)
         assertNull(store.read("fng", codec))
     }

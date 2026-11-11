@@ -50,9 +50,10 @@ import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -68,6 +69,7 @@ val LocalOpenAlarmLog = androidx.compose.runtime.staticCompositionLocalOf<(() ->
 class AlarmLogViewModel @Inject constructor(
     private val store: AlarmLogStore,
     private val watchRepository: WatchRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     val events: StateFlow<List<AlarmLogEntry>> = store.state
@@ -75,7 +77,7 @@ class AlarmLogViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), store.state.value.events)
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             store.load()
             // Letzte Prüfungen von Alarmen, die mit ihrem Paar gelöscht wurden, aufräumen — nicht gegen eine Merkliste, die
             // nur leer im Arbeitsspeicher liegt (nach dem Lesen oben verlässlich): Das leerte das gespeicherte Protokoll.
@@ -85,7 +87,7 @@ class AlarmLogViewModel @Inject constructor(
     }
 
     fun clear() {
-        viewModelScope.launch(Dispatchers.IO) { store.clearEvents() }
+        viewModelScope.launch(ioDispatcher) { store.clearEvents() }
     }
 }
 

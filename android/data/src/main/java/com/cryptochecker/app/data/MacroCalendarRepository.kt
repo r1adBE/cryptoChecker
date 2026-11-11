@@ -6,9 +6,10 @@ import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.mirrorLoader
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -34,6 +35,7 @@ class MacroCalendarRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
     private val cacheStore: CycleCacheStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val mutex = Mutex()
 
@@ -43,7 +45,7 @@ class MacroCalendarRepository @Inject constructor(
 
     /** Termine; aus dem Netz nur, wenn der Zwischenspeicher älter als einen Tag ist. Wirft nie. */
     suspend fun events(): List<MacroEvent> = mutex.withLock {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val now = System.currentTimeMillis()
             memory?.let { (at, list) -> if (MacroCalendar.isFresh(at, now)) return@withContext list }
             val cached = cacheStore.read(CACHE_NAME, MarketExtraCodecs.macroEvents)

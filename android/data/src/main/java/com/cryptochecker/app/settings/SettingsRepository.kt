@@ -12,9 +12,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.UsageDays
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -29,6 +30,7 @@ import javax.inject.Singleton
 @Singleton
 class SettingsRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : SettingsBackupTarget {
 
     // Lesefehler (I/O): Standardwerte statt Absturz; Portfolio-Sperre dann und nach beschädigter Datei an ([SettingsLockFallback])
@@ -288,7 +290,7 @@ class SettingsRepository @Inject constructor(
     override suspend fun setAppLock(enabled: Boolean) {
         edit { it[SettingsKeys.appLock] = enabled }
         // Selbst gesetzt: nach beschädigten Einstellungen nicht mehr «unbekannt» (SettingsLockFallback)
-        withContext(Dispatchers.IO) { StorageRecoveryNotice.confirmAppLock(context) }
+        withContext(ioDispatcher) { StorageRecoveryNotice.confirmAppLock(context) }
     }
 
     /** «Beträge verbergen» im Portfolio und im Portfolio-Widget. */

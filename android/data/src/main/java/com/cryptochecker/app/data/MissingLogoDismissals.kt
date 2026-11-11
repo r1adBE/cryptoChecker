@@ -3,8 +3,9 @@ package com.cryptochecker.app.data
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.MissingLogoNotice
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 @Singleton
 class MissingLogoDismissals @Inject constructor(
     @param:ApplicationContext private val context: Context,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val prefs by lazy { CoinLogoStorage.prefs(context) }
     private val _keys = MutableStateFlow<Set<String>?>(null)
@@ -30,7 +32,7 @@ class MissingLogoDismissals @Inject constructor(
     /** Satz einmal aus der Datei lesen (nicht im Haupt-Thread). */
     suspend fun load() {
         if (_keys.value != null) return
-        val stored = withContext(Dispatchers.IO) { MissingLogoNotice.decode(prefs.getString(KEY, null)) }
+        val stored = withContext(ioDispatcher) { MissingLogoNotice.decode(prefs.getString(KEY, null)) }
         _keys.compareAndSet(null, stored)
     }
 

@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.watch.WatchCoins
@@ -20,7 +21,7 @@ import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -49,8 +50,9 @@ class PhoneWatchSync @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
-    private val scope = appScope(Dispatchers.IO, "PhoneWatchSync")
+    private val scope = appScope(ioDispatcher, "PhoneWatchSync")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val lock = Mutex()
     private val changing = Mutex()
@@ -171,7 +173,7 @@ class PhoneWatchSync @Inject constructor(
      * [json] unter [path] in die Daten-Schicht legen (dringend, damit die Uhr es gleich bekommt) — nur, wenn eine Uhr die
      * App hat; Fehler bleiben still. Gleicher Inhalt wie zuvor löst auf der Uhr keine Änderung aus.
      */
-    internal suspend fun put(path: String, json: String) = withContext(Dispatchers.IO) {
+    internal suspend fun put(path: String, json: String) = withContext(ioDispatcher) {
         runCatchingCancellable {
             val nodes = Tasks.await(
                 Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
@@ -185,7 +187,7 @@ class PhoneWatchSync @Inject constructor(
     }
 
     /** Stand der Uhr (Einträge anderer Geräte unter [PATH]); null = keiner oder keine Play-Dienste. */
-    private suspend fun watchSettings(): WatchSettings? = withContext(Dispatchers.IO) {
+    private suspend fun watchSettings(): WatchSettings? = withContext(ioDispatcher) {
         runCatchingCancellable {
             val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
                 TIMEOUT_S, TimeUnit.SECONDS)

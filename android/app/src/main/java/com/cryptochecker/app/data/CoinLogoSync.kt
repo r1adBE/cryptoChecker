@@ -5,10 +5,11 @@ import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
@@ -47,8 +48,9 @@ class CoinLogoSync @Inject constructor(
     private val exchangeRepository: ExchangeRepository,
     private val exchangeLocalDataSource: ExchangeLocalDataSource,
     private val connectivity: ConnectivityMonitor,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
-    private val scope = appScope(Dispatchers.IO, "CoinLogoSync")
+    private val scope = appScope(ioDispatcher, "CoinLogoSync")
     private val lock = Any()
     private var tradFiJob: Job? = null
     private var retryJob: Job? = null

@@ -11,8 +11,9 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
@@ -33,6 +34,7 @@ class AppNotifier @Inject constructor(
     internal val settingsRepository: SettingsRepository,
     /** Coin-Logo als grosses Bild der Alarm-Meldung (nur vom Gerät, nie aus dem Netz); erst bei Bedarf erzeugt. */
     internal val coinLogos: dagger.Lazy<com.cryptochecker.app.data.CoinLogoRepository>,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     internal val manager get() = NotificationManagerCompat.from(context)
 
@@ -62,7 +64,7 @@ class AppNotifier @Inject constructor(
         if (!show) return false
         // Über die Grenze von 20 Einzelmeldungen: in der Sammelmeldung (zählt als gezeigt)
         // Auf Dispatchers.IO: Systemdienst; ein laufender Kurs-Durchlauf lässt [showPrices] bis zu einigen Sekunden warten
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             watch.id in showPrices(listOf(watch), ongoing = settings.ongoingNotifications)
         }
     }
@@ -231,7 +233,7 @@ class AppNotifier @Inject constructor(
      */
     suspend fun cancelAllPrices(watchIds: Collection<Long>) {
         if (watchIds.isEmpty()) return
-        withContext(Dispatchers.IO) { cancelPrices(watchIds, shown = null) }
+        withContext(ioDispatcher) { cancelPrices(watchIds, shown = null) }
     }
 
     // ---------------- Mitteilungs-Budget ----------------

@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.exceptions.ExchangeError
 import com.cryptochecker.app.domain.exceptions.NetworkError
 import com.cryptochecker.app.domain.market.DataFreshness
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -31,7 +32,7 @@ class InsightsDataSourceTest {
     fun chainOpen() = RouteHttp.releaseChain()
 
     private fun insights(http: RouteHttp) =
-        InsightsDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder())))
+        InsightsDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO))
 
     private fun mirror(url: String) = "binance.vision/api/v3/klines?symbol=$url"
 

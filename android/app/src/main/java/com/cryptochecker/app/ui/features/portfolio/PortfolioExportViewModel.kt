@@ -29,10 +29,11 @@ import com.cryptochecker.app.domain.portfolio.TaxYearSummary
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.settings.deviceRegionLocale
 import com.cryptochecker.app.settings.inputDecimalSeparator
+import com.cryptochecker.app.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -71,6 +72,7 @@ class PortfolioExportViewModel @Inject constructor(
     internal val historySource: com.cryptochecker.app.data.portfolio.PortfolioHistorySource,
     /** Live-Kurs USDT/USD für einen Stichtag heute. */
     internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val runner = ExportRunner(viewModelScope, UriExportTarget(context))
@@ -191,7 +193,7 @@ class PortfolioExportViewModel @Inject constructor(
         val usdtUsd = usdtUsdCloses(currency, from)
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
         val wealth = if (tpl == TaxTemplate.CH) chYearEnd(trades, method, period.end, zone) else null
-        return withContext(Dispatchers.Default) {
+        return withContext(defaultDispatcher) {
             TaxExport.yearSummary(
                 trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd,
                 yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second, disposals = disposals,
@@ -212,7 +214,7 @@ class PortfolioExportViewModel @Inject constructor(
         priceAt: ((String, Long) -> BigDecimal?)?,
         walletFrom: LocalDate?,
         until: LocalDate,
-    ): Pair<List<PortfolioDisposal>, Pair<LocalDate, LocalDate>> = withContext(Dispatchers.Default) {
+    ): Pair<List<PortfolioDisposal>, Pair<LocalDate, LocalDate>> = withContext(defaultDispatcher) {
         val disposals = TaxExport.allDisposals(trades, method, zone, priceAt, tpl.eventRules, walletFrom)
         disposals to TaxExport.fxSpan(
             trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone), disposals,
@@ -268,7 +270,7 @@ class PortfolioExportViewModel @Inject constructor(
                 val rates = rates(currency, from, fxUntil)
                 // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
                 val usdtUsd = usdtUsdCloses(currency, from)
-                withContext(Dispatchers.Default) {
+                withContext(defaultDispatcher) {
                     val fees = TaxExport.feesIn(trades, method, period, zone, tpl.eventRules)
                     TaxExport.gainsCsv(
                         TaxExport.gainRows(

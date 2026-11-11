@@ -19,10 +19,12 @@ import com.cryptochecker.app.domain.watch.SheetChartCache
 import com.cryptochecker.app.domain.watch.SheetChartFx
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
+import com.cryptochecker.app.util.DefaultDispatcher
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartRange
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
@@ -58,6 +60,8 @@ class SheetChartRepository @Inject constructor(
     private val depegReadings: DepegReadingStore,
     /** USDT/USD-Tagesschlüsse (Kraken, Lücken Coinbase; wie das Portfolio). */
     private val historySource: PortfolioHistorySource,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) {
     private val cache = SheetChartCache()
 
@@ -90,7 +94,7 @@ class SheetChartRepository @Inject constructor(
         val exchange = pair.cacheKey
         val quote = watch.quoteAsset.trim().uppercase()
         val quoteIsFiat = quote in FxRateSource.CURRENCIES
-        return withContext(Dispatchers.Default) {
+        return withContext(defaultDispatcher) {
             // 1. Eigene Börse des Paars (kein Hinweis auf eine fremde Quelle nötig)
             if (ownCandles.supports(pair, interval)) {
                 val own = try {
@@ -189,7 +193,7 @@ class SheetChartRepository @Inject constructor(
         if (!converts) return null
         val daily = try {
             withTimeoutOrNull(FX_TIMEOUT_MILLIS) { historySource.usdtUsdDaily(FX_DAYS) }
-                ?: withContext(Dispatchers.IO) { historySource.cachedUsdtUsdDaily() }
+                ?: withContext(ioDispatcher) { historySource.cachedUsdtUsdDaily() }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

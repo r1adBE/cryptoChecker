@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvAbsorbedRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -40,7 +41,7 @@ class PortfolioImportInsertTest {
     fun open() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, PortfolioDatabase::class.java).build()
-        repository = PortfolioRepository(db, db.getPortfolioDao(), db.getWatchedAddressDao())
+        repository = PortfolioRepository(db, db.getPortfolioDao(), db.getWatchedAddressDao(), defaultDispatcher = Dispatchers.Default)
     }
 
     @After

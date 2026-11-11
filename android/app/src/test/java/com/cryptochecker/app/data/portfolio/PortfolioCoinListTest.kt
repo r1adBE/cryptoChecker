@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.alarm.DepegReadingStore
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -40,9 +41,10 @@ class PortfolioCoinListTest {
     }
 
     private fun source(http: RouteHttp, exchanges: ExchangeRepository = unusedExchangeRepository()) = PortfolioPriceSource(
-        context, http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder())), exchanges,
-        fakeWatchDao { emptyList() }, fakePortfolioDao(), FxRateSource(http.client),
+        context, http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO), exchanges,
+        fakeWatchDao { emptyList() }, fakePortfolioDao(), FxRateSource(http.client, ioDispatcher = Dispatchers.IO),
         testTokenIdentityStore(temp.newFolder()), DepegReadingStore { error("keine Messung nötig") },
+        ioDispatcher = Dispatchers.IO,
     )
 
     private val exchangeInfo = "https://data-api.binance.vision/api/v3/exchangeInfo?permissions=SPOT"

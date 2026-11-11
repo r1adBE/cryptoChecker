@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.market.DataFreshness
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Assert.assertEquals
@@ -121,8 +122,9 @@ class HistoricDayClosesBatchTest {
     }
 
     private fun source(http: RouteHttp) = HistoricPriceSource(
-        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client), fakePortfolioDao(),
+        http.client, testTokenIdentityStore(temp.newFolder()), OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(),
         unusedExchangeRepository(),
+        ioDispatcher = Dispatchers.IO,
     )
 
     /** Verlangte Tage: jeder 9. über die ganze Spanne (mehrere Stücke je Quelle) und ein Block um den Jahreswechsel. */

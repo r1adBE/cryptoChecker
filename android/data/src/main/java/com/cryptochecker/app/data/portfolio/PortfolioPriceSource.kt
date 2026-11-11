@@ -17,9 +17,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.app.domain.portfolio.StoredPrice
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -75,6 +76,7 @@ class PortfolioPriceSource @Inject constructor(
     val tokenIdentityStore: TokenIdentityStore,
     /** Live-Kurs USDT/USD: USD- und Fiat-Paare eigener Börsen in USDT ([PortfolioExchangeRoute.toUsdt]). */
     val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Coin → Börse, deren Kurs gerade im Zwischenspeicher steht (sonst Binance). */
     val sourceOf = ConcurrentHashMap<String, String>()
@@ -155,7 +157,7 @@ class PortfolioPriceSource @Inject constructor(
      * bekannte Kurs stehen.
      */
     suspend fun prices(coins: Collection<String>, force: Boolean = false): PortfolioPrices =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val wanted = normalized(coins)
             priceMutex.withLock {
                 val generation = clearGeneration

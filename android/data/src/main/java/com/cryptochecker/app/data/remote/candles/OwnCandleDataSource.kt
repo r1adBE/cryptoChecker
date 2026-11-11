@@ -10,9 +10,10 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
@@ -55,6 +56,7 @@ object CandleHostPauses {
 @Singleton
 class OwnCandleDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private class Entry(val time: Long, val value: Sourced<List<HourCandle>>?)
 
@@ -76,7 +78,7 @@ class OwnCandleDataSource @Inject constructor(
             val ttl = if (entry.value != null) CACHE_MILLIS else FAILURE_MILLIS
             if (now - entry.time in 0 until ttl) return entry.value
         }
-        val result = withContext(Dispatchers.IO) { permits.withPermit { fetch(source, pair, interval, n) } }
+        val result = withContext(ioDispatcher) { permits.withPermit { fetch(source, pair, interval, n) } }
         cache[key] = Entry(System.currentTimeMillis(), result)
         return result
     }

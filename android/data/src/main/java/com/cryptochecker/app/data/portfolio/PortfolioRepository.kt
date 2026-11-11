@@ -13,7 +13,8 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
-import kotlinx.coroutines.Dispatchers
+import com.cryptochecker.app.util.DefaultDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -27,6 +28,7 @@ class PortfolioRepository @Inject constructor(
     val database: PortfolioDatabase,
     private val portfolioDao: PortfolioDao,
     private val watchedAddressDao: WatchedAddressDao,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) {
     fun observeTransactions(): Flow<List<PortfolioTxEntity>> = portfolioDao.observeAll()
 
@@ -232,7 +234,7 @@ class PortfolioRepository @Inject constructor(
     ): Int {
         // Vorab bereinigt und geprüft (bei grossen Dateien rechenintensiv, darum nicht auf dem Thread des Aufrufers): eine
         // ungültige Zeile meldet einen Fehler, bevor etwas geschrieben ist
-        val clean = withContext(Dispatchers.Default) {
+        val clean = withContext(defaultDispatcher) {
             transactions.map { tx ->
                 cleanForSave(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)).also {
                     require(it.storable()) { "Ungültige Transaktion" }

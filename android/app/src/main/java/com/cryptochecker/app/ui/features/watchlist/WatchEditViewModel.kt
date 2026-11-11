@@ -17,18 +17,19 @@ import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.notification.AppNotifier
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -88,6 +89,7 @@ class WatchEditViewModel @Inject constructor(
     private val widgetUpdater: WidgetUpdater,
     private val activityRepository: ActivityRepository,
     private val livePriceStream: LivePriceStream,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(WatchEditState())
@@ -174,7 +176,7 @@ class WatchEditViewModel @Inject constructor(
             if ((forceSync || info == null || info.pairs.isEmpty()) && canSync) {
                 _state.value = _state.value.copy(syncing = true)
                 try {
-                    withContext(Dispatchers.IO) { exchangeRepository.updateExchangeCurrencyPairs(exchange) }
+                    withContext(ioDispatcher) { exchangeRepository.updateExchangeCurrencyPairs(exchange) }
                     info = exchangeRepository.getExchangeCurrencyPairsInfo(exchange)
                 } catch (e: CancellationException) {
                     throw e

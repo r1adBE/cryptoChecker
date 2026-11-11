@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.marketdata.util.EcbRates
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -48,6 +49,7 @@ class FxRateSourceTest {
             Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(200).message("OK")
                 .body(body.toResponseBody("text/xml".toMediaType())).build()
         }).build(),
+        ioDispatcher = Dispatchers.IO,
     )
 
     @Test

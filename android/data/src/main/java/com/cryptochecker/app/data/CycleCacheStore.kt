@@ -2,9 +2,10 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import com.cryptochecker.app.domain.market.CycleCachePolicy
+import com.cryptochecker.app.util.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import timber.log.Timber
@@ -32,10 +33,11 @@ class CacheCodec<T>(val encode: (T) -> JSONObject, val decode: (JSONObject) -> T
 @Singleton
 class CycleCacheStore @Inject constructor(
     @param:ApplicationContext private val context: Context,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val dir: File get() = File(context.cacheDir, DIR)
 
-    suspend fun <T> read(name: String, codec: CacheCodec<T>): CachedValue<T>? = withContext(Dispatchers.IO) {
+    suspend fun <T> read(name: String, codec: CacheCodec<T>): CachedValue<T>? = withContext(ioDispatcher) {
         try {
             val file = File(dir, CycleCachePolicy.fileName(name))
             if (!file.isFile) return@withContext null
@@ -58,7 +60,7 @@ class CycleCacheStore @Inject constructor(
     }
 
     suspend fun <T> write(name: String, value: T, savedAt: Long, codec: CacheCodec<T>, provider: String? = null) {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             try {
                 val folder = dir
                 if (!folder.isDirectory && !folder.mkdirs()) return@withContext

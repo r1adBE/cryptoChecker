@@ -12,9 +12,10 @@ import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.Ticker
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -38,9 +39,10 @@ class DayReferences @Inject constructor(
     private val candlePairs: CandlePairs,
     /** Ausweich-Reihe nur ohne klaren Namens-Widerspruch zum Coin an der Börse des Paars. */
     private val tokenIdentityStore: TokenIdentityStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val loadScope = appScope(Dispatchers.IO, "DayReferences")
+    private val loadScope = appScope(ioDispatcher, "DayReferences")
 
     /**
      * Paare, die beim letzten vollen Durchlauf Kerzen brauchten (Ticker ohne 24-h-Wert) —

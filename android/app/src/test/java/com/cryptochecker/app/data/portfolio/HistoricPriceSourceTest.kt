@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.data.unusedExchangeRepository
 import com.cryptochecker.app.domain.market.DataFreshness
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -38,7 +39,7 @@ class HistoricPriceSourceTest {
     private val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
 
     private fun source(http: RouteHttp, names: TokenIdentityStore = testTokenIdentityStore(temp.newFolder())) =
-        HistoricPriceSource(http.client, names, OwnCandleDataSource(http.client), fakePortfolioDao(), unusedExchangeRepository())
+        HistoricPriceSource(http.client, names, OwnCandleDataSource(http.client, ioDispatcher = Dispatchers.IO), fakePortfolioDao(), unusedExchangeRepository(), ioDispatcher = Dispatchers.IO)
 
     /** Binance-Antwort: Tageskerze des Stichtags (Abfrage mit startTime) bzw. jüngste Kerze (ohne). */
     private fun binance(url: String, close: Double, latest: Double): Reply =

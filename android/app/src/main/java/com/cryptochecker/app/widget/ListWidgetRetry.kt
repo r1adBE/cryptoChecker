@@ -7,10 +7,11 @@ import android.widget.RemoteViews
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
+import com.cryptochecker.app.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,8 +31,9 @@ class ListWidgetRetry @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val widgetPrefs: WidgetPrefs,
     private val toolkit: WidgetToolkit,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) {
-    private val scope = appScope(Dispatchers.Default, "ListWidgetRetry")
+    private val scope = appScope(defaultDispatcher, "ListWidgetRetry")
 
     @Volatile private var endJob: Job? = null
 

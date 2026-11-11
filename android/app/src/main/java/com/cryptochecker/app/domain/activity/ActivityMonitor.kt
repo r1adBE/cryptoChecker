@@ -20,8 +20,9 @@ import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -56,6 +57,7 @@ class ActivityMonitor @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val notifier: AppNotifier,
     private val candlePairs: com.cryptochecker.app.data.remote.candles.CandlePairs,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Nur eine Auswertung zur Zeit; läuft schon eine, wird die neue übersprungen. */
     private val running = Mutex()
@@ -74,7 +76,7 @@ class ActivityMonitor @Inject constructor(
     suspend fun analyzeAll() {
         if (!running.tryLock()) return
         try {
-            withContext(Dispatchers.IO) { analyzeLocked() }
+            withContext(ioDispatcher) { analyzeLocked() }
         } catch (ex: CancellationException) {
             throw ex
         } catch (ex: Exception) {
@@ -215,7 +217,7 @@ class ActivityMonitor @Inject constructor(
      * den breiten Markt (CoinGecko-Top-40), Futures-Kennzahlen samt Funding-Verlauf,
      * Fear & Greed und Tageskerzen (30-Tage-Hoch/-Tief).
      */
-    suspend fun explain(watch: WatchEntity): WhyReport = withContext(Dispatchers.IO) {
+    suspend fun explain(watch: WatchEntity): WhyReport = withContext(ioDispatcher) {
         // Nicht mehr gehandelt bzw. deaktiviert: nichts laden, nichts einordnen (die Merkliste bietet «Warum?» dann nicht an)
         if (watch.isNotTraded || watch.disabled) return@withContext ActivityAnalyzer.notLive(System.currentTimeMillis())
         coroutineScope {

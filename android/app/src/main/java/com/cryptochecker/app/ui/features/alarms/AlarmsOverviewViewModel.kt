@@ -10,8 +10,10 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.toAlarmReading
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.app.util.DefaultDispatcher
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.settings.SettingsRepository
@@ -36,6 +38,8 @@ class AlarmsOverviewViewModel @Inject constructor(
     private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
     /** Letzte Momentaufnahme: warum Portfolio-Alarme gerade nicht prüfen ([portfolioPause]). */
     private val snapshotStore: PortfolioSnapshotStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     /** Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie auch niemand). */
@@ -56,7 +60,7 @@ class AlarmsOverviewViewModel @Inject constructor(
             if (kinds.isEmpty()) {
                 null
             } else {
-                withContext(Dispatchers.IO) {
+                withContext(ioDispatcher) {
                     snapshotStore.snapshot()?.let { s -> PortfolioAlarmLogic.pause(kinds, s.toAlarmReading(), s.missingCoins, s.staleCoins) }
                 }
             }
@@ -107,7 +111,7 @@ class AlarmsOverviewViewModel @Inject constructor(
     internal val pickerRows: StateFlow<List<AlarmPickerRow>?> = watchRepository.observeWatches()
         .map { alarmPickerRows(it) }
         .distinctUntilChanged()
-        .flowOn(Dispatchers.Default)
+        .flowOn(defaultDispatcher)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {

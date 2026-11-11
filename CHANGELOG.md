@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 214)
+
+* Android, internal: 40 classes get their coroutine dispatcher through Hilt (`@IoDispatcher`, `@DefaultDispatcher`) instead of a hard-wired one; a guard test keeps the remaining count from growing. No behaviour change.
+
 ## 16.2.2 (build 213)
 
 * New workflow «Baseline profile»: generates a measured start-up profile on an emulator; the result is committed and packaged with the app (the hand-written profile stays as fallback).

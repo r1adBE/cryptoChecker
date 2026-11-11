@@ -3,10 +3,11 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
 import com.cryptochecker.marketdata.util.EpochTime
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -30,6 +31,7 @@ import javax.inject.Singleton
 @Singleton
 class FxRateSource @Inject constructor(
     private val httpClient: OkHttpClient,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Währung → (Kurs, Abfragezeit). */
     private val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
@@ -50,7 +52,7 @@ class FxRateSource @Inject constructor(
         if (target == "USD") return 1.0
         if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
 
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             mutex.withLock {
                 val now = System.currentTimeMillis()
                 // Lew nach der Euro-Einführung: fehlt BGN, dann EUR × 1.95583 — aus dem EUR-Kurs samt DESSEN Abrufzeit

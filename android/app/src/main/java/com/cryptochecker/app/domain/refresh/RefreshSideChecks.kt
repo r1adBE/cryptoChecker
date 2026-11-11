@@ -7,10 +7,11 @@ import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
 import com.cryptochecker.app.domain.gas.GasAlertChecker
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AppVisibility
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -31,9 +32,10 @@ class RefreshSideChecks @Inject constructor(
     /** USDT/USD messen und Depeg-Alarm prüfen (mit Alarm oder Portfolio, höchstens alle 5 Minuten). */
     private val depegAlarmChecker: DepegAlarmChecker,
     private val portfolioSnapshotUpdater: PortfolioSnapshotUpdater,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val scope = appScope(Dispatchers.IO, "RefreshSideChecks")
+    private val scope = appScope(ioDispatcher, "RefreshSideChecks")
 
     // Ungewöhnliche Aktivität: erst nach gespeicherten Kursen und gezeichneten
     // Widgets, ausserhalb der Sperre — bremst den nächsten Durchlauf nicht,

@@ -20,7 +20,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
-import kotlinx.coroutines.Dispatchers
+import com.cryptochecker.app.util.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -130,6 +131,7 @@ class PortfolioHistorySource @Inject constructor(
     val historicSource: HistoricPriceSource,
     val tokenIdentityStore: TokenIdentityStore,
     val priceSource: PortfolioPriceSource,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). Begrenzt (sonst blieb jeder je abgefragte Coin bis zum Prozessende). */
     val chainMemory = BoundedCache<String, Pair<OwnCloses, Long>>(MEMORY_CACHE_ENTRIES)
@@ -160,7 +162,7 @@ class PortfolioHistorySource @Inject constructor(
         coins: Collection<String>,
         days: Int = PortfolioHistory.MAX_DAYS,
     ): PortfolioDailyPrices =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val requested = coins.map { PortfolioCalculator.normalizeCoin(it) }.filter { PortfolioStables.needsQuote(it) }.toSet()
             // Dazu die Basis gekapselter Coins: ohne eigene Tageskerzen gilt deren Reihe ([withWrapped])
             val symbols = ChainAssets.withBases(requested)
@@ -190,7 +192,7 @@ class PortfolioHistorySource @Inject constructor(
      * (höchstens 720 Tage, ältere Tage ohne Schluss = 1 als Näherung, [com.cryptochecker.app.domain.portfolio.UsdtUsdRates.on]).
      * Speicher, Gerät (12 h), sonst Abfrage; nicht erreichbar → älterer Stand oder leer.
      */
-    suspend fun usdtUsdDaily(days: Int = PortfolioHistory.MAX_DAYS): Map<Long, Double> = withContext(Dispatchers.IO) {
+    suspend fun usdtUsdDaily(days: Int = PortfolioHistory.MAX_DAYS): Map<Long, Double> = withContext(ioDispatcher) {
         // Eine Abfrage für alle gleichzeitig ladenden Coins (die übrigen warten auf den Speicher)
         usdtUsdMutex.withLock {
             val span = days.coerceAtLeast(PortfolioHistory.MAX_DAYS)
@@ -224,7 +226,7 @@ class PortfolioHistorySource @Inject constructor(
      * sind, prüft der Aufrufer (jüngster Schluss, siehe `PortfolioWidgetChart.usableCloses`).
      */
     suspend fun cachedDailyPrices(coins: Collection<String>): PortfolioDailyPrices =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val requested = coins.map { PortfolioCalculator.normalizeCoin(it) }.filter { PortfolioStables.needsQuote(it) }.toSet()
             // Dazu die Basis gekapselter Coins: ohne eigene Tageskerzen gilt deren Reihe ([withWrapped])
             val symbols = ChainAssets.withBases(requested)

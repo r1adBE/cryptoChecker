@@ -21,8 +21,9 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EcbRates
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -75,6 +76,7 @@ class HistoricPriceSource @Inject constructor(
     val ownCandles: OwnCandleDataSource,
     val portfolioDao: PortfolioDao,
     val exchangeRepository: ExchangeRepository,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /**
      * Coin → (eigene Börse oder null, Lesezeit): Vorschläge beim Erfassen fragen je (Coin, Tag) einzeln ([ownRoutes]).
@@ -95,7 +97,7 @@ class HistoricPriceSource @Inject constructor(
         date: LocalDate,
         current: Map<String, Double>,
     ): CutoffCloses =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val symbols = coins.map { PortfolioCalculator.normalizeCoin(it) }.filter { isAsset(it) }.distinct()
             // Eingetragene Börsen und Namen der Merkliste einmal für alle Coins (ohne Netz)
             val own = ownRoutes(symbols)
@@ -254,7 +256,7 @@ class HistoricPriceSource @Inject constructor(
         val target = currency.trim().uppercase()
         if (target == "USD") return HistoricFx(1.0, null)
         if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), date.minusDays(FX_LOOKBACK_DAYS), date)
             val (day, rates) = days.orEmpty().entries.filter { it.key <= date.toString() && "USD" in it.value }
                 .maxByOrNull { it.key } ?: return@withContext null
@@ -285,7 +287,7 @@ class HistoricPriceSource @Inject constructor(
         val key = "$target|$from|$to"
         val now = System.currentTimeMillis()
         fxSeriesCache[key]?.let { (rates, at) -> if (now - at in 0 until FX_SERIES_TTL_MILLIS) return rates }
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), from, to) ?: return@withContext null
             val series = PortfolioHistoryFx.ratesByDay(target, days.mapValues { (_, day) -> EcbRates.rebase(day, "USD") })
             if (series.isEmpty()) return@withContext null

@@ -3428,6 +3428,8 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   `android_emulator_idle.sh` and a focus check in the tour; deterministic demo candles.
 * Build 212: dependency update through «Supply chain update» (verification metadata, keyring, lock files).
 * Build 213: `baseline-profile.yml` + generator journey (start, watchlist, pair page, tabs); `baselineProfile { saveInSrc }`.
+* Build 214: `DispatcherQualifiers` (:domain) + `DispatcherModule` (:app); `DispatcherInjectionGuardTest` with the
+  list of remaining files.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

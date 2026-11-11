@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.market.DataFreshness
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -24,7 +25,7 @@ class CandleDataSourceChainTest {
     @Before
     fun chainOpen() = RouteHttp.releaseChain()
 
-    private fun source(http: RouteHttp) = CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()))
+    private fun source(http: RouteHttp) = CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO)
 
     private val notFound = Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 404)
 
@@ -162,7 +163,7 @@ class CandleDataSourceChainTest {
         val http = RouteHttp { Reply(Klines.binance(3) { 1.0 }) }
         val store = testTokenIdentityStore(temp.newFolder())
         store.saveBinance(mapOf("CAT" to "Catcoin"))
-        val candles = CandleDataSource(http.client, store)
+        val candles = CandleDataSource(http.client, store, ioDispatcher = Dispatchers.IO)
         assertNull(candles.candles("CAT", "USDT", CandleInterval.D1, 3, identityName = "Simon's Cat"))
         assertTrue(http.requested.isEmpty())
         // Gleicher Token: Kette wie sonst

@@ -7,8 +7,9 @@ import android.net.ConnectivityManager
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -48,6 +49,7 @@ class CoinLogoRepository @Inject constructor(
     private val alpha: AlphaTokens,
     private val coinNames: CoinNames,
     private val missingDismissals: MissingLogoDismissals,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Letzter Abgleich scheiterte am fehlenden Netz: [CoinLogoSync] holt ihn nach ([CoinListSync.retryPending]). */
     val retryPending: StateFlow<Boolean> get() = listSync.retryPending
@@ -69,7 +71,7 @@ class CoinLogoRepository @Inject constructor(
     val logosLoadingPercent: StateFlow<Int?> get() = images.loadingHint.percent
 
     /** Das erste Laden der Logos ist erledigt ([com.cryptochecker.app.domain.logos.LogoLoadingHint.firstLoadDone]; Datei). */
-    suspend fun logosFirstLoadDone(): Boolean = withContext(Dispatchers.IO) { images.loadingHint.firstLoadDone() }
+    suspend fun logosFirstLoadDone(): Boolean = withContext(ioDispatcher) { images.loadingHint.firstLoadDone() }
 
     /** Liegt für [symbol] ein Logo auf dem Gerät — geladen oder mitgeliefert ([logo]; nie Netz)? */
     suspend fun hasLogo(symbol: String): Boolean = images.logo(symbol) != null

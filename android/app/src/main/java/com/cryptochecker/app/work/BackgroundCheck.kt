@@ -20,9 +20,10 @@ import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshSummary
 import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.util.BackgroundErrorCounter
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.widget.PulseWidgetRenderer
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -44,6 +45,7 @@ class BackgroundCheck @Inject constructor(
     private val watchRepository: WatchRepository,
     private val checkRuns: CheckRunStore,
     private val pulseWidgets: PulseWidgetRenderer,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Nie zwei Prüfungen gleichzeitig (exakter Wecker und WorkManager können zusammenfallen). */
     private val running = Mutex()
@@ -84,7 +86,7 @@ class BackgroundCheck @Inject constructor(
         }
         // Wie die Merkliste in diesem Prozess liegt, steht erst nach dem Öffnen fest — ein Hintergrund-Prozess öffnet sie
         // oft erst hier (vor den beiden Prüfungen darunter)
-        withContext(Dispatchers.IO) { watchRepository.openDatabase() }
+        withContext(ioDispatcher) { watchRepository.openDatabase() }
         // Merkliste in diesem Prozess nur leer im Arbeitsspeicher (Schlüssel war gerade nicht lesbar): eine Prüfung sähe
         // keine Paare und keine Alarme — wie «Schlüssel nicht verfügbar» behandeln, die Einstiege versuchen es später
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {

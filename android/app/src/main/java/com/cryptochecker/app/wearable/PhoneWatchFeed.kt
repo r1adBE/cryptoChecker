@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -16,7 +17,7 @@ import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -50,8 +51,9 @@ class PhoneWatchFeed @Inject constructor(
     private val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val snapshotStore: PortfolioSnapshotStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
-    private val scope = appScope(Dispatchers.IO, "PhoneWatchFeed")
+    private val scope = appScope(ioDispatcher, "PhoneWatchFeed")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val portfolioLock = Mutex()
     private val _portfolioOnWatch = MutableStateFlow(false)

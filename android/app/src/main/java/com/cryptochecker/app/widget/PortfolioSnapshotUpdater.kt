@@ -33,8 +33,9 @@ import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.IoDispatcher
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -70,6 +71,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** Portfolio-Wert auf der Uhr (nur mit Schalter): nach jeder Aufnahme senden, ohne eigene Abfrage. */
     private val watchFeed: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchFeed>,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val mutex = Mutex()
 
@@ -115,7 +117,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
      * Kurse (60 s zwischengespeichert) und Devisenkurs holen, fehlende Stundenkerzen laden
      * ([PortfolioHourlyCandles.loadMissingCandles]), dann aufnehmen. Fehler bleiben still.
      */
-    suspend fun refresh(): Unit = withContext(Dispatchers.IO) {
+    suspend fun refresh(): Unit = withContext(ioDispatcher) {
         try {
             // Adress-Guthaben (nur fällige) und als Einzahlung ohne Kaufpreis mitrechnen — wie der Portfolio-Tab;
             // höchstens 8 s zusammen (je Anfrage 5 s), damit Kurse, Aufnahme und Alarme nie ausfallen
@@ -197,7 +199,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
          * gespeicherte (Hintergrund, Widget).
          */
         displayFx: PortfolioDisplayFx? = null,
-    ): PortfolioSnapshot? = withContext(Dispatchers.IO) {
+    ): PortfolioSnapshot? = withContext(ioDispatcher) {
         // Portfolio nur leer im Arbeitsspeicher, obwohl die Datei mit dem gespeicherten Stand da ist (Schlüssel gerade
         // nicht lesbar): nichts aufnehmen — sonst zeigte das Widget ein leeres Portfolio und der Verlauf bekäme eine Null
         if (DatabaseEncryptionNotice.isStoredKept(PortfolioDatabase.DB_NAME)) return@withContext null

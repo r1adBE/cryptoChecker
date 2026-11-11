@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.testTokenIdentityStore
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.OnChainValues
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -29,7 +30,7 @@ class CycleDataSourceTest {
     fun chainOpen() = RouteHttp.releaseChain()
 
     private fun cycle(http: RouteHttp) =
-        CycleDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder())))
+        CycleDataSource(http.client, CandleDataSource(http.client, testTokenIdentityStore(temp.newFolder()), ioDispatcher = Dispatchers.IO))
 
     private val daily = "binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1d"
     private val weekly = "binance.vision/api/v3/klines?symbol=BTCUSDT&interval=1w"

@@ -8,8 +8,9 @@ import com.cryptochecker.app.domain.market.MarketUnusual
 import com.cryptochecker.app.domain.market.UnusualCoin
 import com.cryptochecker.app.domain.market.UnusualInput
 import com.cryptochecker.app.domain.starter.MarketUniverse
+import com.cryptochecker.app.util.IoDispatcher
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
@@ -41,12 +42,13 @@ class UnusualDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
     private val starterCoins: StarterCoinsRepository,
     private val cacheStore: CycleCacheStore,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val mutex = Mutex()
 
     /** Frische Eingaben; höchstens ein Abruf gleichzeitig. Wirft ohne Coins oder Ticker. */
     suspend fun fetchInput(): UnusualInput = mutex.withLock {
-        withContext(Dispatchers.IO) { load() }
+        withContext(ioDispatcher) { load() }
     }
 
     private suspend fun load(): UnusualInput = coroutineScope {

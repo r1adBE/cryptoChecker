@@ -26,9 +26,10 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.app.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -51,6 +52,7 @@ class SingleWidgetRenderer @Inject constructor(
     private val coinLogos: WidgetCoinLogos,
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
     private val connectivity: WidgetConnectivity,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) {
     /**
      * Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie).
@@ -213,7 +215,7 @@ class SingleWidgetRenderer @Inject constructor(
                 }
                 // Zeichnen nicht auf dem Main-Thread (Aufrufe auch aus App und ViewModel)
                 val chartBitmap = candles?.takeIf { it.size >= 2 }?.let {
-                    withContext(Dispatchers.Default) {
+                    withContext(defaultDispatcher) {
                         runCatchingCancellable {
                             drawChart(
                                 manager, appWidgetId, it, chartType, range, colors, highContrast, watch.lastPrice,

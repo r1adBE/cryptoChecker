@@ -93,6 +93,13 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         priceOverlay.get().onConfigurationChanged()
     }
 
+    /**
+     * Die vier statischen Haken hier (BackgroundErrorCounter, DomainLog.sink, PhemexScales.store,
+     * MirrorRevocations.shared) bleiben bewusst ausserhalb von Hilt: Gelesen werden sie von `object`s und
+     * Funktionen ohne Injektion (appScope/appExceptionHandler und DomainLog in :domain, Phemex in :marketdata,
+     * MirrorTrust.shared in :data), und der Zähler muss schon vor `super.onCreate()` stehen, also bevor Hilt den
+     * Graphen baut.
+     */
     override fun onCreate() {
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
         com.cryptochecker.app.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
