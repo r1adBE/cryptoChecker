@@ -1,11 +1,12 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.util.DefaultDispatcher
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,8 +29,11 @@ class BulkAddRunner constructor(
     private val now: () -> Long = System::currentTimeMillis,
 ) {
     @Inject
-    constructor(watchRepository: WatchRepository, addMoments: AddMoments) :
-        this(RepositoryBulkAddWrites(watchRepository, addMoments), appScope(Dispatchers.Default, "Paare aufnehmen"))
+    constructor(
+        watchRepository: WatchRepository,
+        addMoments: AddMoments,
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
+    ) : this(RepositoryBulkAddWrites(watchRepository, addMoments), appScope(defaultDispatcher, "Paare aufnehmen"))
 
     /**
      * Stand: [done] von [total] verarbeitet; am Ende genau eines von [result], [locked], [cancelled] oder [failed].
