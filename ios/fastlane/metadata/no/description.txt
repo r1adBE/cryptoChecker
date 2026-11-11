@@ -13,7 +13,7 @@ DET SOM GJØR DEN ANNERLEDES
 • Beløp forlater bare enheten via din eksport (CSV, sikkerhetskopi) eller kryptert i iCloud-/enhetsbackup. For kurser sendes bare parets symbol til børsen for det aktuelle paret; i tillegg valutakurser (ECB), markedsdata og logoer (CoinGecko, Binance) og dataspeil (GitHub). Følger du adresser eller en xpub, ser offentlige blokkjede-noder adressene (ved xpub de avledede) og IP-en din.
 
 OVERVÅKINGSLISTE
-• 80 markeder på 69 børser: spot og futures, DEX-tokens via DexScreener, valgfritt aksjer, gull og valuta (TradFi)
+• 82 markeder på 69 børser og hos sentralbanker: spot og futures, DEX-tokens, valgfritt aksjer, gull og valuta (TradFi)
 • Andre linje «≈ verdi» i én av 31 valutaer (EUR, CHF, USD …), omregnet til valutakurs
 • Minigraf og %-endring over 24 t eller siden 00:00 i din tidssone
 • Grupper, favoritter, sortering med dra og slipp og et notat per coin
@@ -31,7 +31,7 @@ MARKED
 • Nettverksgebyrer for Ethereum, Bitcoin og flere, med gass-alarm
 
 I TILLEGG
-• Widgeter for Hjem-skjermen og låseskjermen, Live Activity for én coin
+• Widgeter for Hjem-skjermen og låseskjermen, Live Activity for én coin; Apple Watch
 • Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC, ADA og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversikt som CSV; egen lås. Bitpanda og Swissquote: ingen egen kurs, kun via CSV.
 • Lesbar for alle: grønn/rød eller blå/oransje, fortegn og pil i stedet for bare farge, Dynamic Type; VoiceOver leser hver rad som én setning
 • Sikkerhetskopi og gjenoppretting via Filer-appen

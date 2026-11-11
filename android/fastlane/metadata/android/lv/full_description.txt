@@ -13,7 +13,7 @@ GODĪGI PAR DATIEM
 • Summas atstāj ierīci tikai ar tavu eksportu vai Android sistēmas dublējumu. Cenām uz attiecīgā pāra biržu tiek sūtīti tikai pāru simboli; kā arī valūtu kursi (ECB), tirgus dati un logotipi (CoinGecko, Binance), datu spoguļi (GitHub). Ja vēro adreses vai xpub, publiskie blokķēdes mezgli redz adreses (xpub gadījumā – atvasinātās) un tavu IP.
 
 VĒROJAMO SARAKSTS
-• 80 tirgu 69 biržās: spot un nākotnes līgumi, DEX žetoni caur DexScreener, pēc izvēles akcijas, zelts un valūtas (TradFi)
+• 82 tirgi 69 biržās un centrālajās bankās: spot un nākotnes līgumi, DEX žetoni, pēc izvēles akcijas, zelts un valūtas (TradFi)
 • Otrā rinda „≈ vērtība“ vienā no 31 valūtas (EUR, CHF, USD …), pārrēķināta pēc kursa
 • Mini diagramma un % izmaiņas 24 h laikā vai kopš 00:00 tavā laika joslā
 • Grupas, izlase, vilkšana un piezīme katrai monētai
@@ -31,7 +31,7 @@ TIRGUS
 • Ethereum, Bitcoin un citu tīklu maksas ar gāzes brīdinājumu
 
 VAIRĀK
-• Logrīki: vērojamo saraksts, portfeļa kopsumma, viena monēta ar diagrammu
+• Logrīki: vērojamo saraksts, portfeļa kopsumma, viena monēta ar diagrammu, Kripto pulss; Wear OS
 • Portfelis pēc izvēles (ieslēdz iestatījumos): pirkumi, pārdošanas, maiņas, pārvedumi, atlīdzības, iemaksas un izmaksas; FIFO (noklusējums) vai vidējais (Ø); tikai lasāmas adreses bez seed frāzes BTC (ieskaitot xpub), ETH un EVM ķēdēm, SOL, TRX, XRP, LTC, ADA un TON; CSV imports no Relai, Swissquote, Bitpanda, Kraken, Binance un Coinbase; gada pārskats CSV; sava bloķēšana. Bitpanda un Swissquote: savas cenas nav, tikai CSV.
 • Salasāms visiem: zaļš/sarkans vai zils/oranžs, zīme un bultiņa, nevis tikai krāsa; TalkBack katru rindu nolasa kā vienu teikumu
 • Dublēšana un atjaunošana failā – arī starp Android un iPhone

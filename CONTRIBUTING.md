@@ -82,6 +82,11 @@ prefix, in all languages. To fix or add a translation:
 * Small, focused changes with a short description of what and why.
 * Add or update unit tests for logic changes, in the module of the code (`android/domain/src/test`,
   `android/data/src/test`; `android/app/src/test` for the app, the parity fixtures and the source guards).
+* CI enforces the code rules: at most 400 lines per production file, Kotlin compiler warnings are errors, lint
+  clean, size ceilings for functions, constructors and ViewModels, and the module boundaries
+  ([`DEVELOPMENT.md` § 12 and § 20](DEVELOPMENT.md#20-modules-layers-and-cross-cutting-rules)).
+* Behaviour is the same on Android and iOS (and on Wear OS and Apple Watch): shared logic gets a case in
+  `android/testdata/parity`, copied to `ios/Tests/Parity` by `python3 ios/tools/gen_xcodeproj.py`.
 * Never commit API keys, tokens, keystores, `keystore.properties`,
   `local.properties`, certificates or provisioning profiles.
 * Never add third-party API data (e.g. CoinGecko market data), logos or name

@@ -13,7 +13,7 @@ Crypto Checker 会检查你所用交易所的价格，并在检查时发现已�
 • 金额仅通过你的导出（CSV、备份）或以加密形式随 iCloud 或电脑备份离开设备。获取价格时，只把交易对代码发送给该交易对所在的交易所；另外还有汇率（ECB）、市场数据和图标（CoinGecko、Binance）以及数据镜像（GitHub）。如果你关注地址或 xpub，公共区块链节点会看到这些地址（xpub 为派生地址）和你的 IP。
 
 自选列表
-• 69 家交易所的 80 个市场：现货和合约，通过 DexScreener 查看 DEX 代币，还可选股票、黄金和外汇（TradFi）
+• 69 家交易所和中央银行的 82 个市场：现货和合约，DEX 代币，还可选股票、黄金和外汇（TradFi）
 • 第二行以 31 种货币之一（EUR、CHF、USD 等）显示“≈ 折合”（按汇率换算）
 • 迷你图，以及 24 小时或自你所在时区 00:00 起的涨跌幅
 • 分组、收藏、拖动排序，每个币种可加备注
@@ -31,7 +31,7 @@ Crypto Checker 会检查你所用交易所的价格，并在检查时发现已�
 • Ethereum、Bitcoin 等网络手续费，附 Gas 提醒
 
 更多
-• 主屏幕和锁定屏幕小组件，单个币种的实时活动
+• 主屏幕和锁定屏幕小组件，单个币种的实时活动；Apple Watch
 • 投资组合为可选功能（在设置中开启）：买入、卖出、兑换、转账、奖励、充值和提现；FIFO（默认）或平均成本（Ø）；只读地址，无需助记词：BTC（含 xpub）、ETH 和 EVM 链、SOL、TRX、XRP、LTC、ADA 和 TON；从 Relai、Swissquote、Bitpanda、Kraken、Binance 和 Coinbase 导入 CSV；年度汇总（CSV）；独立锁定。Bitpanda 和 Swissquote 没有自己的价格，仅可通过 CSV 导入。
 • 人人易读：绿/红或蓝/橙，不只靠颜色，还有正负号和箭头，支持动态字体；VoiceOver 把每行读成一句话
 • 通过“文件”App 备份和恢复

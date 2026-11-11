@@ -13,7 +13,7 @@ AUSALT ANDMETEST
 • Summad lahkuvad seadmest ainult sinu ekspordi või Androidi süsteemi varukoopia kaudu. Hindade jaoks saadetakse paari börsile ainult paaride sümbolid; lisaks vahetuskursid (ECB), turuandmed ja logod (CoinGecko, Binance), andmepeeglid (GitHub). Kui jälgid aadresse või xpub-i, näevad avalikud plokiahela sõlmed aadresse (xpub-i puhul tuletatuid) ja sinu IP-d.
 
 JÄLGIMISLOEND
-• 80 turgu 69 börsil: spot ja futuurid, DEX-tokenid DexScreeneri kaudu, valikuliselt aktsiad, kuld ja valuutad (TradFi)
+• 82 turgu 69 börsil ja keskpankades: spot ja futuurid, DEX-tokenid, valikuliselt aktsiad, kuld ja valuutad (TradFi)
 • Teine rida „≈ väärtus“ ühes 31 valuutast (EUR, CHF, USD …), teisendatud kursiga
 • Minigraafik ja %-muutus 24 h jooksul või alates 00:00 sinu ajavööndis
 • Rühmad, lemmikud, lohistamine ja märkus mündi juures
@@ -31,7 +31,7 @@ TURG
 • Ethereumi, Bitcoini ja teiste võrkude tasud, gaasihoiatus
 
 VEEL
-• Vidinad: jälgimisloend, portfelli koguväärtus, üks münt koos graafikuga
+• Vidinad: jälgimisloend, portfelli koguväärtus, üks münt koos graafikuga, Krüptopulss; Wear OS
 • Portfell valikuline (lülita sisse seadetes): ostud, müügid, vahetused, ülekanded, preemiad, sisse- ja väljamaksed; FIFO (vaikimisi) või keskmine (Ø); ainult lugemiseks aadressid ilma taastefraasita BTC (sh xpub), ETH ja EVM-ahelate, SOL, TRX, XRP, LTC, ADA ja TON jaoks; CSV-import Relaist, Swissquote’ist, Bitpandast, Krakenist, Binance’ist ja Coinbase’ist; aastaülevaade CSV-na; oma lukk. Bitpanda ja Swissquote: oma hinda pole, ainult CSV.
 • Kõigile loetav: roheline/punane või sinine/oranž, märk ja nool, mitte ainult värv; TalkBack loeb iga rea ette ühe lausena
 • Varundamine ja taastamine faili – ka Androidi ja iPhone’i vahel

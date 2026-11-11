@@ -50,6 +50,13 @@ private const val ASSET_SQLCIPHER = "licenses/SQLCipher-BSD.txt"
 private const val SQLCIPHER_NAME = "SQLCipher for Android (net.zetetic:sqlcipher-android)"
 private const val SQLCIPHER_LICENSE_NAME = "BSD-style license, Zetetic LLC"
 
+/**
+ * Abgleich mit der Uhr (Wear-Daten-Schicht): Google Play-Dienste, kein Apache-2.0-Code — eigene Lizenz von Google,
+ * darum mit Verweis statt Lizenztext. Name und Lizenz nicht übersetzt.
+ */
+private const val PLAY_SERVICES_NAME = "Google Play services Wearable (com.google.android.gms:play-services-wearable)"
+private const val PLAY_SERVICES_LICENSE_NAME = "Android Software Development Kit License (developer.android.com/studio/terms)"
+
 /** In SQLCipher (libsqlcipher.so) enthalten: SQLite (gemeinfrei); libcrypto von OpenSSL steht unter Apache 2.0. */
 private const val SQLITE_LINE = "SQLite — Public Domain"
 
@@ -149,17 +156,18 @@ fun LicensesContent() {
             // Bibliotheksnamen und Lizenztext nicht übersetzt
             SectionDivider()
             SectionTitle(SQLCIPHER_NAME)
-            Text(
-                "• $SQLCIPHER_NAME — $SQLCIPHER_LICENSE_NAME",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 2.dp)
-            )
-            Text(
-                "• $SQLITE_LINE",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 2.dp)
-            )
+            listOf("$SQLCIPHER_NAME — $SQLCIPHER_LICENSE_NAME", SQLITE_LINE).forEach { line ->
+                Text("• $line", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 2.dp))
+            }
             LicenseText(sqlcipher)
+
+            // Handy ↔ Uhr: Google Play-Dienste (Wearable) unter Googles SDK-Lizenz
+            SectionDivider()
+            Text(
+                "• $PLAY_SERVICES_NAME — $PLAY_SERVICES_LICENSE_NAME",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 2.dp)
+            )
         }
     }
 }

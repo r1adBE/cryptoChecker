@@ -13,7 +13,7 @@ JUJUR SOAL DATA
 • Jumlah hanya keluar dari perangkat lewat ekspor (CSV, cadangan) atau terenkripsi di cadangan iCloud atau komputer. Untuk harga, hanya simbol pasangan yang dikirim ke bursanya; plus kurs (ECB), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika kamu memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP-mu.
 
 DAFTAR PANTAUAN
-• 80 pasar di 69 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)
+• 82 pasar di 69 bursa dan bank sentral: spot dan futures, token DEX, opsional saham, emas, dan valas (TradFi)
 • Baris kedua “≈ nilai” dalam satu dari 31 mata uang (EUR, CHF, USD …), dikonversi dengan kurs valuta
 • Grafik mini dan perubahan % selama 24 jam atau sejak 00:00 di zona waktumu
 • Grup, favorit, urutkan dengan seret, dan catatan untuk tiap koin
@@ -30,7 +30,7 @@ PASAR
 • Biaya jaringan untuk Ethereum, Bitcoin, dan lainnya, dengan alarm gas
 
 LAINNYA
-• Widget untuk Layar Utama dan Layar Terkunci, Aktivitas Langsung untuk satu koin
+• Widget untuk Layar Utama dan Layar Terkunci, Aktivitas Langsung untuk satu koin; Apple Watch
 • Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, ADA, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote: tanpa harga sendiri, hanya lewat CSV.
 • Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna, Dynamic Type; VoiceOver membacakan tiap baris sebagai satu kalimat
 • Cadangkan & pulihkan lewat app File

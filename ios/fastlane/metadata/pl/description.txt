@@ -13,7 +13,7 @@ UCZCIWIE O DANYCH
 • Kwoty opuszczają urządzenie tylko przez Twój eksport (CSV, kopia zapasowa) lub zaszyfrowane w kopii iCloud/urządzenia. Do cen trafiają tylko symbole pary – do giełdy danej pary; do tego kursy walut (ECB), dane rynkowe i logo (CoinGecko, Binance), lustra danych (GitHub). Jeśli obserwujesz adresy lub xpub, publiczne węzły blockchain widzą adresy (przy xpub – pochodne) i Twój adres IP.
 
 LISTA OBSERWOWANYCH
-• 80 rynków na 69 giełdach: spot i futures, tokeny DEX przez DexScreener, opcjonalnie akcje, złoto i waluty (TradFi)
+• 82 rynki na 69 giełdach i w bankach centralnych: spot i futures, tokeny DEX, opcjonalnie akcje, złoto i waluty (TradFi)
 • Druga linia „≈ wartość” w jednej z 31 walut (EUR, CHF, USD …), przeliczona po kursie walutowym
 • Mini wykres i zmiana % za 24 h lub od 00:00 w Twojej strefie czasowej
 • Grupy, ulubione, sortowanie przeciąganiem i notatka do każdej monety
@@ -31,7 +31,7 @@ RYNEK
 • Opłaty sieciowe dla Ethereum, Bitcoina i innych, z alarmem gas
 
 PONADTO
-• Widżety na ekran początkowy i blokady, Live Activity dla jednej monety
+• Widżety na ekran początkowy i blokady, Live Activity dla jednej monety; Apple Watch
 • Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC, ADA i TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; podsumowanie roczne w CSV; osobna blokada. Bitpanda i Swissquote: bez własnej ceny, tylko przez CSV.
 • Czytelna dla wszystkich: zielony/czerwony lub niebieski/pomarańczowy, znak i strzałka zamiast samego koloru, Dynamic Type; VoiceOver czyta każdy wiersz jako jedno zdanie
 • Kopia zapasowa i przywracanie przez aplikację Pliki

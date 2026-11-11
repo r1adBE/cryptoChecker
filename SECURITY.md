@@ -93,7 +93,8 @@ keys or other secrets never belong in this repository.
     caches and coin lists (including the last remembered prices of the held
     coins, `portfolio_last_prices.txt`, and on iOS the widget's hourly prices and
     price samples – coin symbols and prices, no quantities), the refresh and
-    check statistics, backup files exported without a password, and on Android
+    check statistics, backup files exported without a password (watchlist, alarms
+    and settings only), and on Android
     the system-backup copies: the watchlist database copy (only while a backup
     runs, Android 9+) and the opt-in `portfolio_system_backup.json` («Portfolio
     in system backup», plain JSON by design so it can be restored on a new
@@ -119,18 +120,29 @@ keys or other secrets never belong in this repository.
   An own Bitcoin server with a certificate from a private CA therefore works on
   iOS only if that CA is installed as a profile and fully trusted (Settings ›
   General › About › Certificate Trust Settings); on Android it does not work,
-  because the app trusts only the system CAs, not CAs added by the user (no
-  `network_security_config`). Use a certificate from a public CA there.
+  because the app trusts only the system CAs, not CAs added by the user (its
+  `network_security_config` only forbids cleartext traffic and adds no trust
+  anchors; the same for the Wear OS app). Use a certificate from a public CA there.
 * **Portfolio lock.** Optional biometric / device-credential lock for the
   portfolio. While it is on, the portfolio is hidden in the app switcher
   (Android: FLAG_SECURE and no recents preview; iOS: privacy cover), portfolio
-  widgets show no values, and portfolio alarms show no amounts on the lock
-  screen. «Hide amounts» also applies to widgets and notifications. When the
+  widgets show no values, and portfolio alarms show only a neutral sentence
+  without threshold or amount. Independently of the lock, a portfolio alarm never
+  shows an amount on the lock screen (Android: private notification with a
+  neutral public version; iOS: the notification itself carries no amount – the
+  details are in the app). «Hide amounts» also applies to widgets and notifications. When the
   session locks again (more than 60 s in the background), open portfolio sheets and
   backup dialogs close; a file picked or a password check finishing after that is
   discarded until the user unlocks again.
+* **No foreign windows over sensitive screens (Android 12+).** While the portfolio,
+  the portfolio settings or the restore and «Reset app» confirmations are visible,
+  the app hides overlay windows of other apps (`HIDE_OVERLAY_WINDOWS`, a normal
+  permission without a prompt) – protection against tapjacking. Android 8–11 have
+  no such switch.
 * **Backups.** Exported via the system file picker only (no temporary copies),
-  optionally encrypted with a password (format v3: AES-256-GCM, key from Argon2id
+  encrypted with a password – optional for a file without portfolio data, always
+  required once the file contains portfolio data (transactions or watched
+  addresses; the app offers no export without a password then) (format v3: AES-256-GCM, key from Argon2id
   per RFC 9106 with 64 MiB memory, 3 passes, 1 lane and a random 16-byte salt; the
   file header with all parameters is authenticated as AAD, so a modified header
   fails like a wrong password). Parameters read from a
@@ -176,7 +188,7 @@ keys or other secrets never belong in this repository.
   The portfolio widget's caches (hourly prices, value history, candle attempts)
   are files in the App Group that are always excluded from device and iCloud
   backups.
-  A backup exported without a password is plain JSON. The portfolio lock protects
+  A backup exported without a password (possible only without portfolio data) is plain JSON. The portfolio lock protects
   what the app shows on the device, not system or device backups.
 * **What exchanges see.** Prices are fetched directly from public exchange APIs, so
   each exchange sees which pairs are requested (and your IP address) – the
@@ -184,7 +196,8 @@ keys or other secrets never belong in this repository.
   anonymous. Futures figures go to the exchange of the watched pair; only reference
   data and the funding history of the «Why?» sheet ask Binance Futures, Bybit or
   OKX with the coin's contract symbol. Market breadth comes from CoinGecko's list of the 40 largest coins – the same
-  request for everyone. Watched addresses (and, for an xpub, the addresses derived
+  request for everyone. Forex reference rates are whole public tables of the ECB, the National Bank of Ukraine and the
+  National Bank of Poland – the request does not say which currency is watched. Watched addresses (and, for an xpub, the addresses derived
   from it on the device – the xpub itself never leaves the device) go to the
   public blockchain nodes named in the privacy policy, together with your IP
   address. Optionally, Bitcoin addresses and xpubs can go to your own
@@ -261,13 +274,16 @@ Bitcoin-Adressen und xpub können statt an öffentliche Knoten an einen eigenen
 Esplora-/mempool-Server gehen (nur https, ohne Rückfall auf öffentliche Knoten).
 Dateien des Daten-Spiegels nutzt die App nur mit gültiger Signatur (ECDSA P-256,
 Manifest höchstens 7 Tage alt, SHA-256 je Datei), sonst fragt sie den Anbieter direkt.
-Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und auf dem
-Sperrbildschirm; «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
+Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und in
+Mitteilungen; ein Portfolio-Alarm zeigt auf dem Sperrbildschirm nie einen Betrag,
+auch ohne Sperre. «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
+Ab Android 12 blendet die App fremde Überlagerungen über dem Portfolio und über
+heiklen Rückfragen aus.
 Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge.
 Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
 einem Passwort verschlüsseln (AES-256-GCM, Schlüssel per Argon2id mit 64 MiB, der
 Kopf der Datei ist mitgeschützt), das
-nirgends gespeichert wird.
+nirgends gespeichert wird; enthält die Datei Portfolio-Daten, ist das Passwort Pflicht.
 Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen; leicht zu erratende
 (nur Ziffern, ein wiederholtes Zeichen – auch mit Ziffern oder Zeichen nur am
 Anfang oder Ende –, zu 75 % dasselbe Zeichen, höchstens 3 verschiedene Zeichen,

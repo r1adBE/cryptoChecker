@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 218 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 219 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -27,7 +27,8 @@ Gleicher Funktionsumfang wie Android 16.2.2 (ohne Preis-Overlay, das gibt es unt
 - **Apple-Watch-App** (`Watch/`, Komplikationen in `WatchWidgets/`): Kurse und 24 h der Lieblings-Coins vom iPhone (die es
   schon hat) oder ohne iPhone bzw. mit «Immer selbst abrufen» direkt von den Börsen, im Intervall des iPhones (15–60 Min.,
   `WatchInterval`); Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich über WatchConnectivity
-  (`WatchCore/`); Portfolio-Wert nur mit Schalter; alter Kurs grau mit Alter.
+  (`WatchCore/`); Komplikationen mit dem Kurs des ersten Coins, Portfolio-Wert nur mit Schalter (sonst «am Handy
+  einschalten»); alter Kurs grau mit Alter.
 - **Börsenauswahl in Abschnitten**: Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über alle
   Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
   Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. 82 Märkte: 78 auf 69 Börsen, dazu DexScreener für
@@ -47,6 +48,11 @@ Gleicher Funktionsumfang wie Android 16.2.2 (ohne Preis-Overlay, das gibt es unt
   der CI.
 - **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
   `Shared/Portfolio/CsvImport*.swift`).
+- **Widgets ohne Internet**: «Keine Verbindung · Stand 14:05» mit den letzten Kursen (`Shared/Util/WidgetStatusRule.swift`);
+  die Widgets laden im gewählten Intervall der Kurs-Aktualisierung neu.
+- **Schutz**: Sicherung mit Portfolio-Daten nur mit Passwort; Portfolio-Alarme zeigen in der Mitteilung nie einen
+  Betrag (nur den neutralen Satz, Einzelheiten in der App); beobachtete Adressen zählen je Coin nur, was sie über die
+  eigenen Transaktionen derselben Wallet hinaus halten.
 
 Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
@@ -54,7 +60,7 @@ Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
 | Ordner | Inhalt |
 |---|---|
-| `Shared/` | Code und Ressourcen für **beide** Targets (App und Widgets), u. a. `Resources/Localizable.xcstrings` |
+| `Shared/` | Code und Ressourcen für App und Widgets, u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
 | `Watch/`, `WatchWidgets/`, `WatchCore/` | Apple-Watch-App, ihre Komplikation und die Listenwahl, die iPhone und Uhr teilen |
@@ -96,13 +102,13 @@ Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
 ## Version ändern
 
-Die Version steht in den Build-Einstellungen beider Targets (die `Info.plist`-Dateien
+Die Version steht in den Build-Einstellungen aller vier Targets (die `Info.plist`-Dateien
 verweisen nur darauf):
 
 - `MARKETING_VERSION` – sichtbare Version, z. B. `16.2.2` (entspricht Androids `versionName`)
 - `CURRENT_PROJECT_VERSION` – Build-Nummer, z. B. `17` (entspricht `versionCode`)
 
-In Xcode: Target › **General** › *Identity* › Version / Build – bei **beiden** Targets gleich
+In Xcode: Target › **General** › *Identity* › Version / Build – bei **allen vier** Targets gleich
 setzen, sonst warnt Xcode beim Archivieren. Alternativ die Konstanten oben in
 `tools/gen_xcodeproj.py` ändern und das Projekt neu generieren. `project.yml` (XcodeGen-Fallback) muss
 dieselben Werte tragen: `gen_xcodeproj.py` (auch mit `--check`) bricht mit einer Meldung ab, wenn
@@ -120,14 +126,14 @@ python3 tools/gen_assets.py        # VectorDrawables -> App-Icons, Logos, Farben
 python3 tools/gen_xcodeproj.py     # CryptoChecker.xcodeproj neu erzeugen (findet neue .swift-Dateien selbst, kopiert die gemeinsamen Testfälle nach Tests/Parity)
 ```
 
-Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablegen und
+Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/`, die Uhr-Ordner oder `Tests/` ablegen und
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
 `tools/ios_extra_strings.json` (alle 75 Sprachen, inkl. `pt-BR`, `zh-Hant` und `yue-Hant`; `sr-Latn` erzeugt
 `android/tools/sr_latn.py` aus `sr`), danach `convert_strings.py` laufen lassen.
 
 ## Swift 6
 
-Alle Ziele (App, Widgets, Unit- und UI-Tests) bauen im Swift-6-Sprachmodus (`SWIFT_VERSION = 6.0`,
+Alle Ziele (App, Widgets, Uhr-App und ihre Komplikationen, Unit- und UI-Tests) bauen im Swift-6-Sprachmodus (`SWIFT_VERSION = 6.0`,
 `SWIFT_STRICT_CONCURRENCY = complete`, in `tools/gen_xcodeproj.py` und `project.yml`). Concurrency-Befunde sind damit
 Fehler, nicht mehr Warnungen; dazu prüft Swift 6 die Isolation auch zur Laufzeit.
 
@@ -195,7 +201,9 @@ iOS erlaubt einiges nicht, was die Android-App kann:
 Sicherungsdateien sind zwischen Android und iOS **austauschbar**: Eine auf Android erstellte Sicherung
 lässt sich unter iOS wiederherstellen und umgekehrt. Die JSON-Datei (`cryptochecker-backup-JJJJ-MM-TT`)
 enthält Merkliste (inkl. Notizen und Gruppen), Alarme (inkl. Alarmwährung), Favoriten, Portfolio und
-Einstellungen (inkl. Umrechnung, Kursfarben, Farbtausch, hoher Kontrast, Mini-Chart, Nachtruhe, Portfolio-Sperre, Spalten-Sortierung der Merkliste, «inkl. Alpha-Tokens») im selben Format wie unter Android. Ist die Portfolio-Sperre
+Einstellungen (inkl. Umrechnung, Kursfarben, Farbtausch, hoher Kontrast, Mini-Chart, Nachtruhe, Portfolio-Sperre, Spalten-Sortierung der Merkliste, «inkl. Alpha-Tokens») im selben Format wie unter Android. Enthält sie
+Portfolio-Daten (Transaktionen oder beobachtete Adressen), ist das Passwort Pflicht (`PortfolioLockPolicy.backupExportRequiresPassword`,
+gleich wie Android); ohne Portfolio-Daten bleibt es freiwillig. Ist die Portfolio-Sperre
 gesperrt, verlangen Sichern (mit Portfolio-Daten) und Wiederherstellen zuerst das Entsperren. Sperrt sich die Sitzung
 wieder, während Export-Optionen, Passwort-Blatt oder die Rückfrage «Ersetzen?» offen sind, schliessen sie sich; ein schon
 bestätigter Export bzw. ein schon schreibendes Wiederherstellen läuft fertig, eine danach gewählte Datei oder fertige

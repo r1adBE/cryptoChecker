@@ -13,7 +13,7 @@ MINH BẠCH VỀ DỮ LIỆU
 • Số tiền chỉ rời thiết bị khi bạn xuất ra hoặc qua sao lưu Android. Để lấy giá, chỉ mã cặp được gửi đến sàn của cặp đó; thêm vào đó là tỷ giá (ECB), dữ liệu thị trường và logo (CoinGecko, Binance), bản sao dữ liệu (GitHub). Nếu bạn theo dõi địa chỉ hoặc xpub, các nút blockchain công khai thấy các địa chỉ (với xpub là các địa chỉ dẫn xuất) và IP của bạn.
 
 DANH SÁCH THEO DÕI
-• 80 thị trường trên 69 sàn: spot và futures, token DEX qua DexScreener, tùy chọn cổ phiếu, vàng và ngoại hối (TradFi)
+• 82 thị trường trên 69 sàn và tại các ngân hàng trung ương: spot và futures, token DEX, tùy chọn cổ phiếu, vàng và ngoại hối (TradFi)
 • Dòng thứ hai “≈ giá trị” bằng một trong 31 loại tiền (EUR, CHF, USD …), quy đổi theo tỷ giá
 • Biểu đồ mini và % thay đổi trong 24 giờ hoặc từ 00:00 theo múi giờ của bạn
 • Nhóm, yêu thích, kéo để sắp xếp và ghi chú cho từng coin
@@ -31,7 +31,7 @@ THỊ TRƯỜNG
 • Phí mạng cho Ethereum, Bitcoin và hơn nữa, có cảnh báo gas
 
 NGOÀI RA
-• Widget: danh sách, tổng giá trị danh mục, một coin kèm biểu đồ
+• Widget: danh sách, tổng giá trị danh mục, một coin kèm biểu đồ, Nhịp đập crypto; Wear OS
 • Danh mục tùy chọn (bật trong Cài đặt): mua, bán, hoán đổi, chuyển, phần thưởng, nạp và rút; FIFO (mặc định) hoặc trung bình (Ø); địa chỉ chỉ đọc, không cần seed, cho BTC (cả xpub), ETH & chuỗi EVM, SOL, TRX, XRP, LTC, ADA và TON; nhập CSV từ Relai, Swissquote, Bitpanda, Kraken, Binance và Coinbase; tổng hợp năm dạng CSV; khóa riêng. Bitpanda và Swissquote: không có giá riêng, chỉ qua CSV.
 • Dễ đọc cho mọi người: xanh/đỏ hoặc xanh dương/cam, dấu và mũi tên thay vì chỉ màu; TalkBack đọc mỗi dòng thành một câu
 • Sao lưu và khôi phục ra tệp – cả giữa Android và iPhone

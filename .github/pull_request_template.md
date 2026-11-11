@@ -3,6 +3,7 @@
 **Platform**
 - [ ] Android
 - [ ] iOS
+- [ ] Watch apps (Wear OS / Apple Watch)
 - [ ] Exchange library (Android and iOS adapters; API endpoints used: …)
 - [ ] Translations (`check_strings.py` passes)
 

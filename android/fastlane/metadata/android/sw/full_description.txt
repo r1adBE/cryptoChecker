@@ -13,7 +13,7 @@ UKWELI KUHUSU DATA
 • Kiasi hutoka kwenye kifaa tu kupitia uhamishaji wako au nakala rudufu ya Android. Kwa bei, alama za jozi pekee huenda kwa jukwaa la jozi husika; pia viwango vya ubadilishaji (ECB), data ya soko na nembo (CoinGecko, Binance), vioo vya data (GitHub). Ukifuatilia anwani au xpub, nodi za umma za blockchain zinaona anwani (kwa xpub, zile zilizotolewa) na IP yako.
 
 ORODHA YA UFUATILIAJI
-• Masoko 80 kwenye majukwaa 69: spot na futures, tokeni za DEX kupitia DexScreener, hiari hisa, dhahabu na FX (TradFi)
+• Masoko 82 kwenye majukwaa 69 na benki kuu: spot na futures, tokeni za DEX, hiari hisa, dhahabu na FX (TradFi)
 • Mstari wa pili “≈ thamani” katika mojawapo ya sarafu 31 (EUR, CHF, USD …), kwa kiwango cha FX
 • Chati ndogo na mabadiliko ya % kwa 24 h au tangu 00:00 kwa saa zako za eneo
 • Vikundi, vipendwa, buruta-uachie na dokezo kwa kila sarafu
@@ -31,7 +31,7 @@ SOKO
 • Ada za mtandao za Ethereum, Bitcoin na nyingine, na kengele ya gas
 
 ZAIDI
-• Wijeti: orodha ya ufuatiliaji, jumla ya jalada, sarafu moja na chati
+• Wijeti: orodha ya ufuatiliaji, jumla ya jalada, sarafu moja na chati, Mapigo ya crypto; Wear OS
 • Jalada la hiari (liwashe kwenye Mipangilio): manunuzi, mauzo, swap, uhamisho, tuzo, amana na utoaji; FIFO (chaguomsingi) au wastani (Ø); anwani za kusoma tu bila seed za BTC (na xpub), ETH na minyororo ya EVM, SOL, TRX, XRP, LTC, ADA na TON; uletaji wa CSV kutoka Relai, Swissquote, Bitpanda, Kraken, Binance na Coinbase; muhtasari wa mwaka kama CSV; kufuli yake. Bitpanda na Swissquote: hazina bei yake, CSV pekee.
 • Inasomeka kwa wote: kijani/nyekundu au bluu/machungwa, alama na mshale badala ya rangi pekee; TalkBack husoma kila safu kama sentensi moja
 • Nakala rudufu na kurejesha kwa faili – pia Android ↔ iPhone

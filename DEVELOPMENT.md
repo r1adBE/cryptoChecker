@@ -39,6 +39,7 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 17. [«Why?», futures data, chart and asset kinds](#17-why-futures-data-chart-and-asset-kinds)
 18. [Screen layout rules](#18-screen-layout-rules)
 19. [Storage encryption](#19-storage-encryption)
+20. [Modules, layers and cross-cutting rules](#20-modules-layers-and-cross-cutting-rules)
 
 ## 1. Structure
 
@@ -50,7 +51,7 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 | `android/marketdata/…/model/Ticker.kt`, `SimpleTicker.kt` | Price data of one pair |
 | `android/marketdata/…/model/ExchangePair.kt` | One tradable pair: base, quote, exchange-specific pair id |
 | `android/marketdata/…/config/ExchangesConfig.kt` | List of registered exchanges |
-| `android/marketdata/…/util/JsonUtils.kt` | JSON helpers (`forEachJSONObject`, `optDoubleOrMissing`, …) |
+| `android/marketdata/…/util/JsonExtensions.kt` | JSON helpers (`forEachJSONObject`, `optDoubleOrMissing`, …) |
 | `ios/Shared/Exchanges/Exchange.swift`, `ios/Shared/Exchanges/ExchangesConfig.swift`, `ios/Shared/Exchanges/JsonUtils.swift` | The same on iOS |
 
 The app asks an adapter for two things:
@@ -71,11 +72,11 @@ For a new exchange «Example»:
 | Android | `android/marketdata/…/config/ExchangesConfig.kt` | `Example()` added |
 | iOS | `ios/Shared/Exchanges/Example.swift` | the same adapter in Swift |
 | iOS | `ios/Shared/Exchanges/ExchangesConfig.swift` | `Example()` added |
-| Android | `android/app/…/data/remote/candles/ExchangeCandleSources*.kt` | optional: own candles (`ExchangeCandleSource` + `ExchangeCandleRegistry`) |
+| Android | `android/data/…/data/remote/candles/ExchangeCandleSources*.kt` | optional: own candles (`ExchangeCandleSource` + `ExchangeCandleRegistry`) |
 | iOS | `ios/Shared/Services/Candles/ExchangeCandleSources*.swift` | the same candle source in Swift, case in `testdata/parity/own_candles.json` |
 | Both | ticker parsing | set `exchangeTime` when the API sends the time of the price (see [section 15](#15-ui-rules-for-numbers), «Exchange time vs fetch time») |
 | Both | the adapter | `category` when it is not Spot (FUTURES, DEX, FOREX: section of the exchange picker) |
-| Both | `ExchangeOrder` (Android `app/…/domain/market`, iOS `Shared/Core`) | CoinGecko id in `SPOT_IDS`/`spotIds` or `DERIVATIVES_IDS`/`derivativesIds`, so the volume order of the install date includes it |
+| Both | `ExchangeOrder` (Android `domain/…/domain/market`, iOS `Shared/Core`) | CoinGecko id in `SPOT_IDS`/`spotIds` or `DERIVATIVES_IDS`/`derivativesIds`, so the volume order of the install date includes it |
 
 After adding a Swift file, regenerate the Xcode project with
 `python3 -I ios/tools/gen_xcodeproj.py` (it picks up new files by itself).
@@ -969,7 +970,7 @@ raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without
 **Mutation tests (portfolio and tax logic).** `.github/workflows/mutation.yml` (Saturdays and by hand, never a required
 check) first runs `./gradlew :app:testDebugUnitTest :domain:testDebugUnitTest :data:testDebugUnitTest` (must be
 green), then `.github/scripts/mutation_test.py` (standard
-library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoLots`,
+library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoBook`, `PortfolioFifoLots`,
 `PortfolioCalculatorAverage`, `PortfolioFeeExpenses`, `PortfolioCostFx`, `TaxEngineCore/Uk/Ca/Fr/At/Jp` and
 `TaxExportRows` under `domain/portfolio` – it creates mutants by fixed rules (`<`↔`<=`, `>`↔`>=`, `==`↔`!=`, `&&`↔`||`,
 `+`↔`-`, `*`↔`/`, `+=`↔`-=`, `*=`↔`/=`, `true`↔`false`, `.subtract(`→`.add(`, `.multiply(`↔`.divide(`, `.min(`↔`.max(`
@@ -1293,7 +1294,7 @@ All other exchanges keep REST polling at the configured interval.
   (connections: ≤ 200 symbols each, at most 3 per exchange; paused exchanges and pairs no
   longer traded are skipped), `LiveBackoff` (reconnect after 1, 2, 4 … 60 s; HTTP 429/418 → 5 min),
   `LiveRules`, `LiveBuffer`.
-  Android: `android/app/…/domain/live/LiveFeed.kt` (with a tiny JSON reader, `LiveJson.kt`,
+  Android: `android/domain/…/domain/live/LiveFeed.kt` (with a tiny JSON reader, `LiveJson.kt`,
   so the parsers run in plain unit tests); iOS: `ios/Shared/Services/LiveFeed.swift`.
 * Connections: Android `data/live/LivePriceStream.kt` (OkHttp WebSocket, protocol pings every
   20 s), iOS `ios/App/Services/LivePriceStream.swift` (actor, `URLSessionWebSocketTask`). Bybit,
@@ -1524,7 +1525,7 @@ the tests named here.
   `portfolio_sell_exceeds_fee`). A USDT fee on a buy
   without a price belongs to the unknown cost of that part.
 * **Restore never drops data silently.** Portfolio transactions and alarms that cannot be read are
-  counted (`PortfolioJson.parseTxs/parseAlarms`, Swift `BackupManager.invalidPortfolioEntries`) and named
+  counted (`PortfolioJson.parseTxs/parseAlarms`, Swift `BackupManager.invalidEntries`) and named
   in the confirmation (`backup_restore_invalid`); `restore(…, acceptInvalid)` stops before replacing
   anything if the file holds more invalid entries than the user confirmed. Every backup read goes
   through `BackupLimits` (16 MB, JSON nesting ≤ 32), also the Android system-backup copy. Portfolio
@@ -1580,7 +1581,7 @@ the tests named here.
   (`PortfolioParityTest(s)`, also positions and period gain). An FX failure sets the rate to none – never
   keep the previous value (`?: _fxRate.value`); `FxRateSource.cached()` returns nothing older than 24 h.
   A coin with a trade without price inside the 7 d window is skipped and named
-  (`parts(…, skipUnpricedTrades = true)` in `gain()`), never counted with its fee only. Android resolves routes in `PortfolioPriceSource`
+  (`PortfolioPeriodChange.parts` in `gain()`), never counted with its fee only. Android resolves routes in `PortfolioPriceSource`
   (pair lists from `ExchangeRepository`, FX from `FxRateSource`); iOS resolves them in the app
   (`PortfolioRouteResolver`, `PairCache`) into `PortfolioExchangeRouteStore` (App Group), so the
   widget and background use the same prices. The card shows the sources in one line
@@ -1800,7 +1801,7 @@ the tests named here.
   constant on both platforms plus a vector; never change how existing files are read. Passwords go to
   `BackupCrypto` as `CharArray` (Android) / NFC UTF-8 bytes (iOS) and are wiped after the derivation.
   Argon2id with 64 MiB takes a few hundred ms up to a few seconds – call encryption and decryption
-  only off the main thread (Android `Dispatchers.IO`, iOS a detached task; the «Continue» button
+  only off the main thread (Android the injected IO dispatcher, iOS a detached task; the «Continue» button
   stays disabled while checking). New backup passwords need at least **12** characters (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak`
   (shorter than 12, only digits, one repeated character, a common sequence such as «12345678» or «password»,
   a keyboard walk, a decorated common word, a repeated chunk) **blocks** the export (`isPasswordAllowed`,
@@ -2201,7 +2202,7 @@ the tests named here.
 * **Exact checks and run log.** «Check on time» (Android only, off by default) uses `SCHEDULE_EXACT_ALARM`
   and falls back to WorkManager without the permission; every background check (worker, exact, BGTask,
   widget, foreground) writes one line to the run log (20 entries, no backup). A check within 5 min of the last
-  one is skipped and logged as such. iOS widget refreshes also check price alarms (logged as
+  one is skipped and logged as such; the exact alarm follows the chosen background interval (section 20). iOS widget refreshes also check price alarms (logged as
   «Widget · prices and price alerts»), with the same show → verify → mark order as the app (`AlarmDelivery`).
 * **Snapshot time is never exchange time.** Only a real last-trade time may go into
   `ticker.timestamp`. Server/snapshot clocks (Bitso `created_at`, Crypto.com `t`, Bitstamp/Bitvavo/BtcTurk/ZebPay
@@ -2914,6 +2915,102 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 (Android 8/8.1 back it up without end-to-end encryption); a schema change needs a version bump plus a migration
 (section 12), which Room runs on the encrypted file.
 
+## 20. Modules, layers and cross-cutting rules
+
+**Android modules** (`android/settings.gradle.kts`; a module's package is its name):
+
+| Module | Package | Content |
+|---|---|---|
+| `:marketdata` | `com.cryptochecker.marketdata` | Exchange adapters, pair and ticker models, parsers – no Android UI, no storage |
+| `:domain` | `com.cryptochecker.app.domain.…` | Rules, calculations and models (alarms, portfolio, tax, refresh decisions) – no Room, no OkHttp |
+| `:data` | `com.cryptochecker.app.data.…` | Room databases with their rows and DAOs, encryption, settings, repositories, network sources |
+| `:app` | `com.cryptochecker.app.…` | Screens (Compose), widgets, notifications, workers, backup, Hilt modules |
+| `:wear` | `com.cryptochecker.wear` | Wear OS app and its complications (own APK, same applicationId) |
+| `:baselineprofile` | – | Generator of the measured baseline profile (section 12), never shipped |
+
+iOS has no modules: `ios/Shared` (logic for app and widgets), `ios/App`, `ios/Widgets`, `ios/Watch`, `ios/WatchWidgets`
+and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one Xcode project with four shipped targets.
+
+* **Layer boundaries are tested.** `LayerBoundaryTest` (`:app` unit tests) reads the sources: every file of `:domain`
+  and `:data` sits in the package and folder of its module; `:domain` imports neither `androidx.room` nor `okhttp3`
+  nor another app package; `:data` imports from the app only `domain` and `data`; `:app` has no `…app.domain`
+  package. The models `WatchEntity`/`AlarmEntity` are plain classes in `:domain`, the tables `WatchRow`/`AlarmRow`
+  live in `:data` (`toDomain()`/`toRow()`). Classes named in the manifest or stored by class name (workers,
+  receivers, activities, widget providers, `SystemBackupAgent`, `AppDatabase`, `PortfolioDatabase`) keep their names.
+* **Dispatchers are injected.** A class built by Hilt takes `@IoDispatcher` / `@DefaultDispatcher`
+  (`DispatcherQualifiers` in `:domain`, provided by `DispatcherModule` in `:app`) in its constructor instead of naming
+  `Dispatchers.IO` / `Dispatchers.Default`; tests pass their own. `DispatcherInjectionGuardTest` counts the remaining
+  hard-wired places per file (`REMAINING`, five files today); the numbers may only go down.
+* **Permissions.** The merged release manifest holds exactly 13 permissions, each with its reason in
+  `manifest_policy.py` (`EXPECTED`): `INTERNET`, `ACCESS_NETWORK_STATE`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`,
+  `RECEIVE_BOOT_COMPLETED`, `VIBRATE`, `WAKE_LOCK`, `SCHEDULE_EXACT_ALARM`, `SYSTEM_ALERT_WINDOW`,
+  `HIDE_OVERLAY_WINDOWS`, `USE_BIOMETRIC`, `USE_FINGERPRINT` and AndroidX core's
+  `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`. Any other permission fails the *Android* workflow – a new one is a
+  decision (manifest comment, `EXPECTED`, privacy page, Play «Data safety»).
+* **Encrypted connections only.** `network_security_config.xml` (app and Wear OS app) forbids cleartext for every
+  host; no pinning (many exchanges, changing certificates) and no own trust anchors.
+
+**Workflows at a glance** (`.github/workflows/`; details in section 12 and «Data mirror»). A release tag `v*` runs
+the eight marked ⬤ for the tagged commit, whatever the path filters say.
+
+| Workflow | Runs on | Purpose |
+|---|---|---|
+| ⬤ `android.yml` *Android* | pull requests, `main` (Android or checked Swift sources) | unit tests, lint, coverage gate, size ceilings, R8 release build, manifest and APK audit, SBOM, dependency graph and review |
+| ⬤ `android-device-tests.yml` | `main` (`android/`), by hand; pull requests only for database or release-build files | instrumented tests, migration tests, R8 smoke test on an emulator |
+| ⬤ `ios.yml` *iOS* | pull requests, `main` (`ios/`, shared fixtures) | release build with audit, unit tests with coverage gate, UI tests |
+| ⬤ `strings.yml` *Strings* | pull requests, `main` | placeholders, plurals, missing translations (`check_strings.py`), Serbian Latin |
+| ⬤ `parity.yml` *Parity fixtures* | pull requests, `main` | `android/testdata/parity` = `ios/Tests/Parity`, byte for byte |
+| ⬤ `release-readiness.yml` | pull requests, `main` | store text limits, version parity, Xcode project drift, User-Agent, iOS privacy manifest |
+| ⬤ `osv.yml` *Dependency vulnerabilities* | pull requests and `main` (`android/`), weekly | OSV check of the release classpath |
+| ⬤ `reproducible.yml` | `main` (`android/`), weekly, by hand | two release builds compared byte for byte; provenance attestation on tags |
+| `ios-performance.yml` | weekly, by hand | iOS performance tests in a Release build |
+| `mutation.yml` | weekly, by hand | mutation tests of the portfolio and tax logic |
+| `screenshots.yml` | `main` (`android/`, `ios/`), by hand | screenshot tour of both apps to the branch `screenshots` |
+| `baseline-profile.yml` | by hand | measured baseline profile (artifact) |
+| `supply-chain-update.yml` | by hand | regenerates verification metadata, keyring and lock files (branch `supply-chain/update`) |
+| `record-exchange-fixtures.yml` | by hand | records real exchange responses for the contract tests (artifact, nothing committed) |
+| `exchange-live-check.yml` | weekly, by hand | calls every adapter's public endpoint, one issue on failure |
+| `market-data.yml` | hourly, by hand | signed data mirror (release `data`) |
+| `macro-calendar.yml` | weekly, by hand | economic calendar (branch `macro`), then Pages |
+| `pages.yml` | `main` (`docs/`), by hand, called by the calendar | GitHub Pages: start page, privacy policy, calendar |
+| `keepalive.yml` | weekly | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
+
+Artifacts are kept 14 days (test reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
+release evidence and recorded exchange responses 30 days; hand-over artifacts between jobs 1–7 days.
+
+**Rules added with the widgets, the watch and the audit fixes** (same on both platforms unless noted):
+
+* **Widget status line.** `WidgetStatusRule` (parity `widget_status.json`): offline › outdated › time – without
+  a connection «No connection · as of 14:05» (time of the last successful refresh), the rows keep their last prices.
+  Android schedules a one-time `WidgetReconnectWorker` with a network constraint, iOS asks WidgetKit for an early
+  reload. Android widgets start from an initial layout in the system's light or dark colours
+  (`colors_widget_initial`) with grey placeholder rows and one loader (`widget_skeleton_loading`) until the app has
+  drawn them – never a white area after a reboot.
+* **Logo hints in the watchlist.** `LogoLoadingHint` shows «Loading logos · 40 %» only during the first load (at most
+  99 % while running, throttled); afterwards `MissingLogoNotice` shows «2 coins without a logo» in the same place
+  until it is closed (parity `coin_logos.json`, `missing_logos.json`). DEX pools and symbols that always show
+  initials never count.
+* **Watch complications show the price.** Small slots show the coin and its price in at most about seven characters
+  (`WatchFormat.compactPrice` / `WatchPriceFormat`, parity `watch_price.json`), the long slot pair, price and 24 h
+  change; the change is always in the spoken text. The portfolio complication says «turn on on the phone» while the
+  phone switch is off instead of staying empty.
+* **«Check on time» follows the interval** (Android): the exact alarm fires at the chosen background interval, never
+  below 15 minutes (`BackgroundSchedule.exactIntervalMillis`, parity `exact_cadence.json`). While it is armed, a
+  WorkManager run is skipped unless a whole interval has passed since the last full check – WorkManager stays
+  scheduled as the net below the alarm. iOS widgets reload at the same interval.
+* **Portfolio alarms are private on the lock screen** – always, also without the portfolio lock: Android
+  `VISIBILITY_PRIVATE` with a public version that holds only the title and a neutral sentence; iOS
+  `PortfolioAlarmNotice` puts no amount into any notification field. Price alarms keep following the lock setting.
+* **Sensitive screens hide foreign overlays** (Android 12+): `HideOverlaysEffect` (`ui/lock/HideOverlays.kt`,
+  counted per window by `OverlayShield`) is active on the portfolio, the portfolio settings and the restore and
+  «Reset app» confirmations; the app's own price overlay disappears with them.
+* **A backup with portfolio data needs a password.** `PortfolioLockPolicy.backupExportRequiresPassword`: with at
+  least one transaction or watched address the password switch is on and locked and there is no «export without a
+  password»; a file without portfolio data keeps the choice. Old unencrypted files can still be restored.
+* **Destructive or far-reaching taps ask first.** Swiping a transaction away asks like the editor (no Undo banner
+  afterwards); changing the cost method and switching «Portfolio in system backup» on ask too (parity
+  `settings_confirm.json`).
+
 ## Alarm log (build 80)
 
 * `AlarmLog` (Kotlin `domain/alarm/AlarmLog.kt`, Swift `Shared/Services/AlarmLog.swift`): outcome enum (fired,
@@ -3480,6 +3577,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   The committed baseline and startup profiles carry the new class names (renamed in place, not measured again).
 * Build 217 (audit C-03): unit tests of `:domain` and `:data` live in those modules; `LayerBoundaryTest` checks package, imports and minimum counts; `mutation_test.py` routes each test to its module.
 * Build 218 (audit C-02): `code_metrics.py` measures function length (ceilings Kotlin 326, Swift 356); `TaxYearSummaryBuilder`, `PortfolioFifoBook`, `ExplorerSearchData`; constructor ceiling 13, ViewModel properties 26; dispatcher allowlist 5 files.
+* Build 219: documents only (section 20 added), store descriptions, privacy page sentence on the backup password, licences sheet.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

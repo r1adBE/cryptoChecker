@@ -13,7 +13,7 @@ HEIÐARLEGT UM GÖGNIN
 • Upphæðir fara aðeins af tækinu með útflutningi þínum eða kerfisafriti Android. Fyrir verð fara aðeins auðkenni paranna til kauphallar þeirra; auk þess gengi (ECB), markaðsgögn og merki (CoinGecko, Binance), gagnaspeglar (GitHub). Ef þú vaktar vistföng eða xpub sjá opinberir blockchain-hnútar vistföngin (fyrir xpub þau útleiddu) og IP-töluna.
 
 VAKTLISTI
-• 80 markaðir á 69 kauphöllum: spot og framvirkir samningar, DEX-tókar í gegnum DexScreener, að vali hlutabréf, gull og gjaldeyrir (TradFi)
+• 82 markaðir á 69 kauphöllum og hjá seðlabönkum: spot og framvirkir samningar, DEX-tókar, að vali hlutabréf, gull og gjaldeyrir (TradFi)
 • Önnur lína „≈ virði“ í einum af 31 gjaldmiðli (EUR, CHF, USD …), umreiknað á gengi
 • Smágraf og %-breyting á 24 klst. eða frá 00:00 í þínu tímabelti
 • Hópar, uppáhöld, drag & drop og athugasemd á mynt
@@ -31,7 +31,7 @@ MARKAÐUR
 • Netgjöld fyrir Ethereum, Bitcoin og fleiri, með gasviðvörun
 
 MEIRA
-• Græjur: vaktlisti, heildarvirði eignasafns, stök mynt með grafi
+• Græjur: vaktlisti, heildarvirði eignasafns, stök mynt með grafi, Rafmyntapúls; Wear OS
 • Eignasafn að vali (í Stillingum): kaup, sala, skipti, millifærslur, umbun, innlagnir og úttektir; FIFO (sjálfgefið) eða meðaltal (Ø); vistföng aðeins til lestrar án endurheimtarorða fyrir BTC (þ.m.t. xpub), ETH og EVM-net, SOL, TRX, XRP, LTC, ADA og TON; CSV-innflutningur frá Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; ársyfirlit sem CSV; eigin lás. Bitpanda og Swissquote: ekkert eigið verð, aðeins CSV.
 • Læsilegt fyrir alla: grænt/rautt eða blátt/appelsínugult, formerki og ör í stað litar eingöngu; TalkBack les hverja línu sem eina setningu
 • Öryggisafrit og endurheimt í skrá – líka milli Android og iPhone

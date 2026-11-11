@@ -14,8 +14,8 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app` (Handy und Uhr; Debug-Builds beider mit `.debug`)
-* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App), `wear` (Wear-OS-App)
-* Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App), `wear` (Wear-OS-App), `baselineprofile` (erzeugt das gemessene Start-Profil, wird nicht ausgeliefert)
+* Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app` (`…app.domain`, `…app.data` = Module `domain` und `data`), `com.cryptochecker.wear`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
@@ -24,7 +24,8 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Wear-OS-App** (Modul `wear`) — Kurse und 24 h der Lieblings-Coins vom Handy (die es schon hat) oder ohne Handy
   bzw. mit «Immer selbst abrufen» direkt von den Börsen (Binance, sonst Bybit/OKX), im Intervall des Handys (15–60 Min.,
   `WatchInterval`); Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich über die Wear-Daten-Schicht;
-  Komplikationen mit dem ersten Coin und (nur mit Schalter) dem Portfolio-Wert; alter Kurs grau mit Alter.
+  Komplikationen mit dem Kurs des ersten Coins («84’450», langes Feld mit Paar, Kurs und 24 h) und (nur mit Schalter)
+  dem Portfolio-Wert, sonst «am Handy einschalten»; alter Kurs grau mit Alter.
 * **Preis-Overlay** (optional, Berechtigung «Über anderen Apps einblenden») — Pille mit bis zu 3 Paaren der dauerhaften
   Kurs-Mitteilung über anderen Apps, verschiebbar, Tippen öffnet die App (`overlay/`).
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
@@ -46,7 +47,16 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (rechts nach links).
 * **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
   `domain/portfolio/csvimport/`).
-* **Coin-Logos** bis 4 MB, damit auch die hochauflösenden Binance-Logos statt Initialen.
+* **Coin-Logos** bis 4 MB, damit auch die hochauflösenden Binance-Logos statt Initialen; beim ersten Laden
+  «Logos werden geladen · 40 %», danach «N Coins ohne Logo» (schliessbar, Tipp listet sie).
+* **Beobachtete Adressen zählen einmal** — je Coin nur, was die Adresse über die eigenen Transaktionen derselben
+  Wallet hinaus hält; zeigt eine Umbuchung auf eine andere Wallet, bietet der Hinweis «Ziel ändern» an.
+* **Schutz** — Sicherung mit Portfolio-Daten nur mit Passwort; Portfolio-Alarme auf dem Sperrbildschirm immer ohne
+  Betrag; ab Android 12 blendet die App fremde Überlagerungen über Portfolio und heiklen Rückfragen aus
+  (`HIDE_OVERLAY_WINDOWS`, `ui/lock/HideOverlays.kt`); Rückfragen vor dem Löschen per Wischen, dem Wechsel der
+  Einstandsmethode und «Portfolio in Systemsicherung».
+* **Schneller Start** — gemessenes Baseline- und Start-Profil liegt bei (`app/src/release/generated/baselineProfiles/`,
+  siehe `DEVELOPMENT.md` in diesem Ordner).
 
 Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 
@@ -97,7 +107,10 @@ aller beobachteten Paare mit Kurs und Veränderung. Dazu das Einzel-Widget
 Portfolio-Widget (je nach Grösse Gesamtwert, ≈ USDT, heute, Wertverlauf und die
 grössten Positionen) sowie das Widget «Auffällig» (Crypto Pulse). Beim Ablegen wird der
 Hintergrund gewählt (transparent mit hellem oder dunklem Text, dunkel, hell,
-marineblau). Ein Tipp auf eine Zeile öffnet die App, der Knopf aktualisiert.
+marineblau). Ein Tipp auf eine Zeile öffnet die App, der Knopf aktualisiert. Nach einem Neustart zeigen die Widgets
+graue Platzhalter-Zeilen mit «Kurse werden geladen…» im hellen bzw. dunklen Systemton, ohne Internet «Keine
+Verbindung · Stand 14:05» mit den letzten Kursen (`widget/WidgetStatusRule.kt`); kommt das Netz zurück,
+aktualisieren sie sich selbst (`work/WidgetReconnectWorker.kt`).
 
 **Massenabfrage** — Wer viele Paare derselben Börse beobachtet, bekommt sie in
 einer einzigen Anfrage statt in Dutzenden. `Exchange` hat dafür einen optionalen
@@ -148,16 +161,25 @@ app/
   di/         Hilt-Module
   lock/       Portfolio-Sperre (Regeln)
   notification/ Kanäle und Benachrichtigungen
-  settings/   Einstellungen (DataStore), «Wie aktuell?», Einstellungs-Suche
+  settings/   Einstellungs-Hilfen der Oberfläche (Sprachen, Akzentfarbe, Kurzwerte, Rückfragen, Einstellungs-Suche);
+              DataStore liegt in data/settings, «Wie aktuell?» in domain/settings
+  overlay/    Preis-Overlay über anderen Apps
   tts/        Sprachausgabe
   util/       Hilfen (Zahlen-Eingabe, TalkBack-Texte, Chart-Beschreibungen)
+  wearable/   Abgleich mit der Uhr (Wear-Daten-Schicht)
   work/       WorkManager, exakte Prüfungen («Pünktlich prüfen»), Boot-Receiver
   widget/     Widget-Provider und Einrichtung; je Widget-Art ein Renderer
               (ListWidgetRenderer, SingleWidgetRenderer, PortfolioWidgetRenderer,
               PulseWidgetRenderer), WidgetUpdater entscheidet, was neu muss;
               Zeilen der Liste aus ListWidgetRows (ab Android 12 direkt im Widget)
   ui/         Compose: Merkliste, Börsen, Alarme, Markt, Portfolio, Einstellungen
+wear/         Wear-OS-App mit Komplikationen (Kurs, Portfolio-Wert)
+baselineprofile/  Generator für das gemessene Baseline Profile (nur Werkzeug)
 ```
+
+Die Schichtgrenzen prüft `LayerBoundaryTest` am Quelltext; per Hilt erzeugte Klassen bekommen ihre Dispatcher
+über `@IoDispatcher`/`@DefaultDispatcher` (`di/DispatcherModule.kt`). Einzelheiten: `DEVELOPMENT.md` im
+Repository-Hauptordner, Abschnitt 20.
 
 Grosse Bildschirme sind nach Aufgaben aufgeteilt, mit denselben Dateinamen wie in iOS:
 Merkliste (`WatchlistScreen` setzt zusammen; `WatchlistHeader`, `WatchlistStatus`,
@@ -196,10 +218,14 @@ SDK-Plattform 37.
 | Room | 2.8.5 |
 | WorkManager | 2.12.0 |
 | OkHttp | 5.5.1 |
+| SQLCipher | 4.20.0 |
+| DataStore / Lifecycle / Navigation | 1.3.0 / 2.11.0 / 2.10.2 |
+| kotlinx-serialization | 1.12.0 |
+| Wear Compose / play-services-wearable | 1.7.1 / 20.0.1 |
 
 Alle Versionen, Bibliotheken und Plugins stehen im Versionskatalog `gradle/libs.versions.toml`;
-die Buildskripte sind in Kotlin DSL (`settings.gradle.kts`, `build.gradle.kts`, `app/build.gradle.kts`,
-`marketdata/build.gradle.kts`, `baselineprofile/build.gradle.kts`).
+die Buildskripte sind in Kotlin DSL (`settings.gradle.kts`, `build.gradle.kts` und je Modul `build.gradle.kts`:
+`app`, `domain`, `data`, `marketdata`, `wear`, `baselineprofile`).
 
 Hinweise zu AGP 9: Kotlin kommt über den Klassenpfad im Wurzel-`build.gradle.kts`
 (`kotlin-gradle-plugin`), `jvmTarget` folgt `compileOptions` (Java 17). R8

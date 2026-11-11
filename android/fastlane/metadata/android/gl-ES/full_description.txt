@@ -13,7 +13,7 @@ HONESTA COS DATOS
 • As cantidades só saen do dispositivo coa túa exportación ou a copia do sistema Android. Para os prezos, só os tickers van ao exchange de cada par; ademais, tipos de cambio (BCE), datos de mercado e logotipos (CoinGecko, Binance), espellos de datos (GitHub). Se segues enderezos ou unha xpub, os nodos públicos de blockchain ven os enderezos (cunha xpub, os derivados) e a túa IP.
 
 LISTA
-• 80 mercados en 69 exchanges: spot e futuros, tokens DEX vía DexScreener, opcionalmente accións, ouro e divisas (TradFi)
+• 82 mercados en 69 exchanges e en bancos centrais: spot e futuros, tokens DEX, opcionalmente accións, ouro e divisas (TradFi)
 • Segunda liña «≈ valor» nunha de 31 moedas (EUR, CHF, USD …), ao tipo de cambio
 • Minigráfico e variación en % en 24 h ou desde as 00:00 no teu fuso horario
 • Grupos, favoritos, ordenar arrastrando, unha nota por moeda
@@ -31,7 +31,7 @@ MERCADO
 • Comisións de rede de Ethereum, Bitcoin e máis, con alarma de gas
 
 MÁIS
-• Widgets: lista, total da carteira, unha moeda con gráfico
+• Widgets: lista, total da carteira, unha moeda con gráfico, Pulso cripto; Wear OS
 • Carteira opcional (en Configuración): compras, vendas, intercambios, transferencias, recompensas, depósitos e retiradas; FIFO (predeterminado) ou media (Ø); enderezos só de lectura sen seed para BTC (incl. xpub), ETH e cadeas EVM, SOL, TRX, XRP, LTC, ADA e TON; importación CSV de Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual en CSV; bloqueo propio. Bitpanda e Swissquote: sen prezo propio, só CSV.
 • Lexible para todos: verde/vermello ou azul/laranxa, signo e frecha, non só cor; TalkBack le cada fila como unha frase
 • Copia de seguranza e restauración nun ficheiro – tamén entre Android e iPhone

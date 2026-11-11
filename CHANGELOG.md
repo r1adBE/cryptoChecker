@@ -2,19 +2,26 @@
 
 ## 16.2.2 – first public release
 
-* Last price straight from the exchange that lists the pair – 80 markets on 69 exchanges, including futures and DEX pools.
+* Last price straight from the exchange that lists the pair – 82 markets: 78 on 69 exchanges (spot and futures), DEX pools via DexScreener and the reference rates of three central banks (ECB, National Bank of Ukraine, National Bank of Poland); live fiat pairs of Kraken and Bitstamp under «Forex».
 * Alerts run locally on the device when the app checks prices (with the app closed, often only after hours) – no account, no server.
-* Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
-* Watch apps for Wear OS and Apple Watch with a complication: prices of your favourite coins straight from the exchange; on Android an optional price overlay above other apps.
+* Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse; without a connection they keep the last prices and say so.
+* Watch apps for Wear OS and Apple Watch with complications (price of the first coin, optionally the portfolio value): prices of your favourite coins from the phone or straight from the exchange; on Android an optional price overlay above other apps.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
-* Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
+* Optional portfolio (off by default): own transactions, CSV import, watched addresses (counted once: only what they hold beyond your own entries in the same wallet) and tax worksheets.
 * Watchlist, alerts and portfolio are stored encrypted on the device.
-* Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
+* Backups with a password (AES-256-GCM; optional without portfolio data, always required once the file contains portfolio data), interchangeable between Android and iPhone.
 * 75 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 219)
+
+* Documents up to date: README, SECURITY, CONTRIBUTING, DEVELOPMENT, notices and templates match the app.
+* Store descriptions: 82 markets on 69 exchanges and at central banks; widgets line names the pulse widget and the watch.
+* Privacy page: a backup that contains portfolio data always needs a password.
+* Android licences sheet lists Google Play services Wearable.
 
 ## 16.2.2 (build 218)
 

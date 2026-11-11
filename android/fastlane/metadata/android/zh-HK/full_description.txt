@@ -13,7 +13,7 @@ Crypto Checker 會檢查你交易所上嘅價格，檢查到價格到咗你設�
 • 金額只會經你嘅匯出或 Android 系統備份離開裝置。查價格時，只有交易對代號會傳去相應交易所；另外仲有匯率（ECB）、市場數據同標誌（CoinGecko、Binance）、數據鏡像（GitHub）。如果你觀察地址或 xpub，公開區塊鏈節點會見到嗰啲地址（xpub 就係推導出嚟嘅地址）同你嘅 IP。
 
 自選清單
-• 69 個交易所上嘅 80 個市場：現貨同期貨、經 DexScreener 嘅 DEX 代幣，可選股票、黃金同外匯（TradFi）
+• 69 個交易所同中央銀行嘅 82 個市場：現貨同期貨、DEX 代幣，可選股票、黃金同外匯（TradFi）
 • 第二行「≈ 價值」可選 31 種貨幣（EUR、CHF、USD …），按匯率換算
 • 迷你圖同 24 小時或按你時區 00:00 起嘅百分比變動
 • 群組、最愛、拖放排序，每隻幣可加備註
@@ -31,7 +31,7 @@ Crypto Checker 會檢查你交易所上嘅價格，檢查到價格到咗你設�
 • Ethereum、Bitcoin 等嘅網絡費，附 gas 提示
 
 更多
-• 小工具：自選清單、投資組合總值、單一幣種連圖表
+• 小工具：自選清單、投資組合總值、單一幣種連圖表、加密市場脈搏；Wear OS
 • 投資組合可選（喺設定開啟）：買入、賣出、兌換、轉賬、獎勵、存入同提取；FIFO（預設）或平均（Ø）；毋須助記詞嘅唯讀地址，支援 BTC（包括 xpub）、ETH 同 EVM 鏈、SOL、TRX、XRP、LTC、ADA 同 TON；可由 Relai、Swissquote、Bitpanda、Kraken、Binance 同 Coinbase 匯入 CSV；年度概覽匯出做 CSV；有獨立鎖。Bitpanda 同 Swissquote：冇自己嘅價格，只限 CSV。
 • 人人都睇得清楚：綠／紅或藍／橙，用符號同箭咀而唔係只靠顏色；TalkBack 會將每一行讀成一句
 • 備份同還原到檔案 – Android 同 iPhone 之間都得

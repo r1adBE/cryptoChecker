@@ -13,7 +13,7 @@ Crypto Checker kontroluje kurzy na tvojej burze a dá ti vedieť, keď kontrola 
 • Sumy opúšťajú zariadenie iba cez tvoj export alebo systémovú zálohu Android. Pre kurzy idú na burzu príslušného páru iba označenia párov; k tomu devízové kurzy (ECB), trhové údaje a logá (CoinGecko, Binance), zrkadlá údajov (GitHub). Ak sleduješ adresy alebo xpub, verejné uzly blockchainu vidia adresy (pri xpub odvodené) a tvoju IP adresu.
 
 ZOZNAM
-• 80 trhov na 69 burzách: spot a futures, DEX tokeny cez DexScreener, voliteľne akcie, zlato a devízy (TradFi)
+• 82 trhov na 69 burzách a v centrálnych bankách: spot a futures, DEX tokeny, voliteľne akcie, zlato a devízy (TradFi)
 • Druhý riadok „≈ hodnota“ v jednej z 31 mien (EUR, CHF, USD …), prepočítané devízovým kurzom
 • Minigraf a zmena v % za 24 h alebo od 00:00 v tvojom časovom pásme
 • Skupiny, obľúbené, presúvanie potiahnutím a poznámka ku každému coinu
@@ -31,7 +31,7 @@ TRH
 • Sieťové poplatky pre Ethereum, Bitcoin a ďalšie, s alarmom na gas
 
 ĎALŠIE
-• Miniaplikácie: zoznam, celková hodnota portfólia, jeden coin s grafom
+• Miniaplikácie: zoznam, celková hodnota portfólia, jeden coin s grafom, Krypto pulz; Wear OS
 • Portfólio voliteľne (zapni ho v nastaveniach): nákupy, predaje, výmeny, presuny, odmeny, vklady a výbery; FIFO (predvolené) alebo priemer (Ø); adresy iba na čítanie bez seedu pre BTC (vrát. xpub), ETH a siete EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; ročný prehľad ako CSV; vlastný zámok. Bitpanda a Swissquote: bez vlastného kurzu, iba CSV.
 • Čitateľné pre všetkých: zelená/červená alebo modrá/oranžová, znamienko a šípka namiesto samotnej farby; TalkBack prečíta každý riadok ako jednu vetu
 • Záloha a obnovenie do súboru – aj medzi Androidom a iPhonom

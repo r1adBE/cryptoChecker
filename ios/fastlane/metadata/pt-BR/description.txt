@@ -13,7 +13,7 @@ TRANSPARÊNCIA COM OS DADOS
 • Os valores só saem do aparelho por exportação (CSV, backup) ou criptografados no backup do iCloud/aparelho. Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbio (BCE), dados de mercado e logos (CoinGecko, Binance) e espelhos de dados (GitHub). Se você observa endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
 
 LISTA
-• 80 mercados em 69 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiser, ações, ouro e câmbio (TradFi)
+• 82 mercados em 69 exchanges e em bancos centrais: spot e futuros, tokens DEX e, se quiser, ações, ouro e câmbio (TradFi)
 • Segunda linha “≈ valor” em uma de 31 moedas (EUR, CHF, USD …), convertida pela taxa de câmbio
 • Minigráfico e variação em % em 24 h ou desde 00:00 no seu fuso horário
 • Grupos, favoritos, ordenação por arrastar e uma nota por moeda
@@ -31,7 +31,7 @@ MERCADO
 • Taxas de rede de Ethereum, Bitcoin e outras, com alarme de gas
 
 E MAIS
-• Widgets para a Tela de Início e a Tela Bloqueada, Atividade ao Vivo para uma moeda
+• Widgets para a Tela de Início e a Tela Bloqueada, Atividade ao Vivo para uma moeda; Apple Watch
 • Portfólio opcional (ative nas configurações): compras, vendas, swaps, transferências, recompensas, depósitos e saques; FIFO (padrão) ou média (Ø); endereços somente leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. Bitpanda e Swissquote: sem preço próprio, só por CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor, Dynamic Type; o VoiceOver lê cada linha como uma frase
 • Backup e restauração pelo app Arquivos

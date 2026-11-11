@@ -20,6 +20,13 @@ The full license texts ship inside the Android app
   Hilt Navigation Compose, Hilt Lifecycle ViewModel Compose, Hilt Work), Jetpack
   Compose (UI, UI Util, Material 3, ConstraintLayout), Kotlin standard library,
   kotlinx.coroutines, kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
+  Wear OS app (android/wear) in addition: Compose for Wear OS (Material,
+  Foundation) and the Wear complications data source.
+
+- Google Play services Wearable (com.google.android.gms:play-services-wearable;
+  phone app and Wear OS app, data layer between phone and watch)
+  Android Software Development Kit License
+  (https://developer.android.com/studio/terms).
 
 - Bundled logos (Android and iOS)
   Logos of the 100 largest coins and of the exchanges (coin_logos.bin,

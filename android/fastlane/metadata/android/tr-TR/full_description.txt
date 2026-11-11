@@ -13,7 +13,7 @@ VERİ KONUSUNDA DÜRÜST
 • Tutarlar cihazdan sadece dışa aktarma ve Android yedeğiyle çıkar. Fiyatlar için yalnızca çift sembolleri o çiftin borsasına gider; ayrıca döviz kurları (ECB), piyasa verileri ve logolar (CoinGecko, Binance), veri aynaları (GitHub). Adresleri veya bir xpub’ı izlersen, herkese açık blokzincir düğümleri adresleri (xpub’da türetilenleri) ve IP’ni görür.
 
 TAKİP LİSTESİ
-• 69 borsada 80 piyasa: spot ve vadeli, DexScreener üzerinden DEX tokenleri, istersen hisse, altın ve döviz (TradFi)
+• 69 borsada ve merkez bankalarında 82 piyasa: spot ve vadeli, DEX tokenleri, istersen hisse, altın ve döviz (TradFi)
 • 31 para biriminden birinde ikinci satır “≈ değer” (EUR, CHF, USD …), döviz kuruyla çevrilmiş
 • Mini grafik ve 24 saatlik ya da kendi saat diliminde 00:00’dan beri % değişim
 • Gruplar, favoriler, sürükleyerek sıralama ve her coin için not
@@ -31,7 +31,7 @@ PİYASA
 • Ethereum, Bitcoin ve diğerleri için ağ ücretleri, gas alarmıyla
 
 AYRICA
-• Widget’lar: liste, portföy toplam değeri, grafikli tek coin
+• Widget’lar: liste, portföy toplam değeri, grafikli tek coin, Kripto nabzı; Wear OS
 • Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC, ADA ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote: kendi fiyatı yok, yalnızca CSV ile.
 • Herkes için okunur: yeşil/kırmızı veya mavi/turuncu, yalnızca renk yerine işaret ve ok; TalkBack her satırı tek cümle olarak okur
 • Bir dosyaya yedekleme ve geri yükleme – Android ile iPhone arasında da

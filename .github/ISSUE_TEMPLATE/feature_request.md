@@ -12,3 +12,4 @@ labels: enhancement
 **Platform / Plattform**
 - [ ] Android
 - [ ] iPhone
+- [ ] Watch (Wear OS / Apple Watch)

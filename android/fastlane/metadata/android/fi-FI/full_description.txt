@@ -13,7 +13,7 @@ REHELLISESTI DATASTA
 • Vain vienti tai Androidin varmuuskopio vie summat laitteelta. Hintoja varten vain parin tunnus lähtee kyseisen parin pörssiin; lisäksi valuuttakurssit (ECB), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
 
 SEURANTALISTA
-• 80 markkinaa 69 pörssissä: spot ja futuurit, DEX-tokenit DexScreenerin kautta, halutessasi osakkeet, kulta ja valuutat (TradFi)
+• 82 markkinaa 69 pörssissä ja keskuspankeissa: spot ja futuurit, DEX-tokenit, halutessasi osakkeet, kulta ja valuutat (TradFi)
 • Toinen rivi ”≈ arvo” yhdessä 31 valuutasta (EUR, CHF, USD …), muunnettuna valuuttakurssilla
 • Minikaavio ja %-muutos 24 tunnin ajalta tai klo 00:00 lähtien omassa aikavyöhykkeessäsi
 • Ryhmät, suosikit, järjestys vetämällä ja muistiinpano kolikkoa kohden
@@ -30,7 +30,7 @@ MARKKINA
 • Verkkomaksut Ethereumille, Bitcoinille ja muille, kaasuhälytyksellä
 
 LISÄKSI
-• Widgetit: seurantalista, salkun kokonaisarvo, yksi kolikko kaaviolla
+• Widgetit: seurantalista, salkun kokonaisarvo, yksi kolikko kaaviolla, Kryptopulssi; Wear OS
 • Salkku valinnaisena (kytketään päälle asetuksista): ostot, myynnit, vaihdot, siirrot, palkkiot, talletukset ja nostot; FIFO (oletus) tai keskiarvo (Ø); osoitteet vain luku -tilassa, ilman seediä: BTC (myös xpub), ETH ja EVM-ketjut, SOL, TRX, XRP, LTC, ADA ja TON; CSV-tuonti Relaista, Swissquotesta, Bitpandasta, Krakenista, Binancesta ja Coinbasesta; vuosikooste CSV-tiedostona; oma lukitus. Bitpanda ja Swissquote: ei omaa hintaa, vain CSV:llä.
 • Luettava kaikille: vihreä/punainen tai sininen/oranssi, etumerkki ja nuoli pelkän värin sijaan; TalkBack lukee jokaisen rivin yhtenä lauseena
 • Varmuuskopiointi ja palautus tiedostoon – myös Androidin ja iPhonen välillä

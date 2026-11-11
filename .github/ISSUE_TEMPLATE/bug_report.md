@@ -9,7 +9,7 @@ labels: bug
 
 **Exchange and pair** (e.g. Binance BTC/USDT)
 
-**App version and platform** (Android / iOS)
+**App version and platform** (Android / iOS / Wear OS / Apple Watch)
 
 **Expected**
 

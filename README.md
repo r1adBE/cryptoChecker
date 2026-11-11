@@ -4,7 +4,7 @@
 your level reached – no account.** It checks when it looks (with the app closed, the phone decides how often), not
 at the moment a price is hit. Watchlist, widgets and a market overview; as an extra, “What is moving with it?”
 shows what moves at the same time as a single coin – no cause, no forecast, no investment advice.
-Android and iPhone · 75 languages · no ads · no tracking · open source (MIT).
+Android and iPhone, with watch apps for Wear OS and Apple Watch · 75 languages · no ads · no tracking · open source (MIT).
 
 > **Deutsch:** Crypto Checker ist ein Krypto-Checker: Kurse direkt von deiner Börse und
 > Hinweise, wenn beim Nachsehen eine Marke erreicht ist – ohne Konto. Die App meldet sich,
@@ -31,8 +31,8 @@ themselves contain no donation feature.
 
 | Folder | Content |
 |---|---|
-| [`android/`](android) | Android app (Kotlin, Jetpack Compose) with the modules [`android/app`](android/app) (screens, notifications, widgets, background work), [`android/domain`](android/domain) (rules, calculations, models and the refresh flow), [`android/data`](android/data) (databases, repositories, data sources) and the exchange library [`android/marketdata`](android/marketdata) |
-| [`ios/`](ios) | iOS (iPhone) app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
+| [`android/`](android) | Android app (Kotlin, Jetpack Compose) with the modules [`android/app`](android/app) (screens, notifications, widgets, background work), [`android/domain`](android/domain) (rules, calculations, models and the refresh flow), [`android/data`](android/data) (databases, repositories, data sources), the exchange library [`android/marketdata`](android/marketdata), the Wear OS app [`android/wear`](android/wear) and the baseline-profile generator [`android/baselineprofile`](android/baselineprofile) |
+| [`ios/`](ios) | iOS (iPhone) app with widgets and the Apple Watch app with its complications (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
 | [`docs/`](docs) | Website and privacy policy (GitHub Pages) |
 | [`docs/macro/`](docs/macro) | Initial copy of the calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint; the current calendar lives on the branch `macro` |
 | [`DEVELOPMENT.md`](DEVELOPMENT.md) | Development guide: exchange adapters (how to add an exchange), tests, CI and app rules |
@@ -164,7 +164,7 @@ read-only watched addresses (public BTC/ETH/… addresses, xpub and Taproot `tr(
 portfolio alarms and widgets, and CSV exports: cut-off holdings and realized gains. Country tax
 templates (DE, AT, CH, UK, US, CA, AU, FR, JP) are marked **Beta**: simplified rules for
 orientation, not tax advice — check them before filing. Everything stays on the device unless you
-export it yourself.
+export it yourself; a backup file that contains portfolio data always needs a password.
 
 A watched address counts once: a booked transfer to or from its wallet (wallet = address label) is already in its
 on-chain balance, so the portfolio card, the cut-off CSV and the CH wealth value add only the part not covered by

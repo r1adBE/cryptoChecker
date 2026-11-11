@@ -13,7 +13,7 @@ EERLIK OOR DIE DATA
 • Bedrae verlaat die toestel slegs via jou uitvoer of Android-stelselrugsteun. Vir pryse gaan slegs paartickers na die betrokke paar se beurs; plus wisselkoerse (ECB), markdata en logo's (CoinGecko, Binance), dataspieëls (GitHub). As jy adresse of 'n xpub volg, sien openbare blokkettingnodusse die adresse (vir 'n xpub, die afgeleides) en jou IP.
 
 VOLGLYS
-• 80 markte op 69 beurse: spot en futures, DEX-tokens via DexScreener, opsioneel aandele, goud en FX (TradFi)
+• 82 markte op 69 beurse en by sentrale banke: spot en futures, DEX-tokens, opsioneel aandele, goud en FX (TradFi)
 • Tweede reël “≈ waarde” in een van 31 geldeenhede (EUR, CHF, USD …), teen die FX-koers omgereken
 • Minigrafiek en %-verandering oor 24 h of sedert 00:00 in jou tydsone
 • Groepe, gunstelinge, sleep-en-los en 'n nota per munt
@@ -31,7 +31,7 @@ MARK
 • Netwerkfooie vir Ethereum, Bitcoin en meer, met gasalarm
 
 MEER
-• Legstukke: volglys, portefeuljetotaal, enkelmunt met grafiek
+• Legstukke: volglys, portefeuljetotaal, enkelmunt met grafiek, Kriptopols; Wear OS
 • Portefeulje opsioneel (skakel aan in Instellings): aankope, verkope, ruilings, oordragte, belonings, deposito's en onttrekkings; FIFO (verstek) of gemiddeld (Ø); leesalleen-adresse sonder 'n seed vir BTC (insl. xpub), ETH- & EVM-kettings, SOL, TRX, XRP, LTC, ADA en TON; CSV-invoer van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroorsig as CSV; sy eie slot. Bitpanda en Swissquote: geen eie prys nie, slegs CSV.
 • Leesbaar vir almal: groen/rooi of blou/oranje, teken en pyl, nie net kleur nie; TalkBack lees elke ry as een sin
 • Rugsteun & herstel na 'n lêer – ook tussen Android en iPhone
