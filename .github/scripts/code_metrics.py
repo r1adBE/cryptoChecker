@@ -1,4 +1,5 @@
-"""Code metrics: size of the Kotlin classes wired by Hilt, next to the 400-line limit (line_limit.py).
+"""Code metrics: size of the Kotlin classes wired by Hilt and length of the Kotlin and Swift functions, next to the
+400-line limit (line_limit.py).
 
 Usage: python3 -I code_metrics.py [repository root, default: current directory]
        python3 -I code_metrics.py --self-test   (checks the Kotlin scanner and the annotation escaping)
@@ -11,7 +12,12 @@ Scans Kotlin under android/<module>/src/main (tests are not checked) and measure
   `internal` val/var declared directly in the class body (not in the constructor, not in nested classes, objects or
   functions); `internal` counts because it is the module-wide seam for the screen's extension files and tests, not
   public state. Above PROPS_CEILING an error (red).
-The ceilings are today's maximum: a class must not grow beyond it; when a class shrinks, lower the ceiling. Comments
+Also scans Swift under ios/App, ios/Shared, ios/Widgets and the watch folders (not ios/Tests) and measures:
+* Function length in lines, from the line of the keyword to the line that ends the body: Kotlin `fun` with a block
+  body or an expression body (`= …`), Swift `func`, `init`, `deinit` and the SwiftUI `var body`. Declarations
+  without a body (interface, abstract, protocol) do not count; a nested function counts on its own and inside the
+  enclosing one. The TOP_FUNCTIONS longest per platform are listed; above FUNCTION_CEILINGS an error (red).
+The ceilings are today's maximum: nothing may grow beyond it; when the maximum shrinks, lower the ceiling. Comments
 and string literals are ignored. File names and texts in annotations are escaped like annotate.py.
 """
 import os
@@ -19,8 +25,14 @@ import re
 import sys
 
 DEPS_WARN = None  # no warning tier: the ceiling below is today's maximum
-DEPS_CEILING = 14  # BackupManager, ExplorerViewModel, InfoViewModel, PortfolioViewModel, SettingsViewModel, WatchlistViewModel
-PROPS_CEILING = 35
+DEPS_CEILING = 13  # AlarmsViewModel, ExplorerViewModel, InfoViewModel, PortfolioSnapshotUpdater, SettingsViewModel
+PROPS_CEILING = 26  # ExplorerViewModel
+
+# Longest function per platform (lines). New code stays under FUNCTION_TARGET; the ceiling only keeps the remaining
+# long functions from growing and goes down with every split.
+FUNCTION_CEILINGS = {"Kotlin": 326, "Swift": 356}  # AppNavHost; PriceRefresher.refresh
+FUNCTION_TARGET = 80
+TOP_FUNCTIONS = 30
 
 TITLE = "Code metrics"
 VISIBILITY_COUNTED = ("private", "internal")
@@ -265,6 +277,186 @@ def measure(source):
     return result
 
 
+
+# --- Function length -------------------------------------------------------------------------------------------------
+
+IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
+
+
+def swift_code_only(source):
+    """Swift source with comments and string literals replaced by spaces (line breaks kept): // and nested /* */
+    comments, "…" with escapes and interpolations \\(…), multi-line \"\"\"…\"\"\" and raw strings (#"…"#)."""
+    out = []
+    i, n = 0, len(source)
+
+    def blank(j):
+        out.append(re.sub(r"[^\n]", " ", source[i:j]))
+        return j
+
+    while i < n:
+        c = source[i]
+        if source.startswith("//", i):
+            end = source.find("\n", i)
+            i = blank(n if end < 0 else end)
+        elif source.startswith("/*", i):
+            depth, j = 1, i + 2
+            while j < n and depth > 0:
+                if source.startswith("/*", j):
+                    depth, j = depth + 1, j + 2
+                elif source.startswith("*/", j):
+                    depth, j = depth - 1, j + 2
+                else:
+                    j += 1
+            i = blank(j)
+        elif c == '"' or (c == "#" and re.match(r'#+"', source[i:])):
+            i = blank(_skip_swift_string(source, i))
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out)
+
+
+def _skip_swift_string(source, i):
+    """Index after the Swift string literal starting at i (optional # marks, "…" or \"\"\"…\"\"\")."""
+    n = len(source)
+    hashes = 0
+    while source[i] == "#":
+        hashes, i = hashes + 1, i + 1
+    multi = source.startswith('"""', i)
+    quote = '"""' if multi else '"'
+    i += len(quote)
+    close = quote + "#" * hashes
+    escape = "\\" + "#" * hashes
+    while i < n:
+        if source.startswith(close, i):
+            return i + len(close)
+        if source.startswith(escape, i):
+            j = i + len(escape)
+            if j < n and source[j] == "(":  # interpolation: skip to the matching parenthesis, strings inside included
+                depth, j = 1, j + 1
+                while j < n and depth:
+                    if source[j] == '"' or (source[j] == "#" and re.match(r'#+"', source[j:])):
+                        j = _skip_swift_string(source, j)
+                        continue
+                    depth += {"(": 1, ")": -1}.get(source[j], 0)
+                    j += 1
+                i = j
+            else:
+                i = j + 1
+            continue
+        if not multi and source[i] == "\n":
+            return i
+        i += 1
+    return i
+
+
+KOTLIN_FUN_RE = re.compile(r"\bfun\b(?!\s+interface\b)")
+SWIFT_FUNC_RE = re.compile(r"(?<![.\w])(?:func\b|init\b[?!]?(?=\s*[(<])|deinit\b|var\s+body\s*:)")
+SWIFT_NAME_RE = re.compile(r"func\s+(`[^`]+`|\w+|[^\s\w(]+)|(init)[?!]?|(deinit)|var\s+(body)\s*:")
+CONTINUES_AT_END = re.compile(r"(?:[=+\-*/%<>&|^!?:,.({\[]|->|\b(?:else|in|is|as|return|by))\s*$")
+CONTINUES_AT_START = re.compile(r"\s*(?:[.?:+\-*/%&|^)\]}]|\b(?:else|as|is|in|catch|finally)\b)")
+
+
+def _skip_spaces(code, k):
+    while k < len(code) and code[k] in " \t\n":
+        k += 1
+    return k
+
+
+def _signature_end(code, k):
+    """From the position after `fun`/`func`/`init`: (index of the body's `{` or of the `=`, kind) or None for a
+    declaration without body (abstract, interface, protocol requirement)."""
+    n = len(code)
+    depth = angle = 0
+    while k < n:
+        c = code[k]
+        if c in "([":
+            depth += 1
+        elif c in ")]":
+            depth -= 1
+            if depth < 0:
+                return None
+        elif depth == 0:
+            if c == "<":
+                angle += 1
+            elif c == ">" and angle > 0 and code[k - 1] != "-":
+                angle -= 1
+            elif angle == 0:
+                if c == "{":
+                    return k, "block"
+                if c == "=" and code[k + 1:k + 2] != "=" and code[k - 1] not in "=!<>":
+                    return k, "expression"
+                if c in "};":
+                    return None
+                if c == "\n":
+                    rest = code[k:]
+                    nxt = _skip_spaces(code, k)
+                    word = re.match(r"(?:where\b|[:{=,]|->|throws\b|rethrows\b|async\b)", code[nxt:])
+                    before = code[:k].rstrip(" \t")
+                    if not word and not before.endswith((",", ":", "->", ">", "where")) and rest.strip():
+                        return None
+        k += 1
+    return None
+
+
+def _expression_end(code, k):
+    """Index of the last character of the expression body starting after the `=` at k."""
+    n = len(code)
+    depth = 0
+    k += 1
+    seen = False
+    while k < n:
+        c = code[k]
+        if c in OPEN:
+            depth += 1
+        elif c in CLOSE:
+            if depth == 0:
+                return k - 1
+            depth -= 1
+        elif c == "\n" and depth == 0 and seen:
+            line_start = code.rfind("\n", 0, k) + 1
+            nxt = code.find("\n", k + 1)
+            following = code[k + 1:n if nxt < 0 else nxt]
+            if not CONTINUES_AT_END.search(code[line_start:k]) and not CONTINUES_AT_START.match(following):
+                return k - 1
+        if c not in " \t\n":
+            seen = True
+        k += 1
+    return n - 1
+
+
+def function_lengths(code, swift=False):
+    """[(name, first line, number of lines)] of every function with a body in comment- and string-free code.
+
+    Kotlin: `fun` with a block body or an expression body (`= …`, up to the end of the expression). Swift: `func`,
+    `init`, `deinit` and the SwiftUI `var body:`. The length runs from the line of the keyword to the line of the
+    closing brace; nested functions count on their own and inside the enclosing one."""
+    result = []
+    pattern = SWIFT_FUNC_RE if swift else KOTLIN_FUN_RE
+    for m in pattern.finditer(code):
+        if swift:
+            groups = SWIFT_NAME_RE.match(code, m.start())  # the name may be an operator (`func < (…)`)
+            name = next((g for g in groups.groups() if g), "?") if groups else "?"
+            start = groups.end() if groups else m.end()
+        else:
+            start = m.end()
+            name = None
+        found = _signature_end(code, start)
+        if found is None:
+            continue
+        at, kind = found
+        if swift and kind == "expression":
+            continue
+        if not swift:
+            named = re.search(r"(`[^`]+`|\w+)\s*\(", code[start:at])  # after type parameters and the receiver
+            name = named.group(1) if named else "?"
+        end = matching(code, at) if kind == "block" else _expression_end(code, at)
+        first = code.count("\n", 0, m.start()) + 1
+        last = code.count("\n", 0, end) + 1
+        result.append((name, first, last - first + 1))
+    return result
+
+
 def kotlin_files(root):
     android = os.path.join(root, "android")
     if not os.path.isdir(android):
@@ -276,6 +468,39 @@ def kotlin_files(root):
             for name in sorted(files):
                 if name.endswith(".kt"):
                     yield os.path.join(dirpath, name)
+
+
+def swift_files(root):
+    for area in IOS_AREAS:
+        for dirpath, dirnames, files in os.walk(os.path.join(root, "ios", area)):
+            dirnames.sort()
+            for name in sorted(files):
+                if name.endswith(".swift"):
+                    yield os.path.join(dirpath, name)
+
+
+def evaluate_functions(platform, rows, ceiling, top=TOP_FUNCTIONS, target=FUNCTION_TARGET):
+    """Report lines and exit code for rows (file, function, line, length) of one platform."""
+    lines, failed = [], False
+    ordered = sorted(rows, key=lambda r: (-r[3], r[0], r[2]))
+    for path, name, line, length in ordered:
+        if length <= ceiling:
+            break
+        failed = True
+        lines.append(annotation("error", f"{name}: {length} lines, at most {ceiling} - split the function into named "
+                                f"helpers (target: {target} lines)", path, line))
+    if not ordered:
+        return lines, 0
+    longest = ordered[0]
+    over = sum(1 for r in ordered if r[3] > target)
+    lines.append(f"{platform} function length: {len(ordered)} functions, max {longest[3]} ({longest[1]}), "
+                 f"{over} over {target}, ceiling {ceiling}")
+    for path, name, line, length in ordered[:top]:
+        lines.append(f"  {length:4d}  {path}:{line}  {name}")
+    if longest[3] < ceiling and not failed:
+        lines.append(annotation("notice", f"longest {platform} function {longest[3]} < ceiling {ceiling} - lower "
+                                "FUNCTION_CEILINGS in .github/scripts/code_metrics.py"))
+    return lines, (1 if failed else 0)
 
 
 def evaluate(rows, deps_warn=DEPS_WARN, deps_ceiling=DEPS_CEILING, props_ceiling=PROPS_CEILING):
@@ -354,6 +579,72 @@ class Generic<T : Any> @Inject constructor(t: T)
 '''
 
 
+KOTLIN_FUNCTIONS = '''
+interface Port { fun open(a: Int): Flow<List<Int>>
+    fun close()
+    fun withDefault(a: Int = 1) = a
+}
+abstract class Base { abstract fun render(): String }
+@Composable
+fun <T : Any> Screen(
+    items: List<T>,
+    onClick: (T) -> Unit = {},
+) {
+    val text = "} not a brace ${items.map { "{" }}"  // } neither
+    fun local() { }
+    /* } */
+}
+fun Map<String, Int>.total(): Int = values
+    .filter { it > 0 }
+    .sum()
+fun single() = 1
+val after = 2
+fun chained(a: Int) =
+    if (a > 0) a
+    else -a
+'''
+
+SWIFT_FUNCTIONS = '''
+protocol Port { func open(_ a: Int) -> [Int]
+    func close()
+    init(a: Int)
+}
+struct Row: View {
+    init(a: Int) { self.a = a; super.init(a: a) }
+    var body: some View {
+        Text("} \\(items.map { "{" }.count) {")
+        // }
+    }
+    static func < (l: Row, r: Row) -> Bool { l.a < r.a }
+    func load<T: Decodable>(
+        _ type: T.Type
+    ) async throws -> T where T: Sendable {
+        let raw = #"{ "a": "}" }"#
+        return try decode(raw)
+    }
+}
+'''
+
+
+def self_test_functions():
+    kotlin = {name: (line, length) for name, line, length in function_lengths(code_only(KOTLIN_FUNCTIONS))}
+    expected = {"withDefault": (4, 1), "Screen": (8, 8), "local": (13, 1), "total": (16, 3), "single": (19, 1),
+                "chained": (21, 3)}
+    assert kotlin == expected, kotlin
+    swift = function_lengths(swift_code_only(SWIFT_FUNCTIONS), swift=True)
+    assert swift == [("init", 7, 1), ("body", 8, 4), ("<", 12, 1), ("load", 13, 6)], swift
+
+    rows = [("a.kt", "big", 3, 120), ("b.kt", "small", 1, 10), ("c.kt", "mid", 9, 90)]
+    lines, code = evaluate_functions("Kotlin", rows, ceiling=100, top=2)
+    assert code == 1 and sum(x.startswith("::error ") for x in lines) == 1, lines
+    assert "max 120 (big), 2 over 80, ceiling 100" in lines[1] and len(lines) == 4, lines
+    lines, code = evaluate_functions("Kotlin", rows, ceiling=130)
+    assert code == 0 and lines[-1].startswith("::notice "), lines
+    lines, code = evaluate_functions("Kotlin", rows, ceiling=120)
+    assert code == 0 and not any(x.startswith("::") for x in lines), lines
+    assert evaluate_functions("Swift", [], ceiling=1) == ([], 0)
+
+
 def self_test():
     rows = measure(SAMPLE)
     by_name = {name: (deps, props) for name, _, deps, props in rows}
@@ -376,6 +667,7 @@ def self_test():
     assert any(x.startswith("::warning ") and "Mid" in x for x in lines), lines
     lines, code = evaluate([("b.kt", "Mid", 2, 14, 3)], deps_warn=15, deps_ceiling=20, props_ceiling=61)
     assert code == 0 and not any(x.startswith(("::error ", "::warning ")) for x in lines), lines
+    self_test_functions()
     print("code_metrics self-test ok")
     return 0
 
@@ -385,18 +677,34 @@ def main():
         return self_test()
     root = sys.argv[1] if len(sys.argv) > 1 else "."
     rows, files = [], 0
+    functions = {"Kotlin": [], "Swift": []}
     for path in kotlin_files(root):
         files += 1
         with open(path, encoding="utf-8") as f:
-            for name, line, deps, props in measure(f.read()):
-                rows.append((os.path.relpath(path, root), name, line, deps, props))
+            source = f.read()
+        relative = os.path.relpath(path, root)
+        for name, line, deps, props in measure(source):
+            rows.append((relative, name, line, deps, props))
+        for name, line, length in function_lengths(code_only(source)):
+            functions["Kotlin"].append((relative, name, line, length))
     if files == 0:
         print(annotation("error", f"no Kotlin sources found under {os.path.abspath(root)}/android"))
         return 1
+    swift = 0
+    for path in swift_files(root):  # an Android-only checkout has none: nothing to report
+        swift += 1
+        with open(path, encoding="utf-8") as f:
+            for name, line, length in function_lengths(swift_code_only(f.read()), swift=True):
+                functions["Swift"].append((os.path.relpath(path, root), name, line, length))
     lines, code = evaluate(rows)
-    print(f"Code metrics: {files} Kotlin files")
+    print(f"Code metrics: {files} Kotlin files, {swift} Swift files")
     for line in lines:
         print(line)
+    for platform in ("Kotlin", "Swift"):
+        more, failed = evaluate_functions(platform, functions[platform], FUNCTION_CEILINGS[platform])
+        code = code or failed
+        for line in more:
+            print(line)
     return code
 
 

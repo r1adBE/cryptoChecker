@@ -25,6 +25,7 @@ on:
       - '.github/scripts/annotate.py'
       - '.github/scripts/xccov_summary.py'
       - '.github/scripts/swift_escape_hatches.py'
+      - '.github/scripts/code_metrics.py'
       - 'android/app/build.gradle.kts'
   # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
   # whose workflow is skipped by a paths filter would wait forever («Expected»).
@@ -66,6 +67,13 @@ jobs:
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/swift_escape_hatches.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/swift_escape_hatches.py" "$GITHUB_WORKSPACE"
+
+      # Length of the Swift functions (and of the Kotlin ones, same script as in android.yml): the 30 longest per
+      # platform are listed; a function above the ceiling in the script is red. Fails fast, before Xcode is needed.
+      - name: Code metrics
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" "$GITHUB_WORKSPACE"
 
       - name: Select Xcode 26
         uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0

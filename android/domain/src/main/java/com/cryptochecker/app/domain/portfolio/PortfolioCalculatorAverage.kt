@@ -18,6 +18,13 @@ fun PortfolioCalculator.average(
     events: List<PortfolioLedgerEvent>,
     withParts: Boolean = true,
 ): PortfolioBookResult {
+    val book = AverageBook(symbol, withParts)
+    for (e in events) book.apply(e)
+    return book.result()
+}
+
+/** Stand der Buchhaltung eines Coins nach der Durchschnittskosten-Methode: ein Ereignis nach dem anderen ([apply]). */
+private class AverageBook(private val symbol: String, private val withParts: Boolean) {
     val zero = BigDecimal.ZERO
     val mc = PortfolioDecimal.MC
 
@@ -159,161 +166,183 @@ fun PortfolioCalculator.average(
         }
     }
 
-    for (e in events) {
+    /** Bucht ein Ereignis des Coins. */
+    fun apply(e: PortfolioLedgerEvent) {
+        val t = e.trade
+        if (t.amount.signum() <= 0) return
+        if (e.swapIn) return swapIn(e)
+        if (e.feeLeg) return feeLeg(t)
+        when (t.type) {
+            PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> acquire(e)
+            PortfolioTxType.SELL, PortfolioTxType.PAYMENT, PortfolioTxType.SWAP -> dispose(t)
+            // Verschenkt: wie eine Auszahlung (beim Schenkenden keine Veräusserung)
+            PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> withdraw(e)
+            PortfolioTxType.TRANSFER -> transfer(t)
+        }
+    }
+
+    private fun swapIn(e: PortfolioLedgerEvent) {
+        val t = e.trade
+        // Zugang aus einem Tausch: Einstand = Wert des Tauschs (Gebühren zählen beim Abgang); ohne Wert ohne Kaufpreis
+        val received = t.swapReceived
+        if (received.signum() <= 0) {
+            // Gebühr verbraucht den ganzen Zugang: Wert des Tauschs als Aufwand (kein Schein-Gewinn)
+            expense(e, PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
+            return
+        }
+        val value = t.swapValue
+        if (value != null) {
+            addCost(t.time, value, t.costEstimated(swapIn = true))
+            priced += received
+        } else {
+            unpriced += received
+        }
+    }
+
+    private fun feeLeg(t: PortfolioTrade) {
+        // Gebühr einer anderen Transaktion in diesem Coin bezahlt: Veräusserung zum Gebühr-Preis
+        val fee = t.thirdFeeAmount
+        val holdings = priced + unpriced
+        if (fee > holdings) oversold = true
+        val feePrice = t.thirdFeePrice
+        val proceeds = feePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }
+        if (holdings.signum() <= 0) {
+            record(t, null, false, proceeds, null, fee, feeLeg = true, feeMissing = false)
+            return
+        }
+        val hadPriced = priced.signum() > 0
+        val taken = take(fee)
+        val covered = coveredShare(proceeds, taken.removed, fee)
+        if (covered != null && hadPriced) {
+            realized += (if (taken.allPriced) covered else covered.multiply(taken.share, mc)) - taken.costRemoved
+            if (!taken.allPriced) unknownSold += taken.removed.multiply(BigDecimal.ONE - taken.share, mc)
+        } else {
+            unknownSold += taken.removed
+        }
+        record(t, taken, hadPriced, proceeds, covered, fee - taken.removed, feeLeg = true, feeMissing = false)
+        soldTotal += taken.removed
+    }
+
+    private fun acquire(e: PortfolioLedgerEvent) {
         val t = e.trade
         val amount = t.amount
-        if (amount.signum() <= 0) continue
-        if (e.swapIn) {
-            // Zugang aus einem Tausch: Einstand = Wert des Tauschs (Gebühren zählen beim Abgang); ohne Wert ohne Kaufpreis
-            val received = t.swapReceived
-            if (received.signum() <= 0) {
-                // Gebühr verbraucht den ganzen Zugang: Wert des Tauschs als Aufwand (kein Schein-Gewinn)
-                expense(e, PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
-                continue
-            }
-            val value = t.swapValue
-            if (value != null) {
-                addCost(t.time, value, t.costEstimated(swapIn = true))
-                priced += received
-            } else {
-                unpriced += received
-            }
-            continue
-        }
-        if (e.feeLeg) {
-            // Gebühr einer anderen Transaktion in diesem Coin bezahlt: Veräusserung zum Gebühr-Preis
-            val fee = t.thirdFeeAmount
-            val holdings = priced + unpriced
-            if (fee > holdings) oversold = true
-            val feePrice = t.thirdFeePrice
-            val proceeds = feePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }
-            if (holdings.signum() <= 0) {
-                record(t, null, false, proceeds, null, fee, feeLeg = true, feeMissing = false)
-                continue
-            }
-            val hadPriced = priced.signum() > 0
-            val taken = take(fee)
-            val covered = coveredShare(proceeds, taken.removed, fee)
-            if (covered != null && hadPriced) {
-                realized += (if (taken.allPriced) covered else covered.multiply(taken.share, mc)) - taken.costRemoved
-                if (!taken.allPriced) unknownSold += taken.removed.multiply(BigDecimal.ONE - taken.share, mc)
-            } else {
-                unknownSold += taken.removed
-            }
-            record(t, taken, hadPriced, proceeds, covered, fee - taken.removed, feeLeg = true, feeMissing = false)
-            soldTotal += taken.removed
-            continue
-        }
         // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt ([PortfolioLedger.salePrice])
         val price = PortfolioLedger.salePrice(t)
         val feeValue = t.thirdFeeValue
-        when (t.type) {
-            PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
-                val received = t.received
-                if (received.signum() <= 0) {
-                    // Gebühr im Coin verbraucht den ganzen Zugang: Einstand als Aufwand
-                    expense(e, PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
-                    continue
-                }
-                if (price != null) {
-                    // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
-                    addCost(t.acquisitionTime, amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero), t.costEstimated())
-                    priced += received
-                    if (feeValue == null) feeValueMissing = true
-                } else {
-                    // Ohne Kaufpreis ist der Einstand unbekannt — eine USDT-Gebühr gehört dazu und
-                    // zählt deshalb nirgends als bekannter Betrag (Teil «ohne Preis»)
-                    unpriced += received
-                }
-            }
-            PortfolioTxType.SELL, PortfolioTxType.PAYMENT, PortfolioTxType.SWAP -> {
-                // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
-                val swap = t.type == PortfolioTxType.SWAP
-                val holdings = priced + unpriced
-                // Abgegeben: Menge + Gebühr im Coin, gekappt auf den Bestand (mehr als vorhanden: markiert)
-                val requested = amount + t.coinFee
-                if (requested > holdings) oversold = true
-                // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
-                // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount.multiply(it, PortfolioDecimal.MC) }
-                val proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }
-                val feeMissing = gross != null && feeValue == null
-                if (feeMissing) feeValueMissing = true
-                if (holdings.signum() <= 0) {
-                    record(t, null, false, proceeds, null, requested, feeLeg = false, feeMissing = feeMissing, swap = swap)
-                    continue
-                }
-                val hadPriced = priced.signum() > 0
-                val taken = take(requested)
-                val sold = if (taken.removed.compareTo(requested) == 0) amount else taken.removed.multiply(amount).divide(requested, mc)
-                val covered = coveredShare(proceeds, taken.removed, requested)
-                // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
-                if (covered != null && hadPriced) {
-                    realized += (if (taken.allPriced) covered else covered.multiply(taken.share, mc)) - taken.costRemoved
-                    if (!taken.allPriced) unknownSold += sold.multiply(BigDecimal.ONE - taken.share, mc)
-                    if (feeValue == null) realizedFeeMissing = true
-                } else {
-                    unknownSold += sold
-                }
-                record(t, taken, hadPriced, proceeds, covered, requested - taken.removed, feeLeg = false, feeMissing = feeMissing, swap = swap)
-                soldTotal += sold
-            }
-            // Verschenkt: wie eine Auszahlung (beim Schenkenden keine Veräusserung)
-            PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
-                // Aus dem Portfolio genommen: zum Ø-Einstand, kein realisierter Gewinn
-                val holdings = priced + unpriced
-                val requested = amount + t.coinFee
-                if (requested > holdings) oversold = true
-                // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
-                val uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings)
-                if (uncoveredFee.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, uncoveredFee)
-                if (holdings.signum() <= 0) continue
-                // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
-                expense(e, PortfolioFeeExpense.WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings))
-                val taken = take(requested)
-                val sold = if (taken.removed.compareTo(requested) == 0) amount else taken.removed.multiply(amount).divide(requested, mc)
-                withdrawn += sold
-                withdrawals += PortfolioWithdrawalCost(t, sold, taken.removed, taken.removedPriced, taken.costRemoved)
-            }
-            PortfolioTxType.TRANSFER -> {
-                val holdings = priced + unpriced
-                val coinFee = t.coinFee
-                // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
-                if (amount + coinFee > holdings) oversold = true
-                val lost = PortfolioFeeExpenses.transferUncovered(t, (holdings - coinFee).max(zero))
-                if (holdings.signum() <= 0) {
-                    if (lost.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, lost)
-                    continue
-                }
-                val allPriced = unpriced.signum() == 0
-                // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der
-                // Anteil des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
-                val extra = t.quoteFee + (feeValue ?: zero) - lost
-                val assigned = if (priced.signum() > 0) {
-                    if (feeValue == null) feeValueMissing = true
-                    if (allPriced) extra else extra.multiply(priced).divide(holdings, mc)
-                } else zero
-                if (extra.signum() > 0) addCost(t.time, assigned, t.feePriceEstimated)
-                val noted = extra - assigned + lost
-                if (noted.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, noted)
-                // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
-                if (coinFee.signum() > 0) {
-                    val removed = coinFee.min(holdings)
-                    val removedPriced = if (allPriced) removed else PortfolioDecimal.amount(removed.multiply(priced).divide(holdings, mc)).min(priced)
-                    priced -= removedPriced
-                    if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
-                        // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken
-                        if (cost.signum() != 0) lostFeeCosts += PortfolioLostFeeCost(symbol, t.id, t.time, cost)
-                        clearPriced()
-                    }
-                    unpriced = (holdings - removed - priced).max(zero)
-                    if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
-                }
-            }
+        val received = t.received
+        if (received.signum() <= 0) {
+            // Gebühr im Coin verbraucht den ganzen Zugang: Einstand als Aufwand
+            expense(e, PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
+            return
+        }
+        if (price != null) {
+            // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
+            addCost(t.acquisitionTime, amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero), t.costEstimated())
+            priced += received
+            if (feeValue == null) feeValueMissing = true
+        } else {
+            // Ohne Kaufpreis ist der Einstand unbekannt — eine USDT-Gebühr gehört dazu und
+            // zählt deshalb nirgends als bekannter Betrag (Teil «ohne Preis»)
+            unpriced += received
         }
     }
-    return PortfolioBookResult(
+
+    private fun dispose(t: PortfolioTrade) {
+        val amount = t.amount
+        // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt ([PortfolioLedger.salePrice])
+        val price = PortfolioLedger.salePrice(t)
+        val feeValue = t.thirdFeeValue
+        // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
+        val swap = t.type == PortfolioTxType.SWAP
+        val holdings = priced + unpriced
+        // Abgegeben: Menge + Gebühr im Coin, gekappt auf den Bestand (mehr als vorhanden: markiert)
+        val requested = amount + t.coinFee
+        if (requested > holdings) oversold = true
+        // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
+        // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
+        val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount.multiply(it, PortfolioDecimal.MC) }
+        val proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }
+        val feeMissing = gross != null && feeValue == null
+        if (feeMissing) feeValueMissing = true
+        if (holdings.signum() <= 0) {
+            record(t, null, false, proceeds, null, requested, feeLeg = false, feeMissing = feeMissing, swap = swap)
+            return
+        }
+        val hadPriced = priced.signum() > 0
+        val taken = take(requested)
+        val sold = if (taken.removed.compareTo(requested) == 0) amount else taken.removed.multiply(amount).divide(requested, mc)
+        val covered = coveredShare(proceeds, taken.removed, requested)
+        // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
+        if (covered != null && hadPriced) {
+            realized += (if (taken.allPriced) covered else covered.multiply(taken.share, mc)) - taken.costRemoved
+            if (!taken.allPriced) unknownSold += sold.multiply(BigDecimal.ONE - taken.share, mc)
+            if (feeValue == null) realizedFeeMissing = true
+        } else {
+            unknownSold += sold
+        }
+        record(t, taken, hadPriced, proceeds, covered, requested - taken.removed, feeLeg = false, feeMissing = feeMissing, swap = swap)
+        soldTotal += sold
+    }
+
+    private fun withdraw(e: PortfolioLedgerEvent) {
+        val t = e.trade
+        val amount = t.amount
+        // Aus dem Portfolio genommen: zum Ø-Einstand, kein realisierter Gewinn
+        val holdings = priced + unpriced
+        val requested = amount + t.coinFee
+        if (requested > holdings) oversold = true
+        // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
+        val uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings)
+        if (uncoveredFee.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, uncoveredFee)
+        if (holdings.signum() <= 0) return
+        // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
+        expense(e, PortfolioFeeExpense.WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings))
+        val taken = take(requested)
+        val sold = if (taken.removed.compareTo(requested) == 0) amount else taken.removed.multiply(amount).divide(requested, mc)
+        withdrawn += sold
+        withdrawals += PortfolioWithdrawalCost(t, sold, taken.removed, taken.removedPriced, taken.costRemoved)
+    }
+
+    private fun transfer(t: PortfolioTrade) {
+        val amount = t.amount
+        val feeValue = t.thirdFeeValue
+        val holdings = priced + unpriced
+        val coinFee = t.coinFee
+        // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+        // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+        if (amount + coinFee > holdings) oversold = true
+        val lost = PortfolioFeeExpenses.transferUncovered(t, (holdings - coinFee).max(zero))
+        if (holdings.signum() <= 0) {
+            if (lost.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, lost)
+            return
+        }
+        val allPriced = unpriced.signum() == 0
+        // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der
+        // Anteil des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
+        val extra = t.quoteFee + (feeValue ?: zero) - lost
+        val assigned = if (priced.signum() > 0) {
+            if (feeValue == null) feeValueMissing = true
+            if (allPriced) extra else extra.multiply(priced).divide(holdings, mc)
+        } else zero
+        if (extra.signum() > 0) addCost(t.time, assigned, t.feePriceEstimated)
+        val noted = extra - assigned + lost
+        if (noted.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, noted)
+        // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
+        if (coinFee.signum() > 0) {
+            val removed = coinFee.min(holdings)
+            val removedPriced = if (allPriced) removed else PortfolioDecimal.amount(removed.multiply(priced).divide(holdings, mc)).min(priced)
+            priced -= removedPriced
+            if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
+                // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken
+                if (cost.signum() != 0) lostFeeCosts += PortfolioLostFeeCost(symbol, t.id, t.time, cost)
+                clearPriced()
+            }
+            unpriced = (holdings - removed - priced).max(zero)
+            if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
+        }
+    }
+
+    fun result() = PortfolioBookResult(
         priced = priced, unpriced = unpriced, cost = cost, realized = realized,
         unknownSold = unknownSold, soldTotal = soldTotal, withdrawn = withdrawn, oversold = oversold,
         feeValueMissing = feeValueMissing, realizedFeeMissing = realizedFeeMissing,

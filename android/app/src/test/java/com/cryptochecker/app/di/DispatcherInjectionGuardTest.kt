@@ -11,9 +11,9 @@ import java.io.File
  * und :data nennen `Dispatchers.IO`/`Dispatchers.Default` nicht selbst, sondern nehmen den Dispatcher im Konstruktor
  * (`@param:IoDispatcher`, `@param:DefaultDispatcher`, geliefert von [DispatcherModule]).
  *
- * Noch nicht umgestellte Dateien stehen mit ihrer Anzahl in [REMAINING] (Konstruktor schon an der Obergrenze der
- * Abhängigkeiten oder Datei an der Zeilengrenze); die Zahl darf nur sinken — wer eine Datei umstellt, senkt sie hier
- * mit, bei null kommt der Eintrag weg. Kommentare und Import-Zeilen zählen nicht.
+ * Noch nicht umgestellte Dateien stehen mit ihrer Anzahl in [REMAINING] (Datei an der Zeilengrenze oder Klasse, die
+ * viele Tests von Hand bauen); die Zahl darf nur sinken — wer eine Datei umstellt, senkt sie hier mit, bei null kommt
+ * der Eintrag weg. Kommentare und Import-Zeilen zählen nicht.
  */
 class DispatcherInjectionGuardTest {
 
@@ -80,11 +80,6 @@ class DispatcherInjectionGuardTest {
 
         /** Datei → höchstens so viele `Dispatchers.IO`/`Dispatchers.Default` im Code; darf nur sinken. */
         val REMAINING: Map<String, Int> = mapOf(
-            // Konstruktor an der Obergrenze der Abhängigkeiten (code_metrics.py)
-            "app/app/data/BackupManager.kt" to 5,
-            "app/app/ui/features/explorer/ExplorerViewModel.kt" to 1,
-            "app/app/ui/features/portfolio/PortfolioViewModel.kt" to 3,
-            "app/app/ui/features/watchlist/WatchlistSheetData.kt" to 2,
             // Datei an der Zeilengrenze (FileLengthTest)
             "app/app/ui/features/alarms/AlarmsViewModel.kt" to 1,
             "app/app/ui/features/portfolio/PortfolioCsvImportViewModel.kt" to 3,

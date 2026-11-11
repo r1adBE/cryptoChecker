@@ -899,11 +899,18 @@ The *Android* workflow also shows, never failing: lint warnings counted by id (t
 **Size ceilings beside the 400-line limit.** Both scripts have `--self-test`, ignore comments and string literals,
 and keep their ceilings in the script (today's maximum: nothing may grow past it; lower a ceiling when the code
 shrinks, raise it only deliberately with the reason in the same pull request).
-* *Code metrics* (`android.yml`, step after «Line limit», `.github/scripts/code_metrics.py`): constructor
+* *Code metrics* (`android.yml`, step after «Line limit», and `ios.yml`, step after «Swift escape hatches»;
+  `.github/scripts/code_metrics.py`): constructor
   dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main` – red above
-  `DEPS_CEILING` 14 – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
-  not nested classes or functions) – red above `PROPS_CEILING` 35 (`ExplorerViewModel`). A class at the limit is
-  split (use case, helper, state holder) instead of growing.
+  `DEPS_CEILING` 13 – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
+  not nested classes or functions) – red above `PROPS_CEILING` 26 (`ExplorerViewModel`). A class at the limit is
+  split (use case, helper, state holder) instead of growing. Function length (lines from the keyword to the end of
+  the body): Kotlin `fun` (block or expression body) in `android/*/src/main`, Swift `func`, `init`, `deinit` and the
+  SwiftUI `var body` in the same folders as the escape hatches; the 30 longest per platform are listed, red above
+  `FUNCTION_CEILINGS` (Kotlin 326 `AppNavHost`, Swift 356 `PriceRefresher.refresh`). New functions stay under
+  `FUNCTION_TARGET` 80 lines; the ceilings only keep the remaining long ones from growing and go down with every
+  split (long calculations become a class with one method per step, e.g. `TaxYearSummaryBuilder`,
+  `PortfolioFifoBook` on both platforms).
 * *Swift escape hatches* (`ios.yml`, job «iOS release build», first step, `.github/scripts/swift_escape_hatches.py`):
   `@unchecked Sendable`, `nonisolated(unsafe)`, `DispatchSemaphore` and `uncheckedState:` in `ios/App`, `ios/Shared`, `ios/Widgets`,
   `ios/Watch`, `ios/WatchCore` and `ios/WatchWidgets` (not `ios/Tests`) against `CEILINGS` (`@unchecked Sendable` 0,
@@ -3472,6 +3479,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   app package in `:domain`, only `domain`/`data` imports from the app in `:data`, no `…app.domain` package in `:app`.
   The committed baseline and startup profiles carry the new class names (renamed in place, not measured again).
 * Build 217 (audit C-03): unit tests of `:domain` and `:data` live in those modules; `LayerBoundaryTest` checks package, imports and minimum counts; `mutation_test.py` routes each test to its module.
+* Build 218 (audit C-02): `code_metrics.py` measures function length (ceilings Kotlin 326, Swift 356); `TaxYearSummaryBuilder`, `PortfolioFifoBook`, `ExplorerSearchData`; constructor ceiling 13, ViewModel properties 26; dispatcher allowlist 5 files.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

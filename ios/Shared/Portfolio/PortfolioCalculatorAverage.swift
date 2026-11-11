@@ -74,14 +74,11 @@ extension PortfolioCalculator {
         }
     }
 
-    /// Durchschnittskosten-Methode (siehe oben), mit einer Veräusserung je Verkauf (Teil mit/ohne Kaufpreis, dazu der
-    /// ungedeckte Rest bei «mehr verkauft als erfasst»). Der Einstand wird zusätzlich nach Herkunft geführt
-    /// (`PortfolioCostPart`); ein Abgang nimmt alle Teile anteilig mit — so rechnet der Steuer-Export den Ø-Einstand zum
-    /// Devisenkurs JE Zugang um (`PortfolioCostPartPool`: je Abgang O(1), abgegebene Teile als Ansicht). Wie Android.
-    /// `withParts`: Herkunft führen (Steuer-Export, Einstand der Karte in einer Anzeigewährung). Ohne sind
-    /// `PortfolioDisposal.costParts` und `openParts` leer, alle Zahlen (Bestand, Einstand, realisiert …) gleich.
-    static func average(_ symbol: String, events: [PortfolioLedgerEvent], withParts: Bool = true) -> PortfolioBookResult {
-        var book = Book(withParts: withParts)
+    /// Stand der Buchhaltung eines Coins nach der Durchschnittskosten-Methode: ein Ereignis nach dem anderen (`apply`),
+    /// am Ende `result` — wie `AverageBook` (Android).
+    fileprivate final class AverageBook {
+        let symbol: String
+        var book: Book
         var realized: Decimal = 0
         var unknownSold: Decimal = 0 // verkaufte Menge mit unbekanntem Gewinn/Verlust
         var soldTotal: Decimal = 0
@@ -93,6 +90,11 @@ extension PortfolioCalculator {
         var withdrawals: [PortfolioWithdrawalCost] = []
         var lostFeeCosts: [PortfolioLostFeeCost] = []
         var unassignedFees: [PortfolioUnassignedFee] = []
+
+        init(_ symbol: String, withParts: Bool) {
+            self.symbol = symbol
+            self.book = Book(withParts: withParts)
+        }
 
         /// Veräusserungen eines Abgangs: Teil mit Kaufpreis (Einstand zum Ø), Teil ohne Kaufpreis und der ungedeckte
         /// Rest `uncovered`. `proceeds` = Erlös des GANZEN Abgangs; `coveredProceeds` = Anteil des gedeckten Teils.
@@ -150,168 +152,207 @@ extension PortfolioCalculator {
             return PortfolioDecimal.divide(proceeds, removed, by: requested)
         }
 
-        for e in events {
+        /// Bucht ein Ereignis des Coins.
+        func apply(_ e: PortfolioLedgerEvent) {
             let t = e.trade
-            let amount = t.amountExact
-            guard amount > 0 else { continue }
-            if e.swapIn {
-                // Zugang aus einem Tausch: Einstand = Wert des Tauschs (Gebühren zählen beim Abgang); ohne Wert ohne Kaufpreis
-                let received = t.swapReceived
-                if received <= 0 {
-                    // Gebühr verbraucht den ganzen Zugang: Wert des Tauschs als Aufwand (kein Schein-Gewinn)
-                    expense(e, .CONSUMED, PortfolioFeeExpenses.consumed(e))
-                    continue
-                }
-                if let value = t.swapValue {
-                    book.addCost(t.time, value, est: t.costEstimated(swapIn: true))
-                    book.priced += received
-                } else {
-                    book.unpriced += received
-                }
-                continue
-            }
-            if e.feeLeg {
-                // Gebühr einer anderen Transaktion in diesem Coin bezahlt: Veräusserung zum Gebühr-Preis
-                let fee = t.thirdFeeAmount
-                if fee > book.holdings { oversold = true }
-                let proceeds = t.thirdFeePrice.map { PortfolioDecimal.multiply(fee, $0) }
-                if book.holdings <= 0 {
-                    record(t, nil, hadPriced: false, proceeds: proceeds, coveredProceeds: nil, uncovered: fee,
-                           feeLeg: true, feeMissing: false)
-                    continue
-                }
-                let hadPriced = book.priced > 0
-                let taken = book.take(fee)
-                let covered = coveredShare(proceeds, removed: taken.removed, requested: fee)
-                if let covered, hadPriced {
-                    realized += (taken.allPriced ? covered : PortfolioDecimal.multiply(covered, taken.share)) - taken.costRemoved
-                    if !taken.allPriced { unknownSold += PortfolioDecimal.multiply(taken.removed, 1 - taken.share) }
-                } else {
-                    unknownSold += taken.removed
-                }
-                record(t, taken, hadPriced: hadPriced, proceeds: proceeds, coveredProceeds: covered,
-                       uncovered: fee - taken.removed, feeLeg: true, feeMissing: false)
-                soldTotal += taken.removed
-                continue
-            }
-            // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt (`PortfolioLedger.salePrice`)
-            let price = PortfolioLedger.salePrice(t)
-            let feeValue = t.thirdFeeValue
+            guard t.amountExact > 0 else { return }
+            if e.swapIn { swapIn(e); return }
+            if e.feeLeg { feeLeg(t); return }
             switch t.type {
-            case .BUY, .REWARD, .DEPOSIT:
-                let received = t.receivedExact
-                if received <= 0 {
-                    // Gebühr im Coin verbraucht den ganzen Zugang: Einstand als Aufwand
-                    expense(e, .CONSUMED, PortfolioFeeExpenses.consumed(e))
-                    continue
-                }
-                if let price {
-                    // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
-                    book.addCost(t.acquisitionTime, PortfolioDecimal.multiply(amount, price) + t.quoteFeeExact + (feeValue ?? 0), est: t.costEstimated())
-                    book.priced += received
-                    if feeValue == nil { feeValueMissing = true }
-                } else {
-                    book.unpriced += received
-                }
-            case .SELL, .PAYMENT, .SWAP:
-                // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
-                let swap = t.type == .SWAP
-                let holdings = book.holdings
-                // Abgegeben: Menge + Gebühr im Coin, gekappt auf den Bestand (mehr als vorhanden: markiert)
-                let requested = amount + t.coinFeeExact
-                if requested > holdings { oversold = true }
-                // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
-                // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(amount, $0) }
-                let proceeds = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
-                let feeMissing = gross != nil && feeValue == nil
-                if feeMissing { feeValueMissing = true }
-                if holdings <= 0 {
-                    record(t, nil, hadPriced: false, proceeds: proceeds, coveredProceeds: nil, uncovered: requested,
-                           feeLeg: false, feeMissing: feeMissing, swap: swap)
-                    continue
-                }
-                let hadPriced = book.priced > 0
-                let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
-                let covered = coveredShare(proceeds, removed: taken.removed, requested: requested)
-                // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
-                if let covered, hadPriced {
-                    realized += (taken.allPriced ? covered : PortfolioDecimal.multiply(covered, taken.share)) - taken.costRemoved
-                    if !taken.allPriced { unknownSold += PortfolioDecimal.multiply(sold, 1 - taken.share) }
-                    if feeValue == nil { realizedFeeMissing = true }
-                } else {
-                    unknownSold += sold
-                }
-                record(t, taken, hadPriced: hadPriced, proceeds: proceeds, coveredProceeds: covered,
-                       uncovered: requested - taken.removed, feeLeg: false, feeMissing: feeMissing, swap: swap)
-                soldTotal += sold
-            case .WITHDRAWAL, .GIFT:
-                // Verschenkt: wie eine Auszahlung (beim Schenkenden keine Veräusserung)
-                // Aus dem Portfolio genommen: zum Ø-Einstand, kein realisierter Gewinn
-                let holdings = book.holdings
-                let requested = amount + t.coinFeeExact
-                if requested > holdings { oversold = true }
-                // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
-                let uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings: holdings)
-                if uncoveredFee > 0 {
-                    unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: uncoveredFee))
-                }
-                if holdings <= 0 { continue }
-                // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
-                expense(e, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: holdings))
-                let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
-                withdrawn += sold
-                withdrawals.append(PortfolioWithdrawalCost(trade: t, sold: sold, removed: taken.removed,
-                                                           pricedRemoved: taken.removedPriced, cost: taken.costRemoved))
-            case .TRANSFER:
-                let holdings = book.holdings
-                let coinFee = t.coinFeeExact
-                // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
-                if amount + coinFee > holdings { oversold = true }
-                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: max(0, holdings - coinFee))
-                if holdings <= 0 {
-                    if lost > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: lost)) }
-                    continue
-                }
-                let allPriced = book.unpriced == 0
-                // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der Anteil
-                // des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
-                let extra = t.quoteFeeExact + (feeValue ?? 0) - lost
-                var assigned: Decimal = 0
-                if book.priced > 0 {
-                    if feeValue == nil { feeValueMissing = true }
-                    assigned = allPriced ? extra : PortfolioDecimal.divide(extra, book.priced, by: holdings)
-                }
-                if extra > 0 { book.addCost(t.time, assigned, est: t.feePriceEstimated) }
-                let noted = extra - assigned + lost
-                if noted > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: noted)) }
-                // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
-                if coinFee > 0 {
-                    let removed = min(coinFee, holdings)
-                    let removedPriced = allPriced ? removed
-                        : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, book.priced, by: holdings)), book.priced)
-                    book.priced -= removedPriced
-                    if PortfolioDecimal.isDust(book.priced) || book.priced < 0 {
-                        // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken
-                        if book.cost != 0 {
-                            lostFeeCosts.append(PortfolioLostFeeCost(coin: symbol, txId: t.id, time: t.time, costUsdt: book.cost))
-                        }
-                        book.resetPriced()
-                    }
-                    book.unpriced = max(0, holdings - removed - book.priced)
-                    if PortfolioDecimal.isDust(book.unpriced) { book.unpriced = 0 }
-                }
+            case .BUY, .REWARD, .DEPOSIT: acquire(e)
+            case .SELL, .PAYMENT, .SWAP: sell(t)
+            case .WITHDRAWAL, .GIFT: withdraw(e)
+            case .TRANSFER: transfer(t)
             }
         }
 
-        return PortfolioBookResult(
-            priced: book.priced, unpriced: book.unpriced, cost: book.cost, realized: realized,
-            unknownSold: unknownSold, soldTotal: soldTotal, withdrawn: withdrawn, oversold: oversold,
-            feeValueMissing: feeValueMissing, realizedFeeMissing: realizedFeeMissing,
-            lots: [], disposals: disposals, withdrawals: withdrawals, lostFeeCosts: lostFeeCosts,
-            unassignedFees: unassignedFees, openParts: book.parts.toArray(total: book.cost))
+        private func swapIn(_ e: PortfolioLedgerEvent) {
+            let t = e.trade
+            // Zugang aus einem Tausch: Einstand = Wert des Tauschs (Gebühren zählen beim Abgang); ohne Wert ohne Kaufpreis
+            let received = t.swapReceived
+            if received <= 0 {
+                // Gebühr verbraucht den ganzen Zugang: Wert des Tauschs als Aufwand (kein Schein-Gewinn)
+                expense(e, .CONSUMED, PortfolioFeeExpenses.consumed(e))
+                return
+            }
+            if let value = t.swapValue {
+                book.addCost(t.time, value, est: t.costEstimated(swapIn: true))
+                book.priced += received
+            } else {
+                book.unpriced += received
+            }
+        }
+
+        private func feeLeg(_ t: PortfolioTx) {
+            // Gebühr einer anderen Transaktion in diesem Coin bezahlt: Veräusserung zum Gebühr-Preis
+            let fee = t.thirdFeeAmount
+            if fee > book.holdings { oversold = true }
+            let proceeds = t.thirdFeePrice.map { PortfolioDecimal.multiply(fee, $0) }
+            if book.holdings <= 0 {
+                record(t, nil, hadPriced: false, proceeds: proceeds, coveredProceeds: nil, uncovered: fee,
+                       feeLeg: true, feeMissing: false)
+                return
+            }
+            let hadPriced = book.priced > 0
+            let taken = book.take(fee)
+            let covered = coveredShare(proceeds, removed: taken.removed, requested: fee)
+            if let covered, hadPriced {
+                realized += (taken.allPriced ? covered : PortfolioDecimal.multiply(covered, taken.share)) - taken.costRemoved
+                if !taken.allPriced { unknownSold += PortfolioDecimal.multiply(taken.removed, 1 - taken.share) }
+            } else {
+                unknownSold += taken.removed
+            }
+            record(t, taken, hadPriced: hadPriced, proceeds: proceeds, coveredProceeds: covered,
+                   uncovered: fee - taken.removed, feeLeg: true, feeMissing: false)
+            soldTotal += taken.removed
+        }
+
+        private func acquire(_ e: PortfolioLedgerEvent) {
+            let t = e.trade
+            let amount = t.amountExact
+            // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt (`PortfolioLedger.salePrice`)
+            let price = PortfolioLedger.salePrice(t)
+            let feeValue = t.thirdFeeValue
+            let received = t.receivedExact
+            if received <= 0 {
+                // Gebühr im Coin verbraucht den ganzen Zugang: Einstand als Aufwand
+                expense(e, .CONSUMED, PortfolioFeeExpenses.consumed(e))
+                return
+            }
+            if let price {
+                // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
+                book.addCost(t.acquisitionTime, PortfolioDecimal.multiply(amount, price) + t.quoteFeeExact + (feeValue ?? 0), est: t.costEstimated())
+                book.priced += received
+                if feeValue == nil { feeValueMissing = true }
+            } else {
+                book.unpriced += received
+            }
+        }
+
+        private func sell(_ t: PortfolioTx) {
+            let amount = t.amountExact
+            // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt (`PortfolioLedger.salePrice`)
+            let price = PortfolioLedger.salePrice(t)
+            let feeValue = t.thirdFeeValue
+            // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
+            let swap = t.type == .SWAP
+            let holdings = book.holdings
+            // Abgegeben: Menge + Gebühr im Coin, gekappt auf den Bestand (mehr als vorhanden: markiert)
+            let requested = amount + t.coinFeeExact
+            if requested > holdings { oversold = true }
+            // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
+            // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
+            let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(amount, $0) }
+            let proceeds = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
+            let feeMissing = gross != nil && feeValue == nil
+            if feeMissing { feeValueMissing = true }
+            if holdings <= 0 {
+                record(t, nil, hadPriced: false, proceeds: proceeds, coveredProceeds: nil, uncovered: requested,
+                       feeLeg: false, feeMissing: feeMissing, swap: swap)
+                return
+            }
+            let hadPriced = book.priced > 0
+            let taken = book.take(requested)
+            let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
+            let covered = coveredShare(proceeds, removed: taken.removed, requested: requested)
+            // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
+            if let covered, hadPriced {
+                realized += (taken.allPriced ? covered : PortfolioDecimal.multiply(covered, taken.share)) - taken.costRemoved
+                if !taken.allPriced { unknownSold += PortfolioDecimal.multiply(sold, 1 - taken.share) }
+                if feeValue == nil { realizedFeeMissing = true }
+            } else {
+                unknownSold += sold
+            }
+            record(t, taken, hadPriced: hadPriced, proceeds: proceeds, coveredProceeds: covered,
+                   uncovered: requested - taken.removed, feeLeg: false, feeMissing: feeMissing, swap: swap)
+            soldTotal += sold
+        }
+
+        private func withdraw(_ e: PortfolioLedgerEvent) {
+            let t = e.trade
+            let amount = t.amountExact
+            // Verschenkt: wie eine Auszahlung (beim Schenkenden keine Veräusserung)
+            // Aus dem Portfolio genommen: zum Ø-Einstand, kein realisierter Gewinn
+            let holdings = book.holdings
+            let requested = amount + t.coinFeeExact
+            if requested > holdings { oversold = true }
+            // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
+            let uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings: holdings)
+            if uncoveredFee > 0 {
+                unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: uncoveredFee))
+            }
+            if holdings <= 0 { return }
+            // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
+            expense(e, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: holdings))
+            let taken = book.take(requested)
+            let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
+            withdrawn += sold
+            withdrawals.append(PortfolioWithdrawalCost(trade: t, sold: sold, removed: taken.removed,
+                                                       pricedRemoved: taken.removedPriced, cost: taken.costRemoved))
+        }
+
+        private func transfer(_ t: PortfolioTx) {
+            let amount = t.amountExact
+            let feeValue = t.thirdFeeValue
+            let holdings = book.holdings
+            let coinFee = t.coinFeeExact
+            // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+            // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+            if amount + coinFee > holdings { oversold = true }
+            let lost = PortfolioFeeExpenses.transferUncovered(t, covered: max(0, holdings - coinFee))
+            if holdings <= 0 {
+                if lost > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: lost)) }
+                return
+            }
+            let allPriced = book.unpriced == 0
+            // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der Anteil
+            // des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
+            let extra = t.quoteFeeExact + (feeValue ?? 0) - lost
+            var assigned: Decimal = 0
+            if book.priced > 0 {
+                if feeValue == nil { feeValueMissing = true }
+                assigned = allPriced ? extra : PortfolioDecimal.divide(extra, book.priced, by: holdings)
+            }
+            if extra > 0 { book.addCost(t.time, assigned, est: t.feePriceEstimated) }
+            let noted = extra - assigned + lost
+            if noted > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: noted)) }
+            // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
+            if coinFee > 0 {
+                let removed = min(coinFee, holdings)
+                let removedPriced = allPriced ? removed
+                    : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, book.priced, by: holdings)), book.priced)
+                book.priced -= removedPriced
+                if PortfolioDecimal.isDust(book.priced) || book.priced < 0 {
+                    // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken
+                    if book.cost != 0 {
+                        lostFeeCosts.append(PortfolioLostFeeCost(coin: symbol, txId: t.id, time: t.time, costUsdt: book.cost))
+                    }
+                    book.resetPriced()
+                }
+                book.unpriced = max(0, holdings - removed - book.priced)
+                if PortfolioDecimal.isDust(book.unpriced) { book.unpriced = 0 }
+            }
+        }
+
+        func result() -> PortfolioBookResult {
+            PortfolioBookResult(
+                priced: book.priced, unpriced: book.unpriced, cost: book.cost, realized: realized,
+                unknownSold: unknownSold, soldTotal: soldTotal, withdrawn: withdrawn, oversold: oversold,
+                feeValueMissing: feeValueMissing, realizedFeeMissing: realizedFeeMissing,
+                lots: [], disposals: disposals, withdrawals: withdrawals, lostFeeCosts: lostFeeCosts,
+                unassignedFees: unassignedFees, openParts: book.parts.toArray(total: book.cost))
+        }
+    }
+
+    /// Durchschnittskosten-Methode (siehe oben), mit einer Veräusserung je Verkauf (Teil mit/ohne Kaufpreis, dazu der
+    /// ungedeckte Rest bei «mehr verkauft als erfasst»). Der Einstand wird zusätzlich nach Herkunft geführt
+    /// (`PortfolioCostPart`); ein Abgang nimmt alle Teile anteilig mit — so rechnet der Steuer-Export den Ø-Einstand zum
+    /// Devisenkurs JE Zugang um (`PortfolioCostPartPool`: je Abgang O(1), abgegebene Teile als Ansicht). Wie Android.
+    /// `withParts`: Herkunft führen (Steuer-Export, Einstand der Karte in einer Anzeigewährung). Ohne sind
+    /// `PortfolioDisposal.costParts` und `openParts` leer, alle Zahlen (Bestand, Einstand, realisiert …) gleich.
+    static func average(_ symbol: String, events: [PortfolioLedgerEvent], withParts: Bool = true) -> PortfolioBookResult {
+        let book = AverageBook(symbol, withParts: withParts)
+        for e in events { book.apply(e) }
+        return book.result()
     }
 }

@@ -24,10 +24,8 @@ import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
-import com.cryptochecker.app.ui.features.watchlist.WatchlistEditController
-import com.cryptochecker.app.ui.features.watchlist.WatchlistRefreshController
+import com.cryptochecker.app.ui.features.watchlist.WatchlistControllers
 import com.cryptochecker.app.ui.features.watchlist.WatchlistSheetData
-import com.cryptochecker.app.ui.features.watchlist.WatchlistStarterController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistUiState
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.data.util.ConnectivityMonitor
@@ -82,9 +80,7 @@ class WatchlistViewModelTest {
     @Inject lateinit var tokenIdentityStore: TokenIdentityStore
     @Inject lateinit var portfolioAlarmRepository: PortfolioAlarmRepository
     @Inject lateinit var sheetData: WatchlistSheetData
-    @Inject internal lateinit var refreshFactory: WatchlistRefreshController.Factory
-    @Inject internal lateinit var starterFactory: WatchlistStarterController.Factory
-    @Inject internal lateinit var editsFactory: WatchlistEditController.Factory
+    @Inject internal lateinit var controllers: WatchlistControllers
 
     /** Eigener Speicher: [ViewModelStore.clear] beendet den viewModelScope nach jedem Test. */
     private val store = ViewModelStore()
@@ -104,7 +100,7 @@ class WatchlistViewModelTest {
             override fun <T : ViewModel> create(modelClass: Class<T>): T = WatchlistViewModel(
                 watchRepository, connectivity, settingsRepository, activityRepository, currencyConverter, addMoments,
                 livePriceStream, coinLogoRepository, tokenIdentityStore, portfolioAlarmRepository, sheetData,
-                refreshFactory, starterFactory, editsFactory,
+                controllers,
             ) as T
         }
         vm = ViewModelProvider(store, factory)[WatchlistViewModel::class.java]

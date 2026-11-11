@@ -7,9 +7,7 @@ import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.model.ExchangeInfo
@@ -22,10 +20,10 @@ import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.exchange.DexPool
+import com.cryptochecker.app.domain.util.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 /**
@@ -45,7 +43,8 @@ class ExplorerViewModel @Inject constructor(
     internal val exchangeRepository: ExchangeRepository,
     internal val watchRepository: WatchRepository,
     private val favoritesRepository: FavoritesRepository,
-    private val httpLogger: HttpLogger,
+    /** HTTP-Mitschnitt der Entwickleroption ([ExplorerHttpLog]). */
+    private val httpLog: ExplorerHttpLog,
     private val settingsRepository: SettingsRepository,
     /** Allererstes Paar: ruhiger Erst-Moment in der Merkliste. */
     internal val addMoments: AddMoments,
@@ -55,16 +54,14 @@ class ExplorerViewModel @Inject constructor(
     internal val coinLogoRepository: CoinLogoRepository,
     /** Coin-Namen je Börse (gespeichert): klar anderer Name als in der Alpha-Liste → kein «α». */
     internal val tokenIdentityStore: TokenIdentityStore,
-    /** Start-Börse der Region (wie die Start-Merkliste) für den Paar-Vorschlag der Coin-Suche. */
-    internal val starterCoinsRepository: StarterCoinsRepository,
-    /** Liquidität der DEX-Pools aus der Suche: unter der Mindestmenge kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
-    internal val dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
-    /** Token-Adresse der DEX-Pools aus der Suche, fürs Paar-Blatt. */
-    internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
+    /** Start-Börse der Region und Volumen-Ranking der Börsen ([ExplorerExchangeOrder]). */
+    internal val exchangeOrder: ExplorerExchangeOrder,
+    /** Liquidität und Token-Adresse der DEX-Pools aus der Suche ([ExplorerDexStores]). */
+    internal val dexStores: ExplorerDexStores,
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
     internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
-    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]). */
-    internal val exchangeRanking: com.cryptochecker.app.data.ExchangeRankingStore,
+    /** Paarliste der gewählten Börse nicht auf dem Main-Thread filtern. */
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     // =============================================================================================
@@ -90,22 +87,11 @@ class ExplorerViewModel @Inject constructor(
     internal val bulkAddDisplay = BulkAddDisplay(bulkAddRunner, bulk.add)
     internal val addResult = MutableStateFlow<AddResult?>(null)
 
-    // Suche über alle Börsen (nur gespeicherte Listen)
-    internal val pairsByExchange = ConcurrentHashMap<String, ExchangePairsInfo>()
-    internal var searchableExchanges: List<ExchangeInfo> = emptyList()
-    /** Börsen, deren Liste noch nicht auf dem Gerät liegt, die sie aber laden können. */
-    internal var unloadedExchanges: List<ExchangeInfo> = emptyList()
-    internal var storedListsJob: Job? = null
-    internal var missingListsJob: Job? = null
-    internal var searchJob: Job? = null
+    /** Suche über alle Börsen (nur gespeicherte Listen): Paarlisten, Namensverzeichnis und laufende Arbeit ([ExplorerSearchData]). */
+    internal val searchData = ExplorerSearchData()
     internal val query = MutableStateFlow("")
     /** Treffer der Suche und der gewählte Coin ([ExplorerSearchHits]). */
     internal val hits = ExplorerSearchHits()
-    internal val lists = MutableStateFlow(SearchLists())
-
-    /** Gefaltete Coin-Namen («bitcoin» → BTC), einmal je Namensliste gebaut. */
-    @Volatile internal var names: NameIndex = NameIndex.EMPTY
-    internal var namesJob: Job? = null
 
     /** DEX-Suche (nur DexScreener, [ExplorerDexState]). */
     internal val dex = ExplorerDexState()
@@ -162,7 +148,7 @@ class ExplorerViewModel @Inject constructor(
     val pickedCoinPairs: StateFlow<List<SearchHit>> = hits.chosenCoinPairs.asStateFlow()
 
     /** Stand der Paarlisten für die Suche (fehlende, Laden). */
-    val searchLists: StateFlow<SearchLists> = lists.asStateFlow()
+    val searchLists: StateFlow<SearchLists> = searchData.lists.asStateFlow()
 
     /** Markt-Chip über Börsen und Treffern ([setMarketFilter]); «Alle» zu Beginn. */
     val marketFilter: StateFlow<MarketFilter> = hits.market.asStateFlow()
@@ -230,7 +216,7 @@ class ExplorerViewModel @Inject constructor(
                 else info.copy(pairs = info.pairs.filter { p -> !p.tradFi && ForexLive.isFiatPair(p.base, p.quote) })
             }
         }
-        .flowOn(Dispatchers.Default)
+        .flowOn(defaultDispatcher)
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /** Gegenwährungen für «Alle …-Paare», häufigste zuerst. */
@@ -267,9 +253,7 @@ class ExplorerViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    // Vor init: Der Sammler schreibt sofort, wenn der Logger schon eine Zeile gepuffert hat
-    private val logText = MutableStateFlow("")
-    val httpLogText = logText.asStateFlow()
+    val httpLogText: StateFlow<String> = httpLog.text
 
     init {
         viewModelScope.launch {
@@ -286,12 +270,12 @@ class ExplorerViewModel @Inject constructor(
         }
         viewModelScope.launch { collectBulkRunner() }
         // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung)
-        viewModelScope.launch { exchangeRanking.ensureLoaded() }
+        viewModelScope.launch { exchangeOrder.ranking.ensureLoaded() }
     }
 
     val pageState: StateFlow<ExplorerLoad> = reloadExchanges
         .combine(assetScope) { _, scope -> scope }
-        .combine(exchangeRanking.volumes) { scope, volumes -> scope to volumes }
+        .combine(exchangeOrder.ranking.volumes) { scope, volumes -> scope to volumes }
         .map { (scope, volumes) ->
             // Feste Börsenliste (ExchangesConfig), ohne Netz — kann nicht scheitern. «Nur TradFi»: nur Börsen mit
             // TradFi-Kontrakten
@@ -355,15 +339,8 @@ class ExplorerViewModel @Inject constructor(
         }
     }
 
-    /** Die letzten Zeilen des HTTP-Mitschnitts, überlange gekürzt. */
-    private fun CoroutineScope.collectHttpLog() = launch {
-        val recent = ArrayDeque<String>(LOG_MAX_LINES)
-        httpLogger.messageFlow.collect { line ->
-            if (recent.size == LOG_MAX_LINES) recent.removeFirst()
-            recent.addLast(if (line.length > LOG_MAX_LINE_LENGTH) line.take(LOG_MAX_LINE_LENGTH) + "..." else line)
-            logText.value = recent.joinToString("\n")
-        }
-    }
+    /** Die letzten Zeilen des HTTP-Mitschnitts ([ExplorerHttpLog.collect]). */
+    private fun CoroutineScope.collectHttpLog() = launch { httpLog.collect() }
 
     // =============================================================================================
     // Ziel-Gruppe, Favoriten, Meldungen (Suche, Auswahl, Sammelaufnahme, DEX: Explorer…Actions.kt)
@@ -381,7 +358,3 @@ class ExplorerViewModel @Inject constructor(
 }
 
 private const val PRICE_DEBOUNCE_MS = 300L
-
-private const val LOG_MAX_LINES = 10
-
-private const val LOG_MAX_LINE_LENGTH = 400

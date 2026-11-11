@@ -31,7 +31,8 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -68,12 +69,10 @@ internal data class PortfolioWidgetInput(
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
     internal val repository: PortfolioRepository,
-    internal val priceSource: PortfolioPriceSource,
-    internal val fxSource: FxRateSource,
+    /** Kurse, Wechselkurse und Verlauf ([PortfolioPriceSources]). */
+    private val sources: PortfolioPriceSources,
     internal val settingsRepository: SettingsRepository,
     internal val snapshotUpdater: PortfolioSnapshotUpdater,
-    internal val historySource: PortfolioHistorySource,
-    internal val historicSource: HistoricPriceSource,
     /** Portfolio-Alarm anlegen; dürfen Alarme erscheinen («· Mitteilungen aus» in der Bestätigung)? */
     internal val alarmSaving: PortfolioAlarmSaving,
     /** Netz da? Für die Status-Pille («Offline · Stand 14:05») wie in der Merkliste. */
@@ -88,7 +87,13 @@ class PortfolioViewModel @Inject constructor(
     internal val usdtPeg: UsdtPeg,
     /** «Unbekannt lassen» bei Einträgen ohne Einstand (nur Ids, auf diesem Gerät). */
     internal val costGapStore: com.cryptochecker.app.data.portfolio.PortfolioCostGapStore,
+    /** Rechnen nicht auf dem Main-Thread. */
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
+    internal val priceSource: PortfolioPriceSource get() = sources.priceSource
+    internal val fxSource: FxRateSource get() = sources.fxSource
+    internal val historySource: PortfolioHistorySource get() = sources.historySource
+    internal val historicSource: HistoricPriceSource get() = sources.historicSource
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */
     val transactions: StateFlow<List<PortfolioTxEntity>?> = repository.observeTransactions()
@@ -110,7 +115,7 @@ class PortfolioViewModel @Inject constructor(
      */
     val calcTransactions: StateFlow<List<PortfolioTxEntity>?> = combine(transactions, watchedAddresses) { txs, addresses ->
         txs?.withAddresses(addresses)
-    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    }.flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
      * Beobachtete Adress-Guthaben für 7 T / 1 J und den Wertverlauf ([AddressBooked.histories]): zählen ab ihrer ersten
@@ -118,7 +123,7 @@ class PortfolioViewModel @Inject constructor(
      */
     val addressHistories: StateFlow<List<AddressBalanceHistory>> = combine(transactions, watchedAddresses) { txs, addresses ->
         AddressBooked.histories(addresses, txs.orEmpty().map { it.toTrade() })
-    }.flowOn(Dispatchers.Default)
+    }.flowOn(defaultDispatcher)
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
@@ -238,7 +243,7 @@ class PortfolioViewModel @Inject constructor(
         txs?.let { list ->
             PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices, method, marketPriceAt(p, loaded), withParts = withParts)
         }
-    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null) // Rechnen nicht auf dem Main-Thread
+    }.flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null) // Rechnen nicht auf dem Main-Thread
 
     // Kursfunktion der Coin-Ansicht steht in coinDetailFlow (CoinFeePrices), nicht hier
 

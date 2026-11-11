@@ -20,17 +20,21 @@ import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
+import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import com.cryptochecker.app.domain.util.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -49,21 +53,24 @@ import javax.inject.Singleton
 @Singleton
 class BackupManager @Inject constructor(
     @param:ApplicationContext internal val context: Context,
-    internal val database: AppDatabase,
-    internal val portfolioDatabase: PortfolioDatabase,
-    internal val watchDao: WatchDao,
+    /** Beide Datenbanken und ihre DAOs ([BackupStores]). */
+    private val stores: BackupStores,
     internal val favoritesRepository: FavoritesRepository,
     private val settingsRepository: SettingsRepository,
     private val activityRepository: ActivityRepository,
-    internal val portfolioDao: PortfolioDao,
     private val portfolioRepository: PortfolioRepository,
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
-    internal val portfolioAlarmDao: PortfolioAlarmDao,
-    internal val watchedAddressDao: WatchedAddressDao,
     /** Sperre der Aktualisierung: Merkliste ersetzen, ohne dass ein Durchlauf dazwischen Kurse schreibt. */
     internal val priceRefresher: PriceRefresher,
     internal val livePriceStream: LivePriceStream,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
+    internal val database: AppDatabase get() = stores.database
+    internal val portfolioDatabase: PortfolioDatabase get() = stores.portfolioDatabase
+    internal val watchDao: WatchDao get() = stores.watchDao
+    internal val portfolioDao: PortfolioDao get() = stores.portfolioDao
+    internal val portfolioAlarmDao: PortfolioAlarmDao get() = stores.portfolioAlarmDao
+    internal val watchedAddressDao: WatchedAddressDao get() = stores.watchedAddressDao
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
     internal val journal = RestoreJournal(
         java.io.File(context.noBackupFilesDir, RestoreJournal.FILE_NAME),
@@ -86,7 +93,7 @@ class BackupManager @Inject constructor(
      * wie unter iOS), sonst als lesbares JSON. Danach wird die Datei zurückgelesen und Byte für Byte
      * verglichen; weicht sie ab → [BackupNotVerifiedException] (der Nutzer soll in eine neue Datei sichern).
      */
-    suspend fun export(uri: Uri, password: String?) = withContext(Dispatchers.IO) {
+    suspend fun export(uri: Uri, password: String?) = withContext(ioDispatcher) {
         ensureStoredReadable()
         // Ein Stand je Datenbank: Merkliste und Alarme in einer Lesetransaktion der Hauptdatenbank, Transaktionen,
         // Portfolio-Alarme und Adressen in einer der Portfolio-Datenbank — eine gleichzeitige Änderung (Aktualisierung,
@@ -177,7 +184,7 @@ class BackupManager @Inject constructor(
     }
 
     /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. Liest die Datei frisch ein. */
-    suspend fun needsPassword(uri: Uri): Boolean = withContext(Dispatchers.IO) {
+    suspend fun needsPassword(uri: Uri): Boolean = withContext(ioDispatcher) {
         readCache.clear()
         readCache.file(uri) { BackupFormat.read(context, uri) } is BackupFile.Encrypted
     }
@@ -191,7 +198,7 @@ class BackupManager @Inject constructor(
      * Portfolio-Alarme — sowie Paare und Alarme über den Grenzen ([BackupRestoreLimits]), damit der Nutzer davon
      * erfährt, bevor etwas ersetzt wird, statt sie still zu verlieren.
      */
-    suspend fun preview(uri: Uri, password: String?): RestorePreview = withContext(Dispatchers.IO) {
+    suspend fun preview(uri: Uri, password: String?): RestorePreview = withContext(ioDispatcher) {
         val root = JSONObject(readCache.plain(uri, password) { BackupFormat.read(context, uri) })
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
@@ -221,7 +228,7 @@ class BackupManager @Inject constructor(
      * ([acceptInvalid] = gezeigte Anzahl aus [preview]); sind es mehr, bricht der Import ab,
      * bevor etwas ersetzt wird ([UnconfirmedInvalidEntriesException]).
      */
-    suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(Dispatchers.IO) {
+    suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(ioDispatcher) {
         ensureStoredReadable(restoring = true)
         // Was die Rückfrage geprüft hat (ohne erneutes Lesen und Argon2id), danach nicht mehr gemerkt. Von der Datei nur
         // die Art behalten: die verschlüsselte Hülle (bis 64 MB) nicht bis zum Ende des Laufs im Speicher.
@@ -236,63 +243,12 @@ class BackupManager @Inject constructor(
         BackupFields.checkParts(root)
 
         // ── 1. Alles lesen und prüfen, bevor etwas geschrieben wird ──
-        // Paare mit unzulässigen Kennungen und über den Grenzen fallen weg, gezählt ([BackupWatchlistCodec.readWatchlist])
-        val watchlist = BackupWatchlistCodec.readWatchlist(root)
-        val watches = watchlist.watches
-        val alarms = watchlist.alarms
-        val parsedPortfolio = PortfolioJson.parseTxs(root.getJSONArray("portfolio"))
-        val parsedPortfolioAlarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms"))
-        val invalid = watchlist.invalidAlarms + parsedPortfolio.invalid + parsedPortfolioAlarms.invalid
-        if (invalid > acceptInvalid) throw UnconfirmedInvalidEntriesException(invalid)
-        val portfolio = parsedPortfolio.items
-        val portfolioAlarms = parsedPortfolioAlarms.items
-        // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
-        val watchedAddresses = WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson())
-        // Je Art eine Liste von Texten ([BackupFields.checkParts])
-        val fav = root.getJSONObject("favorites")
-        val favorites = FavoriteKind.entries.associateWith { kind ->
-            fav.getJSONArray(kind.name).let { arr -> (0 until arr.length()).map { arr.getString(it) }.toSet() }
-        }
-        val settings = root.getJSONObject("settings")
-
+        val input = readRestoreInput(root, acceptInvalid)
+        val watchlist = input.watchlist
         // ── 2. Bisherigen Stand merken (für das Zurückrollen) ──
-        val previous = PreviousState(
-            watches = watchDao.getWatches(),
-            alarms = watchDao.getAllAlarms(),
-            portfolio = portfolioDao.getAll(),
-            portfolioAlarms = portfolioAlarmDao.getAll(),
-            watchedAddresses = watchedAddressDao.getAll(),
-            favorites = FavoriteKind.entries.associateWith { favoritesRepository.favorites(it).value.toSet() },
-            settings = settingsCodec.settingsToJson(),
-        )
-
-        // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück.
-        // Ohne Journal nichts schreiben ([RestoreRun.execute], [BackupJournalUnavailableException])
-        var settingsNotes = SettingsRestoreNotes()
-        val journalText = journalJson(previous).toString()
-        RestoreRun.execute(
-            journal = object : RestoreRun.Journal {
-                override fun write() = journal.write(journalText)
-                override fun delete() = journal.delete()
-            },
-            writes = listOf(
-                RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) { writeWatchlist(watches, alarms) },
-                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) {
-                    portfolioDatabase.withTransaction {
-                        portfolioRepository.replaceAll(portfolio)
-                        portfolioAlarmRepository.replaceAll(portfolioAlarms)
-                        portfolioRepository.replaceWatchedAddresses(watchedAddresses)
-                    }
-                },
-                RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
-                    favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
-                },
-                RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
-                    settingsNotes = settingsCodec.restoreSettings(settings, trusted = encrypted)
-                },
-            ),
-            rollBack = { touched, cause -> rollBack(previous, touched, cause) },
-        )
+        val previous = previousState()
+        // ── 3. Schreiben ──
+        val settingsNotes = writeRestored(input, previous, encrypted)
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
         runCatchingCancellable { StorageRecoveryNotice.acknowledgeSetAside(context) }
 
@@ -300,7 +256,7 @@ class BackupManager @Inject constructor(
         activityRepository.retain(emptySet())
 
         RestoreResult(
-            watches.size, alarms.size, settingsNotes.appLockKept,
+            watchlist.watches.size, watchlist.alarms.size, settingsNotes.appLockKept,
             // Alte Meldungen entfernt der Aufrufer (Ids können sich mit den neuen decken)
             replacedWatchIds = previous.watches.map { it.id },
             replacedAlarmIds = previous.alarms.map { it.id },
@@ -311,12 +267,92 @@ class BackupManager @Inject constructor(
         )
     }
 
+    /** Inhalt der Sicherung, gelesen und geprüft ([readRestoreInput]). */
+    private class RestoreInput(
+        val watchlist: BackupWatchlistCodec.Watchlist,
+        val portfolio: List<PortfolioTxEntity>,
+        val portfolioAlarms: List<PortfolioAlarmEntity>,
+        val watchedAddresses: List<WatchedAddressBackupEntry>,
+        val favorites: Map<FavoriteKind, Set<String>>,
+        val settings: JSONObject,
+    )
+
+    /**
+     * Liest die ganze Sicherung, bevor etwas geschrieben wird. Paare mit unzulässigen Kennungen und über den Grenzen
+     * fallen weg, gezählt ([BackupWatchlistCodec.readWatchlist]); mehr ungültige Einträge als bestätigt →
+     * [UnconfirmedInvalidEntriesException].
+     */
+    private fun readRestoreInput(root: JSONObject, acceptInvalid: Int): RestoreInput {
+        val watchlist = BackupWatchlistCodec.readWatchlist(root)
+        val parsedPortfolio = PortfolioJson.parseTxs(root.getJSONArray("portfolio"))
+        val parsedPortfolioAlarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms"))
+        val invalid = watchlist.invalidAlarms + parsedPortfolio.invalid + parsedPortfolioAlarms.invalid
+        if (invalid > acceptInvalid) throw UnconfirmedInvalidEntriesException(invalid)
+        // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
+        val watchedAddresses = WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson())
+        // Je Art eine Liste von Texten ([BackupFields.checkParts])
+        val fav = root.getJSONObject("favorites")
+        val favorites = FavoriteKind.entries.associateWith { kind ->
+            fav.getJSONArray(kind.name).let { arr -> (0 until arr.length()).map { arr.getString(it) }.toSet() }
+        }
+        return RestoreInput(
+            watchlist, parsedPortfolio.items, parsedPortfolioAlarms.items, watchedAddresses, favorites,
+            settings = root.getJSONObject("settings"),
+        )
+    }
+
+    /** Stand vor dem Wiederherstellen, für das Zurückrollen. */
+    private suspend fun previousState() = PreviousState(
+        watches = watchDao.getWatches(),
+        alarms = watchDao.getAllAlarms(),
+        portfolio = portfolioDao.getAll(),
+        portfolioAlarms = portfolioAlarmDao.getAll(),
+        watchedAddresses = watchedAddressDao.getAll(),
+        favorites = FavoriteKind.entries.associateWith { favoritesRepository.favorites(it).value.toSet() },
+        settings = settingsCodec.settingsToJson(),
+    )
+
+    /**
+     * Schreibt die gelesene Sicherung; vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück.
+     * Ohne Journal nichts schreiben ([RestoreRun.execute], [BackupJournalUnavailableException]).
+     */
+    private suspend fun writeRestored(input: RestoreInput, previous: PreviousState, encrypted: Boolean): SettingsRestoreNotes {
+        var settingsNotes = SettingsRestoreNotes()
+        val journalText = journalJson(previous).toString()
+        RestoreRun.execute(
+            journal = object : RestoreRun.Journal {
+                override fun write() = journal.write(journalText)
+                override fun delete() = journal.delete()
+            },
+            writes = listOf(
+                RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) {
+                    writeWatchlist(input.watchlist.watches, input.watchlist.alarms)
+                },
+                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) {
+                    portfolioDatabase.withTransaction {
+                        portfolioRepository.replaceAll(input.portfolio)
+                        portfolioAlarmRepository.replaceAll(input.portfolioAlarms)
+                        portfolioRepository.replaceWatchedAddresses(input.watchedAddresses)
+                    }
+                },
+                RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
+                    input.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
+                },
+                RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
+                    settingsNotes = settingsCodec.restoreSettings(input.settings, trusted = encrypted)
+                },
+            ),
+            rollBack = { touched, cause -> rollBack(previous, touched, cause) },
+        )
+        return settingsNotes
+    }
+
     /**
      * Beim App-Start (vor dem ersten Lesen der Daten durch die Oberfläche): Liegt ein Journal ([RestoreJournal]) da, ist ein
      * Wiederherstellen abgebrochen — den Stand davor zurückschreiben und den Nutzer informieren
      * ([StorageRecoveryNotice.recordInterruptedRestore], [RestoreRecoveryPolicy]). Ohne Journal: nichts.
      */
-    suspend fun recoverInterruptedRestore() = withContext(Dispatchers.IO) {
+    suspend fun recoverInterruptedRestore() = withContext(ioDispatcher) {
         when (val read = journal.read()) {
             RestoreJournal.Read.Absent, RestoreJournal.Read.Unavailable -> return@withContext
             RestoreJournal.Read.Unreadable -> {

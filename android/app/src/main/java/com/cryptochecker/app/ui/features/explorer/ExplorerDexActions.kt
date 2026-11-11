@@ -44,9 +44,9 @@ fun ExplorerViewModel.searchDex(query: String) {
 fun ExplorerViewModel.addDexPool(pool: DexPool) {
     val selected = exchange.value ?: return
     // Liquidität aus der Suche gleich merken: Alarm-Editor und Alarme richten sich bis zur ersten Abfrage danach
-    dexLiquidityStore.put(pool.pairId, pool.liquidityUsd)
+    dexStores.liquidity.put(pool.pairId, pool.liquidityUsd)
     // Token-Adresse fürs Paar-Blatt (gleichnamige Token unterscheiden); nicht Teil der Paar-Identität
-    dexTokenAddressStore.put(pool.pairId, pool.baseAddress)
+    dexStores.tokenAddress.put(pool.pairId, pool.baseAddress)
     launchAdd(selected, ExchangePair(pool.baseSymbol, pool.watchQuote, pool.pairId)) { added ->
         dex.notice.value = if (added) DexMessage.Added(pool.baseSymbol) else DexMessage.AlreadyInList(pool.baseSymbol)
     }

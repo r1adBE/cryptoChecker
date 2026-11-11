@@ -62,6 +62,7 @@ CONVERT = "android/domain/src/main/java/com/cryptochecker/app/domain/convert/"
 # Target file (relative to the repository root) -> Gradle test filters (--tests) that cover it
 TARGETS = [
     (PORTFOLIO + "PortfolioFifo.kt", ["*.PortfolioFifoTest", PARITY_PORTFOLIO, "*.HoldingsMethodParityTest"]),
+    (PORTFOLIO + "PortfolioFifoBook.kt", ["*.PortfolioFifoTest", PARITY_PORTFOLIO, "*.HoldingsMethodParityTest"]),
     (PORTFOLIO + "PortfolioFifoLots.kt", ["*.PortfolioFifoTest", PARITY_PORTFOLIO]),
     (PORTFOLIO + "PortfolioCalculatorAverage.kt", ["*.PortfolioCalculatorTest", PARITY_PORTFOLIO]),
     (PORTFOLIO + "PortfolioFeeExpenses.kt", [PARITY_PORTFOLIO, PARITY_TAX]),

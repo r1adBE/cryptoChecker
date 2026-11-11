@@ -11,6 +11,15 @@ fun TaxEngines.frPta(
     /** Adress-Einträge (beobachtete Adressen, «im Portfolio zählen»): Teil des Gesamtwerts, keine Abtretungen. */
     addressTrades: List<PortfolioTrade> = emptyList(),
 ): List<PortfolioDisposal> {
+    return FrPtaRun(priceAt, outflows, addressTrades).run(real)
+}
+
+/** Ein Lauf von [frPta]: Erwerbspreis-Summe, Bestände und Guthaben beobachteter Adressen, Transaktion für Transaktion. */
+private class FrPtaRun(
+    private val priceAt: ((String, Long) -> BigDecimal?)?,
+    private val outflows: MutableList<TaxOutflow>,
+    addressTrades: List<PortfolioTrade>,
+) {
     val zero = BigDecimal.ZERO
     val mc = PortfolioDecimal.MC
     val books = LinkedHashMap<String, PortfolioHoldingsBook>()
@@ -34,7 +43,6 @@ fun TaxEngines.frPta(
     var ptaEstimated = false
     var incomplete = false
     val out = ArrayList<PortfolioDisposal>()
-    val events = mergedEvents(real)
 
     // Der zuletzt gerechnete Gesamtwert enthielt Guthaben beobachteter Adressen (für [PortfolioDisposal.addressValueIncluded])
     var valueHadAddresses = false
@@ -71,207 +79,116 @@ fun TaxEngines.frPta(
         val f = part.divide(value, mc).min(BigDecimal.ONE)
         val whole = f.compareTo(BigDecimal.ONE) == 0
         val c = if (whole) pta else pta.multiply(f, mc)
-        val parts = scaleParts(ptaParts, pta, c)
+        val parts = TaxEngines.scaleParts(ptaParts, pta, c)
         val estimated = ptaEstimated && c.signum() != 0
-        ptaParts = scaleParts(ptaParts, pta, pta - c)
+        ptaParts = TaxEngines.scaleParts(ptaParts, pta, pta - c)
         pta -= c
         if (whole) ptaEstimated = false
         return Triple(c, parts, estimated)
     }
 
-    var i = 0
-    while (i < events.size) {
-        val t = events[i].second.trade
-        var j = i
-        while (j < events.size && events[j].second.trade.id == t.id) j++
-        val coin = PortfolioCalculator.normalizeCoin(t.coin)
-        advanceAddresses(t.time)
-        if (t.amount.signum() > 0) {
-            val price = t.validPrice
-            // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
-            // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
-            val thirdPrice = t.thirdFeeCoin?.let { tc -> t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 } }
-            val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
-            // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
-            val unit = price ?: t.swapValue?.divide(t.amount, mc)
-                ?: BigDecimal.ONE.takeIf { !PortfolioStables.needsQuote(coin) }
-                ?: priceAt?.invoke(coin, t.time)?.takeIf { it.signum() >= 0 }
-            // Netzwerkgebühr im Coin zum Tagesschluss (kein Preis und kein erfasster Wert des Tauschs, kein Stablecoin): geschätzt
-            val coinFeeEstimated = unit != null && PortfolioStables.needsQuote(coin) &&
-                (price == null && t.swapValue == null || t.valueEstimated)
-            // Wert der Gebühr-Abtretungen dieser Transaktion: der Gesamtwert danach ist um so viel kleiner
-            var spent = zero
-
-            /**
-             * Gebühr in Krypto ausserhalb eines Verkaufs: eigene Abtretung gegen eine Dienstleistung
-             * (BOI-RPPM-PVBMC-30-10 § 70 Remarque 1) — Abtretungspreis = Wert der Gebühr, keine weiteren Gebühren.
-             */
-            fun feeCession(feeCoin: String, qty: BigDecimal, p: BigDecimal?, feeLeg: Boolean, estimated: Boolean = false) {
-                if (qty.signum() <= 0) return
-                val held = books[feeCoin]?.total ?: zero
-                // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
-                // erfassten Coin darf die PTA nicht kürzen und keinen Gewinn ergeben
-                val covered = qty.min(held.max(zero))
-                if (covered.signum() > 0) {
-                    val coveredGross = p?.let { covered.multiply(it, mc) }
-                    val value = portfolioValue(feeCoin, p, t.time)?.let { it - spent }
-                    val withAddresses = value != null && valueHadAddresses
-                    val wasIncomplete = incomplete
-                    var cost: BigDecimal? = null
-                    var parts: List<PortfolioCostPart> = emptyList()
-                    var costEstimated = false
-                    if (coveredGross != null && value != null && value.signum() > 0) {
-                        val (c, pp, e) = reduce(coveredGross, value)
-                        cost = c
-                        parts = pp
-                        costEstimated = e
-                    } else {
-                        incomplete = true
-                    }
-                    if (coveredGross != null) spent += coveredGross
-                    out += PortfolioDisposal(
-                        coin = feeCoin, sellTxId = t.id, sellTime = t.time,
-                        lotTxId = null, acquiredTime = null, lotKind = null,
-                        amount = covered, costUsdt = cost, proceedsUsdt = coveredGross,
-                        gainUsdt = if (coveredGross != null && cost != null) coveredGross - cost else null,
-                        holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
-                        method = CostMethod.AVERAGE, costParts = parts,
-                        costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = coveredGross,
-                        addressValueIncluded = withAddresses, valueEstimated = estimated || costEstimated,
-                    )
-                }
-                if (covered < qty) {
-                    // Rest ohne erfassten Bestand: Wert bekannt, Einstand unbekannt — zählt nicht in der Summe, PTA unverändert
-                    val rest = qty - covered
-                    val restGross = p?.let { rest.multiply(it, mc) }
-                    out += PortfolioDisposal(
-                        coin = feeCoin, sellTxId = t.id, sellTime = t.time,
-                        lotTxId = null, acquiredTime = null, lotKind = null,
-                        amount = rest, costUsdt = null, proceedsUsdt = restGross, gainUsdt = null,
-                        holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
-                        method = CostMethod.AVERAGE, uncovered = true,
-                        costIncomplete = true, grossProceedsUsdt = restGross, valueEstimated = estimated,
-                    )
-                }
+    fun run(real: List<PortfolioTrade>): List<PortfolioDisposal> {
+        val events = TaxEngines.mergedEvents(real)
+        var i = 0
+        while (i < events.size) {
+            val t = events[i].second.trade
+            var j = i
+            while (j < events.size && events[j].second.trade.id == t.id) j++
+            advanceAddresses(t.time)
+            if (t.amount.signum() > 0) Tx(t).apply()
+            for (k in i until j) {
+                val (c, e) = events[k]
+                books.getOrPut(c) { PortfolioHoldingsBook(CostMethod.FIFO) }.apply(e)
             }
+            i = j
+        }
+        return out
+    }
 
-            /** Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt. */
-            fun thirdFeeCession() {
-                val tc = t.thirdFeeCoin ?: return
-                feeCession(tc, t.thirdFeeAmount, thirdPrice, true, t.feePriceEstimated)
+    /** Eine Transaktion mit Menge > 0: ihre Kurse und der Wert der Gebühr-Abtretungen, die sie schon ausgelöst hat. */
+    private inner class Tx(private val t: PortfolioTrade) {
+    val coin = PortfolioCalculator.normalizeCoin(t.coin)
+        val price = t.validPrice
+        // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
+        // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
+        val thirdPrice = t.thirdFeeCoin?.let { tc -> t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 } }
+        val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
+        // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
+        val unit = price ?: t.swapValue?.divide(t.amount, mc)
+            ?: BigDecimal.ONE.takeIf { !PortfolioStables.needsQuote(coin) }
+            ?: priceAt?.invoke(coin, t.time)?.takeIf { it.signum() >= 0 }
+        // Netzwerkgebühr im Coin zum Tagesschluss (kein Preis und kein erfasster Wert des Tauschs, kein Stablecoin): geschätzt
+        val coinFeeEstimated = unit != null && PortfolioStables.needsQuote(coin) &&
+            (price == null && t.swapValue == null || t.valueEstimated)
+        // Wert der Gebühr-Abtretungen dieser Transaktion: der Gesamtwert danach ist um so viel kleiner
+        var spent = zero
+
+        /**
+         * Gebühr in Krypto ausserhalb eines Verkaufs: eigene Abtretung gegen eine Dienstleistung
+         * (BOI-RPPM-PVBMC-30-10 § 70 Remarque 1) — Abtretungspreis = Wert der Gebühr, keine weiteren Gebühren.
+         */
+        fun feeCession(feeCoin: String, qty: BigDecimal, p: BigDecimal?, feeLeg: Boolean, estimated: Boolean = false) {
+            if (qty.signum() <= 0) return
+            val held = books[feeCoin]?.total ?: zero
+            // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
+            // erfassten Coin darf die PTA nicht kürzen und keinen Gewinn ergeben
+            val covered = qty.min(held.max(zero))
+            if (covered.signum() > 0) {
+                val coveredGross = p?.let { covered.multiply(it, mc) }
+                val value = portfolioValue(feeCoin, p, t.time)?.let { it - spent }
+                val withAddresses = value != null && valueHadAddresses
+                val wasIncomplete = incomplete
+                var cost: BigDecimal? = null
+                var parts: List<PortfolioCostPart> = emptyList()
+                var costEstimated = false
+                if (coveredGross != null && value != null && value.signum() > 0) {
+                    val (c, pp, e) = reduce(coveredGross, value)
+                    cost = c
+                    parts = pp
+                    costEstimated = e
+                } else {
+                    incomplete = true
+                }
+                if (coveredGross != null) spent += coveredGross
+                out += PortfolioDisposal(
+                    coin = feeCoin, sellTxId = t.id, sellTime = t.time,
+                    lotTxId = null, acquiredTime = null, lotKind = null,
+                    amount = covered, costUsdt = cost, proceedsUsdt = coveredGross,
+                    gainUsdt = if (coveredGross != null && cost != null) coveredGross - cost else null,
+                    holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
+                    method = CostMethod.AVERAGE, costParts = parts,
+                    costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = coveredGross,
+                    addressValueIncluded = withAddresses, valueEstimated = estimated || costEstimated,
+                )
             }
+            if (covered < qty) {
+                // Rest ohne erfassten Bestand: Wert bekannt, Einstand unbekannt — zählt nicht in der Summe, PTA unverändert
+                val rest = qty - covered
+                val restGross = p?.let { rest.multiply(it, mc) }
+                out += PortfolioDisposal(
+                    coin = feeCoin, sellTxId = t.id, sellTime = t.time,
+                    lotTxId = null, acquiredTime = null, lotKind = null,
+                    amount = rest, costUsdt = null, proceedsUsdt = restGross, gainUsdt = null,
+                    holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
+                    method = CostMethod.AVERAGE, uncovered = true,
+                    costIncomplete = true, grossProceedsUsdt = restGross, valueEstimated = estimated,
+                )
+            }
+        }
+
+        /** Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt. */
+        fun thirdFeeCession() {
+            val tc = t.thirdFeeCoin ?: return
+            feeCession(tc, t.thirdFeeAmount, thirdPrice, true, t.feePriceEstimated)
+        }
+
+        fun apply() {
             when (t.type) {
-                PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
-                    // Gebühr im dritten Coin: Abtretung vor dem Zugang (Gesamtwert ohne den neuen Coin)
-                    thirdFeeCession()
-                    if (price != null) {
-                        val c = t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero)
-                        pta += c
-                        if (c.signum() != 0) ptaParts = ptaParts + PortfolioCostPart(t.acquisitionTime, c)
-                        // Belohnung zum Tagesschluss bzw. Gebühr im dritten Coin mit geschätztem Preis
-                        if (c.signum() != 0 && t.costEstimated()) ptaEstimated = true
-                        // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
-                        if (feeValue == null) incomplete = true
-                    } else {
-                        // Ohne Preis (z. B. Einzahlung ohne Kaufpreis): zum Wert 0 (BOFiP § 90), aber unvollständig
-                        incomplete = true
-                    }
-                }
+                PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> acquire()
                 // Damit bezahlt: Abtretung zum Marktwert wie ein Verkauf (Zahlung mit Krypto = cession à titre onéreux)
-                PortfolioTxType.SELL, PortfolioTxType.PAYMENT -> {
-                    val held = books[coin]?.total ?: zero
-                    // Eine Operation (BOFiP § 50): Preis vor Gebühren = (Menge + Gebühr im Coin) × Preis + Wert der Gebühr
-                    // im dritten Coin; Gebühren = Gebühr USDT + dieselben Gebühr-Werte → Erlös = Menge × Preis − Gebühr USDT
-                    val gross = price?.let { (t.amount + t.coinFee).multiply(it, PortfolioDecimal.MC) + (feeValue ?: zero) }
-                    val net = price?.let { t.amount.multiply(it, PortfolioDecimal.MC) - t.quoteFee }
-                    // Über den erfassten Bestand hinaus: nur der gedeckte Anteil ist eine Abtretung mit Einstand
-                    val requested = t.amount + t.coinFee
-                    val removed = requested.min(held.max(zero))
-                    val share = when {
-                        removed.signum() <= 0 -> zero
-                        removed.compareTo(requested) == 0 -> BigDecimal.ONE
-                        else -> removed.divide(requested, mc)
-                    }
-                    fun part(v: BigDecimal?): BigDecimal? = v?.let { if (share.compareTo(BigDecimal.ONE) == 0) it else it.multiply(share, mc) }
-                    val grossCovered = part(gross)
-                    val netCovered = part(net)
-                    val feeMissing = gross != null && feeValue == null
-                    // Wert zum Tagesschluss: Zahlung ohne Marktwert ([PortfolioLedger.valueAtDayClose]) bzw. Gebühr im dritten
-                    // Coin ([PortfolioLedger.valueThirdFeesAtDayClose]) im Preis vor Gebühren
-                    val feeEstimated = gross != null && (t.valueEstimated || t.feePriceEstimated)
-                    if (removed.signum() > 0) {
-                        // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
-                        val value = portfolioValue(coin, price, t.time)
-                        val withAddresses = value != null && valueHadAddresses
-                        val wasIncomplete = incomplete
-                        var cost: BigDecimal? = null
-                        var parts: List<PortfolioCostPart> = emptyList()
-                        var costEstimated = false
-                        if (grossCovered != null && value != null && value.signum() > 0) {
-                            val (c, p, e) = reduce(grossCovered, value)
-                            cost = c
-                            parts = p
-                            costEstimated = e
-                        } else {
-                            // Formel nicht anwendbar: die Erwerbspreis-Summe danach ist nicht mehr gesichert
-                            incomplete = true
-                        }
-                        out += PortfolioDisposal(
-                            coin = coin, sellTxId = t.id, sellTime = t.time,
-                            lotTxId = null, acquiredTime = null, lotKind = null,
-                            amount = removed, costUsdt = cost, proceedsUsdt = netCovered,
-                            gainUsdt = if (netCovered != null && cost != null) netCovered - cost else null,
-                            holdingDays = null, feeLeg = false, feeValueMissing = feeMissing,
-                            method = CostMethod.AVERAGE, costParts = parts,
-                            // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
-                            costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = grossCovered,
-                            addressValueIncluded = withAddresses, valueEstimated = feeEstimated || costEstimated,
-                        )
-                    }
-                    if (removed < requested) {
-                        // Rest ohne erfassten Bestand: Erlös bekannt, Einstand unbekannt — zählt nicht in der Summe
-                        out += PortfolioDisposal(
-                            coin = coin, sellTxId = t.id, sellTime = t.time,
-                            lotTxId = null, acquiredTime = null, lotKind = null,
-                            amount = requested - removed, costUsdt = null,
-                            proceedsUsdt = net?.let { it - (netCovered ?: zero) }, gainUsdt = null,
-                            holdingDays = null, feeLeg = false, feeValueMissing = feeMissing,
-                            method = CostMethod.AVERAGE, uncovered = true,
-                            costIncomplete = true, grossProceedsUsdt = gross?.let { it - (grossCovered ?: zero) },
-                            valueEstimated = feeEstimated,
-                        )
-                    }
-                }
+                PortfolioTxType.SELL, PortfolioTxType.PAYMENT -> sell()
                 // Verschenkt = Abtretung «à titre gratuit»: keine Veräusserung, PTA anteilig gekürzt wie die Auszahlung
-                PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
-                    // Gebühren in Krypto zuerst als eigene Abtretungen
-                    feeCession(coin, t.coinFee, unit, false, coinFeeEstimated)
-                    thirdFeeCession()
-                    // Abgang ohne Verkauf (Schenkung, Verlust, unbekannt): PTA anteilig kürzen (BOFiP § 100,
-                    // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt) — nur der gedeckte
-                    // Teil (Bestand nach der Gebühr im Coin) verlässt das Portfolio; der Rest war nie erfasst: die
-                    // PTA danach ist nicht mehr gesichert
-                    val book = (books[coin]?.total ?: zero).max(zero)
-                    val qty = t.amount.min(book - t.coinFee.min(book))
-                    if (qty < t.amount) incomplete = true
-                    val v = unit?.let { qty.multiply(it, mc) }
-                    val value = portfolioValue(coin, unit, t.time)?.let { it - spent }
-                    var reduction: BigDecimal? = null
-                    var reductionParts: List<PortfolioCostPart> = emptyList()
-                    var reductionEstimated = false
-                    if (v != null && value != null && value.signum() > 0) {
-                        val (c, parts, e) = reduce(v, value)
-                        reduction = c
-                        reductionParts = parts
-                        // Kürzung aus einem geschätzten Teil der Summe oder zum Wert beim Abgang am Tagesschluss (wie die
-                        // Netzwerkgebühr im Coin)
-                        reductionEstimated = c.signum() != 0 && (e || coinFeeEstimated)
-                    } else {
-                        // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
-                        incomplete = true
-                    }
-                    outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction, reductionParts, reductionEstimated)
-                }
+                PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> outflow()
                 // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                 // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro. Gebühren in Krypto
                 // (abgegebener bzw. dritter Coin) sind eigene Abtretungen
@@ -282,13 +199,119 @@ fun TaxEngines.frPta(
                 }
             }
         }
-        for (k in i until j) {
-            val (c, e) = events[k]
-            books.getOrPut(c) { PortfolioHoldingsBook(CostMethod.FIFO) }.apply(e)
+
+        private fun acquire() {
+            // Gebühr im dritten Coin: Abtretung vor dem Zugang (Gesamtwert ohne den neuen Coin)
+            thirdFeeCession()
+            if (price != null) {
+                val c = t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero)
+                pta += c
+                if (c.signum() != 0) ptaParts = ptaParts + PortfolioCostPart(t.acquisitionTime, c)
+                // Belohnung zum Tagesschluss bzw. Gebühr im dritten Coin mit geschätztem Preis
+                if (c.signum() != 0 && t.costEstimated()) ptaEstimated = true
+                // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
+                if (feeValue == null) incomplete = true
+            } else {
+                // Ohne Preis (z. B. Einzahlung ohne Kaufpreis): zum Wert 0 (BOFiP § 90), aber unvollständig
+                incomplete = true
+            }
         }
-        i = j
+
+        private fun sell() {
+            val held = books[coin]?.total ?: zero
+            // Eine Operation (BOFiP § 50): Preis vor Gebühren = (Menge + Gebühr im Coin) × Preis + Wert der Gebühr
+            // im dritten Coin; Gebühren = Gebühr USDT + dieselben Gebühr-Werte → Erlös = Menge × Preis − Gebühr USDT
+            val gross = price?.let { (t.amount + t.coinFee).multiply(it, PortfolioDecimal.MC) + (feeValue ?: zero) }
+            val net = price?.let { t.amount.multiply(it, PortfolioDecimal.MC) - t.quoteFee }
+            // Über den erfassten Bestand hinaus: nur der gedeckte Anteil ist eine Abtretung mit Einstand
+            val requested = t.amount + t.coinFee
+            val removed = requested.min(held.max(zero))
+            val share = when {
+                removed.signum() <= 0 -> zero
+                removed.compareTo(requested) == 0 -> BigDecimal.ONE
+                else -> removed.divide(requested, mc)
+            }
+            fun part(v: BigDecimal?): BigDecimal? = v?.let { if (share.compareTo(BigDecimal.ONE) == 0) it else it.multiply(share, mc) }
+            val grossCovered = part(gross)
+            val netCovered = part(net)
+            val feeMissing = gross != null && feeValue == null
+            // Wert zum Tagesschluss: Zahlung ohne Marktwert ([PortfolioLedger.valueAtDayClose]) bzw. Gebühr im dritten
+            // Coin ([PortfolioLedger.valueThirdFeesAtDayClose]) im Preis vor Gebühren
+            val feeEstimated = gross != null && (t.valueEstimated || t.feePriceEstimated)
+            if (removed.signum() > 0) {
+                // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
+                val value = portfolioValue(coin, price, t.time)
+                val withAddresses = value != null && valueHadAddresses
+                val wasIncomplete = incomplete
+                var cost: BigDecimal? = null
+                var parts: List<PortfolioCostPart> = emptyList()
+                var costEstimated = false
+                if (grossCovered != null && value != null && value.signum() > 0) {
+                    val (c, p, e) = reduce(grossCovered, value)
+                    cost = c
+                    parts = p
+                    costEstimated = e
+                } else {
+                    // Formel nicht anwendbar: die Erwerbspreis-Summe danach ist nicht mehr gesichert
+                    incomplete = true
+                }
+                out += PortfolioDisposal(
+                    coin = coin, sellTxId = t.id, sellTime = t.time,
+                    lotTxId = null, acquiredTime = null, lotKind = null,
+                    amount = removed, costUsdt = cost, proceedsUsdt = netCovered,
+                    gainUsdt = if (netCovered != null && cost != null) netCovered - cost else null,
+                    holdingDays = null, feeLeg = false, feeValueMissing = feeMissing,
+                    method = CostMethod.AVERAGE, costParts = parts,
+                    // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
+                    costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = grossCovered,
+                    addressValueIncluded = withAddresses, valueEstimated = feeEstimated || costEstimated,
+                )
+            }
+            if (removed < requested) {
+                // Rest ohne erfassten Bestand: Erlös bekannt, Einstand unbekannt — zählt nicht in der Summe
+                out += PortfolioDisposal(
+                    coin = coin, sellTxId = t.id, sellTime = t.time,
+                    lotTxId = null, acquiredTime = null, lotKind = null,
+                    amount = requested - removed, costUsdt = null,
+                    proceedsUsdt = net?.let { it - (netCovered ?: zero) }, gainUsdt = null,
+                    holdingDays = null, feeLeg = false, feeValueMissing = feeMissing,
+                    method = CostMethod.AVERAGE, uncovered = true,
+                    costIncomplete = true, grossProceedsUsdt = gross?.let { it - (grossCovered ?: zero) },
+                    valueEstimated = feeEstimated,
+                )
+            }
+        }
+
+        private fun outflow() {
+            // Gebühren in Krypto zuerst als eigene Abtretungen
+            feeCession(coin, t.coinFee, unit, false, coinFeeEstimated)
+            thirdFeeCession()
+            // Abgang ohne Verkauf (Schenkung, Verlust, unbekannt): PTA anteilig kürzen (BOFiP § 100,
+            // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt) — nur der gedeckte
+            // Teil (Bestand nach der Gebühr im Coin) verlässt das Portfolio; der Rest war nie erfasst: die
+            // PTA danach ist nicht mehr gesichert
+            val book = (books[coin]?.total ?: zero).max(zero)
+            val qty = t.amount.min(book - t.coinFee.min(book))
+            if (qty < t.amount) incomplete = true
+            val v = unit?.let { qty.multiply(it, mc) }
+            val value = portfolioValue(coin, unit, t.time)?.let { it - spent }
+            var reduction: BigDecimal? = null
+            var reductionParts: List<PortfolioCostPart> = emptyList()
+            var reductionEstimated = false
+            if (v != null && value != null && value.signum() > 0) {
+                val (c, parts, e) = reduce(v, value)
+                reduction = c
+                reductionParts = parts
+                // Kürzung aus einem geschätzten Teil der Summe oder zum Wert beim Abgang am Tagesschluss (wie die
+                // Netzwerkgebühr im Coin)
+                reductionEstimated = c.signum() != 0 && (e || coinFeeEstimated)
+            } else {
+                // Kurs fehlt: Kürzung unbekannt, die PTA danach nicht mehr gesichert
+                incomplete = true
+            }
+            outflows += TaxOutflow(coin, t.id, t.time, qty, v, reduction, reductionParts, reductionEstimated)
+        }
     }
-    return out
 }
 
 /**

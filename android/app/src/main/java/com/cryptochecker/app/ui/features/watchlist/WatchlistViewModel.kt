@@ -65,19 +65,15 @@ class WatchlistViewModel @Inject internal constructor(
     portfolioAlarmRepository: PortfolioAlarmRepository,
     /** Daten für Aktionsblatt und Zeilen (Mini-Chart, Herkunft, Futures, Spot, Chart). */
     private val sheetData: WatchlistSheetData,
-    /** Aktualisieren ([WatchlistRefreshController]): Abfrage, Entprellung, Bericht. */
-    refreshFactory: WatchlistRefreshController.Factory,
-    /** Start-Auswahl ([WatchlistStarterController]). */
-    starterFactory: WatchlistStarterController.Factory,
-    /** Schreibende Aktionen ([WatchlistEditController]). */
-    editsFactory: WatchlistEditController.Factory,
+    /** Aktualisieren, Start-Auswahl und schreibende Aktionen ([WatchlistControllers]). */
+    controllers: WatchlistControllers,
 ) : ViewModel() {
 
-    private val refresh = refreshFactory.create(viewModelScope)
+    private val refresh = controllers.refresh.create(viewModelScope)
 
-    private val starter = starterFactory.create(viewModelScope, refresh::refreshAll)
+    private val starter = controllers.starter.create(viewModelScope, refresh::refreshAll)
 
-    private val edits: WatchlistEditController = editsFactory.create(
+    private val edits: WatchlistEditController = controllers.edits.create(
         scope = viewModelScope,
         groupFilter = { contentFlows.groupFilter.value },
         refreshAll = refresh::refreshAll,

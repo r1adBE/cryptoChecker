@@ -36,17 +36,18 @@ class SettingsViewModel @Inject constructor(
     internal val scheduler: PriceUpdateScheduler,
     internal val notifier: AppNotifier,
     internal val appearanceApplier: AppearanceApplier,
-    internal val widgetUpdater: WidgetUpdater,
+    /** Widgets neu zeichnen ([SettingsWidgets]). */
+    private val widgets: SettingsWidgets,
     private val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     internal val backupManager: com.cryptochecker.app.data.BackupManager,
     internal val appLockState: AppLockState,
-    private val portfolioSnapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
     internal val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
     /** «Alarm testen» und «Stimme testen». */
     private val testActions: SettingsTestActions,
     /** «Pünktlich prüfen» und «Letzte Prüfungen». */
     private val exactChecks: ExactCheckControl,
 ) : ViewModel() {
+    internal val widgetUpdater: WidgetUpdater get() = widgets.widgetUpdater
 
     /** «Alarm testen»: echter Alarm über den Weg der Kursalarme, ohne Nachtruhe. */
     suspend fun testAlarm(): com.cryptochecker.app.notification.AlarmTestResult = testActions.testAlarm()
@@ -259,7 +260,7 @@ class SettingsViewModel @Inject constructor(
     fun setConversionCurrency(currency: String) = update {
         settingsRepository.setPortfolioCurrency(currency)
         // Portfolio-Widget gleich in der neuen Währung (sonst erst nach der nächsten Aktualisierung)
-        portfolioSnapshotUpdater.refreshIfWidgets()
+        widgets.portfolioSnapshotUpdater.refreshIfWidgets()
     }
 
     /**
@@ -366,7 +367,7 @@ class SettingsViewModel @Inject constructor(
     /** «Beträge verbergen» (Portfolio und Portfolio-Widget). */
     fun setHidePortfolioAmounts(hidden: Boolean) = update {
         settingsRepository.setHidePortfolioAmounts(hidden)
-        portfolioSnapshotUpdater.redrawWidgets()
+        widgets.portfolioSnapshotUpdater.redrawWidgets()
     }
 
     /** Steuer-Vorlage der Arbeitsunterlage (Export «Stichtag, Arbeitsunterlage»). */

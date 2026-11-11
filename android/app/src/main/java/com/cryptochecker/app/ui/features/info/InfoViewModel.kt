@@ -2,13 +2,11 @@ package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
 import com.cryptochecker.app.domain.ExchangeRepository
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.remote.CycleDataSource
 import com.cryptochecker.app.data.remote.GasDataSource
@@ -83,8 +81,8 @@ class InfoViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     internal val unusualDataSource: UnusualDataSource,
     internal val macroCalendar: MacroCalendarRepository,
-    watchRepository: WatchRepository,
-    activityRepository: ActivityRepository,
+    /** Paare der Merkliste und ihre ⚡-Signale ([InfoWatchlist]). */
+    watchlist: InfoWatchlist,
     internal val activityMonitor: ActivityMonitor,
     /** Netz da? Status-Pille «Offline · Stand 14:05» wie in der Merkliste. */
     internal val connectivity: com.cryptochecker.app.data.util.ConnectivityMonitor,
@@ -137,11 +135,11 @@ class InfoViewModel @Inject constructor(
     val unusual: StateFlow<LoadState<UnusualReport>> = _unusual.asStateFlow()
 
     /** Paare der Merkliste: Tippen auf eine Zeile öffnet «Was bewegt sich mit?» (beobachtet) oder die Suche. */
-    val watches: StateFlow<List<WatchEntity>> = watchRepository.observeWatches()
+    val watches: StateFlow<List<WatchEntity>> = watchlist.observeWatches()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /** Signale «Ungewöhnliche Aktivität» je Paar, für das «Was bewegt sich mit?»-Blatt. */
-    val activity: StateFlow<Map<Long, ActivityReport>> = activityRepository.reports
+    val activity: StateFlow<Map<Long, ActivityReport>> = watchlist.reports
 
     // ---- Wirtschaftsdaten (Hinweis oben im Abschnitt «Jetzt»)
     internal val _macroEvents = MutableStateFlow<List<MacroEvent>>(emptyList())

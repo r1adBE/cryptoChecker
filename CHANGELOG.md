@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 218)
+
+* No visible change: the tax year summary, FIFO, average cost and backup restore calculations are split into named steps on Android and iOS; the largest view model and the classes with the most dependencies are smaller; function length is now measured with a ceiling.
+
 ## 16.2.2 (build 217)
 
 * Android, no visible change: 208 test files moved into the modules they test (domain and data layer); the number of tests is unchanged and a guard keeps it from dropping.

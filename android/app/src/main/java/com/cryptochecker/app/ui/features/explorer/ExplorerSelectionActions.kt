@@ -95,11 +95,11 @@ fun ExplorerViewModel.reloadPairList() {
         Timber.d("Paarliste abgleichen: ${target.key}")
         try {
             exchangeRepository.updateExchangeCurrencyPairs(target)
-            runCatchingCancellable { pairsByExchange[target.key] = exchangeRepository.getExchangeCurrencyPairsInfo(target, withAlpha = true) }
+            runCatchingCancellable { searchData.pairsByExchange[target.key] = exchangeRepository.getExchangeCurrencyPairsInfo(target, withAlpha = true) }
             pairListChanged.emit(Unit)
             pairListSync.value = PairListSync()
             // Die Suche kennt die Liste jetzt auch
-            if (searchableExchanges.isNotEmpty()) updateUnloaded()
+            if (searchData.searchableExchanges.isNotEmpty()) updateUnloaded()
         } catch (ex: ExchangeError) {
             pairListSync.value = PairListSync(error = ex.message)
         }

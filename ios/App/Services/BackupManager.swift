@@ -211,12 +211,12 @@ enum BackupManager {
     }
 
     /// Transaktionen der Sicherung. Ungültige werden gezählt.
-    private static func parsedPortfolio(_ root: [String: Any]) throws -> (items: [PortfolioTx], invalid: Int) {
+    static func parsedPortfolio(_ root: [String: Any]) throws -> (items: [PortfolioTx], invalid: Int) {
         try parsedEntries(root, "portfolio", jsonToTx)
     }
 
     /// Portfolio-Alarme der Sicherung. Ungültige werden gezählt.
-    private static func parsedPortfolioAlarms(_ root: [String: Any]) throws -> (items: [PortfolioAlarm], invalid: Int) {
+    static func parsedPortfolioAlarms(_ root: [String: Any]) throws -> (items: [PortfolioAlarm], invalid: Int) {
         try parsedEntries(root, "portfolioAlarms", jsonToPortfolioAlarm)
     }
 
@@ -240,114 +240,24 @@ enum BackupManager {
         _ = try BackupVersion.check(root["version"])
         try BackupFields.checkParts(root)
 
-        // Merkliste und Alarme lesen, bereinigen und begrenzen (`restoredWatchlist`, wie Android): Paare mit unzulässigen
-        // Kennungen und über den Grenzen fallen weg, gezählt für die Erfolgsmeldung
-        let watchlist = try restoredWatchlist(root, limits: journal)
-        let watches = watchlist.watches
-        let alarms = watchlist.alarms
-
-        // Je Art eine Liste von Texten (`BackupFields.checkParts`)
-        var favorites: [FavoriteKind: Set<String>] = [:]
-        let fav: [String: Any] = try part(root, "favorites")
-        for kind in FavoriteKind.allCases {
-            let list: [String] = try part(fav, kind.rawValue)
-            favorites[kind] = Set(list)
-        }
-
-        let settingsJson: [String: Any] = try part(root, "settings")
-        var newSettings = try applySettings(settingsJson, onto: data.settings, trusted: encrypted)
-        // Portfolio-Sperre: ohne Passwort keine Echtheitsprüfung — nie ausschalten, solange sie an ist
-        let lock = BackupRestorePolicy.appLock(wanted: try part(settingsJson, "appLock"),
-                                               current: data.settings.appLock, encrypted: encrypted,
-                                               canAuthenticate: AppLock.canAuthenticate())
-        if let v = lock.apply { newSettings.appLock = v }
-        // Eigener Bitcoin-Server: Hinweis in der Meldung (nicht übernommen, entfernt oder ersetzt)
-        let serverNote = BackupRestorePolicy.addressServerNote(
-            value: settingsJson["addressServerBtc"] as? String,
-            current: data.settings.addressServerBtc, trusted: encrypted)
-
-        // Ungültige Einträge nur mit Bestätigung weglassen (nie still)
-        let parsedTx = try parsedPortfolio(root)
-        let parsedPfAlarms = try parsedPortfolioAlarms(root)
-        let invalid = watchlist.invalidAlarms + parsedTx.invalid + parsedPfAlarms.invalid
-        if invalid > acceptInvalid { throw Failure.unconfirmedInvalid(invalid) }
-        let portfolio = parsedTx.items
-        let portfolioAlarms = parsedPfAlarms.items
-
-        let old = data.snapshot
-        var snapshot = SharedStorage.Snapshot()
-        snapshot.watches = watches
-        snapshot.alarms = alarms
-        // Wiederhergestellte Portfolio-Alarme sind scharf und ohne letzte Meldung
-        snapshot.portfolioAlarms = portfolioAlarms.map { a in
-            var copy = a
-            copy.referenceAt = 0
-            copy.lastTriggeredAt = 0
-            copy.lastTriggeredValue = nil
-            return copy
-        }
-        // Ids nie wiederverwenden: über dem bisherigen Zähler und über allen neuen ids
-        // (`nextId` ohne Überlauf — eine id Int64.max aus der Datei brach mit «max + 1» ab)
-        snapshot.nextPortfolioAlarmId = SharedStorage.nextId(stored: old.nextPortfolioAlarmId ?? 1,
-                                                             used: (snapshot.portfolioAlarms ?? []).map(\.id))
-        snapshot.nextWatchId = SharedStorage.nextId(stored: old.nextWatchId, used: watches.map(\.id))
-        snapshot.nextAlarmId = SharedStorage.nextId(stored: old.nextAlarmId, used: alarms.map(\.id))
-
-        // Bisherigen Stand merken: scheitert ein späterer Schritt (Portfolio, Adressen), wird alles
-        // Geschriebene zurückgesetzt (`RestoreSteps`, wie Android) — nie halb ersetzt
-        let oldSettings = data.settings
-        let oldFavorites = data.favorites
-        let oldColumnSort = UserDefaults.standard.string(forKey: ColumnSort.storageKey)
-        let oldPortfolio = data.portfolioFileForRollback()
-        let oldWatched = data.currentWatchedAddressFile()
-        // Unlesbare Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben
-        let oldWatchedIntact = data.watchedAddressIntact
-        let watched = try watchedEntries(root)
-
-        // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
-        // Nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
-        if journal { try requireJournal(try? plainExportData(data), write: { RestoreJournal.write($0) }) }
-        var steps = RestoreSteps()
-        do {
-            steps.run({
-                data.replaceAll(snapshot: snapshot, settings: newSettings, favorites: favorites)
-                restoreColumnSort(settingsJson)
-            }, undo: {
-                data.replaceAll(snapshot: old, settings: oldSettings, favorites: oldFavorites)
-                if let oldColumnSort {
-                    UserDefaults.standard.set(oldColumnSort, forKey: ColumnSort.storageKey)
-                } else {
-                    UserDefaults.standard.removeObject(forKey: ColumnSort.storageKey)
-                }
-            })
-            // Portfolio ersetzen
-            // Nicht still: konnte das Portfolio nicht geschrieben werden, meldet das Wiederherstellen einen Fehler
-            try steps.run({
-                guard data.restorePortfolio(portfolio) else { throw Failure.invalid("portfolio") }
-            }, undo: { _ = data.rollBackPortfolioFile(oldPortfolio) })
-            // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
-            try steps.run({
-                guard data.replaceWatchedAddresses(watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
-            }, undo: { data.rollBackWatchedAddresses(oldWatched, wasIntact: oldWatchedIntact) })
-        } catch {
-            steps.rollBack()
-            if journal { RestoreJournal.delete() }
-            throw error
-        }
-        if journal {
-            RestoreJournal.delete()
-            // Gespeicherte Daten liessen sich nicht entsperren (`StorageRecoveryNotice`): mit dieser Sicherung erledigt
-            StorageRecoveryNotice.acknowledge(.setAside)
-        }
+        // 1. Alles lesen und prüfen, bevor etwas geschrieben wird
+        let input = try readRestoreInput(root, data: data, acceptInvalid: acceptInvalid, encrypted: encrypted,
+                                         limits: journal)
+        let watchlist = input.watchlist
+        // 2. Bisherigen Stand merken (für das Zurückrollen)
+        let previous = previousState(data)
+        // 3. Schreiben
+        try writeRestored(input, snapshot: restoredSnapshot(input, old: previous.snapshot), previous: previous,
+                          into: data, journal: journal)
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
-        old.watches.forEach { Notifier.cancelPrice($0.id) }
+        previous.snapshot.watches.forEach { Notifier.cancelPrice($0.id) }
         // Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
         // «wird gemeldet» gelten nicht mehr (wie Android)
         AlarmDelivery.pairs.removeAll()
         AlarmDelivery.portfolio.removeAll()
-        return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
+        return RestoreResult(watches: watchlist.watches.count, alarms: watchlist.alarms.count, appLockKept: input.lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
-                             addressServerNote: serverNote)
+                             addressServerNote: input.serverNote)
     }
 
     /// Journal vor dem ersten Schreiben (Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand

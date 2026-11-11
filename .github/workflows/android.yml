@@ -86,8 +86,9 @@ jobs:
         run: python3 -I "$GITHUB_WORKSPACE/android/tools/check_theme_contrast.py"
 
       # Size of the Hilt-wired Kotlin classes (android/*/src/main), next to the line limit: constructor dependencies of
-      # @HiltViewModel / @Inject classes (red above the ceiling 14, no warning tier) and private/internal properties
-      # in a ViewModel body (red above the ceiling 35) — ceilings = today's maximum, so no class grows past it.
+      # @HiltViewModel / @Inject classes (red above the ceiling 13, no warning tier) and private/internal properties
+      # in a ViewModel body (red above the ceiling 26); length of the Kotlin and Swift functions (the 30 longest per
+      # platform are listed, red above the ceiling per platform) — ceilings = today's maximum, so nothing grows past it.
       - name: Code metrics
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" --self-test
