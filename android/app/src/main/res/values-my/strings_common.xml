@@ -9,6 +9,7 @@
     <string name="action_delete">ဖျက်ရန်</string>
     <string name="action_edit">ပြင်ဆင်ရန်</string>
     <string name="action_more">နောက်ထပ် ရွေးစရာများ</string>
+    <string name="action_learn_more">ပိုမိုလေ့လာရန်</string>
     <string name="action_refresh">ပြန်တင်ရန်</string>
     <string name="action_retry">ထပ်စမ်းရန်</string>
     <string name="action_save">သိမ်းရန်</string>

@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Parol notoʻgʻri yoki fayl shikastlangan. Qayta urinib koʻring.</string>
     <string name="backup_protect">Parol bilan himoyalash</string>
     <string name="backup_protect_hint">Faylni shifrlaydi (AES-256). Portfel maʼlumotlari boʻlsa, tavsiya etiladi.</string>
+    <string name="backup_protect_required">Doim yoniq: faylda portfel maʼlumotlari bor.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Parolsiz saqlash</string>
     <string name="backup_plain_confirm_text">Fayl shifrlanmagan. Uni qoʻlga kiritgan har kim quyidagilarni oʻqiy oladi:</string>
     <string name="backup_plain_confirm_title">Parolsiz saqlansinmi?</string>
-    <string name="backup_plain_contents_addresses">Balans tarixi va tannarxi bilan saqlangan hamyon manzillari va xpub kalitlari</string>
     <string name="backup_plain_contents_base">Izoh va guruhlari bilan kuzatuv roʻyxati, signallar, sevimlilar va sozlamalar</string>
-    <string name="backup_plain_contents_portfolio">Portfel: miqdor va narxlari bilan tranzaksiyalar</string>
     <string name="backup_restore_app_lock_kept">Portfel qulfi yoqiq qoladi – shifrlanmagan zaxira nusxa uni oʻchira olmaydi.</string>
     <string name="backup_restore_confirm">Import joriy kuzatuv roʻyxati (izoh va guruhlari bilan), signallar, sevimlilar, portfel va sozlamalarni zaxira nusxadagilar bilan almashtiradi.</string>
     <plurals name="backup_restore_invalid">

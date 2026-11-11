@@ -6,10 +6,15 @@
 # (Android FakeExchange.marketData, iOS UITestExchange.marketData), so the market tab and portfolio values show content.
 # android: ScreenshotTourTest (androidTest, Hilt, fake exchange answers) on an API 34 emulator; it only runs with the
 # runner argument screenshotTour=true, so the regular device tests skip it. The images are written by screencap to
-# /data/local/tmp/cc-screenshots and pulled with adb.
+# /data/local/tmp/cc-screenshots and pulled with adb. No system dialog may cover the app («Pixel Launcher isn't
+# responding» on the slow emulator dimmed every image while the tour passed): error dialogs are switched off and the
+# emulator must be idle before the tour (.github/scripts/android_emulator_idle.sh prepare), the tour checks before and
+# after every image that the focused window belongs to the app and no such dialog is open (it fails otherwise), and
+# the same script checks again after the tour (check).
 # ios: ScreenshotTourTests (XCUITest, app started with -uiTesting and UITEST_MARKET_DATA=1, demo backup restored); it
 # only runs with TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest
-# attachments, exported from the result bundle with xcresulttool.
+# attachments, exported from the result bundle with xcresulttool. An image is only taken with the app in the
+# foreground and no system alert (SpringBoard) over it; otherwise it counts as missing and the tour fails.
 # publish (main only; a manual run on another branch leaves its images as run artifacts): the only job with
 # contents: write; checks the images (names, PNG header, size) and force-pushes the branch «screenshots» – never main.
 # Only a complete set is published: a platform whose job failed (or whose light/dark sets differ) keeps its images
@@ -75,6 +80,8 @@ jobs:
 
       # Every line runs on its own; a failed tour only leaves a marker, so the images taken so far are still pulled.
       # System UI demo mode: fixed clock, no notification icons (cosmetic, failures ignored).
+      # First line: no error dialogs, emulator idle – a failure stops the step (no tour on a covered screen). After the
+      # tour the check for an open system dialog; a covered set leaves the marker and is not published.
       - name: Take screenshots (API 34)
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
@@ -87,11 +94,13 @@ jobs:
           working-directory: android
           emulator-boot-timeout: 900
           script: |
+            bash "$GITHUB_WORKSPACE/.github/scripts/android_emulator_idle.sh" prepare
             adb shell settings put global sysui_demo_allowed 1 || true
             adb shell am broadcast -a com.android.systemui.demo -e command enter || true
             adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941 || true
             adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false || true
             ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.ScreenshotTourTest -Pandroid.testInstrumentationRunnerArguments.screenshotTour=true --stacktrace || touch "$RUNNER_TEMP/android-tour-failed"
+            bash "$GITHUB_WORKSPACE/.github/scripts/android_emulator_idle.sh" check || touch "$RUNNER_TEMP/android-tour-failed"
             mkdir -p "$RUNNER_TEMP/screenshots"
             adb pull /data/local/tmp/cc-screenshots "$RUNNER_TEMP/screenshots/android" || touch "$RUNNER_TEMP/android-tour-failed"
 
@@ -118,7 +127,7 @@ jobs:
           PY
           find "$RUNNER_TEMP/screenshots" -name '*.png' 2>/dev/null | sort || true
           if [ -f "$RUNNER_TEMP/android-tour-failed" ]; then
-            echo "::error title=Android screenshots::tour failed or no images pulled"
+            echo "::error title=Android screenshots::tour failed, a system dialog covered the app or no images pulled"
             exit 1
           fi
 

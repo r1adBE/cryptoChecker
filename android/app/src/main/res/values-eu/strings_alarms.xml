@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Aurreratua</string>
     <string name="alarm_change_updates">Doitu prezio-eguneratzeak</string>
+    <string name="alarm_closed_app_short">Aplikazioa itxita, alarmak berandu irits daitezke.</string>
     <string name="alarm_check_mode_15min">15 minuturo gutxi gorabehera</string>
     <string name="alarm_check_mode_saving">Aurrezlea</string>
     <string name="alarm_check_mode_title">Zenbatero egiaztatu gailua inaktibo dagoenean?</string>

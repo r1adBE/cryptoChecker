@@ -54,6 +54,16 @@ enum PortfolioLockPolicy {
         transactions > 0 || watchedAddresses > 0
     }
 
+    /// Sichern nur mit Passwort? Mit Portfolio-Daten (Trades, Adressen, xpub) immer — eine solche Datei entsteht nie
+    /// unverschlüsselt. Ohne Portfolio-Daten bleibt der Schutz wählbar. Einlesen alter unverschlüsselter Dateien
+    /// bleibt möglich — wie Android.
+    static func backupExportRequiresPassword(hasPortfolioData: Bool) -> Bool { hasPortfolioData }
+
+    /// Darf diese Sicherung geschrieben werden? Ohne Passwort nur, wenn keines verlangt ist.
+    static func backupExportAllowed(hasPassword: Bool, hasPortfolioData: Bool) -> Bool {
+        hasPassword || !backupExportRequiresPassword(hasPortfolioData: hasPortfolioData)
+    }
+
     /// Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist.
     static func backupExportNeedsUnlock(locked: Bool, hasPortfolioData: Bool) -> Bool {
         locked && hasPortfolioData

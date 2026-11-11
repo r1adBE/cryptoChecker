@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">ਉੱਨਤ</string>
     <string name="alarm_change_updates">ਕੀਮਤ ਅੱਪਡੇਟ ਬਦਲੋ</string>
+    <string name="alarm_closed_app_short">ਐਪ ਬੰਦ ਹੋਵੇ ਤਾਂ ਅਲਰਟ ਦੇਰ ਨਾਲ ਆ ਸਕਦੇ ਹਨ।</string>
     <string name="alarm_check_mode_15min">ਲਗਭਗ ਹਰ 15 ਮਿੰਟ</string>
     <string name="alarm_check_mode_saving">ਕਿਫ਼ਾਇਤੀ</string>
     <string name="alarm_check_mode_title">ਡਿਵਾਈਸ ਵਿਹਲਾ ਹੋਵੇ ਤਾਂ ਕਿੰਨੀ ਵਾਰ ਜਾਂਚ ਕਰਨੀ ਹੈ?</string>

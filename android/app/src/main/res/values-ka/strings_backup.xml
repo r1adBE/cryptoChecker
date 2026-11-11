@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">პაროლი არასწორია ან ფაილი დაზიანებულია. კიდევ სცადე.</string>
     <string name="backup_protect">პაროლით დაცვა</string>
     <string name="backup_protect_hint">შიფრავს ფაილს (AES-256). რეკომენდებულია, თუ ის პორტფელის მონაცემებს შეიცავს.</string>
+    <string name="backup_protect_required">ყოველთვის ჩართულია: ფაილი პორტფელის მონაცემებს შეიცავს.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">შენახვა პაროლის გარეშე</string>
     <string name="backup_plain_confirm_text">ფაილი დაშიფრული არ არის. ვინც მას მიიღებს, შეძლებს წაიკითხოს:</string>
     <string name="backup_plain_confirm_title">შევინახო პაროლის გარეშე?</string>
-    <string name="backup_plain_contents_addresses">შენახული საფულის მისამართები და xpub გასაღებები ნაშთის ისტორიითა და შეძენის ღირებულებით</string>
     <string name="backup_plain_contents_base">დაკვირვების სია შენიშვნებითა და ჯგუფებით, განგაშები, რჩეულები და პარამეტრები</string>
-    <string name="backup_plain_contents_portfolio">პორტფელი: ტრანზაქციები თანხებითა და ფასებით</string>
     <string name="backup_restore_app_lock_kept">პორტფელის დაბლოკვა ჩართული რჩება – დაუშიფრავ სარეზერვო ასლს მისი გამორთვა არ შეუძლია.</string>
     <string name="backup_restore_confirm">იმპორტი შენს მიმდინარე დაკვირვების სიას (შენიშვნებითა და ჯგუფებით), განგაშებს, რჩეულებს, პორტფელს და პარამეტრებს სარეზერვო ასლით ჩაანაცვლებს.</string>
     <plurals name="backup_restore_invalid">

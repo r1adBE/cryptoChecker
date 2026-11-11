@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Maling password, o sira ang file. Pakisubukan ulit.</string>
     <string name="backup_protect">Protektahan ng password</string>
     <string name="backup_protect_hint">Ine-encrypt ang file (AES-256). Inirerekomenda kapag may laman itong data ng portfolio.</string>
+    <string name="backup_protect_required">Laging naka-on: may data ng portfolio ang file.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">I-save nang walang password</string>
     <string name="backup_plain_confirm_text">Hindi naka-encrypt ang file. Kahit sino na makakuha nito ay mababasa ang:</string>
     <string name="backup_plain_confirm_title">I-save nang walang password?</string>
-    <string name="backup_plain_contents_addresses">Mga naka-save na wallet address at xpub key kasama ang kasaysayan ng balanse at cost basis</string>
     <string name="backup_plain_contents_base">Watchlist kasama ang mga tala at grupo, mga alerto, paborito at setting</string>
-    <string name="backup_plain_contents_portfolio">Portfolio: mga transaksyon kasama ang mga halaga at presyo</string>
     <string name="backup_restore_app_lock_kept">Mananatiling naka-on ang lock ng portfolio – hindi ito ma-o-off ng hindi naka-encrypt na backup.</string>
     <string name="backup_restore_confirm">Papalitan ng pag-import ang kasalukuyan mong watchlist (kasama ang mga tala at grupo), mga alerto, paborito, portfolio at setting ng laman ng backup.</string>
     <plurals name="backup_restore_invalid">

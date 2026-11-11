@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Kata laluan salah, atau fail rosak. Sila cuba lagi.</string>
     <string name="backup_protect">Lindungi dengan kata laluan</string>
     <string name="backup_protect_hint">Menyulitkan fail (AES-256). Disyorkan apabila ia mengandungi data portfolio.</string>
+    <string name="backup_protect_required">Sentiasa hidup: fail mengandungi data portfolio.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Simpan tanpa kata laluan</string>
     <string name="backup_plain_confirm_text">Fail ini tidak disulitkan. Sesiapa yang mendapatnya boleh membaca:</string>
     <string name="backup_plain_confirm_title">Simpan tanpa kata laluan?</string>
-    <string name="backup_plain_contents_addresses">Alamat dompet dan kunci xpub yang disimpan beserta sejarah baki dan kos asas</string>
     <string name="backup_plain_contents_base">Senarai pantau beserta nota dan kumpulan, amaran, kegemaran dan tetapan</string>
-    <string name="backup_plain_contents_portfolio">Portfolio: transaksi beserta jumlah dan harga</string>
     <string name="backup_restore_app_lock_kept">Kunci portfolio kekal hidup – sandaran yang tidak disulitkan tidak dapat mematikannya.</string>
     <string name="backup_restore_confirm">Mengimport akan menggantikan senarai pantau semasa anda (beserta nota dan kumpulan), amaran, kegemaran, portfolio dan tetapan dengan sandaran.</string>
     <plurals name="backup_restore_invalid">

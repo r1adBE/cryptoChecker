@@ -9,6 +9,7 @@
     <string name="action_delete">წაშლა</string>
     <string name="action_edit">რედაქტირება</string>
     <string name="action_more">სხვა პარამეტრები</string>
+    <string name="action_learn_more">ვრცლად</string>
     <string name="action_refresh">განახლება</string>
     <string name="action_retry">ხელახლა ცდა</string>
     <string name="action_save">შენახვა</string>

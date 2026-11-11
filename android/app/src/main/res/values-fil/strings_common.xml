@@ -9,6 +9,7 @@
     <string name="action_delete">I-delete</string>
     <string name="action_edit">I-edit</string>
     <string name="action_more">Higit pang opsyon</string>
+    <string name="action_learn_more">Matuto pa</string>
     <string name="action_refresh">I-refresh</string>
     <string name="action_retry">Subukan ulit</string>
     <string name="action_save">I-save</string>

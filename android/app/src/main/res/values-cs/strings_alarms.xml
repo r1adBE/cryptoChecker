@@ -22,6 +22,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Rozšířené</string>
     <string name="alarm_change_updates">Změnit aktualizaci cen</string>
+    <string name="alarm_closed_app_short">Při zavřené aplikaci mohou alarmy přijít pozdě.</string>
     <string name="alarm_check_mode_15min">Zhruba každých 15 minut</string>
     <string name="alarm_check_mode_saving">Úsporně</string>
     <string name="alarm_check_mode_title">Jak často kontrolovat, když zařízení odpočívá?</string>

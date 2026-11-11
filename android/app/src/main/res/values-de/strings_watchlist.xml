@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Keine Verbindung · Stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Zum Aktualisieren nach unten ziehen</string>
     <string name="watchlist_refresh_report">Letzte Aktualisierung</string>
+    <string name="watchlist_symbols_legend">Symbole erklärt</string>
+    <string name="watchlist_symbols_legend_alarms">Aktive Alarme mit Anzahl</string>
     <string name="watchlist_refresh_report_empty">Noch keine Aufschlüsselung – es gab noch keinen vollständigen Abruf. Tippe auf Aktualisieren und warte, bis der Kreis stoppt.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d von %2$d veraltet</item>

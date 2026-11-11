@@ -1,7 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
 import android.text.format.DateUtils
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,7 +25,6 @@ import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BatteryOptimization
 import com.cryptochecker.app.work.ExactCheckScheduler
 
 // «Aktualisierung»: Pünktlich prüfen, Akku-Hinweis, Letzte Prüfungen — wie iOS
@@ -65,33 +63,6 @@ internal fun ExactChecksRow(
             modifier = Modifier.padding(bottom = 8.dp)
         ) {
             Text(stringResource(R.string.settings_exact_checks_grant))
-        }
-    }
-}
-
-/**
- * «Android kann die Prüfung verzögern – Akku auf ‹Nicht eingeschränkt› stellen» mit Knopf: nur bei
- * eingeschränktem Akku und wenn im Hintergrund überhaupt geprüft wird. Auch unter dem Alarm-Hinweis.
- */
-@Composable
-internal fun BatteryDelayHint(batteryRestricted: Boolean, hasWork: Boolean, modifier: Modifier = Modifier) {
-    if (!BackgroundSchedule.showBatteryHint(batteryRestricted, hasWork)) return
-    val context = LocalContext.current
-    Column(modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            StatusDot(ok = false)
-            Text(
-                stringResource(R.string.battery_delay_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = Spacing.sm)
-            )
-        }
-        TextButton(
-            onClick = { BatteryOptimization.openSettings(context) },
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-        ) {
-            Text(stringResource(R.string.battery_open_settings), style = MaterialTheme.typography.labelLarge)
         }
     }
 }

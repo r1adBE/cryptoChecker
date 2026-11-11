@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">උසස්</string>
     <string name="alarm_change_updates">මිල යාවත්කාලීන සකසන්න</string>
+    <string name="alarm_closed_app_short">යෙදුම වසා ඇති විට, ඇඟවීම් ප්‍රමාද විය හැක.</string>
     <string name="alarm_check_mode_15min">ආසන්න වශයෙන් සෑම මිනිත්තු 15 කට වරක්</string>
     <string name="alarm_check_mode_saving">ඉතිරිකරන</string>
     <string name="alarm_check_mode_title">උපාංගය අක්‍රියව ඇති විට කොපමණ වාරයක් පරීක්ෂා කළ යුතුද?</string>

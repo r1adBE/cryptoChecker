@@ -11,4 +11,15 @@ enum TextLimit {
             .trimmingCharacters(in: .whitespacesAndNewlines)
         return text.isEmpty ? nil : text
     }
+
+    /// Mehrzeiligen Freitext als eine Zeile (Notiz unter einem Paar der Merkliste): Zeilenumbrüche (LF, CR, U+2028,
+    /// U+2029) samt Leerzeichen und Tabs darum werden ein Leerzeichen, leere Zeilen fallen weg. Wie Android
+    /// `TextLimit.singleLine`.
+    static func singleLine(_ text: String) -> String {
+        let breaks: Set<Unicode.Scalar> = ["\n", "\r", "\u{2028}", "\u{2029}"]
+        return text.unicodeScalars.split(whereSeparator: { breaks.contains($0) })
+            .map { String(String.UnicodeScalarView($0)).trimmingCharacters(in: CharacterSet(charactersIn: " \t")) }
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+    }
 }

@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Няма връзка · към %1$s</string>
     <string name="watchlist_pull_to_refresh">Дръпни надолу за обновяване</string>
     <string name="watchlist_refresh_report">Последно обновяване</string>
+    <string name="watchlist_symbols_legend">Обяснение на символите</string>
+    <string name="watchlist_symbols_legend_alarms">Активни аларми и техният брой</string>
     <string name="watchlist_refresh_report_empty">Още няма разбивка – досега не е имало пълно обновяване. Докосни „Обнови“ и изчакай кръгът да спре.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d от %2$d остарял</item>

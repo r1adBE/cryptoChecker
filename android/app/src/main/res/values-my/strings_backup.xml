@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">စကားဝှက် မှားနေသည် သို့မဟုတ် ဖိုင် ပျက်စီးနေသည်။ ထပ်ကြိုးစားပါ။</string>
     <string name="backup_protect">စကားဝှက်ဖြင့် ကာကွယ်ရန်</string>
     <string name="backup_protect_hint">ဖိုင်ကို ကုဒ်ပြောင်းဝှက်သည် (AES-256)။ ပေါ့ဖိုလီယို ဒေတာ ပါဝင်လျှင် အကြံပြုသည်။</string>
+    <string name="backup_protect_required">အမြဲဖွင့်ထားသည်- ဖိုင်တွင် ပေါ့ဖိုလီယို ဒေတာ ပါဝင်သည်။</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">စကားဝှက်မပါဘဲ သိမ်းရန်</string>
     <string name="backup_plain_confirm_text">ဖိုင်ကို ကုဒ်ပြောင်းဝှက်မထားပါ။ ၎င်းကို ရရှိသူ မည်သူမဆို ဖတ်နိုင်သည်-</string>
     <string name="backup_plain_confirm_title">စကားဝှက်မပါဘဲ သိမ်းမလား။</string>
-    <string name="backup_plain_contents_addresses">လက်ကျန်မှတ်တမ်းနှင့် မူလကုန်ကျစရိတ်ပါသော သိမ်းထားသည့် ပိုက်ဆံအိတ် လိပ်စာများနှင့် xpub သော့များ</string>
     <string name="backup_plain_contents_base">မှတ်ချက်များနှင့် အုပ်စုများပါသော စောင့်ကြည့်စာရင်း၊ သတိပေးချက်များ၊ အကြိုက်ဆုံးများနှင့် ဆက်တင်များ</string>
-    <string name="backup_plain_contents_portfolio">ပေါ့ဖိုလီယို: ပမာဏနှင့် ဈေးနှုန်းများပါသော ငွေပေးငွေယူများ</string>
     <string name="backup_restore_app_lock_kept">ပေါ့ဖိုလီယို လော့ခ် ဆက်ဖွင့်ထားသည် – ကုဒ်ပြောင်းဝှက်မထားသော အရန်ဖိုင်က ၎င်းကို ပိတ်၍မရပါ။</string>
     <string name="backup_restore_confirm">တင်သွင်းခြင်းသည် သင့်လက်ရှိ စောင့်ကြည့်စာရင်း (မှတ်ချက်များနှင့် အုပ်စုများအပါအဝင်)၊ သတိပေးချက်များ၊ အကြိုက်ဆုံးများ၊ ပေါ့ဖိုလီယိုနှင့် ဆက်တင်များကို အရန်ဖိုင်ဖြင့် အစားထိုးမည်။</string>
     <plurals name="backup_restore_invalid">

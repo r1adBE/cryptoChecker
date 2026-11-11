@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">Không có kết nối · cập nhật %1$s</string>
     <string name="watchlist_pull_to_refresh">Kéo xuống để làm mới</string>
     <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
+    <string name="watchlist_symbols_legend">Giải thích ký hiệu</string>
+    <string name="watchlist_symbols_legend_alarms">Cảnh báo đang bật và số lượng</string>
     <string name="watchlist_refresh_report_empty">Chưa có chi tiết: chưa có lần làm mới đầy đủ nào. Nhấn làm mới và chờ đến khi biểu tượng tải dừng lại.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d/%2$d đã cũ</item>

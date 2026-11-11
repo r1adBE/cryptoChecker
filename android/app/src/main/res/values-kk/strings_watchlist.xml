@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Байланыс жоқ · %1$s жағдайы бойынша</string>
     <string name="watchlist_pull_to_refresh">Жаңарту үшін төмен тартыңыз</string>
     <string name="watchlist_refresh_report">Соңғы жаңарту</string>
+    <string name="watchlist_symbols_legend">Таңбалар түсіндірмесі</string>
+    <string name="watchlist_symbols_legend_alarms">Белсенді ескертулер және олардың саны</string>
     <string name="watchlist_refresh_report_empty">Әзірге толық мәлімет жоқ – толық жаңарту әлі болған жоқ. Жаңартуды түртіп, шеңбер тоқтағанша күтіңіз.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ішінен %1$d ескірген</item>

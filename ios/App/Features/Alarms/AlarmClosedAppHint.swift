@@ -29,14 +29,12 @@ struct AlarmLastCheckedLine: View {
     }
 }
 
-/// Graue Zeile mit dem einen Satz «Wann Alarme geprüft werden» (`AlarmTimingHint`) — vollständig sichtbar,
-/// darum ohne (i), das ihn nur wiederholen würde; wie `ClosedAppHint` (Android). Darunter
-/// «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung; und
-/// «Damit Alarme ankommen» als Blatt darüber.
+/// Graue Zeile unter dem Alarm-Satz: ein kurzer Satz (bei geschlossener App können Alarme verspätet kommen), darunter
+/// «Zuletzt geprüft» und ein einziger Verweis «Mehr dazu»: «Damit Alarme ankommen» als Blatt darüber — dort stehen der
+/// ganze Satz (`AlarmTimingHint`), der echte Zustand und «Kurs-Aktualisierung ändern». Wie `ClosedAppHint` (Android).
 @MainActor
 struct ClosedAppHintRow: View {
     @Environment(\.appAccent) private var accent
-    @Environment(\.dismiss) private var dismiss
     /// «Damit Alarme ankommen» als Blatt über dem Editor (der Entwurf bleibt dabei offen).
     @State private var showDelivery = false
     /// Zeile «Zuletzt geprüft»; aus, wenn der Editor oben schon die ausführliche Zeile zeigt (nur einmal je Seite).
@@ -48,7 +46,7 @@ struct ClosedAppHintRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(AlarmTimingHint.text)
+            Text(L("alarm_closed_app_short"))
                 .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
@@ -57,19 +55,13 @@ struct ClosedAppHintRow: View {
                 AlarmLastCheckedLine()
                     .padding(.top, 2)
             }
-            Button(L("alarm_change_updates"), action: openUpdates)
+            Button(L("action_learn_more")) { showDelivery = true }
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(accent.primary)
                 .buttonStyle(.plain)
                 .frame(minHeight: 44, alignment: .leading)
                 .contentShape(Rectangle())
-            // Was gerade im Weg stehen könnte (Mitteilungen, Hintergrundaktualisierung …): echter Zustand
-            Button(L("delivery_title")) { showDelivery = true }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(accent.primary)
-                .buttonStyle(.plain)
-                .frame(minHeight: 44, alignment: .leading)
-                .contentShape(Rectangle())
+                .accessibilityHint(L("delivery_title"))
         }
         .padding(.horizontal, 4)
         .sheet(isPresented: $showDelivery) {
@@ -82,12 +74,6 @@ struct ClosedAppHintRow: View {
                     }
             }
         }
-    }
-
-    /// Blatt schliessen, dann den Tab «Einstellungen» mit «Kurs-Aktualisierung» zeigen.
-    private func openUpdates() {
-        dismiss()
-        AppRouter.shared.openUpdateSettings()
     }
 }
 

@@ -9,6 +9,7 @@
     <string name="action_delete">Löschen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_more">Weitere Optionen</string>
+    <string name="action_learn_more">Mehr dazu</string>
     <string name="action_refresh">Aktualisieren</string>
     <string name="action_retry">Erneut versuchen</string>
     <string name="action_save">Speichern</string>

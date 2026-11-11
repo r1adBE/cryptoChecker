@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">ချိတ်ဆက်မှု မရှိ · %1$s အထိ</string>
     <string name="watchlist_pull_to_refresh">ပြန်တင်ရန် အောက်သို့ ဆွဲပါ</string>
     <string name="watchlist_refresh_report">နောက်ဆုံး ပြန်တင်မှု</string>
+    <string name="watchlist_symbols_legend">သင်္ကေတများ ရှင်းလင်းချက်</string>
+    <string name="watchlist_symbols_legend_alarms">အသက်ဝင်နေသော သတိပေးချက်များနှင့် အရေအတွက်</string>
     <string name="watchlist_refresh_report_empty">အသေးစိတ် ခွဲခြမ်းချက် မရှိသေးပါ – အပြည့်အဝ ပြန်တင်မှု မရှိသေးပါ။ ပြန်တင်ကို တို့ပြီး စက်ဝိုင်း ရပ်သည်အထိ စောင့်ပါ။</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d ခုအနက် %1$d ခု ခေတ်မမီ</item>

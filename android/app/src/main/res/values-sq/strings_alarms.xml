@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Të avancuara</string>
     <string name="alarm_change_updates">Ndrysho përditësimin e çmimeve</string>
+    <string name="alarm_closed_app_short">Me aplikacionin të mbyllur, alarmet mund të vonohen.</string>
     <string name="alarm_check_mode_15min">Afërsisht çdo 15 minuta</string>
     <string name="alarm_check_mode_saving">Kursyese</string>
     <string name="alarm_check_mode_title">Sa shpesh të kontrollohet kur pajisja pushon?</string>

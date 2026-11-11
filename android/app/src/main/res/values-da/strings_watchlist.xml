@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Ingen forbindelse · pr. %1$s</string>
     <string name="watchlist_pull_to_refresh">Træk ned for at opdatere</string>
     <string name="watchlist_refresh_report">Seneste opdatering</string>
+    <string name="watchlist_symbols_legend">Symbolforklaring</string>
+    <string name="watchlist_symbols_legend_alarms">Aktive alarmer med antal</string>
     <string name="watchlist_refresh_report_empty">Ingen oversigt endnu: der er endnu ikke gennemført en fuld opdatering. Tryk på opdater, og vent, til hjulet stopper.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d af %2$d forældet</item>

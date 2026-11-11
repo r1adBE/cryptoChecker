@@ -59006,6 +59006,461 @@
         }
       }
     },
+    "action_learn_more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer hieroor"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ተጨማሪ ይወቁ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المزيد عن هذا"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ətraflı"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Научи повече"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আরও জানুন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saznaj više"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Més informació"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Další informace"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Læs mere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr dazu"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μάθε περισσότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más información"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisateave"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informazio gehiago"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بیشتر بدانید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lue lisää"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matuto pa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuilleadh eolais"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máis información"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "વધુ જાણો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מידע נוסף"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "और जानें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saznaj više"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "További információ"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Իմանալ ավելին"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selengkapnya"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nánar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scopri di più"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳しく見る"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ვრცლად"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Толығырақ"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ស្វែងយល់បន្ថែម"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자세히 보기"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຮຽນຮູ້ເພີ່ມເຕີມ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sužinoti daugiau"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uzzināt vairāk"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дознај повеќе"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "കൂടുതലറിയുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дэлгэрэнгүй"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अधिक जाणून घ्या"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ketahui lebih lanjut"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ပိုမိုလေ့လာရန်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mer"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "थप जान्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer informatie"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹੋਰ ਜਾਣੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Więcej informacji"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saber mais"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saiba mais"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Află mai multe"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подробнее"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "තව දැනගන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďalšie informácie"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Več o tem"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mëso më shumë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сазнај више"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saznaj više"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Läs mer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pata maelezo zaidi"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மேலும் அறிக"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మరింత తెలుసుకోండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูเพิ่มเติม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha fazla bilgi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Докладніше"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مزید جانیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batafsil"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm hiểu thêm"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "了解更多"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "了解详情"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "瞭解詳情"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funda kabanzi"
+          }
+        }
+      }
+    },
     "action_more" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -84937,6 +85392,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kufanele kuhlolwe kangaki uma idivayisi ingasebenzi?"
+          }
+        }
+      }
+    },
+    "alarm_closed_app_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As die app toe is, kan alarms laat wees."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "መተግበሪያው ሲዘጋ ማንቂያዎች ሊዘገዩ ይችላሉ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عند إغلاق التطبيق قد تتأخر التنبيهات."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tətbiq bağlı olanda alarmlar gecikə bilər."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При затворено приложение алармите може да закъснеят."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "অ্যাপ বন্ধ থাকলে অ্যালার্ট দেরিতে আসতে পারে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kada je aplikacija zatvorena, alarmi mogu kasniti."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amb l’app tancada, les alarmes poden arribar tard."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Při zavřené aplikaci mohou alarmy přijít pozdě."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Når appen er lukket, kan alarmer komme for sent."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei geschlossener App können Alarme verspätet kommen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Με κλειστή εφαρμογή, οι συναγερμοί μπορεί να καθυστερήσουν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the app closed, alerts can arrive late."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con la app cerrada, las alarmas pueden llegar tarde."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suletud rakendusega võivad hoiatused hilineda."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikazioa itxita, alarmak berandu irits daitezke."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقتی برنامه بسته است، ممکن است هشدارها دیر برسند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus suljettuna hälytykset voivat myöhästyä."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapag sarado ang app, maaaring mahuli ang mga alerto."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App fermée, les alertes peuvent arriver en retard."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agus an aip dúnta, d’fhéadfadh foláirimh a bheith déanach."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coa app pechada, as alarmas poden chegar tarde."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ઍપ બંધ હોય ત્યારે એલર્ટ મોડા આવી શકે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כשהאפליקציה סגורה, התראות עלולות להתעכב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऐप बंद होने पर अलार्म देर से आ सकते हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kada je aplikacija zatvorena, alarmi mogu kasniti."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezárt alkalmazásnál a riasztások késhetnek."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Երբ հավելվածը փակ է, ահազանգերը կարող են ուշանալ։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saat aplikasi ditutup, alarm mungkin terlambat."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Þegar forritið er lokað geta viðvaranir borist seint."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Con l’app chiusa, gli allarmi potrebbero arrivare in ritardo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリを閉じていると、アラームが遅れる可能性があります。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "დახურული აპის დროს განგაშები შეიძლება დააგვიანოს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Қолданба жабық болса, ескертулер кешігуі мүмкін."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ពេលកម្មវិធីបិទ ការដាស់តឿនអាចយឺត។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ, ಅಲರ್ಟ್‌ಗಳು ತಡವಾಗಬಹುದು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앱을 닫으면 경보가 늦을 수 있습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ເມື່ອປິດແອັບ, ສັນຍານເຕືອນອາດຊ້າ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kai programėlė uždaryta, įspėjimai gali vėluoti."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kad lietotne ir aizvērta, brīdinājumi var kavēties."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кога апликацијата е затворена, алармите може да доцнат."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ആപ്പ് അടച്ചിരിക്കുമ്പോൾ അലേർട്ടുകൾ വൈകിയേക്കാം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Апп хаалттай үед дохио хоцорч магадгүй."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ॲप बंद असताना अलर्ट उशिरा येऊ शकतात."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apabila apl ditutup, amaran mungkin lewat."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အက်ပ်ကို ပိတ်ထားလျှင် သတိပေးချက်များ နောက်ကျနိုင်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Når appen er lukket, kan alarmer komme sent."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एप बन्द हुँदा अलर्टहरू ढिलो हुन सक्छन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Met de app gesloten kunnen alarmen te laat komen."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਐਪ ਬੰਦ ਹੋਵੇ ਤਾਂ ਅਲਰਟ ਦੇਰ ਨਾਲ ਆ ਸਕਦੇ ਹਨ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przy zamkniętej aplikacji alarmy mogą się spóźniać."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Com a app fechada, os alarmes podem chegar atrasados."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Com o app fechado, os alarmes podem chegar atrasados."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cu aplicația închisă, alarmele pot întârzia."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При закрытом приложении оповещения могут опаздывать."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "යෙදුම වසා ඇති විට, ඇඟවීම් ප්‍රමාද විය හැක."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pri zatvorenej aplikácii môžu alarmy meškať."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ko je aplikacija zaprta, lahko alarmi zamujajo."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me aplikacionin të mbyllur, alarmet mund të vonohen."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Када је апликација затворена, аларми могу каснити."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kada je aplikacija zatvorena, alarmi mogu kasniti."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "När appen är stängd kan larm komma sent."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Programu ikiwa imefungwa, kengele zinaweza kuchelewa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ஆப் மூடியிருந்தால், விழிப்பூட்டல்கள் தாமதமாகலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "యాప్ మూసి ఉన్నప్పుడు అలర్ట్‌లు ఆలస్యం కావచ్చు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เมื่อปิดแอป สัญญาณเตือนอาจมาช้า"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulama kapalıyken alarmlar gecikebilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коли застосунок закрито, сигнали можуть запізнюватися."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ایپ بند ہو تو الرٹس دیر سے آ سکتے ہیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilova yopiq boʻlsa, signallar kechikishi mumkin."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khi đóng ứng dụng, cảnh báo có thể đến muộn."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App 關閉時，提示可能會遲。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用关闭时，提醒可能延迟。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "應用程式關閉時，提醒可能延遲。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma i-app ivaliwe, ama-alamu angase afike sekwephuzile."
           }
         }
       }
@@ -185760,461 +186670,6 @@
         }
       }
     },
-    "backup_plain_contents_addresses" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gestoorde beursie-adresse en xpub-sleutels met saldogeskiedenis en kostebasis"
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "የተቀመጡ የቦርሳ አድራሻዎችና የxpub ቁልፎች ከቀሪ ሂሳብ ታሪክና ከወጪ መሠረት ጋር"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "عناوين wallet ومفاتيح xpub المحفوظة مع سجل الرصيد وتكلفة الشراء"
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balans tarixçəsi və maya dəyəri ilə saxlanılmış pulqabı ünvanları və xpub açarları"
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запазени адреси на портфейли и xpub ключове с история на салдата и себестойност"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "সংরক্ষিত ওয়ালেট ঠিকানা ও xpub কী, ব্যালেন্সের ইতিহাস ও ক্রয়মূল্যসহ"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sačuvane adrese novčanika i xpub ključeve s historijom stanja i nabavnom vrijednošću"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adreces de moneder desades i claus xpub amb l'historial de saldo i el cost d'adquisició"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uložené adresy peněženek a klíče xpub s historií zůstatku a pořizovací cenou"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gemte wallet-adresser og xpub-nøgler med saldohistorik og anskaffelsesværdi"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gespeicherte Wallet-Adressen und xpub-Schlüssel mit Guthaben-Verlauf und Einstandswerten"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Αποθηκευμένες διευθύνσεις πορτοφολιών και κλειδιά xpub με ιστορικό υπολοίπου και κόστος κτήσης"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saved wallet addresses and xpub keys with balance history and cost basis"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direcciones de wallet y claves xpub guardadas, con historial de saldo y coste de adquisición"
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Salvestatud rahakottide aadressid ja xpub-võtmed koos saldoajaloo ja soetusmaksumusega"
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gordetako karterako helbideak eta xpub gakoak, saldo-historiarekin eta eskuratze-kostuarekin"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آدرس‌ها و کلیدهای xpub ذخیره‌شدهٔ کیف پول با تاریخچهٔ موجودی و بهای تمام‌شده"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tallennetut lompakko-osoitteet ja xpub-avaimet saldohistorioineen ja hankintamenoineen"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mga naka-save na wallet address at xpub key kasama ang kasaysayan ng balanse at cost basis"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresses de wallet et clés xpub enregistrées, avec historique des soldes et prix de revient"
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seoltaí sparáin agus eochracha xpub sábháilte le stair iarmhéide agus bunchostas"
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enderezos de moedeiro gardados e claves xpub co historial de saldo e o custo de adquisición"
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "બેલેન્સ ઇતિહાસ અને પડતર કિંમત સાથે સેવ કરેલાં વૉલેટ સરનામાં અને xpub કી"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "כתובות ארנק ומפתחות xpub שמורים, כולל היסטוריית יתרות ועלות רכישה"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "सहेजे गए वॉलेट पते और xpub कुंजियाँ, बैलेंस इतिहास और लागत आधार के साथ"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spremljene adrese novčanika i xpub ključeve s poviješću stanja i nabavnom vrijednošću"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mentett tárcacímek és xpub-kulcsok egyenlegelőzménnyel és bekerülési értékkel"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Պահպանված դրամապանակի հասցեներ և xpub բանալիներ՝ մնացորդի պատմությամբ և ձեռքբերման արժեքով"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alamat dompet dan kunci xpub tersimpan beserta riwayat saldo dan biaya perolehan"
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vistuð veskisvistföng og xpub-lyklar með stöðusögu og kostnaðarverði"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indirizzi wallet e chiavi xpub salvati, con cronologia dei saldi e costo di carico"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存したウォレットアドレスと xpub キー（残高の履歴と取得原価を含む）"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "შენახული საფულის მისამართები და xpub გასაღებები ნაშთის ისტორიითა და შეძენის ღირებულებით"
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Баланс тарихы мен құн негізі бар сақталған әмиян мекенжайлары мен xpub кілттері"
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "អាសយដ្ឋានកាបូប និងសោ xpub ដែលបានរក្សាទុក រួមទាំងប្រវត្តិសមតុល្យ និងតម្លៃដើម"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ಬ್ಯಾಲೆನ್ಸ್ ಇತಿಹಾಸ ಮತ್ತು ಖರೀದಿ ವೆಚ್ಚದೊಂದಿಗೆ ಉಳಿಸಿದ ವ್ಯಾಲೆಟ್ ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳು"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "저장된 지갑 주소와 xpub 키(잔액 기록 및 취득 원가 포함)"
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ທີ່ຢູ່ກະເປົາເງິນ ແລະ ກະແຈ xpub ທີ່ບັນທຶກໄວ້ ພ້ອມປະຫວັດຍອດເງິນ ແລະ ຕົ້ນທຶນ"
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Išsaugotus piniginių adresus ir xpub raktus su likučių istorija ir savikaina"
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saglabātās maciņu adreses un xpub atslēgas ar atlikumu vēsturi un iegādes vērtību"
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зачувани адреси на паричници и xpub-клучеви со историја на салдо и набавна вредност"
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ബാലൻസ് ചരിത്രവും ചെലവുവിലയുമുള്ള സംരക്ഷിച്ച വാലറ്റ് വിലാസങ്ങളും xpub കീകളും"
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Үлдэгдлийн түүх, өртгийн суурьтай хадгалсан түрийвчний хаяг болон xpub түлхүүр"
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "शिल्लक इतिहास आणि मूळ किंमतीसह सेव्ह केलेले वॉलेट पत्ते आणि xpub की"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alamat dompet dan kunci xpub yang disimpan beserta sejarah baki dan kos asas"
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "လက်ကျန်မှတ်တမ်းနှင့် မူလကုန်ကျစရိတ်ပါသော သိမ်းထားသည့် ပိုက်ဆံအိတ် လိပ်စာများနှင့် xpub သော့များ"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lagrede wallet-adresser og xpub-nøkler med saldohistorikk og inngangsverdi"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ब्यालेन्स इतिहास र लागत आधारसहित सेभ गरिएका वालेट ठेगाना र xpub कुञ्जीहरू"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Opgeslagen walletadressen en xpub-sleutels met saldogeschiedenis en aankoopwaarde"
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ਸੰਭਾਲੇ ਵਾਲਿਟ ਪਤੇ ਅਤੇ xpub ਕੀਜ਼, ਬੈਲੈਂਸ ਦੇ ਇਤਿਹਾਸ ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਸਮੇਤ"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zapisane adresy walletów i klucze xpub z historią sald i kosztem nabycia"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereços de carteira e chaves xpub guardados, com histórico de saldo e custo de aquisição"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereços de carteira e chaves xpub salvos, com histórico de saldo e custo de aquisição"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adrese de wallet și chei xpub salvate, cu istoricul soldului și costul de achiziție"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сохранённые адреса кошельков и ключи xpub с историей балансов и стоимостью покупки"
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ශේෂ ඉතිහාසය සහ පිරිවැය පදනම සමඟ සුරැකි පසුම්බි ලිපින සහ xpub යතුරු"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uložené adresy peňaženiek a kľúče xpub s históriou zostatkov a obstarávacou cenou"
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shranjene naslove denarnic in ključe xpub z zgodovino stanj in nabavno vrednostjo"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresat e ruajtura të wallet-it dhe çelësat xpub, me historikun e balancës dhe koston e blerjes"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сачуване адресе новчаника и xpub кључеве с историјом стања и набавном вредношћу"
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sačuvane adrese novčanika i xpub ključeve s istorijom stanja i nabavnom vrednošću"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sparade wallet-adresser och xpub-nycklar med saldohistorik och anskaffningsvärde"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anwani za wallet na funguo za xpub zilizohifadhiwa pamoja na historia ya salio na gharama ya msingi"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "இருப்பு வரலாறு மற்றும் அடக்க விலையுடன் சேமிக்கப்பட்ட வாலட் முகவரிகளும் xpub கீகளும்"
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "బ్యాలెన్స్ చరిత్ర, కొనుగోలు వ్యయంతో సేవ్ చేసిన వాలెట్ అడ్రస్‌లు, xpub కీలు"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ที่อยู่วอลเล็ตและคีย์ xpub ที่บันทึกไว้ พร้อมประวัติยอดคงเหลือและต้นทุน"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kayıtlı cüzdan adresleri ve xpub anahtarları, bakiye geçmişi ve maliyet esasıyla"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Збережені адреси гаманців і ключі xpub з історією балансів і вартістю придбання"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "محفوظ والیٹ پتے اور xpub کیز، بیلنس کی تاریخ اور لاگت کی بنیاد سمیت"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balans tarixi va tannarxi bilan saqlangan hamyon manzillari va xpub kalitlari"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Địa chỉ ví và khóa xpub đã lưu, kèm lịch sử số dư và giá vốn"
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已儲存嘅錢包地址同 xpub 金鑰，連結餘記錄同成本基礎"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已保存的钱包地址和 xpub 密钥，含余额历史和成本"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已儲存的錢包地址和 xpub 金鑰，含餘額歷史和成本"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Amakheli e-wallet alondoloziwe nokhiye be-xpub kanye nomlando webhalansi nezindleko zokuthenga"
-          }
-        }
-      }
-    },
     "backup_plain_contents_base" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -186666,461 +187121,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uhlu lokubuka namanothi namaqembu, ama-alamu, izintandokazi nezilungiselelo"
-          }
-        }
-      }
-    },
-    "backup_plain_contents_portfolio" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "af" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portefeulje: transaksies met bedrae en pryse"
-          }
-        },
-        "am" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ፖርትፎሊዮ፦ ግብይቶች ከመጠኖችና ዋጋዎች ጋር"
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "المحفظة: المعاملات بالكميات والأسعار"
-          }
-        },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfel: məbləğ və qiymətlərlə əməliyyatlar"
-          }
-        },
-        "bg" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфолио: транзакции с количества и цени"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "পোর্টফোলিও: পরিমাণ ও দামসহ লেনদেন"
-          }
-        },
-        "bs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transakcije s iznosima i cijenama"
-          }
-        },
-        "ca" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cartera: transaccions amb quantitats i preus"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transakce s množstvím a cenami"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portefølje: transaktioner med mængder og priser"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: Transaktionen mit Mengen und Preisen"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Χαρτοφυλάκιο: συναλλαγές με ποσότητες και τιμές"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transactions with amounts and prices"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cartera: transacciones con cantidades y precios"
-          }
-        },
-        "et" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfell: tehingud koguste ja hindadega"
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zorroa: transakzioak kopuruekin eta prezioekin"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "سبد: تراکنش‌ها با مقدار و قیمت"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Salkku: tapahtumat määrineen ja hintoineen"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: mga transaksyon kasama ang mga halaga at presyo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portefeuille : transactions avec quantités et prix"
-          }
-        },
-        "ga" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Punann: idirbhearta le méideanna agus praghsanna"
-          }
-        },
-        "gl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carteira: transaccións con cantidades e prezos"
-          }
-        },
-        "gu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "પોર્ટફોલિયો: રકમ અને ભાવ સાથેના વ્યવહારો"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "תיק: עסקאות עם כמויות ומחירים"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "पोर्टफ़ोलियो: मात्रा और भाव के साथ लेन-देन"
-          }
-        },
-        "hr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfelj: transakcije s iznosima i cijenama"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfólió: tranzakciók mennyiségekkel és árakkal"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Պորտֆել՝ գործարքներ գումարներով և գներով"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portofolio: transaksi dengan jumlah dan harga"
-          }
-        },
-        "is" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eignasafn: færslur með upphæðum og verðum"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portafoglio: transazioni con quantità e prezzi"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ポートフォリオ：数量と価格付きの取引"
-          }
-        },
-        "ka" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "პორტფელი: ტრანზაქციები თანხებითა და ფასებით"
-          }
-        },
-        "kk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфель: сомалары мен бағалары бар транзакциялар"
-          }
-        },
-        "km" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ផលប័ត្រ៖ ប្រតិបត្តិការ រួមទាំងចំនួន និងតម្លៃ"
-          }
-        },
-        "kn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ಪೋರ್ಟ್‌ಫೋಲಿಯೊ: ಮೊತ್ತಗಳು ಮತ್ತು ಬೆಲೆಗಳೊಂದಿಗೆ ವಹಿವಾಟುಗಳು"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "포트폴리오: 수량과 가격이 포함된 거래"
-          }
-        },
-        "lo" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ພອດໂຟລິໂອ: ທຸລະກຳພ້ອມຈຳນວນ ແລະ ລາຄາ"
-          }
-        },
-        "lt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfelį: transakcijas su kiekiais ir kainomis"
-          }
-        },
-        "lv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfeli: darījumus ar daudzumiem un cenām"
-          }
-        },
-        "mk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфолио: трансакции со износи и цени"
-          }
-        },
-        "ml" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "പോർട്ട്ഫോളിയോ: തുകകളും വിലകളുമുള്ള ഇടപാടുകൾ"
-          }
-        },
-        "mn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Багц: дүн, ханштай гүйлгээ"
-          }
-        },
-        "mr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "पोर्टफोलिओ: रक्कम आणि किमतींसह व्यवहार"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transaksi beserta jumlah dan harga"
-          }
-        },
-        "my" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ပေါ့ဖိုလီယို: ပမာဏနှင့် ဈေးနှုန်းများပါသော ငွေပေးငွေယူများ"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portefølje: transaksjoner med mengder og priser"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "पोर्टफोलियो: रकम र मूल्यसहित कारोबारहरू"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transacties met hoeveelheden en prijzen"
-          }
-        },
-        "pa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ਪੋਰਟਫੋਲੀਓ: ਰਕਮਾਂ ਅਤੇ ਕੀਮਤਾਂ ਸਮੇਤ ਲੈਣ-ਦੇਣ"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfel: transakcje z ilościami i cenami"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfólio: transações com quantidades e preços"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfólio: transações com quantidades e preços"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portofoliu: tranzacții cu cantități și prețuri"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфель: транзакции с количеством и ценами"
-          }
-        },
-        "si" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "කළඹ: ප්‍රමාණ සහ මිල ගණන් සහිත ගනුදෙනු"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfólio: transakcie s množstvami a cenami"
-          }
-        },
-        "sl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfelj: transakcije s količinami in cenami"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portofoli: transaksione me sasi dhe çmime"
-          }
-        },
-        "sr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфолио: трансакције с износима и ценама"
-          }
-        },
-        "sr-Latn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfolio: transakcije s iznosima i cenama"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfölj: transaktioner med mängder och priser"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jalada: miamala pamoja na kiasi na bei"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "போர்ட்ஃபோலியோ: தொகைகள் மற்றும் விலைகளுடன் பரிவர்த்தனைகள்"
-          }
-        },
-        "te" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "పోర్ట్‌ఫోలియో: మొత్తాలు, ధరలతో లావాదేవీలు"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "พอร์ต: รายการพร้อมจำนวนและราคา"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portföy: miktar ve fiyatlarıyla işlemler"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Портфель: транзакції з кількістю та цінами"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پورٹ فولیو: رقوم اور قیمتوں سمیت لین دین"
-          }
-        },
-        "uz" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Portfel: miqdor va narxlari bilan tranzaksiyalar"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Danh mục: giao dịch kèm số lượng và giá"
-          }
-        },
-        "yue-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "投資組合：交易連數量同價格"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "投资组合：含数量和价格的交易"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "投資組合：含數量和價格的交易"
-          }
-        },
-        "zu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "I-portfolio: imisebenzi enamanani nezintengo"
           }
         }
       }
@@ -188031,6 +188031,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ibethela ifayela (AES-256). Kunconywa uma liqukethe idatha ye-portfolio."
+          }
+        }
+      }
+    },
+    "backup_protect_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altyd aan: die lêer bevat portefeuljedata."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ሁልጊዜ በርቷል፦ ፋይሉ የፖርትፎሊዮ ውሂብ ይዟል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفعّل دائمًا: الملف يحتوي على بيانات المحفظة."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Həmişə aktivdir: faylda portfel məlumatları var."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Винаги включено: файлът съдържа данни за портфолиото."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সবসময় চালু: ফাইলে পোর্টফোলিও ডেটা আছে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uvijek uključeno: datoteka sadrži podatke portfolija."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre activat: el fitxer conté dades de la cartera."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vždy zapnuto: soubor obsahuje data portfolia."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altid slået til: filen indeholder porteføljedata."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer an: Die Datei enthält Portfolio-Daten."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πάντα ενεργό: το αρχείο περιέχει δεδομένα χαρτοφυλακίου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always on: the file contains portfolio data."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siempre activado: el archivo contiene datos de la cartera."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alati sees: fail sisaldab portfelli andmeid."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beti aktibatuta: fitxategiak zorroko datuak ditu."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همیشه روشن: فایل داده‌های پرتفوی دارد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina päällä: tiedosto sisältää salkun tietoja."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laging naka-on: may data ng portfolio ang file."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toujours activé : le fichier contient des données du portefeuille."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ar siúl i gcónaí: tá sonraí punainne sa chomhad."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre activado: o ficheiro contén datos da carteira."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "હંમેશા ચાલુ: ફાઇલમાં પોર્ટફોલિયો ડેટા છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תמיד פעיל: הקובץ כולל נתוני תיק השקעות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हमेशा चालू: फ़ाइल में पोर्टफ़ोलियो डेटा है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uvijek uključeno: datoteka sadrži podatke portfelja."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mindig bekapcsolva: a fájl portfólióadatokat tartalmaz."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Միշտ միացված է․ ֆայլը պարունակում է պորտֆելի տվյալներ։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selalu aktif: file berisi data portofolio."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alltaf virkt: skráin inniheldur gögn úr eignasafni."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre attivo: il file contiene dati del portafoglio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "常にオンです：ファイルにポートフォリオのデータが含まれます。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ყოველთვის ჩართულია: ფაილი პორტფელის მონაცემებს შეიცავს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Әрқашан қосулы: файлда портфель деректері бар."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បើកជានិច្ច៖ ឯកសារមានទិន្នន័យផលប័ត្រ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಯಾವಾಗಲೂ ಆನ್: ಫೈಲ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಡೇಟಾ ಇದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "항상 켜짐: 파일에 포트폴리오 데이터가 포함됩니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ເປີດຢູ່ສະເໝີ: ໄຟລ໌ມີຂໍ້ມູນພອດໂຟລິໂອ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visada įjungta: faile yra portfelio duomenų."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vienmēr ieslēgts: failā ir portfeļa dati."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Секогаш вклучено: датотеката содржи податоци од портфолиото."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "എപ്പോഴും ഓൺ: ഫയലിൽ പോർട്ട്ഫോളിയോ ഡാറ്റയുണ്ട്."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Үргэлж асаалттай: файл багцын өгөгдөл агуулж байна."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नेहमी सुरू: फाइलमध्ये पोर्टफोलिओ डेटा आहे."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sentiasa hidup: fail mengandungi data portfolio."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အမြဲဖွင့်ထားသည်- ဖိုင်တွင် ပေါ့ဖိုလီယို ဒေတာ ပါဝင်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alltid på: filen inneholder porteføljedata."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सधैँ सक्रिय: फाइलमा पोर्टफोलियो डेटा छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altijd aan: het bestand bevat portfoliogegevens."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹਮੇਸ਼ਾ ਚਾਲੂ: ਫਾਈਲ ਵਿੱਚ ਪੋਰਟਫੋਲੀਓ ਡਾਟਾ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zawsze włączone: plik zawiera dane portfela."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre ativado: o ficheiro contém dados do portfólio."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre ativado: o arquivo contém dados do portfólio."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mereu activ: fișierul include date din portofoliu."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всегда включено: в файле есть данные портфеля."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "සැමවිට සක්‍රියයි: ගොනුවේ කළඹ දත්ත අඩංගුයි."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vždy zapnuté: súbor obsahuje údaje portfólia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedno vklopljeno: datoteka vsebuje podatke portfelja."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gjithmonë aktiv: skedari përmban të dhëna të portofolit."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увек укључено: датотека садржи податке портфолија."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uvek uključeno: datoteka sadrži podatke portfolija."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alltid på: filen innehåller portföljdata."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imewashwa kila wakati: faili ina data ya jalada."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "எப்போதும் இயக்கத்தில்: கோப்பில் போர்ட்ஃபோலியோ தரவு உள்ளது."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఎల్లప్పుడూ ఆన్: ఫైల్‌లో పోర్ట్‌ఫోలియో డేటా ఉంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปิดเสมอ: ไฟล์มีข้อมูลพอร์ตโฟลิโอ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her zaman açık: dosya portföy verisi içeriyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завжди ввімкнено: у файлі є дані портфеля."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ہمیشہ آن: فائل میں پورٹ فولیو ڈیٹا ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doim yoniq: faylda portfel maʼlumotlari bor."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luôn bật: tệp chứa dữ liệu danh mục."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一定開啟：檔案有投資組合資料。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始终开启：文件包含投资组合数据。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一律開啟：檔案包含投資組合資料。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuhlala kuvuliwe: ifayela liqukethe idatha ye-portfolio."
           }
         }
       }
@@ -1024953,6 +1025408,916 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uhlu lokubuka alukwazi ukushintshwa: idatha elondoloziwe ayikwazi ukufundwa okwamanje. Qala kabusha i-app."
+          }
+        }
+      }
+    },
+    "watchlist_symbols_legend" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simbole verduidelik"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የምልክቶች ማብራሪያ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرح الرموز"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simvolların izahı"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обяснение на символите"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "প্রতীকের ব্যাখ্যা"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objašnjenje simbola"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Símbols explicats"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vysvětlení symbolů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbolforklaring"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbole erklärt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επεξήγηση συμβόλων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbols explained"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Símbolos explicados"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sümbolite selgitus"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikurren azalpena"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توضیح نمادها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbolien selitykset"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paliwanag ng mga simbolo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explication des symboles"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Míniú ar na siombailí"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Símbolos explicados"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ચિહ્નોની સમજૂતી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסבר הסמלים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्रतीकों की जानकारी"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objašnjenje simbola"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szimbólumok magyarázata"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Նշանների բացատրություն"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penjelasan simbol"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skýring á táknum"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legenda dei simboli"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記号の説明"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "სიმბოლოების განმარტება"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Таңбалар түсіндірмесі"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ការពន្យល់និមិត្តសញ្ញា"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಚಿಹ್ನೆಗಳ ವಿವರಣೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기호 설명"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຄຳອະທິບາຍສັນຍາລັກ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simbolių paaiškinimas"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simbolu skaidrojums"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Објаснување на симболите"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ചിഹ്നങ്ങളുടെ വിശദീകരണം"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тэмдгүүдийн тайлбар"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "चिन्हांचे स्पष्टीकरण"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penjelasan simbol"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "သင်္ကေတများ ရှင်းလင်းချက်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbolforklaring"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सङ्केतहरूको व्याख्या"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uitleg van symbolen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਚਿੰਨ੍ਹਾਂ ਦੀ ਵਿਆਖਿਆ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objaśnienie symboli"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explicação dos símbolos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explicação dos símbolos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explicația simbolurilor"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обозначения"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "සංකේත පැහැදිලි කිරීම"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vysvetlenie symbolov"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Razlaga simbolov"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shpjegimi i simboleve"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Објашњење симбола"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objašnjenje simbola"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbolförklaring"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maelezo ya alama"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "குறியீடுகளின் விளக்கம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "చిహ్నాల వివరణ"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คำอธิบายสัญลักษณ์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simgelerin açıklaması"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пояснення символів"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "علامات کی وضاحت"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belgilar izohi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giải thích ký hiệu"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "符號說明"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "符号说明"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "符號說明"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incazelo yezimpawu"
+          }
+        }
+      }
+    },
+    "watchlist_symbols_legend_alarms" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiewe alarms, met hul aantal"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ንቁ ማንቂያዎች፣ ከቁጥራቸው ጋር"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التنبيهات النشطة مع عددها"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv alarmlar və onların sayı"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активни аларми и техният брой"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সক্রিয় অ্যালার্ট ও তার সংখ্যা"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivni alarmi i njihov broj"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes actives, amb el nombre"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivní alarmy a jejich počet"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktive alarmer med antal"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktive Alarme mit Anzahl"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ενεργοί συναγερμοί και το πλήθος τους"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active alerts, with their number"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas activas, con su número"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiivsed hoiatused ja nende arv"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarma aktiboak eta haien kopurua"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای فعال و تعداد آن‌ها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiiviset hälytykset ja niiden määrä"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga aktibong alerto at ang bilang nito"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes actives, avec leur nombre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foláirimh ghníomhacha agus a líon"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas activas, co seu número"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સક્રિય એલર્ટ અને તેની સંખ્યા"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות פעילות ומספרן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सक्रिय अलार्म और उनकी संख्या"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivni alarmi i njihov broj"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktív riasztások és számuk"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ակտիվ ահազանգերը և դրանց քանակը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm aktif beserta jumlahnya"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virkar viðvaranir og fjöldi þeirra"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi attivi, con il loro numero"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効なアラームとその件数"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "აქტიური განგაშები და მათი რაოდენობა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Белсенді ескертулер және олардың саны"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ការដាស់តឿនសកម្ម និងចំនួន"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸಕ್ರಿಯ ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಅವುಗಳ ಸಂಖ್ಯೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "활성 경보와 그 개수"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ສັນຍານເຕືອນທີ່ເປີດຢູ່ ແລະ ຈຳນວນ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktyvūs įspėjimai ir jų skaičius"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktīvie brīdinājumi un to skaits"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активни аларми и нивниот број"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സജീവ അലേർട്ടുകളും അവയുടെ എണ്ണവും"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Идэвхтэй дохио ба тэдгээрийн тоо"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सक्रिय अलर्ट आणि त्यांची संख्या"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amaran aktif berserta bilangannya"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အသက်ဝင်နေသော သတိပေးချက်များနှင့် အရေအတွက်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktive alarmer med antall"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सक्रिय अलर्टहरू र तिनको सङ्ख्या"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actieve alarmen, met hun aantal"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਰਗਰਮ ਅਲਰਟ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktywne alarmy i ich liczba"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes ativos, com o respetivo número"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes ativos, com a quantidade"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme active și numărul lor"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активные оповещения и их число"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "සක්‍රිය ඇඟවීම් සහ ඒවායේ ගණන"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktívne alarmy a ich počet"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivni alarmi in njihovo število"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet aktive dhe numri i tyre"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активни аларми и њихов број"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivni alarmi i njihov broj"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiva larm med antal"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kengele zinazotumika na idadi yake"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "செயலில் உள்ள விழிப்பூட்டல்களும் அவற்றின் எண்ணிக்கையும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "యాక్టివ్ అలర్ట్‌లు, వాటి సంఖ్య"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สัญญาณเตือนที่เปิดอยู่และจำนวน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etkin alarmlar ve sayıları"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активні сигнали та їх кількість"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال الرٹس اور ان کی تعداد"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faol signallar va ularning soni"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo đang bật và số lượng"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生效中嘅提示同數量"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已启用的提醒及其数量"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "啟用中的提醒及其數量"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ama-alamu asebenzayo nenani lawo"
           }
         }
       }

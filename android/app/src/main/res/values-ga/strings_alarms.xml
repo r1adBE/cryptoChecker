@@ -23,6 +23,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Ardleibhéal</string>
     <string name="alarm_change_updates">Coigeartaigh nuashonruithe praghais</string>
+    <string name="alarm_closed_app_short">Agus an aip dúnta, d’fhéadfadh foláirimh a bheith déanach.</string>
     <string name="alarm_check_mode_15min">Thart ar gach 15 nóiméad</string>
     <string name="alarm_check_mode_saving">Spárálach</string>
     <string name="alarm_check_mode_title">Cé chomh minic is ceart seiceáil nuair atá an gléas díomhaoin?</string>

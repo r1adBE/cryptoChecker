@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">გაფართოებული</string>
     <string name="alarm_change_updates">ფასის განახლებების მორგება</string>
+    <string name="alarm_closed_app_short">დახურული აპის დროს განგაშები შეიძლება დააგვიანოს.</string>
     <string name="alarm_check_mode_15min">დაახლოებით ყოველ 15 წუთში</string>
     <string name="alarm_check_mode_saving">ეკონომიური</string>
     <string name="alarm_check_mode_title">რამდენად ხშირად შემოწმდეს, როცა მოწყობილობა უმოქმედოა?</string>

@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Napačno geslo ali poškodovana datoteka. Poskusi znova.</string>
     <string name="backup_protect">Zaščiti z geslom</string>
     <string name="backup_protect_hint">Šifrira datoteko (AES-256). Priporočljivo, če vsebuje podatke portfelja.</string>
+    <string name="backup_protect_required">Vedno vklopljeno: datoteka vsebuje podatke portfelja.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Shrani brez gesla</string>
     <string name="backup_plain_confirm_text">Datoteka ni šifrirana. Kdor jo dobi, lahko prebere:</string>
     <string name="backup_plain_confirm_title">Shranim brez gesla?</string>
-    <string name="backup_plain_contents_addresses">Shranjene naslove denarnic in ključe xpub z zgodovino stanj in nabavno vrednostjo</string>
     <string name="backup_plain_contents_base">Seznam z opombami in skupinami, alarme, priljubljene in nastavitve</string>
-    <string name="backup_plain_contents_portfolio">Portfelj: transakcije s količinami in cenami</string>
     <string name="backup_restore_app_lock_kept">Zaklep portfelja ostane vklopljen – nešifrirana varnostna kopija ga ne more izklopiti.</string>
     <string name="backup_restore_confirm">Uvoz nadomesti trenutni seznam (z opombami in skupinami), alarme, priljubljene, portfelj in nastavitve z varnostno kopijo.</string>
     <plurals name="backup_restore_invalid">

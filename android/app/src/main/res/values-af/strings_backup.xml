@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Verkeerde wagwoord, of die lêer is beskadig. Probeer asseblief weer.</string>
     <string name="backup_protect">Beskerm met wagwoord</string>
     <string name="backup_protect_hint">Enkripteer die lêer (AES-256). Aanbeveel wanneer dit portefeuljedata bevat.</string>
+    <string name="backup_protect_required">Altyd aan: die lêer bevat portefeuljedata.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Stoor sonder wagwoord</string>
     <string name="backup_plain_confirm_text">Die lêer is nie geënkripteer nie. Enigiemand wat dit kry, kan lees:</string>
     <string name="backup_plain_confirm_title">Stoor sonder wagwoord?</string>
-    <string name="backup_plain_contents_addresses">Gestoorde beursie-adresse en xpub-sleutels met saldogeskiedenis en kostebasis</string>
     <string name="backup_plain_contents_base">Volglys met notas en groepe, alarms, gunstelinge en instellings</string>
-    <string name="backup_plain_contents_portfolio">Portefeulje: transaksies met bedrae en pryse</string>
     <string name="backup_restore_app_lock_kept">Die portefeuljeslot bly aan – \'n ongeënkripteerde rugsteun kan dit nie afskakel nie.</string>
     <string name="backup_restore_confirm">Invoer vervang jou huidige volglys (met notas en groepe), alarms, gunstelinge, portefeulje en instellings met die rugsteun.</string>
     <plurals name="backup_restore_invalid">

@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">ಸಂಪರ್ಕವಿಲ್ಲ · %1$s ರಂತೆ</string>
     <string name="watchlist_pull_to_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ</string>
     <string name="watchlist_refresh_report">ಕೊನೆಯ ರಿಫ್ರೆಶ್</string>
+    <string name="watchlist_symbols_legend">ಚಿಹ್ನೆಗಳ ವಿವರಣೆ</string>
+    <string name="watchlist_symbols_legend_alarms">ಸಕ್ರಿಯ ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಅವುಗಳ ಸಂಖ್ಯೆ</string>
     <string name="watchlist_refresh_report_empty">ಇನ್ನೂ ವಿವರವಿಲ್ಲ – ಇಲ್ಲಿಯವರೆಗೆ ಪೂರ್ಣ ರಿಫ್ರೆಶ್ ಆಗಿಲ್ಲ. ರಿಫ್ರೆಶ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ವೃತ್ತ ನಿಲ್ಲುವವರೆಗೆ ಕಾಯಿರಿ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ರಲ್ಲಿ %1$d ಹಳೆಯದು</item>

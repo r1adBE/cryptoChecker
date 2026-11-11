@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">Fără conexiune · stare %1$s</string>
     <string name="watchlist_pull_to_refresh">Trage în jos pentru actualizare</string>
     <string name="watchlist_refresh_report">Ultima actualizare</string>
+    <string name="watchlist_symbols_legend">Explicația simbolurilor</string>
+    <string name="watchlist_symbols_legend_alarms">Alarme active și numărul lor</string>
     <string name="watchlist_refresh_report_empty">Încă nu există detalii: nu a avut loc încă o actualizare completă. Atinge Actualizează și așteaptă până se oprește indicatorul.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d din %2$d învechită</item>

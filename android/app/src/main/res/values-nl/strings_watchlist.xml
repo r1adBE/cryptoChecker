@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Geen verbinding · stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>
     <string name="watchlist_refresh_report">Laatste vernieuwing</string>
+    <string name="watchlist_symbols_legend">Uitleg van symbolen</string>
+    <string name="watchlist_symbols_legend_alarms">Actieve alarmen, met hun aantal</string>
     <string name="watchlist_refresh_report_empty">Nog geen overzicht: er is nog geen volledige vernieuwing geweest. Tik op vernieuwen en wacht tot de spinner stopt.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d van %2$d verouderd</item>

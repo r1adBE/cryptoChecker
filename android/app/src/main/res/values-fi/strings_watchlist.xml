@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Ei yhteyttä · tilanne %1$s</string>
     <string name="watchlist_pull_to_refresh">Päivitä vetämällä alas</string>
     <string name="watchlist_refresh_report">Viimeisin päivitys</string>
+    <string name="watchlist_symbols_legend">Symbolien selitykset</string>
+    <string name="watchlist_symbols_legend_alarms">Aktiiviset hälytykset ja niiden määrä</string>
     <string name="watchlist_refresh_report_empty">Erittelyä ei vielä ole: täyttä päivitystä ei ole vielä tehty. Napauta päivitä ja odota, kunnes latausilmaisin pysähtyy.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d / %2$d vanhentunut</item>

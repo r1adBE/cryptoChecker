@@ -9,6 +9,7 @@
     <string name="action_delete">මකන්න</string>
     <string name="action_edit">සංස්කරණය කරන්න</string>
     <string name="action_more">තවත් විකල්ප</string>
+    <string name="action_learn_more">තව දැනගන්න</string>
     <string name="action_refresh">නැවුම් කරන්න</string>
     <string name="action_retry">යළි උත්සාහ කරන්න</string>
     <string name="action_save">සුරකින්න</string>

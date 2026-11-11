@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Hakuna muunganisho · hadi %1$s</string>
     <string name="watchlist_pull_to_refresh">Vuta chini ili kuonyesha upya</string>
     <string name="watchlist_refresh_report">Uonyeshaji upya wa mwisho</string>
+    <string name="watchlist_symbols_legend">Maelezo ya alama</string>
+    <string name="watchlist_symbols_legend_alarms">Kengele zinazotumika na idadi yake</string>
     <string name="watchlist_refresh_report_empty">Bado hakuna uchanganuzi – hakuna uonyeshaji upya kamili hadi sasa. Gusa onyesha upya na usubiri hadi duara isimame.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d kati ya %2$d imepitwa na wakati</item>

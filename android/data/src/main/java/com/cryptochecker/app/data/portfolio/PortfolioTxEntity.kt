@@ -20,7 +20,7 @@ import java.math.BigDecimal
  * Preise in USDT; [priceUsdt] null = unbekannt (z. B. übernommener Bestand). Menge, Preis und Gebühr
  * sind exakt ([BigDecimal], als Text gespeichert): 1 Satoshi = 0.00000001 BTC bleibt genau 1 Satoshi.
  */
-@Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"])])
+@Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"]), Index(value = ["importBatch"])])
 data class PortfolioTxEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

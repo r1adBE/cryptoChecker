@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
     <string name="watchlist_pull_to_refresh">Húzd le a frissítéshez</string>
     <string name="watchlist_refresh_report">Utolsó frissítés</string>
+    <string name="watchlist_symbols_legend">Szimbólumok magyarázata</string>
+    <string name="watchlist_symbols_legend_alarms">Aktív riasztások és számuk</string>
     <string name="watchlist_refresh_report_empty">Még nincs részletezés: még nem volt teljes frissítés. Koppints a frissítésre, és várj, amíg a jelző megáll.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d párból %1$d elavult</item>

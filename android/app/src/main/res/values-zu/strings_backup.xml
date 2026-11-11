@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Iphasiwedi engalungile, noma ifayela lonakele. Sicela uzame futhi.</string>
     <string name="backup_protect">Vikela ngephasiwedi</string>
     <string name="backup_protect_hint">Ibethela ifayela (AES-256). Kunconywa uma liqukethe idatha ye-portfolio.</string>
+    <string name="backup_protect_required">Kuhlala kuvuliwe: ifayela liqukethe idatha ye-portfolio.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Londoloza ngaphandle kwephasiwedi</string>
     <string name="backup_plain_confirm_text">Ifayela alibethelwe. Noma ubani olitholayo angafunda:</string>
     <string name="backup_plain_confirm_title">Londoloza ngaphandle kwephasiwedi?</string>
-    <string name="backup_plain_contents_addresses">Amakheli e-wallet alondoloziwe nokhiye be-xpub kanye nomlando webhalansi nezindleko zokuthenga</string>
     <string name="backup_plain_contents_base">Uhlu lokubuka namanothi namaqembu, ama-alamu, izintandokazi nezilungiselelo</string>
-    <string name="backup_plain_contents_portfolio">I-portfolio: imisebenzi enamanani nezintengo</string>
     <string name="backup_restore_app_lock_kept">Ukhiye we-portfolio uhlala uvuliwe – isipele esingabethelwe asikwazi ukuwuvala.</string>
     <string name="backup_restore_confirm">Ukungenisa kuthatha isikhundla sohlu lwakho lokubuka lwamanje (namanothi namaqembu), ama-alamu, izintandokazi, i-portfolio nezilungiselelo ngokuqukethwe yisipele.</string>
     <plurals name="backup_restore_invalid">

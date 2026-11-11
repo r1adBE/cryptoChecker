@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Contrasinal incorrecto ou ficheiro danado. Téntao de novo.</string>
     <string name="backup_protect">Protexer con contrasinal</string>
     <string name="backup_protect_hint">Cifra o ficheiro (AES-256). Recomendado se contén datos da carteira.</string>
+    <string name="backup_protect_required">Sempre activado: o ficheiro contén datos da carteira.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Gardar sen contrasinal</string>
     <string name="backup_plain_confirm_text">O ficheiro non está cifrado. Calquera que o obteña pode ler:</string>
     <string name="backup_plain_confirm_title">Queres gardar sen contrasinal?</string>
-    <string name="backup_plain_contents_addresses">Enderezos de moedeiro gardados e claves xpub co historial de saldo e o custo de adquisición</string>
     <string name="backup_plain_contents_base">Lista con notas e grupos, alarmas, favoritos e configuración</string>
-    <string name="backup_plain_contents_portfolio">Carteira: transaccións con cantidades e prezos</string>
     <string name="backup_restore_app_lock_kept">O bloqueo da carteira segue activado – unha copia sen cifrar non o pode desactivar.</string>
     <string name="backup_restore_confirm">Ao importar, a túa lista actual (con notas e grupos), as alarmas, os favoritos, a carteira e a configuración substitúense pola copia de seguranza.</string>
     <plurals name="backup_restore_invalid">

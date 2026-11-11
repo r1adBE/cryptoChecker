@@ -39,7 +39,6 @@ import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog
-import com.cryptochecker.app.ui.features.alarms.LocalOpenUpdateSettings
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerViewModel
 import com.cryptochecker.app.ui.features.explorer.rememberExplorerSections
@@ -53,6 +52,7 @@ import com.cryptochecker.app.ui.features.portfolio.PortfolioViewModel
 import com.cryptochecker.app.ui.features.portfolio.TaxWorksheetScreen
 import com.cryptochecker.app.ui.features.settings.SettingsPage
 import com.cryptochecker.app.ui.features.watchlist.WatchlistScreen
+import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.lock.SecureWindowEffect
 
@@ -96,6 +96,8 @@ fun AppNavHost(
             sdkInt = android.os.Build.VERSION.SDK_INT,
         )
     )
+    // Portfolio sichtbar: keine fremden Fenster darüber (ab Android 12)
+    HideOverlaysEffect(onPortfolio)
     // Besitzer ausserhalb des Navigationsgraphen (die Activity): Der Markt-Tab behält
     // so sein ViewModel samt geladener Daten über Tab-Wechsel hinweg.
     val activityOwner = checkNotNull(LocalViewModelStoreOwner.current) { "Kein ViewModelStoreOwner" }
@@ -169,7 +171,7 @@ fun AppNavHost(
     // kommt erst nach dem ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
     BatteryOptimizationDialog(calm = currentTab != null)
 
-    // «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Kurs-Aktualisierung» direkt
+    // «Kurs-Aktualisierung ändern» auf «Damit Alarme ankommen» öffnet die Seite «Kurs-Aktualisierung» direkt
     val openUpdateSettings: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
@@ -184,7 +186,6 @@ fun AppNavHost(
     // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
     val tabReselect = remember { TabReselectSignal() }
     CompositionLocalProvider(
-        LocalOpenUpdateSettings provides openUpdateSettings,
         LocalOpenAlarmLog provides openAlarmLog,
         LocalOpenAlarmDelivery provides openAlarmDelivery,
         LocalTabReselect provides tabReselect,

@@ -72,7 +72,7 @@ extension PortfolioPriceSource {
             s.failedOf = [:]
             s.binanceOf = [:]
             s.mixedCoins = []
-            try? FileManager.default.removeItem(at: storeURL)
+            AppLog.remove(storeURL, "Portfolio-Kurse löschen")
         }
         PortfolioExchangeRouteStore.clear()
     }

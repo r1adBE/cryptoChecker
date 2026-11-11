@@ -47,29 +47,42 @@ enum OpenTargetGuard {
         URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first { $0.name == queryName }?.value
     }
 
-    /// Link zu `target` (ein Wort ohne «/», z. B. «portfolio») mit dem Geheimnis — für die eigenen Widgets.
+    /// Link zu `target` (ein Wort ohne «/», z. B. «portfolio») mit dem Geheimnis — für die eigenen Widgets. Ohne
+    /// Geheimnis (Zufallsquelle versagt) ohne Parameter: die App nimmt dann nur öffentliche Ziele an.
     static func url(_ target: String) -> URL? {
         var components = URLComponents()
         components.scheme = "cryptochecker"
         components.host = target
-        components.queryItems = [URLQueryItem(name: queryName, value: token)]
+        let secret = token
+        if !secret.isEmpty { components.queryItems = [URLQueryItem(name: queryName, value: secret)] }
         return components.url
     }
 
     /// Geheimnis dieser Installation; beim ersten Mal (App oder Widget) erzeugt (128 Bit Zufall) und gespeichert.
+    /// Leer, wenn die Zufallsquelle versagt: dann entsteht kein Geheimnis (nichts gespeichert, beim nächsten Aufruf
+    /// neu versucht), und `accepts` lässt nur die öffentlichen Ziele gelten.
     static var token: String {
         lock.lock()
         defer { lock.unlock() }
         let defaults = SharedStorage.defaults
         if let stored = defaults.string(forKey: defaultsKey), !stored.isEmpty { return stored }
-        var bytes = [UInt8](repeating: 0, count: 16)
-        if SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != errSecSuccess {
-            bytes = Array(UUID().uuidString.utf8.prefix(16))
-        }
-        let created = bytes.map { String(format: "%02x", $0) }.joined()
+        guard let created = newSecret() else { return "" }
         defaults.set(created, forKey: defaultsKey)
         // App und Widget sind getrennte Prozesse: hat der andere gleichzeitig eines angelegt, gilt das zuletzt
         // geschriebene — darum den gespeicherten Wert zurückgeben, nicht den eigenen
         return defaults.string(forKey: defaultsKey) ?? created
+    }
+
+    /// Neues Geheimnis (128 Bit als 32 Hex-Zeichen) aus `random` (füllt die Bytes, false = fehlgeschlagen); nil bei
+    /// einem Fehlschlag — nie ein Ersatz aus einer schwächeren Quelle.
+    static func newSecret(random: (inout [UInt8]) -> Bool = OpenTargetGuard.systemRandom) -> String? {
+        var bytes = [UInt8](repeating: 0, count: 16)
+        guard random(&bytes) else { return nil }
+        return bytes.map { String(format: "%02x", $0) }.joined()
+    }
+
+    /// Zufall des Systems (`SecRandomCopyBytes`).
+    static func systemRandom(_ bytes: inout [UInt8]) -> Bool {
+        SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) == errSecSuccess
     }
 }

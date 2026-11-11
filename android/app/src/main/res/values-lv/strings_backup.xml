@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Nepareiza parole vai fails ir bojāts. Mēģini vēlreiz.</string>
     <string name="backup_protect">Aizsargāt ar paroli</string>
     <string name="backup_protect_hint">Šifrē failu (AES-256). Ieteicams, ja tajā ir portfeļa dati.</string>
+    <string name="backup_protect_required">Vienmēr ieslēgts: failā ir portfeļa dati.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Saglabāt bez paroles</string>
     <string name="backup_plain_confirm_text">Fails nav šifrēts. Ikviens, kas to iegūs, varēs izlasīt:</string>
     <string name="backup_plain_confirm_title">Saglabāt bez paroles?</string>
-    <string name="backup_plain_contents_addresses">Saglabātās maciņu adreses un xpub atslēgas ar atlikumu vēsturi un iegādes vērtību</string>
     <string name="backup_plain_contents_base">Vērojamo sarakstu ar piezīmēm un grupām, brīdinājumus, izlasi un iestatījumus</string>
-    <string name="backup_plain_contents_portfolio">Portfeli: darījumus ar daudzumiem un cenām</string>
     <string name="backup_restore_app_lock_kept">Portfeļa bloķēšana paliek ieslēgta – nešifrēts dublējums nevar to izslēgt.</string>
     <string name="backup_restore_confirm">Importējot pašreizējais vērojamo saraksts (ar piezīmēm un grupām), brīdinājumi, izlase, portfelis un iestatījumi tiek aizstāti ar dublējumu.</string>
     <plurals name="backup_restore_invalid">

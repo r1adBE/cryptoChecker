@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">پیشرفته</string>
     <string name="alarm_change_updates">تغییر به‌روزرسانی قیمت‌ها</string>
+    <string name="alarm_closed_app_short">وقتی برنامه بسته است، ممکن است هشدارها دیر برسند.</string>
     <string name="alarm_check_mode_15min">تقریباً هر 15 دقیقه</string>
     <string name="alarm_check_mode_saving">کم‌مصرف</string>
     <string name="alarm_check_mode_title">وقتی دستگاه بیکار است، هر چند وقت یک‌بار بررسی شود؟</string>

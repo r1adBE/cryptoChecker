@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">Tidak ada koneksi · per %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk memperbarui</string>
     <string name="watchlist_refresh_report">Pembaruan terakhir</string>
+    <string name="watchlist_symbols_legend">Penjelasan simbol</string>
+    <string name="watchlist_symbols_legend_alarms">Alarm aktif beserta jumlahnya</string>
     <string name="watchlist_refresh_report_empty">Belum ada rincian: belum ada pembaruan penuh. Ketuk muat ulang dan tunggu hingga ikon putar berhenti.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d dari %2$d usang</item>

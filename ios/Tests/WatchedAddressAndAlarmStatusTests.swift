@@ -35,6 +35,16 @@ final class WatchedAddressAndAlarmStatusTests: XCTestCase {
         XCTAssertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions: 0, watchedAddresses: 0))
     }
 
+    func testBackupWithPortfolioDataNeedsPassword() {
+        // Mit Portfolio-Daten gibt es keine unverschlüsselte Sicherung; ohne bleibt der Schutz wählbar
+        XCTAssertTrue(PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData: true))
+        XCTAssertFalse(PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData: false))
+        XCTAssertFalse(PortfolioLockPolicy.backupExportAllowed(hasPassword: false, hasPortfolioData: true))
+        XCTAssertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword: true, hasPortfolioData: true))
+        XCTAssertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword: false, hasPortfolioData: false))
+        XCTAssertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword: true, hasPortfolioData: false))
+    }
+
     // MARK: Beobachtete Adressen nie im Klartext
 
     func testWatchedAddressesAreNeverWrittenInPlaintext() throws {

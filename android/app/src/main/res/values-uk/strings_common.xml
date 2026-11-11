@@ -9,6 +9,7 @@
     <string name="action_delete">Видалити</string>
     <string name="action_edit">Змінити</string>
     <string name="action_more">Інші дії</string>
+    <string name="action_learn_more">Докладніше</string>
     <string name="action_refresh">Оновити</string>
     <string name="action_retry">Повторити</string>
     <string name="action_save">Зберегти</string>

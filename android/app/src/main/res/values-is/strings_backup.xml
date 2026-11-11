@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Rangt lykilorð eða skráin er skemmd. Reyndu aftur.</string>
     <string name="backup_protect">Verja með lykilorði</string>
     <string name="backup_protect_hint">Dulkóðar skrána (AES-256). Mælt með þegar hún inniheldur gögn úr eignasafni.</string>
+    <string name="backup_protect_required">Alltaf virkt: skráin inniheldur gögn úr eignasafni.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Vista án lykilorðs</string>
     <string name="backup_plain_confirm_text">Skráin er ekki dulkóðuð. Hver sem fær hana getur lesið:</string>
     <string name="backup_plain_confirm_title">Vista án lykilorðs?</string>
-    <string name="backup_plain_contents_addresses">Vistuð veskisvistföng og xpub-lyklar með stöðusögu og kostnaðarverði</string>
     <string name="backup_plain_contents_base">Vaktlisti með athugasemdum og hópum, viðvaranir, uppáhöld og stillingar</string>
-    <string name="backup_plain_contents_portfolio">Eignasafn: færslur með upphæðum og verðum</string>
     <string name="backup_restore_app_lock_kept">Lás eignasafnsins helst á – ódulkóðað öryggisafrit getur ekki slökkt á honum.</string>
     <string name="backup_restore_confirm">Innflutningur skiptir út núverandi vaktlista (með athugasemdum og hópum), viðvörunum, uppáhöldum, eignasafni og stillingum fyrir öryggisafritið.</string>
     <plurals name="backup_restore_invalid">

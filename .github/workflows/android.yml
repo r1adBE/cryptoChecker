@@ -316,6 +316,7 @@ jobs:
   dependency-graph:
     if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     continue-on-error: true
     permissions:
       contents: read
@@ -340,6 +341,7 @@ jobs:
     needs: dependency-graph
     if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     continue-on-error: true
     permissions:
       contents: write   # Dependency Submission API
@@ -354,6 +356,7 @@ jobs:
   dependency-review:
     if: github.event_name == 'pull_request' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

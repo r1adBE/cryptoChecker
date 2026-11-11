@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">የተሳሳተ የይለፍ ቃል፣ ወይም ፋይሉ ተበላሽቷል። እባክዎ እንደገና ይሞክሩ።</string>
     <string name="backup_protect">በይለፍ ቃል ይጠብቁ</string>
     <string name="backup_protect_hint">ፋይሉን ያመሰጥራል (AES-256)። የፖርትፎሊዮ ውሂብ ሲይዝ ይመከራል።</string>
+    <string name="backup_protect_required">ሁልጊዜ በርቷል፦ ፋይሉ የፖርትፎሊዮ ውሂብ ይዟል።</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">ያለ የይለፍ ቃል ያስቀምጡ</string>
     <string name="backup_plain_confirm_text">ፋይሉ አልተመሰጠረም። የሚያገኘው ማንኛውም ሰው የሚከተለውን ማንበብ ይችላል፦</string>
     <string name="backup_plain_confirm_title">ያለ የይለፍ ቃል ይቀመጥ?</string>
-    <string name="backup_plain_contents_addresses">የተቀመጡ የቦርሳ አድራሻዎችና የxpub ቁልፎች ከቀሪ ሂሳብ ታሪክና ከወጪ መሠረት ጋር</string>
     <string name="backup_plain_contents_base">የክትትል ዝርዝር ከማስታወሻዎችና ቡድኖች ጋር፣ ማንቂያዎች፣ ተወዳጆችና ቅንብሮች</string>
-    <string name="backup_plain_contents_portfolio">ፖርትፎሊዮ፦ ግብይቶች ከመጠኖችና ዋጋዎች ጋር</string>
     <string name="backup_restore_app_lock_kept">የፖርትፎሊዮ መቆለፊያው እንደበራ ይቆያል – ያልተመሰጠረ ምትኬ ሊያጠፋው አይችልም።</string>
     <string name="backup_restore_confirm">ማስመጣት የአሁኑን የክትትል ዝርዝርዎን (ከማስታወሻዎችና ቡድኖች ጋር)፣ ማንቂያዎችን፣ ተወዳጆችን፣ ፖርትፎሊዮንና ቅንብሮችን በምትኬው ይተካል።</string>
     <plurals name="backup_restore_invalid">

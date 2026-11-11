@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Engin tenging · staða %1$s</string>
     <string name="watchlist_pull_to_refresh">Dragðu niður til að endurnýja</string>
     <string name="watchlist_refresh_report">Síðasta endurnýjun</string>
+    <string name="watchlist_symbols_legend">Skýring á táknum</string>
+    <string name="watchlist_symbols_legend_alarms">Virkar viðvaranir og fjöldi þeirra</string>
     <string name="watchlist_refresh_report_empty">Engin sundurliðun enn – engin full endurnýjun hingað til. Ýttu á endurnýja og bíddu þar til hringurinn stöðvast.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d af %2$d úrelt</item>

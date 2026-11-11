@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">गलत पासवर्ड, वा फाइल बिग्रिएको छ। कृपया फेरि प्रयास गर्नुहोस्।</string>
     <string name="backup_protect">पासवर्डले सुरक्षित गर्नुहोस्</string>
     <string name="backup_protect_hint">फाइललाई इन्क्रिप्ट गर्छ (AES-256)। पोर्टफोलियो डेटा भएमा सिफारिस गरिन्छ।</string>
+    <string name="backup_protect_required">सधैँ सक्रिय: फाइलमा पोर्टफोलियो डेटा छ।</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">पासवर्डबिना सेभ गर्नुहोस्</string>
     <string name="backup_plain_confirm_text">फाइल इन्क्रिप्ट गरिएको छैन। यो पाउने जोसुकैले पढ्न सक्छ:</string>
     <string name="backup_plain_confirm_title">पासवर्डबिना सेभ गर्ने?</string>
-    <string name="backup_plain_contents_addresses">ब्यालेन्स इतिहास र लागत आधारसहित सेभ गरिएका वालेट ठेगाना र xpub कुञ्जीहरू</string>
     <string name="backup_plain_contents_base">टिप्पणी र समूहसहित वाचलिस्ट, अलर्ट, मनपर्ने र सेटिङहरू</string>
-    <string name="backup_plain_contents_portfolio">पोर्टफोलियो: रकम र मूल्यसहित कारोबारहरू</string>
     <string name="backup_restore_app_lock_kept">पोर्टफोलियो लक सक्रिय नै रहन्छ – इन्क्रिप्ट नगरिएको ब्याकअपले यसलाई बन्द गर्न सक्दैन।</string>
     <string name="backup_restore_confirm">आयात गर्दा तपाईंको हालको वाचलिस्ट (टिप्पणी र समूहसहित), अलर्ट, मनपर्ने, पोर्टफोलियो र सेटिङहरू ब्याकअपले प्रतिस्थापन हुन्छन्।</string>
     <plurals name="backup_restore_invalid">

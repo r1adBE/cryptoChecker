@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">Tiada sambungan · setakat %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk muat semula</string>
     <string name="watchlist_refresh_report">Muat semula terakhir</string>
+    <string name="watchlist_symbols_legend">Penjelasan simbol</string>
+    <string name="watchlist_symbols_legend_alarms">Amaran aktif berserta bilangannya</string>
     <string name="watchlist_refresh_report_empty">Belum ada pecahan – belum ada muat semula penuh setakat ini. Ketik muat semula dan tunggu sehingga bulatan berhenti.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d daripada %2$d lapuk</item>

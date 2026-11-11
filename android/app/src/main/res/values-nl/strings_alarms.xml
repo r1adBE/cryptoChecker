@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Geavanceerd</string>
     <string name="alarm_change_updates">Koersupdates wijzigen</string>
+    <string name="alarm_closed_app_short">Met de app gesloten kunnen alarmen te laat komen.</string>
     <string name="alarm_check_mode_15min">Ongeveer elke 15 minuten</string>
     <string name="alarm_check_mode_saving">Zuinig</string>
     <string name="alarm_check_mode_title">Hoe vaak controleren als het apparaat in rust is?</string>

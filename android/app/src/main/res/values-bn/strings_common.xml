@@ -9,6 +9,7 @@
     <string name="action_delete">মুছে ফেলুন</string>
     <string name="action_edit">সম্পাদনা</string>
     <string name="action_more">আরও বিকল্প</string>
+    <string name="action_learn_more">আরও জানুন</string>
     <string name="action_refresh">রিফ্রেশ</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
     <string name="action_save">সংরক্ষণ করুন</string>

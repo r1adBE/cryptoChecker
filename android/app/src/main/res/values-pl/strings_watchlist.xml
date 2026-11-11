@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Brak połączenia · stan z %1$s</string>
     <string name="watchlist_pull_to_refresh">Przeciągnij w dół, aby odświeżyć</string>
     <string name="watchlist_refresh_report">Ostatnie odświeżenie</string>
+    <string name="watchlist_symbols_legend">Objaśnienie symboli</string>
+    <string name="watchlist_symbols_legend_alarms">Aktywne alarmy i ich liczba</string>
     <string name="watchlist_refresh_report_empty">Brak zestawienia: nie było jeszcze pełnego odświeżenia. Dotknij odśwież i poczekaj, aż wskaźnik się zatrzyma.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Nieaktualne: %1$d z %2$d</item>

@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">اعلیٰ درجے کا</string>
     <string name="alarm_change_updates">قیمت کی اپ ڈیٹس بدلیں</string>
+    <string name="alarm_closed_app_short">ایپ بند ہو تو الرٹس دیر سے آ سکتے ہیں۔</string>
     <string name="alarm_check_mode_15min">تقریباً ہر 15 منٹ</string>
     <string name="alarm_check_mode_saving">کفایتی</string>
     <string name="alarm_check_mode_title">آلہ بیکار ہو تو کتنی بار جانچا جائے؟</string>

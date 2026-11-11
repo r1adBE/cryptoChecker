@@ -9,6 +9,7 @@
     <string name="action_delete">நீக்கவும்</string>
     <string name="action_edit">திருத்தவும்</string>
     <string name="action_more">மேலும் விருப்பங்கள்</string>
+    <string name="action_learn_more">மேலும் அறிக</string>
     <string name="action_refresh">புதுப்பிக்கவும்</string>
     <string name="action_retry">மீண்டும் முயலவும்</string>
     <string name="action_save">சேமிக்கவும்</string>

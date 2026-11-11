@@ -136,7 +136,7 @@ enum ProtectedStorage {
             BackupExclusion.set(excluded: true, for: copy)
         }
         for copy in AsideRetention.expired(copies, now: now, allowed: allowed, defaults: defaults) {
-            try? FileManager.default.removeItem(at: copy)
+            AppLog.remove(copy, "Beiseitegelegte Kopie löschen")
         }
     }
 
@@ -179,7 +179,7 @@ enum ProtectedStorage {
                     BackupExclusion.set(excluded: true, for: replaced)
                 } catch {
                     // Zurück, wie es war: nie ohne Datei dastehen
-                    if hadFile { try? fm.moveItem(at: replaced, to: url) }
+                    if hadFile { AppLog.attempt("Ersetzte Datei zurücklegen") { try fm.moveItem(at: replaced, to: url) } }
                 }
             } catch {
                 done = false

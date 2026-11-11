@@ -9,6 +9,7 @@
     <string name="action_delete">Suprimeix</string>
     <string name="action_edit">Edita</string>
     <string name="action_more">Més opcions</string>
+    <string name="action_learn_more">Més informació</string>
     <string name="action_refresh">Actualitza</string>
     <string name="action_retry">Torna-ho a provar</string>
     <string name="action_save">Desa</string>

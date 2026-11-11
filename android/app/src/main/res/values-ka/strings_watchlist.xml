@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">კავშირი არ არის · მდგომარეობა: %1$s</string>
     <string name="watchlist_pull_to_refresh">ჩამოწიე განახლებისთვის</string>
     <string name="watchlist_refresh_report">ბოლო განახლება</string>
+    <string name="watchlist_symbols_legend">სიმბოლოების განმარტება</string>
+    <string name="watchlist_symbols_legend_alarms">აქტიური განგაშები და მათი რაოდენობა</string>
     <string name="watchlist_refresh_report_empty">დეტალები ჯერ არ არის – სრული განახლება ჯერ არ ყოფილა. შეეხე განახლებას და დაელოდე, სანამ წრე გაჩერდება.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-დან %1$d მოძველებულია</item>

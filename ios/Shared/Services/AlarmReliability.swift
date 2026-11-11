@@ -22,7 +22,7 @@ enum AlarmReliability {
         case hidden
         /// Ruhig: «Letzte Prüfung vor 12 Min.».
         case recent
-        /// Ruhig: noch keine Prüfung im Hintergrund.
+        /// Ruhig: noch keine (gelungene) Prüfung im Hintergrund.
         case never
         /// Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android).
         case notificationsOff = "notifications_off"
@@ -34,7 +34,7 @@ enum AlarmReliability {
         /// iOS: Hintergrundaktualisierung aus.
         case backgroundRefresh = "background_refresh"
         /// Letzte Prüfung älter als `staleMillis(_:)` (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
-        /// geplanten Läufe gescheitert (`AlarmReadiness.Input.lastFailedBackgroundCheck`).
+        /// geplanten Läufe gescheitert und das seit länger als `staleMillis(_:)` (`AlarmReadiness.Input.failingSince`).
         case stale
     }
 
@@ -42,6 +42,11 @@ enum AlarmReliability {
     struct Status: Equatable, Sendable {
         let kind: Kind
         let warn: Bool
+    }
+
+    /// `at` höchstens `staleMillis(_:)` alt (und nicht weit in der Zukunft — Uhr verstellt)? Sonst gilt die Warnung.
+    private static func withinLimit(_ at: Int64, _ input: AlarmReadiness.Input) -> Bool {
+        at - input.now <= AlarmReadiness.futureToleranceMillis && input.now - at <= staleMillis(input.platform)
     }
 
     /// Ein Satz aus dem gelesenen Zustand; wichtigster Grund zuerst. `oemVendorKnown`: nur Android (Hersteller mit
@@ -56,12 +61,14 @@ enum AlarmReliability {
         if android && input.backgroundRestricted { return Status(kind: .battery, warn: true) }
         if !android && !input.backgroundRefresh { return Status(kind: .backgroundRefresh, warn: true) }
         guard let at = input.lastBackgroundCheck, at > 0 else {
-            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau)
-            let failing = input.lastFailedBackgroundCheck != nil
-            return Status(kind: failing ? .stale : .never, warn: failing)
+            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau) — aber erst, wenn
+            // das länger als die Grenze anhält. Ein einzelner gescheiterter Lauf vor wenigen Minuten ist noch keine
+            // Verspätung: bis dahin die ruhige Zeile.
+            let since = input.failingSince ?? input.lastFailedBackgroundCheck
+            let overdue = since.map { !withinLimit($0, input) } ?? false
+            return Status(kind: overdue ? .stale : .never, warn: overdue)
         }
-        let fresh = at - input.now <= AlarmReadiness.futureToleranceMillis && input.now - at <= staleMillis(input.platform)
-        if fresh { return Status(kind: .recent, warn: false) }
+        if withinLimit(at, input) { return Status(kind: .recent, warn: false) }
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung
         let batteryLikely = android && (!input.batteryUnrestricted || oemVendorKnown)

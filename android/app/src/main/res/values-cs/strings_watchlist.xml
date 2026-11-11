@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
     <string name="watchlist_pull_to_refresh">Potažením dolů obnovíš</string>
     <string name="watchlist_refresh_report">Poslední obnovení</string>
+    <string name="watchlist_symbols_legend">Vysvětlení symbolů</string>
+    <string name="watchlist_symbols_legend_alarms">Aktivní alarmy a jejich počet</string>
     <string name="watchlist_refresh_report_empty">Zatím žádný rozpis: ještě neproběhlo úplné obnovení. Klepni na obnovit a počkej, až se indikátor zastaví.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Zastaralé: %1$d z %2$d</item>

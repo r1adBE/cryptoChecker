@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avanceret</string>
     <string name="alarm_change_updates">Skift kursopdatering</string>
+    <string name="alarm_closed_app_short">Når appen er lukket, kan alarmer komme for sent.</string>
     <string name="alarm_check_mode_15min">Cirka hvert 15. minut</string>
     <string name="alarm_check_mode_saving">Sparsomt</string>
     <string name="alarm_check_mode_title">Hvor ofte skal der tjekkes, når enheden er i dvale?</string>

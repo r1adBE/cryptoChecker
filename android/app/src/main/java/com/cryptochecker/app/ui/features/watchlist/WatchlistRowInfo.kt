@@ -24,7 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.graphics.Color
+import com.cryptochecker.app.util.TextLimit
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
@@ -74,7 +76,6 @@ internal fun RowInfo(
     val lines = DenseRowText.maxLines(LocalDensity.current.fontScale)
     // Symbole der Zeile wachsen mit der Schriftgrösse (13 sp ≙ 13 dp bei Standardschrift) — wie iOS @ScaledMetric
     val rowIcon = with(LocalDensity.current) { 13.sp.toDp() }
-    val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
     Column(modifier = modifier) {
         // Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
         // steht nur, wenn danach noch Platz ist ([ActivityBolt] klappt sonst auf ⚡ zusammen)
@@ -261,30 +262,37 @@ internal fun RowInfo(
                 modifier = Modifier.clearAndSetSemantics { }
             )
         }
-        // Eigene Notiz (#233), dezent unter dem Paar
-        watch.note?.let { note ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 2.dp).clearAndSetSemantics { }
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_note),
-                    contentDescription = stringResource(R.string.note_title),
-                    // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar ([iconAlpha])
-                    tint = accent,
-                    modifier = Modifier.size(noteIcon).alpha(iconAlpha)
-                )
-                Text(
-                    text = note,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontStyle = FontStyle.Italic,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
-        }
+    }
+}
+
+/**
+ * Eigene Notiz (#233) unter der Zeile: über die ganze Breite der Zeile (nicht nur die Paar-Spalte), genau eine Zeile
+ * mit «…» ([TextLimit.singleLine] macht aus Umbrüchen Leerzeichen). Der Screenreader liest die ganze Notiz im
+ * Zeilensatz. Wie iOS `WatchlistRow.noteLine`.
+ */
+@Composable
+internal fun WatchRowNote(note: String, accent: Color, off: Boolean, modifier: Modifier = Modifier) {
+    val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth().padding(top = 2.dp).clearAndSetSemantics { }
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_note),
+            contentDescription = stringResource(R.string.note_title),
+            // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar
+            tint = accent,
+            modifier = Modifier.size(noteIcon).alpha(if (off) DISABLED_ICON_ALPHA else 1f)
+        )
+        Text(
+            text = TextLimit.singleLine(note),
+            style = MaterialTheme.typography.bodySmall,
+            fontStyle = FontStyle.Italic,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(start = 4.dp)
+        )
     }
 }
 

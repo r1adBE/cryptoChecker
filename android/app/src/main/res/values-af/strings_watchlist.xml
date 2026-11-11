@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Geen verbinding nie · soos op %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek af om te herlaai</string>
     <string name="watchlist_refresh_report">Laaste herlaai</string>
+    <string name="watchlist_symbols_legend">Simbole verduidelik</string>
+    <string name="watchlist_symbols_legend_alarms">Aktiewe alarms, met hul aantal</string>
     <string name="watchlist_refresh_report_empty">Nog geen uiteensetting nie – tot dusver geen volledige herlaai nie. Tik op herlaai en wag totdat die sirkel stop.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d van %2$d verouderd</item>

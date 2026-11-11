@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">కనెక్షన్ లేదు · %1$s నాటికి</string>
     <string name="watchlist_pull_to_refresh">రిఫ్రెష్ చేయడానికి కిందికి లాగండి</string>
     <string name="watchlist_refresh_report">చివరి రిఫ్రెష్</string>
+    <string name="watchlist_symbols_legend">చిహ్నాల వివరణ</string>
+    <string name="watchlist_symbols_legend_alarms">యాక్టివ్ అలర్ట్‌లు, వాటి సంఖ్య</string>
     <string name="watchlist_refresh_report_empty">ఇంకా వివరాలు లేవు – ఇప్పటి వరకు పూర్తి రిఫ్రెష్ జరగలేదు. రిఫ్రెష్ నొక్కి, వృత్తం ఆగే వరకు వేచి ఉండండి.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$dలో %1$d పాతది</item>

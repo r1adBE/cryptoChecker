@@ -15,6 +15,8 @@
     <string name="watchlist_offline_since">لا يوجد اتصال · آخر تحديث %1$s</string>
     <string name="watchlist_pull_to_refresh">اسحب للأسفل للتحديث</string>
     <string name="watchlist_refresh_report">آخر تحديث</string>
+    <string name="watchlist_symbols_legend">شرح الرموز</string>
+    <string name="watchlist_symbols_legend_alarms">التنبيهات النشطة مع عددها</string>
     <string name="watchlist_refresh_report_empty">لا يوجد تفصيل بعد: لم يكتمل أي تحديث كامل حتى الآن. اضغط على «تحديث» وانتظر حتى يتوقف مؤشر التحميل.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="zero">%1$d من %2$d قديمة</item>

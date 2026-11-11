@@ -9,6 +9,7 @@
     <string name="action_delete">Smazat</string>
     <string name="action_edit">Upravit</string>
     <string name="action_more">Další možnosti</string>
+    <string name="action_learn_more">Další informace</string>
     <string name="action_refresh">Obnovit</string>
     <string name="action_retry">Zkusit znovu</string>
     <string name="action_save">Uložit</string>

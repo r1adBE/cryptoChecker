@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">വിപുലമായത്</string>
     <string name="alarm_change_updates">വില അപ്‌ഡേറ്റുകൾ ക്രമീകരിക്കുക</string>
+    <string name="alarm_closed_app_short">ആപ്പ് അടച്ചിരിക്കുമ്പോൾ അലേർട്ടുകൾ വൈകിയേക്കാം.</string>
     <string name="alarm_check_mode_15min">ഏകദേശം ഓരോ 15 മിനിറ്റിലും</string>
     <string name="alarm_check_mode_saving">മിതവ്യയം</string>
     <string name="alarm_check_mode_title">ഉപകരണം നിഷ്‌ക്രിയമായിരിക്കുമ്പോൾ എത്ര തവണ പരിശോധിക്കണം?</string>

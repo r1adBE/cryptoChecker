@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">Nav savienojuma · stāvoklis %1$s</string>
     <string name="watchlist_pull_to_refresh">Velc uz leju, lai atsvaidzinātu</string>
     <string name="watchlist_refresh_report">Pēdējā atjaunināšana</string>
+    <string name="watchlist_symbols_legend">Simbolu skaidrojums</string>
+    <string name="watchlist_symbols_legend_alarms">Aktīvie brīdinājumi un to skaits</string>
     <string name="watchlist_refresh_report_empty">Vēl nav sadalījuma – līdz šim nav bijusi pilna atjaunināšana. Pieskaries „Atsvaidzināt“ un pagaidi, līdz aplis apstājas.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="zero">%1$d no %2$d novecojuši</item>

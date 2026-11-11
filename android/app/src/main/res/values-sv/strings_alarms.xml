@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avancerat</string>
     <string name="alarm_change_updates">Ändra kursuppdatering</string>
+    <string name="alarm_closed_app_short">När appen är stängd kan larm komma sent.</string>
     <string name="alarm_check_mode_15min">Ungefär var 15:e minut</string>
     <string name="alarm_check_mode_saving">Sparsamt</string>
     <string name="alarm_check_mode_title">Hur ofta ska det kontrolleras när enheten vilar?</string>

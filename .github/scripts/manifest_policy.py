@@ -8,7 +8,7 @@ Errors (each one blocks a store release):
   - forbidden permissions: USE_EXACT_ALARM, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, QUERY_ALL_PACKAGES,
     AD_ID, MANAGE_EXTERNAL_STORAGE and every typed FOREGROUND_SERVICE_*
     (the app declares no foreground service type; Play would demand a declaration per type)
-  - any permission outside the allow-list EXPECTED (the 12 permissions, each justified in
+  - any permission outside the allow-list EXPECTED (the 13 permissions, each justified in
     android/docs/PLAY_STORE.md §6): a new permission must be a conscious decision (Data safety,
     store text), not a side effect of a library update
   - a service with android:foregroundServiceType
@@ -41,6 +41,7 @@ FORBIDDEN = {
 EXPECTED = {
     "android.permission.ACCESS_NETWORK_STATE": "online check before fetching prices",
     "android.permission.FOREGROUND_SERVICE": "expedited price update runs briefly as untyped foreground service up to Android 11",
+    "android.permission.HIDE_OVERLAY_WINDOWS": "normal permission: hide foreign overlays over portfolio and sensitive confirmations (Android 12+)",
     "android.permission.INTERNET": "fetching prices from the exchanges",
     "android.permission.POST_NOTIFICATIONS": "price alarms and price notifications (Android 13+)",
     "android.permission.RECEIVE_BOOT_COMPLETED": "re-plan alarms and background updates after a reboot",

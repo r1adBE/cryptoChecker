@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">کوئی کنکشن نہیں · بمطابق %1$s</string>
     <string name="watchlist_pull_to_refresh">ریفریش کے لیے نیچے کھینچیں</string>
     <string name="watchlist_refresh_report">آخری ریفریش</string>
+    <string name="watchlist_symbols_legend">علامات کی وضاحت</string>
+    <string name="watchlist_symbols_legend_alarms">فعال الرٹس اور ان کی تعداد</string>
     <string name="watchlist_refresh_report_empty">ابھی کوئی تفصیل نہیں – اب تک کوئی مکمل ریفریش نہیں ہوا۔ ریفریش پر ٹیپ کریں اور دائرہ رکنے تک انتظار کریں۔</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d میں سے %1$d پرانا</item>

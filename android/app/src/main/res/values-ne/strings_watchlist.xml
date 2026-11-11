@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">जडान छैन · %1$s सम्मको</string>
     <string name="watchlist_pull_to_refresh">रिफ्रेस गर्न तल तान्नुहोस्</string>
     <string name="watchlist_refresh_report">पछिल्लो रिफ्रेस</string>
+    <string name="watchlist_symbols_legend">सङ्केतहरूको व्याख्या</string>
+    <string name="watchlist_symbols_legend_alarms">सक्रिय अलर्टहरू र तिनको सङ्ख्या</string>
     <string name="watchlist_refresh_report_empty">अहिलेसम्म विवरण छैन – अहिलेसम्म पूर्ण रिफ्रेस भएको छैन। रिफ्रेसमा ट्याप गरेर घेरा नरोकिएसम्म पर्खनुहोस्।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d मध्ये %1$d पुरानो</item>

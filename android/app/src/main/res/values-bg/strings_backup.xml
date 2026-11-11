@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Грешна парола или файлът е повреден. Опитай отново.</string>
     <string name="backup_protect">Защити с парола</string>
     <string name="backup_protect_hint">Шифрова файла (AES-256). Препоръчва се, ако съдържа данни за портфолиото.</string>
+    <string name="backup_protect_required">Винаги включено: файлът съдържа данни за портфолиото.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Запази без парола</string>
     <string name="backup_plain_confirm_text">Файлът не е шифрован. Всеки, който го получи, може да прочете:</string>
     <string name="backup_plain_confirm_title">Да се запази ли без парола?</string>
-    <string name="backup_plain_contents_addresses">Запазени адреси на портфейли и xpub ключове с история на салдата и себестойност</string>
     <string name="backup_plain_contents_base">Списък с бележки и групи, аларми, любими и настройки</string>
-    <string name="backup_plain_contents_portfolio">Портфолио: транзакции с количества и цени</string>
     <string name="backup_restore_app_lock_kept">„Заключване на портфолиото“ остава включено – нешифровано резервно копие не може да го изключи.</string>
     <string name="backup_restore_confirm">Импортирането заменя текущия ти списък (с бележки и групи), аларми, любими, портфолио и настройки с резервното копие.</string>
     <plurals name="backup_restore_invalid">

@@ -46,7 +46,10 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.cryptochecker.app.ui.components.AppFab
+import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.SkeletonList
@@ -150,7 +153,11 @@ fun PortfolioDetailScreen(
         )
     }
     lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
+    // «+»-Knopf: beim Scrollen nach unten weg (verdeckt keine Beträge), nach oben wieder da
+    val listState = rememberLazyListState()
+    val fabScroll = rememberFabScroll(listState)
     Scaffold(
+        modifier = Modifier.nestedScroll(fabScroll.connection),
         topBar = {
             TopAppBar(
                 title = { Text(symbol, fontWeight = FontWeight.SemiBold) },
@@ -167,7 +174,7 @@ fun PortfolioDetailScreen(
         snackbarHost = { AppSnackbarHost(banner.host) },
         floatingActionButton = {
             // «+» wählt den Coin schon vor
-            AppFab(onClick = { sheet = TxDraft(coin = symbol) }, contentDescription = stringResource(R.string.portfolio_add_tx))
+            AppFab(onClick = { sheet = TxDraft(coin = symbol) }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
         }
     ) { padding ->
         val d = detail
@@ -185,6 +192,7 @@ fun PortfolioDetailScreen(
             ReadableInset { inset ->
                 CompositionLocalProvider(LocalHidePortfolioAmounts provides hideAmounts) {
                     LazyColumn(
+                        state = listState,
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = Spacing.fabClearance),
                         verticalArrangement = Arrangement.spacedBy(8.dp)

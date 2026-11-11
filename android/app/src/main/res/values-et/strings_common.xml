@@ -9,6 +9,7 @@
     <string name="action_delete">Kustuta</string>
     <string name="action_edit">Muuda</string>
     <string name="action_more">Rohkem valikuid</string>
+    <string name="action_learn_more">Lisateave</string>
     <string name="action_refresh">Värskenda</string>
     <string name="action_retry">Proovi uuesti</string>
     <string name="action_save">Salvesta</string>

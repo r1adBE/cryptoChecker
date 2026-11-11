@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Nâng cao</string>
     <string name="alarm_change_updates">Đổi cập nhật giá</string>
+    <string name="alarm_closed_app_short">Khi đóng ứng dụng, cảnh báo có thể đến muộn.</string>
     <string name="alarm_check_mode_15min">Khoảng mỗi 15 phút</string>
     <string name="alarm_check_mode_saving">Tiết kiệm</string>
     <string name="alarm_check_mode_title">Kiểm tra bao lâu một lần khi thiết bị đang nghỉ?</string>

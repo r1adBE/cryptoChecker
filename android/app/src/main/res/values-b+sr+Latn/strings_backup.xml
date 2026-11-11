@@ -29,14 +29,13 @@
     <string name="backup_password_wrong">Pogrešna lozinka ili je datoteka oštećena. Pokušaj ponovo.</string>
     <string name="backup_protect">Zaštiti lozinkom</string>
     <string name="backup_protect_hint">Šifruje datoteku (AES-256). Preporučuje se ako sadrži podatke portfolija.</string>
+    <string name="backup_protect_required">Uvek uključeno: datoteka sadrži podatke portfolija.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Sačuvaj bez lozinke</string>
     <string name="backup_plain_confirm_text">Datoteka nije šifrovana. Svako ko je dobije može pročitati:</string>
     <string name="backup_plain_confirm_title">Sačuvati bez lozinke?</string>
-    <string name="backup_plain_contents_addresses">Sačuvane adrese novčanika i xpub ključeve s istorijom stanja i nabavnom vrednošću</string>
     <string name="backup_plain_contents_base">Spisak praćenja s beleškama i grupama, alarme, favorite i podešavanja</string>
-    <string name="backup_plain_contents_portfolio">Portfolio: transakcije s iznosima i cenama</string>
     <string name="backup_restore_app_lock_kept">Zaključavanje portfolija ostaje uključeno – nešifrovana rezervna kopija ne može ga isključiti.</string>
     <string name="backup_restore_confirm">Uvoz zamenjuje tvoj trenutni spisak praćenja (s beleškama i grupama), alarme, favorite, portfolio i podešavanja onima iz rezervne kopije.</string>
     <plurals name="backup_restore_invalid">

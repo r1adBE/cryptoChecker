@@ -57,6 +57,17 @@ class TextLimitParityTest {
         }
     }
 
+    /** Notiz als eine Zeile für die Merkliste: Umbrüche werden ein Leerzeichen. */
+    @Test
+    fun eineZeileWieGemeinsameTestfaelle() {
+        val lines = fixture["singleLine"].list()
+        assertTrue(lines.size >= 8)
+        for (raw in lines) {
+            val c = raw.obj()
+            assertEquals(c["description"] as String, c["expected"] as String, TextLimit.singleLine(c["text"] as String))
+        }
+    }
+
     /** JDK-Hauptversion der Test-JVM (Runtime.version() fehlt im android.jar, gegen das die Tests kompilieren). */
     private fun jdkFeature(): Int =
         System.getProperty("java.specification.version")?.substringAfter("1.")?.substringBefore('.')?.toIntOrNull() ?: 0

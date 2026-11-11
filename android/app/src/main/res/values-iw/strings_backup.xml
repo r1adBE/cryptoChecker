@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">סיסמה שגויה או שהקובץ פגום. אפשר לנסות שוב.</string>
     <string name="backup_protect">הגנה בסיסמה</string>
     <string name="backup_protect_hint">מצפין את הקובץ (AES-256). מומלץ כשהוא כולל נתוני תיק השקעות.</string>
+    <string name="backup_protect_required">תמיד פעיל: הקובץ כולל נתוני תיק השקעות.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">שמירה בלי סיסמה</string>
     <string name="backup_plain_confirm_text">הקובץ לא מוצפן. כל מי שמקבל אותו יכול לקרוא:</string>
     <string name="backup_plain_confirm_title">לשמור בלי סיסמה?</string>
-    <string name="backup_plain_contents_addresses">כתובות ארנק ומפתחות xpub שמורים, כולל היסטוריית יתרות ועלות רכישה</string>
     <string name="backup_plain_contents_base">רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות</string>
-    <string name="backup_plain_contents_portfolio">תיק: עסקאות עם כמויות ומחירים</string>
     <string name="backup_restore_app_lock_kept">נעילת תיק השקעות נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה.</string>
     <string name="backup_restore_confirm">הייבוא מחליף את הרשימה (עם ההערות והקבוצות), ההתראות, המועדפים, תיק ההשקעות וההגדרות בגיבוי.</string>
     <plurals name="backup_restore_invalid">

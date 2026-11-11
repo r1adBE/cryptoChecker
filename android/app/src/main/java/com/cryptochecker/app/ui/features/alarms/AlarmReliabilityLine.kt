@@ -81,6 +81,7 @@ private fun AlarmReliabilityContent(
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val lastCheck by viewModel.lastBackgroundCheck.collectAsStateWithLifecycle()
     val lastFailedCheck by viewModel.lastFailedBackgroundCheck.collectAsStateWithLifecycle()
+    val failingSince by viewModel.failingSince.collectAsStateWithLifecycle()
     // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel): Ein Hintergrund-Prozess sieht diese
     // Paare nicht — nicht bei «gespeicherter Stand kommt zurück»
     val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
@@ -100,7 +101,9 @@ private fun AlarmReliabilityContent(
         )
     }
     val status = AlarmReliability.status(
-        input.copy(now = now, lastFailedBackgroundCheck = lastFailedCheck, storageNoKey = storageNoKey),
+        input.copy(
+            now = now, lastFailedBackgroundCheck = lastFailedCheck, failingSince = failingSince, storageNoKey = storageNoKey,
+        ),
     )
     // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs
     val checkedAt = lastCheck ?: lastFailedCheck

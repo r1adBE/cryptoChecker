@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.BackupCrypto
 import com.cryptochecker.app.data.BackupPasswordStrength
+import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.SwitchRow
@@ -47,11 +48,12 @@ import com.cryptochecker.app.ui.theme.DisabledColors
  */
 
 /**
- * Vor dem Sichern: «Mit Passwort schützen» (vorgewählt, wenn Portfolio-Daten dabei sind),
+ * Vor dem Sichern: «Mit Passwort schützen» (mit Portfolio-Daten fest an und gesperrt, mit einer Zeile Begründung —
+ * [PortfolioLockPolicy.backupExportRequiresPassword]),
  * Passwort und Wiederholung (mindestens [BackupCrypto.MIN_PASSWORD_LENGTH] Zeichen). Ein leicht zu
  * erratendes Passwort ([BackupPasswordStrength]) zeigt einen Fehler statt des Mindestlängen-Hinweises und sperrt.
- * Ohne Schutz folgt ein ausdrücklicher Bestätigungsschritt mit dem Inhalt der Datei ([hasPortfolioData]:
- * Portfolio und Adressen). [onConfirm] erhält das Passwort oder null (ohne Schutz).
+ * Ohne Schutz (nur ohne Portfolio-Daten möglich) folgt ein ausdrücklicher Bestätigungsschritt mit dem Inhalt der
+ * Datei. [onConfirm] erhält das Passwort oder null (ohne Schutz).
  */
 @Composable
 internal fun BackupExportDialog(
@@ -60,7 +62,9 @@ internal fun BackupExportDialog(
     onDismiss: () -> Unit,
     hasPortfolioData: Boolean = defaultProtect,
 ) {
-    var protect by remember { mutableStateOf(defaultProtect) }
+    val required = PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData)
+    var chosen by remember { mutableStateOf(defaultProtect) }
+    val protect = chosen || required
     var password by remember { mutableStateOf("") }
     var repeat by remember { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
@@ -79,7 +83,6 @@ internal fun BackupExportDialog(
 
     if (confirmPlain) {
         BackupPlainConfirmDialog(
-            hasPortfolioData = hasPortfolioData,
             onConfirm = { onConfirm(null) },
             // Zurück zur Auswahl (Passwort doch noch setzen)
             onBack = { confirmPlain = false },
@@ -94,9 +97,10 @@ internal fun BackupExportDialog(
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 SwitchRow(
                     title = stringResource(R.string.backup_protect),
-                    subtitle = stringResource(R.string.backup_protect_hint),
+                    subtitle = stringResource(if (required) R.string.backup_protect_required else R.string.backup_protect_hint),
                     checked = protect,
-                    onCheckedChange = { protect = it }
+                    onCheckedChange = { chosen = it },
+                    enabled = !required,
                 )
                 if (protect) {
                     val tooShort = password.isNotEmpty() && !BackupCrypto.isPasswordLongEnough(password)
@@ -157,13 +161,11 @@ internal fun BackupExportDialog(
 }
 
 /**
- * Sichern ohne Passwort: ausdrücklich bestätigen, mit Aufzählung des Inhalts (immer Merkliste, Alarme,
- * Einstellungen; mit [hasPortfolioData] zusätzlich Portfolio und gespeicherte Adressen). Wie iOS
- * `BackupExportSheet` (Bestätigung).
+ * Sichern ohne Passwort: ausdrücklich bestätigen, mit Aufzählung des Inhalts (Merkliste, Alarme,
+ * Einstellungen — mit Portfolio-Daten gibt es diesen Weg nicht). Wie iOS `BackupExportSheet` (Bestätigung).
  */
 @Composable
 private fun BackupPlainConfirmDialog(
-    hasPortfolioData: Boolean,
     onConfirm: () -> Unit,
     onBack: () -> Unit,
 ) {
@@ -181,18 +183,6 @@ private fun BackupPlainConfirmDialog(
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(top = 8.dp)
                 )
-                if (hasPortfolioData) {
-                    Text(
-                        text = "• " + stringResource(R.string.backup_plain_contents_portfolio),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                    Text(
-                        text = "• " + stringResource(R.string.backup_plain_contents_addresses),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
             }
         },
         confirmButton = {

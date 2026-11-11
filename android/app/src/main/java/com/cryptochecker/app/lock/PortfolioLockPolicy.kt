@@ -60,6 +60,16 @@ object PortfolioLockPolicy {
     fun backupHasPortfolioData(transactions: Int, watchedAddresses: Int): Boolean =
         transactions > 0 || watchedAddresses > 0
 
+    /**
+     * Sichern nur mit Passwort? Mit Portfolio-Daten (Trades, Adressen, xpub) immer — eine solche Datei entsteht nie
+     * unverschlüsselt. Ohne Portfolio-Daten bleibt der Schutz wählbar. Einlesen alter unverschlüsselter Dateien bleibt möglich.
+     */
+    fun backupExportRequiresPassword(hasPortfolioData: Boolean): Boolean = hasPortfolioData
+
+    /** Darf diese Sicherung geschrieben werden? Ohne Passwort nur, wenn keines verlangt ist. */
+    fun backupExportAllowed(hasPassword: Boolean, hasPortfolioData: Boolean): Boolean =
+        hasPassword || !backupExportRequiresPassword(hasPortfolioData)
+
     /** Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist. */
     fun backupExportNeedsUnlock(locked: Boolean, hasPortfolioData: Boolean): Boolean = locked && hasPortfolioData
 
@@ -109,6 +119,16 @@ object PortfolioLockPolicy {
      */
     fun secureWindow(lockSetting: Boolean, portfolioVisible: Boolean, sdkInt: Int): Boolean =
         lockSetting && (portfolioVisible || sdkInt < RECENTS_SCREENSHOT_API)
+
+    /**
+     * Fremde Überlagerungen ausblenden (`Window.setHideOverlayWindows`): ab Android 12 ([sdkInt] ≥ 31), solange
+     * mindestens eine Stelle es verlangt ([holders]: Portfolio sichtbar, Rückfrage zu Sperre, Wiederherstellen,
+     * «App zurücksetzen»).
+     */
+    fun hideOverlayWindows(holders: Int, sdkInt: Int): Boolean = holders > 0 && sdkInt >= HIDE_OVERLAYS_API
+
+    /** Ab Android 12 (API 31) gibt es `Window.setHideOverlayWindows`. */
+    private const val HIDE_OVERLAYS_API = 31
 
     /** Ab Android 13 (API 33) gibt es `Activity.setRecentsScreenshotEnabled`. */
     private const val RECENTS_SCREENSHOT_API = 33

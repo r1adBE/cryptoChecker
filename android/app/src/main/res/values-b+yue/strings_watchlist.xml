@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">冇網絡連線 · 截至 %1$s</string>
     <string name="watchlist_pull_to_refresh">向下拉重新整理</string>
     <string name="watchlist_refresh_report">上次重新整理</string>
+    <string name="watchlist_symbols_legend">符號說明</string>
+    <string name="watchlist_symbols_legend_alarms">生效中嘅提示同數量</string>
     <string name="watchlist_refresh_report_empty">暫時未有明細 – 未試過完整重新整理。撳重新整理，等個圈停咗先。</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d 個之中 %1$d 個已過時</item>

@@ -24,6 +24,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">متقدم</string>
     <string name="alarm_change_updates">تغيير تحديث الأسعار</string>
+    <string name="alarm_closed_app_short">عند إغلاق التطبيق قد تتأخر التنبيهات.</string>
     <string name="alarm_check_mode_15min">تقريبًا كل 15 دقيقة</string>
     <string name="alarm_check_mode_saving">موفّر</string>
     <string name="alarm_check_mode_title">كم مرة يتم الفحص عندما يكون الجهاز خاملًا؟</string>

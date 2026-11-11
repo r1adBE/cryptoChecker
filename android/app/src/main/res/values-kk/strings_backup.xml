@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Құпиясөз қате немесе файл зақымдалған. Қайталап көріңіз.</string>
     <string name="backup_protect">Құпиясөзбен қорғау</string>
     <string name="backup_protect_hint">Файлды шифрлайды (AES-256). Портфель деректері болса, ұсынылады.</string>
+    <string name="backup_protect_required">Әрқашан қосулы: файлда портфель деректері бар.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Құпиясөзсіз сақтау</string>
     <string name="backup_plain_confirm_text">Файл шифрланбаған. Оны алған кез келген адам мыналарды оқи алады:</string>
     <string name="backup_plain_confirm_title">Құпиясөзсіз сақтау керек пе?</string>
-    <string name="backup_plain_contents_addresses">Баланс тарихы мен құн негізі бар сақталған әмиян мекенжайлары мен xpub кілттері</string>
     <string name="backup_plain_contents_base">Ескертпелері мен топтары бар бақылау тізімі, ескертулер, таңдаулылар және параметрлер</string>
-    <string name="backup_plain_contents_portfolio">Портфель: сомалары мен бағалары бар транзакциялар</string>
     <string name="backup_restore_app_lock_kept">Портфель құлпы қосулы қалады – шифрланбаған сақтық көшірме оны өшіре алмайды.</string>
     <string name="backup_restore_confirm">Импорттау ағымдағы бақылау тізімін (ескертпелері мен топтарымен), ескертулерді, таңдаулыларды, портфельді және параметрлерді сақтық көшірмедегімен ауыстырады.</string>
     <plurals name="backup_restore_invalid">

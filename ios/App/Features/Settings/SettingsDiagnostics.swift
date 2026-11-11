@@ -144,6 +144,6 @@ struct DiagnosticsShareFile: Transferable, Sendable {
 
     /// Datei löschen; fehlt sie, ist nichts zu tun.
     static func remove() {
-        try? FileManager.default.removeItem(at: url)
+        AppLog.remove(url, "Diagnosebericht löschen")
     }
 }

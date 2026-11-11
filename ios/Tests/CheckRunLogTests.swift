@@ -52,6 +52,15 @@ final class CheckRunLogTests: XCTestCase {
         XCTAssertNil(CheckRunLog.lastFailedBackgroundCheck([]))
     }
 
+    func testFailingSinceIsTheOldestScheduledRunWhenNoneSucceeded() {
+        let failing = [run(100, .foreground, .failed), run(90, .bgTask, .failed), run(50, .bgTask, .failed), run(40, .widget)]
+        // Ältester geplanter Lauf; App und Widget zählen nicht
+        XCTAssertEqual(CheckRunLog.failingSince(failing), 50)
+        // Ein gelungener (auch übersprungener) geplanter Lauf: nichts scheitert dauerhaft
+        XCTAssertNil(CheckRunLog.failingSince(failing + [run(30, .bgTask, .skipped)]))
+        XCTAssertNil(CheckRunLog.failingSince([]))
+    }
+
     func testEncodeDecodeRoundTrip() {
         let runs = [
             CheckRun(at: 1_700_000_000_000, trigger: .exact, result: .partial, durationMillis: 2_345),

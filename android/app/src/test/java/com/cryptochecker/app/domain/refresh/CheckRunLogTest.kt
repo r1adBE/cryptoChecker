@@ -66,6 +66,21 @@ class CheckRunLogTest {
     }
 
     @Test
+    fun failingSinceIsTheOldestScheduledRunWhenNoneSucceeded() {
+        val failing = listOf(
+            run(100, CheckTrigger.FOREGROUND, CheckResult.FAILED),
+            run(90, CheckTrigger.WORKER, CheckResult.FAILED),
+            run(50, CheckTrigger.EXACT, CheckResult.FAILED),
+            run(40, CheckTrigger.WIDGET, CheckResult.OK),
+        )
+        // Ältester geplanter Lauf; App und Widget zählen nicht
+        assertEquals(50L, CheckRunLog.failingSince(failing))
+        // Ein gelungener (auch übersprungener) geplanter Lauf: nichts scheitert dauerhaft
+        assertEquals(null, CheckRunLog.failingSince(failing + run(30, CheckTrigger.WORKER, CheckResult.SKIPPED)))
+        assertEquals(null, CheckRunLog.failingSince(emptyList()))
+    }
+
+    @Test
     fun encodeDecodeRoundTrip() {
         val runs = listOf(
             CheckRun(1_700_000_000_000, CheckTrigger.EXACT, CheckResult.PARTIAL, 2_345),

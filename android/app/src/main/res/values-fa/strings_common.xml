@@ -9,6 +9,7 @@
     <string name="action_delete">حذف</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_more">گزینه‌های بیشتر</string>
+    <string name="action_learn_more">بیشتر بدانید</string>
     <string name="action_refresh">تازه‌سازی</string>
     <string name="action_retry">تلاش دوباره</string>
     <string name="action_save">ذخیره</string>

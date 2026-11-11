@@ -25,7 +25,10 @@ fun SettingsViewModel.cancelExport() {
 fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update {
     val request = pendingExport
     pendingExport = null
-    _backupMessage.value = if (request == null) {
+    // Mit Portfolio-Daten nie ohne Passwort (das Formular erzwingt es schon; hier nochmals vor dem Schreiben)
+    val allowed = request != null &&
+        PortfolioLockPolicy.backupExportAllowed(hasPassword = request.password != null, hasPortfolioData = backupHasPortfolioData())
+    _backupMessage.value = if (request == null || !allowed) {
         BackupMessage.Failed
     } else {
         runCatchingCancellable { backupManager.export(uri, request.password) }
@@ -127,23 +130,26 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
     backupManager.forgetPickedBackup()
 }
 
+/** Portfolio-Daten in der Sicherung? Nicht lesbar = ja (lieber Passwort verlangen). */
+private suspend fun SettingsViewModel.backupHasPortfolioData(): Boolean = try {
+    // Beobachtete Adressen sind auch Portfolio-Daten
+    PortfolioLockPolicy.backupHasPortfolioData(
+        transactions = portfolioRepository.getTransactions().size,
+        watchedAddresses = portfolioRepository.getWatchedAddresses().size,
+    )
+} catch (e: kotlinx.coroutines.CancellationException) {
+    throw e
+} catch (e: Exception) {
+    true
+}
+
 /**
  * Sichern: Enthält die Datei Portfolio-Daten und ist gesperrt, erst entsperren.
- * [launch] erhält, ob Portfolio-Daten dabei sind (dann ist der Passwortschutz vorgewählt).
+ * [launch] erhält, ob Portfolio-Daten dabei sind (dann ist der Passwortschutz Pflicht).
  */
 fun SettingsViewModel.startBackupExport(activity: androidx.fragment.app.FragmentActivity?, reason: String, launch: (Boolean) -> Unit) {
     viewModelScope.launch {
-        val hasPortfolio = try {
-            // Beobachtete Adressen sind auch Portfolio-Daten
-            PortfolioLockPolicy.backupHasPortfolioData(
-                transactions = portfolioRepository.getTransactions().size,
-                watchedAddresses = portfolioRepository.getWatchedAddresses().size,
-            )
-        } catch (e: kotlinx.coroutines.CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            true
-        }
+        val hasPortfolio = backupHasPortfolioData()
         gate(activity, reason, { locked -> PortfolioLockPolicy.backupExportNeedsUnlock(locked, hasPortfolio) }) {
             launch(hasPortfolio)
         }

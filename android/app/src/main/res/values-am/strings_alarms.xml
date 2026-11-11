@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">የላቀ</string>
     <string name="alarm_change_updates">የዋጋ ዝማኔዎችን ያስተካክሉ</string>
+    <string name="alarm_closed_app_short">መተግበሪያው ሲዘጋ ማንቂያዎች ሊዘገዩ ይችላሉ።</string>
     <string name="alarm_check_mode_15min">በግምት በየ15 ደቂቃው</string>
     <string name="alarm_check_mode_saving">ባትሪ ቆጣቢ</string>
     <string name="alarm_check_mode_title">መሣሪያው ሥራ ፈት ሲሆን ምን ያህል ጊዜ ይፈተሽ?</string>

@@ -1,5 +1,5 @@
 {
-  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest und AlarmReliabilityTests. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck und lastFailedBackgroundCheck statt lastBackgroundCheck. storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher. lineShownKinds: Sätze, bei denen die Zeile überhaupt erscheint (Normalfall «recent» und «hidden»: keine Zeile).",
+  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest und AlarmReliabilityTests. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck, lastFailedBackgroundCheck und failingSince (ältester gespeicherter geplanter Lauf, wenn keiner gelang) statt lastBackgroundCheck. Gelang kein geplanter Lauf, warnt die Zeile erst, wenn das länger als die Grenze anhält (now - failingSince > staleMillis); vorher ruhig «never». storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher. lineShownKinds: Sätze, bei denen die Zeile überhaupt erscheint (Normalfall «recent» und «hidden»: keine Zeile).",
   "staleMillis": 7200000,
   "staleMillisIos": 21600000,
   "lineShownKinds": ["never", "notifications_off", "storage_no_key", "battery", "background_refresh", "stale"],
@@ -406,7 +406,7 @@
       "warn": true
     },
     {
-      "name": "iOS 20 BG-Aufgaben gescheitert: Warnung statt «noch nie»",
+      "name": "iOS 20 BG-Aufgaben gescheitert seit 4,9 h (Grenze 6 h): noch ruhig",
       "input": {
         "platform": "ios",
         "notifications": "granted",
@@ -434,6 +434,94 @@
           "1759984100000;bgtask;failed;1500",
           "1759983200000;bgtask;failed;1500",
           "1759982300000;bgtask;failed;1500"
+        ]
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "iOS BG-Aufgaben gescheitert seit über 6 h: Warnung statt «noch nie»",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999400000;bgtask;failed;1500",
+          "1759995800000;bgtask;failed;1500",
+          "1759992200000;bgtask;failed;1500",
+          "1759988600000;bgtask;failed;1500",
+          "1759985000000;bgtask;failed;1500",
+          "1759981400000;bgtask;failed;1500",
+          "1759977800000;bgtask;failed;1500",
+          "1759974200000;bgtask;failed;1500"
+        ]
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "iOS ein gescheiterter Lauf vor 5 Min. (z. B. Vormerken misslungen): ruhig, keine Warnung",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999700000;bgtask;failed;0"
+        ]
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android ein gescheiterter Lauf vor 5 Min.: ruhig, keine Warnung",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999700000;worker;failed;1500"
+        ]
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android gescheiterte Läufe seit gut 1,5 h (Grenze 2 h): noch ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999700000;worker;failed;1500",
+          "1759998800000;worker;failed;1500",
+          "1759997900000;worker;failed;1500",
+          "1759997000000;worker;failed;1500",
+          "1759996100000;worker;failed;1500",
+          "1759995200000;worker;failed;1500",
+          "1759994300000;worker;failed;1500"
+        ]
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android ein gescheiterter Lauf vor 3 h, seither nichts: Warnung",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759989200000;worker;failed;1500"
         ]
       },
       "kind": "stale",

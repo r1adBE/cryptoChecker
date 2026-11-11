@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Contrasenya incorrecta o fitxer malmès. Torna-ho a provar.</string>
     <string name="backup_protect">Protegeix amb contrasenya</string>
     <string name="backup_protect_hint">Xifra el fitxer (AES-256). Recomanat si conté dades de la cartera.</string>
+    <string name="backup_protect_required">Sempre activat: el fitxer conté dades de la cartera.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Desa sense contrasenya</string>
     <string name="backup_plain_confirm_text">El fitxer no està xifrat. Qualsevol que l\'obtingui pot llegir:</string>
     <string name="backup_plain_confirm_title">Vols desar sense contrasenya?</string>
-    <string name="backup_plain_contents_addresses">Adreces de moneder desades i claus xpub amb l\'historial de saldo i el cost d\'adquisició</string>
     <string name="backup_plain_contents_base">Llista amb notes i grups, alarmes, preferits i configuració</string>
-    <string name="backup_plain_contents_portfolio">Cartera: transaccions amb quantitats i preus</string>
     <string name="backup_restore_app_lock_kept">El bloqueig de la cartera continua activat – una còpia sense xifrar no el pot desactivar.</string>
     <string name="backup_restore_confirm">En importar, la teva llista actual (amb notes i grups), les alarmes, els preferits, la cartera i la configuració se substitueixen per la còpia de seguretat.</string>
     <plurals name="backup_restore_invalid">

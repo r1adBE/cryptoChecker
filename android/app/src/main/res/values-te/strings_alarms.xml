@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">అధునాతనం</string>
     <string name="alarm_change_updates">ధర అప్‌డేట్‌లను సర్దుబాటు చేయండి</string>
+    <string name="alarm_closed_app_short">యాప్ మూసి ఉన్నప్పుడు అలర్ట్‌లు ఆలస్యం కావచ్చు.</string>
     <string name="alarm_check_mode_15min">సుమారు ప్రతి 15 నిమిషాలకు</string>
     <string name="alarm_check_mode_saving">పొదుపుగా</string>
     <string name="alarm_check_mode_title">పరికరం నిష్క్రియంగా ఉన్నప్పుడు ఎంత తరచుగా తనిఖీ చేయాలి?</string>

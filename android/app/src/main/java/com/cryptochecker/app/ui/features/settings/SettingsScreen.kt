@@ -55,6 +55,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 
 /*
  * Hauptseite der Einstellungen als kurze, gruppierte Liste (wie die Einstellungen
@@ -90,6 +91,8 @@ fun SettingsScreen(
     var askReset by rememberSaveable { mutableStateOf(false) }
     val resetContext = LocalContext.current
     val resetScope = rememberCoroutineScope()
+    // Rückfrage offen: keine fremden Fenster darüber (ab Android 12)
+    HideOverlaysEffect(askReset)
     if (askReset) {
         AlertDialog(
             onDismissRequest = { askReset = false },

@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Ətraflı</string>
     <string name="alarm_change_updates">Qiymət yeniləmələrini tənzimlə</string>
+    <string name="alarm_closed_app_short">Tətbiq bağlı olanda alarmlar gecikə bilər.</string>
     <string name="alarm_check_mode_15min">Təxminən hər 15 dəqiqədən bir</string>
     <string name="alarm_check_mode_saving">Qənaətli</string>
     <string name="alarm_check_mode_title">Cihaz boş dayananda nə qədər tez-tez yoxlansın?</string>

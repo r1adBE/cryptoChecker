@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Okuthuthukisiwe</string>
     <string name="alarm_change_updates">Lungisa ukubuyekezwa kwentengo</string>
+    <string name="alarm_closed_app_short">Uma i-app ivaliwe, ama-alamu angase afike sekwephuzile.</string>
     <string name="alarm_check_mode_15min">Cishe njalo emizuzwini engu-15</string>
     <string name="alarm_check_mode_saving">Konga</string>
     <string name="alarm_check_mode_title">Kufanele kuhlolwe kangaki uma idivayisi ingasebenzi?</string>

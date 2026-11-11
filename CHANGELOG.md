@@ -16,6 +16,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 211)
+
+* A backup that contains portfolio data always needs a password.
+* Android hides windows of other apps over the portfolio, restore and reset dialogs (Android 12+, new permission HIDE_OVERLAY_WINDOWS).
+* Watchlist: «Symbols explained» in the menu; notes stay on one line. Alert editor: one sentence and «More» instead of a text block. The «alerts may be late» warning appears only after hours of failed background runs. The portfolio «+» button hides while scrolling down.
+* Store screenshots: the tour fails when a system dialog covers the app; demo values no longer depend on the time of day.
+* Privacy page with a strict content security policy; SECURITY.md lists known limits; index on the import batch (reinstall needed for test builds).
+
 ## 16.2.2 (build 210)
 
 * iOS: portfolio alerts always show only the neutral sentence – no amount on the lock screen, even with previews set to «Always». The details are in the app.

@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">উন্নত</string>
     <string name="alarm_change_updates">দামের আপডেট বদলান</string>
+    <string name="alarm_closed_app_short">অ্যাপ বন্ধ থাকলে অ্যালার্ট দেরিতে আসতে পারে।</string>
     <string name="alarm_check_mode_15min">প্রায় প্রতি 15 মিনিটে</string>
     <string name="alarm_check_mode_saving">সাশ্রয়ী</string>
     <string name="alarm_check_mode_title">ডিভাইস নিষ্ক্রিয় থাকলে কত ঘন ঘন যাচাই করা হবে?</string>

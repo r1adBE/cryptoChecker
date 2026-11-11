@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">कनेक्शन नहीं · अंतिम अपडेट %1$s</string>
     <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचें</string>
     <string name="watchlist_refresh_report">पिछला रीफ़्रेश</string>
+    <string name="watchlist_symbols_legend">प्रतीकों की जानकारी</string>
+    <string name="watchlist_symbols_legend_alarms">सक्रिय अलार्म और उनकी संख्या</string>
     <string name="watchlist_refresh_report_empty">अभी कोई विवरण नहीं: अभी तक कोई पूरा रीफ़्रेश नहीं हुआ है। रीफ़्रेश पर टैप करें और स्पिनर रुकने तक इंतज़ार करें।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d में से %1$d पुराने</item>

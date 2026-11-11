@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">કનેક્શન નથી · %1$s મુજબ</string>
     <string name="watchlist_pull_to_refresh">રિફ્રેશ કરવા નીચે ખેંચો</string>
     <string name="watchlist_refresh_report">છેલ્લું રિફ્રેશ</string>
+    <string name="watchlist_symbols_legend">ચિહ્નોની સમજૂતી</string>
+    <string name="watchlist_symbols_legend_alarms">સક્રિય એલર્ટ અને તેની સંખ્યા</string>
     <string name="watchlist_refresh_report_empty">હજુ કોઈ વિગત નથી – અત્યાર સુધી પૂરું રિફ્રેશ થયું નથી. રિફ્રેશ પર ટૅપ કરો અને વર્તુળ અટકે ત્યાં સુધી રાહ જુઓ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d માંથી %1$d જૂનું</item>

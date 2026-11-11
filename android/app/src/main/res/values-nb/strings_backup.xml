@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Feil passord, eller filen er skadet. Prøv igjen.</string>
     <string name="backup_protect">Beskytt med passord</string>
     <string name="backup_protect_hint">Krypterer filen (AES-256). Anbefales når den inneholder porteføljedata.</string>
+    <string name="backup_protect_required">Alltid på: filen inneholder porteføljedata.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Lagre uten passord</string>
     <string name="backup_plain_confirm_text">Filen er ikke kryptert. Den som får den, kan lese:</string>
     <string name="backup_plain_confirm_title">Lagre uten passord?</string>
-    <string name="backup_plain_contents_addresses">Lagrede wallet-adresser og xpub-nøkler med saldohistorikk og inngangsverdi</string>
     <string name="backup_plain_contents_base">Overvåkningsliste med notater og grupper, alarmer, favoritter og innstillinger</string>
-    <string name="backup_plain_contents_portfolio">Portefølje: transaksjoner med mengder og priser</string>
     <string name="backup_restore_app_lock_kept">Porteføljelåsen forblir på – en ukryptert sikkerhetskopi kan ikke slå den av.</string>
     <string name="backup_restore_confirm">Import erstatter listen (med notater og grupper), alarmene, favorittene, porteføljen og innstillingene med kopien.</string>
     <plurals name="backup_restore_invalid">

@@ -46,6 +46,7 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 
 // ── Portfolio ────────────────────────────────────────────────────────────────
 
@@ -83,6 +84,8 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             onDismiss = { confirmSystemBackup = false },
         )
     }
+    // Seite mit dem Schalter der Portfolio-Sperre: keine fremden Fenster darüber (ab Android 12)
+    HideOverlaysEffect()
     SettingsSubPage(title = stringResource(R.string.portfolio_title), onBack = onBack) {
         GroupCard {
             SettingsAnchor("portfolio.tab") {

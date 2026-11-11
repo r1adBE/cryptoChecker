@@ -9,6 +9,7 @@
     <string name="action_delete">刪除</string>
     <string name="action_edit">編輯</string>
     <string name="action_more">更多選項</string>
+    <string name="action_learn_more">了解更多</string>
     <string name="action_refresh">重新整理</string>
     <string name="action_retry">重試</string>
     <string name="action_save">儲存</string>

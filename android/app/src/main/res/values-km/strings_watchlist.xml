@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">គ្មានការតភ្ជាប់ · គិតត្រឹម %1$s</string>
     <string name="watchlist_pull_to_refresh">ទាញចុះក្រោមដើម្បីផ្ទុកឡើងវិញ</string>
     <string name="watchlist_refresh_report">ការផ្ទុកឡើងវិញចុងក្រោយ</string>
+    <string name="watchlist_symbols_legend">ការពន្យល់និមិត្តសញ្ញា</string>
+    <string name="watchlist_symbols_legend_alarms">ការដាស់តឿនសកម្ម និងចំនួន</string>
     <string name="watchlist_refresh_report_empty">មិនទាន់មានការបែងចែកលម្អិតទេ – មិនទាន់មានការផ្ទុកឡើងវិញពេញលេញនៅឡើយ។ ចុចផ្ទុកឡើងវិញ ហើយរង់ចាំរហូតដល់រង្វង់ឈប់។</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d ក្នុងចំណោម %2$d ហួសសម័យ</item>

@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
     <string name="watchlist_pull_to_refresh">Tërhiq poshtë për ta rifreskuar</string>
     <string name="watchlist_refresh_report">Rifreskimi i fundit</string>
+    <string name="watchlist_symbols_legend">Shpjegimi i simboleve</string>
+    <string name="watchlist_symbols_legend_alarms">Alarmet aktive dhe numri i tyre</string>
     <string name="watchlist_refresh_report_empty">Ende pa detaje: ende nuk ka pasur rifreskim të plotë. Prek rifreskimin dhe prit derisa treguesi të ndalojë.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d nga %2$d të vjetruara</item>

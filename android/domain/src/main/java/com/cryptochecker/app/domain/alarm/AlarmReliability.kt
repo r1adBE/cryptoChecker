@@ -29,7 +29,7 @@ object AlarmReliability {
         HIDDEN("hidden"),
         /** Ruhig: «Letzte Prüfung vor 12 Min.». */
         RECENT("recent"),
-        /** Ruhig: noch keine Prüfung im Hintergrund (eben angelegt; die Seite zeigt den Rest). */
+        /** Ruhig: noch keine (gelungene) Prüfung im Hintergrund (eben angelegt; die Seite zeigt den Rest). */
         NEVER("never"),
         /** Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android). */
         NOTIFICATIONS_OFF("notifications_off"),
@@ -44,13 +44,17 @@ object AlarmReliability {
         BACKGROUND_REFRESH("background_refresh"),
         /**
          * Letzte Prüfung älter als [staleMillis] (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
-         * geplanten Läufe gescheitert ([AlarmReadiness.Input.lastFailedBackgroundCheck]).
+         * geplanten Läufe gescheitert und das seit länger als [staleMillis] ([AlarmReadiness.Input.failingSince]).
          */
         STALE("stale"),
     }
 
     /** [warn]: Bernstein statt Grau. */
     data class Status(val kind: Kind, val warn: Boolean)
+
+    /** [at] höchstens [staleMillis] alt (und nicht weit in der Zukunft — Uhr verstellt)? Sonst gilt die Warnung. */
+    private fun withinLimit(at: Long, input: AlarmReadiness.Input): Boolean =
+        at - input.now <= AlarmReadiness.FUTURE_TOLERANCE_MILLIS && input.now - at <= staleMillis(input.platform)
 
     /** Ein Satz aus dem gelesenen Zustand; wichtigster Grund zuerst (ohne Mitteilungen hilft keine Prüfung). */
     fun status(input: AlarmReadiness.Input): Status {
@@ -66,12 +70,14 @@ object AlarmReliability {
         if (!android && !input.backgroundRefresh) return Status(Kind.BACKGROUND_REFRESH, warn = true)
         val at = input.lastBackgroundCheck?.takeIf { it > 0 }
         if (at == null) {
-            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau)
-            val failing = input.lastFailedBackgroundCheck != null
-            return Status(if (failing) Kind.STALE else Kind.NEVER, warn = failing)
+            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau) — aber erst, wenn
+            // das länger als die Grenze anhält. Ein einzelner gescheiterter Lauf vor wenigen Minuten ist noch keine
+            // Verspätung: bis dahin die ruhige Zeile.
+            val since = input.failingSince ?: input.lastFailedBackgroundCheck
+            val overdue = since != null && !withinLimit(since, input)
+            return Status(if (overdue) Kind.STALE else Kind.NEVER, warn = overdue)
         }
-        val fresh = at - input.now <= AlarmReadiness.FUTURE_TOLERANCE_MILLIS && input.now - at <= staleMillis(input.platform)
-        if (fresh) return Status(Kind.RECENT, warn = false)
+        if (withinLimit(at, input)) return Status(Kind.RECENT, warn = false)
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein aber nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung
         val batteryLikely = android && (!input.batteryUnrestricted || input.oemVendor != null)

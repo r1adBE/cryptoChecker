@@ -49,6 +49,7 @@ import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.lock.HideOverlaysEffect
 
 // ── Daten ────────────────────────────────────────────────────────────────────
 
@@ -145,6 +146,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         )
     }
 
+    // Wiederherstellen (Passwort, Rückfrage «Ersetzen?»): keine fremden Fenster darüber (ab Android 12)
+    HideOverlaysEffect(restoreStep != null)
     when (val step = restoreStep) {
         is RestoreStep.Password -> BackupPasswordDialog(
             wrong = step.wrong,

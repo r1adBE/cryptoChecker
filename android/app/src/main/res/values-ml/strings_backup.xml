@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">തെറ്റായ പാസ്‌വേഡ്, അല്ലെങ്കിൽ ഫയൽ കേടായി. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="backup_protect">പാസ്‌വേഡ് ഉപയോഗിച്ച് സംരക്ഷിക്കുക</string>
     <string name="backup_protect_hint">ഫയൽ എൻക്രിപ്റ്റ് ചെയ്യുന്നു (AES-256). പോർട്ട്ഫോളിയോ ഡാറ്റയുണ്ടെങ്കിൽ ശുപാർശ ചെയ്യുന്നു.</string>
+    <string name="backup_protect_required">എപ്പോഴും ഓൺ: ഫയലിൽ പോർട്ട്ഫോളിയോ ഡാറ്റയുണ്ട്.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">പാസ്‌വേഡില്ലാതെ സംരക്ഷിക്കുക</string>
     <string name="backup_plain_confirm_text">ഫയൽ എൻക്രിപ്റ്റ് ചെയ്തിട്ടില്ല. അത് ലഭിക്കുന്ന ആർക്കും വായിക്കാം:</string>
     <string name="backup_plain_confirm_title">പാസ്‌വേഡില്ലാതെ സംരക്ഷിക്കണോ?</string>
-    <string name="backup_plain_contents_addresses">ബാലൻസ് ചരിത്രവും ചെലവുവിലയുമുള്ള സംരക്ഷിച്ച വാലറ്റ് വിലാസങ്ങളും xpub കീകളും</string>
     <string name="backup_plain_contents_base">കുറിപ്പുകളും ഗ്രൂപ്പുകളുമുള്ള വാച്ച്‌ലിസ്റ്റ്, അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, ക്രമീകരണങ്ങൾ</string>
-    <string name="backup_plain_contents_portfolio">പോർട്ട്ഫോളിയോ: തുകകളും വിലകളുമുള്ള ഇടപാടുകൾ</string>
     <string name="backup_restore_app_lock_kept">പോർട്ട്ഫോളിയോ ലോക്ക് ഓണായി തുടരും – എൻക്രിപ്റ്റ് ചെയ്യാത്ത ബാക്കപ്പിന് അത് ഓഫാക്കാനാകില്ല.</string>
     <string name="backup_restore_confirm">ഇമ്പോർട്ട് ചെയ്യുന്നത് നിങ്ങളുടെ നിലവിലെ വാച്ച്‌ലിസ്റ്റ് (കുറിപ്പുകളും ഗ്രൂപ്പുകളും സഹിതം), അലേർട്ടുകൾ, പ്രിയപ്പെട്ടവ, പോർട്ട്ഫോളിയോ, ക്രമീകരണങ്ങൾ എന്നിവയെ ബാക്കപ്പ് ഉപയോഗിച്ച് മാറ്റിസ്ഥാപിക്കുന്നു.</string>
     <plurals name="backup_restore_invalid">

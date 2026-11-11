@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Konexiorik ez · eguneratua: %1$s</string>
     <string name="watchlist_pull_to_refresh">Pasatu hatza behera eguneratzeko</string>
     <string name="watchlist_refresh_report">Azken eguneratzea</string>
+    <string name="watchlist_symbols_legend">Ikurren azalpena</string>
+    <string name="watchlist_symbols_legend_alarms">Alarma aktiboak eta haien kopurua</string>
     <string name="watchlist_refresh_report_empty">Oraindik ez dago xehakapenik – orain arte ez da eguneratze osorik egin. Sakatu Eguneratu eta itxaron zirkulua gelditu arte.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-(e)tik %1$d zaharkituta</item>

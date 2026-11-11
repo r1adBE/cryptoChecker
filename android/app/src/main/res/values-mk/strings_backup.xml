@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Погрешна лозинка или датотеката е оштетена. Обиди се повторно.</string>
     <string name="backup_protect">Заштити со лозинка</string>
     <string name="backup_protect_hint">Ја шифрира датотеката (AES-256). Препорачано кога содржи податоци од портфолиото.</string>
+    <string name="backup_protect_required">Секогаш вклучено: датотеката содржи податоци од портфолиото.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Зачувај без лозинка</string>
     <string name="backup_plain_confirm_text">Датотеката не е шифрирана. Секој што ќе ја добие може да прочита:</string>
     <string name="backup_plain_confirm_title">Да се зачува без лозинка?</string>
-    <string name="backup_plain_contents_addresses">Зачувани адреси на паричници и xpub-клучеви со историја на салдо и набавна вредност</string>
     <string name="backup_plain_contents_base">Листа за следење со белешки и групи, аларми, омилени и поставки</string>
-    <string name="backup_plain_contents_portfolio">Портфолио: трансакции со износи и цени</string>
     <string name="backup_restore_app_lock_kept">„Заклучување на портфолиото“ останува вклучено – нешифрирана резервна копија не може да го исклучи.</string>
     <string name="backup_restore_confirm">Увозот ги заменува твојата тековна листа за следење (со белешки и групи), алармите, омилените, портфолиото и поставките со резервната копија.</string>
     <plurals name="backup_restore_invalid">

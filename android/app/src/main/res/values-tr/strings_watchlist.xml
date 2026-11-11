@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
     <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çek</string>
     <string name="watchlist_refresh_report">Son yenileme</string>
+    <string name="watchlist_symbols_legend">Simgelerin açıklaması</string>
+    <string name="watchlist_symbols_legend_alarms">Etkin alarmlar ve sayıları</string>
     <string name="watchlist_refresh_report_empty">Henüz döküm yok: henüz tam bir yenileme yapılmadı. Yenile\'ye dokun ve yükleme göstergesi durana kadar bekle.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d çiftten %1$d tanesi güncel değil</item>

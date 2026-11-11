@@ -9,6 +9,7 @@
     <string name="action_delete">मेटाउनुहोस्</string>
     <string name="action_edit">सम्पादन गर्नुहोस्</string>
     <string name="action_more">थप विकल्पहरू</string>
+    <string name="action_learn_more">थप जान्नुहोस्</string>
     <string name="action_refresh">रिफ्रेस गर्नुहोस्</string>
     <string name="action_retry">फेरि प्रयास गर्नुहोस्</string>
     <string name="action_save">सेभ गर्नुहोस्</string>

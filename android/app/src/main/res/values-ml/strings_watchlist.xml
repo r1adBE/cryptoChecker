@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">കണക്ഷനില്ല · %1$s പ്രകാരം</string>
     <string name="watchlist_pull_to_refresh">പുതുക്കാൻ താഴേക്ക് വലിക്കുക</string>
     <string name="watchlist_refresh_report">അവസാന പുതുക്കൽ</string>
+    <string name="watchlist_symbols_legend">ചിഹ്നങ്ങളുടെ വിശദീകരണം</string>
+    <string name="watchlist_symbols_legend_alarms">സജീവ അലേർട്ടുകളും അവയുടെ എണ്ണവും</string>
     <string name="watchlist_refresh_report_empty">ഇതുവരെ വിശദാംശമില്ല – ഇതുവരെ പൂർണ്ണ പുതുക്കൽ നടന്നിട്ടില്ല. പുതുക്കുക ടാപ്പ് ചെയ്ത് വൃത്തം നിൽക്കുന്നതുവരെ കാത്തിരിക്കുക.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-ൽ %1$d പഴയത്</item>

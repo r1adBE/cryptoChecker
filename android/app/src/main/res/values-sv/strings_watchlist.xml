@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Ingen anslutning · per %1$s</string>
     <string name="watchlist_pull_to_refresh">Dra nedåt för att uppdatera</string>
     <string name="watchlist_refresh_report">Senaste uppdatering</string>
+    <string name="watchlist_symbols_legend">Symbolförklaring</string>
+    <string name="watchlist_symbols_legend_alarms">Aktiva larm med antal</string>
     <string name="watchlist_refresh_report_empty">Ingen sammanställning ännu: ingen fullständig uppdatering har gjorts än. Tryck på uppdatera och vänta tills snurran stannar.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d av %2$d inaktuellt</item>

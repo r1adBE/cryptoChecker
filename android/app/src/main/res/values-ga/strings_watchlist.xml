@@ -14,6 +14,8 @@
     <string name="watchlist_offline_since">Gan cheangal · staid %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarraing anuas chun athnuachan</string>
     <string name="watchlist_refresh_report">Athnuachan dheireanach</string>
+    <string name="watchlist_symbols_legend">Míniú ar na siombailí</string>
+    <string name="watchlist_symbols_legend_alarms">Foláirimh ghníomhacha agus a líon</string>
     <string name="watchlist_refresh_report_empty">Gan miondealú fós – gan athnuachan iomlán go dtí seo. Tapáil athnuaigh agus fan go stopfaidh an ciorcal.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d as %2$d as dáta</item>

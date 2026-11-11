@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">ಸುಧಾರಿತ</string>
     <string name="alarm_change_updates">ಬೆಲೆ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಹೊಂದಿಸಿ</string>
+    <string name="alarm_closed_app_short">ಆ್ಯಪ್ ಮುಚ್ಚಿದಾಗ, ಅಲರ್ಟ್‌ಗಳು ತಡವಾಗಬಹುದು.</string>
     <string name="alarm_check_mode_15min">ಸುಮಾರು ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ</string>
     <string name="alarm_check_mode_saving">ಮಿತವ್ಯಯ</string>
     <string name="alarm_check_mode_title">ಸಾಧನ ನಿಷ್ಕ್ರಿಯವಾಗಿರುವಾಗ ಎಷ್ಟು ಬಾರಿ ಪರಿಶೀಲಿಸಬೇಕು?</string>

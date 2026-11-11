@@ -240,12 +240,6 @@ internal fun AlarmEditorSheet(
 }
 
 /**
- * Öffnet die Seite «Kurs-Aktualisierung» («Wie aktuell?») direkt, z. B. aus dem Hinweis unter dem
- * Alarm. Gesetzt von AppNavHost; null (Vorschau, Widget-Einrichtung) = kein Knopf.
- */
-val LocalOpenUpdateSettings = androidx.compose.runtime.staticCompositionLocalOf<(() -> Unit)?> { null }
-
-/**
  * «Mehr» im Alarm-Editor aufgeklappt? Gilt für die laufende Sitzung (Prozess), nicht gespeichert: Wer es einmal
  * aufklappt, findet es beim nächsten Alarm offen; nach dem Neustart ist der Editor wieder kurz. Nur auf dem Main-Thread
  * gelesen und geschrieben (Compose). Wie iOS `AlarmEditorSession`.

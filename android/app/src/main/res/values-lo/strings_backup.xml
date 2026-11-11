@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ລະຫັດຜ່ານຜິດ ຫຼື ໄຟລ໌ເສຍຫາຍ. ກະລຸນາລອງໃໝ່.</string>
     <string name="backup_protect">ປ້ອງກັນດ້ວຍລະຫັດຜ່ານ</string>
     <string name="backup_protect_hint">ເຂົ້າລະຫັດໄຟລ໌ (AES-256). ແນະນຳເມື່ອມີຂໍ້ມູນພອດໂຟລິໂອ.</string>
+    <string name="backup_protect_required">ເປີດຢູ່ສະເໝີ: ໄຟລ໌ມີຂໍ້ມູນພອດໂຟລິໂອ.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">ບັນທຶກໂດຍບໍ່ມີລະຫັດຜ່ານ</string>
     <string name="backup_plain_confirm_text">ໄຟລ໌ບໍ່ໄດ້ເຂົ້າລະຫັດ. ໃຜກໍ່ຕາມທີ່ໄດ້ຮັບມັນສາມາດອ່ານ:</string>
     <string name="backup_plain_confirm_title">ບັນທຶກໂດຍບໍ່ມີລະຫັດຜ່ານບໍ?</string>
-    <string name="backup_plain_contents_addresses">ທີ່ຢູ່ກະເປົາເງິນ ແລະ ກະແຈ xpub ທີ່ບັນທຶກໄວ້ ພ້ອມປະຫວັດຍອດເງິນ ແລະ ຕົ້ນທຶນ</string>
     <string name="backup_plain_contents_base">ລາຍການຕິດຕາມພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ, ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ ແລະ ການຕັ້ງຄ່າ</string>
-    <string name="backup_plain_contents_portfolio">ພອດໂຟລິໂອ: ທຸລະກຳພ້ອມຈຳນວນ ແລະ ລາຄາ</string>
     <string name="backup_restore_app_lock_kept">ລັອກພອດໂຟລິໂອຍັງເປີດຢູ່ – ການສຳຮອງທີ່ບໍ່ເຂົ້າລະຫັດບໍ່ສາມາດປິດມັນໄດ້.</string>
     <string name="backup_restore_confirm">ການນຳເຂົ້າຈະແທນທີ່ລາຍການຕິດຕາມປັດຈຸບັນຂອງທ່ານ (ພ້ອມໝາຍເຫດ ແລະ ກຸ່ມ), ສັນຍານເຕືອນ, ລາຍການທີ່ມັກ, ພອດໂຟລິໂອ ແລະ ການຕັ້ງຄ່າ ດ້ວຍການສຳຮອງ.</string>
     <plurals name="backup_restore_invalid">

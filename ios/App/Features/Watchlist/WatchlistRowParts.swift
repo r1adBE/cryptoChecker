@@ -169,25 +169,30 @@ extension WatchlistRow {
                     .lineLimit(1)
                     .frame(minWidth: 0, idealWidth: 0, maxWidth: .infinity, alignment: .leading)
             }
+        }
+    }
 
-            // Eigene Notiz (#233), dezent unter dem Paar
-            if let note = watch.note {
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Image(systemName: "note.text")
-                        .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
-                        // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar (`iconOpacity`)
-                        .foregroundStyle(accent.primary)
-                        .opacity(iconOpacity)
-                    Text(note)
-                        .font(.caption.italic())
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .lineLimit(2)
-                }
-                // Eigenbreite 0: eine lange Notiz macht die Paar-Spalte nicht breiter
-                .frame(minWidth: 0, idealWidth: 0, maxWidth: .infinity, alignment: .leading)
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))
+    /// Eigene Notiz (#233) unter der Zeile: über die ganze Breite der Zeile (nicht nur die Paar-Spalte), genau eine
+    /// Zeile mit «…» (`TextLimit.singleLine` macht aus Umbrüchen Leerzeichen); VoiceOver liest die ganze Notiz.
+    /// Wie Android `WatchRowNote`.
+    @ViewBuilder
+    var noteLine: some View {
+        if let note = watch.note {
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Image(systemName: "note.text")
+                    .scaledFont(size: 11, weight: .semibold, relativeTo: .caption2)
+                    // Volle Akzentfarbe (Kontrast); abgeblasst nur bei deaktiviertem Paar (`iconOpacity`)
+                    .foregroundStyle(accent.primary)
+                    .opacity(iconOpacity)
+                Text(TextLimit.singleLine(note))
+                    .font(.caption.italic())
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))
         }
     }
 

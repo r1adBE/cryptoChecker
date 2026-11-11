@@ -30,8 +30,11 @@ internal data class TourCoin(
  *
  * Der Verlauf läuft geometrisch durch Eckpunkte (Halvings, Hochs und Tiefs der Zyklen) bis zum heutigen Kurs, mit
  * kleinen festen Schwingungen (Sinus) — so ergeben Durchschnitte, RSI, Zyklus-Vergleich und Altcoin-Saison echte
- * Werte. Andere Coins folgen BTC mit ihrem [TourCoin.beta]. Alles wird je Abfrage zur aktuellen Uhrzeit erzeugt:
- * feste JSON-Dateien veralteten (die App verwirft Kerzen- und Marktdaten, die nicht bis jetzt reichen).
+ * Werte. Andere Coins folgen BTC mit ihrem [TourCoin.beta]. Die Zeitstempel reichen bis jetzt (feste JSON-Dateien
+ * veralteten: die App verwirft Kerzen- und Marktdaten, die nicht bis jetzt reichen), die Werte hängen aber nicht von
+ * der Uhrzeit des Laufs ab: Jede Kerze rechnet mit ihrem Alter in ganzen Kerzen ([candleEnd]), und die letzten
+ * [RECENT_DAYS] Tage hängen nur an diesem Alter ([btcTrend]) — so zeigen zwei Läufe dieselben Zahlen (z. B. «7 T»
+ * im Portfolio), egal zu welcher Stunde und an welchem Tag.
  */
 internal object FakeMarketSeries {
     const val HOUR = 3_600_000L
@@ -104,9 +107,25 @@ internal object FakeMarketSeries {
         dayStart(2025, 4, 8) to 76_500.0, dayStart(2025, 10, 6) to 124_500.0,
     )
 
+    /**
+     * Die letzten [RECENT_DAYS] Tage laufen von «heutiger Kurs × [RECENT_RATIO]» zum heutigen Kurs — unabhängig vom
+     * Datum des Laufs. Ein Eckpunkt aus [anchors] zählt erst, wenn er [RECENT_GAP_DAYS] Tage davor liegt (kein Sprung).
+     */
+    private const val RECENT_DAYS = 400L
+    private const val RECENT_RATIO = 1.3
+    private const val RECENT_GAP_DAYS = 30L
+
+    /**
+     * Ende der laufenden Kerze mit Beginn [current] und Länge [step]: das «Jetzt» für [priceAt]. Damit ist das Alter
+     * jeder Kerze ein ganzes Vielfaches von [step] und ihr Wert derselbe, egal wann in der Kerze abgefragt wird.
+     */
+    private fun candleEnd(current: Long, step: Long): Long = current + step
+
     /** BTC in USD zum Zeitpunkt [t] (ms) ohne Schwingung; ab [now] der heutige Kurs. */
     private fun btcTrend(t: Long, now: Long): Double {
-        val points = anchors.filter { it.first < now - DAY } + (now to FakeExchange.btcPrice)
+        val recent = now - RECENT_DAYS * DAY
+        val points = anchors.filter { it.first < recent - RECENT_GAP_DAYS * DAY } +
+            (recent to FakeExchange.btcPrice * RECENT_RATIO) + (now to FakeExchange.btcPrice)
         if (t <= points.first().first) return points.first().second
         if (t >= now) return FakeExchange.btcPrice
         val i = points.indexOfFirst { it.first >= t }
@@ -143,7 +162,8 @@ internal object FakeMarketSeries {
 
     /**
      * `GET /api/v3/klines?symbol=…&interval=1h|4h|1d|1w&limit=…[&startTime=…]` im Format von Binance (älteste zuerst,
-     * die letzte Kerze läuft noch); null = unbekanntes Symbol oder Intervall (404).
+     * die letzte Kerze läuft noch); null = unbekanntes Symbol oder Intervall (404). [now] bestimmt nur die
+     * Zeitstempel, die Werte rechnen mit dem Ende der laufenden Kerze ([candleEnd]).
      */
     fun klines(url: HttpUrl, now: Long = System.currentTimeMillis()): String? {
         val coin = url.queryParameter("symbol")?.removeSuffix("USDT")?.let(::coin) ?: return null
@@ -166,11 +186,14 @@ internal object FakeMarketSeries {
         }
         val opens = requested.filter { it >= LISTING }
         val dailyVolume = coin.marketCap * 0.03 / price(coin)
+        val end = candleEnd(current, step)
         var previous: Double? = null
-        return opens.mapIndexed { i, open ->
-            val close = if (open == current) price(coin) else priceAt(coin, open + step, now)
-            val first = previous ?: priceAt(coin, open, now)
+        return opens.map { open ->
+            val close = if (open == current) price(coin) else priceAt(coin, open + step, end)
+            val first = previous ?: priceAt(coin, open, end)
             previous = close
+            // Umsatz und Zahl der Abschlüsse nach dem Alter der Kerze (nicht nach ihrer Stelle in der Antwort)
+            val i = ((current - open) / step).toInt()
             val volume = dailyVolume * step / DAY * (1.0 + 0.3 * sin(i * 1.3))
             "[$open,\"${num(first)}\",\"${num(maxOf(first, close) * 1.012)}\",\"${num(minOf(first, close) * 0.988)}\"," +
                 "\"${num(close)}\",\"${num(volume)}\",${open + step - 1},\"${num(volume * close)}\",${1_000 + i}," +
@@ -183,21 +206,23 @@ internal object FakeMarketSeries {
     /**
      * `GET /v4/timeseries/asset-metrics?assets=btc&metrics=…&start_time=…`: Tageswerte bis gestern. «PriceUSD» = BTC-
      * Schlusskurs; sonst MVRV, Ausgabe der neuen Coins in USD (450 BTC am Tag) und Hashrate (TH/s, steigend).
+     * Werte nach dem Alter in ganzen Tagen (Ende des heutigen UTC-Tags, wie die Tageskerzen in [klines]).
      */
     fun coinMetrics(url: HttpUrl, now: Long = System.currentTimeMillis()): String {
         val metrics = url.queryParameter("metrics").orEmpty()
         val start = url.queryParameter("start_time")?.let { runCatching { LocalDate.parse(it.take(10)) }.getOrNull() }
             ?: LocalDate.of(2016, 6, 1)
         val today = LocalDate.ofEpochDay(Math.floorDiv(now, DAY))
+        val end = candleEnd(today.toEpochDay() * DAY, DAY)
         val btc = coins.first()
         val rows = generateSequence(start) { it.plusDays(1) }.takeWhile { it.isBefore(today) }.map { day ->
             val dayMillis = day.toEpochDay() * DAY
-            val close = priceAt(btc, dayMillis + DAY, now)
+            val close = priceAt(btc, dayMillis + DAY, end)
             val time = "\"asset\":\"btc\",\"time\":\"${day}T00:00:00.000000000Z\""
             if ("PriceUSD" in metrics) {
                 "{$time,\"PriceUSD\":\"${num(close)}\"}"
             } else {
-                val daysAgo = (now - dayMillis).toDouble() / DAY
+                val daysAgo = (end - dayMillis).toDouble() / DAY
                 val realized = 45_000.0 - 9.0 * daysAgo
                 val hash = 1.05e9 * (1.0 - 0.0009 * daysAgo) * (1.0 + 0.02 * sin(daysAgo / 4.0))
                 "{$time,\"CapMVRVCur\":\"${num(close / realized)}\",\"IssTotUSD\":\"${num(450.0 * close)}\"," +

@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">ຂັ້ນສູງ</string>
     <string name="alarm_change_updates">ປັບການອັບເດດລາຄາ</string>
+    <string name="alarm_closed_app_short">ເມື່ອປິດແອັບ, ສັນຍານເຕືອນອາດຊ້າ.</string>
     <string name="alarm_check_mode_15min">ປະມານທຸກໆ 15 ນາທີ</string>
     <string name="alarm_check_mode_saving">ປະຢັດ</string>
     <string name="alarm_check_mode_title">ກວດເລື້ອຍປານໃດ ເມື່ອອຸປະກອນບໍ່ໄດ້ໃຊ້ງານ?</string>

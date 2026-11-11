@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">ขั้นสูง</string>
     <string name="alarm_change_updates">เปลี่ยนการอัปเดตราคา</string>
+    <string name="alarm_closed_app_short">เมื่อปิดแอป สัญญาณเตือนอาจมาช้า</string>
     <string name="alarm_check_mode_15min">ประมาณทุก 15 นาที</string>
     <string name="alarm_check_mode_saving">ประหยัด</string>
     <string name="alarm_check_mode_title">ตรวจสอบบ่อยแค่ไหนเมื่ออุปกรณ์อยู่ในโหมดพัก</string>

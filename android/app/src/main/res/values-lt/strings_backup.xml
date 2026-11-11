@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Neteisingas slaptažodis arba failas pažeistas. Bandyk dar kartą.</string>
     <string name="backup_protect">Apsaugoti slaptažodžiu</string>
     <string name="backup_protect_hint">Užšifruoja failą (AES-256). Rekomenduojama, jei jame yra portfelio duomenų.</string>
+    <string name="backup_protect_required">Visada įjungta: faile yra portfelio duomenų.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Išsaugoti be slaptažodžio</string>
     <string name="backup_plain_confirm_text">Failas neužšifruotas. Kiekvienas, kas jį gaus, galės perskaityti:</string>
     <string name="backup_plain_confirm_title">Išsaugoti be slaptažodžio?</string>
-    <string name="backup_plain_contents_addresses">Išsaugotus piniginių adresus ir xpub raktus su likučių istorija ir savikaina</string>
     <string name="backup_plain_contents_base">Stebimų sąrašą su pastabomis ir grupėmis, įspėjimus, mėgstamus ir nustatymus</string>
-    <string name="backup_plain_contents_portfolio">Portfelį: transakcijas su kiekiais ir kainomis</string>
     <string name="backup_restore_app_lock_kept">Portfelio užraktas lieka įjungtas – neužšifruota atsarginė kopija negali jo išjungti.</string>
     <string name="backup_restore_confirm">Importuojant dabartinis stebimų sąrašas (su pastabomis ir grupėmis), įspėjimai, mėgstami, portfelis ir nustatymai pakeičiami atsarginės kopijos duomenimis.</string>
     <plurals name="backup_restore_invalid">

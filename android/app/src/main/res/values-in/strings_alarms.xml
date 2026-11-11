@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Lanjutan</string>
     <string name="alarm_change_updates">Ubah pembaruan harga</string>
+    <string name="alarm_closed_app_short">Saat aplikasi ditutup, alarm mungkin terlambat.</string>
     <string name="alarm_check_mode_15min">Kira-kira setiap 15 menit</string>
     <string name="alarm_check_mode_saving">Hemat</string>
     <string name="alarm_check_mode_title">Seberapa sering memeriksa saat perangkat diam?</string>

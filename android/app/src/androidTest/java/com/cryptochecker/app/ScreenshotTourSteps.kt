@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Intent
@@ -86,11 +87,25 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
 
     // ── Gerät ──
 
+    /** Wert von `hide_error_dialogs` vor der Tour (null = nicht angefasst; «null» = war nicht gesetzt). */
+    private var errorDialogs: String? = null
+
     /**
      * Bildschirm an, ohne Sperre, und bleibt an (`svc power stayon`): Ohne ihn zeigt `screencap` Schwarz. Gibt den
      * vorherigen Wert von `stay_on_while_plugged_in` zurück ([restoreDevice]).
+     *
+     * Dazu keine Fehlerfenster des Systems (`hide_error_dialogs`: «… reagiert nicht» eines anderen Prozesses, z. B. des
+     * Launchers im langsamen Emulator, läge sonst abgedunkelt über jedem Bild), offene schliessen, und die Fenster
+     * für [requireForeground] lesbar machen (`FLAG_RETRIEVE_INTERACTIVE_WINDOWS`).
      */
     fun prepareDevice(): String {
+        errorDialogs = AppTestEnvironmentRule.shell("settings get global hide_error_dialogs").trim()
+        AppTestEnvironmentRule.shell("settings put global hide_error_dialogs 1")
+        AppTestEnvironmentRule.shell("am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS")
+        val automation = instrumentation.uiAutomation
+        automation.serviceInfo = automation.serviceInfo.apply {
+            flags = flags or AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+        }
         val stayOn = AppTestEnvironmentRule.shell("settings get global stay_on_while_plugged_in").trim()
         AppTestEnvironmentRule.shell("svc power stayon true")
         AppTestEnvironmentRule.shell("input keyevent KEYCODE_WAKEUP")
@@ -102,12 +117,47 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
     fun restoreDevice(stayOn: String) {
         val value = stayOn.toIntOrNull() ?: 0
         AppTestEnvironmentRule.shell("settings put global stay_on_while_plugged_in $value")
+        val dialogs = errorDialogs ?: return
+        val command = dialogs.toIntOrNull()?.let { "put global hide_error_dialogs $it" } ?: "delete global hide_error_dialogs"
+        AppTestEnvironmentRule.shell("settings $command")
     }
 
-    /** Vor jedem Foto: die App vorne, Bildschirm an, keine Sperre darüber — sonst zeigte das Bild etwas anderes. */
+    /**
+     * Vor und nach jedem Foto: die App vorne, Bildschirm an, keine Sperre und kein Fenster des Systems darüber
+     * ([systemCover]) — sonst zeigte das Bild etwas anderes. Die Fensterliste kann kurz nach einem Wechsel noch
+     * fehlen: bis [COVER_TIMEOUT] warten, dann AssertionError mit dem Grund.
+     */
     fun requireForeground() {
         val ok = resumedActivity() != null && interactive() && !keyguardLocked()
         if (!ok) throw AssertionError("App nicht im Vordergrund; ${describe()}")
+        val end = SystemClock.uptimeMillis() + COVER_TIMEOUT
+        while (true) {
+            val cover = systemCover() ?: return
+            if (SystemClock.uptimeMillis() > end) throw AssertionError("App verdeckt: $cover; ${describe()}")
+            SystemClock.sleep(POLL_MILLIS)
+        }
+    }
+
+    /**
+     * Was über der App liegt (null = nichts): ein Fehlerfenster des Systems nach seinem Titel in `dumpsys window`
+     * ([SYSTEM_DIALOG_TITLES]), ein Fenster mit Eingabefokus, das nicht zum Paket der App gehört (Blätter, Dialoge und
+     * Menüs der App gehören dazu), oder ein fremdes Fenster mit einem Text wie «isn't responding» ([COVER_TEXTS]).
+     */
+    private fun systemCover(): String? {
+        val dump = AppTestEnvironmentRule.shell("dumpsys window")
+        SYSTEM_DIALOG_TITLES.firstOrNull { it in dump }?.let { return "Fenster «$it»" }
+        val app = instrumentation.targetContext.packageName
+        val windows = instrumentation.uiAutomation.windows
+        val focused = windows.firstOrNull { it.isFocused } ?: return "kein Fenster mit Fokus (${windows.size} Fenster)"
+        val owner = focused.root?.packageName?.toString()
+        if (owner != app) return "Fokus bei ${owner ?: "unbekannt"}"
+        for (window in windows) {
+            val root = window.root ?: continue
+            if (root.packageName?.toString() == app) continue
+            COVER_TEXTS.firstOrNull { root.findAccessibilityNodeInfosByText(it).isNotEmpty() }
+                ?.let { return "Text «$it» (${root.packageName})" }
+        }
+        return null
     }
 
     // ── Warten ──
@@ -272,6 +322,17 @@ internal class TourNavigator(private val compose: ComposeTestRule) {
     companion object {
         const val TIMEOUT = 15_000L
         private const val POLL_MILLIS = 50L
+
+        /** So lange darf die Fensterliste nach einem Wechsel brauchen, bis die App den Fokus hat. */
+        private const val COVER_TIMEOUT = 5_000L
+
+        /** Titel der Fehlerfenster des Systems («… reagiert nicht», Absturz) in `dumpsys window`. */
+        private val SYSTEM_DIALOG_TITLES = listOf("Application Not Responding", "Application Error")
+
+        /** Texte solcher Fenster (Englisch und Deutsch; der Emulator des Workflows läuft in en-US). */
+        private val COVER_TEXTS = listOf(
+            "isn't responding", "isn’t responding", "reagiert nicht", "keeps stopping", "wird wiederholt beendet",
+        )
 
         /** Kennungen von Blättern und Seiten über der Merkliste (Paarseite, Alarme, Editor, Übersicht, Suche). */
         val OVERLAY_TAGS = listOf(

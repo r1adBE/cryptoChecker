@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">အဆင့်မြင့်</string>
     <string name="alarm_change_updates">ဈေးနှုန်း အပ်ဒိတ်များကို ချိန်ညှိရန်</string>
+    <string name="alarm_closed_app_short">အက်ပ်ကို ပိတ်ထားလျှင် သတိပေးချက်များ နောက်ကျနိုင်သည်။</string>
     <string name="alarm_check_mode_15min">မိနစ် 15 ခန့် တစ်ကြိမ်</string>
     <string name="alarm_check_mode_saving">ချွေတာ</string>
     <string name="alarm_check_mode_title">စက် အသုံးမပြုချိန်တွင် မည်မျှ မကြာခဏ စစ်ဆေးမည်နည်း။</string>

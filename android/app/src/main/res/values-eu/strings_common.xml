@@ -9,6 +9,7 @@
     <string name="action_delete">Ezabatu</string>
     <string name="action_edit">Editatu</string>
     <string name="action_more">Aukera gehiago</string>
+    <string name="action_learn_more">Informazio gehiago</string>
     <string name="action_refresh">Eguneratu</string>
     <string name="action_retry">Saiatu berriro</string>
     <string name="action_save">Gorde</string>

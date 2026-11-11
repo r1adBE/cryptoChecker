@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">고급</string>
     <string name="alarm_change_updates">가격 업데이트 변경</string>
+    <string name="alarm_closed_app_short">앱을 닫으면 경보가 늦을 수 있습니다.</string>
     <string name="alarm_check_mode_15min">약 15분마다</string>
     <string name="alarm_check_mode_saving">절약</string>
     <string name="alarm_check_mode_title">기기가 대기 중일 때 얼마나 자주 확인할까요?</string>

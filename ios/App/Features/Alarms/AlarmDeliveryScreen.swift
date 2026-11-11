@@ -31,6 +31,10 @@ struct AlarmDeliveryScreen: View {
                     }
                 }
                 .appCard(padding: .none)
+                // Immer erreichbar, auch wenn jede Zeile «in Ordnung» zeigt (der Alarm-Editor verweist nur noch hierher)
+                NavigationLink { UpdatesSettingsPage() } label: { linkLabel(L("alarm_change_updates")) }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 4)
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
@@ -253,6 +257,7 @@ enum AlarmReadinessProbe {
         input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
         // Alle gespeicherten geplanten Läufe gescheitert: Zuverlässigkeitszeile warnt
         input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
+        input.failingSince = CheckRunLog.failingSince(runs)
         input.hasAlarms = hasAlarms
         input.alertEnabled = center.alertSetting != .disabled
         input.soundEnabled = center.soundSetting != .disabled

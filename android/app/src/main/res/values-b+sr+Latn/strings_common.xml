@@ -10,6 +10,7 @@
     <string name="action_delete">Izbriši</string>
     <string name="action_edit">Uredi</string>
     <string name="action_more">Više opcija</string>
+    <string name="action_learn_more">Saznaj više</string>
     <string name="action_refresh">Osveži</string>
     <string name="action_retry">Pokušaj ponovo</string>
     <string name="action_save">Sačuvaj</string>

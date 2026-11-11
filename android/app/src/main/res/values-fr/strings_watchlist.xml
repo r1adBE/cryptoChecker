@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">Pas de connexion · état à %1$s</string>
     <string name="watchlist_pull_to_refresh">Tirer vers le bas pour actualiser</string>
     <string name="watchlist_refresh_report">Dernière actualisation</string>
+    <string name="watchlist_symbols_legend">Explication des symboles</string>
+    <string name="watchlist_symbols_legend_alarms">Alertes actives, avec leur nombre</string>
     <string name="watchlist_refresh_report_empty">Pas encore de détail : aucune actualisation complète pour l\'instant. Touche Actualiser et attends que l\'indicateur s\'arrête.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d sur %2$d obsolète</item>

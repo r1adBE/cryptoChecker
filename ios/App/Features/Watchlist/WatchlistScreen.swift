@@ -37,6 +37,8 @@ struct WatchlistScreen: View {
     /// «Nicht gehandelte Paare entfernen»: Rückfrage offen?
     @State var askRemoveNotTraded = false
     @State var showReport = false
+    /// Blatt «Symbole erklärt» (Menü) offen?
+    @State var showSymbolLegend = false
     /// Alarm löst bei offener App aus: Glocke pulsiert einmal (`AlarmPulse`).
     @State var bellPulse = 0
     @State var showOverview = false

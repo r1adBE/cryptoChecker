@@ -282,3 +282,35 @@ IP-Adresse an die in der Datenschutzerklärung genannten öffentlichen
 Blockchain-Knoten.
 Keine sensiblen Daten im Protokoll, kein Tracking, keine Werbung. Links und
 Verknüpfungen öffnen nur feste Bereiche und ändern keine Daten.
+
+## Known limits
+
+Deliberate trade-offs, stated so that nobody relies on more than the app does:
+
+* **Neutral browser User-Agent for address lookups.** Every host that sees a
+  watched address gets a common desktop-browser User-Agent (a current Firefox
+  value, the same on Android and iOS) instead of the app's own, so the host
+  cannot tie the address to this app by that header. It hides the app name
+  only: the IP address stays visible, and the TLS/HTTP fingerprint can still
+  show that an app is asking, not a browser. The value only blends in while it
+  is current; the *Release readiness* workflow
+  (`.github/scripts/user_agent_check.py`) fails when Android, iOS and the test
+  fixture differ and warns when the browser version gets old. All other
+  requests carry the app's real User-Agent.
+* **iOS: data is readable after the first unlock.** The storage key in the
+  keychain uses `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` and the
+  files keep the system's default file protection, because widgets and the
+  background refresh must read them while the iPhone is locked. From the first
+  unlock after a restart until the next restart, the key and the files are
+  therefore available to the app and its widgets even on a locked device; the
+  encryption protects against copies of the files and backups, not against
+  someone who can run code as the app on a device unlocked once. (Android is
+  comparable: its Keystore keys need no user authentication, for the same
+  reason.)
+* **The app lock is a cover for the portfolio area.** The portfolio lock hides
+  the portfolio in the app, the app switcher, widgets and notifications behind
+  biometrics or the device credential. It is not an encryption layer of its
+  own: the keys are not bound to that authentication, the watchlist and alarms
+  stay visible, and the lock does not protect system or device backups or
+  exported backup files. On an unlocked phone the app can read everything;
+  the lock only decides what it shows.

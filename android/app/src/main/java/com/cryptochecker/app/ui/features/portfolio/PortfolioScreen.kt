@@ -33,7 +33,9 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.cryptochecker.app.ui.components.AppFab
+import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.rememberReduceMotion
@@ -129,6 +131,8 @@ fun PortfolioScreen(
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
     val listState = rememberLazyListState()
+    // «+»-Knopf: beim Scrollen nach unten weg (verdeckt keine Beträge), nach oben wieder da
+    val fabScroll = rememberFabScroll(listState)
     // Erneutes Tippen auf den Tab «Portfolio»: an den Anfang der Liste (wie iOS)
     OnTabReselect(ScreenRoute.Portfolio) {
         if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
@@ -241,6 +245,7 @@ fun PortfolioScreen(
     }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(fabScroll.connection),
         topBar = {
             TopAppBar(
                 title = { TabTitle(stringResource(R.string.portfolio_title), R.drawable.ic_portfolio) },
@@ -271,7 +276,7 @@ fun PortfolioScreen(
         snackbarHost = { AppSnackbarHost(banner.host) },
         floatingActionButton = {
             if (hasData) {
-                AppFab(onClick = { sheet = TxDraft() }, contentDescription = stringResource(R.string.portfolio_add_tx))
+                AppFab(onClick = { sheet = TxDraft() }, contentDescription = stringResource(R.string.portfolio_add_tx), scroll = fabScroll)
             }
         }
     ) { padding ->

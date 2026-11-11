@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ভুল পাসওয়ার্ড, অথবা ফাইলটি ক্ষতিগ্রস্ত। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="backup_protect">পাসওয়ার্ড দিয়ে সুরক্ষিত করুন</string>
     <string name="backup_protect_hint">ফাইলটি এনক্রিপ্ট করে (AES-256)। পোর্টফোলিও ডেটা থাকলে সুপারিশকৃত।</string>
+    <string name="backup_protect_required">সবসময় চালু: ফাইলে পোর্টফোলিও ডেটা আছে।</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">পাসওয়ার্ড ছাড়া সংরক্ষণ করুন</string>
     <string name="backup_plain_confirm_text">ফাইলটি এনক্রিপ্ট করা নয়। যার হাতে এটি পৌঁছাবে সে পড়তে পারবে:</string>
     <string name="backup_plain_confirm_title">পাসওয়ার্ড ছাড়া সংরক্ষণ করবেন?</string>
-    <string name="backup_plain_contents_addresses">সংরক্ষিত ওয়ালেট ঠিকানা ও xpub কী, ব্যালেন্সের ইতিহাস ও ক্রয়মূল্যসহ</string>
     <string name="backup_plain_contents_base">নোট ও গ্রুপসহ ওয়াচলিস্ট, অ্যালার্ট, প্রিয় ও সেটিংস</string>
-    <string name="backup_plain_contents_portfolio">পোর্টফোলিও: পরিমাণ ও দামসহ লেনদেন</string>
     <string name="backup_restore_app_lock_kept">পোর্টফোলিও লক চালু থাকে – এনক্রিপ্ট না করা ব্যাকআপ এটি বন্ধ করতে পারে না।</string>
     <string name="backup_restore_confirm">ইমপোর্ট করলে আপনার বর্তমান ওয়াচলিস্ট (নোট ও গ্রুপসহ), অ্যালার্ট, প্রিয়, পোর্টফোলিও ও সেটিংস ব্যাকআপ দিয়ে প্রতিস্থাপিত হবে।</string>
     <plurals name="backup_restore_invalid">

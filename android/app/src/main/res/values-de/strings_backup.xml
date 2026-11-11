@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Falsches Passwort – oder die Datei ist beschädigt. Versuch es noch einmal.</string>
     <string name="backup_protect">Mit Passwort schützen</string>
     <string name="backup_protect_hint">Verschlüsselt die Datei (AES-256). Empfohlen, wenn sie Portfolio-Daten enthält.</string>
+    <string name="backup_protect_required">Immer an: Die Datei enthält Portfolio-Daten.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Ohne Passwort sichern</string>
     <string name="backup_plain_confirm_text">Die Datei ist nicht verschlüsselt. Wer sie bekommt, kann lesen:</string>
     <string name="backup_plain_confirm_title">Ohne Passwort sichern?</string>
-    <string name="backup_plain_contents_addresses">Gespeicherte Wallet-Adressen und xpub-Schlüssel mit Guthaben-Verlauf und Einstandswerten</string>
     <string name="backup_plain_contents_base">Merkliste mit Notizen und Gruppen, Alarme, Favoriten und Einstellungen</string>
-    <string name="backup_plain_contents_portfolio">Portfolio: Transaktionen mit Mengen und Preisen</string>
     <string name="backup_restore_app_lock_kept">Die Portfolio-Sperre bleibt an – eine unverschlüsselte Sicherung kann sie nicht ausschalten.</string>
     <string name="backup_restore_confirm">Beim Importieren werden Merkliste (mit Notizen und Gruppen), Alarme, Favoriten, Portfolio und Einstellungen durch die Sicherung ersetzt.</string>
     <plurals name="backup_restore_invalid">

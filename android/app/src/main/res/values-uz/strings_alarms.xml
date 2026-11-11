@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Kengaytirilgan</string>
     <string name="alarm_change_updates">Kurs yangilanishini sozlash</string>
+    <string name="alarm_closed_app_short">Ilova yopiq boʻlsa, signallar kechikishi mumkin.</string>
     <string name="alarm_check_mode_15min">Taxminan har 15 daqiqada</string>
     <string name="alarm_check_mode_saving">Tejamkor</string>
     <string name="alarm_check_mode_title">Qurilma boʻsh turganda qanchalik tez-tez tekshirilsin?</string>

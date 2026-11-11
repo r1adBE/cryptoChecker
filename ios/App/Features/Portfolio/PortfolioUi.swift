@@ -237,9 +237,21 @@ final class PortfolioAddSlot: ObservableObject {
     }
 
     @Published private(set) var entry: Entry?
+    /// Beim Scrollen nach unten ausgeblendet (verdeckt keine Beträge), nach oben wieder da (`AddButtonScroll`).
+    @Published private(set) var visible = true
+    private var scroll = AddButtonScroll.State()
 
     func show(_ token: UUID, action: @escaping @MainActor () -> Void) {
         entry = Entry(token: token, action: action)
+        // Neue Seite beginnt oben: Knopf da
+        scroll = AddButtonScroll.State()
+        visible = true
+    }
+
+    /// Scroll-Schritt der sichtbaren Portfolio-Liste (`delta` in pt, positiv = nach unten gescrollt).
+    func scrolled(delta: Double, atTop: Bool, atEnd: Bool) {
+        scroll = AddButtonScroll.next(scroll, delta: delta, atTop: atTop, atEnd: atEnd)
+        if visible != scroll.visible { visible = scroll.visible }
     }
 
     func hide(_ token: UUID) {
@@ -254,8 +266,41 @@ private struct PortfolioAddSlotMarker: ViewModifier {
 
     func body(content: Content) -> some View {
         content
+            .modifier(PortfolioAddScrollModifier())
             .onAppear { PortfolioAddSlot.shared.show(token, action: action) }
             .onDisappear { PortfolioAddSlot.shared.hide(token) }
+    }
+}
+
+/// Lage der Portfolio-Liste für den «+»-Knopf: Versatz vom Anfang (ganze pt) und ob sie am Anfang bzw. Ende steht.
+struct PortfolioAddScrollPosition: Equatable {
+    let offset: Double
+    let atTop: Bool
+    let atEnd: Bool
+
+    @available(iOS 18.0, *)
+    init(_ geometry: ScrollGeometry) {
+        let top = geometry.contentOffset.y + geometry.contentInsets.top
+        offset = Double(top.rounded())
+        atTop = top <= 0.5
+        // Grösster Versatz = Inhalt + Einschub unten − Höhe des Rahmens (auch erreicht, wenn die Liste gar nicht scrollt)
+        atEnd = geometry.contentOffset.y + geometry.containerSize.height - geometry.contentInsets.bottom
+            >= geometry.contentSize.height - 0.5
+    }
+}
+
+/// Meldet dem «+»-Knopf jeden Scroll-Schritt der Liste (iOS 18; unter iOS 17 ohne Wirkung — der Knopf bleibt sichtbar).
+private struct PortfolioAddScrollModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *) {
+            content.onScrollGeometryChange(for: PortfolioAddScrollPosition.self) { geometry in
+                PortfolioAddScrollPosition(geometry)
+            } action: { old, new in
+                PortfolioAddSlot.shared.scrolled(delta: new.offset - old.offset, atTop: new.atTop, atEnd: new.atEnd)
+            }
+        } else {
+            content
+        }
     }
 }
 
@@ -267,13 +312,20 @@ extension View {
 }
 
 /// Inhalt des Slots über der Tableiste des Portfolio-Tabs; eigene Ansicht, damit nur sie dem Slot folgt
-/// (nicht die ganze `RootView`). Rechts ausgerichtet, Abstand wie bisher über der Leiste.
+/// (nicht die ganze `RootView`). Rechts ausgerichtet, Abstand wie bisher über der Leiste. Beim Scrollen nach unten
+/// ausgeblendet (`PortfolioAddSlot.visible`): Der Platz bleibt, damit die Liste nicht springt — nur der Knopf weicht.
 struct PortfolioAddAccessory: View {
     @ObservedObject private var slot = PortfolioAddSlot.shared
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         if let entry = slot.entry {
             PortfolioAddButton(action: entry.action)
+                .opacity(slot.visible ? 1 : 0)
+                .scaleEffect(slot.visible || reduceMotion ? 1 : 0.8)
+                .allowsHitTesting(slot.visible)
+                .accessibilityHidden(!slot.visible)
+                .animation(.easeInOut(duration: 0.2), value: slot.visible)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }

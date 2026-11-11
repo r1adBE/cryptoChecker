@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ពាក្យសម្ងាត់ខុស ឬឯកសារខូច។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="backup_protect">ការពារដោយពាក្យសម្ងាត់</string>
     <string name="backup_protect_hint">អ៊ិនគ្រីបឯកសារ (AES-256)។ ណែនាំនៅពេលវាមានទិន្នន័យផលប័ត្រ។</string>
+    <string name="backup_protect_required">បើកជានិច្ច៖ ឯកសារមានទិន្នន័យផលប័ត្រ។</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">រក្សាទុកដោយគ្មានពាក្យសម្ងាត់</string>
     <string name="backup_plain_confirm_text">ឯកសារមិនត្រូវបានអ៊ិនគ្រីបទេ។ អ្នកណាដែលទទួលបានវាអាចអាន៖</string>
     <string name="backup_plain_confirm_title">រក្សាទុកដោយគ្មានពាក្យសម្ងាត់មែនទេ?</string>
-    <string name="backup_plain_contents_addresses">អាសយដ្ឋានកាបូប និងសោ xpub ដែលបានរក្សាទុក រួមទាំងប្រវត្តិសមតុល្យ និងតម្លៃដើម</string>
     <string name="backup_plain_contents_base">បញ្ជីតាមដាន រួមទាំងកំណត់ចំណាំ និងក្រុម ការដាស់តឿន ចំណូលចិត្ត និងការកំណត់</string>
-    <string name="backup_plain_contents_portfolio">ផលប័ត្រ៖ ប្រតិបត្តិការ រួមទាំងចំនួន និងតម្លៃ</string>
     <string name="backup_restore_app_lock_kept">ការចាក់សោផលប័ត្រនៅតែបើក – ការបម្រុងទុកដែលមិនបានអ៊ិនគ្រីបមិនអាចបិទវាបានទេ។</string>
     <string name="backup_restore_confirm">ការនាំចូលនឹងជំនួសបញ្ជីតាមដានបច្ចុប្បន្នរបស់អ្នក (រួមទាំងកំណត់ចំណាំ និងក្រុម) ការដាស់តឿន ចំណូលចិត្ត ផលប័ត្រ និងការកំណត់ ដោយការបម្រុងទុក។</string>
     <plurals name="backup_restore_invalid">

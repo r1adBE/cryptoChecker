@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">இணைப்பு இல்லை · %1$s நிலவரப்படி</string>
     <string name="watchlist_pull_to_refresh">புதுப்பிக்கக் கீழே இழுக்கவும்</string>
     <string name="watchlist_refresh_report">கடைசிப் புதுப்பிப்பு</string>
+    <string name="watchlist_symbols_legend">குறியீடுகளின் விளக்கம்</string>
+    <string name="watchlist_symbols_legend_alarms">செயலில் உள்ள விழிப்பூட்டல்களும் அவற்றின் எண்ணிக்கையும்</string>
     <string name="watchlist_refresh_report_empty">இன்னும் விவரம் இல்லை – இதுவரை முழுப் புதுப்பிப்பு நடக்கவில்லை. புதுப்பிக்கவும் என்பதைத் தட்டி வட்டம் நிற்கும் வரை காத்திருக்கவும்.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d இல் %1$d காலாவதியானது</item>

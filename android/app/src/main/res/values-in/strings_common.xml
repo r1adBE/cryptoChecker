@@ -9,6 +9,7 @@
     <string name="action_delete">Hapus</string>
     <string name="action_edit">Edit</string>
     <string name="action_more">Opsi lainnya</string>
+    <string name="action_learn_more">Selengkapnya</string>
     <string name="action_refresh">Muat ulang</string>
     <string name="action_retry">Coba lagi</string>
     <string name="action_save">Simpan</string>

@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Холболт алга · %1$s байдлаар</string>
     <string name="watchlist_pull_to_refresh">Шинэчлэхийн тулд доош татна уу</string>
     <string name="watchlist_refresh_report">Сүүлийн шинэчлэл</string>
+    <string name="watchlist_symbols_legend">Тэмдгүүдийн тайлбар</string>
+    <string name="watchlist_symbols_legend_alarms">Идэвхтэй дохио ба тэдгээрийн тоо</string>
     <string name="watchlist_refresh_report_empty">Одоогоор задаргаа алга – бүрэн шинэчлэл хараахан хийгдээгүй. Шинэчлэх дээр товшоод дугуй зогстол хүлээнэ үү.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-аас %1$d нь хуучирсан</item>

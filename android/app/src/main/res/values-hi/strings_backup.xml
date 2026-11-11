@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">गलत पासवर्ड, या फ़ाइल खराब है। फिर से कोशिश करें।</string>
     <string name="backup_protect">पासवर्ड से सुरक्षित करें</string>
     <string name="backup_protect_hint">फ़ाइल को एन्क्रिप्ट करता है (AES-256)। पोर्टफ़ोलियो डेटा होने पर सुझाया जाता है।</string>
+    <string name="backup_protect_required">हमेशा चालू: फ़ाइल में पोर्टफ़ोलियो डेटा है।</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">बिना पासवर्ड सहेजें</string>
     <string name="backup_plain_confirm_text">फ़ाइल एन्क्रिप्टेड नहीं है। जिसे भी यह मिले वह पढ़ सकता है:</string>
     <string name="backup_plain_confirm_title">बिना पासवर्ड सहेजें?</string>
-    <string name="backup_plain_contents_addresses">सहेजे गए वॉलेट पते और xpub कुंजियाँ, बैलेंस इतिहास और लागत आधार के साथ</string>
     <string name="backup_plain_contents_base">नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स</string>
-    <string name="backup_plain_contents_portfolio">पोर्टफ़ोलियो: मात्रा और भाव के साथ लेन-देन</string>
     <string name="backup_restore_app_lock_kept">पोर्टफ़ोलियो लॉक चालू रहेगा – बिना एन्क्रिप्शन वाला बैकअप इसे बंद नहीं कर सकता।</string>
     <string name="backup_restore_confirm">आयात करने से आपकी सूची (नोट और समूहों सहित), अलार्म, पसंदीदा, पोर्टफ़ोलियो और सेटिंग बैकअप से बदल जाएँगी।</string>
     <plurals name="backup_restore_invalid">

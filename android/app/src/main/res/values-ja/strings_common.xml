@@ -9,6 +9,7 @@
     <string name="action_delete">削除</string>
     <string name="action_edit">編集</string>
     <string name="action_more">その他のオプション</string>
+    <string name="action_learn_more">詳しく見る</string>
     <string name="action_refresh">更新</string>
     <string name="action_retry">再試行</string>
     <string name="action_save">保存</string>

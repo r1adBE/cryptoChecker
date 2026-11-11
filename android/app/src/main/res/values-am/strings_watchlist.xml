@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">ግንኙነት የለም · እስከ %1$s</string>
     <string name="watchlist_pull_to_refresh">ለማደስ ወደ ታች ይጎትቱ</string>
     <string name="watchlist_refresh_report">የመጨረሻ ማደስ</string>
+    <string name="watchlist_symbols_legend">የምልክቶች ማብራሪያ</string>
+    <string name="watchlist_symbols_legend_alarms">ንቁ ማንቂያዎች፣ ከቁጥራቸው ጋር</string>
     <string name="watchlist_refresh_report_empty">እስካሁን ዝርዝር የለም – እስካሁን ሙሉ ማደስ አልተደረገም። ማደስን ይንኩና ክቡ እስኪቆም ይጠብቁ።</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">ከ%2$d %1$d ጊዜው ያለፈበት</item>

@@ -9,6 +9,7 @@
     <string name="action_delete">ລຶບ</string>
     <string name="action_edit">ແກ້ໄຂ</string>
     <string name="action_more">ຕົວເລືອກເພີ່ມເຕີມ</string>
+    <string name="action_learn_more">ຮຽນຮູ້ເພີ່ມເຕີມ</string>
     <string name="action_refresh">ໂຫຼດຄືນໃໝ່</string>
     <string name="action_retry">ລອງໃໝ່</string>
     <string name="action_save">ບັນທຶກ</string>

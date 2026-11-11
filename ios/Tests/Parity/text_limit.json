@@ -1,5 +1,5 @@
 {
-  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. «fields»: Gruppenname (24), Börse/Wallet (40) und Notiz (120) gesäubert wie Eingabe und Sicherung — trimmen, kürzen, nochmals trimmen; «expected» null = leer.",
+  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. «fields»: Gruppenname (24), Börse/Wallet (40) und Notiz (120) gesäubert wie Eingabe und Sicherung — trimmen, kürzen, nochmals trimmen; «expected» null = leer. «singleLine»: Notiz als eine Zeile für die Merkliste (TextLimit.singleLine) — Zeilenumbrüche (LF, CR, U+2028, U+2029) samt Leerzeichen und Tabs darum werden ein Leerzeichen, leere Zeilen fallen weg.",
   "cases": [
     {
       "description": "119 × «a» plus Emoji: genau an der Grenze, nichts gekürzt",
@@ -145,6 +145,48 @@
       "field": "note",
       "text": "",
       "expected": null
+    }
+  ],
+  "singleLine": [
+    {
+      "description": "eine Zeile bleibt, wie sie ist",
+      "text": "Nachkaufen unter 50k",
+      "expected": "Nachkaufen unter 50k"
+    },
+    {
+      "description": "Zeilenumbruch wird ein Leerzeichen",
+      "text": "Ziel 70k\nStopp 55k",
+      "expected": "Ziel 70k Stopp 55k"
+    },
+    {
+      "description": "Windows-Umbruch und Leerzeilen: ein einziges Leerzeichen",
+      "text": "Ziel 70k\r\n\r\nStopp 55k",
+      "expected": "Ziel 70k Stopp 55k"
+    },
+    {
+      "description": "Leerzeichen und Tabs um den Umbruch fallen weg",
+      "text": "  Ziel 70k \t\n\t Stopp 55k  ",
+      "expected": "Ziel 70k Stopp 55k"
+    },
+    {
+      "description": "Zeilen- und Absatztrenner (U+2028, U+2029)",
+      "text": "eins zwei drei",
+      "expected": "eins zwei drei"
+    },
+    {
+      "description": "Leerzeichen innerhalb einer Zeile bleiben",
+      "text": "a  b\nc",
+      "expected": "a  b c"
+    },
+    {
+      "description": "nur Umbrüche: leer",
+      "text": "\n\r\n",
+      "expected": ""
+    },
+    {
+      "description": "Emoji mit ZWJ bleibt ganz",
+      "text": "👨‍👩‍👧‍👦\nFamilie",
+      "expected": "👨‍👩‍👧‍👦 Familie"
     }
   ]
 }

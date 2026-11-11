@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -28,10 +27,10 @@ import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 
 /**
- * Kleine graue Zeile unter dem Alarm-Satz: der eine Satz «Wann Alarme geprüft werden»
- * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde.
- * Auch im Portfolio-Alarm. Darunter «Zuletzt geprüft» ([AlarmLastCheckedLine]), der Akku-Hinweis, der Knopf
- * «Aktualisierung ändern» direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen». Wie iOS `ClosedAppHintRow`.
+ * Kleine graue Zeile unter dem Alarm-Satz: ein kurzer Satz (bei geschlossener App können Alarme verspätet kommen),
+ * darunter «Zuletzt geprüft» ([AlarmLastCheckedLine]) und ein einziger Verweis «Mehr dazu» zur Seite «Damit Alarme
+ * ankommen» ([LocalOpenAlarmDelivery]) — dort stehen der ganze Satz ([alarmTimingHintText]), der echte Zustand samt
+ * Akku und «Kurs-Aktualisierung ändern». Auch im Portfolio-Alarm. Wie iOS `ClosedAppHintRow`.
  */
 @Composable
 internal fun ClosedAppHint(
@@ -39,38 +38,19 @@ internal fun ClosedAppHint(
     /** Zeile «Zuletzt geprüft»; aus, wenn der Editor oben schon die ausführliche zeigt (nur einmal je Seite). */
     showLastChecked: Boolean = true,
 ) {
-    val openUpdates = LocalOpenUpdateSettings.current
-    // Eingeschränkter Akku → Hinweis mit Knopf; nach der Rückkehr aus den Android-Einstellungen neu prüfen
-    val context = LocalContext.current
-    var batteryRestricted by remember { mutableStateOf(!com.cryptochecker.app.util.BatteryOptimization.isIgnoring(context)) }
-    androidx.lifecycle.compose.LifecycleResumeEffect(Unit) {
-        batteryRestricted = !com.cryptochecker.app.util.BatteryOptimization.isIgnoring(context)
-        onPauseOrDispose { }
-    }
     Column(modifier = modifier.fillMaxWidth().padding(bottom = Spacing.sm)) {
         Text(
-            alarmTimingHintText(),
+            stringResource(R.string.alarm_closed_app_short),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         if (showLastChecked) AlarmLastCheckedLine(Modifier.padding(top = 2.dp))
-        // Ein Alarm ist da, also wird im Hintergrund geprüft (hasWork)
-        com.cryptochecker.app.ui.features.settings.BatteryDelayHint(batteryRestricted = batteryRestricted, hasWork = true)
-        if (openUpdates != null) {
-            TextButton(
-                onClick = openUpdates,
-                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
-            ) {
-                Text(stringResource(R.string.alarm_change_updates), style = MaterialTheme.typography.labelLarge)
-            }
-        }
-        // Was gerade im Weg stehen könnte (Erlaubnis, Kanal, Akku …): eigene Seite mit dem echten Zustand
         LocalOpenAlarmDelivery.current?.let { openDelivery ->
             TextButton(
                 onClick = openDelivery,
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             ) {
-                Text(stringResource(R.string.delivery_title), style = MaterialTheme.typography.labelLarge)
+                Text(stringResource(R.string.action_learn_more), style = MaterialTheme.typography.labelLarge)
             }
         }
     }

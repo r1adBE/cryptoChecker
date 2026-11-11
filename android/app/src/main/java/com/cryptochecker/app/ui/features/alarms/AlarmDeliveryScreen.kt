@@ -43,6 +43,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
+import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.OemBattery
 import com.cryptochecker.app.domain.refresh.CheckRunStore
@@ -97,11 +98,13 @@ class AlarmDeliveryViewModel @Inject constructor(
 
     /** Neuester geplanter Lauf, wenn keiner der gespeicherten gelang (Zuverlässigkeitszeile warnt dann). */
     val lastFailedBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
-        .map { runs -> com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck(runs) }
-        .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5_000),
-            com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck(checkRunStore.runs.value),
-        )
+        .map { runs -> CheckRunLog.lastFailedBackgroundCheck(runs) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.lastFailedBackgroundCheck(checkRunStore.runs.value))
+
+    /** Ältester gespeicherter geplanter Lauf, wenn keiner gelang: seit dann scheitert jede Prüfung. */
+    val failingSince: StateFlow<Long?> = checkRunStore.runs
+        .map { runs -> CheckRunLog.failingSince(runs) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.failingSince(checkRunStore.runs.value))
 
     /** Alles, was nur eine Prüfung im Hintergrund meldet ([AlarmReadiness.hasBackgroundAlarms]), nicht nur Paar-Alarme. */
     val hasAlarms: StateFlow<Boolean> = combine(
@@ -124,7 +127,7 @@ class AlarmDeliveryViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     private fun lastScheduled(runs: List<com.cryptochecker.app.domain.refresh.CheckRun>): Long? =
-        com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs)
+        CheckRunLog.lastBackgroundCheck(runs)
 }
 
 /** Alarm-Arten aus Einstellungen und Alarmen ([AlarmReadiness.hasBackgroundAlarms]); auch für «Diagnose teilen». */
@@ -225,6 +228,8 @@ fun AlarmDeliveryScreen(
                         DeliveryRow(item, settings, lastCheck, onAction = act)
                     }
                 }
+                // Immer erreichbar, auch wenn jede Zeile «in Ordnung» zeigt (der Alarm-Editor verweist nur noch hierher)
+                TextButton(onClick = onOpenUpdateSettings) { Text(stringResource(R.string.alarm_change_updates)) }
             }
         }
     }

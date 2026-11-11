@@ -35,7 +35,9 @@ final class MirrorRevocations: Sendable {
             cache = next
             guard let fileURL else { return }
             // Scheitert das Schreiben, gilt die Sperre bis zum Neustart; das nächste Manifest sperrt erneut
-            try? (next.sorted().joined(separator: "\n") + "\n").write(to: fileURL, atomically: true, encoding: .utf8)
+            AppLog.attempt("Sperrliste der Datenspiegel schreiben") {
+                try (next.sorted().joined(separator: "\n") + "\n").write(to: fileURL, atomically: true, encoding: .utf8)
+            }
         }
     }
 

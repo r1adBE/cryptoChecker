@@ -18,9 +18,12 @@ struct UITestExchangeCoin: Sendable {
 ///
 /// Der Verlauf läuft geometrisch durch Eckpunkte (Halvings, Hochs und Tiefs der Zyklen) bis zum heutigen Kurs, mit
 /// kleinen festen Schwingungen (Sinus) — so ergeben Durchschnitte, RSI, Zyklus-Vergleich und Altcoin-Saison echte
-/// Werte. Andere Coins folgen BTC mit ihrem `beta`. Alles wird je Abfrage zur aktuellen Uhrzeit erzeugt: feste
-/// JSON-Dateien veralteten (die App verwirft Kerzen- und Marktdaten, die nicht bis jetzt reichen), und die App kann
-/// keine Testdateien neben der Testquelle lesen.
+/// Werte. Andere Coins folgen BTC mit ihrem `beta`. Die Zeitstempel reichen bis jetzt (feste JSON-Dateien
+/// veralteten: die App verwirft Kerzen- und Marktdaten, die nicht bis jetzt reichen, und sie kann keine Testdateien
+/// neben der Testquelle lesen), die Werte hängen aber nicht von der Uhrzeit des Laufs ab: Jede Kerze rechnet mit
+/// ihrem Alter in ganzen Kerzen (`candleEnd`), und die letzten `recentDays` Tage hängen nur an diesem Alter
+/// (`btcTrend`) — so zeigen zwei Läufe dieselben Zahlen (z. B. «7 T» im Portfolio), egal zu welcher Stunde und an
+/// welchem Tag.
 extension UITestExchange {
     static let hourMillis: Int64 = 3_600_000
     static let dayMillis: Int64 = 24 * hourMillis
@@ -105,9 +108,23 @@ extension UITestExchange {
     /// Heutiger BTC-Kurs (wie die Merkliste).
     private static var btcNow: Double { price("BTC") ?? 95_000 }
 
+    /// Die letzten `recentDays` Tage laufen von «heutiger Kurs × `recentRatio`» zum heutigen Kurs — unabhängig vom
+    /// Datum des Laufs. Ein Eckpunkt aus `anchors` zählt erst, wenn er `recentGapDays` Tage davor liegt (kein Sprung).
+    private static let recentDays: Int64 = 400
+    private static let recentRatio = 1.3
+    private static let recentGapDays: Int64 = 30
+
+    /// Ende der laufenden Kerze mit Beginn `current` und Länge `step`: das «Jetzt» für `priceAt`. Damit ist das Alter
+    /// jeder Kerze ein ganzes Vielfaches von `step` und ihr Wert derselbe, egal wann in der Kerze abgefragt wird.
+    private static func candleEnd(_ current: Int64, step: Int64) -> Int64 {
+        current + step
+    }
+
     /// BTC in USD zum Zeitpunkt `t` (ms) ohne Schwingung; ab `now` der heutige Kurs.
     private static func btcTrend(_ t: Int64, now: Int64) -> Double {
-        let points = anchors.filter { $0.time < now - dayMillis } + [(time: now, price: btcNow)]
+        let recent = now - recentDays * dayMillis
+        let points = anchors.filter { $0.time < recent - recentGapDays * dayMillis }
+            + [(time: recent, price: btcNow * recentRatio), (time: now, price: btcNow)]
         guard let first = points.first, t > first.time else { return points.first?.price ?? btcNow }
         if t >= now { return btcNow }
         guard let i = points.firstIndex(where: { $0.time >= t }), i > 0 else { return btcNow }
@@ -146,7 +163,8 @@ extension UITestExchange {
     // MARK: Binance-Kerzen
 
     /// `GET /api/v3/klines?symbol=…&interval=1h|4h|1d|1w&limit=…[&startTime=…]` im Format von Binance (älteste zuerst,
-    /// die letzte Kerze läuft noch); nil = unbekanntes Symbol oder Intervall (404).
+    /// die letzte Kerze läuft noch); nil = unbekanntes Symbol oder Intervall (404). `now` bestimmt nur die
+    /// Zeitstempel, die Werte rechnen mit dem Ende der laufenden Kerze (`candleEnd`).
     static func klines(_ url: URL, now: Int64 = EpochTime.nowMillis) -> String? {
         guard let symbol = queryValue(url, "symbol"), symbol.hasSuffix("USDT"),
               let coin = tourCoin(String(symbol.dropLast(4))) else { return nil }
@@ -173,13 +191,16 @@ extension UITestExchange {
         }
         opens = opens.filter { $0 >= listing }
         let dailyVolume = coin.marketCap * 0.03 / tourPrice(coin)
+        let end = candleEnd(current, step: step)
         var previous: Double?
         var rows: [String] = []
         rows.reserveCapacity(opens.count)
-        for (i, open) in opens.enumerated() {
-            let close = open == current ? tourPrice(coin) : priceAt(coin, open + step, now: now)
-            let first = previous ?? priceAt(coin, open, now: now)
+        for open in opens {
+            let close = open == current ? tourPrice(coin) : priceAt(coin, open + step, now: end)
+            let first = previous ?? priceAt(coin, open, now: end)
             previous = close
+            // Umsatz und Zahl der Abschlüsse nach dem Alter der Kerze (nicht nach ihrer Stelle in der Antwort)
+            let i = Int((current - open) / step)
             let volume = dailyVolume * Double(step) / Double(dayMillis) * (1.0 + 0.3 * sin(Double(i) * 1.3))
             let ohlcv = [first, max(first, close) * 1.012, min(first, close) * 0.988, close, volume]
                 .map { "\"\(num($0))\"" }.joined(separator: ",")
@@ -193,21 +214,23 @@ extension UITestExchange {
 
     /// `GET /v4/timeseries/asset-metrics?assets=btc&metrics=…&start_time=…`: Tageswerte bis gestern. «PriceUSD» = BTC-
     /// Schlusskurs; sonst MVRV, Ausgabe der neuen Coins in USD (450 BTC am Tag) und Hashrate (TH/s, steigend).
+    /// Werte nach dem Alter in ganzen Tagen (Ende des heutigen UTC-Tags, wie die Tageskerzen in `klines`).
     static func coinMetrics(_ url: URL, now: Int64 = EpochTime.nowMillis) -> String {
         let metrics = queryValue(url, "metrics") ?? ""
         let start = queryValue(url, "start_time").flatMap { LocalDay(iso: $0) } ?? LocalDay(2016, 6, 1)
         let today = LocalDay(epochMillisUTC: now)
+        let end = candleEnd(today.epochMillisUTC, step: dayMillis)
         guard let btc = tourCoin("BTC") else { return #"{"data":[]}"# }
         var rows: [String] = []
         var day = start
         while day < today {
             let dayStart = day.epochMillisUTC
-            let close = priceAt(btc, dayStart + dayMillis, now: now)
+            let close = priceAt(btc, dayStart + dayMillis, now: end)
             let time = #""asset":"btc","time":"\#(day.description)T00:00:00.000000000Z""#
             if metrics.contains("PriceUSD") {
                 rows.append("{\(time),\"PriceUSD\":\"\(num(close))\"}")
             } else {
-                let daysAgo = Double(now - dayStart) / Double(dayMillis)
+                let daysAgo = Double(end - dayStart) / Double(dayMillis)
                 let realized = 45_000.0 - 9.0 * daysAgo
                 let hash = 1.05e9 * (1.0 - 0.0009 * daysAgo) * (1.0 + 0.02 * sin(daysAgo / 4.0))
                 let values = "\"CapMVRVCur\":\"\(num(close / realized))\",\"IssTotUSD\":\"\(num(450.0 * close))\""

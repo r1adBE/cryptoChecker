@@ -22,6 +22,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Išplėstiniai</string>
     <string name="alarm_change_updates">Keisti kainų atnaujinimą</string>
+    <string name="alarm_closed_app_short">Kai programėlė uždaryta, įspėjimai gali vėluoti.</string>
     <string name="alarm_check_mode_15min">Maždaug kas 15 minučių</string>
     <string name="alarm_check_mode_saving">Taupiai</string>
     <string name="alarm_check_mode_title">Kaip dažnai tikrinti, kai įrenginys neaktyvus?</string>

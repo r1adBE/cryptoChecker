@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Pasahitz okerra, edo fitxategia hondatuta dago. Saiatu berriro.</string>
     <string name="backup_protect">Babestu pasahitzarekin</string>
     <string name="backup_protect_hint">Fitxategia zifratzen du (AES-256). Gomendatua zorroko datuak baditu.</string>
+    <string name="backup_protect_required">Beti aktibatuta: fitxategiak zorroko datuak ditu.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Gorde pasahitzik gabe</string>
     <string name="backup_plain_confirm_text">Fitxategia ez dago zifratuta. Eskuratzen duen edonork irakur dezake:</string>
     <string name="backup_plain_confirm_title">Pasahitzik gabe gorde nahi duzu?</string>
-    <string name="backup_plain_contents_addresses">Gordetako karterako helbideak eta xpub gakoak, saldo-historiarekin eta eskuratze-kostuarekin</string>
     <string name="backup_plain_contents_base">Zerrenda oharrekin eta taldeekin, alarmak, gogokoak eta ezarpenak</string>
-    <string name="backup_plain_contents_portfolio">Zorroa: transakzioak kopuruekin eta prezioekin</string>
     <string name="backup_restore_app_lock_kept">Zorroaren blokeoa aktibatuta jarraitzen du – zifratu gabeko babeskopia batek ezin du desaktibatu.</string>
     <string name="backup_restore_confirm">Inportatzean, zure uneko zerrenda (oharrekin eta taldeekin), alarmak, gogokoak, zorroa eta ezarpenak babeskopiakoekin ordezten dira.</string>
     <plurals name="backup_restore_invalid">

@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">उन्नत</string>
     <string name="alarm_change_updates">मूल्य अपडेट मिलाउनुहोस्</string>
+    <string name="alarm_closed_app_short">एप बन्द हुँदा अलर्टहरू ढिलो हुन सक्छन्।</string>
     <string name="alarm_check_mode_15min">लगभग हरेक 15 मिनेटमा</string>
     <string name="alarm_check_mode_saving">मितव्ययी</string>
     <string name="alarm_check_mode_title">डिभाइस निष्क्रिय हुँदा कति पटक जाँच गर्ने?</string>

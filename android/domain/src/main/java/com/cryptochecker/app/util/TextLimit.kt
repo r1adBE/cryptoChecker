@@ -44,6 +44,14 @@ object TextLimit {
     fun clean(raw: String?, max: Int): String? =
         raw?.trim()?.let { takeGraphemes(it, max) }?.trim()?.takeIf { it.isNotEmpty() }
 
+    /**
+     * Mehrzeiligen Freitext als eine Zeile (Notiz unter einem Paar der Merkliste): Zeilenumbrüche (LF, CR, U+2028,
+     * U+2029) samt Leerzeichen und Tabs darum werden ein Leerzeichen, leere Zeilen fallen weg. Wie iOS
+     * `TextLimit.singleLine`.
+     */
+    fun singleLine(text: String): String =
+        text.split('\n', '\r', '\u2028', '\u2029').map { it.trim(' ', '\t') }.filter { it.isNotEmpty() }.joinToString(" ")
+
     private fun iterator(text: String): BreakIterator =
         BreakIterator.getCharacterInstance(Locale.ROOT).apply { setText(text) }
 }

@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ખોટો પાસવર્ડ, અથવા ફાઇલ ખરાબ થઈ ગઈ છે. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
     <string name="backup_protect">પાસવર્ડથી સુરક્ષિત કરો</string>
     <string name="backup_protect_hint">ફાઇલને એન્ક્રિપ્ટ કરે છે (AES-256). તેમાં પોર્ટફોલિયો ડેટા હોય ત્યારે ભલામણ કરેલ.</string>
+    <string name="backup_protect_required">હંમેશા ચાલુ: ફાઇલમાં પોર્ટફોલિયો ડેટા છે.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">પાસવર્ડ વગર સેવ કરો</string>
     <string name="backup_plain_confirm_text">ફાઇલ એન્ક્રિપ્ટેડ નથી. જેને પણ તે મળે તે વાંચી શકે છે:</string>
     <string name="backup_plain_confirm_title">પાસવર્ડ વગર સેવ કરવું છે?</string>
-    <string name="backup_plain_contents_addresses">બેલેન્સ ઇતિહાસ અને પડતર કિંમત સાથે સેવ કરેલાં વૉલેટ સરનામાં અને xpub કી</string>
     <string name="backup_plain_contents_base">નોંધો અને જૂથો સાથેની વૉચલિસ્ટ, એલર્ટ, મનપસંદ અને સેટિંગ્સ</string>
-    <string name="backup_plain_contents_portfolio">પોર્ટફોલિયો: રકમ અને ભાવ સાથેના વ્યવહારો</string>
     <string name="backup_restore_app_lock_kept">પોર્ટફોલિયો લૉક ચાલુ રહે છે – એન્ક્રિપ્ટ ન કરેલો બૅકઅપ તેને બંધ કરી શકતો નથી.</string>
     <string name="backup_restore_confirm">ઇમ્પોર્ટ કરવાથી તમારી વર્તમાન વૉચલિસ્ટ (નોંધો અને જૂથો સાથે), એલર્ટ, મનપસંદ, પોર્ટફોલિયો અને સેટિંગ્સ બૅકઅપથી બદલાઈ જાય છે.</string>
     <plurals name="backup_restore_invalid">

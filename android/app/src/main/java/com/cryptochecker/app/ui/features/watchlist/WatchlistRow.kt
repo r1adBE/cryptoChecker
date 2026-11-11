@@ -132,8 +132,7 @@ internal fun WatchRow(
     kind: AssetKind = AssetKind.TOKEN,
     /** Kurzer Hinweis im Banner der Merkliste (Herkunft der Änderung, Tipp auf «*»). */
     onSourceHint: (String) -> Unit = {},
-    // Herkunft von Änderung/Mini-Chart steht auf der Paarseite ([PairHeader] rowSource), die Zeile
-    // zeigt nur den Marker «*» an der Änderung ([changeSource])
+    // Herkunft von Änderung/Mini-Chart steht auf der Paarseite ([PairHeader] rowSource), die Zeile zeigt nur den Marker «*»
 ) {
     val accent = MaterialTheme.colorScheme.primary
     val hasSparkline = sparkline != null && sparkline.size >= 2
@@ -393,6 +392,7 @@ internal fun WatchRow(
                     // Sortiermodus: «ganz nach oben/unten» im Zeilenmenü statt als Symbole
                     if (sortMode) Box(Modifier.align(Alignment.CenterVertically)) { RowSortMenu(onMove = onMove) }
                 }
+                watch.note?.let { note -> WatchRowNote(note, accent, off) }
                 if (stacked) price(Modifier.align(Alignment.End).padding(top = 4.dp))
             }
         }

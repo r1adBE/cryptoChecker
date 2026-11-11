@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">غلط پاس ورڈ، یا فائل خراب ہے۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="backup_protect">پاس ورڈ سے محفوظ کریں</string>
     <string name="backup_protect_hint">فائل کو انکرپٹ کرتا ہے (AES-256)۔ پورٹ فولیو ڈیٹا ہو تو تجویز کردہ۔</string>
+    <string name="backup_protect_required">ہمیشہ آن: فائل میں پورٹ فولیو ڈیٹا ہے۔</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">پاس ورڈ کے بغیر محفوظ کریں</string>
     <string name="backup_plain_confirm_text">فائل انکرپٹ شدہ نہیں۔ جس کے پاس بھی یہ پہنچے وہ پڑھ سکتا ہے:</string>
     <string name="backup_plain_confirm_title">پاس ورڈ کے بغیر محفوظ کریں؟</string>
-    <string name="backup_plain_contents_addresses">محفوظ والیٹ پتے اور xpub کیز، بیلنس کی تاریخ اور لاگت کی بنیاد سمیت</string>
     <string name="backup_plain_contents_base">نوٹس اور گروپس سمیت واچ لسٹ، الرٹس، پسندیدہ اور ترتیبات</string>
-    <string name="backup_plain_contents_portfolio">پورٹ فولیو: رقوم اور قیمتوں سمیت لین دین</string>
     <string name="backup_restore_app_lock_kept">پورٹ فولیو لاک آن رہتا ہے – غیر انکرپٹ شدہ بیک اپ اسے بند نہیں کر سکتا۔</string>
     <string name="backup_restore_confirm">امپورٹ کرنے سے آپ کی موجودہ واچ لسٹ (نوٹس اور گروپس سمیت)، الرٹس، پسندیدہ، پورٹ فولیو اور ترتیبات بیک اپ سے بدل جائیں گی۔</string>
     <plurals name="backup_restore_invalid">

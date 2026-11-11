@@ -122,6 +122,9 @@ enum AlarmReadiness {
         /// Ende des neuesten geplanten Laufs, wenn keiner der gespeicherten gelang (alle gescheitert); sonst nil
         /// (`CheckRunLog.lastFailedBackgroundCheck`).
         var lastFailedBackgroundCheck: Int64? = nil
+        /// Ende des ältesten gespeicherten geplanten Laufs, wenn keiner gelang; sonst nil (`CheckRunLog.failingSince`).
+        /// Ohne Angabe gilt `lastFailedBackgroundCheck`.
+        var failingSince: Int64? = nil
         /// Nur Android (Merkliste ohne Schlüssel nur im Arbeitsspeicher); auf iOS immer false — für den gemeinsamen Testfall.
         var storageNoKey = false
     }

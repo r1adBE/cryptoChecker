@@ -337,7 +337,7 @@ enum ProtectedFile {
             // rename(2) ersetzt die Datei atomar: vorher die alte, danach die neue — nie eine halbe
             guard rename(temp.path, url.path) == 0 else { throw WriteError.renameFailed(errno) }
         } catch {
-            try? FileManager.default.removeItem(at: temp)
+            AppLog.remove(temp, "Zwischendatei löschen")
             throw error
         }
     }

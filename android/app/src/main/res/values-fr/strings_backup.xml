@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Mot de passe incorrect, ou fichier endommagé. Réessaie.</string>
     <string name="backup_protect">Protéger par mot de passe</string>
     <string name="backup_protect_hint">Chiffre le fichier (AES-256). Recommandé s’il contient des données du portefeuille.</string>
+    <string name="backup_protect_required">Toujours activé : le fichier contient des données du portefeuille.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Enregistrer sans mot de passe</string>
     <string name="backup_plain_confirm_text">Le fichier n’est pas chiffré. Toute personne qui l’obtient peut lire :</string>
     <string name="backup_plain_confirm_title">Enregistrer sans mot de passe ?</string>
-    <string name="backup_plain_contents_addresses">Adresses de wallet et clés xpub enregistrées, avec historique des soldes et prix de revient</string>
     <string name="backup_plain_contents_base">Liste de suivi avec notes et groupes, alertes, favoris et réglages</string>
-    <string name="backup_plain_contents_portfolio">Portefeuille : transactions avec quantités et prix</string>
     <string name="backup_restore_app_lock_kept">Le verrouillage du portefeuille reste activé – une sauvegarde non chiffrée ne peut pas le désactiver.</string>
     <string name="backup_restore_confirm">L\'import remplace ta liste (avec notes et groupes), tes alertes, favoris, portefeuille et réglages par la sauvegarde.</string>
     <plurals name="backup_restore_invalid">

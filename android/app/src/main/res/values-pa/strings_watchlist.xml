@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ · %1$s ਮੁਤਾਬਕ</string>
     <string name="watchlist_pull_to_refresh">ਤਾਜ਼ਾ ਕਰਨ ਲਈ ਹੇਠਾਂ ਖਿੱਚੋ</string>
     <string name="watchlist_refresh_report">ਆਖਰੀ ਤਾਜ਼ਗੀ</string>
+    <string name="watchlist_symbols_legend">ਚਿੰਨ੍ਹਾਂ ਦੀ ਵਿਆਖਿਆ</string>
+    <string name="watchlist_symbols_legend_alarms">ਸਰਗਰਮ ਅਲਰਟ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ</string>
     <string name="watchlist_refresh_report_empty">ਹਾਲੇ ਕੋਈ ਵੇਰਵਾ ਨਹੀਂ – ਹੁਣ ਤੱਕ ਕੋਈ ਪੂਰੀ ਤਾਜ਼ਗੀ ਨਹੀਂ ਹੋਈ। ਤਾਜ਼ਾ ਕਰੋ ’ਤੇ ਟੈਪ ਕਰੋ ਅਤੇ ਚੱਕਰ ਰੁਕਣ ਤੱਕ ਉਡੀਕ ਕਰੋ।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ਵਿੱਚੋਂ %1$d ਪੁਰਾਣਾ</item>

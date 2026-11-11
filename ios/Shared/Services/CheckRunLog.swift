@@ -71,6 +71,13 @@ enum CheckRunLog {
         lastBackgroundCheck(runs) != nil ? nil : runs.first { $0.trigger.scheduled }?.at
     }
 
+    /// Ende des ältesten gespeicherten geplanten Laufs, wenn keiner gelang — sonst nil: Seit mindestens dann scheitert
+    /// jede Prüfung. Die Zuverlässigkeitszeile warnt erst, wenn das länger als ihre Grenze anhält (ein einzelner
+    /// gescheiterter Lauf kurz nach dem Einrichten ist noch keine Verspätung). Wie Android.
+    static func failingSince(_ runs: [CheckRun]) -> Int64? {
+        lastBackgroundCheck(runs) != nil ? nil : runs.last { $0.trigger.scheduled }?.at
+    }
+
     static func encode(_ runs: [CheckRun]) -> String {
         runs.map { "\($0.at);\($0.trigger.rawValue);\($0.result.rawValue);\($0.durationMillis)" }
             .joined(separator: "\n")

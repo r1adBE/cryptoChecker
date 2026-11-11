@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">无连接 · 数据时间 %1$s</string>
     <string name="watchlist_pull_to_refresh">下拉刷新</string>
     <string name="watchlist_refresh_report">上次刷新</string>
+    <string name="watchlist_symbols_legend">符号说明</string>
+    <string name="watchlist_symbols_legend_alarms">已启用的提醒及其数量</string>
     <string name="watchlist_refresh_report_empty">暂无明细：尚未完成过完整刷新。请点按刷新并等待加载图标停止。</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d 个中 %1$d 个已过时</item>

@@ -242,6 +242,11 @@ extension WatchlistScreen {
                     } label: {
                         Label(L("watchlist_refresh_report"), systemImage: "info.circle")
                     }
+                    Button {
+                        showSymbolLegend = true
+                    } label: {
+                        Label(L("watchlist_symbols_legend"), systemImage: "questionmark.circle")
+                    }
                     let notTraded = data.notTradedCount
                     if !watches.isEmpty || notTraded > 0 {
                         Divider()

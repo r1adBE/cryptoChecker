@@ -57,13 +57,15 @@ enum AlarmSounds {
     @discardableResult
     static func installSounds(_ sources: [URL], into directory: URL) -> Int {
         let fm = FileManager.default
-        guard (try? fm.createDirectory(at: directory, withIntermediateDirectories: true)) != nil else { return 0 }
+        guard AppLog.attempt("Ordner der Alarmtöne anlegen", {
+            try fm.createDirectory(at: directory, withIntermediateDirectories: true)
+        }) else { return 0 }
         var written = 0
         for source in sources {
             guard let data = try? Data(contentsOf: source) else { continue }
             let target = directory.appendingPathComponent(source.lastPathComponent)
             if let existing = try? Data(contentsOf: target), existing == data { continue }
-            guard (try? data.write(to: target, options: [.atomic])) != nil else { continue }
+            guard AppLog.attempt("Alarmton schreiben", { try data.write(to: target, options: [.atomic]) }) else { continue }
             BackupExclusion.set(excluded: true, for: target)
             written += 1
         }

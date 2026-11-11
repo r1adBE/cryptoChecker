@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">සම්බන්ධතාවක් නැත · %1$s වන විට</string>
     <string name="watchlist_pull_to_refresh">නැවුම් කිරීමට පහළට අදින්න</string>
     <string name="watchlist_refresh_report">අවසන් නැවුම් කිරීම</string>
+    <string name="watchlist_symbols_legend">සංකේත පැහැදිලි කිරීම</string>
+    <string name="watchlist_symbols_legend_alarms">සක්‍රිය ඇඟවීම් සහ ඒවායේ ගණන</string>
     <string name="watchlist_refresh_report_empty">තවම විස්තරයක් නැත – මෙතෙක් සම්පූර්ණ නැවුම් කිරීමක් නැත. නැවුම් කරන්න තට්ටු කර රවුම නවතින තුරු රැඳී සිටින්න.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d න් %1$d ක් යල් පැන ඇත</item>

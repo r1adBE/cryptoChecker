@@ -9,6 +9,7 @@
     <string name="action_delete">Xóa</string>
     <string name="action_edit">Sửa</string>
     <string name="action_more">Tùy chọn khác</string>
+    <string name="action_learn_more">Tìm hiểu thêm</string>
     <string name="action_refresh">Làm mới</string>
     <string name="action_retry">Thử lại</string>
     <string name="action_save">Lưu</string>

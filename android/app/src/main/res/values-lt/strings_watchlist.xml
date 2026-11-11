@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Nėra ryšio · būsena %1$s</string>
     <string name="watchlist_pull_to_refresh">Patrauk žemyn, kad atnaujintum</string>
     <string name="watchlist_refresh_report">Paskutinis atnaujinimas</string>
+    <string name="watchlist_symbols_legend">Simbolių paaiškinimas</string>
+    <string name="watchlist_symbols_legend_alarms">Aktyvūs įspėjimai ir jų skaičius</string>
     <string name="watchlist_refresh_report_empty">Išklotinės dar nėra – iki šiol nebuvo pilno atnaujinimo. Bakstelėk atnaujinti ir palauk, kol ratas sustos.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d iš %2$d pasenusi</item>

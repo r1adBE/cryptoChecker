@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">மேம்பட்டது</string>
     <string name="alarm_change_updates">விலைப் புதுப்பிப்புகளைச் சரிசெய்யவும்</string>
+    <string name="alarm_closed_app_short">ஆப் மூடியிருந்தால், விழிப்பூட்டல்கள் தாமதமாகலாம்.</string>
     <string name="alarm_check_mode_15min">சுமார் ஒவ்வொரு 15 நிமிடத்துக்கும்</string>
     <string name="alarm_check_mode_saving">சிக்கனம்</string>
     <string name="alarm_check_mode_title">சாதனம் செயலற்று இருக்கும்போது எத்தனை முறை சரிபார்க்க வேண்டும்?</string>

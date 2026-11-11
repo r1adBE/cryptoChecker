@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Parol yanlışdır və ya fayl zədələnib. Yenidən cəhd et.</string>
     <string name="backup_protect">Parolla qoru</string>
     <string name="backup_protect_hint">Faylı şifrələyir (AES-256). Portfel məlumatları varsa, tövsiyə olunur.</string>
+    <string name="backup_protect_required">Həmişə aktivdir: faylda portfel məlumatları var.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Parolsuz saxla</string>
     <string name="backup_plain_confirm_text">Fayl şifrələnməyib. Onu əldə edən hər kəs oxuya bilər:</string>
     <string name="backup_plain_confirm_title">Parolsuz yadda saxlanılsın?</string>
-    <string name="backup_plain_contents_addresses">Balans tarixçəsi və maya dəyəri ilə saxlanılmış pulqabı ünvanları və xpub açarları</string>
     <string name="backup_plain_contents_base">Qeydlər və qruplarla izləmə siyahısı, alarmlar, seçilmişlər və ayarlar</string>
-    <string name="backup_plain_contents_portfolio">Portfel: məbləğ və qiymətlərlə əməliyyatlar</string>
     <string name="backup_restore_app_lock_kept">Portfel kilidi aktiv qalır – şifrələnməmiş ehtiyat nüsxə onu söndürə bilməz.</string>
     <string name="backup_restore_confirm">İdxal cari izləmə siyahını (qeydlər və qruplarla), alarmları, seçilmişləri, portfeli və ayarları ehtiyat nüsxə ilə əvəz edir.</string>
     <plurals name="backup_restore_invalid">

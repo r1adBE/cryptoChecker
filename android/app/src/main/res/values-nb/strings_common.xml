@@ -9,6 +9,7 @@
     <string name="action_delete">Slett</string>
     <string name="action_edit">Rediger</string>
     <string name="action_more">Flere valg</string>
+    <string name="action_learn_more">Les mer</string>
     <string name="action_refresh">Oppdater</string>
     <string name="action_retry">Prøv igjen</string>
     <string name="action_save">Lagre</string>

@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Για προχωρημένους</string>
     <string name="alarm_change_updates">Αλλαγή ενημέρωσης τιμών</string>
+    <string name="alarm_closed_app_short">Με κλειστή εφαρμογή, οι συναγερμοί μπορεί να καθυστερήσουν.</string>
     <string name="alarm_check_mode_15min">Περίπου κάθε 15 λεπτά</string>
     <string name="alarm_check_mode_saving">Οικονομικά</string>
     <string name="alarm_check_mode_title">Πόσο συχνά να γίνεται έλεγχος όταν η συσκευή είναι σε αδράνεια;</string>

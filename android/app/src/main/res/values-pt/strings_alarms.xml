@@ -21,6 +21,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avançado</string>
     <string name="alarm_change_updates">Alterar atualização de cotações</string>
+    <string name="alarm_closed_app_short">Com a app fechada, os alarmes podem chegar atrasados.</string>
     <string name="alarm_check_mode_15min">Cerca de 15 em 15 minutos</string>
     <string name="alarm_check_mode_saving">Poupança</string>
     <string name="alarm_check_mode_title">Com que frequência verificar com o dispositivo inativo?</string>

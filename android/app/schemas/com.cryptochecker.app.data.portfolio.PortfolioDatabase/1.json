@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "94e00c83ed632c9afc446542b5bd069a",
+    "identityHash": "b3985d323b0b4eb82863e71d70847d80",
     "entities": [
       {
         "tableName": "portfolio_tx",
@@ -172,6 +172,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `${TABLE_NAME}` (`importKey`)"
+          },
+          {
+            "name": "index_portfolio_tx_importBatch",
+            "unique": false,
+            "columnNames": [
+              "importBatch"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importBatch` ON `${TABLE_NAME}` (`importBatch`)"
           }
         ]
       },
@@ -333,7 +342,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '94e00c83ed632c9afc446542b5bd069a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b3985d323b0b4eb82863e71d70847d80')"
     ]
   }
 }

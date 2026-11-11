@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nur verschlüsselte Verbindungen (HTTPS/WSS): Klartext-HTTP ist für alle Ziele gesperrt. Bewusst ohne
+  Zertifikat-Pinning (die App spricht mit vielen Börsen, deren Zertifikate wechseln) und ohne eigene
+  Vertrauensanker – es gelten die System-Zertifikate.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

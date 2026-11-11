@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Ühendus puudub · seis %1$s</string>
     <string name="watchlist_pull_to_refresh">Värskendamiseks tõmba alla</string>
     <string name="watchlist_refresh_report">Viimane värskendus</string>
+    <string name="watchlist_symbols_legend">Sümbolite selgitus</string>
+    <string name="watchlist_symbols_legend_alarms">Aktiivsed hoiatused ja nende arv</string>
     <string name="watchlist_refresh_report_empty">Ülevaadet veel pole – täielikku värskendust pole seni toimunud. Puuduta värskendamist ja oota, kuni ring peatub.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d / %2$d aegunud</item>

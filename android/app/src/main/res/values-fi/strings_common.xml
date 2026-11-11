@@ -9,6 +9,7 @@
     <string name="action_delete">Poista</string>
     <string name="action_edit">Muokkaa</string>
     <string name="action_more">Lisää vaihtoehtoja</string>
+    <string name="action_learn_more">Lue lisää</string>
     <string name="action_refresh">Päivitä</string>
     <string name="action_retry">Yritä uudelleen</string>
     <string name="action_save">Tallenna</string>

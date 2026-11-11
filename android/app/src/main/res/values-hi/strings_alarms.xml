@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">उन्नत</string>
     <string name="alarm_change_updates">कीमत अपडेट बदलें</string>
+    <string name="alarm_closed_app_short">ऐप बंद होने पर अलार्म देर से आ सकते हैं।</string>
     <string name="alarm_check_mode_15min">लगभग हर 15 मिनट</string>
     <string name="alarm_check_mode_saving">किफ़ायती</string>
     <string name="alarm_check_mode_title">डिवाइस निष्क्रिय होने पर कितनी बार जाँचें?</string>

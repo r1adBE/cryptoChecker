@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Разширени</string>
     <string name="alarm_change_updates">Промени обновяването на курсовете</string>
+    <string name="alarm_closed_app_short">При затворено приложение алармите може да закъснеят.</string>
     <string name="alarm_check_mode_15min">Приблизително на всеки 15 минути</string>
     <string name="alarm_check_mode_saving">Пестеливо</string>
     <string name="alarm_check_mode_title">Колко често да се проверява, когато устройството е в покой?</string>

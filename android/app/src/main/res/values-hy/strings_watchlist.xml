@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Կապ չկա · առ %1$s</string>
     <string name="watchlist_pull_to_refresh">Քաշիր ներքև՝ թարմացնելու համար</string>
     <string name="watchlist_refresh_report">Վերջին թարմացումը</string>
+    <string name="watchlist_symbols_legend">Նշանների բացատրություն</string>
+    <string name="watchlist_symbols_legend_alarms">Ակտիվ ահազանգերը և դրանց քանակը</string>
     <string name="watchlist_refresh_report_empty">Մանրամասներ դեռ չկան – մինչ այժմ ամբողջական թարմացում չի եղել։ Հպիր թարմացմանը և սպասիր, մինչև շրջանը կանգնի։</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-ից %1$d-ը հնացած է</item>

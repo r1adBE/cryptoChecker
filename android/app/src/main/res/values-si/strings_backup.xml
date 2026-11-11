@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">වැරදි මුරපදය, නැතහොත් ගොනුව හානි වී ඇත. කරුණාකර යළි උත්සාහ කරන්න.</string>
     <string name="backup_protect">මුරපදයෙන් ආරක්ෂා කරන්න</string>
     <string name="backup_protect_hint">ගොනුව සංකේතනය කරයි (AES-256). කළඹ දත්ත අඩංගු නම් නිර්දේශිතයි.</string>
+    <string name="backup_protect_required">සැමවිට සක්‍රියයි: ගොනුවේ කළඹ දත්ත අඩංගුයි.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">මුරපදය නොමැතිව සුරකින්න</string>
     <string name="backup_plain_confirm_text">ගොනුව සංකේතනය කර නැත. එය ලබා ගන්නා ඕනෑම අයෙකුට කියවිය හැක:</string>
     <string name="backup_plain_confirm_title">මුරපදය නොමැතිව සුරකින්නද?</string>
-    <string name="backup_plain_contents_addresses">ශේෂ ඉතිහාසය සහ පිරිවැය පදනම සමඟ සුරැකි පසුම්බි ලිපින සහ xpub යතුරු</string>
     <string name="backup_plain_contents_base">සටහන් සහ කණ්ඩායම් සහිත නිරීක්ෂණ ලැයිස්තුව, ඇඟවීම්, ප්‍රියතම සහ සැකසීම්</string>
-    <string name="backup_plain_contents_portfolio">කළඹ: ප්‍රමාණ සහ මිල ගණන් සහිත ගනුදෙනු</string>
     <string name="backup_restore_app_lock_kept">කළඹ අගුල සක්‍රියව පවතී – සංකේතනය නොකළ උපස්ථයකට එය අක්‍රිය කළ නොහැක.</string>
     <string name="backup_restore_confirm">ආයාත කිරීමෙන් ඔබේ වත්මන් නිරීක්ෂණ ලැයිස්තුව (සටහන් සහ කණ්ඩායම් සමඟ), ඇඟවීම්, ප්‍රියතම, කළඹ සහ සැකසීම් උපස්ථයෙන් ප්‍රතිස්ථාපනය වේ.</string>
     <plurals name="backup_restore_invalid">

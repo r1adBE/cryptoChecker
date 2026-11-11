@@ -211,6 +211,13 @@ struct BackupSettingsPage: View {
     /// Wertkopie des Stands; Bauen, Kodieren und Verschlüsseln (Argon2id mit 64 MiB, einige 100 ms bis wenige Sekunden)
     /// im Hintergrund (`BackupFileWork.build`; nie eine Datei, die sich danach nicht mehr einlesen lässt, wie Android).
     private func export(password: String?) {
+        // Mit Portfolio-Daten nie ohne Passwort (das Blatt erzwingt es schon; hier nochmals vor dem Schreiben)
+        let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
+            transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count)
+        guard PortfolioLockPolicy.backupExportAllowed(hasPassword: password != nil, hasPortfolioData: hasPortfolio) else {
+            fail("backup_failed")
+            return
+        }
         let input = BackupManager.exportInput(data)
         Task {
             // Zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht

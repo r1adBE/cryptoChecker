@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ਗਲਤ ਪਾਸਵਰਡ, ਜਾਂ ਫਾਈਲ ਖਰਾਬ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="backup_protect">ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਕਰੋ</string>
     <string name="backup_protect_hint">ਫਾਈਲ ਨੂੰ ਇਨਕ੍ਰਿਪਟ ਕਰਦਾ ਹੈ (AES-256)। ਪੋਰਟਫੋਲੀਓ ਡਾਟਾ ਹੋਵੇ ਤਾਂ ਸਿਫ਼ਾਰਸ਼ੀ।</string>
+    <string name="backup_protect_required">ਹਮੇਸ਼ਾ ਚਾਲੂ: ਫਾਈਲ ਵਿੱਚ ਪੋਰਟਫੋਲੀਓ ਡਾਟਾ ਹੈ।</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">ਪਾਸਵਰਡ ਤੋਂ ਬਿਨਾਂ ਸੰਭਾਲੋ</string>
     <string name="backup_plain_confirm_text">ਫਾਈਲ ਇਨਕ੍ਰਿਪਟ ਨਹੀਂ ਹੈ। ਜਿਸ ਕੋਲ ਵੀ ਇਹ ਪਹੁੰਚੇ ਉਹ ਪੜ੍ਹ ਸਕਦਾ ਹੈ:</string>
     <string name="backup_plain_confirm_title">ਪਾਸਵਰਡ ਤੋਂ ਬਿਨਾਂ ਸੰਭਾਲਣਾ ਹੈ?</string>
-    <string name="backup_plain_contents_addresses">ਸੰਭਾਲੇ ਵਾਲਿਟ ਪਤੇ ਅਤੇ xpub ਕੀਜ਼, ਬੈਲੈਂਸ ਦੇ ਇਤਿਹਾਸ ਅਤੇ ਲਾਗਤ ਅਧਾਰ ਸਮੇਤ</string>
     <string name="backup_plain_contents_base">ਨੋਟਾਂ ਅਤੇ ਗਰੁੱਪਾਂ ਸਮੇਤ ਵਾਚਲਿਸਟ, ਅਲਰਟ, ਮਨਪਸੰਦ ਅਤੇ ਸੈਟਿੰਗਾਂ</string>
-    <string name="backup_plain_contents_portfolio">ਪੋਰਟਫੋਲੀਓ: ਰਕਮਾਂ ਅਤੇ ਕੀਮਤਾਂ ਸਮੇਤ ਲੈਣ-ਦੇਣ</string>
     <string name="backup_restore_app_lock_kept">ਪੋਰਟਫੋਲੀਓ ਲੌਕ ਚਾਲੂ ਰਹਿੰਦਾ ਹੈ – ਬਿਨਾਂ ਇਨਕ੍ਰਿਪਸ਼ਨ ਵਾਲਾ ਬੈਕਅੱਪ ਇਸਨੂੰ ਬੰਦ ਨਹੀਂ ਕਰ ਸਕਦਾ।</string>
     <string name="backup_restore_confirm">ਇੰਪੋਰਟ ਕਰਨ ਨਾਲ ਤੁਹਾਡੀ ਮੌਜੂਦਾ ਵਾਚਲਿਸਟ (ਨੋਟਾਂ ਅਤੇ ਗਰੁੱਪਾਂ ਸਮੇਤ), ਅਲਰਟ, ਮਨਪਸੰਦ, ਪੋਰਟਫੋਲੀਓ ਅਤੇ ਸੈਟਿੰਗਾਂ ਬੈਕਅੱਪ ਨਾਲ ਬਦਲ ਜਾਣਗੀਆਂ।</string>
     <plurals name="backup_restore_invalid">

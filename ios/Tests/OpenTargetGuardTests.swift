@@ -40,4 +40,17 @@ final class OpenTargetGuardTests: XCTestCase {
         XCTAssertEqual(OpenTargetGuard.linkToken(of: url), OpenTargetGuard.token)
         XCTAssertNil(OpenTargetGuard.linkToken(of: try XCTUnwrap(URL(string: "cryptochecker://portfolio"))))
     }
+
+    func testNoSecretWhenRandomFails() {
+        // Zufallsquelle versagt: kein Geheimnis (kein Ersatz aus einer UUID) — nur öffentliche Ziele gelten
+        XCTAssertNil(OpenTargetGuard.newSecret(random: { _ in false }))
+        XCTAssertFalse(OpenTargetGuard.accepts("portfolio", token: "", expected: ""))
+        XCTAssertFalse(OpenTargetGuard.accepts("portfolio", token: nil, expected: ""))
+        XCTAssertTrue(OpenTargetGuard.accepts("add", token: nil, expected: ""))
+        let secret = OpenTargetGuard.newSecret(random: { bytes in
+            for i in bytes.indices { bytes[i] = UInt8(i) }
+            return true
+        })
+        XCTAssertEqual(secret, "000102030405060708090a0b0c0d0e0f")
+    }
 }

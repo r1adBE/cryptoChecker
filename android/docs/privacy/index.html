@@ -2,6 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crypto Checker – Datenschutz / Privacy Policy</title>
 <meta name="description" content="Datenschutzerklärung der App Crypto Checker für Android und iOS (com.cryptochecker.app). Privacy policy of the Crypto Checker app for Android and iOS.">
@@ -134,7 +136,7 @@
 <!-- ============================ DEUTSCH ============================ -->
 <section class="policy" id="de" lang="de">
   <h2>Datenschutzerklärung <span class="badge">DE</span></h2>
-  <p class="meta">Gültig für die App «Crypto Checker» für <b>Android</b> (Paket <code>com.cryptochecker.app</code>, inkl. Wear-OS-App) und für <b>iPhone</b> (iOS, Bundle-ID <code>com.cryptochecker.app</code>, inkl. Widgets und Apple-Watch-App) · Stand: 5. November 2026</p>
+  <p class="meta">Gültig für die App «Crypto Checker» für <b>Android</b> (Paket <code>com.cryptochecker.app</code>, inkl. Wear-OS-App) und für <b>iPhone</b> (iOS, Bundle-ID <code>com.cryptochecker.app</code>, inkl. Widgets und Apple-Watch-App) · Stand: 11. November 2026</p>
 
   <div class="summary">
     <strong>Kurz gesagt</strong>
@@ -328,6 +330,7 @@
     <tr><td><code>WAKE_LOCK</code></td><td>Kurzzeitig verhindern, dass das Gerät während einer laufenden Aktualisierung einschläft (über WorkManager).</td></tr>
     <tr><td><code>SCHEDULE_EXACT_ALARM</code></td><td>Nur wenn du «Pünktlich prüfen» einschaltest (optional, ab Werk aus): Android weckt die App im gewählten Intervall der Hintergrundaktualisierung (15, 30 oder 60 Minuten), um deine Alarme zu prüfen, auch bei geschlossener App. Ab Android 14 erteilst du die Erlaubnis selbst unter «Wecker und Erinnerungen» und kannst sie jederzeit entziehen. Es werden dabei keine zusätzlichen Daten übertragen – nur die üblichen Kursabfragen.</td></tr>
     <tr><td><code>SYSTEM_ALERT_WINDOW</code></td><td>Nur wenn du das «Preis-Overlay» einschaltest (optional, ab Werk aus): Die Kurse der dauerhaften Kurs-Mitteilung erscheinen als kleine Pille über anderen Apps. Du erteilst die Erlaubnis selbst unter «Über anderen Apps einblenden» und kannst sie jederzeit entziehen. Die App sieht dabei nicht, was andere Apps anzeigen, und überträgt keine zusätzlichen Daten.</td></tr>
+    <tr><td><code>HIDE_OVERLAY_WINDOWS</code></td><td>Schutz vor Täuschung: Solange das Portfolio, die Portfolio-Einstellungen, «Wiederherstellen» oder «App zurücksetzen» offen sind, blendet Android Fenster anderer Apps aus, die sich darüberlegen (ab Android 12). Die App erhält dadurch keine Daten.</td></tr>
     <tr><td><code>USE_BIOMETRIC</code></td><td>Nur wenn du die Portfolio-Sperre einschaltest: Entsperren des Portfolios mit Fingerabdruck, Gesicht oder Geräte-PIN über das Android-System (der Rest der App bleibt frei). Die App erhält dabei nur «entsperrt» oder «abgebrochen», nie biometrische Daten.</td></tr>
     <tr><td><code>USE_FINGERPRINT</code></td><td>Dasselbe wie <code>USE_BIOMETRIC</code> für ältere Android-Versionen (8 und 9): Die Bibliothek der Portfolio-Sperre (<code>androidx.biometric</code>) trägt sie ein, damit der Fingerabdruck auch dort funktioniert. Nur bei eingeschalteter Portfolio-Sperre; die App erhält keine biometrischen Daten.</td></tr>
   </table>
@@ -386,7 +389,7 @@
 <!-- ============================ ENGLISH ============================ -->
 <section class="policy" id="en" lang="en">
   <h2>Privacy Policy <span class="badge">EN</span></h2>
-  <p class="meta">Applies to the “Crypto Checker” app for <b>Android</b> (package <code>com.cryptochecker.app</code>, including the Wear OS app) and for <b>iPhone</b> (iOS, bundle ID <code>com.cryptochecker.app</code>, including its widgets and the Apple Watch app) · Last updated: 5 November 2026</p>
+  <p class="meta">Applies to the “Crypto Checker” app for <b>Android</b> (package <code>com.cryptochecker.app</code>, including the Wear OS app) and for <b>iPhone</b> (iOS, bundle ID <code>com.cryptochecker.app</code>, including its widgets and the Apple Watch app) · Last updated: 11 November 2026</p>
 
   <div class="summary">
     <strong>In short</strong>
@@ -580,6 +583,7 @@
     <tr><td><code>WAKE_LOCK</code></td><td>Briefly keep the device awake while an update is running (via WorkManager).</td></tr>
     <tr><td><code>SCHEDULE_EXACT_ALARM</code></td><td>Only if you turn on “Check on time” (optional, off by default): Android wakes the app at the chosen background update interval (15, 30 or 60 minutes) to check your alarms, even with the app closed. On Android 14 and later you grant this yourself under “Alarms &amp; reminders” and can revoke it at any time. No extra data is sent – only the usual price requests.</td></tr>
     <tr><td><code>SYSTEM_ALERT_WINDOW</code></td><td>Only if you turn on the “Price overlay” (optional, off by default): the prices of the permanent price notification appear as a small pill over other apps. You grant this yourself under “Display over other apps” and can revoke it at any time. The app does not see what other apps show and sends no extra data.</td></tr>
+    <tr><td><code>HIDE_OVERLAY_WINDOWS</code></td><td>Protection against deception: while the portfolio, the portfolio settings, “Restore” or “Reset app” are open, Android hides windows of other apps drawn on top (Android 12 and later). The app receives no data through this.</td></tr>
     <tr><td><code>USE_BIOMETRIC</code></td><td>Only if you turn on the portfolio lock: unlock the portfolio with fingerprint, face or device PIN through the Android system (the rest of the app stays open). The app only learns “unlocked” or “cancelled”, never any biometric data.</td></tr>
     <tr><td><code>USE_FINGERPRINT</code></td><td>The same as <code>USE_BIOMETRIC</code> for older Android versions (8 and 9): the portfolio lock’s library (<code>androidx.biometric</code>) adds it so that fingerprint unlock works there too. Only with the portfolio lock turned on; the app receives no biometric data.</td></tr>
   </table>

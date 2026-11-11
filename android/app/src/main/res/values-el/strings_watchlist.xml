@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
     <string name="watchlist_pull_to_refresh">Σύρε προς τα κάτω για ανανέωση</string>
     <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
+    <string name="watchlist_symbols_legend">Επεξήγηση συμβόλων</string>
+    <string name="watchlist_symbols_legend_alarms">Ενεργοί συναγερμοί και το πλήθος τους</string>
     <string name="watchlist_refresh_report_empty">Δεν υπάρχει ανάλυση ακόμα: δεν έχει γίνει ακόμη πλήρης ανανέωση. Πάτα ανανέωση και περίμενε να σταματήσει η ένδειξη φόρτωσης.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d από %2$d παρωχημένο</item>

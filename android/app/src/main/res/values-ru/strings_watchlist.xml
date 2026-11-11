@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Нет соединения · данные на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потяни вниз, чтобы обновить</string>
     <string name="watchlist_refresh_report">Последнее обновление</string>
+    <string name="watchlist_symbols_legend">Обозначения</string>
+    <string name="watchlist_symbols_legend_alarms">Активные оповещения и их число</string>
     <string name="watchlist_refresh_report_empty">Сводки пока нет: полного обновления ещё не было. Нажми «Обновить» и дождись, пока индикатор остановится.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Устарело: %1$d из %2$d</item>

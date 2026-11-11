@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Advanced</string>
     <string name="alarm_change_updates">Adjust price updates</string>
+    <string name="alarm_closed_app_short">With the app closed, alerts can arrive late.</string>
     <string name="alarm_check_mode_15min">About every 15 minutes</string>
     <string name="alarm_check_mode_saving">Battery-saving</string>
     <string name="alarm_check_mode_title">How often to check while the device is idle?</string>

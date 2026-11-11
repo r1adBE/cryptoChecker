@@ -85,6 +85,14 @@ object CheckRunLog {
     fun lastFailedBackgroundCheck(runs: List<CheckRun>): Long? =
         if (lastBackgroundCheck(runs) != null) null else runs.firstOrNull { it.trigger.scheduled }?.at
 
+    /**
+     * Ende des ältesten gespeicherten geplanten Laufs, wenn keiner gelang — sonst null: Seit mindestens dann scheitert
+     * jede Prüfung. Die Zuverlässigkeitszeile warnt erst, wenn das länger als ihre Grenze anhält (ein einzelner
+     * gescheiterter Lauf kurz nach dem Einrichten ist noch keine Verspätung). Wie iOS.
+     */
+    fun failingSince(runs: List<CheckRun>): Long? =
+        if (lastBackgroundCheck(runs) != null) null else runs.lastOrNull { it.trigger.scheduled }?.at
+
     fun encode(runs: List<CheckRun>): String =
         runs.joinToString("\n") { "${it.at};${it.trigger.code};${it.result.code};${it.durationMillis}" }
 

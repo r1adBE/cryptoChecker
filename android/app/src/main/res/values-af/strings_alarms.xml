@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Gevorderd</string>
     <string name="alarm_change_updates">Pas prysbywerkings aan</string>
+    <string name="alarm_closed_app_short">As die app toe is, kan alarms laat wees.</string>
     <string name="alarm_check_mode_15min">Ongeveer elke 15 minute</string>
     <string name="alarm_check_mode_saving">Spaarsaam</string>
     <string name="alarm_check_mode_title">Hoe gereeld nagaan as die toestel ledig is?</string>

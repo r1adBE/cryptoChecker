@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Pasfhocal mícheart, nó tá an comhad damáistithe. Bain triail eile as.</string>
     <string name="backup_protect">Cosain le pasfhocal</string>
     <string name="backup_protect_hint">Criptíonn sé an comhad (AES-256). Molta nuair atá sonraí punainne ann.</string>
+    <string name="backup_protect_required">Ar siúl i gcónaí: tá sonraí punainne sa chomhad.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Sábháil gan phasfhocal</string>
     <string name="backup_plain_confirm_text">Níl an comhad criptithe. Is féidir le duine ar bith a gheobhaidh é an méid seo a léamh:</string>
     <string name="backup_plain_confirm_title">Sábháil gan phasfhocal?</string>
-    <string name="backup_plain_contents_addresses">Seoltaí sparáin agus eochracha xpub sábháilte le stair iarmhéide agus bunchostas</string>
     <string name="backup_plain_contents_base">Liosta faire le nótaí agus grúpaí, foláirimh, ceanáin agus socruithe</string>
-    <string name="backup_plain_contents_portfolio">Punann: idirbhearta le méideanna agus praghsanna</string>
     <string name="backup_restore_app_lock_kept">Fanann glas na punainne ar siúl – ní féidir le cúltaca neamhchriptithe é a mhúchadh.</string>
     <string name="backup_restore_confirm">Cuireann an iompórtáil an cúltaca in ionad do liosta faire reatha (le nótaí agus grúpaí), foláireamh, ceanán, punainne agus socruithe.</string>
     <plurals name="backup_restore_invalid">

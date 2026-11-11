@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">தவறான கடவுச்சொல், அல்லது கோப்பு சேதமடைந்துள்ளது. மீண்டும் முயலவும்.</string>
     <string name="backup_protect">கடவுச்சொல்லால் பாதுகாக்கவும்</string>
     <string name="backup_protect_hint">கோப்பை மறையாக்கும் (AES-256). போர்ட்ஃபோலியோ தரவு இருந்தால் பரிந்துரைக்கப்படுகிறது.</string>
+    <string name="backup_protect_required">எப்போதும் இயக்கத்தில்: கோப்பில் போர்ட்ஃபோலியோ தரவு உள்ளது.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">கடவுச்சொல் இல்லாமல் சேமிக்கவும்</string>
     <string name="backup_plain_confirm_text">கோப்பு மறையாக்கப்படவில்லை. அதைப் பெறும் எவரும் படிக்க முடியும்:</string>
     <string name="backup_plain_confirm_title">கடவுச்சொல் இல்லாமல் சேமிக்கவா?</string>
-    <string name="backup_plain_contents_addresses">இருப்பு வரலாறு மற்றும் அடக்க விலையுடன் சேமிக்கப்பட்ட வாலட் முகவரிகளும் xpub கீகளும்</string>
     <string name="backup_plain_contents_base">குறிப்புகள் மற்றும் குழுக்களுடன் கண்காணிப்புப் பட்டியல், விழிப்பூட்டல்கள், பிடித்தவை மற்றும் அமைப்புகள்</string>
-    <string name="backup_plain_contents_portfolio">போர்ட்ஃபோலியோ: தொகைகள் மற்றும் விலைகளுடன் பரிவர்த்தனைகள்</string>
     <string name="backup_restore_app_lock_kept">போர்ட்ஃபோலியோ பூட்டு ஆன் நிலையிலேயே இருக்கும் – மறையாக்கப்படாத காப்புப்பிரதி அதை ஆஃப் செய்ய முடியாது.</string>
     <string name="backup_restore_confirm">இறக்குமதி செய்வது உங்கள் தற்போதைய கண்காணிப்புப் பட்டியல் (குறிப்புகள் மற்றும் குழுக்களுடன்), விழிப்பூட்டல்கள், பிடித்தவை, போர்ட்ஃபோலியோ மற்றும் அமைப்புகளைக் காப்புப்பிரதியால் மாற்றும்.</string>
     <plurals name="backup_restore_invalid">

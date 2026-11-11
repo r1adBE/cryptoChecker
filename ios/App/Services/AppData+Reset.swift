@@ -75,7 +75,7 @@ extension AppData {
             let items = (try? fm.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? []
             // «Library» im App-Group-Ordner enthält die (eben geleerten) Einstellungen selbst
             for item in items where item.lastPathComponent != "Library" {
-                try? fm.removeItem(at: item)
+                AppLog.remove(item, "Zurücksetzen: Löschen", fileManager: fm)
             }
         }
         // Erst nach dem Löschen der Dateien: mit dem neuen Schlüssel ist nichts Altes mehr zu öffnen
@@ -87,7 +87,7 @@ extension AppData {
     nonisolated static func clearTemporaryFiles(in folder: URL = FileManager.default.temporaryDirectory) {
         let fm = FileManager.default
         for item in (try? fm.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? [] {
-            try? fm.removeItem(at: item)
+            AppLog.remove(item, "Temporäre Datei löschen", fileManager: fm)
         }
     }
 

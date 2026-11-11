@@ -177,6 +177,7 @@ struct WatchlistRow: View {
         // Grösste Schrift (ab accessibility1): Kurs unter dem Paar statt daneben (`DenseRowText`)
         VStack(alignment: .trailing, spacing: 4) {
             mainLine
+            noteLine
             if stacked {
                 priceColumn
             }

@@ -225,6 +225,17 @@ extension ScreenshotTourTests {
         start.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: to)))
     }
 
+    /// Was über der App liegt (nil = nichts): die App nicht vorne oder eine Meldung des Systems (SpringBoard, z. B.
+    /// eine Berechtigungs-Abfrage oder ein Hinweis des Simulators) — ein Foto zeigte dann nicht die App. Wie
+    /// `TourNavigator.requireForeground` (Android).
+    @MainActor
+    func systemCover() -> String? {
+        let state = XCUIApplication().state
+        if state != .runningForeground { return "app not in foreground (state \(state.rawValue))" }
+        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch
+        return alert.exists ? "system alert «\(alert.label)»" : nil
+    }
+
     /// Ein- und Ausblendungen abwarten (keine Bedingung, auf die sich warten liesse).
     func settle(_ seconds: TimeInterval) {
         _ = XCTWaiter.wait(for: [XCTestExpectation(description: "settle")], timeout: seconds)

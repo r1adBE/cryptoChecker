@@ -57,7 +57,7 @@ extension Notifier {
               let data = image.pngData() else { return nil }
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("alarm-logo-\(UUID().uuidString).png")
-        guard (try? data.write(to: url, options: .atomic)) != nil else { return nil }
+        guard AppLog.attempt("Logo der Mitteilung schreiben", { try data.write(to: url, options: .atomic) }) else { return nil }
         return try? UNNotificationAttachment(identifier: "logo", url: url, options: nil)
     }
 }

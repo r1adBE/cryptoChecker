@@ -172,4 +172,15 @@ class PortfolioLockPolicyTest {
         assertTrue(PortfolioLockPolicy.backupHasPortfolioData(transactions = 3, watchedAddresses = 2))
         assertFalse(PortfolioLockPolicy.backupHasPortfolioData(transactions = 0, watchedAddresses = 0))
     }
+
+    @Test
+    fun backupWithPortfolioDataNeedsPassword() {
+        // Mit Portfolio-Daten gibt es keine unverschlüsselte Sicherung; ohne bleibt der Schutz wählbar
+        assertTrue(PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData = true))
+        assertFalse(PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData = false))
+        assertFalse(PortfolioLockPolicy.backupExportAllowed(hasPassword = false, hasPortfolioData = true))
+        assertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword = true, hasPortfolioData = true))
+        assertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword = false, hasPortfolioData = false))
+        assertTrue(PortfolioLockPolicy.backupExportAllowed(hasPassword = true, hasPortfolioData = false))
+    }
 }

@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Nesprávne heslo alebo je súbor poškodený. Skús to znova.</string>
     <string name="backup_protect">Chrániť heslom</string>
     <string name="backup_protect_hint">Zašifruje súbor (AES-256). Odporúča sa, ak obsahuje údaje portfólia.</string>
+    <string name="backup_protect_required">Vždy zapnuté: súbor obsahuje údaje portfólia.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Uložiť bez hesla</string>
     <string name="backup_plain_confirm_text">Súbor nie je zašifrovaný. Ktokoľvek ho získa, môže čítať:</string>
     <string name="backup_plain_confirm_title">Uložiť bez hesla?</string>
-    <string name="backup_plain_contents_addresses">Uložené adresy peňaženiek a kľúče xpub s históriou zostatkov a obstarávacou cenou</string>
     <string name="backup_plain_contents_base">Zoznam s poznámkami a skupinami, alarmy, obľúbené a nastavenia</string>
-    <string name="backup_plain_contents_portfolio">Portfólio: transakcie s množstvami a cenami</string>
     <string name="backup_restore_app_lock_kept">Zámok portfólia zostáva zapnutý – nezašifrovaná záloha ho nemôže vypnúť.</string>
     <string name="backup_restore_confirm">Import nahradí tvoj aktuálny zoznam (s poznámkami a skupinami), alarmy, obľúbené, portfólio a nastavenia zálohou.</string>
     <plurals name="backup_restore_invalid">

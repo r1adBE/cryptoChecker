@@ -358,7 +358,7 @@ class ScreenshotTourTest {
 
     /**
      * Wartet, bis die Oberfläche ruht, und schreibt das Bild als Shell-Benutzer (`screencap`, ganzer Bildschirm) —
-     * nur mit der App vorne und Bildschirm an ([TourNavigator.requireForeground], sonst zeigte es etwas anderes).
+     * nur mit der App vorne, vor und nach dem Foto geprüft ([TourNavigator.requireForeground]); verdeckt = gelöscht.
      */
     private fun shot(name: String, checkForeground: Boolean = true) {
         compose.waitForIdle()
@@ -369,6 +369,9 @@ class ScreenshotTourTest {
         AppTestEnvironmentRule.shell("screencap -p $file")
         val size = AppTestEnvironmentRule.shell("stat -c %s $file").trim().toLongOrNull() ?: 0L
         assertTrue("Bildschirmfoto $name fehlt oder ist leer ($file)", size > 0)
+        if (checkForeground) {
+            runCatching { nav.requireForeground() }.onFailure { AppTestEnvironmentRule.shell("rm -f $file"); throw it }
+        }
     }
 
     /** Text in der Sprache der App: aus der aktuellen Activity (die der Regel ist nach dem ersten Neustart zu). */

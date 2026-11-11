@@ -128,6 +128,11 @@ object AlarmReadiness {
          * ([com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck]).
          */
         val lastFailedBackgroundCheck: Long? = null,
+        /**
+         * Ende des ältesten gespeicherten geplanten Laufs, wenn keiner gelang; sonst null
+         * ([com.cryptochecker.app.domain.refresh.CheckRunLog.failingSince]). Ohne Angabe gilt [lastFailedBackgroundCheck].
+         */
+        val failingSince: Long? = null,
         /** Android: Merkliste ohne Schlüssel nur im Arbeitsspeicher — Prüfungen im Hintergrund sehen ihre Paare nicht. */
         val storageNoKey: Boolean = false,
     )

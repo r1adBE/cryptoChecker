@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Walang koneksyon · noong %1$s</string>
     <string name="watchlist_pull_to_refresh">Hilahin pababa para i-refresh</string>
     <string name="watchlist_refresh_report">Huling refresh</string>
+    <string name="watchlist_symbols_legend">Paliwanag ng mga simbolo</string>
+    <string name="watchlist_symbols_legend_alarms">Mga aktibong alerto at ang bilang nito</string>
     <string name="watchlist_refresh_report_empty">Wala pang breakdown – wala pang buong refresh. I-tap ang refresh at maghintay hanggang huminto ang bilog.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d sa %2$d ang luma na</item>

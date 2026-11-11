@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">সংযোগ নেই · %1$s অনুযায়ী</string>
     <string name="watchlist_pull_to_refresh">রিফ্রেশ করতে নিচে টানুন</string>
     <string name="watchlist_refresh_report">শেষ রিফ্রেশ</string>
+    <string name="watchlist_symbols_legend">প্রতীকের ব্যাখ্যা</string>
+    <string name="watchlist_symbols_legend_alarms">সক্রিয় অ্যালার্ট ও তার সংখ্যা</string>
     <string name="watchlist_refresh_report_empty">এখনো কোনো বিবরণ নেই – এখন পর্যন্ত কোনো পূর্ণ রিফ্রেশ হয়নি। রিফ্রেশে ট্যাপ করে বৃত্তটি থামা পর্যন্ত অপেক্ষা করুন।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$dটির মধ্যে %1$dটি পুরোনো</item>

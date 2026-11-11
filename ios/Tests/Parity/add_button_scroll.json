@@ -1,0 +1,278 @@
+{
+  "_comment": "Schwebender «+»-Knopf des Portfolios beim Scrollen (AddButtonScroll.next): je Fall eine Folge von Scroll-Schritten ab dem Anfangszustand (sichtbar, Weg 0). delta in dp bzw. pt, positiv = nach unten gescrollt; atTop/atEnd = Liste am Anfang bzw. Ende; visible = erwartet nach dem Schritt. travel = Weg am Stück, ab dem der Knopf wechselt. Gemeinsam für AddButtonScrollParityTest.kt und AddButtonScrollParityTests.swift.",
+  "travel": 12,
+  "cases": [
+    {
+      "name": "am Anfang: sichtbar, auch beim Ziehen (Gummiband)",
+      "steps": [
+        {
+          "delta": 0,
+          "atTop": true,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": -20,
+          "atTop": true,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 5,
+          "atTop": true,
+          "atEnd": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "nach unten: erst nach 12 am Stück weg",
+      "steps": [
+        {
+          "delta": 5,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 5,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 1.9,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 0.1,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": 30,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "name": "ein grosser Schritt nach unten blendet sofort aus",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "name": "nach oben kommt er nach 12 wieder",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -5,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -6.9,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -0.1,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "Zittern unter der Schwelle ändert nichts",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -5,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": 5,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -11,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": 3,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -11.9,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "name": "Richtungswechsel beginnt den Weg neu",
+      "steps": [
+        {
+          "delta": 11,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": -1,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 11,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 1,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "name": "am Ende immer sichtbar (Freiraum unter der letzten Zeile)",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": 200,
+          "atTop": false,
+          "atEnd": true,
+          "visible": true
+        },
+        {
+          "delta": -3,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 3,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "zurück am Anfang: sichtbar und der Weg beginnt neu",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -300,
+          "atTop": true,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 11,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 1,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "name": "Liste scrollt gar nicht (Anfang = Ende)",
+      "steps": [
+        {
+          "delta": 0,
+          "atTop": true,
+          "atEnd": true,
+          "visible": true
+        },
+        {
+          "delta": 15,
+          "atTop": true,
+          "atEnd": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "Schritt ohne Bewegung lässt alles, wie es ist",
+      "steps": [
+        {
+          "delta": 40,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": 0,
+          "atTop": false,
+          "atEnd": false,
+          "visible": false
+        },
+        {
+          "delta": -12,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        },
+        {
+          "delta": 0,
+          "atTop": false,
+          "atEnd": false,
+          "visible": true
+        }
+      ]
+    }
+  ]
+}

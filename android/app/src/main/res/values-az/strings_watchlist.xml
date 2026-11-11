@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Bağlantı yoxdur · vəziyyət: %1$s</string>
     <string name="watchlist_pull_to_refresh">Yeniləmək üçün aşağı çək</string>
     <string name="watchlist_refresh_report">Son yeniləmə</string>
+    <string name="watchlist_symbols_legend">Simvolların izahı</string>
+    <string name="watchlist_symbols_legend_alarms">Aktiv alarmlar və onların sayı</string>
     <string name="watchlist_refresh_report_empty">Hələ təfərrüat yoxdur – indiyədək tam yeniləmə olmayıb. Yeniləməyə toxun və dairə dayanana qədər gözlə.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d cütdən %1$d köhnəlib</item>

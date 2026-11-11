@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Bez pripojenia · stav %1$s</string>
     <string name="watchlist_pull_to_refresh">Potiahni nadol na obnovenie</string>
     <string name="watchlist_refresh_report">Posledné obnovenie</string>
+    <string name="watchlist_symbols_legend">Vysvetlenie symbolov</string>
+    <string name="watchlist_symbols_legend_alarms">Aktívne alarmy a ich počet</string>
     <string name="watchlist_refresh_report_empty">Zatiaľ žiadny rozpis – doteraz neprebehlo úplné obnovenie. Ťukni na Obnoviť a počkaj, kým sa kruh zastaví.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d z %2$d zastaraný</item>

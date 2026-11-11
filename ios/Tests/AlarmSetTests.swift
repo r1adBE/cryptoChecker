@@ -235,6 +235,7 @@ final class AlarmReliabilityTests: XCTestCase {
             let runs = CheckRunLog.decode(lines.joined(separator: "\n"))
             input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
             input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
+            input.failingSince = CheckRunLog.failingSince(runs)
         }
         input.storageNoKey = bool(m, "storageNoKey", false)
         input.hasAlarms = bool(m, "hasAlarms", false)

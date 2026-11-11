@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">ತಪ್ಪು ಪಾಸ್‌ವರ್ಡ್, ಅಥವಾ ಫೈಲ್ ಹಾನಿಗೊಳಗಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="backup_protect">ಪಾಸ್‌ವರ್ಡ್‌ನೊಂದಿಗೆ ರಕ್ಷಿಸಿ</string>
     <string name="backup_protect_hint">ಫೈಲ್ ಅನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡುತ್ತದೆ (AES-256). ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಡೇಟಾ ಇದ್ದರೆ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="backup_protect_required">ಯಾವಾಗಲೂ ಆನ್: ಫೈಲ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಡೇಟಾ ಇದೆ.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಉಳಿಸಿ</string>
     <string name="backup_plain_confirm_text">ಫೈಲ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿಲ್ಲ. ಅದನ್ನು ಪಡೆದ ಯಾರಾದರೂ ಓದಬಹುದು:</string>
     <string name="backup_plain_confirm_title">ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಉಳಿಸಬೇಕೆ?</string>
-    <string name="backup_plain_contents_addresses">ಬ್ಯಾಲೆನ್ಸ್ ಇತಿಹಾಸ ಮತ್ತು ಖರೀದಿ ವೆಚ್ಚದೊಂದಿಗೆ ಉಳಿಸಿದ ವ್ಯಾಲೆಟ್ ವಿಳಾಸಗಳು ಮತ್ತು xpub ಕೀಗಳು</string>
     <string name="backup_plain_contents_base">ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ ವಾಚ್‌ಲಿಸ್ಟ್, ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
-    <string name="backup_plain_contents_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ: ಮೊತ್ತಗಳು ಮತ್ತು ಬೆಲೆಗಳೊಂದಿಗೆ ವಹಿವಾಟುಗಳು</string>
     <string name="backup_restore_app_lock_kept">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಲಾಕ್ ಆನ್ ಆಗಿಯೇ ಇರುತ್ತದೆ – ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗದ ಬ್ಯಾಕಪ್ ಅದನ್ನು ಆಫ್ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
     <string name="backup_restore_confirm">ಆಮದು ಮಾಡುವುದರಿಂದ ನಿಮ್ಮ ಪ್ರಸ್ತುತ ವಾಚ್‌ಲಿಸ್ಟ್ (ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಗುಂಪುಗಳೊಂದಿಗೆ), ಅಲರ್ಟ್‌ಗಳು, ಮೆಚ್ಚಿನವು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಬ್ಯಾಕಪ್‌ನಿಂದ ಬದಲಾಯಿಸಲಾಗುತ್ತದೆ.</string>
     <plurals name="backup_restore_invalid">

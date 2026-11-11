@@ -13,6 +13,8 @@
     <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потягни униз, щоб оновити</string>
     <string name="watchlist_refresh_report">Останнє оновлення</string>
+    <string name="watchlist_symbols_legend">Пояснення символів</string>
+    <string name="watchlist_symbols_legend_alarms">Активні сигнали та їх кількість</string>
     <string name="watchlist_refresh_report_empty">Деталізації ще немає: повного оновлення ще не було. Натисни «Оновити» й зачекай, доки індикатор зупиниться.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Застаріло: %1$d з %2$d</item>

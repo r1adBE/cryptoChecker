@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Akukho ukuxhumana · kusukela ku-%1$s</string>
     <string name="watchlist_pull_to_refresh">Donsela phansi ukuze uvuselele</string>
     <string name="watchlist_refresh_report">Ukuvuselela kokugcina</string>
+    <string name="watchlist_symbols_legend">Incazelo yezimpawu</string>
+    <string name="watchlist_symbols_legend_alarms">Ama-alamu asebenzayo nenani lawo</string>
     <string name="watchlist_refresh_report_empty">Akukabi khona ukuhlukaniswa – akukabi khona ukuvuselela okuphelele kuze kube manje. Thepha ukuvuselela bese ulinda kuze kume indingilizi.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d kwangu-%2$d kudala</item>

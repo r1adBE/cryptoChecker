@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">Нема везе · стање од %1$s</string>
     <string name="watchlist_pull_to_refresh">Повуци надоле за освежавање</string>
     <string name="watchlist_refresh_report">Последње освежавање</string>
+    <string name="watchlist_symbols_legend">Објашњење симбола</string>
+    <string name="watchlist_symbols_legend_alarms">Активни аларми и њихов број</string>
     <string name="watchlist_refresh_report_empty">Још нема прегледа – досад није било потпуног освежавања. Додирни освежавање и сачекај док се круг не заустави.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d од %2$d застарело</item>

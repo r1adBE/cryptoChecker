@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Palavra-passe errada ou ficheiro danificado. Tenta novamente.</string>
     <string name="backup_protect">Proteger com palavra-passe</string>
     <string name="backup_protect_hint">Encripta o ficheiro (AES-256). Recomendado se contiver dados do portfólio.</string>
+    <string name="backup_protect_required">Sempre ativado: o ficheiro contém dados do portfólio.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Guardar sem palavra-passe</string>
     <string name="backup_plain_confirm_text">O ficheiro não está encriptado. Quem o obtiver pode ler:</string>
     <string name="backup_plain_confirm_title">Guardar sem palavra-passe?</string>
-    <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub guardados, com histórico de saldo e custo de aquisição</string>
     <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e definições</string>
-    <string name="backup_plain_contents_portfolio">Portfólio: transações com quantidades e preços</string>
     <string name="backup_restore_app_lock_kept">O bloqueio do portfólio mantém-se – uma cópia não encriptada não o pode desativar.</string>
     <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e definições pela cópia.</string>
     <plurals name="backup_restore_invalid">

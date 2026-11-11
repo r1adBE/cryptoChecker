@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">Aloqa yoʻq · %1$s holatiga</string>
     <string name="watchlist_pull_to_refresh">Yangilash uchun pastga torting</string>
     <string name="watchlist_refresh_report">Oxirgi yangilanish</string>
+    <string name="watchlist_symbols_legend">Belgilar izohi</string>
+    <string name="watchlist_symbols_legend_alarms">Faol signallar va ularning soni</string>
     <string name="watchlist_refresh_report_empty">Hozircha tafsilot yoʻq – hali toʻliq yangilanish boʻlmagan. Yangilashga bosing va aylana toʻxtaguncha kuting.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d tadan %1$d tasi eskirgan</item>

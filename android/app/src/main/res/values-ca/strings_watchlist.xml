@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">Sense connexió · a les %1$s</string>
     <string name="watchlist_pull_to_refresh">Llisca cap avall per actualitzar</string>
     <string name="watchlist_refresh_report">Última actualització</string>
+    <string name="watchlist_symbols_legend">Símbols explicats</string>
+    <string name="watchlist_symbols_legend_alarms">Alarmes actives, amb el nombre</string>
     <string name="watchlist_refresh_report_empty">Encara no hi ha desglossament – fins ara no s\'ha fet cap actualització completa. Toca Actualitza i espera fins que el cercle s\'aturi.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d de %2$d desactualitzat</item>

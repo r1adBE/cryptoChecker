@@ -9,6 +9,7 @@
     <string name="action_delete">Изтрий</string>
     <string name="action_edit">Редактирай</string>
     <string name="action_more">Още опции</string>
+    <string name="action_learn_more">Научи повече</string>
     <string name="action_refresh">Обнови</string>
     <string name="action_retry">Опитай отново</string>
     <string name="action_save">Запази</string>

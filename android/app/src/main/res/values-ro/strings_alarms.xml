@@ -21,6 +21,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avansat</string>
     <string name="alarm_change_updates">Schimbă actualizarea prețurilor</string>
+    <string name="alarm_closed_app_short">Cu aplicația închisă, alarmele pot întârzia.</string>
     <string name="alarm_check_mode_15min">Aproximativ la fiecare 15 minute</string>
     <string name="alarm_check_mode_saving">Economic</string>
     <string name="alarm_check_mode_title">Cât de des să se verifice când dispozitivul e inactiv?</string>

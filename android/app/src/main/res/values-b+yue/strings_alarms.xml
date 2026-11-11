@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">進階</string>
     <string name="alarm_change_updates">調整價格更新</string>
+    <string name="alarm_closed_app_short">App 關閉時，提示可能會遲。</string>
     <string name="alarm_check_mode_15min">大約每 15 分鐘</string>
     <string name="alarm_check_mode_saving">慳電</string>
     <string name="alarm_check_mode_title">裝置閒置時幾耐檢查一次？</string>

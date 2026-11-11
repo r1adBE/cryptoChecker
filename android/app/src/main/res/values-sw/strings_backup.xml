@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Nenosiri si sahihi, au faili imeharibika. Tafadhali jaribu tena.</string>
     <string name="backup_protect">Linda kwa nenosiri</string>
     <string name="backup_protect_hint">Husimba faili (AES-256). Inapendekezwa ikiwa ina data ya jalada.</string>
+    <string name="backup_protect_required">Imewashwa kila wakati: faili ina data ya jalada.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Hifadhi bila nenosiri</string>
     <string name="backup_plain_confirm_text">Faili haijasimbwa. Yeyote atakayeipata anaweza kusoma:</string>
     <string name="backup_plain_confirm_title">Uhifadhi bila nenosiri?</string>
-    <string name="backup_plain_contents_addresses">Anwani za wallet na funguo za xpub zilizohifadhiwa pamoja na historia ya salio na gharama ya msingi</string>
     <string name="backup_plain_contents_base">Orodha ya ufuatiliaji pamoja na madokezo na vikundi, kengele, vipendwa na mipangilio</string>
-    <string name="backup_plain_contents_portfolio">Jalada: miamala pamoja na kiasi na bei</string>
     <string name="backup_restore_app_lock_kept">Kufuli ya jalada inabaki imewashwa – nakala rudufu isiyosimbwa haiwezi kuizima.</string>
     <string name="backup_restore_confirm">Kuleta kunabadilisha orodha yako ya sasa ya ufuatiliaji (pamoja na madokezo na vikundi), kengele, vipendwa, jalada na mipangilio kwa yaliyomo kwenye nakala rudufu.</string>
     <plurals name="backup_restore_invalid">

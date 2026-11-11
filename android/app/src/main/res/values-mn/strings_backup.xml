@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Нууц үг буруу эсвэл файл гэмтсэн байна. Дахин оролдоно уу.</string>
     <string name="backup_protect">Нууц үгээр хамгаалах</string>
     <string name="backup_protect_hint">Файлыг шифрлэнэ (AES-256). Багцын өгөгдөл агуулж байвал зөвлөж байна.</string>
+    <string name="backup_protect_required">Үргэлж асаалттай: файл багцын өгөгдөл агуулж байна.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Нууц үггүй хадгалах</string>
     <string name="backup_plain_confirm_text">Файл шифрлэгдээгүй. Үүнийг авсан хэн ч дараахыг унших боломжтой:</string>
     <string name="backup_plain_confirm_title">Нууц үггүй хадгалах уу?</string>
-    <string name="backup_plain_contents_addresses">Үлдэгдлийн түүх, өртгийн суурьтай хадгалсан түрийвчний хаяг болон xpub түлхүүр</string>
     <string name="backup_plain_contents_base">Тэмдэглэл, бүлэгтэй ажиглах жагсаалт, дохио, дуртай зоос болон тохиргоо</string>
-    <string name="backup_plain_contents_portfolio">Багц: дүн, ханштай гүйлгээ</string>
     <string name="backup_restore_app_lock_kept">Багцын түгжээ асаалттай хэвээр үлдэнэ – шифрлэгдээгүй нөөц хуулбар үүнийг унтрааж чадахгүй.</string>
     <string name="backup_restore_confirm">Импортлох нь таны одоогийн ажиглах жагсаалт (тэмдэглэл, бүлэгтэй нь), дохио, дуртай зоос, багц болон тохиргоог нөөц хуулбарынхаар солино.</string>
     <plurals name="backup_restore_invalid">

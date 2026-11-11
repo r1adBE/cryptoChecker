@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">ไม่มีการเชื่อมต่อ · ข้อมูลเมื่อ %1$s</string>
     <string name="watchlist_pull_to_refresh">ดึงลงเพื่อรีเฟรช</string>
     <string name="watchlist_refresh_report">รีเฟรชล่าสุด</string>
+    <string name="watchlist_symbols_legend">คำอธิบายสัญลักษณ์</string>
+    <string name="watchlist_symbols_legend_alarms">สัญญาณเตือนที่เปิดอยู่และจำนวน</string>
     <string name="watchlist_refresh_report_empty">ยังไม่มีรายละเอียด: ยังไม่เคยรีเฟรชครบ แตะรีเฟรชแล้วรอจนไอคอนหมุนหยุด</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">เก่าแล้ว %1$d จาก %2$d</item>

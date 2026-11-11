@@ -63,6 +63,9 @@ class DatabaseFreshInstallTest {
             // Index für die Suche nach Doppelten (CSV-Import) und Tabelle der beobachteten Adressen
             db.query("SELECT name FROM sqlite_master WHERE type = 'index' AND name = 'index_portfolio_tx_importKey'")
                 .use { c -> assertTrue(c.moveToFirst()) }
+            // Index für «Import rückgängig» (Abfragen und Löschen je Import-Lauf)
+            db.query("SELECT name FROM sqlite_master WHERE type = 'index' AND name = 'index_portfolio_tx_importBatch'")
+                .use { c -> assertTrue(c.moveToFirst()) }
             assertEquals(0, count(db, "watched_addresses"))
             db.query("SELECT observations FROM watched_addresses").use { c -> assertEquals(1, c.columnCount) }
             // Umbuchung mit Gebühr-Coin und Herkunft über Room

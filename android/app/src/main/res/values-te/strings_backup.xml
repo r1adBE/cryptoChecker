@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">తప్పు పాస్‌వర్డ్, లేదా ఫైల్ పాడైంది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="backup_protect">పాస్‌వర్డ్‌తో రక్షించండి</string>
     <string name="backup_protect_hint">ఫైల్‌ను ఎన్‌క్రిప్ట్ చేస్తుంది (AES-256). పోర్ట్‌ఫోలియో డేటా ఉంటే సిఫార్సు చేయబడింది.</string>
+    <string name="backup_protect_required">ఎల్లప్పుడూ ఆన్: ఫైల్‌లో పోర్ట్‌ఫోలియో డేటా ఉంది.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">పాస్‌వర్డ్ లేకుండా సేవ్ చేయండి</string>
     <string name="backup_plain_confirm_text">ఫైల్ ఎన్‌క్రిప్ట్ చేయబడలేదు. దాన్ని పొందిన ఎవరైనా చదవగలరు:</string>
     <string name="backup_plain_confirm_title">పాస్‌వర్డ్ లేకుండా సేవ్ చేయాలా?</string>
-    <string name="backup_plain_contents_addresses">బ్యాలెన్స్ చరిత్ర, కొనుగోలు వ్యయంతో సేవ్ చేసిన వాలెట్ అడ్రస్‌లు, xpub కీలు</string>
     <string name="backup_plain_contents_base">గమనికలు, గ్రూప్‌లతో వాచ్‌లిస్ట్, అలర్ట్‌లు, ఇష్టమైనవి, సెట్టింగ్‌లు</string>
-    <string name="backup_plain_contents_portfolio">పోర్ట్‌ఫోలియో: మొత్తాలు, ధరలతో లావాదేవీలు</string>
     <string name="backup_restore_app_lock_kept">పోర్ట్‌ఫోలియో లాక్ ఆన్‌లోనే ఉంటుంది – ఎన్‌క్రిప్ట్ చేయని బ్యాకప్ దాన్ని ఆఫ్ చేయలేదు.</string>
     <string name="backup_restore_confirm">ఇంపోర్ట్ చేయడం మీ ప్రస్తుత వాచ్‌లిస్ట్ (గమనికలు, గ్రూప్‌లతో), అలర్ట్‌లు, ఇష్టమైనవి, పోర్ట్‌ఫోలియో, సెట్టింగ్‌లను బ్యాకప్‌తో భర్తీ చేస్తుంది.</string>
     <plurals name="backup_restore_invalid">

@@ -9,6 +9,7 @@
     <string name="action_delete">ይሰርዙ</string>
     <string name="action_edit">ያርትዑ</string>
     <string name="action_more">ተጨማሪ አማራጮች</string>
+    <string name="action_learn_more">ተጨማሪ ይወቁ</string>
     <string name="action_refresh">ያድሱ</string>
     <string name="action_retry">እንደገና ይሞክሩ</string>
     <string name="action_save">ያስቀምጡ</string>

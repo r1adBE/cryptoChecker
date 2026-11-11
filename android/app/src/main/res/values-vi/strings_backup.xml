@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Sai mật khẩu hoặc tệp bị hỏng. Hãy thử lại.</string>
     <string name="backup_protect">Bảo vệ bằng mật khẩu</string>
     <string name="backup_protect_hint">Mã hóa tệp (AES-256). Nên dùng khi tệp chứa dữ liệu danh mục.</string>
+    <string name="backup_protect_required">Luôn bật: tệp chứa dữ liệu danh mục.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Lưu không mật khẩu</string>
     <string name="backup_plain_confirm_text">Tệp không được mã hóa. Bất kỳ ai có tệp đều đọc được:</string>
     <string name="backup_plain_confirm_title">Lưu không mật khẩu?</string>
-    <string name="backup_plain_contents_addresses">Địa chỉ ví và khóa xpub đã lưu, kèm lịch sử số dư và giá vốn</string>
     <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt</string>
-    <string name="backup_plain_contents_portfolio">Danh mục: giao dịch kèm số lượng và giá</string>
     <string name="backup_restore_app_lock_kept">Khóa danh mục vẫn bật – bản sao lưu không mã hóa không thể tắt nó.</string>
     <string name="backup_restore_confirm">Nhập sẽ thay danh sách (kèm ghi chú và nhóm), cảnh báo, yêu thích, danh mục và cài đặt bằng bản sao lưu.</string>
     <plurals name="backup_restore_invalid">

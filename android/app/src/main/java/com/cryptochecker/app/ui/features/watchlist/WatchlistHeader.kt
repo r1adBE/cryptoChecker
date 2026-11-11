@@ -273,6 +273,7 @@ private fun WatchlistMenu(
     onClearAll: () -> Unit,
 ) {
     var menuOpen by remember { mutableStateOf(false) }
+    var legendOpen by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     // Eben erst aktualisiert: «Aktualisieren (5)», «(4)» … und dann von selbst wieder aktiv, auch bei
     // offenem Menü. Nur solange es offen ist, einmal je Sekunde (genau auf der Sekundengrenze).
     // Läuft eine, zeigt der Eintrag den Kreisel statt einer Zahl. Keine Ansage je Sekunde: Der
@@ -337,6 +338,11 @@ private fun WatchlistMenu(
                 leadingIcon = { Icon(painterResource(R.drawable.ic_info), null) },
                 onClick = { menuOpen = false; onShowReport() }
             )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.watchlist_symbols_legend)) },
+                leadingIcon = { Icon(painterResource(R.drawable.ic_notifications), null) },
+                onClick = { menuOpen = false; legendOpen = true }
+            )
             if (canClear) {
                 HorizontalDivider()
                 // Nur wenn es nicht gehandelte Paare gibt; direkt vor «Merkliste leeren»
@@ -366,6 +372,7 @@ private fun WatchlistMenu(
                 )
             }
         }
+        if (legendOpen) WatchlistSymbolLegendSheet(onDismiss = { legendOpen = false })
     }
 }
 

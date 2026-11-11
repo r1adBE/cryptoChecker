@@ -225,11 +225,22 @@ final class ScreenshotTourTests: XCTestCase {
 
     // MARK: Bildschirmfoto
 
-    /// Ganzer Bildschirm als Anhang `name_mode`, auch bei Erfolg behalten (sonst löscht Xcode ihn).
+    /// Ganzer Bildschirm als Anhang `name_mode`, auch bei Erfolg behalten (sonst löscht Xcode ihn). Nur mit der App
+    /// vorne und ohne Fenster des Systems darüber (`systemCover`, vor und nach dem Foto geprüft) — sonst fehlt das
+    /// Bild (mit Grund) und die Tour schlägt am Ende fehl.
     @MainActor
     private func shot(_ name: String) {
         settle(1.5)
-        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        if let cover = systemCover() {
+            missing.append("\(name) (covered: \(cover))")
+            return
+        }
+        let screenshot = XCUIScreen.main.screenshot()
+        if let cover = systemCover() {
+            missing.append("\(name) (covered: \(cover))")
+            return
+        }
+        let attachment = XCTAttachment(screenshot: screenshot)
         attachment.name = "\(name)_\(mode)"
         attachment.lifetime = .keepAlways
         add(attachment)

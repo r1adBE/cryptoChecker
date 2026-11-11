@@ -5,11 +5,12 @@ import SwiftUI
  * Passwörter nur im `@State` des Blatts, nie in einer Meldung.
  */
 
-/// Vor dem Sichern: «Mit Passwort schützen» (vorgewählt, wenn Portfolio-Daten dabei sind),
+/// Vor dem Sichern: «Mit Passwort schützen» (mit Portfolio-Daten fest an und gesperrt, mit einer Zeile Begründung —
+/// `PortfolioLockPolicy.backupExportRequiresPassword`),
 /// Passwort und Wiederholung (mindestens `BackupCrypto.minPasswordLength` Zeichen). Ein leicht zu
 /// erratendes Passwort (`BackupPasswordStrength`) zeigt einen Fehler statt des Mindestlängen-Hinweises und sperrt.
-/// Ohne Schutz folgt ein ausdrücklicher Bestätigungsschritt mit dem Inhalt der Datei (`hasPortfolioData`:
-/// Portfolio und Adressen) — wie `BackupPlainConfirmDialog` (Android).
+/// Ohne Schutz (nur ohne Portfolio-Daten möglich) folgt ein ausdrücklicher Bestätigungsschritt mit dem Inhalt der
+/// Datei — wie `BackupPlainConfirmDialog` (Android).
 /// `onConfirm` erhält das Passwort oder nil (ohne Schutz).
 struct BackupExportSheet: View {
     let onConfirm: (String?) -> Void
@@ -17,7 +18,7 @@ struct BackupExportSheet: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
-    @State private var protect: Bool
+    @State private var chosen: Bool
     @State private var password = ""
     @State private var repeated = ""
     @State private var visible = false
@@ -27,17 +28,16 @@ struct BackupExportSheet: View {
     init(defaultProtect: Bool, hasPortfolioData: Bool? = nil, onConfirm: @escaping (String?) -> Void) {
         self.onConfirm = onConfirm
         self.hasPortfolioData = hasPortfolioData ?? defaultProtect
-        _protect = State(initialValue: defaultProtect)
+        _chosen = State(initialValue: defaultProtect)
     }
 
-    /// Inhalt der unverschlüsselten Datei als Aufzählung (immer Merkliste usw., dazu Portfolio und Adressen).
+    /// Passwort Pflicht (Portfolio-Daten dabei): Schalter fest an und gesperrt.
+    private var required: Bool { PortfolioLockPolicy.backupExportRequiresPassword(hasPortfolioData: hasPortfolioData) }
+    private var protect: Bool { chosen || required }
+
+    /// Inhalt der unverschlüsselten Datei als Aufzählung (Merkliste usw. — mit Portfolio-Daten gibt es den Weg nicht).
     private var plainMessage: String {
-        var lines: [String] = [L("backup_plain_confirm_text"), "• " + L("backup_plain_contents_base")]
-        if hasPortfolioData {
-            lines.append("• " + L("backup_plain_contents_portfolio"))
-            lines.append("• " + L("backup_plain_contents_addresses"))
-        }
-        return lines.joined(separator: "\n")
+        [L("backup_plain_confirm_text"), "• " + L("backup_plain_contents_base")].joined(separator: "\n")
     }
 
     private var canExport: Bool {
@@ -48,11 +48,11 @@ struct BackupExportSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    SwitchRow(
-                        title: L("backup_protect"),
-                        subtitle: L("backup_protect_hint"),
-                        isOn: $protect
-                    )
+                    // Gesperrt nur den Schalter abblenden: Die Beschriftung nennt den Grund (wie Android)
+                    SwitchRow(isOn: Binding(get: { protect }, set: { chosen = $0 }), enabled: !required, dimsLabel: false) {
+                        SwitchRowText(title: L("backup_protect"),
+                                      subtitle: L(required ? "backup_protect_required" : "backup_protect_hint"))
+                    }
                     if protect {
                         let tooShort = !password.isEmpty && !BackupCrypto.isPasswordLongEnough(password)
                         let weak = BackupPasswordStrength.showWeakHint(password)

@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">No connection · as of %1$s</string>
     <string name="watchlist_pull_to_refresh">Pull down to refresh</string>
     <string name="watchlist_refresh_report">Last refresh</string>
+    <string name="watchlist_symbols_legend">Symbols explained</string>
+    <string name="watchlist_symbols_legend_alarms">Active alerts, with their number</string>
     <string name="watchlist_refresh_report_empty">No breakdown yet – no full refresh so far. Tap refresh and wait until the circle stops.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d of %2$d outdated</item>

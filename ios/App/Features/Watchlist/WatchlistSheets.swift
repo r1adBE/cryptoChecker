@@ -49,6 +49,12 @@ extension WatchlistScreen {
                 Button(L("group_next")) { startNewGroup() }
                 Button(L("action_cancel"), role: .cancel) {}
             }
+            .sheet(isPresented: $showSymbolLegend) {
+                WatchlistSymbolLegendSheet()
+                    .environment(\.appAccent, accent)
+                    .presentationDetents([.medium, .large])
+                    .presentationDragIndicator(.visible)
+            }
             .sheet(isPresented: $showReport) {
                 // Offen während einer Aktualisierung: neuer Bericht und Live-Börsen erscheinen (eigene Beobachtung)
                 RefreshStateReader(state: data.refreshState) { state in

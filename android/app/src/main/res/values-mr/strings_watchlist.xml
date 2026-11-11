@@ -11,6 +11,8 @@
     <string name="watchlist_offline_since">कनेक्शन नाही · %1$s नुसार</string>
     <string name="watchlist_pull_to_refresh">रिफ्रेश करण्यासाठी खाली ओढा</string>
     <string name="watchlist_refresh_report">शेवटचे रिफ्रेश</string>
+    <string name="watchlist_symbols_legend">चिन्हांचे स्पष्टीकरण</string>
+    <string name="watchlist_symbols_legend_alarms">सक्रिय अलर्ट आणि त्यांची संख्या</string>
     <string name="watchlist_refresh_report_empty">अजून तपशील नाही – आतापर्यंत पूर्ण रिफ्रेश झालेले नाही. रिफ्रेशवर टॅप करा आणि वर्तुळ थांबेपर्यंत थांबा.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d पैकी %1$d जुने</item>

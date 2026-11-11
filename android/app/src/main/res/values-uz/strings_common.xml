@@ -9,6 +9,7 @@
     <string name="action_delete">Oʻchirish</string>
     <string name="action_edit">Tahrirlash</string>
     <string name="action_more">Boshqa amallar</string>
+    <string name="action_learn_more">Batafsil</string>
     <string name="action_refresh">Yangilash</string>
     <string name="action_retry">Qayta urinish</string>
     <string name="action_save">Saqlash</string>

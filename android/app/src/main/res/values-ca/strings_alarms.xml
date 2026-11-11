@@ -21,6 +21,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Avançat</string>
     <string name="alarm_change_updates">Ajusta les actualitzacions de preu</string>
+    <string name="alarm_closed_app_short">Amb l’app tancada, les alarmes poden arribar tard.</string>
     <string name="alarm_check_mode_15min">Aproximadament cada 15 minuts</string>
     <string name="alarm_check_mode_saving">Estalvi</string>
     <string name="alarm_check_mode_title">Amb quina freqüència es comprova quan el dispositiu està inactiu?</string>

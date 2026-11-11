@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">密码错误，或文件已损坏。请重试。</string>
     <string name="backup_protect">使用密码保护</string>
     <string name="backup_protect_hint">加密文件（AES-256）。包含投资组合数据时建议开启。</string>
+    <string name="backup_protect_required">始终开启：文件包含投资组合数据。</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">不设密码保存</string>
     <string name="backup_plain_confirm_text">该文件未加密。获得它的任何人都能读取：</string>
     <string name="backup_plain_confirm_title">不设密码保存？</string>
-    <string name="backup_plain_contents_addresses">已保存的钱包地址和 xpub 密钥，含余额历史和成本</string>
     <string name="backup_plain_contents_base">带备注和分组的自选列表、提醒、收藏和设置</string>
-    <string name="backup_plain_contents_portfolio">投资组合：含数量和价格的交易</string>
     <string name="backup_restore_app_lock_kept">投资组合锁保持开启——未加密的备份无法关闭它。</string>
     <string name="backup_restore_confirm">导入会用备份替换当前的列表（含备注和分组）、提醒、收藏、投资组合和设置。</string>
     <plurals name="backup_restore_invalid">

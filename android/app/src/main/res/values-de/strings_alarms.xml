@@ -20,6 +20,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">Erweitert</string>
     <string name="alarm_change_updates">Kurs-Aktualisierung ändern</string>
+    <string name="alarm_closed_app_short">Bei geschlossener App können Alarme verspätet kommen.</string>
     <string name="alarm_check_mode_15min">Etwa alle 15 Minuten</string>
     <string name="alarm_check_mode_saving">Sparsam</string>
     <string name="alarm_check_mode_title">Wie oft prüfen, wenn das Gerät ruht?</string>

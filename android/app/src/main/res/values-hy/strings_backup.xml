@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Սխալ գաղտնաբառ, կամ ֆայլը վնասված է։ Խնդրում ենք կրկին փորձել։</string>
     <string name="backup_protect">Պաշտպանել գաղտնաբառով</string>
     <string name="backup_protect_hint">Գաղտնագրում է ֆայլը (AES-256)։ Խորհուրդ է տրվում, եթե այն պարունակում է պորտֆելի տվյալներ։</string>
+    <string name="backup_protect_required">Միշտ միացված է․ ֆայլը պարունակում է պորտֆելի տվյալներ։</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Պահպանել առանց գաղտնաբառի</string>
     <string name="backup_plain_confirm_text">Ֆայլը գաղտնագրված չէ։ Ով որ այն ստանա, կկարողանա կարդալ՝</string>
     <string name="backup_plain_confirm_title">Պահպանե՞լ առանց գաղտնաբառի</string>
-    <string name="backup_plain_contents_addresses">Պահպանված դրամապանակի հասցեներ և xpub բանալիներ՝ մնացորդի պատմությամբ և ձեռքբերման արժեքով</string>
     <string name="backup_plain_contents_base">Դիտացանկ՝ նշումներով և խմբերով, ահազանգեր, ընտրյալներ և կարգավորումներ</string>
-    <string name="backup_plain_contents_portfolio">Պորտֆել՝ գործարքներ գումարներով և գներով</string>
     <string name="backup_restore_app_lock_kept">Պորտֆելի կողպեքը մնում է միացված – չգաղտնագրված պահուստային պատճենը չի կարող այն անջատել։</string>
     <string name="backup_restore_confirm">Ներմուծումը փոխարինում է քո ընթացիկ դիտացանկը (նշումներով և խմբերով), ահազանգերը, ընտրյալները, պորտֆելը և կարգավորումները պահուստային պատճենով։</string>
     <plurals name="backup_restore_invalid">

@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">Vale parool või fail on rikutud. Proovi uuesti.</string>
     <string name="backup_protect">Kaitse parooliga</string>
     <string name="backup_protect_hint">Krüpteerib faili (AES-256). Soovitatav, kui see sisaldab portfelli andmeid.</string>
+    <string name="backup_protect_required">Alati sees: fail sisaldab portfelli andmeid.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">Salvesta ilma paroolita</string>
     <string name="backup_plain_confirm_text">Fail pole krüpteeritud. Igaüks, kes selle saab, võib lugeda:</string>
     <string name="backup_plain_confirm_title">Kas salvestada ilma paroolita?</string>
-    <string name="backup_plain_contents_addresses">Salvestatud rahakottide aadressid ja xpub-võtmed koos saldoajaloo ja soetusmaksumusega</string>
     <string name="backup_plain_contents_base">Jälgimisloend koos märkuste ja rühmadega, hoiatused, lemmikud ja seaded</string>
-    <string name="backup_plain_contents_portfolio">Portfell: tehingud koguste ja hindadega</string>
     <string name="backup_restore_app_lock_kept">Portfelli lukk jääb sisse – krüpteerimata varukoopia ei saa seda välja lülitada.</string>
     <string name="backup_restore_confirm">Importimisel asendatakse sinu praegune jälgimisloend (koos märkuste ja rühmadega), hoiatused, lemmikud, portfell ja seaded varukoopiaga.</string>
     <plurals name="backup_restore_invalid">

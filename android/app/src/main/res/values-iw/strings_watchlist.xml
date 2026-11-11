@@ -12,6 +12,8 @@
     <string name="watchlist_offline_since">אין חיבור · עדכון אחרון %1$s</string>
     <string name="watchlist_pull_to_refresh">משכו למטה לרענון</string>
     <string name="watchlist_refresh_report">רענון אחרון</string>
+    <string name="watchlist_symbols_legend">הסבר הסמלים</string>
+    <string name="watchlist_symbols_legend_alarms">התראות פעילות ומספרן</string>
     <string name="watchlist_refresh_report_empty">אין עדיין פירוט: טרם בוצע רענון מלא. הקישו על רענון והמתינו עד שסמל הטעינה ייעצר.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d מתוך %2$d לא עדכני</item>

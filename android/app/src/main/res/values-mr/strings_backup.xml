@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">चुकीचा पासवर्ड, किंवा फाइल खराब झाली आहे. कृपया पुन्हा प्रयत्न करा.</string>
     <string name="backup_protect">पासवर्डने संरक्षित करा</string>
     <string name="backup_protect_hint">फाइल एन्क्रिप्ट करते (AES-256). त्यात पोर्टफोलिओ डेटा असल्यास शिफारस केलेले.</string>
+    <string name="backup_protect_required">नेहमी सुरू: फाइलमध्ये पोर्टफोलिओ डेटा आहे.</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">पासवर्डशिवाय सेव्ह करा</string>
     <string name="backup_plain_confirm_text">फाइल एन्क्रिप्टेड नाही. ती ज्याला मिळेल तो वाचू शकतो:</string>
     <string name="backup_plain_confirm_title">पासवर्डशिवाय सेव्ह करायचे?</string>
-    <string name="backup_plain_contents_addresses">शिल्लक इतिहास आणि मूळ किंमतीसह सेव्ह केलेले वॉलेट पत्ते आणि xpub की</string>
     <string name="backup_plain_contents_base">टिपा आणि गटांसह वॉचलिस्ट, अलर्ट, आवडते आणि सेटिंग्ज</string>
-    <string name="backup_plain_contents_portfolio">पोर्टफोलिओ: रक्कम आणि किमतींसह व्यवहार</string>
     <string name="backup_restore_app_lock_kept">पोर्टफोलिओ लॉक चालू राहतो – एन्क्रिप्ट न केलेला बॅकअप तो बंद करू शकत नाही.</string>
     <string name="backup_restore_confirm">इम्पोर्ट केल्याने तुमची सध्याची वॉचलिस्ट (टिपा आणि गटांसह), अलर्ट, आवडते, पोर्टफोलिओ आणि सेटिंग्ज बॅकअपने बदलल्या जातात.</string>
     <plurals name="backup_restore_invalid">

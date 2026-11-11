@@ -28,14 +28,13 @@
     <string name="backup_password_wrong">密碼錯誤，或者檔案已損壞。請再試一次。</string>
     <string name="backup_protect">用密碼保護</string>
     <string name="backup_protect_hint">將檔案加密（AES-256）。有投資組合資料時建議使用。</string>
+    <string name="backup_protect_required">一定開啟：檔案有投資組合資料。</string>
 
     <!-- Sicherung ohne Passwort, Wiederherstellen -->
     <string name="backup_plain_confirm">唔用密碼儲存</string>
     <string name="backup_plain_confirm_text">檔案冇加密。任何人攞到都可以讀到：</string>
     <string name="backup_plain_confirm_title">唔用密碼儲存？</string>
-    <string name="backup_plain_contents_addresses">已儲存嘅錢包地址同 xpub 金鑰，連結餘記錄同成本基礎</string>
     <string name="backup_plain_contents_base">自選清單（連備註同群組）、提示、最愛同設定</string>
-    <string name="backup_plain_contents_portfolio">投資組合：交易連數量同價格</string>
     <string name="backup_restore_app_lock_kept">投資組合鎖會保持開啟 – 未加密嘅備份無法關閉佢。</string>
     <string name="backup_restore_confirm">匯入會用備份取代你目前嘅自選清單（連備註同群組）、提示、最愛、投資組合同設定。</string>
     <plurals name="backup_restore_invalid">

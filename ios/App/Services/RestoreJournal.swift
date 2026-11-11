@@ -66,6 +66,6 @@ enum RestoreJournal {
 
 
     static func delete(at target: URL = url) {
-        try? FileManager.default.removeItem(at: target)
+        AppLog.remove(target, "Wiederherstellungs-Journal löschen")
     }
 }

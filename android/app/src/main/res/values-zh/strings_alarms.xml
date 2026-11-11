@@ -19,6 +19,7 @@
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">高级</string>
     <string name="alarm_change_updates">更改价格更新</string>
+    <string name="alarm_closed_app_short">应用关闭时，提醒可能延迟。</string>
     <string name="alarm_check_mode_15min">大约每 15 分钟</string>
     <string name="alarm_check_mode_saving">省电</string>
     <string name="alarm_check_mode_title">设备空闲时多久检查一次？</string>

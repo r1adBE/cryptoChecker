@@ -10,6 +10,8 @@
     <string name="watchlist_offline_since">ບໍ່ມີການເຊື່ອມຕໍ່ · ຂໍ້ມູນເມື່ອ %1$s</string>
     <string name="watchlist_pull_to_refresh">ດຶງລົງເພື່ອໂຫຼດຄືນໃໝ່</string>
     <string name="watchlist_refresh_report">ການໂຫຼດຄືນໃໝ່ຫຼ້າສຸດ</string>
+    <string name="watchlist_symbols_legend">ຄຳອະທິບາຍສັນຍາລັກ</string>
+    <string name="watchlist_symbols_legend_alarms">ສັນຍານເຕືອນທີ່ເປີດຢູ່ ແລະ ຈຳນວນ</string>
     <string name="watchlist_refresh_report_empty">ຍັງບໍ່ມີລາຍລະອຽດ – ຍັງບໍ່ມີການໂຫຼດຄືນໃໝ່ທັງໝົດ. ແຕະໂຫຼດຄືນໃໝ່ ແລ້ວລໍຖ້າຈົນກວ່າວົງມົນຈະຢຸດ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d ຈາກ %2$d ບໍ່ເປັນປັດຈຸບັນ</item>

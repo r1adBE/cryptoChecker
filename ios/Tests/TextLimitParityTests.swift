@@ -36,6 +36,16 @@ final class TextLimitParityTests: XCTestCase {
         }
     }
 
+    /// Notiz als eine Zeile für die Merkliste: Umbrüche werden ein Leerzeichen — wie Android.
+    func testEineZeileWieGemeinsameTestfaelle() throws {
+        let lines = S.list(try S.fixture("text_limit")["singleLine"])
+        XCTAssertGreaterThanOrEqual(lines.count, 8)
+        for c in lines {
+            let name = c["description"] as? String ?? "?"
+            XCTAssertEqual(TextLimit.singleLine(try XCTUnwrap(c["text"] as? String, name)), c["expected"] as? String, name)
+        }
+    }
+
     /// Gespeicherte Notiz (`Watch.validNote`) kürzt mit derselben Grenze wie Android `WatchRepository.setNote`.
     func testValidNoteKuerztAufSichtbareZeichen() {
         let family = "👨‍👩‍👧‍👦"

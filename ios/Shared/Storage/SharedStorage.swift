@@ -37,7 +37,9 @@ enum SharedStorage {
         }
         reportMissingAppGroup()
         let url = fallbackDirectory
-        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+        AppLog.attempt("Ersatzordner anlegen") {
+            try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+        }
         return url
     }
 

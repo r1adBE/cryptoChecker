@@ -9,6 +9,7 @@
     <string name="action_delete">Διαγραφή</string>
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_more">Περισσότερες επιλογές</string>
+    <string name="action_learn_more">Μάθε περισσότερα</string>
     <string name="action_refresh">Ανανέωση</string>
     <string name="action_retry">Επανάληψη</string>
     <string name="action_save">Αποθήκευση</string>

@@ -9,6 +9,7 @@
     <string name="action_delete">ลบ</string>
     <string name="action_edit">แก้ไข</string>
     <string name="action_more">ตัวเลือกเพิ่มเติม</string>
+    <string name="action_learn_more">ดูเพิ่มเติม</string>
     <string name="action_refresh">รีเฟรช</string>
     <string name="action_retry">ลองใหม่</string>
     <string name="action_save">บันทึก</string>
