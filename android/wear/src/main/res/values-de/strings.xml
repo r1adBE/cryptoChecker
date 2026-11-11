@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Coins: höchstens %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 Stunden</string>
-    <string name="watch_mode_phone">Liste: wie Handy</string>
-    <string name="watch_mode_own">Liste: eigene</string>
+    <string name="watch_list_from_phone">Liste vom Handy</string>
     <string name="watch_phone_empty">Keine Favoriten auf dem Handy</string>
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s heute</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">kein Kurs, die Uhr kann dieses Paar nicht abrufen</string>
     <string name="a11y_watch_no_price_via_phone">kein Kurs, Kurse von %1$s erhält die Uhr nur vom Handy</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">kein Kurs, Börsen gerade nicht erreichbar</string>
+    <string name="watch_no_price_phone">nur vom Handy</string>
+    <string name="watch_no_price_unreachable">nicht erreichbar</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">zuletzt aktualisiert vor %1$d Minute</item>
         <item quantity="other">zuletzt aktualisiert vor %1$d Minuten</item>

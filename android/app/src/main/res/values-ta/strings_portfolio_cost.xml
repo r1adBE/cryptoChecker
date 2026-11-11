@@ -24,6 +24,7 @@
     <string name="address_lots_add">லாட்டைச் சேர்க்கவும்</string>
     <string name="address_lots_new">புதிய லாட்</string>
     <string name="address_lots_edit">லாட்</string>
+    <string name="address_lots_delete_title">லாட்டை நீக்கவா?</string>
     <string name="address_lots_date">வாங்கிய தேதி</string>
     <string name="address_lots_amount">அளவு</string>
     <string name="address_lots_mode_total">மொத்தம்</string>

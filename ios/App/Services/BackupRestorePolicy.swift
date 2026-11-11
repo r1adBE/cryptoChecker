@@ -7,6 +7,10 @@ import Foundation
 /// auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein (`systemBackup`),
 /// «Beträge verbergen» nie aus (`hideAmounts`), eigener Bitcoin-Server nie gesetzt, ersetzt oder gelöscht
 /// (`AddressServer.restored`, Hinweis `addressServerNote`).
+///
+/// Eine Sicherung mit Passwort darf das alles — ein Passwort beweist aber keine Herkunft (jeder kann eine Datei samt
+/// Passwort weitergeben). Darum nie still: Schaltet sie Schutz ab, nennt die Meldung jeden Fall (`loweredProtection`,
+/// neu gesetzter Server mit Hostnamen: `AddressServerNote.SET`, `addressServerSetHost`).
 enum BackupRestorePolicy {
     /// Was mit «appLock» aus der Sicherung geschieht: `apply` = neuer Wert (nil = unverändert lassen);
     /// `keptOn` = die Sicherung wollte die Sperre ausschalten, sie bleibt aber an (Hinweis in der Meldung).
@@ -45,16 +49,43 @@ enum BackupRestorePolicy {
         case PUBLIC
         /// Sicherung mit Passwort mit anderem Server: der bisherige ist ersetzt.
         case CHANGED
+        /// Sicherung mit Passwort setzt einen Server, wo keiner war: Bitcoin-Adressen gehen ab jetzt nur dorthin.
+        case SET
     }
 
     /// Hinweis zum eigenen Bitcoin-Server (`AddressServer.restored`, gleiche Fälle in address_server.json «restore»):
-    /// nil = nichts zu sagen (Wert gleich, ungültig oder neu gesetzt, wo keiner war).
+    /// nil = nichts zu sagen (Wert gleich oder ungültig).
     static func addressServerNote(value: String?, current: String?, trusted: Bool) -> AddressServerNote? {
         let wanted = AddressServer.restored(value: value, current: current, trusted: true)
         if wanted == current { return nil }
         if !trusted { return .KEPT }
-        if current == nil { return nil }
+        if current == nil { return .SET }
         return wanted == nil ? .PUBLIC : .CHANGED
+    }
+
+    /// Hostname des neu gesetzten Servers für die Meldung (`AddressServerNote.SET`, «knoten.example» ohne Port und Pfad);
+    /// nil in jedem anderen Fall.
+    static func addressServerSetHost(value: String?, current: String?, trusted: Bool) -> String? {
+        guard addressServerNote(value: value, current: current, trusted: trusted) == .SET else { return nil }
+        return AddressServer.restored(value: value, current: current, trusted: trusted).map { AddressServer.host($0) }
+    }
+
+    /// Schutz, den die Sicherung abgeschaltet hat: `systemBackupOn` = «Portfolio in Systemsicherung» war aus und ist jetzt
+    /// an, `amountsShown` = «Beträge verbergen» war an und ist jetzt aus. Beides nennt die Meldung nach dem Wiederherstellen.
+    struct LoweredProtection: Equatable, Sendable {
+        var systemBackupOn = false
+        var amountsShown = false
+        var any: Bool { systemBackupOn || amountsShown }
+    }
+
+    /// Was die Sicherung an Schutz abschaltet (`systemBackup`, `hideAmounts`) — ohne Passwort (`trusted` false) nie etwas.
+    static func loweredProtection(wantedSystemBackup: Bool, currentSystemBackup: Bool, wantedHideAmounts: Bool,
+                                  currentHideAmounts: Bool, trusted: Bool) -> LoweredProtection {
+        LoweredProtection(
+            systemBackupOn: !currentSystemBackup
+                && systemBackup(wanted: wantedSystemBackup, current: currentSystemBackup, trusted: trusted) == true,
+            amountsShown: currentHideAmounts
+                && hideAmounts(wanted: wantedHideAmounts, current: currentHideAmounts, trusted: trusted) == false)
     }
 
     /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).

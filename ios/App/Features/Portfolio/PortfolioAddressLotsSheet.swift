@@ -106,7 +106,8 @@ extension AddressCostLot: Identifiable {}
 
 /// Dialog eines Postens — wie `AddressLotEditor` (Android): Coin (nur wenn die Adresse mehrere hält), Kaufdatum (bis
 /// heute), Menge und Einstand gesamt oder je Coin (USDT, gespeichert wie eingegeben). Vorschlag: Menge × geprüfter
-/// Tagesschluss des Kaufdatums mit «Übernehmen», änderbar.
+/// Tagesschluss des Kaufdatums mit «Übernehmen», änderbar. «Löschen» fragt erst nach («Posten löschen?», wie bei einer
+/// Transaktion `portfolioTxDeleteConfirmation`).
 @MainActor
 struct PortfolioAddressLotEditor: View {
     @Environment(\.dismiss) private var dismiss
@@ -124,6 +125,7 @@ struct PortfolioAddressLotEditor: View {
     @State private var close: Decimal?
     @State private var tried = false
     @State private var loaded = false
+    @State private var askDelete = false
 
     /// Dezimalzeichen, mit dem die Texte vorbelegt und gelesen werden: einmal beim Öffnen festgehalten (`@State` übersteht
     /// das Neu-Erzeugen der Ansicht) statt bei jedem Zeichnen neu gelesen — ändert sich die Region bei offenem Blatt,
@@ -166,14 +168,18 @@ struct PortfolioAddressLotEditor: View {
                     Text(L("address_lots_invalid")).font(.subheadline).foregroundStyle(AppColors.error)
                 }
                 if !isNew {
-                    Button(L("action_delete"), role: .destructive) {
-                        onDelete()
-                        dismiss()
-                    }
+                    Button(L("action_delete"), role: .destructive) { askDelete = true }
                 }
             }
             .navigationTitle(L(isNew ? "address_lots_new" : "address_lots_edit"))
             .navigationBarTitleDisplayMode(.inline)
+            .alert(L("address_lots_delete_title"), isPresented: $askDelete) {
+                Button(L("action_delete"), role: .destructive) {
+                    onDelete()
+                    dismiss()
+                }
+                Button(L("action_cancel"), role: .cancel) {}
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button(L("action_cancel")) { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {

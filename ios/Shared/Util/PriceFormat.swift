@@ -3,31 +3,37 @@ import Foundation
 /// Zahlen- und Zeitformate — gleich wie `PriceFormat.kt` / `DisplayFormat.kt`.
 enum PriceFormat {
 
-    private static func formatter(_ configure: (NumberFormatter) -> Void) -> NumberFormatter {
+    private static func formatter(_ locale: Locale = .current, _ configure: (NumberFormatter) -> Void) -> NumberFormatter {
         let f = NumberFormatter()
         f.numberStyle = .decimal
-        f.locale = Locale.current
+        f.locale = locale
         f.usesGroupingSeparator = true
         configure(f)
         return f
     }
 
     /// "@###": höchstens vier signifikante Stellen.
-    private static let fourSignificant = formatter {
-        $0.usesSignificantDigits = true
-        $0.minimumSignificantDigits = 1
-        $0.maximumSignificantDigits = 4
+    private static func fourSignificant(_ f: NumberFormatter) {
+        f.usesSignificantDigits = true
+        f.minimumSignificantDigits = 1
+        f.maximumSignificantDigits = 4
     }
 
     /// "#,###.00"
-    private static let twoDecimals = formatter {
-        $0.minimumFractionDigits = 2
-        $0.maximumFractionDigits = 2
+    private static func twoDecimals(_ f: NumberFormatter) {
+        f.minimumFractionDigits = 2
+        f.maximumFractionDigits = 2
     }
 
-    static func formatDouble(_ value: Double) -> String {
+    private static let fourSignificantDevice = formatter(.current, fourSignificant)
+    private static let twoDecimalsDevice = formatter(.current, twoDecimals)
+
+    /// - Parameter locale: nil = Region des Geräts (Formate einmal angelegt); sonst diese (Fälle `price_format.json`).
+    static func formatDouble(_ value: Double, locale: Locale? = nil) -> String {
         // Ab 10 immer zwei Nachkommastellen («83'142.00»), auch bei grossen Kursen — wie Android
-        let f: NumberFormatter = value < 10 ? fourSignificant : twoDecimals
+        let small = value < 10
+        let f = locale.map { formatter($0, small ? fourSignificant : twoDecimals) }
+            ?? (small ? fourSignificantDevice : twoDecimalsDevice)
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
@@ -84,7 +90,7 @@ enum PriceFormat {
 
     /// Wert eines Bestands mit Währung, immer zwei Nachkommastellen.
     static func valueWithCurrency(_ value: Double, _ quote: String) -> String {
-        "\(twoDecimals.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)) \(quote)"
+        "\(twoDecimalsDevice.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)) \(quote)"
     }
 
     /// Menge oder Kurs für ein Eingabefeld: ohne Exponent und Tausendertrennung, mit dem

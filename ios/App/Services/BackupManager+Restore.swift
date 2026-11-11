@@ -12,6 +12,8 @@ extension BackupManager {
         let newSettings: AppSettings
         let lock: BackupRestorePolicy.AppLockDecision
         let serverNote: BackupRestorePolicy.AddressServerNote?
+        let serverHost: String?
+        let lowered: BackupRestorePolicy.LoweredProtection
         let portfolio: [PortfolioTx]
         let portfolioAlarms: [PortfolioAlarm]
         let watched: [WatchedAddressBackupEntry]
@@ -53,10 +55,18 @@ extension BackupManager {
                                                current: data.settings.appLock, encrypted: encrypted,
                                                canAuthenticate: AppLock.canAuthenticate())
         if let v = lock.apply { newSettings.appLock = v }
-        // Eigener Bitcoin-Server: Hinweis in der Meldung (nicht übernommen, entfernt oder ersetzt)
+        // Eigener Bitcoin-Server: Hinweis in der Meldung (nicht übernommen, entfernt, ersetzt oder neu gesetzt — mit Hostnamen)
+        let serverValue = settingsJson["addressServerBtc"] as? String
         let serverNote = BackupRestorePolicy.addressServerNote(
-            value: settingsJson["addressServerBtc"] as? String,
-            current: data.settings.addressServerBtc, trusted: encrypted)
+            value: serverValue, current: data.settings.addressServerBtc, trusted: encrypted)
+        let serverHost = BackupRestorePolicy.addressServerSetHost(
+            value: serverValue, current: data.settings.addressServerBtc, trusted: encrypted)
+        // Mit Passwort abgeschalteter Schutz kommt in die Meldung (nie still, wie Android)
+        let lowered = BackupRestorePolicy.loweredProtection(
+            wantedSystemBackup: try part(settingsJson, "portfolioSystemBackup"),
+            currentSystemBackup: data.settings.portfolioSystemBackup,
+            wantedHideAmounts: try part(settingsJson, "hidePortfolioAmounts"),
+            currentHideAmounts: data.settings.hidePortfolioAmounts, trusted: encrypted)
 
         // Ungültige Einträge nur mit Bestätigung weglassen (nie still)
         let parsedTx = try parsedPortfolio(root)
@@ -66,8 +76,8 @@ extension BackupManager {
         // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
         let watched = try watchedEntries(root)
         return RestoreInput(watchlist: watchlist, favorites: favorites, settingsJson: settingsJson, newSettings: newSettings,
-                            lock: lock, serverNote: serverNote, portfolio: parsedTx.items, portfolioAlarms: parsedPfAlarms.items,
-                            watched: watched)
+                            lock: lock, serverNote: serverNote, serverHost: serverHost, lowered: lowered,
+                            portfolio: parsedTx.items, portfolioAlarms: parsedPfAlarms.items, watched: watched)
     }
 
     /// Bisherigen Stand merken: scheitert ein späterer Schritt (Portfolio, Adressen), wird alles Geschriebene
@@ -106,45 +116,52 @@ extension BackupManager {
         return snapshot
     }
 
-    /// Schreibt die gelesene Sicherung; scheitert ein Schritt, wird alles Geschriebene zurückgesetzt und der Fehler
-    /// weitergereicht.
+    /// Schreibt die gelesene Sicherung; scheitert ein Schritt oder kommt die Merkliste nicht auf die Platte, wird alles
+    /// Geschriebene zurückgesetzt und der Fehler weitergereicht (`RestoreSteps.execute`). Das Journal fällt erst weg,
+    /// wenn der neue (bzw. der zurückgeschriebene) Stand der Merkliste wirklich geschrieben ist.
     @MainActor
     static func writeRestored(_ input: RestoreInput, snapshot: SharedStorage.Snapshot, previous: PreviousState,
                               into data: AppData, journal: Bool) throws {
         // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
         // Nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
         if journal { try requireJournal(try? plainExportData(data), write: { RestoreJournal.write($0) }) }
-        var steps = RestoreSteps()
         do {
-            steps.run({
-                data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)
-                restoreColumnSort(input.settingsJson)
-            }, undo: {
-                data.replaceAll(snapshot: previous.snapshot, settings: previous.settings, favorites: previous.favorites)
-                if let oldColumnSort = previous.columnSort {
-                    UserDefaults.standard.set(oldColumnSort, forKey: ColumnSort.storageKey)
-                } else {
-                    UserDefaults.standard.removeObject(forKey: ColumnSort.storageKey)
-                }
-            })
-            // Portfolio ersetzen
-            // Nicht still: konnte das Portfolio nicht geschrieben werden, meldet das Wiederherstellen einen Fehler
-            try steps.run({
-                guard data.restorePortfolio(input.portfolio) else { throw Failure.invalid("portfolio") }
-            }, undo: { _ = data.rollBackPortfolioFile(previous.portfolio) })
-            // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
-            try steps.run({
-                guard data.replaceWatchedAddresses(input.watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
-            }, undo: { data.rollBackWatchedAddresses(previous.watched, wasIntact: previous.watchedIntact) })
-        } catch {
-            steps.rollBack()
-            if journal { RestoreJournal.delete() }
-            throw error
+            try RestoreSteps.execute({ steps in
+                try runRestoreSteps(&steps, input, snapshot: snapshot, previous: previous, into: data)
+            }, settled: { SharedStorage.flushSnapshotWrites() }, deleteJournal: { if journal { RestoreJournal.delete() } })
+        } catch is RestoreSteps.NotSettled {
+            throw Failure.invalid(watchlistStep)
         }
-        if journal {
-            RestoreJournal.delete()
-            // Gespeicherte Daten liessen sich nicht entsperren (`StorageRecoveryNotice`): mit dieser Sicherung erledigt
-            StorageRecoveryNotice.acknowledge(.setAside)
-        }
+        // Gespeicherte Daten liessen sich nicht entsperren (`StorageRecoveryNotice`): mit dieser Sicherung erledigt
+        if journal { StorageRecoveryNotice.acknowledge(.setAside) }
+    }
+
+    /// Name des Schritts «Merkliste auf die Platte» in `Failure.invalid` (`recoveryOutcome`: Journal behalten).
+    static let watchlistStep = "watchlistWrite"
+
+    /// Die drei Schreibschritte in fester Reihenfolge: Merkliste/Alarme/Einstellungen/Favoriten, Portfolio, Adressen.
+    @MainActor
+    private static func runRestoreSteps(_ steps: inout RestoreSteps, _ input: RestoreInput, snapshot: SharedStorage.Snapshot,
+                                        previous: PreviousState, into data: AppData) throws {
+        steps.run({
+            data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)
+            restoreColumnSort(input.settingsJson)
+        }, undo: {
+            data.replaceAll(snapshot: previous.snapshot, settings: previous.settings, favorites: previous.favorites)
+            if let oldColumnSort = previous.columnSort {
+                UserDefaults.standard.set(oldColumnSort, forKey: ColumnSort.storageKey)
+            } else {
+                UserDefaults.standard.removeObject(forKey: ColumnSort.storageKey)
+            }
+        })
+        // Portfolio ersetzen
+        // Nicht still: konnte das Portfolio nicht geschrieben werden, meldet das Wiederherstellen einen Fehler
+        try steps.run({
+            guard data.restorePortfolio(input.portfolio) else { throw Failure.invalid("portfolio") }
+        }, undo: { _ = data.rollBackPortfolioFile(previous.portfolio) })
+        // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
+        try steps.run({
+            guard data.replaceWatchedAddresses(input.watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
+        }, undo: { data.rollBackWatchedAddresses(previous.watched, wasIntact: previous.watchedIntact) })
     }
 }

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">কয়েন: সর্বোচ্চ %1$d</string>
     <string name="watch_complication_label">দাম</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ঘণ্টায় %3$s</string>
-    <string name="watch_mode_phone">তালিকা: ফোনের মতো</string>
-    <string name="watch_mode_own">তালিকা: নিজস্ব</string>
+    <string name="watch_list_from_phone">ফোনের তালিকা</string>
     <string name="watch_phone_empty">ফোনে কোনো প্রিয় নেই</string>
     <string name="watch_portfolio">পোর্টফোলিও</string>
     <string name="watch_portfolio_today">আজ %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">দাম নেই, ঘড়ি এই জোড়াটি লোড করতে পারে না</string>
     <string name="a11y_watch_no_price_via_phone">দাম নেই, ঘড়ি %1$s-এর দাম শুধু ফোন থেকে পায়</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">দাম নেই, এই মুহূর্তে এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</string>
+    <string name="watch_no_price_phone">শুধু ফোন থেকে</string>
+    <string name="watch_no_price_unreachable">পৌঁছানো যাচ্ছে না</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">শেষ আপডেট %1$d মিনিট আগে</item>
         <item quantity="other">শেষ আপডেট %1$d মিনিট আগে</item>

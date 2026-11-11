@@ -3,11 +3,11 @@
     <string name="backup_device_bound">ก่อนเปลี่ยนอุปกรณ์ ให้สร้างไฟล์สำรองข้อมูล – ข้อมูลที่เข้ารหัสเปิดได้เฉพาะบนอุปกรณ์นี้เท่านั้น</string>
     <string name="backup_encryption_pending">การเข้ารหัสยังไม่ทำงาน – แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
     <!-- Sicherung exportieren und wiederherstellen -->
-    <string name="backup_export">ส่งออก</string>
+    <string name="backup_export">สำรองข้อมูล</string>
     <string name="backup_exported">บันทึกข้อมูลสำรองแล้ว</string>
     <string name="backup_failed">ไม่สำเร็จ ไฟล์นี้เป็นข้อมูลสำรองของ Crypto Checker หรือไม่</string>
     <string name="backup_hint">บันทึกรายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าเป็นไฟล์ที่คุณเก็บเอง เช่น สำหรับโทรศัพท์เครื่องใหม่</string>
-    <string name="backup_import">นำเข้า</string>
+    <string name="backup_import">กู้คืน</string>
     <string name="backup_title">สำรองและกู้คืน</string>
     <string name="backup_too_large">ไฟล์ใหญ่เกินไปหรือไม่ใช่ข้อมูลสำรองที่ถูกต้อง (สูงสุด 64 MB)</string>
     <string name="backup_export_too_large">ข้อมูลสำรองจะใหญ่เกิน 64 MB และจะกู้คืนไม่ได้ จึงไม่ได้บันทึก</string>
@@ -36,11 +36,11 @@
     <string name="backup_plain_confirm_title">บันทึกโดยไม่ใช้รหัสผ่านหรือไม่</string>
     <string name="backup_plain_contents_base">รายการเฝ้าดูพร้อมโน้ตและกลุ่ม สัญญาณเตือน รายการโปรด และการตั้งค่า</string>
     <string name="backup_restore_app_lock_kept">ล็อกพอร์ตโฟลิโอยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้</string>
-    <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
+    <string name="backup_restore_confirm">การกู้คืนจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือสัญญาณเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
+        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือสัญญาณเตือน) ไม่ถูกต้องและจะไม่ถูกกู้คืน</item>
     </plurals>
-    <string name="backup_restore_newer_version">ข้อมูลสำรองนี้มาจากแอปเวอร์ชันที่ใหม่กว่า – อัปเดตแอปก่อน ไม่มีการนำเข้าใด ๆ</string>
+    <string name="backup_restore_newer_version">ข้อมูลสำรองนี้มาจากแอปเวอร์ชันที่ใหม่กว่า – อัปเดตแอปก่อน ไม่มีการกู้คืนใด ๆ</string>
     <string name="backup_restore_unencrypted_warning">ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ยกเว้นการเปลี่ยนแปลงที่ลดการป้องกัน (ล็อกพอร์ตโฟลิโอ, เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่, ซ่อนจำนวนเงิน, รวมพอร์ตโฟลิโอในการสำรองของระบบ)</string>
     <string name="backup_restored">กู้คืนแล้ว: %1$s %2$s</string>
     <plurals name="backup_restored_alarms">
@@ -54,7 +54,7 @@
     <string name="backup_restored_over_limits">เกินขีดจำกัด (%3$s คู่, สัญญาณเตือน %4$s รายการต่อคู่) ไม่ได้กู้คืน: %1$s %2$s</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren -->
-    <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ “%1$s”</string>
+    <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้กู้คืนไฟล์สำรองในการตั้งค่า ที่ “%1$s”</string>
     <string name="storage_recovery_title">ไม่สามารถปลดล็อกข้อมูลที่บันทึกไว้</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
@@ -85,9 +85,9 @@
     <string name="alarm_save_storage_locked">บันทึกสัญญาณเตือนไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">สำรองข้อมูลไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่แล้วลองอีกครั้ง</string>
-    <string name="backup_restore_storage_in_memory">นำเข้าไม่ได้ในขณะนี้: แอปยังไม่บันทึกข้อมูล (การเข้ารหัสยังไม่ทำงาน) ข้อมูลที่นำเข้าจะหายไปเมื่อรีสตาร์ท รีสตาร์ทแอปแล้วลองอีกครั้ง</string>
+    <string name="backup_restore_storage_in_memory">กู้คืนไม่ได้ในขณะนี้: แอปยังไม่บันทึกข้อมูล (การเข้ารหัสยังไม่ทำงาน) ข้อมูลที่กู้คืนจะหายไปเมื่อรีสตาร์ท รีสตาร์ทแอปแล้วลองอีกครั้ง</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
-    <string name="backup_restore_journal_unavailable">นำเข้าไม่ได้ในขณะนี้: บันทึกสำเนาความปลอดภัยของข้อมูลปัจจุบันของคุณไม่ได้ (คีย์ยังใช้ไม่ได้ในขณะนี้) ไม่มีอะไรถูกเปลี่ยนแปลง ลองใหม่ภายหลังหรือรีสตาร์ทแอป</string>
+    <string name="backup_restore_journal_unavailable">กู้คืนไม่ได้ในขณะนี้: บันทึกสำเนาความปลอดภัยของข้อมูลปัจจุบันของคุณไม่ได้ (คีย์ยังใช้ไม่ได้ในขณะนี้) ไม่มีอะไรถูกเปลี่ยนแปลง ลองใหม่ภายหลังหรือรีสตาร์ทแอป</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">การเข้ารหัสยังไม่ทำงาน – พอร์ตโฟลิโอไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
@@ -103,4 +103,10 @@
     <string name="backup_restore_server_public">ลบ “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” ตามข้อมูลสำรองแล้ว – ที่อยู่ Bitcoin จะถามจากโหนดสาธารณะอีกครั้ง</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
     <string name="backup_restore_server_changed">แทนที่ “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” ด้วยเซิร์ฟเวอร์จากข้อมูลสำรองแล้ว</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
+    <string name="backup_restore_server_set">ข้อมูลสำรองตั้งค่า “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” แล้ว: %1$s – ตอนนี้ที่อยู่ Bitcoin จะถูกสอบถามที่นั่น</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
+    <string name="backup_restore_system_backup_on">ข้อมูลสำรองเปิด “รวมพอร์ตโฟลิโอในการสำรองของระบบ” แล้ว</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
+    <string name="backup_restore_amounts_shown">ข้อมูลสำรองปิด “ซ่อนจำนวนเงิน” แล้ว</string>
 </resources>

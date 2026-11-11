@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">코인: 최대 %1$d개</string>
     <string name="watch_complication_label">가격</string>
     <string name="a11y_watch_row">%1$s %2$s, 24시간 동안 %3$s</string>
-    <string name="watch_mode_phone">목록: 휴대전화와 동일</string>
-    <string name="watch_mode_own">목록: 직접 고른 목록</string>
+    <string name="watch_list_from_phone">휴대전화 목록</string>
     <string name="watch_phone_empty">휴대전화에 즐겨찾기가 없습니다</string>
     <string name="watch_portfolio">포트폴리오</string>
     <string name="watch_portfolio_today">오늘 %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">가격 없음, 시계에서 이 페어를 불러올 수 없습니다</string>
     <string name="a11y_watch_no_price_via_phone">가격 없음, 시계는 %1$s 가격을 휴대폰에서만 받습니다</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">가격 없음, 지금은 거래소에 연결할 수 없습니다</string>
+    <string name="watch_no_price_phone">휴대전화에서만</string>
+    <string name="watch_no_price_unreachable">연결할 수 없음</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">마지막 업데이트: %1$d분 전</item>
     </plurals>

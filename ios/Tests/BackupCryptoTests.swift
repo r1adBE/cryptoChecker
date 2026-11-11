@@ -463,6 +463,8 @@ final class RestoreRecoveryTests: XCTestCase {
     func testFailureWhileWritingIsIncompleteOtherwiseUnreadable() {
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid("portfolio")), .incomplete)
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid(WatchedAddressRules.backupKey)), .incomplete)
+        // Merkliste nicht auf die Platte gekommen: ebenfalls unvollständig — das Journal bleibt
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid(BackupManager.watchlistStep)), .incomplete)
         // Schon beim Lesen gescheitert: nie zurückrollbar
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.notABackup), .unreadable)
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid("watches")), .unreadable)

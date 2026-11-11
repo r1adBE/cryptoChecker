@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">ਕੌਇਨ: ਵੱਧ ਤੋਂ ਵੱਧ %1$d</string>
     <string name="watch_complication_label">ਕੀਮਤ</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ਘੰਟਿਆਂ ਵਿੱਚ %3$s</string>
-    <string name="watch_mode_phone">ਸੂਚੀ: ਫ਼ੋਨ ਵਾਂਗ</string>
-    <string name="watch_mode_own">ਸੂਚੀ: ਆਪਣੀ</string>
+    <string name="watch_list_from_phone">ਫ਼ੋਨ ਦੀ ਸੂਚੀ</string>
     <string name="watch_phone_empty">ਫ਼ੋਨ ’ਤੇ ਕੋਈ ਮਨਪਸੰਦ ਨਹੀਂ</string>
     <string name="watch_portfolio">ਪੋਰਟਫੋਲੀਓ</string>
     <string name="watch_portfolio_today">ਅੱਜ %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਇਹ ਜੋੜੀ ਲੋਡ ਨਹੀਂ ਕਰ ਸਕਦੀ</string>
     <string name="a11y_watch_no_price_via_phone">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਘੜੀ ਨੂੰ %1$s ਦੇ ਭਾਅ ਸਿਰਫ਼ ਫ਼ੋਨ ਤੋਂ ਮਿਲਦੇ ਹਨ</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ਕੋਈ ਭਾਅ ਨਹੀਂ, ਹੁਣ ਐਕਸਚੇਂਜਾਂ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
+    <string name="watch_no_price_phone">ਸਿਰਫ਼ ਫ਼ੋਨ ਤੋਂ</string>
+    <string name="watch_no_price_unreachable">ਪਹੁੰਚ ਨਹੀਂ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>
         <item quantity="other">ਆਖਰੀ ਅੱਪਡੇਟ %1$d ਮਿੰਟ ਪਹਿਲਾਂ</item>

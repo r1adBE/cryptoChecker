@@ -41,13 +41,14 @@ extension BackupManager {
         case rolledBack
         /// Journal nicht als Sicherung lesbar: nie zurückrollbar, wie Android `previousFromJournal`.
         case unreadable
-        /// Zurückschreiben scheiterte (Portfolio, Adressen): Journal behalten und Versuch vermerkt; der nächste Start gibt auf.
+        /// Zurückschreiben scheiterte (Merkliste nicht auf der Platte, Portfolio, Adressen): Journal behalten und Versuch vermerkt; der nächste Start gibt auf.
         case incomplete
     }
 
     /// Scheiterte das Zurückrollen beim Schreiben (`restore` hat dann selbst zurückgesetzt) oder schon beim Lesen?
     static func recoveryOutcome(failure: Error) -> RecoveryOutcome {
-        if case Failure.invalid(let step) = failure, step == "portfolio" || step == WatchedAddressRules.backupKey {
+        if case Failure.invalid(let step) = failure,
+           step == watchlistStep || step == "portfolio" || step == WatchedAddressRules.backupKey {
             return .incomplete
         }
         return .unreadable

@@ -24,6 +24,7 @@
     <string name="address_lots_add">افزودن دسته</string>
     <string name="address_lots_new">دستهٔ جدید</string>
     <string name="address_lots_edit">دسته</string>
+    <string name="address_lots_delete_title">دسته حذف شود؟</string>
     <string name="address_lots_date">تاریخ خرید</string>
     <string name="address_lots_amount">مقدار</string>
     <string name="address_lots_mode_total">جمع</string>

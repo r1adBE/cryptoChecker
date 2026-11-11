@@ -1,5 +1,5 @@
 {
-  "description": "Ergebnis von Sichern/Wiederherstellen als Dialog statt Toast (Android BackupResultPresentation.kt, iOS BackupResultPresentation.swift): Dialog, wenn Paare/Alarme über den Grenzen weggelassen (droppedPairs/droppedAlarms > 0), die Sperre an blieb (appLockKept), ein Hinweis zum eigenen Bitcoin-Server da ist (addressServerNote KEPT/PUBLIC/CHANGED), der Haupttext (key) in longKeys steht oder die Anzeigebreite des Gesamttexts grösser ist als toastMaxChars / max(1, fontScale); sonst Toast. Anzeigebreite: je Unicode-Codepunkt 1, in wideRanges (East Asian Wide/Fullwidth, Grenzen hexadezimal, einschliesslich) 2. fontScale = Schriftgrösse des Systems (Android Configuration.fontScale, iOS UIFontMetrics.default.scaledValue(for: 1)); fehlt er, gilt 1. «expected»: toast | dialog.",
+  "description": "Ergebnis von Sichern/Wiederherstellen als Dialog statt Toast (Android BackupResultPresentation.kt, iOS BackupResultPresentation.swift): Dialog, wenn Paare/Alarme über den Grenzen weggelassen (droppedPairs/droppedAlarms > 0), die Sperre an blieb (appLockKept), ein Hinweis zum eigenen Bitcoin-Server da ist (addressServerNote KEPT/PUBLIC/CHANGED/SET), die Sicherung Schutz abgeschaltet hat (protectionLowered; fehlt das Feld, gilt false), der Haupttext (key) in longKeys steht oder die Anzeigebreite des Gesamttexts grösser ist als toastMaxChars / max(1, fontScale); sonst Toast. Anzeigebreite: je Unicode-Codepunkt 1, in wideRanges (East Asian Wide/Fullwidth, Grenzen hexadezimal, einschliesslich) 2. fontScale = Schriftgrösse des Systems (Android Configuration.fontScale, iOS UIFontMetrics.default.scaledValue(for: 1)); fehlt er, gilt 1. «expected»: toast | dialog.",
   "toastMaxChars": 80,
   "wideRanges": [
     [
@@ -461,6 +461,38 @@
       "appLockKept": false,
       "addressServerNote": null,
       "expected": "dialog"
+    },
+    {
+      "description": "Eigener Server neu gesetzt (SET), kurzer Text → trotzdem Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": "SET",
+      "expected": "dialog"
+    },
+    {
+      "description": "Schutz von der Sicherung abgeschaltet (protectionLowered), kurzer Text → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "protectionLowered": true,
+      "expected": "dialog"
+    },
+    {
+      "description": "Kein Hinweis, protectionLowered false, kurzer Text → Toast",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "protectionLowered": false,
+      "expected": "toast"
     }
   ]
 }

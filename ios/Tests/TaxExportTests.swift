@@ -407,6 +407,46 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
+    /// Durchgerechnete Fälle aus TAX_REFERENCE.md (`referenceCases`): Verlust mit Gebühren (FIFO und Ø, CHF-Zeile und
+    /// Jahresübersicht NEUTRAL/CH), EUR-Gewinnzeile (DE, FIFO je Wallet) und Fall 3 (Gebühr in EUR, in USDT erfasst) bis in
+    /// die Gewinnzeile. Wie Android `referenceCases`.
+    func testReferenceCases() throws {
+        let d = try data()
+        let blocks = S.list((d["referenceCases"] as? [String: Any])?["blocks"])
+        XCTAssertGreaterThanOrEqual(blocks.count, 3)
+        var summaries = 0
+        for b in blocks {
+            let name = b["name"] as? String ?? "?"
+            let zone = try XCTUnwrap(TimeZone(identifier: b["zone"] as? String ?? ""), name)
+            let year = Int(int64(b["year"]))
+            let currency = b["currency"] as? String ?? ""
+            let txs = trades(b)
+            let template = try XCTUnwrap(TaxTemplate(rawValue: b["template"] as? String ?? ""), name)
+            for c in S.list(b["cases"]) {
+                let method = CostMethod.fromName(c["method"] as? String)
+                let rows = TaxExport.gainRows(txs, method: TaxMethod.of(method), period: template.period(year), timeZone: zone,
+                                              currency: currency, rates: rates(b), rules: template.eventRules)
+                let csv = TaxExport.gainsCsv(rows, texts: texts(d), header: [], timeZone: zone)
+                XCTAssertEqual(lines(csv), c["gains"] as? [String], "\(name) \(method)")
+            }
+            for s in S.list(b["summaries"]) {
+                let tpl = try XCTUnwrap(TaxTemplate(rawValue: s["template"] as? String ?? ""), name)
+                let app = CostMethod.fromName(s["method"] as? String)
+                let sum = TaxExport.yearSummary(txs, template: tpl, method: tpl.methodFor(app, year), startYear: year,
+                                                timeZone: zone, currency: currency, rates: rates(b))
+                for raw in s["lines"] as? [[Any]] ?? [] {
+                    let key = raw.first as? String ?? ""
+                    let line = sum.lines.first { $0.line.rawValue == key }
+                    let label = "\(name) \(tpl) \(app) \(key)"
+                    XCTAssertEqual(line?.usdt.map { CutoffExport.money($0) }, raw[1] as? String, label + " USDT")
+                    XCTAssertEqual(line?.target.map { CutoffExport.money($0) }, raw[2] as? String, label + " " + currency)
+                }
+                summaries += 1
+            }
+        }
+        XCTAssertGreaterThanOrEqual(summaries, 4)
+    }
+
     func testWithdrawalFeeIsNotNettedIntoPrivateSales() throws {
         let zone = try XCTUnwrap(TimeZone(identifier: "UTC"))
         let t0: Int64 = 1_736_510_400_000 // 10.01.2025

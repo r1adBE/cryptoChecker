@@ -110,4 +110,28 @@ class BackupRestorePolicyTest {
         assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = true))
         assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = true))
     }
+
+    /** Mit Passwort neu gesetzter Server wird genannt (SET, mit Hostnamen) — ohne Passwort bleibt es bei KEPT. */
+    @Test
+    fun neuGesetzterServerWirdMitHostGenannt() {
+        val set = BackupRestorePolicy.AddressServerNote.SET
+        assertEquals(set, BackupRestorePolicy.addressServerNote("https://node.example.org:3006/api", null, trusted = true))
+        assertEquals("node.example.org", BackupRestorePolicy.addressServerSetHost("https://node.example.org:3006/api", null, trusted = true))
+        assertEquals(null, BackupRestorePolicy.addressServerSetHost("https://node.example.org/api", null, trusted = false))
+        assertEquals(null, BackupRestorePolicy.addressServerSetHost("https://b.example", "https://a.example", trusted = true))
+        assertEquals(null, BackupRestorePolicy.addressServerSetHost("http://b.example", null, trusted = true))
+        assertEquals(null, BackupRestorePolicy.addressServerSetHost(null, null, trusted = true))
+    }
+
+    /** Mit Passwort abgeschalteter Schutz wird genannt; ohne Passwort wird nichts abgeschaltet, also nichts genannt. */
+    @Test
+    fun abgeschalteterSchutzNieStill() {
+        fun lowered(sys: Boolean, sysNow: Boolean, hide: Boolean, hideNow: Boolean, trusted: Boolean) =
+            BackupRestorePolicy.loweredProtection(sys, sysNow, hide, hideNow, trusted)
+        assertEquals(BackupRestorePolicy.LoweredProtection(true, true), lowered(true, false, false, true, trusted = true))
+        assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(true, false, false, true, trusted = false))
+        // Schon so eingestellt bzw. Richtung «mehr Schutz»: kein Hinweis
+        assertEquals(false, lowered(true, true, false, false, trusted = true).any)
+        assertEquals(false, lowered(false, true, true, false, trusted = true).any)
+    }
 }

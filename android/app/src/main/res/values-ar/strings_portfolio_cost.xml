@@ -24,6 +24,7 @@
     <string name="address_lots_add">إضافة دفعة</string>
     <string name="address_lots_new">دفعة جديدة</string>
     <string name="address_lots_edit">دفعة</string>
+    <string name="address_lots_delete_title">حذف الدفعة؟</string>
     <string name="address_lots_date">تاريخ الشراء</string>
     <string name="address_lots_amount">الكمية</string>
     <string name="address_lots_mode_total">الإجمالي</string>

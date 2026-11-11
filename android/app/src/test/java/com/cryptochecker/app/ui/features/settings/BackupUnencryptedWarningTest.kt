@@ -59,6 +59,23 @@ class BackupUnencryptedWarningTest {
         }
     }
 
+    @Test
+    fun hinweiseZuAbgeschaltetemSchutzNennenEinstellungsnamen() {
+        // «… wurde durch die Sicherung eingeschaltet/ausgeschaltet» nennt die Einstellung so, wie sie heisst
+        for ((key, labelKey) in LOWERED_NOTE_LABELS) {
+            assertEquals(key, 75, languages.count { it.value.containsKey(key) })
+            for ((folder, strings) in languages) {
+                val text = strings[key] ?: continue
+                val label = requireNotNull(strings[labelKey]) { "$folder: $labelKey fehlt" }
+                assertTrue("$folder: $key nennt «$label» nicht", text.norm().contains(label.norm()))
+            }
+        }
+        // Neu gesetzter Server: der Hostname steht in jeder Sprache im Text
+        for ((folder, strings) in languages) {
+            assertTrue("$folder: backup_restore_server_set ohne Hostnamen", strings.getValue("backup_restore_server_set").contains("%1\$s"))
+        }
+    }
+
     private companion object {
         val LABEL_KEYS = listOf(
             "settings_portfolio_lock",
@@ -70,6 +87,13 @@ class BackupUnencryptedWarningTest {
             "backup_restore_server_kept",
             "backup_restore_server_public",
             "backup_restore_server_changed",
+            "backup_restore_server_set",
+        )
+
+        /** Hinweis → Einstellung, die er wörtlich nennt (von der Sicherung abgeschalteter Schutz). */
+        val LOWERED_NOTE_LABELS = mapOf(
+            "backup_restore_system_backup_on" to "settings_portfolio_system_backup",
+            "backup_restore_amounts_shown" to "portfolio_hide_amounts",
         )
     }
 }

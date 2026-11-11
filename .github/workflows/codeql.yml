@@ -71,6 +71,9 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
+          # Default suite plus the extended security queries (more Android/intent/crypto rules, more injection
+          # patterns for workflows)
+          queries: security-extended
 
       # One variant, compile only (no packaging, no R8, no lint). No daemon, no build or configuration cache and
       # the Kotlin compiler inside the Gradle process, so the CodeQL tracer observes every compiler call.

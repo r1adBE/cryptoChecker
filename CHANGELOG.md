@@ -16,6 +16,18 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 222)
+
+More fixes from the audit of build 220:
+
+* Backup: the two actions are called "Back up" and "Restore" everywhere; export and import are the CSV words. The buttons are stacked at full width.
+* Restore: a backup that sets an own address server, turns on the system backup of the portfolio or shows amounts again says so; an interrupted restore always ends in the old state on both platforms.
+* Watch apps: a pair without a price shows the reason, the list mode is a switch, Wear OS shows the scroll position; the Apple Watch portfolio complication is marked privacy sensitive.
+* Android: "Check on time" also runs for portfolio, gas and depeg alerts without active pairs.
+* Deleting a cost-basis lot of an address asks first; the coin page's transaction sheet and the lot editor survive rotation.
+* iOS widgets handle the tinted home screen; "Reduce motion" is respected in "Add pair".
+* Code scanning runs the extended security queries.
+
 ## 16.2.2 (build 221)
 
 Fixes from the audit of build 220:

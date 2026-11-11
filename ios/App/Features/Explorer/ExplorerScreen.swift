@@ -14,6 +14,8 @@ struct ExplorerScreen: View {
     @EnvironmentObject private var router: AppRouter
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent
+    /// «Bewegung reduzieren»: Inhalte wechseln ohne Feder und Schieben (wie die Merkliste).
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     @State var picker: ExplorerPickerKind?
     @State var showSyncSheet = false
@@ -51,7 +53,15 @@ struct ExplorerScreen: View {
             .overlay(alignment: .bottom) { snackbar }
             // Paar nicht übernommen (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
             .watchlistLockedHint { vm.show(ExplorerMessage(text: $0, showView: false, long: true, kind: .error)) }
-            .animation(.spring(duration: 0.35), value: vm.message)
+            .animation(reduceMotion ? nil : .spring(duration: 0.35), value: vm.message)
+            // «Bewegung reduzieren» gilt für die ganze Seite: auch `withAnimation` und `.animation` der Unteransichten
+            // (Börse öffnen, Coin wählen, Register, DEX-Suche) entfallen, ohne jede Stelle einzeln zu kennen
+            .transaction { transaction in
+                if reduceMotion {
+                    transaction.animation = nil
+                    transaction.disablesAnimations = true
+                }
+            }
             // Aus «Heute auffällig» (Markt-Tab): gleich mit dem Coin als Suchbegriff
             .onChange(of: router.explorerSearch, initial: true) { _, incoming in
                 guard let incoming else { return }
@@ -111,7 +121,8 @@ struct ExplorerScreen: View {
                 } else if searching {
                     // Mit Suchbegriff nur die Treffer, ohne den Auswahl-Ablauf
                     searchResults
-                        .transition(.opacity.combined(with: .move(edge: .top)))
+                        .transition(reduceMotion ? AnyTransition.opacity
+                                    : AnyTransition.opacity.combined(with: .move(edge: .top)))
                 } else {
                     browseContent
                         .transition(.opacity)
@@ -128,11 +139,11 @@ struct ExplorerScreen: View {
             .padding(.bottom, 32)
             // Breite Bildschirme: höchstens 640 pt, zentriert
             .readableContentWidth()
-            .animation(.snappy(duration: 0.3), value: vm.searchQuery.isEmpty)
-            .animation(.snappy(duration: 0.25), value: vm.pickedCoin?.id)
-            .animation(.snappy(duration: 0.3), value: vm.exchange?.key)
-            .animation(.snappy(duration: 0.3), value: vm.hasPairs)
-            .animation(.snappy(duration: 0.3), value: vm.syncing)
+            .animation(reduceMotion ? nil : .snappy(duration: 0.3), value: vm.searchQuery.isEmpty)
+            .animation(reduceMotion ? nil : .snappy(duration: 0.25), value: vm.pickedCoin?.id)
+            .animation(reduceMotion ? nil : .snappy(duration: 0.3), value: vm.exchange?.key)
+            .animation(reduceMotion ? nil : .snappy(duration: 0.3), value: vm.hasPairs)
+            .animation(reduceMotion ? nil : .snappy(duration: 0.3), value: vm.syncing)
         }
     }
 

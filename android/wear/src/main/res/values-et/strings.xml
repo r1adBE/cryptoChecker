@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Münte: kuni %1$d</string>
     <string name="watch_complication_label">Hind</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 tunniga</string>
-    <string name="watch_mode_phone">Loend: nagu telefonis</string>
-    <string name="watch_mode_own">Loend: oma</string>
+    <string name="watch_list_from_phone">Loend telefonist</string>
     <string name="watch_phone_empty">Telefonis pole lemmikuid</string>
     <string name="watch_portfolio">Portfell</string>
     <string name="watch_portfolio_today">täna %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">hind puudub, kell ei saa seda paari laadida</string>
     <string name="a11y_watch_no_price_via_phone">hind puudub, kell saab %1$s hindu ainult telefonist</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">hind puudub, börsid pole praegu kättesaadavad</string>
+    <string name="watch_no_price_phone">ainult telefonist</string>
+    <string name="watch_no_price_unreachable">pole kättesaadav</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">viimati uuendatud %1$d minut tagasi</item>
         <item quantity="other">viimati uuendatud %1$d minutit tagasi</item>

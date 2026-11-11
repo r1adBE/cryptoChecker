@@ -37,7 +37,7 @@ class ExactCheckScheduler @Inject constructor(
     fun canScheduleExact(): Boolean = canScheduleExact(context)
 
     /**
-     * Wecker stellen bzw. absagen. [hasWork]: gibt es Paare? Unbekannt (Einstellungen geändert) = true;
+     * Wecker stellen bzw. absagen. [hasWork]: gibt es etwas zu prüfen ([ExactCheckDemand])? Unbekannt (Einstellungen geändert) = true;
      * der Wecker prüft beim Auslösen selbst und sagt sich ab, wenn nichts zu tun ist.
      * [force]: auch einen gestellten Wecker neu stellen (Android hat ihn gelöscht).
      * [intervalMinutes]: gewähltes Intervall der Hintergrund-Aktualisierung (Standard: zuletzt gelesene Einstellungen).

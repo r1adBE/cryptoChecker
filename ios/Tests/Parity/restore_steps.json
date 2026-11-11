@@ -1,0 +1,26 @@
+{
+ "description": "Order of the write steps when a backup is restored, with journal and roll-back (Android RestoreRun.execute + RestoreRollback.run, iOS RestoreSteps.execute in BackupManager.writeRestored). Contract on both platforms: the journal is written before the first step; the steps run in the order «steps»; after the last one the journal is deleted – on iOS only once the watchlist is really on disk (settled). If step «failAt» (index into «steps») fails, everything written is rolled back in the order «rollbackOrder» and the error is passed on; the journal is deleted only when the roll-back was complete («rollbackComplete»: Android every part written back, iOS the rolled-back watchlist is on disk) – otherwise it stays and the next start rolls back. «rollsBackFailedStep»: Android counts a step as touched BEFORE it runs (a transaction can be committed although the call ends with an error or a cancellation at commit – «cancelledAtCommit»), so the failing step is written back too; iOS steps write nothing when they fail, so only the completed ones are undone. Expected log per case, built by both tests from these rules: «journal written», «write <step>» for each started step, «undo <step>» for each rolled-back step, «journal deleted» if «journalDeleted». «state»: new = all steps applied, old = everything as before. «platform»: case for one platform only (absent = both).",
+ "android": {
+  "steps": ["WATCHLIST", "PORTFOLIO", "FAVORITES", "SETTINGS"],
+  "rollbackOrder": ["SETTINGS", "FAVORITES", "PORTFOLIO", "WATCHLIST"],
+  "rollsBackFailedStep": true
+ },
+ "ios": {
+  "steps": ["watchlist", "portfolio", "addresses"],
+  "rollbackOrder": ["addresses", "portfolio", "watchlist"],
+  "rollsBackFailedStep": false
+ },
+ "cases": [
+  {"name": "all steps succeed", "failAt": null, "rollbackComplete": true, "journalDeleted": true, "state": "new"},
+  {"name": "first step fails", "failAt": 0, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "second step fails", "failAt": 1, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "third step fails", "failAt": 2, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "second step fails, roll-back incomplete: journal stays", "failAt": 1, "rollbackComplete": false, "journalDeleted": false, "state": "old"},
+  {"name": "third step fails, roll-back incomplete: journal stays", "failAt": 2, "rollbackComplete": false, "journalDeleted": false, "state": "old"},
+  {"name": "last Android step (settings) fails", "platform": "android", "failAt": 3, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "cancelled at the commit of the watchlist: written, yet rolled back", "platform": "android", "failAt": 0, "cancelledAtCommit": true, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "cancelled at the commit of the portfolio: both tables rolled back", "platform": "android", "failAt": 1, "cancelledAtCommit": true, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "watchlist not on disk after the last step: everything rolled back", "platform": "ios", "failAt": null, "notSettled": true, "rollbackComplete": true, "journalDeleted": true, "state": "old"},
+  {"name": "watchlist not on disk, rolled-back state not on disk either: journal stays", "platform": "ios", "failAt": null, "notSettled": true, "rollbackComplete": false, "journalDeleted": false, "state": "old"}
+ ]
+}

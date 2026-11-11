@@ -24,6 +24,7 @@
     <string name="address_lots_add">ሎት ያክሉ</string>
     <string name="address_lots_new">አዲስ ሎት</string>
     <string name="address_lots_edit">ሎት</string>
+    <string name="address_lots_delete_title">ሎቱ ይሰረዝ?</string>
     <string name="address_lots_date">የግዢ ቀን</string>
     <string name="address_lots_amount">መጠን</string>
     <string name="address_lots_mode_total">ጠቅላላ</string>

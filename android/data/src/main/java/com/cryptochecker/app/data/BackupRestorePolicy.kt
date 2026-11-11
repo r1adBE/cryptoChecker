@@ -10,6 +10,10 @@ import com.cryptochecker.app.domain.portfolio.AddressServer
  * auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein ([systemBackup]),
  * «Beträge verbergen» nie aus ([hideAmounts]), eigener Bitcoin-Server nie gesetzt, ersetzt oder gelöscht
  * ([AddressServer.restored], Hinweis [addressServerNote]).
+ *
+ * Eine Sicherung mit Passwort darf das alles — ein Passwort beweist aber keine Herkunft (jeder kann eine Datei samt
+ * Passwort weitergeben). Darum nie still: Schaltet sie Schutz ab, nennt die Meldung jeden Fall ([loweredProtection],
+ * neu gesetzter Server mit Hostnamen: [AddressServerNote.SET], [addressServerSetHost]).
  */
 object BackupRestorePolicy {
 
@@ -54,22 +58,56 @@ object BackupRestorePolicy {
 
         /** Sicherung mit Passwort mit anderem Server: der bisherige ist ersetzt. */
         CHANGED,
+
+        /** Sicherung mit Passwort setzt einen Server, wo keiner war: Bitcoin-Adressen gehen ab jetzt nur dorthin. */
+        SET,
     }
 
     /**
      * Hinweis zum eigenen Bitcoin-Server ([AddressServer.restored], gleiche Fälle in address_server.json «restore»):
-     * null = nichts zu sagen (Wert gleich, ungültig oder neu gesetzt, wo keiner war).
+     * null = nichts zu sagen (Wert gleich oder ungültig).
      */
     fun addressServerNote(value: String?, current: String?, trusted: Boolean): AddressServerNote? {
         val wanted = AddressServer.restored(value, current, trusted = true)
         return when {
             wanted == current -> null
             !trusted -> AddressServerNote.KEPT
-            current == null -> null
+            current == null -> AddressServerNote.SET
             wanted == null -> AddressServerNote.PUBLIC
             else -> AddressServerNote.CHANGED
         }
     }
+
+    /**
+     * Hostname des neu gesetzten Servers für die Meldung ([AddressServerNote.SET], «knoten.example» ohne Port und Pfad);
+     * null in jedem anderen Fall.
+     */
+    fun addressServerSetHost(value: String?, current: String?, trusted: Boolean): String? =
+        if (addressServerNote(value, current, trusted) != AddressServerNote.SET) null
+        else AddressServer.restored(value, current, trusted)?.let { AddressServer.host(it) }
+
+    /**
+     * Schutz, den die Sicherung abgeschaltet hat: [systemBackupOn] = «Portfolio in Systemsicherung» war aus und ist jetzt
+     * an, [amountsShown] = «Beträge verbergen» war an und ist jetzt aus. Beides nennt die Meldung nach dem Wiederherstellen.
+     */
+    data class LoweredProtection(val systemBackupOn: Boolean = false, val amountsShown: Boolean = false) {
+        val any: Boolean get() = systemBackupOn || amountsShown
+    }
+
+    /**
+     * Was die Sicherung an Schutz abschaltet ([systemBackup], [hideAmounts]) — ohne Passwort ([trusted] false) nie etwas.
+     * [wantedSystemBackup]/[wantedHideAmounts] = Werte der Sicherung, [currentSystemBackup]/[currentHideAmounts] = bisher.
+     */
+    fun loweredProtection(
+        wantedSystemBackup: Boolean,
+        currentSystemBackup: Boolean,
+        wantedHideAmounts: Boolean,
+        currentHideAmounts: Boolean,
+        trusted: Boolean,
+    ): LoweredProtection = LoweredProtection(
+        systemBackupOn = !currentSystemBackup && systemBackup(wantedSystemBackup, currentSystemBackup, trusted) == true,
+        amountsShown = currentHideAmounts && hideAmounts(wantedHideAmounts, currentHideAmounts, trusted) == false,
+    )
 
     /**
      * Nur Android: Gemerkten Stand (Journal) in eine Datenbank zurückschreiben? Nicht, solange sie nur leer im

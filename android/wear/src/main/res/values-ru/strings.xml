@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Монеты: не более %1$d</string>
     <string name="watch_complication_label">Курс</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 часа</string>
-    <string name="watch_mode_phone">Список: как на телефоне</string>
-    <string name="watch_mode_own">Список: свой</string>
+    <string name="watch_list_from_phone">Список с телефона</string>
     <string name="watch_phone_empty">На телефоне нет избранного</string>
     <string name="watch_portfolio">Портфель</string>
     <string name="watch_portfolio_today">%1$s сегодня</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">нет курса, часы не могут загрузить эту пару</string>
     <string name="a11y_watch_no_price_via_phone">нет курса, курсы %1$s часы получают только с телефона</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">нет курса, биржи сейчас недоступны</string>
+    <string name="watch_no_price_phone">только с телефона</string>
+    <string name="watch_no_price_unreachable">недоступно</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">последнее обновление %1$d минуту назад</item>
         <item quantity="few">последнее обновление %1$d минуты назад</item>

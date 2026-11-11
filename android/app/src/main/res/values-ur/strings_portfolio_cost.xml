@@ -24,6 +24,7 @@
     <string name="address_lots_add">لاٹ شامل کریں</string>
     <string name="address_lots_new">نیا لاٹ</string>
     <string name="address_lots_edit">لاٹ</string>
+    <string name="address_lots_delete_title">لاٹ حذف کریں؟</string>
     <string name="address_lots_date">تاریخِ خرید</string>
     <string name="address_lots_amount">مقدار</string>
     <string name="address_lots_mode_total">کل</string>

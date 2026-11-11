@@ -121,7 +121,7 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
                 if (result.watches > 0) scheduler.refreshNow()
                 BackupMessage.Restored(
                     result.watches, result.alarms, result.appLockKept, result.droppedPairs, result.droppedAlarms,
-                    result.addressServerNote,
+                    result.addressServerNote, result.addressServerHost, result.lowered,
                 )
             },
             onFailure = { BackupMessage.failure(it) }
@@ -197,7 +197,8 @@ sealed interface BackupMessage {
     /**
      * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
      * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen.
-     * [addressServerNote] = Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]).
+     * [addressServerNote] = Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]),
+     * [addressServerHost] = Hostname eines neu gesetzten Servers, [lowered] = von der Sicherung abgeschalteter Schutz.
      */
     data class Restored(
         val watches: Int,
@@ -206,6 +207,8 @@ sealed interface BackupMessage {
         val droppedPairs: Int = 0,
         val droppedAlarms: Int = 0,
         val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
+        val addressServerHost: String? = null,
+        val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
     ) : BackupMessage
     data object Failed : BackupMessage
     /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */

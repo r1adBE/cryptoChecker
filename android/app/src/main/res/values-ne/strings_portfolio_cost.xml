@@ -24,6 +24,7 @@
     <string name="address_lots_add">लट थप्नुहोस्</string>
     <string name="address_lots_new">नयाँ लट</string>
     <string name="address_lots_edit">लट</string>
+    <string name="address_lots_delete_title">लट मेटाउने?</string>
     <string name="address_lots_date">खरिद मिति</string>
     <string name="address_lots_amount">रकम</string>
     <string name="address_lots_mode_total">कुल</string>

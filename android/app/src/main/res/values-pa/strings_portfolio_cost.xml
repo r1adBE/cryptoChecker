@@ -24,6 +24,7 @@
     <string name="address_lots_add">ਲਾਟ ਜੋੜੋ</string>
     <string name="address_lots_new">ਨਵਾਂ ਲਾਟ</string>
     <string name="address_lots_edit">ਲਾਟ</string>
+    <string name="address_lots_delete_title">ਲਾਟ ਮਿਟਾਉਣਾ ਹੈ?</string>
     <string name="address_lots_date">ਖਰੀਦ ਤਾਰੀਖ</string>
     <string name="address_lots_amount">ਮਾਤਰਾ</string>
     <string name="address_lots_mode_total">ਕੁੱਲ</string>

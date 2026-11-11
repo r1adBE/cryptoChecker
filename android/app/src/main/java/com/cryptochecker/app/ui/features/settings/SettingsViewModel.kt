@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -282,9 +281,11 @@ class SettingsViewModel @Inject constructor(
     /** «Letzte Prüfungen», neueste zuerst. */
     val checkRuns: StateFlow<List<com.cryptochecker.app.domain.refresh.CheckRun>> get() = exactChecks.runs
 
-    /** Gibt es aktive Paare (sonst prüft der Hintergrund nichts: kein Wecker, kein Akku-Hinweis)? */
-    val hasActiveWatches: StateFlow<Boolean> = watchRepository.observeWatches()
-        .map { watches -> watches.any { !it.disabled } }
+    /**
+     * Gibt es etwas im Hintergrund zu prüfen — aktive Paare, Portfolio-, Gas- oder Depeg-Alarm (sonst kein Wecker, kein
+     * Akku-Hinweis)? Dieselbe Quelle wie der Wecker selbst (ExactCheckDemand).
+     */
+    val hasBackgroundWork: StateFlow<Boolean> = exactChecks.hasWork
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     fun setExactChecks(enabled: Boolean) = update {

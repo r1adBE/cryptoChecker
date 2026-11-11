@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Monetų: daugiausia %1$d</string>
     <string name="watch_complication_label">Kaina</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s per 24 valandas</string>
-    <string name="watch_mode_phone">Sąrašas: kaip telefone</string>
-    <string name="watch_mode_own">Sąrašas: savas</string>
+    <string name="watch_list_from_phone">Sąrašas iš telefono</string>
     <string name="watch_phone_empty">Telefone nėra mėgstamų</string>
     <string name="watch_portfolio">Portfelis</string>
     <string name="watch_portfolio_today">šiandien %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">kainos nėra, laikrodis negali įkelti šios poros</string>
     <string name="a11y_watch_no_price_via_phone">kainos nėra, %1$s kainas laikrodis gauna tik iš telefono</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">kainos nėra, biržos šiuo metu nepasiekiamos</string>
+    <string name="watch_no_price_phone">tik iš telefono</string>
+    <string name="watch_no_price_unreachable">nepasiekiama</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">paskutinį kartą atnaujinta prieš %1$d minutę</item>
         <item quantity="few">paskutinį kartą atnaujinta prieš %1$d minutes</item>

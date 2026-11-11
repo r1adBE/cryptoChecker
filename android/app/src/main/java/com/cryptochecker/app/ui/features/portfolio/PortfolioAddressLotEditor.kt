@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -42,7 +43,9 @@ import java.time.ZoneId
 /**
  * Dialog eines Postens: Coin (nur wenn die Adresse mehrere hält), Kaufdatum (bis heute), Menge und Einstand gesamt oder
  * je Coin (in USDT, gespeichert wie eingegeben). Vorschlag: Menge × geprüfter Tagesschluss des Kaufdatums
- * («Vorschlag: Tagesschluss …» mit «Übernehmen»), änderbar. [onDelete] null = neuer Posten.
+ * («Vorschlag: Tagesschluss …» mit «Übernehmen»), änderbar. [onDelete] null = neuer Posten. «Löschen» fragt erst nach
+ * («Posten löschen?», wie bei einer Transaktion). Eingaben und offene Rückfrage sind saveable: Drehen, Falten und
+ * Dunkelmodus (Activity neu) verwerfen nichts.
  */
 @Composable
 internal fun AddressLotEditor(
@@ -53,15 +56,21 @@ internal fun AddressLotEditor(
     onDelete: (() -> Unit)?,
     onDismiss: () -> Unit,
 ) {
-    val sep = remember { inputDecimalSeparator() }
-    var coin by remember { mutableStateOf(initial.coin) }
-    var time by remember { mutableLongStateOf(initial.time) }
-    var amountText by remember { mutableStateOf(PriceFormat.amountForInput(initial.amount.takeIf { it.signum() > 0 }, sep)) }
+    // Saveable: die Texte bleiben in dem Dezimalzeichen lesbar, mit dem sie getippt wurden (Sprachwechsel bei offenem Dialog)
+    val sep = rememberSaveable { inputDecimalSeparator() }
+    var coin by rememberSaveable { mutableStateOf(initial.coin) }
+    var time by rememberSaveable { mutableLongStateOf(initial.time) }
+    var amountText by rememberSaveable {
+        mutableStateOf(PriceFormat.amountForInput(initial.amount.takeIf { it.signum() > 0 }, sep))
+    }
     // Gesamt (Standard) oder je Coin — wie gespeichert
-    var perCoin by remember { mutableStateOf(initial.priceUsdt != null) }
-    var valueText by remember { mutableStateOf(PriceFormat.amountForInput(initial.priceUsdt ?: initial.costUsdt, sep)) }
-    var pickDate by remember { mutableStateOf(false) }
-    var tried by remember { mutableStateOf(false) }
+    var perCoin by rememberSaveable { mutableStateOf(initial.priceUsdt != null) }
+    var valueText by rememberSaveable {
+        mutableStateOf(PriceFormat.amountForInput(initial.priceUsdt ?: initial.costUsdt, sep))
+    }
+    var pickDate by rememberSaveable { mutableStateOf(false) }
+    var tried by rememberSaveable { mutableStateOf(false) }
+    var askDelete by rememberSaveable { mutableStateOf(false) }
 
     val amount = PriceFormat.parseDecimalAmount(amountText, sep)?.takeIf { it.signum() > 0 }
     val value = PriceFormat.parseDecimalAmount(valueText, sep)?.takeIf { it.signum() >= 0 }
@@ -77,6 +86,23 @@ internal fun AddressLotEditor(
             time = d.atStartOfDay(ZoneId.systemDefault()).plusHours(12).toInstant().toEpochMilli()
             pickDate = false
         }, onDismiss = { pickDate = false })
+    }
+
+    // Rückfrage wie beim Löschen einer Transaktion ([TxDeleteConfirmDialog]): erst danach wird gelöscht
+    if (askDelete && onDelete != null) {
+        AlertDialog(
+            onDismissRequest = { askDelete = false },
+            title = { Text(stringResource(R.string.address_lots_delete_title)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    askDelete = false
+                    onDelete()
+                }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = {
+                TextButton(onClick = { askDelete = false }) { Text(stringResource(R.string.action_cancel)) }
+            },
+        )
     }
 
     AlertDialog(
@@ -152,7 +178,9 @@ internal fun AddressLotEditor(
         dismissButton = {
             Row {
                 if (onDelete != null) {
-                    TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
+                    TextButton(onClick = { askDelete = true }) {
+                        Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+                    }
                 }
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
             }

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">მონეტები: მაქს. %1$d</string>
     <string name="watch_complication_label">ფასი</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 საათში</string>
-    <string name="watch_mode_phone">სია: როგორც ტელეფონზე</string>
-    <string name="watch_mode_own">სია: საკუთარი</string>
+    <string name="watch_list_from_phone">სია ტელეფონიდან</string>
     <string name="watch_phone_empty">ტელეფონზე რჩეულები არ არის</string>
     <string name="watch_portfolio">პორტფელი</string>
     <string name="watch_portfolio_today">დღეს %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ფასი არ არის, საათი ამ წყვილს ვერ ჩატვირთავს</string>
     <string name="a11y_watch_no_price_via_phone">ფასი არ არის, საათი %1$s-ის ფასებს მხოლოდ ტელეფონიდან იღებს</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ფასი არ არის, ბირჟები ახლა მიუწვდომელია</string>
+    <string name="watch_no_price_phone">მხოლოდ ტელეფონიდან</string>
+    <string name="watch_no_price_unreachable">მიუწვდომელია</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">ბოლოს განახლდა %1$d წუთის წინ</item>
         <item quantity="other">ბოლოს განახლდა %1$d წუთის წინ</item>

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">ကွိုင်: အများဆုံး %1$d</string>
     <string name="watch_complication_label">ဈေးနှုန်း</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 နာရီအတွင်း %3$s</string>
-    <string name="watch_mode_phone">စာရင်း: ဖုန်းအတိုင်း</string>
-    <string name="watch_mode_own">စာရင်း: ကိုယ်ပိုင်</string>
+    <string name="watch_list_from_phone">ဖုန်းမှ စာရင်း</string>
     <string name="watch_phone_empty">ဖုန်းပေါ်တွင် အကြိုက်ဆုံးများ မရှိပါ</string>
     <string name="watch_portfolio">ပေါ့ဖိုလီယို</string>
     <string name="watch_portfolio_today">ယနေ့ %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">စျေးနှုန်းမရှိ၊ နာရီက ဤအတွဲကို ဖွင့်၍ မရပါ</string>
     <string name="a11y_watch_no_price_via_phone">စျေးနှုန်းမရှိ၊ နာရီသည် %1$s စျေးနှုန်းများကို ဖုန်းမှသာ ရယူပါသည်</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">စျေးနှုန်းမရှိ၊ ယခု လဲလှယ်ရေးဌာနများကို ချိတ်ဆက်၍မရပါ</string>
+    <string name="watch_no_price_phone">ဖုန်းမှသာ</string>
+    <string name="watch_no_price_unreachable">ချိတ်ဆက်၍မရပါ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d မိနစ်က</item>
     </plurals>

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">เหรียญ: สูงสุด %1$d</string>
     <string name="watch_complication_label">ราคา</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s ใน 24 ชั่วโมง</string>
-    <string name="watch_mode_phone">รายการ: เหมือนโทรศัพท์</string>
-    <string name="watch_mode_own">รายการ: ของตัวเอง</string>
+    <string name="watch_list_from_phone">รายการจากโทรศัพท์</string>
     <string name="watch_phone_empty">ไม่มีรายการโปรดในโทรศัพท์</string>
     <string name="watch_portfolio">พอร์ตโฟลิโอ</string>
     <string name="watch_portfolio_today">วันนี้ %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ไม่มีราคา นาฬิกาโหลดคู่นี้ไม่ได้</string>
     <string name="a11y_watch_no_price_via_phone">ไม่มีราคา นาฬิกาได้รับราคาจาก %1$s ผ่านโทรศัพท์เท่านั้น</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ไม่มีราคา ขณะนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
+    <string name="watch_no_price_phone">ผ่านโทรศัพท์เท่านั้น</string>
+    <string name="watch_no_price_unreachable">เชื่อมต่อไม่ได้</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">อัปเดตล่าสุดเมื่อ %1$d นาทีที่แล้ว</item>
     </plurals>

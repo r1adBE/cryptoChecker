@@ -24,6 +24,7 @@
     <string name="address_lots_add">新增批次</string>
     <string name="address_lots_new">新批次</string>
     <string name="address_lots_edit">批次</string>
+    <string name="address_lots_delete_title">刪除批次？</string>
     <string name="address_lots_date">買入日期</string>
     <string name="address_lots_amount">數量</string>
     <string name="address_lots_mode_total">總計</string>

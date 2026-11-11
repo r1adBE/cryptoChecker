@@ -94,6 +94,8 @@ struct WatchPortfolioWidgetView: View {
         }
     }
 
+    /// Betrag und Veränderung sind `privacySensitive` (wie das iPhone-Widget): watchOS verdeckt sie bei gesenktem
+    /// Handgelenk, wenn «Sensible Komplikationen ausblenden» an ist — Titel und Währung bleiben lesbar.
     @ViewBuilder private func value(_ p: WatchPortfolio) -> some View {
         let total = WatchText.portfolioTotal(p)
         let now = Int64(entry.date.timeIntervalSince1970 * 1000)
@@ -103,19 +105,20 @@ struct WatchPortfolioWidgetView: View {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
                 Text(WatchText.t("watch_portfolio")).font(.headline)
-                Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
+                Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle).privacySensitive()
                 let age = entry.outdated ? "  ·  " + WatchText.ago(p.time, now: Int64(entry.date.timeIntervalSince1970 * 1000)) : ""
                 Text(WatchText.portfolioToday(p) + age).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(.secondary)
+                    .privacySensitive()
             }
         case .accessoryInline:
-            Text(WatchFreshness.inlineLine(total, time: p.time, now: now))
+            Text(WatchFreshness.inlineLine(total, time: p.time, now: now)).privacySensitive()
         case .accessoryCorner:
-            Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).widgetLabel(title)
+            Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).privacySensitive().widgetLabel(title)
         default:
             VStack(spacing: 0) {
                 Text(title).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
                 Text(WatchText.portfolioCompact(p)).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
-                    .foregroundStyle(valueStyle)
+                    .foregroundStyle(valueStyle).privacySensitive()
             }
         }
     }

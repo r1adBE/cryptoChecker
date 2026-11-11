@@ -21,15 +21,22 @@ data class RestoreResult(
     val droppedAlarms: Int = 0,
     /** Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]); null = keiner. */
     val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
+    /** Hostname des neu gesetzten Bitcoin-Servers ([BackupRestorePolicy.addressServerSetHost]); null = keiner. */
+    val addressServerHost: String? = null,
+    /** Von der Sicherung abgeschalteter Schutz ([BackupRestorePolicy.loweredProtection]). */
+    val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
 )
 
 /**
  * Hinweise aus den Einstellungen einer Sicherung ([BackupSettingsCodec.restoreSettings]): [appLockKept] wie
- * [RestoreResult.appLockKept], [addressServer] wie [RestoreResult.addressServerNote].
+ * [RestoreResult.appLockKept], [addressServer] wie [RestoreResult.addressServerNote], [addressServerHost] wie
+ * [RestoreResult.addressServerHost], [lowered] wie [RestoreResult.lowered].
  */
 data class SettingsRestoreNotes(
     val appLockKept: Boolean = false,
     val addressServer: BackupRestorePolicy.AddressServerNote? = null,
+    val addressServerHost: String? = null,
+    val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
 )
 
 /**

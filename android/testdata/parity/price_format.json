@@ -1,0 +1,336 @@
+{
+ "description": "Price in the watchlist (Android DisplayFormat.formatDouble behind PriceFormat.price, iOS PriceFormat.formatDouble): below 10 at most four significant digits without trailing zeros (pattern «@###», tiny prices stay readable: 0.00000712), from 10 on always two decimals with the grouping of the region («83’142.00» in Switzerland). Rounding HALF_EVEN; no case sits exactly on a rounding tie (JVM and ICU decide ties of binary doubles differently). Swiss grouping: Java/CLDR gives U+2019, Foundation may give the ASCII apostrophe – compared without that one character difference (like watch_price.json). Android: the pattern «@###» exists only in the DecimalFormat of Android (ICU), not on the JVM of the unit tests – PriceFormatParityTest (JVM) checks the cases from 10 on, PriceFormatIcuTest (device) the cases below 10; iOS PriceFormatParityTests checks all.",
+ "smallBelow": 10,
+ "cases": [
+  {
+   "value": 10,
+   "locale": "en_US",
+   "expected": "10.00"
+  },
+  {
+   "value": 10.004,
+   "locale": "en_US",
+   "expected": "10.00"
+  },
+  {
+   "value": 12.346,
+   "locale": "en_US",
+   "expected": "12.35"
+  },
+  {
+   "value": 99.999,
+   "locale": "en_US",
+   "expected": "100.00"
+  },
+  {
+   "value": 123.456,
+   "locale": "en_US",
+   "expected": "123.46"
+  },
+  {
+   "value": 1000,
+   "locale": "en_US",
+   "expected": "1,000.00"
+  },
+  {
+   "value": 1234.5,
+   "locale": "en_US",
+   "expected": "1,234.50"
+  },
+  {
+   "value": 83142,
+   "locale": "en_US",
+   "expected": "83,142.00"
+  },
+  {
+   "value": 83142.126,
+   "locale": "en_US",
+   "expected": "83,142.13"
+  },
+  {
+   "value": 1234567.891,
+   "locale": "en_US",
+   "expected": "1,234,567.89"
+  },
+  {
+   "value": 98765432.1,
+   "locale": "en_US",
+   "expected": "98,765,432.10"
+  },
+  {
+   "value": 9.99994,
+   "locale": "en_US",
+   "expected": "10"
+  },
+  {
+   "value": 9.5,
+   "locale": "en_US",
+   "expected": "9.5"
+  },
+  {
+   "value": 7,
+   "locale": "en_US",
+   "expected": "7"
+  },
+  {
+   "value": 3.14159,
+   "locale": "en_US",
+   "expected": "3.142"
+  },
+  {
+   "value": 1.23456,
+   "locale": "en_US",
+   "expected": "1.235"
+  },
+  {
+   "value": 0.5,
+   "locale": "en_US",
+   "expected": "0.5"
+  },
+  {
+   "value": 0.123456,
+   "locale": "en_US",
+   "expected": "0.1235"
+  },
+  {
+   "value": 0.00012349,
+   "locale": "en_US",
+   "expected": "0.0001235"
+  },
+  {
+   "value": 7.12e-06,
+   "locale": "en_US",
+   "expected": "0.00000712"
+  },
+  {
+   "value": 7.123456e-06,
+   "locale": "en_US",
+   "expected": "0.000007123"
+  },
+  {
+   "value": 1e-10,
+   "locale": "en_US",
+   "expected": "0.0000000001"
+  },
+  {
+   "value": 10,
+   "locale": "de_CH",
+   "expected": "10.00"
+  },
+  {
+   "value": 10.004,
+   "locale": "de_CH",
+   "expected": "10.00"
+  },
+  {
+   "value": 12.346,
+   "locale": "de_CH",
+   "expected": "12.35"
+  },
+  {
+   "value": 99.999,
+   "locale": "de_CH",
+   "expected": "100.00"
+  },
+  {
+   "value": 123.456,
+   "locale": "de_CH",
+   "expected": "123.46"
+  },
+  {
+   "value": 1000,
+   "locale": "de_CH",
+   "expected": "1’000.00"
+  },
+  {
+   "value": 1234.5,
+   "locale": "de_CH",
+   "expected": "1’234.50"
+  },
+  {
+   "value": 83142,
+   "locale": "de_CH",
+   "expected": "83’142.00"
+  },
+  {
+   "value": 83142.126,
+   "locale": "de_CH",
+   "expected": "83’142.13"
+  },
+  {
+   "value": 1234567.891,
+   "locale": "de_CH",
+   "expected": "1’234’567.89"
+  },
+  {
+   "value": 98765432.1,
+   "locale": "de_CH",
+   "expected": "98’765’432.10"
+  },
+  {
+   "value": 9.99994,
+   "locale": "de_CH",
+   "expected": "10"
+  },
+  {
+   "value": 9.5,
+   "locale": "de_CH",
+   "expected": "9.5"
+  },
+  {
+   "value": 7,
+   "locale": "de_CH",
+   "expected": "7"
+  },
+  {
+   "value": 3.14159,
+   "locale": "de_CH",
+   "expected": "3.142"
+  },
+  {
+   "value": 1.23456,
+   "locale": "de_CH",
+   "expected": "1.235"
+  },
+  {
+   "value": 0.5,
+   "locale": "de_CH",
+   "expected": "0.5"
+  },
+  {
+   "value": 0.123456,
+   "locale": "de_CH",
+   "expected": "0.1235"
+  },
+  {
+   "value": 0.00012349,
+   "locale": "de_CH",
+   "expected": "0.0001235"
+  },
+  {
+   "value": 7.12e-06,
+   "locale": "de_CH",
+   "expected": "0.00000712"
+  },
+  {
+   "value": 7.123456e-06,
+   "locale": "de_CH",
+   "expected": "0.000007123"
+  },
+  {
+   "value": 1e-10,
+   "locale": "de_CH",
+   "expected": "0.0000000001"
+  },
+  {
+   "value": 10,
+   "locale": "de_DE",
+   "expected": "10,00"
+  },
+  {
+   "value": 10.004,
+   "locale": "de_DE",
+   "expected": "10,00"
+  },
+  {
+   "value": 12.346,
+   "locale": "de_DE",
+   "expected": "12,35"
+  },
+  {
+   "value": 99.999,
+   "locale": "de_DE",
+   "expected": "100,00"
+  },
+  {
+   "value": 123.456,
+   "locale": "de_DE",
+   "expected": "123,46"
+  },
+  {
+   "value": 1000,
+   "locale": "de_DE",
+   "expected": "1.000,00"
+  },
+  {
+   "value": 1234.5,
+   "locale": "de_DE",
+   "expected": "1.234,50"
+  },
+  {
+   "value": 83142,
+   "locale": "de_DE",
+   "expected": "83.142,00"
+  },
+  {
+   "value": 83142.126,
+   "locale": "de_DE",
+   "expected": "83.142,13"
+  },
+  {
+   "value": 1234567.891,
+   "locale": "de_DE",
+   "expected": "1.234.567,89"
+  },
+  {
+   "value": 98765432.1,
+   "locale": "de_DE",
+   "expected": "98.765.432,10"
+  },
+  {
+   "value": 9.99994,
+   "locale": "de_DE",
+   "expected": "10"
+  },
+  {
+   "value": 9.5,
+   "locale": "de_DE",
+   "expected": "9,5"
+  },
+  {
+   "value": 7,
+   "locale": "de_DE",
+   "expected": "7"
+  },
+  {
+   "value": 3.14159,
+   "locale": "de_DE",
+   "expected": "3,142"
+  },
+  {
+   "value": 1.23456,
+   "locale": "de_DE",
+   "expected": "1,235"
+  },
+  {
+   "value": 0.5,
+   "locale": "de_DE",
+   "expected": "0,5"
+  },
+  {
+   "value": 0.123456,
+   "locale": "de_DE",
+   "expected": "0,1235"
+  },
+  {
+   "value": 0.00012349,
+   "locale": "de_DE",
+   "expected": "0,0001235"
+  },
+  {
+   "value": 7.12e-06,
+   "locale": "de_DE",
+   "expected": "0,00000712"
+  },
+  {
+   "value": 7.123456e-06,
+   "locale": "de_DE",
+   "expected": "0,000007123"
+  },
+  {
+   "value": 1e-10,
+   "locale": "de_DE",
+   "expected": "0,0000000001"
+  }
+ ]
+}

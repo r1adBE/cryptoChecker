@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -52,26 +54,35 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
         AddressCostLots.coverage(a, transactions.orEmpty().map { it.toTrade() }, addresses)
     }
     val lots = remember(a) { AddressCostLots.clean(a.costLots) }
-    // Bearbeiten: vorhandener Posten oder neuer (Id 0 = noch nicht gespeichert)
-    var editing by remember { mutableStateOf<AddressCostLot?>(null) }
+    // Bearbeiten: Id des Postens (0 = neuer, noch nicht gespeichert). Saveable: Drehen, Falten und Dunkelmodus
+    // schliessen den Editor nicht; seine Felder sichert er selbst
+    var editingId by rememberSaveable { mutableStateOf<Long?>(null) }
     val coins = remember(a) { (listOf(a.chain.coin) + AddressCostLots.balances(a).keys).distinct() }
+    // Vorbelegung eines neuen Postens (Datum = Öffnen des Blatts; im Editor änderbar)
+    val blank = remember(a.id) { AddressCostLot(0, a.chain.coin, System.currentTimeMillis(), java.math.BigDecimal.ZERO) }
 
-    editing?.let { draft ->
-        AddressLotEditor(
-            initial = draft,
-            coins = coins,
-            viewModel = viewModel,
-            onSave = { lot ->
-                val id = if (draft.id == 0L) AddressCostLots.nextId(a.costLots) else draft.id
-                viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != id } + lot.copy(id = id))
-                editing = null
-            },
-            onDelete = if (draft.id == 0L) null else ({
-                viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != draft.id })
-                editing = null
-            }),
-            onDismiss = { editing = null },
-        )
+    editingId?.let { editId ->
+        val draft = if (editId == 0L) blank else lots.firstOrNull { it.id == editId }
+        if (draft != null) {
+            key(editId) {
+                AddressLotEditor(
+                    initial = draft,
+                    coins = coins,
+                    viewModel = viewModel,
+                    onSave = { lot ->
+                        val id = if (draft.id == 0L) AddressCostLots.nextId(a.costLots) else draft.id
+                        viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != id } + lot.copy(id = id))
+                        editingId = null
+                    },
+                    // Der Editor fragt vor dem Löschen nach («Posten löschen?»)
+                    onDelete = if (draft.id == 0L) null else ({
+                        viewModel.setAddressCostLots(a.id, a.costLots.filter { it.id != draft.id })
+                        editingId = null
+                    }),
+                    onDismiss = { editingId = null },
+                )
+            }
+        }
     }
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
@@ -116,7 +127,7 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(role = Role.Button) { editing = lot }
+                        .clickable(role = Role.Button) { editingId = lot.id }
                         .padding(horizontal = Spacing.xl, vertical = Spacing.sm)
                 ) {
                     Text(PortfolioFormat.date(lot.time), style = MaterialTheme.typography.label, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -129,7 +140,7 @@ internal fun PortfolioAddressLotsSheet(viewModel: PortfolioViewModel, addressId:
             }
             item(key = "add") {
                 Button(
-                    onClick = { editing = AddressCostLot(0, a.chain.coin, System.currentTimeMillis(), java.math.BigDecimal.ZERO) },
+                    onClick = { editingId = 0L },
                     enabled = a.costLots.size < AddressCostLots.MAX_LOTS,
                     colors = DisabledColors.button(),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.xl, vertical = Spacing.sm)

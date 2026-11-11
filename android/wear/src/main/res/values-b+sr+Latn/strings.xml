@@ -10,8 +10,7 @@
     <string name="watch_choose_hint">Kriptovalute: najviše %1$d</string>
     <string name="watch_complication_label">Cena</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s u 24 sata</string>
-    <string name="watch_mode_phone">Spisak: kao na telefonu</string>
-    <string name="watch_mode_own">Spisak: sopstveni</string>
+    <string name="watch_list_from_phone">Spisak sa telefona</string>
     <string name="watch_phone_empty">Nema favorita na telefonu</string>
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s danas</string>
@@ -23,6 +22,8 @@
     <string name="a11y_watch_no_price_phone_only">nema cene, sat ne može da učita ovaj par</string>
     <string name="a11y_watch_no_price_via_phone">nema cene, sat dobija cene sa %1$s samo preko telefona</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">nema cene, berze trenutno nisu dostupne</string>
+    <string name="watch_no_price_phone">samo preko telefona</string>
+    <string name="watch_no_price_unreachable">nedostupno</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">poslednje ažuriranje pre %1$d minute</item>
         <item quantity="few">poslednje ažuriranje pre %1$d minute</item>

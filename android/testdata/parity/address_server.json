@@ -1,5 +1,5 @@
 {
- "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup; only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; null = no hint.",
+ "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup; only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; SET = backup with password set a server where none was – the message names its «host» (BackupRestorePolicy.addressServerSetHost, without port and path; absent = null); null = no hint. «lowered»: protection a backup switched off, named in the restore message (BackupRestorePolicy.loweredProtection): systemBackupOn = «Portfolio in system backup» was off and is on now, amountsShown = «Hide amounts» was on and is off now; a backup without password (trusted false) never does either.",
  "check": [
   {"input": "", "url": null, "problem": null},
   {"input": "   ", "url": null, "problem": null},
@@ -81,6 +81,19 @@
   {"value": "", "current": "https://a.example/api", "trusted": true, "result": null, "note": "PUBLIC"},
   {"value": "http://b.example", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
   {"value": "http://b.example", "current": null, "trusted": true, "result": null, "note": null},
-  {"value": "https://b.example/api/", "current": null, "trusted": true, "result": "https://b.example/api", "note": null}
+  {"value": "https://b.example/api/", "current": null, "trusted": true, "result": "https://b.example/api", "note": "SET", "host": "b.example"},
+  {"value": "https://Node.Example.ORG:3006/Api", "current": null, "trusted": true, "result": "https://node.example.org:3006/Api", "note": "SET", "host": "node.example.org"},
+  {"value": "https://192.168.1.20:3002", "current": null, "trusted": true, "result": "https://192.168.1.20:3002", "note": "SET", "host": "192.168.1.20"},
+  {"value": "", "current": null, "trusted": true, "result": null, "note": null},
+  {"value": "https://b.example/api", "current": "https://b.example/api", "trusted": true, "result": "https://b.example/api", "note": null}
+ ],
+ "lowered": [
+  {"wantedSystemBackup": true, "currentSystemBackup": false, "wantedHideAmounts": false, "currentHideAmounts": true, "trusted": true, "systemBackupOn": true, "amountsShown": true},
+  {"wantedSystemBackup": true, "currentSystemBackup": false, "wantedHideAmounts": false, "currentHideAmounts": true, "trusted": false, "systemBackupOn": false, "amountsShown": false},
+  {"wantedSystemBackup": true, "currentSystemBackup": false, "wantedHideAmounts": true, "currentHideAmounts": true, "trusted": true, "systemBackupOn": true, "amountsShown": false},
+  {"wantedSystemBackup": false, "currentSystemBackup": false, "wantedHideAmounts": false, "currentHideAmounts": true, "trusted": true, "systemBackupOn": false, "amountsShown": true},
+  {"wantedSystemBackup": true, "currentSystemBackup": true, "wantedHideAmounts": false, "currentHideAmounts": false, "trusted": true, "systemBackupOn": false, "amountsShown": false},
+  {"wantedSystemBackup": false, "currentSystemBackup": true, "wantedHideAmounts": true, "currentHideAmounts": false, "trusted": true, "systemBackupOn": false, "amountsShown": false},
+  {"wantedSystemBackup": false, "currentSystemBackup": true, "wantedHideAmounts": true, "currentHideAmounts": false, "trusted": false, "systemBackupOn": false, "amountsShown": false}
  ]
 }

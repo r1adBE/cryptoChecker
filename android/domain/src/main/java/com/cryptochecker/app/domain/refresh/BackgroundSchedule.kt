@@ -20,6 +20,9 @@ object BackgroundSchedule {
     /** Lief eine Prüfung mit mindestens einem Kurs vor weniger als so langer Zeit, entfällt die nächste. */
     const val DEDUPE_WINDOW_MILLIS = 5 * 60_000L
 
+    /** Toleranz des Sperrfensters unter dem Wecker ([dedupeWindowMillis]): Dauer eines Laufs samt Spielraum. */
+    const val DEDUPE_TOLERANCE_MILLIS = 2 * 60_000L
+
     /** Zustand des Schalters «Pünktlich prüfen». */
     enum class ExactState {
         /** Ausgeschaltet (Standard): nur WorkManager. */
@@ -31,7 +34,7 @@ object BackgroundSchedule {
         /** Eingeschaltet, aber «Wecker und Erinnerungen» nicht erlaubt: WorkManager allein. */
         PERMISSION_MISSING,
 
-        /** Eingeschaltet, aber keine Paare: kein Wecker. */
+        /** Eingeschaltet, aber nichts zu prüfen (keine aktiven Paare, kein Portfolio-, Gas- oder Depeg-Alarm): kein Wecker. */
         NOTHING_TO_CHECK,
     }
 
@@ -42,7 +45,7 @@ object BackgroundSchedule {
         else -> ExactState.ACTIVE
     }
 
-    /** Wecker stellen? Nur eingeschaltet, erlaubt und mit Paaren. */
+    /** Wecker stellen? Nur eingeschaltet, erlaubt und wenn es etwas zu prüfen gibt. */
     fun shouldArmExact(enabled: Boolean, permitted: Boolean, hasWork: Boolean): Boolean =
         exactState(enabled, permitted, hasWork) == ExactState.ACTIVE
 
@@ -80,9 +83,18 @@ object BackgroundSchedule {
      * läuft also nur, wenn der Wecker ausbleibt (Hersteller-Akkusparen, Berechtigung entzogen, offline). WorkManager
      * bleibt dafür geplant (robuster als ihn abzusagen: fällt der Wecker still weg, prüft sonst niemand mehr).
      * Wecker selbst, iOS-Aufgabe und alles ohne Wecker: [DEDUPE_WINDOW_MILLIS].
+     *
+     * Das Fenster ist um [DEDUPE_TOLERANCE_MILLIS] kürzer als das Intervall (nie unter [DEDUPE_WINDOW_MILLIS]): Die letzte
+     * volle Prüfung wird am ENDE eines Laufs vermerkt, der nächste WorkManager-Lauf beginnt aber ein Intervall nach dem
+     * BEGINN des vorigen — ihr Alter läge sonst immer knapp unter dem Intervall, und bliebe der Wecker aus, fiele jeder
+     * zweite Lauf weg (Prüfung nur alle zwei Intervalle).
      */
     fun dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Boolean, intervalMillis: Long): Long =
-        if (trigger == CheckTrigger.WORKER && exactArmed) maxOf(intervalMillis, DEDUPE_WINDOW_MILLIS) else DEDUPE_WINDOW_MILLIS
+        if (trigger == CheckTrigger.WORKER && exactArmed) {
+            maxOf(intervalMillis - DEDUPE_TOLERANCE_MILLIS, DEDUPE_WINDOW_MILLIS)
+        } else {
+            DEDUPE_WINDOW_MILLIS
+        }
 
     /**
      * Volle Prüfung für [shouldSkip]? Alle abfragbaren Paare ([attempted]; Paare pausierter Börsen
@@ -92,6 +104,15 @@ object BackgroundSchedule {
     fun isFullCheck(attempted: Int, failed: Int): Boolean =
         attempted > 0 && failed in 0 until attempted && (attempted - failed) * 2 > attempted
 
-    /** Akku-Hinweis zeigen? Nur eingeschränkt und wenn überhaupt im Hintergrund geprüft wird (Paare da). */
+    /**
+     * Zählt ein Lauf als «Prüfung mit allen Alarmen» ([isFullCheck] → `lastFullCheck`, iOS `lastAlarmCheckAt`)? Nur eine
+     * volle Prüfung ([fullCheck]), und warten Alarme mit Zusatzdaten auf einen späteren Schritt ([deferredWaiting] — nur
+     * die iOS-Hintergrund-Aufgabe; Android wertet alle Alarmarten in einem Schritt aus), erst wenn auch sie geprüft sind
+     * ([deferredChecked]). Sonst bleibt der alte Wert. Gespiegelt in `BackgroundSchedule.swift`.
+     */
+    fun marksAlarmCheck(fullCheck: Boolean, deferredWaiting: Boolean = false, deferredChecked: Boolean = false): Boolean =
+        fullCheck && (!deferredWaiting || deferredChecked)
+
+    /** Akku-Hinweis zeigen? Nur eingeschränkt und wenn überhaupt im Hintergrund geprüft wird (Paare oder Alarme da). */
     fun showBatteryHint(batteryRestricted: Boolean, hasWork: Boolean): Boolean = batteryRestricted && hasWork
 }

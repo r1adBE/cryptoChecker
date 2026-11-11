@@ -24,6 +24,7 @@
     <string name="address_lots_add">Tétel hozzáadása</string>
     <string name="address_lots_new">Új tétel</string>
     <string name="address_lots_edit">Tétel</string>
+    <string name="address_lots_delete_title">Törlöd a tételt?</string>
     <string name="address_lots_date">Vásárlás dátuma</string>
     <string name="address_lots_amount">Mennyiség</string>
     <string name="address_lots_mode_total">Összesen</string>

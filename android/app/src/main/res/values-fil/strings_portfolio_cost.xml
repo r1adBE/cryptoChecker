@@ -24,6 +24,7 @@
     <string name="address_lots_add">Magdagdag ng lot</string>
     <string name="address_lots_new">Bagong lot</string>
     <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_delete_title">I-delete ang lot?</string>
     <string name="address_lots_date">Petsa ng pagbili</string>
     <string name="address_lots_amount">Halaga</string>
     <string name="address_lots_mode_total">Kabuuan</string>

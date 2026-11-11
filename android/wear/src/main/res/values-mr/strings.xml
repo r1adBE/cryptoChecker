@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">कॉइन: कमाल %1$d</string>
     <string name="watch_complication_label">किंमत</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 तासांत %3$s</string>
-    <string name="watch_mode_phone">यादी: फोनप्रमाणे</string>
-    <string name="watch_mode_own">यादी: स्वतःची</string>
+    <string name="watch_list_from_phone">फोनची यादी</string>
     <string name="watch_phone_empty">फोनवर एकही आवडता नाही</string>
     <string name="watch_portfolio">पोर्टफोलिओ</string>
     <string name="watch_portfolio_today">आज %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">भाव नाही, घड्याळ ही जोडी लोड करू शकत नाही</string>
     <string name="a11y_watch_no_price_via_phone">भाव नाही, घड्याळाला %1$s चे भाव फक्त फोनवरून मिळतात</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">भाव नाही, सध्या एक्सचेंजशी संपर्क होत नाही</string>
+    <string name="watch_no_price_phone">फक्त फोनवरून</string>
+    <string name="watch_no_price_unreachable">संपर्क होत नाही</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">शेवटचे अपडेट %1$d मिनिटापूर्वी</item>
         <item quantity="other">शेवटचे अपडेट %1$d मिनिटांपूर्वी</item>

@@ -24,6 +24,7 @@
     <string name="address_lots_add">Ajouter un lot</string>
     <string name="address_lots_new">Nouveau lot</string>
     <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_delete_title">Supprimer le lot ?</string>
     <string name="address_lots_date">Date d’achat</string>
     <string name="address_lots_amount">Quantité</string>
     <string name="address_lots_mode_total">Total</string>

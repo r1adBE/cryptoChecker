@@ -108,7 +108,9 @@ class BackupResultDialogParityTest {
     @Test
     fun entscheidetWieGemeinsameTestfaelle() {
         val cases = fixture["cases"].list()
-        assertTrue(cases.size >= 35)
+        assertTrue(cases.size >= 38)
+        assertTrue(cases.any { it.obj()["protectionLowered"] == true })
+        assertTrue(cases.any { it.obj()["addressServerNote"] == "SET" })
         for (raw in cases) {
             val c = raw.obj()
             val name = c["description"] as String
@@ -121,6 +123,7 @@ class BackupResultDialogParityTest {
                 appLockKept = c["appLockKept"] as Boolean,
                 addressServerNote = note,
                 fontScale = (c["fontScale"].num() ?: 1.0).toFloat(),
+                protectionLowered = c["protectionLowered"] as Boolean? ?: false,
             )
             assertEquals(name, c["expected"] as String, if (actual) "dialog" else "toast")
         }

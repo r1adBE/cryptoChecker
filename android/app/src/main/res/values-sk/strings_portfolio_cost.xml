@@ -24,6 +24,7 @@
     <string name="address_lots_add">Pridať položku</string>
     <string name="address_lots_new">Nová položka</string>
     <string name="address_lots_edit">Položka</string>
+    <string name="address_lots_delete_title">Odstrániť položku?</string>
     <string name="address_lots_date">Dátum nákupu</string>
     <string name="address_lots_amount">Množstvo</string>
     <string name="address_lots_mode_total">Celkom</string>

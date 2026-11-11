@@ -32,7 +32,8 @@ import java.util.concurrent.TimeUnit
  * wie die Zeile der Uhr-App), veraltet ([WatchFreshness], 45 Min. ab dem Stand seines Abrufs) statt ihrer mit dem Alter
  * «… +1.2%  ·  vor 47 Min.», kurz mit dem Alter im Titel «BTC 47m» (vom Zifferblatt fortgezählt, [shortTitle]); die
  * Beschreibung für den Screenreader nennt Alter und Börse immer. Farben bestimmt das Zifferblatt (kein Abblassen möglich). Tippen
- * öffnet die Uhr-App.
+ * öffnet die Uhr-App. Ohne gewählte Coins statt «--» ein Hinweis mit Tipp-Ziel ([empty]): lang «Coins wählen» bzw. «Keine
+ * Favoriten auf dem Handy», kurz «Kurs / +» — wie watchOS, das dann die Uhr-App öffnet.
  */
 class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
@@ -43,7 +44,11 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val store = WatchStore(this)
         val settings = store.settings
         val favorites = settings.shown
-        val coin = favorites.firstOrNull() ?: return NoDataComplicationData()
+        val tap = PendingIntent.getActivity(
+            this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+        val coin = favorites.firstOrNull()
+            ?: return empty(request.complicationType, settings.mode == WatchSettings.Mode.PHONE, tap)
         var cached = store.quotes()[coin]
         val usePhone = settings.source == WatchSettings.Source.PHONE && WatchDataLayer.phoneConnected(this)
         val need = WatchPhoneQuotes.selfFetch(favorites, store.quotes().mapValues { it.value.time }, store.phoneCoins,
@@ -65,9 +70,6 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val shown = cached ?: return NoDataComplicationData()
         val q = shown.quote
         val time = shown.time
-        val tap = PendingIntent.getActivity(
-            this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-        )
         val now = System.currentTimeMillis()
         val age = if (WatchFreshness.isOutdated(time, now)) {
             Age(WatchAge.short(time, now), WatchAge.spoken(this, time, now), time)
@@ -79,6 +81,26 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val quote = WatchPair.parse(coin)?.quote ?: WatchPair.USDT
         return data(request.complicationType, WatchPair.label(coin), quote, q.price, q.change24h,
             q.source.takeIf { it.isNotBlank() }, age, tap)
+    }
+
+    /**
+     * Keine Coins gewählt: sagt, was zu tun ist, und öffnet beim Tippen die Uhr-App (statt «--» ohne Tipp-Ziel).
+     * «Wie Handy» ([phone]) ohne Favoriten: «Keine Favoriten auf dem Handy», eigene Liste: «Coins wählen».
+     */
+    private fun empty(type: ComplicationType, phone: Boolean, tap: PendingIntent): ComplicationData? {
+        val hint = getString(if (phone) R.string.watch_phone_empty else R.string.watch_choose)
+        val title = text(getString(R.string.watch_complication_label))
+        return when (type) {
+            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text("+"), text(hint))
+                .setTitle(title)
+                .setTapAction(tap)
+                .build()
+            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text(hint), text(hint))
+                .setTitle(title)
+                .setTapAction(tap)
+                .build()
+            else -> null
+        }
     }
 
     /** Alter veralteter Kurse: kurz für die lange Komplikation, ausgeschrieben für den Screenreader; [time] = Stand. */

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Munte: hoogstens %1$d</string>
     <string name="watch_complication_label">Prys</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uur</string>
-    <string name="watch_mode_phone">Lys: soos foon</string>
-    <string name="watch_mode_own">Lys: eie</string>
+    <string name="watch_list_from_phone">Lys van foon</string>
     <string name="watch_phone_empty">Geen gunstelinge op die foon nie</string>
     <string name="watch_portfolio">Portefeulje</string>
     <string name="watch_portfolio_today">%1$s vandag</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">geen koers, die horlosie kan hierdie paar nie laai nie</string>
     <string name="a11y_watch_no_price_via_phone">geen koers, die horlosie kry %1$s-koerse net van die foon</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">geen koers, beurse tans nie bereikbaar nie</string>
+    <string name="watch_no_price_phone">net via foon</string>
+    <string name="watch_no_price_unreachable">nie bereikbaar nie</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">laas %1$d minuut gelede bygewerk</item>
         <item quantity="other">laas %1$d minute gelede bygewerk</item>

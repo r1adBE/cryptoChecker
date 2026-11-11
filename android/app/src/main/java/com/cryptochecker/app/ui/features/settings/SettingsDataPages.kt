@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
@@ -97,8 +97,10 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             Hint(stringResource(R.string.backup_device_bound))
             if (encryptionPending) Hint(stringResource(R.string.backup_encryption_pending))
             SettingsAnchor("backup.actions") {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                // Untereinander und volle Breite: «Wiederherstellen» und längere Wörter anderer Sprachen passen nicht
+                // in eine halbe Zeile (iOS gleich)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm)
                 ) {
                     FilledTonalButton(
@@ -108,7 +110,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                                 exportDialog = hasPortfolio
                             }
                         },
-                        modifier = Modifier.weight(1f).testTag(UiTestTags.BACKUP_EXPORT)
+                        modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_EXPORT)
                     ) {
                         // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
                         Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
@@ -121,7 +123,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                                 importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
                             }
                         },
-                        modifier = Modifier.weight(1f).testTag(UiTestTags.BACKUP_IMPORT)
+                        modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_IMPORT)
                     ) {
                         // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
                         Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
@@ -211,7 +213,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         val asDialog = if (m is BackupMessage.Restored) {
             BackupResultPresentation.asDialog(
                 resources.getResourceEntryName(res), text, m.droppedPairs, m.droppedAlarms, m.appLockKept, m.addressServerNote,
-                fontScale,
+                fontScale, protectionLowered = m.lowered.any,
             )
         } else {
             BackupResultPresentation.asDialog(resources.getResourceEntryName(res), text, fontScale = fontScale)
@@ -246,7 +248,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
 
 /**
  * «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte
- * sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt.
+ * sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (mit Hostnamen);
+ * «Portfolio in Systemsicherung» eingeschaltet bzw. «Beträge verbergen» ausgeschaltet.
  */
 private fun restoredText(resources: android.content.res.Resources, m: BackupMessage.Restored): String {
     val restored = resources.getString(
@@ -255,16 +258,21 @@ private fun restoredText(resources: android.content.res.Resources, m: BackupMess
         resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms),
     )
     val serverNote = when (m.addressServerNote) {
-        BackupRestorePolicy.AddressServerNote.KEPT -> R.string.backup_restore_server_kept
-        BackupRestorePolicy.AddressServerNote.PUBLIC -> R.string.backup_restore_server_public
-        BackupRestorePolicy.AddressServerNote.CHANGED -> R.string.backup_restore_server_changed
+        BackupRestorePolicy.AddressServerNote.KEPT -> resources.getString(R.string.backup_restore_server_kept)
+        BackupRestorePolicy.AddressServerNote.PUBLIC -> resources.getString(R.string.backup_restore_server_public)
+        BackupRestorePolicy.AddressServerNote.CHANGED -> resources.getString(R.string.backup_restore_server_changed)
+        // Neu gesetzt, wo keiner war: mit Hostnamen, nie still
+        BackupRestorePolicy.AddressServerNote.SET ->
+            resources.getString(R.string.backup_restore_server_set, m.addressServerHost.orEmpty())
         null -> null
     }
     return listOfNotNull(
         restored,
         overLimitsText(resources, R.string.backup_restored_over_limits, m.droppedPairs, m.droppedAlarms),
         resources.getString(R.string.backup_restore_app_lock_kept).takeIf { m.appLockKept },
-        serverNote?.let { resources.getString(it) },
+        serverNote,
+        resources.getString(R.string.backup_restore_system_backup_on).takeIf { m.lowered.systemBackupOn },
+        resources.getString(R.string.backup_restore_amounts_shown).takeIf { m.lowered.amountsShown },
     ).joinToString("\n")
 }
 

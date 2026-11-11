@@ -6,7 +6,6 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
@@ -45,18 +44,17 @@ class BackgroundCheck @Inject constructor(
     private val watchRepository: WatchRepository,
     private val checkRuns: CheckRunStore,
     private val pulseWidgets: PulseWidgetRenderer,
+    private val exactDemand: ExactCheckDemand,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Nie zwei Prüfungen gleichzeitig (exakter Wecker und WorkManager können zusammenfallen). */
     private val running = Mutex()
 
-    /** Gibt es aktive (nicht deaktivierte) Paare? Fehler: lieber ja. */
-    suspend fun hasWork(): Boolean {
-        // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): unbekannt, also lieber ja — sonst
-        // nähme der Abgleich den Wecker «Pünktlich prüfen» weg, obwohl die Datei Paare hat
-        if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return true
-        return runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
-    }
+    /**
+     * Braucht es den Wecker «Pünktlich prüfen»? Aktive Paare, scharfer Portfolio-Alarm oder Gas-/Depeg-Alarm
+     * ([ExactCheckDemand], gleicher Bedarf wie die periodische Aktualisierung für diese Alarme). Fehler: lieber ja.
+     */
+    suspend fun hasWork(): Boolean = exactDemand.hasWork()
 
     /** Lauf vermerken (Ergebnis, übersprungen oder gescheitert). */
     fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long) {

@@ -89,8 +89,11 @@ internal class TaxYearSummaryBuilder(
         period.end.plusDays(days).takeIf { affected && !it.isBefore(today ?: LocalDate.now(zone)) }
     }
 
-    /** Posten der Gewinne und Verluste; die Summe netto (AT: Neubestand netto). */
-    private val net: Acc = gainLines()
+    /**
+     * Summe netto der Gewinne und Verluste (AT: Neubestand netto). Gesetzt in [build] durch [gainLines] — nicht hier im
+     * Initialisierer: Die Rechnung hinge sonst an der Reihenfolge der Eigenschaften dieser Klasse.
+     */
+    private lateinit var net: Acc
 
     // CA: nicht abziehbare Verluste
     val adjRows = rows.filter { it.adjustmentUsdt != null }
@@ -123,10 +126,11 @@ internal class TaxYearSummaryBuilder(
     val intTarget = interest.fold(zero) { a, r -> a + (r.valueTarget ?: zero) }
     val intMissing = interest.any { it.valueMissing }
     val intFx = fx && interest.any { it.fxMissing }
-    val netIncomplete = net.incomplete
-    val netFx = net.fxMissing > 0
+    val netIncomplete: Boolean get() = net.incomplete
+    val netFx: Boolean get() = net.fxMissing > 0
     fun scaled(v: BigDecimal, f: BigDecimal): BigDecimal = v.multiply(f, PortfolioDecimal.MC)
 
+    /** Posten der Gewinne und Verluste (zuerst in [lines]); die Summe netto als Ergebnis. */
     private fun gainLines(): Acc {
         val net: Acc
         if (template.holdingBuckets) {
@@ -179,6 +183,7 @@ internal class TaxYearSummaryBuilder(
 
     /** Alle Posten in ihrer Reihenfolge: Tatsachen, dann die Orientierung der Vorlage. */
     fun build(): TaxYearSummary {
+        net = gainLines()
         if (withdrawalFees.isNotEmpty()) {
             val note = when (template) {
                 TaxTemplate.AT -> TaxSummaryNote.AT_WITHDRAWAL_FEE

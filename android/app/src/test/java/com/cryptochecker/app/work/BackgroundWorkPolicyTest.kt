@@ -262,4 +262,60 @@ class BackgroundWorkPolicyTest {
         assertFalse(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = false, alarmOn = false, portfolioKept = true, widget = false))
         assertTrue(BackgroundWorkPolicy.portfolioWork(portfolioEnabled = false, alarmOn = false, portfolioKept = false, widget = true))
     }
+
+    // ── Bedarf des Weckers «Pünktlich prüfen» ───────────────────────────────
+
+    @Test
+    fun `exact check is needed for portfolio gas and depeg alarms without active pairs`() {
+        fun needed(pairs: Boolean = false, portfolio: Boolean = false, market: Boolean = false, kept: Boolean = false) =
+            BackgroundWorkPolicy.exactNeeded(activePairs = pairs, portfolioAlarm = portfolio, marketAlarms = market, watchlistKept = kept)
+        assertFalse(needed())
+        assertTrue(needed(pairs = true))
+        // Ohne aktive Paare: der Wecker bleibt, solange ein solcher Alarm läuft (sonst stimmte «nichts zu prüfen» nicht)
+        assertTrue(needed(portfolio = true))
+        assertTrue(needed(market = true))
+        assertTrue(needed(kept = true))
+        // Gas: Grenze > 0; Depeg: Schalter
+        assertFalse(BackgroundWorkPolicy.marketAlarms(gasAlertEthTenths = 0, gasAlertBtc = 0, depegAlarm = false))
+        assertTrue(BackgroundWorkPolicy.marketAlarms(gasAlertEthTenths = 5, gasAlertBtc = 0, depegAlarm = false))
+        assertTrue(BackgroundWorkPolicy.marketAlarms(gasAlertEthTenths = 0, gasAlertBtc = 20, depegAlarm = false))
+        assertTrue(BackgroundWorkPolicy.marketAlarms(gasAlertEthTenths = 0, gasAlertBtc = 0, depegAlarm = true))
+    }
+
+    @Test
+    fun `exact need never falls below the alarm part of the periodic need`() {
+        // Jeder Alarm-Bedarf der periodischen Aktualisierung ohne Paare hält auch den Wecker: gleiche Eingaben, beide ja
+        for (portfolioAlarm in listOf(false, true)) for (market in listOf(false, true)) {
+            val periodic = BackgroundWorkPolicy.periodicNeeded(demand(portfolioWork = portfolioAlarm, marketAlarms = market))
+            val exact = BackgroundWorkPolicy.exactNeeded(activePairs = false, portfolioAlarm = portfolioAlarm, marketAlarms = market)
+            assertEquals("portfolio=$portfolioAlarm market=$market", periodic, exact)
+        }
+        // Und der Wecker wird damit gestellt bzw. nach dem Auslösen neu gestellt statt abgesagt
+        val hasWork = BackgroundWorkPolicy.exactNeeded(activePairs = false, portfolioAlarm = true, marketAlarms = false)
+        assertEquals(
+            ExactAction.Arm(now + fifteenMin),
+            BackgroundWorkPolicy.exactAction(enabled = true, permitted = true, hasWork = hasWork, armedFor = 0, now = now),
+        )
+        assertEquals(FiredAction.REARM_AND_CHECK, BackgroundWorkPolicy.firedAction(enabled = true, permitted = true, hasWork = hasWork, online = true))
+        assertEquals(BackgroundSchedule.ExactState.ACTIVE, BackgroundSchedule.exactState(enabled = true, permitted = true, hasWork = hasWork))
+    }
+
+    /** Wecker, Abgleich nach dem Lauf, Schalter und Text der Einstellungen lesen denselben Bedarf (ExactCheckDemand). */
+    @Test
+    fun `every exact check entry reads the shared demand`() {
+        fun source(path: String): String = sequenceOf("", "app/", "android/app/")
+            .map { java.io.File(it + "src/main/java/com/cryptochecker/app/" + path) }.first { it.isFile }.readText()
+        assertTrue(source("work/BackgroundCheck.kt").contains("suspend fun hasWork(): Boolean = exactDemand.hasWork()"))
+        val control = source("ui/features/settings/ExactCheckControl.kt")
+        assertTrue(control.contains("exactScheduler.sync(enabled, hasWork = demand.hasWork())"))
+        assertTrue(control.contains("val hasWork: Flow<Boolean> get() = demand.observe()"))
+        assertTrue(source("ui/features/settings/SettingsViewModel.kt").contains("val hasBackgroundWork: StateFlow<Boolean> = exactChecks.hasWork"))
+        val demand = source("work/ExactCheckDemand.kt")
+        assertTrue(demand.contains("BackgroundWorkPolicy.exactNeeded("))
+        assertTrue(demand.contains("BackgroundWorkPolicy.marketAlarms(settings.gasAlertEthTenths, settings.gasAlertBtc, settings.depegAlarm)"))
+        // Nirgends mehr «nur aktive Paare» als Bedarf des Weckers
+        for (path in listOf("work/BackgroundCheck.kt", "ui/features/settings/ExactCheckControl.kt", "ui/features/settings/SettingsViewModel.kt")) {
+            assertFalse(path, source(path).contains("any { !it.disabled }"))
+        }
+    }
 }

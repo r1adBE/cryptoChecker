@@ -186,8 +186,10 @@ final class WatchPairsParityTests: XCTestCase {
         for c in TestSupport.list(try TestSupport.fixture("watch_pairs")["missing"]) {
             let pair = try XCTUnwrap(WatchPair.parse(c["key"] as? String ?? ""))
             let outcome = (c["outcome"] as? String).flatMap(WatchPairQuotes.Outcome.init(rawValue:))
-            XCTAssertEqual(WatchPairQuotes.missingReason(pair, outcome: outcome).rawValue, c["expected"] as? String,
-                           "\(pair.key) \(String(describing: outcome))")
+            let missing = WatchPairQuotes.missingReason(pair, outcome: outcome)
+            XCTAssertEqual(missing.rawValue, c["expected"] as? String, "\(pair.key) \(String(describing: outcome))")
+            // Sichtbarer Kurzgrund der Zeile: «nur vom iPhone» oder «nicht erreichbar»
+            XCTAssertEqual(missing.viaPhone, c["viaPhone"] as? Bool, "\(pair.key) \(String(describing: outcome)) short")
         }
     }
 }

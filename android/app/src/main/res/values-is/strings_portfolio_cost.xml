@@ -24,6 +24,7 @@
     <string name="address_lots_add">Bæta við lotu</string>
     <string name="address_lots_new">Ný lota</string>
     <string name="address_lots_edit">Lota</string>
+    <string name="address_lots_delete_title">Eyða lotu?</string>
     <string name="address_lots_date">Kaupdagur</string>
     <string name="address_lots_amount">Magn</string>
     <string name="address_lots_mode_total">Samtals</string>

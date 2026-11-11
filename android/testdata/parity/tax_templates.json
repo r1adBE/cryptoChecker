@@ -6479,7 +6479,8 @@
           "estimated": true
         }
       ]
-    }
+    },
+    {"name": "AU (FIFO, template AU) Netzwerkgebühr einer Umbuchung im Coin = Veräusserung der Gebühr-Coins zum Marktwert (Tagesschluss): 0.01 × 300 − 0.01 × 100; der Rest behält seinen Einstand 99", "_calc": "Kauf 1 X zu 100 (10.01.2025). Umbuchung 0.5 X von A nach B am 01.02.2025 mit Netzwerkgebühr 0.01 X: Veräusserung 0.01 X zum Tagesschluss 300 → Erlös 3, Einstand 1, Gewinn 2 (geschätzter Wert). Verkauf 0.99 X zu 400 am 01.03.2025: Erlös 396, Einstand 99, Gewinn 297.", "method": "FIFO", "template": "AU", "prices": {"X": "300"}, "trades": [{"id": 1, "coin": "X", "type": "BUY", "amount": "1", "time": 1736510400000, "price": "100"}, {"id": 2, "coin": "X", "type": "TRANSFER", "amount": "0.5", "time": 1738411200000, "fee": "0.01", "feeUnit": "COIN", "transferFrom": "A", "transferTo": "B"}, {"id": 3, "coin": "X", "type": "SELL", "amount": "0.99", "time": 1740830400000, "price": "400"}], "disposals": [{"coin": "X", "sold": "2025-02-01", "acquired": "2025-01-10", "amount": "0.01", "cost": "1", "proceeds": "3", "gain": "2", "valueEstimated": true}, {"coin": "X", "sold": "2025-03-01", "acquired": "2025-01-10", "amount": "0.99", "cost": "99", "proceeds": "396", "gain": "297"}], "feeRows": [2025, 1]}
   ],
   "summaries": [
     {

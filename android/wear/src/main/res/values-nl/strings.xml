@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Munten: maximaal %1$d</string>
     <string name="watch_complication_label">Koers</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uur</string>
-    <string name="watch_mode_phone">Lijst: zoals telefoon</string>
-    <string name="watch_mode_own">Lijst: eigen</string>
+    <string name="watch_list_from_phone">Lijst van telefoon</string>
     <string name="watch_phone_empty">Geen favorieten op de telefoon</string>
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s vandaag</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">geen koers, het horloge kan dit paar niet laden</string>
     <string name="a11y_watch_no_price_via_phone">geen koers, het horloge krijgt koersen van %1$s alleen via de telefoon</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">geen koers, beurzen nu niet bereikbaar</string>
+    <string name="watch_no_price_phone">alleen via telefoon</string>
+    <string name="watch_no_price_unreachable">niet bereikbaar</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">laatst bijgewerkt %1$d minuut geleden</item>
         <item quantity="other">laatst bijgewerkt %1$d minuten geleden</item>

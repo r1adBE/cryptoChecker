@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">מטבעות: עד %1$d</string>
     <string name="watch_complication_label">מחיר</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s ב-24 שעות</string>
-    <string name="watch_mode_phone">רשימה: כמו בטלפון</string>
-    <string name="watch_mode_own">רשימה: אישית</string>
+    <string name="watch_list_from_phone">רשימה מהטלפון</string>
     <string name="watch_phone_empty">אין מועדפים בטלפון</string>
     <string name="watch_portfolio">תיק השקעות</string>
     <string name="watch_portfolio_today">%1$s היום</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">אין מחיר, השעון לא יכול לטעון את הצמד הזה</string>
     <string name="a11y_watch_no_price_via_phone">אין מחיר, השעון מקבל מחירים של %1$s רק מהטלפון</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">אין מחיר, אין כרגע גישה לבורסות</string>
+    <string name="watch_no_price_phone">רק מהטלפון</string>
+    <string name="watch_no_price_unreachable">לא זמין</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">עודכן לאחרונה לפני %1$d דקה</item>
         <item quantity="two">עודכן לאחרונה לפני %1$d דקות</item>

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">កាក់៖ អតិបរមា %1$d</string>
     <string name="watch_complication_label">តម្លៃ</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s ក្នុងរយៈពេល 24 ម៉ោង</string>
-    <string name="watch_mode_phone">បញ្ជី៖ ដូចទូរសព្ទ</string>
-    <string name="watch_mode_own">បញ្ជី៖ ផ្ទាល់ខ្លួន</string>
+    <string name="watch_list_from_phone">បញ្ជីពីទូរសព្ទ</string>
     <string name="watch_phone_empty">គ្មានចំណូលចិត្តនៅលើទូរសព្ទទេ</string>
     <string name="watch_portfolio">ផលប័ត្រ</string>
     <string name="watch_portfolio_today">ថ្ងៃនេះ %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">គ្មានតម្លៃ, នាឡិកាមិនអាចផ្ទុកគូនេះបានទេ</string>
     <string name="a11y_watch_no_price_via_phone">គ្មានតម្លៃ, នាឡិកាទទួលតម្លៃ %1$s ពីទូរសព្ទតែប៉ុណ្ណោះ</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">គ្មានតម្លៃ, ឥឡូវនេះមិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេ</string>
+    <string name="watch_no_price_phone">ពីទូរសព្ទតែប៉ុណ្ណោះ</string>
+    <string name="watch_no_price_unreachable">មិនអាចភ្ជាប់បានទេ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d នាទីមុន</item>
     </plurals>

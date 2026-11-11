@@ -36,7 +36,8 @@ enum BackupResultPresentation {
     }
 
     /// `key` = Schlüssel des Haupttexts (z. B. «backup_restored»), `text` = angezeigter Gesamttext; die übrigen
-    /// Werte stammen aus dem Ergebnis des Wiederherstellens (sonst 0/false/nil); `fontScale` = Schriftgrösse des Systems.
+    /// Werte stammen aus dem Ergebnis des Wiederherstellens (sonst 0/false/nil); `fontScale` = Schriftgrösse des Systems;
+    /// `protectionLowered` = die Sicherung hat Schutz abgeschaltet (`BackupRestorePolicy.LoweredProtection.any`).
     static func asDialog(
         key: String,
         text: String,
@@ -44,9 +45,10 @@ enum BackupResultPresentation {
         droppedAlarms: Int = 0,
         appLockKept: Bool = false,
         addressServerNote: BackupRestorePolicy.AddressServerNote? = nil,
-        fontScale: Double = 1
+        fontScale: Double = 1,
+        protectionLowered: Bool = false
     ) -> Bool {
-        droppedPairs > 0 || droppedAlarms > 0 || appLockKept || addressServerNote != nil
+        droppedPairs > 0 || droppedAlarms > 0 || appLockKept || addressServerNote != nil || protectionLowered
             || longKeys.contains(key) || Double(displayWidth(text)) > toastLimit(fontScale: fontScale)
     }
 

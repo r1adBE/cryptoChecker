@@ -22,4 +22,28 @@ struct RestoreSteps {
 
     /// Anzahl der Schritte, die beim Rückrollen zurückgesetzt würden.
     var completed: Int { undos.count }
+
+    /// Die Merkliste liess sich nicht auf die Platte schreiben (`settled` false): Der Lauf gilt als gescheitert.
+    struct NotSettled: Error, Equatable {}
+
+    /// Ganzer Ablauf mit Journal (das Journal ist schon geschrieben): `body` führt die Schritte aus. Die Merkliste wird
+    /// im Hintergrund geschrieben (`SharedStorage.saveSnapshotInBackground`) — erst wenn sie wirklich auf der Platte ist
+    /// (`settled` true), gilt der Lauf als gelungen und das Journal darf weg (`deleteJournal`). Sonst und bei jedem
+    /// gescheiterten Schritt: zurückrollen; das Journal fällt nur weg, wenn auch der zurückgeschriebene Stand auf der
+    /// Platte ist — sonst bleibt es, und der nächste Start rollt zurück (wie Android `RestoreRun.execute`: Journal erst
+    /// nach den Transaktionen bzw. nach vollständigem Zurückrollen löschen).
+    /// - Parameter settled: wartet alle eingereihten Schreibvorgänge ab; true = der letzte hat geschrieben.
+    static func execute(_ body: (inout RestoreSteps) throws -> Void, settled: () -> Bool,
+                        deleteJournal: () -> Void) throws {
+        var steps = RestoreSteps()
+        do {
+            try body(&steps)
+            guard settled() else { throw NotSettled() }
+        } catch {
+            steps.rollBack()
+            if settled() { deleteJournal() }
+            throw error
+        }
+        deleteJournal()
+    }
 }

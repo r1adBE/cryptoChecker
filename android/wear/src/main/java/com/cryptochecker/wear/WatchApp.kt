@@ -25,12 +25,15 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyListState
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material.Checkbox
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.Switch
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.ToggleChip
@@ -47,7 +50,7 @@ import java.util.Date
 
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
- * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Umschalter der Liste und (eigene Liste) «Coins
+ * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Schalter «Liste vom Handy» und (eigene Liste) «Coins
  * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Wahl und Kurse kommen aus dem gemeinsamen [WatchStore]
  * (auch Änderungen vom Handy, solange die App offen ist). Kurse vom Handy (Wahl «Kurse vom Handy, sonst selbst» und
  * Handy verbunden) übernimmt sie, ohne selbst abzufragen; sonst lädt sie beim Öffnen, bei jeder anderen Liste
@@ -111,12 +114,22 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
             }
         }
         BackHandler(enabled = choosing) { choosing = false }
+        // Listenzustände hier, damit die Scroll-Anzeige am Rand der gezeigten Liste folgt (runde Uhren: unter den Coins
+        // stehen noch «Aktualisieren» und die Listenwahl)
+        val listState = rememberScalingLazyListState()
+        val chooseState = rememberScalingLazyListState()
 
-        Scaffold(timeText = { TimeText() }) {
+        Scaffold(
+            timeText = { TimeText() },
+            positionIndicator = { PositionIndicator(scalingLazyListState = if (choosing) chooseState else listState) },
+        ) {
             if (choosing) {
-                ChooseList(settings.own) { coin -> change { it.copy(own = WatchCoins.toggle(it.own, coin)) } }
+                ChooseList(settings.own, state = chooseState) { coin ->
+                    change { it.copy(own = WatchCoins.toggle(it.own, coin)) }
+                }
             } else {
                 QuoteList(settings, cache, portfolio, now, loading, failed,
+                    state = listState,
                     onRefresh = { fetcher.refresh() },
                     onToggleMode = {
                         // Ziel nach der gezeigten Wahl, nicht nach einem neueren Stand des Handys
@@ -137,13 +150,14 @@ private fun QuoteList(
     now: Long,
     loading: Boolean,
     failed: Boolean,
+    state: ScalingLazyListState,
     onRefresh: () -> Unit,
     onToggleMode: () -> Unit,
     onChoose: () -> Unit,
 ) {
     val coins = settings.shown
     val phone = settings.mode == WatchSettings.Mode.PHONE
-    ScalingLazyColumn(state = rememberScalingLazyListState(), modifier = Modifier.fillMaxWidth()) {
+    ScalingLazyColumn(state = state, modifier = Modifier.fillMaxWidth()) {
         portfolio?.let { p -> item { PortfolioRow(p, now) } }
         if (coins.isEmpty()) {
             item {
@@ -168,11 +182,12 @@ private fun QuoteList(
             Chip(onClick = onRefresh, label = { Text(stringResource(R.string.watch_refresh)) }, modifier = Modifier.fillMaxWidth())
         }
         item {
-            // «Wie Handy» ↔ «Eigene Liste»
-            Chip(
-                onClick = onToggleMode,
-                label = { Text(stringResource(if (phone) R.string.watch_mode_phone else R.string.watch_mode_own)) },
-                colors = ChipDefaults.secondaryChipColors(),
+            // Schalter «Liste vom Handy»: an = Favoriten des Handys, aus = eigene Liste (wie watchOS `Toggle`)
+            ToggleChip(
+                checked = phone,
+                onCheckedChange = { onToggleMode() },
+                label = { Text(stringResource(R.string.watch_list_from_phone)) },
+                toggleControl = { Switch(checked = phone) },
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -189,7 +204,8 @@ private fun QuoteList(
  * Zeile eines Coins bzw. Paars des Handys ([key], Anzeige [WatchPair.label], z. B. «BANK Perp»): sieht aus wie ein
  * Chip, hat aber keine Aktion (neu laden nur über «Aktualisieren», wie iOS) — für den Screenreader ein Text ohne Rolle
  * «Schaltfläche». Unter dem Kurs die Börse, die ihn geliefert hat. Veraltet: Kurs grau, Alter statt Börse. Ohne Kurs
- * «—» und, sobald nichts mehr lädt, der Grund im Screenreader ([missingReason]).
+ * «—» und, sobald nichts mehr lädt, der Grund: kurz sichtbar in der zweiten Zeile ([missingShort], «nur vom Handy» /
+ * «nicht erreichbar»), ausführlich im Screenreader ([missingReason]).
  */
 @Composable
 private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Boolean) {
@@ -200,12 +216,15 @@ private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Bool
     val change = WatchFormat.change(q?.change24h)
     val outdated = cached != null && WatchFreshness.isOutdated(cached.time, now)
     val row = stringResource(R.string.a11y_watch_row, coin, price, change)
+    val missing = cached == null && !loading
     val spoken = when {
         cached != null && outdated -> "$row, ${WatchAge.spoken(context, cached.time, now)}"
-        cached == null && !loading -> "$row, ${missingReason(context, key)}"
+        missing -> "$row, ${missingReason(context, key)}"
         else -> row
     }
     val detail = if (cached != null && outdated) WatchAge.short(cached.time, now) else q?.source
+    // Ohne Kurs steht «—» schon oben: die zweite Zeile nennt nur den Grund (darf umbrechen)
+    val second = if (missing) missingShort(context, key) else change + (detail?.let { "  ·  $it" } ?: "")
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -219,14 +238,14 @@ private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Bool
         // Zu eng: Schrift schrumpft bis 60 % statt Ziffern abzuschneiden (wie iOS minimumScaleFactor)
         FitText("$coin  $price", style = MaterialTheme.typography.button,
             color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface)
-        Text(change + (detail?.let { "  ·  $it" } ?: ""), maxLines = 1, style = MaterialTheme.typography.caption2,
+        Text(second, maxLines = if (missing) 2 else 1, style = MaterialTheme.typography.caption2,
             color = MaterialTheme.colors.onSurface)
     }
 }
 
 @Composable
-private fun ChooseList(own: List<String>, onToggle: (String) -> Unit) {
-    ScalingLazyColumn(state = rememberScalingLazyListState(), modifier = Modifier.fillMaxWidth()) {
+private fun ChooseList(own: List<String>, state: ScalingLazyListState, onToggle: (String) -> Unit) {
+    ScalingLazyColumn(state = state, modifier = Modifier.fillMaxWidth()) {
         item {
             Text(stringResource(R.string.watch_choose_hint, WatchCoins.MAX), textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.caption2)
@@ -262,6 +281,16 @@ internal fun missingReason(context: Context, key: String): String {
         WatchPairQuotes.Missing.UNREACHABLE -> context.getString(R.string.a11y_watch_no_price_exchanges_unreachable)
         WatchPairQuotes.Missing.VIA_PHONE -> context.getString(R.string.a11y_watch_no_price_via_phone, pair.exchange)
     }
+}
+
+/**
+ * Sichtbarer Kurzgrund für «—» in der zweiten Zeile, dieselben Fälle wie [missingReason]
+ * ([WatchPairQuotes.Missing.viaPhone]): «nur vom Handy» bzw. «nicht erreichbar». Wie iOS `WatchText.missingShort`.
+ */
+internal fun missingShort(context: Context, key: String): String {
+    val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_no_price_unreachable)
+    val viaPhone = WatchPairQuotes.missingReason(pair, WatchPairOutcomes[pair.key]).viaPhone
+    return context.getString(if (viaPhone) R.string.watch_no_price_phone else R.string.watch_no_price_unreachable)
 }
 
 /** Takt, in dem die Uhr-App das Alter der Kurse neu bewertet. */

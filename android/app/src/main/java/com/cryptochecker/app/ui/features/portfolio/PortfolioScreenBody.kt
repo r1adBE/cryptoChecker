@@ -222,7 +222,7 @@ internal fun PortfolioList(
                             reduceMotion = reduceMotion,
                             shape = shape,
                             confirmsDelete = true,
-                            modifier = Modifier.animateItem()
+                            modifier = if (reduceMotion) Modifier else Modifier.animateItem()
                         ) {
                             CoinRow(
                                 shape = shape,

@@ -137,7 +137,7 @@ internal fun LanguagePage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
 @Composable
 internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
-    val hasWork by viewModel.hasActiveWatches.collectAsStateWithLifecycle()
+    val hasWork by viewModel.hasBackgroundWork.collectAsStateWithLifecycle()
     val checkRuns by viewModel.checkRuns.collectAsStateWithLifecycle()
     val context = LocalContext.current
     // Nach der Rückkehr aus den Android-Einstellungen neu prüfen (Akku, «Wecker und Erinnerungen»).

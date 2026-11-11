@@ -24,6 +24,7 @@
     <string name="address_lots_add">로트 추가</string>
     <string name="address_lots_new">새 로트</string>
     <string name="address_lots_edit">로트</string>
+    <string name="address_lots_delete_title">로트를 삭제할까요?</string>
     <string name="address_lots_date">구매일</string>
     <string name="address_lots_amount">수량</string>
     <string name="address_lots_mode_total">합계</string>

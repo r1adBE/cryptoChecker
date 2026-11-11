@@ -283,6 +283,48 @@ class TaxExportParityTest {
     }
 
     /**
+     * Durchgerechnete Fälle aus TAX_REFERENCE.md (`referenceCases`): Verlust mit Gebühren (FIFO und Ø, CHF-Zeile und
+     * Jahresübersicht NEUTRAL/CH), EUR-Gewinnzeile (DE, FIFO je Wallet) und Fall 3 (Gebühr in EUR, in USDT erfasst) bis in
+     * die Gewinnzeile. Wie iOS `testReferenceCases`.
+     */
+    @Test
+    fun referenceCases() {
+        val blocks = data["referenceCases"].obj()["blocks"].list().map { it.obj() }
+        assertTrue(blocks.size >= 3)
+        var summaries = 0
+        for (b in blocks) {
+            val name = b["name"] as String
+            val z = ZoneId.of(b["zone"] as String)
+            val y = b["year"].num()!!.toInt()
+            val cur = b["currency"] as String
+            val bRates = b["rates"].obj().entries.associate { it.key.toLong() to BigDecimal(it.value as String) }
+            val bTrades = parseTrades(b["trades"])
+            val template = TaxTemplate.valueOf(b["template"] as String)
+            b["cases"].list().map { it.obj() }.forEach { c ->
+                val method = CostMethod.fromName(c["method"] as String)
+                val rows = TaxExport.gainRows(
+                    bTrades, TaxMethod.of(method), template.period(y), z, cur, bRates, rules = template.eventRules,
+                )
+                val csv = TaxExport.gainsCsv(rows, texts, emptyList(), zone = z)
+                assertEquals("$name $method", c["gains"].list(), lines(csv))
+            }
+            b["summaries"]?.list()?.map { it.obj() }?.forEach { s ->
+                val tpl = TaxTemplate.valueOf(s["template"] as String)
+                val app = CostMethod.fromName(s["method"] as String)
+                val sum = TaxExport.yearSummary(bTrades, tpl, tpl.methodFor(app, y), y, z, cur, bRates)
+                s["lines"].list().map { it.list() }.forEach { (line, usdt, target) ->
+                    val l = sum.lines.firstOrNull { it.line == TaxLine.valueOf(line as String) }
+                    val label = "$name ${tpl.name} $app $line"
+                    assertEquals("$label USDT", usdt, l?.usdt?.let { CutoffExport.money(it) })
+                    assertEquals("$label $cur", target, l?.target?.let { CutoffExport.money(it) })
+                }
+                summaries++
+            }
+        }
+        assertTrue(summaries >= 4)
+    }
+
+    /**
      * Jahresübersicht DE über die Vorlage ([TaxExport.yearSummary] mit [TaxTemplate.DE]): Summen, Freigrenzen je Jahr
      * (600/1000 €, 256 €), CSV; Tausch als Veräusserung. Zähler des Fixtures als Merker der Posten (> 0 ↔ Merker gesetzt).
      */

@@ -16,6 +16,9 @@ enum BackgroundSchedule {
     /// Lief eine Prüfung mit mindestens einem Kurs vor weniger als so langer Zeit, entfällt die nächste.
     static let dedupeWindowMillis: Int64 = 5 * 60_000
 
+    /// Toleranz des Sperrfensters unter dem Wecker (`dedupeWindowMillis(trigger:…)`): Dauer eines Laufs samt Spielraum.
+    static let dedupeToleranceMillis: Int64 = 2 * 60_000
+
     /// Zustand des Schalters «Pünktlich prüfen» (Android).
     enum ExactState: Equatable {
         case off, active, permissionMissing, nothingToCheck
@@ -51,8 +54,21 @@ enum BackgroundSchedule {
     /// Sperrfenster für `shouldSkip` (Android): Mit gestelltem Wecker «Pünktlich prüfen» ist WorkManager nur das Netz
     /// darunter und entfällt, solange die letzte volle Prüfung kein Intervall her ist; sonst `dedupeWindowMillis`.
     /// iOS (`bgTask`) nutzt immer `dedupeWindowMillis`. Wie Android `dedupeWindowMillis`.
+    /// Das Fenster ist um `dedupeToleranceMillis` kürzer als das Intervall (nie unter `dedupeWindowMillis`): Die letzte
+    /// volle Prüfung wird am Ende eines Laufs vermerkt, der nächste Lauf beginnt ein Intervall nach dem Beginn des
+    /// vorigen — sonst fiele bei ausbleibendem Wecker jeder zweite Lauf weg.
     static func dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Bool, intervalMillis: Int64) -> Int64 {
-        trigger == .worker && exactArmed ? max(intervalMillis, dedupeWindowMillis) : dedupeWindowMillis
+        trigger == .worker && exactArmed
+            ? max(intervalMillis - dedupeToleranceMillis, dedupeWindowMillis) : dedupeWindowMillis
+    }
+
+    /// Zählt ein Lauf als «Prüfung mit allen Alarmen» (iOS `lastAlarmCheckAt`, Android `lastFullCheck`)? Nur eine volle
+    /// Prüfung (`isFullCheck`), und warten Alarme mit Zusatzdaten auf einen späteren Schritt (`deferredWaiting`: Volumen,
+    /// Funding/OI, Hoch/Tief, Umrechnung — iOS-Hintergrund-Aufgabe), erst wenn auch sie geprüft sind
+    /// (`deferredChecked`). Sonst bleibt der alte Wert: Die Sperre gegen den nächsten Lauf und «Zuletzt geprüft»
+    /// wirkten sonst frisch, obwohl ein Teil der Alarme offen ist. Wie Android `marksAlarmCheck`.
+    static func marksAlarmCheck(fullCheck: Bool, deferredWaiting: Bool, deferredChecked: Bool) -> Bool {
+        fullCheck && (!deferredWaiting || deferredChecked)
     }
 
     /// Volle Prüfung für `shouldSkip`? Alle abfragbaren Paare (`attempted`) versucht und mehr als die Hälfte

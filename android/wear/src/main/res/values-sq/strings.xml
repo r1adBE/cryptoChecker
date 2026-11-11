@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Monedha: deri në %1$d</string>
     <string name="watch_complication_label">Çmimi</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s në 24 orë</string>
-    <string name="watch_mode_phone">Lista: si në telefon</string>
-    <string name="watch_mode_own">Lista: imja</string>
+    <string name="watch_list_from_phone">Lista nga telefoni</string>
     <string name="watch_phone_empty">Nuk ka të preferuara në telefon</string>
     <string name="watch_portfolio">Portofoli</string>
     <string name="watch_portfolio_today">%1$s sot</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">pa çmim, ora nuk mund ta ngarkojë këtë çift</string>
     <string name="a11y_watch_no_price_via_phone">pa çmim, ora i merr çmimet e %1$s vetëm nga telefoni</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">pa çmim, bursat nuk arrihen tani</string>
+    <string name="watch_no_price_phone">vetëm nga telefoni</string>
+    <string name="watch_no_price_unreachable">nuk arrihet</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">përditësuar së fundi para %1$d minute</item>
         <item quantity="other">përditësuar së fundi para %1$d minutash</item>

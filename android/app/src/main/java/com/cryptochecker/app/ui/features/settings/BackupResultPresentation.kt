@@ -6,7 +6,8 @@ import com.cryptochecker.app.data.BackupRestorePolicy
 
 /**
  * Ergebnis von Sichern/Wiederherstellen als Dialog statt als Toast? Ein Text-Toast zeigt ab Android 12 höchstens
- * zwei Zeilen — Hinweise (Grenzen, Sperre bleibt an, eigener Bitcoin-Server) und lange Fehlermeldungen fielen weg.
+ * zwei Zeilen — Hinweise (Grenzen, Sperre bleibt an, eigener Bitcoin-Server, abgeschalteter Schutz) und lange
+ * Fehlermeldungen fielen weg.
  * Kurze Meldungen bleiben Toasts. Gleiche Regel wie iOS `BackupResultPresentation.swift`
  * (gemeinsame Fälle: testdata/parity/backup_result_dialog.json).
  */
@@ -48,7 +49,8 @@ object BackupResultPresentation {
 
     /**
      * [key] = Name des Haupttexts (z. B. «backup_restored»), [text] = angezeigter Gesamttext; die übrigen Werte
-     * stammen aus dem Ergebnis des Wiederherstellens (sonst 0/false/null); [fontScale] = Schriftgrösse des Systems.
+     * stammen aus dem Ergebnis des Wiederherstellens (sonst 0/false/null); [fontScale] = Schriftgrösse des Systems;
+     * [protectionLowered] = die Sicherung hat Schutz abgeschaltet ([BackupRestorePolicy.LoweredProtection.any]).
      */
     fun asDialog(
         key: String,
@@ -58,8 +60,9 @@ object BackupResultPresentation {
         appLockKept: Boolean = false,
         addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
         fontScale: Float = 1f,
+        protectionLowered: Boolean = false,
     ): Boolean =
-        droppedPairs > 0 || droppedAlarms > 0 || appLockKept || addressServerNote != null ||
+        droppedPairs > 0 || droppedAlarms > 0 || appLockKept || addressServerNote != null || protectionLowered ||
             key in LONG_KEYS || displayWidth(text) > toastLimit(fontScale)
 
     /** Haupttext einer Meldung (bei [BackupMessage.Restored] die Vorlage «Wiederhergestellt: …»). */

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">කාසි: උපරිම %1$d</string>
     <string name="watch_complication_label">මිල</string>
     <string name="a11y_watch_row">%1$s %2$s, පැය 24 තුළ %3$s</string>
-    <string name="watch_mode_phone">ලැයිස්තුව: දුරකථනය මෙන්</string>
-    <string name="watch_mode_own">ලැයිස්තුව: තමන්ගේම</string>
+    <string name="watch_list_from_phone">දුරකථනයේ ලැයිස්තුව</string>
     <string name="watch_phone_empty">දුරකථනයේ ප්‍රියතම කිසිවක් නැත</string>
     <string name="watch_portfolio">කළඹ</string>
     <string name="watch_portfolio_today">අද %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">මිලක් නැත, ඔරලෝසුවට මෙම යුගලය පූරණය කළ නොහැක</string>
     <string name="a11y_watch_no_price_via_phone">මිලක් නැත, ඔරලෝසුවට %1$s මිල ලැබෙන්නේ දුරකථනයෙන් පමණි</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">මිලක් නැත, දැන් හුවමාරුවලට ළඟා විය නොහැක</string>
+    <string name="watch_no_price_phone">දුරකථනයෙන් පමණි</string>
+    <string name="watch_no_price_unreachable">ළඟා විය නොහැක</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>
         <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ මිනිත්තු %1$d කට පෙර</item>

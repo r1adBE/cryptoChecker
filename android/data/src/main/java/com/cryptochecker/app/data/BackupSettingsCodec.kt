@@ -142,9 +142,18 @@ class BackupSettingsCodec(
         o.int("quietHoursStart").takeIf { QuietHours.isValidMinute(it) }?.let { setQuietHoursStart(it) }
         o.int("quietHoursEnd").takeIf { QuietHours.isValidMinute(it) }?.let { setQuietHoursEnd(it) }
         // Ohne Passwort (nicht [trusted]) nur in Richtung «mehr Schutz» ([BackupRestorePolicy])
-        BackupRestorePolicy.hideAmounts(o.bool("hidePortfolioAmounts"), current().hidePortfolioAmounts, trusted)
+        // Mit Passwort abgeschalteter Schutz kommt in die Meldung (vor dem Schreiben bestimmt, nie still)
+        val before = current()
+        val lowered = BackupRestorePolicy.loweredProtection(
+            wantedSystemBackup = o.bool("portfolioSystemBackup"),
+            currentSystemBackup = before.portfolioSystemBackup,
+            wantedHideAmounts = o.bool("hidePortfolioAmounts"),
+            currentHideAmounts = before.hidePortfolioAmounts,
+            trusted = trusted,
+        )
+        BackupRestorePolicy.hideAmounts(o.bool("hidePortfolioAmounts"), before.hidePortfolioAmounts, trusted)
             ?.let { setHidePortfolioAmounts(it) }
-        BackupRestorePolicy.systemBackup(o.bool("portfolioSystemBackup"), current().portfolioSystemBackup, trusted)
+        BackupRestorePolicy.systemBackup(o.bool("portfolioSystemBackup"), before.portfolioSystemBackup, trusted)
             ?.let { setPortfolioSystemBackup(it) }
         // Einstandsmethode: unbekannter Wert → FIFO (Standard)
         setCostMethod(com.cryptochecker.app.domain.portfolio.CostMethod.fromName(o.text("costMethod")))
@@ -167,7 +176,12 @@ class BackupSettingsCodec(
             canAuthenticate = canAuthenticate(),
         )
         lock.apply?.let { setAppLock(it) }
-        SettingsRestoreNotes(appLockKept = lock.keptOn, addressServer = serverNote)
+        SettingsRestoreNotes(
+            appLockKept = lock.keptOn,
+            addressServer = serverNote,
+            addressServerHost = BackupRestorePolicy.addressServerSetHost(wantedServer, currentServer, trusted),
+            lowered = lowered,
+        )
     }
 
     companion object {

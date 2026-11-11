@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Монеталар: ең көбі %1$d</string>
     <string name="watch_complication_label">Бағам</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 сағатта %3$s</string>
-    <string name="watch_mode_phone">Тізім: телефондағыдай</string>
-    <string name="watch_mode_own">Тізім: жеке</string>
+    <string name="watch_list_from_phone">Тізім телефоннан</string>
     <string name="watch_phone_empty">Телефонда таңдаулылар жоқ</string>
     <string name="watch_portfolio">Портфель</string>
     <string name="watch_portfolio_today">бүгін %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">баға жоқ, сағат бұл жұпты жүктей алмайды</string>
     <string name="a11y_watch_no_price_via_phone">баға жоқ, сағат %1$s бағаларын тек телефоннан алады</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">баға жоқ, биржалар қазір қолжетімсіз</string>
+    <string name="watch_no_price_phone">тек телефоннан</string>
+    <string name="watch_no_price_unreachable">қолжетімсіз</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">соңғы жаңарту %1$d минут бұрын</item>
         <item quantity="other">соңғы жаңарту %1$d минут бұрын</item>

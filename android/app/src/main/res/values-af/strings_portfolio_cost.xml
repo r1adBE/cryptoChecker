@@ -24,6 +24,7 @@
     <string name="address_lots_add">Voeg lot by</string>
     <string name="address_lots_new">Nuwe lot</string>
     <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_delete_title">Vee lot uit?</string>
     <string name="address_lots_date">Aankoopdatum</string>
     <string name="address_lots_amount">Bedrag</string>
     <string name="address_lots_mode_total">Totaal</string>

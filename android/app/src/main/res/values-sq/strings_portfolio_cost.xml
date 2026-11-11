@@ -24,6 +24,7 @@
     <string name="address_lots_add">Shto pjesë</string>
     <string name="address_lots_new">Pjesë e re</string>
     <string name="address_lots_edit">Pjesë</string>
+    <string name="address_lots_delete_title">Të fshihet pjesa?</string>
     <string name="address_lots_date">Data e blerjes</string>
     <string name="address_lots_amount">Sasia</string>
     <string name="address_lots_mode_total">Gjithsej</string>

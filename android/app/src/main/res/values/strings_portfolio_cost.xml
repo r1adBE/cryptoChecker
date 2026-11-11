@@ -24,6 +24,8 @@
     <string name="address_lots_add">Add lot</string>
     <string name="address_lots_new">New lot</string>
     <string name="address_lots_edit">Lot</string>
+    <!-- Rückfrage vor dem Löschen eines Postens (wie portfolio_tx_delete_title) -->
+    <string name="address_lots_delete_title">Delete lot?</string>
     <string name="address_lots_date">Purchase date</string>
     <string name="address_lots_amount">Amount</string>
     <string name="address_lots_mode_total">Total</string>

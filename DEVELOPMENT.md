@@ -673,7 +673,7 @@ identifiers and the same test file on Android and iOS:
 | Add a coin | «+» → coin search «btc» → «Load lists» if offered → Bitcoin → suggested pair → back: the pair is in the watchlist |
 | Price alarm | pair row → pair page «Set alarm» → editor → 200000 → save → alarm card on the pair page; the notification permission is granted (Android: by the test rule; iOS: the system prompt is answered) |
 | CSV import | Portfolio (empty) › «Import CSV» → test file → preview → «Import» → BTC and ETH positions visible; ⋯ › «Imports» › «Undo» → gone |
-| Backup | pair + CSV import → Settings › Backup › «Export» with password → data cleared → «Import» with a wrong password (rejected, hint under the field, nothing restored) → right password → confirm → watchlist and portfolio back |
+| Backup | pair + CSV import → Settings › Backup › «Back up» with password → data cleared → «Restore» with a wrong password (rejected, hint under the field, nothing restored) → right password → confirm → watchlist and portfolio back |
 
 * **Identifiers.** `UiTestTags` – `android/app/src/main/java/com/cryptochecker/app/ui/UiTestTags.kt`
   (`Modifier.testTag`) and `ios/App/Components/UiTestTags.swift` (`accessibilityIdentifier`), same string
@@ -1553,7 +1553,12 @@ the tests named here.
   (`hideAmounts`); it never turns «Portfolio in system backup» **on** (`systemBackup`); and it never sets,
   replaces or removes the own Bitcoin server (`AddressServer.restored`; the result names a kept server,
   `addressServerNote` KEPT → `backup_restore_server_kept`). An encrypted backup restores all four as stored
-  (the lock turns on only if the device can authenticate; an invalid server value is ignored).
+  (the lock turns on only if the device can authenticate; an invalid server value is ignored) — but never
+  silently, because a password proves no origin: the result names an own Bitcoin server that was newly set
+  where none was, with its host name (`addressServerNote` SET, `addressServerSetHost` →
+  `backup_restore_server_set`), and «Portfolio in system backup» switched on or «Hide amounts» switched off
+  by the backup (`loweredProtection` → `backup_restore_system_backup_on`, `backup_restore_amounts_shown`);
+  each of them shows the result as a dialog (`BackupResultPresentation.asDialog`).
 * **iOS `portfolio.json` is never overwritten blind.** `PortfolioStore.loadChecked` tells a missing
   file (empty portfolio) from an unreadable or partly unreadable one (`PortfolioFile.dropped`).
   `AppData` re-reads before every change (`currentPortfolioFile`) and, if still unreadable, keeps a
@@ -2754,6 +2759,16 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `Components` → `TickerView`, `CoinBadge`, `EmptyStateView`, `FactorRow`, `TabTitle`; `PriceRefresher+Outcome`;
   `PortfolioTx+Derived`, `PortfolioStore`; `PriceColorScheme`. Files between 450 and 650 lines remain (e.g.
   `PortfolioViewModel.kt`, `PortfolioScreen.kt`, `Bip32`, `PulseWidget`).
+* **Provider names in texts.** A provider's name (exchange, data source) belongs in source lines («Source:
+  CoinGecko», «Prices: Binance · …» – partly a licence duty) and wherever the name explains an outage or a data limit
+  to the user: `why_no_data` («No data from Binance for this pair»), `coin_no_data`, `ledger_exchange_failed` /
+  `ledger_exchange_mixed`, `alarm_volume_hint`. Notifications stay neutral (no provider name in title or body), and so
+  do the privacy notices about address providers: the text says «the provider» / «public nodes», the host actually
+  contacted is inserted at run time (`portfolio_address_privacy`). New texts follow this rule on both platforms and
+  in all languages.
+* **Backup wording.** The backup file is «Back up» / «Restore» (German «Sichern» / «Wiederherstellen») everywhere –
+  buttons, titles, messages, errors, announcements. «Export» / «Import» are reserved for CSV (portfolio import,
+  cut-off and tax export); every language uses its own natural backup/restore pair.
 
 ## 19. Storage encryption
 
@@ -2984,7 +2999,7 @@ the eight marked ⬤ for the tagged commit, whatever the path filters say.
 | `market-data.yml` | hourly, by hand | signed data mirror (release `data`) |
 | `macro-calendar.yml` | weekly, by hand | economic calendar (branch `macro`), then Pages |
 | `pages.yml` | `main` (`docs/`), by hand, called by the calendar | GitHub Pages: start page, privacy policy, calendar |
-| `codeql.yml` *CodeQL* | pull requests, `main`, weekly, by hand | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows; results under Security › Code scanning |
+| `codeql.yml` *CodeQL* | pull requests, `main`, weekly, by hand | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows, with the `security-extended` query suite; results under Security › Code scanning |
 | `keepalive.yml` | weekly | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
 
 Artifacts are kept 14 days (test reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
@@ -3008,8 +3023,13 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
   phone switch is off instead of staying empty.
 * **«Check on time» follows the interval** (Android): the exact alarm fires at the chosen background interval, never
   below 15 minutes (`BackgroundSchedule.exactIntervalMillis`, parity `exact_cadence.json`). While it is armed, a
-  WorkManager run is skipped unless a whole interval has passed since the last full check – WorkManager stays
-  scheduled as the net below the alarm. iOS widgets reload at the same interval.
+  WorkManager run is skipped unless the interval minus a tolerance of 2 minutes has passed since the last full check
+  (`dedupeWindowMillis`; the full check is stamped at the end of a run, the next WorkManager run starts one interval
+  after the start of the previous one – without the tolerance every second run was skipped when the alarm stayed
+  away) – WorkManager stays scheduled as the net below the alarm. The alarm is armed whenever there is something to
+  check on time: active pairs, an armed portfolio alarm or a gas/depeg alarm (`ExactCheckDemand`,
+  `BackgroundWorkPolicy.exactNeeded` – the same source for the receiver, the worker, the switch and the text
+  «nothing to check»). iOS widgets reload at the same interval.
 * **Portfolio alarms are private on the lock screen** – always, also without the portfolio lock: on both platforms
   `PortfolioAlarmNotice` puts only the title and a neutral sentence into the notification, no threshold, amount or
   percentage in any field (Android `showPortfolioAlarm(alarmId)` receives nothing else). `VISIBILITY_PRIVATE` alone
@@ -3597,6 +3617,7 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
 * Build 219: documents only (section 20 added), store descriptions, privacy page sentence on the backup password, licences sheet.
 * Build 220: `codeql.yml` (advanced setup) replaces GitHub's default CodeQL setup, whose autobuild of all variants ran out of memory.
 * Build 221 (audit of 220: S-01, S-03, S-05, F-01, F-02, F-03, U-01, C-01): `PortfolioAlarmNotice.kt`, `SharedStorage.replaceFiles`, `CsvImportParser.fxZoneFor`, rate gate in the CSV preview, `gradle/test-inputs.gradle.kts` + `TestInputsGuardTest`, `PROPERTY_RE` without backtracking.
+* Build 222 (audit of 220: S-02, S-04, S-06, F-04 to F-08, F-10, F-11, U-02 to U-11; F-09 was wrong): `ExactCheckDemand`, `RestoreSteps.execute`, new fixtures `price_format.json`, `full_check.json`, `restore_steps.json`; text rule for provider names in section 18.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

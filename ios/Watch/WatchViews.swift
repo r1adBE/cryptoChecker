@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Oben der Portfolio-Wert vom iPhone (falls dort eingeschaltet), dann die Coins mit Kurs und 24 h (Börse klein), darunter
-/// «Aktualisieren», Umschalter der Liste und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
+/// «Aktualisieren», Schalter «Liste vom Handy» und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
 /// jede Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
@@ -38,7 +38,10 @@ struct WatchQuoteList: View {
             }
             Text(status(coins)).font(.footnote).foregroundStyle(.secondary)
             Button(WatchText.t("watch_refresh")) { model.refresh() }
-            Button(WatchText.t(phone ? "watch_mode_phone" : "watch_mode_own")) { model.toggleMode() }
+            // Schalter statt Knopf mit Zustandstext: an = Favoriten des iPhones, aus = eigene Liste (wie Wear `ToggleChip`)
+            Toggle(WatchText.t("watch_list_from_phone"), isOn: Binding(get: { phone }, set: { on in
+                if on != phone { model.toggleMode() }
+            }))
             if !phone {
                 NavigationLink(WatchText.t("watch_choose")) { WatchChooseList(model: model) }
             }
@@ -70,8 +73,8 @@ struct WatchQuoteList: View {
     }
 
     /// Zeile eines Coins bzw. Paars des iPhones (`key`, Anzeige `WatchPair.label(of:)`, z. B. «BANK Perp»); darunter die
-    /// Börse, die den Kurs geliefert hat. Ohne Kurs «—» und, sobald nichts mehr lädt, der Grund für VoiceOver
-    /// (`WatchText.missingReason`) — wie Android `QuoteRow`.
+    /// Börse, die den Kurs geliefert hat. Ohne Kurs «—» und, sobald nichts mehr lädt, der Grund: kurz sichtbar in der
+    /// zweiten Zeile (`WatchText.missingShort`), ausführlich für VoiceOver (`WatchText.missingReason`) — wie Android `QuoteRow`.
     private func row(_ key: String, now: Int64) -> some View {
         let coin = WatchPair.label(of: key)
         let cached = model.quotes[key]
@@ -81,13 +84,16 @@ struct WatchQuoteList: View {
         let change = WatchText.change(q?.change24h)
         let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
         let line = WatchText.t("a11y_watch_row", coin, price, change)
-        let spoken = cached == nil && !model.loading ? line + ", " + WatchText.missingReason(key) : line
+        let missing = cached == nil && !model.loading
+        let spoken = missing ? line + ", " + WatchText.missingReason(key) : line
         // Veraltet: Kurs grau, Alter statt Börse
         let detail = outdated ? WatchText.ago(time, now: now) : q?.source
+        // Ohne Kurs steht «—» schon oben: die zweite Zeile nennt nur den Grund
+        let second = missing ? WatchText.missingShort(key) : change + (detail.map { "  ·  \($0)" } ?? "")
         return VStack(alignment: .leading, spacing: 2) {
             Text("\(coin)  \(price)").font(.headline).lineLimit(1).minimumScaleFactor(0.7)
                 .foregroundStyle(outdated ? HierarchicalShapeStyle.secondary : HierarchicalShapeStyle.primary)
-            Text(change + (detail.map { "  ·  \($0)" } ?? "")).font(.footnote).foregroundStyle(.secondary)
+            Text(second).font(.footnote).foregroundStyle(.secondary)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(outdated ? spoken + ", " + WatchText.spokenAge(time, now: now) : spoken)

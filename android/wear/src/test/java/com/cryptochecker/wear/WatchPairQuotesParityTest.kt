@@ -114,7 +114,10 @@ class WatchPairQuotesParityTest {
         for (c in objects(data.getJSONArray("missing"))) {
             val pair = WatchPair.parse(c.getString("key"))!!
             val outcome = if (c.isNull("outcome")) null else WatchPairQuotes.Outcome.valueOf(c.getString("outcome"))
-            assertEquals("${pair.key} $outcome", c.getString("expected"), WatchPairQuotes.missingReason(pair, outcome).name)
+            val missing = WatchPairQuotes.missingReason(pair, outcome)
+            assertEquals("${pair.key} $outcome", c.getString("expected"), missing.name)
+            // Sichtbarer Kurzgrund der Zeile: «nur vom Handy» oder «nicht erreichbar»
+            assertEquals("${pair.key} $outcome short", c.getBoolean("viaPhone"), missing.viaPhone)
         }
     }
 }

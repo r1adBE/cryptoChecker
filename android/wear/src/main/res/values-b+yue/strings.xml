@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">幣：最多 %1$d 隻</string>
     <string name="watch_complication_label">價格</string>
     <string name="a11y_watch_row">%1$s %2$s，24 小時內 %3$s</string>
-    <string name="watch_mode_phone">清單：同手機一樣</string>
-    <string name="watch_mode_own">清單：自訂</string>
+    <string name="watch_list_from_phone">用手機清單</string>
     <string name="watch_phone_empty">手機冇最愛</string>
     <string name="watch_portfolio">投資組合</string>
     <string name="watch_portfolio_today">今日 %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">冇價格，手錶載入唔到呢個交易對</string>
     <string name="a11y_watch_no_price_via_phone">冇價格，手錶只會經手機攞 %1$s 嘅價格</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">冇價格，暫時連唔到交易所</string>
+    <string name="watch_no_price_phone">只經手機</string>
+    <string name="watch_no_price_unreachable">連唔到</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">%1$d 分鐘前更新</item>
     </plurals>

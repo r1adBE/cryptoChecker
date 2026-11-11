@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Koin: maks. %1$d</string>
     <string name="watch_complication_label">Harga</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s dalam 24 jam</string>
-    <string name="watch_mode_phone">Daftar: seperti ponsel</string>
-    <string name="watch_mode_own">Daftar: sendiri</string>
+    <string name="watch_list_from_phone">Daftar dari ponsel</string>
     <string name="watch_phone_empty">Tidak ada favorit di ponsel</string>
     <string name="watch_portfolio">Portofolio</string>
     <string name="watch_portfolio_today">%1$s hari ini</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">tidak ada harga, jam tidak dapat memuat pasangan ini</string>
     <string name="a11y_watch_no_price_via_phone">tidak ada harga, jam hanya mendapat harga %1$s dari ponsel</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">tidak ada harga, bursa saat ini tidak dapat dijangkau</string>
+    <string name="watch_no_price_phone">hanya dari ponsel</string>
+    <string name="watch_no_price_unreachable">tidak terjangkau</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">terakhir diperbarui %1$d menit lalu</item>
     </plurals>

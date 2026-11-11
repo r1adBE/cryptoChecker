@@ -24,6 +24,7 @@
     <string name="address_lots_add">ലോട്ട് ചേർക്കുക</string>
     <string name="address_lots_new">പുതിയ ലോട്ട്</string>
     <string name="address_lots_edit">ലോട്ട്</string>
+    <string name="address_lots_delete_title">ലോട്ട് ഇല്ലാതാക്കണോ?</string>
     <string name="address_lots_date">വാങ്ങിയ തീയതി</string>
     <string name="address_lots_amount">അളവ്</string>
     <string name="address_lots_mode_total">ആകെ</string>

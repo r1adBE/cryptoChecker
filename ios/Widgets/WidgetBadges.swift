@@ -62,6 +62,9 @@ extension EnvironmentValues {
 /// Ersatz-Kreis mit den Initialen (`CoinLogoPlaceholder`, Farbe fest aus dem Kürzel, wie in der App und Android) — nie
 /// ein kaputtes Bild; Schalter aus → nichts. `always` (Live-Aktivität, kein Logo-Schalter): immer der Ersatz-Kreis.
 /// `logo: false` bei DEX-Pools. `accent` bleibt für die Aufrufer, der Kreis hängt nicht mehr von ihr ab.
+/// Getönter Home-Bildschirm (iOS 18, `widgetRenderingMode` ≠ `.fullColor`): das System färbt alles Deckende gleich ein —
+/// das Logo bleibt darum in seinen Farben (`widgetAccentedRenderingMode(.fullColor)`), und der Ersatz-Kreis wird zu einer
+/// schwachen Scheibe mit deckenden Initialen (sonst verschmelzen Kreis und Schrift zu einer einfarbigen Fläche).
 struct WidgetCoinBadge: View {
     let symbol: String
     var size: CGFloat = 26
@@ -71,6 +74,7 @@ struct WidgetCoinBadge: View {
     var always: Bool = false
     @Environment(\.widgetLogos) private var logos
     @Environment(\.widgetLogosEnabled) private var enabled
+    @Environment(\.widgetRenderingMode) private var renderingMode
 
     var body: some View {
         if always || enabled { circle }
@@ -82,17 +86,21 @@ struct WidgetCoinBadge: View {
                 // Dunkel heller Grund, damit dunkle Logos sichtbar bleiben (wie Android)
                 Circle().fill(dark ? Color.dynamic(ColorTokens.onSurface).opacity(0.92)
                                    : Color.dynamic(ColorTokens.onSurfaceVariant).opacity(0.11))
-                Image(uiImage: image)
-                    .resizable()
-                    .interpolation(.high)
+                logoImage(image)
                     .scaledToFit()
                     .clipShape(Circle())
             } else {
                 let label = CoinLogos.initials(symbol)
-                Circle().fill(CoinLogoPlaceholder.fill(symbol, dark: dark))
+                let tinted = renderingMode != .fullColor
+                // Getönt zählt nur die Deckkraft: Scheibe schwach, Initialen voll
+                if tinted {
+                    Circle().fill(Color.primary.opacity(0.18))
+                } else {
+                    Circle().fill(CoinLogoPlaceholder.fill(symbol, dark: dark))
+                }
                 Text(label)
                     .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
-                    .foregroundStyle(CoinLogoPlaceholder.text(dark: dark))
+                    .foregroundStyle(tinted ? Color.primary : CoinLogoPlaceholder.text(dark: dark))
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                     .padding(2)
@@ -102,5 +110,20 @@ struct WidgetCoinBadge: View {
         .clipShape(Circle())
         // Zierde: Das Kürzel steht schon im Paar
         .accessibilityHidden(true)
+    }
+
+    /// Coin-Logo; ab iOS 18 auch im getönten Modus in seinen eigenen Farben statt als einfarbige Scheibe.
+    @ViewBuilder
+    private func logoImage(_ image: UIImage) -> some View {
+        if #available(iOS 18.0, *) {
+            Image(uiImage: image)
+                .resizable()
+                .interpolation(.high)
+                .widgetAccentedRenderingMode(.fullColor)
+        } else {
+            Image(uiImage: image)
+                .resizable()
+                .interpolation(.high)
+        }
     }
 }

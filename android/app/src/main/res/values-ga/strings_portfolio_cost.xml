@@ -24,6 +24,7 @@
     <string name="address_lots_add">Cuir baisc leis</string>
     <string name="address_lots_new">Baisc nua</string>
     <string name="address_lots_edit">Baisc</string>
+    <string name="address_lots_delete_title">An bhfuil an baisc le scriosadh?</string>
     <string name="address_lots_date">Dáta ceannaigh</string>
     <string name="address_lots_amount">Méid</string>
     <string name="address_lots_mode_total">Iomlán</string>

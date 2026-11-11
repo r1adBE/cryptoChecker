@@ -52,4 +52,75 @@ final class RestoreStepsTests: XCTestCase {
         XCTAssertEqual(value, 3)
         XCTAssertEqual(steps.completed, 2)
     }
+
+    // MARK: Ablauf mit Journal (`RestoreSteps.execute`)
+
+    /// Protokoll eines Laufs: Schritte, Rückrollen, Abwarten der Merkliste, Löschen des Journals — in dieser Reihenfolge.
+    private func run(failAt: Int? = nil, settled results: [Bool]) -> (log: [String], error: Error?) {
+        var log: [String] = []
+        var answers = results
+        var caught: Error?
+        do {
+            try RestoreSteps.execute({ steps in
+                for (i, name) in ["watchlist", "portfolio", "addresses"].enumerated() {
+                    try steps.run({
+                        if failAt == i { throw Boom() }
+                        log.append(name)
+                    }, undo: { log.append("undo " + name) })
+                }
+            }, settled: {
+                let answer = answers.isEmpty ? true : answers.removeFirst()
+                log.append(answer ? "settled" : "not settled")
+                return answer
+            }, deleteJournal: { log.append("journal deleted") })
+        } catch {
+            caught = error
+        }
+        return (log, caught)
+    }
+
+    /// Erfolg: Das Journal fällt erst weg, NACHDEM die Merkliste auf der Platte ist — nie vorher.
+    func testJournalDeletedOnlyAfterSnapshotSettled() {
+        let result = run(settled: [true])
+        XCTAssertNil(result.error)
+        XCTAssertEqual(result.log, ["watchlist", "portfolio", "addresses", "settled", "journal deleted"])
+    }
+
+    /// Merkliste nicht geschrieben: alle Schritte zurück; ist das Zurückgeschriebene auf der Platte, darf das Journal weg.
+    func testUnsettledSnapshotRollsBackEverything() {
+        let result = run(settled: [false, true])
+        XCTAssertTrue(result.error is RestoreSteps.NotSettled)
+        XCTAssertEqual(result.log, ["watchlist", "portfolio", "addresses", "not settled",
+                                    "undo addresses", "undo portfolio", "undo watchlist", "settled", "journal deleted"])
+    }
+
+    /// Auch das Zurückgeschriebene kommt nicht auf die Platte: Das Journal bleibt (der nächste Start rollt zurück).
+    func testJournalKeptWhenRollBackDoesNotSettle() {
+        let result = run(settled: [false, false])
+        XCTAssertTrue(result.error is RestoreSteps.NotSettled)
+        XCTAssertFalse(result.log.contains("journal deleted"))
+        XCTAssertEqual(result.log.suffix(2), ["undo watchlist", "not settled"])
+    }
+
+    /// Schritt scheitert (Portfolio): Merkliste zurück; Journal nur weg, wenn sie wieder auf der Platte ist.
+    func testFailingStepKeepsJournalUntilRollBackSettled() {
+        let settledAgain = run(failAt: 1, settled: [true])
+        XCTAssertTrue(settledAgain.error is Boom)
+        XCTAssertEqual(settledAgain.log, ["watchlist", "undo watchlist", "settled", "journal deleted"])
+        let stillOpen = run(failAt: 1, settled: [false])
+        XCTAssertTrue(stillOpen.error is Boom)
+        XCTAssertEqual(stillOpen.log, ["watchlist", "undo watchlist", "not settled"])
+    }
+
+    /// `BackupManager.writeRestored` geht über diesen Ablauf und wartet die Schreib-Warteschlange ab; nirgends sonst
+    /// wird das Journal nach einem Lauf gelöscht.
+    func testWriteRestoredUsesExecuteAndFlush() throws {
+        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("App/Services/BackupManager+Restore.swift")
+        let source = try String(contentsOf: file, encoding: .utf8)
+        XCTAssertTrue(source.contains("try RestoreSteps.execute({ steps in"))
+        XCTAssertTrue(source.contains("settled: { SharedStorage.flushSnapshotWrites() }, deleteJournal: { if journal { RestoreJournal.delete() } })"))
+        XCTAssertEqual(source.components(separatedBy: "RestoreJournal.delete()").count, 2)
+        XCTAssertTrue(source.contains("throw Failure.invalid(watchlistStep)"))
+    }
 }

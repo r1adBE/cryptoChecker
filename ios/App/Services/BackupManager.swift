@@ -179,6 +179,10 @@ enum BackupManager {
         var droppedPairs = 0
         var droppedAlarms = 0
         var addressServerNote: BackupRestorePolicy.AddressServerNote?
+        /// Hostname des neu gesetzten Bitcoin-Servers (`BackupRestorePolicy.addressServerSetHost`); nil = keiner.
+        var addressServerHost: String?
+        /// Von der Sicherung abgeschalteter Schutz (`BackupRestorePolicy.loweredProtection`).
+        var lowered = BackupRestorePolicy.LoweredProtection()
     }
 
     /// Nur die ungültigen Einträge aus `preview`.
@@ -257,7 +261,8 @@ enum BackupManager {
         AlarmDelivery.portfolio.removeAll()
         return RestoreResult(watches: watchlist.watches.count, alarms: watchlist.alarms.count, appLockKept: input.lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
-                             addressServerNote: input.serverNote)
+                             addressServerNote: input.serverNote, addressServerHost: input.serverHost,
+                             lowered: input.lowered)
     }
 
     /// Journal vor dem ersten Schreiben (Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand

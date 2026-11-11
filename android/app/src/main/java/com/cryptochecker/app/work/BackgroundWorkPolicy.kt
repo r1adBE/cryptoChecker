@@ -17,7 +17,7 @@ object BackgroundWorkPolicy {
 
     /** Was [ExactCheckScheduler.sync] mit dem Wecker tut. */
     sealed interface ExactAction {
-        /** Aus, keine Berechtigung oder keine Paare: absagen — WorkManager allein. */
+        /** Aus, keine Berechtigung oder nichts zu prüfen ([exactNeeded]): absagen — WorkManager allein. */
         data object Cancel : ExactAction
 
         /** Gestellter Wecker passt: nichts tun (sonst schöbe jede Einstellung den Takt hinaus). */
@@ -231,6 +231,20 @@ object BackgroundWorkPolicy {
             it.hasEnabledAlarm || (d.priceNotifications && it.notificationEnabled) || (d.ttsPrices && it.ttsEnabled)
         }
     }
+
+    /** Gas- oder USDT-Depeg-Alarm eingeschaltet ([WorkDemand.marketAlarms]; Gas: Grenze > 0). */
+    fun marketAlarms(gasAlertEthTenths: Int, gasAlertBtc: Int, depegAlarm: Boolean): Boolean =
+        gasAlertEthTenths > 0 || gasAlertBtc > 0 || depegAlarm
+
+    /**
+     * Braucht es den Wecker «Pünktlich prüfen» (ExactCheckDemand)? Wie bisher mit aktiven Paaren — und ebenso mit
+     * einem scharfen Portfolio-Alarm ([portfolioAlarm]: [portfolioWork] ohne Widget) oder einem Gas-/Depeg-Alarm
+     * ([marketAlarms]): Für diese Alarme läuft auch die periodische Aktualisierung ([periodicNeeded]); ohne Wecker
+     * würden sie nur im unregelmässigen Takt von WorkManager geprüft, und «nichts zu prüfen» stimmte nicht.
+     * Widgets allein brauchen den Wecker nicht. [watchlistKept]: Merkliste nur leer im Arbeitsspeicher — unbekannt, also ja.
+     */
+    fun exactNeeded(activePairs: Boolean, portfolioAlarm: Boolean, marketAlarms: Boolean, watchlistKept: Boolean = false): Boolean =
+        watchlistKept || activePairs || portfolioAlarm || marketAlarms
 
     /** Höchste Pause, bevor das Nachführen des Bedarfs (PriceUpdateScheduler.followWork) neu beginnt. */
     const val FOLLOW_RETRY_MAX_MILLIS = 60_000L

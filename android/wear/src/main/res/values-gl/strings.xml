@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Moedas: máx. %1$d</string>
     <string name="watch_complication_label">Prezo</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 horas</string>
-    <string name="watch_mode_phone">Lista: como no móbil</string>
-    <string name="watch_mode_own">Lista: propia</string>
+    <string name="watch_list_from_phone">Lista do móbil</string>
     <string name="watch_phone_empty">Non hai favoritos no móbil</string>
     <string name="watch_portfolio">Carteira</string>
     <string name="watch_portfolio_today">%1$s hoxe</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">sen prezo, o reloxo non pode cargar este par</string>
     <string name="a11y_watch_no_price_via_phone">sen prezo, o reloxo só recibe os prezos de %1$s desde o teléfono</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">sen prezo, exchanges non accesibles neste momento</string>
+    <string name="watch_no_price_phone">só desde o móbil</string>
+    <string name="watch_no_price_unreachable">non accesible</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizado por última vez hai %1$d minuto</item>
         <item quantity="other">actualizado por última vez hai %1$d minutos</item>

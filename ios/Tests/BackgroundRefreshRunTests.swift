@@ -319,4 +319,75 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(second.lastTriggeredAt, 0)
         XCTAssertNil(AlarmDelivery.pairs.unconfirmedAt(Self.alarmId2))
     }
+
+    // MARK: `lastAlarmCheckAt` erst nach den Alarmen mit Zusatzdaten
+
+    /// Warten Alarme mit Zusatzdaten, zählt der Lauf erst nach ihrer Prüfung als «Prüfung mit allen Alarmen»: Während
+    /// der Prüfung steht noch der alte Wert, danach der neue.
+    func testLastAlarmCheckSetOnlyAfterDeferredAlarmsWereChecked() async throws {
+        try insertArmedAlarm()
+        let task = FakeTask()
+        let duringCheck = LockedBox<Int64?>(nil)
+        var seams = Self.extraSeams(shows: LockedBox(0)) {}
+        seams.checkDeferred = { _, _, _ in
+            duringCheck.current = SharedStorage.lastAlarmCheckAt
+            var extra = PriceRefresher.Outcome()
+            extra.pendingAlarms = [Self.pending(Self.alarm, now: EpochTime.nowMillis)]
+            return extra
+        }
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: seams), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        guard let before = duringCheck.current else { throw XCTSkip("Restzeit reichte nicht für die Zusatzdaten-Alarme") }
+        XCTAssertEqual(before, 0, "vor der Prüfung der Zusatzdaten-Alarme schon als geprüft vermerkt")
+        XCTAssertGreaterThan(SharedStorage.lastAlarmCheckAt, 0)
+    }
+
+    /// Läuft die Zeit ab, bevor die Alarme mit Zusatzdaten geprüft sind, bleibt der alte Wert — der nächste Lauf wird
+    /// nicht als «eben erst geprüft» übersprungen.
+    func testLastAlarmCheckKeptWhenDeferredAlarmsWereNotChecked() async throws {
+        try insertArmedAlarm()
+        let task = FakeTask()
+        let reached = LockedBox(false)
+        var seams = Self.extraSeams(shows: LockedBox(0)) {}
+        seams.checkDeferred = { _, _, _ in
+            reached.current = true
+            task.expire()
+            return PriceRefresher.Outcome()
+        }
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: seams), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        guard reached.current else { throw XCTSkip("Restzeit reichte nicht für die Zusatzdaten-Alarme") }
+        XCTAssertEqual(SharedStorage.lastAlarmCheckAt, 0, "Zusatzdaten-Alarme offen, Lauf aber als geprüft vermerkt")
+        XCTAssertFalse(BackgroundSchedule.shouldSkip(trigger: .bgTask, lastFinishedAt: SharedStorage.lastAlarmCheckAt,
+                                                     now: EpochTime.nowMillis))
+    }
+
+    /// Gegenprobe: ohne wartende Alarme mit Zusatzdaten wird gleich nach den Kursalarmen vermerkt (wie bisher).
+    func testLastAlarmCheckSetRightAwayWithoutDeferredAlarms() async throws {
+        try insertArmedAlarm()
+        let task = FakeTask()
+        let afterSave = LockedBox<Int64?>(nil)
+        var seams = Self.fakeSeams(shows: LockedBox(0)) {}
+        seams.checkDeferred = { _, _, _ in
+            XCTFail("keine Alarme mit Zusatzdaten erwartet")
+            return PriceRefresher.Outcome()
+        }
+        seams.notifier = PriceRefresher.AlarmNotifier(canShow: { true }, show: { _ in
+            afterSave.current = SharedStorage.lastAlarmCheckAt
+            return true
+        })
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: seams), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        XCTAssertGreaterThan(try XCTUnwrap(afterSave.current, "Alarm nicht gemeldet"), 0)
+        XCTAssertEqual(task.completions, [true])
+    }
+
+    /// Regel dahinter (`BackgroundSchedule.marksAlarmCheck`), auch für Android.
+    func testMarksAlarmCheckRule() {
+        XCTAssertTrue(BackgroundSchedule.marksAlarmCheck(fullCheck: true, deferredWaiting: false, deferredChecked: false))
+        XCTAssertFalse(BackgroundSchedule.marksAlarmCheck(fullCheck: true, deferredWaiting: true, deferredChecked: false))
+        XCTAssertTrue(BackgroundSchedule.marksAlarmCheck(fullCheck: true, deferredWaiting: true, deferredChecked: true))
+        XCTAssertFalse(BackgroundSchedule.marksAlarmCheck(fullCheck: false, deferredWaiting: true, deferredChecked: true))
+        XCTAssertFalse(BackgroundSchedule.marksAlarmCheck(fullCheck: false, deferredWaiting: false, deferredChecked: false))
+    }
 }

@@ -218,14 +218,19 @@ enum BackgroundRefresh {
             // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,
             // damit «Alarme geprüft» und Melden zusammenpassen
             let expired = Task.isCancelled
+            var fullCheck = false
             // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
             // auf der Platte sonst für frisch (`WidgetDataFreshness`)
             if saved != nil && outcome.failed < outcome.checked {
                 SharedStorage.markFullRefresh()
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
                 // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
-                // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht
-                if !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
+                // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht.
+                // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
+                // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
+                fullCheck = !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed)
+                if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
+                                                      deferredChecked: false) {
                     SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
                 }
             }
@@ -301,9 +306,18 @@ enum BackgroundRefresh {
             if saved != nil && !outcome.deferredAlarms.isEmpty && !Task.isCancelled
                 && RefreshBudget.shouldRun(.extraAlarms, remaining: deadline.remaining()) {
                 let extra = await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)
+                // Geprüft und (falls nötig) gespeichert, nicht abgelaufen: erst jetzt zählt der Lauf als Prüfung mit allen Alarmen
+                var deferredChecked = false
+                defer {
+                    if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: true,
+                                                          deferredChecked: deferredChecked) {
+                        SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
+                    }
+                }
                 if Task.isCancelled {
                     extra.releaseAlarmLease()
                 } else if extra.alarms.isEmpty && extra.pendingAlarms.isEmpty {
+                    deferredChecked = true
                     extra.releaseAlarmLease()
                     // Nichts zu speichern, aber geprüft: fürs Alarm-Protokoll festhalten — abseits des Hauptfadens
                     // (verschlüsselte, abgestimmte Datei), abgewartet, damit es vor dem Ende der Aufgabe geschrieben ist
@@ -316,6 +330,7 @@ enum BackgroundRefresh {
                     if Task.isCancelled {
                         extra.releaseAlarmLease()
                     } else {
+                        deferredChecked = true
                         _ = await extra.keepingCurrentPairs(stored.watches)
                             .deliverAlarms(settings: settings, current: stored.alarms,
                                            save: { PriceRefresher.saveAlarmOnDisk($0, $1) }, notifier: seams.notifier,

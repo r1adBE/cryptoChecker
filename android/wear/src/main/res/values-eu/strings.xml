@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Txanponak: gehienez %1$d</string>
     <string name="watch_complication_label">Prezioa</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ordutan</string>
-    <string name="watch_mode_phone">Zerrenda: telefonoan bezala</string>
-    <string name="watch_mode_own">Zerrenda: propioa</string>
+    <string name="watch_list_from_phone">Telefonoko zerrenda</string>
     <string name="watch_phone_empty">Ez dago gogokorik telefonoan</string>
     <string name="watch_portfolio">Zorroa</string>
     <string name="watch_portfolio_today">gaur %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">preziorik ez, erlojuak ezin du bikote hau kargatu</string>
     <string name="a11y_watch_no_price_via_phone">preziorik ez, erlojuak %1$s prezioak telefonotik soilik jasotzen ditu</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">preziorik ez, burtsak ez daude orain eskuragarri</string>
+    <string name="watch_no_price_phone">telefonotik soilik</string>
+    <string name="watch_no_price_unreachable">ez dago eskuragarri</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">azkenekoz eguneratua duela %1$d minutu</item>
         <item quantity="other">azkenekoz eguneratua duela %1$d minutu</item>

@@ -178,6 +178,7 @@ internal fun LazyItemScope.WatchlistItem(
                     scaleX = lift
                     scaleY = lift
                 }
+            else if (reduceMotion) Modifier
             else Modifier.animateItem()
         ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
     ) {

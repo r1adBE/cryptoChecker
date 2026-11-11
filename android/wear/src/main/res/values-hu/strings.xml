@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Coinok: legfeljebb %1$d</string>
     <string name="watch_complication_label">Árfolyam</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 óra alatt</string>
-    <string name="watch_mode_phone">Lista: mint a telefonon</string>
-    <string name="watch_mode_own">Lista: saját</string>
+    <string name="watch_list_from_phone">Lista a telefonról</string>
     <string name="watch_phone_empty">Nincsenek kedvencek a telefonon</string>
     <string name="watch_portfolio">Portfólió</string>
     <string name="watch_portfolio_today">ma %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">nincs árfolyam, az óra nem tudja betölteni ezt a párt</string>
     <string name="a11y_watch_no_price_via_phone">nincs árfolyam, az óra a(z) %1$s árfolyamait csak a telefonról kapja</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">nincs árfolyam, a tőzsdék most nem érhetők el</string>
+    <string name="watch_no_price_phone">csak a telefonról</string>
+    <string name="watch_no_price_unreachable">nem érhető el</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">utoljára frissítve %1$d perce</item>
         <item quantity="other">utoljára frissítve %1$d perce</item>

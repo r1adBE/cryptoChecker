@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import com.cryptochecker.app.ui.components.ListSegment
+import com.cryptochecker.app.ui.components.rememberReduceMotion
 import androidx.compose.ui.graphics.Shape
 import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
@@ -210,6 +211,8 @@ internal fun WatchlistList(
     /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
     row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
 ) {
+    // «Animationen entfernen»: Zeilen über der Liste rücken ohne Gleiten nach (wie die Paar-Zeilen)
+    val reduceMotion = rememberReduceMotion()
     // Zeilenbreite einmal für alle Zeilen messen (Liste abzüglich des seitlichen Innenabstands)
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val rowWidth = maxWidth - (16.dp + inset) * 2
@@ -229,12 +232,15 @@ internal fun WatchlistList(
                 // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
                 if (pulse != null) {
                     item(key = "pulse") {
-                        WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
+                        WatchPulseLine(
+                            pulse = pulse,
+                            modifier = (if (reduceMotion) Modifier else Modifier.animateItem()).padding(bottom = ListSegment.Spacing),
+                        )
                     }
                 }
                 if (onSetFirstAlarm != null) {
                     item(key = "first_alarm") {
-                        Box(Modifier.animateItem().padding(bottom = ListSegment.Spacing)) {
+                        Box((if (reduceMotion) Modifier else Modifier.animateItem()).padding(bottom = ListSegment.Spacing)) {
                             FirstAlarmCardView(pair = firstAlarmPair, onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
                         }
                     }

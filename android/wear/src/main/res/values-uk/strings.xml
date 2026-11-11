@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Монети: не більше %1$d</string>
     <string name="watch_complication_label">Курс</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 години</string>
-    <string name="watch_mode_phone">Список: як на телефоні</string>
-    <string name="watch_mode_own">Список: власний</string>
+    <string name="watch_list_from_phone">Список із телефона</string>
     <string name="watch_phone_empty">На телефоні немає обраного</string>
     <string name="watch_portfolio">Портфель</string>
     <string name="watch_portfolio_today">%1$s сьогодні</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">немає курсу, годинник не може завантажити цю пару</string>
     <string name="a11y_watch_no_price_via_phone">немає курсу, курси %1$s годинник отримує лише з телефона</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">немає курсу, біржі зараз недоступні</string>
+    <string name="watch_no_price_phone">лише з телефона</string>
+    <string name="watch_no_price_unreachable">недоступно</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">востаннє оновлено %1$d хвилину тому</item>
         <item quantity="few">востаннє оновлено %1$d хвилини тому</item>

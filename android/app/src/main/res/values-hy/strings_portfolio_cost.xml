@@ -24,6 +24,7 @@
     <string name="address_lots_add">Ավելացնել լոտ</string>
     <string name="address_lots_new">Նոր լոտ</string>
     <string name="address_lots_edit">Լոտ</string>
+    <string name="address_lots_delete_title">Ջնջե՞լ լոտը</string>
     <string name="address_lots_date">Գնման ամսաթիվ</string>
     <string name="address_lots_amount">Քանակ</string>
     <string name="address_lots_mode_total">Ընդամենը</string>

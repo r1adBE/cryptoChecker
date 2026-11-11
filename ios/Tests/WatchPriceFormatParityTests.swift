@@ -70,4 +70,25 @@ final class WatchPriceFormatParityTests: XCTestCase {
         XCTAssertTrue(portfolio.contains("WatchText.t(\"watch_portfolio_off\")"))
         XCTAssertTrue(portfolio.contains("WatchPortfolioOff.line(title: title, hint: hint)"))
     }
+
+    /// Portfolio-Komplikation: jeder Betrag ist `privacySensitive` (wie das iPhone-Widget) — in allen vier Familien samt
+    /// der Veränderung; der Zustand «aus» (kein Betrag) braucht es nicht.
+    func testPortfolioKomplikationBetraegeSindPrivacySensitive() throws {
+        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+        let source = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
+                                encoding: .utf8)
+        let start = try XCTUnwrap(source.range(of: "private func value(_ p: WatchPortfolio)"))
+        let end = try XCTUnwrap(source.range(of: "struct WatchPortfolioWidget: Widget"))
+        let value = String(source[start.lowerBound..<end.lowerBound])
+        XCTAssertTrue(value.contains("Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle).privacySensitive()"))
+        XCTAssertTrue(value.contains("Text(WatchFreshness.inlineLine(total, time: p.time, now: now)).privacySensitive()"))
+        XCTAssertTrue(value.contains(
+            "Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).privacySensitive().widgetLabel(title)"))
+        // Rechteckig: Betrag und «heute»; Zeile; Ecke; rund
+        XCTAssertEqual(value.components(separatedBy: ".privacySensitive()").count - 1, 5)
+        // Jeder Text mit Betrag (total, portfolioToday, portfolioCompact) trägt die Markierung
+        let amounts = ["Text(total)", "Text(WatchText.portfolioToday(p)", "Text(WatchFreshness.inlineLine(total",
+                       "Text(WatchText.portfolioCompact(p))"]
+        XCTAssertEqual(amounts.reduce(0) { $0 + value.components(separatedBy: $1).count - 1 }, 5)
+    }
 }

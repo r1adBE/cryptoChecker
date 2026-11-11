@@ -11,17 +11,20 @@ extension BackupSettingsPage {
                  LocaleNumbers.integer(WatchlistLimits.maxAlarmsPerPair))
     }
 
-    /// Hinweis zum eigenen Bitcoin-Server nach dem Wiederherstellen (wie Android).
-    static func serverNoteText(_ note: BackupRestorePolicy.AddressServerNote) -> String {
+    /// Hinweis zum eigenen Bitcoin-Server nach dem Wiederherstellen (wie Android); `host` = Hostname eines neu
+    /// gesetzten Servers (`SET` — nie still).
+    static func serverNoteText(_ note: BackupRestorePolicy.AddressServerNote, host: String? = nil) -> String {
         switch note {
         case .KEPT: return L("backup_restore_server_kept")
         case .PUBLIC: return L("backup_restore_server_public")
         case .CHANGED: return L("backup_restore_server_changed")
+        case .SET: return L("backup_restore_server_set", host ?? "")
         }
     }
 
     /// «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort
-    /// wollte sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt.
+    /// wollte sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (mit
+    /// Hostnamen); «Portfolio in Systemsicherung» eingeschaltet bzw. «Beträge verbergen» ausgeschaltet.
     static func restoredText(_ result: BackupManager.RestoreResult) -> String {
         let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                          L("backup_restored_alarms", count: result.alarms))
@@ -29,7 +32,9 @@ extension BackupSettingsPage {
             restored,
             overLimitsText("backup_restored_over_limits", pairs: result.droppedPairs, alarms: result.droppedAlarms),
             result.appLockKept ? L("backup_restore_app_lock_kept") : nil,
-            result.addressServerNote.map { serverNoteText($0) },
+            result.addressServerNote.map { serverNoteText($0, host: result.addressServerHost) },
+            result.lowered.systemBackupOn ? L("backup_restore_system_backup_on") : nil,
+            result.lowered.amountsShown ? L("backup_restore_amounts_shown") : nil,
         ].compactMap { $0 }.joined(separator: "\n")
     }
 
@@ -37,7 +42,8 @@ extension BackupSettingsPage {
     static func restoredAsDialog(_ result: BackupManager.RestoreResult, text: String) -> Bool {
         BackupResultPresentation.asDialog(key: "backup_restored", text: text, droppedPairs: result.droppedPairs,
                                           droppedAlarms: result.droppedAlarms, appLockKept: result.appLockKept,
-                                          addressServerNote: result.addressServerNote, fontScale: fontScale())
+                                          addressServerNote: result.addressServerNote, fontScale: fontScale(),
+                                          protectionLowered: result.lowered.any)
     }
 
     /// Rückfrage «Ersetzen?»: Ohne Passwort keine Echtheitsprüfung — Herkunft prüfen lassen; ungültige Einträge und

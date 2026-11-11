@@ -3,11 +3,11 @@
     <string name="backup_device_bound">پیش از تعویض دستگاه یک فایل پشتیبان بساز – داده‌های رمزگذاری‌شده فقط روی همین دستگاه باز می‌شوند.</string>
     <string name="backup_encryption_pending">رمزگذاری هنوز فعال نیست – برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
-    <string name="backup_export">خروجی گرفتن</string>
+    <string name="backup_export">پشتیبان‌گیری</string>
     <string name="backup_exported">پشتیبان ذخیره شد.</string>
     <string name="backup_failed">انجام نشد. آیا این پشتیبان Crypto Checker است؟</string>
     <string name="backup_hint">فهرست همراه با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیمات را در فایلی ذخیره می‌کند که خودت نگه می‌داری – مثلاً برای گوشی جدید.</string>
-    <string name="backup_import">وارد کردن</string>
+    <string name="backup_import">بازیابی</string>
     <string name="backup_title">پشتیبان‌گیری و بازیابی</string>
     <string name="backup_too_large">فایل خیلی بزرگ است یا پشتیبان معتبری نیست (حداکثر ۶۴ مگابایت).</string>
     <string name="backup_export_too_large">نسخهٔ پشتیبان بزرگ‌تر از ۶۴ مگابایت می‌شد و قابل بازیابی نبود، برای همین ذخیره نشد.</string>
@@ -36,12 +36,12 @@
     <string name="backup_plain_confirm_title">بدون رمز ذخیره شود؟</string>
     <string name="backup_plain_contents_base">فهرست پیگیری با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات</string>
     <string name="backup_restore_app_lock_kept">قفل پرتفوی روشن می‌ماند – پشتیبان رمزنشده نمی‌تواند آن را خاموش کند.</string>
-    <string name="backup_restore_confirm">وارد کردن پشتیبان، فهرست (همراه با یادداشت‌ها و گروه‌ها)، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیماتت را با پشتیبان جایگزین می‌کند.</string>
+    <string name="backup_restore_confirm">بازیابی پشتیبان، فهرست (همراه با یادداشت‌ها و گروه‌ها)، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیماتت را با پشتیبان جایگزین می‌کند.</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="one">%d ورودی در پشتیبان (سبد یا هشدار) نامعتبر است و وارد نمی‌شود.</item>
-        <item quantity="other">%d ورودی در پشتیبان (سبد یا هشدارها) نامعتبرند و وارد نمی‌شوند.</item>
+        <item quantity="one">%d ورودی در پشتیبان (سبد یا هشدار) نامعتبر است و بازیابی نمی‌شود.</item>
+        <item quantity="other">%d ورودی در پشتیبان (سبد یا هشدارها) نامعتبرند و بازیابی نمی‌شوند.</item>
     </plurals>
-    <string name="backup_restore_newer_version">این پشتیبان از نسخهٔ جدیدتر برنامه است – اول برنامه را به‌روز کن. چیزی وارد نشد.</string>
+    <string name="backup_restore_newer_version">این پشتیبان از نسخهٔ جدیدتر برنامه است – اول برنامه را به‌روز کن. چیزی بازیابی نشد.</string>
     <string name="backup_restore_unencrypted_warning">این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند – به‌جز تغییراتی که حفاظت را کم می‌کنند (قفل پرتفوی، سرور خودت برای آدرس‌ها، پنهان کردن مبالغ، پرتفوی در پشتیبان سیستم).</string>
     <string name="backup_restored">بازیابی شد: %1$s، %2$s.</string>
     <plurals name="backup_restored_alarms">
@@ -57,7 +57,7 @@
     <string name="backup_restored_over_limits">به‌خاطر محدودیت‌ها (%3$s جفت، %4$s هشدار برای هر جفت) بازیابی نشد: %1$s، %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren -->
-    <string name="storage_recovery_message">کلید داده‌های رمزگذاری‌شدهٔ برنامه دیگر روی این دستگاه نیست، برای همین برنامه خالی شروع شد. چیزی حذف نشده است. برای بازگرداندن فهرست و پرتفوی، در تنظیمات زیر «%1$s» یک فایل پشتیبان وارد کن.</string>
+    <string name="storage_recovery_message">کلید داده‌های رمزگذاری‌شدهٔ برنامه دیگر روی این دستگاه نیست، برای همین برنامه خالی شروع شد. چیزی حذف نشده است. برای بازگرداندن فهرست و پرتفوی، در تنظیمات زیر «%1$s» یک فایل پشتیبان را بازیابی کن.</string>
     <string name="storage_recovery_title">باز کردن داده‌های ذخیره‌شده ممکن نشد</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
@@ -88,9 +88,9 @@
     <string name="alarm_save_storage_locked">هشدارها ذخیره نمی‌شوند: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کن.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">پشتیبان‌گیری ممکن نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کن و دوباره امتحان کن.</string>
-    <string name="backup_restore_storage_in_memory">درون‌ریزی اکنون ممکن نیست: برنامه فعلاً داده‌ای ذخیره نمی‌کند (رمزگذاری هنوز فعال نیست) و داده‌های درون‌ریزی‌شده با راه‌اندازی دوباره از بین می‌روند. برنامه را دوباره راه‌اندازی کن و دوباره امتحان کن.</string>
+    <string name="backup_restore_storage_in_memory">بازیابی اکنون ممکن نیست: برنامه فعلاً داده‌ای ذخیره نمی‌کند (رمزگذاری هنوز فعال نیست) و داده‌های بازیابی‌شده با راه‌اندازی دوباره از بین می‌روند. برنامه را دوباره راه‌اندازی کن و دوباره امتحان کن.</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
-    <string name="backup_restore_journal_unavailable">وارد کردن الان ممکن نیست: نسخهٔ ایمنی داده‌های فعلی‌ات ذخیره نشد (کلید فعلاً در دسترس نیست). چیزی تغییر نکرد. بعداً دوباره امتحان کن یا برنامه را دوباره راه‌اندازی کن.</string>
+    <string name="backup_restore_journal_unavailable">بازیابی الان ممکن نیست: نسخهٔ ایمنی داده‌های فعلی‌ات ذخیره نشد (کلید فعلاً در دسترس نیست). چیزی تغییر نکرد. بعداً دوباره امتحان کن یا برنامه را دوباره راه‌اندازی کن.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">رمزگذاری هنوز فعال نیست – سبد ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
@@ -106,4 +106,10 @@
     <string name="backup_restore_server_public">«سرور خودت برای آدرس‌ها» مانند پشتیبان حذف شد – آدرس‌های بیت‌کوین دوباره از گره‌های عمومی پرسیده می‌شوند.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
     <string name="backup_restore_server_changed">«سرور خودت برای آدرس‌ها» با سرور پشتیبان جایگزین شد.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
+    <string name="backup_restore_server_set">«سرور خودت برای آدرس‌ها» از پشتیبان تنظیم شد: %1$s – آدرس‌های بیت‌کوین اکنون از آنجا پرسیده می‌شوند.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
+    <string name="backup_restore_system_backup_on">«پرتفوی در پشتیبان سیستم» توسط پشتیبان روشن شد.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
+    <string name="backup_restore_amounts_shown">«پنهان کردن مبالغ» توسط پشتیبان خاموش شد.</string>
 </resources>

@@ -8,7 +8,9 @@ final class BackupResultDialogParityTests: XCTestCase {
 
     func testEntscheidetWieGemeinsameTestfaelle() throws {
         let cases = S.list(try S.fixture("backup_result_dialog")["cases"])
-        XCTAssertGreaterThanOrEqual(cases.count, 35)
+        XCTAssertGreaterThanOrEqual(cases.count, 38)
+        XCTAssertTrue(cases.contains { $0["protectionLowered"] as? Bool == true })
+        XCTAssertTrue(cases.contains { $0["addressServerNote"] as? String == "SET" })
         for c in cases {
             let name = c["description"] as? String ?? "?"
             let note = (c["addressServerNote"] as? String).flatMap { BackupRestorePolicy.AddressServerNote(rawValue: $0) }
@@ -19,7 +21,8 @@ final class BackupResultDialogParityTests: XCTestCase {
                 droppedAlarms: Int(S.number(c["droppedAlarms"]) ?? -1),
                 appLockKept: try XCTUnwrap(c["appLockKept"] as? Bool, name),
                 addressServerNote: note,
-                fontScale: S.number(c["fontScale"]) ?? 1
+                fontScale: S.number(c["fontScale"]) ?? 1,
+                protectionLowered: c["protectionLowered"] as? Bool ?? false
             )
             XCTAssertEqual(actual ? "dialog" : "toast", c["expected"] as? String, name)
         }

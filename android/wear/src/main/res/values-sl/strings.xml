@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Kovanci: največ %1$d</string>
     <string name="watch_complication_label">Tečaj</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s v 24 urah</string>
-    <string name="watch_mode_phone">Seznam: kot na telefonu</string>
-    <string name="watch_mode_own">Seznam: lasten</string>
+    <string name="watch_list_from_phone">Seznam s telefona</string>
     <string name="watch_phone_empty">Na telefonu ni priljubljenih</string>
     <string name="watch_portfolio">Portfelj</string>
     <string name="watch_portfolio_today">%1$s danes</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ni tečaja, ura ne more naložiti tega para</string>
     <string name="a11y_watch_no_price_via_phone">ni tečaja, ura prejema tečaje z %1$s samo prek telefona</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ni tečaja, borze trenutno niso dosegljive</string>
+    <string name="watch_no_price_phone">samo prek telefona</string>
+    <string name="watch_no_price_unreachable">ni dosegljivo</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nazadnje posodobljeno pred %1$d minuto</item>
         <item quantity="two">nazadnje posodobljeno pred %1$d minutama</item>

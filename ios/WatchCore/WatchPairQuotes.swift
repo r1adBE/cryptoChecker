@@ -70,6 +70,9 @@ enum WatchPairQuotes {
         case ownUnreachable = "OWN_UNREACHABLE"
         /// «Börsen gerade nicht erreichbar».
         case unreachable = "UNREACHABLE"
+
+        /// Sichtbarer Kurzgrund in der Zeile der Uhr-App: «nur vom iPhone» (true) oder «nicht erreichbar» (false).
+        var viaPhone: Bool { self == .phoneOnly || self == .viaPhone }
     }
 
     /// Grund für «—»: `selfFetchable` nein → `.phoneOnly`; die Uhr hat gefragt (`outcome`) und keine gefragte Börse

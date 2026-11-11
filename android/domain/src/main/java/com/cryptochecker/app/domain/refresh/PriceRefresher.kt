@@ -327,7 +327,9 @@ class PriceRefresher(
         // Zeit der letzten ERFOLGREICHEN Aktualisierung stehen.
         if (processed.failed < processed.checked) refreshStats.setLastFullRefresh(duration)
         // Sperre gegen doppelte Hintergrund-Läufe: nur nach einer vollen Prüfung (nicht live, nicht Teil-Lauf)
-        if (BackgroundSchedule.isFullCheck(processed.checked, processed.failed)) refreshStats.setLastFullCheck()
+        // (alle Alarmarten sind hier schon ausgewertet: kein späterer Schritt mit Zusatzdaten wie in der iOS-Aufgabe)
+        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed)
+        if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()
 
         val widgetStartedAt = System.currentTimeMillis()
         // Voller Durchlauf zeichnet immer (bei ausgeschaltetem Bildschirm ist er die einzige Aktualisierung).

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Монети: най-много %1$d</string>
     <string name="watch_complication_label">Курс</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 часа</string>
-    <string name="watch_mode_phone">Списък: като на телефона</string>
-    <string name="watch_mode_own">Списък: собствен</string>
+    <string name="watch_list_from_phone">Списък от телефона</string>
     <string name="watch_phone_empty">Няма любими на телефона</string>
     <string name="watch_portfolio">Портфолио</string>
     <string name="watch_portfolio_today">%1$s днес</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">няма цена, часовникът не може да зареди тази двойка</string>
     <string name="a11y_watch_no_price_via_phone">няма цена, часовникът получава цените от %1$s само от телефона</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">няма цена, борсите в момента са недостъпни</string>
+    <string name="watch_no_price_phone">само от телефона</string>
+    <string name="watch_no_price_unreachable">недостъпно</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">последно обновено преди %1$d минута</item>
         <item quantity="other">последно обновено преди %1$d минути</item>

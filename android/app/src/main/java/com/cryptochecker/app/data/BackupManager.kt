@@ -267,6 +267,8 @@ class BackupManager @Inject constructor(
             droppedPairs = watchlist.droppedPairs,
             droppedAlarms = watchlist.droppedAlarms,
             addressServerNote = settingsNotes.addressServer,
+            addressServerHost = settingsNotes.addressServerHost,
+            lowered = settingsNotes.lowered,
         )
     }
 
@@ -328,20 +330,20 @@ class BackupManager @Inject constructor(
                 override fun delete() = journal.delete()
             },
             writes = listOf(
-                RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) {
+                RestoreRun.Write(Step.WATCHLIST) {
                     writeWatchlist(input.watchlist.watches, input.watchlist.alarms)
                 },
-                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) {
+                RestoreRun.Write(Step.PORTFOLIO) {
                     portfolioDatabase.withTransaction {
                         portfolioRepository.replaceAll(input.portfolio)
                         portfolioAlarmRepository.replaceAll(input.portfolioAlarms)
                         portfolioRepository.replaceWatchedAddresses(input.watchedAddresses)
                     }
                 },
-                RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
+                RestoreRun.Write(Step.FAVORITES) {
                     input.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
                 },
-                RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
+                RestoreRun.Write(Step.SETTINGS) {
                     settingsNotes = settingsCodec.restoreSettings(input.settings, trusted = encrypted)
                 },
             ),

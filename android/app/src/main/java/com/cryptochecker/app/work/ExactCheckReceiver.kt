@@ -76,7 +76,7 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 // Netz frisch abfragen (der Prozess kann eingefroren gewesen sein) — nur wenn es zählt
                 val online = BackgroundSchedule.shouldArmExact(enabled, permitted, hasWork) && connectivity.isOnlineNow()
                 when (BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online)) {
-                    // Aus, keine Berechtigung mehr oder keine Paare: absagen, nicht neu stellen
+                    // Aus, keine Berechtigung mehr oder nichts zu prüfen (ExactCheckDemand): absagen, nicht neu stellen
                     BackgroundWorkPolicy.FiredAction.CANCEL -> {
                         scheduler.sync(enabled, hasWork, intervalMinutes = interval)
                         chainHandled = true

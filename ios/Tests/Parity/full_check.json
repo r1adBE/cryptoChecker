@@ -1,0 +1,32 @@
+{
+ "description": "When a check counts as «checked with all alarms» (Android BackgroundSchedule.kt, iOS BackgroundSchedule.swift; stored as Android RefreshStats.lastFullCheck, iOS SharedStorage.lastAlarmCheckAt – the dedupe lock of the next scheduled run and the line «last checked» read it). isFullCheck: all queryable pairs attempted and MORE than half with a price (attempted > 0, 0 <= failed < attempted, (attempted - failed) * 2 > attempted); live ticks and partial runs do not count. marksAlarmCheck: the time is set only for a full check, and if alarms with extra data wait for a later step (deferredWaiting: volume, funding/OI, high/low, converted – the iOS background task; Android evaluates every alarm kind in one step, so false there) only once they were checked too (deferredChecked); otherwise the old value stays.",
+ "isFullCheck": [
+  {"attempted": 0, "failed": 0, "expected": false},
+  {"attempted": 1, "failed": 0, "expected": true},
+  {"attempted": 1, "failed": 1, "expected": false},
+  {"attempted": 2, "failed": 0, "expected": true},
+  {"attempted": 2, "failed": 1, "expected": false},
+  {"attempted": 3, "failed": 1, "expected": true},
+  {"attempted": 3, "failed": 2, "expected": false},
+  {"attempted": 4, "failed": 2, "expected": false},
+  {"attempted": 5, "failed": 2, "expected": true},
+  {"attempted": 10, "failed": 4, "expected": true},
+  {"attempted": 10, "failed": 5, "expected": false},
+  {"attempted": 10, "failed": 10, "expected": false},
+  {"attempted": 100, "failed": 49, "expected": true},
+  {"attempted": 100, "failed": 50, "expected": false},
+  {"attempted": 3, "failed": -1, "expected": false},
+  {"attempted": 3, "failed": 4, "expected": false},
+  {"attempted": -1, "failed": 0, "expected": false}
+ ],
+ "marksAlarmCheck": [
+  {"fullCheck": true, "deferredWaiting": false, "deferredChecked": false, "expected": true},
+  {"fullCheck": true, "deferredWaiting": false, "deferredChecked": true, "expected": true},
+  {"fullCheck": true, "deferredWaiting": true, "deferredChecked": false, "expected": false},
+  {"fullCheck": true, "deferredWaiting": true, "deferredChecked": true, "expected": true},
+  {"fullCheck": false, "deferredWaiting": false, "deferredChecked": false, "expected": false},
+  {"fullCheck": false, "deferredWaiting": false, "deferredChecked": true, "expected": false},
+  {"fullCheck": false, "deferredWaiting": true, "deferredChecked": false, "expected": false},
+  {"fullCheck": false, "deferredWaiting": true, "deferredChecked": true, "expected": false}
+ ]
+}

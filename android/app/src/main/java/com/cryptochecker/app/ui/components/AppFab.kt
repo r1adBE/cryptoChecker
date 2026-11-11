@@ -1,6 +1,8 @@
 package com.cryptochecker.app.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -47,11 +49,17 @@ fun AppFab(onClick: () -> Unit, contentDescription: String, modifier: Modifier =
 /**
  * [AppFab] über einer Liste mit Beträgen (Portfolio, Coin-Seite): blendet beim Scrollen nach unten aus, damit er keine
  * Beträge verdeckt, und beim Scrollen nach oben wieder ein ([FabScrollState]). Am Ende der Liste ist er immer da — dort
- * gibt `Spacing.fabClearance` ihm Platz unter der letzten Zeile.
+ * gibt `Spacing.fabClearance` ihm Platz unter der letzten Zeile. «Animationen entfernen» ([rememberReduceMotion]): der
+ * Knopf erscheint und verschwindet ohne Skalieren und Blenden.
  */
 @Composable
 fun AppFab(onClick: () -> Unit, contentDescription: String, scroll: FabScrollState, modifier: Modifier = Modifier) {
-    AnimatedVisibility(visible = scroll.visible, enter = scaleIn() + fadeIn(), exit = scaleOut() + fadeOut()) {
+    val reduceMotion = rememberReduceMotion()
+    AnimatedVisibility(
+        visible = scroll.visible,
+        enter = if (reduceMotion) EnterTransition.None else scaleIn() + fadeIn(),
+        exit = if (reduceMotion) ExitTransition.None else scaleOut() + fadeOut(),
+    ) {
         AppFab(onClick = onClick, contentDescription = contentDescription, modifier = modifier)
     }
 }

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">കോയിനുകൾ: പരമാവധി %1$d</string>
     <string name="watch_complication_label">വില</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 മണിക്കൂറിൽ %3$s</string>
-    <string name="watch_mode_phone">ലിസ്റ്റ്: ഫോണിലേതുപോലെ</string>
-    <string name="watch_mode_own">ലിസ്റ്റ്: സ്വന്തം</string>
+    <string name="watch_list_from_phone">ഫോണിലെ ലിസ്റ്റ്</string>
     <string name="watch_phone_empty">ഫോണിൽ പ്രിയപ്പെട്ടവയൊന്നുമില്ല</string>
     <string name="watch_portfolio">പോർട്ട്ഫോളിയോ</string>
     <string name="watch_portfolio_today">ഇന്ന് %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">വിലയില്ല, വാച്ചിന് ഈ ജോഡി ലോഡ് ചെയ്യാനാകില്ല</string>
     <string name="a11y_watch_no_price_via_phone">വിലയില്ല, വാച്ചിന് %1$s വിലകൾ ഫോണിൽ നിന്ന് മാത്രമേ ലഭിക്കൂ</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">വിലയില്ല, ഇപ്പോൾ എക്സ്ചേഞ്ചുകളിൽ എത്താനാകുന്നില്ല</string>
+    <string name="watch_no_price_phone">ഫോണിൽ നിന്ന് മാത്രം</string>
+    <string name="watch_no_price_unreachable">ലഭ്യമല്ല</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>
         <item quantity="other">%1$d മിനിറ്റ് മുമ്പ് അവസാനം പുതുക്കി</item>

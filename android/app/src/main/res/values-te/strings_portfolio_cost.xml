@@ -24,6 +24,7 @@
     <string name="address_lots_add">లాట్ జోడించండి</string>
     <string name="address_lots_new">కొత్త లాట్</string>
     <string name="address_lots_edit">లాట్</string>
+    <string name="address_lots_delete_title">లాట్‌ను తొలగించాలా?</string>
     <string name="address_lots_date">కొనుగోలు తేదీ</string>
     <string name="address_lots_amount">పరిమాణం</string>
     <string name="address_lots_mode_total">మొత్తం</string>

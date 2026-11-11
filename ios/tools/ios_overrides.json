@@ -36,6 +36,7 @@
     "alarm_outcome_notifications_off": "Nicht ausgelöst – Mitteilungen aus",
     "alarm_outcome_not_shown": "Nicht ausgelöst – Mitteilung kam nicht an, neuer Versuch folgt",
     "delivery_alert_off": "Banner aus – Alarme erscheinen nur in der Mitteilungszentrale",
-    "delivery_time_sensitive": "Dringliche Mitteilungen"
+    "delivery_time_sensitive": "Dringliche Mitteilungen",
+    "alarm_reliability_notifications_off": "Mitteilungen aus – Alarme kommen nicht an"
   }
 }

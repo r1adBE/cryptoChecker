@@ -1,6 +1,16 @@
 {
-  "_comment": "«Pünktlich prüfen» im gewählten Intervall: BackgroundSchedule.exactIntervalMillis (Intervall der Hintergrund-Aktualisierung, mindestens 15 Min.), nextExactAt/needsArm mit diesem Abstand und das Sperrfenster dedupeWindowMillis: WorkManager-Lauf (worker) mit gestelltem Wecker = ein Intervall, sonst 5 Min.; shouldSkip mit diesem Fenster. Gemeinsam für ExactCadenceParityTest.kt und ExactCadenceParityTests.swift.",
+  "_comment": "«Pünktlich prüfen» im gewählten Intervall: BackgroundSchedule.exactIntervalMillis (Intervall der Hintergrund-Aktualisierung, mindestens 15 Min.), nextExactAt/needsArm mit diesem Abstand und das Sperrfenster dedupeWindowMillis: WorkManager-Lauf (worker) mit gestelltem Wecker = ein Intervall minus 2 Min. Toleranz (toleranceMillis; nie unter 5 Min.), sonst 5 Min.; shouldSkip mit diesem Fenster. Die Toleranz deckt die Dauer eines Laufs: die letzte volle Prüfung wird am Ende vermerkt, der nächste WorkManager-Lauf beginnt ein Intervall nach dem Beginn des vorigen («window»: erwartetes Fenster in ms). Gemeinsam für ExactCadenceParityTest.kt und ExactCadenceParityTests.swift.",
   "now": 1700000000000,
+  "toleranceMillis": 120000,
+  "window": [
+    { "name": "worker, armed, 15 min: 13 min", "trigger": "worker", "exactArmed": true, "minutes": 15, "expected": 780000 },
+    { "name": "worker, armed, 30 min: 28 min", "trigger": "worker", "exactArmed": true, "minutes": 30, "expected": 1680000 },
+    { "name": "worker, armed, 60 min: 58 min", "trigger": "worker", "exactArmed": true, "minutes": 60, "expected": 3480000 },
+    { "name": "worker, armed, 5 min counts as 15: 13 min", "trigger": "worker", "exactArmed": true, "minutes": 5, "expected": 780000 },
+    { "name": "worker, not armed: 5 min", "trigger": "worker", "exactArmed": false, "minutes": 60, "expected": 300000 },
+    { "name": "exact itself: 5 min", "trigger": "exact", "exactArmed": true, "minutes": 60, "expected": 300000 },
+    { "name": "widget: 5 min (never skipped anyway)", "trigger": "widget", "exactArmed": true, "minutes": 60, "expected": 300000 }
+  ],
   "interval": [
     { "minutes": 15, "expected": 900000 },
     { "minutes": 30, "expected": 1800000 },
@@ -18,12 +28,17 @@
   "skip": [
     { "name": "worker, exact armed, 20 of 30 min", "trigger": "worker", "exactArmed": true, "minutes": 30, "age": 1200000, "expected": true },
     { "name": "worker, exact armed, one interval passed", "trigger": "worker", "exactArmed": true, "minutes": 30, "age": 1800000, "expected": false },
+    { "name": "worker, exact armed, own run 40 s long: next run one interval after its start is not skipped", "trigger": "worker", "exactArmed": true, "minutes": 15, "age": 860000, "expected": false },
+    { "name": "worker, exact armed, 15 min, exactly at the window (13 min)", "trigger": "worker", "exactArmed": true, "minutes": 15, "age": 780000, "expected": false },
+    { "name": "worker, exact armed, 15 min, 1 ms inside the window", "trigger": "worker", "exactArmed": true, "minutes": 15, "age": 779999, "expected": true },
+    { "name": "worker, exact armed, 15 min, alarm ran 7 min ago", "trigger": "worker", "exactArmed": true, "minutes": 15, "age": 420000, "expected": true },
     { "name": "worker without exact, 20 min", "trigger": "worker", "exactArmed": false, "minutes": 30, "age": 1200000, "expected": false },
     { "name": "worker without exact, 4 min", "trigger": "worker", "exactArmed": false, "minutes": 30, "age": 240000, "expected": true },
     { "name": "exact itself, 20 min after worker", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 1200000, "expected": false },
     { "name": "exact itself, 4 min", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 240000, "expected": true },
     { "name": "widget never skipped", "trigger": "widget", "exactArmed": true, "minutes": 60, "age": 1000, "expected": false },
-    { "name": "worker, armed, 60 min, 59 min", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": 3540000, "expected": true },
+    { "name": "worker, armed, 60 min, 57 min", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": 3420000, "expected": true },
+    { "name": "worker, armed, 60 min, 59 min: within the tolerance, runs", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": 3540000, "expected": false },
     { "name": "worker, armed, never checked", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": null, "expected": false }
   ]
 }

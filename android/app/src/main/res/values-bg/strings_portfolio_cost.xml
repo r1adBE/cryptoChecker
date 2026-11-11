@@ -24,6 +24,7 @@
     <string name="address_lots_add">Добави партида</string>
     <string name="address_lots_new">Нова партида</string>
     <string name="address_lots_edit">Партида</string>
+    <string name="address_lots_delete_title">Да се изтрие ли партидата?</string>
     <string name="address_lots_date">Дата на покупка</string>
     <string name="address_lots_amount">Количество</string>
     <string name="address_lots_mode_total">Общо</string>

@@ -24,6 +24,7 @@
     <string name="address_lots_add">הוספת מנה</string>
     <string name="address_lots_new">מנה חדשה</string>
     <string name="address_lots_edit">מנה</string>
+    <string name="address_lots_delete_title">למחוק את המנה?</string>
     <string name="address_lots_date">תאריך רכישה</string>
     <string name="address_lots_amount">כמות</string>
     <string name="address_lots_mode_total">סה״כ</string>

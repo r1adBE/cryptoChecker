@@ -24,6 +24,7 @@
     <string name="address_lots_add">Adaugă lot</string>
     <string name="address_lots_new">Lot nou</string>
     <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_delete_title">Ștergi lotul?</string>
     <string name="address_lots_date">Data cumpărării</string>
     <string name="address_lots_amount">Cantitate</string>
     <string name="address_lots_mode_total">Total</string>

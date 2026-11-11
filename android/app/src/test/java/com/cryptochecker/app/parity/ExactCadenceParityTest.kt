@@ -42,10 +42,32 @@ class ExactCadenceParityTest {
         }
     }
 
+    /** Fenster unter dem Wecker: Intervall minus Toleranz, nie unter dem gewöhnlichen Fenster. */
+    @Test
+    fun fensterMitToleranzWieGemeinsameTestfaelle() {
+        assertEquals(data["toleranceMillis"].num()!!.toLong(), BackgroundSchedule.DEDUPE_TOLERANCE_MILLIS)
+        val cases = data["window"].list()
+        assertTrue(cases.size >= 7)
+        for (raw in cases) {
+            val c = raw.obj()
+            val window = BackgroundSchedule.dedupeWindowMillis(
+                CheckTrigger.fromCode(c["trigger"] as String)!!, exactArmed = c["exactArmed"] as Boolean,
+                intervalMillis = BackgroundSchedule.exactIntervalMillis(c["minutes"].int()),
+            )
+            assertEquals(c["name"] as String, c["expected"].num()!!.toLong(), window)
+            assertTrue(c["name"] as String, window >= BackgroundSchedule.DEDUPE_WINDOW_MILLIS)
+        }
+        // Auch ein Intervall knapp über dem gewöhnlichen Fenster fällt nie darunter
+        assertEquals(
+            BackgroundSchedule.DEDUPE_WINDOW_MILLIS,
+            BackgroundSchedule.dedupeWindowMillis(CheckTrigger.WORKER, exactArmed = true, intervalMillis = 6 * 60_000L),
+        )
+    }
+
     @Test
     fun sperrfensterWieGemeinsameTestfaelle() {
         val cases = data["skip"].list()
-        assertTrue(cases.size >= 8)
+        assertTrue(cases.size >= 13)
         for (raw in cases) {
             val c = raw.obj()
             val trigger = CheckTrigger.fromCode(c["trigger"] as String)!!

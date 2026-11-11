@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Monedes: màx. %1$d</string>
     <string name="watch_complication_label">Preu</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 hores</string>
-    <string name="watch_mode_phone">Llista: com al mòbil</string>
-    <string name="watch_mode_own">Llista: pròpia</string>
+    <string name="watch_list_from_phone">Llista del mòbil</string>
     <string name="watch_phone_empty">No hi ha preferits al mòbil</string>
     <string name="watch_portfolio">Cartera</string>
     <string name="watch_portfolio_today">%1$s avui</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">sense preu, el rellotge no pot carregar aquest parell</string>
     <string name="a11y_watch_no_price_via_phone">sense preu, el rellotge només rep els preus de %1$s des del telèfon</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">sense preu, els exchanges ara no són accessibles</string>
+    <string name="watch_no_price_phone">només des del mòbil</string>
+    <string name="watch_no_price_unreachable">no accessible</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualitzat per última vegada fa %1$d minut</item>
         <item quantity="many">actualitzat per última vegada fa %1$d minuts</item>

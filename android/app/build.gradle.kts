@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 221
+        versionCode = 222
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -143,6 +143,8 @@ android {
     sourceSets {
         getByName("androidTest") {
             assets.directories.add("$rootDir/testdata/uitest")
+            // Gemeinsame Paritäts-Fälle für Tests, die das Gerät brauchen (PriceFormatIcuTest: ICU-Zahlenformat)
+            assets.directories.add("$rootDir/testdata/parity")
             // Demo-Sicherung der Store-Bilder für ScreenshotTourTest (iOS liest dieselbe Datei neben der Quelle)
             assets.directories.add("$rootDir/docs/store/screenshots")
             // Room-Schemas für die Migrationstests (RoomSchemaMigrationTest, MigrationTestHelper); exportiert von

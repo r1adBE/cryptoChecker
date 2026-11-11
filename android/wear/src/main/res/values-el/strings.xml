@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Νομίσματα: έως %1$d</string>
     <string name="watch_complication_label">Τιμή</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s σε 24 ώρες</string>
-    <string name="watch_mode_phone">Λίστα: όπως στο κινητό</string>
-    <string name="watch_mode_own">Λίστα: δική σου</string>
+    <string name="watch_list_from_phone">Λίστα από το κινητό</string>
     <string name="watch_phone_empty">Δεν υπάρχουν αγαπημένα στο κινητό</string>
     <string name="watch_portfolio">Χαρτοφυλάκιο</string>
     <string name="watch_portfolio_today">%1$s σήμερα</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">καμία τιμή, το ρολόι δεν μπορεί να φορτώσει αυτό το ζεύγος</string>
     <string name="a11y_watch_no_price_via_phone">καμία τιμή, το ρολόι λαμβάνει τιμές του %1$s μόνο από το τηλέφωνο</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">καμία τιμή, τα ανταλλακτήρια δεν είναι διαθέσιμα αυτή τη στιγμή</string>
+    <string name="watch_no_price_phone">μόνο από το κινητό</string>
+    <string name="watch_no_price_unreachable">μη διαθέσιμο</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">τελευταία ενημέρωση πριν από %1$d λεπτό</item>
         <item quantity="other">τελευταία ενημέρωση πριν από %1$d λεπτά</item>

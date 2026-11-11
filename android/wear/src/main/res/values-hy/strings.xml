@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Կոիններ՝ առավելագույնը %1$d</string>
     <string name="watch_complication_label">Գին</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ժամում</string>
-    <string name="watch_mode_phone">Ցանկ՝ ինչպես հեռախոսում</string>
-    <string name="watch_mode_own">Ցանկ՝ սեփական</string>
+    <string name="watch_list_from_phone">Ցանկ՝ հեռախոսից</string>
     <string name="watch_phone_empty">Հեռախոսում ընտրյալներ չկան</string>
     <string name="watch_portfolio">Պորտֆել</string>
     <string name="watch_portfolio_today">այսօր %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">գին չկա, ժամացույցը չի կարող բեռնել այս զույգը</string>
     <string name="a11y_watch_no_price_via_phone">գին չկա, ժամացույցը %1$s-ի գները ստանում է միայն հեռախոսից</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">գին չկա, բորսաները հիմա հասանելի չեն</string>
+    <string name="watch_no_price_phone">միայն հեռախոսից</string>
+    <string name="watch_no_price_unreachable">հասանելի չէ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">վերջին թարմացումը՝ %1$d րոպե առաջ</item>
         <item quantity="other">վերջին թարմացումը՝ %1$d րոպե առաջ</item>

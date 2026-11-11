@@ -85,7 +85,10 @@ object WatchPairQuotes {
         OWN_UNREACHABLE,
 
         /** «Börsen gerade nicht erreichbar». */
-        UNREACHABLE,
+        UNREACHABLE;
+
+        /** Sichtbarer Kurzgrund in der Zeile der Uhr-App: «nur vom Handy» (true) oder «nicht erreichbar» (false). */
+        val viaPhone: Boolean get() = this == PHONE_ONLY || this == VIA_PHONE
     }
 
     /**

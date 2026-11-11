@@ -788,52 +788,62 @@
   {
    "key": "BTC/EUR|Kraken|",
    "outcome": null,
-   "expected": "VIA_PHONE"
+   "expected": "VIA_PHONE",
+   "viaPhone": true
   },
   {
    "key": "BTC/EUR|Kraken|",
    "outcome": "NOT_LISTED",
-   "expected": "VIA_PHONE"
+   "expected": "VIA_PHONE",
+   "viaPhone": true
   },
   {
    "key": "BTC/EUR|Kraken|",
    "outcome": "UNREACHABLE",
-   "expected": "UNREACHABLE"
+   "expected": "UNREACHABLE",
+   "viaPhone": false
   },
   {
    "key": "BTC/EUR|okx|",
    "outcome": "QUOTE",
-   "expected": "OWN_UNREACHABLE"
+   "expected": "OWN_UNREACHABLE",
+   "viaPhone": false
   },
   {
    "key": "BANK/USDT|Binance Futures|Perp",
    "outcome": null,
-   "expected": "OWN_UNREACHABLE"
+   "expected": "OWN_UNREACHABLE",
+   "viaPhone": false
   },
   {
    "key": "BANK/USDT|Binance Futures|Perp",
    "outcome": "UNREACHABLE",
-   "expected": "UNREACHABLE"
+   "expected": "UNREACHABLE",
+   "viaPhone": false
   },
   {
    "key": "BANK/USDT|Binance Futures|Perp",
    "outcome": "NOT_LISTED",
-   "expected": "VIA_PHONE"
+   "expected": "VIA_PHONE",
+   "viaPhone": true
   },
   {
    "key": "BTC/USDT|Binance Futures|1Q",
    "outcome": "UNREACHABLE",
-   "expected": "PHONE_ONLY"
+   "expected": "PHONE_ONLY",
+   "viaPhone": true
   },
   {
    "key": "PEPE/WETH|DexScreener|Pool995b79ee",
    "outcome": null,
-   "expected": "PHONE_ONLY"
+   "expected": "PHONE_ONLY",
+   "viaPhone": true
   },
   {
    "key": "BTC/USDT|Bitget Futures|Perp",
    "outcome": null,
-   "expected": "PHONE_ONLY"
+   "expected": "PHONE_ONLY",
+   "viaPhone": true
   }
  ]
 }

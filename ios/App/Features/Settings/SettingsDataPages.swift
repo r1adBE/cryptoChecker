@@ -46,7 +46,9 @@ struct BackupSettingsPage: View {
             if data.encryptionPending {
                 SettingsHint(text: L("backup_encryption_pending"))
             }
-            HStack(spacing: Spacing.sm) {
+            // Untereinander und volle Breite: «Wiederherstellen» und längere Wörter anderer Sprachen passen nicht in
+            // eine halbe Zeile (Android gleich)
+            VStack(spacing: Spacing.sm) {
                 Button(action: startExport) {
                     Label(L("backup_export"), systemImage: "square.and.arrow.up")
                         .font(.subheadline.weight(.semibold))

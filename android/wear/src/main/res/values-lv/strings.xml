@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Monētas: ne vairāk kā %1$d</string>
     <string name="watch_complication_label">Cena</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 stundās</string>
-    <string name="watch_mode_phone">Saraksts: kā tālrunī</string>
-    <string name="watch_mode_own">Saraksts: savs</string>
+    <string name="watch_list_from_phone">Saraksts no tālruņa</string>
     <string name="watch_phone_empty">Tālrunī nav izlases</string>
     <string name="watch_portfolio">Portfelis</string>
     <string name="watch_portfolio_today">šodien %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">nav cenas, pulkstenis nevar ielādēt šo pāri</string>
     <string name="a11y_watch_no_price_via_phone">nav cenas, %1$s cenas pulkstenis saņem tikai no tālruņa</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">nav cenas, biržas pašlaik nav sasniedzamas</string>
+    <string name="watch_no_price_phone">tikai no tālruņa</string>
+    <string name="watch_no_price_unreachable">nav sasniedzams</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="zero">pēdējoreiz atjaunināts pirms %1$d minūtēm</item>
         <item quantity="one">pēdējoreiz atjaunināts pirms %1$d minūtes</item>

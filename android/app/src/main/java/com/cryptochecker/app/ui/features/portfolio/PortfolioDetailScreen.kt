@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -111,7 +112,9 @@ fun PortfolioDetailScreen(
         if (nothingLeft && !holding) onBack()
     }
 
-    var sheet by remember { mutableStateOf<TxDraft?>(null) }
+    // Saveable wie im Hauptbildschirm: Drehen, Falten, Dunkelmodus und Sprachwechsel schliessen das offene Blatt nicht
+    // ([TxDraftSaver]); Eingaben und «Verwerfen?» hält das Blatt selbst ([rememberTxFormState])
+    var sheet by rememberSaveable(stateSaver = TxDraftSaver) { mutableStateOf<TxDraft?>(null) }
 
     val haptics = rememberHaptics()
     // Erst nach der Rückfrage: löschen wie der Editor (ohne «Rückgängig»); Banner «entfernt» und Haptik erst nach dem
@@ -144,7 +147,7 @@ fun PortfolioDetailScreen(
     }
     // «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben
     var costGapsOpen by remember { mutableStateOf(false) }
-    var lotsFor by remember { mutableStateOf<Long?>(null) }
+    var lotsFor by rememberSaveable { mutableStateOf<Long?>(null) }
     if (costGapsOpen) {
         PortfolioCostGapsSheet(
             viewModel, all.orEmpty(), coin = symbol,
@@ -238,7 +241,7 @@ fun PortfolioDetailScreen(
                                 onDelete = { confirmDelete = tx },
                                 onToggleFavorite = null,
                                 reduceMotion = reduceMotion,
-                                modifier = Modifier.animateItem(),
+                                modifier = if (reduceMotion) Modifier else Modifier.animateItem(),
                                 // Rückfrage statt sofort: die Zeile gleitet zurück, gelöscht wird erst nach «Löschen»
                                 confirmsDelete = true,
                             ) {

@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">కాయిన్‌లు: గరిష్ఠంగా %1$d</string>
     <string name="watch_complication_label">ధర</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 గంటల్లో %3$s</string>
-    <string name="watch_mode_phone">జాబితా: ఫోన్‌లో లాగే</string>
-    <string name="watch_mode_own">జాబితా: సొంతం</string>
+    <string name="watch_list_from_phone">ఫోన్‌లోని జాబితా</string>
     <string name="watch_phone_empty">ఫోన్‌లో ఇష్టమైనవి లేవు</string>
     <string name="watch_portfolio">పోర్ట్‌ఫోలియో</string>
     <string name="watch_portfolio_today">ఈరోజు %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ధర లేదు, వాచ్ ఈ జతను లోడ్ చేయలేదు</string>
     <string name="a11y_watch_no_price_via_phone">ధర లేదు, వాచ్ %1$s ధరలను ఫోన్ నుండి మాత్రమే పొందుతుంది</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ధర లేదు, ఇప్పుడు ఎక్స్ఛేంజ్‌లు అందుబాటులో లేవు</string>
+    <string name="watch_no_price_phone">ఫోన్ నుండి మాత్రమే</string>
+    <string name="watch_no_price_unreachable">అందుబాటులో లేదు</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d నిమిషం క్రితం చివరిగా అప్‌డేట్ అయింది</item>
         <item quantity="other">%1$d నిమిషాల క్రితం చివరిగా అప్‌డేట్ అయింది</item>

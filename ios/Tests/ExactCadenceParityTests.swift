@@ -29,11 +29,29 @@ final class ExactCadenceParityTests: XCTestCase {
         }
     }
 
+    /// Fenster unter dem Wecker: Intervall minus Toleranz, nie unter dem gewöhnlichen Fenster (wie Android).
+    func testWindowWithToleranceMatchesFixture() throws {
+        let data = try TestSupport.fixture("exact_cadence")
+        XCTAssertEqual(int64(data["toleranceMillis"]), BackgroundSchedule.dedupeToleranceMillis)
+        let cases = TestSupport.list(data["window"])
+        XCTAssertGreaterThanOrEqual(cases.count, 7)
+        for c in cases {
+            let trigger = try XCTUnwrap(CheckTrigger(rawValue: c["trigger"] as? String ?? ""))
+            let window = BackgroundSchedule.dedupeWindowMillis(
+                trigger: trigger, exactArmed: c["exactArmed"] as? Bool ?? false,
+                intervalMillis: BackgroundSchedule.exactIntervalMillis(backgroundIntervalMinutes: int(c["minutes"])))
+            XCTAssertEqual(window, int64(c["expected"]), "\(c["name"] ?? "")")
+            XCTAssertGreaterThanOrEqual(window, BackgroundSchedule.dedupeWindowMillis, "\(c["name"] ?? "")")
+        }
+        XCTAssertEqual(BackgroundSchedule.dedupeWindowMillis(trigger: .worker, exactArmed: true, intervalMillis: 6 * 60_000),
+                       BackgroundSchedule.dedupeWindowMillis)
+    }
+
     func testSkipWindowMatchesFixture() throws {
         let data = try TestSupport.fixture("exact_cadence")
         let now = int64(data["now"])
         let cases = TestSupport.list(data["skip"])
-        XCTAssertGreaterThanOrEqual(cases.count, 8)
+        XCTAssertGreaterThanOrEqual(cases.count, 13)
         for c in cases {
             let trigger = try XCTUnwrap(CheckTrigger(rawValue: c["trigger"] as? String ?? ""))
             let window = BackgroundSchedule.dedupeWindowMillis(
@@ -43,5 +61,41 @@ final class ExactCadenceParityTests: XCTestCase {
             XCTAssertEqual(BackgroundSchedule.shouldSkip(trigger: trigger, lastFinishedAt: last, now: now, windowMillis: window),
                            c["expected"] as? Bool, "\(c["name"] ?? "")")
         }
+    }
+
+    // MARK: Volle Prüfung und Zeitpunkt von `lastAlarmCheckAt` (`full_check.json`, wie Android `FullCheckParityTest`)
+
+    func testFullCheckMatchesFixture() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("full_check")["isFullCheck"])
+        XCTAssertGreaterThanOrEqual(cases.count, 15)
+        for c in cases {
+            XCTAssertEqual(BackgroundSchedule.isFullCheck(attempted: int(c["attempted"]), failed: int(c["failed"])),
+                           c["expected"] as? Bool, "\(c)")
+        }
+    }
+
+    func testMarksAlarmCheckMatchesFixture() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("full_check")["marksAlarmCheck"])
+        XCTAssertEqual(cases.count, 8)
+        for c in cases {
+            let actual = BackgroundSchedule.marksAlarmCheck(
+                fullCheck: try XCTUnwrap(c["fullCheck"] as? Bool),
+                deferredWaiting: try XCTUnwrap(c["deferredWaiting"] as? Bool),
+                deferredChecked: try XCTUnwrap(c["deferredChecked"] as? Bool))
+            XCTAssertEqual(actual, c["expected"] as? Bool, "\(c)")
+        }
+    }
+
+    /// Die Hintergrund-Aufgabe vermerkt über diese Regel: gleich nach den Kursalarmen nur ohne wartende Alarme mit
+    /// Zusatzdaten, sonst erst nach deren Prüfung.
+    func testBackgroundTaskMarksThroughTheRule() throws {
+        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("App/Services/BackgroundRefresh.swift")
+        let source = try String(contentsOf: file, encoding: .utf8)
+        XCTAssertEqual(source.components(separatedBy: "SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis").count - 1, 2)
+        XCTAssertEqual(source.components(separatedBy: "if BackgroundSchedule.marksAlarmCheck(").count - 1, 2)
+        let deferred = try XCTUnwrap(source.range(of: "await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)"))
+        let second = try XCTUnwrap(source.range(of: "deferredWaiting: true,"))
+        XCTAssertLessThan(deferred.lowerBound, second.lowerBound)
     }
 }

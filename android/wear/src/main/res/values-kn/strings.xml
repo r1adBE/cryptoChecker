@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">ಕಾಯಿನ್‌ಗಳು: ಗರಿಷ್ಠ %1$d</string>
     <string name="watch_complication_label">ಬೆಲೆ</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ಗಂಟೆಗಳಲ್ಲಿ %3$s</string>
-    <string name="watch_mode_phone">ಪಟ್ಟಿ: ಫೋನ್‌ನಂತೆ</string>
-    <string name="watch_mode_own">ಪಟ್ಟಿ: ಸ್ವಂತ</string>
+    <string name="watch_list_from_phone">ಫೋನ್‌ನ ಪಟ್ಟಿ</string>
     <string name="watch_phone_empty">ಫೋನ್‌ನಲ್ಲಿ ಮೆಚ್ಚಿನವುಗಳಿಲ್ಲ</string>
     <string name="watch_portfolio">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</string>
     <string name="watch_portfolio_today">ಇಂದು %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ ಈ ಜೋಡಿಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗದು</string>
     <string name="a11y_watch_no_price_via_phone">ಬೆಲೆ ಇಲ್ಲ, ಗಡಿಯಾರ %1$s ಬೆಲೆಗಳನ್ನು ಫೋನ್‌ನಿಂದ ಮಾತ್ರ ಪಡೆಯುತ್ತದೆ</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ಬೆಲೆ ಇಲ್ಲ, ಈಗ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳನ್ನು ತಲುಪಲಾಗುತ್ತಿಲ್ಲ</string>
+    <string name="watch_no_price_phone">ಫೋನ್‌ನಿಂದ ಮಾತ್ರ</string>
+    <string name="watch_no_price_unreachable">ಲಭ್ಯವಿಲ್ಲ</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d ನಿಮಿಷದ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>
         <item quantity="other">%1$d ನಿಮಿಷಗಳ ಹಿಂದೆ ಕೊನೆಯದಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗಿದೆ</item>

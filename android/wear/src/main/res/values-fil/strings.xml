@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Mga coin: hanggang %1$d</string>
     <string name="watch_complication_label">Presyo</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s sa loob ng 24 na oras</string>
-    <string name="watch_mode_phone">Listahan: gaya ng phone</string>
-    <string name="watch_mode_own">Listahan: sarili</string>
+    <string name="watch_list_from_phone">Listahan mula sa phone</string>
     <string name="watch_phone_empty">Walang paborito sa phone</string>
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s ngayon</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">walang presyo, hindi ma-load ng relo ang pares na ito</string>
     <string name="a11y_watch_no_price_via_phone">walang presyo, sa telepono lang kinukuha ng relo ang mga presyo ng %1$s</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">walang presyo, hindi maabot ang mga exchange ngayon</string>
+    <string name="watch_no_price_phone">sa phone lang</string>
+    <string name="watch_no_price_unreachable">hindi maabot</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">huling na-update %1$d minuto ang nakalipas</item>
         <item quantity="other">huling na-update %1$d minuto ang nakalipas</item>

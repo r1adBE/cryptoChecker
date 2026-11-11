@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Coin: tối đa %1$d</string>
     <string name="watch_complication_label">Giá</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s trong 24 giờ</string>
-    <string name="watch_mode_phone">Danh sách: giống điện thoại</string>
-    <string name="watch_mode_own">Danh sách: riêng</string>
+    <string name="watch_list_from_phone">Danh sách từ điện thoại</string>
     <string name="watch_phone_empty">Không có mục yêu thích trên điện thoại</string>
     <string name="watch_portfolio">Danh mục</string>
     <string name="watch_portfolio_today">%1$s hôm nay</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">không có giá, đồng hồ không tải được cặp này</string>
     <string name="a11y_watch_no_price_via_phone">không có giá, đồng hồ chỉ nhận giá %1$s qua điện thoại</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">không có giá, hiện không kết nối được sàn</string>
+    <string name="watch_no_price_phone">chỉ qua điện thoại</string>
+    <string name="watch_no_price_unreachable">không kết nối được</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="other">cập nhật lần cuối %1$d phút trước</item>
     </plurals>

@@ -24,6 +24,7 @@
     <string name="address_lots_add">Tambah lot</string>
     <string name="address_lots_new">Lot baharu</string>
     <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_delete_title">Padam lot?</string>
     <string name="address_lots_date">Tarikh belian</string>
     <string name="address_lots_amount">Jumlah</string>
     <string name="address_lots_mode_total">Jumlah keseluruhan</string>

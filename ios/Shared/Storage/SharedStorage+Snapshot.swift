@@ -281,8 +281,11 @@ extension SharedStorage {
     /// Wartet, bis alle Hintergrund-Schreibvorgänge auf der Platte sind (vor dem Lesen, vor «App zurücksetzen»).
     /// Blockiert den aufrufenden Thread: Ein Schreibvorgang (JSON, AES, `NSFileCoordinator`) kann auf das Widget
     /// warten — auf dem Haupt-Thread darum `snapshotWritesSettled()`. Nie vom Schreib-Thread selbst aufrufen.
-    static func flushSnapshotWrites() {
-        snapshotWriter.sync {}
+    /// - Returns: das Ergebnis des zuletzt eingereihten Schreibens (true = `watchlist.json` geschrieben), wie
+    ///   `snapshotWritesSettled` — das Wiederherstellen löscht sein Journal erst danach (`RestoreSteps.execute`).
+    @discardableResult
+    static func flushSnapshotWrites() -> Bool {
+        snapshotWriter.sync { lastQueuedWriteBox.current }
     }
 
     /// Wie `flushSnapshotWrites`, aber ohne zu blockieren: kehrt zurück, sobald alles bis jetzt Eingereihte

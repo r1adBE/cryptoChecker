@@ -13,10 +13,13 @@ import kotlin.coroutines.cancellation.CancellationException
 internal object RestoreRun {
 
     /**
-     * Ein Schreibschritt. [touchedBefore]: gilt schon vor dem Schreiben als berührt — ohne gemeinsame Transaktion kann
-     * er halb geschrieben scheitern (Favoriten, Einstellungen); in einer Transaktion erst danach (Merkliste, Portfolio).
+     * Ein Schreibschritt. Er gilt schon VOR dem Schreiben als berührt — auch ein Schritt in einer Transaktion (Merkliste,
+     * Portfolio): Wird die Coroutine genau beim Commit abgebrochen, ist die Tabelle ersetzt, der Aufruf endet aber mit
+     * einer `CancellationException`; ebenso kann nach dem Commit noch etwas scheitern. Einen unberührten Stand
+     * zurückzuschreiben schadet nicht, einen ersetzten stehen zu lassen ergäbe den halben Stand (neue Merkliste, altes
+     * Portfolio) ohne Journal.
      */
-    class Write(val step: Step, val touchedBefore: Boolean, val block: suspend () -> Unit)
+    class Write(val step: Step, val block: suspend () -> Unit)
 
     /** Journal des Wiederherstellens ([RestoreJournal]); in Tests eine Fälschung. */
     interface Journal {
@@ -49,9 +52,8 @@ internal object RestoreRun {
         val touched = mutableSetOf<Step>()
         try {
             for (write in writes) {
-                if (write.touchedBefore) touched += write.step
-                write.block()
                 touched += write.step
+                write.block()
             }
         } catch (e: Throwable) {
             withContext(NonCancellable) {

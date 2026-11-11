@@ -24,6 +24,7 @@
     <string name="address_lots_add">Ongeza fungu</string>
     <string name="address_lots_new">Fungu jipya</string>
     <string name="address_lots_edit">Fungu</string>
+    <string name="address_lots_delete_title">Ufute fungu?</string>
     <string name="address_lots_date">Tarehe ya ununuzi</string>
     <string name="address_lots_amount">Kiasi</string>
     <string name="address_lots_mode_total">Jumla</string>

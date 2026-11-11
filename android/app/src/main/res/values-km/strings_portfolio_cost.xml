@@ -24,6 +24,7 @@
     <string name="address_lots_add">បន្ថែមឡូតិ៍</string>
     <string name="address_lots_new">ឡូតិ៍ថ្មី</string>
     <string name="address_lots_edit">ឡូតិ៍</string>
+    <string name="address_lots_delete_title">លុបឡូតិ៍មែនទេ?</string>
     <string name="address_lots_date">កាលបរិច្ឆេទទិញ</string>
     <string name="address_lots_amount">ចំនួន</string>
     <string name="address_lots_mode_total">សរុប</string>

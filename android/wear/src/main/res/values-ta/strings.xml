@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">காயின்கள்: அதிகபட்சம் %1$d</string>
     <string name="watch_complication_label">விலை</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 மணிநேரத்தில் %3$s</string>
-    <string name="watch_mode_phone">பட்டியல்: ஃபோனில் உள்ளபடி</string>
-    <string name="watch_mode_own">பட்டியல்: தனிப்பட்டது</string>
+    <string name="watch_list_from_phone">ஃபோனின் பட்டியல்</string>
     <string name="watch_phone_empty">ஃபோனில் பிடித்தவை இல்லை</string>
     <string name="watch_portfolio">போர்ட்ஃபோலியோ</string>
     <string name="watch_portfolio_today">இன்று %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">விலை இல்லை, கடிகாரத்தால் இந்த ஜோடியை ஏற்ற முடியாது</string>
     <string name="a11y_watch_no_price_via_phone">விலை இல்லை, கடிகாரம் %1$s விலைகளை தொலைபேசியிலிருந்து மட்டுமே பெறுகிறது</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">விலை இல்லை, இப்போது எக்ஸ்சேஞ்ச்களை அணுக முடியவில்லை</string>
+    <string name="watch_no_price_phone">ஃபோனிலிருந்து மட்டும்</string>
+    <string name="watch_no_price_unreachable">அணுக முடியவில்லை</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">%1$d நிமிடத்துக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
         <item quantity="other">%1$d நிமிடங்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>

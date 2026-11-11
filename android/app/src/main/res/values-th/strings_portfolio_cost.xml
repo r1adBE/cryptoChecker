@@ -24,6 +24,7 @@
     <string name="address_lots_add">เพิ่มล็อต</string>
     <string name="address_lots_new">ล็อตใหม่</string>
     <string name="address_lots_edit">ล็อต</string>
+    <string name="address_lots_delete_title">ลบล็อต?</string>
     <string name="address_lots_date">วันที่ซื้อ</string>
     <string name="address_lots_amount">จำนวน</string>
     <string name="address_lots_mode_total">รวม</string>

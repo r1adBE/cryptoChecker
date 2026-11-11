@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Monede: maximum %1$d</string>
     <string name="watch_complication_label">Preț</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s în 24 de ore</string>
-    <string name="watch_mode_phone">Listă: ca pe telefon</string>
-    <string name="watch_mode_own">Listă: proprie</string>
+    <string name="watch_list_from_phone">Listă de pe telefon</string>
     <string name="watch_phone_empty">Nu există favorite pe telefon</string>
     <string name="watch_portfolio">Portofoliu</string>
     <string name="watch_portfolio_today">%1$s azi</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">niciun preț, ceasul nu poate încărca această pereche</string>
     <string name="a11y_watch_no_price_via_phone">niciun preț, ceasul primește prețurile de pe %1$s doar de la telefon</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">niciun preț, bursele nu răspund acum</string>
+    <string name="watch_no_price_phone">doar de la telefon</string>
+    <string name="watch_no_price_unreachable">indisponibil</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">actualizat ultima dată acum %1$d minut</item>
         <item quantity="few">actualizat ultima dată acum %1$d minute</item>

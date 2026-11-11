@@ -108,6 +108,30 @@ class WatchlistReduceMotionGuardTest {
         assertEquals(emptyList<String>(), ungated)
     }
 
+    /**
+     * «Paar hinzufügen» (iOS): die Animationen der Seite richten sich nach «Bewegung reduzieren», und eine Transaktion
+     * an der Wurzel nimmt auch `withAnimation` der Unteransichten heraus.
+     */
+    @Test
+    fun `Explorer beachtet Bewegung reduzieren`() {
+        val rel = "App/Features/Explorer/ExplorerScreen.swift"
+        val text = SourceGuard.ios(iosFile(rel), "ios/$rel").readText(Charsets.UTF_8)
+        val ungated = text.lines().filter { it.contains(".animation(") && !it.contains("reduceMotion") }.map { it.trim() }
+        assertEquals(emptyList<String>(), ungated)
+        assertTrue(text.contains("@Environment(\\.accessibilityReduceMotion) var reduceMotion"))
+        assertTrue(text.contains("transaction.disablesAnimations = true"))
+    }
+
+    /** Android: der «+»-Knopf über Listen erscheint bei «Animationen entfernen» ohne Skalieren. */
+    @Test
+    fun `Plus-Knopf beachtet Animationen entfernen`() {
+        val rel = "src/main/java/com/cryptochecker/app/ui/components/AppFab.kt"
+        val file = listOf(File(rel), File("app/$rel"), File("android/app/$rel")).firstOrNull { it.isFile }
+        val fab = SourceGuard.android(file, rel).readText(Charsets.UTF_8)
+        assertTrue(fab.contains("enter = if (reduceMotion) EnterTransition.None else scaleIn() + fadeIn(),"))
+        assertTrue(fab.contains("exit = if (reduceMotion) ExitTransition.None else scaleOut() + fadeOut(),"))
+    }
+
     /** Datei unter `ios/`, vom Arbeitsverzeichnis aus aufwärts gesucht. */
     private fun iosFile(rel: String): File? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

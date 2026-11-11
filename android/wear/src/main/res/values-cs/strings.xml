@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Mince: nejvýše %1$d</string>
     <string name="watch_complication_label">Kurz</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s za 24 hodin</string>
-    <string name="watch_mode_phone">Seznam: jako v telefonu</string>
-    <string name="watch_mode_own">Seznam: vlastní</string>
+    <string name="watch_list_from_phone">Seznam z telefonu</string>
     <string name="watch_phone_empty">V telefonu nejsou žádné oblíbené</string>
     <string name="watch_portfolio">Portfolio</string>
     <string name="watch_portfolio_today">%1$s dnes</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">žádná cena, hodinky tento pár nemohou načíst</string>
     <string name="a11y_watch_no_price_via_phone">žádná cena, ceny z %1$s dostávají hodinky jen z telefonu</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">žádná cena, burzy jsou teď nedostupné</string>
+    <string name="watch_no_price_phone">jen z telefonu</string>
+    <string name="watch_no_price_unreachable">nedostupné</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">naposledy aktualizováno před %1$d minutou</item>
         <item quantity="few">naposledy aktualizováno před %1$d minutami</item>

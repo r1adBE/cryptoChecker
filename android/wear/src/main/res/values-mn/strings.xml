@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Зоос: дээд тал нь %1$d</string>
     <string name="watch_complication_label">Ханш</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 цагт %3$s</string>
-    <string name="watch_mode_phone">Жагсаалт: утастай адил</string>
-    <string name="watch_mode_own">Жагсаалт: тусдаа</string>
+    <string name="watch_list_from_phone">Утасны жагсаалт</string>
     <string name="watch_phone_empty">Утсанд дуртай зоос алга</string>
     <string name="watch_portfolio">Багц</string>
     <string name="watch_portfolio_today">өнөөдөр %1$s</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ханш алга, цаг энэ хосыг ачаалж чадахгүй</string>
     <string name="a11y_watch_no_price_via_phone">ханш алга, цаг %1$s-ийн ханшийг зөвхөн утаснаас авдаг</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ханш алга, бирж одоогоор холбогдохгүй байна</string>
+    <string name="watch_no_price_phone">зөвхөн утаснаас</string>
+    <string name="watch_no_price_unreachable">холбогдохгүй байна</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">сүүлд %1$d минутын өмнө шинэчилсэн</item>
         <item quantity="other">сүүлд %1$d минутын өмнө шинэчилсэн</item>

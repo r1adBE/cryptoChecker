@@ -24,6 +24,7 @@
     <string name="address_lots_add">කොටසක් එක් කරන්න</string>
     <string name="address_lots_new">නව කොටස</string>
     <string name="address_lots_edit">කොටස</string>
+    <string name="address_lots_delete_title">කොටස මකන්නද?</string>
     <string name="address_lots_date">මිලදී ගැනීමේ දිනය</string>
     <string name="address_lots_amount">ප්‍රමාණය</string>
     <string name="address_lots_mode_total">මුළු</string>

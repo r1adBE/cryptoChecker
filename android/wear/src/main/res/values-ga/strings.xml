@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Boinn: %1$d ar a mhéad</string>
     <string name="watch_complication_label">Praghas</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uair an chloig</string>
-    <string name="watch_mode_phone">Liosta: cosúil leis an bhfón</string>
-    <string name="watch_mode_own">Liosta: féin</string>
+    <string name="watch_list_from_phone">Liosta ón bhfón</string>
     <string name="watch_phone_empty">Gan ceanáin ar an bhfón</string>
     <string name="watch_portfolio">Punann</string>
     <string name="watch_portfolio_today">%1$s inniu</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">gan phraghas, ní féidir leis an uaireadóir an péire seo a lódáil</string>
     <string name="a11y_watch_no_price_via_phone">gan phraghas, ní fhaigheann an t-uaireadóir praghsanna %1$s ach ón bhfón</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">gan phraghas, ní féidir na malartáin a bhaint amach faoi láthair</string>
+    <string name="watch_no_price_phone">ón bhfón amháin</string>
+    <string name="watch_no_price_unreachable">níl fáil air</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">nuashonraithe %1$d nóiméad ó shin</item>
         <item quantity="two">nuashonraithe %1$d nóiméad ó shin</item>

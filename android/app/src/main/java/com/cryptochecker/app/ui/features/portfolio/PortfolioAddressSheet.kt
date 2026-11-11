@@ -100,7 +100,7 @@ internal fun PortfolioAddressSheet(
     // Angefangene Eingabe: Wischen / Tippen daneben / Zurück fragen erst nach (wie das Transaktionsblatt)
     var askDiscard by remember { mutableStateOf(false) }
     // «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber)
-    var lotsFor by remember { mutableStateOf<Long?>(null) }
+    var lotsFor by rememberSaveable { mutableStateOf<Long?>(null) }
     lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
     val dirty = input.isNotBlank() || label.isNotBlank()
     val dirtyNow by rememberUpdatedState(dirty)

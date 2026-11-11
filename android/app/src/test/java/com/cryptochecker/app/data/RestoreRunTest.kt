@@ -1,13 +1,18 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.BackupManager.Step
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.yield
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 import java.io.IOException
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Wiederherstellen mit Journal und Zurückrollen ([RestoreRun], [RestoreRollback]) mit Fälschungen statt Datenbanken:
@@ -27,10 +32,14 @@ class RestoreRunTest {
         var failRollBackOf: String? = null
         var portfolioWritable = true
 
+        /** Dieser Teil schreibt (Commit geschehen) und endet dann wie ein abgebrochener Aufruf. */
+        var cancelAfterWriting: String? = null
+
         fun write(part: String, value: String, assign: (String) -> Unit) {
             writes += part
             if (failOn == part) throw IOException("$part scheitert")
             assign(value)
+            if (cancelAfterWriting == part) throw CancellationException("beim Commit abgebrochen")
         }
 
         fun snapshot() = listOf(watchlist, portfolio, favorites, settings)
@@ -52,10 +61,10 @@ class RestoreRunTest {
     private val previous = World().snapshot()
 
     private fun writesOf(w: World) = listOf(
-        RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) { w.write("Merkliste", "neue Merkliste") { w.watchlist = it } },
-        RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) { w.write("Portfolio", "neues Portfolio") { w.portfolio = it } },
-        RestoreRun.Write(Step.FAVORITES, touchedBefore = true) { w.write("Favoriten", "neue Favoriten") { w.favorites = it } },
-        RestoreRun.Write(Step.SETTINGS, touchedBefore = true) { w.write("Einstellungen", "neue Einstellungen") { w.settings = it } },
+        RestoreRun.Write(Step.WATCHLIST) { w.write("Merkliste", "neue Merkliste") { w.watchlist = it } },
+        RestoreRun.Write(Step.PORTFOLIO) { w.write("Portfolio", "neues Portfolio") { w.portfolio = it } },
+        RestoreRun.Write(Step.FAVORITES) { w.write("Favoriten", "neue Favoriten") { w.favorites = it } },
+        RestoreRun.Write(Step.SETTINGS) { w.write("Einstellungen", "neue Einstellungen") { w.settings = it } },
     )
 
     /** Zurückrollen wie `BackupManager.rollBack`: gemerkten Stand je berührtem Teil zurück. */
@@ -138,13 +147,68 @@ class RestoreRunTest {
     }
 
     @Test
-    fun gescheiterteTransaktionGiltNichtAlsBeruehrt() = runTest {
-        // Portfolio-Transaktion scheitert: nur die Merkliste ist zurückzuschreiben
+    fun gescheiterteTransaktionGiltAlsBeruehrt() = runTest {
+        // Portfolio-Transaktion scheitert: auch sie wird zurückgeschrieben (der Commit kann trotz Fehler geschehen sein)
         val w = World().apply { failOn = "Portfolio" }
         val rolledBack = mutableListOf<String>()
         runCatching { run(w, FakeJournal(), rolledBack) }
-        assertEquals(listOf("Merkliste"), rolledBack)
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBack)
         assertEquals(previous, w.snapshot())
+    }
+
+    /**
+     * Abbruch genau beim Commit: Der Schritt hat geschrieben, endet aber mit `CancellationException`. Er wird trotzdem
+     * zurückgerollt (samt dem Schritt davor), das Journal ist erst danach weg — nie neue Merkliste neben altem Portfolio.
+     */
+    @Test
+    fun abbruchBeimCommitRolltDenGeschriebenenSchrittZurueck() = runTest {
+        for (part in listOf("Merkliste", "Portfolio")) {
+            val w = World().apply { cancelAfterWriting = part }
+            val journal = FakeJournal()
+            val rolledBack = mutableListOf<String>()
+            try {
+                run(w, journal, rolledBack)
+                fail("Abbruch erwartet")
+            } catch (e: CancellationException) {
+                // erwartet: der Abbruch wird weitergereicht
+            }
+            assertEquals(part, if (part == "Merkliste") listOf("Merkliste") else listOf("Portfolio", "Merkliste"), rolledBack)
+            assertEquals(part, previous, w.snapshot())
+            assertTrue(part, journal.deleted)
+        }
+    }
+
+    /** Derselbe Abbruch in einer wirklich abgebrochenen Coroutine: Zurückrollen läuft trotzdem zu Ende (NonCancellable). */
+    @Test
+    fun abgebrocheneCoroutineRolltTrotzdemZurueck() = runTest {
+        val w = World()
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        val job = launch {
+            RestoreRun.execute(
+                journal,
+                listOf(
+                    RestoreRun.Write(Step.WATCHLIST) { w.watchlist = "neue Merkliste" },
+                    RestoreRun.Write(Step.PORTFOLIO) {
+                        // Commit geschehen, dann greift der Abbruch am nächsten Unterbrechungspunkt
+                        w.portfolio = "neues Portfolio"
+                        currentCoroutineContext().cancel()
+                        yield()
+                    },
+                    RestoreRun.Write(Step.FAVORITES) { w.favorites = "neue Favoriten" },
+                    RestoreRun.Write(Step.SETTINGS) { w.settings = "neue Einstellungen" },
+                ),
+            ) { touched, cause ->
+                // Unterbrechungspunkt im Zurückrollen: darf den Abbruch nicht erneut sehen
+                yield()
+                RestoreRollback.run(touched, cause, partsOf(w, rolledBack))
+            }
+        }
+        job.join()
+        assertTrue(job.isCancelled)
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBack)
+        assertEquals(previous, w.snapshot())
+        assertTrue(journal.deleted)
     }
 
     @Test

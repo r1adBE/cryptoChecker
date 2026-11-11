@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Mynter: maks. %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s på 24 timer</string>
-    <string name="watch_mode_phone">Liste: som telefonen</string>
-    <string name="watch_mode_own">Liste: egen</string>
+    <string name="watch_list_from_phone">Liste fra telefonen</string>
     <string name="watch_phone_empty">Ingen favoritter på telefonen</string>
     <string name="watch_portfolio">Portefølje</string>
     <string name="watch_portfolio_today">%1$s i dag</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ingen kurs, klokken kan ikke hente dette paret</string>
     <string name="a11y_watch_no_price_via_phone">ingen kurs, klokken får kurser fra %1$s bare via telefonen</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ingen kurs, børsene kan ikke nås akkurat nå</string>
+    <string name="watch_no_price_phone">bare via telefonen</string>
+    <string name="watch_no_price_unreachable">kan ikke nås</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">sist oppdatert for %1$d minutt siden</item>
         <item quantity="other">sist oppdatert for %1$d minutter siden</item>

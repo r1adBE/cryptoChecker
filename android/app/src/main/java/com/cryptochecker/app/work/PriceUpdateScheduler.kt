@@ -257,7 +257,7 @@ class PriceUpdateScheduler @Inject constructor(
             portfolioKept = DatabaseEncryptionNotice.isStoredKept(PortfolioDatabase.DB_NAME),
             widget = widgets.portfolio,
         ),
-        marketAlarms = settings.gasAlertEthTenths > 0 || settings.gasAlertBtc > 0 || settings.depegAlarm,
+        marketAlarms = BackgroundWorkPolicy.marketAlarms(settings.gasAlertEthTenths, settings.gasAlertBtc, settings.depegAlarm),
         watchlistKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME),
         pulseWidget = widgets.pulse,
     )

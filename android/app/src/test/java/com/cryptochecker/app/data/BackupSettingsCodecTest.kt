@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.CHANGED
 import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.KEPT
 import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.PUBLIC
+import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.SET
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
@@ -188,11 +189,17 @@ class BackupSettingsCodecTest {
         assertTrue(settings.s.appLock)
         assertTrue(settings.s.hidePortfolioAmounts)
         assertFalse(settings.s.portfolioSystemBackup)
-        // Mit Passwort (echt): übernommen
-        assertFalse(codec(settings).restoreSettings(lessProtection, trusted = true).appLockKept)
+        // Ohne Passwort nichts abgeschaltet → nichts zu nennen
+        assertFalse(codec(settings).restoreSettings(lessProtection, trusted = false).lowered.any)
+        // Mit Passwort (echt): übernommen — und in der Meldung genannt, nie still
+        val notes = codec(settings).restoreSettings(lessProtection, trusted = true)
+        assertFalse(notes.appLockKept)
+        assertEquals(BackupRestorePolicy.LoweredProtection(systemBackupOn = true, amountsShown = true), notes.lowered)
         assertFalse(settings.s.appLock)
         assertFalse(settings.s.hidePortfolioAmounts)
         assertTrue(settings.s.portfolioSystemBackup)
+        // Dieselbe Sicherung nochmals: nichts mehr umgestellt → kein Hinweis
+        assertFalse(codec(settings).restoreSettings(lessProtection, trusted = true).lowered.any)
     }
 
     @Test
@@ -209,7 +216,7 @@ class BackupSettingsCodecTest {
 
     /**
      * Eigener Bitcoin-Server: ohne Passwort nie gesetzt, ersetzt oder gelöscht (Hinweis KEPT), ungültige Werte bleiben
-     * aussen vor; mit Passwort ersetzt (CHANGED) bzw. entfernt (PUBLIC).
+     * aussen vor; mit Passwort ersetzt (CHANGED), entfernt (PUBLIC) bzw. neu gesetzt (SET, mit Hostnamen).
      */
     @Test
     fun eigenerServerAusDerSicherung() = runTest {
@@ -232,8 +239,15 @@ class BackupSettingsCodecTest {
         // Ohne Passwort auch keinen Server setzen, wo keiner war
         assertEquals(KEPT, restore("https://b.example/api", trusted = false))
         assertEquals(null, settings.server)
-        assertEquals(null, restore("https://b.example/api", trusted = true))
-        assertEquals("https://b.example/api", settings.server)
+        // Mit Passwort neu gesetzt, wo keiner war: genannt (SET) samt Hostnamen
+        val set = codec(settings).restoreSettings(backup(settings, "addressServerBtc" to "https://B.example:3006/api"), true)
+        assertEquals(SET, set.addressServer)
+        assertEquals("b.example", set.addressServerHost)
+        assertEquals("https://b.example:3006/api", settings.server)
+        // Ersetzt (CHANGED): kein Hostname in diesem Hinweis
+        val changed = codec(settings).restoreSettings(backup(settings, "addressServerBtc" to "https://c.example"), true)
+        assertEquals(CHANGED, changed.addressServer)
+        assertEquals(null, changed.addressServerHost)
     }
 
     @Test

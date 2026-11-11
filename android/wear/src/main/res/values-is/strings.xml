@@ -9,8 +9,7 @@
     <string name="watch_choose_hint">Myntir: hám. %1$d</string>
     <string name="watch_complication_label">Verð</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s á 24 klukkustundum</string>
-    <string name="watch_mode_phone">Listi: eins og síminn</string>
-    <string name="watch_mode_own">Listi: eigin</string>
+    <string name="watch_list_from_phone">Listi úr símanum</string>
     <string name="watch_phone_empty">Engin uppáhöld í símanum</string>
     <string name="watch_portfolio">Eignasafn</string>
     <string name="watch_portfolio_today">%1$s í dag</string>
@@ -22,6 +21,8 @@
     <string name="a11y_watch_no_price_phone_only">ekkert verð, úrið getur ekki sótt þetta par</string>
     <string name="a11y_watch_no_price_via_phone">ekkert verð, úrið fær verð frá %1$s aðeins í gegnum símann</string>
     <string name="a11y_watch_no_price_exchanges_unreachable">ekkert verð, ekki næst í kauphallir í augnablikinu</string>
+    <string name="watch_no_price_phone">aðeins í gegnum símann</string>
+    <string name="watch_no_price_unreachable">næst ekki</string>
     <plurals name="a11y_watch_updated_minutes">
         <item quantity="one">síðast uppfært fyrir %1$d mínútu</item>
         <item quantity="other">síðast uppfært fyrir %1$d mínútum</item>
