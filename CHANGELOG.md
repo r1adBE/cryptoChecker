@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 220)
+
+* Code scanning (CodeQL) runs as its own workflow: Kotlin/Java compiled once with dependency verification on; Swift, Python and the workflows as before.
+
 ## 16.2.2 (build 219)
 
 * Documents up to date: README, SECURITY, CONTRIBUTING, DEVELOPMENT, notices and templates match the app.

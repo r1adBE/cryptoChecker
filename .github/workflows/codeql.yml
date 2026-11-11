@@ -1,0 +1,88 @@
+# CodeQL code scanning (advanced setup; replaces GitHub's default setup). Why not the default setup: its autobuild
+# runs «gradlew assemble» for every variant under the CodeQL tracer, which ran out of memory on the hosted runner
+# (red in 3 of 7 runs), and it switches Gradle's dependency verification off. Here Kotlin/Java is built by hand:
+# one variant (debug) of :app (with :marketdata, :domain, :data) and :wear, compile only, verification and
+# lock files on. Swift uses CodeQL's autobuild on the same macOS image as ios.yml; Python and the workflows need
+# no build. Results: Security › Code scanning. Requires «CodeQL analysis: Advanced» in the repository settings –
+# while the default setup is on, GitHub rejects the uploads of this workflow.
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 5 * * 3'   # Wednesdays 05:17 UTC (kept enabled by keepalive.yml)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      security-events: write   # upload of the results
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+            runner: ubuntu-24.04
+          - language: python
+            build-mode: none
+            runner: ubuntu-24.04
+          - language: java-kotlin
+            build-mode: manual
+            runner: ubuntu-24.04
+          - language: swift
+            build-mode: autobuild
+            runner: macos-26
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Dependency cache only (read-only): the compile tasks below must really run, otherwise CodeQL sees no code
+      - name: Set up Gradle (with cache)
+        if: matrix.language == 'java-kotlin'
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-read-only: true
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      # One variant, compile only (no packaging, no R8, no lint). No daemon, no build or configuration cache and
+      # the Kotlin compiler inside the Gradle process, so the CodeQL tracer observes every compiler call.
+      - name: Build Kotlin and Java (debug, compile only)
+        if: matrix.language == 'java-kotlin'
+        working-directory: android
+        run: |
+          ./gradlew --no-daemon --no-build-cache --no-configuration-cache \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            :app:compileDebugKotlin :app:compileDebugJavaWithJavac \
+            :wear:compileDebugKotlin :wear:compileDebugJavaWithJavac
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          category: /language:${{ matrix.language }}

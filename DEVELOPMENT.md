@@ -2973,6 +2973,7 @@ the eight marked ⬤ for the tagged commit, whatever the path filters say.
 | `market-data.yml` | hourly, by hand | signed data mirror (release `data`) |
 | `macro-calendar.yml` | weekly, by hand | economic calendar (branch `macro`), then Pages |
 | `pages.yml` | `main` (`docs/`), by hand, called by the calendar | GitHub Pages: start page, privacy policy, calendar |
+| `codeql.yml` *CodeQL* | pull requests, `main`, weekly, by hand | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows; results under Security › Code scanning |
 | `keepalive.yml` | weekly | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
 
 Artifacts are kept 14 days (test reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
@@ -3578,6 +3579,7 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
 * Build 217 (audit C-03): unit tests of `:domain` and `:data` live in those modules; `LayerBoundaryTest` checks package, imports and minimum counts; `mutation_test.py` routes each test to its module.
 * Build 218 (audit C-02): `code_metrics.py` measures function length (ceilings Kotlin 326, Swift 356); `TaxYearSummaryBuilder`, `PortfolioFifoBook`, `ExplorerSearchData`; constructor ceiling 13, ViewModel properties 26; dispatcher allowlist 5 files.
 * Build 219: documents only (section 20 added), store descriptions, privacy page sentence on the backup password, licences sheet.
+* Build 220: `codeql.yml` (advanced setup) replaces GitHub's default CodeQL setup, whose autobuild of all variants ran out of memory.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
