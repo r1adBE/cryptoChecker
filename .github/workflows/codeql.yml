@@ -2,7 +2,7 @@
 # runs «gradlew assemble» for every variant under the CodeQL tracer, which ran out of memory on the hosted runner
 # (red in 3 of 7 runs), and it switches Gradle's dependency verification off. Here Kotlin/Java is built by hand:
 # one variant (debug) of :app (with :marketdata, :domain, :data) and :wear, compile only, verification and
-# lock files on. Swift is built by hand as well (Debug for the simulator, one architecture, the scheme of ios.yml –
+# lock files on. Swift is built by hand as well (simulator, one architecture, whole module without optimisation, scheme of ios.yml –
 # CodeQL's autobuild made a Release build of every target and needed about an hour); Python and the workflows need
 # no build. Results: Security › Code scanning. Requires «CodeQL analysis: Advanced» in the repository settings –
 # while the default setup is on, GitHub rejects the uploads of this workflow.
@@ -83,8 +83,10 @@ jobs:
             :app:compileDebugKotlin :app:compileDebugJavaWithJavac \
             :wear:compileDebugKotlin :wear:compileDebugJavaWithJavac
 
-      # Same scheme as ios.yml (app, widgets, watch app, watch widgets); Debug and one architecture keep the traced
-      # build short. The log goes to a file, the end and the compiler errors are printed.
+      # Same scheme as ios.yml (app, widgets, watch app, watch widgets). One architecture, no optimisation and
+      # whole-module compilation: CodeQL extracts once per compiler call, and a file-by-file Debug build calls the
+      # compiler hundreds of times (more than 90 minutes), a whole-module build once per target. The log goes to a
+      # file, the end and the compiler errors are printed.
       - name: Build Swift (Debug, simulator, compile only)
         if: matrix.language == 'swift'
         working-directory: ios
@@ -98,6 +100,7 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$RUNNER_TEMP/DerivedDataCodeQL" \
             ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+            SWIFT_COMPILATION_MODE=wholemodule SWIFT_OPTIMIZATION_LEVEL=-Onone COMPILER_INDEX_STORE_ENABLE=NO \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             > "$LOG" 2>&1
           status=$?
