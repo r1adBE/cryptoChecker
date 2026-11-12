@@ -245,10 +245,10 @@ class BackupSettingsCodecTest {
         assertEquals(SET, set.addressServer)
         assertEquals("b.example", set.addressServerHost)
         assertEquals("https://b.example:3006/api", settings.server)
-        // Ersetzt (CHANGED): kein Hostname in diesem Hinweis
+        // Ersetzt (CHANGED): seit Build 226 (S2-02) ebenfalls mit Hostnamen
         val changed = codec(settings).restoreSettings(backup(settings, "addressServerBtc" to "https://c.example"), true)
         assertEquals(CHANGED, changed.addressServer)
-        assertEquals(null, changed.addressServerHost)
+        assertEquals("c.example", changed.addressServerHost)
     }
 
     @Test
