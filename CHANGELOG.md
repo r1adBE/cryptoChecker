@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 224)
+
+* Android: the baseline and startup profile are measured again on the current code (classes moved in builds 216 and 223).
+* iOS: size ceilings in the release audit from the first measurement (app 140 MB, widgets 40 MB, watch 4.5 MB).
+
 ## 16.2.2 (build 223)
 
 Last fixes from the audit of build 220, no visible change:

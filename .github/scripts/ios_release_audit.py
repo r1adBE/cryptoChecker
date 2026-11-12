@@ -74,10 +74,10 @@ REQUIRED_REASON_APIS = {
 }
 # Size ceilings in MB for the unsigned device Release build (.app as built: every architecture, no App Store
 # thinning, no dSYM): the whole .app, the widget extension folder PlugIns and the embedded watch app folder Watch.
-# Generous start values - tighten them to about 10 % above the numbers of the notice «Release app size» of the
-# first CI run. The watch ceiling is the tightest on purpose: the watch bundles carry only their own small string
+# About 10 % above the first measurement (.app 125.6 MB, PlugIns 36.3 MB, Watch 3.8 MB in November 2026; unsigned
+# Release build without thinning, so the store download is smaller). The watch ceiling is the tightest on purpose: the watch bundles carry only their own small string
 # catalogue (ios/tools/watch_string_keys.txt), the whole catalogue twice would not fit.
-SIZE_CEILINGS_MB = (("CryptoChecker.app", "", 250), ("PlugIns", "PlugIns", 100), ("Watch", "Watch", 15))
+SIZE_CEILINGS_MB = (("CryptoChecker.app", "", 140), ("PlugIns", "PlugIns", 40), ("Watch", "Watch", 4.5))
 # Bundles whose translated texts (*.lproj) are reported, relative to the .app
 TEXT_BUNDLES = (("app", ""), ("widgets", "PlugIns/CryptoCheckerWidgetsExtension.appex"),
                 ("watch", "Watch/CryptoCheckerWatch.app"),
