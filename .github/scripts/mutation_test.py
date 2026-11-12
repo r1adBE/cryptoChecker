@@ -738,10 +738,10 @@ def self_test():
             assert f.read() == original
 
         # Atomic restore: file mode kept, no temporary file left; a failing replace leaves the old bytes intact
-        os.chmod(full, 0o640)
+        os.chmod(full, 0o600)
         with mutated(full, original, "mutant"):
             pass
-        assert os.stat(full).st_mode & 0o777 == 0o640 and os.listdir(os.path.dirname(full)) == ["Sample.kt"]
+        assert os.stat(full).st_mode & 0o777 == 0o600 and os.listdir(os.path.dirname(full)) == ["Sample.kt"]
 
         def failing_replace(src, dst):
             raise OSError("disk full")

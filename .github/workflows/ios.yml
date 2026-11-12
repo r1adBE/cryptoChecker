@@ -384,6 +384,14 @@ jobs:
           echo "Simulator: $DEVICE"
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
 
+      # Boot the Simulator before xcodebuild and wait until it is fully up: a cold Simulator could fail the first app
+      # launch («Failed to launch») and leave the retried launch hanging until the step timeout.
+      - name: Boot iOS Simulator
+        timeout-minutes: 10
+        run: |
+          xcrun simctl boot "$SIM_DEVICE" || true
+          xcrun simctl bootstatus "$SIM_DEVICE" -b
+
       # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the Simulator.
       # The app runs with -uiTesting (Debug build only): empty storage per launch, fixed exchange
       # answers (no network), test files instead of the document picker. Runs every UI test class of the target
@@ -392,8 +400,9 @@ jobs:
       # second attempt is a failure there. The result bundle (screenshots, logs) is uploaded on failure.
       - name: UI tests (iOS Simulator)
         working-directory: ios
-        # 45 min: the accessibility audit runs in three groups of audit types per screen
-        timeout-minutes: 45
+        # 50 min: the accessibility audit runs in three groups of audit types per screen; a single test is stopped
+        # after 10 min (test timeouts below), so a hung app launch fails that test and its retry still fits
+        timeout-minutes: 50
         run: |
           LOG="$RUNNER_TEMP/xcode-uitest.log"
           RETRY=(-retry-tests-on-failure -test-iterations 2)
@@ -412,6 +421,9 @@ jobs:
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
             -only-testing:CryptoCheckerUITests \
             -parallel-testing-enabled NO \
+            -test-timeouts-enabled YES \
+            -default-test-execution-time-allowance 600 \
+            -maximum-test-execution-time-allowance 600 \
             "${RETRY[@]}" \
             -resultBundlePath "$RUNNER_TEMP/UITests.xcresult" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \

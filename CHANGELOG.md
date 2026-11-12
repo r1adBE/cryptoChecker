@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 229)
+
+* CI mutation self-test uses owner-only file mode (CodeQL alert #4).
+* iOS UI tests: the Simulator is booted before the run, and a single test is stopped after 10 min (step limit 50 min), so a hung app launch can no longer use up the whole step (build 228).
+
 ## 16.2.2 (build 228)
 
 Start profile re-measured with the dedicated startup journey.
