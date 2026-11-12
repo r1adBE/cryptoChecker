@@ -82,7 +82,7 @@ class WatchlistLockDeviceTest {
     private fun openSeeded() {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         repo = WatchRepository(
-            db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys),
+            db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys, Dispatchers.IO),
             AlarmDeliveryMarkers(context),
             ioDispatcher = Dispatchers.IO,
         )

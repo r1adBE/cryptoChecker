@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    // Baseline Profile: generiert von :baselineprofile, sonst gilt src/main/baseline-prof.txt
+    // Baseline Profile: gemessen von :baselineprofile, eingecheckt unter src/release/generated/baselineProfiles/
     alias(libs.plugins.baselineprofile)
 }
 
@@ -77,7 +77,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 226
+        versionCode = 227
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -240,8 +240,8 @@ androidComponents {
 
 // Baseline Profile: das gemessene Profil wird NICHT beim Bauen erzeugt (reproduzierbarer Build, kein Gerät nötig),
 // sondern vom Workflow «Baseline profile» (./gradlew :app:generateBaselineProfile auf einem Emulator) und liegt
-// eingecheckt in src/release/generated/baselineProfiles/ (baseline-prof.txt, startup-prof.txt). AGP führt es mit
-// src/main/baseline-prof.txt zusammen; fehlt es, gilt nur diese von Hand geschriebene Datei.
+// eingecheckt in src/release/generated/baselineProfiles/ (baseline-prof.txt aus Start und Rundgang, startup-prof.txt nur
+// aus dem Start bis zur Merkliste). Ein von Hand geschriebenes Profil gibt es nicht.
 baselineProfile {
     automaticGenerationDuringBuild = false
     saveInSrc = true

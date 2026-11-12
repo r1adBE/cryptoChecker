@@ -347,3 +347,11 @@ Deliberate trade-offs, stated so that nobody relies on more than the app does:
   app's sandbox / app group, guards navigation only – it unlocks nothing and
   the portfolio lock applies regardless – and it may appear in an unencrypted
   local device backup.
+* **CI: release tags and CodeQL scope.** The screenshot job that may write the
+  branch `screenshots` (`contents: write`) runs for every tag `v*`, also one on
+  a commit outside `main`; the ruleset «protect-release-tags» forbids deleting
+  and moving tags, not creating them. With one maintainer this changes nothing;
+  with more people who can push, tag creation should be restricted first. CodeQL
+  compiles Kotlin in the debug variant only, so the release-only
+  `HttpLogInterceptorProvider` (`app/src/withoutHttpLog/`, one small file without
+  logging) is never analysed.

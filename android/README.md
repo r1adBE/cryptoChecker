@@ -295,8 +295,10 @@ iOS-App als `ios/`, dazu Datenschutzseite unter `docs/`). Anleitung für neue
 Börsen: `DEVELOPMENT.md` im Repository-Hauptordner.
 GitHub Actions bauen und testen die App bei jeder Änderung. Die instrumentierten Tests auf dem Emulator
 (Workflow «Android device tests», `.github/workflows/android-device-tests.yml`) laufen bei jedem Push auf `main`,
-der die Android-App betrifft, bei jedem Release-Tag und von Hand; bei Pull Requests nur die Datenbank- bzw.
-Release-Smoke-Tests (`migration-tests`, `release-smoke`), wenn Datenbank bzw. Release-Build betroffen sind. Schlüssel,
+der die Android-App betrifft, bei jedem Release-Tag und von Hand; bei Pull Requests die Gerätetests, sobald Quellen
+der Handy-Module oder die Gerätetests geändert werden, sonst die Datenbank- bzw. Release-Smoke-Tests
+(`migration-tests`, `release-smoke`), wenn Datenbank bzw. Release-Build betroffen sind; Pflicht-Check «Android device
+tests». Schlüssel,
 `keystore.properties` und `local.properties` liegen nie im Repository.
 
 ## Lizenz

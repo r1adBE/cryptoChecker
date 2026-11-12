@@ -20,7 +20,8 @@ Subcommands:
                 without UIBackgroundModes fetch/processing, ITSAppUsesNonExemptEncryption missing,
                 PrivacyInfo.xcprivacy missing in app or widget extension, widget extension missing,
                 UI test hooks (UITesting / UITestExchange, Debug only) or XCTest linked into the binary,
-                size of the .app, of PlugIns or of Watch above its ceiling (SIZE_CEILINGS_MB)
+                size of the .app, of PlugIns or of Watch above its ceiling (SIZE_CEILINGS_MB), PlugIns or Watch
+                missing or empty (0 bytes: widget extension or watch app not embedded)
         warning BGTaskScheduler identifier not found in the Swift sources,
                 ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8)
         notice  compiler warning count (error above MAX_COMPILER_WARNINGS); size in MB of the .app, PlugIns and
@@ -204,12 +205,16 @@ def dir_size(path, only=None):
 
 
 def size_findings(app, ceilings=SIZE_CEILINGS_MB):
-    """Notice with the sizes, error per part above its ceiling."""
+    """Notice with the sizes, error per part above its ceiling; error for an embedded folder (PlugIns, Watch) that is
+    missing or empty - a missing watch app or widget extension must not pass as «0 MB, below the ceiling»."""
     mb = 1024 * 1024
     parts = []
     for label, sub, ceiling in ceilings:
         size = dir_size(os.path.join(app, sub))
         parts.append(f"{label} {size / mb:.1f} MB (ceiling {ceiling})")
+        if sub and size == 0:
+            add("error", f"Release app size: {label} is missing or empty (0 bytes) - the "
+                         f"{'watch app' if sub == 'Watch' else 'widget extension'} was not embedded")
         if size > ceiling * mb:
             add("error", f"Release app size: {label} is {size / mb:.1f} MB, more than the ceiling of {ceiling} MB "
                          "(SIZE_CEILINGS_MB in ios_release_audit.py): find what grew before raising it")
@@ -498,6 +503,15 @@ def self_test():
         assert levels == ["error", "notice"], findings
         assert "Watch is 3.0 MB" in findings[0], findings
         assert findings[1].endswith("app 2.00, widgets 1.00, watch 1.00, watch widgets 0.00"), findings
+        del findings[:]
+        # Watch missing, PlugIns empty: two errors, not «0 MB below the ceiling»
+        shutil.rmtree(os.path.join(app, "Watch"))
+        for root, _, files in os.walk(os.path.join(app, "PlugIns")):
+            for name in files:
+                open(os.path.join(root, name), "wb").close()
+        size_findings(app, (("CryptoChecker.app", "", 10), ("PlugIns", "PlugIns", 1), ("Watch", "Watch", 2)))
+        errors = [f for f in findings if f.startswith("error")]
+        assert len(errors) == 2 and "PlugIns is missing or empty" in errors[0] and "watch app" in errors[1], findings
         del findings[:]
     print("ios_release_audit.py self-test passed")
     return 0

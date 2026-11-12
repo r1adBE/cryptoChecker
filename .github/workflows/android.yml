@@ -6,7 +6,8 @@
 # Three jobs in parallel – «Android unit tests» (source checks, unit, release-unit and performance tests, Kotlin
 # warnings, Room schema drift, coverage), «Android lint» (instrumented tests compiled, lint) and «Android release
 # build» (debug and release builds, SBOM, release audit) – so a late failure no longer costs the whole run; the job
-# «Android build» at the end collects their results under the name of the required check.
+# «Android build» at the end collects their results under the name of the required check. A pull request that
+# changes only Markdown skips the three jobs (job «changes»); «Android build» is then green.
 name: Android
 
 on:
@@ -38,6 +39,7 @@ on:
       - '.github/scripts/lint_warnings.py'
       - '.github/scripts/coverage_summary.py'
       - '.github/scripts/sbom.py'
+      - '.github/scripts/collect_jobs.py'
       - 'ios/project.yml'
   # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
   # whose workflow is skipped by a paths filter would wait forever («Expected»).
@@ -53,10 +55,48 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Pull requests that change only documents (Markdown, issue templates) skip the three heavy jobs; the collector
+  # then reports green. Same pattern as the job «changes» in codeql.yml: plain git diff between the merge commit and
+  # its first parent, file names only compared with fixed patterns. Every other event runs everything.
+  changes:
+    name: Android changes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          persist-credentials: false
+          # The merge commit and its parents: enough for the diff against the base branch
+          fetch-depth: 2
+
+      - name: Documents only?
+        id: diff
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          CODE=true
+          if [ "$EVENT" = pull_request ]; then
+            CHANGED=$(git diff --name-only HEAD^1 HEAD)
+            printf 'Changed files:\n%s\n' "$CHANGED"
+            # Markdown and issue templates only: no test or check of this workflow reads them (store texts and the
+            # privacy page are read by tests and run everything)
+            if [ -n "$CHANGED" ] && ! printf '%s\n' "$CHANGED" | grep -qvE '\.md$|^\.github/ISSUE_TEMPLATE/'; then
+              CODE=false
+            fi
+          fi
+          echo "sources changed, all jobs run: $CODE"
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+
   # Three runners in parallel (unit tests, lint, release build) instead of one job after another; the job
   # «Android build» at the end collects their results under the name of the required check.
   tests:
     name: Android unit tests
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -92,7 +132,8 @@ jobs:
         run: python3 -I "$GITHUB_WORKSPACE/android/tools/check_theme_contrast.py"
 
       # Size of the Hilt-wired Kotlin classes (android/*/src/main), next to the line limit: constructor dependencies of
-      # @HiltViewModel / @Inject classes (red above the ceiling 13, no warning tier) and private/internal properties
+      # @HiltViewModel / @Inject classes, of the classes a @Provides function returns and of the @Provides functions
+      # (a pure parameter bundle counts with its parts; red above the ceiling, no warning tier) and private/internal properties
       # in a ViewModel body (red above the ceiling 26); length of the Kotlin and Swift functions (the 30 longest per
       # platform are listed, red above the ceiling per platform) — ceilings = today's maximum, so nothing grows past it.
       - name: Code metrics
@@ -206,6 +247,8 @@ jobs:
 
   lint:
     name: Android lint
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:
@@ -290,6 +333,8 @@ jobs:
 
   release:
     name: Android release build
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:
@@ -375,25 +420,31 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  # Required check (ruleset «protect-main»): green only if all three Android jobs are green
+  # Required check (ruleset «protect-main»): green only if all three Android jobs are green, or if they were skipped
+  # because the pull request changes only documents
   build:
     name: Android build
-    needs: [tests, lint, release]
+    needs: [changes, tests, lint, release]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Result of the Android jobs
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      # collect_jobs.py names what a missing result means (failed, cancelled, never started – GitHub outage)
+      - name: Result of the jobs
         env:
+          CHANGES: ${{ needs.changes.result }}
+          SKIP: ${{ needs.changes.outputs.code == 'false' && ':may-skip' || '' }}
           TESTS: ${{ needs.tests.result }}
           LINT: ${{ needs.lint.result }}
           RELEASE: ${{ needs.release.result }}
         run: |
-          echo "unit tests: $TESTS, lint: $LINT, release build: $RELEASE"
-          [ "$TESTS" = success ] && [ "$LINT" = success ] && [ "$RELEASE" = success ] || {
-            echo "::error title=Android::unit tests $TESTS, lint $LINT, release build $RELEASE"
-            exit 1
-          }
+          python3 -I .github/scripts/collect_jobs.py --self-test
+          python3 -I .github/scripts/collect_jobs.py "Android build" "changes=$CHANGES" "unit tests=$TESTS$SKIP" "lint=$LINT$SKIP" "release build=$RELEASE$SKIP"
 
   # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.
   # Only when «Dependency graph» is on in the repository settings AND the repository variable

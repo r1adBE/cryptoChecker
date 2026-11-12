@@ -19,6 +19,7 @@ import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
+import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.KeyValueStores
 import com.cryptochecker.app.data.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
@@ -30,6 +31,7 @@ import dagger.hilt.components.SingletonComponent
 import timber.log.Timber
 import java.io.File
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 /** Lokale Speicher: Hauptdatenbank, Portfolio-Datenbank, «Letzte Prüfungen», Alarm-Protokoll und die DAOs. */
 @Module
@@ -103,11 +105,14 @@ object LocalDataModule {
      */
     @Provides
     @Singleton
-    fun provideAlarmLogStore(@ApplicationContext context: Context): AlarmLogStore =
-        AlarmLogStore(
-            File(context.noBackupFilesDir, AlarmLogStore.FILE_NAME),
-            PortfolioSnapshotKeyStore(AlarmLogStore.KEY_ALIAS, DatabaseKeyStore.suspectMarker(context)),
-        )
+    fun provideAlarmLogStore(
+        @ApplicationContext context: Context,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    ): AlarmLogStore = AlarmLogStore(
+        File(context.noBackupFilesDir, AlarmLogStore.FILE_NAME),
+        PortfolioSnapshotKeyStore(AlarmLogStore.KEY_ALIAS, DatabaseKeyStore.suspectMarker(context)),
+        ioDispatcher,
+    )
 
     // ---- Widget
 

@@ -6,12 +6,16 @@ Die App liefert ein Baseline Profile mit: ART kompiliert damit die Klassen und M
 Hauptwegs (Start → Merkliste → Scrollen → Paarseite → Tabs) schon bei der Installation vor.
 `androidx.profileinstaller` installiert es auch, wenn die App nicht aus dem Play Store kommt.
 
-- `app/src/main/baseline-prof.txt` — von Hand geschriebenes Start-Profil (Paket-Platzhalter
-  für Merkliste, Navigation, Theme, Room-Daten). Gilt immer, auch ohne Generator.
-- `app/src/release/generated/baselineProfiles/` — gemessenes Profil des Generators (Modul
-  `:baselineprofile`, `BaselineProfileGenerator`). Wird zusätzlich eingebunden. Der Build erzeugt es
-  nie selbst (`automaticGenerationDuringBuild = false`, `saveInSrc = true`): eingecheckte Datei,
-  reproduzierbarer Build.
+`app/src/release/generated/baselineProfiles/` — gemessenes Profil des Generators (Modul
+`:baselineprofile`, `BaselineProfileGenerator`), einzige Quelle (kein von Hand geschriebenes Profil).
+Der Build erzeugt es nie selbst (`automaticGenerationDuringBuild = false`, `saveInSrc = true`):
+eingecheckte Datei, reproduzierbarer Build. Zwei Testmethoden:
+
+- `startup` — nur Kaltstart bis zur sichtbaren Merkliste; allein dieser Weg bildet
+  `startup-prof.txt` (`includeInStartupProfile = true`), nach dem R8 die Start-Klassen in die
+  erste DEX-Datei legt.
+- `generate` — der ganze Rundgang; fliesst mit `startup` in `baseline-prof.txt`, nicht ins
+  Start-Profil.
 
 ### Neu erzeugen
 
@@ -25,13 +29,12 @@ Artefakt `baseline-profile` herunterladen und seine Dateien nach
 1. Gerät (Android 9 / API 28 oder neuer) anschliessen oder Emulator starten
    (`adb devices` zeigt es). Ein Emulator ohne Google Play genügt.
 2. `./gradlew :app:generateBaselineProfile`
-   - baut die App als `nonMinifiedRelease`, installiert sie, startet sie mehrmals kalt,
-     übernimmt bei leerer Merkliste die Start-Coins (braucht Internet), scrollt, öffnet eine
-     Paarseite und die Tabs «Markt», «Portfolio» (einmal unter Einstellungen › Portfolio
-     eingeschaltet) und «Einstellungen»;
+   - baut die App als `nonMinifiedRelease`, installiert sie, startet sie mehrmals kalt bis zur
+     Merkliste (`startup`), dann für den Rundgang (`generate`): übernimmt bei leerer Merkliste die
+     Start-Coins (braucht Internet), scrollt, öffnet eine Paarseite und die Tabs «Markt»,
+     «Portfolio» (einmal unter Einstellungen › Portfolio eingeschaltet) und «Einstellungen»;
    - schreibt das Ergebnis nach `app/src/release/generated/baselineProfiles/`.
-3. Die erzeugten Dateien einchecken. `baseline-prof.txt` von Hand nur anpassen, wenn
-   Pakete umbenannt wurden.
+3. Die erzeugten Dateien unverändert einchecken (nie von Hand bearbeiten).
 
 Prüfen, ob ein Gerät das Profil bekommen hat:
 `adb shell dumpsys package dexopt | grep -A1 com.cryptochecker.app` (Status `speed-profile`).

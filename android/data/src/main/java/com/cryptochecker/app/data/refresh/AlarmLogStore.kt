@@ -3,7 +3,7 @@ import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogState
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,6 +27,8 @@ import javax.crypto.SecretKey
 class AlarmLogStore(
     private val file: File,
     private val keys: PortfolioSnapshotSeal.Keys,
+    /** Datei lesen abseits des Hauptfadens ([load]; Hilt: `@IoDispatcher` über `LocalDataModule`). */
+    private val ioDispatcher: CoroutineDispatcher,
     private val clock: () -> Long = System::currentTimeMillis,
 ) {
     private val lock = Any()
@@ -50,7 +52,7 @@ class AlarmLogStore(
     private var unloadedChanges = false
 
     /** Datei lesen (abseits des Hauptfadens). */
-    suspend fun load() = withContext(Dispatchers.IO) { synchronized(lock) { ensureLoaded() } }
+    suspend fun load() = withContext(ioDispatcher) { synchronized(lock) { ensureLoaded() } }
 
     /** Einträge eines Durchlaufs übernehmen und (ausser bei gedrosselten Live-Kursen) speichern. Wirft nie. */
     fun record(entries: List<AlarmLogEntry>, live: Boolean) {

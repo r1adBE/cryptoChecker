@@ -16,6 +16,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 227)
+
+Last fixes from the audit of build 225, no visible change:
+
+* Supply chain: keys that were both ignored and trusted are cleaned up, so their signatures are checked again; the check rejects such entries.
+* CI: device tests are a required check through a collector (skipped = green, failed, hung or never started = red), a hard time limit around the Gradle call, documentation-only pull requests skip the heavy jobs, dependency verification errors are annotated.
+* Guards: watch string keys are checked against the full catalogue, test counts per module, honest dependency count for the price refresher.
+* The startup profile gets its own short journey.
+
 ## 16.2.2 (build 226)
 
 Fixes from the audit of build 225:

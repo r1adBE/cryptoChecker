@@ -4,8 +4,9 @@
 # page or the tabs.
 # What runs: ./gradlew :app:generateBaselineProfile. The baseline profile plugin builds the app as «nonMinifiedRelease»
 # (release without R8, debug-signed), installs it with the test APK of :baselineprofile on the connected device
-# (baselineProfile { useConnectedDevices = true }) and runs BaselineProfileGenerator several times: cold start,
-# starter coins on the fresh install, scrolling the watchlist, a pair page, the tabs Market, Portfolio and Settings.
+# (baselineProfile { useConnectedDevices = true }) and runs the two journeys of BaselineProfileGenerator several
+# times: «startup» (cold start until the watchlist shows; alone forms startup-prof.txt) and «generate» (starter coins
+# on the fresh install, scrolling the watchlist, a pair page, the tabs Market, Portfolio and Settings).
 # The result is written to android/app/src/release/generated/baselineProfiles/ (baseline-prof.txt, startup-prof.txt).
 # Emulator: the same API 34 «google_apis» x86_64 image as android-device-tests.yml – a userdebug image with root,
 # which the profile collection needs (a «google_play» image has none).
@@ -110,6 +111,17 @@ jobs:
           APP_LINES=$(grep -c 'Lcom/cryptochecker/app/' "$F" || true)
           if [ "${APP_LINES:-0}" -lt 100 ]; then
             echo "::error title=Baseline profile::only ${APP_LINES:-0} rules for com.cryptochecker.app in $F – the app did not run"
+            exit 1
+          fi
+          # The startup profile is the start journey only; equal to the whole profile it would put nearly every class
+          # into the first DEX file and lose its effect on the start
+          S="$PROFILE_DIR/startup-prof.txt"
+          if [ ! -s "$S" ]; then
+            echo "::error title=Baseline profile::$S was not written"
+            exit 1
+          fi
+          if cmp -s "$F" "$S"; then
+            echo "::error title=Baseline profile::$S equals $F – the startup profile must come from the start journey only"
             exit 1
           fi
           for part in ui/features/watchlist/WatchlistList ui/features/watchlist/PairScreen ui/features/info/ \

@@ -12,47 +12,20 @@
       <ignored-keys>
          <ignored-key id="012579464D01C06A" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="153E7A3C2B4E5118" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="15C71C0A4E0B8EDD" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="21939FF0CA2A6567" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="280D66A55F5316C5" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="296CD27F60EED12C" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="2F87304808D40CEC" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="32EE5355A6BC6E42" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="34918B7D3969D2F5" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="379CE192D401AB61" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="40A3C4432BD7308C" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="59A252FB1199D873" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="66B50994442D2D40" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="6751E1A6E2001B8D" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="6A65176A0FB1CD0B" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="7905DE25C78AD456" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="7A8860944FAD5F62" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="7C25280EAE63EBE5" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="7FE9900F412D622E" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="80C08B1C29100955" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="8118B3BCDB1A5000" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="873A8E86B4372146" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="88BB19A33A18445F" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="991EFB94DB91127D" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="9EB80E92EB2135B1" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="A41F13C999945293" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="AB2DA4527F6FFC0B" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="ABE9F3126BB741C1" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="BCF4173966770193" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="BF1518E0160788A2" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="BF984B4145EA13F7" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="C51E6CBC7FF46F0B" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="CA62973FBF0451C0" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="D364ABAA39A47320" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="D908A43FB7EC07AC" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="E0CB7823CFD00FBF" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="E2F38302C8075E3D" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="E93671C7272B7B3F" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="EB095DA7D2F6AC0E" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="EB380DC13C39F675" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="EE92349AD86DE446" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="F6D4A1D411E9D1AE" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="FD533C07C264648F" reason="Key couldn't be downloaded from any key server"/>
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="04543577D6A9CC626239C50C7ECBD740FF06AEB5">

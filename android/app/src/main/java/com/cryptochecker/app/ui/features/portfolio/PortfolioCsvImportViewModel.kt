@@ -34,6 +34,8 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,6 +65,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
+    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val reader = PortfolioCsvImportReader(context, repository, historic, historySource) {
@@ -167,8 +170,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private suspend fun proposalsFor(preview: CsvImportPreview): Proposals {
         val addresses = runCatchingCancellable { repository.watchedAddresses.first() }.getOrDefault(emptyList())
         val stored = runCatchingCancellable { repository.getTransactions() }.getOrDefault(emptyList()).mapNotNull { it.toStoredMove() }
-        val list = withContext(Dispatchers.Default) { CsvImportMapping.proposeWithdrawals(preview.transactions, addresses) }
-        val links = withContext(Dispatchers.Default) {
+        val list = withContext(defaultDispatcher) { CsvImportMapping.proposeWithdrawals(preview.transactions, addresses) }
+        val links = withContext(defaultDispatcher) {
             CsvTransferMatch.candidates(preview.transactions, preview.format.exchangeName, stored)
         }
         return Proposals(list, links)
@@ -291,7 +294,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         viewModelScope.launch {
             val result = runCsvImportSave(
                 prepare = {
-                    withContext(Dispatchers.Default) {
+                    withContext(defaultDispatcher) {
                         prepareCsvImport(shown.preview, links, linked, choices, destinations, System.currentTimeMillis(), consent)
                     }
                 },

@@ -509,8 +509,9 @@ over `:marketdata`) and the performance tests. The one shared helper is `ParityJ
 a test source of `:app`, `:domain` and `:data` (build 223, no new dependency), so parity tests live in their module. `:domain` and `:data` run their tests in the same environment as
 `:app` (en-US/UTC, real `org.json`, `kotlinx-coroutines-test`; `:data` also MockWebServer). `LayerBoundaryTest`
 checks that a test under `domain/src/test` or `data/src/test` keeps to its module (package = module and folder,
-from the app only `domain` – for `:data` also `data` – imports, no Room/OkHttp import in `:domain`) and that no
-module loses `@Test` methods. `./gradlew testDebugUnitTest` (as in the *Android* workflow) runs
+from the app only `domain` – for `:data` also `data` – imports, no Room/OkHttp import in `:domain`) and that every
+module keeps at least its count of `@Test` methods (`TEST_FLOOR` = today's counts of all five modules; raise it in
+the commit that adds tests). `./gradlew testDebugUnitTest` (as in the *Android* workflow) runs
 `:app:testDebugUnitTest`, `:domain:testDebugUnitTest`, `:data:testDebugUnitTest`, `:marketdata:testDebugUnitTest`
 and `:wear:testDebugUnitTest`; one class: `./gradlew :domain:testDebugUnitTest --tests '*.PortfolioFifoTest'` (a
 `--tests` filter belongs to the task of the module that holds the class).
@@ -579,7 +580,8 @@ alarms of `BackgroundRefreshRunTests` on a slow runner) is allowed: reported as 
 Simulator in the examples is the one CI picks («iPhone 17», otherwise the first available iPhone).
 `ios.yml` runs three Macs in parallel – «iOS release build» (unsigned Release build for devices, release settings
 audit, built-app inspection with the compiler-warning ceiling 0), «iOS unit tests» (Debug build and unit tests) and
-«iOS UI tests» – and the job «iOS build» (the required check) is green only if all three are; logs on failure as
+«iOS UI tests» – and the job «iOS build» (the required check) is green only if all three are (or all three were
+skipped because a pull request changes only Markdown, job «changes»); logs on failure as
 artifacts `xcode-logs-release`, `-unit`, `-ui`. About 25 minutes instead of about 65 one after another.
 
 **iOS performance tests in Release.** The iOS performance tests (`ios/Tests/*PerformanceTests.swift`, timings via
@@ -658,13 +660,17 @@ prepared but commented out. On pull requests the job `changes` decides from the 
 (every class, API 34) when sources of a phone module (`app`, `domain`, `data`, `marketdata`; not their unit tests),
 the device tests or `android/testdata/uitest` change, `migration-tests` when only the Room schemas change, and
 `release-smoke` when a file changes that decides about the R8 release build (keep rules, build script, dependency
-versions, the smoke test); other pull requests do not start the workflow. None of its jobs is a required check. It uses the same toolchain as `android.yml` (JDK 17, Gradle with
+versions, the smoke test); every pull request starts the workflow. The job «Android device tests» collects the
+results as a required check (`collect_jobs.py`): a job «changes» did not pick counts as green, a failed one, one
+stopped by its time limit or one that never started as red. It uses the same toolchain as `android.yml` (JDK 17, Gradle with
 cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before the emulator
 starts, then runs `:app:connectedDebugAndroidTest` on an x86_64 emulator with KVM
 (`reactivecircus/android-emulator-runner`: API 34, `google_apis`, Pixel 6 profile, animations
 off) – i.e. everything in `app/src/androidTest`, including `CoreFlowTest` and
 `DatabaseFreshInstallTest`. On failure the test reports are uploaded as the artifact
-`device-test-reports` (kept 14 days). The job has a 60-minute timeout; on pull requests a newer push cancels
+`device-test-reports` (kept 14 days). Besides the 5-minute limit per test method (`timeout_msec`, which does not
+cover `@Before`, rules or a hung emulator), `timeout` stops the whole Gradle call after 40 minutes with an error
+annotation (API 26: 15, migration tests: 25); the job limit is 75 minutes. On pull requests a newer push cancels
 the older run, on `main` and tags every run is kept so each commit gets a result; its token is read-only
 (`permissions: contents: read`). Pushing a new or
 changed workflow file needs a token with the `workflow` scope (`gh auth refresh -s workflow`).
@@ -766,28 +772,31 @@ workflow*): generates the measured baseline profile of the Android app. The buil
 the profile is a committed source file, so the release build stays reproducible and needs no device. The workflow
 builds `:app` as `nonMinifiedRelease` plus the generator APK, boots the API 34 `google_apis` x86_64 emulator of the
 device tests (userdebug image with root, which the collection needs – not `google_play`) and runs
-`./gradlew :app:generateBaselineProfile`; `BaselineProfileGenerator` (module `:baselineprofile`) starts the app cold
-several times, takes over the starter coins on the fresh install, scrolls the watchlist, opens a pair page and the
-tabs Market, Portfolio (switched on once under Settings › Portfolio) and Settings. It finds the UI through the test
+`./gradlew :app:generateBaselineProfile`; `BaselineProfileGenerator` (module `:baselineprofile`) has two journeys:
+`startup` starts the app cold until the watchlist shows (rows, or the starter choice on a fresh install) and alone
+forms the startup profile (`includeInStartupProfile = true`); `generate` takes over the starter coins on the fresh
+install, scrolls the watchlist, opens a pair page and the tabs Market, Portfolio (switched on once under Settings ›
+Portfolio) and Settings – it goes into the baseline profile only. Both run several times. It finds the UI through the test
 tags of `UiTestTags` (`testTagsAsResourceId` on the Scaffold of `AppNavHost`); rename a tag on both sides. The
 release build has no demo mode, so the starter coins and the Market tab need the network: without it the run goes
 on, and the step «Check profile» warns about every screen without a rule (it fails without a profile or with fewer
-than 100 rules for the app). To commit the result:
+than 100 rules for the app, or when the startup profile equals the baseline profile). To commit the result:
 
 1. Run the workflow on the commit to measure (normally `main`) and download the artifact `baseline-profile`
    (kept 14 days; on failure `baseline-profile-logs` holds the Gradle log, the logcat and the test results).
 2. Put its files into `android/app/src/release/generated/baselineProfiles/` (`baseline-prof.txt`, and
-   `startup-prof.txt`, which R8 uses to lay out the DEX files for the start) and commit them unchanged.
-3. The next build packages the profile: AGP merges it with the hand-written `android/app/src/main/baseline-prof.txt`
-   (the fallback while no measured profile is committed; remove its package wildcards only as a separate, measured
-   step). `apk_contents.py` warns when the release APK or AAB carries no profile.
+   `startup-prof.txt`, which R8 uses to lay out the DEX files for the start: only the classes of the start up to
+   the watchlist, so they share the first DEX file) and commit them unchanged.
+3. The next build packages the profile; there is no hand-written profile beside it. `apk_contents.py` warns when the
+   release APK or AAB carries no profile.
 
 Repeat after larger changes to the start, the watchlist, the pair page or the tabs. Dependency verification applies
 to this run as to every build; its artifacts are written by *Supply chain update* (steps «baseline profile module»
 and «device tests») – after a dependency change run that workflow first.
 
-**CI gates** (`.github/workflows/android.yml`, on pushes to `main` and pull requests touching
-`android/` or the Swift sources checked by the source guards, and on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
+**CI gates** (`.github/workflows/android.yml`, on every pull request – one that changes only Markdown skips the
+three heavy jobs –, on pushes to `main` touching `android/` or the Swift sources checked by the source guards, and
+on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
 submit the Gradle dependency graph (Dependabot alerts) in two jobs: `dependency-graph` (read-only, runs Gradle,
 `dependency-graph: generate-and-upload`, the only place with `--dependency-verification lenient`) and
@@ -796,8 +805,20 @@ artifact); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
 `.github/dependabot.yml` opens monthly version update PRs for GitHub Actions (at most two open);
 Gradle (version catalog `android/gradle/libs.versions.toml`) only gets security updates. The *iOS*
-workflow builds and tests in the Simulator (unit tests, then UI tests) on every pull request; on pushes to
+workflow builds and tests in the Simulator (unit tests, then UI tests) on every pull request that changes more
+than Markdown; on pushes to
 `main` only when `ios/`, the shared parity cases or the UI-test files change.
+
+**What to do when CI fails without a code reason.**
+* *Device test stopped after 40 minutes or a job cancelled at its limit* (emulator hung): «Re-run failed jobs» once;
+  if it hangs again on the same class, the report artifact names the last test – look there, not at the emulator.
+* *«Dependency verification failed»* (annotation «Dependency verification» from `gradle_errors.sh`, naming the
+  artifact and repository): other bytes arrived than `verification-metadata.xml` records (cut-off download, or the
+  same coordinate from another repository). Note the artifact and the received checksum before re-running; if it
+  comes back, do not keep re-running – compare with *Supply chain update* («Supply chain (Android)» below).
+* *A collector («Android build», «Android device tests», «iOS build») red with «never started»*, or a required check
+  that stays «Expected» (GitHub outage: a job or the collector itself never got a runner): «Re-run all jobs» of that
+  run; nothing in the workflow can catch a collector that never starts.
 
 **Exchange API check** (`.github/workflows/exchange-live-check.yml`, weekly on Wednesdays and
 by hand): `.github/scripts/exchange_live_check.py` calls the public single-ticker endpoint of
@@ -859,7 +880,11 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   that matches every group). Signed artifacts are covered by `<trusted-keys>` (each key limited to its groups).
   Exceptions are recorded, not hidden: an artifact without signature keeps its sha256 entry (origin «Generated by
   Gradle because artifact wasn't signed»), a key that no key server has goes to `<ignored-keys>` with its reason and
-  its artifacts keep their sha256 entry; no extra `<trusted-artifacts>` rule is added. The job summary of «publish»
+  its artifacts keep their sha256 entry; no extra `<trusted-artifacts>` rule is added. Gradle runs several times and
+  may ignore a key in one run that another run trusted and exported: `supply_chain_files.py --clean-ignored` (linux
+  job and «publish», before `--check`) removes every ignored key that is in the keyring (key IDs computed from the key
+  packets) so its signatures are checked, and drops the trust of an ignored key that is trusted but not in the
+  keyring (its artifacts stay on sha256, with a warning); `--check` rejects a key that is still both. The job summary of «publish»
   lists the number of trusted keys, every ignored key and the number of sha256-only artifacts – review them in the
   pull request. `supply_chain_files.py --fill-checksums` also adds the sha256 of every other artifact of the fresh
   Gradle cache, because the SBOM needs the SHA-256 of each shipped binary (publish runs `sbom.py` as a check). **Until
@@ -931,8 +956,10 @@ and keep their ceilings in the script (today's maximum: nothing may grow past it
 shrinks, raise it only deliberately with the reason in the same pull request).
 * *Code metrics* (`android.yml`, step after «Line limit», and `ios.yml`, step after «Swift escape hatches»;
   `.github/scripts/code_metrics.py`): constructor
-  dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main` – red above
-  `DEPS_CEILING` 13 – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
+  dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main`, of every class a
+  `@Provides` function returns and of the `@Provides` function itself; a parameter whose type is a pure bundle (only
+  `val` constructor parameters, no function of its own, e.g. `RefresherState`) counts with the bundle's parameters,
+  so wrapping collaborators lowers nothing – red above `DEPS_CEILING` (the value is in the script) – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
   not nested classes or functions) – red above `PROPS_CEILING` 26 (`ExplorerViewModel`). A class at the limit is
   split (use case, helper, state holder) instead of growing. Function length (lines from the keyword to the end of
   the body): Kotlin `fun` (block or expression body) in `android/*/src/main`, Swift `func`, `init`, `deinit` and the
@@ -2979,8 +3006,9 @@ and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one
 
 * **Layer boundaries are tested.** `LayerBoundaryTest` (`:app` unit tests) reads the sources: every file of `:domain`
   and `:data` sits in the package and folder of its module; `:domain` imports neither `androidx.room` nor `okhttp3`
-  nor another app package; `:data` imports from the app only `domain` and `data`; `:app` has no `…app.domain`
-  package. The models `WatchEntity`/`AlarmEntity` are plain classes in `:domain`, the tables `WatchRow`/`AlarmRow`
+  nor another app package; `:data` imports from the app only `domain` and `data`; `:app` has neither a `…app.domain`
+  nor a `…app.data` package (its code that needs app classes sits in packages of its own such as `…app.backup`,
+  `…app.logos`, `…app.chart` and `…app.alarm`), and no package occurs in `src/main` of two modules. The models `WatchEntity`/`AlarmEntity` are plain classes in `:domain`, the tables `WatchRow`/`AlarmRow`
   live in `:data` (`toDomain()`/`toRow()`). Classes named in the manifest or stored by class name (workers,
   receivers, activities, widget providers, `SystemBackupAgent`, `AppDatabase`, `PortfolioDatabase`) keep their names.
 * **Dispatchers are injected.** A class built by Hilt takes `@IoDispatcher` / `@DefaultDispatcher`
@@ -3001,13 +3029,15 @@ and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one
 
 **Workflows at a glance** (`.github/workflows/`; details in section 12 and «Data mirror»). A release tag `v*` runs
 the nine marked ⬤ for the tagged commit, whatever the path filters say. «by hand» = *Actions › … › Run workflow*.
-The required checks of `main` are the five jobs «Android build», «iOS build», «Strings check», «Parity check» and
-«Release readiness check»; their workflows run on every pull request without a path filter.
+The required checks of `main` are the six jobs «Android build», «Android device tests», «iOS build», «Strings check»,
+«Parity check» and «Release readiness check»; their workflows run on every pull request without a path filter. A
+pull request that changes only Markdown (or issue templates) skips the heavy jobs of `android.yml` and `ios.yml`
+(job «changes», like `codeql.yml`); their collectors then report green.
 
 | Workflow | Runs on | Purpose |
 |---|---|---|
 | ⬤ `android.yml` *Android* | every pull request; `main` (`android/`, the checked Swift sources, its scripts); by hand | three parallel jobs – unit tests with source checks, Kotlin warnings, Room schema drift and coverage gate · lint with the instrumented tests compiled · debug and R8 release build with manifest and APK audit and SBOM – collected by the job «Android build»; dependency graph (`main`) and review (pull requests) |
-| ⬤ `android-device-tests.yml` | `main` (`android/`, its scripts); by hand; pull requests that change sources of a phone module, device tests, UI test files, Room schemas or release-build files | instrumented tests on an emulator (API 34, on `main` also the ICU tests on API 26), R8 smoke test; on pull requests the job «changes» picks: all device tests for source changes, the migration tests for schema-only changes, the smoke test for release-build files |
+| ⬤ `android-device-tests.yml` | every pull request; `main` (`android/`, its scripts); by hand | instrumented tests on an emulator (API 34, on `main` also the ICU tests on API 26), R8 smoke test; on pull requests the job «changes» picks: all device tests for source changes, the migration tests for schema-only changes, the smoke test for release-build files – collected by the job «Android device tests» (jobs not picked count as green) |
 | ⬤ `ios.yml` *iOS* | every pull request; `main` (`ios/`, shared fixtures, its scripts); by hand | release build with audit (settings, bundle contents, size ceilings), unit tests with coverage gate, UI tests – collected by the job «iOS build» |
 | ⬤ `strings.yml` *Strings* | every pull request; `main` (string resources, Kotlin and Swift sources, `ios/tools/`, catalogues); by hand | placeholders, plurals, missing translations (`check_strings.py`), Serbian Latin, string catalogues up to date including the small watch catalogue and its key list |
 | ⬤ `parity.yml` *Parity fixtures* | every pull request; `main` (fixtures, `gen_xcodeproj.py`); by hand | `android/testdata/parity` = `ios/Tests/Parity`, byte for byte |
@@ -3086,6 +3116,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 224: baseline/startup profile re-measured (workflow «Baseline profile» on build 223, 12'657 app rules); `ios_release_audit.py` size ceilings 140/40/4.5 MB (measured 125.6/36.3/3.8 MB).
 * Build 225: `ExchangeRetirement` (Kotlin + Swift, instant 2027-02-01T00:00Z, reuses `NotTraded` with a stored reason; fixture `exchange_retirement.json`), `backup_restore_storage_unavailable`, proofreading of 15 languages.
 * Build 226: audit of 225 (F2-01…F2-08, U2-01…U2-12, S2-01, S2-02, S2-05, C2-05, P2-04, D2-03, D2-05): one rule `retiredNow` (marker or instant), advance notice from 2027-01-01, debug switch «Stichtag vorziehen», retired-notice store in `:data`, `bump.py` bookkeeping no longer touches running text.
+* Build 227: audit of 225 (C2-01…C2-04, P2-01…P2-07, S2-03, S2-04, S2-06, D2-02, D2-04): sixth required check «Android device tests», startup-profile journey, `supply_chain_files.py --check` rejects ignored+trusted keys, watch key literal check.
 
 ## Known warnings
 

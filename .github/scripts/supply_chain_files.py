@@ -19,15 +19,26 @@ Two modes, chosen by the workflow input «signatures»:
               strict check of the handed-over artifact before the publish job commits it: only the expected file
               names (paths relative to android/), regular files, size limits, verification metadata is well-formed
               XML with the expected root and the <configuration> of one of the seeds (verify metadata on, the same
-              trusted artifacts); in signatures mode additionally only well-formed <trusted-keys>/<ignored-keys> and a
-              keyring with public key blocks only (required), in checksums mode no keys and no keyring. Lock files
+              trusted artifacts); in signatures mode additionally only well-formed <trusted-keys>/<ignored-keys>, a
+              keyring with public key blocks only (required) and no key that is both ignored and in the keyring or
+              trusted (an ignored key's signatures are never checked, so trusting or exporting it would only pretend
+              a check); in checksums mode no keys and no keyring. Lock files
               contain only lock lines. Normalises CRLF to LF in place. Exit 1 with an annotation on the first problem.
               --summary appends a Markdown overview (mode, keys, ignored keys, unsigned artifacts) for the job summary.
               Nothing from the artifact is executed.
+--clean-ignored DIR
+              signatures mode, before --check: Gradle writes a key to <ignored-keys> when one of its runs could not
+              fetch it, even if another run trusted and exported it. Removes every ignored key that is in the keyring
+              (key IDs computed from the public key packets, not from the comment lines) - its signatures are then
+              checked; for an ignored key that is trusted but not in the keyring (not checkable without a key server)
+              it removes the trust (<trusted-key>, <pgp>) instead, keeps the sha256 entries and reports it. Refuses
+              when an artifact has no sha256. Edits only those elements, the rest of the file stays as Gradle wrote it.
 
 Usage: python3 -I supply_chain_files.py --seed FILE [--signatures] | --fill-checksums FILE CACHE
-                                         | --check DIR [--summary FILE] | --self-test
+                                         | --clean-ignored DIR | --check DIR [--summary FILE] | --self-test
 """
+import base64
+import binascii
 import hashlib
 import os
 import re
@@ -163,6 +174,86 @@ def check_keyring(text):
         raise Invalid(f"{KEYRING}: unexpected armored block (only public keys allowed)")
 
 
+def keyring_fingerprints(text):
+    """V4 fingerprints (40 hex digits) of every public key and subkey packet in the armored blocks of a keyring; the
+    key ID is the last 16 digits. Other packets (user IDs, signatures) are skipped, other key versions ignored."""
+    found = set()
+    for block in re.findall(re.escape(BEGIN_PUBLIC) + r"(.*?)" + re.escape(END_PUBLIC), text, re.S):
+        body = block.strip().split("\n\n", 1)[-1]
+        lines = [line.strip() for line in body.split("\n") if line.strip() and not line.strip().startswith("=")]
+        try:
+            data = base64.b64decode("".join(lines), validate=True)
+        except (binascii.Error, ValueError):
+            raise Invalid(f"{KEYRING}: a key block is not valid base64")
+        i = 0
+        while i < len(data):
+            head = data[i]
+            i += 1
+            if not head & 0x80:
+                raise Invalid(f"{KEYRING}: a key block holds no OpenPGP packets")
+            if head & 0x40:  # new format
+                tag, length = head & 0x3F, data[i] if i < len(data) else 0
+                i += 1
+                if 192 <= length < 224:
+                    length, i = ((length - 192) << 8) + data[i] + 192, i + 1
+                elif length == 255:
+                    length, i = int.from_bytes(data[i:i + 4], "big"), i + 4
+                elif length >= 224:
+                    raise Invalid(f"{KEYRING}: partial packet length in a key block")
+            else:  # old format
+                tag, size = (head >> 2) & 0x0F, {0: 1, 1: 2, 2: 4}.get(head & 3)
+                if size is None:
+                    raise Invalid(f"{KEYRING}: packet of indeterminate length in a key block")
+                length, i = int.from_bytes(data[i:i + size], "big"), i + size
+            packet, i = data[i:i + length], i + length
+            if len(packet) != length:
+                raise Invalid(f"{KEYRING}: truncated packet in a key block")
+            if tag in (6, 14) and packet[:1] == b"\x04":
+                found.add(hashlib.sha1(b"\x99" + length.to_bytes(2, "big") + packet).hexdigest().upper())
+    return found
+
+
+def key_conflicts(root, keyring_text):
+    """(ignored keys that are in the keyring, ignored keys that are trusted but not in the keyring), by key ID."""
+    config = root.find(NS + "configuration")
+    ignored = config.find(NS + "ignored-keys")
+    ignored_ids = [] if ignored is None else [k.get("id", "").upper() for k in ignored]
+    in_keyring = {fingerprint[-16:] for fingerprint in keyring_fingerprints(keyring_text)}
+    trusted = config.find(NS + "trusted-keys")
+    trusted_ids = {k.get("id", "").upper()[-16:] for k in ([] if trusted is None else trusted)}
+    trusted_ids |= {p.get("value", "").upper()[-16:] for p in root.iter(NS + "pgp")}
+    return (sorted(k for k in ignored_ids if k[-16:] in in_keyring),
+            sorted(k for k in ignored_ids if k[-16:] not in in_keyring and k[-16:] in trusted_ids))
+
+
+def clean_ignored(directory):
+    """See --clean-ignored; returns (keys removed from <ignored-keys>, keys whose trust was removed)."""
+    path = os.path.join(directory, METADATA)
+    text, keyring_text = read_text(directory, METADATA), read_text(directory, KEYRING)
+    root = ET.fromstring(text.encode("utf-8"))
+    in_keyring, trusted_only = key_conflicts(root, keyring_text)
+    if trusted_only and any(a.find(NS + "sha256") is None for a in root.iter(NS + "artifact")):
+        raise Invalid(f"{METADATA}: trusted but not in the keyring: {', '.join(trusted_only)} - and an artifact has no"
+                      " sha256, so its trust cannot be dropped; add the key to the keyring")
+    for key in in_keyring:
+        text = re.sub(r'[ \t]*<ignored-key\s+id="' + key + r'"[^>]*/>\n?', "", text, flags=re.I)
+    for key in trusted_only:
+        long_id = key[-16:]
+        text = re.sub(r'[ \t]*<trusted-key\s+id="[0-9A-Fa-f]*' + long_id + r'"[^>]*?(?:/>|(?<!/)>.*?</trusted-key>)\n?',
+                      "", text, flags=re.I | re.S)
+        text = re.sub(r'[ \t]*<pgp\s+value="[0-9A-Fa-f]*' + long_id + r'"\s*/>\n?', "", text, flags=re.I)
+    text = re.sub(r"[ \t]*<ignored-keys>\s*</ignored-keys>\n?", "", text)
+    try:
+        cleaned = ET.fromstring(text.encode("utf-8"))
+    except ET.ParseError as exc:
+        raise Invalid(f"{METADATA}: not well-formed after cleaning ({exc})")
+    if key_conflicts(cleaned, keyring_text) != ([], []):
+        raise Invalid(f"{METADATA}: ignored keys still conflict after cleaning")
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+    return in_keyring, trusted_only
+
+
 def seed(path, signatures=False):
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
@@ -292,6 +383,11 @@ def check(directory, summary_lines=None):
         raise Invalid(f"{KEYRING}: not expected in checksums mode")
     if KEYRING in texts:
         check_keyring(texts[KEYRING])
+    if signed:
+        in_keyring, trusted_only = key_conflicts(root, texts[KEYRING])
+        if in_keyring or trusted_only:
+            raise Invalid(f"{METADATA}: ignored and still in the keyring or trusted (their signatures are never "
+                          f"checked): {', '.join(in_keyring + trusted_only)} - run --clean-ignored")
     for rel, text in texts.items():
         if rel in (METADATA, KEYRING):
             continue
@@ -364,7 +460,7 @@ def self_test():
             else:
                 expect_invalid(tmp, expected)
         write(os.path.join(tmp, METADATA), good)
-        write(os.path.join(tmp, KEYRING), f"pub {key[-16:]}\n{BEGIN_PUBLIC}\nabc\n{END_PUBLIC}\n")
+        write(os.path.join(tmp, KEYRING), fake_keyring(1)[0])
         expect_invalid(tmp, "not expected in checksums mode")
         self_test_signatures(tmp, key, component)
         os.remove(os.path.join(tmp, KEYRING))
@@ -375,6 +471,59 @@ def self_test():
         self_test_fill(tmp)
     print("supply_chain_files self-test ok")
     return 0
+
+
+def fake_keyring(number):
+    """(armored keyring with one public key and one subkey packet - new and old packet format -, their key IDs)."""
+    def mpi(value):
+        return value.bit_length().to_bytes(2, "big") + value.to_bytes((value.bit_length() + 7) // 8, "big")
+    key = b"\x04" + number.to_bytes(4, "big") + b"\x01" + mpi(0xC0FFEE + number) + mpi(65537)
+    sub = b"\x04" + number.to_bytes(4, "big") + b"\x01" + mpi(0xBEEF + number) + mpi(65537)
+    data = bytes([0xC6, len(key)]) + key + bytes([0x80 | (14 << 2), len(sub)]) + sub
+    ids = [hashlib.sha1(b"\x99" + len(p).to_bytes(2, "big") + p).hexdigest().upper()[-16:] for p in (key, sub)]
+    armor = base64.b64encode(data).decode("ascii")
+    return f"pub    {ids[0]}\n\n{BEGIN_PUBLIC}\n\n{armor}\n=abcd\n{END_PUBLIC}\n", ids
+
+
+def self_test_keys(tmp, valid):
+    """Ignored key in the keyring or trusted: --check rejects it, --clean-ignored resolves it."""
+    keyring_text, (primary, subkey) = fake_keyring(1)
+    assert {f[-16:] for f in keyring_fingerprints(keyring_text)} == {primary, subkey}
+    write(os.path.join(tmp, KEYRING), keyring_text)
+    ignored = '<ignored-key id="FEDCBA9876543210" reason="Key couldn\'t be downloaded from any key server"/>'
+    for extra in (primary, subkey):
+        xml = valid.replace(ignored, ignored + f'\n         <ignored-key id="{extra}" reason="x"/>')
+        write(os.path.join(tmp, METADATA), xml)
+        expect_invalid(tmp, f"in the keyring or trusted (their signatures are never checked): {extra}")
+        assert clean_ignored(tmp) == ([extra], [])
+        with open(os.path.join(tmp, METADATA), encoding="utf-8") as f:
+            assert f.read() == xml.replace(f'         <ignored-key id="{extra}" reason="x"/>', "")
+        check(tmp)
+    # Trusted (key and per-artifact pgp) but not in the keyring: trust removed, sha256 kept, key stays ignored
+    other = "AAAABBBBCCCCDDDD"
+    xml = valid.replace(ignored, ignored + f'<ignored-key id="{other}"/>').replace(
+        "<trusted-keys>", f'<trusted-keys><trusted-key id="111122223333444455556666{other}"><trusting group="org.x"/>'
+                          f'</trusted-key><trusted-key id="{other}" group="org.y"/>').replace(
+        '<sha256 value="00"', f'<pgp value="{other}"/><sha256 value="00"')
+    write(os.path.join(tmp, METADATA), xml)
+    expect_invalid(tmp, other)
+    assert clean_ignored(tmp) == ([], [other])
+    check(tmp)
+    with open(os.path.join(tmp, METADATA), encoding="utf-8") as f:
+        text = f.read()
+    assert text.count(other) == 1 and '<sha256 value="00"' in text and "org.x" not in text, text
+    # Without a sha256 on every artifact the trust is not dropped
+    write(os.path.join(tmp, METADATA), xml.replace('<artifact name="v-2.jar">', '<artifact name="v-3.jar"/>'
+                                                   '<artifact name="v-2.jar">'))
+    try:
+        clean_ignored(tmp)
+        raise AssertionError("must refuse without sha256")
+    except Invalid as exc:
+        assert "no sha256" in str(exc), exc
+    write(os.path.join(tmp, KEYRING), f"{BEGIN_PUBLIC}\n\n!!!\n{END_PUBLIC}\n")
+    expect_invalid(tmp, "not valid base64")
+    write(os.path.join(tmp, KEYRING), keyring_text)
+    write(os.path.join(tmp, METADATA), valid)
 
 
 def self_test_signatures(tmp, key, component):
@@ -411,6 +560,7 @@ def self_test_signatures(tmp, key, component):
         write(os.path.join(tmp, METADATA), xml)
         expect_invalid(tmp, expected)
     write(os.path.join(tmp, METADATA), valid)
+    self_test_keys(tmp, valid)
     keyring = os.path.join(tmp, KEYRING)
     with open(keyring, encoding="utf-8") as f:
         good_keyring = f.read()
@@ -455,6 +605,18 @@ def main(argv):
         return 0
     if len(argv) == 3 and argv[0] == "--fill-checksums":
         print(f"Added {fill_checksums(argv[1], argv[2])} checksums")
+        return 0
+    if len(argv) == 2 and argv[0] == "--clean-ignored":
+        try:
+            in_keyring, trusted_only = clean_ignored(argv[1])
+        except Invalid as exc:
+            print(f"::error title=Supply chain artifact::{exc}")
+            return 1
+        print(f"Ignored keys removed because they are in the keyring (signatures now checked): {len(in_keyring)}"
+              + (f" ({', '.join(in_keyring)})" if in_keyring else ""))
+        for key in trusted_only:
+            print(f"::warning title=Supply chain artifact::key {key} is trusted but not in the keyring: trust removed, "
+                  "its artifacts stay checked by sha256 only (add the key to the keyring to check its signatures)")
         return 0
     if argv[:1] == ["--check"] and (len(argv) == 2 or (len(argv) == 4 and argv[2] == "--summary")):
         lines = []

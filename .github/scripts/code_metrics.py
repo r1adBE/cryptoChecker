@@ -9,6 +9,9 @@ Scans Kotlin under android/<module>/src/main (tests are not checked) and measure
   with an `@Inject constructor`, and of every class a `@Provides` function in a `di/` folder returns (classes of the
   modules without Hilt annotations, wired by hand in the Hilt module). The `@Provides` function itself counts with
   its own parameters, listed as `Module.function()` - building a large object inside one provider does not hide it.
+  A parameter whose type is a pure parameter bundle counts with the bundle's parameters: a class of these sources
+  (not private, not a data class) whose primary constructor has only `val` parameters and whose body declares no
+  function - it only hands its parts on, so wrapping collaborators in it lowers no coupling.
   Above DEPS_CEILING an error (red); evaluate() can add a warning tier (deps_warn), the default has none because the
   ceiling is today's maximum.
 * Non-public properties of ViewModels (@HiltViewModel or a subclass of ViewModel/AndroidViewModel): `private` and
@@ -41,7 +44,8 @@ import sys
 import time
 
 DEPS_WARN = None  # no warning tier: the ceiling below is today's maximum
-DEPS_CEILING = 13  # AlarmsViewModel, ExplorerViewModel, InfoViewModel, PortfolioSnapshotUpdater, SettingsViewModel
+DEPS_CEILING = 16  # PriceRefresher (10 parameters, three of them bundles: RefresherState 4, RefresherDrawing 3,
+# RefresherCandles 2); next BackupManager, ExplorerViewModel, PortfolioViewModel with 15 (bundles counted, see above)
 PROPS_CEILING = 26  # ExplorerViewModel
 
 # Longest function per platform (lines). New code stays under FUNCTION_TARGET; the ceiling only keeps the remaining
@@ -301,9 +305,37 @@ PROVIDES_RE = re.compile(r"@Provides\b")
 MODULE_RE = re.compile(r"\b(?:object|class|interface)\s+(\w+)")
 
 
-def providers(source):
+BUNDLE_SKIP_RE = re.compile(r"\b(?:private|data)\b")
+PARAMETER_TYPE_RE = re.compile(r"\w+\s*:\s*(?:\w+\.)*(\w+)")
+PARAMETER_ANNOTATION_RE = re.compile(r"@[\w:.]+(?:\([^()]*\))?\s*")
+
+
+def bundles(source):
+    """{class: parameter count} of the pure parameter bundles of one Kotlin file (see the module text)."""
+    found = {}
+    for name, _, annotations, params, body, _ in classes(code_only(source)):
+        if (params and not BUNDLE_SKIP_RE.search(annotations) and all(re.search(r"\bval\b", p) for p in params)
+                and not re.search(r"\bfun\b", flatten_body(body))):
+            found[name] = len(params)
+    return found
+
+
+def parameter_type(parameter):
+    """Simple name of a parameter's declared type (annotations, modifiers and qualifiers removed), or None."""
+    m = PARAMETER_TYPE_RE.search(PARAMETER_ANNOTATION_RE.sub("", parameter))
+    return m.group(1) if m else None
+
+
+def dependency_count(params, bundle_sizes=None):
+    """Number of dependencies of a parameter list: a pure bundle counts with its own parameters."""
+    sizes = bundle_sizes or {}
+    return sum(sizes.get(parameter_type(p), 1) for p in params)
+
+
+def providers(source, bundle_sizes=None):
     """[(module, function, line, parameter count, returned type or None)] of the `@Provides` functions of one Kotlin
-    file (a Hilt module): the simple name of the declared return type, without type arguments and nullability."""
+    file (a Hilt module): the simple name of the declared return type, without type arguments and nullability.
+    Parameters of a bundle type (`bundle_sizes`) count with the bundle's parameters."""
     code = code_only(source)
     result = []
     for m in PROVIDES_RE.finditer(code):
@@ -315,7 +347,7 @@ def providers(source):
         returned = re.match(r"\s*:\s*(?:\w+\.)*(\w+)", code[close_at + 1:])
         modules = [x.group(1) for x in MODULE_RE.finditer(code, 0, m.start())]
         result.append((modules[-1] if modules else "?", head.group(1), code.count("\n", 0, head.start()) + 1,
-                       len(params), returned.group(1) if returned else None))
+                       dependency_count(params, bundle_sizes), returned.group(1) if returned else None))
     return result
 
 
@@ -326,14 +358,15 @@ def provider_files(root):
             yield path
 
 
-def measure(source, provided=frozenset()):
+def measure(source, provided=frozenset(), bundle_sizes=None):
     """[(class, line, dependencies or None, non-public properties or None)] of one Kotlin file. `provided`: names of
-    the classes a `@Provides` function returns - their constructor counts like an injected one."""
+    the classes a `@Provides` function returns - their constructor counts like an injected one. `bundle_sizes`:
+    {pure bundle: parameter count} - such a parameter counts with the bundle's parameters."""
     code = code_only(source)
     result = []
     for name, line, annotations, params, body, supertypes in classes(code):
         injected = is_injected(annotations) or name in provided
-        deps = len(params) if injected and params is not None else None
+        deps = dependency_count(params, bundle_sizes) if injected and params is not None else None
         props = non_public_properties(body) if is_view_model(annotations, supertypes) else None
         if deps is not None or props is not None:
             result.append((name, line, deps, props))
@@ -1046,6 +1079,27 @@ def self_test_providers():
     assert "Wired" not in {name for name, _, _, _ in measure(SAMPLE)}
 
 
+BUNDLES = '''
+class Parts @Inject constructor(val a: A, /** b */ val b: B, val c: C)
+class Helper(val a: A, val b: B) { fun both() = a to b }
+data class Value(val x: Int, val y: Int)
+private class Hidden(val a: A, val b: B)
+class Mixed(val a: A, b: B)
+class Uses @Inject constructor(parts: Parts, @param:Named("p, q") private val other: com.x.Parts, h: Helper,
+    v: Value, m: Mixed)
+'''
+
+
+def self_test_bundles():
+    sizes = bundles(BUNDLES)
+    assert sizes == {"Parts": 3}, sizes
+    by_name = {name: deps for name, _, deps, _ in measure(BUNDLES, bundle_sizes=sizes)}
+    assert by_name.get("Uses") == 3 + 3 + 1 + 1 + 1 and by_name.get("Parts") == 3, by_name
+    assert {name: deps for name, _, deps, _ in measure(BUNDLES)}.get("Uses") == 5
+    module = "object M {\n    @Provides fun uses(parts: Parts, h: Helper): Uses = Uses(parts, h)\n}\n"
+    assert providers(module, sizes) == [("M", "uses", 2, 4, "Uses")], providers(module, sizes)
+
+
 def self_test_swift_types():
     found = {name: (kind, private, first, lines, props)
              for name, kind, private, first, lines, props in swift_types(swift_code_only(SWIFT_TYPES)) if kind}
@@ -1077,6 +1131,7 @@ def self_test_swift_types():
 def self_test():
     compared = self_test_property_regex()
     self_test_providers()
+    self_test_bundles()
     self_test_swift_types()
     rows = measure(SAMPLE)
     by_name = {name: (deps, props) for name, _, deps, props in rows}
@@ -1111,9 +1166,13 @@ def main():
     rows, files = [], 0
     functions = {"Kotlin": [], "Swift": []}
     provided = set()
+    bundle_sizes = {}
+    for path in kotlin_files(root):
+        with open(path, encoding="utf-8") as f:
+            bundle_sizes.update(bundles(f.read()))
     for path in provider_files(root):
         with open(path, encoding="utf-8") as f:
-            for module, function, line, count, returned in providers(f.read()):
+            for module, function, line, count, returned in providers(f.read(), bundle_sizes):
                 rows.append((os.path.relpath(path, root), f"{module}.{function}()", line, count, None))
                 provided.add(returned)
     for path in kotlin_files(root):
@@ -1121,7 +1180,7 @@ def main():
         with open(path, encoding="utf-8") as f:
             source = f.read()
         relative = os.path.relpath(path, root)
-        for name, line, deps, props in measure(source, provided):
+        for name, line, deps, props in measure(source, provided, bundle_sizes):
             rows.append((relative, name, line, deps, props))
         ui_file = is_ui_path(relative)
         for name, line, length, ui in function_lengths(code_only(source), with_ui=True):

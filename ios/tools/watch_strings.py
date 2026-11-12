@@ -11,7 +11,10 @@ The key list is explicit; this module checks it against the watch sources (Watch
   * a key of the full catalogue that appears as a quoted literal in the watch sources must be listed
     (plain substring search for "<key>", so nested interpolation or ternaries cannot hide it)
   * a listed key must exist in the full catalogue and must be used by the watch sources
-  * every `t(…)` lookup takes a literal key or a ternary of two literal keys (no key built at run time)
+  * every `t(…)` lookup takes a literal key or a ternary of two literal keys (no key built at run time), and every
+    such literal - like a snake_case literal handed to a SwiftUI initialiser that looks it up (`Text("watch_x")`,
+    `.navigationTitle("…")` …) - must be in the full catalogue and in the list; otherwise the watch would show the
+    key name (a typo, or a text created only in Swift)
   * no other lookup API in the watch sources (they would need a different list rule first)
 Used by convert_strings.py (errors make it exit 1); `python3 tools/watch_strings.py --self-test` checks the rules.
 """
@@ -28,6 +31,10 @@ OTHER_APIS = re.compile(r"LocalizedStringResource|String\(localized|NSLocalizedS
                         r"AttributedString\(localized")
 LITERAL = r'"[A-Za-z0-9_]+"'
 KEY_ARGUMENT = re.compile(r"\s*(?:" + LITERAL + r"|[^?\"]+\?\s*" + LITERAL + r"\s*:\s*" + LITERAL + r")\s*")
+# SwiftUI initialisers and modifiers that take a LocalizedStringKey: a snake_case literal there is a key lookup
+SWIFTUI_KEY = re.compile(r"\b(?:Text|Label|Button|Toggle|Section|Picker|navigationTitle|accessibilityLabel|"
+                         r"accessibilityHint|accessibilityValue|configurationDisplayName|description)"
+                         r"\(\s*\"([a-z][a-z0-9]*(?:_[a-z0-9]+)+)\"")
 
 
 def read_key_list(path):
@@ -87,10 +94,19 @@ def check(listed, catalog_keys, sources):
         for key in catalog_keys:
             if '"' + key + '"' in text:
                 used.setdefault(key, rel)
+        looked_up = [m.group(1) for m in SWIFTUI_KEY.finditer(text)]
         for m in re.finditer(r"(?<!func )\bt\(", text):
             arg = first_argument(text, m.end())
             if not KEY_ARGUMENT.fullmatch(arg):
                 errors.append(f"{rel}: t({arg.strip()} …) – the key must be a literal or a ternary of two literals")
+            else:
+                looked_up += [literal.strip('"') for literal in re.findall(LITERAL, arg)]
+        for key in sorted(set(looked_up)):
+            if key not in catalog_keys:
+                errors.append(f"{rel}: \"{key}\" is looked up by the watch but not in the full catalogue "
+                              "(the watch would show the key name)")
+            elif key not in listed:
+                used.setdefault(key, rel)
         lookups = text.count("localizedString(forKey")
         if lookups and (rel != LOOKUP_FILE or lookups != 1):
             errors.append(f"{rel}: localizedString(forKey:) only once, in {LOOKUP_FILE} (use WatchText.t)")
@@ -125,6 +141,14 @@ def self_test():
     assert any("LocalizedStringResource" in e for e in check([], keys, {"Watch/B.swift": "let t: LocalizedStringResource"}))
     assert any("only once" in e for e in check([], keys, {"Watch/C.swift": "Bundle.main.localizedString(forKey: k)"}))
     assert first_argument('f(a(b, "x,)"), c)', 2) == 'a(b, "x,)")'
+    # A key that is in neither the catalogue nor the list (typo, or a text only created in Swift) fails the run
+    for typo in ('let a = WatchText.t("watch_typo")\n', 'let b = t(on ? "watch_a" : "watch_typo", x)\n',
+                 'Text("watch_typo").font(.caption)\n'):
+        found = check(["watch_a"], keys, {"Watch/D.swift": typo})
+        assert any("watch_typo" in e and "not in the full catalogue" in e for e in found), (typo, found)
+    # A catalogue key looked up by SwiftUI must be listed; a sentence literal is not a key
+    assert any("missing" in e for e in check([], keys, {"Watch/E.swift": 'Text("watch_b")\n'}))
+    assert check([], keys, {"Watch/F.swift": '.navigationTitle("Crypto Checker")\n'}) == []
     cat = {"sourceLanguage": "en", "version": "1.0", "strings": {"watch_a": {"x": 1}, "other": {}}}
     assert subset(cat, ["watch_a"])["strings"] == {"watch_a": {"x": 1}}
     print("watch_strings.py self-test OK")

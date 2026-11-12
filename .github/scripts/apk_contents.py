@@ -88,11 +88,11 @@ def main():
                                "check new dependencies, native libraries and resource shrinking "
                                "(apkanalyzer / Android Studio «Analyze APK»)")
             if "resources.arsc" in names:
-                # All 75 languages; Play delivers only the device's language split
+                # All 75 languages; Play installs them all too (language split off, see APK_WARN_MB)
                 sizes.append(f"resources.arsc {mb(z.getinfo('resources.arsc').file_size)}")
             if "assets/dexopt/baseline.prof" not in names:
                 add("warning", "Release APK contains no baseline profile (assets/dexopt/baseline.prof): "
-                               "app/src/main/baseline-prof.txt or the :baselineprofile output was not packaged")
+                               "the measured profile in app/src/release/generated/baselineProfiles/ was not packaged")
             dex = [n for n in names if n.startswith("classes") and n.endswith(".dex")]
             sizes.append(f"{len(dex)} dex file(s)")
             unaligned, compressed = [], []

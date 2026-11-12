@@ -5,6 +5,7 @@ import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.data.widget.PortfolioSnapshotSeal
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -36,7 +37,7 @@ class AlarmLogStoreTest {
         condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0, outcome = outcome, notable = notable,
     )
 
-    private fun store(file: File, keys: PortfolioSnapshotSeal.Keys) = AlarmLogStore(file, keys) { clock }
+    private fun store(file: File, keys: PortfolioSnapshotSeal.Keys) = AlarmLogStore(file, keys, Dispatchers.IO) { clock }
 
     @Test
     fun writesSealedAndReadsBack() {

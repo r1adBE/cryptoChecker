@@ -10,11 +10,16 @@ import androidx.test.uiautomator.Until
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.regex.Pattern
 
 /**
- * Hauptweg für das Baseline Profile: App kalt starten, Merkliste scrollen, eine Paarseite öffnen, dann die Tabs
- * «Markt», «Portfolio» und «Einstellungen». Ohne Paare (frische Installation) zuerst die Start-Coins übernehmen;
- * der Portfolio-Tab ist ab Werk aus und wird einmal unter Einstellungen › Portfolio eingeschaltet.
+ * Zwei Wege, beide fliessen ins Baseline Profile (`baseline-prof.txt`, ART kompiliert sie bei der Installation vor):
+ * - [startup]: nur Kaltstart bis zur sichtbaren Merkliste – allein dieser Weg bildet das Start-Profil
+ *   (`startup-prof.txt`, `includeInStartupProfile = true`), nach dem R8 die Klassen des Starts in die erste
+ *   DEX-Datei legt. Enthielte es den ganzen Rundgang, landete fast alles dort und der Nutzen fürs Starten verpuffte.
+ * - [generate]: der ganze Rundgang – Merkliste scrollen, eine Paarseite öffnen, dann die Tabs «Markt», «Portfolio»
+ *   und «Einstellungen». Ohne Paare (frische Installation) zuerst die Start-Coins übernehmen; der Portfolio-Tab ist
+ *   ab Werk aus und wird einmal unter Einstellungen › Portfolio eingeschaltet.
  *
  *   ./gradlew :app:generateBaselineProfile      (in der CI: Workflow «Baseline profile»)
  *
@@ -35,13 +40,28 @@ class BaselineProfileGenerator {
     private val packageName: String
         get() = InstrumentationRegistry.getArguments().getString("targetAppId") ?: PACKAGE
 
+    /**
+     * Start-Profil: kalt starten, bis die Merkliste steht – Zeilen der gespeicherten Paare oder, nach frischer
+     * Installation, die Start-Auswahl. Mehr nicht: was erst nach dem ersten Bild läuft, gehört nicht in den Start.
+     */
     @Test
-    fun generate() = rule.collect(
+    fun startup() = rule.collect(
         packageName = packageName,
         includeInStartupProfile = true,
     ) {
-        // Erlaubnis vorab: sonst legt sich nach den Start-Coins die Erklärung samt System-Abfrage über die App
-        runCatching { device.executeShellCommand("pm grant $packageName android.permission.POST_NOTIFICATIONS") }
+        grantNotifications()
+        pressHome()
+        startActivityAndWait()
+        device.wait(Until.hasObject(By.res(Pattern.compile("$ROW|$STARTER_ADD"))), LONG_WAIT)
+    }
+
+    /** Ganzer Rundgang: nur fürs Baseline Profile, nicht fürs Start-Profil. */
+    @Test
+    fun generate() = rule.collect(
+        packageName = packageName,
+        includeInStartupProfile = false,
+    ) {
+        grantNotifications()
         pressHome()
         startActivityAndWait()
 
@@ -53,6 +73,11 @@ class BaselineProfileGenerator {
         if (openTab(TAB_PORTFOLIO)) scrollDown()
         if (openTab(TAB_SETTINGS)) scrollDown()
         openTab(TAB_WATCHLIST)
+    }
+
+    /** Erlaubnis vorab: sonst legt sich nach den Start-Coins die Erklärung samt System-Abfrage über die App. */
+    private fun MacrobenchmarkScope.grantNotifications() {
+        runCatching { device.executeShellCommand("pm grant $packageName android.permission.POST_NOTIFICATIONS") }
     }
 
     /** Frische Installation: Start-Coins übernehmen (Knopf wird aktiv, sobald die Kurse da sind). */

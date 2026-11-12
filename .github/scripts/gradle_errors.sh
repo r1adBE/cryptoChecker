@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Turns the failure reasons in a Gradle console log into GitHub annotations, so a failed step shows
 # them on the run page (job logs need a sign-in): Kotlin compile errors («e: file:///…:line:col …»),
-# failed tests («… > test() FAILED» plus the next line) and the «What went wrong» blocks.
+# failed tests («… > test() FAILED» plus the next line), dependency verification failures (the «Dependency
+# verification failed» line with the artifacts, repositories and checksums Gradle names after it) and the «What went
+# wrong» blocks.
 # Usage: gradle_errors.sh <gradle log>   (always exits 0; call it only after the Gradle step failed)
 LOG="$1"
 [ -f "$LOG" ] || { echo "No Gradle log at $LOG"; exit 0; }
@@ -18,6 +20,13 @@ while IFS= read -r line && [ $n -lt 20 ]; do
 done < <(grep -E '^e: ' "$LOG" | sort -u)
 grep -E -A1 ' FAILED$' "$LOG" | grep -v '^--$' | paste -d' ' - - | sort -u | head -n 15 | while IFS= read -r t; do
   echo "::error title=Test failed::$(esc "$t")"
+done
+# Dependency verification: which artifact from which repository did not match (checksum or signature), so the
+# received value can be noted before a re-run (DEVELOPMENT.md, «What to do when CI fails without a code reason»)
+grep -E -A15 'Dependency verification failed' "$LOG" \
+  | grep -E 'Dependency verification failed|failed verification|from repository|checksum|signature|signed|expected|actual' \
+  | sed -E 's/^[[:space:]>-]+//' | awk '!seen[$0]++' | head -n 12 | while IFS= read -r t; do
+  echo "::error title=Dependency verification::$(esc "$t")"
 done
 awk '/^\* What went wrong:/{on=1; buf=""; next} on && /^\* (Try|Exception is):/{print buf; on=0; next} on && NF{buf = buf (buf ? "\n" : "") $0}' "$LOG" \
   | head -c 6000 | awk 'BEGIN{RS=""} {print}' | head -n 40 > "${RUNNER_TEMP:-/tmp}/gradle-wrong.txt"

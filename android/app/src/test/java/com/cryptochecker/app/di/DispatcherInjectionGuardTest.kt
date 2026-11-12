@@ -94,8 +94,8 @@ class DispatcherInjectionGuardTest {
         val BLOCK_COMMENT = Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL)
         val LINE_COMMENT = Regex("""(^|[ \t])//[^\n]*""", RegexOption.MULTILINE)
 
-        const val REMAINING_FILES = 35
-        const val REMAINING_PLACES = 58
+        const val REMAINING_FILES = 33
+        const val REMAINING_PLACES = 54
 
         /** Datei → höchstens so viele `Dispatchers.IO`/`Dispatchers.Default` im Code; darf nur sinken. */
         val REMAINING: Map<String, Int> = mapOf(
@@ -121,8 +121,9 @@ class DispatcherInjectionGuardTest {
             "app/app/ui/features/settings/SettingsScreen.kt" to 1,
             "app/app/ui/features/settings/StorageRecoveryNoticeDialog.kt" to 3,
             "app/app/ui/features/watchlist/WatchSheetChartCanvas.kt" to 1,
-            // ViewModel an der Konstruktor-Obergrenze (13, code_metrics.py) samt Erweiterungsdateien: Alarms-, Explorer-
-            // (nur noch IO), Info- und SettingsViewModel; PortfolioViewModel (12) bekäme mit IO den dreizehnten
+            // ViewModels mit den meisten Konstruktor-Abhängigkeiten in :app (code_metrics.py, Bündel mitgezählt: Explorer-
+            // und PortfolioViewModel 15, SettingsViewModel 14, Alarms- und InfoViewModel 13) samt Erweiterungsdateien;
+            // Explorer und Portfolio nehmen den Default-Dispatcher schon, IO bekommen sie erst nach dem Aufteilen
             "app/app/ui/features/alarms/AlarmsViewModel.kt" to 1,
             "app/app/ui/features/explorer/ExplorerBulkActions.kt" to 1,
             "app/app/ui/features/explorer/ExplorerSearchActions.kt" to 2,
@@ -131,17 +132,17 @@ class DispatcherInjectionGuardTest {
             "app/app/ui/features/info/MarketPreviewActions.kt" to 1,
             "app/app/ui/features/settings/SettingsAlarmActions.kt" to 2,
             "app/app/ui/features/portfolio/PortfolioLoadActions.kt" to 1,
-            // Datei an der Zeilengrenze (FileLengthTest; ein Konstruktor-Parameter mehr sprengt sie) samt Erweiterungsdateien
-            // (CoinListSync, LogoImageStore und WatchedAddressSource haben genau 400 Zeilen)
-            "app/app/ui/features/portfolio/PortfolioCsvImportViewModel.kt" to 3,
+            // Datei an der Zeilengrenze (FileLengthTest; ein Konstruktor-Parameter mehr sprengt sie) samt Erweiterungsdateien:
+            // CoinListSync, LogoImageStore und WatchedAddressSource haben genau 400 Zeilen
             "data/app/data/CoinListSync.kt" to 5,
             "data/app/data/CoinListSyncMap.kt" to 4,
             "data/app/data/LogoImageStore.kt" to 5,
             "data/app/data/portfolio/WatchedAddressSourceXpub.kt" to 2,
-            // Viele Tests bauen die Klasse von Hand (15, 8 und 2 Stellen); Datei nahe der Zeilengrenze
+            // 397 Zeilen (FileLengthTest) und 16 Stellen in 6 Testdateien, die die Klasse von Hand bauen
             "data/app/data/remote/ExchangeRemoteDataSource.kt" to 1,
+            // Gebaut von LogoImageStore (400 Zeilen, verdrahtet IO selbst, siehe oben): bekommt den Dispatcher erst, wenn
+            // LogoImageStore einen hat; dazu 7 Stellen in den Paritätstests, die die Klasse von Hand bauen
             "domain/app/domain/logos/LogoLoadingHint.kt" to 2,
-            "data/app/data/refresh/AlarmLogStore.kt" to 1,
         )
     }
 }

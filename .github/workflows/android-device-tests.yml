@@ -9,9 +9,10 @@
 # 34) when the sources of a phone module, its device tests or the shared UI test files change, so a broken UI flow is
 # seen before the merge and not only on main; release-smoke only when a file changes that decides about the R8
 # release build (keep rules, build script, dependency versions, the smoke test itself); migration-tests only when
-# the Room schemas change without sources (otherwise connected-tests already runs these classes). A pull request
-# that touches none of these does not start this workflow. None of its jobs is a required check, so a skipped job
-# leaves nothing pending; the required check «Android build» comes from android.yml.
+# the Room schemas change without sources (otherwise connected-tests already runs these classes). Every pull request
+# starts this workflow (no paths filter): the job «Android device tests» at the end collects the results under the
+# name of a required check – a job that «changes» did not pick counts as green, a failed, hung (stopped by its time
+# limit) or never started one as red.
 # Job connected-tests-api26 (not on pull requests): only the ICU device tests (TextLimit, MonthYearFormat) on API 26
 # (minSdk).
 # Job migration-tests (pull requests only): RoomSchemaMigrationTest, DatabaseFreshInstall* and DatabaseEncryption*
@@ -34,27 +35,11 @@ on:
       - '.github/workflows/android-device-tests.yml'
       - '.github/scripts/android_smoke_test.sh'
       - '.github/scripts/annotate.py'
-  # Keep this list in sync with the patterns of the job «changes»
+      - '.github/scripts/collect_jobs.py'
+      - '.github/scripts/run_device_classes.sh'
+  # Every pull request (no paths filter): «Android device tests» is a required check, and a required check whose
+  # workflow is skipped by a paths filter would wait forever («Expected»). The job «changes» picks the jobs.
   pull_request:
-    paths:
-      # connected-tests: sources of the phone modules (main, debug, androidTest) and the shared UI test files
-      - 'android/app/src/**'
-      - 'android/domain/src/**'
-      - 'android/data/src/**'
-      - 'android/marketdata/src/**'
-      # unit tests do not run on a device
-      - '!android/*/src/test/**'
-      - 'android/testdata/uitest/**'
-      - 'android/domain/build.gradle.kts'
-      - 'android/data/build.gradle.kts'
-      - 'android/app/schemas/**'
-      - 'android/app/proguard-rules.pro'
-      - 'android/app/build.gradle.kts'
-      - 'android/gradle/libs.versions.toml'
-      - 'android/marketdata/consumer-rules.pro'
-      - 'android/marketdata/proguard-rules.pro'
-      - '.github/scripts/android_smoke_test.sh'
-      - '.github/workflows/android-device-tests.yml'
   # Optional weekly run (Monday 04:17 UTC); uncomment to enable.
   # schedule:
   #   - cron: '17 4 * * 1'
@@ -115,7 +100,7 @@ jobs:
     needs: changes
     if: ${{ !cancelled() && (github.event_name != 'pull_request' || needs.changes.outputs.connected == 'true') }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 75
     defaults:
       run:
         working-directory: android
@@ -166,9 +151,10 @@ jobs:
           # per step (loading all pair lists), so the job limit of 60 min leaves ample room.
           emulator-boot-timeout: 900
           # timeout_msec (AndroidJUnitRunner, per test method): a test that hangs (deadlock, waiting forever) fails
-          # after 5 min with TestTimedOutException and is named in the report, instead of the job being cancelled at
-          # 60 min without any per-test output.
-          script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace
+          # after 5 min with TestTimedOutException and is named in the report. It does not cover @Before, rules or an
+          # emulator that hangs as a whole: `timeout` stops the Gradle call after 40 min with a clear error, before
+          # the job limit (75 min = build + boot + 40) cancels the job without any output.
+          script: timeout --kill-after=60 40m ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace || { rc=$?; [ "$rc" -ne 124 ] || echo "::error title=Device tests::the Gradle call was stopped after 40 min (emulator or a test setup hung)"; exit "$rc"; }
 
       # Failed tests as annotations (artifacts are not always reachable for reviewers)
       - name: Failed tests
@@ -252,7 +238,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: android
           emulator-boot-timeout: 900
-          script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest,com.cryptochecker.app.MonthYearFormatIcuTest --stacktrace
+          # Two small classes: per-test limit as in connected-tests, the whole Gradle call stopped after 15 min
+          script: timeout --kill-after=60 15m ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest,com.cryptochecker.app.MonthYearFormatIcuTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace || { rc=$?; [ "$rc" -ne 124 ] || echo "::error title=Device tests API 26::the Gradle call was stopped after 15 min (emulator hung?)"; exit "$rc"; }
 
       - name: Failed tests
         if: failure()
@@ -355,8 +342,9 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: android
           emulator-boot-timeout: 900
-          # One Gradle call per class (run_device_classes.sh): with the whole list only the first class ran
-          script: bash "$GITHUB_WORKSPACE/.github/scripts/run_device_classes.sh" "$MIGRATION_CLASSES"
+          # One Gradle call per class (run_device_classes.sh): with the whole list only the first class ran; all
+          # calls together stopped after 25 min (emulator hung?)
+          script: timeout --kill-after=60 25m bash "$GITHUB_WORKSPACE/.github/scripts/run_device_classes.sh" "$MIGRATION_CLASSES" || { rc=$?; [ "$rc" -ne 124 ] || echo "::error title=Migration tests::the Gradle calls were stopped after 25 min (emulator hung?)"; exit "$rc"; }
 
       # Green only with proof from the result XML: every listed class has an executed test, and every @Test of
       # RoomSchemaMigrationTest ran and passed (builds 166-168 were green here while the same test failed on main).
@@ -524,3 +512,44 @@ jobs:
           path: ${{ runner.temp }}/smoke-logs/
           if-no-files-found: ignore
           retention-days: 14
+
+  # Required check «Android device tests» (ruleset «protect-main»): green when every job that should run for this
+  # event passed and the jobs «changes» did not pick were skipped; red for a failed, hung (time limit) or never
+  # started job. On pull requests: changes, then connected-tests, migration-tests and release-smoke as picked; on
+  # every other event connected-tests, the API 26 tests and release-smoke.
+  collect:
+    name: Android device tests
+    needs: [changes, connected-tests, connected-tests-api26, migration-tests, release-smoke]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      - name: Result of the device-test jobs
+        env:
+          PR: ${{ github.event_name == 'pull_request' }}
+          CHANGES: ${{ needs.changes.result }}
+          CONNECTED: ${{ needs.connected-tests.result }}
+          API26: ${{ needs.connected-tests-api26.result }}
+          MIGRATION: ${{ needs.migration-tests.result }}
+          RELEASE: ${{ needs.release-smoke.result }}
+          PICK_CONNECTED: ${{ needs.changes.outputs.connected }}
+          PICK_MIGRATION: ${{ needs.changes.outputs.migration }}
+          PICK_RELEASE: ${{ needs.changes.outputs.release }}
+        run: |
+          set -u
+          python3 -I .github/scripts/collect_jobs.py --self-test
+          may() { [ "$1" = true ] && echo "" || echo ":may-skip"; }
+          if [ "$PR" = true ]; then
+            if [ "$PICK_MIGRATION" = true ] && [ "$PICK_CONNECTED" != true ]; then RUN_MIGRATION=true; else RUN_MIGRATION=false; fi
+            python3 -I .github/scripts/collect_jobs.py "Android device tests" "changes=$CHANGES" \
+              "connected tests=$CONNECTED$(may "$PICK_CONNECTED")" "migration tests=$MIGRATION$(may "$RUN_MIGRATION")" \
+              "release smoke=$RELEASE$(may "$PICK_RELEASE")" "API 26 tests=$API26:may-skip"
+          else
+            python3 -I .github/scripts/collect_jobs.py "Android device tests" "changes=$CHANGES:may-skip" \
+              "connected tests=$CONNECTED" "API 26 tests=$API26" "release smoke=$RELEASE" "migration tests=$MIGRATION:may-skip"
+          fi

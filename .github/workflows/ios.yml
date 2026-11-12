@@ -4,8 +4,9 @@
 # CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
 # Gate: line coverage of the unit tests (notice with total, logic = Shared/ and App/ without views and shared logic =
 # Shared/ without views; the number chosen by GATE_SCOPE below MIN_LOGIC is red).
-# Runs on every pull request, on pushes to main when ios/ changes, and by hand
-# (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only pushes to main skip it.
+# Runs on every pull request (one that changes only Markdown skips the three macOS jobs, job «changes»), on pushes
+# to main when ios/ changes, and by hand (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only
+# pushes to main skip it.
 # Signing, archiving and uploading happen locally in Xcode.
 name: iOS
 
@@ -26,6 +27,7 @@ on:
       - '.github/scripts/xccov_summary.py'
       - '.github/scripts/swift_escape_hatches.py'
       - '.github/scripts/code_metrics.py'
+      - '.github/scripts/collect_jobs.py'
       - 'android/app/build.gradle.kts'
   # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
   # whose workflow is skipped by a paths filter would wait forever («Expected»).
@@ -46,10 +48,48 @@ permissions:
   contents: read
 
 jobs:
+  # Pull requests that change only documents (Markdown, issue templates) skip the three macOS jobs; the collector
+  # then reports green. Same pattern as the job «changes» in codeql.yml: plain git diff between the merge commit and
+  # its first parent, file names only compared with fixed patterns. Every other event runs everything.
+  changes:
+    name: iOS changes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          persist-credentials: false
+          # The merge commit and its parents: enough for the diff against the base branch
+          fetch-depth: 2
+
+      - name: Documents only?
+        id: diff
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          CODE=true
+          if [ "$EVENT" = pull_request ]; then
+            CHANGED=$(git diff --name-only HEAD^1 HEAD)
+            printf 'Changed files:\n%s\n' "$CHANGED"
+            # Markdown and issue templates only: no test or check of this workflow reads them (store texts and the
+            # privacy page are read by tests and run everything)
+            if [ -n "$CHANGED" ] && ! printf '%s\n' "$CHANGED" | grep -qvE '\.md$|^\.github/ISSUE_TEMPLATE/'; then
+              CODE=false
+            fi
+          fi
+          echo "sources changed, all jobs run: $CODE"
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+
   # Three Macs in parallel (release build, unit tests, UI tests) instead of one after another; the job «iOS build»
   # at the end collects their results under the name of the required check.
   release:
     name: iOS release build
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
@@ -156,6 +196,8 @@ jobs:
 
   unit:
     name: iOS unit tests
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
@@ -310,6 +352,8 @@ jobs:
 
   ui:
     name: iOS UI tests
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
@@ -452,22 +496,28 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-  # Required check (ruleset «protect-main»): green only if all three iOS jobs are green
+  # Required check (ruleset «protect-main»): green only if all three iOS jobs are green, or if they were skipped
+  # because the pull request changes only documents
   build:
     name: iOS build
-    needs: [release, unit, ui]
+    needs: [changes, release, unit, ui]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Result of the iOS jobs
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      # collect_jobs.py names what a missing result means (failed, cancelled, never started – GitHub outage)
+      - name: Result of the jobs
         env:
+          CHANGES: ${{ needs.changes.result }}
+          SKIP: ${{ needs.changes.outputs.code == 'false' && ':may-skip' || '' }}
           RELEASE: ${{ needs.release.result }}
           UNIT: ${{ needs.unit.result }}
           UI: ${{ needs.ui.result }}
         run: |
-          echo "release build: $RELEASE, unit tests: $UNIT, UI tests: $UI"
-          [ "$RELEASE" = success ] && [ "$UNIT" = success ] && [ "$UI" = success ] || {
-            echo "::error title=iOS::release build $RELEASE, unit tests $UNIT, UI tests $UI"
-            exit 1
-          }
+          python3 -I .github/scripts/collect_jobs.py --self-test
+          python3 -I .github/scripts/collect_jobs.py "iOS build" "changes=$CHANGES" "release build=$RELEASE$SKIP" "unit tests=$UNIT$SKIP" "UI tests=$UI$SKIP"

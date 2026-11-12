@@ -99,15 +99,15 @@ class LayerBoundaryTest {
     }
 
     /**
-     * Kein Test geht beim Verschieben verloren: `:domain` und `:data` behalten mindestens ihre Tests vom Umzug, die
-     * Summe aller Module (`src/test` von app, domain, data, marketdata, wear) fällt nicht unter den Stand davor.
+     * Kein Test geht beim Verschieben oder Aufräumen verloren: jedes Modul (`src/test` von app, domain, data,
+     * marketdata, wear) behält mindestens seine Zahl aus [TEST_FLOOR], die Summe fällt nicht darunter.
      * Wer Tests bewusst streicht, senkt die Zahl hier mit.
      */
     @Test
     fun noModuleLosesItsTests() {
         val counts = TEST_MODULES.associateWith { module -> sourceFiles(module, "test").sumOf { testMethods(it.readText(Charsets.UTF_8)) } }
         val lost = TEST_FLOOR.filter { (module, floor) -> counts.getValue(module) < floor }.map { (module, floor) -> ":$module ${counts[module]} < $floor" }
-        assertTrue("@Test-Methoden verloren (Ordner src/test des Moduls?): $lost", lost.isEmpty())
+        assertTrue("@Test-Methoden verloren (Ordner src/test des Moduls?): $lost – gezählt: $counts", lost.isEmpty())
         assertTrue("@Test-Methoden aller Module: ${counts.values.sum()} < $TOTAL_TEST_FLOOR ($counts)", counts.values.sum() >= TOTAL_TEST_FLOOR)
     }
 
@@ -224,13 +224,15 @@ class LayerBoundaryTest {
         val TEST_MODULES = listOf("app", "domain", "data", "marketdata", "wear")
 
         /**
-         * `@Test`-Methoden je Modul nach dem Umzug der Tests (Audit C-03, Build 217; C-06, Build 223 mit dem
-         * gemeinsamen `ParityJson`): weniger heisst verloren.
+         * Untergrenze der `@Test`-Methoden je Modul = heutiger Stand (gezählt wie [testMethods]): weniger heisst
+         * verloren. Neue Tests heben die Zahl nicht automatisch – wer Tests hinzufügt, hebt die Untergrenze im selben
+         * Commit auf den neuen Stand (die Meldung von [noModuleLosesItsTests] nennt die gezählten Werte); wer Tests
+         * bewusst streicht, senkt sie mit Begründung.
          */
-        val TEST_FLOOR = mapOf("domain" to 1557, "data" to 562)
+        val TEST_FLOOR = mapOf("app" to 1552, "domain" to 1571, "data" to 567, "marketdata" to 32, "wear" to 47)
 
-        /** Alle Module zusammen (app 1540, domain 1557, data 562, marketdata 32, wear 45): vor dem Umzug = danach. */
-        const val TOTAL_TEST_FLOOR = 3736
+        /** Alle Module zusammen = Summe von [TEST_FLOOR]. */
+        val TOTAL_TEST_FLOOR = TEST_FLOOR.values.sum()
 
         /** Datei (relativ zu `domain/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme. */
         val DOMAIN_EXCEPTIONS: Map<String, String> = emptyMap()

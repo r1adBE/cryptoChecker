@@ -166,6 +166,10 @@ jobs:
           for f in gradle.lockfile */gradle.lockfile; do
             if [ -f "$f" ]; then mkdir -p "$STAGE/$(dirname "$f")"; cp "$f" "$STAGE/$f"; fi
           done
+          # A key ignored in one Gradle run but exported in another: out of <ignored-keys> (see the script)
+          if [ "$SIGNATURES" = true ]; then
+            python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --clean-ignored "$STAGE"
+          fi
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --check "$STAGE"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -312,6 +316,10 @@ jobs:
       # keys, ignored keys and the artifacts checked by sha256 only. The SBOM must still find every shipped checksum.
       - name: Check artifact
         run: |
+          # The Windows and macOS runs of Gradle may ignore keys again: clean before the strict check
+          if [ "$SIGNATURES" = true ] && [ -f "$RUNNER_TEMP/supply-chain/gradle/verification-keyring.keys" ]; then
+            python3 -I .github/scripts/supply_chain_files.py --clean-ignored "$RUNNER_TEMP/supply-chain"
+          fi
           python3 -I .github/scripts/supply_chain_files.py --check "$RUNNER_TEMP/supply-chain" --summary "$GITHUB_STEP_SUMMARY"
           if [ "$SIGNATURES" = true ] && [ ! -f "$RUNNER_TEMP/supply-chain/gradle/verification-keyring.keys" ]; then
             echo "::error::signatures requested but no keyring in the artifact"

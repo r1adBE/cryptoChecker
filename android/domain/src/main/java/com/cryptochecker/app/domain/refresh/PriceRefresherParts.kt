@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.refresh
 
-// Zusammengehörige Mitspieler von PriceRefresher, je als ein Konstruktor-Parameter (Obergrenze der Abhängigkeiten je
-// Klasse, code_metrics.py). Reine Bündel ohne eigenes Verhalten: PriceRefresher reicht die Teile unter denselben Namen
-// weiter wie zuvor.
+// Zusammengehörige Mitspieler von PriceRefresher, je als ein Konstruktor-Parameter gruppiert. Reine Bündel ohne eigenes
+// Verhalten: PriceRefresher reicht die Teile unter denselben Namen weiter. Sie senken die Kopplung nicht, darum zählt
+// code_metrics.py jedes Teil als eigene Abhängigkeit (PriceRefresher: 16, die Obergrenze DEPS_CEILING).
 
 /** Was ein Durchlauf liest und schreibt: Paare und Alarme, Einstellungen, Kennzahlen und Pausen, Netz-Zustand. */
 class RefresherState(
