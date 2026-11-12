@@ -65,7 +65,7 @@ internal fun WatchlistRetiredNotice(watches: List<WatchEntity>, now: Long, reduc
     val shown = remember { arrayOf("") }
     exchanges.firstOrNull()?.let { shown[0] = it }
     val name = shown[0]
-    val locale = LocalConfiguration.current.locales.get(0) ?: Locale.getDefault()
+    val locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
     AnimatedVisibility(
         visible = exchanges.isNotEmpty(),
         enter = if (reduceMotion) EnterTransition.None else fadeIn(tween(FADE_MILLIS)) + expandVertically(),
