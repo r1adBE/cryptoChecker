@@ -3117,6 +3117,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 225: `ExchangeRetirement` (Kotlin + Swift, instant 2027-02-01T00:00Z, reuses `NotTraded` with a stored reason; fixture `exchange_retirement.json`), `backup_restore_storage_unavailable`, proofreading of 15 languages.
 * Build 226: audit of 225 (F2-01…F2-08, U2-01…U2-12, S2-01, S2-02, S2-05, C2-05, P2-04, D2-03, D2-05): one rule `retiredNow` (marker or instant), advance notice from 2027-01-01, debug switch «Stichtag vorziehen», retired-notice store in `:data`, `bump.py` bookkeeping no longer touches running text.
 * Build 227: audit of 225 (C2-01…C2-04, P2-01…P2-07, S2-03, S2-04, S2-06, D2-02, D2-04): sixth required check «Android device tests», startup-profile journey, `supply_chain_files.py --check` rejects ignored+trusted keys, watch key literal check.
+* Build 228: Baseline and startup profiles re-measured on main after build 227 (own startup journey).
 
 ## Known warnings
 

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 228)
+
+Start profile re-measured with the dedicated startup journey.
+
 ## 16.2.2 (build 227)
 
 Last fixes from the audit of build 225, no visible change:
