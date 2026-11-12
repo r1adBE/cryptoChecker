@@ -149,7 +149,10 @@ jobs:
           # Generous boot wait for the swiftshader emulator; the tests themselves wait up to 60 s
           # per step (loading all pair lists), so the job limit of 60 min leaves ample room.
           emulator-boot-timeout: 900
-          script: ./gradlew :app:connectedDebugAndroidTest --stacktrace
+          # timeout_msec (AndroidJUnitRunner, per test method): a test that hangs (deadlock, waiting forever) fails
+          # after 5 min with TestTimedOutException and is named in the report, instead of the job being cancelled at
+          # 60 min without any per-test output.
+          script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace
 
       # Failed tests as annotations (artifacts are not always reachable for reviewers)
       - name: Failed tests

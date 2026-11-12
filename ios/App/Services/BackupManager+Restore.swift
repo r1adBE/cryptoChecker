@@ -128,7 +128,7 @@ extension BackupManager {
         do {
             try RestoreSteps.execute({ steps in
                 try runRestoreSteps(&steps, input, snapshot: snapshot, previous: previous, into: data)
-            }, settled: { SharedStorage.flushSnapshotWrites() }, deleteJournal: { if journal { RestoreJournal.delete() } })
+            }, settled: { restoreWritesSettled() }, deleteJournal: { if journal { RestoreJournal.delete() } })
         } catch is RestoreSteps.NotSettled {
             throw Failure.invalid(watchlistStep)
         }
@@ -138,6 +138,19 @@ extension BackupManager {
 
     /// Name des Schritts «Merkliste auf die Platte» in `Failure.invalid` (`recoveryOutcome`: Journal behalten).
     static let watchlistStep = "watchlistWrite"
+
+    /// Alle eingereihten Schreibvorgänge abwarten; true = die Merkliste ist auf der Platte (`RestoreSteps.execute`).
+    /// Nur im UI-Test (Debug-Build mit `-uiTesting`) zählt allein das Abwarten: Der unsignierte Simulator hat keinen
+    /// Schlüsselbund der App Group, `watchlist.json` wird dort nie versiegelt geschrieben (wie `WatchlistNotSavedGate`,
+    /// `RestoreJournal.journalKey`) — sonst scheiterte dort jedes Wiederherstellen.
+    @MainActor
+    private static func restoreWritesSettled() -> Bool {
+        let written = SharedStorage.flushSnapshotWrites()
+        #if DEBUG
+        if UITesting.isActive { return true }
+        #endif
+        return written
+    }
 
     /// Die drei Schreibschritte in fester Reihenfolge: Merkliste/Alarme/Einstellungen/Favoriten, Portfolio, Adressen.
     @MainActor

@@ -16,7 +16,6 @@ import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -28,7 +27,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -172,13 +170,12 @@ class BackupRestoreTest {
         val restore = async(Dispatchers.IO) { backupManager.restore(uri, password = null) }
         awaitJournal()
         restore.cancel()
-        try {
-            restore.await()
-            fail("abgebrochen erwartet")
-        } catch (expected: CancellationException) {
-            // erwartet
-        }
+        // Erst abbrechen, dann die Sperre freigeben, dann warten: Der Schritt «Merkliste» gilt schon vor dem Schreiben als
+        // berührt (`RestoreRun`), das Zurückrollen schreibt sie unter derselben Refresh-Sperre zurück — wartete der Test
+        // vor dem Freigeben auf das Ende, warteten beide ewig aufeinander
         release.complete(Unit)
+        withTimeout(TIMEOUT) { restore.join() }
+        assertTrue("abgebrochen erwartet", restore.isCancelled)
         holder.join()
 
         // Zurückgerollt (hier: nichts geschrieben) — Daten unverändert, Journal entfernt
