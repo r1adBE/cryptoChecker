@@ -142,7 +142,7 @@ final class CryptoCheckerUITests: XCTestCase {
         let confirmShown = app.tagged(UiTestTags.backupRestoreConfirm).waitForExistence(timeout: 90)
             || app.alerts.firstMatch.waitForExistence(timeout: 5) || app.sheets.firstMatch.exists
         XCTAssertTrue(confirmShown, "restore confirmation not shown")
-        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Import")
+        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Restore")
         allowNotificationsIfAsked()
 
         tap(app, UiTestTags.tabWatchlist)
@@ -163,7 +163,7 @@ final class CryptoCheckerUITests: XCTestCase {
         let app = launchApp(backup: Self.serverNoteBackup)
         openBackupPage(app)
         tap(app, UiTestTags.backupImport)
-        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Import")
+        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Restore")
 
         // Titel «Backup & restore»; Text mit dem Hinweis zur Sicherung ohne Passwort
         let dialog = app.alerts.containing(NSPredicate(format: "label == %@", "Backup & restore")).firstMatch

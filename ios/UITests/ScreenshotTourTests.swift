@@ -206,7 +206,7 @@ final class ScreenshotTourTests: XCTestCase {
             confirm.tap()
         } else {
             // Kennungen erreichen nicht in jeder iOS-Fassung die Knöpfe einer Rückfrage: über die Beschriftung
-            let byLabel = [app.alerts.firstMatch, app.sheets.firstMatch].map { $0.buttons["Import"] }
+            let byLabel = [app.alerts.firstMatch, app.sheets.firstMatch].map { $0.buttons["Restore"] }
                 .first { $0.exists }
             guard let byLabel else { throw TourStepError("restore confirmation missing") }
             byLabel.tap()
