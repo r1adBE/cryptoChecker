@@ -23,7 +23,6 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,7 +31,12 @@ import androidx.core.content.edit
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.marketdata.config.ExchangeRetirement
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
+import androidx.compose.runtime.staticCompositionLocalOf
+import com.cryptochecker.app.domain.util.IoDispatcher
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -53,10 +57,10 @@ const val RETIRED_NOTICE_TAG = "retired_exchange_line"
  */
 @Composable
 internal fun WatchlistRetiredNotice(watches: List<WatchEntity>, now: Long, reduceMotion: Boolean, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    val dismissed by produceState<Set<String>?>(null) {
-        RetiredNoticeStore.load(context)
-        RetiredNoticeStore.dismissed.collect { value = it }
+    val store = LocalRetiredNoticeStore.current ?: return
+    val dismissed by produceState<Set<String>?>(null, store) {
+        store.load()
+        store.dismissed.collect { value = it }
     }
     val closed = dismissed
     val exchanges = remember(watches, closed, now / NOTICE_TICK_MILLIS) {
@@ -79,7 +83,7 @@ internal fun WatchlistRetiredNotice(watches: List<WatchEntity>, now: Long, reduc
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.weight(1f),
             )
-            IconButton(onClick = { RetiredNoticeStore.dismiss(context, name) }, modifier = Modifier.size(TOUCH_MIN)) {
+            IconButton(onClick = { store.dismiss(name) }, modifier = Modifier.size(TOUCH_MIN)) {
                 Icon(
                     painterResource(R.drawable.ic_close),
                     contentDescription = stringResource(R.string.watchlist_missing_logos_dismiss),
@@ -104,29 +108,39 @@ private fun retiredDate(exchange: String, locale: Locale): String {
  * «retired_exchange_notice»), nicht in der Systemsicherung (die Sicherungsregeln nehmen nur ausdrücklich Genanntes auf)
  * und nicht in der App-Sicherung.
  */
-internal object RetiredNoticeStore {
-    private const val PREFS = "retired_exchange_notice"
-    private const val KEY = "dismissed"
+@Singleton
+class RetiredNoticeStore @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    @param:IoDispatcher private val io: CoroutineDispatcher,
+) {
     private val _dismissed = MutableStateFlow<Set<String>?>(null)
     val dismissed: StateFlow<Set<String>?> = _dismissed.asStateFlow()
 
-    private fun prefs(context: Context) = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    private fun prefs() = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
     /** Einmal lesen (nicht im Haupt-Thread). */
-    suspend fun load(context: Context) {
+    suspend fun load() {
         if (_dismissed.value != null) return
-        val stored = withContext(Dispatchers.IO) { prefs(context).getStringSet(KEY, null)?.toSet().orEmpty() }
+        val stored = withContext(io) { prefs().getStringSet(KEY, null)?.toSet().orEmpty() }
         _dismissed.compareAndSet(null, stored)
     }
 
     /** ✕: Hinweis für [exchange] schliessen. */
-    fun dismiss(context: Context, exchange: String) {
+    fun dismiss(exchange: String) {
         if (exchange.isBlank()) return
         val updated = _dismissed.value.orEmpty() + exchange.trim().lowercase()
         _dismissed.value = updated
-        prefs(context).edit { putStringSet(KEY, updated) }
+        prefs().edit { putStringSet(KEY, updated) }
+    }
+
+    private companion object {
+        const val PREFS = "retired_exchange_notice"
+        const val KEY = "dismissed"
     }
 }
+
+/** Von MainActivity gesetzt; ohne Anbieter (Vorschau, Tests ohne Hilt) kein Hinweis. */
+val LocalRetiredNoticeStore = staticCompositionLocalOf<RetiredNoticeStore?> { null }
 
 private const val FADE_MILLIS = 300
 private val TOUCH_MIN = 48.dp

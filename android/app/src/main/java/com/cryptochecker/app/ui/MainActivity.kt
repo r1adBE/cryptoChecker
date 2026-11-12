@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var coinLogoRepository: CoinLogoRepository
 
+    @Inject lateinit var retiredNoticeStore: com.cryptochecker.app.ui.features.watchlist.RetiredNoticeStore
+
     @Inject lateinit var coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync
 
     /** Ziel aus einer App-Verknüpfung («add», «alarms», «cycle»). */
@@ -111,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                         LocalPortfolioCoinLogoSource provides repositorySource.takeIf { settings.portfolioCoinLogos },
                         LocalCoinNameSource provides repositorySource.takeIf { settings.watchlistNames },
                         LocalCoinSearchNameSource provides repositorySource,
+                        com.cryptochecker.app.ui.features.watchlist.LocalRetiredNoticeStore provides retiredNoticeStore,
                     ) {
                         // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
                         // für den Portfolio-Tab und seine Unterseiten.
