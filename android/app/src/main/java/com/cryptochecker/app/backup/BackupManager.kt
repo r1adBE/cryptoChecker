@@ -274,8 +274,8 @@ class BackupManager @Inject constructor(
         val watchlist = input.watchlist
         // ── 2. Bisherigen Stand merken (für das Zurückrollen) ──
         val previous = previousState()
-        // ── 3. Schreiben ──
-        val settingsNotes = writeRestored(input, previous, encrypted)
+        // ── 3. Schreiben ── (Speicher nicht beschreibbar: eigene Meldung, Daten unverändert — RestoreRun.forMessage)
+        val settingsNotes = try { writeRestored(input, previous, encrypted) } catch (e: Exception) { throw RestoreRun.forMessage(e) }
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
         runCatchingCancellable { StorageRecoveryNotice.acknowledgeSetAside(context) }
 

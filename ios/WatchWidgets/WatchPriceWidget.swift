@@ -81,13 +81,16 @@ struct WatchPriceProvider: TimelineProvider {
         }
     }
 
-    private static func entry(_ coin: String?, _ cached: WatchCached?, at date: Date) -> WatchPriceEntry {
+    private static func entry(_ coin: String?, _ stored: WatchCached?, at date: Date) -> WatchPriceEntry {
         guard let coin else {
             return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—")
         }
+        let now = Int64(date.timeIntervalSince1970 * 1000)
+        // Börse des Paars stillgelegt (`ExchangeRetirement`): kein alter Kurs — wie Android
+        let retired = WatchPair.parse(coin).map { WatchPairQuotes.retired($0, now: now) } ?? false
+        let cached = retired ? nil : stored
         let q = cached?.quote
         let time = cached?.time ?? 0
-        let now = Int64(date.timeIntervalSince1970 * 1000)
         let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
         // Paar des iPhones wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert (gegen USDT)
         let label = WatchPair.label(of: coin)

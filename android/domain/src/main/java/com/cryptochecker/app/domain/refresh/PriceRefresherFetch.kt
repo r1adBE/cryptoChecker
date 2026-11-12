@@ -10,6 +10,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.watch.ChangeStamp
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -74,7 +75,8 @@ internal suspend fun PriceRefresher.fetchAllGroups(
         }
     }
     val (pausedGroups, activeGroups) = watches.groupBy { it.exchangeKey }.entries
-        .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) }
+        // Stillgelegte Börse (ExchangeRetirement) nie als pausiert: ihr Abruf fragt nichts, setzt nur den Grund
+        .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) && !ExchangeRetirement.isRetired(it.key, startedAt) }
     val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
     val fetched = HashMap<Long, Fetched>()
     val activeReports = coroutineScope {

@@ -104,10 +104,18 @@ object A11yText {
     /** Sprache der Oberfläche (für Währungsnamen). */
     fun locale(context: Context): Locale = context.resources.configuration.locales.get(0) ?: Locale.getDefault()
 
-    /** Übersetzte Satzteile für [A11ySpeech.freshnessText]. */
-    fun texts(context: Context): A11ySpeech.Texts = object : A11ySpeech.Texts {
+    /**
+     * Übersetzte Satzteile für [A11ySpeech.freshnessText]; [exchange] stillgelegt
+     * ([com.cryptochecker.marketdata.config.ExchangeRetirement]): «nicht gehandelt» nennt den Grund.
+     */
+    fun texts(context: Context, exchange: String? = null): A11ySpeech.Texts = object : A11ySpeech.Texts {
         override val disabled: String = context.getString(R.string.watch_disabled)
-        override val notTraded: String = context.getString(R.string.watch_not_traded)
+        override val notTraded: String =
+            if (com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(exchange)) {
+                context.getString(R.string.exchange_retired_short, exchange.orEmpty())
+            } else {
+                context.getString(R.string.watch_not_traded)
+            }
         override val outdated: String = context.getString(R.string.a11y_price_outdated)
         override fun updated(age: A11ySpeech.Age): String = when (age) {
             A11ySpeech.Age.JustNow -> context.getString(R.string.a11y_updated_just_now)
@@ -132,7 +140,7 @@ object A11yText {
         lastUpdate: Long,
         now: Long,
         exchange: String,
-    ): String? = A11ySpeech.freshnessText(freshness, lastUpdate, now, exchange, texts(context))
+    ): String? = A11ySpeech.freshnessText(freshness, lastUpdate, now, exchange, texts(context, exchange))
 
     /** Wie [freshness], aktuell aber mit dem Alter ([A11ySpeech.rowFreshnessText]) — für den Zeilensatz. */
     fun rowFreshness(
@@ -141,5 +149,5 @@ object A11yText {
         lastUpdate: Long,
         now: Long,
         exchange: String,
-    ): String? = A11ySpeech.rowFreshnessText(freshness, lastUpdate, now, exchange, texts(context))
+    ): String? = A11ySpeech.rowFreshnessText(freshness, lastUpdate, now, exchange, texts(context, exchange))
 }

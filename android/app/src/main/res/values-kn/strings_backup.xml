@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“ಸಿಸ್ಟಮ್ ಬ್ಯಾಕಪ್‌ನಲ್ಲಿ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ” ಅನ್ನು ಬ್ಯಾಕಪ್ ಆನ್ ಮಾಡಿದೆ.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“ಮೊತ್ತಗಳನ್ನು ಮರೆಮಾಡಿ” ಅನ್ನು ಬ್ಯಾಕಪ್ ಆಫ್ ಮಾಡಿದೆ.</string>
+    <string name="backup_restore_storage_unavailable">ಮರುಸ್ಥಾಪನೆ ಸದ್ಯ ಸಾಧ್ಯವಿಲ್ಲ: ಆ್ಯಪ್‌ನ ಸಂಗ್ರಹಣೆ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. ನಿಮ್ಮ ಈಗಿನ ಡೇಟಾ ಬದಲಾಗಿಲ್ಲ.</string>
 </resources>

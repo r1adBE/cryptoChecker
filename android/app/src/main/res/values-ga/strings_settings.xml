@@ -342,5 +342,5 @@
     <string name="settings_portfolio_value_off_locked">Múchta, le glas</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">Athríomhann sé gach bliain: athraíonn bunchostas, gnóthachain réadaithe agus bileoga cánach na mblianta roimhe freisin.</string>
-    <string name="settings_portfolio_system_backup_confirm">Rachaidh d’idirbhearta, foláirimh phunann agus seoltaí faoi fhaire ansin i gcúltaca Android (m.sh. i do chuntas Google) agus in aistriú chuig gléas nua – criptithe ó cheann ceann amháin.</string>
+    <string name="settings_portfolio_system_backup_confirm">Rachaidh d’idirbhearta, foláirimh punainne agus seoltaí faoi fhaire ansin i gcúltaca Android (m.sh. i do chuntas Google) agus in aistriú chuig gléas nua – criptithe ó cheann ceann amháin.</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">„Портфолио в системното резервно копие“ беше включено от резервното копие.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Скрий сумите“ беше изключено от резервното копие.</string>
+    <string name="backup_restore_storage_unavailable">Възстановяването в момента не е възможно: хранилището на приложението не е достъпно. Рестартирай приложението и опитай отново. Досегашните ти данни са непроменени.</string>
 </resources>

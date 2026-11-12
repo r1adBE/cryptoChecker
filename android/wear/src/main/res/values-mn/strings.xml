@@ -35,4 +35,5 @@
         <item quantity="one">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
         <item quantity="other">сүүлд %1$d хоногийн өмнө шинэчилсэн</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s үнэ өгөхөө больсон</string>
 </resources>

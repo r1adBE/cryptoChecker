@@ -223,7 +223,12 @@ internal fun RowPrice(
                     value = watch.lastPrice,
                     style = (if (largePrice) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium)
                         .amountNumbers(),
-                    color = if (stale || off) MaterialTheme.colorScheme.onSurfaceVariant else Color.Unspecified,
+                    // Börse stillgelegt (ExchangeRetirement): letzter Kurs grau wie veraltet
+                    color = if (stale || off || com.cryptochecker.marketdata.config.ExchangeRetirement.isMarker(watch.lastError)) {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    } else {
+                        Color.Unspecified
+                    },
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.alignByBaseline()
                 )

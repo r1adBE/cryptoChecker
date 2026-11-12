@@ -32,4 +32,5 @@
     <plurals name="a11y_watch_updated_days">
         <item quantity="other">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ %1$d ថ្ងៃមុន</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s លែងផ្ដល់តម្លៃទៀតហើយ</string>
 </resources>

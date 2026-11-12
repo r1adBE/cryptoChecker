@@ -27,13 +27,22 @@ import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import kotlinx.coroutines.delay
 
-/** Was die Paarseite über neue Alarme wissen muss: gesperrt (Referenzkurs, DEX zu dünn) bzw. Höchstzahl erreicht. */
-internal data class PairAlarmLimits(val referenceRate: Boolean, val lowLiquidity: Boolean, val full: Boolean) {
+/**
+ * Was die Paarseite über neue Alarme wissen muss: gesperrt (Referenzkurs, DEX zu dünn, Börse stillgelegt) bzw.
+ * Höchstzahl erreicht.
+ */
+internal data class PairAlarmLimits(
+    val referenceRate: Boolean,
+    val lowLiquidity: Boolean,
+    val full: Boolean,
+    val retired: Boolean = false,
+) {
     /** «Alarm setzen» bedienbar. */
-    val canAdd: Boolean get() = !referenceRate && !lowLiquidity && !full
+    val canAdd: Boolean get() = !referenceRate && !lowLiquidity && !full && !retired
 }
 
 /** [PairAlarmLimits] des Paars von [viewModel]; [watch] = gezeigtes Paar (Referenzkurs je Börse). */
@@ -46,6 +55,7 @@ internal fun rememberPairAlarmLimits(viewModel: AlarmsViewModel, watch: WatchEnt
         referenceRate = referenceRate,
         lowLiquidity = lowLiquidity == true,
         full = !WatchlistLimits.canAddAlarm(alarms.size),
+        retired = watch?.let { ExchangeRetirement.isRetired(it.exchangeKey) } == true,
     )
 }
 
@@ -80,7 +90,7 @@ internal fun PairAlarmsSection(
             now = System.currentTimeMillis()
         }
     }
-    val blocked = limits.referenceRate || limits.lowLiquidity
+    val blocked = limits.referenceRate || limits.lowLiquidity || limits.retired
     Column(modifier = modifier.fillMaxWidth().testTag(UiTestTags.PAIR_ALARMS), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
         Text(
             stringResource(R.string.alarms_title),
@@ -91,6 +101,7 @@ internal fun PairAlarmsSection(
             com.cryptochecker.app.ui.components.NotificationsOffBanner()
         }
         when {
+            limits.retired -> RetiredExchangeNote(watch.exchangeName)
             limits.referenceRate -> ReferenceRateNote(watch.exchangeKey)
             limits.lowLiquidity -> DexLowLiquidityNote()
             limits.full -> AlarmLimitNote()
@@ -124,7 +135,9 @@ internal fun PairAlarmsSection(
                         staleAfterMillis = staleAfter,
                         unchecked = unchecked[alarm.id] != null,
                         markFallback = markFallback,
+                        exchangeRetired = limits.retired,
                     ),
+                    retiredExchange = watch.exchangeName,
                     onToggle = { viewModel.setEnabled(alarm.id, it) },
                     onEdit = { if (!blocked) host.edit(alarm) },
                     onDelete = { host.askDelete = alarm },

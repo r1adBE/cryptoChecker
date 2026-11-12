@@ -61,6 +61,8 @@ internal fun AlarmCard(
     unchecked: AlarmCheckStatus.Unchecked? = null,
     /** Statuszeile ([AlarmCardStatus]); null = keine. */
     status: AlarmCardStatus.Kind? = null,
+    /** Name der stillgelegten Börse für [AlarmCardStatus.Kind.EXCHANGE_RETIRED] («Bitpanda liefert keine Kurse mehr»). */
+    retiredExchange: String? = null,
     onToggle: (Boolean) -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
@@ -69,6 +71,7 @@ internal fun AlarmCard(
     // Nur bei eingeschalteten Alarmen (das stellt AlarmCardStatus sicher): ausgeschaltete werden nicht geprüft
     val checkLine: Pair<Int, Int>? = when (status) {
         null -> null
+        AlarmCardStatus.Kind.EXCHANGE_RETIRED -> R.string.exchange_retired_short to R.drawable.ic_warning
         AlarmCardStatus.Kind.NOTIFICATIONS_OFF -> R.string.alarm_status_notifications_off to R.drawable.ic_notifications_off
         AlarmCardStatus.Kind.LOW_LIQUIDITY -> R.string.alarm_status_low_liquidity to R.drawable.ic_warning
         AlarmCardStatus.Kind.WAITING_FOR_PRICE -> R.string.alarm_status_waiting_price to R.drawable.ic_settings_updates
@@ -85,7 +88,10 @@ internal fun AlarmCard(
     val invalidThreshold = AlarmJson.exceedsFall(alarm.condition, alarm.threshold)
     val statusLine: Pair<Int, Int>? =
         if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine
-    val statusText = statusLine?.let { stringResource(it.first) }
+    val statusText = statusLine?.let {
+        if (it.first == R.string.exchange_retired_short) stringResource(it.first, retiredExchange.orEmpty())
+        else stringResource(it.first)
+    }
     val title = AlarmTexts.describe(context, alarm) +
         if (alarm.condition.isPriceThreshold && alarm.convertCurrency == null) " $quoteAsset" else ""
     val sentence = if (baseAsset.isEmpty()) null else alarmSentence(

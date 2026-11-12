@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">バックアップにより「ポートフォリオをシステムバックアップに含める」がオンになりました。</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">バックアップにより「金額を隠す」がオフになりました。</string>
+    <string name="backup_restore_storage_unavailable">現在復元できません：アプリのストレージを利用できません。アプリを再起動して、もう一度お試しください。既存のデータは変更されていません。</string>
 </resources>

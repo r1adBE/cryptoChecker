@@ -96,8 +96,9 @@ internal fun PairPageContent(
             )
             PairStatusLine(watch, isPreview, off, onRetry = callbacks.onRetry, onEnable = callbacks.onToggleDisabled)
             Spacer(Modifier.height(Spacing.lg))
-            // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) bzw. deaktiviert ausgeblendet
-            if (!off) {
+            // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) bzw. deaktiviert ausgeblendet,
+            // ebenso bei stillgelegter Börse (ExchangeRetirement: keine Kerzen mehr laden)
+            if (!off && !com.cryptochecker.marketdata.config.ExchangeRetirement.isMarker(watch.lastError)) {
                 SheetPriceChart(
                     watch = watch,
                     line = chartLine,

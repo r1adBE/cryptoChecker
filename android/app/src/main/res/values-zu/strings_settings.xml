@@ -333,5 +333,5 @@
     <string name="settings_portfolio_value_off_locked">Kuvaliwe, nokhiye</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">Ibala kabusha yonke iminyaka: izindleko zokuthenga, inzuzo etholakele namashidi entela eminyaka edlule nakho kuyashintsha.</string>
-    <string name="settings_portfolio_system_backup_confirm">Ukuthengiselana kwakho, izexwayiso zephothifoliyo namakheli owalandelayo kuzongena ekwenzeni isipele kwe-Android (isb. ku-akhawunti yakho ye-Google) nasekudluliseleni kudivayisi entsha – kubethelwe kusukela ekuqaleni kuya ekugcineni kuphela.</string>
+    <string name="settings_portfolio_system_backup_confirm">Imisebenzi yakho, ama-alamu e-portfolio namakheli owalandelayo kuzongena ekwenzeni isipele kwe-Android (isb. ku-akhawunti yakho ye-Google) nasekudluliseleni kudivayisi entsha – kubethelwe kusukela ekuqaleni kuya ekugcineni kuphela.</string>
 </resources>

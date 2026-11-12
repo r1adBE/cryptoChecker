@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">„Portfell süsteemi varukoopias“ lülitati varukoopiaga sisse.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Peida summad“ lülitati varukoopiaga välja.</string>
+    <string name="backup_restore_storage_unavailable">Taastamine pole praegu võimalik: rakenduse salvestusruum pole saadaval. Taaskäivita rakendus ja proovi uuesti. Sinu senised andmed on muutmata.</string>
 </resources>

@@ -293,4 +293,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Закрыть уведомление</string>
     <string name="watchlist_missing_logos_explain">Для этих монет логотип недоступен. Приложение показывает инициалы.</string>
+    <string name="exchange_retired_short">%1$s больше не предоставляет цены</string>
+    <string name="exchange_retired_notice">С %2$s %1$s больше не предоставляет публичные цены. Выбери другую биржу для этих монет.</string>
 </resources>

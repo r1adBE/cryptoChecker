@@ -259,4 +259,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Κλείσιμο ειδοποίησης</string>
     <string name="watchlist_missing_logos_explain">Δεν υπάρχει διαθέσιμο λογότυπο για αυτά τα νομίσματα. Η εφαρμογή δείχνει τα αρχικά τους.</string>
+    <string name="exchange_retired_short">Το %1$s δεν παρέχει πλέον τιμές</string>
+    <string name="exchange_retired_notice">Από τις %2$s το %1$s δεν παρέχει πλέον δημόσιες τιμές. Επίλεξε άλλο ανταλλακτήριο για αυτά τα νομίσματα.</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“ਸਿਸਟਮ ਬੈਕਅੱਪ ਵਿੱਚ ਪੋਰਟਫੋਲੀਓ” ਬੈਕਅੱਪ ਰਾਹੀਂ ਚਾਲੂ ਕੀਤਾ ਗਿਆ।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“ਰਕਮਾਂ ਲੁਕਾਓ” ਬੈਕਅੱਪ ਰਾਹੀਂ ਬੰਦ ਕੀਤਾ ਗਿਆ।</string>
+    <string name="backup_restore_storage_unavailable">ਬਹਾਲੀ ਹੁਣੇ ਸੰਭਵ ਨਹੀਂ: ਐਪ ਦੀ ਸਟੋਰੇਜ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਐਪ ਮੁੜ ਸ਼ੁਰੂ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਡਾਟਾ ਨਹੀਂ ਬਦਲਿਆ।</string>
 </resources>

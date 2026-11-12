@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
@@ -48,6 +49,8 @@ class PriceFetcher @Inject constructor(
         alarmed: Set<Long> = emptySet(),
     ): Pair<Map<Long, Fetched>, FetchedGroup> {
         val groupStartedAt = System.currentTimeMillis()
+        // Börse stillgelegt (ExchangeRetirement): keine Anfrage, jedes Paar mit dem Marker der Börse
+        if (ExchangeRetirement.isRetired(group.first().exchangeKey)) return retiredGroup(group, groupStartedAt)
         val groupDeadline = CheckBudget.groupDeadline(groupStartedAt, deadlineAt)
         val bulk = loadBulkTickers(group, groupDeadline)
         val bulkTickers = bulk.tickers
@@ -150,6 +153,25 @@ class PriceFetcher @Inject constructor(
     }
 
     /**
+     * Stillgelegte Börse ([ExchangeRetirement]): ohne Anfrage jedes Paar «nicht gehandelt» mit dem Marker der Börse
+     * (Grund in der Anzeige); im Bericht als nicht gehandelt, keine Fehler, keine Pause.
+     */
+    private fun retiredGroup(group: List<WatchEntity>, startedAt: Long): Pair<Map<Long, Fetched>, FetchedGroup> {
+        val first = group.first()
+        val marker = ExchangeRetirement.marker(first.exchangeName)
+        val entry = ExchangeRefresh(
+            name = first.exchangeName,
+            millis = System.currentTimeMillis() - startedAt,
+            pairs = group.size,
+            updated = 0,
+            notTraded = group.size,
+            failed = 0,
+        )
+        val results = group.associate { it.id to Fetched(null, marker, notTraded = true) }
+        return results to FetchedGroup(first.exchangeKey, entry, failures = emptyList(), retryAfterMillis = null)
+    }
+
+    /**
      * Holt die Kurse einer Börse gesammelt, sofern sie das anbietet und sich
      * der Aufwand lohnt. Wo möglich nur für die beobachteten Paare. Bei einem
      * Fehler bleibt die Karte leer und jedes Paar wird einzeln abgefragt.
@@ -162,7 +184,7 @@ class PriceFetcher @Inject constructor(
         val pairIds = group.mapNotNull { it.pairId }.distinct()
         // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
         // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste (NotTraded).
-        val notTradedIds = group.filter { NotTraded.isMarker(it.lastError) }.mapNotNullTo(HashSet()) { it.pairId }
+        val notTradedIds = group.filter { !NotTraded.askSingleWhenMissing(it.lastError) }.mapNotNullTo(HashSet()) { it.pairId }
         val plan = BulkDelisted.plan(delisted[sample.exchangeKey], pairIds, notTradedIds, System.currentTimeMillis())
 
         var cut = false

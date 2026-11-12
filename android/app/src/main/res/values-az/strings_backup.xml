@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Portfel sistem ehtiyat nüsxəsində» ehtiyat nüsxə ilə yandırıldı.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Məbləğləri gizlət» ehtiyat nüsxə ilə söndürüldü.</string>
+    <string name="backup_restore_storage_unavailable">Bərpa hazırda mümkün deyil: tətbiqin yaddaşı əlçatan deyil. Tətbiqi yenidən başlat və yenidən cəhd et. Mövcud məlumatların dəyişməyib.</string>
 </resources>

@@ -276,4 +276,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Închide notificarea</string>
     <string name="watchlist_missing_logos_explain">Pentru aceste monede nu este disponibil niciun logo. Aplicația afișează inițialele.</string>
+    <string name="exchange_retired_short">%1$s nu mai furnizează prețuri</string>
+    <string name="exchange_retired_notice">Din %2$s, %1$s nu mai furnizează prețuri publice. Alege altă bursă pentru aceste monede.</string>
 </resources>

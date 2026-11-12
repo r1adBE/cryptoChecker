@@ -332,6 +332,6 @@
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">අක්‍රිය, අගුල සමඟ</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
-    <string name="settings_cost_method_confirm">සියලු වසර නැවත ගණනය කරයි: පෙර වසරවල මිලදී ගැනීමේ පිරිවැය, ලබාගත් ලාභය සහ බදු පත්‍රිකා ද වෙනස් වේ.</string>
+    <string name="settings_cost_method_confirm">සියලු වසර නැවත ගණනය කරයි: පෙර වසරවල මිලදී ගැනීමේ පිරිවැය, සාක්ෂාත් ලාභය සහ බදු පත්‍රිකා ද වෙනස් වේ.</string>
     <string name="settings_portfolio_system_backup_confirm">එවිට ඔබේ ගනුදෙනු, කළඹ ඇඟවීම් සහ නිරීක්ෂණය කරන ලිපින Android උපස්ථයට (උදා. ඔබේ Google ගිණුමට) සහ නව උපාංගයකට මාරු කිරීමට ඇතුළත් වේ – අන්තයේ සිට අන්තය දක්වා සංකේතනය කළ විට පමණි.</string>
 </resources>

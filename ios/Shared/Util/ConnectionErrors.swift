@@ -28,6 +28,8 @@ enum ConnectionErrors {
     /// Gespeicherter Fehler → Anzeige. Nie roh: HTTP-Codes, Ausnahmetexte und Server-Antworten
     /// werden zu einem verständlichen Satz (Details nur im Bericht «Letzte Aktualisierung»).
     static func display(_ stored: String) -> String {
+        // Börse stillgelegt (`ExchangeRetirement`): «Bitpanda liefert keine Kurse mehr»
+        if let exchange = ExchangeRetirement.exchange(of: stored) { return L("exchange_retired_short", exchange) }
         if isNotTraded(stored) { return L("watch_not_traded") }
         if isOffline(stored) { return L("watch_error_offline") }
         // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)

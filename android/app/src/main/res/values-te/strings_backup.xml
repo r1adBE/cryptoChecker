@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“సిస్టమ్ బ్యాకప్‌లో పోర్ట్‌ఫోలియో” బ్యాకప్ ద్వారా ఆన్ చేయబడింది.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“మొత్తాలను దాచండి” బ్యాకప్ ద్వారా ఆఫ్ చేయబడింది.</string>
+    <string name="backup_restore_storage_unavailable">పునరుద్ధరణ ప్రస్తుతం సాధ్యం కాదు: యాప్ స్టోరేజ్ అందుబాటులో లేదు. యాప్‌ను రీస్టార్ట్ చేసి మళ్లీ ప్రయత్నించండి. మీ ప్రస్తుత డేటా మారలేదు.</string>
 </resources>

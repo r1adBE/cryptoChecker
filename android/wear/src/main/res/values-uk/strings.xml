@@ -41,4 +41,5 @@
         <item quantity="many">востаннє оновлено %1$d днів тому</item>
         <item quantity="other">востаннє оновлено %1$d дня тому</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s більше не надає ціни</string>
 </resources>

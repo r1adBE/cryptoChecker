@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">”Portfölj i systemsäkerhetskopia” slogs på av säkerhetskopian.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">”Dölj belopp” stängdes av av säkerhetskopian.</string>
+    <string name="backup_restore_storage_unavailable">Återställning går inte just nu: appens lagring är inte tillgänglig. Starta om appen och försök igen. Dina nuvarande data är oförändrade.</string>
 </resources>

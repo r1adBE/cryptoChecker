@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">«Portfólio na cópia do sistema» foi ativado pela cópia.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Ocultar montantes» foi desativado pela cópia.</string>
+    <string name="backup_restore_storage_unavailable">O restauro não é possível agora: o armazenamento da app não está disponível. Reinicia a app e tenta novamente. Os teus dados atuais não foram alterados.</string>
 </resources>

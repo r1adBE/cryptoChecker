@@ -193953,7 +193953,7 @@
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "මෙම උපස්ථය නවතම යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ප්‍රතිසාධනය නොකළා."
+            "value" : "මෙම උපස්ථය වඩා නව යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ප්‍රතිසාධනය නොකළා."
           }
         },
         "sk" : {
@@ -196798,6 +196798,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ukubuyisela akukwenzeki okwamanje: i-app ayilondolozi idatha njengamanje (ukubethela akukasebenzi), ngakho idatha ebuyiselwe ibingalahleka lapho iqala kabusha. Qala kabusha i-app bese uzama futhi."
+          }
+        }
+      }
+    },
+    "backup_restore_storage_unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herstel is nou nie moontlik nie: die app se berging is nie beskikbaar nie. Herbegin die app en probeer weer. Jou huidige data is onveranderd."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "መመለስ አሁን አይቻልም፦ የመተግበሪያው ማከማቻ አይገኝም። መተግበሪያውን እንደገና ያስጀምሩና እንደገና ይሞክሩ። ያለው ውሂብዎ አልተለወጠም።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستعادة غير ممكنة الآن: مساحة تخزين التطبيق غير متاحة. أعد تشغيل التطبيق وحاول مرة أخرى. بياناتك الحالية لم تتغير."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bərpa hazırda mümkün deyil: tətbiqin yaddaşı əlçatan deyil. Tətbiqi yenidən başlat və yenidən cəhd et. Mövcud məlumatların dəyişməyib."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Възстановяването в момента не е възможно: хранилището на приложението не е достъпно. Рестартирай приложението и опитай отново. Досегашните ти данни са непроменени."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এখন পুনরুদ্ধার সম্ভব নয়: অ্যাপের স্টোরেজ পাওয়া যাচ্ছে না। অ্যাপ আবার চালু করে আবার চেষ্টা করুন। আপনার আগের ডেটা অপরিবর্তিত আছে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vraćanje trenutno nije moguće: pohrana aplikacije nije dostupna. Ponovo pokreni aplikaciju i pokušaj ponovo. Tvoji dosadašnji podaci su nepromijenjeni."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ara mateix no es pot restaurar: l'emmagatzematge de l'app no està disponible. Reinicia l'app i torna-ho a provar. Les teves dades actuals no han canviat."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnovení teď není možné: úložiště aplikace není dostupné. Restartuj aplikaci a zkus to znovu. Tvoje dosavadní data zůstala beze změny."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gendannelse er ikke mulig lige nu: appens lager er ikke tilgængeligt. Genstart appen, og prøv igen. Dine nuværende data er uændrede."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiederherstellen geht gerade nicht: Der Speicher der App ist nicht verfügbar. Starte die App neu und versuch es nochmals. Deine bisherigen Daten sind unverändert."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η επαναφορά δεν είναι δυνατή τώρα: ο χώρος αποθήκευσης της εφαρμογής δεν είναι διαθέσιμος. Επανεκκίνησε την εφαρμογή και δοκίμασε ξανά. Τα τρέχοντα δεδομένα σου δεν άλλαξαν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore isn't possible right now: the app's storage isn't available. Restart the app and try again. Your current data is unchanged."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se puede restaurar ahora: el almacenamiento de la app no está disponible. Reinicia la app e inténtalo de nuevo. Tus datos actuales no han cambiado."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taastamine pole praegu võimalik: rakenduse salvestusruum pole saadaval. Taaskäivita rakendus ja proovi uuesti. Sinu senised andmed on muutmata."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezin da leheneratu une honetan: aplikazioaren biltegia ez dago erabilgarri. Berrabiarazi aplikazioa eta saiatu berriro. Zure orain arteko datuak ez dira aldatu."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بازیابی اکنون ممکن نیست: فضای ذخیره‌سازی برنامه در دسترس نیست. برنامه را دوباره راه‌اندازی کن و دوباره امتحان کن. داده‌های فعلی‌ات تغییری نکرده‌اند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palautus ei ole nyt mahdollista: sovelluksen tallennustila ei ole käytettävissä. Käynnistä sovellus uudelleen ja yritä uudestaan. Nykyiset tietosi ovat ennallaan."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi puwede ang pag-restore ngayon: hindi available ang storage ng app. I-restart ang app at subukan ulit. Hindi nagbago ang kasalukuyan mong data."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restauration impossible pour le moment : le stockage de l'app n'est pas disponible. Redémarre l'app et réessaie. Tes données actuelles sont inchangées."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níl athchóiriú indéanta anois: níl stóráil na haipe ar fáil. Atosaigh an aip agus bain triail eile as. Níor athraíodh do chuid sonraí reatha."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agora mesmo non se pode restaurar: o almacenamento da app non está dispoñible. Reinicia a app e téntao de novo. Os teus datos actuais non cambiaron."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "અત્યારે પુનઃસ્થાપન શક્ય નથી: ઍપનો સ્ટોરેજ ઉપલબ્ધ નથી. ઍપ ફરી શરૂ કરો અને ફરી પ્રયાસ કરો. તમારો અત્યાર સુધીનો ડેટા યથાવત છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שחזור אינו אפשרי כרגע: האחסון של האפליקציה אינו זמין. הפעילו מחדש את האפליקציה ונסו שוב. הנתונים הקיימים שלכם לא השתנו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रीस्टोर अभी संभव नहीं है: ऐप का स्टोरेज उपलब्ध नहीं है। ऐप को फिर से शुरू करें और दोबारा कोशिश करें। आपका मौजूदा डेटा नहीं बदला है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vraćanje trenutno nije moguće: pohrana aplikacije nije dostupna. Ponovno pokreni aplikaciju i pokušaj ponovno. Tvoji dosadašnji podaci nisu promijenjeni."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A visszaállítás most nem lehetséges: az alkalmazás tárhelye nem érhető el. Indítsd újra az alkalmazást, és próbáld újra. A meglévő adataid nem változtak."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Վերականգնումը հիմա հնարավոր չէ՝ հավելվածի պահոցը հասանելի չէ։ Վերագործարկիր հավելվածը և կրկին փորձիր։ Քո առկա տվյալները չեն փոխվել։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemulihan tidak bisa dilakukan sekarang: penyimpanan aplikasi tidak tersedia. Mulai ulang aplikasi lalu coba lagi. Data Anda saat ini tidak berubah."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endurheimt er ekki möguleg núna: geymsla forritsins er ekki tiltæk. Endurræstu forritið og reyndu aftur. Núverandi gögnin þín eru óbreytt."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ripristino non possibile al momento: lo spazio di archiviazione dell'app non è disponibile. Riavvia l'app e riprova. I tuoi dati attuali sono invariati."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在復元できません：アプリのストレージを利用できません。アプリを再起動して、もう一度お試しください。既存のデータは変更されていません。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "აღდგენა ახლა შეუძლებელია: აპის საცავი მიუწვდომელია. გადატვირთე აპი და კიდევ სცადე. შენი არსებული მონაცემები არ შეცვლილა."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Қалпына келтіру қазір мүмкін емес: қолданбаның жады қолжетімсіз. Қолданбаны қайта іске қосып, қайталап көріңіз. Бұрынғы деректеріңіз өзгерген жоқ."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "មិនអាចស្ដារបាននៅពេលនេះទេ៖ ទំហំផ្ទុករបស់កម្មវិធីមិនអាចប្រើបានទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ ហើយព្យាយាមម្តងទៀត។ ទិន្នន័យបច្ចុប្បន្នរបស់អ្នកមិនបានផ្លាស់ប្ដូរទេ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮರುಸ್ಥಾಪನೆ ಸದ್ಯ ಸಾಧ್ಯವಿಲ್ಲ: ಆ್ಯಪ್‌ನ ಸಂಗ್ರಹಣೆ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. ನಿಮ್ಮ ಈಗಿನ ಡೇಟಾ ಬದಲಾಗಿಲ್ಲ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 복원할 수 없습니다: 앱 저장 공간을 사용할 수 없습니다. 앱을 다시 시작한 후 다시 시도하세요. 기존 데이터는 변경되지 않았습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຕອນນີ້ກູ້ຄືນບໍ່ໄດ້: ບ່ອນເກັບຂໍ້ມູນຂອງແອັບບໍ່ພ້ອມໃຊ້ງານ. ເປີດແອັບຄືນໃໝ່ ແລ້ວລອງອີກຄັ້ງ. ຂໍ້ມູນປັດຈຸບັນຂອງທ່ານບໍ່ມີການປ່ຽນແປງ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atkurti dabar negalima: programėlės saugykla nepasiekiama. Paleisk programėlę iš naujo ir bandyk dar kartą. Tavo esami duomenys nepakeisti."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atjaunošana pašlaik nav iespējama: lietotnes krātuve nav pieejama. Restartē lietotni un mēģini vēlreiz. Tavi esošie dati nav mainīti."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Враќањето моментално не е можно: складиштето на апликацијата не е достапно. Рестартирај ја апликацијата и обиди се повторно. Твоите досегашни податоци се непроменети."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഇപ്പോൾ പുനഃസ്ഥാപിക്കൽ സാധ്യമല്ല: ആപ്പിന്റെ സ്റ്റോറേജ് ലഭ്യമല്ല. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക. നിങ്ങളുടെ നിലവിലെ ഡാറ്റ മാറിയിട്ടില്ല."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Одоо сэргээх боломжгүй: аппын санах ой ашиглах боломжгүй байна. Аппыг дахин эхлүүлээд дахин оролдоно уу. Таны одоогийн өгөгдөл өөрчлөгдөөгүй."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सध्या पुनर्संचयन शक्य नाही: ॲपचा स्टोरेज उपलब्ध नाही. ॲप रीस्टार्ट करा आणि पुन्हा प्रयत्न करा. तुमचा सध्याचा डेटा बदललेला नाही."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemulihan tidak dapat dibuat sekarang: storan apl tidak tersedia. Mulakan semula apl dan cuba lagi. Data anda yang sedia ada tidak berubah."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ယခု ပြန်ယူ၍ မရပါ- အက်ပ်၏ သိုလှောင်ခန်းကို အသုံးပြု၍ မရပါ။ အက်ပ်ကို ပြန်စတင်ပြီး ထပ်ကြိုးစားပါ။ သင့်လက်ရှိ ဒေတာများ မပြောင်းလဲပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gjenoppretting er ikke mulig akkurat nå: appens lagring er ikke tilgjengelig. Start appen på nytt og prøv igjen. Dataene dine er uendret."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अहिले पुनर्स्थापना सम्भव छैन: एपको भण्डारण उपलब्ध छैन। एप पुनः सुरु गरेर फेरि प्रयास गर्नुहोस्। तपाईंको हालको डेटा परिवर्तन भएको छैन।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terugzetten is nu niet mogelijk: de opslag van de app is niet beschikbaar. Start de app opnieuw en probeer het nog eens. Je huidige gegevens zijn ongewijzigd."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਬਹਾਲੀ ਹੁਣੇ ਸੰਭਵ ਨਹੀਂ: ਐਪ ਦੀ ਸਟੋਰੇਜ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਐਪ ਮੁੜ ਸ਼ੁਰੂ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਡਾਟਾ ਨਹੀਂ ਬਦਲਿਆ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przywracanie nie jest teraz możliwe: pamięć aplikacji jest niedostępna. Uruchom aplikację ponownie i spróbuj jeszcze raz. Twoje dotychczasowe dane pozostały bez zmian."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O restauro não é possível agora: o armazenamento da app não está disponível. Reinicia a app e tenta novamente. Os teus dados atuais não foram alterados."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A restauração não é possível agora: o armazenamento do app não está disponível. Reinicie o app e tente novamente. Seus dados atuais não foram alterados."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurarea nu este posibilă acum: spațiul de stocare al aplicației nu este disponibil. Repornește aplicația și încearcă din nou. Datele tale actuale nu s-au schimbat."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Восстановление сейчас невозможно: хранилище приложения недоступно. Перезапусти приложение и попробуй снова. Твои текущие данные не изменились."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දැන් ප්‍රතිසාධනය කළ නොහැක: යෙදුමේ ගබඩාව ලබා ගත නොහැක. යෙදුම යළි ආරම්භ කර යළි උත්සාහ කරන්න. ඔබගේ වත්මන් දත්ත වෙනස් වී නැත."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnovenie teraz nie je možné: úložisko aplikácie nie je dostupné. Reštartuj aplikáciu a skús to znova. Tvoje doterajšie údaje zostali nezmenené."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnovitev trenutno ni mogoča: shramba aplikacije ni na voljo. Znova zaženi aplikacijo in poskusi znova. Tvoji dosedanji podatki so nespremenjeni."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rikthimi nuk është i mundur tani: hapësira ruajtëse e aplikacionit nuk është e disponueshme. Rinis aplikacionin dhe provo përsëri. Të dhënat e tua aktuale nuk kanë ndryshuar."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Враћање тренутно није могуће: складиште апликације није доступно. Поново покрени апликацију и покушај поново. Твоји досадашњи подаци су непромењени."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vraćanje trenutno nije moguće: skladište aplikacije nije dostupno. Ponovo pokreni aplikaciju i pokušaj ponovo. Tvoji dosadašnji podaci su nepromenjeni."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Återställning går inte just nu: appens lagring är inte tillgänglig. Starta om appen och försök igen. Dina nuvarande data är oförändrade."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurejesha hakuwezekani sasa hivi: hifadhi ya programu haipatikani. Anzisha upya programu na ujaribu tena. Data yako ya sasa haijabadilika."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மீட்டமைப்பு இப்போது சாத்தியமில்லை: ஆப்பின் சேமிப்பகம் கிடைக்கவில்லை. ஆப்பை மீண்டும் தொடங்கி மீண்டும் முயலவும். உங்கள் தற்போதைய தரவு மாறவில்லை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పునరుద్ధరణ ప్రస్తుతం సాధ్యం కాదు: యాప్ స్టోరేజ్ అందుబాటులో లేదు. యాప్‌ను రీస్టార్ట్ చేసి మళ్లీ ప్రయత్నించండి. మీ ప్రస్తుత డేటా మారలేదు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กู้คืนไม่ได้ในขณะนี้: พื้นที่จัดเก็บของแอปใช้งานไม่ได้ รีสตาร์ทแอปแล้วลองอีกครั้ง ข้อมูลเดิมของคุณไม่มีการเปลี่ยนแปลง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geri yükleme şu anda mümkün değil: uygulamanın depolama alanı kullanılamıyor. Uygulamayı yeniden başlatıp tekrar dene. Mevcut verilerin değişmedi."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відновлення зараз неможливе: сховище застосунку недоступне. Перезапусти застосунок і спробуй знову. Твої поточні дані не змінилися."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحالی ابھی ممکن نہیں: ایپ کا اسٹوریج دستیاب نہیں۔ ایپ دوبارہ شروع کر کے پھر کوشش کریں۔ آپ کا موجودہ ڈیٹا تبدیل نہیں ہوا۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiklash hozir imkonsiz: ilova xotirasi mavjud emas. Ilovani qayta ishga tushiring va qayta urinib koʻring. Mavjud maʼlumotlaringiz oʻzgarmagan."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể khôi phục: bộ nhớ của ứng dụng không khả dụng. Hãy khởi động lại ứng dụng và thử lại. Dữ liệu hiện tại của bạn không thay đổi."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫時無法還原：App 嘅儲存空間用唔到。請重新啟動 App 再試。你原本嘅資料冇改變。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前无法恢复：应用的存储空间不可用。请重新启动应用后再试。您原有的数据未变更。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前無法還原：應用程式的儲存空間無法使用。請重新啟動應用程式後再試。您原有的資料未變更。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukubuyisela akukwenzeki okwamanje: isitoreji se-app asitholakali. Qala kabusha i-app bese uzama futhi. Idatha yakho yamanje ayishintshile."
           }
         }
       }
@@ -275301,6 +275756,916 @@
         }
       }
     },
+    "exchange_retired_notice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sedert %2$@ verskaf %1$@ nie meer openbare pryse nie. Kies ’n ander beurs vir hierdie munte."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ከ%2$@ ጀምሮ %1$@ ይፋዊ ዋጋዎችን አያቀርብም። ለእነዚህ ሳንቲሞች ሌላ ልውውጥ ይምረጡ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منذ %2$@ لم تعد %1$@ توفّر أسعارًا عامة. اختر منصة أخرى لهذه العملات."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@ tarixindən bəri açıq qiymət vermir. Bu koinlər üçün başqa birja seç."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "От %2$@ %1$@ вече не предоставя публични цени. Избери друга борса за тези монети."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ থেকে %1$@ আর পাবলিক দাম দেয় না। এই কয়েনগুলোর জন্য অন্য এক্সচেঞ্জ বেছে নিন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ više ne daje javne cijene. Izaberi drugu berzu za ove kriptovalute."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Des del %2$@, %1$@ ja no ofereix preus públics. Tria un altre exchange per a aquestes monedes."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ už neposkytuje veřejné ceny. Pro tyto mince zvol jinou burzu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siden %2$@ leverer %1$@ ikke længere offentlige priser. Vælg en anden børs til disse mønter."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ liefert seit %2$@ keine öffentlichen Kurse mehr. Wähle für diese Coins eine andere Börse."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Από τις %2$@ το %1$@ δεν παρέχει πλέον δημόσιες τιμές. Επίλεξε άλλο ανταλλακτήριο για αυτά τα νομίσματα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Since %2$@, %1$@ no longer provides public prices. Choose another exchange for these coins."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde el %2$@, %1$@ ya no ofrece precios públicos. Elige otro exchange para estas monedas."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alates %2$@ ei paku %1$@ enam avalikke hindu. Vali nende müntide jaoks teine börs."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@-(e)tik aurrera, %1$@-k ez du prezio publikorik ematen. Aukeratu beste burtsa bat txanpon hauentzat."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از %2$@، %1$@ دیگر قیمت عمومی ارائه نمی‌دهد. برای این ارزها صرافی دیگری انتخاب کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ alkaen %1$@ ei enää tarjoa julkisia hintoja. Valitse näille kolikoille toinen pörssi."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mula %2$@, hindi na nagbibigay ng pampublikong presyo ang %1$@. Pumili ng ibang exchange para sa mga coin na ito."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depuis le %2$@, %1$@ ne fournit plus de cours publics. Choisis une autre plateforme pour ces cryptos."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ó %2$@, ní sholáthraíonn %1$@ praghsanna poiblí a thuilleadh. Roghnaigh malartán eile do na boinn seo."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde o %2$@, %1$@ xa non ofrece prezos públicos. Escolle outro exchange para estas moedas."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ થી %1$@ હવે જાહેર કિંમતો આપતું નથી. આ કૉઇન માટે બીજું એક્સચેન્જ પસંદ કરો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מאז %2$@ %1$@ כבר לא מספקת מחירים ציבוריים. בחרו בורסה אחרת למטבעות האלה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ से %1$@ अब सार्वजनिक कीमतें नहीं देता। इन कॉइन के लिए कोई दूसरा एक्सचेंज चुनें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ više ne daje javne cijene. Odaberi drugu burzu za ove kriptovalute."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ óta a(z) %1$@ nem ad nyilvános árfolyamokat. Válassz másik tőzsdét ezekhez az érmékhez."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@-ից %1$@-ն այլևս հանրային գներ չի տրամադրում։ Այս կոինների համար ընտրիր այլ բորսա։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sejak %2$@, %1$@ tidak lagi menyediakan harga publik. Pilih bursa lain untuk koin-koin ini."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frá %2$@ veitir %1$@ ekki lengur opinber verð. Veldu aðra kauphöll fyrir þessar myntir."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dal %2$@ %1$@ non fornisce più prezzi pubblici. Scegli un altro exchange per queste monete."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ は %2$@ から公開価格を提供していません。これらのコインには別の取引所を選択してください。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@-დან %1$@ საჯარო ფასებს აღარ აწვდის. ამ მონეტებისთვის სხვა ბირჟა აირჩიე."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ бастап %1$@ ашық бағаларды бермейді. Бұл монеталар үшін басқа биржаны таңдаңыз."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ចាប់ពី %2$@ %1$@ លែងផ្ដល់តម្លៃសាធារណៈទៀតហើយ។ សូមជ្រើសរើសផ្សារប្តូរផ្សេងសម្រាប់កាក់ទាំងនេះ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ ರಿಂದ %1$@ ಸಾರ್ವಜನಿಕ ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ. ಈ ಕಾಯಿನ್‌ಗಳಿಗೆ ಬೇರೆ ಎಕ್ಸ್‌ಚೇಂಜ್ ಆಯ್ಕೆಮಾಡಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@부터 %1$@에서 공개 시세를 더 이상 제공하지 않습니다. 이 코인에는 다른 거래소를 선택하세요."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຕັ້ງແຕ່ %2$@, %1$@ ບໍ່ໃຫ້ລາຄາສາທາລະນະອີກແລ້ວ. ກະລຸນາເລືອກກະດານແລກປ່ຽນອື່ນສຳລັບຫຼຽນເຫຼົ່ານີ້."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuo %2$@ %1$@ nebeteikia viešų kainų. Šioms monetoms pasirink kitą biržą."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopš %2$@ %1$@ vairs nesniedz publiskas cenas. Izvēlies citu biržu šīm monētām."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Од %2$@ %1$@ повеќе не дава јавни цени. Избери друга берза за овие монети."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ മുതൽ %1$@ പൊതു വിലകൾ നൽകുന്നില്ല. ഈ കോയിനുകൾക്ക് മറ്റൊരു എക്സ്ചേഞ്ച് തിരഞ്ഞെടുക്കുക."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@-аас хойш %1$@ нийтийн үнэ өгөхөө больсон. Эдгээр зоосонд өөр бирж сонгоно уу."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ पासून %1$@ सार्वजनिक किंमती देत नाही. या कॉइनसाठी दुसरे एक्सचेंज निवडा."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sejak %2$@, %1$@ tidak lagi menyediakan harga awam. Sila pilih bursa lain untuk koin ini."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ မှစ၍ %1$@ သည် အများသုံး စျေးနှုန်းများ မပေးတော့ပါ။ ဤကွိုင်များအတွက် အခြားလဲလှယ်ရေးဌာနကို ရွေးချယ်ပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siden %2$@ leverer %1$@ ikke lenger offentlige priser. Velg en annen børs for disse myntene."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ देखि %1$@ ले सार्वजनिक मूल्य दिँदैन। यी कोइनका लागि अर्को एक्सचेन्ज छान्नुहोस्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinds %2$@ levert %1$@ geen openbare koersen meer. Kies een andere beurs voor deze munten."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ ਤੋਂ %1$@ ਜਨਤਕ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ। ਇਹਨਾਂ ਕੌਇਨਾਂ ਲਈ ਕੋਈ ਹੋਰ ਐਕਸਚੇਂਜ ਚੁਣੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ nie podaje już publicznych cen. Wybierz inną giełdę dla tych monet."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde %2$@, a %1$@ já não fornece preços públicos. Escolhe outra exchange para estas moedas."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde %2$@, a %1$@ não fornece mais preços públicos. Escolha outra corretora para estas moedas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din %2$@, %1$@ nu mai furnizează prețuri publice. Alege altă bursă pentru aceste monede."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "С %2$@ %1$@ больше не предоставляет публичные цены. Выбери другую биржу для этих монет."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ සිට %1$@ පොදු මිල ලබා නොදෙයි. මෙම කාසි සඳහා වෙනත් හුවමාරුවක් තෝරන්න."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ už neposkytuje verejné ceny. Pre tieto mince vyber inú burzu."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ ne zagotavlja več javnih cen. Za te kovance izberi drugo borzo."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Që nga %2$@, %1$@ nuk jep më çmime publike. Zgjidh një bursë tjetër për këto monedha."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Од %2$@ %1$@ више не даје јавне цене. Изабери другу берзу за ове криптовалуте."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Od %2$@ %1$@ više ne daje javne cene. Izaberi drugu berzu za ove kriptovalute."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sedan %2$@ levererar %1$@ inte längre offentliga priser. Välj en annan börs för de här mynten."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tangu %2$@, %1$@ haitoi tena bei za umma. Chagua soko lingine kwa sarafu hizi."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ முதல் %1$@ பொது விலைகளை வழங்குவதில்லை. இந்த காயின்களுக்கு வேறு எக்ஸ்சேஞ்சைத் தேர்ந்தெடுக்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ నుండి %1$@ పబ్లిక్ ధరలను అందించదు. ఈ కాయిన్‌ల కోసం వేరే ఎక్స్ఛేంజ్‌ను ఎంచుకోండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตั้งแต่ %2$@ %1$@ ไม่ให้ข้อมูลราคาสาธารณะแล้ว โปรดเลือกกระดานเทรดอื่นสำหรับเหรียญเหล่านี้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@ tarihinden beri herkese açık fiyat sağlamıyor. Bu coinler için başka bir borsa seç."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "З %2$@ %1$@ більше не надає публічні ціни. Обери іншу біржу для цих монет."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ سے %1$@ عوامی قیمتیں فراہم نہیں کرتا۔ ان کوائنز کے لیے کوئی دوسرا ایکسچینج منتخب کریں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$@ dan boshlab %1$@ ochiq narxlarni bermaydi. Bu tangalar uchun boshqa birjani tanlang."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Từ %2$@, %1$@ không còn cung cấp giá công khai. Vui lòng chọn sàn khác cho các coin này."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由 %2$@ 起，%1$@ 已經唔再提供公開價格。請為呢啲幣揀另一個交易所。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自 %2$@ 起，%1$@ 已不再提供公开价格。请为这些币种选择其他交易所。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自 %2$@ 起，%1$@ 已不再提供公開價格。請為這些幣種選擇其他交易所。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kusukela ngo-%2$@, i-%1$@ ayisanikezi ngamanani omphakathi. Khetha enye i-exchange yalawa ma-coin."
+          }
+        }
+      }
+    },
+    "exchange_retired_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verskaf nie meer pryse nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ከእንግዲህ ዋጋዎችን አያቀርብም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم تعد %1$@ توفّر الأسعار"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ artıq qiymət vermir"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ вече не предоставя цени"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ আর দাম দেয় না"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cijene"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ja no ofereix preus"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ už neposkytuje ceny"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ leverer ikke længere priser"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ liefert keine Kurse mehr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το %1$@ δεν παρέχει πλέον τιμές"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no longer provides prices"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ya no ofrece precios"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ei paku enam hindu"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-k ez du preziorik ematen jada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ دیگر قیمت ارائه نمی‌دهد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ei enää tarjoa hintoja"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi na nagbibigay ng presyo ang %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne fournit plus de cours"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ní sholáthraíonn %1$@ praghsanna a thuilleadh"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ xa non ofrece prezos"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ હવે કિંમતો આપતું નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ כבר לא מספקת מחירים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ अब कीमतें नहीं देता"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cijene"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A(z) %1$@ már nem ad árfolyamokat"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-ն այլևս գներ չի տրամադրում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ tidak lagi menyediakan harga"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ veitir ekki lengur verð"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non fornisce più prezzi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ は価格の提供を終了しました"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ფასებს აღარ აწვდის"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ енді баға бермейді"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ លែងផ្ដល់តម្លៃទៀតហើយ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ಇನ್ನು ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@에서 더 이상 시세를 제공하지 않습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ບໍ່ໃຫ້ລາຄາອີກແລ້ວ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nebeteikia kainų"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vairs nesniedz cenas"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ повеќе не дава цени"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ഇനി വിലകൾ നൽകുന്നില്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ үнэ өгөхөө больсон"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ आता किंमती देत नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ tidak lagi menyediakan harga"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ သည် စျေးနှုန်းများ မပေးတော့ပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ leverer ikke lenger priser"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ले अब मूल्य दिँदैन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ levert geen koersen meer"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ਹੁਣ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nie podaje już cen"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ já não fornece preços"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ não fornece mais preços"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nu mai furnizează prețuri"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ больше не предоставляет цены"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ තවදුරටත් මිල ලබා නොදෙයි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ už neposkytuje ceny"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne zagotavlja več cen"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nuk jep më çmime"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ више не даје цене"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cene"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ levererar inte längre priser"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ haitoi tena bei"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ இனி விலைகளை வழங்குவதில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ఇకపై ధరలను అందించదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ไม่ให้ข้อมูลราคาแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ artık fiyat sağlamıyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ більше не надає ціни"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ اب قیمتیں فراہم نہیں کرتا"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ endi narx bermaydi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ không còn cung cấp giá"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已經唔再提供價格"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已不再提供价格"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已不再提供價格"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-%1$@ ayisanikezi ngamanani"
+          }
+        }
+      }
+    },
     "exchange_unavailable_error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -308152,7 +309517,7 @@
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ផ្ទាល់ (ផ្សារប្តូរប្រាក់)"
+            "value" : "ផ្ទាល់ (ផ្សារប្តូរ)"
           }
         },
         "kn" : {
@@ -308170,7 +309535,7 @@
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ສົດ (ຕະຫຼາດແລກປ່ຽນ)"
+            "value" : "ສົດ (ກະດານແລກປ່ຽນ)"
           }
         },
         "lt" : {
@@ -308218,7 +309583,7 @@
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "တိုက်ရိုက် (ငွေလဲလှယ်ရာ)"
+            "value" : "တိုက်ရိုက် (လဲလှယ်ရေးဌာန)"
           }
         },
         "nb" : {
@@ -308320,7 +309685,7 @@
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moja kwa moja (soko)"
+            "value" : "Moja kwa moja (jukwaa)"
           }
         },
         "ta" : {
@@ -308392,7 +309757,7 @@
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bukhoma (ukushintshana)"
+            "value" : "Bukhoma (i-exchange)"
           }
         }
       }
@@ -755280,7 +756645,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Վերահաշվում է բոլոր տարիները. փոխվում են նաև նախորդ տարիների ձեռքբերման արժեքը, իրացված շահույթը և հարկային թերթիկները։"
+            "value" : "Վերահաշվում է բոլոր տարիները․ փոխվում են նաև նախորդ տարիների ձեռքբերման արժեքը, իրացված շահույթը և հարկային թերթիկները։"
           }
         },
         "id" : {
@@ -755322,7 +756687,7 @@
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "គណនាឆ្នាំទាំងអស់ឡើងវិញ៖ តម្លៃទិញ ប្រាក់ចំណេញដែលទទួលបាន និងសន្លឹកពន្ធនៃឆ្នាំមុនៗក៏ផ្លាស់ប្ដូរដែរ។"
+            "value" : "គណនាឆ្នាំទាំងអស់ឡើងវិញ៖ តម្លៃទិញ ប្រាក់ចំណេញដែលបានសម្រេច និងសន្លឹកពន្ធនៃឆ្នាំមុនៗក៏ផ្លាស់ប្ដូរដែរ។"
           }
         },
         "kn" : {
@@ -755340,7 +756705,7 @@
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ຄິດໄລ່ທຸກປີໃໝ່: ຕົ້ນທຶນ, ກຳໄລທີ່ໄດ້ຮັບ ແລະ ແຜ່ນວຽກພາສີຂອງປີກ່ອນໆກໍ່ປ່ຽນນຳ."
+            "value" : "ຄິດໄລ່ທຸກປີໃໝ່: ຕົ້ນທຶນ, ກຳໄລທີ່ຮັບຮູ້ແລ້ວ ແລະ ແຜ່ນວຽກພາສີຂອງປີກ່ອນໆກໍ່ປ່ຽນນຳ."
           }
         },
         "lt" : {
@@ -755370,7 +756735,7 @@
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Бүх жилийг дахин тооцно: өмнөх жилүүдийн худалдан авсан өртөг, бодит ашиг, татварын хүснэгтүүд ч өөрчлөгдөнө."
+            "value" : "Бүх жилийг дахин тооцно: өмнөх жилүүдийн худалдан авсан өртөг, хэрэгжсэн ашиг, татварын хүснэгтүүд ч өөрчлөгдөнө."
           }
         },
         "mr" : {
@@ -755448,7 +756813,7 @@
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "සියලු වසර නැවත ගණනය කරයි: පෙර වසරවල මිලදී ගැනීමේ පිරිවැය, ලබාගත් ලාභය සහ බදු පත්‍රිකා ද වෙනස් වේ."
+            "value" : "සියලු වසර නැවත ගණනය කරයි: පෙර වසරවල මිලදී ගැනීමේ පිරිවැය, සාක්ෂාත් ලාභය සහ බදු පත්‍රිකා ද වෙනස් වේ."
           }
         },
         "sk" : {
@@ -755532,7 +756897,7 @@
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Barcha yillarni qayta hisoblaydi: oldingi yillarning xarid qiymati, amalga oshgan foyda va soliq varaqlari ham o‘zgaradi."
+            "value" : "Barcha yillarni qayta hisoblaydi: oldingi yillarning xarid qiymati, amalga oshgan foyda va soliq varaqlari ham oʻzgaradi."
           }
         },
         "vi" : {
@@ -781387,7 +782752,7 @@
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zure transakzioak, zorroaren alertak eta jarraitutako helbideak Android-en babeskopian (adib. zure Google kontuan) eta gailu berrira transferitzean sartuko dira – muturretik muturrera enkriptatuta soilik."
+            "value" : "Zure transakzioak, zorroaren alarmak eta jarraitutako helbideak Android-en babeskopian (adib. zure Google kontuan) eta gailu berrira transferitzean sartuko dira – muturretik muturrera zifratuta soilik."
           }
         },
         "fa" : {
@@ -781417,7 +782782,7 @@
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rachaidh d’idirbhearta, foláirimh phunann agus seoltaí faoi fhaire ansin i gcúltaca Android (m.sh. i do chuntas Google) agus in aistriú chuig gléas nua – criptithe ó cheann ceann amháin."
+            "value" : "Rachaidh d’idirbhearta, foláirimh punainne agus seoltaí faoi fhaire ansin i gcúltaca Android (m.sh. i do chuntas Google) agus in aistriú chuig gléas nua – criptithe ó cheann ceann amháin."
           }
         },
         "gl" : {
@@ -781459,7 +782824,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ձեր գործարքները, պորտֆելի ազդանշանները և դիտարկվող հասցեները այդ դեպքում կներառվեն Android-ի պահուստում (օր.՝ Google հաշվում) և նոր սարք փոխանցելիս – միայն ծայրից ծայր գաղտնագրված։"
+            "value" : "Քո գործարքները, պորտֆելի ահազանգերը և դիտվող հասցեները այդ դեպքում կներառվեն Android-ի պահուստում (օր.՝ Google հաշվում) և նոր սարք փոխանցելիս – միայն ծայրից ծայր գաղտնագրված։"
           }
         },
         "id" : {
@@ -781471,7 +782836,7 @@
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Færslurnar þínar, eignasafnsviðvaranir og vaktaðar slóðir fara þá í Android-afritið (t.d. á Google-reikninginn þinn) og í flutning á nýtt tæki – aðeins dulkóðað frá enda til enda."
+            "value" : "Færslurnar þínar, eignasafnsviðvaranir og vöktuð vistföng fara þá í Android-afritið (t.d. á Google-reikninginn þinn) og í flutning á nýtt tæki – aðeins dulkóðað frá enda til enda."
           }
         },
         "it" : {
@@ -781489,7 +782854,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "თქვენი ტრანზაქციები, პორტფელის შეტყობინებები და თვალყურდევნებული მისამართები მაშინ მოხვდება Android-ის სარეზერვო ასლში (მაგ. თქვენს Google ანგარიშში) და ახალ მოწყობილობაზე გადატანაში – მხოლოდ ბოლომდე დაშიფრული."
+            "value" : "შენი ტრანზაქციები, პორტფელის განგაშები და დაკვირვებადი მისამართები მაშინ მოხვდება Android-ის სარეზერვო ასლში (მაგ. შენს Google ანგარიშში) და ახალ მოწყობილობაზე გადატანაში – მხოლოდ ბოლოდან ბოლომდე დაშიფრული."
           }
         },
         "kk" : {
@@ -781501,7 +782866,7 @@
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ប្រតិបត្តិការ ការជូនដំណឹងផតហ្វូលីយ៉ូ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក Android (ឧ. គណនី Google របស់អ្នក) និងការផ្ទេរទៅឧបករណ៍ថ្មី – តែការអ៊ិនគ្រីបពីចុងដល់ចុងប៉ុណ្ណោះ។"
+            "value" : "ប្រតិបត្តិការ ការដាស់តឿនផលប័ត្រ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក Android (ឧ. គណនី Google របស់អ្នក) និងការផ្ទេរទៅឧបករណ៍ថ្មី – តែការអ៊ិនគ្រីបពីចុងដល់ចុងប៉ុណ្ណោះ។"
           }
         },
         "kn" : {
@@ -781519,7 +782884,7 @@
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ທຸລະກຳ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ Android (ເຊັ່ນ ບັນຊີ Google ຂອງທ່ານ) ແລະ ການຍ້າຍໄປອຸປະກອນໃໝ່ – ສະເພາະແບບເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງເທົ່ານັ້ນ."
+            "value" : "ທຸລະກຳ, ສັນຍານເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ Android (ເຊັ່ນ ບັນຊີ Google ຂອງທ່ານ) ແລະ ການຍ້າຍໄປອຸປະກອນໃໝ່ – ສະເພາະແບບເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງເທົ່ານັ້ນ."
           }
         },
         "lt" : {
@@ -781549,7 +782914,7 @@
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Таны гүйлгээ, багцын сэрэмжлүүлэг, ажиглаж буй хаягууд Android-ийн нөөцөд (жишээ нь таны Google бүртгэлд) болон шинэ төхөөрөмж рүү шилжүүлэхэд орно – зөвхөн төгсгөл хүртэл шифрлэгдсэн үед."
+            "value" : "Таны гүйлгээ, багцын дохио, ажиглаж буй хаягууд Android-ийн нөөцөд (жишээ нь таны Google бүртгэлд) болон шинэ төхөөрөмж рүү шилжүүлэхэд орно – зөвхөн төгсгөлөөс төгсгөл хүртэл шифрлэгдсэн үед."
           }
         },
         "mr" : {
@@ -781567,7 +782932,7 @@
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သင်၏ ငွေလွှဲမှုများ၊ ပေါ့တ်ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် Android အရန်သိမ်းဆည်းမှု (ဥပမာ သင်၏ Google အကောင့်) နှင့် စက်အသစ်သို့ လွှဲပြောင်းမှုတွင် ပါဝင်သွားပါမည် – အစမှအဆုံး ကုဒ်ဝှက်ထားမှသာ။"
+            "value" : "သင်၏ ငွေပေးငွေယူများ၊ ပေါ့ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် Android အရန်သိမ်းဆည်းမှု (ဥပမာ သင်၏ Google အကောင့်) နှင့် စက်အသစ်သို့ လွှဲပြောင်းမှုတွင် ပါဝင်သွားပါမည် – အစမှအဆုံး ကုဒ်ပြောင်းဝှက်ထားမှသာ။"
           }
         },
         "nb" : {
@@ -781669,7 +783034,7 @@
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Miamala yako, arifa za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu ya Android (k.m. akaunti yako ya Google) na kwenye uhamishaji kwenda kifaa kipya – zikiwa zimesimbwa mwanzo hadi mwisho pekee."
+            "value" : "Miamala yako, kengele za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu ya Android (k.m. akaunti yako ya Google) na kwenye uhamishaji kwenda kifaa kipya – zikiwa zimesimbwa mwanzo hadi mwisho pekee."
           }
         },
         "ta" : {
@@ -781711,7 +783076,7 @@
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shunda tranzaksiyalaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillar Android zaxira nusxasiga (masalan, Google hisobingizga) va yangi qurilmaga ko‘chirishga kiradi – faqat uchdan-uchgacha shifrlangan holda."
+            "value" : "Shunda tranzaksiyalaringiz, portfel signallari va kuzatilayotgan manzillar Android zaxira nusxasiga (masalan, Google hisobingizga) va yangi qurilmaga koʻchirishga kiradi – faqat uchdan-uchgacha shifrlangan holda."
           }
         },
         "vi" : {
@@ -781741,7 +783106,7 @@
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ukuthengiselana kwakho, izexwayiso zephothifoliyo namakheli owalandelayo kuzongena ekwenzeni isipele kwe-Android (isb. ku-akhawunti yakho ye-Google) nasekudluliseleni kudivayisi entsha – kubethelwe kusukela ekuqaleni kuya ekugcineni kuphela."
+            "value" : "Imisebenzi yakho, ama-alamu e-portfolio namakheli owalandelayo kuzongena ekwenzeni isipele kwe-Android (isb. ku-akhawunti yakho ye-Google) nasekudluliseleni kudivayisi entsha – kubethelwe kusukela ekuqaleni kuya ekugcineni kuphela."
           }
         }
       }
@@ -781842,7 +783207,7 @@
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zure transakzioak, zorroaren alertak eta jarraitutako helbideak iPhone honen iCloud edo ordenagailuko babeskopietan sartuko dira. iPhone honetan bakarrik leheneratu daitezke."
+            "value" : "Zure transakzioak, zorroaren alarmak eta jarraitutako helbideak iPhone honen iCloud edo ordenagailuko babeskopietan sartuko dira. iPhone honetan bakarrik leheneratu daitezke."
           }
         },
         "fa" : {
@@ -781872,7 +783237,7 @@
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rachaidh d’idirbhearta, foláirimh phunann agus seoltaí faoi fhaire ansin i gcúltacaí iCloud nó ríomhaire an iPhone seo. Ní féidir iad a athchóiriú ach ar an iPhone seo."
+            "value" : "Rachaidh d’idirbhearta, foláirimh punainne agus seoltaí faoi fhaire ansin i gcúltacaí iCloud nó ríomhaire an iPhone seo. Ní féidir iad a athchóiriú ach ar an iPhone seo."
           }
         },
         "gl" : {
@@ -781914,7 +783279,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ձեր գործարքները, պորտֆելի ազդանշանները և դիտարկվող հասցեները այդ դեպքում կներառվեն այս iPhone-ի iCloud-ի կամ համակարգչի պահուստներում։ Դրանք կարելի է վերականգնել միայն այս iPhone-ում։"
+            "value" : "Քո գործարքները, պորտֆելի ահազանգերը և դիտվող հասցեները այդ դեպքում կներառվեն այս iPhone-ի iCloud-ի կամ համակարգչի պահուստներում։ Դրանք կարելի է վերականգնել միայն այս iPhone-ում։"
           }
         },
         "id" : {
@@ -781926,7 +783291,7 @@
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Færslurnar þínar, eignasafnsviðvaranir og vaktaðar slóðir fara þá í iCloud- eða tölvuafrit þessa iPhone. Aðeins er hægt að endurheimta þær á þessum iPhone."
+            "value" : "Færslurnar þínar, eignasafnsviðvaranir og vöktuð vistföng fara þá í iCloud- eða tölvuafrit þessa iPhone. Aðeins er hægt að endurheimta þau á þessum iPhone."
           }
         },
         "it" : {
@@ -781944,7 +783309,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "თქვენი ტრანზაქციები, პორტფელის შეტყობინებები და თვალყურდევნებული მისამართები მაშინ მოხვდება ამ iPhone-ის iCloud-ის ან კომპიუტერის სარეზერვო ასლებში. აღდგენა მხოლოდ ამ iPhone-ზეა შესაძლებელი."
+            "value" : "შენი ტრანზაქციები, პორტფელის განგაშები და დაკვირვებადი მისამართები მაშინ მოხვდება ამ iPhone-ის iCloud-ის ან კომპიუტერის სარეზერვო ასლებში. აღდგენა მხოლოდ ამ iPhone-ზეა შესაძლებელი."
           }
         },
         "kk" : {
@@ -781956,7 +783321,7 @@
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ប្រតិបត្តិការ ការជូនដំណឹងផតហ្វូលីយ៉ូ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក iCloud ឬកុំព្យូទ័ររបស់ iPhone នេះ។ អាចស្ដារបានតែលើ iPhone នេះប៉ុណ្ណោះ។"
+            "value" : "ប្រតិបត្តិការ ការដាស់តឿនផលប័ត្រ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក iCloud ឬកុំព្យូទ័ររបស់ iPhone នេះ។ អាចស្ដារបានតែលើ iPhone នេះប៉ុណ្ណោះ។"
           }
         },
         "kn" : {
@@ -781974,7 +783339,7 @@
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ທຸລະກຳ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ iCloud ຫຼື ຄອມພິວເຕີຂອງ iPhone ນີ້. ກູ້ຄືນໄດ້ສະເພາະໃນ iPhone ນີ້ເທົ່ານັ້ນ."
+            "value" : "ທຸລະກຳ, ສັນຍານເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ iCloud ຫຼື ຄອມພິວເຕີຂອງ iPhone ນີ້. ກູ້ຄືນໄດ້ສະເພາະໃນ iPhone ນີ້ເທົ່ານັ້ນ."
           }
         },
         "lt" : {
@@ -782004,7 +783369,7 @@
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Таны гүйлгээ, багцын сэрэмжлүүлэг, ажиглаж буй хаягууд энэ iPhone-ийн iCloud эсвэл компьютерийн нөөцөд орно. Тэдгээрийг зөвхөн энэ iPhone дээр сэргээх боломжтой."
+            "value" : "Таны гүйлгээ, багцын дохио, ажиглаж буй хаягууд энэ iPhone-ийн iCloud эсвэл компьютерийн нөөцөд орно. Тэдгээрийг зөвхөн энэ iPhone дээр сэргээх боломжтой."
           }
         },
         "mr" : {
@@ -782022,7 +783387,7 @@
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "သင်၏ ငွေလွှဲမှုများ၊ ပေါ့တ်ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် ဤ iPhone ၏ iCloud သို့မဟုတ် ကွန်ပျူတာ အရန်များတွင် ပါဝင်သွားပါမည်။ ဤ iPhone တွင်သာ ပြန်ယူနိုင်ပါသည်။"
+            "value" : "သင်၏ ငွေပေးငွေယူများ၊ ပေါ့ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် ဤ iPhone ၏ iCloud သို့မဟုတ် ကွန်ပျူတာ အရန်များတွင် ပါဝင်သွားပါမည်။ ဤ iPhone တွင်သာ ပြန်ယူနိုင်ပါသည်။"
           }
         },
         "nb" : {
@@ -782124,7 +783489,7 @@
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Miamala yako, arifa za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu za iCloud au kompyuta za iPhone hii. Zinaweza kurejeshwa kwenye iPhone hii pekee."
+            "value" : "Miamala yako, kengele za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu za iCloud au kompyuta za iPhone hii. Zinaweza kurejeshwa kwenye iPhone hii pekee."
           }
         },
         "ta" : {
@@ -782166,7 +783531,7 @@
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shunda tranzaksiyalaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillar ushbu iPhone’ning iCloud yoki kompyuter zaxira nusxalariga kiradi. Ularni faqat shu iPhone’da tiklash mumkin."
+            "value" : "Shunda tranzaksiyalaringiz, portfel signallari va kuzatilayotgan manzillar ushbu iPhone’ning iCloud yoki kompyuter zaxira nusxalariga kiradi. Ularni faqat shu iPhone’da tiklash mumkin."
           }
         },
         "vi" : {
@@ -782196,7 +783561,7 @@
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ukuthengiselana kwakho, izexwayiso zephothifoliyo namakheli owalandelayo kuzongena kuzipele ze-iCloud noma zekhompyutha zale iPhone. Kungabuyiselwa kule iPhone kuphela."
+            "value" : "Imisebenzi yakho, ama-alamu e-portfolio namakheli owalandelayo kuzongena kuzipele ze-iCloud noma zekhompyutha zale iPhone. Kungabuyiselwa kule iPhone kuphela."
           }
         }
       }
@@ -867382,7 +868747,7 @@
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fitxategiek saldoak, zenbatekoak, datak eta helbideak dituzte."
+            "value" : "Fitxategiek ondasunak, zenbatekoak, datak eta helbideak dituzte."
           }
         },
         "fa" : {
@@ -867454,7 +868819,7 @@
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ֆայլերը պարունակում են պահուստներ, գումարներ, ամսաթվեր և հասցեներ։"
+            "value" : "Ֆայլերը պարունակում են ակտիվներ, գումարներ, ամսաթվեր և հասցեներ։"
           }
         },
         "id" : {
@@ -867466,7 +868831,7 @@
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skrárnar innihalda eignir, upphæðir, dagsetningar og slóðir."
+            "value" : "Skrárnar innihalda eignir, upphæðir, dagsetningar og vistföng."
           }
         },
         "it" : {
@@ -961483,6 +962848,461 @@
         }
       }
     },
+    "watch_no_price_retired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ verskaf nie meer pryse nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ከእንግዲህ ዋጋዎችን አያቀርብም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم تعد %1$@ توفّر الأسعار"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ artıq qiymət vermir"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ вече не предоставя цени"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ আর দাম দেয় না"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cijene"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ja no ofereix preus"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ už neposkytuje ceny"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ leverer ikke længere priser"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ liefert keine Kurse mehr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το %1$@ δεν παρέχει πλέον τιμές"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no longer provides prices"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ya no ofrece precios"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ei paku enam hindu"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-k ez du preziorik ematen jada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ دیگر قیمت ارائه نمی‌دهد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ei enää tarjoa hintoja"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi na nagbibigay ng presyo ang %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne fournit plus de cours"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ní sholáthraíonn %1$@ praghsanna a thuilleadh"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ xa non ofrece prezos"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ હવે કિંમતો આપતું નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ כבר לא מספקת מחירים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ अब कीमतें नहीं देता"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cijene"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A(z) %1$@ már nem ad árfolyamokat"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@-ն այլևս գներ չի տրամադրում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ tidak lagi menyediakan harga"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ veitir ekki lengur verð"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non fornisce più prezzi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ は価格の提供を終了しました"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ფასებს აღარ აწვდის"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ енді баға бермейді"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ លែងផ្ដល់តម្លៃទៀតហើយ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ಇನ್ನು ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@에서 더 이상 시세를 제공하지 않습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ບໍ່ໃຫ້ລາຄາອີກແລ້ວ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nebeteikia kainų"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ vairs nesniedz cenas"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ повеќе не дава цени"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ഇനി വിലകൾ നൽകുന്നില്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ үнэ өгөхөө больсон"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ आता किंमती देत नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ tidak lagi menyediakan harga"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ သည် စျေးနှုန်းများ မပေးတော့ပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ leverer ikke lenger priser"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ले अब मूल्य दिँदैन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ levert geen koersen meer"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ਹੁਣ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nie podaje już cen"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ já não fornece preços"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ não fornece mais preços"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nu mai furnizează prețuri"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ больше не предоставляет цены"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ තවදුරටත් මිල ලබා නොදෙයි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ už neposkytuje ceny"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne zagotavlja več cen"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nuk jep më çmime"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ више не даје цене"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ više ne daje cene"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ levererar inte längre priser"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ haitoi tena bei"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ இனி விலைகளை வழங்குவதில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ఇకపై ధరలను అందించదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ไม่ให้ข้อมูลราคาแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ artık fiyat sağlamıyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ більше не надає ціни"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ اب قیمتیں فراہم نہیں کرتا"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ endi narx bermaydi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ không còn cung cấp giá"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已經唔再提供價格"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已不再提供价格"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 已不再提供價格"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-%1$@ ayisanikezi ngamanani"
+          }
+        }
+      }
+    },
     "watch_no_price_unreachable" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -964393,7 +966213,7 @@
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kveikja í símanum"
+            "value" : "kveikja á í símanum"
           }
         },
         "it" : {
@@ -964411,7 +966231,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ჩართეთ ტელეფონში"
+            "value" : "ჩართე ტელეფონში"
           }
         },
         "kk" : {

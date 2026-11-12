@@ -42,4 +42,6 @@
         <item quantity="one">last updated %1$d day ago</item>
         <item quantity="other">last updated %1$d days ago</item>
     </plurals>
+    <!-- Uhr: Börse des Paars stillgelegt (ExchangeRetirement); %1$s = Name der Börse -->
+    <string name="watch_no_price_retired">%1$s no longer provides prices</string>
 </resources>

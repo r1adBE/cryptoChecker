@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">Öryggisafritið kveikti á „Eignasafn í kerfisafriti“.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">Öryggisafritið slökkti á „Fela upphæðir“.</string>
+    <string name="backup_restore_storage_unavailable">Endurheimt er ekki möguleg núna: geymsla forritsins er ekki tiltæk. Endurræstu forritið og reyndu aftur. Núverandi gögnin þín eru óbreytt.</string>
 </resources>

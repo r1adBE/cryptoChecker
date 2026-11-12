@@ -260,4 +260,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Vala isaziso</string>
     <string name="watchlist_missing_logos_explain">Alikho ilogo etholakalayo yala ma-coin. I-app ibonisa izinhlamvu zawo zokuqala.</string>
+    <string name="exchange_retired_short">I-%1$s ayisanikezi ngamanani</string>
+    <string name="exchange_retired_notice">Kusukela ngo-%2$s, i-%1$s ayisanikezi ngamanani omphakathi. Khetha enye i-exchange yalawa ma-coin.</string>
 </resources>

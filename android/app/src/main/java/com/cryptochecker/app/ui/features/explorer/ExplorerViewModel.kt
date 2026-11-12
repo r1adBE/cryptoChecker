@@ -279,8 +279,9 @@ class ExplorerViewModel @Inject constructor(
         .map { (scope, volumes) ->
             // Feste Börsenliste (ExchangesConfig), ohne Netz — kann nicht scheitern. «Nur TradFi»: nur Börsen mit
             // TradFi-Kontrakten
+            // Stillgelegte Börsen (ExchangeRetirement) nicht mehr anbieten
             val alphabetical = exchangeRepository.getExchangeList()
-                .filter { scope.allowsExchange(it.key) }
+                .filter { scope.allowsExchange(it.key) && !com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(it.key) }
                 .sortedBy { it.name.lowercase() }
             val (exchangeList, categories) = exchangeSections(alphabetical, volumes)
 

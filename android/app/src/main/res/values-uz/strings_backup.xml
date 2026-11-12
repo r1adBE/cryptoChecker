@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Portfel tizim zaxirasida» zaxira nusxa orqali yoqildi.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Miqdorlarni yashirish» zaxira nusxa orqali oʻchirildi.</string>
+    <string name="backup_restore_storage_unavailable">Tiklash hozir imkonsiz: ilova xotirasi mavjud emas. Ilovani qayta ishga tushiring va qayta urinib koʻring. Mavjud maʼlumotlaringiz oʻzgarmagan.</string>
 </resources>

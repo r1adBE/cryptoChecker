@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">ข้อมูลสำรองเปิด “รวมพอร์ตโฟลิโอในการสำรองของระบบ” แล้ว</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">ข้อมูลสำรองปิด “ซ่อนจำนวนเงิน” แล้ว</string>
+    <string name="backup_restore_storage_unavailable">กู้คืนไม่ได้ในขณะนี้: พื้นที่จัดเก็บของแอปใช้งานไม่ได้ รีสตาร์ทแอปแล้วลองอีกครั้ง ข้อมูลเดิมของคุณไม่มีการเปลี่ยนแปลง</string>
 </resources>

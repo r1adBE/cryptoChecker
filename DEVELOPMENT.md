@@ -3083,6 +3083,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 222 (audit of 220: S-02, S-04, S-06, F-04 to F-08, F-10, F-11, U-02 to U-11; F-09 was wrong): `ExactCheckDemand`, `RestoreSteps.execute`, new fixtures `price_format.json`, `full_check.json`, `restore_steps.json`; text rule for provider names in section 18.
 * Build 223 (audit of 220: C-02, C-03, C-04 partly, C-05, C-06, C-08, C-10, P-01, P-03, P-05 to P-08, P-10, D-01 to D-05): `test-shared/java` (`ParityJson`), packages `app.backup`/`logos`/`chart`/`alarm`, `compose-stability.conf`, `WatchTaskAwait`, `PriceRefresher+Steps.swift`, watch string catalogue `ios/Watch/Device/Localizable.xcstrings` + `watch_string_keys.txt`.
 * Build 224: baseline/startup profile re-measured (workflow «Baseline profile» on build 223, 12'657 app rules); `ios_release_audit.py` size ceilings 140/40/4.5 MB (measured 125.6/36.3/3.8 MB).
+* Build 225: `ExchangeRetirement` (Kotlin + Swift, instant 2027-02-01T00:00Z, reuses `NotTraded` with a stored reason; fixture `exchange_retirement.json`), `backup_restore_storage_unavailable`, proofreading of 15 languages.
 
 ## Known warnings
 

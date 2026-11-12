@@ -35,4 +35,5 @@
         <item quantity="one">sist oppdatert for %1$d dag siden</item>
         <item quantity="other">sist oppdatert for %1$d dager siden</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s leverer ikke lenger priser</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Багц системийн нөөцөд»-ийг нөөц хуулбар асаасан.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Дүнг нуух»-ийг нөөц хуулбар унтраасан.</string>
+    <string name="backup_restore_storage_unavailable">Одоо сэргээх боломжгүй: аппын санах ой ашиглах боломжгүй байна. Аппыг дахин эхлүүлээд дахин оролдоно уу. Таны одоогийн өгөгдөл өөрчлөгдөөгүй.</string>
 </resources>

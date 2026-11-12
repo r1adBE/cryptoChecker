@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -142,7 +143,8 @@ class PhoneWatchFeed @Inject constructor(
                     // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
                     spot = it.contractType == FuturesContractType.NONE && contract.isEmpty(),
                     disabled = it.disabled,
-                    price = it.lastPrice,
+                    // Börse stillgelegt (ExchangeRetirement): kein alter Kurs an die Uhr, sie zeigt «—» mit Grund
+                    price = if (ExchangeRetirement.isMarker(it.lastError)) null else it.lastPrice,
                     change24h = it.change24h,
                     exchange = it.exchangeName,
                     time = it.lastUpdate,

@@ -32,4 +32,5 @@
     <plurals name="a11y_watch_updated_days">
         <item quantity="other">%1$d 日前更新</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s 已經唔再提供價格</string>
 </resources>

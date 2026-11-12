@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Portofoli në kopjen e sistemit» u aktivizua nga kopja.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Fshih shumat» u çaktivizua nga kopja.</string>
+    <string name="backup_restore_storage_unavailable">Rikthimi nuk është i mundur tani: hapësira ruajtëse e aplikacionit nuk është e disponueshme. Rinis aplikacionin dhe provo përsëri. Të dhënat e tua aktuale nuk kanë ndryshuar.</string>
 </resources>

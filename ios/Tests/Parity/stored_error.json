@@ -2,6 +2,11 @@
   "description": "Stored error text (WatchEntity.lastError, watched address lastError) -> short technical code without hosts, URLs or addresses (Android StoredError.kt / iOS StoredError.swift). Markers stay, HTTP status (+ retry-after) stays, rate limit / timeout / offline become fixed codes, everything else ERROR or ERROR:<ExceptionName>. The refresh classification (RefreshReportLogic.classify) of input and output must be equal. input null -> null.",
   "cases": [
     {
+      "name": "retired exchange marker (ExchangeRetirement) stays with the exchange name",
+      "input": "Exchange retired: Bitpanda",
+      "expected": "Exchange retired: Bitpanda"
+    },
+    {
       "name": "Android HTTP error with Retry-After",
       "input": "HttpCode: 429 (retry-after 30 s)",
       "expected": "HTTP 429 (retry-after 30 s)"

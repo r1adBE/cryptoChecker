@@ -10,6 +10,8 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import kotlin.coroutines.cancellation.CancellationException
 import com.cryptochecker.app.data.BackupJournalUnavailableException
+import com.cryptochecker.app.data.BackupRestoreStorageException
+import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 
 internal object RestoreRun {
 
@@ -66,6 +68,38 @@ internal object RestoreRun {
         }
         runCatchingCancellable { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
     }
+
+    /**
+     * Fehler aus [execute] für die Meldung: scheiterte ein Schreibschritt am Speicher ([isStorageWrite]), eine eigene
+     * Ausnahme ([BackupRestoreStorageException], «Speicher der App nicht verfügbar … Daten unverändert») statt «Das hat
+     * nicht geklappt»; Abbruch und alle übrigen Fehler unverändert. Zu dem Zeitpunkt ist schon zurückgerollt bzw. das
+     * Journal geblieben (der nächste Start rollt zurück).
+     */
+    fun forMessage(e: Throwable): Throwable =
+        if (e !is CancellationException && e !is BackupJournalUnavailableException && isStorageWrite(e)) {
+            BackupRestoreStorageException(e)
+        } else {
+            e
+        }
+
+    /**
+     * Scheiterte ein Schreibschritt am Speicher der App? Datenbank voll, schreibgeschützt, nicht zu öffnen oder
+     * Ein-/Ausgabefehler (SQLite bzw. SQLCipher, nach Klassennamen), Ein-/Ausgabefehler der Einstellungen (DataStore) oder
+     * Schlüssel der Datenbank gerade nicht verfügbar — in der Kette der Ursachen.
+     */
+    fun isStorageWrite(e: Throwable): Boolean =
+        e.isDatabaseKeyUnavailable() ||
+            generateSequence(e) { it.cause.takeIf { c -> c !== it } }.take(MAX_CAUSE_DEPTH).any {
+                it.javaClass.simpleName in STORAGE_EXCEPTIONS || it is java.io.IOException
+            }
+
+    /** SQLite-Fehler (android.database.sqlite und net.zetetic.database.sqlite), die den Speicher betreffen. */
+    private val STORAGE_EXCEPTIONS = setOf(
+        "SQLiteFullException", "SQLiteDiskIOException", "SQLiteReadOnlyDatabaseException",
+        "SQLiteCantOpenDatabaseException", "SQLiteAccessPermException",
+    )
+
+    private const val MAX_CAUSE_DEPTH = 16
 }
 
 /**

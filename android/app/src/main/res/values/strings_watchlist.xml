@@ -277,4 +277,8 @@
     <string name="watchlist_missing_logos_dismiss">Close notice</string>
     <!-- Eine Zeile Erklärung in der Liste der Coins ohne Logo -->
     <string name="watchlist_missing_logos_explain">No logo is available for these coins. The app shows their initials.</string>
+    <!-- Börse stillgelegt (ExchangeRetirement): Grund in Zeile, Widget, Alarmkarte; %1$s = Name der Börse -->
+    <string name="exchange_retired_short">%1$s no longer provides prices</string>
+    <!-- Hinweis über der Merkliste mit ✕; %1$s = Börse, %2$s = Datum des Endes (lang, z. B. «1. Februar 2027») -->
+    <string name="exchange_retired_notice">Since %2$s, %1$s no longer provides public prices. Choose another exchange for these coins.</string>
 </resources>

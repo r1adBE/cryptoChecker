@@ -139,6 +139,15 @@ extension BackupManager {
     /// Name des Schritts «Merkliste auf die Platte» in `Failure.invalid` (`recoveryOutcome`: Journal behalten).
     static let watchlistStep = "watchlistWrite"
 
+    /// Scheiterte das Wiederherstellen am Speicher der App (Merkliste bzw. App-Gruppe nicht beschreibbar, `settled`
+    /// false)? Dann ist alles Geschriebene zurückgerollt — oder das Journal bleibt und der nächste Start rollt zurück
+    /// (`RestoreSteps.execute`): die bisherigen Daten bleiben unverändert. Meldung `backup_restore_storage_unavailable`
+    /// statt `backup_failed` — wie Android `BackupRestoreStorageException`.
+    static func isStorageFailure(_ error: Error) -> Bool {
+        if case Failure.invalid(let step) = error { return step == watchlistStep }
+        return false
+    }
+
     /// Alle eingereihten Schreibvorgänge abwarten; true = die Merkliste ist auf der Platte (`RestoreSteps.execute`).
     /// Nur im UI-Test (Debug-Build mit `-uiTesting`) zählt allein das Abwarten: Der unsignierte Simulator hat keinen
     /// Schlüsselbund der App Group, `watchlist.json` wird dort nie versiegelt geschrieben (wie `WatchlistNotSavedGate`,

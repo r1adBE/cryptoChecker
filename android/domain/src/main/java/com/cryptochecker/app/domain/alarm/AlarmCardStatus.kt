@@ -5,6 +5,8 @@ import com.cryptochecker.app.domain.refresh.OutdatedRule
 /**
  * Eine Statuszeile auf der Karte eines eingeschalteten Alarms: Warum meldet er sich gerade nicht?
  * Es zählt nur der wichtigste Grund, damit die Karte ruhig bleibt:
+ *  0. [Kind.EXCHANGE_RETIRED] — die Börse liefert keine Kurse mehr
+ *     ([com.cryptochecker.marketdata.config.ExchangeRetirement]): der Alarm bleibt gespeichert, prüft aber nie mehr.
  *  1. [Kind.NOTIFICATIONS_OFF] — Mitteilungen aus (Erlaubnis, App oder Alarm-Kanal): selbst ein
  *     ausgelöster Alarm käme nicht an, darum vor allem anderen.
  *  2. [Kind.LOW_LIQUIDITY] — DEX-Pool unter der Alarm-Liquidität oder unbekannt
@@ -18,7 +20,7 @@ import com.cryptochecker.app.domain.refresh.OutdatedRule
  */
 object AlarmCardStatus {
 
-    enum class Kind { NOTIFICATIONS_OFF, LOW_LIQUIDITY, WAITING_FOR_PRICE, UNCHECKED }
+    enum class Kind { EXCHANGE_RETIRED, NOTIFICATIONS_OFF, LOW_LIQUIDITY, WAITING_FOR_PRICE, UNCHECKED }
 
     /**
      * @param notificationsAllowed Alarme dürfen als Mitteilung erscheinen
@@ -28,6 +30,7 @@ object AlarmCardStatus {
      * @param staleAfterMillis Veraltet-Grenze der abgefragten Paare (wie die Merkliste)
      * @param unchecked zuletzt nicht geprüft
      * @param markFallback letzter Kurs war der Mark-Preis statt des Mittelkurses (Alarme lösen darauf nicht aus)
+     * @param exchangeRetired Börse des Paars stillgelegt (keine Kurse mehr)
      */
     fun of(
         alarmEnabled: Boolean,
@@ -39,8 +42,10 @@ object AlarmCardStatus {
         staleAfterMillis: Long,
         unchecked: Boolean,
         markFallback: Boolean = false,
+        exchangeRetired: Boolean = false,
     ): Kind? = when {
         !alarmEnabled -> null
+        exchangeRetired -> Kind.EXCHANGE_RETIRED
         !notificationsAllowed -> Kind.NOTIFICATIONS_OFF
         dexBlocksAlarms -> Kind.LOW_LIQUIDITY
         AlarmFreshness.blocksAlarms(exchangeTime, markFallback, now) ||

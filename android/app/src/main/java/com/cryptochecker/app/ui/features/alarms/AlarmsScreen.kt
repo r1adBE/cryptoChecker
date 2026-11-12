@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,8 @@ fun AlarmsScreen(
     val lowLiquidity = lowLiquidityState == true
     // EZB-Referenzkurs (Forex): gar keine Alarme (Exchange.allowsAlarms), Hinweis statt Editor
     val referenceRate = watch?.let { !ExchangesConfigUtils.getExchangeByKey(it.exchangeKey).allowsAlarms } == true
+    // Börse stillgelegt (ExchangeRetirement): Alarme bleiben gespeichert, prüfen nichts; kein neuer, kein Bearbeiten
+    val retired = watch?.let { ExchangeRetirement.isRetired(it.exchangeKey) } == true
     // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
     val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)
     // Editor, Rückfragen und Bestätigungen wie auf der Paarseite ([AlarmEditorHost])
@@ -76,7 +79,7 @@ fun AlarmsScreen(
     LaunchedEffect(noAlarms, lowLiquidityState, watchMissing, watch?.exchangeKey) {
         val empty = noAlarms ?: return@LaunchedEffect
         // Erst mit geladenem Paar: ein Referenzkurs öffnet keinen Editor
-        if (watch == null || referenceRate) return@LaunchedEffect
+        if (watch == null || referenceRate || retired) return@LaunchedEffect
         // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor) und ob es das Paar noch gibt
         val low = lowLiquidityState ?: return@LaunchedEffect
         val missing = watchMissing ?: return@LaunchedEffect
@@ -92,7 +95,7 @@ fun AlarmsScreen(
         val low = lowLiquidityState
         if (editOpened || alarm == null || low == null) return@LaunchedEffect
         editOpened = true
-        if (!low && !referenceRate) draft = AlarmDraft.from(alarm)
+        if (!low && !referenceRate && !retired) draft = AlarmDraft.from(alarm)
     }
     val snackbar = remember { SnackbarHostState() }
     // Alarm nicht geändert bzw. gelöscht, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
@@ -158,14 +161,16 @@ fun AlarmsScreen(
             )
         },
         floatingActionButton = {
-            if (!lowLiquidity && !referenceRate && !alarmsFull) {
+            if (!lowLiquidity && !referenceRate && !alarmsFull && !retired) {
                 AppFab(onClick = { editorHost.openNew() }, contentDescription = stringResource(R.string.alarms_add))
             }
         },
         // «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (Live-Region über den SnackbarHost)
         snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
-        if (alarms.isEmpty() && referenceRate) {
+        if (alarms.isEmpty() && retired) {
+            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { RetiredExchangeNote(watch?.exchangeName.orEmpty()) }
+        } else if (alarms.isEmpty() && referenceRate) {
             Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote(watch?.exchangeKey) }
         } else if (alarms.isEmpty() && lowLiquidity) {
             // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
@@ -190,6 +195,9 @@ fun AlarmsScreen(
                 ) {
                     if (!notificationsEnabled) {
                         item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
+                    }
+                    if (retired) {
+                        item(key = "exchange_retired") { RetiredExchangeNote(watch?.exchangeName.orEmpty()) }
                     }
                     if (lowLiquidity) {
                         item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
@@ -220,9 +228,11 @@ fun AlarmsScreen(
                                 staleAfterMillis = staleAfter,
                                 unchecked = unchecked[alarm.id] != null,
                                 markFallback = markFallback,
+                                exchangeRetired = retired,
                             ),
+                            retiredExchange = watch?.exchangeName,
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
-                            onEdit = { if (!lowLiquidity && !referenceRate) editorHost.edit(alarm) },
+                            onEdit = { if (!lowLiquidity && !referenceRate && !retired) editorHost.edit(alarm) },
                             onDelete = { editorHost.askDelete = alarm }
                         )
                     }

@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">„Portfelis sistēmas dublējumā“ tika ieslēgts ar dublējumu.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Paslēpt summas“ tika izslēgts ar dublējumu.</string>
+    <string name="backup_restore_storage_unavailable">Atjaunošana pašlaik nav iespējama: lietotnes krātuve nav pieejama. Restartē lietotni un mēģini vēlreiz. Tavi esošie dati nav mainīti.</string>
 </resources>

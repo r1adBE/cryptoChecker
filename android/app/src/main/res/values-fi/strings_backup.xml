@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">”Salkku järjestelmän varmuuskopioon” otettiin käyttöön varmuuskopiosta.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">”Piilota summat” poistettiin käytöstä varmuuskopiosta.</string>
+    <string name="backup_restore_storage_unavailable">Palautus ei ole nyt mahdollista: sovelluksen tallennustila ei ole käytettävissä. Käynnistä sovellus uudelleen ja yritä uudestaan. Nykyiset tietosi ovat ennallaan.</string>
 </resources>

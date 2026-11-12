@@ -22,6 +22,7 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -150,23 +151,27 @@ class ListWidgetRows @Inject constructor(
 
         // Deaktiviertes Paar: ganz grau mit dem letzten Kurs, «Binance · deaktiviert» (wird nie abgefragt)
         val off = watch.disabled
-        val mainText = if (off) background.secondaryTextColor else background.textColor
+        // Börse stillgelegt (ExchangeRetirement): grau wie deaktiviert, ohne Kurs, mit dem Grund
+        val retired = ExchangeRetirement.exchangeOf(watch.lastError)
+        val grey = off || retired != null
+        val mainText = if (grey) background.secondaryTextColor else background.textColor
         views.setTextViewText(R.id.item_pair, watch.displayName)
         views.setTextColor(R.id.item_pair, mainText)
         // Logo gedämpft wie die Zeile in der App
-        views.setInt(R.id.item_logo, "setImageAlpha", if (off) DISABLED_LOGO_ALPHA else 255)
+        views.setInt(R.id.item_logo, "setImageAlpha", if (grey) DISABLED_LOGO_ALPHA else 255)
 
         // Eigener Stand dieses Paares veraltet (z. B. Börse antwortet nicht): «Binance · veraltet»
         val now = System.currentTimeMillis()
         // Regel der App (Abruf zu alt oder letzter Handel > 2 h, [WidgetFreshness.outdatedTime])
-        val outdatedAt = if (off) null else WidgetFreshness.outdatedTime(watch, now, data.outdatedAfter)
+        val outdatedAt = if (grey) null else WidgetFreshness.outdatedTime(watch, now, data.outdatedAfter)
         val outdated = outdatedAt != null
         // Börse ohne eigene Zeit, Kurs steht lange: «Kraken · Kurs unverändert seit 14:05» (wie die Zeile der App)
-        val unchanged = if (off || outdated) null
+        val unchanged = if (grey || outdated) null
         else WidgetFreshness.unchangedSince(watch, now, data.outdatedAfter)?.let { WidgetOutdated.unchanged(context, it) }
         views.setTextViewText(
             R.id.item_exchange,
             when {
+                retired != null -> context.getString(R.string.exchange_retired_short, BidiText.isolate(retired))
                 off -> context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
                 outdated -> context.getString(R.string.watchlist_row_outdated, BidiText.isolate(watch.exchangeName))
                 unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · $unchanged"
@@ -178,7 +183,7 @@ class ListWidgetRows @Inject constructor(
         // Währung klein und grau wie der Börsenname darunter (14 sp, widget_list_item.xml); passt der Kurs bei sehr
         // grosser Schrift nicht in die Zeile, wird er kleiner, dann weicht der Paarname — der Kurs ist immer
         // vollständig ([WidgetTextFit.listPriceFit])
-        val priceText = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
+        val priceText = PriceFormat.priceWithCurrency(watch.lastPrice.takeIf { retired == null }, watch.quoteAsset)
         val priceSp = listPriceSp(data, priceText, watch.displayName, logo != null)
         if (priceSp < PRICE_SP) views.setTextViewTextSize(R.id.item_price, TypedValue.COMPLEX_UNIT_SP, priceSp)
         views.setAmountText(
@@ -221,7 +226,7 @@ class ListWidgetRows @Inject constructor(
                 context = context,
                 pair = watch.displayName,
                 exchange = watch.exchangeName,
-                price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
+                price = priceText,
                 quote = watch.quoteAsset,
                 change24h = change,
                 basis = data.changeView.basis,
@@ -229,6 +234,7 @@ class ListWidgetRows @Inject constructor(
                 // weil das Widget nicht jede Minute neu gezeichnet wird
                 state = listOf(
                     when {
+                        retired != null -> context.getString(R.string.exchange_retired_short, retired)
                         off -> context.getString(R.string.watch_disabled)
                         outdatedAt != null -> WidgetOutdated.spoken(context, outdatedAt)
                         else -> unchanged

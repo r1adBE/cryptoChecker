@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">‘Portfolio in systeemback-up’ is ingeschakeld door de back-up.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">‘Bedragen verbergen’ is uitgeschakeld door de back-up.</string>
+    <string name="backup_restore_storage_unavailable">Terugzetten is nu niet mogelijk: de opslag van de app is niet beschikbaar. Start de app opnieuw en probeer het nog eens. Je huidige gegevens zijn ongewijzigd.</string>
 </resources>

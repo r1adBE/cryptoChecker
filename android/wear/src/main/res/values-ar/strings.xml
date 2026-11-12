@@ -47,4 +47,5 @@
         <item quantity="many">آخر تحديث قبل %1$d يومًا</item>
         <item quantity="other">آخر تحديث قبل %1$d يوم</item>
     </plurals>
+    <string name="watch_no_price_retired">لم تعد %1$s توفّر الأسعار</string>
 </resources>

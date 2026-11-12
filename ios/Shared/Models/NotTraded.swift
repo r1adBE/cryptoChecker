@@ -11,14 +11,16 @@ enum NotTraded {
     /// Gespeicherter «Fehler» (`lastError`) für solche Paare — sprachunabhängig, die Anzeige übersetzt.
     static let marker = "Wird an der Börse nicht mehr gehandelt"
 
-    /// Wird das Paar mit diesem `lastError` nicht mehr gehandelt?
-    static func isMarker(_ lastError: String?) -> Bool { lastError == marker }
+    /// Wird das Paar mit diesem `lastError` nicht mehr gehandelt? Auch Paare einer stillgelegten Börse
+    /// (`ExchangeRetirement.marker`): derselbe Zustand, nur mit eigenem Grund in der Anzeige.
+    static func isMarker(_ lastError: String?) -> Bool { lastError == marker || ExchangeRetirement.isMarker(lastError) }
 
     /// Fehlt ein Paar in der vollständigen Kursliste, wird es erst einmal einzeln abgefragt — eine
     /// Liste kann ein Paar auch nur kurz auslassen. Ist es schon als nicht gehandelt gespeichert,
     /// keine weitere Einzelabfrage: Es bleibt dabei, bis die Liste es wieder führt (sonst kostete
-    /// jeder Durchlauf je Paar eine Anfrage, die ohnehin scheitert — bei 131 Paaren rund 11 s).
-    static func askSingleWhenMissing(lastError: String?) -> Bool { !isMarker(lastError) }
+    /// jeder Durchlauf je Paar eine Anfrage, die ohnehin scheitert — bei 131 Paaren rund 11 s). Der Marker einer
+    /// stillgelegten Börse zählt hier nicht: Ist sie (Uhr zurückgestellt) wieder aktiv, wird normal abgefragt.
+    static func askSingleWhenMissing(lastError: String?) -> Bool { lastError != marker }
 
     /// Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über
     /// das Paar: Antwort ohne Kurs (auch Kurs 0), ausdrücklich unbekanntes Instrument
@@ -134,4 +136,12 @@ extension Watch {
 
     /// 24-h-Veränderung zum Anzeigen: nil («—») bei nicht gehandelten Paaren.
     var shownChange24h: Double? { NotTraded.shownChange24h(lastError: lastError, change24h: change24h) }
+
+    /// Für Widgets: Paar einer stillgelegten Börse (`ExchangeRetirement`) ohne alten Kurs («—») — wie Android.
+    var retiredShown: Watch {
+        guard ExchangeRetirement.isMarker(lastError) else { return self }
+        var copy = self
+        copy.lastPrice = nil
+        return copy
+    }
 }

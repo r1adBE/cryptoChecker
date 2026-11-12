@@ -35,4 +35,5 @@
         <item quantity="one">آخرین به‌روزرسانی %1$d روز پیش</item>
         <item quantity="other">آخرین به‌روزرسانی %1$d روز پیش</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s دیگر قیمت ارائه نمی‌دهد</string>
 </resources>

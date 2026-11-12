@@ -116,7 +116,10 @@ class WatchEditViewModel @Inject constructor(
         )
         startJob = viewModelScope.launch {
             val exchanges = try {
-                exchangeRepository.getExchangeList().filter { it.key != DEX_KEY }.sortedBy { it.name.lowercase() }
+                // Stillgelegte Börsen (ExchangeRetirement) nicht zur Wahl
+                exchangeRepository.getExchangeList()
+                    .filter { it.key != DEX_KEY && !com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(it.key) }
+                    .sortedBy { it.name.lowercase() }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

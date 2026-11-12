@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“സിസ്റ്റം ബാക്കപ്പിൽ പോർട്ട്ഫോളിയോ” ബാക്കപ്പ് ഓണാക്കി.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“തുകകൾ മറയ്ക്കുക” ബാക്കപ്പ് ഓഫാക്കി.</string>
+    <string name="backup_restore_storage_unavailable">ഇപ്പോൾ പുനഃസ്ഥാപിക്കൽ സാധ്യമല്ല: ആപ്പിന്റെ സ്റ്റോറേജ് ലഭ്യമല്ല. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക. നിങ്ങളുടെ നിലവിലെ ഡാറ്റ മാറിയിട്ടില്ല.</string>
 </resources>

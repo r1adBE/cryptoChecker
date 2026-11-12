@@ -13,6 +13,7 @@ enum BackupResultPresentation {
         "backup_storage_kept",
         "backup_restore_storage_in_memory",
         "backup_restore_journal_unavailable",
+        "backup_restore_storage_unavailable",
         "backup_not_verified",
         "backup_restore_newer_version",
     ]

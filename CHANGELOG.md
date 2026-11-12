@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 225)
+
+* Bitpanda ends its old public price service on 31 January 2027. From 1 February 2027 the app no longer asks Bitpanda for prices: Bitpanda pairs stay in the watchlist greyed out with the reason, their alerts rest, Bitpanda is no longer offered when adding a pair, and a notice (with ✕) suggests another exchange. Widgets and watch show the same reason. CSV files from Bitpanda can still be imported.
+* Restore: when the app storage cannot be written, a specific message says so and that your data are unchanged.
+* Translations proofread in 15 languages.
+
 ## 16.2.2 (build 224)
 
 * Android: the baseline and startup profile are measured again on the current code (classes moved in builds 216 and 223).

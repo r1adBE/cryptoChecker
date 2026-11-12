@@ -35,4 +35,5 @@
         <item quantity="one">senast uppdaterad för %1$d dag sedan</item>
         <item quantity="other">senast uppdaterad för %1$d dagar sedan</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s levererar inte längre priser</string>
 </resources>

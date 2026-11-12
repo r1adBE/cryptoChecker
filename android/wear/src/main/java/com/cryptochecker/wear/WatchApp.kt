@@ -208,8 +208,10 @@ private fun QuoteList(
  * «nicht erreichbar»), ausführlich im Screenreader ([missingReason]).
  */
 @Composable
-private fun QuoteRow(key: String, cached: WatchCached?, now: Long, loading: Boolean) {
+private fun QuoteRow(key: String, stored: WatchCached?, now: Long, loading: Boolean) {
     val context = LocalContext.current
+    // Börse stillgelegt (ExchangeRetirement): kein alter Kurs, «—» mit dem Grund
+    val cached = stored?.takeUnless { WatchPair.parse(key)?.let { p -> WatchPairQuotes.retired(p, now) } == true }
     val coin = WatchPair.label(key)
     val q = cached?.quote
     val price = q?.let { WatchFormat.price(it.price) } ?: "—"
@@ -276,6 +278,7 @@ private fun ChooseList(own: List<String>, state: ScalingLazyListState, onToggle:
 internal fun missingReason(context: Context, key: String): String {
     val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_error)
     return when (WatchPairQuotes.missingReason(pair, WatchPairOutcomes[pair.key])) {
+        WatchPairQuotes.Missing.RETIRED -> context.getString(R.string.watch_no_price_retired, pair.exchange)
         WatchPairQuotes.Missing.PHONE_ONLY -> context.getString(R.string.a11y_watch_no_price_phone_only)
         WatchPairQuotes.Missing.OWN_UNREACHABLE -> context.getString(R.string.a11y_watch_no_price_unreachable, pair.exchange)
         WatchPairQuotes.Missing.UNREACHABLE -> context.getString(R.string.a11y_watch_no_price_exchanges_unreachable)
@@ -289,8 +292,9 @@ internal fun missingReason(context: Context, key: String): String {
  */
 internal fun missingShort(context: Context, key: String): String {
     val pair = WatchPair.parse(key) ?: return context.getString(R.string.watch_no_price_unreachable)
-    val viaPhone = WatchPairQuotes.missingReason(pair, WatchPairOutcomes[pair.key]).viaPhone
-    return context.getString(if (viaPhone) R.string.watch_no_price_phone else R.string.watch_no_price_unreachable)
+    val reason = WatchPairQuotes.missingReason(pair, WatchPairOutcomes[pair.key])
+    if (reason == WatchPairQuotes.Missing.RETIRED) return context.getString(R.string.watch_no_price_retired, pair.exchange)
+    return context.getString(if (reason.viaPhone) R.string.watch_no_price_phone else R.string.watch_no_price_unreachable)
 }
 
 /** Takt, in dem die Uhr-App das Alter der Kurse neu bewertet. */

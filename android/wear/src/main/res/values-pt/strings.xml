@@ -38,4 +38,5 @@
         <item quantity="many">última atualização há %1$d dias</item>
         <item quantity="other">última atualização há %1$d dias</item>
     </plurals>
+    <string name="watch_no_price_retired">A %1$s já não fornece preços</string>
 </resources>

@@ -32,6 +32,8 @@ extension WatchlistScreen {
             if !searching && !selecting && !editMode.isEditing { WatchlistLogoHint() }
             // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
             if !searching && !selecting && !editMode.isEditing { WatchlistMissingLogos() }
+            // Börse stillgelegt (`ExchangeRetirement`): einmal erklären, mit ✕
+            if !searching && !selecting && !editMode.isEditing { WatchlistRetiredNotice(watches: data.watches) }
             // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
             if !searching && !selecting && !editMode.isEditing { AlarmReliabilityLine() }
         }

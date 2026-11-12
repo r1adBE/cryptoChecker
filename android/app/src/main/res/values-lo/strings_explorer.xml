@@ -142,7 +142,7 @@
     <string name="explorer_all_exchanges_title">ກະດານແລກປ່ຽນທັງໝົດ</string>
     <string name="explorer_exchanges_title">ກະດານແລກປ່ຽນ</string>
     <string name="explorer_forex_hint">ອັດຕາລາຍວັນຂອງທະນາຄານກາງເອີຣົບ, ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
-    <string name="explorer_forex_live">ສົດ (ຕະຫຼາດແລກປ່ຽນ)</string>
+    <string name="explorer_forex_live">ສົດ (ກະດານແລກປ່ຽນ)</string>
     <string name="explorer_forex_reference">ອັດຕາອ້າງອີງ</string>
     <string name="explorer_forex_hint_bank">ອັດຕາອ້າງອີງຂອງທະນາຄານກາງ, ບໍ່ແມ່ນແບບສົດ – ບໍ່ມີສັນຍານເຕືອນ.</string>
     <string name="explorer_source_ecb">ແຫຼ່ງທີ່ມາ: ECB</string>

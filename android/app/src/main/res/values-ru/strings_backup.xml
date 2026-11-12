@@ -118,4 +118,5 @@
     <string name="backup_restore_system_backup_on">«Портфель в системной копии» включено копией.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Скрыть суммы» отключено копией.</string>
+    <string name="backup_restore_storage_unavailable">Восстановление сейчас невозможно: хранилище приложения недоступно. Перезапусти приложение и попробуй снова. Твои текущие данные не изменились.</string>
 </resources>

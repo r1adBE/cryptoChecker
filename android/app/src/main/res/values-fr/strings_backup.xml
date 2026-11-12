@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">« Portefeuille dans la sauvegarde système » a été activé par la sauvegarde.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">« Masquer les montants » a été désactivé par la sauvegarde.</string>
+    <string name="backup_restore_storage_unavailable">Restauration impossible pour le moment : le stockage de l\'app n\'est pas disponible. Redémarre l\'app et réessaie. Tes données actuelles sont inchangées.</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«პორტფელი სისტემურ სარეზერვო ასლში» ჩაირთო სარეზერვო ასლის მიერ.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«თანხების დამალვა» გამოირთო სარეზერვო ასლის მიერ.</string>
+    <string name="backup_restore_storage_unavailable">აღდგენა ახლა შეუძლებელია: აპის საცავი მიუწვდომელია. გადატვირთე აპი და კიდევ სცადე. შენი არსებული მონაცემები არ შეცვლილა.</string>
 </resources>

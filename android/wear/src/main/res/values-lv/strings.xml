@@ -38,4 +38,5 @@
         <item quantity="one">pēdējoreiz atjaunināts pirms %1$d dienas</item>
         <item quantity="other">pēdējoreiz atjaunināts pirms %1$d dienām</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s vairs nesniedz cenas</string>
 </resources>

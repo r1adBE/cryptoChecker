@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
@@ -17,16 +18,20 @@ object NotTraded {
     /** Gespeicherter «Fehler» (`lastError`) für solche Paare — sprachunabhängig, die Anzeige übersetzt. */
     const val MARKER = "Wird an der Börse nicht mehr gehandelt"
 
-    /** Wird das Paar mit diesem `lastError` nicht mehr gehandelt? */
-    fun isMarker(lastError: String?): Boolean = lastError == MARKER
+    /**
+     * Wird das Paar mit diesem `lastError` nicht mehr gehandelt? Auch Paare einer stillgelegten Börse
+     * ([ExchangeRetirement.marker]): derselbe Zustand, nur mit eigenem Grund in der Anzeige.
+     */
+    fun isMarker(lastError: String?): Boolean = lastError == MARKER || ExchangeRetirement.isMarker(lastError)
 
     /**
      * Fehlt ein Paar in der vollständigen Kursliste, wird es erst einmal einzeln abgefragt — eine
      * Liste kann ein Paar auch nur kurz auslassen. Ist es schon als nicht gehandelt gespeichert,
      * keine weitere Einzelabfrage: Es bleibt dabei, bis die Liste es wieder führt (sonst kostete
-     * jeder Durchlauf je Paar eine Anfrage, die ohnehin scheitert — bei 131 Paaren rund 11 s).
+     * jeder Durchlauf je Paar eine Anfrage, die ohnehin scheitert — bei 131 Paaren rund 11 s). Der Marker einer
+     * stillgelegten Börse zählt hier nicht: Ist sie (Uhr zurückgestellt) wieder aktiv, wird normal abgefragt.
      */
-    fun askSingleWhenMissing(lastError: String?): Boolean = !isMarker(lastError)
+    fun askSingleWhenMissing(lastError: String?): Boolean = lastError != MARKER
 
     /**
      * Bestätigt die Einzelabfrage «nicht mehr gehandelt»? Nur bei einer klaren Aussage der Börse über

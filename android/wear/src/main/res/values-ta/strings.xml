@@ -35,4 +35,5 @@
         <item quantity="one">%1$d நாளுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
         <item quantity="other">%1$d நாட்களுக்கு முன் கடைசியாகப் புதுப்பிக்கப்பட்டது</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s இனி விலைகளை வழங்குவதில்லை</string>
 </resources>

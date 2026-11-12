@@ -259,4 +259,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Luk meddelelsen</string>
     <string name="watchlist_missing_logos_explain">Der findes intet logo til disse mønter. Appen viser deres forbogstaver.</string>
+    <string name="exchange_retired_short">%1$s leverer ikke længere priser</string>
+    <string name="exchange_retired_notice">Siden %2$s leverer %1$s ikke længere offentlige priser. Vælg en anden børs til disse mønter.</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“সিস্টেম ব্যাকআপে পোর্টফোলিও” ব্যাকআপের মাধ্যমে চালু করা হয়েছে।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“পরিমাণ লুকান” ব্যাকআপের মাধ্যমে বন্ধ করা হয়েছে।</string>
+    <string name="backup_restore_storage_unavailable">এখন পুনরুদ্ধার সম্ভব নয়: অ্যাপের স্টোরেজ পাওয়া যাচ্ছে না। অ্যাপ আবার চালু করে আবার চেষ্টা করুন। আপনার আগের ডেটা অপরিবর্তিত আছে।</string>
 </resources>

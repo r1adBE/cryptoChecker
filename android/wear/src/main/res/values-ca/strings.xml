@@ -38,4 +38,5 @@
         <item quantity="many">actualitzat per última vegada fa %1$d dies</item>
         <item quantity="other">actualitzat per última vegada fa %1$d dies</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ja no ofereix preus</string>
 </resources>

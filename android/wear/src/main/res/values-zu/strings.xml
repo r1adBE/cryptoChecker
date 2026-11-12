@@ -35,4 +35,5 @@
         <item quantity="one">kubuyekezwe ekugcineni usuku olungu-%1$d olwedlule</item>
         <item quantity="other">kubuyekezwe ekugcineni izinsuku ezingu-%1$d ezedlule</item>
     </plurals>
+    <string name="watch_no_price_retired">I-%1$s ayisanikezi ngamanani</string>
 </resources>

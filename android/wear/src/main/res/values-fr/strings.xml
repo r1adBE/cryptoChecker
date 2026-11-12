@@ -38,4 +38,5 @@
         <item quantity="many">dernière mise à jour il y a %1$d jours</item>
         <item quantity="other">dernière mise à jour il y a %1$d jours</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ne fournit plus de cours</string>
 </resources>

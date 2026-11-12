@@ -35,4 +35,5 @@
         <item quantity="one">ilisasishwa mara ya mwisho siku %1$d iliyopita</item>
         <item quantity="other">ilisasishwa mara ya mwisho siku %1$d zilizopita</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s haitoi tena bei</string>
 </resources>

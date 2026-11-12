@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">«Portafoglio nel backup di sistema» è stato attivato dal backup.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Nascondi importi» è stato disattivato dal backup.</string>
+    <string name="backup_restore_storage_unavailable">Ripristino non possibile al momento: lo spazio di archiviazione dell\'app non è disponibile. Riavvia l\'app e riprova. I tuoi dati attuali sono invariati.</string>
 </resources>

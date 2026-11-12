@@ -260,4 +260,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">അറിയിപ്പ് അടയ്ക്കുക</string>
     <string name="watchlist_missing_logos_explain">ഈ കോയിനുകൾക്ക് ലോഗോ ലഭ്യമല്ല. ആപ്പ് അവയുടെ ആദ്യാക്ഷരങ്ങൾ കാണിക്കുന്നു.</string>
+    <string name="exchange_retired_short">%1$s ഇനി വിലകൾ നൽകുന്നില്ല</string>
+    <string name="exchange_retired_notice">%2$s മുതൽ %1$s പൊതു വിലകൾ നൽകുന്നില്ല. ഈ കോയിനുകൾക്ക് മറ്റൊരു എക്സ്ചേഞ്ച് തിരഞ്ഞെടുക്കുക.</string>
 </resources>

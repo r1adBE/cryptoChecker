@@ -332,6 +332,6 @@
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">Унтраалттай, түгжээтэй</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
-    <string name="settings_cost_method_confirm">Бүх жилийг дахин тооцно: өмнөх жилүүдийн худалдан авсан өртөг, бодит ашиг, татварын хүснэгтүүд ч өөрчлөгдөнө.</string>
-    <string name="settings_portfolio_system_backup_confirm">Таны гүйлгээ, багцын сэрэмжлүүлэг, ажиглаж буй хаягууд Android-ийн нөөцөд (жишээ нь таны Google бүртгэлд) болон шинэ төхөөрөмж рүү шилжүүлэхэд орно – зөвхөн төгсгөл хүртэл шифрлэгдсэн үед.</string>
+    <string name="settings_cost_method_confirm">Бүх жилийг дахин тооцно: өмнөх жилүүдийн худалдан авсан өртөг, хэрэгжсэн ашиг, татварын хүснэгтүүд ч өөрчлөгдөнө.</string>
+    <string name="settings_portfolio_system_backup_confirm">Таны гүйлгээ, багцын дохио, ажиглаж буй хаягууд Android-ийн нөөцөд (жишээ нь таны Google бүртгэлд) болон шинэ төхөөрөмж рүү шилжүүлэхэд орно – зөвхөн төгсгөлөөс төгсгөл хүртэл шифрлэгдсэн үед.</string>
 </resources>

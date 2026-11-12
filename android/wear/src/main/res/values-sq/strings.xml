@@ -35,4 +35,5 @@
         <item quantity="one">përditësuar së fundi para %1$d dite</item>
         <item quantity="other">përditësuar së fundi para %1$d ditësh</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s nuk jep më çmime</string>
 </resources>

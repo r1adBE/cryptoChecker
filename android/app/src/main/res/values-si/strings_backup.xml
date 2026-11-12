@@ -41,7 +41,7 @@
         <item quantity="one">උපස්ථයේ ඇතුළත් කිරීම් %d ක් (කළඹ හෝ ඇඟවීම්) වලංගු නොවන අතර ප්‍රතිසාධනය නොකෙරේ.</item>
         <item quantity="other">උපස්ථයේ ඇතුළත් කිරීම් %d ක් (කළඹ හෝ ඇඟවීම්) වලංගු නොවන අතර ප්‍රතිසාධනය නොකෙරේ.</item>
     </plurals>
-    <string name="backup_restore_newer_version">මෙම උපස්ථය නවතම යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ප්‍රතිසාධනය නොකළා.</string>
+    <string name="backup_restore_newer_version">මෙම උපස්ථය වඩා නව යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ප්‍රතිසාධනය නොකළා.</string>
     <string name="backup_restore_unencrypted_warning">මෙම උපස්ථය සංකේතනය කර නැත – එය ඔබෙන් පැමිණි බව පරීක්ෂා කරන්න. සැකසීම් යෙදේ – ආරක්ෂාව අඩු කරන වෙනස්කම් හැර (කළඹ අගුල, ලිපින සඳහා ඔබේම සේවාදායකය, ප්‍රමාණ සඟවන්න, පද්ධති උපස්ථයේ කළඹ).</string>
     <string name="backup_restored">ප්‍රතිසාධනය කළා: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“පද්ධති උපස්ථයේ කළඹ” උපස්ථය මගින් සක්‍රිය කරන ලදී.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“ප්‍රමාණ සඟවන්න” උපස්ථය මගින් අක්‍රිය කරන ලදී.</string>
+    <string name="backup_restore_storage_unavailable">දැන් ප්‍රතිසාධනය කළ නොහැක: යෙදුමේ ගබඩාව ලබා ගත නොහැක. යෙදුම යළි ආරම්භ කර යළි උත්සාහ කරන්න. ඔබගේ වත්මන් දත්ත වෙනස් වී නැත.</string>
 </resources>

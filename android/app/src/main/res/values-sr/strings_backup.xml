@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">„Портфолио у резервној копији система“ укључено је резервном копијом.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Сакриј износе“ искључено је резервном копијом.</string>
+    <string name="backup_restore_storage_unavailable">Враћање тренутно није могуће: складиште апликације није доступно. Поново покрени апликацију и покушај поново. Твоји досадашњи подаци су непромењени.</string>
 </resources>

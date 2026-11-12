@@ -53,6 +53,8 @@ extension PriceRefresher {
                            lowMemory: Bool = false, alarmed: Set<Int64> = []) async -> ([Int64: Fetched], GroupSignals?) {
         let started = EpochTime.nowMillis
         guard let sample = group.first else { return ([:], nil) }
+        // Börse stillgelegt (`ExchangeRetirement`): keine Anfrage, jedes Paar mit dem Marker der Börse — wie Android
+        if ExchangeRetirement.isRetired(sample.exchangeKey, now: started) { return retiredGroup(group, sample: sample, started: started) }
 
         var bulk = BulkTickers()
         var bulkTried = group.count >= minWatchesForBulk
@@ -75,7 +77,7 @@ extension PriceRefresher {
             let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
             // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
             // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
-            let notTradedIds = Set(group.filter { NotTraded.isMarker($0.lastError) }.compactMap(\.pairId))
+            let notTradedIds = Set(group.filter { !NotTraded.askSingleWhenMissing(lastError: $0.lastError) }.compactMap(\.pairId))
             let plan = BulkDelistedMemory.shared.plan(sample.exchangeKey, pairIds: ids, notTraded: notTradedIds,
                                                       now: EpochTime.nowMillis, lowMemory: lowMemory)
             if plan.request.isEmpty {
@@ -204,6 +206,17 @@ extension PriceRefresher {
             banned: ExchangeBackoff.banned(errorTexts)
         )
         return (results, signals)
+    }
+
+    /// Stillgelegte Börse (`ExchangeRetirement`): ohne Anfrage jedes Paar «nicht gehandelt» mit dem Marker der Börse
+    /// (Grund in der Anzeige); im Bericht als nicht gehandelt, keine Fehler, keine Pause. Wie Android `retiredGroup`.
+    static func retiredGroup(_ group: [Watch], sample: Watch, started: Int64) -> ([Int64: Fetched], GroupSignals?) {
+        let marker = ExchangeRetirement.marker(sample.exchangeName)
+        let results = Dictionary(group.map { ($0.id, Fetched(ticker: nil, error: marker, notTraded: true)) },
+                                 uniquingKeysWith: { first, _ in first })
+        let entry = ExchangeRefresh(name: sample.exchangeName, millis: EpochTime.nowMillis - started, pairs: group.count,
+                                    updated: 0, notTraded: group.count, failed: 0)
+        return (results, GroupSignals(exchangeKey: sample.exchangeKey, report: entry, failures: [], retryAfterMillis: nil))
     }
 
     /// Einzelabfrage für ein Paar, das in der vollständigen Liste fehlt (`confirmMissing`): Kurs →

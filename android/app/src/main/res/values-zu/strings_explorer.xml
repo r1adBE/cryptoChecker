@@ -155,7 +155,7 @@
     <string name="explorer_all_exchanges_title">Wonke ama-exchange</string>
     <string name="explorer_exchanges_title">Ama-exchange</string>
     <string name="explorer_forex_hint">Izinga lansuku zonke le-European Central Bank, akulona elibukhoma – awekho ama-alamu.</string>
-    <string name="explorer_forex_live">Bukhoma (ukushintshana)</string>
+    <string name="explorer_forex_live">Bukhoma (i-exchange)</string>
     <string name="explorer_forex_reference">Izinga lereferensi</string>
     <string name="explorer_forex_hint_bank">Izinga lereferensi lebhange elikhulu, akulona elibukhoma – awekho ama-alamu.</string>
     <string name="explorer_source_ecb">Umthombo: ECB</string>

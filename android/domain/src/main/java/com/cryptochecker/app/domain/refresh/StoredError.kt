@@ -17,7 +17,11 @@ object StoredError {
     )
 
     /** Fehler der Massenabfrage («Bulk format error: 3 of 5 rows unreadable»): nur Zahlen, bleiben. */
-    private val KEEP_PREFIXES = listOf("Bulk format error", "Bulk row unreadable")
+    private val KEEP_PREFIXES = listOf(
+        "Bulk format error", "Bulk row unreadable",
+        // Börse stillgelegt (ExchangeRetirement): Marker samt Name der Börse
+        com.cryptochecker.marketdata.config.ExchangeRetirement.MARKER_PREFIX,
+    )
 
     private const val MAX_KEPT = 80
 

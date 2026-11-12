@@ -142,7 +142,7 @@
     <string name="explorer_all_exchanges_title">လဲလှယ်ရေးဌာန အားလုံး</string>
     <string name="explorer_exchanges_title">လဲလှယ်ရေးဌာနများ</string>
     <string name="explorer_forex_hint">ဥရောပ ဗဟိုဘဏ်၏ နေ့စဉ်နှုန်း၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။</string>
-    <string name="explorer_forex_live">တိုက်ရိုက် (ငွေလဲလှယ်ရာ)</string>
+    <string name="explorer_forex_live">တိုက်ရိုက် (လဲလှယ်ရေးဌာန)</string>
     <string name="explorer_forex_reference">ရည်ညွှန်းနှုန်း</string>
     <string name="explorer_forex_hint_bank">ဗဟိုဘဏ်၏ ရည်ညွှန်းနှုန်း၊ တိုက်ရိုက် မဟုတ်ပါ – သတိပေးချက် မရှိ။</string>
     <string name="explorer_source_ecb">ရင်းမြစ်- ECB</string>

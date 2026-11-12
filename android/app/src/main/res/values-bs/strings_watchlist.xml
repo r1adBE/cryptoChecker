@@ -277,4 +277,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zatvori obavijest</string>
     <string name="watchlist_missing_logos_explain">Za ove kriptovalute logotip nije dostupan. Aplikacija prikazuje njihove inicijale.</string>
+    <string name="exchange_retired_short">%1$s više ne daje cijene</string>
+    <string name="exchange_retired_notice">Od %2$s %1$s više ne daje javne cijene. Izaberi drugu berzu za ove kriptovalute.</string>
 </resources>

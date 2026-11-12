@@ -142,7 +142,7 @@
     <string name="explorer_all_exchanges_title">ផ្សារប្តូរទាំងអស់</string>
     <string name="explorer_exchanges_title">ផ្សារប្តូរ</string>
     <string name="explorer_forex_hint">អត្រាប្រចាំថ្ងៃរបស់ធនាគារកណ្ដាលអឺរ៉ុប មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។</string>
-    <string name="explorer_forex_live">ផ្ទាល់ (ផ្សារប្តូរប្រាក់)</string>
+    <string name="explorer_forex_live">ផ្ទាល់ (ផ្សារប្តូរ)</string>
     <string name="explorer_forex_reference">អត្រាយោង</string>
     <string name="explorer_forex_hint_bank">អត្រាយោងរបស់ធនាគារកណ្ដាល មិនមែនផ្ទាល់ទេ – គ្មានការដាស់តឿន។</string>
     <string name="explorer_source_ecb">ប្រភព៖ ECB</string>

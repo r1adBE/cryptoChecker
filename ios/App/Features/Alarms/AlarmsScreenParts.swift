@@ -56,6 +56,20 @@ struct ReferenceRateAlarmNote: View {
     }
 }
 
+/// Börse stillgelegt (`ExchangeRetirement`): kein neuer Alarm, bestehende bleiben gespeichert, prüfen aber nichts —
+/// «Bitpanda liefert keine Kurse mehr». Wie Android `RetiredExchangeNote`.
+struct RetiredExchangeAlarmNote: View {
+    let exchangeName: String
+
+    var body: some View {
+        Text(L("exchange_retired_short", exchangeName))
+            .font(.subheadline)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 /// «Ein Paar kann höchstens 10 Alarme haben.» (Zahl im Format der Sprache, `WatchlistLimits`) — wie Android
 /// `alarmLimitText`.
 enum AlarmLimitText {

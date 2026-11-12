@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«پرتفوی در پشتیبان سیستم» توسط پشتیبان روشن شد.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«پنهان کردن مبالغ» توسط پشتیبان خاموش شد.</string>
+    <string name="backup_restore_storage_unavailable">بازیابی اکنون ممکن نیست: فضای ذخیره‌سازی برنامه در دسترس نیست. برنامه را دوباره راه‌اندازی کن و دوباره امتحان کن. داده‌های فعلی‌ات تغییری نکرده‌اند.</string>
 </resources>

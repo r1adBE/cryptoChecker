@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Zorroa sistemaren babeskopian» babeskopiak aktibatu du.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Ezkutatu zenbatekoak» babeskopiak desaktibatu du.</string>
+    <string name="backup_restore_storage_unavailable">Ezin da leheneratu une honetan: aplikazioaren biltegia ez dago erabilgarri. Berrabiarazi aplikazioa eta saiatu berriro. Zure orain arteko datuak ez dira aldatu.</string>
 </resources>

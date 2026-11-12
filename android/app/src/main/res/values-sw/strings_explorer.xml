@@ -155,7 +155,7 @@
     <string name="explorer_all_exchanges_title">Masoko yote</string>
     <string name="explorer_exchanges_title">Masoko</string>
     <string name="explorer_forex_hint">Kiwango cha kila siku cha Benki Kuu ya Ulaya, si cha moja kwa moja – hakuna kengele.</string>
-    <string name="explorer_forex_live">Moja kwa moja (soko)</string>
+    <string name="explorer_forex_live">Moja kwa moja (jukwaa)</string>
     <string name="explorer_forex_reference">Kiwango cha marejeleo</string>
     <string name="explorer_forex_hint_bank">Kiwango cha marejeleo cha benki kuu, si cha moja kwa moja – hakuna kengele.</string>
     <string name="explorer_source_ecb">Chanzo: ECB</string>

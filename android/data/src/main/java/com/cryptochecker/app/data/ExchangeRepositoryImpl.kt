@@ -13,6 +13,7 @@ import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -82,6 +83,10 @@ class ExchangeRepositoryImpl @Inject constructor(
         // Eine entfernte Börse betrifft nur diesen Eintrag, nicht den ganzen Durchlauf
         val source = exchangeOrNull(exchange.key)
             ?: return ExchangeTickerResult(MutableTicker(), info, UserFriendlyExchangeError.EXCHANGE_UNAVAILABLE)
+        // Stillgelegt (ExchangeRetirement): keine Anfrage, der Marker nennt den Grund
+        if (ExchangeRetirement.isRetired(exchange.key)) {
+            return ExchangeTickerResult(MutableTicker(), info, ExchangeRetirement.marker(exchange.name))
+        }
 
         return try {
             ExchangeTickerResult(remote.fetchExchangeTicker(source, info), info)
@@ -93,12 +98,13 @@ class ExchangeRepositoryImpl @Inject constructor(
 
     override fun isExchangeSupportsBulkTickers(exchange: ExchangeInfo): Boolean {
         val source = exchangeOrNull(exchange.key) ?: return false
-        return source.bulkTickersNumOfRequests > 0
+        return source.bulkTickersNumOfRequests > 0 && !ExchangeRetirement.isRetired(exchange.key)
     }
 
     override suspend fun getBulkTickers(exchange: ExchangeInfo, pairIds: Collection<String>): BulkTickers {
         return try {
             val source = exchangeOrNull(exchange.key) ?: return BulkTickers()
+            if (ExchangeRetirement.isRetired(exchange.key)) return BulkTickers(error = ExchangeRetirement.marker(exchange.name))
             remote.fetchBulkTickers(source, pairIds)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
@@ -110,6 +116,8 @@ class ExchangeRepositoryImpl @Inject constructor(
     override suspend fun searchDexPools(query: String): List<DexPool> = remote.searchDexPools(query)
 
     override suspend fun updateExchangeCurrencyPairs(exchange: ExchangeInfo) {
+        // Stillgelegt: keine Paarliste mehr laden
+        if (ExchangeRetirement.isRetired(exchange.key)) return
         val fresh = remote.fetchExchangeCurrencyPairsInfo(requireExchange(exchange.key))
         if (fresh.size <= 0) return
         // Paarliste und volle Coin-Namen («gleicher Token», aus derselben Paarliste) gehören zusammen: nach dem Abruf

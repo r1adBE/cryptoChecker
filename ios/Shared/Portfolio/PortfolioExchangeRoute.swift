@@ -91,13 +91,14 @@ enum PortfolioExchangeRoute {
         return exchangeByCoin(pairs)
     }
 
-    /// Spot-Markt zu einem eingetragenen Namen (`exchanges`: Schlüssel → Anzeigename); Binance und freier Text → nil.
+    /// Spot-Markt zu einem eingetragenen Namen (`exchanges`: Schlüssel → Anzeigename); Binance, freier Text und stillgelegte
+    /// Börsen (`ExchangeRetirement`: keine Anfrage mehr) → nil.
     static func exchange(_ name: String, exchanges: [String: String]) -> (key: String, name: String)? {
         let wanted = name.trimmingCharacters(in: .whitespaces).lowercased()
         guard !wanted.isEmpty else { return nil }
         guard let hit = exchanges.sorted(by: { $0.key < $1.key }).first(where: { key, label in
             isSpot(key) && (label.lowercased() == wanted || key.lowercased() == wanted)
-        }), hit.key != defaultExchange else { return nil }
+        }), hit.key != defaultExchange, !ExchangeRetirement.isRetired(hit.key) else { return nil }
         return (hit.key, hit.value)
     }
 

@@ -41,4 +41,5 @@
         <item quantity="many">naposledy aktualizováno před %1$d dne</item>
         <item quantity="other">naposledy aktualizováno před %1$d dny</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s už neposkytuje ceny</string>
 </resources>

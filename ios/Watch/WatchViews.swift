@@ -77,7 +77,9 @@ struct WatchQuoteList: View {
     /// zweiten Zeile (`WatchText.missingShort`), ausführlich für VoiceOver (`WatchText.missingReason`) — wie Android `QuoteRow`.
     private func row(_ key: String, now: Int64) -> some View {
         let coin = WatchPair.label(of: key)
-        let cached = model.quotes[key]
+        // Börse stillgelegt (`ExchangeRetirement`): kein alter Kurs, «—» mit dem Grund — wie Android
+        let retired = WatchPair.parse(key).map { WatchPairQuotes.retired($0, now: now) } ?? false
+        let cached = retired ? nil : model.quotes[key]
         let q = cached?.quote
         let time = cached?.time ?? 0
         let price = q.map { WatchText.price($0.price) } ?? "—"

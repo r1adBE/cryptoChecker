@@ -256,5 +256,5 @@
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Erregistratutako preziorik gabeko merkatu-balioak (komisioak, dohaintzak/ordainketak, trukeak, sariak, sareko komisioak, zorroaren balioa) eragiketa-eguneko eguneko itxieran (UTC)</string>
     <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
-    <string name="tax_export_file_contents">Fitxategiek saldoak, zenbatekoak, datak eta helbideak dituzte.</string>
+    <string name="tax_export_file_contents">Fitxategiek ondasunak, zenbatekoak, datak eta helbideak dituzte.</string>
 </resources>

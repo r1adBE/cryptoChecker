@@ -19,6 +19,7 @@ watch_error
 watch_list_from_phone
 watch_loading
 watch_no_price_phone
+watch_no_price_retired
 watch_no_price_unreachable
 watch_phone_empty
 watch_portfolio

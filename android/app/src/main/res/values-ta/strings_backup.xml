@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“சிஸ்டம் காப்புப்பிரதியில் போர்ட்ஃபோலியோ” காப்புப்பிரதியால் ஆன் செய்யப்பட்டது.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“தொகைகளை மறைக்கவும்” காப்புப்பிரதியால் ஆஃப் செய்யப்பட்டது.</string>
+    <string name="backup_restore_storage_unavailable">மீட்டமைப்பு இப்போது சாத்தியமில்லை: ஆப்பின் சேமிப்பகம் கிடைக்கவில்லை. ஆப்பை மீண்டும் தொடங்கி மீண்டும் முயலவும். உங்கள் தற்போதைய தரவு மாறவில்லை.</string>
 </resources>

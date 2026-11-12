@@ -329,6 +329,6 @@
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">បិទ ជាមួយការចាក់សោ</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
-    <string name="settings_cost_method_confirm">គណនាឆ្នាំទាំងអស់ឡើងវិញ៖ តម្លៃទិញ ប្រាក់ចំណេញដែលទទួលបាន និងសន្លឹកពន្ធនៃឆ្នាំមុនៗក៏ផ្លាស់ប្ដូរដែរ។</string>
-    <string name="settings_portfolio_system_backup_confirm">ប្រតិបត្តិការ ការជូនដំណឹងផតហ្វូលីយ៉ូ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក Android (ឧ. គណនី Google របស់អ្នក) និងការផ្ទេរទៅឧបករណ៍ថ្មី – តែការអ៊ិនគ្រីបពីចុងដល់ចុងប៉ុណ្ណោះ។</string>
+    <string name="settings_cost_method_confirm">គណនាឆ្នាំទាំងអស់ឡើងវិញ៖ តម្លៃទិញ ប្រាក់ចំណេញដែលបានសម្រេច និងសន្លឹកពន្ធនៃឆ្នាំមុនៗក៏ផ្លាស់ប្ដូរដែរ។</string>
+    <string name="settings_portfolio_system_backup_confirm">ប្រតិបត្តិការ ការដាស់តឿនផលប័ត្រ និងអាសយដ្ឋានដែលកំពុងតាមដានរបស់អ្នក នឹងចូលក្នុងការបម្រុងទុក Android (ឧ. គណនី Google របស់អ្នក) និងការផ្ទេរទៅឧបករណ៍ថ្មី – តែការអ៊ិនគ្រីបពីចុងដល់ចុងប៉ុណ្ណោះ។</string>
 </resources>

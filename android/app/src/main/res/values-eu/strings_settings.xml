@@ -333,5 +333,5 @@
     <string name="settings_portfolio_value_off_locked">Desaktibatuta, blokeoarekin</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">Urte guztiak berriro kalkulatzen ditu: aurreko urteetako kostua, gauzatutako irabaziak eta zerga-orriak ere aldatzen dira.</string>
-    <string name="settings_portfolio_system_backup_confirm">Zure transakzioak, zorroaren alertak eta jarraitutako helbideak Android-en babeskopian (adib. zure Google kontuan) eta gailu berrira transferitzean sartuko dira – muturretik muturrera enkriptatuta soilik.</string>
+    <string name="settings_portfolio_system_backup_confirm">Zure transakzioak, zorroaren alarmak eta jarraitutako helbideak Android-en babeskopian (adib. zure Google kontuan) eta gailu berrira transferitzean sartuko dira – muturretik muturrera zifratuta soilik.</string>
 </resources>

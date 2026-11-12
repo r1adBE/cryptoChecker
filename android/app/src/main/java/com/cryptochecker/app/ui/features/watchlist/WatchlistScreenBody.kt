@@ -195,6 +195,8 @@ internal fun WatchlistBody(
                 if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistLogoHint(reduceMotion = reduceMotion)
                 // Danach noch Coins ohne Logo (Initialen): «2 Coins ohne Logo» an derselben Stelle, mit ✕
                 if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistMissingLogos(watches, reduceMotion = reduceMotion)
+                // Börse stillgelegt (ExchangeRetirement): einmal erklären, mit ✕
+                if (!ui.sortMode && !ui.selecting && !ui.searching) WatchlistRetiredNotice(watches, now = now, reduceMotion = reduceMotion)
                 // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
                 if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)
             }

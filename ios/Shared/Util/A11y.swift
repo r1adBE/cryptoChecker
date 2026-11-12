@@ -225,6 +225,8 @@ enum A11ySpeech {
         var outdated: String
         var updated: (Age) -> String
         var unreachable: (String) -> String
+        /// «Bitpanda liefert keine Kurse mehr» statt «nicht gehandelt», wenn die Börse stillgelegt ist (`ExchangeRetirement`).
+        var retired: (String) -> String = { L("exchange_retired_short", $0) }
 
         /// Texte aus dem Katalog (gleiche Schlüssel wie Android).
         static var localized: Texts {
@@ -251,7 +253,7 @@ enum A11ySpeech {
         switch freshness {
         case .fresh: return nil
         case .disabled: return texts.disabled
-        case .notTraded: return texts.notTraded
+        case .notTraded: return ExchangeRetirement.isRetired(exchange) ? texts.retired(exchange) : texts.notTraded
         case .outdated: return join([texts.outdated, updated])
         case .unreachable: return join([updated, texts.unreachable(exchange)])
         case .unreachableOutdated: return join([texts.outdated, updated, texts.unreachable(exchange)])

@@ -118,4 +118,5 @@
     <string name="backup_restore_system_backup_on">«Портфель у системній копії» увімкнено копією.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Сховати суми» вимкнено копією.</string>
+    <string name="backup_restore_storage_unavailable">Відновлення зараз неможливе: сховище застосунку недоступне. Перезапусти застосунок і спробуй знову. Твої поточні дані не змінилися.</string>
 </resources>

@@ -248,6 +248,19 @@ internal fun ReferenceRateNote(exchangeKey: String?) {
     )
 }
 
+/**
+ * Börse stillgelegt ([com.cryptochecker.marketdata.config.ExchangeRetirement]): kein neuer Alarm, bestehende bleiben
+ * gespeichert, prüfen aber nichts — «Bitpanda liefert keine Kurse mehr».
+ */
+@Composable
+internal fun RetiredExchangeNote(exchangeName: String) {
+    Text(
+        stringResource(R.string.exchange_retired_short, exchangeName),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
 /** «Ein Paar kann höchstens 10 Alarme haben.» (Zahl im Format der App-Sprache, [WatchlistLimits]). */
 @Composable
 internal fun alarmLimitText(): String =

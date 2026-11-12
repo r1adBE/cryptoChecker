@@ -124,4 +124,5 @@
     <string name="backup_restore_system_backup_on">فُعّل «المحفظة في نسخ النظام الاحتياطي» بواسطة النسخة الاحتياطية.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">أُوقف «إخفاء المبالغ» بواسطة النسخة الاحتياطية.</string>
+    <string name="backup_restore_storage_unavailable">الاستعادة غير ممكنة الآن: مساحة تخزين التطبيق غير متاحة. أعد تشغيل التطبيق وحاول مرة أخرى. بياناتك الحالية لم تتغير.</string>
 </resources>

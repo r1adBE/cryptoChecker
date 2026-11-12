@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“सिस्टम बॅकअपमध्ये पोर्टफोलिओ” बॅकअपने चालू केले.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“रक्कम लपवा” बॅकअपने बंद केले.</string>
+    <string name="backup_restore_storage_unavailable">सध्या पुनर्संचयन शक्य नाही: ॲपचा स्टोरेज उपलब्ध नाही. ॲप रीस्टार्ट करा आणि पुन्हा प्रयत्न करा. तुमचा सध्याचा डेटा बदललेला नाही.</string>
 </resources>

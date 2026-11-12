@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">备份已开启“将投资组合纳入系统备份”。</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">备份已关闭“隐藏金额”。</string>
+    <string name="backup_restore_storage_unavailable">目前无法恢复：应用的存储空间不可用。请重新启动应用后再试。您原有的数据未变更。</string>
 </resources>

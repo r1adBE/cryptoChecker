@@ -188,16 +188,21 @@ private struct WatchlistWidgetRow: View {
     /// %-Basis und Gültigkeit der gespeicherten Veränderung.
     var changeView = ChangeView()
 
-    private var outdated: Bool { WidgetOutdated.isOutdated(watch, at: date, afterMillis: outdatedAfter) }
+    /// Börse stillgelegt (`ExchangeRetirement`): grau wie deaktiviert, ohne Kurs, mit dem Grund — wie Android.
+    private var retired: String? { ExchangeRetirement.exchange(of: watch.lastError) }
+    private var grey: Bool { watch.disabled || retired != nil }
+
+    private var outdated: Bool { retired == nil && WidgetOutdated.isOutdated(watch, at: date, afterMillis: outdatedAfter) }
 
     /// Börse ohne eigene Zeit, Kurs steht lange: «Kurs unverändert seit 14:05» (wie die Zeile der App).
     private var unchanged: String? {
-        outdated ? nil : WidgetOutdated.unchanged(watch, at: date, afterMillis: outdatedAfter)
+        outdated || retired != nil ? nil : WidgetOutdated.unchanged(watch, at: date, afterMillis: outdatedAfter)
     }
 
     /// «Binance · deaktiviert» bzw. «Binance · veraltet» bzw. «Kraken · Kurs unverändert seit 14:05»
     /// bzw. nur die Börse.
     private var exchangeLine: String {
+        if let retired { return L("exchange_retired_short", BidiText.isolate(retired)) }
         if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) }
         if outdated { return L("watchlist_row_outdated", BidiText.isolate(watch.exchangeName)) }
         if let unchanged { return BidiText.isolate(watch.exchangeName) + " · " + unchanged }
@@ -206,6 +211,7 @@ private struct WatchlistWidgetRow: View {
 
     /// VoiceOver-Zusatz: «Deaktiviert» bzw. «veraltet, letzte Aktualisierung …» bzw. «Kurs unverändert seit …».
     private var spokenState: String? {
+        if let retired { return L("exchange_retired_short", retired) }
         if watch.disabled { return L("watch_disabled") }
         return outdated ? WidgetOutdated.spoken(watch, at: date, afterMillis: outdatedAfter) : unchanged
     }
@@ -226,11 +232,11 @@ private struct WatchlistWidgetRow: View {
             WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
                             logo: CoinLogos.allowed(forExchange: watch.exchangeKey))
                 // Deaktiviert: Logo gedämpft (wie Android `DISABLED_LOGO_ALPHA`), Texte grau statt blass
-                .opacity(watch.disabled ? 0.45 : 1)
+                .opacity(grey ? 0.45 : 1)
             VStack(alignment: .leading, spacing: 1) {
                 Text(watch.displayName)
                     .font(.system(size: WidgetFont.body * scale, weight: .bold))
-                    .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
+                    .foregroundStyle(grey ? palette.secondary : palette.text)
                     .lineLimit(1)
                     .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 Text(exchangeLine)
@@ -248,10 +254,10 @@ private struct WatchlistWidgetRow: View {
     private func priceColumn(scale: CGFloat) -> some View {
         VStack(alignment: .trailing, spacing: 1) {
             // Deaktiviert: Kurs grau (palette.secondary) statt 60 % Deckkraft — wie Android
-            WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: WidgetFont.body,
+            WidgetPriceText(price: retired == nil ? watch.lastPrice : nil, quote: watch.quoteAsset, size: WidgetFont.body,
                             palette: palette, weight: .bold,
-                            color: watch.disabled ? palette.secondary : nil, scale: scale)
-            if watch.lastPrice == nil, watch.lastError != nil, !watch.disabled {
+                            color: grey ? palette.secondary : nil, scale: scale)
+            if watch.lastPrice == nil, watch.lastError != nil, !grey {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: 9))
                     .foregroundStyle(palette.down)
@@ -317,8 +323,9 @@ struct WatchlistSmallView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(WidgetTextSize.minimumFactor(0.75, primaryScale: scale))
             }
-            // Deaktiviert: «Binance · deaktiviert», Kurs und Veränderung grau
-            Text(watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) : watch.exchangeName)
+            // Deaktiviert: «Binance · deaktiviert», Kurs und Veränderung grau; Börse stillgelegt: der Grund
+            Text(ExchangeRetirement.exchange(of: watch.lastError).map { L("exchange_retired_short", BidiText.isolate($0)) }
+                 ?? (watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) : watch.exchangeName))
                 .widgetSecondaryFont()
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)

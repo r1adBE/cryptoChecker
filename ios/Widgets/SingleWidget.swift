@@ -119,6 +119,10 @@ private struct SingleSummaryA11y: ViewModifier {
 
 /// Börse, bei deaktivierten Paaren «Binance · deaktiviert»; Chart einer anderen Börse: «Kraken · Chart: Binance».
 private func singleExchangeLine(_ watch: Watch, foreignChart: String? = nil) -> String {
+    // Börse stillgelegt (`ExchangeRetirement`): «Bitpanda liefert keine Kurse mehr»
+    if let retired = ExchangeRetirement.exchange(of: watch.lastError) {
+        return L("exchange_retired_short", BidiText.isolate(retired))
+    }
     if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) }
     guard let foreignChart else { return watch.exchangeName }
     return watch.exchangeName + " · " + L("watch_row_source_chart", BidiText.isolate(foreignChart))

@@ -230,6 +230,8 @@ sealed interface BackupMessage {
     data object StorageInMemory : BackupMessage
     /** Journal nicht geschrieben ([com.cryptochecker.app.data.BackupJournalUnavailableException]): nichts ersetzt, später erneut. */
     data object JournalUnavailable : BackupMessage
+    /** Speicher beim Einspielen nicht beschreibbar ([com.cryptochecker.app.data.BackupRestoreStorageException]): unverändert. */
+    data object StorageUnavailable : BackupMessage
 
     companion object {
         fun failure(e: Throwable): BackupMessage = when (e) {
@@ -240,6 +242,7 @@ sealed interface BackupMessage {
             is com.cryptochecker.app.data.BackupStorageKeptException -> StorageKept
             is com.cryptochecker.app.data.BackupStorageInMemoryException -> StorageInMemory
             is com.cryptochecker.app.data.BackupJournalUnavailableException -> JournalUnavailable
+            is com.cryptochecker.app.data.BackupRestoreStorageException -> StorageUnavailable
             is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
             // Sicherung bis 64 MB als Text und JSON im Speicher (Meldung statt Absturz)
             is OutOfMemoryError -> NotEnoughMemory

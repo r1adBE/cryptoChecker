@@ -174,7 +174,10 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
             let contract = watchContract(w)
             // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
             return WatchPhoneQuotes.Row(base: w.baseAsset, quote: w.quoteAsset, spot: w.contractType == .none && contract.isEmpty,
-                                        disabled: w.disabled, price: w.lastPrice, change24h: w.change24h,
+                                        // Börse stillgelegt (`ExchangeRetirement`): kein alter Kurs an die Uhr
+                                        disabled: w.disabled,
+                                        price: ExchangeRetirement.isMarker(w.lastError) ? nil : w.lastPrice,
+                                        change24h: w.change24h,
                                         exchange: w.exchangeName, time: w.lastUpdate, sortOrder: w.sortOrder,
                                         contract: contract)
         }

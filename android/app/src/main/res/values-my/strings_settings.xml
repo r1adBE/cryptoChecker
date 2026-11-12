@@ -330,5 +330,5 @@
     <string name="settings_portfolio_value_off_locked">ပိတ်၊ လော့ခ်ဖြင့်</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">နှစ်အားလုံးကို ပြန်တွက်ပါသည်- ယခင်နှစ်များ၏ ဝယ်ယူကုန်ကျစရိတ်၊ ရရှိပြီးအမြတ်နှင့် အခွန်စာရွက်များလည်း ပြောင်းလဲပါမည်။</string>
-    <string name="settings_portfolio_system_backup_confirm">သင်၏ ငွေလွှဲမှုများ၊ ပေါ့တ်ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် Android အရန်သိမ်းဆည်းမှု (ဥပမာ သင်၏ Google အကောင့်) နှင့် စက်အသစ်သို့ လွှဲပြောင်းမှုတွင် ပါဝင်သွားပါမည် – အစမှအဆုံး ကုဒ်ဝှက်ထားမှသာ။</string>
+    <string name="settings_portfolio_system_backup_confirm">သင်၏ ငွေပေးငွေယူများ၊ ပေါ့ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများသည် Android အရန်သိမ်းဆည်းမှု (ဥပမာ သင်၏ Google အကောင့်) နှင့် စက်အသစ်သို့ လွှဲပြောင်းမှုတွင် ပါဝင်သွားပါမည် – အစမှအဆုံး ကုဒ်ပြောင်းဝှက်ထားမှသာ။</string>
 </resources>

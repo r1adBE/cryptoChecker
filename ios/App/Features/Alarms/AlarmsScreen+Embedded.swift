@@ -10,7 +10,8 @@ extension AlarmsScreen {
         let alarms = data.alarms(for: watchId)
         let lowLiquidity = Self.lowLiquidity(watch)
         let referenceRate = Self.referenceRate(watch)
-        let blocked = lowLiquidity || referenceRate
+        let retired = Self.retired(watch)
+        let blocked = lowLiquidity || referenceRate || retired
         return VStack(alignment: .leading, spacing: Spacing.sm) {
             Text(L("alarms_title"))
                 .font(.title3.weight(.semibold))
@@ -18,7 +19,9 @@ extension AlarmsScreen {
             if !alarms.isEmpty {
                 NotificationsOffBanner()
             }
-            if referenceRate {
+            if retired {
+                RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+            } else if referenceRate {
                 ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
             } else if lowLiquidity {
                 DexLowLiquidityNote()
@@ -49,8 +52,10 @@ extension AlarmsScreen {
                             now: now,
                             staleAfterMillis: data.staleAfterMillis,
                             unchecked: checkStatus.unchecked(alarm.id) != nil,
-                            markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
+                            markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false,
+                            exchangeRetired: retired
                         ),
+                        retiredExchange: watch?.exchangeName,
                         onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
                         onEdit: { if !blocked { draft = AlarmDraft.from(alarm) } },
                         onDelete: { askDelete = alarm }

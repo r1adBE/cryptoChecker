@@ -12,6 +12,8 @@ struct AlarmCard: View {
     var unchecked: AlarmCheckStatus.Unchecked? = nil
     /// Statuszeile (`AlarmCardStatus`); nil = keine.
     var status: AlarmCardStatus.Kind? = nil
+    /// Name der stillgelegten Börse für `.exchangeRetired` («Bitpanda liefert keine Kurse mehr»).
+    var retiredExchange: String? = nil
     let onToggle: (Bool) -> Void
     let onEdit: () -> Void
     let onDelete: () -> Void
@@ -132,6 +134,7 @@ struct AlarmCard: View {
         if invalidThreshold { return (L("alarm_threshold_invalid_fix"), "exclamationmark.triangle") }
         switch status {
         case nil: return nil
+        case .exchangeRetired: return (L("exchange_retired_short", retiredExchange ?? ""), "exclamationmark.triangle")
         case .notificationsOff: return (L("alarm_status_notifications_off"), "bell.slash")
         case .lowLiquidity: return (L("alarm_status_low_liquidity"), "exclamationmark.triangle")
         case .waitingForPrice: return (L("alarm_status_waiting_price"), "arrow.clockwise")

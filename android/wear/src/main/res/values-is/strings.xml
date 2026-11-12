@@ -15,7 +15,7 @@
     <string name="watch_portfolio_today">%1$s í dag</string>
     <string name="a11y_watch_portfolio_hidden">upphæð falin</string>
     <string name="watch_portfolio_off">af</string>
-    <string name="watch_portfolio_turn_on">kveikja í símanum</string>
+    <string name="watch_portfolio_turn_on">kveikja á í símanum</string>
     <string name="a11y_watch_outdated">Verð úrelt</string>
     <string name="a11y_watch_no_price_unreachable">ekkert verð, %1$s næst ekki</string>
     <string name="a11y_watch_no_price_phone_only">ekkert verð, úrið getur ekki sótt þetta par</string>
@@ -35,4 +35,5 @@
         <item quantity="one">síðast uppfært fyrir %1$d degi</item>
         <item quantity="other">síðast uppfært fyrir %1$d dögum</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s veitir ekki lengur verð</string>
 </resources>

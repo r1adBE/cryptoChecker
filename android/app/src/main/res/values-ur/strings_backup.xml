@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“سسٹم بیک اپ میں پورٹ فولیو” بیک اپ کے ذریعے آن کیا گیا۔</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“رقوم چھپائیں” بیک اپ کے ذریعے بند کیا گیا۔</string>
+    <string name="backup_restore_storage_unavailable">بحالی ابھی ممکن نہیں: ایپ کا اسٹوریج دستیاب نہیں۔ ایپ دوبارہ شروع کر کے پھر کوشش کریں۔ آپ کا موجودہ ڈیٹا تبدیل نہیں ہوا۔</string>
 </resources>

@@ -38,4 +38,5 @@
         <item quantity="two">עודכן לאחרונה לפני %1$d ימים</item>
         <item quantity="other">עודכן לאחרונה לפני %1$d ימים</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s כבר לא מספקת מחירים</string>
 </resources>

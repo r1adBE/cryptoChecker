@@ -10,7 +10,7 @@ extension PairScreen {
     /// zu dünnem DEX-Pool oder erreichter Höchstzahl — der Grund steht im Abschnitt.
     func alarmButton(_ watch: Watch) -> some View {
         let full = !WatchlistLimits.canAddAlarm(data.alarms(for: watch.id).count)
-        let blocked = AlarmsScreen.lowLiquidity(watch) || AlarmsScreen.referenceRate(watch) || full
+        let blocked = AlarmsScreen.lowLiquidity(watch) || AlarmsScreen.referenceRate(watch) || AlarmsScreen.retired(watch) || full
         return primaryButton(systemImage: "bell.and.waves.left.and.right", title: L("add_alarm_action"), disabled: blocked) {
             Haptics.play(.selection)
             newAlarmRequest &+= 1

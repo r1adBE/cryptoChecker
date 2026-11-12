@@ -259,4 +259,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Bildirimi kapat</string>
     <string name="watchlist_missing_logos_explain">Bu coin\'ler için logo yok. Uygulama baş harflerini gösterir.</string>
+    <string name="exchange_retired_short">%1$s artık fiyat sağlamıyor</string>
+    <string name="exchange_retired_notice">%1$s, %2$s tarihinden beri herkese açık fiyat sağlamıyor. Bu coinler için başka bir borsa seç.</string>
 </resources>

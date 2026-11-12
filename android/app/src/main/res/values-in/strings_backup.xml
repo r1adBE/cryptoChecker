@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">“Portofolio di cadangan sistem” diaktifkan oleh cadangan.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“Sembunyikan jumlah” dinonaktifkan oleh cadangan.</string>
+    <string name="backup_restore_storage_unavailable">Pemulihan tidak bisa dilakukan sekarang: penyimpanan aplikasi tidak tersedia. Mulai ulang aplikasi lalu coba lagi. Data Anda saat ini tidak berubah.</string>
 </resources>

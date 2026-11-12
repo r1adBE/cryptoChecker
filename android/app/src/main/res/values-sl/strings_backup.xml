@@ -118,4 +118,5 @@
     <string name="backup_restore_system_backup_on">„Portfelj v sistemski varnostni kopiji“ je vklopila varnostna kopija.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Skrij zneske“ je izklopila varnostna kopija.</string>
+    <string name="backup_restore_storage_unavailable">Obnovitev trenutno ni mogoča: shramba aplikacije ni na voljo. Znova zaženi aplikacijo in poskusi znova. Tvoji dosedanji podatki so nespremenjeni.</string>
 </resources>

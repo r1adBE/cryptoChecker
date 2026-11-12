@@ -139,8 +139,9 @@ struct PairScreen: View {
         let scroll = ScrollView {
             VStack(alignment: .leading, spacing: Spacing.lg) {
                 priceBlock(watch, isPreview: isPreview)
-                // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) bzw. deaktiviert ausgeblendet
-                if !off {
+                // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) bzw. deaktiviert ausgeblendet,
+                // ebenso bei stillgelegter Börse (`ExchangeRetirement`: keine Kerzen mehr laden) — wie Android
+                if !off && !ExchangeRetirement.isMarker(watch.lastError) {
                     WatchSheetChartView(watch: watch)
                 }
                 if isPreview {

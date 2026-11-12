@@ -66,9 +66,10 @@ final class ExplorerViewModel: ObservableObject {
     /// dann wirkt nur der TradFi-Filter von `PairCache`, nicht «Token & TradFi» der Auswahl.
     let appliesAssetScope: Bool
 
-    /// Jede bekannte Börse ausser der Platzhalter-Börse, alphabetisch (ohne Gross/klein).
+    /// Jede bekannte Börse ausser der Platzhalter-Börse und stillgelegten (`ExchangeRetirement`), alphabetisch (ohne
+    /// Gross/klein) — für Auswahl, Suche und «Börse wechseln».
     let allExchanges: [Exchange] = ExchangesConfig.all
-        .filter { !($0 is UnknownExchange) }
+        .filter { !($0 is UnknownExchange) && !ExchangeRetirement.isRetired($0.key) }
         .sorted { $0.name.lowercased() < $1.name.lowercased() }
 
     // MARK: Veröffentlichter Zustand – Börse

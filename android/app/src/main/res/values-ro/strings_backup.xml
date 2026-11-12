@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">„Portofoliu în copia de sistem” a fost activat de copie.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Ascunde sumele” a fost dezactivat de copie.</string>
+    <string name="backup_restore_storage_unavailable">Restaurarea nu este posibilă acum: spațiul de stocare al aplicației nu este disponibil. Repornește aplicația și încearcă din nou. Datele tale actuale nu s-au schimbat.</string>
 </resources>

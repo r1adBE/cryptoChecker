@@ -32,4 +32,5 @@
     <plurals name="a11y_watch_updated_days">
         <item quantity="other">마지막 업데이트: %1$d일 전</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s에서 더 이상 시세를 제공하지 않습니다</string>
 </resources>

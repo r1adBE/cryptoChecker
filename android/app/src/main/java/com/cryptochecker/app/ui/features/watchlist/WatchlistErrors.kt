@@ -13,6 +13,7 @@ import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 
 /** Netzwerk-Fehler (kein Internet, Server nicht erreichbar, Zeitüberschreitung)? */
 internal fun isConnectionError(error: String?): Boolean {
@@ -48,6 +49,9 @@ private val RETRYABLE_FAILURES = setOf(
 /** Technische Fehlermeldung → verständlicher Text (z. B. «Keine Verbindung»). */
 @Composable
 internal fun friendlyError(error: String): String = when {
+    // Börse stillgelegt (ExchangeRetirement): «Bitpanda liefert keine Kurse mehr»
+    ExchangeRetirement.isMarker(error) ->
+        stringResource(R.string.exchange_retired_short, ExchangeRetirement.exchangeOf(error).orEmpty())
     isNotTraded(error) -> stringResource(R.string.watch_not_traded)
     isConnectionError(error) -> stringResource(R.string.watch_error_offline)
     // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)

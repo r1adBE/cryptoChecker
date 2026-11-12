@@ -202,7 +202,8 @@ internal fun ExplorerViewModel.readStoredLists() {
         // Gleich «suche…» zeigen statt kurz «keine Treffer»
         searchData.lists.value = SearchLists(reading = true)
         val exchanges = runCatchingCancellable { exchangeRepository.getExchangeList() }.getOrDefault(emptyList())
-            .filter { it.key != DEX_KEY }
+            // Stillgelegte Börsen (ExchangeRetirement) nicht in der Suche
+            .filter { it.key != DEX_KEY && !com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(it.key) }
         if (exchanges.isEmpty()) {
             // Gescheitert: bei der nächsten Eingabe nochmals
             searchData.lists.value = SearchLists()

@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">“စနစ်အရန်သိမ်းခြင်းတွင် ပေါ့ဖိုလီယို” ကို အရန်ဖိုင်က ဖွင့်ခဲ့သည်။</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“ပမာဏများ ဖျောက်ရန်” ကို အရန်ဖိုင်က ပိတ်ခဲ့သည်။</string>
+    <string name="backup_restore_storage_unavailable">ယခု ပြန်ယူ၍ မရပါ- အက်ပ်၏ သိုလှောင်ခန်းကို အသုံးပြု၍ မရပါ။ အက်ပ်ကို ပြန်စတင်ပြီး ထပ်ကြိုးစားပါ။ သင့်လက်ရှိ ဒေတာများ မပြောင်းလဲပါ။</string>
 </resources>

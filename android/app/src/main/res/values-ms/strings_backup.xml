@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">“Portfolio dalam sandaran sistem” telah dihidupkan oleh sandaran.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“Sembunyikan amaun” telah dimatikan oleh sandaran.</string>
+    <string name="backup_restore_storage_unavailable">Pemulihan tidak dapat dibuat sekarang: storan apl tidak tersedia. Mulakan semula apl dan cuba lagi. Data anda yang sedia ada tidak berubah.</string>
 </resources>

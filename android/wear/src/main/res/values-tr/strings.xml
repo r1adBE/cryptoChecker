@@ -35,4 +35,5 @@
         <item quantity="one">son güncelleme %1$d gün önce</item>
         <item quantity="other">son güncelleme %1$d gün önce</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s artık fiyat sağlamıyor</string>
 </resources>

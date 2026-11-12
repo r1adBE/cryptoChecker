@@ -329,6 +329,6 @@
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">ປິດ, ພ້ອມລັອກ</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
-    <string name="settings_cost_method_confirm">ຄິດໄລ່ທຸກປີໃໝ່: ຕົ້ນທຶນ, ກຳໄລທີ່ໄດ້ຮັບ ແລະ ແຜ່ນວຽກພາສີຂອງປີກ່ອນໆກໍ່ປ່ຽນນຳ.</string>
-    <string name="settings_portfolio_system_backup_confirm">ທຸລະກຳ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ Android (ເຊັ່ນ ບັນຊີ Google ຂອງທ່ານ) ແລະ ການຍ້າຍໄປອຸປະກອນໃໝ່ – ສະເພາະແບບເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງເທົ່ານັ້ນ.</string>
+    <string name="settings_cost_method_confirm">ຄິດໄລ່ທຸກປີໃໝ່: ຕົ້ນທຶນ, ກຳໄລທີ່ຮັບຮູ້ແລ້ວ ແລະ ແຜ່ນວຽກພາສີຂອງປີກ່ອນໆກໍ່ປ່ຽນນຳ.</string>
+    <string name="settings_portfolio_system_backup_confirm">ທຸລະກຳ, ສັນຍານເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມຂອງທ່ານ ຈະເຂົ້າໄປໃນການສຳຮອງ Android (ເຊັ່ນ ບັນຊີ Google ຂອງທ່ານ) ແລະ ການຍ້າຍໄປອຸປະກອນໃໝ່ – ສະເພາະແບບເຂົ້າລະຫັດຕົ້ນທາງຫາປາຍທາງເທົ່ານັ້ນ.</string>
 </resources>

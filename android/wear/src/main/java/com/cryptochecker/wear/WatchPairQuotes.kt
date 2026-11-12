@@ -1,5 +1,6 @@
 package com.cryptochecker.wear
 
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.marketdata.watch.WatchPair
 import org.json.JSONArray
 import org.json.JSONObject
@@ -24,8 +25,9 @@ object WatchPairQuotes {
     }
 
     /** Reihenfolge der Abfrage: Börse des Handys zuerst (falls die Uhr sie kennt), dann die anderen gleicher Art. */
-    fun venues(pair: WatchPair): List<Venue> {
-        if (!pair.selfFetchable) return emptyList()
+    fun venues(pair: WatchPair, now: Long = ExchangeRetirement.clock()): List<Venue> {
+        // Börse des Handys stillgelegt (ExchangeRetirement): keine Ersatzbörse, das Paar zeigt «—» mit Grund
+        if (!pair.selfFetchable || retired(pair, now)) return emptyList()
         val kind = Venue.entries.filter { it.perp == pair.perp }
         val own = kind.firstOrNull { it.label.equals(pair.exchange, ignoreCase = true) }
         return listOfNotNull(own) + (kind - setOfNotNull(own))
@@ -36,8 +38,8 @@ object WatchPairQuotes {
      * nur Binance, Bybit, OKX) und bei Paaren, die sie gar nicht selbst lädt — dann sagt «—» nicht «Kraken nicht
      * erreichbar» (`missingReason`).
      */
-    fun asksOwnExchange(pair: WatchPair): Boolean =
-        venues(pair).firstOrNull()?.label?.equals(pair.exchange, ignoreCase = true) == true
+    fun asksOwnExchange(pair: WatchPair, now: Long = ExchangeRetirement.clock()): Boolean =
+        venues(pair, now).firstOrNull()?.label?.equals(pair.exchange, ignoreCase = true) == true
 
     /** Ergebnis des letzten eigenen Abrufs eines Paars — für den Grund bei «—» ([missingReason]). */
     enum class Outcome {
@@ -73,8 +75,15 @@ object WatchPairQuotes {
     fun outcomeWithoutQuote(answers: List<Boolean>): Outcome =
         if (answers.isNotEmpty() && answers.all { it }) Outcome.NOT_LISTED else Outcome.UNREACHABLE
 
+    /** Börse des Paars stillgelegt ([ExchangeRetirement], Uhr der Regel)? Dann weder Kurs noch Abruf. */
+    fun retired(pair: WatchPair, now: Long = ExchangeRetirement.clock()): Boolean =
+        ExchangeRetirement.isRetired(pair.exchange, now)
+
     /** Grund für «—» eines Paars ([missingReason]). */
     enum class Missing {
+        /** «<Börse> liefert keine Kurse mehr» ([ExchangeRetirement]). */
+        RETIRED,
+
         /** Pool, Laufzeit-Kontrakt, unbekannte Kontrakt-Börse: «die Uhr kann dieses Paar nicht abrufen». */
         PHONE_ONLY,
 
@@ -97,11 +106,12 @@ object WatchPairQuotes {
      * kein eigenes Ergebnis → wie bisher: eigene Börse ([asksOwnExchange]) → [Missing.OWN_UNREACHABLE], sonst
      * [Missing.VIA_PHONE]. Wie iOS (`watch_pairs.json` › «missing»).
      */
-    fun missingReason(pair: WatchPair, outcome: Outcome?): Missing = when {
+    fun missingReason(pair: WatchPair, outcome: Outcome?, now: Long = ExchangeRetirement.clock()): Missing = when {
+        retired(pair, now) -> Missing.RETIRED
         !pair.selfFetchable -> Missing.PHONE_ONLY
         outcome == Outcome.NOT_LISTED -> Missing.VIA_PHONE
         outcome == Outcome.UNREACHABLE -> Missing.UNREACHABLE
-        asksOwnExchange(pair) -> Missing.OWN_UNREACHABLE
+        asksOwnExchange(pair, now) -> Missing.OWN_UNREACHABLE
         else -> Missing.VIA_PHONE
     }
 

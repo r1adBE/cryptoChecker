@@ -22,6 +22,7 @@ object BackupResultPresentation {
         "backup_storage_kept",
         "backup_restore_storage_in_memory",
         "backup_restore_journal_unavailable",
+        "backup_restore_storage_unavailable",
         "backup_not_verified",
         "backup_restore_newer_version",
     )
@@ -77,6 +78,7 @@ object BackupResultPresentation {
         BackupMessage.StorageKept -> R.string.backup_storage_kept
         BackupMessage.StorageInMemory -> R.string.backup_restore_storage_in_memory
         BackupMessage.JournalUnavailable -> R.string.backup_restore_journal_unavailable
+        BackupMessage.StorageUnavailable -> R.string.backup_restore_storage_unavailable
         BackupMessage.ExportTooLarge -> R.string.backup_export_too_large
         is BackupMessage.Restored -> R.string.backup_restored
     }

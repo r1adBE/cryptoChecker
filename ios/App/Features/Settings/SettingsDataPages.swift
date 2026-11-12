@@ -317,6 +317,8 @@ struct BackupSettingsPage: View {
         } catch BackupManager.Failure.journalUnavailable {
             // Ohne Journal nichts ersetzt: später erneut
             fail("backup_restore_journal_unavailable")
+        } catch let error where BackupManager.isStorageFailure(error) {
+            fail("backup_restore_storage_unavailable") // Speicher nicht beschreibbar: zurückgerollt, Daten unverändert
         } catch {
             fail("backup_failed")
         }

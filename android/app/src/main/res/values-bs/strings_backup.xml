@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">„Portfolio u sigurnosnoj kopiji sistema“ uključeno je sigurnosnom kopijom.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Sakrij iznose“ isključeno je sigurnosnom kopijom.</string>
+    <string name="backup_restore_storage_unavailable">Vraćanje trenutno nije moguće: pohrana aplikacije nije dostupna. Ponovo pokreni aplikaciju i pokušaj ponovo. Tvoji dosadašnji podaci su nepromijenjeni.</string>
 </resources>

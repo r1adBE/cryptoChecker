@@ -35,4 +35,5 @@
         <item quantity="one">laatst bijgewerkt %1$d dag geleden</item>
         <item quantity="other">laatst bijgewerkt %1$d dagen geleden</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s levert geen koersen meer</string>
 </resources>

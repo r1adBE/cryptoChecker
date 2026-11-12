@@ -96,7 +96,8 @@ object PortfolioExchangeRoute {
 
     /**
      * Spot-Markt zu einem eingetragenen Namen ([exchanges]: Schlüssel → Anzeigename); Name oder Schlüssel,
-     * Gross/Klein egal. Binance und unbekannte Namen (freier Text) → null.
+     * Gross/Klein egal. Binance, unbekannte Namen (freier Text) und stillgelegte Börsen
+     * ([com.cryptochecker.marketdata.config.ExchangeRetirement]: keine Anfrage mehr) → null.
      */
     fun exchange(name: String, exchanges: Map<String, String>): Pair<String, String>? {
         val wanted = name.trim().lowercase()
@@ -104,7 +105,7 @@ object PortfolioExchangeRoute {
         val hit = exchanges.entries.firstOrNull { (key, label) ->
             isSpot(key) && (label.lowercase() == wanted || key.lowercase() == wanted)
         } ?: return null
-        if (hit.key == DEFAULT_EXCHANGE) return null
+        if (hit.key == DEFAULT_EXCHANGE || com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(hit.key)) return null
         return hit.key to hit.value
     }
 

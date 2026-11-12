@@ -16,6 +16,13 @@ struct BulkTickers: Sendable {
     var exchangeFailure: ExchangeFailure? = nil
 }
 
+/// Börse stillgelegt (`ExchangeRetirement`): keine Anfrage; der Text ist der gespeicherte Marker (Anzeige übersetzt ihn,
+/// `ConnectionErrors.display`).
+struct RetiredExchangeError: LocalizedError, Sendable {
+    let name: String
+    var errorDescription: String? { ExchangeRetirement.marker(name) }
+}
+
 /// Netzzugriff auf die Börsen: Paarlisten, Sammelabfragen und Einzelkurse. Android: `ExchangeRemoteDataSource` samt
 /// `ExchangeRepositoryImpl`.
 enum ExchangeService {
@@ -24,6 +31,8 @@ enum ExchangeService {
     /// Paarliste einer Börse, sortiert. Einzeln gelesene Anfragen: nur die erste muss gelingen; gemeinsam gelesene
     /// (`pairListCombined`): jede.
     static func fetchCurrencyPairs(exchange: Exchange) async throws -> [ExchangePair] {
+        // Stillgelegt (`ExchangeRetirement`): keine Paarliste mehr laden
+        if ExchangeRetirement.isRetired(exchange.key) { throw RetiredExchangeError(name: exchange.name) }
         if exchange.pairListCombined { return try await loadCombinedPairList(exchange) }
         return try await loadPairListByCall(exchange)
     }
@@ -122,6 +131,8 @@ enum ExchangeService {
     static func fetchBulkTickers(exchange: Exchange, pairIds: [String], lowMemory: Bool = false) async -> BulkTickers {
         // Referenzkurse aus mehreren Antworten (NBU, NBP): gemeinsam geholt und behalten (`MultiResponses`)
         if let multi = exchange as? MultiResponseSource { return await MultiResponses.bulk(multi) }
+        // Stillgelegt: keine Anfrage, der Marker nennt den Grund
+        if ExchangeRetirement.isRetired(exchange.key) { return BulkTickers(error: ExchangeRetirement.marker(exchange.name)) }
         guard exchange.bulkTickersNumOfRequests > 0 else { return BulkTickers() }
         // Lange Listen verteilt die Börse auf mehrere gefilterte Anfragen
         let callCount = exchange.bulkTickersRequestCount(pairIds: pairIds)
@@ -265,6 +276,7 @@ enum ExchangeService {
     /// Kurs eines Paars. Die erste Anfrage muss gelingen; weitere (z. B. Volumen aus einer zweiten Quelle) ergänzen
     /// nur und dürfen scheitern, ohne den Kurs zu verwerfen.
     static func fetchTicker(exchange: Exchange, info: PairQuery) async throws -> Ticker {
+        if ExchangeRetirement.isRetired(exchange.key) { throw RetiredExchangeError(name: exchange.name) }
         if let multi = exchange as? MultiResponseSource { return try await MultiResponses.ticker(multi, info: info) }
         var ticker = Ticker()
         try await loadTickerCall(0, exchange: exchange, info: info, into: &ticker)

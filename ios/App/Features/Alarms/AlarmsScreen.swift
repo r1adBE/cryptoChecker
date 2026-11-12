@@ -70,6 +70,12 @@ struct AlarmsScreen: View {
         return DexLiquidityStore.blocksAlarms(exchangeKey: watch.exchangeKey, pairId: watch.pairId)
     }
 
+    /// Börse stillgelegt (`ExchangeRetirement`): Alarme bleiben gespeichert, prüfen nichts; kein neuer, kein Bearbeiten.
+    static func retired(_ watch: Watch?) -> Bool {
+        guard let watch else { return false }
+        return ExchangeRetirement.isRetired(watch.exchangeKey)
+    }
+
     /// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`)?
     static func referenceRate(_ watch: Watch?) -> Bool {
         guard let watch else { return false }
@@ -96,14 +102,21 @@ struct AlarmsScreen: View {
         let lowLiquidity = Self.lowLiquidity(watch)
         // EZB-Referenzkurs: weder neuer Alarm noch Bearbeiten, Hinweis statt Editor — wie Android
         let referenceRate = Self.referenceRate(watch)
-        let blocked = lowLiquidity || referenceRate
+        let retired = Self.retired(watch)
+        let blocked = lowLiquidity || referenceRate || retired
         // Höchstzahl Alarme am Paar erreicht (`WatchlistLimits`): kein «Neuer Alarm», Hinweis über der Liste — wie Android
         let alarmsFull = !WatchlistLimits.canAddAlarm(alarms.count)
         return Group {
             if alarms.isEmpty && blocked {
                 ScrollView {
                     Group {
-                        if referenceRate { ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey) } else { DexLowLiquidityNote() }
+                        if retired {
+                            RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+                        } else if referenceRate {
+                            ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
+                        } else {
+                            DexLowLiquidityNote()
+                        }
                     }
                     .padding(16)
                 }
@@ -130,7 +143,12 @@ struct AlarmsScreen: View {
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                    if referenceRate {
+                    if retired {
+                        RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+                            .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                    } else if referenceRate {
                         ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
                             .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                             .listRowSeparator(.hidden)
@@ -169,8 +187,10 @@ struct AlarmsScreen: View {
                                 now: now,
                                 staleAfterMillis: data.staleAfterMillis,
                                 unchecked: checkStatus.unchecked(alarm.id) != nil,
-                                markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
+                                markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false,
+                                exchangeRetired: retired
                             ),
+                            retiredExchange: watch?.exchangeName,
                             onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
                             onEdit: { if !blocked { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
@@ -200,7 +220,7 @@ struct AlarmsScreen: View {
             // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — nicht bei gesperrter Merkliste (wie Android)
             guard !autoOpenDone else { return }
             autoOpenDone = true
-            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) && !Self.referenceRate(watch)
+            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) && !Self.referenceRate(watch) && !Self.retired(watch)
                 && !data.alarmSaveBlocked { draft = AlarmDraft.blankFor() }
         }
         // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms öffnen — nur der Bildschirm seines Paars;

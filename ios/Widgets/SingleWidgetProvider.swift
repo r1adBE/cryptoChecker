@@ -46,7 +46,8 @@ struct SingleEntry: TimelineEntry {
          chartType: WidgetChartTypeOption, theme: WidgetThemeOption,
          settings: AppSettings = SharedStorage.loadSettings()) {
         self.date = date
-        self.watch = watch
+        // Börse stillgelegt (`ExchangeRetirement`): ohne alten Kurs
+        self.watch = watch?.retiredShown
         self.candles = candles
         self.range = range
         self.chartType = chartType

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">Το «Χαρτοφυλάκιο στο αντίγραφο συστήματος» ενεργοποιήθηκε από το αντίγραφο.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">Η «Απόκρυψη ποσών» απενεργοποιήθηκε από το αντίγραφο.</string>
+    <string name="backup_restore_storage_unavailable">Η επαναφορά δεν είναι δυνατή τώρα: ο χώρος αποθήκευσης της εφαρμογής δεν είναι διαθέσιμος. Επανεκκίνησε την εφαρμογή και δοκίμασε ξανά. Τα τρέχοντα δεδομένα σου δεν άλλαξαν.</string>
 </resources>

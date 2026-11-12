@@ -60,7 +60,10 @@ enum PriceRefresher {
         // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
         // sonst verlängerte die Kursabfrage die IP-Sperre (siehe `BlockedSources`) — wie Android
         if liveQuotes == nil { adoptGroupPauses(&backoff, watches: all, started: started) }
-        let paused = liveQuotes != nil ? [] : all.filter { ExchangeBackoff.isPaused(backoff[$0.exchangeKey], now: started) }
+        // Stillgelegte Börse (`ExchangeRetirement`) nie als pausiert: ihr Abruf fragt nichts, setzt nur den Grund
+        let paused = liveQuotes != nil ? [] : all.filter {
+            ExchangeBackoff.isPaused(backoff[$0.exchangeKey], now: started) && !ExchangeRetirement.isRetired($0.exchangeKey, now: started)
+        }
         outcome.pausedIds = Set(paused.map(\.id))
         // Paare mit frischem Live-Kurs (WebSocket): diesmal ohne REST-Abfrage
         let watches = all.filter { !outcome.pausedIds.contains($0.id) && !liveIds.contains($0.id) }

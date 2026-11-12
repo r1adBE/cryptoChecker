@@ -333,5 +333,5 @@
     <string name="settings_portfolio_value_off_locked">Imezimwa, ikiwa na kufuli</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">Hukokotoa upya miaka yote: gharama ya ununuzi, faida zilizopatikana na karatasi za kodi za miaka iliyopita pia hubadilika.</string>
-    <string name="settings_portfolio_system_backup_confirm">Miamala yako, arifa za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu ya Android (k.m. akaunti yako ya Google) na kwenye uhamishaji kwenda kifaa kipya – zikiwa zimesimbwa mwanzo hadi mwisho pekee.</string>
+    <string name="settings_portfolio_system_backup_confirm">Miamala yako, kengele za jalada na anwani unazofuatilia zitaingia kwenye nakala rudufu ya Android (k.m. akaunti yako ya Google) na kwenye uhamishaji kwenda kifaa kipya – zikiwa zimesimbwa mwanzo hadi mwisho pekee.</string>
 </resources>

@@ -332,6 +332,6 @@
     <!-- Kurzwert «Portfolio»: Portfolio ausgeblendet, Sperre aber an (wirkt weiter auf Widget und Sicherung) -->
     <string name="settings_portfolio_value_off_locked">Oʻchiq, qulf bilan</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
-    <string name="settings_cost_method_confirm">Barcha yillarni qayta hisoblaydi: oldingi yillarning xarid qiymati, amalga oshgan foyda va soliq varaqlari ham o‘zgaradi.</string>
-    <string name="settings_portfolio_system_backup_confirm">Shunda tranzaksiyalaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillar Android zaxira nusxasiga (masalan, Google hisobingizga) va yangi qurilmaga ko‘chirishga kiradi – faqat uchdan-uchgacha shifrlangan holda.</string>
+    <string name="settings_cost_method_confirm">Barcha yillarni qayta hisoblaydi: oldingi yillarning xarid qiymati, amalga oshgan foyda va soliq varaqlari ham oʻzgaradi.</string>
+    <string name="settings_portfolio_system_backup_confirm">Shunda tranzaksiyalaringiz, portfel signallari va kuzatilayotgan manzillar Android zaxira nusxasiga (masalan, Google hisobingizga) va yangi qurilmaga koʻchirishga kiradi – faqat uchdan-uchgacha shifrlangan holda.</string>
 </resources>

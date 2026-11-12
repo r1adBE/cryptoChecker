@@ -35,4 +35,5 @@
         <item quantity="one">ከ%1$d ቀን በፊት ተዘምኗል</item>
         <item quantity="other">ከ%1$d ቀናት በፊት ተዘምኗል</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ከእንግዲህ ዋጋዎችን አያቀርብም</string>
 </resources>

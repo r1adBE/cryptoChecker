@@ -38,4 +38,5 @@
         <item quantity="few">actualizat ultima dată acum %1$d zile</item>
         <item quantity="other">actualizat ultima dată acum %1$d de zile</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s nu mai furnizează prețuri</string>
 </resources>

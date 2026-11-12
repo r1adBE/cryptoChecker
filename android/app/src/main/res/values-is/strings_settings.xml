@@ -333,5 +333,5 @@
     <string name="settings_portfolio_value_off_locked">Af, með lás</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">Reiknar öll ár upp á nýtt: kostnaðarverð, innleystur hagnaður og skattablöð fyrri ára breytast líka.</string>
-    <string name="settings_portfolio_system_backup_confirm">Færslurnar þínar, eignasafnsviðvaranir og vaktaðar slóðir fara þá í Android-afritið (t.d. á Google-reikninginn þinn) og í flutning á nýtt tæki – aðeins dulkóðað frá enda til enda.</string>
+    <string name="settings_portfolio_system_backup_confirm">Færslurnar þínar, eignasafnsviðvaranir og vöktuð vistföng fara þá í Android-afritið (t.d. á Google-reikninginn þinn) og í flutning á nýtt tæki – aðeins dulkóðað frá enda til enda.</string>
 </resources>

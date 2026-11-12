@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“सिस्टम बैकअप में पोर्टफ़ोलियो” बैकअप द्वारा चालू किया गया।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“राशियाँ छिपाएँ” बैकअप द्वारा बंद किया गया।</string>
+    <string name="backup_restore_storage_unavailable">रीस्टोर अभी संभव नहीं है: ऐप का स्टोरेज उपलब्ध नहीं है। ऐप को फिर से शुरू करें और दोबारा कोशिश करें। आपका मौजूदा डेटा नहीं बदला है।</string>
 </resources>

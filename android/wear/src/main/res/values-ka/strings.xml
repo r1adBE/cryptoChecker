@@ -15,7 +15,7 @@
     <string name="watch_portfolio_today">დღეს %1$s</string>
     <string name="a11y_watch_portfolio_hidden">თანხა დამალულია</string>
     <string name="watch_portfolio_off">გამორთული</string>
-    <string name="watch_portfolio_turn_on">ჩართეთ ტელეფონში</string>
+    <string name="watch_portfolio_turn_on">ჩართე ტელეფონში</string>
     <string name="a11y_watch_outdated">ფასი მოძველებულია</string>
     <string name="a11y_watch_no_price_unreachable">ფასი არ არის, %1$s მიუწვდომელია</string>
     <string name="a11y_watch_no_price_phone_only">ფასი არ არის, საათი ამ წყვილს ვერ ჩატვირთავს</string>
@@ -35,4 +35,5 @@
         <item quantity="one">ბოლოს განახლდა %1$d დღის წინ</item>
         <item quantity="other">ბოლოს განახლდა %1$d დღის წინ</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ფასებს აღარ აწვდის</string>
 </resources>

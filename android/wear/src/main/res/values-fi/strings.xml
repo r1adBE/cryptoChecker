@@ -35,4 +35,5 @@
         <item quantity="one">päivitetty viimeksi %1$d päivä sitten</item>
         <item quantity="other">päivitetty viimeksi %1$d päivää sitten</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ei enää tarjoa hintoja</string>
 </resources>

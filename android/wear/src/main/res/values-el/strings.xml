@@ -35,4 +35,5 @@
         <item quantity="one">τελευταία ενημέρωση πριν από %1$d ημέρα</item>
         <item quantity="other">τελευταία ενημέρωση πριν από %1$d ημέρες</item>
     </plurals>
+    <string name="watch_no_price_retired">Το %1$s δεν παρέχει πλέον τιμές</string>
 </resources>

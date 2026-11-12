@@ -35,4 +35,5 @@
         <item quantity="one">अंतिम अपडेट %1$d दिन पहले</item>
         <item quantity="other">अंतिम अपडेट %1$d दिन पहले</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s अब कीमतें नहीं देता</string>
 </resources>

@@ -260,4 +260,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">ማሳወቂያውን መዝጋት</string>
     <string name="watchlist_missing_logos_explain">ለእነዚህ ሳንቲሞች ምንም አርማ የለም። መተግበሪያው የመጀመሪያ ፊደሎቻቸውን ያሳያል።</string>
+    <string name="exchange_retired_short">%1$s ከእንግዲህ ዋጋዎችን አያቀርብም</string>
+    <string name="exchange_retired_notice">ከ%2$s ጀምሮ %1$s ይፋዊ ዋጋዎችን አያቀርብም። ለእነዚህ ሳንቲሞች ሌላ ልውውጥ ይምረጡ።</string>
 </resources>

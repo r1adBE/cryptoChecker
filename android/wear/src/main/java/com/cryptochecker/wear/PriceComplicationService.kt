@@ -67,6 +67,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
             // schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
             if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, startedAt)[coin] ?: cached
         }
+        // Börse des Paars stillgelegt (ExchangeRetirement): kein alter Kurs
+        if (WatchPair.parse(coin)?.let { WatchPairQuotes.retired(it) } == true) return NoDataComplicationData()
         val shown = cached ?: return NoDataComplicationData()
         val q = shown.quote
         val time = shown.time

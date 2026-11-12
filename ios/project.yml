@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "224"
+    CURRENT_PROJECT_VERSION: "225"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -100,6 +100,8 @@ targets:
         excludes:
           - "Info.plist"
           - "*.entitlements"
+      # Regel stillgelegter Börsen (wie tools/gen_xcodeproj.py WATCHCORE_AND_WIDGET_SOURCES)
+      - path: WatchCore/ExchangeRetirement.swift
       # Datenschutz-Manifest: jedes Bundle braucht eines (Widgets nutzen UserDefaults)
       - path: App/PrivacyInfo.xcprivacy
         buildPhase: resources

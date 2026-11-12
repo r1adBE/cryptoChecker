@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">“ພອດໂຟລິໂອໃນການສຳຮອງລະບົບ” ຖືກເປີດໂດຍການສຳຮອງ.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“ເຊື່ອງຈຳນວນ” ຖືກປິດໂດຍການສຳຮອງ.</string>
+    <string name="backup_restore_storage_unavailable">ຕອນນີ້ກູ້ຄືນບໍ່ໄດ້: ບ່ອນເກັບຂໍ້ມູນຂອງແອັບບໍ່ພ້ອມໃຊ້ງານ. ເປີດແອັບຄືນໃໝ່ ແລ້ວລອງອີກຄັ້ງ. ຂໍ້ມູນປັດຈຸບັນຂອງທ່ານບໍ່ມີການປ່ຽນແປງ.</string>
 </resources>

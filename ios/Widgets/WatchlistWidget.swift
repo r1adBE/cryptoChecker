@@ -46,7 +46,8 @@ struct WatchlistEntry: TimelineEntry {
     static func current(theme: WidgetThemeOption, group: String? = nil) -> WatchlistEntry {
         let selection = WidgetData.groupWatches(group: group)
         var entry = WatchlistEntry(date: Date(),
-                                   watches: selection.watches,
+                                   // Börse stillgelegt (`ExchangeRetirement`): ohne alten Kurs
+                                   watches: selection.watches.map(\.retiredShown),
                                    lastRefreshAt: SharedStorage.lastRefreshAt,
                                    theme: theme,
                                    accent: SharedStorage.loadSettings().accentColor)

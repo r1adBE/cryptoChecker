@@ -35,4 +35,5 @@
         <item quantity="one">laas %1$d dag gelede bygewerk</item>
         <item quantity="other">laas %1$d dae gelede bygewerk</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s verskaf nie meer pryse nie</string>
 </resources>

@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“सिस्टम ब्याकअपमा पोर्टफोलियो” ब्याकअपले सक्रिय गर्‍यो।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“रकम लुकाउनुहोस्” ब्याकअपले बन्द गर्‍यो।</string>
+    <string name="backup_restore_storage_unavailable">अहिले पुनर्स्थापना सम्भव छैन: एपको भण्डारण उपलब्ध छैन। एप पुनः सुरु गरेर फेरि प्रयास गर्नुहोस्। तपाईंको हालको डेटा परिवर्तन भएको छैन।</string>
 </resources>

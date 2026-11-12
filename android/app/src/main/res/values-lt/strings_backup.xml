@@ -118,4 +118,5 @@
     <string name="backup_restore_system_backup_on">„Portfelis sistemos atsarginėje kopijoje“ įjungta atsargine kopija.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Slėpti sumas“ išjungta atsargine kopija.</string>
+    <string name="backup_restore_storage_unavailable">Atkurti dabar negalima: programėlės saugykla nepasiekiama. Paleisk programėlę iš naujo ir bandyk dar kartą. Tavo esami duomenys nepakeisti.</string>
 </resources>

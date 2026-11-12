@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Պորտֆելը համակարգային պահուստում»-ը միացվել է պահուստային պատճենի կողմից։</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Թաքցնել գումարները»-ը անջատվել է պահուստային պատճենի կողմից։</string>
+    <string name="backup_restore_storage_unavailable">Վերականգնումը հիմա հնարավոր չէ՝ հավելվածի պահոցը հասանելի չէ։ Վերագործարկիր հավելվածը և կրկին փորձիր։ Քո առկա տվյալները չեն փոխվել։</string>
 </resources>

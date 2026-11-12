@@ -32,4 +32,5 @@
     <plurals name="a11y_watch_updated_days">
         <item quantity="other">နောက်ဆုံး အပ်ဒိတ်လုပ်ခဲ့သည်မှာ %1$d ရက်က</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s သည် စျေးနှုန်းများ မပေးတော့ပါ</string>
 </resources>

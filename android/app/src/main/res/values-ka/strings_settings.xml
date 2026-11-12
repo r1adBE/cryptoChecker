@@ -333,5 +333,5 @@
     <string name="settings_portfolio_value_off_locked">გამორთული, დაბლოკვით</string>
     <!-- Rückfragen: Einstandsmethode ändern, Portfolio in die Systemsicherung -->
     <string name="settings_cost_method_confirm">ხელახლა ითვლის ყველა წელს: იცვლება წინა წლების შეძენის ღირებულება, რეალიზებული მოგება და საგადასახადო ფურცლებიც.</string>
-    <string name="settings_portfolio_system_backup_confirm">თქვენი ტრანზაქციები, პორტფელის შეტყობინებები და თვალყურდევნებული მისამართები მაშინ მოხვდება Android-ის სარეზერვო ასლში (მაგ. თქვენს Google ანგარიშში) და ახალ მოწყობილობაზე გადატანაში – მხოლოდ ბოლომდე დაშიფრული.</string>
+    <string name="settings_portfolio_system_backup_confirm">შენი ტრანზაქციები, პორტფელის განგაშები და დაკვირვებადი მისამართები მაშინ მოხვდება Android-ის სარეზერვო ასლში (მაგ. შენს Google ანგარიშში) და ახალ მოწყობილობაზე გადატანაში – მხოლოდ ბოლოდან ბოლომდე დაშიფრული.</string>
 </resources>

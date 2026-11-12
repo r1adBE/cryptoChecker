@@ -35,4 +35,5 @@
         <item quantity="one">azkenekoz eguneratua duela %1$d egun</item>
         <item quantity="other">azkenekoz eguneratua duela %1$d egun</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s-k ez du preziorik ematen jada</string>
 </resources>

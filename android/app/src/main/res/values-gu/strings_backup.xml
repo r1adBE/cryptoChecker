@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“સિસ્ટમ બૅકઅપમાં પોર્ટફોલિયો” બૅકઅપ દ્વારા ચાલુ કરવામાં આવ્યું.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“રકમ છુપાવો” બૅકઅપ દ્વારા બંધ કરવામાં આવ્યું.</string>
+    <string name="backup_restore_storage_unavailable">અત્યારે પુનઃસ્થાપન શક્ય નથી: ઍપનો સ્ટોરેજ ઉપલબ્ધ નથી. ઍપ ફરી શરૂ કરો અને ફરી પ્રયાસ કરો. તમારો અત્યાર સુધીનો ડેટા યથાવત છે.</string>
 </resources>

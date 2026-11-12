@@ -41,4 +41,5 @@
         <item quantity="few">nazadnje posodobljeno pred %1$d dnevi</item>
         <item quantity="other">nazadnje posodobljeno pred %1$d dnevi</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s ne zagotavlja več cen</string>
 </resources>

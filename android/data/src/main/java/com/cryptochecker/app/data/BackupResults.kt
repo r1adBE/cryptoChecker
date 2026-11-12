@@ -73,6 +73,14 @@ class BackupStorageInMemoryException : IllegalStateException("Datenbank nur im A
 class BackupJournalUnavailableException(cause: Throwable?) :
     IllegalStateException("Journal des Wiederherstellens nicht geschrieben", cause)
 
+/**
+ * Wiederherstellen gescheitert, weil der Speicher der App nicht beschreibbar war (Datenbank voll, schreibgeschützt oder
+ * Ein-/Ausgabefehler, Schlüssel gerade nicht verfügbar). Alles Geschriebene ist schon zurückgerollt — oder, gelang das
+ * nicht ganz, bleibt das Journal und der nächste Start rollt zurück: die bisherigen Daten bleiben unverändert.
+ */
+class BackupRestoreStorageException(cause: Throwable) :
+    IllegalStateException("Speicher beim Wiederherstellen nicht beschreibbar", cause)
+
 /** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
 class UnconfirmedInvalidEntriesException(val invalid: Int) :
     IllegalStateException("$invalid ungültige Portfolio-Einträge nicht bestätigt")

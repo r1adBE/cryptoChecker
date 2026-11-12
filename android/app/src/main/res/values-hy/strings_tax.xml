@@ -256,5 +256,5 @@
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Առանց գրանցված գնի շուկայական արժեքներ (միջնորդավճարներ, նվերներ/վճարումներ, փոխանակումներ, պարգևներ, ցանցի միջնորդավճարներ, պորտֆելի արժեք)՝ գործարքի օրվա փակման գնով (UTC)</string>
     <!-- Arbeitsunterlage: was in den Dateien steht (vor dem Export) -->
-    <string name="tax_export_file_contents">Ֆայլերը պարունակում են պահուստներ, գումարներ, ամսաթվեր և հասցեներ։</string>
+    <string name="tax_export_file_contents">Ֆայլերը պարունակում են ակտիվներ, գումարներ, ամսաթվեր և հասցեներ։</string>
 </resources>

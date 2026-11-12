@@ -20,8 +20,9 @@ enum WatchPairQuotes {
     }
 
     /// Reihenfolge der Abfrage: Börse des iPhones zuerst (falls die Uhr sie kennt), dann die anderen gleicher Art.
-    static func venues(_ pair: WatchPair) -> [Venue] {
-        guard pair.selfFetchable else { return [] }
+    static func venues(_ pair: WatchPair, now: Int64? = nil) -> [Venue] {
+        // Börse des iPhones stillgelegt (`ExchangeRetirement`): keine Ersatzbörse, das Paar zeigt «—» mit Grund
+        guard pair.selfFetchable, !retired(pair, now: now) else { return [] }
         let kind = Venue.allCases.filter { $0.perp == pair.perp }
         guard let own = kind.first(where: { $0.label.caseInsensitiveCompare(pair.exchange) == .orderedSame }) else {
             return kind
@@ -32,8 +33,8 @@ enum WatchPairQuotes {
     /// Fragt die Uhr die Börse des Paars selbst ab (erste in `venues`)? Nein bei Börsen, die sie nicht kennt (Kraken-Spot-
     /// Paar: nur Binance, Bybit, OKX) und bei Paaren, die sie gar nicht selbst lädt — dann sagt «—» nicht «Kraken nicht
     /// erreichbar» (`WatchText.missingReason`). Wie Android.
-    static func asksOwnExchange(_ pair: WatchPair) -> Bool {
-        venues(pair).first?.label.caseInsensitiveCompare(pair.exchange) == .orderedSame
+    static func asksOwnExchange(_ pair: WatchPair, now: Int64? = nil) -> Bool {
+        venues(pair, now: now).first?.label.caseInsensitiveCompare(pair.exchange) == .orderedSame
     }
 
     /// Ergebnis des letzten eigenen Abrufs eines Paars — für den Grund bei «—» (`missingReason`). Wie Android.
@@ -60,8 +61,15 @@ enum WatchPairQuotes {
         !answers.isEmpty && answers.allSatisfy { $0 } ? .notListed : .unreachable
     }
 
+    /// Börse des Paars stillgelegt (`ExchangeRetirement`, Uhr der Regel)? Dann weder Kurs noch Abruf. Wie Android.
+    static func retired(_ pair: WatchPair, now: Int64? = nil) -> Bool {
+        ExchangeRetirement.isRetired(pair.exchange, now: now)
+    }
+
     /// Grund für «—» eines Paars (`missingReason`). Wie Android `Missing`.
     enum Missing: String, Sendable {
+        /// «<Börse> liefert keine Kurse mehr» (`ExchangeRetirement`).
+        case retired = "RETIRED"
         /// Pool, Laufzeit-Kontrakt, unbekannte Kontrakt-Börse: «die Uhr kann dieses Paar nicht abrufen».
         case phoneOnly = "PHONE_ONLY"
         /// «Kurse von <Börse> erhält die Uhr nur vom iPhone».
@@ -79,12 +87,13 @@ enum WatchPairQuotes {
     /// führt das Paar → `.viaPhone`; gefragt, aber keine antwortete → `.unreachable`; noch kein eigenes Ergebnis → wie
     /// bisher: eigene Börse (`asksOwnExchange`) → `.ownUnreachable`, sonst `.viaPhone`. Wie Android
     /// (`watch_pairs.json` › «missing»).
-    static func missingReason(_ pair: WatchPair, outcome: Outcome?) -> Missing {
+    static func missingReason(_ pair: WatchPair, outcome: Outcome?, now: Int64? = nil) -> Missing {
+        if retired(pair, now: now) { return .retired }
         guard pair.selfFetchable else { return .phoneOnly }
         switch outcome {
         case .notListed: return .viaPhone
         case .unreachable: return .unreachable
-        case .quote, nil: return asksOwnExchange(pair) ? .ownUnreachable : .viaPhone
+        case .quote, nil: return asksOwnExchange(pair, now: now) ? .ownUnreachable : .viaPhone
         }
     }
 

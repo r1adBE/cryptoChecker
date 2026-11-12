@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">A copia de seguranza activou «Carteira na copia do sistema».</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">A copia de seguranza desactivou «Ocultar importes».</string>
+    <string name="backup_restore_storage_unavailable">Agora mesmo non se pode restaurar: o almacenamento da app non está dispoñible. Reinicia a app e téntao de novo. Os teus datos actuais non cambiaron.</string>
 </resources>

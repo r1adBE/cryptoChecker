@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Portfolio in Systemsicherung» wurde durch die Sicherung eingeschaltet.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Beträge verbergen» wurde durch die Sicherung ausgeschaltet.</string>
+    <string name="backup_restore_storage_unavailable">Wiederherstellen geht gerade nicht: Der Speicher der App ist nicht verfügbar. Starte die App neu und versuch es nochmals. Deine bisherigen Daten sind unverändert.</string>
 </resources>

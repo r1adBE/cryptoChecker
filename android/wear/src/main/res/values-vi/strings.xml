@@ -32,4 +32,5 @@
     <plurals name="a11y_watch_updated_days">
         <item quantity="other">cập nhật lần cuối %1$d ngày trước</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s không còn cung cấp giá</string>
 </resources>

@@ -13,5 +13,7 @@ class PairAlarmLimitsTest {
         assertFalse(PairAlarmLimits(referenceRate = true, lowLiquidity = false, full = false).canAdd)
         assertFalse(PairAlarmLimits(referenceRate = false, lowLiquidity = true, full = false).canAdd)
         assertFalse(PairAlarmLimits(referenceRate = false, lowLiquidity = false, full = true).canAdd)
+        // Börse stillgelegt (ExchangeRetirement): kein neuer Alarm
+        assertFalse(PairAlarmLimits(referenceRate = false, lowLiquidity = false, full = false, retired = true).canAdd)
     }
 }

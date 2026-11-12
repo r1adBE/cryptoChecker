@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“Portefeulje in stelselrugsteun” is deur die rugsteun aangeskakel.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“Versteek bedrae” is deur die rugsteun afgeskakel.</string>
+    <string name="backup_restore_storage_unavailable">Herstel is nou nie moontlik nie: die app se berging is nie beskikbaar nie. Herbegin die app en probeer weer. Jou huidige data is onveranderd.</string>
 </resources>

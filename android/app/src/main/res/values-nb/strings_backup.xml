@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">«Portefølje i systemsikkerhetskopi» ble slått på av sikkerhetskopien.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Skjul beløp» ble slått av av sikkerhetskopien.</string>
+    <string name="backup_restore_storage_unavailable">Gjenoppretting er ikke mulig akkurat nå: appens lagring er ikke tilgjengelig. Start appen på nytt og prøv igjen. Dataene dine er uendret.</string>
 </resources>

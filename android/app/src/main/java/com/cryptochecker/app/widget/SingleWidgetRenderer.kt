@@ -30,6 +30,7 @@ import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -132,17 +133,25 @@ class SingleWidgetRenderer @Inject constructor(
             } else {
                 // Deaktiviertes Paar: grau mit dem letzten Kurs, «Binance · deaktiviert», kein Chart (keine Abfrage)
                 val off = watch.disabled
-                val mainText = if (off) colors.secondaryTextColor else colors.textColor
+                // Börse stillgelegt (ExchangeRetirement): grau ohne Kurs, «Bitpanda liefert keine Kurse mehr»
+                val retired = ExchangeRetirement.exchangeOf(watch.lastError)
+                val grey = off || retired != null
+                val mainText = if (grey) colors.secondaryTextColor else colors.textColor
                 views.setTextColor(R.id.single_pair, mainText)
                 views.setTextViewText(
                     R.id.single_exchange,
-                    if (off) context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName)) else watch.exchangeName
+                    when {
+                        retired != null -> context.getString(R.string.exchange_retired_short, BidiText.isolate(retired))
+                        off -> context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
+                        else -> watch.exchangeName
+                    }
                 )
+                val shownPrice = PriceFormat.priceWithCurrency(watch.lastPrice.takeIf { retired == null }, watch.quoteAsset)
                 views.setTextColor(R.id.single_exchange, colors.secondaryTextColor)
                 // Währung klein und grau (Verhältnis zur grössten Kursgrösse 28 sp = [WidgetType.DISPLAY_COMPACT], widget_single.xml; autoSize skaliert mit)
                 views.setAmountText(
                     R.id.single_price,
-                    toolkit.quoteText(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), watch.quoteAsset, WidgetType.DISPLAY_COMPACT, colors.secondaryTextColor)
+                    toolkit.quoteText(shownPrice, watch.quoteAsset, WidgetType.DISPLAY_COMPACT, colors.secondaryTextColor)
                 )
                 views.setTextColor(R.id.single_price, mainText)
 
@@ -184,11 +193,11 @@ class SingleWidgetRenderer @Inject constructor(
                 val range = widgetPrefs.getChartRange(appWidgetId)
                 // Deaktiviert ist nie «veraltet» (es wird bewusst nicht abgefragt)
                 // Regel der App (Abruf zu alt oder letzter Handel > 2 h, [WidgetFreshness.outdatedTime])
-                val outdatedAt = if (off) null else WidgetFreshness.outdatedTime(watch, now, outdatedAfter)
+                val outdatedAt = if (grey) null else WidgetFreshness.outdatedTime(watch, now, outdatedAfter)
                 val outdated = outdatedAt != null
                 // Börse ohne eigene Zeit, Kurs steht lange: «Kurs unverändert seit 14:05» statt frischer Uhrzeit
                 // (wie die Zeile der App); sonst Zeit laut Börse bzw. letzter Abruf (WidgetFreshness)
-                val unchangedSince = if (off) null else WidgetFreshness.unchangedSince(watch, now, outdatedAfter)
+                val unchangedSince = if (grey) null else WidgetFreshness.unchangedSince(watch, now, outdatedAfter)
                 val offline = WidgetStatusRule.kind(online, outdated, watch.lastUpdate).let {
                     it == WidgetStatusRule.Kind.OFFLINE || it == WidgetStatusRule.Kind.OFFLINE_NO_TIME
                 }
@@ -253,13 +262,14 @@ class SingleWidgetRenderer @Inject constructor(
                         context = context,
                         pair = watch.displayName,
                         exchange = watch.exchangeName,
-                        price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
+                        price = shownPrice,
                         quote = watch.quoteAsset,
                         change24h = change,
                         basis = changeView.basis,
                         // Frische direkt nach der Veränderung (wie die Merkliste)
                         state = listOf(
                             if (off) context.getString(R.string.watch_disabled) else null,
+                            retired?.let { context.getString(R.string.exchange_retired_short, it) },
                             if (offline) WidgetOffline.label(context, watch.lastUpdate) else null,
                             outdatedAt?.let { WidgetOutdated.spoken(context, it) },
                             unchangedSince?.let { WidgetOutdated.unchanged(context, it) },

@@ -15,7 +15,8 @@ enum StoredError {
     ]
 
     /// Fehler der Massenabfrage («Bulk format error: 3 of 5 rows unreadable»): nur Zahlen, bleiben.
-    private static let keepPrefixes = ["Bulk format error", "Bulk row unreadable"]
+    /// Dazu der Marker einer stillgelegten Börse samt Name (`ExchangeRetirement`).
+    private static let keepPrefixes = ["Bulk format error", "Bulk row unreadable", ExchangeRetirement.markerPrefix]
 
     private static let maxKept = 80
 

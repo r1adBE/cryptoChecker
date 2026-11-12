@@ -118,4 +118,5 @@
     <string name="backup_restore_system_backup_on">„Portfolio v systémové záloze“ bylo zapnuto zálohou.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">„Skrýt částky“ bylo vypnuto zálohou.</string>
+    <string name="backup_restore_storage_unavailable">Obnovení teď není možné: úložiště aplikace není dostupné. Restartuj aplikaci a zkus to znovu. Tvoje dosavadní data zůstala beze změny.</string>
 </resources>

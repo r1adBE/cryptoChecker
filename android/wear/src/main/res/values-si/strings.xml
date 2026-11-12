@@ -35,4 +35,5 @@
         <item quantity="one">අවසන් වරට යාවත්කාලීන කළේ දින %1$d කට පෙර</item>
         <item quantity="other">අවසන් වරට යාවත්කාලීන කළේ දින %1$d කට පෙර</item>
     </plurals>
+    <string name="watch_no_price_retired">%1$s තවදුරටත් මිල ලබා නොදෙයි</string>
 </resources>

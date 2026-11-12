@@ -21,6 +21,7 @@ enum WatchText {
     static func missingReason(_ key: String) -> String {
         guard let pair = WatchPair.parse(key) else { return t("watch_error") }
         switch WatchPairQuotes.missingReason(pair, outcome: WatchPairOutcomes.outcome(pair.key)) {
+        case .retired: return t("watch_no_price_retired", pair.exchange)
         case .phoneOnly: return t("a11y_watch_no_price_phone_only")
         case .ownUnreachable: return t("a11y_watch_no_price_unreachable", pair.exchange)
         case .unreachable: return t("a11y_watch_no_price_exchanges_unreachable")
@@ -32,8 +33,9 @@ enum WatchText {
     /// (`WatchPairQuotes.Missing.viaPhone`): «nur vom Handy» bzw. «nicht erreichbar». Wie Android `missingShort`.
     static func missingShort(_ key: String) -> String {
         guard let pair = WatchPair.parse(key) else { return t("watch_no_price_unreachable") }
-        let viaPhone = WatchPairQuotes.missingReason(pair, outcome: WatchPairOutcomes.outcome(pair.key)).viaPhone
-        return t(viaPhone ? "watch_no_price_phone" : "watch_no_price_unreachable")
+        let reason = WatchPairQuotes.missingReason(pair, outcome: WatchPairOutcomes.outcome(pair.key))
+        if reason == .retired { return t("watch_no_price_retired", pair.exchange) }
+        return t(reason.viaPhone ? "watch_no_price_phone" : "watch_no_price_unreachable")
     }
 
     /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).

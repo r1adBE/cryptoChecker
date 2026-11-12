@@ -115,4 +115,5 @@
     <string name="backup_restore_system_backup_on">La còpia de seguretat ha activat «Cartera a la còpia del sistema».</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">La còpia de seguretat ha desactivat «Amaga els imports».</string>
+    <string name="backup_restore_storage_unavailable">Ara mateix no es pot restaurar: l\'emmagatzematge de l\'app no està disponible. Reinicia l\'app i torna-ho a provar. Les teves dades actuals no han canviat.</string>
 </resources>

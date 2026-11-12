@@ -267,8 +267,9 @@ extension WatchlistRow {
             Text(PriceFormat.price(watch.lastPrice))
                 .font(AppFont.amount(DenseRowText.largePrice(scale: typeScale, rowWidth: Double(rowWidth)) ? .title3 : .body,
                                      weight: .semibold))
-                // Veraltet bzw. deaktiviert: gedämpft, aber lesbar (statt halber Deckkraft)
-                .foregroundStyle(stale || off ? AppColors.onSurfaceVariant : AppColors.onSurface)
+                // Veraltet, deaktiviert bzw. Börse stillgelegt (`ExchangeRetirement`): gedämpft, aber lesbar
+                .foregroundStyle(stale || off || ExchangeRetirement.isMarker(watch.lastError)
+                                 ? AppColors.onSurfaceVariant : AppColors.onSurface)
                 .contentTransition(.numericText(value: watch.lastPrice ?? 0))
             if let price = watch.lastPrice, price > 0 {
                 Text(watch.quoteAsset)

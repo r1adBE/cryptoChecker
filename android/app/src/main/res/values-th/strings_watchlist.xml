@@ -242,4 +242,6 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">ปิดการแจ้งเตือน</string>
     <string name="watchlist_missing_logos_explain">ไม่มีโลโก้สำหรับเหรียญเหล่านี้ แอปจะแสดงอักษรย่อแทน</string>
+    <string name="exchange_retired_short">%1$s ไม่ให้ข้อมูลราคาแล้ว</string>
+    <string name="exchange_retired_notice">ตั้งแต่ %2$s %1$s ไม่ให้ข้อมูลราคาสาธารณะแล้ว โปรดเลือกกระดานเทรดอื่นสำหรับเหรียญเหล่านี้</string>
 </resources>

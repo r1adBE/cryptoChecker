@@ -112,4 +112,5 @@
     <string name="backup_restore_system_backup_on">“I-portfolio esipeleni sesistimu” ivulwe yisipele.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">“Fihla amanani” ivalwe yisipele.</string>
+    <string name="backup_restore_storage_unavailable">Ukubuyisela akukwenzeki okwamanje: isitoreji se-app asitholakali. Qala kabusha i-app bese uzama futhi. Idatha yakho yamanje ayishintshile.</string>
 </resources>

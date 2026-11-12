@@ -109,4 +109,5 @@
     <string name="backup_restore_system_backup_on">«ផលប័ត្រក្នុងការបម្រុងទុកប្រព័ន្ធ» ត្រូវបានបើកដោយការបម្រុងទុក។</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«លាក់ចំនួន» ត្រូវបានបិទដោយការបម្រុងទុក។</string>
+    <string name="backup_restore_storage_unavailable">មិនអាចស្ដារបាននៅពេលនេះទេ៖ ទំហំផ្ទុករបស់កម្មវិធីមិនអាចប្រើបានទេ។ សូមចាប់ផ្ដើមកម្មវិធីឡើងវិញ ហើយព្យាយាមម្តងទៀត។ ទិន្នន័យបច្ចុប្បន្នរបស់អ្នកមិនបានផ្លាស់ប្ដូរទេ។</string>
 </resources>
