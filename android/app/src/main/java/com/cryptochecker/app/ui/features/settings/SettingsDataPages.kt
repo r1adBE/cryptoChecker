@@ -41,6 +41,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
@@ -111,6 +112,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                     ) {
                         FilledTonalButton(
                             enabled = !working,
+                            colors = DisabledColors.filledTonalButton(),
                             onClick = {
                                 // Mit Portfolio-Daten und gesperrt: erst entsperren
                                 viewModel.startBackupExport(context.findFragmentActivity(), reason) { hasPortfolio ->
@@ -126,6 +128,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                         }
                         FilledTonalButton(
                             enabled = !working,
+                            colors = DisabledColors.filledTonalButton(),
                             onClick = {
                                 viewModel.startRestore(context.findFragmentActivity(), reason) {
                                     importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
