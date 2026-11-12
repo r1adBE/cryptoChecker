@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Ֆայլը և օրական փոխարժեքները կարդացվում են…</string>
     <string name="portfolio_csv_import_progress">Տող %1$s՝ %2$s-ից</string>
     <string name="portfolio_csv_import_saving">Գործարքները պահպանվում են…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s տողերի համար օրական փոխարժեք չկա – ներմուծված են առանց գնի/միջնորդավճարի։</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s տողերի համար օրական փոխարժեք չկա – գինը/միջնորդավճարը բացակայում է։</string>
     <string name="portfolio_csv_import_missing_price">Ֆայլում %1$s տողերի համար գին չկա – ներմուծված են առանց գնի։</string>
     <string name="portfolio_csv_import_fee_in_price">Երկու վճար %1$s տողերում․ ֆիատ վճարը ներառված է գնի մեջ, մետաղադրամով վճարը նվազեցնում է ստացված կամ ավելացնում տրված քանակը։</string>
     <string name="portfolio_csv_import_pending_differs">%1$s տողեր․ նույն մուտքի կամ ելքի սպասվող և հաշվառված գրառումները տարբեր քանակ ունեն – երկուսն էլ ներմուծված են, ստուգիր ակտիվները։</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Առանց օրական փոխարժեքի գինը կամ միջնորդավճարը մշտապես կբացակայի։ Կրկին փորձիր կամ այնուամենայնիվ ներմուծիր – այդ գործարքները նշում կստանան։</string>
     <string name="portfolio_csv_note_price_no_rate">Գին առանց օրական փոխարժեքի</string>
     <string name="portfolio_csv_note_fee_no_rate">Միջնորդավճար առանց օրական փոխարժեքի</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s-ի համար օրական փոխարժեքներ չկան, ուստի կրկին փորձելը չի օգնի։ Եթե այնուամենայնիվ ներմուծես, այդ գործարքները նշում կստանան։</string>
+    <string name="portfolio_csv_import_blocked_rates">Նախ վերևում որոշիր առանց օրական փոխարժեքի տողերի մասին։</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">ಫೈಲ್ ಮತ್ತು ದೈನಂದಿನ ದರಗಳನ್ನು ಓದಲಾಗುತ್ತಿದೆ…</string>
     <string name="portfolio_csv_import_progress">%2$s ರಲ್ಲಿ ಸಾಲು %1$s</string>
     <string name="portfolio_csv_import_saving">ವಹಿವಾಟುಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ…</string>
-    <string name="portfolio_csv_import_missing_fx">ಸಾಲುಗಳು %1$s ಗೆ ದೈನಂದಿನ ದರವಿಲ್ಲ – ಬೆಲೆ/ಶುಲ್ಕವಿಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="portfolio_csv_import_missing_fx">ಸಾಲುಗಳು %1$s ಗೆ ದೈನಂದಿನ ದರವಿಲ್ಲ – ಬೆಲೆ/ಶುಲ್ಕ ಕಾಣೆಯಾಗಿದೆ.</string>
     <string name="portfolio_csv_import_missing_price">ಸಾಲುಗಳು %1$s ಗೆ ಫೈಲ್‌ನಲ್ಲಿ ಬೆಲೆ ಇಲ್ಲ – ಬೆಲೆ ಇಲ್ಲದೆ ಆಮದು ಮಾಡಲಾಗಿದೆ.</string>
     <string name="portfolio_csv_import_fee_in_price">ಸಾಲುಗಳು %1$s ರಲ್ಲಿ ಎರಡು ಶುಲ್ಕಗಳು: ಫಿಯಟ್ ಶುಲ್ಕ ಬೆಲೆಯಲ್ಲಿ ಸೇರಿದೆ, ಕಾಯಿನ್‌ನಲ್ಲಿನ ಶುಲ್ಕ ಪಡೆದ ಪ್ರಮಾಣವನ್ನು ಕಡಿಮೆ ಅಥವಾ ನೀಡಿದ ಪ್ರಮಾಣವನ್ನು ಹೆಚ್ಚು ಮಾಡುತ್ತದೆ.</string>
     <string name="portfolio_csv_import_pending_differs">ಸಾಲುಗಳು %1$s: ಒಂದೇ ಠೇವಣಿ ಅಥವಾ ಹಿಂಪಡೆಯುವಿಕೆಯ ಬಾಕಿ ಮತ್ತು ದಾಖಲಾದ ನಮೂದುಗಳ ಪ್ರಮಾಣ ಬೇರೆ – ಎರಡನ್ನೂ ಆಮದು ಮಾಡಲಾಗಿದೆ, ಹೋಲ್ಡಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">ದೈನಂದಿನ ದರವಿಲ್ಲದೆ ಬೆಲೆ ಅಥವಾ ಶುಲ್ಕ ಶಾಶ್ವತವಾಗಿ ಕಾಣೆಯಾಗುತ್ತದೆ. ಮರುಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಆದರೂ ಆಮದು ಮಾಡಿ – ಆಗ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ.</string>
     <string name="portfolio_csv_note_price_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಬೆಲೆ</string>
     <string name="portfolio_csv_note_fee_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಶುಲ್ಕ</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s ಗೆ ದೈನಂದಿನ ದರಗಳಿಲ್ಲ, ಆದ್ದರಿಂದ ಮರುಪ್ರಯತ್ನದಿಂದ ಪ್ರಯೋಜನವಿಲ್ಲ. ಆದರೂ ಆಮದು ಮಾಡಿದರೆ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ.</string>
+    <string name="portfolio_csv_import_blocked_rates">ಮೊದಲು ಮೇಲೆ ದೈನಂದಿನ ದರವಿಲ್ಲದ ಸಾಲುಗಳ ಬಗ್ಗೆ ನಿರ್ಧರಿಸಿ.</string>
 </resources>

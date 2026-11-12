@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Beurs (opsioneel)</string>
     <string name="ledger_exchange_failed">%1$s: nou geen prys van %2$s nie – met Binance gewaardeer.</string>
     <string name="ledger_exchange_hint">Die munt word teen hierdie beurs se prys gewaardeer (andersins Binance). Geskiedenis, 7 D en 1 J gebruik Binance se daaglikse pryse wat daarna geskaal is.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s verskaf nie meer pryse nie – met Binance gewaardeer.</string>
+    <string name="ledger_exchange_retired_hint">%1$s verskaf nie meer pryse nie – die munt word teen die Binance-prys gewaardeer.</string>
     <string name="ledger_exchange_mixed">%1$s: verskeie beurse ingevoer – met Binance gewaardeer. Munte geskuif? Teken die skuif aan as “Oordrag”.</string>
     <string name="ledger_exchange_none">Geen (Binance)</string>
     <string name="ledger_fee">Fooi (opsioneel)</string>

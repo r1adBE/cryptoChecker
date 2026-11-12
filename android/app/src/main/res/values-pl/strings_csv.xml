@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Wczytywanie pliku i kursów dziennych…</string>
     <string name="portfolio_csv_import_progress">Wiersz %1$s z %2$s</string>
     <string name="portfolio_csv_import_saving">Zapisywanie transakcji…</string>
-    <string name="portfolio_csv_import_missing_fx">Brak kursu dziennego dla wiersza %1$s – zaimportowano bez ceny i opłaty.</string>
+    <string name="portfolio_csv_import_missing_fx">Brak kursu dziennego dla wiersza %1$s – brakuje ceny i opłaty.</string>
     <string name="portfolio_csv_import_missing_price">Brak ceny w pliku dla wiersza %1$s – zaimportowano bez ceny.</string>
     <string name="portfolio_csv_import_fee_in_price">Dwie opłaty w wierszu %1$s: opłata w walucie fiat jest wliczona w cenę, opłata w monecie zmniejsza otrzymaną lub zwiększa oddaną ilość.</string>
     <string name="portfolio_csv_import_pending_differs">Wiersz %1$s: oczekujący i zaksięgowany zapis tej samej wpłaty lub wypłaty mają różne ilości – oba zaimportowane, sprawdź saldo.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Bez kursu dziennego ceny lub opłaty zabraknie na stałe. Spróbuj ponownie albo importuj mimo to – te transakcje dostaną wtedy notatkę.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena bez kursu dziennego</string>
     <string name="portfolio_csv_note_fee_no_rate">Opłata bez kursu dziennego</string>
+    <string name="portfolio_csv_import_no_rates_for">Dla %1$s nie ma kursów dziennych, więc ponowna próba nie pomoże. Jeśli mimo to zaimportujesz, te transakcje dostaną notatkę.</string>
+    <string name="portfolio_csv_import_blocked_rates">Najpierw zdecyduj powyżej o wierszach bez kursu dziennego.</string>
 </resources>

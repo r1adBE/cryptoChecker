@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Exchange (opsyonal)</string>
     <string name="ledger_exchange_failed">%1$s: walang presyo mula sa %2$s ngayon – pinahalagahan gamit ang Binance.</string>
     <string name="ledger_exchange_hint">Pinapahalagahan ang coin sa presyo ng exchange na ito (kung hindi ay Binance). Gumagamit ang kasaysayan, 7 A at 1 T ng mga daily price ng Binance na in-scale dito.</string>
+    <string name="ledger_exchange_retired">%1$s: hindi na nagbibigay ng presyo ang %2$s – pinahalagahan gamit ang Binance.</string>
+    <string name="ledger_exchange_retired_hint">Hindi na nagbibigay ng presyo ang %1$s – pinahahalagahan ang coin sa presyo ng Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: maraming exchange ang inilagay – pinahalagahan gamit ang Binance. Inilipat ang mga coin? Itala ang paglipat bilang “Transfer”.</string>
     <string name="ledger_exchange_none">Wala (Binance)</string>
     <string name="ledger_fee">Fee (opsyonal)</string>

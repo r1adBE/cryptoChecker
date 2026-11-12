@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Затваряне на известието</string>
     <string name="watchlist_missing_logos_explain">За тези монети няма налично лого. Приложението показва инициалите им.</string>
+    <string name="exchange_retiring_notice">От %2$s %1$s вече няма да предоставя публични цени. Избери друга борса за тези монети.</string>
+    <string name="exchange_retiring_reason">От %2$s %1$s вече няма да предоставя цени</string>
+    <string name="exchange_retired_since">От %2$s %1$s вече не предоставя цени</string>
+    <string name="exchange_retired_alarms">От %2$s %1$s вече не предоставя цени – алармите на тази двойка вече не проверяват нищо</string>
     <string name="exchange_retired_short">%1$s вече не предоставя цени</string>
     <string name="exchange_retired_notice">От %2$s %1$s вече не предоставя публични цени. Избери друга борса за тези монети.</string>
 </resources>

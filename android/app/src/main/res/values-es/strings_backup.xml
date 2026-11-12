@@ -90,7 +90,7 @@
     <string name="watchlist_storage_locked">No se puede cambiar la lista: ahora no se pueden leer los datos guardados. Reinicia la app.</string>
     <string name="alarm_save_storage_locked">No se pueden guardar alarmas: ahora no se pueden leer los datos guardados. Reinicia la app.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">La copia de seguridad no es posible: ahora no se pueden leer los datos guardados. Reinicia la app e inténtalo de nuevo.</string>
+    <string name="backup_storage_kept">Ahora no se puede hacer ni restaurar la copia de seguridad: no se pueden leer los datos guardados. Reinicia la app e inténtalo de nuevo.</string>
     <string name="backup_restore_storage_in_memory">No se puede restaurar ahora: la app no está guardando datos en este momento (el cifrado aún no está activo) y lo restaurado se perdería al reiniciar. Reinicia la app e inténtalo de nuevo.</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">No se puede restaurar ahora: no se pudo guardar la copia de seguridad de tus datos actuales (clave no disponible en este momento). No se ha cambiado nada. Inténtalo más tarde o reinicia la app.</string>
@@ -108,7 +108,7 @@
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
     <string name="backup_restore_server_public">«Servidor propio para direcciones» se eliminó como en la copia: las direcciones de Bitcoin vuelven a consultarse en nodos públicos.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">«Servidor propio para direcciones» se reemplazó por el de la copia.</string>
+    <string name="backup_restore_server_changed">«Servidor propio para direcciones» se reemplazó por el de la copia: %1$s – las direcciones de Bitcoin se consultan ahora allí.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
     <string name="backup_restore_server_set">«Servidor propio para direcciones» se estableció desde la copia: %1$s – las direcciones de Bitcoin se consultan ahora allí.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
@@ -116,4 +116,6 @@
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Ocultar importes» se desactivó por la copia.</string>
     <string name="backup_restore_storage_unavailable">No se puede restaurar ahora: el almacenamiento de la app no está disponible. Reinicia la app e inténtalo de nuevo. Tus datos actuales no han cambiado.</string>
+    <string name="backup_restore_app_lock_off">El bloqueo de la cartera se desactivó por la copia.</string>
+    <string name="backup_save_failed">No se pudo guardar la copia.</string>
 </resources>

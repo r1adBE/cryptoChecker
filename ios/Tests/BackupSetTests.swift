@@ -212,7 +212,8 @@ final class BackupSettingsTextsTests: XCTestCase {
                      ("backup_restore_server_changed", "settings_address_server_title"),
                      ("backup_restore_server_set", "settings_address_server_title"),
                      ("backup_restore_system_backup_on", "settings_portfolio_system_backup"),
-                     ("backup_restore_amounts_shown", "portfolio_hide_amounts")]
+                     ("backup_restore_amounts_shown", "portfolio_hide_amounts"),
+                     ("backup_restore_app_lock_off", "settings_portfolio_lock")]
         for (hintKey, labelKey) in pairs {
             let hints = try XCTUnwrap(texts[hintKey], "\(hintKey) fehlt")
             XCTAssertEqual(hints.count, 75, hintKey)

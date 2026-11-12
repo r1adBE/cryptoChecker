@@ -16,6 +16,15 @@ struct CsvRateConsent: Equatable, Sendable {
     var feeNote = ""
 }
 
+/// Was «Erneut versuchen» bei den Zeilen ohne Tageskurs ausrichten kann (`CsvImportRateGate.retry`): `currencies` =
+/// Währungen, für die es keine Tageskurse gibt (kein Fiat der Kursquelle, z. B. ein Coin als Preiswährung wie bei ETH/BTC)
+/// — ein neuer Abruf hilft dort nie, die Vorschau sagt es in einem eigenen Satz; `retryHelps` = mindestens ein fehlender
+/// Kurs ist der einer Fiat-Währung (ein neuer Abruf kann ihn bringen). Wie Kotlin `CsvRateRetry`.
+struct CsvRateRetry: Equatable, Sendable {
+    var currencies: [String] = []
+    var retryHelps = false
+}
+
 /// Kein stiller, dauerhafter Verlust beim CSV-Import (wie `CsvImportRateGate.kt`, gemeinsame Fälle `csv_import.json` ›
 /// «rateGate»): Fehlt einer Zeile der Tageskurs, fehlt der Transaktion danach der Preis bzw. die Gebühr — ein zweiter
 /// Import holt nichts nach (Schlüssel «bereits importiert»). Darum ist «Importieren» gesperrt, solange solche Zeilen in
@@ -57,6 +66,30 @@ enum CsvImportRateGate {
             .joined(separator: separator)
         let cut = String(joined.prefix(noteMax)).trimmingCharacters(in: .whitespacesAndNewlines)
         return cut.isEmpty ? nil : cut
+    }
+
+    /// Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse und ob ein neuer Abruf helfen kann (`CsvRateRetry`).
+    /// Gezählt wird nur, was `missing` zählt (Preis: Preiswährung, Gebühr: Währung der Gebühr); unbekannte Währung: keins.
+    static func retry(_ priced: [CsvImportPriced]) -> CsvRateRetry {
+        var result = CsvRateRetry()
+        for p in priced {
+            guard let missing = missing(p) else { continue }
+            let units: [String?] = switch missing {
+            case .PRICE: [p.row.quote]
+            case .FEE: [p.row.feeUnit]
+            case .PRICE_AND_FEE: [p.row.quote, p.row.feeUnit]
+            }
+            for unit in units {
+                let code = (unit ?? "").trimmingCharacters(in: .whitespaces).uppercased()
+                if code.isEmpty { continue }
+                if CsvImport.isFiat(code) {
+                    result.retryHelps = true
+                } else if !result.currencies.contains(code) {
+                    result.currencies.append(code)
+                }
+            }
+        }
+        return result
     }
 
     /// Vermerk an jeder betroffenen Transaktion (`CsvImportTx.missingRate`); die übrigen unverändert.

@@ -16,7 +16,8 @@ extension WatchlistScreen {
         let pollingStaleAfter = data.staleAfterMillis
         let firedAt = data.alarmFiredAt[watch.id] ?? 0
         let pausedUntil = data.exchangePauses[watch.exchangeKey]
-        let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
+        // Nicht mehr gehandelt bzw. Börse stillgelegt (Marker oder Ende erreicht): kein Mini-Chart
+        let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded && watch.retiredExchange(now: now) == nil
         let target = convertTarget
         let rates = convertRates
         let fxTimes = convertFxTimes
@@ -27,7 +28,9 @@ extension WatchlistScreen {
             let staleAfter = LiveStatus.staleAfterMillis(onLiveSocket: status.onLive, pollingAfter: pollingStaleAfter)
             WatchlistRow(
                 // Am Live-Strom: Frische am letzten Takt, nicht am letzten Kurswechsel (wie die Status-Pille)
-                watch: shown.atHeartbeat(onLiveSocket: status.onLive, now: now),
+                // Börse stillgelegt (`Watch.retiredShown`): «—» mit Grund statt des letzten Kurses, auch vor dem ersten
+                // Abruf danach
+                watch: shown.atHeartbeat(onLiveSocket: status.onLive, now: now).retiredShown(now: now),
                 alarmCount: counts[watch.id] ?? 0,
                 alarmFiredAt: firedAt,
                 kind: kinds[watch.id] ?? .TOKEN,

@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.model.NOTE_MAX
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.util.TextLimit
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
 
@@ -67,7 +68,8 @@ object BackupWatchlistCodec {
     /**
      * Lesen, bereinigen und begrenzen — für Rückfrage ([BackupManager.preview]) und Wiederherstellen gleich, damit die
      * Rückfrage genau die Zahlen nennt, die danach wegfallen. Paare mit unzulässigen Kennungen fallen weg, ihre Alarme
-     * mit ihnen ([BackupRestoreLimits.accept]); dann [WatchlistRestoreCleanup], dann [BackupRestoreLimits.limit].
+     * mit ihnen ([BackupRestoreLimits.accept]); dann [WatchlistRestoreCleanup], dann [BackupRestoreLimits.limit]. Der
+     * Börsenname bekannter Börsen kommt aus dem Katalog ([catalogueName]), nicht aus der Datei.
      */
     fun readWatchlist(root: JSONObject): Watchlist {
         val parsedWatches = root.getJSONArray("watches").let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
@@ -86,12 +88,21 @@ object BackupWatchlistCodec {
             withWatchId = { a, id -> a.copy(watchId = id) },
         )
         val limited = BackupRestoreLimits.limit(cleanWatches, cleanAlarms, watchId = { it.id }, alarmWatchId = { it.watchId })
+        val named = limited.watches.map { it.copy(exchangeName = catalogueName(it.exchangeKey, it.exchangeName)) }
         return Watchlist(
-            limited.watches, limited.alarms, invalidAlarms = alarmsRead.invalid,
+            named, limited.alarms, invalidAlarms = alarmsRead.invalid,
             droppedPairs = accepted.droppedPairs + limited.droppedPairs,
             droppedAlarms = accepted.droppedAlarms + limited.droppedAlarms,
         )
     }
+
+    /**
+     * Börsenname eines Paars aus der Sicherung: für eine bekannte Börse der Name aus dem Börsenkatalog ([ExchangesConfig],
+     * wie beim Hinzufügen) — eine bearbeitete Datei kann so keinen falschen Namen in Texte der App bringen (Zeile, Widget,
+     * Uhr, Hinweis «liefert keine Kurse mehr»). Unbekannte Börse (in dieser Version entfernt): [stored] bleibt, er ist der
+     * einzige Name, den es gibt. Wie iOS `BackupManager.catalogueName`.
+     */
+    fun catalogueName(exchangeKey: String, stored: String): String = ExchangesConfig.EXCHANGES[exchangeKey]?.name ?: stored
 
     // Portfolio: Format in PortfolioJson (auch für die Kopie der Systemsicherung)
 

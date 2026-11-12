@@ -293,6 +293,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zamknij powiadomienie</string>
     <string name="watchlist_missing_logos_explain">Dla tych monet nie ma dostępnego logo. Aplikacja pokazuje ich inicjały.</string>
+    <string name="exchange_retiring_notice">Od %2$s %1$s nie będzie już podawać publicznych cen. Wybierz inną giełdę dla tych monet.</string>
+    <string name="exchange_retiring_reason">Od %2$s %1$s nie będzie już podawać cen</string>
+    <string name="exchange_retired_since">Od %2$s %1$s nie podaje już cen</string>
+    <string name="exchange_retired_alarms">Od %2$s %1$s nie podaje już cen – alarmy tej pary niczego już nie sprawdzają</string>
     <string name="exchange_retired_short">%1$s nie podaje już cen</string>
     <string name="exchange_retired_notice">Od %2$s %1$s nie podaje już publicznych cen. Wybierz inną giełdę dla tych monet.</string>
 </resources>

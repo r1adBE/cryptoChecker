@@ -80,6 +80,8 @@
     <string name="settings_check_runs_title">آخر عمليات الفحص</string>
     <string name="settings_http_log">عرض سجل HTTP</string>
     <string name="settings_http_log_hint">يعرض أسفل صفحة «إضافة زوج» الطلبات المرسلة إلى المنصات – لاستكشاف الأخطاء.</string>
+    <string name="settings_retirement_preview">تقديم موعد الإيقاف</string>
+    <string name="settings_retirement_preview_hint">يغيّر ساعة قاعدة إيقاف المنصة فقط، لا ساعة الجهاز.</string>
     <string name="settings_live_service">التحديث المتكرر</string>
     <string name="settings_live_websocket">أسعار مباشرة</string>
 

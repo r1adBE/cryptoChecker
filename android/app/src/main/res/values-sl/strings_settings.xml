@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Nedavna preverjanja</string>
     <string name="settings_http_log">Prikaži dnevnik HTTP</string>
     <string name="settings_http_log_hint">Na dnu strani „Dodaj par“ prikaže zahteve borzam – za odpravljanje težav.</string>
+    <string name="settings_retirement_preview">Premakni datum zaprtja naprej</string>
+    <string name="settings_retirement_preview_hint">Premakne le uro pravila o zaprtju borze, ne ure naprave.</string>
     <string name="settings_live_service">Posodabljaj pogosto</string>
     <string name="settings_live_websocket">Tečaji v živo</string>
 

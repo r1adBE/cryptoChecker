@@ -77,6 +77,8 @@ struct CsvImportPreview {
     /// Tageskurse einer gebrauchten Währung liessen sich nicht laden (keine gültige Antwort) — von der App gesetzt; die
     /// Vorschau unterscheidet es von «für diese Währung bzw. diesen Tag gibt es keinen Kurs». Wie Android.
     var ratesFailed = false
+    /// Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse, hilft ein neuer Abruf (`CsvImportRateGate.retry`)?
+    var rateRetry = CsvRateRetry()
 }
 
 /// Wahl je Auszahlung der Vorschau (`CsvImportMapping.proposeWithdrawals`) — wie Kotlin.
@@ -237,7 +239,7 @@ enum CsvImportMapping {
         return CsvImportPreview(format: result.format,
                                 transactions: txs,
                                 duplicates: split.duplicates.count, skipped: skipped,
-                                missingFx: kept.filter(\.needsFx).map(\.row.line),
+                                missingFx: kept.filter { CsvImportRateGate.missing($0) != nil }.map(\.row.line),
                                 missingPrice: kept.filter(\.missingPrice).map(\.row.line),
                                 zone: result.zone, localTimes: result.localTimes,
                                 dateOrder: result.dateOrder, dateOrderAmbiguous: result.dateOrderAmbiguous,
@@ -248,7 +250,8 @@ enum CsvImportMapping {
                                 feeInPrice: kept.filter(\.row.feeInPrice).map(\.row.line),
                                 pendingDiffers: kept.filter(\.row.pendingDiffers).map(\.row.line),
                                 tooLarge: result.tooLarge,
-                                fxZone: fxZone, dayRates: kept.contains { $0.dayRate })
+                                fxZone: fxZone, dayRates: kept.contains { $0.dayRate },
+                                rateRetry: CsvImportRateGate.retry(kept))
     }
 
     /// Höchstlänge des erhaltenen Coins eines Tauschs — dieselbe Grenze wie beim Speichern (`PortfolioTx.maxFeeCoin`).

@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Bildirishnomani yopish</string>
     <string name="watchlist_missing_logos_explain">Bu tangalar uchun logotip mavjud emas. Ilova ularning bosh harflarini koʻrsatadi.</string>
+    <string name="exchange_retiring_notice">%2$s dan boshlab %1$s ochiq narxlarni bermaydi. Bu tangalar uchun boshqa birjani tanlang.</string>
+    <string name="exchange_retiring_reason">%2$s dan boshlab %1$s narx bermaydi</string>
+    <string name="exchange_retired_since">%2$s dan beri %1$s narx bermaydi</string>
+    <string name="exchange_retired_alarms">%2$s dan beri %1$s narx bermaydi – bu juftlikning signallari endi hech narsani tekshirmaydi</string>
     <string name="exchange_retired_short">%1$s endi narx bermaydi</string>
     <string name="exchange_retired_notice">%2$s dan boshlab %1$s ochiq narxlarni bermaydi. Bu tangalar uchun boshqa birjani tanlang.</string>
 </resources>

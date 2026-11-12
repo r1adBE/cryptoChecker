@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.RowPause
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
 
@@ -61,8 +62,14 @@ internal fun watchRowStatus(
     /** Ende einer laufenden Pause der Börse ([RowPause.shownUntil]); null = keine. */
     pausedUntil: Long? = null,
 ): WatchRowStatus {
-    // Deaktiviert: weder Warnung noch Fehler noch «veraltet» — es wird bewusst nicht abgefragt
-    if (watch.disabled) return WatchRowStatus(warning = null, error = null, stale = null, showErrorLine = false)
+    // Deaktiviert: weder Warnung noch Fehler noch «veraltet» — es wird bewusst nicht abgefragt; nur eine stillgelegte
+    // Börse nennt auch hier ihren Grund («Bitpanda liefert keine Kurse mehr», Marker von RetiredWatch.shown)
+    if (watch.disabled) {
+        val retired = watch.lastError?.takeIf { ExchangeRetirement.isMarker(it) }
+        return WatchRowStatus(
+            warning = null, error = retired?.let { friendlyError(it) }, stale = null, showErrorLine = retired != null,
+        )
+    }
     // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «Vor 41 Min. · Binance nicht erreichbar»
     val failed = watch.lastError != null && !isNotTraded(watch.lastError)
     val unreachableText = if (failed && watch.lastUpdate > 0) {

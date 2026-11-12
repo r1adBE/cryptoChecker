@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Fayl və günlük məzənnələr oxunur…</string>
     <string name="portfolio_csv_import_progress">Sətir %1$s / %2$s</string>
     <string name="portfolio_csv_import_saving">Əməliyyatlar yadda saxlanılır…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s sətirləri üçün günlük məzənnə yoxdur – qiymət/komissiya olmadan idxal edildi.</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s sətirləri üçün günlük məzənnə yoxdur – qiymət/komissiya çatışmır.</string>
     <string name="portfolio_csv_import_missing_price">Faylda %1$s sətirləri üçün qiymət yoxdur – qiymətsiz idxal edildi.</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s sətirlərində iki komissiya: fiat komissiyası qiymətə daxildir, coin komissiyası alınan miqdarı azaldır və ya verilən miqdarı artırır.</string>
     <string name="portfolio_csv_import_pending_differs">%1$s sətirləri: eyni depozit və ya çıxarışın gözləyən və qeydə alınmış qeydlərinin miqdarı fərqlidir – hər ikisi idxal edildi, aktivləri yoxla.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Günlük məzənnə olmadan qiymət və ya komissiya həmişəlik çatışmayacaq. Yenidən cəhd et və ya yenə də idxal et – həmin əməliyyatlara qeyd əlavə olunacaq.</string>
     <string name="portfolio_csv_note_price_no_rate">Günlük məzənnəsiz qiymət</string>
     <string name="portfolio_csv_note_fee_no_rate">Günlük məzənnəsiz komissiya</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s üçün günlük məzənnələr yoxdur, ona görə yenidən cəhd kömək etməyəcək. Yenə də idxal etsən, həmin əməliyyatlara qeyd əlavə olunacaq.</string>
+    <string name="portfolio_csv_import_blocked_rates">Əvvəlcə yuxarıda günlük məzənnəsi olmayan sətirlər barədə qərar ver.</string>
 </resources>

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">ఇటీవలి తనిఖీలు</string>
     <string name="settings_http_log">HTTP లాగ్‌ను చూపండి</string>
     <string name="settings_http_log_hint">“జతను జోడించండి” పేజీ దిగువన ఎక్స్ఛేంజ్‌లకు రిక్వెస్ట్‌లను చూపుతుంది – ట్రబుల్‌షూటింగ్ కోసం.</string>
+    <string name="settings_retirement_preview">మూసివేత తేదీని ముందుకు తీసుకురండి</string>
+    <string name="settings_retirement_preview_hint">ఎక్స్ఛేంజ్ మూసివేత నియమం గడియారాన్ని మాత్రమే జరుపుతుంది, పరికరం గడియారాన్ని కాదు.</string>
     <string name="settings_live_service">తరచుగా అప్‌డేట్ చేయండి</string>
     <string name="settings_live_websocket">లైవ్ ధరలు</string>
 

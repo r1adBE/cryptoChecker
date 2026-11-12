@@ -250,6 +250,8 @@
     <string name="ledger_exchange">Malartán (roghnach)</string>
     <string name="ledger_exchange_failed">%1$s: gan phraghas ó %2$s anois – luacháilte le Binance.</string>
     <string name="ledger_exchange_hint">Luacháiltear an bonn ag praghas an mhalartáin seo (nó Binance). Úsáideann stair, 7 L agus 1 B praghsanna laethúla Binance scálaithe chuige.</string>
+    <string name="ledger_exchange_retired">%1$s: ní sholáthraíonn %2$s praghsanna a thuilleadh – luacháilte le Binance.</string>
+    <string name="ledger_exchange_retired_hint">Ní sholáthraíonn %1$s praghsanna a thuilleadh – luacháiltear an bonn de réir phraghas Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: roinnt malartán curtha isteach – luacháilte le Binance. Ar bhog tú boinn? Taifead an bogadh mar “Aistriú”.</string>
     <string name="ledger_exchange_none">Dada (Binance)</string>
     <string name="ledger_fee">Táille (roghnach)</string>

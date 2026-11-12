@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">अलीकडील तपासण्या</string>
     <string name="settings_http_log">HTTP लॉग दाखवा</string>
     <string name="settings_http_log_hint">“जोडी जोडा” पानाच्या तळाशी एक्सचेंजना पाठवलेल्या विनंत्या दाखवते – समस्या शोधण्यासाठी.</string>
+    <string name="settings_retirement_preview">बंद होण्याची तारीख आधी आणा</string>
+    <string name="settings_retirement_preview_hint">फक्त एक्सचेंज बंद होण्याच्या नियमाचे घड्याळ हलवते, डिव्हाइसचे नाही.</string>
     <string name="settings_live_service">वारंवार अपडेट करा</string>
     <string name="settings_live_websocket">लाइव्ह किमती</string>
 

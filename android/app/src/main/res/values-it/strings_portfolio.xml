@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Exchange (facoltativo)</string>
     <string name="ledger_exchange_failed">%1$s: al momento nessun prezzo da %2$s – valutato con Binance.</string>
     <string name="ledger_exchange_hint">La moneta è valutata al prezzo di questo exchange (altrimenti Binance). Storico, 7 G e 1 A: prezzi giornalieri Binance, riscalati.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s non fornisce più prezzi – valutato con Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s non fornisce più prezzi – la moneta è valutata al prezzo di Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: più exchange inseriti – valutato con Binance. Monete spostate? Registra lo spostamento come «Trasferimento».</string>
     <string name="ledger_exchange_none">Nessuno (Binance)</string>
     <string name="ledger_fee">Commissione (facoltativa)</string>

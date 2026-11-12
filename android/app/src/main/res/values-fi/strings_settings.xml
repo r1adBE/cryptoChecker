@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Viimeisimmät tarkistukset</string>
     <string name="settings_http_log">Näytä HTTP-loki</string>
     <string name="settings_http_log_hint">Näyttää Lisää pari -sivun alaosassa pyynnöt pörsseihin – vianetsintään.</string>
+    <string name="settings_retirement_preview">Aikaista lopetuspäivää</string>
+    <string name="settings_retirement_preview_hint">Siirtää vain lopetussäännön kelloa, ei laitteen kelloa.</string>
     <string name="settings_live_service">Päivitä tiheästi</string>
     <string name="settings_live_websocket">Live-hinnat</string>
 

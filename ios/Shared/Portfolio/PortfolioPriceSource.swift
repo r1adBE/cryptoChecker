@@ -219,6 +219,8 @@ enum PortfolioPriceSource {
         for coin in coins where coin != stable {
             if let name = stored.unresolved[coin] { failed[coin] = name; continue }
             guard let route = stored.routes[coin], let exchange = ExchangesConfig.exchange(route.exchangeKey) else { continue }
+            // Weg von vor dem Stichtag, Börse inzwischen stillgelegt: keine Anfrage, Binance mit Hinweis (wie Android)
+            if ExchangeRetirement.isRetired(route.exchangeKey) { failed[coin] = route.exchangeName; continue }
             let info = ExchangePair(route.base, route.quote, route.pairId)
             var price: Double? = nil
             if let ticker = try? await ExchangeService.fetchTicker(exchange: exchange, info: info) {

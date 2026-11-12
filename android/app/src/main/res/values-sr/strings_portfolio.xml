@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Берза (необавезно)</string>
     <string name="ledger_exchange_failed">%1$s: тренутно нема цене с берзе %2$s – вреднује се према Binance-у.</string>
     <string name="ledger_exchange_hint">Криптовалута се вреднује по цени ове берзе (иначе Binance). Историја, 7 Д и 1 Г користе дневне цене с Binance-а скалиране на њу.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s више не даје цене – вреднује се према Binance-у.</string>
+    <string name="ledger_exchange_retired_hint">%1$s више не даје цене – криптовалута се вреднује по цени на Binance-у.</string>
     <string name="ledger_exchange_mixed">%1$s: унесено је више берзи – вреднује се према Binance-у. Криптовалуте су премештене? Забележи премештање као „Пренос“.</string>
     <string name="ledger_exchange_none">Ниједна (Binance)</string>
     <string name="ledger_fee">Накнада (необавезно)</string>

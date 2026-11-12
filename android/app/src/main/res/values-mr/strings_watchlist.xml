@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">सूचना बंद करा</string>
     <string name="watchlist_missing_logos_explain">या कॉइनसाठी लोगो उपलब्ध नाही. ॲप त्यांची आद्याक्षरे दाखवते.</string>
+    <string name="exchange_retiring_notice">%2$s पासून %1$s सार्वजनिक किंमती देणार नाही. या कॉइनसाठी दुसरे एक्सचेंज निवडा.</string>
+    <string name="exchange_retiring_reason">%2$s पासून %1$s किंमती देणार नाही</string>
+    <string name="exchange_retired_since">%2$s पासून %1$s आता किंमती देत नाही</string>
+    <string name="exchange_retired_alarms">%2$s पासून %1$s आता किंमती देत नाही – या जोडीचे अलर्ट आता काहीही तपासत नाहीत</string>
     <string name="exchange_retired_short">%1$s आता किंमती देत नाही</string>
     <string name="exchange_retired_notice">%2$s पासून %1$s सार्वजनिक किंमती देत नाही. या कॉइनसाठी दुसरे एक्सचेंज निवडा.</string>
 </resources>

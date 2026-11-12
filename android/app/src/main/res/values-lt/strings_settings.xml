@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Paskutiniai tikrinimai</string>
     <string name="settings_http_log">Rodyti HTTP žurnalą</string>
     <string name="settings_http_log_hint">Puslapio „Pridėti porą“ apačioje rodo užklausas biržoms – trikčių šalinimui.</string>
+    <string name="settings_retirement_preview">Paankstinti uždarymo datą</string>
+    <string name="settings_retirement_preview_hint">Keičia tik uždarymo taisyklės laikrodį, ne įrenginio laikrodį.</string>
     <string name="settings_live_service">Atnaujinti dažnai</string>
     <string name="settings_live_websocket">Tiesioginės kainos</string>
 

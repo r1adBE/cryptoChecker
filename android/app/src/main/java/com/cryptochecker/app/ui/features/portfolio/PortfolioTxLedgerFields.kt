@@ -119,8 +119,15 @@ internal fun LedgerFields(
                 searchable = true,
                 modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
             )
+            // Stillgelegte Börse (ExchangeRetirement): nicht «mit dem Kurs dieser Börse bewertet», sondern mit Binance
+            val retired = current.takeIf { com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(it) }
+                ?.let { c -> exchanges.firstOrNull { it.equals(c, ignoreCase = true) } ?: c }
             Text(
-                stringResource(R.string.ledger_exchange_hint),
+                if (retired != null) {
+                    stringResource(R.string.ledger_exchange_retired_hint, retired)
+                } else {
+                    stringResource(R.string.ledger_exchange_hint)
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)

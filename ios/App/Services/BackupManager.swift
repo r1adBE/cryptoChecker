@@ -179,7 +179,7 @@ enum BackupManager {
         var droppedPairs = 0
         var droppedAlarms = 0
         var addressServerNote: BackupRestorePolicy.AddressServerNote?
-        /// Hostname des neu gesetzten Bitcoin-Servers (`BackupRestorePolicy.addressServerSetHost`); nil = keiner.
+        /// Hostname des neu gesetzten bzw. ersetzten Bitcoin-Servers (`BackupRestorePolicy.addressServerHost`); nil = keiner.
         var addressServerHost: String?
         /// Von der Sicherung abgeschalteter Schutz (`BackupRestorePolicy.loweredProtection`).
         var lowered = BackupRestorePolicy.LoweredProtection()

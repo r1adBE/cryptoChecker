@@ -99,6 +99,25 @@ extension PairScreen {
                     .font(.footnote.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }
+            // Börse stillgelegt bzw. ihr Ende angekündigt: Grund mit Datum und «Börse wechseln» (öffnet «Paar bearbeiten»)
+            // — wie Android `PairStatusLine`
+            if let reason = RetirementText.reason(watch, alarms: false) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(reason)
+                        .font(.footnote)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if !isPreview {
+                        Button(L("watch_action_change_exchange")) {
+                            Haptics.play(.selection)
+                            editPair = true
+                        }
+                        .font(.footnote.weight(.semibold))
+                        .buttonStyle(.borderless)
+                        .tint(accent.primary)
+                    }
+                }
+            }
             if watch.disabled && !isPreview {
                 // Deaktiviert: ruhiger Hinweis mit Stand des letzten Kurses und gleich «Aktivieren»
                 disabledNotice(watch)
@@ -133,7 +152,8 @@ extension PairScreen {
                     .tint(accent.primary)
                     .appDisabled(refreshState.refreshingWatchIds.contains(watch.id))
                 }
-            } else if let error = watch.lastError, !error.isEmpty {
+            } else if let error = watch.lastError, !error.isEmpty, !ExchangeRetirement.isMarker(error) {
+                // Börse stillgelegt: der Grund steht schon darüber
                 Text(ConnectionErrors.display(error))
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)

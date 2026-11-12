@@ -238,6 +238,8 @@
     <string name="ledger_exchange">ກະດານແລກປ່ຽນ (ບໍ່ບັງຄັບ)</string>
     <string name="ledger_exchange_failed">%1$s: ຕອນນີ້ບໍ່ມີລາຄາຈາກ %2$s – ປະເມີນດ້ວຍ Binance.</string>
     <string name="ledger_exchange_hint">ຫຼຽນຖືກປະເມີນຕາມລາຄາຂອງກະດານແລກປ່ຽນນີ້ (ຖ້າບໍ່ດັ່ງນັ້ນ Binance). ປະຫວັດ, 7 ມື້ ແລະ 1 ປີ ໃຊ້ລາຄາລາຍວັນ Binance ທີ່ປັບສັດສ່ວນຕາມມັນ.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ບໍ່ໃຫ້ລາຄາອີກແລ້ວ – ປະເມີນດ້ວຍ Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ບໍ່ໃຫ້ລາຄາອີກແລ້ວ – ຫຼຽນນີ້ຖືກປະເມີນດ້ວຍລາຄາ Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: ໃສ່ຫຼາຍກະດານແລກປ່ຽນ – ປະເມີນດ້ວຍ Binance. ຍ້າຍຫຼຽນບໍ? ບັນທຶກການຍ້າຍເປັນ “ການໂອນ”.</string>
     <string name="ledger_exchange_none">ບໍ່ມີ (Binance)</string>
     <string name="ledger_fee">ຄ່າທຳນຽມ (ບໍ່ບັງຄັບ)</string>

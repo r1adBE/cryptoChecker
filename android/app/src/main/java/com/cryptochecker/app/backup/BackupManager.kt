@@ -330,17 +330,6 @@ class BackupManager @Inject constructor(
         )
     }
 
-    /** Stand vor dem Wiederherstellen, für das Zurückrollen. */
-    private suspend fun previousState() = PreviousState(
-        watches = watchDao.getWatches(),
-        alarms = watchDao.getAllAlarms(),
-        portfolio = portfolioDao.getAll(),
-        portfolioAlarms = portfolioAlarmDao.getAll(),
-        watchedAddresses = watchedAddressDao.getAll(),
-        favorites = FavoriteKind.entries.associateWith { favoritesRepository.favorites(it).value.toSet() },
-        settings = settingsCodec.settingsToJson(),
-    )
-
     /**
      * Schreibt die gelesene Sicherung; vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück.
      * Ohne Journal nichts schreiben ([RestoreRun.execute], [BackupJournalUnavailableException]).
@@ -348,14 +337,21 @@ class BackupManager @Inject constructor(
     private suspend fun writeRestored(input: RestoreInput, previous: PreviousState, encrypted: Boolean): SettingsRestoreNotes {
         var settingsNotes = SettingsRestoreNotes()
         val journalText = journalJson(previous).toString()
+        // Zurückgerollt wird der Stand, den die Merkliste unter der Refresh-Sperre hatte ([watchlistUnderLock])
+        var rollbackFrom = previous
         RestoreRun.execute(
             journal = object : RestoreRun.Journal {
                 override fun write() = journal.write(journalText)
                 override fun delete() = journal.delete()
             },
             writes = listOf(
-                RestoreRun.Write(Step.WATCHLIST) {
-                    writeWatchlist(input.watchlist.watches, input.watchlist.alarms)
+                // Berührt erst unter der Refresh-Sperre: ein Abbruch beim Warten auf eine laufende Aktualisierung rollt die
+                // Merkliste nicht zurück (sie hätte sonst einen eben ausgelösten Alarm wieder scharf geschaltet)
+                RestoreRun.Write(Step.WATCHLIST, touchedInside = true) { touch ->
+                    writeWatchlist(input.watchlist.watches, input.watchlist.alarms) {
+                        rollbackFrom = watchlistUnderLock(previous)
+                        touch()
+                    }
                 },
                 RestoreRun.Write(Step.PORTFOLIO) {
                     portfolioDatabase.withTransaction {
@@ -371,7 +367,7 @@ class BackupManager @Inject constructor(
                     settingsNotes = settingsCodec.restoreSettings(input.settings, trusted = encrypted)
                 },
             ),
-            rollBack = { touched, cause -> rollBack(previous, touched, cause) },
+            rollBack = { touched, cause -> rollBack(rollbackFrom, touched, cause) },
         )
         return settingsNotes
     }

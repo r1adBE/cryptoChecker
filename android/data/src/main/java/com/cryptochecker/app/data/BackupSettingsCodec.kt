@@ -150,6 +150,8 @@ class BackupSettingsCodec(
             wantedHideAmounts = o.bool("hidePortfolioAmounts"),
             currentHideAmounts = before.hidePortfolioAmounts,
             trusted = trusted,
+            wantedAppLock = o.bool("appLock"),
+            currentAppLock = before.appLock,
         )
         BackupRestorePolicy.hideAmounts(o.bool("hidePortfolioAmounts"), before.hidePortfolioAmounts, trusted)
             ?.let { setHidePortfolioAmounts(it) }
@@ -179,7 +181,7 @@ class BackupSettingsCodec(
         SettingsRestoreNotes(
             appLockKept = lock.keptOn,
             addressServer = serverNote,
-            addressServerHost = BackupRestorePolicy.addressServerSetHost(wantedServer, currentServer, trusted),
+            addressServerHost = BackupRestorePolicy.addressServerHost(wantedServer, currentServer, trusted),
             lowered = lowered,
         )
     }

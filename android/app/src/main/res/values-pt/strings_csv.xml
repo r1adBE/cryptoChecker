@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">A ler o ficheiro e as cotações diárias…</string>
     <string name="portfolio_csv_import_progress">Linha %1$s de %2$s</string>
     <string name="portfolio_csv_import_saving">A guardar as transações…</string>
-    <string name="portfolio_csv_import_missing_fx">Sem cotação diária para a linha %1$s – importado sem preço nem comissão.</string>
+    <string name="portfolio_csv_import_missing_fx">Sem cotação diária para a linha %1$s – faltam preço e comissão.</string>
     <string name="portfolio_csv_import_missing_price">Sem preço no ficheiro para a linha %1$s – importado sem preço.</string>
     <string name="portfolio_csv_import_fee_in_price">Duas comissões na linha %1$s: a comissão em fiat está incluída no preço, a comissão na moeda reduz a quantidade recebida ou aumenta a entregue.</string>
     <string name="portfolio_csv_import_pending_differs">Linha %1$s: o lançamento pendente e o contabilizado do mesmo depósito ou levantamento têm quantidades diferentes – ambos importados, verificar saldo.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">Sem cotação diária, o preço ou a comissão ficam em falta de forma permanente. Tenta novamente ou importa mesmo assim – essas transações recebem então uma nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Preço sem cotação diária</string>
     <string name="portfolio_csv_note_fee_no_rate">Comissão sem cotação diária</string>
+    <string name="portfolio_csv_import_no_rates_for">Não há cotações diárias para %1$s, por isso tentar novamente não ajuda. Se importares mesmo assim, essas transações recebem uma nota.</string>
+    <string name="portfolio_csv_import_blocked_rates">Decide primeiro acima o que fazer com as linhas sem cotação diária.</string>
 </resources>

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Börs (valikuline)</string>
     <string name="ledger_exchange_failed">%1$s: börsilt %2$s praegu hinda pole – hinnatud Binance’i järgi.</string>
     <string name="ledger_exchange_hint">Münti hinnatakse selle börsi hinnaga (muidu Binance). Ajalugu, 7 p ja 1 a kasutavad sellele skaleeritud Binance’i päevahindu.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ei paku enam hindu – hinnatud Binance’i järgi.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ei paku enam hindu – münti hinnatakse Binance’i hinnaga.</string>
     <string name="ledger_exchange_mixed">%1$s: sisestatud mitu börsi – hinnatud Binance’i järgi. Liigutasid münte? Kirjenda see kui „Ülekanne“.</string>
     <string name="ledger_exchange_none">Puudub (Binance)</string>
     <string name="ledger_fee">Tasu (valikuline)</string>

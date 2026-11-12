@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Се читаат датотеката и дневните курсеви…</string>
     <string name="portfolio_csv_import_progress">Ред %1$s од %2$s</string>
     <string name="portfolio_csv_import_saving">Се зачувуваат трансакциите…</string>
-    <string name="portfolio_csv_import_missing_fx">Нема дневен курс за редовите %1$s – увезено без цена/провизија.</string>
+    <string name="portfolio_csv_import_missing_fx">Нема дневен курс за редовите %1$s – недостасуваат цена/провизија.</string>
     <string name="portfolio_csv_import_missing_price">Нема цена во датотеката за редовите %1$s – увезено без цена.</string>
     <string name="portfolio_csv_import_fee_in_price">Два надоместоци во редовите %1$s: фиат надоместокот е вклучен во цената, надоместокот во монетата ја намалува примената или ја зголемува дадената количина.</string>
     <string name="portfolio_csv_import_pending_differs">Редови %1$s: записот на чекање и прокнижениот запис на истата уплата или исплата имаат различни количини – двата се увезени, провери ги средствата.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Без дневен курс цената или провизијата трајно недостасуваат. Обиди се повторно или сепак увези – тие трансакции тогаш добиваат белешка.</string>
     <string name="portfolio_csv_note_price_no_rate">Цена без дневен курс</string>
     <string name="portfolio_csv_note_fee_no_rate">Провизија без дневен курс</string>
+    <string name="portfolio_csv_import_no_rates_for">За %1$s нема дневни курсеви, па повторниот обид нема да помогне. Ако сепак увезеш, тие трансакции добиваат белешка.</string>
+    <string name="portfolio_csv_import_blocked_rates">Прво горе одлучи за редовите без дневен курс.</string>
 </resources>

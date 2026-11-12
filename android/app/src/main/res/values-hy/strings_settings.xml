@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Վերջին ստուգումները</string>
     <string name="settings_http_log">Ցույց տալ HTTP մատյանը</string>
     <string name="settings_http_log_hint">Ցույց է տալիս բորսաներին ուղղված հարցումները «Ավելացնել զույգ» էջի ներքևում – խնդիրների վերացման համար։</string>
+    <string name="settings_retirement_preview">Առաջ բերել դադարեցման ամսաթիվը</string>
+    <string name="settings_retirement_preview_hint">Տեղափոխում է միայն դադարեցման կանոնի ժամացույցը, ոչ սարքինը։</string>
     <string name="settings_live_service">Թարմացնել հաճախ</string>
     <string name="settings_live_websocket">Իրական ժամանակի գներ</string>
 

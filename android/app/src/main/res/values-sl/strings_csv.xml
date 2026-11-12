@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Branje datoteke in dnevnih tečajev …</string>
     <string name="portfolio_csv_import_progress">Vrstica %1$s od %2$s</string>
     <string name="portfolio_csv_import_saving">Shranjevanje transakcij …</string>
-    <string name="portfolio_csv_import_missing_fx">Ni dnevnega tečaja za vrstice %1$s – uvoženo brez cene/provizije.</string>
+    <string name="portfolio_csv_import_missing_fx">Ni dnevnega tečaja za vrstice %1$s – manjkata cena/provizija.</string>
     <string name="portfolio_csv_import_missing_price">V datoteki ni cene za vrstice %1$s – uvoženo brez cene.</string>
     <string name="portfolio_csv_import_fee_in_price">Dve proviziji v vrsticah %1$s: provizija v fiat valuti je vključena v ceno, provizija v kovancu zmanjša prejeto ali poveča oddano količino.</string>
     <string name="portfolio_csv_import_pending_differs">Vrstice %1$s: čakajoči in knjiženi vnos istega pologa ali dviga imata različni količini – oba uvožena, preveri imetje.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Brez dnevnega tečaja cena ali provizija trajno manjkata. Poskusi znova ali vseeno uvozi – te transakcije potem dobijo opombo.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena brez dnevnega tečaja</string>
     <string name="portfolio_csv_note_fee_no_rate">Provizija brez dnevnega tečaja</string>
+    <string name="portfolio_csv_import_no_rates_for">Za %1$s ni dnevnih tečajev, zato ponovni poskus ne bo pomagal. Če vseeno uvoziš, te transakcije dobijo opombo.</string>
+    <string name="portfolio_csv_import_blocked_rates">Najprej zgoraj odloči o vrsticah brez dnevnega tečaja.</string>
 </resources>

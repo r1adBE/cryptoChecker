@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">දැනුම්දීම වසන්න</string>
     <string name="watchlist_missing_logos_explain">මෙම කාසි සඳහා ලාංඡනයක් නොමැත. යෙදුම ඒවායේ මුලකුරු පෙන්වයි.</string>
+    <string name="exchange_retiring_notice">%2$s සිට %1$s පොදු මිල ලබා නොදෙනු ඇත. මෙම කාසි සඳහා වෙනත් හුවමාරුවක් තෝරන්න.</string>
+    <string name="exchange_retiring_reason">%2$s සිට %1$s මිල ලබා නොදෙනු ඇත</string>
+    <string name="exchange_retired_since">%2$s සිට %1$s තවදුරටත් මිල ලබා නොදෙයි</string>
+    <string name="exchange_retired_alarms">%2$s සිට %1$s තවදුරටත් මිල ලබා නොදෙයි – මෙම යුගලයේ ඇඟවීම් තවදුරටත් කිසිවක් පරීක්ෂා නොකරයි</string>
     <string name="exchange_retired_short">%1$s තවදුරටත් මිල ලබා නොදෙයි</string>
     <string name="exchange_retired_notice">%2$s සිට %1$s පොදු මිල ලබා නොදෙයි. මෙම කාසි සඳහා වෙනත් හුවමාරුවක් තෝරන්න.</string>
 </resources>

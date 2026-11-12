@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Сүүлийн шалгалт</string>
     <string name="settings_http_log">HTTP бүртгэлийг харуулах</string>
     <string name="settings_http_log_hint">Биржүүд рүү илгээсэн хүсэлтийг «Хос нэмэх» хуудасны доод хэсэгт харуулна – алдаа илрүүлэхэд.</string>
+    <string name="settings_retirement_preview">Хаах өдрийг урагшлуулах</string>
+    <string name="settings_retirement_preview_hint">Зөвхөн хаах дүрмийн цагийг шилжүүлнэ, төхөөрөмжийн цагийг биш.</string>
     <string name="settings_live_service">Ойр ойрхон шинэчлэх</string>
     <string name="settings_live_websocket">Шууд ханш</string>
 

@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Pēdējās pārbaudes</string>
     <string name="settings_http_log">Rādīt HTTP žurnālu</string>
     <string name="settings_http_log_hint">Lapas „Pievienot pāri“ apakšā rāda pieprasījumus biržām – problēmu novēršanai.</string>
+    <string name="settings_retirement_preview">Pārcelt slēgšanas datumu uz priekšu</string>
+    <string name="settings_retirement_preview_hint">Pārvieto tikai slēgšanas noteikuma pulksteni, nevis ierīces pulksteni.</string>
     <string name="settings_live_service">Atjaunināt bieži</string>
     <string name="settings_live_websocket">Tiešraides cenas</string>
 

@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var coinLogoRepository: CoinLogoRepository
 
-    @Inject lateinit var retiredNoticeStore: com.cryptochecker.app.ui.features.watchlist.RetiredNoticeStore
+    @Inject lateinit var retiredNoticeStore: com.cryptochecker.app.data.RetiredNoticeStore
 
     @Inject lateinit var coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync
 

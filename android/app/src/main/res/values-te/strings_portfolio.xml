@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ఎక్స్ఛేంజ్ (ఐచ్ఛికం)</string>
     <string name="ledger_exchange_failed">%1$s: ప్రస్తుతం %2$s నుండి ధర లేదు – Binanceతో విలువ కట్టబడింది.</string>
     <string name="ledger_exchange_hint">కాయిన్ ఈ ఎక్స్ఛేంజ్ ధర వద్ద విలువ కట్టబడుతుంది (లేకపోతే Binance). చరిత్ర, 7 రో, 1 సం దానికి స్కేల్ చేసిన Binance రోజువారీ ధరలను ఉపయోగిస్తాయి.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ఇకపై ధరలను అందించదు – Binanceతో విలువ కట్టబడింది.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ఇకపై ధరలను అందించదు – కాయిన్‌ను Binance ధరతో విలువ కడతాము.</string>
     <string name="ledger_exchange_mixed">%1$s: అనేక ఎక్స్ఛేంజ్‌లు నమోదు చేయబడ్డాయి – Binanceతో విలువ కట్టబడింది. కాయిన్‌లను తరలించారా? ఆ తరలింపును “బదిలీ”గా నమోదు చేయండి.</string>
     <string name="ledger_exchange_none">ఏదీ కాదు (Binance)</string>
     <string name="ledger_fee">ఫీజు (ఐచ్ఛికం)</string>

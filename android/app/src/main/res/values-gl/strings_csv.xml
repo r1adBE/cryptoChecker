@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Lendo o ficheiro e os tipos diarios…</string>
     <string name="portfolio_csv_import_progress">Liña %1$s de %2$s</string>
     <string name="portfolio_csv_import_saving">Gardando as transaccións…</string>
-    <string name="portfolio_csv_import_missing_fx">Non hai tipo diario para as liñas %1$s – importadas sen prezo/comisión.</string>
+    <string name="portfolio_csv_import_missing_fx">Non hai tipo diario para as liñas %1$s – faltan prezo/comisión.</string>
     <string name="portfolio_csv_import_missing_price">Non hai prezo no ficheiro para as liñas %1$s – importadas sen prezo.</string>
     <string name="portfolio_csv_import_fee_in_price">Dúas comisións nas liñas %1$s: a comisión en fiat está incluída no prezo e a comisión na moeda reduce a cantidade recibida ou aumenta a entregada.</string>
     <string name="portfolio_csv_import_pending_differs">Liñas %1$s: a entrada pendente e a rexistrada do mesmo depósito ou retirada teñen cantidades distintas – ambas importadas, revisa os haberes.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Sen tipo diario, o prezo ou a comisión faltan de forma permanente. Téntao de novo ou importa igualmente: esas transaccións levarán unha nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Prezo sen tipo diario</string>
     <string name="portfolio_csv_note_fee_no_rate">Comisión sen tipo diario</string>
+    <string name="portfolio_csv_import_no_rates_for">Non hai tipos diarios para %1$s, así que tentalo de novo non servirá. Se importas igualmente, esas transaccións levarán unha nota.</string>
+    <string name="portfolio_csv_import_blocked_rates">Primeiro decide arriba que facer coas liñas sen tipo diario.</string>
 </resources>

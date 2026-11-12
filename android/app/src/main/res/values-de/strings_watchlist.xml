@@ -269,6 +269,10 @@
     <string name="watchlist_missing_logos_dismiss">Hinweis schliessen</string>
     <!-- Eine Zeile Erklärung in der Liste der Coins ohne Logo -->
     <string name="watchlist_missing_logos_explain">Für diese Coins ist kein Logo verfügbar. Die App zeigt die Anfangsbuchstaben.</string>
+    <string name="exchange_retiring_notice">%1$s liefert ab %2$s keine öffentlichen Kurse mehr. Wähle für diese Coins eine andere Börse.</string>
+    <string name="exchange_retiring_reason">%1$s liefert ab %2$s keine Kurse mehr</string>
+    <string name="exchange_retired_since">%1$s liefert seit %2$s keine Kurse mehr</string>
+    <string name="exchange_retired_alarms">%1$s liefert seit %2$s keine Kurse mehr – Alarme dieses Paars prüfen nichts mehr</string>
     <string name="exchange_retired_short">%1$s liefert keine Kurse mehr</string>
     <string name="exchange_retired_notice">%1$s liefert seit %2$s keine öffentlichen Kurse mehr. Wähle für diese Coins eine andere Börse.</string>
 </resources>

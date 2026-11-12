@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">સૂચના બંધ કરો</string>
     <string name="watchlist_missing_logos_explain">આ કૉઇન માટે કોઈ લોગો ઉપલબ્ધ નથી. ઍપ તેમના આદ્યાક્ષર બતાવે છે.</string>
+    <string name="exchange_retiring_notice">%2$s થી %1$s હવે જાહેર કિંમતો આપશે નહીં. આ કૉઇન માટે બીજું એક્સચેન્જ પસંદ કરો.</string>
+    <string name="exchange_retiring_reason">%2$s થી %1$s હવે કિંમતો આપશે નહીં</string>
+    <string name="exchange_retired_since">%2$s થી %1$s હવે કિંમતો આપતું નથી</string>
+    <string name="exchange_retired_alarms">%2$s થી %1$s હવે કિંમતો આપતું નથી – આ જોડીના એલર્ટ હવે કંઈ તપાસતા નથી</string>
     <string name="exchange_retired_short">%1$s હવે કિંમતો આપતું નથી</string>
     <string name="exchange_retired_notice">%2$s થી %1$s હવે જાહેર કિંમતો આપતું નથી. આ કૉઇન માટે બીજું એક્સચેન્જ પસંદ કરો.</string>
 </resources>

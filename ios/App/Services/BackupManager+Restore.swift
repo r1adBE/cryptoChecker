@@ -59,14 +59,15 @@ extension BackupManager {
         let serverValue = settingsJson["addressServerBtc"] as? String
         let serverNote = BackupRestorePolicy.addressServerNote(
             value: serverValue, current: data.settings.addressServerBtc, trusted: encrypted)
-        let serverHost = BackupRestorePolicy.addressServerSetHost(
+        let serverHost = BackupRestorePolicy.addressServerHost(
             value: serverValue, current: data.settings.addressServerBtc, trusted: encrypted)
         // Mit Passwort abgeschalteter Schutz kommt in die Meldung (nie still, wie Android)
         let lowered = BackupRestorePolicy.loweredProtection(
             wantedSystemBackup: try part(settingsJson, "portfolioSystemBackup"),
             currentSystemBackup: data.settings.portfolioSystemBackup,
             wantedHideAmounts: try part(settingsJson, "hidePortfolioAmounts"),
-            currentHideAmounts: data.settings.hidePortfolioAmounts, trusted: encrypted)
+            currentHideAmounts: data.settings.hidePortfolioAmounts, trusted: encrypted,
+            wantedAppLock: try part(settingsJson, "appLock"), currentAppLock: data.settings.appLock)
 
         // Ungültige Einträge nur mit Bestätigung weglassen (nie still)
         let parsedTx = try parsedPortfolio(root)

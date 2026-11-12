@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">កំពុងអានឯកសារ និងអត្រាប្រចាំថ្ងៃ…</string>
     <string name="portfolio_csv_import_progress">ជួរទី %1$s នៃ %2$s</string>
     <string name="portfolio_csv_import_saving">កំពុងរក្សាទុកប្រតិបត្តិការ…</string>
-    <string name="portfolio_csv_import_missing_fx">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ/កម្រៃ។</string>
+    <string name="portfolio_csv_import_missing_fx">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ជួរ %1$s – ខ្វះតម្លៃ/កម្រៃ។</string>
     <string name="portfolio_csv_import_missing_price">គ្មានតម្លៃនៅក្នុងឯកសារសម្រាប់ជួរ %1$s – បាននាំចូលដោយគ្មានតម្លៃ។</string>
     <string name="portfolio_csv_import_fee_in_price">កម្រៃពីរនៅជួរ %1$s៖ កម្រៃ fiat ត្រូវបានបញ្ចូលក្នុងតម្លៃ កម្រៃជាកាក់កាត់បន្ថយចំនួនដែលបានទទួល ឬបង្កើនចំនួនដែលបានផ្ដល់។</string>
     <string name="portfolio_csv_import_pending_differs">ជួរ %1$s៖ ធាតុរង់ចាំ និងធាតុដែលបានកត់ត្រានៃការដាក់ប្រាក់ ឬដកប្រាក់ដូចគ្នាមានចំនួនខុសគ្នា – បាននាំចូលទាំងពីរ សូមពិនិត្យការកាន់កាប់</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">បើគ្មានអត្រាប្រចាំថ្ងៃ តម្លៃ ឬកម្រៃនឹងខ្វះជាអចិន្ត្រៃយ៍។ សូមព្យាយាមម្តងទៀត ឬនាំចូលយ៉ាងណាក៏ដោយ – ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។</string>
     <string name="portfolio_csv_note_price_no_rate">តម្លៃគ្មានអត្រាប្រចាំថ្ងៃ</string>
     <string name="portfolio_csv_note_fee_no_rate">កម្រៃគ្មានអត្រាប្រចាំថ្ងៃ</string>
+    <string name="portfolio_csv_import_no_rates_for">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ %1$s ទេ ដូច្នេះការព្យាយាមម្តងទៀតមិនជួយទេ។ បើនាំចូលយ៉ាងណាក៏ដោយ ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។</string>
+    <string name="portfolio_csv_import_blocked_rates">សូមសម្រេចចិត្តខាងលើជាមុនអំពីជួរដែលគ្មានអត្រាប្រចាំថ្ងៃ។</string>
 </resources>

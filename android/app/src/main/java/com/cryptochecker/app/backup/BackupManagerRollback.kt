@@ -13,13 +13,62 @@ import com.cryptochecker.app.backup.BackupManager.Step
 import com.cryptochecker.app.data.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.data.notification.PrefsAlarmDeliveryMarkers
+import com.cryptochecker.app.data.BackupJournalCodec.journalJson
+import com.cryptochecker.app.data.BackupJournalUnavailableException
+import com.cryptochecker.app.data.FavoriteKind
+import kotlin.coroutines.cancellation.CancellationException
 
-/** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
-internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {
+/** Stand vor dem Wiederherstellen, für das Zurückrollen (die Merkliste darin frisch unter der Sperre: [watchlistUnderLock]). */
+internal suspend fun BackupManager.previousState() = PreviousState(
+    watches = watchDao.getWatches(),
+    alarms = watchDao.getAllAlarms(),
+    portfolio = portfolioDao.getAll(),
+    portfolioAlarms = portfolioAlarmDao.getAll(),
+    watchedAddresses = watchedAddressDao.getAll(),
+    favorites = FavoriteKind.entries.associateWith { favoritesRepository.favorites(it).value.toSet() },
+    settings = settingsCodec.settingsToJson(),
+)
+
+/**
+ * Gemerkter Stand mit der Merkliste, wie sie jetzt — unter der Refresh-Sperre — steht. Zwischen [previousState] und der
+ * Sperre kann eine laufende Aktualisierung einen einmaligen Alarm ausgelöst (und ausgeschaltet) haben; ein Zurückrollen
+ * mit dem älteren Stand schaltete ihn wieder scharf, und er meldete sich ein zweites Mal. Weicht die Merkliste ab, wird
+ * auch das Journal neu geschrieben (gleicher Grund beim Zurückrollen nach einem Neustart); scheitert das, wird nichts
+ * ersetzt ([BackupJournalUnavailableException], das bisherige Journal gilt noch).
+ */
+internal suspend fun BackupManager.watchlistUnderLock(previous: PreviousState): PreviousState {
+    val watches = watchDao.getWatches()
+    val alarms = watchDao.getAllAlarms()
+    if (watches == previous.watches && alarms == previous.alarms) return previous
+    val locked = PreviousState(
+        watches, alarms, previous.portfolio, previous.portfolioAlarms, previous.watchedAddresses, previous.favorites,
+        previous.settings,
+    )
+    val written = try {
+        journal.write(journalJson(locked).toString())
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        throw BackupJournalUnavailableException(e)
+    }
+    if (!written) throw BackupJournalUnavailableException(null)
+    return locked
+}
+
+/**
+ * Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). [locked] läuft
+ * zuerst unter der Sperre (Wiederherstellen: Stand zum Zurückrollen lesen, Schritt als berührt melden).
+ */
+internal suspend fun BackupManager.writeWatchlist(
+    watches: List<WatchEntity>,
+    alarms: List<AlarmEntity>,
+    locked: suspend () -> Unit = {},
+) {
     // Unter der Refresh-Sperre: Ein laufender Durchlauf schrieb sonst Kurse alter Paare unter Ids, die
     // die Sicherung neu vergibt (zusätzlich verwirft WatchDao.updatePriceForPair Kurse anderer Paare).
     // Gepufferte Live-Kurse gehören zu den alten Paaren: vorher vergessen.
     priceRefresher.withRefreshLock {
+        locked()
         livePriceStream.forgetAll()
         database.withTransaction {
             watchDao.deleteAllWatches()          // Alarme fallen per Fremdschlüssel mit weg

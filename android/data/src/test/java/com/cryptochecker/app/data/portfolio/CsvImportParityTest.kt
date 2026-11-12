@@ -16,6 +16,9 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRateConsent
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvMissingRate
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateGate
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportKind
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPriced
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRow
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.classify
 import com.cryptochecker.app.domain.portfolio.csvimport.parseNumber
@@ -472,6 +475,37 @@ class CsvImportParityTest {
         c["notes"].list().map { it.obj() }.forEach { n ->
             val missing = (n["missing"] as String?)?.let { CsvMissingRate.valueOf(it) }
             assertEquals("note $n", n["expected"], CsvImportRateGate.note(n["note"] as String?, missing, consent))
+        }
+    }
+
+    /**
+     * Was «Erneut versuchen» bei Zeilen ohne Tageskurs ausrichten kann (`rateRetry`): Währungen ohne mögliche Tageskurse
+     * (eigener Satz) und ob ein neuer Abruf hilft; eine Zeile, der nichts fehlt, sperrt nicht. Gegenstück: `testRateRetry`.
+     */
+    @Test
+    fun rateRetry() {
+        val cases = data["rateRetry"].list().map { it.obj() }
+        assertTrue(cases.size >= 6)
+        for (c in cases) {
+            val priced = c["rows"].list().map { it.obj() }.mapIndexed { i, r ->
+                val kind = CsvImportKind.valueOf(r["kind"] as String)
+                val row = CsvImportRow(
+                    line = i + 2, kind = kind, rawKind = kind.name, coin = "SOL", amount = BigDecimal.ONE, price = BigDecimal.TEN,
+                    quote = r["quote"] as String?, fee = BigDecimal.ONE, feeUnit = r["feeUnit"] as String?, timeMillis = 0L,
+                    externalId = null, key = "k$i",
+                )
+                val priceNeedsFx = r["priceNeedsFx"] as Boolean
+                val feeNeedsFx = r["feeNeedsFx"] as Boolean
+                val p = CsvImportPriced(
+                    row = row, priceUsdt = null, feeUsdt = null, needsFx = priceNeedsFx || feeNeedsFx, missingPrice = false,
+                    priceNeedsFx = priceNeedsFx, feeNeedsFx = feeNeedsFx,
+                )
+                assertEquals("$r", r["missing"], CsvImportRateGate.missing(p)?.name)
+                p
+            }
+            val retry = CsvImportRateGate.retry(priced)
+            assertEquals("$c", c["currencies"].list(), retry.currencies)
+            assertEquals("$c", c["retryHelps"], retry.retryHelps)
         }
     }
 }

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Ανάγνωση αρχείου και ημερήσιων ισοτιμιών…</string>
     <string name="portfolio_csv_import_progress">Γραμμή %1$s από %2$s</string>
     <string name="portfolio_csv_import_saving">Αποθήκευση συναλλαγών…</string>
-    <string name="portfolio_csv_import_missing_fx">Δεν υπάρχει ημερήσια ισοτιμία για τη γραμμή %1$s – εισήχθη χωρίς τιμή και χρέωση.</string>
+    <string name="portfolio_csv_import_missing_fx">Δεν υπάρχει ημερήσια ισοτιμία για τη γραμμή %1$s – λείπουν τιμή και χρέωση.</string>
     <string name="portfolio_csv_import_missing_price">Δεν υπάρχει τιμή στο αρχείο για τη γραμμή %1$s – εισήχθη χωρίς τιμή.</string>
     <string name="portfolio_csv_import_fee_in_price">Δύο χρεώσεις στη γραμμή %1$s: η χρέωση σε fiat περιλαμβάνεται στην τιμή, η χρέωση στο νόμισμα μειώνει την ποσότητα που λήφθηκε ή αυξάνει αυτή που δόθηκε.</string>
     <string name="portfolio_csv_import_pending_differs">Γραμμή %1$s: η εκκρεμής και η καταχωρισμένη εγγραφή της ίδιας κατάθεσης ή ανάληψης έχουν διαφορετικές ποσότητες – εισήχθησαν και οι δύο, έλεγξε το υπόλοιπο.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Χωρίς ημερήσια ισοτιμία, η τιμή ή η χρέωση λείπουν οριστικά. Δοκίμασε ξανά ή κάνε εισαγωγή ούτως ή άλλως – αυτές οι συναλλαγές θα έχουν τότε σημείωση.</string>
     <string name="portfolio_csv_note_price_no_rate">Τιμή χωρίς ημερήσια ισοτιμία</string>
     <string name="portfolio_csv_note_fee_no_rate">Χρέωση χωρίς ημερήσια ισοτιμία</string>
+    <string name="portfolio_csv_import_no_rates_for">Δεν υπάρχουν ημερήσιες ισοτιμίες για %1$s, οπότε μια νέα προσπάθεια δεν θα βοηθήσει. Αν κάνεις εισαγωγή ούτως ή άλλως, αυτές οι συναλλαγές θα έχουν σημείωση.</string>
+    <string name="portfolio_csv_import_blocked_rates">Αποφάσισε πρώτα παραπάνω για τις γραμμές χωρίς ημερήσια ισοτιμία.</string>
 </resources>

@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">最近の確認</string>
     <string name="settings_http_log">HTTP ログを表示</string>
     <string name="settings_http_log_hint">「ペアを追加」画面の下部に取引所へのリクエストを表示します（トラブル対応用）。</string>
+    <string name="settings_retirement_preview">終了日を前倒し</string>
+    <string name="settings_retirement_preview_hint">取引所終了ルールの時計だけを進めます（端末の時計は変わりません）。</string>
     <string name="settings_live_service">頻繁に更新</string>
     <string name="settings_live_websocket">リアルタイム価格</string>
 

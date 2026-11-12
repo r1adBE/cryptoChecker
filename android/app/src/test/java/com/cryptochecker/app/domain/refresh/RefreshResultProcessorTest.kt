@@ -141,6 +141,46 @@ class RefreshResultProcessorTest {
         assertTrue(f.notifier.alarmPosts.isEmpty())
     }
 
+    /** Nicht gehandelt bzw. Börse stillgelegt: weder «geprüft» noch «fehlgeschlagen» (F2-01). */
+    @Test
+    fun notTradedPairsCountNeitherAsCheckedNorAsFailed() {
+        val f = RefreshFixture(listOf(watch(id = 1, price = 99.0), watch(id = 2, price = 99.0), watch(id = 3, price = 99.0)))
+
+        val processed = f.process(
+            mapOf(
+                1L to Fetched(ticker(100.0), null),
+                2L to Fetched(null, "Exchange retired: Bitpanda", notTraded = true),
+                3L to Fetched(null, "Wird an der Börse nicht mehr gehandelt", notTraded = true),
+            ),
+        )
+
+        assertEquals(1, processed.checked)
+        assertEquals(0, processed.failed)
+        assertEquals(2, processed.notTraded)
+        // Der Marker wird trotzdem gespeichert (Grund in der Anzeige)
+        assertEquals("Exchange retired: Bitpanda", f.store.watches.getValue(2).lastError)
+        assertTrue(BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded))
+    }
+
+    /** Alle Paare stillgelegt (Portfolio-Alarm aktiv): der Lauf zählt als volle Prüfung und als Aktualisierung. */
+    @Test
+    fun allPairsRetiredStillCountsAsFullCheck() {
+        val f = RefreshFixture(listOf(watch(id = 1, price = 99.0), watch(id = 2, price = 99.0)))
+
+        val processed = f.process(
+            mapOf(
+                1L to Fetched(null, "Exchange retired: Bitpanda", notTraded = true),
+                2L to Fetched(null, "Exchange retired: Bitpanda", notTraded = true),
+            ),
+        )
+
+        assertEquals(0, processed.checked)
+        assertEquals(0, processed.failed)
+        assertEquals(CheckResult.OK, CheckRunLog.result(processed.checked, processed.failed))
+        assertTrue(BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded))
+        assertTrue(BackgroundSchedule.refreshed(processed.checked, processed.failed, processed.notTraded))
+    }
+
     @Test
     fun liveQuotesDoNotMeasureDexLiquidity() {
         val pool = "solana/pool1"

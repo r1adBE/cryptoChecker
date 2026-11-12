@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Bursa (opsionale)</string>
     <string name="ledger_exchange_failed">%1$s: tani nuk ka çmim nga %2$s – vlerësuar me Binance.</string>
     <string name="ledger_exchange_hint">Monedha vlerësohet me çmimin e kësaj burse (përndryshe Binance). Historiku, 7 D dhe 1 V: çmimet ditore të Binance, të shkallëzuara.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s nuk jep më çmime – vlerësuar me Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s nuk jep më çmime – monedha vlerësohet me çmimin e Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: janë dhënë disa bursa – vlerësuar me Binance. I zhvendose monedhat? Regjistroje si «Transferim».</string>
     <string name="ledger_exchange_none">Asnjë (Binance)</string>
     <string name="ledger_fee">Tarifa (opsionale)</string>

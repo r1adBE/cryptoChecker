@@ -238,6 +238,8 @@
     <string name="ledger_exchange">Bursa (pilihan)</string>
     <string name="ledger_exchange_failed">%1$s: tiada harga daripada %2$s sekarang – dinilai dengan Binance.</string>
     <string name="ledger_exchange_hint">Koin dinilai pada harga bursa ini (jika tidak, Binance). Sejarah, 7 H dan 1 T menggunakan harga harian Binance yang diskalakan kepadanya.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s tidak lagi menyediakan harga – dinilai dengan Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s tidak lagi menyediakan harga – koin dinilai pada harga Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: beberapa bursa dimasukkan – dinilai dengan Binance. Koin dipindahkan? Rekod pergerakan itu sebagai “Pindahan”.</string>
     <string name="ledger_exchange_none">Tiada (Binance)</string>
     <string name="ledger_fee">Yuran (pilihan)</string>

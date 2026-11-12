@@ -238,6 +238,8 @@
     <string name="ledger_exchange">交易所（可選）</string>
     <string name="ledger_exchange_failed">%1$s：%2$s 暫時冇價格 – 改用 Binance 計價。</string>
     <string name="ledger_exchange_hint">呢隻幣會按呢個交易所嘅價格計價（否則用 Binance）。歷史、7 日同 1 年會用按佢比例調整嘅 Binance 每日價格。</string>
+    <string name="ledger_exchange_retired">%1$s：%2$s 已經唔再提供價格 – 改用 Binance 計價。</string>
+    <string name="ledger_exchange_retired_hint">%1$s 已經唔再提供價格 – 呢個幣會用 Binance 價格計價。</string>
     <string name="ledger_exchange_mixed">%1$s：輸入咗幾個交易所 – 改用 Binance 計價。轉移咗幣？請將轉移記做「轉賬」。</string>
     <string name="ledger_exchange_none">無（Binance）</string>
     <string name="ledger_fee">手續費（可選）</string>

@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Біржа (необов’язково)</string>
     <string name="ledger_exchange_failed">%1$s: зараз немає курсу з %2$s – оцінено за Binance.</string>
     <string name="ledger_exchange_hint">Монета оцінюється за курсом цієї біржі (інакше Binance). Історія, 7 Д і 1 Р: денні курси Binance, приведені до нього.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s більше не надає ціни – оцінено за Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s більше не надає ціни – монету оцінено за курсом Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: зазначено кілька бірж – оцінено за Binance. Монети переміщувалися? Запиши це як «Переказ».</string>
     <string name="ledger_exchange_none">Немає (Binance)</string>
     <string name="ledger_fee">Комісія (необов’язково)</string>

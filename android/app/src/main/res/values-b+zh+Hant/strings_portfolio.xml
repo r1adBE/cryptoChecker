@@ -238,6 +238,8 @@
     <string name="ledger_exchange">交易所（選填）</string>
     <string name="ledger_exchange_failed">%1$s：目前沒有 %2$s 的價格——按 Binance 估值。</string>
     <string name="ledger_exchange_hint">該幣按此交易所價格估值（否則 Binance）。走勢、7天和1年：使用按比例換算的 Binance 每日價格。</string>
+    <string name="ledger_exchange_retired">%1$s：%2$s 已不再提供價格——按 Binance 估值。</string>
+    <string name="ledger_exchange_retired_hint">%1$s 已不再提供價格——此幣種按 Binance 價格估值。</string>
     <string name="ledger_exchange_mixed">%1$s：填寫了多個交易所——按 Binance 估值。移動過幣？請記錄為 「轉移」。</string>
     <string name="ledger_exchange_none">無（Binance）</string>
     <string name="ledger_fee">手續費（選填）</string>

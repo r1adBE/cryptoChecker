@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Inasoma faili na viwango vya kila siku…</string>
     <string name="portfolio_csv_import_progress">Mstari %1$s kati ya %2$s</string>
     <string name="portfolio_csv_import_saving">Inahifadhi miamala…</string>
-    <string name="portfolio_csv_import_missing_fx">Hakuna kiwango cha siku kwa mistari %1$s – imeletwa bila bei/ada.</string>
+    <string name="portfolio_csv_import_missing_fx">Hakuna kiwango cha siku kwa mistari %1$s – bei/ada haipo.</string>
     <string name="portfolio_csv_import_missing_price">Hakuna bei kwenye faili kwa mistari %1$s – imeletwa bila bei.</string>
     <string name="portfolio_csv_import_fee_in_price">Ada mbili kwenye mistari %1$s: ada ya fiat imejumuishwa kwenye bei, ada ya sarafu inapunguza kiasi kilichopokelewa au kuongeza kiasi kilichotolewa.</string>
     <string name="portfolio_csv_import_pending_differs">Mistari %1$s: ingizo linalosubiri na lililorekodiwa la amana au utoaji uleule vina kiasi tofauti – yote mawili yameletwa, angalia mali.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Bila kiwango cha siku, bei au ada hukosekana kabisa. Jaribu tena, au leta hata hivyo – miamala hiyo itapata dokezo.</string>
     <string name="portfolio_csv_note_price_no_rate">Bei bila kiwango cha siku</string>
     <string name="portfolio_csv_note_fee_no_rate">Ada bila kiwango cha siku</string>
+    <string name="portfolio_csv_import_no_rates_for">Hakuna viwango vya siku kwa %1$s, kwa hivyo kujaribu tena hakutasaidia. Ukileta hata hivyo, miamala hiyo itapata dokezo.</string>
+    <string name="portfolio_csv_import_blocked_rates">Kwanza amua hapo juu kuhusu mistari isiyo na kiwango cha siku.</string>
 </resources>

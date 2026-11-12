@@ -242,6 +242,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Tutup pemberitahuan</string>
     <string name="watchlist_missing_logos_explain">Logo tidak tersedia untuk koin ini. Aplikasi menampilkan inisialnya.</string>
+    <string name="exchange_retiring_notice">Mulai %2$s, %1$s tidak lagi menyediakan harga publik. Pilih bursa lain untuk koin-koin ini.</string>
+    <string name="exchange_retiring_reason">Mulai %2$s, %1$s tidak lagi menyediakan harga</string>
+    <string name="exchange_retired_since">Sejak %2$s, %1$s tidak lagi menyediakan harga</string>
+    <string name="exchange_retired_alarms">Sejak %2$s, %1$s tidak lagi menyediakan harga – alarm pasangan ini tidak lagi memeriksa apa pun</string>
     <string name="exchange_retired_short">%1$s tidak lagi menyediakan harga</string>
     <string name="exchange_retired_notice">Sejak %2$s, %1$s tidak lagi menyediakan harga publik. Pilih bursa lain untuk koin-koin ini.</string>
 </resources>

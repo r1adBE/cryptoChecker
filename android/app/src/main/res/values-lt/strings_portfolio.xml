@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Birža (neprivaloma)</string>
     <string name="ledger_exchange_failed">%1$s: šiuo metu nėra kainos iš %2$s – vertinama pagal Binance.</string>
     <string name="ledger_exchange_hint">Moneta vertinama pagal šios biržos kainą (kitaip Binance). Istorija, 7 d. ir 1 m. naudoja Binance dienos kainas, pritaikytas jai.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s nebeteikia kainų – vertinama pagal Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s nebeteikia kainų – moneta vertinama Binance kaina.</string>
     <string name="ledger_exchange_mixed">%1$s: įvestos kelios biržos – vertinama pagal Binance. Perkėlei monetas? Užregistruok tai kaip „Pervedimas“.</string>
     <string name="ledger_exchange_none">Nėra (Binance)</string>
     <string name="ledger_fee">Komisinis mokestis (neprivaloma)</string>

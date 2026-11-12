@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">آخرین بررسی‌ها</string>
     <string name="settings_http_log">نمایش گزارش HTTP</string>
     <string name="settings_http_log_hint">درخواست‌های ارسالی به صرافی‌ها را پایین صفحهٔ «افزودن جفت» نشان می‌دهد – برای عیب‌یابی.</string>
+    <string name="settings_retirement_preview">جلو انداختن تاریخ توقف</string>
+    <string name="settings_retirement_preview_hint">فقط ساعت قاعدهٔ توقف صرافی را جابه‌جا می‌کند، نه ساعت دستگاه را.</string>
     <string name="settings_live_service">به‌روزرسانی مکرر</string>
     <string name="settings_live_websocket">قیمت‌های زنده</string>
 

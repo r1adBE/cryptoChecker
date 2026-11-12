@@ -241,6 +241,8 @@
     <string name="ledger_exchange">എക്സ്ചേഞ്ച് (ഓപ്ഷണൽ)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s-ൽ നിന്ന് ഇപ്പോൾ വിലയില്ല – Binance ഉപയോഗിച്ച് മൂല്യനിർണ്ണയം ചെയ്തു.</string>
     <string name="ledger_exchange_hint">ഈ എക്സ്ചേഞ്ചിന്റെ വിലയിൽ കോയിൻ മൂല്യനിർണ്ണയം ചെയ്യുന്നു (അല്ലെങ്കിൽ Binance). ചരിത്രം, 7 ദി., 1 വ. എന്നിവ അതിലേക്ക് സ്കെയിൽ ചെയ്ത Binance പ്രതിദിന വിലകൾ ഉപയോഗിക്കുന്നു.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ഇനി വിലകൾ നൽകുന്നില്ല – Binance ഉപയോഗിച്ച് മൂല്യനിർണ്ണയം ചെയ്തു.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ഇനി വിലകൾ നൽകുന്നില്ല – കോയിൻ Binance വിലയിൽ മൂല്യനിർണ്ണയം ചെയ്യുന്നു.</string>
     <string name="ledger_exchange_mixed">%1$s: ഒന്നിലധികം എക്സ്ചേഞ്ചുകൾ നൽകി – Binance ഉപയോഗിച്ച് മൂല്യനിർണ്ണയം ചെയ്തു. കോയിനുകൾ നീക്കിയോ? ആ നീക്കം “കൈമാറ്റം” ആയി രേഖപ്പെടുത്തുക.</string>
     <string name="ledger_exchange_none">ഒന്നുമില്ല (Binance)</string>
     <string name="ledger_fee">ഫീസ് (ഓപ്ഷണൽ)</string>

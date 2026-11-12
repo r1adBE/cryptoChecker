@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.R
 import com.cryptochecker.app.data.BackupCrypto
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -19,6 +20,10 @@ class BackupMemoryMessageTest {
         assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(OutOfMemoryError("Java heap space")))
         // Andere Fehler bleiben «fehlgeschlagen»
         assertEquals(BackupMessage.Failed, BackupMessage.failure(IllegalStateException("x")))
+        // Beim Sichern: «Die Sicherung konnte nicht gespeichert werden» statt der Frage nach der Datei
+        assertEquals(BackupMessage.SaveFailed, BackupMessage.failure(java.io.IOException("ENOSPC"), saving = true))
+        assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(OutOfMemoryError("Java heap space"), saving = true))
+        assertEquals(R.string.backup_save_failed, BackupResultPresentation.messageRes(BackupMessage.SaveFailed))
     }
 
     @Test

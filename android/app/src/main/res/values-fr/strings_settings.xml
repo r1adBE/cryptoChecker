@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Dernières vérifications</string>
     <string name="settings_http_log">Afficher le journal HTTP</string>
     <string name="settings_http_log_hint">Affiche en bas de la page « Ajouter une paire » les requêtes envoyées aux plateformes – pour le dépannage.</string>
+    <string name="settings_retirement_preview">Avancer la date de fermeture</string>
+    <string name="settings_retirement_preview_hint">Déplace seulement l’horloge de la règle de fermeture, pas celle de l’appareil.</string>
     <string name="settings_live_service">Mettre à jour souvent</string>
     <string name="settings_live_websocket">Cours en direct</string>
 

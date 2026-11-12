@@ -242,6 +242,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">お知らせを閉じる</string>
     <string name="watchlist_missing_logos_explain">これらのコインには利用できるロゴがありません。代わりに頭文字を表示します。</string>
+    <string name="exchange_retiring_notice">%1$s は %2$s から公開価格の提供を終了します。これらのコインには別の取引所を選択してください。</string>
+    <string name="exchange_retiring_reason">%1$s は %2$s から価格の提供を終了します</string>
+    <string name="exchange_retired_since">%1$s は %2$s から価格を提供していません</string>
+    <string name="exchange_retired_alarms">%1$s は %2$s から価格を提供していません – このペアのアラームは何も確認しません</string>
     <string name="exchange_retired_short">%1$s は価格の提供を終了しました</string>
     <string name="exchange_retired_notice">%1$s は %2$s から公開価格を提供していません。これらのコインには別の取引所を選択してください。</string>
 </resources>

@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">Lần kiểm tra gần đây</string>
     <string name="settings_http_log">Hiện nhật ký HTTP</string>
     <string name="settings_http_log_hint">Hiển thị các yêu cầu tới sàn ở cuối trang “Thêm cặp” – để gỡ lỗi.</string>
+    <string name="settings_retirement_preview">Đưa ngày đóng cửa lên sớm</string>
+    <string name="settings_retirement_preview_hint">Chỉ dời đồng hồ của quy tắc đóng cửa sàn, không phải đồng hồ thiết bị.</string>
     <string name="settings_live_service">Cập nhật thường xuyên</string>
     <string name="settings_live_websocket">Giá trực tiếp</string>
 

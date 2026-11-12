@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Burza (voliteľné)</string>
     <string name="ledger_exchange_failed">%1$s: momentálne žiadny kurz z %2$s – ocenené cez Binance.</string>
     <string name="ledger_exchange_hint">Coin sa oceňuje kurzom tejto burzy (inak Binance). Priebeh, 7 D a 1 R používajú denné kurzy Binance prispôsobené tomuto kurzu.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s už neposkytuje ceny – ocenené cez Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s už neposkytuje ceny – minca sa oceňuje kurzom z Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: zadaných viac búrz – ocenené cez Binance. Presunuté coiny? Zaznamenaj presun ako „Presun“.</string>
     <string name="ledger_exchange_none">Žiadna (Binance)</string>
     <string name="ledger_fee">Poplatok (voliteľné)</string>

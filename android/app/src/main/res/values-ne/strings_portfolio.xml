@@ -241,6 +241,8 @@
     <string name="ledger_exchange">एक्सचेन्ज (ऐच्छिक)</string>
     <string name="ledger_exchange_failed">%1$s: अहिले %2$s बाट मूल्य छैन – Binance सँग मूल्याङ्कन गरियो।</string>
     <string name="ledger_exchange_hint">कोइनलाई यो एक्सचेन्जको मूल्यमा मूल्याङ्कन गरिन्छ (नत्र Binance)। इतिहास, 7 दिन र 1 वर्ष ले त्यसमा मिलाइएका Binance दैनिक मूल्य प्रयोग गर्छन्।</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ले अब मूल्य दिँदैन – Binance सँग मूल्याङ्कन गरियो।</string>
+    <string name="ledger_exchange_retired_hint">%1$s ले अब मूल्य दिँदैन – कोइनको मूल्याङ्कन Binance को मूल्यमा हुन्छ।</string>
     <string name="ledger_exchange_mixed">%1$s: धेरै एक्सचेन्ज लेखिएका छन् – Binance सँग मूल्याङ्कन गरियो। कोइन सार्नुभयो? सारसारलाई “स्थानान्तरण” का रूपमा दर्ता गर्नुहोस्।</string>
     <string name="ledger_exchange_none">कुनै पनि होइन (Binance)</string>
     <string name="ledger_fee">शुल्क (ऐच्छिक)</string>

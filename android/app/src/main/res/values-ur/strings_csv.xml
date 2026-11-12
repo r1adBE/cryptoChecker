@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">فائل اور روزانہ شرحیں پڑھی جا رہی ہیں…</string>
     <string name="portfolio_csv_import_progress">%2$s میں سے سطر %1$s</string>
     <string name="portfolio_csv_import_saving">لین دین محفوظ ہو رہے ہیں…</string>
-    <string name="portfolio_csv_import_missing_fx">سطروں %1$s کے لیے روزانہ شرح نہیں – قیمت/فیس کے بغیر امپورٹ ہوا۔</string>
+    <string name="portfolio_csv_import_missing_fx">سطروں %1$s کے لیے روزانہ شرح نہیں – قیمت/فیس غائب ہے۔</string>
     <string name="portfolio_csv_import_missing_price">فائل میں سطروں %1$s کی قیمت نہیں – قیمت کے بغیر امپورٹ ہوا۔</string>
     <string name="portfolio_csv_import_fee_in_price">سطروں %1$s میں دو فیسیں: فیاٹ فیس قیمت میں شامل ہے، کوائن والی فیس ملنے والی مقدار کم یا دی گئی مقدار زیادہ کرتی ہے۔</string>
     <string name="portfolio_csv_import_pending_differs">سطریں %1$s: ایک ہی جمع یا نکاسی کے زیرِ التوا اور درج اندراج کی مقدار مختلف ہے – دونوں امپورٹ ہوئے، ہولڈنگز چیک کریں۔</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">روزانہ شرح کے بغیر قیمت یا فیس مستقل طور پر غائب رہتی ہے۔ دوبارہ کوشش کریں، یا پھر بھی امپورٹ کریں – تب ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔</string>
     <string name="portfolio_csv_note_price_no_rate">روزانہ شرح کے بغیر قیمت</string>
     <string name="portfolio_csv_note_fee_no_rate">روزانہ شرح کے بغیر فیس</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s کے لیے روزانہ شرحیں موجود نہیں، اس لیے دوبارہ کوشش سے فائدہ نہیں ہو گا۔ پھر بھی امپورٹ کریں تو ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔</string>
+    <string name="portfolio_csv_import_blocked_rates">پہلے اوپر بغیر روزانہ شرح والی سطروں کے بارے میں فیصلہ کریں۔</string>
 </resources>

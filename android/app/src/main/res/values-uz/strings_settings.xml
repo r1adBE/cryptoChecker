@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Soʻnggi tekshiruvlar</string>
     <string name="settings_http_log">HTTP jurnalini koʻrsatish</string>
     <string name="settings_http_log_hint">Birjalarga soʻrovlarni «Juftlik qoʻshish» sahifasining pastida koʻrsatadi – nosozliklarni aniqlash uchun.</string>
+    <string name="settings_retirement_preview">Yopilish sanasini oldinga surish</string>
+    <string name="settings_retirement_preview_hint">Faqat yopilish qoidasining soatini suradi, qurilma soatini emas.</string>
     <string name="settings_live_service">Tez-tez yangilash</string>
     <string name="settings_live_websocket">Jonli kurslar</string>
 

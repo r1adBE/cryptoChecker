@@ -202,7 +202,8 @@ object CsvImportMapping {
             transactions = kept.map { it.second },
             duplicates = split.duplicates.size,
             skipped = (result.skipped + heldSkips + unsavable).sortedBy { it.line },
-            missingFx = keptPriced.filter { it.needsFx }.map { it.row.line },
+            // Gleiche Regel wie der Vermerk ([CsvImportRateGate.missing]): eine Zeile, der nichts fehlt, sperrt nicht
+            missingFx = keptPriced.filter { CsvImportRateGate.missing(it) != null }.map { it.row.line },
             missingPrice = keptPriced.filter { it.missingPrice }.map { it.row.line },
             zone = result.zone,
             localTimes = result.localTimes,
@@ -218,6 +219,7 @@ object CsvImportMapping {
             tooLarge = result.tooLarge,
             fxZone = zone,
             dayRates = keptPriced.any { it.dayRate },
+            rateRetry = CsvImportRateGate.retry(keptPriced),
         )
     }
 

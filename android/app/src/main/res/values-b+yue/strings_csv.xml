@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">讀取緊檔案同每日匯率…</string>
     <string name="portfolio_csv_import_progress">第 %1$s 行，共 %2$s 行</string>
     <string name="portfolio_csv_import_saving">儲存緊交易…</string>
-    <string name="portfolio_csv_import_missing_fx">第 %1$s 行冇每日匯率 – 已匯入但冇價格／手續費。</string>
+    <string name="portfolio_csv_import_missing_fx">第 %1$s 行冇每日匯率 – 缺少價格／手續費。</string>
     <string name="portfolio_csv_import_missing_price">檔案入面第 %1$s 行冇價格 – 已匯入但冇價格。</string>
     <string name="portfolio_csv_import_fee_in_price">第 %1$s 行有兩筆費用：法幣費用已計入價格，幣種費用會減少收到嘅數量或者增加付出嘅數量。</string>
     <string name="portfolio_csv_import_pending_differs">第 %1$s 行：同一筆存入或提取嘅待處理記錄同已入賬記錄數量唔同 – 兩筆都已匯入，請檢查持倉。</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">冇每日匯率，價格或者手續費會永久缺失。請重試，或者照樣匯入 – 嗰啲交易會加上備註。</string>
     <string name="portfolio_csv_note_price_no_rate">價格冇每日匯率</string>
     <string name="portfolio_csv_note_fee_no_rate">手續費冇每日匯率</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s 冇每日匯率，所以重試都冇用。如果照樣匯入，嗰啲交易會加上備註。</string>
+    <string name="portfolio_csv_import_blocked_rates">請先喺上面決定點處理冇每日匯率嘅行。</string>
 </resources>

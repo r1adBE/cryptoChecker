@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -188,6 +189,8 @@ internal fun PortfolioAlarmsCard(
     sentence: (PortfolioAlarmEntity) -> String,
     onToggle: (Long, Boolean) -> Unit,
     onDelete: (PortfolioAlarmEntity) -> Unit,
+    /** Ausgelöster Alarm aus der Mitteilung ([com.cryptochecker.app.ui.navigation.PortfolioAlarmTarget]): hervorgehoben. */
+    highlightId: Long = 0L,
 ) {
     AppCard(padding = CardPadding.None) {
         // Kopf wie iOS: Portfolio-Symbol im getönten Kreis, daneben der Titel
@@ -224,7 +227,18 @@ internal fun PortfolioAlarmsCard(
         alarms.forEach { alarm ->
             // «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
             val invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+            // Aus der Mitteilung geöffnet: getönte Zeile, für Screenreader «ausgewählt» (Text bleibt neutral wie die Mitteilung)
+            val highlighted = alarm.id == highlightId
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (highlighted) {
+                            Modifier.background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)).semantics { selected = true }
+                        } else Modifier
+                    )
+            ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier

@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">最近的檢查</string>
     <string name="settings_http_log">顯示 HTTP 記錄</string>
     <string name="settings_http_log_hint">在「新增交易對」頁面底部顯示發往交易所的請求，用於排查問題。</string>
+    <string name="settings_retirement_preview">提前停用日期</string>
+    <string name="settings_retirement_preview_hint">僅移動交易所停用規則的時鐘，不影響裝置時鐘。</string>
     <string name="settings_live_service">頻繁更新</string>
     <string name="settings_live_websocket">即時價格</string>
 

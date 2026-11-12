@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Reading file and daily rates…</string>
     <string name="portfolio_csv_import_progress">Line %1$s of %2$s</string>
     <string name="portfolio_csv_import_saving">Saving transactions…</string>
-    <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – imported without price/fee.</string>
+    <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – price/fee missing.</string>
     <string name="portfolio_csv_import_missing_price">No price in the file for lines %1$s – imported without price.</string>
     <string name="portfolio_csv_import_fee_in_price">Two fees in lines %1$s: the fiat fee is included in the price, the fee in the coin lowers the amount received or raises the amount given.</string>
     <string name="portfolio_csv_import_pending_differs">Lines %1$s: pending and booked entry of the same deposit or withdrawal have different amounts – both imported, check holdings.</string>
@@ -104,4 +104,8 @@
     <string name="portfolio_csv_import_anyway_hint">Without a daily rate, the price or fee stays missing for good. Retry, or import anyway – those transactions then get a note.</string>
     <string name="portfolio_csv_note_price_no_rate">Price without daily rate</string>
     <string name="portfolio_csv_note_fee_no_rate">Fee without daily rate</string>
+    <!-- CSV-Import: Preis- bzw. Gebühr-Währung ohne mögliche Tageskurse (z. B. ein Coin), statt «Erneut versuchen» (CsvImportRateGate.retry) -->
+    <string name="portfolio_csv_import_no_rates_for">There are no daily rates for %1$s, so retrying won’t help. If you import anyway, those transactions get a note.</string>
+    <!-- CSV-Import: Grund unter dem gesperrten Knopf «Importieren» — Zeilen ohne Tageskurs noch unentschieden -->
+    <string name="portfolio_csv_import_blocked_rates">First decide above on the lines without a daily rate.</string>
 </resources>

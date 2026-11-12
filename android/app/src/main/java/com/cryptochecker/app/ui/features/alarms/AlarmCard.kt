@@ -64,7 +64,8 @@ internal fun AlarmCard(
     /** Name der stillgelegten Börse für [AlarmCardStatus.Kind.EXCHANGE_RETIRED] («Bitpanda liefert keine Kurse mehr»). */
     retiredExchange: String? = null,
     onToggle: (Boolean) -> Unit,
-    onEdit: () -> Unit,
+    /** Karte antippen = bearbeiten; null = Bearbeiten gesperrt (stillgelegte Börse, Referenzkurs, DEX zu dünn): kein Klick. */
+    onEdit: (() -> Unit)?,
     onDelete: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -108,13 +109,13 @@ internal fun AlarmCard(
         (statusText?.let { ". $it" } ?: "")
     val editLabel = stringResource(R.string.action_edit)
 
-    // Ganze Karte antippen = bearbeiten
+    // Ganze Karte antippen = bearbeiten (gesperrt: keine Klick-Aktion)
     Card(
         shape = MaterialTheme.shapes.large,
         modifier = Modifier
             .fillMaxWidth()
             .testTag(UiTestTags.ALARM_CARD)
-            .clickable(onClickLabel = editLabel, onClick = onEdit)
+            .then(if (onEdit != null) Modifier.clickable(onClickLabel = editLabel, onClick = onEdit) else Modifier)
             .semantics { contentDescription = description }
     ) {
         Column(modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 8.dp, end = 4.dp)) {

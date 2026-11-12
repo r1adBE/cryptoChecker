@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">সাম্প্রতিক যাচাই</string>
     <string name="settings_http_log">HTTP লগ দেখান</string>
     <string name="settings_http_log_hint">“পেয়ার যোগ করুন” পাতার নিচে এক্সচেঞ্জে পাঠানো অনুরোধগুলো দেখায় – সমস্যা সমাধানের জন্য।</string>
+    <string name="settings_retirement_preview">বন্ধের তারিখ এগিয়ে আনুন</string>
+    <string name="settings_retirement_preview_hint">শুধু এক্সচেঞ্জ বন্ধের নিয়মের ঘড়ি সরায়, ডিভাইসের ঘড়ি নয়।</string>
     <string name="settings_live_service">ঘন ঘন আপডেট</string>
     <string name="settings_live_websocket">লাইভ দাম</string>
 

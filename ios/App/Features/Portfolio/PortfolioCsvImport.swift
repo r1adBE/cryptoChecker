@@ -125,12 +125,7 @@ struct PortfolioCsvImportSheet: View {
                     }
                     // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
                     // Ohne Tageskurs fehlten Preis bzw. Gebühr dauerhaft: erst neu laden oder ausdrücklich trotzdem
-                    if !preview.missingFx.isEmpty {
-                        // Keine gültige Antwort beim Laden — etwas anderes als «kein Kurs für Währung bzw. Tag»
-                        if preview.ratesFailed { hint(L("portfolio_csv_import_rates_failed")) }
-                        linesHint(preview.missingFx) { L("portfolio_csv_import_missing_fx", $0) }
-                        rateGate
-                    }
+                    if !preview.missingFx.isEmpty { rateBlock }
                     // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
                     if preview.dayRates { hint(L("portfolio_csv_import_fx_zone", preview.fxZone)) }
                     // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
@@ -184,6 +179,8 @@ struct PortfolioCsvImportSheet: View {
                 .padding(.vertical, 8)
             }
             .background(AppColors.background.ignoresSafeArea())
+            // Warum «Importieren» (oben rechts) aus ist — immer sichtbar, nicht nur weit oben bei der Erklärung
+            .safeAreaInset(edge: .bottom) { blockedReasons(txs, total: total) }
             .navigationTitle(L("portfolio_csv_import_action"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -194,6 +191,7 @@ struct PortfolioCsvImportSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("portfolio_csv_import_confirm", total), action: confirm)
                         .accessibilityIdentifier(UiTestTags.csvImportConfirm)
+                        .accessibilityHint(blockedTexts(txs, total: total).joined(separator: " "))
                         .fontWeight(.semibold)
                         .appDisabled(total == 0 || saveRun.phase != nil
                                   || !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices)

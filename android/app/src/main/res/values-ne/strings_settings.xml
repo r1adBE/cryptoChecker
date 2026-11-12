@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">हालैका जाँचहरू</string>
     <string name="settings_http_log">HTTP लग देखाउनुहोस्</string>
     <string name="settings_http_log_hint">“जोडी थप्नुहोस्” पृष्ठको तलपट्टि एक्सचेन्जहरूमा गएका अनुरोधहरू देखाउँछ – समस्या समाधानका लागि।</string>
+    <string name="settings_retirement_preview">बन्द हुने मिति अगाडि ल्याउनुहोस्</string>
+    <string name="settings_retirement_preview_hint">एक्सचेन्ज बन्द हुने नियमको घडी मात्र सार्छ, डिभाइसको घडी होइन।</string>
     <string name="settings_live_service">धेरै पटक अपडेट गर्नुहोस्</string>
     <string name="settings_live_websocket">लाइभ मूल्यहरू</string>
 

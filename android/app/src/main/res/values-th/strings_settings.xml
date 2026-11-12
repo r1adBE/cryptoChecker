@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">การตรวจสอบล่าสุด</string>
     <string name="settings_http_log">แสดงบันทึก HTTP</string>
     <string name="settings_http_log_hint">แสดงคำขอไปยังกระดานเทรดที่ด้านล่างของหน้า “เพิ่มคู่เทรด” – สำหรับแก้ปัญหา</string>
+    <string name="settings_retirement_preview">เลื่อนวันปิดให้เร็วขึ้น</string>
+    <string name="settings_retirement_preview_hint">เลื่อนเฉพาะนาฬิกาของกฎการปิดกระดานเทรด ไม่ใช่นาฬิกาของอุปกรณ์</string>
     <string name="settings_live_service">อัปเดตบ่อย</string>
     <string name="settings_live_websocket">ราคาสด</string>
 

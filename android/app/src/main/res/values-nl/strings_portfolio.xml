@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Beurs (optioneel)</string>
     <string name="ledger_exchange_failed">%1$s: nu geen koers van %2$s – gewaardeerd met Binance.</string>
     <string name="ledger_exchange_hint">De munt wordt gewaardeerd tegen de koers van deze beurs (anders Binance). Verloop, 7 D en 1 J: dagkoersen van Binance, geschaald.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s levert geen koersen meer – gewaardeerd met Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s levert geen koersen meer – de munt wordt gewaardeerd tegen de Binance-koers.</string>
     <string name="ledger_exchange_mixed">%1$s: meerdere beurzen ingevuld – gewaardeerd met Binance. Munten verplaatst? Leg dat vast als ‘Overboeking’.</string>
     <string name="ledger_exchange_none">Geen (Binance)</string>
     <string name="ledger_fee">Kosten (optioneel)</string>

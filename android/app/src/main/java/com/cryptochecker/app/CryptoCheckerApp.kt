@@ -122,6 +122,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         com.cryptochecker.app.util.ClockText.install(this)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+        // Debug-Schalter «Stichtag vorziehen»: Uhr der Stilllegungs-Regel (nicht die des Geräts), nur im Debug-Build
+        com.cryptochecker.app.ui.features.settings.RetirementPreview.apply(this)
         // Protokoll der Abläufe in :domain (ohne Timber dort) über Timber — wie vorher nur mit Baum sichtbar
         com.cryptochecker.app.domain.util.DomainLog.sink = com.cryptochecker.app.domain.util.DomainLog.Sink { level, error, message, args ->
             when (level) {

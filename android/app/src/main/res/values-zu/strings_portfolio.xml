@@ -241,6 +241,8 @@
     <string name="ledger_exchange">I-exchange (uyazikhethela)</string>
     <string name="ledger_exchange_failed">%1$s: ayikho intengo evela ku-%2$s okwamanje – ibalwe nge-Binance.</string>
     <string name="ledger_exchange_hint">I-coin ibalwa ngentengo yale exchange (uma kungenjalo i-Binance). Umlando, Izinsuku 7 no-Unyaka 1 kusebenzisa izintengo zansuku zonke ze-Binance ezilinganiswe nayo.</string>
+    <string name="ledger_exchange_retired">%1$s: i-%2$s ayisanikezi ngamanani – ibalwe nge-Binance.</string>
+    <string name="ledger_exchange_retired_hint">I-%1$s ayisanikezi ngamanani – i-coin ibalwa ngentengo ye-Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: kufakwe ama-exchange amaningana – ibalwe nge-Binance. Uhambise ama-coin? Bhala ukuhambisa njengokuthi “Ukudlulisa”.</string>
     <string name="ledger_exchange_none">Lutho (Binance)</string>
     <string name="ledger_fee">Imali ekhokhwayo (uyazikhethela)</string>

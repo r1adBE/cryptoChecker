@@ -241,6 +241,8 @@
     <string name="ledger_exchange">හුවමාරුව (විකල්ප)</string>
     <string name="ledger_exchange_failed">%1$s: දැන් %2$s වෙතින් මිලක් නැත – Binance සමඟ තක්සේරු කළා.</string>
     <string name="ledger_exchange_hint">කාසිය මෙම හුවමාරුවේ මිලට තක්සේරු කෙරේ (නැතහොත් Binance). ඉතිහාසය, දින 7 සහ වසර 1 එයට පරිමාණය කළ Binance දෛනික මිල භාවිත කරයි.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s තවදුරටත් මිල ලබා නොදෙයි – Binance සමඟ තක්සේරු කළා.</string>
+    <string name="ledger_exchange_retired_hint">%1$s තවදුරටත් මිල ලබා නොදෙයි – කාසිය Binance මිලෙන් තක්සේරු කෙරේ.</string>
     <string name="ledger_exchange_mixed">%1$s: හුවමාරු කිහිපයක් ඇතුළත් කර ඇත – Binance සමඟ තක්සේරු කළා. කාසි ගෙන ගියාද? එම චලනය “මාරුව” ලෙස සටහන් කරන්න.</string>
     <string name="ledger_exchange_none">කිසිවක් නැත (Binance)</string>
     <string name="ledger_fee">ගාස්තුව (විකල්ප)</string>

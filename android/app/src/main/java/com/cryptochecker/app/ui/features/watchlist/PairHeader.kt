@@ -35,6 +35,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.convert.Sats
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.isNotTraded
+import com.cryptochecker.marketdata.config.ExchangeRetirement
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.CoinBadge
@@ -257,14 +258,26 @@ internal fun PairHeader(
 }
 
 /**
- * Zustand unter dem Kopf: deaktiviert (mit «Aktivieren»), Börse nicht erreichbar bzw. anderer Fehler (mit «Erneut
+ * Zustand unter dem Kopf: Börse stillgelegt bzw. ihr Ende angekündigt (Grund mit Datum und «Börse wechseln», öffnet
+ * «Paar bearbeiten»), deaktiviert (mit «Aktivieren»), Börse nicht erreichbar bzw. anderer Fehler (mit «Erneut
  * versuchen»), «nicht mehr gehandelt», Vorschau lädt. Sonst nichts — das Alter steht schon im Kopf.
  */
 @Composable
-internal fun PairStatusLine(watch: WatchEntity, preview: Boolean, off: Boolean, onRetry: () -> Unit, onEnable: () -> Unit) {
+internal fun PairStatusLine(
+    watch: WatchEntity,
+    preview: Boolean,
+    off: Boolean,
+    onRetry: () -> Unit,
+    onEnable: () -> Unit,
+    /** «Börse wechseln» bei stillgelegter bzw. angekündigter Börse; null = kein Knopf (Vorschau). */
+    onChangeExchange: (() -> Unit)? = null,
+) {
     val error = watch.lastError
+    retirementReason(watch, alarms = false)?.let { RetirementLine(it, onChangeExchange) }
     when {
         off -> DisabledNotice(updatedAt = watch.lastUpdate, onEnable = onEnable)
+        // Börse stillgelegt: der Grund steht schon darüber (mit Datum und «Börse wechseln»)
+        ExchangeRetirement.isMarker(error) -> Unit
         watch.lastPrice != null && isRetryableExchangeError(error) ->
             RetryLine(stringResource(R.string.error_exchange_unreachable), isError = false, onRetry = onRetry)
         // Jeder andere Fehler: Text plus «Erneut versuchen» — nur «nicht gehandelt» bleibt ohne Knopf (wie iOS)
@@ -282,6 +295,22 @@ internal fun PairStatusLine(watch: WatchEntity, preview: Boolean, off: Boolean, 
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 4.dp)
         )
+    }
+}
+
+/** Grund zur Stilllegung der Börse ([retirementReason]) mit «Börse wechseln» ([onChangeExchange], null = ohne). */
+@Composable
+private fun RetirementLine(text: String, onChangeExchange: (() -> Unit)?) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        if (onChangeExchange != null) {
+            TextButton(onClick = onChangeExchange) { Text(stringResource(R.string.watch_action_change_exchange)) }
+        }
     }
 }
 

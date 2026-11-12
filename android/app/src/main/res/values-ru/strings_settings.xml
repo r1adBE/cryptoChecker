@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Последние проверки</string>
     <string name="settings_http_log">Показывать журнал HTTP</string>
     <string name="settings_http_log_hint">Показывает внизу страницы «Добавить пару» запросы к биржам – для диагностики.</string>
+    <string name="settings_retirement_preview">Перенести дату закрытия вперёд</string>
+    <string name="settings_retirement_preview_hint">Сдвигает только часы правила закрытия биржи, а не часы устройства.</string>
     <string name="settings_live_service">Обновлять часто</string>
     <string name="settings_live_websocket">Котировки в реальном времени</string>
 

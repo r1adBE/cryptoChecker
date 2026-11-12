@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Бирж (заавал биш)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s одоо ханш өгөхгүй байна – Binance-ээр үнэлсэн.</string>
     <string name="ledger_exchange_hint">Зоосыг энэ биржийн ханшаар үнэлнэ (эс бөгөөс Binance). Түүх, 7 Х, 1 Ж нь түүнд тохируулсан Binance-ийн өдрийн ханшийг ашиглана.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s үнэ өгөхөө больсон – Binance-ээр үнэлсэн.</string>
+    <string name="ledger_exchange_retired_hint">%1$s үнэ өгөхөө больсон – зоосыг Binance-ийн үнээр үнэлнэ.</string>
     <string name="ledger_exchange_mixed">%1$s: хэд хэдэн бирж оруулсан – Binance-ээр үнэлсэн. Зоосоо шилжүүлсэн үү? Шилжилтийг «Шилжүүлэг» гэж бүртгэнэ үү.</string>
     <string name="ledger_exchange_none">Байхгүй (Binance)</string>
     <string name="ledger_fee">Шимтгэл (заавал биш)</string>

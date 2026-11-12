@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Pörssi (valinnainen)</string>
     <string name="ledger_exchange_failed">%1$s: ei juuri nyt kurssia pörssistä %2$s – arvostettu Binancella.</string>
     <string name="ledger_exchange_hint">Kolikko arvostetaan tämän pörssin kurssilla (muuten Binance). Kehitys, 7 pv ja 1 v: Binancen päiväkurssit skaalattuina.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ei enää tarjoa hintoja – arvostettu Binancella.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ei enää tarjoa hintoja – kolikko arvostetaan Binancen hinnalla.</string>
     <string name="ledger_exchange_mixed">%1$s: useita pörssejä merkitty – arvostettu Binancella. Siirsitkö kolikoita? Kirjaa siirto tyypillä ”Siirto”.</string>
     <string name="ledger_exchange_none">Ei mitään (Binance)</string>
     <string name="ledger_fee">Kulu (valinnainen)</string>

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Recente controles</string>
     <string name="settings_http_log">HTTP-log tonen</string>
     <string name="settings_http_log_hint">Toont onderaan de pagina ‘Paar toevoegen’ de verzoeken aan de beurzen – voor foutopsporing.</string>
+    <string name="settings_retirement_preview">Sluitingsdatum vervroegen</string>
+    <string name="settings_retirement_preview_hint">Verschuift alleen de klok van de sluitingsregel, niet die van het apparaat.</string>
     <string name="settings_live_service">Vaak bijwerken</string>
     <string name="settings_live_websocket">Livekoersen</string>
 

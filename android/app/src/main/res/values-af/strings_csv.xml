@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Lees lêer en daaglikse koerse…</string>
     <string name="portfolio_csv_import_progress">Reël %1$s van %2$s</string>
     <string name="portfolio_csv_import_saving">Stoor transaksies…</string>
-    <string name="portfolio_csv_import_missing_fx">Geen daaglikse koers vir reëls %1$s nie – sonder prys/fooi ingevoer.</string>
+    <string name="portfolio_csv_import_missing_fx">Geen daaglikse koers vir reëls %1$s nie – prys/fooi ontbreek.</string>
     <string name="portfolio_csv_import_missing_price">Geen prys in die lêer vir reëls %1$s nie – sonder prys ingevoer.</string>
     <string name="portfolio_csv_import_fee_in_price">Twee fooie in reëls %1$s: die fiat-fooi is by die prys ingesluit, die fooi in die munt verlaag die ontvangde of verhoog die gegewe hoeveelheid.</string>
     <string name="portfolio_csv_import_pending_differs">Reëls %1$s: hangende en geboekte inskrywing van dieselfde deposito of onttrekking het verskillende hoeveelhede – albei ingevoer, kontroleer besit.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Sonder \'n daaglikse koers ontbreek die prys of fooi permanent. Probeer weer, of voer tog in – daardie transaksies kry dan \'n nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Prys sonder daaglikse koers</string>
     <string name="portfolio_csv_note_fee_no_rate">Fooi sonder daaglikse koers</string>
+    <string name="portfolio_csv_import_no_rates_for">Daar is geen daaglikse koerse vir %1$s nie, so weer probeer sal nie help nie. As jy tog invoer, kry daardie transaksies \'n nota.</string>
+    <string name="portfolio_csv_import_blocked_rates">Besluit eers hierbo oor die reëls sonder \'n daaglikse koers.</string>
 </resources>

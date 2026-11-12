@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Πρόσφατοι έλεγχοι</string>
     <string name="settings_http_log">Εμφάνιση αρχείου HTTP</string>
     <string name="settings_http_log_hint">Δείχνει στο κάτω μέρος της σελίδας «Προσθήκη ζεύγους» τα αιτήματα προς τα ανταλλακτήρια – για αντιμετώπιση προβλημάτων.</string>
+    <string name="settings_retirement_preview">Πρόωρη ημερομηνία διακοπής</string>
+    <string name="settings_retirement_preview_hint">Μετακινεί μόνο το ρολόι του κανόνα διακοπής, όχι το ρολόι της συσκευής.</string>
     <string name="settings_live_service">Συχνή ενημέρωση</string>
     <string name="settings_live_websocket">Τιμές live</string>
 

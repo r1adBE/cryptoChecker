@@ -43,8 +43,12 @@ suspend fun PortfolioPriceSource.applyExchangeRoutes(coins: List<String>, fetche
             async {
                 val exchange = PortfolioExchangeRoute.exchange(name, exchanges)
                 if (exchange == null) {
-                    // Binance oder freier Text: Binance, ohne Hinweis
-                    sourceOf.remove(coin); failedOf.remove(coin); binanceOf.remove(coin)
+                    // Binance oder freier Text: Binance, ohne Hinweis. Stillgelegte Börse (ExchangeRetirement): ebenfalls
+                    // Binance, aber mit dem Hinweis eines Abruffehlers («Bitpanda liefert keine Kurse mehr – mit Binance
+                    // bewertet»); Verlauf, 7 T und 1 J dann wie dort mit Binance
+                    sourceOf.remove(coin); binanceOf.remove(coin)
+                    val retired = PortfolioExchangeRoute.retiredExchange(name, exchanges)
+                    if (retired != null) failedOf[coin] = retired else failedOf.remove(coin)
                     return@async
                 }
                 val price = try {

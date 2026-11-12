@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Fájl és napi árfolyamok beolvasása…</string>
     <string name="portfolio_csv_import_progress">%1$s. sor / %2$s</string>
     <string name="portfolio_csv_import_saving">Tranzakciók mentése…</string>
-    <string name="portfolio_csv_import_missing_fx">Nincs napi árfolyam ehhez a sorhoz: %1$s – ár és díj nélkül importálva.</string>
+    <string name="portfolio_csv_import_missing_fx">Nincs napi árfolyam ehhez a sorhoz: %1$s – hiányzik az ár és a díj.</string>
     <string name="portfolio_csv_import_missing_price">A fájlban nincs ár ehhez a sorhoz: %1$s – ár nélkül importálva.</string>
     <string name="portfolio_csv_import_fee_in_price">Két díj ezekben a sorokban: %1$s – a fiat díj benne van az árban, az érmében fizetett díj csökkenti a kapott vagy növeli az átadott mennyiséget.</string>
     <string name="portfolio_csv_import_pending_differs">Sorok: %1$s – ugyanannak a befizetésnek vagy kifizetésnek a függő és a könyvelt tétele eltérő mennyiségű – mindkettő importálva, ellenőrizd az egyenleget.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Napi árfolyam nélkül az ár vagy a díj véglegesen hiányzik. Próbáld újra, vagy importáld mégis – ezek a tranzakciók ekkor megjegyzést kapnak.</string>
     <string name="portfolio_csv_note_price_no_rate">Ár napi árfolyam nélkül</string>
     <string name="portfolio_csv_note_fee_no_rate">Díj napi árfolyam nélkül</string>
+    <string name="portfolio_csv_import_no_rates_for">A(z) %1$s pénznemhez nincs napi árfolyam, így az újrapróbálás nem segít. Ha mégis importálod, ezek a tranzakciók megjegyzést kapnak.</string>
+    <string name="portfolio_csv_import_blocked_rates">Előbb dönts fent a napi árfolyam nélküli sorokról.</string>
 </resources>

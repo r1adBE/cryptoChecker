@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">கோப்பையும் தினசரி விகிதங்களையும் படிக்கிறது…</string>
     <string name="portfolio_csv_import_progress">%2$s இல் வரி %1$s</string>
     <string name="portfolio_csv_import_saving">பரிவர்த்தனைகளைச் சேமிக்கிறது…</string>
-    <string name="portfolio_csv_import_missing_fx">வரிகள் %1$s க்குத் தினசரி விகிதம் இல்லை – விலை/கட்டணம் இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
+    <string name="portfolio_csv_import_missing_fx">வரிகள் %1$s க்குத் தினசரி விகிதம் இல்லை – விலை/கட்டணம் இல்லை.</string>
     <string name="portfolio_csv_import_missing_price">வரிகள் %1$s க்குக் கோப்பில் விலை இல்லை – விலை இல்லாமல் இறக்குமதி செய்யப்பட்டது.</string>
     <string name="portfolio_csv_import_fee_in_price">வரிகள் %1$s இல் இரண்டு கட்டணங்கள்: ஃபியட் கட்டணம் விலையில் சேர்க்கப்பட்டுள்ளது, காயினில் உள்ள கட்டணம் பெற்ற அளவைக் குறைக்கும் அல்லது கொடுத்த அளவைக் கூட்டும்.</string>
     <string name="portfolio_csv_import_pending_differs">வரிகள் %1$s: ஒரே வைப்பு அல்லது திரும்பப்பெறுதலின் நிலுவை மற்றும் பதிவான உள்ளீடுகளின் அளவு வேறுபடுகிறது – இரண்டும் இறக்குமதி செய்யப்பட்டன, இருப்புகளைச் சரிபார்க்கவும்.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">தினசரி விகிதம் இல்லாமல் விலை அல்லது கட்டணம் நிரந்தரமாக விடுபடும். மீண்டும் முயலவும், அல்லது இருப்பினும் இறக்குமதி செய்யவும் – அப்போது அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்.</string>
     <string name="portfolio_csv_note_price_no_rate">தினசரி விகிதம் இல்லாத விலை</string>
     <string name="portfolio_csv_note_fee_no_rate">தினசரி விகிதம் இல்லாத கட்டணம்</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s க்குத் தினசரி விகிதங்கள் இல்லை, எனவே மீண்டும் முயல்வதால் பயனில்லை. இருப்பினும் இறக்குமதி செய்தால் அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்.</string>
+    <string name="portfolio_csv_import_blocked_rates">முதலில் மேலே தினசரி விகிதம் இல்லாத வரிகள் பற்றி முடிவு செய்யவும்.</string>
 </resources>

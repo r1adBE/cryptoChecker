@@ -93,7 +93,7 @@
     <string name="watchlist_storage_locked">Список нельзя изменить: сохранённые данные сейчас не удаётся прочитать. Перезапусти приложение.</string>
     <string name="alarm_save_storage_locked">Не удаётся сохранить оповещения: сохранённые данные сейчас не удаётся прочитать. Перезапусти приложение.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Резервное копирование невозможно: сохранённые данные сейчас не удаётся прочитать. Перезапусти приложение и попробуй снова.</string>
+    <string name="backup_storage_kept">Резервное копирование и восстановление сейчас невозможны: сохранённые данные не удаётся прочитать. Перезапусти приложение и попробуй снова.</string>
     <string name="backup_restore_storage_in_memory">Восстановление сейчас невозможно: приложение пока не сохраняет данные (шифрование ещё не активно), и восстановленное пропадёт после перезапуска. Перезапусти приложение и попробуй снова.</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Восстановление сейчас невозможно: не удалось сохранить резервную копию твоих текущих данных (ключ сейчас недоступен). Ничего не изменено. Попробуй позже или перезапусти приложение.</string>
@@ -111,7 +111,7 @@
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
     <string name="backup_restore_server_public">«Свой сервер для адресов» удалён, как в копии, – адреса Bitcoin снова запрашиваются у публичных узлов.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">«Свой сервер для адресов» заменён сервером из копии.</string>
+    <string name="backup_restore_server_changed">«Свой сервер для адресов» заменён сервером из копии: %1$s – адреса Bitcoin теперь запрашиваются там.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
     <string name="backup_restore_server_set">«Свой сервер для адресов» задан из копии: %1$s – адреса Bitcoin теперь запрашиваются там.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
@@ -119,4 +119,6 @@
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Скрыть суммы» отключено копией.</string>
     <string name="backup_restore_storage_unavailable">Восстановление сейчас невозможно: хранилище приложения недоступно. Перезапусти приложение и попробуй снова. Твои текущие данные не изменились.</string>
+    <string name="backup_restore_app_lock_off">Блокировка портфеля отключена копией.</string>
+    <string name="backup_save_failed">Не удалось сохранить копию.</string>
 </resources>

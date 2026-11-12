@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Exchange (opcional)</string>
     <string name="ledger_exchange_failed">%1$s: agora mesmo non hai prezo de %2$s – valorado con Binance.</string>
     <string name="ledger_exchange_hint">A moeda valórase ao prezo deste exchange (se non, Binance). O historial, 7 D e 1 A usan prezos diarios de Binance escalados a este prezo.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s xa non ofrece prezos – valorado con Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s xa non ofrece prezos – a moeda valórase ao prezo de Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: introducíronse varios exchanges – valorado con Binance. Moviches moedas? Rexistra o movemento como «Transferencia».</string>
     <string name="ledger_exchange_none">Ningún (Binance)</string>
     <string name="ledger_fee">Comisión (opcional)</string>

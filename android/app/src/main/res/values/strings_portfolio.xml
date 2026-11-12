@@ -241,6 +241,10 @@
     <string name="ledger_exchange">Exchange (optional)</string>
     <string name="ledger_exchange_failed">%1$s: no price from %2$s right now – valued with Binance.</string>
     <string name="ledger_exchange_hint">The coin is valued at this exchange’s price (otherwise Binance). History, 7 D and 1 Y use Binance daily prices scaled to it.</string>
+    <!-- Portfolio-Hinweis wie ledger_exchange_failed, Börse stillgelegt; %1$s = Coin, %2$s = Börse -->
+    <string name="ledger_exchange_retired">%1$s: %2$s no longer provides prices – valued with Binance.</string>
+    <!-- Erfassen-Blatt unter «Börse», wenn die eingetragene Börse stillgelegt ist; %1$s = Börse -->
+    <string name="ledger_exchange_retired_hint">%1$s no longer provides prices – the coin is valued at the Binance price.</string>
     <string name="ledger_exchange_mixed">%1$s: several exchanges entered – valued with Binance. Moved coins? Record the move as “Transfer”.</string>
     <string name="ledger_exchange_none">None (Binance)</string>
     <string name="ledger_fee">Fee (optional)</string>

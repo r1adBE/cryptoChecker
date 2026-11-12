@@ -1574,9 +1574,10 @@ the tests named here.
   `addressServerNote` KEPT → `backup_restore_server_kept`). An encrypted backup restores all four as stored
   (the lock turns on only if the device can authenticate; an invalid server value is ignored) — but never
   silently, because a password proves no origin: the result names an own Bitcoin server that was newly set
-  where none was, with its host name (`addressServerNote` SET, `addressServerSetHost` →
-  `backup_restore_server_set`), and «Portfolio in system backup» switched on or «Hide amounts» switched off
-  by the backup (`loweredProtection` → `backup_restore_system_backup_on`, `backup_restore_amounts_shown`);
+  where none was or replaced an existing one, with its host name (`addressServerNote` SET/CHANGED,
+  `addressServerHost` → `backup_restore_server_set`, `backup_restore_server_changed`), and «Portfolio in system backup» switched on, «Hide amounts» or the portfolio
+  lock switched off by the backup (`loweredProtection` → `backup_restore_system_backup_on`,
+  `backup_restore_amounts_shown`, `backup_restore_app_lock_off`);
   each of them shows the result as a dialog (`BackupResultPresentation.asDialog`).
 * **iOS `portfolio.json` is never overwritten blind.** `PortfolioStore.loadChecked` tells a missing
   file (empty portfolio) from an unreadable or partly unreadable one (`PortfolioFile.dropped`).
@@ -3084,6 +3085,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 223 (audit of 220: C-02, C-03, C-04 partly, C-05, C-06, C-08, C-10, P-01, P-03, P-05 to P-08, P-10, D-01 to D-05): `test-shared/java` (`ParityJson`), packages `app.backup`/`logos`/`chart`/`alarm`, `compose-stability.conf`, `WatchTaskAwait`, `PriceRefresher+Steps.swift`, watch string catalogue `ios/Watch/Device/Localizable.xcstrings` + `watch_string_keys.txt`.
 * Build 224: baseline/startup profile re-measured (workflow «Baseline profile» on build 223, 12'657 app rules); `ios_release_audit.py` size ceilings 140/40/4.5 MB (measured 125.6/36.3/3.8 MB).
 * Build 225: `ExchangeRetirement` (Kotlin + Swift, instant 2027-02-01T00:00Z, reuses `NotTraded` with a stored reason; fixture `exchange_retirement.json`), `backup_restore_storage_unavailable`, proofreading of 15 languages.
+* Build 226: audit of 225 (F2-01…F2-08, U2-01…U2-12, S2-01, S2-02, S2-05, C2-05, P2-04, D2-03, D2-05): one rule `retiredNow` (marker or instant), advance notice from 2027-01-01, debug switch «Stichtag vorziehen», retired-notice store in `:data`, `bump.py` bookkeeping no longer touches running text.
 
 ## Known warnings
 

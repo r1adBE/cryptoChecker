@@ -13,7 +13,8 @@ import com.cryptochecker.app.domain.portfolio.AddressServer
  *
  * Eine Sicherung mit Passwort darf das alles — ein Passwort beweist aber keine Herkunft (jeder kann eine Datei samt
  * Passwort weitergeben). Darum nie still: Schaltet sie Schutz ab, nennt die Meldung jeden Fall ([loweredProtection],
- * neu gesetzter Server mit Hostnamen: [AddressServerNote.SET], [addressServerSetHost]).
+ * neu gesetzter bzw. ersetzter Server mit Hostnamen: [AddressServerNote.SET], [AddressServerNote.CHANGED],
+ * [addressServerHost]).
  */
 object BackupRestorePolicy {
 
@@ -79,24 +80,33 @@ object BackupRestorePolicy {
     }
 
     /**
-     * Hostname des neu gesetzten Servers für die Meldung ([AddressServerNote.SET], «knoten.example» ohne Port und Pfad);
-     * null in jedem anderen Fall.
+     * Hostname des Servers, an den Bitcoin-Adressen ab jetzt gehen, für die Meldung: neu gesetzt ([AddressServerNote.SET])
+     * oder ersetzt ([AddressServerNote.CHANGED]), «knoten.example» ohne Port und Pfad; null in jedem anderen Fall.
      */
-    fun addressServerSetHost(value: String?, current: String?, trusted: Boolean): String? =
-        if (addressServerNote(value, current, trusted) != AddressServerNote.SET) null
-        else AddressServer.restored(value, current, trusted)?.let { AddressServer.host(it) }
+    fun addressServerHost(value: String?, current: String?, trusted: Boolean): String? =
+        when (addressServerNote(value, current, trusted)) {
+            AddressServerNote.SET, AddressServerNote.CHANGED ->
+                AddressServer.restored(value, current, trusted)?.let { AddressServer.host(it) }
+            else -> null
+        }
 
     /**
      * Schutz, den die Sicherung abgeschaltet hat: [systemBackupOn] = «Portfolio in Systemsicherung» war aus und ist jetzt
-     * an, [amountsShown] = «Beträge verbergen» war an und ist jetzt aus. Beides nennt die Meldung nach dem Wiederherstellen.
+     * an, [amountsShown] = «Beträge verbergen» war an und ist jetzt aus, [lockOff] = die Portfolio-Sperre war an und ist
+     * jetzt aus. Jeden Fall nennt die Meldung nach dem Wiederherstellen in einem eigenen Satz.
      */
-    data class LoweredProtection(val systemBackupOn: Boolean = false, val amountsShown: Boolean = false) {
-        val any: Boolean get() = systemBackupOn || amountsShown
+    data class LoweredProtection(
+        val systemBackupOn: Boolean = false,
+        val amountsShown: Boolean = false,
+        val lockOff: Boolean = false,
+    ) {
+        val any: Boolean get() = systemBackupOn || amountsShown || lockOff
     }
 
     /**
-     * Was die Sicherung an Schutz abschaltet ([systemBackup], [hideAmounts]) — ohne Passwort ([trusted] false) nie etwas.
-     * [wantedSystemBackup]/[wantedHideAmounts] = Werte der Sicherung, [currentSystemBackup]/[currentHideAmounts] = bisher.
+     * Was die Sicherung an Schutz abschaltet ([systemBackup], [hideAmounts], [appLock]) — ohne Passwort ([trusted] false)
+     * nie etwas. [wantedSystemBackup]/[wantedHideAmounts]/[wantedAppLock] = Werte der Sicherung,
+     * [currentSystemBackup]/[currentHideAmounts]/[currentAppLock] = bisher.
      */
     fun loweredProtection(
         wantedSystemBackup: Boolean,
@@ -104,9 +114,13 @@ object BackupRestorePolicy {
         wantedHideAmounts: Boolean,
         currentHideAmounts: Boolean,
         trusted: Boolean,
+        wantedAppLock: Boolean,
+        currentAppLock: Boolean,
     ): LoweredProtection = LoweredProtection(
         systemBackupOn = !currentSystemBackup && systemBackup(wantedSystemBackup, currentSystemBackup, trusted) == true,
         amountsShown = currentHideAmounts && hideAmounts(wantedHideAmounts, currentHideAmounts, trusted) == false,
+        // Ausschalten hängt nicht davon ab, ob das Gerät entsperren kann
+        lockOff = currentAppLock && appLock(wantedAppLock, currentAppLock, trusted, canAuthenticate = true).apply == false,
     )
 
     /**

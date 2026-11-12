@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">ການກວດຫຼ້າສຸດ</string>
     <string name="settings_http_log">ສະແດງບັນທຶກ HTTP</string>
     <string name="settings_http_log_hint">ສະແດງຄຳຂໍໄປຫາກະດານແລກປ່ຽນທີ່ລຸ່ມສຸດຂອງໜ້າ “ເພີ່ມຄູ່ເທຣດ” – ສຳລັບການແກ້ໄຂບັນຫາ.</string>
+    <string name="settings_retirement_preview">ເລື່ອນວັນປິດມາກ່ອນ</string>
+    <string name="settings_retirement_preview_hint">ຍ້າຍສະເພາະໂມງຂອງກົດການປິດເທົ່ານັ້ນ, ບໍ່ແມ່ນໂມງຂອງອຸປະກອນ.</string>
     <string name="settings_live_service">ອັບເດດເລື້ອຍໆ</string>
     <string name="settings_live_websocket">ລາຄາສົດ</string>
 

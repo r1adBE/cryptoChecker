@@ -22,7 +22,7 @@ data class PortfolioPrices(
     val times: Map<String, Long> = emptyMap(),
     /** Coin → Börse, deren Kurs gilt (eingetragene Börse, [PortfolioExchangeRoute]); fehlt = Binance. */
     val sources: Map<String, String> = emptyMap(),
-    /** Coin → eingetragene Börse, deren Kurs diesmal nicht ging (dann Binance). */
+    /** Coin → eingetragene Börse, deren Kurs diesmal nicht ging oder die stillgelegt ist (dann Binance, mit Hinweis). */
     val exchangeFailed: Map<String, String> = emptyMap(),
     /** Coins mit mehreren eingetragenen Börsen — bewertet mit Binance. */
     val mixedExchange: Set<String> = emptySet(),

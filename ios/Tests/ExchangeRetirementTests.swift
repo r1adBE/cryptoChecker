@@ -48,6 +48,35 @@ final class ExchangeRetirementTests: XCTestCase {
         }
     }
 
+    /// Die eine Regel «stillgelegt»: Marker ODER Ende erreicht.
+    func testRetiredNowAsFixture() throws {
+        let cases = S.list(try fixture()["retiredNow"])
+        XCTAssertGreaterThanOrEqual(cases.count, 8)
+        for c in cases {
+            let got = ExchangeRetirement.retiredNow(exchange: c["exchange"] as? String, lastError: c["lastError"] as? String,
+                                                    now: S.millis(c["now"]))
+            XCTAssertEqual(got, c["expected"] as? String, c["name"] as? String ?? "?")
+        }
+    }
+
+    /// Ankündigung ab dem 1. Januar 2027 bis vor dem Ende, mit eigenem ✕.
+    func testAnnouncementAsFixture() throws {
+        let f = try fixture()
+        XCTAssertEqual(S.millis(f["noticeMillis"]), ExchangeRetirement.bitpandaNoticeMillis)
+        XCTAssertEqual(S.t("2027-01-01T00:00:00Z"), ExchangeRetirement.bitpandaNoticeMillis)
+        for c in S.list(f["announced"]) {
+            XCTAssertEqual(ExchangeRetirement.isAnnounced(c["exchange"] as? String, now: S.millis(c["now"])),
+                           c["expected"] as? Bool, c["name"] as? String ?? "?")
+        }
+        for c in S.list(f["advanceNotice"]) {
+            let got = ExchangeRetirement.advanceNoticeExchanges(c["exchanges"] as? [String] ?? [],
+                                                                dismissed: Set(c["dismissed"] as? [String] ?? []),
+                                                                now: S.millis(c["now"]))
+            XCTAssertEqual(got, c["expected"] as? [String], c["name"] as? String ?? "?")
+        }
+        XCTAssertEqual(ExchangeRetirement.advanceKey(" Bitpanda "), "bitpanda#advance")
+    }
+
     func testWatchMissingAsFixture() throws {
         let cases = S.list(try fixture()["watchMissing"])
         XCTAssertFalse(cases.isEmpty)
@@ -94,13 +123,40 @@ final class ExchangeRetirementTests: XCTestCase {
                                         exchangeRetired: true))
     }
 
-    /** Widgets zeigen ein Paar der stillgelegten Börse ohne alten Kurs. */
-    func testWidgetShowsNoOldPrice() {
+    /** Portfolio: stillgelegte eingetragene Börse → Binance mit Hinweis wie ein Abruffehler (wie Android). */
+    func testPortfolioRetiredExchangeHint() {
+        #if DEBUG
+        let exchanges = ["Bitpanda": "Bitpanda", "Kraken": "Kraken"]
+        // Uhr der Regel über den Debug-Schalter «Stichtag vorziehen» (nicht die des Geräts)
+        defer { ExchangeRetirement.debugOffsetMillis = 0 }
+        let device = Int64((Date().timeIntervalSince1970 * 1000).rounded())
+        ExchangeRetirement.debugOffsetMillis = ExchangeRetirement.bitpandaEndMillis - 60_000 - device
+        XCTAssertNil(PortfolioExchangeRoute.retiredExchange("Bitpanda", exchanges: exchanges))
+        ExchangeRetirement.debugOffsetMillis = ExchangeRetirement.bitpandaEndMillis + 60_000 - device
+        XCTAssertEqual(PortfolioExchangeRoute.retiredExchange(" bitpanda ", exchanges: exchanges), "Bitpanda")
+        XCTAssertNil(PortfolioExchangeRoute.retiredExchange("Kraken", exchanges: exchanges))
+        XCTAssertNil(PortfolioExchangeRoute.retiredExchange("Freitext", exchanges: exchanges))
+        #endif
+    }
+
+    /** Eine Regel für alle Anzeigen: ohne alten Kurs ab dem Ende — auch ohne Marker (offline, deaktiviert) — oder mit Marker. */
+    func testShownWithoutOldPrice() {
+        let end = ExchangeRetirement.bitpandaEndMillis
         var watch = Watch(id: 1, exchangeKey: "Bitpanda", exchangeName: "Bitpanda", baseAsset: "BTC", quoteAsset: "EUR")
         watch.lastPrice = 80_000
-        XCTAssertEqual(watch.retiredShown.lastPrice, 80_000)
+        watch.change24h = 1.5
+        XCTAssertEqual(watch.retiredShown(now: end - 1).lastPrice, 80_000)
+        XCTAssertNil(watch.retiredExchange(now: end - 1))
+        watch.disabled = true
+        let shown = watch.retiredShown(now: end)
+        XCTAssertNil(shown.lastPrice)
+        XCTAssertNil(shown.change24h)
+        XCTAssertEqual(shown.lastError, "Exchange retired: Bitpanda")
+        XCTAssertTrue(shown.isNotTraded)
+        watch.disabled = false
         watch.lastError = ExchangeRetirement.marker("Bitpanda")
-        XCTAssertNil(watch.retiredShown.lastPrice)
+        XCTAssertNil(watch.retiredShown(now: end - 86_400_000).lastPrice)
+        XCTAssertEqual(watch.retiredExchange(now: end - 86_400_000), "Bitpanda")
         XCTAssertTrue(watch.isNotTraded)
     }
 
@@ -121,6 +177,6 @@ final class ExchangeRetirementTests: XCTestCase {
         XCTAssertTrue(try text("App/Features/Watchlist/WatchlistHeader.swift")
             .contains("WatchlistRetiredNotice(watches: data.watches)"))
         XCTAssertTrue(try text("App/Services/PhoneWatchLink.swift")
-            .contains("price: ExchangeRetirement.isMarker(w.lastError) ? nil : w.lastPrice"))
+            .contains("price: retired ? nil : w.lastPrice"))
     }
 }

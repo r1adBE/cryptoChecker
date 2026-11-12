@@ -153,8 +153,22 @@ extension BackupManager {
         let cleaned = WatchlistRestoreCleanup.clean(watches: accepted.watches, alarms: accepted.alarms)
         let limited = limits ? BackupRestoreLimits.limit(watches: cleaned.watches, alarms: cleaned.alarms)
             : BackupRestoreLimits.Limited(watches: cleaned.watches, alarms: cleaned.alarms)
-        return RestoredWatchlist(watches: limited.watches, alarms: limited.alarms, invalidAlarms: alarmsRead.invalid,
+        // Börsenname bekannter Börsen aus dem Katalog, nicht aus der Datei (`catalogueName`)
+        let named = limited.watches.map { w -> Watch in
+            var copy = w
+            copy.exchangeName = catalogueName(key: w.exchangeKey, stored: w.exchangeName)
+            return copy
+        }
+        return RestoredWatchlist(watches: named, alarms: limited.alarms, invalidAlarms: alarmsRead.invalid,
                                  droppedPairs: accepted.droppedPairs + limited.droppedPairs,
                                  droppedAlarms: accepted.droppedAlarms + limited.droppedAlarms)
+    }
+
+    /// Börsenname eines Paars aus der Sicherung: für eine bekannte Börse der Name aus dem Börsenkatalog (`ExchangesConfig`,
+    /// wie beim Hinzufügen) — eine bearbeitete Datei kann so keinen falschen Namen in Texte der App bringen (Zeile, Widget,
+    /// Uhr, Hinweis «liefert keine Kurse mehr»). Unbekannte Börse (in dieser Version entfernt): `stored` bleibt. Wie Android
+    /// `BackupWatchlistCodec.catalogueName`.
+    static func catalogueName(key: String, stored: String) -> String {
+        ExchangesConfig.exchange(key)?.name ?? stored
     }
 }

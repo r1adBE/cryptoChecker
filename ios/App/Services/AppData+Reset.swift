@@ -42,6 +42,7 @@ extension AppData {
         // Zustand im Speicher wie nach der Installation
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }
         ActivityRepository.retain([])
+        RetiredNoticeDismissals.shared.reset() // ✕ der Bitpanda-Hinweise (Einstellungen eben geleert), wie Android
         activityReports = [:]
         mutate { s in s = SharedStorage.Snapshot() }
         for kind in FavoriteKind.allCases { setFavorites(kind, []) }
@@ -97,6 +98,7 @@ extension AppData {
         // Signal kurz beim falschen Paar stehen, wenn die Ids übereinstimmen.
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }
         ActivityRepository.retain([])
+        RetiredNoticeDismissals.shared.reset() // ✕ der Bitpanda-Hinweise (Einstellungen eben geleert), wie Android
         activityReports = [:]
         // Ganzen Stand ersetzen, ohne Abgleich mit der Datei: Ein Alarm gleicher Id, der seit der Sicherung gemeldet hat,
         // ist nach dem Einspielen scharf wie in der Sicherung (`SharedStorage.replaceFiles`), nicht «gemeldet»

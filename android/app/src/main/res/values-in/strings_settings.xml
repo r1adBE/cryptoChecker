@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">Pemeriksaan terbaru</string>
     <string name="settings_http_log">Tampilkan log HTTP</string>
     <string name="settings_http_log_hint">Menampilkan permintaan ke bursa di bagian bawah halaman “Tambah pasangan” – untuk pemecahan masalah.</string>
+    <string name="settings_retirement_preview">Majukan tanggal penutupan</string>
+    <string name="settings_retirement_preview_hint">Hanya menggeser jam aturan penutupan bursa, bukan jam perangkat.</string>
     <string name="settings_live_service">Pembaruan sering</string>
     <string name="settings_live_websocket">Harga live</string>
 

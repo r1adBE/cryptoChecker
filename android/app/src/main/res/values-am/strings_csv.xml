@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">ፋይሉንና ዕለታዊ ተመኖችን በማንበብ ላይ…</string>
     <string name="portfolio_csv_import_progress">መስመር %1$s ከ%2$s</string>
     <string name="portfolio_csv_import_saving">ግብይቶችን በማስቀመጥ ላይ…</string>
-    <string name="portfolio_csv_import_missing_fx">ለመስመሮች %1$s ዕለታዊ ተመን የለም – ያለ ዋጋ/ክፍያ መጥተዋል።</string>
+    <string name="portfolio_csv_import_missing_fx">ለመስመሮች %1$s ዕለታዊ ተመን የለም – ዋጋ/ክፍያ ይጎድላል።</string>
     <string name="portfolio_csv_import_missing_price">ለመስመሮች %1$s በፋይሉ ውስጥ ዋጋ የለም – ያለ ዋጋ መጥተዋል።</string>
     <string name="portfolio_csv_import_fee_in_price">በመስመሮች %1$s ሁለት ክፍያዎች፦ የፊያት ክፍያው በዋጋው ውስጥ ተካቷል፣ በሳንቲሙ ያለው ክፍያ የተቀበለውን መጠን ይቀንሳል ወይም የተሰጠውን ይጨምራል።</string>
     <string name="portfolio_csv_import_pending_differs">መስመሮች %1$s፦ የአንድ ተቀማጭ ወይም ወጪ በመጠባበቅ ላይ ያለው እና የተመዘገበው ግቤት የተለያየ መጠን አላቸው – ሁለቱም መጥተዋል፣ ይዞታዎችን ይፈትሹ።</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">ዕለታዊ ተመን ከሌለ ዋጋው ወይም ክፍያው ለዘለቄታው ይጎድላል። እንደገና ይሞክሩ፣ ወይም ቢሆንም ያስመጡ – እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>
     <string name="portfolio_csv_note_price_no_rate">ዋጋ ያለ ዕለታዊ ተመን</string>
     <string name="portfolio_csv_note_fee_no_rate">ክፍያ ያለ ዕለታዊ ተመን</string>
+    <string name="portfolio_csv_import_no_rates_for">ለ%1$s ዕለታዊ ተመኖች የሉም፣ ስለዚህ እንደገና መሞከር አይረዳም። ቢሆንም ካስመጡ እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>
+    <string name="portfolio_csv_import_blocked_rates">መጀመሪያ ከላይ ዕለታዊ ተመን የሌላቸውን መስመሮች ይወስኑ።</string>
 </resources>

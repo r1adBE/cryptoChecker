@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Son kontroller</string>
     <string name="settings_http_log">HTTP günlüğünü göster</string>
     <string name="settings_http_log_hint">“Çift ekle” sayfasının altında borsalara giden istekleri gösterir – sorun gidermek için.</string>
+    <string name="settings_retirement_preview">Kapanış tarihini öne al</string>
+    <string name="settings_retirement_preview_hint">Yalnızca kapanış kuralının saatini kaydırır, cihazın saatini değil.</string>
     <string name="settings_live_service">Sık güncelle</string>
     <string name="settings_live_websocket">Canlı fiyatlar</string>
 

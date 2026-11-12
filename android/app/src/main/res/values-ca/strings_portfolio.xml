@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Exchange (opcional)</string>
     <string name="ledger_exchange_failed">%1$s: ara mateix no hi ha preu de %2$s – valorat amb Binance.</string>
     <string name="ledger_exchange_hint">La moneda es valora al preu d\'aquest exchange (si no, Binance). L\'historial, 7 D i 1 A fan servir preus diaris de Binance escalats a aquest preu.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ja no ofereix preus – valorat amb Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ja no ofereix preus – la moneda es valora al preu de Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: s\'han introduït diversos exchanges – valorat amb Binance. Has mogut monedes? Registra el moviment com a «Transferència».</string>
     <string name="ledger_exchange_none">Cap (Binance)</string>
     <string name="ledger_fee">Comissió (opcional)</string>

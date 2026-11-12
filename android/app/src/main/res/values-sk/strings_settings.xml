@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Nedávne kontroly</string>
     <string name="settings_http_log">Zobraziť denník HTTP</string>
     <string name="settings_http_log_hint">Zobrazí požiadavky na burzy v spodnej časti stránky „Pridať pár“ – na riešenie problémov.</string>
+    <string name="settings_retirement_preview">Posunúť dátum ukončenia dopredu</string>
+    <string name="settings_retirement_preview_hint">Posúva len hodiny pravidla ukončenia burzy, nie hodiny zariadenia.</string>
     <string name="settings_live_service">Aktualizovať často</string>
     <string name="settings_live_websocket">Kurzy naživo</string>
 

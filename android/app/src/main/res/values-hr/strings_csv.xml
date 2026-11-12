@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">Čitanje datoteke i dnevnih tečajeva…</string>
     <string name="portfolio_csv_import_progress">Redak %1$s od %2$s</string>
     <string name="portfolio_csv_import_saving">Spremanje transakcija…</string>
-    <string name="portfolio_csv_import_missing_fx">Nema dnevnog tečaja za retke %1$s – uvezeno bez cijene/naknade.</string>
+    <string name="portfolio_csv_import_missing_fx">Nema dnevnog tečaja za retke %1$s – nedostaju cijena/naknada.</string>
     <string name="portfolio_csv_import_missing_price">U datoteci nema cijene za retke %1$s – uvezeno bez cijene.</string>
     <string name="portfolio_csv_import_fee_in_price">Dvije naknade u recima %1$s: fiat naknada je uračunata u cijenu, naknada u kriptovaluti smanjuje primljenu ili povećava danu količinu.</string>
     <string name="portfolio_csv_import_pending_differs">Reci %1$s: unos na čekanju i proknjiženi unos iste uplate ili isplate imaju različite količine – oba uvezena, provjeri sredstva.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">Bez dnevnog tečaja cijena ili naknada trajno nedostaju. Pokušaj ponovno ili ipak uvezi – te transakcije tada dobivaju bilješku.</string>
     <string name="portfolio_csv_note_price_no_rate">Cijena bez dnevnog tečaja</string>
     <string name="portfolio_csv_note_fee_no_rate">Naknada bez dnevnog tečaja</string>
+    <string name="portfolio_csv_import_no_rates_for">Za %1$s nema dnevnih tečajeva, pa ponovni pokušaj neće pomoći. Ako ipak uvezeš, te transakcije dobivaju bilješku.</string>
+    <string name="portfolio_csv_import_blocked_rates">Najprije gore odluči o recima bez dnevnog tečaja.</string>
 </resources>

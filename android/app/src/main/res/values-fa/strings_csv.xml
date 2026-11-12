@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">در حال خواندن فایل و نرخ‌های روزانه…</string>
     <string name="portfolio_csv_import_progress">سطر %1$s از %2$s</string>
     <string name="portfolio_csv_import_saving">در حال ذخیرهٔ تراکنش‌ها…</string>
-    <string name="portfolio_csv_import_missing_fx">نرخ روزانه برای سطر %1$s نیست – بدون قیمت و کارمزد وارد شد.</string>
+    <string name="portfolio_csv_import_missing_fx">نرخ روزانه برای سطر %1$s نیست – قیمت و کارمزد خالی است.</string>
     <string name="portfolio_csv_import_missing_price">در فایل برای سطر %1$s قیمتی نیست – بدون قیمت وارد شد.</string>
     <string name="portfolio_csv_import_fee_in_price">دو کارمزد در سطر %1$s: کارمزد فیات در قیمت لحاظ شده و کارمزد به کوین مقدار دریافتی را کم یا مقدار پرداختی را زیاد می‌کند.</string>
     <string name="portfolio_csv_import_pending_differs">سطر %1$s: ثبت در انتظار و ثبت قطعی یک واریز یا برداشت مقدار متفاوتی دارند – هر دو وارد شد، موجودی را بررسی کن.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">بدون نرخ روزانه، قیمت یا کارمزد برای همیشه خالی می‌ماند. دوباره تلاش کن یا در هر صورت وارد کن – آن تراکنش‌ها یادداشت می‌گیرند.</string>
     <string name="portfolio_csv_note_price_no_rate">قیمت بدون نرخ روزانه</string>
     <string name="portfolio_csv_note_fee_no_rate">کارمزد بدون نرخ روزانه</string>
+    <string name="portfolio_csv_import_no_rates_for">برای %1$s نرخ روزانه‌ای وجود ندارد، پس تلاش دوباره کمکی نمی‌کند. اگر در هر صورت وارد کنی، آن تراکنش‌ها یادداشت می‌گیرند.</string>
+    <string name="portfolio_csv_import_blocked_rates">اول در بالا درباره سطرهای بدون نرخ روزانه تصمیم بگیر.</string>
 </resources>

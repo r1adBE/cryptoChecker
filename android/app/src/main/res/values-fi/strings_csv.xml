@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Luetaan tiedostoa ja päiväkursseja…</string>
     <string name="portfolio_csv_import_progress">Rivi %1$s/%2$s</string>
     <string name="portfolio_csv_import_saving">Tallennetaan tapahtumia…</string>
-    <string name="portfolio_csv_import_missing_fx">Rivillä %1$s ei ole päiväkurssia – tuotu ilman hintaa ja kulua.</string>
+    <string name="portfolio_csv_import_missing_fx">Rivillä %1$s ei ole päiväkurssia – hinta ja kulu puuttuvat.</string>
     <string name="portfolio_csv_import_missing_price">Tiedostossa ei ole hintaa rivillä %1$s – tuotu ilman hintaa.</string>
     <string name="portfolio_csv_import_fee_in_price">Kaksi maksua rivillä %1$s: fiat-maksu sisältyy hintaan, kolikossa oleva maksu pienentää saatua tai kasvattaa annettua määrää.</string>
     <string name="portfolio_csv_import_pending_differs">Rivi %1$s: saman talletuksen tai noston odottava ja kirjattu kirjaus ovat eri suuruiset – molemmat tuotu, tarkista saldo.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Ilman päiväkurssia hinta tai kulu jää pysyvästi puuttumaan. Yritä uudelleen tai tuo silti – nämä tapahtumat saavat silloin muistiinpanon.</string>
     <string name="portfolio_csv_note_price_no_rate">Hinta ilman päiväkurssia</string>
     <string name="portfolio_csv_note_fee_no_rate">Kulu ilman päiväkurssia</string>
+    <string name="portfolio_csv_import_no_rates_for">Kohteelle %1$s ei ole päiväkursseja, joten uusi yritys ei auta. Jos tuot silti, nämä tapahtumat saavat muistiinpanon.</string>
+    <string name="portfolio_csv_import_blocked_rates">Päätä ensin yllä riveistä, joilla ei ole päiväkurssia.</string>
 </resources>

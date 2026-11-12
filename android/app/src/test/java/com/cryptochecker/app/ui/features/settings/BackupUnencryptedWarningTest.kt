@@ -70,9 +70,13 @@ class BackupUnencryptedWarningTest {
                 assertTrue("$folder: $key nennt «$label» nicht", text.norm().contains(label.norm()))
             }
         }
-        // Neu gesetzter Server: der Hostname steht in jeder Sprache im Text
+        // Neu gesetzter bzw. ersetzter Server: der Hostname steht in jeder Sprache im Text
         for ((folder, strings) in languages) {
             assertTrue("$folder: backup_restore_server_set ohne Hostnamen", strings.getValue("backup_restore_server_set").contains("%1\$s"))
+            assertTrue(
+                "$folder: backup_restore_server_changed ohne Hostnamen",
+                strings.getValue("backup_restore_server_changed").contains("%1\$s"),
+            )
         }
     }
 
@@ -94,6 +98,7 @@ class BackupUnencryptedWarningTest {
         val LOWERED_NOTE_LABELS = mapOf(
             "backup_restore_system_backup_on" to "settings_portfolio_system_backup",
             "backup_restore_amounts_shown" to "portfolio_hide_amounts",
+            "backup_restore_app_lock_off" to "settings_portfolio_lock",
         )
     }
 }

@@ -22,17 +22,31 @@ fun SettingsViewModel.cancelExport() {
     pendingExport = null
 }
 
-fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update {
+/** [block] im Zustand «arbeitet» ([SettingsViewModel.backupWorking]) — danach wieder aus, auch bei Fehler oder Abbruch. */
+private inline fun SettingsViewModel.working(block: () -> Unit) {
+    _backupWorking.value = true
+    try {
+        block()
+    } finally {
+        _backupWorking.value = false
+    }
+}
+
+fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update { working { writeBackup(uri) } }
+
+/** Sichern: Datei schreiben und zurücklesen ([exportBackup]). */
+private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri) {
     val request = pendingExport
     pendingExport = null
     // Mit Portfolio-Daten nie ohne Passwort (das Formular erzwingt es schon; hier nochmals vor dem Schreiben)
     val allowed = request != null &&
         PortfolioLockPolicy.backupExportAllowed(hasPassword = request.password != null, hasPortfolioData = backupHasPortfolioData())
+    // Gescheitert: «Die Sicherung konnte nicht gespeichert werden» — nicht die Frage nach der Datei, die erst entstehen sollte
     _backupMessage.value = if (request == null || !allowed) {
-        BackupMessage.Failed
+        BackupMessage.SaveFailed
     } else {
         runCatchingCancellable { backupManager.export(uri, request.password) }
-            .fold({ BackupMessage.Exported }, { BackupMessage.failure(it) })
+            .fold({ BackupMessage.Exported }, { BackupMessage.failure(it, saving = true) })
     }
 }
 
@@ -40,12 +54,15 @@ fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update {
 internal suspend fun SettingsViewModel.lockedNow(): Boolean =
     PortfolioLockPolicy.isLocked(settingsRepository.current().appLock, appLockState.lockRequested.value)
 
-/** Datei gewählt: verschlüsselt → Passwort, sonst gleich die Rückfrage. */
-fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update {
+/** Datei gewählt: verschlüsselt → Passwort, sonst gleich die Rückfrage (Datei bis 64 MB lesen: «arbeitet»). */
+fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update { working { readPicked(uri) } }
+
+/** Gewählte Datei lesen und prüfen ([restorePicked]). */
+private suspend fun SettingsViewModel.readPicked(uri: android.net.Uri) {
     // Unterwegs (Dateiauswahl über dem Hintergrund-Limit) wieder gesperrt: verwerfen
     if (lockedNow()) {
         _restoreStep.value = null
-        return@update
+        return
     }
     _restoreStep.value = try {
         if (backupManager.needsPassword(uri)) RestoreStep.Password(uri)
@@ -94,6 +111,11 @@ fun SettingsViewModel.cancelRestore() {
 }
 
 fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acceptInvalid: Int = 0) = update {
+    working { replaceFromBackup(uri, password, acceptInvalid) }
+}
+
+/** Wiederherstellen samt Aufräumen der alten Meldungen ([restoreBackup]). */
+private suspend fun SettingsViewModel.replaceFromBackup(uri: android.net.Uri, password: String?, acceptInvalid: Int) {
     _restoreStep.value = null
     // Wer hier wiederherstellt, ist schon drin: Schaltet die Sicherung die Portfolio-Sperre
     // ein, gilt sie erst ab dem nächsten Kaltstart bzw. nach dem Hintergrund-Limit —
@@ -198,7 +220,7 @@ sealed interface BackupMessage {
      * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
      * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen.
      * [addressServerNote] = Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]),
-     * [addressServerHost] = Hostname eines neu gesetzten Servers, [lowered] = von der Sicherung abgeschalteter Schutz.
+     * [addressServerHost] = Hostname eines neu gesetzten bzw. ersetzten Servers, [lowered] = von der Sicherung abgeschalteter Schutz.
      */
     data class Restored(
         val watches: Int,
@@ -211,6 +233,8 @@ sealed interface BackupMessage {
         val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
     ) : BackupMessage
     data object Failed : BackupMessage
+    /** Sichern gescheitert (Datei nicht geschrieben: Speicher voll, Ablage-Anbieter streikt) — eigener kurzer Text. */
+    data object SaveFailed : BackupMessage
     /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */
     data object TooLarge : BackupMessage
     /** Zu schreibende Sicherung über 64 MB ([com.cryptochecker.app.data.BackupLimits.ExportTooLargeException]): nicht geschrieben. */
@@ -234,7 +258,8 @@ sealed interface BackupMessage {
     data object StorageUnavailable : BackupMessage
 
     companion object {
-        fun failure(e: Throwable): BackupMessage = when (e) {
+        /** Meldung zu [e]; [saving] = beim Sichern (Rückfall [SaveFailed] statt [Failed], das nach der Datei fragt). */
+        fun failure(e: Throwable, saving: Boolean = false): BackupMessage = when (e) {
             is com.cryptochecker.app.data.BackupLimits.TooLargeException -> TooLarge
             is com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException -> NotEnoughMemory
             is com.cryptochecker.app.data.BackupVersion.NewerVersionException -> NewerVersion
@@ -246,7 +271,7 @@ sealed interface BackupMessage {
             is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
             // Sicherung bis 64 MB als Text und JSON im Speicher (Meldung statt Absturz)
             is OutOfMemoryError -> NotEnoughMemory
-            else -> Failed
+            else -> if (saving) SaveFailed else Failed
         }
 
         /** Haptik zur Meldung: Sicherung bzw. Wiederherstellung fertig = Erfolg, alles andere fehlgeschlagen. */

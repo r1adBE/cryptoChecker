@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">Lecture du fichier et des cours journaliers…</string>
     <string name="portfolio_csv_import_progress">Ligne %1$s sur %2$s</string>
     <string name="portfolio_csv_import_saving">Enregistrement des transactions…</string>
-    <string name="portfolio_csv_import_missing_fx">Aucun cours journalier pour les lignes %1$s – importé sans prix ni frais.</string>
+    <string name="portfolio_csv_import_missing_fx">Aucun cours journalier pour les lignes %1$s – prix et frais manquants.</string>
     <string name="portfolio_csv_import_missing_price">Aucun prix dans le fichier pour les lignes %1$s – importé sans prix.</string>
     <string name="portfolio_csv_import_fee_in_price">Deux frais aux lignes %1$s : les frais en monnaie fiat sont inclus dans le prix, les frais dans la crypto réduisent la quantité reçue ou augmentent la quantité cédée.</string>
     <string name="portfolio_csv_import_pending_differs">Lignes %1$s : l’écriture en attente et l’écriture comptabilisée du même dépôt ou retrait ont des quantités différentes – les deux importées, vérifier le solde.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">Sans cours journalier, le prix ou les frais manquent définitivement. Réessaie ou importe quand même : ces transactions porteront alors une note.</string>
     <string name="portfolio_csv_note_price_no_rate">Prix sans cours journalier</string>
     <string name="portfolio_csv_note_fee_no_rate">Frais sans cours journalier</string>
+    <string name="portfolio_csv_import_no_rates_for">Il n’existe aucun cours journalier pour %1$s, réessayer n’y changera rien. Si tu importes quand même, ces transactions porteront une note.</string>
+    <string name="portfolio_csv_import_blocked_rates">Décide d’abord ci-dessus pour les lignes sans cours journalier.</string>
 </resources>

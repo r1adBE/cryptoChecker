@@ -4,6 +4,8 @@ import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
+import com.cryptochecker.app.domain.watch.RetiredWatch
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -188,13 +190,16 @@ class PriceRefresher(
         // (rollend: Ticker ohne 24-h-Wert; Tages-Basen: alle); der Rest nach den Kursen.
         sparklineRepository.awaitRestored()
         val startedKeys = HashSet<Pair<String, String>>()
-        val earlyWatches = if (dayStart != null) watches else watches.filter { it.id in dayReferences.candleWatchIds }
+        // Nicht gehandelt bzw. Börse stillgelegt (Marker oder Ende erreicht): weder Bezüge noch Alarm-Zusatzdaten — es
+        // kommt kein Kurs, ihre Alarme prüfen nichts (wie iOS: Zusatzdaten nur für Paare mit Kurs)
+        val traded = watches.filterNot { it.isNotTraded || RetiredWatch.exchangeOf(it) != null }
+        val earlyWatches = if (dayStart != null) traded else traded.filter { it.id in dayReferences.candleWatchIds }
         val earlyLoads = dayReferences.startDayReferenceLoads(earlyWatches, startedKeys, dayStart)
         // Alarm-Zusatzdaten ebenfalls parallel zu den Kursen (Doze: Netz-Fenster nach den Kursen oft zu)
         val prefetchBackoff = refreshStats.backoffStates()
         val enabledAlarms = watchRepository.getAllEnabledAlarms()
         val alarmLoads = effects.startAlarmPrefetch(
-            watches.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) },
+            traded.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) },
             enabledAlarms,
             startedAt,
         )
@@ -244,12 +249,14 @@ class PriceRefresher(
         // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
         val duration = System.currentTimeMillis() - startedAt
-        // Nur wenn mindestens ein Kurs kam: Ohne Verbindung bleibt im Widget die
-        // Zeit der letzten ERFOLGREICHEN Aktualisierung stehen.
-        if (processed.failed < processed.checked) refreshStats.setLastFullRefresh(duration)
+        // Nur wenn mindestens ein Kurs kam (oder alle Paare nicht gehandelt bzw. stillgelegt sind): Ohne Verbindung bleibt
+        // im Widget die Zeit der letzten ERFOLGREICHEN Aktualisierung stehen.
+        if (BackgroundSchedule.refreshed(processed.checked, processed.failed, processed.notTraded)) {
+            refreshStats.setLastFullRefresh(duration)
+        }
         // Sperre gegen doppelte Hintergrund-Läufe: nur nach einer vollen Prüfung (nicht live, nicht Teil-Lauf)
         // (alle Alarmarten sind hier schon ausgewertet: kein späterer Schritt mit Zusatzdaten wie in der iOS-Aufgabe)
-        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed)
+        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded)
         if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()
 
         val widgetStartedAt = System.currentTimeMillis()

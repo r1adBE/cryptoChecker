@@ -35,7 +35,7 @@
     <string name="portfolio_csv_import_loading">جارٍ قراءة الملف والأسعار اليومية…</string>
     <string name="portfolio_csv_import_progress">السطر %1$s من %2$s</string>
     <string name="portfolio_csv_import_saving">جارٍ حفظ المعاملات…</string>
-    <string name="portfolio_csv_import_missing_fx">لا يوجد سعر يومي للسطر %1$s – استُورد دون سعر أو رسوم.</string>
+    <string name="portfolio_csv_import_missing_fx">لا يوجد سعر يومي للسطر %1$s – السعر أو الرسوم مفقودة.</string>
     <string name="portfolio_csv_import_missing_price">لا يوجد سعر في الملف للسطر %1$s – استُورد دون سعر.</string>
     <string name="portfolio_csv_import_fee_in_price">رسمان في السطر %1$s: رسم العملة الورقية مُدرج في السعر، والرسم بالعملة المشفرة يُنقص الكمية المستلمة أو يزيد الكمية المدفوعة.</string>
     <string name="portfolio_csv_import_pending_differs">السطر %1$s: القيد المعلّق والقيد المسجّل للإيداع أو السحب نفسه بكميتين مختلفتين – استُورد الاثنان، تحقّق من الرصيد.</string>
@@ -135,4 +135,6 @@
     <string name="portfolio_csv_import_anyway_hint">بلا سعر يومي يبقى السعر أو الرسوم مفقودة نهائيًا. يمكن إعادة المحاولة أو الاستيراد على أي حال – وعندها تحصل تلك المعاملات على ملاحظة.</string>
     <string name="portfolio_csv_note_price_no_rate">السعر بلا سعر يومي</string>
     <string name="portfolio_csv_note_fee_no_rate">الرسوم بلا سعر يومي</string>
+    <string name="portfolio_csv_import_no_rates_for">لا توجد أسعار يومية لـ %1$s، لذا لن تفيد إعادة المحاولة. إذا استوردت على أي حال، تحصل تلك المعاملات على ملاحظة.</string>
+    <string name="portfolio_csv_import_blocked_rates">قرّر أولًا في الأعلى بشأن الأسطر التي بلا سعر يومي.</string>
 </resources>

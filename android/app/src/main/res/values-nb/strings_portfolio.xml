@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Børs (valgfritt)</string>
     <string name="ledger_exchange_failed">%1$s: ingen kurs fra %2$s akkurat nå – verdsatt med Binance.</string>
     <string name="ledger_exchange_hint">Mynten verdsettes til denne børsens kurs (ellers Binance). Forløp, 7 D og 1 Å: Binance-dagskurser, skalert.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s leverer ikke lenger priser – verdsatt med Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s leverer ikke lenger priser – mynten verdsettes til Binance-kursen.</string>
     <string name="ledger_exchange_mixed">%1$s: flere børser oppgitt – verdsatt med Binance. Flyttet coins? Registrer flyttingen som «Overføring».</string>
     <string name="ledger_exchange_none">Ingen (Binance)</string>
     <string name="ledger_fee">Gebyr (valgfritt)</string>

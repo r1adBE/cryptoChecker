@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ (ಐಚ್ಛಿಕ)</string>
     <string name="ledger_exchange_failed">%1$s: ಸದ್ಯ %2$s ನಿಂದ ಬೆಲೆ ಇಲ್ಲ – Binance ನೊಂದಿಗೆ ಮೌಲ್ಯಮಾಪನ.</string>
     <string name="ledger_exchange_hint">ಕಾಯಿನ್ ಅನ್ನು ಈ ಎಕ್ಸ್‌ಚೇಂಜ್‌ನ ಬೆಲೆಯಲ್ಲಿ ಮೌಲ್ಯಮಾಪನ ಮಾಡಲಾಗುತ್ತದೆ (ಇಲ್ಲದಿದ್ದರೆ Binance). ಇತಿಹಾಸ, 7 ದಿ ಮತ್ತು 1 ವ ಅದಕ್ಕೆ ಹೊಂದಿಸಿದ Binance ದೈನಂದಿನ ಬೆಲೆಗಳನ್ನು ಬಳಸುತ್ತವೆ.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ಇನ್ನು ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ – Binance ನೊಂದಿಗೆ ಮೌಲ್ಯಮಾಪನ.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ಇನ್ನು ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ – ಕಾಯಿನ್ ಅನ್ನು Binance ಬೆಲೆಯಲ್ಲಿ ಮೌಲ್ಯಮಾಪನ ಮಾಡಲಾಗುತ್ತದೆ.</string>
     <string name="ledger_exchange_mixed">%1$s: ಹಲವು ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳನ್ನು ನಮೂದಿಸಲಾಗಿದೆ – Binance ನೊಂದಿಗೆ ಮೌಲ್ಯಮಾಪನ. ಕಾಯಿನ್‌ಗಳನ್ನು ಸರಿಸಿದಿರಾ? ಆ ಚಲನೆಯನ್ನು “ವರ್ಗಾವಣೆ” ಎಂದು ದಾಖಲಿಸಿ.</string>
     <string name="ledger_exchange_none">ಯಾವುದೂ ಇಲ್ಲ (Binance)</string>
     <string name="ledger_fee">ಶುಲ್ಕ (ಐಚ್ಛಿಕ)</string>

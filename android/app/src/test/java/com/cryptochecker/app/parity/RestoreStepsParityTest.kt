@@ -28,7 +28,7 @@ class RestoreStepsParityTest {
         val source = sequenceOf("", "app/", "android/app/")
             .map { java.io.File(it + "src/main/java/com/cryptochecker/app/backup/BackupManager.kt") }
             .first { it.isFile }.readText()
-        val positions = steps.map { source.indexOf("RestoreRun.Write(Step.${it.name})") }
+        val positions = steps.map { source.indexOf("RestoreRun.Write(Step.${it.name}") }
         assertTrue(positions.toString(), positions.all { it >= 0 })
         assertEquals(positions.sorted(), positions)
     }

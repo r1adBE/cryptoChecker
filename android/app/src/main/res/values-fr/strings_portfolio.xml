@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Plateforme (facultatif)</string>
     <string name="ledger_exchange_failed">%1$s : pas de cours de %2$s pour l’instant – évalué avec Binance.</string>
     <string name="ledger_exchange_hint">Le coin est évalué au cours de cette plateforme (sinon Binance). Historique, 7 J et 1 A : cours journaliers Binance, mis à l’échelle.</string>
+    <string name="ledger_exchange_retired">%1$s : %2$s ne fournit plus de cours – évalué avec Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ne fournit plus de cours – le coin est évalué au cours de Binance.</string>
     <string name="ledger_exchange_mixed">%1$s : plusieurs plateformes saisies – évalué avec Binance. Coins déplacés ? Saisis le déplacement comme « Transfert ».</string>
     <string name="ledger_exchange_none">Aucune (Binance)</string>
     <string name="ledger_fee">Frais (facultatif)</string>

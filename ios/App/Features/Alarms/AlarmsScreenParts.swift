@@ -57,16 +57,20 @@ struct ReferenceRateAlarmNote: View {
 }
 
 /// Börse stillgelegt (`ExchangeRetirement`): kein neuer Alarm, bestehende bleiben gespeichert, prüfen aber nichts —
-/// «Bitpanda liefert keine Kurse mehr». Wie Android `RetiredExchangeNote`.
+/// «Bitpanda liefert seit 1. Februar 2027 keine Kurse mehr – Alarme dieses Paars prüfen nichts mehr». Während der
+/// Ankündigung «Bitpanda liefert ab 1. Februar 2027 keine Kurse mehr» (Alarme prüfen weiter). Nichts, wenn weder noch.
+/// Wie Android `RetiredExchangeNote`.
 struct RetiredExchangeAlarmNote: View {
-    let exchangeName: String
+    let watch: Watch?
 
     var body: some View {
-        Text(L("exchange_retired_short", exchangeName))
-            .font(.subheadline)
-            .foregroundStyle(AppColors.onSurfaceVariant)
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        if let watch, let text = RetirementText.reason(watch, alarms: true) {
+            Text(text)
+                .font(.subheadline)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 }
 

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Leser fil og dagskurser…</string>
     <string name="portfolio_csv_import_progress">Linje %1$s av %2$s</string>
     <string name="portfolio_csv_import_saving">Lagrer transaksjoner…</string>
-    <string name="portfolio_csv_import_missing_fx">Ingen dagskurs for linje %1$s – importert uten pris og gebyr.</string>
+    <string name="portfolio_csv_import_missing_fx">Ingen dagskurs for linje %1$s – pris og gebyr mangler.</string>
     <string name="portfolio_csv_import_missing_price">Ingen pris i filen for linje %1$s – importert uten pris.</string>
     <string name="portfolio_csv_import_fee_in_price">To gebyrer i linje %1$s: fiat-gebyret er inkludert i prisen, gebyret i mynten reduserer mottatt eller øker avgitt mengde.</string>
     <string name="portfolio_csv_import_pending_differs">Linje %1$s: ventende og bokført postering av samme innskudd eller uttak har ulike mengder – begge importert, sjekk beholdningen.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Uten dagskurs mangler pris eller gebyr permanent. Prøv igjen, eller importer likevel – de transaksjonene får da et notat.</string>
     <string name="portfolio_csv_note_price_no_rate">Pris uten dagskurs</string>
     <string name="portfolio_csv_note_fee_no_rate">Gebyr uten dagskurs</string>
+    <string name="portfolio_csv_import_no_rates_for">Det finnes ingen dagskurser for %1$s, så det hjelper ikke å prøve igjen. Importerer du likevel, får de transaksjonene et notat.</string>
+    <string name="portfolio_csv_import_blocked_rates">Bestem først ovenfor hva som skjer med linjene uten dagskurs.</string>
 </resources>

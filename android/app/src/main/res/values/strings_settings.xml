@@ -79,6 +79,10 @@
     <string name="settings_check_runs_title">Recent checks</string>
     <string name="settings_http_log">Show HTTP log</string>
     <string name="settings_http_log_hint">Shows the requests to the exchanges at the bottom of the “Add pair” page – for troubleshooting.</string>
+    <!-- Debug-Build, Entwickler: Uhr der Stilllegungs-Regel vorstellen (nicht die des Geräts) -->
+    <string name="settings_retirement_preview">Bring retirement date forward</string>
+    <!-- Erklärung unter dem Schalter -->
+    <string name="settings_retirement_preview_hint">Moves only the clock of the exchange retirement rule, not the device clock.</string>
     <!-- Nur iOS: Android nutzt diesen Text nicht -->
     <string name="settings_live_service" tools:ignore="UnusedResources">Update frequently</string>
     <string name="settings_live_websocket">Live prices</string>

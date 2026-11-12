@@ -172,10 +172,20 @@ internal fun CsvImportPreviewSheet(
             // Je Hinweis eine eigene Zeile: Anzahl, die ersten Zeilennummern und «+ N weitere» (CsvLineList)
             // Ohne Tageskurs fehlten Preis bzw. Gebühr dauerhaft: erst neu laden oder ausdrücklich trotzdem importieren
             if (preview.missingFx.isNotEmpty()) {
-                // Keine gültige Antwort beim Laden — etwas anderes als «für Währung bzw. Tag gibt es keinen Kurs»
-                if (preview.ratesFailed) PreviewHint(stringResource(R.string.portfolio_csv_import_rates_failed))
+                val retry = preview.rateRetry
+                // Keine gültige Antwort beim Laden — etwas anderes als «für Währung bzw. Tag gibt es keinen Kurs»; nur wo ein
+                // neuer Abruf helfen kann
+                if (preview.ratesFailed && retry.retryHelps) {
+                    PreviewHint(stringResource(R.string.portfolio_csv_import_rates_failed))
+                }
                 LinesHint(preview.missingFx) { stringResource(R.string.portfolio_csv_import_missing_fx, it) }
-                CsvRateGate(ratesAccepted, { ratesAccepted = it }, onReloadRates, enabled = !rereading)
+                // Währung ohne Tageskurse (z. B. ein Coin als Preiswährung): eigener Satz statt «Erneut versuchen»
+                if (retry.currencies.isNotEmpty()) {
+                    PreviewHint(stringResource(R.string.portfolio_csv_import_no_rates_for, retry.currencies.joinToString(", ")))
+                }
+                CsvRateGate(
+                    ratesAccepted, { ratesAccepted = it }, onReloadRates, enabled = !rereading, canRetry = retry.retryHelps,
+                )
             }
             // Kurstag in der Zeitzone der Steuer-Vorlage (Neutral: Gerät), wie der Steuer-Export
             if (preview.dayRates) PreviewHint(stringResource(R.string.portfolio_csv_import_fx_zone, preview.fxZone))
@@ -239,6 +249,11 @@ internal fun CsvImportPreviewSheet(
                 ) {
                     Text(stringResource(R.string.portfolio_csv_import_confirm, total))
                 }
+            }
+            // Warum «Importieren» aus ist, direkt beim Knopf (Erklärung und Schalter stehen weiter oben)
+            if (!rereading && total > 0) {
+                if (!ratesOk) BlockedReason(stringResource(R.string.portfolio_csv_import_blocked_rates))
+                if (!allDecided) BlockedReason(stringResource(R.string.portfolio_csv_import_choose_each))
             }
         }
     }

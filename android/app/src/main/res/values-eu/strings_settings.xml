@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Azken egiaztapenak</string>
     <string name="settings_http_log">Erakutsi HTTP erregistroa</string>
     <string name="settings_http_log_hint">Burtsei egindako eskaerak «Gehitu parea» orriaren behealdean erakusten ditu – arazoak konpontzeko.</string>
+    <string name="settings_retirement_preview">Itxiera-data aurreratu</string>
+    <string name="settings_retirement_preview_hint">Itxiera-arauaren erlojua soilik mugitzen du, ez gailuarena.</string>
     <string name="settings_live_service">Eguneratu maiz</string>
     <string name="settings_live_websocket">Zuzeneko prezioak</string>
 

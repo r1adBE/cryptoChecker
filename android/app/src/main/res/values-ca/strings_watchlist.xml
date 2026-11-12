@@ -277,6 +277,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Tanca l\'avís</string>
     <string name="watchlist_missing_logos_explain">No hi ha cap logotip disponible per a aquestes monedes. L\'app mostra les inicials.</string>
+    <string name="exchange_retiring_notice">A partir del %2$s, %1$s ja no oferirà preus públics. Tria un altre exchange per a aquestes monedes.</string>
+    <string name="exchange_retiring_reason">A partir del %2$s, %1$s ja no oferirà preus</string>
+    <string name="exchange_retired_since">Des del %2$s, %1$s ja no ofereix preus</string>
+    <string name="exchange_retired_alarms">Des del %2$s, %1$s ja no ofereix preus – les alarmes d’aquest parell ja no comproven res</string>
     <string name="exchange_retired_short">%1$s ja no ofereix preus</string>
     <string name="exchange_retired_notice">Des del %2$s, %1$s ja no ofereix preus públics. Tria un altre exchange per a aquestes monedes.</string>
 </resources>

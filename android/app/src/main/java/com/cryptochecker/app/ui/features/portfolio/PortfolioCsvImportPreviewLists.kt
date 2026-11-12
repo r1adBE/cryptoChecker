@@ -22,6 +22,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -227,19 +228,28 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
 /**
  * Zeilen ohne Tageskurs: Erklärung, «Erneut versuchen» (Kurse neu laden) und der Schalter «Trotzdem importieren» —
  * erst mit ihm ist «Importieren» frei, die betroffenen Transaktionen bekommen dann einen Vermerk
- * (`CsvImportRateGate`). Wie iOS `rateGate`.
+ * (`CsvImportRateGate`). [canRetry] false (nur Währungen ohne mögliche Tageskurse, `CsvRateRetry.retryHelps`): ohne
+ * Erklärung und «Erneut versuchen» — das sagt dann der eigene Satz. Wie iOS `rateGate`.
  */
 @Composable
-internal fun CsvRateGate(accepted: Boolean, onAccepted: (Boolean) -> Unit, onReload: () -> Unit, enabled: Boolean) {
+internal fun CsvRateGate(
+    accepted: Boolean,
+    onAccepted: (Boolean) -> Unit,
+    onReload: () -> Unit,
+    enabled: Boolean,
+    canRetry: Boolean = true,
+) {
     val label = stringResource(R.string.portfolio_csv_import_anyway)
-    PreviewHint(stringResource(R.string.portfolio_csv_import_anyway_hint))
-    TextButton(
-        onClick = onReload,
-        enabled = enabled,
-        colors = DisabledColors.textButton(),
-        modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_RELOAD_RATES),
-    ) {
-        Text(stringResource(R.string.action_retry))
+    if (canRetry) {
+        PreviewHint(stringResource(R.string.portfolio_csv_import_anyway_hint))
+        TextButton(
+            onClick = onReload,
+            enabled = enabled,
+            colors = DisabledColors.textButton(),
+            modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_RELOAD_RATES),
+        ) {
+            Text(stringResource(R.string.action_retry))
+        }
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -254,6 +264,18 @@ internal fun CsvRateGate(accepted: Boolean, onAccepted: (Boolean) -> Unit, onRel
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur
         Switch(checked = accepted, onCheckedChange = null, enabled = enabled, colors = DisabledColors.switch())
     }
+}
+
+/** Grund, warum «Importieren» gerade aus ist — rechtsbündig unter dem Knopf (TalkBack liest ihn gleich danach). */
+@Composable
+internal fun BlockedReason(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.End,
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 /** Alle Zeilen einer Liste in einem eigenen Blatt, als Lazy-Liste (nur sichtbare Zeilen gebaut). */

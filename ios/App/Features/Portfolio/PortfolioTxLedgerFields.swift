@@ -348,7 +348,10 @@ extension PortfolioTxSheet {
             }
             .pickerStyle(.menu)
             .tint(accent.primary)
-            Text(L("ledger_exchange_hint"))
+            // Stillgelegte Börse (`ExchangeRetirement`): nicht «mit dem Kurs dieser Börse bewertet», sondern mit Binance
+            Text(ExchangeRetirement.isRetired(current)
+                 ? L("ledger_exchange_retired_hint", names.first(where: { $0.caseInsensitiveCompare(current) == .orderedSame }) ?? current)
+                 : L("ledger_exchange_hint"))
                 .font(.caption)
                 .foregroundStyle(AppColors.onSurfaceVariant)
         }

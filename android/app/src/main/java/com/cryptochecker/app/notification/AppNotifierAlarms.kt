@@ -18,12 +18,12 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_EXCHANGE_REQUEST_CODE
 import com.cryptochecker.app.notification.AppNotifier.Companion.DEPEG_NOTIFICATION_ID
-import com.cryptochecker.app.notification.AppNotifier.Companion.OPEN_PORTFOLIO
 import com.cryptochecker.app.notification.AppNotifier.Companion.PORTFOLIO_REQUEST_CODE
 import com.cryptochecker.app.notification.AppNotifier.Companion.TEST_ALARM_NOTIFICATION_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.alarmNotificationId
 import com.cryptochecker.app.notification.AppNotifier.Companion.portfolioAlarmNotificationId
 import com.cryptochecker.app.notification.AppNotifier.Group
+import com.cryptochecker.app.ui.navigation.PortfolioAlarmTarget
 
 /**
  * @param volumeRatio nur beim Volumen-Spike: Volumen der letzten Stunde im Vergleich zum Schnitt.
@@ -156,7 +156,8 @@ fun AppNotifier.canShowPortfolioAlarm(): Boolean {
 
 /**
  * Alarm «Portfolio-Wert» [alarmId]. Gleicher Kanal wie die Paar-Alarme («Alarm-Signal»; in der Nachtruhe löst
- * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp öffnet den Portfolio-Tab.
+ * PortfolioAlarmChecker gar nicht aus, lautlos nur als Rückfall an der Grenze); Tipp öffnet «Alle Alarme» mit diesem
+ * Portfolio-Alarm hervorgehoben ([PortfolioAlarmTarget]; das Alarm-Protokoll führt nur Paar-Alarme).
  * Immer neutral wie iOS `PortfolioAlarmNotice.content()` (Entscheid des Inhabers): nur Titel und neutraler Satz
  * ([PortfolioAlarmNotice]) — weder Schwelle, Betrag noch Prozent in Titel, Text, grossem Text, Ticker oder
  * Vorlesetext, unabhängig von der Portfolio-Sperre und davon, ob das System sensible Inhalte auf dem Sperrbildschirm
@@ -184,7 +185,8 @@ suspend fun AppNotifier.showPortfolioAlarm(alarmId: Long): Boolean {
         .setAutoCancel(true)
         .appBadge()
         .setGroup(Group.ALARMS.key)
-        .setContentIntent(openTargetIntent(OPEN_PORTFOLIO, PORTFOLIO_REQUEST_CODE))
+        // Tipp: «Alle Alarme» mit diesem Alarm hervorgehoben (die Kennung steht nur im Ziel, nie im Text)
+        .setContentIntent(openTargetIntent(PortfolioAlarmTarget.of(alarmId), PORTFOLIO_REQUEST_CODE))
     // Zusätzlich privat auf dem Sperrbildschirm; die öffentliche Fassung trägt denselben neutralen Satz
     builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
         .setPublicVersion(

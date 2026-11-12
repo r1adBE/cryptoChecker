@@ -253,6 +253,8 @@
     <string name="ledger_exchange">المنصة (اختياري)</string>
     <string name="ledger_exchange_failed">%1$s: لا يوجد سعر من %2$s حاليًا – قُيّم بأسعار Binance.</string>
     <string name="ledger_exchange_hint">تُقيَّم العملة بسعر هذه المنصة (وإلا Binance). السجل و7 أيام وسنة: أسعار Binance اليومية بعد مواءمتها.</string>
+    <string name="ledger_exchange_retired">%1$s: لم تعد %2$s توفّر الأسعار – قُيّم بأسعار Binance.</string>
+    <string name="ledger_exchange_retired_hint">لم تعد %1$s توفّر الأسعار – تُقيَّم العملة بسعر Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: أُدخلت عدة منصات – قُيّم بأسعار Binance. نقلت عملات؟ سجّل النقل كـ «تحويل».</string>
     <string name="ledger_exchange_none">لا شيء (Binance)</string>
     <string name="ledger_fee">الرسوم (اختياري)</string>

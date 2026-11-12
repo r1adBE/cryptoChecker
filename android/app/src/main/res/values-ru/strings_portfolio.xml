@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Биржа (необязательно)</string>
     <string name="ledger_exchange_failed">%1$s: сейчас нет курса с %2$s – оценено по Binance.</string>
     <string name="ledger_exchange_hint">Монета оценивается по курсу этой биржи (иначе Binance). История, 7 Д и 1 Г: дневные курсы Binance, приведённые к нему.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s больше не предоставляет цены – оценено по Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s больше не предоставляет цены – монета оценивается по курсу Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: указано несколько бирж – оценено по Binance. Монеты перемещались? Запиши это как «Перевод».</string>
     <string name="ledger_exchange_none">Нет (Binance)</string>
     <string name="ledger_fee">Комиссия (необязательно)</string>

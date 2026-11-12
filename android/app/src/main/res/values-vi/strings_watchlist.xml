@@ -242,6 +242,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Đóng thông báo</string>
     <string name="watchlist_missing_logos_explain">Không có logo cho các coin này. Ứng dụng hiển thị chữ viết tắt.</string>
+    <string name="exchange_retiring_notice">Từ %2$s, %1$s sẽ không còn cung cấp giá công khai. Vui lòng chọn sàn khác cho các coin này.</string>
+    <string name="exchange_retiring_reason">Từ %2$s, %1$s sẽ không còn cung cấp giá</string>
+    <string name="exchange_retired_since">Từ %2$s, %1$s không còn cung cấp giá</string>
+    <string name="exchange_retired_alarms">Từ %2$s, %1$s không còn cung cấp giá – cảnh báo của cặp này không còn kiểm tra gì nữa</string>
     <string name="exchange_retired_short">%1$s không còn cung cấp giá</string>
     <string name="exchange_retired_notice">Từ %2$s, %1$s không còn cung cấp giá công khai. Vui lòng chọn sàn khác cho các coin này.</string>
 </resources>

@@ -170,9 +170,8 @@ class BackupRestoreTest {
         val restore = async(Dispatchers.IO) { backupManager.restore(uri, password = null) }
         awaitJournal()
         restore.cancel()
-        // Erst abbrechen, dann die Sperre freigeben, dann warten: Der Schritt «Merkliste» gilt schon vor dem Schreiben als
-        // berührt (`RestoreRun`), das Zurückrollen schreibt sie unter derselben Refresh-Sperre zurück — wartete der Test
-        // vor dem Freigeben auf das Ende, warteten beide ewig aufeinander
+        // Erst abbrechen, dann die Sperre freigeben, dann warten: Der Schritt «Merkliste» gilt erst unter der Refresh-Sperre
+        // als berührt (`RestoreRun.Write.touchedInside`) — abgebrochen beim Warten, wird nichts zurückgeschrieben
         release.complete(Unit)
         withTimeout(TIMEOUT) { restore.join() }
         assertTrue("abgebrochen erwartet", restore.isCancelled)

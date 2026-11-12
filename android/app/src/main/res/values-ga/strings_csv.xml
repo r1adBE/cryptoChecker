@@ -33,7 +33,7 @@
     <string name="portfolio_csv_import_loading">Ag léamh an chomhaid agus na rátaí laethúla…</string>
     <string name="portfolio_csv_import_progress">Líne %1$s as %2$s</string>
     <string name="portfolio_csv_import_saving">Ag sábháil idirbheart…</string>
-    <string name="portfolio_csv_import_missing_fx">Gan ráta laethúil do línte %1$s – iompórtáilte gan phraghas/táille.</string>
+    <string name="portfolio_csv_import_missing_fx">Gan ráta laethúil do línte %1$s – praghas/táille in easnamh.</string>
     <string name="portfolio_csv_import_missing_price">Gan phraghas sa chomhad do línte %1$s – iompórtáilte gan phraghas.</string>
     <string name="portfolio_csv_import_fee_in_price">Dhá tháille i línte %1$s: tá an táille fiat san áireamh sa phraghas, laghdaíonn an táille sa bhonn an méid a fuarthas nó méadaíonn sí an méid a tugadh.</string>
     <string name="portfolio_csv_import_pending_differs">Línte %1$s: tá méideanna éagsúla ag an iontráil ar feitheamh agus ag an iontráil curtha isteach den éarlais nó den aistarraingt chéanna – iompórtáladh an dá cheann, seiceáil na sealúchais.</string>
@@ -127,4 +127,6 @@
     <string name="portfolio_csv_import_anyway_hint">Gan ráta laethúil, bíonn an praghas nó an táille in easnamh go buan. Bain triail eile as, nó iompórtáil mar sin féin – gheobhaidh na hidirbhearta sin nóta ansin.</string>
     <string name="portfolio_csv_note_price_no_rate">Praghas gan ráta laethúil</string>
     <string name="portfolio_csv_note_fee_no_rate">Táille gan ráta laethúil</string>
+    <string name="portfolio_csv_import_no_rates_for">Níl rátaí laethúla ann do %1$s, mar sin ní chabhróidh triail eile. Má iompórtálann tú mar sin féin, gheobhaidh na hidirbhearta sin nóta.</string>
+    <string name="portfolio_csv_import_blocked_rates">Socraigh ar dtús thuas faoi na línte gan ráta laethúil.</string>
 </resources>

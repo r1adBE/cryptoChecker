@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Ανταλλακτήριο (προαιρετικά)</string>
     <string name="ledger_exchange_failed">%1$s: αυτή τη στιγμή καμία τιμή από %2$s – αποτίμηση με Binance.</string>
     <string name="ledger_exchange_hint">Το νόμισμα αποτιμάται με την τιμή αυτού του ανταλλακτηρίου (αλλιώς Binance). Ιστορικό, 7 Η και 1 Ε: ημερήσιες τιμές Binance, κλιμακωμένες.</string>
+    <string name="ledger_exchange_retired">%1$s: το %2$s δεν παρέχει πλέον τιμές – αποτίμηση με Binance.</string>
+    <string name="ledger_exchange_retired_hint">Το %1$s δεν παρέχει πλέον τιμές – το νόμισμα αποτιμάται με την τιμή του Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: καταχωρίστηκαν πολλά ανταλλακτήρια – αποτίμηση με Binance. Μετέφερες νομίσματα; Κατέγραψέ το ως «Μεταφορά».</string>
     <string name="ledger_exchange_none">Κανένα (Binance)</string>
     <string name="ledger_fee">Χρέωση (προαιρετικά)</string>

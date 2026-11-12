@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Corretora (opcional)</string>
     <string name="ledger_exchange_failed">%1$s: sem cotação de %2$s no momento – avaliado com a Binance.</string>
     <string name="ledger_exchange_hint">A moeda é avaliada pelo preço desta corretora (senão, Binance). Histórico, 7 D e 1 A: cotações diárias da Binance, ajustadas.</string>
+    <string name="ledger_exchange_retired">%1$s: a %2$s não fornece mais preços – avaliado com a Binance.</string>
+    <string name="ledger_exchange_retired_hint">A %1$s não fornece mais preços – a moeda é avaliada pelo preço da Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: várias corretoras informadas – avaliado com a Binance. Moveu moedas? Registre a movimentação como “Transferência”.</string>
     <string name="ledger_exchange_none">Nenhuma (Binance)</string>
     <string name="ledger_fee">Taxa (opcional)</string>

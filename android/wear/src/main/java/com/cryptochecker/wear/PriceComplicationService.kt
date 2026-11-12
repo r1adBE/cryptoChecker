@@ -7,7 +7,6 @@ import androidx.wear.watchface.complications.data.ComplicationText
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.data.CountUpTimeReference
 import androidx.wear.watchface.complications.data.LongTextComplicationData
-import androidx.wear.watchface.complications.data.NoDataComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.data.TimeDifferenceComplicationText
@@ -67,9 +66,10 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
             // schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
             if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, startedAt)[coin] ?: cached
         }
-        // Börse des Paars stillgelegt (ExchangeRetirement): kein alter Kurs
-        if (WatchPair.parse(coin)?.let { WatchPairQuotes.retired(it) } == true) return NoDataComplicationData()
-        val shown = cached ?: return NoDataComplicationData()
+        // Börse des Paars stillgelegt (ExchangeRetirement) bzw. noch ohne Kurs: kein alter Kurs, sondern «Paar / —» mit
+        // dem Grund und Tipp-Ziel (wie die Zeile der Uhr-App) statt «keine Daten»
+        val retired = WatchPair.parse(coin)?.let { WatchPairQuotes.retired(it) } == true
+        val shown = cached?.takeIf { !retired } ?: return missing(request.complicationType, coin, tap)
         val q = shown.quote
         val time = shown.time
         val now = System.currentTimeMillis()
@@ -99,6 +99,28 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
                 .build()
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text(hint), text(hint))
                 .setTitle(title)
+                .setTapAction(tap)
+                .build()
+            else -> null
+        }
+    }
+
+    /**
+     * Erster Coin ohne Kurs (Börse stillgelegt, noch nichts geladen): Paar mit «—», kurzer Grund in der langen Form
+     * ([missingShort]), ausführlich für den Screenreader ([missingReason]); Tippen öffnet die Uhr-App. Wie iOS.
+     */
+    private fun missing(type: ComplicationType, key: String, tap: PendingIntent): ComplicationData? {
+        val label = WatchPair.label(key)
+        val description = text("$label, ${missingReason(this, key)}")
+        return when (type) {
+            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text(NO_PRICE), description)
+                .setTitle(text(label))
+                .setTapAction(tap)
+                .build()
+            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
+                text("$label • $NO_PRICE  ·  ${missingShort(this, key)}"), description,
+            )
+                .setTitle(text(label))
                 .setTapAction(tap)
                 .build()
             else -> null
@@ -153,3 +175,6 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
             .build()
 
 }
+
+/** Platzhalter ohne Kurs (wie die Zeile der Uhr-App). */
+private const val NO_PRICE = "—"

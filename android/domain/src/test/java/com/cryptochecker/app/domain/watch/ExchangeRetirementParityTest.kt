@@ -83,6 +83,67 @@ class ExchangeRetirementParityTest {
         }
     }
 
+    /** Die eine Regel «stillgelegt»: Marker ODER Ende erreicht. */
+    @Test
+    fun retiredNowAsFixture() {
+        val cases = fixture["retiredNow"].list().map { it.obj() }
+        assertTrue(cases.size >= 8)
+        for (c in cases) {
+            val got = ExchangeRetirement.retiredNow(c["exchange"] as String?, c["lastError"] as String?, c["now"].num()!!.toLong())
+            assertEquals(c["name"] as String, c["expected"] as String?, got)
+        }
+    }
+
+    /** Ankündigung ab dem 1. Januar 2027 bis vor dem Ende, mit eigenem ✕. */
+    @Test
+    fun announcementAsFixture() {
+        assertEquals(fixture["noticeMillis"].num()!!.toLong(), ExchangeRetirement.BITPANDA_NOTICE_MILLIS)
+        assertEquals(java.time.Instant.parse("2027-01-01T00:00:00Z").toEpochMilli(), ExchangeRetirement.BITPANDA_NOTICE_MILLIS)
+        for (c in fixture["announced"].list().map { it.obj() }) {
+            assertEquals(
+                c["name"] as String, c["expected"] as Boolean,
+                ExchangeRetirement.isAnnounced(c["exchange"] as String, c["now"].num()!!.toLong()),
+            )
+        }
+        for (c in fixture["advanceNotice"].list().map { it.obj() }) {
+            val got = ExchangeRetirement.advanceNoticeExchanges(
+                c["exchanges"].list().map { it as String },
+                c["dismissed"].list().map { it as String }.toSet(),
+                c["now"].num()!!.toLong(),
+            )
+            assertEquals(c["name"] as String, c["expected"].list(), got)
+        }
+        assertEquals("bitpanda#advance", ExchangeRetirement.advanceKey(" Bitpanda "))
+    }
+
+    /** Anzeige nach der einen Regel: ohne alten Kurs ab dem Ende — auch ohne Marker (offline, deaktiviert) — oder mit Marker. */
+    @Test
+    fun shownWithoutOldPrice() {
+        val priced = watch(1).copy(lastPrice = 80_000.0, change24h = 1.5)
+        assertEquals(80_000.0, RetiredWatch.shown(priced, end - 1).lastPrice!!, 0.0)
+        assertNull(RetiredWatch.exchangeOf(priced, end - 1))
+        val off = RetiredWatch.shown(priced.copy(disabled = true), end)
+        assertNull(off.lastPrice)
+        assertNull(off.change24h)
+        assertEquals("Exchange retired: Bitpanda", off.lastError)
+        assertTrue(off.isNotTraded)
+        // Uhr zurückgestellt: der Marker gilt, bis ein Abruf wieder einen Kurs bringt
+        val marked = priced.copy(lastError = ExchangeRetirement.marker("Bitpanda"))
+        assertEquals("Bitpanda", RetiredWatch.exchangeOf(marked, end - 86_400_000))
+        assertNull(RetiredWatch.shown(marked, end - 86_400_000).lastPrice)
+    }
+
+    /** Android lädt weder Alarm-Zusatzdaten noch Tages-Bezüge für stillgelegte bzw. nicht gehandelte Paare (F2-05). */
+    @Test
+    fun noPrefetchForRetiredPairs() {
+        val source = sequenceOf("", "../", "android/")
+            .map { java.io.File(it + "domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceRefresher.kt") }
+            .first { it.isFile }.readText()
+        assertTrue(source.contains("val traded = watches.filterNot { it.isNotTraded || RetiredWatch.exchangeOf(it) != null }"))
+        assertTrue(source.contains("val earlyWatches = if (dayStart != null) traded else traded.filter {"))
+        assertTrue(source.contains("traded.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) }"))
+    }
+
     @Test
     fun clockIsReplaceable() {
         ExchangeRetirement.clock = { end - 1 }
@@ -148,6 +209,12 @@ class ExchangeRetirementParityTest {
         ExchangeRetirement.clock = { end }
         assertNull(PortfolioExchangeRoute.exchange("Bitpanda", exchanges))
         assertEquals("Kraken" to "Kraken", PortfolioExchangeRoute.exchange("kraken", exchanges))
+        // Hinweis wie ein Abruffehler: «Bitpanda liefert keine Kurse mehr – mit Binance bewertet»
+        assertEquals("Bitpanda", PortfolioExchangeRoute.retiredExchange(" bitpanda ", exchanges))
+        assertNull(PortfolioExchangeRoute.retiredExchange("Kraken", exchanges))
+        assertNull(PortfolioExchangeRoute.retiredExchange("Freitext", exchanges))
+        ExchangeRetirement.clock = { end - 1 }
+        assertNull(PortfolioExchangeRoute.retiredExchange("Bitpanda", exchanges))
     }
 
     private fun watch(id: Long, error: String? = null) = WatchEntity(

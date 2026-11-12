@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">ဖိုင်နှင့် နေ့စဉ်နှုန်းများကို ဖတ်နေသည်…</string>
     <string name="portfolio_csv_import_progress">စာကြောင်း %2$s အနက် %1$s</string>
     <string name="portfolio_csv_import_saving">ငွေပေးငွေယူများကို သိမ်းနေသည်…</string>
-    <string name="portfolio_csv_import_missing_fx">စာကြောင်း %1$s အတွက် နေ့စဉ်နှုန်း မရှိပါ – ဈေးနှုန်း/အခကြေးငွေ မပါဘဲ တင်သွင်းခဲ့သည်။</string>
+    <string name="portfolio_csv_import_missing_fx">စာကြောင်း %1$s အတွက် နေ့စဉ်နှုန်း မရှိပါ – ဈေးနှုန်း/အခကြေးငွေ မပါပါ။</string>
     <string name="portfolio_csv_import_missing_price">ဖိုင်ထဲတွင် စာကြောင်း %1$s အတွက် ဈေးနှုန်း မရှိပါ – ဈေးနှုန်း မပါဘဲ တင်သွင်းခဲ့သည်။</string>
     <string name="portfolio_csv_import_fee_in_price">စာကြောင်း %1$s တွင် အခကြေးငွေ နှစ်ခု – fiat အခကြေးငွေကို ဈေးနှုန်းထဲ ထည့်ထားပြီး coin ဖြင့် အခကြေးငွေက လက်ခံရရှိသော ပမာဏကို လျှော့ သို့မဟုတ် ပေးလိုက်သော ပမာဏကို တိုးစေသည်။</string>
     <string name="portfolio_csv_import_pending_differs">စာကြောင်း %1$s – တူညီသော အပ်ငွေ သို့မဟုတ် ထုတ်ငွေ၏ ဆိုင်းငံ့ထားသော မှတ်တမ်းနှင့် စာရင်းသွင်းပြီး မှတ်တမ်း ပမာဏ မတူပါ – နှစ်ခုလုံး တင်သွင်းခဲ့သည်၊ ကိုင်ဆောင်ထားမှုကို စစ်ဆေးပါ။</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">နေ့စဉ်နှုန်းမရှိလျှင် ဈေးနှုန်း သို့မဟုတ် အခကြေးငွေ အမြဲတမ်း ပျောက်နေပါမည်။ ထပ်စမ်းပါ၊ သို့မဟုတ် မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါ – ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။</string>
     <string name="portfolio_csv_note_price_no_rate">နေ့စဉ်နှုန်းမပါသော ဈေးနှုန်း</string>
     <string name="portfolio_csv_note_fee_no_rate">နေ့စဉ်နှုန်းမပါသော အခကြေးငွေ</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s အတွက် နေ့စဉ်နှုန်းများ မရှိသဖြင့် ထပ်စမ်းခြင်းက အထောက်အကူ မဖြစ်ပါ။ မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါက ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။</string>
+    <string name="portfolio_csv_import_blocked_rates">နေ့စဉ်နှုန်း မရှိသော စာကြောင်းများအကြောင်း အပေါ်တွင် ဦးစွာ ဆုံးဖြတ်ပါ။</string>
 </resources>

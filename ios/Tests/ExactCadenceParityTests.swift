@@ -69,7 +69,19 @@ final class ExactCadenceParityTests: XCTestCase {
         let cases = TestSupport.list(try TestSupport.fixture("full_check")["isFullCheck"])
         XCTAssertGreaterThanOrEqual(cases.count, 15)
         for c in cases {
-            XCTAssertEqual(BackgroundSchedule.isFullCheck(attempted: int(c["attempted"]), failed: int(c["failed"])),
+            XCTAssertEqual(BackgroundSchedule.isFullCheck(attempted: int(c["attempted"]), failed: int(c["failed"]),
+                                                          notTraded: int(c["notTraded"])),
+                           c["expected"] as? Bool, "\(c)")
+        }
+    }
+
+    /// Uhrzeit der Aktualisierung: ein Kurs kam oder alle Paare sind nicht gehandelt bzw. stillgelegt.
+    func testRefreshedMatchesFixture() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("full_check")["refreshed"])
+        XCTAssertGreaterThanOrEqual(cases.count, 5)
+        for c in cases {
+            XCTAssertEqual(BackgroundSchedule.refreshed(attempted: int(c["attempted"]), failed: int(c["failed"]),
+                                                        notTraded: int(c["notTraded"])),
                            c["expected"] as? Bool, "\(c)")
         }
     }

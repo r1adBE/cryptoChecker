@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Burtsa (aukerakoa)</string>
     <string name="ledger_exchange_failed">%1$s: ez dago preziorik %2$s burtsatik une honetan – Binancerekin baloratua.</string>
     <string name="ledger_exchange_hint">Txanpona burtsa honen prezioan baloratzen da (bestela, Binance). Historiak, 7 E-k eta 1 U-k horretara eskalatutako Binanceko eguneko prezioak erabiltzen dituzte.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s-k ez du preziorik ematen jada – Binancerekin baloratua.</string>
+    <string name="ledger_exchange_retired_hint">%1$s-k ez du preziorik ematen jada – txanpona Binanceko prezioarekin baloratzen da.</string>
     <string name="ledger_exchange_mixed">%1$s: hainbat burtsa idatzi dira – Binancerekin baloratua. Txanponak mugitu dituzu? Erregistratu mugimendua «Transferentzia» gisa.</string>
     <string name="ledger_exchange_none">Bat ere ez (Binance)</string>
     <string name="ledger_fee">Komisioa (aukerakoa)</string>

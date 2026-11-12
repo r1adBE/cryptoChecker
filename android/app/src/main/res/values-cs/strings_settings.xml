@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Poslední kontroly</string>
     <string name="settings_http_log">Zobrazit protokol HTTP</string>
     <string name="settings_http_log_hint">Zobrazí dole na stránce „Přidat pár“ požadavky na burzy – pro hledání chyb.</string>
+    <string name="settings_retirement_preview">Posunout datum ukončení dopředu</string>
+    <string name="settings_retirement_preview_hint">Posouvá jen hodiny pravidla ukončení burzy, ne hodiny zařízení.</string>
     <string name="settings_live_service">Obnovovat často</string>
     <string name="settings_live_websocket">Živé kurzy</string>
 

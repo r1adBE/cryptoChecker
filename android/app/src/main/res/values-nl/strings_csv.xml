@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Bestand en dagkoersen worden gelezen…</string>
     <string name="portfolio_csv_import_progress">Regel %1$s van %2$s</string>
     <string name="portfolio_csv_import_saving">Transacties worden opgeslagen…</string>
-    <string name="portfolio_csv_import_missing_fx">Geen dagkoers voor regel %1$s – zonder prijs of kosten overgenomen.</string>
+    <string name="portfolio_csv_import_missing_fx">Geen dagkoers voor regel %1$s – prijs of kosten ontbreken.</string>
     <string name="portfolio_csv_import_missing_price">Geen prijs in het bestand voor regel %1$s – zonder prijs overgenomen.</string>
     <string name="portfolio_csv_import_fee_in_price">Twee kosten in regel %1$s: de fiatkosten zitten in de prijs, de kosten in de munt verlagen de ontvangen of verhogen de afgegeven hoeveelheid.</string>
     <string name="portfolio_csv_import_pending_differs">Regel %1$s: openstaande en geboekte boeking van dezelfde storting of opname hebben verschillende hoeveelheden – beide overgenomen, saldo controleren.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Zonder dagkoers ontbreken prijs of kosten blijvend. Probeer het opnieuw of importeer toch – die transacties krijgen dan een notitie.</string>
     <string name="portfolio_csv_note_price_no_rate">Prijs zonder dagkoers</string>
     <string name="portfolio_csv_note_fee_no_rate">Kosten zonder dagkoers</string>
+    <string name="portfolio_csv_import_no_rates_for">Voor %1$s bestaan geen dagkoersen, dus opnieuw proberen helpt niet. Importeer je toch, dan krijgen die transacties een notitie.</string>
+    <string name="portfolio_csv_import_blocked_rates">Beslis eerst hierboven over de regels zonder dagkoers.</string>
 </resources>

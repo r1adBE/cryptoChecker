@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">မကြာသေးမီ စစ်ဆေးမှုများ</string>
     <string name="settings_http_log">HTTP မှတ်တမ်း ပြရန်</string>
     <string name="settings_http_log_hint">“အတွဲ ထည့်ရန်” စာမျက်နှာ၏ အောက်ခြေတွင် လဲလှယ်ရေးဌာနများသို့ တောင်းဆိုမှုများကို ပြသည် – ပြဿနာဖြေရှင်းရန်အတွက်။</string>
+    <string name="settings_retirement_preview">ပိတ်သည့်ရက်ကို စောစီးစေရန်</string>
+    <string name="settings_retirement_preview_hint">ပိတ်သိမ်းစည်းမျဉ်း၏ နာရီကိုသာ ရွှေ့သည်၊ စက်၏ နာရီကို မဟုတ်ပါ။</string>
     <string name="settings_live_service">မကြာခဏ အပ်ဒိတ်လုပ်ရန်</string>
     <string name="settings_live_websocket">တိုက်ရိုက် ဈေးနှုန်းများ</string>
 

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">ბოლო შემოწმებები</string>
     <string name="settings_http_log">HTTP ჟურნალის ჩვენება</string>
     <string name="settings_http_log_hint">აჩვენებს ბირჟებისადმი მოთხოვნებს «წყვილის დამატება» გვერდის ბოლოში – პრობლემების მოსაგვარებლად.</string>
+    <string name="settings_retirement_preview">დახურვის თარიღის წინ გადაწევა</string>
+    <string name="settings_retirement_preview_hint">ცვლის მხოლოდ დახურვის წესის საათს და არა მოწყობილობისას.</string>
     <string name="settings_live_service">ხშირი განახლება</string>
     <string name="settings_live_websocket">რეალური დროის ფასები</string>
 

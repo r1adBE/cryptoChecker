@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Nedavne provere</string>
     <string name="settings_http_log">Prikaži HTTP zapisnik</string>
     <string name="settings_http_log_hint">Prikazuje upite prema berzama na dnu stranice „Dodaj par“ – za otklanjanje poteškoća.</string>
+    <string name="settings_retirement_preview">Pomeri datum gašenja unapred</string>
+    <string name="settings_retirement_preview_hint">Pomera samo sat pravila o gašenju berze, ne sat uređaja.</string>
     <string name="settings_live_service">Često ažuriranje</string>
     <string name="settings_live_websocket">Cene uživo</string>
 

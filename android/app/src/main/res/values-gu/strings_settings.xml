@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">તાજેતરની તપાસ</string>
     <string name="settings_http_log">HTTP લૉગ બતાવો</string>
     <string name="settings_http_log_hint">“જોડી ઉમેરો” પાનાના તળિયે એક્સચેન્જને મોકલાયેલી વિનંતીઓ બતાવે છે – સમસ્યા શોધવા માટે.</string>
+    <string name="settings_retirement_preview">બંધ થવાની તારીખ આગળ લાવો</string>
+    <string name="settings_retirement_preview_hint">ફક્ત એક્સચેન્જ બંધ થવાના નિયમની ઘડિયાળ ખસેડે છે, ડિવાઇસની નહીં.</string>
     <string name="settings_live_service">વારંવાર અપડેટ કરો</string>
     <string name="settings_live_websocket">લાઇવ ભાવ</string>
 

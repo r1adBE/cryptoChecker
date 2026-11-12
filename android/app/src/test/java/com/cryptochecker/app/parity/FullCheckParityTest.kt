@@ -19,7 +19,22 @@ class FullCheckParityTest {
         val cases = data["isFullCheck"].list().map { it.obj() }
         assertTrue(cases.size >= 15)
         for (c in cases) {
-            val actual = BackgroundSchedule.isFullCheck(c["attempted"].num()!!.toInt(), c["failed"].num()!!.toInt())
+            val actual = BackgroundSchedule.isFullCheck(
+                c["attempted"].num()!!.toInt(), c["failed"].num()!!.toInt(), c["notTraded"].num()?.toInt() ?: 0,
+            )
+            assertEquals(c.toString(), c["expected"], actual)
+        }
+    }
+
+    /** Uhrzeit der Aktualisierung (Widget-Kopf): ein Kurs kam oder alle Paare sind nicht gehandelt bzw. stillgelegt. */
+    @Test
+    fun aktualisiertWieGemeinsameFaelle() {
+        val cases = data["refreshed"].list().map { it.obj() }
+        assertTrue(cases.size >= 5)
+        for (c in cases) {
+            val actual = BackgroundSchedule.refreshed(
+                c["attempted"].num()!!.toInt(), c["failed"].num()!!.toInt(), c["notTraded"].num()!!.toInt(),
+            )
             assertEquals(c.toString(), c["expected"], actual)
         }
     }

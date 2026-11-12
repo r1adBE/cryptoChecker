@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">בדיקות אחרונות</string>
     <string name="settings_http_log">הצגת יומן HTTP</string>
     <string name="settings_http_log_hint">מציג בתחתית הדף ״הוספת צמד״ את הבקשות לבורסות – לאיתור תקלות.</string>
+    <string name="settings_retirement_preview">הקדמת תאריך הסגירה</string>
+    <string name="settings_retirement_preview_hint">מזיז רק את השעון של כלל הסגירה, לא את שעון המכשיר.</string>
     <string name="settings_live_service">עדכון תכוף</string>
     <string name="settings_live_websocket">מחירים חיים</string>
 

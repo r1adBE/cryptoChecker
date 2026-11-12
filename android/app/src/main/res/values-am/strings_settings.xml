@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">የቅርብ ጊዜ ፍተሻዎች</string>
     <string name="settings_http_log">የHTTP ምዝግብን ያሳዩ</string>
     <string name="settings_http_log_hint">ወደ ልውውጦቹ የተላኩ ጥያቄዎችን በ«ጥንድ ያክሉ» ገጽ ታች ላይ ያሳያል – ለችግር መፍቻ።</string>
+    <string name="settings_retirement_preview">የማቋረጫ ቀንን ቀድም</string>
+    <string name="settings_retirement_preview_hint">የማቋረጫ ደንቡን ሰዓት ብቻ ያንቀሳቅሳል፣ የመሣሪያውን ሰዓት አይደለም።</string>
     <string name="settings_live_service">በተደጋጋሚ ያዘምኑ</string>
     <string name="settings_live_websocket">ቀጥታ ዋጋዎች</string>
 

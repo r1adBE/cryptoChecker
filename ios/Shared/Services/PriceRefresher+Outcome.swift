@@ -184,8 +184,13 @@ extension PriceRefresher {
         /// Kursansagen je Paar (Watch-Id, Text) — Alarm-Ansagen stehen in `PendingAlarm.speech`;
         /// der Sprecher behält je Paar nur die neueste wartende Ansage.
         var priceSpeech: [(watchId: Int64, text: String)] = []
+        /// Abgefragte Paare ohne die nicht gehandelten (`notTraded`).
         var checked = 0
+        /// Paare ohne Kurs ohne die nicht gehandelten.
         var failed = 0
+        /// Nicht gehandelte Paare und Paare stillgelegter Börsen: ein Zustand, weder «geprüft» noch «fehlgeschlagen»
+        /// (`BackgroundSchedule.isFullCheck`, `CheckRunLog.result`). Wie Android `Processed.notTraded`.
+        var notTraded = 0
         var durationMillis: Int64 = 0
         /// Bericht «Letzte Aktualisierung»; nil bei einer Einzelabfrage (`onlyWatchId`).
         var report: RefreshReport? = nil

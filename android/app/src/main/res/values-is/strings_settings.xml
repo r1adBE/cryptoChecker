@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Nýlegar athuganir</string>
     <string name="settings_http_log">Sýna HTTP-skrá</string>
     <string name="settings_http_log_hint">Sýnir fyrirspurnir til kauphallanna neðst á síðunni „Bæta við pari“ – til bilanaleitar.</string>
+    <string name="settings_retirement_preview">Flýta lokadegi</string>
+    <string name="settings_retirement_preview_hint">Færir aðeins klukku lokunarreglunnar, ekki klukku tækisins.</string>
     <string name="settings_live_service">Uppfæra oft</string>
     <string name="settings_live_websocket">Verð í beinni</string>
 

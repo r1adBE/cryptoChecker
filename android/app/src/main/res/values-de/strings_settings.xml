@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Letzte Prüfungen</string>
     <string name="settings_http_log">HTTP-Protokoll anzeigen</string>
     <string name="settings_http_log_hint">Zeigt unten auf der Seite «Paar hinzufügen» die Anfragen an die Börsen – für die Fehlersuche.</string>
+    <string name="settings_retirement_preview">Stichtag vorziehen</string>
+    <string name="settings_retirement_preview_hint">Verschiebt nur die Uhr der Stilllegungs-Regel, nicht die des Geräts.</string>
     <string name="settings_live_service">Häufig aktualisieren</string>
     <string name="settings_live_websocket">Live-Kurse</string>
 

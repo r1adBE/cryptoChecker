@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">กำลังอ่านไฟล์และอัตรารายวัน…</string>
     <string name="portfolio_csv_import_progress">บรรทัด %1$s จาก %2$s</string>
     <string name="portfolio_csv_import_saving">กำลังบันทึกรายการ…</string>
-    <string name="portfolio_csv_import_missing_fx">ไม่มีอัตรารายวันสำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา/ค่าธรรมเนียม</string>
+    <string name="portfolio_csv_import_missing_fx">ไม่มีอัตรารายวันสำหรับบรรทัด %1$s – ขาดราคา/ค่าธรรมเนียม</string>
     <string name="portfolio_csv_import_missing_price">ไม่มีราคาในไฟล์สำหรับบรรทัด %1$s – นำเข้าโดยไม่มีราคา</string>
     <string name="portfolio_csv_import_fee_in_price">ค่าธรรมเนียมสองรายการในบรรทัด %1$s: ค่าธรรมเนียมเงินเฟียตรวมอยู่ในราคา ส่วนค่าธรรมเนียมเป็นเหรียญจะลดจำนวนที่ได้รับหรือเพิ่มจำนวนที่ให้ไป</string>
     <string name="portfolio_csv_import_pending_differs">บรรทัด %1$s: รายการรอดำเนินการและรายการที่บันทึกแล้วของการฝากหรือถอนเดียวกันมีจำนวนต่างกัน – นำเข้าทั้งสองรายการ ตรวจสอบยอดคงเหลือ</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">หากไม่มีอัตรารายวัน ราคาหรือค่าธรรมเนียมจะขาดหายอย่างถาวร โปรดลองใหม่ หรือนำเข้าต่อไป – รายการเหล่านั้นจะมีหมายเหตุกำกับ</string>
     <string name="portfolio_csv_note_price_no_rate">ราคาไม่มีอัตรารายวัน</string>
     <string name="portfolio_csv_note_fee_no_rate">ค่าธรรมเนียมไม่มีอัตรารายวัน</string>
+    <string name="portfolio_csv_import_no_rates_for">ไม่มีอัตรารายวันสำหรับ %1$s การลองใหม่จึงไม่ช่วย หากนำเข้าต่อไป รายการเหล่านั้นจะมีหมายเหตุกำกับ</string>
+    <string name="portfolio_csv_import_blocked_rates">โปรดตัดสินใจเรื่องบรรทัดที่ไม่มีอัตรารายวันด้านบนก่อน</string>
 </resources>

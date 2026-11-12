@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Senaste kontroller</string>
     <string name="settings_http_log">Visa HTTP-logg</string>
     <string name="settings_http_log_hint">Visar förfrågningarna till börserna längst ned på sidan ”Lägg till par” – för felsökning.</string>
+    <string name="settings_retirement_preview">Tidigarelägg stängningsdatumet</string>
+    <string name="settings_retirement_preview_hint">Flyttar bara klockan för stängningsregeln, inte enhetens klocka.</string>
     <string name="settings_live_service">Uppdatera ofta</string>
     <string name="settings_live_websocket">Livekurser</string>
 

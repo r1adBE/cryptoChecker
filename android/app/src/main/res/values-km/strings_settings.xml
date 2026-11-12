@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">ការពិនិត្យថ្មីៗ</string>
     <string name="settings_http_log">បង្ហាញកំណត់ហេតុ HTTP</string>
     <string name="settings_http_log_hint">បង្ហាញសំណើទៅផ្សារប្តូរនៅខាងក្រោមទំព័រ «បន្ថែមគូ» – សម្រាប់ដោះស្រាយបញ្ហា។</string>
+    <string name="settings_retirement_preview">ឲ្យកាលបរិច្ឆេទបិទមកមុន</string>
+    <string name="settings_retirement_preview_hint">ផ្លាស់ទីតែនាឡិកានៃច្បាប់បិទប៉ុណ្ណោះ មិនមែននាឡិកាឧបករណ៍ទេ។</string>
     <string name="settings_live_service">ធ្វើបច្ចុប្បន្នភាពញឹកញាប់</string>
     <string name="settings_live_websocket">តម្លៃផ្ទាល់</string>
 

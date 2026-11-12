@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">ఫైల్, రోజువారీ రేట్లను చదువుతోంది…</string>
     <string name="portfolio_csv_import_progress">%2$sలో లైన్ %1$s</string>
     <string name="portfolio_csv_import_saving">లావాదేవీలను సేవ్ చేస్తోంది…</string>
-    <string name="portfolio_csv_import_missing_fx">లైన్‌లు %1$sకు రోజువారీ రేటు లేదు – ధర/ఫీజు లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
+    <string name="portfolio_csv_import_missing_fx">లైన్‌లు %1$sకు రోజువారీ రేటు లేదు – ధర/ఫీజు లేదు.</string>
     <string name="portfolio_csv_import_missing_price">లైన్‌లు %1$sకు ఫైల్‌లో ధర లేదు – ధర లేకుండా ఇంపోర్ట్ అయ్యాయి.</string>
     <string name="portfolio_csv_import_fee_in_price">లైన్‌లు %1$sలో రెండు రుసుములు: ఫియట్ రుసుము ధరలో చేరింది, కాయిన్‌లోని రుసుము అందిన పరిమాణాన్ని తగ్గిస్తుంది లేదా ఇచ్చిన పరిమాణాన్ని పెంచుతుంది.</string>
     <string name="portfolio_csv_import_pending_differs">లైన్‌లు %1$s: ఒకే డిపాజిట్ లేదా ఉపసంహరణకు పెండింగ్ మరియు నమోదైన ఎంట్రీల పరిమాణం వేరు – రెండూ ఇంపోర్ట్ అయ్యాయి, హోల్డింగ్‌లను తనిఖీ చేయండి.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">రోజువారీ రేటు లేకపోతే ధర లేదా ఫీజు శాశ్వతంగా లోపిస్తుంది. మళ్లీ ప్రయత్నించండి, లేదా అయినా ఇంపోర్ట్ చేయండి – అప్పుడు ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది.</string>
     <string name="portfolio_csv_note_price_no_rate">రోజువారీ రేటు లేని ధర</string>
     <string name="portfolio_csv_note_fee_no_rate">రోజువారీ రేటు లేని ఫీజు</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$sకు రోజువారీ రేట్లు లేవు, కాబట్టి మళ్లీ ప్రయత్నించినా ఉపయోగం లేదు. అయినా ఇంపోర్ట్ చేస్తే ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది.</string>
+    <string name="portfolio_csv_import_blocked_rates">ముందుగా పైన రోజువారీ రేటు లేని లైన్‌ల గురించి నిర్ణయించండి.</string>
 </resources>

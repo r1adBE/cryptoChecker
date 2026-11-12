@@ -27,7 +27,7 @@ import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import kotlinx.coroutines.delay
 
@@ -55,7 +55,7 @@ internal fun rememberPairAlarmLimits(viewModel: AlarmsViewModel, watch: WatchEnt
         referenceRate = referenceRate,
         lowLiquidity = lowLiquidity == true,
         full = !WatchlistLimits.canAddAlarm(alarms.size),
-        retired = watch?.let { ExchangeRetirement.isRetired(it.exchangeKey) } == true,
+        retired = watch?.let { RetiredWatch.exchangeOf(it) } != null,
     )
 }
 
@@ -101,7 +101,8 @@ internal fun PairAlarmsSection(
             com.cryptochecker.app.ui.components.NotificationsOffBanner()
         }
         when {
-            limits.retired -> RetiredExchangeNote(watch.exchangeName)
+            // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
+            limits.retired || retirementAnnounced(watch) -> RetiredExchangeNote(watch)
             limits.referenceRate -> ReferenceRateNote(watch.exchangeKey)
             limits.lowLiquidity -> DexLowLiquidityNote()
             limits.full -> AlarmLimitNote()
@@ -139,7 +140,12 @@ internal fun PairAlarmsSection(
                     ),
                     retiredExchange = watch.exchangeName,
                     onToggle = { viewModel.setEnabled(alarm.id, it) },
-                    onEdit = { if (!blocked) host.edit(alarm) },
+                    // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
+                    onEdit = if (!blocked) {
+                        { host.edit(alarm) }
+                    } else {
+                        null
+                    },
                     onDelete = { host.askDelete = alarm },
                 )
             }

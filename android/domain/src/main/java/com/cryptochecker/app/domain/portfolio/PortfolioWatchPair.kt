@@ -26,10 +26,16 @@ object PortfolioWatchPair {
         val lastUpdate: Long,
         /** Voller Name des Coins laut Paarliste der Börse (TokenIdentity); null = unbekannt. */
         val name: String? = null,
+        /**
+         * Nicht mehr gehandelt bzw. Börse stillgelegt ([com.cryptochecker.app.domain.watch.NotTraded],
+         * [com.cryptochecker.app.domain.watch.RetiredWatch]): liefert keinen Kurs — nie wählen, sonst bliebe der Coin
+         * ohne Kurs, obwohl ein anderes Paar einen hätte.
+         */
+        val notTraded: Boolean = false,
     )
 
     /**
-     * Bestes Paar für [coin]: aktiv, Spot, Spot-Börse der App ausser Binance ([PortfolioExchangeRoute.isSpot],
+     * Bestes Paar für [coin]: aktiv, gehandelt (nicht [Candidate.notTraded]), Spot, Spot-Börse der App ausser Binance ([PortfolioExchangeRoute.isSpot],
      * Binance führt den Coin ja nicht), Gegenwährung aus [PortfolioExchangeRoute.QUOTES] (in dieser Reihenfolge);
      * bei Gleichstand das zuletzt aktualisierte, dann nach Börse. null = keines.
      * Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
@@ -39,7 +45,7 @@ object PortfolioWatchPair {
     fun pick(coin: String, watches: List<Candidate>): Candidate? {
         val base = PortfolioCalculator.normalizeCoin(coin)
         val usable = watches.filter { w ->
-            !w.disabled && w.spot &&
+            !w.disabled && !w.notTraded && w.spot &&
                 PortfolioExchangeRoute.isSpot(w.exchangeKey) &&
                 w.exchangeKey != PortfolioExchangeRoute.DEFAULT_EXCHANGE &&
                 PortfolioCalculator.normalizeCoin(w.base) == base &&

@@ -57,6 +57,10 @@ class SettingsViewModel @Inject constructor(
 
     fun clearBackupMessage() { _backupMessage.value = null }
 
+    /** Sichern bzw. Wiederherstellen läuft (Datei lesen, Argon2id, Ersetzen): Knöpfe aus, Fortschrittskreis — wie iOS. */
+    internal val _backupWorking = MutableStateFlow(false)
+    val backupWorking: StateFlow<Boolean> = _backupWorking.asStateFlow()
+
     /**
      * Schutz der nächsten Sicherung (Passwort oder bewusst ohne) bis zur Dateiauswahl. Im
      * ViewModel, damit er ein Drehen übersteht; nach einem Prozess-Ende fehlt er — dann wird

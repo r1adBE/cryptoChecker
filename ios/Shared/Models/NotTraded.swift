@@ -137,11 +137,30 @@ extension Watch {
     /// 24-h-Veränderung zum Anzeigen: nil («—») bei nicht gehandelten Paaren.
     var shownChange24h: Double? { NotTraded.shownChange24h(lastError: lastError, change24h: change24h) }
 
-    /// Für Widgets: Paar einer stillgelegten Börse (`ExchangeRetirement`) ohne alten Kurs («—») — wie Android.
-    var retiredShown: Watch {
-        guard ExchangeRetirement.isMarker(lastError) else { return self }
+    /// Name der stillgelegten Börse des Paars nach der EINEN Regel (`ExchangeRetirement.retiredNow`: gespeicherter Marker
+    /// ODER Ende erreicht); entschieden über den Schlüssel der Börse, gezeigt der Name aus dem Katalog
+    /// (`retirementExchangeName`). nil = nicht stillgelegt. Wie Android `RetiredWatch.exchangeOf`.
+    func retiredExchange(now: Int64? = nil) -> String? {
+        guard ExchangeRetirement.retiredNow(exchange: exchangeKey, lastError: lastError, now: now) != nil else { return nil }
+        return retirementExchangeName
+    }
+
+    /// Anzeigename der Börse für die Texte der Stilllegung: aus dem Katalog (`ExchangesConfig`), sonst der gespeicherte.
+    var retirementExchangeName: String {
+        ExchangesConfig.exchange(exchangeKey)?.name ?? (exchangeName.isEmpty ? exchangeKey : exchangeName)
+    }
+
+    /// Für die Anzeige (Zeile, Paarseite, Widgets, iPhone → Uhr, Alarme): Paar einer stillgelegten Börse ohne alten Kurs
+    /// und ohne Veränderung («—»), mit dem Marker der Börse als Zustand (der Grund steht dann wie bei «nicht gehandelt» an
+    /// seinem Platz) — auch vor dem ersten Abruf nach dem Ende, offline und deaktiviert. Wie Android `RetiredWatch.shown`.
+    func retiredShown(now: Int64? = nil) -> Watch {
+        guard let exchange = retiredExchange(now: now) else { return self }
+        let marker = ExchangeRetirement.marker(exchange)
+        guard lastPrice != nil || change24h != nil || lastError != marker else { return self }
         var copy = self
         copy.lastPrice = nil
+        copy.change24h = nil
+        copy.lastError = marker
         return copy
     }
 }

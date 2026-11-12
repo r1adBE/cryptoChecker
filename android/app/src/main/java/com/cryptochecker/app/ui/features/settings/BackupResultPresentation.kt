@@ -71,6 +71,7 @@ object BackupResultPresentation {
     fun messageRes(message: BackupMessage): Int = when (message) {
         BackupMessage.Exported -> R.string.backup_exported
         BackupMessage.Failed -> R.string.backup_failed
+        BackupMessage.SaveFailed -> R.string.backup_save_failed
         BackupMessage.TooLarge -> R.string.backup_too_large
         BackupMessage.NewerVersion -> R.string.backup_restore_newer_version
         BackupMessage.NotVerified -> R.string.backup_not_verified

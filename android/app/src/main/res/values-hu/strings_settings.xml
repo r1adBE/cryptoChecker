@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Legutóbbi ellenőrzések</string>
     <string name="settings_http_log">HTTP-napló megjelenítése</string>
     <string name="settings_http_log_hint">A „Pár hozzáadása” oldal alján mutatja a tőzsdékhez küldött kéréseket – hibakereséshez.</string>
+    <string name="settings_retirement_preview">Leállási dátum előrehozása</string>
+    <string name="settings_retirement_preview_hint">Csak a leállási szabály óráját állítja, nem az eszköz óráját.</string>
     <string name="settings_live_service">Gyakori frissítés</string>
     <string name="settings_live_websocket">Élő árfolyamok</string>
 

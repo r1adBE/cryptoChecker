@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Четене на файла и дневните курсове…</string>
     <string name="portfolio_csv_import_progress">Ред %1$s от %2$s</string>
     <string name="portfolio_csv_import_saving">Запазване на транзакциите…</string>
-    <string name="portfolio_csv_import_missing_fx">Няма дневен курс за редове %1$s – импортирано без цена/такса.</string>
+    <string name="portfolio_csv_import_missing_fx">Няма дневен курс за редове %1$s – липсват цена/такса.</string>
     <string name="portfolio_csv_import_missing_price">Във файла няма цена за редове %1$s – импортирано без цена.</string>
     <string name="portfolio_csv_import_fee_in_price">Две такси в редове %1$s: фиат таксата е включена в цената, таксата в монетата намалява полученото или увеличава даденото количество.</string>
     <string name="portfolio_csv_import_pending_differs">Редове %1$s: чакащ и осчетоводен запис на един и същ депозит или теглене имат различни количества – и двата са импортирани, провери наличностите.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Без дневен курс цената или таксата липсват трайно. Опитай отново или импортирай въпреки това – тези транзакции получават бележка.</string>
     <string name="portfolio_csv_note_price_no_rate">Цена без дневен курс</string>
     <string name="portfolio_csv_note_fee_no_rate">Такса без дневен курс</string>
+    <string name="portfolio_csv_import_no_rates_for">За %1$s няма дневни курсове, затова нов опит няма да помогне. Ако импортираш въпреки това, тези транзакции получават бележка.</string>
+    <string name="portfolio_csv_import_blocked_rates">Първо реши по-горе за редовете без дневен курс.</string>
 </resources>

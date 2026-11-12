@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Останні перевірки</string>
     <string name="settings_http_log">Показувати журнал HTTP</string>
     <string name="settings_http_log_hint">Показує внизу сторінки «Додати пару» запити до бірж – для діагностики.</string>
+    <string name="settings_retirement_preview">Перенести дату закриття вперед</string>
+    <string name="settings_retirement_preview_hint">Зсуває лише годинник правила закриття біржі, а не годинник пристрою.</string>
     <string name="settings_live_service">Оновлювати часто</string>
     <string name="settings_live_websocket">Курси наживо</string>
 

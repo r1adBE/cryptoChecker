@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Ukaguzi wa hivi karibuni</string>
     <string name="settings_http_log">Onyesha kumbukumbu ya HTTP</string>
     <string name="settings_http_log_hint">Inaonyesha maombi kwa majukwaa chini ya ukurasa wa “Ongeza jozi” – kwa kutatua matatizo.</string>
+    <string name="settings_retirement_preview">Leta mbele tarehe ya kufungwa</string>
+    <string name="settings_retirement_preview_hint">Husogeza saa ya kanuni ya kufungwa pekee, si saa ya kifaa.</string>
     <string name="settings_live_service">Sasisha mara kwa mara</string>
     <string name="settings_live_websocket">Bei za moja kwa moja</string>
 

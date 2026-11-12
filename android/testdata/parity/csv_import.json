@@ -3730,6 +3730,136 @@
       }
     ]
   },
+  "_rateRetryComment": "What «Retry» can do for rows without a daily rate (Android/iOS CsvImportRateGate.retry, CsvImportPreview.rateRetry): each case is a list of priced rows (kind, price currency «quote», fee currency «feeUnit», priceNeedsFx, feeNeedsFx). «missing» per row = CsvImportRateGate.missing (fee rows and staking transfers carry no price: only the fee counts; null = nothing missing, the row neither lands in missingFx nor blocks «Import»). Expected «currencies» = codes of the missing parts that have no daily rates at all (not a fiat of the rate source, e.g. a coin as price currency), uppercase, in order of appearance, each once — the preview names them in an own sentence instead of «Retry»; «retryHelps» = at least one missing part is a fiat (a new fetch can bring the rate). Unknown currency (null) counts for neither.",
+  "rateRetry": [
+    {
+      "rows": [
+        {
+          "kind": "BUY",
+          "quote": "BTC",
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": "PRICE"
+        }
+      ],
+      "currencies": [
+        "BTC"
+      ],
+      "retryHelps": false
+    },
+    {
+      "rows": [
+        {
+          "kind": "BUY",
+          "quote": "EUR",
+          "feeUnit": "EUR",
+          "priceNeedsFx": true,
+          "feeNeedsFx": true,
+          "missing": "PRICE_AND_FEE"
+        }
+      ],
+      "currencies": [],
+      "retryHelps": true
+    },
+    {
+      "rows": [
+        {
+          "kind": "FEE",
+          "quote": "btc",
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": null
+        },
+        {
+          "kind": "TRANSFER",
+          "quote": "ETH",
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": null
+        }
+      ],
+      "currencies": [],
+      "retryHelps": false
+    },
+    {
+      "rows": [
+        {
+          "kind": "FEE",
+          "quote": "ETH",
+          "feeUnit": "GBP",
+          "priceNeedsFx": true,
+          "feeNeedsFx": true,
+          "missing": "FEE"
+        }
+      ],
+      "currencies": [],
+      "retryHelps": true
+    },
+    {
+      "rows": [
+        {
+          "kind": "SELL",
+          "quote": "eth",
+          "feeUnit": "ETH",
+          "priceNeedsFx": true,
+          "feeNeedsFx": true,
+          "missing": "PRICE_AND_FEE"
+        },
+        {
+          "kind": "BUY",
+          "quote": "BTC",
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": "PRICE"
+        },
+        {
+          "kind": "BUY",
+          "quote": "CHF",
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": "PRICE"
+        }
+      ],
+      "currencies": [
+        "ETH",
+        "BTC"
+      ],
+      "retryHelps": true
+    },
+    {
+      "rows": [
+        {
+          "kind": "BUY",
+          "quote": null,
+          "feeUnit": null,
+          "priceNeedsFx": true,
+          "feeNeedsFx": false,
+          "missing": "PRICE"
+        }
+      ],
+      "currencies": [],
+      "retryHelps": false
+    },
+    {
+      "rows": [
+        {
+          "kind": "BUY",
+          "quote": "USD",
+          "feeUnit": "USD",
+          "priceNeedsFx": false,
+          "feeNeedsFx": false,
+          "missing": null
+        }
+      ],
+      "currencies": [],
+      "retryHelps": false
+    }
+  ],
   "_unsavableComment": "Zeilen, die das Speichern ablehnen würde, zeigt die Vorschau als übersprungen (Android CsvImportMapping.unsavableReason / iOS gleichnamig; gleiche Regel beim Speichern: Android storable nach cleanForSave, iOS AppData.cleanedPortfolioTx). Reihenfolge: coin nach trim/gross leer → MISSING_FIELD; amount auf 18 Nachkommastellen gerundet (halbe auf gerade) ≤ 0 → AMOUNT_TOO_SMALL; eine Zahl gespeichert nicht mehr lesbar (amount, fee in Coin-Einheiten, beim Tausch toAmount: auf 18 Nachkommastellen gerundet ab 10^30) oder priceUsdt nach PortfolioDecimal.price ab 10^30 bzw. > 0, aber gerundet 0 → BAD_NUMBER; nur type SWAP: toCoin (trim/gross) fehlt, leer, länger als 15 Zeichen oder gleich coin, oder toAmount fehlt bzw. gerundet ≤ 0 → INVALID_SWAP; sonst null. toCoin/toAmount bei anderen Arten ohne Bedeutung. Fehlende Felder fee/priceUsdt = keine. Die Vorschau hängt diese Gründe an die übersprungenen Zeilen (stabil nach Zeile sortiert, Datei-Gründe zuerst) und lässt die Zeilen auch aus missingFx, missingPrice, usdtApproximate und stableSwaps weg.",
   "unsavable": [
     {

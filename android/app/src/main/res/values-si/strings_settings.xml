@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">මෑත පරීක්ෂා</string>
     <string name="settings_http_log">HTTP ලොගය පෙන්වන්න</string>
     <string name="settings_http_log_hint">“යුගලයක් එක් කරන්න” පිටුවේ පහළින් හුවමාරු වෙත ඉල්ලීම් පෙන්වයි – දෝෂ නිරාකරණය සඳහා.</string>
+    <string name="settings_retirement_preview">වසා දැමීමේ දිනය කලින් කරන්න</string>
+    <string name="settings_retirement_preview_hint">හුවමාරුව වසා දැමීමේ නීතියේ ඔරලෝසුව පමණක් මාරු කරයි, උපාංගයේ ඔරලෝසුව නොවේ.</string>
     <string name="settings_live_service">නිතර යාවත්කාලීන කරන්න</string>
     <string name="settings_live_websocket">සජීවී මිල</string>
 

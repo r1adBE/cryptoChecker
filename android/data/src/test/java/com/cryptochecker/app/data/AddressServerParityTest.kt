@@ -73,10 +73,11 @@ class AddressServerParityTest {
             assertEquals(c.toString(), c["result"], AddressServer.restored(value, current, trusted))
             val note = BackupRestorePolicy.addressServerNote(value, current, trusted)
             assertEquals(c.toString(), c["note"], note?.name)
-            // Neu gesetzt, wo keiner war: die Meldung nennt den Hostnamen
-            assertEquals(c.toString(), c["host"], BackupRestorePolicy.addressServerSetHost(value, current, trusted))
+            // Neu gesetzt bzw. ersetzt: die Meldung nennt den Hostnamen
+            assertEquals(c.toString(), c["host"], BackupRestorePolicy.addressServerHost(value, current, trusted))
         }
         assertTrue(cases.count { it["note"] == "SET" && it["host"] != null } >= 3)
+        assertTrue(cases.count { it["note"] == "CHANGED" && it["host"] != null } >= 2)
     }
 
     /** Von der Sicherung abgeschalteter Schutz kommt in die Meldung ([BackupRestorePolicy.loweredProtection]). */
@@ -84,6 +85,7 @@ class AddressServerParityTest {
     fun abgeschalteterSchutzWirdGenannt() {
         val cases = fixture["lowered"].list().map { it.obj() }
         assertTrue(cases.size >= 7)
+        assertTrue(cases.count { it["lockOff"] == true } >= 2)
         for (c in cases) {
             val lowered = BackupRestorePolicy.loweredProtection(
                 wantedSystemBackup = c["wantedSystemBackup"] as Boolean,
@@ -91,10 +93,13 @@ class AddressServerParityTest {
                 wantedHideAmounts = c["wantedHideAmounts"] as Boolean,
                 currentHideAmounts = c["currentHideAmounts"] as Boolean,
                 trusted = c["trusted"] as Boolean,
+                wantedAppLock = c["wantedAppLock"] as Boolean,
+                currentAppLock = c["currentAppLock"] as Boolean,
             )
             assertEquals(c.toString(), c["systemBackupOn"], lowered.systemBackupOn)
             assertEquals(c.toString(), c["amountsShown"], lowered.amountsShown)
-            assertEquals(c.toString(), lowered.systemBackupOn || lowered.amountsShown, lowered.any)
+            assertEquals(c.toString(), c["lockOff"], lowered.lockOff)
+            assertEquals(c.toString(), lowered.systemBackupOn || lowered.amountsShown || lowered.lockOff, lowered.any)
             // Ohne Passwort nie
             if (c["trusted"] == false) assertEquals(c.toString(), false, lowered.any)
         }

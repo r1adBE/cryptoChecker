@@ -172,6 +172,8 @@ struct AlarmsOverviewScreen: View {
             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
         }
         .navigationTitle(L("alarms_overview_title"))
+        // Hervorhebung aus der Mitteilung gilt nur bis zum Schliessen
+        .onDisappear { router.highlightPortfolioAlarmId = nil }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -364,6 +366,9 @@ struct AlarmsOverviewScreen: View {
                     // Ausschalten geht immer, einschalten nie (löschen und neu anlegen)
                     .disabled(invalid && !alarm.enabled)
                     .padding(.horizontal, 16)
+                    // Aus der Mitteilung geöffnet: getönte Zeile, «ausgewählt» für VoiceOver (Text bleibt neutral)
+                    .background(router.highlightPortfolioAlarmId == alarm.id ? accent.tint(0.12) : Color.clear)
+                    .accessibilityAddTraits(router.highlightPortfolioAlarmId == alarm.id ? .isSelected : [])
                     .contextMenu {
                         Button(role: .destructive) {
                             deletePortfolio = alarm

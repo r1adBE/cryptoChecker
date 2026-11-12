@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">Membaca file dan kurs harian…</string>
     <string name="portfolio_csv_import_progress">Baris %1$s dari %2$s</string>
     <string name="portfolio_csv_import_saving">Menyimpan transaksi…</string>
-    <string name="portfolio_csv_import_missing_fx">Tidak ada kurs harian untuk baris %1$s – diimpor tanpa harga/biaya.</string>
+    <string name="portfolio_csv_import_missing_fx">Tidak ada kurs harian untuk baris %1$s – harga/biaya tidak ada.</string>
     <string name="portfolio_csv_import_missing_price">Tidak ada harga di file untuk baris %1$s – diimpor tanpa harga.</string>
     <string name="portfolio_csv_import_fee_in_price">Dua biaya di baris %1$s: biaya fiat sudah termasuk dalam harga, biaya dalam koin mengurangi jumlah yang diterima atau menambah jumlah yang diberikan.</string>
     <string name="portfolio_csv_import_pending_differs">Baris %1$s: entri tertunda dan entri tercatat dari setoran atau penarikan yang sama memiliki jumlah berbeda – keduanya diimpor, periksa saldo.</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">Tanpa kurs harian, harga atau biaya hilang secara permanen. Coba lagi, atau tetap impor – transaksi tersebut akan diberi catatan.</string>
     <string name="portfolio_csv_note_price_no_rate">Harga tanpa kurs harian</string>
     <string name="portfolio_csv_note_fee_no_rate">Biaya tanpa kurs harian</string>
+    <string name="portfolio_csv_import_no_rates_for">Tidak ada kurs harian untuk %1$s, jadi mencoba lagi tidak akan membantu. Jika tetap mengimpor, transaksi tersebut akan diberi catatan.</string>
+    <string name="portfolio_csv_import_blocked_rates">Putuskan dulu di atas soal baris tanpa kurs harian.</string>
 </resources>

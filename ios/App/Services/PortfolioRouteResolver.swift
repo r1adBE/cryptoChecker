@@ -18,6 +18,12 @@ enum PortfolioRouteResolver {
         var routes: [String: PortfolioRoute] = [:]
         var unresolved: [String: String] = [:]
         for (coin, name) in single {
+            // Stillgelegte Börse (`ExchangeRetirement`): Binance, mit dem Hinweis eines Abruffehlers («Bitpanda liefert
+            // keine Kurse mehr – mit Binance bewertet»), wie Android
+            if let retired = PortfolioExchangeRoute.retiredExchange(name, exchanges: exchanges) {
+                unresolved[coin] = retired
+                continue
+            }
             // Binance oder freier Text: Binance, ohne Hinweis
             guard let exchange = PortfolioExchangeRoute.exchange(name, exchanges: exchanges) else { continue }
             var pairs = await PairCache.shared.pairs(for: exchange.key).pairs

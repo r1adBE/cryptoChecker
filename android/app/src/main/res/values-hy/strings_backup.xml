@@ -87,7 +87,7 @@
     <string name="watchlist_storage_locked">Դիտացանկը հնարավոր չէ փոխել՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը։</string>
     <string name="alarm_save_storage_locked">Ահազանգերը հնարավոր չէ պահպանել՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը։</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Պահուստավորումը հնարավոր չէ՝ պահպանված տվյալները հիմա հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը և կրկին փորձիր։</string>
+    <string name="backup_storage_kept">Պահուստավորումն ու վերականգնումը հիմա հնարավոր չեն՝ պահպանված տվյալները հնարավոր չէ կարդալ։ Վերագործարկիր հավելվածը և կրկին փորձիր։</string>
     <string name="backup_restore_storage_in_memory">Վերականգնումը հիմա հնարավոր չէ՝ հավելվածն այս պահին տվյալներ չի պահպանում (գաղտնագրումը դեռ ակտիվ չէ), ուստի վերականգնվածը կկորչի վերագործարկման ժամանակ։ Վերագործարկիր հավելվածը և կրկին փորձիր։</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Վերականգնումը հիմա հնարավոր չէ՝ ընթացիկ տվյալների անվտանգության պատճենը չհաջողվեց պահպանել (բանալին այս պահին հասանելի չէ)։ Ոչինչ չի փոխվել։ Փորձիր ավելի ուշ կամ վերագործարկիր հավելվածը։</string>
@@ -105,7 +105,7 @@
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
     <string name="backup_restore_server_public">«Սեփական սերվեր հասցեների համար»-ը հեռացվել է, ինչպես պահուստային պատճենում – Bitcoin հասցեները կրկին հարցվում են հանրային հանգույցներում։</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">«Սեփական սերվեր հասցեների համար»-ը փոխարինվել է պահուստային պատճենում եղածով։</string>
+    <string name="backup_restore_server_changed">«Սեփական սերվեր հասցեների համար»-ը փոխարինվել է պահուստային պատճենում եղածով՝ %1$s – Bitcoin հասցեներն այժմ հարցվում են այնտեղ։</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
     <string name="backup_restore_server_set">«Սեփական սերվեր հասցեների համար»-ը սահմանվել է պահուստային պատճենից՝ %1$s – Bitcoin հասցեներն այժմ հարցվում են այնտեղ։</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
@@ -113,4 +113,6 @@
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">«Թաքցնել գումարները»-ը անջատվել է պահուստային պատճենի կողմից։</string>
     <string name="backup_restore_storage_unavailable">Վերականգնումը հիմա հնարավոր չէ՝ հավելվածի պահոցը հասանելի չէ։ Վերագործարկիր հավելվածը և կրկին փորձիր։ Քո առկա տվյալները չեն փոխվել։</string>
+    <string name="backup_restore_app_lock_off">Պորտֆելի կողպեքն անջատվել է պահուստային պատճենի կողմից։</string>
+    <string name="backup_save_failed">Պահուստային պատճենը չհաջողվեց պահպանել։</string>
 </resources>

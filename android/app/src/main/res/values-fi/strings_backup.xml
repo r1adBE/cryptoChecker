@@ -87,7 +87,7 @@
     <string name="watchlist_storage_locked">Seurantalistaa ei voi muuttaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen.</string>
     <string name="alarm_save_storage_locked">Hälytyksiä ei voi tallentaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Varmuuskopiointi ei ole mahdollista: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen ja yritä uudestaan.</string>
+    <string name="backup_storage_kept">Varmuuskopiointi ja palautus eivät ole juuri nyt mahdollisia: tallennettuja tietoja ei voi lukea. Käynnistä sovellus uudelleen ja yritä uudestaan.</string>
     <string name="backup_restore_storage_in_memory">Palautus ei ole nyt mahdollista: sovellus ei tällä hetkellä tallenna tietoja (salaus ei ole vielä käytössä), joten palautettu sisältö katoaisi uudelleenkäynnistyksessä. Käynnistä sovellus uudelleen ja yritä uudestaan.</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Palautus ei onnistu juuri nyt: nykyisten tietojesi varmuuskopiota ei voitu tallentaa (avain ei ole juuri nyt käytettävissä). Mitään ei muutettu. Yritä myöhemmin uudelleen tai käynnistä sovellus uudelleen.</string>
@@ -105,7 +105,7 @@
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
     <string name="backup_restore_server_public">”Oma palvelin osoitteille” poistettiin kuten varmuuskopiossa – Bitcoin-osoitteet kysytään taas julkisilta solmuilta.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">”Oma palvelin osoitteille” korvattiin varmuuskopion palvelimella.</string>
+    <string name="backup_restore_server_changed">”Oma palvelin osoitteille” korvattiin varmuuskopion palvelimella: %1$s – Bitcoin-osoitteet kysytään nyt sieltä.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
     <string name="backup_restore_server_set">”Oma palvelin osoitteille” asetettiin varmuuskopiosta: %1$s – Bitcoin-osoitteet kysytään nyt sieltä.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
@@ -113,4 +113,6 @@
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Beträge verbergen» ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
     <string name="backup_restore_amounts_shown">”Piilota summat” poistettiin käytöstä varmuuskopiosta.</string>
     <string name="backup_restore_storage_unavailable">Palautus ei ole nyt mahdollista: sovelluksen tallennustila ei ole käytettävissä. Käynnistä sovellus uudelleen ja yritä uudestaan. Nykyiset tietosi ovat ennallaan.</string>
+    <string name="backup_restore_app_lock_off">Salkun lukitus poistettiin käytöstä varmuuskopiosta.</string>
+    <string name="backup_save_failed">Varmuuskopiota ei voitu tallentaa.</string>
 </resources>

@@ -247,7 +247,7 @@ fun AppNavHost(
                         onOpenPair = { watchId -> navigation.navigateOnce(entry, ScreenRoute.PairPage(watchId)) },
                         // Mitteilung bzw. Widget-Zeile: auch ohne Tipp, sobald die Merkliste geladen ist
                         onFocusPair = { watchId -> navigation.navigate(ScreenRoute.PairPage(watchId)) },
-                        onOpenAllAlarms = { navigation.navigateOnce(entry, ScreenRoute.AlarmsOverview) },
+                        onOpenAllAlarms = { navigation.navigateOnce(entry, ScreenRoute.AlarmsOverview()) },
                         onOpenActivitySettings = {
                             navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
                         },

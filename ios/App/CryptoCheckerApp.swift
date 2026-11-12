@@ -24,6 +24,7 @@ final class AppRouter: ObservableObject {
     @Published var openAlarmsWatchId: Int64?
     /// «Anpassen» aus einer Alarm-Mitteilung: `AlarmsScreen` öffnet den Editor dieses Alarms (dann gelöscht).
     @Published var pendingEditAlarmId: Int64?
+    @Published var highlightPortfolioAlarmId: Int64?  // Portfolio-Alarm-Mitteilung: in «Alle Alarme» hervorheben
     /// Seite «Paar hinzufügen» über der Merkliste offen («+», Shortcut, Widget, Link "add").
     @Published var showExplorer = false
     /// Seite «Paar hinzufügen» mit dieser Suche öffnen («Heute auffällig» im Markt-Tab).
@@ -69,6 +70,7 @@ final class AppRouter: ObservableObject {
         switch tab {
         case .watchlist:
             showAlarmsOverview = false
+            highlightPortfolioAlarmId = nil
             openAlarmsWatchId = nil
             pendingEditAlarmId = nil
             openWhyWatchId = nil
@@ -103,7 +105,7 @@ final class AppRouter: ObservableObject {
     }
 
     /// Ziel aus einem Shortcut oder Link: "add", "alarms", "cycle", "cycle/macro", "portfolio",
-    /// "watch/<id>", "why/<id>", "alarm/<Paar>/<Alarm>".
+    /// "watch/<id>", "why/<id>", "alarm/<Paar>/<Alarm>", "portfolioAlarm/<Alarm>".
     func open(_ target: String) {
         switch target {
         case "add": openExplorer()
@@ -131,6 +133,10 @@ final class AppRouter: ObservableObject {
             } else if target.hasPrefix("why/"), let id = Int64(target.dropFirst(4)) {
                 tab = .watchlist
                 openWhyWatchId = id
+            } else if let alarmId = PortfolioAlarmTarget.parse(target) {
+                tab = .watchlist
+                highlightPortfolioAlarmId = alarmId
+                showAlarmsOverview = true
             } else if let edit = AlarmEditTarget.parse(target) {
                 // «Anpassen»: Alarme des Paars, darin der Editor des Alarms
                 tab = .watchlist
@@ -153,6 +159,7 @@ struct CryptoCheckerApp: App {
         #if DEBUG
         // UI-Tests (Startargument «-uiTesting»): leerer Speicher, feste Börsen-Antworten — vor allem anderen
         UITesting.prepareIfRequested()
+        RetirementPreview.apply()  // Debug «Stichtag vorziehen»: Uhr der Stilllegungs-Regel, nicht die des Geräts
         #endif
         // Lief die App einmal ohne App Group: deren Daten jetzt einmal übernehmen — vor dem ersten Lesen (AppData)
         SharedStorage.migrateFallbackIfNeeded()

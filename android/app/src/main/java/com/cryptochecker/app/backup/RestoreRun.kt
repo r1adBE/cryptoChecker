@@ -21,8 +21,13 @@ internal object RestoreRun {
      * einer `CancellationException`; ebenso kann nach dem Commit noch etwas scheitern. Einen unberührten Stand
      * zurückzuschreiben schadet nicht, einen ersetzten stehen zu lassen ergäbe den halben Stand (neue Merkliste, altes
      * Portfolio) ohne Journal.
+     *
+     * [touchedInside]: Der Schritt gilt erst als berührt, wenn [block] es meldet (`touch`) — die Merkliste, sobald sie
+     * die Refresh-Sperre hält: Wird das Wiederherstellen beim Warten auf eine laufende Aktualisierung abgebrochen, ist
+     * nichts ersetzt, und ein Zurückrollen schriebe nur einen älteren Stand zurück (ein eben ausgelöster Alarm wäre wieder
+     * scharf).
      */
-    class Write(val step: Step, val block: suspend () -> Unit)
+    class Write(val step: Step, val touchedInside: Boolean = false, val block: suspend (touch: () -> Unit) -> Unit)
 
     /** Journal des Wiederherstellens ([RestoreJournal]); in Tests eine Fälschung. */
     interface Journal {
@@ -55,8 +60,8 @@ internal object RestoreRun {
         val touched = mutableSetOf<Step>()
         try {
             for (write in writes) {
-                touched += write.step
-                write.block()
+                if (!write.touchedInside) touched += write.step
+                write.block { touched += write.step }
             }
         } catch (e: Throwable) {
             withContext(NonCancellable) {

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">സമീപകാല പരിശോധനകൾ</string>
     <string name="settings_http_log">HTTP ലോഗ് കാണിക്കുക</string>
     <string name="settings_http_log_hint">“ജോഡി ചേർക്കുക” പേജിന്റെ താഴെ എക്സ്ചേഞ്ചുകളിലേക്കുള്ള അഭ്യർത്ഥനകൾ കാണിക്കുന്നു – പ്രശ്നപരിഹാരത്തിനായി.</string>
+    <string name="settings_retirement_preview">അടയ്ക്കൽ തീയതി മുന്നോട്ട് കൊണ്ടുവരിക</string>
+    <string name="settings_retirement_preview_hint">എക്സ്ചേഞ്ച് അടയ്ക്കൽ നിയമത്തിന്റെ ക്ലോക്ക് മാത്രം നീക്കുന്നു, ഉപകരണത്തിന്റേതല്ല.</string>
     <string name="settings_live_service">ഇടയ്ക്കിടെ അപ്‌ഡേറ്റ് ചെയ്യുക</string>
     <string name="settings_live_websocket">ലൈവ് വിലകൾ</string>
 

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Берза (опционално)</string>
     <string name="ledger_exchange_failed">%1$s: моментално нема цена од %2$s – вреднувано со Binance.</string>
     <string name="ledger_exchange_hint">Монетата се вреднува по цената на оваа берза (инаку Binance). Историјата, 7 Д и 1 Г користат дневни цени од Binance скалирани според неа.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s повеќе не дава цени – вреднувано со Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s повеќе не дава цени – монетата се вреднува по цената на Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: внесени се повеќе берзи – вреднувано со Binance. Ги премести монетите? Евидентирај го преместувањето како „Трансфер“.</string>
     <string name="ledger_exchange_none">Ниедна (Binance)</string>
     <string name="ledger_fee">Провизија (опционално)</string>

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Birja (istəyə görə)</string>
     <string name="ledger_exchange_failed">%1$s: hazırda %2$s birjasından qiymət yoxdur – Binance ilə qiymətləndirilib.</string>
     <string name="ledger_exchange_hint">Koin bu birjanın qiyməti ilə qiymətləndirilir (əks halda Binance). Tarixçə, 7 G və 1 İ ona miqyaslanmış Binance günlük qiymətlərindən istifadə edir.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s artıq qiymət vermir – Binance ilə qiymətləndirilib.</string>
+    <string name="ledger_exchange_retired_hint">%1$s artıq qiymət vermir – koin Binance qiyməti ilə qiymətləndirilir.</string>
     <string name="ledger_exchange_mixed">%1$s: bir neçə birja daxil edilib – Binance ilə qiymətləndirilib. Koinləri köçürmüsən? Köçürməni «Köçürmə» kimi qeyd et.</string>
     <string name="ledger_exchange_none">Heç biri (Binance)</string>
     <string name="ledger_fee">Komissiya (istəyə görə)</string>

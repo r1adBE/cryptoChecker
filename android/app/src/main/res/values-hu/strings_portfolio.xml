@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Tőzsde (nem kötelező)</string>
     <string name="ledger_exchange_failed">%1$s: most nincs árfolyam innen: %2$s – Binance alapján értékelve.</string>
     <string name="ledger_exchange_hint">A coin e tőzsde árfolyamán értékelődik (egyébként Binance). Előzmények, 7 N és 1 É: Binance napi árfolyamai, átskálázva.</string>
+    <string name="ledger_exchange_retired">%1$s: a(z) %2$s már nem ad árfolyamokat – Binance alapján értékelve.</string>
+    <string name="ledger_exchange_retired_hint">A(z) %1$s már nem ad árfolyamokat – az érmét a Binance árfolyamán értékeljük.</string>
     <string name="ledger_exchange_mixed">%1$s: több tőzsde megadva – Binance alapján értékelve. Áthelyezted a coinokat? Rögzítsd „Átvezetés” típussal.</string>
     <string name="ledger_exchange_none">Nincs (Binance)</string>
     <string name="ledger_fee">Díj (nem kötelező)</string>

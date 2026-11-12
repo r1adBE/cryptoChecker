@@ -73,8 +73,18 @@ enum BackgroundSchedule {
 
     /// Volle Prüfung für `shouldSkip`? Alle abfragbaren Paare (`attempted`) versucht und mehr als die Hälfte
     /// mit Kurs. Live-Takte und Teil-Läufe zählen nicht — sie setzen nur die Uhrzeit im Widget. Wie Android.
-    static func isFullCheck(attempted: Int, failed: Int) -> Bool {
-        attempted > 0 && failed >= 0 && failed < attempted && (attempted - failed) * 2 > attempted
+    ///
+    /// Nicht gehandelte Paare und Paare stillgelegter Börsen (`notTraded`) zählen weder als versucht noch als gescheitert;
+    /// sind ALLE Paare so (`attempted` 0, `notTraded` > 0), ist der Lauf trotzdem voll (Portfolio-, Gas-, Depeg-Alarme).
+    static func isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0) -> Bool {
+        if attempted == 0 && failed == 0 { return notTraded > 0 }
+        return attempted > 0 && failed >= 0 && failed < attempted && (attempted - failed) * 2 > attempted
+    }
+
+    /// Zählt ein Lauf als Aktualisierung (`markFullRefresh`, Android `setLastFullRefresh`)? Mindestens ein Kurs kam —
+    /// oder alle Paare sind nicht gehandelt bzw. stillgelegt (`notTraded`, kein Abruf nötig). Wie Android `refreshed`.
+    static func refreshed(attempted: Int, failed: Int, notTraded: Int = 0) -> Bool {
+        failed < attempted || (attempted == 0 && failed == 0 && notTraded > 0)
     }
 
     /// Nur iOS: Vormerken der Hintergrund-Aufgabe gescheitert — in «Letzte Prüfungen» eintragen? Nicht, wenn der

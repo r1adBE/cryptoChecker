@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">फाइल र दैनिक दरहरू पढ्दै…</string>
     <string name="portfolio_csv_import_progress">%2$s मध्ये पङ्क्ति %1$s</string>
     <string name="portfolio_csv_import_saving">कारोबारहरू सेभ गर्दै…</string>
-    <string name="portfolio_csv_import_missing_fx">पङ्क्ति %1$s का लागि दैनिक दर छैन – मूल्य/शुल्कबिना आयात गरियो।</string>
+    <string name="portfolio_csv_import_missing_fx">पङ्क्ति %1$s का लागि दैनिक दर छैन – मूल्य/शुल्क छुटेको छ।</string>
     <string name="portfolio_csv_import_missing_price">पङ्क्ति %1$s का लागि फाइलमा मूल्य छैन – मूल्यबिना आयात गरियो।</string>
     <string name="portfolio_csv_import_fee_in_price">पङ्क्ति %1$s मा दुई शुल्क: फिएट शुल्क मूल्यमा समावेश छ, कोइनको शुल्कले पाएको मात्रा घटाउँछ वा दिएको मात्रा बढाउँछ।</string>
     <string name="portfolio_csv_import_pending_differs">पङ्क्ति %1$s: एउटै जम्मा वा निकासीको बाँकी र दर्ता भएको प्रविष्टिको मात्रा फरक छ – दुवै आयात गरियो, होल्डिङ जाँच्नुहोस्।</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">दैनिक दरबिना मूल्य वा शुल्क स्थायी रूपमा छुट्छ। फेरि प्रयास गर्नुहोस्, वा तैपनि आयात गर्नुहोस् – त्यसपछि ती कारोबारहरूमा टिप्पणी थपिन्छ।</string>
     <string name="portfolio_csv_note_price_no_rate">दैनिक दरबिनाको मूल्य</string>
     <string name="portfolio_csv_note_fee_no_rate">दैनिक दरबिनाको शुल्क</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s का लागि दैनिक दरहरू छैनन्, त्यसैले फेरि प्रयास गर्दा मद्दत हुँदैन। तैपनि आयात गर्नुभयो भने ती कारोबारहरूमा टिप्पणी थपिन्छ।</string>
+    <string name="portfolio_csv_import_blocked_rates">पहिले माथि दैनिक दरबिनाका पङ्क्तिहरूबारे निर्णय गर्नुहोस्।</string>
 </resources>

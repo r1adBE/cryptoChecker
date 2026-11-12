@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Nedavne provjere</string>
     <string name="settings_http_log">Prikaži HTTP zapisnik</string>
     <string name="settings_http_log_hint">Prikazuje upite prema burzama na dnu stranice „Dodaj par“ – za otklanjanje poteškoća.</string>
+    <string name="settings_retirement_preview">Pomakni datum gašenja unaprijed</string>
+    <string name="settings_retirement_preview_hint">Pomiče samo sat pravila o gašenju burze, ne sat uređaja.</string>
     <string name="settings_live_service">Često ažuriranje</string>
     <string name="settings_live_websocket">Cijene uživo</string>
 

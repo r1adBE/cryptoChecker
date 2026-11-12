@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">Semakan terkini</string>
     <string name="settings_http_log">Tunjukkan log HTTP</string>
     <string name="settings_http_log_hint">Menunjukkan permintaan kepada bursa di bahagian bawah halaman “Tambah pasangan” – untuk penyelesaian masalah.</string>
+    <string name="settings_retirement_preview">Awalkan tarikh penutupan</string>
+    <string name="settings_retirement_preview_hint">Hanya mengalihkan jam peraturan penutupan bursa, bukan jam peranti.</string>
     <string name="settings_live_service">Kemas kini dengan kerap</string>
     <string name="settings_live_websocket">Harga langsung</string>
 

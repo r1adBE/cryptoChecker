@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Verificações recentes</string>
     <string name="settings_http_log">Mostrar registro HTTP</string>
     <string name="settings_http_log_hint">Mostra no fim da página “Adicionar par” as requisições às exchanges – para diagnóstico.</string>
+    <string name="settings_retirement_preview">Antecipar a data de encerramento</string>
+    <string name="settings_retirement_preview_hint">Move apenas o relógio da regra de encerramento, não o do dispositivo.</string>
     <string name="settings_live_service">Atualizar com frequência</string>
     <string name="settings_live_websocket">Cotações ao vivo</string>
 

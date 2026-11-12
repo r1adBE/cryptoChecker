@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Բորսա (ըստ ցանկության)</string>
     <string name="ledger_exchange_failed">%1$s՝ %2$s-ից հիմա գին չկա – գնահատված է Binance-ով։</string>
     <string name="ledger_exchange_hint">Կոինը գնահատվում է այս բորսայի գնով (այլապես՝ Binance)։ Պատմությունը, 7 օ և 1 տ օգտագործում են Binance-ի օրական գները՝ մասշտաբավորված դրան։</string>
+    <string name="ledger_exchange_retired">%1$s՝ %2$s-ն այլևս գներ չի տրամադրում – գնահատված է Binance-ով։</string>
+    <string name="ledger_exchange_retired_hint">%1$s-ն այլևս գներ չի տրամադրում – կոինը գնահատվում է Binance-ի գնով։</string>
     <string name="ledger_exchange_mixed">%1$s՝ մուտքագրված են մի քանի բորսաներ – գնահատված է Binance-ով։ Տեղափոխե՞լ ես կոիններ։ Գրանցիր տեղափոխումը որպես «Փոխանցում»։</string>
     <string name="ledger_exchange_none">Չկա (Binance)</string>
     <string name="ledger_fee">Միջնորդավճար (ըստ ցանկության)</string>

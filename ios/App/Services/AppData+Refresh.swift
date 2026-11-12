@@ -150,14 +150,12 @@ extension AppData {
     ///   Änderung und Zeit (kein Alarm, keine Mitteilung, kein Fehler), wird der Stand still
     ///   übernommen (`mutate(…, quiet: true)`) — siehe `snapshot`.
     func apply(_ outcome: PriceRefresher.Outcome, full: Bool, reloadWidgets: Bool = true, live: Bool = false) {
-        // Uhrzeit und Dauer zuerst speichern, dann die Widgets neu laden —
-        // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
-        // Ohne einen einzigen Kurs (z. B. offline) bleibt die Zeit der letzten
-        // erfolgreichen Aktualisierung stehen.
-        if full && outcome.failed < outcome.checked {
+        // Uhrzeit/Dauer vor dem Neuladen der Widgets speichern (sonst neue Kurse mit alter Zeit); ohne Kurs (offline)
+        // bleibt die alte Zeit. Nicht gehandelte/stillgelegte Paare zählen weder als geprüft noch gescheitert (`notTraded`).
+        if full && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed, notTraded: outcome.notTraded) {
             SharedStorage.markFullRefresh()
             // Sperre der Hintergrund-Aufgabe: nur nach einer vollen Prüfung (die meisten Paare mit Kurs)
-            if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
+            if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed, notTraded: outcome.notTraded) {
                 SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
             }
             SharedStorage.lastRefreshDuration = outcome.durationMillis

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Börse (optional)</string>
     <string name="ledger_exchange_failed">%1$s: gerade kein Kurs von %2$s – mit Binance bewertet.</string>
     <string name="ledger_exchange_hint">Der Coin wird mit dem Kurs dieser Börse bewertet (sonst Binance). Verlauf, 7 T und 1 J: Binance-Tageskurse, darauf skaliert.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s liefert keine Kurse mehr – mit Binance bewertet.</string>
+    <string name="ledger_exchange_retired_hint">%1$s liefert keine Kurse mehr – der Coin wird mit dem Binance-Kurs bewertet.</string>
     <string name="ledger_exchange_mixed">%1$s: mehrere Börsen eingetragen – mit Binance bewertet. Coins verschoben? Erfasse das als «Umbuchung».</string>
     <string name="ledger_exchange_none">Keine (Binance)</string>
     <string name="ledger_fee">Gebühr (optional)</string>

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Неодамнешни проверки</string>
     <string name="settings_http_log">Прикажи HTTP-дневник</string>
     <string name="settings_http_log_hint">Ги прикажува барањата до берзите на дното од страницата „Додај пар“ – за отстранување проблеми.</string>
+    <string name="settings_retirement_preview">Помести го датумот на гаснење напред</string>
+    <string name="settings_retirement_preview_hint">Ги поместува само часовникот на правилото за гаснење, не часовникот на уредот.</string>
     <string name="settings_live_service">Ажурирај често</string>
     <string name="settings_live_websocket">Цени во живо</string>
 

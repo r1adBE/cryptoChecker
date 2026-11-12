@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Comprobacións recentes</string>
     <string name="settings_http_log">Mostrar rexistro HTTP</string>
     <string name="settings_http_log_hint">Mostra as solicitudes aos exchanges na parte inferior da páxina «Engadir par» – para resolver problemas.</string>
+    <string name="settings_retirement_preview">Adiantar a data de peche</string>
+    <string name="settings_retirement_preview_hint">Só move o reloxo da regra de peche, non o do dispositivo.</string>
     <string name="settings_live_service">Actualizar a miúdo</string>
     <string name="settings_live_websocket">Prezos en directo</string>
 

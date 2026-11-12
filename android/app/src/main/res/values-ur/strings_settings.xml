@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">حالیہ جانچیں</string>
     <string name="settings_http_log">HTTP لاگ دکھائیں</string>
     <string name="settings_http_log_hint">“جوڑا شامل کریں” صفحے کے نیچے ایکسچینجز کو بھیجی گئی درخواستیں دکھاتا ہے – خرابی دور کرنے کے لیے۔</string>
+    <string name="settings_retirement_preview">بندش کی تاریخ پہلے کریں</string>
+    <string name="settings_retirement_preview_hint">صرف ایکسچینج کی بندش کے اصول کی گھڑی بدلتا ہے، ڈیوائس کی گھڑی نہیں۔</string>
     <string name="settings_live_service">کثرت سے اپ ڈیٹ کریں</string>
     <string name="settings_live_websocket">لائیو قیمتیں</string>
 

@@ -238,6 +238,8 @@
     <string name="ledger_exchange">กระดานเทรด (ไม่บังคับ)</string>
     <string name="ledger_exchange_failed">%1$s: ตอนนี้ไม่มีราคาจาก %2$s – ประเมินด้วย Binance</string>
     <string name="ledger_exchange_hint">เหรียญประเมินด้วยราคาของกระดานนี้ (ไม่เช่นนั้น Binance) ประวัติ 7 วัน และ 1 ปี: ราคารายวันของ Binance ปรับสัดส่วนตามนั้น</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ไม่ให้ข้อมูลราคาแล้ว – ประเมินด้วย Binance</string>
+    <string name="ledger_exchange_retired_hint">%1$s ไม่ให้ข้อมูลราคาแล้ว – เหรียญนี้ประเมินด้วยราคาของ Binance</string>
     <string name="ledger_exchange_mixed">%1$s: ระบุหลายกระดานเทรด – ประเมินด้วย Binance ย้ายเหรียญหรือเปล่า? บันทึกเป็น “โอนย้าย”</string>
     <string name="ledger_exchange_none">ไม่มี (Binance)</string>
     <string name="ledger_fee">ค่าธรรมเนียม (ไม่บังคับ)</string>

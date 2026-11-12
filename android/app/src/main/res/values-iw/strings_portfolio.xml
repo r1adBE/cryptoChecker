@@ -244,6 +244,8 @@
     <string name="ledger_exchange">בורסה (רשות)</string>
     <string name="ledger_exchange_failed">%1$s: כרגע אין מחיר מ-%2$s – הוערך לפי Binance.</string>
     <string name="ledger_exchange_hint">המטבע מוערך לפי מחיר הבורסה הזו (אחרת Binance). היסטוריה, 7 י׳ ושנה: מחירים יומיים של Binance, מותאמים.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s כבר לא מספקת מחירים – הוערך לפי Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s כבר לא מספקת מחירים – המטבע מוערך לפי המחיר ב-Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: הוזנו כמה בורסות – הוערך לפי Binance. העברת מטבעות? רשמו זאת כ«העברה».</string>
     <string name="ledger_exchange_none">ללא (Binance)</string>
     <string name="ledger_fee">עמלה (רשות)</string>

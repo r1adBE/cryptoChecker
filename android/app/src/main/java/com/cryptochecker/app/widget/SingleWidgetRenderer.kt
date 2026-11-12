@@ -30,6 +30,7 @@ import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.domain.util.DefaultDispatcher
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
@@ -94,8 +95,9 @@ class SingleWidgetRenderer @Inject constructor(
         val accent = settings.accentColor
         val highContrast = HighContrast.isEffective(context, settings.highContrast)
         widgetPrefs.lastHighContrast = highContrast
-        val watches = watchRepository.getWatches().associateBy { it.id }
         val now = System.currentTimeMillis()
+        // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): ohne Kurs und Veränderung, mit dem Marker als Grund
+        val watches = watchRepository.getWatches().associate { it.id to RetiredWatch.shown(it) }
         val outdatedAfter = WidgetOutdated.afterMillis(settings)
         val changeView = toolkit.changeView(settings.changeBasis, now)
         // Ohne Internet: «Keine Verbindung · Stand 14:05» (letzter Abruf) vor «veraltet» ([WidgetStatusRule])

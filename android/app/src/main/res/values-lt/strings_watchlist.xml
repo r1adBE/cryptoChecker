@@ -294,6 +294,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Uždaryti pranešimą</string>
     <string name="watchlist_missing_logos_explain">Šioms monetoms logotipo nėra. Programėlė rodo jų inicialus.</string>
+    <string name="exchange_retiring_notice">Nuo %2$s %1$s nebeteiks viešų kainų. Šioms monetoms pasirink kitą biržą.</string>
+    <string name="exchange_retiring_reason">Nuo %2$s %1$s nebeteiks kainų</string>
+    <string name="exchange_retired_since">Nuo %2$s %1$s nebeteikia kainų</string>
+    <string name="exchange_retired_alarms">Nuo %2$s %1$s nebeteikia kainų – šios poros įspėjimai nebetikrina nieko</string>
     <string name="exchange_retired_short">%1$s nebeteikia kainų</string>
     <string name="exchange_retired_notice">Nuo %2$s %1$s nebeteikia viešų kainų. Šioms monetoms pasirink kitą biržą.</string>
 </resources>

@@ -161,22 +161,71 @@ extension PortfolioCsvImportSheet {
         choices = next
     }
 
+    /// Zeilen ohne Tageskurs: Ladefehler (nur wo ein neuer Abruf helfen kann), Zeilen, Währungen ohne mögliche Tageskurse
+    /// (eigener Satz statt «Erneut versuchen», `CsvRateRetry`) und der Entscheid (`rateGate`) — wie Android.
+    var rateBlock: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            // Keine gültige Antwort beim Laden — etwas anderes als «kein Kurs für Währung bzw. Tag»
+            if preview.ratesFailed && preview.rateRetry.retryHelps { hint(L("portfolio_csv_import_rates_failed")) }
+            linesHint(preview.missingFx) { L("portfolio_csv_import_missing_fx", $0) }
+            if !preview.rateRetry.currencies.isEmpty {
+                hint(L("portfolio_csv_import_no_rates_for", preview.rateRetry.currencies.joined(separator: ", ")))
+            }
+            rateGate
+        }
+    }
+
     /// Zeilen ohne Tageskurs: Erklärung, «Erneut versuchen» (Kurse neu laden) und der Schalter «Trotzdem importieren» —
     /// erst mit ihm ist «Importieren» frei, die betroffenen Transaktionen bekommen dann einen Vermerk
-    /// (`CsvImportRateGate`). Wie Android `CsvRateGate`.
+    /// (`CsvImportRateGate`). Nur Währungen ohne mögliche Tageskurse: ohne Erklärung und «Erneut versuchen» (das sagt
+    /// der eigene Satz in `rateBlock`). Wie Android `CsvRateGate`.
     var rateGate: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
-            hint(L("portfolio_csv_import_anyway_hint"))
-            Button(L("action_retry")) { reloadRates() }
-                .font(.subheadline)
-                .buttonStyle(.borderless)
-                .appDisabled(rereading)
-                .accessibilityIdentifier(UiTestTags.csvImportReloadRates)
+            if preview.rateRetry.retryHelps {
+                hint(L("portfolio_csv_import_anyway_hint"))
+                Button(L("action_retry")) { reloadRates() }
+                    .font(.subheadline)
+                    .buttonStyle(.borderless)
+                    .appDisabled(rereading)
+                    .accessibilityIdentifier(UiTestTags.csvImportReloadRates)
+            }
             Toggle(L("portfolio_csv_import_anyway"), isOn: $ratesAccepted)
                 .font(.subheadline)
                 .tint(accent.primary)
                 .disabled(rereading)
                 .accessibilityIdentifier(UiTestTags.csvImportAnyway)
+        }
+    }
+
+    /// Warum «Importieren» aus ist (leer = nicht aus diesen Gründen): Zeilen ohne Tageskurs unentschieden, Auszahlungen
+    /// ohne Wahl — wie Android `BlockedReason` unter dem Knopf.
+    func blockedTexts(_ txs: [CsvImportTx], total: Int) -> [String] {
+        guard !rereading, total > 0 else { return [] }
+        var texts: [String] = []
+        if !CsvImportRateGate.canImport(missingFx: preview.missingFx.count, accepted: ratesAccepted) {
+            texts.append(L("portfolio_csv_import_blocked_rates"))
+        }
+        if !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices) {
+            texts.append(L("portfolio_csv_import_choose_each"))
+        }
+        return texts
+    }
+
+    /// Gründe aus `blockedTexts` als Leiste unten im Blatt (der Knopf steht oben rechts in der Kopfleiste).
+    @ViewBuilder
+    func blockedReasons(_ txs: [CsvImportTx], total: Int) -> some View {
+        let texts = blockedTexts(txs, total: total)
+        if !texts.isEmpty {
+            VStack(alignment: .trailing, spacing: Spacing.xs) {
+                ForEach(texts, id: \.self) { Text($0) }
+            }
+            .font(.footnote)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .multilineTextAlignment(.trailing)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.horizontal, Spacing.lg)
+            .padding(.vertical, Spacing.sm)
+            .background(AppColors.background)
         }
     }
 

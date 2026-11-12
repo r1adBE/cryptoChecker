@@ -207,10 +207,13 @@ extension PriceRefresher {
             outcome.pausedIds.insert(watch.id)
             return
         }
-        outcome.checked += 1
+        // Nicht gehandelt bzw. Börse stillgelegt: ein Zustand, kein Abruf — weder «geprüft» noch «fehlgeschlagen»
+        // (sonst kippten «Zuletzt geprüft», Widget-Kopf und «Letzte Prüfungen»); wie Android
+        let notTraded = result?.notTraded == true
+        if notTraded { outcome.notTraded += 1 } else { outcome.checked += 1 }
         // NaN/∞ nie als Kurs übernehmen — wie PriceRefresher.kt
         guard let ticker = result?.ticker, result?.error == nil, ticker.last.isFinite, ticker.last > 0 else {
-            outcome.failed += 1
+            if !notTraded { outcome.failed += 1 }
             outcome.prices[watch.id] = PriceUpdate(price: nil, time: run.now, error: result?.error, pair: watch.identity)
             cancelIds.append(watch.id)
             // Alarm-Protokoll: «Kein Kurs» als letzte Prüfung der Alarme dieses Paars

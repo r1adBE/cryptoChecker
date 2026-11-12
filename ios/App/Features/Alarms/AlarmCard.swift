@@ -15,7 +15,9 @@ struct AlarmCard: View {
     /// Name der stillgelegten Börse für `.exchangeRetired` («Bitpanda liefert keine Kurse mehr»).
     var retiredExchange: String? = nil
     let onToggle: (Bool) -> Void
-    let onEdit: () -> Void
+    /// Antippen = bearbeiten; nil = Bearbeiten gesperrt (stillgelegte Börse, Referenzkurs, DEX zu dünn): keine Tipp-Aktion,
+    /// kein «Bearbeiten» im Menü und für VoiceOver keine Taste ohne Wirkung. Wie Android.
+    let onEdit: (() -> Void)?
     let onDelete: () -> Void
     @Environment(\.appAccent) private var accent
 
@@ -27,11 +29,11 @@ struct AlarmCard: View {
                 .padding(.trailing, Spacing.sm)
                 .padding(.vertical, 12)
                 .contentShape(Rectangle())
-                .onTapGesture(perform: onEdit)
+                .onTapGesture { onEdit?() }
                 // VoiceOver: ein Element mit allen Angaben (inkl. Ton, Ansage, Wiederholung)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(a11yLabel)
-                .accessibilityAddTraits(.isButton)
+                .accessibilityAddTraits(onEdit == nil ? [] : .isButton)
                 .accessibilityIdentifier(UiTestTags.alarmCard)
                 .accessibilityAction(named: Text(L("action_delete")), onDelete)
                 // «Mitteilungen aus»: Einstellungen öffnen wie beim Antippen der Statuszeile
@@ -53,7 +55,7 @@ struct AlarmCard: View {
         .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.large, style: .continuous))
         .contentShape(RoundedRectangle(cornerRadius: Radius.large, style: .continuous))
         .contextMenu {
-            Button(action: onEdit) { Label(L("action_edit"), systemImage: "pencil") }
+            if let onEdit { Button(action: onEdit) { Label(L("action_edit"), systemImage: "pencil") } }
             Button(role: .destructive, action: onDelete) { Label(L("action_delete"), systemImage: "trash") }
         }
         .animation(.easeInOut(duration: 0.2), value: alarm.enabled)

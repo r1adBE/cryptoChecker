@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ልውውጥ (አማራጭ)</string>
     <string name="ledger_exchange_failed">%1$s፦ ከ%2$s አሁን ዋጋ የለም – በBinance ተገምግሟል።</string>
     <string name="ledger_exchange_hint">ሳንቲሙ በዚህ ልውውጥ ዋጋ ይገመገማል (አለበለዚያ Binance)። ታሪክ፣ 7 ቀ እና 1 ዓ ወደሱ የተመጣጠኑ የBinance ዕለታዊ ዋጋዎችን ይጠቀማሉ።</string>
+    <string name="ledger_exchange_retired">%1$s፦ %2$s ከእንግዲህ ዋጋዎችን አያቀርብም – በBinance ተገምግሟል።</string>
+    <string name="ledger_exchange_retired_hint">%1$s ከእንግዲህ ዋጋዎችን አያቀርብም – ሳንቲሙ በBinance ዋጋ ይገመገማል።</string>
     <string name="ledger_exchange_mixed">%1$s፦ ብዙ ልውውጦች ገብተዋል – በBinance ተገምግሟል። ሳንቲሞችን አንቀሳቅሰዋል? እንቅስቃሴውን እንደ «ዝውውር» ይመዝግቡ።</string>
     <string name="ledger_exchange_none">ምንም (Binance)</string>
     <string name="ledger_fee">ክፍያ (አማራጭ)</string>

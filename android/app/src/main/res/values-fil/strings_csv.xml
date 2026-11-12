@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Binabasa ang file at mga daily rate…</string>
     <string name="portfolio_csv_import_progress">Linya %1$s sa %2$s</string>
     <string name="portfolio_csv_import_saving">Sine-save ang mga transaksyon…</string>
-    <string name="portfolio_csv_import_missing_fx">Walang daily rate para sa mga linya %1$s – na-import nang walang presyo/fee.</string>
+    <string name="portfolio_csv_import_missing_fx">Walang daily rate para sa mga linya %1$s – kulang ang presyo/fee.</string>
     <string name="portfolio_csv_import_missing_price">Walang presyo sa file para sa mga linya %1$s – na-import nang walang presyo.</string>
     <string name="portfolio_csv_import_fee_in_price">Dalawang bayarin sa mga linya %1$s: kasama sa presyo ang fiat na bayarin, at binabawasan ng bayarin sa coin ang natanggap o dinadagdagan ang ibinigay na halaga.</string>
     <string name="portfolio_csv_import_pending_differs">Mga linya %1$s: magkaiba ang halaga ng pending at naka-book na entry ng iisang deposito o withdrawal – parehong na-import, tingnan ang mga hawak.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Kapag walang daily rate, permanenteng mawawala ang presyo o fee. Subukan ulit, o i-import pa rin – magkakaroon ng tala ang mga transaksyong iyon.</string>
     <string name="portfolio_csv_note_price_no_rate">Presyo na walang daily rate</string>
     <string name="portfolio_csv_note_fee_no_rate">Fee na walang daily rate</string>
+    <string name="portfolio_csv_import_no_rates_for">Walang daily rate para sa %1$s, kaya hindi makakatulong ang pagsubok ulit. Kung i-import mo pa rin, magkakaroon ng tala ang mga transaksyong iyon.</string>
+    <string name="portfolio_csv_import_blocked_rates">Magpasya muna sa itaas tungkol sa mga linyang walang daily rate.</string>
 </resources>

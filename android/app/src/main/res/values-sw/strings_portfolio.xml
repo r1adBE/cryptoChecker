@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Jukwaa (si lazima)</string>
     <string name="ledger_exchange_failed">%1$s: hakuna bei kutoka %2$s sasa hivi – imethaminiwa kwa Binance.</string>
     <string name="ledger_exchange_hint">Sarafu inathaminiwa kwa bei ya jukwaa hili (vinginevyo Binance). Historia, Siku 7 na Mwaka 1 zinatumia bei za kila siku za Binance zilizolinganishwa nayo.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s haitoi tena bei – imethaminiwa kwa Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s haitoi tena bei – sarafu inathaminiwa kwa bei ya Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: majukwaa kadhaa yamewekwa – imethaminiwa kwa Binance. Umehamisha sarafu? Rekodi uhamisho kama “Uhamisho”.</string>
     <string name="ledger_exchange_none">Hakuna (Binance)</string>
     <string name="ledger_fee">Ada (si lazima)</string>

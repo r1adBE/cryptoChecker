@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Po lexohen skedari dhe kurset ditore…</string>
     <string name="portfolio_csv_import_progress">Rreshti %1$s nga %2$s</string>
     <string name="portfolio_csv_import_saving">Po ruhen transaksionet…</string>
-    <string name="portfolio_csv_import_missing_fx">Asnjë kurs ditor për rreshtin %1$s – u importua pa çmim e tarifë.</string>
+    <string name="portfolio_csv_import_missing_fx">Asnjë kurs ditor për rreshtin %1$s – mungojnë çmimi e tarifa.</string>
     <string name="portfolio_csv_import_missing_price">Asnjë çmim në skedar për rreshtin %1$s – u importua pa çmim.</string>
     <string name="portfolio_csv_import_fee_in_price">Dy tarifa në rreshtin %1$s: tarifa në fiat përfshihet në çmim, tarifa në monedhë ul sasinë e marrë ose rrit sasinë e dhënë.</string>
     <string name="portfolio_csv_import_pending_differs">Rreshti %1$s: regjistrimi në pritje dhe ai i kontabilizuar i së njëjtës depozitë ose tërheqjeje kanë sasi të ndryshme – të dyja u importuan, kontrollo gjendjen.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Pa kurs ditor, çmimi ose tarifa mungojnë përgjithmonë. Riprovo ose importo gjithsesi – ato transaksione marrin atëherë një shënim.</string>
     <string name="portfolio_csv_note_price_no_rate">Çmim pa kurs ditor</string>
     <string name="portfolio_csv_note_fee_no_rate">Tarifë pa kurs ditor</string>
+    <string name="portfolio_csv_import_no_rates_for">Për %1$s nuk ka kurse ditore, ndaj riprovimi nuk ndihmon. Nëse importon gjithsesi, ato transaksione marrin një shënim.</string>
+    <string name="portfolio_csv_import_blocked_rates">Vendos fillimisht më lart për rreshtat pa kurs ditor.</string>
 </resources>

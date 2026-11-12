@@ -64,6 +64,8 @@ fun AlarmsOverviewScreen(
     onOpenDelivery: () -> Unit = {},
     /** Leere Merkliste: «Paar hinzufügen» (Seite «Paar hinzufügen», wie «+» der Merkliste). */
     onAddPair: () -> Unit = {},
+    /** Tipp auf die Mitteilung eines Portfolio-Alarms: dieser Alarm hervorgehoben (0 = keiner). */
+    highlightPortfolioAlarmId: Long = 0L,
     viewModel: AlarmsOverviewViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
@@ -202,7 +204,8 @@ fun AlarmsOverviewScreen(
                             pausedHint = portfolioPause?.let { PortfolioPauseText.text(context, it, hideCoins = hidePortfolio) },
                             sentence = { PortfolioAlarmTexts.sentence(context, it, portfolioDisplay.second, hidePortfolio) },
                             onToggle = viewModel::setPortfolioAlarmEnabled,
-                            onDelete = { askDeletePortfolio = it }
+                            onDelete = { askDeletePortfolio = it },
+                            highlightId = highlightPortfolioAlarmId,
                         )
                     }
                 }

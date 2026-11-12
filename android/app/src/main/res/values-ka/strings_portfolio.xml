@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ბირჟა (სურვილისამებრ)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s-დან ახლა ფასი არ არის – შეფასებულია Binance-ით.</string>
     <string name="ledger_exchange_hint">მონეტა ამ ბირჟის ფასით ფასდება (სხვა შემთხვევაში Binance). ისტორია, 7 დ და 1 წ იყენებს Binance-ის დღიურ ფასებს, მასზე მასშტაბირებულს.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ფასებს აღარ აწვდის – შეფასებულია Binance-ით.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ფასებს აღარ აწვდის – მონეტა ფასდება Binance-ის ფასით.</string>
     <string name="ledger_exchange_mixed">%1$s: შეყვანილია რამდენიმე ბირჟა – შეფასებულია Binance-ით. მონეტები გადაიტანე? აღრიცხე გადატანა როგორც «გადარიცხვა».</string>
     <string name="ledger_exchange_none">არცერთი (Binance)</string>
     <string name="ledger_fee">საკომისიო (სურვილისამებრ)</string>

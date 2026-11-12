@@ -11,7 +11,7 @@ import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
-import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -137,15 +137,17 @@ class PhoneWatchFeed @Inject constructor(
             if (settings.source == WatchSettings.Source.SELF) return null
             val rows = watches.map {
                 val contract = watchContract(it)
+                // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): kein alter Kurs an die Uhr, sie zeigt «—»
+                // mit Grund — auch bei deaktivierten Paaren
+                val retired = RetiredWatch.exchangeOf(it) != null
                 WatchPhoneQuotes.Row(
                     base = it.baseAsset,
                     quote = it.quoteAsset,
                     // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
                     spot = it.contractType == FuturesContractType.NONE && contract.isEmpty(),
                     disabled = it.disabled,
-                    // Börse stillgelegt (ExchangeRetirement): kein alter Kurs an die Uhr, sie zeigt «—» mit Grund
-                    price = if (ExchangeRetirement.isMarker(it.lastError)) null else it.lastPrice,
-                    change24h = it.change24h,
+                    price = if (retired) null else it.lastPrice,
+                    change24h = if (retired) null else it.change24h,
                     exchange = it.exchangeName,
                     time = it.lastUpdate,
                     sortOrder = it.sortOrder,

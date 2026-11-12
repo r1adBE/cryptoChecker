@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Kauphöll (valfrjálst)</string>
     <string name="ledger_exchange_failed">%1$s: ekkert verð frá %2$s núna – metið með Binance.</string>
     <string name="ledger_exchange_hint">Myntin er metin á verði þessarar kauphallar (annars Binance). Saga, 7 D og 1 Á nota dagsverð Binance kvörðuð að því.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s veitir ekki lengur verð – metið með Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s veitir ekki lengur verð – myntin er metin á verði Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: nokkrar kauphallir skráðar – metið með Binance. Fluttirðu myntir? Skráðu tilfærsluna sem „Millifærsla“.</string>
     <string name="ledger_exchange_none">Engin (Binance)</string>
     <string name="ledger_fee">Gjald (valfrjálst)</string>

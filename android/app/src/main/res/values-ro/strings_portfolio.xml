@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Bursă (opțional)</string>
     <string name="ledger_exchange_failed">%1$s: acum niciun preț de la %2$s – evaluat cu Binance.</string>
     <string name="ledger_exchange_hint">Moneda este evaluată la prețul acestei burse (altfel Binance). Istoric, 7 Z și 1 A: prețuri zilnice Binance, scalate.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s nu mai furnizează prețuri – evaluat cu Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s nu mai furnizează prețuri – moneda este evaluată la prețul Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: mai multe burse introduse – evaluat cu Binance. Ai mutat monede? Înregistrează mutarea ca „Transfer”.</string>
     <string name="ledger_exchange_none">Niciuna (Binance)</string>
     <string name="ledger_fee">Comision (opțional)</string>

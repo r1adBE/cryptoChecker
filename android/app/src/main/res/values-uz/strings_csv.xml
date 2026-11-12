@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Fayl va kunlik kurslar oʻqilmoqda…</string>
     <string name="portfolio_csv_import_progress">%2$s qatordan %1$s-qator</string>
     <string name="portfolio_csv_import_saving">Tranzaksiyalar saqlanmoqda…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s qatorlar uchun kunlik kurs yoʻq – narx/komissiyasiz import qilindi.</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s qatorlar uchun kunlik kurs yoʻq – narx/komissiya yoʻq.</string>
     <string name="portfolio_csv_import_missing_price">Faylda %1$s qatorlar uchun narx yoʻq – narxsiz import qilindi.</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s qatorlarda ikkita komissiya: fiat komissiyasi narxga kiritilgan, tangadagi komissiya olingan miqdorni kamaytiradi yoki berilgan miqdorni oshiradi.</string>
     <string name="portfolio_csv_import_pending_differs">%1$s qatorlar: bir xil depozit yoki yechib olishning kutilayotgan va qayd etilgan yozuvlari miqdori har xil – ikkalasi ham import qilindi, aktivlarni tekshiring.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Kunlik kurssiz narx yoki komissiya butunlay yetishmay qoladi. Qayta urinib koʻring yoki baribir import qiling – oʻsha tranzaksiyalarga izoh qoʻshiladi.</string>
     <string name="portfolio_csv_note_price_no_rate">Kunlik kurssiz narx</string>
     <string name="portfolio_csv_note_fee_no_rate">Kunlik kurssiz komissiya</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s uchun kunlik kurslar yoʻq, shuning uchun qayta urinish yordam bermaydi. Baribir import qilsangiz, oʻsha tranzaksiyalarga izoh qoʻshiladi.</string>
+    <string name="portfolio_csv_import_blocked_rates">Avval yuqorida kunlik kursi yoʻq qatorlar boʻyicha qaror qiling.</string>
 </resources>

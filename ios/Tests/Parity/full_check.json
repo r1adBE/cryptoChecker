@@ -1,5 +1,5 @@
 {
- "description": "When a check counts as «checked with all alarms» (Android BackgroundSchedule.kt, iOS BackgroundSchedule.swift; stored as Android RefreshStats.lastFullCheck, iOS SharedStorage.lastAlarmCheckAt – the dedupe lock of the next scheduled run and the line «last checked» read it). isFullCheck: all queryable pairs attempted and MORE than half with a price (attempted > 0, 0 <= failed < attempted, (attempted - failed) * 2 > attempted); live ticks and partial runs do not count. marksAlarmCheck: the time is set only for a full check, and if alarms with extra data wait for a later step (deferredWaiting: volume, funding/OI, high/low, converted – the iOS background task; Android evaluates every alarm kind in one step, so false there) only once they were checked too (deferredChecked); otherwise the old value stays.",
+ "description": "When a check counts as «checked with all alarms» (Android BackgroundSchedule.kt, iOS BackgroundSchedule.swift; stored as Android RefreshStats.lastFullCheck, iOS SharedStorage.lastAlarmCheckAt – the dedupe lock of the next scheduled run and the line «last checked» read it). isFullCheck: all queryable pairs attempted and MORE than half with a price (attempted > 0, 0 <= failed < attempted, (attempted - failed) * 2 > attempted); live ticks and partial runs do not count. Pairs that are no longer traded or belong to a retired exchange (notTraded, default 0) count neither as attempted nor as failed; if ALL pairs are such (attempted 0, notTraded > 0) the run is full (portfolio, gas and depeg alarms were checked) – Android RefreshResultProcessor, iOS PriceRefresher.evaluate; CheckRunLog.result and allFailed then see attempted/failed without them. refreshed: does the run set the refresh time (widget header, iOS markFullRefresh) – at least one price, or all pairs not traded. marksAlarmCheck: the time is set only for a full check, and if alarms with extra data wait for a later step (deferredWaiting: volume, funding/OI, high/low, converted – the iOS background task; Android evaluates every alarm kind in one step, so false there) only once they were checked too (deferredChecked); otherwise the old value stays.",
  "isFullCheck": [
   {"attempted": 0, "failed": 0, "expected": false},
   {"attempted": 1, "failed": 0, "expected": true},
@@ -17,7 +17,19 @@
   {"attempted": 100, "failed": 50, "expected": false},
   {"attempted": 3, "failed": -1, "expected": false},
   {"attempted": 3, "failed": 4, "expected": false},
-  {"attempted": -1, "failed": 0, "expected": false}
+  {"attempted": -1, "failed": 0, "expected": false},
+  {"name": "alle Paare stillgelegt, Portfolio-Alarm aktiv", "attempted": 0, "failed": 0, "notTraded": 3, "expected": true},
+  {"name": "Hälfte stillgelegt, übrige mit Kurs", "attempted": 2, "failed": 0, "notTraded": 2, "expected": true},
+  {"name": "stillgelegte zählen nicht als gescheitert", "attempted": 3, "failed": 1, "notTraded": 10, "expected": true},
+  {"name": "übrige ohne Kurs", "attempted": 2, "failed": 2, "notTraded": 5, "expected": false},
+  {"name": "nichts zu prüfen", "attempted": 0, "failed": 0, "notTraded": 0, "expected": false}
+ ],
+ "refreshed": [
+  {"attempted": 0, "failed": 0, "notTraded": 0, "expected": false},
+  {"attempted": 3, "failed": 2, "notTraded": 0, "expected": true},
+  {"attempted": 3, "failed": 3, "notTraded": 0, "expected": false},
+  {"name": "alle Paare stillgelegt", "attempted": 0, "failed": 0, "notTraded": 4, "expected": true},
+  {"name": "übrige alle ohne Kurs", "attempted": 2, "failed": 2, "notTraded": 4, "expected": false}
  ],
  "marksAlarmCheck": [
   {"fullCheck": true, "deferredWaiting": false, "deferredChecked": false, "expected": true},

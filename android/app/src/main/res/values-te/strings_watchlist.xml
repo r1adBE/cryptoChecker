@@ -260,6 +260,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">నోటీసును మూసివేయండి</string>
     <string name="watchlist_missing_logos_explain">ఈ కాయిన్‌లకు లోగో అందుబాటులో లేదు. యాప్ వాటి మొదటి అక్షరాలను చూపుతుంది.</string>
+    <string name="exchange_retiring_notice">%2$s నుండి %1$s పబ్లిక్ ధరలను అందించదు. ఈ కాయిన్‌ల కోసం వేరే ఎక్స్ఛేంజ్‌ను ఎంచుకోండి.</string>
+    <string name="exchange_retiring_reason">%2$s నుండి %1$s ధరలను అందించదు</string>
+    <string name="exchange_retired_since">%2$s నుండి %1$s ఇకపై ధరలను అందించడం లేదు</string>
+    <string name="exchange_retired_alarms">%2$s నుండి %1$s ఇకపై ధరలను అందించడం లేదు – ఈ జతకు చెందిన అలర్ట్‌లు ఇకపై ఏమీ తనిఖీ చేయవు</string>
     <string name="exchange_retired_short">%1$s ఇకపై ధరలను అందించదు</string>
     <string name="exchange_retired_notice">%2$s నుండి %1$s పబ్లిక్ ధరలను అందించదు. ఈ కాయిన్‌ల కోసం వేరే ఎక్స్ఛేంజ్‌ను ఎంచుకోండి.</string>
 </resources>

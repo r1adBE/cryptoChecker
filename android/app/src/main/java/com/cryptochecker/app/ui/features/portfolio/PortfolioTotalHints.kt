@@ -164,9 +164,15 @@ internal fun totalHintItems(
     if (periodSkipped.isNotEmpty()) {
         add(TotalHintItem(stringResource(R.string.ledger_period_without, periodSkipped.joinToString(", "))))
     }
-    // Eingetragene Börse ohne Kurs bzw. mehrere Börsen bei einem Coin: mit Binance bewertet
+    // Eingetragene Börse ohne Kurs bzw. mehrere Börsen bei einem Coin: mit Binance bewertet; stillgelegte Börse
+    // (ExchangeRetirement) mit ihrem Grund statt «gerade kein Kurs»
     exchangeFailed.entries.groupBy({ it.value }, { it.key }).toSortedMap(String.CASE_INSENSITIVE_ORDER).forEach { (exchange, coins) ->
-        add(TotalHintItem(stringResource(R.string.ledger_exchange_failed, coins.sorted().joinToString(", "), exchange)))
+        val text = if (com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(exchange)) {
+            R.string.ledger_exchange_retired
+        } else {
+            R.string.ledger_exchange_failed
+        }
+        add(TotalHintItem(stringResource(text, coins.sorted().joinToString(", "), exchange)))
     }
     if (mixedExchange.isNotEmpty()) {
         add(TotalHintItem(stringResource(R.string.ledger_exchange_mixed, mixedExchange.sorted().joinToString(", "))))

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Dosya ve günlük kurlar okunuyor…</string>
     <string name="portfolio_csv_import_progress">Satır %1$s / %2$s</string>
     <string name="portfolio_csv_import_saving">İşlemler kaydediliyor…</string>
-    <string name="portfolio_csv_import_missing_fx">Günlük kur yok (satır %1$s) – fiyat ve ücret olmadan aktarıldı.</string>
+    <string name="portfolio_csv_import_missing_fx">Günlük kur yok (satır %1$s) – fiyat ve ücret eksik.</string>
     <string name="portfolio_csv_import_missing_price">Dosyada fiyat yok (satır %1$s) – fiyatsız aktarıldı.</string>
     <string name="portfolio_csv_import_fee_in_price">İki ücret (satır %1$s): fiat ücreti fiyata dahil, coin cinsinden ücret alınan miktarı azaltır veya verilen miktarı artırır.</string>
     <string name="portfolio_csv_import_pending_differs">Satır %1$s: aynı yatırma veya çekme işleminin bekleyen ve kaydedilen kayıtlarının miktarı farklı – ikisi de aktarıldı, bakiyeyi kontrol et.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Günlük kur olmadan fiyat veya ücret kalıcı olarak eksik kalır. Yeniden dene veya yine de içe aktar – bu işlemlere o zaman bir not eklenir.</string>
     <string name="portfolio_csv_note_price_no_rate">Günlük kur olmadan fiyat</string>
     <string name="portfolio_csv_note_fee_no_rate">Günlük kur olmadan ücret</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s için günlük kur yok, bu yüzden yeniden denemek işe yaramaz. Yine de içe aktarırsan bu işlemlere bir not eklenir.</string>
+    <string name="portfolio_csv_import_blocked_rates">Önce yukarıda günlük kuru olmayan satırlar için karar ver.</string>
 </resources>

@@ -79,6 +79,8 @@
     <string name="settings_check_runs_title">Seiceálacha le déanaí</string>
     <string name="settings_http_log">Taispeáin logáil HTTP</string>
     <string name="settings_http_log_hint">Taispeánann sé na hiarratais chuig na malartáin ag bun an leathanaigh “Cuir péire leis” – le haghaidh fabhtcheartaithe.</string>
+    <string name="settings_retirement_preview">Tabhair dáta an scoir chun tosaigh</string>
+    <string name="settings_retirement_preview_hint">Ní bhogann sé ach clog riail an scoir, ní clog an ghléis.</string>
     <string name="settings_live_service">Nuashonraigh go minic</string>
     <string name="settings_live_websocket">Praghsanna beo</string>
 

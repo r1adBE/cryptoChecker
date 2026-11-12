@@ -56,7 +56,10 @@ extension PortfolioTotalCard {
         let failedExchanges: [String] = Array(Set(exchangeFailed.values)).sorted { $0.lowercased() < $1.lowercased() }
         for exchange in failedExchanges {
             let coins: [String] = exchangeFailed.filter { $0.value == exchange }.map(\.key).sorted()
-            items.append(HintItem(text: L("ledger_exchange_failed", coins.joined(separator: ", "), exchange)))
+            // Stillgelegte Börse (`ExchangeRetirement`): ihr Grund statt «gerade kein Kurs» — wie Android
+            let list = coins.joined(separator: ", ")
+            items.append(HintItem(text: ExchangeRetirement.isRetired(exchange)
+                                  ? L("ledger_exchange_retired", list, exchange) : L("ledger_exchange_failed", list, exchange)))
         }
         if !mixedExchange.isEmpty {
             items.append(HintItem(text: L("ledger_exchange_mixed", mixedExchange.sorted().joined(separator: ", "))))

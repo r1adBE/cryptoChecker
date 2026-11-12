@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">फ़ाइल और दैनिक भाव पढ़े जा रहे हैं…</string>
     <string name="portfolio_csv_import_progress">पंक्ति %1$s / %2$s</string>
     <string name="portfolio_csv_import_saving">लेन-देन सहेजे जा रहे हैं…</string>
-    <string name="portfolio_csv_import_missing_fx">पंक्ति %1$s के लिए दैनिक भाव नहीं – बिना भाव/शुल्क के आयात किया गया।</string>
+    <string name="portfolio_csv_import_missing_fx">पंक्ति %1$s के लिए दैनिक भाव नहीं – कीमत/शुल्क छूटे हुए हैं।</string>
     <string name="portfolio_csv_import_missing_price">फ़ाइल में पंक्ति %1$s का भाव नहीं – बिना भाव के आयात किया गया।</string>
     <string name="portfolio_csv_import_fee_in_price">पंक्ति %1$s में दो शुल्क: फ़िएट शुल्क भाव में शामिल है, कॉइन वाला शुल्क मिली मात्रा घटाता है या दी गई मात्रा बढ़ाता है।</string>
     <string name="portfolio_csv_import_pending_differs">पंक्ति %1$s: एक ही जमा या निकासी की लंबित और दर्ज प्रविष्टि की मात्रा अलग है – दोनों आयात की गईं, शेष जाँचें।</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">दैनिक भाव के बिना कीमत या शुल्क स्थायी रूप से छूट जाता है। फिर से कोशिश करें, या फिर भी आयात करें – तब उन लेन-देन में एक नोट जुड़ेगा।</string>
     <string name="portfolio_csv_note_price_no_rate">दैनिक भाव के बिना कीमत</string>
     <string name="portfolio_csv_note_fee_no_rate">दैनिक भाव के बिना शुल्क</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s के लिए दैनिक भाव उपलब्ध नहीं हैं, इसलिए फिर से कोशिश करने से मदद नहीं मिलेगी। फिर भी आयात करें, तो उन लेन-देन में एक नोट जुड़ेगा।</string>
+    <string name="portfolio_csv_import_blocked_rates">पहले ऊपर बिना दैनिक भाव वाली पंक्तियों के बारे में तय करें।</string>
 </resources>

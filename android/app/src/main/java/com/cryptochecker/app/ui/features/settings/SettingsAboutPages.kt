@@ -213,6 +213,36 @@ internal fun DeveloperPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     onCheckedChange = viewModel::setShowHttpLog
                 )
             }
+            RetirementPreviewRow()
         }
+    }
+}
+
+/**
+ * «Stichtag vorziehen» ([RetirementPreview]): Tippen wechselt aus → 1. Januar 2027 (Ankündigung) → 1. Februar 2027
+ * (Stichtag) → aus; die Uhr der Stilllegungs-Regel springt sofort, nicht die des Geräts.
+ */
+@Composable
+private fun RetirementPreviewRow() {
+    val context = LocalContext.current
+    var step by remember { mutableStateOf(RetirementPreview.current(context)) }
+    val locale = com.cryptochecker.app.ui.features.watchlist.appLocale()
+    val value = step.target?.let { target ->
+        java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG, locale)
+            .apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }
+            .format(java.util.Date(target))
+    } ?: onOff(false)
+    Column {
+        SettingsNavRow(
+            title = stringResource(R.string.settings_retirement_preview),
+            value = value,
+            onClick = { step = RetirementPreview.next(context) },
+        )
+        Text(
+            stringResource(R.string.settings_retirement_preview_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp),
+        )
     }
 }

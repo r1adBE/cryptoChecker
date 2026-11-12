@@ -292,14 +292,15 @@ enum Notifier {
 
     /// Alarm «Portfolio-Wert» — wie `AppNotifier.showPortfolioAlarm`: gleicher Ton wie Kursalarme
     /// («Alarm-Signal»; in der Nachtruhe löst der Alarm gar nicht aus, lautlos nur als Rückfall an
-    /// der Grenze); Tipp öffnet den Portfolio-Tab. «Beträge verbergen» gilt auch hier.
+    /// der Grenze); Tipp öffnet «Alle Alarme» mit diesem Alarm hervorgehoben (`PortfolioAlarmTarget`; das Alarm-Protokoll
+    /// führt nur Paar-Alarme). «Beträge verbergen» gilt auch hier.
     /// Immer neutral (Entscheid des Inhabers): iOS erkennt nicht, ob die Mitteilung auf dem Sperrbildschirm steht, und mit
     /// «Vorschau: Immer» wäre dort der ganze Text sichtbar. Deshalb unabhängig von Portfolio-Sperre und Vorschau-Einstellung
     /// nur Titel und neutraler Satz (`PortfolioAlarmNotice`), weder Betrag, Schwelle noch Prozent; Kategorie
     /// `categoryPortfolioLocked`. Die Einzelheiten zeigt die App (Alarmliste/Protokoll). Kursalarme unverändert.
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
     static func showPortfolioAlarm(_ alarm: PortfolioAlarm, settings: AppSettings) async -> Bool {
-        let content = PortfolioAlarmNotice.content()
+        let content = PortfolioAlarmNotice.content(alarmId: alarm.id)
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
         content.interruptionLevel = .timeSensitive
         applyQuietHours(content, settings)
@@ -339,13 +340,14 @@ enum Notifier {
 /// Inhalt eines Portfolio-Alarms (rein, testbar): immer nur Titel und neutraler Satz — nie Betrag, Schwelle oder Prozent,
 /// auch ohne Portfolio-Sperre (iOS kann den Sperrbildschirm nicht erkennen). Android gleich (`PortfolioAlarmNotice.kt`).
 enum PortfolioAlarmNotice {
-    static func content() -> UNMutableNotificationContent {
+    /// `alarmId` steht nur im Ziel des Tipps (`PortfolioAlarmTarget`), nie im sichtbaren Text.
+    static func content(alarmId: Int64) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = L("notification_portfolio_alarm_title")
         content.body = L("notification_portfolio_alarm_locked")
         content.categoryIdentifier = Notifier.categoryPortfolioLocked
         content.threadIdentifier = "alarms"
-        content.userInfo = ["open": "portfolio"]
+        content.userInfo = ["open": PortfolioAlarmTarget.of(alarmId)]
         return content
     }
 }

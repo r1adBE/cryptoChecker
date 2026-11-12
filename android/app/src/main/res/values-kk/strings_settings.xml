@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Соңғы тексерулер</string>
     <string name="settings_http_log">HTTP журналын көрсету</string>
     <string name="settings_http_log_hint">Биржаларға жіберілген сұрауларды «Жұп қосу» бетінің төменгі жағында көрсетеді – ақауларды іздеу үшін.</string>
+    <string name="settings_retirement_preview">Жабылу күнін ерте қою</string>
+    <string name="settings_retirement_preview_hint">Тек жабылу ережесінің сағатын жылжытады, құрылғының сағатын емес.</string>
     <string name="settings_live_service">Жиі жаңарту</string>
     <string name="settings_live_websocket">Тікелей бағамдар</string>
 

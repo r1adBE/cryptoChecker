@@ -9,6 +9,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
+import com.cryptochecker.app.domain.watch.RetiredWatch
+import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
 import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -81,6 +83,8 @@ suspend fun PortfolioPriceSource.watchPairPrices(coins: List<String>): Map<Strin
             lastUpdate = w.lastUpdate,
             // Voller Name aus der Paarliste der Börse (gleicher Token)
             name = tokenIdentityStore.pairName(w.exchangeKey, w.baseAsset),
+            // Nicht gehandelt bzw. Börse stillgelegt (Marker oder Ende erreicht): liefert keinen Kurs
+            notTraded = w.isNotTraded || RetiredWatch.exchangeOf(w) != null,
         )
     }
     val names = watches.associate { it.exchangeKey to it.exchangeName }

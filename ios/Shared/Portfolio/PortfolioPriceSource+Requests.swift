@@ -16,7 +16,9 @@ extension PortfolioPriceSource {
             PortfolioWatchPair.Candidate(exchangeKey: w.exchangeKey, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId,
                                          spot: w.contractType == .none, disabled: w.disabled, lastUpdate: w.lastUpdate,
                                          // Voller Name aus der Paarliste der Börse (gleicher Token)
-                                         name: names.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset))
+                                         name: names.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset),
+                                         // Nicht gehandelt bzw. Börse stillgelegt (Marker oder Ende erreicht): kein Kurs
+                                         notTraded: w.isNotTraded || w.retiredExchange() != nil)
         }
         var picks: [(String, PortfolioWatchPair.Candidate)] = []
         for coin in coins {

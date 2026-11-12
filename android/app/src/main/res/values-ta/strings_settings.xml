@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">சமீபத்திய சரிபார்ப்புகள்</string>
     <string name="settings_http_log">HTTP பதிவைக் காட்டவும்</string>
     <string name="settings_http_log_hint">“ஜோடியைச் சேர்க்கவும்” பக்கத்தின் கீழே எக்ஸ்சேஞ்ச்களுக்கான கோரிக்கைகளைக் காட்டும் – சிக்கல் தீர்ப்பதற்காக.</string>
+    <string name="settings_retirement_preview">மூடும் தேதியை முன்னதாக்கவும்</string>
+    <string name="settings_retirement_preview_hint">எக்ஸ்சேஞ்ச் மூடும் விதியின் கடிகாரத்தை மட்டும் நகர்த்துகிறது, சாதனத்தின் கடிகாரத்தை அல்ல.</string>
     <string name="settings_live_service">அடிக்கடி புதுப்பிக்கவும்</string>
     <string name="settings_live_websocket">நேரலை விலைகள்</string>
 

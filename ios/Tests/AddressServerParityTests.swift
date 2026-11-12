@@ -62,27 +62,33 @@ final class AddressServerParityTests: XCTestCase {
             // Hinweis in der Wiederherstellungsmeldung (wie Android)
             let note = BackupRestorePolicy.addressServerNote(value: value, current: current, trusted: trusted)
             XCTAssertEqual(note?.rawValue, c["note"] as? String, "\(c)")
-            // Neu gesetzt, wo keiner war: die Meldung nennt den Hostnamen
-            XCTAssertEqual(BackupRestorePolicy.addressServerSetHost(value: value, current: current, trusted: trusted),
+            // Neu gesetzt bzw. ersetzt: die Meldung nennt den Hostnamen
+            XCTAssertEqual(BackupRestorePolicy.addressServerHost(value: value, current: current, trusted: trusted),
                            c["host"] as? String, "\(c)")
         }
         XCTAssertGreaterThanOrEqual(restoreCases.filter { $0["note"] as? String == "SET" && $0["host"] is String }.count, 3)
+        XCTAssertGreaterThanOrEqual(
+            restoreCases.filter { $0["note"] as? String == "CHANGED" && $0["host"] is String }.count, 2)
     }
 
     /// Von der Sicherung abgeschalteter Schutz kommt in die Meldung (`BackupRestorePolicy.loweredProtection`).
     func testAbgeschalteterSchutzWirdGenannt() throws {
         let loweredCases = try cases("lowered")
         XCTAssertGreaterThanOrEqual(loweredCases.count, 7)
+        XCTAssertGreaterThanOrEqual(loweredCases.filter { $0["lockOff"] as? Bool == true }.count, 2)
         for c in loweredCases {
             let trusted = try XCTUnwrap(c["trusted"] as? Bool)
             let lowered = BackupRestorePolicy.loweredProtection(
                 wantedSystemBackup: try XCTUnwrap(c["wantedSystemBackup"] as? Bool),
                 currentSystemBackup: try XCTUnwrap(c["currentSystemBackup"] as? Bool),
                 wantedHideAmounts: try XCTUnwrap(c["wantedHideAmounts"] as? Bool),
-                currentHideAmounts: try XCTUnwrap(c["currentHideAmounts"] as? Bool), trusted: trusted)
+                currentHideAmounts: try XCTUnwrap(c["currentHideAmounts"] as? Bool), trusted: trusted,
+                wantedAppLock: try XCTUnwrap(c["wantedAppLock"] as? Bool),
+                currentAppLock: try XCTUnwrap(c["currentAppLock"] as? Bool))
             XCTAssertEqual(lowered.systemBackupOn, c["systemBackupOn"] as? Bool, "\(c)")
             XCTAssertEqual(lowered.amountsShown, c["amountsShown"] as? Bool, "\(c)")
-            XCTAssertEqual(lowered.any, lowered.systemBackupOn || lowered.amountsShown, "\(c)")
+            XCTAssertEqual(lowered.lockOff, c["lockOff"] as? Bool, "\(c)")
+            XCTAssertEqual(lowered.any, lowered.systemBackupOn || lowered.amountsShown || lowered.lockOff, "\(c)")
             // Ohne Passwort nie
             if !trusted { XCTAssertFalse(lowered.any, "\(c)") }
         }

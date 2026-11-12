@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Fitxategia eta eguneko truke-tasak irakurtzen…</string>
     <string name="portfolio_csv_import_progress">%1$s / %2$s lerro</string>
     <string name="portfolio_csv_import_saving">Transakzioak gordetzen…</string>
-    <string name="portfolio_csv_import_missing_fx">Ez dago eguneko truke-tasarik lerro hauetarako: %1$s – preziorik/komisiorik gabe inportatuta.</string>
+    <string name="portfolio_csv_import_missing_fx">Ez dago eguneko truke-tasarik lerro hauetarako: %1$s – prezioa/komisioa falta da.</string>
     <string name="portfolio_csv_import_missing_price">Fitxategian ez dago preziorik lerro hauetarako: %1$s – preziorik gabe inportatuta.</string>
     <string name="portfolio_csv_import_fee_in_price">Bi komisio lerro hauetan: %1$s – fiat komisioa prezioan sartuta dago, txanponeko komisioak jasotako kopurua murrizten edo emandakoa handitzen du.</string>
     <string name="portfolio_csv_import_pending_differs">Lerroak: %1$s – gordailu edo erretiro bereko zain dagoen sarrerak eta erregistratutakoak kopuru desberdinak dituzte; biak inportatuta, begiratu ondasunak.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Eguneko truke-tasarik gabe, prezioa edo komisioa betiko faltako da. Saiatu berriro edo inportatu hala ere: transakzio horiek ohar bat izango dute.</string>
     <string name="portfolio_csv_note_price_no_rate">Prezioa eguneko truke-tasarik gabe</string>
     <string name="portfolio_csv_note_fee_no_rate">Komisioa eguneko truke-tasarik gabe</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s-rentzat ez dago eguneko truke-tasarik; beraz, berriro saiatzeak ez du balio. Hala ere inportatzen baduzu, transakzio horiek ohar bat izango dute.</string>
+    <string name="portfolio_csv_import_blocked_rates">Erabaki lehenik goian eguneko truke-tasarik gabeko lerroei buruz.</string>
 </resources>

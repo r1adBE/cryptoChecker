@@ -112,6 +112,7 @@ internal fun NavGraphBuilder.alarmDestinations(
 
     composable<ScreenRoute.AlarmsOverview> { entry ->
         AlarmsOverviewScreen(
+            highlightPortfolioAlarmId = entry.toRoute<ScreenRoute.AlarmsOverview>().portfolioAlarmId,
             onBack = { navigation.popBackStack() },
             onOpenWatch = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
             onOpenLog = openAlarmLog,

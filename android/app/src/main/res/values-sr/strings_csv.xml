@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">Читање датотеке и дневних курсева…</string>
     <string name="portfolio_csv_import_progress">Ред %1$s од %2$s</string>
     <string name="portfolio_csv_import_saving">Чување трансакција…</string>
-    <string name="portfolio_csv_import_missing_fx">Нема дневног курса за редове %1$s – увезено без цене/накнаде.</string>
+    <string name="portfolio_csv_import_missing_fx">Нема дневног курса за редове %1$s – недостају цена/накнада.</string>
     <string name="portfolio_csv_import_missing_price">У датотеци нема цене за редове %1$s – увезено без цене.</string>
     <string name="portfolio_csv_import_fee_in_price">Две накнаде у редовима %1$s: фиат накнада је урачуната у цену, накнада у криптовалути смањује примљену или повећава дату количину.</string>
     <string name="portfolio_csv_import_pending_differs">Редови %1$s: унос на чекању и прокњижен унос исте уплате или исплате имају различите количине – оба увезена, провери средства.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">Без дневног курса цена или накнада трајно недостају. Покушај поново или ипак увези – те трансакције тада добијају белешку.</string>
     <string name="portfolio_csv_note_price_no_rate">Цена без дневног курса</string>
     <string name="portfolio_csv_note_fee_no_rate">Накнада без дневног курса</string>
+    <string name="portfolio_csv_import_no_rates_for">За %1$s нема дневних курсева, па поновни покушај неће помоћи. Ако ипак увезеш, те трансакције добијају белешку.</string>
+    <string name="portfolio_csv_import_blocked_rates">Прво горе одлучи о редовима без дневног курса.</string>
 </resources>

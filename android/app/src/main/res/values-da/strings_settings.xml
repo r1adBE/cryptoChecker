@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Seneste tjek</string>
     <string name="settings_http_log">Vis HTTP-log</string>
     <string name="settings_http_log_hint">Viser forespørgslerne til børserne nederst på siden «Tilføj par» – til fejlsøgning.</string>
+    <string name="settings_retirement_preview">Ryk lukkedatoen frem</string>
+    <string name="settings_retirement_preview_hint">Flytter kun uret for lukkereglen, ikke enhedens ur.</string>
     <string name="settings_live_service">Opdater hyppigt</string>
     <string name="settings_live_websocket">Livekurser</string>
 

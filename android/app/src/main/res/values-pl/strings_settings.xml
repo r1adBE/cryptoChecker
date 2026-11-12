@@ -78,6 +78,8 @@
     <string name="settings_check_runs_title">Ostatnie sprawdzenia</string>
     <string name="settings_http_log">Pokaż dziennik HTTP</string>
     <string name="settings_http_log_hint">Pokazuje na dole strony „Dodaj parę” zapytania do giełd – do diagnozowania.</string>
+    <string name="settings_retirement_preview">Przyspiesz datę zamknięcia</string>
+    <string name="settings_retirement_preview_hint">Przesuwa tylko zegar reguły zamknięcia giełdy, nie zegar urządzenia.</string>
     <string name="settings_live_service">Odświeżaj często</string>
     <string name="settings_live_websocket">Kursy na żywo</string>
 

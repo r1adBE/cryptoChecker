@@ -100,9 +100,24 @@ object BackgroundSchedule {
      * Volle Prüfung für [shouldSkip]? Alle abfragbaren Paare ([attempted]; Paare pausierter Börsen
      * fragt auch der nächste Lauf nicht ab) versucht und mehr als die Hälfte mit Kurs. Live-Takte
      * und Teil-Läufe zählen nicht — sie setzen nur die Uhrzeit im Widget.
+     *
+     * Nicht gehandelte Paare und Paare stillgelegter Börsen ([notTraded]) zählen weder als versucht noch als gescheitert:
+     * Sie haben keinen Kurs mehr, ihre Alarme ruhen. Sind ALLE Paare so ([attempted] 0, [notTraded] > 0), ist der Lauf
+     * trotzdem voll — Portfolio-, Gas- und Depeg-Alarme wurden geprüft.
      */
-    fun isFullCheck(attempted: Int, failed: Int): Boolean =
-        attempted > 0 && failed in 0 until attempted && (attempted - failed) * 2 > attempted
+    fun isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0): Boolean =
+        if (attempted == 0 && failed == 0) {
+            notTraded > 0
+        } else {
+            attempted > 0 && failed in 0 until attempted && (attempted - failed) * 2 > attempted
+        }
+
+    /**
+     * Zählt ein Lauf als Aktualisierung (Uhrzeit im Widget-Kopf, iOS `markFullRefresh`)? Mindestens ein Kurs kam
+     * ([failed] < [attempted]) — oder alle Paare sind nicht gehandelt bzw. stillgelegt ([notTraded], kein Abruf nötig).
+     */
+    fun refreshed(attempted: Int, failed: Int, notTraded: Int = 0): Boolean =
+        failed < attempted || (attempted == 0 && failed == 0 && notTraded > 0)
 
     /**
      * Zählt ein Lauf als «Prüfung mit allen Alarmen» ([isFullCheck] → `lastFullCheck`, iOS `lastAlarmCheckAt`)? Nur eine

@@ -367,8 +367,7 @@ class AppNotifier @Inject constructor(
 
         internal const val ACTION_OPEN_NOTIFICATION = "com.cryptochecker.app.action.OPEN_FROM_NOTIFICATION"
 
-        /** Ziel des Portfolio-Alarms (wie das Portfolio-Widget). */
-        internal const val OPEN_PORTFOLIO = "portfolio"
+        /** Request-Code der Portfolio-Alarm-Mitteilung (Ziel je Alarm: `PortfolioAlarmTarget`, eigene Action je Ziel). */
         internal const val PORTFOLIO_REQUEST_CODE = 400_000
 
         /** Request-Code für [showGas] mit Ziel: Basis plus Mitteilungs-Nummer. */

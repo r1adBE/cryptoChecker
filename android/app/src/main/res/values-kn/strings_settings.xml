@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">ಇತ್ತೀಚಿನ ಪರಿಶೀಲನೆಗಳು</string>
     <string name="settings_http_log">HTTP ಲಾಗ್ ತೋರಿಸಿ</string>
     <string name="settings_http_log_hint">“ಜೋಡಿ ಸೇರಿಸಿ” ಪುಟದ ಕೆಳಭಾಗದಲ್ಲಿ ಎಕ್ಸ್‌ಚೇಂಜ್‌ಗಳಿಗೆ ವಿನಂತಿಗಳನ್ನು ತೋರಿಸುತ್ತದೆ – ದೋಷನಿವಾರಣೆಗಾಗಿ.</string>
+    <string name="settings_retirement_preview">ಮುಚ್ಚುವ ದಿನಾಂಕವನ್ನು ಮುಂದಕ್ಕೆ ತನ್ನಿ</string>
+    <string name="settings_retirement_preview_hint">ಎಕ್ಸ್‌ಚೇಂಜ್ ಮುಚ್ಚುವ ನಿಯಮದ ಗಡಿಯಾರವನ್ನು ಮಾತ್ರ ಸರಿಸುತ್ತದೆ, ಸಾಧನದ ಗಡಿಯಾರವನ್ನಲ್ಲ.</string>
     <string name="settings_live_service">ಆಗಾಗ್ಗೆ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
     <string name="settings_live_websocket">ಲೈವ್ ಬೆಲೆಗಳು</string>
 

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">फाइल आणि दैनिक दर वाचत आहे…</string>
     <string name="portfolio_csv_import_progress">%2$s पैकी ओळ %1$s</string>
     <string name="portfolio_csv_import_saving">व्यवहार सेव्ह होत आहेत…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s ओळींसाठी दैनिक दर नाही – किंमत/शुल्काशिवाय इम्पोर्ट केले.</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s ओळींसाठी दैनिक दर नाही – किंमत/शुल्क गहाळ आहे.</string>
     <string name="portfolio_csv_import_missing_price">%1$s ओळींसाठी फाइलमध्ये किंमत नाही – किंमतीशिवाय इम्पोर्ट केले.</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s ओळींमध्ये दोन शुल्क: फिएट शुल्क किंमतीत समाविष्ट आहे, कॉइनमधील शुल्क मिळालेली मात्रा कमी करते किंवा दिलेली मात्रा वाढवते.</string>
     <string name="portfolio_csv_import_pending_differs">%1$s ओळी: एकाच जमा किंवा काढण्याच्या प्रलंबित आणि नोंदवलेल्या नोंदींची मात्रा वेगळी आहे – दोन्ही इम्पोर्ट केल्या, होल्डिंग तपासा.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">दैनिक दराशिवाय किंमत किंवा शुल्क कायमचे गहाळ राहते. पुन्हा प्रयत्न करा, किंवा तरीही इम्पोर्ट करा – तेव्हा त्या व्यवहारांना एक टीप जोडली जाईल.</string>
     <string name="portfolio_csv_note_price_no_rate">दैनिक दराशिवाय किंमत</string>
     <string name="portfolio_csv_note_fee_no_rate">दैनिक दराशिवाय शुल्क</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s साठी दैनिक दर उपलब्ध नाहीत, त्यामुळे पुन्हा प्रयत्न करून उपयोग नाही. तरीही इम्पोर्ट केल्यास त्या व्यवहारांना एक टीप जोडली जाईल.</string>
+    <string name="portfolio_csv_import_blocked_rates">आधी वर दैनिक दर नसलेल्या ओळींबद्दल ठरवा.</string>
 </resources>

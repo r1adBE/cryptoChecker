@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">ফাইল ও দৈনিক হার পড়া হচ্ছে…</string>
     <string name="portfolio_csv_import_progress">%2$s-এর মধ্যে লাইন %1$s</string>
     <string name="portfolio_csv_import_saving">লেনদেন সংরক্ষণ হচ্ছে…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s লাইনের জন্য দৈনিক হার নেই – দাম/ফি ছাড়া ইমপোর্ট হয়েছে।</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s লাইনের জন্য দৈনিক হার নেই – দাম/ফি নেই।</string>
     <string name="portfolio_csv_import_missing_price">ফাইলে %1$s লাইনের জন্য দাম নেই – দাম ছাড়া ইমপোর্ট হয়েছে।</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s লাইনে দুটি ফি: ফিয়াট ফি দামের মধ্যে ধরা আছে, কয়েনের ফি পাওয়া পরিমাণ কমায় বা দেওয়া পরিমাণ বাড়ায়।</string>
     <string name="portfolio_csv_import_pending_differs">%1$s লাইন: একই জমা বা উত্তোলনের অপেক্ষমাণ ও বুক করা এন্ট্রির পরিমাণ আলাদা – দুটিই ইমপোর্ট হয়েছে, হোল্ডিং যাচাই করুন।</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">দৈনিক হার ছাড়া দাম বা ফি স্থায়ীভাবে বাদ থেকে যাবে। আবার চেষ্টা করুন, অথবা তবুও ইমপোর্ট করুন – তখন ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।</string>
     <string name="portfolio_csv_note_price_no_rate">দৈনিক হার ছাড়া দাম</string>
     <string name="portfolio_csv_note_fee_no_rate">দৈনিক হার ছাড়া ফি</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s-এর জন্য কোনো দৈনিক হার নেই, তাই আবার চেষ্টা করে লাভ হবে না। তবুও ইমপোর্ট করলে ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।</string>
+    <string name="portfolio_csv_import_blocked_rates">আগে উপরে দৈনিক হার ছাড়া লাইনগুলোর বিষয়ে সিদ্ধান্ত নিন।</string>
 </resources>

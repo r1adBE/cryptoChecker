@@ -89,6 +89,9 @@ class WatchPriceParityTest {
         assertTrue(price.contains("WatchPair.parse(coin)?.quote ?: WatchPair.USDT"))
         // Ohne gewählte Coins ein Hinweis mit Tipp-Ziel statt «keine Daten»
         assertTrue(price.contains("?: return empty(request.complicationType, settings.mode == WatchSettings.Mode.PHONE, tap)"))
+        // Erster Coin ohne Kurs (Börse stillgelegt, noch nichts geladen): «Paar / —» mit Grund und Tipp-Ziel (U2-07)
+        assertFalse(price.contains("NoDataComplicationData"))
+        assertTrue(price.contains("cached?.takeIf { !retired } ?: return missing(request.complicationType, coin, tap)"))
         val portfolio = File(dir, "PortfolioComplicationService.kt").readText(Charsets.UTF_8)
         assertFalse(portfolio.contains("NoDataComplicationData"))
         assertTrue(portfolio.contains("portfolioFlow.value ?: return off(request.complicationType, tap)"))

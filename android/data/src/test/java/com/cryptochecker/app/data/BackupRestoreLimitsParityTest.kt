@@ -112,6 +112,28 @@ class BackupRestoreLimitsParityTest {
         }
     }
 
+    /**
+     * Börsenname bekannter Börsen aus dem Katalog, nicht aus der Datei («exchangeNames»): eine bearbeitete Sicherung mit
+     * Schlüssel «Bitpanda» und Name «Kraken» zeigt danach «Bitpanda» — auch über das ganze Lesen ([readWatchlist]).
+     */
+    @Test
+    fun boersennameAusDemKatalog() {
+        val cases = fixture["exchangeNames"].list().map { it.obj() }
+        assertTrue(cases.size >= 4)
+        for (c in cases) {
+            val key = c["key"] as String
+            assertEquals(c.toString(), c["result"], BackupWatchlistCodec.catalogueName(key, c["name"] as String))
+            val root = JSONObject()
+                .put("watches", JSONArray().put(
+                    BackupWatchlistCodec.watchToJson(
+                        WatchEntity(id = 1, exchangeKey = key, exchangeName = c["name"] as String, baseAsset = "BTC", quoteAsset = "EUR"),
+                    ),
+                ))
+                .put("alarms", JSONArray())
+            assertEquals(c.toString(), c["result"], BackupWatchlistCodec.readWatchlist(root).watches.single().exchangeName)
+        }
+    }
+
     /** Sicherung zu einem Fall aus «limitCases» (Aufbau siehe «description» der Testfälle). */
     private fun limitCaseRoot(c: Map<String, Any?>): JSONObject {
         val invalid = c["invalidPairIds"].list().map { it.num()!!.toLong() }.toSet()

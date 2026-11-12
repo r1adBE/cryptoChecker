@@ -197,7 +197,8 @@ internal fun PairScreen(
                 onLiveSocket = !isPreview && shown.id in state.live.liveWatchIds, now = now,
             ) { live ->
                 PairPageContent(
-                    watch = if (isPreview) shown else live,
+                    // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): «—» mit Grund statt des letzten Kurses
+                    watch = com.cryptochecker.app.domain.watch.RetiredWatch.shown(if (isPreview) shown else live, now),
                     isPreview = isPreview,
                     off = off,
                     now = now,
@@ -210,7 +211,8 @@ internal fun PairScreen(
                     alarms = alarms,
                     alarmHost = alarmHost,
                     limits = limits,
-                    hasActivity = !shown.isNotTraded && !shown.disabled && signals.isNotEmpty(),
+                    hasActivity = !shown.isNotTraded && !shown.disabled && signals.isNotEmpty() &&
+                        com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null,
                     adding = addState.addedId != null,
                     callbacks = PairPageCallbacks(
                         onRetry = { if (isPreview) preview?.reload?.invoke() else viewModel.refreshOneByUser(shown) },
@@ -232,7 +234,7 @@ internal fun PairScreen(
                     padding = padding,
                 )
             }
-            if (dialogs.why && !shown.isNotTraded && !off) {
+            if (dialogs.why && !shown.isNotTraded && !off && com.cryptochecker.app.domain.watch.RetiredWatch.exchangeOf(shown, now) == null) {
                 WhySheet(
                     watch = shown,
                     signals = signals,

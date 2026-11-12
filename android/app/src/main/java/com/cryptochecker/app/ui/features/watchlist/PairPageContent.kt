@@ -94,7 +94,10 @@ internal fun PairPageContent(
                 rowSource = if (isPreview) null else viewModel.rowSource(watch),
                 satsRate = viewModel::satsRate,
             )
-            PairStatusLine(watch, isPreview, off, onRetry = callbacks.onRetry, onEnable = callbacks.onToggleDisabled)
+            PairStatusLine(
+                watch, isPreview, off, onRetry = callbacks.onRetry, onEnable = callbacks.onToggleDisabled,
+                onChangeExchange = callbacks.onChangeExchange.takeIf { !isPreview },
+            )
             Spacer(Modifier.height(Spacing.lg))
             // Kurs-Chart (24h · 7T · 30T · 1J, Kerzen/Linie); ohne Kerzenquelle (DEX) bzw. deaktiviert ausgeblendet,
             // ebenso bei stillgelegter Börse (ExchangeRetirement: keine Kerzen mehr laden)

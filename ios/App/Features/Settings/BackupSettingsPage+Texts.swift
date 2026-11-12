@@ -12,19 +12,19 @@ extension BackupSettingsPage {
     }
 
     /// Hinweis zum eigenen Bitcoin-Server nach dem Wiederherstellen (wie Android); `host` = Hostname eines neu
-    /// gesetzten Servers (`SET` — nie still).
+    /// gesetzten bzw. ersetzten Servers (`SET`, `CHANGED` — wohin die Adressen ab jetzt gehen, nie still).
     static func serverNoteText(_ note: BackupRestorePolicy.AddressServerNote, host: String? = nil) -> String {
         switch note {
         case .KEPT: return L("backup_restore_server_kept")
         case .PUBLIC: return L("backup_restore_server_public")
-        case .CHANGED: return L("backup_restore_server_changed")
+        case .CHANGED: return L("backup_restore_server_changed", host ?? "")
         case .SET: return L("backup_restore_server_set", host ?? "")
         }
     }
 
     /// «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort
     /// wollte sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (mit
-    /// Hostnamen); «Portfolio in Systemsicherung» eingeschaltet bzw. «Beträge verbergen» ausgeschaltet.
+    /// Hostnamen); «Portfolio in Systemsicherung» eingeschaltet, «Beträge verbergen» bzw. Portfolio-Sperre ausgeschaltet.
     static func restoredText(_ result: BackupManager.RestoreResult) -> String {
         let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                          L("backup_restored_alarms", count: result.alarms))
@@ -35,6 +35,7 @@ extension BackupSettingsPage {
             result.addressServerNote.map { serverNoteText($0, host: result.addressServerHost) },
             result.lowered.systemBackupOn ? L("backup_restore_system_backup_on") : nil,
             result.lowered.amountsShown ? L("backup_restore_amounts_shown") : nil,
+            result.lowered.lockOff ? L("backup_restore_app_lock_off") : nil,
         ].compactMap { $0 }.joined(separator: "\n")
     }
 

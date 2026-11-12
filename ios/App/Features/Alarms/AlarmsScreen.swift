@@ -71,9 +71,9 @@ struct AlarmsScreen: View {
     }
 
     /// Börse stillgelegt (`ExchangeRetirement`): Alarme bleiben gespeichert, prüfen nichts; kein neuer, kein Bearbeiten.
+    /// Eine Regel mit Zeile und Widgets (Marker oder Ende erreicht, `Watch.retiredExchange`).
     static func retired(_ watch: Watch?) -> Bool {
-        guard let watch else { return false }
-        return ExchangeRetirement.isRetired(watch.exchangeKey)
+        watch?.retiredExchange() != nil
     }
 
     /// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`)?
@@ -111,7 +111,7 @@ struct AlarmsScreen: View {
                 ScrollView {
                     Group {
                         if retired {
-                            RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+                            RetiredExchangeAlarmNote(watch: watch)
                         } else if referenceRate {
                             ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
                         } else {
@@ -143,8 +143,9 @@ struct AlarmsScreen: View {
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                    if retired {
-                        RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+                    // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
+                    if retired || RetirementText.announced(watch) {
+                        RetiredExchangeAlarmNote(watch: watch)
                             .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
@@ -192,7 +193,8 @@ struct AlarmsScreen: View {
                             ),
                             retiredExchange: watch?.exchangeName,
                             onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
-                            onEdit: { if !blocked { draft = AlarmDraft.from(alarm) } },
+                            // Bearbeiten gesperrt: Karte ohne Tipp-Aktion (VoiceOver böte sonst eine Taste ohne Wirkung)
+                            onEdit: blocked ? nil : { draft = AlarmDraft.from(alarm) },
                             onDelete: { askDelete = alarm }
                         )
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))

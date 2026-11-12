@@ -22,8 +22,9 @@ sealed interface ScreenRoute {
     @Serializable
     data object MarketPhase : ScreenRoute
 
+    /** «Alle Alarme»; [portfolioAlarmId] > 0: dieser Portfolio-Alarm hervorgehoben (Tipp auf seine Mitteilung). */
     @Serializable
-    data object AlarmsOverview : ScreenRoute
+    data class AlarmsOverview(val portfolioAlarmId: Long = 0L) : ScreenRoute
 
     /** Alarm-Protokoll: aus «Alle Alarme» und neben «Letzte Prüfungen». */
     @Serializable

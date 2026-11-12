@@ -238,6 +238,8 @@
     <string name="ledger_exchange">လဲလှယ်ရေးဌာန (ရွေးချယ်နိုင်)</string>
     <string name="ledger_exchange_failed">%1$s: ယခု %2$s မှ ဈေးနှုန်း မရှိပါ – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။</string>
     <string name="ledger_exchange_hint">ကွိုင်ကို ဤလဲလှယ်ရေးဌာန၏ ဈေးနှုန်းဖြင့် တန်ဖိုးဖြတ်သည် (မဟုတ်လျှင် Binance)။ သမိုင်း၊ ရက် 7 နှင့် 1 နှစ်သည် ၎င်းသို့ အချိုးချထားသော Binance နေ့စဉ်ဈေးနှုန်းများကို အသုံးပြုသည်။</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s သည် စျေးနှုန်းများ မပေးတော့ပါ – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။</string>
+    <string name="ledger_exchange_retired_hint">%1$s သည် စျေးနှုန်းများ မပေးတော့ပါ – ကွိုင်ကို Binance ဈေးနှုန်းဖြင့် တန်ဖိုးဖြတ်ပါသည်။</string>
     <string name="ledger_exchange_mixed">%1$s: လဲလှယ်ရေးဌာန အများအပြား ထည့်ထားသည် – Binance ဖြင့် တန်ဖိုးဖြတ်သည်။ ကွိုင်များ ရွှေ့ခဲ့သလား။ ရွှေ့ပြောင်းမှုကို “လွှဲပြောင်းမှု” အဖြစ် မှတ်တမ်းတင်ပါ။</string>
     <string name="ledger_exchange_none">မရှိ (Binance)</string>
     <string name="ledger_fee">အခကြေးငွေ (ရွေးချယ်နိုင်)</string>

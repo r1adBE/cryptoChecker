@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ਐਕਸਚੇਂਜ (ਵਿਕਲਪਿਕ)</string>
     <string name="ledger_exchange_failed">%1$s: ਹੁਣੇ %2$s ਤੋਂ ਕੀਮਤ ਨਹੀਂ – Binance ਨਾਲ ਮੁਲਾਂਕਣ ਕੀਤਾ।</string>
     <string name="ledger_exchange_hint">ਕੌਇਨ ਦਾ ਮੁਲਾਂਕਣ ਇਸ ਐਕਸਚੇਂਜ ਦੀ ਕੀਮਤ ’ਤੇ ਹੁੰਦਾ ਹੈ (ਨਹੀਂ ਤਾਂ Binance)। ਇਤਿਹਾਸ, 7 ਦਿਨ ਅਤੇ 1 ਸਾਲ ਇਸ ਮੁਤਾਬਕ ਢਾਲੀਆਂ Binance ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ ਵਰਤਦੇ ਹਨ।</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ਹੁਣ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ – Binance ਨਾਲ ਮੁਲਾਂਕਣ ਕੀਤਾ।</string>
+    <string name="ledger_exchange_retired_hint">%1$s ਹੁਣ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ – ਕੌਇਨ ਦਾ ਮੁਲਾਂਕਣ Binance ਦੀ ਕੀਮਤ ਨਾਲ ਹੁੰਦਾ ਹੈ।</string>
     <string name="ledger_exchange_mixed">%1$s: ਕਈ ਐਕਸਚੇਂਜ ਦਰਜ ਹਨ – Binance ਨਾਲ ਮੁਲਾਂਕਣ ਕੀਤਾ। ਕੌਇਨ ਤਬਦੀਲ ਕੀਤੇ? ਤਬਾਦਲੇ ਨੂੰ “ਟ੍ਰਾਂਸਫਰ” ਵਜੋਂ ਦਰਜ ਕਰੋ।</string>
     <string name="ledger_exchange_none">ਕੋਈ ਨਹੀਂ (Binance)</string>
     <string name="ledger_fee">ਫੀਸ (ਵਿਕਲਪਿਕ)</string>

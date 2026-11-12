@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Controlli recenti</string>
     <string name="settings_http_log">Mostra log HTTP</string>
     <string name="settings_http_log_hint">Mostra in fondo alla pagina «Aggiungi coppia» le richieste agli exchange – per la diagnosi.</string>
+    <string name="settings_retirement_preview">Anticipa la data di chiusura</string>
+    <string name="settings_retirement_preview_hint">Sposta solo l’orologio della regola di chiusura, non quello del dispositivo.</string>
     <string name="settings_live_service">Aggiorna spesso</string>
     <string name="settings_live_websocket">Prezzi live</string>
 

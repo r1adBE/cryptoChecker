@@ -172,12 +172,14 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     static func quoteRows(_ watches: [Watch]) -> [WatchPhoneQuotes.Row] {
         watches.map { w -> WatchPhoneQuotes.Row in
             let contract = watchContract(w)
+            // Börse stillgelegt (`Watch.retiredExchange`: Marker oder Ende erreicht): kein alter Kurs an die Uhr, sie zeigt
+            // «—» mit Grund — auch bei deaktivierten Paaren
+            let retired = w.retiredExchange() != nil
             // Spot = kein Kontrakt und kein DexScreener-Pool; die Börsen-Kennung («BTCUSDT») ändert daran nichts
             return WatchPhoneQuotes.Row(base: w.baseAsset, quote: w.quoteAsset, spot: w.contractType == .none && contract.isEmpty,
-                                        // Börse stillgelegt (`ExchangeRetirement`): kein alter Kurs an die Uhr
                                         disabled: w.disabled,
-                                        price: ExchangeRetirement.isMarker(w.lastError) ? nil : w.lastPrice,
-                                        change24h: w.change24h,
+                                        price: retired ? nil : w.lastPrice,
+                                        change24h: retired ? nil : w.change24h,
                                         exchange: w.exchangeName, time: w.lastUpdate, sortOrder: w.sortOrder,
                                         contract: contract)
         }

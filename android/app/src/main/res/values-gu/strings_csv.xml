@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">ફાઇલ અને દૈનિક દરો વાંચી રહ્યા છીએ…</string>
     <string name="portfolio_csv_import_progress">%2$s માંથી લાઇન %1$s</string>
     <string name="portfolio_csv_import_saving">વ્યવહારો સેવ થઈ રહ્યા છે…</string>
-    <string name="portfolio_csv_import_missing_fx">લાઇન %1$s માટે દૈનિક દર નથી – ભાવ/ફી વગર ઇમ્પોર્ટ કર્યું.</string>
+    <string name="portfolio_csv_import_missing_fx">લાઇન %1$s માટે દૈનિક દર નથી – ભાવ/ફી ખૂટે છે.</string>
     <string name="portfolio_csv_import_missing_price">લાઇન %1$s માટે ફાઇલમાં ભાવ નથી – ભાવ વગર ઇમ્પોર્ટ કર્યું.</string>
     <string name="portfolio_csv_import_fee_in_price">લાઇન %1$s માં બે ફી: ફિયાટ ફી ભાવમાં સામેલ છે, કૉઇનમાંની ફી મળેલી માત્રા ઘટાડે છે અથવા આપેલી માત્રા વધારે છે.</string>
     <string name="portfolio_csv_import_pending_differs">લાઇન %1$s: એક જ જમા અથવા ઉપાડની બાકી અને નોંધાયેલી એન્ટ્રીની માત્રા અલગ છે – બંને ઇમ્પોર્ટ કરી, હોલ્ડિંગ તપાસો.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">દૈનિક દર વગર ભાવ અથવા ફી કાયમ માટે ખૂટે છે. ફરી પ્રયાસ કરો, અથવા તેમ છતાં ઇમ્પોર્ટ કરો – ત્યારે તે વ્યવહારોમાં નોંધ ઉમેરાશે.</string>
     <string name="portfolio_csv_note_price_no_rate">દૈનિક દર વગરનો ભાવ</string>
     <string name="portfolio_csv_note_fee_no_rate">દૈનિક દર વગરની ફી</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s માટે કોઈ દૈનિક દર નથી, તેથી ફરી પ્રયાસ કરવાથી મદદ નહીં મળે. તેમ છતાં ઇમ્પોર્ટ કરો તો તે વ્યવહારોમાં નોંધ ઉમેરાશે.</string>
+    <string name="portfolio_csv_import_blocked_rates">પહેલાં ઉપર દૈનિક દર વગરની લાઇનો વિશે નક્કી કરો.</string>
 </resources>

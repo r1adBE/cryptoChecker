@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Borsa (isteğe bağlı)</string>
     <string name="ledger_exchange_failed">%1$s: şu an %2$s fiyatı yok – Binance ile değerlendi.</string>
     <string name="ledger_exchange_hint">Coin bu borsanın fiyatıyla değerlenir (yoksa Binance). Geçmiş, 7 G ve 1 Y: Binance günlük fiyatları, buna ölçeklenmiş.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s artık fiyat sağlamıyor – Binance ile değerlendi.</string>
+    <string name="ledger_exchange_retired_hint">%1$s artık fiyat sağlamıyor – coin Binance fiyatıyla değerlendirilir.</string>
     <string name="ledger_exchange_mixed">%1$s: birden fazla borsa girildi – Binance ile değerlendi. Coin\'leri taşıdın mı? Bunu “Transfer” olarak kaydet.</string>
     <string name="ledger_exchange_none">Yok (Binance)</string>
     <string name="ledger_fee">Ücret (isteğe bağlı)</string>

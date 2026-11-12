@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Читання файлу та денних курсів…</string>
     <string name="portfolio_csv_import_progress">Рядок %1$s з %2$s</string>
     <string name="portfolio_csv_import_saving">Збереження транзакцій…</string>
-    <string name="portfolio_csv_import_missing_fx">Немає денного курсу для рядків %1$s – імпортовано без ціни й комісії.</string>
+    <string name="portfolio_csv_import_missing_fx">Немає денного курсу для рядків %1$s – бракує ціни й комісії.</string>
     <string name="portfolio_csv_import_missing_price">У файлі немає ціни для рядків %1$s – імпортовано без ціни.</string>
     <string name="portfolio_csv_import_fee_in_price">Дві комісії в рядках %1$s: комісію у фіаті включено в ціну, комісія в монеті зменшує отриману або збільшує віддану кількість.</string>
     <string name="portfolio_csv_import_pending_differs">Рядки %1$s: запис в очікуванні та проведений запис одного поповнення чи виведення мають різну кількість – обидва імпортовано, перевір залишок.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Без денного курсу ціна або комісія залишаться порожніми назавжди. Повтори спробу або все одно імпортуй – ці транзакції тоді отримають нотатку.</string>
     <string name="portfolio_csv_note_price_no_rate">Ціна без денного курсу</string>
     <string name="portfolio_csv_note_fee_no_rate">Комісія без денного курсу</string>
+    <string name="portfolio_csv_import_no_rates_for">Для %1$s немає денних курсів, тож повторна спроба не допоможе. Якщо все одно імпортуєш, ці транзакції отримають нотатку.</string>
+    <string name="portfolio_csv_import_blocked_rates">Спершу виріши вгорі, що робити з рядками без денного курсу.</string>
 </resources>

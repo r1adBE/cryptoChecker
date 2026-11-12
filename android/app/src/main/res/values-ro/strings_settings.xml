@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Verificări recente</string>
     <string name="settings_http_log">Afișează jurnalul HTTP</string>
     <string name="settings_http_log_hint">Afișează în partea de jos a paginii „Adaugă pereche” cererile către burse – pentru depanare.</string>
+    <string name="settings_retirement_preview">Devansează data închiderii</string>
+    <string name="settings_retirement_preview_hint">Mută doar ceasul regulii de închidere, nu ceasul dispozitivului.</string>
     <string name="settings_live_service">Actualizează des</string>
     <string name="settings_live_websocket">Prețuri live</string>
 

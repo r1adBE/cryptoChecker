@@ -10,7 +10,7 @@ import Foundation
 ///
 /// Eine Sicherung mit Passwort darf das alles — ein Passwort beweist aber keine Herkunft (jeder kann eine Datei samt
 /// Passwort weitergeben). Darum nie still: Schaltet sie Schutz ab, nennt die Meldung jeden Fall (`loweredProtection`,
-/// neu gesetzter Server mit Hostnamen: `AddressServerNote.SET`, `addressServerSetHost`).
+/// neu gesetzter bzw. ersetzter Server mit Hostnamen: `AddressServerNote.SET`, `.CHANGED`, `addressServerHost`).
 enum BackupRestorePolicy {
     /// Was mit «appLock» aus der Sicherung geschieht: `apply` = neuer Wert (nil = unverändert lassen);
     /// `keptOn` = die Sicherung wollte die Sperre ausschalten, sie bleibt aber an (Hinweis in der Meldung).
@@ -63,29 +63,38 @@ enum BackupRestorePolicy {
         return wanted == nil ? .PUBLIC : .CHANGED
     }
 
-    /// Hostname des neu gesetzten Servers für die Meldung (`AddressServerNote.SET`, «knoten.example» ohne Port und Pfad);
-    /// nil in jedem anderen Fall.
-    static func addressServerSetHost(value: String?, current: String?, trusted: Bool) -> String? {
-        guard addressServerNote(value: value, current: current, trusted: trusted) == .SET else { return nil }
+    /// Hostname des Servers, an den Bitcoin-Adressen ab jetzt gehen, für die Meldung: neu gesetzt (`AddressServerNote.SET`)
+    /// oder ersetzt (`.CHANGED`), «knoten.example» ohne Port und Pfad; nil in jedem anderen Fall.
+    static func addressServerHost(value: String?, current: String?, trusted: Bool) -> String? {
+        let note = addressServerNote(value: value, current: current, trusted: trusted)
+        guard note == .SET || note == .CHANGED else { return nil }
         return AddressServer.restored(value: value, current: current, trusted: trusted).map { AddressServer.host($0) }
     }
 
     /// Schutz, den die Sicherung abgeschaltet hat: `systemBackupOn` = «Portfolio in Systemsicherung» war aus und ist jetzt
-    /// an, `amountsShown` = «Beträge verbergen» war an und ist jetzt aus. Beides nennt die Meldung nach dem Wiederherstellen.
+    /// an, `amountsShown` = «Beträge verbergen» war an und ist jetzt aus, `lockOff` = die Portfolio-Sperre war an und ist
+    /// jetzt aus. Jeden Fall nennt die Meldung nach dem Wiederherstellen in einem eigenen Satz.
     struct LoweredProtection: Equatable, Sendable {
         var systemBackupOn = false
         var amountsShown = false
-        var any: Bool { systemBackupOn || amountsShown }
+        var lockOff = false
+        var any: Bool { systemBackupOn || amountsShown || lockOff }
     }
 
-    /// Was die Sicherung an Schutz abschaltet (`systemBackup`, `hideAmounts`) — ohne Passwort (`trusted` false) nie etwas.
+    /// Was die Sicherung an Schutz abschaltet (`systemBackup`, `hideAmounts`, `appLock`) — ohne Passwort (`trusted` false)
+    /// nie etwas.
     static func loweredProtection(wantedSystemBackup: Bool, currentSystemBackup: Bool, wantedHideAmounts: Bool,
-                                  currentHideAmounts: Bool, trusted: Bool) -> LoweredProtection {
+                                  currentHideAmounts: Bool, trusted: Bool, wantedAppLock: Bool,
+                                  currentAppLock: Bool) -> LoweredProtection {
         LoweredProtection(
             systemBackupOn: !currentSystemBackup
                 && systemBackup(wanted: wantedSystemBackup, current: currentSystemBackup, trusted: trusted) == true,
             amountsShown: currentHideAmounts
-                && hideAmounts(wanted: wantedHideAmounts, current: currentHideAmounts, trusted: trusted) == false)
+                && hideAmounts(wanted: wantedHideAmounts, current: currentHideAmounts, trusted: trusted) == false,
+            // Ausschalten hängt nicht davon ab, ob das Gerät entsperren kann
+            lockOff: currentAppLock
+                && appLock(wanted: wantedAppLock, current: currentAppLock, encrypted: trusted,
+                           canAuthenticate: true).apply == false)
     }
 
     /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).

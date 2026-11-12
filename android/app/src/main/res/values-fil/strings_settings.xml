@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Mga kamakailang pagsusuri</string>
     <string name="settings_http_log">Ipakita ang HTTP log</string>
     <string name="settings_http_log_hint">Ipinapakita ang mga request sa mga exchange sa ibaba ng page na “Magdagdag ng pares” – para sa troubleshooting.</string>
+    <string name="settings_retirement_preview">Iusad ang petsa ng pagsasara</string>
+    <string name="settings_retirement_preview_hint">Inililipat lang ang orasan ng patakaran sa pagsasara, hindi ang orasan ng device.</string>
     <string name="settings_live_service">Madalas na mag-update</string>
     <string name="settings_live_websocket">Mga live price</string>
 

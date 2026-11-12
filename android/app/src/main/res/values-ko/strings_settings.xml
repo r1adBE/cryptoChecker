@@ -75,6 +75,8 @@
     <string name="settings_check_runs_title">최근 확인</string>
     <string name="settings_http_log">HTTP 로그 표시</string>
     <string name="settings_http_log_hint">‘거래쌍 추가’ 화면 하단에 거래소로 보낸 요청을 표시합니다 – 문제 해결용.</string>
+    <string name="settings_retirement_preview">종료일 앞당기기</string>
+    <string name="settings_retirement_preview_hint">거래소 종료 규칙의 시계만 옮기며 기기 시계는 바꾸지 않습니다.</string>
     <string name="settings_live_service">자주 업데이트</string>
     <string name="settings_live_websocket">실시간 시세</string>
 

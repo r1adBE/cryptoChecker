@@ -213,6 +213,44 @@ class RestoreRunTest {
         assertTrue(journal.deleted)
     }
 
+    /**
+     * «Merkliste» gilt erst unter der Refresh-Sperre als berührt ([RestoreRun.Write.touchedInside]): Ein Abbruch beim Warten
+     * auf eine laufende Aktualisierung rollt nichts zurück (ein eben ausgelöster einmaliger Alarm bliebe aus); hat der Block
+     * die Sperre gemeldet, rollt ein späterer Fehler die Merkliste zurück.
+     */
+    @Test
+    fun merklisteGiltErstUnterDerSperreAlsBeruehrt() = runTest {
+        val w = World()
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        val waiting = listOf(
+            RestoreRun.Write(Step.WATCHLIST, touchedInside = true) { throw CancellationException("beim Warten auf die Sperre") },
+        )
+        val error = runCatching {
+            RestoreRun.execute(journal, waiting) { touched, cause -> RestoreRollback.run(touched, cause, partsOf(w, rolledBack)) }
+        }.exceptionOrNull()
+        assertTrue(error is CancellationException)
+        assertTrue(rolledBack.isEmpty())
+        assertTrue("nichts ersetzt: Journal weg", journal.deleted)
+
+        val locked = World().apply { failOn = "Portfolio" }
+        val rolledBackLocked = mutableListOf<String>()
+        val writes = listOf(
+            RestoreRun.Write(Step.WATCHLIST, touchedInside = true) { touch ->
+                touch()
+                locked.write("Merkliste", "neue Merkliste") { locked.watchlist = it }
+            },
+            RestoreRun.Write(Step.PORTFOLIO) { locked.write("Portfolio", "neues Portfolio") { locked.portfolio = it } },
+        )
+        runCatching {
+            RestoreRun.execute(FakeJournal(), writes) { touched, cause ->
+                RestoreRollback.run(touched, cause, partsOf(locked, rolledBackLocked))
+            }
+        }
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBackLocked)
+        assertEquals(previous, locked.snapshot())
+    }
+
     @Test
     fun unvollstaendigesZurueckrollenBehaeltDasJournal() = runTest {
         val w = World().apply {

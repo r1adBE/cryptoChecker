@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">Leyendo el archivo y los cambios diarios…</string>
     <string name="portfolio_csv_import_progress">Línea %1$s de %2$s</string>
     <string name="portfolio_csv_import_saving">Guardando las transacciones…</string>
-    <string name="portfolio_csv_import_missing_fx">Sin cambio diario para la línea %1$s; importado sin precio ni comisión.</string>
+    <string name="portfolio_csv_import_missing_fx">Sin cambio diario para la línea %1$s; faltan precio y comisión.</string>
     <string name="portfolio_csv_import_missing_price">Sin precio en el archivo para la línea %1$s; importado sin precio.</string>
     <string name="portfolio_csv_import_fee_in_price">Dos comisiones en la línea %1$s: la comisión en fiat está incluida en el precio y la comisión en la moneda reduce la cantidad recibida o aumenta la entregada.</string>
     <string name="portfolio_csv_import_pending_differs">Línea %1$s: el asiento pendiente y el registrado del mismo depósito o retirada tienen cantidades distintas; ambos importados, revisa el saldo.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">Sin cambio diario, el precio o la comisión faltan de forma permanente. Reintenta o importa de todos modos: esas transacciones llevarán una nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Precio sin cambio diario</string>
     <string name="portfolio_csv_note_fee_no_rate">Comisión sin cambio diario</string>
+    <string name="portfolio_csv_import_no_rates_for">No hay cambios diarios para %1$s, así que reintentar no servirá. Si importas de todos modos, esas transacciones llevarán una nota.</string>
+    <string name="portfolio_csv_import_blocked_rates">Primero decide arriba qué hacer con las líneas sin cambio diario.</string>
 </resources>

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">ایکسچینج (اختیاری)</string>
     <string name="ledger_exchange_failed">%1$s: ابھی %2$s سے قیمت نہیں – Binance سے جانچا گیا۔</string>
     <string name="ledger_exchange_hint">کوائن اس ایکسچینج کی قیمت پر جانچا جاتا ہے (ورنہ Binance)۔ تاریخ، 7 دن اور 1 سال اس کے مطابق ڈھالی گئی Binance کی روزانہ قیمتیں استعمال کرتے ہیں۔</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s اب قیمتیں فراہم نہیں کرتا – Binance سے جانچا گیا۔</string>
+    <string name="ledger_exchange_retired_hint">%1$s اب قیمتیں فراہم نہیں کرتا – کوائن کو Binance کی قیمت پر جانچا جاتا ہے۔</string>
     <string name="ledger_exchange_mixed">%1$s: کئی ایکسچینجز درج ہیں – Binance سے جانچا گیا۔ کوائنز منتقل کیے؟ منتقلی کو “ٹرانسفر” کے طور پر درج کریں۔</string>
     <string name="ledger_exchange_none">کوئی نہیں (Binance)</string>
     <string name="ledger_fee">فیس (اختیاری)</string>

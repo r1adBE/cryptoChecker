@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Giełda (opcjonalnie)</string>
     <string name="ledger_exchange_failed">%1$s: teraz brak kursu z %2$s – wycenione według Binance.</string>
     <string name="ledger_exchange_hint">Moneta jest wyceniana po kursie tej giełdy (inaczej Binance). Przebieg, 7 D i 1 R: dzienne kursy Binance, przeskalowane.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s nie podaje już cen – wycenione według Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s nie podaje już cen – moneta jest wyceniana według kursu Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: wpisano kilka giełd – wycenione według Binance. Przeniesione monety? Zapisz to jako „Przeniesienie”.</string>
     <string name="ledger_exchange_none">Brak (Binance)</string>
     <string name="ledger_fee">Opłata (opcjonalnie)</string>

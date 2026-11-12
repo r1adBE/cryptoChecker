@@ -241,6 +241,8 @@
     <string name="ledger_exchange">এক্সচেঞ্জ (ঐচ্ছিক)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s থেকে এখন দাম নেই – Binance দিয়ে মূল্যায়িত।</string>
     <string name="ledger_exchange_hint">কয়েনটি এই এক্সচেঞ্জের দামে মূল্যায়িত হয় (নইলে Binance)। ইতিহাস, 7 দি. ও 1 ব. এর সঙ্গে মাপানো Binance-এর দৈনিক দাম ব্যবহার করে।</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s আর দাম দেয় না – Binance দিয়ে মূল্যায়িত।</string>
+    <string name="ledger_exchange_retired_hint">%1$s আর দাম দেয় না – কয়েনটি Binance-এর দামে মূল্যায়িত হয়।</string>
     <string name="ledger_exchange_mixed">%1$s: একাধিক এক্সচেঞ্জ লেখা হয়েছে – Binance দিয়ে মূল্যায়িত। কয়েন সরিয়েছেন? সেটি “ট্রান্সফার” হিসেবে লিখুন।</string>
     <string name="ledger_exchange_none">নেই (Binance)</string>
     <string name="ledger_fee">ফি (ঐচ্ছিক)</string>

@@ -247,6 +247,8 @@
     <string name="ledger_exchange">Borza (neobvezno)</string>
     <string name="ledger_exchange_failed">%1$s: trenutno ni tečaja z %2$s – vrednoteno z Binance.</string>
     <string name="ledger_exchange_hint">Kovanec se vrednoti po tečaju te borze (sicer Binance). Potek, 7 D in 1 L uporabljajo dnevne tečaje Binance, prilagojene temu.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s ne zagotavlja več cen – vrednoteno z Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s ne zagotavlja več cen – kovanec se vrednoti po ceni na Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: vnesenih več borz – vrednoteno z Binance. Kovanci premaknjeni? Premik vnesi kot „Prenos“.</string>
     <string name="ledger_exchange_none">Nobena (Binance)</string>
     <string name="ledger_fee">Provizija (neobvezno)</string>

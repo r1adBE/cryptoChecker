@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Börs (valfritt)</string>
     <string name="ledger_exchange_failed">%1$s: ingen kurs från %2$s just nu – värderat med Binance.</string>
     <string name="ledger_exchange_hint">Myntet värderas till den här börsens kurs (annars Binance). Förlopp, 7 D och 1 Å: Binances dagskurser, skalade.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s levererar inte längre priser – värderat med Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s levererar inte längre priser – myntet värderas till Binance-kursen.</string>
     <string name="ledger_exchange_mixed">%1$s: flera börser angivna – värderat med Binance. Flyttat mynt? Registrera flytten som ”Överföring”.</string>
     <string name="ledger_exchange_none">Ingen (Binance)</string>
     <string name="ledger_fee">Avgift (valfritt)</string>

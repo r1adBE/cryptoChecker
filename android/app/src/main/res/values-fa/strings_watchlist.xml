@@ -259,6 +259,10 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">بستن اعلان</string>
     <string name="watchlist_missing_logos_explain">برای این ارزها لوگویی در دسترس نیست. برنامه حروف اول آن‌ها را نشان می‌دهد.</string>
+    <string name="exchange_retiring_notice">از %2$s، %1$s دیگر قیمت عمومی ارائه نخواهد داد. برای این ارزها صرافی دیگری انتخاب کن.</string>
+    <string name="exchange_retiring_reason">از %2$s، %1$s دیگر قیمت ارائه نخواهد داد</string>
+    <string name="exchange_retired_since">از %2$s، %1$s دیگر قیمت ارائه نمی‌دهد</string>
+    <string name="exchange_retired_alarms">از %2$s، %1$s دیگر قیمت ارائه نمی‌دهد – هشدارهای این جفت دیگر چیزی را بررسی نمی‌کنند</string>
     <string name="exchange_retired_short">%1$s دیگر قیمت ارائه نمی‌دهد</string>
     <string name="exchange_retired_notice">از %2$s، %1$s دیگر قیمت عمومی ارائه نمی‌دهد. برای این ارزها صرافی دیگری انتخاب کن.</string>
 </resources>

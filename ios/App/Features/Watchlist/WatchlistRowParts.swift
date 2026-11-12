@@ -160,8 +160,9 @@ extension WatchlistRow {
             .frame(minHeight: namesEnabled ? line3 : nil, alignment: .leading)
 
             // «nicht erreichbar» steht schon in der Zeitzeile: dann keine zweite Fehlerzeile;
-            // deaktiviert: kein alter Fehler (es wird bewusst nicht abgefragt)
-            if !off, let error = watch.lastError, !error.isEmpty,
+            // deaktiviert: kein alter Fehler (es wird bewusst nicht abgefragt) — nur eine stillgelegte Börse nennt auch
+            // hier ihren Grund (Marker von `Watch.retiredShown`), wie Android
+            if !off || ExchangeRetirement.isMarker(watch.lastError), let error = watch.lastError, !error.isEmpty,
                !(watch.lastUpdate > 0 && ConnectionErrors.isRetryable(error)) {
                 Text(ConnectionErrors.display(error))
                     .font(.caption)

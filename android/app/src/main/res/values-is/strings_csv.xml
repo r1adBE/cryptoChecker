@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Les skrá og dagsgengi…</string>
     <string name="portfolio_csv_import_progress">Lína %1$s af %2$s</string>
     <string name="portfolio_csv_import_saving">Vistar færslur…</string>
-    <string name="portfolio_csv_import_missing_fx">Ekkert dagsgengi fyrir línur %1$s – flutt inn án verðs/gjalds.</string>
+    <string name="portfolio_csv_import_missing_fx">Ekkert dagsgengi fyrir línur %1$s – verð/gjald vantar.</string>
     <string name="portfolio_csv_import_missing_price">Ekkert verð í skránni fyrir línur %1$s – flutt inn án verðs.</string>
     <string name="portfolio_csv_import_fee_in_price">Tvö gjöld í línum %1$s: fiat-gjaldið er innifalið í verðinu, gjaldið í myntinni lækkar móttekið magn eða hækkar afhent magn.</string>
     <string name="portfolio_csv_import_pending_differs">Línur %1$s: biðfærsla og bókuð færsla sömu innborgunar eða úttektar hafa mismunandi magn – báðar fluttar inn, athugaðu eignina.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Án dagsgengis vantar verð eða gjald til frambúðar. Reyndu aftur eða flyttu inn samt – þær færslur fá þá athugasemd.</string>
     <string name="portfolio_csv_note_price_no_rate">Verð án dagsgengis</string>
     <string name="portfolio_csv_note_fee_no_rate">Gjald án dagsgengis</string>
+    <string name="portfolio_csv_import_no_rates_for">Ekkert dagsgengi er til fyrir %1$s, svo það hjálpar ekki að reyna aftur. Ef þú flytur inn samt fá þær færslur athugasemd.</string>
+    <string name="portfolio_csv_import_blocked_rates">Ákveddu fyrst hér fyrir ofan hvað gera skal við línur án dagsgengis.</string>
 </resources>

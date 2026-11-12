@@ -256,6 +256,31 @@ final class CsvImportTests: XCTestCase {
         }
     }
 
+    /// Was «Erneut versuchen» bei Zeilen ohne Tageskurs ausrichten kann (`rateRetry`): Währungen ohne mögliche Tageskurse
+    /// (eigener Satz) und ob ein neuer Abruf hilft; eine Zeile, der nichts fehlt, sperrt nicht. Wie Android `rateRetry`.
+    func testRateRetry() throws {
+        let cases = S.list(try S.fixture("csv_import")["rateRetry"])
+        XCTAssertGreaterThanOrEqual(cases.count, 6)
+        for c in cases {
+            var priced: [CsvImportPriced] = []
+            for (i, r) in S.list(c["rows"]).enumerated() {
+                let kind = try XCTUnwrap(CsvImportKind(rawValue: string(r["kind"]) ?? ""))
+                let row = CsvImportRow(line: i + 2, kind: kind, rawKind: kind.rawValue, coin: "SOL", amount: 1, price: 10,
+                                       quote: string(r["quote"]), fee: 1, feeUnit: string(r["feeUnit"]), timeMillis: 0,
+                                       externalId: nil, key: "k\(i)")
+                let priceNeedsFx = r["priceNeedsFx"] as? Bool ?? false
+                let feeNeedsFx = r["feeNeedsFx"] as? Bool ?? false
+                let p = CsvImportPriced(row: row, priceUsdt: nil, feeUsdt: nil, needsFx: priceNeedsFx || feeNeedsFx,
+                                        missingPrice: false, priceNeedsFx: priceNeedsFx, feeNeedsFx: feeNeedsFx)
+                XCTAssertEqual(CsvImportRateGate.missing(p)?.rawValue, string(r["missing"]), "\(r)")
+                priced.append(p)
+            }
+            let retry = CsvImportRateGate.retry(priced)
+            XCTAssertEqual(retry.currencies, (c["currencies"] as? [String]) ?? [], "\(c)")
+            XCTAssertEqual(retry.retryHelps, c["retryHelps"] as? Bool, "\(c)")
+        }
+    }
+
     /// Tageskurs-Tag des Imports = Ortstag des Geräts wie im Steuer-Export (`CsvImportResult.fxZone`) — wie Android.
     func testFxDay() throws {
         let fixture = try S.fixture("csv_import")

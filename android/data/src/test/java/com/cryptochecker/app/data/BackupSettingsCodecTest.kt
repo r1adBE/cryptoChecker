@@ -194,7 +194,8 @@ class BackupSettingsCodecTest {
         // Mit Passwort (echt): übernommen — und in der Meldung genannt, nie still
         val notes = codec(settings).restoreSettings(lessProtection, trusted = true)
         assertFalse(notes.appLockKept)
-        assertEquals(BackupRestorePolicy.LoweredProtection(systemBackupOn = true, amountsShown = true), notes.lowered)
+        // Sperre war an, die Sicherung schaltet sie aus: eigener Satz in der Meldung
+        assertEquals(BackupRestorePolicy.LoweredProtection(systemBackupOn = true, amountsShown = true, lockOff = true), notes.lowered)
         assertFalse(settings.s.appLock)
         assertFalse(settings.s.hidePortfolioAmounts)
         assertTrue(settings.s.portfolioSystemBackup)

@@ -238,6 +238,8 @@
     <string name="ledger_exchange">거래소(선택)</string>
     <string name="ledger_exchange_failed">%1$s: 지금 %2$s 시세가 없어 Binance로 평가했습니다.</string>
     <string name="ledger_exchange_hint">이 코인은 이 거래소 시세로 평가합니다(그 외 Binance). 추이·7일·1년은 Binance 일별 시세를 맞춰 씁니다.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s에서 더 이상 시세를 제공하지 않아 Binance로 평가했습니다.</string>
+    <string name="ledger_exchange_retired_hint">%1$s에서 더 이상 시세를 제공하지 않습니다 – 이 코인은 Binance 시세로 평가합니다.</string>
     <string name="ledger_exchange_mixed">%1$s: 여러 거래소가 입력되어 Binance로 평가했습니다. 코인을 옮겼나요? “이체”로 기록하세요.</string>
     <string name="ledger_exchange_none">없음(Binance)</string>
     <string name="ledger_fee">수수료(선택)</string>

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Datei und Tageskurse werden gelesen …</string>
     <string name="portfolio_csv_import_progress">Zeile %1$s von %2$s</string>
     <string name="portfolio_csv_import_saving">Transaktionen werden gespeichert …</string>
-    <string name="portfolio_csv_import_missing_fx">Kein Tageskurs für die Zeilen %1$s – ohne Preis bzw. Gebühr übernommen.</string>
+    <string name="portfolio_csv_import_missing_fx">Kein Tageskurs für die Zeilen %1$s – Preis bzw. Gebühr fehlen.</string>
     <string name="portfolio_csv_import_missing_price">Kein Preis in der Datei für die Zeilen %1$s – ohne Preis übernommen.</string>
     <string name="portfolio_csv_import_fee_in_price">Zwei Gebühren in den Zeilen %1$s: Die Fiat-Gebühr ist im Preis enthalten, die Gebühr im Coin mindert die erhaltene bzw. erhöht die abgegebene Menge.</string>
     <string name="portfolio_csv_import_pending_differs">Zeilen %1$s: Ausstehende und gebuchte Zeile derselben Ein- oder Auszahlung haben verschiedene Mengen – beide übernommen, Bestand prüfen.</string>
@@ -103,4 +103,8 @@
     <string name="portfolio_csv_import_anyway_hint">Ohne Tageskurs fehlen Preis bzw. Gebühr dauerhaft. Versuch es erneut oder importiere trotzdem – diese Transaktionen erhalten dann einen Vermerk.</string>
     <string name="portfolio_csv_note_price_no_rate">Preis ohne Tageskurs</string>
     <string name="portfolio_csv_note_fee_no_rate">Gebühr ohne Tageskurs</string>
+    <!-- CSV-Import: Preis- bzw. Gebühr-Währung ohne mögliche Tageskurse (z. B. ein Coin), statt «Erneut versuchen» (CsvImportRateGate.retry) -->
+    <string name="portfolio_csv_import_no_rates_for">Für %1$s gibt es keine Tageskurse – erneut versuchen hilft hier nicht. Importierst du trotzdem, erhalten diese Transaktionen einen Vermerk.</string>
+    <!-- CSV-Import: Grund unter dem gesperrten Knopf «Importieren» — Zeilen ohne Tageskurs noch unentschieden -->
+    <string name="portfolio_csv_import_blocked_rates">Entscheide zuerst oben über die Zeilen ohne Tageskurs.</string>
 </resources>

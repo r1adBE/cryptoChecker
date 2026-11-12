@@ -238,6 +238,8 @@
     <string name="ledger_exchange">Sàn (không bắt buộc)</string>
     <string name="ledger_exchange_failed">%1$s: hiện không có giá từ %2$s – định giá theo Binance.</string>
     <string name="ledger_exchange_hint">Coin được định giá theo giá của sàn này (nếu không thì Binance). Lịch sử, 7 N và 1 N: giá ngày của Binance, quy đổi theo đó.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s không còn cung cấp giá – định giá theo Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s không còn cung cấp giá – coin được định giá theo giá Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: đã nhập nhiều sàn – định giá theo Binance. Đã chuyển coin? Hãy ghi lại là “Chuyển”.</string>
     <string name="ledger_exchange_none">Không (Binance)</string>
     <string name="ledger_fee">Phí (không bắt buộc)</string>

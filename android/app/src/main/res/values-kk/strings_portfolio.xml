@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Биржа (міндетті емес)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s қазір бағам бермейді – Binance бойынша бағаланды.</string>
     <string name="ledger_exchange_hint">Монета осы биржаның бағамымен бағаланады (әйтпесе Binance). Тарих, 7 К және 1 Ж оған масштабталған Binance күндік бағамдарын пайдаланады.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s енді баға бермейді – Binance бойынша бағаланды.</string>
+    <string name="ledger_exchange_retired_hint">%1$s енді баға бермейді – монета Binance бағасымен бағаланады.</string>
     <string name="ledger_exchange_mixed">%1$s: бірнеше биржа енгізілген – Binance бойынша бағаланды. Монеталарды ауыстырдыңыз ба? Ауыстыруды «Аударым» ретінде жазыңыз.</string>
     <string name="ledger_exchange_none">Жоқ (Binance)</string>
     <string name="ledger_fee">Комиссия (міндетті емес)</string>

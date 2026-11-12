@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Siste sjekker</string>
     <string name="settings_http_log">Vis HTTP-logg</string>
     <string name="settings_http_log_hint">Viser forespørslene til børsene nederst på siden «Legg til par» – for feilsøking.</string>
+    <string name="settings_retirement_preview">Flytt stengedatoen frem</string>
+    <string name="settings_retirement_preview_hint">Flytter bare klokken for stengeregelen, ikke enhetens klokke.</string>
     <string name="settings_live_service">Oppdater ofte</string>
     <string name="settings_live_websocket">Livekurser</string>
 

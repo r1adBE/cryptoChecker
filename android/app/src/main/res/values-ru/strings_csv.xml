@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Чтение файла и дневных курсов…</string>
     <string name="portfolio_csv_import_progress">Строка %1$s из %2$s</string>
     <string name="portfolio_csv_import_saving">Сохранение транзакций…</string>
-    <string name="portfolio_csv_import_missing_fx">Нет дневного курса для строк %1$s – импортировано без цены и комиссии.</string>
+    <string name="portfolio_csv_import_missing_fx">Нет дневного курса для строк %1$s – нет цены и комиссии.</string>
     <string name="portfolio_csv_import_missing_price">В файле нет цены для строк %1$s – импортировано без цены.</string>
     <string name="portfolio_csv_import_fee_in_price">Две комиссии в строках %1$s: комиссия в фиате включена в цену, комиссия в монете уменьшает полученное или увеличивает отданное количество.</string>
     <string name="portfolio_csv_import_pending_differs">Строки %1$s: ожидающая и проведённая запись одного пополнения или вывода различаются по количеству – обе импортированы, проверь остаток.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Без дневного курса цена или комиссия останутся пустыми навсегда. Повтори попытку или всё равно импортируй – у этих транзакций появится заметка.</string>
     <string name="portfolio_csv_note_price_no_rate">Цена без дневного курса</string>
     <string name="portfolio_csv_note_fee_no_rate">Комиссия без дневного курса</string>
+    <string name="portfolio_csv_import_no_rates_for">Для %1$s нет дневных курсов, поэтому повторная попытка не поможет. Если всё равно импортируешь, у этих транзакций появится заметка.</string>
+    <string name="portfolio_csv_import_blocked_rates">Сначала реши выше, что делать со строками без дневного курса.</string>
 </resources>

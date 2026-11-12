@@ -102,6 +102,18 @@ enum PortfolioExchangeRoute {
         return (hit.key, hit.value)
     }
 
+    /// Eingetragene Spot-Börse (`name`, wie `exchange`), die stillgelegt ist (`ExchangeRetirement`): ihr Anzeigename — der
+    /// Coin wird mit Binance bewertet, das Portfolio sagt es mit derselben Hinweiszeile wie bei einem Abruffehler
+    /// (`exchangeFailed`). nil = nicht stillgelegt bzw. keine Börse der App. Wie Android.
+    static func retiredExchange(_ name: String, exchanges: [String: String]) -> String? {
+        let wanted = name.trimmingCharacters(in: .whitespaces).lowercased()
+        guard !wanted.isEmpty else { return nil }
+        guard let hit = exchanges.sorted(by: { $0.key < $1.key }).first(where: { key, label in
+            isSpot(key) && (label.lowercased() == wanted || key.lowercased() == wanted)
+        }), ExchangeRetirement.isRetired(hit.key) else { return nil }
+        return hit.value
+    }
+
     /// Bestes Paar für `coin` nach `quotes`; nil = keines.
     static func pickPair(_ coin: String, pairs: [ExchangePair]) -> ExchangePair? {
         let base = PortfolioCalculator.normalizeCoin(coin)

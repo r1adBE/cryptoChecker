@@ -19,8 +19,9 @@ extension AlarmsScreen {
             if !alarms.isEmpty {
                 NotificationsOffBanner()
             }
-            if retired {
-                RetiredExchangeAlarmNote(exchangeName: watch?.exchangeName ?? "")
+            // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
+            if retired || RetirementText.announced(watch) {
+                RetiredExchangeAlarmNote(watch: watch)
             } else if referenceRate {
                 ReferenceRateAlarmNote(exchangeKey: watch?.exchangeKey)
             } else if lowLiquidity {
@@ -57,7 +58,8 @@ extension AlarmsScreen {
                         ),
                         retiredExchange: watch?.exchangeName,
                         onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
-                        onEdit: { if !blocked { draft = AlarmDraft.from(alarm) } },
+                        // Bearbeiten gesperrt: Karte ohne Tipp-Aktion (VoiceOver böte sonst eine Taste ohne Wirkung)
+                        onEdit: blocked ? nil : { draft = AlarmDraft.from(alarm) },
                         onDelete: { askDelete = alarm }
                     )
                 }

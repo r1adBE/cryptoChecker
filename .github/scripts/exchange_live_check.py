@@ -17,6 +17,8 @@ the exchange's own block answer listed under "blocked", e.g. Mercado Bitcoin's
 302 without Location to «Página indisponível») count as "skipped", not as failure:
 GitHub's runners are in the US. Skipped
 exchanges are listed in the job summary and in the issue.
+An exchange past its end date ("until", the same day as ExchangeRetirement in the apps, e.g. Bitpanda
+2027-02-01) is skipped without a request: the apps no longer ask it, so a dead API must not open the issue.
 Binance Spot is also checked via data-api.binance.vision (same schema as
 api.binance.com, not geo-blocked; the apps read it for candles and portfolio
 prices, see mirror_data.py), so the Spot schema is checked even when
@@ -212,8 +214,9 @@ EXCHANGES = [
     {"key": "luno", "name": "Luno",
      "url": "https://api.luno.com/api/1/ticker?pair=XBTZAR",
      "fields": [["last_trade"], ["bid"], ["ask"]]},
-    {"key": "bitpanda", "name": "Bitpanda",
-     # One full list of all coins and currencies (like the adapter); price only
+    {"key": "bitpanda", "name": "Bitpanda", "until": "2027-02-01",
+     # One full list of all coins and currencies (like the adapter); price only. Public prices end on 1 Feb 2027
+     # 00:00 UTC (ExchangeRetirement.BITPANDA_END_MILLIS): from then on skipped without a request
      "url": "https://api.bitpanda.com/v1/ticker",
      "fields": [["BTC", "EUR"], ["ETH", "EUR"]]},
     {"key": "bitkub", "name": "Bitkub",
@@ -411,8 +414,19 @@ def path_text(path):
     return "".join(part(p) for p in path).lstrip(".")
 
 
+def retired(entry, today=None):
+    """Past the end date of the exchange ("until", ISO day, 00:00 UTC like ExchangeRetirement)?"""
+    until = entry.get("until")
+    if not until:
+        return False
+    day = today or time.strftime("%Y-%m-%d", time.gmtime())
+    return day >= until
+
+
 def check(entry):
-    """(Status, note) for one exchange; one retry on network/server errors."""
+    """(Status, note) for one exchange; one retry on network/server errors. Retired: skipped, no request."""
+    if retired(entry):
+        return SKIP, f"retired since {entry['until']} (no request, like the apps)"
     status, body = fetch(entry)
     if status == 0 or status >= 500 or status == 429:
         time.sleep(3)

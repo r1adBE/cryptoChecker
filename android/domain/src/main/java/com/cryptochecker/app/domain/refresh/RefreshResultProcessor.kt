@@ -238,9 +238,13 @@ class RefreshResultProcessor constructor(
 
         recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
 
+        // Nicht gehandelt bzw. Börse stillgelegt: ein Zustand, kein Abruf — weder «geprüft» noch «fehlgeschlagen»
+        // (sonst kippten «Zuletzt geprüft», Widget-Kopf und «Letzte Prüfungen», BackgroundSchedule.isFullCheck)
+        val notTraded = watches.count { fetched[it.id]?.notTraded == true }
         return Processed(
-            checked = watches.size,
-            failed = errorWrites.size,
+            checked = watches.size - notTraded,
+            failed = errorWrites.size - notTraded,
+            notTraded = notTraded,
             alarms = alarms,
             notificationsShown = shown,
             dbMillis = dbMillis,
@@ -282,7 +286,9 @@ class RefreshResultProcessor constructor(
     }
 
     class Processed(
+        /** Abgefragte Paare ohne die nicht gehandelten ([notTraded]). */
         val checked: Int,
+        /** Paare ohne Kurs ohne die nicht gehandelten. */
         val failed: Int,
         val alarms: Int,
         val notificationsShown: Int,
@@ -294,6 +300,8 @@ class RefreshResultProcessor constructor(
         val failedIds: List<Long> = emptyList(),
         /** Mit `deferPrices`: noch zu zeigende Kurs-Meldungen ([postPrices]); null = keine. */
         val pendingPrices: PendingPrices? = null,
+        /** Nicht gehandelte Paare und Paare stillgelegter Börsen (Zustand, nicht in [checked]/[failed]). */
+        val notTraded: Int = 0,
     )
 
     /** Kurs-Meldungen eines Durchlaufs (Reihenfolge = Vorrang), gemeldet mit [ongoing], Meldekurs-Zeit [now]. */

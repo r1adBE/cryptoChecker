@@ -21,7 +21,7 @@ data class RestoreResult(
     val droppedAlarms: Int = 0,
     /** Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]); null = keiner. */
     val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
-    /** Hostname des neu gesetzten Bitcoin-Servers ([BackupRestorePolicy.addressServerSetHost]); null = keiner. */
+    /** Hostname des neu gesetzten bzw. ersetzten Bitcoin-Servers ([BackupRestorePolicy.addressServerHost]); null = keiner. */
     val addressServerHost: String? = null,
     /** Von der Sicherung abgeschalteter Schutz ([BackupRestorePolicy.loweredProtection]). */
     val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),

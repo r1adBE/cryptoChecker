@@ -241,6 +241,8 @@
     <string name="ledger_exchange">صرافی (اختیاری)</string>
     <string name="ledger_exchange_failed">%1$s: فعلاً قیمتی از %2$s نیست – با Binance ارزش‌گذاری شد.</string>
     <string name="ledger_exchange_hint">کوین با قیمت این صرافی ارزش‌گذاری می‌شود (در غیر این صورت Binance). روند، ۷ روز و ۱ سال: قیمت‌های روزانهٔ Binance، مقیاس‌شده.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s دیگر قیمت ارائه نمی‌دهد – با Binance ارزش‌گذاری شد.</string>
+    <string name="ledger_exchange_retired_hint">%1$s دیگر قیمت ارائه نمی‌دهد – این ارز با قیمت Binance ارزش‌گذاری می‌شود.</string>
     <string name="ledger_exchange_mixed">%1$s: چند صرافی وارد شده – با Binance ارزش‌گذاری شد. سکه‌ها را جابه‌جا کردی؟ آن را به‌صورت «انتقال» ثبت کن.</string>
     <string name="ledger_exchange_none">هیچ (Binance)</string>
     <string name="ledger_fee">کارمزد (اختیاری)</string>

@@ -29,7 +29,7 @@
     <string name="portfolio_csv_import_loading">קורא את הקובץ ואת השערים היומיים…</string>
     <string name="portfolio_csv_import_progress">שורה %1$s מתוך %2$s</string>
     <string name="portfolio_csv_import_saving">שומרים את העסקאות…</string>
-    <string name="portfolio_csv_import_missing_fx">אין שער יומי לשורה %1$s – יובא בלי מחיר ועמלה.</string>
+    <string name="portfolio_csv_import_missing_fx">אין שער יומי לשורה %1$s – חסרים מחיר ועמלה.</string>
     <string name="portfolio_csv_import_missing_price">אין מחיר בקובץ לשורה %1$s – יובא בלי מחיר.</string>
     <string name="portfolio_csv_import_fee_in_price">שתי עמלות בשורה %1$s: עמלת הפיאט כלולה במחיר, והעמלה במטבע מקטינה את הכמות שהתקבלה או מגדילה את הכמות שנמסרה.</string>
     <string name="portfolio_csv_import_pending_differs">שורה %1$s: לרישום הממתין ולרישום הרשום של אותה הפקדה או משיכה יש כמויות שונות – שניהם יובאו, לבדוק את היתרה.</string>
@@ -111,4 +111,6 @@
     <string name="portfolio_csv_import_anyway_hint">בלי שער יומי, המחיר או העמלה יחסרו לצמיתות. אפשר לנסות שוב או לייבא בכל זאת – לעסקאות האלה תתווסף הערה.</string>
     <string name="portfolio_csv_note_price_no_rate">מחיר בלי שער יומי</string>
     <string name="portfolio_csv_note_fee_no_rate">עמלה בלי שער יומי</string>
+    <string name="portfolio_csv_import_no_rates_for">אין שערים יומיים עבור %1$s, ולכן ניסיון נוסף לא יעזור. אם תייבאו בכל זאת, לעסקאות האלה תתווסף הערה.</string>
+    <string name="portfolio_csv_import_blocked_rates">קודם החליטו למעלה לגבי השורות בלי שער יומי.</string>
 </resources>

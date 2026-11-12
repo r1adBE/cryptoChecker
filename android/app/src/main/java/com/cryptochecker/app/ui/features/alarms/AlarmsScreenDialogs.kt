@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.DialogText
@@ -250,16 +251,23 @@ internal fun ReferenceRateNote(exchangeKey: String?) {
 
 /**
  * Börse stillgelegt ([com.cryptochecker.marketdata.config.ExchangeRetirement]): kein neuer Alarm, bestehende bleiben
- * gespeichert, prüfen aber nichts — «Bitpanda liefert keine Kurse mehr».
+ * gespeichert, prüfen aber nichts — «Bitpanda liefert seit 1. Februar 2027 keine Kurse mehr – Alarme dieses Paars prüfen
+ * nichts mehr». Während der Ankündigung «Bitpanda liefert ab 1. Februar 2027 keine Kurse mehr» (Alarme prüfen weiter).
+ * Nichts, wenn weder noch.
  */
 @Composable
-internal fun RetiredExchangeNote(exchangeName: String) {
+internal fun RetiredExchangeNote(watch: WatchEntity?) {
+    val text = watch?.let { com.cryptochecker.app.ui.features.watchlist.retirementReason(it, alarms = true) } ?: return
     Text(
-        stringResource(R.string.exchange_retired_short, exchangeName),
+        text,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
 }
+
+/** Ende der Börse von [watch] angekündigt ([com.cryptochecker.marketdata.config.ExchangeRetirement.isAnnounced])? */
+internal fun retirementAnnounced(watch: WatchEntity?): Boolean =
+    watch != null && com.cryptochecker.marketdata.config.ExchangeRetirement.isAnnounced(watch.exchangeKey)
 
 /** «Ein Paar kann höchstens 10 Alarme haben.» (Zahl im Format der App-Sprache, [WatchlistLimits]). */
 @Composable

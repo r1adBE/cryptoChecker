@@ -16,8 +16,8 @@ package com.cryptochecker.app.domain.portfolio
  *    Marktkurs USDT/USD in USDT (ohne Kurs 1 — dann als Näherung markiert, [PortfolioStables.usdtUsd]), Fiat über
  *    den Devisenkurs und denselben USDT/USD-Kurs ([toUsdt]). Andere Stablecoins (USDC …) nicht — sie gelten im
  *    Portfolio nicht automatisch als 1.
- *  - Klappt der Weg nicht (Börse nicht erreichbar, kein Paar, kein Devisenkurs), bleibt der Binance-Kurs und
- *    der Coin steht in [PortfolioPrices.exchangeFailed].
+ *  - Klappt der Weg nicht (Börse nicht erreichbar, kein Paar, kein Devisenkurs) oder ist die Börse stillgelegt
+ *    ([retiredExchange]), bleibt der Binance-Kurs und der Coin steht in [PortfolioPrices.exchangeFailed] (Hinweis).
  *  - Wertverlauf, «7 T» und «1 J» (auch Widget und Alarme): Tageskerzen der eigenen Börse, in USDT
  *    umgerechnet ([ownDailyUsdt]; reicht die Börse nicht weit genug zurück, davor Binance am ersten eigenen
  *    Tag angeglichen, [stitch]). Nur ohne eigene Tageskerzen Binance auf den Kurs der Börse skaliert
@@ -107,6 +107,21 @@ object PortfolioExchangeRoute {
         } ?: return null
         if (hit.key == DEFAULT_EXCHANGE || com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(hit.key)) return null
         return hit.key to hit.value
+    }
+
+    /**
+     * Eingetragene Spot-Börse ([name], wie [exchange]), die stillgelegt ist
+     * ([com.cryptochecker.marketdata.config.ExchangeRetirement]): ihr Anzeigename — der Coin wird mit Binance bewertet,
+     * das Portfolio sagt es mit derselben Hinweiszeile wie bei einem Abruffehler (in [PortfolioPrices.exchangeFailed]).
+     * null = nicht stillgelegt bzw. keine Börse der App.
+     */
+    fun retiredExchange(name: String, exchanges: Map<String, String>): String? {
+        val wanted = name.trim().lowercase()
+        if (wanted.isEmpty()) return null
+        val hit = exchanges.entries.firstOrNull { (key, label) ->
+            isSpot(key) && (label.lowercase() == wanted || key.lowercase() == wanted)
+        } ?: return null
+        return hit.value.takeIf { com.cryptochecker.marketdata.config.ExchangeRetirement.isRetired(hit.key) }
     }
 
     /** Ein Paar der Börse: Basis, Gegenwährung, Paar-Kennung der Börse (null = aus Basis/Gegenwährung gebildet). */

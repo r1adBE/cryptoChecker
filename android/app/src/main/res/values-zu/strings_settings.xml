@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Ukuhlola kwakamuva</string>
     <string name="settings_http_log">Bonisa ilogi ye-HTTP</string>
     <string name="settings_http_log_hint">Ibonisa izicelo kuma-exchange ngezansi kwekhasi elithi “Engeza ipheya” – ukuze kuxazululwe izinkinga.</string>
+    <string name="settings_retirement_preview">Letha usuku lokuvalwa phambili</string>
+    <string name="settings_retirement_preview_hint">Ihambisa iwashi lomthetho wokuvalwa kuphela, hhayi iwashi ledivayisi.</string>
     <string name="settings_live_service">Buyekeza kaningi</string>
     <string name="settings_live_websocket">Izintengo ezibukhoma</string>
 

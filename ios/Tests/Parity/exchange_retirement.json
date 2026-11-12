@@ -1,6 +1,7 @@
 {
-  "description": "Stillgelegte Börsen (Android ExchangeRetirement.kt, iOS ExchangeRetirement.swift; Entscheid Inhaber 12.11.2026): Bitpanda liefert ab 1. Februar 2027 00:00:00 UTC (Epoch-ms 1801440000000) keine öffentlichen Kurse mehr. «retired»: isRetired(exchange, now) — Schlüssel oder Name, Gross/Klein egal, ab dem Ende einschliesslich; ein Zeitpunkt (UTC), keine Zeitzone. «markers»: gespeicherter lastError «Exchange retired: <Name>» → exchangeOf / isMarker; NotTraded.isMarker zählt ihn als nicht gehandelt, NotTraded.askSingleWhenMissing nicht (wieder aktive Börse wird normal abgefragt). «notice»: Börsen für den Hinweis in der Merkliste (noticeExchanges: stillgelegte unter den Paaren, ohne mit ✕ geschlossene, klein verglichen). «watchMissing»: Grund für «—» auf der Uhr (WatchPairQuotes.missingReason mit now, ohne eigenes Ergebnis) und ob die Uhr selbst Börsen fragt (venues leer = nein).",
+  "description": "Stillgelegte Börsen (Android ExchangeRetirement.kt, iOS ExchangeRetirement.swift; Entscheid Inhaber 12.11.2026): Bitpanda liefert ab 1. Februar 2027 00:00:00 UTC (Epoch-ms 1801440000000) keine öffentlichen Kurse mehr. «retired»: isRetired(exchange, now) — Schlüssel oder Name, Gross/Klein egal, ab dem Ende einschliesslich; ein Zeitpunkt (UTC), keine Zeitzone. «markers»: gespeicherter lastError «Exchange retired: <Name>» → exchangeOf / isMarker; NotTraded.isMarker zählt ihn als nicht gehandelt, NotTraded.askSingleWhenMissing nicht (wieder aktive Börse wird normal abgefragt). «notice»: Börsen für den Hinweis in der Merkliste (noticeExchanges: stillgelegte unter den Paaren, ohne mit ✕ geschlossene, klein verglichen). «watchMissing»: Grund für «—» auf der Uhr (WatchPairQuotes.missingReason mit now, ohne eigenes Ergebnis) und ob die Uhr selbst Börsen fragt (venues leer = nein). «retiredNow»: die EINE Regel für alle Anzeigen und Prüfungen (Entscheid Inhaber 12.11.2026) — gespeicherter Marker ODER Ende erreicht (retiredNow(exchange, lastError, now) → Name der Börse, null = nicht stillgelegt). «announced»: Ankündigung ab noticeMillis (1. Januar 2027 00:00:00 UTC) bis vor dem Ende (isAnnounced). «advanceNotice»: Börsen für die Ankündigung über der Merkliste (advanceNoticeExchanges; eigenes ✕ mit dem Eintrag «<name klein>#advance», getrennt vom ✕ nach dem Ende).",
   "endMillis": 1801440000000,
+  "noticeMillis": 1798761600000,
   "markerPrefix": "Exchange retired: ",
   "retired": [
     {"name": "1 ms vor dem Ende", "exchange": "Bitpanda", "now": 1801439999999, "expected": false},
@@ -25,11 +26,36 @@
     {"name": "vor dem Ende kein Hinweis", "exchanges": ["Bitpanda"], "dismissed": [], "now": 1801439999999, "expected": []},
     {"name": "mit ✕ geschlossen", "exchanges": ["Bitpanda"], "dismissed": ["bitpanda"], "now": 1801440000000, "expected": []},
     {"name": "keine Bitpanda-Paare", "exchanges": ["Binance", "Kraken"], "dismissed": [], "now": 1801440000000, "expected": []},
-    {"name": "andere Börse geschlossen", "exchanges": ["Bitpanda"], "dismissed": ["kraken"], "now": 1801440000000, "expected": ["Bitpanda"]}
+    {"name": "andere Börse geschlossen", "exchanges": ["Bitpanda"], "dismissed": ["kraken"], "now": 1801440000000, "expected": ["Bitpanda"]},
+    {"name": "nur die Ankündigung geschlossen: Hinweis nach dem Ende erscheint", "exchanges": ["Bitpanda"], "dismissed": ["bitpanda#advance"], "now": 1801440000000, "expected": ["Bitpanda"]}
   ],
   "watchMissing": [
     {"name": "Bitpanda-Paar nach dem Ende", "key": "BTC/EUR|Bitpanda|", "now": 1801440000000, "expected": "RETIRED", "venues": []},
     {"name": "Bitpanda-Paar vor dem Ende: Ersatzbörsen wie bisher", "key": "BTC/EUR|Bitpanda|", "now": 1801439999999, "expected": "VIA_PHONE", "venues": ["Binance", "Bybit", "OKX"]},
     {"name": "andere Börse nach dem Ende", "key": "BTC/USDT|Binance|", "now": 1801440000000, "expected": "OWN_UNREACHABLE", "venues": ["Binance", "Bybit", "OKX"]}
+  ],
+  "retiredNow": [
+    {"name": "Ende erreicht, noch ohne Marker (offline, deaktiviert, vor dem ersten Abruf)", "exchange": "Bitpanda", "lastError": null, "now": 1801440000000, "expected": "Bitpanda"},
+    {"name": "Marker gespeichert", "exchange": "Bitpanda", "lastError": "Exchange retired: Bitpanda", "now": 1801526400000, "expected": "Bitpanda"},
+    {"name": "Uhr zurückgestellt, Marker bleibt bis zum nächsten Kurs", "exchange": "Bitpanda", "lastError": "Exchange retired: Bitpanda", "now": 1794960000000, "expected": "Bitpanda"},
+    {"name": "vor dem Ende ohne Marker", "exchange": "Bitpanda", "lastError": null, "now": 1801439999999, "expected": null},
+    {"name": "nach dem Ende mit gewöhnlichem Fehler", "exchange": "Bitpanda", "lastError": "HTTP 503", "now": 1801440000000, "expected": "Bitpanda"},
+    {"name": "nicht gehandelt bei Bitpanda nach dem Ende", "exchange": "Bitpanda", "lastError": "Wird an der Börse nicht mehr gehandelt", "now": 1801440000000, "expected": "Bitpanda"},
+    {"name": "andere Börse nach dem Ende", "exchange": "Kraken", "lastError": null, "now": 1801526400000, "expected": null},
+    {"name": "ohne Börse", "exchange": "", "lastError": null, "now": 1801526400000, "expected": null}
+  ],
+  "announced": [
+    {"name": "1 ms vor der Ankündigung", "exchange": "Bitpanda", "now": 1798761599999, "expected": false},
+    {"name": "genau die Ankündigung", "exchange": "Bitpanda", "now": 1798761600000, "expected": true},
+    {"name": "1 ms vor dem Ende", "exchange": "bitpanda", "now": 1801439999999, "expected": true},
+    {"name": "genau das Ende: stillgelegt, nicht mehr angekündigt", "exchange": "Bitpanda", "now": 1801440000000, "expected": false},
+    {"name": "andere Börse", "exchange": "Kraken", "now": 1800000000000, "expected": false}
+  ],
+  "advanceNotice": [
+    {"name": "Bitpanda-Paare im Januar", "exchanges": ["Binance", "Bitpanda", "Bitpanda"], "dismissed": [], "now": 1800000000000, "expected": ["Bitpanda"]},
+    {"name": "Ankündigung mit ✕ geschlossen", "exchanges": ["Bitpanda"], "dismissed": ["bitpanda#advance"], "now": 1800000000000, "expected": []},
+    {"name": "nur der Hinweis nach dem Ende geschlossen: Ankündigung bleibt", "exchanges": ["Bitpanda"], "dismissed": ["bitpanda"], "now": 1800000000000, "expected": ["Bitpanda"]},
+    {"name": "vor der Ankündigung", "exchanges": ["Bitpanda"], "dismissed": [], "now": 1798761599999, "expected": []},
+    {"name": "nach dem Ende keine Ankündigung", "exchanges": ["Bitpanda"], "dismissed": [], "now": 1801440000000, "expected": []}
   ]
 }

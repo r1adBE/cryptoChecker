@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.marketdata.config.ExchangeRetirement
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -61,7 +61,8 @@ fun AlarmsScreen(
     // EZB-Referenzkurs (Forex): gar keine Alarme (Exchange.allowsAlarms), Hinweis statt Editor
     val referenceRate = watch?.let { !ExchangesConfigUtils.getExchangeByKey(it.exchangeKey).allowsAlarms } == true
     // Börse stillgelegt (ExchangeRetirement): Alarme bleiben gespeichert, prüfen nichts; kein neuer, kein Bearbeiten
-    val retired = watch?.let { ExchangeRetirement.isRetired(it.exchangeKey) } == true
+    // (eine Regel mit Zeile und Widgets: Marker oder Ende erreicht, RetiredWatch)
+    val retired = watch?.let { RetiredWatch.exchangeOf(it) } != null
     // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
     val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)
     // Editor, Rückfragen und Bestätigungen wie auf der Paarseite ([AlarmEditorHost])
@@ -169,7 +170,7 @@ fun AlarmsScreen(
         snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
         if (alarms.isEmpty() && retired) {
-            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { RetiredExchangeNote(watch?.exchangeName.orEmpty()) }
+            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { RetiredExchangeNote(watch) }
         } else if (alarms.isEmpty() && referenceRate) {
             Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote(watch?.exchangeKey) }
         } else if (alarms.isEmpty() && lowLiquidity) {
@@ -196,8 +197,9 @@ fun AlarmsScreen(
                     if (!notificationsEnabled) {
                         item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
                     }
-                    if (retired) {
-                        item(key = "exchange_retired") { RetiredExchangeNote(watch?.exchangeName.orEmpty()) }
+                    // Stillgelegt bzw. angekündigt (davor prüfen die Alarme weiter): Grund mit Datum
+                    if (retired || retirementAnnounced(watch)) {
+                        item(key = "exchange_retired") { RetiredExchangeNote(watch) }
                     }
                     if (lowLiquidity) {
                         item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
@@ -232,7 +234,12 @@ fun AlarmsScreen(
                             ),
                             retiredExchange = watch?.exchangeName,
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
-                            onEdit = { if (!lowLiquidity && !referenceRate && !retired) editorHost.edit(alarm) },
+                            // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
+                            onEdit = if (!lowLiquidity && !referenceRate && !retired) {
+                                { editorHost.edit(alarm) }
+                            } else {
+                                null
+                            },
                             onDelete = { editorHost.askDelete = alarm }
                         )
                     }

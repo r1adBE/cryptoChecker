@@ -88,6 +88,22 @@ final class BackupRestoreLimitsTests: XCTestCase {
         }
     }
 
+    /// Börsenname bekannter Börsen aus dem Katalog, nicht aus der Datei («exchangeNames»): eine bearbeitete Sicherung mit
+    /// Schlüssel «Bitpanda» und Name «Kraken» zeigt danach «Bitpanda» — auch über das ganze Lesen (`restoredWatchlist`).
+    func testBoersennameAusDemKatalog() throws {
+        let cases = S.list(try S.fixture("backup_limits")["exchangeNames"])
+        XCTAssertGreaterThanOrEqual(cases.count, 4)
+        for c in cases {
+            let key = try XCTUnwrap(c["key"] as? String)
+            let name = try XCTUnwrap(c["name"] as? String)
+            XCTAssertEqual(BackupManager.catalogueName(key: key, stored: name), c["result"] as? String, "\(c)")
+            let watch = BackupManager.watchToJson(
+                Watch(id: 1, exchangeKey: key, exchangeName: name, baseAsset: "BTC", quoteAsset: "EUR"))
+            let read = try BackupManager.restoredWatchlist(["watches": [watch], "alarms": [[String: Any]]()])
+            XCTAssertEqual(read.watches.first?.exchangeName, c["result"] as? String, "\(c)")
+        }
+    }
+
     /// Sicherung zu einem Fall aus «limitCases» (Aufbau siehe «description» der Testfälle).
     private func limitCaseRoot(_ c: [String: Any]) -> [String: Any] {
         func ints(_ value: Any?) -> [Int64] { (value as? [Any] ?? []).compactMap { S.number($0).map { Int64($0) } } }

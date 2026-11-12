@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">हाल की जाँचें</string>
     <string name="settings_http_log">HTTP लॉग दिखाएँ</string>
     <string name="settings_http_log_hint">“पेयर जोड़ें” पेज के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
+    <string name="settings_retirement_preview">बंद होने की तारीख पहले करें</string>
+    <string name="settings_retirement_preview_hint">केवल एक्सचेंज बंद होने के नियम की घड़ी बदलता है, डिवाइस की घड़ी नहीं।</string>
     <string name="settings_live_service">बार-बार अपडेट करें</string>
     <string name="settings_live_websocket">लाइव भाव</string>
 

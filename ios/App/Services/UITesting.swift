@@ -73,7 +73,7 @@ enum UITesting {
     /// Mit `UITEST_FAIL_VERIFY=1` wird sie danach gekürzt: die Prüfung scheitert («nicht bestätigt», als Dialog).
     /// Liefert den Schlüssel der Meldung.
     static func writeExport(_ file: Data, to url: URL) -> String {
-        guard (try? file.write(to: url, options: .atomic)) != nil else { return "backup_failed" }
+        guard (try? file.write(to: url, options: .atomic)) != nil else { return "backup_save_failed" }
         if isActive && ProcessInfo.processInfo.environment[UiTestTags.failVerifyEnvironment] == "1" {
             try? Data(file.prefix(file.count / 2)).write(to: url, options: .atomic)
         }

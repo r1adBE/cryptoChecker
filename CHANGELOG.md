@@ -16,6 +16,18 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 226)
+
+Fixes from the audit of build 225:
+
+* A retired exchange (Bitpanda from 1 February 2027) is shown the same everywhere: no price, "—" with the reason, in the app, widgets and on the watch, also offline. From 1 January 2027 a notice announces the date.
+* Portfolio coins booked on a retired exchange are valued with Binance and say so.
+* Retired pairs no longer count as failed checks; the portfolio fallback skips them; the pair page offers "Change exchange".
+* Restore: the result names a turned-off portfolio lock and a replaced server with its host name; known exchange names come from the catalogue.
+* CSV import blocks only rows that really lose a price or fee and says why next to the button.
+* Android: backup and restore show progress and lock the buttons. A portfolio alert opens the alert list with the alert highlighted.
+* Watch complications: a pair without a price shows "—" with the reason on Wear OS; the Apple Watch empty state matches Wear OS.
+
 ## 16.2.2 (build 225)
 
 * Bitpanda ends its old public price service on 31 January 2027. From 1 February 2027 the app no longer asks Bitpanda for prices: Bitpanda pairs stay in the watchlist greyed out with the reason, their alerts rest, Bitpanda is no longer offered when adding a pair, and a notice (with ✕) suggests another exchange. Widgets and watch show the same reason. CSV files from Bitpanda can still be imported.

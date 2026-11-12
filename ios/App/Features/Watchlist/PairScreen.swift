@@ -78,7 +78,8 @@ struct PairScreen: View {
         if let watch = data.watch(currentId),
            !(adding && preview != nil && watch.lastUpdate <= 0 && watch.lastError == nil) {
             // Am Live-Strom: Frische am letzten Takt (wie Zeile und Status-Pille)
-            content(data.atHeartbeat(watch, now: now))
+            // Börse stillgelegt (`Watch.retiredShown`: Marker oder Ende erreicht): «—» mit Grund statt des letzten Kurses
+            content(data.atHeartbeat(watch, now: now).retiredShown(now: now))
         } else if let preview {
             previewContent(previewQuoted ?? preview)
         } else {

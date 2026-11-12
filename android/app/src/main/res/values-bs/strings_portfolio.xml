@@ -244,6 +244,8 @@
     <string name="ledger_exchange">Berza (neobavezno)</string>
     <string name="ledger_exchange_failed">%1$s: trenutno nema cijene s berze %2$s – vrednuje se prema Binanceu.</string>
     <string name="ledger_exchange_hint">Kriptovaluta se vrednuje po cijeni ove berze (inače Binance). Historija, 7 D i 1 G koriste dnevne cijene s Binancea skalirane na nju.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s više ne daje cijene – vrednuje se prema Binanceu.</string>
+    <string name="ledger_exchange_retired_hint">%1$s više ne daje cijene – kriptovaluta se vrednuje po cijeni na Binanceu.</string>
     <string name="ledger_exchange_mixed">%1$s: uneseno je više berzi – vrednuje se prema Binanceu. Kriptovalute su premještene? Zabilježi premještanje kao „Prijenos“.</string>
     <string name="ledger_exchange_none">Nijedna (Binance)</string>
     <string name="ledger_fee">Naknada (neobavezno)</string>

@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">파일과 일별 환율을 읽는 중…</string>
     <string name="portfolio_csv_import_progress">%2$s행 중 %1$s행</string>
     <string name="portfolio_csv_import_saving">거래를 저장하는 중…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s행의 일별 환율이 없습니다 – 가격/수수료 없이 가져왔습니다.</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s행의 일별 환율이 없습니다 – 가격/수수료가 빠져 있습니다.</string>
     <string name="portfolio_csv_import_missing_price">파일에 %1$s행의 가격이 없습니다 – 가격 없이 가져왔습니다.</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s행에 수수료가 두 건 있습니다: 법정화폐 수수료는 가격에 포함되고, 코인 수수료는 받은 수량을 줄이거나 준 수량을 늘립니다.</string>
     <string name="portfolio_csv_import_pending_differs">%1$s행: 같은 입금 또는 출금의 대기 중 기록과 처리된 기록의 수량이 다릅니다 – 둘 다 가져왔습니다, 잔액 확인.</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">일별 환율이 없으면 가격 또는 수수료가 영구히 빠집니다. 다시 시도하거나 그래도 가져오세요 – 해당 거래에는 메모가 붙습니다.</string>
     <string name="portfolio_csv_note_price_no_rate">일별 환율 없는 가격</string>
     <string name="portfolio_csv_note_fee_no_rate">일별 환율 없는 수수료</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s에는 일별 환율이 없어 다시 시도해도 소용없습니다. 그래도 가져오면 해당 거래에 메모가 붙습니다.</string>
+    <string name="portfolio_csv_import_blocked_rates">먼저 위에서 일별 환율이 없는 행을 어떻게 할지 정하세요.</string>
 </resources>

@@ -162,9 +162,9 @@ keys or other secrets never belong in this repository.
   server (after the import, a note names a portfolio lock or server that was
   kept). A backup with a password may change all four – but a password proves
   no origin, so never silently: the note after the import names a Bitcoin
-  server that was newly set (with its host name), replaced or removed, and
-  «Portfolio in system backup» switched on or «Hide amounts» switched off by
-  the backup. When the portfolio comes back from a system or device backup, invalid
+  server that was newly set or replaced (with its host name) or removed, and
+  «Portfolio in system backup» switched on, «Hide amounts» or the portfolio
+  lock switched off by the backup. When the portfolio comes back from a system or device backup, invalid
   rows are counted and named once in a notice instead of being dropped silently. Android's system backup covers only the app's own
   data files listed in its backup rules – the main database (watchlist, alarms)
   and settings, each only in an end-to-end encrypted cloud backup or a

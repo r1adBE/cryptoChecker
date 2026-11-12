@@ -1,5 +1,5 @@
 {
-  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; Basis/Quote nur aus Buchstaben/Ziffern jeder Schrift und «. _ -» (ausser DexScreener: dort nur die Länge); «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). «limitCases»: ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme.",
+  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; Basis/Quote nur aus Buchstaben/Ziffern jeder Schrift und «. _ -» (ausser DexScreener: dort nur die Länge); «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). «limitCases»: ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme. «exchangeNames»: Börsenname eines Paars nach dem Lesen (Android BackupWatchlistCodec.catalogueName, iOS BackupManager.catalogueName, beide in readWatchlist bzw. restoredWatchlist angewendet): bekannte Börse («key») → Name aus dem Börsenkatalog, gleich was in der Datei steht («name»); unbekannte Börse → Name aus der Datei.",
   "limits": {
     "maxExchangeKey": 64,
     "maxExchangeName": 60,
@@ -1025,5 +1025,12 @@
       "droppedPairs": 0,
       "droppedAlarms": 2
     }
+  ],
+  "exchangeNames": [
+    {"key": "Bitpanda", "name": "Kraken", "result": "Bitpanda"},
+    {"key": "Binance", "name": "Bitpanda", "result": "Binance"},
+    {"key": "Kraken", "name": "Kraken", "result": "Kraken"},
+    {"key": "Coinbase", "name": "Coinbase liefert keine Kurse mehr", "result": "Coinbase"},
+    {"key": "RemovedExchange", "name": "Removed", "result": "Removed"}
   ]
 }

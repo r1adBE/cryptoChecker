@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Скорошни проверки</string>
     <string name="settings_http_log">Покажи HTTP дневника</string>
     <string name="settings_http_log_hint">Показва заявките към борсите в долната част на страницата „Добави двойка“ – за отстраняване на проблеми.</string>
+    <string name="settings_retirement_preview">Изтегли датата на спиране напред</string>
+    <string name="settings_retirement_preview_hint">Премества само часовника на правилото за спиране, не този на устройството.</string>
     <string name="settings_live_service">Обновявай често</string>
     <string name="settings_live_websocket">Курсове на живо</string>
 

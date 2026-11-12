@@ -1,8 +1,13 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair.Candidate
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Kurs aus einem Merklisten-Paar an einer anderen Börse statt der ungeprüften Kerze. Wie `PortfolioTxFormTests` (iOS). */
@@ -54,5 +59,23 @@ class PortfolioWatchPairTest {
         assertEquals(gate, PortfolioWatchPair.pick("CAT", listOf(gate, other.copy(name = null))))
         // Unbenutzbares Paar (deaktiviert) zählt nicht als Widerspruch
         assertEquals(gate, PortfolioWatchPair.pick("CAT", listOf(gate, other.copy(disabled = true))))
+    }
+
+    /** Gemeinsame Fälle (`portfolio_watch_pair.json`, iOS `PortfolioTxFormTests`): nicht gehandelt bzw. stillgelegt nie. */
+    @Test
+    fun pickAsFixture() {
+        val cases = ParityJson.load("portfolio_watch_pair.json")["pick"].list().map { it.obj() }
+        assertTrue(cases.size >= 6)
+        for (c in cases) {
+            val watches = c["watches"].list().map { it.obj() }.map { x ->
+                Candidate(
+                    exchangeKey = x["exchange"] as String, base = x["base"] as String, quote = x["quote"] as String,
+                    pairId = null, spot = x["spot"] as Boolean? ?: true, disabled = x["disabled"] as Boolean? ?: false,
+                    lastUpdate = x["at"].num()!!.toLong(), notTraded = x["notTraded"] as Boolean? ?: false,
+                )
+            }
+            val got = PortfolioWatchPair.pick(c["coin"] as String, watches)?.let { "${it.exchangeKey}|${it.quote}" }
+            assertEquals(c["name"] as String, c["expected"] as String?, got)
+        }
     }
 }

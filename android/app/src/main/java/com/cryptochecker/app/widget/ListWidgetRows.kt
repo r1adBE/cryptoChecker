@@ -22,6 +22,7 @@ import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.domain.util.BidiText
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.config.ExchangeRetirement
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -138,7 +139,8 @@ class ListWidgetRows @Inject constructor(
     /** Zeile [position]; ausserhalb der Liste eine leere Zeile. */
     internal fun row(data: ListWidgetRowData, position: Int): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
-        val watch = data.watches.getOrNull(position) ?: return views
+        // Börse stillgelegt (RetiredWatch: Marker oder Ende erreicht): ohne Kurs und Veränderung, mit dem Marker als Grund
+        val watch = data.watches.getOrNull(position)?.let { RetiredWatch.shown(it) } ?: return views
         val background = data.background
 
         val logo = data.logos?.get(logoKey(watch))

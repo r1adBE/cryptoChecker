@@ -36,7 +36,7 @@ internal fun openAppTarget(
             // Eine gemerkte Unterseite schliessen: der Tab entscheidet, wohin es geht
             navigation.popBackStack<ScreenRoute.MarketPhase>(inclusive = false)
         }
-        "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview) { launchSingleTop = true }
+        "alarms" -> navigation.navigate(ScreenRoute.AlarmsOverview()) { launchSingleTop = true }
         // Portfolio-Widget: Portfolio-Tab; ist es aus, Einstellungen › Portfolio (dort der Schalter)
         "portfolio" -> when (PortfolioOff.widgetTarget(portfolioEnabled)) {
             PortfolioOff.WidgetTarget.PORTFOLIO_TAB -> navigation.navigateToTab(ScreenRoute.Portfolio)
@@ -55,6 +55,11 @@ internal fun openAppTarget(
             navigation.navigateToTab(ScreenRoute.Watchlist)
             navigation.popBackStack<ScreenRoute.Watchlist>(inclusive = false)
             navigation.navigate(ScreenRoute.Alarms(watchId, editAlarmId = alarmId))
+        } ?: PortfolioAlarmTarget.parse(openTarget)?.let { alarmId ->
+            // Mitteilung eines Portfolio-Alarms: Merkliste, darüber «Alle Alarme» mit dem ausgelösten hervorgehoben
+            navigation.navigateToTab(ScreenRoute.Watchlist)
+            navigation.popBackStack<ScreenRoute.Watchlist>(inclusive = false)
+            navigation.navigate(ScreenRoute.AlarmsOverview(portfolioAlarmId = alarmId))
         } ?: com.cryptochecker.app.ui.MainActivity.watchTargetId(openTarget)?.let { id ->
             onFocusWatch(id)
             navigation.navigateToTab(ScreenRoute.Watchlist)

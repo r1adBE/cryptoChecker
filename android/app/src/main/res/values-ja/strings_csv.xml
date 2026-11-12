@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">ファイルと日次レートを読み込み中…</string>
     <string name="portfolio_csv_import_progress">%2$s 行中 %1$s 行目</string>
     <string name="portfolio_csv_import_saving">取引を保存しています…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s 行目の日次レートがありません – 価格・手数料なしで読み込みました。</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s 行目の日次レートがありません – 価格・手数料が欠けています。</string>
     <string name="portfolio_csv_import_missing_price">%1$s 行目はファイルに価格がありません – 価格なしで読み込みました。</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s 行目に手数料が 2 件あります：法定通貨の手数料は価格に含め、コインの手数料は受け取った数量を減らすか渡した数量を増やします。</string>
     <string name="portfolio_csv_import_pending_differs">%1$s 行目：同じ入庫または出庫の保留中と記帳済みの記録で数量が異なります – 両方を読み込みました、残高を確認。</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">日次レートがないと、価格または手数料が欠けたままになります。再試行するか、このまま読み込んでください – その取引にはメモが付きます。</string>
     <string name="portfolio_csv_note_price_no_rate">日次レートなしの価格</string>
     <string name="portfolio_csv_note_fee_no_rate">日次レートなしの手数料</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s には日次レートがないため、再試行しても解決しません。このまま読み込む場合、その取引にはメモが付きます。</string>
+    <string name="portfolio_csv_import_blocked_rates">先に上で、日次レートのない行の扱いを決めてください。</string>
 </resources>

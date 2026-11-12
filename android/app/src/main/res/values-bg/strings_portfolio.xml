@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Борса (по избор)</string>
     <string name="ledger_exchange_failed">%1$s: в момента няма курс от %2$s – оценено с Binance.</string>
     <string name="ledger_exchange_hint">Монетата се оценява по курса на тази борса (иначе Binance). Историята, 7 Д и 1 Г използват дневните курсове на Binance, мащабирани спрямо него.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s вече не предоставя цени – оценено с Binance.</string>
+    <string name="ledger_exchange_retired_hint">%1$s вече не предоставя цени – монетата се оценява по курса на Binance.</string>
     <string name="ledger_exchange_mixed">%1$s: въведени са няколко борси – оценено с Binance. Преместени монети? Запиши преместването като „Прехвърляне“.</string>
     <string name="ledger_exchange_none">Няма (Binance)</string>
     <string name="ledger_fee">Такса (по избор)</string>

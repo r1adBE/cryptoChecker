@@ -241,6 +241,8 @@
     <string name="ledger_exchange">एक्सचेंज (ऐच्छिक)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s कडून सध्या किंमत नाही – Binance ने मूल्यांकन केले.</string>
     <string name="ledger_exchange_hint">कॉइनचे मूल्यांकन या एक्सचेंजच्या किमतीने होते (अन्यथा Binance). इतिहास, 7 दि. आणि 1 व. त्यानुसार स्केल केलेल्या Binance दैनिक किमती वापरतात.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s आता किंमती देत नाही – Binance ने मूल्यांकन केले.</string>
+    <string name="ledger_exchange_retired_hint">%1$s आता किंमती देत नाही – कॉइनचे मूल्यांकन Binance च्या भावाने होते.</string>
     <string name="ledger_exchange_mixed">%1$s: अनेक एक्सचेंज भरले – Binance ने मूल्यांकन केले. कॉइन हलवले? ती हालचाल “हस्तांतरण” म्हणून नोंदवा.</string>
     <string name="ledger_exchange_none">काहीही नाही (Binance)</string>
     <string name="ledger_fee">शुल्क (ऐच्छिक)</string>

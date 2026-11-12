@@ -88,7 +88,12 @@ final class NotificationDeliveryTests: XCTestCase {
         settings.hidePortfolioAmounts = false
         let alarms = [PortfolioAlarm(id: 7, kind: .CHANGE_UP, threshold: 5.25, currency: nil),
                       PortfolioAlarm(id: 8, kind: .VALUE_ABOVE, threshold: 12_345.67, currency: "EUR")]
-        let content = PortfolioAlarmNotice.content()
+        let content = PortfolioAlarmNotice.content(alarmId: 7)
+        // Tipp: «Alle Alarme» mit diesem Alarm hervorgehoben — die Kennung steht nur im Ziel, nicht im Text
+        XCTAssertEqual(content.userInfo["open"] as? String, PortfolioAlarmTarget.of(7))
+        XCTAssertEqual(PortfolioAlarmTarget.parse(content.userInfo["open"] as? String), 7)
+        XCTAssertNil(PortfolioAlarmTarget.parse("portfolio"))
+        XCTAssertNil(PortfolioAlarmTarget.parse("portfolioAlarm/0"))
         let shown = [content.title, content.subtitle, content.body]
         XCTAssertEqual(content.body, L("notification_portfolio_alarm_locked"))
         XCTAssertEqual(content.categoryIdentifier, Notifier.categoryPortfolioLocked)

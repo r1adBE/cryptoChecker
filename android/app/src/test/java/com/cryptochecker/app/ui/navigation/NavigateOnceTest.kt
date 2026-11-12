@@ -39,7 +39,7 @@ class NavigateOnceTest {
             File("src/main/java/com/cryptochecker/app/ui/navigation"),
             File("app/src/main/java/com/cryptochecker/app/ui/navigation"),
         ).first { it.isDirectory }
-        val unguarded = Regex("""navigation\.navigate\(ScreenRoute\.(Alarms\(|AlarmsOverview\))""")
+        val unguarded = Regex("""navigation\.navigate\(ScreenRoute\.(Alarms\(|AlarmsOverview\b)""")
         for (name in listOf("AppNavHost.kt", "AppNavDestinations.kt")) {
             val source = File(dir, name).readText()
             assertFalse("$name öffnet Alarm-Seiten ohne navigateOnce", unguarded.containsMatchIn(source))

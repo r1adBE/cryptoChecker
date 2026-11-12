@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Načítava sa súbor a denné kurzy…</string>
     <string name="portfolio_csv_import_progress">Riadok %1$s z %2$s</string>
     <string name="portfolio_csv_import_saving">Ukladajú sa transakcie…</string>
-    <string name="portfolio_csv_import_missing_fx">Chýba denný kurz pre riadky %1$s – importované bez ceny/poplatku.</string>
+    <string name="portfolio_csv_import_missing_fx">Chýba denný kurz pre riadky %1$s – chýba cena/poplatok.</string>
     <string name="portfolio_csv_import_missing_price">V súbore chýba cena pre riadky %1$s – importované bez ceny.</string>
     <string name="portfolio_csv_import_fee_in_price">Dva poplatky v riadkoch %1$s: poplatok vo fiat mene je zahrnutý v cene, poplatok v minci znižuje prijaté alebo zvyšuje odovzdané množstvo.</string>
     <string name="portfolio_csv_import_pending_differs">Riadky %1$s: čakajúci a zaúčtovaný záznam toho istého vkladu alebo výberu majú rôzne množstvo – oba importované, skontroluj držbu.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Bez denného kurzu cena alebo poplatok natrvalo chýbajú. Skús to znova alebo importuj napriek tomu – tieto transakcie potom dostanú poznámku.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena bez denného kurzu</string>
     <string name="portfolio_csv_note_fee_no_rate">Poplatok bez denného kurzu</string>
+    <string name="portfolio_csv_import_no_rates_for">Pre %1$s neexistujú denné kurzy, opakovanie teda nepomôže. Ak importuješ napriek tomu, tieto transakcie dostanú poznámku.</string>
+    <string name="portfolio_csv_import_blocked_rates">Najprv hore rozhodni o riadkoch bez denného kurzu.</string>
 </resources>

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">Birja (ixtiyoriy)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s hozir kurs bermayapti – Binance boʻyicha baholandi.</string>
     <string name="ledger_exchange_hint">Tanga shu birja kursida baholanadi (aks holda Binance). Tarix, 7 K va 1 Y unga moslashtirilgan Binance kunlik kurslaridan foydalanadi.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s endi narx bermaydi – Binance boʻyicha baholandi.</string>
+    <string name="ledger_exchange_retired_hint">%1$s endi narx bermaydi – tanga Binance narxi boʻyicha baholanadi.</string>
     <string name="ledger_exchange_mixed">%1$s: bir nechta birja kiritilgan – Binance boʻyicha baholandi. Tangalarni koʻchirdingizmi? Koʻchirishni «Oʻtkazma» sifatida yozing.</string>
     <string name="ledger_exchange_none">Yoʻq (Binance)</string>
     <string name="ledger_fee">Komissiya (ixtiyoriy)</string>

@@ -80,7 +80,7 @@ struct BackupSettingsPage: View {
                             show("backup_exported", kind: .success)
                         }
                     case .failure(let error):
-                        if !Self.isCancel(error) { fail("backup_failed") }
+                        if !Self.isCancel(error) { fail("backup_save_failed") } // Datei nicht geschrieben: eigener Text
                     }
                 }
 
@@ -219,7 +219,7 @@ struct BackupSettingsPage: View {
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
             portfolioAlarms: data.portfolioAlarms.count)
         guard PortfolioLockPolicy.backupExportAllowed(hasPassword: password != nil, hasPortfolioData: hasPortfolio) else {
-            fail("backup_failed")
+            fail("backup_save_failed")
             return
         }
         let input = BackupManager.exportInput(data)
@@ -238,7 +238,7 @@ struct BackupSettingsPage: View {
             case .failure(BackupLimits.Failure.exportTooLarge):
                 fail("backup_export_too_large")
             case .failure:
-                fail("backup_failed")
+                fail("backup_save_failed")
             }
         }
     }

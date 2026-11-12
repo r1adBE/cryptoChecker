@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">ກຳລັງອ່ານໄຟລ໌ ແລະ ອັດຕາລາຍວັນ…</string>
     <string name="portfolio_csv_import_progress">ແຖວ %1$s ຈາກ %2$s</string>
     <string name="portfolio_csv_import_saving">ກຳລັງບັນທຶກທຸລະກຳ…</string>
-    <string name="portfolio_csv_import_missing_fx">ບໍ່ມີອັດຕາລາຍວັນສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ/ຄ່າທຳນຽມ.</string>
+    <string name="portfolio_csv_import_missing_fx">ບໍ່ມີອັດຕາລາຍວັນສຳລັບແຖວ %1$s – ຂາດລາຄາ/ຄ່າທຳນຽມ.</string>
     <string name="portfolio_csv_import_missing_price">ບໍ່ມີລາຄາໃນໄຟລ໌ສຳລັບແຖວ %1$s – ນຳເຂົ້າໂດຍບໍ່ມີລາຄາ.</string>
     <string name="portfolio_csv_import_fee_in_price">ຄ່າທຳນຽມສອງລາຍການໃນແຖວ %1$s: ຄ່າທຳນຽມ fiat ລວມຢູ່ໃນລາຄາ, ຄ່າທຳນຽມເປັນຫຼຽນຫຼຸດຈຳນວນທີ່ໄດ້ຮັບ ຫຼື ເພີ່ມຈຳນວນທີ່ໃຫ້.</string>
     <string name="portfolio_csv_import_pending_differs">ແຖວ %1$s: ລາຍການລໍຖ້າ ແລະ ລາຍການທີ່ບັນທຶກແລ້ວຂອງການຝາກ ຫຼື ຖອນດຽວກັນມີຈຳນວນຕ່າງກັນ – ນຳເຂົ້າທັງສອງ, ກວດການຖືຄອງ.</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">ຖ້າບໍ່ມີອັດຕາລາຍວັນ ລາຄາ ຫຼື ຄ່າທຳນຽມຈະຂາດຫາຍຢ່າງຖາວອນ. ກະລຸນາລອງໃໝ່ ຫຼື ນຳເຂົ້າຢູ່ດີ – ທຸລະກຳເຫຼົ່ານັ້ນຈະມີໝາຍເຫດ.</string>
     <string name="portfolio_csv_note_price_no_rate">ລາຄາບໍ່ມີອັດຕາລາຍວັນ</string>
     <string name="portfolio_csv_note_fee_no_rate">ຄ່າທຳນຽມບໍ່ມີອັດຕາລາຍວັນ</string>
+    <string name="portfolio_csv_import_no_rates_for">ບໍ່ມີອັດຕາລາຍວັນສຳລັບ %1$s ດັ່ງນັ້ນການລອງໃໝ່ຈະບໍ່ຊ່ວຍ. ຖ້ານຳເຂົ້າຢູ່ດີ ທຸລະກຳເຫຼົ່ານັ້ນຈະມີໝາຍເຫດ.</string>
+    <string name="portfolio_csv_import_blocked_rates">ກະລຸນາຕັດສິນໃຈກ່ຽວກັບແຖວທີ່ບໍ່ມີອັດຕາລາຍວັນຂ້າງເທິງກ່ອນ.</string>
 </resources>

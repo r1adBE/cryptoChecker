@@ -238,6 +238,8 @@
     <string name="ledger_exchange">ផ្សារប្តូរ (ស្រេចចិត្ត)</string>
     <string name="ledger_exchange_failed">%1$s៖ គ្មានតម្លៃពី %2$s នៅពេលនេះទេ – វាយតម្លៃដោយ Binance។</string>
     <string name="ledger_exchange_hint">កាក់ត្រូវបានវាយតម្លៃតាមតម្លៃរបស់ផ្សារប្តូរនេះ (បើមិនដូច្នោះទេ Binance)។ ប្រវត្តិ 7 ថ្ងៃ និង 1 ឆ្នាំ ប្រើតម្លៃប្រចាំថ្ងៃ Binance ដែលធ្វើមាត្រដ្ឋានទៅវា។</string>
+    <string name="ledger_exchange_retired">%1$s៖ %2$s លែងផ្ដល់តម្លៃទៀតហើយ – វាយតម្លៃដោយ Binance។</string>
+    <string name="ledger_exchange_retired_hint">%1$s លែងផ្ដល់តម្លៃទៀតហើយ – កាក់នេះត្រូវបានវាយតម្លៃតាមតម្លៃ Binance។</string>
     <string name="ledger_exchange_mixed">%1$s៖ បានបញ្ចូលផ្សារប្តូរច្រើន – វាយតម្លៃដោយ Binance។ បានផ្លាស់ទីកាក់មែនទេ? សូមកត់ត្រាការផ្លាស់ទីជា «ការផ្ទេរ»។</string>
     <string name="ledger_exchange_none">គ្មាន (Binance)</string>
     <string name="ledger_fee">កម្រៃ (ស្រេចចិត្ត)</string>

@@ -47,4 +47,6 @@ data class CsvImportPreview(
      * Vorschau unterscheidet es von «für diese Währung bzw. diesen Tag gibt es keinen Kurs».
      */
     val ratesFailed: Boolean = false,
+    /** Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse, hilft ein neuer Abruf ([CsvImportRateGate.retry])? */
+    val rateRetry: CsvRateRetry = CsvRateRetry(),
 )

@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">იკითხება ფაილი და დღიური კურსები…</string>
     <string name="portfolio_csv_import_progress">სტრიქონი %1$s / %2$s</string>
     <string name="portfolio_csv_import_saving">ტრანზაქციები ინახება…</string>
-    <string name="portfolio_csv_import_missing_fx">სტრიქონებისთვის %1$s დღიური კურსი არ არის – შემოტანილია ფასის/საკომისიოს გარეშე.</string>
+    <string name="portfolio_csv_import_missing_fx">სტრიქონებისთვის %1$s დღიური კურსი არ არის – აკლია ფასი/საკომისიო.</string>
     <string name="portfolio_csv_import_missing_price">ფაილში სტრიქონებისთვის %1$s ფასი არ არის – შემოტანილია ფასის გარეშე.</string>
     <string name="portfolio_csv_import_fee_in_price">ორი საკომისიო სტრიქონებში %1$s: ფიატის საკომისიო შედის ფასში, მონეტის საკომისიო ამცირებს მიღებულ ან ზრდის გაცემულ რაოდენობას.</string>
     <string name="portfolio_csv_import_pending_differs">სტრიქონები %1$s: ერთი და იმავე შეტანის ან გატანის მოლოდინში მყოფ და გატარებულ ჩანაწერებს განსხვავებული რაოდენობა აქვთ – ორივე შემოტანილია, შეამოწმე აქტივები.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">დღიური კურსის გარეშე ფასი ან საკომისიო სამუდამოდ აკლია. სცადე ხელახლა ან მაინც შემოიტანე – ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>
     <string name="portfolio_csv_note_price_no_rate">ფასი დღიური კურსის გარეშე</string>
     <string name="portfolio_csv_note_fee_no_rate">საკომისიო დღიური კურსის გარეშე</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s-ისთვის დღიური კურსები არ არსებობს, ამიტომ ხელახლა ცდა არ დაგეხმარება. თუ მაინც შემოიტან, ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>
+    <string name="portfolio_csv_import_blocked_rates">ჯერ ზემოთ გადაწყვიტე დღიური კურსის გარეშე სტრიქონების ბედი.</string>
 </resources>

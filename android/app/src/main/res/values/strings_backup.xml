@@ -91,7 +91,7 @@
     <!-- Alarm speichern/Schnell-Alarm gesperrt, solange die Merkliste nur leer im Arbeitsspeicher steht (storedKept) -->
     <string name="alarm_save_storage_locked">Alerts can\'t be saved: saved data can\'t be read right now. Restart the app.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Backup isn\'t possible: saved data can\'t be read right now. Restart the app and try again.</string>
+    <string name="backup_storage_kept">Backup and restore aren’t possible right now: saved data can’t be read. Restart the app and try again.</string>
     <!-- Nur Android: Einspielen abgelehnt, solange Merkliste oder Portfolio nur im Arbeitsspeicher liegen (kein Schlüssel; BackupStorageInMemoryException) -->
     <string name="backup_restore_storage_in_memory">Restore isn\'t possible right now: the app isn\'t saving data at the moment (encryption not active yet), so the restored data would be lost on restart. Restart the app and try again.</string>
     <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
@@ -110,7 +110,7 @@
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
     <string name="backup_restore_server_public">“Own server for addresses” was removed as in the backup – Bitcoin addresses are queried at public nodes again.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">“Own server for addresses” was replaced with the one from the backup.</string>
+    <string name="backup_restore_server_changed">“Own server for addresses” was replaced with the one from the backup: %1$s – Bitcoin addresses are now queried there.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat einen eigenen Bitcoin-Server gesetzt, wo keiner war (SET); %1$s = Hostname -->
     <string name="backup_restore_server_set">“Own server for addresses” was set by the backup: %1$s – Bitcoin addresses are now queried there.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat «Portfolio in Systemsicherung» eingeschaltet (BackupRestorePolicy.loweredProtection) -->
@@ -119,4 +119,8 @@
     <string name="backup_restore_amounts_shown">“Hide amounts” was turned off by the backup.</string>
     <!-- Wiederherstellen: Speicher der App nicht beschreibbar (zurückgerollt, Daten unverändert) -->
     <string name="backup_restore_storage_unavailable">Restore isn\'t possible right now: the app\'s storage isn\'t available. Restart the app and try again. Your current data is unchanged.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat die Portfolio-Sperre ausgeschaltet (BackupRestorePolicy.loweredProtection) -->
+    <string name="backup_restore_app_lock_off">The portfolio lock was turned off by the backup.</string>
+    <!-- Sichern: Datei liess sich nicht schreiben (Speicher voll, Ablage-Anbieter) — nicht «Ist es eine Crypto-Checker-Sicherung?» -->
+    <string name="backup_save_failed">The backup couldn’t be saved.</string>
 </resources>

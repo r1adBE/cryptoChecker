@@ -133,14 +133,16 @@ enum BackgroundRefresh {
             var fullCheck = false
             // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
             // auf der Platte sonst für frisch (`WidgetDataFreshness`)
-            if saved != nil && outcome.failed < outcome.checked {
+            if saved != nil && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed,
+                                                            notTraded: outcome.notTraded) {
                 SharedStorage.markFullRefresh()
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
                 // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
                 // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht.
                 // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
                 // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
-                fullCheck = !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed)
+                fullCheck = !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed,
+                                                                       notTraded: outcome.notTraded)
                 if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
                                                       deferredChecked: false) {
                     SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis

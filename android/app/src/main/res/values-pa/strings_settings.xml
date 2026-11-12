@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">ਹਾਲੀਆ ਜਾਂਚਾਂ</string>
     <string name="settings_http_log">HTTP ਲੌਗ ਦਿਖਾਓ</string>
     <string name="settings_http_log_hint">“ਜੋੜਾ ਜੋੜੋ” ਸਫ਼ੇ ਦੇ ਹੇਠਾਂ ਐਕਸਚੇਂਜਾਂ ਨੂੰ ਭੇਜੀਆਂ ਬੇਨਤੀਆਂ ਦਿਖਾਉਂਦਾ ਹੈ – ਸਮੱਸਿਆ ਹੱਲ ਲਈ।</string>
+    <string name="settings_retirement_preview">ਬੰਦ ਹੋਣ ਦੀ ਤਾਰੀਖ ਪਹਿਲਾਂ ਕਰੋ</string>
+    <string name="settings_retirement_preview_hint">ਸਿਰਫ਼ ਐਕਸਚੇਂਜ ਬੰਦ ਹੋਣ ਦੇ ਨਿਯਮ ਦੀ ਘੜੀ ਹਿਲਾਉਂਦਾ ਹੈ, ਡਿਵਾਈਸ ਦੀ ਨਹੀਂ।</string>
     <string name="settings_live_service">ਅਕਸਰ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="settings_live_websocket">ਲਾਈਵ ਕੀਮਤਾਂ</string>
 

@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Son yoxlamalar</string>
     <string name="settings_http_log">HTTP jurnalını göstər</string>
     <string name="settings_http_log_hint">Birjalara sorğuları «Cüt əlavə et» səhifəsinin aşağısında göstərir – problemlərin həlli üçün.</string>
+    <string name="settings_retirement_preview">Bağlanma tarixini irəli çək</string>
+    <string name="settings_retirement_preview_hint">Yalnız bağlanma qaydasının saatını dəyişir, cihazın saatını yox.</string>
     <string name="settings_live_service">Tez-tez yenilə</string>
     <string name="settings_live_websocket">Canlı qiymətlər</string>
 

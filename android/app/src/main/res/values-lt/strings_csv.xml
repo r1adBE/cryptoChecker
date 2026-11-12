@@ -31,7 +31,7 @@
     <string name="portfolio_csv_import_loading">Skaitomas failas ir dienos kursai…</string>
     <string name="portfolio_csv_import_progress">%1$s eilutė iš %2$s</string>
     <string name="portfolio_csv_import_saving">Išsaugomos transakcijos…</string>
-    <string name="portfolio_csv_import_missing_fx">Nėra dienos kurso eilutėms %1$s – importuota be kainos / komisinio mokesčio.</string>
+    <string name="portfolio_csv_import_missing_fx">Nėra dienos kurso eilutėms %1$s – trūksta kainos / komisinio mokesčio.</string>
     <string name="portfolio_csv_import_missing_price">Faile nėra kainos eilutėms %1$s – importuota be kainos.</string>
     <string name="portfolio_csv_import_fee_in_price">Du mokesčiai eilutėse %1$s: fiat mokestis įskaičiuotas į kainą, mokestis monetomis sumažina gautą arba padidina atiduotą kiekį.</string>
     <string name="portfolio_csv_import_pending_differs">Eilutės %1$s: to paties įnešimo ar išėmimo laukiantis ir užregistruotas įrašai turi skirtingus kiekius – abu importuoti, patikrink turimą turtą.</string>
@@ -119,4 +119,6 @@
     <string name="portfolio_csv_import_anyway_hint">Be dienos kurso kainos arba komisinio mokesčio trūks visam laikui. Bandyk dar kartą arba vis tiek importuok – tos transakcijos tada gaus pastabą.</string>
     <string name="portfolio_csv_note_price_no_rate">Kaina be dienos kurso</string>
     <string name="portfolio_csv_note_fee_no_rate">Komisinis mokestis be dienos kurso</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s dienos kursų nėra, todėl bandymas dar kartą nepadės. Jei vis tiek importuosi, tos transakcijos gaus pastabą.</string>
+    <string name="portfolio_csv_import_blocked_rates">Pirmiau viršuje nuspręsk dėl eilučių be dienos kurso.</string>
 </resources>

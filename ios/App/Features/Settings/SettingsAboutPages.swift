@@ -126,6 +126,10 @@ struct DeveloperSettingsPage: View {
     /// Dauer und Bericht der letzten Aktualisierung (eigenes Objekt neben `AppData`, beobachtet).
     @ObservedObject private var refreshState = AppData.shared.refreshState
     @Environment(\.appAccent) private var accent
+    #if DEBUG
+    /// Stufe von «Stichtag vorziehen» (`RetirementPreview`).
+    @State var retirementStep = RetirementPreview.current
+    #endif
 
     init() {}
 
@@ -137,6 +141,8 @@ struct DeveloperSettingsPage: View {
                 isOn: $data.settings.showHttpLog
             )
             .settingsAnchor("developer.http_log")
+            RowDivider()
+            retirementPreviewRow
             RowDivider()
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 HStack {
@@ -165,5 +171,32 @@ struct DeveloperSettingsPage: View {
             }
             .padding(.vertical, 12)
         }
+    }
+}
+
+extension DeveloperSettingsPage {
+    /// «Stichtag vorziehen» (`RetirementPreview`): Tippen wechselt aus → 1. Januar 2027 (Ankündigung) → 1. Februar 2027
+    /// (Stichtag) → aus; die Uhr der Stilllegungs-Regel springt sofort, nicht die des Geräts. Wie Android.
+    @ViewBuilder
+    var retirementPreviewRow: some View {
+        #if DEBUG
+        let value = retirementStep.target.map { target -> String in
+            let f = DateFormatter()
+            f.dateStyle = .long
+            f.timeStyle = .none
+            f.timeZone = TimeZone(identifier: "UTC")
+            return f.string(from: Date(timeIntervalSince1970: TimeInterval(target) / 1000))
+        } ?? SettingsSummary.onOff(false)
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            SettingsButtonRow(title: L("settings_retirement_preview"), value: value) {
+                retirementStep = RetirementPreview.next()
+            }
+            Text(L("settings_retirement_preview_hint"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, Spacing.sm)
+        }
+        #endif
     }
 }

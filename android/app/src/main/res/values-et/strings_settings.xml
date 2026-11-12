@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Hiljutised kontrollid</string>
     <string name="settings_http_log">Näita HTTP-logi</string>
     <string name="settings_http_log_hint">Näitab lehe „Lisa paar“ allosas päringuid börsidele – veaotsinguks.</string>
+    <string name="settings_retirement_preview">Too sulgemiskuupäev ette</string>
+    <string name="settings_retirement_preview_hint">Liigutab ainult sulgemisreegli kella, mitte seadme kella.</string>
     <string name="settings_live_service">Uuenda sageli</string>
     <string name="settings_live_websocket">Reaalajas hinnad</string>
 

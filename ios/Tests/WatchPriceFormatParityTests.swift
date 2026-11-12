@@ -64,6 +64,9 @@ final class WatchPriceFormatParityTests: XCTestCase {
         XCTAssertTrue(price.contains("Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)"))
         XCTAssertTrue(price.contains("quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt"))
         XCTAssertFalse(price.contains("Text(entry.change).foregroundStyle(valueStyle)"))
+        // Leer wie Wear OS («Kurs / +» mit Hinweis je Listenwahl), ohne Kurs der Grund (U2-07)
+        XCTAssertTrue(price.contains("empty: WatchText.t(phone ? \"watch_phone_empty\" : \"watch_choose\")"))
+        XCTAssertTrue(price.contains("let missing = q == nil ? WatchText.missingShort(coin) : nil"))
         let portfolio = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
                                    encoding: .utf8)
         XCTAssertTrue(portfolio.contains("WatchText.t(\"watch_portfolio_turn_on\")"))

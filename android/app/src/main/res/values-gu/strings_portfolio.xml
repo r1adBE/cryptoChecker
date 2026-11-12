@@ -241,6 +241,8 @@
     <string name="ledger_exchange">એક્સચેન્જ (વૈકલ્પિક)</string>
     <string name="ledger_exchange_failed">%1$s: %2$s પરથી અત્યારે ભાવ નથી – Binance થી મૂલ્યાંકન કર્યું.</string>
     <string name="ledger_exchange_hint">કૉઇનનું મૂલ્યાંકન આ એક્સચેન્જના ભાવે થાય છે (નહીં તો Binance). ઇતિહાસ, 7 દિ. અને 1 વ. તેના મુજબ સ્કેલ કરેલા Binance દૈનિક ભાવ વાપરે છે.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s હવે કિંમતો આપતું નથી – Binance થી મૂલ્યાંકન કર્યું.</string>
+    <string name="ledger_exchange_retired_hint">%1$s હવે કિંમતો આપતું નથી – કૉઇનનું મૂલ્યાંકન Binance ના ભાવથી થાય છે.</string>
     <string name="ledger_exchange_mixed">%1$s: અનેક એક્સચેન્જ દાખલ કર્યાં – Binance થી મૂલ્યાંકન કર્યું. કૉઇન ખસેડ્યા? તે હેરફેરને “ટ્રાન્સફર” તરીકે નોંધો.</string>
     <string name="ledger_exchange_none">કોઈ નહીં (Binance)</string>
     <string name="ledger_fee">ફી (વૈકલ્પિક)</string>

@@ -12,6 +12,14 @@ enum class CsvMissingRate { PRICE, FEE, PRICE_AND_FEE }
 data class CsvRateConsent(val accepted: Boolean = false, val priceNote: String = "", val feeNote: String = "")
 
 /**
+ * Was «Erneut versuchen» bei den Zeilen ohne Tageskurs ausrichten kann ([CsvImportRateGate.retry]): [currencies] =
+ * Währungen, für die es keine Tageskurse gibt (kein Fiat der Kursquelle, z. B. ein Coin als Preiswährung wie bei ETH/BTC)
+ * — ein neuer Abruf hilft dort nie, die Vorschau sagt es in einem eigenen Satz; [retryHelps] = mindestens ein fehlender
+ * Kurs ist der einer Fiat-Währung (ein neuer Abruf kann ihn bringen).
+ */
+data class CsvRateRetry(val currencies: List<String> = emptyList(), val retryHelps: Boolean = false)
+
+/**
  * Kein stiller, dauerhafter Verlust beim CSV-Import (reines Kotlin; iOS `CsvImportRateGate.swift`, gemeinsame Fälle
  * `csv_import.json` › «rateGate»): Fehlt einer Zeile der Tageskurs, fehlt der Transaktion danach der Preis bzw. die
  * Gebühr — ein zweiter Import holt nichts nach (Schlüssel «bereits importiert»). Darum ist «Importieren» gesperrt,
@@ -57,6 +65,26 @@ object CsvImportRateGate {
         }
         val parts = (marks + listOfNotNull(note)).map { it.trim() }.filter { it.isNotEmpty() }
         return TextLimit.takeGraphemes(parts.joinToString(SEPARATOR), NOTE_MAX).trim().ifEmpty { null }
+    }
+
+    /**
+     * Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse und ob ein neuer Abruf helfen kann ([CsvRateRetry]).
+     * Gezählt wird nur, was [missing] zählt (Preis: Preiswährung, Gebühr: Währung der Gebühr); unbekannte Währung: keins.
+     */
+    fun retry(priced: List<CsvImportPriced>): CsvRateRetry {
+        val currencies = LinkedHashSet<String>()
+        var helps = false
+        for (p in priced) {
+            val units = when (missing(p) ?: continue) {
+                CsvMissingRate.PRICE -> listOf(p.row.quote)
+                CsvMissingRate.FEE -> listOf(p.row.feeUnit)
+                CsvMissingRate.PRICE_AND_FEE -> listOf(p.row.quote, p.row.feeUnit)
+            }
+            for (code in units.mapNotNull { u -> u?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } }) {
+                if (CsvImport.isFiat(code)) helps = true else currencies += code
+            }
+        }
+        return CsvRateRetry(currencies.toList(), helps)
     }
 
     /** Vermerk an jeder betroffenen Transaktion ([CsvImportTx.missingRate]); die übrigen unverändert. */

@@ -241,6 +241,8 @@
     <string name="ledger_exchange">எக்ஸ்சேஞ்ச் (விருப்பத்தேர்வு)</string>
     <string name="ledger_exchange_failed">%1$s: இப்போது %2$s இலிருந்து விலை இல்லை – Binance உடன் மதிப்பிடப்பட்டது.</string>
     <string name="ledger_exchange_hint">காயின் இந்த எக்ஸ்சேஞ்சின் விலையில் மதிப்பிடப்படும் (இல்லையெனில் Binance). வரலாறு, 7 நா மற்றும் 1 ஆ அதற்கு அளவிடப்பட்ட Binance தினசரி விலைகளைப் பயன்படுத்தும்.</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s இனி விலைகளை வழங்குவதில்லை – Binance உடன் மதிப்பிடப்பட்டது.</string>
+    <string name="ledger_exchange_retired_hint">%1$s இனி விலைகளை வழங்குவதில்லை – காயின் Binance விலையில் மதிப்பிடப்படுகிறது.</string>
     <string name="ledger_exchange_mixed">%1$s: பல எக்ஸ்சேஞ்ச்கள் உள்ளிடப்பட்டுள்ளன – Binance உடன் மதிப்பிடப்பட்டது. காயின்களை நகர்த்தினீர்களா? அந்த நகர்வை “பரிமாற்றம்” எனப் பதிவுசெய்யவும்.</string>
     <string name="ledger_exchange_none">எதுவுமில்லை (Binance)</string>
     <string name="ledger_fee">கட்டணம் (விருப்பத்தேர்வு)</string>

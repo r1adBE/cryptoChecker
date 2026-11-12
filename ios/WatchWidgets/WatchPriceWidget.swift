@@ -26,6 +26,13 @@ struct WatchPriceEntry: TimelineEntry {
     var spokenAge: String?
     /// Stand des Kurses (Epoch-ms, 0 = keiner): Alter knapp in den kleinen Familien (`WatchFreshness.shortTitle`).
     var time: Int64 = 0
+    /// Keine Coins gewählt: was zu tun ist («Coins wählen» bzw. bei «Liste vom Handy» «Keine Favoriten auf dem Handy»);
+    /// die Komplikation zeigt dann «Kurs / +» wie Android. nil = Coin gewählt.
+    var empty: String?
+    /// «—» ohne Kurs (Börse stillgelegt, noch kein Kurs): kurzer Grund sichtbar, ausführlich für VoiceOver
+    /// (`WatchText.missingShort`/`missingReason`, wie die Zeile der Uhr-App und Android). nil = mit Kurs.
+    var missing: String?
+    var missingSpoken: String?
 
     var outdated: Bool { age != nil }
 }
@@ -40,9 +47,10 @@ struct WatchPriceProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping @Sendable (WatchPriceEntry) -> Void) {
-        let coin = WatchStore.settings.shown.first
+        let settings = WatchStore.settings
+        let coin = settings.shown.first
         completion(context.isPreview ? placeholder(in: context)
-                   : Self.entry(coin, coin.flatMap { WatchStore.quotes()[$0] }, at: Date()))
+                   : Self.entry(coin, coin.flatMap { WatchStore.quotes()[$0] }, at: Date(), phone: settings.mode == .phone))
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPriceEntry>) -> Void) {
@@ -69,21 +77,25 @@ struct WatchPriceProvider: TimelineProvider {
             }
             let now = Date()
             let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(settings.interval) * 60))
-            var entries = [Self.entry(first, cached, at: now)]
+            let phone = settings.mode == .phone
+            var entries = [Self.entry(first, cached, at: now, phone: phone)]
             // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
             if let time = cached?.time {
                 let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
                 if staleAt > now, staleAt < next {
-                    entries.append(Self.entry(first, cached, at: staleAt))
+                    entries.append(Self.entry(first, cached, at: staleAt, phone: phone))
                 }
             }
             completion(Timeline(entries: entries, policy: .after(next)))
         }
     }
 
-    private static func entry(_ coin: String?, _ stored: WatchCached?, at date: Date) -> WatchPriceEntry {
+    /// `phone`: Liste vom iPhone («Wie Handy») — bestimmt den Hinweis ohne Coins.
+    private static func entry(_ coin: String?, _ stored: WatchCached?, at date: Date, phone: Bool) -> WatchPriceEntry {
         guard let coin else {
-            return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—")
+            // Keine Coins: «Kurs / +» mit dem nächsten Schritt statt «— / —» — wie Android
+            return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—", compact: "+",
+                                   empty: WatchText.t(phone ? "watch_phone_empty" : "watch_choose"))
         }
         let now = Int64(date.timeIntervalSince1970 * 1000)
         // Börse des Paars stillgelegt (`ExchangeRetirement`): kein alter Kurs — wie Android
@@ -97,13 +109,17 @@ struct WatchPriceProvider: TimelineProvider {
         let source = q.map(\.source).flatMap { $0.isEmpty ? nil : $0 }
         let age = outdated ? WatchText.ago(time, now: now) : nil
         // Wie die Zeile der Uhr-App: veraltet das Alter, sonst die Börse
-        let line = WatchPriceFormat.line(coin: label, price: q?.price, quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt,
+        let base = WatchPriceFormat.line(coin: label, price: q?.price, quote: WatchPair.parse(coin)?.quote ?? WatchPair.usdt,
                                          change: q?.change24h, detail: age ?? source)
+        // Ohne Kurs: «BTC • —  ·  Bitpanda liefert keine Kurse mehr» bzw. «nicht erreichbar» — wie Android
+        let missing = q == nil ? WatchText.missingShort(coin) : nil
+        let line = missing.map { "\(base)  ·  \($0)" } ?? base
         return WatchPriceEntry(date: date, coin: label, price: q.map { WatchText.price($0.price) } ?? "—",
                                change: WatchText.change(q?.change24h),
                                compact: q.map { WatchText.compactPrice($0.price) } ?? "—", line: line,
                                source: source, age: age,
-                               spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil, time: time)
+                               spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil, time: time,
+                               missing: missing, missingSpoken: q == nil ? WatchText.missingReason(coin) : nil)
     }
 }
 
@@ -120,7 +136,8 @@ struct WatchPriceWidgetView: View {
 
     /// «BTC 67’420.00, +1.20% in 24 Stunden», bei veraltetem Kurs dessen Alter, dazu die Börse.
     private var spoken: String {
-        guard let coin = entry.coin else { return WatchText.t("watch_empty") }
+        guard let coin = entry.coin else { return entry.empty ?? WatchText.t("watch_empty") }
+        if let reason = entry.missingSpoken { return "\(coin), \(reason)" }
         let row = WatchText.t("a11y_watch_row", coin, entry.price, entry.change)
         return ([row] + [entry.spokenAge, entry.source].compactMap { $0 }).joined(separator: ", ")
     }
@@ -129,7 +146,8 @@ struct WatchPriceWidgetView: View {
     private var valueStyle: HierarchicalShapeStyle { entry.outdated ? .secondary : .primary }
 
     @ViewBuilder private var content: some View {
-        let coin = entry.coin ?? "—"
+        // Keine Coins: Titel «Kurs», Wert «+», rechteckig der Hinweis — wie Android («Kurs / +»)
+        let coin = entry.coin ?? WatchText.t("watch_complication_label")
         let now = Int64(entry.date.timeIntervalSince1970 * 1000)
         // Veraltet: Alter knapp auch in den kleinen Familien («BTC 47m»), wie Android der Kurztitel
         let title = WatchFreshness.shortTitle(coin, time: entry.time, now: now)
@@ -137,8 +155,8 @@ struct WatchPriceWidgetView: View {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
                 Text(coin).font(.headline)
-                // «BTC • 84’450.00 USDT  +1.20%  ·  Binance» (wie Android LONG_TEXT)
-                Text(entry.line).lineLimit(2).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
+                // «BTC • 84’450.00 USDT  +1.20%  ·  Binance» (wie Android LONG_TEXT); ohne Coins der Hinweis
+                Text(entry.empty ?? entry.line).lineLimit(2).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
             }
         case .accessoryInline:
             // Eine Zeile, veraltet mit dem Alter «BTC 84’450 · 47m»; das System färbt sie selbst

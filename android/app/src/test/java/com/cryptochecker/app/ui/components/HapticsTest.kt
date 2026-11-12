@@ -49,6 +49,7 @@ class HapticsTest {
         listOf(
             BackupMessage.Failed, BackupMessage.TooLarge, BackupMessage.ExportTooLarge, BackupMessage.NewerVersion,
             BackupMessage.NotVerified, BackupMessage.NotEnoughMemory, BackupMessage.StorageKept, BackupMessage.StorageInMemory,
+            BackupMessage.SaveFailed,
         ).forEach { assertEquals(it.toString(), HapticEvent.ERROR, BackupMessage.haptic(it)) }
     }
 

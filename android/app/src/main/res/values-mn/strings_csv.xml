@@ -27,7 +27,7 @@
     <string name="portfolio_csv_import_loading">Файл болон өдрийн ханшийг уншиж байна…</string>
     <string name="portfolio_csv_import_progress">%2$s мөрөөс %1$s</string>
     <string name="portfolio_csv_import_saving">Гүйлгээг хадгалж байна…</string>
-    <string name="portfolio_csv_import_missing_fx">%1$s мөрийн өдрийн ханш алга – ханш/шимтгэлгүй импортлосон.</string>
+    <string name="portfolio_csv_import_missing_fx">%1$s мөрийн өдрийн ханш алга – үнэ/шимтгэл дутуу.</string>
     <string name="portfolio_csv_import_missing_price">Файлд %1$s мөрийн ханш алга – ханшгүй импортлосон.</string>
     <string name="portfolio_csv_import_fee_in_price">%1$s мөрт хоёр шимтгэл: фиат шимтгэлийг үнэд оруулсан, зоосны шимтгэл хүлээн авсан хэмжээг бууруулж эсвэл өгсөн хэмжээг нэмэгдүүлнэ.</string>
     <string name="portfolio_csv_import_pending_differs">%1$s мөр: нэг орлого эсвэл зарлагын хүлээгдэж буй болон бүртгэгдсэн бичлэгийн хэмжээ өөр байна – хоёуланг нь импортлосон, хөрөнгөө шалгана уу.</string>
@@ -103,4 +103,6 @@
     <string name="portfolio_csv_import_anyway_hint">Өдрийн ханшгүй бол үнэ эсвэл шимтгэл бүрмөсөн дутуу үлдэнэ. Дахин оролдоно уу, эсвэл гэсэн ч импортолно уу – тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ.</string>
     <string name="portfolio_csv_note_price_no_rate">Өдрийн ханшгүй үнэ</string>
     <string name="portfolio_csv_note_fee_no_rate">Өдрийн ханшгүй шимтгэл</string>
+    <string name="portfolio_csv_import_no_rates_for">%1$s-д өдрийн ханш байхгүй тул дахин оролдох нь тус болохгүй. Гэсэн ч импортловол тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ.</string>
+    <string name="portfolio_csv_import_blocked_rates">Эхлээд дээр өдрийн ханшгүй мөрүүдийн талаар шийднэ үү.</string>
 </resources>

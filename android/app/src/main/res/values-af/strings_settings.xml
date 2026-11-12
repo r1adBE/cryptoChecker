@@ -76,6 +76,8 @@
     <string name="settings_check_runs_title">Onlangse kontroles</string>
     <string name="settings_http_log">Wys HTTP-log</string>
     <string name="settings_http_log_hint">Wys die versoeke aan die beurse onderaan die “Voeg paar by”-bladsy – vir probleemoplossing.</string>
+    <string name="settings_retirement_preview">Sluitingsdatum vervroeg</string>
+    <string name="settings_retirement_preview_hint">Skuif net die horlosie van die sluitingsreël, nie dié van die toestel nie.</string>
     <string name="settings_live_service">Werk gereeld by</string>
     <string name="settings_live_websocket">Regstreekse pryse</string>
 

@@ -1,0 +1,23 @@
+{
+ "description": "Portfolio: Kurs aus einem Merklisten-Paar für einen Coin, den Binance-Spot nicht führt (Android PortfolioWatchPair.kt, iOS PortfolioWatchPair.swift). pick(coin, watches): aktiv, gehandelt, Spot, Spot-Börse ausser Binance, Gegenwährung in der Reihenfolge USDT, USD, Fiat …; bei Gleichstand das frischere Paar (at), dann nach Börse. notTraded (Standard false): Paar nicht mehr gehandelt oder seine Börse stillgelegt (Marker oder Ende erreicht, ExchangeRetirement.retiredNow) — liefert keinen Kurs und wird nie gewählt (F2-03). spot/disabled Standard true/false. expected «Börse|Gegenwährung», null = keines.",
+ "pick": [
+  {"name": "Bitpanda stillgelegt: das Kraken-Paar mit Kurs statt des Bitpanda-Paars mit besserer Gegenwährung", "coin": "XYZ",
+   "watches": [{"exchange": "Bitpanda", "base": "XYZ", "quote": "USD", "at": 10, "notTraded": true}, {"exchange": "Kraken", "base": "XYZ", "quote": "EUR", "at": 5}],
+   "expected": "Kraken|EUR"},
+  {"name": "vor dem Ende: Bitpanda-Paar wie bisher (USD vor EUR)", "coin": "XYZ",
+   "watches": [{"exchange": "Bitpanda", "base": "XYZ", "quote": "USD", "at": 10}, {"exchange": "Kraken", "base": "XYZ", "quote": "EUR", "at": 5}],
+   "expected": "Bitpanda|USD"},
+  {"name": "nicht mehr gehandelt (delistet): übersprungen", "coin": "XYZ",
+   "watches": [{"exchange": "Kucoin", "base": "XYZ", "quote": "USDT", "at": 30, "notTraded": true}, {"exchange": "Kraken", "base": "XYZ", "quote": "USD", "at": 5}],
+   "expected": "Kraken|USD"},
+  {"name": "gleiche Gegenwährung, frischeres Paar stillgelegt", "coin": "XYZ",
+   "watches": [{"exchange": "Bitpanda", "base": "XYZ", "quote": "EUR", "at": 50, "notTraded": true}, {"exchange": "Kraken", "base": "XYZ", "quote": "EUR", "at": 5}],
+   "expected": "Kraken|EUR"},
+  {"name": "nur stillgelegte Paare: keines", "coin": "XYZ",
+   "watches": [{"exchange": "Bitpanda", "base": "XYZ", "quote": "EUR", "at": 50, "notTraded": true}],
+   "expected": null},
+  {"name": "deaktiviert bleibt aussen vor", "coin": "XYZ",
+   "watches": [{"exchange": "Kraken", "base": "XYZ", "quote": "USD", "at": 50, "disabled": true}, {"exchange": "Bitstamp", "base": "XYZ", "quote": "EUR", "at": 1}],
+   "expected": "Bitstamp|EUR"}
+ ]
+}

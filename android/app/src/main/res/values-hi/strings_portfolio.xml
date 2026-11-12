@@ -241,6 +241,8 @@
     <string name="ledger_exchange">एक्सचेंज (वैकल्पिक)</string>
     <string name="ledger_exchange_failed">%1$s: अभी %2$s से भाव नहीं – Binance से आँका गया।</string>
     <string name="ledger_exchange_hint">कॉइन का मूल्य इस एक्सचेंज के भाव से (अन्यथा Binance)। इतिहास, 7 दिन और 1 वर्ष: Binance के दैनिक भाव, उसी पर समायोजित।</string>
+    <string name="ledger_exchange_retired">%1$s: %2$s अब कीमतें नहीं देता – Binance से आँका गया।</string>
+    <string name="ledger_exchange_retired_hint">%1$s अब कीमतें नहीं देता – कॉइन को Binance के भाव से आँका जाता है।</string>
     <string name="ledger_exchange_mixed">%1$s: कई एक्सचेंज दर्ज – Binance से आँका गया। कॉइन कहीं और भेजे? इसे “ट्रांसफ़र” के रूप में दर्ज करें।</string>
     <string name="ledger_exchange_none">कोई नहीं (Binance)</string>
     <string name="ledger_fee">शुल्क (वैकल्पिक)</string>

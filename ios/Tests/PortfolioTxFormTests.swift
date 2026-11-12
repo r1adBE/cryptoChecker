@@ -111,6 +111,22 @@ final class PortfolioTxFormTests: XCTestCase {
         XCTAssertEqual(PortfolioWatchPair.pick("XYZ", watches: [b, a]), a)
     }
 
+    /// Gemeinsame Fälle (`portfolio_watch_pair.json`, Android `PortfolioWatchPairTest`): nicht gehandelt bzw. stillgelegt nie.
+    func testWatchPairPickAsFixture() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("portfolio_watch_pair")["pick"])
+        XCTAssertGreaterThanOrEqual(cases.count, 6)
+        for c in cases {
+            let watches = TestSupport.list(c["watches"]).map { x in
+                PortfolioWatchPair.Candidate(exchangeKey: x["exchange"] as? String ?? "", base: x["base"] as? String ?? "",
+                                             quote: x["quote"] as? String ?? "", pairId: nil, spot: x["spot"] as? Bool ?? true,
+                                             disabled: x["disabled"] as? Bool ?? false,
+                                             lastUpdate: TestSupport.millis(x["at"]), notTraded: x["notTraded"] as? Bool ?? false)
+            }
+            let got = PortfolioWatchPair.pick(c["coin"] as? String ?? "", watches: watches).map { "\($0.exchangeKey)|\($0.quote)" }
+            XCTAssertEqual(got, c["expected"] as? String, c["name"] as? String ?? "?")
+        }
+    }
+
     func testWatchPairConflictingNamesGiveNoPick() {
         // Zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
         let gate = PortfolioWatchPair.Candidate(exchangeKey: "GateIo", base: "CAT", quote: "USDT", pairId: nil, spot: true,

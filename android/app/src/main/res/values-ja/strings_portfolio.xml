@@ -238,6 +238,8 @@
     <string name="ledger_exchange">取引所（任意）</string>
     <string name="ledger_exchange_failed">%1$s：現在 %2$s の価格がありません – Binance で評価しています。</string>
     <string name="ledger_exchange_hint">このコインはこの取引所の価格で評価します（それ以外は Binance）。推移・7日・1年は Binance の日次価格をこの価格に合わせて使います。</string>
+    <string name="ledger_exchange_retired">%1$s：%2$s は価格の提供を終了しました – Binance で評価しています。</string>
+    <string name="ledger_exchange_retired_hint">%1$s は価格の提供を終了しました – このコインは Binance の価格で評価します。</string>
     <string name="ledger_exchange_mixed">%1$s：複数の取引所が入力されています – Binance で評価しています。コインを移動しましたか？「振替」として記録してください。</string>
     <string name="ledger_exchange_none">なし（Binance）</string>
     <string name="ledger_fee">手数料（任意）</string>

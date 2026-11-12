@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
@@ -62,6 +65,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     val reason = stringResource(R.string.portfolio_lock_reason)
     val backupMessage by viewModel.backupMessage.collectAsStateWithLifecycle()
     val restoreStep by viewModel.restoreStep.collectAsStateWithLifecycle()
+    // Sichern bzw. Wiederherstellen läuft: Knöpfe aus, Fortschrittskreis darüber (wie iOS) — kein zweiter Lauf per Doppeltipp
+    val working by viewModel.backupWorking.collectAsStateWithLifecycle()
     // Dialog «Sichern» offen: Vorwahl «Mit Passwort schützen» (true, wenn Portfolio-Daten dabei sind)
     var exportDialog by remember { mutableStateOf<Boolean?>(null) }
     // Wieder gesperrt (Hintergrund-Limit), während «Sichern» offen ist: schliessen wie die
@@ -99,37 +104,43 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             SettingsAnchor("backup.actions") {
                 // Untereinander und volle Breite: «Wiederherstellen» und längere Wörter anderer Sprachen passen nicht
                 // in eine halbe Zeile (iOS gleich)
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm)
-                ) {
-                    FilledTonalButton(
-                        onClick = {
-                            // Mit Portfolio-Daten und gesperrt: erst entsperren
-                            viewModel.startBackupExport(context.findFragmentActivity(), reason) { hasPortfolio ->
-                                exportDialog = hasPortfolio
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_EXPORT)
+                Box(contentAlignment = Alignment.Center) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(bottom = Spacing.sm)
                     ) {
-                        // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
-                        Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
-                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                        Text(stringResource(R.string.backup_export), maxLines = 1)
+                        FilledTonalButton(
+                            enabled = !working,
+                            onClick = {
+                                // Mit Portfolio-Daten und gesperrt: erst entsperren
+                                viewModel.startBackupExport(context.findFragmentActivity(), reason) { hasPortfolio ->
+                                    exportDialog = hasPortfolio
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_EXPORT)
+                        ) {
+                            // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                            Icon(painterResource(R.drawable.ic_upload), null, Modifier.size(ButtonDefaults.IconSize))
+                            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                            Text(stringResource(R.string.backup_export), maxLines = 1)
+                        }
+                        FilledTonalButton(
+                            enabled = !working,
+                            onClick = {
+                                viewModel.startRestore(context.findFragmentActivity(), reason) {
+                                    importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_IMPORT)
+                        ) {
+                            // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
+                            Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
+                            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                            Text(stringResource(R.string.backup_import), maxLines = 1)
+                        }
                     }
-                    FilledTonalButton(
-                        onClick = {
-                            viewModel.startRestore(context.findFragmentActivity(), reason) {
-                                importLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().testTag(UiTestTags.BACKUP_IMPORT)
-                    ) {
-                        // Symbol wie iOS (Teilen-Pfeil hinaus bzw. hinein)
-                        Icon(painterResource(R.drawable.ic_download), null, Modifier.size(ButtonDefaults.IconSize))
-                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                        Text(stringResource(R.string.backup_import), maxLines = 1)
-                    }
+                    // Fortschrittskreis über den (ausgeschalteten) Knöpfen, wie iOS `.overlay { ProgressView() }`
+                    if (working) CircularProgressIndicator()
                 }
             }
         }
@@ -248,8 +259,9 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
 
 /**
  * «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte
- * sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (mit Hostnamen);
- * «Portfolio in Systemsicherung» eingeschaltet bzw. «Beträge verbergen» ausgeschaltet.
+ * sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (die beiden letzten mit
+ * Hostnamen);
+ * «Portfolio in Systemsicherung» eingeschaltet, «Beträge verbergen» bzw. Portfolio-Sperre ausgeschaltet.
  */
 private fun restoredText(resources: android.content.res.Resources, m: BackupMessage.Restored): String {
     val restored = resources.getString(
@@ -260,8 +272,9 @@ private fun restoredText(resources: android.content.res.Resources, m: BackupMess
     val serverNote = when (m.addressServerNote) {
         BackupRestorePolicy.AddressServerNote.KEPT -> resources.getString(R.string.backup_restore_server_kept)
         BackupRestorePolicy.AddressServerNote.PUBLIC -> resources.getString(R.string.backup_restore_server_public)
-        BackupRestorePolicy.AddressServerNote.CHANGED -> resources.getString(R.string.backup_restore_server_changed)
-        // Neu gesetzt, wo keiner war: mit Hostnamen, nie still
+        // Ersetzt bzw. neu gesetzt, wo keiner war: mit Hostnamen (wohin die Adressen ab jetzt gehen), nie still
+        BackupRestorePolicy.AddressServerNote.CHANGED ->
+            resources.getString(R.string.backup_restore_server_changed, m.addressServerHost.orEmpty())
         BackupRestorePolicy.AddressServerNote.SET ->
             resources.getString(R.string.backup_restore_server_set, m.addressServerHost.orEmpty())
         null -> null
@@ -273,6 +286,7 @@ private fun restoredText(resources: android.content.res.Resources, m: BackupMess
         serverNote,
         resources.getString(R.string.backup_restore_system_backup_on).takeIf { m.lowered.systemBackupOn },
         resources.getString(R.string.backup_restore_amounts_shown).takeIf { m.lowered.amountsShown },
+        resources.getString(R.string.backup_restore_app_lock_off).takeIf { m.lowered.lockOff },
     ).joinToString("\n")
 }
 

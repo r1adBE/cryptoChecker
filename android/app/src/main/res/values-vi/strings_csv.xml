@@ -25,7 +25,7 @@
     <string name="portfolio_csv_import_loading">Đang đọc tệp và tỷ giá theo ngày…</string>
     <string name="portfolio_csv_import_progress">Dòng %1$s / %2$s</string>
     <string name="portfolio_csv_import_saving">Đang lưu giao dịch…</string>
-    <string name="portfolio_csv_import_missing_fx">Không có tỷ giá ngày cho dòng %1$s – đã nhập không kèm giá/phí.</string>
+    <string name="portfolio_csv_import_missing_fx">Không có tỷ giá ngày cho dòng %1$s – thiếu giá/phí.</string>
     <string name="portfolio_csv_import_missing_price">Tệp không có giá cho dòng %1$s – đã nhập không kèm giá.</string>
     <string name="portfolio_csv_import_fee_in_price">Hai khoản phí ở dòng %1$s: phí bằng tiền pháp định đã tính vào giá, phí bằng coin làm giảm số lượng nhận được hoặc tăng số lượng đã đưa.</string>
     <string name="portfolio_csv_import_pending_differs">Dòng %1$s: bút toán đang chờ và bút toán đã ghi của cùng một khoản nạp hoặc rút có số lượng khác nhau – đã nhập cả hai, kiểm tra số dư.</string>
@@ -95,4 +95,6 @@
     <string name="portfolio_csv_import_anyway_hint">Không có tỷ giá ngày, giá hoặc phí sẽ thiếu vĩnh viễn. Vui lòng thử lại hoặc vẫn nhập – các giao dịch đó sẽ có ghi chú.</string>
     <string name="portfolio_csv_note_price_no_rate">Giá không có tỷ giá ngày</string>
     <string name="portfolio_csv_note_fee_no_rate">Phí không có tỷ giá ngày</string>
+    <string name="portfolio_csv_import_no_rates_for">Không có tỷ giá ngày cho %1$s nên thử lại cũng không giúp được. Nếu vẫn nhập, các giao dịch đó sẽ có ghi chú.</string>
+    <string name="portfolio_csv_import_blocked_rates">Vui lòng quyết định trước ở trên về các dòng không có tỷ giá ngày.</string>
 </resources>

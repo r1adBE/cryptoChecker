@@ -77,6 +77,8 @@
     <string name="settings_check_runs_title">Comprovacions recents</string>
     <string name="settings_http_log">Mostra el registre HTTP</string>
     <string name="settings_http_log_hint">Mostra les sol·licituds als exchanges a la part inferior de la pàgina «Afegeix un parell» – per resoldre problemes.</string>
+    <string name="settings_retirement_preview">Avançar la data de tancament</string>
+    <string name="settings_retirement_preview_hint">Només mou el rellotge de la regla de tancament, no el del dispositiu.</string>
     <string name="settings_live_service">Actualitza sovint</string>
     <string name="settings_live_websocket">Preus en directe</string>
 

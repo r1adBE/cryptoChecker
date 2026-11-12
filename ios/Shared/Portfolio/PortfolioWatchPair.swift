@@ -22,9 +22,12 @@ enum PortfolioWatchPair {
         let lastUpdate: Int64
         /// Voller Name des Coins laut Paarliste der Börse (TokenIdentity); nil = unbekannt.
         var name: String? = nil
+        /// Nicht mehr gehandelt bzw. Börse stillgelegt (`NotTraded`, `Watch.retiredExchange`): liefert keinen Kurs — nie
+        /// wählen, sonst bliebe der Coin ohne Kurs, obwohl ein anderes Paar einen hätte. Wie Android.
+        var notTraded = false
     }
 
-    /// Bestes Paar für `coin`: aktiv, Spot, Spot-Börse der App ausser Binance (`PortfolioExchangeRoute.isSpot`,
+    /// Bestes Paar für `coin`: aktiv, gehandelt (nicht `notTraded`), Spot, Spot-Börse der App ausser Binance (`PortfolioExchangeRoute.isSpot`,
     /// Binance führt den Coin ja nicht), Gegenwährung aus `PortfolioExchangeRoute.quotes` (in dieser Reihenfolge);
     /// bei Gleichstand das zuletzt aktualisierte, dann nach Börse. nil = keines.
     /// Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
@@ -34,7 +37,7 @@ enum PortfolioWatchPair {
         let base = PortfolioCalculator.normalizeCoin(coin)
         let quotes = PortfolioExchangeRoute.quotes
         let usable = watches.filter { w in
-            !w.disabled && w.spot
+            !w.disabled && !w.notTraded && w.spot
                 && PortfolioExchangeRoute.isSpot(w.exchangeKey)
                 && w.exchangeKey != PortfolioExchangeRoute.defaultExchange
                 && PortfolioCalculator.normalizeCoin(w.base) == base
