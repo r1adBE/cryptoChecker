@@ -11,10 +11,14 @@ import java.io.File
  * - `:domain`: jede Datei im Paket `com.cryptochecker.app.domain.…` (wie ihr Ordner), kein Import von Room, OkHttp
  *   oder einem anderen Paket der App (Daten, Widgets, Oberfläche …).
  * - `:data`: jede Datei im Paket `com.cryptochecker.app.data.…`, aus der App nur Importe aus `:domain` und `:data`.
- * - `:app` hat kein Paket `com.cryptochecker.app.domain` mehr (es gehört `:domain`).
+ * - `:app` hat kein Paket `com.cryptochecker.app.domain` mehr (es gehört `:domain`) und keines unter
+ *   `com.cryptochecker.app.data` (es gehört `:data`; Sicherung, Logo-Abgleich, Blatt-Chart und Portfolio-Alarme der App
+ *   liegen in `backup`, `logos`, `chart`, `alarm`).
+ * - Kein Paket liegt in zwei Modulen (`src/main` aller Module) — auch nicht in `:marketdata`, `:wear` oder einem neuen.
  * - Unit-Tests (Audit C-03): was unter `domain/src/test` bzw. `data/src/test` liegt, hält dieselben Regeln ein wie
  *   die Quellen des Moduls (Paket = Modul, aus der App nur die eigenen Schichten); kein Modul verliert still seine
- *   Tests ([TEST_FLOOR], [TOTAL_TEST_FLOOR]).
+ *   Tests ([TEST_FLOOR], [TOTAL_TEST_FLOOR]). Einzige Ausnahme: der gemeinsame Test-Helfer `ParityJson`
+ *   ([TEST_SHARED], Ordner `test-shared/java`), den :app, :domain und :data als Testquelle mitkompilieren.
  * Ausnahmen nur über die Listen unten, je mit Grund; ein Eintrag ohne Verstoss muss wieder hinaus.
  */
 class LayerBoundaryTest {
@@ -36,13 +40,62 @@ class LayerBoundaryTest {
     }
 
     @Test
+    fun appHasNoDataPackage() {
+        val inData = sources("app").filter { inPackage(it.packageName, DATA) }.map { it.name }
+        assertTrue("Paket $DATA gehört :data, in :app liegen: $inData", inData.isEmpty())
+    }
+
+    /** Paket = Modul für alle Module: dasselbe Paket (genauer Name) kommt nie in `src/main` zweier Module vor. */
+    @Test
+    fun noPackageInTwoModules() {
+        val root = SourceGuard.android(androidRoot(), "android/app/src/main")
+        val modules = root.listFiles { dir -> File(dir, "src/main").isDirectory }.orEmpty().map { it.name }.sorted()
+        assertTrue("Module: $modules", modules.containsAll(listOf("app", "data", "domain", "marketdata", "wear")))
+        val byPackage = sortedMapOf<String, MutableSet<String>>()
+        for (module in modules) {
+            for (file in sourceFiles(module, "main")) {
+                val name = PACKAGE.find(file.readText(Charsets.UTF_8))?.groupValues?.get(1) ?: continue
+                byPackage.getOrPut(name) { sortedSetOf() }.add(module)
+            }
+        }
+        assertTrue("nur ${byPackage.size} Pakete gefunden", byPackage.size > 50)
+        val shared = byPackage.filterValues { it.size > 1 }.map { (name, owners) -> "$name: $owners" }
+        assertTrue("Paket in zwei Modulen (Paket = Modul):\n" + shared.joinToString("\n"), shared.isEmpty())
+    }
+
+    @Test
     fun domainTestsStayInDomain() {
-        assertLayer("domain", DOMAIN, forbidden = listOf("androidx.room", "okhttp3"), appPackages = listOf(DOMAIN), exceptions = emptyMap(), sourceSet = "test")
+        assertLayer("domain", DOMAIN, forbidden = listOf("androidx.room", "okhttp3"), appPackages = listOf(DOMAIN, TEST_SHARED), exceptions = emptyMap(), sourceSet = "test")
     }
 
     @Test
     fun dataTestsUseOnlyDataAndDomainFromTheApp() {
-        assertLayer("data", DATA, forbidden = emptyList(), appPackages = listOf(DATA, DOMAIN), exceptions = emptyMap(), sourceSet = "test")
+        assertLayer("data", DATA, forbidden = emptyList(), appPackages = listOf(DATA, DOMAIN, TEST_SHARED), exceptions = emptyMap(), sourceSet = "test")
+    }
+
+    /**
+     * Der gemeinsame Test-Helfer liegt genau einmal im Baum (`test-shared/java`, Paket [TEST_SHARED]) und ist Testquelle
+     * von :app, :domain und :data; kein Modul hält eine eigene Kopie, und ausser ihm liegt dort nichts.
+     */
+    @Test
+    fun sharedTestHelperIsOneFileCompiledIntoEachModule() {
+        val root = SourceGuard.android(androidRoot(), "android/app/src/main")
+        val shared = File(root, "test-shared/java").walkTopDown().filter { it.isFile }.map { it.relativeTo(root).invariantSeparatorsPath }.toList()
+        assertEquals(listOf("test-shared/java/com/cryptochecker/app/parity/ParityJson.kt"), shared)
+        val text = File(root, shared.single()).readText(Charsets.UTF_8)
+        assertEquals(TEST_SHARED, PACKAGE.find(text)?.groupValues?.get(1))
+        for (module in listOf("app", "domain", "data")) {
+            val gradle = File(root, "$module/build.gradle.kts").readText(Charsets.UTF_8)
+            assertTrue(
+                "$module/build.gradle.kts bindet test-shared/java nicht als Testquelle ein",
+                gradle.contains("getByName(\"test\") {\n            kotlin.directories.add(\"\$rootDir/test-shared/java\")"),
+            )
+            val copies = sourceFiles(module, "test").filter { it.name == "ParityJson.kt" }
+            assertTrue("eigene Kopie in :$module: $copies", copies.isEmpty())
+            val inSharedPackage = sourceFiles(module, "test").filter { PACKAGE.find(it.readText(Charsets.UTF_8))?.groupValues?.get(1) == TEST_SHARED }
+            // :app behält Tests im Paket parity (Quelltext-Wächter und Tests mit App-Klassen); :domain und :data nicht
+            if (module != "app") assertTrue("Tests im Paket $TEST_SHARED in :$module: ${inSharedPackage.map { it.name }}", inSharedPackage.isEmpty())
+        }
     }
 
     /**
@@ -158,6 +211,9 @@ class LayerBoundaryTest {
         const val APP = "com.cryptochecker.app"
         const val DOMAIN = "$APP.domain"
         const val DATA = "$APP.data"
+
+        /** Paket des gemeinsamen Test-Helfers (`test-shared/java`): Tests von :domain und :data dürfen es importieren. */
+        const val TEST_SHARED = "$APP.parity"
         val PACKAGE = Regex("""^package\s+([\w.]+)""", RegexOption.MULTILINE)
         val IMPORT = Regex("""^import\s+([\w.*]+)""", RegexOption.MULTILINE)
         val BLOCK_COMMENT = Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL)
@@ -167,11 +223,14 @@ class LayerBoundaryTest {
         /** Module mit Unit-Tests unter `src/test`. */
         val TEST_MODULES = listOf("app", "domain", "data", "marketdata", "wear")
 
-        /** `@Test`-Methoden je Modul beim Umzug der Tests (Audit C-03, Build 217): weniger heisst verloren. */
-        val TEST_FLOOR = mapOf("domain" to 1162, "data" to 445)
+        /**
+         * `@Test`-Methoden je Modul nach dem Umzug der Tests (Audit C-03, Build 217; C-06, Build 223 mit dem
+         * gemeinsamen `ParityJson`): weniger heisst verloren.
+         */
+        val TEST_FLOOR = mapOf("domain" to 1557, "data" to 562)
 
-        /** Alle Module zusammen vor dem Umzug (app 3614, marketdata 32, wear 38). */
-        const val TOTAL_TEST_FLOOR = 3684
+        /** Alle Module zusammen (app 1540, domain 1557, data 562, marketdata 32, wear 45): vor dem Umzug = danach. */
+        const val TOTAL_TEST_FLOOR = 3736
 
         /** Datei (relativ zu `domain/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme. */
         val DOMAIN_EXCEPTIONS: Map<String, String> = emptyMap()

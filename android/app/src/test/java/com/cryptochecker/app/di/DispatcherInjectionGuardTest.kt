@@ -7,30 +7,45 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Wache über fest verdrahtete Dispatcher: Dateien mit einer per Hilt erzeugten Klasse (`@Inject constructor`) in :app
- * und :data nennen `Dispatchers.IO`/`Dispatchers.Default` nicht selbst, sondern nehmen den Dispatcher im Konstruktor
- * (`@param:IoDispatcher`, `@param:DefaultDispatcher`, geliefert von [DispatcherModule]).
+ * Wache über fest verdrahtete Dispatcher: KEINE Kotlin-Datei von :app, :data und :domain (`src/main`) nennt
+ * `Dispatchers.IO`/`Dispatchers.Default` selbst — ausser [DispatcherModule], das sie liefert. Per Hilt erzeugte Klassen
+ * nehmen den Dispatcher im Konstruktor (`@param:IoDispatcher`, `@param:DefaultDispatcher`), Klassen aus :domain über
+ * ihre `@Provides`-Funktion (`RefreshModule`), Erweiterungsdateien aus ihrer Klasse bzw. ihrem ViewModel, reine
+ * Funktionen als Parameter vom Aufrufer.
  *
- * Noch nicht umgestellte Dateien stehen mit ihrer Anzahl in [REMAINING] (Datei an der Zeilengrenze oder Klasse, die
- * viele Tests von Hand bauen); die Zahl darf nur sinken — wer eine Datei umstellt, senkt sie hier mit, bei null kommt
- * der Eintrag weg. Kommentare und Import-Zeilen zählen nicht.
+ * Was noch nicht umgestellt ist, steht mit seiner Anzahl in [REMAINING], nach Grund geordnet — die ganze Wahrheit, nicht
+ * nur die Hilt-Klassen: [REMAINING_PLACES] Stellen in [REMAINING_FILES] Dateien. Die Zahlen dürfen nur sinken — wer
+ * eine Datei umstellt, senkt sie hier mit, bei null kommt der Eintrag weg. Kommentare und Import-Zeilen zählen nicht.
  */
 class DispatcherInjectionGuardTest {
 
     @Test
-    fun hiltKlassenVerdrahtenKeinenDispatcherFest() {
-        val counts = hiltFiles().mapValues { (_, file) -> literals(file.readText(Charsets.UTF_8)) }
-        assertTrue("keine per Hilt erzeugten Klassen gefunden", counts.size > 50)
+    fun keineDateiVerdrahtetEinenDispatcherFest() {
+        val files = mainFiles()
+        assertTrue("nur ${files.size} Kotlin-Dateien gefunden", files.size > 900)
+        val counts = files.filterKeys { it != PROVIDER }
+            .mapValues { (_, file) -> literals(file.readText(Charsets.UTF_8)) }.filterValues { it > 0 }
         val grown = counts.filter { (name, count) -> count > (REMAINING[name] ?: 0) }.toSortedMap()
             .map { (name, count) -> "$name: $count, erlaubt ${REMAINING[name] ?: 0}" }
         assertTrue(
-            "Dispatchers.IO/Default fest verdrahtet — im Konstruktor nehmen (@param:IoDispatcher/@param:DefaultDispatcher):\n" +
-                grown.joinToString("\n"),
+            "Dispatchers.IO/Default fest verdrahtet — im Konstruktor nehmen (@param:IoDispatcher/@param:DefaultDispatcher), " +
+                "in :domain über RefreshModule, in Erweiterungsdateien aus der Klasse:\n" + grown.joinToString("\n"),
             grown.isEmpty(),
         )
         val stale = REMAINING.filter { (name, allowed) -> (counts[name] ?: 0) < allowed }.toSortedMap()
             .map { (name, allowed) -> "$name: ${counts[name] ?: 0} statt $allowed" }
         assertTrue("Zahl in REMAINING senken (bei 0 Eintrag entfernen):\n" + stale.joinToString("\n"), stale.isEmpty())
+    }
+
+    /** Die Summe steht ausgeschrieben da (Doku nennt sie): Wer einen Eintrag ändert, sieht die neue Zahl. */
+    @Test
+    fun restIstAusgezaehlt() {
+        assertEquals(REMAINING_FILES, REMAINING.size)
+        assertEquals(REMAINING_PLACES, REMAINING.values.sum())
+        assertTrue(REMAINING.values.all { it > 0 })
+        // Das liefernde Modul ist die einzige Ausnahme und steht nicht in der Liste
+        assertTrue(PROVIDER !in REMAINING)
+        assertEquals(2, literals(mainFiles().getValue(PROVIDER).readText(Charsets.UTF_8)))
     }
 
     /** Gegenprobe: Der Zähler sieht Code, aber weder Kommentare noch die Import-Zeile. */
@@ -41,13 +56,12 @@ class DispatcherInjectionGuardTest {
         assertEquals(0, literals("withContext(Dispatchers.Main) { }\nwithContext(ioDispatcher) { }"))
     }
 
-    /** Anzeigename (`app/…`, `data/…`, relativ zu `src/main/java/com/cryptochecker/`) → Datei mit `@Inject constructor`. */
-    private fun hiltFiles(): Map<String, File> {
+    /** Anzeigename (`app/…`, `data/…`, `domain/…`, relativ zu `src/main/java/com/cryptochecker/`) → Kotlin-Datei. */
+    private fun mainFiles(): Map<String, File> {
         val root = SourceGuard.android(androidRoot(), "android/app/src/main")
         return MODULES.flatMap { module ->
             val main = SourceGuard.android(File(root, "$module/src/main").takeIf { it.isDirectory }, "$module/src/main")
             main.walkTopDown().filter { it.isFile && it.extension == "kt" }
-                .filter { INJECTED.containsMatchIn(it.readText(Charsets.UTF_8)) }
                 .map { "$module/" + it.relativeTo(main).invariantSeparatorsPath.removePrefix("java/com/cryptochecker/") to it }
                 .toList()
         }.toMap()
@@ -72,21 +86,62 @@ class DispatcherInjectionGuardTest {
     }
 
     private companion object {
-        val MODULES = listOf("app", "data")
-        val INJECTED = Regex("""@Inject\s+constructor\b""")
+        val MODULES = listOf("app", "data", "domain")
+
+        /** Liefert die Dispatcher und nennt sie darum selbst (zweimal). */
+        const val PROVIDER = "app/app/di/DispatcherModule.kt"
         val LITERAL = Regex("""\bDispatchers\.(?:IO|Default)\b""")
         val BLOCK_COMMENT = Regex("""/\*.*?\*/""", RegexOption.DOT_MATCHES_ALL)
         val LINE_COMMENT = Regex("""(^|[ \t])//[^\n]*""", RegexOption.MULTILINE)
 
+        const val REMAINING_FILES = 35
+        const val REMAINING_PLACES = 58
+
         /** Datei → höchstens so viele `Dispatchers.IO`/`Dispatchers.Default` im Code; darf nur sinken. */
         val REMAINING: Map<String, Int> = mapOf(
-            // Datei an der Zeilengrenze (FileLengthTest)
+            // Von Android erzeugt oder ohne Hilt-Konstruktor (Application vor der Injektion, Receiver, `object`,
+            // Hilfsklassen und -funktionen, die von Hand gebaut werden)
+            "app/app/CryptoCheckerApp.kt" to 2,
+            "app/app/util/ReceiverAsync.kt" to 1,
+            "app/app/work/ExactCheckReceiver.kt" to 1,
+            "app/app/widget/PulseBackgroundFetch.kt" to 1,
+            "app/app/widget/PortfolioWidgetChartView.kt" to 1,
+            "app/app/ui/features/portfolio/PortfolioExportRun.kt" to 2,
+            "app/app/ui/features/portfolio/PortfolioCsvImportReader.kt" to 3,
+            "app/app/ui/features/watchlist/WatchlistContentFlows.kt" to 1,
+            "data/app/data/local/StorageRecoveryNotice.kt" to 1,
+            "data/app/data/portfolio/PortfolioBackupMirror.kt" to 1,
+            "data/app/data/remote/util/InFlightRequests.kt" to 1,
+            // Composables (LaunchedEffect/produceState): kein Konstruktor, in den Hilt etwas reichen könnte
+            "app/app/ui/features/about/LicensesSheet.kt" to 1,
+            "app/app/ui/features/alarms/AlarmPickerRows.kt" to 1,
+            "app/app/ui/features/explorer/ExplorerExchangeBadge.kt" to 1,
+            "app/app/ui/features/portfolio/PortfolioRestoreNoticeDialog.kt" to 1,
+            "app/app/ui/features/settings/SettingsDataPages.kt" to 1,
+            "app/app/ui/features/settings/SettingsScreen.kt" to 1,
+            "app/app/ui/features/settings/StorageRecoveryNoticeDialog.kt" to 3,
+            "app/app/ui/features/watchlist/WatchSheetChartCanvas.kt" to 1,
+            // ViewModel an der Konstruktor-Obergrenze (13, code_metrics.py) samt Erweiterungsdateien: Alarms-, Explorer-
+            // (nur noch IO), Info- und SettingsViewModel; PortfolioViewModel (12) bekäme mit IO den dreizehnten
             "app/app/ui/features/alarms/AlarmsViewModel.kt" to 1,
+            "app/app/ui/features/explorer/ExplorerBulkActions.kt" to 1,
+            "app/app/ui/features/explorer/ExplorerSearchActions.kt" to 2,
+            "app/app/ui/features/info/MarketDataLoaders.kt" to 1,
+            "app/app/ui/features/info/MarketDataSync.kt" to 1,
+            "app/app/ui/features/info/MarketPreviewActions.kt" to 1,
+            "app/app/ui/features/settings/SettingsAlarmActions.kt" to 2,
+            "app/app/ui/features/portfolio/PortfolioLoadActions.kt" to 1,
+            // Datei an der Zeilengrenze (FileLengthTest; ein Konstruktor-Parameter mehr sprengt sie) samt Erweiterungsdateien
+            // (CoinListSync, LogoImageStore und WatchedAddressSource haben genau 400 Zeilen)
             "app/app/ui/features/portfolio/PortfolioCsvImportViewModel.kt" to 3,
             "data/app/data/CoinListSync.kt" to 5,
+            "data/app/data/CoinListSyncMap.kt" to 4,
             "data/app/data/LogoImageStore.kt" to 5,
-            // 15 Stellen in den Tests bauen die Klasse von Hand; Datei nahe der Zeilengrenze
+            "data/app/data/portfolio/WatchedAddressSourceXpub.kt" to 2,
+            // Viele Tests bauen die Klasse von Hand (15, 8 und 2 Stellen); Datei nahe der Zeilengrenze
             "data/app/data/remote/ExchangeRemoteDataSource.kt" to 1,
+            "domain/app/domain/logos/LogoLoadingHint.kt" to 2,
+            "data/app/data/refresh/AlarmLogStore.kt" to 1,
         )
     }
 }

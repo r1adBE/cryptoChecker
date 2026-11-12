@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "222"
+    CURRENT_PROJECT_VERSION: "223"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -122,12 +122,11 @@ targets:
     deploymentTarget: "10.0"
     sources:
       - path: WatchCore
+      # Watch/Device/Localizable.xcstrings: kleiner Katalog nur mit den Texten der Uhr (tools/convert_strings.py)
       - path: Watch
         excludes:
           - "Info.plist"
           - "*.entitlements"
-      - path: Shared/Resources/Localizable.xcstrings
-        buildPhase: resources
       - path: App/PrivacyInfo.xcprivacy
         buildPhase: resources
     settings:
@@ -151,13 +150,12 @@ targets:
     deploymentTarget: "10.0"
     sources:
       - path: WatchCore
+      # mit Watch/Device/Localizable.xcstrings (Texte der Uhr, eigener kleiner Katalog)
       - path: Watch/Device
       - path: WatchWidgets
         excludes:
           - "Info.plist"
           - "*.entitlements"
-      - path: Shared/Resources/Localizable.xcstrings
-        buildPhase: resources
       - path: App/PrivacyInfo.xcprivacy
         buildPhase: resources
     settings:

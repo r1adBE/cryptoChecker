@@ -62,6 +62,10 @@ if (requireReleaseCommit) {
 // aber die Mapping-Datei im AAB (BUNDLE-METADATA) nicht. Ohne Absturzberichte wird sie nicht gebraucht.
 composeCompiler {
     includeComposeMappingFile.set(false)
+    // Unveränderliche Modelle aus :domain und :marketdata (Module ohne Compose-Compiler) gelten als stabil: gleiche
+    // Zeilen werden übersprungen statt neu zusammengesetzt. Liste und Regeln in der Datei; kein Eintrag für :wear
+    // (nutzt nur marketdata.watch, keine dieser Klassen in Composables).
+    stabilityConfigurationFiles.add(rootProject.layout.projectDirectory.file("gradle/compose-stability.conf"))
 }
 
 android {
@@ -73,7 +77,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 222
+        versionCode = 223
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -141,6 +145,12 @@ android {
     // UI-Tests (androidTest): gemeinsame Testdateien beider Plattformen als Assets des Test-APK
     // (die App selbst enthält sie nicht); iOS bekommt dieselben über tools/gen_xcodeproj.py.
     sourceSets {
+        // Gemeinsamer Test-Helfer (ParityJson: kleiner JSON-Leser für testdata/parity) als Testquelle von :app, :domain
+        // und :data — dieselbe Datei, je Modul mitkompiliert (kein eigenes Modul, keine neue Abhängigkeit;
+        // LayerBoundaryTest prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
+        getByName("test") {
+            kotlin.directories.add("$rootDir/test-shared/java")
+        }
         getByName("androidTest") {
             assets.directories.add("$rootDir/testdata/uitest")
             // Gemeinsame Paritäts-Fälle für Tests, die das Gerät brauchen (PriceFormatIcuTest: ICU-Zahlenformat)

@@ -15,7 +15,6 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.TodayChange
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -43,7 +42,7 @@ internal fun PortfolioViewModel.costFxFlow(): StateFlow<com.cryptochecker.app.do
     com.cryptochecker.app.domain.portfolio.PortfolioCostFx.figures(
         s, code, current, today, usable?.rates, usable?.usdtUsd ?: emptyMap(),
     )
-}.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+}.flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
 /** Merkzettel fürs Portfolio-Widget in der Anzeigewährung ([PortfolioViewModel.widgetDisplayFx]). */
 internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDisplayFx?> = combine(
@@ -64,7 +63,7 @@ internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDispla
         PortfolioHistoryFx.rateFunction(rates, rate, today, com.cryptochecker.app.domain.portfolio.UsdtUsdRates(null, usdt))
     } else null
     PortfolioDisplayFigures.memo(code, figures, s.open, dayFactor, today)
-}.distinctUntilChanged().flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
+}.distinctUntilChanged().flowOn(defaultDispatcher).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
 /**
  * Gewinn/Verlust seit dem Tagesschluss vor [days] Tagen ([PortfolioPeriodChange.gain]). [display]: in der
@@ -108,7 +107,7 @@ internal fun PortfolioViewModel.periodChange(days: Int, display: Boolean): State
     // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, [displayFxRate])
     if (change != null && fx != null && rate != null) PortfolioHistoryFx.forCard(change, rate * usdt.current().rate) else change
 }
-    .flowOn(Dispatchers.Default)
+    .flowOn(defaultDispatcher)
     .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
 /** Hinweis «Binance skaliert» an «7 T»/«1 J» ([PortfolioViewModel.periodScaled]). */
@@ -120,7 +119,7 @@ internal fun PortfolioViewModel.periodScaledFlow(): StateFlow<List<String>> = co
         current.open.map { it.coin },
     )
 }
-    .flowOn(Dispatchers.Default)
+    .flowOn(defaultDispatcher)
     .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
 /** Wertverlauf des gewählten Zeitraums ([PortfolioViewModel.history]). */
@@ -195,7 +194,7 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
         chainSources = chainSources,
     )
 }
-    .flowOn(Dispatchers.Default)
+    .flowOn(defaultDispatcher)
     .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
 /**

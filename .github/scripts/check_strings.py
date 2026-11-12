@@ -20,7 +20,10 @@ iOS (ios/):
   * tools/ios_extra_strings.json: every key in every language, same placeholders, no lone or
     trailing backslash
   * tools/convert_strings.py validates and regenerates the string catalogs; the result must
-    equal the committed Shared/Resources/*.xcstrings (otherwise: run convert_strings.py)
+    equal the committed Shared/Resources/*.xcstrings and Watch/Device/Localizable.xcstrings (otherwise: run
+    convert_strings.py)
+  * the watch catalogue holds exactly the keys of tools/watch_string_keys.txt, and that list matches the keys the
+    watch sources use (tools/watch_strings.py, run by convert_strings.py: a missing or unused key is a problem)
   * every L("key") used in the Swift code exists in Localizable.xcstrings
 
 Exit code 0 = OK, 1 = problems found (listed on stdout).
@@ -291,17 +294,19 @@ def check_ios(ios, android):
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [sys.executable, os.path.join(tools, "convert_strings.py"),
                "--android-res", os.path.join(android, "app", "src", "main", "res"),
-               "--extra", extra_path, "--out", tmp]
+               "--extra", extra_path, "--out", tmp, "--watch-out", os.path.join(tmp, "watch")]
         run = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
         if run.returncode != 0:
             problem("convert_strings.py FAILED:\n" + run.stdout + run.stderr)
         else:
-            for name in ("Localizable.xcstrings", "InfoPlist.xcstrings"):
-                gen, committed = os.path.join(tmp, name), os.path.join(res_dir, name)
+            watch_dir = os.path.join(ios, "Watch", "Device")
+            for gen_dir, out_dir, name in ((tmp, res_dir, "Localizable.xcstrings"), (tmp, res_dir, "InfoPlist.xcstrings"),
+                                           (os.path.join(tmp, "watch"), watch_dir, "Localizable.xcstrings")):
+                gen, committed = os.path.join(gen_dir, name), os.path.join(out_dir, name)
                 if not os.path.isfile(committed):
                     problem("MISSING", os.path.relpath(committed, ios))
                 elif open(gen, encoding="utf-8").read() != open(committed, encoding="utf-8").read():
-                    problem("OUT OF DATE", "ios/Shared/Resources/" + name,
+                    problem("OUT OF DATE", "ios/" + os.path.relpath(committed, ios).replace(os.sep, "/"),
                             "- run: python3 ios/tools/convert_strings.py --android-res android/app/src/main/res")
 
     catalog_path = os.path.join(res_dir, "Localizable.xcstrings")

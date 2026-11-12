@@ -4,11 +4,10 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 suspend fun PriceRefresher.refreshOneLocked(watchId: Long): RefreshSummary = refreshLock.withLock { lock ->
-    withContext(Dispatchers.IO) {
+    withContext(ioDispatcher) {
         val startedAt = System.currentTimeMillis()
 
         val watch = watchRepository.getWatch(watchId) ?: return@withContext RefreshSummary()

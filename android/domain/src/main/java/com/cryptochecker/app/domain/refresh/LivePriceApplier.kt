@@ -10,8 +10,8 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Live-Kurse aus dem WebSocket-Strom ([com.cryptochecker.app.data.live.LivePriceStream]) speichern und wie eine
@@ -28,8 +28,10 @@ class LivePriceApplier constructor(
     private val liveWidgetGate: RefreshWidgets,
     private val chartRefresher: RefreshCharts,
     private val resultProcessor: RefreshResultProcessor,
+    /** Speichern und Auswerten der Live-Kurse (Hilt: `DispatcherModule`). */
+    private val ioDispatcher: CoroutineDispatcher,
     /** Kurs-Meldungen nach dem Speichern: Nacharbeit unter der weitergereichten Sperre ([RefreshLock.withLockThen]). */
-    private val tailScope: CoroutineScope = appScope(Dispatchers.IO, "LivePriceApplier"),
+    private val tailScope: CoroutineScope = appScope(ioDispatcher, "LivePriceApplier"),
 ) {
     /**
      * Live-Kurse (gesammelt, höchstens alle 10 s) speichern und wie eine Aktualisierung auswerten: derselbe Weg
@@ -95,7 +97,7 @@ class LivePriceApplier constructor(
         redrawWidgets: Boolean,
         pairs: Map<Long, PairIdentity>?,
     ): Locked<Unit> =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val now = System.currentTimeMillis()
             val settings = settingsRepository.current()
             val rollingBasis = !settings.changeBasis.isDay

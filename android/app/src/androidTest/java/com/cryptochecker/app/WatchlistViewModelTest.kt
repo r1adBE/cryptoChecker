@@ -17,7 +17,7 @@ import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.ColumnSort

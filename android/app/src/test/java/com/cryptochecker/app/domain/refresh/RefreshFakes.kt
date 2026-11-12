@@ -20,6 +20,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.Collections
@@ -317,6 +318,7 @@ internal class RefreshFixture(
         derivativesAlarmData = derivatives,
         moveHistoryStore = moveHistory,
         alarmCheckStatus = checkStatus,
+        ioDispatcher = Dispatchers.IO,
     )
 
     /** Alarm-Protokoll: alle übergebenen Einträge, in Reihenfolge. */
@@ -341,6 +343,7 @@ internal class RefreshFixture(
         liveWidgetGate = widgets,
         chartRefresher = charts,
         resultProcessor = processor,
+        ioDispatcher = Dispatchers.IO,
     )
 
     /** Ein Paar BTC/USDT (Binance) mit gespeichertem Kurs. */

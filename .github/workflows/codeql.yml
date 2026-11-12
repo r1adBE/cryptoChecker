@@ -6,6 +6,9 @@
 # CodeQL's autobuild made a Release build of every target and needed about an hour); Python and the workflows need
 # no build. Results: Security › Code scanning. Requires «CodeQL analysis: Advanced» in the repository settings –
 # while the default setup is on, GitHub rejects the uploads of this workflow.
+# Pull requests analyse only the languages whose files they change (job «changes», git diff against the base
+# branch); a pull request without such files (documents, translations, test data) starts no analysis. Pushes to
+# main, the weekly run and manual runs always analyse all four languages.
 name: CodeQL
 
 on:
@@ -24,8 +27,62 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # The languages to analyse as the matrix of the job below. Pull requests: plain git diff between the merge commit
+  # and its first parent (the base branch), no third-party action; the file names are only compared with fixed
+  # patterns, never executed or printed into a command. Every other event: all languages.
+  changes:
+    name: Languages to analyse
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+      any: ${{ steps.pick.outputs.any }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # The merge commit and its parents: enough for the diff against the base branch
+          fetch-depth: 2
+
+      - name: Pick languages
+        id: pick
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          python3 -I - <<'PY'
+          import json, os, re, subprocess
+          # language -> (build mode, runner, pattern of the files that count for it)
+          LANGUAGES = {
+              "actions": ("none", "ubuntu-24.04", r"^\.github/(workflows|actions)/"),
+              "python": ("none", "ubuntu-24.04", r"\.py$"),
+              "java-kotlin": ("manual", "ubuntu-24.04",
+                              r"^android/.*\.(kt|java|kts|toml|pro|properties|lockfile)$"
+                              r"|^android/.*/AndroidManifest\.xml$|^android/.*/res/xml/|^android/gradle/"),
+              "swift": ("manual", "macos-26",
+                        r"^ios/.*\.(swift|pbxproj|plist|entitlements|xcprivacy)$|^ios/project\.yml$"),
+          }
+          ALL = r"^\.github/workflows/codeql\.yml$"   # a change of this workflow analyses everything
+          if os.environ["EVENT"] == "pull_request":
+              changed = subprocess.run(["git", "diff", "--name-only", "-z", "HEAD^1", "HEAD"], check=True,
+                                       capture_output=True, text=True).stdout.split("\0")
+              everything = any(re.search(ALL, f) for f in changed)
+              picked = [l for l, (_, _, pattern) in LANGUAGES.items()
+                        if everything or any(re.search(pattern, f) for f in changed)]
+          else:
+              picked = list(LANGUAGES)
+          matrix = {"include": [{"language": l, "build-mode": LANGUAGES[l][0], "runner": LANGUAGES[l][1]}
+                                for l in picked]}
+          print("languages:", ", ".join(picked) or "none")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write("matrix=" + json.dumps(matrix) + "\n")
+              out.write("any=" + ("true" if picked else "false") + "\n")
+          PY
+
   analyze:
     name: Analyze (${{ matrix.language }})
+    needs: changes
+    # An empty matrix is an error for GitHub, so the job is skipped when no language is left
+    if: needs.changes.outputs.any == 'true'
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
     permissions:
@@ -33,20 +90,7 @@ jobs:
       security-events: write   # upload of the results
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - language: actions
-            build-mode: none
-            runner: ubuntu-24.04
-          - language: python
-            build-mode: none
-            runner: ubuntu-24.04
-          - language: java-kotlin
-            build-mode: manual
-            runner: ubuntu-24.04
-          - language: swift
-            build-mode: manual
-            runner: macos-26
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

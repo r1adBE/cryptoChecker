@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
@@ -50,7 +50,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     @Inject lateinit var portfolioRepository: dagger.Lazy<PortfolioRepository>
 
     /** Lazy: nur, wenn ein abgebrochenes Wiederherstellen zurückzurollen ist ([RestoreJournal]). */
-    @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.data.BackupManager>
+    @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.backup.BackupManager>
 
     /** Lazy: nur, wenn nach neu angelegten Einstellungen Portfolio-Daten zu prüfen sind ([PortfolioDataCheck]). */
     @Inject lateinit var portfolioAlarmRepository: dagger.Lazy<PortfolioAlarmRepository>

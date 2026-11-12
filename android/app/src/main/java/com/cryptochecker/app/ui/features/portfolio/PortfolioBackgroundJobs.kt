@@ -7,7 +7,6 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -26,7 +25,7 @@ internal fun PortfolioViewModel.switchOverlappingAddresses() {
         combine(transactions.filterNotNull(), watchedAddresses) { txs, list ->
             WatchedAddressRules.overlapAutoShowOnly(list, txs.map { it.toTrade() }) to txs
         }
-            .flowOn(Dispatchers.Default)
+            .flowOn(defaultDispatcher)
             .filter { (due, _) -> due.isNotEmpty() }
             .collect { (due, txs) ->
                 val own = txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
@@ -59,7 +58,7 @@ internal fun PortfolioViewModel.recordWidgetSnapshots() {
                 // (Widget, Verlauf, Alarme blieben sonst mit alten Kursen stehen); «Heute» dann aus der
                 // letzten Momentaufnahme. Frische je Coin: ein einzelner alter Coin hält die übrigen
                 // nicht an, solange mindestens 80 % des Werts frisch sind
-                if (input.transactions.isNotEmpty() && !withContext(Dispatchers.Default) { mayRecord(input) }) {
+                if (input.transactions.isNotEmpty() && !withContext(defaultDispatcher) { mayRecord(input) }) {
                     if (_todayPercent.value == null) showStoredToday(input.fxRate)
                     return@collect
                 }

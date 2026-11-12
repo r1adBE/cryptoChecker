@@ -5,7 +5,6 @@ import androidx.core.net.toUri
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import com.cryptochecker.marketdata.watch.WatchSettings
-import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
@@ -18,14 +17,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import java.util.concurrent.TimeUnit
 
 /**
  * Abgleich mit dem Handy über die Wear-Daten-Schicht: je Gerät ein Eintrag unter [PATH] mit dem JSON von
  * [WatchSettings] (Coin-Kürzel, Wahl, Kursquelle, Intervall); dazu vom Handy die Kurse, die es schon hat, unter
  * [QUOTES_PATH] ([WatchPhoneQuotes]) und — nur mit dem Schalter auf dem Handy — der Portfolio-Wert unter
  * [PORTFOLIO_PATH] ([WatchPortfolio]). Gegenstück: `PhoneWatchSync` / `PhoneWatchFeed` in der Handy-App. Ohne Google
- * Play-Dienste oder ohne Handy: nichts (die Uhr nutzt ihre eigene Liste und fragt die Kurse selbst ab).
+ * Play-Dienste oder ohne Handy: nichts (die Uhr nutzt ihre eigene Liste und fragt die Kurse selbst ab). Auf die
+ * Play-Dienste wird ohne blockierten Thread gewartet ([WatchTaskAwait]): je Aufruf höchstens [TIMEOUT_S], ein Abbruch
+ * der Coroutine geht sofort weiter, jeder andere Fehler heisst «nichts».
  */
 object WatchDataLayer {
     const val PATH = "/cc/watch"
@@ -64,7 +64,7 @@ object WatchDataLayer {
     fun change(context: Context, store: WatchStore, edit: (WatchSettings) -> WatchSettings) {
         processScope.launch {
             changing.withLock {
-                val phone = runCatching { newestRemote(context, items(context, PATH)) }.getOrNull()
+                val phone = WatchTaskAwait.catching { newestRemote(context, items(context, PATH)) }.getOrNull()
                 store.updateSettings { WatchSettings.change(it, phone, isPhone = false, edit) }
             }
             publish(context, store)
@@ -72,10 +72,10 @@ object WatchDataLayer {
     }
 
     private suspend fun publish(context: Context, settings: WatchSettings) = withContext(Dispatchers.IO) {
-        runCatching {
+        WatchTaskAwait.catching {
             val request = PutDataMapRequest.create(PATH).apply { dataMap.putString(KEY, settings.toJson()) }
                 .asPutDataRequest().setUrgent()
-            Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
+            WatchTaskAwait.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S)
         }
     }
 
@@ -88,9 +88,9 @@ object WatchDataLayer {
 
     /** Einträge aller Geräte unter [path]; leer = keine oder keine Play-Dienste. */
     private suspend fun items(context: Context, path: String): List<Item> = withContext(Dispatchers.IO) {
-        runCatching {
-            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$path".toUri()),
-                TIMEOUT_S, TimeUnit.SECONDS)
+        WatchTaskAwait.catching {
+            val buffer = WatchTaskAwait.await(Wearable.getDataClient(context).getDataItems("wear://*$path".toUri()),
+                TIMEOUT_S)
             try {
                 buffer.map { Item(it.uri.host, DataMapItem.fromDataItem(it).dataMap.getString(KEY), path) }
             } finally {
@@ -104,15 +104,15 @@ object WatchDataLayer {
      * Uhr selbst ab ([WatchPhoneQuotes.selfFetch]).
      */
     suspend fun phoneConnected(context: Context): Boolean = withContext(Dispatchers.IO) {
-        runCatching {
-            Tasks.await(Wearable.getNodeClient(context).connectedNodes, TIMEOUT_S, TimeUnit.SECONDS).isNotEmpty()
+        WatchTaskAwait.catching {
+            WatchTaskAwait.await(Wearable.getNodeClient(context).connectedNodes, TIMEOUT_S).isNotEmpty()
         }.getOrDefault(false)
     }
 
     /** Neuester Stand (höchste Änderungsnummer) unter [items], ohne den eigenen Eintrag der Uhr. */
-    private fun newestRemote(context: Context, items: List<Item>): WatchSettings? {
+    private suspend fun newestRemote(context: Context, items: List<Item>): WatchSettings? {
         if (items.isEmpty()) return null
-        val local = Tasks.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S, TimeUnit.SECONDS).id
+        val local = WatchTaskAwait.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S).id
         return items.filter { it.node != local }.mapNotNull { WatchSettings.fromJson(it.json) }.maxByOrNull { it.revision }
     }
 
@@ -124,7 +124,7 @@ object WatchDataLayer {
     suspend fun take(context: Context, store: WatchStore, items: List<Item>): Taken {
         val settings = items.filter { it.path == PATH }
         val phone = if (settings.isEmpty()) null else withContext(Dispatchers.IO) {
-            runCatching { newestRemote(context, settings) }.getOrNull()
+            WatchTaskAwait.catching { newestRemote(context, settings) }.getOrNull()
         }
         phone?.let { take(store, it) }
         val quotes = items.lastOrNull { it.path == QUOTES_PATH }?.let { WatchPhoneQuotes.fromJson(it.json) }

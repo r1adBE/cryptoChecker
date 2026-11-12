@@ -28,7 +28,8 @@ python3 .github/scripts/check_strings.py
 GitHub runs the same checks on every pull request: **Android**, **iOS** (build, unit and UI tests in the
 Simulator), **Strings**, **Parity** and **Release readiness**. The Android
 device tests (emulator) run on every push to `main` that changes `android/**`, on
-every release tag and on pull requests: migration tests when the databases change, the R8 release smoke test
+every release tag and on pull requests: all device tests when sources of a phone module or the device tests change,
+the migration tests when only the Room schemas change, the R8 release smoke test
 (`release-smoke`) when a file changes that decides about the release build (keep rules, build scripts,
 dependency versions, the smoke test itself); they can also be started by hand under *Actions › Android device tests*.
 

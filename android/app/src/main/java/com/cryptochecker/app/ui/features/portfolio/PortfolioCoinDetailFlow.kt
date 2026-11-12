@@ -14,7 +14,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioLedger
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -64,9 +64,9 @@ internal fun coinDetail(
  * ([coinDetailFeeCoins], [CoinFeePrices]); die Kursfunktion entsteht erst in der Rechnung.
  */
 internal fun PortfolioViewModel.coinDetailFlow(symbol: String): Flow<CoinDetailUi> =
-    coinDetailFlowOf(symbol, transactions, calcTransactions, watchedAddresses, prices, _closes, costMethod)
+    coinDetailFlowOf(symbol, transactions, calcTransactions, watchedAddresses, prices, _closes, costMethod, defaultDispatcher)
 
-/** [coinDetailFlow] aus den einzelnen Flows; [detail] = Rechnung (Tests zählen damit die Aufrufe). */
+/** [coinDetailFlow] aus den einzelnen Flows, gerechnet auf [dispatcher]; [detail] = Rechnung (Tests zählen damit die Aufrufe). */
 internal fun coinDetailFlowOf(
     symbol: String,
     transactions: Flow<List<PortfolioTxEntity>?>,
@@ -75,6 +75,7 @@ internal fun coinDetailFlowOf(
     prices: Flow<PortfolioPrices>,
     closes: Flow<HistoryCloses?>,
     costMethod: Flow<CostMethod>,
+    dispatcher: CoroutineDispatcher,
     detail: (String, List<PortfolioTxEntity>, List<PortfolioTxEntity>, List<WatchedAddress>, Double?, CostMethod,
              ((String, Long) -> Double?)?) -> CoinDetailUi = ::coinDetail,
 ): Flow<CoinDetailUi> {
@@ -86,7 +87,7 @@ internal fun coinDetailFlowOf(
     }.distinctUntilChanged().combine(feePrices) { input, fee ->
         if (input.all == null || input.calc == null) null
         else detail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee.priceAt())
-    }.filterNotNull().distinctUntilChanged().flowOn(Dispatchers.Default)
+    }.filterNotNull().distinctUntilChanged().flowOn(dispatcher)
 }
 
 /**
@@ -130,7 +131,7 @@ internal data class CoinFeePrices(val live: Map<String, Double?>, val closes: Ma
 internal fun PortfolioViewModel.walletShortfallsFlow(): Flow<List<PortfolioWalletShortfall>> =
     combine(calcTransactions, costMethod) { calc, method ->
         PortfolioCalculator.walletShortfalls(calc.orEmpty().map { it.toTrade() }, method)
-    }.distinctUntilChanged().flowOn(Dispatchers.Default) // Vergleich vor flowOn (nicht auf Main)
+    }.distinctUntilChanged().flowOn(defaultDispatcher) // Vergleich vor flowOn (nicht auf Main)
 
 private data class Inputs(
     val all: List<PortfolioTxEntity>?,

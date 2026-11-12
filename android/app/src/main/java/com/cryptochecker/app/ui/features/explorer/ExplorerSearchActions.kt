@@ -93,7 +93,7 @@ internal fun ExplorerViewModel.watchNames() {
     searchData.namesJob = viewModelScope.launch {
         coinLogoRepository.loadSavedNames()
         coinLogoRepository.names
-            .map { list -> withContext(Dispatchers.Default) { NameIndex(list) } }
+            .map { list -> withContext(defaultDispatcher) { NameIndex(list) } }
             .collect { index ->
                 searchData.names = index
                 if (query.value.isNotBlank()) runSearch()
@@ -127,7 +127,7 @@ internal fun ExplorerViewModel.runSearch() {
         delay(SEARCH_DEBOUNCE_MS)
         // Rechnen im Hintergrund, Ergebnis auf dem Hauptthread setzen: Zustände nur von dort ändern
         // (sonst kann Compose im Test auf einem Hintergrund-Thread neu zusammensetzen – Absturz «multithreaded access»)
-        val result = withContext(Dispatchers.Default) {
+        val result = withContext(defaultDispatcher) {
             val pairNames = exchanges.associate { it.key to tokenIdentityStore.exchangeNames(it.key) }
             val foundCoins = CoinSearch.coins(
                 text, exchanges, searchData.pairsByExchange,

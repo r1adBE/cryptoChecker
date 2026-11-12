@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.BackupManager.Step
+import com.cryptochecker.app.backup.BackupManager.Step
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
@@ -13,6 +13,8 @@ import org.junit.Assert.fail
 import org.junit.Test
 import java.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
+import com.cryptochecker.app.backup.RestoreRollback
+import com.cryptochecker.app.backup.RestoreRun
 
 /**
  * Wiederherstellen mit Journal und Zurückrollen ([RestoreRun], [RestoreRollback]) mit Fälschungen statt Datenbanken:

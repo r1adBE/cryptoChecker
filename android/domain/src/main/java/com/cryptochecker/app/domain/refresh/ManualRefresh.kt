@@ -3,12 +3,12 @@ package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.domain.util.DomainLog
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer
@@ -38,8 +38,9 @@ class ManualRefresh(
     private val refreshStats: ManualRefreshStats,
     private val connectivity: ManualRefreshNet,
     private val checkRuns: CheckRunStore,
+    defaultDispatcher: CoroutineDispatcher,
 ) {
-    private val scope = appScope(Dispatchers.Default, "ManualRefresh")
+    private val scope = appScope(defaultDispatcher, "ManualRefresh")
 
     private val _running = MutableStateFlow(false)
 

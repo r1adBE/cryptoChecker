@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var coinLogoRepository: CoinLogoRepository
 
-    @Inject lateinit var coinLogoSync: com.cryptochecker.app.data.CoinLogoSync
+    @Inject lateinit var coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync
 
     /** Ziel aus einer App-Verknüpfung («add», «alarms», «cycle»). */
     private val openTarget = androidx.compose.runtime.mutableStateOf<String?>(null)

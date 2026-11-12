@@ -1,0 +1,29 @@
+# Text keys of the Apple Watch app and its complications (Watch/, WatchCore/, WatchWidgets/), one per line, sorted.
+# tools/convert_strings.py writes Watch/Device/Localizable.xcstrings with exactly these keys (all languages) and
+# fails when the watch sources use a key that is missing here, or when a key here is no longer used.
+a11y_watch_no_price_exchanges_unreachable
+a11y_watch_no_price_phone_only
+a11y_watch_no_price_unreachable
+a11y_watch_no_price_via_phone
+a11y_watch_outdated
+a11y_watch_portfolio_hidden
+a11y_watch_row
+a11y_watch_updated_days
+a11y_watch_updated_hours
+a11y_watch_updated_minutes
+watch_choose
+watch_choose_hint
+watch_complication_label
+watch_empty
+watch_error
+watch_list_from_phone
+watch_loading
+watch_no_price_phone
+watch_no_price_unreachable
+watch_phone_empty
+watch_portfolio
+watch_portfolio_off
+watch_portfolio_today
+watch_portfolio_turn_on
+watch_refresh
+watch_updated

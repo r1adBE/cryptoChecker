@@ -52,7 +52,7 @@ class PortfolioCoinDetailFlowTest {
         val p = MutableStateFlow(prices("BTC" to 40_000.0, "SOL" to 100.0, "ETH" to 2_000.0))
         val flow = coinDetailFlowOf(
             "BTC", list, list, MutableStateFlow<List<WatchedAddress>>(emptyList()), p, MutableStateFlow<HistoryCloses?>(null),
-            MutableStateFlow(CostMethod.FIFO),
+            MutableStateFlow(CostMethod.FIFO), Dispatchers.Default,
         ) { s, all, calc, addresses, price, method, fee ->
             calls.incrementAndGet()
             coinDetail(s, all, calc, addresses, price, method, fee)

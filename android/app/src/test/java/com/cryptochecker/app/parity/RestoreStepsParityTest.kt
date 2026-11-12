@@ -1,8 +1,8 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.BackupManager.Step
-import com.cryptochecker.app.data.RestoreRollback
-import com.cryptochecker.app.data.RestoreRun
+import com.cryptochecker.app.backup.BackupManager.Step
+import com.cryptochecker.app.backup.RestoreRollback
+import com.cryptochecker.app.backup.RestoreRun
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -26,7 +26,7 @@ class RestoreStepsParityTest {
     fun schritteWieImCode() {
         assertEquals(Step.entries.toSet(), steps.toSet())
         val source = sequenceOf("", "app/", "android/app/")
-            .map { java.io.File(it + "src/main/java/com/cryptochecker/app/data/BackupManager.kt") }
+            .map { java.io.File(it + "src/main/java/com/cryptochecker/app/backup/BackupManager.kt") }
             .first { it.isFile }.readText()
         val positions = steps.map { source.indexOf("RestoreRun.Write(Step.${it.name})") }
         assertTrue(positions.toString(), positions.all { it >= 0 })

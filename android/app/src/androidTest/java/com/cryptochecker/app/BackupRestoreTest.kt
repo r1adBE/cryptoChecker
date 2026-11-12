@@ -2,7 +2,7 @@ package com.cryptochecker.app
 
 import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.data.BackupManager
+import com.cryptochecker.app.backup.BackupManager
 import com.cryptochecker.app.data.RestoreJournal
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.StorageRecoveryNotice

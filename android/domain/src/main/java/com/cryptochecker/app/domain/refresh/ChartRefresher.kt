@@ -2,12 +2,12 @@ package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
 import com.cryptochecker.app.domain.util.DomainLog
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Charts der Einzel-Widgets nachladen. Unter der Refresh-Sperre ([RefreshLock]) zeichnen Aktualisierung und
@@ -24,9 +24,10 @@ interface ChartWidgets {
 
 class ChartRefresher(
     private val widgetUpdater: ChartWidgets,
+    ioDispatcher: CoroutineDispatcher,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val scope = appScope(Dispatchers.IO, "ChartRefresher")
+    private val scope = appScope(ioDispatcher, "ChartRefresher")
 
     /** Unter der Sperre gezeichnete Widgets vermissten Kerzen: Charts ausserhalb der Sperre nachladen. */
     private val pending = AtomicBoolean(false)

@@ -4,7 +4,6 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -24,7 +23,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.isSym
 // Börse «Binance», sonst Coinbase; 1 Tag gemerkt. Erweiterungsfunktionen; der Zustand bleibt in der Klasse.
 
 /** Alle wählbaren Coins (alphabetisch); leer, wenn keine Quelle antwortet. */
-suspend fun PortfolioPriceSource.coins(): List<String> = withContext(Dispatchers.IO) {
+suspend fun PortfolioPriceSource.coins(): List<String> = withContext(ioDispatcher) {
     coinMutex.withLock {
         coinList?.let { list ->
             if (System.currentTimeMillis() - prefs.getLong(KEY_COINS_AT, 0L) in 0 until COINS_TTL_MILLIS) {

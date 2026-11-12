@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 222 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 223 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -63,7 +63,7 @@ Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
 | `Shared/` | Code und Ressourcen für App und Widgets, u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
-| `Watch/`, `WatchWidgets/`, `WatchCore/` | Apple-Watch-App, ihre Komplikation und die Listenwahl, die iPhone und Uhr teilen |
+| `Watch/`, `WatchWidgets/`, `WatchCore/` | Apple-Watch-App, ihre Komplikation und die Listenwahl, die iPhone und Uhr teilen; `Watch/Device/Localizable.xcstrings` = eigener kleiner Textkatalog der Uhr (nur die Schlüssel aus `tools/watch_string_keys.txt`) |
 | `UITests/` | UI-Tests (Testziel `CryptoCheckerUITests`) |
 | `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert; `*PerformanceTests` = Zeitmessungen, zusätzlich im Release-Build per Workflow `ios-performance.yml` (`DEVELOPMENT.md` im Repository-Hauptordner, «iOS performance tests in Release») |
 | `tools/` | Generatoren (Python 3) für Texte, Grafiken und das Xcode-Projekt |
@@ -121,7 +121,7 @@ und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../androi
 (sonst `--android-res PFAD`).
 
 ```sh
-python3 tools/convert_strings.py   # strings_*.xml (75 Sprachen, inkl. pt-BR, zh-Hant, yue-Hant und sr-Latn) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings
+python3 tools/convert_strings.py   # strings_*.xml (75 Sprachen, inkl. pt-BR, zh-Hant, yue-Hant und sr-Latn) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings, Watch/Device/Localizable.xcstrings
 python3 tools/gen_assets.py        # VectorDrawables -> App-Icons, Logos, Farben (beide Asset-Kataloge)
 python3 tools/gen_xcodeproj.py     # CryptoChecker.xcodeproj neu erzeugen (findet neue .swift-Dateien selbst, kopiert die gemeinsamen Testfälle nach Tests/Parity)
 ```
@@ -130,6 +130,12 @@ Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/`, die Uhr-Ordner oder
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
 `tools/ios_extra_strings.json` (alle 75 Sprachen, inkl. `pt-BR`, `zh-Hant` und `yue-Hant`; `sr-Latn` erzeugt
 `android/tools/sr_latn.py` aus `sr`), danach `convert_strings.py` laufen lassen.
+
+Die Uhr-App und ihre Komplikation tragen nicht den ganzen Katalog, sondern nur ihre eigenen Texte: Braucht die Uhr
+einen weiteren Text, den Schlüssel in `tools/watch_string_keys.txt` eintragen (sortiert) und `convert_strings.py`
+laufen lassen. Das Skript bricht ab, wenn die Uhr-Quellen (`Watch/`, `WatchCore/`, `WatchWidgets/`) einen Schlüssel
+verwenden, der in der Liste fehlt, wenn ein Eintrag nicht mehr gebraucht wird oder wenn ein Schlüssel erst zur
+Laufzeit zusammengesetzt würde (`tools/watch_strings.py`; Texte der Uhr immer über `WatchText.t("schlüssel")`).
 
 ## Swift 6
 

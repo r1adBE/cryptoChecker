@@ -130,7 +130,8 @@ jobs:
 
       # The built Release app: Info.plist (version = Android, background tasks, export compliance),
       # privacy manifests in app and widget, no UI test hooks or XCTest in the binaries, compiler
-      # warnings (count + first 8; ceiling 0) from the device Release build.
+      # warnings (count + first 8; ceiling 0) from the device Release build, and the size of the .app, of PlugIns
+      # and of Watch against the ceilings in the script (notice «Release app size» with the numbers).
       - name: Inspect Release app
         working-directory: ios
         run: |

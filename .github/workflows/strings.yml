@@ -15,7 +15,7 @@ on:
       - 'ios/tools/**'
       # Serbian Latin is generated from values-sr (check_strings.py runs it with --check)
       - 'android/tools/sr_latn.py'
-      - 'ios/Shared/Resources/*.xcstrings'
+      - 'ios/**/*.xcstrings'
       - 'ios/**/*.swift'
       - '.github/scripts/check_strings.py'
       - '.github/workflows/strings.yml'

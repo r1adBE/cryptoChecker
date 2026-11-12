@@ -4,9 +4,9 @@
 // (Hilt setzt die Abhängigkeiten ein) und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.CoinLogoSync
+import com.cryptochecker.app.logos.CoinLogoSync
 import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.SheetChartRepository
+import com.cryptochecker.app.chart.SheetChartRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceRefresher

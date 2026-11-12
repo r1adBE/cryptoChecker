@@ -53,7 +53,7 @@ class PortfolioAlarmLockScreenTest {
         assertEquals(1, Regex("""\.bigText\(body\)""").findAll(portfolio).count())
         assertEquals(5, Regex("""\.(setContentTitle|setContentText|bigText|setTicker|setSubText)\(""").findAll(portfolio).count())
         // Der Aufrufer reicht nur die Kennung weiter
-        val rel = "java/com/cryptochecker/app/data/portfolio/PortfolioAlarms.kt"
+        val rel = "java/com/cryptochecker/app/alarm/PortfolioAlarms.kt"
         val caller = SourceGuard.android(main(rel), rel).readText(Charsets.UTF_8)
         assertTrue(caller.contains("notifier.showPortfolioAlarm(alarm.id)"))
     }

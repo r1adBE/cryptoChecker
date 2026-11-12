@@ -25,6 +25,12 @@ import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshEffects
 import com.cryptochecker.app.domain.refresh.RefreshLock
 import com.cryptochecker.app.domain.refresh.RefreshResultProcessor
+import com.cryptochecker.app.domain.refresh.RefresherCandles
+import com.cryptochecker.app.domain.refresh.RefresherDrawing
+import com.cryptochecker.app.domain.refresh.RefresherState
+import com.cryptochecker.app.domain.util.DefaultDispatcher
+import com.cryptochecker.app.domain.util.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import com.cryptochecker.app.refresh.RefreshSideChecks
 import com.cryptochecker.app.refresh.asAlarmDerivativesSource
 import com.cryptochecker.app.refresh.asAlarmMoveHistory
@@ -93,6 +99,7 @@ object RefreshModule {
         derivativesAlarmData: DerivativesAlarmData,
         moveHistoryStore: MoveHistoryStore,
         alarmCheckStatus: AlarmCheckStatus,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
         deliveryMarkers: AlarmDeliveryMarkers,
     ): RefreshEffects = RefreshEffects(
         watchRepository.asRefreshStore(),
@@ -106,6 +113,7 @@ object RefreshModule {
         derivativesAlarmData.asAlarmDerivativesSource(),
         moveHistoryStore.asAlarmMoveHistory(),
         alarmCheckStatus,
+        ioDispatcher,
         deliveryMarkers,
     )
 
@@ -141,6 +149,7 @@ object RefreshModule {
         liveWidgetGate: LiveWidgetGate,
         chartRefresher: ChartRefresher,
         resultProcessor: RefreshResultProcessor,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
     ): LivePriceApplier = LivePriceApplier(
         refreshLock,
         watchRepository.asRefreshStore(),
@@ -149,47 +158,68 @@ object RefreshModule {
         liveWidgetGate.asRefreshWidgets(),
         chartRefresher.asRefreshCharts(),
         resultProcessor,
+        ioDispatcher,
     )
 
+    @Provides
+    fun refresherState(
+        watchRepository: WatchRepository,
+        settingsRepository: SettingsRepository,
+        refreshStats: RefreshStats,
+        connectivity: ConnectivityMonitor,
+    ): RefresherState = RefresherState(
+        watchRepository.asRefresherStore(),
+        settingsRepository.asRefreshSettings(),
+        refreshStats.asRefresherStats(),
+        connectivity.asRefresherOnline(),
+    )
+
+    @Provides
+    fun refresherDrawing(
+        widgetUpdater: WidgetUpdater,
+        liveWidgetGate: LiveWidgetGate,
+        chartRefresher: ChartRefresher,
+    ): RefresherDrawing = RefresherDrawing(
+        widgetUpdater.asRefresherWatchWidgets(),
+        liveWidgetGate.asRefreshWidgets(),
+        chartRefresher.asRefresherCharts(),
+    )
+
+    @Provides
+    fun refresherCandles(sparklineRepository: SparklineRepository, dayReferences: DayReferences): RefresherCandles =
+        RefresherCandles(sparklineRepository.asRefresherSparklines(), dayReferences.asRefresherDayReferences())
+
+    /** Die Bündel ([RefresherState], [RefresherDrawing], [RefresherCandles]) baut Hilt nur hierfür, also einmal. */
     @Provides
     @Singleton
     fun priceRefresher(
-        watchRepository: WatchRepository,
-        settingsRepository: SettingsRepository,
-        widgetUpdater: WidgetUpdater,
-        refreshStats: RefreshStats,
-        sparklineRepository: SparklineRepository,
-        connectivity: ConnectivityMonitor,
+        state: RefresherState,
+        drawing: RefresherDrawing,
+        candles: RefresherCandles,
         liveCoverage: LiveCoverage,
-        liveWidgetGate: LiveWidgetGate,
         priceFetcher: PriceFetcher,
-        dayReferences: DayReferences,
         effects: RefreshEffects,
         refreshLock: RefreshLock,
         resultProcessor: RefreshResultProcessor,
-        chartRefresher: ChartRefresher,
         sideChecks: RefreshSideChecks,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
     ): PriceRefresher = PriceRefresher(
-        watchRepository.asRefresherStore(),
-        settingsRepository.asRefreshSettings(),
-        widgetUpdater.asRefresherWatchWidgets(),
-        refreshStats.asRefresherStats(),
-        sparklineRepository.asRefresherSparklines(),
-        connectivity.asRefresherOnline(),
+        state,
+        drawing,
+        candles,
         liveCoverage,
-        liveWidgetGate.asRefreshWidgets(),
         priceFetcher,
-        dayReferences.asRefresherDayReferences(),
         effects,
         refreshLock,
         resultProcessor,
-        chartRefresher.asRefresherCharts(),
         sideChecks.asRefresherSideChecks(),
+        ioDispatcher,
     )
 
     @Provides
     @Singleton
-    fun chartRefresher(widgetUpdater: WidgetUpdater): ChartRefresher = ChartRefresher(widgetUpdater.asChartWidgets())
+    fun chartRefresher(widgetUpdater: WidgetUpdater, @IoDispatcher ioDispatcher: CoroutineDispatcher): ChartRefresher =
+        ChartRefresher(widgetUpdater.asChartWidgets(), ioDispatcher)
 
     @Provides
     @Singleton
@@ -198,10 +228,12 @@ object RefreshModule {
         refreshStats: RefreshStats,
         connectivity: ConnectivityMonitor,
         checkRuns: CheckRunStore,
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
     ): ManualRefresh = ManualRefresh(
         priceRefresher,
         refreshStats.asManualRefreshStats(),
         connectivity.asManualRefreshNet(),
         checkRuns,
+        defaultDispatcher,
     )
 }

@@ -4,7 +4,6 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.StoredPrice
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -21,7 +20,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.STORE
  * Neustart oder ohne Netz: lieber der letzte Wert mit «Stand …» als «0.00». `updatedAt` ist
  * dann alt; ob der Stand veraltet ist, entscheidet [PortfolioPriceFallback.state].
  */
-suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPrices = withContext(Dispatchers.IO) {
+suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPrices = withContext(ioDispatcher) {
     val merged = PortfolioPriceFallback.merge(currentEntries(), loadStored())
     // Gekapselte Coins ohne eigenen Kurs: Kurs der Basis, markiert ([PortfolioPrices.viaBase])
     val via = ChainAssets.priceViaBase(normalized(coins), merged.keys)
@@ -47,7 +46,7 @@ suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPri
  * «Portfolio leeren»: gemerkte Kurse (nennen die gehaltenen Coins) und Zwischenspeicher weg. Eine gerade laufende
  * Abfrage übernimmt danach nichts mehr ([PortfolioPriceSource.clearGeneration]).
  */
-suspend fun PortfolioPriceSource.clearStored() = withContext(Dispatchers.IO) {
+suspend fun PortfolioPriceSource.clearStored() = withContext(ioDispatcher) {
     storeMutex.withLock {
         clearGeneration++
         cache.clear()

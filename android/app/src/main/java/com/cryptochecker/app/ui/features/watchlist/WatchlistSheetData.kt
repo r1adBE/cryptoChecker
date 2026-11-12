@@ -5,7 +5,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.CoinLogoRepository
-import com.cryptochecker.app.data.SheetChartRepository
+import com.cryptochecker.app.chart.SheetChartRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter

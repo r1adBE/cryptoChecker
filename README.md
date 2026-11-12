@@ -83,7 +83,7 @@ Helper scripts (Python 3, run from `ios/`):
 | Script | Purpose |
 |---|---|
 | `python3 tools/gen_xcodeproj.py` | Regenerates `CryptoChecker.xcodeproj` (picks up new `.swift` files) |
-| `python3 tools/convert_strings.py` | Builds the string catalogs (`Shared/Resources/*.xcstrings`) from the Android strings in `android/app/src/main/res` plus `tools/ios_extra_strings.json` (iOS-only keys) and `tools/ios_overrides.json` (iOS wording of single Android texts per language, e.g. German «Mitteilung» on iOS vs «Benachrichtigung» on Android) |
+| `python3 tools/convert_strings.py` | Builds the string catalogs (`Shared/Resources/*.xcstrings`, and the small `Watch/Device/Localizable.xcstrings` of the watch app with only the keys listed in `tools/watch_string_keys.txt`) from the Android strings in `android/app/src/main/res` plus `tools/ios_extra_strings.json` (iOS-only keys) and `tools/ios_overrides.json` (iOS wording of single Android texts per language, e.g. German «Mitteilung» on iOS vs «Benachrichtigung» on Android) |
 | `python3 tools/gen_assets.py` | Generates app icons and logos from the Android vector drawables (needs Pillow and libcairo) |
 
 ## Exchange library

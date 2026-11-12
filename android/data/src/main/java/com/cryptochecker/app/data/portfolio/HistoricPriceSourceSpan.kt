@@ -10,7 +10,6 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -180,7 +179,7 @@ internal class SpanFetch(private val source: HistoricPriceSource, days: Collecti
 suspend fun HistoricPriceSource.dayClosesUsdt(
     wanted: Map<String, Collection<LocalDate>>,
     current: Map<String, Double>,
-): Map<String, Map<LocalDate, HistoricPriceSource.CloseResult>> = withContext(Dispatchers.IO) {
+): Map<String, Map<LocalDate, HistoricPriceSource.CloseResult>> = withContext(ioDispatcher) {
     val bases = wanted.keys.associateWith { PortfolioCalculator.normalizeCoin(it) }
     val assets = bases.values.filter { PortfolioStables.needsQuote(it) && HistoricPriceSource.isAsset(it) }.distinct()
     val own = ownRoutes(assets)

@@ -6,6 +6,8 @@ Output:
   Shared/Resources/InfoPlist.xcstrings    (CFBundleDisplayName from app_name,
                                            NSFaceIDUsageDescription from ios_face_id_usage,
                                            NSLocalNetworkUsageDescription from ios_local_network_usage)
+  Watch/Device/Localizable.xcstrings      (watch app + watch widgets: only the keys of tools/watch_string_keys.txt,
+                                           same languages; list checked against the watch sources, watch_strings.py)
 
 Usage:
   python3 tools/convert_strings.py [--android-res PATH] [--extra tools/ios_extra_strings.json]
@@ -28,6 +30,8 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+sys.path.insert(0, HERE)  # also when started with -I (no script directory on the path)
+import watch_strings  # noqa: E402
 # Android resources next to this project: ../cryptoChecker (local folders) or ../android
 # (GitHub repository and ZIP bundle); --android-res overrides.
 DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "app", "src", "main", "res"))
@@ -97,11 +101,8 @@ def android_unescape(raw):
     removal of quotes around the whole value. Unescaped quotes *inside* a value are kept
     literally (aapt2 would drop them, which is never what the translator intended)."""
     quoted_whole = len(raw.strip()) >= 2 and raw.strip()[0] == '"' and raw.strip()[-1] == '"'
-    out = []
-    in_quotes = False
-    i = 0
-    n = len(raw)
-    pending_space = False
+    out, in_quotes, pending_space = [], False, False
+    i, n = 0, len(raw)
     while i < n:
         c = raw[i]
         if c == "\\" and i + 1 < n:
@@ -110,10 +111,8 @@ def android_unescape(raw):
             if pending_space and out:
                 out.append(" ")
             pending_space = False
-            if nxt == "n":
-                out.append("\n")
-            elif nxt == "t":
-                out.append("\t")
+            if nxt in "nt":
+                out.append({"n": "\n", "t": "\t"}[nxt])
             elif nxt == "u" and re.fullmatch(r"[0-9a-fA-F]{4}", raw[i:i + 4] or ""):
                 out.append(chr(int(raw[i:i + 4], 16)))
                 i += 4
@@ -144,17 +143,13 @@ def convert_format(s, int_spec="ld"):
         pos, flags, width, prec, conv = m.groups()
         if conv == "%":
             return "%%"
-        pos = pos or ""
-        width = width or ""
-        prec = prec or ""
+        pos, width, prec = pos or "", width or "", prec or ""
         if conv in "sS":
             return f"%{pos}{flags}{width}@"
         if conv == "d":
             return f"%{pos}{flags}{width}{prec}{int_spec}"
-        if conv == "x":
-            return f"%{pos}{flags}{width}lx"
-        if conv == "X":
-            return f"%{pos}{flags}{width}lX"
+        if conv in "xX":
+            return f"%{pos}{flags}{width}l{conv}"
         return m.group(0)  # f, e, g, c ... keep
     return FMT_RE.sub(repl, s)
 
@@ -260,6 +255,7 @@ def check_value(key, code, quantity, v, en_spec, escape_re):
 
 
 def write_catalog(path, catalog):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     text = json.dumps(catalog, ensure_ascii=False, indent=2, sort_keys=True, separators=(",", " : "))
     with open(path, "w", encoding="utf-8") as f:
         f.write(text + "\n")
@@ -271,6 +267,7 @@ def main():
     ap.add_argument("--extra", default=DEFAULT_EXTRA)
     ap.add_argument("--overrides", default=DEFAULT_OVERRIDES)
     ap.add_argument("--out", default=OUT_DIR)
+    ap.add_argument("--watch-out", default=os.path.join(ROOT, watch_strings.WATCH_OUT))
     args = ap.parse_args()
 
     res = args.android_res
@@ -338,9 +335,13 @@ def main():
         strings[key] = entry
     catalog = {"sourceLanguage": "en", "strings": strings, "version": "1.0"}
 
-    os.makedirs(args.out, exist_ok=True)
     out_path = os.path.join(args.out, "Localizable.xcstrings")
     write_catalog(out_path, catalog)
+    # Uhr-App und Uhr-Widgets: eigener kleiner Katalog mit den Schlüsseln der Liste (tools/watch_strings.py)
+    watch_keys = watch_strings.read_key_list(os.path.join(HERE, watch_strings.KEY_LIST))
+    watch_errors = watch_strings.check(watch_keys, set(strings), watch_strings.read_sources(ROOT))
+    watch_path = os.path.join(args.watch_out, "Localizable.xcstrings")
+    write_catalog(watch_path, watch_strings.subset(catalog, watch_keys))
 
     # InfoPlist.xcstrings: Info.plist-Schlüssel -> Schlüssel im String-Katalog
     info_strings = {}
@@ -351,13 +352,11 @@ def main():
                 for c in all_langs if string_key in langs[c]}
         info_strings[plist_key] = {"extractionState": "manual", "localizations": locs}
     if info_strings:
-        write_catalog(os.path.join(args.out, "InfoPlist.xcstrings"), {
-            "sourceLanguage": "en",
-            "strings": info_strings,
-            "version": "1.0"})
+        write_catalog(os.path.join(args.out, "InfoPlist.xcstrings"),
+                      {"sourceLanguage": "en", "strings": info_strings, "version": "1.0"})
 
     # ---------- validation ----------
-    errors = []
+    errors = list(watch_errors)
     with open(out_path, encoding="utf-8") as f:
         reparsed = json.load(f)
     if len(all_langs) != 75:
@@ -388,10 +387,9 @@ def main():
                 errors.extend(check_value(key, code, quantity, v, en_spec, escape_re))
 
     print(f"Wrote {out_path}: {len(keys)} keys, {len(all_langs)} languages ({', '.join(all_langs)})")
+    print(f"Wrote {watch_path}: {len(watch_keys)} keys ({os.path.getsize(watch_path)} bytes)")
     if errors:
-        print(f"{len(errors)} validation problem(s):")
-        for e in errors:
-            print("  -", e)
+        print(f"{len(errors)} validation problem(s):\n" + "\n".join(f"  - {e}" for e in errors))
         sys.exit(1)
     print("Validation OK")
 

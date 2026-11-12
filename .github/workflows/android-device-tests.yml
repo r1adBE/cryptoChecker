@@ -4,12 +4,16 @@
 # with password — fake exchange answers, no network; the document picker is answered by
 # DocumentPickerStub).
 # Every instrumented test class runs (no filter), also AccessibilityAuditTest; ScreenshotTourTest skips itself here (screenshots.yml).
-# Too slow for every pull request (android.yml only compiles them): runs on pushes to main and by
-# hand (Actions › Android device tests › Run workflow). On a pull request the job «changes» (git diff against the
-# base branch) decides what runs: release-smoke only when a file changes that decides about the R8 release build
-# (keep rules, build script, dependency versions, the smoke test itself); migration-tests only when the databases
-# change (data/local, data/portfolio, Room schemas).
-# Job connected-tests-api26: only the ICU device tests (TextLimit, MonthYearFormat) on API 26 (minSdk).
+# Runs on pushes to main, on release tags and by hand (Actions › Android device tests › Run workflow). On a pull
+# request the job «changes» (git diff against the base branch) decides what runs: connected-tests (all classes, API
+# 34) when the sources of a phone module, its device tests or the shared UI test files change, so a broken UI flow is
+# seen before the merge and not only on main; release-smoke only when a file changes that decides about the R8
+# release build (keep rules, build script, dependency versions, the smoke test itself); migration-tests only when
+# the Room schemas change without sources (otherwise connected-tests already runs these classes). A pull request
+# that touches none of these does not start this workflow. None of its jobs is a required check, so a skipped job
+# leaves nothing pending; the required check «Android build» comes from android.yml.
+# Job connected-tests-api26 (not on pull requests): only the ICU device tests (TextLimit, MonthYearFormat) on API 26
+# (minSdk).
 # Job migration-tests (pull requests only): RoomSchemaMigrationTest, DatabaseFreshInstall* and DatabaseEncryption*
 # on API 34.
 # Job release-smoke: the R8 release build (signed with a throwaway key) on API 26 (minSdk) and 34:
@@ -33,13 +37,16 @@ on:
   # Keep this list in sync with the patterns of the job «changes»
   pull_request:
     paths:
-      - 'android/app/src/main/java/**/data/local/**'
-      - 'android/domain/src/main/java/**/data/local/**'
+      # connected-tests: sources of the phone modules (main, debug, androidTest) and the shared UI test files
+      - 'android/app/src/**'
+      - 'android/domain/src/**'
+      - 'android/data/src/**'
+      - 'android/marketdata/src/**'
+      # unit tests do not run on a device
+      - '!android/*/src/test/**'
+      - 'android/testdata/uitest/**'
       - 'android/domain/build.gradle.kts'
-      - 'android/data/src/main/java/**/data/local/**'
-      - 'android/data/src/main/java/**/data/portfolio/**'
       - 'android/data/build.gradle.kts'
-      - 'android/app/src/main/java/**/data/portfolio/**'
       - 'android/app/schemas/**'
       - 'android/app/proguard-rules.pro'
       - 'android/app/build.gradle.kts'
@@ -68,6 +75,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
+      connected: ${{ steps.diff.outputs.connected }}
       migration: ${{ steps.diff.outputs.migration }}
       release: ${{ steps.diff.outputs.release }}
     steps:
@@ -83,21 +91,29 @@ jobs:
           set -euo pipefail
           CHANGED=$(git diff --name-only HEAD^1 HEAD)
           printf 'Changed files:\n%s\n' "$CHANGED"
+          CONNECTED=false
           MIGRATION=false
           RELEASE=false
+          # Unit tests (src/test, src/testDebug …) do not run on a device
+          if printf '%s\n' "$CHANGED" | grep -vE '^android/[a-z]+/src/test[A-Za-z]*/' | grep -qE '^android/(app|domain|data|marketdata)/src/|^android/testdata/uitest/|^\.github/workflows/android-device-tests\.yml$'; then
+            CONNECTED=true
+          fi
           if printf '%s\n' "$CHANGED" | grep -qE '^android/(app|domain|data)/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$'; then
             MIGRATION=true
           fi
           if printf '%s\n' "$CHANGED" | grep -qxE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/domain/build\.gradle\.kts|android/data/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml'; then
             RELEASE=true
           fi
-          echo "migration tests: $MIGRATION · release smoke: $RELEASE"
+          echo "connected tests: $CONNECTED · migration tests: $MIGRATION · release smoke: $RELEASE"
+          echo "connected=$CONNECTED" >> "$GITHUB_OUTPUT"
           echo "migration=$MIGRATION" >> "$GITHUB_OUTPUT"
           echo "release=$RELEASE" >> "$GITHUB_OUTPUT"
 
   connected-tests:
-    # Pull requests: only migration-tests and release-smoke (see header)
-    if: github.event_name != 'pull_request'
+    # Pull requests: only when «changes» found sources that the device tests cover (see header). «changes» is
+    # skipped outside pull requests, hence !cancelled(); if it fails, its output is empty and this job is skipped.
+    needs: changes
+    if: ${{ !cancelled() && (github.event_name != 'pull_request' || needs.changes.outputs.connected == 'true') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -267,12 +283,14 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-  # Pull requests that change the databases (data/local, data/portfolio, app/schemas): the migration and encryption
+  # Pull requests that change only the Room schemas (app/schemas; database sources start connected-tests, which runs
+  # these classes too): the migration and encryption
   # device tests (RoomSchemaMigrationTest, every DatabaseFreshInstall* and DatabaseEncryption* class; also when this workflow changes) on API 34, before
   # the merge instead of only on main. The class list comes from the androidTest sources (package + file name).
   migration-tests:
     needs: changes
-    if: needs.changes.outputs.migration == 'true'
+    # Not next to connected-tests: that job runs every class, these included
+    if: needs.changes.outputs.migration == 'true' && needs.changes.outputs.connected != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:

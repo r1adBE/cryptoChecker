@@ -32,6 +32,10 @@ Lcom/cryptochecker/app/ui/features/watchlist/WatchlistLiveFlows;
 HSPLcom/cryptochecker/app/data/**;->**(**)**
 HSPLcom/cryptochecker/app/data/local/**;->**(**)**
 HSPLcom/cryptochecker/app/data/local/model/**;->**(**)**
+HSPLcom/cryptochecker/app/backup/**;->**(**)**
+HSPLcom/cryptochecker/app/logos/**;->**(**)**
+HSPLcom/cryptochecker/app/chart/**;->**(**)**
+HSPLcom/cryptochecker/app/alarm/PortfolioAlarm**;->**(**)**
 
 # Weitere Tabs (nach dem Start)
 PLcom/cryptochecker/app/ui/features/portfolio/**;->**(**)**

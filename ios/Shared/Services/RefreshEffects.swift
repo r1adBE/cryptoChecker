@@ -25,227 +25,292 @@ extension PriceRefresher {
             return false
         }
         var spokeAlarm = false
-        // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (`QuietHours.holdsAlarms`)
-        let holdAlarms = QuietHours.holdsAlarmsNow(settings)
         // Bewegungs-Alarm: Kursverlauf des Paars (nur wenn es so einen Alarm hat)
         let hasMove = alarms.contains { $0.condition == .MOVE_PERCENT_WINDOW }
-        let moveHistory = hasMove ? MoveHistoryStore.history(watch.id) : []
-
-        /// Ausgelösten Alarm vormerken: Zustand nach dem Auslösen (`AlarmEvaluator.triggered`) und Ansage —
-        /// gemeldet, gespeichert und angesagt erst in `Outcome.deliverAlarms` (zuerst die Mitteilung, wie
-        /// Android `AlarmDelivery`). Alarme ohne zustellbare Mitteilung (einmalige wie wiederholende)
-        /// bleiben unverändert scharf.
-        /// `shownPrice`/`shownCurrency`: Kurs in der Alarmwährung (Schwelle in anderer Währung), damit «jetzt» in
-        /// derselben Währung steht wie die Schwelle; nil = Kurs in der Quote-Währung des Paars.
-        /// `logPrice`: Alarm-Protokoll — Kurs in der Währung der Schwelle; nil = dieser Alarm wird nicht protokolliert.
-        func report(_ alarm: Alarm, text: String? = nil, volumeRatio: Double? = nil, candleOpenTime: Int64? = nil,
-                    nearLevel: Double? = nil, shownPrice: Double? = nil, shownCurrency: String? = nil,
-                    logPrice: Double? = nil) {
-            // Nachtruhe oder keine Mitteilungs-Erlaubnis (auch bei wiederholenden): nicht auslösen,
-            // Alarm bleibt unverändert scharf (`QuietHours.mayFire`)
-            if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: inputs.alarmsDeliverable) {
-                if let logPrice,
-                   let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: inputs.alarmsDeliverable,
-                                                      shown: nil, saved: false),
-                   let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: logPrice) {
-                    outcome.alarmLog.append(entry)
-                }
-                return
-            }
-            let after = AlarmEvaluator.triggered(alarm, price: price, time: now, candleOpenTime: candleOpenTime,
-                                                 nearLevel: nearLevel)
-            let speak = speechAllowed && alarm.speak
-            outcome.pendingAlarms.append(PendingAlarm(
-                watch: updated, alarm: alarm, price: price, volumeRatio: volumeRatio, text: text,
-                update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true, pair: updated.identity),
-                // Ansage wie die Mitteilung: Kursmarke mit Alarmwährung nennt den umgerechneten Kurs mit Währung
-                speech: speak ? SpokenText.alarm(updated, alarm.condition, shownPrice ?? price, currency: shownCurrency) : nil,
-                shownPrice: shownPrice, shownCurrency: shownCurrency,
-                // Ergebnis steht erst nach dem Melden fest (`deliverAlarms`): vorläufig «fällig»
-                logEntry: logPrice.flatMap {
-                    alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(due: true), now: now, comparePrice: $0)
-                }))
-            if speak { spokeAlarm = true }
-        }
-
-        /// Wieder scharf stellen (`referenceAt` = 0); die gemeldete Marke von «Nahe am Hoch/Tief»
-        /// bleibt (`NearExtreme.reportedMark`), `enabled` bleibt unberührt.
-        func rearm(_ alarm: Alarm) {
-            var after = alarm
-            after.referenceAt = 0
-            outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
-        }
-
-        // Ausgelassen (kein Devisenkurs/keine Kerzen) bzw. wieder geprüft: für den Hinweis in der Alarmliste
-        let checkStatus = AlarmCheckStatus.shared
-
+        // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (`QuietHours.holdsAlarms`)
+        let run = AlarmRun(watch: watch, updated: updated, price: price, now: now, settings: settings,
+                           speechAllowed: speechAllowed, inputs: inputs,
+                           holdAlarms: QuietHours.holdsAlarmsNow(settings),
+                           moveHistory: hasMove ? MoveHistoryStore.history(watch.id) : [])
         for alarm in alarms {
-            // Funding/Open Interest: wie Kursmarken (scharf/gemeldet in `referenceAt`), Wert aus dem Vorladen
+            let spoke: Bool
             if alarm.condition.isDerivatives {
-                guard let values = inputs.derivatives[watch.id] else { continue }
-                // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest); sonst
-                // «nicht geprüft» statt stiller Lücke — wie Android
-                let raw = alarm.condition.isFunding ? values.fundingPercent : values.oiUnits
-                guard raw != nil else {
-                    checkStatus.markUnchecked(alarm.id, reason: .noData, now: now)
-                    continue
-                }
-                // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
-                checkStatus.markChecked(alarm.id)
-                let value = DerivativesAlarmData.value(for: alarm, watchId: watch.id, values: values, now: now)
-                let decision = DerivativesAlarm.decide(
-                    condition: alarm.condition, threshold: alarm.threshold, value: value,
-                    armed: alarm.referenceAt <= 0, enabled: alarm.enabled, lastTriggeredAt: alarm.lastTriggeredAt,
-                    now: now, cooldownMinutes: settings.alarmCooldownMinutes)
-                switch decision {
-                case .idle:
-                    continue
-                case .rearm:
-                    rearm(alarm)
-                    continue
-                case let .fire(measured):
-                    // «Funding über 0,05 % — jetzt 0,061 %»
-                    var text = L("notification_alarm_text", AlarmTexts.describe(alarm),
-                                 AlarmTexts.derivativesValue(alarm.condition, measured))
-                    // «… · Richtwert Binance Futures», wenn die Werte von einer anderen Börse stammen
-                    if let reference = values.referenceSource {
-                        text += " · " + L("futures_alarm_reference", reference)
-                    }
-                    report(alarm, text: text)
-                    continue
-                }
-            }
-            if alarm.condition.isNearExtreme {
-                guard let range = inputs.nearRanges[watch.id]?[NearExtreme.windowDays(alarm.windowHours)] else {
-                    // Aus Zeitmangel nicht geladen: diese Runde still auslassen
-                    if inputs.skippedStages.contains(.nearExtreme) { continue }
-                    checkStatus.markUnchecked(alarm.id, reason: inputs.nearMissing[watch.id] ?? .noCandles, now: now)
-                    continue
-                }
-                checkStatus.markChecked(alarm.id)
-                let decision = NearExtreme.decide(
-                    side: alarm.condition == .NEAR_HIGH ? .high : .low, price: price, range: range,
-                    thresholdPercent: alarm.threshold, armed: alarm.referenceAt <= 0,
-                    lastLevel: NearExtreme.reportedMark(lastLevel: alarm.referencePrice, lastTriggeredAt: alarm.lastTriggeredAt,
-                                                        windowDays: alarm.windowHours, now: now),
-                    inCooldown: NearExtreme.inCooldown(lastTriggeredAt: alarm.lastTriggeredAt, now: now,
-                                                       cooldownMinutes: settings.alarmCooldownMinutes),
-                    lastTriggeredAt: alarm.lastTriggeredAt, now: now)
-                switch decision {
-                case .idle:
-                    continue
-                case .rearm:
-                    rearm(alarm)
-                    continue
-                case let .fire(newExtreme, distancePercent, extreme, level):
-                    let text = AlarmTexts.nearExtremeText(alarm, symbol: watch.baseAsset, currency: watch.quoteAsset,
-                                                          price: price, newExtreme: newExtreme,
-                                                          distancePercent: distancePercent, extreme: extreme)
-                    report(alarm, text: text, nearLevel: level)
-                    continue
-                }
-            }
-            if alarm.condition == .VOLUME_SPIKE {
-                guard let spike = inputs.volumes[watch.id] else {
-                    // Live-Kurse fragen kein Volumen ab, aus Zeitmangel nicht geladen: dann kein Hinweis
-                    if inputs.volumeRequested.contains(watch.id) && !inputs.skippedStages.contains(.volume) {
-                        checkStatus.markUnchecked(alarm.id, reason: .noCandles, now: now)
-                    }
-                    continue
-                }
-                checkStatus.markChecked(alarm.id)
-                guard AlarmEvaluator.shouldTriggerVolumeSpike(alarm: alarm, ratio: spike.ratio,
-                                                              candleOpenTime: spike.candleOpenTime, now: now,
-                                                              cooldownMinutes: settings.alarmCooldownMinutes)
-                else { continue }
-                // Dieselbe Kerze nicht nochmals melden (referenceAt); Kerzen einer anderen Börse: im Text genannt
-                let text = spike.source.map {
-                    AlarmTexts.withNote(L("notification_volume_spike_text", AlarmTexts.factor(spike.ratio)), candleSource: $0)
-                }
-                report(alarm, text: text, volumeRatio: spike.ratio, candleOpenTime: spike.candleOpenTime)
-                continue
-            }
-            // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
-            if AlarmEvaluator.needsReference(alarm: alarm, now: now) {
-                var after = alarm
-                after.referencePrice = price
-                after.referenceAt = now
-                outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
-                if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
-                                             comparePrice: price) {
-                    outcome.alarmLog.append(entry)
-                }
-                continue
-            }
-            // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
-            var comparePrice = price
-            if let currency = alarm.convertCurrency {
-                guard let rate = inputs.convertRates["\(watch.id)|\(currency)"] else {
-                    if inputs.skippedStages.contains(.convert) { continue }
-                    checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
-                    if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(noRate: true), now: now) {
-                        outcome.alarmLog.append(entry)
-                    }
-                    continue
-                }
-                comparePrice = price * rate
-                // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
-                if let skip = inputs.convertSkips["\(watch.id)|\(currency)"] {
-                    checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
-                    let due = AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice,
-                                                           previousPrice: watch.lastPrice.map { $0 * rate }, now: now,
-                                                           cooldownMinutes: settings.alarmCooldownMinutes,
-                                                           moveHistory: moveHistory)
-                    let trace = AlarmLogTrace(fxStale: skip == .FX_STALE, fxUnsure: skip == .UNSURE, due: due)
-                    if let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: comparePrice) {
-                        outcome.alarmLog.append(entry)
-                    }
-                    continue
-                }
-            }
-            checkStatus.markChecked(alarm.id)
-            // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
-            if AlarmEvaluator.shouldRearmLevel(alarm: alarm, price: comparePrice, now: now) {
-                rearm(alarm)
-                if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
-                                             comparePrice: comparePrice) {
-                    outcome.alarmLog.append(entry)
-                }
-                continue
-            }
-            guard AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
-                                               now: now, cooldownMinutes: settings.alarmCooldownMinutes,
-                                               moveHistory: moveHistory) else {
-                // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
-                if AlarmLog.covers(alarm.condition) {
-                    let metWithoutCooldown = settings.alarmCooldownMinutes > 0
-                        && AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
-                                                        now: now, cooldownMinutes: 0, moveHistory: moveHistory)
-                    let waiting = alarm.condition.isPriceThreshold && !AlarmEvaluator.isLevelArmed(alarm)
-                    if let entry = alarmLogEntry(alarm, watch: updated,
-                                                 trace: AlarmLogTrace(coolingDown: metWithoutCooldown,
-                                                                      waitingRearm: waiting),
-                                                 now: now, comparePrice: comparePrice) {
-                        outcome.alarmLog.append(entry)
-                    }
-                }
-                continue
-            }
-            // Umgerechnet: «jetzt» in der Währung der Schwelle (sonst stünde ein USDT-Kurs neben einer EUR-Marke)
-            if let currency = alarm.convertCurrency {
-                // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
-                let text = inputs.convertUsdtAssumed.contains("\(watch.id)|\(currency)")
-                    ? AlarmTexts.withNote(L("notification_alarm_text", AlarmTexts.describe(alarm),
-                                            PriceFormat.priceWithCurrency(comparePrice, currency)), usdtAssumed: true)
-                    : nil
-                report(alarm, text: text, shownPrice: comparePrice, shownCurrency: currency, logPrice: comparePrice)
+                spoke = checkDerivativesAlarm(alarm, run: run, outcome: &outcome)
+            } else if alarm.condition.isNearExtreme {
+                spoke = checkNearExtremeAlarm(alarm, run: run, outcome: &outcome)
+            } else if alarm.condition == .VOLUME_SPIKE {
+                spoke = checkVolumeAlarm(alarm, run: run, outcome: &outcome)
             } else {
-                report(alarm, logPrice: comparePrice)
+                spoke = checkPriceAlarm(alarm, run: run, outcome: &outcome)
             }
+            if spoke { spokeAlarm = true }
         }
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
         if hasMove { MoveHistoryStore.append(watch.id, MoveWindow.PricePoint(price: price, time: now), now: now) }
         return spokeAlarm
+    }
+
+    /// Was die Prüfung jedes Alarms eines Paars braucht — je Paar und Durchlauf einmal bestimmt.
+    struct AlarmRun {
+        let watch: Watch
+        /// Das Paar mit dem neuen Kurs.
+        let updated: Watch
+        let price: Double
+        let now: Int64
+        let settings: AppSettings
+        let speechAllowed: Bool
+        let inputs: AlarmInputs
+        /// Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (`QuietHours.holdsAlarms`).
+        let holdAlarms: Bool
+        /// Kursverlauf des Paars für den Bewegungs-Alarm (leer ohne so einen Alarm).
+        let moveHistory: [MoveWindow.PricePoint]
+    }
+
+    /// Ausgelösten Alarm vormerken: Zustand nach dem Auslösen (`AlarmEvaluator.triggered`) und Ansage —
+    /// gemeldet, gespeichert und angesagt erst in `Outcome.deliverAlarms` (zuerst die Mitteilung, wie
+    /// Android `AlarmDelivery`). Alarme ohne zustellbare Mitteilung (einmalige wie wiederholende)
+    /// bleiben unverändert scharf.
+    /// `shownPrice`/`shownCurrency`: Kurs in der Alarmwährung (Schwelle in anderer Währung), damit «jetzt» in
+    /// derselben Währung steht wie die Schwelle; nil = Kurs in der Quote-Währung des Paars.
+    /// `logPrice`: Alarm-Protokoll — Kurs in der Währung der Schwelle; nil = dieser Alarm wird nicht protokolliert.
+    /// Rückgabe: der Alarm soll angesagt werden.
+    static func reportAlarm(_ alarm: Alarm, run: AlarmRun, outcome: inout Outcome, text: String? = nil,
+                            volumeRatio: Double? = nil, candleOpenTime: Int64? = nil, nearLevel: Double? = nil,
+                            shownPrice: Double? = nil, shownCurrency: String? = nil, logPrice: Double? = nil) -> Bool {
+        let updated = run.updated
+        let price = run.price
+        let now = run.now
+        let inputs = run.inputs
+        let holdAlarms = run.holdAlarms
+        let speechAllowed = run.speechAllowed
+        // Nachtruhe oder keine Mitteilungs-Erlaubnis (auch bei wiederholenden): nicht auslösen,
+        // Alarm bleibt unverändert scharf (`QuietHours.mayFire`)
+        if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: inputs.alarmsDeliverable) {
+            if let logPrice,
+               let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: inputs.alarmsDeliverable,
+                                                  shown: nil, saved: false),
+               let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: logPrice) {
+                outcome.alarmLog.append(entry)
+            }
+            return false
+        }
+        let after = AlarmEvaluator.triggered(alarm, price: price, time: now, candleOpenTime: candleOpenTime,
+                                             nearLevel: nearLevel)
+        let speak = speechAllowed && alarm.speak
+        outcome.pendingAlarms.append(PendingAlarm(
+            watch: updated, alarm: alarm, price: price, volumeRatio: volumeRatio, text: text,
+            update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true, pair: updated.identity),
+            // Ansage wie die Mitteilung: Kursmarke mit Alarmwährung nennt den umgerechneten Kurs mit Währung
+            speech: speak ? SpokenText.alarm(updated, alarm.condition, shownPrice ?? price, currency: shownCurrency) : nil,
+            shownPrice: shownPrice, shownCurrency: shownCurrency,
+            // Ergebnis steht erst nach dem Melden fest (`deliverAlarms`): vorläufig «fällig»
+            logEntry: logPrice.flatMap {
+                alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(due: true), now: now, comparePrice: $0)
+            }))
+        return speak
+    }
+
+    /// Wieder scharf stellen (`referenceAt` = 0); die gemeldete Marke von «Nahe am Hoch/Tief»
+    /// bleibt (`NearExtreme.reportedMark`), `enabled` bleibt unberührt.
+    static func rearmAlarm(_ alarm: Alarm, outcome: inout Outcome) {
+        var after = alarm
+        after.referenceAt = 0
+        outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+    }
+
+    /// Funding/Open Interest: wie Kursmarken (scharf/gemeldet in `referenceAt`), Wert aus dem Vorladen.
+    static func checkDerivativesAlarm(_ alarm: Alarm, run: AlarmRun, outcome: inout Outcome) -> Bool {
+        let watch = run.watch
+        let now = run.now
+        let settings = run.settings
+        let inputs = run.inputs
+        let checkStatus = AlarmCheckStatus.shared
+        guard let values = inputs.derivatives[watch.id] else { return false }
+        // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest); sonst
+        // «nicht geprüft» statt stiller Lücke — wie Android
+        let raw = alarm.condition.isFunding ? values.fundingPercent : values.oiUnits
+        guard raw != nil else {
+            checkStatus.markUnchecked(alarm.id, reason: .noData, now: now)
+            return false
+        }
+        // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
+        checkStatus.markChecked(alarm.id)
+        let value = DerivativesAlarmData.value(for: alarm, watchId: watch.id, values: values, now: now)
+        let decision = DerivativesAlarm.decide(
+            condition: alarm.condition, threshold: alarm.threshold, value: value,
+            armed: alarm.referenceAt <= 0, enabled: alarm.enabled, lastTriggeredAt: alarm.lastTriggeredAt,
+            now: now, cooldownMinutes: settings.alarmCooldownMinutes)
+        switch decision {
+        case .idle:
+            return false
+        case .rearm:
+            rearmAlarm(alarm, outcome: &outcome)
+            return false
+        case let .fire(measured):
+            // «Funding über 0,05 % — jetzt 0,061 %»
+            var text = L("notification_alarm_text", AlarmTexts.describe(alarm),
+                         AlarmTexts.derivativesValue(alarm.condition, measured))
+            // «… · Richtwert Binance Futures», wenn die Werte von einer anderen Börse stammen
+            if let reference = values.referenceSource {
+                text += " · " + L("futures_alarm_reference", reference)
+            }
+            return reportAlarm(alarm, run: run, outcome: &outcome, text: text)
+        }
+    }
+
+    /// «Nahe am Hoch/Tief»: Fenster aus dem Vorladen; ohne Fenster «nicht geprüft» (ausser es fehlte nur die Zeit).
+    static func checkNearExtremeAlarm(_ alarm: Alarm, run: AlarmRun, outcome: inout Outcome) -> Bool {
+        let watch = run.watch
+        let price = run.price
+        let now = run.now
+        let settings = run.settings
+        let inputs = run.inputs
+        let checkStatus = AlarmCheckStatus.shared
+        guard let range = inputs.nearRanges[watch.id]?[NearExtreme.windowDays(alarm.windowHours)] else {
+            // Aus Zeitmangel nicht geladen: diese Runde still auslassen
+            if inputs.skippedStages.contains(.nearExtreme) { return false }
+            checkStatus.markUnchecked(alarm.id, reason: inputs.nearMissing[watch.id] ?? .noCandles, now: now)
+            return false
+        }
+        checkStatus.markChecked(alarm.id)
+        let decision = NearExtreme.decide(
+            side: alarm.condition == .NEAR_HIGH ? .high : .low, price: price, range: range,
+            thresholdPercent: alarm.threshold, armed: alarm.referenceAt <= 0,
+            lastLevel: NearExtreme.reportedMark(lastLevel: alarm.referencePrice, lastTriggeredAt: alarm.lastTriggeredAt,
+                                                windowDays: alarm.windowHours, now: now),
+            inCooldown: NearExtreme.inCooldown(lastTriggeredAt: alarm.lastTriggeredAt, now: now,
+                                               cooldownMinutes: settings.alarmCooldownMinutes),
+            lastTriggeredAt: alarm.lastTriggeredAt, now: now)
+        switch decision {
+        case .idle:
+            return false
+        case .rearm:
+            rearmAlarm(alarm, outcome: &outcome)
+            return false
+        case let .fire(newExtreme, distancePercent, extreme, level):
+            let text = AlarmTexts.nearExtremeText(alarm, symbol: watch.baseAsset, currency: watch.quoteAsset,
+                                                  price: price, newExtreme: newExtreme,
+                                                  distancePercent: distancePercent, extreme: extreme)
+            return reportAlarm(alarm, run: run, outcome: &outcome, text: text, nearLevel: level)
+        }
+    }
+
+    /// Volumen-Spike der letzten Stundenkerze; dieselbe Kerze meldet nur einmal.
+    static func checkVolumeAlarm(_ alarm: Alarm, run: AlarmRun, outcome: inout Outcome) -> Bool {
+        let watch = run.watch
+        let now = run.now
+        let settings = run.settings
+        let inputs = run.inputs
+        let checkStatus = AlarmCheckStatus.shared
+        guard let spike = inputs.volumes[watch.id] else {
+            // Live-Kurse fragen kein Volumen ab, aus Zeitmangel nicht geladen: dann kein Hinweis
+            if inputs.volumeRequested.contains(watch.id) && !inputs.skippedStages.contains(.volume) {
+                checkStatus.markUnchecked(alarm.id, reason: .noCandles, now: now)
+            }
+            return false
+        }
+        checkStatus.markChecked(alarm.id)
+        guard AlarmEvaluator.shouldTriggerVolumeSpike(alarm: alarm, ratio: spike.ratio,
+                                                      candleOpenTime: spike.candleOpenTime, now: now,
+                                                      cooldownMinutes: settings.alarmCooldownMinutes)
+        else { return false }
+        // Dieselbe Kerze nicht nochmals melden (referenceAt); Kerzen einer anderen Börse: im Text genannt
+        let text = spike.source.map {
+            AlarmTexts.withNote(L("notification_volume_spike_text", AlarmTexts.factor(spike.ratio)), candleSource: $0)
+        }
+        return reportAlarm(alarm, run: run, outcome: &outcome, text: text, volumeRatio: spike.ratio,
+                           candleOpenTime: spike.candleOpenTime)
+    }
+
+    /// Kursmarke, Prozent- und Bewegungs-Alarm: Bezug setzen, in der Alarm-Währung vergleichen, wieder scharf
+    /// stellen oder melden.
+    static func checkPriceAlarm(_ alarm: Alarm, run: AlarmRun, outcome: inout Outcome) -> Bool {
+        let watch = run.watch
+        let updated = run.updated
+        let price = run.price
+        let now = run.now
+        let settings = run.settings
+        let inputs = run.inputs
+        let moveHistory = run.moveHistory
+        let checkStatus = AlarmCheckStatus.shared
+        // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
+        if AlarmEvaluator.needsReference(alarm: alarm, now: now) {
+            var after = alarm
+            after.referencePrice = price
+            after.referenceAt = now
+            outcome.alarms[alarm.id] = AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+            if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
+                                         comparePrice: price) {
+                outcome.alarmLog.append(entry)
+            }
+            return false
+        }
+        // Schwellwert in anderer Währung: Kurs umrechnen; ohne Faktor diesmal auslassen
+        var comparePrice = price
+        if let currency = alarm.convertCurrency {
+            guard let rate = inputs.convertRates["\(watch.id)|\(currency)"] else {
+                if inputs.skippedStages.contains(.convert) { return false }
+                checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
+                if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(noRate: true), now: now) {
+                    outcome.alarmLog.append(entry)
+                }
+                return false
+            }
+            comparePrice = price * rate
+            // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
+            if let skip = inputs.convertSkips["\(watch.id)|\(currency)"] {
+                checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
+                let due = AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice,
+                                                       previousPrice: watch.lastPrice.map { $0 * rate }, now: now,
+                                                       cooldownMinutes: settings.alarmCooldownMinutes,
+                                                       moveHistory: moveHistory)
+                let trace = AlarmLogTrace(fxStale: skip == .FX_STALE, fxUnsure: skip == .UNSURE, due: due)
+                if let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: comparePrice) {
+                    outcome.alarmLog.append(entry)
+                }
+                return false
+            }
+        }
+        checkStatus.markChecked(alarm.id)
+        // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
+        if AlarmEvaluator.shouldRearmLevel(alarm: alarm, price: comparePrice, now: now) {
+            rearmAlarm(alarm, outcome: &outcome)
+            if let entry = alarmLogEntry(alarm, watch: updated, trace: AlarmLogTrace(), now: now,
+                                         comparePrice: comparePrice) {
+                outcome.alarmLog.append(entry)
+            }
+            return false
+        }
+        guard AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
+                                           now: now, cooldownMinutes: settings.alarmCooldownMinutes,
+                                           moveHistory: moveHistory) else {
+            // Protokoll: erfüllt, aber in der Ruhezeit? (dieselbe reine Regel ohne Ruhezeit nachgefragt)
+            if AlarmLog.covers(alarm.condition) {
+                let metWithoutCooldown = settings.alarmCooldownMinutes > 0
+                    && AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice, previousPrice: watch.lastPrice,
+                                                    now: now, cooldownMinutes: 0, moveHistory: moveHistory)
+                let waiting = alarm.condition.isPriceThreshold && !AlarmEvaluator.isLevelArmed(alarm)
+                if let entry = alarmLogEntry(alarm, watch: updated,
+                                             trace: AlarmLogTrace(coolingDown: metWithoutCooldown,
+                                                                  waitingRearm: waiting),
+                                             now: now, comparePrice: comparePrice) {
+                    outcome.alarmLog.append(entry)
+                }
+            }
+            return false
+        }
+        // Umgerechnet: «jetzt» in der Währung der Schwelle (sonst stünde ein USDT-Kurs neben einer EUR-Marke)
+        if let currency = alarm.convertCurrency {
+            // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
+            let text = inputs.convertUsdtAssumed.contains("\(watch.id)|\(currency)")
+                ? AlarmTexts.withNote(L("notification_alarm_text", AlarmTexts.describe(alarm),
+                                        PriceFormat.priceWithCurrency(comparePrice, currency)), usdtAssumed: true)
+                : nil
+            return reportAlarm(alarm, run: run, outcome: &outcome, text: text, shownPrice: comparePrice,
+                               shownCurrency: currency, logPrice: comparePrice)
+        } else {
+            return reportAlarm(alarm, run: run, outcome: &outcome, logPrice: comparePrice)
+        }
     }
 
     /// Kurs-Mitteilung (je nach Einstellung erst ab einer Bewegung) und Kursansage eines Paars.

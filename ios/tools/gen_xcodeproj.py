@@ -15,9 +15,10 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
   App/PrivacyInfo.xcprivacy -> resource in the app, the widgets and both watch targets (privacy manifest per bundle)
   WatchCore/**     -> app, watch app and watch widgets (list choice shared by iPhone and Apple Watch)
   Watch/**         -> watchOS app "CryptoCheckerWatch" (embedded in the app under Watch/); Watch/Device/** also in
-                      the watch widgets
+                      the watch widgets, including Watch/Device/Localizable.xcstrings: the small catalogue with the
+                      texts of the watch (tools/convert_strings.py, key list tools/watch_string_keys.txt)
   WatchWidgets/**  -> watchOS widget extension "CryptoCheckerWatchWidgets" (complication, embedded in the watch app)
-  Shared/Resources/Localizable.xcstrings -> also both watch targets (texts of the watch app)
+  Shared/Resources/Localizable.xcstrings -> app and widget extension only (the watch targets carry their own)
 
 Shared test cases: ../android/testdata/parity/*.json (here also ../cryptoChecker/...) are copied
 to Tests/Parity/ on every run, so Android and iOS test the same inputs and expected results.
@@ -41,7 +42,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "222"
+CURRENT_PROJECT_VERSION = "223"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -56,9 +57,8 @@ WATCH_ID = "com.cryptochecker.app.watchkitapp"
 WATCH_WIDGET_TARGET = "CryptoCheckerWatchWidgets"
 WATCH_WIDGET_ID = "com.cryptochecker.app.watchkitapp.widgets"
 WATCH_DEPLOYMENT_TARGET = "10.0"
-# Texte der Uhr (gleicher Katalog wie die App) und Datenschutz-Manifest je Bundle
-WATCH_SHARED_RESOURCES = {os.path.join("Shared", "Resources", "Localizable.xcstrings"),
-                          os.path.join("App", "PrivacyInfo.xcprivacy")}
+# Datenschutz-Manifest je Bundle (die Texte der Uhr liegen als eigener kleiner Katalog unter Watch/Device)
+WATCH_SHARED_RESOURCES = {os.path.join("App", "PrivacyInfo.xcprivacy")}
 ALTERNATE_ICONS = ["AppIconOrangeLight", "AppIconRed", "AppIconRedLight", "AppIconBlue",
                    "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight",
                    "AppIconMarrsGreen", "AppIconMarrsGreenLight"]

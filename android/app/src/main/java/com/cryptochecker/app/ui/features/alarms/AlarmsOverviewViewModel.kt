@@ -6,8 +6,8 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
-import com.cryptochecker.app.data.portfolio.toAlarmReading
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.toAlarmReading
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
 import com.cryptochecker.app.domain.util.DefaultDispatcher

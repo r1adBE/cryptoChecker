@@ -8,7 +8,7 @@ import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.ActivityReport
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.WatchFilter

@@ -4,7 +4,8 @@
 # dependencies (gradle.lockfile, verification-metadata.xml) fully determine the app; a difference names the archive
 # entries that differ. Signing happens afterwards on the owner's machine and adds only the signature block.
 # iOS is not covered: Xcode builds are not byte-reproducible (code signature, build UUIDs).
-# Not a required check: on main, on release tags, weekly, by hand and on pull requests that change the check.
+# Not a required check: on release tags, weekly (main), by hand and on pull requests that change the check – not on
+# every push to main (two full release builds per push; the weekly run and the tag run cover the same ground).
 # Release tags v*: once both builds agree, «provenance» attests the unsigned APKs (app, Wear OS) and AAB of run a with
 # a signed build-provenance statement (actions/attest-build-provenance, Sigstore; only this job may request an OIDC token and
 # write attestations) and lists their SHA-256 in the job summary. Check a download with
@@ -14,13 +15,7 @@ name: Reproducible build
 
 on:
   push:
-    branches: [main]
     tags: ['v*']
-    paths:
-      - 'android/**'
-      - '.github/workflows/reproducible.yml'
-      - '.github/scripts/repro_compare.py'
-      - '.github/scripts/sbom.py'
   # Pull requests only when the check itself changes (it doubles the build time)
   pull_request:
     paths:

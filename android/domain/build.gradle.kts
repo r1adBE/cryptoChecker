@@ -23,6 +23,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    // Gemeinsamer Test-Helfer (ParityJson: kleiner JSON-Leser für testdata/parity) als Testquelle von :app, :domain
+    // und :data — dieselbe Datei, je Modul mitkompiliert (kein eigenes Modul, keine neue Abhängigkeit;
+    // LayerBoundaryTest prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
+    sourceSets {
+        getByName("test") {
+            kotlin.directories.add("$rootDir/test-shared/java")
+        }
+    }
+
     lint {
         abortOnError = true
         checkDependencies = true

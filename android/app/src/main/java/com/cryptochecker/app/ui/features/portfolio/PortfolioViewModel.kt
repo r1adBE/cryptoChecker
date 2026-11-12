@@ -80,7 +80,7 @@ class PortfolioViewModel @Inject constructor(
     /** Letzte Momentaufnahme (nur lesen): «Heute» zum gemerkten Stand, wenn die Kurse veraltet sind. */
     internal val snapshotStore: com.cryptochecker.app.widget.PortfolioSnapshotStore,
     /** Portfolio-Logos abgleichen, wenn das Speichern das Portfolio einschaltet. */
-    internal val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
+    internal val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     /** Guthaben der beobachteten Adressen (10 min Zwischenspeicher, manuell 60 s). */
     internal val addressRefresher: com.cryptochecker.app.data.portfolio.WatchedAddressRefresher,
     /** USDT/USD: letzte Messung (Live-Kurs der Bewertung, «USDT = 1» der Gesamtkarte) und neu messen, wenn fällig. */
@@ -88,7 +88,7 @@ class PortfolioViewModel @Inject constructor(
     /** «Unbekannt lassen» bei Einträgen ohne Einstand (nur Ids, auf diesem Gerät). */
     internal val costGapStore: com.cryptochecker.app.data.portfolio.PortfolioCostGapStore,
     /** Rechnen nicht auf dem Main-Thread. */
-    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    @param:DefaultDispatcher internal val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     internal val priceSource: PortfolioPriceSource get() = sources.priceSource
     internal val fxSource: FxRateSource get() = sources.fxSource

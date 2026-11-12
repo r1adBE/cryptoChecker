@@ -15,19 +15,19 @@
 # only runs with TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest
 # attachments, exported from the result bundle with xcresulttool. An image is only taken with the app in the
 # foreground and no system alert (SpringBoard) over it; otherwise it counts as missing and the tour fails.
-# publish (main only; a manual run on another branch leaves its images as run artifacts): the only job with
-# contents: write; checks the images (names, PNG header, size) and force-pushes the branch «screenshots» – never main.
+# Runs by hand and on release tags only (the images are needed for the store pages, not for every commit; both
+# tours together take up to two runner hours, one of them on macOS).
+# publish (release tags and manual runs on main; a manual run on another branch leaves its images as run artifacts):
+# the only job with contents: write; checks the images (names, PNG header, size) and force-pushes the branch
+# «screenshots» – never main.
 # Only a complete set is published: a platform whose job failed (or whose light/dark sets differ) keeps its images
 # from the previous set (checked by the same rules before the push); its partial images stay run artifacts only.
 name: Screenshots
 
 on:
   push:
-    branches: [main]
-    paths:
-      - 'android/**'
-      - 'ios/**'
-      - '.github/workflows/screenshots.yml'
+    # Release tags (v<versionName>-<versionCode>) only – no run for pushes to main
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -257,12 +257,12 @@ jobs:
           retention-days: 7
 
   # Runs also when one platform failed (not when the run was cancelled: a newer run is on its way), but publishes only
-  # the platforms whose job succeeded with a complete set; the others keep the previous set. Only for main: a manual
-  # run on another branch keeps its images as artifacts of the run.
+  # the platforms whose job succeeded with a complete set; the others keep the previous set. Only for release tags
+  # and main: a manual run on another branch keeps its images as artifacts of the run.
   # No checkout of the repository and nothing from the artifacts is executed.
   publish:
     needs: [android, ios]
-    if: ${{ !cancelled() && github.ref == 'refs/heads/main' }}
+    if: ${{ !cancelled() && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) }}
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # force-push the branch «screenshots» (only that branch)

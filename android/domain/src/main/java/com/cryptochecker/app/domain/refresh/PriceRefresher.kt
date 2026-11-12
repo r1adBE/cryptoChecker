@@ -1,26 +1,19 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.domain.model.AlarmCondition
-import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.live.LiveCoverage
-import com.cryptochecker.app.domain.live.LiveExchange
-import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import com.cryptochecker.app.domain.util.DomainLog
 import java.util.concurrent.atomic.AtomicReference
+import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Holt die Kurse aller beobachteten Paare und stösst danach alles an, was daran hängt:
@@ -30,36 +23,38 @@ import java.util.concurrent.atomic.AtomicReference
  * verhindert die Refresh-Sperre ([RefreshLock]), dass zwei Durchläufe gleichzeitig arbeiten. Live-Kurse
  * übernimmt [LivePriceApplier], Kurse speichert [RefreshResultProcessor], Widget-Charts lädt [ChartRefresher],
  * die Nebenprüfungen startet `RefreshSideChecks`. Die App-Klassen kommen über die Schnittstellen aus
- * `PriceRefresherPorts.kt` herein (Hilt: `RefreshModule`).
+ * `PriceRefresherPorts.kt` herein (Hilt: `RefreshModule`), zusammengehörige gebündelt ([RefresherState],
+ * [RefresherDrawing], [RefresherCandles]).
  */
 class PriceRefresher(
-    val watchRepository: RefresherStore,
-    val settingsRepository: RefreshSettings,
-    val widgetUpdater: RefresherWatchWidgets,
-    val refreshStats: RefresherStats,
-    /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
-    val sparklineRepository: RefresherSparklines,
-    /** Ohne Netz keine Aktualisierung (keine Fehlerzustände, siehe [OfflineGate]). */
-    val connectivity: RefresherOnline,
+    state: RefresherState,
+    drawing: RefresherDrawing,
+    candles: RefresherCandles,
     /** Paare mit frischem Live-Kurs (WebSocket, Merkliste offen) lässt die REST-Abfrage aus. */
-    private val liveCoverage: LiveCoverage,
-    /** Widgets zeichnen (unter der Sperre ohne Kerzen-Abruf). */
-    val liveWidgetGate: RefreshWidgets,
+    internal val liveCoverage: LiveCoverage,
     /** Kurse holen (gesammelt oder einzeln, je Börse). */
     val priceFetcher: PriceFetcher,
-    /** 24-h- und Tages-Bezüge aus Kerzen. */
-    val dayReferences: RefresherDayReferences,
     /** Alarm-Zusatzdaten parallel zu den Kursen vorladen. */
     private val effects: RefreshEffects,
     /** Die Sperre aller Kurs-Schreiber (auch [LivePriceApplier]). */
     val refreshLock: RefreshLock,
     /** Kurse speichern und auswerten (unter der Sperre). */
     val resultProcessor: RefreshResultProcessor,
-    /** Widget-Charts ausserhalb der Sperre nachladen. */
-    val chartRefresher: RefresherCharts,
     /** Aktivität, Gas, Depeg und Portfolio-Momentaufnahme nach dem Durchlauf. */
     val sideChecks: RefresherSideChecks,
+    /** Netz, JSON und Datenbank des Durchlaufs laufen hier (Hilt: `DispatcherModule`), nie auf dem Main-Thread. */
+    internal val ioDispatcher: CoroutineDispatcher,
 ) {
+    val watchRepository: RefresherStore = state.watchRepository
+    val settingsRepository: RefreshSettings = state.settingsRepository
+    val refreshStats: RefresherStats = state.refreshStats
+    val connectivity: RefresherOnline = state.connectivity
+    val widgetUpdater: RefresherWatchWidgets = drawing.widgetUpdater
+    val liveWidgetGate: RefreshWidgets = drawing.liveWidgetGate
+    val chartRefresher: RefresherCharts = drawing.chartRefresher
+    val sparklineRepository: RefresherSparklines = candles.sparklineRepository
+    val dayReferences: RefresherDayReferences = candles.dayReferences
+
     /**
      * [block] unter derselben Sperre wie Aktualisierung, Live-Speichern und späte Tages-Bezüge:
      * Paar bearbeiten, Sicherung wiederherstellen — kein Durchlauf schreibt dazwischen Kurse mit
@@ -83,10 +78,10 @@ class PriceRefresher(
         private set
 
     /** Späte Tages-Bezüge: läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    val lateFillScope = appScope(Dispatchers.IO, "PriceRefresher")
+    val lateFillScope = appScope(ioDispatcher, "PriceRefresher")
 
     /**
-     * Läuft komplett auf [Dispatchers.IO], auch aus dem ViewModel aufgerufen: Antwort lesen
+     * Läuft komplett auf dem IO-Dispatcher ([ioDispatcher]), auch aus dem ViewModel aufgerufen: Antwort lesen
      * und JSON zerlegen nie auf dem Main-Thread.
      *
      * @param awaitPortfolioSnapshot true im WorkManager-Job: Die Momentaufnahme für das
@@ -136,7 +131,7 @@ class PriceRefresher(
         }
 
     private suspend fun refreshOnIo(lock: RefreshLockScope, deadlineAt: Long?): RefreshSummary =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             try {
                 refreshAllLocked(lock, deadlineAt)
             } catch (ex: CancellationException) {
@@ -178,24 +173,8 @@ class PriceRefresher(
         // %-Basis: rollend (Ticker, Kerzen nur als Ausweich-Weg) oder seit Tagesbeginn (immer Kerzen)
         val changeStamp = ChangeBasisMath.stamp(settings.changeBasis, startedAt)
 
-        // Live-Kurse (WebSocket, Merkliste offen): Paare mit frischem Kurs aus dem Strom diesmal
-        // auslassen — sie sind aktueller als jede Abfrage. Nur rollende Basis mit gleichem Stempel
-        // (Tages-Basen brauchen Kerzen) und Börsen mit gleitendem 24-h-Wert (LiveRules.skipRest).
-        val stampUnchanged = refreshStats.changeStamp.value == changeStamp
-        val rollingBasis = !settings.changeBasis.isDay
-        val liveIds = allWatches.filter { watch ->
-            LiveRules.skipRest(
-                liveCoverage.lastTickAt(watch.id), startedAt, rollingBasis, stampUnchanged,
-                LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
-            )
-        }.mapTo(HashSet()) { it.id }
-        // Volumen-, Funding- und Open-Interest-Alarme hängen nicht am Live-Kurs (applyLive prüft sie
-        // nicht): solche Paare weiter per REST abfragen, sonst bliebe der Alarm bei offener Merkliste stumm
-        if (liveIds.isNotEmpty()) {
-            watchRepository.getAllEnabledAlarms()
-                .filter { it.condition == AlarmCondition.VOLUME_SPIKE || it.condition.isDerivatives }
-                .forEach { liveIds.remove(it.watchId) }
-        }
+        // Live-Kurse (WebSocket, Merkliste offen): Paare mit frischem Kurs aus dem Strom diesmal auslassen
+        val liveIds = liveCoveredIds(allWatches, settings, changeStamp, startedAt)
         val watches = allWatches.filterNot { it.id in liveIds }
         if (watches.isEmpty()) {
             // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
@@ -223,69 +202,11 @@ class PriceRefresher(
         // kommen so die Alarme durch
         val alarmedIds = enabledAlarms.mapTo(HashSet()) { it.watchId }
 
-        // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
-        //    was dort fehlt, parallel einzeln (nicht Börse für Börse, Paar für Paar).
-        //    Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen) bleiben
-        //    diesmal aussen vor: keine Anfrage, ihre Paare behalten den letzten Kurs.
-        val backoff = refreshStats.backoffStates().toMutableMap()
-        // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
-        // sonst verlängerte die Kursabfrage die IP-Sperre (siehe BlockedSources)
-        for (key in watches.mapTo(HashSet()) { it.exchangeKey }) {
-            val until = BlockedSources.groupPausedUntil(key) ?: continue
-            val state = backoff[key]
-            if (state == null || state.pausedUntil < until || !ExchangeBackoff.isPaused(state, startedAt)) {
-                backoff[key] = (state ?: ExchangeBackoff.State(strikes = 1))
-                    .copy(pausedUntil = until, reason = RefreshFailure.RATE_LIMIT, timeoutRuns = 0)
-            }
-        }
-        val (pausedGroups, activeGroups) = watches.groupBy { it.exchangeKey }.entries
-            .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) }
-        val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
-        val fetched = HashMap<Long, Fetched>()
-        val activeReports = coroutineScope {
-            activeGroups
-                // Mit Frist: je Börse eigenes Budget, eine langsame Börse hält die anderen nicht auf
-                .map { group ->
-                    async { priceFetcher.fetchGroup(group.value, settings.includeRollingFutures, deadlineAt, alarmedIds) }
-                }
-                .awaitAll()
-        }.map { (results, fetchedGroup) ->
-            fetched.putAll(results)
-            // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
-            val key = fetchedGroup.exchangeKey
-            // Nur am eigenen Budget gescheitert: Pause unverändert lassen (CheckBudget.backoffOutcome)
-            val outcome = CheckBudget.backoffOutcome(fetchedGroup.failures, fetchedGroup.report.updated, fetchedGroup.cutByBudget)
-            val state = if (outcome == null) backoff[key] else ExchangeBackoff.next(
-                backoff[key], outcome,
-                System.currentTimeMillis(), fetchedGroup.retryAfterMillis,
-                // 418 und «Retry-After» wie bei Kerzen (gemeinsame Binance-Pause)
-                banned = fetchedGroup.banned, shared = ExchangeBackoff.sharedGroup(key) != null,
-            )
-            if (state == null) backoff.remove(key) else backoff[key] = state
-            // 429/418 beim Ticker: Kerzen, Futures und Aktivität an dieselben Hosts pausieren mit
-            if (state != null && state.reason == RefreshFailure.RATE_LIMIT &&
-                ExchangeBackoff.isPaused(state, System.currentTimeMillis())
-            ) {
-                BlockedSources.pauseGroup(key, state.pausedUntil)
-            }
-            if (ExchangeBackoff.isPaused(state, System.currentTimeMillis())) {
-                fetchedGroup.report.copy(pausedUntil = state?.pausedUntil, pauseReason = state?.reason)
-            } else {
-                fetchedGroup.report
-            }
-        }
-        val pausedReports = pausedGroups.map { (key, group) ->
-            ExchangeRefresh(
-                name = group.first().exchangeName,
-                millis = 0,
-                pairs = group.size,
-                updated = 0,
-                pausedUntil = backoff[key]?.pausedUntil,
-                pauseReason = backoff[key]?.reason,
-            )
-        }
-        refreshStats.setBackoffStates(ExchangeBackoff.withHostGroupPauses(backoff, System.currentTimeMillis()))
-        val groupReports = activeReports + pausedReports
+        // 1) Netz: alle Börsen gleichzeitig; pausierte Börsen bleiben diesmal aussen vor (PriceRefresherFetch.kt)
+        val prices = fetchAllGroups(watches, settings, deadlineAt, alarmedIds, startedAt)
+        val fetched = prices.fetched
+        val pausedIds = prices.pausedIds
+        val groupReports = prices.reports
         val activeWatches = watches.filter { it.id !in pausedIds }
         val lateLoads = dayReferences.startDayReferenceLoads(
             dayReferences.watchesNeedingCandles(watches, fetched, settings.changeBasis, remember = true), startedKeys, dayStart

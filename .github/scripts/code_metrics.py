@@ -1,13 +1,16 @@
-"""Code metrics: size of the Kotlin classes wired by Hilt and length of the Kotlin and Swift functions, next to the
-400-line limit (line_limit.py).
+"""Code metrics: size of the Kotlin classes wired by Hilt, size of the Swift types across their extension files and
+length of the Kotlin and Swift functions, next to the 400-line limit (line_limit.py).
 
 Usage: python3 -I code_metrics.py [repository root, default: current directory]
        python3 -I code_metrics.py --self-test   (checks the Kotlin scanner and the annotation escaping)
 
 Scans Kotlin under android/<module>/src/main (tests are not checked) and measures:
 * Constructor dependencies: parameters of the primary constructor of every class annotated with @HiltViewModel or
-  with an `@Inject constructor`. Above DEPS_CEILING an error (red); evaluate() can add a warning tier (deps_warn),
-  the default has none because the ceiling is today's maximum.
+  with an `@Inject constructor`, and of every class a `@Provides` function in a `di/` folder returns (classes of the
+  modules without Hilt annotations, wired by hand in the Hilt module). The `@Provides` function itself counts with
+  its own parameters, listed as `Module.function()` - building a large object inside one provider does not hide it.
+  Above DEPS_CEILING an error (red); evaluate() can add a warning tier (deps_warn), the default has none because the
+  ceiling is today's maximum.
 * Non-public properties of ViewModels (@HiltViewModel or a subclass of ViewModel/AndroidViewModel): `private` and
   `internal` val/var declared directly in the class body (not in the constructor, not in nested classes, objects or
   functions); `internal` counts because it is the module-wide seam for the screen's extension files and tests, not
@@ -17,6 +20,18 @@ Also scans Swift under ios/App, ios/Shared, ios/Widgets and the watch folders (n
   body or an expression body (`= …`), Swift `func`, `init`, `deinit` and the SwiftUI `var body`. Declarations
   without a body (interface, abstract, protocol) do not count; a nested function counts on its own and inside the
   enclosing one. The TOP_FUNCTIONS longest per platform are listed; above FUNCTION_CEILINGS an error (red).
+* Length of the logic functions, with their own lower ceiling (LOGIC_CEILINGS): every function that is not user
+  interface. User interface is a Kotlin function annotated @Composable or a file in a `ui`, `widget` or `overlay`
+  folder; in Swift the SwiftUI `body`, a function returning `some View`/`some Scene`/`ToolbarContent` or marked
+  @ViewBuilder, and every file under ios/App/Features, ios/Widgets, ios/Watch and ios/WatchWidgets. Long composables
+  and SwiftUI bodies may stay; calculations, refresh and alarm paths are held to the lower ceiling.
+* Swift type size: lines and stored properties of every class, struct, actor and enum declared in these folders,
+  summed over the declaration and all its `extension` blocks in all files (the 400-line limit per file does not see
+  a type that grows across extension files). Stored properties: `let`/`var` declared directly in the type (not
+  static, not computed; property wrappers and observers count). A nested type counts on its own and inside the
+  enclosing one; extensions of types declared elsewhere (String, View) are not listed. The TOP_TYPES largest are
+  listed; above SWIFT_TYPE_CEILINGS an error (red) - the ceiling for stored properties holds for classes and actors
+  (objects with state of their own), structs and enums (values, SwiftUI views) are only listed.
 The ceilings are today's maximum: nothing may grow beyond it; when the maximum shrinks, lower the ceiling. Comments
 and string literals are ignored. File names and texts in annotations are escaped like annotate.py.
 """
@@ -31,9 +46,19 @@ PROPS_CEILING = 26  # ExplorerViewModel
 
 # Longest function per platform (lines). New code stays under FUNCTION_TARGET; the ceiling only keeps the remaining
 # long functions from growing and goes down with every split.
-FUNCTION_CEILINGS = {"Kotlin": 326, "Swift": 356}  # AppNavHost; PriceRefresher.refresh
+FUNCTION_CEILINGS = {"Kotlin": 326, "Swift": 247}  # AppNavHost; WatchlistList.list (both user interface)
+# Longest logic function (not user interface, see the module text): TaxExportCsv.gainsCsv; PortfolioWidgetStore.compute
+LOGIC_CEILINGS = {"Kotlin": 166, "Swift": 240}
 FUNCTION_TARGET = 80
 TOP_FUNCTIONS = 30
+TOP_LOGIC_FUNCTIONS = 12
+KOTLIN_UI_FOLDERS = ("ui", "widget", "overlay")
+SWIFT_UI_FOLDERS = ("ios/App/Features/", "ios/Widgets/", "ios/Watch/", "ios/WatchWidgets/")
+
+# Largest Swift type across all its extension files: lines (AppData, 23 files); stored properties of a class or actor
+# (ExplorerViewModel)
+SWIFT_TYPE_CEILINGS = {"lines": 3570, "stored properties": 54}
+TOP_TYPES = 15
 
 TITLE = "Code metrics"
 VISIBILITY_COUNTED = ("private", "internal")
@@ -272,12 +297,43 @@ def non_public_properties(body):
     return count
 
 
-def measure(source):
-    """[(class, line, dependencies or None, non-public properties or None)] of one Kotlin file."""
+PROVIDES_RE = re.compile(r"@Provides\b")
+MODULE_RE = re.compile(r"\b(?:object|class|interface)\s+(\w+)")
+
+
+def providers(source):
+    """[(module, function, line, parameter count, returned type or None)] of the `@Provides` functions of one Kotlin
+    file (a Hilt module): the simple name of the declared return type, without type arguments and nullability."""
+    code = code_only(source)
+    result = []
+    for m in PROVIDES_RE.finditer(code):
+        head = re.compile(r"\bfun\s+(\w+)\s*\(").search(code, m.end())
+        if not head or PROVIDES_RE.search(code, m.end(), head.start()):
+            continue
+        close_at = matching(code, head.end() - 1)
+        params = top_level_parameters(code[head.end():close_at])
+        returned = re.match(r"\s*:\s*(?:\w+\.)*(\w+)", code[close_at + 1:])
+        modules = [x.group(1) for x in MODULE_RE.finditer(code, 0, m.start())]
+        result.append((modules[-1] if modules else "?", head.group(1), code.count("\n", 0, head.start()) + 1,
+                       len(params), returned.group(1) if returned else None))
+    return result
+
+
+def provider_files(root):
+    """Kotlin files in a `di` folder (the Hilt modules)."""
+    for path in kotlin_files(root):
+        if os.path.basename(os.path.dirname(path)) == "di":
+            yield path
+
+
+def measure(source, provided=frozenset()):
+    """[(class, line, dependencies or None, non-public properties or None)] of one Kotlin file. `provided`: names of
+    the classes a `@Provides` function returns - their constructor counts like an injected one."""
     code = code_only(source)
     result = []
     for name, line, annotations, params, body, supertypes in classes(code):
-        deps = len(params) if is_injected(annotations) and params is not None else None
+        injected = is_injected(annotations) or name in provided
+        deps = len(params) if injected and params is not None else None
         props = non_public_properties(body) if is_view_model(annotations, supertypes) else None
         if deps is not None or props is not None:
             result.append((name, line, deps, props))
@@ -432,8 +488,36 @@ def _expression_end(code, k):
     return n - 1
 
 
-def function_lengths(code, swift=False):
-    """[(name, first line, number of lines)] of every function with a body in comment- and string-free code.
+KOTLIN_ANNOTATED_RE = re.compile(r"((?:@[\w.]+(?:\([^()]*\))?\s+|\b(?:private|internal|public|protected|override|open|"
+                                 r"inline|suspend|operator|infix|tailrec|final|abstract)\s+)*)$")
+SWIFT_ATTRIBUTED_RE = re.compile(r"((?:@\w+(?:\([^()]*\))?\s+|\b(?:private|fileprivate|internal|public|static|final|"
+                                 r"override|nonisolated|mutating|class)\s+)*)$")
+SWIFT_VIEW_RE = re.compile(r"->\s*some\s+(?:View|Scene|ToolbarContent|Commands)\b|:\s*some\s+(?:View|Scene)\b")
+
+
+def is_ui_function(code, keyword_at, body_at, swift=False):
+    """True for user-interface code by its declaration: Kotlin `@Composable fun`; Swift `var body`, a result of
+    `some View`/`some Scene`/`some ToolbarContent`, or `@ViewBuilder` (attributes and modifiers before the keyword)."""
+    before = code[max(0, keyword_at - 400):keyword_at]
+    if not swift:
+        return "@Composable" in KOTLIN_ANNOTATED_RE.search(before).group(1)
+    signature = code[keyword_at:body_at]
+    return (re.match(r"var\s+body\s*:", signature) is not None or SWIFT_VIEW_RE.search(signature) is not None
+            or "@ViewBuilder" in SWIFT_ATTRIBUTED_RE.search(before).group(1))
+
+
+def is_ui_path(relative, swift=False):
+    """True for a file of the user interface by its place (forward slashes): Kotlin folders `ui`, `widget`, `overlay`;
+    Swift the screens, widgets and watch targets."""
+    path = relative.replace(os.sep, "/")
+    if swift:
+        return any(folder in "/" + path for folder in ("/" + f for f in SWIFT_UI_FOLDERS))
+    return any(part in KOTLIN_UI_FOLDERS for part in path.split("/")[:-1])
+
+
+def function_lengths(code, swift=False, with_ui=False):
+    """[(name, first line, number of lines)] of every function with a body in comment- and string-free code; with
+    `with_ui` a fourth entry: user interface by declaration ([is_ui_function]).
 
     Kotlin: `fun` with a block body or an expression body (`= …`, up to the end of the expression). Swift: `func`,
     `init`, `deinit` and the SwiftUI `var body:`. The length runs from the line of the keyword to the line of the
@@ -460,8 +544,130 @@ def function_lengths(code, swift=False):
         end = matching(code, at) if kind == "block" else _expression_end(code, at)
         first = code.count("\n", 0, m.start()) + 1
         last = code.count("\n", 0, end) + 1
-        result.append((name, first, last - first + 1))
+        row = (name, first, last - first + 1)
+        result.append(row + (is_ui_function(code, m.start(), at, swift),) if with_ui else row)
     return result
+
+
+# --- Swift type size -------------------------------------------------------------------------------------------------
+
+SWIFT_TYPE_RE = re.compile(r"(?<![.\w])(class|struct|actor|enum|extension)[ \t]+([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)")
+SWIFT_NOT_A_TYPE = ("func", "var", "let", "subscript", "init")
+SWIFT_STATEFUL = ("class", "actor")
+SWIFT_PROPERTY_RE = re.compile(r"\b(?:let|var)\b")
+
+
+def swift_stored_properties(body):
+    """Number of stored instance properties declared directly in a Swift type body (comment- and string-free):
+    every `let`, and every `var` that is not computed (a `{` body before any `=`, unless it holds willSet/didSet).
+    `static`/`class` properties and everything inside functions and nested types do not count."""
+    flat = flatten_body(body)
+    count = 0
+    for m in SWIFT_PROPERTY_RE.finditer(flat):
+        line_start = flat.rfind("\n", 0, m.start()) + 1
+        if re.search(r"\b(?:static|class)\b", flat[line_start:m.start()]):
+            continue
+        stored = True
+        if m.group(0) == "var":
+            for k in range(m.end(), len(flat)):
+                c = flat[k]
+                if c == "\n" or (c == "=" and flat[k + 1:k + 2] != "="):
+                    break
+                if c == "{":
+                    stored = re.match(r"\s*(?:willSet|didSet)\b", body[k + 1:]) is not None
+                    break
+        count += 1 if stored else 0
+    return count
+
+
+def swift_types(code):
+    """[(qualified name, kind or None for an extension, private, first line, lines, stored properties)] of every type
+    declaration and extension in comment- and string-free Swift code. Nested declarations carry the enclosing type in
+    their name
+    (`Outer.Inner`); `private` is true for a top-level `private`/`fileprivate` declaration (its name is only unique
+    within the file)."""
+    result, stack = [], []
+    for m in SWIFT_TYPE_RE.finditer(code):
+        kind, name = m.group(1), m.group(2)
+        if name in SWIFT_NOT_A_TYPE:
+            continue
+        open_at = code.find("{", m.end())
+        if open_at < 0 or ";" in code[m.end():open_at] or "}" in code[m.end():open_at]:
+            continue
+        if kind == "class" and re.search(r"\bprotocol\b[^\n{]*$", code[:m.start()]):
+            continue
+        close_at = matching(code, open_at)
+        while stack and stack[-1][0] < m.start():
+            stack.pop()
+        qualified = f"{stack[-1][1]}.{name}" if stack else name
+        line_start = code.rfind("\n", 0, m.start()) + 1
+        private = not stack and re.search(r"\b(?:private|fileprivate)\b", code[line_start:m.start()]) is not None
+        stack.append((close_at, qualified))
+        first = code.count("\n", 0, m.start()) + 1
+        last = code.count("\n", 0, close_at) + 1
+        result.append((qualified, None if kind == "extension" else kind, private, first, last - first + 1,
+                       swift_stored_properties(code[open_at + 1:close_at])))
+    return result
+
+
+def collect_swift_types(files):
+    """Rows (file of the declaration, type, line, lines, stored properties, number of files, kind) summed over the
+    declaration and all extensions. `files`: [(relative path, comment- and string-free code)]. Types without a
+    declaration in `files` (extensions of system types) are left out."""
+    totals = {}
+    for path, code in files:
+        found = swift_types(code)
+        local = {name for name, kind, private, _, _, _ in found if private and kind}
+        for name, kind, _, first, lines, props in found:
+            # A file-private type and its extensions (same file) stay apart from equally named types elsewhere
+            key = (name, path) if name.split(".")[0] in local else (name, None)
+            entry = totals.setdefault(key, {"lines": 0, "props": 0, "files": set(), "at": None})
+            entry["lines"] += lines
+            entry["props"] += props
+            entry["files"].add(path)
+            if kind and entry["at"] is None:
+                entry["at"] = (path, first, kind)
+    return sorted((entry["at"][0], name, entry["at"][1], entry["lines"], entry["props"], len(entry["files"]),
+                   entry["at"][2]) for (name, _), entry in totals.items() if entry["at"] is not None)
+
+
+def evaluate_types(rows, ceilings, top=TOP_TYPES):
+    """Report lines and exit code for rows (file, type, line, lines, stored properties, files, kind). The ceiling for
+    stored properties holds for classes and actors (objects with state of their own); structs and enums are plain
+    values or SwiftUI views and only listed."""
+    lines, failed = [], False
+    if not rows:
+        return lines, 0
+    ordered = sorted(rows, key=lambda r: (-r[3], r[1], r[0]))
+    objects = [r for r in ordered if r[6] in SWIFT_STATEFUL]
+    for path, name, line, length, props, files, kind in ordered:
+        if length > ceilings["lines"]:
+            failed = True
+            lines.append(annotation("error", f"{name}: {length} lines across {files} files, at most "
+                                    f"{ceilings['lines']} - move a coherent part into a type of its own", path, line))
+        if kind in SWIFT_STATEFUL and props > ceilings["stored properties"]:
+            failed = True
+            lines.append(annotation("error", f"{name}: {props} stored properties, at most "
+                                    f"{ceilings['stored properties']} - move state into a helper or state holder",
+                                    path, line))
+    largest = ordered[0]
+    summary = (f"Swift type size: {len(ordered)} types, max {largest[3]} lines ({largest[1]}, {largest[5]} files), "
+               f"ceiling {ceilings['lines']}")
+    measured = [("lines", largest[3])]
+    if objects:
+        most = max(objects, key=lambda r: (r[4], r[1]))
+        summary += (f"; classes and actors: max {most[4]} stored properties ({most[1]}), "
+                    f"ceiling {ceilings['stored properties']}")
+        measured.append(("stored properties", most[4]))
+    lines.append(summary)
+    for path, name, line, length, props, files, kind in ordered[:top]:
+        lines.append(f"  {length:4d} lines  {props:3d} stored  {files:2d} files  {kind} {name}  ({path}:{line})")
+    if not failed:
+        for label, value in measured:
+            if value < ceilings[label]:
+                lines.append(annotation("notice", f"largest Swift type: {value} {label} < ceiling {ceilings[label]} - "
+                                        "lower SWIFT_TYPE_CEILINGS in .github/scripts/code_metrics.py"))
+    return lines, (1 if failed else 0)
 
 
 def kotlin_files(root):
@@ -486,9 +692,33 @@ def swift_files(root):
                     yield os.path.join(dirpath, name)
 
 
-def evaluate_functions(platform, rows, ceiling, top=TOP_FUNCTIONS, target=FUNCTION_TARGET):
-    """Report lines and exit code for rows (file, function, line, length) of one platform."""
+def evaluate_logic(platform, rows, ceiling, top=TOP_LOGIC_FUNCTIONS):
+    """Report lines and exit code for the logic functions among rows (file, function, line, length, user interface)."""
     lines, failed = [], False
+    ordered = sorted((r for r in rows if not r[4]), key=lambda r: (-r[3], r[0], r[2]))
+    if not ordered:
+        return lines, 0
+    for path, name, line, length, _ in ordered:
+        if length <= ceiling:
+            break
+        failed = True
+        lines.append(annotation("error", f"{name}: {length} lines of logic, at most {ceiling} - split the function "
+                                f"into named steps (target: {FUNCTION_TARGET} lines)", path, line))
+    longest = ordered[0]
+    lines.append(f"{platform} logic function length (not user interface): {len(ordered)} functions, max {longest[3]} "
+                 f"({longest[1]}), ceiling {ceiling}")
+    for path, name, line, length, _ in ordered[:top]:
+        lines.append(f"  {length:4d}  {path}:{line}  {name}")
+    if longest[3] < ceiling and not failed:
+        lines.append(annotation("notice", f"longest {platform} logic function {longest[3]} < ceiling {ceiling} - lower "
+                                "LOGIC_CEILINGS in .github/scripts/code_metrics.py"))
+    return lines, (1 if failed else 0)
+
+
+def evaluate_functions(platform, rows, ceiling, top=TOP_FUNCTIONS, target=FUNCTION_TARGET):
+    """Report lines and exit code for rows (file, function, line, length, …) of one platform."""
+    lines, failed = [], False
+    rows = [r[:4] for r in rows]
     ordered = sorted(rows, key=lambda r: (-r[3], r[0], r[2]))
     for path, name, line, length in ordered:
         if length <= ceiling:
@@ -530,8 +760,8 @@ def evaluate(rows, deps_warn=DEPS_WARN, deps_ceiling=DEPS_CEILING, props_ceiling
     if deps_rows:
         top = max(deps_rows, key=lambda r: r[3])
         warn = f"warning from {deps_warn}, " if deps_warn is not None else ""
-        lines.append(f"Constructor dependencies: {len(deps_rows)} injected classes, max {top[3]} ({top[1]}), "
-                     f"{warn}ceiling {deps_ceiling}")
+        lines.append(f"Constructor dependencies: {len(deps_rows)} injected classes and providers, max {top[3]} "
+                     f"({top[1]}), {warn}ceiling {deps_ceiling}")
         if top[3] < deps_ceiling and not failed:
             lines.append(annotation("notice", f"max constructor dependencies {top[3]} < ceiling {deps_ceiling} - "
                                     "lower DEPS_CEILING in .github/scripts/code_metrics.py"))
@@ -583,6 +813,70 @@ class OtherViewModel(private val s: S) : AndroidViewModel(app) {
 }
 
 class Generic<T : Any> @Inject constructor(t: T)
+
+class Wired(a: A, b: B, c: C)
+'''
+
+PROVIDERS = '''
+package x.di
+
+@Module
+@InstallIn(SingletonComponent::class)
+object SampleModule {
+    @Provides
+    @Singleton
+    fun wired(a: A, map: Map<String, Int>): Wired = Wired(a, B(), C(map))
+
+    @Provides
+    @Named("io, default")
+    fun dispatcher(): kotlinx.coroutines.CoroutineDispatcher = Dispatchers.IO
+
+    // @Provides fun fake(a: A): Plain = Plain(1, 2)
+    fun helper(a: A): Plain = Plain(1, 2)
+
+    @Provides fun nullable(
+        a: A,
+        b: B,
+        c: () -> Unit,
+    ): Repo? = null
+}
+'''
+
+SWIFT_TYPES = '''
+final class Store: ObservableObject {
+    @Published var items: [Int] = []
+    @AppStorage("key, with comma") private var flag = false
+    let id: UUID
+    static let shared = Store()
+    class var kind: String { "s" }
+    var count: Int { items.count }
+    var watched: Int = 0 {
+        didSet { save() }
+    }
+    lazy var cache: [String: Int] = {
+        var local = 1
+        return [:]
+    }()
+    weak var delegate: Delegate?
+    struct Row {
+        let a: Int
+        var b: Int { a }
+    }
+    func load() { let x = 1; var y = x }
+    class func make() -> Store { Store() }
+}
+extension Store {
+    var doubled: Int { count * 2 }
+    enum Mode { case on, off
+        var isOn: Bool { self == .on }
+    }
+}
+extension Store.Row: Equatable {}
+extension String {
+    var trimmed: String { self }
+}
+private struct Helper { var a = 1 }
+protocol Port: class { var x: Int { get } }
 '''
 
 
@@ -633,6 +927,23 @@ struct Row: View {
 '''
 
 
+SWIFT_UI = '''
+struct Row: View {
+    var body: some View {
+        Text("a")
+    }
+    @ViewBuilder
+    private func row(_ a: Int) -> some View { Text("b") }
+    func header() -> some View {
+        Text("c")
+    }
+    func load() async -> [Int] { [] }
+    @ToolbarContentBuilder
+    func bar() -> some ToolbarContent { ToolbarItem { Text("d") } }
+}
+'''
+
+
 def self_test_functions():
     kotlin = {name: (line, length) for name, line, length in function_lengths(code_only(KOTLIN_FUNCTIONS))}
     expected = {"withDefault": (4, 1), "Screen": (8, 8), "local": (13, 1), "total": (16, 3), "single": (19, 1),
@@ -640,6 +951,30 @@ def self_test_functions():
     assert kotlin == expected, kotlin
     swift = function_lengths(swift_code_only(SWIFT_FUNCTIONS), swift=True)
     assert swift == [("init", 7, 1), ("body", 8, 4), ("<", 12, 1), ("load", 13, 6)], swift
+
+    kotlin_ui = {name: ui for name, _, _, ui in function_lengths(code_only(KOTLIN_FUNCTIONS), with_ui=True)}
+    assert kotlin_ui == {"withDefault": False, "Screen": True, "local": False, "total": False, "single": False,
+                         "chained": False}, kotlin_ui
+    swift_ui = [(name, ui)
+                for name, _, _, ui in function_lengths(swift_code_only(SWIFT_UI), swift=True, with_ui=True)]
+    assert swift_ui == [("body", True), ("row", True), ("header", True), ("load", False), ("bar", True)], swift_ui
+    assert is_ui_path("android/app/src/main/java/com/x/app/ui/features/A.kt")
+    assert is_ui_path("android/app/src/main/java/com/x/app/widget/W.kt")
+    assert not is_ui_path("android/domain/src/main/java/com/x/app/domain/guide/Ui.kt")
+    assert is_ui_path("ios/App/Features/Watchlist/Row.swift", swift=True)
+    assert is_ui_path("ios/Watch/A.swift", swift=True)
+    assert not is_ui_path("ios/Shared/Services/Refresher.swift", swift=True)
+    assert not is_ui_path("ios/WatchCore/Quotes.swift", swift=True)
+    logic_rows = [("a.kt", "screen", 1, 300, True), ("b.kt", "refresh", 5, 120, False), ("c.kt", "sum", 2, 9, False)]
+    lines, code = evaluate_logic("Kotlin", logic_rows, ceiling=120)
+    assert code == 0 and lines[0].endswith("2 functions, max 120 (refresh), ceiling 120") and len(lines) == 3, lines
+    lines, code = evaluate_logic("Kotlin", logic_rows, ceiling=100)
+    assert code == 1 and lines[0].startswith("::error ") and "refresh: 120 lines of logic" in lines[0], lines
+    lines, code = evaluate_logic("Kotlin", logic_rows, ceiling=150)
+    assert code == 0 and lines[-1].startswith("::notice "), lines
+    assert evaluate_logic("Swift", [("v.swift", "body", 1, 50, True)], ceiling=1) == ([], 0)
+    lines, code = evaluate_functions("Kotlin", logic_rows, ceiling=300)
+    assert code == 0 and "max 300 (screen)" in lines[0], lines
 
     rows = [("a.kt", "big", 3, 120), ("b.kt", "small", 1, 10), ("c.kt", "mid", 9, 90)]
     lines, code = evaluate_functions("Kotlin", rows, ceiling=100, top=2)
@@ -700,8 +1035,49 @@ def self_test_property_regex():
     return files
 
 
+def self_test_providers():
+    found = providers(PROVIDERS)
+    assert found == [("SampleModule", "wired", 9, 2, "Wired"),
+                     ("SampleModule", "dispatcher", 13, 0, "CoroutineDispatcher"),
+                     ("SampleModule", "nullable", 18, 3, "Repo")], found
+    provided = frozenset(row[4] for row in found)
+    by_name = {name: deps for name, _, deps, _ in measure(SAMPLE, provided)}
+    assert by_name.get("Wired") == 3 and by_name.get("Repo") == 2 and "Plain" not in by_name, by_name
+    assert "Wired" not in {name for name, _, _, _ in measure(SAMPLE)}
+
+
+def self_test_swift_types():
+    found = {name: (kind, private, first, lines, props)
+             for name, kind, private, first, lines, props in swift_types(swift_code_only(SWIFT_TYPES)) if kind}
+    assert found == {"Store": ("class", False, 2, 22, 6), "Store.Row": ("struct", False, 17, 4, 1),
+                     "Store.Mode": ("enum", False, 26, 3, 0), "Helper": ("struct", True, 34, 1, 1)}, found
+    files = [("a/Store.swift", swift_code_only(SWIFT_TYPES)),
+             ("b/Store+More.swift", swift_code_only("extension Store {\n    func more() {}\n}\nstruct Helper { }\n"))]
+    rows = collect_swift_types(files)
+    assert rows == [("a/Store.swift", "Helper", 34, 1, 1, 1, "struct"),
+                    ("a/Store.swift", "Store", 2, 22 + 6 + 3, 6, 2, "class"),
+                    ("a/Store.swift", "Store.Mode", 26, 3, 0, 1, "enum"),
+                    ("a/Store.swift", "Store.Row", 17, 4 + 1, 1, 1, "struct"),
+                    ("b/Store+More.swift", "Helper", 4, 1, 0, 1, "struct")], rows
+    lines, code = evaluate_types(rows, {"lines": 31, "stored properties": 6})
+    assert code == 0 and not any(x.startswith("::") for x in lines), lines
+    assert lines[0] == ("Swift type size: 5 types, max 31 lines (Store, 2 files), ceiling 31; classes and actors: "
+                        "max 6 stored properties (Store), ceiling 6"), lines
+    lines, code = evaluate_types(rows, {"lines": 30, "stored properties": 5})
+    assert code == 1 and sum(x.startswith("::error ") for x in lines) == 2, lines
+    # A struct with many stored properties (plain value) is listed, not an error
+    values = [("v.swift", "Settings", 1, 10, 70, 1, "struct"), ("o.swift", "Model", 1, 9, 3, 1, "actor")]
+    lines, code = evaluate_types(values, {"lines": 10, "stored properties": 3})
+    assert code == 0 and "max 3 stored properties (Model)" in lines[0], lines
+    lines, code = evaluate_types(rows, {"lines": 40, "stored properties": 6})
+    assert code == 0 and sum(x.startswith("::notice ") for x in lines) == 1, lines
+    assert evaluate_types([], {"lines": 1, "stored properties": 1}) == ([], 0)
+
+
 def self_test():
     compared = self_test_property_regex()
+    self_test_providers()
+    self_test_swift_types()
     rows = measure(SAMPLE)
     by_name = {name: (deps, props) for name, _, deps, props in rows}
     assert by_name.get("SampleViewModel") == (4, 6), by_name
@@ -734,34 +1110,48 @@ def main():
     root = sys.argv[1] if len(sys.argv) > 1 else "."
     rows, files = [], 0
     functions = {"Kotlin": [], "Swift": []}
+    provided = set()
+    for path in provider_files(root):
+        with open(path, encoding="utf-8") as f:
+            for module, function, line, count, returned in providers(f.read()):
+                rows.append((os.path.relpath(path, root), f"{module}.{function}()", line, count, None))
+                provided.add(returned)
     for path in kotlin_files(root):
         files += 1
         with open(path, encoding="utf-8") as f:
             source = f.read()
         relative = os.path.relpath(path, root)
-        for name, line, deps, props in measure(source):
+        for name, line, deps, props in measure(source, provided):
             rows.append((relative, name, line, deps, props))
-        for name, line, length in function_lengths(code_only(source)):
-            functions["Kotlin"].append((relative, name, line, length))
+        ui_file = is_ui_path(relative)
+        for name, line, length, ui in function_lengths(code_only(source), with_ui=True):
+            functions["Kotlin"].append((relative, name, line, length, ui or ui_file))
     if files == 0:
         print(annotation("error", f"no Kotlin sources found under {os.path.abspath(root)}/android"))
         return 1
-    swift = 0
+    swift_sources = []
     for path in swift_files(root):  # an Android-only checkout has none: nothing to report
-        swift += 1
         with open(path, encoding="utf-8") as f:
-            for name, line, length in function_lengths(swift_code_only(f.read()), swift=True):
-                functions["Swift"].append((os.path.relpath(path, root), name, line, length))
+            swift_sources.append((os.path.relpath(path, root), swift_code_only(f.read())))
+    swift = len(swift_sources)
+    for relative, swift_code in swift_sources:
+        ui_file = is_ui_path(relative, swift=True)
+        for name, line, length, ui in function_lengths(swift_code, swift=True, with_ui=True):
+            functions["Swift"].append((relative, name, line, length, ui or ui_file))
     lines, code = evaluate(rows)
     print(f"Code metrics: {files} Kotlin files, {swift} Swift files")
     for line in lines:
         print(line)
     for platform in ("Kotlin", "Swift"):
         more, failed = evaluate_functions(platform, functions[platform], FUNCTION_CEILINGS[platform])
-        code = code or failed
-        for line in more:
+        logic, logic_failed = evaluate_logic(platform, functions[platform], LOGIC_CEILINGS[platform])
+        code = code or failed or logic_failed
+        for line in more + logic:
             print(line)
-    return code
+    more, failed = evaluate_types(collect_swift_types(swift_sources), SWIFT_TYPE_CEILINGS)
+    for line in more:
+        print(line)
+    return code or failed
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 # Development guide
 
 Sections 1–11 explain the exchange adapters (adding an exchange); the later sections cover tests, CI, the app's
-UI, portfolio and storage rules and the build history.
+UI, portfolio and storage rules. The build history is in [`CHANGELOG.md`](CHANGELOG.md).
 
 > **Deutsch:** Entwicklerhandbuch. Abschnitte 1–11: neue Börsen-Adapter in der Börsen-Bibliothek
 > (Android/Kotlin und iOS/Swift) – Aufbau, Dateien, Paarliste, Einzel- und Massenabfrage, Tests; danach Tests,
-> CI, Regeln der App und die Build-Geschichte. Fragen und Pull Requests gern auf Deutsch oder Englisch.
+> CI und Regeln der App; die Build-Geschichte steht in `CHANGELOG.md`. Fragen und Pull Requests gern auf Deutsch oder Englisch.
 
 <!-- DEVELOPMENT.md at the repository root: paths and links are relative to the root. -->
 
@@ -40,6 +40,8 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 18. [Screen layout rules](#18-screen-layout-rules)
 19. [Storage encryption](#19-storage-encryption)
 20. [Modules, layers and cross-cutting rules](#20-modules-layers-and-cross-cutting-rules)
+
+Then: [Build notes](#build-notes) · [Known warnings](#known-warnings)
 
 ## 1. Structure
 
@@ -501,10 +503,10 @@ own step («Performance tests») with nothing else running; `-PperformanceTests=
 Where the tests live (audit C-03): a logic test sits in the module it tests, in the package of its subject –
 `android/domain/src/test` (needs only `:domain`/`:marketdata`), `android/data/src/test` (needs only `:data` and
 `:domain`), `android/marketdata/src/test`, `android/wear/src/test`. `android/app/src/test` keeps the tests of the app
-itself and everything that needs a helper of the `:app` tests, because test helpers are not shared between modules
-(no test fixtures): the parity fixtures (`ParityJson`), source guards (`SourceGuard`, tests that read sources of
+itself and everything that needs an `:app` test helper: source guards (`SourceGuard`, tests that read sources of
 several modules), tests with the refresh fakes or string resources, the exchange contract tests (real `org.json`
-over `:marketdata`) and the performance tests. `:domain` and `:data` run their tests in the same environment as
+over `:marketdata`) and the performance tests. The one shared helper is `ParityJson` in `android/test-shared/java`,
+a test source of `:app`, `:domain` and `:data` (build 223, no new dependency), so parity tests live in their module. `:domain` and `:data` run their tests in the same environment as
 `:app` (en-US/UTC, real `org.json`, `kotlinx-coroutines-test`; `:data` also MockWebServer). `LayerBoundaryTest`
 checks that a test under `domain/src/test` or `data/src/test` keeps to its module (package = module and folder,
 from the app only `domain` – for `:data` also `data` – imports, no Room/OkHttp import in `:domain`) and that no
@@ -652,9 +654,11 @@ for every push, so it has its own workflow:
 **Android device tests** (`.github/workflows/android-device-tests.yml`): on every push to `main` that touches
 `android/` (or the workflow and its smoke script), on every release tag `v*` (GitHub ignores the
 paths filter for tags) and by hand under *Actions › Android device tests › Run workflow*; a weekly schedule is
-prepared but commented out. On pull requests only two jobs can run: `migration-tests` when a database file
-changes (entities, DAOs, schemas) and `release-smoke` when a file changes that decides about the R8 release build
-(keep rules, build script, dependency versions, the smoke test). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
+prepared but commented out. On pull requests the job `changes` decides from the changed files: `connected-tests`
+(every class, API 34) when sources of a phone module (`app`, `domain`, `data`, `marketdata`; not their unit tests),
+the device tests or `android/testdata/uitest` change, `migration-tests` when only the Room schemas change, and
+`release-smoke` when a file changes that decides about the R8 release build (keep rules, build script, dependency
+versions, the smoke test); other pull requests do not start the workflow. None of its jobs is a required check. It uses the same toolchain as `android.yml` (JDK 17, Gradle with
 cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before the emulator
 starts, then runs `:app:connectedDebugAndroidTest` on an x86_64 emulator with KVM
 (`reactivecircus/android-emulator-runner`: API 34, `google_apis`, Pixel 6 profile, animations
@@ -728,8 +732,8 @@ workflow, step «UI tests
 (iOS Simulator)» after the unit tests (30-minute limit, one retry per failed test, the `.xcresult` with
 screenshots is uploaded on failure).
 
-**Screenshots branch** (`.github/workflows/screenshots.yml`, on pushes to `main` that touch `android/`, `ios/` or
-the workflow, and by hand): screenshots of every main screen of both apps, light and dark, readable with plain git
+**Screenshots branch** (`.github/workflows/screenshots.yml`, by hand and on release tags `v*` – not on pushes to
+`main`; a manual run publishes only from `main`): screenshots of every main screen of both apps, light and dark, readable with plain git
 (no artifact download needed). Two jobs in parallel – `ScreenshotTourTest` (androidTest, API 34 emulator, images
 written by `screencap` to `/data/local/tmp/cc-screenshots` and pulled with `adb`) and `ScreenshotTourTests`
 (XCUITest, attachments `NN_name_light|dark` exported with `xcrun xcresulttool export attachments`) – then the job
@@ -834,6 +838,20 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   Sources and javadoc jars and the Gradle sources zip (downloaded by Android Studio) are trusted without checksum; the trust rules live in the
   seed in `supply_chain_files.py`. A local build failing with «Dependency verification failed» after a deliberate
   change: regenerate; for a one-off local experiment `--dependency-verification lenient`.
+* *Routine: once a month and before every release.* Gradle version pull requests are switched off
+  (`.github/dependabot.yml`), so nothing reminds of the state of the dependencies – this routine does. It is started
+  by hand on purpose: the workflow pushes a branch, and no schedule should write to the repository unattended.
+  1. Look at *Security › Dependabot* and the last weekly run of *Dependency vulnerabilities* (`osv.yml`); compare
+     the versions in `android/gradle/libs.versions.toml` (Android Gradle Plugin, Kotlin, Compose BOM, Room, OkHttp)
+     with their current releases and raise only what is needed (security fix, required by a store, a bug that
+     affects the app).
+  2. Run *Actions › Supply chain update › Run workflow* on `main`, «signatures» checked – also when no version
+     changed (new signing keys, artifacts of the platform tools).
+  3. Compare the branch `supply-chain/update` with `main`. No difference: done. Otherwise open the pull request,
+     read the summary of «publish» (trusted keys, every ignored key with its reason, sha256-only artifacts – an
+     ignored key that is new needs a reason you accept) and merge once CI is green.
+  4. Before a release: do this before the last build number is set, so the tag carries the current files; the
+     tag then runs *Reproducible build* and *Dependency vulnerabilities* for exactly that state.
 * *Signatures (PGP)*: the workflow input **signatures** (checked by default) runs Gradle with
   `--write-verification-metadata sha256,pgp --export-keys` from a seed with `verify-signatures=true` and
   `keyring-format=armored`, and the branch then also carries `android/gradle/verification-keyring.keys` (public keys
@@ -866,8 +884,8 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   fails the step. `sbom-ios.cdx.json` states that the iOS app has no third-party packages and fails as soon as a
   package manifest (`Package.swift`, `Podfile`, `Cartfile` …) appears. No timestamp or serial number: same sources,
   same bytes.
-* *Reproducible build*: `.github/workflows/reproducible.yml` (pushes to `main` touching `android/`, release tags,
-  weekly on Sundays, by hand) builds the unsigned release APK and AAB and the unsigned Wear OS release APK
+* *Reproducible build*: `.github/workflows/reproducible.yml` (release tags, weekly on Sundays, by hand and on pull
+  requests that change the check itself – not on pushes to `main`) builds the unsigned release APK and AAB and the unsigned Wear OS release APK
   (`:wear:assembleRelease`) twice on two fresh runners without any cache and
   compares them and the SBOM byte for byte (`.github/scripts/repro_compare.py`, `--self-test`; a difference names the
   archive entries). Not a required check. It proves that two independent builds on the same runner image agree; a
@@ -919,7 +937,8 @@ shrinks, raise it only deliberately with the reason in the same pull request).
   split (use case, helper, state holder) instead of growing. Function length (lines from the keyword to the end of
   the body): Kotlin `fun` (block or expression body) in `android/*/src/main`, Swift `func`, `init`, `deinit` and the
   SwiftUI `var body` in the same folders as the escape hatches; the 30 longest per platform are listed, red above
-  `FUNCTION_CEILINGS` (Kotlin 326 `AppNavHost`, Swift 356 `PriceRefresher.refresh`). New functions stay under
+  `FUNCTION_CEILINGS` (the values are in the script); logic functions (not user interface) have their own lower
+  `LOGIC_CEILINGS`, and Swift types are measured across all their extension files (`SWIFT_TYPE_CEILINGS`). New functions stay under
   `FUNCTION_TARGET` 80 lines; the ceilings only keep the remaining long ones from growing and go down with every
   split (long calculations become a class with one method per step, e.g. `TaxYearSummaryBuilder`,
   `PortfolioFifoBook` on both platforms).
@@ -2965,8 +2984,11 @@ and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one
   receivers, activities, widget providers, `SystemBackupAgent`, `AppDatabase`, `PortfolioDatabase`) keep their names.
 * **Dispatchers are injected.** A class built by Hilt takes `@IoDispatcher` / `@DefaultDispatcher`
   (`DispatcherQualifiers` in `:domain`, provided by `DispatcherModule` in `:app`) in its constructor instead of naming
-  `Dispatchers.IO` / `Dispatchers.Default`; tests pass their own. `DispatcherInjectionGuardTest` counts the remaining
-  hard-wired places per file (`REMAINING`, five files today); the numbers may only go down.
+  `Dispatchers.IO` / `Dispatchers.Default`; tests pass their own. `DispatcherInjectionGuardTest` reads every Kotlin
+  main file of `:app`, `:data` and `:domain` (not only the classes built by Hilt; `DispatcherModule` itself is the
+  one exception) and counts the remaining hard-wired places per file in its allowlist `REMAINING`. The current
+  number is the sum of that list in the test – it is not repeated here, so it cannot go stale; the numbers may only
+  go down. `:wear` is outside the guard.
 * **Permissions.** The merged release manifest holds exactly 13 permissions, each with its reason in
   `manifest_policy.py` (`EXPECTED`): `INTERNET`, `ACCESS_NETWORK_STATE`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`,
   `RECEIVE_BOOT_COMPLETED`, `VIBRATE`, `WAKE_LOCK`, `SCHEDULE_EXACT_ALARM`, `SYSTEM_ALERT_WINDOW`,
@@ -2977,32 +2999,34 @@ and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one
   host; no pinning (many exchanges, changing certificates) and no own trust anchors.
 
 **Workflows at a glance** (`.github/workflows/`; details in section 12 and «Data mirror»). A release tag `v*` runs
-the eight marked ⬤ for the tagged commit, whatever the path filters say.
+the nine marked ⬤ for the tagged commit, whatever the path filters say. «by hand» = *Actions › … › Run workflow*.
+The required checks of `main` are the five jobs «Android build», «iOS build», «Strings check», «Parity check» and
+«Release readiness check»; their workflows run on every pull request without a path filter.
 
 | Workflow | Runs on | Purpose |
 |---|---|---|
-| ⬤ `android.yml` *Android* | pull requests, `main` (Android or checked Swift sources) | unit tests, lint, coverage gate, size ceilings, R8 release build, manifest and APK audit, SBOM, dependency graph and review |
-| ⬤ `android-device-tests.yml` | `main` (`android/`), by hand; pull requests only for database or release-build files | instrumented tests, migration tests, R8 smoke test on an emulator |
-| ⬤ `ios.yml` *iOS* | pull requests, `main` (`ios/`, shared fixtures) | release build with audit, unit tests with coverage gate, UI tests |
-| ⬤ `strings.yml` *Strings* | pull requests, `main` | placeholders, plurals, missing translations (`check_strings.py`), Serbian Latin |
-| ⬤ `parity.yml` *Parity fixtures* | pull requests, `main` | `android/testdata/parity` = `ios/Tests/Parity`, byte for byte |
-| ⬤ `release-readiness.yml` | pull requests, `main` | store text limits, version parity, Xcode project drift, User-Agent, iOS privacy manifest |
-| ⬤ `osv.yml` *Dependency vulnerabilities* | pull requests and `main` (`android/`), weekly | OSV check of the release classpath |
-| ⬤ `reproducible.yml` | `main` (`android/`), weekly, by hand | two release builds compared byte for byte; provenance attestation on tags |
-| `ios-performance.yml` | weekly, by hand | iOS performance tests in a Release build |
-| `mutation.yml` | weekly, by hand | mutation tests of the portfolio and tax logic |
-| `screenshots.yml` | `main` (`android/`, `ios/`), by hand | screenshot tour of both apps to the branch `screenshots` |
+| ⬤ `android.yml` *Android* | every pull request; `main` (`android/`, the checked Swift sources, its scripts); by hand | three parallel jobs – unit tests with source checks, Kotlin warnings, Room schema drift and coverage gate · lint with the instrumented tests compiled · debug and R8 release build with manifest and APK audit and SBOM – collected by the job «Android build»; dependency graph (`main`) and review (pull requests) |
+| ⬤ `android-device-tests.yml` | `main` (`android/`, its scripts); by hand; pull requests that change sources of a phone module, device tests, UI test files, Room schemas or release-build files | instrumented tests on an emulator (API 34, on `main` also the ICU tests on API 26), R8 smoke test; on pull requests the job «changes» picks: all device tests for source changes, the migration tests for schema-only changes, the smoke test for release-build files |
+| ⬤ `ios.yml` *iOS* | every pull request; `main` (`ios/`, shared fixtures, its scripts); by hand | release build with audit (settings, bundle contents, size ceilings), unit tests with coverage gate, UI tests – collected by the job «iOS build» |
+| ⬤ `strings.yml` *Strings* | every pull request; `main` (string resources, Kotlin and Swift sources, `ios/tools/`, catalogues); by hand | placeholders, plurals, missing translations (`check_strings.py`), Serbian Latin, string catalogues up to date including the small watch catalogue and its key list |
+| ⬤ `parity.yml` *Parity fixtures* | every pull request; `main` (fixtures, `gen_xcodeproj.py`); by hand | `android/testdata/parity` = `ios/Tests/Parity`, byte for byte |
+| ⬤ `release-readiness.yml` | every pull request; `main`; by hand | store text limits, version parity, Xcode project drift, User-Agent, iOS privacy manifest |
+| ⬤ `osv.yml` *Dependency vulnerabilities* | pull requests and `main` (`android/`, the check itself); weekly (Tuesday); by hand | OSV check of the release classpath |
+| ⬤ `reproducible.yml` | weekly (Sunday); by hand; pull requests that change the check itself – not on pushes to `main` | two release builds compared byte for byte; provenance attestation on tags |
+| ⬤ `screenshots.yml` | by hand – not on pushes to `main` | screenshot tour of both apps; published to the branch `screenshots` from a release tag or a manual run on `main` |
+| `codeql.yml` *CodeQL* | `main` (every push); weekly (Wednesday); by hand; every pull request, there only the languages whose files changed (job «changes»; none for documents, translations or test data) | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows, with the `security-extended` query suite; results under Security › Code scanning |
+| `ios-performance.yml` | weekly (Thursday); by hand; pull requests that change the performance tests or the workflow | iOS performance tests in a Release build |
+| `mutation.yml` | weekly (Saturday); by hand | mutation tests of the portfolio and tax logic |
 | `baseline-profile.yml` | by hand | measured baseline profile (artifact) |
-| `supply-chain-update.yml` | by hand | regenerates verification metadata, keyring and lock files (branch `supply-chain/update`) |
+| `supply-chain-update.yml` | by hand (monthly and before a release, see «Supply chain») | regenerates verification metadata, keyring and lock files (branch `supply-chain/update`) |
 | `record-exchange-fixtures.yml` | by hand | records real exchange responses for the contract tests (artifact, nothing committed) |
-| `exchange-live-check.yml` | weekly, by hand | calls every adapter's public endpoint, one issue on failure |
-| `market-data.yml` | hourly, by hand | signed data mirror (release `data`) |
-| `macro-calendar.yml` | weekly, by hand | economic calendar (branch `macro`), then Pages |
-| `pages.yml` | `main` (`docs/`), by hand, called by the calendar | GitHub Pages: start page, privacy policy, calendar |
-| `codeql.yml` *CodeQL* | pull requests, `main`, weekly, by hand | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows, with the `security-extended` query suite; results under Security › Code scanning |
-| `keepalive.yml` | weekly | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
+| `exchange-live-check.yml` | weekly (Wednesday); by hand | calls every adapter's public endpoint, one issue on failure |
+| `market-data.yml` | hourly; by hand | signed data mirror (release `data`) |
+| `macro-calendar.yml` | weekly (Monday); by hand | economic calendar (branch `macro`), then Pages |
+| `pages.yml` | `main` (`docs/`); by hand; called by the calendar | GitHub Pages: start page, privacy policy, calendar |
+| `keepalive.yml` | weekly (Sunday); by hand | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
 
-Artifacts are kept 14 days (test reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
+Artifacts are kept 14 days (test reports, lint reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
 release evidence and recorded exchange responses 30 days; hand-over artifacts between jobs 1–7 days.
 
 **Rules added with the widgets, the watch and the audit fixes** (same on both platforms unless noted):
@@ -3048,1161 +3072,16 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
   afterwards); changing the cost method and switching «Portfolio in system backup» on ask too (parity
   `settings_confirm.json`).
 
-## Alarm log (build 80)
+## Build notes
 
-* `AlarmLog` (Kotlin `domain/alarm/AlarmLog.kt`, Swift `Shared/Services/AlarmLog.swift`): outcome enum (fired,
-  not reached, outdated, mark price, low liquidity, quiet hours, notifications off, cooldown, already triggered,
-  not shown, no rate, no price), last check per alarm (overwritten) and an event ring buffer (200 entries,
-  14 days; equal consecutive outcomes merge into one «from–to» entry, fired entries never merge). Parity fixture
-  `alarm_log.json`.
-* It only observes: the refresh path records via wrapped `canShow`/`show` and a second call of the same pure
-  rule; no firing decision changes, recording errors are swallowed. Covered: price-level and percent alarms.
-  Not covered: volume, high/low, funding, open interest, depeg and portfolio alarms (own paths; portfolio
-  amounts would bypass the portfolio lock).
-* Storage: Android sealed file `alarm_log.sealed` in `noBackupFilesDir` (own Keystore alias, never plaintext;
-  without a key it stays in memory), iOS `alarm_log.json` in the App Group via `ProtectedFile`, excluded from
-  backups; both platforms write only sealed (without a key entries wait in memory; Android replays changes made
-  while locked after loading). Live ticks write at most once a minute; only a fired alarm or a new outcome writes
-  at once, merged «from–to» updates wait for the minute.
-* UI: «Last checked» line in the alarm editor and alarm list; page «Alarm log» from «All alarms» and next to
-  «Recent checks» in the update settings; «Clear log» with confirmation.
+One short technical note per build (classes, fixtures, checks), newest last. Only the builds since the last tidy-up
+are listed here: the notes of all earlier builds are in [`CHANGELOG.md`](CHANGELOG.md) under «Technical notes» of
+their build entry. At a release tag, or when this list has more than ten entries, move the entries there the same way.
 
-## Market movers (build 81)
+<!-- Bookkeeping: add the line «* Build NNN: …» at the end of this list, directly after the previous build. -->
 
-* Card «Gainers and losers 24 h» in the Market tab under the Pulse card: top 5 up / top 5 down among the top 100
-  by market cap without stablecoins and wrapped/staked coins (same exclusion as the breadth), valid 24 h value,
-  no duplicate tickers; exactly 0 % is neither; ties by rank, then ticker; fewer than 10 valid coins → hidden.
-  `MarketMovers.kt` / `MarketMovers.swift`, fixture `market_movers.json`. The Pulse CoinGecko request now asks for
-  `per_page=100` (one request, same cache); the breadth still uses the first 30 valid coins. Tap behaves like
-  «Unusual today».
-
-## Alarm delivery and diagnostics (build 81)
-
-* «Make sure alerts arrive» (`AlarmReadiness.kt` / `.swift`, fixture `alarm_delivery.json`): pure rows from the real
-  state – Android: notification permission, alarm channel importance (read without creating it), «Check on time»
-  (exact alarms), battery optimisation (informational, opens the app's battery settings; the app never requests the
-  exemption, a test checks it), background restriction, Do not disturb, app quiet hours, last background check
-  (warning after 6 h when alarms are on); iOS: notification authorisation, alert/sound, time-sensitive, Background App
-  Refresh, Low Power Mode, quiet hours, last background check, swipe-away note. Reachable from «All alarms», the alarm
-  editor's background hint and Settings › Alerts. Read-only: the alarm core is untouched.
-* Fiat chart caption: when the sheet chart converts the USDT path with today's rate (`SheetChartFx.CURRENT`) it says so
-  under the chart; daily-rate conversion keeps its own caption.
-* «Share diagnostics» (Settings › About, `DiagnosticReport.kt` / `.swift`, fixture `diagnostic_redact.json`): plain
-  text with English labels and codes – version/build, OS, device, locale, alarm-related settings, readiness rows, last
-  20 check runs, alarm-log events (time, pair, exchange, condition, outcome – no prices or thresholds), exchange
-  pauses. Input types carry no portfolio, amount, address or note fields; anything address-like is replaced by
-  `[redacted]`. Preview first, then the system share sheet (Android FileProvider limited to `cache/diagnostics/`);
-  nothing is sent automatically.
-
-## Robustness and parity fixes (build 81)
-
-* Keystore temporarily refusing the key of an EXISTING encrypted portfolio or main (watchlist/alarms) database
-  (Android): `DatabaseEncryptionMigration.planOpen` → `KEEP_FILE_IN_MEMORY` only while the app is in the foreground
-  (otherwise `WAIT`, as before): an empty in-memory database for this run, banner (`portfolio_storage_kept_in_memory`,
-  `watchlist_storage_kept_in_memory`), the file is never overwritten, deleted or set aside; background checks,
-  widget snapshot/history, system backup and the holdings migration wait for the next start. iOS has its own
-  handling for unreadable protected files.
-* Stablecoin / wrapped / staked exclusion: one rule per platform (`CoinExclusion.kt` / `CoinExclusion.swift`), the
-  union of both former lists, case-insensitive name and symbol rules, fixture `stable_exclusion.json` – used by the
-  «Top 30» breadth, market movers, start coins and «Unusual today».
-* Settings search: `alarms.delivery`, `about.diagnostics`, `updates.alarm_log`; `SettingsSearchAnchorsTest` checks
-  that every search target has an anchor on both platforms.
-
-## Build 82
-
-* File length: every production file ≤ 400 lines (SwiftLint's default warning, applied to Kotlin too);
-  `FileLengthTest` scans Android and iOS sources; the only allowlisted file is `settings/AppSettings.kt` (one
-  data-class constructor with ~95 documented settings), ceiling only goes down.
-* Staleness: `PriceFreshness.staleReason` – FETCH when the last successful fetch is older than the user's limit,
-  TRADE when the exchange reports a last trade older than the alarm limit (2 h, `AlarmFreshness`); row, quick
-  filter, sheet header and widgets use it, so row and alarm block on the same condition. «x ago» stays fetch time.
-* Single ticker: a missing, 0, negative or non-finite price is «Parsed ticker has no data» (parse failure) on both
-  platforms; `NotTraded` never confirms on `MarketFailure.Other`, blank text only without any failure type.
-* Network: OkHttp dispatcher 32 / 5 per host, `CallStartInterceptor` + `CallGuard` start the guard timeout when the
-  call actually runs; iOS `RequestGate` (32 / 5 per host before a task is created, 6 connections per host).
-  Identical concurrent POSTs share one request (Hyperliquid). DexScreener: pools per chain in one
-  `/latest/dex/pairs/{chain}/{a,b,…}` call (≤ 30), never «complete», liquidity rule per pool.
-* Notifications: «1 h later» (repeating percent/movement alarms and, since build 91, price-level alarms – `AlarmSnooze.rearmsOnSnooze`) stores `snoozeUntil` per alarm outside the database (Android
-  prefs `alarm_snooze`, iOS App Group `alarm_snooze_until`), honoured at delivery like quiet hours (outcome
-  SNOOZED); «Adjust» opens `alarm/<watchId>/<alarmId>`; coin logo only from the local cache (300 ms limit).
-  Automatic announcements use the notification stream (Android USAGE_NOTIFICATION, iOS `.ambient`) and stay silent
-  on a muted phone, in a call and in Do not disturb – like the alarm sound; user-started tests (voice/alarm) always
-  play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
-  widget).
-* Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
-* Build 132: settings without «Advanced» (`SettingsPage.ADVANCED`/`SettingsHome.ADVANCED` and iOS `.advanced`
-  removed; old route name falls back): MARKETS row on WatchlistPage, market alerts and speech rows on AlarmsPage,
-  COIN_LOGOS under Appearance, DEVELOPER row on AboutPage; search paths follow (`page.markets` → Watchlist,
-  `page.market_alerts`/`page.speech` → Alerts, `page.developer` → About). String `settings_row_advanced` and
-  `ic_settings_advanced` removed; `watchlist_tts_speech_on` points to Settings › Alerts › Spoken output in all
-  languages. `macro_calendar.py`: User-Agent with the public contact e-mail (BLS answers 403 otherwise), inline tags
-  removed without a space (BEA «<span>N</span><span>ews</span>»), `--self-test` with stored markup, run in the
-  workflow. `room_schema_drift.py` skips outside a git work tree. iOS audit blocking again (settings section titles
-  and the portfolio note excepted as dynamic-type false positives, to be checked on a device).
-  `PortfolioCsvImportViewModel`: progress from the matching (Dispatchers.Default) and the save (database thread) is
-  posted to the main thread with a run counter (`postProgress`/`clearProgress`); setting the StateFlow from the worker
-  let the Compose test clock apply changes on that thread (CalledFromWrongThread, corrupt slot table, crash on
-  activity destroy in UiFlowsTest.importCsvAndUndo).
-* Build 133: exchange list. `MarketCategory` (SPOT, FUTURES, DEX, FOREX) and `Market.category` on both platforms
-  (futures classes, Hyperliquid, Aster, Lighter, Deribit = FUTURES; DexScreener = DEX; EcbReference = FOREX; Bybit's
-  constructor field is now `apiCategory`). `ExchangeOrder` (app domain / iOS Shared/Core): sections in category
-  order, within by the install-date volume, without it the input order (the explorer passes the alphabetical list);
-  `parseVolumes` reads CoinGecko `/exchanges` (spot ids) and `/derivatives/exchanges` (futures ids), `ranks` feeds
-  `CoinPairPreference.exchangeRank` (coin search: exchange tier → contract group → quote → volume rank → name).
-  `ExchangeRankingStore` (SharedPreferences `exchange_ranking` / UserDefaults `exchangeRanking.*`, not backed up)
-  fetches once per session until one fetch succeeds, then never again. `ComboBox(sections =)` / iOS picker draw
-  section headers (heading semantics); favourites stay on top without a header. New adapters `BitunixFutures`
-  (base keeps multipliers like «1000PEPE», no TradFi flag) and `EcbReference` (Frankfurter time series of 10 days,
-  change against the previous ECB day, bulk per base currency, `allowsAlarms` false, `priceIsDailyReference` →
-  `PriceKindLabel.DAILY_REFERENCE`, row label `watch_price_daily`). Alerts screen: no add/edit for
-  `!allowsAlarms`, `alarms_reference_rate_hint`; `RefreshResultProcessor` / `RefreshEffects` never evaluate them.
-  DexScreener → GeckoTerminal: `tickerFallbackAddress` (`GeckoTerminalNetworks` maps chain ids) and the new hook
-  `Market.tickerFallbackOnParseError` («Pool not found») → `SingleTickerFallback.loadAfterMissing`; any fallback
-  failure keeps the original error. In the 5xx path a rate limit of the fallback only passes when it is the same host
-  (`sameHost`), so GeckoTerminal never pauses DexScreener. Fixtures: `exchange_bitunixfutures.json`,
-  `exchange_ecbreference.json`, GeckoTerminal `singleFallback` cases in `exchange_dexscreener.json`, parity
-  `picker_order.json` and `gecko_terminal_network.json`. Escape-hatch ceiling 103 (two new Swift adapters).
-* Build 134: `UiFlowsTest` uses `androidx.compose.ui.test.junit4.v2.createAndroidComposeRule`. The v1 rule ran
-  Compose-scoped coroutines on an unconfined test dispatcher, so collectors resumed on the thread that woke them
-  (`flowOn(Dispatchers.Default)` flows, DataStore) and wrote snapshot state there – the rare «Reentrant composition» /
-  `SlotTable` crashes of `importCsvAndUndo`. New instrumented UI tests use the v2 rule. iOS `AccessibilityAuditTests`
-  taps the storage notice's close button a second time when the first tap was missed.
-* Build 135 (audit 134, F-10/F-19/F-23): every instrumented Compose test uses the v2 rule
-  (`androidx.compose.ui.test.junit4.v2.createAndroidComposeRule`). `macro_calendar.py --self-test` also runs
-  `recorded_pages_test` against the gzip-compressed real pages in `.github/scripts/testdata/macro` (BLS schedule and
-  release pages, FOMC, BEA; expected counts and first/last dates; refresh them with the parser). Test-source Kotlin
-  warnings fixed (redundant `!!`/conversions, unchecked casts suppressed locally, nullable `parentFile`).
-  `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
-  verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
-  comes from an applied plugin, not from the build scripts.
-* Build 158: new unit tests (app/src/test) for `:data` – `GasDataSource`, `FuturesDataSource`,
-  `FuturesDataSourceFundingHistory`, `CandleTime`/`OkxCandles`, error branches of the exchange candle sources,
-  `CycleCacheCodecs`, `MarketExtraCodecs`, `PortfolioHistoryCodecs`, `BackupJournalCodec`, `LogoImagePauses`,
-  `SharedPreferencesStore` (in-memory fake) – and for `:app` logic – `AlarmDraft` condition switches,
-  `PortfolioSnapshotCodec` readers, transaction-form prefill/derived values and entity mappings, history load helpers,
-  explorer state holders, watchlist group filter, `PriceFormat` basics. Remaining gap of the app logic: ViewModels and
-  controllers depend on final Android-bound classes; without Robolectric/MockK or interfaces (owner's decision, not
-  wanted) they stay covered by the device tests only.
-  `code_metrics.py`: `DEPS_CEILING` 15 → 14 (today's maximum), no warning tier by default (it sat above the
-  ceiling).
-* Build 159: the word for a trading venue is «exchange» in the whole code base (Android and iOS, same names on both
-  platforms): `Market` → `Exchange`, `MarketsConfig` → `ExchangesConfig`, `MarketPair` → `ExchangePair`,
-  `MarketInfo` (domain) → `ExchangeInfo`, `MarketRepository` → `ExchangeRepository`, `MarketHttp`/`MarketHTTP` →
-  `ExchangeHttp`/`ExchangeHTTP`, `MarketService` → `ExchangeService`, `MarketFailure` → `ExchangeFailure` (case
-  «message of the exchange» is now `Message` / `.message`), `marketKey`/`marketName` → `exchangeKey`/`exchangeName`
-  (also in backups, widget and watch data, parity fixtures), `FavoriteKind.MARKET` → `EXCHANGE`, package
-  `marketdata.model.market` → `marketdata.model.exchange`, `ios/Shared/Markets` → `ios/Shared/Exchanges`; string
-  resources of the exchange sense (`exchange_unavailable_error`, `error_exchange_unreachable`, …). «Market» stays
-  where it means the whole market (market tab, `MarketMove`, `MarketMovers`, market cap, `domain.market`, iOS
-  `MarketCandle`) and in API field names of the exchanges (Upbit/Luno «market», BTC Markets «marketId»). The module
-  `:marketdata` keeps its name (market data).
-  Android `AppDatabase` starts over at version 1 (tables `exchanges`, `exchange_pairs`, column `exchangeKey`): no
-  migrations, no destructive fallback, golden schema
-  `AppDatabase/1.json` only. `PortfolioLegacyImport` / `PortfolioLegacyPlan` removed,
-  `PortfolioDatabase.callback(context, mirrorFile)` keeps the system-backup takeover; `portfolio_meta` is created
-  by `markOnce`. `RoomSchemaRulesTest`: `N.json` with its version; for N > 1 also `N-1.json`, migration N-1 → N and
-  a data test (`MAIN_DATA_TESTS` empty). Device tests for old AppDatabase versions and the legacy import removed;
-  PortfolioDatabase migration tests (1 → 6) unchanged. The old German error text «Börse nicht verfügbar» is gone
-  from the error checks.
-  CI: «Compile instrumented tests» (android.yml) and «Build debug and test APKs» (android-device-tests.yml) turn
-  Kotlin errors into annotations via `gradle_errors.sh`, like the unit-test step.
-  New workflow «Screenshots» (`screenshots.yml`): after every push to `main` touching `android/` or `ios/` (and
-  by hand) the instrumented test `ScreenshotTourTest` (API 34 emulator) and the XCUITest `ScreenshotTourTests`
-  photograph the main screens in light and dark mode with the store demo data; a publish job replaces the orphan
-  branch `screenshots` (`git fetch origin screenshots`). Both tests skip themselves in the regular runs. No new
-  dependencies or actions.
-* Build 160: screenshot tour reworked – each screen is its own step that starts from the watchlist or the settings,
-  a failing step is recorded and the tour goes on; the test fails at the end with the list of missing screens
-  (`ScreenshotTourSteps.kt` / `ScreenshotTourSteps.swift`). Android: settings rows are found by their content
-  description (`SettingsNavRow` clears its semantics), the tour runs one full price refresh after seeding, and
-  `FakeExchange.binanceMirror` (only in the tour) answers `data-api.binance.vision` for the portfolio prices. iOS: no
-  deep link any more (it restarted the app with `-uiTesting`, which clears the storage); «All alerts» via the bell,
-  «Last refresh» via the watchlist menu.
-* Build 161: the legacy per-pair holdings are gone on both platforms. Android: column `watches.holdings`,
-  `WatchEntity.holdingsValue`, `WatchDao.clearAllHoldings`, `PortfolioRepository.migrateHoldingsOnce` /
-  `importHoldings` (prefs `holdings_migrated`, marker `holdings_import_done`) and `markOnce` / `portfolio_meta`
-  removed; `PortfolioRepository` no longer takes `Context` or `WatchDao`; the restore has no holdings step any more.
-  `AppDatabase` stays at version 1 (golden schema `AppDatabase/1.json` and `DatabaseEncryptionTest.MAIN_SCHEMA`
-  without `holdings`). iOS: `Watch.holdings` / `holdingsValue` / `validHoldings`, `PortfolioFile.holdingsImportDone`,
-  `PortfolioStore.holdingsMigrated` / `importHoldings` and `AppData.migrateHoldingsOnce` removed. Backups neither
-  write nor read «holdings» for pairs; `backup_plain_contents_base` without «holdings» (31 languages).
-  Screenshot tour: market tab and portfolio answered offline with canned data generated at the current time
-  (CoinGecko, Fear & Greed, Coin Metrics, funding, fees, candles, Binance name list, USDT/USD) – Android
-  `FakeExchange.marketData` (`FakeMarketData.kt`, `FakeMarketSeries.kt`), iOS `UITestExchange.marketData` via
-  `UITEST_MARKET_DATA=1` (`UITestExchange+Market.swift`, `UITestExchange+Series.swift`, DEBUG only); off for all other
-  tests.
-  Origin notice removed (owner decision; origin check: no code taken over): `LICENSE` (and the app copies
-  `MIT-cryptochecker.txt`) only with r1adBE, `NOTICE` without «Origin», `NOTICE-origin.txt` → `NOTICE-thirdparty.txt`
-  (third-party names/logos/data, alarm sounds) on both platforms, `LicenseFilesTest`/`LicenseFilesTests` adapted.
-  `LegacyDatabaseCleanup` (deleted the predecessor's `MarketDatabase.db` once) and `AppDatabase.LEGACY_DB_NAME` removed.
-* Build 162: watch apps and price overlay (review of build 161). Data volume: the Bybit and OKX fallbacks of the watch
-  request each missing coin on its own (`v5/market/tickers?category=spot&symbol=…`, `v5/market/ticker?instId=…`, in
-  parallel) instead of the full spot lists (OKX ~380 KB); Binance keeps one request with `symbols=[…]`; at most 8
-  coins. iOS: parser and flow in WatchCore (`WatchQuoteParser.swift`), `Watch/Device/WatchPriceSource.swift` HTTP only.
-  Freshness: `WatchFreshness` (marketdata/watch, WatchCore) – outdated after 45 min without a successful fetch
-  (`OutdatedRule.afterMillis(15)`); watch list dimmed with relative age, Wear complication with the age in the long
-  text and the content description, watchOS complication dimmed with an extra timeline entry, Android price overlay
-  with the watchlist row's rule (`PriceOverlayRules.stale`), redrawn every minute. New wear strings
-  `a11y_watch_outdated`, `a11y_watch_updated_minutes/hours/days` (31 languages). User agents: wear
-  `CryptoChecker-Wear/<versionName>` from `app/build.gradle.kts`, watchOS `CryptoChecker-Watch/<version>`; neutral
-  Firefox user agent 153 → 159 (also `address_privacy.json` and the privacy page). `:wear` lint: `tools:targetApi`
-  for `dataExtractionRules`, `android_wear_capabilities` kept via `res/raw/keep.xml`. Tests: shared fixture
-  `watch_quotes.json` (`WatchQuotesParityTest`, `WatchFreshnessParityTest`, `PriceOverlayRulesTest`, iOS
-  `WatchQuotesParityTests`). Unit tests for `:data` (in app/src/test, measured through the `:app` Kover report):
-  candle fallback chain of `CandleDataSource`, `InsightsDataSource`, `CycleDataSource`, `SpotDataSource`,
-  `NearExtremeDataSource`, `TokenIdentityStore`, `CycleCacheStore`, `ActivityRepository`, `StarterCoinsRepository`,
-  `PortfolioPriceSource`, `HistoricPriceSource`; helpers `RouteHttp`/`Klines`, `FolderContext` (stub `ContextWrapper`
-  with test folders and in-memory SharedPreferences), proxy fakes for `WatchDao`, `PortfolioDao`,
-  `ExchangeRepository`. Still uncovered: `PulseDataSource`, `ExchangeRepositoryImpl`, `SparklineRepository`,
-  `PortfolioHistorySource` (Android-bound constructor dependencies).
-  Measured in CI: `:data` 57.9 % (from 43.1 %); new gate `coverage_summary.py --min-module data=50` (`MIN_DATA` in
-  android.yml) next to the overall logic gate of 58 %.
-* Build 163: compatibility code for earlier builds removed on both platforms (owner decision: no migrations, no
-  fallbacks, nothing from earlier builds stays readable). Settings: no DataStore migrations, legacy keys or downgrade
-  write-back; `UpdateMode` only `SPARSAM`/`LIVE_OFFEN`; `liveIntervalSeconds` and the old backup flags gone; iOS
-  legacy zone background task and its `BGTaskSchedulerPermittedIdentifiers` entry removed. Widgets: no legacy
-  prefs, no plaintext snapshot migration (`PortfolioSnapshotSeal.planRead(sealed, keyReady)`), no App Group defaults
-  leftovers. Portfolio database restarted at version 1 (schema `1.json`, same identity hash), migrations and
-  `LegacyStorageMigration` gone, CSV import keys only in the current form (`legacyKeys`/`shortKey` gone),
-  `overlapLegacy` and its one-time revert and hint gone (string `portfolio_address_overlap_restored` removed).
-  Backups: only v3 (Argon2id); backups and `portfolio.json` carry only `amountText`/`priceText`/`feeText`.
-  Android encryption: no plaintext conversion – `DatabaseEncryptionMigration` → `DatabaseOpenPlanner`,
-  `DatabaseFingerprintDiff` → `DatabaseFingerprint`, `PlaintextMemoryCopy` and `RealDatabaseEncryptionTest` removed;
-  the system-backup copy is encrypted on restore (`DatabaseSystemBackup.adoptRestored`) or, without a key, at the next
-  start before Room opens; string `watchlist_storage_copy_in_memory` (and `strings_restore.xml`) removed. iOS: user
-  files only sealed (`ProtectedStorage` `sealedOnly`, a plain file there counts as damaged), only the `.unreadable`
-  copies may be written plain without a key; portfolio alarms never in `watchlist.json`; keychain items created
-  device-only without a later switch. Start-up clean-ups removed (old cache and report keys, jsDelivr logo folder,
-  `map4`/`names4`, legacy OI key, move-history split, `FallAlarmCleanup`, inverse-perpetual normalisation, VACUUM after
-  `secure_delete`); unused `ActivityAnalyzer.oiChange`/`OiUpdate` removed. Comments describe the current state only
-  (no review IDs, rounds or build history); `line_limit.py` build-number ceiling 0. Docs (this guide's reference
-  part, READMEs, SECURITY, privacy page) describe the current behaviour. Screenshot tour: taps above the action sheet
-  when back does not close it. `demo-backup.json` in the current format.
-  Final pass after an independent review: backups, the restore journal and the portfolio system-backup copy are read
-  strictly (`BackupFields` on both platforms, fixture `backup_entries.json`; `version` a number, every part, settings
-  field and entry field the writer always writes is required, otherwise the whole backup is invalid); indicator and gas
-  alarms treat a missing stored bound as changed; Android storage keys and cache files without version suffixes
-  (notification channels `alarms_vN` keep theirs); string resources moved from `strings_r*`/`dimens_r10_widget` into
-  the area files (`dimens_widgets.xml`); tests renamed by content (no build numbers), `DatabaseMigrationTest` →
-  `DatabaseFreshInstallTest`; `FuturesContractType.normalized`, `smallIdOf` and unused parameters (`dayEndMillis`,
-  `cleanName` symbol, `startQuote` region) removed; parity fixtures without review IDs or history; the «Verlauf»
-  sections of both READMEs removed (history lives here and in the CHANGELOG). Second sweep: iOS persisted models (watchlist snapshot,
-  Watch, Alarm, portfolio and address files, portfolio alarms, xpub cache, cost lots) require every field the writer
-  always writes – a missing field takes the existing damaged-file path; Binance quarterly ids without expiry get no
-  calendar fallback (prices and candles); a watched address without `addedAt` is dropped; xpub cache without a stored
-  address type is not guessed as P2PKH.
-* Build 164: watch apps (external review of build 162). Fetch gate: `WatchFetchGate` (Wear `WatchCache.kt`, iOS
-  `WatchCore/WatchCache.swift`) – a new fetch cancels the running one (Wear `WatchFetcher`, iOS `Task`), a result is
-  taken only for the newest run while the shown list is still the one it asked for. Per-coin cache: `WatchCached`
-  (price + own fetch time), `WatchCache.merge` replaces only delivered coins, others keep their last price and time;
-  outdated per coin «as of the fetch» (not the last trade), status line shows the oldest shown coin
-  (`WatchCache.listTime`); complications keep the last price of the first coin. Wear: one in-process state
-  (`WatchStore` StateFlow) for activity, `WatchDataListener` and complication; listeners read the data events at
-  once and work in a process scope (no `runBlocking`); coin rows have no tap action. iOS: one ephemeral `URLSession`
-  per fetch run, quotes and times stored as one JSON value (`watch_quotes`). `WatchSettings`: `revision` (JSON `r`)
-  instead of wall-clock time, own changes `nextRevision()`, higher revision wins, on a tie the phone's settings.
-  Fixtures `watch_quotes.json` (`cache`, `gate`), `watch_settings.json` (`nextRevision`, tie cases); tests
-  `WatchFetcherTest`, iOS `WatchCacheTests`.
-* Build 165: reviews of build 164. Watch cache: every fetch (app, Wear complication, watchOS widget) records
-  `startedAt`; `WatchCache.merge` takes a delivered coin only if the stored entry is not newer than `startedAt` (equal:
-  delivered wins) and stores `startedAt` as its time («as of the fetch» = its start). watchOS: prices in an App Group
-  file (`WatchQuoteFile`, read-merge-write under `NSFileCoordinator`, excluded from backup) shared by app and widget
-  extension; `WatchBodyLimit` streams the answer and stops after 4 MB like Wear. Settings sync: `SerialPublisher`
-  (Wear and phone) sends one after another and reads the current state at send time; the phone loads its stored
-  settings before any merge (`ensureLoaded`); watchOS merges the phone's context on the MainActor
-  (`WatchModel.takeFromPhone`) and republishes its state after activation. watchOS complication description
-  `watch_complication_label`. `gen_xcodeproj.py --check` compares `MARKETING_VERSION`/`CURRENT_PROJECT_VERSION` of
-  every build configuration. Privacy page names `CryptoChecker-Wear`/`CryptoChecker-Watch`. Tests: fixture
-  `watch_quotes.json` (stale fetch, equal start), `WatchFetcherTest`, `SerialPublisherTest` (wear and app),
-  `WatchQuoteFileTests`, `WatchCacheTests`.
-* Build 166: money-path review (independent recalculation in Python Decimal, fixtures verified). Watched addresses:
-  `AddressBooked` subtracts what the app already books (effective opening lots, recorded moves of the address wallet)
-  from the observed series, so card, «Today», periods, history, widget and cut-off share one holdings book; opening lots
-  count as buys from their date everywhere. Period window starts at `utcDayEnd(baseDay)`; «Today» starts per coin at
-  the time of its reference price (`coinStart`); widget fallback history only over coins with a valid current price.
-  CSV: keys over 200 UTF-8 bytes become `<format>|h:<sha256>` (`CsvImport.stableKey`), insert and link in one
-  transaction (Android Room, iOS one file write) with fallback rows (`CsvTransferMatch.withFallbacks`), FX range
-  reload after time-zone changes (`CsvImportRateDays`), `stakingMove` marker on CSV staking transfers (Room column,
-  iOS field, backups, `BackupFields`) instead of the note rule, `unsavableReason` checks limits (≥ 1e30, price that
-  would store as 0), prices stored with 34 significant digits (`PortfolioDecimal.priceText`), exponent notation in the
-  common number parser. Tax: every third-coin fee without price valued at the UTC day close with «value estimated»
-  (`thirdFeeNeedsDayClose`, `valueThirdFeesAtDayClose`; card keeps no estimates), every day-close value carries the
-  note (FR crypto payment, network fee in the coin), FR acquisition total with that fee value and FX span over the
-  reduction origin (`frOutflowTimes`), FR withdrawal fee share, FR rewards note (`tax_summary_fr_rewards_income`), UK
-  same-day sales split pro rata for all three rules, DE exemption 600 € from 2008, `tax_note_us_wallet` reworded.
-  Rule questions decided: CA superficial loss, FR rewards at value on receipt (with note), DE transfer fee in cost –
-  unchanged.
-* Build 167: second money-path review of build 166. Holdings book keeps the address pot apart for every cost method
-  (own outflows capped at own holdings, address outflows at the address part); list widget skips address-part
-  entries; cut-off and CH wealth follow `AddressBooked` (lots from their purchase date); FR total value via
-  `AddressBooked.histories`; «Today» in day mode with `changeSinceDay`. CSV: Coinbase `money()` and Binance `withUnit`
-  keep the exponent, E notation checked only against < 1e30, Room converters per column (amount rule, price rule
-  for `priceUsdt`/`feeCoinPriceUsdt`), `jsonToTx` rounds amounts like stored ones (rounded to 0 = invalid entry).
-  Decimal parity: Android products with `PortfolioDecimal.MC`, iOS `PortfolioDecimal.multiply`/`divide`/`divide(a, b,
-  by:)` exact with one rounding to 34 digits (`PortfolioDecimal+Exact.swift`, fixture `portfolio_decimal.json`); plain
-  sums beyond 38 digits on iOS documented (owner decision). Tax: FR withdrawal uses the covered quantity, FR network fee
-  at day close estimated, `costEstimated` lot flag carries «value estimated» to every disposal whose cost contains an
-  estimated part (all templates), UK same-day withdrawals booked after the day's pool share; TAX_REFERENCE references
-  fixed. Logos: `LogoFiles` writes atomically with unique temp names and reports failures, `downloadJobs` one fetch per
-  file name, starter logos via `CoinLogos.urlFor` (normalised), pull to refresh starts the logo sync, a pause schedules a
-  restart at its end, 403 without Retry-After fails only that image (server pause on 429/503, Retry-After or 3
-  consecutive 403). Hint `portfolio_export_address_lots_note` reworded (31 languages).
-* Build 168: full audit of build 167. Market/alarms: outside the bulk path an expired dated contract confirms «not
-  traded» (`NotTraded.singleConfirms`, `contractExpired`, settlement 08:00 UTC; not asked again), short form from the
-  contract date (`FuturesContractType.shownContract`); depeg threshold stored (`DepegAlarmPrefs.KEY_ARMED_TENTHS`,
-  `armedFor`) and re-armed after off/on; a running zone check no longer overwrites an «off» (Android shared lock, iOS
-  `keyResetGeneration`); zone check retried 3× (`MAX_RETRIES`, 30 s doubling); indicator bounds only from
-  `IndicatorAlertKind.choices`; «Live» per pair (`LiveFeed.liveIds`), reconnect after 180 s without data
-  (`SILENT_SUBSCRIPTION_MILLIS`), no old price after editing a pair (`samePair`); Android `AlarmLastCheckedLine`
-  (`RefreshStats.lastFullCheck`); delivery check 10 × 100 ms (`VERIFY_ATTEMPTS`, `confirmedPost`); market-tab timeouts
-  12/20 s, coin analysis 20 s on both platforms; iOS «Missing pair id» without request. Fixtures `live_feed.json`,
-  `market_notice.json`, `not_traded.json`, `notification_budget.json`. Robustness: tax-export day closes in spans
-  (`SpanFetch`, Binance 1000 / Coinbase 300 days, `HistoricDayClosesBatchTest` equal to per-day closes); iOS portfolio
-  edits and backup file work off the main thread (`BackupFileWork`, `PortfolioImportSave`); server numbers bounded
-  (`EpochTime.secondsToMillis`, `MAX_PLAUSIBLE_HEIGHT`, fixture `server_values.json`); price overlay clamped/snapped
-  after rotation (`place`) with retry (`RETRY_MS`); clearing the portfolio during a price fetch keeps nothing
-  (`persist(generation)`); settings write failures logged; reduce motion observed once (`rememberReduceMotion`); Wear
-  complication rethrows cancellation, 20 s timeout; `MacroNotifyWorker` reschedules after an error. Security: read-only
-  open (system backup) never sets aside or creates a key, a single `UnrecoverableKeyException` no longer deletes the
-  keystore key of the restore journal and alarm log (`PortfolioSnapshotKeyStore` with `DatabaseKeyRetry.SuspectMarker`:
-  only when it recurs in a later run); replaced copies pruned after the same retention (`pruneReplaced`); iOS
-  `*.locked`/`*.replaced` kept 30 days after the acknowledged notice (`AsideRetention`, fixture `aside_retention.json`); backup envelope read strictly (`integral`, fixture
-  `backup_crypto.json`); address queries follow redirects only to the same host, never https → http
-  (`AddressRedirect`, `SameHostRedirectInterceptor`/`SameHostRedirectDelegate`, at most 5 hops); TON addresses redacted
-  in the diagnostic report (`diagnostic_redact.json`); `:wear` release signing like `:app`; DEX contract address copied
-  alike; SECURITY.md and privacy page updated. Hygiene/CI: Kotlin warnings as errors (not `:data`), CI path filters,
-  required-checks script, coverage docs, dead code removed (10 pulse strings in 31 languages), review tags and build
-  numbers removed from comments, `line_limit.py` also scans CI/build files, flaky tests fixed, screenshots workflow only
-  from `main`, `user_agent_check.py` models Firefox's 2-week cadence since Firefox 154 (neutral UA stays Firefox 159).
-  Money: Binance symbols with leading digits (`1INCH`, `1000SATS`), FR outflow/gift reduction marked «value
-  estimated» (`TaxOutflow.estimated`), Coinbase `money()` only ASCII digits on Android. Display: signed amounts
-  without «-0.00» in an LTR isolate (`PortfolioFormat.signedMoney`, `WatchFormat`/`WatchPercent`, fixtures
-  `signed_amount.json`, `percent_text.json`), widget text size capped (`WidgetTextSize`), portfolio alarm with app lock
-  only `notification_portfolio_alarm_locked`; `LoadErrorScreen` removed (the exchange list is fixed and cannot fail).
-* Build 169: iOS lock boxes moved to `final class …: Sendable` with `OSAllocatedUnfairLock<State>` (module `os`):
-  `PortfolioPriceSource.CacheState` (cache, hints, stored prices and the clear counter `clearGeneration` behind one
-  `state` lock; the price file is written inside it), `LiveClock` (last message, subscription time, first price),
-  `NetworkStatus` (`@Sendable` observers), `StorageKey`, `TokenIdentityStore`, `SheetChartStore`, `AlarmLease`,
-  `AlarmCheckStatus`, `PriceRunGate`, `FirstResult<T: Sendable>`, `BulkDelistedMemory`, `MirrorRevocations`, logo boxes
-  and others. `nonisolated(unsafe)` 13 → 0, `@unchecked Sendable` 96 → 76 (`CEILINGS` 76/0/0). Logo memory cache is a
-  `BoundedCache` of 300 images instead of `NSCache` (not emptied under memory pressure); `RelativeDateTimeFormatter`
-  created per call, so relative times follow a language change at once.
-  iOS `PortfolioDecimal` exact ops no longer fall back to Decimal `*` below 1e-128 (8-bit exponent overflow in
-  Foundation), with a fast path (`plainProduct`).
-* Build 170: `@unchecked Sendable` 76 → 0 (`CEILINGS` 0/0/0, new kind `uncheckedState` 7). `Exchange` and `SimpleExchange` are protocols
-  (`Sendable`); the template methods (`readTicker`, `parseBulkTickersDetailed`, `readPairList` …) and all defaults in
-  `Exchange+Defaults.swift`, constants in `ExchangeConstants`. The 57 adapters are `struct`s, the shared bases
-  (`BinanceBase`, `BybitBase`, `HtxBase`, `WooBase`, `BingXBase`, `BitgetBase`, `PhemexBase`, `UpbitStyleExchange`)
-  protocols with extensions; former `super` calls go through named helpers (`simpleTickerAddress`,
-  `simpleErrorMessage`, `phemexFillTicker`, `phemexParseBulkTickers`). `Gemini` is a `final class` with its detail cache
-  in `OSAllocatedUnfairLock`. `LockedBox<Value: Sendable>` with `@Sendable` closures and `modify`;
-  `PortfolioWriteOrder`, `BackgroundDemandGate`, `OrderedSerialRunner`: `NSLock` for the ordered work plus the counter in
-  `OSAllocatedUnfairLock`; `PortfolioPartStore`: all state in one lock, weights/tests of the caller called outside it
-  (identified by `PortfolioPartIds`); formatter caches, `AlarmDelivery`, `MoveHistoryCore`, `BackgroundTaskCompletion`,
-  `NotificationCompletion`: the non-`Sendable` object only inside `OSAllocatedUnfairLock(uncheckedState:)`.
-* Build 171: layout fixes from the screenshot review (CI shots of build 161). Android: `AppNavHost` consumes the outer
-  Scaffold's insets (`consumeWindowInsets(innerPadding)` after the IME padding), so pages with their own
-  Scaffold/TopAppBar no longer add the status bar a second time; `SettingsNavRow(horizontalPadding = 0.dp)` inside a
-  `GroupCard` («Pairs», «Share diagnostics»), spacer between the cards of Settings › Alerts; the «Custom» segment of
-  `PercentChoiceRow` uses `FittingSegmentLabel` (custom `Layout`, not `BoxWithConstraints` – the segment row asks for
-  intrinsics): label shrinks to 80 % (`TextAutoSize`), else `ic_edit` with the word as description. Alert sentence:
-  «When BTC» and the direction in one text (both platforms). iOS: `PortfolioAddButton` via
-  `safeAreaInset(edge: .bottom, alignment: .trailing)` instead of an overlay under the custom tab bar (list end spacer
-  and `Spacing.fabClearance` on iOS removed; `SpacingUsageTest` adapted); watchlist header: add button `fixedSize`
-  + `layoutPriority(2)`, status `layoutPriority(1)`, «Last run» pill `ViewThatFits` (icon only);
-  `WatchlistSparklineSlot` shows the chart only if the info column keeps its ideal width (error and note lines count
-  0). Add pair: `ListsOffer`/`ExplorerListsOffer` (new file) below the coin results, failed exchanges sorted
-  case-insensitively, collapsed to 3 names + `explorer_lists_failed_more` (new plural, 31 languages), tap expands.
-  Notification pre-prompt: one app-wide instance (`PrePromptSlot`; Android `NotificationPrePromptHost` in `MainActivity`
-  instead of a `rememberSaveable` dialog per screen, which the watchlist saved as open when its starter banner was cut by
-  «+» and reopened in every predictive-back preview, swallowing Back); stage written when shown; the starter ask is
-  skipped when the banner ends off screen (iOS: explorer open); `NotificationPrePromptTest`/`NotificationPrePromptTests`.
-  Logos: `CoinLogos.stripMultiplier` (shared by `normalize` and `initials`, TradFi unchanged; parity `coin_logos.json` › `multiplier`); `CoinMeta.alternates` (Binance list without futures-only/bStocks, then Alpha) is tried by the bulk download when the mapped image fails (parity `coin_meta.json` › `alternates`).
-* Build 172: macro calendar on its own branch. Since 24.10. `main` has required status checks, so the push of
-  `macro-calendar.yml` with `GITHUB_TOKEN` failed («Commit if changed», run of 26.10.); no bypass (owner). The data
-  moves to the orphan branch `macro` (`events.json`, `status.json`; created on the first run from `docs/macro` of
-  `main`, pushed without `--force` on top of the tip the fetch job read). New `pages.yml` (`actions/upload-pages-artifact`
-  v5.0.0, `actions/deploy-pages` v5.0.1, pinned): `docs/` of `main` plus `events.json` of `macro`, fallback to the seed
-  on `main`, checked with the new `artifact_check.py` profile `pages_macro`, kept as artifact `pages-macro`;
-  called by `macro-calendar.yml` (reusable workflow), then «Market data» by dispatch. `market-data.yml` signs the
-  calendar of the live `github-pages` deployment (`deployments: read`), no longer `docs/macro` of its checkout;
-  `mirror_data.py` keeps the previous signed hash of an extra file it cannot read. Pages source must be switched to
-  «GitHub Actions» once (ROADMAP). App code unchanged.
-* Build 173: `macro-calendar.yml` (fetch) and `pages.yml` read the exit code of `git ls-remote --exit-code` as
-  `rc=0; … || rc=$?`: under `bash -e` the bare call ended the step with exit 2 when `macro` did not exist yet, so the
-  seeding path was never reached (first run 29.10.). App code unchanged.
-* Build 174: `about_data_backup` names the password explicitly («…; without one it is readable», 31 languages, iOS
-  via `convert_strings.py`). Screenshot tours: Android restores `demo-backup.json` (androidTest asset from
-  `docs/store/screenshots`) through `BackupManager.restore` with the same overrides as iOS (`demoBackup` on both:
-  dark mode, USD without conversion, alarm currency null, one alarm per pair) instead of building rows through the
-  repositories; the BTC note in the demo backup is «Long-term hold».
-  Device tests: `identityHash` in both `app/schemas/…/1.json` set to the hash Room compiles from the entities
-  (`9b1d29d4…`, `94e00c83…`; red on main since build 163, Room keeps a schema file that differs only in the hash, so
-  «Room schema drift» passed); «Failed tests» skips assumption skips (ScreenshotTourTest). `room_schema_drift.py`
-  also compares that hash with the generated `*_Impl` (`data/build/generated/ksp`, `--self-test`); migration-tests
-  fails unless the result XML shows every listed class and each `@Test` of RoomSchemaMigrationTest passed.
-* Build 175: two more languages, 33 in total. Traditional Chinese in `values-b+zh+Hant` (app and wear) next to the
-  unchanged `values-zh` (Simplified): Android computes the script of a qualifier without one from likely subtags, so
-  `values-zh` counts as Hans and only matches Hans devices, while `b+zh+Hant` matches zh-Hant, zh-TW, zh-HK and zh-MO –
-  no `values-zh-rTW`/`-rHK` copies needed. Malay in `values-ms`; both languages have only the plural `other`
-  (`check_strings.py`, `convert_strings.py`). iOS: `b+zh+Hant` → `zh-Hant`, `ms`, 33 languages in the catalogs,
-  `CFBundleLocalizations` of app, widgets, watch and watch widgets, `ios_extra_strings.json`. Language picker:
-  `AppLanguages` (`ms`, `zh-Hant`; `normalize` keeps Hant/TW/HK/MO as `zh-Hant`), `locales_config.xml`,
-  `localeFilters` (`ms`, `b+zh+Hant`, plus `zh-rTW`/`zh-rHK` for library texts), iOS language names. Store: Play `ms`,
-  `zh-TW` and `zh-HK` (copy of zh-TW), App Store `ms` and `zh-Hant`, screenshot captions (TC fonts in `frame_screenshots.py`). Tests that count
-  languages expect 33; `StringResources` also reads `values-b+…` folders.
-* Build 176: 41 more languages, 74 in total (owner decision). Folders `values-<code>` in app and wear; Cantonese
-  in `values-b+yue` (script Hant from likely subtags: matches yue, yue-HK and yue-Hant, never zh-HK, which stays on
-  `b+zh+Hant`); Filipino in `values-fil` only – since API 24 the resource matcher treats `tl` and `fil` as the same
-  language, minSdk is 26, so no `values-tl` copy; `localeFilters` has `tl` for the Filipino texts of the libraries.
-  Serbian is Cyrillic (`values-sr`; Latin script in `values-b+sr+Latn`, see below),
-  Bosnian, Uzbek and Azerbaijani Latin, Kazakh and Mongolian Cyrillic, Punjabi Gurmukhi, Urdu right to left
-  (already in `BidiText`/`WatchFormat`). Plural categories per CLDR in `check_strings.py` and `convert_strings.py`
-  (ca/lt/sk with `many`, hr/bs/sr one/few/other, sl one/two/few/other, lv zero/one/other, ga one/two/few/many/other,
-  km/lo/my/yue only `other`). iOS: `b+yue` → `yue-Hant`, all 74 codes in the catalogs, `CFBundleLocalizations` of
-  the four targets and `knownRegions`. Language picker (`AppLanguages`, `locales_config.xml`, iOS names) keeps the
-  regional order (Catalan, Galician, Basque after Spanish; South Slavic after Romanian; Indic after Hindi; Cantonese
-  after Traditional Chinese); `normalize` maps `tl` to `fil`. Store: Play only for the codes of its list
-  (36 new folders, none for bs, ga, uz, yue, zu), App Store only for its 13 new codes (`bn-BD ca gu-IN hr kn-IN
-  ml-IN mr-IN pa-IN sk sl-SI ta-IN te-IN ur-PK`). Store descriptions say 75 languages. Lithuanian uses «komisinis
-  mokestis» for every fee, «mokestis» only for tax. Texts shortened where tests limit them (shortcut long labels
-  ≤ 25, alarm timing hint ≤ 160, `ind_read_*` ≤ 160) or require the setting names verbatim (restore warnings).
-  `frame_screenshots.py`: Noto fonts per script (Ethiopic, Khmer, Lao, Myanmar, Sinhala, Indic, Armenian, Georgian,
-  Urdu Nastaliq), Urdu right to left, Cantonese with the TC fonts and CJK line breaks. Tests that count languages
-  expect 75; `StringResources` also reads three-letter codes (`fil`) and `b+yue`.
-* Build 176, Serbian Latin (75 languages): `values-b+sr+Latn` (app and wear) and iOS `sr-Latn` are generated from
-  `values-sr` / `sr` by `android/tools/sr_latn.py` (letter-by-letter transliteration, Љ/Њ/Џ as LJ/NJ/DŽ in capitals and
-  Lj/Nj/Dž otherwise; placeholders, markup, entities, URLs and Latin tokens unchanged; `--self-test`), and
-  `check_strings.py` runs it with `--check`, so the two scripts cannot drift; never edit the Latin files by hand.
-  Registered in `localeFilters`, `locales_config.xml`, `AppLanguages` («Srpski (latinica)» after «Српски»; `normalize`
-  keeps script Latn as `sr-Latn`), `convert_strings.py` (`b+sr+Latn` → `sr-Latn`), `CFBundleLocalizations` and the iOS
-  language names; no store listing (Play has only `sr`, the App Store no Serbian).
-* Build 176, watchlist footer: the four keys `watchlist_footer_count`, `watchlist_footer_of`, `watchlist_footer_remaining`
-  (plurals) and `watchlist_footer_full` in `strings_watchlist.xml` now also in the 41 new languages (end of the file as
-  in `values-de`; complex inflection as «Pairs: N» like the other texts), iOS via `convert_strings.py`.
-* Build 177: Android screenshot tour deterministic. Cause of the failures at builds 170 and 176 («Merkliste nicht
-  erreicht; sichtbar: alarm_card» from `04_alarm_editor` on, light and dark): the way back used `input keyevent
-  KEYCODE_BACK` and `input tap`, which the system delivers only while the screen is on and the app has input focus;
-  on the pair's alarm page (no tab bar, so no tab to tap and no relaunch) back was the only way out, and 10 backs per
-  step never left the page. Nothing in the app consumes back there. Now `TourNavigator.toWatchlist`/`toSettings` start
-  `MainActivity` fresh for every step (explicit intent, `NEW_TASK | CLEAR_TASK`, not `MAIN`/`LAUNCHER` so the rule's
-  `ActivityScenario` does not adopt it; older instances finished and awaited via `ActivityLifecycleMonitorRegistry`);
-  a new activity always opens the watchlist without sheet or subpage. No system back, swipe or tap loop is left; all
-  input goes through Compose semantics. The tour keeps the screen on (`svc power stayon`, restored afterwards),
-  checks before every `screencap` that the app is in front with the screen on and unlocked, and stops at the first
-  failing step with the screen it saw, the visible tags, activity stage, screen/keyguard state and `mCurrentFocus`.
-  Strings come from the current activity (the rule's activity is closed after the first restart). Images unchanged.
-  iOS (green) unchanged: it returns through its own tab bar (`RootView.reselect`) and XCUITest taps, no system keys.
-* Build 178: review of build 177. Import: Kraken `pendingTwins` drops a pending deposit/withdrawal (empty txid) with
-  a booked twin (same refid, type, asset, amount); a different amount keeps both, flagged `pendingDiffers` with a
-  preview hint (`portfolio_csv_import_pending_differs`). Fiat fee plus coin fee on one trade (Kraken, Binance ledger
-  and trades): `CsvImport.fiatFeeInPrice`, row flag `feeInPrice`, hint `portfolio_csv_import_fee_in_price`; other
-  pairs `CsvImport.splitFees`. Network: Android `ConnectivityMonitor` needs `INTERNET` and `VALIDATED`
-  (`ConnectivityMonitorTest`); iOS `NetworkStatus` documents the gap. Watchlist row: the mini chart keeps its fixed
-  size; `RowMetaLine` (Android) / `WatchlistMetaLine` (iOS) wrap the icons under the exchange
-  (`DenseRowText.metaWraps`, parity `row_meta_line.json`, `DenseRowTextTest`/`DenseRowTextTests`) instead of
-  shortening it or hiding the chart. Android «All alarms» in `AlarmsOverviewCards.kt` (pair and portfolio cards
-  like iOS `groupCard`/`portfolioCard`), direction symbols `AlarmSymbols.kt` (`ic_alarm_*` drawables as iOS
-  `AlarmStyle.symbol`); «Last checked» once per editor page (iOS `showsLastChecked`); iOS alarm editor with one «Save»
-  at the bottom. iOS: «Last run» pill removed from `WatchlistStatus` (report in the ⋯ menu; key `watchlist_last_run`
-  removed in all languages); portfolio + in `PortfolioAddSlot`/`PortfolioAddAccessory` above the tab bar (`RootView`,
-  `safeAreaInset`); «Reset app» waits with `snapshotWritesDrained` without blocking the main thread; complication
-  fetch within `WatchQuoteFetch.complicationTimeoutSeconds` (20 s, as Android `FETCH_TIMEOUT_MS`). Android: one
-  `SQL_ID_CHUNK` (500) for every `IN (:ids)` query of the watchlist (`SqlIdChunkTest`); R8 keeps the names of own
-  `Throwable` classes. Coverage gates raised (owner decision): Android `MIN_LOGIC` 58 → 65 %, `MIN_DATA` (`:data`)
-  50 → 57 %. `mutation_test.py` resolves moved targets against `--repo` (self-test with a temporary tree).
-  Screenshots publish only a complete set (job green, same names light/dark, no `NN_name_failed.png`).
-  `DatabaseFreshInstallBackupTest`: system-backup round trip with every `portfolio_tx` column set. Wear OS in OSV
-  (`:wear` release runtime classpath), in the release audit (APK missing/debuggable = error, 16 KB = warning) and in
-  `reproducible.yml` (`:wear:assembleRelease`, attested); the debug artifact contains the watch APK. Hindi in the
-  polite form, Play listings `zu` and `zh-HK` (Cantonese); `frame_screenshots.py` maps `zh-HK` to the `yue` captions.
-  DEX discoverability: `DexNames.match` (Android `:domain`, iOS `Shared/Core`, parity `dex_names.json`) turns a DEX name
-  in the coin search into a DexScreener row (`dex_search_hit`, token prefilled via `openDexSearch`); picker subtitles
-  (`DropdownField`/`ExplorerPickerSheet` `subtitles`, `dex_picker_subtitle`) on DexScreener and the DEX section.
-* Build 179: `PortfolioPriceIssue.nameUnchecked` takes the failed coins: a coin Binance was skipped for whose request failed is
-  neither «unchecked» nor «no market» and shows «Price unavailable right now»; a stored «unchecked» is cleared then.
-* Build 180: review fixes after an external review. `LiveStatus` uses the oldest visible update time; `movers_price_note`
-  bridges CoinGecko percentages and exchange prices; `tax_template_beta_note` says not checked by a tax professional;
-  iOS alarm placeholder uses `draft.priceHint` (display currency); text fixes de/en/it.
-* Build 181: audit follow-up. `TaxCountryFigures` hides country rows until a template is listed as checked (empty today);
-  `WatchlistPairName` keeps PERP and drops only the quote; healthy rows show the price age; per-pair alarm list shows
-  «last checked»; `movers_price_note` names the tap target; text fixes de/fr/it.
-* Build 182: first-alarm check-mode choice (Android, two options); wear debug `applicationIdSuffix ".debug"`;
-  iOS Reduce Motion guard on the status dot; `HourlyCloseStore` marks WOO closed-candle fallback as hourly close;
-  `ExchangeHTTPSharedPostTests` gated stub instead of timer; Hyperliquid doc corrected.
-* Build 183: pair page replaces the watch actions sheet on both platforms (live overlay on Android too); `PairRestFit` FULL only
-  when the whole rest fits; row age from `PriceFreshness.freshnessTime`; first live tick without trade keeps the shown time;
-  `TaxCountryFigures` also gates CH wealth/ESTV lines; widget shows the last drawn rows (encrypted, not backed up) after boot.
-* Build 184: owner decision – `TaxCountryFigures` gating from 181/183 removed, country figures shown again; beta note links
-  to GitHub issues (shared link helper with About).
-* Build 185: logos – Binance symbol list first, `CoinLogoQueue` (6 parallel, 4 per host, fixed order for everyone),
-  `CoinLogoPlaceholder` (colour from symbol, AA contrast, fade-in); spot card by name identity; iOS `BlockedSources.clearForTest`;
-  te/ta polite form, he/da quotes, ka/hy/lv/nb texts.
-* Build 186: add-pair overview with market chips (All/Spot/Futures/DEX/Forex), popular pairs, recent and all exchanges;
-  accordion and step UI removed; no extra price requests (privacy); shared overview cases for both platforms.
-* Build 187: 24 exchanges added (adapters, fixtures, recordings, privacy hosts); HTTP 451 shown as region-blocked;
-  Binance TR and Tokocrypto built from docs/ccxt, not reachable from the build environment (owner tests via VPN).
-* Build 188: row age only for an old last trade (`PriceFreshness`, parity `rowTradeAge`); exchange logos from the
-  CoinGecko exchange lists (further pages only while gaps remain, 1-day retry), HashKey id unified; «Beliebt» removed; OKX TR removed.
-* Build 189: `exchange_logos.bin` and `coin_logos.bin` (top 100) generated by `android/tools/gen_logo_packs.py` with manifest;
-  CC0 pack removed; runtime exchange-logo download of 188 removed; exchange logos independent of the logo switch.
-* Build 190: `LiveStatus.freshnessTime` (last tick of a healthy stream); Wear SHORT_TEXT age, `WatchPriceSource` 20 s deadline and
-  cancellation; BEA full-year PCE schedule; Mercado Bitcoin/LATOKEN counted as blocked in the live check; APK size gate 32 MB (language splits).
-* Build 191: watch prices from the phone (Data Layer / WatchConnectivity, at most once a minute), `WatchInterval` clamp 15–60 min,
-  source setting, opt-in portfolio total + complication (hidden amounts and portfolio lock → «•••»).
-* Build 192: `LogoLoadingHint` flag (pending images in the first logo run; `.first_load_done` in the logo folder).
-* Build 193: watch choice revision = max(local, other side) + 1 before a change; phone sends each favourite as pair (exchange,
-  contract) with price (`watch_pairs.json`); watch self-fetch from the same exchange/contract first (Binance USDⓈ-M, Bybit linear, OKX swap).
-* Build 194: `WatchPair.contractOf` → Pool only for DexScreener (pool id in the key); spot = contract NONE; iOS coin favourites
-  through AppData; watch self-fetch only for venues it can query; SheetChart uses USDT/USD; Wear reload on source change.
-* Build 195: SheetChart/WatchSheetChart and sparkline use USDT/USD per day (cached portfolio closes, live today); note per approximated day;
-  `DayChange.fromUsdtSeries` with USDT/USD at both ends; watch reason «only from the phone» for venues it cannot query.
-* Build 196: `StableDepeg` checks USDC (Kraken + cross rate) and held/watched stables (stored pair lists, two sources required);
-  per-stable state, one switch; iOS `StableDepegPlanner` at the three call sites.
-* Build 197: chart loads `usdtUsdDaily`, never mixes measured and assumed USDT/USD (one rate + note); daily close band 0.05–3.0;
-  24 h value same rule; watch remembers the fetch outcome per pair (not listed vs. not reachable; HTTP 400 = not listed).
-* Build 198: `AddressSurplus` (Android/iOS): counting addresses add max(0, address part − own holdings) per coin, own holdings
-  without recorded inflows to the address wallets; overlap warning `portfolio_address_overlap_tx` removed.
-* Build 199: `AddressSurplus` per wallet (address subtracts only own holdings of its wallet); `AddressWithdrawalMatch` (±1 %)
-  names the transfer target wallet; disabled colours ≥ 3:1 (contrast script covers them); macro calendar «more dates follow».
-* Build 200: Frankfurter replaced by the ECB: `eurofxref-daily.xml` (conversion), `eurofxref-hist-90d.xml` (forex pairs), ECB
-  Data Portal for history with the 90-day and full-history files as fallback; cross rates as before (5 significant digits).
-* Build 201: `ReferenceRates` picks one source per currency (ECB > NBU > NBP table B), cross rates from the same publication;
-  `NbuReference`/`NbpReference` cached until the next publication; forex chip with live fiat pairs (Kraken, Bitstamp).
-* Build 202: `AddressWithdrawalMatch.retarget` changes the named transfer's target to the address wallet (confirmation, normal
-  save path); hint button on the address row and the coin card.
-* Build 203: widget initial layouts with day/night `colors_widget_initial` and a static skeleton; `WidgetToolkit.background`
-  hides it on every draw (WidgetInitialLayoutTest).
-* Build 204: `widget_skeleton_loading` (system ProgressBar + `starter_loading_prices`) inside the skeleton group.
-* Build 205: `WidgetStatusRule` (offline > outdated > time, parity `widget_status.json`), `WidgetOffline`, one-time
-  `WidgetReconnectWorker` with a network constraint (Android); iOS widget asks for an early reload while offline.
-* Build 206: `LogoLoadingHint` percent (done / to load in the first-load pass, floor, ≤ 99 %, throttled; parity
-  `coin_logos.json › loadingPercent`); loading itself unchanged.
-* Build 207: `MissingLogoNotice` (badge rule, dismissed set, hidden while loading or with logos off; parity
-  `missing_logos.json`).
-* Build 208: `WatchFormat.compactPrice` (≤ 7 characters, parity `watch_price.json`); portfolio complication hint
-  instead of NoData.
-* Build 209: audit fixes (exact cadence = interval with WorkManager dedupe, private portfolio notifications, swipe
-  confirmation, settings confirmations; parity `csv_line_list`, `portfolio_lock_row`, `exact_cadence`, `settings_confirm`).
-* Build 210: iOS `PortfolioAlarmNotice.content()` always neutral (no amount in any notification field).
-* Build 211: audit fixes: forced backup password with portfolio data, `HideOverlaysEffect`, `network_security_config`,
-  watchlist legend, alert editor hint, late-check rule by duration; screenshots guarded by
-  `android_emulator_idle.sh` and a focus check in the tour; deterministic demo candles.
-* Build 212: dependency update through «Supply chain update» (verification metadata, keyring, lock files).
-* Build 213: `baseline-profile.yml` + generator journey (start, watchlist, pair page, tabs); `baselineProfile { saveInSrc }`.
-* Build 214: `DispatcherQualifiers` (:domain) + `DispatcherModule` (:app); `DispatcherInjectionGuardTest` with the
-  list of remaining files.
-* Build 215: generated `baseline-prof.txt` and `startup-prof.txt` committed under `app/src/release/generated/baselineProfiles/`.
-* Build 216 (audit C-01, layers; no behaviour change): package = module on Android. Every file of `:domain` is in
-  `com.cryptochecker.app.domain.…` (39 files moved: `util` → `domain/util`, `settings` → `domain/settings`, `widget` →
-  `domain/widget`, `notification` → `domain/notification`, `data/…` → `domain/…` with the same tail, the models
-  `WatchEntity`/`AlarmEntity` → `domain/model`); every file of `:data` is in `com.cryptochecker.app.data.…` (16 moved:
-  `settings` → `data/settings`, `widget` → `data/widget`, `util` → `data/util`, `notification` → `data/notification`,
-  `domain/refresh/AlarmLogStore` → `data/refresh`, `domain/alarm/DerivativesAlarmData` → `data/alarm`); the 9 flows of
-  `:app` that sat in `com.cryptochecker.app.domain` are in `app/…/activity`, `alarm`, `diagnostics`, `gas`, `refresh`.
-  Not moved: everything named in the manifest or persisted by class name (workers, receivers, services, activities,
-  widget providers, `SystemBackupAgent`) and `AppDatabase`/`PortfolioDatabase` (schema directory = class name) – none
-  of them was in a wrong package. `:domain` has no Room and no OkHttp: `WatchEntity`/`AlarmEntity` are plain data
-  classes, the tables are `WatchRow`/`AlarmRow` in `:data` (`data/local/model`, same columns, order, defaults, index
-  and foreign key – schema 1 and its identity hash unchanged) with `toDomain()`/`toRow()`; `WatchDao` keeps its
-  functions for the models (default functions that map) next to the Room functions named `…Row(s)`.
-  `LogoUrlPolicy` decides without a parser library (plus OkHttp's limits: label ≤ 63, host ≤ 253 characters);
-  `LogoUrlPolicyTest` compares it with OkHttp. `domain/gradle.lockfile` lost Room, SQLite, OkHttp, Okio and
-  `startup-runtime`; the other locked versions stay until the next «Supply chain update». `LayerBoundaryTest` keeps
-  the rule: package and folder of every `:domain`/`:data` file, no import of `androidx.room`, `okhttp3` or another
-  app package in `:domain`, only `domain`/`data` imports from the app in `:data`, no `…app.domain` package in `:app`.
-  The committed baseline and startup profiles carry the new class names (renamed in place, not measured again).
-* Build 217 (audit C-03): unit tests of `:domain` and `:data` live in those modules; `LayerBoundaryTest` checks package, imports and minimum counts; `mutation_test.py` routes each test to its module.
-* Build 218 (audit C-02): `code_metrics.py` measures function length (ceilings Kotlin 326, Swift 356); `TaxYearSummaryBuilder`, `PortfolioFifoBook`, `ExplorerSearchData`; constructor ceiling 13, ViewModel properties 26; dispatcher allowlist 5 files.
-* Build 219: documents only (section 20 added), store descriptions, privacy page sentence on the backup password, licences sheet.
-* Build 220: `codeql.yml` (advanced setup) replaces GitHub's default CodeQL setup, whose autobuild of all variants ran out of memory.
-* Build 221 (audit of 220: S-01, S-03, S-05, F-01, F-02, F-03, U-01, C-01): `PortfolioAlarmNotice.kt`, `SharedStorage.replaceFiles`, `CsvImportParser.fxZoneFor`, rate gate in the CSV preview, `gradle/test-inputs.gradle.kts` + `TestInputsGuardTest`, `PROPERTY_RE` without backtracking.
 * Build 222 (audit of 220: S-02, S-04, S-06, F-04 to F-08, F-10, F-11, U-02 to U-11; F-09 was wrong): `ExactCheckDemand`, `RestoreSteps.execute`, new fixtures `price_format.json`, `full_check.json`, `restore_steps.json`; text rule for provider names in section 18.
-* Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
-  through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
-  callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
-  `SettingsTestActions` (test alarm, test voice) and `ExactCheckControl` (exact alarm, last checks) take five
-  dependencies out of `SettingsViewModel` (17 → 14); `UsdtPeg` (depeg reading store + checker) and
-  `PortfolioAlarmSaving` (alarm repository + notifier) out of `PortfolioViewModel` (16 → 14). `code_metrics.py`
-  `DEPS_CEILING` 20 → 15. Constants of the edit controller in `WatchlistEditLimits.kt` (400-line limit). iOS:
-  `OwnPairRegistry`, `CandleNeeds`, `CandlePills`, `ReferenceProviders`, `ResumeOnce` (DayReferences) and
-  `TaskCancelBox`, `CheckResultBox`, `OnceGate` (BackgroundTaskBoxes) use `OSAllocatedUnfairLock` and are checked
-  `Sendable` (`@unchecked Sendable` 104 → 96, ceiling lowered). Build numbers removed from comments (151 places);
-  `line_limit.py` caps them at 6 (`BUILD_REFS_CEILING`; the rest name storage formats of early test versions).
-* Build 156: cleanup without behaviour change. Renamed (Kotlin and Swift, files and identifiers): `FormatUtilsBase` →
-  `DisplayFormat`, `TimeUtils` → `EpochTime` (epoch milliseconds and exchange timestamps), `PostRequestInfo` →
-  `PostRequest` (`getBulkTickersPostRequest`, iOS `bulkTickersPostRequest`), `TickerImpl` → `MutableTicker`,
-  `ComboBox` → `DropdownField`, `LogBox`/`ExplorerLogBox` → `HttpLogPanel`/`ExplorerHttpLogPanel`, `ErrorScreen` →
-  `LoadErrorScreen`, `LoadingScreen` → `SkeletonLoadingScreen`, `simpleVerticalScrollbar` → `verticalScrollbar`
-  (`ListScrollbar.kt`), `JsonUtils.kt` → `JsonExtensions.kt`; iOS test helper `AlarmLogRecorder`. The vocabulary
-  «Market» for an exchange (≈ 12 000 places, also the backup key `marketKey`) stays on purpose. `ExplorerViewModel`
-  groups its state in `ExplorerBulkState`, `ExplorerSearchHits` and `ExplorerDexState` (`ExplorerState.kt`); 35
-  instead of 49 private/internal properties, `PROPS_CEILING` lowered to 35. Lint: `toUri()`/`edit { }` (core-ktx
-  now declared in `:wear`), `paddingEnd` in `widget_portfolio_list_entry.xml`, `wear/res/xml/data_extraction_rules.xml`
-  (nothing backed up or transferred), `watch_choose_hint` without a plural noun.
-* Build 155: Apple Watch app. New folders `ios/WatchCore` (`WatchCoins`, `WatchSettings` – same JSON and rules as
-  `:marketdata/watch`, compiled into the app for `WatchSettingsParityTests` and the settings card), `ios/Watch` (target
-  `CryptoCheckerWatch`, watchOS 10, `com.cryptochecker.app.watchkitapp`, embedded under `Watch/` of the app: SwiftUI
-  list, `WatchModel` (@Observable), `WatchLink` (WCSession, application context `["json": …]`); `Watch/Device` =
-  `WatchQuoteParser`/`WatchPriceSource` (Binance, Bybit, OKX via URLSession), `WatchStore` (App Group defaults),
-  `WatchText`, also compiled into the complication) and `ios/WatchWidgets` (target `CryptoCheckerWatchWidgets`,
-  WidgetKit accessory families, timeline every 15 min, reload if quotes are older than 10 min). iPhone:
-  `PhoneWatchLink` (@MainActor, WCSession; favourites from every `AppData.snapshot` adoption, sends only when paired
-  and the watch app is installed), `WatchSettingsSection` on the Widgets page (anchor `widgets.watch`, scrolls there
-  from the search), iOS-only hint `ios_settings_watch_hint`. Generator and `project.yml` know both watch targets
-  (`Localizable.xcstrings` and `PrivacyInfo.xcprivacy` in each bundle). CI: `swift_escape_hatches.py`,
-  `line_limit.py` and the privacy scan cover the watch folders (+1 `@unchecked Sendable`: `WatchLink`);
-  `ios_release_audit.py` checks the embedded watch app and its extension (privacy manifest, version).
-* Build 154: new module `:wear` (Wear OS 3+, `minSdk 30`, same `applicationId`, `versionCode` = 90 000 + phone build
-  read from `app/build.gradle.kts`, standalone). `WatchQuotes` (Binance `ticker/24hr?symbols=…`, Bybit and OKX spot
-  tickers as fallback; `WatchQuotesTest`), `WatchPriceSource` (HttpURLConnection, 10 s, 4 MB cap, own user agent),
-  `WatchStore` (`WatchSettings` + last quotes in SharedPreferences `watch`, no backup),
-  Compose for Wear UI (`WatchApp`), `PriceComplicationService` (SHORT_TEXT/LONG_TEXT, 15 min, reloads quotes older
-  than 10 min). CI: `:wear:lintRelease`, `:wear:assembleRelease`; supply chain writes `wear/gradle.lockfile`.
-  List choice: `WatchSettings` and `WatchCoins` (top 30, max 8, `fromFavorites`) live in `:marketdata/watch` for phone
-  and watch; mode PHONE (base coins of the favourites, in sort order, max 8) or OWN, `time` = last change, `merge`:
-  mode/own list from the newer side, phone list always from the phone (parity fixture `watch_settings.json`,
-  `WatchSettingsParityTest`). Sync over the Wear data layer (`play-services-wearable`): one data item per node at
-  `/cc/watch` with the JSON; watch `WatchDataLayer` + `WatchDataListener` (capability `cryptochecker_watch` in
-  `wear/res/values/wear.xml`), phone `PhoneWatchSync` (prefs `watch_sync`, publishes only when a node has the
-  capability, asks Play services only on a change or while «Widgets» is open) + `PhoneWatchListener` (exported for
-  Play services; allowed in `manifest_policy.py`). UI: `WatchSettingsCard` on the Widgets page (anchor `widgets.watch`).
-  `composeCompiler.includeComposeMappingFile = false` in `:wear` as in `:app`.
-* Build 153 (KMP prep, part 3): all `:domain` files on `util/json` (imports renamed, `JSONObject.NULL` → `JsonNull`);
-  `MarketError.toMarketFailure` maps `JsonException` and (by class name) `org.json.JSONException` from `:data` to
-  `Parse`. Boundary helpers `asDomainJson()` / `asOrgJson()` in `:data` (`DomainJsonBridge.kt`, via the text) for the
-  backup codecs (watched addresses, CSV restore state). Remaining Android/JVM bits in `:domain`: Room annotations on
-  `WatchEntity`/`AlarmEntity`, OkHttp's URL parser in `LogoUrlPolicy`, `java.*` (time, math, concurrency).
-* Build 152 (KMP prep, part 2): `util/json` in `:domain` – `JsonObject`, `JsonArray`, `JsonNull`, `JsonException`,
-  `JsonTokener` with AOSP `org.json` semantics (lenient reader: comments, `=`/`=>`, `;`, empty array slots, hex/octal,
-  unquoted words; `get*` coercions; `optString` of null = "null"; `put(name, null)` removes; whole doubles written
-  without ".0", "-0", `\/` and `\uXXXX` escapes). `JsonCompatibilityTest` compares it with AOSP `org.json` (unit-test
-  dependency `android-json`). Next: switch the 20 domain files over (string boundaries towards `:data`).
-* Build 151: `app/build.gradle.kts` forces `androidx.room:room-compiler-processing` to `libs.versions.room` in every
-  configuration (Hilt's compiler pulled 2.8.4); `:domain` drops `timber` and `androidx.core.ktx` (unused since 146);
-  lockfiles/verification metadata from «Supply chain update».
-* Build 150 (Android): price overlay – `overlay/PriceOverlay` (singleton started in `CryptoCheckerApp.onCreate`,
-  combines `settings` and `observeWatches()`, one `TYPE_APPLICATION_OVERLAY` window with plain views, no service; the
-  overlay window keeps the process perceptible), `overlay/PriceOverlayRules` (pairs like the permanent price
-  notification via `PriceNotificationRule.showNow`, max 3; snap/clamp/close zone; `PriceOverlayRulesTest`). Setting
-  `priceOverlay` (DataStore key `price_overlay`, device-local, not in backups), row `PriceOverlayRow` under the
-  permanent notification (anchor `updates.overlay`, search entry), position in SharedPreferences `price_overlay`.
-  Permission `SYSTEM_ALERT_WINDOW` moved from FORBIDDEN to EXPECTED in `manifest_policy.py`; privacy page and
-  PLAY_STORE.md list it.
-* Build 149: compare view – `CompareMath` (Android `:domain` `domain/watch`, iOS `Shared/Insights`; parity
-  `compare.json`): `normalized` (% from first valid close), `figures` (7/30 days vs. the last daily close starting
-  ≤ now − 7/30 d, distance to max(30-day high, price)), `bounds`. UI `CompareScreen` (Android full-screen dialog like
-  «Why?», iOS `navigationDestination`) from the selection bar («Compare», 2–4 pairs, otherwise a hint banner); lines
-  from `loadSheetChart`/`SheetChartStore` per range (day basis: since 00:00 like the sheet), figures from the 1-year
-  daily candles. Line colours from the theme plus dash patterns.
-  CI: `repro_compare.py` names the first differing line of differing text entries in the archives (R8
-  `proguard.map` differed twice on main, APK identical) or «same lines in a different order».
-* Build 148: settings search entries `updates.check_runs` (both, anchor of the check-runs card) and `updates.exact`
-  (Android, anchor of the exact-checks row); no new strings.
-* Build 147 (R, test files): small test files (≤ 80 lines, one top-level class) merged per directory and name
-  prefix into `<Prefix>{ParitySet|UiSet|RuleSet|DataSet|Set}[n]Test.kt` / `<Prefix>Set[n]Tests.swift` (≤ 380 lines,
-  classes unchanged, imports merged); references to the old file names now name the class. New small tests go into
-  the matching set file.
-* Build 146 (KMP prep, part 1): `util/KeyValueStore` + `KeyValueStores` in `:domain`, SharedPreferences adapter
-  `data/local/SharedPreferencesStores` (same file names), provided in `LocalDataModule`; `AlarmSnoozeStore`,
-  `DepegReadingStore`, `BulkDelistedStore` and `BackgroundErrorCounter.install` use it. `util/DomainLog` replaces
-  Timber in `:domain` (sink set in `CryptoCheckerApp`). `rethrowIfCritical` recognises `DeadSystemException` by class
-  name. Still Android/JVM-bound in `:domain`: Room annotations on `WatchEntity`/`AlarmEntity`, `org.json`, OkHttp's URL
-  parser in `LogoUrlPolicy`; the unused `timber`/`core-ktx` dependencies go at the next lockfile update.
-* Build 145: portfolio widget list with bookings per coin – `PortfolioWidgetEntries` (Android `:domain`, iOS
-  `Shared/Portfolio`): one entry per ledger step with a holdings change (`PortfolioLedger.events` +
-  `PortfolioHoldingsBook`, so «both» sums to the holding), note via `shortNote` (6 graphemes + «…»), today's value,
-  at most 40 per coin (more → none); stored in the snapshot (`entries` per position, Android JSON key `"e"`), scaled
-  with the positions in «USDT only»/rebasing. `assign` places them only in the height left below the coins (all or
-  none per coin). Setting: Android `WidgetPrefs.portfolio_entries_<id>` (configure screen, list view only), iOS
-  `PortfolioWidgetIntent.entries`. Parity: `widget_portfolio_entries.json`.
-* Build 144 (R, step 9): `ManualRefresh` and `ChartRefresher` in `:domain` behind `ManualRefreshStats`,
-  `ManualRefreshNet` and `ChartWidgets` (adapters in `PriceRefresherAdapters.kt`, providers in `RefreshModule`);
-  `domain/watch/SheetChart`, `widget/WidgetChartGeometry`, `util/ChartSummary` and `data/BoundedCache` (from `:data`,
-  same package) in `:domain`. Left in `app/…/domain`: `ActivityMonitor`, `DepegAlarmChecker`, `GasAlertChecker`,
-  `DayReferences`, `RefreshSideChecks` (data sources, notifications), `DiagnosticReport` (string resources).
-* Build 143 (R, step 8): 13 more files to `:data` – `settings/SettingsRepository`, `SettingsDataStore`, `SettingsKeys`,
-  `SettingsReading`, `SettingsLockFallback`, `MarketAlertReset` (new `settings/MarketAlertPrefs.kt`: `ZoneCheckPrefs`
-  and `GasAlertPrefs` with the prefs names, keys and the gas lock; `ZoneCheckWorker` and `GasAlertChecker` keep their
-  constants as aliases, `GasAlertChecker.lock` returns the shared mutex), `data/SparklineRepository`,
-  `data/live/LivePriceStream`, `data/MarketRepositoryImpl`, `data/AddMoments`, `data/BulkAddRunner`,
-  `data/portfolio/WatchedAddressRefresher`. Still in `:app/data`: `BackupManager*`/`RestoreRun` (app lock),
-  `CoinLogoSync` (widgets), `SheetChartRepository` (widget chart geometry), `PortfolioAlarms` (notifications).
-* Build 142 (R, step 7): Gradle module `android/data` (Android library, namespace `com.cryptochecker.data`, KSP for
-  Hilt and Room, Room plugin) with 159 files: most of `app/…/data` (both databases, DAOs, entities of markets and
-  portfolio, `WatchRepository*`, `PortfolioRepository*`, data sources, `LogoImageStore`, `CoinLogoRepository`, backup
-  codecs and crypto), plus `settings/AddressServerStore`, `SettingsBackupTarget`, `SettingsSlices`,
-  `util/ConnectivityMonitor`, `notification/AlarmDeliveryMarkers`, `widget/PortfolioSnapshotSeal`/`KeyStore`,
-  `domain/refresh/AlarmLogStore`, `domain/alarm/DerivativesAlarmData`; `util/AppVisibility` went to `:domain`. Room:
-  `room { schemaDirectory("$rootDir/app/schemas") }` in `:data`, `:app` drops the Room plugin and compiler and adds
-  `app/schemas` to its androidTest assets itself (what the plugin did). `LogoImageStore` takes the user agent as
-  `@AppUserAgent String` (provided by `di/UserAgentModule`, separate so that UI tests replacing `RemoteDataModule` still get it) instead of `BuildConfig`. Still in `:app` because of
-  settings, notifications or widgets: `SettingsRepository` (with `MarketAlertReset` → zone/gas workers),
-  `BackupManager*`, `SparklineRepository`, `LivePriceStream`, `MarketRepositoryImpl`, `CoinLogoSync`,
-  `SheetChartRepository`, `PortfolioAlarms`, `WatchedAddressRefresher`, `DayReferences`, `ActivityMonitor`. Hilt modules
-  stay in `:app`. `data/src/main/AndroidManifest.xml` declares INTERNET and ACCESS_NETWORK_STATE (lint `MissingPermission`
-  in the library; the merged manifest is unchanged). CI: `:data:lintRelease`, coverage `data=data`, device-test paths,
-  `data/gradle.lockfile`, `user_agent_check.py` reads `android/data/…/HttpUserAgent.kt`; source-guard tests look in
-  `android/data` too.
-* Build 141 (R, step 6): `PriceRefresher` (+ `PriceRefresherAfter`, `…Deferred`, `…One`) and `WidgetRefreshState` in
-  `:domain`. New ports in `domain/refresh/PriceRefresherPorts.kt`: `RefresherStore` (watch list, alarms,
-  `clearChanges`, `fillChange`), `RefresherStats`, `RefresherSparklines`, `RefresherOnline`, `RefresherWatchWidgets`,
-  `RefresherDayReferences`, `RefresherCharts`, `RefresherSideChecks` and `SideCheckExtra` (formerly the nested
-  `RefreshSideChecks.Extra`); settings and widget drawing reuse `RefreshSettings`/`RefreshWidgets`. Adapters in
-  `app/…/domain/refresh/PriceRefresherAdapters.kt`, provider in `RefreshModule`. `BlockedSources` split out of
-  `CandleDataSource.kt` (same package) and moved. Still in `:app`: `ManualRefresh`, `ChartRefresher`, `DayReferences`,
-  `RefreshSideChecks` (with `ActivityMonitor`, depeg and gas checkers) – they use Android, DAOs or notifications.
-* Build 140 (R, step 5): `RefreshEffects` (+ `RefreshEffectsAlarmKinds`), `RefreshResultProcessor` and
-  `LivePriceApplier` in `:domain`. Their second `@Inject` constructor (app classes → `as…()` adapters) is gone; Hilt
-  builds them in `app/…/di/RefreshModule.kt` (`@Provides @Singleton`), tests keep using the primary constructor with
-  fakes. Moved along so they compile: `domain/alarm/AlarmDelivery` (`AlarmDeliveryMarkerStore`),
-  `notification/NotificationBudget`, `util/AppScope` (`appScope`, `appExceptionHandler`), `util/BackgroundErrorCounter`
-  and `data/local/DatabaseKeyUnavailable.kt` (`DatabaseKeyUnavailableException`, `isDatabaseKeyUnavailable`, split out
-  of `EncryptingOpenHelperFactory.kt`, same package). For Kotlin Multiplatform later: `appScope` and the error counter
-  still use Timber and SharedPreferences.
-* Build 139 (R, step 4): `RefreshPorts.kt` split – the interfaces (`RefreshStore`, `RefreshNotifier`,
-  `RefreshSpeaker`, `RefreshSpokenText`, `Alarm*Source`, `RefreshSettings` …, now public) are in `:domain`, the
-  adapters (`asRefreshStore()` …, private wrapper classes) in `app/…/domain/refresh/RefreshPortAdapters.kt`. Types the
-  interfaces need moved too: `data/WatchRepositoryModels` (KDoc no longer links `WatchDao`), `settings/AppSettings`,
-  `AppSettingsDefaults`, `AccentColor`, `PriceColorScheme`, `ColorDifference`, `UpdateMode`, `VolumeSpike` and
-  `WindowRanges` (split out of their data sources, same package) and `DerivativesValues` (formerly the nested
-  `DerivativesAlarmData.Values`). `AccentColor` has no resource ids any more: `labelRes` and `logoRes(dark)` are
-  extensions in `app/…/settings/AccentColorResources.kt` (callers import them). The fiat list moved to
-  `domain/convert/FxCurrencies.ALL` (`FxRateSource.CURRENCIES` points there; `defaultCurrency` needs it). Next: `RefreshEffects`,
-  `RefreshResultProcessor` and `LivePriceApplier` need ports for the remaining app types they touch.
-* Build 138 (R, step 3): 21 more files to `:domain` – `domain/activity` without `ActivityMonitor` (analyzer,
-  models, sensitivity, why/factors/summary, broad market, BTC correlation, candle/OI series, funding trend),
-  `domain/alarm` `NearExtreme`, `DerivativesAlarm`, `AlarmSentence`, `AlarmTemplates`, `domain/market`
-  `CryptoPulse`, `MarketMove`, `MarketPlainSummary`, and `data/remote/FuturesExchanges` (`FuturesSources`,
-  `FuturesParsers`) with `FuturesInfo`, split out of `FuturesDataSource.kt` (same package). The rest of `app/domain`
-  (refresh flow, `ActivityMonitor`, depeg/gas checkers, `DerivativesAlarmData`) uses repositories, DAOs or
-  notifications directly; moving it needs interfaces (ports) in `:domain` implemented in `:app`/`:data`.
-* Build 137 (R, step 2): 116 more files to `:domain` – the rest of `domain/portfolio` (incl. `csvimport/`), the
-  remaining `domain/alarm` rules (`AlarmEdit`, `AlarmLog`, `DepegAlarm`, snooze and depeg stores …), `domain/convert`,
-  `domain/logos` (`CoinLists`, `CoinMeta`), `domain/mirror`, `AlarmLogCollector`, `CheckOrigin`, `PriceWriteOrder`
-  and `util/TextLimit`. Selection by the dependency graph of both modules (a file moves only if everything it uses
-  in `:app` moves too); still in `:app` because of a dependency: `AlarmDelivery` (`NotificationBudget`),
-  `AlarmLogStore` (`PortfolioSnapshotSeal`), `SheetChart` (`WidgetChartGeometry`). `internal` became public in 43
-  files. Kotlin does not smart-cast a public `val` declared in another module: app code takes a local copy
-  (`PortfolioAddressRow`, `AlarmLogTexts`, `SettingsViewModel`, …) or uses `?.`/`orEmpty()`. Coverage gate:
-  `coverage_summary.py` lists `domain=domain` – without it the files of `:domain` in the merged `:app` report had no
-  sources, counted as generated and dropped out of «logic» (with the portfolio logic moved: 43 % instead of ~60 %).
-* Build 136 (R, step 1): Gradle module `android/domain` (Android library, namespace `com.cryptochecker.domain`,
-  Hilt/KSP for its `@Inject` classes) with the 139 files of `app` that depend on no screen, storage or network flow:
-  most of `domain/` plus `data/local/model/WatchEntity` and `AlarmEntity` (Room annotations only; DAOs and the
-  database stay in `:app`), `MarketRepository`, `BackupRestoreLimits`, `AssetScope` and four `util` helpers. Packages
-  are unchanged (`com.cryptochecker.app.*`), so no import changed; `internal` in moved files became public (module
-  boundary). `:app` depends on `:domain`, which exposes `:marketdata`, coroutines and Room runtime as `api`.
-  Selection rule for later moves: a file may move only if everything it uses has moved (no `R`, `BuildConfig`, UI,
-  DAO/database or Hilt entry points). Next steps: interfaces for repositories so the refresh/alarm flows can move,
-  then drop the Android dependencies of `:domain` (Kotlin Multiplatform), then `:data`. CI: `:domain:lintRelease`,
-  device-test paths, `domain/gradle.lockfile` in the supply-chain update, mutation targets resolved in either module,
-  `FileLengthTest` covers the module.
-  Add pair: `SearchLists.failed` / `ExplorerSearchLists.failed` hold the names of exchanges whose pair list did not
-  load in the last «Load lists» run (sync error or empty list) and are still missing; the card shows
-  `explorer_lists_failed_one` / `_many` (two strings, not a plural: Xcode requires the count in plural
-  variants; names joined with «, ») before the remaining `explorer_lists_missing` and
-  the button becomes `action_retry`.
-  Supply chain (SEC-2 done): the run of «Supply chain update» on this build wrote `verify-signatures=true` with
-  `android/gradle/verification-keyring.keys`; checksums remain for unsigned artifacts. Lock files gained the
-  release unit-test configurations (no version changed).
-* Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
-  factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
-  joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on
-  Android); open parts aggregate the stream once per queue. Logo image limit 4 MB (`MAX_IMAGE_BYTES` /
-  `maxImageBytes`), failure memory key v2. iOS `AppStatus` also holds exchangePauses, changeStamp, activityReports,
-  portfolioSavePending. Android audit: `TestDisplayOverride` (Compose locals only: font scale, locale, layout
-  direction) set by `DeviceOverridesRule`; runs in standard size, font ×2 and Arabic plus the alerts overview (bell).
-  iOS audit still report-only (findings in settings come with the settings redesign); nav-bar dynamic type and element-less text detections logged only; tab tap and audit
-  timeout retried once.
-* Build 130: iOS `AppData+SnapshotLoad` (launch read off main, `whenSnapshotLoaded`/`waitForSnapshot`, guarded
-  accessors, `WatchlistLoadingRows`), `AppStatus` (@Observable: online, appStartMillis, watchlistSavePending,
-  watchlistLockedHints). `PortfolioDecimal.mantissaDigits`. Accessibility audits: iOS still report-only in build 130
-  (findings as warnings; blocking again in 131, tab bar exception by position); Android in standard size.
-  Android widget lock end: `WidgetRefreshUnlock.hold` sends a broadcast to `PriceWidgetProvider` that waits with
-  goAsync in steps of at most 6 s (`holdStep`) and then redraws – a running receiver keeps the process from being
-  frozen, so the chronometer never counts below zero; the alarm (now waking, allow-while-idle) stays as fallback.
-  iOS audit waits 1.5 s before each audit and first closes the watchlist storage notice (always shown in the unsigned
-  simulator; the audit reported «Contrast failed» for it and the starter title beneath, although the text has ~13:1).
-  Contrast findings for text reaching under the translucent tab bar or out of the window (largest text, Arabic) are
-  only logged. Portfolio empty state: «Import its file» and the address link get a 44 pt tap height (same look).
-  `check_theme_contrast.py` (CI, reads the colour sources). CI: `swift_escape_hatches.py`, `code_metrics.py`,
-  `user_agent_check.py`, `RoomSchemaRulesTest`, signed macro calendar (`macro_events.json` in the manifest),
-  provenance attestation on tags, PGP keyring via supply-chain-update, fastlane `store_build`. iOS coverage gate on
-  «logic» (Shared/ and App/), 70 %.
-* Build 129: tax worksheet page (Android `ScreenRoute.PortfolioTaxWorksheet`, `TaxWorksheetScreen`; iOS
-  `TaxWorksheetPage`), cutoff dialog/sheet only for the cutoff export. `ExportRunner` / `ExportRun`: cancellable runs,
-  Android deletes a partially written target after the write finishes; error kinds file / prices / other
-  (`export_errors.json`). Widgets: `WidgetPrimaryFit` (iOS, `@ScaledMetric`, cap 1.3×, `ViewThatFits` fallback),
-  `WidgetRows.rowsFor` / `WidgetListRows` (`widget_list_rows.json`), Android `WidgetTextFit.listPriceSp`. Charts:
-  `ChartAudioGraph`, `ChartPointAdjustable` (iOS), `ChartPointSemantics` (Android). `AppNotifierDeliveryPlan` (pure
-  decisions of the Android notifier). Widget configure activities exported with `WidgetConfigureGuard`. Mirror
-  manifest `revoked` (key id = SHA-256 of the DER public key), `MirrorRevocations` stored permanently; mutual
-  revocation disables the mirror. Accessibility audits: `AccessibilityAuditTest` (Android, `ComposeA11yAudit`),
-  `AccessibilityAuditTests` (iOS `performAccessibilityAudit`), each also with large text and Arabic.
-* Build 128: `PortfolioCostPartPool` (Android/iOS) keeps cost-origin parts lazily: a disposal stores the remaining
-  share instead of rewriting every part, parts are materialised on read; large lists (> 64 parts) give export cost,
-  «USDT ≈ 1» and date span from running sums. Used by the average method, `TaxPool` (UK/CA/AT) and the CA loss check;
-  equivalence tests against the previous code (`PortfolioAverageReference`, `TaxPoolReference`), performance tests use
-  `assertScales`. `CsvTransferWindow`: deposits per coin sorted by time, window by binary search (same pairs as the
-  nested loop). `PriceWriteOrder`: a price is written only if not older than the stored one (stored time more than 1 h
-  in the future counts as a reset clock); Android in the `WatchDao` update, iOS in `Outcome.apply`. iOS
-  `PriceWriteGate` (FIFO, continuations) serialises applying results of `refreshAll`, `refreshOne`, live and the
-  background task; `applyLive` only tries. `lastFullRefreshAt` (iOS `SharedStorage`, Android `RefreshStats`) drives
-  the 15 s debounce of pull to refresh and the widget button; live ticks set only `lastRefreshAt`. `RefreshLock`
-  `lockWithin` never leaves an acquired mutex behind after a timeout. `BackupRestoreLimits.validAsset` (letters and
-  digits of any script and `._-`; DexScreener pairs length only). `TaxRulesDate.rulesStale`. Fixtures
-  `price_write_order.json`, `refresh_debounce.json`, `tax_rules_stale.json`, `backup_limits.json`.
-* Build 127: RefreshState (iOS, `AppData.refreshState`, an `ObservableObject` of its own): `refreshing`,
-  `refreshingWatchIds`, `lastRefreshMillis`, `lastRefreshReport`, `liveExchanges` and `liveWatchIds` publish only
-  there, not via `AppData.objectWillChange`, so the watchlist body is not recomputed for them. Views that show them
-  observe it: status row with circle and run time (`RefreshStateReader`), ⋯ menu (`WatchlistMenuHead`), report sheet,
-  action sheet, developer settings; countdown, clock and «only stale» via `WatchlistRefreshEvents`. Rows read
-  per-pair `@Observable` boxes (`rowLoading`, `rowOnLive`, like `LiveQuoteBox`): only the row whose «refreshing» or
-  live state changes redraws; a full run touches only rows without a price. `RefreshStateTests`.
-  Review fixes: `RefreshLock.stageTail` stages the tail of a `withLockThen` block early; a staged tail still runs
-  (lock handed over) when the block later fails or is cancelled, then the error propagates. `PriceRefresher` and
-  `LivePriceApplier` stage the price notifications right after `process` (report count via reference);
-  `applyLiveFinal` does not wait for the tail (it keeps the lock; waiting would only lengthen stopping the stream).
-  iOS: a full `mutate` folds a pending price save in (`foldPendingPriceSave`: `take`, widget wishes merged,
-  interval from now); `yearSummary(run:)` asserts `GainsRun.matches` in debug; the open-lots sheet always lists
-  `PortfolioOpenLotItem.of(lots)`; `TaxFees` sits below `object TaxExport`.
-* Build 126: Deeper performance points, results unchanged (each with an equality test against the previous way).
-  Tax export: `TaxExport.allDisposals` (all years, without fx) is computed once per gains export / year summary and
-  passed to `fxSpan(…, disposals)`, `gainRows(…, disposals)` and `yearSummary(…, disposals)`; CA (`CA_ACB`) rows keep
-  their own run with fx (superficial loss decided in CAD, the rates depend on the span). `TaxExport.feesIn` returns
-  `lostFeeCostsIn` + `unassignedFeesIn` from one run (one `ledgers`/engine run; same input as before: no day closes,
-  `applyRules(…, null)`) – deliberately not from the disposal run, whose day-close valuation can change the holdings
-  with cost. Cost parts stay over all years. `TaxExportSingleRunTest`: identical span and CSV texts (summary, gains,
-  income) for all `tax_templates.json` cases/summaries, `tax_export.json` and the performance data (all templates,
-  several years, FIFO/Ø). Price notifications: `RefreshResultProcessor.process(…, deferPrices = true)` returns
-  `pendingPrices`; full refresh and live prices post them with `postPrices` (showPrices + `setNotifiedPrices` only for
-  shown) after widgets and report as a tail of `RefreshLock.withLockThen` / `tryWithLockThen` / `withLockWithinThen`:
-  the caller finishes, the lock is handed to the tail in the app scope and released only after it (no other writer in
-  between, so the next run never decides with an old notified price). WorkManager/exact runs wait for the tail; side
-  checks (their own notifications) start after it; the report gets the shown count afterwards (`noteShownPrices`).
-  Single-pair refresh unchanged (one post, never throttled). Overflow lines are built once (only pairs cancelled
-  during the pause drop out), `PriceFormat.threshold` keeps one formatter per locale. List widget: `WidgetOnceRead`
-  reads the pairs once per draw (empty note, title, rows of all widgets), `ListWidgetRenderer.update(ids, select)`
-  picks the lists for `updateForWatch` from the same read (`WidgetRefreshScope.listsShowing`), and the outdated alarm
-  reuses it. Tests: `PortfolioEventsByCoinTest` (`eventsByCoin` = `events` per coin; `PortfolioPeriodParts` all coins =
-  sum per coin; `cashFlows`/`pnlFlows` all coins = per coin).
-* Build 125: Performance without changed results. Ø (`PortfolioCalculatorAverage`) keeps the cost parts per acquisition
-  (`takeParts`, acquisitions × disposals) only with `withParts` (default true: tax export, CA engine, coin detail);
-  `summarize(…, withParts = false)` / `ledgers(…, withParts = false)` are linear with identical numbers (empty
-  `costParts`/`pricedCostParts`). The portfolio card keeps parts only outside USDT (`PortfolioCostFx`); widget
-  snapshot, freshness check, hourly candles and alarms never. `PortfolioLedger.eventsByCoin` once instead of
-  `events` per coin: `PortfolioCalculator.ledgers` (tax notes `lostFeeCostsIn`/`unassignedFeesIn`), value history
-  (`holdingsTimelineOf`, `cashFlows`, `pnlFlows`), `PortfolioPeriodParts` (all coins). `PortfolioSummaryCache`
-  (last summary by trades, prices, method, parts) shared by the app's freshness check, the background refresh and
-  `PortfolioSnapshotUpdater.record` – one summary per update. Open lots: 50 rows, then «Show all (N)» in a lazy sheet,
-  formatters once per list. RSI: average gain and loss both 0 → 50 (parity `indicators.json` › «flat closes»).
-* Build 124: CSV import – `PortfolioRepository.insertImported` cleans and checks the rows (`cleanForSave` + `require`)
-  on `Dispatchers.Default`; `CsvImportMapping.unsavableReason` puts rows that saving would reject into the preview's
-  skipped list (`MISSING_FIELD`, new `AMOUNT_TOO_SMALL`, `INVALID_SWAP`; parity `csv_import.json` › «unsavable», also
-  checked against `cleanForSave`); `runCsvImportSave` (confirm flow as a pure function: prepare, cancel, save, enable)
-  and `canCancelSave`; `csvImportOrphaned` closes the import flow after process death (picked, no pending file picker
-  result, view model `Idle`). Widget: `ListWidgetRetry.clearIfExpired` at app start (`RetryWait.widgetRetryExpired`).
-  `release_readiness.py`: «Build N:» history only for N < versionCode, «früher» / «previously» only at the line start
-  or in parentheses.
-* Build 123: `RetryWait` (retry wait of the widget refresh: WorkInfo ENQUEUED + `runAttemptCount` > 0 →
-  `nextScheduleTimeMillis`, linear backoff, countdown seconds), `PriceUpdateScheduler.observeManualRetryAt` →
-  `WatchlistLive.widgetRetryAt` → status pill countdown (`WatchlistRetryCountdown`), `ListWidgetRetry` (partial widget
-  update with the fixed retry time `widget_retry_at` via `RetryWait.widgetRetryTime`, `WidgetPrefs.refreshRetryAt`),
-  `RefreshReport.attempt` (`RefreshReportCodec`, extracted from `RefreshStats`), `BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS`.
-  Android only: iOS runs the widget refresh directly in the intent without a retry. CSV import: `CsvImportState.Done` /
-  `Cancelled` (result as state, survives rotation), `prepareCsvImport` / `CsvImportSavePlan` (on `Dispatchers.Default`),
-  `insertImported` inserts directly via `portfolioDao` (no nested transaction). `BulkUndoConfirm.finishedAt` (saved;
-  «Remove» re-checks `BulkAddRunner.undoOffered`, `bulk_undo_expired`). Device test `PortfolioImportInsertTest`.
-* Build 122: `CsvImportProgress` (throttled progress, cancellable insert; iOS `CsvImportBackground`, `CsvImportRun`,
-  `AppData+PortfolioImport`), `BulkAddProgress(text:)`, coverage gate `--min-logic` (`MIN_LOGIC` 58 / 78),
-  `PortfolioPerformanceTest` / `TaxPerformanceTest` (+ iOS), `PerformanceTiming.Sizes`, `exchange_errors_synthetic.json`
-  + `ExchangeErrorContractTest`, parity `quiet_hours.json` / `currency_conversion.json`, groups hint without
-  onboarding/minimum (`showsGroupsHint`), iOS `TaxEngineUk` binary search, `RateLimitSignal` UTF-16 length.
-* Build 121: Swift 6 language mode (`SWIFT_VERSION 6.0`, `ios/README.md` «Swift 6 Migration»), `WatchSearchIndex` /
-  `rememberWatchSearchResult` (iOS `WatchlistSearchIndex`), `coverage_summary.py` «logic» + Kover merge of :marketdata,
-  `xccov_summary.py`, `mutation_test.py` + `mutation.yml`, `indicators.json` parity, `rsi` period ≤ 0 → null (Android),
-  `release_readiness` guide patterns for tag examples / archive name, `-PperformanceTests` (only/true; performance
-  tests in their own CI step), `LocalResources` in `WatchlistBulkAdd`.
-* Build 120: `AlarmCheckStatus.batch` (Android), `BulkAddRunner` end states (cancelled/failed, finish time, undo window
-  60 s, `deleteNewWatchesForUndo` without alarms), `BulkAddDisplay`, iOS `WatchInsertion`, `DenseRowText.convertedMaxLines`
-  / `convertedLineLimit`, `lineStart` (relative time at line start), `MarketMoveScale` opposing market/breadth → mixed.
-* Build 119: `AppSnackbarHost` / `showAppSnackbar` / `SnackbarKind` / `SnackbarPalette` (+ `snackbar_colors.json`), iOS
-  `snackbarSurface`, `sbom.py`, `reproducible.yml` + `repro_compare.py`, behaviour tests (`FakeWatchStore`,
-  `WatchlistWriteConsentTest`, `BulkAddRunnerTest`, iOS `WatchlistConsentBehaviorTests`, `AddWatchesBehaviorTests`),
-  performance tests (`performance/*PerformanceTest`, iOS `*PerformanceTests`, 2000 pairs), iOS `AlarmUpdate.Index`,
-  `ios.yml` split into three parallel jobs (no separate Release Simulator build any more).
-* Build 118: `BulkAddRunner` (app-wide bulk add, progress, `undo`), `bulkNewCount` / iOS `ExplorerBulkCount`,
-  `BulkAddProgress` / `WatchlistBulkAdd`, `MarketMoveScale` (+ `market_move_scale.json`), `alarmReliabilityLineShown`,
-  `PortfolioEmptyExample`, exchange check row selector (`{"symbol": "BTC"}`).
-* Build 117: reserve mirror key (`RESERVE_PUBLIC_KEY` / `PUBLIC_KEYS`, `productionReservePublicKey`), CI step «Kotlin
-  warnings» (ceiling 0, main sources, from the unit test log), `DenseRowText.convertedMaxWidth` (+ iOS `CappedWidthLayout`),
-  `CurrencyConverter.usdtMeasured` / iOS `WatchlistConversion.waitForNextRound`, `WatchlistConversion.accessibilityText`,
-  `HostStorageKey.probeAddStatus`, trusted Gradle sources (`gradle-*-src.zip`) in the verification seed.
-* Build 116: no `paths` filter for `pull_request` (required checks), allowed environment skips in ios.yml,
-  `HostStorageKey.shouldUseTestKeychain`, rate limit passthrough in `SingleTickerFallback`.
-* Build 115: iOS warning ceiling 0 (`MAX_COMPILER_WARNINGS`, `warning_details`), `HostStorageKey` / `StorageKey.replaceKeychainForTesting`,
-  `UITEST_FAIL_VERIFY`, `tickerFallbackAddress` / `SingleTickerFallback` (One Trading), job names for required checks.
-* Build 114: `AddressBalance.discardFetched` (+ `Update.snapshotCountTokens/snapshotNetworks`, replaces `resetDuringFetch`/`snapshotAttempt`),
-  `WatchedAddressBalanceWriter`, iOS `presentDelayNanos` / `UITEST_BACKUP`, `BackupSettingsTextsTests`, exchange check `onetradingbulk`.
-* Build 113: `AddressBalance.resetDuringFetch` (+ `Update.snapshotAttempt`), `BackupResultPresentation.displayWidth` / font scale /
-  `canPresent`, iOS `ToastMessage`, `BackupUnencryptedWarningTest`, mirror signing key rotated (`MirrorManifest`, `mirror_data.py`).
-* Build 112: `singleFlightRefresh` / `AddressRefreshGate`, `AddressServerTestRun`, `BackupResultPresentation` (+ `backup_result_dialog.json`),
-  `DialogText` + `DialogScrollGuardTest`, `mirrorLoader` / `loadMirrorMeta` tests, environment `mirror-signing`, split dependency graph jobs.
-* Build 111: `AddressServerRules` (+ `address_server_ui.json`), `BackupRestorePolicy.addressServerNote`, `SettingsRestoreNotes`,
-  `BlockedSources.unblock` / `clearServerPauses`, `MirrorTrust` with injectable key (Android class + `shared`), iOS mirror size
-  limits, `supply_chain_files.py` configuration check, market-data red on unsigned manifest, guard rules for detached scopes.
-* Build 110: comments without build numbers (F-21; history lives in CHANGELOG and git), `NSLocalNetworkUsageDescription`
-  (`ios_local_network_usage` in `ios_extra_strings.json`, `convert_strings.py` `INFO_PLIST_KEYS`), `lint_warnings.py --details`.
-* Build 109: signed mirror (`MirrorManifest`, `MirrorTrust`, `mirror_signature.json`, `mirror_data.py --manifest`,
-  `artifact_check.py` profile `mirror_manifest`, secret `MIRROR_SIGNING_KEY`); consent per action
-  (`WatchlistNotSavedGate` job scope / `TaskLocal` `actionConsent`, `unaskedPassScope`); condition-direction guards;
-  `supply-chain-update.yml`, `osv.yml` (`osv_check.py`), Kover (`-Pcoverage=true`, `coverage_summary.py`),
-  `lint_warnings.py`, marketdata unit tests.
-* Build 108: transfer coverage «amount + network fee» on all methods (`uncoveredShare`, `portfolio.json` B108 cases,
-  `tax_templates.json` `poolUncovered`, `TaxPool.addFee` with amount/fee); own address server (`AddressServer`,
-  `address_server.json`, `WatchedAddressSourceServer` / `WatchedAddressSource+Server`, Bitcoin Esplora only, backup key
-  in `backup_settings.json`); first-xpub consent; `PortfolioWidgetOptions` (`widget_portfolio_options.json`);
-  `SettingsUiEvents`; double-tap guards; `launchOrSkip`; `AlarmEditorStateTest`; `WatchlistNotSavedGate.run` +
-  `EditorConfirmBehaviorTests`; background error kinds (`background_errors.json`).
-* Build 107 (review round 5): `ScreenEvents<T>` + `CollectScreenEvents` (buffered one-shot results, collected by the
-  current screen); alert editor draft in `AlarmEditorState` (`SavedStateHandle`), effects in `AlarmEditorEffects`;
-  `WatchUiEventsHolder` / `MarketCoinUiEffects`; `launchSystem()` guards an unregistered permission launcher;
-  `AlarmEditorRecreateTest`; iOS `ConfirmedFinish` (editor, note and group sheets close after the confirmation,
-  `saveFromEditor` / `templateFromEditor`); guards: cancel branch (Android) and own closure parameters (iOS);
-  `ios_release_audit.py` skips `#/…/#` regex literals.
-* Build 106 (review round 4): `launchWrite(cancelled = …)` with `onDone(Boolean)` for favourite, group, disable and
-  notification writes (feedback only after writing); `addPreview` reports cancel/locked; `WatchlistNotSavedGate.confirm`
-  waits up to 2 s for a screen (`lateScreen` in `watchlist_not_saved_gate.json`, `mayAsk()`), iOS `confirmClose` keeps
-  the alert editor open on cancel; `portfolio_alarm_threshold_invalid_recreate`; iOS `AppData+DeliveryMarkers` prunes
-  after the write, `AppData+PairPickerKey`, `SwitchRow(dimsLabel:)`; per-call guards `WatchRepositoryCallGuardTest` /
-  `WatchlistConfirmCallGuard(Tests)`; `ios_release_audit.py` string-aware comment stripping; `release_readiness.py`
-  head build check for ROADMAP/TESTPLAN.
-* Build 105 (review round 3): `WatchlistNotSavedGate` asked once per user action before side effects – Android
-  `confirmUserWrite()` before `withRefreshLock`/`undoMutex`, repository write paths return `Boolean` / save outcome
-  (`WatchRepositoryAlarmSave`), cancelled waiter clears `pending`; iOS `withWatchlistConfirm` (async), `retry` removed,
-  alert in its own window (`WatchlistNotSavedGatePresenter`, 2 s safety net); fixtures `watchlist_not_saved_gate.json`
-  (`actions`, `cancelledWaiter`), `alarm_toggle.json` (`toggleAllowed`). `AlarmDelivery` `savedSinceMarker`
-  (`alarm_delivery_marker.json` `savedSinceCases`, `deliverCases`, `resetCases` / `shouldClear`), iOS `persisted` step,
-  `deliverAlarms(isCancelled:)`, `submitIfCurrent`; portfolio `CHANGE_DOWN` < 100 (`portfolio_alarm.json` `threshold`,
-  `PortfolioFallAlarmCleanup`); `LogoUrlPolicy` (`logo_url_allow.json`); DexScreener dot segments
-  (`dex_pair_id.json`); `ios_release_audit.py privacy` (required-reason APIs vs. `PrivacyInfo.xcprivacy`);
-  `release_readiness.py` tag check; commit `^[0-9a-f]{40}$`; `SourceGuard` / `REQUIRE_IOS_SOURCES`.
-* Build 104 (review round 2): `AlarmDelivery` `isShown(markerAt)` with post-time tolerance (`alarm_delivery_marker.json`
-  `postedAt`), `mark()==false` → `retract()`, marker cleanup (delete, restore, DB onCreate); Android
-  `PortfolioAlarmDeliveryMarkers` for portfolio alerts; `FallAlarmCleanup` / iOS `disableInvalidFallAlarmsOnce`
-  (`alarm_threshold_invalid_fix`, `backup_alarms.json` `expectedEnabled`); `PortfolioFeeExpenses.transferUncovered`;
-  `CsvImportState.Preview.choice`, `CsvImportTime` later offset at overlap (`csv_import.json` dates `zone`);
-  `BackgroundRunSeams`, cancelled run after saving does not notify (Android `ensureActive` in `RefreshEffects.report`);
-  `BackgroundDemandGate` (generation); `HttpUserAgent` privacy hosts always neutral (Firefox ESR UA,
-  `address_privacy.json` host cases), own pool/dispatcher for address lookups; `DexScreener.isSafePairId`
-  (`dex_pair_id.json`); workflows macro/market-data/exchange-live-check as fetch job + publish job
-  (`artifact_check.py`); `line_limit.py --self-test`; `REQUIRE_GIT_COMMIT` / Gradle stop without `gitCommit` for
-  signed release builds; CI workflows also on tags `v*`; iOS skipped-test check in `ios.yml`; `AlarmPickerRows`;
-  `BackgroundErrors` counter per area in diagnostics (`background_errors.json`); `WatchlistNotSavedGate`
-  (`watchlist_not_saved_gate.json`); `DatabaseEncryptionParallelTest`.
-* Build 103 (two review rounds): watchlist read-only while `storedKept` (Android `WatchRepository.userWriteRefused()`,
-  `AddWatchOutcome.Locked`/`PairEditResult.LOCKED`/`BulkAddResult.locked`, `WatchlistWriteRefusal` + `WatchlistLockedHint`;
-  iOS `AppData.watchlistWriteRefused()` for `watchlistLocked`); `EncryptingOpenHelperFactory.prepareLock(name)`;
-  `util/AppScope.appScope()` (SupervisorJob + handler) for all process-wide scopes; `PortfolioWriteResult`
-  (OK/LOCKED/FAILED, `portfolio_write_failed`), restore `NonCancellable`, coin page shares the overview's
-  `PortfolioViewModel`, `PortfolioCoinDetailFlow` / iOS `PortfolioCoinLedger` off the main thread; `CsvReadChoice`
-  (confirm gate, `csv_import.json` › `confirmGate`); `AlarmDeliveryMarkers` (`alarm_delivery_marker.json`);
-  `AlarmPairPicker` (`alarm_pair_picker.json`); falling percent < 100; undo respects `WatchlistLimits`;
-  `ThresholdParser` Indian grouping; iOS `PortfolioSaveRetry` (merge path), `ProtectedFile+Durability` (`.full`/
-  `.barrier`), `BackgroundExpiry`, `BackgroundWorkDemand` (`periodic_needed.json`), widget draw budget 7 s,
-  `BackgroundRefreshTask` protocol; `HttpUserAgent.NEUTRAL` for address lookups (`address_privacy.json`); live
-  message cap 1 MiB; `AppLock.authenticatorsFor(sdk)`; `taskAffinity=""`; diagnostics `Source:` (BuildConfig
-  `GIT_COMMIT` / Info.plist `CCGitCommit`); workflows `keepalive.yml`, `line_limit.py`, token split in
-  `macro-calendar.yml` and `exchange-live-check.yml`, Binance via data-api.binance.vision, `ios.yml` input
-  `thread_sanitizer`; tests `RoomSchemaMigrationTest` (room-testing), `WatchlistLockDeviceTest`,
-  `PriceUpdateWorkerTest`, `WatchlistLockBehaviorTests`, `BackgroundRefreshRunTests`.
-* Build 102: backup restore goes through `RestoreRun` (journal first — `BackupJournalUnavailableException` / iOS
-  `Failure.journalUnavailable` before any write; `RestoreRollback` separate, `RestoreRunTest`); `DatabaseKeyRetry`
-  (3 × 500 ms, key «lost» only on the next run via `<db>.key-suspect`); `SettingsLockFallback` / iOS
-  `SharedStorage.settingsAfterRead` (lock assumed on when settings are corrupt); `BackupReadCache` salted SHA-256, 5 min
-  plaintext TTL; `AsideRetention` (30 days after first seen, notice confirmed, current file opens); `LiveJson` depth 128;
-  `HttpBodyLimit` start buffer ≤ 256 KiB; `AlarmJson.needsPositiveThreshold` incl. volume spike and open interest
-  (`backup_alarms.json`); `SettingsBackupTarget` + `backup_settings.json`. Alerts: iOS `NotificationBudget` (20 +
-  overflow, `notification_budget.json`), `ActivityDueOrder`, `AlarmSaveBuilder` + `WatchRepository.saveAlarmMerged`,
-  per-key `MoveHistoryCore`/`MoveHistoryStore`, `AlarmLog.shouldPersist`. Portfolio: FR fee path, AT old holdings,
-  18-digit banker's rounding, `PortfolioCoinDeletion` (fee refs), `PortfolioUnassignedFee`, xpub QUICK fallback when a
-  FULL scan would exceed `XpubScan.MAX_REQUESTS` with a cache (hint `portfolio_address_xpub_limited`; a FULL that still
-  fails stamps `fullScan`, so it is retried after a day),
-  `OwnCandleDataSource` bounded. iOS widgets: `WidgetRows`, `CoinLogoDecode`, `PerKeyDefaults`, async
-  `reloadFromDisk`. UI: `NavigateOnce`, `RemovedBatch` + `UndoSlot.merge`, `LiveDispatcher` (own pool),
-  `UserAgentInterceptor`, `LiveRules.tickTime`. Fixtures changed: `live_feed.json`, `exchange_okx.json`,
-  `tax_templates.json`, `portfolio.json`, `address_balance.json`.
-* Build 101: nameless portfolio holdings on an ambiguous ticker — `PortfolioPriceIdentity.binanceCheck(..., otherNames)` returns
-  `UNVERIFIED` when Binance's name and the names of other stored pair lists (`TokenIdentityStore.otherNames`) clearly
-  conflict (`TokenIdentity.conflicting`); the Binance price is used but listed in `PortfolioPrices.unverified` (row «Kurs
-  ungeprüft»; persisted with the price as 4th field `;u` in `portfolio_last_prices.txt`, `StoredPrice.unverified`, never a
-  candle reference via `PortfolioPriceFallback.confirmed`; wrapped coins inherit it from their base), stored in the snapshot (`unverifiedCoins`/`unverifiedValueUsdt`) and counted like stale prices by
-  `PortfolioAlarmLogic.staleMaterial`; own pause reason `PriceUnverified` when no stale/missing prices block. Exports and the
-  value-history chain exclude unverified prices as references (`CutoffExport.referencePrices`/`referenceOf`). Fixtures:
-  `portfolio_price_identity.json`, `portfolio_alarm.json`, `cutoff_export.json` (`referenceCases`, `chainReferenceCases`).
-* Build 100: haptics only through `ui/components/Haptics.kt` (`HapticEvent`, `Haptics.constantFor(event, sdk)`,
-  `rememberHaptics()`) and `ios/App/Components/Haptics.swift` (`Haptics.play`, `.haptic(_:trigger:)`); `HapticsUsageTest`
-  forbids direct haptic APIs elsewhere and any haptics in notification/widget/work/tts code and iOS Shared/Widgets.
-* Build 99 (second full audit): `WatchlistLimits` (Kotlin/Swift, 2000 pairs, 10 alerts per pair; `BackupRestoreLimits`
-  reuses it), `AddWatchOutcome`. iOS `PrivateSessionConfig.make` (no cookies, no URL cache) for every URLSession,
-  `StorageKey.renew()` with an App Group generation counter so the widget re-reads the key, `OrderedSerialRunner` for
-  background widget snapshots. `TextLimit.clean` (trim, cut by graphemes, trim) for notes, groups and exchange names;
-  fixtures `backup_limits.json`, `text_limit.json` («fields»). `BackupRestorePolicy` rules for `systemBackup` and
-  `hideAmounts`. CSV `tokenizeOrNull` caps (200 cells, 200 000 rows). `PortfolioTxFirstInvalid`, `DexFailure`,
-  `LegacyDatabaseCleanup`, `BoundedCache.MEMORY_CACHE_ENTRIES`. JVM unit tests run with en-US/UTC.
-* Build 98 (full audit of build 97): fixtures `exchange_backoff.json` (next/groupPause/adoptedPause/merge with
-  implausible pauses) and `text_limit.json` (`TextLimit.takeGraphemes`/`graphemeCount`, java.text.BreakIterator;
-  ZWJ/flag/skin-tone cases need JDK 20+ in JVM tests, `TextLimitDeviceTest` covers them on device). `label_value`
-  resource for «label: value» (`LabelValueUsageTest` scans Kotlin and Swift sources). `MonthYearFormat` (ICU skeleton
-  «MMMyyyy»). iOS `PortfolioSummaryCache` (off-main summarize, newest result wins), `DateFormatterCache`,
-  `AlarmCreateGuard` (both platforms). Android `BoundedCache`/`KeyedMutex`, JSON depth guard in `MarketHttp`
-  (`HttpBodyLimit.MAX_JSON_DEPTH`). CI: `room_schema_drift.py` compares exported identity hashes with HEAD.
-* Build 97 (review 21 October 2026, afternoon): `OpenTargetGuard` (Kotlin/Swift) – per-install secret (not backed up)
-  appended to the app's own notification/widget intents and URLs; without it only `add`, `alarms`, `cycle` and
-  `watch/<id>` are opened. `StorageRecoveryNotice.SETTINGS_RESET` (Android: set by the DataStore corruption handler;
-  iOS: `SharedStorage.settingsCorrupt(hasData:decodes:)`), cleared only on dismiss. `PortfolioSnapshotUpdater.shouldRefresh`
-  treats unreadable alarm storage as «alarms may be active». Fixture `gas_fees.json` (feeHistory, gasPrice, mempool,
-  transfer cost); hex parsing accepts ASCII hex digits only on both platforms.
-* Build 96 (review 21 October 2026, noon): `DepegAlarm.usablePrice(last, exchangeTime, now)` (Kotlin/Swift) drops a
-  depeg reading whose exchange time is too old by `AlarmFreshness.exchangeTimeTooOld` (fixture `depeg_alarm.json`
-  → `usablePrice`). Visible percentages go through `PercentText` only (new `minDecimals` for trimmed trailing zeros);
-  `AlarmSentence`/`AlarmTexts` no longer use `NumberFormat.getPercentInstance` / `NumberFormatter.percent`, so ICU
-  differences cannot split Android and iOS. Volume alert editor hint `alarm_volume_zero_hours_hint`; volume fixture
-  case «newest candle 20 h old».
-* Build 95 (final audit round, 21 October 2026): iOS `VolumeDataSource.spikeOf(_:now:)` mirrors Android (hour grid,
-  `isLive`, missing hours = 0, 24 comparison hours covered; fixture `volume_spike.json`). `AddressAlarmState`: an
-  address without loaded balance pauses portfolio alerts only while it has no error or was added < 24 h ago; failing
-  addresses are named (`AddressesFailing`). `ChainBalance.parseTonJettonPage` → `WatchedAddress.staleTokens` (Android
-  extra column key `stk`) counted like stale prices against the 1 % rule (`TokensStale`). `WatchedAddressUndo.failure`
-  banners. `PortfolioDataCheck.keepMarker` while the portfolio is in memory; iOS `portfolioRecoveryDeferred`.
-  `PercentText.isSpaced(language, region)` (es-MX no space; en-AT/DE/DK/FI/SE space); fixed «%» strings take `%1$s`
-  from `PercentText`; `changePercentDetailed` via `PercentText.signed`; `ClockText` (Android 12/24 h from
-  `is24HourFormat`). Undo restores price notifications only for ≤ 3 pairs. CI: smoke test seeds starter pairs
-  (`starter_add`), reinstalls, forces jobs and fails on worker creation errors; `manifest_policy.py` allow-list of 11
-  permissions; release smoke on PRs touching release rules; `release_readiness.py` checks the store guides' build;
-  APK budget warning 22 MB.
-* Build 94 (third audit of 21 October 2026): CI tests production readiness – `android.yml` builds R8 release APK +
-  AAB + `lintRelease` and runs `.github/scripts/android_release_audit.sh` (`manifest_policy.py`, `apk_contents.py`,
-  annotations via `annotate.py`); `android-device-tests.yml` job `release-smoke` (API 26/34, throwaway-signed R8 APK,
-  start, monkey, WorkManager, crash/ANR); `ios.yml` release settings audit, unsigned device build, built-app inspection
-  (`ios_release_audit.py`); `release-readiness.yml` (store limits, URLs, screenshots, version parity, Xcode project
-  drift). Release `ndk.debugSymbolLevel = SYMBOL_TABLE`, `-PrequireReleaseSigning`, iOS Release `-O`. Addresses:
-  `XpubScan` background lookahead 2 + `keepBackground`; `AddressBalance.pendingCount` → `addressesPending` pauses
-  portfolio alerts; `staleMaterial` (stale < 1 % of value does not pause); `PortfolioAlarmLogic.pause` +
-  `PortfolioPauseText`; `discoveredNetworks` keeps silent networks; TON full page → unknown, not 0; `dueOrder` oldest
-  first in background; per-chain sat caps (LTC 8.4e15); iOS address file via `lenientArray`. `ActivityAnalyzer.hourStats`
-  only 1-hour returns aligned to the last full hour, ≥ 20 returns. `LiveBackoff.nextAttempt`/`reconnectDelayMillis`
-  (reset after 60 s stable, ±20 % jitter). `PortfolioDataCheck` / `enablePortfolioForData` after a settings reset.
-  Undo for clear watchlist / clear portfolio / remove address (`WatchedAddressUndo`). `PercentText` (CLDR table),
-  `PriceFormat.ageParts` (MeasureFormat / DateComponentsFormatter), `MomentText` (today time, else date + time).
-* Build 93 (second audit of 21 October 2026): `TaxExport.priceUntil`/`fxSpan` load FX and day closes up to the end
-  of the tax year + 30 days for UK/CA (capped at today); CSV gain per row = rounded proceeds − rounded cost;
-  `TaxTemplate.withdrawalFeeApart` (DE/AT) gives withdrawal fees their own total line. CSV import converts any fiat fee
-  unit (`needsFx` without rate) and prices rewards from the fiat amount (old import key kept as previous key). Bithumb
-  trade time from `trade_date` + `trade_time` (UTC, `UpbitStyleMarket.utcTradeMillis`); `Market.markFetched` drops an
-  exchange time more than 5 min in the future. Lighter with `daily_trades_count == 0`: exchange time = fetch − 24 h, so
-  the 2-hour alarm rule holds alerts. bitFlyer `state` ≠ RUNNING → no price; LATOKEN `updateTimestamp` is not a trade
-  time; HTX high/low only from spot `detail/merged`; Independent Reserve vol = `DayVolumeXbtInSecondaryCurrrency`.
-  Contract tests check recorded answers (exchange time within recordedAt − 30 d … + 5 min, low ≤ last ≤ high).
-  `CheckRunLog.lastFailedBackgroundCheck` keeps the reliability line STALE when only failed runs remain; offline exact
-  wake-ups are not logged; `AlarmReliability` status STORAGE_NO_KEY (Android volatile copy, `hasWork()` false).
-  Android `DatabaseEncryptionMigration.migrate` returns `PlaintextKept` for encryption-required databases when the
-  export fails with a key (banner `watchlist_storage_copy_in_memory`). Restore recovery (`RestoreRecoveryPolicy`): one
-  retry on the next start, journal older than 24 h or second attempt → give up. Android `BackupReadCache` (one read and
-  one Argon2id per flow), OOM → `NotEnoughMemory`. iOS `PlainBackupExclusion` keeps an unsealed protected file out of the
-  device backup; snooze rearm also applied in memory. `AlarmEdit.offersCurrency` hides alert currencies for
-  FIAT_UNSUPPORTED quotes. Accessibility: portfolio rows one spoken sentence (`coinRowSpoken`), iOS total min scale 0.7,
-  Android DEX copy toast below API 33. Portfolio widget bars and grid in `chartZone(basis)`. Logo user agent from
-  `HttpUserAgent.android(VERSION_NAME)`.
-* Build 92 (audit of 21 October 2026): `PortfolioHoldingsBook.walletKey` parks only `AddressBalance.isAddressPart` in the
-  address pot; address opening lots (`AddressCostLots.isLotTrade`) live in their wallet like in `PortfolioFifo`, so a
-  later sale or transfer from that wallet consumes them (cut-off, DE sheet, CH wealth with FIFO per wallet;
-  `address_cost_lots.json` cases «lot moved away and sold elsewhere» / «sold directly»). Kraken staking pairing: same
-  refid first for all staking legs, then the 1-hour window for the rest (`csv_import.json` `kraken_staking_refid_first`).
-  iOS: `Outcome.keepingCurrentPairs` before every `deliverAlarms` (app, BG task, widget) and `AlarmUpdate.pair` makes
-  `saveAlarmOnDisk` refuse a changed pair; «1 h later» rearms via `SharedStorage.updateSnapshot` + `AlarmSnooze.rearm`
-  under `BackgroundTaskGuard`, then `reloadFromDisk`; switching off / editing / deleting an alert removes its delivered
-  notification on both platforms (Android `AlarmUserChange`). Speech of converted alerts uses the shown price and
-  currency (`SpokenText.spokenAlarmPrice`). Backups: compact JSON (`BackupFormat.encode`, iOS `BackupManager.encode`,
-  sorted keys), `BackupLimits` 64 MiB read and write (`checkWritable`, message `backup_export_too_large`); CSV import stays
-  16 MiB (`CSV_MAX_BYTES`). iOS `finishRecovery` keeps the restore journal when the rollback failed. Android
-  `DatabaseEncryptionNotice.isVolatileCopy` (PlaintextKept): `BackgroundCheck` opens the database first and skips the run,
-  alarm log is not pruned, restore refused (`BackupRestorePolicy.storageRefusal`, `backup_restore_storage_in_memory`).
-  `PortfolioTxFormState` saver keeps the decimal separator (iOS: fixed when the sheet opens). `QuoteKind.FIAT_UNSUPPORTED`
-  (`KNOWN_FIAT`, ISO 4217 without codes that are also coins) never triggers crypto lookups. `CheckRunLog.lastBackgroundCheck`
-  ignores failed runs; `AlarmReliability.staleMillis(platform)` 2 h Android / 6 h iOS (`alarm_reliability.json`
-  `staleMillisIos`). `FuturesContractType.getDeliveryDate(now)` / iOS `delivery(asOf:)` roll to the next contract after
-  expiry 08:00 UTC. WOO trade time must be finite and < 2^63 ms. iOS copy confirmation for the DEX address
-  (`ios_dex_token_address_copied`). iOS CI builds the Release configuration too.
-* Build 91 (post-launch list done early, 21 October 2026): foreign-candle 24 h change shows the short exchange name
-  at the number; volume-spike texts name the candle source. Fiat alerts skip a cycle when the FX rate is older than
-  36 business hours (`fx_stale`) or USDT/USD is only known via USDC with USDC > 1 % off (`fx_unsure`, row «Conversion
-  uncertain»); USDT/USD is measured whenever a fiat alert or ≈ conversion depends on it. Aster quote «U» = USD 1:1
-  (`CurrencyConversion.conversionQuote`). Lighter rows with 0 trades leave the change empty; CoinDCX, Luno, ICRYPEX,
-  HashKey bulk lists complete (`RecordedBulkCompletenessTest`); BingX 100410 and bitbank 10009 are rate limits; DEX
-  token address kept per pool (`dex_token_address`); Binance price without known name only for non-colliding
-  symbols (`PortfolioPriceIdentity.binanceCheck`). «1 h later» for price levels; `AlarmReliability` line above the
-  watchlist; alert editor with «More»; Android undo survives «Check» (`AlarmUndoOffer`). Row price one step larger
-  (`DenseRowText.largePrice`), change basis always shown; `TabLabelFit`; widget type scale (`WidgetType`) and
-  ar/fa amount font; portfolio sheet/confirmations saveable; single widget opens the pair. Android watchlist never
-  created unencrypted (in memory + notice without key); an existing unencrypted watchlist or portfolio without a key is
-  only read (`PlaintextMemoryCopy`, decision 21 October: Android like iOS); WOO X spot makes a second request
-  (`/v1/public/market_trades`, live response 20 October) for the real last trade and its time, keeps the candle opening
-  for the change, and no longer shows «hourly price»; address writes refused while the portfolio is locked;
-  iOS foreground reload off the main thread (`AppData+DiskReload`); lease in the future = orphaned. Stichtag and
-  Swiss wealth count addresses like the card (`AddressCutoff`), including addresses without lots; the card counts a
-  transfer to the address once (1.4, not 1.7). DE 256 € line marked estimated. `localeFilters` with
-  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-origin.txt`.
-* Build 90 (third audit of 20 October 2026): `BulkDelisted` state is persisted (`BulkDelistedStore`, SharedPreferences
-  `bulk_delisted`; iOS App Group key `bulk_delisted`); the iOS widget never rechecks (`plan(…, lowMemory: true)`).
-  `wealthCoinNoteBelowValue` shows the incomplete note under a partial CH value. iOS `PortfolioEdits` only reports
-  delete/undo/clear after a successful write. `PortfolioRepository.linkStoredTransfers` writes CSV links in one
-  transaction; `portfolio_csv_import_locked`. Indicator `decide` re-stores the limit while beyond; gas reset runs
-  under `GasAlertChecker.lock` (iOS: reset generation); `BackgroundCheck` waits for pulse/speech after `runLocked`.
-* Build 89 (second audit of 20 October 2026): `bundle { language { enableSplit = false } }` keeps all locales in the
-  AAB for the in-app language picker. iOS `RefreshSchedule.isImplausiblyFar` replaces a far-off BG request (launch,
-  foreground, clock/time-zone change); readiness treats a last check > 5 min in the future as old
-  (`FUTURE_TOLERANCE_MILLIS`). `BulkDelisted.plan` rechecks all pairs once when every pair is marked and no state
-  exists; `NotTraded.confirmWithoutBulk` for markets whose single ticker reads the full list (Lighter,
-  Hyperliquid). Hyperliquid change = shown price vs `prevDayPx`. `DexPool` keeps `baseToken.address`. WOO spot rows
-  showed `watch_price_hourly` (build 91: real last trade instead). `MarketAlertReset` clears remembered alert state when a market alert is switched off;
-  indicator zones store their limit with the beyond-flag. Quick-alert undo waits for the first-alert dialog
-  (`AlarmsScreenSnackbars`). Portfolio writes (incl. delete/undo/clear/replace) are refused while locked;
-  `PortfolioStore.keepsUnsealed` on iOS. Backups carry `overlapChecked`/`overlapLegacy` (and costLots on iOS).
-  `LegacyStorageMigration.interestRewardLegacy` freezes the old interest rule for legacy data. `TaxWealthRow.incomplete`.
-  CSV `escape` skips leading spaces/NBSP before the formula check. `PulseBackgroundFetch` lets background checks
-  await the pulse fetch (≤ 20 s, within deadlines). xpub gap stays 20 (`portfolio_address_xpub_gap`).
-* Build 88 (audit of 20 October 2026): gas alerts store the threshold with the armed state and re-arm on change;
-  Fear & Greed stores its thresholds with the last value and re-evaluates only the changed bound. iOS
-  `EpochTime.isIntervalDue` treats a last check in the future as due (gas, depeg). Android re-syncs the exact
-  alarm on TIME_SET / TIMEZONE_CHANGED (`resyncsExactOn`) and counts the pulse widget in the background demand.
-  `AlarmsViewModel.watchMissing` returns from the alerts screen when the pair is gone, saving skips a missing pair,
-  and deleting pairs cancels their alert notifications (both platforms). Quick-alert chips show «· from now»
-  (`alarm_template_from_now`, they have no window) and the banner uses `alarm_saved_banner`. `PortfolioStorageLock`
-  refuses portfolio writes while the stored portfolio is kept (key briefly unavailable). Pair lists are parsed on
-  `Dispatchers.Default` in `MarketRemoteDataSource`. Lighter price 0 → «No data»; `BulkTickerRows` needs price > 0.
-  `TaxEngines.interestReward` matches whole words. Swiss wealth rounds each part before summing per coin;
-  `AddressCostLots.hasCountedLots(addresses, cutoff)` follows the cutoff. iOS release notes wait in
-  `ios/fastlane/release_notes_later/` until the first update (APP_STORE.md 7.2).
-* Build 87 (review of 20 October 2026): quick-alarm chips come after the condition and the price sentence in the
-  alarm editor (tap still creates the alarm with a 6 s undo). While the saved watchlist cannot be unlocked
-  (`DatabaseEncryptionNotice.isStoredKept` on Android, `SnapshotRead.inaccessible` / `WatchlistStorageLock` on iOS)
-  the watchlist keeps a persistent notice that returns after other banners, and saving alarms or quick alarms is
-  blocked (`alarm_save_storage_locked`). Watched addresses switch to «show only» automatically only when every coin
-  with a balance matches (`overlapAllMatched`). The tax workpaper's holdings file uses the template's cost method
-  (`TaxMethod.holdingsCostMethod`) and states the method note; the general cut-off export keeps the app's method.
-  The Swiss wealth total is the sum of the rounded rows. Cut-off and Swiss wealth exports add
-  `portfolio_export_address_lots_note` when a counted address has cost-basis lots (`AddressCostLots.hasCountedLots`);
-  the double count of recorded transfers to such an address in those exports is a known limitation (roadmap).
-* Watchlist widget refresh lock (build 86): Android draws the countdown (Chronometer) only with the screen on
-  (`WidgetRefreshState.countdownMillis`); drawn with the screen off it shows the symbol at once, since a frozen
-  process may miss the redraw at the end of the lock. The redraw runs 300 ms after the end (`UNLOCK_SLACK_MILLIS`,
-  in-process and as the alarm fallback) and is planned again whenever the previous one has already run. iOS needs
-  no change: a timeline entry at the end of the lock brings the symbol back.
-* Reference data: `bip32_fuzz.json` (1,000 random xpub/ypub/zpub leaves with all four address types, 74
-  point-arithmetic edge cases, 12 invalid keys; generator `android/tools/gen_bip32_vectors.py`, cross-checked with
-  OpenSSL via Python `cryptography`) and `argon2_random.json` (20 random cases) on both platforms.
+* Build 223 (audit of 220: C-02, C-03, C-04 partly, C-05, C-06, C-08, C-10, P-01, P-03, P-05 to P-08, P-10, D-01 to D-05): `test-shared/java` (`ParityJson`), packages `app.backup`/`logos`/`chart`/`alarm`, `compose-stability.conf`, `WatchTaskAwait`, `PriceRefresher+Steps.swift`, watch string catalogue `ios/Watch/Device/Localizable.xcstrings` + `watch_string_keys.txt`.
 
 ## Known warnings
 

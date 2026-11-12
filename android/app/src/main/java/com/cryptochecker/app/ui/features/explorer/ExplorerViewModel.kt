@@ -61,7 +61,7 @@ class ExplorerViewModel @Inject constructor(
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
     internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
     /** Paarliste der gewählten Börse nicht auf dem Main-Thread filtern. */
-    @param:DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    @param:DefaultDispatcher internal val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     // =============================================================================================

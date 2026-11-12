@@ -61,7 +61,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     historic: HistoricPriceSource,
     historySource: PortfolioHistorySource,
     private val settingsRepository: SettingsRepository,
-    private val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
+    private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
 ) : ViewModel() {
 

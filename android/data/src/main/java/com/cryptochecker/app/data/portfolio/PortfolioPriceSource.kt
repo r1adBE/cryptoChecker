@@ -76,7 +76,7 @@ class PortfolioPriceSource @Inject constructor(
     val tokenIdentityStore: TokenIdentityStore,
     /** Live-Kurs USDT/USD: USD- und Fiat-Paare eigener Börsen in USDT ([PortfolioExchangeRoute.toUsdt]). */
     val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
-    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:IoDispatcher internal val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Coin → Börse, deren Kurs gerade im Zwischenspeicher steht (sonst Binance). */
     val sourceOf = ConcurrentHashMap<String, String>()

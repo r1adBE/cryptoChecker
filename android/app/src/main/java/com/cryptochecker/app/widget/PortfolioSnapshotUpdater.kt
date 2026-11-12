@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker
+import com.cryptochecker.app.alarm.PortfolioAlarmChecker
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource

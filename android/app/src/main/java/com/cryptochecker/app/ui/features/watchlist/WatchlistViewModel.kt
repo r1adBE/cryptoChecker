@@ -11,7 +11,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LivePair

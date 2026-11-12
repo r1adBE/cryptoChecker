@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.alarm.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.alarm.DepegAlarmChecker
 import com.cryptochecker.app.domain.alarm.DepegReadingStore

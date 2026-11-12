@@ -3,6 +3,10 @@
 # (merged manifest policy, R8 mapping, baseline profile, 16 KB alignment; results as annotations)
 # and the release evidence as artifact; on pull requests also a dependency review. Gate: unit-test line coverage
 # (Kover, «logic» below MIN_LOGIC is red; notice with the numbers). Display only (never red): lint warnings by id.
+# Three jobs in parallel – «Android unit tests» (source checks, unit, release-unit and performance tests, Kotlin
+# warnings, Room schema drift, coverage), «Android lint» (instrumented tests compiled, lint) and «Android release
+# build» (debug and release builds, SBOM, release audit) – so a late failure no longer costs the whole run; the job
+# «Android build» at the end collects their results under the name of the required check.
 name: Android
 
 on:
@@ -49,8 +53,10 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
-    name: Android build
+  # Three runners in parallel (unit tests, lint, release build) instead of one job after another; the job
+  # «Android build» at the end collects their results under the name of the required check.
+  tests:
+    name: Android unit tests
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -126,7 +132,7 @@ jobs:
           ./gradlew testReleaseUnitTest --stacktrace 2>&1 | tee -a "$RUNNER_TEMP/gradle-test.log"
 
       # Performance tests (app/src/test/.../performance: timings with 2000 pairs and 10 000 portfolio transactions) on
-      # their own, after the unit tests and before lint: nothing else runs in parallel, so the timings do not depend on
+      # their own, after the unit tests: nothing else runs in parallel on this runner, so the timings do not depend on
       # the load of the runner. The normal unit-test run excludes them (app/build.gradle.kts, -PperformanceTests).
       - name: Performance tests
         run: |
@@ -159,16 +165,6 @@ jobs:
           [ -z "$DETAILS" ] || echo "::error title=Failed unit tests (details)::$DETAILS"
           grep -E '^e: |FAILED|Exception|expected:' "$RUNNER_TEMP/gradle-test.log" | head -60 | sed 's/^/::error::/' || true
 
-      # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
-      # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;
-      # in CI: workflow «Android device tests» on every push to main and by hand; on pull requests that touch the
-      # databases only the migration and encryption tests).
-      - name: Compile instrumented tests
-        run: |
-          set -o pipefail
-          ./gradlew :app:assembleDebugAndroidTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-android-test.log" \
-            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-android-test.log"; exit 1; }
-
       # Room exports its schemas while compiling (app/schemas). A changed entity without a new database
       # version shows up as a different identity hash or a new, uncommitted schema file: fail before it
       # crashes an update (formatting differences alone do not count). Room keeps a schema file that differs only in
@@ -178,6 +174,70 @@ jobs:
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" app/schemas data/build/generated/ksp
+
+      # Unit-test line coverage of :app, :domain, :data and :marketdata as ONE notice: total and «logic» (without
+      # Compose/widget rendering, activities and generated code). The :app report merges the unit tests of :app, :domain,
+      # :data and :marketdata (kover dependencies in app/build.gradle.kts: the tests of the logic and of the data layer
+      # run in :domain and :data, the exchange parsers mostly in :app); every module must be listed, or its files count
+      # as generated (no sources found) and drop out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
+      # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
+      # Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
+      # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
+      - name: Coverage (logic gate)
+        timeout-minutes: 15
+        env:
+          REQUIRE_IOS_SOURCES: 'true'
+          MIN_LOGIC: '65'
+          MIN_DATA: '57'      # :data (storage, network) on its own, owner's target
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
+            --min-module "data=$MIN_DATA" app=app domain=domain data=data marketdata=marketdata
+
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-reports
+          path: |
+            android/**/build/reports/tests/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  lint:
+    name: Android lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The project targets Java 17 (compileOptions); Android Gradle Plugin 9 needs JDK 17+.
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
+      # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;
+      # in CI: workflow «Android device tests» on every push to main, by hand and on pull requests that change the
+      # sources of a phone module or its device tests).
+      - name: Compile instrumented tests
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew :app:assembleDebugAndroidTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-android-test.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-android-test.log"; exit 1; }
 
       # Lint as a gate (abortOnError = true in app/ and marketdata/build.gradle.kts): report uploaded on failure.
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
@@ -213,9 +273,50 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
+      - name: Upload lint reports
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lint-reports
+          path: |
+            android/app/build/reports/lint-results-*.html
+            android/marketdata/build/reports/lint-results-*.html
+            android/domain/build/reports/lint-results-*.html
+            android/data/build/reports/lint-results-*.html
+            android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+            android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+  release:
+    name: Android release build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The project targets Java 17 (compileOptions); Android Gradle Plugin 9 needs JDK 17+.
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
       # Phone and watch debug APKs (both in the artifact «cryptochecker-debug» for device tests)
       - name: Build debug APKs (phone and watch)
-        run: ./gradlew :app:assembleDebug :wear:assembleDebug --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug :wear:assembleDebug --stacktrace
 
       # Release build without keystore stays unsigned (app/build.gradle.kts); it runs R8/minify and
       # resource shrinking, so missing keep rules show up here and not only on a device. The AAB is
@@ -253,25 +354,6 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/android_release_audit.sh" "$FINDINGS" "$RUNNER_TEMP/release-evidence"
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
 
-      # Unit-test line coverage of :app, :domain, :data and :marketdata as ONE notice: total and «logic» (without
-      # Compose/widget rendering, activities and generated code). The :app report merges the unit tests of :app, :domain,
-      # :data and :marketdata (kover dependencies in app/build.gradle.kts: the tests of the logic and of the data layer
-      # run in :domain and :data, the exchange parsers mostly in :app); every module must be listed, or its files count
-      # as generated (no sources found) and drop out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
-      # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
-      # Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
-      # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
-      - name: Coverage (logic gate)
-        timeout-minutes: 15
-        env:
-          REQUIRE_IOS_SOURCES: 'true'
-          MIN_LOGIC: '65'
-          MIN_DATA: '57'      # :data (storage, network) on its own, owner's target
-        run: |
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
-            --min-module "data=$MIN_DATA" app=app domain=domain data=data marketdata=marketdata
-
       # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
       # build), AAB, merged manifest with summary and merger report.
       - name: Upload release evidence
@@ -293,21 +375,25 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Upload test and lint reports
-        if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: test-reports
-          path: |
-            android/**/build/reports/tests/
-            android/app/build/reports/lint-results-*.html
-            android/marketdata/build/reports/lint-results-*.html
-            android/domain/build/reports/lint-results-*.html
-            android/data/build/reports/lint-results-*.html
-            android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
-            android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
-          if-no-files-found: ignore
-          retention-days: 14
+  # Required check (ruleset «protect-main»): green only if all three Android jobs are green
+  build:
+    name: Android build
+    needs: [tests, lint, release]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Result of the Android jobs
+        env:
+          TESTS: ${{ needs.tests.result }}
+          LINT: ${{ needs.lint.result }}
+          RELEASE: ${{ needs.release.result }}
+        run: |
+          echo "unit tests: $TESTS, lint: $LINT, release build: $RELEASE"
+          [ "$TESTS" = success ] && [ "$LINT" = success ] && [ "$RELEASE" = success ] || {
+            echo "::error title=Android::unit tests $TESTS, lint $LINT, release build $RELEASE"
+            exit 1
+          }
 
   # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.
   # Only when «Dependency graph» is on in the repository settings AND the repository variable

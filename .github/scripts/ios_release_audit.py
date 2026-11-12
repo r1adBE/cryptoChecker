@@ -19,10 +19,12 @@ Subcommands:
         error   Info.plist version/build != Android or unresolved $(...), BGTaskScheduler identifiers
                 without UIBackgroundModes fetch/processing, ITSAppUsesNonExemptEncryption missing,
                 PrivacyInfo.xcprivacy missing in app or widget extension, widget extension missing,
-                UI test hooks (UITesting / UITestExchange, Debug only) or XCTest linked into the binary
+                UI test hooks (UITesting / UITestExchange, Debug only) or XCTest linked into the binary,
+                size of the .app, of PlugIns or of Watch above its ceiling (SIZE_CEILINGS_MB)
         warning BGTaskScheduler identifier not found in the Swift sources,
                 ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8)
-        notice  compiler warning count (error above MAX_COMPILER_WARNINGS)
+        notice  compiler warning count (error above MAX_COMPILER_WARNINGS); size in MB of the .app, PlugIns and
+                Watch and of the translated texts (*.lproj) in each of the four bundles
       Also runs the privacy check below against the manifest in the app bundle.
 
   privacy <ios source dir> <findings>
@@ -70,6 +72,16 @@ REQUIRED_REASON_APIS = {
         r"\bfileModificationDate\b", r"\bf?getattrlist(?:bulk|at)?\s*\(", r"\bf?l?stat\s*\(", r"\bfstatat\s*\("),
     "NSPrivacyAccessedAPICategoryUserDefaults": (r"\bUserDefaults\b", r"\bNSUserDefaults\b"),
 }
+# Size ceilings in MB for the unsigned device Release build (.app as built: every architecture, no App Store
+# thinning, no dSYM): the whole .app, the widget extension folder PlugIns and the embedded watch app folder Watch.
+# Generous start values - tighten them to about 10 % above the numbers of the notice «Release app size» of the
+# first CI run. The watch ceiling is the tightest on purpose: the watch bundles carry only their own small string
+# catalogue (ios/tools/watch_string_keys.txt), the whole catalogue twice would not fit.
+SIZE_CEILINGS_MB = (("CryptoChecker.app", "", 250), ("PlugIns", "PlugIns", 100), ("Watch", "Watch", 15))
+# Bundles whose translated texts (*.lproj) are reported, relative to the .app
+TEXT_BUNDLES = (("app", ""), ("widgets", "PlugIns/CryptoCheckerWidgetsExtension.appex"),
+                ("watch", "Watch/CryptoCheckerWatch.app"),
+                ("watch widgets", "Watch/CryptoCheckerWatch.app/PlugIns/CryptoCheckerWatchWidgets.appex"))
 SOURCE_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 findings = []
@@ -178,6 +190,35 @@ def cmd_build_log(log, status, out):
                        "environment issue, not an app error:\n" + detail)
     flush(out)
     return 0
+
+
+def dir_size(path, only=None):
+    """Bytes of all files below `path` (symbolic links not followed); `only` filters by relative path."""
+    total = 0
+    for root, _, files in os.walk(path):
+        for name in files:
+            full = os.path.join(root, name)
+            if not os.path.islink(full) and (only is None or only(os.path.relpath(full, path))):
+                total += os.path.getsize(full)
+    return total
+
+
+def size_findings(app, ceilings=SIZE_CEILINGS_MB):
+    """Notice with the sizes, error per part above its ceiling."""
+    mb = 1024 * 1024
+    parts = []
+    for label, sub, ceiling in ceilings:
+        size = dir_size(os.path.join(app, sub))
+        parts.append(f"{label} {size / mb:.1f} MB (ceiling {ceiling})")
+        if size > ceiling * mb:
+            add("error", f"Release app size: {label} is {size / mb:.1f} MB, more than the ceiling of {ceiling} MB "
+                         "(SIZE_CEILINGS_MB in ios_release_audit.py): find what grew before raising it")
+    texts = []
+    for label, sub in TEXT_BUNDLES:
+        bundle = os.path.join(app, sub)
+        own = dir_size(bundle, lambda r: r.split(os.sep)[0].endswith(".lproj"))
+        texts.append(f"{label} {own / mb:.2f}")
+    add("notice", "Release app size: " + ", ".join(parts) + "; translated texts (*.lproj) in MB: " + ", ".join(texts))
 
 
 def read_plist(path):
@@ -440,6 +481,24 @@ def self_test():
     parts = warning_details(["/w/ios/App/A.swift:3:5: warning: x" + str(i) for i in range(400)], lambda p: p[3:],
                             max_chars=200, max_parts=3)
     assert len(parts) == 3 and parts[0][0] == "ios/App/A.swift:3 x0" and parts[-1][-1].startswith("..."), parts
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        app = os.path.join(tmp, "CryptoChecker.app")
+        for relp, size in (("CryptoChecker", 3), ("en.lproj/Localizable.strings", 2),
+                           ("PlugIns/CryptoCheckerWidgetsExtension.appex/de.lproj/Localizable.strings", 1),
+                           ("Watch/CryptoCheckerWatch.app/CryptoCheckerWatch", 2),
+                           ("Watch/CryptoCheckerWatch.app/en.lproj/Localizable.strings", 1)):
+            os.makedirs(os.path.dirname(os.path.join(app, relp)), exist_ok=True)
+            with open(os.path.join(app, relp), "wb") as f:
+                f.write(b"x" * size * 1024 * 1024)
+        assert dir_size(app) == 9 * 1024 * 1024
+        del findings[:]
+        size_findings(app, (("CryptoChecker.app", "", 10), ("PlugIns", "PlugIns", 1), ("Watch", "Watch", 2)))
+        levels = [f.split("\t")[0] for f in findings]
+        assert levels == ["error", "notice"], findings
+        assert "Watch is 3.0 MB" in findings[0], findings
+        assert findings[1].endswith("app 2.00, widgets 1.00, watch 1.00, watch widgets 0.00"), findings
+        del findings[:]
     print("ios_release_audit.py self-test passed")
     return 0
 
@@ -533,6 +592,7 @@ def cmd_app(app, widget, gradle, src, log, out):
             except (OSError, plistlib.InvalidFileException) as e:
                 add("error", f"Info.plist of {name} unreadable: {e}")
 
+    size_findings(app)
     for b in binaries:
         hits = binary_hits(b)
         if hits:

@@ -7,7 +7,8 @@ import Foundation
 /// (`Outcome.apply(to:)`). So gehen Änderungen, die der Nutzer während der
 /// Abfrage macht, nicht verloren — egal ob App, Hintergrund oder Widget fragt.
 ///
-/// Ergebnis-Typen (`Outcome`, `PendingAlarm` …) in `PriceRefresher+Outcome.swift`.
+/// Ergebnis-Typen (`Outcome`, `PendingAlarm` …) in `PriceRefresher+Outcome.swift`, die Schritte von `refresh`
+/// (Netz, Auswertung je Paar, Abschluss) in `PriceRefresher+Steps.swift`.
 enum PriceRefresher {
 
     /// So lange wartet ein Durchlauf auf die Lease der Alarm-Auswertung; sonst diesmal ohne Alarme.
@@ -58,20 +59,7 @@ enum PriceRefresher {
         }
         // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
         // sonst verlängerte die Kursabfrage die IP-Sperre (siehe `BlockedSources`) — wie Android
-        if liveQuotes == nil {
-            for key in Set(all.map(\.exchangeKey)) {
-                guard let until = BlockedSources.groupPausedUntil(key) else { continue }
-                let state = backoff[key]
-                // Eine unmögliche eigene Pause (`ExchangeBackoff.isPaused`) wird ersetzt — wie Android
-                if (state?.pausedUntil ?? Int64.min) < until || !ExchangeBackoff.isPaused(state, now: started) {
-                    var merged = state ?? ExchangeBackoff.State(strikes: 1)
-                    merged.pausedUntil = until
-                    merged.reason = .RATE_LIMIT
-                    merged.timeoutRuns = 0
-                    backoff[key] = merged
-                }
-            }
-        }
+        if liveQuotes == nil { adoptGroupPauses(&backoff, watches: all, started: started) }
         let paused = liveQuotes != nil ? [] : all.filter { ExchangeBackoff.isPaused(backoff[$0.exchangeKey], now: started) }
         outcome.pausedIds = Set(paused.map(\.id))
         // Paare mit frischem Live-Kurs (WebSocket): diesmal ohne REST-Abfrage
@@ -96,120 +84,22 @@ enum PriceRefresher {
         let changeStamp = ChangeBasisMath.stamp(basis, now: started)
         let dayStart: Int64? = basis.isDay ? changeStamp.dayStart : nil
 
-        var fetched: [Int64: Fetched] = [:]
-        var exchanges: [ExchangeRefresh] = []
-        let dayLoads: Task<Void, Never>
-        let dayReferences: [String: DayReference]
         // Mit Endzeit (Hintergrund, Widget): Kerzen-Nachlader am Ende abbrechen — sie liefen sonst über die Endzeit
         // hinaus weiter (eigene Aufgaben, kein Nachtragen ohne App im Vordergrund). Ohne Endzeit laden sie fertig.
         var candleLoads: [Task<Void, Never>] = []
         defer { if deadline != nil { candleLoads.forEach { $0.cancel() } } }
+        let loaded: Loaded
         if let liveQuotes {
             // Live-Kurse: schon da — kein Netz, keine Kerzen
-            for w in watches {
-                guard let q = liveQuotes[w.id] else { continue }
-                // Börsenzeit nur als im Strom belegte Handelszeit (`LiveRules.exchangeTime`), nie die Takt-Zeit
-                let exchangeTime = LiveRules.exchangeTime(q, storedPrice: w.lastPrice, storedExchangeTime: w.exchangeTime)
-                // Wie die Anzeige (`LiveRules.updateTime`): ein Takt ohne Handel setzt die Zeit nicht zurück
-                let time = LiveRules.updateTime(q, storedPrice: w.lastPrice, storedLastUpdate: w.lastUpdate)
-                fetched[w.id] = Fetched(ticker: Ticker(last: q.price, timestamp: time, change24hPercent: q.change24h,
-                                                       exchangeTime: exchangeTime),
-                                        error: nil)
-            }
-            dayLoads = Task {}
-            dayReferences = [:]
+            loaded = Loaded(fetched: liveFetched(watches, quotes: liveQuotes), dayLoads: Task {})
         } else {
-            // Bezüge (Kerzen) parallel zu den Kursen für Paare, die beim letzten Mal Kerzen brauchten
-            // (rollend: Ticker ohne 24-h-Wert; Tages-Basen: alle); der Rest nach den Kursen.
-            let remembered = candleNeeds.ids
-            let earlyKeys = dayReferenceKeys(dayStart != nil ? watches : watches.filter { remembered.contains($0.id) })
-            let earlyLoads = startDayReferenceLoads(earlyKeys, dayStart: dayStart)
-            candleLoads.append(earlyLoads)
-
-            // 1) Netz: alle Börsen gleichzeitig, je Börse erst die Sammelabfrage.
-            let groups = Dictionary(grouping: watches, by: \.exchangeKey)
-            // Je Börse Paare mit aktivem Alarm zuerst abfragen (`FetchOrder`)
-            let alarmedIds = Set(snapshot.alarms.filter(\.enabled).map(\.watchId))
-            var signals: [GroupSignals] = []
-            // Mit Endzeit: höchstens bis dahin (Speichern bleibt übrig)
-            let networkBudget = deadline.map { $0.allowance(wanted: networkBudgetMillis ?? Int64.max) } ?? networkBudgetMillis
-
-            await withTaskGroup(of: ([Int64: Fetched], GroupSignals?, Bool).self) { group in
-                for (_, list) in groups {
-                    group.addTask {
-                        if onlyWatchId != nil, let w = list.first {
-                            let single = await fetchSingle(w)
-                            return ([w.id: single], nil, false)
-                        }
-                        let (results, signal) = await fetchGroup(list, includeRollingFutures: settings.includeRollingFutures,
-                                                                 lowMemory: lowMemory, alarmed: alarmedIds)
-                        return (results, signal, false)
-                    }
-                }
-                // Zeitbudget: danach die übrigen Börsen abbrechen (Teilergebnis statt gar keines)
-                if let networkBudget {
-                    group.addTask {
-                        try? await Task.sleep(nanoseconds: UInt64(max(0, networkBudget)) * 1_000_000)
-                        return ([:], nil, true)
-                    }
-                }
-                var pendingGroups = groups.count
-                for await (results, signal, timedOut) in group {
-                    if timedOut {
-                        group.cancelAll()
-                        break
-                    }
-                    fetched.merge(results) { a, _ in a }
-                    if let signal { signals.append(signal) }
-                    pendingGroups -= 1
-                    if pendingGroups == 0 {
-                        // Alle Börsen fertig: den Zeitgeber nicht abwarten
-                        group.cancelAll()
-                        break
-                    }
-                }
-            }
-            // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
-            if onlyWatchId == nil {
-                let finished = EpochTime.nowMillis
-                for signal in signals {
-                    var exchange = signal.report
-                    let state = ExchangeBackoff.next(
-                        backoff[signal.exchangeKey],
-                        outcome: ExchangeBackoff.outcome(failures: signal.failures, updated: exchange.updated),
-                        now: finished, retryAfterMillis: signal.retryAfterMillis,
-                        // 418 und «Retry-After» wie bei Kerzen (gemeinsame Binance-Pause)
-                        banned: signal.banned, shared: ExchangeBackoff.sharedGroup(signal.exchangeKey) != nil)
-                    backoff[signal.exchangeKey] = state
-                    // 429/418 beim Ticker: Kerzen, Futures und Aktivität an dieselben Hosts pausieren mit
-                    if let state, state.reason == .RATE_LIMIT, ExchangeBackoff.isPaused(state, now: finished) {
-                        BlockedSources.pauseGroup(signal.exchangeKey, until: state.pausedUntil)
-                    }
-                    if let state, ExchangeBackoff.isPaused(state, now: finished) {
-                        exchange.pausedUntil = state.pausedUntil
-                        exchange.pauseReason = state.reason
-                    }
-                    exchanges.append(exchange)
-                }
-                exchanges.append(contentsOf: pausedExchanges(paused, backoff: backoff))
-                // 429 bei Spot pausiert auch Futures auf demselben Host (und umgekehrt) — wie Android
-                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(
-                    ours: ExchangeBackoff.withHostGroupPauses(backoff, now: finished), initial: initialBackoff,
-                    stored: SharedStorage.exchangeBackoff, now: finished)
-            }
-            let needingCandles = watchesNeedingCandles(watches, fetched: fetched, basis: basis, remember: onlyWatchId == nil)
-            let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })
-            let lateKeys = dayReferenceKeys(needingCandles).filter { !startedKeys.contains("\($0.base)|\($0.quote)") }
-            let lateLoads = startDayReferenceLoads(lateKeys, dayStart: dayStart)
-            candleLoads.append(lateLoads)
-            dayLoads = Task {
-                await earlyLoads.value
-                await lateLoads.value
-            }
-            await waitAtMost(nanos: RefreshDeadline.nanos(wanted: Int64(dayReferenceWaitNanos / 1_000_000), deadline: deadline),
-                             for: dayLoads)
-            dayReferences = await cachedDayReferences(needingCandles, dayStart: dayStart)
+            loaded = await loadFromNetwork(
+                watches, paused: paused, snapshot: snapshot, settings: settings, basis: basis, dayStart: dayStart,
+                onlyWatchId: onlyWatchId, lowMemory: lowMemory, networkBudgetMillis: networkBudgetMillis,
+                deadline: deadline, backoff: backoff, initialBackoff: initialBackoff)
         }
+        candleLoads.append(contentsOf: loaded.candleLoads)
+        let fetched = loaded.fetched
         let networkMillis = EpochTime.nowMillis - started
 
         // 2) Auswerten
@@ -234,117 +124,25 @@ enum PriceRefresher {
 
         // Alarme: nur einer zur Zeit (App, Hintergrund) und immer auf dem gespeicherten Stand —
         // sonst meldet ein zweiter Prozess, was der erste gerade gemeldet hat.
-        var alarmsByWatch: [Int64: [Alarm]] = [:]
-        if !prefetchAlarms.isEmpty {
-            if let lease = await AlarmLease.acquire(timeoutSeconds: leaseWaitSeconds(deadline)) {
-                outcome.alarmLease = lease
-                let fresh = SharedStorage.loadSnapshot().alarms.filter {
-                    $0.enabled && !(deferExtra && AlarmDataStage.needsExtraData($0))
-                }
-                alarmsByWatch = Dictionary(grouping: fresh, by: \.watchId)
-            }
-        }
+        let leased = await leasedAlarms(prefetchAlarms: prefetchAlarms, deferExtra: deferExtra, deadline: deadline)
+        if let lease = leased.lease { outcome.alarmLease = lease }
+        let alarmsByWatch = leased.byWatch
         // Alarm-Protokoll («Kein Kurs», Sperrgründe): auch die erst später geprüften Alarme mit Zusatzdaten — nur
         // festgehalten, entschieden wird damit nichts
         let logAlarmsByWatch = deferExtra
             ? alarmsForLog(checked: alarmsByWatch, deferred: outcome.deferredAlarms.prefetchByWatch)
             : alarmsByWatch
+        let run = Evaluation(now: now, settings: settings, speechAllowed: speechAllowed, live: liveQuotes != nil,
+                             basis: basis, dayStart: dayStart, dayReferences: loaded.dayReferences,
+                             deferExtra: deferExtra, alarmsByWatch: alarmsByWatch,
+                             logAlarmsByWatch: logAlarmsByWatch, inputs: inputs)
 
         // Kurs-Mitteilungen entfernen: gesammelt in EINEM Aufruf statt einmal je Paar
         var cancelIds: [Int64] = []
         var pricePosts: [Watch] = []
         for watch in watches {
-            let result = fetched[watch.id]
-            // Widget: bewusst nicht abgefragt — gespeicherter Kurs und Zustand bleiben; wie eine pausierte Börse
-            // (neue %-Basis: alte Veränderung weg, `apply`)
-            if result?.skipped == true {
-                outcome.pausedIds.insert(watch.id)
-                continue
-            }
-            outcome.checked += 1
-            // NaN/∞ nie als Kurs übernehmen — wie PriceRefresher.kt
-            guard let ticker = result?.ticker, result?.error == nil, ticker.last.isFinite, ticker.last > 0 else {
-                outcome.failed += 1
-                outcome.prices[watch.id] = PriceUpdate(price: nil, time: now, error: result?.error, pair: watch.identity)
-                cancelIds.append(watch.id)
-                // Alarm-Protokoll: «Kein Kurs» als letzte Prüfung der Alarme dieses Paars
-                if liveQuotes == nil {
-                    outcome.alarmLog += (logAlarmsByWatch[watch.id] ?? []).compactMap {
-                        alarmLogEntry($0, watch: watch, trace: AlarmLogTrace(noPrice: true), now: now)
-                    }
-                }
-                continue
-            }
-            let price = ticker.last
-            let time = ticker.timestamp > 0 ? ticker.timestamp : now
-            // DEX-Pool: Liquidität jeder Abfrage merken (Alarm-Sperre in `checkAlarms`, Hinweis in Suche und Alarmen)
-            if liveQuotes == nil && DexLiquidity.isDex(watch.exchangeKey) {
-                DexLiquidityStore.put(watch.pairId, ticker.liquidityUsd)
-            }
-            // Kurs = Mark-Preis mangels Mittelkurs (Hyperliquid): «Mark» in Zeile und Blatt; Live-Kurse kommen nie als
-            // Mark-Ersatz, der Merker gilt bis zur nächsten Abfrage
-            if liveQuotes == nil { MarkFallbackStore.put(watch.id, ticker.markFallback) }
-            // Ebenso der Stundenkurs (WOO X Spot): gilt bis zur nächsten Abfrage
-            if liveQuotes == nil { HourlyCloseStore.put(watch.id, ticker.hourlyClose) }
-            let dayChange: Double?
-            if liveQuotes != nil {
-                // Live-Wert aus dem Ticker: kein Kerzen-Hinweis — aber nur, wenn er die Veränderung ersetzt hat.
-                // Bleibt die bisherige (`LiveRules.chooseChange`, z. B. Tages-Basis), bleibt auch ihr Anbieter:
-                // sonst stünde ein Wert aus fremden Kerzen ohne Hinweis da, als käme er von der eigenen Börse
-                if ticker.change24hPercent != watch.change24h { candlePills.set(watch.id, series: nil) }
-                dayChange = ticker.change24hPercent
-            } else {
-                dayChange = change24h(watch, price: price, ticker: ticker, basis: basis, references: dayReferences)
-            }
-            // Frische (`PriceFreshness`): letzte echte Kursänderung und Zeit laut Börse (nil = keine)
-            let changedAt = PriceFreshness.nextPriceChangedAt(previousPrice: watch.lastPrice,
-                                                              previousChangedAt: watch.priceChangedAt,
-                                                              price: price, time: time)
-            outcome.prices[watch.id] = PriceUpdate(price: price, time: time, error: nil, change24h: dayChange,
-                                                   priceChangedAt: changedAt, exchangeTime: ticker.exchangeTime,
-                                                   pair: watch.identity)
-            if dayChange == nil && dayStart != nil && liveQuotes == nil { outcome.missingDayChange[watch.id] = (price, time) }
-
-            var updated = watch
-            updated.previousPrice = watch.lastPrice
-            updated.lastPrice = price
-            updated.lastUpdate = time
-            updated.lastError = nil
-            updated.change24h = dayChange
-            updated.priceChangedAt = changedAt
-            updated.exchangeTime = ticker.exchangeTime
-
-            // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen
-            // aber nicht aus
-            // Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`): nie auswerten, nichts protokollieren
-            let sourceAllowsAlarms = ExchangesConfig.exchange(watch.exchangeKey)?.allowsAlarms ?? true
-            let alarmsAllowed = sourceAllowsAlarms
-                && !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback, now: now)
-            if sourceAllowsAlarms, !alarmsAllowed, let blocked = logAlarmsByWatch[watch.id] {
-                // Alarm-Protokoll: nur festhalten, warum nicht (dieselbe Reihenfolge der Gründe wie Android)
-                outcome.alarmLog += blockedAlarmLog(
-                    blocked, watch: watch, updated: updated,
-                    lowLiquidity: DexLiquidityStore.blocksAlarms(exchangeKey: watch.exchangeKey, pairId: watch.pairId),
-                    markFallback: ticker.markFallback, now: now, cooldownMinutes: settings.alarmCooldownMinutes)
-            }
-
-            // Alarme mit Zusatzdaten: nach dem Speichern prüfen
-            if alarmsAllowed, deferExtra, outcome.deferredAlarms.prefetchByWatch[watch.id] != nil, let result {
-                outcome.deferredAlarms.items.append(DeferredAlarms.Item(watch: watch, updated: updated, price: price,
-                                                                        fetched: result))
-            }
-
-            // Alarme
-            var spokeAlarm = false
-            if alarmsAllowed {
-                spokeAlarm = checkAlarms(alarmsByWatch[watch.id] ?? [], watch: watch, updated: updated, price: price,
-                                         now: now, settings: settings, speechAllowed: speechAllowed, inputs: inputs,
-                                         outcome: &outcome)
-            }
-
-            priceEffects(watch: watch, updated: updated, price: price, now: now, settings: settings,
-                         speechAllowed: speechAllowed, spokeAlarm: spokeAlarm, live: liveQuotes != nil,
-                         outcome: &outcome, cancelIds: &cancelIds, pricePosts: &pricePosts)
+            evaluate(watch, result: fetched[watch.id], run: run, outcome: &outcome, cancelIds: &cancelIds,
+                     pricePosts: &pricePosts)
         }
 
         Notifier.cancelPrices(cancelIds)
@@ -352,39 +150,8 @@ enum PriceRefresher {
 
         outcome.durationMillis = EpochTime.nowMillis - started
         if onlyWatchId == nil && liveQuotes == nil {
-            outcome.changeStamp = changeStamp
-            // Ohne Stempel: Werte von vorher, also rollend
-            outcome.changeStampChanged = (SharedStorage.changeStamp ?? ChangeStamp(basis: .ROLLING_24H, dayStart: 0)) != changeStamp
-            // Tages-Basen: Bezüge, die nach dem Warten noch kommen, später nachtragen statt «—»
-            if let dayStart, !outcome.missingDayChange.isEmpty {
-                let missing = watches.filter { outcome.missingDayChange[$0.id] != nil }
-                let prices = outcome.missingDayChange.mapValues { $0.price }
-                outcome.lateDayChanges = {
-                    await PriceRefresher.waitAtMost(nanos: PriceRefresher.lateFillWaitNanos, for: dayLoads)
-                    let references = await PriceRefresher.cachedDayReferences(missing, dayStart: dayStart)
-                    var result: [Int64: Double] = [:]
-                    for watch in missing {
-                        guard let price = prices[watch.id],
-                              let change = PriceRefresher.candleChange(watch, price: price, references: references),
-                              change.isFinite else { continue }
-                        result[watch.id] = change
-                    }
-                    return result
-                }
-            }
-            // Wie Android; Datenbank und Widgets misst hier niemand (speichert der Aufrufer),
-            // «Alarme» = alles nach dem Netz (Auswerten, Mitteilungen, Ansagen).
-            outcome.report = RefreshReport(
-                at: EpochTime.nowMillis,
-                totalMillis: outcome.durationMillis,
-                pairs: all.count,
-                networkMillis: networkMillis,
-                exchanges: exchanges,
-                effectsMillis: max(0, outcome.durationMillis - networkMillis),
-                // Fällige Alarme; gemeldet und gespeichert werden sie erst danach (`deliverAlarms`)
-                alarms: outcome.pendingAlarms.count,
-                notifications: outcome.notified.count
-            )
+            finishFullRun(&outcome, watches: watches, pairs: all.count, changeStamp: changeStamp, dayStart: dayStart,
+                          dayLoads: loaded.dayLoads, networkMillis: networkMillis, exchanges: loaded.exchanges)
         }
         return outcome
     }

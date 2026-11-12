@@ -87,7 +87,7 @@ class AlarmDeliveryMarkers @Inject constructor(
     }
 }
 
-/** Portfolio-Alarme ([com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker]), wie iOS `.portfolio`. */
+/** Portfolio-Alarme ([com.cryptochecker.app.alarm.PortfolioAlarmChecker]), wie iOS `.portfolio`. */
 @Singleton
 class PortfolioAlarmDeliveryMarkers @Inject constructor(
     @ApplicationContext context: Context,

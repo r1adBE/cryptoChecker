@@ -76,7 +76,7 @@ class HistoricPriceSource @Inject constructor(
     val ownCandles: OwnCandleDataSource,
     val portfolioDao: PortfolioDao,
     val exchangeRepository: ExchangeRepository,
-    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @param:IoDispatcher internal val ioDispatcher: CoroutineDispatcher,
 ) {
     /**
      * Coin → (eigene Börse oder null, Lesezeit): Vorschläge beim Erfassen fragen je (Coin, Tag) einzeln ([ownRoutes]).
