@@ -15,6 +15,8 @@ extension CoinLogoStore {
     /// Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt.
     private static let shortPauseMaxMillis: Int64 = 2 * 60_000
     private static let pauseRounds = 3
+    /// Kurze Störung: so lange warten, bevor die gestörten Bilder in der nächsten Runde erneut drankommen.
+    private static let transientRetryMillis: Int64 = 5_000
     /// Laufende Pausen je Bild-Server (`CoinLogoRetry.pausesImages`).
     fileprivate static let pauses = ImagePauseBox()
 
@@ -74,11 +76,15 @@ extension CoinLogoStore {
         let attempted = pending.count
         var added = 0
         var newFailures: [String] = []
+        // Länger gebremste Bilder (Pause über `shortPauseMaxMillis`): erst nach der Pause (`pausedUntil`)
         var paused: [DownloadJob] = []
+        // Nach der letzten Runde noch gestört (`.transient`): kein Fehlschlag, der nächste Abgleich holt nach
+        var transientLeft: [DownloadJob] = []
         // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
         let streaks = ForbiddenStreaks()
         for round in 1...pauseRounds {
             var roundPaused: [DownloadJob] = []
+            var roundTransient: [DownloadJob] = []
             await CoinLogoQueue.run(pending, host: { CoinLogoRetry.hostOf($0.url) ?? "" },
                                     work: { await CoinLogoStore.downloadWithAlternates($0, streaks: streaks) }) { job, result in
                 switch result {
@@ -93,20 +99,29 @@ extension CoinLogoStore {
                     // Server bremst: nicht als Fehler (und kein stehender Prozentwert im Hinweis)
                     roundPaused.append(job)
                     await CoinLogoLoading.imagesPaused()
+                case .transient:
+                    // Kurze Störung: in der nächsten Runde noch einmal
+                    roundTransient.append(job)
                 }
             }
-            paused = roundPaused
-            if paused.isEmpty || round == pauseRounds { break }
+            transientLeft = roundTransient
             // Pause schon vorbei (nil): gleich die nächste Runde
-            let wait = shortestPauseMillis(paused) ?? 0
-            guard wait <= shortPauseMaxMillis else { break }
+            let pauseWait = roundPaused.isEmpty ? 0 : (shortestPauseMillis(roundPaused) ?? 0)
+            let waitForPaused = !roundPaused.isEmpty && pauseWait <= shortPauseMaxMillis && round < pauseRounds
+            if !waitForPaused { paused += roundPaused }
+            let next = (waitForPaused ? roundPaused : []) + roundTransient
+            if next.isEmpty || round == pauseRounds { break }
+            let wait = max(waitForPaused ? pauseWait : 0, roundTransient.isEmpty ? 0 : transientRetryMillis)
             try? await Task.sleep(nanoseconds: UInt64(wait) * 1_000_000)
-            pending = paused
+            pending = next
         }
+        // Fortschritt schliessen: diese Bilder kommen erst mit dem nächsten Abgleich
+        for _ in transientLeft { await CoinLogoLoading.imageDone() }
         // Am fehlenden Netz gescheitert: nicht einen Tag sperren, sondern mit dem Netz nachholen
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
         let network = CoinLogoRetry.downloadsFailedForNetwork(online: NetworkStatus.shared.isOnline,
-                                                              failed: newFailures.count, attempted: attempted - paused.count)
+                                                              failed: newFailures.count + transientLeft.count,
+                                                              attempted: attempted - paused.count)
         if !newFailures.isEmpty, !network {
             var failed = loadFailures(now: EpochTime.nowMillis)
             for name in newFailures { failed[name] = now }
@@ -124,12 +139,14 @@ extension CoinLogoStore {
         var result = await download(name: job.name, url: job.url, streaks: streaks)
         guard result == .failed else { return result }
         var paused = false
+        var transient = false
         for alt in job.alternates where alt != job.url {
             result = await download(name: job.name, url: alt, streaks: streaks)
             if result == .ok { return .ok }
             if result == .paused { paused = true }
+            if result == .transient { transient = true }
         }
-        return paused ? .paused : .failed
+        return paused ? .paused : (transient ? .transient : .failed)
     }
 
     /// Kürzeste verbleibende Pause der Server von `jobs` (ms); nil = keiner (mehr) pausiert — wie Android.
@@ -139,9 +156,9 @@ extension CoinLogoStore {
         return waits.min()
     }
 
-    /// Ergebnis eines Bild-Abrufs; `paused` = Bild-Server bremst (`CoinLogoRetry.pausesImages`), gilt
-    /// nicht als fehlgeschlagen — wie Android `Fetched`.
-    enum Fetched: Sendable { case ok, failed, paused }
+    /// Ergebnis eines Bild-Abrufs; `failed` = gibt es nicht bzw. unlesbar (Tagessperre); `paused` = Bild-Server bremst
+    /// (`CoinLogoRetry.pausesImages`); `transient` = kurze Störung — beide nicht fehlgeschlagen, wie Android `Fetched`.
+    enum Fetched: Sendable { case ok, failed, paused, transient }
 
     /// Erst die kleine Fassung, sonst das Bild aus der Rangliste. Ein 403 ohne «Retry-After» ist nur dieses Bild;
     /// erst das dritte Bild des Servers in Folge mit 403 (`streaks`) pausiert den Server — wie Android `fetchTo`.
@@ -152,11 +169,19 @@ extension CoinLogoStore {
         if candidates[0] != url { candidates.append(url) }
         // Letzte Antwort war 403 (für die Folge je Server)
         var forbidden = false
+        // Eine Fassung scheiterte an einer kurzen Störung (`CoinLogoRetry.isTransient`): später erneut, keine Tagessperre
+        var transient = false
         for candidate in candidates {
             forbidden = false
-            guard let u = URL(string: candidate),
-                  let loaded = try? await loadImage(u, session: session)
-            else { continue }
+            guard let u = URL(string: candidate) else { continue }
+            let loaded: (response: HTTPURLResponse, body: Data?)
+            do {
+                loaded = try await loadImage(u, session: session)
+            } catch {
+                // Keine Antwort (Zeitüberschreitung, Verbindung abgebrochen); zu gross bleibt ein Fehlschlag
+                if error is URLError { transient = true }
+                continue
+            }
             let http = loaded.response
             let retry = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
                                                                now: EpochTime.nowMillis)
@@ -165,6 +190,7 @@ extension CoinLogoStore {
                 return .paused
             }
             forbidden = http.statusCode == 403
+            if loaded.body == nil, CoinLogoRetry.isTransient(httpCode: http.statusCode) { transient = true }
             guard let body = loaded.body, let png = CoinLogoDecode.pngData(body) else { continue }
             // `.atomic`: erst eine eigene Hilfsdatei, dann in einem Schritt umbenennen — nie ein halbes Bild, auch
             // wenn zwei Abrufe gleichzeitig dieselbe Datei schreiben. Nicht gespeichert: nächste Fassung, sonst
@@ -178,7 +204,7 @@ extension CoinLogoStore {
             pauses.pause(host, retryAfterSeconds: nil)
             return .paused
         }
-        return .failed
+        return transient ? .transient : .failed
     }
 
     /// Ein Bild laden: erst der Status (Bremse auch bei grossem Körper erkennen), dann höchstens `maxImageBytes`

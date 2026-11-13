@@ -96,6 +96,11 @@ final class LogoFallbackTests: XCTestCase {
             XCTAssertEqual(CoinLogoRetry.pausesImages(httpCode: (row[0] as? NSNumber)?.intValue ?? 0, retryAfter: row[1] as? Bool ?? false),
                            row[2] as? Bool, "code: \(row)")
         }
+        // Kurze Störung (keine Antwort, 408, 5xx): kein Tages-Fehlschlag
+        for row in (f["transient"] as? [[Any]]) ?? [] {
+            XCTAssertEqual(CoinLogoRetry.isTransient(httpCode: (row[0] as? NSNumber)?.intValue), row[1] as? Bool,
+                           "transient: \(row)")
+        }
         // Folge von 403 je Server: erst das dritte Bild in Folge pausiert
         for (sequence, expected) in pairs(f["forbiddenStreak"]) {
             var streak = 0

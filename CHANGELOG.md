@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 232)
+
+Coin logos: a short disturbance while loading (no answer, 408, 5xx) no longer blocks a logo for a day – it is retried in the same run and otherwise on the next sync; Android keeps the logos in app storage instead of the cache the system may clear.
+
 ## 16.2.2 (build 231)
 
 iOS UI tests: a Dynamic Type finding counts only when a second pass on the same screen confirms it; on main and release tags a UI test may be retried once, and a retry counts as failed unless the first failure was a Simulator hiccup (launch, terminate, UI query timeout, time allowance).

@@ -65,6 +65,15 @@ enum CoinLogoRetry {
         httpCode == 429 || httpCode == 503 || (httpCode == 403 && retryAfter)
     }
 
+    /// Kurze Störung statt fehlendes Bild (`httpCode` nil = keine Antwort: Zeitüberschreitung, Verbindung
+    /// abgebrochen; 408; Serverfehler 5xx ausser 503, das pausiert): kein Tages-Fehlschlag — das Bild wird im selben
+    /// Durchgang noch einmal versucht, sonst beim nächsten Abgleich. Nur «gibt es nicht» (404, 403) und unlesbare
+    /// oder zu grosse Bilder sperren es einen Tag — wie Android.
+    static func isTransient(httpCode: Int?) -> Bool {
+        guard let httpCode else { return true }
+        return httpCode == 408 || (500...599).contains(httpCode)
+    }
+
     /// So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren.
     static let forbiddenPauseStreak = 3
 

@@ -107,6 +107,10 @@ class LogoFallbackParityTest {
         fallback["pauseResponse"].list().map { it.list() }.forEach { (code, retryAfter, expected) ->
             assertEquals("code: $code/$retryAfter", expected, CoinLogoRetry.pausesImages((code as Double).toInt(), retryAfter as Boolean))
         }
+        // Kurze Störung (keine Antwort, 408, 5xx): kein Tages-Fehlschlag
+        fallback["transient"].list().map { it.list() }.forEach { (code, expected) ->
+            assertEquals("transient: $code", expected, CoinLogoRetry.isTransient((code as Double?)?.toInt()))
+        }
         // Folge von 403 je Server: erst das dritte Bild in Folge pausiert
         fallback["forbiddenStreak"].list().map { it.list() }.forEach { (sequence, expected) ->
             var streak = 0

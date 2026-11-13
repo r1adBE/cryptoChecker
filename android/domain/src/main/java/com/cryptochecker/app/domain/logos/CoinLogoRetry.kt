@@ -43,6 +43,14 @@ object CoinLogoRetry {
     fun pausesImages(httpCode: Int, retryAfter: Boolean): Boolean =
         httpCode == 429 || httpCode == 503 || (httpCode == 403 && retryAfter)
 
+    /**
+     * Kurze Störung statt fehlendes Bild ([httpCode] null = keine Antwort: Zeitüberschreitung, Verbindung
+     * abgebrochen; 408; Serverfehler 5xx ausser 503, das pausiert): kein Tages-Fehlschlag — das Bild wird im selben
+     * Durchgang noch einmal versucht, sonst beim nächsten Abgleich. Nur «gibt es nicht» (404, 403) und unlesbare oder
+     * zu grosse Bilder sperren es einen Tag ([CoinLogos.FAILURE_TTL_MILLIS]).
+     */
+    fun isTransient(httpCode: Int?): Boolean = httpCode == null || httpCode == 408 || httpCode in 500..599
+
     /** So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren. */
     const val FORBIDDEN_PAUSE_STREAK = 3
 

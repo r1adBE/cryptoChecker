@@ -6,14 +6,10 @@ import android.graphics.BitmapFactory
 import android.util.LruCache
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.AppUserAgent
-import com.cryptochecker.app.data.remote.HttpUserAgent
-import com.cryptochecker.app.data.remote.util.HttpBodyLimit
-import com.cryptochecker.app.data.remote.util.await
 import com.cryptochecker.app.domain.logos.CoinLogoQueue
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.LogoLoadingHint
-import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -27,9 +23,9 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import timber.log.Timber
 import java.io.File
+import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
@@ -38,7 +34,6 @@ import javax.inject.Singleton
 import com.cryptochecker.app.domain.logos.bundledIconName
 import com.cryptochecker.app.domain.logos.parseIconPack
 import com.cryptochecker.app.data.LogoImageCodec.decodeFile
-import com.cryptochecker.app.data.LogoImageCodec.pngBytes
 
 /**
  * Coin-Logos auf dem Gerät: Bilder im Speicher ([memory]) und in Dateien, das mitgelieferte Icon-Paket
@@ -63,7 +58,8 @@ class LogoImageStore @Inject constructor(
     private val client: OkHttpClient = httpClient.newBuilder().apply { interceptors().clear() }.build()
 
     private val prefs by lazy { CoinLogoStorage.prefs(context) }
-    private val imageDir by lazy { File(context.cacheDir, CoinLogoStorage.IMAGE_DIR).apply { mkdirs() } }
+    /** Dauerhaft wie iOS (App-Gruppe), nicht im Cache: den darf Android bei Platzmangel leeren, dann fehlten Logos. */
+    private val imageDir by lazy { File(context.noBackupFilesDir, CoinLogoStorage.IMAGE_DIR).apply { mkdirs() } }
 
     /** Zuletzt benutzte Bilder, höchstens ~4 MB. */
     private val memory = object : LruCache<String, Bitmap>(MEMORY_BYTES) {
@@ -192,9 +188,13 @@ class LogoImageStore @Inject constructor(
         val newFailures = ConcurrentHashMap<String, Long>()
         // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
         val streaks = LogoImagePauses.ForbiddenStreaks()
-        var paused: List<Pair<String, String>> = emptyList()
+        // Länger gebremste Bilder (Pause über [SHORT_PAUSE_MAX_MILLIS]): erst nach der Pause ([Downloads.pausedUntil])
+        var parked: List<Pair<String, String>> = emptyList()
+        // Nach der letzten Runde noch gestört ([Fetched.TRANSIENT]): kein Fehlschlag, nächster Abgleich holt nach
+        var transientLeft: List<Pair<String, String>> = emptyList()
         for (round in 1..PAUSE_ROUNDS) {
             val pausedNow = ArrayList<Pair<String, String>>()
+            val transientNow = ArrayList<Pair<String, String>>()
             CoinLogoQueue.run(
                 pending,
                 hostOf = { CoinLogoRetry.hostOf(it.second).orEmpty() },
@@ -211,22 +211,32 @@ class LogoImageStore @Inject constructor(
                     Fetched.FAILED -> newFailures[job.first] = now.also { loadingHint.imageDone() }
                     // Server bremst: nicht als Fehler (und kein stehender Prozentwert im Hinweis)
                     Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }
+                    // Kurze Störung: in der nächsten Runde noch einmal
+                    Fetched.TRANSIENT -> transientNow.add(job)
                 }
             }
-            paused = pausedNow
-            if (paused.isEmpty() || round == PAUSE_ROUNDS) break
+            transientLeft = transientNow
             // Pause schon vorbei (null): gleich die nächste Runde
-            val wait = pauses.shortestPauseMillis(paused) ?: 0L
-            if (wait > SHORT_PAUSE_MAX_MILLIS) break
-            delay(wait)
-            pending = paused
+            val pauseWait = if (pausedNow.isEmpty()) 0L else pauses.shortestPauseMillis(pausedNow) ?: 0L
+            val waitForPaused = pausedNow.isNotEmpty() && pauseWait <= SHORT_PAUSE_MAX_MILLIS && round < PAUSE_ROUNDS
+            if (!waitForPaused) parked = parked + pausedNow
+            val next = (if (waitForPaused) pausedNow else emptyList()) + transientNow
+            if (next.isEmpty() || round == PAUSE_ROUNDS) break
+            delay(maxOf(if (waitForPaused) pauseWait else 0L, if (transientNow.isEmpty()) 0L else TRANSIENT_RETRY_MILLIS))
+            pending = next
         }
+        val paused = parked
+        // Fortschritt schliessen: diese Bilder kommen erst mit dem nächsten Abgleich
+        transientLeft.forEach { _ -> loadingHint.imageDone() }
         // Am fehlenden Netz gescheitert: nicht einen Tag sperren, sondern mit dem Netz nachholen
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
-        val network = CoinLogoRetry.downloadsFailedForNetwork(connectivity.isOnline(), newFailures.size, attempted - paused.size)
+        val network = CoinLogoRetry.downloadsFailedForNetwork(
+            connectivity.isOnline(), newFailures.size + transientLeft.size, attempted - paused.size,
+        )
         if (newFailures.isNotEmpty() && !network) pauses.saveFailures(pauses.loadFailures(System.currentTimeMillis()) + newFailures)
         if (added.get() > 0) bumpRevision(force = true)
-        Timber.i("Coin-Logos: %d neu, %d fehlgeschlagen, %d gebremst", added.get(), newFailures.size, paused.size)
+        Timber.i("Coin-Logos: %d neu, %d fehlgeschlagen, %d gebremst, %d gestört", added.get(), newFailures.size,
+            paused.size, transientLeft.size)
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
         val pausedUntil = if (paused.isEmpty()) null else pauses.earliestPauseEnd(paused) ?: System.currentTimeMillis()
         return Downloads(added.get(), network, pausedUntil)
@@ -242,13 +252,19 @@ class LogoImageStore @Inject constructor(
         var result = fetchLimited(name, url, streaks)
         if (result != Fetched.FAILED) return result
         var paused = false
+        var transient = false
         for (alt in alternates) {
             if (alt == url) continue
             result = fetchLimited(name, alt, streaks)
             if (result == Fetched.OK) return result
             if (result == Fetched.PAUSED) paused = true
+            if (result == Fetched.TRANSIENT) transient = true
         }
-        return if (paused) Fetched.PAUSED else Fetched.FAILED
+        return when {
+            paused -> Fetched.PAUSED
+            transient -> Fetched.TRANSIENT
+            else -> Fetched.FAILED
+        }
     }
 
     /** Ein Bild mit den Grenzen je Server und insgesamt (erst Server, dann gesamt — nie gesamt blockieren). */
@@ -303,7 +319,8 @@ class LogoImageStore @Inject constructor(
     private suspend fun downloadTo(name: String, url: String, streaks: LogoImagePauses.ForbiddenStreaks): Boolean =
         fetchTo(name, url, imageDir, streaks) == Fetched.OK
 
-    private enum class Fetched { OK, FAILED, PAUSED }
+    /** OK; FAILED = gibt es nicht bzw. unlesbar (Tagessperre); PAUSED = Server bremst; TRANSIENT = kurze Störung. */
+    private enum class Fetched { OK, FAILED, PAUSED, TRANSIENT }
 
     /**
      * Wie [downloadTo], aber mit Pause des Bild-Servers ([CoinLogoRetry.pausesImages]): dann
@@ -318,9 +335,11 @@ class LogoImageStore @Inject constructor(
         val file = File(dir, name)
         // Letzte Antwort war 403 (für die Folge je Server)
         var forbidden = false
+        // Eine Fassung scheiterte an einer kurzen Störung ([CoinLogoRetry.isTransient]): später erneut, keine Tagessperre
+        var transient = false
         for (candidate in listOf(CoinLogos.smallUrl(url), url).distinct()) {
             try {
-                val png = download(candidate)
+                val png = LogoImageDownload.png(client, candidate, userAgent)
                 forbidden = false
                 if (png == null) continue
                 // Nicht gespeichert (Speicher voll, Ordner weg): nächste Fassung, sonst Fehlschlag — dann gilt die
@@ -332,12 +351,18 @@ class LogoImageStore @Inject constructor(
                 Timber.d("Logo %s: nicht gespeichert", name)
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: ImagePause) {
+            } catch (e: LogoImageDownload.Pause) {
                 pauses.pauseHost(e.host, e.retryAfterSeconds)
                 return Fetched.PAUSED
-            } catch (e: ImageHttpError) {
+            } catch (e: LogoImageDownload.HttpError) {
                 forbidden = e.code == HTTP_FORBIDDEN
+                if (CoinLogoRetry.isTransient(e.code)) transient = true
                 Timber.d("Logo %s: HTTP %d", name, e.code)
+            } catch (e: IOException) {
+                // Keine Antwort: Zeitüberschreitung, Verbindung abgebrochen
+                forbidden = false
+                transient = true
+                Timber.d("Logo %s: %s", name, e.message)
             } catch (e: Exception) {
                 forbidden = false
                 Timber.d("Logo %s: %s", name, e.message)
@@ -347,33 +372,7 @@ class LogoImageStore @Inject constructor(
             pauses.pauseHost(host, null)
             return Fetched.PAUSED
         }
-        return Fetched.FAILED
-    }
-
-    /** Bild-Server verlangt eine Pause ([CoinLogoRetry.pausesImages]). */
-    private class ImagePause(val host: String, val retryAfterSeconds: Long?) : Exception("pause $host")
-
-    /** Antwort ohne Erfolg und ohne Pause (z. B. 404, 403 ohne «Retry-After»). */
-    private class ImageHttpError(val code: Int) : Exception("HTTP $code")
-
-    /**
-     * Bild laden → PNG-Bytes zum Speichern; null = kein lesbares Bild. Wartet auf die Antwort ohne einen Thread
-     * zu blockieren ([await]): wird die Coroutine abgebrochen (Abgleich beendet), bricht auch die Anfrage ab.
-     */
-    private suspend fun download(url: String): ByteArray? {
-        val request = Request.Builder().url(url).header(HttpUserAgent.HEADER, userAgent).build()
-        client.newCall(request).await().use { response ->
-            val retryAfter = ExchangeBackoff.parseRetryAfterSeconds(response.header("Retry-After"), System.currentTimeMillis())
-            if (CoinLogoRetry.pausesImages(response.code, retryAfter != null)) {
-                throw ImagePause(CoinLogoRetry.hostOf(url) ?: "", retryAfter)
-            }
-            if (!response.isSuccessful) throw ImageHttpError(response.code)
-            val body = response.body
-            // Auch ohne Content-Length nicht mehr als die Höchstgrösse lesen
-            val bytes = HttpBodyLimit.read(body.byteStream(), body.contentLength(), MAX_IMAGE_BYTES)
-                ?: error("too large")
-            return pngBytes(bytes)
-        }
+        return if (transient) Fetched.TRANSIENT else Fetched.FAILED
     }
 
     private companion object {
@@ -382,17 +381,14 @@ class LogoImageStore @Inject constructor(
         /** Mitgelieferte Icons im Speicher (eigene Vorsilbe: Vorrang haben die geladenen Logos). */
         const val BUNDLED_MEMORY_PREFIX = "B_"
         const val MEMORY_BYTES = 4 * 1024 * 1024
-        /**
-         * Höchstgrösse eines Quellbilds (wie iOS `CoinLogoStore.maxImageBytes`): 4 MB — Binance lädt Logos seit 2025
-         * in hoher Auflösung hoch (über 512 KB, dann standen Initialen). Gespeichert wird nur das verkleinerte Bild
-         * ([CoinLogos.STORED_PX]); die Pixel-Grenze [CoinLogos.MAX_SOURCE_PIXELS] bleibt.
-         */
-        const val MAX_IMAGE_BYTES = 4L * 1024 * 1024
         const val HTTP_FORBIDDEN = 403
 
         /** Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt. */
         const val SHORT_PAUSE_MAX_MILLIS = 2 * 60_000L
         const val PAUSE_ROUNDS = 3
+
+        /** Kurze Störung: so lange warten, bevor die gestörten Bilder in der nächsten Runde erneut drankommen. */
+        const val TRANSIENT_RETRY_MILLIS = 5_000L
 
         /** Anzeigen während des Ladens höchstens so oft auffrischen. */
         const val REVISION_INTERVAL_MILLIS = 1_000L

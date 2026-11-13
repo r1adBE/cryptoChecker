@@ -197,6 +197,9 @@ class LogoLoadingHintParityTest {
         assertTrue(Regex("""Fetched\.OK -> \{\s+loadingHint\.imageDone\(\)""").containsMatchIn(store))
         assertTrue(store.contains("Fetched.FAILED -> newFailures[job.first] = now.also { loadingHint.imageDone() }"))
         assertTrue(store.contains("Fetched.PAUSED -> pausedNow.add(job).also { loadingHint.imagesPaused() }"))
+        // Nach der letzten Runde noch gestört: zählt als erledigt (kommt erst mit dem nächsten Abgleich), kein Fehlschlag
+        assertTrue(store.contains("transientLeft.forEach { _ -> loadingHint.imageDone() }"))
+        assertTrue(store.contains("Fetched.TRANSIENT -> transientNow.add(job)"))
         // Erst nach «nichts zu laden» (leere Liste) melden: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
         val empty = store.indexOf("if (pending.isEmpty()) return Downloads()")
         assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size, last = lastStage)") > empty)

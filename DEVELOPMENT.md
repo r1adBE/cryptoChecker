@@ -1267,8 +1267,10 @@ never by watchlist or portfolio – iOS keeps it via `Lists.order` / the saved m
 at most 6 at once and 4 per host (`CoinLogoQueue`, parity `coin_logos.json` › `queue`). Without a logo (yet) the
 badge shows a coloured circle with the initials (`CoinLogoPlaceholder`: colour from FNV-1a of the symbol, 8 colours
 per theme, text ≥ 4.5:1; parity `coin_placeholder.json`); a logo that arrives later fades in (220 ms, none with
-reduced motion / animator scale 0). Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App
-Group `coin_logos/`), a failed image is retried after **1 day**; display reads only from memory/disk, and a
+reduced motion / animator scale 0). Images are scaled to 128 px and stored as PNG (Android `noBackupFilesDir/coin_logos`,
+not the cache the system may clear; iOS App Group `coin_logos/`), a failed image (404/403, unreadable, too large) is
+retried after **1 day**; a short disturbance (no answer, 408, 5xx; `CoinLogoRetry.isTransient`, parity
+`logo_fallback.json` › `transient`) is not a failure: retried in the same run after 5 s (up to three rounds), else on the next sync; display reads only from memory/disk, and a
 `revision` counter (at most once per second while loading) lets badges retry. Every lookup in the map uses the
 merge key (`CoinLogos.urlFor`: `normalize`, TradFi via `tradFiKey`), also for the starter logos («1000CAT» → CAT). Only HTTPS images from
 `*.coingecko.com` and `*.bnbstatic.com` (`isAllowedUrl`; URLs of the former GitHub Pages list are
@@ -3121,6 +3123,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 229: mutation_test.py self-test: file mode 0o640 -> 0o600 (CodeQL «Overly permissive file permissions»); ios.yml UI tests: Simulator booted first (simctl bootstatus), per-test timeout 600 s, step limit 50 min.
 * Build 230: SettingsDataPages: HideOverlaysEffect(exportDialog != null) for the backup password dialog (external review of build 229).
 * Build 231: AccessibilityAuditTests: Dynamic Type recheck pass; ios.yml: retry on main/tags too, ui_retry_policy.py (with self-test) fails the job for any retried test whose failures were not Simulator hiccups.
+* Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos.
 
 ## Known warnings
 
