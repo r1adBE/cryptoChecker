@@ -49,7 +49,8 @@ class LogoImageDownloadTest {
 
     @Test
     fun serverErrorsAreTransientMissingFilesAreNot() {
-        for (code in listOf(500, 502, 504, 408)) {
+        // 408 nicht hier: OkHttp wiederholt die Anfrage dabei selbst einmal (Regel in CoinLogoRetry, Parität)
+        for (code in listOf(500, 502, 504)) {
             val got = httpCode(MockResponse.Builder().code(code).build())
             assertEquals(code, got)
             assertTrue("$code", CoinLogoRetry.isTransient(got))
