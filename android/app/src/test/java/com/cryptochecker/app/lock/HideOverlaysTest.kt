@@ -29,6 +29,7 @@ class HideOverlaysTest {
         assertTrue(file("$ui/navigation/AppNavHost.kt").contains("HideOverlaysEffect(onPortfolio)"))
         assertTrue(file("$ui/features/settings/SettingsScreen.kt").contains("HideOverlaysEffect(askReset)"))
         assertTrue(file("$ui/features/settings/SettingsDataPages.kt").contains("HideOverlaysEffect(restoreStep != null)"))
+        assertTrue(file("$ui/features/settings/SettingsDataPages.kt").contains("HideOverlaysEffect(exportDialog != null)"))
         assertTrue(file("$ui/features/settings/SettingsPortfolioPages.kt").contains("HideOverlaysEffect()"))
         // Der Aufruf selbst nur hinter der Versionsprüfung
         val effect = file("$ui/lock/HideOverlays.kt")

@@ -149,6 +149,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         }
     }
 
+    // Sichern (neues Passwort): ebenfalls keine fremden Fenster darüber (ab Android 12)
+    HideOverlaysEffect(exportDialog != null)
     exportDialog?.let { defaultProtect ->
         BackupExportDialog(
             defaultProtect = defaultProtect,

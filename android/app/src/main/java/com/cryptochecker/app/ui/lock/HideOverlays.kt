@@ -12,7 +12,7 @@ import java.util.WeakHashMap
 /**
  * Fremde Fenster über der App ausblenden (`Window.setHideOverlayWindows`, ab Android 12, Berechtigung
  * HIDE_OVERLAY_WINDOWS), solange [active]: Über dem Portfolio und über heiklen Rückfragen (Sperre ein/aus,
- * Wiederherstellen, «App zurücksetzen») kann keine andere App etwas darüberlegen (Tapjacking). Gilt für das Fenster
+ * Sichern, Wiederherstellen, «App zurücksetzen») kann keine andere App etwas darüberlegen (Tapjacking). Gilt für das Fenster
  * der Aktivität; Dialoge liegen darüber, die Aktivität bleibt dabei sichtbar. Das eigene Preis-Overlay ist in dieser
  * Zeit ebenfalls ausgeblendet. Mehrere gleichzeitig aktive Stellen zählen ([OverlayShield]); erst die letzte hebt auf.
  */

@@ -136,9 +136,9 @@ keys or other secrets never belong in this repository.
   backup dialogs close; a file picked or a password check finishing after that is
   discarded until the user unlocks again.
 * **No foreign windows over sensitive screens (Android 12+).** While the portfolio,
-  the portfolio settings or the restore and «Reset app» confirmations are visible,
-  the app hides overlay windows of other apps (`HIDE_OVERLAY_WINDOWS`, a normal
-  permission without a prompt) – protection against tapjacking. Android 8–11 have
+  the portfolio settings, the backup password dialog or the restore and «Reset app»
+  confirmations are visible, the app hides overlay windows of other apps
+  (`HIDE_OVERLAY_WINDOWS`, a normal permission without a prompt) – protection against tapjacking. Android 8–11 have
   no such switch.
 * **Backups.** Exported via the system file picker only (no temporary copies),
   encrypted with a password – optional for a file without portfolio data, always

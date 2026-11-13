@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 230)
+
+Back up: other apps' overlay windows are hidden while the backup password dialog is open (Android 12+), as for restore.
+
 ## 16.2.2 (build 229)
 
 * CI mutation self-test uses owner-only file mode (CodeQL alert #4).

@@ -3119,6 +3119,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 227: audit of 225 (C2-01…C2-04, P2-01…P2-07, S2-03, S2-04, S2-06, D2-02, D2-04): sixth required check «Android device tests», startup-profile journey, `supply_chain_files.py --check` rejects ignored+trusted keys, watch key literal check.
 * Build 228: Baseline and startup profiles re-measured on main after build 227 (own startup journey).
 * Build 229: mutation_test.py self-test: file mode 0o640 -> 0o600 (CodeQL «Overly permissive file permissions»); ios.yml UI tests: Simulator booted first (simctl bootstatus), per-test timeout 600 s, step limit 50 min.
+* Build 230: SettingsDataPages: HideOverlaysEffect(exportDialog != null) for the backup password dialog (external review of build 229).
 
 ## Known warnings
 
