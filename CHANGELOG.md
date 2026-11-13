@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 231)
+
+iOS UI tests: a Dynamic Type finding counts only when a second pass on the same screen confirms it; on main and release tags a UI test may be retried once, and a retry counts as failed unless the first failure was a Simulator hiccup (launch, terminate, UI query timeout, time allowance).
+
 ## 16.2.2 (build 230)
 
 Back up: other apps' overlay windows are hidden while the backup password dialog is open (Android 12+), as for restore.

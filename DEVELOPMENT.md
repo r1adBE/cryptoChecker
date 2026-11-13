@@ -3120,6 +3120,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 228: Baseline and startup profiles re-measured on main after build 227 (own startup journey).
 * Build 229: mutation_test.py self-test: file mode 0o640 -> 0o600 (CodeQL «Overly permissive file permissions»); ios.yml UI tests: Simulator booted first (simctl bootstatus), per-test timeout 600 s, step limit 50 min.
 * Build 230: SettingsDataPages: HideOverlaysEffect(exportDialog != null) for the backup password dialog (external review of build 229).
+* Build 231: AccessibilityAuditTests: Dynamic Type recheck pass; ios.yml: retry on main/tags too, ui_retry_policy.py (with self-test) fails the job for any retried test whose failures were not Simulator hiccups.
 
 ## Known warnings
 

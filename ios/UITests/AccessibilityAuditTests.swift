@@ -118,6 +118,12 @@ final class AccessibilityAuditTests: XCTestCase {
         let tabTop = tabFrames.map(\.minY).filter { $0 > 0 }.min() ?? 0
         let window = app.windows.firstMatch.frame
         let navBar = app.navigationBars.firstMatch.exists ? app.navigationBars.firstMatch.frame.insetBy(dx: -1, dy: -1) : .zero
+        // Dynamic Type: das Audit stellt die Schriftgrösse um und misst gleich danach; ein langsamer CI-Mac hat dann
+        // noch nicht neu gezeichnet und meldet einen Text, der mit der Systemschrift wächst (z. B. Beispielsatz
+        // der Alarme, Zeile «Portfolio»). Ein solcher Befund zählt erst, wenn ein zweiter Durchgang dieser Art auf
+        // demselben Bildschirm ihn bestätigt; alle anderen Arten zählen sofort
+        var unconfirmed: Set<String> = []
+        var confirming = false
         let handler: (XCUIAccessibilityAuditIssue) throws -> Bool = { issue in
             let identifier = issue.element?.identifier ?? ""
             let frame = issue.element?.frame ?? .zero
@@ -151,26 +157,49 @@ final class AccessibilityAuditTests: XCTestCase {
                 || AccessibilityAuditTests.exceptions.contains { exception in
                 issue.auditType == exception.type && identifier.hasPrefix(exception.identifierPrefix)
             }
-            if !known {
-                let label = issue.element?.label ?? ""
-                print("A11Y-AUDIT [\(screen)] \(issue.compactDescription) — id «\(identifier)», «\(label)»")
+            if known { return true }
+            let label = issue.element?.label ?? ""
+            let line = "\(issue.compactDescription) — id «\(identifier)», «\(label)»"
+            if issue.auditType == .dynamicType && !confirming {
+                unconfirmed.insert(line)
+                return true
             }
-            return known
+            if confirming && !unconfirmed.contains(line) {
+                print("A11Y-AUDIT [\(screen)] (nur im zweiten Durchgang, nicht gewertet) \(line)")
+                return true
+            }
+            print("A11Y-AUDIT [\(screen)] \(line)")
+            return false
         }
         // In drei Gruppen von Prüfarten statt `.all` in einem Durchgang: jede ist kürzer, die Zeitgrenze (Code -56) wird
         // seltener erreicht. Ein zweites `.all`-Audit gleich nach einer Zeitgrenze liess den Test-Runner abstürzen
         // («Restarting after unexpected exit», Rechts-nach-links); jede Art einzeln war zu langsam (Schritt
         // über 30 min). Langsamer CI-Mac: je Gruppe bis zu zweimal wiederholen (nach kurzer Pause), dann zählt der Fehler.
-        // Befunde selbst werden nie wiederholt
+        // Befunde selbst werden nicht wiederholt, ausser Dynamic Type (oben)
         for type in Self.auditGroups {
-            for attempt in 1...3 {
-                do {
-                    try app.performAccessibilityAudit(for: type, handler)
-                    break
-                } catch let error as NSError where error.code == -56 && attempt < 3 {
-                    print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits (Gruppe \(type.rawValue)), Versuch \(attempt + 1)")
-                    _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
-                }
+            try runAudit(app, screen, type, handler)
+        }
+        guard !unconfirmed.isEmpty else { return }
+        // Zweiter Durchgang nur für Dynamic Type, nach einer Pause: gemeldet wird, was beide Male auffällt
+        for line in unconfirmed.sorted() {
+            print("A11Y-AUDIT [\(screen)] (erster Durchgang, wird nachgeprüft) \(line)")
+        }
+        _ = XCTWaiter.wait(for: [XCTestExpectation(description: "dynamic type recheck")], timeout: 3)
+        confirming = true
+        try runAudit(app, screen, .dynamicType, handler)
+    }
+
+    /// Ein Audit der Arten `type`; bei der Zeitgrenze (Code -56) nach kurzer Pause bis zu zweimal neu.
+    @MainActor
+    private func runAudit(_ app: XCUIApplication, _ screen: String, _ type: XCUIAccessibilityAuditType,
+                          _ handler: @escaping (XCUIAccessibilityAuditIssue) throws -> Bool) throws {
+        for attempt in 1...3 {
+            do {
+                try app.performAccessibilityAudit(for: type, handler)
+                return
+            } catch let error as NSError where error.code == -56 && attempt < 3 {
+                print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits (Gruppe \(type.rawValue)), Versuch \(attempt + 1)")
+                _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
             }
         }
     }

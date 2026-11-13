@@ -115,6 +115,10 @@ jobs:
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" "$GITHUB_WORKSPACE"
 
+      # Rule for retried UI tests on main and release tags (used by the UI test job): checked here, before Xcode
+      - name: UI retry policy self-test
+        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/ui_retry_policy.py" --self-test
+
       - name: Select Xcode 26
         uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
         with:
@@ -395,9 +399,10 @@ jobs:
       # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the Simulator.
       # The app runs with -uiTesting (Debug build only): empty storage per launch, fixed exchange
       # answers (no network), test files instead of the document picker. Runs every UI test class of the target
-      # (no further filter). On pull requests and other branches a failed test is retried once (Simulator hiccups,
-      # reported as a warning below); on main and release tags there is no retry: a test that only passes on the
-      # second attempt is a failure there. The result bundle (screenshots, logs) is uploaded on failure.
+      # (no further filter). A failed test is retried once (Simulator hiccups, reported as a warning below). On pull
+      # requests and other branches that is enough; on main and release tags a test that only passes on the second
+      # attempt still fails the job unless its failures were Simulator hiccups only (ui_retry_policy.py). The result
+      # bundle (screenshots, logs) is uploaded on failure.
       - name: UI tests (iOS Simulator)
         working-directory: ios
         # 50 min: the accessibility audit runs in three groups of audit types per screen; a single test is stopped
@@ -406,9 +411,10 @@ jobs:
         run: |
           LOG="$RUNNER_TEMP/xcode-uitest.log"
           RETRY=(-retry-tests-on-failure -test-iterations 2)
+          STRICT=false
           if [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            RETRY=()
-            echo "UI tests without retry on $GITHUB_REF"
+            STRICT=true
+            echo "UI tests with one retry for Simulator hiccups only ($GITHUB_REF)"
           else
             echo "UI tests with one retry on failure ($GITHUB_REF)"
           fi
@@ -432,6 +438,11 @@ jobs:
           set -e
           tail -n 120 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          # main and release tags: a test that only passed on the retry counts as failed, unless it failed solely
+          # because of the CI Simulator (launch/terminate, UI query timeout, per-test time allowance)
+          if [ "$status" -eq 0 ] && [ "$STRICT" = true ]; then
+            python3 -I "$GITHUB_WORKSPACE/.github/scripts/ui_retry_policy.py" "$LOG" || status=1
+          fi
           exit $status
 
       # Findings of the accessibility audit (AccessibilityAuditTests prints «A11Y-AUDIT …» while it only reports): one
@@ -446,7 +457,7 @@ jobs:
             printf '::warning title=Accessibility audit::%s\n' "${line#A11Y-AUDIT }"
           done || true
 
-      # Tests that only passed on the retry (-retry-tests-on-failure, not on main/tags) as a warning: green, but flaky. Read from the result
+      # Tests that only passed on the retry (-retry-tests-on-failure) as a warning: green, but flaky. Read from the result
       # bundle (xcresulttool, Xcode 16+ format), else from the xcodebuild log (a test case both failed and passed).
       # Purely informative: an unknown format or a missing tool never fails the job.
       - name: Retried UI tests
