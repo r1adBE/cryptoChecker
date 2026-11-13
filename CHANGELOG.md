@@ -18,7 +18,8 @@ Detailed build history below.
 
 ## 16.2.2 (build 232)
 
-Coin logos: a short disturbance while loading (no answer, 408, 5xx) no longer blocks a logo for a day – it is retried in the same run and otherwise on the next sync; Android keeps the logos in app storage instead of the cache the system may clear.
+* Coin logos: a short disturbance while loading (no answer, 408, 5xx) no longer blocks a logo for a day – it is retried in the same run and otherwise on the next sync; Android keeps the logos in app storage instead of the cache the system may clear.
+* Tests: the scaling check of the performance tests allows 6× instead of 5× from a quarter to the full size (n·log n alone is almost 5×; a slow CI Mac failed a sort by a few ms). Quadratic growth (16×) still fails.
 
 ## 16.2.2 (build 231)
 

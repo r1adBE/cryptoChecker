@@ -34,7 +34,8 @@ internal object PerformanceTiming {
 
     const val WARMUP_RUNS = 2
     const val MEASURED_RUNS = 5
-    const val SCALE_FACTOR = 5.0
+    /** 6 statt 5: n·log n ist schon knapp das 5-Fache, ohne Spielraum schlug ein langsamer Runner an (wie iOS). */
+    const val SCALE_FACTOR = 6.0
 
     /** Feste Zugabe zur Skalierungsgrenze: kleine Messwerte schwanken absolut um einige Millisekunden. */
     const val SCALE_SLACK_MILLIS = 5.0

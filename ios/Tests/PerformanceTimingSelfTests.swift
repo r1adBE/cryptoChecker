@@ -33,8 +33,8 @@ final class PerformanceTimingSelfTests: XCTestCase {
     }
 
     func testOutlierIsRemeasuredLargeFirst() {
-        // Erste grosse Messung ein Ausreisser (122 ms > 5 × 18 + 20), die zweite normal
-        let (result, order, lines) = outcome([18, 122, 75, 20])
+        // Erste grosse Messung ein Ausreisser (140 ms > 6 × 18 + 20), die zweite normal
+        let (result, order, lines) = outcome([18, 140, 75, 20])
         XCTAssertTrue(result.remeasured)
         XCTAssertEqual(order, [500, 2_000, 2_000, 500])
         XCTAssertEqual(result.largeMillis, 75)
@@ -45,9 +45,9 @@ final class PerformanceTimingSelfTests: XCTestCase {
     }
 
     func testShorterOfBothMeasurementsCountsPerSize() {
-        let (result, _, _) = outcome([30, 200, 160, 25])
+        let (result, _, _) = outcome([30, 220, 180, 25])
         XCTAssertEqual(result.smallMillis, 25)
-        XCTAssertEqual(result.largeMillis, 160)
+        XCTAssertEqual(result.largeMillis, 180)
         XCTAssertEqual(result.scaleLimit, T.scaleLimit(smallMillis: 25))
         XCTAssertFalse(result.scales)
     }

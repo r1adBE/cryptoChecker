@@ -220,7 +220,9 @@ enum PerformanceTiming {
     static let quickMeasuredRuns = 3
     /// Umgebungsvariable des Testlaufs: "1" = Leistungstests überspringen.
     static let skipVariable = "CC_SKIP_PERFORMANCE"
-    static let scaleFactor = 5.0
+    /// 6 statt 5: n·log n ist von einem Viertel aufs Ganze schon knapp das 5-Fache, ohne Spielraum schlug ein
+    /// langsamer CI-Mac bei einer Sortierung an; quadratisch (16-Fach) fällt weiterhin klar auf.
+    static let scaleFactor = 6.0
     /// Feste Zugabe zur Skalierungsgrenze: kleine Messwerte schwanken absolut um einige Millisekunden.
     static let scaleSlackMillis = 20.0
 

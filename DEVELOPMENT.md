@@ -3123,7 +3123,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 229: mutation_test.py self-test: file mode 0o640 -> 0o600 (CodeQL «Overly permissive file permissions»); ios.yml UI tests: Simulator booted first (simctl bootstatus), per-test timeout 600 s, step limit 50 min.
 * Build 230: SettingsDataPages: HideOverlaysEffect(exportDialog != null) for the backup password dialog (external review of build 229).
 * Build 231: AccessibilityAuditTests: Dynamic Type recheck pass; ios.yml: retry on main/tags too, ui_retry_policy.py (with self-test) fails the job for any retried test whose failures were not Simulator hiccups.
-* Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos.
+* Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos. Performance tests: scaling factor 6 (was 5) on both platforms.
 
 ## Known warnings
 
