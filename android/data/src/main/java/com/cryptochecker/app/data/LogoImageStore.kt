@@ -54,7 +54,7 @@ class LogoImageStore @Inject constructor(
     httpClient: OkHttpClient,
     private val connectivity: ConnectivityMonitor,
     /** Wie die Börsen-Abfragen und iOS («cryptoChecker-iOS/16.2.2»): mit der vollen App-Version ([AppUserAgent]). */
-    @param:AppUserAgent userAgent: String,
+    @AppUserAgent userAgent: String,
 ) {
 
     private val prefs by lazy { CoinLogoStorage.prefs(context) }
