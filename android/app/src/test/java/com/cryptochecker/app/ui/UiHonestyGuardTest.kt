@@ -37,7 +37,8 @@ class UiHonestyGuardTest {
         val android = source("src/main/java/com/cryptochecker/app/ui/features/settings/SettingsAboutPages.kt")
         assertTrue(android.contains("}.takeIf { BuildConfig.DEBUG }"))
         val swift = ios("App/Features/Settings/SettingsAboutPages.swift")
-        assertTrue(swift.contains("AboutContent(onVersionTap: DeveloperOptions.available ? versionTapped : nil)"))
+        assertTrue(swift.contains("AboutContent(onVersionTap: versionTap)"))
+        assertTrue(swift.contains("guard DeveloperOptions.available else { return nil }"))
         assertFalse(swift.contains("AboutContent(onVersionTap: versionTapped)"))
     }
 

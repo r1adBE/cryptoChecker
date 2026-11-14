@@ -315,16 +315,16 @@ final class CoinLogosAlphaTests: XCTestCase {
 
     /// Dauerhaft gestörte Bilder halten das erste Laden nicht für immer offen (R4-05, coin_logos.json › openPasses).
     func testOpenPasses() throws {
-        let o = try XCTUnwrap(try S.fixture("coin_logos")["openPasses"] as? [String: Any])
+        let o = try XCTUnwrap(try TestSupport.fixture("coin_logos")["openPasses"] as? [String: Any])
         XCTAssertEqual(o["failAfter"] as? Int, CoinLogoRetry.openPassesLimit)
         func counts(_ v: Any?) -> [String: Int] { (v as? [String: Any] ?? [:]).compactMapValues { $0 as? Int } }
         func names(_ v: Any?) -> [String] { v as? [String] ?? [] }
-        for c in S.list(o["next"]) {
+        for c in TestSupport.list(o["next"]) {
             let next = CoinLogoRetry.nextOpenPasses(counts(c["previous"]), attempted: names(c["attempted"]), open: names(c["open"]))
             XCTAssertEqual(next, counts(c["expected"]), "\(c)")
             XCTAssertEqual(Set(next.filter { CoinLogoRetry.openPassesFail($0.value) }.keys), Set(names(c["failed"])), "\(c)")
         }
-        for c in S.list(o["codec"]) {
+        for c in TestSupport.list(o["codec"]) {
             let decoded = CoinLogoRetry.decodeOpenPasses(c["text"] as? String)
             XCTAssertEqual(decoded, counts(c["decoded"]), "\(c)")
             XCTAssertEqual(CoinLogoRetry.encodeOpenPasses(decoded), c["encoded"] as? String, "\(c)")
