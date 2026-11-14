@@ -105,8 +105,8 @@ final class LogoLoadingHintTests: XCTestCase {
         // Gesamtzahl erst mit der letzten Stufe; erledigte und gebremste Bilder zählen (kein stehender Prozentwert)
         XCTAssertTrue(sync.contains("alternates: alternates, lastStage: true)"))
         XCTAssertTrue(download.contains("await CoinLogoLoading.imagesPending(pending.count, last: lastStage)"))
-        // geladen, endgültig gescheitert, nach der letzten Runde noch gestört (kommt erst mit dem nächsten Abgleich)
-        XCTAssertEqual(download.components(separatedBy: "await CoinLogoLoading.imageDone()").count, 4)
+        // geladen, endgültig gescheitert, nicht gespeichert (Speicher voll), nach der letzten Runde noch gestört
+        XCTAssertEqual(download.components(separatedBy: "await CoinLogoLoading.imageDone()").count, 5)
         XCTAssertTrue(download.contains("roundPaused.append(job)\n                    await CoinLogoLoading.imagesPaused()"))
         XCTAssertTrue(download.contains("for _ in transientLeft { await CoinLogoLoading.imageDone() }"))
         // Erstes Laden gemerkt im Logo-Ordner (verschwindet mit ihm und beim Zurücksetzen); Ein- und Ausblenden
