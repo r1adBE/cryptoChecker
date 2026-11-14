@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Алармите се вклучени – сè уште нема проверка во позадина</string>
     <string name="alarm_reliability_notifications_off">Известувањата се исклучени – алармите нема да стигнат</string>
     <string name="alarm_reliability_battery">Штедењето батерија може да ги запре проверките на аларми</string>
+    <string name="alarm_reliability_offline">Нема врска – алармите се проверуваат штом мрежата се врати</string>
     <string name="alarm_reliability_background_refresh">Освежувањето во позадина е исклучено – алармите можеби нема да стигнат</string>
 </resources>

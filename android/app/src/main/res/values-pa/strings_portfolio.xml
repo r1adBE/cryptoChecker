@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ਕੁੱਲ</string>
     <string name="portfolio_hide_amounts">ਰਕਮਾਂ ਲੁਕਾਓ</string>
-    <string name="portfolio_hide_amounts_hint">ਪੋਰਟਫੋਲੀਓ ਅਤੇ ਪੋਰਟਫੋਲੀਓ ਵਿਜੇਟ ਵਿੱਚ ਰਕਮਾਂ ਅਤੇ ਮੁੱਲ ••• ਵਜੋਂ ਦਿਖਾਉਂਦਾ ਹੈ – ਪ੍ਰਤੀਸ਼ਤ ਦਿਖਦੇ ਰਹਿੰਦੇ ਹਨ।</string>
+    <string name="portfolio_hide_amounts_hint">ਪੋਰਟਫੋਲੀਓ, ਪੋਰਟਫੋਲੀਓ ਵਿਜੇਟ, ਘੜੀ ’ਤੇ ਅਤੇ ਪੋਰਟਫੋਲੀਓ ਅਲਾਰਮਾਂ ਵਿੱਚ ਰਕਮਾਂ ਅਤੇ ਮੁੱਲ ••• ਵਜੋਂ ਦਿਖਾਉਂਦਾ ਹੈ – ਪ੍ਰਤੀਸ਼ਤ ਦਿਖਦੇ ਰਹਿੰਦੇ ਹਨ।</string>
     <string name="portfolio_invested">ਲਾਗਤ ਅਧਾਰ</string>
     <string name="portfolio_total_no_fx">%1$s ਲਈ ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ – ਰਕਮਾਂ USDT ਵਿੱਚ</string>
     <string name="portfolio_total_value">ਕੁੱਲ ਮੁੱਲ</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">ਤਬਦੀਲੀਆਂ ਰੱਦ ਕਰਨੀਆਂ ਹਨ?</string>
     <string name="portfolio_edit_tx">ਲੈਣ-ਦੇਣ ਸੋਧੋ</string>
     <string name="portfolio_invalid">0 ਤੋਂ ਵੱਡੀ ਕੋਈ ਵੈਧ ਸੰਖਿਆ ਦਰਜ ਕਰੋ।</string>
+    <string name="number_ambiguous">ਅਸਪਸ਼ਟ: %1$s ਜਾਂ %2$s? ਦੋਵਾਂ ਵਿੱਚੋਂ ਇੱਕ ਲਿਖੋ।</string>
     <string name="portfolio_oversold">ਵਿਕਰੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ ਹਨ – ਕਿਰਪਾ ਕਰਕੇ ਲੈਣ-ਦੇਣ ਜਾਂਚੋ।</string>
     <string name="portfolio_sell">ਵਿਕਰੀ</string>
     <string name="portfolio_sell_exceeds">ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਤੋਂ ਵੱਧ (%1$s)</string>

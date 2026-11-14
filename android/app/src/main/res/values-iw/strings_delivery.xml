@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">התראות פעילות – עדיין אין בדיקה ברקע</string>
     <string name="alarm_reliability_notifications_off">התראות מערכת כבויות – ההתראות לא יגיעו</string>
     <string name="alarm_reliability_battery">חיסכון בסוללה עלול לעצור את בדיקת ההתראות</string>
+    <string name="alarm_reliability_offline">אין חיבור – ההתראות ייבדקו כשהרשת תחזור</string>
     <string name="alarm_reliability_background_refresh">רענון אפליקציות ברקע כבוי – ייתכן שההתראות לא יגיעו</string>
 </resources>

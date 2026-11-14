@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">ਫੰਡਿੰਗ −10 ਅਤੇ +10 ਪ੍ਰਤੀਸ਼ਤ ਵਿਚਕਾਰ ਕੋਈ ਸੰਖਿਆ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</string>
     <string name="alarm_threshold_error_invalid">0 ਤੋਂ ਵੱਡੀ ਕੋਈ ਵੈਧ ਸੰਖਿਆ ਦਰਜ ਕਰੋ।</string>
     <string name="alarm_threshold_error_oi">ਓਪਨ ਇੰਟਰੈਸਟ ਵਿੱਚ ਤਬਦੀਲੀ: ਵੱਧ ਤੋਂ ਵੱਧ 1000 ਪ੍ਰਤੀਸ਼ਤ।</string>
+    <string name="alarm_threshold_error_percent_max">ਵੱਧ ਤੋਂ ਵੱਧ 1000 ਪ੍ਰਤੀਸ਼ਤ।</string>
+    <string name="alarm_threshold_error_distance">ਦੂਰੀ 100 ਪ੍ਰਤੀਸ਼ਤ ਤੋਂ ਘੱਟ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d ਘੰਟੇ ਵਿੱਚ</item>
         <item quantity="other">%1$d ਘੰਟਿਆਂ ਵਿੱਚ</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">ਬੋਲਣਾ ਚਾਲੂ</string>
     <string name="alarm_unchecked_no_candles">ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕੀ (ਕੈਂਡਲ ਡਾਟਾ ਨਹੀਂ)</string>
     <string name="alarm_unchecked_no_rate">ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕੀ (ਵਟਾਂਦਰਾ ਦਰ ਨਹੀਂ)</string>
+    <string name="alarm_unchecked_no_window_price">ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕੀ (ਸਮਾਂ ਅਵਧੀ ਵਿੱਚ ਕੋਈ ਭਾਅ ਨਹੀਂ)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">ਸੂਚਨਾਵਾਂ ਬੰਦ – ਇਹ ਅਲਰਟ ਤੁਹਾਡੇ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚੇਗਾ</string>

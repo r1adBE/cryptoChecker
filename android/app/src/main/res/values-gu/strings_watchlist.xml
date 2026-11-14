@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">છેલ્લું રિફ્રેશ</string>
     <string name="watchlist_symbols_legend">ચિહ્નોની સમજૂતી</string>
     <string name="watchlist_symbols_legend_alarms">સક્રિય એલર્ટ અને તેની સંખ્યા</string>
+    <string name="watchlist_symbols_legend_warning">ભાવ જૂનો છે અથવા એક્સચેન્જ સુધી પહોંચી શકાતું નથી</string>
     <string name="watchlist_refresh_report_empty">હજુ કોઈ વિગત નથી – અત્યાર સુધી પૂરું રિફ્રેશ થયું નથી. રિફ્રેશ પર ટૅપ કરો અને વર્તુળ અટકે ત્યાં સુધી રાહ જુઓ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d માંથી %1$d જૂનું</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">સૂચના બંધ કરો</string>
     <string name="watchlist_missing_logos_explain">આ કૉઇન માટે કોઈ લોગો ઉપલબ્ધ નથી. ઍપ તેમના આદ્યાક્ષર બતાવે છે.</string>
+    <string name="watchlist_missing_logos_pending">હજી લોડ થયું નથી</string>
+    <string name="watchlist_missing_logos_explain_pending">હજી લોડ નથી તરીકે ચિહ્નિત લોગો આગલા સિંક સાથે આવશે, કેટલાક ફક્ત Wi-Fi પર. અન્ય કોઇન માટે કોઈ લોગો ઉપલબ્ધ નથી. ઍપ તેમના પ્રારંભિક અક્ષરો બતાવે છે.</string>
     <string name="exchange_retiring_notice">%2$s થી %1$s હવે જાહેર કિંમતો આપશે નહીં. આ કૉઇન માટે બીજું એક્સચેન્જ પસંદ કરો.</string>
     <string name="exchange_retiring_reason">%2$s થી %1$s હવે કિંમતો આપશે નહીં</string>
     <string name="exchange_retired_since">%2$s થી %1$s હવે કિંમતો આપતું નથી</string>

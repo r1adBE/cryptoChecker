@@ -44,9 +44,13 @@ enum LiveActivityController {
     }
 
     /// Nach einer Kursprüfung: laufende Aktivität mit dem neuen Stand des Paars
-    /// aktualisieren (veraltet nach 30 Min.). Gibt es das Paar nicht mehr, endet sie.
+    /// aktualisieren (veraltet nach 30 Min.). Gibt es das Paar nicht mehr — auch: gleiche Id, aber anderes Paar
+    /// (Wiederherstellen, `PriceActivityAttributes.matches`) —, endet sie.
+    /// Gleiche Id, aber anderes Paar («Paar ändern», Wiederherstellen): endet und startet mit dem neuen Paar neu —
+    /// nur im Vordergrund möglich (sonst bleibt sie beendet), Kurs folgt mit der nächsten Prüfung.
     static func update(watches: [Watch]) async {
-        await updateActivities(watches)
+        let replaced = await updateActivities(watches)
+        if let id = replaced.first, let watch = watches.first(where: { $0.id == id }) { _ = await start(watch) }
     }
 
     // Ohne Akteur: Die Aktivitäten werden hier geholt und benutzt, wechseln also nie den Akteur
@@ -59,14 +63,19 @@ enum LiveActivityController {
         }
     }
 
-    nonisolated private static func updateActivities(_ watches: [Watch]) async {
+    /// Aktualisieren bzw. beenden; Ergebnis = Ids, deren Paar sich geändert hat (Eintrag noch da, anderes Paar).
+    nonisolated private static func updateActivities(_ watches: [Watch]) async -> [Int64] {
+        var replaced: [Int64] = []
         for activity in Activity<PriceActivityAttributes>.activities where isLive(activity.activityState) {
-            guard let watch = watches.first(where: { $0.id == activity.attributes.watchId }) else {
+            guard let watch = watches.first(where: { activity.attributes.matches($0) }) else {
+                let id = activity.attributes.watchId
+                if watches.contains(where: { $0.id == id }) { replaced.append(id) }
                 await activity.end(nil, dismissalPolicy: .immediate)
                 continue
             }
             await activity.update(PriceActivityAttributes.content(watch))
         }
+        return replaced
     }
 
     nonisolated private static func isLive(_ state: ActivityState) -> Bool {

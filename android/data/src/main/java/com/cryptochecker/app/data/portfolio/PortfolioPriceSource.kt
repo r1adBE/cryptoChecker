@@ -90,8 +90,11 @@ class PortfolioPriceSource @Inject constructor(
     @Volatile
     var mixedCoins: Set<String> = emptySet()
 
-    /** Paarliste einer Börse höchstens alle 6 Std. nachladen (Schlüssel → Zeitpunkt). */
+    /** Paarliste einer Börse höchstens alle 6 Std. nachladen (Schlüssel → Zeitpunkt eines abgeschlossenen Versuchs). */
     val pairListAttempts = ConcurrentHashMap<String, Long>()
+
+    /** Paarlisten, die gerade laden (ein Versuch je Börse gleichzeitig). */
+    val pairListLoading: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
     /** Coin → (Kurs, Abfragezeit). */
     val cache = ConcurrentHashMap<String, Pair<Double, Long>>()

@@ -62,7 +62,7 @@
     <string name="settings_price_pairs_hint">Scegli per quali coppie il prezzo appare nella barra delle notifiche.</string>
     <string name="settings_quiet_hours">Ore di silenzio</string>
     <string name="settings_quiet_hours_from">Inizio</string>
-    <string name="settings_quiet_hours_hint">Tra %1$s e %2$s gli allarmi aspettano la fine delle ore di silenzio e poi suonano. Gli altri avvisi arrivano in silenzio, senza voce.</string>
+    <string name="settings_quiet_hours_hint">Tra %1$s e %2$s gli allarmi aspettano la fine delle ore di silenzio e poi suonano, se la condizione è ancora soddisfatta. Gli altri avvisi arrivano in silenzio, senza voce.</string>
     <string name="settings_quiet_hours_to">Fine</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -319,6 +319,8 @@
     <string name="settings_address_server_active">In uso: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Non impostato – si usano nodi pubblici</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Le impostazioni sono state ripristinate, quindi non si sa se usavi un tuo server Bitcoin. Gli indirizzi Bitcoin e le chiavi xpub non vengono interrogati finché non reinserisci il server o scegli i nodi pubblici.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Sono ammessi solo indirizzi https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

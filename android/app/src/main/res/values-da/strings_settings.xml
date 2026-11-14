@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Vælg, hvilke par der viser kursen i notifikationslinjen.</string>
     <string name="settings_quiet_hours">Nattero</string>
     <string name="settings_quiet_hours_from">Fra</string>
-    <string name="settings_quiet_hours_hint">Mellem %1$s og %2$s venter alarmer, til nattero slutter, og lyder derefter med lyd. Andre meddelelser kommer lydløst uden oplæsning.</string>
+    <string name="settings_quiet_hours_hint">Mellem %1$s og %2$s venter alarmer, til nattero slutter, og lyder derefter med lyd, hvis betingelsen stadig er opfyldt. Andre meddelelser kommer lydløst uden oplæsning.</string>
     <string name="settings_quiet_hours_to">Til</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Aktiv: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Ikke angivet – offentlige noder bruges</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Indstillingerne blev nulstillet, så det er uvist, om du brugte din egen Bitcoin-server. Bitcoin-adresser og xpub-nøgler bliver ikke forespurgt, før du indtaster din server igen eller vælger offentlige noder.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Kun https://-adresser er tilladt</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

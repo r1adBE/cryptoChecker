@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Verlaat die portefeulje (onttrekking)</string>
     <string name="portfolio_csv_import_choose_each">Kies vir elke onttrekking waarheen dit gegaan het.</string>
     <string name="portfolio_csv_import_columns">Herkende kolomme: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Reeds ingevoer: reëls %1$s</string>
     <string name="portfolio_csv_import_confirm">Voer in (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dag/Maand</string>
     <string name="portfolio_csv_import_date_month_first">Maand/Dag</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Transaksies teen stablecoins (USDT, USDC …) word as ruilings geboek – die stablecoin verskyn in jou besit.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Verskeie passings moontlik – kies die regte een of geen.</string>
+    <string name="portfolio_csv_import_transfer_loose">Hoë fooi of laat aankoms – kontroleer of dit dieselfde oordrag is.</string>
     <string name="portfolio_csv_import_transfer_fee">Netwerkfooi: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Boek as een oordrag</string>
     <string name="portfolio_csv_import_transfer_stored">Teenhanger uit \'n vroeëre invoer</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Daaglikse koerse volgens die kalenderdag in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Daaglikse koerse kon nie gelaai word nie.</string>
     <string name="portfolio_csv_import_anyway">Voer tog in</string>
-    <string name="portfolio_csv_import_anyway_hint">Sonder \'n daaglikse koers ontbreek die prys of fooi permanent. Probeer weer, of voer tog in – daardie transaksies kry dan \'n nota.</string>
+    <string name="portfolio_csv_import_anyway_hint">Sonder \'n dagkoers ontbreek die prys of fooi totdat jy dit byvoeg. Probeer weer of voer tog in – daardie transaksies kry dan \'n nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Prys sonder daaglikse koers</string>
     <string name="portfolio_csv_note_fee_no_rate">Fooi sonder daaglikse koers</string>
     <string name="portfolio_csv_import_no_rates_for">Daar is geen daaglikse koerse vir %1$s nie, so weer probeer sal nie help nie. As jy tog invoer, kry daardie transaksies \'n nota.</string>

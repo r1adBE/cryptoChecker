@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Huling refresh</string>
     <string name="watchlist_symbols_legend">Paliwanag ng mga simbolo</string>
     <string name="watchlist_symbols_legend_alarms">Mga aktibong alerto at ang bilang nito</string>
+    <string name="watchlist_symbols_legend_warning">Luma na ang presyo o hindi maabot ang exchange</string>
     <string name="watchlist_refresh_report_empty">Wala pang breakdown – wala pang buong refresh. I-tap ang refresh at maghintay hanggang huminto ang bilog.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d sa %2$d ang luma na</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Isara ang paalala</string>
     <string name="watchlist_missing_logos_explain">Walang available na logo para sa mga coin na ito. Ipinapakita ng app ang kanilang mga inisyal.</string>
+    <string name="watchlist_missing_logos_pending">hindi pa na-load</string>
+    <string name="watchlist_missing_logos_explain_pending">Ang mga logo na may markang hindi pa na-load ay darating sa susunod na sync, ang ilan sa Wi-Fi lang. Walang available na logo para sa ibang coin. Ipinapakita ng app ang kanilang inisyal.</string>
     <string name="exchange_retiring_notice">Simula %2$s, hindi na magbibigay ng pampublikong presyo ang %1$s. Pumili ng ibang exchange para sa mga coin na ito.</string>
     <string name="exchange_retiring_reason">Simula %2$s, hindi na magbibigay ng presyo ang %1$s</string>
     <string name="exchange_retired_since">Mula %2$s, hindi na nagbibigay ng presyo ang %1$s</string>

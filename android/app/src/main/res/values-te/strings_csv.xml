@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">పోర్ట్‌ఫోలియో నుండి బయటకు (విత్‌డ్రా)</string>
     <string name="portfolio_csv_import_choose_each">ప్రతి విత్‌డ్రా ఎక్కడికి వెళ్లిందో ఎంచుకోండి.</string>
     <string name="portfolio_csv_import_columns">గుర్తించిన కాలమ్‌లు: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">ఇప్పటికే దిగుమతి చేయబడింది: పంక్తులు %1$s</string>
     <string name="portfolio_csv_import_confirm">ఇంపోర్ట్ చేయండి (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">రోజు/నెల</string>
     <string name="portfolio_csv_import_date_month_first">నెల/రోజు</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">స్టేబుల్‌కాయిన్‌లతో (USDT, USDC …) ట్రేడ్‌లు స్వాప్‌లుగా బుక్ అవుతాయి – స్టేబుల్‌కాయిన్ మీ హోల్డింగ్‌లలో కనిపిస్తుంది.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">అనేక సరిపోలికలు సాధ్యం – సరైనదాన్ని ఎంచుకోండి లేదా ఏదీ ఎంచుకోవద్దు.</string>
+    <string name="portfolio_csv_import_transfer_loose">ఎక్కువ రుసుము లేదా ఆలస్యంగా రాక – ఇది అదే బదిలీయేనా అని తనిఖీ చేయండి.</string>
     <string name="portfolio_csv_import_transfer_fee">నెట్‌వర్క్ ఫీజు: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ఒకే బదిలీగా బుక్ చేయండి</string>
     <string name="portfolio_csv_import_transfer_stored">మునుపటి ఇంపోర్ట్ నుండి ప్రతిరూప ఎంట్రీ</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">రోజువారీ రేట్లు ఈ టైమ్ జోన్ క్యాలెండర్ రోజు ప్రకారం: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">రోజువారీ రేట్లను లోడ్ చేయలేకపోయాం.</string>
     <string name="portfolio_csv_import_anyway">అయినా ఇంపోర్ట్ చేయండి</string>
-    <string name="portfolio_csv_import_anyway_hint">రోజువారీ రేటు లేకపోతే ధర లేదా ఫీజు శాశ్వతంగా లోపిస్తుంది. మళ్లీ ప్రయత్నించండి, లేదా అయినా ఇంపోర్ట్ చేయండి – అప్పుడు ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది.</string>
+    <string name="portfolio_csv_import_anyway_hint">రోజువారీ రేటు లేకుండా, మీరు జోడించే వరకు ధర లేదా రుసుము ఉండదు. మళ్లీ ప్రయత్నించండి లేదా అయినా దిగుమతి చేయండి – ఆ లావాదేవీలకు ఒక గమనిక వస్తుంది.</string>
     <string name="portfolio_csv_note_price_no_rate">రోజువారీ రేటు లేని ధర</string>
     <string name="portfolio_csv_note_fee_no_rate">రోజువారీ రేటు లేని ఫీజు</string>
     <string name="portfolio_csv_import_no_rates_for">%1$sకు రోజువారీ రేట్లు లేవు, కాబట్టి మళ్లీ ప్రయత్నించినా ఉపయోగం లేదు. అయినా ఇంపోర్ట్ చేస్తే ఆ లావాదేవీలకు ఒక గమనిక చేరుతుంది.</string>

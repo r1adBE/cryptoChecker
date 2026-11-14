@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">ပေါ့ဖိုလီယို သတိပေးချက်များကို 24 နာရီကျော် လက်ကျန် မဖွင့်နိုင်သော လိပ်စာများ မပါဘဲ စစ်ဆေးသည်</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">တိုကင်များ တစ်စိတ်တစ်ပိုင်း ခေတ်မမီတော့ပါ</string>
+    <string name="portfolio_address_zero_unconfirmed">0 ကို မအတည်ပြုရသေးပါ</string>
     <string name="portfolio_address_restore_failed">လိပ်စာကို ပြန်ယူ၍ မရပါ – လိုအပ်ပါက ထပ်ထည့်ပါ</string>
     <string name="portfolio_address_remove_failed">လိပ်စာကို ဖယ်ရှား၍ မရပါ – ထပ်ကြိုးစားပါ</string>
 </resources>

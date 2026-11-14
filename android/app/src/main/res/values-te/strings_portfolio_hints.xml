@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">24 గంటలకు పైగా బ్యాలెన్స్ లోడ్ కాని అడ్రస్‌లు లేకుండా పోర్ట్‌ఫోలియో అలర్ట్‌లు తనిఖీ చేస్తాయి</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">టోకెన్‌లు పాక్షికంగా పాతవి</string>
+    <string name="portfolio_address_zero_unconfirmed">0 ఇంకా నిర్ధారించబడలేదు</string>
     <string name="portfolio_address_restore_failed">అడ్రస్‌ను పునరుద్ధరించలేకపోయాం – అవసరమైతే మళ్లీ జోడించండి</string>
     <string name="portfolio_address_remove_failed">అడ్రస్‌ను తీసివేయలేకపోయాం – దయచేసి మళ్లీ ప్రయత్నించండి</string>
 </resources>

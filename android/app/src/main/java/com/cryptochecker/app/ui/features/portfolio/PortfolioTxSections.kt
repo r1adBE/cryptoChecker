@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -180,7 +181,7 @@ internal fun TxAmountSection(state: TxFormState, d: TxFormDerived, viewModel: Po
     val walletExceeds = walletHoldings != null && PortfolioTxForm.outflowExceeds(type, amount, d.fee, state.feeUnit, walletHoldings)
     val amountError = (state.tried || state.amountText.isNotBlank()) && amount == null
     val amountMessage: String? = when {
-        amountError -> stringResource(R.string.portfolio_invalid)
+        amountError -> ambiguousNumberText(state.amountText, state.decimalSeparator) ?: stringResource(R.string.portfolio_invalid)
         walletExceeds -> stringResource(
             R.string.portfolio_sell_exceeds_wallet,
             PortfolioFormat.amount(walletHoldings, coin),

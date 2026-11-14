@@ -91,6 +91,8 @@
     <string name="check_result_ok">Qaydasındadır</string>
     <string name="check_result_partial">Qismən</string>
     <string name="check_result_skipped">Buraxıldı</string>
+    <string name="check_result_paused">Fasilə, heç nə yoxlanmadı</string>
+    <string name="check_result_offline">Ötürüldü (oflayn)</string>
     <string name="check_trigger_bgtask">Arxa fon</string>
     <string name="check_trigger_exact">Dəqiq vaxtda</string>
     <string name="check_trigger_foreground">Tətbiq</string>

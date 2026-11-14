@@ -69,11 +69,11 @@ object WatchPortfolioText {
     }
 }
 
-/** Zeile «Portfolio» der Uhr-App (ohne Aktion, wie die Kurszeilen); veraltet grau mit Alter. */
+/** Zeile «Portfolio» der Uhr-App (ohne Aktion, wie die Kurszeilen); veraltet ([interval] des Handys) grau mit Alter. */
 @Composable
-internal fun PortfolioRow(p: WatchPortfolio, now: Long) {
+internal fun PortfolioRow(p: WatchPortfolio, now: Long, interval: Int) {
     val context = LocalContext.current
-    val outdated = WatchFreshness.isOutdated(p.time, now)
+    val outdated = WatchFreshness.isOutdated(p.time, now, interval)
     val spoken = WatchPortfolioText.spoken(context, p) + if (outdated) ", ${WatchAge.spoken(context, p.time, now)}" else ""
     val detail = WatchPortfolioText.today(context, p) + if (outdated) "  ·  ${WatchAge.short(p.time, now)}" else ""
     Column(

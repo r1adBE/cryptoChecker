@@ -1,12 +1,14 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.data.settings.SettingsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +19,8 @@ import javax.inject.Singleton
  * höchstens alle [AddressBalance.CACHE_MILLIS] je Adresse, manuell frühestens nach
  * [AddressBalance.MIN_FORCED_MILLIS]. Ohne Adressen keine Anfrage. Fehler bleiben still
  * (stehen je Adresse als `lastError`, das letzte Guthaben bleibt). Eigener Bitcoin-Server aus den Einstellungen; ist er
- * nicht lesbar, wird gar nicht gefragt (nie still bei öffentlichen Knoten).
+ * nicht lesbar, wird gar nicht gefragt, und nach ersetzten Einstellungen Bitcoin nicht, bis der Nutzer den Server
+ * bestätigt ([AddressServer.queryAllowed]) — nie still bei öffentlichen Knoten.
  */
 @Singleton
 class WatchedAddressRefresher @Inject constructor(
@@ -41,13 +44,24 @@ class WatchedAddressRefresher @Inject constructor(
             read = { repository.getWatchedAddresses() },
             load = { addresses ->
                 val server = settings.addressServerFlow.first()
-                source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
+                // Server unbekannt (Einstellungen ersetzt): Bitcoin gar nicht fragen, bis bestätigt (nie still öffentlich)
+                val unknown = settings.addressServerUnknown()
+                val allowed = addresses.filter { AddressServer.queryAllowed(it.chain, unknown) }
+                source.refresh(allowed, force, budgetMillis = budget, btcServer = server)
             },
             save = { updates -> updates.forEach { save(it) } },
         )
     }
 
     private suspend fun save(u: WatchedAddressSource.Update) = repository.updateWatchedAddressBalance(u)
+
+    /**
+     * [block] unter der Sperre der Aktualisierung (gleiches [gate]): Wiederherstellen und Zurückrollen ersetzen Adressen
+     * und Einstellungen (eigener Bitcoin-Server) in getrennten Schritten — dazwischen liest keine Aktualisierung einen
+     * gemischten Stand (neue Adressen mit altem Server oder umgekehrt). Die Reihenfolge der Schritte spielt so keine
+     * Rolle. Hintergrund kehrt währenddessen sofort zurück, der Vordergrund wartet.
+     */
+    suspend fun <T> withRefreshLock(block: suspend () -> T): T = gate.withLock { block() }
 }
 
 /**

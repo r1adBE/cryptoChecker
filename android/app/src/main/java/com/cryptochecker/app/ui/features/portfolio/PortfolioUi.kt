@@ -92,8 +92,9 @@ internal object PortfolioFormat {
 }
 
 /**
- * «Beträge verbergen»: gesetzt von Portfolio-Tab und Detailansicht (Einstellung bzw. Auge im Kopf).
- * Beträge und Werte werden zu «•••», Prozente bleiben.
+ * «Beträge verbergen» (Einstellung bzw. Auge im Kopf): gesetzt an der Wurzel der App (`AppNavHost`), damit jedes Blatt und
+ * jeder Dialog den Schalter sieht — auch die, die ausserhalb einer Liste aufgerufen werden. Beträge und Werte werden zu
+ * «•••», Prozente bleiben.
  */
 internal val LocalHidePortfolioAmounts = compositionLocalOf { false }
 

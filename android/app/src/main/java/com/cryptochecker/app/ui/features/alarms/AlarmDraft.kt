@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import java.math.MathContext
 
 /** Grund für einen ungültigen Schwellwert ([AlarmDraft.thresholdProblem]). */
-enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_RANGE }
+enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_RANGE, PERCENT_MAX, DISTANCE_RANGE, AMBIGUOUS }
 
 /**
  * Fallende Prozent-Alarme («fällt um x %», «Open Interest fällt um x %»): mehr als 100 % kann nichts fallen — ein
@@ -23,6 +23,12 @@ enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_R
  * gemeldet): der Schwellwert muss kleiner als [MAX_FALL_PERCENT] sein. Steigen und «bewegt sich um» bleiben offen. Wie iOS.
  */
 const val MAX_FALL_PERCENT = 100.0
+
+/**
+ * Obergrenze (einschliesslich) für «steigt um x %» und «bewegt sich um x %» — wie der Portfolio-Alarm
+ * (`PortfolioAlarmLogic`): ein Wert wie 1234 % (aus «1,234» gelesen) löst praktisch nie aus. Wie iOS.
+ */
+const val MAX_RISE_PERCENT = 1000.0
 
 /** Fällt bei dieser Bedingung der Wert (Schwellwert höchstens [MAX_FALL_PERCENT])? */
 val AlarmCondition.isFallingPercent: Boolean
@@ -72,7 +78,7 @@ data class AlarmDraft(
     val threshold: Double?
         get() = if (condition.isNearExtreme && newExtremeOnly) NearExtreme.NEW_ONLY_DISTANCE
         else if (condition.isFunding) DerivativesAlarm.parseFunding(thresholdText, decimalSeparator)
-        else if (exceedsFall) null
+        else if (exceedsFall || exceedsLimit) null
         else if (condition.isOpenInterest) ThresholdParser.parse(thresholdText, decimalSeparator)
             ?.takeIf { DerivativesAlarm.isValidThreshold(condition, it) }
         else ThresholdParser.parse(
@@ -86,12 +92,32 @@ data class AlarmDraft(
         get() = condition.isFallingPercent &&
             (ThresholdParser.parse(thresholdText, decimalSeparator)?.let { it >= MAX_FALL_PERCENT } ?: false)
 
+    /**
+     * Über der Grenze: «steigt um» bzw. «bewegt sich um» über [MAX_RISE_PERCENT], Abstand zum Hoch/Tief ab
+     * [MAX_FALL_PERCENT] (100 % unter dem Hoch ist 0) — wie der Portfolio-Alarm. Wie iOS.
+     */
+    private val exceedsLimit: Boolean
+        get() {
+            val value = ThresholdParser.parse(thresholdText, decimalSeparator) ?: return false
+            return when {
+                condition == AlarmCondition.CHANGE_PERCENT_UP || condition == AlarmCondition.MOVE_PERCENT_WINDOW ->
+                    value > MAX_RISE_PERCENT
+                condition.isNearExtreme -> value >= MAX_FALL_PERCENT
+                else -> false
+            }
+        }
+
+    /** Mehrdeutige Eingabe wie «1.234» in DE ([ThresholdParser.ambiguity], gleicher Kurs-Hinweis wie [threshold]). */
+    val ambiguity: ThresholdParser.Ambiguity?
+        get() = ThresholdParser.ambiguity(thresholdText, decimalSeparator, priceHint.takeIf { condition.isPriceThreshold })
+
     val isValid: Boolean get() = threshold != null
 
     /**
      * Warum der Knopf gesperrt ist (null = gültig) — für den Fehlertext unter dem Feld. Folgt genau
      * [threshold]: leer; Funding ausserhalb ±[DerivativesAlarm.MAX_FUNDING_PERCENT] bzw. keine Zahl;
-     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; fallend ab [MAX_FALL_PERCENT]; sonst keine Zahl
+     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; fallend ab [MAX_FALL_PERCENT]; steigend über
+     * [MAX_RISE_PERCENT]; Abstand zum Hoch/Tief ab [MAX_FALL_PERCENT]; mehrdeutig («1.234»); sonst keine Zahl
      * grösser als 0. Wie iOS.
      */
     val thresholdProblem: ThresholdProblem?
@@ -100,8 +126,10 @@ data class AlarmDraft(
             thresholdText.isBlank() -> ThresholdProblem.EMPTY
             condition.isFunding -> ThresholdProblem.FUNDING_RANGE
             exceedsFall -> ThresholdProblem.PERCENT_RANGE
+            exceedsLimit -> if (condition.isNearExtreme) ThresholdProblem.DISTANCE_RANGE else ThresholdProblem.PERCENT_MAX
             condition.isOpenInterest && ThresholdParser.parse(thresholdText, decimalSeparator) != null ->
                 ThresholdProblem.OI_RANGE
+            ambiguity != null -> ThresholdProblem.AMBIGUOUS
             else -> ThresholdProblem.INVALID
         }
 

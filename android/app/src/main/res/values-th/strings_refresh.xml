@@ -82,6 +82,8 @@
     <string name="check_result_ok">สำเร็จ</string>
     <string name="check_result_partial">บางส่วน</string>
     <string name="check_result_skipped">ข้าม</string>
+    <string name="check_result_paused">หยุดชั่วคราว ยังไม่ได้ตรวจสอบสิ่งใด</string>
+    <string name="check_result_offline">ข้ามแล้ว (ออฟไลน์)</string>
     <string name="check_trigger_bgtask">เบื้องหลัง</string>
     <string name="check_trigger_exact">ตรงเวลา</string>
     <string name="check_trigger_foreground">แอป</string>

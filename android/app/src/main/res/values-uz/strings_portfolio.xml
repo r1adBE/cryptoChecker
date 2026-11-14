@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Jami</string>
     <string name="portfolio_hide_amounts">Miqdorlarni yashirish</string>
-    <string name="portfolio_hide_amounts_hint">Portfel va portfel vidjetidagi miqdor va qiymatlarni ••• koʻrinishida koʻrsatadi – foizlar koʻrinib turadi.</string>
+    <string name="portfolio_hide_amounts_hint">Portfel, portfel vidjeti, soat va portfel ogohlantirishlaridagi miqdor va qiymatlarni ••• koʻrinishida koʻrsatadi – foizlar koʻrinib turadi.</string>
     <string name="portfolio_invested">Tannarx</string>
     <string name="portfolio_total_no_fx">%1$s uchun valyuta kursi yoʻq – miqdorlar USDT’da</string>
     <string name="portfolio_total_value">Umumiy qiymat</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Oʻzgarishlar bekor qilinsinmi?</string>
     <string name="portfolio_edit_tx">Tranzaksiyani tahrirlash</string>
     <string name="portfolio_invalid">0 dan katta yaroqli son kiriting.</string>
+    <string name="number_ambiguous">Noaniq: %1$s yoki %2$s? Ikkisidan birini kiriting.</string>
     <string name="portfolio_oversold">Sotuvlar aktivlardan oshib ketdi – tranzaksiyalarni tekshiring.</string>
     <string name="portfolio_sell">Sotish</string>
     <string name="portfolio_sell_exceeds">Aktivlaringizdan koʻp (%1$s)</string>

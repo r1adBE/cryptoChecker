@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">提醒已开启 – 尚无后台检查</string>
     <string name="alarm_reliability_notifications_off">通知已关闭 – 提醒无法送达</string>
     <string name="alarm_reliability_battery">省电功能可能会停止检查提醒</string>
+    <string name="alarm_reliability_offline">无网络 – 网络恢复后将检查提醒</string>
     <string name="alarm_reliability_background_refresh">后台 App 刷新已关闭 – 提醒可能无法送达</string>
 </resources>

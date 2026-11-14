@@ -91,6 +91,8 @@
     <string name="check_result_ok">ठीक छ</string>
     <string name="check_result_partial">आंशिक</string>
     <string name="check_result_skipped">छोडियो</string>
+    <string name="check_result_paused">रोकिएको, केही जाँच भएन</string>
+    <string name="check_result_offline">छाडियो (अफलाइन)</string>
     <string name="check_trigger_bgtask">ब्याकग्राउन्ड</string>
     <string name="check_trigger_exact">समयमै</string>
     <string name="check_trigger_foreground">एप</string>

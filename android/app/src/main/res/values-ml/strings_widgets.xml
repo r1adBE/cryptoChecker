@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">പശ്ചാത്തലം</string>
-    <string name="widget_configure_hint">പശ്ചാത്തലവും അതാര്യതയും തിരഞ്ഞെടുക്കുക. നിറം ആപ്പിനെ പിന്തുടരുന്നു. വിജറ്റ് നിങ്ങളുടെ മുഴുവൻ വാച്ച്‌ലിസ്റ്റും കാണിക്കുന്നു; ആപ്പ് തുറക്കാൻ ഒരു വരിയിൽ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="widget_configure_hint">പശ്ചാത്തലവും അതാര്യതയും തിരഞ്ഞെടുക്കുക. നിറം ആപ്പിനെ പിന്തുടരും. വിജറ്റ് നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റോ താഴെ തിരഞ്ഞെടുത്ത ഗ്രൂപ്പോ കാണിക്കുന്നു; ആപ്പ് തുറക്കാൻ ഒരു വരിയിൽ ടാപ്പ് ചെയ്യുക.</string>
     <string name="widget_configure_title">വിജറ്റ് സജ്ജമാക്കുക</string>
     <string name="widget_description">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റിലെ ഒരു ജോഡിയുടെ വില കാണിക്കുന്നു.</string>
     <string name="widget_empty">വാച്ച്‌ലിസ്റ്റിൽ ഇതുവരെ ജോഡികളൊന്നുമില്ല.</string>

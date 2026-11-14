@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Tổng</string>
     <string name="portfolio_hide_amounts">Ẩn số tiền</string>
-    <string name="portfolio_hide_amounts_hint">Hiển thị số tiền và giá trị trong danh mục và tiện ích Danh mục dưới dạng ••• – phần trăm vẫn hiển thị.</string>
+    <string name="portfolio_hide_amounts_hint">Hiển thị số tiền và giá trị trong danh mục, tiện ích Danh mục, trên đồng hồ và trong cảnh báo danh mục dưới dạng ••• – phần trăm vẫn hiển thị.</string>
     <string name="portfolio_invested">Giá vốn</string>
     <string name="portfolio_total_no_fx">Không có tỷ giá cho %1$s – số tiền bằng USDT</string>
     <string name="portfolio_total_value">Tổng giá trị</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">Hủy các thay đổi?</string>
     <string name="portfolio_edit_tx">Sửa giao dịch</string>
     <string name="portfolio_invalid">Nhập một số hợp lệ lớn hơn 0.</string>
+    <string name="number_ambiguous">Không rõ ràng: %1$s hay %2$s? Vui lòng nhập một trong hai cách.</string>
     <string name="portfolio_oversold">Lượng bán vượt quá số đang nắm giữ – hãy kiểm tra giao dịch.</string>
     <string name="portfolio_sell">Bán</string>
     <string name="portfolio_sell_exceeds">Nhiều hơn số bạn nắm giữ (%1$s)</string>

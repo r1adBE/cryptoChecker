@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Inatoka kwenye jalada (utoaji)</string>
     <string name="portfolio_csv_import_choose_each">Chagua kwa kila utoaji ulikokwenda.</string>
     <string name="portfolio_csv_import_columns">Safu zilizotambuliwa: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Tayari imeingizwa: mistari %1$s</string>
     <string name="portfolio_csv_import_confirm">Leta (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Siku/Mwezi</string>
     <string name="portfolio_csv_import_date_month_first">Mwezi/Siku</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Biashara dhidi ya stablecoin (USDT, USDC …) zinarekodiwa kama swap – stablecoin inaonekana kwenye mali zako.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Ulinganifu kadhaa unawezekana – chagua sahihi au hakuna.</string>
+    <string name="portfolio_csv_import_transfer_loose">Ada kubwa au kufika kuchelewa – hakikisha ni uhamisho uleule.</string>
     <string name="portfolio_csv_import_transfer_fee">Ada ya mtandao: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Rekodi kama uhamisho mmoja</string>
     <string name="portfolio_csv_import_transfer_stored">Upande mwingine kutoka uletaji wa awali</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Viwango vya kila siku kulingana na siku ya kalenda katika: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Viwango vya kila siku havikuweza kupakiwa.</string>
     <string name="portfolio_csv_import_anyway">Leta hata hivyo</string>
-    <string name="portfolio_csv_import_anyway_hint">Bila kiwango cha siku, bei au ada hukosekana kabisa. Jaribu tena, au leta hata hivyo – miamala hiyo itapata dokezo.</string>
+    <string name="portfolio_csv_import_anyway_hint">Bila kiwango cha siku, bei au ada inakosekana hadi uiongeze. Jaribu tena au ingiza hata hivyo – miamala hiyo itapata dokezo.</string>
     <string name="portfolio_csv_note_price_no_rate">Bei bila kiwango cha siku</string>
     <string name="portfolio_csv_note_fee_no_rate">Ada bila kiwango cha siku</string>
     <string name="portfolio_csv_import_no_rates_for">Hakuna viwango vya siku kwa %1$s, kwa hivyo kujaribu tena hakutasaidia. Ukileta hata hivyo, miamala hiyo itapata dokezo.</string>

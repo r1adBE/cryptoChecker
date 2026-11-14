@@ -39,6 +39,10 @@ final class NetRulesTests: XCTestCase {
         XCTAssertEqual(FetchOrder.alarmsFirst([3, 1, 2] as [Int64], alarmed: []) { $0 }, [3, 1, 2])
         XCTAssertEqual(FetchOrder.alarmsFirst([3, 1, 2] as [Int64], alarmed: [1, 2, 3]) { $0 }, [3, 1, 2])
         XCTAssertEqual(FetchOrder.alarmsFirst([3, 1, 2] as [Int64], alarmed: [9]) { $0 }, [3, 1, 2])
+        // Mit Zeitbudget je Lauf anderer Beginn — Alarm-Paare bleiben vorn (B3-03, wie Android)
+        XCTAssertEqual(FetchOrder.alarmsFirst([1, 2, 3, 4, 5] as [Int64], alarmed: [5, 2], rotation: 1) { $0 }, [5, 2, 3, 4, 1])
+        XCTAssertEqual(FetchOrder.alarmsFirst([1, 2, 3] as [Int64], alarmed: [], rotation: -1) { $0 }, [3, 1, 2])
+        XCTAssertEqual(FetchOrder.alarmsFirst([1, 2, 3, 4, 5] as [Int64], alarmed: [], rotation: 5) { $0 }, [1, 2, 3, 4, 5])
     }
 
     // MARK: Alter laut Börse

@@ -88,9 +88,9 @@ class LocaleNumbersTest {
         assertEquals('.', LocaleNumbers.inputDecimalSeparator(Locale.forLanguageTag("en-US"), "US"))
         // Ungültige Region: App-Sprache bleibt
         assertEquals(Locale.forLanguageTag("de"), LocaleNumbers.inputLocale(Locale.forLanguageTag("de"), "not a region"))
-        // «10.000» ohne Kurs: Schweiz 10, Deutschland 10000
+        // «10.000» ohne Kurs: Schweiz 10, Deutschland mehrdeutig (10000 oder 10,000 — nie still geraten)
         assertEquals(10.0, ThresholdParser.parse("10.000", LocaleNumbers.inputDecimalSeparator(Locale.forLanguageTag("de"), "CH")))
-        assertEquals(10_000.0, ThresholdParser.parse("10.000", LocaleNumbers.inputDecimalSeparator(Locale.forLanguageTag("de"), "DE")))
+        assertEquals(null, ThresholdParser.parse("10.000", LocaleNumbers.inputDecimalSeparator(Locale.forLanguageTag("de"), "DE")))
     }
 
     @Test

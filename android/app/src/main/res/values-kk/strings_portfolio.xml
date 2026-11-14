@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Барлығы</string>
     <string name="portfolio_hide_amounts">Сомаларды жасыру</string>
-    <string name="portfolio_hide_amounts_hint">Портфель мен портфель виджетіндегі сомалар мен құндарды ••• түрінде көрсетеді – пайыздар көрініп тұрады.</string>
+    <string name="portfolio_hide_amounts_hint">Портфельдегі, портфель виджетіндегі, сағаттағы және портфель ескертулеріндегі сомалар мен құндарды ••• түрінде көрсетеді – пайыздар көрініп тұрады.</string>
     <string name="portfolio_invested">Құн негізі</string>
     <string name="portfolio_total_no_fx">%1$s үшін айырбас бағамы жоқ – сомалар USDT-мен</string>
     <string name="portfolio_total_value">Жалпы құн</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Өзгерістерден бас тарту керек пе?</string>
     <string name="portfolio_edit_tx">Транзакцияны өңдеу</string>
     <string name="portfolio_invalid">0-ден үлкен жарамды сан енгізіңіз.</string>
+    <string name="number_ambiguous">Түсініксіз: %1$s па, әлде %2$s пе? Екеуінің бірін енгізіңіз.</string>
     <string name="portfolio_oversold">Сатулар активтерден асады – транзакцияларды тексеріңіз.</string>
     <string name="portfolio_sell">Сату</string>
     <string name="portfolio_sell_exceeds">Активтеріңізден көп (%1$s)</string>

@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Rifreskimi i fundit</string>
     <string name="watchlist_symbols_legend">Shpjegimi i simboleve</string>
     <string name="watchlist_symbols_legend_alarms">Alarmet aktive dhe numri i tyre</string>
+    <string name="watchlist_symbols_legend_warning">Çmim i vjetruar ose bursa e paarritshme</string>
     <string name="watchlist_refresh_report_empty">Ende pa detaje: ende nuk ka pasur rifreskim të plotë. Prek rifreskimin dhe prit derisa treguesi të ndalojë.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d nga %2$d të vjetruara</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Mbyll njoftimin</string>
     <string name="watchlist_missing_logos_explain">Për këto monedha nuk ka logo të disponueshme. Aplikacioni shfaq inicialet e tyre.</string>
+    <string name="watchlist_missing_logos_pending">ende e pangarkuar</string>
+    <string name="watchlist_missing_logos_explain_pending">Logot e shënuara si ende të pangarkuara vijnë me sinkronizimin e ardhshëm, disa vetëm me Wi-Fi. Për monedhat e tjera nuk ka logo. Aplikacioni shfaq inicialet e tyre.</string>
     <string name="exchange_retiring_notice">Nga %2$s, %1$s nuk do të japë më çmime publike. Zgjidh një bursë tjetër për këto monedha.</string>
     <string name="exchange_retiring_reason">Nga %2$s, %1$s nuk do të japë më çmime</string>
     <string name="exchange_retired_since">Që nga %2$s, %1$s nuk jep më çmime</string>

@@ -29,6 +29,8 @@ struct PortfolioCsvImportSheet: View {
     /// Gewähltes Dezimalzeichen bei mehrdeutigen Zahlen («42,000»; nil = Standard: Zeichen = Dezimal) — wie Android
     /// `setDecimalMark`.
     @State var decimalMark: Character? = nil
+    /// Schon importierte Zeilen trotzdem übernehmen (`CsvReadChoice.keepDuplicates`) — wie Android `setKeepDuplicates`.
+    @State var keepDuplicates = false
     /// Tageskurse und USDT/USD-Schlüsse nach einer anderen Reihenfolge Tag/Monat neu geladen (nil = die beim Laden).
     @State private var rates: CsvImportRates? = nil
     /// Tag/Monat bzw. Dezimalzeichen geändert, die Tageskurse dazu aber noch nicht übernommen: die nächste Neuzuordnung
@@ -68,7 +70,9 @@ struct PortfolioCsvImportSheet: View {
     }
 
     /// Aktuell gewählte Lesart.
-    var chosenRead: CsvReadChoice { CsvReadChoice(zone: zone, dateOrder: dateOrder, decimalMark: decimalMark) }
+    var chosenRead: CsvReadChoice {
+        CsvReadChoice(zone: zone, dateOrder: dateOrder, decimalMark: decimalMark, keepDuplicates: keepDuplicates)
+    }
 
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) var accent
@@ -106,9 +110,7 @@ struct PortfolioCsvImportSheet: View {
                     Text(L("portfolio_csv_import_new", count: txs.count))
                         .font(.body.weight(.semibold))
                         .opacity(rereading ? 0.4 : 1)
-                    if preview.duplicates > 0 {
-                        Text(L("portfolio_csv_import_duplicates", count: preview.duplicates))
-                    }
+                    if preview.duplicates > 0 { duplicatesSection }
                     if !preview.skipped.isEmpty {
                         Text(L("portfolio_csv_import_skipped", count: preview.skipped.count))
                         ForEach(Array(preview.skipped.prefix(Self.previewRows).enumerated()), id: \.offset) { _, skip in
@@ -220,8 +222,14 @@ struct PortfolioCsvImportSheet: View {
         .alert(L("portfolio_csv_import_action"), isPresented: $saveFailed) {
             Button(L("action_close"), role: .cancel) { dismiss() }
         } message: {
-            Text(L("portfolio_csv_import_failed"))
+            Text(L(Self.failureKey(data)))
         }
+    }
+
+    /// Grund, wenn der Import nicht geschrieben wurde: gespeicherter Stand gerade nicht lesbar (eigener Text wie Android
+    /// `CsvImportState.Locked`) bzw. Schreiben gescheitert.
+    static func failureKey(_ data: AppData) -> String {
+        data.portfolioWriteLocked || data.portfolioStorageLocked ? "portfolio_csv_import_locked" : "portfolio_csv_import_failed"
     }
 
     /// Vorschläge übernehmen (`CsvImportProposals`, im Hintergrund gerechnet): je Auszahlung (zählende beobachtete Adresse
@@ -237,7 +245,7 @@ struct PortfolioCsvImportSheet: View {
         choices = next
         linked = CsvTransferMatch.carryOver(p.links, seen: Set(links.map(\.key)), chosen: linked)
         links = p.links
-        updatePlan()
+        linkOwnWallets()
     }
 
     /// Datei mit der gewählten Zeitzone, Reihenfolge Tag/Monat und dem Dezimalzeichen neu lesen und zuordnen — einmal

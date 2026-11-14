@@ -73,16 +73,16 @@ struct LogoLoadingHint: Equatable, Sendable {
     }
 
     /// true = das erste Laden ist damit erledigt (Hinweis stand und der letzte Durchgang endet): merken.
-    mutating func runFinished() -> Bool {
+    mutating func runFinished(complete: Bool = true) -> Bool {
         if runs > 0 { runs -= 1 }
         guard runs == 0 else { return false }
         let wasVisible = visible
-        if wasVisible { finishedNow = true }
+        if wasVisible && complete { finishedNow = true }
         visible = false
         done = 0
         total = nil
         paused = false
-        return wasVisible
+        return wasVisible && complete
     }
 
     /// `done` von `total` in ganzen Prozent, abgerundet, 0…99 (100 % zeigt nie — am Ende ist der Hinweis weg).
@@ -132,9 +132,10 @@ final class CoinLogoLoading: ObservableObject {
 
     static func imagesPaused() { shared.change { $0.imagesPaused() } }
 
-    static func runFinished() {
+    /// `complete`: nichts am Netz gescheitert, gebremst oder offen — nur dann gilt das erste Laden als erledigt (wie Android).
+    static func runFinished(complete: Bool = true) {
         var done = false
-        shared.change { done = $0.runFinished() }
+        shared.change { done = $0.runFinished(complete: complete) }
         if done { FileManager.default.createFile(atPath: markerPath, contents: Data()) }
     }
 

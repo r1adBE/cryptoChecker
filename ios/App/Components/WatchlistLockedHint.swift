@@ -14,6 +14,16 @@ enum WatchlistLockedHintHosts {
 
     static func disappeared(_ host: UUID) { stack.removeAll { $0 == host } }
 
+    /// Zeit des letzten Hinweises «nicht gespeichert» (monotone ms; gedrosselt wie `WatchlistWriteRefusal`).
+    private static var failedHintAt: Int64?
+
+    /// Hinweis «nicht gespeichert» jetzt zeigen (`now`)? Erster immer, danach erst nach `WatchlistWriteRefusal.minGapMillis`.
+    static func shouldShowFailure(now: Int64 = WatchlistWriteRefusal.nowMillis) -> Bool {
+        guard WatchlistWriteRefusal.shouldNotify(lastAt: failedHintAt, now: now) else { return false }
+        failedHintAt = now
+        return true
+    }
+
     /// Zeigt `host` den Hinweis (zuletzt erschienen und noch sichtbar)?
     static func isTop(_ host: UUID) -> Bool { stack.last == host }
 }
@@ -36,6 +46,12 @@ private struct WatchlistLockedHintModifier: ViewModifier {
                 guard WatchlistLockedHintHosts.isTop(host) else { return }
                 Haptics.play(.warning)
                 show(L("watchlist_storage_locked"))
+            }
+            // Schreiben am Speicher gescheitert (z. B. voll): nicht still (`SharedStorage.watchlistWriteFailedNotice`)
+            .onReceive(NotificationCenter.default.publisher(for: SharedStorage.watchlistWriteFailedNotice)) { _ in
+                guard WatchlistLockedHintHosts.isTop(host), WatchlistLockedHintHosts.shouldShowFailure() else { return }
+                Haptics.play(.warning)
+                show(L("portfolio_write_failed"))
             }
     }
 }

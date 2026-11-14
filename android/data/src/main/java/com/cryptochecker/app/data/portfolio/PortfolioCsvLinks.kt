@@ -61,6 +61,8 @@ fun linkedStoredEntities(
             time = u.time,
             fee = u.fee,
             feeUnit = u.feeUnit?.name,
+            // Umbuchung: Wallet ist die Quelle (wie iOS `linked`)
+            exchange = null,
             transferFrom = u.transferFrom,
             transferTo = u.transferTo,
             feeCoin = u.feeCoin,

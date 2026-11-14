@@ -83,6 +83,7 @@ class AlarmReliabilityParityTest {
         lastBackgroundCheck = runs(m)?.let { CheckRunLog.lastBackgroundCheck(it) } ?: m["lastBackgroundCheck"].num()?.toLong(),
         lastFailedBackgroundCheck = runs(m)?.let { CheckRunLog.lastFailedBackgroundCheck(it) },
         failingSince = runs(m)?.let { CheckRunLog.failingSince(it) },
+        offline = runs(m)?.let { CheckRunLog.offlineSkipped(it) } ?: false,
         storageNoKey = bool(m, "storageNoKey", false),
         hasAlarms = bool(m, "hasAlarms", false),
         channel = (m["channel"] as String?)?.let { code -> AlarmReadiness.Channel.entries.first { it.code == code } },

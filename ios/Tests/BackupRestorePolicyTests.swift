@@ -148,4 +148,19 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertEqual(text.components(separatedBy: "\n").count, plain.components(separatedBy: "\n").count + 4)
         XCTAssertTrue(BackupSettingsPage.restoredAsDialog(result, text: text))
     }
+
+    /// Doppelte Kennungen (S3-08): wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json).
+    func testDuplicateIdsCountAsInvalid() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("backup_duplicate_ids")["cases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 5)
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let ids = (c["ids"] as? [NSNumber] ?? []).map(\.int64Value)
+            let got = BackupRestorePolicy.keepFirstIds(ids)
+            XCTAssertEqual(got, c["keep"] as? [Bool] ?? [], name)
+            XCTAssertEqual(got.filter { !$0 }.count, c["invalid"] as? Int, name)
+            let unique = BackupRestorePolicy.uniqueIds((items: ids, invalid: 2), id: { $0 })
+            XCTAssertEqual(unique.invalid, 2 + (c["invalid"] as? Int ?? 0), name)
+        }
+    }
 }

@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">ポートフォリオアラームは、残高が24時間以上読み込まれないアドレスを除いて確認中</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">トークンが一部古い</string>
+    <string name="portfolio_address_zero_unconfirmed">0 はまだ確認されていません</string>
     <string name="portfolio_address_restore_failed">アドレスを元に戻せませんでした。必要なら再度追加してください</string>
     <string name="portfolio_address_remove_failed">アドレスを削除できませんでした – もう一度お試しください</string>
 </resources>

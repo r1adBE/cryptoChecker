@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Соңғы жаңарту</string>
     <string name="watchlist_symbols_legend">Таңбалар түсіндірмесі</string>
     <string name="watchlist_symbols_legend_alarms">Белсенді ескертулер және олардың саны</string>
+    <string name="watchlist_symbols_legend_warning">Баға ескірген немесе биржаға қосылу мүмкін емес</string>
     <string name="watchlist_refresh_report_empty">Әзірге толық мәлімет жоқ – толық жаңарту әлі болған жоқ. Жаңартуды түртіп, шеңбер тоқтағанша күтіңіз.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ішінен %1$d ескірген</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Хабарламаны жабу</string>
     <string name="watchlist_missing_logos_explain">Бұл монеталар үшін логотип жоқ. Қолданба олардың бас әріптерін көрсетеді.</string>
+    <string name="watchlist_missing_logos_pending">әлі жүктелмеген</string>
+    <string name="watchlist_missing_logos_explain_pending">Әлі жүктелмеген деп белгіленген логотиптер келесі синхрондауда келеді, кейбірі тек Wi-Fi арқылы. Қалған монеталар үшін логотип жоқ. Қолданба олардың бас әріптерін көрсетеді.</string>
     <string name="exchange_retiring_notice">%2$s бастап %1$s ашық бағаларды бермейтін болады. Бұл монеталар үшін басқа биржаны таңдаңыз.</string>
     <string name="exchange_retiring_reason">%2$s бастап %1$s баға бермейтін болады</string>
     <string name="exchange_retired_since">%2$s бастап %1$s баға бермейді</string>

@@ -71,6 +71,7 @@ class WatchIdentityTest {
             val b = key(c["b"].obj())
             assertEquals(name, c["pool"] as String?, a.pool)
             assertEquals(name, c["same"] as Boolean, a == b)
+            assertEquals(name, c["text"] as String, WatchIdentity.text(a))
         }
     }
 

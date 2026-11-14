@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Излегува од портфолиото (повлекување)</string>
     <string name="portfolio_csv_import_choose_each">За секое повлекување избери каде отишло.</string>
     <string name="portfolio_csv_import_columns">Препознаени колони: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Веќе увезено: редови %1$s</string>
     <string name="portfolio_csv_import_confirm">Увези (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Ден/Месец</string>
     <string name="portfolio_csv_import_date_month_first">Месец/Ден</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Тргувањата против стејблкоини (USDT, USDC …) се книжат како замени – стејблкоинот се појавува во твоите средства.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Можни се повеќе совпаѓања – избери го точното или ниедно.</string>
+    <string name="portfolio_csv_import_transfer_loose">Висока провизија или доцно пристигнување – провери дали е истиот трансфер.</string>
     <string name="portfolio_csv_import_transfer_fee">Мрежна провизија: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Книжи како еден трансфер</string>
     <string name="portfolio_csv_import_transfer_stored">Пандан од претходен увоз</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Дневни курсеви според календарскиот ден во: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Дневните курсеви не можеа да се вчитаат.</string>
     <string name="portfolio_csv_import_anyway">Сепак увези</string>
-    <string name="portfolio_csv_import_anyway_hint">Без дневен курс цената или провизијата трајно недостасуваат. Обиди се повторно или сепак увези – тие трансакции тогаш добиваат белешка.</string>
+    <string name="portfolio_csv_import_anyway_hint">Без дневен курс, цената или провизијата недостасува додека не ја додадеш. Обиди се повторно или сепак увези – тие трансакции тогаш добиваат белешка.</string>
     <string name="portfolio_csv_note_price_no_rate">Цена без дневен курс</string>
     <string name="portfolio_csv_note_fee_no_rate">Провизија без дневен курс</string>
     <string name="portfolio_csv_import_no_rates_for">За %1$s нема дневни курсеви, па повторниот обид нема да помогне. Ако сепак увезеш, тие трансакции добиваат белешка.</string>

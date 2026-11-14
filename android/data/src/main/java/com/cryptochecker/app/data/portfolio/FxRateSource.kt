@@ -46,6 +46,9 @@ class FxRateSource @Inject constructor(
     /** Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms; nur unter [mutex]). */
     private var bgnMissedAt = 0L
 
+    /** Letzter Abruf, bei dem beide Quellen scheiterten (Epoch-ms; nur unter [mutex]). */
+    private var failedAt = 0L
+
     /** Wie viele Einheiten [currency] ein USD ist; null, wenn unbekannt. USD = 1. */
     suspend fun usdTo(currency: String): Double? {
         val target = currency.trim().uppercase()
@@ -75,6 +78,8 @@ class FxRateSource @Inject constructor(
      */
     private suspend fun load(target: String, now: Long): Pair<Double, Long>? {
         cache[target]?.let { if (now - it.second in 0 until TTL_MILLIS) return it }
+        // Eben gescheitert: nicht bei jedem Aufruf (je Währung, seriell) erneut bis 2 × 10 s warten — alter Kurs bis 24 h
+        if (now - failedAt in 0 until FAILED_RETRY_MILLIS) return cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS }
         // Eine Abfrage der EZB bringt alle Währungen: alle in den Zwischenspeicher, samt Datum des Tageskurses
         ecbDaily()?.let { (rates, time) ->
             for ((code, rate) in rates) {
@@ -88,6 +93,7 @@ class FxRateSource @Inject constructor(
             fresh.second?.let { rateTimes[target] = it } ?: rateTimes.remove(target)
             return (fresh.first to now).also { cache[target] = it }
         }
+        failedAt = now
         return cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS }
     }
 
@@ -167,6 +173,9 @@ class FxRateSource @Inject constructor(
         private const val TTL_MILLIS = CurrencyConversion.FX_STALE_MILLIS
         private const val STALE_MILLIS = 24 * 60 * 60_000L
         private const val REQUEST_TIMEOUT_MILLIS = 10_000L
+
+        /** Nach einem Abruf ohne Antwort beider Quellen so lange kein neuer Versuch (wie iOS `failedRetryMillis`). */
+        private const val FAILED_RETRY_MILLIS = 60_000L
 
         /** Wählbare Zielwährungen (EZB-Referenzkurse), die gebräuchlichsten zuerst ([FxCurrencies.ALL]). */
         val CURRENCIES = FxCurrencies.ALL

@@ -234,9 +234,12 @@ enum CsvImport {
                     price: Decimal?, timeMillis: Int64, externalId: String?, localTime: Int64? = nil) -> String {
         let time: String = localTime.map { "L\($0)" } ?? String(timeMillis)
         if let externalId {
-            return format == .SWISSQUOTE
-                ? "SWISSQUOTE|\(externalId)|\(time)|\(text(amount))"
-                : "\(format.rawValue)|\(externalId)"
+            switch format {
+            case .SWISSQUOTE: return "SWISSQUOTE|\(externalId)|\(time)|\(text(amount))"
+            // Freie Vorlage: ihre ID-Spalte ist nicht je Zeile eindeutig (gleiche TxID auf zwei Börsen, Nummern ab 1)
+            case .GENERIC: return "GENERIC|\(externalId)|\(kind.rawValue)|\(coin)|\(time)|\(text(amount))"
+            default: return "\(format.rawValue)|\(externalId)"
+            }
         }
         return "\(format.rawValue)|\(kind.rawValue)|\(coin)|\(time)|\(text(amount))|\(price.map { text($0) } ?? "-")"
     }
@@ -334,6 +337,20 @@ enum CsvImport {
     static func splitDuplicates(_ rows: [CsvImportRow], existingKeys: Set<String>) -> CsvImportSplit {
         CsvImportSplit(fresh: rows.filter { !existingKeys.contains($0.key) },
                        duplicates: rows.filter { existingKeys.contains($0.key) })
+    }
+
+    /// «Trotzdem importieren» für schon importierte Zeilen: jede bekommt einen freien Schlüssel «<Schlüssel>+2», «+3» …
+    /// (`stableKey`, weder gespeichert noch schon vergeben) — wie Android `keptAnyway`.
+    static func keptAnyway(_ duplicates: [CsvImportRow], existingKeys: Set<String>) -> [CsvImportRow] {
+        var taken = existingKeys
+        return duplicates.map { row in
+            var n = 2
+            while taken.contains(stableKey("\(row.key)+\(n)")) { n += 1 }
+            var out = row
+            out.key = stableKey("\(row.key)+\(n)")
+            taken.insert(out.key)
+            return out
+        }
     }
 
     /// Gemeinsamer Abschluss der Börsen-Leser (Kraken, Binance, Coinbase, Bitpanda) — wie Android `finish`: Zeilen nach

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fon</string>
-    <string name="widget_configure_hint">Fonu və qeyri-şəffaflığı seç. Rəng tətbiqə uyğunlaşır. Vidcet bütün izləmə siyahını göstərir; tətbiqi açmaq üçün sətirə toxun.</string>
+    <string name="widget_configure_hint">Fon və qeyri-şəffaflığı seç. Rəng tətbiqə uyğunlaşır. Vidcet izləmə siyahını və ya aşağıda seçilmiş qrupu göstərir; tətbiqi açmaq üçün sətrə toxun.</string>
     <string name="widget_configure_title">Vidceti qur</string>
     <string name="widget_description">İzləmə siyahından bir cütün qiymətini göstərir.</string>
     <string name="widget_empty">İzləmə siyahısında hələ cüt yoxdur.</string>

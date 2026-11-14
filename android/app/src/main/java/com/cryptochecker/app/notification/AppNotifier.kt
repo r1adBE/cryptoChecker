@@ -178,6 +178,11 @@ class AppNotifier @Inject constructor(
             ?.activeNotifications?.mapTo(HashSet()) { it.id }
     }.getOrNull()
 
+    /** Kurs-Mitteilung vielleicht noch da (einzeln, Sammelmeldung, eben gemeldet); [shown] null = ja. */
+    @Synchronized
+    fun priceMaybeShown(watchId: Long, shown: Set<Int>?): Boolean = shown == null || priceNotificationId(watchId) in shown ||
+        PRICE_OVERFLOW_ID in shown || recentPrices.containsKey(watchId)
+
     /**
      * Wie [cancelPrice], aber nur, wenn die Kurs-Meldung laut [shown] ([activeNotificationIds])
      * gezeigt wird; [shown] null = unbekannt, dann immer entfernen.

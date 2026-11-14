@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Aukeratu zein parek erakusten duten prezioa jakinarazpen-barran.</string>
     <string name="settings_quiet_hours">Isiltasun-orduak</string>
     <string name="settings_quiet_hours_from">Noiztik</string>
-    <string name="settings_quiet_hours_hint">%1$s eta %2$s artean, alarmek isiltasun-orduak amaitu arte itxaroten dute, eta gero soinuarekin jotzen dute. Beste jakinarazpenak isilean iristen dira, ahotsik gabe.</string>
+    <string name="settings_quiet_hours_hint">%1$s eta %2$s artean, alarmek isiltasun-orduak amaitu arte itxaroten dute, eta gero soinuarekin jotzen dute, baldintza orduan oraindik betetzen bada. Beste jakinarazpenak isilean iristen dira, ahotsik gabe.</string>
     <string name="settings_quiet_hours_to">Noiz arte</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Erabiltzen: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Ezarri gabe – nodo publikoak erabiltzen dira</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Ezarpenak berrezarri dira; beraz, ez dakigu zure Bitcoin zerbitzaria erabiltzen zenuen. Bitcoin helbideak eta xpub gakoak ez dira kontsultatzen zerbitzaria berriro sartu edo nodo publikoak aukeratu arte.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// helbideak bakarrik onartzen dira</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

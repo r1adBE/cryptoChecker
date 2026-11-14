@@ -204,7 +204,7 @@ class CoinListSync @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatchingCancellable {
                 listsFile.parentFile?.mkdirs()
-                listsFile.writeText(CoinMeta.encode(meta))
+                LogoFiles.writeText(listsFile, CoinMeta.encode(meta))
             }.onFailure { Timber.w(it, "Binance-Listen nicht gespeichert") }
         }
         // Namen sofort (gespeicherte mit CoinGecko-Namen behalten Vorrang)
@@ -323,9 +323,12 @@ class CoinListSync @Inject constructor(
     private suspend fun syncAll(): Int = coroutineScope {
         val stages = Channel<Pair<Map<String, String>, Boolean>>(Channel.UNLIMITED)
         val worker = async {
-            var total = LogoImageStore.Downloads()
-            imageStore.loadingHint.during { for (stage in stages) total += imageStore.downloadMissing(stage.first, logoAlternates(), stage.second) }
-            total
+            var total = LogoDownloads()
+            // Erst ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) erledigt das erste Laden
+            imageStore.loadingHint.during(complete = { d: LogoDownloads -> d.complete && !mapNetworkFailed && !listsNetworkFailed }) {
+                for (stage in stages) total += imageStore.downloadMissing(stage.first, logoAlternates(), stage.second)
+                total
+            }
         }
         val current = try {
             symbolMap { partial -> stages.send(CoinLogos.withStockLogos(partial, names.tradFiBases) to false) }
@@ -356,9 +359,6 @@ class CoinListSync @Inject constructor(
 
     /** Letzter Abruf der Rangliste scheiterte am Netz (für [retryPending]). */
     @Volatile var mapNetworkFailed = false
-
-    /** Zuordnung für die Start-Logos ([LogoImageStore.ensureStarterLogos]); bei Fehlern leer. */
-    suspend fun symbolMapOrEmpty(): Map<String, String> = runCatchingCancellable { symbolMap() }.getOrDefault(emptyMap())
 
     /** Merkt sich, ob eine Quelle am Netz scheiterte (keine Verbindung, Zeitüberschreitung). */
     inner class NetState {

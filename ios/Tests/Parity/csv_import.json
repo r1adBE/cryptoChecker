@@ -309,7 +309,7 @@
           "feeUnit": null,
           "time": "2024-02-01T09:00:00Z",
           "externalId": "tx-1",
-          "key": "GENERIC|tx-1"
+          "key": "GENERIC|tx-1|REWARD|ETH|1706778000000|0.0012"
         },
         {
           "line": 3,
@@ -421,7 +421,7 @@
           "feeUnit": null,
           "time": "2024-03-01T12:00:00Z",
           "externalId": "c-1",
-          "key": "GENERIC|c-1",
+          "key": "GENERIC|c-1|SWAP|ETH|1709294400000|0.5",
           "toCoin": "BTC",
           "toAmount": "0.025",
           "swapValue": "1500"
@@ -609,7 +609,7 @@
           "feeUnit": "BTC",
           "time": "2024-04-02T00:00:00Z",
           "externalId": "b-2",
-          "key": "GENERIC|b-2"
+          "key": "GENERIC|b-2|BUY|BTC|1712016000000|0.01"
         }
       ],
       "skipped": [
@@ -745,7 +745,7 @@
           "feeUnit": null,
           "time": "2024-04-07T10:00:00Z",
           "externalId": "a-1",
-          "key": "GENERIC|a-1",
+          "key": "GENERIC|a-1|SWAP|ADA|1712484000000|100",
           "toCoin": "USDT",
           "toAmount": "45.5",
           "swapValue": "45.5",
@@ -1608,7 +1608,7 @@
           "feeUnit": "EUR",
           "time": "2024-03-01T10:00:00Z",
           "externalId": "f-1",
-          "key": "GENERIC|f-1"
+          "key": "GENERIC|f-1|BUY|BTC|1709287200000|0.1"
         },
         {
           "line": 3,
@@ -1622,7 +1622,7 @@
           "feeUnit": "GBP",
           "time": "2024-03-02T10:00:00Z",
           "externalId": "f-2",
-          "key": "GENERIC|f-2"
+          "key": "GENERIC|f-2|BUY|ETH|1709373600000|1"
         },
         {
           "line": 4,
@@ -1636,7 +1636,7 @@
           "feeUnit": null,
           "time": "2024-03-03T10:00:00Z",
           "externalId": "r-1",
-          "key": "GENERIC|r-1"
+          "key": "GENERIC|r-1|REWARD|ETH|1709460000000|0.01"
         },
         {
           "line": 5,
@@ -2917,7 +2917,7 @@
       "deviceZone": "America/New_York",
       "override": null,
       "row": 0,
-      "key": "GENERIC|tx-1"
+      "key": "GENERIC|tx-1|REWARD|ETH|1706778000000|0.0012"
     },
     {
       "file": "swissquote_en",
@@ -2945,7 +2945,7 @@
       "deviceZone": "Europe/Zurich",
       "override": null,
       "row": 6,
-      "key": "GENERIC|a-1"
+      "key": "GENERIC|a-1|SWAP|ADA|1712484000000|100"
     }
   ],
   "zoneDedupe": [
@@ -2956,7 +2956,7 @@
       "override": "America/New_York",
       "existing": [
         "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
-        "GENERIC|tx-1"
+        "GENERIC|tx-1|REWARD|ETH|1706778000000|0.0012"
       ],
       "duplicateLines": [
         2,
@@ -4196,11 +4196,11 @@
     {
       "name": "short keys stay",
       "keys": [
-        "GENERIC|tx-1",
+        "GENERIC|tx-1|REWARD|ETH|1706778000000|0.0012",
         "RELAI|op-7"
       ],
       "expected": [
-        "GENERIC|tx-1",
+        "GENERIC|tx-1|REWARD|ETH|1706778000000|0.0012",
         "RELAI|op-7"
       ]
     },
@@ -4500,6 +4500,39 @@
       "a": "1851855",
       "b": "123457000000",
       "expected": "0.000015"
+    }
+  ],
+  "_genericIdDedupeComment": "Freie Vorlage mit ID-Spalte (CsvImport.key): Schlüssel aus ID, Art, Coin, Zeit und Menge — dieselbe TxID auf zwei Börsen oder laufende Nummern ab 1 sind keine Doppel. second wird gegen die Schlüssel von first abgeglichen (duplicateLines); keys = Herkunftsschlüssel der Vorschau mit «Trotzdem importieren» (CsvImport.keptAnyway: «+2»).",
+  "genericIdDedupe": [
+    {
+      "name": "same blockchain txid on two exchanges",
+      "first": "Timestamp,Type,Coin,Amount,TxID\n2024-03-01T10:00:00Z,Withdrawal,BTC,0.5,abc123\n",
+      "second": "Timestamp,Type,Coin,Amount,TxID\n2024-03-01T10:20:00Z,Deposit,BTC,0.4995,abc123\n",
+      "duplicateLines": [],
+      "keys": [
+        "GENERIC|abc123|DEPOSIT|BTC|1709288400000|0.4995"
+      ]
+    },
+    {
+      "name": "running numbers start at 1 in each table",
+      "first": "Timestamp,Type,Coin,Amount,TxID\n2024-01-05T09:00:00Z,Buy,ETH,1,1\n2024-01-06T09:00:00Z,Buy,ETH,2,2\n",
+      "second": "Timestamp,Type,Coin,Amount,TxID\n2025-01-05T09:00:00Z,Buy,SOL,10,1\n2025-01-06T09:00:00Z,Buy,ETH,2,2\n",
+      "duplicateLines": [],
+      "keys": [
+        "GENERIC|1|BUY|SOL|1736067600000|10",
+        "GENERIC|2|BUY|ETH|1736154000000|2"
+      ]
+    },
+    {
+      "name": "the same row again stays a duplicate; import anyway gives a free key",
+      "first": "Timestamp,Type,Coin,Amount,TxID\n2024-03-01T10:00:00Z,Withdrawal,BTC,0.5,abc123\n",
+      "second": "Timestamp,Type,Coin,Amount,TxID\n2024-03-01T10:00:00Z,Withdrawal,BTC,0.5,abc123\n",
+      "duplicateLines": [
+        2
+      ],
+      "keys": [
+        "GENERIC|abc123|WITHDRAWAL|BTC|1709287200000|0.5+2"
+      ]
     }
   ]
 }

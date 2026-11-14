@@ -12,11 +12,17 @@ private val QUOTES = listOf(
     "TRY", "BRL", "AUD", "JPY", "PLN", "RON", "CZK", "ZAR", "UAH", "ARS", "MXN", "COP", "USD", "XRP", "TRX", "DOGE",
 ).sortedByDescending { it.length }
 
-/** «BTCUSDT» → (BTC, USDT); unbekannte Quote = null. */
+/**
+ * «BTCUSDT» → (BTC, USDT); unbekannte Quote = null. Passen mehrere Quotes (längste zuerst), gewinnt die Teilung, deren
+ * Basis selbst ein bekannter Coin ist ([QUOTES], kein Fiat), dann die erste ohne Fiat-Basis: «USDTUSD» → USDT/USD statt
+ * USD/TUSD, «BNBUSD» → BNB/USD statt BN/BUSD; «SOLBUSD» bleibt SOL/BUSD. Wie iOS.
+ */
 fun CsvImportBinance.splitPair(pair: String): Pair<String, String>? {
     val p = pair.uppercase().filter { it in 'A'..'Z' || it in '0'..'9' }
-    val quote = QUOTES.firstOrNull { p.endsWith(it) && p.length > it.length } ?: return null
-    return p.removeSuffix(quote) to quote
+    val splits = QUOTES.filter { p.endsWith(it) && p.length > it.length }.map { p.removeSuffix(it) to it }
+    return splits.firstOrNull { it.first in QUOTES && !CsvImport.isFiat(it.first) }
+        ?: splits.firstOrNull { !CsvImport.isFiat(it.first) }
+        ?: splits.firstOrNull()
 }
 
 /** Gebühr-Coins neben Basis und Quote des Paars (Binance zieht die Gebühr wahlweise in BNB ab). */

@@ -88,17 +88,22 @@ final class WatchQuotesParityTests: XCTestCase {
     func testFreshness() throws {
         let fresh = try XCTUnwrap(TestSupport.fixture("watch_quotes")["freshness"] as? [String: Any])
         XCTAssertEqual(WatchFreshness.updateMinutes, Int(TestSupport.number(fresh["updateMinutes"]) ?? 0))
-        XCTAssertEqual(WatchFreshness.outdatedAfterMillis, Int64(TestSupport.number(fresh["outdatedAfterMillis"]) ?? 0))
-        // Dieselbe Regel wie Merkliste und Widgets
-        XCTAssertEqual(WatchFreshness.outdatedAfterMillis,
-                       OutdatedRule.afterMillis(backgroundIntervalMinutes: WatchFreshness.updateMinutes))
+        // Grenze = 3 × Intervall des iPhones (begrenzt) — dieselbe Regel wie Merkliste und Widgets
+        for i in TestSupport.list(fresh["intervals"]) {
+            let interval = Int(TestSupport.number(i["interval"]) ?? 0)
+            let after = Int64(TestSupport.number(i["afterMillis"]) ?? 0)
+            XCTAssertEqual(WatchFreshness.outdatedAfterMillis(interval), after, "interval \(interval)")
+            XCTAssertEqual(after, OutdatedRule.afterMillis(backgroundIntervalMinutes: WatchInterval.clamp(interval)))
+        }
         let now = Int64(TestSupport.number(fresh["now"]) ?? 0)
         for c in TestSupport.list(fresh["cases"]) {
             let name = c["name"] as? String ?? ""
             let time = Int64(TestSupport.number(c["time"]) ?? 0)
-            XCTAssertEqual(WatchFreshness.isOutdated(time, now: now), c["outdated"] as? Bool, name)
-            XCTAssertEqual(WatchFreshness.isOutdated(time, now: now),
-                           OutdatedRule.isOutdated(time, now: now, afterMillis: WatchFreshness.outdatedAfterMillis), name)
+            let interval = Int(TestSupport.number(c["interval"]) ?? 0)
+            let outdated = WatchFreshness.isOutdated(time, now: now, intervalMinutes: interval)
+            XCTAssertEqual(outdated, c["outdated"] as? Bool, name)
+            XCTAssertEqual(outdated, OutdatedRule.isOutdated(time, now: now,
+                                                             afterMillis: WatchFreshness.outdatedAfterMillis(interval)), name)
             guard let raw = c["unit"] as? String else { continue }
             let unit = try XCTUnwrap(WatchFreshness.AgeUnit(rawValue: raw), name)
             let expected = WatchFreshness.Age(unit: unit, count: Int(TestSupport.number(c["count"]) ?? -1))
@@ -114,6 +119,7 @@ final class WatchQuotesParityTests: XCTestCase {
     func testCache() throws {
         let cache = try XCTUnwrap(TestSupport.fixture("watch_quotes")["cache"] as? [String: Any])
         let now = Int64(TestSupport.number(cache["now"]) ?? 0)
+        let interval = Int(TestSupport.number(cache["interval"]) ?? 0)
         for c in TestSupport.list(cache["cases"]) {
             let name = c["name"] as? String ?? ""
             let old = Dictionary(TestSupport.list(c["old"]).map {
@@ -129,7 +135,8 @@ final class WatchQuotesParityTests: XCTestCase {
                 let got = try XCTUnwrap(merged[e["symbol"] as? String ?? ""], name)
                 XCTAssertEqual(got.quote, quote(e), name)
                 XCTAssertEqual(got.time, Int64(TestSupport.number(e["time"]) ?? -1), name)
-                XCTAssertEqual(WatchFreshness.isOutdated(got.time, now: now), e["outdated"] as? Bool, name)
+                XCTAssertEqual(WatchFreshness.isOutdated(got.time, now: now, intervalMinutes: interval), e["outdated"] as? Bool,
+                               name)
                 let age = WatchFreshness.age(got.time, now: now)
                 XCTAssertEqual(age.unit.rawValue, e["unit"] as? String, name)
                 XCTAssertEqual(age.count, Int(TestSupport.number(e["count"]) ?? -1), name)

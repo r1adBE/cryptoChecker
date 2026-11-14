@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Naka-on ang mga alerto – wala pang pagsusuri sa background</string>
     <string name="alarm_reliability_notifications_off">Naka-off ang mga notification – hindi darating ang mga alerto</string>
     <string name="alarm_reliability_battery">Maaaring ihinto ng pagtitipid ng baterya ang pagsusuri ng mga alerto</string>
+    <string name="alarm_reliability_offline">Walang koneksyon – titingnan ang mga alarm kapag bumalik ang network</string>
     <string name="alarm_reliability_background_refresh">Naka-off ang Background App Refresh – maaaring hindi dumating ang mga alerto</string>
 </resources>

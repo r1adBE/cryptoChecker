@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Ընդամենը</string>
     <string name="portfolio_hide_amounts">Թաքցնել գումարները</string>
-    <string name="portfolio_hide_amounts_hint">Պորտֆելում և պորտֆելի վիջեթում գումարներն ու արժեքները ցույց է տալիս որպես ••• – տոկոսները մնում են տեսանելի։</string>
+    <string name="portfolio_hide_amounts_hint">Պորտֆելում, պորտֆելի վիջեթում, ժամացույցում և պորտֆելի ազդանշաններում գումարներն ու արժեքները ցույց է տալիս որպես ••• – տոկոսները մնում են տեսանելի։</string>
     <string name="portfolio_invested">Ձեռքբերման արժեք</string>
     <string name="portfolio_total_no_fx">%1$s-ի համար փոխարժեք չկա – գումարները USDT-ով</string>
     <string name="portfolio_total_value">Ընդհանուր արժեք</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Չեղարկե՞լ փոփոխությունները</string>
     <string name="portfolio_edit_tx">Խմբագրել գործարքը</string>
     <string name="portfolio_invalid">Մուտքագրիր 0-ից մեծ վավեր թիվ։</string>
+    <string name="number_ambiguous">Անհասկանալի է՝ %1$s, թե %2$s։ Գրիր երկուսից մեկը։</string>
     <string name="portfolio_oversold">Վաճառքները գերազանցում են ակտիվները – խնդրում ենք ստուգել գործարքները։</string>
     <string name="portfolio_sell">Վաճառք</string>
     <string name="portfolio_sell_exceeds">Ավելի շատ, քան քո ակտիվները (%1$s)</string>

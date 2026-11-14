@@ -98,7 +98,31 @@
       "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
       "outcomes": {"Coinbase": {"price": 0, "rejected": false}, "Bybit": {"price": 5, "rejected": false}},
       "expected": {"price": 5, "source": "Bybit", "provider": "Bybit", "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+    },
+    {
+      "name": "Binance nicht erreichbar: kein Kurs, Coinbase wird nicht gefragt (Export wiederholbar)",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": false, "failed": true}, "Coinbase": {"price": 2.0, "rejected": false}},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": false, "failed": true, "asked": ["Binance"]}
+    },
+    {
+      "name": "verworfen, dann nicht erreichbar: ungeprüft und abgebrochen",
+      "order": ["Kraken", "Binance", "Coinbase", "Okex", "Bybit"],
+      "outcomes": {"Kraken": {"price": null, "rejected": true}, "Binance": {"price": null, "rejected": false, "failed": true}, "Coinbase": {"price": 2.0, "rejected": false}},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": true, "failed": true, "asked": ["Kraken", "Binance"]}
     }
+  ],
+  "fetchFailure": [
+    {"httpCode": null, "expected": "TRANSIENT"},
+    {"httpCode": 500, "expected": "TRANSIENT"},
+    {"httpCode": 503, "expected": "TRANSIENT"},
+    {"httpCode": 408, "expected": "TRANSIENT"},
+    {"httpCode": 429, "expected": "TRANSIENT"},
+    {"httpCode": 418, "expected": "TRANSIENT"},
+    {"httpCode": 403, "expected": "BLOCKED"},
+    {"httpCode": 451, "expected": "BLOCKED"},
+    {"httpCode": 400, "expected": "NO_DATA"},
+    {"httpCode": 404, "expected": "NO_DATA"}
   ],
   "acceptSeries": [
     {"latest": 1.1, "current": 1.0, "nameOk": true, "expected": true},

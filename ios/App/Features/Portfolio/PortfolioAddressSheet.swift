@@ -210,8 +210,11 @@ struct PortfolioAddressSheet: View {
             if a.lastUpdated > 0 {
                 // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
                 let partlyStale = a.tokenHoldings().contains { a.staleTokens.contains($0.key) }
+                // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (`ZeroConfirm`)
+                let zeroUnconfirmed = a.zeroPending.contains(ZeroConfirm.main)
                 let age = WatchlistTime.ago(a.lastUpdated, now: now) // am Zeilenanfang gross: «Vor 2 Std. · Etherscan»
                 return WatchlistTime.lineStart(age, ago: age) + (a.lastProvider.map { " · \($0)" } ?? "")
+                    + (zeroUnconfirmed ? " · " + L("portfolio_address_zero_unconfirmed") : "")
                     + (partlyStale ? " · " + L("portfolio_address_tokens_partly_stale") : "")
             }
             return nil
@@ -384,6 +387,8 @@ struct PortfolioAddressSheet: View {
             saveError = L("address_limit")
         case .locked:
             saveError = L("portfolio_storage_locked")
+        case .writeFailed:
+            saveError = L("portfolio_write_failed")
         }
     }
 }

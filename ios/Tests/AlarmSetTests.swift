@@ -236,6 +236,7 @@ final class AlarmReliabilityTests: XCTestCase {
             input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
             input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
             input.failingSince = CheckRunLog.failingSince(runs)
+            input.offline = CheckRunLog.offlineSkipped(runs)
         }
         input.storageNoKey = bool(m, "storageNoKey", false)
         input.hasAlarms = bool(m, "hasAlarms", false)

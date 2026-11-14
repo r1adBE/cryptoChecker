@@ -5,10 +5,15 @@ import SwiftUI
 /// nicht gespeichert wird (`AppData.watchlistSavePending`: «… die Merkliste wird nicht gespeichert …»). Wie Android (Banner
 /// ohne Ablauf, gleiche Texte): Ein anderes Banner verdrängt ihn nur, danach kommt er wieder; «Schliessen» blendet ihn bis
 /// zum nächsten Banner aus. Art Info (wie Android `showResting`): kein Symbol, kein farbiger Rahmen.
+///
+/// Auch im Portfolio-Tab (`keptKey`/`notSavedKey` des Portfolios), wie Android `PortfolioScreen` (stehendes Banner).
 struct WatchlistStorageNotice: View {
     let notice: WatchlistStorageLock.Notice?
     /// Ein anderes Banner steht gerade (`WatchlistBanner`).
     let bannerShown: Bool
+    /// Text für «gespeicherte Datei gerade nicht lesbar» bzw. «wird gerade nicht gespeichert».
+    var keptKey = "watchlist_storage_kept_in_memory"
+    var notSavedKey = "watchlist_storage_in_memory"
     @State private var hidden = false
     @Environment(\.appAccent) private var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -17,7 +22,7 @@ struct WatchlistStorageNotice: View {
         Group {
             if let notice, !bannerShown && !hidden {
                 HStack(spacing: 12) {
-                    Text(L(notice == .kept ? "watchlist_storage_kept_in_memory" : "watchlist_storage_in_memory"))
+                    Text(L(notice == .kept ? keptKey : notSavedKey))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(AppColors.onSurface)
                         .frame(maxWidth: .infinity, alignment: .leading)

@@ -106,6 +106,22 @@ class CsvTransferMatchParityTest {
             assertEquals("$n from", e["from"], l.from)
             assertEquals("$n to", e["to"], l.to)
             assertEquals("$n unambiguous", e["unambiguous"], l.unambiguous)
+            assertEquals("$n loose", e["loose"] ?: false, l.loose)
+        }
+    }
+
+    /** «Auf eigene Wallet» mit freiem Kandidaten verknüpft ihn (sonst zählte die Einzahlung doppelt). */
+    @Test
+    fun ownWalletLinksTheBestFreeCandidate() {
+        val all = cases().filter { it["ownWallet"] != null }
+        assertTrue(all.size >= 3)
+        all.forEach { c ->
+            val links = linksOf(c)
+            c["ownWallet"].list().map { it.obj() }.forEach { t ->
+                val chosen = t["chosen"].list().map { it as String }.toSet()
+                assertEquals("${c["name"]} ownWallet $t", t["expected"].list().map { it as String }.toSet(),
+                    CsvTransferMatch.linkOwnWallet(links, chosen, t["withdrawal"] as String))
+            }
         }
     }
 
@@ -312,6 +328,43 @@ class CsvTransferMatchParityTest {
         // Gespeichert erkennt der nächste Import beide Seiten als doppelt (importKey + linkedImportKey)
         val u = plan.storedUpdates.single()
         assertEquals(setOf(old.importKey, links.single().depositKey), setOf(u.importKey, u.linkedImportKey))
+    }
+
+    /**
+     * Zwei Börsen-Dateien und die verknüpfte Umbuchung unter FIFO je Wallet (`walletEndToEnd`): jede importierte Zeile trägt
+     * die Börse ihrer Datei als Wallet — sonst nähme die Umbuchung «Binance → Coinbase» von einer leeren Wallet und die
+     * Gebühr bliebe als Phantom-Bestand stehen.
+     */
+    @Test
+    fun importedRowsCarryTheirExchangeAsWallet() {
+        val e = data["walletEndToEnd"].obj()
+        fun preview(text: String) = CsvImportMapping.preview(CsvImportParser.parse(text), emptySet()) { _, _ -> null }
+        fun trade(id: Long, t: CsvImportTx) = PortfolioTrade(
+            id, t.coin, t.type, t.amount, t.priceUsdt, t.time, fee = t.fee, feeUnit = t.feeUnit, feeCoin = t.feeCoin,
+            feeCoinAmount = t.feeCoinAmount, exchange = t.exchange, transferFrom = t.transferFrom, transferTo = t.transferTo,
+        )
+        val first = preview(e["storedCsv"] as String)
+        val fresh = preview(e["importCsv"] as String)
+        assertEquals(listOf(e["storedExchange"]), first.transactions.map { it.exchange }.distinct())
+        assertEquals(listOf(e["importExchange"]), fresh.transactions.map { it.exchange }.distinct())
+        val w = first.transactions.single { it.type == PortfolioTxType.WITHDRAWAL }
+        val stored = CsvStoredMove(1, w.coin, w.type, w.amount, w.fee, w.feeUnit, w.feeCoin, w.feeCoinAmount, w.time,
+            w.importKey, null, null, exchange = w.exchange)
+        val links = CsvTransferMatch.candidates(fresh.transactions, fresh.format.exchangeName, listOf(stored))
+        val plan = CsvTransferMatch.apply(fresh.transactions, links, CsvTransferMatch.defaultChoice(links))
+        val u = plan.storedUpdates.single()
+        val t = e["transfer"].obj()
+        assertEquals(listOf(t["from"], t["to"], t["amount"], t["fee"]), listOf(u.transferFrom, u.transferTo, text(u.amount), text(u.fee)))
+        val move = PortfolioTrade(1, w.coin, PortfolioTxType.TRANSFER, u.amount, null, u.time, fee = u.fee, feeUnit = u.feeUnit,
+            transferFrom = u.transferFrom, transferTo = u.transferTo)
+        val all = first.transactions.filter { it !== w }.mapIndexed { i, x -> trade(10L + i, x) } + move +
+            plan.transactions.mapIndexed { i, x -> trade(100L + i, x) }
+        val coin = e["coin"] as String
+        val ledger = PortfolioCalculator.ledger(coin, all, null, CostMethod.FIFO_WALLET)
+        val wallets = ledger.lots.groupBy { it.wallet }.mapValues { (_, l) -> text(l.fold(BigDecimal.ZERO) { a, x -> a + x.amount }) }
+        assertEquals(e["wallets"].obj(), wallets)
+        assertEquals(e["holdings"], text(ledger.position.holdingsExact))
+        assertEquals(e["holdings"], text(PortfolioCalculator.position(coin, all, null, CostMethod.FIFO).holdingsExact))
     }
 
     /**

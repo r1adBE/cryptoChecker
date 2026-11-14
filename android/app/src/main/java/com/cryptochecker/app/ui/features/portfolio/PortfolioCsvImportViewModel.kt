@@ -185,21 +185,31 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _choices.value = list.mapNotNull { p -> (previous[p.importKey] ?: p.choice)?.let { p.importKey to it } }.toMap()
         _linked.value = CsvTransferMatch.carryOver(links, _links.value.mapTo(HashSet()) { it.key }, _linked.value)
         _links.value = links
+        linkOwnWallets()
     }
 
-    /** Umbuchung ein- oder ausschalten (eingeschaltet fallen Kandidaten mit derselben Seite weg). */
+    /** Umbuchung ein/aus (ein: Kandidaten derselben Seite weg; aus: die Auszahlung braucht eine neue Wahl). */
     fun setLink(key: String, on: Boolean) {
         _linked.value = CsvTransferMatch.toggle(_links.value, _linked.value, key, on)
+        if (!on) _links.value.firstOrNull { it.key == key }?.let { _choices.value = _choices.value - it.withdrawalKey }
+        linkOwnWallets()
     }
 
     /** Wahl einer Auszahlung. */
     fun setChoice(importKey: String, choice: CsvWithdrawalChoice) {
         _choices.value = _choices.value + (importKey to choice)
+        linkOwnWallets()
     }
 
     /** Alle Auszahlungen gleich («Alle auf eigene Wallet» / «Alle verlassen das Portfolio»). */
     fun setAllChoices(choice: CsvWithdrawalChoice) {
         _choices.value = _proposals.value.associate { it.importKey to choice }
+        linkOwnWallets()
+    }
+
+    /** «Auf eigene Wallet» mit freier passender Einzahlung wird deren Umbuchung ([CsvImportMapping.linkOwnWallets]). */
+    private fun linkOwnWallets() {
+        _linked.value = CsvImportMapping.linkOwnWallets(_links.value, _linked.value, _choices.value)
     }
 
     private suspend fun buildPreview(uri: Uri): CsvImportPreview {
@@ -240,6 +250,10 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * neu laden — die Vorschau wird neu bewertet ([CsvImportRateGate]).
      */
     fun reloadRates() = reread(chosen) { read, choice -> reader.prepare(read.text, choice) }
+
+    /** Schon importierte Zeilen trotzdem übernehmen bzw. wieder nicht ([CsvReadChoice.keepDuplicates]): nur neu zuordnen. */
+    fun setKeepDuplicates(keep: Boolean) =
+        reread(chosen.copy(keepDuplicates = keep)) { read, choice -> reader.reparse(read, choice) }
 
     /**
      * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Die Vorschau steht solange auf

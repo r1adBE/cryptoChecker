@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">পোর্টফোলিও অ্যালার্ট সেইসব ঠিকানা ছাড়া যাচাই করে যাদের ব্যালেন্স 24 ঘণ্টার বেশি লোড হয়নি</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">টোকেন আংশিক পুরোনো</string>
+    <string name="portfolio_address_zero_unconfirmed">0 এখনও নিশ্চিত হয়নি</string>
     <string name="portfolio_address_restore_failed">ঠিকানা পুনরুদ্ধার করা যায়নি – দরকার হলে আবার যোগ করুন</string>
     <string name="portfolio_address_remove_failed">ঠিকানা সরানো যায়নি – অনুগ্রহ করে আবার চেষ্টা করুন</string>
 </resources>

@@ -95,7 +95,7 @@ class AddressPrivacyParityTest {
             val c = case as Map<*, *>
             val from = URI(c["from"] as String)
             val to = URI(c["to"] as String)
-            assertEquals("${c["from"]} → ${c["to"]}", c["follow"], AddressRedirect.allowed(from.scheme, from.host, to.scheme, to.host))
+            assertEquals("${c["from"]} → ${c["to"]}", c["follow"], AddressRedirect.allowed(from.scheme, from.host, to.scheme, to.host, from.port, to.port))
         }
     }
 

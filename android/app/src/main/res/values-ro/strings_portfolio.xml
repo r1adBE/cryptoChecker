@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Ascunde sumele</string>
-    <string name="portfolio_hide_amounts_hint">Afișează sumele și valorile din portofoliu și din widgetul portofoliului ca ••• – procentele rămân vizibile.</string>
+    <string name="portfolio_hide_amounts_hint">Afișează sumele și valorile din portofoliu, din widgetul portofoliului, de pe ceas și din alertele portofoliului ca ••• – procentele rămân vizibile.</string>
     <string name="portfolio_invested">Cost de achiziție</string>
     <string name="portfolio_total_no_fx">Niciun curs valutar pentru %1$s – sume în USDT</string>
     <string name="portfolio_total_value">Valoare totală</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Renunți la modificări?</string>
     <string name="portfolio_edit_tx">Editează tranzacția</string>
     <string name="portfolio_invalid">Introdu un număr valid mai mare decât 0.</string>
+    <string name="number_ambiguous">Neclar: %1$s sau %2$s? Scrie una dintre cele două forme.</string>
     <string name="portfolio_oversold">Vânzările depășesc deținerea – verifică tranzacțiile.</string>
     <string name="portfolio_sell">Vânzare</string>
     <string name="portfolio_sell_exceeds">Mai mult decât deții (%1$s)</string>

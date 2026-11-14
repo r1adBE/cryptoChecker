@@ -89,6 +89,22 @@ struct WatchSettings: Equatable, Sendable {
         return winner
     }
 
+    /// Kennt die Uhr (`watch`, ihr gemeldeter Stand) einen anderen iPhone-Teil als das iPhone (`phone`): Favoriten samt
+    /// Paaren, Kursquelle oder Intervall? Dann hat sie den Stand des iPhones nicht — das iPhone schickt ihn noch einmal.
+    /// Wie Android `phoneSideDiffers`.
+    static func phoneSideDiffers(_ phone: WatchSettings, watch: WatchSettings) -> Bool {
+        phone.phone != watch.phone || phone.pairs != watch.pairs || phone.source != watch.source
+            || phone.interval != watch.interval
+    }
+
+    /// iPhone ohne Stand (App dort zurückgesetzt oder entfernt): wie ein iPhone mit Standardwerten (`merge` mit
+    /// `WatchSettings()`) — iPhone-Liste und Paare leer, Kursquelle und Intervall Standard; Wahl und eigene Liste der Uhr
+    /// bleiben, sobald sie einmal geändert wurden (Nummer > 0). Apple Watch: iPhone-App nicht mehr installiert; Wear OS:
+    /// Eintrag des Handys gelöscht. Wie Android `forgetPhone`.
+    static func forgetPhone(_ local: WatchSettings) -> WatchSettings {
+        merge(local, WatchSettings(), remoteIsPhone: true)
+    }
+
     /// Eigene Änderung von Wahl oder eigener Liste auf dieser Seite (`isPhone`): zuerst den neuesten bekannten Stand der
     /// anderen Seite (`remote`, nil = keiner) übernehmen (`merge`), dann `edit` anwenden, mit einer Nummer über beiden
     /// Ständen (max(lokal, andere Seite) + 1). So gewinnt die Änderung auf beiden Geräten, auch wenn die andere Seite

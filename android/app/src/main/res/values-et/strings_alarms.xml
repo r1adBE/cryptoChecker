@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">Rahastamismäär peab olema arv vahemikus −10 kuni +10 protsenti.</string>
     <string name="alarm_threshold_error_invalid">Sisesta kehtiv arv, mis on suurem kui 0.</string>
     <string name="alarm_threshold_error_oi">Avatud positsioonide muutus: kuni 1000 protsenti.</string>
+    <string name="alarm_threshold_error_percent_max">Kõige rohkem 1000 protsenti.</string>
+    <string name="alarm_threshold_error_distance">Kaugus peab olema alla 100 protsendi.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d h jooksul</item>
         <item quantity="other">%1$d h jooksul</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">Kõne sees</string>
     <string name="alarm_unchecked_no_candles">Ei saanud kontrollida (küünlaandmed puuduvad)</string>
     <string name="alarm_unchecked_no_rate">Ei saanud kontrollida (vahetuskurss puudub)</string>
+    <string name="alarm_unchecked_no_window_price">Ei saanud kontrollida (ajaaknas puudub hind)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Märguanded väljas – see hoiatus ei jõua sinuni</string>

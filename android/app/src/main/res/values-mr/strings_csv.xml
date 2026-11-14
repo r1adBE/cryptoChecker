@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">पोर्टफोलिओमधून बाहेर जाते (पैसे काढणे)</string>
     <string name="portfolio_csv_import_choose_each">प्रत्येक पैसे काढण्यासाठी ते कुठे गेले ते निवडा.</string>
     <string name="portfolio_csv_import_columns">ओळखलेले कॉलम: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">आधीच आयात केलेले: ओळी %1$s</string>
     <string name="portfolio_csv_import_confirm">इम्पोर्ट करा (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">दिवस/महिना</string>
     <string name="portfolio_csv_import_date_month_first">महिना/दिवस</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">स्टेबलकॉइनविरुद्धचे ट्रेड (USDT, USDC …) स्वॅप म्हणून नोंदवले जातात – स्टेबलकॉइन तुमच्या होल्डिंगमध्ये दिसतो.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">अनेक जुळण्या शक्य आहेत – योग्य निवडा किंवा एकही नाही.</string>
+    <string name="portfolio_csv_import_transfer_loose">जास्त शुल्क किंवा उशिरा पोहोचणे – हेच हस्तांतरण आहे का ते तपासा.</string>
     <string name="portfolio_csv_import_transfer_fee">नेटवर्क शुल्क: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">एक हस्तांतरण म्हणून नोंदवा</string>
     <string name="portfolio_csv_import_transfer_stored">आधीच्या इम्पोर्टमधील प्रतिनोंद</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">दैनिक दर या वेळ क्षेत्रातील कॅलेंडर दिवसानुसार: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">दैनिक दर लोड करता आले नाहीत.</string>
     <string name="portfolio_csv_import_anyway">तरीही इम्पोर्ट करा</string>
-    <string name="portfolio_csv_import_anyway_hint">दैनिक दराशिवाय किंमत किंवा शुल्क कायमचे गहाळ राहते. पुन्हा प्रयत्न करा, किंवा तरीही इम्पोर्ट करा – तेव्हा त्या व्यवहारांना एक टीप जोडली जाईल.</string>
+    <string name="portfolio_csv_import_anyway_hint">दैनिक दराशिवाय, तुम्ही जोडेपर्यंत किंमत किंवा शुल्क नसते. पुन्हा प्रयत्न करा किंवा तरीही इम्पोर्ट करा – त्या व्यवहारांना नंतर एक टीप मिळेल.</string>
     <string name="portfolio_csv_note_price_no_rate">दैनिक दराशिवाय किंमत</string>
     <string name="portfolio_csv_note_fee_no_rate">दैनिक दराशिवाय शुल्क</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s साठी दैनिक दर उपलब्ध नाहीत, त्यामुळे पुन्हा प्रयत्न करून उपयोग नाही. तरीही इम्पोर्ट केल्यास त्या व्यवहारांना एक टीप जोडली जाईल.</string>

@@ -114,6 +114,9 @@ extension PriceRefresher {
                             alarmedIds: Set<Int64>, networkBudget: Int64?) async -> ([Int64: Fetched], [GroupSignals]) {
         var fetched: [Int64: Fetched] = [:]
         var signals: [GroupSignals] = []
+        // Mit Budget: fertige Einzelabfragen laufender Börsen behalten, je Lauf anderer Beginn der Reihenfolge
+        let partial = FetchedBox()
+        let rotation = networkBudget == nil ? 0 : Int(EpochTime.nowMillis / 1_000 % Int64(Int32.max))
         await withTaskGroup(of: ([Int64: Fetched], GroupSignals?, Bool).self) { group in
             for (_, list) in groups {
                 group.addTask {
@@ -122,7 +125,8 @@ extension PriceRefresher {
                         return ([w.id: single], nil, false)
                     }
                     let (results, signal) = await fetchGroup(list, includeRollingFutures: settings.includeRollingFutures,
-                                                             lowMemory: lowMemory, alarmed: alarmedIds)
+                                                             lowMemory: lowMemory, alarmed: alarmedIds, rotation: rotation,
+                                                             partial: partial)
                     return (results, signal, false)
                 }
             }
@@ -137,6 +141,15 @@ extension PriceRefresher {
             for await (results, signal, timedOut) in group {
                 if timedOut {
                     group.cancelAll()
+                    // Budget um: schon geholte Kurse der laufenden Börsen bleiben; die übrigen Paare «Zeitüberschreitung»
+                    // (am Budget, nicht an der Börse: kein Backoff, keine volle Prüfung)
+                    for (id, value) in partial.all where fetched[id] == nil { fetched[id] = value }
+                    for (_, list) in groups {
+                        for w in list where fetched[w.id] == nil {
+                            fetched[w.id] = Fetched(ticker: nil, error: budgetTimeoutError, failure: .TIMEOUT,
+                                                    exchangeFailure: .timeout, budgetCut: true)
+                        }
+                    }
                     break
                 }
                 fetched.merge(results) { a, _ in a }
@@ -214,8 +227,11 @@ extension PriceRefresher {
         // NaN/∞ nie als Kurs übernehmen — wie PriceRefresher.kt
         guard let ticker = result?.ticker, result?.error == nil, ticker.last.isFinite, ticker.last > 0 else {
             if !notTraded { outcome.failed += 1 }
+            if result?.budgetCut == true { outcome.cutByBudget += 1 }
             outcome.prices[watch.id] = PriceUpdate(price: nil, time: run.now, error: result?.error, pair: watch.identity)
-            cancelIds.append(watch.id)
+            // Kurs-Mitteilung nur entfernen, wenn nicht mehr gehandelt bzw. Börse stillgelegt; ein gewöhnlicher Fehler
+            // (Zeit, 5xx, Netz) lässt sie stehen — sonst käme sie erst nach der nächsten Bewegung um die Schwelle wieder
+            if notTraded { cancelIds.append(watch.id) }
             // Alarm-Protokoll: «Kein Kurs» als letzte Prüfung der Alarme dieses Paars
             if !run.live {
                 outcome.alarmLog += (run.logAlarmsByWatch[watch.id] ?? []).compactMap {
@@ -357,5 +373,20 @@ extension PriceRefresher {
             alarms: outcome.pendingAlarms.count,
             notifications: outcome.notified.count
         )
+    }
+}
+
+extension PriceRefresher.Outcome {
+    /// Ergebnis für «Letzte Prüfungen» (`CheckRunLog.result`): offline nicht versucht = übersprungen; alle Börsen
+    /// pausiert bzw. Alarme ohne Lease = pausiert. Wie Android `BackgroundCheck`.
+    var checkResult: CheckResult {
+        skippedOffline ? .skipped : CheckRunLog.result(checked: checked, failed: failed, paused: pausedIds.count,
+                                                       alarmsUnchecked: alarmsUnchecked)
+    }
+
+    /// Volle Prüfung mit allen Alarmen (`BackgroundSchedule.isFullCheck`); ohne Alarm-Lease bzw. mit Budget-Lücken nie.
+    var isFullCheck: Bool {
+        !alarmsUnchecked && BackgroundSchedule.isFullCheck(attempted: checked, failed: failed, notTraded: notTraded,
+                                                           cutByBudget: cutByBudget)
     }
 }

@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Мэдэгдлийн мөрөнд аль хосын ханшийг харуулахыг сонгоно уу.</string>
     <string name="settings_quiet_hours">Чимээгүй цаг</string>
     <string name="settings_quiet_hours_from">Эхлэх</string>
-    <string name="settings_quiet_hours_hint">%1$s-аас %2$s хооронд дохио чимээгүй цаг дуусахыг хүлээж, дараа нь дуутай ирнэ. Бусад мэдэгдэл дуугүй, ярианы уншлагагүй ирнэ.</string>
+    <string name="settings_quiet_hours_hint">%1$s-аас %2$s хооронд дохио чимээгүй цаг дуусахыг хүлээж, дараа нь дуутай ирнэ, хэрэв нөхцөл тэр үед хүчинтэй хэвээр байвал. Бусад мэдэгдэл дуугүй, ярианы уншлагагүй ирнэ.</string>
     <string name="settings_quiet_hours_to">Дуусах</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Ашиглаж буй: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Тохируулаагүй – нийтийн зангилааг ашиглана</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Тохиргоог анхны байдалд нь оруулсан тул та өөрийн Bitcoin сервер ашиглаж байсан эсэх нь тодорхойгүй. Та серверээ дахин оруулах эсвэл нийтийн зангилааг сонгох хүртэл Bitcoin хаяг болон xpub түлхүүрийг шалгахгүй.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Зөвхөн https:// хаягийг зөвшөөрнө</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

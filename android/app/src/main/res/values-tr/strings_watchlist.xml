@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Son yenileme</string>
     <string name="watchlist_symbols_legend">Simgelerin açıklaması</string>
     <string name="watchlist_symbols_legend_alarms">Etkin alarmlar ve sayıları</string>
+    <string name="watchlist_symbols_legend_warning">Fiyat güncel değil veya borsaya ulaşılamıyor</string>
     <string name="watchlist_refresh_report_empty">Henüz döküm yok: henüz tam bir yenileme yapılmadı. Yenile\'ye dokun ve yükleme göstergesi durana kadar bekle.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d çiftten %1$d tanesi güncel değil</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Bildirimi kapat</string>
     <string name="watchlist_missing_logos_explain">Bu coin\'ler için logo yok. Uygulama baş harflerini gösterir.</string>
+    <string name="watchlist_missing_logos_pending">henüz yüklenmedi</string>
+    <string name="watchlist_missing_logos_explain_pending">Henüz yüklenmedi olarak işaretlenen logolar bir sonraki eşitlemeyle gelir, bazıları yalnızca Wi-Fi’de. Diğer coinler için logo yok. Uygulama baş harflerini gösterir.</string>
     <string name="exchange_retiring_notice">%1$s, %2$s tarihinden itibaren herkese açık fiyat sağlamayacak. Bu coinler için başka bir borsa seç.</string>
     <string name="exchange_retiring_reason">%1$s, %2$s tarihinden itibaren fiyat sağlamayacak</string>
     <string name="exchange_retired_since">%1$s, %2$s tarihinden beri fiyat sağlamıyor</string>

@@ -91,6 +91,8 @@
     <string name="check_result_ok">Լավ է</string>
     <string name="check_result_partial">Մասնակի</string>
     <string name="check_result_skipped">Բաց թողնված</string>
+    <string name="check_result_paused">Դադարեցված է, ոչինչ չի ստուգվել</string>
+    <string name="check_result_offline">Բաց է թողնվել (անցանց)</string>
     <string name="check_trigger_bgtask">Ֆոն</string>
     <string name="check_trigger_exact">Ճշգրիտ ժամին</string>
     <string name="check_trigger_foreground">Հավելված</string>

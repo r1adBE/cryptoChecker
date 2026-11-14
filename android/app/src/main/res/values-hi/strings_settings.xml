@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">चुनें कि किन जोड़ों का भाव सूचना पट्टी में दिखे।</string>
     <string name="settings_quiet_hours">मौन घंटे</string>
     <string name="settings_quiet_hours_from">से</string>
-    <string name="settings_quiet_hours_hint">%1$s से %2$s के बीच अलार्म मौन घंटे खत्म होने तक रुकते हैं और फिर आवाज़ के साथ बजते हैं। बाकी सूचनाएँ चुपचाप आती हैं, बिना बोलकर सूचना के।</string>
+    <string name="settings_quiet_hours_hint">%1$s से %2$s के बीच अलार्म मौन घंटे खत्म होने तक रुकते हैं और फिर आवाज़ के साथ बजते हैं, यदि तब भी शर्त पूरी हो। बाकी सूचनाएँ चुपचाप आती हैं, बिना बोलकर सूचना के।</string>
     <string name="settings_quiet_hours_to">तक</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">इस्तेमाल में: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">सेट नहीं – सार्वजनिक नोड्स इस्तेमाल होते हैं</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">सेटिंग्स रीसेट की गईं, इसलिए पता नहीं कि आपका अपना Bitcoin सर्वर इस्तेमाल हो रहा था या नहीं। जब तक आप अपना सर्वर फिर से नहीं डालते या सार्वजनिक नोड्स नहीं चुनते, तब तक Bitcoin पते और xpub कुंजियाँ नहीं पूछी जाएँगी।</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">सिर्फ़ https:// पते मान्य हैं</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

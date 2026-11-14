@@ -268,7 +268,7 @@ final class AppData: ObservableObject {
     private func networkChanged(_ isOnline: Bool) {
         let previous = online
         if status.online != isOnline { status.online = isOnline }
-        if OfflineGate.resumeOnChange(previous: previous, online: isOnline) && appActive {
+        if SharedStorage.networkResumed(previous: previous, online: isOnline) && appActive {
             Task { await refreshAll() }
         }
         updateLiveStream()
@@ -333,7 +333,7 @@ final class AppData: ObservableObject {
         flushPriceSave()
         // Wartet die Merkliste auf den Schlüssel: erneut speichern, auf demselben Weg wie `mutate` (neuere Kurse und
         // Auslösungen des Widgets bleiben); `readSnapshot` wartet dieses Schreiben ab
-        if watchlistSavePending { SharedStorage.saveSnapshotInBackground(snapshot) }
+        if watchlistSavePending || SharedStorage.watchlistWriteFailed { SharedStorage.saveSnapshotInBackground(snapshot) }
         return true
     }
 
@@ -351,7 +351,7 @@ final class AppData: ObservableObject {
             // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
             // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand). Warten Portfolio-Alarme auf den
             // Schlüssel, bleiben diese aus dem Speicher (`PortfolioSaveRetry.merged`)
-            if !waiting, let fresh = read.snapshot {
+            if !waiting, !SharedStorage.watchlistWriteFailed, let fresh = read.snapshot {
                 snapshot = PortfolioSaveRetry.merged(disk: fresh, memory: snapshot,
                                                      alarmsPending: SharedStorage.portfolioAlarmsPending)
             }

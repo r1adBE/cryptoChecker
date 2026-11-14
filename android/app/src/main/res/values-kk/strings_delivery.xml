@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Ескертулер қосулы – әлі фондық тексеру болған жоқ</string>
     <string name="alarm_reliability_notifications_off">Хабарландырулар өшірулі – ескертулер жетпейді</string>
     <string name="alarm_reliability_battery">Батарея үнемдеу ескерту тексерулерін тоқтатуы мүмкін</string>
+    <string name="alarm_reliability_offline">Байланыс жоқ – желі қалпына келгенде дабылдар тексеріледі</string>
     <string name="alarm_reliability_background_refresh">Фондық жаңарту өшірулі – ескертулер жетпеуі мүмкін</string>
 </resources>

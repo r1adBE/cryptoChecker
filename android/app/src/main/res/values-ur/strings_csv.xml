@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">پورٹ فولیو سے نکل جاتا ہے (نکلوائی)</string>
     <string name="portfolio_csv_import_choose_each">ہر نکلوائی کے لیے منتخب کریں کہ وہ کہاں گئی۔</string>
     <string name="portfolio_csv_import_columns">پہچانے گئے کالم: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">پہلے ہی درآمد شدہ: سطریں %1$s</string>
     <string name="portfolio_csv_import_confirm">امپورٹ کریں (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">دن/مہینہ</string>
     <string name="portfolio_csv_import_date_month_first">مہینہ/دن</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">اسٹیبل کوائنز (USDT، USDC …) کے مقابل ٹریڈز سواپ کے طور پر درج ہوتی ہیں – اسٹیبل کوائن آپ کی ہولڈنگز میں نظر آتا ہے۔</string>
     <string name="portfolio_csv_import_transfer_ambiguous">کئی مماثلتیں ممکن – درست والی منتخب کریں یا کوئی نہیں۔</string>
+    <string name="portfolio_csv_import_transfer_loose">زیادہ فیس یا دیر سے پہنچنا – تصدیق کریں کہ یہ وہی منتقلی ہے۔</string>
     <string name="portfolio_csv_import_transfer_fee">نیٹ ورک فیس: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ایک ٹرانسفر کے طور پر درج کریں</string>
     <string name="portfolio_csv_import_transfer_stored">پچھلے امپورٹ کا مقابل اندراج</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">روزانہ شرحیں اس ٹائم زون کے کیلنڈر دن کے مطابق: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">روزانہ شرحیں لوڈ نہیں ہو سکیں۔</string>
     <string name="portfolio_csv_import_anyway">پھر بھی امپورٹ کریں</string>
-    <string name="portfolio_csv_import_anyway_hint">روزانہ شرح کے بغیر قیمت یا فیس مستقل طور پر غائب رہتی ہے۔ دوبارہ کوشش کریں، یا پھر بھی امپورٹ کریں – تب ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔</string>
+    <string name="portfolio_csv_import_anyway_hint">روزانہ شرح کے بغیر، جب تک آپ اسے شامل نہ کریں قیمت یا فیس موجود نہیں رہتی۔ دوبارہ کوشش کریں یا پھر بھی امپورٹ کریں – ان لین دین پر ایک نوٹ ہوگا۔</string>
     <string name="portfolio_csv_note_price_no_rate">روزانہ شرح کے بغیر قیمت</string>
     <string name="portfolio_csv_note_fee_no_rate">روزانہ شرح کے بغیر فیس</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s کے لیے روزانہ شرحیں موجود نہیں، اس لیے دوبارہ کوشش سے فائدہ نہیں ہو گا۔ پھر بھی امپورٹ کریں تو ان لین دین کے ساتھ ایک نوٹ شامل ہو گا۔</string>

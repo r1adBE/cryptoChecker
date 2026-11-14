@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -116,6 +117,7 @@ internal fun PortfolioAddressSheet(
     var askPrivacy by remember { mutableStateOf(false) }
     var askRemove by remember { mutableStateOf<WatchedAddress?>(null) }
     var busy by remember { mutableStateOf(false) }
+    val reduceMotion = com.cryptochecker.app.ui.components.rememberReduceMotion()
     // Eigenes Banner im Blatt: das des Portfolio-Tabs läge hinter dem Blatt («entfernt» mit «Rückgängig», Sperre)
     val banner = rememberWatchlistBanner(rememberCoroutineScope())
     val resources = LocalResources.current
@@ -152,7 +154,8 @@ internal fun PortfolioAddressSheet(
                 null -> saveError = if (PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)) {
                     R.string.portfolio_storage_locked
                 } else {
-                    R.string.address_invalid
+                    // Die Prüfung der Adresse lief davor grün: Schreiben gescheitert, nicht «ungültig» (wie das Transaktionsblatt)
+                    R.string.portfolio_write_failed
                 }
             }
         }
@@ -279,23 +282,33 @@ internal fun PortfolioAddressSheet(
                     )
                 }
                 items(addresses, key = { "a:${it.id}" }) { a ->
-                    AddressRow(
-                        a, now, hideAmounts,
-                        overlap = WatchedAddressRules.overlap(a, ownCoins),
-                        retarget = remember(a, trades) { AddressWithdrawalMatch.retarget(a, trades) },
-                        onRemove = { askRemove = a },
-                        onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
-                        onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
-                        onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
-                        onCostLots = { lotsFor = a.id },
-                        onRetarget = { r ->
-                            viewModel.retargetTransfer(r.trade.id, r.to) { result ->
-                                if (result != PortfolioWriteResult.OK) banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
-                            }
-                        },
-                        trades = trades,
-                        allAddresses = addresses,
-                    )
+                    // Wischen zum Entfernen wie iOS: Rückfrage, die Zeile federt zurück (auch über das Menü der Zeile)
+                    SwipeActionsRow(
+                        enabled = true,
+                        favorite = false,
+                        onDelete = { askRemove = a },
+                        onToggleFavorite = null,
+                        reduceMotion = reduceMotion,
+                        confirmsDelete = true,
+                    ) {
+                        AddressRow(
+                            a, now, hideAmounts,
+                            overlap = WatchedAddressRules.overlap(a, ownCoins),
+                            retarget = remember(a, trades) { AddressWithdrawalMatch.retarget(a, trades) },
+                            onRemove = { askRemove = a },
+                            onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
+                            onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
+                            onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
+                            onCostLots = { lotsFor = a.id },
+                            onRetarget = { r ->
+                                viewModel.retargetTransfer(r.trade.id, r.to) { result ->
+                                    if (result != PortfolioWriteResult.OK) banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+                                }
+                            },
+                            trades = trades,
+                            allAddresses = addresses,
+                        )
+                    }
                 }
                 item(key = "form") {
                     Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = Spacing.sm)) {

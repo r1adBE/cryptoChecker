@@ -196,6 +196,12 @@ extension PriceRefresher {
         var report: RefreshReport? = nil
         /// Paare pausierter Börsen (`ExchangeBackoff`): nicht angefragt, Kurs und Zustand bleiben.
         var pausedIds: Set<Int64> = []
+        /// Alarme vorhanden, aber ohne Lease nicht geprüft: «pausiert, nichts geprüft», keine volle Prüfung.
+        var alarmsUnchecked = false
+        /// Ohne Netz gar nicht versucht (App): «übersprungen» statt «OK».
+        var skippedOffline = false
+        /// Paare, deren Abfrage am Netzbudget endete (`Fetched.budgetCut`): dann keine volle Prüfung.
+        var cutByBudget = 0
         /// %-Basis und Tagesbeginn, mit denen dieser volle Durchlauf gerechnet hat (nil bei einer
         /// Einzelabfrage) — der Aufrufer speichert ihn mit (`SharedStorage.changeStamp`).
         var changeStamp: ChangeStamp? = nil

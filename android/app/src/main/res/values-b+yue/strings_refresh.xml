@@ -82,6 +82,8 @@
     <string name="check_result_ok">正常</string>
     <string name="check_result_partial">部分</string>
     <string name="check_result_skipped">已略過</string>
+    <string name="check_result_paused">已暫停，未檢查任何項目</string>
+    <string name="check_result_offline">已略過（離線）</string>
     <string name="check_trigger_bgtask">背景</string>
     <string name="check_trigger_exact">準時</string>
     <string name="check_trigger_foreground">App</string>

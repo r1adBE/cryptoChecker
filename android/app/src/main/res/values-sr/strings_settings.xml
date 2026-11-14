@@ -62,7 +62,7 @@
     <string name="settings_price_pairs_hint">Изабери који парови приказују цену на траци обавештења.</string>
     <string name="settings_quiet_hours">Тихи сати</string>
     <string name="settings_quiet_hours_from">Од</string>
-    <string name="settings_quiet_hours_hint">Између %1$s и %2$s аларми чекају крај тихих сати и тада се оглашавају са звуком. Остала обавештења стижу тихо, без говора.</string>
+    <string name="settings_quiet_hours_hint">Између %1$s и %2$s аларми чекају крај тихих сати и тада се оглашавају са звуком, ако је услов тада још испуњен. Остала обавештења стижу тихо, без говора.</string>
     <string name="settings_quiet_hours_to">До</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -319,6 +319,8 @@
     <string name="settings_address_server_active">У употреби: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Није постављено – користе се јавни чворови</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Подешавања су враћена на подразумевана, па није познато да ли је коришћен сопствени биткоин сервер. Биткоин адресе и xpub кључеви се не проверавају док поново не унесете сервер или не изаберете јавне чворове.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Дозвољене су само https:// адресе</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

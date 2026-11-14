@@ -91,6 +91,8 @@
     <string name="check_result_ok">சரி</string>
     <string name="check_result_partial">பகுதியளவு</string>
     <string name="check_result_skipped">தவிர்க்கப்பட்டது</string>
+    <string name="check_result_paused">இடைநிறுத்தப்பட்டது, எதுவும் சரிபார்க்கப்படவில்லை</string>
+    <string name="check_result_offline">தவிர்க்கப்பட்டது (ஆஃப்லைன்)</string>
     <string name="check_trigger_bgtask">பின்னணி</string>
     <string name="check_trigger_exact">சரியான நேரத்தில்</string>
     <string name="check_trigger_foreground">ஆப்</string>

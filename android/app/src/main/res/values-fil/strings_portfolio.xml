@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Kabuuan</string>
     <string name="portfolio_hide_amounts">Itago ang mga halaga</string>
-    <string name="portfolio_hide_amounts_hint">Ipinapakita bilang ••• ang mga halaga at value sa portfolio at sa portfolio widget – makikita pa rin ang mga porsiyento.</string>
+    <string name="portfolio_hide_amounts_hint">Ipinapakita bilang ••• ang mga halaga at value sa portfolio, sa portfolio widget, sa relo at sa mga portfolio alert – makikita pa rin ang mga porsiyento.</string>
     <string name="portfolio_invested">Cost basis</string>
     <string name="portfolio_total_no_fx">Walang exchange rate para sa %1$s – mga halaga sa USDT</string>
     <string name="portfolio_total_value">Kabuuang value</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">I-discard ang mga pagbabago?</string>
     <string name="portfolio_edit_tx">I-edit ang transaksyon</string>
     <string name="portfolio_invalid">Maglagay ng valid na numerong mas malaki sa 0.</string>
+    <string name="number_ambiguous">Hindi malinaw: %1$s o %2$s? I-type ang isa sa dalawa.</string>
     <string name="portfolio_oversold">Lumalampas ang mga pagbenta sa mga hawak – pakitingnan ang mga transaksyon.</string>
     <string name="portfolio_sell">Magbenta</string>
     <string name="portfolio_sell_exceeds">Higit sa mga hawak mo (%1$s)</string>

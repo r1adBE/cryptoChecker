@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">అలర్ట్‌లు ఆన్ – ఇంకా బ్యాక్‌గ్రౌండ్ తనిఖీ జరగలేదు</string>
     <string name="alarm_reliability_notifications_off">నోటిఫికేషన్‌లు ఆఫ్ – అలర్ట్‌లు చేరవు</string>
     <string name="alarm_reliability_battery">బ్యాటరీ ఆదా అలర్ట్ తనిఖీలను ఆపివేయవచ్చు</string>
+    <string name="alarm_reliability_offline">కనెక్షన్ లేదు – నెట్‌వర్క్ తిరిగి వచ్చాక అలారాలు తనిఖీ అవుతాయి</string>
     <string name="alarm_reliability_background_refresh">బ్యాక్‌గ్రౌండ్ యాప్ రిఫ్రెష్ ఆఫ్ – అలర్ట్‌లు రాకపోవచ్చు</string>
 </resources>

@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Kies welke paren hun koers in de meldingenbalk tonen.</string>
     <string name="settings_quiet_hours">Stille uren</string>
     <string name="settings_quiet_hours_from">Van</string>
-    <string name="settings_quiet_hours_hint">Tussen %1$s en %2$s wachten alarmen tot de stille uren voorbij zijn en gaan dan af met geluid. Andere meldingen komen geluidloos binnen, zonder spraak.</string>
+    <string name="settings_quiet_hours_hint">Tussen %1$s en %2$s wachten alarmen tot de stille uren voorbij zijn en gaan dan af met geluid, als de voorwaarde dan nog geldt. Andere meldingen komen geluidloos binnen, zonder spraak.</string>
     <string name="settings_quiet_hours_to">Tot</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Actief: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Niet ingesteld – openbare nodes worden gebruikt</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">De instellingen zijn teruggezet, dus het is onbekend of je je eigen Bitcoin-server gebruikte. Bitcoin-adressen en xpub-sleutels worden niet opgevraagd totdat je je server opnieuw invoert of openbare nodes kiest.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Alleen https://-adressen zijn toegestaan</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

@@ -72,6 +72,44 @@ class ExchangeFailureParityTest {
         }
     }
 
+    /** Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab (N3-08). */
+    @Test
+    fun pairListAborts() {
+        val cases = data["pairListAborts"].list()
+        check(cases.isNotEmpty())
+        cases.forEach { raw ->
+            val c = raw.obj()
+            assertEquals(
+                "pairListAborts: $c",
+                c["aborts"],
+                pairListCallAborts(c["call"].num()!!.toInt(), c["allRequired"] as Boolean, failure(c["failure"])!!),
+            )
+        }
+    }
+
+    /** Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht (N3-05). */
+    @Test
+    fun pairListAttempt() {
+        val cases = data["pairListAttempt"].list()
+        check(cases.isNotEmpty())
+        cases.forEach { raw ->
+            val c = raw.obj()
+            assertEquals("pairListAttempt: $c", c["remembers"], remembersPairListAttempt(failure(c["failure"])))
+        }
+    }
+
+    /** HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»; N3-07). */
+    @Test
+    fun accessDenied() {
+        val cases = data["accessDenied"].list()
+        check(cases.isNotEmpty())
+        cases.forEach { raw ->
+            val c = raw.obj()
+            val text = c["text"] as String?
+            assertEquals("accessDenied: $text", c["expected"], RefreshReportLogic.isAccessDenied(text))
+        }
+    }
+
     @Test
     fun confirmedBySingle() {
         data["confirmedBySingle"].list().forEach { raw ->

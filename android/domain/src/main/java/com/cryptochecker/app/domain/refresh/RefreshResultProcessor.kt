@@ -83,17 +83,21 @@ class RefreshResultProcessor constructor(
         return { lock -> after(postPrices(lock, pending)) }
     }
 
+    /** Zeigen; neuer Bezug nur für gezeigte Paare, die nicht bloss wieder angeheftet wurden ([PendingPrices.restored]). */
     private suspend fun showAndRecord(pending: PendingPrices): Int {
         val notified = ArrayList<Pair<Long, Double>>()
+        var count = 0
         if (pending.watches.isNotEmpty()) {
             val shown = notifier.showPrices(pending.watches, ongoing = pending.ongoing)
             for (watch in pending.watches) {
                 val price = watch.lastPrice ?: continue
-                if (watch.id in shown) notified += watch.id to price
+                if (watch.id !in shown) continue
+                count++
+                if (watch.id !in pending.restored) notified += watch.id to price
             }
         }
         watchRepository.setNotifiedPrices(notified, pending.now)
-        return notified.size
+        return count
     }
 
     /** [process] ohne Sperr-Nachweis; Vermerke «nicht geprüft» gesammelt ([AlarmCheckStatus.batch]). */
@@ -175,9 +179,13 @@ class RefreshResultProcessor constructor(
         // sonst jedes Paar je Durchlauf einen Aufruf an den Systemdienst (cancel).
         val shownNotifications = notifier.activeNotificationIds()
 
-        // Ohne Kurs gibt es nichts zu melden (entfernt wird gesammelt nach den Alarmen).
-        val priceCancels = errorWrites.mapTo(ArrayList()) { it.id }
+        // Kurs-Meldung entfernen (gesammelt nach den Alarmen) nur, wenn das Paar nicht mehr gehandelt wird bzw. die
+        // Börse stillgelegt ist. Ein gewöhnlicher Fehler (Zeit, 5xx, Netz) lässt sie stehen: Der Meldekurs bleibt, eine
+        // entfernte Meldung käme sonst erst nach der nächsten Bewegung um die Schwelle wieder (wie iOS).
+        val priceCancels = errorWrites.filter { fetched[it.id]?.notTraded == true }.mapTo(ArrayList()) { it.id }
         val pricePosts = ArrayList<WatchEntity>()
+        // «Nicht wegwischbar», aber verschwunden (Neustart, Update, Wegwischen ab Android 14): wieder zeigen, alter Bezug
+        val priceRestores = HashSet<Long>()
 
         val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) emptyMap()
         else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
@@ -221,8 +229,13 @@ class RefreshResultProcessor constructor(
             }
             alarms += triggered
 
-            when (effects.priceUpdate(watch, settings)) {
+            val priceShown = !settings.ongoingNotifications || notifier.priceMaybeShown(watch.id, shownNotifications)
+            when (effects.priceUpdate(watch, settings, shown = priceShown)) {
                 RefreshEffects.PriceUpdate.SHOW -> pricePosts += watch
+                RefreshEffects.PriceUpdate.RESTORE -> {
+                    pricePosts += watch
+                    priceRestores += watch.id
+                }
                 RefreshEffects.PriceUpdate.CANCEL -> priceCancels += watch.id
                 RefreshEffects.PriceUpdate.NONE -> Unit
             }
@@ -233,7 +246,7 @@ class RefreshResultProcessor constructor(
         // Sammelmeldung (Android verwirft ab rund 50 offenen Mitteilungen je App weitere still).
         // Neuer Bezugspunkt nur für Paare, deren Kurs jetzt gezeigt wird.
         notifier.cancelPrices(priceCancels, shownNotifications)
-        val pending = PendingPrices(pricePosts, settings.ongoingNotifications, now)
+        val pending = PendingPrices(pricePosts, settings.ongoingNotifications, now, priceRestores)
         val shown = if (deferPrices) 0 else showAndRecord(pending)
 
         recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
@@ -305,5 +318,11 @@ class RefreshResultProcessor constructor(
     )
 
     /** Kurs-Meldungen eines Durchlaufs (Reihenfolge = Vorrang), gemeldet mit [ongoing], Meldekurs-Zeit [now]. */
-    class PendingPrices(val watches: List<WatchEntity>, val ongoing: Boolean, val now: Long)
+    /** Zu zeigende Kurs-Mitteilungen; [restored] = nur wieder angeheftet (Bezug bleibt, [PriceUpdateRule]). */
+    class PendingPrices(
+        val watches: List<WatchEntity>,
+        val ongoing: Boolean,
+        val now: Long,
+        val restored: Set<Long> = emptySet(),
+    )
 }

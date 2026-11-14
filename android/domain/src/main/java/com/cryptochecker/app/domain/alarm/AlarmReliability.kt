@@ -47,6 +47,8 @@ object AlarmReliability {
          * geplanten Läufe gescheitert und das seit länger als [staleMillis] ([AlarmReadiness.Input.failingSince]).
          */
         STALE("stale"),
+        /** Prüfung zu alt, der neueste geplante Lauf fand kein Netz ([AlarmReadiness.Input.offline]): Grund Netz, nicht Akku. */
+        OFFLINE("offline"),
     }
 
     /** [warn]: Bernstein statt Grau. */
@@ -75,9 +77,11 @@ object AlarmReliability {
             // Verspätung: bis dahin die ruhige Zeile.
             val since = input.failingSince ?: input.lastFailedBackgroundCheck
             val overdue = since != null && !withinLimit(since, input)
-            return Status(if (overdue) Kind.STALE else Kind.NEVER, warn = overdue)
+            return Status(if (!overdue) Kind.NEVER else if (input.offline) Kind.OFFLINE else Kind.STALE, warn = overdue)
         }
         if (withinLimit(at, input)) return Status(Kind.RECENT, warn = false)
+        // Zu alt, aber der letzte geplante Lauf fand kein Netz: das Netz ist der Grund (nicht Akku)
+        if (input.offline) return Status(Kind.OFFLINE, warn = true)
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein aber nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung
         val batteryLikely = android && (!input.batteryUnrestricted || input.oemVendor != null)

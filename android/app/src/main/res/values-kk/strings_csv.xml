@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Портфельден шығады (шығару)</string>
     <string name="portfolio_csv_import_choose_each">Әр шығару қайда кеткенін таңдаңыз.</string>
     <string name="portfolio_csv_import_columns">Танылған бағандар: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Бұрын импортталған: жолдар %1$s</string>
     <string name="portfolio_csv_import_confirm">Импорттау (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Күн/Ай</string>
     <string name="portfolio_csv_import_date_month_first">Ай/Күн</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Стейблкоиндерге (USDT, USDC …) қарсы сауда айырбас ретінде жазылады – стейблкоин активтеріңізде пайда болады.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Бірнеше сәйкестік мүмкін – дұрысын таңдаңыз немесе ешқайсысын таңдамаңыз.</string>
+    <string name="portfolio_csv_import_transfer_loose">Жоғары комиссия немесе кеш түсу – бұл сол аударым екенін тексеріңіз.</string>
     <string name="portfolio_csv_import_transfer_fee">Желі комиссиясы: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Бір аударым ретінде жазу</string>
     <string name="portfolio_csv_import_transfer_stored">Бұрынғы импорттағы қарсы жазба</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Күндік бағамдар осы уақыт белдеуінің күнтізбелік күні бойынша: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Күндік бағамдарды жүктеу мүмкін болмады.</string>
     <string name="portfolio_csv_import_anyway">Бәрібір импорттау</string>
-    <string name="portfolio_csv_import_anyway_hint">Күндік бағамсыз баға немесе комиссия біржола жетіспейді. Қайталап көріңіз немесе бәрібір импорттаңыз – ол транзакцияларға ескертпе қосылады.</string>
+    <string name="portfolio_csv_import_anyway_hint">Күнделікті бағамсыз баға немесе комиссия сіз қосқанша жоқ болады. Қайталап көріңіз немесе бәрібір импорттаңыз – ол транзакцияларға ескертпе қосылады.</string>
     <string name="portfolio_csv_note_price_no_rate">Күндік бағамсыз баға</string>
     <string name="portfolio_csv_note_fee_no_rate">Күндік бағамсыз комиссия</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s үшін күндік бағамдар жоқ, сондықтан қайталау көмектеспейді. Бәрібір импорттасаңыз, ол транзакцияларға ескертпе қосылады.</string>

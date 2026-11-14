@@ -91,6 +91,8 @@
     <string name="check_result_ok">ಸರಿ</string>
     <string name="check_result_partial">ಭಾಗಶಃ</string>
     <string name="check_result_skipped">ಸ್ಕಿಪ್ ಮಾಡಲಾಗಿದೆ</string>
+    <string name="check_result_paused">ವಿರಾಮ, ಏನೂ ಪರಿಶೀಲಿಸಿಲ್ಲ</string>
+    <string name="check_result_offline">ಬಿಟ್ಟುಬಿಡಲಾಗಿದೆ (ಆಫ್‌ಲೈನ್)</string>
     <string name="check_trigger_bgtask">ಹಿನ್ನೆಲೆ</string>
     <string name="check_trigger_exact">ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ</string>
     <string name="check_trigger_foreground">ಆ್ಯಪ್</string>

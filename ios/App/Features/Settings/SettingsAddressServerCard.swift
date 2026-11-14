@@ -10,6 +10,9 @@ struct SettingsAddressServerCard: View {
     @StateObject private var testRun = AddressServerTestRun()
     /// Rückfrage vor dem Wechsel auf öffentliche Knoten (Bitcoin-Adressen/xpub vorhanden).
     @State private var askPublic = false
+    /// Server unbekannt (Einstellungen ersetzt, `StorageRecoveryNotice.addressServerUnknown`): Bitcoin-Adressen ruhen,
+    /// bis ein Server eingetragen oder öffentliche Knoten bestätigt sind — wie Android.
+    @State private var serverUnknown = false
 
     /// Ergebnis von «Testen» samt geprüfter URL (angezeigt nur zur gleichen Eingabe, `AddressServerRules.testShown`).
     enum TestState: Equatable {
@@ -58,21 +61,51 @@ struct SettingsAddressServerCard: View {
                 .font(.body)
                 .padding(.vertical, Spacing.sm)
                 SettingsHint(text: statusText(saved), top: 0)
+                if serverUnknown { unknownHint }
                 testResult(check.url)
             }
             .padding(.bottom, Spacing.sm)
         }
         .settingsAnchor("portfolio.address_server")
         .alert(L("settings_address_server_public_title"), isPresented: $askPublic) {
-            Button(L("settings_address_server_public_confirm")) { save(nil) }
+            Button(L("settings_address_server_public_confirm")) {
+                // Server unbekannt und keiner eingetragen: nur bestätigen; sonst den eigenen Server entfernen
+                if serverUnknown && data.settings.addressServerBtc == nil { confirmPublic() } else { save(nil) }
+            }
             // «Abbrechen» behält den eigenen Server
             Button(L("action_cancel"), role: .cancel) {}
         } message: {
             Text(publicMessage)
         }
-        .onAppear { input = data.settings.addressServerBtc ?? "" }
+        .onAppear {
+            input = data.settings.addressServerBtc ?? ""
+            serverUnknown = StorageRecoveryNotice.addressServerUnknown()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: StorageRecoveryNotice.changed)) { _ in
+            serverUnknown = StorageRecoveryNotice.addressServerUnknown()
+        }
         // Von aussen geändert (z. B. Sicherung wiederhergestellt): Feld nachziehen
         .onChange(of: data.settings.addressServerBtc) { _, value in input = value ?? "" }
+    }
+
+    /// Einstellungen ersetzt: unbekannt, ob ein eigener Server eingetragen war — Hinweis und «Öffentliche Knoten nutzen».
+    private var unknownHint: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(L("settings_address_server_unknown"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.warningText)
+                .fixedSize(horizontal: false, vertical: true)
+            Button(L("settings_address_server_public_confirm")) { askPublic = true }
+                .font(.body)
+                .padding(.vertical, Spacing.sm)
+        }
+    }
+
+    /// Öffentliche Knoten bestätigt (nach Rückfrage): Bitcoin-Adressen gehen wieder an die öffentlichen Knoten.
+    private func confirmPublic() {
+        StorageRecoveryNotice.confirmAddressServer()
+        serverUnknown = false
+        Haptics.play(.success)
     }
 
     /// Testergebnis nur zur aktuell geprüften Eingabe (`inputUrl`).
@@ -136,6 +169,8 @@ struct SettingsAddressServerCard: View {
     private func save(_ url: String?) {
         resetTest()
         data.settings.addressServerBtc = url
+        // Server eingetragen: nach ersetzten Einstellungen nicht mehr unbekannt
+        if url != nil { StorageRecoveryNotice.confirmAddressServer() }
         input = url ?? ""
         if let url { Task { await WatchedAddressSource.shared.clearServerPauses(url) } }
         Haptics.play(.success)

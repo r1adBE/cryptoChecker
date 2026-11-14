@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Gedeeltelijk</string>
     <string name="check_result_skipped">Overgeslagen</string>
+    <string name="check_result_paused">Gepauzeerd, niets gecontroleerd</string>
+    <string name="check_result_offline">Overgeslagen (offline)</string>
     <string name="check_trigger_bgtask">Achtergrond</string>
     <string name="check_trigger_exact">Op tijd</string>
     <string name="check_trigger_foreground">App</string>

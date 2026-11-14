@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Нийт</string>
     <string name="portfolio_hide_amounts">Дүнг нуух</string>
-    <string name="portfolio_hide_amounts_hint">Багц болон багцын виджет дэх дүн, үнэ цэнийг ••• гэж харуулна – хувь харагдсаар байна.</string>
+    <string name="portfolio_hide_amounts_hint">Багц, багцын виджет, цаг болон багцын сэрэмжлүүлэг дэх дүн, үнэ цэнийг ••• гэж харуулна – хувь харагдсаар байна.</string>
     <string name="portfolio_invested">Өртгийн суурь</string>
     <string name="portfolio_total_no_fx">%1$s-ийн валютын ханш алга – дүн USDT-ээр</string>
     <string name="portfolio_total_value">Нийт үнэ цэнэ</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Өөрчлөлтийг хаях уу?</string>
     <string name="portfolio_edit_tx">Гүйлгээг засах</string>
     <string name="portfolio_invalid">0-ээс их зөв тоо оруулна уу.</string>
+    <string name="number_ambiguous">Тодорхойгүй: %1$s уу, %2$s уу? Хоёрын аль нэгийг бичнэ үү.</string>
     <string name="portfolio_oversold">Борлуулалт хөрөнгөөс давсан – гүйлгээгээ шалгана уу.</string>
     <string name="portfolio_sell">Зарах</string>
     <string name="portfolio_sell_exceeds">Таны хөрөнгөөс их (%1$s)</string>

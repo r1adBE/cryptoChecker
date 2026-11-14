@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">از سبد خارج می‌شود (برداشت)</string>
     <string name="portfolio_csv_import_choose_each">برای هر برداشت انتخاب کن کجا رفت.</string>
     <string name="portfolio_csv_import_columns">ستون‌های شناسایی‌شده: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">از قبل وارد شده: سطرهای %1$s</string>
     <string name="portfolio_csv_import_confirm">وارد کردن (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">روز/ماه</string>
     <string name="portfolio_csv_import_date_month_first">ماه/روز</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">خرید و فروش در برابر استیبل‌کوین‌ها (USDT، USDC …) به‌صورت تبادل ثبت می‌شود – استیبل‌کوین در دارایی تو نمایش داده می‌شود.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">چند تطابق ممکن است – درست را انتخاب کن یا هیچ‌کدام.</string>
+    <string name="portfolio_csv_import_transfer_loose">کارمزد بالا یا رسیدن دیرهنگام – بررسی کن که همان انتقال باشد.</string>
     <string name="portfolio_csv_import_transfer_fee">کارمزد شبکه: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ثبت به‌عنوان یک انتقال</string>
     <string name="portfolio_csv_import_transfer_stored">طرف مقابل از یک وارد کردن قبلی</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">نرخ‌های روزانه بر اساس روز تقویمی در: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">بارگیری نرخ‌های روزانه ممکن نشد.</string>
     <string name="portfolio_csv_import_anyway">در هر صورت وارد کردن</string>
-    <string name="portfolio_csv_import_anyway_hint">بدون نرخ روزانه، قیمت یا کارمزد برای همیشه خالی می‌ماند. دوباره تلاش کن یا در هر صورت وارد کن – آن تراکنش‌ها یادداشت می‌گیرند.</string>
+    <string name="portfolio_csv_import_anyway_hint">بدون نرخ روزانه، قیمت یا کارمزد تا وقتی آن را اضافه کنید وجود ندارد. دوباره امتحان کنید یا به هر حال وارد کنید – آن تراکنش‌ها یادداشت می‌گیرند.</string>
     <string name="portfolio_csv_note_price_no_rate">قیمت بدون نرخ روزانه</string>
     <string name="portfolio_csv_note_fee_no_rate">کارمزد بدون نرخ روزانه</string>
     <string name="portfolio_csv_import_no_rates_for">برای %1$s نرخ روزانه‌ای وجود ندارد، پس تلاش دوباره کمکی نمی‌کند. اگر در هر صورت وارد کنی، آن تراکنش‌ها یادداشت می‌گیرند.</string>

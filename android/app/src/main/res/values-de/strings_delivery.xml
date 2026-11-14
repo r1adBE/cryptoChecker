@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarme an – noch keine Prüfung im Hintergrund</string>
     <string name="alarm_reliability_notifications_off">Benachrichtigungen aus – Alarme kommen nicht an</string>
     <string name="alarm_reliability_battery">Akkusparen kann die Prüfung der Alarme stoppen</string>
+    <string name="alarm_reliability_offline">Kein Netz – Alarme werden geprüft, sobald Verbindung besteht</string>
     <string name="alarm_reliability_background_refresh">Hintergrundaktualisierung aus – Alarme kommen evtl. nicht an</string>
 </resources>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Arka plan</string>
-    <string name="widget_configure_hint">Arka planı ve opaklığı seç. Renk uygulamayı izler. Widget tüm listeyi gösterir; uygulamayı açmak için bir satıra dokun.</string>
+    <string name="widget_configure_hint">Arka planı ve opaklığı seç. Renk uygulamayı izler. Widget listeni veya aşağıda seçilen grubu gösterir; uygulamayı açmak için bir satıra dokun.</string>
     <string name="widget_configure_title">Widget\'ı ayarla</string>
     <string name="widget_description">İzleme listendeki bir çiftin fiyatını gösterir.</string>
     <string name="widget_empty">İzleme listesinde henüz çift yok.</string>

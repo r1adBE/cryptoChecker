@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">សរុប</string>
     <string name="portfolio_hide_amounts">លាក់ចំនួន</string>
-    <string name="portfolio_hide_amounts_hint">បង្ហាញចំនួន និងតម្លៃនៅក្នុងផលប័ត្រ និងវិដជិតផលប័ត្រជា ••• – ភាគរយនៅតែមើលឃើញ។</string>
+    <string name="portfolio_hide_amounts_hint">បង្ហាញចំនួន និងតម្លៃនៅក្នុងផលប័ត្រ វិដជិតផលប័ត្រ នៅលើនាឡិកា និងក្នុងការជូនដំណឹងផលប័ត្រជា ••• – ភាគរយនៅតែមើលឃើញ។</string>
     <string name="portfolio_invested">តម្លៃដើម</string>
     <string name="portfolio_total_no_fx">គ្មានអត្រាប្តូរប្រាក់សម្រាប់ %1$s – ចំនួនជា USDT</string>
     <string name="portfolio_total_value">តម្លៃសរុប</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">បោះបង់ការផ្លាស់ប្តូរមែនទេ?</string>
     <string name="portfolio_edit_tx">កែសម្រួលប្រតិបត្តិការ</string>
     <string name="portfolio_invalid">បញ្ចូលលេខត្រឹមត្រូវដែលធំជាង 0។</string>
+    <string name="number_ambiguous">មិនច្បាស់៖ %1$s ឬ %2$s? សូមវាយមួយក្នុងចំណោមទាំងពីរ។</string>
     <string name="portfolio_oversold">ការលក់លើសការកាន់កាប់ – សូមពិនិត្យប្រតិបត្តិការ។</string>
     <string name="portfolio_sell">លក់</string>
     <string name="portfolio_sell_exceeds">លើសការកាន់កាប់របស់អ្នក (%1$s)</string>

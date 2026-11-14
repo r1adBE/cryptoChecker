@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Esce dal portafoglio (prelievo)</string>
     <string name="portfolio_csv_import_choose_each">Scegli per ogni prelievo dove è andato.</string>
     <string name="portfolio_csv_import_columns">Colonne riconosciute: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Già importato: righe %1$s</string>
     <string name="portfolio_csv_import_confirm">Importa (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Giorno/Mese</string>
     <string name="portfolio_csv_import_date_month_first">Mese/Giorno</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Acquisti e vendite contro stablecoin (USDT, USDC …) vengono registrati come scambi – lo stablecoin compare nel saldo.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Più corrispondenze possibili – scegli quella giusta o nessuna.</string>
+    <string name="portfolio_csv_import_transfer_loose">Commissione alta o arrivo in ritardo – controlla che sia lo stesso trasferimento.</string>
     <string name="portfolio_csv_import_transfer_fee">Commissione di rete: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Registra come un unico trasferimento</string>
     <string name="portfolio_csv_import_transfer_stored">Controparte da un import precedente</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">Cambi giornalieri secondo il giorno di calendario in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Impossibile caricare i cambi giornalieri.</string>
     <string name="portfolio_csv_import_anyway">Importa comunque</string>
-    <string name="portfolio_csv_import_anyway_hint">Senza cambio giornaliero, il prezzo o la commissione mancano in modo permanente. Riprova oppure importa comunque: quelle transazioni riceveranno una nota.</string>
+    <string name="portfolio_csv_import_anyway_hint">Senza un cambio giornaliero, prezzo o commissione mancano finché non li aggiungi. Riprova o importa comunque – quelle transazioni riceveranno una nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Prezzo senza cambio giornaliero</string>
     <string name="portfolio_csv_note_fee_no_rate">Commissione senza cambio giornaliero</string>
     <string name="portfolio_csv_import_no_rates_for">Non esistono cambi giornalieri per %1$s, quindi riprovare non serve. Se importi comunque, quelle transazioni riceveranno una nota.</string>

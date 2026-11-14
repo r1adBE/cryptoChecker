@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Amaga els imports</string>
-    <string name="portfolio_hide_amounts_hint">Mostra les quantitats i els valors de la cartera i del widget de cartera com a ••• – els percentatges continuen visibles.</string>
+    <string name="portfolio_hide_amounts_hint">Mostra les quantitats i els valors de la cartera, del widget de cartera, del rellotge i de les alertes de cartera com a ••• – els percentatges continuen visibles.</string>
     <string name="portfolio_invested">Cost d\'adquisició</string>
     <string name="portfolio_total_no_fx">No hi ha tipus de canvi per a %1$s – imports en USDT</string>
     <string name="portfolio_total_value">Valor total</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Vols descartar els canvis?</string>
     <string name="portfolio_edit_tx">Edita la transacció</string>
     <string name="portfolio_invalid">Introdueix un nombre vàlid més gran que 0.</string>
+    <string name="number_ambiguous">No és clar: %1$s o %2$s? Escriu una de les dues formes.</string>
     <string name="portfolio_oversold">Les vendes superen les tinences – revisa les transaccions.</string>
     <string name="portfolio_sell">Venda</string>
     <string name="portfolio_sell_exceeds">Més que les teves tinences (%1$s)</string>

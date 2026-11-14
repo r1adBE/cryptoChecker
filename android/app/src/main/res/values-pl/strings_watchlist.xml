@@ -15,6 +15,7 @@
     <string name="watchlist_refresh_report">Ostatnie odświeżenie</string>
     <string name="watchlist_symbols_legend">Objaśnienie symboli</string>
     <string name="watchlist_symbols_legend_alarms">Aktywne alarmy i ich liczba</string>
+    <string name="watchlist_symbols_legend_warning">Kurs nieaktualny lub giełda niedostępna</string>
     <string name="watchlist_refresh_report_empty">Brak zestawienia: nie było jeszcze pełnego odświeżenia. Dotknij odśwież i poczekaj, aż wskaźnik się zatrzyma.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Nieaktualne: %1$d z %2$d</item>
@@ -293,6 +294,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zamknij powiadomienie</string>
     <string name="watchlist_missing_logos_explain">Dla tych monet nie ma dostępnego logo. Aplikacja pokazuje ich inicjały.</string>
+    <string name="watchlist_missing_logos_pending">jeszcze nie wczytano</string>
+    <string name="watchlist_missing_logos_explain_pending">Loga oznaczone jako jeszcze niewczytane pojawią się przy następnej synchronizacji, niektóre tylko przez Wi-Fi. Dla pozostałych monet logo jest niedostępne. Aplikacja pokazuje ich inicjały.</string>
     <string name="exchange_retiring_notice">Od %2$s %1$s nie będzie już podawać publicznych cen. Wybierz inną giełdę dla tych monet.</string>
     <string name="exchange_retiring_reason">Od %2$s %1$s nie będzie już podawać cen</string>
     <string name="exchange_retired_since">Od %2$s %1$s nie podaje już cen</string>

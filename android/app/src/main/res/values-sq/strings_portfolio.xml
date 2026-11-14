@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Gjithsej</string>
     <string name="portfolio_hide_amounts">Fshih shumat</string>
-    <string name="portfolio_hide_amounts_hint">Shfaq shumat dhe vlerat në portofol dhe në widget-in e portofolit si ••• – përqindjet mbeten të dukshme.</string>
+    <string name="portfolio_hide_amounts_hint">Shfaq shumat dhe vlerat në portofol, në widget-in e portofolit, në orë dhe në alarmet e portofolit si ••• – përqindjet mbeten të dukshme.</string>
     <string name="portfolio_invested">Kostoja e blerjes</string>
     <string name="portfolio_total_no_fx">Asnjë kurs këmbimi për %1$s – shumat në USDT</string>
     <string name="portfolio_total_value">Vlera totale</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Të hidhen poshtë ndryshimet?</string>
     <string name="portfolio_edit_tx">Ndrysho transaksionin</string>
     <string name="portfolio_invalid">Fut një numër të vlefshëm më të madh se 0.</string>
+    <string name="number_ambiguous">E paqartë: %1$s apo %2$s? Shkruaj njërën nga të dyja.</string>
     <string name="portfolio_oversold">Shitjet tejkalojnë zotërimet – kontrollo transaksionet.</string>
     <string name="portfolio_sell">Shitje</string>
     <string name="portfolio_sell_exceeds">Më shumë se zotërimet e tua (%1$s)</string>

@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">মোট</string>
     <string name="portfolio_hide_amounts">পরিমাণ লুকান</string>
-    <string name="portfolio_hide_amounts_hint">পোর্টফোলিও ও পোর্টফোলিও উইজেটে পরিমাণ ও মূল্য ••• হিসেবে দেখায় – শতাংশ দেখা যায়।</string>
+    <string name="portfolio_hide_amounts_hint">পোর্টফোলিও, পোর্টফোলিও উইজেট, ঘড়িতে এবং পোর্টফোলিও অ্যালার্টে পরিমাণ ও মূল্য ••• হিসেবে দেখায় – শতাংশ দেখা যায়।</string>
     <string name="portfolio_invested">ক্রয়মূল্য</string>
     <string name="portfolio_total_no_fx">%1$s-এর জন্য কোনো বিনিময় হার নেই – পরিমাণ USDT-তে</string>
     <string name="portfolio_total_value">মোট মূল্য</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">পরিবর্তন বাতিল করবেন?</string>
     <string name="portfolio_edit_tx">লেনদেন সম্পাদনা</string>
     <string name="portfolio_invalid">0-এর চেয়ে বড় একটি বৈধ সংখ্যা লিখুন।</string>
+    <string name="number_ambiguous">অস্পষ্ট: %1$s নাকি %2$s? দুটির একটি লিখুন।</string>
     <string name="portfolio_oversold">বিক্রি হোল্ডিংয়ের চেয়ে বেশি – অনুগ্রহ করে লেনদেনগুলো যাচাই করুন।</string>
     <string name="portfolio_sell">বেচা</string>
     <string name="portfolio_sell_exceeds">আপনার হোল্ডিংয়ের চেয়ে বেশি (%1$s)</string>

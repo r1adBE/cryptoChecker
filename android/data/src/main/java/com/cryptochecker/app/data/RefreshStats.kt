@@ -140,6 +140,14 @@ class RefreshStats @Inject constructor(
      */
     val exchangePauses: StateFlow<Map<String, Long>> = _exchangePauses.asStateFlow()
 
+    /** Netz wieder da: Pausen wegen Zeitüberschreitung verwerfen, Bremsen-Pausen behalten ([ExchangeBackoff.withoutTimeoutPauses]). */
+    @Synchronized
+    fun dropTimeoutPauses() {
+        val states = backoffStates()
+        val kept = ExchangeBackoff.withoutTimeoutPauses(states)
+        if (kept != states) setBackoffStates(kept)
+    }
+
     @Synchronized
     fun setBackoffStates(states: Map<String, ExchangeBackoff.State>) {
         prefs.edit {

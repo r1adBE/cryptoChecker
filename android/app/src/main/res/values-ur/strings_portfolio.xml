@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">کل</string>
     <string name="portfolio_hide_amounts">رقوم چھپائیں</string>
-    <string name="portfolio_hide_amounts_hint">پورٹ فولیو اور پورٹ فولیو ویجیٹ میں رقوم اور مالیت ••• کے طور پر دکھاتا ہے – فیصد نظر آتے رہتے ہیں۔</string>
+    <string name="portfolio_hide_amounts_hint">پورٹ فولیو، پورٹ فولیو ویجیٹ، گھڑی پر اور پورٹ فولیو الرٹس میں رقوم اور مالیت ••• کے طور پر دکھاتا ہے – فیصد نظر آتے رہتے ہیں۔</string>
     <string name="portfolio_invested">لاگت کی بنیاد</string>
     <string name="portfolio_total_no_fx">%1$s کے لیے شرح تبادلہ نہیں – رقوم USDT میں</string>
     <string name="portfolio_total_value">کل مالیت</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">تبدیلیاں رد کریں؟</string>
     <string name="portfolio_edit_tx">لین دین میں ترمیم</string>
     <string name="portfolio_invalid">0 سے بڑا کوئی درست عدد درج کریں۔</string>
+    <string name="number_ambiguous">غیر واضح: %1$s یا %2$s؟ دونوں میں سے ایک لکھیں۔</string>
     <string name="portfolio_oversold">فروخت ہولڈنگز سے زیادہ ہے – براہ کرم لین دین چیک کریں۔</string>
     <string name="portfolio_sell">فروخت</string>
     <string name="portfolio_sell_exceeds">آپ کی ہولڈنگز سے زیادہ (%1$s)</string>

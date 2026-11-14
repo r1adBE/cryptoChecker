@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">போர்ட்ஃபோலியோவிலிருந்து வெளியேறும் (திரும்பப்பெறுதல்)</string>
     <string name="portfolio_csv_import_choose_each">ஒவ்வொரு திரும்பப்பெறுதலும் எங்கே சென்றது என்பதைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="portfolio_csv_import_columns">அடையாளம் காணப்பட்ட நெடுவரிசைகள்: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">ஏற்கனவே இறக்குமதி செய்யப்பட்டது: வரிகள் %1$s</string>
     <string name="portfolio_csv_import_confirm">இறக்குமதி செய்யவும் (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">நாள்/மாதம்</string>
     <string name="portfolio_csv_import_date_month_first">மாதம்/நாள்</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ஸ்டேபிள்காயின்களுக்கு (USDT, USDC …) எதிரான வர்த்தகங்கள் ஸ்வாப்களாகப் பதிவுசெய்யப்படும் – ஸ்டேபிள்காயின் உங்கள் இருப்புகளில் தோன்றும்.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">பல பொருத்தங்கள் சாத்தியம் – சரியானதைத் தேர்ந்தெடுக்கவும் அல்லது எதையும் தேர்ந்தெடுக்க வேண்டாம்.</string>
+    <string name="portfolio_csv_import_transfer_loose">அதிக கட்டணம் அல்லது தாமதமான வருகை – இது அதே பரிமாற்றமா எனச் சரிபார்க்கவும்.</string>
     <string name="portfolio_csv_import_transfer_fee">நெட்வொர்க் கட்டணம்: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ஒரே பரிமாற்றமாகப் பதிவுசெய்யவும்</string>
     <string name="portfolio_csv_import_transfer_stored">முந்தைய இறக்குமதியிலிருந்து இணைப் பதிவு</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">தினசரி விகிதங்கள் இந்த நேர மண்டலத்தின் நாள்காட்டி நாளின்படி: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">தினசரி விகிதங்களை ஏற்ற முடியவில்லை.</string>
     <string name="portfolio_csv_import_anyway">இருப்பினும் இறக்குமதி செய்யவும்</string>
-    <string name="portfolio_csv_import_anyway_hint">தினசரி விகிதம் இல்லாமல் விலை அல்லது கட்டணம் நிரந்தரமாக விடுபடும். மீண்டும் முயலவும், அல்லது இருப்பினும் இறக்குமதி செய்யவும் – அப்போது அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்.</string>
+    <string name="portfolio_csv_import_anyway_hint">தினசரி விகிதம் இல்லாமல், நீங்கள் சேர்க்கும் வரை விலை அல்லது கட்டணம் இருக்காது. மீண்டும் முயலவும் அல்லது எப்படியும் இறக்குமதி செய்யவும் – அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேரும்.</string>
     <string name="portfolio_csv_note_price_no_rate">தினசரி விகிதம் இல்லாத விலை</string>
     <string name="portfolio_csv_note_fee_no_rate">தினசரி விகிதம் இல்லாத கட்டணம்</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s க்குத் தினசரி விகிதங்கள் இல்லை, எனவே மீண்டும் முயல்வதால் பயனில்லை. இருப்பினும் இறக்குமதி செய்தால் அந்தப் பரிவர்த்தனைகளுக்கு ஒரு குறிப்பு சேர்க்கப்படும்.</string>

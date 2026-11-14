@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">နောက်ခံ</string>
-    <string name="widget_configure_hint">နောက်ခံနှင့် အလင်းပိတ်မှုကို ရွေးပါ။ အရောင်သည် အက်ပ်အတိုင်း လိုက်သည်။ ဝီဂျက်သည် သင့်စောင့်ကြည့်စာရင်း တစ်ခုလုံးကို ပြသည်၊ အက်ပ်ဖွင့်ရန် အတန်းတစ်ခုကို တို့ပါ။</string>
+    <string name="widget_configure_hint">နောက်ခံနှင့် အလင်းမဖောက်နိုင်မှုကို ရွေးပါ။ အရောင်သည် အက်ပ်အတိုင်း လိုက်ပါသည်။ ဝီဂျက်သည် သင့်စောင့်ကြည့်စာရင်း သို့မဟုတ် အောက်တွင် ရွေးထားသော အုပ်စုကို ပြသည်။ အက်ပ်ဖွင့်ရန် အတန်းတစ်ခုကို တို့ပါ။</string>
     <string name="widget_configure_title">ဝီဂျက် သတ်မှတ်ရန်</string>
     <string name="widget_description">သင့်စောင့်ကြည့်စာရင်းမှ အတွဲတစ်ခု၏ ဈေးနှုန်းကို ပြသည်။</string>
     <string name="widget_empty">စောင့်ကြည့်စာရင်းတွင် အတွဲ မရှိသေးပါ။</string>

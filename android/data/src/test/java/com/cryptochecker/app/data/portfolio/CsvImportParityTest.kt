@@ -235,6 +235,22 @@ class CsvImportParityTest {
         assertEquals(0, again.fresh.size)
     }
 
+    /** Freie Vorlage mit ID-Spalte: gleiche ID allein ist kein Doppel; «Trotzdem importieren» vergibt freie Schlüssel. */
+    @Test
+    fun genericIdDedupe() {
+        data["genericIdDedupe"].list().map { it.obj() }.forEach { c ->
+            val name = c["name"] as String
+            val first = CsvImportParser.parse(c["first"] as String, "UTC", null).rows.map { it.key }.toSet()
+            val second = CsvImportParser.parse(c["second"] as String, "UTC", null)
+            val lines = c["duplicateLines"].list().map { it.num()!!.toInt() }
+            assertEquals(name, lines, CsvImport.splitDuplicates(second.rows, first).duplicates.map { it.line })
+            val kept = CsvImportMapping.preview(second, first, keepDuplicates = true) { _, _ -> null }
+            assertEquals("$name lines", lines, kept.duplicateLines)
+            assertEquals("$name kept", lines.isNotEmpty(), kept.duplicatesKept)
+            assertEquals("$name keys", c["keys"].list(), kept.transactions.map { it.importKey })
+        }
+    }
+
     /** Schlüssel ohne Versatz unabhängig von der Zeitzone. */
     @Test
     fun zoneKeys() {

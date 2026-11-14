@@ -145,4 +145,29 @@ final class HistoricDayClosesBatchTests: XCTestCase {
         XCTAssertEqual(batchMarket.count("data-api.binance.vision/api/v3/klines?symbol=ETHUSDT"), 6)
         XCTAssertLessThan(batchMarket.total * 10, perDayMarket.total)
     }
+
+    /// Netzfehler ist nicht «keine Kerze»: die Kette bricht ab (kein Kurs), nie still die nächste Quelle — im Export
+    /// fragen die übrigen Tage desselben Stücks nicht erneut. Wie HistoricPriceSourceTest.kt.
+    func testUnreachableSourceStopsTheChain() async throws {
+        for host in ["data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com"] {
+            BlockedSources.clearForTest(host)
+        }
+        let m = market()
+        let asked = OSAllocatedUnfairLock(initialState: [String]())
+        let offline = HistoricDayFetch(get: { host, url in
+            asked.withLock { $0.append(host) }
+            if host == "data-api.binance.vision" { throw HistoricSourceUnavailable(host: host) }
+            return m.reply(url)
+        }, series: { _, _ in nil }, fx: { _, _ in nil })
+        let day = CutoffDay(year: 2024, month: 1, day: 2)
+        let single = await HistoricPriceSource.dailyCloseUsdt("NEW", day: day, current: 10.5, fetch: offline)
+        XCTAssertEqual(single, HistoricPriceSource.CloseResult(price: nil))
+        XCTAssertEqual(asked.withLock { $0 }, ["data-api.binance.vision"])
+
+        asked.withLock { $0.removeAll() }
+        let days: Set<Int> = [LocalDay(2024, 1, 2).epochDay, LocalDay(2024, 1, 3).epochDay]
+        let batch = await HistoricPriceSource.dayClosesUsdt(["NEW": days], current: ["NEW": 10.5], fetch: offline)
+        XCTAssertTrue(batch["NEW"]?.values.allSatisfy { $0.price == nil } ?? false)
+        XCTAssertEqual(asked.withLock { $0 }, ["data-api.binance.vision"])
+    }
 }

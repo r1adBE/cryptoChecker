@@ -100,6 +100,35 @@ object WatchPhoneQuotes {
         return out
     }
 
+    /** Spielraum über das Intervall hinaus, bevor das Handy als still gilt ([phoneSilentAfterMillis]). */
+    private const val SILENT_GRACE_MINUTES = 5
+
+    /**
+     * Ab diesem Alter der letzten Lieferung vom Handy (neueste Zeit der gelieferten Kurse) gilt das Handy als still:
+     * Intervall + 5 Min. (15 → 20 Min., 60 → 65 Min.) — das Handy liefert im Intervall neue Kurse, solange es erreichbar
+     * ist und selbst aktualisiert.
+     */
+    fun phoneSilentAfterMillis(intervalMinutes: Int): Long =
+        (WatchInterval.clamp(intervalMinutes) + SILENT_GRACE_MINUTES) * 60_000L
+
+    /**
+     * Kurse vom Handy nutzen ([selfFetch] `usePhone`)? Nur mit «Kurse vom Handy, sonst selbst» ([source]), verbunden
+     * ([connected]; die Komplikation der Apple Watch kennt die Verbindung nicht und gibt true) und mit einer Lieferung, die
+     * nicht älter ist als [phoneSilentAfterMillis] ([lastDelivery] ≤ 0 = noch keine). Gleiche Grenze auf beiden Uhren:
+     * Handy weg → die Uhr holt spätestens Intervall + 5 Min. nach der letzten Lieferung selbst.
+     */
+    fun usePhone(
+        source: WatchSettings.Source,
+        connected: Boolean,
+        lastDelivery: Long,
+        now: Long,
+        intervalMinutes: Int,
+    ): Boolean = source == WatchSettings.Source.PHONE && connected && lastDelivery > 0L &&
+        now - lastDelivery <= phoneSilentAfterMillis(intervalMinutes)
+
+    /** Stand einer Lieferung vom Handy: neueste Zeit der Kurse; 0 = keine Kurse. */
+    fun deliveryTime(quotes: List<Quote>): Long = quotes.maxOfOrNull { it.time } ?: 0L
+
     /**
      * Coins aus [shown], die die Uhr selbst abfragt. Ohne Kurs immer. Mit Kursen vom Handy ([usePhone]: Wahl «Kurse vom
      * Handy» und Handy verbunden) nie für einen Coin, den das Handy liefert ([phoneCoins]), solange dessen Kurs nicht
@@ -120,7 +149,7 @@ object WatchPhoneQuotes {
         when {
             WatchPair.parse(coin)?.selfFetchable == false -> false
             time <= 0L -> true
-            usePhone && coin in phoneCoins -> WatchFreshness.isOutdated(time, now)
+            usePhone && coin in phoneCoins -> WatchFreshness.isOutdated(time, now, intervalMinutes)
             force -> true
             else -> now - time > WatchInterval.refetchAfterMillis(intervalMinutes)
         }

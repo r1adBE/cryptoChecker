@@ -91,6 +91,8 @@
     <string name="check_result_ok">Во ред</string>
     <string name="check_result_partial">Делумно</string>
     <string name="check_result_skipped">Прескокнато</string>
+    <string name="check_result_paused">Паузирано, ништо не е проверено</string>
+    <string name="check_result_offline">Прескокнато (офлајн)</string>
     <string name="check_trigger_bgtask">Позадина</string>
     <string name="check_trigger_exact">Навремено</string>
     <string name="check_trigger_foreground">Апликација</string>

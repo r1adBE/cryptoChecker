@@ -12,6 +12,7 @@
     <string name="watchlist_refresh_report">ការផ្ទុកឡើងវិញចុងក្រោយ</string>
     <string name="watchlist_symbols_legend">ការពន្យល់និមិត្តសញ្ញា</string>
     <string name="watchlist_symbols_legend_alarms">ការដាស់តឿនសកម្ម និងចំនួន</string>
+    <string name="watchlist_symbols_legend_warning">តម្លៃហួសសម័យ ឬមិនអាចភ្ជាប់ទៅផ្សារប្ដូរប្រាក់បាន</string>
     <string name="watchlist_refresh_report_empty">មិនទាន់មានការបែងចែកលម្អិតទេ – មិនទាន់មានការផ្ទុកឡើងវិញពេញលេញនៅឡើយ។ ចុចផ្ទុកឡើងវិញ ហើយរង់ចាំរហូតដល់រង្វង់ឈប់។</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d ក្នុងចំណោម %2$d ហួសសម័យ</item>
@@ -243,6 +244,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">បិទការជូនដំណឹង</string>
     <string name="watchlist_missing_logos_explain">មិនមានរូបសញ្ញាសម្រាប់កាក់ទាំងនេះទេ។ កម្មវិធីបង្ហាញអក្សរកាត់របស់វា។</string>
+    <string name="watchlist_missing_logos_pending">មិនទាន់ផ្ទុក</string>
+    <string name="watchlist_missing_logos_explain_pending">ឡូហ្គោដែលបានសម្គាល់ថាមិនទាន់ផ្ទុក នឹងមកជាមួយការធ្វើសមកាលកម្មបន្ទាប់ ខ្លះតែតាម Wi-Fi ប៉ុណ្ណោះ។ មិនមានឡូហ្គោសម្រាប់កាក់ផ្សេងទៀតទេ។ កម្មវិធីបង្ហាញអក្សរដំបូងរបស់វា។</string>
     <string name="exchange_retiring_notice">ចាប់ពី %2$s %1$s នឹងលែងផ្ដល់តម្លៃសាធារណៈទៀតហើយ។ សូមជ្រើសរើសផ្សារប្តូរផ្សេងសម្រាប់កាក់ទាំងនេះ។</string>
     <string name="exchange_retiring_reason">ចាប់ពី %2$s %1$s នឹងលែងផ្ដល់តម្លៃទៀតហើយ</string>
     <string name="exchange_retired_since">ចាប់ពី %2$s %1$s លែងផ្ដល់តម្លៃទៀតហើយ</string>

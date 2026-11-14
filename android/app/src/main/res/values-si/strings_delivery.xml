@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">ඇඟවීම් සක්‍රියයි – තවම පසුබිම් පරීක්ෂාවක් නැත</string>
     <string name="alarm_reliability_notifications_off">දැනුම්දීම් අක්‍රියයි – ඇඟවීම් නොලැබේ</string>
     <string name="alarm_reliability_battery">බැටරි සුරැකීම ඇඟවීම් පරීක්ෂා නැවැත්විය හැක</string>
+    <string name="alarm_reliability_offline">සම්බන්ධතාවක් නැත – ජාලය නැවත ලැබුණු විට සීනු පරීක්ෂා කෙරේ</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh අක්‍රියයි – ඇඟවීම් නොලැබිය හැක</string>
 </resources>

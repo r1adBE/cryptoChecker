@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">कुल</string>
     <string name="portfolio_hide_amounts">रकम लुकाउनुहोस्</string>
-    <string name="portfolio_hide_amounts_hint">पोर्टफोलियो र पोर्टफोलियो विजेटमा रकम र मूल्यहरू ••• का रूपमा देखाउँछ – प्रतिशतहरू देखिइरहन्छन्।</string>
+    <string name="portfolio_hide_amounts_hint">पोर्टफोलियो, पोर्टफोलियो विजेट, घडीमा र पोर्टफोलियो अलार्महरूमा रकम र मूल्यहरू ••• का रूपमा देखाउँछ – प्रतिशतहरू देखिइरहन्छन्।</string>
     <string name="portfolio_invested">लागत आधार</string>
     <string name="portfolio_total_no_fx">%1$s का लागि विनिमय दर छैन – रकम USDT मा</string>
     <string name="portfolio_total_value">कुल मूल्य</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">परिवर्तनहरू खारेज गर्ने?</string>
     <string name="portfolio_edit_tx">कारोबार सम्पादन गर्नुहोस्</string>
     <string name="portfolio_invalid">0 भन्दा ठूलो मान्य संख्या लेख्नुहोस्।</string>
+    <string name="number_ambiguous">अस्पष्ट: %1$s कि %2$s? दुईमध्ये एउटा लेख्नुहोस्।</string>
     <string name="portfolio_oversold">बिक्री होल्डिङभन्दा बढी छ – कृपया कारोबारहरू जाँच्नुहोस्।</string>
     <string name="portfolio_sell">बिक्री</string>
     <string name="portfolio_sell_exceeds">तपाईंको होल्डिङ (%1$s) भन्दा बढी</string>

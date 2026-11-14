@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Bakgrunn</string>
-    <string name="widget_configure_hint">Velg bakgrunn og gjennomsiktighet. Fargen følger appen. Widgeten viser hele listen; trykk på en rad for å åpne appen.</string>
+    <string name="widget_configure_hint">Velg bakgrunn og dekkevne. Fargen følger appen. Widgeten viser listen din eller gruppen du velger nedenfor; trykk på en rad for å åpne appen.</string>
     <string name="widget_configure_title">Konfigurer widget</string>
     <string name="widget_description">Viser kursen for et par fra overvåkingslisten din.</string>
     <string name="widget_empty">Ingen par i overvåkingslisten ennå.</string>

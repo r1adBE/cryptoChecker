@@ -24,8 +24,8 @@ final class LogoLoadingHintTests: XCTestCase {
             for (i, step) in steps.enumerated() {
                 if step == "start" || step == "start done" {
                     hint.runStarted(firstLoadDone: step == "start done")
-                } else if step == "finish" {
-                    if hint.runFinished() { markDone = true }
+                } else if step == "finish" || step == "finish incomplete" {
+                    if hint.runFinished(complete: step == "finish") { markDone = true }
                 } else if step.hasPrefix("pending "), let n = Int(step.dropFirst("pending ".count)) {
                     hint.imagesPending(n)
                 } else {

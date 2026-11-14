@@ -67,7 +67,7 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         val portfolio by store.portfolioFlow.collectAsState()
         var pulled by remember { mutableStateOf(false) }
         var choosing by remember { mutableStateOf(false) }
-        // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 45 Min. auch ohne neue Kurse)
+        // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 3 × Intervall auch ohne neue Kurse)
         var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
         val scope = rememberCoroutineScope()
         val fetcher = remember(store) {
@@ -81,7 +81,9 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
                 },
                 plan = { coins, force ->
                     val s = store.settings
-                    val usePhone = s.source == WatchSettings.Source.PHONE && WatchDataLayer.phoneConnected(context)
+                    val usePhone = s.source == WatchSettings.Source.PHONE && WatchPhoneQuotes.usePhone(
+                        s.source, WatchDataLayer.phoneConnected(context), store.phoneTime, System.currentTimeMillis(), s.interval,
+                    )
                     WatchPhoneQuotes.selfFetch(coins, store.quotes().mapValues { it.value.time }, store.phoneCoins, usePhone,
                         s.interval, System.currentTimeMillis(), force)
                 },
@@ -158,14 +160,14 @@ private fun QuoteList(
     val coins = settings.shown
     val phone = settings.mode == WatchSettings.Mode.PHONE
     ScalingLazyColumn(state = state, modifier = Modifier.fillMaxWidth()) {
-        portfolio?.let { p -> item { PortfolioRow(p, now) } }
+        portfolio?.let { p -> item { PortfolioRow(p, now, settings.interval) } }
         if (coins.isEmpty()) {
             item {
                 Text(stringResource(if (phone) R.string.watch_phone_empty else R.string.watch_empty), textAlign = TextAlign.Center)
             }
         }
         coins.forEach { key ->
-            item { QuoteRow(key, cache[key], now, loading) }
+            item { QuoteRow(key, cache[key], now, settings.interval, loading) }
         }
         item {
             // Stand der Liste = ältester gezeigter Kurs (je Coin eigene Zeit)
@@ -208,7 +210,7 @@ private fun QuoteList(
  * «nicht erreichbar»), ausführlich im Screenreader ([missingReason]).
  */
 @Composable
-private fun QuoteRow(key: String, stored: WatchCached?, now: Long, loading: Boolean) {
+private fun QuoteRow(key: String, stored: WatchCached?, now: Long, interval: Int, loading: Boolean) {
     val context = LocalContext.current
     // Börse stillgelegt (ExchangeRetirement): kein alter Kurs, «—» mit dem Grund
     val cached = stored?.takeUnless { WatchPair.parse(key)?.let { p -> WatchPairQuotes.retired(p, now) } == true }
@@ -216,7 +218,7 @@ private fun QuoteRow(key: String, stored: WatchCached?, now: Long, loading: Bool
     val q = cached?.quote
     val price = q?.let { WatchFormat.price(it.price) } ?: "—"
     val change = WatchFormat.change(q?.change24h)
-    val outdated = cached != null && WatchFreshness.isOutdated(cached.time, now)
+    val outdated = cached != null && WatchFreshness.isOutdated(cached.time, now, interval)
     val row = stringResource(R.string.a11y_watch_row, coin, price, change)
     val missing = cached == null && !loading
     val spoken = when {

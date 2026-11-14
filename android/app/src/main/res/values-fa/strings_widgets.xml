@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">پس‌زمینه</string>
-    <string name="widget_configure_hint">پس‌زمینه و شفافیت را انتخاب کن. رنگ از برنامه پیروی می‌کند. ابزارک کل فهرست را نشان می‌دهد؛ برای باز کردن برنامه روی یک ردیف بزن.</string>
+    <string name="widget_configure_hint">پس‌زمینه و میزان کدری را انتخاب کنید. رنگ از برنامه پیروی می‌کند. ابزارک فهرست یا گروهی را که پایین‌تر انتخاب می‌کنید نشان می‌دهد؛ برای باز کردن برنامه روی یک ردیف بزنید.</string>
     <string name="widget_configure_title">تنظیم ابزارک</string>
     <string name="widget_description">قیمت یک جفت از واچ‌لیستت را نشان می‌دهد.</string>
     <string name="widget_empty">هنوز جفتی در واچ‌لیست نیست.</string>

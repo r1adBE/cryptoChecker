@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ტოვებს პორტფელს (გატანა)</string>
     <string name="portfolio_csv_import_choose_each">ყოველი გატანისთვის აირჩიე, სად წავიდა.</string>
     <string name="portfolio_csv_import_columns">ამოცნობილი სვეტები: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">უკვე იმპორტირებულია: სტრიქონები %1$s</string>
     <string name="portfolio_csv_import_confirm">იმპორტი (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">დღე/თვე</string>
     <string name="portfolio_csv_import_date_month_first">თვე/დღე</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">სტეიბლქოინებზე (USDT, USDC …) ვაჭრობა აღირიცხება როგორც გაცვლა – სტეიბლქოინი შენს აქტივებში ჩნდება.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">შესაძლებელია რამდენიმე დამთხვევა – აირჩიე სწორი ან არცერთი.</string>
+    <string name="portfolio_csv_import_transfer_loose">მაღალი საკომისიო ან გვიანი ჩამოსვლა – შეამოწმე, იგივე გადარიცხვაა თუ არა.</string>
     <string name="portfolio_csv_import_transfer_fee">ქსელის საკომისიო: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ერთ გადარიცხვად აღრიცხვა</string>
     <string name="portfolio_csv_import_transfer_stored">შესაბამისი ჩანაწერი ადრინდელი იმპორტიდან</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">დღიური კურსები კალენდარული დღის მიხედვით აქ: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">დღიური კურსების ჩატვირთვა ვერ მოხერხდა.</string>
     <string name="portfolio_csv_import_anyway">მაინც იმპორტი</string>
-    <string name="portfolio_csv_import_anyway_hint">დღიური კურსის გარეშე ფასი ან საკომისიო სამუდამოდ აკლია. სცადე ხელახლა ან მაინც შემოიტანე – ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>
+    <string name="portfolio_csv_import_anyway_hint">დღიური კურსის გარეშე ფასი ან საკომისიო აკლია, სანამ არ დაამატებ. სცადე ხელახლა ან მაინც შემოიტანე – ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>
     <string name="portfolio_csv_note_price_no_rate">ფასი დღიური კურსის გარეშე</string>
     <string name="portfolio_csv_note_fee_no_rate">საკომისიო დღიური კურსის გარეშე</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-ისთვის დღიური კურსები არ არსებობს, ამიტომ ხელახლა ცდა არ დაგეხმარება. თუ მაინც შემოიტან, ამ ტრანზაქციებს შენიშვნა დაერთვება.</string>

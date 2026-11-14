@@ -103,4 +103,14 @@ class CsvExchangeImportParityTest {
         val trades = parse(c["trades"] as String).rows.map { it.key }
         assertEquals(c["shared"].list(), trades.filter { it in ledger })
     }
+
+    /** Binance-Paar ohne Trenner: «USDTUSD» = USDT/USD (nicht USD/TUSD), «BNBUSD» = BNB/USD. */
+    @Test
+    fun binanceSplitPair() {
+        for (raw in data["splitPair"].list()) {
+            val c = raw.obj()
+            val split = CsvImportBinance.splitPair(c["pair"] as String)
+            assertEquals("${c["pair"]}", c["base"]?.let { it to c["quote"] }, split)
+        }
+    }
 }

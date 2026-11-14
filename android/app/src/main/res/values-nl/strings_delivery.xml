@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmen aan – nog geen controle op de achtergrond</string>
     <string name="alarm_reliability_notifications_off">Meldingen uit – alarmen komen niet aan</string>
     <string name="alarm_reliability_battery">Batterijbesparing kan de controle van alarmen stoppen</string>
+    <string name="alarm_reliability_offline">Geen verbinding – alarmen worden gecontroleerd zodra het netwerk terug is</string>
     <string name="alarm_reliability_background_refresh">Ververs op achtergrond uit – alarmen komen mogelijk niet aan</string>
 </resources>

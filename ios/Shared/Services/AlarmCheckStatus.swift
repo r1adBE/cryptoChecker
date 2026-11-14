@@ -16,6 +16,8 @@ final class AlarmCheckStatus: ObservableObject, Sendable {
         case noCandles
         /// Keine Funding- bzw. Open-Interest-Werte der Quelle (Fehlschlag, gesperrt, nicht geliefert).
         case noData
+        /// Bewegungs-Alarm: kein Kurs im Zeitfenster (`AlarmEvaluator.moveWindowUncheckable`).
+        case noWindowPrice
     }
 
     /// `since` = erste ausgelassene Prüfung in Folge; `reason` = Grund der letzten.

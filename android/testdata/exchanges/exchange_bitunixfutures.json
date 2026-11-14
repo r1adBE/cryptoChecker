@@ -67,6 +67,24 @@
       }
     },
     {
+      "kind": "single",
+      "name": "data null (code 0): no data, no error text - same as an answer without the symbol on both platforms",
+      "exchangeKey": "BitunixFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"msg\":\"Success\",\"data\":null}",
+      "expect": {
+        "error": true,
+        "thrown": "No data",
+        "message": null
+      }
+    },
+    {
       "kind": "bulk",
       "name": "tickers (all): rows by symbol, empty lastPrice skipped",
       "exchangeKey": "BitunixFutures",

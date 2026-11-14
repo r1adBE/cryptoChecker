@@ -56,7 +56,8 @@ data class HistoricFx(val rate: Double, val date: String?)
  *    Schluss gegen den aktuellen Kurs, 1/3…3; Ausweich-Quellen ±25 %; eine Abfrage mehr, nur bei
  *    einem Treffer dort); sonst ist die nächste Quelle dran. Ohne gültigen aktuellen Kurs keine
  *    Abfrage, der Coin ist «ungeprüft» ([CutoffCloses.unchecked]), ebenso wenn nur nicht passende
- *    Kurse gefunden wurden.
+ *    Kurse gefunden wurden. Eine nicht erreichbare Quelle (Netz, 5xx, Pause; einmal wiederholt, [getDay]) ist nicht
+ *    «keine Kerze»: kein Kurs statt der nächsten Quelle — sonst wäre der Export nicht wiederholbar.
  *  - Devisenkurs USD → Zielwährung dieses Tags (Referenzkurse der EZB) und die Tageskurse eines
  *    Zeitraums für den Wertverlauf ([usdToSeries], gleiche Quelle, 6 h im Speicher).
  *  - Ausweich-Kette ([HistoricCloseChain], HistoricPriceSourceChain.kt): eigene Börse des Coins zuerst (Tageskerzen
@@ -151,11 +152,17 @@ class HistoricPriceSource @Inject constructor(
         val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
         val ownName = if (names != null) names[b] else tokenIdentityStore.watchName(b)
         val resolved = HistoricCloseChain.resolve(HistoricCloseChain.order(own?.exchangeKey)) { source ->
-            when {
-                own != null && source == own.exchangeKey -> ownOutcome(own, b, date, start, reference, ownName, fetch)
-                source == HistoricCloseChain.BINANCE -> binanceOutcome(b, start, reference, ownName, fetch)
-                source == HistoricCloseChain.COINBASE -> coinbaseOutcome(b, date, start, reference, fetch)
-                else -> chainOutcome(source, b, start, reference, ownName)
+            try {
+                when {
+                    own != null && source == own.exchangeKey -> ownOutcome(own, b, date, start, reference, ownName, fetch)
+                    source == HistoricCloseChain.BINANCE -> binanceOutcome(b, start, reference, ownName, fetch)
+                    source == HistoricCloseChain.COINBASE -> coinbaseOutcome(b, date, start, reference, fetch)
+                    else -> chainOutcome(source, b, start, reference, ownName)
+                }
+            } catch (e: HistoricSourceUnavailable) {
+                // Nicht erreichbar (auch nach einer Wiederholung): kein Kurs statt der nächsten Quelle (wiederholbar)
+                Timber.d(e, "Tagesschluss %s %s: Quelle %s nicht erreichbar", b, date, source)
+                HistoricCloseChain.Outcome(null, failed = true)
             }
         }
         return CloseResult(resolved.price, resolved.unchecked, resolved.provider)
@@ -194,16 +201,21 @@ class HistoricPriceSource @Inject constructor(
         // Gleicher Token: Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
         val binanceOk = tokenIdentityStore.binanceAllowed(b, ownName)
         if (!binanceOk) rejected = true
-        for ((host, endpoint, primary) in binance) {
-            if (!binanceOk) break
-            val r = binanceClose(fetch, host, endpoint, "${b}USDT", start, primary, reference)
-            r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.candleProvider(host)) }
-            rejected = rejected || r.unchecked
-        }
-        for (symbol in listOf("${b}USDT", "${b}USD")) {
-            val r = binanceClose(fetch, "api.binance.us", "https://api.binance.us/api/v3/klines", symbol, start, false, reference)
-            r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.BINANCE_US) }
-            rejected = rejected || r.unchecked
+        try {
+            for ((host, endpoint, primary) in binance) {
+                if (!binanceOk) break
+                val r = binanceClose(fetch, host, endpoint, "${b}USDT", start, primary, reference)
+                r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.candleProvider(host)) }
+                rejected = rejected || r.unchecked
+            }
+            for (symbol in listOf("${b}USDT", "${b}USD")) {
+                val r = binanceClose(fetch, "api.binance.us", "https://api.binance.us/api/v3/klines", symbol, start, false, reference)
+                r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.BINANCE_US) }
+                rejected = rejected || r.unchecked
+            }
+        } catch (e: HistoricSourceUnavailable) {
+            // Nicht erreichbar: Kette bricht ab, ein schon verworfener Schluss bleibt «ungeprüft»
+            return HistoricCloseChain.Outcome(null, rejected, failed = true)
         }
         return HistoricCloseChain.Outcome(null, rejected)
     }
@@ -217,6 +229,8 @@ class HistoricPriceSource @Inject constructor(
         primary: Boolean,
         current: Double,
     ): CloseResult {
+        // Pause nach «zu viele Anfragen»: vorübergehend, nicht «keine Kerze»; Geo-Sperre (403/451): Quelle übersprungen
+        if (BlockedSources.groupPausedUntil(host) != null) throw HistoricSourceUnavailable(host)
         if (BlockedSources.isBlocked(host)) return CloseResult(null)
         val close = fetch.binanceDay(host, endpoint, symbol, start) ?: return CloseResult(null)
         // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
@@ -231,6 +245,7 @@ class HistoricPriceSource @Inject constructor(
     private suspend fun coinbaseClose(b: String, date: LocalDate, start: Long, current: Double, fetch: DayCloseFetch): CloseResult {
         var rejected = false
         for (quote in listOf("USD", "USDC")) {
+            if (BlockedSources.groupPausedUntil(COINBASE_HOST) != null) throw HistoricSourceUnavailable(COINBASE_HOST)
             if (BlockedSources.isBlocked(COINBASE_HOST)) break
             val close = fetch.coinbaseDay("$b-$quote", date, start) ?: continue
             // Jüngste Tageskerzen desselben Produkts
@@ -333,16 +348,22 @@ class HistoricPriceSource @Inject constructor(
         return history.filterKeys { it in first..last }
     }
 
-    /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */
+    /**
+     * GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. [failed] erfährt den Fehler
+     * (null = Zeitgrenze) — für [getDay], das «keine Kerze» von «nicht erreichbar» trennt.
+     */
     internal suspend fun get(
         host: String,
         url: String,
         maxBytes: Long = HttpBodyLimit.DEFAULT_MAX_BYTES,
         timeoutMillis: Long = REQUEST_TIMEOUT_MILLIS,
+        failed: ((Throwable?) -> Unit)? = null,
     ): String? {
         val body = try {
             withTimeoutOrNull(timeoutMillis) { httpClient.callExchange(url, null, maxBytes) }
+                .also { if (it == null) failed?.invoke(null) }
         } catch (e: Exception) {
+            failed?.invoke(e)
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()
             if (host == FX_HOST || !BlockedSources.noteFailure(host, e)) {

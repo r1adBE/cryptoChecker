@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">Allarmi attivi – ancora nessun controllo in background</string>
     <string name="alarm_reliability_notifications_off">Notifiche disattivate – gli allarmi non arriveranno</string>
     <string name="alarm_reliability_battery">Il risparmio batteria può fermare il controllo degli allarmi</string>
+    <string name="alarm_reliability_offline">Nessuna connessione – gli allarmi vengono controllati al ritorno della rete</string>
     <string name="alarm_reliability_background_refresh">Aggiorna app in background disattivato – gli allarmi potrebbero non arrivare</string>
 </resources>

@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Ішінара</string>
     <string name="check_result_skipped">Өткізілді</string>
+    <string name="check_result_paused">Кідіртілді, ештеңе тексерілмеді</string>
+    <string name="check_result_offline">Өткізілді (желіден тыс)</string>
     <string name="check_trigger_bgtask">Фон</string>
     <string name="check_trigger_exact">Уақытылы</string>
     <string name="check_trigger_foreground">Қолданба</string>

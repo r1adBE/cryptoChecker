@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">စုစုပေါင်း</string>
     <string name="portfolio_hide_amounts">ပမာဏများ ဖျောက်ရန်</string>
-    <string name="portfolio_hide_amounts_hint">ပေါ့ဖိုလီယိုနှင့် ပေါ့ဖိုလီယို ဝီဂျက်ရှိ ပမာဏနှင့် တန်ဖိုးများကို ••• အဖြစ် ပြသည် – ရာခိုင်နှုန်းများ ဆက်မြင်ရမည်။</string>
+    <string name="portfolio_hide_amounts_hint">ပေါ့ဖိုလီယို၊ ပေါ့ဖိုလီယို ဝီဂျက်၊ နာရီနှင့် ပေါ့ဖိုလီယို သတိပေးချက်များရှိ ပမာဏနှင့် တန်ဖိုးများကို ••• အဖြစ် ပြသည် – ရာခိုင်နှုန်းများ ဆက်မြင်ရမည်။</string>
     <string name="portfolio_invested">မူလကုန်ကျစရိတ်</string>
     <string name="portfolio_total_no_fx">%1$s အတွက် ငွေလဲနှုန်း မရှိ – ပမာဏများ USDT ဖြင့်</string>
     <string name="portfolio_total_value">စုစုပေါင်း တန်ဖိုး</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">ပြောင်းလဲမှုများကို စွန့်ပစ်မလား။</string>
     <string name="portfolio_edit_tx">ငွေပေးငွေယူ ပြင်ဆင်ရန်</string>
     <string name="portfolio_invalid">0 ထက်ကြီးသော မှန်ကန်သည့် ဂဏန်း ထည့်ပါ။</string>
+    <string name="number_ambiguous">မရှင်းလင်းပါ- %1$s လား %2$s လား။ နှစ်မျိုးအနက် တစ်မျိုးကို ရိုက်ထည့်ပါ။</string>
     <string name="portfolio_oversold">ရောင်းချမှုများသည် ကိုင်ဆောင်ထားမှုထက် ကျော်လွန်နေသည် – ငွေပေးငွေယူများကို စစ်ဆေးပါ။</string>
     <string name="portfolio_sell">ရောင်း</string>
     <string name="portfolio_sell_exceeds">သင်ကိုင်ဆောင်ထားမှုထက် ပိုများသည် (%1$s)</string>

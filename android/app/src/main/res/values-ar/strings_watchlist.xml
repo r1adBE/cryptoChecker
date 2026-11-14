@@ -17,6 +17,7 @@
     <string name="watchlist_refresh_report">آخر تحديث</string>
     <string name="watchlist_symbols_legend">شرح الرموز</string>
     <string name="watchlist_symbols_legend_alarms">التنبيهات النشطة مع عددها</string>
+    <string name="watchlist_symbols_legend_warning">السعر قديم أو المنصة غير متاحة</string>
     <string name="watchlist_refresh_report_empty">لا يوجد تفصيل بعد: لم يكتمل أي تحديث كامل حتى الآن. اضغط على «تحديث» وانتظر حتى يتوقف مؤشر التحميل.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="zero">%1$d من %2$d قديمة</item>
@@ -327,6 +328,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">إغلاق التنبيه</string>
     <string name="watchlist_missing_logos_explain">لا يتوفر شعار لهذه العملات. يعرض التطبيق أحرفها الأولى.</string>
+    <string name="watchlist_missing_logos_pending">لم يُحمَّل بعد</string>
+    <string name="watchlist_missing_logos_explain_pending">الشعارات المعلَّمة بأنها لم تُحمَّل بعد ستأتي مع المزامنة التالية، وبعضها عبر Wi-Fi فقط. لا يتوفر شعار للعملات الأخرى. يعرض التطبيق أحرفها الأولى.</string>
     <string name="exchange_retiring_notice">اعتبارًا من %2$s لن تعود %1$s توفّر أسعارًا عامة. اختر منصة أخرى لهذه العملات.</string>
     <string name="exchange_retiring_reason">اعتبارًا من %2$s لن تعود %1$s توفّر الأسعار</string>
     <string name="exchange_retired_since">منذ %2$s لم تعد %1$s توفّر الأسعار</string>

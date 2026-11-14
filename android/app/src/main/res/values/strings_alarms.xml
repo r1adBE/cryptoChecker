@@ -52,6 +52,10 @@
     <string name="alarm_threshold_error_funding">Funding must be a number between −10 and +10 percent.</string>
     <string name="alarm_threshold_error_invalid">Enter a valid number greater than 0.</string>
     <string name="alarm_threshold_error_oi">Open interest change: at most 1000 percent.</string>
+    <!-- «steigt um» bzw. «bewegt sich um» über 1000 % (MAX_RISE_PERCENT) -->
+    <string name="alarm_threshold_error_percent_max">At most 1000 percent.</string>
+    <!-- «Nahe am Hoch/Tief»: Abstand ab 100 % -->
+    <string name="alarm_threshold_error_distance">The distance must be less than 100 percent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d h</item>
         <item quantity="other">in %1$d h</item>
@@ -172,6 +176,7 @@
     <string name="alarm_a11y_speak_on">Speech on</string>
     <string name="alarm_unchecked_no_candles">Could not be checked (no candle data)</string>
     <string name="alarm_unchecked_no_rate">Could not be checked (no exchange rate)</string>
+    <string name="alarm_unchecked_no_window_price">Could not be checked (no price in the time window)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Notifications off – this alert won’t reach you</string>

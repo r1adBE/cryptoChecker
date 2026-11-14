@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Gesamt</string>
     <string name="portfolio_hide_amounts">Beträge verbergen</string>
-    <string name="portfolio_hide_amounts_hint">Zeigt Beträge und Werte im Portfolio und im Portfolio-Widget als ••• – Prozente bleiben sichtbar.</string>
+    <string name="portfolio_hide_amounts_hint">Zeigt Beträge und Werte im Portfolio, im Portfolio-Widget, auf der Uhr und bei Portfolio-Alarmen als ••• – Prozente bleiben sichtbar.</string>
     <string name="portfolio_invested">Einstand</string>
     <string name="portfolio_total_no_fx">Kein Devisenkurs für %1$s – Beträge in USDT</string>
     <string name="portfolio_total_value">Gesamtwert</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Änderungen verwerfen?</string>
     <string name="portfolio_edit_tx">Transaktion bearbeiten</string>
     <string name="portfolio_invalid">Gib eine gültige Zahl grösser als 0 ein.</string>
+    <string name="number_ambiguous">Unklar: %1$s oder %2$s? Tippe eine der beiden Schreibweisen.</string>
     <string name="portfolio_oversold">Verkäufe übersteigen den Bestand – bitte Transaktionen prüfen.</string>
     <string name="portfolio_sell">Verkauf</string>
     <string name="portfolio_sell_exceeds">Mehr als dein Bestand (%1$s)</string>

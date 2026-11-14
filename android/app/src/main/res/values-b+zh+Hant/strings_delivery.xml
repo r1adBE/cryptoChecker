@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">提醒已開啟 – 尚無背景檢查</string>
     <string name="alarm_reliability_notifications_off">通知已關閉 – 提醒無法送達</string>
     <string name="alarm_reliability_battery">省電功能可能會停止檢查提醒</string>
+    <string name="alarm_reliability_offline">沒有網路 – 網路恢復後會檢查警示</string>
     <string name="alarm_reliability_background_refresh">背景 App 重新整理已關閉 – 提醒可能無法送達</string>
 </resources>

@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">آخری ریفریش</string>
     <string name="watchlist_symbols_legend">علامات کی وضاحت</string>
     <string name="watchlist_symbols_legend_alarms">فعال الرٹس اور ان کی تعداد</string>
+    <string name="watchlist_symbols_legend_warning">قیمت پرانی ہے یا ایکسچینج تک رسائی نہیں</string>
     <string name="watchlist_refresh_report_empty">ابھی کوئی تفصیل نہیں – اب تک کوئی مکمل ریفریش نہیں ہوا۔ ریفریش پر ٹیپ کریں اور دائرہ رکنے تک انتظار کریں۔</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d میں سے %1$d پرانا</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">اطلاع بند کریں</string>
     <string name="watchlist_missing_logos_explain">ان کوائنز کے لیے کوئی لوگو دستیاب نہیں۔ ایپ ان کے ابتدائی حروف دکھاتی ہے۔</string>
+    <string name="watchlist_missing_logos_pending">ابھی لوڈ نہیں ہوا</string>
+    <string name="watchlist_missing_logos_explain_pending">ابھی لوڈ نہیں ہوا کے طور پر نشان زد لوگو اگلی ہم آہنگی کے ساتھ آئیں گے، کچھ صرف Wi-Fi پر۔ دوسرے کوائنز کے لیے کوئی لوگو دستیاب نہیں۔ ایپ ان کے ابتدائی حروف دکھاتی ہے۔</string>
     <string name="exchange_retiring_notice">%2$s سے %1$s عوامی قیمتیں فراہم نہیں کرے گا۔ ان کوائنز کے لیے کوئی دوسرا ایکسچینج منتخب کریں۔</string>
     <string name="exchange_retiring_reason">%2$s سے %1$s قیمتیں فراہم نہیں کرے گا</string>
     <string name="exchange_retired_since">%2$s سے %1$s اب قیمتیں فراہم نہیں کرتا</string>

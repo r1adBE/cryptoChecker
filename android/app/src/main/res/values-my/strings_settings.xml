@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">အကြောင်းကြားချက်ဘားတွင် မည်သည့်အတွဲများ၏ ဈေးနှုန်းကို ပြမည်ကို ရွေးပါ။</string>
     <string name="settings_quiet_hours">တိတ်ဆိတ်ချိန်</string>
     <string name="settings_quiet_hours_from">မှ</string>
-    <string name="settings_quiet_hours_hint">%1$s နှင့် %2$s ကြားတွင် သတိပေးချက်များသည် တိတ်ဆိတ်ချိန် ပြီးဆုံးသည်အထိ စောင့်ပြီးမှ အသံဖြင့် မြည်သည်။ အခြား အကြောင်းကြားချက်များ အသံမဲ့၊ စကားပြော မပါဘဲ ရောက်သည်။</string>
+    <string name="settings_quiet_hours_hint">%1$s နှင့် %2$s ကြားတွင် သတိပေးချက်များသည် တိတ်ဆိတ်ချိန် ပြီးဆုံးသည်အထိ စောင့်ပြီးမှ အသံဖြင့် မြည်သည်၊ ထိုအချိန်တွင် အခြေအနေ ပြည့်မီနေသေးလျှင်။ အခြား အကြောင်းကြားချက်များ အသံမဲ့၊ စကားပြော မပါဘဲ ရောက်သည်။</string>
     <string name="settings_quiet_hours_to">အထိ</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">အသုံးပြုနေသည်: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">မသတ်မှတ်ရသေး – အများသုံး node များကို အသုံးပြုသည်</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ဆက်တင်များ ပြန်လည်သတ်မှတ်ထားသောကြောင့် ကိုယ်ပိုင် Bitcoin ဆာဗာကို အသုံးပြုခဲ့ခြင်းရှိမရှိ မသိပါ။ ဆာဗာကို ပြန်ထည့်သည့်အထိ သို့မဟုတ် အများသုံး node များကို ရွေးသည့်အထိ Bitcoin လိပ်စာများနှင့် xpub ကီးများကို မမေးမြန်းပါ။</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// လိပ်စာများကိုသာ ခွင့်ပြုသည်</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

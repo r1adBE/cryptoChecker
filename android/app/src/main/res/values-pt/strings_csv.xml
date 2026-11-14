@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Sai do portfólio (levantamento)</string>
     <string name="portfolio_csv_import_choose_each">Escolhe para cada levantamento para onde foi.</string>
     <string name="portfolio_csv_import_columns">Colunas reconhecidas: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Já importado: linhas %1$s</string>
     <string name="portfolio_csv_import_confirm">Importar (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dia/Mês</string>
     <string name="portfolio_csv_import_date_month_first">Mês/Dia</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Compras e vendas contra stablecoins (USDT, USDC …) são registadas como trocas – a stablecoin aparece na tua posse.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Várias correspondências possíveis – escolhe a certa ou nenhuma.</string>
+    <string name="portfolio_csv_import_transfer_loose">Comissão elevada ou chegada tardia – confirma se é a mesma transferência.</string>
     <string name="portfolio_csv_import_transfer_fee">Comissão de rede: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Registar como uma só transferência</string>
     <string name="portfolio_csv_import_transfer_stored">Contrapartida de uma importação anterior</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">Cotações diárias segundo o dia de calendário em: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Não foi possível carregar as cotações diárias.</string>
     <string name="portfolio_csv_import_anyway">Importar mesmo assim</string>
-    <string name="portfolio_csv_import_anyway_hint">Sem cotação diária, o preço ou a comissão ficam em falta de forma permanente. Tenta novamente ou importa mesmo assim – essas transações recebem então uma nota.</string>
+    <string name="portfolio_csv_import_anyway_hint">Sem taxa diária, falta o preço ou a comissão até os adicionares. Tenta de novo ou importa mesmo assim – essas transações ficam com uma nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Preço sem cotação diária</string>
     <string name="portfolio_csv_note_fee_no_rate">Comissão sem cotação diária</string>
     <string name="portfolio_csv_import_no_rates_for">Não há cotações diárias para %1$s, por isso tentar novamente não ajuda. Se importares mesmo assim, essas transações recebem uma nota.</string>

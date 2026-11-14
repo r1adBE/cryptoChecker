@@ -17,6 +17,8 @@ enum FxRateSource {
     /// Neu holen ab 3 h: ältere Kurse zeigt die Merkliste mit Uhrzeit.
     private static let ttlMillis: Int64 = CurrencyConversion.fxStaleMillis
     private static let staleMillis: Int64 = 24 * 60 * 60_000
+    /// Nach einem Abruf ohne Antwort beider Quellen so lange kein neuer Versuch (wie Android `FAILED_RETRY_MILLIS`).
+    private static let failedRetryMillis: Int64 = 60_000
 
     /// Zwischenspeicher der Kurse, zusammen hinter einer Sperre.
     private struct Memory: Sendable {
@@ -27,6 +29,8 @@ enum FxRateSource {
         var rateTimes: [String: Int64] = [:]
         /// Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms).
         var bgnMissedAt: Int64?
+        /// Letzter Abruf, bei dem beide Quellen scheiterten (Epoch-ms).
+        var failedAt: Int64?
     }
 
     private static let memory = OSAllocatedUnfairLock(initialState: Memory())
@@ -91,6 +95,11 @@ enum FxRateSource {
                 let age = now - known.at
                 if age >= 0 && age < Self.ttlMillis { return known.rate }
             }
+            // Eben gescheitert: nicht bei jedem Aufruf (je Währung, seriell) erneut bis 2 × 10 s warten — alter Kurs bis 24 h
+            if let failed = Self.memory.withLock({ $0.failedAt }), now - failed >= 0, now - failed < Self.failedRetryMillis {
+                guard let known = Self.entry(target), now - known.at >= 0, now - known.at < Self.staleMillis else { return nil }
+                return known.rate
+            }
             // Eine Abfrage der EZB bringt alle Währungen: alle in den Zwischenspeicher, samt Datum des Tageskurses
             if let daily = await Self.ecbDaily() {
                 for (code, rate) in daily.rates { Self.put(code, rate, at: now, rateTime: daily.time) }
@@ -102,6 +111,7 @@ enum FxRateSource {
                 Self.put(target, fresh.rate, at: now, rateTime: fresh.time)
                 return fresh.rate
             }
+            Self.memory.withLock { $0.failedAt = now }
             // Älterer Kurs ist besser als keiner, aber nicht älter als ein Tag
             if let known = Self.entry(target) {
                 let age = now - known.at

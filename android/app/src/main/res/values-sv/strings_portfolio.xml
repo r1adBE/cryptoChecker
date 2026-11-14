@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Totalt</string>
     <string name="portfolio_hide_amounts">Dölj belopp</string>
-    <string name="portfolio_hide_amounts_hint">Visar belopp och värden i portföljen och portföljwidgeten som ••• – procent syns fortfarande.</string>
+    <string name="portfolio_hide_amounts_hint">Visar belopp och värden i portföljen, portföljwidgeten, på klockan och i portföljlarm som ••• – procent syns fortfarande.</string>
     <string name="portfolio_invested">Anskaffningsvärde</string>
     <string name="portfolio_total_no_fx">Ingen valutakurs för %1$s – belopp i USDT</string>
     <string name="portfolio_total_value">Totalt värde</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Ignorera ändringarna?</string>
     <string name="portfolio_edit_tx">Redigera transaktion</string>
     <string name="portfolio_invalid">Ange ett giltigt tal större än 0.</string>
+    <string name="number_ambiguous">Oklart: %1$s eller %2$s? Skriv en av de två.</string>
     <string name="portfolio_oversold">Försäljningar överstiger innehavet – kontrollera transaktionerna.</string>
     <string name="portfolio_sell">Försäljning</string>
     <string name="portfolio_sell_exceeds">Mer än ditt innehav (%1$s)</string>

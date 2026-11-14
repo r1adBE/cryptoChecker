@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Tausta</string>
-    <string name="widget_configure_hint">Valitse tausta ja peittävyys. Väri seuraa sovellusta. Widget näyttää koko listan; avaa sovellus napauttamalla riviä.</string>
+    <string name="widget_configure_hint">Valitse tausta ja peittävyys. Väri seuraa sovellusta. Widget näyttää listasi tai alla valitun ryhmän; avaa sovellus napauttamalla riviä.</string>
     <string name="widget_configure_title">Määritä widget</string>
     <string name="widget_description">Näyttää seurantalistasi parin hinnan.</string>
     <string name="widget_empty">Seurantalistalla ei ole vielä pareja.</string>

@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ចាកចេញពីផលប័ត្រ (ការដក)</string>
     <string name="portfolio_csv_import_choose_each">សូមជ្រើសរើសសម្រាប់ការដកនីមួយៗថាវាបានទៅណា។</string>
     <string name="portfolio_csv_import_columns">ជួរឈរដែលបានស្គាល់៖ %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">បាននាំចូលរួចហើយ៖ បន្ទាត់ %1$s</string>
     <string name="portfolio_csv_import_confirm">នាំចូល (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ថ្ងៃ/ខែ</string>
     <string name="portfolio_csv_import_date_month_first">ខែ/ថ្ងៃ</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ការជួញដូរទល់នឹង stablecoin (USDT, USDC …) ត្រូវបានកត់ត្រាជាការប្តូរកាក់ – stablecoin នឹងបង្ហាញក្នុងការកាន់កាប់របស់អ្នក។</string>
     <string name="portfolio_csv_import_transfer_ambiguous">អាចត្រូវគ្នាច្រើន – សូមជ្រើសរើសមួយដែលត្រឹមត្រូវ ឬមិនជ្រើសអ្វីទាំងអស់។</string>
+    <string name="portfolio_csv_import_transfer_loose">ថ្លៃខ្ពស់ ឬមកដល់យឺត – សូមពិនិត្យថាជាការផ្ទេរដដែល។</string>
     <string name="portfolio_csv_import_transfer_fee">កម្រៃបណ្ដាញ៖ %1$s</string>
     <string name="portfolio_csv_import_transfer_link">កត់ត្រាជាការផ្ទេរតែមួយ</string>
     <string name="portfolio_csv_import_transfer_stored">ផ្នែកដៃគូពីការនាំចូលមុន</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">អត្រាប្រចាំថ្ងៃតាមថ្ងៃប្រតិទិននៅ៖ %1$s</string>
     <string name="portfolio_csv_import_rates_failed">មិនអាចផ្ទុកអត្រាប្រចាំថ្ងៃបានទេ។</string>
     <string name="portfolio_csv_import_anyway">នាំចូលយ៉ាងណាក៏ដោយ</string>
-    <string name="portfolio_csv_import_anyway_hint">បើគ្មានអត្រាប្រចាំថ្ងៃ តម្លៃ ឬកម្រៃនឹងខ្វះជាអចិន្ត្រៃយ៍។ សូមព្យាយាមម្តងទៀត ឬនាំចូលយ៉ាងណាក៏ដោយ – ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។</string>
+    <string name="portfolio_csv_import_anyway_hint">បើគ្មានអត្រាប្រចាំថ្ងៃ តម្លៃ ឬថ្លៃសេវានឹងខ្វះរហូតដល់អ្នកបញ្ចូលវា។ សូមព្យាយាមម្ដងទៀត ឬនាំចូលដដែល – ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។</string>
     <string name="portfolio_csv_note_price_no_rate">តម្លៃគ្មានអត្រាប្រចាំថ្ងៃ</string>
     <string name="portfolio_csv_note_fee_no_rate">កម្រៃគ្មានអត្រាប្រចាំថ្ងៃ</string>
     <string name="portfolio_csv_import_no_rates_for">គ្មានអត្រាប្រចាំថ្ងៃសម្រាប់ %1$s ទេ ដូច្នេះការព្យាយាមម្តងទៀតមិនជួយទេ។ បើនាំចូលយ៉ាងណាក៏ដោយ ប្រតិបត្តិការទាំងនោះនឹងមានកំណត់ចំណាំ។</string>

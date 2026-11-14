@@ -51,6 +51,8 @@
     <string name="alarm_threshold_error_funding">资金费率必须是介于 −10 到 +10 之间的百分比。</string>
     <string name="alarm_threshold_error_invalid">请输入大于 0 的有效数字。</string>
     <string name="alarm_threshold_error_oi">持仓量变化：最多百分之 1000。</string>
+    <string name="alarm_threshold_error_percent_max">最多百分之一千。</string>
+    <string name="alarm_threshold_error_distance">距离必须小于百分之一百。</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d 小时内</item>
     </plurals>
@@ -166,6 +168,7 @@
     <string name="alarm_a11y_speak_on">语音播报已开启</string>
     <string name="alarm_unchecked_no_candles">无法检查（无K线数据）</string>
     <string name="alarm_unchecked_no_rate">无法检查（无汇率）</string>
+    <string name="alarm_unchecked_no_window_price">无法检查（时间范围内无价格）</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">通知已关闭——此提醒无法送达</string>

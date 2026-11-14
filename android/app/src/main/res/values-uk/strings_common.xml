@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Біржа зараз недоступна</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Біржу заблоковано в цьому регіоні</string>
+    <string name="error_exchange_access_denied">Біржа відмовила в доступі</string>
     <string name="loading_hint">Завантаження…</string>
     <string name="option_off">Вимк.</string>
     <string name="something_went_wrong">Щось пішло не так</string>

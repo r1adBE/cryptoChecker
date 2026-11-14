@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Виходить із портфеля (виведення)</string>
     <string name="portfolio_csv_import_choose_each">Вибери для кожного виведення, куди воно пішло.</string>
     <string name="portfolio_csv_import_columns">Розпізнані стовпці: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Уже імпортовано: рядки %1$s</string>
     <string name="portfolio_csv_import_confirm">Імпортувати (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">День/Місяць</string>
     <string name="portfolio_csv_import_date_month_first">Місяць/День</string>
@@ -50,6 +51,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Купівлі та продажі за стейблкоїни (USDT, USDC …) записуються як обмін – стейблкоїн з’являється у твоїх активах.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Можливо кілька збігів – вибери правильний або жодного.</string>
+    <string name="portfolio_csv_import_transfer_loose">Висока комісія або пізнє надходження – перевір, чи це той самий переказ.</string>
     <string name="portfolio_csv_import_transfer_fee">Комісія мережі: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Записати як один переказ</string>
     <string name="portfolio_csv_import_transfer_stored">Пара з попереднього імпорту</string>
@@ -116,7 +118,7 @@
     <string name="portfolio_csv_import_fx_zone">Денні курси за календарним днем у: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Не вдалося завантажити денні курси.</string>
     <string name="portfolio_csv_import_anyway">Усе одно імпортувати</string>
-    <string name="portfolio_csv_import_anyway_hint">Без денного курсу ціна або комісія залишаться порожніми назавжди. Повтори спробу або все одно імпортуй – ці транзакції тоді отримають нотатку.</string>
+    <string name="portfolio_csv_import_anyway_hint">Без денного курсу ціна або комісія відсутні, доки ти їх не додаси. Спробуй ще раз або все одно імпортуй – ці транзакції отримають позначку.</string>
     <string name="portfolio_csv_note_price_no_rate">Ціна без денного курсу</string>
     <string name="portfolio_csv_note_fee_no_rate">Комісія без денного курсу</string>
     <string name="portfolio_csv_import_no_rates_for">Для %1$s немає денних курсів, тож повторна спроба не допоможе. Якщо все одно імпортуєш, ці транзакції отримають нотатку.</string>

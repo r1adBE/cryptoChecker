@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Lalabas sa portfolio (withdrawal)</string>
     <string name="portfolio_csv_import_choose_each">Piliin para sa bawat withdrawal kung saan ito napunta.</string>
     <string name="portfolio_csv_import_columns">Mga nakilalang column: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Na-import na: mga linya %1$s</string>
     <string name="portfolio_csv_import_confirm">I-import (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Araw/Buwan</string>
     <string name="portfolio_csv_import_date_month_first">Buwan/Araw</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Ang mga trade laban sa stablecoin (USDT, USDC …) ay itinatala bilang swap – lalabas ang stablecoin sa mga hawak mo.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Maraming posibleng tugma – piliin ang tama o wala.</string>
+    <string name="portfolio_csv_import_transfer_loose">Mataas na bayad o huling pagdating – tingnan kung iisang transfer ito.</string>
     <string name="portfolio_csv_import_transfer_fee">Network fee: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Itala bilang isang transfer</string>
     <string name="portfolio_csv_import_transfer_stored">Katapat mula sa naunang import</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Mga daily rate ayon sa araw sa kalendaryo sa: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Hindi ma-load ang mga daily rate.</string>
     <string name="portfolio_csv_import_anyway">I-import pa rin</string>
-    <string name="portfolio_csv_import_anyway_hint">Kapag walang daily rate, permanenteng mawawala ang presyo o fee. Subukan ulit, o i-import pa rin – magkakaroon ng tala ang mga transaksyong iyon.</string>
+    <string name="portfolio_csv_import_anyway_hint">Kung walang arawang rate, kulang ang presyo o bayad hanggang idagdag mo ito. Subukang muli o i-import pa rin – magkakaroon ng tala ang mga transaksyong iyon.</string>
     <string name="portfolio_csv_note_price_no_rate">Presyo na walang daily rate</string>
     <string name="portfolio_csv_note_fee_no_rate">Fee na walang daily rate</string>
     <string name="portfolio_csv_import_no_rates_for">Walang daily rate para sa %1$s, kaya hindi makakatulong ang pagsubok ulit. Kung i-import mo pa rin, magkakaroon ng tala ang mga transaksyong iyon.</string>

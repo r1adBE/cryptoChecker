@@ -100,6 +100,8 @@
     <string name="check_result_ok">Kārtībā</string>
     <string name="check_result_partial">Daļēji</string>
     <string name="check_result_skipped">Izlaists</string>
+    <string name="check_result_paused">Pauzēts, nekas nav pārbaudīts</string>
+    <string name="check_result_offline">Izlaists (bezsaistē)</string>
     <string name="check_trigger_bgtask">Fonā</string>
     <string name="check_trigger_exact">Laikā</string>
     <string name="check_trigger_foreground">Lietotne</string>

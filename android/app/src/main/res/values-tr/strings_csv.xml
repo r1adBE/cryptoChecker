@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Portföyden çıkar (çekme)</string>
     <string name="portfolio_csv_import_choose_each">Her çekim için nereye gittiğini seç.</string>
     <string name="portfolio_csv_import_columns">Tanınan sütunlar: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Zaten içe aktarıldı: satırlar %1$s</string>
     <string name="portfolio_csv_import_confirm">İçe aktar (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Gün/Ay</string>
     <string name="portfolio_csv_import_date_month_first">Ay/Gün</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Stablecoin’ler (USDT, USDC …) karşılığındaki alım ve satımlar takas olarak kaydedilir – stablecoin varlıklarında görünür.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Birden çok eşleşme olası – doğru olanı seç ya da hiçbirini.</string>
+    <string name="portfolio_csv_import_transfer_loose">Yüksek ücret veya geç varış – aynı transfer olup olmadığını kontrol et.</string>
     <string name="portfolio_csv_import_transfer_fee">Ağ ücreti: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Tek transfer olarak kaydet</string>
     <string name="portfolio_csv_import_transfer_stored">Önceki bir içe aktarımdan karşılık</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Günlük kurlar şu saat dilimindeki takvim gününe göre: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Günlük kurlar yüklenemedi.</string>
     <string name="portfolio_csv_import_anyway">Yine de içe aktar</string>
-    <string name="portfolio_csv_import_anyway_hint">Günlük kur olmadan fiyat veya ücret kalıcı olarak eksik kalır. Yeniden dene veya yine de içe aktar – bu işlemlere o zaman bir not eklenir.</string>
+    <string name="portfolio_csv_import_anyway_hint">Günlük kur olmadan, sen ekleyene kadar fiyat veya ücret eksik kalır. Yeniden dene veya yine de içe aktar – bu işlemlere bir not eklenir.</string>
     <string name="portfolio_csv_note_price_no_rate">Günlük kur olmadan fiyat</string>
     <string name="portfolio_csv_note_fee_no_rate">Günlük kur olmadan ücret</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s için günlük kur yok, bu yüzden yeniden denemek işe yaramaz. Yine de içe aktarırsan bu işlemlere bir not eklenir.</string>

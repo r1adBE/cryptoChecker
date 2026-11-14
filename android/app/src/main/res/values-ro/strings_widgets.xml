@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fundal</string>
-    <string name="widget_configure_hint">Alege fundalul și opacitatea. Culoarea urmează aplicația. Widgetul arată toată lista; atinge un rând pentru a deschide aplicația.</string>
+    <string name="widget_configure_hint">Alege fundalul și opacitatea. Culoarea urmează aplicația. Widgetul afișează lista ta sau grupul ales mai jos; atinge un rând pentru a deschide aplicația.</string>
     <string name="widget_configure_title">Configurează widgetul</string>
     <string name="widget_description">Afișează prețul unei perechi din lista de urmărire.</string>
     <string name="widget_empty">Încă nicio pereche în lista de urmărire.</string>

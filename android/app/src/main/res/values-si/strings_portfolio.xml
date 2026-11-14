@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">මුළු</string>
     <string name="portfolio_hide_amounts">ප්‍රමාණ සඟවන්න</string>
-    <string name="portfolio_hide_amounts_hint">කළඹේ සහ කළඹ විජට් එකේ ප්‍රමාණ සහ වටිනාකම් ••• ලෙස පෙන්වයි – ප්‍රතිශත දිගටම පෙනේ.</string>
+    <string name="portfolio_hide_amounts_hint">කළඹේ, කළඹ විජට් එකේ, ඔරලෝසුවේ සහ කළඹ ඇඟවීම්වල ප්‍රමාණ සහ වටිනාකම් ••• ලෙස පෙන්වයි – ප්‍රතිශත දිගටම පෙනේ.</string>
     <string name="portfolio_invested">පිරිවැය පදනම</string>
     <string name="portfolio_total_no_fx">%1$s සඳහා විනිමය අනුපාතයක් නැත – ප්‍රමාණ USDT වලින්</string>
     <string name="portfolio_total_value">මුළු වටිනාකම</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">වෙනස්කම් ඉවත ලන්නද?</string>
     <string name="portfolio_edit_tx">ගනුදෙනුව සංස්කරණය කරන්න</string>
     <string name="portfolio_invalid">0 ට වඩා වැඩි වලංගු සංඛ්‍යාවක් ඇතුළත් කරන්න.</string>
+    <string name="number_ambiguous">අපැහැදිලියි: %1$s ද %2$s ද? දෙකෙන් එකක් ටයිප් කරන්න.</string>
     <string name="portfolio_oversold">විකිණීම් හිමිකම් ඉක්මවයි – කරුණාකර ගනුදෙනු පරීක්ෂා කරන්න.</string>
     <string name="portfolio_sell">විකිණීම</string>
     <string name="portfolio_sell_exceeds">ඔබේ හිමිකම්වලට (%1$s) වඩා වැඩියි</string>

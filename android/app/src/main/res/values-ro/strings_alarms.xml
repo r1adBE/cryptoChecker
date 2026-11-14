@@ -53,6 +53,8 @@
     <string name="alarm_threshold_error_funding">Rata de finanțare trebuie să fie un număr între −10 și +10 la sută.</string>
     <string name="alarm_threshold_error_invalid">Introdu un număr valid mai mare decât 0.</string>
     <string name="alarm_threshold_error_oi">Variația interesului deschis: cel mult 1000 la sută.</string>
+    <string name="alarm_threshold_error_percent_max">Cel mult 1000 la sută.</string>
+    <string name="alarm_threshold_error_distance">Distanța trebuie să fie sub 100 la sută.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">în %1$d h</item>
         <item quantity="few">în %1$d h</item>
@@ -178,6 +180,7 @@
     <string name="alarm_a11y_speak_on">Voce activată</string>
     <string name="alarm_unchecked_no_candles">Nu s-a putut verifica (fără lumânări)</string>
     <string name="alarm_unchecked_no_rate">Nu s-a putut verifica (fără curs de schimb)</string>
+    <string name="alarm_unchecked_no_window_price">Nu s-a putut verifica (fără preț în intervalul de timp)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Notificări dezactivate – această alarmă nu va ajunge la tine</string>

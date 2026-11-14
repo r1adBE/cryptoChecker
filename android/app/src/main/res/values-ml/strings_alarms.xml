@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">ഫണ്ടിംഗ് −10-നും +10-നും ഇടയിലുള്ള ശതമാനമായിരിക്കണം.</string>
     <string name="alarm_threshold_error_invalid">0-നെക്കാൾ വലിയ സാധുവായ സംഖ്യ നൽകുക.</string>
     <string name="alarm_threshold_error_oi">ഓപ്പൺ ഇന്ററസ്റ്റ് മാറ്റം: പരമാവധി 1000 ശതമാനം.</string>
+    <string name="alarm_threshold_error_percent_max">പരമാവധി 1000 ശതമാനം.</string>
+    <string name="alarm_threshold_error_distance">ദൂരം 100 ശതമാനത്തിൽ കുറവായിരിക്കണം.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d മണിക്കൂറിനുള്ളിൽ</item>
         <item quantity="other">%1$d മണിക്കൂറിനുള്ളിൽ</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">സംഭാഷണം ഓൺ</string>
     <string name="alarm_unchecked_no_candles">പരിശോധിക്കാനായില്ല (കാൻഡിൽ ഡാറ്റയില്ല)</string>
     <string name="alarm_unchecked_no_rate">പരിശോധിക്കാനായില്ല (വിനിമയ നിരക്കില്ല)</string>
+    <string name="alarm_unchecked_no_window_price">പരിശോധിക്കാനായില്ല (സമയപരിധിയിൽ വിലയില്ല)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">അറിയിപ്പുകൾ ഓഫ് – ഈ അലേർട്ട് നിങ്ങളിലേക്ക് എത്തില്ല</string>

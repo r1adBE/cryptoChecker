@@ -27,6 +27,10 @@ struct PortfolioScreen: View {
     @State private var toast: ToastMessage?
     /// Banner unten («BTC entfernt» mit «Rückgängig») — wie in der Merkliste.
     @State var banner: WatchlistBannerMessage?
+    /// Gespeicherter Stand gerade nicht lesbar (`AppData.portfolioStorageLocked`, Dateiprüfung): beim Erscheinen, bei
+    /// Rückkehr der App und bei jedem Speicher-Wechsel neu gelesen, nicht bei jedem Neuzeichnen
+    @State private var storageLocked = false
+    @Environment(\.scenePhase) private var scenePhase
     /// «Portfolio leeren» — Rückfrage.
     @State var askClear = false
     /// Coin, dessen Transaktionen nach Rückfrage gelöscht werden (Wischen bzw. VoiceOver «Löschen»).
@@ -85,8 +89,6 @@ struct PortfolioScreen: View {
     /// Umgebung, Hintergrund, Titel und Werkzeugleiste.
     private func chrome<V: View>(_ base: V, hasData: Bool, currency: String) -> some View {
         base
-            // «Beträge verbergen» (Auge oben bzw. Einstellung): Beträge als «•••», Prozente bleiben
-            .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
             .background(AppColors.background.ignoresSafeArea())
             .tabTitle(L("portfolio_title"), icon: .portfolio)
             .toolbar { toolbarContent(hasTransactions: !data.portfolio.isEmpty, hasData: hasData, currency: currency) }
@@ -133,13 +135,6 @@ struct PortfolioScreen: View {
             // zählt — neue Guthaben/Versuche kommen aus `refresh` selbst und lösten sonst gleich den nächsten aus
             .onChange(of: data.watchedAddresses.map { "\($0.chain.rawValue):\($0.address)" }) {
                 Task { await model.refresh(force: false) }
-            }
-            // Nicht versiegelt speicherbar (Schlüsselbund gerade nicht lesbar): Änderungen warten im Speicher — sagen,
-            // nicht still (nie im Klartext geschrieben); das nächste Speichern bzw. die Rückkehr der App versucht es erneut
-            .onChange(of: data.portfolioSavePending) { _, pending in
-                if pending {
-                    banner = WatchlistBannerMessage(text: L("portfolio_save_pending"), long: true)
-                }
             }
             // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen: einmal automatisch «Nur anzeigen» — wie Android
             .onAppear { checkAddressOverlap() }
@@ -263,7 +258,7 @@ struct PortfolioScreen: View {
                                      kind: enabled ? .info : .success)
             } onSaveFailed: {
                 // Blatt schon zu («Abbrechen» während des Schreibens): Fehler hier melden, nicht still
-                toast = ToastMessage(L("portfolio_csv_import_failed"), kind: .error)
+                toast = ToastMessage(L(PortfolioCsvImportSheet.failureKey(data)), kind: .error)
             }
             .environmentObject(data)
             .environment(\.appAccent, accent)
@@ -292,6 +287,19 @@ struct PortfolioScreen: View {
         .toast($toast)
         // Ungültige Einträge aus der Systemsicherung einmal nennen
         .systemRestoreNotice()
+        .overlay(alignment: .bottom) {
+            // Gespeicherter Stand gerade nicht lesbar (leer, gesperrt) bzw. Änderungen warten auf verschlüsseltes Speichern
+            // (nie im Klartext geschrieben): stehender Hinweis wie in der Merkliste und auf Android — auch wenn der Zustand
+            // schon vor dem ersten Erscheinen des Tabs galt
+            WatchlistStorageNotice(notice: WatchlistStorageLock.notice(locked: storageLocked,
+                                                                       savePending: data.portfolioSavePending),
+                                   bannerShown: banner != nil,
+                                   keptKey: "portfolio_storage_kept_in_memory", notSavedKey: "portfolio_save_pending")
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner == nil)
+                .onAppear { storageLocked = data.portfolioStorageLocked }
+                .onChange(of: scenePhase) { storageLocked = data.portfolioStorageLocked }
+                .onChange(of: data.portfolioSavePending) { storageLocked = data.portfolioStorageLocked }
+        }
         .overlay(alignment: .bottom) {
             // Animation nur für den Banner, nicht für die Liste darunter
             WatchlistBanner(message: $banner) { _ in }

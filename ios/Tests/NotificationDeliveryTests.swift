@@ -21,6 +21,16 @@ final class NotificationDeliveryTests: XCTestCase {
         XCTAssertTrue(GasAlertCheck.evaluate(value: 2.6, threshold: 2.0, armed: false, deliverable: false).armed)
     }
 
+    func testGasZeroOrInvalidValueIsNoData() {
+        // F3-08: Messwert 0 (gestörter Knoten) meldet nicht und verbraucht nichts; nicht scharf bleibt nicht scharf
+        for value in [0.0, -1.0, Double.nan] {
+            let result = GasAlertCheck.evaluate(value: value, threshold: 2.0, armed: true)
+            XCTAssertFalse(result.fire)
+            XCTAssertTrue(result.armed)
+        }
+        XCTAssertFalse(GasAlertCheck.evaluate(value: 0, threshold: 2.0, armed: false).armed)
+    }
+
     func testGasFailedPostKeepsPreviousState() {
         XCTAssertTrue(GasAlertCheck.armedAfter(fire: true, posted: false, armedBefore: true, next: false))
         XCTAssertFalse(GasAlertCheck.armedAfter(fire: true, posted: true, armedBefore: true, next: false))

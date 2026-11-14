@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">કુલ</string>
     <string name="portfolio_hide_amounts">રકમ છુપાવો</string>
-    <string name="portfolio_hide_amounts_hint">પોર્ટફોલિયો અને પોર્ટફોલિયો વિજેટમાં રકમ અને મૂલ્યો ••• તરીકે બતાવે છે – ટકાવારી દેખાતી રહે છે.</string>
+    <string name="portfolio_hide_amounts_hint">પોર્ટફોલિયો, પોર્ટફોલિયો વિજેટ, વૉચ પર અને પોર્ટફોલિયો એલાર્મમાં રકમ અને મૂલ્યો ••• તરીકે બતાવે છે – ટકાવારી દેખાતી રહે છે.</string>
     <string name="portfolio_invested">પડતર કિંમત</string>
     <string name="portfolio_total_no_fx">%1$s માટે વિનિમય દર નથી – રકમ USDT માં</string>
     <string name="portfolio_total_value">કુલ મૂલ્ય</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">ફેરફારો રદ કરવા છે?</string>
     <string name="portfolio_edit_tx">વ્યવહારમાં ફેરફાર કરો</string>
     <string name="portfolio_invalid">0 કરતાં મોટી માન્ય સંખ્યા દાખલ કરો.</string>
+    <string name="number_ambiguous">અસ્પષ્ટ: %1$s કે %2$s? બેમાંથી એક લખો.</string>
     <string name="portfolio_oversold">વેચાણ હોલ્ડિંગ કરતાં વધુ છે – કૃપા કરીને વ્યવહારો તપાસો.</string>
     <string name="portfolio_sell">વેચાણ</string>
     <string name="portfolio_sell_exceeds">તમારા હોલ્ડિંગ (%1$s) કરતાં વધુ</string>

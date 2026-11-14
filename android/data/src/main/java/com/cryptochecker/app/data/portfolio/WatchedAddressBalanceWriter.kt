@@ -27,7 +27,8 @@ object WatchedAddressBalanceWriter {
             val updated = WatchedAddressRules.applyFetched(
                 current, u.time, f.balance, f.provider, f.tokens, f.xpub, f.networks, f.unknownTokens, f.keptTokens,
             )
-            dao.saveFetched(u.id, f.balance, u.time, f.provider, WatchedAddressExtras.encode(updated))
+            // Guthaben aus der Regel: ein Sprung auf 0 wartet auf Bestätigung (ZeroConfirm), dann bleibt der alte Wert
+            dao.saveFetched(u.id, updated.lastBalance ?: f.balance, u.time, f.provider, WatchedAddressExtras.encode(updated))
         }
     }
 }

@@ -12,6 +12,12 @@ struct CsvAbsorbedRow: Hashable, Sendable {
     let feeCoin: String?
     let feeCoinAmount: Decimal?
     let importKey: String
+
+    /// Wallet der wiederhergestellten Zeile: die Börse ihrer Datei (`CsvTransferMatch.placeOf`) — wie beim Import.
+    var exchange: String? { type == .TRANSFER ? nil : CsvTransferMatch.placeOf(importKey) }
+
+    /// Als Umbuchung (Auszahlung als Umbuchung gelesen): Quelle = Börse ihrer Datei.
+    var transferFrom: String? { type == .TRANSFER ? CsvTransferMatch.placeOf(importKey) : nil }
 }
 
 /// Zustand einer gespeicherten Transaktion vor der Verknüpfung zu einer Umbuchung (`CsvTransferMatch.restoreState`) —

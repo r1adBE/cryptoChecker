@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmlar açık – henüz arka plan kontrolü yok</string>
     <string name="alarm_reliability_notifications_off">Bildirimler kapalı – alarmlar ulaşmaz</string>
     <string name="alarm_reliability_battery">Pil tasarrufu alarm kontrollerini durdurabilir</string>
+    <string name="alarm_reliability_offline">Bağlantı yok – ağ geri geldiğinde alarmlar kontrol edilir</string>
     <string name="alarm_reliability_background_refresh">Arka Planda Yenile kapalı – alarmlar ulaşmayabilir</string>
 </resources>

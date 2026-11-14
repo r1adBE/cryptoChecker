@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">બૅકગ્રાઉન્ડ</string>
-    <string name="widget_configure_hint">બૅકગ્રાઉન્ડ અને અપારદર્શકતા પસંદ કરો. રંગ ઍપને અનુસરે છે. વિજેટ તમારી આખી વૉચલિસ્ટ બતાવે છે; ઍપ ખોલવા માટે કોઈ લાઇન પર ટૅપ કરો.</string>
+    <string name="widget_configure_hint">પૃષ્ઠભૂમિ અને અપારદર્શકતા પસંદ કરો. રંગ ઍપને અનુસરે છે. વિજેટ તમારી વૉચલિસ્ટ અથવા નીચે પસંદ કરેલું જૂથ બતાવે છે; ઍપ ખોલવા માટે કોઈ પંક્તિ પર ટૅપ કરો.</string>
     <string name="widget_configure_title">વિજેટ સેટ કરો</string>
     <string name="widget_description">તમારી વૉચલિસ્ટની એક જોડીનો ભાવ બતાવે છે.</string>
     <string name="widget_empty">વૉચલિસ્ટમાં હજુ કોઈ જોડી નથી.</string>

@@ -80,6 +80,8 @@ object CsvImport {
      * Schlüssel gegen doppelten Import:
      *  - mit Kennung: «<Format>|<Kennung>» (Relai «Operation ID» je Zeile eindeutig)
      *  - Swissquote: «SWISSQUOTE|<Order #>|<Zeit>|<Menge>» (Teilausführungen teilen die Auftragsnummer)
+     *  - freie Vorlage: «GENERIC|<ID>|<Art>|<Coin>|<Zeit>|<Menge>» — ihre ID-Spalte (Auftrag, TxID, laufende Nummer) ist
+     *    nicht je Zeile eindeutig: dieselbe Blockchain-TxID auf zwei Börsen, Nummern ab 1 in jeder Tabelle
      *  - ohne Kennung: «<Format>|<Art>|<Coin>|<Zeit>|<Menge>|<Preis oder ->»
      * <Zeit>: UTC-ms; steht die Zeit ohne Versatz in der Datei ([localTime]), «L» + Kalenderzeit — so ändert eine
      * andere Zeitzone beim zweiten Import den Schlüssel nicht.
@@ -98,8 +100,11 @@ object CsvImport {
     ): String {
         val time = localTime?.let { "L$it" } ?: timeMillis.toString()
         if (externalId != null) {
-            return if (format == CsvImportFormat.SWISSQUOTE) "SWISSQUOTE|$externalId|$time|${text(amount)}"
-            else "${format.name}|$externalId"
+            return when (format) {
+                CsvImportFormat.SWISSQUOTE -> "SWISSQUOTE|$externalId|$time|${text(amount)}"
+                CsvImportFormat.GENERIC -> "GENERIC|$externalId|${kind.name}|$coin|$time|${text(amount)}"
+                else -> "${format.name}|$externalId"
+            }
         }
         return "${format.name}|${kind.name}|$coin|$time|${text(amount)}|${price?.let { text(it) } ?: "-"}"
     }
@@ -228,6 +233,20 @@ object CsvImport {
     fun splitDuplicates(rows: List<CsvImportRow>, existingKeys: Set<String>): CsvImportSplit {
         val (dup, fresh) = rows.partition { r -> r.key in existingKeys }
         return CsvImportSplit(fresh = fresh, duplicates = dup)
+    }
+
+    /**
+     * «Trotzdem importieren» für schon importierte Zeilen [duplicates]: jede bekommt einen freien Schlüssel «<Schlüssel>+2»,
+     * «+3» … ([stableKey], weder in [existingKeys] noch schon vergeben) — gespeichert neben der ersten, und ein weiterer
+     * Import derselben Datei erkennt die erste wieder als doppelt. Wie iOS.
+     */
+    fun keptAnyway(duplicates: List<CsvImportRow>, existingKeys: Set<String>): List<CsvImportRow> {
+        val taken = HashSet(existingKeys)
+        return duplicates.map { row ->
+            val key = generateSequence(2) { it + 1 }.map { stableKey("${row.key}+$it") }.first { it !in taken }
+            taken += key
+            row.copy(key = key)
+        }
     }
 
     /**

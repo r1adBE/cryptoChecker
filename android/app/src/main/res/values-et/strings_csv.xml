@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Lahkub portfellist (väljamakse)</string>
     <string name="portfolio_csv_import_choose_each">Vali iga väljamakse puhul, kuhu see läks.</string>
     <string name="portfolio_csv_import_columns">Tuvastatud veerud: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Juba imporditud: read %1$s</string>
     <string name="portfolio_csv_import_confirm">Impordi (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Päev/kuu</string>
     <string name="portfolio_csv_import_date_month_first">Kuu/päev</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Tehingud stabiilsete müntide (USDT, USDC …) vastu kirjendatakse vahetustena – stabiilne münt ilmub sinu varade hulka.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Võimalikud on mitu vastet – vali õige või mitte ühtegi.</string>
+    <string name="portfolio_csv_import_transfer_loose">Kõrge tasu või hiline saabumine – kontrolli, et see on sama ülekanne.</string>
     <string name="portfolio_csv_import_transfer_fee">Võrgutasu: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Kirjenda ühe ülekandena</string>
     <string name="portfolio_csv_import_transfer_stored">Vastaskirje varasemast impordist</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Päevakursid kalendripäeva järgi ajavööndis: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Päevakursse ei õnnestunud laadida.</string>
     <string name="portfolio_csv_import_anyway">Impordi siiski</string>
-    <string name="portfolio_csv_import_anyway_hint">Ilma päevakursita jääb hind või tasu püsivalt puudu. Proovi uuesti või impordi siiski – need tehingud saavad siis märkuse.</string>
+    <string name="portfolio_csv_import_anyway_hint">Päevakursita puudub hind või tasu, kuni sa selle lisad. Proovi uuesti või impordi siiski – need tehingud saavad märkuse.</string>
     <string name="portfolio_csv_note_price_no_rate">Hind ilma päevakursita</string>
     <string name="portfolio_csv_note_fee_no_rate">Tasu ilma päevakursita</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s jaoks päevakursse pole, seega uus katse ei aita. Kui impordid siiski, saavad need tehingud märkuse.</string>

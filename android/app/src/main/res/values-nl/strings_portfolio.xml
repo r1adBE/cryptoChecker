@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Totaal</string>
     <string name="portfolio_hide_amounts">Bedragen verbergen</string>
-    <string name="portfolio_hide_amounts_hint">Toont bedragen en waarden in de portfolio en de portfoliowidget als ••• – percentages blijven zichtbaar.</string>
+    <string name="portfolio_hide_amounts_hint">Toont bedragen en waarden in de portfolio, de portfoliowidget, op het horloge en in portfolio-alarmen als ••• – percentages blijven zichtbaar.</string>
     <string name="portfolio_invested">Kostprijs</string>
     <string name="portfolio_total_no_fx">Geen wisselkoers voor %1$s – bedragen in USDT</string>
     <string name="portfolio_total_value">Totale waarde</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Wijzigingen verwerpen?</string>
     <string name="portfolio_edit_tx">Transactie bewerken</string>
     <string name="portfolio_invalid">Voer een geldig getal groter dan 0 in.</string>
+    <string name="number_ambiguous">Onduidelijk: %1$s of %2$s? Typ een van de twee.</string>
     <string name="portfolio_oversold">Verkopen overschrijden het bezit – controleer de transacties.</string>
     <string name="portfolio_sell">Verkoop</string>
     <string name="portfolio_sell_exceeds">Meer dan je bezit (%1$s)</string>

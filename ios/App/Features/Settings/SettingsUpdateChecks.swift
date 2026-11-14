@@ -96,6 +96,8 @@ private struct CheckRunRow: View {
         case .partial: return L("check_result_partial")
         case .failed: return L("check_result_failed")
         case .skipped: return L("check_result_skipped")
+        case .paused: return L("check_result_paused")
+        case .offline: return L("check_result_offline")
         }
     }
 }

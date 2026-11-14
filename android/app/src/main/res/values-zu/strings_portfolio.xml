@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Isamba</string>
     <string name="portfolio_hide_amounts">Fihla amanani</string>
-    <string name="portfolio_hide_amounts_hint">Ibonisa amanani ku-portfolio nakuwijethi ye-portfolio njengo-••• – amaphesenti ahlala ebonakala.</string>
+    <string name="portfolio_hide_amounts_hint">Ibonisa amanani ku-portfolio, kuwijethi ye-portfolio, ewashini nakuzexwayiso ze-portfolio njengo-••• – amaphesenti ahlala ebonakala.</string>
     <string name="portfolio_invested">Izindleko zokuthenga</string>
     <string name="portfolio_total_no_fx">Alikho izinga lokushintshisana le-%1$s – amanani nge-USDT</string>
     <string name="portfolio_total_value">Inani eliphelele</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Lahla izinguquko?</string>
     <string name="portfolio_edit_tx">Hlela umsebenzi</string>
     <string name="portfolio_invalid">Faka inombolo evumelekile enkulu kuno-0.</string>
+    <string name="number_ambiguous">Akucacile: %1$s noma %2$s? Thayipha okukodwa kwalokho okubili.</string>
     <string name="portfolio_oversold">Ukuthengisa kudlula izimpahla – sicela uhlole imisebenzi.</string>
     <string name="portfolio_sell">Thengisa</string>
     <string name="portfolio_sell_exceeds">Kungaphezu kwezimpahla zakho (%1$s)</string>

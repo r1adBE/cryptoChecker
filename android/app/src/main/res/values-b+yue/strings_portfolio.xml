@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">總計</string>
     <string name="portfolio_hide_amounts">隱藏金額</string>
-    <string name="portfolio_hide_amounts_hint">喺投資組合同投資組合小工具將數量同價值顯示做 ••• – 百分比照樣顯示。</string>
+    <string name="portfolio_hide_amounts_hint">喺投資組合、投資組合小工具、手錶同投資組合提醒入面將數量同價值顯示做 ••• – 百分比照樣顯示。</string>
     <string name="portfolio_invested">成本基礎</string>
     <string name="portfolio_total_no_fx">冇 %1$s 嘅匯率 – 金額以 USDT 計</string>
     <string name="portfolio_total_value">總值</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">捨棄更改？</string>
     <string name="portfolio_edit_tx">編輯交易</string>
     <string name="portfolio_invalid">請輸入大過 0 嘅有效數字。</string>
+    <string name="number_ambiguous">唔清楚：%1$s 定係 %2$s？請輸入其中一種寫法。</string>
     <string name="portfolio_oversold">賣出超過持倉 – 請檢查交易。</string>
     <string name="portfolio_sell">賣出</string>
     <string name="portfolio_sell_exceeds">超過你嘅持倉（%1$s）</string>

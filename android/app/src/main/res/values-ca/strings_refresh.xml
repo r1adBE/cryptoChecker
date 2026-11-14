@@ -100,6 +100,8 @@
     <string name="check_result_ok">Correcte</string>
     <string name="check_result_partial">Parcial</string>
     <string name="check_result_skipped">Omès</string>
+    <string name="check_result_paused">En pausa, res comprovat</string>
+    <string name="check_result_offline">Omès (sense connexió)</string>
     <string name="check_trigger_bgtask">Segon pla</string>
     <string name="check_trigger_exact">Puntual</string>
     <string name="check_trigger_foreground">App</string>

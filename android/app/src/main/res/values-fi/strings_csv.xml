@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Poistuu salkusta (nosto)</string>
     <string name="portfolio_csv_import_choose_each">Valitse jokaiselle nostolle, minne se meni.</string>
     <string name="portfolio_csv_import_columns">Tunnistetut sarakkeet: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Jo tuotu: rivit %1$s</string>
     <string name="portfolio_csv_import_confirm">Tuo (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Päivä/Kuukausi</string>
     <string name="portfolio_csv_import_date_month_first">Kuukausi/Päivä</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Ostot ja myynnit stablecoineja (USDT, USDC …) vastaan kirjataan vaihdoiksi – stablecoin näkyy omistuksessasi.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Useita mahdollisia osumia – valitse oikea tai ei mitään.</string>
+    <string name="portfolio_csv_import_transfer_loose">Korkea maksu tai myöhäinen saapuminen – tarkista, että kyse on samasta siirrosta.</string>
     <string name="portfolio_csv_import_transfer_fee">Verkkomaksu: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Kirjaa yhdeksi siirroksi</string>
     <string name="portfolio_csv_import_transfer_stored">Vastapuoli aiemmasta tuonnista</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Päiväkurssit kalenteripäivän mukaan aikavyöhykkeellä: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Päiväkursseja ei voitu ladata.</string>
     <string name="portfolio_csv_import_anyway">Tuo silti</string>
-    <string name="portfolio_csv_import_anyway_hint">Ilman päiväkurssia hinta tai kulu jää pysyvästi puuttumaan. Yritä uudelleen tai tuo silti – nämä tapahtumat saavat silloin muistiinpanon.</string>
+    <string name="portfolio_csv_import_anyway_hint">Ilman päiväkurssia hinta tai maksu puuttuu, kunnes lisäät sen. Yritä uudelleen tai tuo silti – nämä tapahtumat saavat merkinnän.</string>
     <string name="portfolio_csv_note_price_no_rate">Hinta ilman päiväkurssia</string>
     <string name="portfolio_csv_note_fee_no_rate">Kulu ilman päiväkurssia</string>
     <string name="portfolio_csv_import_no_rates_for">Kohteelle %1$s ei ole päiväkursseja, joten uusi yritys ei auta. Jos tuot silti, nämä tapahtumat saavat muistiinpanon.</string>

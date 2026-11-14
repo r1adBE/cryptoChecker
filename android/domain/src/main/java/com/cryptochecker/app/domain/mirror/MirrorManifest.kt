@@ -84,7 +84,8 @@ object MirrorManifest {
      * Manifest und Signatur prüfen. Fehlt eines (null/leer) → [Status.MISSING]; Signatur ungültig, Inhalt unbekannt
      * oder Erstellzeit mehr als 5 Minuten in der Zukunft → [Status.INVALID]; [MAX_AGE_MILLIS] oder älter →
      * [Status.TOO_OLD]. Gültig, wenn die Signatur zu einem der [publicKeys] passt, der nicht in [revoked] (Schlüssel-Ids)
-     * steht; andere Schlüssel nur für Tests.
+     * steht; andere Schlüssel nur für Tests. [newestSeen]: Erstellzeit des neuesten schon angenommenen Manifests — ein
+     * älteres (wieder eingespieltes) gilt als [Status.TOO_OLD], auch innerhalb von [MAX_AGE_MILLIS].
      */
     fun verify(manifestText: String?, signatureText: String?, now: Long, publicKey: String): Verification =
         verify(manifestText, signatureText, now, listOf(publicKey))
@@ -95,6 +96,7 @@ object MirrorManifest {
         now: Long,
         publicKeys: List<String> = PUBLIC_KEYS,
         revoked: Set<String> = emptySet(),
+        newestSeen: Long = 0L,
     ): Verification {
         val signature = signatureText?.trim().orEmpty()
         if (manifestText.isNullOrBlank() || signature.isEmpty()) return Verification(Status.MISSING, null)
@@ -106,6 +108,7 @@ object MirrorManifest {
         val manifest = parse(manifestText) ?: return Verification(Status.INVALID, null)
         if (manifest.created > now + CLOCK_SKEW_MILLIS) return Verification(Status.INVALID, null)
         if (now - manifest.created >= MAX_AGE_MILLIS) return Verification(Status.TOO_OLD, null)
+        if (manifest.created < newestSeen) return Verification(Status.TOO_OLD, null)
         val revoke = newlyRevoked(manifest.revoked, signer, publicKeys, revoked)
         // Gesperrter Schlüssel: Manifest abgelehnt; sperrt er seinerseits den anderen (gegenseitige Sperre), sind
         // danach beide gesperrt und der Spiegel ist aus, bis ein App-Update neue Schlüssel bringt

@@ -12,6 +12,7 @@
     <string name="watchlist_refresh_report">ການໂຫຼດຄືນໃໝ່ຫຼ້າສຸດ</string>
     <string name="watchlist_symbols_legend">ຄຳອະທິບາຍສັນຍາລັກ</string>
     <string name="watchlist_symbols_legend_alarms">ສັນຍານເຕືອນທີ່ເປີດຢູ່ ແລະ ຈຳນວນ</string>
+    <string name="watchlist_symbols_legend_warning">ລາຄາເກົ່າ ຫຼື ເຂົ້າເຖິງຕະຫຼາດແລກປ່ຽນບໍ່ໄດ້</string>
     <string name="watchlist_refresh_report_empty">ຍັງບໍ່ມີລາຍລະອຽດ – ຍັງບໍ່ມີການໂຫຼດຄືນໃໝ່ທັງໝົດ. ແຕະໂຫຼດຄືນໃໝ່ ແລ້ວລໍຖ້າຈົນກວ່າວົງມົນຈະຢຸດ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d ຈາກ %2$d ບໍ່ເປັນປັດຈຸບັນ</item>
@@ -243,6 +244,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">ປິດການແຈ້ງເຕືອນ</string>
     <string name="watchlist_missing_logos_explain">ບໍ່ມີໂລໂກ້ສຳລັບຫຼຽນເຫຼົ່ານີ້. ແອັບຈະສະແດງຕົວອັກສອນຫຍໍ້.</string>
+    <string name="watchlist_missing_logos_pending">ຍັງບໍ່ໄດ້ໂຫຼດ</string>
+    <string name="watchlist_missing_logos_explain_pending">ໂລໂກ້ທີ່ໝາຍວ່າຍັງບໍ່ໄດ້ໂຫຼດ ຈະມາພ້ອມການຊິງຄ໌ຄັ້ງຕໍ່ໄປ ບາງອັນສະເພາະ Wi-Fi. ບໍ່ມີໂລໂກ້ສຳລັບຫຼຽນອື່ນ. ແອັບສະແດງຕົວອັກສອນທຳອິດຂອງພວກມັນ.</string>
     <string name="exchange_retiring_notice">ຕັ້ງແຕ່ %2$s, %1$s ຈະບໍ່ໃຫ້ລາຄາສາທາລະນະອີກ. ກະລຸນາເລືອກກະດານແລກປ່ຽນອື່ນສຳລັບຫຼຽນເຫຼົ່ານີ້.</string>
     <string name="exchange_retiring_reason">ຕັ້ງແຕ່ %2$s, %1$s ຈະບໍ່ໃຫ້ລາຄາອີກ</string>
     <string name="exchange_retired_since">ຕັ້ງແຕ່ %2$s, %1$s ບໍ່ໃຫ້ລາຄາອີກແລ້ວ</string>

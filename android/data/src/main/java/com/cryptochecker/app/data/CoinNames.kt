@@ -156,7 +156,7 @@ class CoinNames @Inject constructor(
             withContext(ioDispatcher) {
                 runCatchingCancellable {
                     namesFile.parentFile?.mkdirs()
-                    namesFile.writeText(CoinLogos.encodeNames(merged))
+                    LogoFiles.writeText(namesFile, CoinLogos.encodeNames(merged))
                 }.onFailure { Timber.w(it, "Coin-Namen nicht gespeichert") }
             }
             baseNames = merged
@@ -180,7 +180,7 @@ class CoinNames @Inject constructor(
 
     /** Namen-Datei schreiben (wirft bei Fehlern; der Aufrufer fasst sie mit der Zuordnung zusammen). */
     fun writeNamesFile(names: Map<String, String>) {
-        namesFile.writeText(CoinLogos.encodeNames(names))
+        LogoFiles.writeText(namesFile, CoinLogos.encodeNames(names))
     }
 
     // ---- Aktiennamen (Nasdaq)
@@ -219,7 +219,7 @@ class CoinNames @Inject constructor(
         withContext(ioDispatcher) {
             runCatchingCancellable {
                 stockNamesFile.parentFile?.mkdirs()
-                stockNamesFile.writeText(CoinLogos.encodeNames(fresh))
+                LogoFiles.writeText(stockNamesFile, CoinLogos.encodeNames(fresh))
             }.onFailure { Timber.w(it, "Aktiennamen nicht gespeichert") }
         }
         prefs.edit { putLong(KEY_STOCK_NAMES_TIME, now) }

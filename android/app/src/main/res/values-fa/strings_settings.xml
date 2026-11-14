@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">انتخاب کن قیمت کدام جفت‌ها در نوار اعلان نمایش داده شود.</string>
     <string name="settings_quiet_hours">ساعات بی‌صدا</string>
     <string name="settings_quiet_hours_from">از</string>
-    <string name="settings_quiet_hours_hint">بین %1$s و %2$s هشدارها تا پایان ساعات بی‌صدا صبر می‌کنند و سپس با صدا اعلام می‌شوند. اعلان‌های دیگر بی‌صدا و بدون گفتار می‌رسند.</string>
+    <string name="settings_quiet_hours_hint">بین %1$s و %2$s هشدارها تا پایان ساعات بی‌صدا صبر می‌کنند و سپس با صدا اعلام می‌شوند، اگر شرط آن‌ها در آن زمان هنوز برقرار باشد. اعلان‌های دیگر بی‌صدا و بدون گفتار می‌رسند.</string>
     <string name="settings_quiet_hours_to">تا</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">در حال استفاده: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">تنظیم نشده – از گره‌های عمومی استفاده می‌شود</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">تنظیمات بازنشانی شد، بنابراین معلوم نیست از سرور بیت‌کوین خودتان استفاده می‌کردید یا نه. تا وقتی سرورتان را دوباره وارد نکنید یا گره‌های عمومی را انتخاب نکنید، آدرس‌های بیت‌کوین و کلیدهای xpub استعلام نمی‌شوند.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">فقط آدرس‌های https:// مجازند</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

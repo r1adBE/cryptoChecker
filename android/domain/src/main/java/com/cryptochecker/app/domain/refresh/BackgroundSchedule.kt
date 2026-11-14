@@ -103,10 +103,14 @@ object BackgroundSchedule {
      *
      * Nicht gehandelte Paare und Paare stillgelegter Börsen ([notTraded]) zählen weder als versucht noch als gescheitert:
      * Sie haben keinen Kurs mehr, ihre Alarme ruhen. Sind ALLE Paare so ([attempted] 0, [notTraded] > 0), ist der Lauf
-     * trotzdem voll — Portfolio-, Gas- und Depeg-Alarme wurden geprüft.
+     * trotzdem voll — Portfolio-, Gas- und Depeg-Alarme wurden geprüft. Scheiterten Paare am Zeitbudget der Prüfung
+     * ([cutByBudget] > 0), ist der Lauf nie voll (sonst übersprang das Sperrfenster den Lauf ohne Frist, immer dieselben).
      */
-    fun isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0): Boolean =
-        if (attempted == 0 && failed == 0) {
+    fun isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0, cutByBudget: Int = 0): Boolean =
+        if (cutByBudget > 0) {
+            // Paare am Zeitbudget ausgelassen: ihre Alarme ungeprüft — der Lauf ohne Frist darf nicht wegfallen
+            false
+        } else if (attempted == 0 && failed == 0) {
             notTraded > 0
         } else {
             attempted > 0 && failed in 0 until attempted && (attempted - failed) * 2 > attempted

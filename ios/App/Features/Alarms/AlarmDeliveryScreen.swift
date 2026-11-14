@@ -258,6 +258,7 @@ enum AlarmReadinessProbe {
         // Alle gespeicherten geplanten Läufe gescheitert: Zuverlässigkeitszeile warnt
         input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
         input.failingSince = CheckRunLog.failingSince(runs)
+        input.offline = CheckRunLog.offlineSkipped(runs)
         input.hasAlarms = hasAlarms
         input.alertEnabled = center.alertSetting != .disabled
         input.soundEnabled = center.soundSetting != .disabled

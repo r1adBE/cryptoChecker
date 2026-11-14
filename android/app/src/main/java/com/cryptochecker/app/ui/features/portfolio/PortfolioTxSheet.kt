@@ -31,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,6 +75,8 @@ fun PortfolioTxSheet(
     var askDiscard by remember { mutableStateOf(false) }
     // Sperre an: Blatt mit Beständen nicht im Vorschaubild / auf Bildschirmfotos (auch aus der Merkliste)
     val lockEnabled by lockViewModel.lockEnabled.collectAsState()
+    // Bestand und Beträge: keine fremden Fenster darüber, auch aus Paarseite, Markt und Merkliste (nicht nur im Portfolio-Tab)
+    com.cryptochecker.app.ui.lock.HideOverlaysEffect()
     val focus = LocalFocusManager.current
     val coins by viewModel.coins.collectAsState()
     val exchanges by viewModel.exchanges.collectAsState()
@@ -108,8 +111,20 @@ fun PortfolioTxSheet(
     )
     // Abbrechen bzw. Schliessen: mit Änderungen erst nachfragen
     val requestClose: () -> Unit = { if (d.dirty) { askDiscard = true } else { onDismiss() } }
-    // Speichern läuft (kein Doppeltipp); Fehler beim Speichern als Meldung im Blatt (über dem Blatt sichtbar)
-    var saving by remember { mutableStateOf(false) }
+    // Speichern läuft bzw. diese Eingaben sind gespeichert: im ViewModel ([TxSaveGuard]), damit Drehen mitten im Schreiben
+    // weder ein zweites Anlegen erlaubt noch das Blatt offen lässt (die Sitzung übersteht das Drehen)
+    val saveSession = rememberSaveable { java.util.UUID.randomUUID().toString() }
+    val saving by viewModel.txSaveGuard.busy.collectAsState()
+    val savedSessions by viewModel.txSaveGuard.saved.collectAsState()
+    var closedAfterSave by remember { mutableStateOf(false) }
+    val sessionSaved = saveSession in savedSessions
+    LaunchedEffect(sessionSaved) {
+        if (sessionSaved && !closedAfterSave) {
+            closedAfterSave = true
+            onDismiss()
+        }
+    }
+    // Fehler beim Speichern als Meldung im Blatt (über dem Blatt sichtbar)
     val saveErrorHost = remember { SnackbarHostState() }
     val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
@@ -274,14 +289,16 @@ fun PortfolioTxSheet(
                         // Haptik wie iOS: mit Fehlern Warnung, gespeichert Erfolg, Schreiben gescheitert Fehler
                         if (!d.valid) haptics.play(HapticEvent.WARNING)
                         if (d.valid) {
-                            saving = true
                             viewModel.save(
                                 state.toDraft(d),
                                 onAskEnablePortfolio,
-                                onSaved = { haptics.play(HapticEvent.SUCCESS); onDismiss() },
+                                onSaved = {
+                                    haptics.play(HapticEvent.SUCCESS)
+                                    closedAfterSave = true
+                                    onDismiss()
+                                },
                                 // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
                                 onFailed = {
-                                    saving = false
                                     haptics.play(HapticEvent.ERROR)
                                     val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
                                     // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
@@ -292,6 +309,7 @@ fun PortfolioTxSheet(
                                         )
                                     }
                                 },
+                                session = saveSession,
                             )
                         }
                     },

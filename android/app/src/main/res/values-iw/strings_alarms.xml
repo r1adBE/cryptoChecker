@@ -53,6 +53,8 @@
     <string name="alarm_threshold_error_funding">שיעור מימון חייב להיות מספר בין −10 ל-+10 אחוז.</string>
     <string name="alarm_threshold_error_invalid">הזינו מספר תקין גדול מ-0.</string>
     <string name="alarm_threshold_error_oi">שינוי ב-Open interest: לכל היותר 1000 אחוז.</string>
+    <string name="alarm_threshold_error_percent_max">לכל היותר 1000 אחוז.</string>
+    <string name="alarm_threshold_error_distance">המרחק חייב להיות פחות מ-100 אחוז.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">תוך %1$d שעה</item>
         <item quantity="two">תוך %1$d שעות</item>
@@ -178,6 +180,7 @@
     <string name="alarm_a11y_speak_on">הקראה פעילה</string>
     <string name="alarm_unchecked_no_candles">לא ניתן היה לבדוק (אין נתוני נרות)</string>
     <string name="alarm_unchecked_no_rate">לא ניתן היה לבדוק (אין שער חליפין)</string>
+    <string name="alarm_unchecked_no_window_price">לא ניתן היה לבדוק (אין מחיר בחלון הזמן)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">התראות המערכת כבויות – ההתראה הזו לא תגיע אליך</string>

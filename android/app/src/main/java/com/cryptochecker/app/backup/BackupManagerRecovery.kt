@@ -56,8 +56,11 @@ internal suspend fun BackupManager.recoverFromJournal(text: String) {
         return
     }
     // Welche Schritte schon liefen, ist unbekannt: alle zurückschreiben (gleicher Stand, beliebig oft anwendbar)
+    // Unter der Sperre der Adress-Aktualisierung (Adressen und eigener Server kommen in getrennten Schritten zurück)
     val complete = withContext(NonCancellable) {
-        rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
+        addressRefresher.withRefreshLock {
+            rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
+        }
     }
     // Gescheitert: Versuch vermerkt — der nächste Start rollt nicht erneut zurück, sondern gibt auf (Journal weg, Hinweis)
     if (complete) runCatchingCancellable { journal.delete() } else StorageRecoveryNotice.recordRollBackAttempt(context, createdAt)

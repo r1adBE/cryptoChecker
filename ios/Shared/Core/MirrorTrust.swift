@@ -6,8 +6,8 @@ import Foundation
 /// Passt eine Datei nicht zum gemerkten Manifest (die Action lief seither), wird es einmal neu geholt, höchstens
 /// einmal je `reloadAfterMillis`. Manifest höchstens `MirrorManifest.maxBytes`, Signatur höchstens
 /// `MirrorManifest.signatureMaxBytes` (grösser → wie fehlend). Gesperrte Schlüssel (`MirrorRevocations`) zählen bei
-/// jeder Prüfung nicht; eine neue Sperre aus einem gültigen Manifest wird sofort dauerhaft gemerkt.
-/// Gleich wie Android `MirrorTrust.kt`.
+/// jeder Prüfung nicht; eine neue Sperre aus einem gültigen Manifest wird sofort dauerhaft gemerkt. Ein Manifest, das
+/// älter ist als das neueste schon angenommene, gilt als zu alt (je Prozess, ohne Ablage). Gleich wie Android `MirrorTrust.kt`.
 actor MirrorTrust {
     /// Einzige Instanz der App: eingebaute Schlüssel (`MirrorManifest.publicKeys`), Systemuhr, gemeinsame Sperrliste.
     static let shared = MirrorTrust(publicKeys: MirrorManifest.publicKeys, now: { EpochTime.nowMillis })
@@ -21,6 +21,8 @@ actor MirrorTrust {
 
     private var loadedAt: Int64 = 0
     private var cached: MirrorManifest.Verification?
+    /// Erstellzeit des neuesten angenommenen Manifests in diesem Prozess.
+    private var newestCreated: Int64 = 0
     private var loading: Task<MirrorManifest.Verification, Never>?
     private let publicKeys: [String]
     private let clock: @Sendable () -> Int64
@@ -68,23 +70,27 @@ actor MirrorTrust {
         let keys = publicKeys
         let clockNow = self.clock
         let store = revocations
-        let task = Task { await MirrorTrust.fetch(load, publicKeys: keys, revocations: store, now: clockNow) }
+        let newest = newestCreated
+        let task = Task {
+            await MirrorTrust.fetch(load, publicKeys: keys, revocations: store, newestSeen: newest, now: clockNow)
+        }
         loading = task
         let verification = await task.value
         loading = nil
+        if let created = verification.manifest?.created { newestCreated = max(newestCreated, created) }
         cached = verification
         loadedAt = now
         return verification
     }
 
-    private static func fetch(_ load: Loader, publicKeys: [String], revocations: MirrorRevocations,
+    private static func fetch(_ load: Loader, publicKeys: [String], revocations: MirrorRevocations, newestSeen: Int64,
                               now: @Sendable () -> Int64) async -> MirrorManifest.Verification {
         guard let manifest = await load(MirrorManifest.url, MirrorManifest.maxBytes) else {
             return MirrorManifest.verify(nil, signature: nil, now: now(), publicKeys: publicKeys)
         }
         let signature = await load(MirrorManifest.signatureURL, MirrorManifest.signatureMaxBytes)
         let verification = MirrorManifest.verify(manifest, signature: signature, now: now(), publicKeys: publicKeys,
-                                                 revoked: revocations.current())
+                                                 revoked: revocations.current(), newestSeen: newestSeen)
         if !verification.revoke.isEmpty { revocations.add(verification.revoke) }
         return verification
     }

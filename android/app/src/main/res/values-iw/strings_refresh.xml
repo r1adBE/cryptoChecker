@@ -100,6 +100,8 @@
     <string name="check_result_ok">תקין</string>
     <string name="check_result_partial">חלקי</string>
     <string name="check_result_skipped">דולג</string>
+    <string name="check_result_paused">מושהה, דבר לא נבדק</string>
+    <string name="check_result_offline">דולג (לא מקוון)</string>
     <string name="check_trigger_bgtask">רקע</string>
     <string name="check_trigger_exact">בזמן</string>
     <string name="check_trigger_foreground">אפליקציה</string>

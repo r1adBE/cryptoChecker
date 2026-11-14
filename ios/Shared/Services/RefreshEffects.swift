@@ -271,6 +271,11 @@ extension PriceRefresher {
                 return false
             }
         }
+        // Bewegungs-Alarm ohne Kurs im Zeitfenster (lange Pause): nicht als «geprüft» ausgeben
+        if AlarmEvaluator.moveWindowUncheckable(alarm: alarm, price: comparePrice, now: now, moveHistory: moveHistory) {
+            checkStatus.markUnchecked(alarm.id, reason: .noWindowPrice, now: now)
+            return false
+        }
         checkStatus.markChecked(alarm.id)
         // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
         if AlarmEvaluator.shouldRearmLevel(alarm: alarm, price: comparePrice, now: now) {

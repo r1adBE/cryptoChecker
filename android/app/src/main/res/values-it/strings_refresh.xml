@@ -100,6 +100,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Parziale</string>
     <string name="check_result_skipped">Saltato</string>
+    <string name="check_result_paused">In pausa, nulla controllato</string>
+    <string name="check_result_offline">Saltato (offline)</string>
     <string name="check_trigger_bgtask">In background</string>
     <string name="check_trigger_exact">Puntuale</string>
     <string name="check_trigger_foreground">App</string>

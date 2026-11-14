@@ -98,7 +98,8 @@ extension PortfolioHistory {
         let dayCount = Swift.max(1, todayEpochDay - start + 1)
         // Je Coin und Tag der Wert samt Eröffnung/Hoch/Tief; nil = nicht gehalten oder ohne Kurs
         var cells: [String: [DayCell?]] = [:]
-        // Gehalten, aber an einem Tag ohne Kurs (vor der ersten Kerze): fehlt im Gewinn/Verlust
+        // Gehalten, aber an einem Tag ohne Kurs (vor der ersten Kerze): fehlt wie ein Coin ganz ohne Kerzen — sonst
+        // sprang die Wertkurve am ersten Kurs-Tag um den ganzen Wert des Coins (wie Android)
         var unpriced: Set<String> = []
         for coin in included {
             let timeline = exactTimelines[coin] ?? []
@@ -135,7 +136,13 @@ extension PortfolioHistory {
             cells[coin] = row
         }
 
-        let points = sumCells(included, cells: cells, start: start, dayCount: dayCount, rate: rate)
+        let drawn = included.filter { !unpriced.contains($0) }
+        let left = held.filter { skipped.contains($0) || unpriced.contains($0) }
+        guard !drawn.isEmpty else {
+            return PortfolioHistorySeries(points: [], skipped: left, change: nil, changePercent: nil,
+                                          tradesInRange: false, capped: capped)
+        }
+        let points = sumCells(drawn, cells: cells, start: start, dayCount: dayCount, rate: rate)
         let first = points.first?.value ?? 0
         let last = points.last?.value ?? 0
         let change: Double? = points.count >= 2 ? last - first : nil
@@ -158,7 +165,7 @@ extension PortfolioHistory {
             if day == todayEpochDay, let live { return PortfolioStables.price(coin, market: live) }
             return PortfolioStables.price(coin, market: closeOnOrBefore(series, day: day))
         }
-        let flows = cashFlows(eventsOf, coins: included, start: start, todayEpochDay: todayEpochDay,
+        let flows = cashFlows(eventsOf, coins: drawn, start: start, todayEpochDay: todayEpochDay,
                               dayEndMillis: dayEndMillis, rate: rate, market: market, method: method)
 
         // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
@@ -168,10 +175,10 @@ extension PortfolioHistory {
         var pnlFlowList: [PortfolioCashFlow] = []
         var pnlSkipped: [String] = []
         var pnlCoins: [String] = []
-        for coin in included {
-            let coinFlows = unpriced.contains(coin) ? nil
-                : pnlFlows(coin, events: eventsOf[coin] ?? [], start: start, todayEpochDay: todayEpochDay, dayEndMillis: dayEndMillis,
-                           rate: rate, sinceFirst: sinceFirst, market: market, method: method)
+        for coin in drawn {
+            let coinFlows = pnlFlows(coin, events: eventsOf[coin] ?? [], start: start, todayEpochDay: todayEpochDay,
+                                     dayEndMillis: dayEndMillis, rate: rate, sinceFirst: sinceFirst, market: market,
+                                     method: method)
             if let coinFlows {
                 pnlCoins.append(coin)
                 pnlFlowList += coinFlows
@@ -186,7 +193,7 @@ extension PortfolioHistory {
             t.type.isWithdrawalLike && !AddressBalance.isAddressTrade(t.id)
                 && pnlCoins.contains(PortfolioCalculator.normalizeCoin(t.coin)) && (sinceFirst || t.time > pnlRangeEnd)
         }
-        return PortfolioHistorySeries(points: points, skipped: skipped, change: change,
+        return PortfolioHistorySeries(points: points, skipped: left, change: change,
                                       changePercent: percent, tradesInRange: tradesInRange, capped: capped,
                                       cashFlows: flows, pnlValues: pnlValues,
                                       pnlFlows: pnlFlowList.sorted { $0.epochDay < $1.epochDay },

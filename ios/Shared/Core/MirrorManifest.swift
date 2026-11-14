@@ -94,7 +94,7 @@ enum MirrorManifest {
 
     static func verify(_ manifestText: String?, signature signatureText: String?, now: Int64,
                        publicKeys: [String] = MirrorManifest.publicKeys,
-                       revoked: Set<String> = []) -> Verification {
+                       revoked: Set<String> = [], newestSeen: Int64 = 0) -> Verification {
         let signature = (signatureText ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         guard let manifestText, !manifestText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               !signature.isEmpty
@@ -105,6 +105,8 @@ enum MirrorManifest {
         guard let signer, let manifest = parse(manifestText), manifest.created <= now + clockSkewMillis
         else { return Verification(status: .invalid, manifest: nil) }
         if now - manifest.created >= maxAgeMillis { return Verification(status: .tooOld, manifest: nil) }
+        // Älter als das neueste schon angenommene (wieder eingespielt): zu alt, auch innerhalb der 7 Tage
+        if manifest.created < newestSeen { return Verification(status: .tooOld, manifest: nil) }
         let revoke = newlyRevoked(manifest.revoked, signer: signer, publicKeys: publicKeys, revoked: revoked)
         // Gesperrter Schlüssel: Manifest abgelehnt; sperrt er seinerseits den anderen (gegenseitige Sperre), sind
         // danach beide gesperrt und der Spiegel ist aus, bis ein App-Update neue Schlüssel bringt

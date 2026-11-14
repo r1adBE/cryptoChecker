@@ -30,6 +30,13 @@ enum CheckResult: String, CaseIterable, Sendable {
     /// Nicht gelaufen: eben erst geprüft bzw. läuft gerade (zählt als Prüfung), nichts zu tun oder offline (nur die
     /// App; ein geplanter Lauf offline wird nicht vermerkt).
     case skipped
+    /// Gelaufen, aber kein Alarm geprüft: alle Börsen pausiert bzw. ohne Alarm-Lease. Zählt nicht als gelungene Prüfung.
+    case paused
+    /// Geplanter Lauf ohne Netz nicht versucht (Android: exakter Wecker). Zählt nicht als Prüfung; die Zeile nennt das Netz.
+    case offline
+
+    /// Zählt als Prüfung für «Letzte Prüfung» (gelungen, teilweise oder eben erst geprüft). Wie Android.
+    var countsAsCheck: Bool { self == .ok || self == .partial || self == .skipped }
 }
 
 /// Ein Lauf: Ende, Auslöser, Ergebnis, Dauer.
@@ -51,8 +58,10 @@ enum CheckRunLog {
         Array(([run] + runs).prefix(Swift.max(max, 0)))
     }
 
-    /// Ergebnis aus geprüften und gescheiterten Paaren; nichts zu prüfen (alles live, keine Paare) = ok.
-    static func result(checked: Int, failed: Int) -> CheckResult {
+    /// Ergebnis aus geprüften und gescheiterten Paaren; nichts zu prüfen (alles live, keine Paare) = ok. Nichts geprüft,
+    /// weil alle Börsen pausiert waren (`paused` Paare), bzw. Alarme ohne Lease ausgelassen (`alarmsUnchecked`): `.paused`.
+    static func result(checked: Int, failed: Int, paused: Int = 0, alarmsUnchecked: Bool = false) -> CheckResult {
+        if alarmsUnchecked || (checked <= 0 && paused > 0) { return .paused }
         if checked <= 0 || failed <= 0 { return .ok }
         return failed >= checked ? .failed : .partial
     }
@@ -61,7 +70,12 @@ enum CheckRunLog {
     /// ankommen»); App und Widget zählen nicht. Gescheiterte Läufe auch nicht — etwa ein misslungenes Vormerken
     /// (Dauer 0): Sonst gälte eine Prüfung als eben gelaufen, die gar keine Kurse geholt hat. nil = keine. Wie Android.
     static func lastBackgroundCheck(_ runs: [CheckRun]) -> Int64? {
-        runs.first { $0.trigger.scheduled && $0.result != .failed }?.at
+        runs.first { $0.trigger.scheduled && $0.result.countsAsCheck }?.at
+    }
+
+    /// Der neueste geplante Lauf wurde offline nicht versucht (`.offline`): die Zeile nennt das Netz. Wie Android.
+    static func offlineSkipped(_ runs: [CheckRun]) -> Bool {
+        runs.first { $0.trigger.scheduled }?.result == .offline
     }
 
     /// Ende des neuesten geplanten Laufs, wenn unter den gespeicherten (`max`) keiner gelang — sonst nil. Scheitert

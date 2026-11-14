@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">Alarmes activades – encara no hi ha hagut cap comprovació en segon pla</string>
     <string name="alarm_reliability_notifications_off">Notificacions desactivades – les alarmes no arribaran</string>
     <string name="alarm_reliability_battery">L\'estalvi de bateria pot aturar les comprovacions d\'alarmes</string>
+    <string name="alarm_reliability_offline">Sense connexió – les alarmes es comproven quan torni la xarxa</string>
     <string name="alarm_reliability_background_refresh">Actualització en segon pla desactivada – és possible que no arribin les alarmes</string>
 </resources>

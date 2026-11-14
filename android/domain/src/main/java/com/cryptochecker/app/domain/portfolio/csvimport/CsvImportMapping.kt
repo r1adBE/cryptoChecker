@@ -49,6 +49,11 @@ data class CsvImportTx(
     val stakingMove: Boolean = false,
     /** Preis bzw. Gebühr fehlt, weil der Tageskurs fehlt ([CsvImportRateGate.missing]); beim Speichern Vermerk in der Notiz. */
     val missingRate: CsvMissingRate? = null,
+    /**
+     * Wallet der Zeile (FIFO je Wallet, Steuer-Vorlagen DE/AT/US): die Börse der Datei ([CsvTransferMatch.placeOf]; freie
+     * Vorlage: keine) — dieselbe, die eine verknüpfte Umbuchung als Quelle bzw. Ziel trägt. Umbuchungen: [transferFrom].
+     */
+    val exchange: String? = null,
 )
 
 /** Wahl je Auszahlung der Vorschau ([CsvImportMapping.proposeWithdrawals]). */
@@ -132,10 +137,12 @@ object CsvImportMapping {
                 else -> Unit // Fiat-Gebühr ohne Tageskurs: fehlt, Zeile unter missingFx, Vermerk beim Speichern ([CsvImportRateGate])
             }
         }
+        val txType = type(row.kind, withdrawalsAsTransfer)
+        val place = CsvTransferMatch.placeOf(row.key)
         return CsvImportTx(
             line = row.line,
             coin = coin,
-            type = type(row.kind, withdrawalsAsTransfer),
+            type = txType,
             amount = row.amount,
             // Gebühr-Zeile: Kennzeichen Preis 0 ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.valueFeeDisposals])
             priceUsdt = if (row.kind == CsvImportKind.FEE) BigDecimal.ZERO
@@ -158,6 +165,10 @@ object CsvImportMapping {
             interest = row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind),
             stakingMove = row.kind == CsvImportKind.TRANSFER,
             missingRate = CsvImportRateGate.missing(p),
+            // Wallet = Börse der Datei; Umbuchung (Staking, Auszahlung als Umbuchung) von dort, Staking auch dorthin
+            exchange = place.takeIf { txType != PortfolioTxType.TRANSFER },
+            transferFrom = place.takeIf { txType == PortfolioTxType.TRANSFER },
+            transferTo = place.takeIf { row.kind == CsvImportKind.TRANSFER },
         )
     }
 
@@ -176,6 +187,8 @@ object CsvImportMapping {
         zone: String = result.fxZone,
         withdrawalsAsTransfer: Boolean = false,
         usdtUsd: Map<Long, BigDecimal>? = null,
+        /** «Trotzdem importieren»: schon importierte Zeilen mit freiem Schlüssel übernehmen ([CsvImport.keptAnyway]). */
+        keepDuplicates: Boolean = false,
         onRow: ((done: Int, total: Int) -> Unit)? = null,
         fx: (String, Long) -> BigDecimal?,
     ): CsvImportPreview {
@@ -183,7 +196,10 @@ object CsvImportMapping {
         val held = if (result.format == CsvImportFormat.BINANCE) {
             CsvImportBinance.possibleDuplicates(split.fresh, existingKeys).mapTo(HashSet()) { it.key }
         } else emptySet()
-        val fresh = split.fresh.filter { it.key !in held }
+        val kept = if (keepDuplicates) CsvImport.keptAnyway(split.duplicates, existingKeys) else emptyList()
+        // Übernommene Doppelte an ihrer Stelle der Datei (Reihenfolge wie gelesen)
+        val keptFor = split.duplicates.map { it.key }.zip(kept).toMap()
+        val fresh = result.rows.mapNotNull { r -> keptFor[r.key] ?: r.takeIf { r.key !in existingKeys && r.key !in held } }
         val priced = ArrayList<CsvImportPriced>(fresh.size)
         for (block in fresh.chunked(PREVIEW_BLOCK)) {
             priced += CsvImport.priceInUsdt(block, zone, usdtUsd, fx)
@@ -192,15 +208,17 @@ object CsvImportMapping {
         // Zeilen, die das Speichern ablehnen würde, schon hier als übersprungen: Vorschau und Speichern stimmen überein
         val mapped = priced.map { it to toTx(it, withdrawalsAsTransfer) }
         val reasons = mapped.map { unsavableReason(it.second) }
-        val kept = mapped.filterIndexed { i, _ -> reasons[i] == null }
+        val saved = mapped.filterIndexed { i, _ -> reasons[i] == null }
         val unsavable = mapped.mapIndexedNotNull { i, m -> reasons[i]?.let { CsvImportSkip(m.second.line, it) } }
-        val keptPriced = kept.map { it.first }
+        val keptPriced = saved.map { it.first }
         val heldSkips = split.fresh.filter { it.key in held }
             .map { CsvImportSkip(it.line, CsvImportSkipReason.POSSIBLE_DUPLICATE) }
         return CsvImportPreview(
             format = result.format,
-            transactions = kept.map { it.second },
+            transactions = saved.map { it.second },
             duplicates = split.duplicates.size,
+            duplicateLines = split.duplicates.map { it.line },
+            duplicatesKept = kept.isNotEmpty(),
             skipped = (result.skipped + heldSkips + unsavable).sortedBy { it.line },
             // Gleiche Regel wie der Vermerk ([CsvImportRateGate.missing]): eine Zeile, der nichts fehlt, sperrt nicht
             missingFx = keptPriced.filter { CsvImportRateGate.missing(it) != null }.map { it.row.line },
@@ -318,13 +336,21 @@ object CsvImportMapping {
         }
     }
 
+    /**
+     * Jede Auszahlung mit «Auf eigene Wallet» ([choices]) und freier passender Einzahlung wird deren Umbuchung
+     * ([CsvTransferMatch.linkOwnWallet]) — sonst zählte die Einzahlung neben der Umbuchung doppelt. Wie iOS.
+     */
+    fun linkOwnWallets(links: List<CsvTransferLink>, chosen: Set<String>, choices: Map<String, CsvWithdrawalChoice>): Set<String> =
+        choices.filterValues { it == CsvWithdrawalChoice.TRANSFER }.keys.sorted()
+            .fold(chosen) { acc, key -> CsvTransferMatch.linkOwnWallet(links, acc, key) }
+
     /** Jede Auszahlung der Vorschau hat eine Wahl ([choices] je [CsvImportTx.importKey]) — erst dann «Importieren». */
     fun allWithdrawalsDecided(txs: List<CsvImportTx>, choices: Map<String, CsvWithdrawalChoice>): Boolean =
         txs.all { it.type != PortfolioTxType.WITHDRAWAL || choices[it.importKey] != null }
 
     /**
      * Wahl übernehmen: Auszahlungen mit [CsvWithdrawalChoice.TRANSFER] werden Umbuchungen (Ziel aus [destinations], sonst
-     * null), die übrigen bleiben Auszahlungen. Andere Arten unverändert.
+     * null; Quelle = ihre Wallet [CsvImportTx.exchange]), die übrigen bleiben Auszahlungen. Andere Arten unverändert.
      */
     fun applyWithdrawalChoices(
         txs: List<CsvImportTx>,
@@ -332,7 +358,10 @@ object CsvImportMapping {
         destinations: Map<String, String?> = emptyMap(),
     ): List<CsvImportTx> = txs.map { tx ->
         if (tx.type == PortfolioTxType.WITHDRAWAL && choices[tx.importKey] == CsvWithdrawalChoice.TRANSFER) {
-            tx.copy(type = PortfolioTxType.TRANSFER, transferTo = destinations[tx.importKey])
+            // Quelle der Umbuchung = Wallet der Auszahlung (FIFO je Wallet nimmt sie von dort)
+            tx.copy(
+                type = PortfolioTxType.TRANSFER, transferTo = destinations[tx.importKey], transferFrom = tx.exchange, exchange = null,
+            )
         } else tx
     }
 

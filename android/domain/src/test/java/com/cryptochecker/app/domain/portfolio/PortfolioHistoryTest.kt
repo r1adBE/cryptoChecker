@@ -83,11 +83,29 @@ class PortfolioHistoryTest {
         assertEquals(8, s.points.size)                    // 7 Tage zurück bis heute
         assertEquals(today - 7, s.points.first().epochDay)
         assertEquals(100.0, s.points.last().value, d)
+        // Kurse über das ganze Jahr (linearCloses ist nur 100 Tage positiv: davor hiesse es «ohne ETH»)
         val year = PortfolioHistory.build(
-            trades, mapOf("ETH" to linearCloses(366)), mapOf("ETH" to 100.0),
+            trades, mapOf("ETH" to flatCloses(366)), mapOf("ETH" to 100.0),
             PortfolioHistoryRange.YEAR, today,
         )
         assertEquals(366, year.points.size)
+    }
+
+    @Test
+    fun coinHeldBeforeItsFirstCloseIsSkippedWithoutJump() {
+        // NEW gehalten ab Tag −20, erste Kerze erst Tag −5: fehlt im ganzen Zeitraum (sonst Sprung am Tag −5)
+        val trades = listOf(buy("BTC", 1.0, noon(today - 20)), buy("NEW", 1.0, noon(today - 20)))
+        val closes = mapOf("BTC" to (0 until 30).associate { (today - it) to 50.0 }, "NEW" to (1..5).associate { (today - it) to 10.0 })
+        val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 50.0, "NEW" to 10.0), PortfolioHistoryRange.WEEK, today)
+        assertEquals(listOf("NEW"), s.skipped)
+        assertEquals(50.0, s.points.first().value, d)
+        assertEquals(50.0, s.points.last().value, d)
+        assertEquals(0.0, s.change!!, d)
+        assertTrue(s.pnlSkipped.isEmpty())
+        // Allein: kein Verlauf statt einer Kurve mit Sprung
+        val alone = PortfolioHistory.build(listOf(buy("NEW", 1.0, noon(today - 20))), closes, mapOf("NEW" to 10.0), PortfolioHistoryRange.WEEK, today)
+        assertEquals(listOf("NEW"), alone.skipped)
+        assertTrue(alone.points.isEmpty())
     }
 
     @Test

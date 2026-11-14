@@ -59,7 +59,7 @@ extension AppData {
             let outcome: PriceRefresher.Outcome? = await refreshAll()
             // «Letzte Prüfungen»: auch der Knopf in der App zählt (Auslöser «App») — abseits des
             // Hauptfadens (die Datei-Abstimmung kann auf Widget oder Hintergrund-Aufgabe warten)
-            let result: CheckResult = outcome.map { CheckRunLog.result(checked: $0.checked, failed: $0.failed) } ?? .skipped
+            let result: CheckResult = outcome?.checkResult ?? .skipped
             CheckRunStore.logDetached(.foreground, result, startedAt: startedAt)
         }
         return decision
@@ -155,7 +155,7 @@ extension AppData {
         if full && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed, notTraded: outcome.notTraded) {
             SharedStorage.markFullRefresh()
             // Sperre der Hintergrund-Aufgabe: nur nach einer vollen Prüfung (die meisten Paare mit Kurs)
-            if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed, notTraded: outcome.notTraded) {
+            if outcome.isFullCheck {
                 SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
             }
             SharedStorage.lastRefreshDuration = outcome.durationMillis

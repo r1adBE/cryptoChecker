@@ -37,4 +37,26 @@ object WatchlistWriteRefusal {
         refused.tryEmit(Unit)
         return true
     }
+
+    private val failed = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    /**
+     * Je gescheitertem Schreiben eines Nutzer-Schreibwegs (Speicher voll, Datei nicht beschreibbar — `guardedWrite`,
+     * gedrosselt) ein Ereignis: Die Oberfläche zeigt «Konnte nicht gespeichert werden» (`WatchlistLockedHint`) statt
+     * abzustürzen. Wie iOS `AppStatus.watchlistWriteFailedHints`.
+     */
+    val failures: SharedFlow<Unit> = failed.asSharedFlow()
+
+    /** Zeitpunkt des letzten Hinweises «nicht gespeichert» (monotone ms), 0 = noch keiner. */
+    @Volatile
+    private var lastFailedAt = 0L
+
+    /** Gescheitertes Schreiben melden; gedrosselt wie [report]. true = Ereignis ausgelöst. */
+    @Synchronized
+    fun reportFailed(now: Long = System.nanoTime() / 1_000_000): Boolean {
+        if (!shouldNotify(lastFailedAt, now)) return false
+        lastFailedAt = now.coerceAtLeast(1L)
+        failed.tryEmit(Unit)
+        return true
+    }
 }

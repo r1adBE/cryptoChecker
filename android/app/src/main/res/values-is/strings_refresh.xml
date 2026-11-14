@@ -91,6 +91,8 @@
     <string name="check_result_ok">Í lagi</string>
     <string name="check_result_partial">Að hluta</string>
     <string name="check_result_skipped">Sleppt</string>
+    <string name="check_result_paused">Í bið, ekkert athugað</string>
+    <string name="check_result_offline">Sleppt (án nettengingar)</string>
     <string name="check_trigger_bgtask">Bakgrunnur</string>
     <string name="check_trigger_exact">Stundvíst</string>
     <string name="check_trigger_foreground">Forrit</string>

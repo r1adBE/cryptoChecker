@@ -277,7 +277,8 @@ class PortfolioRepository @Inject constructor(
                 portfolioDao.update(
                     tx.copy(
                         type = a.type, amount = a.amount, priceUsdt = a.priceUsdt, time = a.time, note = null, fee = a.fee,
-                        feeUnit = a.feeUnit?.name, exchange = null, transferFrom = null, transferTo = null, feeCoin = a.feeCoin,
+                        feeUnit = a.feeUnit?.name, exchange = a.exchange, transferFrom = a.transferFrom, transferTo = null,
+                        feeCoin = a.feeCoin,
                         feeCoinAmount = a.feeCoinAmount, feeCoinPriceUsdt = null, importKey = a.importKey, acquiredTime = null,
                         linkedImportKey = null, importRestoreState = null,
                     ),

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Mandharinyuma</string>
-    <string name="widget_configure_hint">Chagua mandharinyuma na uangavu. Rangi inafuata programu. Wijeti inaonyesha orodha yako yote ya ufuatiliaji; gusa safu ili kufungua programu.</string>
+    <string name="widget_configure_hint">Chagua mandharinyuma na uangavu. Rangi hufuata programu. Wijeti huonyesha orodha yako ya ufuatiliaji au kikundi kilichochaguliwa hapa chini; gusa safu ili kufungua programu.</string>
     <string name="widget_configure_title">Weka wijeti</string>
     <string name="widget_description">Inaonyesha bei ya jozi kutoka orodha yako ya ufuatiliaji.</string>
     <string name="widget_empty">Bado hakuna jozi kwenye orodha ya ufuatiliaji.</string>

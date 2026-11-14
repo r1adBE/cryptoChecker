@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Oben der Portfolio-Wert vom iPhone (falls dort eingeschaltet), dann die Coins mit Kurs und 24 h (Börse klein), darunter
-/// «Aktualisieren», Schalter «Liste vom Handy» und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
+/// «Aktualisieren», Schalter «Liste vom Handy» und (eigene Liste) «Coins wählen». Veraltete Kurse (`WatchFreshness`, 3 × Intervall des iPhones, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
 /// jede Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
@@ -59,7 +59,7 @@ struct WatchQuoteList: View {
 
     /// «Portfolio» vom iPhone (nur mit Schalter dort); veraltet grau mit Alter — wie Android `PortfolioRow`.
     private func portfolioRow(_ p: WatchPortfolio, now: Int64) -> some View {
-        let outdated = WatchFreshness.isOutdated(p.time, now: now)
+        let outdated = WatchFreshness.isOutdated(p.time, now: now, intervalMinutes: model.settings.interval)
         let spoken = WatchText.portfolioSpoken(p)
         return VStack(alignment: .leading, spacing: 2) {
             Text(WatchText.t("watch_portfolio")).font(.footnote).foregroundStyle(.secondary)
@@ -84,7 +84,7 @@ struct WatchQuoteList: View {
         let time = cached?.time ?? 0
         let price = q.map { WatchText.price($0.price) } ?? "—"
         let change = WatchText.change(q?.change24h)
-        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
+        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now, intervalMinutes: model.settings.interval)
         let line = WatchText.t("a11y_watch_row", coin, price, change)
         let missing = cached == nil && !model.loading
         let spoken = missing ? line + ", " + WatchText.missingReason(key) : line

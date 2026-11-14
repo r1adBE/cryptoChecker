@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Pjesërisht</string>
     <string name="check_result_skipped">Anashkaluar</string>
+    <string name="check_result_paused">Në pauzë, asgjë e kontrolluar</string>
+    <string name="check_result_offline">Kapërcyer (jashtë linje)</string>
     <string name="check_trigger_bgtask">Sfond</string>
     <string name="check_trigger_exact">Në kohë</string>
     <string name="check_trigger_foreground">Aplikacioni</string>

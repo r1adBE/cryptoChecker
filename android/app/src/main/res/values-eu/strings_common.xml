@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Burtsa ez dago eskuragarri une honetan</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Burtsa blokeatuta dago eskualde honetan</string>
+    <string name="error_exchange_access_denied">Burtsak sarbidea ukatu du</string>
     <string name="loading_hint">Kargatzen…</string>
     <string name="option_off">Desaktibatuta</string>
     <string name="something_went_wrong">Zerbait gaizki atera da</string>

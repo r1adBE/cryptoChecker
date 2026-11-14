@@ -2,7 +2,8 @@ package com.cryptochecker.app.domain.portfolio.csvimport
 
 /**
  * Lesart der CSV-Datei, die in der Vorschau gewählt wird — Zeitzone der Zeiten ohne Versatz,
- * Tag/Monat bei mehrdeutigen Daten, Dezimalzeichen bei mehrdeutigen Zahlen (null = Regel). Die Vorschau merkt sich, mit
+ * Tag/Monat bei mehrdeutigen Daten, Dezimalzeichen bei mehrdeutigen Zahlen (null = Regel), dazu «schon importierte Zeilen
+ * trotzdem importieren» ([keepDuplicates], [CsvImport.keptAnyway]). Die Vorschau merkt sich, mit
  * welcher Lesart sie gebaut wurde; «Importieren» nur, wenn sie zur aktuellen Wahl gehört ([canConfirm]). Wie iOS
  * `CsvReadChoice`.
  */
@@ -10,6 +11,7 @@ data class CsvReadChoice(
     val zone: String? = null,
     val dateOrder: CsvDateOrder? = null,
     val decimalMark: Char? = null,
+    val keepDuplicates: Boolean = false,
 ) {
     companion object {
         /**

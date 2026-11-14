@@ -82,6 +82,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">一部</string>
     <string name="check_result_skipped">スキップ</string>
+    <string name="check_result_paused">一時停止中、何も確認されていません</string>
+    <string name="check_result_offline">スキップ（オフライン）</string>
     <string name="check_trigger_bgtask">バックグラウンド</string>
     <string name="check_trigger_exact">時間どおり</string>
     <string name="check_trigger_foreground">アプリ</string>

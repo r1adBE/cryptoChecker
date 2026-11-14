@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Фон</string>
-    <string name="widget_configure_hint">Фон мен мөлдірлікті таңдаңыз. Түс қолданбаға сәйкес. Виджет бүкіл бақылау тізіміңізді көрсетеді; қолданбаны ашу үшін жолды түртіңіз.</string>
+    <string name="widget_configure_hint">Фон мен мөлдірсіздікті таңдаңыз. Түс қолданбаға сәйкес келеді. Виджет бақылау тізіміңізді немесе төменде таңдалған топты көрсетеді; қолданбаны ашу үшін жолды түртіңіз.</string>
     <string name="widget_configure_title">Виджетті баптау</string>
     <string name="widget_description">Бақылау тізіміңіздегі жұптың бағамын көрсетеді.</string>
     <string name="widget_empty">Бақылау тізімінде әлі жұп жоқ.</string>

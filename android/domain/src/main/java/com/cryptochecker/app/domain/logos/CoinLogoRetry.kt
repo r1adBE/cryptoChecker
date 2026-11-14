@@ -26,10 +26,12 @@ object CoinLogoRetry {
 
     /**
      * Fehlgeschlagene Bild-Abrufe ([failed] von [attempted]) am fehlenden Netz? Dann nicht für einen Tag
-     * sperren. Ohne Netz immer; mit Netz nur, wenn wirklich alle (mindestens [ALL_FAILED_MIN]) scheiterten.
+     * sperren. Ohne Netz immer; mit Netz nur, wenn wirklich alle (mindestens [ALL_FAILED_MIN]) scheiterten und
+     * mindestens eines davon gestört war ([transient], Zeit/Abbruch/5xx) — lauter «gibt es nicht» (404, unlesbar) ist kein
+     * Netzfehler, sonst liefe das Nachholen ohne Ende.
      */
-    fun downloadsFailedForNetwork(online: Boolean, failed: Int, attempted: Int): Boolean =
-        failed > 0 && (!online || (failed == attempted && attempted >= ALL_FAILED_MIN))
+    fun downloadsFailedForNetwork(online: Boolean, failed: Int, attempted: Int, transient: Int = failed): Boolean =
+        failed > 0 && (!online || (transient > 0 && failed == attempted && attempted >= ALL_FAILED_MIN))
 
     // ---- Bild-Server bremst
 
@@ -62,6 +64,18 @@ object CoinLogoRetry {
 
     /** Pausiert diese Folge von 403 den Server ([FORBIDDEN_PAUSE_STREAK])? Dann ohne Angabe [IMAGE_PAUSE_MILLIS]. */
     fun forbiddenStreakPauses(streak: Int): Boolean = streak >= FORBIDDEN_PAUSE_STREAK
+
+    /**
+     * So viele Bilder eines Servers in Folge gestört (Zeitüberschreitung, Abbruch, 5xx) in einem Durchgang: Server
+     * pausieren — ein Server, der Verbindungen schluckt, kostet sonst je Bild die volle Frist, über Stunden.
+     */
+    const val TRANSIENT_PAUSE_STREAK = 4
+
+    /** Neue Zahl der gestörten Bilder in Folge eines Servers: gestört → +1, jedes andere Ergebnis → 0. */
+    fun nextTransientStreak(streak: Int, transient: Boolean): Int = if (transient) streak + 1 else 0
+
+    /** Pausiert diese Folge gestörter Bilder den Server ([TRANSIENT_PAUSE_STREAK])? Dann ohne Angabe [IMAGE_PAUSE_MILLIS]. */
+    fun transientStreakPauses(streak: Int): Boolean = streak >= TRANSIENT_PAUSE_STREAK
 
     /** Pause ohne Angabe des Servers. */
     const val IMAGE_PAUSE_MILLIS = 15 * 60_000L

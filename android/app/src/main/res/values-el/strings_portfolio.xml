@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Σύνολο</string>
     <string name="portfolio_hide_amounts">Απόκρυψη ποσών</string>
-    <string name="portfolio_hide_amounts_hint">Εμφανίζει ποσά και αξίες στο χαρτοφυλάκιο και στο widget χαρτοφυλακίου ως ••• – τα ποσοστά παραμένουν ορατά.</string>
+    <string name="portfolio_hide_amounts_hint">Εμφανίζει ποσά και αξίες στο χαρτοφυλάκιο, στο widget χαρτοφυλακίου, στο ρολόι και στις ειδοποιήσεις χαρτοφυλακίου ως ••• – τα ποσοστά παραμένουν ορατά.</string>
     <string name="portfolio_invested">Κόστος κτήσης</string>
     <string name="portfolio_total_no_fx">Καμία ισοτιμία για %1$s – ποσά σε USDT</string>
     <string name="portfolio_total_value">Συνολική αξία</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Απόρριψη αλλαγών;</string>
     <string name="portfolio_edit_tx">Επεξεργασία συναλλαγής</string>
     <string name="portfolio_invalid">Εισήγαγε έναν έγκυρο αριθμό μεγαλύτερο από 0.</string>
+    <string name="number_ambiguous">Ασαφές: %1$s ή %2$s; Γράψε μία από τις δύο μορφές.</string>
     <string name="portfolio_oversold">Οι πωλήσεις υπερβαίνουν τα διαθέσιμα – έλεγξε τις συναλλαγές.</string>
     <string name="portfolio_sell">Πώληση</string>
     <string name="portfolio_sell_exceeds">Περισσότερα από όσα έχεις (%1$s)</string>

@@ -70,10 +70,15 @@ object Argon2id {
             seed.fill(0)
 
             val filler = Filler(memory, laneLength, segmentLength, parallelism, blockCount, iterations)
-            for (pass in 0 until iterations) {
-                for (slice in 0 until SYNC_POINTS) {
-                    for (lane in 0 until parallelism) filler.fillSegment(pass, slice, lane)
+            try {
+                for (pass in 0 until iterations) {
+                    for (slice in 0 until SYNC_POINTS) {
+                        for (lane in 0 until parallelism) filler.fillSegment(pass, slice, lane)
+                    }
                 }
+            } finally {
+                // Arbeitsblöcke überschreiben (bei einer Bahn ergäbe tmp xor r den letzten Block) — wie Swift `deinit`
+                filler.wipe()
             }
 
             // Letzte Blöcke aller Bahnen XOR → Tag
@@ -106,6 +111,14 @@ object Argon2id {
         private val zero = LongArray(BLOCK_WORDS)
         private val input = LongArray(BLOCK_WORDS)
         private val address = LongArray(BLOCK_WORDS)
+
+        /** Arbeitsblöcke mit Nullen überschreiben (nach dem Füllen, auch bei einem Fehler). */
+        fun wipe() {
+            r.fill(0)
+            tmp.fill(0)
+            input.fill(0)
+            address.fill(0)
+        }
 
         fun fillSegment(pass: Int, slice: Int, lane: Int) {
             // Argon2id: im ersten Durchgang die ersten zwei Abschnitte datenunabhängig adressieren

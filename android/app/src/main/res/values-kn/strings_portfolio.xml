@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ಒಟ್ಟು</string>
     <string name="portfolio_hide_amounts">ಮೊತ್ತಗಳನ್ನು ಮರೆಮಾಡಿ</string>
-    <string name="portfolio_hide_amounts_hint">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ವಿಜೆಟ್‌ನಲ್ಲಿ ಮೊತ್ತಗಳು ಮತ್ತು ಮೌಲ್ಯಗಳನ್ನು ••• ಆಗಿ ತೋರಿಸುತ್ತದೆ – ಶೇಕಡಾವಾರುಗಳು ಕಾಣಿಸುತ್ತವೆ.</string>
+    <string name="portfolio_hide_amounts_hint">ಪೋರ್ಟ್‌ಫೋಲಿಯೊ, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ವಿಜೆಟ್, ವಾಚ್ ಮತ್ತು ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಅಲಾರಂಗಳಲ್ಲಿ ಮೊತ್ತಗಳು ಮತ್ತು ಮೌಲ್ಯಗಳನ್ನು ••• ಆಗಿ ತೋರಿಸುತ್ತದೆ – ಶೇಕಡಾವಾರುಗಳು ಕಾಣಿಸುತ್ತವೆ.</string>
     <string name="portfolio_invested">ಖರೀದಿ ವೆಚ್ಚ</string>
     <string name="portfolio_total_no_fx">%1$s ಗೆ ವಿನಿಮಯ ದರವಿಲ್ಲ – ಮೊತ್ತಗಳು USDT ನಲ್ಲಿ</string>
     <string name="portfolio_total_value">ಒಟ್ಟು ಮೌಲ್ಯ</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">ಬದಲಾವಣೆಗಳನ್ನು ತ್ಯಜಿಸಬೇಕೆ?</string>
     <string name="portfolio_edit_tx">ವಹಿವಾಟು ಎಡಿಟ್ ಮಾಡಿ</string>
     <string name="portfolio_invalid">0 ಗಿಂತ ದೊಡ್ಡ ಮಾನ್ಯ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="number_ambiguous">ಅಸ್ಪಷ್ಟ: %1$s ಅಥವಾ %2$s? ಎರಡರಲ್ಲಿ ಒಂದನ್ನು ಟೈಪ್ ಮಾಡಿ.</string>
     <string name="portfolio_oversold">ಮಾರಾಟಗಳು ಹೋಲ್ಡಿಂಗ್‌ಗಳನ್ನು ಮೀರುತ್ತವೆ – ದಯವಿಟ್ಟು ವಹಿವಾಟುಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.</string>
     <string name="portfolio_sell">ಮಾರಾಟ</string>
     <string name="portfolio_sell_exceeds">ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಿಂತ ಹೆಚ್ಚು (%1$s)</string>

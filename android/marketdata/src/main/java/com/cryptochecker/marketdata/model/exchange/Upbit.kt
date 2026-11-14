@@ -210,9 +210,9 @@ abstract class UpbitStyleExchange(
         }
     }
 
-    /** «KRW-BTC» → (KRW, BTC); andere Form → null. */
+    /** «KRW-BTC» → (KRW, BTC); genau zwei nicht leere Teile, sonst null («-BTC», «KRW--BTC»). Wie iOS. */
     private fun splitMarket(market: String): Pair<String, String>? {
         val parts = market.split('-')
-        return if (parts.size == 2) parts[0] to parts[1] else null
+        return if (parts.size == 2 && parts.all { it.isNotEmpty() }) parts[0] to parts[1] else null
     }
 }

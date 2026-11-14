@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">எந்த ஜோடிகள் அறிவிப்புப் பட்டியில் தங்கள் விலையைக் காட்ட வேண்டும் என்பதைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="settings_quiet_hours">அமைதி நேரம்</string>
     <string name="settings_quiet_hours_from">முதல்</string>
-    <string name="settings_quiet_hours_hint">%1$s முதல் %2$s வரை, விழிப்பூட்டல்கள் அமைதி நேரம் முடியும் வரை காத்திருந்து பின்னர் ஒலியுடன் ஒலிக்கும். பிற அறிவிப்புகள் ஒலியின்றி, பேச்சின்றி வரும்.</string>
+    <string name="settings_quiet_hours_hint">%1$s முதல் %2$s வரை, விழிப்பூட்டல்கள் அமைதி நேரம் முடியும் வரை காத்திருந்து பின்னர் ஒலியுடன் ஒலிக்கும், அப்போதும் நிபந்தனை பூர்த்தியானால். பிற அறிவிப்புகள் ஒலியின்றி, பேச்சின்றி வரும்.</string>
     <string name="settings_quiet_hours_to">வரை</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">பயன்பாட்டில்: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">அமைக்கப்படவில்லை – பொது நோட்கள் பயன்படுத்தப்படுகின்றன</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">அமைப்புகள் மீட்டமைக்கப்பட்டன, எனவே நீங்கள் உங்கள் சொந்த Bitcoin சர்வரைப் பயன்படுத்தினீர்களா என்பது தெரியவில்லை. நீங்கள் சர்வரை மீண்டும் உள்ளிடும் வரை அல்லது பொது நோட்களைத் தேர்ந்தெடுக்கும் வரை Bitcoin முகவரிகளும் xpub விசைகளும் வினவப்படாது.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// முகவரிகள் மட்டுமே அனுமதிக்கப்படும்</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

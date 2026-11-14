@@ -122,7 +122,8 @@ enum PortfolioChartRangeOption: String, AppEnum {
 
 /// Ein Paar der Merkliste als wählbarer Wert in der Widget-Einrichtung.
 struct WidgetWatchEntity: AppEntity {
-    /// `Watch.id` als Text.
+    /// `Watch.id` und Paar als Text («Id|Börse|Basis|Kotierung|Kontrakt|Pool», `WatchIdentity.text`): eine eingespielte
+    /// Sicherung kann dieselbe Id einem anderen Paar geben — dann zeigt das Widget «Paar wählen» (wie Android).
     let id: String
     let title: String
     let subtitle: String
@@ -135,12 +136,18 @@ struct WidgetWatchEntity: AppEntity {
     }
 
     init(watch: Watch) {
-        id = "\(watch.id)"
+        id = "\(watch.id)|" + WatchIdentity.text(watch.identity)
         title = watch.displayName
         subtitle = watch.exchangeName
     }
 
-    var watchId: Int64? { Int64(id) }
+    var watchId: Int64? { Int64(id.split(separator: "|", maxSplits: 1).first.map(String.init) ?? id) }
+
+    /// Zeigt `watch` (gleiche Id) noch das gewählte Paar? Ohne gemerktes Paar (nur Id): ja.
+    func showsSamePair(_ watch: Watch) -> Bool {
+        guard let bar = id.firstIndex(of: "|") else { return true }
+        return String(id[id.index(after: bar)...]) == WatchIdentity.text(watch.identity)
+    }
 }
 
 /// Liest die Paare aus dem gemeinsamen Speicher — gleiche Reihenfolge wie die App.
@@ -150,7 +157,7 @@ struct WidgetWatchQuery: EntityQuery {
     func entities(for identifiers: [String]) async throws -> [WidgetWatchEntity] {
         let watches = WidgetData.sortedWatches()
         return identifiers.compactMap { id in
-            watches.first { "\($0.id)" == id }.map(WidgetWatchEntity.init(watch:))
+            watches.map(WidgetWatchEntity.init(watch:)).first { $0.id == id }
         }
     }
 

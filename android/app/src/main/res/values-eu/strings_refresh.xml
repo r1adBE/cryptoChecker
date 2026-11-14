@@ -91,6 +91,8 @@
     <string name="check_result_ok">Ondo</string>
     <string name="check_result_partial">Partziala</string>
     <string name="check_result_skipped">Saltatua</string>
+    <string name="check_result_paused">Pausatuta, ezer ez egiaztatuta</string>
+    <string name="check_result_offline">Saltatuta (konexiorik gabe)</string>
     <string name="check_trigger_bgtask">Atzeko planoa</string>
     <string name="check_trigger_exact">Garaiz</string>
     <string name="check_trigger_foreground">Aplikazioa</string>

@@ -106,6 +106,17 @@ enum AlarmEvaluator {
         return alarm.referenceAt - now > 60_000
     }
 
+    /// Bewegungs-Alarm mit gültigem Bezug, aber ohne Vergleichspunkt im Fenster (`MoveWindow.changePercent` = nil, etwa
+    /// nach einer langen Pause des Hintergrund-Takts): diesmal nicht prüfbar — der Aufrufer vermerkt «nicht geprüft»
+    /// statt «geprüft». Wie `AlarmEvaluator.moveWindowUncheckable` (Android).
+    static func moveWindowUncheckable(alarm: Alarm, price: Double, now: Int64, moveHistory: [MoveWindow.PricePoint]) -> Bool {
+        guard alarm.condition == .MOVE_PERCENT_WINDOW, !needsWindowReset(alarm: alarm, now: now) else { return false }
+        guard price.isFinite, price > 0, let reference = alarm.referencePrice else { return false }
+        return MoveWindow.changePercent(
+            history: moveHistory, reference: MoveWindow.PricePoint(price: reference, time: alarm.referenceAt),
+            price: price, hours: alarm.windowHours, since: alarm.referenceAt, now: now) == nil
+    }
+
     /// Braucht der Alarm zuerst einen Bezugskurs? Bewegungs-Alarm siehe `needsWindowReset`;
     /// Prozentalarm (CHANGE_PERCENT_*) ohne Bezug — etwa angelegt, bevor das Paar einen Kurs hatte:
     /// Aufrufer setzt den aktuellen Kurs als Bezug (und meldet diesmal nicht), sonst verglich der

@@ -82,6 +82,9 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
     /// fehlt auf einer vollen Seite) — der alte Wert bleibt, gilt aber als veraltet: «teilweise veraltet», Portfolio-Alarme
     /// wie bei einem alten Kurs (`AddressAlarmState`). Leer = alles bestätigt. Wie Android.
     var staleTokens: [String] = []
+    /// Schlüssel, deren Guthaben der letzte Abruf als 0 meldete, vorher > 0 (`ZeroConfirm`; `ZeroConfirm.main` = Guthaben
+    /// der Kette): der alte Wert bleibt bis zur Bestätigung durch den nächsten Abruf. Leer = nichts wartet. Wie Android.
+    var zeroPending: [String] = []
     /// Wann die Adresse auf DIESEM Gerät angelegt wurde (aus einer Sicherung eingespielt oder per
     /// «Rückgängig» zurückgeholt); 0 = unbekannt. Eingespielte Adressen behalten ihr altes `addedAt` (auch 0) — ohne diesen
     /// Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
@@ -94,7 +97,7 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
          tokenObservations: [String: [AddressObservation]] = [:], countTokens: Bool = true, xpub: XpubCache? = nil,
          networks: [String]? = nil, countInPortfolio: Bool = true, unknownTokens: Int = 0,
          overlapChecked: Bool = false, costLots: [AddressCostLot] = [],
-         staleTokens: [String] = [], pendingSince: Int64 = 0) {
+         staleTokens: [String] = [], pendingSince: Int64 = 0, zeroPending: [String] = []) {
         self.id = id
         self.chain = chain
         self.address = address
@@ -117,6 +120,7 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         self.costLots = costLots
         self.staleTokens = staleTokens
         self.pendingSince = pendingSince
+        self.zeroPending = zeroPending
     }
 
     /// Erweiterter öffentlicher Schlüssel statt einzelner Adresse.
@@ -145,7 +149,7 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, chain, address, label, lastBalance, lastUpdated, lastAttempt, lastError, lastProvider, addedAt, observations
         case tokenBalances, tokenObservations, countTokens, xpub, networks, countInPortfolio, unknownTokens, overlapChecked
-        case costLots, staleTokens, pendingSince
+        case costLots, staleTokens, pendingSince, zeroPending
     }
 
     /// Pflicht sind die Felder, die `encode` immer schreibt (Id, Netz, Adresse, Zeitpunkte, Beobachtungen); die übrigen
@@ -196,6 +200,13 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         staleTokens = stale
         // Angelegt auf diesem Gerät; ohne: 0
         pendingSince = max(0, (try? c.decodeIfPresent(Int64.self, forKey: .pendingSince)) ?? 0)
+        // 0 wartet auf Bestätigung: Ketten-Guthaben oder Schlüssel mit gespeichertem Guthaben
+        var zero: [String] = []
+        for key in (try? c.decodeIfPresent([String].self, forKey: .zeroPending)) ?? []
+        where key == ZeroConfirm.main || tokenBalances[key] != nil {
+            if !zero.contains(key) { zero.append(key) }
+        }
+        zeroPending = zero
     }
 
     func encode(to encoder: Encoder) throws {
@@ -222,6 +233,7 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         if !costLots.isEmpty { try c.encode(costLots, forKey: .costLots) }
         if !staleTokens.isEmpty { try c.encode(staleTokens, forKey: .staleTokens) }
         if pendingSince > 0 { try c.encode(pendingSince, forKey: .pendingSince) }
+        if !zeroPending.isEmpty { try c.encode(zeroPending, forKey: .zeroPending) }
     }
 }
 

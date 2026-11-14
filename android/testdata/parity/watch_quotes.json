@@ -1,5 +1,5 @@
 {
- "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness, per coin from the start of its own fetch = «as of the fetch», not the last trade: outdated when older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded), cache (WatchCache.merge: a fetch that started at startedAt replaces only the coins it delivered, and only where the stored entry is not newer than startedAt (a later-started fetch of the app or the complication already wrote it: that price stays; equal times: the delivered one wins); a taken coin gets startedAt as its time («as of the fetch» = its start, not the save time); every other coin keeps its last price and its own time; coins outside keep = both lists of the choice are dropped; expected compared per coin with outdated/age at now; listTime = time of the oldest shown coin, 0 = none), gate (WatchFetchGate: start takes the current shown list and invalidates every earlier run; finish is accepted only for the newest run while the shown list is still the one it asked for). Android wear WatchQuotes/WatchPriceSource/WatchCache + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchCache/WatchFreshness.",
+ "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness, per coin from the start of its own fetch = «as of the fetch», not the last trade: outdated when older than OutdatedRule.afterMillis(WatchInterval.clamp(interval)) = 3 x the phone interval (intervals: 15 -> 45 min, 30 -> 90 min, 60 -> 3 h; clamped 15..60), strictly more; case interval = phone interval (cache: 15); age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded), cache (WatchCache.merge: a fetch that started at startedAt replaces only the coins it delivered, and only where the stored entry is not newer than startedAt (a later-started fetch of the app or the complication already wrote it: that price stays; equal times: the delivered one wins); a taken coin gets startedAt as its time («as of the fetch» = its start, not the save time); every other coin keeps its last price and its own time; coins outside keep = both lists of the choice are dropped; expected compared per coin with outdated/age at now; listTime = time of the oldest shown coin, 0 = none), gate (WatchFetchGate: start takes the current shown list and invalidates every earlier run; finish is accepted only for the newest run while the shown list is still the one it asked for). Android wear WatchQuotes/WatchPriceSource/WatchCache + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchCache/WatchFreshness.",
  "maxCoins": 8,
  "urls": {
   "coins": [
@@ -371,62 +371,115 @@
  "freshness": {
   "now": 1700000000000,
   "updateMinutes": 15,
-  "outdatedAfterMillis": 2700000,
+  "intervals": [
+   {
+    "interval": 15,
+    "afterMillis": 2700000
+   },
+   {
+    "interval": 30,
+    "afterMillis": 5400000
+   },
+   {
+    "interval": 60,
+    "afterMillis": 10800000
+   },
+   {
+    "interval": 5,
+    "afterMillis": 2700000
+   },
+   {
+    "interval": 1440,
+    "afterMillis": 10800000
+   }
+  ],
   "cases": [
    {
     "name": "never loaded",
     "time": 0,
     "outdated": false,
     "unit": null,
-    "count": null
+    "count": null,
+    "interval": 15
    },
    {
     "name": "30 s: just now",
     "time": 1699999970000,
     "outdated": false,
     "unit": "justNow",
-    "count": 0
+    "count": 0,
+    "interval": 15
    },
    {
     "name": "clock set back (time in the future): just now",
     "time": 1700000300000,
     "outdated": false,
     "unit": "justNow",
-    "count": 0
+    "count": 0,
+    "interval": 15
    },
    {
     "name": "10 min",
     "time": 1699999400000,
     "outdated": false,
     "unit": "minutes",
-    "count": 10
+    "count": 10,
+    "interval": 15
    },
    {
     "name": "exactly 45 min is not yet outdated",
     "time": 1699997300000,
     "outdated": false,
     "unit": "minutes",
-    "count": 45
+    "count": 45,
+    "interval": 15
    },
    {
     "name": "45 min + 1 ms",
     "time": 1699997299999,
     "outdated": true,
     "unit": "minutes",
-    "count": 45
+    "count": 45,
+    "interval": 15
    },
    {
     "name": "90 min",
     "time": 1699994600000,
     "outdated": true,
     "unit": "hours",
-    "count": 1
+    "count": 1,
+    "interval": 15
    },
    {
     "name": "30 h",
     "time": 1699892000000,
     "outdated": true,
     "unit": "days",
+    "count": 1,
+    "interval": 15
+   },
+   {
+    "name": "interval 60: 50 min is still fresh",
+    "time": 1699997000000,
+    "interval": 60,
+    "outdated": false,
+    "unit": "minutes",
+    "count": 50
+   },
+   {
+    "name": "interval 60: 3 h + 1 ms",
+    "time": 1699989199999,
+    "interval": 60,
+    "outdated": true,
+    "unit": "hours",
+    "count": 3
+   },
+   {
+    "name": "interval 30: exactly 90 min is not yet outdated",
+    "time": 1699994600000,
+    "interval": 30,
+    "outdated": false,
+    "unit": "hours",
     "count": 1
    }
   ]
@@ -720,7 +773,8 @@
     ],
     "listTime": 1699999970000
    }
-  ]
+  ],
+  "interval": 15
  },
  "gate": [
   {

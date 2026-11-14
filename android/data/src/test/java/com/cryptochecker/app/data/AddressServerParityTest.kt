@@ -105,6 +105,27 @@ class AddressServerParityTest {
         }
     }
 
+    /** Sicherungsdatei: Server nur mit Passwort ([AddressServer.exported]). */
+    @Test
+    fun serverNurInDateiMitPasswort() {
+        val cases = fixture["export"].list().map { it.obj() }
+        assertTrue(cases.size >= 4)
+        for (c in cases) {
+            assertEquals(c.toString(), c["result"], AddressServer.exported(c["server"] as String?, c["encrypted"] as Boolean))
+        }
+    }
+
+    /** Server unbekannt (Einstellungen ersetzt): Bitcoin wird nicht abgefragt ([AddressServer.queryAllowed]). */
+    @Test
+    fun unbekannterServerSperrtBitcoin() {
+        val cases = fixture["unknownServer"].list().map { it.obj() }
+        assertTrue(cases.any { it["allowed"] == false })
+        for (c in cases) {
+            val chain = com.cryptochecker.app.domain.portfolio.AddressChain.valueOf(c["chain"] as String)
+            assertEquals(c.toString(), c["allowed"], AddressServer.queryAllowed(chain, c["serverUnknown"] as Boolean))
+        }
+    }
+
     /** Gesetzt: nur der eigene Server, kein Rückfall auf öffentliche Hosts. */
     @Test
     fun eigenerServerOhneRueckfall() {

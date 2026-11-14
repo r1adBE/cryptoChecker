@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.AddressAlarmState
+import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
@@ -111,6 +112,10 @@ class PortfolioSnapshotUpdater @Inject constructor(
          */
         internal fun shouldRefresh(hasPortfolioWidget: Boolean, activeAlarms: Boolean?): Boolean =
             hasPortfolioWidget || activeAlarms != false
+
+        /** Eigene Transaktionen von [used] (ohne Adress-Einträge) = gespeicherter Stand [stored]? Reihenfolge egal. */
+        internal fun sameLedger(used: List<PortfolioTxEntity>, stored: List<PortfolioTxEntity>): Boolean =
+            used.filterNot { AddressBalance.isAddressTrade(it.id) }.sortedBy { it.id } == stored.sortedBy { it.id }
     }
 
     /**
@@ -220,6 +225,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
         // 24 h scheiternde rechnen sie ohne); nicht bestätigte Token-Guthaben gelten wie ein alter Kurs
         val addressState = AddressAlarmState.of(watched, System.currentTimeMillis())
         val recorded = mutex.withLock {
+            // Bestand inzwischen geändert (Position gelöscht, Sicherung eingespielt — während dieser Lauf Kurse holte):
+            // nicht mit dem alten Stand darüber schreiben; der Aufrufer mit dem neuen nimmt auf
+            if (!sameLedger(transactions, repository.getTransactions())) return@withLock null
             // Gleiche Eingaben wie die Frische-Prüfung davor: aus dem Zwischenspeicher
             val summary = summaries.summarize(transactions.map { it.toTrade() }, prices, settings.costMethod)
             // Noch kein einziger Kurs bekannt: lieber die letzte Aufnahme stehen lassen als 0 zeigen

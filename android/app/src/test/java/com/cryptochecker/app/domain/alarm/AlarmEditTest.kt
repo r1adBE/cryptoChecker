@@ -216,6 +216,26 @@ class AlarmEditTest {
         assertEquals(ThresholdProblem.INVALID, draft(AlarmCondition.CHANGE_PERCENT_DOWN, "abc").thresholdProblem)
     }
 
+    /** «steigt um» höchstens 1000 % (wie der Portfolio-Alarm), Abstand zum Hoch/Tief unter 100 %, «1,234» nie still 1234. */
+    @Test
+    fun riseAndDistanceAreCappedAndAmbiguousInputIsNamed() {
+        fun draft(condition: AlarmCondition, text: String) =
+            AlarmDraft(condition = condition, thresholdText = text, decimalSeparator = '.')
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_UP, "1000").thresholdProblem)
+        assertEquals(ThresholdProblem.PERCENT_MAX, draft(AlarmCondition.CHANGE_PERCENT_UP, "1000.5").thresholdProblem)
+        assertEquals(ThresholdProblem.PERCENT_MAX, draft(AlarmCondition.MOVE_PERCENT_WINDOW, "1234").thresholdProblem)
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_UP, "1234").threshold)
+        assertNull(draft(AlarmCondition.NEAR_HIGH, "99.9").thresholdProblem)
+        assertEquals(ThresholdProblem.DISTANCE_RANGE, draft(AlarmCondition.NEAR_HIGH, "100").thresholdProblem)
+        assertEquals(ThresholdProblem.DISTANCE_RANGE, draft(AlarmCondition.NEAR_LOW, "150").thresholdProblem)
+        // «Nur neue Hochs» braucht kein Abstandsfeld
+        assertNull(draft(AlarmCondition.NEAR_HIGH, "150").copy(newExtremeOnly = true).thresholdProblem)
+        // Punkt-Region, «1,234» getippt (gemeint 1,234 %): nicht still 1234 %, beide Schreibweisen im Fehlertext
+        val ambiguous = draft(AlarmCondition.CHANGE_PERCENT_UP, "1,234")
+        assertEquals(ThresholdProblem.AMBIGUOUS, ambiguous.thresholdProblem)
+        assertEquals(com.cryptochecker.app.domain.alarm.ThresholdParser.Ambiguity("1234", "1.234"), ambiguous.ambiguity)
+    }
+
     // MARK: «Nicht geprüft seit …»
 
     @Test

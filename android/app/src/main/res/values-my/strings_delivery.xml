@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">သတိပေးချက်များ ဖွင့်ထားသည် – နောက်ခံ စစ်ဆေးမှု မရှိသေးပါ</string>
     <string name="alarm_reliability_notifications_off">အကြောင်းကြားချက်များ ပိတ်ထားသည် – သတိပေးချက်များ ရောက်မည်မဟုတ်ပါ</string>
     <string name="alarm_reliability_battery">ဘက်ထရီ ချွေတာခြင်းက သတိပေးချက် စစ်ဆေးမှုများကို ရပ်စေနိုင်သည်</string>
+    <string name="alarm_reliability_offline">ချိတ်ဆက်မှု မရှိပါ – ကွန်ရက် ပြန်ရလျှင် သတိပေးချက်များကို စစ်ဆေးပါမည်</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh ပိတ်ထားသည် – သတိပေးချက်များ မရောက်နိုင်ပါ</string>
 </resources>

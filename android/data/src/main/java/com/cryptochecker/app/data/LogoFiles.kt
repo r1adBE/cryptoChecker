@@ -31,4 +31,24 @@ object LogoFiles {
         if (!ok) tmp.delete()
         return ok
     }
+
+    /**
+     * Wie [File.writeText], aber über [write] (nie eine halbe Datei, auch nicht bei Abbruch oder vollem Speicher) — für die
+     * Listen der Logos und Namen (Zuordnung, Listen, Namen). Scheitert es: [IOException] wie `writeText`.
+     */
+    fun writeText(file: File, text: String) {
+        if (!write(file, text.toByteArray(Charsets.UTF_8))) throw IOException("${file.name} nicht geschrieben")
+    }
+
+    /** Ab diesem Alter ist eine Hilfsdatei liegen geblieben (Prozess zwischen Schreiben und Umbenennen beendet). */
+    const val STALE_TEMP_MILLIS = 60 * 60 * 1000L
+
+    /**
+     * Liegen gebliebene Hilfsdateien ([TEMP_SUFFIX]) in [dir] löschen, die älter als [maxAgeMillis] sind — jüngere können
+     * gerade geschrieben werden. Gibt die Zahl der gelöschten zurück.
+     */
+    fun removeStaleTemps(dir: File, now: Long, maxAgeMillis: Long = STALE_TEMP_MILLIS): Int {
+        val stale = dir.listFiles { f -> f.isFile && f.name.endsWith(TEMP_SUFFIX) && now - f.lastModified() > maxAgeMillis }
+        return stale.orEmpty().count { it.delete() }
+    }
 }

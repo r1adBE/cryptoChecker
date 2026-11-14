@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Хэсэгчлэн</string>
     <string name="check_result_skipped">Алгассан</string>
+    <string name="check_result_paused">Түр зогссон, юу ч шалгаагүй</string>
+    <string name="check_result_offline">Алгассан (офлайн)</string>
     <string name="check_trigger_bgtask">Арын горим</string>
     <string name="check_trigger_exact">Цагтаа</string>
     <string name="check_trigger_foreground">Апп</string>

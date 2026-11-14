@@ -23,8 +23,14 @@ final class SettingsPercentInputTests: XCTestCase {
         XCTAssertTrue(SettingsPercentOption.inputError(SettingsPercentOption.filterInput("١٬٥")))
     }
 
-    func testFilterEntferntFremdesUndKuerztAufSechsZeichen() {
-        XCTAssertEqual(SettingsPercentOption.filterInput("2a5 %"), "25")
+    func testFilterEntferntNichtsStillUndKuerztAufSechsZeichen() {
+        // Eingefügt: Buchstabe, Exponent, Vorzeichen bleiben stehen und gelten als Fehler (nie still «25», «13», «0»)
+        XCTAssertEqual(SettingsPercentOption.filterInput("2a5 %"), "2a5%")
+        XCTAssertNil(typed("2a5 %"))
+        XCTAssertNil(typed("1e3"))
+        XCTAssertNil(typed("-0"))
+        XCTAssertTrue(SettingsPercentOption.inputError(SettingsPercentOption.filterInput("1e3")))
+        XCTAssertEqual(typed("5 %"), 5)
         XCTAssertEqual(SettingsPercentOption.filterInput("1234567"), "123456")
     }
 

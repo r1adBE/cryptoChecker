@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ከፖርትፎሊዮው ይወጣል (ማውጣት)</string>
     <string name="portfolio_csv_import_choose_each">ለእያንዳንዱ ማውጣት የት እንደሄደ ይምረጡ።</string>
     <string name="portfolio_csv_import_columns">የታወቁ ዓምዶች፦ %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">አስቀድሞ የገባ፦ መስመሮች %1$s</string>
     <string name="portfolio_csv_import_confirm">ያስመጡ (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ቀን/ወር</string>
     <string name="portfolio_csv_import_date_month_first">ወር/ቀን</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ከስቴብልኮይኖች (USDT፣ USDC …) ጋር የተደረጉ ግብይቶች እንደ ስዋፕ ይመዘገባሉ – ስቴብልኮይኑ በይዞታዎችዎ ውስጥ ይታያል።</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ብዙ ተዛማጆች ሊሆኑ ይችላሉ – ትክክለኛውን ይምረጡ ወይም ምንም።</string>
+    <string name="portfolio_csv_import_transfer_loose">ከፍተኛ ክፍያ ወይም ዘግይቶ መድረስ – ተመሳሳይ ዝውውር መሆኑን ያረጋግጡ።</string>
     <string name="portfolio_csv_import_transfer_fee">የአውታረ መረብ ክፍያ፦ %1$s</string>
     <string name="portfolio_csv_import_transfer_link">እንደ አንድ ዝውውር ይመዝግቡ</string>
     <string name="portfolio_csv_import_transfer_stored">ከቀደመ ማስመጣት የመጣ ተጓዳኝ</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">ዕለታዊ ተመኖች በዚህ የሰዓት ሰቅ የቀን መቁጠሪያ ቀን መሠረት፦ %1$s</string>
     <string name="portfolio_csv_import_rates_failed">ዕለታዊ ተመኖችን መጫን አልተቻለም።</string>
     <string name="portfolio_csv_import_anyway">ቢሆንም ያስመጡ</string>
-    <string name="portfolio_csv_import_anyway_hint">ዕለታዊ ተመን ከሌለ ዋጋው ወይም ክፍያው ለዘለቄታው ይጎድላል። እንደገና ይሞክሩ፣ ወይም ቢሆንም ያስመጡ – እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>
+    <string name="portfolio_csv_import_anyway_hint">የዕለት ተመን ከሌለ ዋጋው ወይም ክፍያው እስኪያክሉት ድረስ ይጎድላል። እንደገና ይሞክሩ ወይም እንደዚያም ያስመጡ – እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>
     <string name="portfolio_csv_note_price_no_rate">ዋጋ ያለ ዕለታዊ ተመን</string>
     <string name="portfolio_csv_note_fee_no_rate">ክፍያ ያለ ዕለታዊ ተመን</string>
     <string name="portfolio_csv_import_no_rates_for">ለ%1$s ዕለታዊ ተመኖች የሉም፣ ስለዚህ እንደገና መሞከር አይረዳም። ቢሆንም ካስመጡ እነዚያ ግብይቶች ማስታወሻ ያገኛሉ።</string>

@@ -51,6 +51,8 @@
     <string name="alarm_threshold_error_funding">Kadar pembiayaan mesti nombor antara −10 dan +10 peratus.</string>
     <string name="alarm_threshold_error_invalid">Masukkan nombor sah yang lebih besar daripada 0.</string>
     <string name="alarm_threshold_error_oi">Perubahan minat terbuka: paling banyak 1000 peratus.</string>
+    <string name="alarm_threshold_error_percent_max">Paling banyak 1000 peratus.</string>
+    <string name="alarm_threshold_error_distance">Jarak mesti kurang daripada 100 peratus.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">dalam %1$d jam</item>
     </plurals>
@@ -166,6 +168,7 @@
     <string name="alarm_a11y_speak_on">Pertuturan hidup</string>
     <string name="alarm_unchecked_no_candles">Tidak dapat disemak (tiada data lilin)</string>
     <string name="alarm_unchecked_no_rate">Tidak dapat disemak (tiada kadar pertukaran)</string>
+    <string name="alarm_unchecked_no_window_price">Tidak dapat disemak (tiada harga dalam tempoh masa)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Pemberitahuan dimatikan – amaran ini tidak akan sampai kepada anda</string>

@@ -73,7 +73,7 @@ object ExchangeBackoff {
         return when (outcome) {
             Outcome.SUCCESS -> null
             Outcome.RATE_LIMITED -> {
-                val strikes = s.strikes + 1
+                val strikes = currentStrikes(s, now) + 1
                 val own = delayMillis(strikes).let { if (banned) maxOf(it, BAN_DEFAULT_MILLIS) else it }
                 val asked = (retryAfterMillis ?: 0L).coerceIn(0L, if (shared) GROUP_MAX_MILLIS else MAX_MILLIS)
                 // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen — eine unmögliche ([isPaused]) zählt nicht
@@ -84,7 +84,7 @@ object ExchangeBackoff {
                 if (runs < TIMEOUT_RUNS) {
                     s.copy(timeoutRuns = runs)
                 } else {
-                    val strikes = s.strikes + 1
+                    val strikes = currentStrikes(s, now) + 1
                     State(strikes, now + delayMillis(strikes), RefreshFailure.TIMEOUT, 0)
                 }
             }
@@ -92,6 +92,23 @@ object ExchangeBackoff {
             Outcome.OTHER -> s.copy(timeoutRuns = 0).takeUnless { it.strikes == 0 && it.pausedUntil == 0L }
         }
     }
+
+    /**
+     * Stufe für die nächste Pause: Liegt das Ende der letzten länger als [MAX_MILLIS] zurück, beginnt die Zählung neu
+     * (wie [groupPause]) — sonst bliebe eine einmal erreichte Stufe ohne Erfolg dazwischen für immer.
+     */
+    private fun currentStrikes(s: State, now: Long): Int =
+        if (s.pausedUntil != 0L && now - s.pausedUntil > MAX_MILLIS) 0 else s.strikes
+
+    /**
+     * Netz wieder da (offline → online): Pausen wegen Zeitüberschreitungen gelten nicht mehr — sie entstanden meist am
+     * toten Netz, nicht an der Börse. Bremsen-Pausen (429/418) bleiben. Leere Zustände fallen weg. Wie iOS.
+     */
+    fun withoutTimeoutPauses(states: Map<String, State>): Map<String, State> =
+        states.mapNotNull { (key, s) ->
+            val kept = if (s.reason == RefreshFailure.TIMEOUT) State() else s.copy(timeoutRuns = 0)
+            (key to kept).takeUnless { kept.strikes == 0 && kept.pausedUntil == 0L }
+        }.toMap()
 
     /**
      * Ergebnis einer Börse aus den Ursachen ihrer Fehler: Schon ein «zu viele Anfragen»

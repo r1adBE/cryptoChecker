@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">알림 표시줄에 가격을 표시할 페어를 선택하세요.</string>
     <string name="settings_quiet_hours">조용한 시간</string>
     <string name="settings_quiet_hours_from">시작</string>
-    <string name="settings_quiet_hours_hint">%1$s~%2$s에는 경보가 조용한 시간이 끝날 때까지 기다렸다가 소리와 함께 울립니다. 다른 알림은 음성 안내 없이 소리 없이 도착합니다.</string>
+    <string name="settings_quiet_hours_hint">%1$s~%2$s에는 경보가 조용한 시간이 끝날 때까지 기다렸다가 소리와 함께 울립니다(그때도 조건이 충족되는 경우). 다른 알림은 음성 안내 없이 소리 없이 도착합니다.</string>
     <string name="settings_quiet_hours_to">종료</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">사용 중: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">설정 안 됨 – 공개 노드를 사용합니다</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">설정이 초기화되어 자체 비트코인 서버를 사용하셨는지 알 수 없습니다. 서버를 다시 입력하시거나 공개 노드를 선택하실 때까지 비트코인 주소와 xpub 키는 조회되지 않습니다.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// 주소만 사용할 수 있습니다</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

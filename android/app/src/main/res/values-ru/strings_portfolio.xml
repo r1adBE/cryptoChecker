@@ -47,7 +47,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Всего</string>
     <string name="portfolio_hide_amounts">Скрыть суммы</string>
-    <string name="portfolio_hide_amounts_hint">Показывает суммы и значения в портфеле и виджете портфеля как ••• – проценты остаются видимыми.</string>
+    <string name="portfolio_hide_amounts_hint">Показывает суммы и значения в портфеле, виджете портфеля, на часах и в оповещениях портфеля как ••• – проценты остаются видимыми.</string>
     <string name="portfolio_invested">Стоимость покупки</string>
     <string name="portfolio_total_no_fx">Нет валютного курса для %1$s – суммы в USDT</string>
     <string name="portfolio_total_value">Общая стоимость</string>
@@ -106,6 +106,7 @@
     <string name="portfolio_discard_title">Отменить изменения?</string>
     <string name="portfolio_edit_tx">Изменить операцию</string>
     <string name="portfolio_invalid">Введи корректное число больше 0.</string>
+    <string name="number_ambiguous">Неоднозначно: %1$s или %2$s? Введи одно из двух написаний.</string>
     <string name="portfolio_oversold">Продажи превышают остаток – проверь операции.</string>
     <string name="portfolio_sell">Продажа</string>
     <string name="portfolio_sell_exceeds">Больше твоего остатка (%1$s)</string>

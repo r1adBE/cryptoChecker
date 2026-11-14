@@ -130,7 +130,9 @@ object WatchedAddressRules {
      * Guthaben 0 ohne frühere Beobachtung wird nicht gespeichert). [xpub]: neuer Zwischenspeicher (null = unverändert).
      * [networks]: Wahl nach der ersten Suche (null = unverändert). [unknownTokens]: Solana, null = unverändert.
      * [keptTokens]: Token, deren alter Wert mangels Antwort bleibt (TON: volle Jetton-Seite) → [WatchedAddress.staleTokens],
-     * nur mit gespeichertem Guthaben > 0; null = unverändert (z. B. Token-Abfrage gescheitert).
+     * nur mit gespeichertem Guthaben > 0; null = unverändert (z. B. Token-Abfrage gescheitert). Ein Sprung von > 0 auf 0
+     * gilt erst beim zweiten gleichen Abruf ([ZeroConfirm]); bis dahin alter Wert, [WatchedAddress.zeroPending] (Token
+     * auch in [WatchedAddress.staleTokens]).
      */
     fun applyFetched(
         a: WatchedAddress,
@@ -143,13 +145,19 @@ object WatchedAddressRules {
         unknownTokens: Int? = null,
         keptTokens: List<String>? = null,
     ): WatchedAddress {
-        var out = a.copy(lastBalance = balance, lastUpdated = time, lastAttempt = time, lastError = null, lastProvider = provider)
-        PortfolioDecimal.parse(balance)?.let { out = out.copy(observations = AddressBalanceHistory.record(a.observations, time, it)) }
+        // Sprung auf 0 erst mit dem zweiten gleichen Abruf ([ZeroConfirm])
+        val zero = ZeroConfirm.apply(a, balance, tokens)
+        var out = a.copy(
+            lastBalance = zero.balance, lastUpdated = time, lastAttempt = time, lastError = null, lastProvider = provider,
+            zeroPending = zero.pending,
+        )
+        PortfolioDecimal.parse(zero.balance)?.let { out = out.copy(observations = AddressBalanceHistory.record(a.observations, time, it)) }
         if (networks != null && a.chain == AddressChain.ETH && a.networks == null) out = out.copy(networks = cleanNetworks(networks))
-        if (tokens != null && ChainAssets.hasTokens(a.chain)) {
+        val checkedTokens = zero.tokens
+        if (checkedTokens != null && ChainAssets.hasTokens(a.chain)) {
             val balances = LinkedHashMap(out.tokenBalances)
             val observed = LinkedHashMap(out.tokenObservations)
-            for ((key, text) in tokens) {
+            for ((key, text) in checkedTokens) {
                 if (!counts(out, key)) continue
                 // Einheitliche Form («3.0» → 3), damit gleiche Guthaben gleich bleiben
                 val clean = PortfolioDecimal.parse(text)?.takeIf { it.signum() >= 0 }?.let { PortfolioDecimal.text(it) } ?: continue
@@ -163,8 +171,10 @@ object WatchedAddressRules {
         }
         if (xpub != null) out = out.copy(xpub = xpub)
         if (unknownTokens != null && a.chain == AddressChain.SOL) out = out.copy(unknownTokens = unknownTokens.coerceAtLeast(0))
-        if (keptTokens != null && ChainAssets.hasTokens(a.chain)) {
-            val kept = keptTokens.distinct().filter { (PortfolioDecimal.parse(out.tokenBalances[it])?.signum() ?: 0) > 0 }
+        val heldZeros = zero.pending.filter { it != ZeroConfirm.MAIN }
+        if ((keptTokens != null || heldZeros.isNotEmpty() || a.staleTokens.isNotEmpty()) && ChainAssets.hasTokens(a.chain)) {
+            val kept = ((keptTokens ?: a.staleTokens) + heldZeros).distinct()
+                .filter { (PortfolioDecimal.parse(out.tokenBalances[it])?.signum() ?: 0) > 0 }
             out = out.copy(staleTokens = kept)
         }
         return out
@@ -187,6 +197,7 @@ object WatchedAddressRules {
                 tokenObservations = a.tokenObservations.filterKeys { counts(off, it) },
                 unknownTokens = 0,
                 staleTokens = a.staleTokens.filter { counts(off, it) },
+                zeroPending = a.zeroPending.filter { it == ZeroConfirm.MAIN || counts(off, it) },
             )
         }
     }

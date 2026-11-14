@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">סה״כ</string>
     <string name="portfolio_hide_amounts">הסתרת סכומים</string>
-    <string name="portfolio_hide_amounts_hint">מציג סכומים וערכים בתיק ההשקעות ובווידג׳ט התיק כ־••• – האחוזים נשארים גלויים.</string>
+    <string name="portfolio_hide_amounts_hint">מציג סכומים וערכים בתיק ההשקעות, בווידג׳ט התיק, בשעון ובהתראות התיק כ־••• – האחוזים נשארים גלויים.</string>
     <string name="portfolio_invested">עלות הרכישה</string>
     <string name="portfolio_total_no_fx">אין שער חליפין ל-%1$s – הסכומים ב-USDT</string>
     <string name="portfolio_total_value">שווי כולל</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">לבטל את השינויים?</string>
     <string name="portfolio_edit_tx">עריכת עסקה</string>
     <string name="portfolio_invalid">הזינו מספר תקין גדול מ-0.</string>
+    <string name="number_ambiguous">לא ברור: %1$s או %2$s? הקלד אחת משתי הצורות.</string>
     <string name="portfolio_oversold">המכירות עולות על האחזקה – כדאי לבדוק את העסקאות.</string>
     <string name="portfolio_sell">מכירה</string>
     <string name="portfolio_sell_exceeds">יותר מהאחזקה שלך (%1$s)</string>

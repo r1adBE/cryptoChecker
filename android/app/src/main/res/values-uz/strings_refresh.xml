@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Qisman</string>
     <string name="check_result_skipped">Oʻtkazib yuborildi</string>
+    <string name="check_result_paused">To‘xtatilgan, hech narsa tekshirilmadi</string>
+    <string name="check_result_offline">O‘tkazib yuborildi (oflayn)</string>
     <string name="check_trigger_bgtask">Fon</string>
     <string name="check_trigger_exact">Oʻz vaqtida</string>
     <string name="check_trigger_foreground">Ilova</string>

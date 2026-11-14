@@ -5,7 +5,8 @@ import XCTest
 final class WatchlistSymbolTests: XCTestCase {
     func testLegendListsTheRowSymbolsInRowOrder() {
         XCTAssertEqual(WatchlistSymbol.allCases.map(\.rawValue),
-                       ["TOKEN", "TRADFI", "ALPHA", "PRICE_NOTIFICATION_ON", "PRICE_NOTIFICATION_OFF", "ACTIVE_ALARMS"])
+                       ["FAVORITE", "TOKEN", "TRADFI", "ALPHA", "PRICE_NOTIFICATION_ON", "PRICE_NOTIFICATION_OFF",
+                        "ACTIVE_ALARMS", "NOTE", "WARNING"])
     }
 
     func testEveryAssetKindHasItsSymbolAndTheBellsHaveNone() {
@@ -13,6 +14,9 @@ final class WatchlistSymbolTests: XCTestCase {
         XCTAssertNil(WatchlistSymbol.PRICE_NOTIFICATION_ON.kind)
         XCTAssertNil(WatchlistSymbol.PRICE_NOTIFICATION_OFF.kind)
         XCTAssertNil(WatchlistSymbol.ACTIVE_ALARMS.kind)
+        XCTAssertNil(WatchlistSymbol.FAVORITE.kind)
+        XCTAssertNil(WatchlistSymbol.NOTE.kind)
+        XCTAssertNil(WatchlistSymbol.WARNING.kind)
     }
 
     func testEveryLineHasATranslatedText() {

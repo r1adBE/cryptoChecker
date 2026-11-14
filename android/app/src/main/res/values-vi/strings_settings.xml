@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">Chọn các cặp hiển thị giá trên thanh thông báo.</string>
     <string name="settings_quiet_hours">Giờ yên lặng</string>
     <string name="settings_quiet_hours_from">Từ</string>
-    <string name="settings_quiet_hours_hint">Từ %1$s đến %2$s, cảnh báo sẽ chờ đến khi hết giờ yên lặng rồi mới kêu có âm thanh. Các thông báo khác đến trong im lặng, không có giọng nói.</string>
+    <string name="settings_quiet_hours_hint">Từ %1$s đến %2$s, cảnh báo sẽ chờ đến khi hết giờ yên lặng rồi mới kêu có âm thanh, nếu điều kiện khi đó vẫn còn đúng. Các thông báo khác đến trong im lặng, không có giọng nói.</string>
     <string name="settings_quiet_hours_to">Đến</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">Đang dùng: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Chưa đặt – dùng nút công khai</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Cài đặt đã được đặt lại nên không rõ bạn có dùng máy chủ Bitcoin riêng hay không. Địa chỉ Bitcoin và khóa xpub sẽ không được truy vấn cho đến khi bạn nhập lại máy chủ hoặc chọn nút công khai.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Chỉ cho phép địa chỉ https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

@@ -91,6 +91,20 @@ enum HistoricCloseChain {
         var price: Double?
         var rejected = false
         var provider: String?
+        /// Quelle nicht erreichbar (nach einer Wiederholung): die Kette bricht für diesen Tag ab.
+        var failed = false
+    }
+
+    /// Art eines gescheiterten Abrufs (`httpCode` = HTTP-Status, nil = Netz, Zeitgrenze oder unlesbare Antwort): 4xx
+    /// (Paar unbekannt) und 403/451 (Geo-Sperre) → nächste Quelle wie «keine Kerze»; Netz, 5xx, 408, 429/418 →
+    /// einmal wiederholen, sonst bricht die Kette ab (`Outcome.failed`) — wie Android.
+    enum FetchFailure: String { case NO_DATA, BLOCKED, TRANSIENT }
+
+    static func fetchFailure(httpCode: Int?) -> FetchFailure {
+        guard let code = httpCode else { return .TRANSIENT }
+        if code == 403 || code == 451 { return .BLOCKED }
+        if code == 408 || code == 418 || code == 429 || code >= 500 { return .TRANSIENT }
+        return (400...499).contains(code) ? .NO_DATA : .TRANSIENT
     }
 
     /// Ergebnis der Kette: Schluss und Quelle (`source` = Börsen-Schlüssel, `provider` = Anzeigename) oder keiner;
@@ -100,6 +114,8 @@ enum HistoricCloseChain {
         var source: String?
         var unchecked: Bool
         var provider: String?
+        /// Eine Quelle war nicht erreichbar (`Outcome.failed`): kein Kurs, die Kette brach dort ab (später erneut).
+        var failed = false
     }
 
     /// Quellen in `order` der Reihe nach fragen (`outcome`, z. B. Abfrage), bis eine einen Schluss liefert. Ohne
@@ -112,6 +128,7 @@ enum HistoricCloseChain {
                 return Resolved(price: price, source: source, unchecked: false, provider: r.provider ?? provider(source))
             }
             rejected = rejected || r.rejected
+            if r.failed { return Resolved(price: nil, source: nil, unchecked: rejected, provider: nil, failed: true) }
         }
         return Resolved(price: nil, source: nil, unchecked: rejected, provider: nil)
     }

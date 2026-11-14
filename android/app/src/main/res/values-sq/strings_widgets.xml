@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Sfondi</string>
-    <string name="widget_configure_hint">Zgjidh sfondin dhe tejdukshmërinë. Ngjyra ndjek aplikacionin. Widget-i shfaq gjithë listën; prek një rresht për të hapur aplikacionin.</string>
+    <string name="widget_configure_hint">Zgjidh sfondin dhe errësirën. Ngjyra ndjek aplikacionin. Widget-i shfaq listën tënde ose grupin e zgjedhur më poshtë; prek një rresht për të hapur aplikacionin.</string>
     <string name="widget_configure_title">Konfiguro widget-in</string>
     <string name="widget_description">Shfaq çmimin e një çifti nga lista jote e ndjekjes.</string>
     <string name="widget_empty">Ende nuk ka çifte në listën e ndjekjes.</string>

@@ -146,17 +146,20 @@ enum WatchedAddressRules {
                              tokens: [String: String]? = nil, xpub: XpubCache? = nil,
                              networks: [String]? = nil, unknownTokens: Int? = nil,
                              keptTokens: [String]? = nil) -> WatchedAddress {
+        // Sprung auf 0 erst mit dem zweiten gleichen Abruf (`ZeroConfirm`)
+        let zero = ZeroConfirm.apply(a, balance: balance, tokens: tokens)
         var out = a
-        out.lastBalance = balance
+        out.lastBalance = zero.balance
         out.lastUpdated = time
         out.lastAttempt = time
         out.lastError = nil
         out.lastProvider = provider
-        if let value = PortfolioDecimal.parse(balance) {
+        out.zeroPending = zero.pending
+        if let value = PortfolioDecimal.parse(zero.balance) {
             out.observations = AddressBalanceHistory.record(a.observations, time: time, balance: value)
         }
         if let networks, a.chain == .ETH, a.networks == nil { out.networks = cleanNetworks(networks) }
-        if let tokens, ChainAssets.hasTokens(a.chain) {
+        if let tokens = zero.tokens, ChainAssets.hasTokens(a.chain) {
             for key in tokens.keys.sorted() {
                 guard counts(out, key), let parsed = PortfolioDecimal.parse(tokens[key]), parsed >= 0 else { continue }
                 // Einheitliche Form («3.0» → 3), damit gleiche Guthaben gleich bleiben
@@ -170,7 +173,7 @@ enum WatchedAddressRules {
         }
         if let xpub { out.xpub = xpub }
         if let unknownTokens, a.chain == .SOL { out.unknownTokens = max(0, unknownTokens) }
-        return withKeptTokens(out, keptTokens)
+        return withKeptTokens(out, keptTokens, held: zero.pending.filter { $0 != ZeroConfirm.main })
     }
 
     /// Fehlgeschlagener Abruf: letzter Stand bleibt.
@@ -195,6 +198,7 @@ enum WatchedAddressRules {
             out.tokenObservations = a.tokenObservations.filter { counts(snapshot, $0.key) }
             out.unknownTokens = 0
             out.staleTokens = a.staleTokens.filter { counts(snapshot, $0) }
+            out.zeroPending = a.zeroPending.filter { $0 == ZeroConfirm.main || counts(snapshot, $0) }
         }
         return out
     }

@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">Fonlama oranı −10 ile +10 arasında bir yüzde değeri olmalı.</string>
     <string name="alarm_threshold_error_invalid">0’dan büyük geçerli bir sayı gir.</string>
     <string name="alarm_threshold_error_oi">Açık pozisyon değişimi: en fazla yüzde 1000.</string>
+    <string name="alarm_threshold_error_percent_max">En fazla yüzde 1000.</string>
+    <string name="alarm_threshold_error_distance">Mesafe yüzde 100\'den az olmalı.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d saat içinde</item>
         <item quantity="other">%1$d saat içinde</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">Sesli okuma açık</string>
     <string name="alarm_unchecked_no_candles">Kontrol edilemedi (mum verisi yok)</string>
     <string name="alarm_unchecked_no_rate">Kontrol edilemedi (döviz kuru yok)</string>
+    <string name="alarm_unchecked_no_window_price">Kontrol edilemedi (zaman aralığında fiyat yok)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Bildirimler kapalı – bu alarm sana ulaşmaz</string>

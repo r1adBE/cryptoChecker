@@ -36,6 +36,21 @@ class PortfolioRefreshGateTest {
         assertFalse(PortfolioSnapshotUpdater.shouldRefresh(hasPortfolioWidget = false, activeAlarms = false))
     }
 
+    /** Bestand während der Netzabfrage geändert (gelöscht, eingespielt): keine Aufnahme mit dem alten (B3-15). */
+    @Test
+    fun recordOnlyWithTheCurrentLedger() {
+        fun tx(id: Long, amount: String = "1") = com.cryptochecker.app.data.portfolio.PortfolioTxEntity(
+            id = id, coin = "BTC", type = com.cryptochecker.app.domain.portfolio.PortfolioTxType.BUY,
+            amount = java.math.BigDecimal(amount), time = id,
+        )
+        val stored = listOf(tx(2), tx(1))
+        // Gleiche Transaktionen, andere Reihenfolge, dazu ein Adress-Eintrag (negative Id): gilt
+        assertTrue(PortfolioSnapshotUpdater.sameLedger(listOf(tx(1), tx(2), tx(-101)), stored))
+        // Gelöscht bzw. geändert: nicht aufnehmen
+        assertFalse(PortfolioSnapshotUpdater.sameLedger(listOf(tx(1), tx(2), tx(3)), stored))
+        assertFalse(PortfolioSnapshotUpdater.sameLedger(listOf(tx(1), tx(2, "5")), stored))
+    }
+
     @Test
     fun unreadableAlarmsRefreshAnyway() {
         // Kurz gesperrte Datenbank ist nicht «keine Alarme»: im Zweifel aktualisieren

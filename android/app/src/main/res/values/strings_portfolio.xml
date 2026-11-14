@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Hide amounts</string>
-    <string name="portfolio_hide_amounts_hint">Shows amounts and values in the portfolio and the portfolio widget as ••• – percentages stay visible.</string>
+    <string name="portfolio_hide_amounts_hint">Shows amounts and values in the portfolio, the portfolio widget, on the watch and in portfolio alerts as ••• – percentages stay visible.</string>
     <string name="portfolio_invested">Cost basis</string>
     <string name="portfolio_total_no_fx">No exchange rate for %1$s – amounts in USDT</string>
     <string name="portfolio_total_value">Total value</string>
@@ -100,6 +100,8 @@
     <string name="portfolio_discard_title">Discard changes?</string>
     <string name="portfolio_edit_tx">Edit transaction</string>
     <string name="portfolio_invalid">Enter a valid number greater than 0.</string>
+    <!-- Zahlenfeld: «1.234» in DE bzw. «1,234» in US ist mehrdeutig (ThresholdParser.ambiguity); %1$s = ohne Trennung, %2$s = mit Dezimalzeichen der Region -->
+    <string name="number_ambiguous">Unclear: %1$s or %2$s? Type one of the two.</string>
     <string name="portfolio_oversold">Sells exceed the holdings – please check the transactions.</string>
     <string name="portfolio_sell">Sell</string>
     <string name="portfolio_sell_exceeds">More than your holdings (%1$s)</string>

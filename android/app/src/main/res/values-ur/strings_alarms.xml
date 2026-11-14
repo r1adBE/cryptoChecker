@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">فنڈنگ −10 اور +10 فیصد کے درمیان کوئی عدد ہونی چاہیے۔</string>
     <string name="alarm_threshold_error_invalid">0 سے بڑا کوئی درست عدد درج کریں۔</string>
     <string name="alarm_threshold_error_oi">اوپن انٹرسٹ میں تبدیلی: زیادہ سے زیادہ 1000 فیصد۔</string>
+    <string name="alarm_threshold_error_percent_max">زیادہ سے زیادہ 1000 فیصد۔</string>
+    <string name="alarm_threshold_error_distance">فاصلہ 100 فیصد سے کم ہونا چاہیے۔</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d گھنٹے میں</item>
         <item quantity="other">%1$d گھنٹوں میں</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">بولنا آن</string>
     <string name="alarm_unchecked_no_candles">جانچا نہیں جا سکا (کینڈل ڈیٹا نہیں)</string>
     <string name="alarm_unchecked_no_rate">جانچا نہیں جا سکا (شرح تبادلہ نہیں)</string>
+    <string name="alarm_unchecked_no_window_price">جانچا نہیں جا سکا (وقت کی حد میں کوئی قیمت نہیں)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">اطلاعات بند – یہ الرٹ آپ تک نہیں پہنچے گا</string>

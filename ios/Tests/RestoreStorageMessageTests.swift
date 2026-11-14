@@ -34,7 +34,13 @@ final class RestoreStorageMessageTests: XCTestCase {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let page = try String(contentsOf: root.appendingPathComponent("App/Features/Settings/SettingsDataPages.swift"),
                               encoding: .utf8)
-        XCTAssertTrue(page.contains("} catch let error where BackupManager.isStorageFailure(error) {"))
-        XCTAssertTrue(page.contains("fail(\"backup_restore_storage_unavailable\")"))
+        XCTAssertTrue(page.contains("fail(BackupManager.restoreFailureKey(error))"))
+        let key = BackupManager.restoreFailureKey(BackupManager.Failure.invalid(BackupManager.watchlistStep))
+        XCTAssertEqual(key, "backup_restore_storage_unavailable")
+        XCTAssertEqual(BackupManager.restoreFailureKey(BackupManager.Failure.invalid("portfolio")), "backup_failed")
+        XCTAssertEqual(BackupManager.restoreFailureKey(BackupManager.Failure.journalUnavailable),
+                       "backup_restore_journal_unavailable")
+        XCTAssertEqual(BackupManager.restoreFailureKey(BackupVersion.Failure.newer(9)), "backup_restore_newer_version")
+        XCTAssertEqual(BackupManager.restoreFailureKey(BackupManager.Failure.storageKept), "backup_storage_kept")
     }
 }

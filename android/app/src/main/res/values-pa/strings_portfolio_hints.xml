@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">ਪੋਰਟਫੋਲੀਓ ਅਲਰਟ ਉਨ੍ਹਾਂ ਪਤਿਆਂ ਤੋਂ ਬਿਨਾਂ ਜਾਂਚਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਬੈਲੈਂਸ 24 ਘੰਟਿਆਂ ਤੋਂ ਵੱਧ ਸਮੇਂ ਤੋਂ ਲੋਡ ਨਹੀਂ ਹੋਇਆ</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">ਟੋਕਨ ਅੰਸ਼ਕ ਤੌਰ ’ਤੇ ਪੁਰਾਣੇ</string>
+    <string name="portfolio_address_zero_unconfirmed">0 ਅਜੇ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੋਈ</string>
     <string name="portfolio_address_restore_failed">ਪਤਾ ਬਹਾਲ ਨਹੀਂ ਹੋ ਸਕਿਆ – ਲੋੜ ਹੋਵੇ ਤਾਂ ਦੁਬਾਰਾ ਜੋੜੋ</string>
     <string name="portfolio_address_remove_failed">ਪਤਾ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ – ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
 </resources>

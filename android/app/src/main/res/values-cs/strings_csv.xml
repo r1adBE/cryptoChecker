@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Opouští portfolio (výběr)</string>
     <string name="portfolio_csv_import_choose_each">U každého výběru zvol, kam šel.</string>
     <string name="portfolio_csv_import_columns">Rozpoznané sloupce: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Již importováno: řádky %1$s</string>
     <string name="portfolio_csv_import_confirm">Importovat (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Den/Měsíc</string>
     <string name="portfolio_csv_import_date_month_first">Měsíc/Den</string>
@@ -50,6 +51,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Nákupy a prodeje za stablecoiny (USDT, USDC …) se účtují jako směna – stablecoin se objeví v tvé držbě.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Je možných více shod – vyber správnou nebo žádnou.</string>
+    <string name="portfolio_csv_import_transfer_loose">Vysoký poplatek nebo pozdní připsání – zkontroluj, zda jde o stejný převod.</string>
     <string name="portfolio_csv_import_transfer_fee">Síťový poplatek: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Zaúčtovat jako jeden převod</string>
     <string name="portfolio_csv_import_transfer_stored">Protějšek z dřívějšího importu</string>
@@ -116,7 +118,7 @@
     <string name="portfolio_csv_import_fx_zone">Denní kurzy podle kalendářního dne v: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Denní kurzy se nepodařilo načíst.</string>
     <string name="portfolio_csv_import_anyway">Přesto importovat</string>
-    <string name="portfolio_csv_import_anyway_hint">Bez denního kurzu cena nebo poplatek trvale chybí. Zkus to znovu, nebo importuj přesto – tyto transakce pak dostanou poznámku.</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez denního kurzu chybí cena nebo poplatek, dokud je nedoplníš. Zkus to znovu nebo přesto importuj – tyto transakce pak dostanou poznámku.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena bez denního kurzu</string>
     <string name="portfolio_csv_note_fee_no_rate">Poplatek bez denního kurzu</string>
     <string name="portfolio_csv_import_no_rates_for">Pro %1$s denní kurzy neexistují, opakování tedy nepomůže. Když přesto importuješ, tyto transakce dostanou poznámku.</string>

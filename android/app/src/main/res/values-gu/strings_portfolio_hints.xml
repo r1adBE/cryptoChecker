@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">જે સરનામાંનું બેલેન્સ 24 કલાકથી વધુ સમયથી લોડ થયું નથી, તેમના વગર પોર્ટફોલિયો એલર્ટ તપાસાય છે</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">ટોકન આંશિક રીતે જૂના</string>
+    <string name="portfolio_address_zero_unconfirmed">0 હજી પુષ્ટિ થઈ નથી</string>
     <string name="portfolio_address_restore_failed">સરનામું પુનઃસ્થાપિત થઈ શક્યું નથી – જરૂર હોય તો ફરી ઉમેરો</string>
     <string name="portfolio_address_remove_failed">સરનામું દૂર થઈ શક્યું નથી – કૃપા કરીને ફરી પ્રયાસ કરો</string>
 </resources>

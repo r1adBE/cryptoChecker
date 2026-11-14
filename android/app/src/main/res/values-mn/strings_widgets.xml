@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Дэвсгэр</string>
-    <string name="widget_configure_hint">Дэвсгэр болон тунгалаг байдлыг сонгоно уу. Өнгө аппыг дагана. Виджет таны бүх ажиглах жагсаалтыг харуулна; аппыг нээхийн тулд мөр дээр товшино уу.</string>
+    <string name="widget_configure_hint">Дэвсгэр болон тунгалаг бусыг сонгоно уу. Өнгө нь аппыг дагана. Виджет таны ажиглах жагсаалт эсвэл доор сонгосон бүлгийг харуулна; аппыг нээхийн тулд мөр дээр товшино уу.</string>
     <string name="widget_configure_title">Виджет тохируулах</string>
     <string name="widget_description">Таны ажиглах жагсаалтын хосын ханшийг харуулна.</string>
     <string name="widget_empty">Ажиглах жагсаалтад хараахан хос алга.</string>

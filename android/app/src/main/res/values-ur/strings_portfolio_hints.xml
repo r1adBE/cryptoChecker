@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">پورٹ فولیو الرٹس ان پتوں کے بغیر جانچتے ہیں جن کا بیلنس 24 گھنٹے سے زیادہ سے لوڈ نہیں ہوا</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">ٹوکنز جزوی طور پر پرانے</string>
+    <string name="portfolio_address_zero_unconfirmed">0 ابھی تصدیق نہیں ہوئی</string>
     <string name="portfolio_address_restore_failed">پتہ بحال نہیں ہو سکا – ضرورت ہو تو دوبارہ شامل کریں</string>
     <string name="portfolio_address_remove_failed">پتہ ہٹایا نہیں جا سکا – براہ کرم دوبارہ کوشش کریں</string>
 </resources>

@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmer slået til – intet tjek i baggrunden endnu</string>
     <string name="alarm_reliability_notifications_off">Notifikationer slået fra – alarmer når ikke frem</string>
     <string name="alarm_reliability_battery">Batterisparing kan stoppe tjek af alarmer</string>
+    <string name="alarm_reliability_offline">Ingen forbindelse – alarmer kontrolleres, når netværket er tilbage</string>
     <string name="alarm_reliability_background_refresh">Baggrundsopdatering slået fra – alarmer når måske ikke frem</string>
 </resources>

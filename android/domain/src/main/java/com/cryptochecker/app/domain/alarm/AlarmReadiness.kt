@@ -135,6 +135,11 @@ object AlarmReadiness {
         val failingSince: Long? = null,
         /** Android: Merkliste ohne Schlüssel nur im Arbeitsspeicher — Prüfungen im Hintergrund sehen ihre Paare nicht. */
         val storageNoKey: Boolean = false,
+        /**
+         * Der neueste geplante Lauf wurde ohne Netz nicht versucht
+         * ([com.cryptochecker.app.domain.refresh.CheckRunLog.offlineSkipped]): eine alte Prüfung liegt am Netz, nicht am Akku.
+         */
+        val offline: Boolean = false,
     )
 
     /** Zeilen in fester Reihenfolge je Plattform. */

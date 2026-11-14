@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">ஃபண்டிங் −10 முதல் +10 சதவீதத்துக்கு இடைப்பட்ட எண்ணாக இருக்க வேண்டும்.</string>
     <string name="alarm_threshold_error_invalid">0 ஐவிடப் பெரிய சரியான எண்ணை உள்ளிடவும்.</string>
     <string name="alarm_threshold_error_oi">ஓப்பன் இன்ட்ரஸ்ட் மாற்றம்: அதிகபட்சம் 1000 சதவீதம்.</string>
+    <string name="alarm_threshold_error_percent_max">அதிகபட்சம் 1000 சதவீதம்.</string>
+    <string name="alarm_threshold_error_distance">தூரம் 100 சதவீதத்துக்கும் குறைவாக இருக்க வேண்டும்.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d மணிநேரத்தில்</item>
         <item quantity="other">%1$d மணிநேரத்தில்</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">பேச்சு ஆன்</string>
     <string name="alarm_unchecked_no_candles">சரிபார்க்க முடியவில்லை (கேண்டில் தரவு இல்லை)</string>
     <string name="alarm_unchecked_no_rate">சரிபார்க்க முடியவில்லை (மாற்று விகிதம் இல்லை)</string>
+    <string name="alarm_unchecked_no_window_price">சரிபார்க்க முடியவில்லை (கால இடைவெளியில் விலை இல்லை)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">அறிவிப்புகள் ஆஃப் – இந்த விழிப்பூட்டல் உங்களை வந்தடையாது</string>

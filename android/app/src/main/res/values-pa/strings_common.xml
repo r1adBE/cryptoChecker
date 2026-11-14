@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">ਐਕਸਚੇਂਜ ਤੱਕ ਹੁਣੇ ਪਹੁੰਚ ਨਹੀਂ</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">ਇਸ ਖੇਤਰ ਵਿੱਚ ਐਕਸਚੇਂਜ ਬਲੌਕ ਹੈ</string>
+    <string name="error_exchange_access_denied">ਐਕਸਚੇਂਜ ਨੇ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ</string>
     <string name="loading_hint">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
     <string name="option_off">ਬੰਦ</string>
     <string name="something_went_wrong">ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ</string>

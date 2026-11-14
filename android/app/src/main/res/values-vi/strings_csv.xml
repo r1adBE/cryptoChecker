@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Rời danh mục (rút)</string>
     <string name="portfolio_csv_import_choose_each">Chọn cho từng lệnh rút nơi nó đã đến.</string>
     <string name="portfolio_csv_import_columns">Các cột được nhận diện: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Đã nhập: dòng %1$s</string>
     <string name="portfolio_csv_import_confirm">Nhập (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Ngày/Tháng</string>
     <string name="portfolio_csv_import_date_month_first">Tháng/Ngày</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Mua và bán lấy stablecoin (USDT, USDC …) được ghi nhận là hoán đổi – stablecoin sẽ xuất hiện trong số lượng nắm giữ của bạn.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Có thể khớp nhiều bản ghi – hãy chọn bản ghi đúng hoặc không chọn.</string>
+    <string name="portfolio_csv_import_transfer_loose">Phí cao hoặc đến muộn – vui lòng kiểm tra xem có phải cùng một lần chuyển không.</string>
     <string name="portfolio_csv_import_transfer_fee">Phí mạng: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Ghi thành một lần chuyển</string>
     <string name="portfolio_csv_import_transfer_stored">Bản ghi đối ứng từ lần nhập trước</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">Tỷ giá ngày tính theo ngày lịch ở múi giờ: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Không tải được tỷ giá ngày.</string>
     <string name="portfolio_csv_import_anyway">Vẫn nhập</string>
-    <string name="portfolio_csv_import_anyway_hint">Không có tỷ giá ngày, giá hoặc phí sẽ thiếu vĩnh viễn. Vui lòng thử lại hoặc vẫn nhập – các giao dịch đó sẽ có ghi chú.</string>
+    <string name="portfolio_csv_import_anyway_hint">Không có tỷ giá ngày, giá hoặc phí sẽ thiếu cho đến khi bạn bổ sung. Vui lòng thử lại hoặc vẫn nhập – các giao dịch đó sẽ có ghi chú.</string>
     <string name="portfolio_csv_note_price_no_rate">Giá không có tỷ giá ngày</string>
     <string name="portfolio_csv_note_fee_no_rate">Phí không có tỷ giá ngày</string>
     <string name="portfolio_csv_import_no_rates_for">Không có tỷ giá ngày cho %1$s nên thử lại cũng không giúp được. Nếu vẫn nhập, các giao dịch đó sẽ có ghi chú.</string>

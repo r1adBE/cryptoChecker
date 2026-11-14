@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Grund für einen ungültigen Schwellwert (`AlarmDraft.thresholdProblem`), wie Android `ThresholdProblem`.
 enum ThresholdProblem: Equatable {
-    case EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_RANGE
+    case EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_RANGE, PERCENT_MAX, DISTANCE_RANGE, AMBIGUOUS
 }
 
 extension AlarmCondition {
@@ -13,6 +13,10 @@ extension AlarmCondition {
 
     /// Obergrenze (ausschliesslich) eines fallenden Prozent-Alarms.
     static let maxFallPercent = 100.0
+
+    /// Obergrenze (einschliesslich) für «steigt um x %» und «bewegt sich um x %» — wie der Portfolio-Alarm; wie Android
+    /// `MAX_RISE_PERCENT`.
+    static let maxRisePercent = 1000.0
 }
 
 /// Eingabezustand des Alarm-Blatts — wie `AlarmDraft`.
@@ -139,7 +143,7 @@ struct AlarmDraft: Identifiable, Equatable {
         if condition.isFunding {
             return DerivativesAlarm.parseFunding(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
         }
-        if exceedsFall { return nil }
+        if exceedsFall || exceedsLimit { return nil }
         if condition.isOpenInterest {
             let value = ThresholdParser.parse(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
             return DerivativesAlarm.isValidThreshold(condition, value) ? value : nil
@@ -158,6 +162,22 @@ struct AlarmDraft: Identifiable, Equatable {
         return value >= AlarmCondition.maxFallPercent
     }
 
+    /// Über der Grenze: «steigt um» bzw. «bewegt sich um» über `AlarmCondition.maxRisePercent`, Abstand zum Hoch/Tief ab
+    /// `AlarmCondition.maxFallPercent` — wie der Portfolio-Alarm. Wie Android `exceedsLimit`.
+    private var exceedsLimit: Bool {
+        guard let value = ThresholdParser.parse(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+        else { return false }
+        if condition == .CHANGE_PERCENT_UP || condition == .MOVE_PERCENT_WINDOW { return value > AlarmCondition.maxRisePercent }
+        if condition.isNearExtreme { return value >= AlarmCondition.maxFallPercent }
+        return false
+    }
+
+    /// Mehrdeutige Eingabe wie «1.234» in DE (`ThresholdParser.ambiguity`, gleicher Kurs-Hinweis wie `threshold`).
+    var ambiguity: ThresholdParser.Ambiguity? {
+        ThresholdParser.ambiguity(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator,
+                                  priceHint: condition.isPriceThreshold ? priceHint : nil)
+    }
+
     /// Warum der Knopf gesperrt ist (nil = gültig) — für den Fehlertext unter dem Feld. Folgt genau
     /// `threshold`: leer; Funding ausserhalb ±`DerivativesAlarm.maxFundingPercent` bzw. keine Zahl;
     /// Open Interest über dem Höchstwert; fallend ab 100 %; sonst keine Zahl grösser als 0. Wie Android.
@@ -166,11 +186,12 @@ struct AlarmDraft: Identifiable, Equatable {
         if thresholdText.trimmingCharacters(in: .whitespaces).isEmpty { return .EMPTY }
         if condition.isFunding { return .FUNDING_RANGE }
         if exceedsFall { return .PERCENT_RANGE }
+        if exceedsLimit { return condition.isNearExtreme ? .DISTANCE_RANGE : .PERCENT_MAX }
         if condition.isOpenInterest,
            ThresholdParser.parse(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator) != nil {
             return .OI_RANGE
         }
-        return .INVALID
+        return ambiguity != nil ? .AMBIGUOUS : .INVALID
     }
 
     /// Fehlertext, der unter dem Feld steht: wie `thresholdProblem`, nur «leer» nicht, solange im

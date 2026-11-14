@@ -15,6 +15,7 @@
     <string name="watchlist_refresh_report">Posledné obnovenie</string>
     <string name="watchlist_symbols_legend">Vysvetlenie symbolov</string>
     <string name="watchlist_symbols_legend_alarms">Aktívne alarmy a ich počet</string>
+    <string name="watchlist_symbols_legend_warning">Cena je zastaraná alebo burza nie je dostupná</string>
     <string name="watchlist_refresh_report_empty">Zatiaľ žiadny rozpis – doteraz neprebehlo úplné obnovenie. Ťukni na Obnoviť a počkaj, kým sa kruh zastaví.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d z %2$d zastaraný</item>
@@ -294,6 +295,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zavrieť upozornenie</string>
     <string name="watchlist_missing_logos_explain">Pre tieto coiny nie je k dispozícii žiadne logo. Aplikácia zobrazuje ich iniciály.</string>
+    <string name="watchlist_missing_logos_pending">zatiaľ nenačítané</string>
+    <string name="watchlist_missing_logos_explain_pending">Logá označené ako zatiaľ nenačítané prídu pri ďalšej synchronizácii, niektoré len cez Wi-Fi. Pre ostatné mince logo nie je k dispozícii. Aplikácia zobrazuje ich iniciály.</string>
     <string name="exchange_retiring_notice">Od %2$s %1$s už nebude poskytovať verejné ceny. Pre tieto mince vyber inú burzu.</string>
     <string name="exchange_retiring_reason">Od %2$s %1$s už nebude poskytovať ceny</string>
     <string name="exchange_retired_since">Od %2$s %1$s už neposkytuje ceny</string>

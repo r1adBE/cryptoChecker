@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Cúlra</string>
-    <string name="widget_configure_hint">Roghnaigh cúlra agus teimhneacht. Leanann an dath an aip. Taispeánann an ghiuirléid do liosta faire ar fad; tapáil ró chun an aip a oscailt.</string>
+    <string name="widget_configure_hint">Roghnaigh cúlra agus teimhneacht. Leanann an dath an aip. Taispeánann an ghiuirléid do liosta faire nó an grúpa a roghnaítear thíos; tapáil ró chun an aip a oscailt.</string>
     <string name="widget_configure_title">Socraigh an ghiuirléid</string>
     <string name="widget_description">Taispeánann sí praghas péire ó do liosta faire.</string>
     <string name="widget_empty">Gan péirí sa liosta faire fós.</string>

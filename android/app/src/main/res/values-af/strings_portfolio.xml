@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Totaal</string>
     <string name="portfolio_hide_amounts">Versteek bedrae</string>
-    <string name="portfolio_hide_amounts_hint">Wys bedrae en waardes in die portefeulje en die portefeulje-legstuk as ••• – persentasies bly sigbaar.</string>
+    <string name="portfolio_hide_amounts_hint">Wys bedrae en waardes in die portefeulje, die portefeulje-legstuk, op die horlosie en in portefeulje-waarskuwings as ••• – persentasies bly sigbaar.</string>
     <string name="portfolio_invested">Kostebasis</string>
     <string name="portfolio_total_no_fx">Geen wisselkoers vir %1$s nie – bedrae in USDT</string>
     <string name="portfolio_total_value">Totale waarde</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Gooi veranderinge weg?</string>
     <string name="portfolio_edit_tx">Wysig transaksie</string>
     <string name="portfolio_invalid">Voer \'n geldige getal groter as 0 in.</string>
+    <string name="number_ambiguous">Onduidelik: %1$s of %2$s? Tik een van die twee.</string>
     <string name="portfolio_oversold">Verkope oorskry die besit – kontroleer asseblief die transaksies.</string>
     <string name="portfolio_sell">Verkoop</string>
     <string name="portfolio_sell_exceeds">Meer as jou besit (%1$s)</string>

@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Samtals</string>
     <string name="portfolio_hide_amounts">Fela upphæðir</string>
-    <string name="portfolio_hide_amounts_hint">Sýnir upphæðir og virði í eignasafninu og eignasafnsgræjunni sem ••• – prósentur haldast sýnilegar.</string>
+    <string name="portfolio_hide_amounts_hint">Sýnir upphæðir og virði í eignasafninu, eignasafnsgræjunni, á úrinu og í eignasafnsviðvörunum sem ••• – prósentur haldast sýnilegar.</string>
     <string name="portfolio_invested">Kostnaðarverð</string>
     <string name="portfolio_total_no_fx">Ekkert gengi fyrir %1$s – upphæðir í USDT</string>
     <string name="portfolio_total_value">Heildarvirði</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Henda breytingum?</string>
     <string name="portfolio_edit_tx">Breyta færslu</string>
     <string name="portfolio_invalid">Sláðu inn gilda tölu hærri en 0.</string>
+    <string name="number_ambiguous">Óljóst: %1$s eða %2$s? Sláðu inn annað hvort.</string>
     <string name="portfolio_oversold">Sala er meiri en eignin – athugaðu færslurnar.</string>
     <string name="portfolio_sell">Selja</string>
     <string name="portfolio_sell_exceeds">Meira en eign þín (%1$s)</string>

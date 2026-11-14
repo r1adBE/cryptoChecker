@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">फ़ंडिंग रेट −10 और +10 प्रतिशत के बीच की संख्या होनी चाहिए।</string>
     <string name="alarm_threshold_error_invalid">0 से बड़ी मान्य संख्या डालें।</string>
     <string name="alarm_threshold_error_oi">ओपन इंटरेस्ट में बदलाव: अधिकतम 1000 प्रतिशत।</string>
+    <string name="alarm_threshold_error_percent_max">अधिकतम 1000 प्रतिशत।</string>
+    <string name="alarm_threshold_error_distance">दूरी 100 प्रतिशत से कम होनी चाहिए।</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d घंटे में</item>
         <item quantity="other">%1$d घंटे में</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">बोलकर सूचना चालू</string>
     <string name="alarm_unchecked_no_candles">जाँच नहीं हो सकी (कैंडल डेटा नहीं)</string>
     <string name="alarm_unchecked_no_rate">जाँच नहीं हो सकी (विनिमय दर नहीं)</string>
+    <string name="alarm_unchecked_no_window_price">जाँच नहीं हो सकी (समय अवधि में कोई भाव नहीं)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">नोटिफ़िकेशन बंद – यह अलार्म आप तक नहीं पहुँचेगा</string>

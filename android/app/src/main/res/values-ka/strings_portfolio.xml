@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">სულ</string>
     <string name="portfolio_hide_amounts">თანხების დამალვა</string>
-    <string name="portfolio_hide_amounts_hint">პორტფელსა და პორტფელის ვიჯეტში თანხებსა და ღირებულებებს ••• სახით აჩვენებს – პროცენტები ხილული რჩება.</string>
+    <string name="portfolio_hide_amounts_hint">პორტფელში, პორტფელის ვიჯეტში, საათზე და პორტფელის შეტყობინებებში თანხებსა და ღირებულებებს ••• სახით აჩვენებს – პროცენტები ხილული რჩება.</string>
     <string name="portfolio_invested">შეძენის ღირებულება</string>
     <string name="portfolio_total_no_fx">%1$s-ის გაცვლითი კურსი არ არის – თანხები USDT-ში</string>
     <string name="portfolio_total_value">სრული ღირებულება</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">უარვყო ცვლილებები?</string>
     <string name="portfolio_edit_tx">ტრანზაქციის რედაქტირება</string>
     <string name="portfolio_invalid">შეიყვანე 0-ზე მეტი სწორი რიცხვი.</string>
+    <string name="number_ambiguous">გაუგებარია: %1$s თუ %2$s? ჩაწერე ამ ორიდან ერთ-ერთი.</string>
     <string name="portfolio_oversold">გაყიდვები აქტივებს აღემატება – გთხოვ, შეამოწმე ტრანზაქციები.</string>
     <string name="portfolio_sell">გაყიდვა</string>
     <string name="portfolio_sell_exceeds">შენს აქტივებზე მეტია (%1$s)</string>

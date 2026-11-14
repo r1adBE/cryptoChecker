@@ -25,9 +25,14 @@ data class WatchPortfolio(
     companion object {
         private val CURRENCY = Regex("[A-Z]{3,5}")
 
+        /** Währung einer verborgenen Sendung, wenn weder Aufnahme noch Einstellung eine gültige nennt. */
+        const val MASK_CURRENCY = "USD"
+
         /**
          * Was das Handy schickt: [Message.Clear] ohne Schalter ([onWatch]) oder ohne Portfolio ([portfolioEnabled]);
-         * null = noch keine Aufnahme ([time] ≤ 0, nichts senden). Verborgen ([hidden] oder [locked]) ohne Zahlen.
+         * null = noch keine Aufnahme ([time] ≤ 0, nichts senden). Verborgen ([hidden] oder [locked]) ohne Zahlen — und
+         * zwar immer, auch wenn die Aufnahme gerade nicht lesbar ist (fail closed): Währung dann [fallbackCurrency]
+         * (Portfolio-Währung der Einstellungen, sonst [MASK_CURRENCY]), Zeit [now]. Sonst blieben die Zahlen auf der Uhr.
          */
         fun message(
             onWatch: Boolean,
@@ -38,11 +43,19 @@ data class WatchPortfolio(
             changePercent: Double?,
             currency: String?,
             time: Long,
+            fallbackCurrency: String? = null,
+            now: Long = 0L,
         ): Message? {
             if (!onWatch || !portfolioEnabled) return Message.Clear
-            val code = currency?.trim()?.uppercase()?.takeIf { CURRENCY.matches(it) } ?: return null
-            if (time <= 0L) return null
             val masked = hidden || locked
+            fun valid(text: String?) = text?.trim()?.uppercase()?.takeIf { CURRENCY.matches(it) }
+            if (masked) {
+                val code = valid(currency) ?: valid(fallbackCurrency) ?: MASK_CURRENCY
+                val at = time.takeIf { it > 0L } ?: now.takeIf { it > 0L } ?: 1L
+                return Message.Value(WatchPortfolio(total = null, changePercent = null, currency = code, time = at, hidden = true))
+            }
+            val code = valid(currency) ?: return null
+            if (time <= 0L) return null
             return Message.Value(
                 WatchPortfolio(
                     total = if (masked) null else total?.takeIf { it.isFinite() },

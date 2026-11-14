@@ -3,6 +3,8 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
+import com.cryptochecker.app.domain.refresh.remembersPairListAttempt
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -88,9 +90,14 @@ private suspend fun PortfolioPriceSource.exchangePrice(coin: String, exchange: E
     if (pairs.isEmpty() && exchangeRepository.isExchangeSupportsUpdatePairs(exchange)) {
         val now = System.currentTimeMillis()
         val last = pairListAttempts[exchange.key] ?: 0L
-        if (now - last !in 0 until PAIR_LIST_RETRY_MILLIS) {
-            pairListAttempts[exchange.key] = now
-            runCatchingCancellable { exchangeRepository.updateExchangeCurrencyPairs(exchange) }
+        // Erst nach dem Versuch merken, und nur mit Ergebnis: ein Netzfehler sperrt nicht 6 Std. (remembersPairListAttempt)
+        if (now - last !in 0 until PAIR_LIST_RETRY_MILLIS && pairListLoading.add(exchange.key)) {
+            try {
+                val failure = runCatchingCancellable { exchangeRepository.updateExchangeCurrencyPairs(exchange) }.exceptionOrNull()
+                if (remembersPairListAttempt(failure?.toExchangeFailure())) pairListAttempts[exchange.key] = now
+            } finally {
+                pairListLoading.remove(exchange.key)
+            }
             pairs = spotPairs(exchange)
         }
     }

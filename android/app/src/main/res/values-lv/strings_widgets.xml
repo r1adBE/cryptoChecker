@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fons</string>
-    <string name="widget_configure_hint">Izvēlies fonu un necaurredzamību. Krāsa atbilst lietotnei. Logrīks rāda visu tavu vērojamo sarakstu; pieskaroties rindai, atveras lietotne.</string>
+    <string name="widget_configure_hint">Izvēlies fonu un necaurredzamību. Krāsa seko lietotnei. Logrīks rāda tavus vērojamos vai zemāk izvēlēto grupu; pieskaries rindai, lai atvērtu lietotni.</string>
     <string name="widget_configure_title">Iestatīt logrīku</string>
     <string name="widget_description">Rāda pāra cenu no tava vērojamo saraksta.</string>
     <string name="widget_empty">Vērojamo sarakstā vēl nav pāru.</string>

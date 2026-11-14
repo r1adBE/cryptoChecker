@@ -40,6 +40,7 @@ class LogoLoadingHintParityTest {
                     step == "start" -> hint.runStarted(firstLoadDone = false)
                     step == "start done" -> hint.runStarted(firstLoadDone = true)
                     step == "finish" -> if (hint.runFinished()) markDone = true
+                    step == "finish incomplete" -> if (hint.runFinished(complete = false)) markDone = true
                     step.startsWith("pending ") -> hint.imagesPending(step.removePrefix("pending ").toInt())
                     else -> throw AssertionError("unbekannter Schritt $step")
                 }
@@ -190,7 +191,11 @@ class LogoLoadingHintParityTest {
         val sync = File(data, "CoinListSync.kt").readText()
         val store = File(data, "LogoImageStore.kt").readText()
         assertTrue(store.contains("LogoLoadingHint(doneMarker = { File(imageDir, LogoLoadingHint.DONE_MARKER) })"))
-        assertTrue(Regex("""loadingHint\.during \{ for \(stage in stages\) total \+= imageStore\.downloadMissing""").containsMatchIn(sync))
+        // Nur ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) merkt das erste Laden
+        assertTrue(
+            Regex("""loadingHint\.during\(complete = \{ d: LogoDownloads -> d\.complete && !mapNetworkFailed && !listsNetworkFailed \}\) \{\s+for \(stage in stages\) total \+= imageStore\.downloadMissing""")
+                .containsMatchIn(sync),
+        )
         // Gesamtzahl erst mit der letzten Stufe (nach der ganzen Rangliste); erledigte und gebremste Bilder zählen
         assertTrue(sync.contains("stages.send(CoinLogos.withStockLogos(current, names.tradFiBases) to true)"))
         assertTrue(store.contains("loadingHint.imagesPending(pending.size, last = lastStage)"))
@@ -201,7 +206,7 @@ class LogoLoadingHintParityTest {
         assertTrue(store.contains("transientLeft.forEach { _ -> loadingHint.imageDone() }"))
         assertTrue(store.contains("Fetched.TRANSIENT -> transientNow.add(job)"))
         // Erst nach «nichts zu laden» (leere Liste) melden: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
-        val empty = store.indexOf("if (pending.isEmpty()) return Downloads()")
+        val empty = store.indexOf("if (pending.isEmpty()) return LogoDownloads()")
         assertTrue(empty > 0 && store.indexOf("loadingHint.imagesPending(pending.size, last = lastStage)") > empty)
         val line = File(app, "features/watchlist/WatchlistLogoHint.kt").readText()
         assertTrue(line.contains("val source = LocalCoinLogoSource.current ?: return"))

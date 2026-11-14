@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Veldu hvaða pör sýna verð sitt í tilkynningastikunni.</string>
     <string name="settings_quiet_hours">Kyrrðartími</string>
     <string name="settings_quiet_hours_from">Frá</string>
-    <string name="settings_quiet_hours_hint">Milli %1$s og %2$s bíða viðvaranir þar til kyrrðartíma lýkur og hringja þá með hljóði. Aðrar tilkynningar berast hljóðlaust, án tals.</string>
+    <string name="settings_quiet_hours_hint">Milli %1$s og %2$s bíða viðvaranir þar til kyrrðartíma lýkur og hringja þá með hljóði, ef skilyrðið er þá enn uppfyllt. Aðrar tilkynningar berast hljóðlaust, án tals.</string>
     <string name="settings_quiet_hours_to">Til</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Í notkun: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Ekki stillt – opinberir hnútar notaðir</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Stillingar voru endurstilltar, svo ekki er vitað hvort þú notaðir eigin Bitcoin-netþjón. Ekki er spurt um Bitcoin-vistföng og xpub-lykla fyrr en þú slærð netþjóninn inn aftur eða velur opinbera hnúta.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Aðeins https://-vistföng eru leyfð</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

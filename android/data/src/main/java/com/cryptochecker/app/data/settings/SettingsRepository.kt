@@ -342,7 +342,19 @@ class SettingsRepository @Inject constructor(
     /** Eigener Bitcoin-Server für Adressabfragen ([AddressServerStore]; in der Sicherung, «addressServerBtc»). */
     val addressServerFlow: Flow<String?> = AddressServerStore.flow(context.settingsDataStore)
     override suspend fun addressServer(): String? = addressServerFlow.first()
-    override suspend fun setAddressServer(url: String?) = AddressServerStore.set(context.settingsDataStore, url)
+    override suspend fun setAddressServer(url: String?) {
+        AddressServerStore.set(context.settingsDataStore, url)
+        // Server eingetragen (Nutzer oder Sicherung mit Passwort): nach ersetzten Einstellungen nicht mehr unbekannt
+        if (url != null) confirmAddressServer()
+    }
+
+    /** Server unbekannt (Einstellungen ersetzt): Bitcoin-Adressen nicht abfragen ([StorageRecoveryNotice.addressServerUnknown]). */
+    val addressServerUnknownFlow: Flow<Boolean> = StorageRecoveryNotice.addressServerUnknown(context)
+    suspend fun addressServerUnknown(): Boolean =
+        withContext(ioDispatcher) { StorageRecoveryNotice.isAddressServerUnknown(context) }
+
+    /** Eigener Server eingetragen oder öffentliche Knoten bestätigt (Einstellungen › Portfolio). */
+    suspend fun confirmAddressServer() = withContext(ioDispatcher) { StorageRecoveryNotice.confirmAddressServer(context) }
 
     /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt (nicht in der Sicherung). */
     suspend fun setTaxTemplateConfirmed() = edit { it[SettingsKeys.taxTemplateConfirmed] = true }

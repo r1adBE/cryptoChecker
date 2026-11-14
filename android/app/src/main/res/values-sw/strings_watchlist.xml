@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Uonyeshaji upya wa mwisho</string>
     <string name="watchlist_symbols_legend">Maelezo ya alama</string>
     <string name="watchlist_symbols_legend_alarms">Kengele zinazotumika na idadi yake</string>
+    <string name="watchlist_symbols_legend_warning">Bei imepitwa na wakati au soko halifikiki</string>
     <string name="watchlist_refresh_report_empty">Bado hakuna uchanganuzi – hakuna uonyeshaji upya kamili hadi sasa. Gusa onyesha upya na usubiri hadi duara isimame.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d kati ya %2$d imepitwa na wakati</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Funga arifa</string>
     <string name="watchlist_missing_logos_explain">Hakuna nembo inayopatikana kwa sarafu hizi. Programu inaonyesha herufi zake za mwanzo.</string>
+    <string name="watchlist_missing_logos_pending">bado haijapakiwa</string>
+    <string name="watchlist_missing_logos_explain_pending">Nembo zilizowekwa alama kuwa bado hazijapakiwa zitafika katika usawazishaji ujao, baadhi kupitia Wi-Fi pekee. Hakuna nembo kwa sarafu nyingine. Programu inaonyesha herufi zao za mwanzo.</string>
     <string name="exchange_retiring_notice">Kuanzia %2$s, %1$s haitatoa tena bei za umma. Chagua soko lingine kwa sarafu hizi.</string>
     <string name="exchange_retiring_reason">Kuanzia %2$s, %1$s haitatoa tena bei</string>
     <string name="exchange_retired_since">Tangu %2$s, %1$s haitoi tena bei</string>

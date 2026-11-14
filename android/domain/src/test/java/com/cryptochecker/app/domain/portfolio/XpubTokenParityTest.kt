@@ -196,12 +196,16 @@ class XpubTokenParityTest {
             assertEquals("tokenObservations $i", tokenObs(s["tokenObservations"]).mapValues { obsText(it.value) }, a.tokenObservations.mapValues { obsText(it.value) })
             assertEquals("observations $i", obsText(obs(s["observations"])), obsText(a.observations))
             assertEquals(s["time"].num()!!.toLong(), a.lastUpdated)
+            // Sprung auf 0 wartet auf den zweiten gleichen Abruf (ZeroConfirm)
+            assertEquals("zeroPending $i", s["zeroPending"], a.zeroPending)
+            assertEquals("staleTokens $i", s["staleTokens"], a.staleTokens)
             // Speicherform (Android-Spalte) hin und zurück
             val decoded = WatchedAddressExtras.decode(WatchedAddressExtras.encode(a), a.chain)
             assertEquals(a.tokenBalances, decoded.tokenBalances)
             assertEquals(a.tokenObservations, decoded.tokenObservations)
             assertEquals(a.observations, decoded.observations)
-            if (i == 1) {
+            assertEquals(a.zeroPending, decoded.zeroPending)
+            if (i == f["historyStep"].num()!!.toInt()) {
                 val history = AddressBalanceHistory.trades(AddressBalanceHistory.of(listOf(a)))
                     .filter { it.coin == "USDT" || it.coin == "LINK" }
                 val expected = f["history"].list().map { it.obj() }
@@ -227,6 +231,29 @@ class XpubTokenParityTest {
         assertEquals(AddressBalanceHistory.encode(plain.observations), WatchedAddressExtras.encode(plain))
         assertEquals(plain.observations, WatchedAddressExtras.decode("[{\"t\":5,\"b\":\"0.1\"}]", AddressChain.BTC).observations)
         assertEquals(WatchedAddressExtras.Decoded(), WatchedAddressExtras.decode("{kaputt", AddressChain.ETH))
+    }
+
+    /** Sprung auf 0: erst der zweite gleiche Abruf gilt (N3-13/N3-14, `address_balance.json` › «zeroConfirm»). */
+    @Test
+    fun zeroConfirm() {
+        val cases = data["zeroConfirm"].obj()["cases"].list().map { it.obj() }
+        check(cases.isNotEmpty())
+        cases.forEach { c ->
+            val start = c["start"].obj()
+            val a = WatchedAddress(
+                chain = AddressChain.fromName(start["chain"] as String)!!,
+                address = "x",
+                lastBalance = start["lastBalance"] as String?,
+                tokenBalances = (start["tokenBalances"] as Map<String, Any?>?)?.mapValues { it.value as String } ?: emptyMap(),
+                zeroPending = start["zeroPending"].list().map { it as String },
+            )
+            val tokens = (c["tokens"] as Map<String, Any?>?)?.mapValues { it.value as String }
+            val r = ZeroConfirm.apply(a, c["balance"] as String, tokens)
+            val e = c["expected"].obj()
+            assertEquals("${c["name"]} balance", e["balance"], r.balance)
+            assertEquals("${c["name"]} tokens", e["tokens"], r.tokens)
+            assertEquals("${c["name"]} pending", e["pending"], r.pending)
+        }
     }
 
     private fun scanCache(m: Map<String, Any?>?): XpubCache? = m?.let {

@@ -51,6 +51,8 @@
     <string name="alarm_threshold_error_funding">Funding ຕ້ອງເປັນຕົວເລກລະຫວ່າງ −10 ຫາ +10 ເປີເຊັນ.</string>
     <string name="alarm_threshold_error_invalid">ໃສ່ຕົວເລກທີ່ຖືກຕ້ອງທີ່ຫຼາຍກວ່າ 0.</string>
     <string name="alarm_threshold_error_oi">ການປ່ຽນແປງ Open interest: ສູງສຸດ 1000 ເປີເຊັນ.</string>
+    <string name="alarm_threshold_error_percent_max">ສູງສຸດ 1000 ເປີເຊັນ.</string>
+    <string name="alarm_threshold_error_distance">ໄລຍະຫ່າງຕ້ອງໜ້ອຍກວ່າ 100 ເປີເຊັນ.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">ພາຍໃນ %1$d ຊມ.</item>
     </plurals>
@@ -166,6 +168,7 @@
     <string name="alarm_a11y_speak_on">ການເວົ້າເປີດ</string>
     <string name="alarm_unchecked_no_candles">ກວດບໍ່ໄດ້ (ບໍ່ມີຂໍ້ມູນແທ່ງທຽນ)</string>
     <string name="alarm_unchecked_no_rate">ກວດບໍ່ໄດ້ (ບໍ່ມີອັດຕາແລກປ່ຽນ)</string>
+    <string name="alarm_unchecked_no_window_price">ກວດບໍ່ໄດ້ (ບໍ່ມີລາຄາໃນຊ່ວງເວລາ)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">ການແຈ້ງເຕືອນປິດຢູ່ – ສັນຍານເຕືອນນີ້ຈະບໍ່ມາຮອດທ່ານ</string>

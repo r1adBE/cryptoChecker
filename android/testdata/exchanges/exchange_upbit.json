@@ -160,6 +160,31 @@
           }
         }
       }
+    },
+    {
+      "kind": "pairs",
+      "name": "market list: only ids with exactly two non-empty parts ('-BTC', 'KRW-', 'KRW--BTC' skipped, same on both platforms)",
+      "exchangeKey": "Upbit",
+      "requestId": 0,
+      "body": "[{\"market\":\"KRW-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"-BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"KRW-\",\"english_name\":\"x\"},{\"market\":\"KRW--BTC\",\"english_name\":\"Bitcoin\"},{\"market\":\"BTC-ETH\",\"english_name\":\"Ethereum\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "-BTC",
+          "KRW-",
+          "KRW--BTC"
+        ],
+        "pairs": {
+          "KRW-BTC": {
+            "base": "BTC",
+            "quote": "KRW"
+          },
+          "BTC-ETH": {
+            "base": "ETH",
+            "quote": "BTC"
+          }
+        }
+      }
     }
   ]
 }

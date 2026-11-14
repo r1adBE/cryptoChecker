@@ -1061,17 +1061,163 @@
     ]
   },
   "loadingHint": {
-    "description": "Hinweis «Logos werden geladen …» unter dem Kopf der Merkliste (Android LogoLoadingHint / LogoLoadingHintParityTest, iOS LogoLoadingHint / LogoLoadingHintTests) — nur beim ersten Laden nach der Installation bzw. nach dem Leeren des Logo-Zwischenspeichers: sichtbar, sobald ein Durchgang (start) Bilder zu laden hat (pending N > 0); weg, sobald der Durchgang endet (finish: fertig, gescheitert oder gebremst) und in diesem Durchgang nicht wieder. «start done»: das erste Laden ist schon gemerkt (Merk-Datei marker im Logo-Ordner, verschwindet mit dem Zwischenspeicher und beim Zurücksetzen) — dann nie, auch nicht beim täglichen Nachholen gescheiterter Bilder. Endet ein Durchgang mit Hinweis, wird das erste Laden gemerkt (markDone). Coins ganz ohne Logo haben keine Adresse und zählen nie als fehlend (pending 0). Ausserhalb eines Durchgangs nichts; zwei gleichzeitig: weg erst nach dem letzten. visible = Stand nach jedem Schritt.",
+    "description": "Hinweis «Logos werden geladen …» unter dem Kopf der Merkliste (Android LogoLoadingHint / LogoLoadingHintParityTest, iOS LogoLoadingHint / LogoLoadingHintTests) — nur beim ersten Laden nach der Installation bzw. nach dem Leeren des Logo-Zwischenspeichers: sichtbar, sobald ein Durchgang (start) Bilder zu laden hat (pending N > 0); weg, sobald der Durchgang endet (finish: fertig, gescheitert oder gebremst) und in diesem Durchgang nicht wieder. «start done»: das erste Laden ist schon gemerkt (Merk-Datei marker im Logo-Ordner, verschwindet mit dem Zwischenspeicher und beim Zurücksetzen) — dann nie, auch nicht beim täglichen Nachholen gescheiterter Bilder. Endet ein Durchgang mit Hinweis, wird das erste Laden gemerkt (markDone). Coins ganz ohne Logo haben keine Adresse und zählen nie als fehlend (pending 0). Ausserhalb eines Durchgangs nichts; zwei gleichzeitig: weg erst nach dem letzten. visible = Stand nach jedem Schritt. «finish incomplete»: der Durchgang war nicht vollständig (etwas am Netz gescheitert, gebremst oder offen) — weg, aber nicht gemerkt; der nächste Durchgang zeigt den Hinweis wieder, «Coins ohne Logo» bleibt bis dahin aus.",
     "marker": ".first_load_done",
     "cases": [
-      {"name": "first install", "steps": ["start", "pending 120", "finish"], "visible": [false, true, false], "markDone": true},
-      {"name": "daily retry after the first load", "steps": ["start done", "pending 4", "finish"], "visible": [false, false, false], "markDone": false},
-      {"name": "nothing missing or no logo anywhere", "steps": ["start", "pending 0", "pending 0", "finish"], "visible": [false, false, false, false], "markDone": false},
-      {"name": "later stage", "steps": ["start", "pending 0", "pending 3", "pending 0", "finish"], "visible": [false, false, true, true, false], "markDone": true},
-      {"name": "outside a run", "steps": ["pending 5"], "visible": [false], "markDone": false},
-      {"name": "not again after the run", "steps": ["start", "pending 5", "finish", "pending 5"], "visible": [false, true, false, false], "markDone": true},
-      {"name": "overlapping runs", "steps": ["start", "start done", "pending 2", "finish", "finish"], "visible": [false, false, true, true, false], "markDone": true},
-      {"name": "extra finish", "steps": ["finish", "start", "pending 1"], "visible": [false, false, true], "markDone": false}
+      {
+        "name": "first install",
+        "steps": [
+          "start",
+          "pending 120",
+          "finish"
+        ],
+        "visible": [
+          false,
+          true,
+          false
+        ],
+        "markDone": true
+      },
+      {
+        "name": "daily retry after the first load",
+        "steps": [
+          "start done",
+          "pending 4",
+          "finish"
+        ],
+        "visible": [
+          false,
+          false,
+          false
+        ],
+        "markDone": false
+      },
+      {
+        "name": "nothing missing or no logo anywhere",
+        "steps": [
+          "start",
+          "pending 0",
+          "pending 0",
+          "finish"
+        ],
+        "visible": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "markDone": false
+      },
+      {
+        "name": "later stage",
+        "steps": [
+          "start",
+          "pending 0",
+          "pending 3",
+          "pending 0",
+          "finish"
+        ],
+        "visible": [
+          false,
+          false,
+          true,
+          true,
+          false
+        ],
+        "markDone": true
+      },
+      {
+        "name": "outside a run",
+        "steps": [
+          "pending 5"
+        ],
+        "visible": [
+          false
+        ],
+        "markDone": false
+      },
+      {
+        "name": "not again after the run",
+        "steps": [
+          "start",
+          "pending 5",
+          "finish",
+          "pending 5"
+        ],
+        "visible": [
+          false,
+          true,
+          false,
+          false
+        ],
+        "markDone": true
+      },
+      {
+        "name": "overlapping runs",
+        "steps": [
+          "start",
+          "start done",
+          "pending 2",
+          "finish",
+          "finish"
+        ],
+        "visible": [
+          false,
+          false,
+          true,
+          true,
+          false
+        ],
+        "markDone": true
+      },
+      {
+        "name": "extra finish",
+        "steps": [
+          "finish",
+          "start",
+          "pending 1"
+        ],
+        "visible": [
+          false,
+          false,
+          true
+        ],
+        "markDone": false
+      },
+      {
+        "name": "incomplete first run (network, paused or open images): not remembered",
+        "steps": [
+          "start",
+          "pending 120",
+          "finish incomplete"
+        ],
+        "visible": [
+          false,
+          true,
+          false
+        ],
+        "markDone": false
+      },
+      {
+        "name": "incomplete, then complete: hint again, remembered after the complete run",
+        "steps": [
+          "start",
+          "pending 120",
+          "finish incomplete",
+          "start",
+          "pending 5",
+          "finish"
+        ],
+        "visible": [
+          false,
+          true,
+          false,
+          false,
+          true,
+          false
+        ],
+        "markDone": true
+      }
     ]
   },
   "loadingPercent": {

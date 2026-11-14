@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Алармите за портфолио проверуваат без адресите чие салдо не е вчитано повеќе од 24 часа</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">токените делумно застарени</string>
+    <string name="portfolio_address_zero_unconfirmed">0 сè уште не е потврдено</string>
     <string name="portfolio_address_restore_failed">Адресата не можеше да се врати – додај ја повторно ако е потребно</string>
     <string name="portfolio_address_remove_failed">Адресата не можеше да се отстрани – обиди се повторно</string>
 </resources>

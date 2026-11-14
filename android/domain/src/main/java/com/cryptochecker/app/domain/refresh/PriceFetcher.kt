@@ -74,7 +74,9 @@ class PriceFetcher @Inject constructor(
         val gate = SingleRateGate()
 
         val results = coroutineScope {
-            FetchOrder.alarmsFirst(group, alarmed) { it.id }.map { watch ->
+            // Mit Budget je Lauf anderer Beginn: sonst fielen immer dieselben Paare aus dem Budget
+            val rotation = if (groupDeadline == null) 0 else (groupStartedAt / ROTATION_STEP_MILLIS).toInt()
+            FetchOrder.alarmsFirst(group, alarmed, rotation) { it.id }.map { watch ->
                 async {
                     val bulkTicker = watch.pairId?.let { bulkTickers[it] }
                     // Verfallstag in der Kennung vorbei (NotTraded.contractExpired): die Börse handelt ihn nicht mehr
@@ -270,6 +272,9 @@ class PriceFetcher @Inject constructor(
 
         /** Gleichzeitige Einzelabfragen je Börse. */
         const val MAX_PARALLEL_REQUESTS_PER_EXCHANGE = 4
+
+        /** Beginn der Reihenfolge mit Budget ([FetchOrder.alarmsFirst]): je Sekunde des Starts verschoben. */
+        const val ROTATION_STEP_MILLIS = 1_000L
 
         const val NOT_TRADED_ERROR = NOT_TRADED_MARKER
 

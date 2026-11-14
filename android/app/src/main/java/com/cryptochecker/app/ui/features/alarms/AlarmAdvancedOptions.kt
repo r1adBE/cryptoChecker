@@ -138,7 +138,7 @@ internal fun ThresholdField(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Un
         suffix = { Text(PercentText.symbol()) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         isError = draft.thresholdProblem != null,
-        supportingText = thresholdErrorText(draft.thresholdProblem),
+        supportingText = thresholdErrorText(draft.thresholdProblem, draft.ambiguity),
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = Spacing.lg, bottom = Spacing.sm)
@@ -217,7 +217,7 @@ internal fun MoreConditionOptions(
                 suffix = { Text(PercentText.symbol()) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = draft.thresholdProblem != null,
-                supportingText = thresholdErrorText(draft.thresholdProblem),
+                supportingText = thresholdErrorText(draft.thresholdProblem, draft.ambiguity),
                 modifier = Modifier.weight(1f).testTag(UiTestTags.ALARM_THRESHOLD)
             )
             OutlinedButton(

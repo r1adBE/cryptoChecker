@@ -33,6 +33,9 @@ enum BackupManager {
         /// Journal des Wiederherstellens nicht geschrieben (Schlüssel gerade nicht verfügbar oder
         /// Speicherfehler) — nichts wird ersetzt, wie Android `BackupJournalUnavailableException`.
         case journalUnavailable
+        /// Gespeicherter Stand gerade nicht (ganz) lesbar (`storageKept`): Sichern ergäbe eine Datei ohne ihn, Einspielen
+        /// legte das Journal mit einem leeren Stand an — nichts geschrieben, wie Android `BackupStorageKeptException`.
+        case storageKept
     }
 
     /// Sicherungsdatei lesen, höchstens `BackupLimits.maxBytes` (nie eine beliebig grosse Datei in den Speicher).
@@ -77,8 +80,14 @@ enum BackupManager {
         try plainExportData(exportInput(data))
     }
 
-    /// Wie `plainExportData(_ data:)` aus der Wertkopie `input` — auch abseits des Haupt-Threads.
-    static func plainExportData(_ input: ExportInput) throws -> Data {
+    /// Wie `plainExportData(_ data:)` aus der Wertkopie `input` — auch abseits des Haupt-Threads. `encrypted` false
+    /// (Datei ohne Passwort): ohne eigenen Bitcoin-Server (`AddressServer.exported`); Journal und Datei mit Passwort: mit.
+    static func plainExportData(_ input: ExportInput, encrypted: Bool = true) throws -> Data {
+        try encode(exportRoot(input, encrypted: encrypted))
+    }
+
+    /// Inhalt der Sicherung als JSON-Objekt (`plainExportData`, Journal `journalData`).
+    static func exportRoot(_ input: ExportInput, encrypted: Bool) -> [String: Any] {
         let watches = input.watches.sorted {
             $0.sortOrder != $1.sortOrder ? $0.sortOrder < $1.sortOrder : $0.id < $1.id
         }
@@ -89,14 +98,17 @@ enum BackupManager {
             favorites[kind.rawValue] = Array(input.favorites[kind] ?? []).sorted()
         }
 
-        let root: [String: Any] = [
+        var settings = settingsJson(input.settings)
+        settings["addressServerBtc"] = AddressServer.exported(input.settings.addressServerBtc, encrypted: encrypted)
+            .map { $0 as Any } ?? NSNull()
+        return [
             "format": format,
             "version": version,
             "createdAt": NSNumber(value: input.createdAt),
             "watches": watches.map(watchToJson),
             "alarms": alarms.map(alarmToJson),
             "favorites": favorites,
-            "settings": settingsJson(input.settings),
+            "settings": settings,
             // Neueste zuerst — wie `portfolioDao.getAll()`
             "portfolio": input.portfolio.map(txToJson),
             // Alarme «Portfolio-Wert», nach Id — wie Android
@@ -104,7 +116,6 @@ enum BackupManager {
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(input.watchedAddresses)),
         ]
-        return try encode(root)
     }
 
     /// Kompakt (`.prettyPrinted` wäre gut ein Drittel grösser); das Einlesen nimmt beides.
@@ -215,13 +226,14 @@ enum BackupManager {
     }
 
     /// Transaktionen der Sicherung. Ungültige werden gezählt.
+    /// Doppelte Kennungen zählen wie ungültige (`BackupRestorePolicy.uniqueIds`) — nie still ersetzt.
     static func parsedPortfolio(_ root: [String: Any]) throws -> (items: [PortfolioTx], invalid: Int) {
-        try parsedEntries(root, "portfolio", jsonToTx)
+        BackupRestorePolicy.uniqueIds(try parsedEntries(root, "portfolio", jsonToTx), id: \.id)
     }
 
-    /// Portfolio-Alarme der Sicherung. Ungültige werden gezählt.
+    /// Portfolio-Alarme der Sicherung. Ungültige und doppelte Kennungen werden gezählt.
     static func parsedPortfolioAlarms(_ root: [String: Any]) throws -> (items: [PortfolioAlarm], invalid: Int) {
-        try parsedEntries(root, "portfolioAlarms", jsonToPortfolioAlarm)
+        BackupRestorePolicy.uniqueIds(try parsedEntries(root, "portfolioAlarms", jsonToPortfolioAlarm), id: \.id)
     }
 
     /// Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
@@ -243,6 +255,9 @@ enum BackupManager {
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
         _ = try BackupVersion.check(root["version"])
         try BackupFields.checkParts(root)
+        // Gespeicherter Stand nicht lesbar: nichts ersetzen (das Journal hielte sonst einen leeren Stand); nicht beim
+        // Zurückrollen eines abgebrochenen Laufs (`journal` false)
+        if journal && storageKept(data) { throw Failure.storageKept }
 
         // 1. Alles lesen und prüfen, bevor etwas geschrieben wird
         let input = try readRestoreInput(root, data: data, acceptInvalid: acceptInvalid, encrypted: encrypted,
@@ -250,19 +265,33 @@ enum BackupManager {
         let watchlist = input.watchlist
         // 2. Bisherigen Stand merken (für das Zurückrollen)
         let previous = previousState(data)
-        // 3. Schreiben
-        try writeRestored(input, snapshot: restoredSnapshot(input, old: previous.snapshot), previous: previous,
-                          into: data, journal: journal)
+        // 3. Schreiben; beim Zurückrollen mit dem Alarm-Zustand aus dem Journal (`journalAlarmState`)
+        var snapshot = restoredSnapshot(input, old: previous.snapshot)
+        if !journal { applyJournalAlarmState(journalAlarmState(root), to: &snapshot) }
+        try writeRestored(input, snapshot: snapshot, previous: previous, into: data, journal: journal)
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         previous.snapshot.watches.forEach { Notifier.cancelPrice($0.id) }
+        // Alarm-Mitteilungen der ersetzten Alarme samt «1 h später»-Pausen: ihre Aktionen wirken über die Id und träfen
+        // sonst einen eingespielten Alarm gleicher Id (wie Android `cancelAlarms` + `clearAlarmSnoozes`)
+        removeReplacedAlarmNotifications(previous.snapshot)
         // Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
         // «wird gemeldet» gelten nicht mehr (wie Android)
         AlarmDelivery.pairs.removeAll()
         AlarmDelivery.portfolio.removeAll()
+        // Sicherung mit Passwort setzt den eigenen Server: nach ersetzten Einstellungen nicht mehr unbekannt (wie Android)
+        if journal && input.newSettings.addressServerBtc != nil { StorageRecoveryNotice.confirmAddressServer() }
         return RestoreResult(watches: watchlist.watches.count, alarms: watchlist.alarms.count, appLockKept: input.lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
                              addressServerNote: input.serverNote, addressServerHost: input.serverHost,
                              lowered: input.lowered)
+    }
+
+    /// Mitteilungen der Paar- und Portfolio-Alarme aus `old` (Stand vor dem Wiederherstellen) entfernen und alle
+    /// «1 h später»-Pausen löschen.
+    static func removeReplacedAlarmNotifications(_ old: SharedStorage.Snapshot) {
+        old.alarms.forEach { Notifier.cancelAlarm($0.id) }
+        (old.portfolioAlarms ?? []).forEach { Notifier.cancelPortfolioAlarm($0.id) }
+        AlarmSnooze.clearAll()
     }
 
     /// Journal vor dem ersten Schreiben (Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand

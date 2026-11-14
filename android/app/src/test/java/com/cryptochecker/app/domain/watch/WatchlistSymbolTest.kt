@@ -13,7 +13,10 @@ class WatchlistSymbolTest {
     @Test
     fun `legend lists the row symbols in row order`() {
         assertEquals(
-            listOf("TOKEN", "TRADFI", "ALPHA", "PRICE_NOTIFICATION_ON", "PRICE_NOTIFICATION_OFF", "ACTIVE_ALARMS"),
+            listOf(
+                "FAVORITE", "TOKEN", "TRADFI", "ALPHA", "PRICE_NOTIFICATION_ON", "PRICE_NOTIFICATION_OFF", "ACTIVE_ALARMS",
+                "NOTE", "WARNING",
+            ),
             WatchlistSymbol.entries.map { it.name },
         )
     }
@@ -24,6 +27,9 @@ class WatchlistSymbolTest {
         assertNull(WatchlistSymbol.PRICE_NOTIFICATION_ON.kind)
         assertNull(WatchlistSymbol.PRICE_NOTIFICATION_OFF.kind)
         assertNull(WatchlistSymbol.ACTIVE_ALARMS.kind)
+        assertNull(WatchlistSymbol.FAVORITE.kind)
+        assertNull(WatchlistSymbol.NOTE.kind)
+        assertNull(WatchlistSymbol.WARNING.kind)
     }
 
     @Test

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">బ్యాక్‌గ్రౌండ్</string>
-    <string name="widget_configure_hint">బ్యాక్‌గ్రౌండ్, అపారదర్శకతను ఎంచుకోండి. రంగు యాప్‌ను అనుసరిస్తుంది. విడ్జెట్ మీ మొత్తం వాచ్‌లిస్ట్‌ను చూపుతుంది; యాప్‌ను తెరవడానికి ఒక వరుసను నొక్కండి.</string>
+    <string name="widget_configure_hint">నేపథ్యం, అపారదర్శకతను ఎంచుకోండి. రంగు యాప్‌ను అనుసరిస్తుంది. విడ్జెట్ మీ వాచ్‌లిస్ట్‌ను లేదా క్రింద ఎంచుకున్న సమూహాన్ని చూపుతుంది; యాప్‌ను తెరవడానికి ఒక వరుసపై నొక్కండి.</string>
     <string name="widget_configure_title">విడ్జెట్‌ను సెటప్ చేయండి</string>
     <string name="widget_description">మీ వాచ్‌లిస్ట్‌లోని ఒక జత ధరను చూపుతుంది.</string>
     <string name="widget_empty">వాచ్‌లిస్ట్‌లో ఇంకా జతలు లేవు.</string>

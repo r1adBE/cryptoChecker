@@ -67,14 +67,9 @@ class InsightsDataSource @Inject constructor(
         val weeklyCloses = weekly.map { it.close }
         val athCandle = (weekly + daily).maxByOrNull { it.high }
 
-        // Stärke gegenüber Bitcoin: Verhältnis heute vs. vor 90 Tagen
-        val vsBtc = btcJob.await()?.let { btc ->
-            val c0 = closes.getOrNull(closes.size - 91)
-            val b0 = btc.map { it.close }.let { it.getOrNull(it.size - 91) }
-            val b1 = btc.lastOrNull()?.close
-            if (c0 != null && b0 != null && b1 != null && c0 > 0 && b0 > 0 && b1 > 0)
-                ((closes.last() / c0) / (b1 / b0) - 1.0) * 100.0 else null
-        }
+        // Stärke gegenüber Bitcoin: Verhältnis heute vs. vor 90 Tagen — nach Datum, nicht nach Kerzen-Position
+        val dayCloses = daily.map { dayClose(it) }
+        val vsBtc = btcJob.await()?.let { btc -> Indicators.relativeChangePercent(dayCloses, btc.map { dayClose(it) }, 90) }
 
         val historyDays = maxOf(
             daily.size,
@@ -87,7 +82,7 @@ class InsightsDataSource @Inject constructor(
             sma200d = Indicators.smaOfLast(closes, 200),
             sma111d = Indicators.smaOfLast(closes, 111),
             sma350d = Indicators.smaOfLast(closes, 350),
-            price30dAgo = closes.getOrNull(closes.size - 31),
+            price30dAgo = Indicators.closeOnOrBefore(dayCloses, dayCloses.last().day - 30),
             sma200w = Indicators.smaOfLast(weeklyCloses, 200),
             ath = athCandle?.high,
             athDate = athCandle?.date,
@@ -224,24 +219,22 @@ class InsightsDataSource @Inject constructor(
 
     private suspend fun computedAltSeason(): Sourced<AltSeason> = coroutineScope {
         val btcSourced = chainKlinesSourced("BTC", CandleInterval.D1, 91)
-        val btc = btcSourced.value.map { it.close }
-        val btcChange = change90(btc) ?: error("BTC-Verlauf fehlt")
+        val btcChange = change90(btcSourced.value) ?: error("BTC-Verlauf fehlt")
         val permits = Semaphore(5)
         val results = ALTS.map { alt ->
             async {
                 permits.withPermit {
-                    runCatchingCancellable { change90(chainKlines(alt, CandleInterval.D1, 91).map { it.close }) }.getOrNull()
+                    runCatchingCancellable { change90(chainKlines(alt, CandleInterval.D1, 91)) }.getOrNull()
                 }
             }
         }.awaitAll().filterNotNull()
         Sourced(AltSeason(outperformers = results.count { it > btcChange }, total = results.size), btcSourced.provider)
     }
 
-    private fun change90(closes: List<Double>): Double? {
-        if (closes.size < 91) return null
-        val first = closes[closes.size - 91]
-        return if (first > 0) closes.last() / first - 1.0 else null
-    }
+    /** Veränderung über 90 Tage nach Datum ([Indicators.changeOverDays]); fehlt der Tag (Lücke der Quelle), null. */
+    private fun change90(candles: List<Candle>): Double? = Indicators.changeOverDays(candles.map { dayClose(it) }, 90)
+
+    private fun dayClose(candle: Candle) = Indicators.DayClose(candle.date.toEpochDay(), candle.close)
 
     // ---------------- Zyklus-Vergleich ----------------
 

@@ -5,6 +5,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.candles.CandlePair
+import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain.Outcome
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain.Verdict
@@ -60,18 +61,24 @@ suspend fun HistoricPriceSource.ownRoutes(coins: Collection<String>): Map<String
 
 /**
  * Schluss der Tageskerze, die genau bei [start] beginnt, und jüngster Schluss derselben Reihe (Identitätsprüfung);
- * null = keine laufende Reihe oder der Tag fehlt (z. B. älter als die Börse liefert).
+ * null = keine laufende Reihe oder der Tag fehlt (z. B. älter als die Börse liefert). Börse nicht erreichbar und der Tag
+ * fehlt: [HistoricSourceUnavailable] (die Kette bricht ab, statt eine andere Quelle zu nehmen).
  */
 suspend fun HistoricPriceSource.seriesClose(pair: CandlePair, start: Long): Pair<Double, Double?>? {
-    val candles = try {
-        ownCandles.candles(pair, CandleInterval.D1, CHAIN_DAYS)?.value
+    val load = try {
+        ownCandles.load(pair, CandleInterval.D1, CHAIN_DAYS)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
-        null
-    } ?: return null
-    val close = candles.firstOrNull { it.openTime == start }?.close?.takeIf { it > 0.0 && it.isFinite() } ?: return null
-    return close to candles.lastOrNull()?.close
+        OwnCandleDataSource.Load(null)
+    }
+    val candles = load.value?.value
+    val close = candles?.firstOrNull { it.openTime == start }?.close?.takeIf { it > 0.0 && it.isFinite() }
+    if (close == null) {
+        if (load.unreachable) throw HistoricSourceUnavailable(pair.exchangeKey)
+        return null
+    }
+    return close to candles?.lastOrNull()?.close
 }
 
 /**

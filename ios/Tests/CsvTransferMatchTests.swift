@@ -69,6 +69,21 @@ final class CsvTransferMatchTests: XCTestCase {
             XCTAssertEqual(l.from, string(e["from"]), "\(n) from", file: file, line: line)
             XCTAssertEqual(l.to, string(e["to"]), "\(n) to", file: file, line: line)
             XCTAssertEqual(l.unambiguous, e["unambiguous"] as? Bool, "\(n) unambiguous", file: file, line: line)
+            XCTAssertEqual(l.loose, e["loose"] as? Bool ?? false, "\(n) loose", file: file, line: line)
+        }
+    }
+
+    /// «Auf eigene Wallet» mit freiem Kandidaten verknüpft ihn (sonst zählte die Einzahlung doppelt) — wie Android.
+    func testOwnWalletLinksTheBestFreeCandidate() throws {
+        let all = try cases().filter { $0["ownWallet"] != nil }
+        XCTAssertGreaterThanOrEqual(all.count, 3)
+        for c in all {
+            let found = links(c)
+            for t in S.list(c["ownWallet"]) {
+                XCTAssertEqual(CsvTransferMatch.linkOwnWallet(found, chosen: Set(strings(t["chosen"])),
+                                                              withdrawalKey: string(t["withdrawal"]) ?? ""),
+                               Set(strings(t["expected"])), "\(string(c["name"]) ?? "?") ownWallet \(t)")
+            }
         }
     }
 
@@ -303,6 +318,48 @@ final class CsvTransferMatchTests: XCTestCase {
         // Gespeichert erkennt der nächste Import beide Seiten als doppelt (importKey + linkedImportKey)
         let u = try XCTUnwrap(plan.storedUpdates.first)
         XCTAssertEqual(Set([u.importKey, u.linkedImportKey]), Set([old.importKey, found[0].depositKey]))
+    }
+
+    /// Zwei Börsen-Dateien und die verknüpfte Umbuchung unter FIFO je Wallet (`walletEndToEnd`): jede importierte Zeile
+    /// trägt die Börse ihrer Datei als Wallet (über `PortfolioCsvImporter.tx`, wie gespeichert). Wie Android.
+    func testImportedRowsCarryTheirExchangeAsWallet() throws {
+        let e = try XCTUnwrap(try data()["walletEndToEnd"] as? [String: Any])
+        func preview(_ text: String) -> CsvImportPreview {
+            CsvImportMapping.preview(CsvImportParser.parse(text), existingKeys: []) { _, _ in nil }
+        }
+        func trade(_ id: Int64, _ t: CsvImportTx) -> PortfolioTx {
+            var p = PortfolioCsvImporter.tx(t)
+            p.id = id
+            return p
+        }
+        let first = preview(string(e["storedCsv"]) ?? "")
+        let fresh = preview(string(e["importCsv"]) ?? "")
+        XCTAssertEqual(Array(Set(first.transactions.map(\.exchange))), [string(e["storedExchange"])])
+        XCTAssertEqual(Array(Set(fresh.transactions.map(\.exchange))), [string(e["importExchange"])])
+        let w = try XCTUnwrap(first.transactions.first { $0.type == .WITHDRAWAL })
+        let stored = CsvStoredMove(id: 1, coin: w.coin, type: w.type, amount: w.amount, fee: w.fee, feeUnit: w.feeUnit,
+                                   feeCoin: w.feeCoin, feeCoinAmount: w.feeCoinAmount, time: w.time, importKey: w.importKey,
+                                   transferFrom: nil, transferTo: nil, exchange: w.exchange)
+        let found = CsvTransferMatch.candidates(fresh.transactions, place: fresh.format.exchangeName, stored: [stored])
+        let plan = CsvTransferMatch.apply(fresh.transactions, links: found, chosen: CsvTransferMatch.defaultChoice(found))
+        let u = try XCTUnwrap(plan.storedUpdates.first)
+        let t = (e["transfer"] as? [String: Any]) ?? [:]
+        XCTAssertEqual([u.transferFrom, u.transferTo, text(u.amount), text(u.fee)],
+                       [string(t["from"]), string(t["to"]), string(t["amount"]), string(t["fee"])])
+        var move = PortfolioTx(id: 1, coin: w.coin, type: .TRANSFER, amountExact: u.amount, priceExact: nil, time: u.time,
+                               feeExact: u.fee, feeUnit: u.feeUnit)
+        move.transferFrom = u.transferFrom
+        move.transferTo = u.transferTo
+        let before = first.transactions.filter { $0.importKey != w.importKey }.enumerated().map { trade(Int64(10 + $0.offset), $0.element) }
+        let after = plan.transactions.enumerated().map { trade(Int64(100 + $0.offset), $0.element) }
+        let coin = string(e["coin"]) ?? ""
+        let ledger = PortfolioCalculator.ledger(coin, trades: before + [move] + after, currentPrice: nil, method: .FIFO_WALLET)
+        let wallets = Dictionary(grouping: ledger.lots, by: { $0.wallet ?? "" })
+            .mapValues { lots in text(lots.reduce(Decimal(0)) { $0 + $1.amount }) ?? "" }
+        XCTAssertEqual(wallets, (e["wallets"] as? [String: String]) ?? [:])
+        XCTAssertEqual(text(ledger.position.holdingsExact), string(e["holdings"]))
+        let pooled = PortfolioCalculator.position(coin, trades: before + [move] + after, currentPrice: nil, method: .FIFO)
+        XCTAssertEqual(text(pooled.holdingsExact), string(e["holdings"]))
     }
 
     /// Ersatzzeilen (`fallbacks`): die neue Zeile, die gegen eine gespeicherte Seite aufgeht, kommt mit (in der Reihenfolge

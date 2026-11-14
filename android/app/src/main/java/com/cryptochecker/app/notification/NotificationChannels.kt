@@ -144,6 +144,15 @@ object NotificationChannels {
         }
 
         manager.createNotificationChannels(listOf(prices, service, market, quietAlarmChannel(context)))
-        // Der Alarm-Kanal hängt vom gewählten Ton ab: siehe ensureAlarmChannel
+        // Der Alarm-Kanal hängt vom gewählten Ton ab: siehe ensureAlarmChannel. Bestehende Alarm-Kanäle (je Signal und
+        // Ton-Version) in der aktuellen Sprache benennen — sonst blieben sie in der Sprache des ersten Anlegens
+        for (existing in manager.notificationChannels) {
+            val mode = AlarmSignal.entries.firstOrNull { AlarmSignal.isChannelOf(it, existing.id) } ?: continue
+            val name = context.getString(alarmChannelName(mode))
+            if (existing.name?.toString() == name) continue
+            existing.name = name
+            existing.description = context.getString(R.string.channel_alarms_description)
+            manager.createNotificationChannel(existing)
+        }
     }
 }

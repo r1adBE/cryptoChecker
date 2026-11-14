@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">ការដាស់តឿនផលប័ត្រពិនិត្យដោយគ្មានអាសយដ្ឋានដែលសមតុល្យមិនបានផ្ទុកអស់រយៈពេលជាង 24 ម៉ោង</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">ថូខឹនហួសសម័យមួយផ្នែក</string>
+    <string name="portfolio_address_zero_unconfirmed">0 មិនទាន់បានបញ្ជាក់</string>
     <string name="portfolio_address_restore_failed">មិនអាចស្ដារអាសយដ្ឋានបានទេ – សូមបន្ថែមវាម្តងទៀតប្រសិនបើចាំបាច់</string>
     <string name="portfolio_address_remove_failed">មិនអាចដកអាសយដ្ឋានចេញបានទេ – សូមព្យាយាមម្តងទៀត</string>
 </resources>

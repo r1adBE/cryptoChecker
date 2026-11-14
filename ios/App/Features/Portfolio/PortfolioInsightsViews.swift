@@ -7,8 +7,8 @@ private struct HidePortfolioAmountsKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    /// «Beträge verbergen»: Portfolio-Beträge und -Werte als «•••», Prozente bleiben — gesetzt von
-    /// Portfolio-Tab und Detailansicht (Einstellung bzw. Auge im Kopf), wie `LocalHidePortfolioAmounts`.
+    /// «Beträge verbergen»: Portfolio-Beträge und -Werte als «•••», Prozente bleiben — gesetzt an der Wurzel der App
+    /// (`CryptoCheckerApp`, Einstellung bzw. Auge im Kopf), damit auch jedes Blatt ihn erbt; wie `LocalHidePortfolioAmounts`.
     var hidePortfolioAmounts: Bool {
         get { self[HidePortfolioAmountsKey.self] }
         set { self[HidePortfolioAmountsKey.self] = newValue }
@@ -154,6 +154,10 @@ struct PortfolioAlarmSheet: View {
                             .font(.body.monospacedDigit())
                         Text(kind.isValue ? currency : PercentText.symbol())
                             .foregroundStyle(AppColors.onSurfaceVariant)
+                    }
+                    // Mehrdeutig («1.234» in DE): beide Schreibweisen nennen statt still zu raten (wie Android)
+                    if let ambiguous = ambiguousNumberText(text) {
+                        Text(ambiguous).font(.footnote).foregroundStyle(AppColors.error)
                     }
                     SwitchRow(title: L("alarm_repeating"), isOn: $repeating, verticalPadding: 0)
                 } footer: {

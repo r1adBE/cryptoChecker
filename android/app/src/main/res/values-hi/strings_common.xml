@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">एक्सचेंज अभी उपलब्ध नहीं है</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">इस क्षेत्र में एक्सचेंज ब्लॉक है</string>
+    <string name="error_exchange_access_denied">एक्सचेंज ने एक्सेस अस्वीकार किया</string>
     <string name="loading_hint">लोड हो रहा है…</string>
     <string name="option_off">बंद</string>
     <string name="something_went_wrong">कुछ गड़बड़ हो गई</string>

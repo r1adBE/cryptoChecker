@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Háttér</string>
-    <string name="widget_configure_hint">Válassz hátteret és átlátszóságot. A szín az alkalmazást követi. A widget a teljes listát mutatja; egy sorra koppintva megnyílik az alkalmazás.</string>
+    <string name="widget_configure_hint">Válaszd ki a hátteret és az átlátszatlanságot. A szín az alkalmazást követi. A widget a listádat vagy a lent kiválasztott csoportot mutatja; egy sorra koppintva megnyílik az alkalmazás.</string>
     <string name="widget_configure_title">Widget beállítása</string>
     <string name="widget_description">Egy pár árát mutatja a figyelőlistáról.</string>
     <string name="widget_empty">Még nincsenek párok a figyelőlistán.</string>

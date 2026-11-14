@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Osaliselt</string>
     <string name="check_result_skipped">Vahele jäetud</string>
+    <string name="check_result_paused">Peatatud, midagi ei kontrollitud</string>
+    <string name="check_result_offline">Vahele jäetud (võrguühenduseta)</string>
     <string name="check_trigger_bgtask">Taust</string>
     <string name="check_trigger_exact">Õigel ajal</string>
     <string name="check_trigger_foreground">Rakendus</string>

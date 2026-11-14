@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Ֆոն</string>
-    <string name="widget_configure_hint">Ընտրիր ֆոնը և թափանցիկությունը։ Գույնը հետևում է հավելվածին։ Վիջեթը ցույց է տալիս քո ամբողջ դիտացանկը. հպիր տողին՝ հավելվածը բացելու համար։</string>
+    <string name="widget_configure_hint">Ընտրիր ֆոնը և անթափանցիկությունը։ Գույնը հետևում է հավելվածին։ Վիջեթը ցույց է տալիս քո դիտացանկը կամ ներքևում ընտրված խումբը. հպիր տողին՝ հավելվածը բացելու համար։</string>
     <string name="widget_configure_title">Կարգավորել վիջեթը</string>
     <string name="widget_description">Ցույց է տալիս քո դիտացանկի զույգի գինը։</string>
     <string name="widget_empty">Դիտացանկում դեռ զույգեր չկան։</string>

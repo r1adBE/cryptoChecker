@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Keluar dari portfolio (pengeluaran)</string>
     <string name="portfolio_csv_import_choose_each">Pilih ke mana setiap pengeluaran pergi.</string>
     <string name="portfolio_csv_import_columns">Lajur dikenali: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Sudah diimport: baris %1$s</string>
     <string name="portfolio_csv_import_confirm">Import (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Hari/Bulan</string>
     <string name="portfolio_csv_import_date_month_first">Bulan/Hari</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Dagangan berbanding stablecoin (USDT, USDC …) direkod sebagai tukaran – stablecoin itu muncul dalam pegangan anda.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Beberapa padanan mungkin – pilih yang betul atau tiada.</string>
+    <string name="portfolio_csv_import_transfer_loose">Yuran tinggi atau tiba lewat – sila semak bahawa ini pemindahan yang sama.</string>
     <string name="portfolio_csv_import_transfer_fee">Yuran rangkaian: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Rekod sebagai satu pindahan</string>
     <string name="portfolio_csv_import_transfer_stored">Pasangan catatan daripada import terdahulu</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">Kadar harian mengikut hari kalendar di: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Kadar harian tidak dapat dimuatkan.</string>
     <string name="portfolio_csv_import_anyway">Import juga</string>
-    <string name="portfolio_csv_import_anyway_hint">Tanpa kadar harian, harga atau yuran akan hilang secara kekal. Sila cuba lagi, atau import juga – transaksi tersebut akan diberi nota.</string>
+    <string name="portfolio_csv_import_anyway_hint">Tanpa kadar harian, harga atau yuran tiada sehingga anda menambahnya. Cuba lagi atau import juga – transaksi tersebut kemudian akan mendapat nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Harga tanpa kadar harian</string>
     <string name="portfolio_csv_note_fee_no_rate">Yuran tanpa kadar harian</string>
     <string name="portfolio_csv_import_no_rates_for">Tiada kadar harian untuk %1$s, jadi mencuba lagi tidak akan membantu. Jika anda import juga, transaksi tersebut akan diberi nota.</string>

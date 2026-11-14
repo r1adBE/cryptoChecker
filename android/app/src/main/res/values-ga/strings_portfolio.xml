@@ -49,7 +49,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Iomlán</string>
     <string name="portfolio_hide_amounts">Folaigh méideanna</string>
-    <string name="portfolio_hide_amounts_hint">Taispeánann sé méideanna agus luachanna sa phunann agus i ngiuirléid na punainne mar ••• – fanann céatadáin le feiceáil.</string>
+    <string name="portfolio_hide_amounts_hint">Taispeánann sé méideanna agus luachanna sa phunann, i ngiuirléid na punainne, ar an uaireadóir agus in airdill na punainne mar ••• – fanann céatadáin le feiceáil.</string>
     <string name="portfolio_invested">Bunchostas</string>
     <string name="portfolio_total_no_fx">Gan ráta malairte do %1$s – méideanna in USDT</string>
     <string name="portfolio_total_value">Luach iomlán</string>
@@ -109,6 +109,7 @@
     <string name="portfolio_discard_title">Caith uait na hathruithe?</string>
     <string name="portfolio_edit_tx">Cuir an t-idirbheart in eagar</string>
     <string name="portfolio_invalid">Cuir isteach uimhir bhailí níos mó ná 0.</string>
+    <string name="number_ambiguous">Doiléir: %1$s nó %2$s? Clóscríobh ceann den dá cheann.</string>
     <string name="portfolio_oversold">Tá na díolacháin níos mó ná na sealúchais – seiceáil na hidirbhearta.</string>
     <string name="portfolio_sell">Díol</string>
     <string name="portfolio_sell_exceeds">Níos mó ná do shealúchais (%1$s)</string>

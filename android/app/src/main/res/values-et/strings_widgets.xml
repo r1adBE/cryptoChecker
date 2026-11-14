@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Taust</string>
-    <string name="widget_configure_hint">Vali taust ja läbipaistmatus. Värv järgib rakendust. Vidin näitab kogu sinu jälgimisloendit; rea puudutamine avab rakenduse.</string>
+    <string name="widget_configure_hint">Vali taust ja läbipaistmatus. Värv järgib rakendust. Vidin näitab sinu jälgimisloendit või allpool valitud gruppi; rakenduse avamiseks puuduta rida.</string>
     <string name="widget_configure_title">Seadista vidin</string>
     <string name="widget_description">Näitab sinu jälgimisloendist ühe paari hinda.</string>
     <string name="widget_empty">Jälgimisloendis pole veel paare.</string>

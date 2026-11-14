@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">منتخب کریں کہ کون سے جوڑے اپنی قیمت نوٹیفکیشن بار میں دکھائیں۔</string>
     <string name="settings_quiet_hours">خاموش اوقات</string>
     <string name="settings_quiet_hours_from">سے</string>
-    <string name="settings_quiet_hours_hint">%1$s اور %2$s کے درمیان الرٹس خاموش اوقات ختم ہونے تک انتظار کرتے ہیں اور پھر آواز کے ساتھ بجتے ہیں۔ دیگر اطلاعات خاموشی سے آتی ہیں، بغیر بولے۔</string>
+    <string name="settings_quiet_hours_hint">%1$s اور %2$s کے درمیان الرٹس خاموش اوقات ختم ہونے تک انتظار کرتے ہیں اور پھر آواز کے ساتھ بجتے ہیں، اگر اس وقت بھی شرط پوری ہو۔ دیگر اطلاعات خاموشی سے آتی ہیں، بغیر بولے۔</string>
     <string name="settings_quiet_hours_to">تک</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">زیرِ استعمال: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">سیٹ نہیں – عوامی نوڈز استعمال ہوتے ہیں</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ترتیبات ری سیٹ ہو گئیں، اس لیے معلوم نہیں کہ آپ کا اپنا Bitcoin سرور استعمال ہو رہا تھا یا نہیں۔ جب تک آپ سرور دوبارہ درج نہ کریں یا عوامی نوڈز منتخب نہ کریں، Bitcoin پتے اور xpub کلیدیں نہیں پوچھی جائیں گی۔</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">صرف https:// پتوں کی اجازت ہے</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

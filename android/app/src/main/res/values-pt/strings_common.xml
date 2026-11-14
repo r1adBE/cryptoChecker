@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Exchange inacessível neste momento</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Plataforma bloqueada nesta região</string>
+    <string name="error_exchange_access_denied">A plataforma recusou o acesso</string>
     <string name="loading_hint">A carregar…</string>
     <string name="option_off">Não</string>
     <string name="something_went_wrong">Algo correu mal</string>

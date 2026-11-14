@@ -213,9 +213,32 @@ fun SecureWindowEffect(active: Boolean) {
     val activity = LocalContext.current.findFragmentActivity()
     DisposableEffect(active, activity) {
         val window = activity?.window
-        if (active) window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        if (active && window != null) SecureShield.acquire(window)
         onDispose {
-            if (active) window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            if (active && window != null) SecureShield.release(window)
+        }
+    }
+}
+
+/**
+ * Zählt je Fenster, wie viele Stellen FLAG_SECURE verlangen (Navigation, «Alle Alarme» mit Portfolio-Beträgen …): erst die
+ * letzte hebt auf — sonst nähme eine Seite beim Verlassen den Schutz weg, den die Navigation noch braucht (vor Android 13
+ * mit Sperre überall). Nur Hauptthread, wie alle Effekte; wie [OverlayShield].
+ */
+internal object SecureShield {
+    private val holds = java.util.WeakHashMap<android.view.Window, Int>()
+
+    fun acquire(window: android.view.Window) = set(window, (holds[window] ?: 0) + 1)
+
+    fun release(window: android.view.Window) = set(window, (holds[window] ?: 0) - 1)
+
+    private fun set(window: android.view.Window, count: Int) {
+        if (count > 0) {
+            holds[window] = count
+            window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        } else {
+            holds.remove(window)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
     }
 }

@@ -162,6 +162,25 @@ class RefreshResultProcessorTest {
         assertTrue(BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded))
     }
 
+    /**
+     * Kurs-Meldung (N3-01): ein gewöhnlicher Fehler (Zeit, 5xx) lässt sie stehen; entfernt wird sie nur, wenn das Paar
+     * nicht mehr gehandelt wird bzw. die Börse stillgelegt ist. iOS `PriceRefresher.evaluate` gleich.
+     */
+    @Test
+    fun ordinaryFailureKeepsThePriceNotification() {
+        val f = RefreshFixture(listOf(watch(id = 1, price = 99.0), watch(id = 2, price = 99.0), watch(id = 3, price = 99.0)))
+
+        f.process(
+            mapOf(
+                1L to Fetched(null, "timeout"),
+                2L to Fetched(null, "HttpCode: 503"),
+                3L to Fetched(null, "Wird an der Börse nicht mehr gehandelt", notTraded = true),
+            ),
+        )
+
+        assertEquals(listOf(3L), f.notifier.cancelledPrices.toList())
+    }
+
     /** Alle Paare stillgelegt (Portfolio-Alarm aktiv): der Lauf zählt als volle Prüfung und als Aktualisierung. */
     @Test
     fun allPairsRetiredStillCountsAsFullCheck() {

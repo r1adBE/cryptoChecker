@@ -6,7 +6,7 @@
     <string name="backup_export">Back up</string>
     <string name="backup_exported">Backup saved.</string>
     <string name="backup_failed">That didn\'t work. Is it a Crypto Checker backup?</string>
-    <string name="backup_hint">Saves your watchlist with notes and groups, alerts, favorites, portfolio and settings as a file you keep yourself – e.g. for a new phone.</string>
+    <string name="backup_hint">Saves your watchlist with notes and groups, alerts, favorites, portfolio and settings as a file you keep yourself – e.g. for a new device.</string>
     <string name="backup_import">Restore</string>
     <string name="backup_title">Backup &amp; restore</string>
     <string name="backup_too_large">The file is too large or not a valid backup (limit 64 MB).</string>

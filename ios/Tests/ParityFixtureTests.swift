@@ -123,6 +123,15 @@ final class ParityFixtureTests: XCTestCase {
             }
             count += 1
         }
+        let moveUncheckable = data["moveUncheckable"] as? [String: Any] ?? [:]
+        for c in S.list(moveUncheckable["cases"]) {
+            let history: [MoveWindow.PricePoint] = (c["history"] as? [Any] ?? []).compactMap { point($0) }
+            let result = AlarmEvaluator.moveWindowUncheckable(
+                alarm: S.alarm(c["alarm"] as? [String: Any] ?? [:]), price: S.number(c["price"]) ?? 0, now: now,
+                moveHistory: history)
+            XCTAssertEqual(result, c["expected"] as? Bool, "moveUncheckable: \(c["name"] ?? "")")
+            count += 1
+        }
         let nearSequences = data["nearExtremeSequences"] as? [String: Any] ?? [:]
         for c in S.list(nearSequences["cases"]) {
             let rangeSpec = c["range"] as? [String: Any] ?? [:]

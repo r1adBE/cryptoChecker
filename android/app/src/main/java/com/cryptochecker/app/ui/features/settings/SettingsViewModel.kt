@@ -390,11 +390,11 @@ class SettingsViewModel @Inject constructor(
 
     /**
      * Schreibweg der Einstellungen im ViewModel-Bereich. Ein Fehler (z. B. DataStore-IOException bei vollem Speicher)
-     * beendet die App nicht: protokolliert, der Schalter zeigt weiter den gespeicherten Stand ([settings]).
+     * beendet die App nicht: protokolliert und genannt, der Schalter zeigt weiter den gespeicherten Stand ([settings]).
      */
     internal fun update(block: suspend () -> Unit) {
         viewModelScope.launch {
-            runCatchingCancellable { block() }.onFailure { Timber.w(it, "Einstellungen: nicht gespeichert") }
+            runCatchingCancellable { block() }.onFailure { Timber.w(it, "Einstellungen: nicht gespeichert"); com.cryptochecker.app.data.reportWriteFailure(it) }
         }
     }
 }

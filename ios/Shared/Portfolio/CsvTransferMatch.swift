@@ -68,6 +68,9 @@ struct CsvTransferLink: Equatable, Identifiable {
     var stored: CsvStoredMove? = nil
     /// Neue Zeile, die gegen `stored` aufgeht; ihr Zustand kommt ebenfalls in den Zustand für «Rückgängig».
     var absorbed: CsvImportTx? = nil
+    /// Ausserhalb der üblichen Grenzen (Gebühr über `maxFeeShare` oder später als `windowMillis`) zwischen zwei sonst
+    /// unverbundenen Seiten: gezeigt, nie vorausgewählt — wie Android.
+    var loose = false
 
     var id: String { key }
 }
@@ -116,6 +119,11 @@ enum CsvTransferMatch {
 
     /// Höchster Anteil der Gebühr am abgeschickten Betrag.
     static let maxFeeShare: Decimal = Decimal(string: "0.05") ?? 0
+
+    /// Weitere Kandidaten (`CsvTransferLink.loose`) zwischen Seiten ohne üblichen: Einzahlung bis `looseWindowMillis`
+    /// danach, Gebühr bis `looseMaxFeeShare` (feste Netzwerkgebühr auf kleine Beträge, langsame Wege) — wie Android.
+    static let looseWindowMillis: Int64 = 14 * 24 * 3_600_000
+    static let looseMaxFeeShare: Decimal = Decimal(string: "0.5") ?? 0
 
     /// Kennung eines Kandidaten in der Vorschau (Auswahl, Liste); nie gespeichert.
     static func linkId(_ withdrawalKey: String, _ depositKey: String) -> String { "\(withdrawalKey) → \(depositKey)" }
@@ -244,8 +252,16 @@ enum CsvTransferMatch {
         var found: [CsvTransferLink] = []
         // Nur Einzahlungen desselben Coins im Zeitfenster prüfen (`fits` verlangt beides)
         let pairs = CsvTransferWindow.pairs(outs, ins, coin: \.coin, time: \.time, early: earlyMillis,
-                                            window: windowMillis, fits: fits)
-        for (wi, di) in pairs {
+                                            window: windowMillis, fits: { fits($0, $1) })
+        // Seiten ohne üblichen Kandidaten: weitere mit hoher Gebühr bzw. später Einzahlung (gezeigt, nie vorausgewählt)
+        let pairedOut = Set(pairs.map { $0.0 })
+        let pairedIn = Set(pairs.map { $0.1 })
+        let loose = CsvTransferWindow.pairs(outs, ins, coin: \.coin, time: \.time, early: earlyMillis,
+                                            window: looseWindowMillis,
+                                            fits: { fits($0, $1, window: looseWindowMillis, maxFeeShare: looseMaxFeeShare) })
+            .filter { !pairedOut.contains($0.0) && !pairedIn.contains($0.1) }
+        for (pair, isLoose) in pairs.map({ ($0, false) }) + loose.map({ ($0, true) }) {
+            let (wi, di) = pair
             let w = outs[wi]
             let d = ins[di]
             let diff = w.total - d.total
@@ -258,11 +274,12 @@ enum CsvTransferMatch {
                 feeCoin: w.feeCoin, feeCoinAmount: w.feeCoinAmount,
                 withdrawalTime: w.time, depositTime: d.time, from: w.place, to: d.place,
                 unambiguous: false, stored: w.stored ?? d.stored,
-                absorbed: w.stored != nil ? d.tx : (d.stored != nil ? w.tx : nil)))
+                absorbed: w.stored != nil ? d.tx : (d.stored != nil ? w.tx : nil), loose: isLoose))
         }
+        // Eindeutig nur unter den üblichen Kandidaten; weitere (`loose`) nie vorausgewählt
         var perOut: [String: Int] = [:]
         var perIn: [String: Int] = [:]
-        for l in found {
+        for l in found where !l.loose {
             perOut[l.withdrawalKey, default: 0] += 1
             perIn[l.depositKey, default: 0] += 1
         }
@@ -272,8 +289,8 @@ enum CsvTransferMatch {
                 withdrawalId: l.withdrawalId, depositId: l.depositId, sent: l.sent, received: l.received, fee: l.fee,
                 feeUnit: l.feeUnit, feeCoin: l.feeCoin, feeCoinAmount: l.feeCoinAmount, withdrawalTime: l.withdrawalTime,
                 depositTime: l.depositTime, from: l.from, to: l.to,
-                unambiguous: perOut[l.withdrawalKey] == 1 && perIn[l.depositKey] == 1, stored: l.stored,
-                absorbed: l.absorbed)
+                unambiguous: !l.loose && perOut[l.withdrawalKey] == 1 && perIn[l.depositKey] == 1, stored: l.stored,
+                absorbed: l.absorbed, loose: l.loose)
         }
         // stabil wie Android `sortedWith(compareBy(withdrawalTime, depositTime, key))`
         return links.sorted { a, b in
@@ -283,16 +300,35 @@ enum CsvTransferMatch {
         }
     }
 
-    private static func fits(_ w: End, _ d: End) -> Bool {
+    private static func fits(_ w: End, _ d: End, window: Int64 = windowMillis, maxFeeShare share: Decimal = maxFeeShare) -> Bool {
         if w.coin != d.coin || (w.id != nil && d.id != nil) || d.foreignFee { return false }
         // Zwei neue Zeilen einer Börsen-Datei: dieselbe Börse kann nicht an sich selbst überweisen
         if let place = w.place, place == d.place { return false }
-        if d.time < w.time - earlyMillis || d.time > w.time + windowMillis { return false }
+        if d.time < w.time - earlyMillis || d.time > w.time + window { return false }
         if d.total <= 0 || d.total > w.total { return false }
         let diff = w.total - d.total
-        if diff > PortfolioDecimal.multiply(w.total, maxFeeShare) { return false }
+        if diff > PortfolioDecimal.multiply(w.total, share) { return false }
         // USDT-Gebühr der Auszahlung und Differenz im Coin: die Umbuchung trägt nur eine Gebühr
         return !(diff > 0 && w.quoteFee != nil)
+    }
+
+    /// «Auf eigene Wallet» für die Auszahlung `withdrawalKey`: hat sie einen Kandidaten mit freier Einzahlung, wird der
+    /// beste gewählt (übliche vor weiteren, dann die nächste Einzahlung, dann die kleinste Gebühr) — sonst zählte die
+    /// Einzahlung ein zweites Mal. Schon verknüpft oder ohne freien Kandidaten: unverändert. Wie Android.
+    static func linkOwnWallet(_ links: [CsvTransferLink], chosen: Set<String>, withdrawalKey: String) -> Set<String> {
+        let active = links.filter { chosen.contains($0.key) }
+        if active.contains(where: { $0.withdrawalKey == withdrawalKey }) { return chosen }
+        let used = Set(active.map(\.depositKey))
+        let free = links.filter { $0.withdrawalKey == withdrawalKey && !used.contains($0.depositKey) }
+        let best = free.min { a, b in
+            if a.loose != b.loose { return !a.loose }
+            let ta = abs(a.depositTime - a.withdrawalTime), tb = abs(b.depositTime - b.withdrawalTime)
+            if ta != tb { return ta < tb }
+            if a.sent - a.received != b.sent - b.received { return a.sent - a.received < b.sent - b.received }
+            return a.key.unicodeScalars.lexicographicallyPrecedes(b.key.unicodeScalars, by: { $0.value < $1.value })
+        }
+        guard let best else { return chosen }
+        return toggle(links, chosen: chosen, key: best.key, on: true)
     }
 
     /// Vorauswahl: alle eindeutigen Kandidaten.

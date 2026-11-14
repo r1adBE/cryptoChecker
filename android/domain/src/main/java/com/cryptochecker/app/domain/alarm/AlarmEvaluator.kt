@@ -138,6 +138,20 @@ class AlarmEvaluator @Inject constructor() {
     }
 
     /**
+     * Bewegungs-Alarm mit gültigem Bezug, aber ohne Vergleichspunkt im Fenster ([MoveWindow.changePercent] = null, etwa
+     * nach einer langen Pause des Hintergrund-Takts): diesmal nicht prüfbar — der Aufrufer vermerkt «nicht geprüft»
+     * statt «geprüft». Gleiche Eingaben wie [shouldTrigger].
+     */
+    fun moveWindowUncheckable(alarm: AlarmEntity, price: Double, now: Long, moveHistory: List<MoveWindow.PricePoint>): Boolean {
+        if (alarm.condition != AlarmCondition.MOVE_PERCENT_WINDOW || needsWindowReset(alarm, now)) return false
+        if (!price.isFinite() || price <= 0.0) return false
+        val reference = alarm.referencePrice ?: return false
+        return MoveWindow.changePercent(
+            moveHistory, MoveWindow.PricePoint(reference, alarm.referenceAt), price, alarm.windowHours, alarm.referenceAt, now,
+        ) == null
+    }
+
+    /**
      * Braucht der Alarm zuerst einen Bezugskurs? Bewegungs-Alarm siehe [needsWindowReset];
      * Prozentalarm (CHANGE_PERCENT_*) ohne Bezug — etwa angelegt, bevor das Paar einen Kurs hatte:
      * der Aufrufer setzt den aktuellen Kurs als Bezug (und meldet diesmal nicht), sonst verglich

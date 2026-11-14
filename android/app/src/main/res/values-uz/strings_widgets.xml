@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fon</string>
-    <string name="widget_configure_hint">Fon va shaffoflikni tanlang. Rang ilovaga moslashadi. Vidjet butun kuzatuv roʻyxatingizni koʻrsatadi; ilovani ochish uchun qatorga bosing.</string>
+    <string name="widget_configure_hint">Fon va shaffofsizlikni tanlang. Rang ilovaga moslashadi. Vidjet kuzatuv roʻyxatingizni yoki quyida tanlangan guruhni koʻrsatadi; ilovani ochish uchun qatorga teging.</string>
     <string name="widget_configure_title">Vidjetni sozlash</string>
     <string name="widget_description">Kuzatuv roʻyxatingizdagi juftlik kursini koʻrsatadi.</string>
     <string name="widget_empty">Kuzatuv roʻyxatida hali juftliklar yoʻq.</string>

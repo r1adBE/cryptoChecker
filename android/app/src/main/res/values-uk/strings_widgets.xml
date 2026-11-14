@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Фон</string>
-    <string name="widget_configure_hint">Вибери фон і прозорість. Колір як у застосунку. Віджет показує весь список; торкнися рядка, щоб відкрити застосунок.</string>
+    <string name="widget_configure_hint">Вибери фон і непрозорість. Колір відповідає застосунку. Віджет показує твій список або групу, вибрану нижче; торкнися рядка, щоб відкрити застосунок.</string>
     <string name="widget_configure_title">Налаштування віджета</string>
     <string name="widget_description">Показує ціну пари з твого списку.</string>
     <string name="widget_empty">У списку ще немає пар.</string>

@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmak aktibatuta – oraindik ez da atzeko planoko egiaztapenik egin</string>
     <string name="alarm_reliability_notifications_off">Jakinarazpenak desaktibatuta – alarmak ez dira iritsiko</string>
     <string name="alarm_reliability_battery">Bateria aurrezteak alarmen egiaztapenak geldiaraz ditzake</string>
+    <string name="alarm_reliability_offline">Konexiorik ez – alarmak sarea itzultzean egiaztatuko dira</string>
     <string name="alarm_reliability_background_refresh">Atzeko planoko eguneratzea desaktibatuta – baliteke alarmak ez iristea</string>
 </resources>

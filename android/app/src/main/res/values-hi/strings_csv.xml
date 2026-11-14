@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">पोर्टफ़ोलियो से बाहर (निकासी)</string>
     <string name="portfolio_csv_import_choose_each">हर निकासी के लिए चुनें कि वह कहाँ गई।</string>
     <string name="portfolio_csv_import_columns">पहचाने गए कॉलम: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">पहले से आयात किया गया: पंक्तियाँ %1$s</string>
     <string name="portfolio_csv_import_confirm">आयात करें (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">दिन/महीना</string>
     <string name="portfolio_csv_import_date_month_first">महीना/दिन</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">स्टेबलकॉइन (USDT, USDC …) के बदले ख़रीद और बिक्री स्वैप के रूप में दर्ज होती है – स्टेबलकॉइन आपकी होल्डिंग में दिखता है।</string>
     <string name="portfolio_csv_import_transfer_ambiguous">कई मिलान संभव हैं – सही वाला चुनें या कोई नहीं।</string>
+    <string name="portfolio_csv_import_transfer_loose">ऊँचा शुल्क या देर से पहुँचना – जाँच लें कि यह वही ट्रांसफ़र है।</string>
     <string name="portfolio_csv_import_transfer_fee">नेटवर्क शुल्क: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">एक ट्रांसफ़र के रूप में दर्ज करें</string>
     <string name="portfolio_csv_import_transfer_stored">पिछले इम्पोर्ट से जोड़ीदार प्रविष्टि</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">दैनिक भाव इस समय क्षेत्र के कैलेंडर दिन के अनुसार: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">दैनिक भाव लोड नहीं हो सके।</string>
     <string name="portfolio_csv_import_anyway">फिर भी आयात करें</string>
-    <string name="portfolio_csv_import_anyway_hint">दैनिक भाव के बिना कीमत या शुल्क स्थायी रूप से छूट जाता है। फिर से कोशिश करें, या फिर भी आयात करें – तब उन लेन-देन में एक नोट जुड़ेगा।</string>
+    <string name="portfolio_csv_import_anyway_hint">दैनिक दर के बिना, जब तक आप इसे नहीं जोड़ते, कीमत या शुल्क नहीं रहता। फिर से कोशिश करें या फिर भी इम्पोर्ट करें – तब उन लेन-देन पर एक नोट रहेगा।</string>
     <string name="portfolio_csv_note_price_no_rate">दैनिक भाव के बिना कीमत</string>
     <string name="portfolio_csv_note_fee_no_rate">दैनिक भाव के बिना शुल्क</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s के लिए दैनिक भाव उपलब्ध नहीं हैं, इसलिए फिर से कोशिश करने से मदद नहीं मिलेगी। फिर भी आयात करें, तो उन लेन-देन में एक नोट जुड़ेगा।</string>

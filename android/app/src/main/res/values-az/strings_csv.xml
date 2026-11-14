@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Portfeldən çıxır (çıxarış)</string>
     <string name="portfolio_csv_import_choose_each">Hər çıxarış üçün hara getdiyini seç.</string>
     <string name="portfolio_csv_import_columns">Tanınan sütunlar: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Artıq idxal edilib: sətirlər %1$s</string>
     <string name="portfolio_csv_import_confirm">İdxal et (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Gün/Ay</string>
     <string name="portfolio_csv_import_date_month_first">Ay/Gün</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Steyblkoinlərə (USDT, USDC …) qarşı alqı-satqı mübadilə kimi qeydə alınır – steyblkoin aktivlərində görünür.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Bir neçə uyğunluq mümkündür – düzgününü seç və ya heç birini.</string>
+    <string name="portfolio_csv_import_transfer_loose">Yüksək haqq və ya gec çatma – eyni köçürmə olduğunu yoxla.</string>
     <string name="portfolio_csv_import_transfer_fee">Şəbəkə komissiyası: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Bir köçürmə kimi qeydə al</string>
     <string name="portfolio_csv_import_transfer_stored">Əvvəlki idxaldan qarşı qeyd</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Günlük məzənnələr bu saat qurşağının təqvim gününə görə: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Günlük məzənnələri yükləmək mümkün olmadı.</string>
     <string name="portfolio_csv_import_anyway">Yenə də idxal et</string>
-    <string name="portfolio_csv_import_anyway_hint">Günlük məzənnə olmadan qiymət və ya komissiya həmişəlik çatışmayacaq. Yenidən cəhd et və ya yenə də idxal et – həmin əməliyyatlara qeyd əlavə olunacaq.</string>
+    <string name="portfolio_csv_import_anyway_hint">Gündəlik kurs olmadan qiymət və ya komissiya sən əlavə edənə qədər çatışmır. Yenidən cəhd et və ya yenə də idxal et – həmin əməliyyatlar qeyd alacaq.</string>
     <string name="portfolio_csv_note_price_no_rate">Günlük məzənnəsiz qiymət</string>
     <string name="portfolio_csv_note_fee_no_rate">Günlük məzənnəsiz komissiya</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s üçün günlük məzənnələr yoxdur, ona görə yenidən cəhd kömək etməyəcək. Yenə də idxal etsən, həmin əməliyyatlara qeyd əlavə olunacaq.</string>

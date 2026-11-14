@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Sae da carteira (retirada)</string>
     <string name="portfolio_csv_import_choose_each">Escolle para cada retirada onde foi.</string>
     <string name="portfolio_csv_import_columns">Columnas recoñecidas: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Xa importado: liñas %1$s</string>
     <string name="portfolio_csv_import_confirm">Importar (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Día/Mes</string>
     <string name="portfolio_csv_import_date_month_first">Mes/Día</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">As operacións contra stablecoins (USDT, USDC …) contabilízanse como intercambios – a stablecoin aparece nos teus haberes.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Hai varias coincidencias posibles – escolle a correcta ou ningunha.</string>
+    <string name="portfolio_csv_import_transfer_loose">Comisión alta ou chegada tardía – comproba que sexa a mesma transferencia.</string>
     <string name="portfolio_csv_import_transfer_fee">Comisión de rede: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Contabilizar como unha soa transferencia</string>
     <string name="portfolio_csv_import_transfer_stored">Contrapartida dunha importación anterior</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Tipos diarios segundo o día natural en: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Non se puideron cargar os tipos diarios.</string>
     <string name="portfolio_csv_import_anyway">Importar igualmente</string>
-    <string name="portfolio_csv_import_anyway_hint">Sen tipo diario, o prezo ou a comisión faltan de forma permanente. Téntao de novo ou importa igualmente: esas transaccións levarán unha nota.</string>
+    <string name="portfolio_csv_import_anyway_hint">Sen un tipo diario, falta o prezo ou a comisión ata que o engadas. Téntao de novo ou importa igualmente – esas transaccións levarán unha nota.</string>
     <string name="portfolio_csv_note_price_no_rate">Prezo sen tipo diario</string>
     <string name="portfolio_csv_note_fee_no_rate">Comisión sen tipo diario</string>
     <string name="portfolio_csv_import_no_rates_for">Non hai tipos diarios para %1$s, así que tentalo de novo non servirá. Se importas igualmente, esas transaccións levarán unha nota.</string>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fundo</string>
-    <string name="widget_configure_hint">Escolhe o fundo e a opacidade. A cor segue a app. O widget mostra toda a lista; toca numa linha para abrir a app.</string>
+    <string name="widget_configure_hint">Escolhe o fundo e a opacidade. A cor segue a app. O widget mostra a tua lista ou o grupo escolhido abaixo; toca numa linha para abrir a app.</string>
     <string name="widget_configure_title">Configurar widget</string>
     <string name="widget_description">Mostra o preço de um par da tua lista de acompanhamento.</string>
     <string name="widget_empty">Ainda sem pares na lista de acompanhamento.</string>

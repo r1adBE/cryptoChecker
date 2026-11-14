@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ਪੋਰਟਫੋਲੀਓ ਤੋਂ ਬਾਹਰ ਜਾਂਦਾ ਹੈ (ਨਿਕਾਸੀ)</string>
     <string name="portfolio_csv_import_choose_each">ਹਰ ਨਿਕਾਸੀ ਲਈ ਚੁਣੋ ਕਿ ਉਹ ਕਿੱਥੇ ਗਈ।</string>
     <string name="portfolio_csv_import_columns">ਪਛਾਣੇ ਕਾਲਮ: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">ਪਹਿਲਾਂ ਹੀ ਆਯਾਤ ਕੀਤਾ: ਲਾਈਨਾਂ %1$s</string>
     <string name="portfolio_csv_import_confirm">ਇੰਪੋਰਟ ਕਰੋ (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ਦਿਨ/ਮਹੀਨਾ</string>
     <string name="portfolio_csv_import_date_month_first">ਮਹੀਨਾ/ਦਿਨ</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ਸਟੇਬਲਕੌਇਨਾਂ (USDT, USDC …) ਦੇ ਬਦਲੇ ਵਪਾਰ ਸਵੈਪ ਵਜੋਂ ਦਰਜ ਹੁੰਦੇ ਹਨ – ਸਟੇਬਲਕੌਇਨ ਤੁਹਾਡੀਆਂ ਹੋਲਡਿੰਗਾਂ ਵਿੱਚ ਦਿਖਦਾ ਹੈ।</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ਕਈ ਮੇਲ ਸੰਭਵ – ਸਹੀ ਵਾਲਾ ਚੁਣੋ ਜਾਂ ਕੋਈ ਨਹੀਂ।</string>
+    <string name="portfolio_csv_import_transfer_loose">ਵੱਧ ਫੀਸ ਜਾਂ ਦੇਰ ਨਾਲ ਪਹੁੰਚਣਾ – ਜਾਂਚ ਕਰੋ ਕਿ ਇਹ ਉਹੀ ਟ੍ਰਾਂਸਫ਼ਰ ਹੈ।</string>
     <string name="portfolio_csv_import_transfer_fee">ਨੈੱਟਵਰਕ ਫੀਸ: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ਇੱਕ ਟ੍ਰਾਂਸਫਰ ਵਜੋਂ ਦਰਜ ਕਰੋ</string>
     <string name="portfolio_csv_import_transfer_stored">ਪਿਛਲੇ ਇੰਪੋਰਟ ਦੀ ਜੋੜੀਦਾਰ ਐਂਟਰੀ</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਇਸ ਟਾਈਮ ਜ਼ੋਨ ਦੇ ਕੈਲੰਡਰ ਦਿਨ ਅਨੁਸਾਰ: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">ਰੋਜ਼ਾਨਾ ਦਰਾਂ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀਆਂ।</string>
     <string name="portfolio_csv_import_anyway">ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ</string>
-    <string name="portfolio_csv_import_anyway_hint">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ ਜਾਂ ਫੀਸ ਹਮੇਸ਼ਾ ਲਈ ਗਾਇਬ ਰਹਿੰਦੀ ਹੈ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਜਾਂ ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ – ਉਦੋਂ ਉਨ੍ਹਾਂ ਲੈਣ-ਦੇਣ ਨਾਲ ਇੱਕ ਨੋਟ ਜੁੜੇਗਾ।</string>
+    <string name="portfolio_csv_import_anyway_hint">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ, ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਜੋੜਦੇ ਨਹੀਂ, ਕੀਮਤ ਜਾਂ ਫ਼ੀਸ ਗੁੰਮ ਰਹਿੰਦੀ ਹੈ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ – ਉਹਨਾਂ ਲੈਣ-ਦੇਣਾਂ ਨੂੰ ਫਿਰ ਇੱਕ ਨੋਟ ਮਿਲੇਗਾ।</string>
     <string name="portfolio_csv_note_price_no_rate">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਕੀਮਤ</string>
     <string name="portfolio_csv_note_fee_no_rate">ਰੋਜ਼ਾਨਾ ਦਰ ਤੋਂ ਬਿਨਾਂ ਫੀਸ</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s ਲਈ ਕੋਈ ਰੋਜ਼ਾਨਾ ਦਰ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਨਾਲ ਮਦਦ ਨਹੀਂ ਮਿਲੇਗੀ। ਫਿਰ ਵੀ ਇੰਪੋਰਟ ਕਰੋ ਤਾਂ ਉਨ੍ਹਾਂ ਲੈਣ-ਦੇਣ ਨਾਲ ਇੱਕ ਨੋਟ ਜੁੜੇਗਾ।</string>

@@ -24,6 +24,7 @@ enum StorageRecoveryNotice {
     private static let interruptedKey = "storage_recovery_notice_restore_interrupted"
     private static let settingsResetKey = "storage_recovery_notice_settings_reset"
     private static let rollBackAttemptKey = "storage_recovery_notice_rollback_attempted_for"
+    private static let addressServerUnknownKey = "storage_recovery_notice_address_server_unknown"
 
     /// Neue Vormerkung in diesem Prozess (z. B. ein eben zurückgerolltes Wiederherstellen): der Hinweis prüft erneut.
     static let changed = Notification.Name("StorageRecoveryNoticeChanged")
@@ -65,9 +66,24 @@ enum StorageRecoveryNotice {
         (defaults.object(forKey: rollBackAttemptKey) as? NSNumber)?.int64Value
     }
 
-    /// Einstellungen unlesbar und durch Standardwerte ersetzt vormerken.
+    /// Einstellungen unlesbar und durch Standardwerte ersetzt vormerken. Der eigene Bitcoin-Server ist damit unbekannt:
+    /// Bitcoin-Adressen werden nicht abgefragt, bis der Nutzer ihn neu einträgt oder öffentliche Knoten bestätigt
+    /// (`confirmAddressServer`) — nie still bei öffentlichen Knoten. Wie Android.
     static func recordSettingsReset(defaults: UserDefaults = .standard) {
         defaults.set(true, forKey: settingsResetKey)
+        defaults.set(true, forKey: addressServerUnknownKey)
+        NotificationCenter.default.post(name: changed, object: nil)
+    }
+
+    /// Eigener Bitcoin-Server unbekannt (Einstellungen ersetzt)? Dann keine Bitcoin-Abfragen (`AddressServer.queryAllowed`).
+    static func addressServerUnknown(defaults: UserDefaults = .standard) -> Bool {
+        defaults.bool(forKey: addressServerUnknownKey)
+    }
+
+    /// Server eingetragen bzw. öffentliche Knoten bestätigt: Bitcoin-Adressen werden wieder abgefragt.
+    static func confirmAddressServer(defaults: UserDefaults = .standard) {
+        guard defaults.bool(forKey: addressServerUnknownKey) else { return }
+        defaults.removeObject(forKey: addressServerUnknownKey)
         NotificationCenter.default.post(name: changed, object: nil)
     }
 
@@ -155,7 +171,10 @@ private struct StorageRecoveryNoticeModifier: ViewModifier {
         case .keyRestored: return L("storage_recovery_restored_message")
         case .restoreRolledBack: return L("backup_restore_interrupted_rolled_back")
         case .restoreIncomplete: return L("backup_restore_interrupted_incomplete", L("backup_title"))
-        case .settingsReset: return L("settings_reset_notice")
+        case .settingsReset:
+            // Server unbekannt: der Hinweis nennt ihn (Bitcoin-Abfragen ruhen bis zur Wahl)
+            let server = StorageRecoveryNotice.addressServerUnknown() ? "\n\n" + L("settings_address_server_unknown") : ""
+            return L("settings_reset_notice") + server
         }
     }
 

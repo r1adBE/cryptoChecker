@@ -297,7 +297,8 @@
             android:exported="false" />
 
         <!-- Uhr-App: Wahl und eigene Liste der Uhr über die Wear-Daten-Schicht (nur Coin-Kürzel); nur genau dieser Pfad,
-             nicht die Kurse und der Portfolio-Wert, die das Handy selbst unter /cc/watch/… ablegt -->
+             nicht die Kurse und der Portfolio-Wert, die das Handy selbst unter /cc/watch/… ablegt. Dazu: Uhr-App
+             dazugekommen (Fähigkeit cryptochecker_watch) → ganzen Stand ablegen -->
         <service
             android:name=".wearable.PhoneWatchListener"
             android:exported="true">
@@ -306,6 +307,13 @@
                 <data
                     android:host="*"
                     android:path="/cc/watch"
+                    android:scheme="wear" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
+                <data
+                    android:host="*"
+                    android:path="/cryptochecker_watch"
                     android:scheme="wear" />
             </intent-filter>
         </service>

@@ -34,7 +34,19 @@ enum class CheckResult(val code: String) {
      * App; ein geplanter Lauf offline wird nicht vermerkt).
      */
     SKIPPED("skipped"),
+
+    /**
+     * Gelaufen, aber kein Alarm geprüft: alle Börsen pausiert (zu viele Anfragen, Zeitüberschreitungen) bzw. iOS ohne
+     * Alarm-Lease. Zählt nicht als gelungene Prüfung ([CheckRunLog.lastBackgroundCheck]).
+     */
+    PAUSED("paused"),
+
+    /** Geplanter Lauf ohne Netz nicht versucht (Android: exakter Wecker). Zählt nicht als Prüfung; die Zeile nennt das Netz. */
+    OFFLINE("offline"),
     ;
+
+    /** Zählt als Prüfung für «Letzte Prüfung» (gelungen, teilweise oder eben erst geprüft). */
+    val countsAsCheck: Boolean get() = this == OK || this == PARTIAL || this == SKIPPED
 
     companion object {
         fun fromCode(code: String): CheckResult? = entries.firstOrNull { it.code == code }
@@ -62,8 +74,13 @@ object CheckRunLog {
     fun add(runs: List<CheckRun>, run: CheckRun, max: Int = MAX): List<CheckRun> =
         (listOf(run) + runs).take(max.coerceAtLeast(0))
 
-    /** Ergebnis aus geprüften und gescheiterten Paaren; nichts zu prüfen (alles live, keine Paare) = OK. */
-    fun result(checked: Int, failed: Int): CheckResult = when {
+    /**
+     * Ergebnis aus geprüften und gescheiterten Paaren; nichts zu prüfen (alles live, keine Paare) = OK. Nichts geprüft,
+     * weil alle Börsen pausiert waren ([paused] Paare), bzw. Alarme ohne Lease ausgelassen ([alarmsUnchecked], iOS):
+     * [CheckResult.PAUSED] — nicht «OK».
+     */
+    fun result(checked: Int, failed: Int, paused: Int = 0, alarmsUnchecked: Boolean = false): CheckResult = when {
+        alarmsUnchecked || (checked <= 0 && paused > 0) -> CheckResult.PAUSED
         checked <= 0 || failed <= 0 -> CheckResult.OK
         failed >= checked -> CheckResult.FAILED
         else -> CheckResult.PARTIAL
@@ -71,11 +88,15 @@ object CheckRunLog {
 
     /**
      * Ende der letzten vom System geplanten Prüfung für «Letzte Prüfung» (Zeile über der Merkliste, «Damit Alarme
-     * ankommen»); Widget und App zählen nicht. Gescheiterte Läufe auch nicht: Sonst gälte eine Prüfung als eben
-     * gelaufen, die gar keine Kurse geholt hat. null = keine. Wie iOS.
+     * ankommen»); Widget und App zählen nicht. Gescheiterte, pausierte und offline übersprungene Läufe auch nicht: Sonst
+     * gälte eine Prüfung als eben gelaufen, die gar keinen Alarm geprüft hat. null = keine. Wie iOS.
      */
     fun lastBackgroundCheck(runs: List<CheckRun>): Long? =
-        runs.firstOrNull { it.trigger.scheduled && it.result != CheckResult.FAILED }?.at
+        runs.firstOrNull { it.trigger.scheduled && it.result.countsAsCheck }?.at
+
+    /** Der neueste geplante Lauf wurde offline nicht versucht ([CheckResult.OFFLINE]): die Zeile nennt das Netz. Wie iOS. */
+    fun offlineSkipped(runs: List<CheckRun>): Boolean =
+        runs.firstOrNull { it.trigger.scheduled }?.result == CheckResult.OFFLINE
 
     /**
      * Ende des neuesten geplanten Laufs, wenn unter den gespeicherten ([MAX]) keiner gelang — sonst null. Scheitert

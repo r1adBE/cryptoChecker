@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Alarmi uključeni – još nema provere u pozadini</string>
     <string name="alarm_reliability_notifications_off">Obaveštenja isključena – alarmi neće stizati</string>
     <string name="alarm_reliability_battery">Ušteda baterije može zaustaviti provere alarma</string>
+    <string name="alarm_reliability_offline">Nema veze – alarmi se proveravaju čim se mreža vrati</string>
     <string name="alarm_reliability_background_refresh">Osvežavanje u pozadini isključeno – alarmi možda neće stići</string>
 </resources>

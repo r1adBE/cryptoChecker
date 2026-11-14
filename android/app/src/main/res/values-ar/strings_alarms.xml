@@ -56,6 +56,8 @@
     <string name="alarm_threshold_error_funding">يجب أن يكون معدل التمويل رقمًا بين −10 و+10 بالمئة.</string>
     <string name="alarm_threshold_error_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
     <string name="alarm_threshold_error_oi">تغيّر العقود المفتوحة: 1000 بالمئة كحد أقصى.</string>
+    <string name="alarm_threshold_error_percent_max">1000 بالمئة كحد أقصى.</string>
+    <string name="alarm_threshold_error_distance">يجب أن تكون المسافة أقل من 100 بالمئة.</string>
     <plurals name="alarm_window_hours">
         <item quantity="zero">خلال %1$d ساعة</item>
         <item quantity="one">خلال %1$d ساعة</item>
@@ -196,6 +198,7 @@
     <string name="alarm_a11y_speak_on">النطق مفعّل</string>
     <string name="alarm_unchecked_no_candles">تعذّر التحقق (لا توجد بيانات شموع)</string>
     <string name="alarm_unchecked_no_rate">تعذّر التحقق (لا يوجد سعر صرف)</string>
+    <string name="alarm_unchecked_no_window_price">تعذّر التحقق (لا يوجد سعر ضمن الفترة الزمنية)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">الإشعارات متوقفة – لن يصلك هذا التنبيه</string>

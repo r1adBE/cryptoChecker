@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Аларми портфолија проверавају без адреса чије се стање не учитава више од 24 сата</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">токени делимично застарели</string>
+    <string name="portfolio_address_zero_unconfirmed">0 још није потврђено</string>
     <string name="portfolio_address_restore_failed">Адресу није било могуће вратити – по потреби је поново додај</string>
     <string name="portfolio_address_remove_failed">Адресу није било могуће уклонити – покушај поново</string>
 </resources>

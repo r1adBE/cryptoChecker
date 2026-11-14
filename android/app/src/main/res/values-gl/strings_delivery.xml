@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmas activadas – aínda non houbo ningunha comprobación en segundo plano</string>
     <string name="alarm_reliability_notifications_off">Notificacións desactivadas – as alarmas non chegarán</string>
     <string name="alarm_reliability_battery">O aforro de batería pode deter as comprobacións das alarmas</string>
+    <string name="alarm_reliability_offline">Sen conexión – as alarmas compróbanse cando volva a rede</string>
     <string name="alarm_reliability_background_refresh">Actualización en segundo plano desactivada – pode que as alarmas non cheguen</string>
 </resources>

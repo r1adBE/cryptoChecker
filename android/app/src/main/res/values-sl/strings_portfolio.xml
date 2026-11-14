@@ -47,7 +47,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Skupaj</string>
     <string name="portfolio_hide_amounts">Skrij zneske</string>
-    <string name="portfolio_hide_amounts_hint">Zneske in vrednosti v portfelju in pripomočku portfelja prikaže kot ••• – odstotki ostanejo vidni.</string>
+    <string name="portfolio_hide_amounts_hint">Zneske in vrednosti v portfelju, pripomočku portfelja, na uri in v alarmih portfelja prikaže kot ••• – odstotki ostanejo vidni.</string>
     <string name="portfolio_invested">Nabavna vrednost</string>
     <string name="portfolio_total_no_fx">Ni deviznega tečaja za %1$s – zneski v USDT</string>
     <string name="portfolio_total_value">Skupna vrednost</string>
@@ -106,6 +106,7 @@
     <string name="portfolio_discard_title">Zavržem spremembe?</string>
     <string name="portfolio_edit_tx">Uredi transakcijo</string>
     <string name="portfolio_invalid">Vnesi veljavno število, večje od 0.</string>
+    <string name="number_ambiguous">Nejasno: %1$s ali %2$s? Vpiši eno od obeh oblik.</string>
     <string name="portfolio_oversold">Prodaje presegajo imetje – preveri transakcije.</string>
     <string name="portfolio_sell">Prodaja</string>
     <string name="portfolio_sell_exceeds">Več kot tvoje imetje (%1$s)</string>

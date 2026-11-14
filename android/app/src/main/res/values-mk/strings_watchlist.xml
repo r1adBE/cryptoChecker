@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Последно освежување</string>
     <string name="watchlist_symbols_legend">Објаснување на симболите</string>
     <string name="watchlist_symbols_legend_alarms">Активни аларми и нивниот број</string>
+    <string name="watchlist_symbols_legend_warning">Цената е застарена или берзата е недостапна</string>
     <string name="watchlist_refresh_report_empty">Сè уште нема детален преглед – досега нема целосно освежување. Допри освежи и почекај додека кругот не застане.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d од %2$d застарено</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Затвори го известувањето</string>
     <string name="watchlist_missing_logos_explain">За овие монети нема достапно лого. Апликацијата ги прикажува нивните иницијали.</string>
+    <string name="watchlist_missing_logos_pending">сè уште не е вчитано</string>
+    <string name="watchlist_missing_logos_explain_pending">Логоата означени како сè уште невчитани ќе стигнат со следната синхронизација, некои само преку Wi-Fi. За другите монети нема лого. Апликацијата ги прикажува нивните иницијали.</string>
     <string name="exchange_retiring_notice">Од %2$s %1$s повеќе нема да дава јавни цени. Избери друга берза за овие монети.</string>
     <string name="exchange_retiring_reason">Од %2$s %1$s повеќе нема да дава цени</string>
     <string name="exchange_retired_since">Од %2$s %1$s повеќе не дава цени</string>

@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Վերջին թարմացումը</string>
     <string name="watchlist_symbols_legend">Նշանների բացատրություն</string>
     <string name="watchlist_symbols_legend_alarms">Ակտիվ ահազանգերը և դրանց քանակը</string>
+    <string name="watchlist_symbols_legend_warning">Գինը հնացած է կամ բորսան հասանելի չէ</string>
     <string name="watchlist_refresh_report_empty">Մանրամասներ դեռ չկան – մինչ այժմ ամբողջական թարմացում չի եղել։ Հպիր թարմացմանը և սպասիր, մինչև շրջանը կանգնի։</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-ից %1$d-ը հնացած է</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Փակել ծանուցումը</string>
     <string name="watchlist_missing_logos_explain">Այս կոինների համար լոգո հասանելի չէ։ Հավելվածը ցույց է տալիս դրանց սկզբնատառերը։</string>
+    <string name="watchlist_missing_logos_pending">դեռ բեռնված չէ</string>
+    <string name="watchlist_missing_logos_explain_pending">Դեռ բեռնված չէ նշված լոգոները կգան հաջորդ համաժամեցմամբ, որոշները միայն Wi-Fi-ով։ Մյուս մետաղադրամների համար լոգո չկա։ Հավելվածը ցույց է տալիս դրանց սկզբնատառերը։</string>
     <string name="exchange_retiring_notice">%2$s-ից %1$s-ն այլևս հանրային գներ չի տրամադրի։ Այս կոինների համար ընտրիր այլ բորսա։</string>
     <string name="exchange_retiring_reason">%2$s-ից %1$s-ն այլևս գներ չի տրամադրի</string>
     <string name="exchange_retired_since">%2$s-ից %1$s-ն այլևս գներ չի տրամադրում</string>

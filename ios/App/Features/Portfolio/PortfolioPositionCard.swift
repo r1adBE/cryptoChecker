@@ -235,7 +235,6 @@ struct PortfolioOpenLotsSection: View {
                     }
             }
             .tint(accent.primary)
-            .environment(\.hidePortfolioAmounts, hideAmounts)
         }
     }
 

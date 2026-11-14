@@ -22,9 +22,10 @@ enum CoinLogoRetry {
     static func recordsAttempt(networkFailure: Bool) -> Bool { !networkFailure }
 
     /// Fehlgeschlagene Bild-Abrufe (`failed` von `attempted`) am fehlenden Netz? Dann nicht einen Tag
-    /// sperren. Ohne Netz immer; mit Netz nur, wenn wirklich alle (mindestens `allFailedMin`) scheiterten.
-    static func downloadsFailedForNetwork(online: Bool, failed: Int, attempted: Int) -> Bool {
-        failed > 0 && (!online || (failed == attempted && attempted >= allFailedMin))
+    /// sperren. Ohne Netz immer; mit Netz nur, wenn wirklich alle (mindestens `allFailedMin`) scheiterten und
+    /// mindestens eines davon gestört war (`transient`) — lauter «gibt es nicht» ist kein Netzfehler (wie Android).
+    static func downloadsFailedForNetwork(online: Bool, failed: Int, attempted: Int, transient: Int? = nil) -> Bool {
+        failed > 0 && (!online || ((transient ?? failed) > 0 && failed == attempted && attempted >= allFailedMin))
     }
 
     /// Abgleich jetzt nachholen? Nur, wenn der letzte am Netz scheiterte und jetzt Netz da ist.
@@ -82,6 +83,15 @@ enum CoinLogoRetry {
 
     /// Pausiert diese Folge von 403 den Server (`forbiddenPauseStreak`)? Dann ohne Angabe `defaultImagePauseMillis`.
     static func forbiddenStreakPauses(_ streak: Int) -> Bool { streak >= forbiddenPauseStreak }
+    /// So viele Bilder eines Servers in Folge gestört (Zeit, Abbruch, 5xx) in einem Durchgang: Server pausieren — ein
+    /// Server, der Verbindungen schluckt, kostet sonst je Bild die volle Frist, über Stunden. Wie Android.
+    static let transientPauseStreak = 4
+
+    /// Neue Zahl der gestörten Bilder in Folge eines Servers: gestört → +1, jedes andere Ergebnis → 0.
+    static func nextTransientStreak(_ streak: Int, transient: Bool) -> Int { transient ? streak + 1 : 0 }
+
+    /// Pausiert diese Folge gestörter Bilder den Server (`transientPauseStreak`)?
+    static func transientStreakPauses(_ streak: Int) -> Bool { streak >= transientPauseStreak }
     /// Pause ohne Angabe des Servers.
     static let defaultImagePauseMillis: Int64 = 15 * 60_000
     /// Höchstens so lange (auch bei längerer «Retry-After»-Angabe).

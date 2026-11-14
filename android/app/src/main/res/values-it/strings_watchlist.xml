@@ -14,6 +14,7 @@
     <string name="watchlist_refresh_report">Ultimo aggiornamento</string>
     <string name="watchlist_symbols_legend">Legenda dei simboli</string>
     <string name="watchlist_symbols_legend_alarms">Allarmi attivi, con il loro numero</string>
+    <string name="watchlist_symbols_legend_warning">Prezzo non aggiornato o exchange non raggiungibile</string>
     <string name="watchlist_refresh_report_empty">Nessun dettaglio ancora: finora nessun aggiornamento completo. Tocca Aggiorna e attendi che l\'indicatore si fermi.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d su %2$d non aggiornato</item>
@@ -276,6 +277,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Chiudi avviso</string>
     <string name="watchlist_missing_logos_explain">Non è disponibile alcun logo per queste monete. L\'app mostra le iniziali.</string>
+    <string name="watchlist_missing_logos_pending">non ancora caricato</string>
+    <string name="watchlist_missing_logos_explain_pending">I loghi segnati come non ancora caricati arrivano con la prossima sincronizzazione, alcuni solo in Wi-Fi. Per le altre crypto non è disponibile alcun logo. L\'app mostra le loro iniziali.</string>
     <string name="exchange_retiring_notice">Dal %2$s %1$s non fornirà più prezzi pubblici. Scegli un altro exchange per queste monete.</string>
     <string name="exchange_retiring_reason">Dal %2$s %1$s non fornirà più prezzi</string>
     <string name="exchange_retired_since">Dal %2$s %1$s non fornisce più prezzi</string>

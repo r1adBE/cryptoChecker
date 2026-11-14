@@ -76,7 +76,9 @@ enum BackgroundSchedule {
     ///
     /// Nicht gehandelte Paare und Paare stillgelegter Börsen (`notTraded`) zählen weder als versucht noch als gescheitert;
     /// sind ALLE Paare so (`attempted` 0, `notTraded` > 0), ist der Lauf trotzdem voll (Portfolio-, Gas-, Depeg-Alarme).
-    static func isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0) -> Bool {
+    static func isFullCheck(attempted: Int, failed: Int, notTraded: Int = 0, cutByBudget: Int = 0) -> Bool {
+        // Paare am Zeitbudget ausgelassen: ihre Alarme ungeprüft — der nächste Lauf darf nicht wegfallen (wie Android)
+        if cutByBudget > 0 { return false }
         if attempted == 0 && failed == 0 { return notTraded > 0 }
         return attempted > 0 && failed >= 0 && failed < attempted && (attempted - failed) * 2 > attempted
     }

@@ -47,7 +47,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Iš viso</string>
     <string name="portfolio_hide_amounts">Slėpti sumas</string>
-    <string name="portfolio_hide_amounts_hint">Portfelyje ir portfelio valdiklyje sumas ir vertes rodo kaip ••• – procentai lieka matomi.</string>
+    <string name="portfolio_hide_amounts_hint">Portfelyje, portfelio valdiklyje, laikrodyje ir portfelio įspėjimuose sumas ir vertes rodo kaip ••• – procentai lieka matomi.</string>
     <string name="portfolio_invested">Savikaina</string>
     <string name="portfolio_total_no_fx">Nėra %1$s valiutos kurso – sumos USDT</string>
     <string name="portfolio_total_value">Bendra vertė</string>
@@ -106,6 +106,7 @@
     <string name="portfolio_discard_title">Atmesti pakeitimus?</string>
     <string name="portfolio_edit_tx">Redaguoti transakciją</string>
     <string name="portfolio_invalid">Įvesk tinkamą skaičių, didesnį už 0.</string>
+    <string name="number_ambiguous">Neaišku: %1$s ar %2$s? Įvesk vieną iš dviejų.</string>
     <string name="portfolio_oversold">Pardavimai viršija turimą kiekį – patikrink transakcijas.</string>
     <string name="portfolio_sell">Pardavimas</string>
     <string name="portfolio_sell_exceeds">Daugiau nei turi (%1$s)</string>

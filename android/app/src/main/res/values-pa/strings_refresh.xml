@@ -91,6 +91,8 @@
     <string name="check_result_ok">ਠੀਕ ਹੈ</string>
     <string name="check_result_partial">ਅੰਸ਼ਕ</string>
     <string name="check_result_skipped">ਛੱਡਿਆ ਗਿਆ</string>
+    <string name="check_result_paused">ਰੋਕਿਆ ਗਿਆ, ਕੁਝ ਵੀ ਜਾਂਚਿਆ ਨਹੀਂ</string>
+    <string name="check_result_offline">ਛੱਡਿਆ ਗਿਆ (ਔਫਲਾਈਨ)</string>
     <string name="check_trigger_bgtask">ਪਿਛੋਕੜ</string>
     <string name="check_trigger_exact">ਸਮੇਂ ਸਿਰ</string>
     <string name="check_trigger_foreground">ਐਪ</string>

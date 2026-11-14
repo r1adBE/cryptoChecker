@@ -92,6 +92,16 @@ enum AddressServer {
         return c.problem == nil ? c.url : current
     }
 
+    /// Server in einer Sicherungsdatei: nur in einer Datei mit Passwort (`encrypted`), sonst nil. Einspielen ohne Passwort
+    /// ändert den Server ohnehin nie (`restored`); eine lesbare Datei verriete nur, wo die Bitcoin-Adressen abgefragt
+    /// werden. Journal: unverändert. Wie Android.
+    static func exported(_ server: String?, encrypted: Bool) -> String? { encrypted ? server : nil }
+
+    /// Darf eine Adresse von `chain` gerade abgefragt werden? Bitcoin (Adressen und xpub) nicht, solange nach ersetzten
+    /// Einstellungen unbekannt ist, ob ein eigener Server eingetragen war (`serverUnknown`) — sonst gingen sie still an
+    /// öffentliche Knoten. Gilt, bis der Nutzer den Server neu einträgt oder öffentliche Knoten bestätigt. Wie Android.
+    static func queryAllowed(_ chain: AddressChain, serverUnknown: Bool) -> Bool { !(serverUnknown && chain == .BTC) }
+
     private static func invalid(_ problem: Problem) -> Check { Check(url: nil, problem: problem) }
 
     private static func isAsciiAlnum(_ c: Character) -> Bool {

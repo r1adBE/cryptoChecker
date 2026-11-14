@@ -10,6 +10,7 @@ enum WatchStore {
     private static let group = "group.com.cryptochecker.app"
     private static let keySettings = "watch_settings"
     private static let keyPhoneCoins = "watch_phone_coins"
+    private static let keyPhoneTime = "watch_phone_time"
     private static let quotesFileName = "watch_quotes.json"
     private static let portfolioFileName = "watch_portfolio.json"
 
@@ -50,8 +51,13 @@ enum WatchStore {
         Set(defaults.stringArray(forKey: keyPhoneCoins) ?? [])
     }
 
-    /// Kurse vom iPhone übernehmen (`WatchCache.mergeTimed`, je Coin mit der Zeit des iPhones) und die gelieferten
-    /// Coins merken; Ergebnis = neuer Stand, nil = nicht gespeichert.
+    /// Stand der letzten Kurse vom iPhone (`WatchPhoneQuotes.deliveryTime`); 0 = keine (`WatchPhoneQuotes.usePhone`).
+    static var phoneTime: Int64 {
+        (defaults.object(forKey: keyPhoneTime) as? NSNumber)?.int64Value ?? 0
+    }
+
+    /// Kurse vom iPhone übernehmen (`WatchCache.mergeTimed`, je Coin mit der Zeit des iPhones), die gelieferten Coins
+    /// und den Stand der Lieferung (`phoneTime`) merken; Ergebnis = neuer Stand, nil = nicht gespeichert.
     @discardableResult
     static func takePhoneQuotes(_ quotes: [WatchPhoneQuotes.Quote]) -> [String: WatchCached]? {
         let choice = settings
@@ -60,7 +66,15 @@ enum WatchStore {
                                                      source: q.exchange), time: q.time))
         }, uniquingKeysWith: { a, _ in a })
         defaults.set(quotes.map(\.symbol), forKey: keyPhoneCoins)
+        defaults.set(NSNumber(value: WatchPhoneQuotes.deliveryTime(quotes)), forKey: keyPhoneTime)
         return quoteFile.mergeTimed(fresh, keep: choice.kept)
+    }
+
+    /// Kurse kommen nicht mehr vom iPhone (iPhone-App entfernt): `phoneCoins` und `phoneTime` vergessen, die Uhr holt
+    /// dann selbst (`WatchPhoneQuotes.selfFetch`); die Kurse selbst bleiben mit ihrer Zeit. Wie Android.
+    static func forgetPhoneQuotes() {
+        defaults.removeObject(forKey: keyPhoneCoins)
+        defaults.removeObject(forKey: keyPhoneTime)
     }
 
     /// Portfolio-Wert vom iPhone; nil = keiner (Schalter auf dem iPhone aus oder nie gesendet).

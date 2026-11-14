@@ -82,6 +82,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Sebagian</string>
     <string name="check_result_skipped">Dilewati</string>
+    <string name="check_result_paused">Dijeda, tidak ada yang diperiksa</string>
+    <string name="check_result_offline">Dilewati (offline)</string>
     <string name="check_trigger_bgtask">Latar belakang</string>
     <string name="check_trigger_exact">Tepat waktu</string>
     <string name="check_trigger_foreground">Aplikasi</string>

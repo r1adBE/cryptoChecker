@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ポートフォリオから外れる（出庫）</string>
     <string name="portfolio_csv_import_choose_each">出庫ごとに行き先を選んでください。</string>
     <string name="portfolio_csv_import_columns">認識した列：%1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">読み込み済み：%1$s 行目</string>
     <string name="portfolio_csv_import_confirm">読み込む（%1$d）</string>
     <string name="portfolio_csv_import_date_day_first">日/月</string>
     <string name="portfolio_csv_import_date_month_first">月/日</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ステーブルコイン（USDT、USDC …）での売買はスワップとして記録されます – ステーブルコインは保有量に表示されます。</string>
     <string name="portfolio_csv_import_transfer_ambiguous">候補が複数あります – 正しいものを選ぶか、選ばないでください。</string>
+    <string name="portfolio_csv_import_transfer_loose">手数料が高いか到着が遅れています – 同じ送金か確認してください。</string>
     <string name="portfolio_csv_import_transfer_fee">ネットワーク手数料：%1$s</string>
     <string name="portfolio_csv_import_transfer_link">1件の振替として記録</string>
     <string name="portfolio_csv_import_transfer_stored">以前のインポートの対応取引</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">日次レートの基準日（暦日）のタイムゾーン：%1$s</string>
     <string name="portfolio_csv_import_rates_failed">日次レートを読み込めませんでした。</string>
     <string name="portfolio_csv_import_anyway">このまま読み込む</string>
-    <string name="portfolio_csv_import_anyway_hint">日次レートがないと、価格または手数料が欠けたままになります。再試行するか、このまま読み込んでください – その取引にはメモが付きます。</string>
+    <string name="portfolio_csv_import_anyway_hint">日次レートがない場合、価格または手数料は入力するまで欠けたままです。再試行するか、そのままインポートしてください。該当する取引にはメモが付きます。</string>
     <string name="portfolio_csv_note_price_no_rate">日次レートなしの価格</string>
     <string name="portfolio_csv_note_fee_no_rate">日次レートなしの手数料</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s には日次レートがないため、再試行しても解決しません。このまま読み込む場合、その取引にはメモが付きます。</string>

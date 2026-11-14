@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">ಅಲರ್ಟ್‌ಗಳು ಆನ್ – ಇನ್ನೂ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ ಆಗಿಲ್ಲ</string>
     <string name="alarm_reliability_notifications_off">ಅಧಿಸೂಚನೆಗಳು ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ತಲುಪುವುದಿಲ್ಲ</string>
     <string name="alarm_reliability_battery">ಬ್ಯಾಟರಿ ಉಳಿತಾಯ ಅಲರ್ಟ್ ಪರಿಶೀಲನೆಗಳನ್ನು ನಿಲ್ಲಿಸಬಹುದು</string>
+    <string name="alarm_reliability_offline">ಸಂಪರ್ಕವಿಲ್ಲ – ನೆಟ್‌ವರ್ಕ್ ಮರಳಿದಾಗ ಅಲಾರಂಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ</string>
     <string name="alarm_reliability_background_refresh">ಹಿನ್ನೆಲೆ ಆ್ಯಪ್ ರಿಫ್ರೆಶ್ ಆಫ್ – ಅಲರ್ಟ್‌ಗಳು ಬರದಿರಬಹುದು</string>
 </resources>

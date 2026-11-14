@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Ozadje</string>
-    <string name="widget_configure_hint">Izberi ozadje in neprosojnost. Barva sledi aplikaciji. Pripomoček prikaže celoten seznam; tapni vrstico, da odpreš aplikacijo.</string>
+    <string name="widget_configure_hint">Izberi ozadje in prekrivnost. Barva sledi aplikaciji. Pripomoček prikazuje tvoj seznam ali skupino, izbrano spodaj; tapni vrstico, da odpreš aplikacijo.</string>
     <string name="widget_configure_title">Nastavi pripomoček</string>
     <string name="widget_description">Prikaže tečaj para s tvojega seznama.</string>
     <string name="widget_empty">Na seznamu še ni parov.</string>

@@ -190,7 +190,7 @@ struct CryptoCheckerApp: App {
                         AppPrivacyCover()
                     }
                 }
-                .environment(\.appAccent, data.settings.accentColor)
+                .environment(\.appAccent, data.settings.accentColor).environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
                 // Coin-Logos (Schalter «In der App», «Im Portfolio»); aus → Initialen
                 .environment(\.coinLogosEnabled, data.settings.coinLogos)
                 .environment(\.portfolioCoinLogosEnabled, data.settings.portfolioCoinLogos)

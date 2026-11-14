@@ -39,6 +39,8 @@ class ManualRefresh(
     private val connectivity: ManualRefreshNet,
     private val checkRuns: CheckRunStore,
     defaultDispatcher: CoroutineDispatcher,
+    /** Netz wieder da: Pausen wegen Zeitüberschreitung verwerfen ([ExchangeBackoff.withoutTimeoutPauses]). */
+    private val onReconnect: () -> Unit = {},
 ) {
     private val scope = appScope(defaultDispatcher, "ManualRefresh")
 
@@ -54,7 +56,11 @@ class ManualRefresh(
         scope.launch {
             var previous: Boolean? = null
             connectivity.online.collect { online ->
-                if (OfflineGate.resumeOnChange(previous, online) && AppVisibility.visible) request()
+                if (OfflineGate.resumeOnChange(previous, online)) {
+                    // Auch im Hintergrund: der nächste Lauf (WorkManager) soll die Börsen nicht weiter überspringen
+                    onReconnect()
+                    if (AppVisibility.visible) request()
+                }
                 previous = online
             }
         }

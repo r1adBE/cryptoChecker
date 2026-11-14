@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">背景</string>
-    <string name="widget_configure_hint">选择背景和不透明度。颜色跟随应用。小部件显示整个列表，点按一行即可打开应用。</string>
+    <string name="widget_configure_hint">选择背景和不透明度。颜色跟随 App。小部件显示你的列表或下方选择的分组；点一下某一行即可打开 App。</string>
     <string name="widget_configure_title">设置小部件</string>
     <string name="widget_description">显示自选列表中某个交易对的价格。</string>
     <string name="widget_empty">自选列表中还没有交易对。</string>

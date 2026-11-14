@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Laatste vernieuwing</string>
     <string name="watchlist_symbols_legend">Uitleg van symbolen</string>
     <string name="watchlist_symbols_legend_alarms">Actieve alarmen, met hun aantal</string>
+    <string name="watchlist_symbols_legend_warning">Koers verouderd of beurs niet bereikbaar</string>
     <string name="watchlist_refresh_report_empty">Nog geen overzicht: er is nog geen volledige vernieuwing geweest. Tik op vernieuwen en wacht tot de spinner stopt.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d van %2$d verouderd</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Melding sluiten</string>
     <string name="watchlist_missing_logos_explain">Voor deze munten is geen logo beschikbaar. De app toont hun initialen.</string>
+    <string name="watchlist_missing_logos_pending">nog niet geladen</string>
+    <string name="watchlist_missing_logos_explain_pending">Logo’s die als nog niet geladen zijn gemarkeerd, volgen bij de volgende synchronisatie, sommige alleen via wifi. Voor de overige coins is geen logo beschikbaar. De app toont hun initialen.</string>
     <string name="exchange_retiring_notice">Vanaf %2$s levert %1$s geen openbare koersen meer. Kies een andere beurs voor deze munten.</string>
     <string name="exchange_retiring_reason">Vanaf %2$s levert %1$s geen koersen meer</string>
     <string name="exchange_retired_since">Sinds %2$s levert %1$s geen koersen meer</string>

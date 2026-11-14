@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.data.guardedWrite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
@@ -77,12 +78,13 @@ class AlarmsOverviewViewModel @Inject constructor(
         )
 
     fun setPortfolioAlarmEnabled(id: Long, enabled: Boolean) {
-        viewModelScope.launch { portfolioAlarmRepository.setEnabled(id, enabled) }
+        // Speicher voll o. ä.: Hinweis statt Absturz (`guardedWrite`, wie die Paar-Alarme)
+        viewModelScope.launch { guardedWrite(Unit) { portfolioAlarmRepository.setEnabled(id, enabled) } }
     }
 
     fun deletePortfolioAlarm(id: Long) {
         viewModelScope.launch {
-            portfolioAlarmRepository.delete(id)
+            if (!guardedWrite(false) { portfolioAlarmRepository.delete(id); true }) return@launch
             // Die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
             com.cryptochecker.app.domain.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
         }

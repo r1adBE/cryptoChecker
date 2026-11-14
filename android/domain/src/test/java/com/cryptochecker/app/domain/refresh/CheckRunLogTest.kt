@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -32,6 +33,20 @@ class CheckRunLogTest {
         assertEquals(CheckResult.OK, CheckRunLog.result(checked = 5, failed = 0))
         assertEquals(CheckResult.PARTIAL, CheckRunLog.result(checked = 5, failed = 2))
         assertEquals(CheckResult.FAILED, CheckRunLog.result(checked = 5, failed = 5))
+        // Alle Börsen pausiert bzw. Alarme ohne Lease: nichts geprüft, nicht «OK» (B3-02)
+        assertEquals(CheckResult.PAUSED, CheckRunLog.result(checked = 0, failed = 0, paused = 3))
+        assertEquals(CheckResult.OK, CheckRunLog.result(checked = 2, failed = 0, paused = 3))
+        assertEquals(CheckResult.PAUSED, CheckRunLog.result(checked = 5, failed = 0, alarmsUnchecked = true))
+        // Pausiert und offline zählen nicht als letzte Prüfung; offline übersprungen wird erkannt (B3-11)
+        val runs = listOf(
+            CheckRun(300, CheckTrigger.EXACT, CheckResult.OFFLINE, 0),
+            CheckRun(200, CheckTrigger.WORKER, CheckResult.PAUSED, 10),
+            CheckRun(100, CheckTrigger.WORKER, CheckResult.OK, 10),
+        )
+        assertEquals(100L, CheckRunLog.lastBackgroundCheck(runs))
+        assertTrue(CheckRunLog.offlineSkipped(runs))
+        assertFalse(CheckRunLog.offlineSkipped(runs.drop(1)))
+        assertEquals(runs, CheckRunLog.decode(CheckRunLog.encode(runs)))
     }
 
     /** «Letzte Prüfung»: nur geplante Läufe, die nicht gescheitert sind; übersprungene zählen. Wie iOS. */

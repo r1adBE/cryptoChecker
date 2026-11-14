@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Forlader porteføljen (udbetaling)</string>
     <string name="portfolio_csv_import_choose_each">Vælg for hver udbetaling, hvor den gik hen.</string>
     <string name="portfolio_csv_import_columns">Genkendte kolonner: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Allerede importeret: linjer %1$s</string>
     <string name="portfolio_csv_import_confirm">Importér (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dag/Måned</string>
     <string name="portfolio_csv_import_date_month_first">Måned/Dag</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Køb og salg mod stablecoins (USDT, USDC …) bogføres som bytte – stablecoinen vises i din beholdning.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Flere mulige match – vælg det rigtige eller ingen.</string>
+    <string name="portfolio_csv_import_transfer_loose">Høj gebyr eller sen ankomst – tjek, at det er den samme overførsel.</string>
     <string name="portfolio_csv_import_transfer_fee">Netværksgebyr: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Bogfør som én overførsel</string>
     <string name="portfolio_csv_import_transfer_stored">Modpart fra en tidligere import</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Dagskurser efter kalenderdagen i: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Dagskurserne kunne ikke hentes.</string>
     <string name="portfolio_csv_import_anyway">Importér alligevel</string>
-    <string name="portfolio_csv_import_anyway_hint">Uden dagskurs mangler pris eller gebyr permanent. Prøv igen, eller importér alligevel – de transaktioner får så en note.</string>
+    <string name="portfolio_csv_import_anyway_hint">Uden en dagskurs mangler prisen eller gebyret, indtil du tilføjer det. Prøv igen, eller importér alligevel – de transaktioner får så en note.</string>
     <string name="portfolio_csv_note_price_no_rate">Pris uden dagskurs</string>
     <string name="portfolio_csv_note_fee_no_rate">Gebyr uden dagskurs</string>
     <string name="portfolio_csv_import_no_rates_for">Der findes ingen dagskurser for %1$s, så det hjælper ikke at prøve igen. Importerer du alligevel, får de transaktioner en note.</string>

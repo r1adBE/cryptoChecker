@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Багцаас гарна (татан авалт)</string>
     <string name="portfolio_csv_import_choose_each">Татан авалт бүр хаашаа явсныг сонгоно уу.</string>
     <string name="portfolio_csv_import_columns">Танисан баганууд: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Аль хэдийн импортолсон: мөр %1$s</string>
     <string name="portfolio_csv_import_confirm">Импортлох (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Өдөр/Сар</string>
     <string name="portfolio_csv_import_date_month_first">Сар/Өдөр</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Стэйблкойны (USDT, USDC …) эсрэг арилжааг солилцоо гэж бүртгэнэ – стэйблкойн таны хөрөнгөд харагдана.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Хэд хэдэн тохирол байж болно – зөвийг нь сонгох эсвэл алийг нь ч сонгохгүй байна уу.</string>
+    <string name="portfolio_csv_import_transfer_loose">Өндөр шимтгэл эсвэл хожуу ирсэн – ижил шилжүүлэг мөн эсэхийг шалгана уу.</string>
     <string name="portfolio_csv_import_transfer_fee">Сүлжээний шимтгэл: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Нэг шилжүүлэг болгон бүртгэх</string>
     <string name="portfolio_csv_import_transfer_stored">Өмнөх импортын эсрэг бичлэг</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Өдрийн ханшийг энэ цагийн бүсийн хуанлийн өдрөөр тооцно: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Өдрийн ханшийг ачаалж чадсангүй.</string>
     <string name="portfolio_csv_import_anyway">Гэсэн ч импортлох</string>
-    <string name="portfolio_csv_import_anyway_hint">Өдрийн ханшгүй бол үнэ эсвэл шимтгэл бүрмөсөн дутуу үлдэнэ. Дахин оролдоно уу, эсвэл гэсэн ч импортолно уу – тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ.</string>
+    <string name="portfolio_csv_import_anyway_hint">Өдрийн ханшгүй бол үнэ эсвэл шимтгэл таныг нэмтэл дутуу байна. Дахин оролдох эсвэл ямар ч байсан импортлоно уу – тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ.</string>
     <string name="portfolio_csv_note_price_no_rate">Өдрийн ханшгүй үнэ</string>
     <string name="portfolio_csv_note_fee_no_rate">Өдрийн ханшгүй шимтгэл</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-д өдрийн ханш байхгүй тул дахин оролдох нь тус болохгүй. Гэсэн ч импортловол тэдгээр гүйлгээнд тэмдэглэл нэмэгдэнэ.</string>

@@ -92,18 +92,19 @@ class AlarmDeliveryViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached)
 
     /** Ende der letzten vom System geplanten Prüfung (WorkManager, «Pünktlich prüfen»); Widget, App und gescheiterte Läufe zählen nicht. */
-    val lastBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
-        .map { runs -> lastScheduled(runs) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), lastScheduled(checkRunStore.runs.value))
+    val lastBackgroundCheck: StateFlow<Long?> = checkRunStore.runs.map(CheckRunLog::lastBackgroundCheck)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.lastBackgroundCheck(checkRunStore.runs.value))
 
     /** Neuester geplanter Lauf, wenn keiner der gespeicherten gelang (Zuverlässigkeitszeile warnt dann). */
-    val lastFailedBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
-        .map { runs -> CheckRunLog.lastFailedBackgroundCheck(runs) }
+    val lastFailedBackgroundCheck: StateFlow<Long?> = checkRunStore.runs.map(CheckRunLog::lastFailedBackgroundCheck)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.lastFailedBackgroundCheck(checkRunStore.runs.value))
 
+    /** Neuester geplanter Lauf offline nicht versucht: die Zuverlässigkeitszeile nennt das Netz statt «Akku». */
+    val offlineSkipped: StateFlow<Boolean> = checkRunStore.runs.map(CheckRunLog::offlineSkipped)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.offlineSkipped(checkRunStore.runs.value))
+
     /** Ältester gespeicherter geplanter Lauf, wenn keiner gelang: seit dann scheitert jede Prüfung. */
-    val failingSince: StateFlow<Long?> = checkRunStore.runs
-        .map { runs -> CheckRunLog.failingSince(runs) }
+    val failingSince: StateFlow<Long?> = checkRunStore.runs.map(CheckRunLog::failingSince)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CheckRunLog.failingSince(checkRunStore.runs.value))
 
     /** Alles, was nur eine Prüfung im Hintergrund meldet ([AlarmReadiness.hasBackgroundAlarms]), nicht nur Paar-Alarme. */
@@ -125,9 +126,6 @@ class AlarmDeliveryViewModel @Inject constructor(
     }
         .catch { emit(false) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
-
-    private fun lastScheduled(runs: List<com.cryptochecker.app.domain.refresh.CheckRun>): Long? =
-        CheckRunLog.lastBackgroundCheck(runs)
 }
 
 /** Alarm-Arten aus Einstellungen und Alarmen ([AlarmReadiness.hasBackgroundAlarms]); auch für «Diagnose teilen». */

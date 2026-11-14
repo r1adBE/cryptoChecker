@@ -1,5 +1,5 @@
 {
- "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup; only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; SET = backup with password set a server where none was – for CHANGED and SET the message names the «host» Bitcoin addresses go to from now on (BackupRestorePolicy.addressServerHost, without port and path; absent = null); null = no hint. «lowered»: protection a backup switched off, named in the restore message (BackupRestorePolicy.loweredProtection): systemBackupOn = «Portfolio in system backup» was off and is on now, amountsShown = «Hide amounts» was on and is off now, lockOff = the portfolio lock (wantedAppLock/currentAppLock) was on and is off now – each named in its own sentence; a backup without password (trusted false) never does any of these.",
+ "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup; only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; SET = backup with password set a server where none was – for CHANGED and SET the message names the «host» Bitcoin addresses go to from now on (BackupRestorePolicy.addressServerHost, without port and path; absent = null); null = no hint. «lowered»: protection a backup switched off, named in the restore message (BackupRestorePolicy.loweredProtection): systemBackupOn = «Portfolio in system backup» was off and is on now, amountsShown = «Hide amounts» was on and is off now, lockOff = the portfolio lock (wantedAppLock/currentAppLock) was on and is off now – each named in its own sentence; a backup without password (trusted false) never does any of these. «export»: server written into a backup file (AddressServer.exported) – only into a file with password (encrypted), otherwise null; the restore journal keeps it. «unknownServer»: may an address of «chain» be queried (AddressServer.queryAllowed)? Bitcoin (addresses and xpub) not while serverUnknown (settings were replaced after they could not be read, so it is unknown whether an own server was set) – until the user enters the server again or confirms public nodes.",
  "check": [
   {"input": "", "url": null, "problem": null},
   {"input": "   ", "url": null, "problem": null},
@@ -100,5 +100,18 @@
   {"wantedSystemBackup": false, "currentSystemBackup": false, "wantedHideAmounts": true, "currentHideAmounts": true, "wantedAppLock": false, "currentAppLock": true, "trusted": false, "systemBackupOn": false, "amountsShown": false, "lockOff": false},
   {"wantedSystemBackup": false, "currentSystemBackup": false, "wantedHideAmounts": true, "currentHideAmounts": true, "wantedAppLock": false, "currentAppLock": false, "trusted": true, "systemBackupOn": false, "amountsShown": false, "lockOff": false},
   {"wantedSystemBackup": true, "currentSystemBackup": false, "wantedHideAmounts": false, "currentHideAmounts": true, "wantedAppLock": false, "currentAppLock": true, "trusted": true, "systemBackupOn": true, "amountsShown": true, "lockOff": true}
+ ],
+ "export": [
+  {"server": "https://node.example.org/api", "encrypted": true, "result": "https://node.example.org/api"},
+  {"server": "https://node.example.org/api", "encrypted": false, "result": null},
+  {"server": null, "encrypted": true, "result": null},
+  {"server": null, "encrypted": false, "result": null}
+ ],
+ "unknownServer": [
+  {"chain": "BTC", "serverUnknown": true, "allowed": false},
+  {"chain": "BTC", "serverUnknown": false, "allowed": true},
+  {"chain": "ETH", "serverUnknown": true, "allowed": true},
+  {"chain": "SOL", "serverUnknown": true, "allowed": true},
+  {"chain": "LTC", "serverUnknown": true, "allowed": true}
  ]
 }

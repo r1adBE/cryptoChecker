@@ -52,6 +52,31 @@ class IndicatorsParityTest {
         }
     }
 
+    private fun days(raw: Any?): List<Indicators.DayClose> =
+        raw.list().map { it.list().let { p -> Indicators.DayClose(p[0].num()!!.toLong(), p[1].num()!!) } }
+
+    /** Kennzahlen «vor n Tagen» nach Datum, nicht nach Kerzen-Position (Lücken einer Quelle verschieben nichts). */
+    @Test
+    fun byDateWieGemeinsameTestfaelle() {
+        for (raw in data["closeOnOrBefore"].list()) {
+            val c = raw.obj()
+            check("closeOnOrBefore: ${c["name"]}", c["expected"].num(),
+                Indicators.closeOnOrBefore(days(c["series"]), c["day"].num()!!.toLong()))
+        }
+        for (raw in data["changeOverDays"].list()) {
+            val c = raw.obj()
+            check("changeOverDays: ${c["name"]}", c["expected"].num(),
+                Indicators.changeOverDays(days(c["series"]), c["days"].num()!!.toInt()))
+        }
+        val relative = data["relativeChange"].list()
+        assertTrue(relative.size >= 4)
+        for (raw in relative) {
+            val c = raw.obj()
+            check("relativeChange: ${c["name"]}", c["expected"].num(),
+                Indicators.relativeChangePercent(days(c["coin"]), days(c["btc"]), c["days"].num()!!.toInt()))
+        }
+    }
+
     @Test
     fun rsiBleibtZwischenNullUndHundert() {
         for (raw in data["rsi"].list()) {

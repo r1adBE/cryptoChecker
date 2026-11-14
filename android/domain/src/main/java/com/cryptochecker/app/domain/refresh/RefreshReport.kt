@@ -166,6 +166,16 @@ object RefreshReportLogic {
     /** Gespeicherter Fehlertext meldet die Standort-Sperre ([REGION_BLOCKED_HTTP]). */
     fun isRegionBlocked(error: String?): Boolean = httpStatus(error) == REGION_BLOCKED_HTTP
 
+    /**
+     * HTTP 403 ohne Bremsen-Text: die Börse verweigert den Zugriff (Sperrseite eines CDN, Firewall). Ein neuer Versuch
+     * hilft so wenig wie bei 451 ([com.cryptochecker.app.domain.remote.BlockedSources] pausiert 6 h); die Zeile sagt
+     * «verweigert den Zugriff» statt «nicht erreichbar». Wie iOS (Fälle in `exchange_failure.json`, «accessDenied»).
+     */
+    fun isAccessDenied(error: String?): Boolean =
+        httpStatus(error) == ACCESS_DENIED_HTTP && classify(error) != RefreshFailure.RATE_LIMIT
+
+    const val ACCESS_DENIED_HTTP = 403
+
     /** Android `HttpExchangeError` («HttpCode: 429»), iOS `ExchangeHTTP` («HTTP 429»). */
     private val HTTP_CODE = Regex("""\bhttp(?:code:)?\s*(\d{3})\b""")
 
@@ -174,6 +184,8 @@ object RefreshReportLogic {
     private val OFFLINE_HINTS = listOf(
         "unknownhost", "unable to resolve host", "connectexception", "failed to connect",
         "noroutetohost", "network is unreachable", "connection reset", "connection refused", "ssl", "eof",
+        // Verbindung mitten in der Antwort getrennt (OkHttp)
+        "connection abort", "unexpected end of stream", "stream was reset", "socket closed", "broken pipe",
     )
 
     /** iOS `ConnectionErrors.offlineMarker` (kein Netz, auch Zeitüberschreitung). */

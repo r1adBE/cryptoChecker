@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ทั้งหมด</string>
     <string name="portfolio_hide_amounts">ซ่อนจำนวนเงิน</string>
-    <string name="portfolio_hide_amounts_hint">แสดงจำนวนเงินและมูลค่าในพอร์ตโฟลิโอและวิดเจ็ตพอร์ตโฟลิโอเป็น ••• – เปอร์เซ็นต์ยังมองเห็นได้</string>
+    <string name="portfolio_hide_amounts_hint">แสดงจำนวนเงินและมูลค่าในพอร์ตโฟลิโอ วิดเจ็ตพอร์ตโฟลิโอ บนนาฬิกา และในการแจ้งเตือนพอร์ตโฟลิโอเป็น ••• – เปอร์เซ็นต์ยังมองเห็นได้</string>
     <string name="portfolio_invested">ต้นทุน</string>
     <string name="portfolio_total_no_fx">ไม่มีอัตราแลกเปลี่ยนสำหรับ %1$s – จำนวนเงินเป็น USDT</string>
     <string name="portfolio_total_value">มูลค่ารวม</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">ยกเลิกการเปลี่ยนแปลงหรือไม่</string>
     <string name="portfolio_edit_tx">แก้ไขรายการ</string>
     <string name="portfolio_invalid">ใส่ตัวเลขที่ถูกต้องซึ่งมากกว่า 0</string>
+    <string name="number_ambiguous">ไม่ชัดเจน: %1$s หรือ %2$s โปรดพิมพ์แบบใดแบบหนึ่ง</string>
     <string name="portfolio_oversold">ยอดขายเกินจำนวนที่ถือ – โปรดตรวจสอบรายการ</string>
     <string name="portfolio_sell">ขาย</string>
     <string name="portfolio_sell_exceeds">มากกว่าที่คุณถือ (%1$s)</string>

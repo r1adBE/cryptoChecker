@@ -43,6 +43,30 @@ final class IndicatorsParityTests: XCTestCase {
         }
     }
 
+    private func days(_ raw: Any?) -> [Indicators.DayClose] {
+        (raw as? [[Any]] ?? []).map { Indicators.DayClose(day: Int(S.number($0[0]) ?? 0), close: S.number($0[1]) ?? 0) }
+    }
+
+    /// Kennzahlen «vor n Tagen» nach Datum, nicht nach Kerzen-Position (Lücken einer Quelle verschieben nichts).
+    func testByDateWieGemeinsameTestfaelle() throws {
+        let data = try S.fixture("indicators")
+        for c in S.list(data["closeOnOrBefore"]) {
+            check("closeOnOrBefore: \(c["name"] as? String ?? "")", S.number(c["expected"]),
+                  Indicators.closeOnOrBefore(days(c["series"]), day: Int(S.number(c["day"]) ?? 0)))
+        }
+        for c in S.list(data["changeOverDays"]) {
+            check("changeOverDays: \(c["name"] as? String ?? "")", S.number(c["expected"]),
+                  Indicators.changeOverDays(days(c["series"]), days: Int(S.number(c["days"]) ?? 0)))
+        }
+        let relative = S.list(data["relativeChange"])
+        XCTAssertGreaterThanOrEqual(relative.count, 4)
+        for c in relative {
+            check("relativeChange: \(c["name"] as? String ?? "")", S.number(c["expected"]),
+                  Indicators.relativeChangePercent(coin: days(c["coin"]), btc: days(c["btc"]),
+                                                   days: Int(S.number(c["days"]) ?? 0)))
+        }
+    }
+
     func testRsiBleibtZwischenNullUndHundert() throws {
         for c in S.list(try S.fixture("indicators")["rsi"]) {
             let period = Int(try XCTUnwrap(S.number(c["period"])))

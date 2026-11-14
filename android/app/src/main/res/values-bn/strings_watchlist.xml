@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">শেষ রিফ্রেশ</string>
     <string name="watchlist_symbols_legend">প্রতীকের ব্যাখ্যা</string>
     <string name="watchlist_symbols_legend_alarms">সক্রিয় অ্যালার্ট ও তার সংখ্যা</string>
+    <string name="watchlist_symbols_legend_warning">দাম পুরনো বা এক্সচেঞ্জে পৌঁছানো যাচ্ছে না</string>
     <string name="watchlist_refresh_report_empty">এখনো কোনো বিবরণ নেই – এখন পর্যন্ত কোনো পূর্ণ রিফ্রেশ হয়নি। রিফ্রেশে ট্যাপ করে বৃত্তটি থামা পর্যন্ত অপেক্ষা করুন।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$dটির মধ্যে %1$dটি পুরোনো</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">বিজ্ঞপ্তি বন্ধ করুন</string>
     <string name="watchlist_missing_logos_explain">এই কয়েনগুলোর কোনো লোগো পাওয়া যায় না। অ্যাপটি এদের আদ্যক্ষর দেখায়।</string>
+    <string name="watchlist_missing_logos_pending">এখনও লোড হয়নি</string>
+    <string name="watchlist_missing_logos_explain_pending">এখনও লোড হয়নি হিসেবে চিহ্নিত লোগোগুলো পরের সিঙ্কে আসবে, কিছু শুধু Wi-Fi-তে। অন্য কয়েনগুলোর জন্য কোনো লোগো নেই। অ্যাপ তাদের আদ্যক্ষর দেখায়।</string>
     <string name="exchange_retiring_notice">%2$s থেকে %1$s আর পাবলিক দাম দেবে না। এই কয়েনগুলোর জন্য অন্য এক্সচেঞ্জ বেছে নিন।</string>
     <string name="exchange_retiring_reason">%2$s থেকে %1$s আর দাম দেবে না</string>
     <string name="exchange_retired_since">%2$s থেকে %1$s আর দাম দেয় না</string>

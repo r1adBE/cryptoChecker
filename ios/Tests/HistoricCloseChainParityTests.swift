@@ -62,7 +62,7 @@ final class HistoricCloseChainParityTests: XCTestCase {
                 asked.append(source)
                 let o = outcomes[source]
                 return HistoricCloseChain.Outcome(price: TestSupport.number(o?["price"]), rejected: o?["rejected"] as? Bool ?? false,
-                                                  provider: o?["provider"] as? String)
+                                                  provider: o?["provider"] as? String, failed: o?["failed"] as? Bool ?? false)
             }
             let e = c["expected"] as? [String: Any] ?? [:]
             let name = c["name"] as? String ?? ""
@@ -71,6 +71,15 @@ final class HistoricCloseChainParityTests: XCTestCase {
             XCTAssertEqual(r.provider, optionalString(e["provider"]), "provider \(name)")
             XCTAssertEqual(r.unchecked, e["unchecked"] as? Bool, "unchecked \(name)")
             XCTAssertEqual(asked, e["asked"] as? [String], "asked \(name)")
+            XCTAssertEqual(r.failed, e["failed"] as? Bool ?? false, "failed \(name)")
+        }
+    }
+
+    /// Gescheiterter Abruf: keine Daten / gesperrt (nächste Quelle) oder vorübergehend (Kette bricht ab).
+    func testFetchFailure() throws {
+        for c in TestSupport.list(try data()["fetchFailure"]) {
+            let code = TestSupport.number(c["httpCode"]).map { Int($0) }
+            XCTAssertEqual(HistoricCloseChain.fetchFailure(httpCode: code).rawValue, c["expected"] as? String, "\(c)")
         }
     }
 

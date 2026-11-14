@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">ສັນຍານເຕືອນພອດໂຟລິໂອກວດໂດຍບໍ່ມີທີ່ຢູ່ທີ່ບໍ່ໄດ້ໂຫຼດຍອດເງິນເປັນເວລາຫຼາຍກວ່າ 24 ຊົ່ວໂມງ</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">ໂທເຄັນບໍ່ເປັນປັດຈຸບັນບາງສ່ວນ</string>
+    <string name="portfolio_address_zero_unconfirmed">0 ຍັງບໍ່ໄດ້ຢືນຢັນ</string>
     <string name="portfolio_address_restore_failed">ກູ້ຄືນທີ່ຢູ່ບໍ່ໄດ້ – ເພີ່ມມັນອີກຄັ້ງຖ້າຈຳເປັນ</string>
     <string name="portfolio_address_remove_failed">ລຶບທີ່ຢູ່ອອກບໍ່ໄດ້ – ກະລຸນາລອງໃໝ່</string>
 </resources>

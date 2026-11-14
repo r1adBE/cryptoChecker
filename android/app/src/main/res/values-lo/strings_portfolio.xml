@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ທັງໝົດ</string>
     <string name="portfolio_hide_amounts">ເຊື່ອງຈຳນວນ</string>
-    <string name="portfolio_hide_amounts_hint">ສະແດງຈຳນວນ ແລະ ມູນຄ່າໃນພອດໂຟລິໂອ ແລະ ວິດເຈັດພອດໂຟລິໂອເປັນ ••• – ເປີເຊັນຍັງເຫັນໄດ້.</string>
+    <string name="portfolio_hide_amounts_hint">ສະແດງຈຳນວນ ແລະ ມູນຄ່າໃນພອດໂຟລິໂອ, ວິດເຈັດພອດໂຟລິໂອ, ໃນໂມງ ແລະ ໃນການແຈ້ງເຕືອນພອດໂຟລິໂອເປັນ ••• – ເປີເຊັນຍັງເຫັນໄດ້.</string>
     <string name="portfolio_invested">ຕົ້ນທຶນ</string>
     <string name="portfolio_total_no_fx">ບໍ່ມີອັດຕາແລກປ່ຽນສຳລັບ %1$s – ຈຳນວນເປັນ USDT</string>
     <string name="portfolio_total_value">ມູນຄ່າທັງໝົດ</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">ຖິ້ມການປ່ຽນແປງບໍ?</string>
     <string name="portfolio_edit_tx">ແກ້ໄຂທຸລະກຳ</string>
     <string name="portfolio_invalid">ໃສ່ຕົວເລກທີ່ຖືກຕ້ອງທີ່ຫຼາຍກວ່າ 0.</string>
+    <string name="number_ambiguous">ບໍ່ຊັດເຈນ: %1$s ຫຼື %2$s? ກະລຸນາພິມໜຶ່ງໃນສອງແບບ.</string>
     <string name="portfolio_oversold">ການຂາຍເກີນການຖືຄອງ – ກະລຸນາກວດທຸລະກຳ.</string>
     <string name="portfolio_sell">ຂາຍ</string>
     <string name="portfolio_sell_exceeds">ຫຼາຍກວ່າການຖືຄອງຂອງທ່ານ (%1$s)</string>

@@ -55,6 +55,8 @@
     <string name="alarm_threshold_error_funding">Caithfidh an maoiniú a bheith ina uimhir idir −10 agus +10 faoin gcéad.</string>
     <string name="alarm_threshold_error_invalid">Cuir isteach uimhir bhailí níos mó ná 0.</string>
     <string name="alarm_threshold_error_oi">Athrú ar ús oscailte: 1000 faoin gcéad ar a mhéad.</string>
+    <string name="alarm_threshold_error_percent_max">1000 faoin gcéad ar a mhéad.</string>
+    <string name="alarm_threshold_error_distance">Caithfidh an fad a bheith níos lú ná 100 faoin gcéad.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">laistigh de %1$d u</item>
         <item quantity="two">laistigh de %1$d u</item>
@@ -190,6 +192,7 @@
     <string name="alarm_a11y_speak_on">Caint ar siúl</string>
     <string name="alarm_unchecked_no_candles">Níorbh fhéidir seiceáil (gan sonraí coinnle)</string>
     <string name="alarm_unchecked_no_rate">Níorbh fhéidir seiceáil (gan ráta malairte)</string>
+    <string name="alarm_unchecked_no_window_price">Níorbh fhéidir seiceáil (gan praghas sa tréimhse ama)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Fógraí múchta – ní thiocfaidh an foláireamh seo chugat</string>

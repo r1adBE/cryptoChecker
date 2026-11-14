@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Pozadí</string>
-    <string name="widget_configure_hint">Vyber pozadí a průhlednost. Barva odpovídá aplikaci. Widget ukazuje celý seznam; klepnutím na řádek otevřeš aplikaci.</string>
+    <string name="widget_configure_hint">Vyber pozadí a neprůhlednost. Barva se řídí aplikací. Widget zobrazuje tvůj seznam nebo skupinu vybranou níže; klepnutím na řádek otevřeš aplikaci.</string>
     <string name="widget_configure_title">Nastavit widget</string>
     <string name="widget_description">Zobrazuje cenu páru ze sledovaných.</string>
     <string name="widget_empty">Ve sledovaných zatím nejsou žádné páry.</string>

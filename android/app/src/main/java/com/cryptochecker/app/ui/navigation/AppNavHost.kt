@@ -48,6 +48,7 @@ import com.cryptochecker.app.ui.features.explorer.setSearchQuery
 import com.cryptochecker.app.ui.features.info.MarketJump
 import com.cryptochecker.app.ui.features.info.MarketPhaseScreen
 import com.cryptochecker.app.ui.features.info.MarketSectionScreen
+import com.cryptochecker.app.ui.features.portfolio.LocalHidePortfolioAmounts
 import com.cryptochecker.app.ui.features.portfolio.PortfolioDetailScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioViewModel
@@ -73,8 +74,7 @@ fun AppNavHost(
 ) {
     val backStackEntry by navigation.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
-    // Muster der aktuellen Route (nur als Schlüssel der Effekte unten, verglichen wird typsicher)
-    val currentRoute = currentDestination?.route
+    val currentRoute = currentDestination?.route // Muster der Route: nur Schlüssel der Effekte unten (Vergleich typsicher)
     // Unterseiten des Portfolios (Coin-Detail, Steuer-Arbeitsunterlage): gesperrt zurück zum Tab
     val onPortfolioSubpage = currentDestination?.hasRoute<ScreenRoute.PortfolioCoin>() == true ||
         currentDestination?.hasRoute<ScreenRoute.PortfolioTaxWorksheet>() == true
@@ -188,6 +188,7 @@ fun AppNavHost(
     // Erneutes Tippen auf den gewählten Tab: an den Anfang rollen (wie iOS)
     val tabReselect = remember { TabReselectSignal() }
     CompositionLocalProvider(
+        LocalHidePortfolioAmounts provides navViewModel.hidePortfolioAmounts.collectAsStateWithLifecycle().value,
         LocalOpenAlarmLog provides openAlarmLog,
         LocalOpenAlarmDelivery provides openAlarmDelivery,
         LocalTabReselect provides tabReselect,

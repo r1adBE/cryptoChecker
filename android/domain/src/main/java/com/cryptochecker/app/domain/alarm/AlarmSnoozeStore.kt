@@ -28,6 +28,16 @@ class AlarmSnoozeStore(stores: KeyValueStores) {
         }
     }
 
+    /**
+     * Alle Pausen weg — nach dem Wiederherstellen einer Sicherung: deren Alarm-Ids können sich mit bisherigen decken,
+     * eine alte Pause hielte sonst einen fremden Alarm bis zu einer Stunde zurück. Wie iOS `AlarmSnooze.clearAll`.
+     */
+    @Synchronized
+    fun clear() {
+        val all = prefs.all().keys.filter { it.startsWith(PREFIX) }
+        if (all.isNotEmpty()) prefs.edit { all.forEach { remove(it) } }
+    }
+
     private fun key(alarmId: Long) = "$PREFIX$alarmId"
 
     private companion object {

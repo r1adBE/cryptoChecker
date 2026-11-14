@@ -82,6 +82,20 @@ object AddressServer {
         return if (c.problem == null) c.url else current
     }
 
+    /**
+     * Server in einer Sicherungsdatei: nur in einer Datei mit Passwort ([encrypted]), sonst null. Einspielen ohne Passwort
+     * ändert den Server ohnehin nie ([restored]); eine lesbare Datei verriete nur, wo die Bitcoin-Adressen abgefragt werden
+     * (gleiche Regel wie die Android-Systemsicherung, die die Einstellungen darum ausschliesst). Journal: unverändert.
+     */
+    fun exported(server: String?, encrypted: Boolean): String? = if (encrypted) server else null
+
+    /**
+     * Darf eine Adresse von [chain] gerade abgefragt werden? Bitcoin (Adressen und xpub) nicht, solange nach ersetzten
+     * Einstellungen unbekannt ist, ob ein eigener Server eingetragen war ([serverUnknown]) — sonst gingen sie still an
+     * öffentliche Knoten. Gilt, bis der Nutzer den Server neu einträgt oder öffentliche Knoten bestätigt.
+     */
+    fun queryAllowed(chain: AddressChain, serverUnknown: Boolean): Boolean = !(serverUnknown && chain == AddressChain.BTC)
+
     private const val SCHEME = "https://"
     private const val PATH_EXTRA = "/-._~"
     private val KEY_KINDS = setOf(

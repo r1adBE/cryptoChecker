@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Kikerül a portfólióból (kifizetés)</string>
     <string name="portfolio_csv_import_choose_each">Válaszd ki minden kifizetésnél, hová ment.</string>
     <string name="portfolio_csv_import_columns">Felismert oszlopok: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Már importálva: %1$s. sor</string>
     <string name="portfolio_csv_import_confirm">Importálás (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Nap/Hónap</string>
     <string name="portfolio_csv_import_date_month_first">Hónap/Nap</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">A stablecoinok (USDT, USDC …) elleni vételek és eladások cserének számítanak – a stablecoin megjelenik az állományodban.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Több lehetséges találat – válaszd ki a helyeset, vagy egyiket sem.</string>
+    <string name="portfolio_csv_import_transfer_loose">Magas díj vagy késői beérkezés – ellenőrizd, hogy ugyanaz az átutalás-e.</string>
     <string name="portfolio_csv_import_transfer_fee">Hálózati díj: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Könyvelés egy átvezetésként</string>
     <string name="portfolio_csv_import_transfer_stored">Párja egy korábbi importból</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Napi árfolyamok a naptári nap szerint itt: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">A napi árfolyamokat nem sikerült betölteni.</string>
     <string name="portfolio_csv_import_anyway">Importálás mégis</string>
-    <string name="portfolio_csv_import_anyway_hint">Napi árfolyam nélkül az ár vagy a díj véglegesen hiányzik. Próbáld újra, vagy importáld mégis – ezek a tranzakciók ekkor megjegyzést kapnak.</string>
+    <string name="portfolio_csv_import_anyway_hint">Napi árfolyam nélkül az ár vagy a díj hiányzik, amíg meg nem adod. Próbáld újra, vagy importáld mégis – ezek a tranzakciók megjegyzést kapnak.</string>
     <string name="portfolio_csv_note_price_no_rate">Ár napi árfolyam nélkül</string>
     <string name="portfolio_csv_note_fee_no_rate">Díj napi árfolyam nélkül</string>
     <string name="portfolio_csv_import_no_rates_for">A(z) %1$s pénznemhez nincs napi árfolyam, így az újrapróbálás nem segít. Ha mégis importálod, ezek a tranzakciók megjegyzést kapnak.</string>

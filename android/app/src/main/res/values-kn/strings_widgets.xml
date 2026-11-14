@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ಹಿನ್ನೆಲೆ</string>
-    <string name="widget_configure_hint">ಹಿನ್ನೆಲೆ ಮತ್ತು ಅಪಾರದರ್ಶಕತೆಯನ್ನು ಆರಿಸಿ. ಬಣ್ಣ ಆ್ಯಪ್ ಅನ್ನು ಅನುಸರಿಸುತ್ತದೆ. ವಿಜೆಟ್ ನಿಮ್ಮ ಸಂಪೂರ್ಣ ವಾಚ್‌ಲಿಸ್ಟ್ ಅನ್ನು ತೋರಿಸುತ್ತದೆ; ಆ್ಯಪ್ ತೆರೆಯಲು ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="widget_configure_hint">ಹಿನ್ನೆಲೆ ಮತ್ತು ಅಪಾರದರ್ಶಕತೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ. ಬಣ್ಣ ಆ್ಯಪ್ ಅನ್ನು ಅನುಸರಿಸುತ್ತದೆ. ವಿಜೆಟ್ ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಅಥವಾ ಕೆಳಗೆ ಆಯ್ಕೆಮಾಡಿದ ಗುಂಪನ್ನು ತೋರಿಸುತ್ತದೆ; ಆ್ಯಪ್ ತೆರೆಯಲು ಒಂದು ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <string name="widget_configure_title">ವಿಜೆಟ್ ಹೊಂದಿಸಿ</string>
     <string name="widget_description">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್‌ನ ಒಂದು ಜೋಡಿಯ ಬೆಲೆಯನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
     <string name="widget_empty">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ ಇನ್ನೂ ಜೋಡಿಗಳಿಲ್ಲ.</string>

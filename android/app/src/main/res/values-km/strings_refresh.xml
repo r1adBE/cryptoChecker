@@ -82,6 +82,8 @@
     <string name="check_result_ok">ល្អ</string>
     <string name="check_result_partial">មួយផ្នែក</string>
     <string name="check_result_skipped">បានរំលង</string>
+    <string name="check_result_paused">បានផ្អាក មិនបានពិនិត្យអ្វីទេ</string>
+    <string name="check_result_offline">បានរំលង (ក្រៅបណ្ដាញ)</string>
     <string name="check_trigger_bgtask">ផ្ទៃខាងក្រោយ</string>
     <string name="check_trigger_exact">ទាន់ពេល</string>
     <string name="check_trigger_foreground">កម្មវិធី</string>

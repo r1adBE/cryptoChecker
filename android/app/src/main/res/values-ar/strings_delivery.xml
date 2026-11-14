@@ -69,5 +69,6 @@
     <string name="alarm_reliability_never">التنبيهات مفعّلة – لا يوجد فحص في الخلفية بعد</string>
     <string name="alarm_reliability_notifications_off">الإشعارات متوقفة – لن تصل التنبيهات</string>
     <string name="alarm_reliability_battery">توفير البطارية قد يوقف فحص التنبيهات</string>
+    <string name="alarm_reliability_offline">لا يوجد اتصال – سيتم فحص التنبيهات عند عودة الشبكة</string>
     <string name="alarm_reliability_background_refresh">تحديث التطبيقات في الخلفية متوقف – قد لا تصل التنبيهات</string>
 </resources>

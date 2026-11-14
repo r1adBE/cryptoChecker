@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Alarmy zapnuté – zatím žádná kontrola na pozadí</string>
     <string name="alarm_reliability_notifications_off">Oznámení vypnuta – alarmy nepřijdou</string>
     <string name="alarm_reliability_battery">Úspora baterie může zastavit kontrolu alarmů</string>
+    <string name="alarm_reliability_offline">Bez připojení – upozornění se zkontrolují, jakmile bude síť zpět</string>
     <string name="alarm_reliability_background_refresh">Aktualizace na pozadí vypnuta – alarmy nemusí přijít</string>
 </resources>

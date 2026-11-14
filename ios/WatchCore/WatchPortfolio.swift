@@ -21,17 +21,30 @@ struct WatchPortfolio: Codable, Equatable, Sendable {
         text.range(of: "^[A-Z]{3,5}$", options: .regularExpression) != nil
     }
 
+    /// Währung einer verborgenen Sendung, wenn weder Aufnahme noch Einstellung eine gültige nennt.
+    static let maskCurrency = "USD"
+
     /// Was das iPhone schickt: `.clear` ohne Schalter (`onWatch`) oder ohne Portfolio (`portfolioEnabled`); nil = noch
-    /// keine Aufnahme (`time` ≤ 0, nichts senden). Verborgen (`hidden` oder `locked`) ohne Zahlen.
+    /// keine Aufnahme (`time` ≤ 0, nichts senden). Verborgen (`hidden` oder `locked`) ohne Zahlen — und zwar immer, auch
+    /// wenn die Aufnahme gerade nicht lesbar ist (fail closed): Währung dann `fallbackCurrency` (Portfolio-Währung der
+    /// Einstellungen, sonst `maskCurrency`), Zeit `now`. Sonst blieben die Zahlen auf der Uhr. Wie Android.
     static func message(onWatch: Bool, portfolioEnabled: Bool, hidden: Bool, locked: Bool, total: Double?,
-                        changePercent: Double?, currency: String?, time: Int64) -> Message? {
+                        changePercent: Double?, currency: String?, time: Int64, fallbackCurrency: String? = nil,
+                        now: Int64 = 0) -> Message? {
         guard onWatch, portfolioEnabled else { return .clear }
-        guard let code = currency?.trimmingCharacters(in: .whitespaces).uppercased(), validCurrency(code),
-              time > 0 else { return nil }
-        let masked = hidden || locked
-        func finite(_ v: Double?) -> Double? { masked ? nil : v.flatMap { $0.isFinite ? $0 : nil } }
+        func valid(_ text: String?) -> String? {
+            guard let code = text?.trimmingCharacters(in: .whitespaces).uppercased(), validCurrency(code) else { return nil }
+            return code
+        }
+        if hidden || locked {
+            let code = valid(currency) ?? valid(fallbackCurrency) ?? maskCurrency
+            let at = time > 0 ? time : (now > 0 ? now : 1)
+            return .value(WatchPortfolio(total: nil, changePercent: nil, currency: code, time: at, hidden: true))
+        }
+        guard let code = valid(currency), time > 0 else { return nil }
+        func finite(_ v: Double?) -> Double? { v.flatMap { $0.isFinite ? $0 : nil } }
         return .value(WatchPortfolio(total: finite(total), changePercent: finite(changePercent), currency: code,
-                                     time: time, hidden: masked))
+                                     time: time, hidden: false))
     }
 
     static func toJson(_ message: Message) -> String {

@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Оповещения включены – фоновой проверки ещё не было</string>
     <string name="alarm_reliability_notifications_off">Уведомления выключены – оповещения не придут</string>
     <string name="alarm_reliability_battery">Экономия заряда может останавливать проверку оповещений</string>
+    <string name="alarm_reliability_offline">Нет сети – оповещения проверятся, когда связь вернётся</string>
     <string name="alarm_reliability_background_refresh">Обновление контента выключено – оповещения могут не прийти</string>
 </resources>

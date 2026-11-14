@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">พื้นหลัง</string>
-    <string name="widget_configure_hint">เลือกพื้นหลังและความทึบ สีตามแอป วิดเจ็ตแสดงทั้งรายการ แตะแถวเพื่อเปิดแอป</string>
+    <string name="widget_configure_hint">โปรดเลือกพื้นหลังและความทึบ สีจะเป็นไปตามแอป วิดเจ็ตจะแสดงรายการของคุณหรือกลุ่มที่เลือกด้านล่าง แตะแถวเพื่อเปิดแอป</string>
     <string name="widget_configure_title">ตั้งค่าวิดเจ็ต</string>
     <string name="widget_description">แสดงราคาของคู่จากรายการติดตามของคุณ</string>
     <string name="widget_empty">ยังไม่มีคู่ในรายการติดตาม</string>

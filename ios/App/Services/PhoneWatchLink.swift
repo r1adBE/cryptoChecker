@@ -32,6 +32,9 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     private var portfolioJson: String?
     private var lastSent = Date.distantPast
     private var pendingSend: Task<Void, Never>?
+    /// Gescheiterte Sendungen in Folge; nach `maxRetries` wartet der Stand auf den nächsten Anlass.
+    private var failedSends = 0
+    private static let maxRetries = 3
 
     override private init() {
         settings = WatchSettings.fromJson(UserDefaults.standard.string(forKey: Self.storeKey)) ?? WatchSettings()
@@ -109,6 +112,22 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         update(next, publish: true)
     }
 
+    /// «App zurücksetzen»: Stand im Speicher wie nach der Installation (Schalter «Portfolio-Wert auf der Uhr» aus,
+    /// Standard-Wahl, keine Kurse) und der Uhr gleich senden — Portfolio-Wert löschen, iPhone-Liste leer, keine Kurse
+    /// vom iPhone mehr (`WatchModel.takeFromPhone`). Die Einstellungen in `UserDefaults` sind da schon geleert. Wie
+    /// Android `PhoneWatchSync.clearWatch`.
+    func reset() {
+        pendingSend?.cancel()
+        pendingSend = nil
+        settings = WatchSettings()
+        portfolioOnWatch = false
+        quoteRows = []
+        quotesJson = WatchPhoneQuotes.toJson([])
+        portfolioJson = WatchPortfolio.toJson(.clear)
+        failedSends = 0
+        send()
+    }
+
     func setPortfolioOnWatch(_ on: Bool) {
         portfolioOnWatch = on
         UserDefaults.standard.set(on, forKey: Self.portfolioKey)
@@ -122,10 +141,12 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         guard let s = appSettings ?? loaded?.settings else { return }
         let locked = PortfolioLockPolicy.widgetLocked(lockSetting: loaded?.appLockAssumed ?? s.appLock)
         let snapshot = portfolioOnWatch && s.portfolioEnabled ? PortfolioWidgetStore.load() : nil
+        // Verborgen bzw. gesperrt: auch ohne lesbare Aufnahme eine Sendung ohne Zahlen (fail closed)
         guard let message = WatchPortfolio.message(
             onWatch: portfolioOnWatch, portfolioEnabled: s.portfolioEnabled, hidden: s.hidePortfolioAmounts,
             locked: locked, total: snapshot?.total, changePercent: snapshot?.changePercent,
-            currency: snapshot?.currency, time: snapshot?.updatedAt ?? 0) else { return }
+            currency: snapshot?.currency, time: snapshot?.updatedAt ?? 0, fallbackCurrency: s.portfolioCurrency,
+            now: EpochTime.nowMillis) else { return }
         let json = WatchPortfolio.toJson(message)
         guard json != portfolioJson else { return }
         portfolioJson = json
@@ -162,8 +183,16 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         var context: [String: Any] = [Self.contextKey: settings.toJson()]
         if settings.source == .phone, let quotesJson { context[Self.quotesKey] = quotesJson }
         if let portfolioJson { context[Self.portfolioContextKey] = portfolioJson }
-        try? session.updateApplicationContext(context)
         lastSent = Date()
+        do {
+            try session.updateApplicationContext(context)
+            failedSends = 0
+        } catch {
+            // Gescheitert: nach `minGap` noch einmal (höchstens `maxRetries` Mal in Folge), sonst beim nächsten Anlass
+            // (Änderung, Uhr-Zustand, Aktivierung, Stand der Uhr mit anderem iPhone-Teil)
+            failedSends += 1
+            if failedSends <= Self.maxRetries { sendSoon() }
+        }
     }
 
     /// Paare der Merkliste, aus denen die Uhr Kurse bekommen kann (eigene Liste: gegen USDT, Spot; «Wie iPhone»: genau
@@ -205,10 +234,12 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     /// Stand der Uhr: Wahl und eigene Liste nur bei höherer Änderungsnummer (Gleichstand: eigene); iPhone-Liste,
-    /// Kursquelle und Intervall bleiben die eigenen.
+    /// Kursquelle und Intervall bleiben die eigenen. Kennt die Uhr einen anderen iPhone-Teil (`phoneSideDiffers`, z. B.
+    /// nach einem gescheiterten Senden), geht der ganze Stand noch einmal weg — wie Android.
     private func take(_ json: String?) {
         guard let remote = WatchSettings.fromJson(json) else { return }
         update(WatchSettings.merge(settings, remote, remoteIsPhone: false), publish: false)
+        if WatchSettings.phoneSideDiffers(settings, watch: remote) { send() }
     }
 
     // MARK: WCSessionDelegate (Aufrufe auf einem Hintergrund-Thread: Werte auslesen, dann auf den MainActor)

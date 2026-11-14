@@ -53,6 +53,8 @@
     <string name="alarm_threshold_error_funding">Фандинг мора бити број између −10 и +10 одсто.</string>
     <string name="alarm_threshold_error_invalid">Унеси важећи број већи од 0.</string>
     <string name="alarm_threshold_error_oi">Промена отвореног интереса: највише 1000 одсто.</string>
+    <string name="alarm_threshold_error_percent_max">Највише 1000 одсто.</string>
+    <string name="alarm_threshold_error_distance">Размак мора бити мањи од 100 одсто.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d ч</item>
         <item quantity="few">за %1$d ч</item>
@@ -178,6 +180,7 @@
     <string name="alarm_a11y_speak_on">Говор укључен</string>
     <string name="alarm_unchecked_no_candles">Није било могуће проверити (нема података о свећама)</string>
     <string name="alarm_unchecked_no_rate">Није било могуће проверити (нема курса)</string>
+    <string name="alarm_unchecked_no_window_price">Није било могуће проверити (нема цене у временском оквиру)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Обавештења искључена – овај аларм неће доћи до тебе</string>

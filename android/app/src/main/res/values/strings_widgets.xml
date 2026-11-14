@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Background</string>
-    <string name="widget_configure_hint">Choose background and opacity. The color follows the app. The widget shows your whole watchlist; tap a row to open the app.</string>
+    <string name="widget_configure_hint">Choose background and opacity. The color follows the app. The widget shows your watchlist or the group chosen below; tap a row to open the app.</string>
     <string name="widget_configure_title">Set up widget</string>
     <string name="widget_description">Shows the price of a pair from your watchlist.</string>
     <string name="widget_empty">No pairs in the watchlist yet.</string>

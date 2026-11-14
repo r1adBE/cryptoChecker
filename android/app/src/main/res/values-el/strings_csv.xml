@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Φεύγει από το χαρτοφυλάκιο (ανάληψη)</string>
     <string name="portfolio_csv_import_choose_each">Επίλεξε για κάθε ανάληψη πού πήγε.</string>
     <string name="portfolio_csv_import_columns">Αναγνωρισμένες στήλες: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Έχουν ήδη εισαχθεί: γραμμές %1$s</string>
     <string name="portfolio_csv_import_confirm">Εισαγωγή (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Ημέρα/Μήνας</string>
     <string name="portfolio_csv_import_date_month_first">Μήνας/Ημέρα</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Οι αγορές και πωλήσεις έναντι stablecoins (USDT, USDC …) καταχωρούνται ως ανταλλαγές – το stablecoin εμφανίζεται στην κατοχή σου.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Πολλές πιθανές αντιστοιχίες – διάλεξε τη σωστή ή καμία.</string>
+    <string name="portfolio_csv_import_transfer_loose">Υψηλή χρέωση ή καθυστερημένη άφιξη – έλεγξε ότι είναι η ίδια μεταφορά.</string>
     <string name="portfolio_csv_import_transfer_fee">Προμήθεια δικτύου: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Καταχώριση ως μία μεταφορά</string>
     <string name="portfolio_csv_import_transfer_stored">Αντίστοιχη εγγραφή από προηγούμενη εισαγωγή</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Ημερήσιες ισοτιμίες με βάση την ημερολογιακή ημέρα σε: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Δεν ήταν δυνατή η φόρτωση των ημερήσιων ισοτιμιών.</string>
     <string name="portfolio_csv_import_anyway">Εισαγωγή ούτως ή άλλως</string>
-    <string name="portfolio_csv_import_anyway_hint">Χωρίς ημερήσια ισοτιμία, η τιμή ή η χρέωση λείπουν οριστικά. Δοκίμασε ξανά ή κάνε εισαγωγή ούτως ή άλλως – αυτές οι συναλλαγές θα έχουν τότε σημείωση.</string>
+    <string name="portfolio_csv_import_anyway_hint">Χωρίς ημερήσια ισοτιμία η τιμή ή η χρέωση λείπει μέχρι να τη συμπληρώσεις. Δοκίμασε ξανά ή κάνε εισαγωγή ούτως ή άλλως – αυτές οι συναλλαγές παίρνουν τότε σημείωση.</string>
     <string name="portfolio_csv_note_price_no_rate">Τιμή χωρίς ημερήσια ισοτιμία</string>
     <string name="portfolio_csv_note_fee_no_rate">Χρέωση χωρίς ημερήσια ισοτιμία</string>
     <string name="portfolio_csv_import_no_rates_for">Δεν υπάρχουν ημερήσιες ισοτιμίες για %1$s, οπότε μια νέα προσπάθεια δεν θα βοηθήσει. Αν κάνεις εισαγωγή ούτως ή άλλως, αυτές οι συναλλαγές θα έχουν σημείωση.</string>

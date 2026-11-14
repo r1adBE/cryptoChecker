@@ -26,6 +26,9 @@ struct PriceActivityAttributes: ActivityAttributes {
     var exchangeName: String
     /// Basiswährung für die Dynamic Island, z. B. «BTC».
     var symbol: String
+    /// Schlüssel des Paars (`WatchIdentity`: Börse, Basis, Quote, Kontrakt, Pool): ändert «Paar bearbeiten» oder eine
+    /// Sicherung das Paar hinter der Id, gehört die Aktivität nicht mehr dazu (`matches`).
+    var pairKey: String = ""
 }
 
 extension PriceActivityAttributes {
@@ -34,7 +37,19 @@ extension PriceActivityAttributes {
 
     init(watch: Watch) {
         self.init(watchId: watch.id, pairLabel: watch.displayName,
-                  exchangeName: watch.exchangeName, symbol: watch.baseAsset)
+                  exchangeName: watch.exchangeName, symbol: watch.baseAsset, pairKey: Self.pairKey(watch))
+    }
+
+    /// Schlüssel des Paars von `watch` (`WatchIdentity.key`) als Text.
+    static func pairKey(_ watch: Watch) -> String {
+        let k = watch.identity
+        return [k.exchangeKey, k.base, k.quote, k.contract, k.pool ?? ""].joined(separator: "|")
+    }
+
+    /// Zeigt die Aktivität (Name, Börse, Symbol in den Attributen) noch dieses Paar? Gleiche Id und gleicher
+    /// Paar-Schlüssel — sonst stünde der Kurs eines anderen Paars unter dem alten Namen.
+    func matches(_ watch: Watch) -> Bool {
+        watchId == watch.id && pairKey == Self.pairKey(watch)
     }
 
     static func state(_ watch: Watch) -> ContentState {

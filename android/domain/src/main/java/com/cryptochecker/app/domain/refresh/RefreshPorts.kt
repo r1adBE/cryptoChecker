@@ -58,6 +58,11 @@ interface RefreshNotifier {
     fun cancelAlarms(alarmIds: Collection<Long>)
     fun activeNotificationIds(): Set<Int>?
     fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?)
+    /**
+     * Kurs-Mitteilung des Paars laut [shown] ([activeNotificationIds]) vielleicht noch da (einzeln, in der Sammelmeldung
+     * oder eben erst gemeldet)? [shown] null = unbekannt: ja. Für «Nicht wegwischbar» ([PriceUpdateRule]).
+     */
+    fun priceMaybeShown(watchId: Long, shown: Set<Int>?): Boolean = true
     suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long>
     /** Ende einer laufenden «1 h später»-Pause des Alarms ([com.cryptochecker.app.domain.alarm.AlarmSnooze]); null = keine. */
     fun alarmSnoozeUntil(alarmId: Long): Long? = null

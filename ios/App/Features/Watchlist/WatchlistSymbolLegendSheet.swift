@@ -45,6 +45,9 @@ struct WatchlistSymbolLegendSheet: View {
             switch symbol {
             case .PRICE_NOTIFICATION_OFF: Image(systemName: "bell.slash")
             case .ACTIVE_ALARMS: Image(systemName: "bell.and.waves.left.and.right.fill")
+            case .FAVORITE: Image(systemName: "star.fill")
+            case .NOTE: Image(systemName: "note.text")
+            case .WARNING: Image(systemName: "exclamationmark.triangle.fill")
             default: Image(systemName: "bell")
             }
         }

@@ -54,7 +54,7 @@ enum ExchangeBackoff {
         case .success:
             return nil
         case .rateLimited:
-            let strikes = s.strikes + 1
+            let strikes = currentStrikes(s, now: now) + 1
             let own = banned ? max(delayMillis(strikes), banDefaultMillis) : delayMillis(strikes)
             let asked = min(max(retryAfterMillis ?? 0, 0), shared ? groupMaxMillis : maxMillis)
             // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen — eine unmögliche (`isPaused`) zählt nicht
@@ -67,7 +67,7 @@ enum ExchangeBackoff {
                 copy.timeoutRuns = runs
                 return copy
             }
-            let strikes = s.strikes + 1
+            let strikes = currentStrikes(s, now: now) + 1
             return State(strikes: strikes, pausedUntil: now + delayMillis(strikes), reason: .TIMEOUT, timeoutRuns: 0)
         case .other:
             // Anderer Fehler: keine Pause, Zeitüberschreitungen nicht mehr «in Folge»
@@ -75,6 +75,24 @@ enum ExchangeBackoff {
             copy.timeoutRuns = 0
             return copy.strikes == 0 && copy.pausedUntil == 0 ? nil : copy
         }
+    }
+
+    /// Stufe für die nächste Pause: Liegt das Ende der letzten länger als `maxMillis` zurück, beginnt die Zählung neu
+    /// (wie `groupPause`) — sonst bliebe eine einmal erreichte Stufe ohne Erfolg dazwischen für immer.
+    private static func currentStrikes(_ s: State, now: Int64) -> Int {
+        s.pausedUntil != 0 && now - s.pausedUntil > maxMillis ? 0 : s.strikes
+    }
+
+    /// Netz wieder da (offline → online): Pausen wegen Zeitüberschreitungen gelten nicht mehr — sie entstanden meist am
+    /// toten Netz, nicht an der Börse. Bremsen-Pausen (429/418) bleiben. Leere Zustände fallen weg. Wie Android.
+    static func withoutTimeoutPauses(_ states: [String: State]) -> [String: State] {
+        var result: [String: State] = [:]
+        for (key, s) in states {
+            var kept = s.reason == .TIMEOUT ? State() : s
+            kept.timeoutRuns = 0
+            if kept.strikes != 0 || kept.pausedUntil != 0 { result[key] = kept }
+        }
+        return result
     }
 
     /// Eigenen Stand (`ours`, ausgehend von `initial`) mit dem inzwischen gespeicherten (`stored`) zusammenführen:

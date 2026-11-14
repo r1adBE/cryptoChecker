@@ -1,8 +1,16 @@
 {
-  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest und AlarmReliabilityTests. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck, lastFailedBackgroundCheck und failingSince (ältester gespeicherter geplanter Lauf, wenn keiner gelang) statt lastBackgroundCheck. Gelang kein geplanter Lauf, warnt die Zeile erst, wenn das länger als die Grenze anhält (now - failingSince > staleMillis); vorher ruhig «never». storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher. lineShownKinds: Sätze, bei denen die Zeile überhaupt erscheint (Normalfall «recent» und «hidden»: keine Zeile).",
+  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest und AlarmReliabilityTests. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck, lastFailedBackgroundCheck und failingSince (ältester gespeicherter geplanter Lauf, wenn keiner gelang) statt lastBackgroundCheck. Gelang kein geplanter Lauf, warnt die Zeile erst, wenn das länger als die Grenze anhält (now - failingSince > staleMillis); vorher ruhig «never». storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher. lineShownKinds: Sätze, bei denen die Zeile überhaupt erscheint (Normalfall «recent» und «hidden»: keine Zeile). Ergebnisse «paused» (alle Börsen pausiert bzw. ohne Alarm-Lease, nichts geprüft) und «offline» (geplanter Lauf ohne Netz nicht versucht) zählen nicht als Prüfung; ist der neueste geplante Lauf «offline» (CheckRunLog.offlineSkipped) und die Prüfung zu alt, nennt die Zeile das Netz (kind offline) statt Akku bzw. «zu alt».",
   "staleMillis": 7200000,
   "staleMillisIos": 21600000,
-  "lineShownKinds": ["never", "notifications_off", "storage_no_key", "battery", "background_refresh", "stale"],
+  "lineShownKinds": [
+    "never",
+    "notifications_off",
+    "storage_no_key",
+    "battery",
+    "background_refresh",
+    "stale",
+    "offline"
+  ],
   "cases": [
     {
       "name": "keine Alarme: keine Zeile",
@@ -620,6 +628,58 @@
       },
       "kind": "recent",
       "warn": false
+    },
+    {
+      "name": "Android Flugmodus über Nacht: Wecker offline übersprungen, letzte Prüfung vor 8 h — Grund Netz, nicht Akku",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 421,
+        "hasAlarms": true,
+        "oem": true,
+        "runs": [
+          "1759999100000;exact;offline;0",
+          "1759998200000;exact;offline;0",
+          "1759971200000;exact;ok;2100"
+        ]
+      },
+      "kind": "offline",
+      "warn": true
+    },
+    {
+      "name": "Android offline übersprungen, letzte Prüfung noch frisch: ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999100000;exact;offline;0",
+          "1759998200000;exact;ok;2100"
+        ]
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android alle Börsen pausiert: «pausiert» zählt nicht als Prüfung, nach 2 h Warnung",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "runs": [
+          "1759999100000;worker;paused;300",
+          "1759998200000;worker;paused;300",
+          "1759990000000;worker;ok;2100"
+        ]
+      },
+      "kind": "stale",
+      "warn": true
     }
   ]
 }

@@ -34,6 +34,8 @@ object GasAlertLogic {
     /** @return (melden?, scharf danach?) — «scharf danach» gilt für eine erfolgreich abgesetzte Meldung. */
     fun evaluate(value: Double, threshold: Double, armed: Boolean, deliverable: Boolean = true): Pair<Boolean, Boolean> = when {
         threshold <= 0 -> false to true
+        // Kein Messwert (0, negativ, nicht endlich): kein Entscheid, Zustand bleibt
+        !(value.isFinite() && value > 0.0) -> false to armed
         // Fällig, aber nicht zustellbar: nicht verbrauchen
         armed && value <= threshold -> if (deliverable) true to false else false to true
         !armed && value > threshold * REARM_FACTOR -> false to true

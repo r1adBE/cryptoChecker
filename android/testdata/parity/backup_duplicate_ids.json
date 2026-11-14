@@ -1,0 +1,10 @@
+{
+ "description": "Doppelte Kennungen in einer Sicherung (Transaktionen, Portfolio-Alarme): je Kennung > 0 nur der erste Eintrag; jeder weitere mit derselben Kennung zählt wie ein ungültiger Eintrag (die Rückfrage nennt ihn) statt den ersten beim Speichern still zu ersetzen. Kennung ≤ 0 bekommt beim Speichern eine neue und ist nie doppelt. Android BackupRestorePolicy.keepFirstIds (PortfolioJson.parseTxs/parseAlarms), iOS BackupRestorePolicy.keepFirstIds (BackupManager.parsedPortfolio/parsedPortfolioAlarms). «keep» = übernommen je Eintrag, «invalid» = zusätzlich gezählte.",
+ "cases": [
+  {"name": "keine Doppelten", "ids": [3, 1, 2], "keep": [true, true, true], "invalid": 0},
+  {"name": "zwei mit Kennung 7", "ids": [7, 1, 7], "keep": [true, true, false], "invalid": 1},
+  {"name": "dreimal dieselbe", "ids": [5, 5, 5], "keep": [true, false, false], "invalid": 2},
+  {"name": "Kennung 0 nie doppelt", "ids": [0, 0, 4], "keep": [true, true, true], "invalid": 0},
+  {"name": "leer", "ids": [], "keep": [], "invalid": 0}
+ ]
+}

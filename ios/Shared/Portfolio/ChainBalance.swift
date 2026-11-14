@@ -182,7 +182,7 @@ enum ChainBalance {
 
     static func parseSolanaTokensBody(_ body: String) throws -> [String: String] { try parseSolanaTokens(try object(body)) }
 
-    /// Ergebnisse zusammenführen: bekannte Mints nach `ChainAssets.solanaTokens`; unbekannte > 0 nur gezählt.
+    /// Ergebnisse zusammenführen: bekannte Mints nach `ChainAssets.solanaTokens` (ohne Konto = 0); unbekannte > 0 nur gezählt.
     static func solana(lamports: String, mints: [[String: String]]) -> Solana {
         var total: [String: String] = [:]
         for m in mints { for (mint, value) in m { total[mint] = addDigits(total[mint] ?? "0", value) } }
@@ -195,6 +195,9 @@ enum ChainBalance {
             }
             tokens[token.symbol] = AddressBalance.unitsText(sum, decimals: token.decimals)
         }
+        // Vollständige Antwort (beide Token-Programme): ein bekannter Token ohne Konto (geschlossen) hat 0 — sonst behielte
+        // er sein altes Guthaben für immer (der Sprung auf 0 wartet auf Bestätigung, `ZeroConfirm`)
+        for token in ChainAssets.solanaTokens where tokens[token.symbol] == nil { tokens[token.symbol] = "0" }
         return Solana(lamports: lamports, tokens: tokens, unknown: unknown)
     }
 

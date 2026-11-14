@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Del nga portofoli (tërheqje)</string>
     <string name="portfolio_csv_import_choose_each">Zgjidh për çdo tërheqje ku shkoi.</string>
     <string name="portfolio_csv_import_columns">Kolonat e njohura: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Importuar tashmë: rreshtat %1$s</string>
     <string name="portfolio_csv_import_confirm">Importo (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dita/Muaji</string>
     <string name="portfolio_csv_import_date_month_first">Muaji/Dita</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Blerjet dhe shitjet kundrejt stablecoin-ëve (USDT, USDC …) regjistrohen si shkëmbime – stablecoin-i shfaqet në zotërimin tënd.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Disa përputhje të mundshme – zgjidh të saktën ose asnjë.</string>
+    <string name="portfolio_csv_import_transfer_loose">Tarifë e lartë ose mbërritje e vonë – kontrollo nëse është i njëjti transferim.</string>
     <string name="portfolio_csv_import_transfer_fee">Tarifë rrjeti: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Regjistroje si një transferim</string>
     <string name="portfolio_csv_import_transfer_stored">Pala tjetër nga një import i mëparshëm</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Kurset ditore sipas ditës kalendarike në: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Kurset ditore nuk u ngarkuan dot.</string>
     <string name="portfolio_csv_import_anyway">Importo gjithsesi</string>
-    <string name="portfolio_csv_import_anyway_hint">Pa kurs ditor, çmimi ose tarifa mungojnë përgjithmonë. Riprovo ose importo gjithsesi – ato transaksione marrin atëherë një shënim.</string>
+    <string name="portfolio_csv_import_anyway_hint">Pa kurs ditor, çmimi ose tarifa mungon derisa ta shtosh. Provo përsëri ose importo gjithsesi – ato transaksione marrin një shënim.</string>
     <string name="portfolio_csv_note_price_no_rate">Çmim pa kurs ditor</string>
     <string name="portfolio_csv_note_fee_no_rate">Tarifë pa kurs ditor</string>
     <string name="portfolio_csv_import_no_rates_for">Për %1$s nuk ka kurse ditore, ndaj riprovimi nuk ndihmon. Nëse importon gjithsesi, ato transaksione marrin një shënim.</string>

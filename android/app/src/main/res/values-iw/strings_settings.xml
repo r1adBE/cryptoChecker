@@ -62,7 +62,7 @@
     <string name="settings_price_pairs_hint">בחרו לאילו צמדים יוצג השער בשורת ההתראות.</string>
     <string name="settings_quiet_hours">שעות דממה</string>
     <string name="settings_quiet_hours_from">התחלה</string>
-    <string name="settings_quiet_hours_hint">בין %1$s ל־%2$s התראות ממתינות עד סוף שעות הדממה ואז מתריעות עם צליל. הודעות אחרות מגיעות בשקט, בלי הקראה.</string>
+    <string name="settings_quiet_hours_hint">בין %1$s ל־%2$s התראות ממתינות עד סוף שעות הדממה ואז מתריעות עם צליל, אם התנאי עדיין מתקיים אז. הודעות אחרות מגיעות בשקט, בלי הקראה.</string>
     <string name="settings_quiet_hours_to">סיום</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -319,6 +319,8 @@
     <string name="settings_address_server_active">בשימוש: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">לא הוגדר – נעשה שימוש בצמתים ציבוריים</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ההגדרות אופסו, ולכן לא ידוע אם השתמשת בשרת ביטקוין משלך. כתובות ביטקוין ומפתחות xpub לא ייבדקו עד שהשרת יוזן שוב או שייבחרו צמתים ציבוריים.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">מותרות רק כתובות https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Pozadie</string>
-    <string name="widget_configure_hint">Vyber pozadie a krytie. Farba sa riadi aplikáciou. Miniaplikácia zobrazuje celý zoznam; ťuknutím na riadok otvoríš aplikáciu.</string>
+    <string name="widget_configure_hint">Vyber pozadie a nepriehľadnosť. Farba sa riadi aplikáciou. Miniaplikácia zobrazuje tvoj zoznam alebo skupinu vybranú nižšie; ťuknutím na riadok otvoríš aplikáciu.</string>
     <string name="widget_configure_title">Nastaviť miniaplikáciu</string>
     <string name="widget_description">Zobrazuje kurz páru z tvojho zoznamu.</string>
     <string name="widget_empty">V zozname zatiaľ nie sú žiadne páry.</string>

@@ -83,6 +83,8 @@ internal fun CsvImportPreviewSheet(
     onDecimalMark: (Char) -> Unit,
     /** «Erneut versuchen» bei Zeilen ohne Tageskurs: Kurse neu laden und die Vorschau neu bewerten. */
     onReloadRates: () -> Unit,
+    /** «Trotzdem importieren» der schon importierten Zeilen: Vorschau mit ihnen neu lesen. */
+    onKeepDuplicates: (Boolean) -> Unit,
     onDismiss: () -> Unit,
     /** «Importieren» mit der Bestätigung der Zeilen ohne Tageskurs und den Vermerken in der Sprache der App. */
     onConfirm: (CsvRateConsent) -> Unit,
@@ -145,9 +147,8 @@ internal fun CsvImportPreviewSheet(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.alpha(dim),
             )
-            if (preview.duplicates > 0) {
-                Text(pluralStringResource(R.plurals.portfolio_csv_import_duplicates, preview.duplicates, preview.duplicates))
-            }
+            // Schon importiert: welche Zeilen, und auf Wunsch trotzdem übernehmen (neu gelesen)
+            DuplicatesHint(preview, onKeepDuplicates, enabled = !rereading)
             if (preview.skipped.isNotEmpty()) {
                 Text(pluralStringResource(R.plurals.portfolio_csv_import_skipped, preview.skipped.size, preview.skipped.size))
                 preview.skipped.take(PREVIEW_ROWS).forEach { skip ->

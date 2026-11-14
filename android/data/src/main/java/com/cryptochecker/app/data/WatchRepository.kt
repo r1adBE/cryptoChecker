@@ -64,7 +64,7 @@ class WatchRepository @Inject constructor(
      * ([userWriteRefused]): [PairEditResult.LOCKED].
      */
     suspend fun changePair(id: Long, exchange: ExchangeInfo, pair: ExchangePair): PairEditResult =
-        if (userWriteRefused()) PairEditResult.LOCKED else database.withTransaction {
+        if (userWriteRefused()) PairEditResult.LOCKED else guardedWrite(PairEditResult.LOCKED) { database.withTransaction {
             val watch = watchDao.getWatch(id)
             if (watch == null) {
                 PairEditResult.MISSING
@@ -103,27 +103,31 @@ class WatchRepository @Inject constructor(
                     }
                 }
             }
-        }
+        } }
 
     /** Nach dem ersten Kurs des bearbeiteten Paars: Prozentalarme messen ab diesem Kurs. */
     suspend fun setMissingPercentReferences(watchId: Long, price: Double) {
-        if (!userWriteRefused(notify = false)) watchDao.setMissingPercentReferences(watchId, price)
+        if (!userWriteRefused(notify = false)) guardedWrite(Unit) { watchDao.setMissingPercentReferences(watchId, price) }
     }
 
     /** true = gelöscht; false = abgelehnt (eindeutig: dann keine Folgeaktionen wie Rückgängig/Mitteilungen). */
     suspend fun deleteWatch(id: Long): Boolean {
         if (userWriteRefused()) return false
-        watchDao.deleteWatch(id)
-        forgetDeletedAlarms()
-        return true
+        return guardedWrite(false) {
+            watchDao.deleteWatch(id)
+            forgetDeletedAlarms()
+            true
+        }
     }
 
     /** Mehrere Paare (samt Alarmen, per Fremdschlüssel) in einem Vorgang löschen; Rückgabe wie [deleteWatch]. */
     suspend fun deleteWatches(ids: Collection<Long>): Boolean {
         if (ids.isEmpty() || userWriteRefused()) return false
-        database.withTransaction { ids.forEach { watchDao.deleteWatch(it) } }
-        forgetDeletedAlarms()
-        return true
+        return guardedWrite(false) {
+            database.withTransaction { ids.forEach { watchDao.deleteWatch(it) } }
+            forgetDeletedAlarms()
+            true
+        }
     }
 
     /**
@@ -150,23 +154,23 @@ class WatchRepository @Inject constructor(
     /** Rückgabe wie [deleteWatch]. */
     suspend fun deleteAllWatches(): Boolean {
         if (userWriteRefused()) return false
-        watchDao.deleteAllWatches()
-        forgetDeletedAlarms()
-        return true
+        return guardedWrite(false) {
+            watchDao.deleteAllWatches()
+            forgetDeletedAlarms()
+            true
+        }
     }
 
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung zeigen/entfernen). */
     suspend fun setNotificationEnabled(id: Long, enabled: Boolean): Boolean {
         if (userWriteRefused()) return false
-        watchDao.setNotificationEnabled(id, enabled)
-        return true
+        return guardedWrite(false) { watchDao.setNotificationEnabled(id, enabled); true }
     }
 
     /** true = geschrieben, false = abgelehnt (wie [setDisabled]): dann keine Rückmeldung (Banner, Haptik). */
     suspend fun setFavorite(id: Long, favorite: Boolean): Boolean {
         if (userWriteRefused()) return false
-        watchDao.setFavorite(id, favorite)
-        return true
+        return guardedWrite(false) { watchDao.setFavorite(id, favorite); true }
     }
 
     /**
@@ -231,7 +235,7 @@ class WatchRepository @Inject constructor(
         return result.filter { it.favorite } + result.filterNot { it.favorite }
     }
 
-    private suspend fun saveOrder(ordered: List<WatchEntity>) {
+    private suspend fun saveOrder(ordered: List<WatchEntity>) = guardedWrite(Unit) {
         database.withTransaction {
             ordered.forEachIndexed { index, w ->
                 if (w.sortOrder != index) watchDao.setSortOrder(w.id, index)
@@ -241,7 +245,7 @@ class WatchRepository @Inject constructor(
 
     /** Notiz setzen; null oder leer = keine Notiz. */
     suspend fun setNote(id: Long, note: String?) {
-        if (!userWriteRefused()) watchDao.setNote(id, TextLimit.clean(note, NOTE_MAX))
+        if (!userWriteRefused()) guardedWrite(Unit) { watchDao.setNote(id, TextLimit.clean(note, NOTE_MAX)) }
     }
 
     /**
@@ -250,8 +254,7 @@ class WatchRepository @Inject constructor(
      */
     suspend fun setGroup(id: Long, groupName: String?): Boolean {
         if (userWriteRefused()) return false
-        watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
-        return true
+        return guardedWrite(false) { watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX)); true }
     }
 
     /**
@@ -264,34 +267,39 @@ class WatchRepository @Inject constructor(
     suspend fun applyGroupEdit(oldName: String?, newName: String, memberIds: Set<Long>) {
         val name = TextLimit.clean(newName, GROUP_NAME_MAX) ?: return
         if (userWriteRefused()) return
-        database.withTransaction {
-            if (oldName != null) watchDao.clearGroup(oldName)
-            memberIds.forEach { watchDao.setGroup(it, name) }
+        guardedWrite(Unit) {
+            database.withTransaction {
+                if (oldName != null) watchDao.clearGroup(oldName)
+                memberIds.forEach { watchDao.setGroup(it, name) }
+            }
         }
     }
 
     /** Gruppe löschen: Die Paare bleiben in der Merkliste, nur ohne Gruppe. */
     suspend fun clearGroup(groupName: String) {
-        if (!userWriteRefused()) watchDao.clearGroup(groupName)
+        if (!userWriteRefused()) guardedWrite(Unit) { watchDao.clearGroup(groupName) }
     }
 
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Sprachausgabe umstellen). */
     suspend fun setTtsEnabled(id: Long, enabled: Boolean): Boolean {
         if (userWriteRefused()) return false
-        watchDao.setTtsEnabled(id, enabled)
-        return true
+        return guardedWrite(false) { watchDao.setTtsEnabled(id, enabled); true }
     }
 
     /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben. In Blöcken ([SQL_ID_CHUNK]). */
     suspend fun setDisabled(ids: Collection<Long>, disabled: Boolean): Boolean {
         if (ids.isEmpty() || userWriteRefused()) return false
-        database.withTransaction { ids.toList().chunked(SQL_ID_CHUNK).forEach { watchDao.setDisabled(it, disabled) } }
-        return true
+        return guardedWrite(false) {
+            database.withTransaction { ids.toList().chunked(SQL_ID_CHUNK).forEach { watchDao.setDisabled(it, disabled) } }
+            true
+        }
     }
 
     /** Meldekurs nach dem Ein- bzw. Ausschalten der Kurs-Mitteilung (Folge-Schreibweg: gesperrt ohne eigenen Hinweis). */
     suspend fun setNotifiedPrice(id: Long, price: Double?, time: Long = System.currentTimeMillis()) {
-        if (!userWriteRefused(notify = false)) watchDao.setNotifiedPrice(id, price, if (price == null) 0 else time)
+        if (!userWriteRefused(notify = false)) {
+            guardedWrite(Unit) { watchDao.setNotifiedPrice(id, price, if (price == null) 0 else time) }
+        }
     }
 
     /** Veränderung der Paare [ids] entfernen (in Blöcken, [SQL_ID_CHUNK]). */
@@ -334,7 +342,7 @@ class WatchRepository @Inject constructor(
     /** true = gelöscht; false = abgelehnt (dann keine Folgeaktionen wie Mitteilung/Protokoll entfernen). */
     suspend fun deleteAlarm(id: Long): Boolean {
         if (userWriteRefused()) return false
-        watchDao.deleteAlarm(id)
+        if (!guardedWrite(false) { watchDao.deleteAlarm(id); true }) return false
         // Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); nicht bei
         // Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
         if (AlarmDeliveryMarkers.prunable()) withContext(ioDispatcher) { deliveryMarkers.remove(listOf(id)) }
@@ -347,10 +355,12 @@ class WatchRepository @Inject constructor(
         // «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
         val alarm = if (enabled) watchDao.getAlarm(id) else null
         if (alarm != null && !AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = true)) return false
-        watchDao.setAlarmEnabled(id, enabled)
-        // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden wieder (wirkt nur bei diesen)
-        if (enabled) watchDao.rearmAlarm(id)
-        return true
+        return guardedWrite(false) {
+            watchDao.setAlarmEnabled(id, enabled)
+            // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden wieder (wirkt nur bei diesen)
+            if (enabled) watchDao.rearmAlarm(id)
+            true
+        }
     }
 
     companion object {

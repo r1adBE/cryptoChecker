@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">પોર્ટફોલિયોમાંથી બહાર જાય છે (ઉપાડ)</string>
     <string name="portfolio_csv_import_choose_each">દરેક ઉપાડ માટે તે ક્યાં ગયો તે પસંદ કરો.</string>
     <string name="portfolio_csv_import_columns">ઓળખાયેલી કૉલમ: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">પહેલેથી આયાત કરેલ: પંક્તિઓ %1$s</string>
     <string name="portfolio_csv_import_confirm">ઇમ્પોર્ટ કરો (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">દિવસ/મહિનો</string>
     <string name="portfolio_csv_import_date_month_first">મહિનો/દિવસ</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">સ્ટેબલકૉઇન સામેના ટ્રેડ (USDT, USDC …) સ્વૉપ તરીકે નોંધાય છે – સ્ટેબલકૉઇન તમારા હોલ્ડિંગમાં દેખાય છે.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">અનેક મેળ શક્ય છે – સાચો પસંદ કરો અથવા એક પણ નહીં.</string>
+    <string name="portfolio_csv_import_transfer_loose">ઊંચી ફી અથવા મોડું પહોંચવું – એ જ ટ્રાન્સફર છે કે નહીં તે તપાસો.</string>
     <string name="portfolio_csv_import_transfer_fee">નેટવર્ક ફી: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">એક ટ્રાન્સફર તરીકે નોંધો</string>
     <string name="portfolio_csv_import_transfer_stored">અગાઉના ઇમ્પોર્ટમાંથી સામેની એન્ટ્રી</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">દૈનિક દરો આ ટાઇમ ઝોનના કૅલેન્ડર દિવસ પ્રમાણે: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">દૈનિક દરો લોડ થઈ શક્યા નથી.</string>
     <string name="portfolio_csv_import_anyway">તેમ છતાં ઇમ્પોર્ટ કરો</string>
-    <string name="portfolio_csv_import_anyway_hint">દૈનિક દર વગર ભાવ અથવા ફી કાયમ માટે ખૂટે છે. ફરી પ્રયાસ કરો, અથવા તેમ છતાં ઇમ્પોર્ટ કરો – ત્યારે તે વ્યવહારોમાં નોંધ ઉમેરાશે.</string>
+    <string name="portfolio_csv_import_anyway_hint">દૈનિક દર વિના, તમે ઉમેરો ત્યાં સુધી કિંમત અથવા ફી ખૂટે છે. ફરી પ્રયાસ કરો અથવા છતાં આયાત કરો – તે વ્યવહારોને પછી નોંધ મળશે.</string>
     <string name="portfolio_csv_note_price_no_rate">દૈનિક દર વગરનો ભાવ</string>
     <string name="portfolio_csv_note_fee_no_rate">દૈનિક દર વગરની ફી</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s માટે કોઈ દૈનિક દર નથી, તેથી ફરી પ્રયાસ કરવાથી મદદ નહીં મળે. તેમ છતાં ઇમ્પોર્ટ કરો તો તે વ્યવહારોમાં નોંધ ઉમેરાશે.</string>

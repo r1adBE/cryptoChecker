@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Hansı cütlərin qiymətini bildiriş panelində göstərəcəyini seç.</string>
     <string name="settings_quiet_hours">Sakit saatlar</string>
     <string name="settings_quiet_hours_from">Başlanğıc</string>
-    <string name="settings_quiet_hours_hint">%1$s ilə %2$s arasında alarmlar sakit saatlar bitənə qədər gözləyir, sonra səslə işə düşür. Digər bildirişlər səssiz, nitqsiz çatır.</string>
+    <string name="settings_quiet_hours_hint">%1$s ilə %2$s arasında alarmlar sakit saatlar bitənə qədər gözləyir, sonra səslə işə düşür, əgər şərt o zaman hələ də ödənirsə. Digər bildirişlər səssiz, nitqsiz çatır.</string>
     <string name="settings_quiet_hours_to">Son</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">İstifadədədir: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Qurulmayıb – açıq qovşaqlardan istifadə olunur</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Ayarlar sıfırlandı, buna görə öz Bitcoin serverinizdən istifadə edib-etmədiyiniz məlum deyil. Serverinizi yenidən daxil edənə və ya açıq qovşaqları seçənə qədər Bitcoin ünvanları və xpub açarları sorğulanmır.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Yalnız https:// ünvanlarına icazə verilir</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

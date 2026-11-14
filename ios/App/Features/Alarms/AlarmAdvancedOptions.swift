@@ -233,7 +233,7 @@ extension AlarmEditorSheet {
         let problem: ThresholdProblem? = draft.visibleProblem
         return VStack(alignment: .leading, spacing: Spacing.xs) {
             amountBox(error: problem != nil)
-            AlarmThresholdError(problem: problem)
+            AlarmThresholdError(problem: problem, ambiguity: draft.ambiguity)
         }
     }
 

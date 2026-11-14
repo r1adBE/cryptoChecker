@@ -12,11 +12,15 @@ extension CsvImportBinance {
         "TRY", "BRL", "AUD", "JPY", "PLN", "RON", "CZK", "ZAR", "UAH", "ARS", "MXN", "COP", "USD", "XRP", "TRX", "DOGE",
     ].enumerated().sorted { ($1.element.count, $0.offset) < ($0.element.count, $1.offset) }.map(\.element)
 
-    /// «BTCUSDT» → (BTC, USDT); unbekannte Quote = nil.
+    /// «BTCUSDT» → (BTC, USDT); unbekannte Quote = nil. Passen mehrere Quotes (längste zuerst), gewinnt die Teilung, deren
+    /// Basis selbst ein bekannter Coin ist (`quotes`, kein Fiat), dann die erste ohne Fiat-Basis: «USDTUSD» → USDT/USD statt
+    /// USD/TUSD, «BNBUSD» → BNB/USD statt BN/BUSD; «SOLBUSD» bleibt SOL/BUSD. Wie Android.
     static func splitPair(_ pair: String) -> (base: String, quote: String)? {
         let p = String(pair.uppercased().filter { $0.isASCII && ($0.isLetter || $0.isNumber) })
-        guard let quote = quotes.first(where: { p.hasSuffix($0) && p.count > $0.count }) else { return nil }
-        return (String(p.dropLast(quote.count)), quote)
+        let splits = quotes.filter { p.hasSuffix($0) && p.count > $0.count }.map { (base: String(p.dropLast($0.count)), quote: $0) }
+        return splits.first { quotes.contains($0.base) && !CsvImport.isFiat($0.base) }
+            ?? splits.first { !CsvImport.isFiat($0.base) }
+            ?? splits.first
     }
 
     /// Gebühr-Coins neben Basis und Quote des Paars (Binance zieht die Gebühr wahlweise in BNB ab) — wie Android `FEE_COINS`.

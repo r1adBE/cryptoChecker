@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Background</string>
-    <string name="widget_configure_hint">Pumili ng background at opacity. Sumusunod sa app ang kulay. Ipinapakita ng widget ang buong watchlist mo; mag-tap ng row para buksan ang app.</string>
+    <string name="widget_configure_hint">Piliin ang background at opacity. Sinusunod ng kulay ang app. Ipinapakita ng widget ang watchlist mo o ang grupong pinili sa ibaba; i-tap ang isang row para buksan ang app.</string>
     <string name="widget_configure_title">I-set up ang widget</string>
     <string name="widget_description">Ipinapakita ang presyo ng isang pares mula sa watchlist mo.</string>
     <string name="widget_empty">Wala pang pares sa watchlist.</string>

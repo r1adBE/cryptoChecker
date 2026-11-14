@@ -14,6 +14,7 @@
     <string name="watchlist_refresh_report">Ultima actualizare</string>
     <string name="watchlist_symbols_legend">Explicația simbolurilor</string>
     <string name="watchlist_symbols_legend_alarms">Alarme active și numărul lor</string>
+    <string name="watchlist_symbols_legend_warning">Preț învechit sau bursă inaccesibilă</string>
     <string name="watchlist_refresh_report_empty">Încă nu există detalii: nu a avut loc încă o actualizare completă. Atinge Actualizează și așteaptă până se oprește indicatorul.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d din %2$d învechită</item>
@@ -276,6 +277,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Închide notificarea</string>
     <string name="watchlist_missing_logos_explain">Pentru aceste monede nu este disponibil niciun logo. Aplicația afișează inițialele.</string>
+    <string name="watchlist_missing_logos_pending">încă neîncărcat</string>
+    <string name="watchlist_missing_logos_explain_pending">Siglele marcate ca încă neîncărcate sosesc la următoarea sincronizare, unele doar pe Wi-Fi. Pentru celelalte monede nu există siglă. Aplicația afișează inițialele lor.</string>
     <string name="exchange_retiring_notice">Din %2$s, %1$s nu va mai furniza prețuri publice. Alege altă bursă pentru aceste monede.</string>
     <string name="exchange_retiring_reason">Din %2$s, %1$s nu va mai furniza prețuri</string>
     <string name="exchange_retired_since">Din %2$s, %1$s nu mai furnizează prețuri</string>

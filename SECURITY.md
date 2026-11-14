@@ -98,7 +98,7 @@ keys or other secrets never belong in this repository.
     the system-backup copies: the watchlist database copy (only while a backup
     runs, Android 9+) and the opt-in `portfolio_system_backup.json` («Portfolio
     in system backup», plain JSON by design so it can be restored on a new
-    device).
+    device; likewise only while a backup runs).
   * Encryption never loses data: a plaintext copy (Android: the restored
     system-backup copy of the watchlist; iOS: a copy of an unreadable file written
     without a key) is replaced only after the encrypted file has been verified
@@ -125,19 +125,23 @@ keys or other secrets never belong in this repository.
   anchors; the same for the Wear OS app). Use a certificate from a public CA there.
 * **Portfolio lock.** Optional biometric / device-credential lock for the
   portfolio. While it is on, the portfolio is hidden in the app switcher
-  (Android: FLAG_SECURE and no recents preview; iOS: privacy cover), portfolio
+  (Android: FLAG_SECURE and no recents preview – also on screens outside the portfolio
+  tab while they show portfolio amounts, such as the entry sheet from the pair page or
+  «All alerts» with portfolio alerts; iOS: privacy cover), portfolio
   widgets show no values, and portfolio alarms show only a neutral sentence
   without threshold or amount. Independently of the lock, a portfolio alarm never
   shows an amount on the lock screen: on both platforms the notification itself
   carries only a title and a neutral sentence – no threshold, amount or percentage
   in any field – so it does not depend on the system's lock-screen setting
-  (Android additionally marks it private); the details are in the app. «Hide amounts» also applies to widgets and notifications. When the
+  (Android additionally marks it private); the details are in the app. «Hide amounts» also applies to every portfolio sheet and
+  dialog (it is set once at the root of the app), to widgets, the watch, «All alerts» and notifications. When the
   session locks again (more than 60 s in the background), open portfolio sheets and
   backup dialogs close; a file picked or a password check finishing after that is
   discarded until the user unlocks again.
 * **No foreign windows over sensitive screens (Android 12+).** While the portfolio,
-  the portfolio settings, the backup password dialog or the restore and «Reset app»
-  confirmations are visible, the app hides overlay windows of other apps
+  the transaction sheet (also from the pair page or the market), «All alerts» showing
+  portfolio amounts, the portfolio settings, the backup password dialog or the restore
+  and «Reset app» confirmations are visible, the app hides overlay windows of other apps
   (`HIDE_OVERLAY_WINDOWS`, a normal permission without a prompt) – protection against tapjacking. Android 8–11 have
   no such switch.
 * **Backups.** Exported via the system file picker only (no temporary copies),
@@ -180,8 +184,9 @@ keys or other secrets never belong in this repository.
   Bitcoin server), only the app language and favorites. The portfolio (transactions, portfolio alarms, watched
   addresses and xpubs) lives in its own
   database file that is never in the backup rules; only with the switch
-  «Portfolio in system backup» (default off) does the app keep a plain JSON copy
-  in a backed-up file. The main database runs with `secure_delete`: deleted content
+  «Portfolio in system backup» (default off) does the app write a plain JSON copy
+  into the backup – only while a backup runs, deleted right afterwards (a copy left
+  by an interrupted backup is deleted at the next start). The main database runs with `secure_delete`: deleted content
   is overwritten with zeros, so deleted rows do not linger in the database file on
   the device (the backup copy is made logically, row by row, and never contains
   free pages). On iOS, portfolio.json is excluded from device backups by
@@ -194,7 +199,8 @@ keys or other secrets never belong in this repository.
   The portfolio widget's caches (hourly prices, value history, candle attempts)
   are files in the App Group that are always excluded from device and iCloud
   backups.
-  A backup exported without a password (possible only without portfolio data) is plain JSON. The portfolio lock protects
+  A backup exported without a password (possible only without portfolio data) is plain JSON and does not contain the
+  address of an own Bitcoin server (only a file with a password does). The portfolio lock protects
   what the app shows on the device, not system or device backups.
 * **What exchanges see.** Prices are fetched directly from public exchange APIs, so
   each exchange sees which pairs are requested (and your IP address) – the
@@ -210,15 +216,20 @@ keys or other secrets never belong in this repository.
   Esplora/mempool-compatible server instead (Settings › Portfolio; https only, no user
   name or password in the address): then only
   that server is asked, with no fallback to the public nodes, so they never see these
-  addresses. Other networks stay with the public nodes. Address queries follow a
-  redirect only to the same host (never from https to http); a redirect to another
-  host is treated as an error, so the address never reaches a third party that way.
+  addresses. If the settings cannot be read and are replaced by the defaults (so it is
+  unknown whether an own server was set), Bitcoin addresses and xpubs are not queried at
+  all until the server is entered again or public nodes are confirmed; the notice about
+  the reset and Settings › Portfolio say so. Other networks stay with the public nodes. Address queries follow a
+  redirect only to the same host and port (never from https to http); a redirect to
+  another host or port is treated as an error, so the address never reaches a third
+  party or another service that way.
 * **Integrity of the data mirror.** Market data that is the same for everyone comes
   from the release «data» on GitHub (README, «Market data mirror»). The apps use a
   mirror file only if it matches `manifest.json` (SHA-256 per file), whose ECDSA P-256
   signature matches one of the two public keys built into the apps (active and
   reserve key), and if that manifest is at
-  most 7 days old; manifest and signature are read with small size limits (64 KB /
+  most 7 days old and not older than the newest manifest the app has accepted since it
+  started (no replay of an older state); manifest and signature are read with small size limits (64 KB /
   1 KB). Otherwise the file is ignored and the app asks the provider directly. The
   private key exists only as a GitHub Actions secret in the environment `mirror-signing`, usable
   from `main` only; a run that cannot sign ends red. The reserve private key is kept
@@ -274,17 +285,22 @@ Kurs-Zwischenspeicher und Coin-Listen, Sicherungen ohne Passwort sowie die
 Android-Kopien für die Systemsicherung (Merkliste nur während des Sicherens – eine bei
 abgebrochener Sicherung liegengebliebene Kopie löscht der nächste App-Start; nach dem
 Wiederherstellen wird sie gleich verschlüsselt, ohne Schlüssel beim nächsten Start –
-und erst ab Android 9, Portfolio nur mit Schalter). Verbindungen nur über HTTPS
+und erst ab Android 9, Portfolio nur mit Schalter und ebenfalls nur während des Sicherens). Verbindungen nur über HTTPS
 bzw. verschlüsselte WebSockets (`wss://`) für Live-Kurse.
 Bitcoin-Adressen und xpub können statt an öffentliche Knoten an einen eigenen
-Esplora-/mempool-Server gehen (nur https, ohne Rückfall auf öffentliche Knoten).
+Esplora-/mempool-Server gehen (nur https, ohne Rückfall auf öffentliche Knoten; nach
+unlesbaren, ersetzten Einstellungen fragt die App Bitcoin gar nicht, bis du den Server
+neu einträgst oder öffentliche Knoten bestätigst). Eine Sicherung ohne Passwort enthält
+die Adresse des eigenen Servers nicht.
 Dateien des Daten-Spiegels nutzt die App nur mit gültiger Signatur (ECDSA P-256,
 Manifest höchstens 7 Tage alt, SHA-256 je Datei), sonst fragt sie den Anbieter direkt.
 Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und in
 Mitteilungen; ein Portfolio-Alarm zeigt auf dem Sperrbildschirm nie einen Betrag,
-auch ohne Sperre. «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
-Ab Android 12 blendet die App fremde Überlagerungen über dem Portfolio und über
-heiklen Rückfragen aus.
+auch ohne Sperre. «Beträge verbergen» gilt in allen Portfolio-Blättern und auch für
+Widgets, Uhr, «Alle Alarme» und Mitteilungen.
+Ab Android 12 blendet die App fremde Überlagerungen über dem Portfolio, überall wo
+Portfolio-Beträge stehen (Erfassen-Blatt, «Alle Alarme»), und über heiklen
+Rückfragen aus.
 Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge.
 Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
 einem Passwort verschlüsseln (AES-256-GCM, Schlüssel per Argon2id mit 64 MiB, der

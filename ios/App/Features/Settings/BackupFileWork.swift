@@ -73,7 +73,8 @@ enum BackupFileWork {
     static func build(_ input: BackupManager.ExportInput, password: String?) async -> Result<Data, any Error> {
         await Task.detached(priority: .userInitiated) {
             Result {
-                let plain = try BackupManager.plainExportData(input)
+                // Ohne Passwort ohne eigenen Bitcoin-Server (`AddressServer.exported`, wie Android)
+                let plain = try BackupManager.plainExportData(input, encrypted: password != nil)
                 try BackupLimits.checkWritable(plain)
                 guard let password else { return plain }
                 return try BackupManager.encryptedFile(plain, password: password)

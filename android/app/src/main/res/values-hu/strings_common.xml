@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">A tőzsde most nem érhető el</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">A tőzsde ebben a régióban le van tiltva</string>
+    <string name="error_exchange_access_denied">A tőzsde megtagadta a hozzáférést</string>
     <string name="loading_hint">Betöltés…</string>
     <string name="option_off">Ki</string>
     <string name="something_went_wrong">Hiba történt</string>

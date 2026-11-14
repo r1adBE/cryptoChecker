@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Kurse holen: je Börse erst gesammelt, was fehlt einzeln (höchstens vier gleichzeitig);
 /// dazu die Bericht-Einträge. Wie `PriceFetcher.kt`; Teil von `PriceRefresher`.
@@ -20,6 +21,20 @@ extension PriceRefresher {
         var exchangeFailure: ExchangeFailure? = nil
         /// Widget (`lowMemory`): bewusst nicht abgefragt — gespeicherter Kurs bleibt, kein Fehler.
         var skipped = false
+        /// Am Netzbudget des Laufs gescheitert (nicht an der Börse): dann keine volle Prüfung. Wie Android `budgetCut`.
+        var budgetCut = false
+    }
+
+    /// Gespeicherter Fehlertext eines Paars, dessen Abfrage am Netzbudget endete — wie Android `CheckBudget.TIMEOUT_ERROR`.
+    static let budgetTimeoutError = "timeout"
+
+    /// Schon geholte Ergebnisse je Paar, während die Börsen noch laufen: endet das Netzbudget, bleiben sie (statt die
+    /// ganze Börse zu verwerfen) — wie Android, das jede fertige Einzelabfrage behält.
+    final class FetchedBox: Sendable {
+        private let box = OSAllocatedUnfairLock(initialState: [Int64: Fetched]())
+        func put(_ id: Int64, _ value: Fetched) { box.withLock { $0[id] = value } }
+        func put(_ values: [Int64: Fetched]) { box.withLock { $0.merge(values) { _, new in new } } }
+        var all: [Int64: Fetched] { box.withLock { $0 } }
     }
 
     static let notTradedError = NotTraded.marker
@@ -50,7 +65,8 @@ extension PriceRefresher {
     ///   Sammellisten (`LowMemoryBulk`), sondern gefiltert, einzeln oder gar nicht (gespeicherter Kurs bleibt).
     /// - Parameter alarmed: Paare mit aktivem Alarm — werden einzeln zuerst abgefragt (`FetchOrder`).
     static func fetchGroup(_ group: [Watch], includeRollingFutures: Bool,
-                           lowMemory: Bool = false, alarmed: Set<Int64> = []) async -> ([Int64: Fetched], GroupSignals?) {
+                           lowMemory: Bool = false, alarmed: Set<Int64> = [], rotation: Int = 0,
+                           partial: FetchedBox? = nil) async -> ([Int64: Fetched], GroupSignals?) {
         let started = EpochTime.nowMillis
         guard let sample = group.first else { return ([:], nil) }
         // Börse stillgelegt (`ExchangeRetirement`): keine Anfrage, jedes Paar mit dem Marker der Börse — wie Android
@@ -148,7 +164,10 @@ extension PriceRefresher {
         // Erste Antwort mit 429/418: die übrigen nicht mehr senden, derselbe Fehler (`SingleRateGate`).
         let confirmIds = missing
         // Paare mit aktivem Alarm zuerst: im knappen Zeitfenster des Hintergrunds kommen so die Alarme durch
-        singles = FetchOrder.alarmsFirst(singles, alarmed: alarmed) { $0.id }
+        // Mit Netzbudget je Lauf anderer Beginn (`rotation`): sonst fielen immer dieselben Paare aus dem Budget
+        singles = FetchOrder.alarmsFirst(singles, alarmed: alarmed, rotation: rotation) { $0.id }
+        // Was die Sammelabfrage schon brachte, bleibt auch nach dem Ende des Netzbudgets
+        partial?.put(results)
         var sent = 0
         if !singles.isEmpty {
             await withTaskGroup(of: (Int64, Fetched).self) { tg in
@@ -173,6 +192,7 @@ extension PriceRefresher {
                     guard let item = await tg.next() else { break }
                     running -= 1
                     results[item.0] = item.1
+                    partial?.put(item.0, item.1)
                     gate.note(item.1)
                 }
             }

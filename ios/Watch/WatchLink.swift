@@ -5,7 +5,8 @@ import WatchConnectivity
 /// Anwendungskontext mit `json` = `WatchSettings` (Coin-Kürzel, Wahl, Kursquelle, Intervall); vom iPhone dazu `quotes`
 /// (Kurse, die das iPhone schon hat, `WatchPhoneQuotes`) und — nur mit dem Schalter auf dem iPhone — `portfolio`
 /// (`WatchPortfolio`). Gegenstück auf dem iPhone: `PhoneWatchLink`. Ohne gekoppeltes iPhone: nichts (die Uhr nutzt ihre
-/// eigene Liste und fragt die Kurse selbst ab).
+/// eigene Liste und fragt die Kurse selbst ab). Ist die iPhone-App nicht (mehr) installiert, vergisst die Uhr, was vom
+/// iPhone stammt (`WatchModel.forgetPhone`) — wie Wear OS bei gelöschten Einträgen.
 final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     static let shared = WatchLink()
     private static let key = "json"
@@ -58,11 +59,22 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
         let json = context[Self.key] as? String
         let quotes = context[Self.quotesKey] as? String
         let portfolio = context[Self.portfolioKey] as? String
+        let companion = session.isCompanionAppInstalled
         Task { @MainActor in
-            WatchModel.shared.takeFromPhone(json, quotes: quotes, portfolio: portfolio)
+            if companion {
+                WatchModel.shared.takeFromPhone(json, quotes: quotes, portfolio: portfolio)
+            } else {
+                WatchModel.shared.forgetPhone()
+            }
             // Änderungen vor der Aktivierung gingen nicht weg: den aktuellen Stand jetzt senden (wie `PhoneWatchLink`)
             self.publish(WatchModel.shared.settings)
         }
+    }
+
+    /// iPhone-App entfernt (oder neu installiert): ohne App vergessen, was vom iPhone stammt.
+    func sessionCompanionAppInstalledDidChange(_ session: WCSession) {
+        guard !session.isCompanionAppInstalled else { return }
+        Task { @MainActor in WatchModel.shared.forgetPhone() }
     }
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {

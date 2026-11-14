@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Įspėjimai įjungti – tikrinimo fone dar nebuvo</string>
     <string name="alarm_reliability_notifications_off">Pranešimai išjungti – įspėjimai nepasieks</string>
     <string name="alarm_reliability_battery">Akumuliatoriaus taupymas gali sustabdyti įspėjimų tikrinimą</string>
+    <string name="alarm_reliability_offline">Nėra ryšio – įspėjimai bus patikrinti, kai tinklas grįš</string>
     <string name="alarm_reliability_background_refresh">Programų naujinimas fone išjungtas – įspėjimai gali nepasiekti</string>
 </resources>

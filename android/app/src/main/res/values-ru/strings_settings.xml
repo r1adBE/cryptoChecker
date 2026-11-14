@@ -63,7 +63,7 @@
     <string name="settings_price_pairs_hint">Выбери, для каких пар курс отображается в панели уведомлений.</string>
     <string name="settings_quiet_hours">Тихие часы</string>
     <string name="settings_quiet_hours_from">С</string>
-    <string name="settings_quiet_hours_hint">С %1$s до %2$s оповещения ждут окончания тихих часов и затем срабатывают со звуком. Остальные уведомления приходят беззвучно, без озвучивания.</string>
+    <string name="settings_quiet_hours_hint">С %1$s до %2$s оповещения ждут окончания тихих часов и затем срабатывают со звуком, если условие к тому времени всё ещё выполнено. Остальные уведомления приходят беззвучно, без озвучивания.</string>
     <string name="settings_quiet_hours_to">До</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -322,6 +322,8 @@
     <string name="settings_address_server_active">Используется: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Не задан – используются публичные узлы</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Настройки сброшены, поэтому неизвестно, использовали ли вы собственный сервер Bitcoin. Адреса Bitcoin и ключи xpub не запрашиваются, пока вы снова не введёте сервер или не выберете публичные узлы.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Разрешены только адреса https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

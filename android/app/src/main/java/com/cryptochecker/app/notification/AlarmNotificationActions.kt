@@ -60,6 +60,9 @@ private fun AppNotifier.snoozeIntent(alarm: AlarmEntity): PendingIntent {
 /** Ende einer laufenden «1 h später»-Pause von [alarmId] (Melde-Schritt, RefreshEffects); null = keine. */
 fun AppNotifier.alarmSnoozeUntil(alarmId: Long): Long? = AlarmSnoozeStore(SharedPreferencesStores(context)).snoozeUntil(alarmId)
 
+/** Alle «1 h später»-Pausen weg (nach dem Wiederherstellen: Alarm-Ids der Sicherung können sich mit bisherigen decken). */
+fun AppNotifier.clearAlarmSnoozes() = AlarmSnoozeStore(SharedPreferencesStores(context)).clear()
+
 /**
  * Coin-Logo für die Alarm-Meldung — nur, wenn es schon auf dem Gerät liegt ([com.cryptochecker.app.data.CoinLogoRepository.logo]
  * liest Speicher, Datei oder mitgeliefertes Icon, nie das Netz). Ohne «Coin-Logos», für DEX-Pools oder nach

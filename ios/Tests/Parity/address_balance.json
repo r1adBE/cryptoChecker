@@ -2486,10 +2486,108 @@
             "t": 200,
             "b": "1"
           }
-        ]
+        ],
+        "zeroPending": [],
+        "staleTokens": []
       },
       {
         "time": 86400300,
+        "balance": "1",
+        "tokens": {
+          "USDT": "0"
+        },
+        "tokenBalances": {
+          "USDT": "7",
+          "DAI": "2",
+          "USDC": "0",
+          "LINK": "3"
+        },
+        "tokenObservations": {
+          "USDT": [
+            {
+              "t": 100,
+              "b": "5"
+            },
+            {
+              "t": 200,
+              "b": "7"
+            }
+          ],
+          "DAI": [
+            {
+              "t": 100,
+              "b": "2"
+            }
+          ],
+          "LINK": [
+            {
+              "t": 200,
+              "b": "3"
+            }
+          ]
+        },
+        "observations": [
+          {
+            "t": 200,
+            "b": "1"
+          }
+        ],
+        "zeroPending": [
+          "USDT"
+        ],
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "time": 86400400,
+        "balance": "1",
+        "tokens": null,
+        "tokenBalances": {
+          "USDT": "7",
+          "DAI": "2",
+          "USDC": "0",
+          "LINK": "3"
+        },
+        "tokenObservations": {
+          "USDT": [
+            {
+              "t": 100,
+              "b": "5"
+            },
+            {
+              "t": 200,
+              "b": "7"
+            }
+          ],
+          "DAI": [
+            {
+              "t": 100,
+              "b": "2"
+            }
+          ],
+          "LINK": [
+            {
+              "t": 200,
+              "b": "3"
+            }
+          ]
+        },
+        "observations": [
+          {
+            "t": 200,
+            "b": "1"
+          }
+        ],
+        "zeroPending": [
+          "USDT"
+        ],
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "time": 86400500,
         "balance": "1",
         "tokens": {
           "USDT": "0"
@@ -2511,7 +2609,7 @@
               "b": "7"
             },
             {
-              "t": 86400300,
+              "t": 86400500,
               "b": "0"
             }
           ],
@@ -2533,52 +2631,9 @@
             "t": 200,
             "b": "1"
           }
-        ]
-      },
-      {
-        "time": 86400400,
-        "balance": "1",
-        "tokens": null,
-        "tokenBalances": {
-          "USDT": "0",
-          "DAI": "2",
-          "USDC": "0",
-          "LINK": "3"
-        },
-        "tokenObservations": {
-          "USDT": [
-            {
-              "t": 100,
-              "b": "5"
-            },
-            {
-              "t": 200,
-              "b": "7"
-            },
-            {
-              "t": 86400300,
-              "b": "0"
-            }
-          ],
-          "DAI": [
-            {
-              "t": 100,
-              "b": "2"
-            }
-          ],
-          "LINK": [
-            {
-              "t": 200,
-              "b": "3"
-            }
-          ]
-        },
-        "observations": [
-          {
-            "t": 200,
-            "b": "1"
-          }
-        ]
+        ],
+        "zeroPending": [],
+        "staleTokens": []
       }
     ],
     "countTokensOff": {
@@ -2602,7 +2657,7 @@
         "coin": "USDT",
         "type": "WITHDRAWAL",
         "amount": "7",
-        "time": 86400300
+        "time": 86400500
       },
       {
         "coin": "LINK",
@@ -2611,7 +2666,8 @@
         "time": 200
       }
     ],
-    "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt 2])) (Reihenfolge der Reihen: ETH, dann Token nach Liste)."
+    "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt historyStep])) (Reihenfolge der Reihen: ETH, dann Token nach Liste). Ein Sprung von > 0 auf 0 gilt erst beim zweiten gleichen Abruf (ZeroConfirm): Schritt 2 haelt USDT 7 (zeroPending, staleTokens), Schritt 3 ohne Token wartet weiter, Schritt 4 bestaetigt.",
+    "historyStep": 3
   },
   "gapScan": {
     "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20, hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie). fullEstimate: Mindestzahl Anfragen einer vollstaendigen Suche = je Kette hoechster benutzter Index + 1 + gap (ohne benutzte: gap); modeFor waehlt bei faelliger vollstaendiger Suche mit Zwischenspeicher QUICK, wenn das ueber maxRequests liegt (cache.usedReceive/usedChange optional).",
@@ -11576,10 +11632,7 @@
           "name": "gemischt",
           "body": "[{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"context\":{\"slot\":1},\"value\":[{\"pubkey\":\"x\",\"account\":{\"data\":{\"parsed\":{\"info\":{\"mint\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"owner\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"tokenAmount\":{\"amount\":\"1500000\",\"decimals\":6}},\"type\":\"account\"},\"program\":\"spl-token\"},\"lamports\":2039280}},{\"pubkey\":\"x\",\"account\":{\"data\":{\"parsed\":{\"info\":{\"mint\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"owner\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"tokenAmount\":{\"amount\":\"500000\",\"decimals\":6}},\"type\":\"account\"},\"program\":\"spl-token\"},\"lamports\":2039280}},{\"pubkey\":\"x\",\"account\":{\"data\":{\"parsed\":{\"info\":{\"mint\":\"Unknown1111111111111111111111111111111111111\",\"owner\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"tokenAmount\":{\"amount\":\"5\",\"decimals\":0}},\"type\":\"account\"},\"program\":\"spl-token\"},\"lamports\":2039280}},{\"pubkey\":\"x\",\"account\":{\"data\":{\"parsed\":{\"info\":{\"mint\":\"Zero11111111111111111111111111111111111111\",\"owner\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"tokenAmount\":{\"amount\":\"0\",\"decimals\":0}},\"type\":\"account\"},\"program\":\"spl-token\"},\"lamports\":2039280}}]}},{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":{\"context\":{\"slot\":1},\"value\":2500000000}},{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"context\":{\"slot\":1},\"value\":[{\"pubkey\":\"x\",\"account\":{\"data\":{\"parsed\":{\"info\":{\"mint\":\"DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263\",\"owner\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"tokenAmount\":{\"amount\":\"123456789\",\"decimals\":5}},\"type\":\"account\"},\"program\":\"spl-token\"},\"lamports\":2039280}}]}}]",
           "lamports": "2500000000",
-          "tokens": {
-            "USDC": "2",
-            "BONK": "1234.56789"
-          },
+          "tokens": {"USDC": "2", "USDT": "0", "wSOL": "0", "JUP": "0", "BONK": "1234.56789", "WIF": "0", "PYTH": "0", "JTO": "0", "RAY": "0", "ORCA": "0", "RENDER": "0", "HNT": "0", "TRUMP": "0", "WETH": "0"},
           "unknown": 1
         },
         {
@@ -12455,7 +12508,7 @@
     }
   },
   "keptTokens": {
-    "_comment": "WatchedAddressRules.applyFetched keptTokens: null = staleTokens unveraendert; sonst nur Schluessel mit gespeichertem Guthaben > 0. Tokens mitzaehlen aus loescht sie. Speicherform (Android Spalte, Schluessel stk) hin und zurueck.",
+    "_comment": "WatchedAddressRules.applyFetched keptTokens: null = staleTokens unveraendert; sonst nur Schluessel mit gespeichertem Guthaben > 0. Tokens mitzaehlen aus loescht sie. Speicherform (Android Spalte, Schluessel stk) hin und zurueck. Ein Sprung auf 0 (Schritt 400) wartet auf den naechsten gleichen Abruf (450) und gilt bis dahin als nicht bestaetigt.",
     "start": {
       "chain": "TON",
       "address": "UQDVN7ycBNMi3xg4iUS7D32nSWmFfUgrS7aVW5XMEEeEiaD/",
@@ -12504,6 +12557,20 @@
       },
       {
         "time": 400,
+        "balance": "1",
+        "tokens": {
+          "USDT": "0"
+        },
+        "kept": [],
+        "tokenBalances": {
+          "USDT": "6"
+        },
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "time": 450,
         "balance": "1",
         "tokens": {
           "USDT": "0"
@@ -12669,6 +12736,158 @@
         "snapshotCountTokens": true,
         "snapshotNetworks": [],
         "discard": true
+      }
+    ]
+  },
+  "zeroConfirm": {
+    "_comment": "ZeroConfirm.apply(address, balance, tokens) (Android ZeroConfirm.kt, iOS ZeroConfirm.swift): a drop from > 0 to 0 (chain balance key '*' or a token key) is held with the old value until the next reading confirms it; pending = keys waiting (main first, then tokens in key order); a pending token not read in this fetch keeps waiting. No old value or old 0: applied at once.",
+    "cases": [
+      {
+        "name": "Ketten-Guthaben faellt auf 0: gehalten",
+        "start": {
+          "chain": "TRX",
+          "lastBalance": "12.5",
+          "zeroPending": []
+        },
+        "balance": "0",
+        "tokens": null,
+        "expected": {
+          "balance": "12.5",
+          "tokens": null,
+          "pending": [
+            "*"
+          ]
+        }
+      },
+      {
+        "name": "zweite 0: bestaetigt",
+        "start": {
+          "chain": "TRX",
+          "lastBalance": "12.5",
+          "zeroPending": [
+            "*"
+          ]
+        },
+        "balance": "0",
+        "tokens": null,
+        "expected": {
+          "balance": "0",
+          "tokens": null,
+          "pending": []
+        }
+      },
+      {
+        "name": "nie geladen: 0 sofort",
+        "start": {
+          "chain": "ADA",
+          "lastBalance": null,
+          "zeroPending": []
+        },
+        "balance": "0",
+        "tokens": null,
+        "expected": {
+          "balance": "0",
+          "tokens": null,
+          "pending": []
+        }
+      },
+      {
+        "name": "wieder > 0: Merker weg",
+        "start": {
+          "chain": "XRP",
+          "lastBalance": "3",
+          "zeroPending": [
+            "*"
+          ]
+        },
+        "balance": "4",
+        "tokens": null,
+        "expected": {
+          "balance": "4",
+          "tokens": null,
+          "pending": []
+        }
+      },
+      {
+        "name": "Token: Solana-Konto geschlossen",
+        "start": {
+          "chain": "SOL",
+          "lastBalance": "1",
+          "tokenBalances": {
+            "USDC": "1000",
+            "BONK": "5"
+          },
+          "zeroPending": []
+        },
+        "balance": "1",
+        "tokens": {
+          "USDC": "0",
+          "BONK": "5",
+          "JUP": "0"
+        },
+        "expected": {
+          "balance": "1",
+          "tokens": {
+            "USDC": "1000",
+            "BONK": "5",
+            "JUP": "0"
+          },
+          "pending": [
+            "USDC"
+          ]
+        }
+      },
+      {
+        "name": "Token wartet, Abfrage gescheitert: wartet weiter",
+        "start": {
+          "chain": "TON",
+          "lastBalance": "2",
+          "tokenBalances": {
+            "USDT": "5"
+          },
+          "zeroPending": [
+            "USDT"
+          ]
+        },
+        "balance": "2",
+        "tokens": null,
+        "expected": {
+          "balance": "2",
+          "tokens": null,
+          "pending": [
+            "USDT"
+          ]
+        }
+      },
+      {
+        "name": "Token und Kette zugleich",
+        "start": {
+          "chain": "TON",
+          "lastBalance": "2",
+          "tokenBalances": {
+            "USDT": "5",
+            "NOT": "7"
+          },
+          "zeroPending": [
+            "NOT"
+          ]
+        },
+        "balance": "0",
+        "tokens": {
+          "USDT": "0",
+          "NOT": "0"
+        },
+        "expected": {
+          "balance": "2",
+          "tokens": {
+            "USDT": "5",
+            "NOT": "0"
+          },
+          "pending": [
+            "*",
+            "USDT"
+          ]
+        }
       }
     ]
   }

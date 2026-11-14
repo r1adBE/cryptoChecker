@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Ingemuva</string>
-    <string name="widget_configure_hint">Khetha ingemuva nokubonakala. Umbala ulandela i-app. Iwijethi ibonisa lonke uhlu lwakho lokubuka; thepha umugqa ukuze uvule i-app.</string>
+    <string name="widget_configure_hint">Khetha ingemuva nokungabonakali. Umbala ulandela uhlelo lokusebenza. Iwijethi ibonisa uhlu lwakho lokubuka noma iqembu elikhethwe ngezansi; thepha umugqa ukuze uvule uhlelo lokusebenza.</string>
     <string name="widget_configure_title">Setha iwijethi</string>
     <string name="widget_description">Ibonisa intengo yepheya elivela ohlwini lwakho lokubuka.</string>
     <string name="widget_empty">Awekho amapheya ohlwini lokubuka okwamanje.</string>

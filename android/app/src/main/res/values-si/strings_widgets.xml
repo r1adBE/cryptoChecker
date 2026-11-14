@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">පසුබිම</string>
-    <string name="widget_configure_hint">පසුබිම සහ පාරාන්ධතාව තෝරන්න. වර්ණය යෙදුම අනුගමනය කරයි. විජට් එක ඔබේ මුළු නිරීක්ෂණ ලැයිස්තුවම පෙන්වයි; යෙදුම විවෘත කිරීමට පේළියක් තට්ටු කරන්න.</string>
+    <string name="widget_configure_hint">පසුබිම සහ පාරාන්ධතාව තෝරන්න. වර්ණය යෙදුම අනුගමනය කරයි. විජට් එක ඔබගේ නිරීක්ෂණ ලැයිස්තුව හෝ පහතින් තෝරාගත් කණ්ඩායම පෙන්වයි; යෙදුම විවෘත කිරීමට පේළියක් තට්ටු කරන්න.</string>
     <string name="widget_configure_title">විජට් එක සකසන්න</string>
     <string name="widget_description">ඔබේ නිරීක්ෂණ ලැයිස්තුවේ යුගලයක මිල පෙන්වයි.</string>
     <string name="widget_empty">නිරීක්ෂණ ලැයිස්තුවේ තවම යුගල නැත.</string>

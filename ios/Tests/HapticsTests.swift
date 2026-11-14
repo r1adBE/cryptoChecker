@@ -36,6 +36,7 @@ final class HapticsTests: XCTestCase {
         XCTAssertEqual(AddWatchedResult.duplicate.haptic, .warning)
         XCTAssertEqual(AddWatchedResult.limitReached.haptic, .warning)
         XCTAssertEqual(AddWatchedResult.locked.haptic, .error)
+        XCTAssertEqual(AddWatchedResult.writeFailed.haptic, .error)
     }
 
     /// Verschlüsselte Sicherung: genau eine Fehler-Vibration je Fehlschlag (wie Android) — das Blatt spielt nur beim

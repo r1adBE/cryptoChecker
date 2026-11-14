@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Fágann sé an phunann (aistarraingt)</string>
     <string name="portfolio_csv_import_choose_each">Roghnaigh do gach aistarraingt cá ndeachaigh sí.</string>
     <string name="portfolio_csv_import_columns">Colúin aitheanta: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Iompórtáilte cheana: línte %1$s</string>
     <string name="portfolio_csv_import_confirm">Iompórtáil (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Lá/Mí</string>
     <string name="portfolio_csv_import_date_month_first">Mí/Lá</string>
@@ -54,6 +55,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Cuirtear trádálacha in aghaidh bonn cobhsaí (USDT, USDC …) in áirithe mar bhabhtálacha – feictear an bonn cobhsaí i do shealúchais.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Is féidir roinnt meaitseálacha – roghnaigh an ceann ceart nó ceann ar bith.</string>
+    <string name="portfolio_csv_import_transfer_loose">Táille ard nó teacht déanach – seiceáil gurb é an t-aistriú céanna é.</string>
     <string name="portfolio_csv_import_transfer_fee">Táille líonra: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Cuir in áirithe mar aistriú amháin</string>
     <string name="portfolio_csv_import_transfer_stored">Contrapháirt ó iompórtáil níos luaithe</string>
@@ -124,7 +126,7 @@
     <string name="portfolio_csv_import_fx_zone">Rátaí laethúla de réir an lae féilire in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Níorbh fhéidir na rátaí laethúla a lódáil.</string>
     <string name="portfolio_csv_import_anyway">Iompórtáil mar sin féin</string>
-    <string name="portfolio_csv_import_anyway_hint">Gan ráta laethúil, bíonn an praghas nó an táille in easnamh go buan. Bain triail eile as, nó iompórtáil mar sin féin – gheobhaidh na hidirbhearta sin nóta ansin.</string>
+    <string name="portfolio_csv_import_anyway_hint">Gan ráta laethúil, bíonn an praghas nó an táille in easnamh go dtí go gcuireann tú leis é. Bain triail eile as nó iompórtáil mar sin féin – gheobhaidh na hidirbhearta sin nóta.</string>
     <string name="portfolio_csv_note_price_no_rate">Praghas gan ráta laethúil</string>
     <string name="portfolio_csv_note_fee_no_rate">Táille gan ráta laethúil</string>
     <string name="portfolio_csv_import_no_rates_for">Níl rátaí laethúla ann do %1$s, mar sin ní chabhróidh triail eile. Má iompórtálann tú mar sin féin, gheobhaidh na hidirbhearta sin nóta.</string>

@@ -127,6 +127,9 @@ enum AlarmReadiness {
         var failingSince: Int64? = nil
         /// Nur Android (Merkliste ohne Schlüssel nur im Arbeitsspeicher); auf iOS immer false — für den gemeinsamen Testfall.
         var storageNoKey = false
+        /// Der neueste geplante Lauf wurde ohne Netz nicht versucht (`CheckRunLog.offlineSkipped`; iOS vermerkt das nicht,
+        /// für den gemeinsamen Testfall da).
+        var offline = false
     }
 
     /// Zeilen in fester Reihenfolge je Plattform.

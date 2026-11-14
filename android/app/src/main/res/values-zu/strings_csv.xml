@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Kuphuma ku-portfolio (ukukhipha)</string>
     <string name="portfolio_csv_import_choose_each">Khetha kukho konke ukukhipha ukuthi kuye kuphi.</string>
     <string name="portfolio_csv_import_columns">Amakholomu aziwayo: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Sekungenisiwe: imigqa %1$s</string>
     <string name="portfolio_csv_import_confirm">Ngenisa (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Usuku/Inyanga</string>
     <string name="portfolio_csv_import_date_month_first">Inyanga/Usuku</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Ukuhweba ngama-stablecoin (USDT, USDC …) kubhalwa njengama-swap – i-stablecoin ivela ezimpahleni zakho.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Kungenzeka ukufana okuningana – khetha okulungile noma lutho.</string>
+    <string name="portfolio_csv_import_transfer_loose">Imali ephezulu noma ukufika sekwephuzile – hlola ukuthi kungukudlulisa okufanayo.</string>
     <string name="portfolio_csv_import_transfer_fee">Imali yenethiwekhi: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Bhala njengokudlulisa okukodwa</string>
     <string name="portfolio_csv_import_transfer_stored">Okuhambisanayo kokungeniswe ngaphambilini</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Amazinga ansuku zonke ngokosuku lwekhalenda ku: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Amazinga ansuku zonke awakwazanga ukulayishwa.</string>
     <string name="portfolio_csv_import_anyway">Ngenisa noma kunjalo</string>
-    <string name="portfolio_csv_import_anyway_hint">Ngaphandle kwezinga losuku, intengo noma imali ekhokhwayo ihlala ingekho unomphela. Zama futhi, noma ngenisa noma kunjalo – leyo misebenzi izothola inothi.</string>
+    <string name="portfolio_csv_import_anyway_hint">Ngaphandle kwezinga lansuku zonke, intengo noma imali ayikho uze uyengeze. Zama futhi noma ungenise noma kunjalo – lezo zinkokhelo zizothola inothi.</string>
     <string name="portfolio_csv_note_price_no_rate">Intengo engenalo izinga losuku</string>
     <string name="portfolio_csv_note_fee_no_rate">Imali ekhokhwayo engenalo izinga losuku</string>
     <string name="portfolio_csv_import_no_rates_for">Awekho amazinga osuku e-%1$s, ngakho ukuzama futhi ngeke kusize. Uma ungenisa noma kunjalo, leyo misebenzi izothola inothi.</string>

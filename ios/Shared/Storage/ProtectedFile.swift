@@ -320,6 +320,28 @@ enum ProtectedFile {
         try write(data, to: copy, keys: keys)
     }
 
+    /// Ab diesem Alter (ms) ist eine Zwischendatei von `writeSealed` liegen geblieben (Prozess zwischen Schreiben und
+    /// Umbenennen beendet) — jüngere schreibt womöglich gerade ein anderer Prozess (Widget).
+    static let staleTempMillis: Int64 = 60 * 60 * 1000
+
+    /// Liegen gebliebene Zwischendateien (`.<Name>.<UUID>.tmp`, versiegelte Kopie der Merkliste bzw. des Portfolios) in
+    /// `dir` löschen, die älter als `staleTempMillis` sind. Beim Start (`ProtectedStorage.prepareAtLaunch`); wie Android
+    /// `LogoFiles.removeStaleTemps`. Gibt die Zahl der gelöschten zurück.
+    @discardableResult
+    static func removeStaleTemps(in dir: URL, now: Int64 = EpochTime.nowMillis) -> Int {
+        let fm = FileManager.default
+        guard let names = try? fm.contentsOfDirectory(atPath: dir.path) else { return 0 }
+        var removed = 0
+        for name in names where name.hasPrefix(".") && name.hasSuffix(".tmp") {
+            let url = dir.appendingPathComponent(name)
+            guard let modified = (try? fm.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date,
+                  now - Int64(modified.timeIntervalSince1970 * 1000) > staleTempMillis,
+                  (try? fm.removeItem(at: url)) != nil else { continue }
+            removed += 1
+        }
+        return removed
+    }
+
     /// Versiegeln → in eine Nachbardatei schreiben → von dort lesen, öffnen und mit `data` vergleichen → atomar auf `url`
     /// umbenennen. `unchangedFrom`: nur ersetzen, wenn die Datei noch genau diese Bytes hat (Überführung).
     /// `durability` `.barrier`: ohne Nachlesen, mit F_BARRIERFSYNC (`Durability`).

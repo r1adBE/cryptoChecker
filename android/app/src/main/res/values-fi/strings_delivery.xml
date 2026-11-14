@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Hälytykset päällä – ei vielä tarkistusta taustalla</string>
     <string name="alarm_reliability_notifications_off">Ilmoitukset pois – hälytykset eivät tule perille</string>
     <string name="alarm_reliability_battery">Virransäästö voi pysäyttää hälytysten tarkistuksen</string>
+    <string name="alarm_reliability_offline">Ei yhteyttä – hälytykset tarkistetaan, kun verkko palaa</string>
     <string name="alarm_reliability_background_refresh">Appien päivitys taustalla pois – hälytykset eivät ehkä tule perille</string>
 </resources>

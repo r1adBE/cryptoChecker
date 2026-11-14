@@ -91,6 +91,8 @@
     <string name="check_result_ok">બરાબર</string>
     <string name="check_result_partial">આંશિક</string>
     <string name="check_result_skipped">છોડી દીધું</string>
+    <string name="check_result_paused">થોભાવ્યું, કંઈ તપાસ્યું નથી</string>
+    <string name="check_result_offline">છોડ્યું (ઑફલાઇન)</string>
     <string name="check_trigger_bgtask">બૅકગ્રાઉન્ડ</string>
     <string name="check_trigger_exact">સમયસર</string>
     <string name="check_trigger_foreground">ઍપ</string>

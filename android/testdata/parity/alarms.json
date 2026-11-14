@@ -123,6 +123,19 @@
       { "name": "24 hours: too old", "history": [[1801, 100]], "reference": null, "sinceMinutesAgo": 2000, "hours": 24, "price": 110, "expected": null }
     ]
   },
+  "moveUncheckable": {
+    "description": "AlarmEvaluator.moveWindowUncheckable: a movement alarm with a valid reference but no comparison point in its window (MoveWindow.changePercent = null) is shown as 'not checked' instead of 'checked'. history = [minutesAgo, price] relative to 'now'.",
+    "cases": [
+      { "name": "long gap: reference too old, no history", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 100, "referenceAt": 1699992800000 }, "history": [], "price": 120, "expected": true },
+      { "name": "long gap: history also too old", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 100, "referenceAt": 1699988000000 }, "history": [[150, 100], [100, 101]], "price": 120, "expected": true },
+      { "name": "reference inside the window", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 100, "referenceAt": 1699998200000 }, "history": [], "price": 120, "expected": false },
+      { "name": "a history point inside the window", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 100, "referenceAt": 1699992800000 }, "history": [[20, 100]], "price": 120, "expected": false },
+      { "name": "24 hours: a 25-hour-old reference still bridges", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 24, "referencePrice": 100, "referenceAt": 1699910000000 }, "history": [], "price": 120, "expected": false },
+      { "name": "without a reference the caller sets one first", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1 }, "history": [], "price": 120, "expected": false },
+      { "name": "no valid price", "alarm": { "condition": "MOVE_PERCENT_WINDOW", "threshold": 5, "windowHours": 1, "referencePrice": 100, "referenceAt": 1699992800000 }, "history": [], "price": 0, "expected": false },
+      { "name": "other conditions are never affected", "alarm": { "condition": "CHANGE_PERCENT_UP", "threshold": 5, "referencePrice": 100, "referenceAt": 1699992800000 }, "history": [], "price": 120, "expected": false }
+    ]
+  },
   "nearExtremeSequences": {
     "description": "«Near the high/low» as the refresher plays it: at step i (time now + i * stepMillis) a disabled alarm gives 'skip'; else NearExtreme.decide(side, price, range, threshold, armed = referenceAt <= 0, lastLevel = NearExtreme.reportedMark(referencePrice, lastTriggeredAt, windowDays, time), inCooldown(lastTriggeredAt, time, cooldownMinutes), lastTriggeredAt, time): 'rearm' sets referenceAt = 0 (the reported mark in referencePrice stays), 'fire' applies triggered(alarm, price, time, nearLevel = level). 'windowDays' is stored in windowHours.",
     "cases": [

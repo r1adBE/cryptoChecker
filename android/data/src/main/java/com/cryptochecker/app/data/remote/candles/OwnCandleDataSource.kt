@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.PostRequest
@@ -58,7 +59,13 @@ class OwnCandleDataSource @Inject constructor(
     private val httpClient: OkHttpClient,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
-    private class Entry(val time: Long, val value: Sourced<List<HourCandle>>?)
+    private class Entry(val time: Long, val load: Load)
+
+    /**
+     * Ergebnis eines Abrufs: Kerzen oder null; [unreachable] = eine Anfrage scheiterte vorübergehend (Netz, Zeitgrenze,
+     * 5xx, Pause nach «zu viele Anfragen» — [HistoricCloseChain.fetchFailure]); null ohne [unreachable] = keine Reihe.
+     */
+    class Load(val value: Sourced<List<HourCandle>>?, val unreachable: Boolean = false)
 
     // Begrenzt: Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
     private val cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)
@@ -68,15 +75,19 @@ class OwnCandleDataSource @Inject constructor(
     fun supports(pair: CandlePair, interval: CandleInterval): Boolean = ExchangeCandleRegistry.supports(pair, interval)
 
     /** Bis zu [limit] eigene Kerzen, aufsteigend; null ohne Quelle oder ohne laufende Reihe. */
-    suspend fun candles(pair: CandlePair, interval: CandleInterval, limit: Int): Sourced<List<HourCandle>>? {
-        if (interval !in ExchangeCandleRegistry.INTERVALS) return null
-        val source = ExchangeCandleRegistry.sourceFor(pair) ?: return null
+    suspend fun candles(pair: CandlePair, interval: CandleInterval, limit: Int): Sourced<List<HourCandle>>? =
+        load(pair, interval, limit).value
+
+    /** Wie [candles], dazu ob eine Anfrage vorübergehend scheiterte ([Load.unreachable], Tagesschlüsse). */
+    suspend fun load(pair: CandlePair, interval: CandleInterval, limit: Int): Load {
+        if (interval !in ExchangeCandleRegistry.INTERVALS) return Load(null)
+        val source = ExchangeCandleRegistry.sourceFor(pair) ?: return Load(null)
         val n = limit.coerceIn(2, MAX_LIMIT)
         val key = "${pair.cacheKey}|${interval.name}|$n"
         val now = System.currentTimeMillis()
         cache[key]?.let { entry ->
-            val ttl = if (entry.value != null) CACHE_MILLIS else FAILURE_MILLIS
-            if (now - entry.time in 0 until ttl) return entry.value
+            val ttl = if (entry.load.value != null) CACHE_MILLIS else FAILURE_MILLIS
+            if (now - entry.time in 0 until ttl) return entry.load
         }
         val result = withContext(ioDispatcher) { permits.withPermit { fetch(source, pair, interval, n) } }
         cache[key] = Entry(System.currentTimeMillis(), result)
@@ -94,10 +105,11 @@ class OwnCandleDataSource @Inject constructor(
 
     private suspend fun fetch(
         source: ExchangeCandleSource, pair: CandlePair, interval: CandleInterval, limit: Int,
-    ): Sourced<List<HourCandle>>? {
+    ): Load {
+        var unreachable = false
         val http = object : CandleHttp {
-            override suspend fun get(url: String): String? = get(source, url, null)
-            override suspend fun post(url: String, json: String): String? = get(source, url, json)
+            override suspend fun get(url: String): String? = get(source, url, null) { unreachable = true }
+            override suspend fun post(url: String, json: String): String? = get(source, url, json) { unreachable = true }
         }
         val candles = try {
             source.fetch(pair, interval, limit, http)
@@ -108,20 +120,30 @@ class OwnCandleDataSource @Inject constructor(
             null
         }
         val live = candles?.takeIf { it.size >= 2 && CandleSeries.isLive(it, interval.millis, System.currentTimeMillis()) }
-            ?: return null
-        return Sourced(live, OwnCandlePolicy.provider(pair))
+            ?: return Load(null, unreachable)
+        return Load(Sourced(live, OwnCandlePolicy.provider(pair)), unreachable)
     }
 
-    /** Eine Anfrage (GET, mit [json] POST) mit eigener Zeitgrenze; null bei Fehler, Sperre oder Pause. */
-    private suspend fun get(source: ExchangeCandleSource, url: String, json: String?): String? {
+    /**
+     * Eine Anfrage (GET, mit [json] POST) mit eigener Zeitgrenze; null bei Fehler, Sperre oder Pause. [unreachable]: der
+     * Fehler war vorübergehend (Netz, Zeitgrenze, 5xx, Pause) — nicht «keine Daten» oder Geo-Sperre.
+     */
+    private suspend fun get(source: ExchangeCandleSource, url: String, json: String?, unreachable: () -> Unit): String? {
         val host = hostOf(url)
-        if (BlockedSources.isBlocked(host) || CandleHostPauses.isPaused(host)) return null
+        if (BlockedSources.groupPausedUntil(host) != null || CandleHostPauses.isPaused(host)) {
+            unreachable()
+            return null
+        }
+        if (BlockedSources.isBlocked(host)) return null
         val post = json?.let { PostRequest(it, mapOf("Content-Type" to "application/json")) }
         val body = try {
             withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, post) }
+                .also { if (it == null) unreachable() }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()
+            val code = (e as? HttpExchangeError)?.httpCode
+            if (HistoricCloseChain.fetchFailure(code) == HistoricCloseChain.FetchFailure.TRANSIENT) unreachable()
             if (!BlockedSources.noteFailure(host, e)) {
                 if (e is HttpExchangeError && ExchangeBackoff.isRateLimitCode(e.httpCode)) {
                     CandleHostPauses.pause(host, e.httpCode, e.retryAfterSeconds)
@@ -134,6 +156,7 @@ class OwnCandleDataSource @Inject constructor(
         currentCoroutineContext().ensureActive()
         if (body != null && source.isRateLimited(body)) {
             if (ExchangeBackoff.sharedGroup(host) == null) CandleHostPauses.pause(host, 429, null)
+            unreachable()
             return null
         }
         return body

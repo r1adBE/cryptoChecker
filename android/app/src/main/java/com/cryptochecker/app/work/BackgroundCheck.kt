@@ -104,7 +104,8 @@ class BackgroundCheck @Inject constructor(
             log(trigger, CheckResult.FAILED, startedAt)
             throw e
         }
-        log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
+        // Alle Börsen pausiert: «pausiert, nichts geprüft» statt «OK» (zählt nicht als gelungene Prüfung)
+        log(trigger, CheckRunLog.result(summary.checked, summary.failed, paused = summary.paused), startedAt)
         // Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
         if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
             BackgroundErrorCounter.record(BackgroundErrors.REFRESH, kind = BackgroundErrors.ALL_FAILED_KIND)

@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ጠቅላላ</string>
     <string name="portfolio_hide_amounts">መጠኖችን ይደብቁ</string>
-    <string name="portfolio_hide_amounts_hint">በፖርትፎሊዮውና በፖርትፎሊዮ ዊጀቱ ውስጥ መጠኖችንና እሴቶችን እንደ ••• ያሳያል – መቶኛዎች እንደሚታዩ ይቆያሉ።</string>
+    <string name="portfolio_hide_amounts_hint">በፖርትፎሊዮው፣ በፖርትፎሊዮ ዊጀቱ፣ በሰዓቱ ላይ እና በፖርትፎሊዮ ማንቂያዎች ውስጥ መጠኖችንና እሴቶችን እንደ ••• ያሳያል – መቶኛዎች እንደሚታዩ ይቆያሉ።</string>
     <string name="portfolio_invested">የወጪ መሠረት</string>
     <string name="portfolio_total_no_fx">ለ%1$s የምንዛሪ ተመን የለም – መጠኖች በUSDT</string>
     <string name="portfolio_total_value">ጠቅላላ ዋጋ</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">ለውጦቹ ይጣሉ?</string>
     <string name="portfolio_edit_tx">ግብይት ያርትዑ</string>
     <string name="portfolio_invalid">ከ0 የሚበልጥ ትክክለኛ ቁጥር ያስገቡ።</string>
+    <string name="number_ambiguous">ግልጽ አይደለም፦ %1$s ወይስ %2$s? ከሁለቱ አንዱን ይተይቡ።</string>
     <string name="portfolio_oversold">ሽያጮች ከይዞታዎቹ ይበልጣሉ – እባክዎ ግብይቶቹን ይፈትሹ።</string>
     <string name="portfolio_sell">ሽያጭ</string>
     <string name="portfolio_sell_exceeds">ከይዞታዎችዎ (%1$s) ይበልጣል</string>

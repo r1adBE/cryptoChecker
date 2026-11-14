@@ -21,6 +21,7 @@ class FullCheckParityTest {
         for (c in cases) {
             val actual = BackgroundSchedule.isFullCheck(
                 c["attempted"].num()!!.toInt(), c["failed"].num()!!.toInt(), c["notTraded"].num()?.toInt() ?: 0,
+                c["cutByBudget"].num()?.toInt() ?: 0,
             )
             assertEquals(c.toString(), c["expected"], actual)
         }

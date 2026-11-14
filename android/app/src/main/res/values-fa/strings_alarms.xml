@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">نرخ تأمین مالی باید عددی بین −10 و +10 درصد باشد.</string>
     <string name="alarm_threshold_error_invalid">یک عدد معتبر بزرگ‌تر از 0 وارد کن.</string>
     <string name="alarm_threshold_error_oi">تغییر موقعیت‌های باز: حداکثر 1000 درصد.</string>
+    <string name="alarm_threshold_error_percent_max">حداکثر ۱۰۰۰ درصد.</string>
+    <string name="alarm_threshold_error_distance">فاصله باید کمتر از ۱۰۰ درصد باشد.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">در %1$d ساعت</item>
         <item quantity="other">در %1$d ساعت</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">گفتار روشن</string>
     <string name="alarm_unchecked_no_candles">بررسی نشد (داده کندل نیست)</string>
     <string name="alarm_unchecked_no_rate">بررسی نشد (نرخ ارز نیست)</string>
+    <string name="alarm_unchecked_no_window_price">بررسی نشد (قیمتی در بازهٔ زمانی نیست)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">اعلان‌ها خاموش است – این هشدار به تو نمی‌رسد</string>

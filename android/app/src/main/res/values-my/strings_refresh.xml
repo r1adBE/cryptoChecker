@@ -82,6 +82,8 @@
     <string name="check_result_ok">အဆင်ပြေ</string>
     <string name="check_result_partial">တစ်စိတ်တစ်ပိုင်း</string>
     <string name="check_result_skipped">ကျော်ခဲ့သည်</string>
+    <string name="check_result_paused">ခေတ္တရပ်ထားသည်၊ ဘာမှ မစစ်ဆေးရသေးပါ</string>
+    <string name="check_result_offline">ကျော်ခဲ့သည် (အော့ဖ်လိုင်း)</string>
     <string name="check_trigger_bgtask">နောက်ခံ</string>
     <string name="check_trigger_exact">အချိန်မှန်</string>
     <string name="check_trigger_foreground">အက်ပ်</string>

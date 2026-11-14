@@ -11,6 +11,10 @@ import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.app.domain.refresh.ExchangeFailure
+import com.cryptochecker.app.domain.refresh.RefreshFailure
+import com.cryptochecker.app.domain.refresh.RefreshReportLogic
+import com.cryptochecker.app.domain.refresh.refreshFailure
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.config.ExchangeRetirement
@@ -92,7 +96,7 @@ class ExchangeRepositoryImpl @Inject constructor(
             ExchangeTickerResult(remote.fetchExchangeTicker(source, info), info)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
-            ExchangeTickerResult(MutableTicker(), info, ex.textForUser(), ex.toExchangeFailure())
+            ex.toExchangeFailure().let { failure -> ExchangeTickerResult(MutableTicker(), info, ex.textForUser(failure), failure) }
         }
     }
 
@@ -109,7 +113,7 @@ class ExchangeRepositoryImpl @Inject constructor(
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
             // Text weiterreichen: «zu viele Anfragen» pausiert die Börse (ExchangeBackoff)
-            BulkTickers(error = ex.textForUser(), failure = ex.toExchangeFailure())
+            ex.toExchangeFailure().let { failure -> BulkTickers(error = ex.textForUser(failure), failure = failure) }
         }
     }
 
@@ -137,7 +141,14 @@ private fun exchangeOrNull(exchangeKey: String): Exchange? = ExchangesConfig.EXC
 private fun requireExchange(exchangeKey: String): Exchange =
     exchangeOrNull(exchangeKey) ?: throw Resources.NotFoundException("Exchange not found (key=$exchangeKey)")
 
-private fun Exception.textForUser(): String = message ?: javaClass.simpleName
+/**
+ * Gespeicherter Text: bei «keine Verbindung» (Art [ExchangeFailure.Offline]/[ExchangeFailure.Ssl]) der Marker
+ * [RefreshReportLogic.OFFLINE_MARKER] — wie iOS `ConnectionErrors.describe`; sonst entschiede der Ausnahmetext
+ * («SocketException: Software caused connection abort») und die Zeile zeigte «Etwas ist schiefgelaufen».
+ */
+private fun Exception.textForUser(failure: ExchangeFailure): String =
+    if (failure.refreshFailure() == RefreshFailure.OFFLINE) RefreshReportLogic.OFFLINE_MARKER
+    else message ?: javaClass.simpleName
 
 private fun ExchangePair.asPairQuery(): PairQuery =
     PairQuery(base, quote, pairId, contractType)

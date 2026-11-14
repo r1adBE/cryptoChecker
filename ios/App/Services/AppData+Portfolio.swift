@@ -74,8 +74,8 @@ extension AppData {
                 detached.note = nil
                 detached.feeExact = a.fee
                 detached.feeUnit = a.feeUnit
-                detached.exchange = nil
-                detached.transferFrom = nil
+                detached.exchange = a.exchange  // Wallet wie beim Import: Börse der Datei
+                detached.transferFrom = a.transferFrom
                 detached.transferTo = nil
                 detached.feeCoin = a.feeCoin
                 detached.feeCoinAmountExact = a.feeCoinAmount

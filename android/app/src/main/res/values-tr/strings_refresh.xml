@@ -91,6 +91,8 @@
     <string name="check_result_ok">Tamam</string>
     <string name="check_result_partial">Kısmi</string>
     <string name="check_result_skipped">Atlandı</string>
+    <string name="check_result_paused">Duraklatıldı, hiçbir şey kontrol edilmedi</string>
+    <string name="check_result_offline">Atlandı (çevrimdışı)</string>
     <string name="check_trigger_bgtask">Arka plan</string>
     <string name="check_trigger_exact">Zamanında</string>
     <string name="check_trigger_foreground">Uygulama</string>

@@ -15,6 +15,7 @@
     <string name="watchlist_refresh_report">Poslednje osvežavanje</string>
     <string name="watchlist_symbols_legend">Objašnjenje simbola</string>
     <string name="watchlist_symbols_legend_alarms">Aktivni alarmi i njihov broj</string>
+    <string name="watchlist_symbols_legend_warning">Cena zastarela ili berza nedostupna</string>
     <string name="watchlist_refresh_report_empty">Još nema pregleda – dosad nije bilo potpunog osvežavanja. Dodirni osvežavanje i sačekaj dok se krug ne zaustavi.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d od %2$d zastarelo</item>
@@ -278,6 +279,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zatvori obaveštenje</string>
     <string name="watchlist_missing_logos_explain">Za ove kriptovalute logotip nije dostupan. Aplikacija prikazuje njihove inicijale.</string>
+    <string name="watchlist_missing_logos_pending">još nije učitano</string>
+    <string name="watchlist_missing_logos_explain_pending">Logotipi označeni kao još neučitani stižu sa sledećom sinhronizacijom, neki samo preko Wi-Fi mreže. Za ostale kovanice logotip nije dostupan. Aplikacija prikazuje njihove inicijale.</string>
     <string name="exchange_retiring_notice">Od %2$s %1$s više neće davati javne cene. Izaberi drugu berzu za ove kriptovalute.</string>
     <string name="exchange_retiring_reason">Od %2$s %1$s više neće davati cene</string>
     <string name="exchange_retired_since">Od %2$s %1$s više ne daje cene</string>

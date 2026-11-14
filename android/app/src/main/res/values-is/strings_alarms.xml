@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">Fjármögnun verður að vera tala á milli −10 og +10 prósenta.</string>
     <string name="alarm_threshold_error_invalid">Sláðu inn gilda tölu hærri en 0.</string>
     <string name="alarm_threshold_error_oi">Breyting á opnum stöðum: í mesta lagi 1000 prósent.</string>
+    <string name="alarm_threshold_error_percent_max">Í mesta lagi 1000 prósent.</string>
+    <string name="alarm_threshold_error_distance">Fjarlægðin verður að vera minni en 100 prósent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">innan %1$d klst.</item>
         <item quantity="other">innan %1$d klst.</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">Tal á</string>
     <string name="alarm_unchecked_no_candles">Ekki hægt að athuga (engin kertagögn)</string>
     <string name="alarm_unchecked_no_rate">Ekki hægt að athuga (ekkert gengi)</string>
+    <string name="alarm_unchecked_no_window_price">Ekki hægt að athuga (ekkert verð innan tímabilsins)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Tilkynningar af – þessi viðvörun nær ekki til þín</string>

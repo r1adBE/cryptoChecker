@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">अलर्टहरू सक्रिय – अहिलेसम्म ब्याकग्राउन्ड जाँच भएको छैन</string>
     <string name="alarm_reliability_notifications_off">सूचनाहरू बन्द – अलर्टहरू आइपुग्दैनन्</string>
     <string name="alarm_reliability_battery">ब्याट्री बचतले अलर्ट जाँचहरू रोक्न सक्छ</string>
+    <string name="alarm_reliability_offline">जडान छैन – नेटवर्क फर्केपछि अलार्म जाँच हुनेछ</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh बन्द – अलर्टहरू नआउन सक्छन्</string>
 </resources>

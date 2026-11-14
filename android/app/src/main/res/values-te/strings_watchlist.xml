@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">చివరి రిఫ్రెష్</string>
     <string name="watchlist_symbols_legend">చిహ్నాల వివరణ</string>
     <string name="watchlist_symbols_legend_alarms">యాక్టివ్ అలర్ట్‌లు, వాటి సంఖ్య</string>
+    <string name="watchlist_symbols_legend_warning">ధర పాతది లేదా ఎక్స్ఛేంజ్ అందుబాటులో లేదు</string>
     <string name="watchlist_refresh_report_empty">ఇంకా వివరాలు లేవు – ఇప్పటి వరకు పూర్తి రిఫ్రెష్ జరగలేదు. రిఫ్రెష్ నొక్కి, వృత్తం ఆగే వరకు వేచి ఉండండి.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$dలో %1$d పాతది</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">నోటీసును మూసివేయండి</string>
     <string name="watchlist_missing_logos_explain">ఈ కాయిన్‌లకు లోగో అందుబాటులో లేదు. యాప్ వాటి మొదటి అక్షరాలను చూపుతుంది.</string>
+    <string name="watchlist_missing_logos_pending">ఇంకా లోడ్ కాలేదు</string>
+    <string name="watchlist_missing_logos_explain_pending">ఇంకా లోడ్ కాలేదు అని గుర్తించిన లోగోలు తదుపరి సింక్‌తో వస్తాయి, కొన్ని Wi-Fi లో మాత్రమే. ఇతర కాయిన్‌లకు లోగో అందుబాటులో లేదు. యాప్ వాటి మొదటి అక్షరాలను చూపిస్తుంది.</string>
     <string name="exchange_retiring_notice">%2$s నుండి %1$s పబ్లిక్ ధరలను అందించదు. ఈ కాయిన్‌ల కోసం వేరే ఎక్స్ఛేంజ్‌ను ఎంచుకోండి.</string>
     <string name="exchange_retiring_reason">%2$s నుండి %1$s ధరలను అందించదు</string>
     <string name="exchange_retired_since">%2$s నుండి %1$s ఇకపై ధరలను అందించడం లేదు</string>

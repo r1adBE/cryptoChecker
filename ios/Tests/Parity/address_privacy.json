@@ -30,7 +30,7 @@
     { "host": "space", "neutral": false },
     { "host": "evil-mempool.space", "neutral": false, "_why": "nur genaue Hosts" }
   ],
-  "_redirectComment": "Weiterleitungen der Adressabfragen (Client von WatchedAddressSource bzw. dessen Sitzung): nur auf denselben Host und nie von HTTPS auf HTTP, sonst gilt die Weiterleitung als Antwort (HTTP-Fehler) — die Adresse ginge sonst samt IP an einen Dritten. Android: AddressRedirect / SameHostRedirectInterceptor, iOS: AddressRedirect / SameHostRedirectDelegate.",
+  "_redirectComment": "Weiterleitungen der Adressabfragen (Client von WatchedAddressSource bzw. dessen Sitzung): nur auf denselben Host und Port (ohne Angabe: Standard des Schemas; einzig HTTP 80 auf HTTPS 443 als Wechsel) und nie von HTTPS auf HTTP, sonst gilt die Weiterleitung als Antwort (HTTP-Fehler) — die Adresse ginge sonst samt IP an einen Dritten. Android: AddressRedirect / SameHostRedirectInterceptor, iOS: AddressRedirect / SameHostRedirectDelegate.",
   "redirectCases": [
     { "from": "https://mempool.space/api/address/bc1qexample", "to": "https://mempool.space/api/address/bc1qexample/", "follow": true },
     { "from": "https://mempool.space/api/address/a", "to": "https://MEMPOOL.space/api/address/a", "follow": true, "_why": "Gross-/Kleinschreibung egal" },
@@ -38,6 +38,10 @@
     { "from": "https://mempool.space/api/address/a", "to": "http://mempool.space/api/address/a", "follow": false, "_why": "nie von HTTPS auf HTTP" },
     { "from": "https://mempool.space/api/address/a", "to": "https://tracker.example/api/address/a", "follow": false, "_why": "anderer Host" },
     { "from": "https://mempool.space/api/address/a", "to": "https://api.mempool.space/api/address/a", "follow": false, "_why": "auch kein Unter-Host" },
-    { "from": "https://toncenter.com/api/v2/getAddressBalance", "to": "ftp://toncenter.com/x", "follow": false, "_why": "nur HTTP(S)" }
+    { "from": "https://toncenter.com/api/v2/getAddressBalance", "to": "ftp://toncenter.com/x", "follow": false, "_why": "nur HTTP(S)" },
+    { "from": "https://node.example.org:3002/api/address/a", "to": "https://node.example.org:3003/api/address/a", "follow": false, "_why": "anderer Port: anderer Dienst desselben Hosts" },
+    { "from": "https://mempool.space/api/address/a", "to": "https://mempool.space:443/api/address/a", "follow": true, "_why": "Standard-Port ausgeschrieben" },
+    { "from": "http://node.example.org/api/address/a", "to": "https://node.example.org/api/address/a", "follow": true, "_why": "HTTP auf HTTPS ohne Port (80 → 443)" },
+    { "from": "http://node.example.org:8080/api/address/a", "to": "https://node.example.org/api/address/a", "follow": false, "_why": "HTTP 8080 auf HTTPS 443: anderer Port" }
   ]
 }

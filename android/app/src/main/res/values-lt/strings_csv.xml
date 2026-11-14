@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Palieka portfelį (išėmimas)</string>
     <string name="portfolio_csv_import_choose_each">Kiekvienam išėmimui pasirink, kur jis nukeliavo.</string>
     <string name="portfolio_csv_import_columns">Atpažinti stulpeliai: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Jau importuota: eilutės %1$s</string>
     <string name="portfolio_csv_import_confirm">Importuoti (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Diena/mėnuo</string>
     <string name="portfolio_csv_import_date_month_first">Mėnuo/diena</string>
@@ -50,6 +51,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Sandoriai su stabiliosiomis monetomis (USDT, USDC …) registruojami kaip apsikeitimai – stabilioji moneta atsiranda tavo turimame turte.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Galimi keli atitikmenys – pasirink tinkamą arba nė vieno.</string>
+    <string name="portfolio_csv_import_transfer_loose">Didelis mokestis arba vėlyvas gavimas – patikrink, ar tai tas pats pervedimas.</string>
     <string name="portfolio_csv_import_transfer_fee">Tinklo komisinis mokestis: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Registruoti kaip vieną pervedimą</string>
     <string name="portfolio_csv_import_transfer_stored">Atitikmuo iš ankstesnio importo</string>
@@ -116,7 +118,7 @@
     <string name="portfolio_csv_import_fx_zone">Dienos kursai pagal kalendorinę dieną: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Nepavyko įkelti dienos kursų.</string>
     <string name="portfolio_csv_import_anyway">Vis tiek importuoti</string>
-    <string name="portfolio_csv_import_anyway_hint">Be dienos kurso kainos arba komisinio mokesčio trūks visam laikui. Bandyk dar kartą arba vis tiek importuok – tos transakcijos tada gaus pastabą.</string>
+    <string name="portfolio_csv_import_anyway_hint">Be dienos kurso kainos ar mokesčio trūksta, kol jų nepridėsi. Bandyk dar kartą arba vis tiek importuok – šios operacijos gaus pastabą.</string>
     <string name="portfolio_csv_note_price_no_rate">Kaina be dienos kurso</string>
     <string name="portfolio_csv_note_fee_no_rate">Komisinis mokestis be dienos kurso</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s dienos kursų nėra, todėl bandymas dar kartą nepadės. Jei vis tiek importuosi, tos transakcijos gaus pastabą.</string>

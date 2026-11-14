@@ -11,10 +11,12 @@ import WidgetKit
 struct WatchPortfolioEntry: TimelineEntry {
     let date: Date
     let portfolio: WatchPortfolio?
+    /// Intervall des iPhones (`WatchSettings.interval`): «veraltet» nach 3 × Intervall (`WatchFreshness`).
+    var interval: Int = WatchInterval.defaultMinutes
 
     var outdated: Bool {
         guard let p = portfolio else { return false }
-        return WatchFreshness.isOutdated(p.time, now: Int64(date.timeIntervalSince1970 * 1000))
+        return WatchFreshness.isOutdated(p.time, now: Int64(date.timeIntervalSince1970 * 1000), intervalMinutes: interval)
     }
 }
 
@@ -25,17 +27,19 @@ struct WatchPortfolioProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping @Sendable (WatchPortfolioEntry) -> Void) {
-        completion(context.isPreview ? placeholder(in: context) : WatchPortfolioEntry(date: Date(), portfolio: WatchStore.portfolio()))
+        completion(context.isPreview ? placeholder(in: context)
+                   : WatchPortfolioEntry(date: Date(), portfolio: WatchStore.portfolio(), interval: WatchStore.settings.interval))
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPortfolioEntry>) -> Void) {
         let now = Date()
         let portfolio = WatchStore.portfolio()
-        var entries = [WatchPortfolioEntry(date: now, portfolio: portfolio)]
+        let interval = WatchStore.settings.interval
+        var entries = [WatchPortfolioEntry(date: now, portfolio: portfolio, interval: interval)]
         // Zweiter Eintrag, sobald der Wert veraltet (1 ms nach der Grenze, wie `WatchPriceProvider`)
         if let time = portfolio?.time {
-            let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
-            if staleAt > now { entries.append(WatchPortfolioEntry(date: staleAt, portfolio: portfolio)) }
+            let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis(interval) + 1)
+            if staleAt > now { entries.append(WatchPortfolioEntry(date: staleAt, portfolio: portfolio, interval: interval)) }
         }
         // Neue Werte kommen vom iPhone (Neuzeichnen über `WatchComplications.reload`); sonst nur das Alter
         completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(TimeInterval(WatchFreshness.updateMinutes * 60)))))
@@ -100,7 +104,7 @@ struct WatchPortfolioWidgetView: View {
         let total = WatchText.portfolioTotal(p)
         let now = Int64(entry.date.timeIntervalSince1970 * 1000)
         // Veraltet: Alter knapp auch in den kleinen Familien («USD 47m»), wie Android der Kurztitel
-        let title = WatchFreshness.shortTitle(p.currency, time: p.time, now: now)
+        let title = WatchFreshness.shortTitle(p.currency, time: p.time, now: now, intervalMinutes: entry.interval)
         switch family {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
@@ -111,7 +115,7 @@ struct WatchPortfolioWidgetView: View {
                     .privacySensitive()
             }
         case .accessoryInline:
-            Text(WatchFreshness.inlineLine(total, time: p.time, now: now)).privacySensitive()
+            Text(WatchFreshness.inlineLine(total, time: p.time, now: now, intervalMinutes: entry.interval)).privacySensitive()
         case .accessoryCorner:
             Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).privacySensitive().widgetLabel(title)
         default:

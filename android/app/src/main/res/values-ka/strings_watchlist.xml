@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">ბოლო განახლება</string>
     <string name="watchlist_symbols_legend">სიმბოლოების განმარტება</string>
     <string name="watchlist_symbols_legend_alarms">აქტიური განგაშები და მათი რაოდენობა</string>
+    <string name="watchlist_symbols_legend_warning">ფასი მოძველებულია ან ბირჟა მიუწვდომელია</string>
     <string name="watchlist_refresh_report_empty">დეტალები ჯერ არ არის – სრული განახლება ჯერ არ ყოფილა. შეეხე განახლებას და დაელოდე, სანამ წრე გაჩერდება.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d-დან %1$d მოძველებულია</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">შეტყობინების დახურვა</string>
     <string name="watchlist_missing_logos_explain">ამ მონეტებისთვის ლოგო ხელმისაწვდომი არ არის. აპი მათ ინიციალებს აჩვენებს.</string>
+    <string name="watchlist_missing_logos_pending">ჯერ არ ჩატვირთულა</string>
+    <string name="watchlist_missing_logos_explain_pending">ლოგოები, რომლებიც მონიშნულია როგორც ჯერ არ ჩატვირთული, მომდევნო სინქრონიზაციით მოვა, ზოგი მხოლოდ Wi-Fi-ით. დანარჩენი მონეტებისთვის ლოგო არ არის. აპი აჩვენებს მათ ინიციალებს.</string>
     <string name="exchange_retiring_notice">%2$s-დან %1$s საჯარო ფასებს აღარ მიაწვდის. ამ მონეტებისთვის სხვა ბირჟა აირჩიე.</string>
     <string name="exchange_retiring_reason">%2$s-დან %1$s ფასებს აღარ მიაწვდის</string>
     <string name="exchange_retired_since">%2$s-დან %1$s ფასებს აღარ აწვდის</string>

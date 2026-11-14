@@ -69,7 +69,11 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     // Sichern bzw. Wiederherstellen läuft: Knöpfe aus, Fortschrittskreis darüber (wie iOS) — kein zweiter Lauf per Doppeltipp
     val working by viewModel.backupWorking.collectAsStateWithLifecycle()
     // Dialog «Sichern» offen: Vorwahl «Mit Passwort schützen» (true, wenn Portfolio-Daten dabei sind)
-    var exportDialog by remember { mutableStateOf<Boolean?>(null) }
+    // Gesichert (übersteht Drehen, Falten, Themenwechsel); die Passwortfelder darin bewusst nicht
+    var exportDialog by rememberSaveable { mutableStateOf<Boolean?>(null) }
+    // Dateiauswahl offen für eine Sicherung mit (true) bzw. ohne (false) Passwort — übersteht auch einen Prozess-Neustart,
+    // das Passwort selbst nicht: fehlt es danach, fragt der Dialog erneut statt «gescheitert»
+    var pickerWithPassword by rememberSaveable { mutableStateOf<Boolean?>(null) }
     // Wieder gesperrt (Hintergrund-Limit), während «Sichern» offen ist: schliessen wie die
     // Erfassen-Blätter. Eine schon bestätigte Sicherung (Dateiauswahl offen) läuft weiter.
     val sessionLocked by viewModel.sessionLocked.collectAsStateWithLifecycle()
@@ -78,7 +82,11 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     }
     val exportLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("application/json")
-    ) { uri -> if (uri != null) viewModel.exportBackup(uri) else viewModel.cancelExport() }
+    ) { uri ->
+        val withPassword = pickerWithPassword
+        pickerWithPassword = null
+        if (uri != null) viewModel.exportBackup(uri, withPassword) { exportDialog = true } else viewModel.cancelExport()
+    }
     // Nach dem Einspielen: Erlaubnis für Mitteilungen erfragen (Android 13+), sonst kommen Alarme und
     // Kurs-Mitteilungen der eingespielten Paare nie an — eine Neuinstallation hat sie noch nie gefragt.
     // Wie neue Paare: erst kurz erklären, dann die System-Abfrage
@@ -158,6 +166,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                 exportDialog = null
                 // Dateiauswahl des Systems, mit gewähltem Schutz
                 viewModel.prepareExport(password)
+                pickerWithPassword = password != null
                 exportLauncher.launch("cryptochecker-backup-${java.time.LocalDate.now()}.json")
             },
             onDismiss = { exportDialog = null }

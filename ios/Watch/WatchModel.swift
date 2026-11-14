@@ -62,6 +62,24 @@ final class WatchModel {
         WatchComplications.reload()
     }
 
+    /// iPhone-App nicht mehr installiert (`WatchLink`): Wahl wie ohne iPhone (`WatchSettings.forgetPhone`), Kurse nicht
+    /// mehr vom iPhone (`WatchStore.forgetPhoneQuotes`), Portfolio-Wert weg — wie Wear OS bei gelöschten Einträgen.
+    func forgetPhone() {
+        let next = WatchSettings.forgetPhone(settings)
+        let changed = next != settings
+        let hadPhone = !WatchStore.phoneCoins.isEmpty || WatchStore.phoneTime > 0 || portfolio != nil
+        guard changed || hadPhone else { return }
+        if changed {
+            settings = next
+            WatchStore.settings = next
+        }
+        WatchStore.forgetPhoneQuotes()
+        WatchStore.takePortfolio(.clear)
+        portfolio = nil
+        WatchComplications.reload()
+        if changed { refresh() }
+    }
+
     /// Abruf für die gezeigte Liste, nur was fällig ist (`force` = «Aktualisieren», Öffnen, neue Liste); ein laufender
     /// wird abgebrochen. Ohne Fälliges (das iPhone liefert frische Kurse) kein Abruf und kein Fehler.
     func refresh(force: Bool = true) {
@@ -70,7 +88,10 @@ final class WatchModel {
         let startedAt = WatchStore.now()
         fetchTask?.cancel()
         let need = WatchPhoneQuotes.selfFetch(coins, times: quotes.mapValues(\.time), phoneCoins: WatchStore.phoneCoins,
-                                              usePhone: settings.source == .phone && WatchLink.shared.phoneReachable,
+                                              usePhone: WatchPhoneQuotes.usePhone(
+                                                source: settings.source, connected: WatchLink.shared.phoneReachable,
+                                                lastDelivery: WatchStore.phoneTime, now: startedAt,
+                                                intervalMinutes: settings.interval),
                                               intervalMinutes: settings.interval, now: startedAt, force: force)
         guard !need.isEmpty else {
             failed = false

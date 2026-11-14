@@ -145,6 +145,16 @@
       "description": "JSON-Array statt Objekt",
       "response": "[1,2,3]",
       "error": true
+    },
+    {
+      "description": "Grundgebühr 0x0 ohne Trinkgelder: keine Daten (nächster Knoten)",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x0\",\"0x0\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x0\",\"0x0\",\"0x0\"]]}}",
+      "error": true
+    },
+    {
+      "description": "Grundgebühr leeres 0x ohne Trinkgelder: keine Daten",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x\"],\"gasUsedRatio\":[0.52],\"reward\":[]}}",
+      "error": true
     }
   ],
   "gasPrice": [
@@ -159,9 +169,14 @@
       "gwei": 0.1
     },
     {
-      "description": "nur Präfix = 0",
+      "description": "nur Präfix: keine Daten (nächster Knoten), nicht 0 gwei",
       "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x\"}",
-      "gwei": 0.0
+      "error": true
+    },
+    {
+      "description": "Gaspreis 0x0: keine Daten (nächster Knoten)",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x0\"}",
+      "error": true
     },
     {
       "description": "Fehlerobjekt",
@@ -223,6 +238,11 @@
     {
       "description": "kein JSON",
       "response": "Too Many Requests",
+      "error": true
+    },
+    {
+      "description": "Gebühr 0: keine Daten",
+      "response": "{\"fastestFee\":0,\"halfHourFee\":0,\"hourFee\":0}",
       "error": true
     }
   ],

@@ -36,6 +36,8 @@ enum AlarmReliability {
         /// Letzte Prüfung älter als `staleMillis(_:)` (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
         /// geplanten Läufe gescheitert und das seit länger als `staleMillis(_:)` (`AlarmReadiness.Input.failingSince`).
         case stale
+        /// Prüfung zu alt, der neueste geplante Lauf fand kein Netz (`AlarmReadiness.Input.offline`): Grund Netz, nicht Akku.
+        case offline
     }
 
     /// `warn`: Bernstein statt Grau.
@@ -66,9 +68,11 @@ enum AlarmReliability {
             // Verspätung: bis dahin die ruhige Zeile.
             let since = input.failingSince ?? input.lastFailedBackgroundCheck
             let overdue = since.map { !withinLimit($0, input) } ?? false
-            return Status(kind: overdue ? .stale : .never, warn: overdue)
+            return Status(kind: !overdue ? .never : (input.offline ? .offline : .stale), warn: overdue)
         }
         if withinLimit(at, input) { return Status(kind: .recent, warn: false) }
+        // Zu alt, aber der letzte geplante Lauf fand kein Netz: das Netz ist der Grund (nicht Akku) — wie Android
+        if input.offline { return Status(kind: .offline, warn: true) }
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung
         let batteryLikely = android && (!input.batteryUnrestricted || oemVendorKnown)

@@ -35,50 +35,9 @@ struct CsvImportTx: Equatable {
     var stakingMove = false
     /// Preis bzw. Gebühr fehlt, weil der Tageskurs fehlt (`CsvImportRateGate.missing`); beim Speichern Vermerk in der Notiz.
     var missingRate: CsvMissingRate? = nil
-}
-
-/// Vorschau eines Imports — wie `CsvImportPreview` (Kotlin).
-struct CsvImportPreview {
-    let format: CsvImportFormat
-    let transactions: [CsvImportTx]
-    let duplicates: Int
-    let skipped: [CsvImportSkip]
-    /// Zeilen ohne Tageskurs: «Importieren» gesperrt, bis die Kurse da sind oder der Import ausdrücklich trotzdem
-    /// verlangt wird — dann mit Vermerk an jeder betroffenen Transaktion (`CsvImportRateGate`). Wie Android.
-    let missingFx: [Int]
-    /// Kauf/Verkauf ohne Preis in der Datei (ohne Preis übernommen).
-    let missingPrice: [Int]
-    /// Zeitzone der Zeiten ohne Versatz (`CsvImportResult.zone`) und ob es solche gibt (Auswahl in der Vorschau).
-    var zone: String = CsvImportParser.defaultZone
-    var localTimes = false
-    /// Reihenfolge Tag/Monat (`CsvImportResult.dateOrder`) und ob die Datei sie offen lässt (Auswahl in der Vorschau).
-    var dateOrder: CsvDateOrder = .DAY_FIRST
-    var dateOrderAmbiguous = false
-    /// Mindestens eine neue Zeile ist ein Kauf/Verkauf gegen Stablecoin, gebucht als Tausch (`CsvImportRow.stableSwap`).
-    var stableSwaps = false
-    /// Mehrdeutige Zahl und gelesenes Dezimalzeichen (`CsvImportResult.decimalSample`); Auswahl in der Vorschau.
-    var decimalSample: String? = nil
-    var decimalMark: Character? = nil
-    /// Erkannte Spalten (`CsvImportResult.columns`).
-    var columns: [String] = []
-    /// Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
-    /// `CsvImportPriced.usdtApproximate`) — die Vorschau nennt sie wie `missingFx`. Wie Android.
-    var usdtApproximate: [Int] = []
-    /// Zeilen mit Fiat-Gebühr im Preis und Gebühr im Coin am Geschäft (`CsvImportRow.feeInPrice`) — Hinweis. Wie Android.
-    var feeInPrice: [Int] = []
-    /// Kraken: ausstehende und gebuchte Zeile mit anderer Menge, beide übernommen (`CsvImportRow.pendingDiffers`).
-    var pendingDiffers: [Int] = []
-    /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross».
-    var tooLarge = false
-    /// Zeitzone der Tageskurse (`CsvImportResult.fxZone`: Steuer-Vorlage, Neutral = Gerät); gezeigt, wenn `dayRates`.
-    var fxZone: String = CsvImportParser.defaultZone
-    /// Mindestens eine neue Zeile ist mit einem Kurs ihres Tags umgerechnet (`CsvImportPriced.dayRate`).
-    var dayRates = false
-    /// Tageskurse einer gebrauchten Währung liessen sich nicht laden (keine gültige Antwort) — von der App gesetzt; die
-    /// Vorschau unterscheidet es von «für diese Währung bzw. diesen Tag gibt es keinen Kurs». Wie Android.
-    var ratesFailed = false
-    /// Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse, hilft ein neuer Abruf (`CsvImportRateGate.retry`)?
-    var rateRetry = CsvRateRetry()
+    /// Wallet der Zeile (FIFO je Wallet): Börse der Datei (`CsvTransferMatch.placeOf`; freie Vorlage: keine), wie die
+    /// Seiten einer verknüpften Umbuchung; Umbuchungen: `transferFrom` — wie Android.
+    var exchange: String? = nil
 }
 
 /// Wahl je Auszahlung der Vorschau (`CsvImportMapping.proposeWithdrawals`) — wie Kotlin.
@@ -168,13 +127,17 @@ enum CsvImportMapping {
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             note = t.isEmpty ? nil : t
         }
-        return CsvImportTx(line: row.line, coin: coin, type: type(row.kind, withdrawalsAsTransfer: withdrawalsAsTransfer),
-                           amount: row.amount,
+        let txType = type(row.kind, withdrawalsAsTransfer: withdrawalsAsTransfer)
+        // Wallet = Börse der Datei; Umbuchung (Staking, Auszahlung als Umbuchung) von dort, Staking auch dorthin
+        let place = CsvTransferMatch.placeOf(row.key)
+        return CsvImportTx(line: row.line, coin: coin, type: txType, amount: row.amount,
                            priceUsdt: row.kind == .FEE ? Decimal(0)
                                : (row.kind == .TRANSFER ? nil : p.priceUsdt.flatMap { $0 >= 0 ? $0 : nil }),
                            time: row.timeMillis,
                            fee: fee, feeUnit: feeUnit, feeCoin: feeCoin, feeCoinAmount: feeCoinAmount,
                            note: note, importKey: row.key,
+                           transferTo: row.kind == .TRANSFER ? place : nil,
+                           transferFrom: txType == .TRANSFER ? place : nil,
                            toCoin: row.kind == .SWAP ? row.toCoin.map { PortfolioCalculator.normalizeCoin($0) } : nil,
                            toAmount: row.kind == .SWAP ? row.toAmount : nil,
                            swapValueUsdt: row.kind == .SWAP ? p.swapValueUsdt.flatMap { $0 >= 0 ? $0 : nil } : nil,
@@ -182,15 +145,15 @@ enum CsvImportMapping {
                            feeRow: row.kind == .FEE,
                            interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind),
                            stakingMove: row.kind == .TRANSFER,
-                           missingRate: CsvImportRateGate.missing(p))
+                           missingRate: CsvImportRateGate.missing(p), exchange: txType == .TRANSFER ? nil : place)
     }
 
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
                         zone: String? = nil, withdrawalsAsTransfer: Bool = false,
-                        usdtUsd: [Int: Decimal]? = nil,
+                        usdtUsd: [Int: Decimal]? = nil, keepDuplicates: Bool = false,
                         fx: (String, Int64) -> Decimal?) -> CsvImportPreview {
         preview(result, existingKeys: existingKeys, zone: zone, withdrawalsAsTransfer: withdrawalsAsTransfer,
-                usdtUsd: usdtUsd, onRow: { _, _ in }, fx: fx)
+                usdtUsd: usdtUsd, keepDuplicates: keepDuplicates, onRow: { _, _ in }, fx: fx)
     }
 
     /// Vorschau: Doppelte abtrennen, die neuen umrechnen und zuordnen. Umgerechnet wird in Blöcken zu `previewBlock`
@@ -198,14 +161,19 @@ enum CsvImportMapping {
     /// `preview` mit `onRow`. Wirft `onRow` (z. B. `Task.checkCancellation()` beim Abbruch), endet die Vorschau dort.
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
                         zone: String? = nil, withdrawalsAsTransfer: Bool = false,
-                        usdtUsd: [Int: Decimal]? = nil,
+                        usdtUsd: [Int: Decimal]? = nil, keepDuplicates: Bool = false,
                         onRow: (_ done: Int, _ total: Int) throws -> Void,
                         fx: (String, Int64) -> Decimal?) rethrows -> CsvImportPreview {
         let split = CsvImport.splitDuplicates(result.rows, existingKeys: existingKeys)
         // Binance: fast gleiche Geschäfte wie schon importierte in die Übersprungenen statt doppelt (wie Android)
         let held: Set<String> = result.format == .BINANCE
             ? Set(CsvImportBinance.possibleDuplicates(split.fresh, existingKeys: existingKeys).map(\.key)) : []
-        let fresh = split.fresh.filter { !held.contains($0.key) }
+        // «Trotzdem importieren»: Doppelte mit freiem Schlüssel an ihrer Stelle der Datei (`CsvImport.keptAnyway`)
+        let again = keepDuplicates ? CsvImport.keptAnyway(split.duplicates, existingKeys: existingKeys) : []
+        let keptFor = Dictionary(zip(split.duplicates.map(\.key), again), uniquingKeysWith: { first, _ in first })
+        let fresh = result.rows.compactMap { r in
+            keptFor[r.key] ?? (existingKeys.contains(r.key) || held.contains(r.key) ? nil : r)
+        }
         var skipped = result.skipped + split.fresh.filter { held.contains($0.key) }
             .map { CsvImportSkip(line: $0.line, reason: .POSSIBLE_DUPLICATE) }
         // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone`: Steuer-Vorlage, Neutral = Gerät — wie der Steuer-Export)
@@ -238,7 +206,8 @@ enum CsvImportMapping {
             .map(\.element)
         return CsvImportPreview(format: result.format,
                                 transactions: txs,
-                                duplicates: split.duplicates.count, skipped: skipped,
+                                duplicates: split.duplicates.count, duplicateLines: split.duplicates.map(\.line),
+                                duplicatesKept: !again.isEmpty, skipped: skipped,
                                 missingFx: kept.filter { CsvImportRateGate.missing($0) != nil }.map(\.row.line),
                                 missingPrice: kept.filter(\.missingPrice).map(\.row.line),
                                 zone: result.zone, localTimes: result.localTimes,
@@ -358,6 +327,15 @@ enum CsvImportMapping {
     }
 
     /// Jede Auszahlung der Vorschau hat eine Wahl (`choices` je `CsvImportTx.importKey`) — erst dann «Importieren».
+    /// Jede Auszahlung mit «Auf eigene Wallet» (`choices`) und freier passender Einzahlung wird deren Umbuchung
+    /// (`CsvTransferMatch.linkOwnWallet`) — sonst zählte die Einzahlung neben der Umbuchung doppelt. Wie Android.
+    static func linkOwnWallets(_ links: [CsvTransferLink], chosen: Set<String>,
+                               choices: [String: CsvWithdrawalChoice]) -> Set<String> {
+        choices.filter { $0.value == .TRANSFER }.keys.sorted().reduce(chosen) { acc, key in
+            CsvTransferMatch.linkOwnWallet(links, chosen: acc, withdrawalKey: key)
+        }
+    }
+
     static func allWithdrawalsDecided(_ txs: [CsvImportTx], choices: [String: CsvWithdrawalChoice]) -> Bool {
         txs.allSatisfy { $0.type != .WITHDRAWAL || choices[$0.importKey] != nil }
     }
@@ -372,7 +350,8 @@ enum CsvImportMapping {
             return CsvImportTx(line: tx.line, coin: tx.coin, type: .TRANSFER, amount: tx.amount, priceUsdt: tx.priceUsdt,
                                time: tx.time, fee: tx.fee, feeUnit: tx.feeUnit, feeCoin: tx.feeCoin,
                                feeCoinAmount: tx.feeCoinAmount, note: tx.note, importKey: tx.importKey,
-                               transferTo: destination, transferFrom: tx.transferFrom, toCoin: tx.toCoin, toAmount: tx.toAmount,
+                               // Quelle der Umbuchung = Wallet der Auszahlung (FIFO je Wallet nimmt sie von dort)
+                               transferTo: destination, transferFrom: tx.exchange, toCoin: tx.toCoin, toAmount: tx.toAmount,
                                swapValueUsdt: tx.swapValueUsdt, missingRate: tx.missingRate)
         }
     }

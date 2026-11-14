@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ພື້ນຫຼັງ</string>
-    <string name="widget_configure_hint">ເລືອກພື້ນຫຼັງ ແລະ ຄວາມທຶບ. ສີເຮັດຕາມແອັບ. ວິດເຈັດສະແດງລາຍການຕິດຕາມທັງໝົດຂອງທ່ານ; ແຕະແຖວເພື່ອເປີດແອັບ.</string>
+    <string name="widget_configure_hint">ກະລຸນາເລືອກພື້ນຫຼັງ ແລະ ຄວາມທຶບ. ສີຈະຕາມແອັບ. ວິດເຈັດສະແດງລາຍການຕິດຕາມຂອງທ່ານ ຫຼື ກຸ່ມທີ່ເລືອກດ້ານລຸ່ມ; ແຕະແຖວໜຶ່ງເພື່ອເປີດແອັບ.</string>
     <string name="widget_configure_title">ຕັ້ງຄ່າວິດເຈັດ</string>
     <string name="widget_description">ສະແດງລາຄາຂອງຄູ່ເທຣດຈາກລາຍການຕິດຕາມຂອງທ່ານ.</string>
     <string name="widget_empty">ຍັງບໍ່ມີຄູ່ເທຣດໃນລາຍການຕິດຕາມ.</string>

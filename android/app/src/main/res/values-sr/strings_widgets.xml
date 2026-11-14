@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Позадина</string>
-    <string name="widget_configure_hint">Изабери позадину и непрозирност. Боја прати апликацију. Виџет приказује цео твој списак праћења; додирни ред да отвориш апликацију.</string>
+    <string name="widget_configure_hint">Изабери позадину и непрозирност. Боја прати апликацију. Виџет приказује твој списак праћења или групу изабрану испод; додирни ред да отвориш апликацију.</string>
     <string name="widget_configure_title">Постави виџет</string>
     <string name="widget_description">Приказује цену пара с твог списка праћења.</string>
     <string name="widget_empty">На списку праћења још нема парова.</string>

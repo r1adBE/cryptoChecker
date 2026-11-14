@@ -165,6 +165,14 @@ class ParityFixturesTest {
             assertNumber(c["expected"].num(), result, 1e-9, "moveChange: ${c["name"]}")
             count++
         }
+        data["moveUncheckable"].obj()["cases"].list().forEach { raw ->
+            val c = raw.obj()
+            val result = evaluator.moveWindowUncheckable(
+                alarm(c["alarm"].obj()), c["price"].num()!!, now, c["history"].list().map { point(it) },
+            )
+            assertEquals("moveUncheckable: ${c["name"]}", c["expected"], result)
+            count++
+        }
         data["nearExtremeSequences"].obj()["cases"].list().forEach { raw ->
             val c = raw.obj()
             val range = c["range"].obj().let { NearExtreme.Range(high = it["high"].num()!!, low = it["low"].num()!!) }

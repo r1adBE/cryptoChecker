@@ -3,6 +3,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -124,6 +125,8 @@ internal fun AddressLotEditor(
                     label = { Text(stringResource(R.string.address_lots_amount) + " ($coin)") },
                     singleLine = true,
                     isError = tried && amount == null,
+                    // Mehrdeutig («1.234» in DE): beide Schreibweisen nennen
+                    supportingText = ambiguousNumberText(amountText, sep)?.takeIf { tried && amount == null }?.let { t -> { Text(t) } },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -137,6 +140,7 @@ internal fun AddressLotEditor(
                     label = { Text(stringResource(if (perCoin) R.string.address_lots_price else R.string.address_lots_total)) },
                     singleLine = true,
                     isError = tried && value == null,
+                    supportingText = ambiguousNumberText(valueText, sep)?.takeIf { tried && value == null }?.let { t -> { Text(t) } },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth()
                 )

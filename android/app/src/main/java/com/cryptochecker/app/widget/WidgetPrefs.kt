@@ -29,13 +29,29 @@ class WidgetPrefs @Inject constructor(
         prefs.edit { putInt(opacityKey(appWidgetId), opacityPercent.coerceIn(WidgetColors.MIN_OPACITY, 100)) }
     }
 
-    /** Einzel-Widget: welches Paar es zeigt. */
-    fun setWatchId(appWidgetId: Int, watchId: Long) {
-        prefs.edit { putLong(watchKey(appWidgetId), watchId) }
+    /**
+     * Einzel-Widget: welches Paar es zeigt — Id und Paar ([identity], [com.cryptochecker.app.domain.watch.WatchIdentity.text]); ohne Paar merkt es sich das
+     * Zeichnen beim ersten Mal ([showsSamePair]).
+     */
+    fun setWatchId(appWidgetId: Int, watchId: Long, identity: String? = null) {
+        prefs.edit {
+            putLong(watchKey(appWidgetId), watchId)
+            if (identity == null) remove(identityKey(appWidgetId)) else putString(identityKey(appWidgetId), identity)
+        }
     }
 
     fun getWatchId(appWidgetId: Int): Long? =
         prefs.getLong(watchKey(appWidgetId), -1L).takeIf { it > 0 }
+
+    /**
+     * Zeigt der Eintrag mit der gemerkten Id noch dasselbe Paar ([identity])? Eine eingespielte Sicherung kann die Id
+     * einem anderen Paar geben — dann «Paar wählen» statt still ein fremdes Paar. Noch kein Paar gemerkt: jetzt merken.
+     */
+    fun showsSamePair(appWidgetId: Int, identity: String): Boolean {
+        val stored = prefs.getString(identityKey(appWidgetId), null)
+        if (stored == null) prefs.edit { putString(identityKey(appWidgetId), identity) }
+        return stored == null || stored == identity
+    }
 
     fun setTheme(appWidgetId: Int, theme: WidgetTheme) {
         prefs.edit { putString(themeKey(appWidgetId), theme.name) }
@@ -60,6 +76,7 @@ class WidgetPrefs @Inject constructor(
             remove(opacityKey(appWidgetId))
             remove(themeKey(appWidgetId))
             remove(watchKey(appWidgetId))
+            remove(identityKey(appWidgetId))
             remove(chartRangeKey(appWidgetId))
             remove(chartTypeKey(appWidgetId))
             remove(groupKey(appWidgetId))
@@ -181,6 +198,8 @@ class WidgetPrefs @Inject constructor(
     private fun opacityKey(appWidgetId: Int) = "widget_opacity_$appWidgetId"
     private fun themeKey(appWidgetId: Int) = "widget_theme_$appWidgetId"
     private fun watchKey(appWidgetId: Int) = "widget_watch_$appWidgetId"
+
+    private fun identityKey(appWidgetId: Int) = "widget_watch_pair_$appWidgetId"
 
     /** Listen-Widget: nur die Paare dieser Gruppe zeigen. null = «Alle». */
     fun setGroup(appWidgetId: Int, group: String?) {

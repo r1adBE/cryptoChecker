@@ -100,6 +100,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Parțial</string>
     <string name="check_result_skipped">Omis</string>
+    <string name="check_result_paused">Întrerupt, nimic verificat</string>
+    <string name="check_result_offline">Omis (offline)</string>
     <string name="check_trigger_bgtask">Fundal</string>
     <string name="check_trigger_exact">Punctual</string>
     <string name="check_trigger_foreground">Aplicație</string>

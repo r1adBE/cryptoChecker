@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchInterval
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import com.cryptochecker.app.parity.ParityJson
@@ -10,7 +11,7 @@ import com.cryptochecker.app.parity.obj
 
 /**
  * Alter der Kurse auf der Uhr (`watch_quotes.json`, Abschnitt «freshness») — wie `WatchQuotesParityTests.swift`:
- * «veraltet» nach derselben Regel wie Merkliste und Widgets (`OutdatedRule` mit dem 15-Min.-Takt der Komplikation)
+ * «veraltet» nach derselben Regel wie Merkliste und Widgets (`OutdatedRule` mit dem Intervall des Handys, 3 × Intervall)
  * und Alter in Minuten, Stunden, Tagen.
  */
 class WatchFreshnessParityTest {
@@ -20,8 +21,13 @@ class WatchFreshnessParityTest {
     @Test
     fun sameRuleAsTheApp() {
         assertEquals(data["updateMinutes"].num()!!.toInt(), WatchFreshness.UPDATE_MINUTES)
-        assertEquals(data["outdatedAfterMillis"].num()!!.toLong(), WatchFreshness.OUTDATED_AFTER_MILLIS)
-        assertEquals(OutdatedRule.afterMillis(WatchFreshness.UPDATE_MINUTES), WatchFreshness.OUTDATED_AFTER_MILLIS)
+        // Grenze = 3 × Intervall des Handys (begrenzt) — dieselbe Regel wie Merkliste und Widgets
+        for (i in data.getValue("intervals").list().map { it.obj() }) {
+            val interval = i["interval"].num()!!.toInt()
+            val after = i["afterMillis"].num()!!.toLong()
+            assertEquals("interval $interval", after, WatchFreshness.outdatedAfterMillis(interval))
+            assertEquals("interval $interval", OutdatedRule.afterMillis(WatchInterval.clamp(interval)), after)
+        }
     }
 
     @Test
@@ -30,9 +36,10 @@ class WatchFreshnessParityTest {
         for (c in data.getValue("cases").list().map { it.obj() }) {
             val name = c["name"] as String
             val time = c["time"].num()!!.toLong()
-            assertEquals(name, c["outdated"] as Boolean, WatchFreshness.isOutdated(time, now))
-            assertEquals(name, OutdatedRule.isOutdated(time, now, WatchFreshness.OUTDATED_AFTER_MILLIS),
-                WatchFreshness.isOutdated(time, now))
+            val interval = c["interval"].num()!!.toInt()
+            assertEquals(name, c["outdated"] as Boolean, WatchFreshness.isOutdated(time, now, interval))
+            assertEquals(name, OutdatedRule.isOutdated(time, now, WatchFreshness.outdatedAfterMillis(interval)),
+                WatchFreshness.isOutdated(time, now, interval))
             val unit = c["unit"] as String? ?: continue
             val expected = WatchFreshness.Age(
                 when (unit) {

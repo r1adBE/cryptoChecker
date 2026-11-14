@@ -1,33 +1,145 @@
 {
-  "description": "Wann zwei Einträge der Merkliste dasselbe Paar sind (WatchIdentity.kt / WatchIdentity.swift): Börse, Basis, Quote, Kontrakt — bei DexScreener zusätzlich die Paar-Kennung (Pool chainId/pairAddress). Gilt für Hinzufügen, Bearbeiten, «Rückgängig» und Sicherungen. pool = erwartete Pool-Kennung im Schlüssel von a.",
+  "description": "Wann zwei Einträge der Merkliste dasselbe Paar sind (WatchIdentity.kt / WatchIdentity.swift): Börse, Basis, Quote, Kontrakt — bei DexScreener zusätzlich die Paar-Kennung (Pool chainId/pairAddress). Gilt für Hinzufügen, Bearbeiten, «Rückgängig» und Sicherungen. pool = erwartete Pool-Kennung im Schlüssel von a. text = WatchIdentity.text(key of a): «Börse|Basis|Kotierung|Kontrakt|Pool» (Pool leer ausser DexScreener) — gemerktes Paar des Einzel-Widgets.",
   "cases": [
-    {"name": "DexScreener: two pools, same symbol, same chain -> two rows",
-     "a": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": "ethereum/0xaaa"},
-     "b": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": "ethereum/0xbbb"},
-     "pool": "ethereum/0xaaa", "same": false},
-    {"name": "DexScreener: the same pool again -> duplicate",
-     "a": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": "ethereum/0xaaa"},
-     "b": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": "ethereum/0xaaa"},
-     "pool": "ethereum/0xaaa", "same": true},
-    {"name": "DexScreener: same symbol on different chains differs already by quote",
-     "a": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": "ethereum/0xaaa"},
-     "b": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (bsc)", "contract": "NONE", "pairId": "bsc/0xaaa"},
-     "pool": "ethereum/0xaaa", "same": false},
-    {"name": "DexScreener without pair id (not expected, defensive): no pool in the key",
-     "a": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": null},
-     "b": {"exchangeKey": "DexScreener", "base": "PEPE", "quote": "USD (ethereum)", "contract": "NONE", "pairId": ""},
-     "pool": null, "same": true},
-    {"name": "exchange: different pair id spelling of the same pair stays one row (key without id)",
-     "a": {"exchangeKey": "Binance", "base": "BTC", "quote": "USDT", "contract": "NONE", "pairId": "BTCUSDT"},
-     "b": {"exchangeKey": "Binance", "base": "BTC", "quote": "USDT", "contract": "NONE", "pairId": null},
-     "pool": null, "same": true},
-    {"name": "exchange: spot and perpetual are two rows",
-     "a": {"exchangeKey": "Binance", "base": "BTC", "quote": "USDT", "contract": "NONE", "pairId": "BTCUSDT"},
-     "b": {"exchangeKey": "Binance", "base": "BTC", "quote": "USDT", "contract": "PERPETUAL", "pairId": "BTCUSDT"},
-     "pool": null, "same": false},
-    {"name": "same symbols on two exchanges are two rows",
-     "a": {"exchangeKey": "Kraken", "base": "BTC", "quote": "USD", "contract": "NONE", "pairId": "XXBTZUSD"},
-     "b": {"exchangeKey": "Coinbase", "base": "BTC", "quote": "USD", "contract": "NONE", "pairId": "BTC-USD"},
-     "pool": null, "same": false}
+    {
+      "name": "DexScreener: two pools, same symbol, same chain -> two rows",
+      "a": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": "ethereum/0xaaa"
+      },
+      "b": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": "ethereum/0xbbb"
+      },
+      "pool": "ethereum/0xaaa",
+      "same": false,
+      "text": "DexScreener|PEPE|USD (ethereum)|NONE|ethereum/0xaaa"
+    },
+    {
+      "name": "DexScreener: the same pool again -> duplicate",
+      "a": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": "ethereum/0xaaa"
+      },
+      "b": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": "ethereum/0xaaa"
+      },
+      "pool": "ethereum/0xaaa",
+      "same": true,
+      "text": "DexScreener|PEPE|USD (ethereum)|NONE|ethereum/0xaaa"
+    },
+    {
+      "name": "DexScreener: same symbol on different chains differs already by quote",
+      "a": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": "ethereum/0xaaa"
+      },
+      "b": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (bsc)",
+        "contract": "NONE",
+        "pairId": "bsc/0xaaa"
+      },
+      "pool": "ethereum/0xaaa",
+      "same": false,
+      "text": "DexScreener|PEPE|USD (ethereum)|NONE|ethereum/0xaaa"
+    },
+    {
+      "name": "DexScreener without pair id (not expected, defensive): no pool in the key",
+      "a": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": null
+      },
+      "b": {
+        "exchangeKey": "DexScreener",
+        "base": "PEPE",
+        "quote": "USD (ethereum)",
+        "contract": "NONE",
+        "pairId": ""
+      },
+      "pool": null,
+      "same": true,
+      "text": "DexScreener|PEPE|USD (ethereum)|NONE|"
+    },
+    {
+      "name": "exchange: different pair id spelling of the same pair stays one row (key without id)",
+      "a": {
+        "exchangeKey": "Binance",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "pairId": "BTCUSDT"
+      },
+      "b": {
+        "exchangeKey": "Binance",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "pairId": null
+      },
+      "pool": null,
+      "same": true,
+      "text": "Binance|BTC|USDT|NONE|"
+    },
+    {
+      "name": "exchange: spot and perpetual are two rows",
+      "a": {
+        "exchangeKey": "Binance",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "NONE",
+        "pairId": "BTCUSDT"
+      },
+      "b": {
+        "exchangeKey": "Binance",
+        "base": "BTC",
+        "quote": "USDT",
+        "contract": "PERPETUAL",
+        "pairId": "BTCUSDT"
+      },
+      "pool": null,
+      "same": false,
+      "text": "Binance|BTC|USDT|NONE|"
+    },
+    {
+      "name": "same symbols on two exchanges are two rows",
+      "a": {
+        "exchangeKey": "Kraken",
+        "base": "BTC",
+        "quote": "USD",
+        "contract": "NONE",
+        "pairId": "XXBTZUSD"
+      },
+      "b": {
+        "exchangeKey": "Coinbase",
+        "base": "BTC",
+        "quote": "USD",
+        "contract": "NONE",
+        "pairId": "BTC-USD"
+      },
+      "pool": null,
+      "same": false,
+      "text": "Kraken|BTC|USD|NONE|"
+    }
   ]
 }

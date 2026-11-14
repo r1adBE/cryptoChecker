@@ -35,6 +35,8 @@ internal class TxFormDerived(
     val isToday: Boolean,
     val dirty: Boolean,
     val type: PortfolioTxType,
+    /** Kurs als Hinweis für eine mehrdeutige Preis-Eingabe (in der Währung der Eingabe); null = keiner. */
+    val priceHintEntry: Double? = null,
 ) {
     val fields: PortfolioTxForm.Fields get() = check.fields
     val isSwap: Boolean get() = type == PortfolioTxType.SWAP

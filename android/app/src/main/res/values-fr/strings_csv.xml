@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Quitte le portefeuille (retrait)</string>
     <string name="portfolio_csv_import_choose_each">Choisis pour chaque retrait où il est allé.</string>
     <string name="portfolio_csv_import_columns">Colonnes reconnues : %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Déjà importé : lignes %1$s</string>
     <string name="portfolio_csv_import_confirm">Importer (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Jour/Mois</string>
     <string name="portfolio_csv_import_date_month_first">Mois/Jour</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Les achats et ventes contre des stablecoins (USDT, USDC …) sont enregistrés comme échanges – le stablecoin apparaît dans tes avoirs.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Plusieurs correspondances possibles – choisis la bonne ou aucune.</string>
+    <string name="portfolio_csv_import_transfer_loose">Frais élevés ou arrivée tardive – vérifie qu’il s’agit du même transfert.</string>
     <string name="portfolio_csv_import_transfer_fee">Frais de réseau : %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Enregistrer comme un seul transfert</string>
     <string name="portfolio_csv_import_transfer_stored">Contrepartie issue d’un import précédent</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">Cours journaliers selon le jour civil dans : %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Impossible de charger les cours journaliers.</string>
     <string name="portfolio_csv_import_anyway">Importer quand même</string>
-    <string name="portfolio_csv_import_anyway_hint">Sans cours journalier, le prix ou les frais manquent définitivement. Réessaie ou importe quand même : ces transactions porteront alors une note.</string>
+    <string name="portfolio_csv_import_anyway_hint">Sans cours du jour, le prix ou les frais manquent jusqu’à ce que tu les ajoutes. Réessaie ou importe quand même – ces transactions recevront alors une mention.</string>
     <string name="portfolio_csv_note_price_no_rate">Prix sans cours journalier</string>
     <string name="portfolio_csv_note_fee_no_rate">Frais sans cours journalier</string>
     <string name="portfolio_csv_import_no_rates_for">Il n’existe aucun cours journalier pour %1$s, réessayer n’y changera rien. Si tu importes quand même, ces transactions porteront une note.</string>

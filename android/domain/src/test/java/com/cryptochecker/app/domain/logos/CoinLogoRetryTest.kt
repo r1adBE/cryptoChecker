@@ -43,6 +43,26 @@ class CoinLogoRetryTest {
         assertFalse(CoinLogoRetry.downloadsFailedForNetwork(online = true, failed = 2, attempted = 2))
     }
 
+    /** Lauter «gibt es nicht» (404, unlesbar) ist kein Netzfehler; erst eine Störung darunter (N3-03). */
+    @Test
+    fun `all failed online without a transient failure is not the network`() {
+        assertFalse(CoinLogoRetry.downloadsFailedForNetwork(online = true, failed = 3, attempted = 3, transient = 0))
+        assertTrue(CoinLogoRetry.downloadsFailedForNetwork(online = true, failed = 3, attempted = 3, transient = 1))
+        // Ohne Netz bleibt es ein Netzfehler
+        assertTrue(CoinLogoRetry.downloadsFailedForNetwork(online = false, failed = 3, attempted = 3, transient = 0))
+    }
+
+    /** Ein Server, der Verbindungen schluckt: nach vier gestörten Bildern in Folge pausiert (N3-03). */
+    @Test
+    fun `transient streak pauses the image server`() {
+        var streak = 0
+        repeat(3) { streak = CoinLogoRetry.nextTransientStreak(streak, transient = true) }
+        assertFalse(CoinLogoRetry.transientStreakPauses(streak))
+        streak = CoinLogoRetry.nextTransientStreak(streak, transient = true)
+        assertTrue(CoinLogoRetry.transientStreakPauses(streak))
+        assertEquals(0, CoinLogoRetry.nextTransientStreak(streak, transient = false))
+    }
+
     @Test
     fun `backoff grows and is capped`() {
         assertEquals(0L, CoinLogoRetry.backoffMillis(0))

@@ -68,5 +68,6 @@
     <string name="alarm_reliability_never">Alerts on – no background check yet</string>
     <string name="alarm_reliability_notifications_off">Notifications off – alerts won\'t arrive</string>
     <string name="alarm_reliability_battery">Battery saving may stop alert checks</string>
+    <string name="alarm_reliability_offline">No connection – alarms are checked once the network is back</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh off – alerts may not arrive</string>
 </resources>

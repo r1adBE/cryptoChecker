@@ -32,8 +32,14 @@ class PercentInputTest {
     }
 
     @Test
-    fun filterEntferntFremdesUndKuerztAufSechsZeichen() {
-        assertEquals("25", filterPercentInput("2a5 %"))
+    fun filterEntferntNichtsStillUndKuerztAufSechsZeichen() {
+        // Eingefügt: Buchstabe, Exponent, Vorzeichen bleiben stehen und gelten als Fehler (nie still «25», «13», «0»)
+        assertEquals("2a5%", filterPercentInput("2a5 %"))
+        assertNull(typed("2a5 %"))
+        assertNull(typed("1e3"))
+        assertNull(typed("-0"))
+        assertTrue(percentInputError(filterPercentInput("1e3")))
+        assertEquals(5.0, typed("5 %")!!, 0.0)
         assertEquals("123456", filterPercentInput("1234567"))
     }
 

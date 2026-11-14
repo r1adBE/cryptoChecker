@@ -251,7 +251,7 @@ extension PortfolioTxSheet {
                 .pickerStyle(.segmented)
             }
             if !feeValid {
-                errorText(L("portfolio_tx_price_invalid"))
+                errorText(numberError(feeText, "portfolio_tx_price_invalid"))
             } else if feeConsumes && !isSwap {
                 errorText(L("portfolio_tx_fee_consumes_amount"))
             } else if fields.feeWithUnit {
@@ -295,7 +295,7 @@ extension PortfolioTxSheet {
                 if consumes {
                     errorText(L("portfolio_tx_fee_consumes_amount"))
                 } else if invalid {
-                    errorText(L("portfolio_invalid"))
+                    errorText(numberError(feeCoinAmountText, "portfolio_invalid"))
                 } else {
                     Text(L("portfolio_tx_swap_fee_received", toCoin))
                         .font(.caption)
@@ -316,7 +316,8 @@ extension PortfolioTxSheet {
                 }
                 .modifier(PortfolioFieldStyle(error: invalid, focused: focusedField == .feeCoinPrice))
                 if invalid {
-                    errorText(L("portfolio_tx_price_invalid"))
+                    errorText(ambiguousNumberText(feeCoinAmountText, decimalSeparator: decimalSeparator)
+                              ?? numberError(feeCoinPriceText, "portfolio_tx_price_invalid"))
                 } else if state == .incomplete {
                     Text(L("portfolio_tx_third_fee_incomplete"))
                         .font(.caption)

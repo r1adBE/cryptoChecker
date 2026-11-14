@@ -44,7 +44,8 @@ class MirrorSignatureParityTest {
         cases.forEach { c ->
             @Suppress("UNCHECKED_CAST")
             val keys = c["publicKeys"] as List<String>? ?: listOf(c["publicKey"] as String? ?: testKey)
-            val v = MirrorManifest.verify(c["manifest"] as String?, c["signature"] as String?, now, keys)
+            val newestSeen = (c["newestSeen"] as Number?)?.toLong() ?: 0L
+            val v = MirrorManifest.verify(c["manifest"] as String?, c["signature"] as String?, now, keys, newestSeen = newestSeen)
             assertEquals("${c["name"]}", c["expected"], v.status.name.lowercase())
             if (v.status == MirrorManifest.Status.OK) {
                 val m = assertNotNullAndGet(v.manifest, c)

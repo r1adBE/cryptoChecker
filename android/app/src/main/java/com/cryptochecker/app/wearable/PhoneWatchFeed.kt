@@ -60,8 +60,15 @@ class PhoneWatchFeed @Inject constructor(
     private val _portfolioOnWatch = MutableStateFlow(false)
     private var started = false
 
-    /** Zuletzt gesendeter Portfolio-Stand (nur unter [portfolioLock]); gleicher Stand geht nicht noch einmal weg. */
+    /**
+     * Zuletzt abgelegter Portfolio-Stand (nur unter [portfolioLock]); gleicher Stand geht nicht noch einmal weg. Nur nach
+     * gelungenem Ablegen gesetzt — sonst versucht es die nächste Aufnahme bzw. [resend] noch einmal.
+     */
     private var lastPortfolio: String? = null
+
+    /** Zuletzt berechnete Kurse für die Uhr ([resend]); null = noch keine oder «Immer selbst abrufen». */
+    @Volatile
+    private var lastQuotes: String? = null
 
     /** Schalter «Portfolio-Wert auf der Uhr» (Einstellungen › Portfolio). */
     val portfolioOnWatch: StateFlow<Boolean> = _portfolioOnWatch.asStateFlow()
@@ -86,10 +93,21 @@ class PhoneWatchFeed @Inject constructor(
                 .conflate()
                 .catch { }
                 .collect { json ->
+                    lastQuotes = json
                     sync.put(QUOTES_PATH, json)
                     delay(MIN_GAP_MS)
                 }
         }
+    }
+
+    /**
+     * Uhr-App dazugekommen ([PhoneWatchListener.onCapabilityChanged]): Kurse und Portfolio-Stand noch einmal ablegen —
+     * vorher ging nichts weg (keine Uhr mit der App), und ohne Änderung käme sonst nichts.
+     */
+    fun resend() = scope.launch {
+        lastQuotes?.let { sync.put(QUOTES_PATH, it) }
+        portfolioLock.withLock { lastPortfolio = null }
+        publishPortfolio()
     }
 
     fun setPortfolioOnWatch(on: Boolean) = scope.launch {
@@ -107,7 +125,8 @@ class PhoneWatchFeed @Inject constructor(
         portfolioLock.withLock {
             val on = _portfolioOnWatch.value
             val s = runCatchingCancellable { settingsRepository.current() }.getOrNull() ?: return
-            val snapshot = if (on && s.portfolioEnabled) snapshotStore.snapshot() else null
+            val snapshot = if (on && s.portfolioEnabled) runCatchingCancellable { snapshotStore.snapshot() }.getOrNull() else null
+            // Verborgen bzw. gesperrt: auch ohne lesbare Aufnahme eine Sendung ohne Zahlen (fail closed)
             val message = WatchPortfolio.message(
                 onWatch = on,
                 portfolioEnabled = s.portfolioEnabled,
@@ -117,11 +136,12 @@ class PhoneWatchFeed @Inject constructor(
                 changePercent = snapshot?.changePercent,
                 currency = snapshot?.currency,
                 time = snapshot?.time ?: 0L,
+                fallbackCurrency = s.portfolioCurrency,
+                now = System.currentTimeMillis(),
             ) ?: return
             val json = WatchPortfolio.toJson(message)
             if (json == lastPortfolio) return
-            sync.put(PORTFOLIO_PATH, json)
-            lastPortfolio = json
+            if (sync.put(PORTFOLIO_PATH, json)) lastPortfolio = json
         }
     }
 

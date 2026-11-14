@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">הבורסה לא זמינה כרגע</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">הבורסה חסומה באזור זה</string>
+    <string name="error_exchange_access_denied">הבורסה דחתה את הגישה</string>
     <string name="loading_hint">טוען…</string>
     <string name="option_off">כבוי</string>
     <string name="something_went_wrong">משהו השתבש</string>

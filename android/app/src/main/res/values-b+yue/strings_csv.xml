@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">離開投資組合（提取）</string>
     <string name="portfolio_csv_import_choose_each">逐筆提取揀返去咗邊。</string>
     <string name="portfolio_csv_import_columns">已識別嘅欄位：%1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">已經匯入：第 %1$s 行</string>
     <string name="portfolio_csv_import_confirm">匯入（%1$d）</string>
     <string name="portfolio_csv_import_date_day_first">日／月</string>
     <string name="portfolio_csv_import_date_month_first">月／日</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">同穩定幣（USDT、USDC …）嘅交易會記做兌換 – 穩定幣會出現喺你嘅持倉。</string>
     <string name="portfolio_csv_import_transfer_ambiguous">可能有幾個配對 – 揀啱嗰個，或者一個都唔揀。</string>
+    <string name="portfolio_csv_import_transfer_loose">手續費高或者到賬遲 – 請確認係咪同一筆轉賬。</string>
     <string name="portfolio_csv_import_transfer_fee">網絡費：%1$s</string>
     <string name="portfolio_csv_import_transfer_link">記做一筆轉賬</string>
     <string name="portfolio_csv_import_transfer_stored">來自之前匯入嘅對應記錄</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">每日匯率按呢個時區嘅曆日計：%1$s</string>
     <string name="portfolio_csv_import_rates_failed">每日匯率載入唔到。</string>
     <string name="portfolio_csv_import_anyway">照樣匯入</string>
-    <string name="portfolio_csv_import_anyway_hint">冇每日匯率，價格或者手續費會永久缺失。請重試，或者照樣匯入 – 嗰啲交易會加上備註。</string>
+    <string name="portfolio_csv_import_anyway_hint">冇每日匯率嘅話，價格或者手續費會一直缺少，直到你補返為止。請再試或者照樣匯入 – 嗰啲交易會有備註。</string>
     <string name="portfolio_csv_note_price_no_rate">價格冇每日匯率</string>
     <string name="portfolio_csv_note_fee_no_rate">手續費冇每日匯率</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s 冇每日匯率，所以重試都冇用。如果照樣匯入，嗰啲交易會加上備註。</string>

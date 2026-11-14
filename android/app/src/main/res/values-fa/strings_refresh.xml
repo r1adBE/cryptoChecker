@@ -91,6 +91,8 @@
     <string name="check_result_ok">درست</string>
     <string name="check_result_partial">جزئی</string>
     <string name="check_result_skipped">رد شد</string>
+    <string name="check_result_paused">متوقف، چیزی بررسی نشد</string>
+    <string name="check_result_offline">رد شد (آفلاین)</string>
     <string name="check_trigger_bgtask">پس‌زمینه</string>
     <string name="check_trigger_exact">سر وقت</string>
     <string name="check_trigger_foreground">برنامه</string>

@@ -6,8 +6,13 @@ import os
 /// Hintergrund lesen nur die fertigen Wege. Fehlt die Paarliste einer Börse, wird sie höchstens alle 6 Std.
 /// einmal geladen. Wie `PortfolioPriceSource.applyExchangeRoutes` (Android, dort in einem Schritt).
 enum PortfolioRouteResolver {
-    /// Letzter Ladeversuch der Paarliste je Börse (Millisekunden), hinter einer Sperre mit Zustand.
-    private static let pairListAttempts = OSAllocatedUnfairLock(initialState: [String: Int64]())
+    /// Letzter abgeschlossener Ladeversuch der Paarliste je Börse (Millisekunden) und gerade ladende Börsen, hinter einer
+    /// Sperre mit Zustand.
+    private struct Attempts {
+        var at: [String: Int64] = [:]
+        var loading: Set<String> = []
+    }
+    private static let pairListAttempts = OSAllocatedUnfairLock(initialState: Attempts())
     private static let retryMillis: Int64 = 6 * 60 * 60_000
 
     static func resolve(_ transactions: [PortfolioTx]) async {
@@ -28,7 +33,14 @@ enum PortfolioRouteResolver {
             guard let exchange = PortfolioExchangeRoute.exchange(name, exchanges: exchanges) else { continue }
             var pairs = await PairCache.shared.pairs(for: exchange.key).pairs
             if PortfolioExchangeRoute.pickPair(coin, pairs: pairs) == nil && mayLoadPairs(exchange.key) {
-                if let fresh = try? await PairCache.shared.sync(exchange.key) { pairs = fresh.pairs }
+                // Erst nach dem Versuch merken, und nur mit Ergebnis: ein Netzfehler sperrt nicht 6 Std.
+                do {
+                    pairs = try await PairCache.shared.sync(exchange.key).pairs
+                    finishLoad(exchange.key, remember: true)
+                } catch {
+                    finishLoad(exchange.key, remember: !(error is CancellationError)
+                               && ExchangeFailure.remembersPairListAttempt(ExchangeFailure.of(error)))
+                }
             }
             if let pick = PortfolioExchangeRoute.pickPair(coin, pairs: pairs) {
                 routes[coin] = PortfolioRoute(exchangeKey: exchange.key, exchangeName: exchange.name,
@@ -55,9 +67,17 @@ enum PortfolioRouteResolver {
         let now = EpochTime.nowMillis
         let retry = retryMillis
         return pairListAttempts.withLock { attempts in
-            if let last = attempts[key], now - last >= 0, now - last < retry { return false }
-            attempts[key] = now
-            return true
+            if let last = attempts.at[key], now - last >= 0, now - last < retry { return false }
+            return attempts.loading.insert(key).inserted
+        }
+    }
+
+    /// Versuch beendet: gemerkt nur mit Ergebnis (`ExchangeFailure.remembersPairListAttempt`; Abbruch nie), wie Android.
+    private static func finishLoad(_ key: String, remember: Bool) {
+        let now = EpochTime.nowMillis
+        pairListAttempts.withLock { attempts in
+            attempts.loading.remove(key)
+            if remember { attempts.at[key] = now }
         }
     }
 

@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Μερικώς</string>
     <string name="check_result_skipped">Παραλείφθηκε</string>
+    <string name="check_result_paused">Σε παύση, δεν ελέγχθηκε τίποτα</string>
+    <string name="check_result_offline">Παραλείφθηκε (εκτός σύνδεσης)</string>
     <string name="check_trigger_bgtask">Παρασκήνιο</string>
     <string name="check_trigger_exact">Στην ώρα</string>
     <string name="check_trigger_foreground">Εφαρμογή</string>

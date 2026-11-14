@@ -251,6 +251,15 @@ class BackupSettingsCodecTest {
         assertEquals("c.example", changed.addressServerHost)
     }
 
+    /** Datei ohne Passwort: ohne eigenen Server (S3-04); mit Passwort und im Journal (Standard) mit. */
+    @Test
+    fun dateiOhnePasswortOhneServer() = runTest {
+        val settings = FakeSettings().apply { server = "https://a.example/api" }
+        assertTrue(codec(settings).settingsToJson(encrypted = false).isNull("addressServerBtc"))
+        assertEquals("https://a.example/api", codec(settings).settingsToJson(encrypted = true).getString("addressServerBtc"))
+        assertEquals("https://a.example/api", codec(settings).settingsToJson().getString("addressServerBtc"))
+    }
+
     @Test
     fun sperreNurMitEntsperrbaremGeraet() = runTest {
         val settings = FakeSettings()

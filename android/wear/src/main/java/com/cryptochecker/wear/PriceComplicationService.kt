@@ -28,8 +28,8 @@ import java.util.concurrent.TimeUnit
  * 15 min (Manifest, fest); geladen wird nur, was nach [WatchPhoneQuotes.selfFetch] fällig ist: nichts, solange das
  * Handy frische Kurse liefert, sonst ab dem Intervall des Handys weniger 5 Min. ([WatchInterval]); ohne Netz oder ohne
  * neuen Kurs für diesen Coin der letzte. Lang mit der Börse, die den Kurs geliefert hat («… +1.2%  ·  Binance Futures»,
- * wie die Zeile der Uhr-App), veraltet ([WatchFreshness], 45 Min. ab dem Stand seines Abrufs) statt ihrer mit dem Alter
- * «… +1.2%  ·  vor 47 Min.», kurz mit dem Alter im Titel «BTC 47m» (vom Zifferblatt fortgezählt, [shortTitle]); die
+ * wie die Zeile der Uhr-App), veraltet ([WatchFreshness], 3 × Intervall des Handys ab dem Stand seines Abrufs) statt
+ * ihrer mit dem Alter «… +1.2%  ·  vor 47 Min.», kurz mit dem Alter im Titel «BTC 47m» (vom Zifferblatt fortgezählt, [shortTitle]); die
  * Beschreibung für den Screenreader nennt Alter und Börse immer. Farben bestimmt das Zifferblatt (kein Abblassen möglich). Tippen
  * öffnet die Uhr-App. Ohne gewählte Coins statt «--» ein Hinweis mit Tipp-Ziel ([empty]): lang «Coins wählen» bzw. «Keine
  * Favoriten auf dem Handy», kurz «Kurs / +» — wie watchOS, das dann die Uhr-App öffnet.
@@ -49,7 +49,9 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val coin = favorites.firstOrNull()
             ?: return empty(request.complicationType, settings.mode == WatchSettings.Mode.PHONE, tap)
         var cached = store.quotes()[coin]
-        val usePhone = settings.source == WatchSettings.Source.PHONE && WatchDataLayer.phoneConnected(this)
+        val usePhone = settings.source == WatchSettings.Source.PHONE && WatchPhoneQuotes.usePhone(
+            settings.source, WatchDataLayer.phoneConnected(this), store.phoneTime, System.currentTimeMillis(), settings.interval,
+        )
         val need = WatchPhoneQuotes.selfFetch(favorites, store.quotes().mapValues { it.value.time }, store.phoneCoins,
             usePhone, settings.interval, System.currentTimeMillis(), force = false)
         if (need.isNotEmpty()) {
@@ -73,7 +75,7 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val q = shown.quote
         val time = shown.time
         val now = System.currentTimeMillis()
-        val age = if (WatchFreshness.isOutdated(time, now)) {
+        val age = if (WatchFreshness.isOutdated(time, now, settings.interval)) {
             Age(WatchAge.short(time, now), WatchAge.spoken(this, time, now), time)
         } else {
             null

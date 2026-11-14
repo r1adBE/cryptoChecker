@@ -127,6 +127,25 @@ object AppLanguages {
             if (tag.isEmpty()) LocaleListCompat.getEmptyLocaleList()
             else LocaleListCompat.forLanguageTags(tag)
         )
+        applyToProcess(context.applicationContext, tag)
+        // Kanalnamen (auch der Alarm-Kanäle) in der neuen Sprache — bis Android 12 sofort, sonst beim nächsten Start
+        com.cryptochecker.app.notification.NotificationChannels.createAll(context.applicationContext)
+    }
+
+    /**
+     * Bis Android 12: die neue Sprache sofort auch im App-Kontext (Widgets, Mitteilungen, Ansagen, Kanalnamen) — sonst
+     * blieben sie bis zum Ende des Prozesses in der alten ([wrap] wirkt nur beim Start). Leer = Systemsprache.
+     */
+    private fun applyToProcess(app: Context, tag: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return
+        val locale = if (tag.isEmpty()) android.content.res.Resources.getSystem().configuration.locales.get(0)
+        else Locale.forLanguageTag(tag)
+        Locale.setDefault(locale)
+        applyNumberLocale()
+        val resources = app.resources
+        val config = Configuration(resources.configuration).apply { setLocales(LocaleList(locale)) }
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     /** Beim App-Start bis Android 12: gespeicherte Wahl an AppCompat übergeben. */

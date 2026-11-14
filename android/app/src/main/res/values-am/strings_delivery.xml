@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">ማንቂያዎች በርተዋል – እስካሁን የበስተጀርባ ፍተሻ የለም</string>
     <string name="alarm_reliability_notifications_off">ማሳወቂያዎች ጠፍተዋል – ማንቂያዎች አይደርሱም</string>
     <string name="alarm_reliability_battery">ባትሪ መቆጠብ የማንቂያ ፍተሻዎችን ሊያቆም ይችላል</string>
+    <string name="alarm_reliability_offline">ግንኙነት የለም – አውታረ መረቡ ሲመለስ ማንቂያዎች ይፈተሻሉ</string>
     <string name="alarm_reliability_background_refresh">የበስተጀርባ መተግበሪያ ማደስ ጠፍቷል – ማንቂያዎች ላይደርሱ ይችላሉ</string>
 </resources>

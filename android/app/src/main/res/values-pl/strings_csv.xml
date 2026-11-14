@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Opuszcza portfel (wypłata)</string>
     <string name="portfolio_csv_import_choose_each">Wybierz dla każdej wypłaty, dokąd trafiła.</string>
     <string name="portfolio_csv_import_columns">Rozpoznane kolumny: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Już zaimportowane: wiersze %1$s</string>
     <string name="portfolio_csv_import_confirm">Importuj (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dzień/Miesiąc</string>
     <string name="portfolio_csv_import_date_month_first">Miesiąc/Dzień</string>
@@ -50,6 +51,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Zakupy i sprzedaże za stablecoiny (USDT, USDC …) są księgowane jako wymiana – stablecoin pojawia się w posiadanych.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Możliwych jest kilka dopasowań – wybierz właściwe albo żadne.</string>
+    <string name="portfolio_csv_import_transfer_loose">Wysoka opłata lub późne nadejście – sprawdź, czy to ten sam przelew.</string>
     <string name="portfolio_csv_import_transfer_fee">Opłata sieciowa: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Zaksięguj jako jedno przeniesienie</string>
     <string name="portfolio_csv_import_transfer_stored">Odpowiednik z wcześniejszego importu</string>
@@ -116,7 +118,7 @@
     <string name="portfolio_csv_import_fx_zone">Kursy dzienne według dnia kalendarzowego w: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Nie udało się wczytać kursów dziennych.</string>
     <string name="portfolio_csv_import_anyway">Importuj mimo to</string>
-    <string name="portfolio_csv_import_anyway_hint">Bez kursu dziennego ceny lub opłaty zabraknie na stałe. Spróbuj ponownie albo importuj mimo to – te transakcje dostaną wtedy notatkę.</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez kursu dziennego brakuje ceny lub opłaty, dopóki ich nie uzupełnisz. Spróbuj ponownie albo zaimportuj mimo to – te transakcje dostaną wtedy adnotację.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena bez kursu dziennego</string>
     <string name="portfolio_csv_note_fee_no_rate">Opłata bez kursu dziennego</string>
     <string name="portfolio_csv_import_no_rates_for">Dla %1$s nie ma kursów dziennych, więc ponowna próba nie pomoże. Jeśli mimo to zaimportujesz, te transakcje dostaną notatkę.</string>

@@ -53,6 +53,8 @@
     <string name="alarm_threshold_error_funding">Il funding rate deve essere un numero tra −10 e +10 per cento.</string>
     <string name="alarm_threshold_error_invalid">Inserisci un numero valido maggiore di 0.</string>
     <string name="alarm_threshold_error_oi">Variazione dell’open interest: al massimo 1000 per cento.</string>
+    <string name="alarm_threshold_error_percent_max">Al massimo il 1000 per cento.</string>
+    <string name="alarm_threshold_error_distance">La distanza deve essere inferiore al 100 per cento.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d h</item>
         <item quantity="many">in %1$d h</item>
@@ -178,6 +180,7 @@
     <string name="alarm_a11y_speak_on">Voce attiva</string>
     <string name="alarm_unchecked_no_candles">Impossibile controllare (nessuna candela)</string>
     <string name="alarm_unchecked_no_rate">Impossibile controllare (nessun tasso di cambio)</string>
+    <string name="alarm_unchecked_no_window_price">Impossibile controllare (nessun prezzo nella finestra temporale)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Notifiche disattivate – questo allarme non ti raggiungerà</string>

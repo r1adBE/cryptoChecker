@@ -73,6 +73,9 @@ interface CoinLogoSource {
     /** Liegt für [symbol] ein Logo auf dem Gerät (geladen oder mitgeliefert)? Nie Netz. */
     suspend fun hasLogo(symbol: String): Boolean = load(symbol) != null
 
+    /** Von [symbols] (ohne Logo) die, deren Logo noch kommt (Adresse bekannt, nicht gescheitert): «noch nicht geladen». */
+    suspend fun notYetLoaded(symbols: List<String>): Set<String> = emptySet()
+
     /** Beim ✕ des Hinweises «Coins ohne Logo» gemerkte Coins; null = noch nicht gelesen ([loadMissingDismissed]). */
     val missingDismissed: StateFlow<Set<String>?> get() = NO_DISMISSED
 

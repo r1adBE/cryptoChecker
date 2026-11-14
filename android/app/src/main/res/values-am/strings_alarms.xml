@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">ፈንዲንግ በ−10 እና በ+10 መቶኛ መካከል ያለ ቁጥር መሆን አለበት።</string>
     <string name="alarm_threshold_error_invalid">ከ0 የሚበልጥ ትክክለኛ ቁጥር ያስገቡ።</string>
     <string name="alarm_threshold_error_oi">የኦፕን ኢንተረስት ለውጥ፦ ቢበዛ 1000 መቶኛ።</string>
+    <string name="alarm_threshold_error_percent_max">ቢበዛ 1000 መቶኛ።</string>
+    <string name="alarm_threshold_error_distance">ርቀቱ ከ100 መቶኛ ያነሰ መሆን አለበት።</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">በ%1$d ሰ</item>
         <item quantity="other">በ%1$d ሰ</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">ንግግር በርቷል</string>
     <string name="alarm_unchecked_no_candles">ሊፈተሽ አልተቻለም (የሻማ ውሂብ የለም)</string>
     <string name="alarm_unchecked_no_rate">ሊፈተሽ አልተቻለም (የምንዛሪ ተመን የለም)</string>
+    <string name="alarm_unchecked_no_window_price">ሊፈተሽ አልተቻለም (በጊዜ መስኮቱ ውስጥ ዋጋ የለም)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">ማሳወቂያዎች ጠፍተዋል – ይህ ማንቂያ አይደርስዎትም</string>

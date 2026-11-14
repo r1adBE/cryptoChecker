@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">በማሳወቂያ አሞሌው ውስጥ ዋጋቸውን የሚያሳዩ ጥንዶችን ይምረጡ።</string>
     <string name="settings_quiet_hours">የጸጥታ ሰዓታት</string>
     <string name="settings_quiet_hours_from">ከ</string>
-    <string name="settings_quiet_hours_hint">በ%1$s እና በ%2$s መካከል፣ ማንቂያዎች የጸጥታ ሰዓታት እስኪያበቁ ይጠብቃሉ፣ ከዚያም በድምፅ ይጮኻሉ። ሌሎች ማሳወቂያዎች ያለ ንግግር በጸጥታ ይደርሳሉ።</string>
+    <string name="settings_quiet_hours_hint">በ%1$s እና በ%2$s መካከል፣ ማንቂያዎች የጸጥታ ሰዓታት እስኪያበቁ ይጠብቃሉ፣ ከዚያም በድምፅ ይጮኻሉ፣ ሁኔታቸው ያኔ አሁንም ከተሟላ። ሌሎች ማሳወቂያዎች ያለ ንግግር በጸጥታ ይደርሳሉ።</string>
     <string name="settings_quiet_hours_to">እስከ</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">ጥቅም ላይ ያለ፦ %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">አልተዘጋጀም – ይፋዊ ኖዶች ጥቅም ላይ ይውላሉ</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ቅንብሮች ዳግም ተጀምረዋል፤ ስለዚህ የራስዎን የBitcoin አገልጋይ ተጠቅመው እንደሆነ አይታወቅም። አገልጋይዎን እንደገና እስኪያስገቡ ወይም ይፋዊ ኖዶችን እስኪመርጡ ድረስ የBitcoin አድራሻዎች እና የxpub ቁልፎች አይጠየቁም።</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">የሚፈቀዱት https:// አድራሻዎች ብቻ ናቸው</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

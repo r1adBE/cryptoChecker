@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Toplam</string>
     <string name="portfolio_hide_amounts">Tutarları gizle</string>
-    <string name="portfolio_hide_amounts_hint">Portföydeki ve portföy widget’ındaki tutarları ve değerleri ••• olarak gösterir – yüzdeler görünür kalır.</string>
+    <string name="portfolio_hide_amounts_hint">Portföydeki, portföy widget’ındaki, saatteki ve portföy alarmlarındaki tutarları ve değerleri ••• olarak gösterir – yüzdeler görünür kalır.</string>
     <string name="portfolio_invested">Maliyet</string>
     <string name="portfolio_total_no_fx">%1$s için döviz kuru yok – tutarlar USDT olarak</string>
     <string name="portfolio_total_value">Toplam değer</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Değişiklikler atılsın mı?</string>
     <string name="portfolio_edit_tx">İşlemi düzenle</string>
     <string name="portfolio_invalid">0’dan büyük geçerli bir sayı gir.</string>
+    <string name="number_ambiguous">Belirsiz: %1$s mi, %2$s mi? İkisinden birini yaz.</string>
     <string name="portfolio_oversold">Satışlar varlığı aşıyor – işlemleri kontrol et.</string>
     <string name="portfolio_sell">Satım</string>
     <string name="portfolio_sell_exceeds">Varlığından fazla (%1$s)</string>

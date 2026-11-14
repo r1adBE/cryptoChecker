@@ -109,7 +109,8 @@ class HistoricPriceSourceTest {
             when {
                 url.startsWith("https://api.binance.us/api/v3/klines?symbol=SOLUSDT&") -> notFound
                 url.startsWith("https://api.binance.us/api/v3/klines?symbol=SOLUSD&") -> binance(url, close = 100.0, latest = 150.0)
-                else -> null
+                // Binance-Spot und Futures führen SOL nicht (404) — «offline» hiesse: nicht erreichbar, kein Kurs
+                else -> notFound
             }
         }
         assertEquals(
@@ -123,7 +124,7 @@ class HistoricPriceSourceTest {
         val today = Klines.today()
         val http = RouteHttp { url ->
             when {
-                !url.startsWith("https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400") -> null
+                !url.startsWith("https://api.exchange.coinbase.com/products/ETH-USD/candles?granularity=86400") -> notFound
                 "&start=2024-01-02T00:00:00Z" in url && "&end=2024-01-02T23:59:59Z" in url ->
                     Reply(Klines.coinbase(1, Klines.DAY, start) { 2000.0 })
                 else -> Reply(Klines.coinbase(3, Klines.DAY, today) { 2900.0 + it * 50 })
@@ -140,7 +141,7 @@ class HistoricPriceSourceTest {
         val today = Klines.today()
         val http = RouteHttp { url ->
             when {
-                !url.startsWith("https://api.exchange.coinbase.com/products/") -> null
+                !url.startsWith("https://api.exchange.coinbase.com/products/") -> notFound
                 "&start=" in url -> Reply(Klines.coinbase(1, Klines.DAY, start) { 2.0 })
                 else -> Reply(Klines.coinbase(1, Klines.DAY, today) { 3.0 })
             }
@@ -149,6 +150,40 @@ class HistoricPriceSourceTest {
         assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), result)
         // USD und USDC geprüft, beide abgelehnt
         assertEquals(2, http.count("products/ETH-USDC/"))
+    }
+
+    /** Netzfehler ist nicht «keine Kerze»: einmal wiederholt, dann kein Kurs — nie still die nächste Quelle. */
+    @Test
+    fun unreachableSourceStopsTheChainAfterOneRetry() = runBlocking {
+        val http = RouteHttp { url ->
+            when {
+                url.startsWith("https://data-api.binance.vision/") -> null
+                url.startsWith("https://api.exchange.coinbase.com/") -> Reply(Klines.coinbase(1, Klines.DAY, start) { 2000.0 })
+                else -> notFound
+            }
+        }
+        assertEquals(HistoricPriceSource.CloseResult(null), source(http).dailyCloseUsdt("ETH", date, current = 3100.0))
+        assertEquals(2, http.count("data-api.binance.vision"))
+        assertEquals(0, http.count("api.binance.com"))
+        assertEquals(0, http.count("api.exchange.coinbase.com"))
+    }
+
+    @Test
+    fun serverErrorIsRetriedOnceThenTheSameSourceAnswers() = runBlocking {
+        var failures = 1
+        val http = RouteHttp { url ->
+            when {
+                url.startsWith("https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&") && failures-- > 0 ->
+                    Reply("busy", 503)
+                url.startsWith("https://data-api.binance.vision/api/v3/klines?symbol=ETHUSDT&") -> binance(url, close = 2000.0, latest = 3000.0)
+                else -> notFound
+            }
+        }
+        assertEquals(
+            HistoricPriceSource.CloseResult(2000.0, source = DataFreshness.BINANCE),
+            source(http).dailyCloseUsdt("ETH", date, current = 3100.0),
+        )
+        assertEquals(0, http.count("api.exchange.coinbase.com"))
     }
 
     @Test

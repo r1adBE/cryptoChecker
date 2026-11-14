@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 
@@ -96,5 +97,18 @@ class Argon2idTest {
         rejects { Argon2id.hash(pw, ByteArray(16), 64, 0, 1, 32) } // t = 0
         rejects { Argon2id.hash(pw, ByteArray(16), 64, 1, 0, 32) } // p = 0
         rejects { Argon2id.hash(pw, ByteArray(7), 64, 1, 1, 32) } // Salt < 8 Bytes
+    }
+
+    /** S3-14: Arbeitsblöcke (r, tmp, input, address) werden nach dem Füllen überschrieben, auch bei einem Fehler. */
+    @Test
+    fun workBlocksAreWiped() {
+        val text = listOf(
+            java.io.File("src/main/java/com/cryptochecker/app/data/Argon2id.kt"),
+            java.io.File("data/src/main/java/com/cryptochecker/app/data/Argon2id.kt"),
+        ).first { it.exists() }.readText()
+        assertTrue(text.contains("} finally {\n                // Arbeitsblöcke überschreiben"))
+        assertTrue(text.contains("                filler.wipe()\n            }"))
+        val wipe = text.substringAfter("fun wipe() {").substringBefore("}")
+        for (block in listOf("r", "tmp", "input", "address")) assertTrue(block, wipe.contains("$block.fill(0)"))
     }
 }

@@ -116,8 +116,7 @@ enum BackgroundRefresh {
             gate.release()
             let current = saved ?? snapshot
             // Ergebnis für «Letzte Prüfungen»: Kurse geholt, aber nicht gespeichert zählt als fehlgeschlagen
-            let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
-                ? .failed : CheckRunLog.result(checked: outcome.checked, failed: outcome.failed)
+            let priceResult: CheckResult = (saved == nil && outcome.checked > 0) ? .failed : outcome.checkResult
             priceBox.set(priceResult)
             // Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
             if saved == nil && outcome.checked > 0 {
@@ -141,8 +140,8 @@ enum BackgroundRefresh {
                 // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht.
                 // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
                 // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
-                fullCheck = !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed,
-                                                                       notTraded: outcome.notTraded)
+                // Ohne Alarm-Lease bzw. mit Budget-Lücken keine volle Prüfung (der nächste Lauf wird nicht übersprungen)
+                fullCheck = !expired && outcome.isFullCheck
                 if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
                                                       deferredChecked: false) {
                     SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis

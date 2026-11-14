@@ -43,6 +43,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.XpubScan
+import com.cryptochecker.app.domain.portfolio.ZeroConfirm
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.features.watchlist.lineStart
 import com.cryptochecker.app.ui.theme.Spacing
@@ -95,6 +96,8 @@ internal fun AddressRow(
             )
             // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
             val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
+            // Guthaben meldete 0, vorher mehr: alter Wert bis zur Bestätigung (ZeroConfirm)
+            val zeroUnconfirmed = ZeroConfirm.MAIN in a.zeroPending
             val lastError = a.lastError // lokal: WatchedAddress liegt in :domain (kein Smart Cast über Modulgrenzen)
             val status = when {
                 // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
@@ -103,7 +106,9 @@ internal fun AddressRow(
                 // Zeit am Zeilenanfang: gross beginnend («Vor 2 Std. · Etherscan»)
                 a.lastUpdated > 0 -> ago(a.lastUpdated, now).let { age ->
                     val stalePart = stringResource(R.string.portfolio_address_tokens_partly_stale)
+                    val zeroPart = stringResource(R.string.portfolio_address_zero_unconfirmed)
                     lineStart(age, age) + (a.lastProvider?.let { " · $it" } ?: "") +
+                        (if (zeroUnconfirmed) " · $zeroPart" else "") +
                         (if (partlyStale) " · $stalePart" else "")
                 }
                 else -> null

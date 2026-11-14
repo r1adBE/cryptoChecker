@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Guztira</string>
     <string name="portfolio_hide_amounts">Ezkutatu zenbatekoak</string>
-    <string name="portfolio_hide_amounts_hint">Zorroko eta zorroaren widgeteko kopuruak eta balioak ••• gisa erakusten ditu – ehunekoak ikusgai jarraitzen dute.</string>
+    <string name="portfolio_hide_amounts_hint">Zorroko, zorroaren widgeteko, erlojuko eta zorroaren alarmetako kopuruak eta balioak ••• gisa erakusten ditu – ehunekoak ikusgai jarraitzen dute.</string>
     <string name="portfolio_invested">Eskuratze-kostua</string>
     <string name="portfolio_total_no_fx">Ez dago truke-tasarik honetarako: %1$s – zenbatekoak USDTtan</string>
     <string name="portfolio_total_value">Balio osoa</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Aldaketak baztertu nahi dituzu?</string>
     <string name="portfolio_edit_tx">Editatu transakzioa</string>
     <string name="portfolio_invalid">Idatzi 0 baino handiagoa den zenbaki baliozko bat.</string>
+    <string name="number_ambiguous">Ez dago argi: %1$s ala %2$s? Idatzi bietako bat.</string>
     <string name="portfolio_oversold">Salmentek ondasunak gainditzen dituzte – begiratu transakzioak.</string>
     <string name="portfolio_sell">Salmenta</string>
     <string name="portfolio_sell_exceeds">Zure ondasunak baino gehiago (%1$s)</string>

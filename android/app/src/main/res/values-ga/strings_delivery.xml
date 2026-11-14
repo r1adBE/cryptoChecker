@@ -68,5 +68,6 @@
     <string name="alarm_reliability_never">Foláirimh ar siúl – gan seiceáil sa chúlra fós</string>
     <string name="alarm_reliability_notifications_off">Fógraí múchta – ní thiocfaidh foláirimh</string>
     <string name="alarm_reliability_battery">D’fhéadfadh coigilt ceallraí seiceálacha foláireamh a stopadh</string>
+    <string name="alarm_reliability_offline">Gan nasc – seiceálfar na haláraim nuair a bheidh an líonra ar ais</string>
     <string name="alarm_reliability_background_refresh">Athnuachan sa chúlra múchta – b’fhéidir nach dtiocfaidh foláirimh</string>
 </resources>

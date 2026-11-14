@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Bakgrund</string>
-    <string name="widget_configure_hint">Välj bakgrund och opacitet. Färgen följer appen. Widgeten visar hela listan; tryck på en rad för att öppna appen.</string>
+    <string name="widget_configure_hint">Välj bakgrund och opacitet. Färgen följer appen. Widgeten visar din lista eller gruppen du väljer nedan; tryck på en rad för att öppna appen.</string>
     <string name="widget_configure_title">Ställ in widget</string>
     <string name="widget_description">Visar kursen för ett par i din bevakningslista.</string>
     <string name="widget_empty">Inga par i bevakningslistan ännu.</string>

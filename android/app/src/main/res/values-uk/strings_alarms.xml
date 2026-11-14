@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Ставка фінансування має бути числом від −10 до +10 відсотків.</string>
     <string name="alarm_threshold_error_invalid">Введи коректне число, більше за 0.</string>
     <string name="alarm_threshold_error_oi">Зміна показника «Відкритий інтерес»: не більше 1000 відсотків.</string>
+    <string name="alarm_threshold_error_percent_max">Не більше 1000 відсотків.</string>
+    <string name="alarm_threshold_error_distance">Відстань має бути менше ніж 100 відсотків.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d год</item>
         <item quantity="few">за %1$d год</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Озвучення увімкнено</string>
     <string name="alarm_unchecked_no_candles">Не вдалося перевірити (немає свічок)</string>
     <string name="alarm_unchecked_no_rate">Не вдалося перевірити (немає курсу валют)</string>
+    <string name="alarm_unchecked_no_window_price">Не вдалося перевірити (немає ціни в часовому вікні)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Сповіщення вимкнено – цей сигнал до тебе не дійде</string>

@@ -135,11 +135,12 @@ struct PortfolioTxSheet: View {
             .map(PortfolioDecimal.amount).flatMap { $0 > 0 ? $0 : nil }
     }
     var priceBlank: Bool { priceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    /// Kurs als Hinweis für eine mehrdeutige Preis-Eingabe — in der Anzeigewährung am umgerechneten Kurs gemessen.
+    var priceHintEntry: Double? {
+        fiatActive ? fxRate.flatMap { r in priceHint.map { $0 * PortfolioDecimal.double(r) } } : priceHint
+    }
     private var priceEntered: Decimal? {
-        // In der Anzeigewährung am umgerechneten Kurs gemessen
-        let hint = fiatActive ? fxRate.flatMap { r in priceHint.map { $0 * PortfolioDecimal.double(r) } } : priceHint
-        return priceBlank ? nil
-            : PriceFormat.parseDecimalAmount(priceText, decimalSeparator: decimalSeparator, priceHint: hint)
+        priceBlank ? nil : PriceFormat.parseDecimalAmount(priceText, decimalSeparator: decimalSeparator, priceHint: priceHintEntry)
     }
     /// Gespeichert wird USDT: Eingabe in der Anzeigewährung ÷ Tageskurs.
     var price: Decimal? {

@@ -133,7 +133,7 @@ object DerivativesAlarm {
 
     /**
      * @param value Funding in % (FUNDING_*) bzw. Open-Interest-Veränderung in % über das
-     *   Fenster (OI_*); null = keine Daten (nichts tun)
+     *   Fenster (OI_*); null = keine Daten (nichts tun); verglichen wird [AlarmPercent.rounded]
      * @param armed `referenceAt` <= 0
      */
     fun decide(
@@ -147,7 +147,9 @@ object DerivativesAlarm {
         cooldownMinutes: Int,
     ): Decision {
         if (!enabled || !condition.isDerivatives || !threshold.isFinite()) return Decision.None
-        val v = value?.takeIf { it.isFinite() } ?: return Decision.None
+        // Wie die übrigen Prozent-Alarme auf 1e-6 gerundet ([AlarmPercent]): OI 100 → 115 ergibt 14.999999999999991 %,
+        // Funding 0.0007 × 100 = 0.06999999999999999 % — beide sollen genau ihre Marke treffen.
+        val v = value?.takeIf { it.isFinite() }?.let(AlarmPercent::rounded) ?: return Decision.None
         if (!armed) return if (rearms(condition, threshold, v)) Decision.Rearm else Decision.None
         if (!crossed(condition, threshold, v)) return Decision.None
         if (lastTriggeredAt > 0 && cooldownMinutes > 0) {

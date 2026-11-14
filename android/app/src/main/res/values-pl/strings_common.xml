@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Giełda jest teraz niedostępna</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Giełda zablokowana w tym regionie</string>
+    <string name="error_exchange_access_denied">Giełda odmówiła dostępu</string>
     <string name="loading_hint">Wczytywanie…</string>
     <string name="option_off">Wył.</string>
     <string name="something_went_wrong">Coś poszło nie tak</string>

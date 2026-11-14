@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Բորսան հիմա հասանելի չէ</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Բորսան արգելափակված է այս տարածաշրջանում</string>
+    <string name="error_exchange_access_denied">Բորսան մերժեց մուտքը</string>
     <string name="loading_hint">Բեռնվում է…</string>
     <string name="option_off">Անջատված</string>
     <string name="something_went_wrong">Ինչ-որ բան սխալ գնաց</string>

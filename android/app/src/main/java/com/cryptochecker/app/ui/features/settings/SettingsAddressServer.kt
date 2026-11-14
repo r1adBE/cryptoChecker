@@ -124,6 +124,22 @@ class AddressServerViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AddressServerState())
 
+    /**
+     * Server unbekannt (Einstellungen ersetzt): Bitcoin-Adressen ruhen, bis ein Server eingetragen oder öffentliche Knoten
+     * bestätigt sind ([confirmPublic]). Wie iOS `SettingsAddressServerCard`.
+     */
+    val unknown: StateFlow<Boolean> = settingsRepository.addressServerUnknownFlow
+        .catch { emit(false) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+
+    /** Öffentliche Knoten bestätigt (nach Rückfrage): Bitcoin-Adressen gehen wieder an die öffentlichen Knoten. */
+    fun confirmPublic(onDone: () -> Unit) {
+        viewModelScope.launch {
+            settingsRepository.confirmAddressServer()
+            onDone()
+        }
+    }
+
     /** Erfolg hebt Sperre/Pause des Hosts auf. */
     private val testRun = AddressServerTestRun { url -> source.testBtcServer(url)?.also { source.clearServerPauses(url) } }
     val test: StateFlow<AddressServerTest> = testRun.state
@@ -164,13 +180,14 @@ class AddressServerViewModel @Inject constructor(
 @Composable
 internal fun AddressServerCard(viewModel: AddressServerViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val unknown by viewModel.unknown.collectAsStateWithLifecycle()
     Spacer(Modifier.height(Spacing.md))
     GroupCard(title = stringResource(R.string.settings_address_server_title)) {
         SettingsAnchor("portfolio.address_server") {
             Column(modifier = Modifier.padding(bottom = 8.dp)) {
                 Hint(stringResource(R.string.settings_address_server_hint))
                 // Erst nach dem ersten Lesen (sonst stünde kurz ein leeres Feld da)
-                if (state.loaded) AddressServerFields(state, viewModel)
+                if (state.loaded) AddressServerFields(state, unknown, viewModel)
             }
         }
     }
@@ -178,7 +195,7 @@ internal fun AddressServerCard(viewModel: AddressServerViewModel = hiltViewModel
 
 /** Feld, Knöpfe, Stand und Testergebnis. */
 @Composable
-private fun AddressServerFields(state: AddressServerState, viewModel: AddressServerViewModel) {
+private fun AddressServerFields(state: AddressServerState, unknown: Boolean, viewModel: AddressServerViewModel) {
     val test by viewModel.test.collectAsStateWithLifecycle()
     val haptics = rememberHaptics()
     var input by rememberSaveable(state.server) { mutableStateOf(state.server ?: "") }
@@ -188,7 +205,11 @@ private fun AddressServerFields(state: AddressServerState, viewModel: AddressSer
     val onSaved = { haptics.play(HapticEvent.SUCCESS) }
     if (askPublic) {
         PublicNodesDialog(
-            onConfirm = { askPublic = false; viewModel.save(null, onSaved) },
+            onConfirm = {
+                askPublic = false
+                // Server unbekannt und keiner eingetragen: nur bestätigen; sonst den eigenen Server entfernen
+                if (unknown && state.server == null) viewModel.confirmPublic(onSaved) else viewModel.save(null, onSaved)
+            },
             onDismiss = { askPublic = false },
         )
     }
@@ -229,6 +250,17 @@ private fun AddressServerFields(state: AddressServerState, viewModel: AddressSer
     val status = state.server?.let { stringResource(R.string.settings_address_server_active, AddressServer.host(it)) }
         ?: stringResource(R.string.settings_address_server_none)
     Hint(status, top = 4.dp)
+    if (unknown) {
+        // Einstellungen ersetzt: unbekannt, ob ein eigener Server eingetragen war — Bitcoin-Adressen ruhen bis zur Wahl
+        Text(
+            stringResource(R.string.settings_address_server_unknown),
+            style = MaterialTheme.typography.bodySmall,
+            color = AppColors.warningText,
+        )
+        TextButton(onClick = { askPublic = true }, colors = DisabledColors.textButton()) {
+            Text(stringResource(R.string.settings_address_server_public_confirm))
+        }
+    }
     if (AddressServerRules.testShown(test.url, check.url)) AddressServerTestResult(test)
 }
 

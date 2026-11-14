@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">Pilih pasangan yang menunjukkan harganya dalam bar pemberitahuan.</string>
     <string name="settings_quiet_hours">Waktu senyap</string>
     <string name="settings_quiet_hours_from">Dari</string>
-    <string name="settings_quiet_hours_hint">Antara %1$s dan %2$s, amaran menunggu sehingga waktu senyap tamat dan kemudian berbunyi. Pemberitahuan lain sampai secara senyap, tanpa pertuturan.</string>
+    <string name="settings_quiet_hours_hint">Antara %1$s dan %2$s, amaran menunggu sehingga waktu senyap tamat dan kemudian berbunyi, jika syaratnya masih dipenuhi. Pemberitahuan lain sampai secara senyap, tanpa pertuturan.</string>
     <string name="settings_quiet_hours_to">Hingga</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">Sedang digunakan: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Tidak ditetapkan – nod awam digunakan</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Tetapan telah ditetapkan semula, jadi tidak diketahui sama ada anda menggunakan pelayan Bitcoin sendiri. Alamat Bitcoin dan kunci xpub tidak disemak sehingga anda memasukkan pelayan sekali lagi atau memilih nod awam.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Hanya alamat https:// dibenarkan</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

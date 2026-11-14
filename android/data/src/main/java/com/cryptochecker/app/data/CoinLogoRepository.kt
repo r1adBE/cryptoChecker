@@ -76,6 +76,13 @@ class CoinLogoRepository @Inject constructor(
     /** Liegt für [symbol] ein Logo auf dem Gerät — geladen oder mitgeliefert ([logo]; nie Netz)? */
     suspend fun hasLogo(symbol: String): Boolean = images.logo(symbol) != null
 
+    /** Coins ohne Logo, deren Logo noch kommt (Adresse bekannt, keine Tagessperre) — «noch nicht geladen» statt «keines». */
+    suspend fun logosNotYetLoaded(symbols: List<String>): Set<String> {
+        if (symbols.isEmpty()) return emptySet()
+        val map = listSync.map ?: listSync.starterMap()
+        return withContext(ioDispatcher) { symbols.filterTo(HashSet()) { images.notYetLoaded(it, map) } }
+    }
+
     /** Beim ✕ des Hinweises «Coins ohne Logo» gemerkte Coins ([MissingLogoDismissals]); null = noch nicht gelesen. */
     val missingLogosDismissed: StateFlow<Set<String>?> get() = missingDismissals.keys
 
@@ -134,7 +141,7 @@ class CoinLogoRepository @Inject constructor(
      * @return true, wenn danach alle Logos da sind (fehlt eines, zeigt die Zeile Initialen)
      */
     suspend fun ensureStarterLogos(symbols: Collection<String>): Boolean =
-        images.ensureStarterLogos(symbols, listSync.symbolMapOrEmpty())
+        images.ensureStarterLogos(symbols, listSync.starterMap())
 
     /** Abgleich im Hintergrund ([CoinListSync.startSync]). */
     fun startSync(

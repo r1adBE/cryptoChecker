@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Jukwaa halipatikani kwa sasa</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Soko limezuiwa katika eneo hili</string>
+    <string name="error_exchange_access_denied">Soko limekataa ufikiaji</string>
     <string name="loading_hint">Inapakia…</string>
     <string name="option_off">Imezimwa</string>
     <string name="something_went_wrong">Hitilafu imetokea</string>

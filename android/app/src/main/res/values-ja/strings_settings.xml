@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">通知バーに価格を表示するペアを選択します。</string>
     <string name="settings_quiet_hours">おやすみ時間</string>
     <string name="settings_quiet_hours_from">開始</string>
-    <string name="settings_quiet_hours_hint">%1$s～%2$s はアラームがおやすみ時間の終わりまで待機し、その後サウンド付きで通知します。その他の通知は無音で、読み上げなしで届きます。</string>
+    <string name="settings_quiet_hours_hint">%1$s～%2$s はアラームがおやすみ時間の終わりまで待機し、その後サウンド付きで通知します（その時点で条件をまだ満たしている場合）。その他の通知は無音で、読み上げなしで届きます。</string>
     <string name="settings_quiet_hours_to">終了</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">使用中：%1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">未設定 – 公開ノードを使用します</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">設定がリセットされたため、独自の Bitcoin サーバーを使用していたかどうか分かりません。サーバーを再入力するか公開ノードを選択するまで、Bitcoin アドレスと xpub キーは照会されません。</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// のアドレスのみ使用できます</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

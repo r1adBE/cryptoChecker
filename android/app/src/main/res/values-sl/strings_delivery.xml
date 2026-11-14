@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Alarmi vklopljeni – še ni preverjanja v ozadju</string>
     <string name="alarm_reliability_notifications_off">Obvestila izklopljena – alarmi ne bodo prišli</string>
     <string name="alarm_reliability_battery">Varčevanje baterije lahko ustavi preverjanje alarmov</string>
+    <string name="alarm_reliability_offline">Ni povezave – alarmi se preverijo, ko se omrežje vrne</string>
     <string name="alarm_reliability_background_refresh">Osveževanje v ozadju izklopljeno – alarmi morda ne pridejo</string>
 </resources>

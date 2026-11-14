@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">ਆਖਰੀ ਤਾਜ਼ਗੀ</string>
     <string name="watchlist_symbols_legend">ਚਿੰਨ੍ਹਾਂ ਦੀ ਵਿਆਖਿਆ</string>
     <string name="watchlist_symbols_legend_alarms">ਸਰਗਰਮ ਅਲਰਟ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ</string>
+    <string name="watchlist_symbols_legend_warning">ਕੀਮਤ ਪੁਰਾਣੀ ਹੈ ਜਾਂ ਐਕਸਚੇਂਜ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ</string>
     <string name="watchlist_refresh_report_empty">ਹਾਲੇ ਕੋਈ ਵੇਰਵਾ ਨਹੀਂ – ਹੁਣ ਤੱਕ ਕੋਈ ਪੂਰੀ ਤਾਜ਼ਗੀ ਨਹੀਂ ਹੋਈ। ਤਾਜ਼ਾ ਕਰੋ ’ਤੇ ਟੈਪ ਕਰੋ ਅਤੇ ਚੱਕਰ ਰੁਕਣ ਤੱਕ ਉਡੀਕ ਕਰੋ।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ਵਿੱਚੋਂ %1$d ਪੁਰਾਣਾ</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">ਸੂਚਨਾ ਬੰਦ ਕਰੋ</string>
     <string name="watchlist_missing_logos_explain">ਇਹਨਾਂ ਕੌਇਨਾਂ ਲਈ ਕੋਈ ਲੋਗੋ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਐਪ ਇਹਨਾਂ ਦੇ ਸ਼ੁਰੂਆਤੀ ਅੱਖਰ ਦਿਖਾਉਂਦੀ ਹੈ।</string>
+    <string name="watchlist_missing_logos_pending">ਅਜੇ ਲੋਡ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="watchlist_missing_logos_explain_pending">ਅਜੇ ਲੋਡ ਨਹੀਂ ਹੋਏ ਵਜੋਂ ਨਿਸ਼ਾਨਬੱਧ ਲੋਗੋ ਅਗਲੇ ਸਿੰਕ ਨਾਲ ਆਉਣਗੇ, ਕੁਝ ਸਿਰਫ਼ Wi-Fi \'ਤੇ। ਹੋਰ ਕੌਇਨਾਂ ਲਈ ਕੋਈ ਲੋਗੋ ਉਪਲਬਧ ਨਹੀਂ। ਐਪ ਉਹਨਾਂ ਦੇ ਸ਼ੁਰੂਆਤੀ ਅੱਖਰ ਦਿਖਾਉਂਦੀ ਹੈ।</string>
     <string name="exchange_retiring_notice">%2$s ਤੋਂ %1$s ਜਨਤਕ ਕੀਮਤਾਂ ਨਹੀਂ ਦੇਵੇਗਾ। ਇਹਨਾਂ ਕੌਇਨਾਂ ਲਈ ਕੋਈ ਹੋਰ ਐਕਸਚੇਂਜ ਚੁਣੋ।</string>
     <string name="exchange_retiring_reason">%2$s ਤੋਂ %1$s ਕੀਮਤਾਂ ਨਹੀਂ ਦੇਵੇਗਾ</string>
     <string name="exchange_retired_since">%2$s ਤੋਂ %1$s ਹੁਣ ਕੀਮਤਾਂ ਨਹੀਂ ਦਿੰਦਾ</string>

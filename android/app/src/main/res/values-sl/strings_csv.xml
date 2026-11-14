@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Zapusti portfelj (dvig)</string>
     <string name="portfolio_csv_import_choose_each">Za vsak dvig izberi, kam je šel.</string>
     <string name="portfolio_csv_import_columns">Prepoznani stolpci: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Že uvoženo: vrstice %1$s</string>
     <string name="portfolio_csv_import_confirm">Uvozi (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dan/mesec</string>
     <string name="portfolio_csv_import_date_month_first">Mesec/dan</string>
@@ -50,6 +51,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Posli s stablecoini (USDT, USDC …) se knjižijo kot zamenjave – stablecoin se pojavi v imetju.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Možnih je več ujemanj – izberi pravo ali nobenega.</string>
+    <string name="portfolio_csv_import_transfer_loose">Visoka provizija ali pozen prihod – preveri, ali gre za isti prenos.</string>
     <string name="portfolio_csv_import_transfer_fee">Omrežnina: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Knjiži kot en prenos</string>
     <string name="portfolio_csv_import_transfer_stored">Protipostavka iz prejšnjega uvoza</string>
@@ -116,7 +118,7 @@
     <string name="portfolio_csv_import_fx_zone">Dnevni tečaji po koledarskem dnevu v: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Dnevnih tečajev ni bilo mogoče naložiti.</string>
     <string name="portfolio_csv_import_anyway">Vseeno uvozi</string>
-    <string name="portfolio_csv_import_anyway_hint">Brez dnevnega tečaja cena ali provizija trajno manjkata. Poskusi znova ali vseeno uvozi – te transakcije potem dobijo opombo.</string>
+    <string name="portfolio_csv_import_anyway_hint">Brez dnevnega tečaja cena ali provizija manjka, dokler je ne dodaš. Poskusi znova ali vseeno uvozi – te transakcije dobijo opombo.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena brez dnevnega tečaja</string>
     <string name="portfolio_csv_note_fee_no_rate">Provizija brez dnevnega tečaja</string>
     <string name="portfolio_csv_import_no_rates_for">Za %1$s ni dnevnih tečajev, zato ponovni poskus ne bo pomagal. Če vseeno uvoziš, te transakcije dobijo opombo.</string>

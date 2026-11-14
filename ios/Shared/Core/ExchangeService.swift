@@ -62,8 +62,8 @@ enum ExchangeService {
         return pairs
     }
 
-    /// Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen — bei `pairListAllCallsRequired`
-    /// jede (sonst würde eine halbe Liste gespeichert).
+    /// Jede Anfrage für sich lesen (samt Folgeseiten); die erste muss gelingen, bei `pairListAllCallsRequired` jede, und
+    /// eine vorübergehende Störung bricht immer ab (`ExchangeFailure.pairListCallAborts`: sonst eine halbe Liste).
     private static func loadPairListByCall(_ exchange: Exchange) async throws -> [ExchangePair] {
         var collected: [ExchangePair] = []
         var names: [String: String] = [:]
@@ -71,7 +71,8 @@ enum ExchangeService {
             do {
                 try await loadPairListCall(exchange, call: call, into: &collected, names: &names)
             } catch {
-                if call == 0 || exchange.pairListAllCallsRequired { throw error }
+                if ExchangeFailure.pairListCallAborts(call: call, allCallsRequired: exchange.pairListAllCallsRequired,
+                                                      failure: ExchangeFailure.of(error)) { throw error }
             }
         }
         if !collected.isEmpty { TokenIdentityStore.shared.saveExchange(exchange.key, names: names) }

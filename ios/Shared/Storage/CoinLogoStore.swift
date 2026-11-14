@@ -164,11 +164,9 @@ actor CoinLogoStore {
 
     // MARK: 2./3. Rangliste und Bilder
 
-    /// Lädt die Logos aller Coins der Rangliste, die noch fehlen, in Stufen nacheinander: die bei Binance gelisteten
-    /// Krypto-Kürzel, während die Seiten der Rangliste laden, dann die grössten 1000, zuletzt alles (nur noch, was
-    /// fehlt) — für alle in derselben Reihenfolge, nie nach der Merkliste. Läuft nur einmal gleichzeitig; gibt die Zahl
-    /// neuer Logos zurück. `images` false («Namen anzeigen» ohne Logos): nur die Liste mit den Namen, keine Bilder. Die
-    /// Binance-Listen holt `AppData` vorher (`refreshLists`).
+    /// Lädt die fehlenden Logos der Rangliste in Stufen: Binance-Kürzel (während die Rangliste lädt), die grössten 1000,
+    /// zuletzt alles — für alle gleich, nie nach der Merkliste. Einmal gleichzeitig; Ergebnis: Zahl neuer Logos. `images`
+    /// false («Namen anzeigen» ohne Logos): nur die Namen. Die Binance-Listen holt `AppData` vorher (`refreshLists`).
     @discardableResult
     func syncAll(images: Bool = true) async -> Int {
         guard !syncing else { return 0 }
@@ -192,6 +190,7 @@ actor CoinLogoStore {
                 var next = await CoinLogoStore.downloadMissing(wanted, order: order, alternates: alternates)
                 next.added += before.added
                 next.network = next.network || before.network
+                next.incomplete = next.incomplete || before.incomplete
                 return next
             }
         }
@@ -205,20 +204,19 @@ actor CoinLogoStore {
         var result = DownloadResult()
         if let earlyTask { result = await earlyTask.value }
         let rest = await Self.downloadMissing(wanted, order: Self.savedMapOrder(), alternates: alternates, lastStage: true)
-        await CoinLogoLoading.runFinished()
         result.added += rest.added
         result.network = result.network || rest.network
+        // Erst ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) erledigt das erste Laden
+        await CoinLogoLoading.runFinished(complete: !result.network && !result.incomplete && !rest.incomplete
+                                          && rest.pausedUntil == nil && !mapNetworkFailed && !listsNetworkFailed)
         retryPending = listsNetworkFailed || mapNetworkFailed || result.network
         // Der zweite Durchgang versucht alle noch fehlenden Bilder erneut: seine Pause gilt
         imagesPausedUntil = rest.pausedUntil
         return result.added
     }
 
-    /// Erster Start: die Logos der Start-Coins (`symbols`) vor dem übrigen Abgleich holen, damit die
-    /// Start-Auswahl nicht erst Initialen zeigt und nach ein paar Sekunden umspringt. Die Start-Coins
-    /// sind für alle gleich (die grössten Coins) — die Abrufe verraten also nichts über eine
-    /// Merkliste; einzelne Coins einer Merkliste werden weiterhin nie einzeln geholt. Wie Android
-    /// `ensureStarterLogos`. true = danach sind alle da (fehlt eines, zeigt die Zeile Initialen).
+    /// Erster Start: die Logos der Start-Coins (`symbols`) vor dem übrigen Abgleich holen (für alle gleich, die grössten
+    /// Coins — verrät nichts über eine Merkliste). Wie Android `ensureStarterLogos`. true = danach sind alle da.
     @discardableResult
     func ensureStarterLogos(_ symbols: [String]) async -> Bool {
         let current = await symbolMap()
@@ -320,7 +318,10 @@ actor CoinLogoStore {
             Self.namesBox.store(merged.names)
             await CoinLogoRevision.bump()
         }
-        defaults.set(Double(CoinLogos.savedAt(now: now, complete: full)), forKey: Self.mapTimeKey)
+        // Netzfehler auf einer Folgeseite: Teil-Ergebnis nutzen, bald erneut statt Stunden «unvollständig» (wie Android)
+        if networkError { mapFetchFailed(networkError: true, previousAttempt: attempt) } else {
+            defaults.set(Double(CoinLogos.savedAt(now: now, complete: full)), forKey: Self.mapTimeKey)
+        }
         // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
         _ = Self.dropChangedImages(old: known, new: merged.map, skip: handled)
         map = merged.map
@@ -328,8 +329,7 @@ actor CoinLogoStore {
         return merged.map
     }
 
-    /// Gespeicherte Bilder der Kürzel löschen, deren Bild-Adresse sich zwischen `old` und `new`
-    /// geändert hat (ausser `skip`); Ergebnis: diese Kürzel — wie Android `dropChangedImages`.
+    /// Bilder der Kürzel löschen, deren Bild-Adresse sich geändert hat (ausser `skip`); Ergebnis: diese — wie Android.
     private static func dropChangedImages(old: [String: String], new: [String: String], skip: Set<String>) -> Set<String> {
         let changed = CoinLogos.changedKeys(old: old, new: new).subtracting(skip)
         guard !changed.isEmpty else { return changed }
@@ -369,9 +369,7 @@ actor CoinLogoStore {
     }
 
     /// Fehler eines Abrufs am Netz (keine Verbindung, Zeitüberschreitung) statt am Server?
-    private static func isNetworkError(_ error: Error) -> Bool {
-        error is URLError
-    }
+    private static func isNetworkError(_ error: Error) -> Bool { error is URLError }
 
     /// Seiten der Rangliste mit Pause dazwischen nach `rows` (bei «429» einmal nach der verlangten Pause
     /// wiederholt); false = eine Seite fehlte (Abbruch).

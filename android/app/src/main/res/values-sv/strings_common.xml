@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Börsen går inte att nå just nu</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Börsen är blockerad i den här regionen</string>
+    <string name="error_exchange_access_denied">Börsen nekade åtkomst</string>
     <string name="loading_hint">Läser in…</string>
     <string name="option_off">Av</string>
     <string name="something_went_wrong">Något gick fel</string>

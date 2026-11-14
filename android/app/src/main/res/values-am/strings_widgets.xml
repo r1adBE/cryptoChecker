@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ዳራ</string>
-    <string name="widget_configure_hint">ዳራና ግልጽነት ይምረጡ። ቀለሙ መተግበሪያውን ይከተላል። ዊጀቱ መላውን የክትትል ዝርዝርዎን ያሳያል፤ መተግበሪያውን ለመክፈት ረድፍ ይንኩ።</string>
+    <string name="widget_configure_hint">ዳራ እና ግልጽነት ይምረጡ። ቀለሙ መተግበሪያውን ይከተላል። ዊጀቱ የክትትል ዝርዝርዎን ወይም ከታች የተመረጠውን ቡድን ያሳያል፤ መተግበሪያውን ለመክፈት አንድ ረድፍ ይንኩ።</string>
     <string name="widget_configure_title">ዊጀት ያዘጋጁ</string>
     <string name="widget_description">ከክትትል ዝርዝርዎ የአንድ ጥንድ ዋጋ ያሳያል።</string>
     <string name="widget_empty">እስካሁን በክትትል ዝርዝሩ ውስጥ ምንም ጥንድ የለም።</string>

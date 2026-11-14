@@ -84,7 +84,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
         let end = try XCTUnwrap(source.range(of: "struct WatchPortfolioWidget: Widget"))
         let value = String(source[start.lowerBound..<end.lowerBound])
         XCTAssertTrue(value.contains("Text(total).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle).privacySensitive()"))
-        XCTAssertTrue(value.contains("Text(WatchFreshness.inlineLine(total, time: p.time, now: now)).privacySensitive()"))
+        XCTAssertTrue(value.contains("Text(WatchFreshness.inlineLine(total, time: p.time, now: now, intervalMinutes: entry.interval)).privacySensitive()"))
         XCTAssertTrue(value.contains(
             "Text(WatchText.portfolioCompact(p)).foregroundStyle(valueStyle).privacySensitive().widgetLabel(title)"))
         // Rechteckig: Betrag und «heute»; Zeile; Ecke; rund

@@ -97,9 +97,10 @@ private fun CheckRunRow(run: CheckRun) {
     val time = DateUtils.formatDateTime(context, run.at, flags)
     val trigger = stringResource(run.trigger.labelRes)
     val result = stringResource(run.result.labelRes)
-    val duration = if (run.result == CheckResult.SKIPPED) ""
+    val duration = if (run.result == CheckResult.SKIPPED || run.result == CheckResult.OFFLINE) ""
     else stringResource(R.string.settings_seconds, ((run.durationMillis + 500) / 1000).toInt())
-    val ok = run.result == CheckResult.OK || run.result == CheckResult.SKIPPED
+    // Pausiert (nichts geprüft) warnt wie ein Fehler; offline übersprungen ist neutral (Grund steht im Text)
+    val ok = run.result == CheckResult.OK || run.result == CheckResult.SKIPPED || run.result == CheckResult.OFFLINE
     val description = listOf(time, trigger, result, duration).filter { it.isNotEmpty() }.joinToString(", ")
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -138,6 +139,8 @@ private val CheckResult.labelRes: Int
         CheckResult.PARTIAL -> R.string.check_result_partial
         CheckResult.FAILED -> R.string.check_result_failed
         CheckResult.SKIPPED -> R.string.check_result_skipped
+        CheckResult.PAUSED -> R.string.check_result_paused
+        CheckResult.OFFLINE -> R.string.check_result_offline
     }
 
 /** Takt des Weckers «Pünktlich prüfen» in Minuten (gewähltes Intervall, mindestens 15; [BackgroundSchedule.exactIntervalMillis]). */

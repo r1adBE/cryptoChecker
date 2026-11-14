@@ -91,6 +91,8 @@
     <string name="check_result_ok">KULUNGILE</string>
     <string name="check_result_partial">Ngokwengxenye</string>
     <string name="check_result_skipped">Kweqiwe</string>
+    <string name="check_result_paused">Kumisiwe, akukho okuhloliwe</string>
+    <string name="check_result_offline">Kweqiwe (ngaphandle kwe-inthanethi)</string>
     <string name="check_trigger_bgtask">Ngemuva</string>
     <string name="check_trigger_exact">Ngesikhathi</string>
     <string name="check_trigger_foreground">I-app</string>

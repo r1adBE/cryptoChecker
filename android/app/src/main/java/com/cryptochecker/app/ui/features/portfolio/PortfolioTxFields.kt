@@ -6,6 +6,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -154,7 +155,7 @@ internal fun ThirdFeeFields(
             Text(
                 when {
                     consumes -> stringResource(R.string.portfolio_tx_fee_consumes_amount)
-                    invalid -> stringResource(R.string.portfolio_invalid)
+                    invalid -> ambiguousNumberText(amount) ?: stringResource(R.string.portfolio_invalid)
                     else -> receivedCoinNote
                 },
                 style = MaterialTheme.typography.bodySmall,
@@ -171,7 +172,9 @@ internal fun ThirdFeeFields(
             singleLine = true,
             isError = invalid,
             supportingText = when (state) {
-                PortfolioTxForm.ThirdFee.INVALID -> { { Text(stringResource(R.string.portfolio_tx_price_invalid)) } }
+                PortfolioTxForm.ThirdFee.INVALID -> {
+                    { Text(ambiguousNumberText(amount) ?: ambiguousNumberText(price) ?: stringResource(R.string.portfolio_tx_price_invalid)) }
+                }
                 PortfolioTxForm.ThirdFee.INCOMPLETE -> { { Text(stringResource(R.string.portfolio_tx_third_fee_incomplete)) } }
                 else -> null
             },
@@ -311,7 +314,9 @@ internal fun SwapReceivedFields(
         suffix = if (valid) { { Text(symbol) } } else null,
         singleLine = true,
         isError = toAmountError,
-        supportingText = if (toAmountError) { { Text(stringResource(R.string.portfolio_invalid)) } } else null,
+        supportingText = if (toAmountError) {
+            { Text(ambiguousNumberText(toAmount) ?: stringResource(R.string.portfolio_invalid)) }
+        } else null,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.TO_AMOUNT)
     )

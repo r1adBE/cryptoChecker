@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">មិនអាចភ្ជាប់ទៅផ្សារប្តូរបានទេនៅពេលនេះ</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">ផ្សារប្តូរប្រាក់ត្រូវបានរារាំងនៅតំបន់នេះ</string>
+    <string name="error_exchange_access_denied">ផ្សារប្តូរប្រាក់បានបដិសេធការចូលប្រើ</string>
     <string name="loading_hint">កំពុងផ្ទុក…</string>
     <string name="option_off">បិទ</string>
     <string name="something_went_wrong">មានបញ្ហាអ្វីមួយកើតឡើង</string>

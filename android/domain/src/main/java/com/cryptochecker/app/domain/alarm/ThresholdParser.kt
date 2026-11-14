@@ -19,9 +19,11 @@ import kotlin.math.ln
  * - Einmal ein Zeichen mit genau drei Ziffern danach («60,000», «60.000») ist mehrdeutig:
  *   Mit [priceHint] (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
  *   näher am Kurs liegt (Verhältnis am nächsten bei 1) — aber nur, wenn diese Lesart höchstens
- *   Faktor 10 vom Kurs entfernt ist ([HINT_MAX_FACTOR]); sonst (z. B. «60.000» bei einem Coin um
- *   2 000: beide Lesarten weit weg) und ohne Kurs entscheidet das Dezimalzeichen der Region
- *   ([decimalSeparator]).
+ *   Faktor 10 vom Kurs entfernt ist ([HINT_MAX_FACTOR]). Sonst (z. B. «60.000» bei einem Coin um
+ *   2 000: beide Lesarten weit weg) und ohne Kurs gilt: Ist das Zeichen das Dezimalzeichen der Region
+ *   ([decimalSeparator]), ist es eine Dezimalzahl («1,234» in DE = 1,234); sonst wird nicht still als
+ *   Tausendertrennung geraten (eingefügt «1.234» in DE kann 1,234 ETH heissen) — ungültig, [ambiguity]
+ *   nennt beide Schreibweisen für den Fehlertext. Gilt für jedes Zahlenfeld der App.
  * - Arabisch-indische und persische Ziffern sowie «٫»/«٬» gelten wie 0–9, «.» und «’» ([latinDigits]).
  * - Alles andere (Buchstaben wie «60k», Vorzeichen, Exponent) ist ungültig → null.
  *
@@ -66,16 +68,7 @@ object ThresholdParser {
      * oben; null = ungültig. Der Wert kann 0 sein (prüfen die Aufrufer).
      */
     private fun canonical(text: String, decimalSeparator: Char, priceHint: Double?, indianGrouping: Boolean): String? {
-        val cleaned = buildString {
-            for (c in latinDigits(text).trim()) {
-                when {
-                    c in GROUPING -> Unit
-                    c in '0'..'9' || c == '.' || c == ',' -> append(c)
-                    else -> return null
-                }
-            }
-        }
-        if (cleaned.isEmpty() || cleaned.none { it in '0'..'9' }) return null
+        val cleaned = digitsAndSeparators(text) ?: return null
 
         val dots = cleaned.count { it == '.' }
         val commas = cleaned.count { it == ',' }
@@ -101,24 +94,60 @@ object ThresholdParser {
                     // Mehrfach: nur Tausendertrennung
                     if (validGrouping(cleaned, sep, indianGrouping)) cleaned.replace(sep.toString(), "") else null
                 } else {
-                    val index = cleaned.indexOf(sep)
-                    val intPart = cleaned.substring(0, index)
-                    val fracPart = cleaned.substring(index + 1)
-                    val asDecimal = number(intPart, fracPart)
-                    val asGrouping = if (validGrouping(cleaned, sep)) intPart + fracPart else null
-                    val decimalValue = asDecimal?.toDoubleOrNull()
-                    val groupingValue = asGrouping?.toDoubleOrNull()
-                    when {
-                        asGrouping == null || groupingValue == null -> asDecimal
-                        asDecimal == null || decimalValue == null || decimalValue <= 0.0 -> asGrouping
-                        priceHint != null && priceHint.isFinite() && priceHint > 0.0 &&
-                            minOf(distance(groupingValue, priceHint), distance(decimalValue, priceHint)) < ln(HINT_MAX_FACTOR) ->
-                            if (distance(groupingValue, priceHint) < distance(decimalValue, priceHint)) asGrouping else asDecimal
-                        normalized(decimalSeparator) == sep -> asDecimal
-                        else -> asGrouping
-                    }
+                    single(cleaned, sep, decimalSeparator, priceHint).value
                 }
             }
+        }
+    }
+
+    /**
+     * Mehrdeutige Eingabe (siehe oben, nur ein Zeichen mit genau drei Ziffern danach, das nicht das Dezimalzeichen der
+     * Region ist, und kein Kurs entscheidet): die zwei eindeutigen Schreibweisen — [grouped] ohne Trennung («1234»),
+     * [decimal] mit dem Dezimalzeichen der Region («1,234» in DE). Für den Fehlertext «… oder …?».
+     */
+    data class Ambiguity(val grouped: String, val decimal: String)
+
+    /** Ist [text] mehrdeutig (dann liest [parse] null)? Sonst null. Wie iOS `ThresholdParser.ambiguity`. */
+    fun ambiguity(text: String, decimalSeparator: Char, priceHint: Double? = null): Ambiguity? {
+        val cleaned = digitsAndSeparators(text) ?: return null
+        if (cleaned.count { it == '.' || it == ',' } != 1) return null
+        return single(cleaned, if ('.' in cleaned) '.' else ',', decimalSeparator, priceHint).ambiguity
+    }
+
+    /** Ziffern, Punkt und Komma ohne Tausendertrennung; null = andere Zeichen oder keine Ziffer. */
+    private fun digitsAndSeparators(text: String): String? {
+        val cleaned = buildString {
+            for (c in latinDigits(text).trim()) {
+                when {
+                    c in GROUPING -> Unit
+                    c in '0'..'9' || c == '.' || c == ',' -> append(c)
+                    else -> return null
+                }
+            }
+        }
+        return cleaned.takeUnless { it.isEmpty() || it.none { c -> c in '0'..'9' } }
+    }
+
+    /** Lesart bei genau einem Trennzeichen [sep]: Wert ([value], null = ungültig) bzw. mehrdeutig ([ambiguity]). */
+    private class Single(val value: String?, val ambiguity: Ambiguity? = null)
+
+    private fun single(cleaned: String, sep: Char, decimalSeparator: Char, priceHint: Double?): Single {
+        val index = cleaned.indexOf(sep)
+        val intPart = cleaned.substring(0, index)
+        val fracPart = cleaned.substring(index + 1)
+        val asDecimal = number(intPart, fracPart)
+        val asGrouping = if (validGrouping(cleaned, sep)) intPart + fracPart else null
+        val decimalValue = asDecimal?.toDoubleOrNull()
+        val groupingValue = asGrouping?.toDoubleOrNull()
+        return when {
+            asGrouping == null || groupingValue == null -> Single(asDecimal)
+            asDecimal == null || decimalValue == null || decimalValue <= 0.0 -> Single(asGrouping)
+            priceHint != null && priceHint.isFinite() && priceHint > 0.0 &&
+                minOf(distance(groupingValue, priceHint), distance(decimalValue, priceHint)) < ln(HINT_MAX_FACTOR) ->
+                Single(if (distance(groupingValue, priceHint) < distance(decimalValue, priceHint)) asGrouping else asDecimal)
+            normalized(decimalSeparator) == sep -> Single(asDecimal)
+            // Die Region läse das Zeichen als Tausendertrennung, der Kurs entscheidet nicht: nicht still raten
+            else -> Single(null, Ambiguity(grouped = intPart + fracPart, decimal = intPart + normalized(decimalSeparator) + fracPart))
         }
     }
 

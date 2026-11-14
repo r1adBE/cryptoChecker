@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.domain.util.PercentText
@@ -215,6 +216,8 @@ internal fun PortfolioAlarmDialog(
                     },
                     suffix = { Text(if (kind.isValue) currency else PercentText.symbol()) },
                     isError = text.isNotBlank() && !valid,
+                    // Mehrdeutig («1.234» in DE): beide Schreibweisen nennen statt still zu raten
+                    supportingText = ambiguousNumberText(text, separator)?.let { t -> { Text(t) } },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )

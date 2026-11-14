@@ -151,6 +151,17 @@ object BackupRestorePolicy {
         else -> null
     }
 
+    /**
+     * Welche Einträge einer Liste mit den Kennungen [ids] übernommen werden (Transaktionen, Portfolio-Alarme): je Kennung
+     * > 0 nur der erste. Weitere mit derselben Kennung (z. B. von Hand zusammengeführte Sicherungen) zählen wie ungültige
+     * Einträge — die Rückfrage nennt sie, statt dass der zweite den ersten beim Speichern still ersetzt. Kennung ≤ 0
+     * bekommt beim Speichern eine neue und ist nie doppelt. Gleiche Fälle: backup_duplicate_ids.json.
+     */
+    fun keepFirstIds(ids: List<Long>): List<Boolean> {
+        val seen = HashSet<Long>()
+        return ids.map { it <= 0L || seen.add(it) }
+    }
+
     /** Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf). */
     fun noticeTotal(pending: Int, added: Int): Int =
         (pending.coerceAtLeast(0).toLong() + added.coerceAtLeast(0)).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()

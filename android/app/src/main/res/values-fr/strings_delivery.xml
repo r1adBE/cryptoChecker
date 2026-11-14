@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">Alertes actives – aucune vérification en arrière-plan pour l\'instant</string>
     <string name="alarm_reliability_notifications_off">Notifications désactivées – les alertes n\'arriveront pas</string>
     <string name="alarm_reliability_battery">L\'économie de batterie peut arrêter la vérification des alertes</string>
+    <string name="alarm_reliability_offline">Pas de connexion – les alertes seront vérifiées au retour du réseau</string>
     <string name="alarm_reliability_background_refresh">Actualisation en arrière-plan désactivée – les alertes risquent de ne pas arriver</string>
 </resources>

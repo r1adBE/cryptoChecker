@@ -12,6 +12,7 @@
     <string name="watchlist_refresh_report">前回の更新</string>
     <string name="watchlist_symbols_legend">記号の説明</string>
     <string name="watchlist_symbols_legend_alarms">有効なアラームとその件数</string>
+    <string name="watchlist_symbols_legend_warning">価格が古いか、取引所に接続できません</string>
     <string name="watchlist_refresh_report_empty">内訳はまだありません: まだ完全な更新が行われていません。更新をタップし、読み込み表示が止まるまでお待ちください。</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%2$d 件中 %1$d 件が古い</item>
@@ -242,6 +243,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">お知らせを閉じる</string>
     <string name="watchlist_missing_logos_explain">これらのコインには利用できるロゴがありません。代わりに頭文字を表示します。</string>
+    <string name="watchlist_missing_logos_pending">まだ読み込まれていません</string>
+    <string name="watchlist_missing_logos_explain_pending">「まだ読み込まれていません」と表示されたロゴは次回の同期で読み込まれます（一部は Wi-Fi 接続時のみ）。その他のコインには利用できるロゴがありません。代わりに頭文字を表示します。</string>
     <string name="exchange_retiring_notice">%1$s は %2$s から公開価格の提供を終了します。これらのコインには別の取引所を選択してください。</string>
     <string name="exchange_retiring_reason">%1$s は %2$s から価格の提供を終了します</string>
     <string name="exchange_retired_since">%1$s は %2$s から価格を提供していません</string>

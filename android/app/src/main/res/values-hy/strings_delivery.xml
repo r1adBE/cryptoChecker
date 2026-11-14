@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Ահազանգերը միացված են – ֆոնային ստուգում դեռ չի եղել</string>
     <string name="alarm_reliability_notifications_off">Ծանուցումներն անջատված են – ահազանգերը չեն հասնի</string>
     <string name="alarm_reliability_battery">Մարտկոցի խնայողությունը կարող է կանգնեցնել ահազանգերի ստուգումը</string>
+    <string name="alarm_reliability_offline">Կապ չկա – ահազանգերը կստուգվեն, երբ ցանցը վերադառնա</string>
     <string name="alarm_reliability_background_refresh">Ֆոնային թարմացումն անջատված է – ահազանգերը կարող են չհասնել</string>
 </resources>

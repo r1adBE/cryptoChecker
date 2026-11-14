@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fons</string>
-    <string name="widget_configure_hint">Tria el fons i l\'opacitat. El color segueix l\'app. El widget mostra tota la teva llista; toca una fila per obrir l\'app.</string>
+    <string name="widget_configure_hint">Tria el fons i l’opacitat. El color segueix l’app. El widget mostra la teva llista o el grup triat a sota; toca una fila per obrir l’app.</string>
     <string name="widget_configure_title">Configura el widget</string>
     <string name="widget_description">Mostra el preu d\'un parell de la teva llista.</string>
     <string name="widget_empty">Encara no hi ha parells a la llista.</string>

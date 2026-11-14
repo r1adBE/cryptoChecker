@@ -21,7 +21,13 @@ data class CsvAbsorbedRow(
     val feeCoin: String?,
     val feeCoinAmount: BigDecimal?,
     val importKey: String,
-)
+) {
+    /** Wallet der wiederhergestellten Zeile: die Börse ihrer Datei ([CsvTransferMatch.placeOf]) — wie beim Import. */
+    val exchange: String? get() = CsvTransferMatch.placeOf(importKey).takeIf { type != PortfolioTxType.TRANSFER }
+
+    /** Als Umbuchung (Auszahlung als Umbuchung gelesen): Quelle = Börse ihrer Datei. */
+    val transferFrom: String? get() = CsvTransferMatch.placeOf(importKey).takeIf { type == PortfolioTxType.TRANSFER }
+}
 
 /**
  * Zustand einer gespeicherten Transaktion vor der Verknüpfung zu einer Umbuchung ([CsvTransferMatch.restoreState]) —
@@ -184,4 +190,41 @@ data class CsvRestoreState(
             return n.toLong().takeIf { d.isFinite() && d == it.toDouble() }
         }
     }
+}
+
+/**
+ * Zustand der gespeicherten Seite von [link] vor der Verknüpfung samt der aufgegangenen neuen Zeile — für
+ * «Import rückgängig» beider Läufe. null = keine gespeicherte Seite.
+ */
+fun CsvTransferMatch.restoreState(link: CsvTransferLink): CsvRestoreState? {
+    val s = link.stored ?: return null
+    val n = link.absorbed ?: return null
+    return CsvRestoreState(
+        type = s.type,
+        amount = s.amount,
+        priceUsdt = s.priceUsdt,
+        time = s.time,
+        fee = s.fee,
+        feeUnit = s.feeUnit,
+        feeCoin = s.feeCoin,
+        feeCoinAmount = s.feeCoinAmount,
+        feeCoinPrice = s.feeCoinPrice,
+        transferFrom = s.transferFrom,
+        transferTo = s.transferTo,
+        acquiredTime = s.acquiredTime,
+        exchange = s.exchange,
+        importKey = s.importKey,
+        importBatch = s.importBatch,
+        absorbed = CsvAbsorbedRow(
+            type = n.type,
+            amount = n.amount,
+            priceUsdt = n.priceUsdt,
+            time = n.time,
+            fee = n.fee,
+            feeUnit = n.feeUnit,
+            feeCoin = n.feeCoin,
+            feeCoinAmount = n.feeCoinAmount,
+            importKey = n.importKey,
+        ),
+    )
 }

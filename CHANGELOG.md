@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 233)
+
+Fixes from the full audit of build 232: «Hide amounts» in every portfolio sheet; overlay/screenshot protection outside the portfolio tab; ambiguous numbers asked instead of guessed; CSV imports keep their exchange as wallet, safer transfer matching and duplicate detection; backups refuse unreadable data and never leak the own server; no crash or silent loss when storage is full; price notifications survive short outages; Solana closed token accounts and empty answers handled; «nothing checked» shown honestly; watches get the phone list when installed later, are cleared on reset and use the phone's staleness rule; iOS restore removes old alarm notifications; Live Activity follows pair changes.
+
 ## 16.2.2 (build 232)
 
 * Coin logos: a short disturbance while loading (no answer, 408, 5xx) no longer blocks a logo for a day – it is retried in the same run and otherwise on the next sync; Android keeps the logos in app storage instead of the cache the system may clear.

@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Zorrotik ateratzen da (erretiratzea)</string>
     <string name="portfolio_csv_import_choose_each">Aukeratu erretiratze bakoitzerako nora joan den.</string>
     <string name="portfolio_csv_import_columns">Ezagututako zutabeak: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Dagoeneko inportatuta: %1$s lerroak</string>
     <string name="portfolio_csv_import_confirm">Inportatu (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Eguna/Hila</string>
     <string name="portfolio_csv_import_date_month_first">Hila/Eguna</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Stablecoinen (USDT, USDC …) aurkako eragiketak truke gisa erregistratzen dira – stablecoina zure ondasunetan agertzen da.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Hainbat bat-etortze posible – aukeratu zuzena edo bat ere ez.</string>
+    <string name="portfolio_csv_import_transfer_loose">Komisio altua edo berandu iritsia – egiaztatu transferentzia bera dela.</string>
     <string name="portfolio_csv_import_transfer_fee">Sareko komisioa: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Erregistratu transferentzia bakar gisa</string>
     <string name="portfolio_csv_import_transfer_stored">Aurreko inportazio bateko kontrapartida</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Eguneko truke-tasak egutegiko egunaren arabera hemen: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Ezin izan dira eguneko truke-tasak kargatu.</string>
     <string name="portfolio_csv_import_anyway">Inportatu hala ere</string>
-    <string name="portfolio_csv_import_anyway_hint">Eguneko truke-tasarik gabe, prezioa edo komisioa betiko faltako da. Saiatu berriro edo inportatu hala ere: transakzio horiek ohar bat izango dute.</string>
+    <string name="portfolio_csv_import_anyway_hint">Eguneko trukerik gabe, prezioa edo komisioa falta da zuk gehitu arte. Saiatu berriro edo inportatu hala ere – transakzio horiek ohar bat izango dute.</string>
     <string name="portfolio_csv_note_price_no_rate">Prezioa eguneko truke-tasarik gabe</string>
     <string name="portfolio_csv_note_fee_no_rate">Komisioa eguneko truke-tasarik gabe</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-rentzat ez dago eguneko truke-tasarik; beraz, berriro saiatzeak ez du balio. Hala ere inportatzen baduzu, transakzio horiek ohar bat izango dute.</string>

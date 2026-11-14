@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">Dapat ay numero ang funding sa pagitan ng −10 at +10 porsiyento.</string>
     <string name="alarm_threshold_error_invalid">Maglagay ng valid na numerong mas malaki sa 0.</string>
     <string name="alarm_threshold_error_oi">Pagbabago ng open interest: hanggang 1000 porsiyento.</string>
+    <string name="alarm_threshold_error_percent_max">Hanggang 1000 porsiyento lang.</string>
+    <string name="alarm_threshold_error_distance">Dapat ay mas mababa sa 100 porsiyento ang layo.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">sa loob ng %1$d oras</item>
         <item quantity="other">sa loob ng %1$d oras</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">Naka-on ang pagsasalita</string>
     <string name="alarm_unchecked_no_candles">Hindi masuri (walang candle data)</string>
     <string name="alarm_unchecked_no_rate">Hindi masuri (walang exchange rate)</string>
+    <string name="alarm_unchecked_no_window_price">Hindi masuri (walang presyo sa loob ng time window)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Naka-off ang mga notification – hindi ka maaabot ng alertong ito</string>

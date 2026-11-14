@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">পটভূমি</string>
-    <string name="widget_configure_hint">পটভূমি ও অস্বচ্ছতা বেছে নিন। রং অ্যাপ অনুসরণ করে। উইজেট আপনার পুরো ওয়াচলিস্ট দেখায়; অ্যাপ খুলতে একটি সারিতে ট্যাপ করুন।</string>
+    <string name="widget_configure_hint">পটভূমি ও অস্বচ্ছতা বেছে নিন। রং অ্যাপ অনুসরণ করে। উইজেটে আপনার ওয়াচলিস্ট বা নিচে বেছে নেওয়া গ্রুপ দেখায়; অ্যাপ খুলতে একটি সারিতে ট্যাপ করুন।</string>
     <string name="widget_configure_title">উইজেট সেট আপ করুন</string>
     <string name="widget_description">আপনার ওয়াচলিস্টের একটি পেয়ারের দাম দেখায়।</string>
     <string name="widget_empty">ওয়াচলিস্টে এখনো কোনো পেয়ার নেই।</string>

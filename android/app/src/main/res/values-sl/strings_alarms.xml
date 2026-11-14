@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Funding mora biti število med −10 in +10 odstotki.</string>
     <string name="alarm_threshold_error_invalid">Vnesi veljavno število, večje od 0.</string>
     <string name="alarm_threshold_error_oi">Sprememba open interesta: največ 1000 odstotkov.</string>
+    <string name="alarm_threshold_error_percent_max">Največ 1000 odstotkov.</string>
+    <string name="alarm_threshold_error_distance">Razdalja mora biti manjša od 100 odstotkov.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">v %1$d h</item>
         <item quantity="two">v %1$d h</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Govor vklopljen</string>
     <string name="alarm_unchecked_no_candles">Ni bilo mogoče preveriti (ni podatkov o poteku)</string>
     <string name="alarm_unchecked_no_rate">Ni bilo mogoče preveriti (ni deviznega tečaja)</string>
+    <string name="alarm_unchecked_no_window_price">Ni bilo mogoče preveriti (ni cene v časovnem oknu)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Obvestila izklopljena – ta alarm ne pride do tebe</string>

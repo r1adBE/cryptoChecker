@@ -109,6 +109,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Частично</string>
     <string name="check_result_skipped">Пропущено</string>
+    <string name="check_result_paused">Приостановлено, ничего не проверено</string>
+    <string name="check_result_offline">Пропущено (нет сети)</string>
     <string name="check_trigger_bgtask">Фон</string>
     <string name="check_trigger_exact">Вовремя</string>
     <string name="check_trigger_foreground">Приложение</string>

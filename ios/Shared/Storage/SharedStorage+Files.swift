@@ -92,12 +92,31 @@ extension SharedStorage {
             watchlistPending = true
             return false
         } catch {
+            // Speicher voll, Datei nicht beschreibbar: nicht still — der Stand im Speicher bleibt massgebend, die App
+            // nennt es und schreibt erneut (`watchlistWriteFailed`)
             AppLog.storage.error("Merkliste nicht geschrieben")
+            watchlistWriteFailed = true
             return false
         }
         watchlistPending = false
+        watchlistWriteFailed = false
         return true
     }
+
+    /// Letztes Schreiben von `watchlist.json` scheiterte am Speicher (nicht am Schlüssel: `watchlistPending`), z. B. Speicher
+    /// voll: Der Stand der App im Speicher bleibt massgebend (`AppData.applyDiskRead` ersetzt ihn nicht durch den älteren
+    /// der Datei), die App zeigt «Konnte nicht gespeichert werden» und schreibt beim nächsten Speichern bzw. Lesen erneut.
+    /// Gesetzt von `writeFiles`, gelöscht nach dem nächsten geschriebenen Stand. Wie Android `guardedWrite` (dort bleibt
+    /// der gespeicherte Stand dank Transaktion unverändert und der Hinweis kommt sofort).
+    static var watchlistWriteFailed: Bool {
+        get { watchlistWriteFailedBox.current }
+        set { watchlistWriteFailedBox.current = newValue }
+    }
+    private static let watchlistWriteFailedBox = LockedBox(false)
+
+    /// Nach einem gescheiterten Schreiben der Merkliste (`watchlistWriteFailed`) auf dem Hauptfaden gemeldet: Bildschirme
+    /// zeigen «portfolio_write_failed» (`.watchlistLockedHint`, gedrosselt).
+    static let watchlistWriteFailedNotice = Notification.Name("WatchlistWriteFailed")
 
     /// Ergebnis von `writePortfolioAlarms`.
     enum PortfolioAlarmsWrite { case written, needsKey, failed }

@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Signallar yoqiq – hali fondagi tekshiruv boʻlmagan</string>
     <string name="alarm_reliability_notifications_off">Bildirishnomalar oʻchiq – signallar yetib bormaydi</string>
     <string name="alarm_reliability_battery">Batareya tejash signal tekshiruvlarini toʻxtatishi mumkin</string>
+    <string name="alarm_reliability_offline">Aloqa yo‘q – tarmoq qaytgach signallar tekshiriladi</string>
     <string name="alarm_reliability_background_refresh">Fonda yangilash oʻchiq – signallar yetib bormasligi mumkin</string>
 </resources>

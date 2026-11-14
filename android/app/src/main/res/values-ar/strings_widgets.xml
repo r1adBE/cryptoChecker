@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">الخلفية</string>
-    <string name="widget_configure_hint">اختر الخلفية والشفافية. اللون يتبع التطبيق. تعرض الأداة قائمتك كاملة؛ اضغط على صف لفتح التطبيق.</string>
+    <string name="widget_configure_hint">اختر الخلفية والشفافية. يتبع اللون التطبيق. تعرض الأداة القائمة أو المجموعة المختارة أدناه؛ اضغط على صف لفتح التطبيق.</string>
     <string name="widget_configure_title">إعداد الأداة</string>
     <string name="widget_description">يعرض سعر زوج من قائمة متابعتك.</string>
     <string name="widget_empty">لا توجد أزواج في قائمة المتابعة بعد.</string>

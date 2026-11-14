@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">ഏതൊക്കെ ജോഡികൾ അറിയിപ്പ് ബാറിൽ വില കാണിക്കണമെന്ന് തിരഞ്ഞെടുക്കുക.</string>
     <string name="settings_quiet_hours">നിശബ്ദ സമയം</string>
     <string name="settings_quiet_hours_from">മുതൽ</string>
-    <string name="settings_quiet_hours_hint">%1$s-നും %2$s-നും ഇടയിൽ, അലേർട്ടുകൾ നിശബ്ദ സമയം അവസാനിക്കുന്നതുവരെ കാത്തിരുന്ന് പിന്നീട് ശബ്ദത്തോടെ മുഴങ്ങും. മറ്റ് അറിയിപ്പുകൾ ശബ്ദമില്ലാതെ, സംഭാഷണമില്ലാതെ എത്തും.</string>
+    <string name="settings_quiet_hours_hint">%1$s-നും %2$s-നും ഇടയിൽ, അലേർട്ടുകൾ നിശബ്ദ സമയം അവസാനിക്കുന്നതുവരെ കാത്തിരുന്ന് പിന്നീട് ശബ്ദത്തോടെ മുഴങ്ങും, അപ്പോഴും വ്യവസ്ഥ പാലിക്കപ്പെടുന്നുണ്ടെങ്കിൽ. മറ്റ് അറിയിപ്പുകൾ ശബ്ദമില്ലാതെ, സംഭാഷണമില്ലാതെ എത്തും.</string>
     <string name="settings_quiet_hours_to">വരെ</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">ഉപയോഗത്തിൽ: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">സജ്ജമാക്കിയിട്ടില്ല – പൊതു നോഡുകൾ ഉപയോഗിക്കുന്നു</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ക്രമീകരണങ്ങൾ പുനഃസജ്ജമാക്കി, അതിനാൽ നിങ്ങൾ സ്വന്തം Bitcoin സെർവർ ഉപയോഗിച്ചിരുന്നോ എന്ന് അറിയില്ല. സെർവർ വീണ്ടും നൽകുകയോ പൊതു നോഡുകൾ തിരഞ്ഞെടുക്കുകയോ ചെയ്യുന്നതുവരെ Bitcoin വിലാസങ്ങളും xpub കീകളും അന്വേഷിക്കില്ല.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// വിലാസങ്ങൾ മാത്രമേ അനുവദിക്കൂ</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

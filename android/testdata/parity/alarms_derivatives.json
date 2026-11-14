@@ -222,6 +222,42 @@
       "armed": true,
       "expected": "none",
       "cooldownMinutes": 0
+    },
+    {
+      "name": "open interest up hits its mark despite float rest (100 to 115)",
+      "condition": "OI_UP",
+      "threshold": 15,
+      "value": 14.999999999999991,
+      "armed": true,
+      "expected": "fire",
+      "cooldownMinutes": 0
+    },
+    {
+      "name": "open interest up hits its mark despite float rest (100 to 120)",
+      "condition": "OI_UP",
+      "threshold": 20,
+      "value": 19.999999999999996,
+      "armed": true,
+      "expected": "fire",
+      "cooldownMinutes": 0
+    },
+    {
+      "name": "funding above hits its mark despite float rest (0.0007 x 100)",
+      "condition": "FUNDING_ABOVE",
+      "threshold": 0.07,
+      "value": 0.06999999999999999,
+      "armed": true,
+      "expected": "fire",
+      "cooldownMinutes": 0
+    },
+    {
+      "name": "funding above stays quiet a real step below the mark",
+      "condition": "FUNDING_ABOVE",
+      "threshold": 0.07,
+      "value": 0.069998,
+      "armed": true,
+      "expected": "none",
+      "cooldownMinutes": 0
     }
   ],
   "sequences": [

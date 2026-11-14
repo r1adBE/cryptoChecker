@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">பின்னணி</string>
-    <string name="widget_configure_hint">பின்னணியையும் ஒளிபுகாத்தன்மையையும் தேர்ந்தெடுக்கவும். நிறம் ஆப்பைப் பின்பற்றும். விட்ஜெட் உங்கள் முழுக் கண்காணிப்புப் பட்டியலையும் காட்டும்; ஆப்பைத் திறக்க ஒரு வரிசையைத் தட்டவும்.</string>
+    <string name="widget_configure_hint">பின்னணியையும் ஒளிபுகாமையையும் தேர்ந்தெடுக்கவும். நிறம் ஆப்பைப் பின்பற்றும். விட்ஜெட் உங்கள் கண்காணிப்புப் பட்டியலையோ கீழே தேர்ந்தெடுத்த குழுவையோ காட்டும்; ஆப்பைத் திறக்க ஒரு வரிசையைத் தட்டவும்.</string>
     <string name="widget_configure_title">விட்ஜெட்டை அமைக்கவும்</string>
     <string name="widget_description">உங்கள் கண்காணிப்புப் பட்டியலிலுள்ள ஒரு ஜோடியின் விலையைக் காட்டும்.</string>
     <string name="widget_empty">கண்காணிப்புப் பட்டியலில் இன்னும் ஜோடிகள் இல்லை.</string>

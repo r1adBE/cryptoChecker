@@ -480,6 +480,25 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertTrue(alone.points.isEmpty)
     }
 
+    func testHistoryCoinHeldBeforeItsFirstCloseIsSkippedWithoutJump() {
+        // Wie PortfolioHistoryTest.kt: NEW gehalten ab Tag −20, erste Kerze erst Tag −5 → fehlt im ganzen Zeitraum
+        var btc: [Int: Double] = [:]
+        for i in 0..<30 { btc[today - i] = 50 }
+        var new: [Int: Double] = [:]
+        for i in 1...5 { new[today - i] = 10 }
+        let s = build([buy("BTC", 1, noon(today - 20)), buy("NEW", 1, noon(today - 20))],
+                      ["BTC": btc, "NEW": new], ["BTC": 50, "NEW": 10])
+        XCTAssertEqual(s.skipped, ["NEW"])
+        XCTAssertEqual(s.points.first?.value ?? .nan, 50, accuracy: d)
+        XCTAssertEqual(s.points.last?.value ?? .nan, 50, accuracy: d)
+        XCTAssertEqual(s.change ?? .nan, 0, accuracy: d)
+        XCTAssertTrue(s.pnlSkipped.isEmpty)
+        // Allein: kein Verlauf statt einer Kurve mit Sprung
+        let alone = build([buy("NEW", 1, noon(today - 20))], ["NEW": new], ["NEW": 10])
+        XCTAssertEqual(alone.skipped, ["NEW"])
+        XCTAssertTrue(alone.points.isEmpty)
+    }
+
     func testHistorySoldCoinWithoutLivePriceStillCounts() {
         // Heute kein Bestand: kein aktueller Kurs zum Vergleichen, die Reihe bleibt (heute 0)
         var linear: [Int: Double] = [:]

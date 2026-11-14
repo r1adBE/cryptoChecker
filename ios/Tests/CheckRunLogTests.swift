@@ -27,6 +27,17 @@ final class CheckRunLogTests: XCTestCase {
         XCTAssertEqual(CheckRunLog.result(checked: 5, failed: 0), .ok)
         XCTAssertEqual(CheckRunLog.result(checked: 5, failed: 2), .partial)
         XCTAssertEqual(CheckRunLog.result(checked: 5, failed: 5), .failed)
+        // Alle Börsen pausiert bzw. Alarme ohne Lease: nichts geprüft, nicht «OK» (B3-02)
+        XCTAssertEqual(CheckRunLog.result(checked: 0, failed: 0, paused: 3), .paused)
+        XCTAssertEqual(CheckRunLog.result(checked: 2, failed: 0, paused: 3), .ok)
+        XCTAssertEqual(CheckRunLog.result(checked: 5, failed: 0, alarmsUnchecked: true), .paused)
+        // Pausiert und offline zählen nicht als letzte Prüfung; offline übersprungen wird erkannt (B3-11)
+        let runs = [CheckRun(at: 300, trigger: .exact, result: .offline, durationMillis: 0),
+                    CheckRun(at: 200, trigger: .bgTask, result: .paused, durationMillis: 10),
+                    CheckRun(at: 100, trigger: .bgTask, result: .ok, durationMillis: 10)]
+        XCTAssertEqual(CheckRunLog.lastBackgroundCheck(runs), 100)
+        XCTAssertTrue(CheckRunLog.offlineSkipped(runs))
+        XCTAssertFalse(CheckRunLog.offlineSkipped(Array(runs.dropFirst())))
     }
 
     /// «Letzte Prüfung»: nur geplante Läufe, die nicht gescheitert sind (misslungenes Vormerken, nichts gespeichert);

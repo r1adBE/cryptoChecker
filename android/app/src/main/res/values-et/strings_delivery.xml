@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Hoiatused sees – taustakontrolli pole veel olnud</string>
     <string name="alarm_reliability_notifications_off">Märguanded väljas – hoiatused ei jõua kohale</string>
     <string name="alarm_reliability_battery">Akusäästmine võib hoiatuste kontrolli peatada</string>
+    <string name="alarm_reliability_offline">Ühendus puudub – häireid kontrollitakse, kui võrk on tagasi</string>
     <string name="alarm_reliability_background_refresh">Rakenduste taustal värskendamine väljas – hoiatused ei pruugi kohale jõuda</string>
 </resources>

@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">மொத்தம்</string>
     <string name="portfolio_hide_amounts">தொகைகளை மறைக்கவும்</string>
-    <string name="portfolio_hide_amounts_hint">போர்ட்ஃபோலியோவிலும் போர்ட்ஃபோலியோ விட்ஜெட்டிலும் தொகைகளையும் மதிப்புகளையும் ••• எனக் காட்டும் – சதவீதங்கள் தெரியும்.</string>
+    <string name="portfolio_hide_amounts_hint">போர்ட்ஃபோலியோ, போர்ட்ஃபோலியோ விட்ஜெட், கடிகாரம் மற்றும் போர்ட்ஃபோலியோ அலர்ட்களில் தொகைகளையும் மதிப்புகளையும் ••• எனக் காட்டும் – சதவீதங்கள் தெரியும்.</string>
     <string name="portfolio_invested">அடக்க விலை</string>
     <string name="portfolio_total_no_fx">%1$s க்கு மாற்று விகிதம் இல்லை – தொகைகள் USDT இல்</string>
     <string name="portfolio_total_value">மொத்த மதிப்பு</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">மாற்றங்களை நிராகரிக்கவா?</string>
     <string name="portfolio_edit_tx">பரிவர்த்தனையைத் திருத்தவும்</string>
     <string name="portfolio_invalid">0 ஐவிடப் பெரிய சரியான எண்ணை உள்ளிடவும்.</string>
+    <string name="number_ambiguous">தெளிவில்லை: %1$s அல்லது %2$s? இரண்டில் ஒன்றைத் தட்டச்சு செய்யவும்.</string>
     <string name="portfolio_oversold">விற்பனைகள் இருப்புகளை மீறுகின்றன – பரிவர்த்தனைகளைச் சரிபார்க்கவும்.</string>
     <string name="portfolio_sell">விற்பனை</string>
     <string name="portfolio_sell_exceeds">உங்கள் இருப்பைவிட அதிகம் (%1$s)</string>

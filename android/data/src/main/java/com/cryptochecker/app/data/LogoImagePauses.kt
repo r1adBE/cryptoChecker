@@ -71,10 +71,21 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
      */
     class ForbiddenStreaks {
         private val streaks = ConcurrentHashMap<String, Int>()
+        private val transient = ConcurrentHashMap<String, Int>()
+
+        /** Speicher voll: ein Bild liess sich nicht schreiben — der Durchgang lädt danach keines mehr (bis zum nächsten). */
+        @Volatile
+        var unsaved = false
 
         fun note(host: String, forbidden: Boolean): Boolean {
             val streak = streaks.compute(host) { _, old -> CoinLogoRetry.nextForbiddenStreak(old ?: 0, forbidden) } ?: 0
             return CoinLogoRetry.forbiddenStreakPauses(streak)
+        }
+
+        /** Gestörte Bilder je Server in Folge ([CoinLogoRetry.nextTransientStreak]): true = Server jetzt pausieren. */
+        fun noteTransient(host: String, gotTransient: Boolean): Boolean {
+            val streak = transient.compute(host) { _, old -> CoinLogoRetry.nextTransientStreak(old ?: 0, gotTransient) } ?: 0
+            return CoinLogoRetry.transientStreakPauses(streak)
         }
     }
 

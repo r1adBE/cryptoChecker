@@ -26,11 +26,12 @@ class ThresholdParserTest {
     }
 
     @Test
-    fun `ambiguous without a price follows the locale`() {
+    fun `ambiguous without a price is decimal with the region separator and never silently grouping`() {
         eq(60.0, p("60,000", ','))
-        eq(60_000.0, p("60,000", '.'))
+        assertNull(p("60,000", '.'))
         eq(60.0, p("60.000", '.'))
-        eq(60_000.0, p("60.000", ','))
+        assertNull(p("60.000", ','))
+        assertEquals(ThresholdParser.Ambiguity("60000", "60,000"), ThresholdParser.ambiguity("60.000", ','))
     }
 
     @Test
@@ -109,11 +110,12 @@ class ThresholdParserTest {
         assertEquals(0.0, ThresholdParser.parseAllowingZero("0,00", ','))
         assertEquals(0.0, ThresholdParser.parseAllowingZero(".0", '.'))
         assertEquals(0.0, ThresholdParser.parseAllowingZero("\u0660", '.'))
-        // Mehrdeutig: Region bzw. Kurs entscheidet wie bei den Schwellwerten
-        assertEquals(60_000.0, ThresholdParser.parseAllowingZero("60.000", ','))
+        // Mehrdeutig: Kurs bzw. Dezimalzeichen der Region entscheidet wie bei den Schwellwerten, sonst ungültig
+        assertNull(ThresholdParser.parseAllowingZero("60.000", ','))
         assertEquals(60.0, ThresholdParser.parseAllowingZero("60.000", '.'))
         assertEquals(60.0, ThresholdParser.parseAllowingZero("60.000", ',', priceHint = 58.0))
-        assertEquals(1_234.0, ThresholdParser.parseAllowingZero("1,234", '.'))
+        assertNull(ThresholdParser.parseAllowingZero("1,234", '.'))
+        assertEquals(1.234, ThresholdParser.parseAllowingZero("1,234", ','))
         assertEquals(1_234.56, ThresholdParser.parseAllowingZero("1.234,56", '.'))
         assertEquals(1_234.5, ThresholdParser.parseAllowingZero("1\u00a0234,5", ','))
         assertEquals(1_234.5, ThresholdParser.parseAllowingZero("1\u202f234.5", '.'))

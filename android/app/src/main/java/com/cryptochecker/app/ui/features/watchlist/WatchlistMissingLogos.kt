@@ -81,6 +81,8 @@ internal fun WatchlistMissingLogos(watches: List<WatchEntity>, reduceMotion: Boo
         source.loadMissingDismissed()
         value = if (loadingLine || !source.firstLoadDone()) null else keys.filterNot { source.hasLogo(it) }
     }
+    // Davon «noch nicht geladen» (Adresse bekannt, nicht gescheitert: kommt mit dem nächsten Abgleich bzw. im WLAN)
+    val notYet by produceState(emptySet<String>(), missing) { value = missing?.let { source.notYetLoaded(it) }.orEmpty() }
     val current = missing
     val stored = dismissed
     val notice = if (current == null || stored == null) MissingLogoNotice.State.HIDDEN
@@ -122,19 +124,24 @@ internal fun WatchlistMissingLogos(watches: List<WatchEntity>, reduceMotion: Boo
             }
         }
     }
-    if (showList) MissingLogosDialog(shown[0], onClose = { showList = false })
+    if (showList) MissingLogosDialog(shown[0], notYet, onClose = { showList = false })
 }
 
-/** Liste der Coins ohne Logo (Kürzel, Name falls bekannt) und eine Zeile Erklärung; nur «Schliessen». */
+/**
+ * Liste der Coins ohne Logo (Kürzel, Name falls bekannt, «noch nicht geladen» für [notYet]) und eine Zeile Erklärung —
+ * ohne [notYet] «kein Logo verfügbar», sonst beides unterschieden; nur «Schliessen».
+ */
 @Composable
-private fun MissingLogosDialog(keys: List<String>, onClose: () -> Unit) {
+private fun MissingLogosDialog(keys: List<String>, notYet: Set<String>, onClose: () -> Unit) {
     val names = LocalCoinLogoSource.current?.names?.collectAsStateWithLifecycle()?.value.orEmpty()
     AlertDialog(
         onDismissRequest = onClose,
         title = { Text(pluralStringResource(R.plurals.watchlist_missing_logos, keys.size, keys.size)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                Text(stringResource(R.string.watchlist_missing_logos_explain), style = MaterialTheme.typography.bodyMedium)
+                val explain = if (keys.any { it in notYet }) R.string.watchlist_missing_logos_explain_pending
+                else R.string.watchlist_missing_logos_explain
+                Text(stringResource(explain), style = MaterialTheme.typography.bodyMedium)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(Spacing.xs),
                     modifier = Modifier.heightIn(max = LIST_MAX).verticalScroll(rememberScrollState()),
@@ -153,6 +160,15 @@ private fun MissingLogosDialog(keys: List<String>, onClose: () -> Unit) {
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.weight(1f, fill = false),
+                                )
+                            }
+                            if (key in notYet) {
+                                Text(
+                                    stringResource(R.string.watchlist_missing_logos_pending),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
                                 )
                             }
                         }

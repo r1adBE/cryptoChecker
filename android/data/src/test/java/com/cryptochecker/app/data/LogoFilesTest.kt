@@ -68,4 +68,35 @@ class LogoFilesTest {
         assertTrue("halbes oder gemischtes Bild", bytes.contentEquals(a) || bytes.contentEquals(b))
         assertEquals(listOf("FLOKI.png"), dir.list()?.toList())
     }
+
+    /** Listen (Zuordnung, Namen) atomar wie die Logos (N3-17); Fehlschlag wie `writeText` als IOException. */
+    @Test
+    fun writeTextIsAtomicAndThrowsOnFailure() {
+        val dir = folder.newFolder("coin_logos")
+        val file = File(dir, "map.txt")
+        LogoFiles.writeText(file, "BTC\thttps://a")
+        assertEquals("BTC\thttps://a", file.readText())
+        assertEquals(listOf("map.txt"), dir.list()?.toList())
+        try {
+            LogoFiles.writeText(File(File(folder.root, "weg"), "map.txt"), "x")
+            org.junit.Assert.fail("kein Fehler")
+        } catch (e: java.io.IOException) {
+            assertTrue(e.message.orEmpty().contains("map.txt"))
+        }
+    }
+
+    /** Liegen gebliebene Hilfsdateien (N3-11): nur alte `.tmp` weg, junge (gerade geschrieben) und echte Dateien bleiben. */
+    @Test
+    fun staleTempsAreRemoved() {
+        val dir = folder.newFolder("coin_logos")
+        val now = 10L * LogoFiles.STALE_TEMP_MILLIS
+        val old = File(dir, "map.txt.123.tmp").apply { writeText("x"); setLastModified(now - LogoFiles.STALE_TEMP_MILLIS - 1) }
+        val young = File(dir, "BTC.png.456.tmp").apply { writeText("x"); setLastModified(now - 1_000) }
+        val logo = File(dir, "ETH.png").apply { writeText("x"); setLastModified(0) }
+        assertEquals(1, LogoFiles.removeStaleTemps(dir, now))
+        assertFalse(old.exists())
+        assertTrue(young.exists())
+        assertTrue(logo.exists())
+        assertEquals(0, LogoFiles.removeStaleTemps(File(folder.root, "weg"), now))
+    }
 }

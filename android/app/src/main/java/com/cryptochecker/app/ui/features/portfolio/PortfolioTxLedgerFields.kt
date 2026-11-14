@@ -4,6 +4,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -71,7 +72,7 @@ internal fun LedgerFields(
                 singleLine = true,
                 isError = !feeValid || feeConsumes,
                 supportingText = when {
-                    !feeValid -> { { Text(stringResource(R.string.portfolio_tx_price_invalid)) } }
+                    !feeValid -> { { Text(ambiguousNumberText(feeText) ?: stringResource(R.string.portfolio_tx_price_invalid)) } }
                     feeConsumes -> { { Text(stringResource(R.string.portfolio_tx_fee_consumes_amount)) } }
                     fields.feeWithUnit -> { { Text(stringResource(R.string.ledger_fee_hint)) } }
                     else -> null

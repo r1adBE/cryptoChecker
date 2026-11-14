@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Kopā</string>
     <string name="portfolio_hide_amounts">Paslēpt summas</string>
-    <string name="portfolio_hide_amounts_hint">Portfelī un portfeļa logrīkā rāda summas un vērtības kā ••• – procenti paliek redzami.</string>
+    <string name="portfolio_hide_amounts_hint">Portfelī, portfeļa logrīkā, pulkstenī un portfeļa brīdinājumos rāda summas un vērtības kā ••• – procenti paliek redzami.</string>
     <string name="portfolio_invested">Iegādes vērtība</string>
     <string name="portfolio_total_no_fx">Nav valūtas kursa %1$s – summas USDT</string>
     <string name="portfolio_total_value">Kopējā vērtība</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Atmest izmaiņas?</string>
     <string name="portfolio_edit_tx">Rediģēt darījumu</string>
     <string name="portfolio_invalid">Ievadi derīgu skaitli, kas lielāks par 0.</string>
+    <string name="number_ambiguous">Neskaidrs: %1$s vai %2$s? Ieraksti vienu no abiem.</string>
     <string name="portfolio_oversold">Pārdošanas pārsniedz turējumus – lūdzu, pārbaudi darījumus.</string>
     <string name="portfolio_sell">Pārdošana</string>
     <string name="portfolio_sell_exceeds">Vairāk nekā tavi turējumi (%1$s)</string>

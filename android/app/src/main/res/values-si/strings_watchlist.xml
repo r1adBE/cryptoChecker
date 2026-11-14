@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">අවසන් නැවුම් කිරීම</string>
     <string name="watchlist_symbols_legend">සංකේත පැහැදිලි කිරීම</string>
     <string name="watchlist_symbols_legend_alarms">සක්‍රිය ඇඟවීම් සහ ඒවායේ ගණන</string>
+    <string name="watchlist_symbols_legend_warning">මිල පරණයි හෝ හුවමාරුවට ළඟා විය නොහැක</string>
     <string name="watchlist_refresh_report_empty">තවම විස්තරයක් නැත – මෙතෙක් සම්පූර්ණ නැවුම් කිරීමක් නැත. නැවුම් කරන්න තට්ටු කර රවුම නවතින තුරු රැඳී සිටින්න.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d න් %1$d ක් යල් පැන ඇත</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">දැනුම්දීම වසන්න</string>
     <string name="watchlist_missing_logos_explain">මෙම කාසි සඳහා ලාංඡනයක් නොමැත. යෙදුම ඒවායේ මුලකුරු පෙන්වයි.</string>
+    <string name="watchlist_missing_logos_pending">තවම පූරණය වී නැත</string>
+    <string name="watchlist_missing_logos_explain_pending">තවම පූරණය වී නැති ලෙස සලකුණු කළ ලාංඡන ඊළඟ සමමුහුර්තයේදී ලැබේ, සමහරක් Wi-Fi හරහා පමණි. අනෙක් කාසි සඳහා ලාංඡනයක් නැත. යෙදුම ඒවායේ මුල් අකුරු පෙන්වයි.</string>
     <string name="exchange_retiring_notice">%2$s සිට %1$s පොදු මිල ලබා නොදෙනු ඇත. මෙම කාසි සඳහා වෙනත් හුවමාරුවක් තෝරන්න.</string>
     <string name="exchange_retiring_reason">%2$s සිට %1$s මිල ලබා නොදෙනු ඇත</string>
     <string name="exchange_retired_since">%2$s සිට %1$s තවදුරටත් මිල ලබා නොදෙයි</string>

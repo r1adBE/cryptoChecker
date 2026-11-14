@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Riasztások bekapcsolva – még nem volt háttérellenőrzés</string>
     <string name="alarm_reliability_notifications_off">Értesítések kikapcsolva – a riasztások nem érkeznek meg</string>
     <string name="alarm_reliability_battery">Az energiatakarékosság leállíthatja a riasztások ellenőrzését</string>
+    <string name="alarm_reliability_offline">Nincs kapcsolat – a riasztások a hálózat visszatérésekor lesznek ellenőrizve</string>
     <string name="alarm_reliability_background_refresh">Háttérben frissítés kikapcsolva – a riasztások talán nem érkeznek meg</string>
 </resources>

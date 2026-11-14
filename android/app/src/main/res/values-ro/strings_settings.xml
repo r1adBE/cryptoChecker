@@ -62,7 +62,7 @@
     <string name="settings_price_pairs_hint">Alege perechile al căror preț apare în bara de notificări.</string>
     <string name="settings_quiet_hours">Ore de liniște</string>
     <string name="settings_quiet_hours_from">De la</string>
-    <string name="settings_quiet_hours_hint">Între %1$s și %2$s, alarmele așteaptă până la sfârșitul orelor de liniște și apoi sună. Celelalte notificări sosesc în liniște, fără voce.</string>
+    <string name="settings_quiet_hours_hint">Între %1$s și %2$s, alarmele așteaptă până la sfârșitul orelor de liniște și apoi sună, dacă condiția este încă îndeplinită. Celelalte notificări sosesc în liniște, fără voce.</string>
     <string name="settings_quiet_hours_to">Până la</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -319,6 +319,8 @@
     <string name="settings_address_server_active">Activ: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">Nesetat – se folosesc noduri publice</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Setările au fost resetate, așa că nu se știe dacă foloseai propriul server Bitcoin. Adresele Bitcoin și cheile xpub nu sunt interogate până nu introduci din nou serverul sau alegi noduri publice.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Sunt permise doar adrese https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

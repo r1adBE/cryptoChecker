@@ -284,6 +284,16 @@ enum SharedStorage {
 
     /// Pausen je Börse (`ExchangeBackoff`), Schlüssel = Börsen-Kennung. Geteilt mit Hintergrund
     /// und Widget, damit eine pausierte Börse nirgends angefragt wird.
+    /// Netz wieder da (`OfflineGate.resumeOnChange`)? Dann Pausen wegen Zeitüberschreitung verwerfen — sie entstanden am
+    /// toten Netz, nicht an der Börse; Bremsen-Pausen bleiben (`ExchangeBackoff.withoutTimeoutPauses`, wie Android).
+    static func networkResumed(previous: Bool?, online: Bool) -> Bool {
+        guard OfflineGate.resumeOnChange(previous: previous, online: online) else { return false }
+        let backoff = exchangeBackoff
+        let kept = ExchangeBackoff.withoutTimeoutPauses(backoff)
+        if kept != backoff { exchangeBackoff = kept }
+        return true
+    }
+
     static var exchangeBackoff: [String: ExchangeBackoff.State] {
         get { ExchangeBackoff.decode(defaults.string(forKey: "exchange_backoff")) }
         set {

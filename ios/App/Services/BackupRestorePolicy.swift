@@ -98,6 +98,22 @@ enum BackupRestorePolicy {
     }
 
     /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).
+    /// Welche Einträge einer Liste mit den Kennungen `ids` übernommen werden (Transaktionen, Portfolio-Alarme): je Kennung
+    /// > 0 nur der erste. Weitere mit derselben Kennung (z. B. von Hand zusammengeführte Sicherungen) zählen wie ungültige
+    /// Einträge — die Rückfrage nennt sie, statt dass der zweite den ersten beim Speichern still ersetzt. Kennung ≤ 0
+    /// bekommt beim Speichern eine neue. Wie Android (backup_duplicate_ids.json).
+    static func keepFirstIds(_ ids: [Int64]) -> [Bool] {
+        var seen = Set<Int64>()
+        return ids.map { $0 <= 0 || seen.insert($0).inserted }
+    }
+
+    /// `parsed` ohne doppelte Kennungen (`keepFirstIds`); die weggelassenen zählen zu `invalid`.
+    static func uniqueIds<T>(_ parsed: (items: [T], invalid: Int), id: (T) -> Int64) -> (items: [T], invalid: Int) {
+        let keep = keepFirstIds(parsed.items.map(id))
+        let unique = zip(parsed.items, keep).filter { $0.1 }.map { $0.0 }
+        return (unique, parsed.invalid + parsed.items.count - unique.count)
+    }
+
     static func noticeTotal(pending: Int, added: Int) -> Int {
         let sum = Int64(max(pending, 0)) + Int64(max(added, 0))
         return Int(min(sum, Int64(Int32.max)))

@@ -127,12 +127,15 @@ enum DerivativesAlarm {
     }
 
     /// - Parameter value: Funding in % (FUNDING_*) bzw. Open-Interest-Veränderung in % über das
-    ///   Fenster (OI_*); nil = keine Daten (nichts tun)
+    ///   Fenster (OI_*); nil = keine Daten (nichts tun); verglichen wird `AlarmPercent.rounded`
     /// - Parameter armed: `referenceAt` <= 0
     static func decide(condition: AlarmCondition, threshold: Double, value: Double?, armed: Bool, enabled: Bool,
                        lastTriggeredAt: Int64, now: Int64, cooldownMinutes: Int) -> Decision {
         guard enabled, condition.isDerivatives, threshold.isFinite else { return .idle }
-        guard let v = value, v.isFinite else { return .idle }
+        // Wie die übrigen Prozent-Alarme auf 1e-6 gerundet (`AlarmPercent`): OI 100 → 115 ergibt 14.999999999999991 %,
+        // Funding 0.0007 × 100 = 0.06999999999999999 % — beide sollen genau ihre Marke treffen.
+        guard let raw = value, raw.isFinite else { return .idle }
+        let v = AlarmPercent.rounded(raw)
         if !armed { return rearms(condition, threshold: threshold, value: v) ? .rearm : .idle }
         guard crossed(condition, threshold: threshold, value: v) else { return .idle }
         if lastTriggeredAt > 0 && cooldownMinutes > 0 {

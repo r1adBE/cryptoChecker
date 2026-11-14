@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Portfeldan chiqadi (yechib olish)</string>
     <string name="portfolio_csv_import_choose_each">Har bir yechib olish qayerga ketganini tanlang.</string>
     <string name="portfolio_csv_import_columns">Aniqlangan ustunlar: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Allaqachon import qilingan: qatorlar %1$s</string>
     <string name="portfolio_csv_import_confirm">Import qilish (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Kun/Oy</string>
     <string name="portfolio_csv_import_date_month_first">Oy/Kun</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Steyblkoinlarga (USDT, USDC …) qarshi savdolar almashuv sifatida yoziladi – steyblkoin aktivlaringizda paydo boʻladi.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Bir nechta moslik boʻlishi mumkin – toʻgʻrisini tanlang yoki hech birini tanlamang.</string>
+    <string name="portfolio_csv_import_transfer_loose">Yuqori komissiya yoki kech kelish – bu oʻsha oʻtkazma ekanini tekshiring.</string>
     <string name="portfolio_csv_import_transfer_fee">Tarmoq komissiyasi: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Bitta oʻtkazma sifatida yozish</string>
     <string name="portfolio_csv_import_transfer_stored">Avvalgi importdagi qarshi yozuv</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Kunlik kurslar shu vaqt mintaqasidagi kalendar kuni boʻyicha: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Kunlik kurslarni yuklab boʻlmadi.</string>
     <string name="portfolio_csv_import_anyway">Baribir import qilish</string>
-    <string name="portfolio_csv_import_anyway_hint">Kunlik kurssiz narx yoki komissiya butunlay yetishmay qoladi. Qayta urinib koʻring yoki baribir import qiling – oʻsha tranzaksiyalarga izoh qoʻshiladi.</string>
+    <string name="portfolio_csv_import_anyway_hint">Kunlik kurs boʻlmasa, siz qoʻshmaguningizcha narx yoki komissiya yetishmaydi. Qayta urinib koʻring yoki baribir import qiling – bu tranzaksiyalarga izoh qoʻshiladi.</string>
     <string name="portfolio_csv_note_price_no_rate">Kunlik kurssiz narx</string>
     <string name="portfolio_csv_note_fee_no_rate">Kunlik kurssiz komissiya</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s uchun kunlik kurslar yoʻq, shuning uchun qayta urinish yordam bermaydi. Baribir import qilsangiz, oʻsha tranzaksiyalarga izoh qoʻshiladi.</string>

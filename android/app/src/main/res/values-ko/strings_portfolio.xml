@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">전체</string>
     <string name="portfolio_hide_amounts">금액 숨기기</string>
-    <string name="portfolio_hide_amounts_hint">포트폴리오와 포트폴리오 위젯의 금액과 가치를 •••로 표시합니다. 퍼센트는 계속 보입니다.</string>
+    <string name="portfolio_hide_amounts_hint">포트폴리오, 포트폴리오 위젯, 워치, 포트폴리오 알림의 금액과 가치를 •••로 표시합니다. 퍼센트는 계속 보입니다.</string>
     <string name="portfolio_invested">매입 원가</string>
     <string name="portfolio_total_no_fx">%1$s 환율이 없습니다 – 금액은 USDT 기준</string>
     <string name="portfolio_total_value">총 평가액</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">변경 사항을 취소할까요?</string>
     <string name="portfolio_edit_tx">거래 편집</string>
     <string name="portfolio_invalid">0보다 큰 올바른 숫자를 입력하세요.</string>
+    <string name="number_ambiguous">모호합니다: %1$s인가요, %2$s인가요? 둘 중 하나로 입력하세요.</string>
     <string name="portfolio_oversold">매도량이 보유량을 초과합니다. 거래를 확인하세요.</string>
     <string name="portfolio_sell">매도</string>
     <string name="portfolio_sell_exceeds">보유량보다 많습니다 (%1$s)</string>

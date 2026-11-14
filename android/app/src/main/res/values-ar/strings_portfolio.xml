@@ -51,7 +51,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">الإجمالي</string>
     <string name="portfolio_hide_amounts">إخفاء المبالغ</string>
-    <string name="portfolio_hide_amounts_hint">يعرض المبالغ والقيم في المحفظة وأداة المحفظة على شكل ••• – تبقى النسب المئوية ظاهرة.</string>
+    <string name="portfolio_hide_amounts_hint">يعرض المبالغ والقيم في المحفظة وأداة المحفظة وعلى الساعة وفي تنبيهات المحفظة على شكل ••• – تبقى النسب المئوية ظاهرة.</string>
     <string name="portfolio_invested">تكلفة الشراء</string>
     <string name="portfolio_total_no_fx">لا يوجد سعر صرف لـ %1$s – المبالغ بالـ USDT</string>
     <string name="portfolio_total_value">القيمة الإجمالية</string>
@@ -112,6 +112,7 @@
     <string name="portfolio_discard_title">تجاهل التغييرات؟</string>
     <string name="portfolio_edit_tx">تعديل العملية</string>
     <string name="portfolio_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
+    <string name="number_ambiguous">غير واضح: %1$s أم %2$s؟ اكتب إحدى الصيغتين.</string>
     <string name="portfolio_oversold">المبيعات تتجاوز الرصيد – يرجى مراجعة العمليات.</string>
     <string name="portfolio_sell">بيع</string>
     <string name="portfolio_sell_exceeds">أكثر من رصيدك (%1$s)</string>

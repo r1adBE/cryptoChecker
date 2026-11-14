@@ -12,7 +12,8 @@ import java.math.BigDecimal
  *   Hinweis in der Alarm-Übersicht nennt sie.
  * - [staleTokenAddresses] / [staleTokenAmounts]: zählende Token-Guthaben, deren Wert der letzte Abruf nicht bestätigt hat
  *   ([WatchedAddress.staleTokens], z. B. bekannter TON-Jetton fehlt auf einer vollen Seite) — sie gelten für die Alarme wie
- *   ein alter Kurs ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]).
+ *   ein alter Kurs ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]). Ebenso ein Ketten-Guthaben,
+ *   dessen Sprung auf 0 noch auf Bestätigung wartet ([ZeroConfirm], [WatchedAddress.zeroPending]).
  *
  * Gleiche Regeln wie [AddressBalance.holdings]: einzelne Bitcoin-Adressen in einem beobachteten xpub zählen über den xpub,
  * gleiche Adressen einmal.
@@ -82,6 +83,12 @@ data class AddressAlarmState(
                     }
                 }
                 if (a.chain == AddressChain.BTC && !a.isXpub && a.address in covered) return@forEachIndexed
+                // Ketten-Guthaben, dessen 0 auf Bestätigung wartet ([ZeroConfirm]): alter Wert gilt wie ein alter Kurs
+                val heldMain = PortfolioDecimal.parse(a.lastBalance)?.takeIf { ZeroConfirm.MAIN in a.zeroPending && it.signum() > 0 }
+                if (heldMain != null) {
+                    if (staleNames.lastOrNull() != name(a)) staleNames += name(a)
+                    staleAmounts[a.chain.coin] = (staleAmounts[a.chain.coin] ?: BigDecimal.ZERO) + heldMain
+                }
                 if (loaded.any { same(it, a) }) return@forEachIndexed
                 if (isPending(a, now)) pending++ else failing += name(a)
             }

@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Verlässt das Portfolio (Auszahlung)</string>
     <string name="portfolio_csv_import_choose_each">Wähle bei jeder Auszahlung, wohin sie ging.</string>
     <string name="portfolio_csv_import_columns">Erkannte Spalten: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Bereits importiert: Zeilen %1$s</string>
     <string name="portfolio_csv_import_confirm">Importieren (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Tag/Monat</string>
     <string name="portfolio_csv_import_date_month_first">Monat/Tag</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Käufe und Verkäufe gegen Stablecoins (USDT, USDC …) werden als Tausch gebucht – der Stablecoin erscheint im Bestand.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Mehrere Treffer möglich – wähle den richtigen oder keinen.</string>
+    <string name="portfolio_csv_import_transfer_loose">Hohe Gebühr oder späte Ankunft – prüfe, ob es dieselbe Überweisung ist.</string>
     <string name="portfolio_csv_import_transfer_fee">Netzwerkgebühr: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Als eine Umbuchung buchen</string>
     <string name="portfolio_csv_import_transfer_stored">Gegenstück aus einem früheren Import</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Tageskurse nach dem Kalendertag in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Tageskurse konnten nicht geladen werden.</string>
     <string name="portfolio_csv_import_anyway">Trotzdem importieren</string>
-    <string name="portfolio_csv_import_anyway_hint">Ohne Tageskurs fehlen Preis bzw. Gebühr dauerhaft. Versuch es erneut oder importiere trotzdem – diese Transaktionen erhalten dann einen Vermerk.</string>
+    <string name="portfolio_csv_import_anyway_hint">Ohne Tageskurs fehlen Preis bzw. Gebühr, bis du sie nachträgst. Versuch es erneut oder importiere trotzdem – diese Transaktionen erhalten dann einen Vermerk.</string>
     <string name="portfolio_csv_note_price_no_rate">Preis ohne Tageskurs</string>
     <string name="portfolio_csv_note_fee_no_rate">Gebühr ohne Tageskurs</string>
     <!-- CSV-Import: Preis- bzw. Gebühr-Währung ohne mögliche Tageskurse (z. B. ein Coin), statt «Erneut versuchen» (CsvImportRateGate.retry) -->

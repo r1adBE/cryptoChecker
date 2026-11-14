@@ -134,7 +134,7 @@ enum WidgetRefresh {
             CheckRunStore.log(.widget, .failed, startedAt: started)
             return .failed
         }
-        CheckRunStore.log(.widget, CheckRunLog.result(checked: outcome.checked, failed: outcome.failed), startedAt: started)
+        CheckRunStore.log(.widget, outcome.checkResult, startedAt: started)
         let gotPrices = BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed, notTraded: outcome.notTraded)
         if gotPrices {
             // Nur Kursalarme: `lastAlarmCheckAt` bleibt, sonst übersprünge die Hintergrund-Aufgabe die Alarme

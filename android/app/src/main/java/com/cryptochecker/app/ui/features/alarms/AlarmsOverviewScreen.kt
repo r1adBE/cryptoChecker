@@ -76,6 +76,16 @@ fun AlarmsOverviewScreen(
     val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
     // Beträge der Portfolio-Alarme: verborgen mit «Beträge verbergen» oder solange das Portfolio gesperrt ist
     val hidePortfolio = portfolioDisplay.first || portfolioAccess != PortfolioAccess.OPEN
+    // Portfolio-Beträge sichtbar (Alarm-Sätze, Löschen-Rückfrage): wie im Portfolio-Tab keine fremden Fenster darüber und
+    // mit Sperre kein Bildschirmfoto bzw. Vorschaubild — die Regel hängt am Inhalt, nicht an der Route
+    val showsPortfolioAmounts = portfolioAlarms.isNotEmpty() && !hidePortfolio
+    val lockEnabled by lockViewModel.lockEnabled.collectAsStateWithLifecycle()
+    com.cryptochecker.app.ui.lock.HideOverlaysEffect(showsPortfolioAmounts)
+    com.cryptochecker.app.ui.lock.SecureWindowEffect(
+        com.cryptochecker.app.lock.PortfolioLockPolicy.secureWindow(
+            lockSetting = lockEnabled, portfolioVisible = showsPortfolioAmounts, sdkInt = android.os.Build.VERSION.SDK_INT,
+        )
+    )
     var askDeletePortfolio by remember { mutableStateOf<PortfolioAlarmEntity?>(null) }
     val context = LocalContext.current
     val active = groups.sumOf { g -> g.count { it.alarm.enabled } } + portfolioAlarms.count { it.enabled }

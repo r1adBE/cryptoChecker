@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">કઈ જોડીઓ સૂચના બારમાં તેમનો ભાવ બતાવે તે પસંદ કરો.</string>
     <string name="settings_quiet_hours">શાંત સમય</string>
     <string name="settings_quiet_hours_from">થી</string>
-    <string name="settings_quiet_hours_hint">%1$s અને %2$s વચ્ચે, એલર્ટ શાંત સમય પૂરો થાય ત્યાં સુધી રાહ જુએ છે અને પછી અવાજ સાથે વાગે છે. બીજી સૂચનાઓ અવાજ વગર, વાણી વગર આવે છે.</string>
+    <string name="settings_quiet_hours_hint">%1$s અને %2$s વચ્ચે, એલર્ટ શાંત સમય પૂરો થાય ત્યાં સુધી રાહ જુએ છે અને પછી અવાજ સાથે વાગે છે, જો ત્યારે પણ શરત પૂરી થતી હોય. બીજી સૂચનાઓ અવાજ વગર, વાણી વગર આવે છે.</string>
     <string name="settings_quiet_hours_to">સુધી</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">વપરાશમાં: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">સેટ નથી – સાર્વજનિક નોડ વપરાય છે</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">સેટિંગ્સ રીસેટ થઈ છે, તેથી આપનું પોતાનું Bitcoin સર્વર વપરાતું હતું કે નહીં તે ખબર નથી. આપ સર્વર ફરી દાખલ કરો અથવા સાર્વજનિક નોડ પસંદ કરો ત્યાં સુધી Bitcoin સરનામાં અને xpub કી પૂછવામાં આવશે નહીં.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">ફક્ત https:// સરનામાંને મંજૂરી છે</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

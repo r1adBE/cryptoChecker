@@ -71,6 +71,7 @@ struct AlarmReliabilityLine: View {
         case .storageNoKey: text = L("alarm_reliability_storage_no_key")
         case .battery: text = L("alarm_reliability_battery")
         case .backgroundRefresh: text = L("alarm_reliability_background_refresh")
+        case .offline: text = L("alarm_reliability_offline")
         }
         return Line(text: text, warn: status.warn)
     }

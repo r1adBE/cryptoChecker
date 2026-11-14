@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Iese din portofoliu (retragere)</string>
     <string name="portfolio_csv_import_choose_each">Alege pentru fiecare retragere unde a ajuns.</string>
     <string name="portfolio_csv_import_columns">Coloane recunoscute: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Deja importat: rândurile %1$s</string>
     <string name="portfolio_csv_import_confirm">Importă (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Zi/Lună</string>
     <string name="portfolio_csv_import_date_month_first">Lună/Zi</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Cumpărările și vânzările contra stablecoinuri (USDT, USDC …) sunt înregistrate ca schimburi – stablecoinul apare în deținerea ta.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Mai multe potriviri posibile – alege-o pe cea corectă sau niciuna.</string>
+    <string name="portfolio_csv_import_transfer_loose">Comision mare sau sosire târzie – verifică dacă e același transfer.</string>
     <string name="portfolio_csv_import_transfer_fee">Comision de rețea: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Înregistrează ca un singur transfer</string>
     <string name="portfolio_csv_import_transfer_stored">Corespondent dintr-un import anterior</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">Cursuri zilnice după ziua calendaristică din: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Cursurile zilnice nu au putut fi încărcate.</string>
     <string name="portfolio_csv_import_anyway">Importă oricum</string>
-    <string name="portfolio_csv_import_anyway_hint">Fără curs zilnic, prețul sau comisionul lipsesc definitiv. Reîncearcă sau importă oricum – acele tranzacții primesc atunci o notă.</string>
+    <string name="portfolio_csv_import_anyway_hint">Fără curs zilnic, prețul sau comisionul lipsește până îl adaugi. Încearcă din nou sau importă oricum – acele tranzacții primesc o notă.</string>
     <string name="portfolio_csv_note_price_no_rate">Preț fără curs zilnic</string>
     <string name="portfolio_csv_note_fee_no_rate">Comision fără curs zilnic</string>
     <string name="portfolio_csv_import_no_rates_for">Pentru %1$s nu există cursuri zilnice, deci reîncercarea nu ajută. Dacă imporți oricum, acele tranzacții primesc o notă.</string>

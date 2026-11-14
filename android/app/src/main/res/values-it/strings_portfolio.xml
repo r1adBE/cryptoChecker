@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Totale</string>
     <string name="portfolio_hide_amounts">Nascondi importi</string>
-    <string name="portfolio_hide_amounts_hint">Mostra importi e valori nel portafoglio e nel widget portafoglio come ••• – le percentuali restano visibili.</string>
+    <string name="portfolio_hide_amounts_hint">Mostra importi e valori nel portafoglio, nel widget portafoglio, sull’orologio e negli avvisi del portafoglio come ••• – le percentuali restano visibili.</string>
     <string name="portfolio_invested">Costo di carico</string>
     <string name="portfolio_total_no_fx">Nessun tasso di cambio per %1$s – importi in USDT</string>
     <string name="portfolio_total_value">Valore totale</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Annullare le modifiche?</string>
     <string name="portfolio_edit_tx">Modifica transazione</string>
     <string name="portfolio_invalid">Inserisci un numero valido maggiore di 0.</string>
+    <string name="number_ambiguous">Non è chiaro: %1$s o %2$s? Scrivi una delle due forme.</string>
     <string name="portfolio_oversold">Le vendite superano il saldo – controlla le transazioni.</string>
     <string name="portfolio_sell">Vendita</string>
     <string name="portfolio_sell_exceeds">Più del tuo saldo (%1$s)</string>

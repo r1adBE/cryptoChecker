@@ -125,7 +125,7 @@ extension BackupManager {
                               into data: AppData, journal: Bool) throws {
         // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
         // Nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
-        if journal { try requireJournal(try? plainExportData(data), write: { RestoreJournal.write($0) }) }
+        if journal { try requireJournal(try? journalData(data), write: { RestoreJournal.write($0) }) }
         do {
             try RestoreSteps.execute({ steps in
                 try runRestoreSteps(&steps, input, snapshot: snapshot, previous: previous, into: data)

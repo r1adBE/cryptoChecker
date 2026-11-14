@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">投资组合提醒不含余额超过 24 小时未能加载的地址进行检查</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">代币部分已过时</string>
+    <string name="portfolio_address_zero_unconfirmed">0 尚未确认</string>
     <string name="portfolio_address_restore_failed">无法恢复该地址——如有需要请重新添加</string>
     <string name="portfolio_address_remove_failed">无法移除地址 – 请重试</string>
 </resources>

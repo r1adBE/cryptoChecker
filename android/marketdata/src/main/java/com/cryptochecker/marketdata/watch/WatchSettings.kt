@@ -100,6 +100,23 @@ data class WatchSettings(
         }
 
         /**
+         * Kennt die Uhr ([watch], ihr gemeldeter Stand) einen anderen Handy-Teil als das Handy ([phone]): Favoriten samt
+         * Paaren, Kursquelle oder Intervall? Dann hat sie den Stand des Handys nicht (Uhr-App später dazugekommen,
+         * Ablegen gescheitert) — das Handy schickt ihn noch einmal.
+         */
+        fun phoneSideDiffers(phone: WatchSettings, watch: WatchSettings): Boolean =
+            phone.phone != watch.phone || phone.pairs != watch.pairs || phone.source != watch.source ||
+                phone.interval != watch.interval
+
+        /**
+         * Handy ohne Stand (App dort zurückgesetzt oder entfernt): wie ein Handy mit Standardwerten ([merge] mit
+         * `WatchSettings()`) — Handy-Liste und Paare leer, Kursquelle und Intervall Standard; Wahl und eigene Liste der
+         * Uhr bleiben, sobald sie einmal geändert wurden (Nummer > 0). Wear OS: Eintrag des Handys gelöscht; Apple Watch:
+         * iPhone-App nicht mehr installiert.
+         */
+        fun forgetPhone(local: WatchSettings): WatchSettings = merge(local, WatchSettings(), remoteIsPhone = true)
+
+        /**
          * Eigene Änderung von Wahl oder eigener Liste auf dieser Seite ([isPhone]): zuerst den neuesten bekannten Stand
          * der anderen Seite ([remote], null = keiner) übernehmen ([merge]), dann [edit] anwenden, mit einer Nummer über
          * beiden Ständen (max(lokal, andere Seite) + 1). So gewinnt die Änderung auf beiden Geräten, auch wenn die andere

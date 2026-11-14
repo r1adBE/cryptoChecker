@@ -100,6 +100,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Partiel</string>
     <string name="check_result_skipped">Ignoré</string>
+    <string name="check_result_paused">En pause, rien vérifié</string>
+    <string name="check_result_offline">Ignoré (hors ligne)</string>
     <string name="check_trigger_bgtask">Arrière-plan</string>
     <string name="check_trigger_exact">Ponctuel</string>
     <string name="check_trigger_foreground">App</string>

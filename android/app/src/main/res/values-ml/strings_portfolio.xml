@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">ആകെ</string>
     <string name="portfolio_hide_amounts">തുകകൾ മറയ്ക്കുക</string>
-    <string name="portfolio_hide_amounts_hint">പോർട്ട്ഫോളിയോയിലും പോർട്ട്ഫോളിയോ വിജറ്റിലും തുകകളും മൂല്യങ്ങളും ••• ആയി കാണിക്കുന്നു – ശതമാനങ്ങൾ കാണാവുന്ന നിലയിൽ തുടരും.</string>
+    <string name="portfolio_hide_amounts_hint">പോർട്ട്ഫോളിയോ, പോർട്ട്ഫോളിയോ വിജറ്റ്, വാച്ച്, പോർട്ട്ഫോളിയോ അലേർട്ടുകൾ എന്നിവയിൽ തുകകളും മൂല്യങ്ങളും ••• ആയി കാണിക്കുന്നു – ശതമാനങ്ങൾ കാണാവുന്ന നിലയിൽ തുടരും.</string>
     <string name="portfolio_invested">ചെലവുവില</string>
     <string name="portfolio_total_no_fx">%1$s-ന് വിനിമയ നിരക്കില്ല – തുകകൾ USDT-ൽ</string>
     <string name="portfolio_total_value">ആകെ മൂല്യം</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">മാറ്റങ്ങൾ ഉപേക്ഷിക്കണോ?</string>
     <string name="portfolio_edit_tx">ഇടപാട് എഡിറ്റ് ചെയ്യുക</string>
     <string name="portfolio_invalid">0-നെക്കാൾ വലിയ സാധുവായ സംഖ്യ നൽകുക.</string>
+    <string name="number_ambiguous">വ്യക്തമല്ല: %1$s ആണോ %2$s ആണോ? രണ്ടിൽ ഒന്ന് ടൈപ്പ് ചെയ്യുക.</string>
     <string name="portfolio_oversold">വിൽപ്പനകൾ ഹോൾഡിംഗുകളെക്കാൾ കൂടുതലാണ് – ദയവായി ഇടപാടുകൾ പരിശോധിക്കുക.</string>
     <string name="portfolio_sell">വിൽപ്പന</string>
     <string name="portfolio_sell_exceeds">നിങ്ങളുടെ ഹോൾഡിംഗുകളെക്കാൾ (%1$s) കൂടുതൽ</string>

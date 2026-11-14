@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Finansavimo norma turi būti skaičius nuo −10 iki +10 procentų.</string>
     <string name="alarm_threshold_error_invalid">Įvesk tinkamą skaičių, didesnį už 0.</string>
     <string name="alarm_threshold_error_oi">Atvirųjų pozicijų pokytis: daugiausia 1000 procentų.</string>
+    <string name="alarm_threshold_error_percent_max">Daugiausia 1000 procentų.</string>
+    <string name="alarm_threshold_error_distance">Atstumas turi būti mažesnis nei 100 procentų.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">per %1$d val.</item>
         <item quantity="few">per %1$d val.</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Balsas įjungtas</string>
     <string name="alarm_unchecked_no_candles">Nepavyko patikrinti (nėra žvakių duomenų)</string>
     <string name="alarm_unchecked_no_rate">Nepavyko patikrinti (nėra valiutos kurso)</string>
+    <string name="alarm_unchecked_no_window_price">Nepavyko patikrinti (laiko intervale nėra kainos)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Pranešimai išjungti – šis įspėjimas tavęs nepasieks</string>

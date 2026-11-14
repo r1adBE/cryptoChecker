@@ -23,7 +23,8 @@ import kotlinx.coroutines.withContext
  * [WatchSettings] (Coin-Kürzel, Wahl, Kursquelle, Intervall); dazu vom Handy die Kurse, die es schon hat, unter
  * [QUOTES_PATH] ([WatchPhoneQuotes]) und — nur mit dem Schalter auf dem Handy — der Portfolio-Wert unter
  * [PORTFOLIO_PATH] ([WatchPortfolio]). Gegenstück: `PhoneWatchSync` / `PhoneWatchFeed` in der Handy-App. Ohne Google
- * Play-Dienste oder ohne Handy: nichts (die Uhr nutzt ihre eigene Liste und fragt die Kurse selbst ab). Auf die
+ * Play-Dienste oder ohne Handy: nichts (die Uhr nutzt ihre eigene Liste und fragt die Kurse selbst ab). Löscht das
+ * Handy seine Einträge (App zurückgesetzt oder entfernt), vergisst die Uhr, was davon stammt ([take]). Auf die
  * Play-Dienste wird ohne blockierten Thread gewartet ([WatchTaskAwait]): je Aufruf höchstens [TIMEOUT_S], ein Abbruch
  * der Coroutine geht sofort weiter, jeder andere Fehler heisst «nichts».
  */
@@ -39,8 +40,8 @@ object WatchDataLayer {
 
     private val publishing = SerialPublisher()
 
-    /** Geänderter Eintrag: Gerät (Host der Adresse), Pfad und JSON. */
-    class Item(val node: String?, val json: String?, val path: String? = PATH)
+    /** Geänderter Eintrag: Gerät (Host der Adresse), Pfad und JSON; [deleted] = gelöscht (dann ohne JSON). */
+    class Item(val node: String?, val json: String?, val path: String? = PATH, val deleted: Boolean = false)
 
     /** Was eine Übernahme geändert hat: Wahl, Kurse vom Handy, Portfolio-Wert. */
     class Taken(val settings: Boolean, val quotes: Boolean, val portfolio: Boolean)
@@ -64,7 +65,7 @@ object WatchDataLayer {
     fun change(context: Context, store: WatchStore, edit: (WatchSettings) -> WatchSettings) {
         processScope.launch {
             changing.withLock {
-                val phone = WatchTaskAwait.catching { newestRemote(context, items(context, PATH)) }.getOrNull()
+                val phone = WatchTaskAwait.catching { newestRemote(context, items(context, PATH).orEmpty()) }.getOrNull()
                 store.updateSettings { WatchSettings.change(it, phone, isPhone = false, edit) }
             }
             publish(context, store)
@@ -81,13 +82,23 @@ object WatchDataLayer {
 
     private val paths = setOf(PATH, QUOTES_PATH, PORTFOLIO_PATH)
 
-    /** Geänderte Einträge unter [paths] aus [events] — sofort gelesen, solange der Puffer gültig ist. */
+    /**
+     * Geänderte und gelöschte Einträge unter [paths] aus [events] — sofort gelesen, solange der Puffer gültig ist; ein
+     * gelöschter Eintrag hat keinen Inhalt mehr ([Item.deleted]).
+     */
     fun changed(events: DataEventBuffer): List<Item> = events
-        .filter { it.type == DataEvent.TYPE_CHANGED && it.dataItem.uri.path in paths }
-        .map { Item(it.dataItem.uri.host, DataMapItem.fromDataItem(it.dataItem).dataMap.getString(KEY), it.dataItem.uri.path) }
+        .filter { (it.type == DataEvent.TYPE_CHANGED || it.type == DataEvent.TYPE_DELETED) && it.dataItem.uri.path in paths }
+        .map {
+            val uri = it.dataItem.uri
+            if (it.type == DataEvent.TYPE_DELETED) {
+                Item(uri.host, null, uri.path, deleted = true)
+            } else {
+                Item(uri.host, DataMapItem.fromDataItem(it.dataItem).dataMap.getString(KEY), uri.path)
+            }
+        }
 
-    /** Einträge aller Geräte unter [path]; leer = keine oder keine Play-Dienste. */
-    private suspend fun items(context: Context, path: String): List<Item> = withContext(Dispatchers.IO) {
+    /** Einträge aller Geräte unter [path]; leer = keine, null = nicht lesbar (keine Play-Dienste, Fehler). */
+    private suspend fun items(context: Context, path: String): List<Item>? = withContext(Dispatchers.IO) {
         WatchTaskAwait.catching {
             val buffer = WatchTaskAwait.await(Wearable.getDataClient(context).getDataItems("wear://*$path".toUri()),
                 TIMEOUT_S)
@@ -96,7 +107,7 @@ object WatchDataLayer {
             } finally {
                 buffer.release()
             }
-        }.getOrDefault(emptyList())
+        }.getOrNull()
     }
 
     /**
@@ -116,23 +127,59 @@ object WatchDataLayer {
         return items.filter { it.node != local }.mapNotNull { WatchSettings.fromJson(it.json) }.maxByOrNull { it.revision }
     }
 
-    /** Stand des Handys holen und übernehmen ([take]): Wahl, Kurse und Portfolio-Wert. */
-    suspend fun pull(context: Context, store: WatchStore): Taken =
-        take(context, store, paths.flatMap { items(context, it) })
+    /**
+     * Stand des Handys holen und übernehmen ([take]): Wahl, Kurse und Portfolio-Wert. Fehlt ein Eintrag des Handys in
+     * der lesbaren Daten-Schicht ganz (gelöscht, während die Uhr nichts mitbekam), gilt er als gelöscht.
+     */
+    suspend fun pull(context: Context, store: WatchStore): Taken {
+        val items = paths.flatMap { path ->
+            val found = items(context, path) ?: return@flatMap emptyList()
+            val local = if (path == PATH) localNode(context) ?: return@flatMap found else null
+            // Kein Eintrag des Handys (bei der Wahl: keiner ausser dem eigenen) → wie gelöscht
+            if (found.none { it.node != local }) listOf(Item(null, null, path, deleted = true)) else found
+        }
+        return take(context, store, items)
+    }
 
-    /** Geänderte Einträge ([changed]) übernehmen: Wahl (ohne den eigenen Eintrag), Kurse und Portfolio-Wert vom Handy. */
+    /**
+     * Geänderte Einträge ([changed]) übernehmen: Wahl (ohne den eigenen Eintrag), Kurse und Portfolio-Wert vom Handy.
+     * Gelöschte Einträge des Handys ([Item.deleted]) vergisst die Uhr: Wahl wie ohne Handy ([WatchSettings.forgetPhone]),
+     * Kurse nicht mehr vom Handy ([WatchStore.forgetPhoneQuotes]), Portfolio-Wert weg.
+     */
     suspend fun take(context: Context, store: WatchStore, items: List<Item>): Taken {
         val settings = items.filter { it.path == PATH }
         val phone = if (settings.isEmpty()) null else withContext(Dispatchers.IO) {
             WatchTaskAwait.catching { newestRemote(context, settings) }.getOrNull()
         }
         phone?.let { take(store, it) }
-        val quotes = items.lastOrNull { it.path == QUOTES_PATH }?.let { WatchPhoneQuotes.fromJson(it.json) }
-        quotes?.let { store.takePhoneQuotes(it) }
-        val portfolio = items.lastOrNull { it.path == PORTFOLIO_PATH }?.let { WatchPortfolio.fromJson(it.json) }
+        val gone = phone == null && settings.isNotEmpty() && forgotten(context, settings)
+        if (gone) store.updateSettings { WatchSettings.forgetPhone(it) }
+        val quotesItem = items.lastOrNull { it.path == QUOTES_PATH }
+        val quotes = when {
+            quotesItem == null -> false
+            quotesItem.deleted -> store.forgetPhoneQuotes()
+            else -> WatchPhoneQuotes.fromJson(quotesItem.json)?.let { store.takePhoneQuotes(it) } != null
+        }
+        val portfolioItem = items.lastOrNull { it.path == PORTFOLIO_PATH }
+        val portfolio = portfolioItem?.let { if (it.deleted) WatchPortfolio.Message.Clear else WatchPortfolio.fromJson(it.json) }
         portfolio?.let { store.takePortfolio(it) }
-        return Taken(phone != null, quotes != null, portfolio != null)
+        return Taken(phone != null || gone, quotes, portfolio != null)
     }
+
+    /**
+     * Wahl des Handys gelöscht? Dann gilt [WatchSettings.forgetPhone] (Handy-Liste leer, Kursquelle und Intervall
+     * Standard; Wahl und eigene Liste der Uhr bleiben bei höherer Nummer). Nur Einträge eines anderen Geräts zählen.
+     */
+    private suspend fun forgotten(context: Context, items: List<Item>): Boolean {
+        val deleted = items.filter { it.deleted }
+        if (deleted.isEmpty()) return false
+        val local = localNode(context)
+        return deleted.any { it.node == null || it.node != local }
+    }
+
+    /** Kennung dieser Uhr; null = nicht lesbar. */
+    private suspend fun localNode(context: Context): String? =
+        WatchTaskAwait.catching { WatchTaskAwait.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S).id }.getOrNull()
 
     /** Wahl und eigene Liste des Handys bei höherer oder gleicher Änderungsnummer, die Handy-Liste immer; im [store]. */
     private fun take(store: WatchStore, phone: WatchSettings) {

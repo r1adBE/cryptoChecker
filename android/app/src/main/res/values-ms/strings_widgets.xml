@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Latar belakang</string>
-    <string name="widget_configure_hint">Pilih latar belakang dan kelegapan. Warna mengikut apl. Widget menunjukkan seluruh senarai pantau anda; ketik baris untuk membuka apl.</string>
+    <string name="widget_configure_hint">Pilih latar belakang dan kelegapan. Warna mengikut apl. Widget menunjukkan senarai pantau anda atau kumpulan yang dipilih di bawah; ketik satu baris untuk membuka apl.</string>
     <string name="widget_configure_title">Sediakan widget</string>
     <string name="widget_description">Menunjukkan harga satu pasangan daripada senarai pantau anda.</string>
     <string name="widget_empty">Belum ada pasangan dalam senarai pantau.</string>

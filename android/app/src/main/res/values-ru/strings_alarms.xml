@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Ставка финансирования должна быть числом от −10 до +10 процентов.</string>
     <string name="alarm_threshold_error_invalid">Введи корректное число больше 0.</string>
     <string name="alarm_threshold_error_oi">Изменение показателя «Открытый интерес»: не более 1000 процентов.</string>
+    <string name="alarm_threshold_error_percent_max">Не более 1000 процентов.</string>
+    <string name="alarm_threshold_error_distance">Расстояние должно быть меньше 100 процентов.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d ч</item>
         <item quantity="few">за %1$d ч</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Озвучивание включено</string>
     <string name="alarm_unchecked_no_candles">Не удалось проверить (нет свечей)</string>
     <string name="alarm_unchecked_no_rate">Не удалось проверить (нет курса валют)</string>
+    <string name="alarm_unchecked_no_window_price">Не удалось проверить (нет цены во временном окне)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Уведомления выключены – это оповещение до тебя не дойдёт</string>

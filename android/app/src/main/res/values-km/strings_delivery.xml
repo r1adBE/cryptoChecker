@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">ការដាស់តឿនបើក – មិនទាន់មានការពិនិត្យនៅផ្ទៃខាងក្រោយទេ</string>
     <string name="alarm_reliability_notifications_off">ការជូនដំណឹងបានបិទ – ការដាស់តឿននឹងមិនមកដល់ទេ</string>
     <string name="alarm_reliability_battery">ការសន្សំថ្មអាចបញ្ឈប់ការពិនិត្យការដាស់តឿន</string>
+    <string name="alarm_reliability_offline">គ្មានការតភ្ជាប់ – ការជូនដំណឹងនឹងត្រូវពិនិត្យនៅពេលបណ្ដាញត្រឡប់មកវិញ</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh បានបិទ – ការដាស់តឿនប្រហែលជាមិនមកដល់ទេ</string>
 </resources>

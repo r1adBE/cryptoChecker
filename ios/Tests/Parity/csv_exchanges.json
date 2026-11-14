@@ -1031,5 +1031,78 @@
     39
    ]
   }
+ ],
+ "_splitPairComment": "Binance-Paar ohne Trenner zerlegen (CsvImportBinance.splitPair): längste passende Quote, ausser die Basis wäre Fiat oder eine kürzere Quote lässt eine bekannte Coin-Basis («USDTUSD» = USDT/USD, nicht USD/TUSD). null = unbekannte Quote.",
+ "splitPair": [
+  {
+   "pair": "BTCUSDT",
+   "base": "BTC",
+   "quote": "USDT"
+  },
+  {
+   "pair": "BTCFDUSD",
+   "base": "BTC",
+   "quote": "FDUSD"
+  },
+  {
+   "pair": "BTCTUSD",
+   "base": "BTC",
+   "quote": "TUSD"
+  },
+  {
+   "pair": "SOLBUSD",
+   "base": "SOL",
+   "quote": "BUSD"
+  },
+  {
+   "pair": "USDTUSD",
+   "base": "USDT",
+   "quote": "USD"
+  },
+  {
+   "pair": "BNBUSD",
+   "base": "BNB",
+   "quote": "USD"
+  },
+  {
+   "pair": "BUSDUSD",
+   "base": "BUSD",
+   "quote": "USD"
+  },
+  {
+   "pair": "USDCUSD",
+   "base": "USDC",
+   "quote": "USD"
+  },
+  {
+   "pair": "USDTTRY",
+   "base": "USDT",
+   "quote": "TRY"
+  },
+  {
+   "pair": "TUSDT",
+   "base": "T",
+   "quote": "USDT"
+  },
+  {
+   "pair": "eth-btc",
+   "base": "ETH",
+   "quote": "BTC"
+  },
+  {
+   "pair": "EURUSDT",
+   "base": "EUR",
+   "quote": "USDT"
+  },
+  {
+   "pair": "USDT",
+   "base": null,
+   "quote": null
+  },
+  {
+   "pair": "BTCXYZ",
+   "base": null,
+   "quote": null
+  }
  ]
 }

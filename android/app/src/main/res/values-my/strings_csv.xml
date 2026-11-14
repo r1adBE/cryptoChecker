@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ပေါ့ဖိုလီယိုမှ ထွက်သွားသည် (ငွေထုတ်မှု)</string>
     <string name="portfolio_csv_import_choose_each">ငွေထုတ်မှုတစ်ခုချင်းစီအတွက် မည်သည့်နေရာသို့ သွားသည်ကို ရွေးပါ။</string>
     <string name="portfolio_csv_import_columns">သိရှိထားသော ကော်လံများ: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">တင်သွင်းပြီးသား- လိုင်း %1$s</string>
     <string name="portfolio_csv_import_confirm">တင်သွင်းရန် (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ရက်/လ</string>
     <string name="portfolio_csv_import_date_month_first">လ/ရက်</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">stablecoin (USDT, USDC …) နှင့် အရောင်းအဝယ်များကို ကွိုင်လဲလှယ်မှုအဖြစ် မှတ်တမ်းတင်သည် – stablecoin သည် သင်ကိုင်ဆောင်ထားမှုတွင် ပေါ်လာမည်။</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ကိုက်ညီမှု အများအပြား ဖြစ်နိုင်သည် – မှန်ကန်သည့်တစ်ခုကို ရွေးပါ သို့မဟုတ် ဘာမှ မရွေးပါနှင့်။</string>
+    <string name="portfolio_csv_import_transfer_loose">အခကြေးငွေမြင့်ခြင်း သို့မဟုတ် နောက်ကျရောက်ခြင်း – တူညီသော လွှဲပြောင်းမှုဖြစ်ကြောင်း စစ်ဆေးပါ။</string>
     <string name="portfolio_csv_import_transfer_fee">ကွန်ရက်အခကြေးငွေ: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">လွှဲပြောင်းမှုတစ်ခုအဖြစ် မှတ်တမ်းတင်ရန်</string>
     <string name="portfolio_csv_import_transfer_stored">ယခင် တင်သွင်းမှုမှ တွဲဖက်မှတ်တမ်း</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">နေ့စဉ်နှုန်းများကို ဤအချိန်ဇုန်၏ ပြက္ခဒိန်နေ့အလိုက် တွက်သည်: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">နေ့စဉ်နှုန်းများကို ဖတ်၍မရပါ။</string>
     <string name="portfolio_csv_import_anyway">မည်သို့ပင်ဖြစ်စေ တင်သွင်းရန်</string>
-    <string name="portfolio_csv_import_anyway_hint">နေ့စဉ်နှုန်းမရှိလျှင် ဈေးနှုန်း သို့မဟုတ် အခကြေးငွေ အမြဲတမ်း ပျောက်နေပါမည်။ ထပ်စမ်းပါ၊ သို့မဟုတ် မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါ – ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။</string>
+    <string name="portfolio_csv_import_anyway_hint">နေ့စဉ်နှုန်း မရှိပါက သင်ထည့်သည်အထိ စျေးနှုန်း သို့မဟုတ် အခကြေးငွေ ပျောက်နေမည်။ ထပ်စမ်းပါ သို့မဟုတ် မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါ – ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာမည်။</string>
     <string name="portfolio_csv_note_price_no_rate">နေ့စဉ်နှုန်းမပါသော ဈေးနှုန်း</string>
     <string name="portfolio_csv_note_fee_no_rate">နေ့စဉ်နှုန်းမပါသော အခကြေးငွေ</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s အတွက် နေ့စဉ်နှုန်းများ မရှိသဖြင့် ထပ်စမ်းခြင်းက အထောက်အကူ မဖြစ်ပါ။ မည်သို့ပင်ဖြစ်စေ တင်သွင်းပါက ထိုငွေပေးငွေယူများတွင် မှတ်ချက် ပါလာပါမည်။</string>

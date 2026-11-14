@@ -168,6 +168,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
             isToday = localDate(time) == LocalDate.now(),
             dirty = isDirty(),
             type = type,
+            priceHintEntry = priceHintEntry,
         )
     }
 

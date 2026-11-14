@@ -7,6 +7,9 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.WatchlistWriteRefusal
+import kotlinx.coroutines.CancellationException
+import timber.log.Timber
+import java.io.IOException
 
 /**
  * Schreibweg des Nutzers gerade gesperrt ([WatchlistStorageLock.blocksWrites])? Dann schreibt der Aufrufer nichts; mit
@@ -47,4 +50,40 @@ suspend fun writeRefused(
 suspend fun WatchRepository.confirmUserWrite(): Boolean {
     val blocked = database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
     return blocked || WatchlistNotSavedGate.confirm()
+}
+
+/**
+ * Schreibweg des Nutzers mit Schutz vor Schreibfehlern: Scheitert das Schreiben an der Datenbank bzw. Datei (Speicher voll,
+ * nicht beschreibbar — [isWriteFailure]), stürzt die App nicht ab. Room hat die Transaktion zurückgerollt (der gespeicherte
+ * Stand ist unverändert), der kurze Hinweis «Konnte nicht gespeichert werden» kommt ([WatchlistWriteRefusal.reportFailed])
+ * und [failed] geht zurück — der Aufrufer behandelt das wie «abgelehnt» (keine Folgeaktionen). Andere Fehler (auch
+ * Verletzungen einer Bedingung, die Aufrufer selbst behandeln) gehen weiter. [report] nur für Tests austauschbar.
+ * Gegenstück iOS: `SharedStorage.watchlistWriteFailed` mit Hinweis und erneutem Schreiben.
+ */
+suspend fun <T> guardedWrite(
+    failed: T,
+    report: () -> Unit = { WatchlistWriteRefusal.reportFailed() },
+    block: suspend () -> T,
+): T = try {
+    block()
+} catch (e: CancellationException) {
+    throw e
+} catch (e: Exception) {
+    if (!isWriteFailure(e)) throw e
+    Timber.w(e, "Merkliste/Einstellungen nicht geschrieben")
+    report()
+    failed
+}
+
+/**
+ * Schreibfehler des Speichers? Fehler der Datenbank ([android.database.SQLException], z. B. Speicher voll) ausser einer
+ * verletzten Bedingung ([android.database.sqlite.SQLiteConstraintException]) sowie Ein-/Ausgabefehler ([IOException],
+ * DataStore der Einstellungen).
+ */
+fun isWriteFailure(e: Throwable): Boolean =
+    (e is android.database.SQLException && e !is android.database.sqlite.SQLiteConstraintException) || e is IOException
+
+/** Schreibfehler des Speichers ([isWriteFailure]) melden: kurzer Hinweis «Konnte nicht gespeichert werden». */
+fun reportWriteFailure(e: Throwable) {
+    if (isWriteFailure(e)) WatchlistWriteRefusal.reportFailed()
 }

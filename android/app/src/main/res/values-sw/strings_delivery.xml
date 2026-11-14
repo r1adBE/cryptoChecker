@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Kengele zimewashwa – bado hakuna ukaguzi wa chinichini</string>
     <string name="alarm_reliability_notifications_off">Arifa zimezimwa – kengele hazitafika</string>
     <string name="alarm_reliability_battery">Uokoaji wa betri unaweza kusimamisha ukaguzi wa kengele</string>
+    <string name="alarm_reliability_offline">Hakuna muunganisho – kengele zitakaguliwa mtandao ukirudi</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh imezimwa – kengele huenda zisifike</string>
 </resources>

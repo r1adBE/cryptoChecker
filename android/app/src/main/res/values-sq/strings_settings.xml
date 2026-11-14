@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">Zgjidh për cilat çifte shfaqet kursi në shiritin e njoftimeve.</string>
     <string name="settings_quiet_hours">Orët e heshtjes</string>
     <string name="settings_quiet_hours_from">Nga</string>
-    <string name="settings_quiet_hours_hint">Midis %1$s dhe %2$s alarmet presin deri në fund të orëve të heshtjes dhe pastaj bien me tingull. Njoftimet e tjera vijnë në heshtje, pa zë.</string>
+    <string name="settings_quiet_hours_hint">Midis %1$s dhe %2$s alarmet presin deri në fund të orëve të heshtjes dhe pastaj bien me tingull, nëse kushti plotësohet ende atëherë. Njoftimet e tjera vijnë në heshtje, pa zë.</string>
     <string name="settings_quiet_hours_to">Deri</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">Në përdorim: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">I pavendosur – përdoren nyje publike</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">Cilësimet u rivendosën, ndaj nuk dihet nëse përdorje serverin tënd Bitcoin. Adresat Bitcoin dhe çelësat xpub nuk kërkohen derisa ta fusësh sërish serverin ose të zgjedhësh nyje publike.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">Lejohen vetëm adresa https://</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

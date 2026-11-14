@@ -256,7 +256,8 @@ class PriceRefresher(
         }
         // Sperre gegen doppelte Hintergrund-Läufe: nur nach einer vollen Prüfung (nicht live, nicht Teil-Lauf)
         // (alle Alarmarten sind hier schon ausgewertet: kein späterer Schritt mit Zusatzdaten wie in der iOS-Aufgabe)
-        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded)
+        // Paare am Zeitbudget gescheitert (exakter Wecker): keine volle Prüfung — der Lauf ohne Frist (WorkManager) holt nach
+        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded, prices.cutByBudget)
         if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()
 
         val widgetStartedAt = System.currentTimeMillis()
@@ -287,7 +288,9 @@ class PriceRefresher(
             checked = processed.checked,
             failed = processed.failed,
             alarmsTriggered = processed.alarms,
-            durationMillis = duration
+            durationMillis = duration,
+            paused = pausedIds.size,
+            cutByBudget = prices.cutByBudget,
         )
     }
 

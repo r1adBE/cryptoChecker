@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">എക്സ്ചേഞ്ചിൽ ഇപ്പോൾ എത്താനാകുന്നില്ല</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">ഈ പ്രദേശത്ത് എക്സ്ചേഞ്ച് ബ്ലോക്ക് ചെയ്തിരിക്കുന്നു</string>
+    <string name="error_exchange_access_denied">എക്സ്ചേഞ്ച് ആക്സസ് നിരസിച്ചു</string>
     <string name="loading_hint">ലോഡ് ചെയ്യുന്നു…</string>
     <string name="option_off">ഓഫ്</string>
     <string name="something_went_wrong">എന്തോ പിശക് സംഭവിച്ചു</string>

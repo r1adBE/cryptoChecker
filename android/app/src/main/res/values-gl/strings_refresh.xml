@@ -91,6 +91,8 @@
     <string name="check_result_ok">Correcto</string>
     <string name="check_result_partial">Parcial</string>
     <string name="check_result_skipped">Omitido</string>
+    <string name="check_result_paused">En pausa, nada comprobado</string>
+    <string name="check_result_offline">Omitido (sen conexión)</string>
     <string name="check_trigger_bgtask">Segundo plano</string>
     <string name="check_trigger_exact">Puntual</string>
     <string name="check_trigger_foreground">App</string>

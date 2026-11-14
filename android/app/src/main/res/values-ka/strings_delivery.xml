@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">განგაშები ჩართულია – ფონური შემოწმება ჯერ არ ყოფილა</string>
     <string name="alarm_reliability_notifications_off">შეტყობინებები გამორთულია – განგაშები არ მოვა</string>
     <string name="alarm_reliability_battery">ბატარეის დაზოგვამ შეიძლება განგაშების შემოწმება შეაჩეროს</string>
+    <string name="alarm_reliability_offline">კავშირი არ არის – განგაშები შემოწმდება, როცა ქსელი დაბრუნდება</string>
     <string name="alarm_reliability_background_refresh">აპის ფონური განახლება გამორთულია – განგაშები შეიძლება არ მოვიდეს</string>
 </resources>

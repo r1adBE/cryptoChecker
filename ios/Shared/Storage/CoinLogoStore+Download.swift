@@ -36,6 +36,8 @@ extension CoinLogoStore {
         var added = 0
         var network = false
         var pausedUntil: Int64?
+        /// Bilder offen geblieben (gestört bzw. Speicher voll): das erste Laden ist damit nicht erledigt (wie Android).
+        var incomplete = false
     }
 
     fileprivate struct DownloadJob: Sendable {
@@ -75,6 +77,7 @@ extension CoinLogoStore {
         await CoinLogoLoading.imagesPending(pending.count, last: lastStage)
         let attempted = pending.count
         var added = 0
+        var unsaved = 0
         var newFailures: [String] = []
         // Länger gebremste Bilder (Pause über `shortPauseMaxMillis`): erst nach der Pause (`pausedUntil`)
         var paused: [DownloadJob] = []
@@ -94,6 +97,10 @@ extension CoinLogoStore {
                     await CoinLogoRevision.bumpIfDue()
                 case .failed:
                     newFailures.append(job.name)
+                    await CoinLogoLoading.imageDone()
+                case .unsaved:
+                    // Speicher voll: weder Fehlschlag (Tagessperre) noch Netz — der nächste Abgleich versucht es wieder
+                    unsaved += 1
                     await CoinLogoLoading.imageDone()
                 case .paused:
                     // Server bremst: nicht als Fehler (und kein stehender Prozentwert im Hinweis)
@@ -121,7 +128,8 @@ extension CoinLogoStore {
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
         let network = CoinLogoRetry.downloadsFailedForNetwork(online: NetworkStatus.shared.isOnline,
                                                               failed: newFailures.count + transientLeft.count,
-                                                              attempted: attempted - paused.count)
+                                                              attempted: attempted - paused.count - unsaved,
+                                                              transient: transientLeft.count)
         if !newFailures.isEmpty, !network {
             var failed = loadFailures(now: EpochTime.nowMillis)
             for name in newFailures { failed[name] = now }
@@ -130,7 +138,8 @@ extension CoinLogoStore {
         if added > 0 { await CoinLogoRevision.bump() }
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
         let pausedUntil = paused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(paused) ?? 0)
-        return DownloadResult(added: added, network: network, pausedUntil: pausedUntil)
+        return DownloadResult(added: added, network: network, pausedUntil: pausedUntil,
+                              incomplete: !transientLeft.isEmpty || unsaved > 0)
     }
 
     /// Erst `job.url`, scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als
@@ -142,7 +151,7 @@ extension CoinLogoStore {
         var transient = false
         for alt in job.alternates where alt != job.url {
             result = await download(name: job.name, url: alt, streaks: streaks)
-            if result == .ok { return .ok }
+            if result == .ok || result == .unsaved { return result }
             if result == .paused { paused = true }
             if result == .transient { transient = true }
         }
@@ -157,12 +166,15 @@ extension CoinLogoStore {
     }
 
     /// Ergebnis eines Bild-Abrufs; `failed` = gibt es nicht bzw. unlesbar (Tagessperre); `paused` = Bild-Server bremst
-    /// (`CoinLogoRetry.pausesImages`); `transient` = kurze Störung — beide nicht fehlgeschlagen, wie Android `Fetched`.
-    enum Fetched: Sendable { case ok, failed, paused, transient }
+    /// (`CoinLogoRetry.pausesImages`); `transient` = kurze Störung — beide nicht fehlgeschlagen; `unsaved` = geladen, aber
+    /// nicht gespeichert (Speicher voll): keine Sperre, kein Netzfehler, der Durchgang lädt nichts mehr. Wie Android `Fetched`.
+    enum Fetched: Sendable { case ok, failed, paused, transient, unsaved }
 
     /// Erst die kleine Fassung, sonst das Bild aus der Rangliste. Ein 403 ohne «Retry-After» ist nur dieses Bild;
     /// erst das dritte Bild des Servers in Folge mit 403 (`streaks`) pausiert den Server — wie Android `fetchTo`.
     static func download(name: String, url: String, streaks: ForbiddenStreaks) async -> Fetched {
+        // Speicher voll: nichts mehr herunterladen, das ohnehin verworfen würde
+        if await streaks.unsaved { return .unsaved }
         let host = CoinLogoRetry.hostOf(url)
         if let host, pauses.isPaused(host) { return .paused }
         var candidates = [CoinLogos.smallURL(url)]
@@ -193,16 +205,25 @@ extension CoinLogoStore {
             if loaded.body == nil, CoinLogoRetry.isTransient(httpCode: http.statusCode) { transient = true }
             guard let body = loaded.body, let png = CoinLogoDecode.pngData(body) else { continue }
             // `.atomic`: erst eine eigene Hilfsdatei, dann in einem Schritt umbenennen — nie ein halbes Bild, auch
-            // wenn zwei Abrufe gleichzeitig dieselbe Datei schreiben. Nicht gespeichert: nächste Fassung, sonst
-            // Fehlschlag (Tagessperre, später erneut) — wie Android `LogoFiles.write`
+            // wenn zwei Abrufe gleichzeitig dieselbe Datei schreiben. Nicht gespeichert (Speicher voll): eigene Art —
+            // keine Tagessperre, kein Netzfehler; der Durchgang lädt nichts mehr — wie Android `LogoFiles.write`
             if (try? png.write(to: directory.appendingPathComponent(name), options: [.atomic])) != nil {
-                if let host { _ = await streaks.note(host, forbidden: false) }
+                if let host {
+                    _ = await streaks.note(host, forbidden: false)
+                    _ = await streaks.noteTransient(host, transient: false)
+                }
                 return .ok
             }
+            await streaks.markUnsaved()
+            return .unsaved
         }
-        if let host, await streaks.note(host, forbidden: forbidden) {
-            pauses.pause(host, retryAfterSeconds: nil)
-            return .paused
+        if let host {
+            // Dritte 403 bzw. vierte Störung des Servers in Folge: Server pausieren (`CoinLogoRetry.transientStreakPauses`)
+            let forbiddenPause = await streaks.note(host, forbidden: forbidden)
+            if await streaks.noteTransient(host, transient: transient) || forbiddenPause {
+                pauses.pause(host, retryAfterSeconds: nil)
+                return .paused
+            }
         }
         return transient ? .transient : .failed
     }
@@ -231,7 +252,7 @@ extension CoinLogoStore {
 
     // MARK: Fehlschläge (Name → Zeitpunkt), einen Tag lang nicht wiederholen
 
-    private static func loadFailures(now: Int64) -> [String: Int64] {
+    static func loadFailures(now: Int64) -> [String: Int64] {
         let text = SharedStorage.defaults.string(forKey: failedKey) ?? ""
         var out: [String: Int64] = [:]
         for part in text.split(separator: ";") {
@@ -254,12 +275,24 @@ extension CoinLogoStore {
 /// Durchgang — wie Android `LogoImagePauses.ForbiddenStreaks`. `note` nach jedem fertigen Bild: true = Server pausieren.
 actor ForbiddenStreaks {
     private var streaks: [String: Int] = [:]
+    private var transientStreaks: [String: Int] = [:]
+    /// Speicher voll: ein Bild liess sich nicht schreiben — der Durchgang lädt danach keines mehr (bis zum nächsten).
+    private(set) var unsaved = false
 
     func note(_ host: String, forbidden: Bool) -> Bool {
         let streak = CoinLogoRetry.nextForbiddenStreak(streaks[host] ?? 0, forbidden: forbidden)
         streaks[host] = streak
         return CoinLogoRetry.forbiddenStreakPauses(streak)
     }
+
+    /// Gestörte Bilder je Server in Folge (`CoinLogoRetry.nextTransientStreak`): true = Server jetzt pausieren.
+    func noteTransient(_ host: String, transient: Bool) -> Bool {
+        let streak = CoinLogoRetry.nextTransientStreak(transientStreaks[host] ?? 0, transient: transient)
+        transientStreaks[host] = streak
+        return CoinLogoRetry.transientStreakPauses(streak)
+    }
+
+    func markUnsaved() { unsaved = true }
 }
 
 /// Laufende Pausen je Bild-Server (Host → bis, ms) im gemeinsamen Speicher, threadsicher (Bilder laden

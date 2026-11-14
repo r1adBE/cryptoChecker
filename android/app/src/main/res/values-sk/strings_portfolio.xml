@@ -47,7 +47,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Celkom</string>
     <string name="portfolio_hide_amounts">Skryť sumy</string>
-    <string name="portfolio_hide_amounts_hint">Zobrazí sumy a hodnoty v portfóliu a v miniaplikácii portfólia ako ••• – percentá zostávajú viditeľné.</string>
+    <string name="portfolio_hide_amounts_hint">Zobrazí sumy a hodnoty v portfóliu, v miniaplikácii portfólia, na hodinkách a v upozorneniach portfólia ako ••• – percentá zostávajú viditeľné.</string>
     <string name="portfolio_invested">Obstarávacia cena</string>
     <string name="portfolio_total_no_fx">Chýba devízový kurz pre %1$s – sumy v USDT</string>
     <string name="portfolio_total_value">Celková hodnota</string>
@@ -106,6 +106,7 @@
     <string name="portfolio_discard_title">Zahodiť zmeny?</string>
     <string name="portfolio_edit_tx">Upraviť transakciu</string>
     <string name="portfolio_invalid">Zadaj platné číslo väčšie ako 0.</string>
+    <string name="number_ambiguous">Nejasné: %1$s, alebo %2$s? Napíš jednu z dvoch podôb.</string>
     <string name="portfolio_oversold">Predaje prevyšujú držbu – skontroluj transakcie.</string>
     <string name="portfolio_sell">Predaj</string>
     <string name="portfolio_sell_exceeds">Viac ako tvoja držba (%1$s)</string>

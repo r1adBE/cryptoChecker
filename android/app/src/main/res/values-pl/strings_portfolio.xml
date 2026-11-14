@@ -47,7 +47,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Łącznie</string>
     <string name="portfolio_hide_amounts">Ukryj kwoty</string>
-    <string name="portfolio_hide_amounts_hint">Pokazuje kwoty i wartości w portfelu i widżecie portfela jako ••• – procenty pozostają widoczne.</string>
+    <string name="portfolio_hide_amounts_hint">Pokazuje kwoty i wartości w portfelu, widżecie portfela, na zegarku i w alarmach portfela jako ••• – procenty pozostają widoczne.</string>
     <string name="portfolio_invested">Koszt nabycia</string>
     <string name="portfolio_total_no_fx">Brak kursu walutowego dla %1$s – kwoty w USDT</string>
     <string name="portfolio_total_value">Wartość łączna</string>
@@ -106,6 +106,7 @@
     <string name="portfolio_discard_title">Odrzucić zmiany?</string>
     <string name="portfolio_edit_tx">Edytuj transakcję</string>
     <string name="portfolio_invalid">Wpisz prawidłową liczbę większą od 0.</string>
+    <string name="number_ambiguous">Niejasne: %1$s czy %2$s? Wpisz jedną z dwóch form.</string>
     <string name="portfolio_oversold">Sprzedaż przekracza stan posiadania – sprawdź transakcje.</string>
     <string name="portfolio_sell">Sprzedaż</string>
     <string name="portfolio_sell_exceeds">Więcej niż posiadasz (%1$s)</string>

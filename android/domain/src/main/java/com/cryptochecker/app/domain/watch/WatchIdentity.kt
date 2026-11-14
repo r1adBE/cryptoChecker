@@ -27,4 +27,10 @@ object WatchIdentity {
 
     fun key(exchangeKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
         Key(exchangeKey, base, quote, contract, pool(exchangeKey, pairId))
+
+    /**
+     * Schlüssel als Text zum Merken (Einzel-Widget: welches Paar, nicht nur welche Id — eine eingespielte Sicherung kann
+     * dieselbe Id einem anderen Paar geben). «Börse|Basis|Kotierung|Kontrakt|Pool», wie iOS `WatchIdentity.text`.
+     */
+    fun text(key: Key): String = listOf(key.exchangeKey, key.base, key.quote, key.contract, key.pool.orEmpty()).joinToString("|")
 }

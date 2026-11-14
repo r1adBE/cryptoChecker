@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Részleges</string>
     <string name="check_result_skipped">Kihagyva</string>
+    <string name="check_result_paused">Szüneteltetve, semmi sem lett ellenőrizve</string>
+    <string name="check_result_offline">Kihagyva (offline)</string>
     <string name="check_trigger_bgtask">Háttér</string>
     <string name="check_trigger_exact">Pontos</string>
     <string name="check_trigger_foreground">Alkalmazás</string>

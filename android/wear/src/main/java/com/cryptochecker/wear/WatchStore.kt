@@ -35,6 +35,9 @@ class WatchStore(context: Context) {
     /** Schlüssel (Coins bzw. Paare) der letzten Kurse vom Handy ([WatchPhoneQuotes.selfFetch]). */
     val phoneCoins: Set<String> get() = prefs.getStringSet(KEY_PHONE_COINS, null).orEmpty()
 
+    /** Stand der letzten Kurse vom Handy ([WatchPhoneQuotes.deliveryTime]); 0 = keine ([WatchPhoneQuotes.usePhone]). */
+    val phoneTime: Long get() = prefs.getLong(KEY_PHONE_TIME, 0L)
+
     val settings: WatchSettings get() = state.settings.value
 
     /** Schlüssel (Coins bzw. Paare des Handys), die die Uhr gerade zeigt. */
@@ -65,12 +68,28 @@ class WatchStore(context: Context) {
 
     /**
      * Kurse vom Handy übernehmen ([WatchCache.mergeTimed], je Coin mit der Zeit des Handys) und die gelieferten Coins
-     * als [phoneCoins] merken; Ergebnis = neuer Stand.
+     * als [phoneCoins], den Stand der Lieferung als [phoneTime] merken; Ergebnis = neuer Stand.
      */
     fun takePhoneQuotes(quotes: List<WatchPhoneQuotes.Quote>): Map<String, WatchCached> = synchronized(LOCK) {
         val keep = state.settings.value.kept
         val fresh = quotes.associate { it.symbol to WatchCached(WatchQuote(it.symbol, it.price, it.change24h, it.exchange), it.time) }
-        writeQuotes(WatchCache.mergeTimed(state.quotes.value, fresh, keep), quotes.map { it.symbol }.toSet())
+        val merged = writeQuotes(WatchCache.mergeTimed(state.quotes.value, fresh, keep), quotes.map { it.symbol }.toSet())
+        prefs.edit { putLong(KEY_PHONE_TIME, WatchPhoneQuotes.deliveryTime(quotes)) }
+        merged
+    }
+
+    /**
+     * Kurse kommen nicht mehr vom Handy (sein Eintrag ist gelöscht): [phoneCoins] und [phoneTime] vergessen, die Uhr holt
+     * dann selbst ([WatchPhoneQuotes.selfFetch]); die Kurse selbst bleiben mit ihrer Zeit (werden veraltet angezeigt).
+     * true = etwas geändert.
+     */
+    fun forgetPhoneQuotes(): Boolean = synchronized(LOCK) {
+        if (!prefs.contains(KEY_PHONE_COINS) && !prefs.contains(KEY_PHONE_TIME)) return@synchronized false
+        prefs.edit {
+            remove(KEY_PHONE_COINS)
+            remove(KEY_PHONE_TIME)
+        }
+        true
     }
 
     /** Portfolio-Wert vom Handy speichern bzw. bei [WatchPortfolio.Message.Clear] entfernen. */
@@ -110,6 +129,7 @@ class WatchStore(context: Context) {
         const val KEY_SETTINGS = "settings"
         const val KEY_QUOTES = "quotes"
         const val KEY_PHONE_COINS = "phone_coins"
+        const val KEY_PHONE_TIME = "phone_time"
         const val KEY_PORTFOLIO = "portfolio"
         val LOCK = Any()
 

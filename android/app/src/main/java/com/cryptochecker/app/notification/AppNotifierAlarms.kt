@@ -292,6 +292,8 @@ suspend fun AppNotifier.showDepeg(
         .setSilent(quiet)
         .setGroup(Group.ALARMS.key)
         .setContentIntent(openAppIntent(null))
+    // Mit Portfolio-Sperre auf dem Sperrbildschirm nur «Alarm» (wie Paar- und Markt-Mitteilungen)
+    builder.lockScreenPrivacy(channelId, R.drawable.ic_stat_depeg, context.getString(R.string.watch_action_alarm))
     // Knopf «Börse öffnen» nur mit passender Seite (USDT, USDC: USDC/USDT der Hauptbörse)
     openExchange?.let { builder.addAction(0, context.getString(R.string.notification_depeg_action_exchange), it) }
     val notification = builder.build()

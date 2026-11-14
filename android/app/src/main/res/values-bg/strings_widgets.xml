@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Фон</string>
-    <string name="widget_configure_hint">Избери фон и непрозрачност. Цветът следва приложението. Уиджетът показва целия ти списък; докосни ред, за да отвориш приложението.</string>
+    <string name="widget_configure_hint">Избери фон и непрозрачност. Цветът следва приложението. Уиджетът показва списъка ти или групата, избрана по-долу; докосни ред, за да отвориш приложението.</string>
     <string name="widget_configure_title">Настрой уиджета</string>
     <string name="widget_description">Показва курса на двойка от списъка ти.</string>
     <string name="widget_empty">Още няма двойки в списъка.</string>

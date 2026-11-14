@@ -12,6 +12,7 @@
     <string name="watchlist_refresh_report">Muat semula terakhir</string>
     <string name="watchlist_symbols_legend">Penjelasan simbol</string>
     <string name="watchlist_symbols_legend_alarms">Amaran aktif berserta bilangannya</string>
+    <string name="watchlist_symbols_legend_warning">Harga lapuk atau bursa tidak dapat dicapai</string>
     <string name="watchlist_refresh_report_empty">Belum ada pecahan – belum ada muat semula penuh setakat ini. Ketik muat semula dan tunggu sehingga bulatan berhenti.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d daripada %2$d lapuk</item>
@@ -242,6 +243,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Tutup notis</string>
     <string name="watchlist_missing_logos_explain">Tiada logo tersedia untuk koin ini. Apl menunjukkan huruf awalnya.</string>
+    <string name="watchlist_missing_logos_pending">belum dimuatkan</string>
+    <string name="watchlist_missing_logos_explain_pending">Logo yang ditanda belum dimuatkan akan menyusul pada penyegerakan seterusnya, sesetengahnya hanya melalui Wi-Fi. Tiada logo untuk syiling lain. Apl memaparkan huruf awalnya.</string>
     <string name="exchange_retiring_notice">Mulai %2$s, %1$s tidak lagi menyediakan harga awam. Sila pilih bursa lain untuk koin ini.</string>
     <string name="exchange_retiring_reason">Mulai %2$s, %1$s tidak lagi menyediakan harga</string>
     <string name="exchange_retired_since">Sejak %2$s, %1$s tidak lagi menyediakan harga</string>

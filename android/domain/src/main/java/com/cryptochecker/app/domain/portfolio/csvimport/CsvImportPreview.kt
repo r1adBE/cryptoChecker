@@ -49,4 +49,8 @@ data class CsvImportPreview(
     val ratesFailed: Boolean = false,
     /** Zeilen ohne Tageskurs: Währungen ohne mögliche Tageskurse, hilft ein neuer Abruf ([CsvImportRateGate.retry])? */
     val rateRetry: CsvRateRetry = CsvRateRetry(),
+    /** Zeilen der Datei, die schon importiert sind ([duplicates]) — die Vorschau nennt sie. */
+    val duplicateLines: List<Int> = emptyList(),
+    /** «Trotzdem importieren» gewählt ([CsvReadChoice.keepDuplicates]): sie stehen unter [transactions]. */
+    val duplicatesKept: Boolean = false,
 )

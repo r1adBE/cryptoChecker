@@ -140,7 +140,9 @@ internal suspend fun mapCsvPreview(
                 .row(done)
         }
     }
-    CsvImportMapping.preview(read.result, read.keys, usdtUsd = read.usdtUsd, onRow = onRow) { currency, day ->
+    CsvImportMapping.preview(
+        read.result, read.keys, usdtUsd = read.usdtUsd, keepDuplicates = read.choice.keepDuplicates, onRow = onRow,
+    ) { currency, day ->
         read.rates[currency]?.let { PortfolioHistoryFx.rateOn(it, day) }?.let { PortfolioDecimal.of(it) }
     }.copy(ratesFailed = read.ratesFailed)
 }

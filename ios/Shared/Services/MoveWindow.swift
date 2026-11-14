@@ -84,7 +84,7 @@ enum MoveWindow {
 /// Prozentpunkte gerundet (nächster Wert, genau die Mitte vom Nullpunkt weg). Sonst verfehlt ein Alarm genau seine Marke
 /// um einen Gleitkomma-Rest — 3.00 → 3.09 ergibt 2.9999999999999956 % und meldete bei «+3 %» nicht. Gleiche Regel für
 /// Veränderung (`AlarmEvaluator.changePercent`), Bewegungs-Fenster (`MoveWindow.changePercent`) und Abstand zum Hoch/Tief
-/// (`NearExtreme.decide`).
+/// (`NearExtreme.decide`), Funding und Open Interest (`DerivativesAlarm.decide`).
 enum AlarmPercent {
     /// Kehrwert der Auflösung: 1e-6 Prozentpunkte.
     static let scale = 1e6

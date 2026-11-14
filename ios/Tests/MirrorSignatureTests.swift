@@ -31,8 +31,9 @@ final class MirrorSignatureTests: XCTestCase {
         for c in cases {
             let name = c["name"] as? String ?? "?"
             let keys = c["publicKeys"] as? [String] ?? [c["publicKey"] as? String ?? testKey]
+            let newestSeen = (c["newestSeen"] as? NSNumber)?.int64Value ?? 0
             let v = MirrorManifest.verify(c["manifest"] as? String, signature: c["signature"] as? String, now: now,
-                                          publicKeys: keys)
+                                          publicKeys: keys, newestSeen: newestSeen)
             XCTAssertEqual(v.status.rawValue, c["expected"] as? String, name)
             if v.status == .ok {
                 let manifest = try XCTUnwrap(v.manifest, name)
@@ -142,6 +143,37 @@ final class MirrorSignatureTests: XCTestCase {
         let production = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { now })
         let rejected = await production.verified(file: "fng.txt", text: c.okText, load: load)
         XCTAssertFalse(rejected)
+    }
+
+    /// S3-15: Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage.
+    func testTrustRejectsOlderManifestAfterNewer() async throws {
+        let c = try signedCase()
+        let data = try S.fixture("mirror_signature")
+        let newer = try XCTUnwrap(S.list(data["verify"]).first { $0["name"] as? String == "signed with an unknown extra field" })
+        let newerManifest = try XCTUnwrap(newer["manifest"] as? String)
+        let newerSignature = try XCTUnwrap(newer["signature"] as? String)
+        let clock = MirrorTestClock(c.now)
+        // 0 = neueres Manifest ausliefern, 1 = das ältere
+        let served = MirrorTestClock(0)
+        let trust = MirrorTrust(publicKey: c.key, now: { clock.value })
+        let load: MirrorTrust.Loader = { url, _ in
+            let old = served.value == 1
+            switch url {
+            case MirrorManifest.url: return old ? c.manifest : newerManifest
+            case MirrorManifest.signatureURL: return old ? c.signature : newerSignature
+            default: return nil
+            }
+        }
+        _ = await trust.verified(file: "fng.txt", text: c.okText, load: load)
+        var status = await trust.lastStatus
+        XCTAssertEqual(status, .ok)
+        // Nach Ablauf des Zwischenspeichers kommt der ältere Stand
+        served.value = 1
+        clock.value = c.now + 16 * 60 * 1000
+        let accepted = await trust.verified(file: "fng.txt", text: c.okText, load: load)
+        XCTAssertFalse(accepted)
+        status = await trust.lastStatus
+        XCTAssertEqual(status, .tooOld)
     }
 
     func testTrustReloadsOnceOnHashMismatchAfterOneMinute() async throws {

@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Ocultar importes</string>
-    <string name="portfolio_hide_amounts_hint">Muestra los importes y valores de la cartera y del widget de cartera como ••• – los porcentajes siguen visibles.</string>
+    <string name="portfolio_hide_amounts_hint">Muestra los importes y valores de la cartera, del widget de cartera, del reloj y de las alertas de cartera como ••• – los porcentajes siguen visibles.</string>
     <string name="portfolio_invested">Coste de adquisición</string>
     <string name="portfolio_total_no_fx">Sin tipo de cambio para %1$s: importes en USDT</string>
     <string name="portfolio_total_value">Valor total</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">¿Descartar los cambios?</string>
     <string name="portfolio_edit_tx">Editar transacción</string>
     <string name="portfolio_invalid">Introduce un número válido mayor que 0.</string>
+    <string name="number_ambiguous">No está claro: ¿%1$s o %2$s? Escribe una de las dos formas.</string>
     <string name="portfolio_oversold">Las ventas superan las tenencias: revisa las transacciones.</string>
     <string name="portfolio_sell">Venta</string>
     <string name="portfolio_sell_exceeds">Más que tus tenencias (%1$s)</string>

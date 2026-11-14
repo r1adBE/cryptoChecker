@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Tło</string>
-    <string name="widget_configure_hint">Wybierz tło i krycie. Kolor jest jak w aplikacji. Widżet pokazuje całą listę; dotknij wiersza, by otworzyć aplikację.</string>
+    <string name="widget_configure_hint">Wybierz tło i nieprzezroczystość. Kolor dopasowuje się do aplikacji. Widżet pokazuje twoją listę lub grupę wybraną poniżej; dotknij wiersza, aby otworzyć aplikację.</string>
     <string name="widget_configure_title">Ustaw widżet</string>
     <string name="widget_description">Pokazuje cenę pary z listy obserwowanych.</string>
     <string name="widget_empty">Brak par na liście obserwowanych.</string>

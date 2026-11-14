@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">יוצא מהתיק (משיכה)</string>
     <string name="portfolio_csv_import_choose_each">בחרו לכל משיכה לאן היא הלכה.</string>
     <string name="portfolio_csv_import_columns">עמודות שזוהו: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">כבר יובא: שורות %1$s</string>
     <string name="portfolio_csv_import_confirm">ייבוא (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">יום/חודש</string>
     <string name="portfolio_csv_import_date_month_first">חודש/יום</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">קניות ומכירות תמורת מטבעות יציבים (USDT, USDC …) נרשמות כהחלפות – המטבע היציב מופיע באחזקות שלך.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">כמה התאמות אפשריות – בחרו את הנכונה או אף אחת.</string>
+    <string name="portfolio_csv_import_transfer_loose">עמלה גבוהה או הגעה מאוחרת – כדאי לבדוק שזו אותה העברה.</string>
     <string name="portfolio_csv_import_transfer_fee">עמלת רשת: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">לרשום כהעברה אחת</string>
     <string name="portfolio_csv_import_transfer_stored">צד נגדי מייבוא קודם</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">שערים יומיים לפי היום הקלנדרי ב: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">לא ניתן היה לטעון את השערים היומיים.</string>
     <string name="portfolio_csv_import_anyway">ייבוא בכל זאת</string>
-    <string name="portfolio_csv_import_anyway_hint">בלי שער יומי, המחיר או העמלה יחסרו לצמיתות. אפשר לנסות שוב או לייבא בכל זאת – לעסקאות האלה תתווסף הערה.</string>
+    <string name="portfolio_csv_import_anyway_hint">בלי שער יומי, המחיר או העמלה חסרים עד שתוסיף אותם. נסה שוב או ייבא בכל זאת – העסקאות האלה יקבלו הערה.</string>
     <string name="portfolio_csv_note_price_no_rate">מחיר בלי שער יומי</string>
     <string name="portfolio_csv_note_fee_no_rate">עמלה בלי שער יומי</string>
     <string name="portfolio_csv_import_no_rates_for">אין שערים יומיים עבור %1$s, ולכן ניסיון נוסף לא יעזור. אם תייבאו בכל זאת, לעסקאות האלה תתווסף הערה.</string>

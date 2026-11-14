@@ -5,57 +5,65 @@ import Foundation
 // Abfrageart vom Ablauf der Kette getrennt lesbar sein soll; beide Arten liefern je UTC-Tag dieselbe Kerze, die Kette und
 // ihre Prüfungen (`HistoricPriceSource.closeUsdt`) sind dieselben. Wie HistoricPriceSourceSpan.kt (Android).
 
+/// Quelle nicht erreichbar (Netz, Zeitgrenze, 5xx, «zu viele Anfragen» — auch nach einer Wiederholung,
+/// `HistoricCloseChain.fetchFailure`): die Kette bricht für diesen Tag ab, statt eine andere Quelle zu nehmen. Wie Android.
+struct HistoricSourceUnavailable: Error {
+    let host: String
+}
+
 /// Kerzen der Binance-Gruppe und von Coinbase für `HistoricPriceSource.closeUsdt`, die eigenen Tageskerzen der übrigen
 /// Börsen (`seriesClose`) und der Devisenkurs eines Tags (eigene Börse in Fiat). Schluss = Kerze, die genau bei `start`
-/// beginnt (gültig, > 0); nil = keine (auch: Abfrage gescheitert).
+/// beginnt (gültig, > 0); nil = keine. Quelle nicht erreichbar: `HistoricSourceUnavailable`.
 protocol HistoricCloseFetch: Sendable {
-    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async -> Double?
+    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async throws -> Double?
     /// Jüngster Schluss derselben Reihe (Identitätsprüfung).
-    func binanceLatest(host: String, endpoint: String, symbol: String) async -> Double?
+    func binanceLatest(host: String, endpoint: String, symbol: String) async throws -> Double?
     /// Coinbase-Produkt `product` (z. B. «ETH-USD»), Kerze des Tags `day`.
-    func coinbaseDay(product: String, day: CutoffDay, start: Int64) async -> Double?
+    func coinbaseDay(product: String, day: CutoffDay, start: Int64) async throws -> Double?
     /// Jüngster Schluss desselben Produkts (ohne Zeitfenster = die neuesten Kerzen).
-    func coinbaseLatest(product: String) async -> Double?
-    func seriesClose(_ pair: CandlePair, start: Int64) async -> (close: Double, latest: Double?)?
+    func coinbaseLatest(product: String) async throws -> Double?
+    func seriesClose(_ pair: CandlePair, start: Int64) async throws -> (close: Double, latest: Double?)?
     func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFx?
 }
 
 /// Je Tag eine Abfrage (Stichtag, Vorschlag beim Erfassen): Binance mit `startTime` und `limit=1`, Coinbase genau über den
 /// Tag. `get`, `series`, `fx`: Netz bzw. eigene Kerzen und EZB-Referenzkurse (Tests: gespielter Markt).
 struct HistoricDayFetch: HistoricCloseFetch {
-    var get: @Sendable (String, String) async -> String? = { await HistoricPriceSource.get($0, $1) }
-    var series: @Sendable (CandlePair, Int64) async -> (close: Double, latest: Double?)? = {
-        await HistoricPriceSource.seriesClose($0, start: $1)
+    var get: @Sendable (String, String) async throws -> String? = { try await HistoricPriceSource.getDay($0, $1) }
+    var series: @Sendable (CandlePair, Int64) async throws -> (close: Double, latest: Double?)? = {
+        try await HistoricPriceSource.seriesClose($0, start: $1)
     }
     var fx: @Sendable (String, CutoffDay) async -> HistoricFx? = { await HistoricPriceSource.usdTo($0, day: $1) }
 
-    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async -> Double? {
-        guard let body = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(start)&limit=1"),
+    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async throws -> Double? {
+        guard let body = try await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(start)&limit=1"),
               let candles = try? CandleDataSource.parseBinance(body)
         else { return nil }
         return HistoricPriceSource.closeOf(candles, start: start)
     }
 
-    func binanceLatest(host: String, endpoint: String, symbol: String) async -> Double? {
-        guard let recent = await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&limit=1") else { return nil }
+    func binanceLatest(host: String, endpoint: String, symbol: String) async throws -> Double? {
+        guard let recent = try await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&limit=1") else { return nil }
         return (try? CandleDataSource.parseBinance(recent))?.last?.close
     }
 
-    func coinbaseDay(product: String, day: CutoffDay, start: Int64) async -> Double? {
-        guard let body = await get(HistoricPriceSource.coinbaseHost, Self.coinbaseUrl(product, from: day, to: day)),
+    func coinbaseDay(product: String, day: CutoffDay, start: Int64) async throws -> Double? {
+        guard let body = try await get(HistoricPriceSource.coinbaseHost, Self.coinbaseUrl(product, from: day, to: day)),
               let candles = try? CandleDataSource.parseCoinbase(body)
         else { return nil }
         return HistoricPriceSource.closeOf(candles, start: start)
     }
 
-    func coinbaseLatest(product: String) async -> Double? {
-        guard let recent = await get(HistoricPriceSource.coinbaseHost, Self.coinbaseUrl(product, from: nil, to: nil)) else {
+    func coinbaseLatest(product: String) async throws -> Double? {
+        guard let recent = try await get(HistoricPriceSource.coinbaseHost, Self.coinbaseUrl(product, from: nil, to: nil)) else {
             return nil
         }
         return (try? CandleDataSource.parseCoinbase(recent))?.max(by: { $0.openTime < $1.openTime })?.close
     }
 
-    func seriesClose(_ pair: CandlePair, start: Int64) async -> (close: Double, latest: Double?)? { await series(pair, start) }
+    func seriesClose(_ pair: CandlePair, start: Int64) async throws -> (close: Double, latest: Double?)? {
+        try await series(pair, start)
+    }
 
     func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFx? { await fx(currency, day) }
 
@@ -85,6 +93,8 @@ actor HistoricSpanFetch: HistoricCloseFetch {
     /// «Quelle|Reihe» → jüngster Schluss (auch nil = keiner).
     private var latest: [String: Double?] = [:]
     private var fxMemo: [String: HistoricFx?] = [:]
+    /// Schlüssel von `loaded`/`latest`, deren Abruf nicht erreichbar war: im selben Export nicht erneut (kein Kurs).
+    private var unavailable: Set<String> = []
 
     /// `days`: verlangte Tage (epochDay) dieses Coins.
     init(days: Set<Int>, day: HistoricDayFetch) {
@@ -108,53 +118,69 @@ actor HistoricSpanFetch: HistoricCloseFetch {
         return out
     }
 
-    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async -> Double? {
+    func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async throws -> Double? {
         guard let span = Self.span(of: start, in: binanceSpans) else {
-            return await day.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start)
+            return try await day.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start)
         }
         let key = "\(host)|\(symbol)|\(span.lowerBound)"
         if loaded[key] == nil {
             let from = LocalDay(epochDay: span.lowerBound).epochMillisUTC
             let to = LocalDay(epochDay: span.upperBound).epochMillisUTC
             let url = "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(from)&endTime=\(to)&limit=\(Self.binanceSpanDays)"
-            let body = await day.get(host, url)
+            let body = try await unlessUnavailable(key, host: host) { try await day.get(host, url) }
             loaded[key] = Self.byOpenTime(body.flatMap { try? CandleDataSource.parseBinance($0) })
         }
         return Self.valid(loaded[key]?[start])
     }
 
-    func binanceLatest(host: String, endpoint: String, symbol: String) async -> Double? {
+    func binanceLatest(host: String, endpoint: String, symbol: String) async throws -> Double? {
         let key = "\(host)|\(symbol)"
         if let hit = latest[key] { return hit }
-        let value = await day.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
+        let value = try await unlessUnavailable(key, host: host) {
+            try await day.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
+        }
         latest[key] = .some(value)
         return value
     }
 
-    func coinbaseDay(product: String, day cutoffDay: CutoffDay, start: Int64) async -> Double? {
+    func coinbaseDay(product: String, day cutoffDay: CutoffDay, start: Int64) async throws -> Double? {
         guard let span = Self.span(of: start, in: coinbaseSpans) else {
-            return await day.coinbaseDay(product: product, day: cutoffDay, start: start)
+            return try await day.coinbaseDay(product: product, day: cutoffDay, start: start)
         }
         let key = "cb|\(product)|\(span.lowerBound)"
         if loaded[key] == nil {
             let url = HistoricDayFetch.coinbaseUrl(product, from: Self.cutoffDay(span.lowerBound),
                                                    to: Self.cutoffDay(span.upperBound))
-            let body = await day.get(HistoricPriceSource.coinbaseHost, url)
+            let host = HistoricPriceSource.coinbaseHost
+            let body = try await unlessUnavailable(key, host: host) { try await day.get(host, url) }
             loaded[key] = Self.byOpenTime(body.flatMap { try? CandleDataSource.parseCoinbase($0) })
         }
         return Self.valid(loaded[key]?[start])
     }
 
-    func coinbaseLatest(product: String) async -> Double? {
+    func coinbaseLatest(product: String) async throws -> Double? {
         let key = "cb|\(product)"
         if let hit = latest[key] { return hit }
-        let value = await day.coinbaseLatest(product: product)
+        let value = try await unlessUnavailable(key, host: HistoricPriceSource.coinbaseHost) {
+            try await day.coinbaseLatest(product: product)
+        }
         latest[key] = .some(value)
         return value
     }
 
-    func seriesClose(_ pair: CandlePair, start: Int64) async -> (close: Double, latest: Double?)? {
-        await day.seriesClose(pair, start: start)
+    func seriesClose(_ pair: CandlePair, start: Int64) async throws -> (close: Double, latest: Double?)? {
+        try await day.seriesClose(pair, start: start)
+    }
+
+    /// Nicht erreichbar: gemerkt (die übrigen Tage des Stücks fragen nicht erneut) und weitergereicht — wie Android.
+    private func unlessUnavailable<T>(_ key: String, host: String, _ load: () async throws -> T) async throws -> T {
+        if unavailable.contains(key) { throw HistoricSourceUnavailable(host: host) }
+        do {
+            return try await load()
+        } catch let error as HistoricSourceUnavailable {
+            unavailable.insert(key)
+            throw error
+        }
     }
 
     func usdTo(_ currency: String, day cutoffDay: CutoffDay) async -> HistoricFx? {

@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Jumlah</string>
     <string name="portfolio_hide_amounts">Sembunyikan amaun</string>
-    <string name="portfolio_hide_amounts_hint">Menunjukkan amaun dan nilai dalam portfolio dan widget portfolio sebagai ••• – peratusan kekal kelihatan.</string>
+    <string name="portfolio_hide_amounts_hint">Menunjukkan amaun dan nilai dalam portfolio, widget portfolio, pada jam tangan dan dalam amaran portfolio sebagai ••• – peratusan kekal kelihatan.</string>
     <string name="portfolio_invested">Kos asas</string>
     <string name="portfolio_total_no_fx">Tiada kadar pertukaran untuk %1$s – amaun dalam USDT</string>
     <string name="portfolio_total_value">Jumlah nilai</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">Buang perubahan?</string>
     <string name="portfolio_edit_tx">Edit transaksi</string>
     <string name="portfolio_invalid">Masukkan nombor sah yang lebih besar daripada 0.</string>
+    <string name="number_ambiguous">Tidak jelas: %1$s atau %2$s? Sila taip salah satu daripadanya.</string>
     <string name="portfolio_oversold">Jualan melebihi pegangan – sila semak transaksi.</string>
     <string name="portfolio_sell">Jual</string>
     <string name="portfolio_sell_exceeds">Melebihi pegangan anda (%1$s)</string>

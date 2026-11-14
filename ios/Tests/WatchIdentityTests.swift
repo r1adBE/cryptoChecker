@@ -21,6 +21,7 @@ final class WatchIdentityTests: XCTestCase {
             let b = key(c["b"] as? [String: Any] ?? [:])
             XCTAssertEqual(a.pool, c["pool"] as? String, name)
             XCTAssertEqual(a == b, c["same"] as? Bool, name)
+            XCTAssertEqual(WatchIdentity.text(a), c["text"] as? String, name)
         }
     }
 

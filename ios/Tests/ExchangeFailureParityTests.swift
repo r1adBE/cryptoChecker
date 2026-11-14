@@ -62,6 +62,40 @@ final class ExchangeFailureParityTests: XCTestCase {
         }
     }
 
+    /// Paarliste in mehreren Anfragen: vorübergehende Störung einer Teilanfrage bricht ab (N3-08).
+    func testPairListAborts() {
+        let all = cases("pairListAborts")
+        XCTAssertFalse(all.isEmpty)
+        for c in all {
+            guard let kind = failure(c["failure"]) else { return XCTFail("failure: \(c)") }
+            XCTAssertEqual(ExchangeFailure.pairListCallAborts(call: (c["call"] as? NSNumber)?.intValue ?? -1,
+                                                            allCallsRequired: c["allRequired"] as? Bool ?? false,
+                                                            failure: kind),
+                           c["aborts"] as? Bool, "pairListAborts: \(c)")
+        }
+    }
+
+    /// Paarliste im Portfolio: Versuch nur mit Ergebnis gemerkt, Netzfehler nicht (N3-05).
+    func testPairListAttempt() {
+        let all = cases("pairListAttempt")
+        XCTAssertFalse(all.isEmpty)
+        for c in all {
+            XCTAssertEqual(ExchangeFailure.remembersPairListAttempt(failure(c["failure"])), c["remembers"] as? Bool,
+                           "pairListAttempt: \(c)")
+        }
+    }
+
+    /// HTTP 403 ohne Bremsen-Text = Zugriff verweigert (eigene Meldung, kein «erneut versuchen»; N3-07).
+    func testAccessDenied() {
+        let all = cases("accessDenied")
+        XCTAssertFalse(all.isEmpty)
+        for c in all {
+            let text = c["text"] as? String
+            XCTAssertEqual(RefreshReportLogic.isAccessDenied(text), c["expected"] as? Bool, "accessDenied: \(text ?? "nil")")
+            if RefreshReportLogic.isAccessDenied(text) { XCTAssertFalse(ConnectionErrors.isRetryable(text)) }
+        }
+    }
+
     func testConfirmedBySingle() {
         for c in cases("confirmedBySingle") {
             let text = c["text"] as? String
@@ -95,7 +129,13 @@ final class ExchangeFailureParityTests: XCTestCase {
         XCTAssertEqual(ExchangeFailure.of(URLError(.secureConnectionFailed)), .ssl)
         XCTAssertEqual(ExchangeFailure.of(URLError(.notConnectedToInternet)), .offline)
         XCTAssertEqual(ExchangeFailure.of(URLError(.cannotFindHost)), .offline)
-        XCTAssertEqual(ExchangeFailure.of(URLError(.badServerResponse)), .other)
+        // Übertragung mitten in der Antwort gescheitert (N3-02): keine Verbindung — wie Android NetworkError
+        for code in [URLError.Code.badServerResponse, .cannotParseResponse, .cannotDecodeContentData,
+                     .cannotDecodeRawData, .resourceUnavailable, .networkConnectionLost] {
+            XCTAssertEqual(ExchangeFailure.of(URLError(code)), .offline, "\(code)")
+            XCTAssertEqual(ConnectionErrors.describe(URLError(code)), ConnectionErrors.offlineMarker, "\(code)")
+        }
+        XCTAssertEqual(ExchangeFailure.of(URLError(.unsupportedURL)), .other)
         XCTAssertEqual(ExchangeFailure.of(JSONError(message: "Kein JSON-Objekt")), .parse)
         XCTAssertEqual(ExchangeFailure.of(UserFriendlyExchangeError(message: "Invalid symbol.")), .unknownInstrument)
         XCTAssertEqual(ExchangeFailure.of(UserFriendlyExchangeError(message: "EGeneral:Too many requests")),

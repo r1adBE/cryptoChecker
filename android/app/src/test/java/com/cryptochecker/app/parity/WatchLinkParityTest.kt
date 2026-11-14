@@ -79,6 +79,23 @@ class WatchLinkParityTest {
         }
     }
 
+    /** Uhr meldet einen anderen Handy-Teil: das Handy sendet den ganzen Stand noch einmal. */
+    @Test
+    fun phoneSideDiffers() {
+        for (c in data.getValue("phoneSideDiffers").list().map { it.obj() }) {
+            assertEquals(c["name"] as String, c["expected"] as Boolean,
+                WatchSettings.phoneSideDiffers(settings(c["phone"]), settings(c["watch"])))
+        }
+    }
+
+    /** Handy ohne Stand (Wear: Eintrag gelöscht; Apple Watch: iPhone-App entfernt). */
+    @Test
+    fun forgetPhone() {
+        for (c in data.getValue("forgetPhone").list().map { it.obj() }) {
+            assertEquals(c["name"] as String, settings(c["expected"]), WatchSettings.forgetPhone(settings(c["local"])))
+        }
+    }
+
     @Test
     fun pick() {
         val p = data.getValue("pick").obj()
@@ -129,6 +146,27 @@ class WatchLinkParityTest {
         }
     }
 
+    /** Handy weg: gleiche Grenze auf beiden Uhren (Intervall + 5 Min. nach der letzten Lieferung). */
+    @Test
+    fun usePhone() {
+        val u = data.getValue("usePhone").obj()
+        val now = u["now"].num()!!.toLong()
+        for (s in u.getValue("silentAfter").list().map { it.obj() }) {
+            assertEquals(s["millis"].num()!!.toLong(), WatchPhoneQuotes.phoneSilentAfterMillis(s["interval"].num()!!.toInt()))
+        }
+        for (d in u.getValue("deliveryTime").list().map { it.obj() }) {
+            val quotes = d.getValue("times").list().map { WatchPhoneQuotes.Quote("BTC", 1.0, null, "Binance", it.num()!!.toLong()) }
+            assertEquals(d["expected"].num()!!.toLong(), WatchPhoneQuotes.deliveryTime(quotes))
+        }
+        for (c in u.getValue("cases").list().map { it.obj() }) {
+            val got = WatchPhoneQuotes.usePhone(
+                source(c["source"]), c["connected"] as Boolean, c["lastDelivery"].num()!!.toLong(), now,
+                c["interval"].num()!!.toInt(),
+            )
+            assertEquals(c["name"] as String, c["expected"] as Boolean, got)
+        }
+    }
+
     @Test
     fun portfolioMessage() {
         for (c in data.getValue("portfolioMessage").list().map { it.obj() }) {
@@ -141,6 +179,8 @@ class WatchLinkParityTest {
                 changePercent = c["changePercent"].num(),
                 currency = c["currency"] as String?,
                 time = c["time"].num()!!.toLong(),
+                fallbackCurrency = c["fallbackCurrency"] as String?,
+                now = c["now"].num()?.toLong() ?: 0L,
             )
             assertEquals(c["name"] as String, portfolio(c["expected"]), message)
             // Über JSON unverändert (Handy → Uhr)

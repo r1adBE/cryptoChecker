@@ -70,7 +70,7 @@ final class ExactCadenceParityTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 15)
         for c in cases {
             XCTAssertEqual(BackgroundSchedule.isFullCheck(attempted: int(c["attempted"]), failed: int(c["failed"]),
-                                                          notTraded: int(c["notTraded"])),
+                                                          notTraded: int(c["notTraded"]), cutByBudget: int(c["cutByBudget"])),
                            c["expected"] as? Bool, "\(c)")
         }
     }

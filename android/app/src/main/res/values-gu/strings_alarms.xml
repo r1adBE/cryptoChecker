@@ -52,6 +52,8 @@
     <string name="alarm_threshold_error_funding">ફંડિંગ −10 અને +10 ટકા વચ્ચેની સંખ્યા હોવી જોઈએ.</string>
     <string name="alarm_threshold_error_invalid">0 કરતાં મોટી માન્ય સંખ્યા દાખલ કરો.</string>
     <string name="alarm_threshold_error_oi">ઓપન ઇન્ટરેસ્ટ ફેરફાર: વધુમાં વધુ 1000 ટકા.</string>
+    <string name="alarm_threshold_error_percent_max">વધુમાં વધુ 1000 ટકા.</string>
+    <string name="alarm_threshold_error_distance">અંતર 100 ટકાથી ઓછું હોવું જોઈએ.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d કલાકમાં</item>
         <item quantity="other">%1$d કલાકમાં</item>
@@ -172,6 +174,7 @@
     <string name="alarm_a11y_speak_on">વાણી ચાલુ</string>
     <string name="alarm_unchecked_no_candles">તપાસી શકાયું નહીં (કૅન્ડલ ડેટા નથી)</string>
     <string name="alarm_unchecked_no_rate">તપાસી શકાયું નહીં (વિનિમય દર નથી)</string>
+    <string name="alarm_unchecked_no_window_price">તપાસી શકાયું નહીં (સમય અવધિમાં કોઈ ભાવ નથી)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">સૂચનાઓ બંધ – આ એલર્ટ તમારા સુધી નહીં પહોંચે</string>

@@ -35,7 +35,9 @@ extension PortfolioCsvImportSheet {
             get: { linked.contains(link.key) },
             set: { on in
                 linked = CsvTransferMatch.toggle(links, chosen: linked, key: link.key, on: on)
-                updatePlan()
+                // Ausgeschaltet braucht die Auszahlung eine neue Wahl (sonst «Auf eigene Wallet» neben der Einzahlung)
+                if !on { choices[link.withdrawalKey] = nil }
+                linkOwnWallets()
             }
         )) {
             VStack(alignment: .leading, spacing: 2) {
@@ -55,7 +57,10 @@ extension PortfolioCsvImportSheet {
                 if link.withdrawalId != nil || link.depositId != nil {
                     hint(L("portfolio_csv_import_transfer_stored"))
                 }
-                if !link.unambiguous {
+                // Weitere Kandidaten (hohe Gebühr, späte Einzahlung): eigener Hinweis statt «mehrere Treffer»
+                if link.loose {
+                    hint(L("portfolio_csv_import_transfer_loose"))
+                } else if !link.unambiguous {
                     hint(L("portfolio_csv_import_transfer_ambiguous"))
                 }
             }
@@ -144,6 +149,7 @@ extension PortfolioCsvImportSheet {
         let selected: Bool = choices[tx.importKey] == choice
         return Button {
             choices[tx.importKey] = choice
+            linkOwnWallets()
         } label: {
             Label(title, systemImage: selected ? "checkmark.circle.fill" : "circle")
                 .font(.subheadline)
@@ -159,6 +165,14 @@ extension PortfolioCsvImportSheet {
         var next: [String: CsvWithdrawalChoice] = [:]
         for p in proposals { next[p.importKey] = choice }
         choices = next
+        linkOwnWallets()
+    }
+
+    /// «Auf eigene Wallet» mit freier passender Einzahlung wird deren Umbuchung (`CsvImportMapping.linkOwnWallets`), dann
+    /// den Plan neu — wie Android `linkOwnWallets`.
+    func linkOwnWallets() {
+        linked = CsvImportMapping.linkOwnWallets(links, chosen: linked, choices: choices)
+        updatePlan()
     }
 
     /// Zeilen ohne Tageskurs: Ladefehler (nur wo ein neuer Abruf helfen kann), Zeilen, Währungen ohne mögliche Tageskurse
@@ -194,6 +208,25 @@ extension PortfolioCsvImportSheet {
                 .tint(accent.primary)
                 .disabled(rereading)
                 .accessibilityIdentifier(UiTestTags.csvImportAnyway)
+        }
+    }
+
+    /// Schon importierte Zeilen: Anzahl (solange übersprungen), welche Zeilen (`CsvLineList`) und «Trotzdem importieren» —
+    /// dann liest die Vorschau sie mit freiem Schlüssel neu (`CsvImport.keptAnyway`). Wie Android `DuplicatesHint`.
+    var duplicatesSection: some View {
+        let list = CsvLineList.of(preview.duplicateLines)
+        let numbers = list.shown.map(String.init).joined(separator: ", ")
+            + (list.more > 0 ? " " + L("portfolio_csv_import_more", list.more) : "")
+        return VStack(alignment: .leading, spacing: Spacing.xs) {
+            if !preview.duplicatesKept { Text(L("portfolio_csv_import_duplicates", count: preview.duplicates)) }
+            hint(L("portfolio_csv_import_duplicate_lines", numbers))
+            Toggle(L("portfolio_csv_import_anyway"), isOn: Binding(get: { keepDuplicates }, set: { on in
+                keepDuplicates = on
+                remap()
+            }))
+            .font(.subheadline)
+            .tint(accent.primary)
+            .disabled(rereading)
         }
     }
 

@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">പോർട്ട്ഫോളിയോയിൽ നിന്ന് പുറത്തുപോകുന്നു (പിൻവലിക്കൽ)</string>
     <string name="portfolio_csv_import_choose_each">ഓരോ പിൻവലിക്കലും എങ്ങോട്ട് പോയെന്ന് തിരഞ്ഞെടുക്കുക.</string>
     <string name="portfolio_csv_import_columns">തിരിച്ചറിഞ്ഞ കോളങ്ങൾ: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">ഇതിനകം ഇറക്കുമതി ചെയ്തത്: വരികൾ %1$s</string>
     <string name="portfolio_csv_import_confirm">ഇമ്പോർട്ട് ചെയ്യുക (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ദിവസം/മാസം</string>
     <string name="portfolio_csv_import_date_month_first">മാസം/ദിവസം</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">സ്റ്റേബിൾകോയിനുകൾക്കെതിരായ ട്രേഡുകൾ (USDT, USDC …) സ്വാപ്പുകളായി രേഖപ്പെടുത്തുന്നു – സ്റ്റേബിൾകോയിൻ നിങ്ങളുടെ ഹോൾഡിംഗുകളിൽ കാണും.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ഒന്നിലധികം പൊരുത്തങ്ങൾ സാധ്യമാണ് – ശരിയായത് തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ ഒന്നും വേണ്ട.</string>
+    <string name="portfolio_csv_import_transfer_loose">ഉയർന്ന ഫീസ് അല്ലെങ്കിൽ വൈകിയ വരവ് – ഇത് അതേ കൈമാറ്റമാണോ എന്ന് പരിശോധിക്കുക.</string>
     <string name="portfolio_csv_import_transfer_fee">നെറ്റ്‌വർക്ക് ഫീസ്: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ഒരു കൈമാറ്റമായി രേഖപ്പെടുത്തുക</string>
     <string name="portfolio_csv_import_transfer_stored">മുമ്പത്തെ ഇമ്പോർട്ടിൽ നിന്നുള്ള മറുഭാഗം</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">പ്രതിദിന നിരക്കുകൾ ഈ സമയമേഖലയിലെ കലണ്ടർ ദിവസം അനുസരിച്ച്: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">പ്രതിദിന നിരക്കുകൾ ലോഡ് ചെയ്യാനായില്ല.</string>
     <string name="portfolio_csv_import_anyway">എന്നിരുന്നാലും ഇമ്പോർട്ട് ചെയ്യുക</string>
-    <string name="portfolio_csv_import_anyway_hint">പ്രതിദിന നിരക്കില്ലെങ്കിൽ വിലയോ ഫീസോ സ്ഥിരമായി നഷ്ടമാകും. വീണ്ടും ശ്രമിക്കുക, അല്ലെങ്കിൽ എന്നിരുന്നാലും ഇമ്പോർട്ട് ചെയ്യുക – അപ്പോൾ ആ ഇടപാടുകൾക്ക് ഒരു കുറിപ്പ് ലഭിക്കും.</string>
+    <string name="portfolio_csv_import_anyway_hint">ദിവസ നിരക്ക് ഇല്ലെങ്കിൽ, നിങ്ങൾ ചേർക്കുന്നതുവരെ വിലയോ ഫീസോ ഉണ്ടാകില്ല. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ എന്തായാലും ഇമ്പോർട്ട് ചെയ്യുക – ആ ഇടപാടുകൾക്ക് ഒരു കുറിപ്പ് ലഭിക്കും.</string>
     <string name="portfolio_csv_note_price_no_rate">പ്രതിദിന നിരക്കില്ലാത്ത വില</string>
     <string name="portfolio_csv_note_fee_no_rate">പ്രതിദിന നിരക്കില്ലാത്ത ഫീസ്</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-ന് പ്രതിദിന നിരക്കുകളില്ല, അതിനാൽ വീണ്ടും ശ്രമിച്ചിട്ട് കാര്യമില്ല. എന്നിരുന്നാലും ഇമ്പോർട്ട് ചെയ്താൽ ആ ഇടപാടുകൾക്ക് ഒരു കുറിപ്പ് ലഭിക്കും.</string>

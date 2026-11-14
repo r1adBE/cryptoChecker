@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Portefeuljealarms kontroleer sonder adresse waarvan die saldo al meer as 24 uur nie gelaai het nie</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens deels verouderd</string>
+    <string name="portfolio_address_zero_unconfirmed">0 nog nie bevestig nie</string>
     <string name="portfolio_address_restore_failed">Adres kon nie herstel word nie – voeg dit weer by indien nodig</string>
     <string name="portfolio_address_remove_failed">Adres kon nie verwyder word nie – probeer asseblief weer</string>
 </resources>

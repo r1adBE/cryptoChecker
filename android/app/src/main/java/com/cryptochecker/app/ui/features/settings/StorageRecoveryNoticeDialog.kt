@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -38,6 +39,8 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
     // Saveable: der Dialog muss Drehen überstehen (einmalige Hinweise sind beim Zeigen schon bestätigt)
     var shown by rememberSaveable { mutableStateOf<Kind?>(null) }
     val changes by StorageRecoveryNotice.changes.collectAsState()
+    // Einstellungen ersetzt: der eigene Bitcoin-Server ist unbekannt — der Hinweis nennt ihn (Bitcoin-Abfragen ruhen)
+    val serverUnknown by remember { StorageRecoveryNotice.addressServerUnknown(context) }.collectAsState(initial = false)
     // Auch nach dem Schliessen (shown → null): ein weiterer vorgemerkter Hinweis folgt
     LaunchedEffect(changes, shown) {
         if (shown != null) return@LaunchedEffect
@@ -67,7 +70,12 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
         Kind.SETTINGS_RESET -> AlertDialog(
             onDismissRequest = { closeSettingsReset() },
             title = { Text(stringResource(R.string.settings_reset_notice_title)) },
-            text = { DialogText { Text(stringResource(R.string.settings_reset_notice)) } },
+            text = {
+                DialogText {
+                    val server = if (serverUnknown) "\n\n" + stringResource(R.string.settings_address_server_unknown) else ""
+                    Text(stringResource(R.string.settings_reset_notice) + server)
+                }
+            },
             confirmButton = {
                 TextButton(onClick = { closeSettingsReset() }) { Text(stringResource(R.string.action_close)) }
             },

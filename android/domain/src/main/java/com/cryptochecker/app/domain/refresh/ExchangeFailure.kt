@@ -63,3 +63,30 @@ val ExchangeFailure.httpStatus: Int?
         is ExchangeFailure.RateLimited -> code
         else -> null
     }
+
+/**
+ * Vorübergehende Störung (Zeit, Netz, TLS, Bremse, HTTP 408, 5xx): sagt nichts über den Inhalt, ein neuer Versuch kann
+ * helfen. Wie iOS `ExchangeFailure.isTransient` (Fälle in `exchange_failure.json`, «pairListAborts»).
+ */
+val ExchangeFailure.isTransient: Boolean
+    get() = when (this) {
+        ExchangeFailure.Timeout, ExchangeFailure.Offline, ExchangeFailure.Ssl, is ExchangeFailure.RateLimited -> true
+        is ExchangeFailure.HttpStatus -> code == 408 || code >= 500
+        else -> false
+    }
+
+/**
+ * Paarliste in mehreren Anfragen (BitFlyer je Region, Deribit je Abrechnungswährung): Scheitert Anfrage [call], bricht
+ * die ganze Liste ab (die gespeicherte bleibt), wenn es die erste ist, jede nötig ist oder die Störung vorübergehend war
+ * — sonst würde eine halbe Liste mit neuem Datum gespeichert. Eine bleibend fehlende Teilliste (4xx, unlesbar)
+ * wird übersprungen. Wie iOS `ExchangeFailure.pairListCallAborts`.
+ */
+fun pairListCallAborts(call: Int, allCallsRequired: Boolean, failure: ExchangeFailure): Boolean =
+    call == 0 || allCallsRequired || failure.isTransient
+
+/**
+ * Ladeversuch einer Paarliste merken (danach Stunden Ruhe)? Nur nach einem Ergebnis: geladen ([failure] null) oder eine
+ * bleibende Antwort der Börse. Eine vorübergehende Störung ([isTransient]: Netz, Zeit, Bremse, 5xx) sperrt nicht — der
+ * nächste Abruf versucht es wieder. Wie iOS `ExchangeFailure.remembersPairListAttempt`.
+ */
+fun remembersPairListAttempt(failure: ExchangeFailure?): Boolean = failure == null || !failure.isTransient

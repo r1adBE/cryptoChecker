@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Amaran portfolio menyemak tanpa alamat yang bakinya tidak dimuatkan selama lebih 24 jam</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token sebahagiannya lapuk</string>
+    <string name="portfolio_address_zero_unconfirmed">0 belum disahkan</string>
     <string name="portfolio_address_restore_failed">Alamat tidak dapat dipulihkan – tambah semula jika perlu</string>
     <string name="portfolio_address_remove_failed">Alamat tidak dapat dialih keluar – sila cuba lagi</string>
 </resources>

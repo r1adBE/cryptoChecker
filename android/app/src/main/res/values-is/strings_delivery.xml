@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Viðvaranir á – engin athugun í bakgrunni enn</string>
     <string name="alarm_reliability_notifications_off">Tilkynningar af – viðvaranir berast ekki</string>
     <string name="alarm_reliability_battery">Rafhlöðusparnaður getur stöðvað athuganir viðvarana</string>
+    <string name="alarm_reliability_offline">Engin tenging – viðvaranir eru athugaðar þegar netið kemur aftur</string>
     <string name="alarm_reliability_background_refresh">Uppfærsla í bakgrunni af – viðvaranir berast hugsanlega ekki</string>
 </resources>

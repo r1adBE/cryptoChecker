@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">ಕೊನೆಯ ರಿಫ್ರೆಶ್</string>
     <string name="watchlist_symbols_legend">ಚಿಹ್ನೆಗಳ ವಿವರಣೆ</string>
     <string name="watchlist_symbols_legend_alarms">ಸಕ್ರಿಯ ಅಲರ್ಟ್‌ಗಳು ಮತ್ತು ಅವುಗಳ ಸಂಖ್ಯೆ</string>
+    <string name="watchlist_symbols_legend_warning">ಬೆಲೆ ಹಳೆಯದು ಅಥವಾ ಎಕ್ಸ್‌ಚೇಂಜ್ ತಲುಪಲಾಗುತ್ತಿಲ್ಲ</string>
     <string name="watchlist_refresh_report_empty">ಇನ್ನೂ ವಿವರವಿಲ್ಲ – ಇಲ್ಲಿಯವರೆಗೆ ಪೂರ್ಣ ರಿಫ್ರೆಶ್ ಆಗಿಲ್ಲ. ರಿಫ್ರೆಶ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ವೃತ್ತ ನಿಲ್ಲುವವರೆಗೆ ಕಾಯಿರಿ.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d ರಲ್ಲಿ %1$d ಹಳೆಯದು</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">ಸೂಚನೆ ಮುಚ್ಚಿ</string>
     <string name="watchlist_missing_logos_explain">ಈ ಕಾಯಿನ್‌ಗಳಿಗೆ ಯಾವುದೇ ಲೋಗೋ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಅವುಗಳ ಮೊದಲಕ್ಷರಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
+    <string name="watchlist_missing_logos_pending">ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ</string>
+    <string name="watchlist_missing_logos_explain_pending">ಇನ್ನೂ ಲೋಡ್ ಆಗಿಲ್ಲ ಎಂದು ಗುರುತಿಸಿದ ಲೋಗೋಗಳು ಮುಂದಿನ ಸಿಂಕ್‌ನೊಂದಿಗೆ ಬರುತ್ತವೆ, ಕೆಲವು Wi-Fi ನಲ್ಲಿ ಮಾತ್ರ. ಇತರ ಕಾಯಿನ್‌ಗಳಿಗೆ ಲೋಗೋ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್ ಅವುಗಳ ಮೊದಲಕ್ಷರಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
     <string name="exchange_retiring_notice">%2$s ರಿಂದ %1$s ಸಾರ್ವಜನಿಕ ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ. ಈ ಕಾಯಿನ್‌ಗಳಿಗೆ ಬೇರೆ ಎಕ್ಸ್‌ಚೇಂಜ್ ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="exchange_retiring_reason">%2$s ರಿಂದ %1$s ಬೆಲೆಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ</string>
     <string name="exchange_retired_since">%2$s ರಿಂದ %1$s ಇನ್ನು ಬೆಲೆಗಳನ್ನು ನೀಡುತ್ತಿಲ್ಲ</string>

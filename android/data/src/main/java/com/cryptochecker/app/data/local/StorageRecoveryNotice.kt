@@ -43,6 +43,7 @@ object StorageRecoveryNotice {
     private const val KEY_SYSTEM_BACKUP_NOT_IMPORTED = "system_backup_not_imported"
     private const val KEY_SETTINGS_RESET = "settings_reset"
     private const val KEY_APP_LOCK_UNKNOWN = "app_lock_unknown"
+    private const val KEY_ADDRESS_SERVER_UNKNOWN = "address_server_unknown"
     private const val KEY_ROLLBACK_ATTEMPTED_FOR = "restore_rollback_attempted_for"
     private const val ROLLED_BACK = "rolled_back"
     private const val INCOMPLETE = "incomplete"
@@ -115,12 +116,17 @@ object StorageRecoveryNotice {
      * Einstellungen beschädigt und durch Standardwerte ersetzt vormerken. Läuft im Ersatz-Handler von DataStore, also
      * vor dem ersten Lesen — darum sofort geschrieben (der Prozess kann gleich danach enden).
      * [lockUnknown]: Die Portfolio-Sperre gilt als unbekannt und damit als an, bis der Nutzer sie selbst
-     * setzt ([confirmAppLock]) — nicht bei einem blossen Lesefehler, dort ist die Datei unverändert.
+     * setzt ([confirmAppLock]) — nicht bei einem blossen Lesefehler, dort ist die Datei unverändert. Ebenso der eigene
+     * Bitcoin-Server ([addressServerUnknown]): Bitcoin-Adressen werden nicht abgefragt, bis der Nutzer ihn neu einträgt
+     * oder öffentliche Knoten bestätigt ([confirmAddressServer]) — nie still bei öffentlichen Knoten.
      */
     fun recordSettingsReset(context: Context, lockUnknown: Boolean = true) {
         prefs(context).edit(commit = true) {
             putBoolean(KEY_SETTINGS_RESET, true)
-            if (lockUnknown) putBoolean(KEY_APP_LOCK_UNKNOWN, true)
+            if (lockUnknown) {
+                putBoolean(KEY_APP_LOCK_UNKNOWN, true)
+                putBoolean(KEY_ADDRESS_SERVER_UNKNOWN, true)
+            }
         }
         recorded.update { it + 1 }
     }
@@ -133,6 +139,26 @@ object StorageRecoveryNotice {
         .map { prefs(context).getBoolean(KEY_APP_LOCK_UNKNOWN, false) }
         .distinctUntilChanged()
         .flowOn(Dispatchers.IO)
+
+    /**
+     * Eigener Bitcoin-Server unbekannt (Einstellungen ersetzt, [recordSettingsReset])? Dann fragt die App keine
+     * Bitcoin-Adressen ab (`AddressServer.queryAllowed`). Gibt bei jeder Vormerkung neu aus; gelesen im Hintergrund.
+     */
+    fun addressServerUnknown(context: Context): Flow<Boolean> = changes
+        .map { isAddressServerUnknown(context) }
+        .distinctUntilChanged()
+        .flowOn(Dispatchers.IO)
+
+    /** Wie [addressServerUnknown], einmal gelesen (nicht auf dem Hauptthread). */
+    fun isAddressServerUnknown(context: Context): Boolean = prefs(context).getBoolean(KEY_ADDRESS_SERVER_UNKNOWN, false)
+
+    /** Server neu eingetragen bzw. öffentliche Knoten bestätigt: Bitcoin-Adressen werden wieder abgefragt. */
+    fun confirmAddressServer(context: Context) {
+        val p = prefs(context)
+        if (!p.getBoolean(KEY_ADDRESS_SERVER_UNKNOWN, false)) return
+        p.edit(commit = true) { remove(KEY_ADDRESS_SERVER_UNKNOWN) }
+        recorded.update { it + 1 }
+    }
 
     /** Der Nutzer hat die Portfolio-Sperre selbst gesetzt (oder eine Sicherung sie): nicht mehr unbekannt. */
     fun confirmAppLock(context: Context) {

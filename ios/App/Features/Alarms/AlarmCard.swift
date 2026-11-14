@@ -147,6 +147,7 @@ struct AlarmCard: View {
             case .noCandles: return (L("alarm_unchecked_no_candles"), "exclamationmark.circle")
             // Funding/Open Interest ohne Werte: vorhandener Text «Keine Futures-Daten …» (wie Android)
             case .noData: return (L("futures_no_data"), "exclamationmark.circle")
+            case .noWindowPrice: return (L("alarm_unchecked_no_window_price"), "exclamationmark.circle")
             }
         }
     }

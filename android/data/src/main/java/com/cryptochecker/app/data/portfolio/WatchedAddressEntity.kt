@@ -90,6 +90,7 @@ fun WatchedAddressEntity.toDomain(): WatchedAddress? {
         costLots = AddressCostLots.decode(costLots),
         staleTokens = extras.staleTokens,
         pendingSince = extras.pendingSince,
+        zeroPending = extras.zeroPending,
     )
 }
 

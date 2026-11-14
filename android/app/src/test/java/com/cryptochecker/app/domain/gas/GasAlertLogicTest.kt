@@ -53,6 +53,15 @@ class GasAlertLogicTest {
     }
 
     @Test
+    fun zeroOrInvalidValueIsNoData() {
+        // F3-08: Messwert 0 (gestörter Knoten) meldet nicht und verbraucht nichts; nicht scharf bleibt nicht scharf
+        assertEquals(false to true, GasAlertLogic.evaluate(0.0, 2.0, armed = true))
+        assertEquals(false to true, GasAlertLogic.evaluate(-1.0, 2.0, armed = true))
+        assertEquals(false to true, GasAlertLogic.evaluate(Double.NaN, 2.0, armed = true))
+        assertEquals(false to false, GasAlertLogic.evaluate(0.0, 2.0, armed = false))
+    }
+
+    @Test
     fun offNeverFires() {
         assertEquals(false to true, GasAlertLogic.evaluate(0.1, 0.0, true))
     }

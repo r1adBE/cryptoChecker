@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">කළඹෙන් ඉවත් වේ (ආපසු ගැනීම)</string>
     <string name="portfolio_csv_import_choose_each">එක් එක් ආපසු ගැනීම ගියේ කොතැනටදැයි තෝරන්න.</string>
     <string name="portfolio_csv_import_columns">හඳුනාගත් තීරු: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">දැනටමත් ආයාත කළා: පේළි %1$s</string>
     <string name="portfolio_csv_import_confirm">ආයාත කරන්න (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">දිනය/මාසය</string>
     <string name="portfolio_csv_import_date_month_first">මාසය/දිනය</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ස්ථායි කාසි (USDT, USDC …) එදිරිව වෙළඳාම් හුවමාරු ලෙස සටහන් වේ – ස්ථායි කාසිය ඔබේ හිමිකම්වල දිස් වේ.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ගැළපීම් කිහිපයක් විය හැක – නිවැරදි එක තෝරන්න නැතහොත් කිසිවක් නොතෝරන්න.</string>
+    <string name="portfolio_csv_import_transfer_loose">ඉහළ ගාස්තුවක් හෝ ප්‍රමාද වී පැමිණීම – එකම මාරු කිරීම දැයි පරීක්ෂා කරන්න.</string>
     <string name="portfolio_csv_import_transfer_fee">ජාල ගාස්තුව: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">එක් මාරුවක් ලෙස සටහන් කරන්න</string>
     <string name="portfolio_csv_import_transfer_stored">පෙර ආයාතයකින් ගැළපෙන ඇතුළත් කිරීම</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">දෛනික අනුපාත මෙම වේලා කලාපයේ දින දර්ශන දිනය අනුව: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">දෛනික අනුපාත පූරණය කළ නොහැකි විය.</string>
     <string name="portfolio_csv_import_anyway">එසේ වුවත් ආයාත කරන්න</string>
-    <string name="portfolio_csv_import_anyway_hint">දෛනික අනුපාතයක් නැතිව මිල හෝ ගාස්තුව ස්ථිරවම අඩු වේ. යළි උත්සාහ කරන්න, නැතහොත් එසේ වුවත් ආයාත කරන්න – එවිට එම ගනුදෙනුවලට සටහනක් එක් වේ.</string>
+    <string name="portfolio_csv_import_anyway_hint">දෛනික අනුපාතයක් නැතිව, ඔබ එකතු කරන තුරු මිල හෝ ගාස්තුව නොමැත. නැවත උත්සාහ කරන්න හෝ කෙසේ හෝ ආයාත කරන්න – එම ගනුදෙනුවලට සටහනක් ලැබේ.</string>
     <string name="portfolio_csv_note_price_no_rate">දෛනික අනුපාතයක් නැති මිල</string>
     <string name="portfolio_csv_note_fee_no_rate">දෛනික අනුපාතයක් නැති ගාස්තුව</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s සඳහා දෛනික අනුපාත නැති නිසා යළි උත්සාහ කිරීමෙන් ප්‍රයෝජනයක් නැත. එසේ වුවත් ආයාත කළහොත් එම ගනුදෙනුවලට සටහනක් එක් වේ.</string>

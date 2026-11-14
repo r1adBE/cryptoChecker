@@ -74,6 +74,11 @@ struct AddressAlarmState: Equatable, Sendable {
                 }
             }
             if a.chain == .BTC && !a.isXpub && covered.contains(a.address) { continue }
+            // Ketten-Guthaben, dessen 0 auf Bestätigung wartet (`ZeroConfirm`): alter Wert gilt wie ein alter Kurs
+            if a.zeroPending.contains(ZeroConfirm.main), let held = PortfolioDecimal.parse(a.lastBalance), held > 0 {
+                if state.staleTokenAddresses.last != name(a) { state.staleTokenAddresses.append(name(a)) }
+                state.staleTokenAmounts[a.chain.coin] = (state.staleTokenAmounts[a.chain.coin] ?? 0) + held
+            }
             if loadedList.contains(where: { same($0, a) }) { continue }
             if isPending(a, now: now) { state.pending += 1 } else { state.failing.append(name(a)) }
         }
@@ -84,12 +89,13 @@ struct AddressAlarmState: Equatable, Sendable {
 extension WatchedAddressRules {
     /// Token, deren alter Wert mangels Antwort bleibt (TON: volle Jetton-Seite) → `WatchedAddress.staleTokens`, nur mit
     /// gespeichertem Guthaben > 0 (ohne alten Wert ist nichts veraltet); nil = unverändert (z. B. Token-Abfrage gescheitert).
-    /// Teil von `applyFetched` — wie Android.
-    static func withKeptTokens(_ a: WatchedAddress, _ keptTokens: [String]?) -> WatchedAddress {
-        guard let keptTokens, ChainAssets.hasTokens(a.chain) else { return a }
+    /// Dazu Token, deren Sprung auf 0 auf Bestätigung wartet (`held`, `ZeroConfirm`). Teil von `applyFetched` — wie Android.
+    static func withKeptTokens(_ a: WatchedAddress, _ keptTokens: [String]?, held: [String] = []) -> WatchedAddress {
+        guard keptTokens != nil || !held.isEmpty || !a.staleTokens.isEmpty, ChainAssets.hasTokens(a.chain) else { return a }
         var out = a
         var kept: [String] = []
-        for key in keptTokens where !kept.contains(key) && (PortfolioDecimal.parse(a.tokenBalances[key]) ?? 0) > 0 {
+        for key in (keptTokens ?? a.staleTokens) + held
+        where !kept.contains(key) && (PortfolioDecimal.parse(a.tokenBalances[key]) ?? 0) > 0 {
             kept.append(key)
         }
         out.staleTokens = kept

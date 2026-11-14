@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fonas</string>
-    <string name="widget_configure_hint">Pasirink foną ir neskaidrumą. Spalva atitinka programėlę. Valdiklis rodo visą tavo stebimų sąrašą; bakstelėjus eilutę atidaroma programėlė.</string>
+    <string name="widget_configure_hint">Pasirink foną ir neskaidrumą. Spalva atitinka programėlę. Valdiklis rodo tavo stebimų sąrašą arba žemiau pasirinktą grupę; bakstelėk eilutę, kad atidarytum programėlę.</string>
     <string name="widget_configure_title">Nustatyti valdiklį</string>
     <string name="widget_description">Rodo poros iš tavo stebimų sąrašo kainą.</string>
     <string name="widget_empty">Stebimų sąraše dar nėra porų.</string>

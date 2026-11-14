@@ -58,8 +58,23 @@ class RestoreStorageMessageTest {
         val manager = File(app, "backup/BackupManager.kt").readText()
         assertTrue(
             manager.contains(
-                "val settingsNotes = try { writeRestored(input, previous, encrypted) } catch (e: Exception) { throw RestoreRun.forMessage(e) }",
+                "val settingsNotes = try { addressRefresher.withRefreshLock { writeRestored(input, previous, encrypted) } } " +
+                    "catch (e: Exception) { throw RestoreRun.forMessage(e) }",
             ),
         )
+    }
+
+    /**
+     * S3-03: Adressen und eigener Server kommen in getrennten Schritten — Wiederherstellen und Zurückrollen laufen unter der
+     * Sperre der Adress-Aktualisierung, die Reihenfolge der Schritte spielt keine Rolle.
+     */
+    @Test
+    fun restoreAndRollBackHoldTheAddressRefreshLock() {
+        val app = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../app/src/main/java/com/cryptochecker/app")
+        val recovery = File(app, "backup/BackupManagerRecovery.kt").readText()
+        assertTrue(recovery.contains("addressRefresher.withRefreshLock {\n            rollBack(previous, Step.entries.toSet()"))
+        val data = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data")
+        val refresher = File(data, "portfolio/WatchedAddressRefresher.kt").readText()
+        assertTrue(refresher.contains("suspend fun <T> withRefreshLock(block: suspend () -> T): T = gate.withLock { block() }"))
     }
 }

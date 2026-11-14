@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Sinusuri ang mga alerto ng portfolio nang wala ang mga address na hindi naglo-load ang balanse nang mahigit 24 na oras</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">bahagyang luma na ang mga token</string>
+    <string name="portfolio_address_zero_unconfirmed">0 hindi pa kumpirmado</string>
     <string name="portfolio_address_restore_failed">Hindi ma-restore ang address – idagdag ulit kung kailangan</string>
     <string name="portfolio_address_remove_failed">Hindi maalis ang address – pakisubukan ulit</string>
 </resources>

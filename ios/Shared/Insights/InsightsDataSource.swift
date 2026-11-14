@@ -42,17 +42,9 @@ enum InsightsDataSource {
         let athCandle = (weekly + daily).max(by: { $0.high < $1.high })
         let lastClose = closes[closes.count - 1]
 
-        // Stärke gegenüber Bitcoin: Verhältnis heute vs. vor 90 Tagen
-        var vsBtc: Double? = nil
-        if let btc = btcResult {
-            let btcCloses = btc.map(\.close)
-            let c0 = element(closes, closes.count - 91)
-            let b0 = element(btcCloses, btcCloses.count - 91)
-            let b1 = btcCloses.last
-            if let c0, let b0, let b1, c0 > 0, b0 > 0, b1 > 0 {
-                vsBtc = ((lastClose / c0) / (b1 / b0) - 1.0) * 100.0
-            }
-        }
+        // Stärke gegenüber Bitcoin: Verhältnis heute vs. vor 90 Tagen — nach Datum, nicht nach Kerzen-Position
+        let dayCloses = daily.map(dayClose)
+        let vsBtc = btcResult.flatMap { Indicators.relativeChangePercent(coin: dayCloses, btc: $0.map(dayClose), days: 90) }
 
         let weeklyDays = weekly.first.map { $0.date.days(until: .todayUTC()) } ?? 0
         let historyDays = max(daily.count, weeklyDays)
@@ -63,7 +55,7 @@ enum InsightsDataSource {
             sma200d: Indicators.smaOfLast(closes, 200),
             sma111d: Indicators.smaOfLast(closes, 111),
             sma350d: Indicators.smaOfLast(closes, 350),
-            price30dAgo: element(closes, closes.count - 31),
+            price30dAgo: Indicators.closeOnOrBefore(dayCloses, day: dayCloses[dayCloses.count - 1].day - 30),
             sma200w: Indicators.smaOfLast(weeklyCloses, 200),
             ath: athCandle?.high,
             athDate: athCandle?.date,
@@ -75,8 +67,8 @@ enum InsightsDataSource {
         return Sourced(value: inputs, provider: dailySourced.provider)
     }
 
-    private static func element(_ values: [Double], _ index: Int) -> Double? {
-        values.indices.contains(index) ? values[index] : nil
+    private static func dayClose(_ candle: InsightsCandle) -> Indicators.DayClose {
+        Indicators.DayClose(day: candle.date.epochDay, close: candle.close)
     }
 
     private static func optionalKlines(_ base: String, daily: Bool, limit: Int, skip: Bool = false) async -> [InsightsCandle]? {
@@ -222,8 +214,7 @@ enum InsightsDataSource {
             return Sourced(value: AltSeason(outperformers: v.outperformers, total: v.total), provider: v.provider)
         }
         let btcSourced = try await chainKlinesSourced("BTC", interval: .d1, limit: 91)
-        let btc = btcSourced.value.map(\.close)
-        guard let btcChange = change90(btc) else { throw JSONError(message: "BTC-Verlauf fehlt") }
+        guard let btcChange = change90(btcSourced.value) else { throw JSONError(message: "BTC-Verlauf fehlt") }
 
         // Höchstens fünf Abfragen gleichzeitig (wie die Semaphore in Android).
         let results: [Double] = await withTaskGroup(of: Double?.self) { group in
@@ -247,14 +238,12 @@ enum InsightsDataSource {
 
     private static func altChange(_ alt: String) async -> Double? {
         guard let candles = try? await chainKlines(alt, interval: .d1, limit: 91) else { return nil }
-        return change90(candles.map(\.close))
+        return change90(candles)
     }
 
-    private static func change90(_ closes: [Double]) -> Double? {
-        guard closes.count >= 91 else { return nil }
-        let first = closes[closes.count - 91]
-        guard first > 0, let last = closes.last else { return nil }
-        return last / first - 1.0
+    /// Veränderung über 90 Tage nach Datum (`Indicators.changeOverDays`); fehlt der Tag (Lücke der Quelle), nil.
+    private static func change90(_ candles: [InsightsCandle]) -> Double? {
+        Indicators.changeOverDays(candles.map(dayClose), days: 90)
     }
 
     // MARK: Zyklus-Vergleich

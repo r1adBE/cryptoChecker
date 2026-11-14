@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Larm på – ingen kontroll i bakgrunden än</string>
     <string name="alarm_reliability_notifications_off">Aviseringar av – larm kommer inte fram</string>
     <string name="alarm_reliability_battery">Batterisparläge kan stoppa kontrollen av larm</string>
+    <string name="alarm_reliability_offline">Ingen anslutning – larm kontrolleras när nätet är tillbaka</string>
     <string name="alarm_reliability_background_refresh">Uppdatera appar i bakgrunden av – larm kanske inte kommer fram</string>
 </resources>

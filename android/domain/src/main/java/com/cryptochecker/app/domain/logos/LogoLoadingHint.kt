@@ -12,8 +12,8 @@ import kotlin.math.abs
  * Hinweis «Logos werden geladen …» unter dem Kopf der Merkliste — nur beim ersten Laden der Logos nach der
  * Installation bzw. nach dem Leeren des Logo-Zwischenspeichers, nie beim täglichen Nachholen gescheiterter Bilder:
  * [visible], sobald ein solcher Durchgang ([during]) Bilder zu laden hat ([imagesPending] > 0); weg, sobald er endet —
- * fertig, gescheitert oder gebremst —, und in diesem Durchgang nicht wieder. Endet ein Durchgang mit Hinweis, ist das
- * erste Laden erledigt ([runFinished] = true): gemerkt als leere Datei [DONE_MARKER] im Logo-Ordner ([doneMarker]) —
+ * fertig, gescheitert oder gebremst —, und in diesem Durchgang nicht wieder. Endet ein VOLLSTÄNDIGER Durchgang mit
+ * Hinweis, ist das erste Laden erledigt ([runFinished] = true): gemerkt als leere Datei [DONE_MARKER] im Logo-Ordner ([doneMarker]) —
  * sie verschwindet mit dem Zwischenspeicher und beim Zurücksetzen der App. Coins ganz ohne Logo zählen nie als fehlend.
  *
  * Fortschritt «Logos werden geladen · 40 %» ([percent]): erledigte Bilder des Durchgangs ([imageDone]: geladen oder
@@ -102,20 +102,24 @@ class LogoLoadingHint(
         show()
     }
 
-    /** true = das erste Laden ist damit erledigt (Hinweis stand und der letzte Durchgang endet): merken. */
+    /**
+     * true = das erste Laden ist damit erledigt (Hinweis stand, der letzte Durchgang endet und war [complete]: nichts am
+     * Netz gescheitert, gebremst oder offen): merken. Unvollständig: der Hinweis geht weg, kommt aber beim nächsten
+     * Durchgang wieder, und «Coins ohne Logo» bleibt bis dahin aus ([firstLoadDone]).
+     */
     @Synchronized
-    fun runFinished(): Boolean {
+    fun runFinished(complete: Boolean = true): Boolean {
         if (runs > 0) runs--
         if (runs > 0) return false
         val wasVisible = _visible.value
         // Vor dem Ausblenden: wer auf das Ende wartet ([firstLoadDone]), sieht es schon erledigt
-        if (wasVisible) finishedNow = true
+        if (wasVisible && complete) finishedNow = true
         _visible.value = false
         done = 0
         total = null
         paused = false
         // [percent] bleibt, solange die Zeile ausblendet (kein Sprung zurück auf «…»); der nächste Durchgang leert ihn
-        return wasVisible
+        return wasVisible && complete
     }
 
     private fun show() {
@@ -135,15 +139,19 @@ class LogoLoadingHint(
     fun firstLoadDone(): Boolean =
         finishedNow || doneMarker?.let { runCatching { it().isFile }.getOrDefault(false) } == true
 
-    /** [block] als ein Durchgang; endet auch bei Fehler und Abbruch. Liest und schreibt die Merk-Datei [doneMarker]. */
-    suspend fun <T> during(block: suspend () -> T): T {
+    /**
+     * [block] als ein Durchgang; endet auch bei Fehler und Abbruch. Liest und schreibt die Merk-Datei [doneMarker] — nur
+     * nach einem vollständigen Durchgang ([complete] mit dem Ergebnis); Fehler und Abbruch sind nie vollständig.
+     */
+    suspend fun <T> during(complete: (T) -> Boolean = { true }, block: suspend () -> T): T {
         val marker = doneMarker?.let { withContext(Dispatchers.IO) { runCatching { it() }.getOrNull() } }
         runStarted(firstLoadDone = marker != null && withContext(Dispatchers.IO) { marker.isFile })
+        var finished = false
         try {
-            return block()
+            return block().also { finished = complete(it) }
         } finally {
-            // Merken auch nach einem Abbruch (Datei anlegen blockiert nur kurz)
-            if (runFinished() && marker != null) runCatching { marker.createNewFile() }
+            // Datei anlegen blockiert nur kurz
+            if (runFinished(finished) && marker != null) runCatching { marker.createNewFile() }
         }
     }
 

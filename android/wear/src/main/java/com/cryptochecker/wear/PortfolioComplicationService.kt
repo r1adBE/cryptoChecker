@@ -14,6 +14,7 @@ import androidx.wear.watchface.complications.data.TimeDifferenceStyle
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 import com.cryptochecker.marketdata.watch.WatchFreshness
+import com.cryptochecker.marketdata.watch.WatchInterval
 import com.cryptochecker.marketdata.watch.WatchPortfolio
 import java.time.Instant
 import java.util.concurrent.TimeUnit
@@ -22,21 +23,22 @@ import java.util.concurrent.TimeUnit
  * Komplikation «Portfolio»: der Wert, den das Handy schickt (nur mit «Portfolio-Wert auf der Uhr»), ohne eigene
  * Abfrage — kurz «12.3K» mit der Währung als Titel, lang «CHF 12’345.67  +1.20 %» mit «Portfolio» als Titel; verborgen
  * auf dem Handy «•••». Ohne Wert (Schalter aus oder noch nie einer): kurz «Portfolio / aus», lang «Portfolio · am Handy
- * einschalten» ([WatchPortfolioText.offLine]), nie leer. Veraltet ([WatchFreshness]): lang mit Alter, kurz mit dem
+ * einschalten» ([WatchPortfolioText.offLine]), nie leer. Veraltet ([WatchFreshness], 3 × Intervall des Handys): lang mit Alter, kurz mit dem
  * Alter im Titel (vom Zifferblatt fortgezählt), wie [PriceComplicationService]. Neu gezeichnet bei jedem neuen Wert
  * ([WatchDataListener]). Tippen öffnet die Uhr-App. Wie die Apple Watch (`WatchPortfolioWidget`).
  */
 class PortfolioComplicationService : SuspendingComplicationDataSourceService() {
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? =
-        data(type, WatchPortfolio(12_345.67, 1.2, "USD", System.currentTimeMillis(), hidden = false), null)
+        data(type, WatchPortfolio(12_345.67, 1.2, "USD", System.currentTimeMillis(), hidden = false), WatchInterval.DEFAULT_MINUTES, null)
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val tap = PendingIntent.getActivity(
             this, 1, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
-        val p = WatchStore(this).portfolioFlow.value ?: return off(request.complicationType, tap)
-        return data(request.complicationType, p, tap)
+        val store = WatchStore(this)
+        val p = store.portfolioFlow.value ?: return off(request.complicationType, tap)
+        return data(request.complicationType, p, store.settings.interval, tap)
     }
 
     /** Kein Wert (Schalter «Portfolio-Wert auf der Uhr» aus): sagt es, statt leer zu bleiben; Tippen öffnet die Uhr-App. */
@@ -56,9 +58,10 @@ class PortfolioComplicationService : SuspendingComplicationDataSourceService() {
         }
     }
 
-    private fun data(type: ComplicationType, p: WatchPortfolio, tap: PendingIntent?): ComplicationData? {
+    /** [interval] = Intervall des Handys ([WatchFreshness.isOutdated]). */
+    private fun data(type: ComplicationType, p: WatchPortfolio, interval: Int, tap: PendingIntent?): ComplicationData? {
         val now = System.currentTimeMillis()
-        val outdated = WatchFreshness.isOutdated(p.time, now)
+        val outdated = WatchFreshness.isOutdated(p.time, now, interval)
         val spoken = WatchPortfolioText.spoken(this, p) + if (outdated) ", ${WatchAge.spoken(this, p.time, now)}" else ""
         val description = text(spoken)
         val change = if (p.hidden) "" else "  " + WatchFormat.change(p.changePercent)

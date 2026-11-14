@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">کل</string>
     <string name="portfolio_hide_amounts">پنهان کردن مبالغ</string>
-    <string name="portfolio_hide_amounts_hint">مبالغ و ارزش‌ها را در پرتفوی و ابزارک پرتفوی به‌صورت ••• نشان می‌دهد – درصدها دیده می‌شوند.</string>
+    <string name="portfolio_hide_amounts_hint">مبالغ و ارزش‌ها را در پرتفوی، ابزارک پرتفوی، روی ساعت و در هشدارهای پرتفوی به‌صورت ••• نشان می‌دهد – درصدها دیده می‌شوند.</string>
     <string name="portfolio_invested">بهای تمام‌شده</string>
     <string name="portfolio_total_no_fx">نرخ ارز برای %1$s نیست – مبالغ به USDT</string>
     <string name="portfolio_total_value">ارزش کل</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">تغییرات کنار گذاشته شود؟</string>
     <string name="portfolio_edit_tx">ویرایش تراکنش</string>
     <string name="portfolio_invalid">یک عدد معتبر بزرگ‌تر از 0 وارد کن.</string>
+    <string name="number_ambiguous">نامشخص: %1$s یا %2$s؟ یکی از این دو را بنویسید.</string>
     <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کن.</string>
     <string name="portfolio_sell">فروش</string>
     <string name="portfolio_sell_exceeds">بیشتر از موجودی‌ات (%1$s)</string>

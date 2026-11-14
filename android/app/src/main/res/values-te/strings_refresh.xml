@@ -91,6 +91,8 @@
     <string name="check_result_ok">సరే</string>
     <string name="check_result_partial">పాక్షికం</string>
     <string name="check_result_skipped">దాటవేయబడింది</string>
+    <string name="check_result_paused">పాజ్ చేయబడింది, ఏదీ తనిఖీ కాలేదు</string>
+    <string name="check_result_offline">దాటవేయబడింది (ఆఫ్‌లైన్)</string>
     <string name="check_trigger_bgtask">బ్యాక్‌గ్రౌండ్</string>
     <string name="check_trigger_exact">సమయానికి</string>
     <string name="check_trigger_foreground">యాప్</string>

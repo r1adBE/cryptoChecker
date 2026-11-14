@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">ສັນຍານເຕືອນເປີດ – ຍັງບໍ່ມີການກວດໃນພື້ນຫຼັງ</string>
     <string name="alarm_reliability_notifications_off">ການແຈ້ງເຕືອນປິດ – ສັນຍານເຕືອນຈະບໍ່ມາຮອດ</string>
     <string name="alarm_reliability_battery">ການປະຢັດແບັດເຕີຣີອາດຢຸດການກວດສັນຍານເຕືອນ</string>
+    <string name="alarm_reliability_offline">ບໍ່ມີການເຊື່ອມຕໍ່ – ຈະກວດການແຈ້ງເຕືອນເມື່ອເຄືອຂ່າຍກັບມາ</string>
     <string name="alarm_reliability_background_refresh">Background App Refresh ປິດ – ສັນຍານເຕືອນອາດບໍ່ມາຮອດ</string>
 </resources>

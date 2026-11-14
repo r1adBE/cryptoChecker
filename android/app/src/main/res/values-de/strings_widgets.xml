@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Hintergrund</string>
-    <string name="widget_configure_hint">Hintergrund und Deckkraft wählen. Die Farbe folgt der App. Das Widget zeigt die ganze Merkliste; ein Tipp auf eine Zeile öffnet die App.</string>
+    <string name="widget_configure_hint">Hintergrund und Deckkraft wählen. Die Farbe folgt der App. Das Widget zeigt die Merkliste oder die unten gewählte Gruppe; ein Tipp auf eine Zeile öffnet die App.</string>
     <string name="widget_configure_title">Widget einrichten</string>
     <string name="widget_description">Zeigt den Kurs eines Paares aus der Merkliste.</string>
     <string name="widget_empty">Noch keine Paare in der Merkliste.</string>

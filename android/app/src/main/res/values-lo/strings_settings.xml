@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">ເລືອກຄູ່ເທຣດທີ່ຈະສະແດງລາຄາໃນແຖບແຈ້ງເຕືອນ.</string>
     <string name="settings_quiet_hours">ຊ່ວງເວລາງຽບ</string>
     <string name="settings_quiet_hours_from">ຈາກ</string>
-    <string name="settings_quiet_hours_hint">ລະຫວ່າງ %1$s ຫາ %2$s, ສັນຍານເຕືອນຈະລໍຖ້າຈົນກວ່າຊ່ວງເວລາງຽບສິ້ນສຸດ ແລ້ວຈຶ່ງດັງພ້ອມສຽງ. ການແຈ້ງເຕືອນອື່ນມາຮອດແບບງຽບ, ບໍ່ມີການເວົ້າ.</string>
+    <string name="settings_quiet_hours_hint">ລະຫວ່າງ %1$s ຫາ %2$s, ສັນຍານເຕືອນຈະລໍຖ້າຈົນກວ່າຊ່ວງເວລາງຽບສິ້ນສຸດ ແລ້ວຈຶ່ງດັງພ້ອມສຽງ ຖ້າເງື່ອນໄຂຍັງເປັນຈິງຢູ່. ການແຈ້ງເຕືອນອື່ນມາຮອດແບບງຽບ, ບໍ່ມີການເວົ້າ.</string>
     <string name="settings_quiet_hours_to">ຫາ</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">ກຳລັງໃຊ້: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">ບໍ່ໄດ້ຕັ້ງ – ໃຊ້ node ສາທາລະນະ</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">ການຕັ້ງຄ່າຖືກຣີເຊັດ ຈຶ່ງບໍ່ຮູ້ວ່າທ່ານໄດ້ໃຊ້ເຊີບເວີ Bitcoin ຂອງທ່ານເອງຫຼືບໍ່. ທີ່ຢູ່ Bitcoin ແລະກະແຈ xpub ຈະບໍ່ຖືກສອບຖາມ ຈົນກວ່າທ່ານຈະປ້ອນເຊີບເວີອີກຄັ້ງ ຫຼືເລືອກ node ສາທາລະນະ.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">ອະນຸຍາດສະເພາະທີ່ຢູ່ https:// ເທົ່ານັ້ນ</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

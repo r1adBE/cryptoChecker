@@ -127,7 +127,7 @@ extension UpbitStyleExchange {
         var out: [ExchangePair] = []
         for entry in try JArray(string: body).allObjects() {
             let market = entry.optString("market")
-            guard let sides = Self.splitMarket(market, keepingEmpty: false) else { continue }
+            guard let sides = Self.splitMarket(market) else { continue }
             out.append(ExchangePair(sides.base, sides.quote, market))
         }
         return out
@@ -139,8 +139,8 @@ extension UpbitStyleExchange {
     func parseBaseNames(call: Int, body: String) throws -> [String: String] {
         var names: [String: String] = [:]
         for entry in try JArray(string: body).allObjects() {
-            // leere Teile zählen mit: «-BTC» oder «KRW-» ergeben keinen Namen
-            guard let sides = Self.splitMarket(entry.optString("market"), keepingEmpty: true) else { continue }
+            // «-BTC», «KRW-» oder «KRW--BTC» ergeben keinen Namen (wie in der Paarliste)
+            guard let sides = Self.splitMarket(entry.optString("market")) else { continue }
             let english = entry.optString("english_name")
             if sides.base.isEmpty || english.isEmpty || names[sides.base] != nil { continue }
             names[sides.base] = english
@@ -192,11 +192,10 @@ extension UpbitStyleExchange {
         return BulkPairChunks.chunks(prefix: selectionPrefix, pairIds: pairIds)
     }
 
-    /// «KRW-BTC» → (Basis BTC, Kotierung KRW); andere Form → nil. `keepingEmpty`: leere Teile zählen mit
-    /// («KRW--BTC» hat dann drei Teile), sonst fallen sie weg.
-    private static func splitMarket(_ market: String, keepingEmpty: Bool) -> (base: String, quote: String)? {
-        let parts = market.split(separator: "-", omittingEmptySubsequences: !keepingEmpty)
-        guard parts.count == 2 else { return nil }
+    /// «KRW-BTC» → (Basis BTC, Kotierung KRW); genau zwei nicht leere Teile, sonst nil («-BTC», «KRW--BTC»). Wie Android.
+    private static func splitMarket(_ market: String) -> (base: String, quote: String)? {
+        let parts = market.split(separator: "-", omittingEmptySubsequences: false)
+        guard parts.count == 2, !parts[0].isEmpty, !parts[1].isEmpty else { return nil }
         return (base: String(parts[1]), quote: String(parts[0]))
     }
 }

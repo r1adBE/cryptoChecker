@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmlar aktivdir – hələ arxa fon yoxlaması olmayıb</string>
     <string name="alarm_reliability_notifications_off">Bildirişlər söndürülüb – alarmlar çatmayacaq</string>
     <string name="alarm_reliability_battery">Batareya qənaəti alarm yoxlamalarını dayandıra bilər</string>
+    <string name="alarm_reliability_offline">Bağlantı yoxdur – şəbəkə qayıdan kimi siqnallar yoxlanacaq</string>
     <string name="alarm_reliability_background_refresh">Arxa fonda tətbiq yeniləməsi söndürülüb – alarmlar çatmaya bilər</string>
 </resources>

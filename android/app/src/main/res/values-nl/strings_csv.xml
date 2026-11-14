@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Verlaat het portfolio (opname)</string>
     <string name="portfolio_csv_import_choose_each">Kies per opname waar die naartoe ging.</string>
     <string name="portfolio_csv_import_columns">Herkende kolommen: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Al geïmporteerd: regels %1$s</string>
     <string name="portfolio_csv_import_confirm">Importeren (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dag/Maand</string>
     <string name="portfolio_csv_import_date_month_first">Maand/Dag</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Aan- en verkopen tegen stablecoins (USDT, USDC …) worden als ruil geboekt – de stablecoin verschijnt in je bezit.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Meerdere overeenkomsten mogelijk – kies de juiste of geen.</string>
+    <string name="portfolio_csv_import_transfer_loose">Hoge kosten of late aankomst – controleer of het dezelfde overboeking is.</string>
     <string name="portfolio_csv_import_transfer_fee">Netwerkkosten: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Als één overboeking boeken</string>
     <string name="portfolio_csv_import_transfer_stored">Tegenhanger uit een eerdere import</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Dagkoersen volgens de kalenderdag in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Dagkoersen konden niet worden geladen.</string>
     <string name="portfolio_csv_import_anyway">Toch importeren</string>
-    <string name="portfolio_csv_import_anyway_hint">Zonder dagkoers ontbreken prijs of kosten blijvend. Probeer het opnieuw of importeer toch – die transacties krijgen dan een notitie.</string>
+    <string name="portfolio_csv_import_anyway_hint">Zonder dagkoers ontbreekt de prijs of vergoeding tot je die aanvult. Probeer het opnieuw of importeer toch – die transacties krijgen dan een notitie.</string>
     <string name="portfolio_csv_note_price_no_rate">Prijs zonder dagkoers</string>
     <string name="portfolio_csv_note_fee_no_rate">Kosten zonder dagkoers</string>
     <string name="portfolio_csv_import_no_rates_for">Voor %1$s bestaan geen dagkoersen, dus opnieuw proberen helpt niet. Importeer je toch, dan krijgen die transacties een notitie.</string>

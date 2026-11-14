@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Osittain</string>
     <string name="check_result_skipped">Ohitettu</string>
+    <string name="check_result_paused">Tauolla, mitään ei tarkistettu</string>
+    <string name="check_result_offline">Ohitettu (offline)</string>
     <string name="check_trigger_bgtask">Tausta</string>
     <string name="check_trigger_exact">Ajallaan</string>
     <string name="check_trigger_foreground">Sovellus</string>

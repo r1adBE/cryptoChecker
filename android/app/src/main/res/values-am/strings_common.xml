@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">ልውውጡ አሁን ሊደረስበት አልቻለም</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">ልውውጡ በዚህ አካባቢ ታግዷል</string>
+    <string name="error_exchange_access_denied">ልውውጡ መዳረሻን ከልክሏል</string>
     <string name="loading_hint">በመጫን ላይ…</string>
     <string name="option_off">ጠፍቷል</string>
     <string name="something_went_wrong">የሆነ ችግር ተፈጥሯል</string>

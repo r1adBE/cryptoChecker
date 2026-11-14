@@ -6,8 +6,8 @@ import Foundation
 ///    Zürich-Sommerzeit = 22:30 UTC gehört zum Vortag — sonst Scheingewinn gegenüber «7 T»).
 ///    Verkäufe werden wie in `PortfolioCalculator` beim Bestand gekappt.
 ///  - Wert = Σ Bestand × Tagesschlusskurs (UTC-Tageskerze desselben Kalendertags) × `fxRate`.
-///    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor; vor der ersten
-///    Kerze zählt der Coin nicht.
+///    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor. Gehalten vor seiner ersten
+///    Kerze: der Coin fehlt im ganzen Zeitraum und steht in `skipped` (kein Sprung).
 ///  - Heute: Bestand nach allen Transaktionen × aktueller Kurs. Ein heute gehaltener Coin ohne
 ///    aktuellen Kurs fehlt (Token nicht bestätigt, steht unter «ohne …»); nur Coins ohne heutigen
 ///    Bestand behalten ihre Reihe ungeprüft (kein aktueller Kurs zum Vergleichen, heute kein Wert).

@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">पछिल्लो रिफ्रेस</string>
     <string name="watchlist_symbols_legend">सङ्केतहरूको व्याख्या</string>
     <string name="watchlist_symbols_legend_alarms">सक्रिय अलर्टहरू र तिनको सङ्ख्या</string>
+    <string name="watchlist_symbols_legend_warning">मूल्य पुरानो छ वा एक्सचेन्जमा पुग्न सकिँदैन</string>
     <string name="watchlist_refresh_report_empty">अहिलेसम्म विवरण छैन – अहिलेसम्म पूर्ण रिफ्रेस भएको छैन। रिफ्रेसमा ट्याप गरेर घेरा नरोकिएसम्म पर्खनुहोस्।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d मध्ये %1$d पुरानो</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">सूचना बन्द गर्नुहोस्</string>
     <string name="watchlist_missing_logos_explain">यी कोइनका लागि कुनै लोगो उपलब्ध छैन। एपले तिनका आद्याक्षर देखाउँछ।</string>
+    <string name="watchlist_missing_logos_pending">अझै लोड भएको छैन</string>
+    <string name="watchlist_missing_logos_explain_pending">अझै लोड भएको छैन भनी चिन्ह लगाइएका लोगोहरू अर्को सिंकसँग आउनेछन्, केही Wi-Fi मा मात्र। अन्य कोइनका लागि लोगो उपलब्ध छैन। एपले तिनका आद्याक्षर देखाउँछ।</string>
     <string name="exchange_retiring_notice">%2$s देखि %1$s ले सार्वजनिक मूल्य दिने छैन। यी कोइनका लागि अर्को एक्सचेन्ज छान्नुहोस्।</string>
     <string name="exchange_retiring_reason">%2$s देखि %1$s ले मूल्य दिने छैन</string>
     <string name="exchange_retired_since">%2$s देखि %1$s ले अब मूल्य दिँदैन</string>

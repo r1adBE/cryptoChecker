@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +56,7 @@ fun AlarmsScreen(
     val watch by viewModel.watch.collectAsStateWithLifecycle()
     val alarms by viewModel.alarms.collectAsStateWithLifecycle()
     val unchecked by viewModel.unchecked.collectAsStateWithLifecycle()
+    val reduceMotion = com.cryptochecker.app.ui.components.rememberReduceMotion()
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
@@ -215,33 +217,44 @@ fun AlarmsScreen(
                         item(key = "last_checked") { AlarmLastCheckedLine(Modifier.padding(horizontal = 4.dp)) }
                     }
                     items(alarms, key = { it.id }) { alarm ->
-                        AlarmCard(
-                            alarm = alarm,
-                            baseAsset = watch?.baseAsset.orEmpty(),
-                            quoteAsset = watch?.quoteAsset.orEmpty(),
-                            unchecked = unchecked[alarm.id],
-                            status = AlarmCardStatus.of(
-                                alarmEnabled = alarm.enabled,
-                                notificationsAllowed = alarmsAllowed,
-                                dexBlocksAlarms = lowLiquidity,
-                                exchangeTime = watch?.exchangeTime,
-                                lastUpdate = watch?.lastUpdate ?: 0L,
-                                now = now,
-                                staleAfterMillis = staleAfter,
-                                unchecked = unchecked[alarm.id] != null,
-                                markFallback = markFallback,
-                                exchangeRetired = retired,
-                            ),
-                            retiredExchange = watch?.exchangeName,
-                            onToggle = { viewModel.setEnabled(alarm.id, it) },
-                            // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
-                            onEdit = if (!lowLiquidity && !referenceRate && !retired) {
-                                { editorHost.edit(alarm) }
-                            } else {
-                                null
-                            },
-                            onDelete = { editorHost.askDelete = alarm }
-                        )
+                        // Wischen zum Löschen wie iOS: Rückfrage, die Karte federt zurück (auch über das Menü der Karte)
+                        SwipeActionsRow(
+                            enabled = true,
+                            favorite = false,
+                            onDelete = { editorHost.askDelete = alarm },
+                            onToggleFavorite = null,
+                            reduceMotion = reduceMotion,
+                            shape = MaterialTheme.shapes.large,
+                            confirmsDelete = true,
+                        ) {
+                            AlarmCard(
+                                alarm = alarm,
+                                baseAsset = watch?.baseAsset.orEmpty(),
+                                quoteAsset = watch?.quoteAsset.orEmpty(),
+                                unchecked = unchecked[alarm.id],
+                                status = AlarmCardStatus.of(
+                                    alarmEnabled = alarm.enabled,
+                                    notificationsAllowed = alarmsAllowed,
+                                    dexBlocksAlarms = lowLiquidity,
+                                    exchangeTime = watch?.exchangeTime,
+                                    lastUpdate = watch?.lastUpdate ?: 0L,
+                                    now = now,
+                                    staleAfterMillis = staleAfter,
+                                    unchecked = unchecked[alarm.id] != null,
+                                    markFallback = markFallback,
+                                    exchangeRetired = retired,
+                                ),
+                                retiredExchange = watch?.exchangeName,
+                                onToggle = { viewModel.setEnabled(alarm.id, it) },
+                                // Bearbeiten gesperrt: Karte ohne Klick-Aktion (TalkBack böte sonst «Bearbeiten» ohne Wirkung)
+                                onEdit = if (!lowLiquidity && !referenceRate && !retired) {
+                                    { editorHost.edit(alarm) }
+                                } else {
+                                    null
+                                },
+                                onDelete = { editorHost.askDelete = alarm }
+                            )
+                        }
                     }
                 }
             }

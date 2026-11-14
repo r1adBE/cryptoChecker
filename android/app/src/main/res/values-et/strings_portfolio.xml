@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Kokku</string>
     <string name="portfolio_hide_amounts">Peida summad</string>
-    <string name="portfolio_hide_amounts_hint">Näitab portfellis ja portfelli vidinas summasid ja väärtusi kujul ••• – protsendid jäävad nähtavaks.</string>
+    <string name="portfolio_hide_amounts_hint">Näitab portfellis, portfelli vidinas, kellas ja portfelli hoiatustes summasid ja väärtusi kujul ••• – protsendid jäävad nähtavaks.</string>
     <string name="portfolio_invested">Soetusmaksumus</string>
     <string name="portfolio_total_no_fx">Valuuta %1$s vahetuskurss puudub – summad USDT-s</string>
     <string name="portfolio_total_value">Koguväärtus</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Kas loobuda muudatustest?</string>
     <string name="portfolio_edit_tx">Muuda tehingut</string>
     <string name="portfolio_invalid">Sisesta kehtiv arv, mis on suurem kui 0.</string>
+    <string name="number_ambiguous">Ebaselge: %1$s või %2$s? Kirjuta üks neist kahest.</string>
     <string name="portfolio_oversold">Müügid ületavad varasid – palun kontrolli tehinguid.</string>
     <string name="portfolio_sell">Müük</string>
     <string name="portfolio_sell_exceeds">Rohkem kui sinu varad (%1$s)</string>

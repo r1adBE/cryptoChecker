@@ -1,8 +1,7 @@
 import Foundation
 
-/// Netzwerkgebühren (#167): EVM-Netze über öffentliche JSON-RPC-Knoten
-/// (eth_feeHistory, sonst eth_gasPrice), Bitcoin über mempool.space.
-/// Alles ohne API-Schlüssel — wie `GasFees.kt` / `GasDataSource.kt`.
+/// Netzwerkgebühren (#167): EVM-Netze über öffentliche JSON-RPC-Knoten (eth_feeHistory, sonst eth_gasPrice), Bitcoin
+/// über mempool.space. Alles ohne API-Schlüssel — wie `GasFees.kt` / `GasDataSource.kt`.
 enum GasNetwork: String, CaseIterable, Sendable, Codable {
     case ethereum, base, arbitrum, polygon, bnb
 
@@ -73,8 +72,7 @@ enum GasFees {
 
     static let gasPriceRequest = #"{"jsonrpc":"2.0","id":1,"method":"eth_gasPrice","params":[]}"#
 
-    /// eth_feeHistory → (langsam, normal, schnell) in gwei: Grundgebühr des
-    /// nächsten Blocks plus Median der Trinkgelder je Perzentil.
+    /// eth_feeHistory → (langsam, normal, schnell) in gwei: Grundgebühr des nächsten Blocks plus Median der Trinkgelder.
     static func parseFeeHistory(_ response: String) throws -> (Double, Double, Double) {
         let json = try JObject(string: response)
         if let error = json.optObject("error") { throw JSONError(message: error.optString("message")) }
@@ -98,14 +96,20 @@ enum GasFees {
         let slow = nextBase + tips[0]
         let normal = max(slow, nextBase + tips[1])
         let fast = max(normal, nextBase + tips[2])
-        return (slow, normal, fast)
+        return try (slow, requirePositive(normal), fast)
     }
 
-    /// eth_gasPrice → gwei.
+    /// eth_gasPrice → gwei; 0 oder leeres «0x» = keine Daten (`requirePositive`).
     static func parseGasPrice(_ response: String) throws -> Double {
         let json = try JObject(string: response)
         if let error = json.optObject("error") { throw JSONError(message: error.optString("message")) }
-        return try hexToGwei(json.string("result"))
+        return try requirePositive(hexToGwei(json.string("result")))
+    }
+
+    /// Gebühr 0 / nicht endlich = gestörter Knoten («0x0», leeres «0x»): werfen → nächster Knoten (wie GasFees.kt).
+    private static func requirePositive(_ value: Double) throws -> Double {
+        guard value.isFinite, value > 0 else { throw JSONError(message: "Gebühr 0: keine Daten") }
+        return value
     }
 
     /// mempool.space /api/v1/fees/recommended → (schnell, normal, langsam).
@@ -114,7 +118,7 @@ enum GasFees {
         let fast = try json.double("fastestFee")
         let normal = json.optDouble("halfHourFee", fast)
         let slow = json.optDouble("hourFee", normal)
-        return (fast, normal, slow)
+        return try (requirePositive(fast), requirePositive(normal), requirePositive(slow))
     }
 
     /// Binance-Preisliste (ticker/price?symbols=…) → Coin → USD.
@@ -161,8 +165,7 @@ enum GasFees {
         return clean.reduce(0.0) { $0 * 16 + Double($1.hexDigitValue ?? 0) } / 1e9
     }
 
-    /// «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». In den Ziffern von `locale`
-    /// (App-Sprache; Arabisch «١٫٤»), denn alle Aufrufer zeigen den Text an.
+    /// «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». In den Ziffern von `locale` (App-Sprache; Arabisch «١٫٤»).
     static func formatGwei(_ gwei: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
         if gwei <= 0 { return LocaleNumbers.integer(0, locale: locale) }
         if gwei < 0.001 { return "<" + LocaleNumbers.decimal(0.001, maxDecimals: 3, locale: locale) }
@@ -179,8 +182,7 @@ enum GasFees {
     }
 }
 
-/// Lädt die Gebühren aller Netze; Ergebnis eine Minute zwischengespeichert,
-/// damit Markt-Tab und Gas-Alarm nicht doppelt fragen.
+/// Lädt die Gebühren aller Netze; Ergebnis eine Minute zwischengespeichert, damit Markt-Tab und Gas-Alarm nicht doppelt fragen.
 actor GasDataSource {
     static let shared = GasDataSource()
     private var cached: Sourced<GasReport>?
@@ -307,6 +309,7 @@ enum GasAlertCheck {
     /// - Returns: (melden?, scharf danach?) — «scharf danach» gilt für eine angenommene Mitteilung.
     static func evaluate(value: Double, threshold: Double, armed: Bool, deliverable: Bool = true) -> (fire: Bool, armed: Bool) {
         if threshold <= 0 { return (false, true) }
+        if !(value.isFinite && value > 0) { return (false, armed) }  // kein Messwert: kein Entscheid
         // Fällig, aber nicht zustellbar: nicht verbrauchen
         if armed && value <= threshold { return deliverable ? (true, false) : (false, true) }
         if !armed && value > threshold * rearmFactor { return (false, true) }

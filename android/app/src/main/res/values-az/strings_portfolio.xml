@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Cəmi</string>
     <string name="portfolio_hide_amounts">Məbləğləri gizlət</string>
-    <string name="portfolio_hide_amounts_hint">Portfeldə və portfel vidcetində məbləğləri və dəyərləri ••• kimi göstərir – faizlər görünən qalır.</string>
+    <string name="portfolio_hide_amounts_hint">Portfeldə, portfel vidcetində, saatda və portfel xəbərdarlıqlarında məbləğləri və dəyərləri ••• kimi göstərir – faizlər görünən qalır.</string>
     <string name="portfolio_invested">Maya dəyəri</string>
     <string name="portfolio_total_no_fx">%1$s üçün məzənnə yoxdur – məbləğlər USDT ilə</string>
     <string name="portfolio_total_value">Ümumi dəyər</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Dəyişikliklər ləğv edilsin?</string>
     <string name="portfolio_edit_tx">Əməliyyatı redaktə et</string>
     <string name="portfolio_invalid">0-dan böyük düzgün rəqəm daxil et.</string>
+    <string name="number_ambiguous">Aydın deyil: %1$s, yoxsa %2$s? Bu ikisindən birini yaz.</string>
     <string name="portfolio_oversold">Satışlar aktivləri aşır – əməliyyatları yoxla.</string>
     <string name="portfolio_sell">Satış</string>
     <string name="portfolio_sell_exceeds">Aktivlərindən çoxdur (%1$s)</string>

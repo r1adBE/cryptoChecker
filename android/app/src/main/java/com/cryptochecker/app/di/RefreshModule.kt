@@ -235,5 +235,6 @@ object RefreshModule {
         connectivity.asManualRefreshNet(),
         checkRuns,
         defaultDispatcher,
+        onReconnect = { refreshStats.dropTimeoutPauses() },
     )
 }

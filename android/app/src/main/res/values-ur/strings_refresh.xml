@@ -91,6 +91,8 @@
     <string name="check_result_ok">ٹھیک ہے</string>
     <string name="check_result_partial">جزوی</string>
     <string name="check_result_skipped">چھوڑ دیا گیا</string>
+    <string name="check_result_paused">موقوف، کچھ بھی جانچا نہیں گیا</string>
+    <string name="check_result_offline">چھوڑ دیا گیا (آف لائن)</string>
     <string name="check_trigger_bgtask">پس منظر</string>
     <string name="check_trigger_exact">بروقت</string>
     <string name="check_trigger_foreground">ایپ</string>

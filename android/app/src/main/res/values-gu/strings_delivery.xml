@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">એલર્ટ ચાલુ – હજુ કોઈ બૅકગ્રાઉન્ડ તપાસ નથી</string>
     <string name="alarm_reliability_notifications_off">સૂચનાઓ બંધ – એલર્ટ નહીં પહોંચે</string>
     <string name="alarm_reliability_battery">બૅટરી બચત એલર્ટ તપાસ બંધ કરી શકે છે</string>
+    <string name="alarm_reliability_offline">કનેક્શન નથી – નેટવર્ક પાછું આવતાં એલાર્મ તપાસાશે</string>
     <string name="alarm_reliability_background_refresh">બૅકગ્રાઉન્ડ ઍપ રિફ્રેશ બંધ – એલર્ટ કદાચ નહીં પહોંચે</string>
 </resources>

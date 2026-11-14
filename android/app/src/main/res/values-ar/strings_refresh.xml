@@ -127,6 +127,8 @@
     <string name="check_result_ok">تم</string>
     <string name="check_result_partial">جزئي</string>
     <string name="check_result_skipped">تم التخطي</string>
+    <string name="check_result_paused">متوقف مؤقتًا، لم يُفحص شيء</string>
+    <string name="check_result_offline">تم التخطي (دون اتصال)</string>
     <string name="check_trigger_bgtask">الخلفية</string>
     <string name="check_trigger_exact">في الموعد</string>
     <string name="check_trigger_foreground">التطبيق</string>

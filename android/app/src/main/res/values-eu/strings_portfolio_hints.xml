@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Zorroaren alarmak 24 ordu baino gehiagoan saldoa kargatu ez duten helbiderik gabe egiaztatzen dira</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenak partzialki zaharkituta</string>
+    <string name="portfolio_address_zero_unconfirmed">0 oraindik baieztatu gabe</string>
     <string name="portfolio_address_restore_failed">Ezin izan da helbidea leheneratu – gehitu berriro behar izanez gero</string>
     <string name="portfolio_address_remove_failed">Ezin izan da helbidea kendu – saiatu berriro</string>
 </resources>

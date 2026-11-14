@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Sembunyikan jumlah</string>
-    <string name="portfolio_hide_amounts_hint">Menampilkan jumlah dan nilai di portofolio dan widget portofolio sebagai ••• – persentase tetap terlihat.</string>
+    <string name="portfolio_hide_amounts_hint">Menampilkan jumlah dan nilai di portofolio, widget portofolio, jam tangan, dan peringatan portofolio sebagai ••• – persentase tetap terlihat.</string>
     <string name="portfolio_invested">Biaya perolehan</string>
     <string name="portfolio_total_no_fx">Tidak ada kurs untuk %1$s – jumlah dalam USDT</string>
     <string name="portfolio_total_value">Nilai total</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">Buang perubahan?</string>
     <string name="portfolio_edit_tx">Edit transaksi</string>
     <string name="portfolio_invalid">Masukkan angka valid yang lebih dari 0.</string>
+    <string name="number_ambiguous">Tidak jelas: %1$s atau %2$s? Ketik salah satu dari keduanya.</string>
     <string name="portfolio_oversold">Penjualan melebihi kepemilikan – periksa transaksi.</string>
     <string name="portfolio_sell">Jual</string>
     <string name="portfolio_sell_exceeds">Lebih dari kepemilikanmu (%1$s)</string>

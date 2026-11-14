@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">හුවමාරුවට මේ මොහොතේ ළඟා විය නොහැක</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">මෙම කලාපයේ හුවමාරුව අවහිර කර ඇත</string>
+    <string name="error_exchange_access_denied">හුවමාරුව ප්‍රවේශය ප්‍රතික්ෂේප කළේය</string>
     <string name="loading_hint">පූරණය වෙමින්…</string>
     <string name="option_off">අක්‍රිය</string>
     <string name="something_went_wrong">යමක් වැරදී ගියා</string>

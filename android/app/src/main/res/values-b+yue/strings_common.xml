@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">暫時連唔到交易所</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">交易所喺呢個地區被封鎖</string>
+    <string name="error_exchange_access_denied">交易所拒絕存取</string>
     <string name="loading_hint">載入中…</string>
     <string name="option_off">關閉</string>
     <string name="something_went_wrong">出咗問題</string>

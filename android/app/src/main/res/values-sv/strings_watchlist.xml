@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Senaste uppdatering</string>
     <string name="watchlist_symbols_legend">Symbolförklaring</string>
     <string name="watchlist_symbols_legend_alarms">Aktiva larm med antal</string>
+    <string name="watchlist_symbols_legend_warning">Kursen är inaktuell eller börsen nås inte</string>
     <string name="watchlist_refresh_report_empty">Ingen sammanställning ännu: ingen fullständig uppdatering har gjorts än. Tryck på uppdatera och vänta tills snurran stannar.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d av %2$d inaktuellt</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Stäng meddelandet</string>
     <string name="watchlist_missing_logos_explain">Det finns ingen logotyp för de här mynten. Appen visar deras initialer.</string>
+    <string name="watchlist_missing_logos_pending">inte inläst ännu</string>
+    <string name="watchlist_missing_logos_explain_pending">Logotyper som är markerade som inte inlästa ännu kommer vid nästa synkronisering, vissa bara via wifi. För övriga mynt finns ingen logotyp. Appen visar deras initialer.</string>
     <string name="exchange_retiring_notice">Från %2$s levererar %1$s inte längre offentliga priser. Välj en annan börs för de här mynten.</string>
     <string name="exchange_retiring_reason">Från %2$s levererar %1$s inte längre priser</string>
     <string name="exchange_retired_since">Sedan %2$s levererar %1$s inte längre priser</string>

@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">पोर्टफोलियो अलर्टहरूले 24 घण्टाभन्दा बढी समयदेखि ब्यालेन्स लोड नभएका ठेगानाहरू बिना जाँच गर्छन्</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">टोकन आंशिक रूपमा पुराना</string>
+    <string name="portfolio_address_zero_unconfirmed">0 अझै पुष्टि भएको छैन</string>
     <string name="portfolio_address_restore_failed">ठेगाना पुनर्स्थापना गर्न सकिएन – आवश्यक भए फेरि थप्नुहोस्</string>
     <string name="portfolio_address_remove_failed">ठेगाना हटाउन सकिएन – कृपया फेरि प्रयास गर्नुहोस्</string>
 </resources>

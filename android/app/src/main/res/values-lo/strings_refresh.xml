@@ -82,6 +82,8 @@
     <string name="check_result_ok">ປົກກະຕິ</string>
     <string name="check_result_partial">ບາງສ່ວນ</string>
     <string name="check_result_skipped">ຂ້າມ</string>
+    <string name="check_result_paused">ຢຸດຊົ່ວຄາວ, ບໍ່ໄດ້ກວດຫຍັງ</string>
+    <string name="check_result_offline">ຂ້າມແລ້ວ (ອອບລາຍ)</string>
     <string name="check_trigger_bgtask">ພື້ນຫຼັງ</string>
     <string name="check_trigger_exact">ຕາມເວລາ</string>
     <string name="check_trigger_foreground">ແອັບ</string>

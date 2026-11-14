@@ -93,56 +93,71 @@ suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Entry
  * Gespeichert: [onSaved] (Blatt zu); Fehler beim Schreiben: [onFailed] (Blatt bleibt offen mit den
  * Eingaben) — nie still verworfen.
  */
-fun PortfolioViewModel.save(draft: TxDraft, onAskEnablePortfolio: () -> Unit = {}, onSaved: () -> Unit = {}, onFailed: () -> Unit = {}) {
+fun PortfolioViewModel.save(
+    draft: TxDraft,
+    onAskEnablePortfolio: () -> Unit = {},
+    onSaved: () -> Unit = {},
+    onFailed: () -> Unit = {},
+    /** Blatt, aus dem gespeichert wird ([TxSaveGuard]): kein zweites Speichern derselben Eingaben, auch nach dem Drehen. */
+    session: String = java.util.UUID.randomUUID().toString(),
+) {
     val amount = draft.amount ?: return
+    if (!txSaveGuard.begin(session)) return
     viewModelScope.launch {
-        // Vor dem Schreiben: gab es schon Transaktionen? (nur nötig bei einer neuen mit Portfolio aus)
-        val enabled = settingsRepository.current().portfolioEnabled
-        val hadTransactions = PortfolioOff.enableOnSave(draft.id == 0L, enabled) &&
-            safe { repository.getTransactions().isNotEmpty() } != false
-        val saved = safe {
-            repository.save(
-                PortfolioTxEntity(
-                    id = draft.id,
-                    coin = draft.coin,
-                    type = draft.type,
-                    amount = amount,
-                    priceUsdt = draft.priceUsdt,
-                    time = draft.time,
-                    note = draft.note,
-                    fee = draft.fee,
-                    feeUnit = draft.fee?.let { draft.feeUnit.name },
-                    exchange = draft.exchange,
-                    transferFrom = draft.transferFrom,
-                    transferTo = draft.transferTo,
-                    feeCoin = draft.feeCoin,
-                    feeCoinAmount = draft.feeCoinAmount,
-                    feeCoinPriceUsdt = draft.feeCoinPriceUsdt,
-                    importKey = draft.importKey,
-                    acquiredTime = draft.acquiredTime,
-                    toCoin = draft.toCoin,
-                    toAmount = draft.toAmount,
-                    swapValueUsdt = draft.swapValueUsdt,
-                    importBatch = draft.importBatch,
-                    giftToSpouse = draft.giftToSpouse,
-                    linkedImportKey = draft.linkedImportKey,
-                    importRestoreState = draft.importRestoreState,
-                    feeRow = draft.feeRow && draft.type == PortfolioTxType.SELL,
-                    interest = draft.interest && draft.type == PortfolioTxType.REWARD,
-                    stakingMove = draft.stakingMove && draft.type == PortfolioTxType.TRANSFER,
+        var ok = false
+        try {
+            // Vor dem Schreiben: gab es schon Transaktionen? (nur nötig bei einer neuen mit Portfolio aus)
+            val enabled = settingsRepository.current().portfolioEnabled
+            val hadTransactions = PortfolioOff.enableOnSave(draft.id == 0L, enabled) &&
+                safe { repository.getTransactions().isNotEmpty() } != false
+            val saved = safe {
+                repository.save(
+                    PortfolioTxEntity(
+                        id = draft.id,
+                        coin = draft.coin,
+                        type = draft.type,
+                        amount = amount,
+                        priceUsdt = draft.priceUsdt,
+                        time = draft.time,
+                        note = draft.note,
+                        fee = draft.fee,
+                        feeUnit = draft.fee?.let { draft.feeUnit.name },
+                        exchange = draft.exchange,
+                        transferFrom = draft.transferFrom,
+                        transferTo = draft.transferTo,
+                        feeCoin = draft.feeCoin,
+                        feeCoinAmount = draft.feeCoinAmount,
+                        feeCoinPriceUsdt = draft.feeCoinPriceUsdt,
+                        importKey = draft.importKey,
+                        acquiredTime = draft.acquiredTime,
+                        toCoin = draft.toCoin,
+                        toAmount = draft.toAmount,
+                        swapValueUsdt = draft.swapValueUsdt,
+                        importBatch = draft.importBatch,
+                        giftToSpouse = draft.giftToSpouse,
+                        linkedImportKey = draft.linkedImportKey,
+                        importRestoreState = draft.importRestoreState,
+                        feeRow = draft.feeRow && draft.type == PortfolioTxType.SELL,
+                        interest = draft.interest && draft.type == PortfolioTxType.REWARD,
+                        stakingMove = draft.stakingMove && draft.type == PortfolioTxType.TRANSFER,
+                    )
                 )
-            )
-            true
-        } == true
-        if (!saved) {
-            onFailed()
-            return@launch
+                true
+            } == true
+            ok = saved
+            if (!saved) {
+                onFailed()
+                return@launch
+            }
+            // Rückfrage vor dem Schliessen, damit der Aufrufer das Blatt durch den Dialog ersetzen kann
+            if (PortfolioOff.askEnableOnSave(draft.id == 0L, enabled, hadTransactions)) onAskEnablePortfolio()
+            onSaved()
+            // Börse eingetragen: gleich mit ihrem Kurs bewerten (nicht erst nach dem 60-s-Zwischenspeicher)
+            if (!draft.exchange.isNullOrBlank() || !draft.transferTo.isNullOrBlank()) refresh(force = true)
+        } finally {
+            // Auch bei Abbruch frei; gespeichert = diese Sitzung nie wieder
+            txSaveGuard.finish(session, ok)
         }
-        // Rückfrage vor dem Schliessen, damit der Aufrufer das Blatt durch den Dialog ersetzen kann
-        if (PortfolioOff.askEnableOnSave(draft.id == 0L, enabled, hadTransactions)) onAskEnablePortfolio()
-        onSaved()
-        // Börse eingetragen: gleich mit ihrem Kurs bewerten (nicht erst nach dem 60-s-Zwischenspeicher)
-        if (!draft.exchange.isNullOrBlank() || !draft.transferTo.isNullOrBlank()) refresh(force = true)
     }
 }
 

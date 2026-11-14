@@ -136,6 +136,10 @@ extension SharedStorage {
             if replace { replacePendingBox.current = !written }
             // Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
             lastQueuedWriteBox.current = written
+            // Am Speicher gescheitert (z. B. voll): die Oberfläche nennt es (`watchlistLockedHint`), nie still
+            if watchlistWriteFailed {
+                DispatchQueue.main.async { NotificationCenter.default.post(name: watchlistWriteFailedNotice, object: nil) }
+            }
             if let done { DispatchQueue.main.async(execute: done) }
         }
     }

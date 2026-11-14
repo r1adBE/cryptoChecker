@@ -28,6 +28,8 @@ private val CONNECTION_HINTS = listOf(
     "unknownhost", "unable to resolve host", "connectexception", "failed to connect",
     "sockettimeout", "timeout", "timed out", "noroutetohost", "network is unreachable",
     "connection reset", "connection refused", "ssl", "eof",
+    // Verbindung mitten in der Antwort getrennt (OkHttp)
+    "connection abort", "unexpected end of stream", "stream was reset", "socket closed", "broken pipe",
 )
 
 /** Paar wird an der Börse nicht mehr gehandelt — ein Zustand, kein Fehler. */
@@ -35,10 +37,13 @@ internal fun isNotTraded(error: String?): Boolean = NotTraded.isMarker(error)
 
 /**
  * Börse gerade nicht erreichbar (Netz, Zeitüberschreitung, HTTP-Fehler, zu viele Anfragen):
- * ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar oder Standort-Sperre (HTTP 451).
+ * ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar, Standort-Sperre (HTTP 451) oder
+ * verweigertem Zugriff (HTTP 403).
  */
 internal fun isRetryableExchangeError(error: String?): Boolean {
-    if (error == null || isNotTraded(error) || RefreshReportLogic.isRegionBlocked(error)) return false
+    if (error == null || isNotTraded(error) || RefreshReportLogic.isRegionBlocked(error) ||
+        RefreshReportLogic.isAccessDenied(error)
+    ) return false
     return isConnectionError(error) || RefreshReportLogic.classify(error) in RETRYABLE_FAILURES
 }
 
@@ -56,6 +61,8 @@ internal fun friendlyError(error: String): String = when {
     isConnectionError(error) -> stringResource(R.string.watch_error_offline)
     // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)
     RefreshReportLogic.isRegionBlocked(error) -> stringResource(R.string.error_exchange_region_blocked)
+    // HTTP 403 ohne Bremse: Zugriff verweigert — kein «erneut versuchen»
+    RefreshReportLogic.isAccessDenied(error) -> stringResource(R.string.error_exchange_access_denied)
     // HTTP-Fehler, zu viele Anfragen: kein Code, nur was es bedeutet
     isRetryableExchangeError(error) -> stringResource(R.string.error_exchange_unreachable_short)
     error == UserFriendlyExchangeError.EMPTY_RESPONSE || error == UserFriendlyExchangeError.NO_TICKER_DATA ->

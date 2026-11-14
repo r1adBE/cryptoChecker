@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">هشدارها فعال – هنوز بررسی‌ای در پس‌زمینه انجام نشده</string>
     <string name="alarm_reliability_notifications_off">اعلان‌ها خاموش – هشدارها نمی‌رسند</string>
     <string name="alarm_reliability_battery">صرفه‌جویی باتری ممکن است بررسی هشدارها را متوقف کند</string>
+    <string name="alarm_reliability_offline">اتصال نیست – هشدارها پس از برگشت شبکه بررسی می‌شوند</string>
     <string name="alarm_reliability_background_refresh">بازخوانی در پس‌زمینه خاموش – ممکن است هشدارها نرسند</string>
 </resources>

@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Ukupno</string>
     <string name="portfolio_hide_amounts">Sakrij iznose</string>
-    <string name="portfolio_hide_amounts_hint">Prikazuje iznose i vrijednosti u portfoliju i widgetu portfolija kao ••• – procenti ostaju vidljivi.</string>
+    <string name="portfolio_hide_amounts_hint">Prikazuje iznose i vrijednosti u portfoliju, widgetu portfolija, na satu i u alarmima portfolija kao ••• – procenti ostaju vidljivi.</string>
     <string name="portfolio_invested">Nabavna vrijednost</string>
     <string name="portfolio_total_no_fx">Nema kursa za %1$s – iznosi u USDT</string>
     <string name="portfolio_total_value">Ukupna vrijednost</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Odbaciti promjene?</string>
     <string name="portfolio_edit_tx">Uredi transakciju</string>
     <string name="portfolio_invalid">Unesi valjan broj veći od 0.</string>
+    <string name="number_ambiguous">Nejasno: %1$s ili %2$s? Upiši jedan od ta dva oblika.</string>
     <string name="portfolio_oversold">Prodaje premašuju sredstva – provjeri transakcije.</string>
     <string name="portfolio_sell">Prodaja</string>
     <string name="portfolio_sell_exceeds">Više od tvojih sredstava (%1$s)</string>

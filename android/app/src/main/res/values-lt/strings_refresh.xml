@@ -109,6 +109,8 @@
     <string name="check_result_ok">Gerai</string>
     <string name="check_result_partial">Iš dalies</string>
     <string name="check_result_skipped">Praleista</string>
+    <string name="check_result_paused">Pristabdyta, niekas nepatikrinta</string>
+    <string name="check_result_offline">Praleista (neprisijungus)</string>
     <string name="check_trigger_bgtask">Fone</string>
     <string name="check_trigger_exact">Laiku</string>
     <string name="check_trigger_foreground">Programėlė</string>

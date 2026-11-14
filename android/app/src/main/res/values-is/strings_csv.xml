@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Fer úr eignasafninu (úttekt)</string>
     <string name="portfolio_csv_import_choose_each">Veldu fyrir hverja úttekt hvert hún fór.</string>
     <string name="portfolio_csv_import_columns">Dálkar sem þekktust: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Þegar flutt inn: línur %1$s</string>
     <string name="portfolio_csv_import_confirm">Flytja inn (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dagur/Mánuður</string>
     <string name="portfolio_csv_import_date_month_first">Mánuður/Dagur</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Viðskipti á móti stöðugleikamyntum (USDT, USDC …) eru bókuð sem skipti – stöðugleikamyntin birtist í eign þinni.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Nokkrar samsvaranir mögulegar – veldu þá réttu eða enga.</string>
+    <string name="portfolio_csv_import_transfer_loose">Hátt gjald eða sein koma – athugaðu hvort þetta sé sama millifærslan.</string>
     <string name="portfolio_csv_import_transfer_fee">Netgjald: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Bóka sem eina millifærslu</string>
     <string name="portfolio_csv_import_transfer_stored">Mótfærsla úr fyrri innflutningi</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Dagsgengi miðað við almanaksdag í: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Ekki tókst að sækja dagsgengi.</string>
     <string name="portfolio_csv_import_anyway">Flytja inn samt</string>
-    <string name="portfolio_csv_import_anyway_hint">Án dagsgengis vantar verð eða gjald til frambúðar. Reyndu aftur eða flyttu inn samt – þær færslur fá þá athugasemd.</string>
+    <string name="portfolio_csv_import_anyway_hint">Án dagsgengis vantar verð eða gjald þar til þú bætir því við. Reyndu aftur eða fluttu inn samt – þær færslur fá þá athugasemd.</string>
     <string name="portfolio_csv_note_price_no_rate">Verð án dagsgengis</string>
     <string name="portfolio_csv_note_fee_no_rate">Gjald án dagsgengis</string>
     <string name="portfolio_csv_import_no_rates_for">Ekkert dagsgengi er til fyrir %1$s, svo það hjálpar ekki að reyna aftur. Ef þú flytur inn samt fá þær færslur athugasemd.</string>

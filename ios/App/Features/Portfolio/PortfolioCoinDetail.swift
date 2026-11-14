@@ -108,8 +108,6 @@ struct PortfolioCoinDetail: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        // «Beträge verbergen» (Einstellung bzw. Auge im Portfolio-Kopf)
-        .environment(\.hidePortfolioAmounts, data.settings.hidePortfolioAmounts)
         // iPad/Querformat: Zeilen höchstens 640 pt breit, mittig
         .readableListMargins()
         .background(AppColors.background.ignoresSafeArea())

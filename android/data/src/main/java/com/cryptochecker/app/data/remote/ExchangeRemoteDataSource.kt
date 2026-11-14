@@ -15,6 +15,7 @@ import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
+import com.cryptochecker.app.domain.refresh.pairListCallAborts
 import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
@@ -85,8 +86,8 @@ class ExchangeRemoteDataSource @Inject constructor(
     }
 
     /**
-     * Jede Anfrage für sich lesen (samt Folgeseiten); nur die erste muss gelingen — bei
-     * [Exchange.pairListAllCallsRequired] jede (sonst würde eine halbe Liste gespeichert).
+     * Jede Anfrage für sich lesen (samt Folgeseiten); die erste muss gelingen, bei [Exchange.pairListAllCallsRequired]
+     * jede, und eine vorübergehende Störung bricht immer ab ([pairListCallAborts]: sonst eine halbe Liste gespeichert).
      */
     private suspend fun loadPairListByCall(exchange: Exchange, client: OkHttpClient): ExchangePairsInfo {
         val collected = ArrayList<ExchangePair>()
@@ -96,7 +97,7 @@ class ExchangeRemoteDataSource @Inject constructor(
                 loadPairListCall(exchange, client, call, collected, names)
             } catch (ex: Exception) {
                 ex.rethrowIfCritical()
-                if (call == 0 || exchange.pairListAllCallsRequired) throw ex
+                if (pairListCallAborts(call, exchange.pairListAllCallsRequired, ex.toExchangeFailure())) throw ex
             }
         }
         collected.sort()

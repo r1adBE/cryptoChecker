@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Siste oppdatering</string>
     <string name="watchlist_symbols_legend">Symbolforklaring</string>
     <string name="watchlist_symbols_legend_alarms">Aktive alarmer med antall</string>
+    <string name="watchlist_symbols_legend_warning">Kurs utdatert eller børs ikke tilgjengelig</string>
     <string name="watchlist_refresh_report_empty">Ingen oversikt ennå: ingen fullstendig oppdatering er fullført ennå. Trykk på oppdater og vent til hjulet stopper.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d av %2$d utdatert</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Lukk varselet</string>
     <string name="watchlist_missing_logos_explain">Det finnes ingen logo for disse myntene. Appen viser initialene deres.</string>
+    <string name="watchlist_missing_logos_pending">ikke lastet ennå</string>
+    <string name="watchlist_missing_logos_explain_pending">Logoer merket som ikke lastet ennå kommer ved neste synkronisering, noen bare på Wi-Fi. For de andre myntene finnes ingen logo. Appen viser forbokstavene deres.</string>
     <string name="exchange_retiring_notice">Fra %2$s leverer %1$s ikke lenger offentlige priser. Velg en annen børs for disse myntene.</string>
     <string name="exchange_retiring_reason">Fra %2$s leverer %1$s ikke lenger priser</string>
     <string name="exchange_retired_since">Siden %2$s leverer %1$s ikke lenger priser</string>

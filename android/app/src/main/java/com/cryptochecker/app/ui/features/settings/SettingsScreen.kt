@@ -51,6 +51,7 @@ import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.notification.AlarmSoundStore
+import com.cryptochecker.app.wearable.PhoneWatchSync
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -107,6 +108,9 @@ fun SettingsScreen(
                         if (AlarmSoundStore.supportsCustomFile) {
                             withContext(Dispatchers.IO) { AlarmSoundStore.deleteAllOwn(resetContext) }
                         }
+                        // Einträge für die Uhr liegen bei den Play-Diensten: löschen, damit die Uhr Portfolio-Wert,
+                        // Favoriten und Kurse vom Handy vergisst
+                        PhoneWatchSync.clearWatch(resetContext)
                         // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
                         // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
                         // danach, beim nächsten Öffnen startet sie wie neu installiert.

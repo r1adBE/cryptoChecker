@@ -51,6 +51,8 @@
     <string name="alarm_threshold_error_funding">Funding ត្រូវតែជាលេខចន្លោះពី −10 ដល់ +10 ភាគរយ។</string>
     <string name="alarm_threshold_error_invalid">សូមបញ្ចូលលេខត្រឹមត្រូវដែលធំជាង 0។</string>
     <string name="alarm_threshold_error_oi">ការប្រែប្រួល Open interest៖ យ៉ាងច្រើន 1000 ភាគរយ។</string>
+    <string name="alarm_threshold_error_percent_max">យ៉ាងច្រើន 1000 ភាគរយ។</string>
+    <string name="alarm_threshold_error_distance">ចម្ងាយត្រូវតែតិចជាង 100 ភាគរយ។</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">ក្នុង %1$d ម៉ោង</item>
     </plurals>
@@ -166,6 +168,7 @@
     <string name="alarm_a11y_speak_on">ការនិយាយបើក</string>
     <string name="alarm_unchecked_no_candles">មិនអាចពិនិត្យបានទេ (គ្មានទិន្នន័យទៀន)</string>
     <string name="alarm_unchecked_no_rate">មិនអាចពិនិត្យបានទេ (គ្មានអត្រាប្តូរប្រាក់)</string>
+    <string name="alarm_unchecked_no_window_price">មិនអាចពិនិត្យបានទេ (គ្មានតម្លៃក្នុងចន្លោះពេល)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">ការជូនដំណឹងបានបិទ – ការដាស់តឿននេះនឹងមិនទៅដល់អ្នកទេ</string>

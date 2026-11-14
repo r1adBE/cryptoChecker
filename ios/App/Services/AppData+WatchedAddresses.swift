@@ -10,6 +10,8 @@ enum AddWatchedResult: Equatable {
     case limitReached
     /// Gespeichertes Portfolio gerade gesperrt (`PortfolioStorageLock`): nichts geschrieben.
     case locked
+    /// Prüfung grün, aber Schreiben gescheitert: nichts geschrieben (nicht «ungültig» oder «voll»; wie Android `null`).
+    case writeFailed
 
     /// Haptik zum Ergebnis: angelegt = Erfolg, Eingabe- bzw. Grenzfehler = Warnung, nicht geschrieben = Fehler —
     /// wie Android `addWatchedHaptic`.
@@ -17,7 +19,7 @@ enum AddWatchedResult: Equatable {
         switch self {
         case .added: return .success
         case .invalid, .duplicate, .limitReached: return .warning
-        case .locked: return .error
+        case .locked, .writeFailed: return .error
         }
     }
 }
@@ -71,7 +73,7 @@ extension AppData {
                                   label: WatchedAddressRules.cleanLabel(label), addedAt: EpochTime.nowMillis,
                                   countInPortfolio: countInPortfolio, overlapChecked: overlapChecked)
         guard let id = WatchedAddressStore.insert(item, into: &file) else { return .duplicate }
-        guard setWatchedAddressFile(file) else { return .limitReached }
+        guard setWatchedAddressFile(file) else { return .writeFailed }
         return .added(id)
     }
 

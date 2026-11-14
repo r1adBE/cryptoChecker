@@ -20,11 +20,13 @@ final class ThresholdParserTests: XCTestCase {
         eq(60, p("60.000", ".", hint: 58))
     }
 
-    func testAmbiguousWithoutPriceFollowsTheRegion() {
+    func testAmbiguousWithoutPriceIsDecimalWithTheRegionSeparatorAndNeverSilentlyGrouping() {
         eq(60, p("60,000", ","))
-        eq(60_000, p("60,000", "."))
+        XCTAssertNil(p("60,000", "."))
         eq(60, p("60.000", "."))
-        eq(60_000, p("60.000", ","))
+        XCTAssertNil(p("60.000", ","))
+        XCTAssertEqual(ThresholdParser.ambiguity("60.000", decimalSeparator: ","),
+                       ThresholdParser.Ambiguity(grouped: "60000", decimal: "60,000"))
     }
 
     func testGroupingCharactersAndBothSeparators() {
@@ -64,11 +66,12 @@ final class ThresholdParserTests: XCTestCase {
         XCTAssertEqual(ThresholdParser.parseAllowingZero("0,00", decimalSeparator: ","), 0)
         XCTAssertEqual(ThresholdParser.parseAllowingZero(".0", decimalSeparator: "."), 0)
         XCTAssertEqual(ThresholdParser.parseAllowingZero("\u{0660}", decimalSeparator: "."), 0)
-        // Mehrdeutig: Region bzw. Kurs entscheidet wie bei den Schwellwerten
-        XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: ","), 60_000)
+        // Mehrdeutig: Kurs bzw. Dezimalzeichen der Region entscheidet wie bei den Schwellwerten, sonst ungültig
+        XCTAssertNil(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: ","))
         XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: "."), 60)
         XCTAssertEqual(ThresholdParser.parseAllowingZero("60.000", decimalSeparator: ",", priceHint: 58), 60)
-        XCTAssertEqual(ThresholdParser.parseAllowingZero("1,234", decimalSeparator: "."), 1_234)
+        XCTAssertNil(ThresholdParser.parseAllowingZero("1,234", decimalSeparator: "."))
+        XCTAssertEqual(ThresholdParser.parseAllowingZero("1,234", decimalSeparator: ","), 1.234)
         XCTAssertEqual(ThresholdParser.parseAllowingZero("1.234,56", decimalSeparator: "."), 1_234.56)
         XCTAssertEqual(ThresholdParser.parseAllowingZero("1\u{00A0}234,5", decimalSeparator: ","), 1_234.5)
         XCTAssertEqual(ThresholdParser.parseAllowingZero("1\u{202F}234.5", decimalSeparator: "."), 1_234.5)

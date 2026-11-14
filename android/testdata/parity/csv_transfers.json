@@ -1,5 +1,5 @@
 {
- "_comment": "Gemeinsame Testfälle der Umbuchungen über Börsen und Dateien hinweg (CsvTransferMatch, Android CsvTransferMatchParityTest / iOS CsvTransferMatchTests). Mengen als Text, Zeiten ISO-UTC; Kandidat: gleicher Coin, Einzahlung ≤ 72 h nach (≥ 2 h vor) der Auszahlung, angekommen ≤ abgeschickt, Differenz ≤ 5 %, nicht dieselbe Börse, höchstens eine Seite gespeichert. Kennung eines Kandidaten (key) = «Auszahlung → Einzahlung» (CsvTransferMatch.linkId, nur Vorschau). Verknüpfte Umbuchung: importKey = Auszahlung, linkedImportKey = Einzahlung; gegen eine gespeicherte Seite dazu restoreState (Format CsvRestoreState, Fassung 1).",
+ "_comment": "Gemeinsame Testfälle der Umbuchungen über Börsen und Dateien hinweg (CsvTransferMatch, Android CsvTransferMatchParityTest / iOS CsvTransferMatchTests). Mengen als Text, Zeiten ISO-UTC; Kandidat: gleicher Coin, Einzahlung ≤ 72 h nach (≥ 2 h vor) der Auszahlung, angekommen ≤ abgeschickt, Differenz ≤ 5 %, nicht dieselbe Börse, höchstens eine Seite gespeichert. Kennung eines Kandidaten (key) = «Auszahlung → Einzahlung» (CsvTransferMatch.linkId, nur Vorschau). Verknüpfte Umbuchung: importKey = Auszahlung, linkedImportKey = Einzahlung; gegen eine gespeicherte Seite dazu restoreState (Format CsvRestoreState, Fassung 1). Seiten ohne solchen Kandidaten: weitere bis 14 Tage danach und bis 50 % Gebühr (loose, nie vorausgewählt). ownWallet: «Auf eigene Wallet» wählt den besten freien Kandidaten (CsvTransferMatch.linkOwnWallet).",
  "cases": [
   {
    "name": "new withdrawal and deposit in one generic file become one transfer",
@@ -229,6 +229,23 @@
    "stored": [],
    "links": [
     {
+     "key": "GENERIC|W1 → GENERIC|D_LATE",
+     "withdrawalKey": "GENERIC|W1",
+     "depositKey": "GENERIC|D_LATE",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": false,
+     "loose": true
+    },
+    {
      "key": "GENERIC|W2 → GENERIC|D_EARLY",
      "withdrawalKey": "GENERIC|W2",
      "depositKey": "GENERIC|D_EARLY",
@@ -264,6 +281,20 @@
    "default": [
     "GENERIC|W2 → GENERIC|D_EARLY",
     "GENERIC|W4 → GENERIC|D_72H"
+   ],
+   "ownWallet": [
+    {
+     "withdrawal": "GENERIC|W1",
+     "chosen": [],
+     "expected": [
+      "GENERIC|W1 → GENERIC|D_LATE"
+     ]
+    },
+    {
+     "withdrawal": "GENERIC|W3",
+     "chosen": [],
+     "expected": []
+    }
    ]
   },
   {
@@ -370,6 +401,23 @@
    "stored": [],
    "links": [
     {
+     "key": "GENERIC|W1 → GENERIC|D1",
+     "withdrawalKey": "GENERIC|W1",
+     "depositKey": "GENERIC|D1",
+     "withdrawalId": null,
+     "depositId": null,
+     "sent": "1",
+     "received": "0.94",
+     "fee": "0.06",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": null,
+     "to": null,
+     "unambiguous": false,
+     "loose": true
+    },
+    {
      "key": "GENERIC|W2 → GENERIC|D2",
      "withdrawalKey": "GENERIC|W2",
      "depositKey": "GENERIC|D2",
@@ -405,6 +453,18 @@
    "default": [
     "GENERIC|W2 → GENERIC|D2",
     "GENERIC|W4 → GENERIC|D4"
+   ],
+   "ownWallet": [
+    {
+     "withdrawal": "GENERIC|W1",
+     "chosen": [
+      "GENERIC|W2 → GENERIC|D2"
+     ],
+     "expected": [
+      "GENERIC|W1 → GENERIC|D1",
+      "GENERIC|W2 → GENERIC|D2"
+     ]
+    }
    ]
   },
   {
@@ -541,7 +601,25 @@
      }
     ],
     "storedUpdates": []
-   }
+   },
+   "ownWallet": [
+    {
+     "withdrawal": "GENERIC|W2",
+     "chosen": [
+      "GENERIC|W1 → GENERIC|D1"
+     ],
+     "expected": [
+      "GENERIC|W1 → GENERIC|D1"
+     ]
+    },
+    {
+     "withdrawal": "GENERIC|W2",
+     "chosen": [],
+     "expected": [
+      "GENERIC|W2 → GENERIC|D1"
+     ]
+    }
+   ]
   },
   {
    "name": "new deposit against a stored withdrawal of an earlier import",
@@ -1909,5 +1987,23 @@
    ],
    "fallbacks": {}
   }
- ]
+ ],
+ "_walletEndToEndComment": "F3-09: zwei Börsen-Dateien (Binance gespeichert, dann Coinbase) mit verknüpfter Umbuchung unter FIFO je Wallet. Jede importierte Zeile trägt die Börse ihrer Datei als Wallet (exchange); die Umbuchung Binance → Coinbase nimmt angekommen + Gebühr von Binance. Bestand je Wallet = wallets, gesamt wie ein Topf (holdings).",
+ "walletEndToEnd": {
+  "storedCsv": "User_ID,UTC_Time,Account,Operation,Coin,Change,Remark\n1,2024-03-01 09:00:00,Spot,Transaction Spend,EUR,-50000.00000000,\n1,2024-03-01 09:00:00,Spot,Transaction Buy,BTC,1.00000000,\n1,2024-03-02 10:00:00,Spot,Withdraw,BTC,-1.00000000,Withdraw fee is included\n",
+  "importCsv": "\"You can use this transaction report to inform your likely tax obligations. For US customers, Sells, Converts, Rewards Income, Coinbase Earn transactions, and Donations are taxable events. For final tax obligations, please consult a tax advisor.\"\n\nTransactions\nUser,Jane Example,0f1e2d3c-0000-4000-8000-000000000000\nID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes\nc0ffee0000000000000000a1,2024-03-02 11:00:00 UTC,Receive,BTC,0.9995,EUR,€50000.00,€49975.00,€49975.00,€0.00,\nc0ffee0000000000000000a2,2024-03-05 10:00:00 UTC,Sell,BTC,0.5,EUR,€51000.00,€25500.00,€25500.00,€0.00,\n",
+  "coin": "BTC",
+  "storedExchange": "Binance",
+  "importExchange": "Coinbase",
+  "transfer": {
+   "from": "Binance",
+   "to": "Coinbase",
+   "amount": "0.9995",
+   "fee": "0.0005"
+  },
+  "wallets": {
+   "Coinbase": "0.4995"
+  },
+  "holdings": "0.4995"
+ }
 }

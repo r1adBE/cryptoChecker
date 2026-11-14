@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Stopa finansowania musi być liczbą od −10 do +10 procent.</string>
     <string name="alarm_threshold_error_invalid">Wpisz prawidłową liczbę większą od 0.</string>
     <string name="alarm_threshold_error_oi">Zmiana otwartych pozycji: najwyżej 1000 procent.</string>
+    <string name="alarm_threshold_error_percent_max">Najwyżej 1000 procent.</string>
+    <string name="alarm_threshold_error_distance">Odległość musi wynosić mniej niż 100 procent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">w ciągu %1$d h</item>
         <item quantity="few">w ciągu %1$d h</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Komunikat głosowy włączony</string>
     <string name="alarm_unchecked_no_candles">Nie udało się sprawdzić (brak świec)</string>
     <string name="alarm_unchecked_no_rate">Nie udało się sprawdzić (brak kursu wymiany)</string>
+    <string name="alarm_unchecked_no_window_price">Nie udało się sprawdzić (brak ceny w oknie czasowym)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Powiadomienia wyłączone – ten alarm do Ciebie nie dotrze</string>

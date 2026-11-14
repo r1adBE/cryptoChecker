@@ -82,6 +82,8 @@
     <string name="check_result_ok">정상</string>
     <string name="check_result_partial">일부</string>
     <string name="check_result_skipped">건너뜀</string>
+    <string name="check_result_paused">일시 중지됨, 확인된 항목 없음</string>
+    <string name="check_result_offline">건너뜀(오프라인)</string>
     <string name="check_trigger_bgtask">백그라운드</string>
     <string name="check_trigger_exact">제때</string>
     <string name="check_trigger_foreground">앱</string>

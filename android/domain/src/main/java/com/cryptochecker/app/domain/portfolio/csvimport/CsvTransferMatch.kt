@@ -70,6 +70,11 @@ data class CsvTransferLink(
     val unambiguous: Boolean,
     /** Gespeicherte Seite (bei [withdrawalId] bzw. [depositId]); ihr Zustand wird der Zustand für «Rückgängig». */
     val stored: CsvStoredMove? = null,
+    /**
+     * Ausserhalb der üblichen Grenzen (Gebühr über [CsvTransferMatch.MAX_FEE_SHARE] oder später als
+     * [CsvTransferMatch.WINDOW_MILLIS]) zwischen zwei sonst unverbundenen Seiten: gezeigt, nie vorausgewählt.
+     */
+    val loose: Boolean = false,
     /** Neue Zeile, die gegen [stored] aufgeht; ihr Zustand kommt ebenfalls in den Zustand für «Rückgängig». */
     val absorbed: CsvImportTx? = null,
 )
@@ -110,18 +115,15 @@ data class CsvTransferPlan(val transactions: List<CsvImportTx>, val storedUpdate
  * höchstens [MAX_FEE_SHARE] des Betrags (übliche Netzwerkgebühr); nicht dieselbe Börse auf beiden Seiten; höchstens eine
  * Seite gespeichert (gegen frühere Importe) — zwei neue Zeilen derselben Datei nur bei unbekannter Herkunft (eigene CSV).
  * Eine USDT-Gebühr der Auszahlung bleibt nur bei gleicher Menge (die Umbuchung trägt eine Gebühr); eine Einzahlung mit
- * Gebühr ausser im Coin wird nicht verknüpft.
- *
+ * Gebühr ausser im Coin wird nicht verknüpft. Seiten ohne solchen Kandidaten: weitere ([CsvTransferLink.loose]).
  * Mehrdeutig (eine Seite hat mehrere Kandidaten) → angezeigt, nicht vorausgewählt; die Wahl bleibt eine Zuordnung
  * (jede Seite höchstens einmal, [toggle]). Die verknüpfte Umbuchung trägt beide Herkunftsschlüssel in eigenen Feldern
- * (Auszahlung `importKey`, Einzahlung `linkedImportKey`), so erkennt der nächste Import beide Zeilen als importiert
- * ([CsvImport.splitDuplicates]).
- *
+ * (Auszahlung `importKey`, Einzahlung `linkedImportKey`): der nächste Import erkennt beide ([CsvImport.splitDuplicates]).
  * Gegen eine gespeicherte Seite eines früheren Imports wird diese die Umbuchung und wandert in den Importlauf des
  * verknüpfenden Imports; ihr Zustand davor und der der darin aufgegangenen neuen Zeile stehen im Feld `importRestoreState`
  * ([restoreState], [CsvRestoreState]). «Import rückgängig» ([undoPlan]) des verknüpfenden Laufs setzt die gespeicherte
- * Seite zurück — nichts aus ihm bleibt —; der des früheren Laufs verwandelt die Umbuchung in die neue Zeile der späteren
- * Datei zurück (Entscheid des Inhabers: sie gehört dem späteren Lauf, dessen «Rückgängig» sie danach entfernt).
+ * Seite zurück; der des früheren Laufs verwandelt die Umbuchung in die neue Zeile der späteren Datei zurück
+ * (Entscheid des Inhabers: sie gehört dem späteren Lauf, dessen «Rückgängig» sie danach entfernt).
  */
 object CsvTransferMatch {
 
@@ -134,45 +136,15 @@ object CsvTransferMatch {
     /** Höchster Anteil der Gebühr am abgeschickten Betrag. */
     val MAX_FEE_SHARE = BigDecimal("0.05")
 
+    /**
+     * Weitere Kandidaten ([CsvTransferLink.loose]) zwischen Seiten ohne üblichen: Einzahlung bis [LOOSE_WINDOW_MILLIS]
+     * danach, Gebühr bis [LOOSE_MAX_FEE_SHARE] (feste Netzwerkgebühr auf kleine Beträge, langsame Wege).
+     */
+    const val LOOSE_WINDOW_MILLIS = 14L * 24L * 3_600_000L
+    val LOOSE_MAX_FEE_SHARE = BigDecimal("0.5")
+
     /** Kennung eines Kandidaten in der Vorschau (Auswahl, Liste); nie gespeichert. */
     fun linkId(withdrawalKey: String, depositKey: String): String = "$withdrawalKey → $depositKey"
-
-    /**
-     * Zustand der gespeicherten Seite von [link] vor der Verknüpfung samt der aufgegangenen neuen Zeile — für
-     * «Import rückgängig» beider Läufe. null = keine gespeicherte Seite.
-     */
-    fun restoreState(link: CsvTransferLink): CsvRestoreState? {
-        val s = link.stored ?: return null
-        val n = link.absorbed ?: return null
-        return CsvRestoreState(
-            type = s.type,
-            amount = s.amount,
-            priceUsdt = s.priceUsdt,
-            time = s.time,
-            fee = s.fee,
-            feeUnit = s.feeUnit,
-            feeCoin = s.feeCoin,
-            feeCoinAmount = s.feeCoinAmount,
-            feeCoinPrice = s.feeCoinPrice,
-            transferFrom = s.transferFrom,
-            transferTo = s.transferTo,
-            acquiredTime = s.acquiredTime,
-            exchange = s.exchange,
-            importKey = s.importKey,
-            importBatch = s.importBatch,
-            absorbed = CsvAbsorbedRow(
-                type = n.type,
-                amount = n.amount,
-                priceUsdt = n.priceUsdt,
-                time = n.time,
-                fee = n.fee,
-                feeUnit = n.feeUnit,
-                feeCoin = n.feeCoin,
-                feeCoinAmount = n.feeCoinAmount,
-                importKey = n.importKey,
-            ),
-        )
-    }
 
     /**
      * «Import rückgängig» des Laufs [batch] über alle importierten Transaktionen [rows]: eine Umbuchung, die dieser Lauf
@@ -276,8 +248,15 @@ object CsvTransferMatch {
         }
         val links = ArrayList<CsvTransferLink>()
         // Nur Einzahlungen desselben Coins im Zeitfenster prüfen ([fits] verlangt beides)
-        val pairs = CsvTransferWindow.pairs(outs, ins, End::coin, End::time, EARLY_MILLIS, WINDOW_MILLIS, ::fits)
-        for ((wi, di) in pairs) {
+        val pairs = CsvTransferWindow.pairs(outs, ins, End::coin, End::time, EARLY_MILLIS, WINDOW_MILLIS) { w, d -> fits(w, d) }
+        // Seiten ohne üblichen Kandidaten: weitere mit hoher Gebühr bzw. später Einzahlung (gezeigt, nie vorausgewählt)
+        val pairedOut = pairs.mapTo(HashSet()) { it.first }
+        val pairedIn = pairs.mapTo(HashSet()) { it.second }
+        val loose = CsvTransferWindow.pairs(outs, ins, End::coin, End::time, EARLY_MILLIS, LOOSE_WINDOW_MILLIS) { w, d ->
+            fits(w, d, LOOSE_WINDOW_MILLIS, LOOSE_MAX_FEE_SHARE)
+        }.filter { (wi, di) -> wi !in pairedOut && di !in pairedIn }
+        for (pairInfo in pairs.map { it to false } + loose.map { it to true }) {
+            val (wi, di) = pairInfo.first
             val w = outs[wi]
             val d = ins[di]
             val diff = w.total - d.total
@@ -302,24 +281,45 @@ object CsvTransferMatch {
                 unambiguous = false,
                 stored = w.stored ?: d.stored,
                 absorbed = if (w.stored != null) d.tx else if (d.stored != null) w.tx else null,
+                loose = pairInfo.second,
             )
         }
-        val perOut = links.groupingBy { it.withdrawalKey }.eachCount()
-        val perIn = links.groupingBy { it.depositKey }.eachCount()
-        return links.map { it.copy(unambiguous = perOut[it.withdrawalKey] == 1 && perIn[it.depositKey] == 1) }
+        // Eindeutig nur unter den üblichen Kandidaten; weitere ([CsvTransferLink.loose]) nie vorausgewählt
+        val strict = links.filter { !it.loose }
+        val perOut = strict.groupingBy { it.withdrawalKey }.eachCount()
+        val perIn = strict.groupingBy { it.depositKey }.eachCount()
+        return links.map { it.copy(unambiguous = !it.loose && perOut[it.withdrawalKey] == 1 && perIn[it.depositKey] == 1) }
             .sortedWith(compareBy({ it.withdrawalTime }, { it.depositTime }, { it.key }))
     }
 
-    private fun fits(w: End, d: End): Boolean {
+    private fun fits(w: End, d: End, window: Long = WINDOW_MILLIS, maxFeeShare: BigDecimal = MAX_FEE_SHARE): Boolean {
         if (w.coin != d.coin || (w.id != null && d.id != null) || d.foreignFee) return false
         // Zwei neue Zeilen einer Börsen-Datei: dieselbe Börse kann nicht an sich selbst überweisen
         if (w.place != null && w.place == d.place) return false
-        if (d.time < w.time - EARLY_MILLIS || d.time > w.time + WINDOW_MILLIS) return false
+        if (d.time < w.time - EARLY_MILLIS || d.time > w.time + window) return false
         if (d.total.signum() <= 0 || d.total > w.total) return false
         val diff = w.total - d.total
-        if (diff > w.total.multiply(MAX_FEE_SHARE, com.cryptochecker.app.domain.portfolio.PortfolioDecimal.MC)) return false
+        if (diff > w.total.multiply(maxFeeShare, com.cryptochecker.app.domain.portfolio.PortfolioDecimal.MC)) return false
         // USDT-Gebühr der Auszahlung und Differenz im Coin: die Umbuchung trägt nur eine Gebühr
         return !(diff.signum() > 0 && w.quoteFee != null)
+    }
+
+    /**
+     * «Auf eigene Wallet» für die Auszahlung [withdrawalKey]: hat sie einen Kandidaten, dessen Einzahlung frei ist, wird
+     * der beste gewählt (übliche vor weiteren, dann die nächste Einzahlung, dann die kleinste Gebühr) — sonst zählte die
+     * Einzahlung ein zweites Mal (Umbuchung behält die Coins, die Einzahlung bringt sie noch einmal). Schon verknüpft
+     * oder ohne freien Kandidaten: unverändert.
+     */
+    fun linkOwnWallet(links: List<CsvTransferLink>, chosen: Set<String>, withdrawalKey: String): Set<String> {
+        val active = links.filter { it.key in chosen }
+        if (active.any { it.withdrawalKey == withdrawalKey }) return chosen
+        val usedDeposits = active.mapTo(HashSet()) { it.depositKey }
+        val best = links.filter { it.withdrawalKey == withdrawalKey && it.depositKey !in usedDeposits }
+            .minWithOrNull(
+                compareBy({ it.loose }, { kotlin.math.abs(it.depositTime - it.withdrawalTime) }, { it.sent - it.received }, { it.key }),
+            )
+            ?: return chosen
+        return toggle(links, chosen, best.key, on = true)
     }
 
     /** Vorauswahl: alle eindeutigen Kandidaten. */

@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Алармите са включени – още няма проверка във фонов режим</string>
     <string name="alarm_reliability_notifications_off">Известията са изключени – алармите няма да пристигат</string>
     <string name="alarm_reliability_battery">Пестенето на батерията може да спре проверката на алармите</string>
+    <string name="alarm_reliability_offline">Няма връзка – алармите се проверяват, щом мрежата се върне</string>
     <string name="alarm_reliability_background_refresh">Обновяването във фонов режим е изключено – алармите може да не пристигат</string>
 </resources>

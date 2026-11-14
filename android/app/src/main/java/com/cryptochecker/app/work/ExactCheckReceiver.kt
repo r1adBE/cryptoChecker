@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
+import com.cryptochecker.app.domain.refresh.CheckResult
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
@@ -83,10 +84,10 @@ class ExactCheckReceiver : BroadcastReceiver() {
                         return@launch
                     }
                     // Offline: kein Versuch — sonst stünden alle Paare auf Fehler. WorkManager holt
-                    // nach, sobald Netz da ist. Kein Eintrag in «Letzte Prüfungen»: Ein
-                    // «übersprungen» zählte dort als Prüfung, und die Zuverlässigkeitszeile wirkte frisch,
-                    // obwohl offline tagelang nichts geprüft wurde
+                    // nach, sobald Netz da ist. Eintrag «Übersprungen (offline)»: zählt nicht als Prüfung (die
+                    // Zuverlässigkeitszeile wirkt nicht frisch), nennt aber das Netz als Grund statt «Akku»
                     BackgroundWorkPolicy.FiredAction.REARM_SKIP_OFFLINE -> {
+                        backgroundCheck.log(CheckTrigger.EXACT, CheckResult.OFFLINE, startedAt)
                         scheduler.rearm(interval)
                         chainHandled = true
                         return@launch

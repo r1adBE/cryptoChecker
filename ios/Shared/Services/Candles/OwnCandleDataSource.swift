@@ -43,8 +43,15 @@ actor OwnCandleDataSource {
         return URLSession(configuration: c)
     }()
 
+    /// Ergebnis eines Abrufs: Kerzen oder nil; `unreachable` = eine Anfrage scheiterte vorübergehend (Netz, Zeitgrenze,
+    /// 5xx, Pause — `HistoricCloseChain.fetchFailure`); nil ohne `unreachable` = keine Reihe. Wie Android `Load`.
+    struct Load: Sendable {
+        var value: Sourced<[MarketCandle]>?
+        var unreachable = false
+    }
+
     // Begrenzt: Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
-    private var cache = BoundedCache<String, (time: Int64, value: Sourced<[MarketCandle]>?)>()
+    private var cache = BoundedCache<String, (time: Int64, value: Load)>()
     private var running = 0
     private var waiters: [CheckedContinuation<Void, Never>] = []
 
@@ -55,13 +62,18 @@ actor OwnCandleDataSource {
 
     /// Bis zu `limit` eigene Kerzen, aufsteigend; nil ohne Quelle oder ohne laufende Reihe.
     func candles(_ pair: CandlePair, interval: CandleInterval, limit: Int) async -> Sourced<[MarketCandle]>? {
+        await load(pair, interval: interval, limit: limit).value
+    }
+
+    /// Wie `candles`, dazu ob eine Anfrage vorübergehend scheiterte (`Load.unreachable`, Tagesschlüsse).
+    func load(_ pair: CandlePair, interval: CandleInterval, limit: Int) async -> Load {
         guard ExchangeCandleRegistry.intervals.contains(interval),
-              let source = ExchangeCandleRegistry.source(for: pair) else { return nil }
+              let source = ExchangeCandleRegistry.source(for: pair) else { return Load() }
         let n = min(max(limit, 2), Self.maxLimit)
         let key = "\(pair.cacheKey)|\(interval.rawValue)|\(n)"
         if let entry = cache.get(key) {
             let age = EpochTime.nowMillis - entry.time
-            let ttl = entry.value == nil ? Self.failureMillis : Self.cacheMillis
+            let ttl = entry.value.value == nil ? Self.failureMillis : Self.cacheMillis
             if age >= 0 && age < ttl { return entry.value }
         }
         await acquire()
@@ -83,33 +95,46 @@ actor OwnCandleDataSource {
     func invalidateAll() { cache.removeAll() }
 
     private static func fetch(_ source: any ExchangeCandleSource, pair: CandlePair, interval: CandleInterval,
-                              limit: Int) async -> Sourced<[MarketCandle]>? {
-        let http = CandleHTTP(get: { url in await get(source, url, json: nil) },
-                              post: { url, json in await get(source, url, json: json) },
+                              limit: Int) async -> Load {
+        let unreachable = OSAllocatedUnfairLock(initialState: false)
+        let http = CandleHTTP(get: { url in await get(source, url, json: nil, unreachable: unreachable) },
+                              post: { url, json in await get(source, url, json: json, unreachable: unreachable) },
                               now: EpochTime.nowMillis)
-        guard let candles = await source.fetch(pair, interval: interval, limit: limit, http: http),
-              candles.count >= 2,
-              CandleSeries.isLive(candles, intervalMillis: interval.millis, now: EpochTime.nowMillis) else { return nil }
-        return Sourced(value: candles, provider: OwnCandlePolicy.provider(pair))
+        let fetched = await source.fetch(pair, interval: interval, limit: limit, http: http)
+        let failed = unreachable.withLock { $0 }
+        guard let candles = fetched, candles.count >= 2,
+              CandleSeries.isLive(candles, intervalMillis: interval.millis, now: EpochTime.nowMillis) else {
+            return Load(value: nil, unreachable: failed)
+        }
+        return Load(value: Sourced(value: candles, provider: OwnCandlePolicy.provider(pair)), unreachable: failed)
     }
 
-    /// Eine Anfrage (GET, mit `json` POST); nil bei Fehler, Sperre oder Pause.
-    private static func get(_ source: any ExchangeCandleSource, _ url: String, json: String?) async -> String? {
+    /// Eine Anfrage (GET, mit `json` POST); nil bei Fehler, Sperre oder Pause. `unreachable` wird gesetzt, wenn der
+    /// Fehler vorübergehend war (Netz, Zeitgrenze, 5xx, Pause) — nicht bei «keine Daten» oder Geo-Sperre.
+    private static func get(_ source: any ExchangeCandleSource, _ url: String, json: String?,
+                            unreachable: OSAllocatedUnfairLock<Bool>) async -> String? {
         let host = hostOf(url)
-        if Task.isCancelled || BlockedSources.isBlocked(host) || CandleHostPauses.isPaused(host) { return nil }
+        if Task.isCancelled { return nil }
+        if BlockedSources.groupPausedUntil(host) != nil || CandleHostPauses.isPaused(host) {
+            unreachable.withLock { $0 = true }
+            return nil
+        }
+        if BlockedSources.isBlocked(host) { return nil }
         let post = json.map { PostRequest(body: $0, headers: ["Content-Type": "application/json"]) }
         let body: String
         do {
             body = try await ExchangeHTTP.call(url, post: post, session: session)
         } catch {
-            if !BlockedSources.noteFailure(host, error), let http = error as? HttpExchangeError,
-               ExchangeBackoff.isRateLimitCode(http.httpCode) {
+            let http = error as? HttpExchangeError
+            if HistoricCloseChain.fetchFailure(httpCode: http?.httpCode) == .TRANSIENT { unreachable.withLock { $0 = true } }
+            if !BlockedSources.noteFailure(host, error), let http, ExchangeBackoff.isRateLimitCode(http.httpCode) {
                 CandleHostPauses.pause(host, httpCode: http.httpCode, retryAfterSeconds: http.retryAfterSeconds)
             }
             return nil
         }
         if source.isRateLimited(body) {
             if ExchangeBackoff.sharedGroup(host) == nil { CandleHostPauses.pause(host, httpCode: 429, retryAfterSeconds: nil) }
+            unreachable.withLock { $0 = true }
             return nil
         }
         return body

@@ -158,15 +158,10 @@ enum SettingsPercentOption: Hashable {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
-    /// Tastatureingabe wie Android `filterPercentInput`: Dezimalziffern jeder Schrift, «,» und «.»
-    /// sowie das arabische Dezimalzeichen «٫»; «٬» (Tausendertrennung) bleibt stehen, damit `parse`
-    /// es ablehnt und der Hinweis erscheint; höchstens sechs Zeichen.
+    /// Eingabe wie Android `filterPercentInput`: nur Leerraum fällt weg, höchstens sechs Zeichen. Nichts wird still
+    /// entfernt — aus eingefügtem «1e3» würde sonst «13», aus «-5» «5»; so lehnt `parse` es ab und der Hinweis erscheint.
     static func filterInput(_ input: String) -> String {
-        String(input.filter { c in
-            if c == "," || c == "." || c == "\u{066B}" || c == "\u{066C}" { return true }
-            guard c.unicodeScalars.count == 1, let scalar = c.unicodeScalars.first else { return false }
-            return scalar.properties.numericType == .decimal
-        }.prefix(6))
+        String(input.filter { !$0.isWhitespace }.prefix(6))
     }
 
     /// Fehler erst zeigen, wenn etwas eingegeben ist, das nicht 0 – 100 ergibt — wie Android `percentInputError`.

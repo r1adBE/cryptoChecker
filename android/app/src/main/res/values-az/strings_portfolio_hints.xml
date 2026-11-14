@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Portfel alarmları balansı 24 saatdan çoxdur yüklənməyən ünvanlar olmadan yoxlanılır</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenlər qismən köhnəlib</string>
+    <string name="portfolio_address_zero_unconfirmed">0 hələ təsdiqlənməyib</string>
     <string name="portfolio_address_restore_failed">Ünvan bərpa edilə bilmədi – lazım olsa, yenidən əlavə et</string>
     <string name="portfolio_address_remove_failed">Ünvan silinə bilmədi – yenidən cəhd et</string>
 </resources>

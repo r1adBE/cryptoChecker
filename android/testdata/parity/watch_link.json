@@ -1,5 +1,5 @@
 {
- "description": "Uhr und Handy (Build 191): WatchInterval (Intervall des Handys auf 15–60 Min. begrenzt; selbst neu laden ab Intervall − 5 Min.), WatchSettings mit Kursquelle src (phone|self, unbekannt → phone) und Intervall i (fehlt → 15, begrenzt) — beide immer vom Handy beim Zusammenführen; WatchPhoneQuotes.pick (Paare gegen USDT, Spot, nicht deaktiviert, Kurs > 0, Zeit > 0; je Coin der neueste, gleich alt: kleinere sortOrder; Reihenfolge der Coins, ohne Doppelte), fromJson (ungültige Einträge fallen weg, unlesbar → null), selfFetch (ohne Kurs immer; vom Handy gelieferte Coins mit Handy nur, wenn veraltet > 45 Min.; sonst auf Wunsch oder ab Intervall − 5 Min.); WatchPortfolio.message (Schalter oder Portfolio aus → clear; ohne Aufnahme → null; verborgen oder gesperrt → ohne Zahlen) und fromJson; WatchCache.mergeTimed (je Coin die neuere Zeit, nur Coins aus keep). Android marketdata/watch + wear WatchCache, iOS WatchCore.",
+ "description": "Uhr und Handy (Build 191): WatchInterval (Intervall des Handys auf 15–60 Min. begrenzt; selbst neu laden ab Intervall − 5 Min.), WatchSettings mit Kursquelle src (phone|self, unbekannt → phone) und Intervall i (fehlt → 15, begrenzt) — beide immer vom Handy beim Zusammenführen; WatchPhoneQuotes.pick (Paare gegen USDT, Spot, nicht deaktiviert, Kurs > 0, Zeit > 0; je Coin der neueste, gleich alt: kleinere sortOrder; Reihenfolge der Coins, ohne Doppelte), fromJson (ungültige Einträge fallen weg, unlesbar → null), selfFetch (ohne Kurs immer; vom Handy gelieferte Coins mit Handy nur, wenn veraltet > 3 × Intervall (WatchFreshness); sonst auf Wunsch oder ab Intervall − 5 Min.); phoneSideDiffers (Uhr meldet anderen Handy-Teil - Favoriten, Kursquelle, Intervall - dann sendet das Handy den ganzen Stand noch einmal; Wahl und eigene Liste zählen nicht); forgetPhone (Handy ohne Stand: merge mit Standardwerten, Handy-Teil leer bzw. Standard, Wahl der Uhr bleibt ab Nummer 1); usePhone (Kurse vom Handy nur mit Quelle phone, verbunden und letzter Lieferung nicht älter als Intervall + 5 Min. = phoneSilentAfterMillis, Intervall begrenzt; deliveryTime = neueste Zeit der gelieferten Kurse, 0 ohne Kurse); WatchPortfolio.message (Schalter oder Portfolio aus → clear; ohne Aufnahme → null; verborgen oder gesperrt → ohne Zahlen, auch ohne lesbare Aufnahme: Währung der Aufnahme, sonst fallbackCurrency, sonst USD; Zeit der Aufnahme, sonst now; fehlen fallbackCurrency/now im Fall, gelten null/0) und fromJson; WatchCache.mergeTimed (je Coin die neuere Zeit, nur Coins aus keep). Android marketdata/watch + wear WatchCache, iOS WatchCore.",
  "interval": [
   {
    "minutes": 15,
@@ -135,6 +135,199 @@
     "source": "phone",
     "interval": 30
    }
+  }
+ ],
+ "forgetPhone": [
+  {
+   "name": "Wahl der Uhr geändert: bleibt, Handy-Teil auf Standard",
+   "local": {
+    "mode": "phone",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "SOL",
+     "ETH"
+    ],
+    "revision": 3,
+    "source": "self",
+    "interval": 60
+   },
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "BTC"
+    ],
+    "phone": [],
+    "revision": 3,
+    "source": "phone",
+    "interval": 15
+   }
+  },
+  {
+   "name": "nie geändert (Nummer 0): ganz Standard",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC",
+     "ETH"
+    ],
+    "phone": [
+     "SOL"
+    ],
+    "revision": 0,
+    "source": "self",
+    "interval": 30
+   },
+   "expected": {
+    "mode": "own",
+    "own": [
+     "BTC",
+     "ETH"
+    ],
+    "phone": [],
+    "revision": 0,
+    "source": "phone",
+    "interval": 15
+   }
+  },
+  {
+   "name": "schon ohne Handy: unverändert",
+   "local": {
+    "mode": "own",
+    "own": [
+     "ADA"
+    ],
+    "phone": [],
+    "revision": 2,
+    "source": "phone",
+    "interval": 15
+   },
+   "expected": {
+    "mode": "own",
+    "own": [
+     "ADA"
+    ],
+    "phone": [],
+    "revision": 2,
+    "source": "phone",
+    "interval": 15
+   }
+  }
+ ],
+ "phoneSideDiffers": [
+  {
+   "name": "Uhr kennt die Favoriten nicht (App später installiert)",
+   "phone": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BTC",
+     "ETH",
+     "SOL"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 15
+   },
+   "watch": {
+    "mode": "phone",
+    "own": [
+     "BTC"
+    ],
+    "phone": [],
+    "revision": 1,
+    "source": "phone",
+    "interval": 15
+   },
+   "expected": true
+  },
+  {
+   "name": "andere Kursquelle",
+   "phone": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BTC"
+    ],
+    "revision": 1,
+    "source": "self",
+    "interval": 15
+   },
+   "watch": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BTC"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 15
+   },
+   "expected": true
+  },
+  {
+   "name": "anderes Intervall",
+   "phone": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BTC"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 60
+   },
+   "watch": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "BTC"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 15
+   },
+   "expected": true
+  },
+  {
+   "name": "nur Wahl und eigene Liste verschieden: nichts nachsenden",
+   "phone": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "SOL"
+    ],
+    "revision": 1,
+    "source": "phone",
+    "interval": 30
+   },
+   "watch": {
+    "mode": "phone",
+    "own": [
+     "ETH",
+     "ADA"
+    ],
+    "phone": [
+     "SOL"
+    ],
+    "revision": 4,
+    "source": "phone",
+    "interval": 30
+   },
+   "expected": false
   }
  ],
  "pick": {
@@ -331,23 +524,30 @@
     ]
    },
    {
-    "name": "mit Handy, auf Wunsch: Handy-Coins trotzdem nicht",
+    "name": "mit Handy, auf Wunsch: Handy-Coins trotzdem nicht (ETH 50 Min. bei 30 Min. noch frisch)",
     "usePhone": true,
     "interval": 30,
     "force": true,
     "expected": [
-     "ETH",
      "SOL",
      "ADA"
     ]
    },
    {
-    "name": "mit Handy, 30 Min.: SOL noch frisch",
+    "name": "mit Handy, 30 Min.: SOL noch frisch, ETH erst nach 3 × 30 Min. veraltet",
     "usePhone": true,
     "interval": 30,
     "force": false,
     "expected": [
-     "ETH",
+     "ADA"
+    ]
+   },
+   {
+    "name": "mit Handy, 60 Min.: Handy-Coins erst nach 3 Std. veraltet",
+    "usePhone": true,
+    "interval": 60,
+    "force": false,
+    "expected": [
      "ADA"
     ]
    },
@@ -494,6 +694,80 @@
     "time": 1800000000000,
     "hidden": true
    }
+  },
+  {
+   "name": "Sperre, Aufnahme nicht lesbar: ohne Zahlen mit Währung der Einstellungen",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": true,
+   "total": null,
+   "changePercent": null,
+   "currency": null,
+   "time": 0,
+   "fallbackCurrency": "chf",
+   "now": 1800000000000,
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "CHF",
+    "time": 1800000000000,
+    "hidden": true
+   }
+  },
+  {
+   "name": "Beträge verbergen, Aufnahme nicht lesbar, Einstellungswährung ungültig: USD",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": true,
+   "locked": false,
+   "total": null,
+   "changePercent": null,
+   "currency": null,
+   "time": 0,
+   "fallbackCurrency": "x",
+   "now": 1800000000000,
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "USD",
+    "time": 1800000000000,
+    "hidden": true
+   }
+  },
+  {
+   "name": "Sperre, Aufnahme mit ungültiger Währung: Zahlen weg, Zeit der Aufnahme",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": true,
+   "total": 5.0,
+   "changePercent": 1.0,
+   "currency": "??",
+   "time": 1799999000000,
+   "fallbackCurrency": "EUR",
+   "now": 1800000000000,
+   "expected": {
+    "total": null,
+    "changePercent": null,
+    "currency": "EUR",
+    "time": 1799999000000,
+    "hidden": true
+   }
+  },
+  {
+   "name": "Nicht verborgen, Aufnahme nicht lesbar: nichts senden",
+   "onWatch": true,
+   "portfolioEnabled": true,
+   "hidden": false,
+   "locked": false,
+   "total": null,
+   "changePercent": null,
+   "currency": null,
+   "time": 0,
+   "fallbackCurrency": "CHF",
+   "now": 1800000000000,
+   "expected": null
   }
  ],
  "portfolioJson": [
@@ -630,5 +904,122 @@
     }
    ]
   }
- ]
+ ],
+ "usePhone": {
+  "now": 1800000000000,
+  "silentAfter": [
+   {
+    "interval": 15,
+    "millis": 1200000
+   },
+   {
+    "interval": 30,
+    "millis": 2100000
+   },
+   {
+    "interval": 60,
+    "millis": 3900000
+   },
+   {
+    "interval": 1440,
+    "millis": 3900000
+   }
+  ],
+  "deliveryTime": [
+   {
+    "times": [
+     1799998200000,
+     1799999700000,
+     1799999280000
+    ],
+    "expected": 1799999700000
+   },
+   {
+    "times": [],
+    "expected": 0
+   }
+  ],
+  "cases": [
+   {
+    "name": "Handy verbunden, Lieferung vor 10 Min.",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799999400000,
+    "interval": 15,
+    "expected": true
+   },
+   {
+    "name": "genau Intervall + 5 Min.: noch vom Handy",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799998800000,
+    "interval": 15,
+    "expected": true
+   },
+   {
+    "name": "Intervall + 5 Min. + 1 ms: Handy still, selbst holen",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799998799999,
+    "interval": 15,
+    "expected": false
+   },
+   {
+    "name": "Intervall 60: 64 Min. noch vom Handy",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799996160000,
+    "interval": 60,
+    "expected": true
+   },
+   {
+    "name": "Intervall 60: 66 Min. still",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799996040000,
+    "interval": 60,
+    "expected": false
+   },
+   {
+    "name": "Intervall 5 (begrenzt auf 15): 21 Min. still",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1799998740000,
+    "interval": 5,
+    "expected": false
+   },
+   {
+    "name": "Uhr weiss: nicht verbunden",
+    "source": "phone",
+    "connected": false,
+    "lastDelivery": 1799999940000,
+    "interval": 15,
+    "expected": false
+   },
+   {
+    "name": "noch nie geliefert",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 0,
+    "interval": 15,
+    "expected": false
+   },
+   {
+    "name": "Immer selbst abrufen",
+    "source": "self",
+    "connected": true,
+    "lastDelivery": 1799999940000,
+    "interval": 15,
+    "expected": false
+   },
+   {
+    "name": "Lieferung in der Zukunft (Uhr des Handys vor): vom Handy",
+    "source": "phone",
+    "connected": true,
+    "lastDelivery": 1800000300000,
+    "interval": 15,
+    "expected": true
+   }
+  ]
+ }
 }

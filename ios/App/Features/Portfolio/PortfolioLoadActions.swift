@@ -18,7 +18,9 @@ extension PortfolioModel {
 
     /// Eine Runde: Liste frisch lesen, fällige laden, Ergebnis speichern.
     private func loadWatchedAddresses(force: Bool, budgetMillis: Int64?) async {
-        let list = data.watchedAddresses
+        // Server unbekannt (Einstellungen ersetzt): Bitcoin gar nicht fragen, bis bestätigt (nie still öffentlich)
+        let unknown = StorageRecoveryNotice.addressServerUnknown()
+        let list = data.watchedAddresses.filter { AddressServer.queryAllowed($0.chain, serverUnknown: unknown) }
         guard !list.isEmpty else { return }
         // Eigener Bitcoin-Server aus den Einstellungen: Bitcoin dann nur dort (`AddressServer`)
         guard let updates = try? await WatchedAddressSource.shared.refresh(list, force: force, budgetMillis: budgetMillis,

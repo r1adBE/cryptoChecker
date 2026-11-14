@@ -15,6 +15,7 @@
     <string name="watchlist_refresh_report">Zadnja osvežitev</string>
     <string name="watchlist_symbols_legend">Razlaga simbolov</string>
     <string name="watchlist_symbols_legend_alarms">Aktivni alarmi in njihovo število</string>
+    <string name="watchlist_symbols_legend_warning">Tečaj zastarel ali borza ni dosegljiva</string>
     <string name="watchlist_refresh_report_empty">Še ni razčlenitve – doslej ni bilo popolne osvežitve. Tapni Osveži in počakaj, da se krog ustavi.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d od %2$d zastarel</item>
@@ -294,6 +295,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Zapri obvestilo</string>
     <string name="watchlist_missing_logos_explain">Za te kovance logotip ni na voljo. Aplikacija prikaže njihove začetnice.</string>
+    <string name="watchlist_missing_logos_pending">še ni naloženo</string>
+    <string name="watchlist_missing_logos_explain_pending">Logotipi, označeni kot še nenaloženi, pridejo z naslednjo sinhronizacijo, nekateri le prek Wi-Fi. Za ostale kovance logotip ni na voljo. Aplikacija prikaže njihove začetnice.</string>
     <string name="exchange_retiring_notice">Od %2$s %1$s ne bo več zagotavljal javnih cen. Za te kovance izberi drugo borzo.</string>
     <string name="exchange_retiring_reason">Od %2$s %1$s ne bo več zagotavljal cen</string>
     <string name="exchange_retired_since">Od %2$s %1$s ne zagotavlja več cen</string>

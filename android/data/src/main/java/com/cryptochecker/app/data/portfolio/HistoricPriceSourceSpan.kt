@@ -7,6 +7,9 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
+import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
+import com.cryptochecker.app.domain.remote.BlockedSources
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import kotlinx.coroutines.CancellationException
@@ -21,8 +24,33 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 /**
+ * Quelle nicht erreichbar (Netz, Zeitgrenze, 5xx, «zu viele Anfragen» — auch nach einer Wiederholung,
+ * [HistoricCloseChain.fetchFailure]): die Kette bricht für diesen Tag ab, statt eine andere Quelle zu nehmen.
+ */
+internal class HistoricSourceUnavailable(host: String, cause: Throwable? = null) :
+    Exception("Quelle nicht erreichbar: $host", cause)
+
+/**
+ * GET für Tageskerzen: Antwort, null = keine Daten (4xx, Paar unbekannt) bzw. Quelle gesperrt (403/451); vorübergehende
+ * Fehler einmal wiederholt, dann [HistoricSourceUnavailable] — «nicht erreichbar» ist nicht «keine Kerze».
+ */
+internal suspend fun HistoricPriceSource.getDay(host: String, url: String): String? {
+    var error: Throwable? = null
+    repeat(2) {
+        if (BlockedSources.groupPausedUntil(host) != null) throw HistoricSourceUnavailable(host, error)
+        var failed = false
+        val body = get(host, url) { failed = true; error = it }
+        if (body != null || !failed) return body
+        val code = (error as? HttpExchangeError)?.httpCode
+        if (HistoricCloseChain.fetchFailure(code) != HistoricCloseChain.FetchFailure.TRANSIENT) return null
+    }
+    throw HistoricSourceUnavailable(host, error)
+}
+
+/**
  * Kerzen der Binance-Gruppe und von Coinbase für [HistoricPriceSource.closeUsdt], dazu der Devisenkurs eines Tags (eigene
- * Börse in Fiat). Schluss = Kerze, die genau bei `start` beginnt (gültig, > 0); null = keine (auch: Abfrage gescheitert).
+ * Börse in Fiat). Schluss = Kerze, die genau bei `start` beginnt (gültig, > 0); null = keine. Quelle nicht erreichbar:
+ * [HistoricSourceUnavailable] ([getDay]).
  */
 internal interface DayCloseFetch {
     suspend fun binanceDay(host: String, endpoint: String, symbol: String, start: Long): Double?
@@ -42,24 +70,24 @@ internal interface DayCloseFetch {
 /** Je Tag eine Abfrage (Stichtag, Vorschlag beim Erfassen): Binance mit `startTime` und `limit=1`, Coinbase genau über den Tag. */
 internal class DayFetch(private val source: HistoricPriceSource) : DayCloseFetch {
     override suspend fun binanceDay(host: String, endpoint: String, symbol: String, start: Long): Double? {
-        val body = source.get(host, "$endpoint?symbol=$symbol&interval=1d&startTime=$start&limit=1") ?: return null
+        val body = source.getDay(host, "$endpoint?symbol=$symbol&interval=1d&startTime=$start&limit=1") ?: return null
         val candles = runCatchingCancellable { CandleDataSource.parseBinance(body) }.getOrNull() ?: return null
         return source.closeOf(candles, start)
     }
 
     override suspend fun binanceLatest(host: String, endpoint: String, symbol: String): Double? =
-        source.get(host, "$endpoint?symbol=$symbol&interval=1d&limit=1")
+        source.getDay(host, "$endpoint?symbol=$symbol&interval=1d&limit=1")
             ?.let { runCatchingCancellable { CandleDataSource.parseBinance(it) }.getOrNull() }
             ?.lastOrNull()?.close
 
     override suspend fun coinbaseDay(product: String, date: LocalDate, start: Long): Double? {
-        val body = source.get(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, date, date)) ?: return null
+        val body = source.getDay(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, date, date)) ?: return null
         val candles = runCatchingCancellable { CandleDataSource.parseCoinbase(body) }.getOrNull() ?: return null
         return source.closeOf(candles, start)
     }
 
     override suspend fun coinbaseLatest(product: String): Double? =
-        source.get(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, null, null))
+        source.getDay(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, null, null))
             ?.let { runCatchingCancellable { CandleDataSource.parseCoinbase(it) }.getOrNull() }
             ?.maxByOrNull { it.openTime }?.close
 
@@ -89,33 +117,36 @@ internal class SpanFetch(private val source: HistoricPriceSource, days: Collecti
 
     /** «Quelle|Reihe» → jüngster Schluss (auch null = keiner). */
     private val latest = HashMap<String, Double?>()
+
+    /** Schlüssel von [loaded]/[latest], deren Abruf nicht erreichbar war: im selben Export nicht erneut (kein Kurs). */
+    private val unavailable = HashSet<String>()
     private val fx = HashMap<Pair<String, LocalDate>, HistoricFx?>()
 
     override suspend fun binanceDay(host: String, endpoint: String, symbol: String, start: Long): Double? {
         val span = spanOf(binanceSpans, start) ?: return source.dayFetch.binanceDay(host, endpoint, symbol, start)
-        val closes = loaded.getOrPut("$host|$symbol|${span.first}") {
+        val closes = loadedOrFetch("$host|$symbol|${span.first}", host) {
             val from = startMillis(span.first)
             val to = startMillis(span.second)
-            val body = source.get(host, "$endpoint?symbol=$symbol&interval=1d&startTime=$from&endTime=$to&limit=$BINANCE_SPAN_DAYS")
+            val body = source.getDay(host, "$endpoint?symbol=$symbol&interval=1d&startTime=$from&endTime=$to&limit=$BINANCE_SPAN_DAYS")
             body?.let { runCatchingCancellable { CandleDataSource.parseBinance(it) }.getOrNull() }.byOpenTime()
         }
         return closes[start]?.takeIf { it > 0.0 && it.isFinite() }
     }
 
     override suspend fun binanceLatest(host: String, endpoint: String, symbol: String): Double? =
-        remembered("$host|$symbol") { source.dayFetch.binanceLatest(host, endpoint, symbol) }
+        remembered("$host|$symbol", host) { source.dayFetch.binanceLatest(host, endpoint, symbol) }
 
     override suspend fun coinbaseDay(product: String, date: LocalDate, start: Long): Double? {
         val span = spanOf(coinbaseSpans, start) ?: return source.dayFetch.coinbaseDay(product, date, start)
-        val closes = loaded.getOrPut("cb|$product|${span.first}") {
-            val body = source.get(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, span.first, span.second))
+        val closes = loadedOrFetch("cb|$product|${span.first}", HistoricPriceSource.COINBASE_HOST) {
+            val body = source.getDay(HistoricPriceSource.COINBASE_HOST, coinbaseUrl(product, span.first, span.second))
             body?.let { runCatchingCancellable { CandleDataSource.parseCoinbase(it) }.getOrNull() }.byOpenTime()
         }
         return closes[start]?.takeIf { it > 0.0 && it.isFinite() }
     }
 
     override suspend fun coinbaseLatest(product: String): Double? =
-        remembered("cb|$product") { source.dayFetch.coinbaseLatest(product) }
+        remembered("cb|$product", HistoricPriceSource.COINBASE_HOST) { source.dayFetch.coinbaseLatest(product) }
 
     override suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? {
         val key = currency to date
@@ -123,9 +154,23 @@ internal class SpanFetch(private val source: HistoricPriceSource, days: Collecti
         return source.usdTo(currency, date).also { fx[key] = it }
     }
 
-    private suspend fun remembered(key: String, load: suspend () -> Double?): Double? {
+    private suspend fun remembered(key: String, host: String, load: suspend () -> Double?): Double? {
         if (key in latest) return latest[key]
-        return load().also { latest[key] = it }
+        return unlessUnavailable(key, host, load).also { latest[key] = it }
+    }
+
+    private suspend fun loadedOrFetch(key: String, host: String, load: suspend () -> Map<Long, Double>): Map<Long, Double> =
+        loaded[key] ?: unlessUnavailable(key, host, load).also { loaded[key] = it }
+
+    /** Nicht erreichbar: gemerkt (die übrigen Tage des Stücks fragen nicht erneut) und weitergereicht. */
+    private suspend fun <T> unlessUnavailable(key: String, host: String, load: suspend () -> T): T {
+        if (key in unavailable) throw HistoricSourceUnavailable(host)
+        return try {
+            load()
+        } catch (e: HistoricSourceUnavailable) {
+            unavailable += key
+            throw e
+        }
     }
 
     /** Erste Kerze je Beginn (wie [HistoricPriceSource.closeOf]); keine Antwort = keine Kerzen. */

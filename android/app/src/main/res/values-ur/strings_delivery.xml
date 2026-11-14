@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">الرٹس آن – ابھی تک پس منظر میں کوئی جانچ نہیں</string>
     <string name="alarm_reliability_notifications_off">اطلاعات بند – الرٹس نہیں پہنچیں گے</string>
     <string name="alarm_reliability_battery">بیٹری کی بچت الرٹ کی جانچ روک سکتی ہے</string>
+    <string name="alarm_reliability_offline">کنکشن نہیں – نیٹ ورک واپس آتے ہی الارم جانچے جائیں گے</string>
     <string name="alarm_reliability_background_refresh">پس منظر میں ایپ ریفریش بند – الرٹس شاید نہ پہنچیں</string>
 </resources>

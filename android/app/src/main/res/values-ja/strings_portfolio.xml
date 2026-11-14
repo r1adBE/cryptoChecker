@@ -41,7 +41,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">合計</string>
     <string name="portfolio_hide_amounts">金額を隠す</string>
-    <string name="portfolio_hide_amounts_hint">ポートフォリオとポートフォリオウィジェットの金額と評価額を ••• で表示します。パーセントは表示されたままです。</string>
+    <string name="portfolio_hide_amounts_hint">ポートフォリオ、ポートフォリオウィジェット、ウォッチ、ポートフォリオのアラートの金額と評価額を ••• で表示します。パーセントは表示されたままです。</string>
     <string name="portfolio_invested">取得原価</string>
     <string name="portfolio_total_no_fx">%1$s の為替レートがありません – 金額は USDT 建て</string>
     <string name="portfolio_total_value">評価額合計</string>
@@ -97,6 +97,7 @@
     <string name="portfolio_discard_title">変更を破棄しますか？</string>
     <string name="portfolio_edit_tx">取引を編集</string>
     <string name="portfolio_invalid">0 より大きい有効な数値を入力してください。</string>
+    <string name="number_ambiguous">あいまいです：%1$s ですか、%2$s ですか？どちらかの書き方で入力してください。</string>
     <string name="portfolio_oversold">売却が保有量を超えています。取引を確認してください。</string>
     <string name="portfolio_sell">売却</string>
     <string name="portfolio_sell_exceeds">保有量を超えています（%1$s）</string>

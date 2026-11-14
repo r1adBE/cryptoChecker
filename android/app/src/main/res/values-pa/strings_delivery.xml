@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">ਅਲਰਟ ਚਾਲੂ – ਹਾਲੇ ਤੱਕ ਕੋਈ ਪਿਛੋਕੜ ਜਾਂਚ ਨਹੀਂ</string>
     <string name="alarm_reliability_notifications_off">ਸੂਚਨਾਵਾਂ ਬੰਦ – ਅਲਰਟ ਨਹੀਂ ਪਹੁੰਚਣਗੇ</string>
     <string name="alarm_reliability_battery">ਬੈਟਰੀ ਬੱਚਤ ਅਲਰਟ ਜਾਂਚਾਂ ਰੋਕ ਸਕਦੀ ਹੈ</string>
+    <string name="alarm_reliability_offline">ਕਨੈਕਸ਼ਨ ਨਹੀਂ – ਨੈੱਟਵਰਕ ਵਾਪਸ ਆਉਣ \'ਤੇ ਅਲਾਰਮ ਜਾਂਚੇ ਜਾਣਗੇ</string>
     <string name="alarm_reliability_background_refresh">ਪਿਛੋਕੜ ਐਪ ਤਾਜ਼ਗੀ ਬੰਦ – ਅਲਰਟ ਸ਼ਾਇਦ ਨਾ ਪਹੁੰਚਣ</string>
 </resources>

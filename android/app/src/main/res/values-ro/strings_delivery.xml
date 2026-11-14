@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">Alarme active – încă nicio verificare în fundal</string>
     <string name="alarm_reliability_notifications_off">Notificări dezactivate – alarmele nu vor ajunge</string>
     <string name="alarm_reliability_battery">Economisirea bateriei poate opri verificarea alarmelor</string>
+    <string name="alarm_reliability_offline">Fără conexiune – alarmele sunt verificate când revine rețeaua</string>
     <string name="alarm_reliability_background_refresh">Reîmprospătare în fundal dezactivată – alarmele s-ar putea să nu ajungă</string>
 </resources>

@@ -12,10 +12,9 @@ extension AppData {
     // MARK: App zurücksetzen
 
     /// «App zurücksetzen» (rote Karte unten auf der Hauptseite der Einstellungen, nach Rückfrage): alles löschen wie nach der
-    /// Installation — Merkliste, Alarme, Portfolio, Einstellungen, Zwischenspeicher, Logos,
-    /// Mitteilungen, Live-Aktivitäten und geplante Hintergrund-Aufgaben. Android löscht mit
-    /// `clearApplicationUserData()` und beendet die App; iOS leert die Speicher und setzt den
-    /// Zustand im Speicher auf die Werte einer frischen Installation (kein Beenden der App).
+    /// Installation — Merkliste, Alarme, Portfolio, Einstellungen, Zwischenspeicher, Logos, Mitteilungen, Live-Aktivitäten,
+    /// geplante Hintergrund-Aufgaben und was die Uhr vom iPhone hat. Android löscht mit `clearApplicationUserData()` und
+    /// beendet die App; iOS leert die Speicher und setzt den Zustand im Speicher auf die einer frischen Installation.
     func resetApp() async {
         // Laufendes anhalten
         Task { await LiveActivityController.endAll() }
@@ -38,6 +37,7 @@ extension AppData {
 
         Self.clearStoredFiles()
         Self.clearTemporaryFiles()
+        PhoneWatchLink.shared.reset() // Uhr: Portfolio-Wert, iPhone-Liste, Kurse vom iPhone weg (Speicher wie neu)
 
         // Zustand im Speicher wie nach der Installation
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }

@@ -10,7 +10,10 @@ import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.features.portfolio.UriExportTarget
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /** Vor dem Öffnen der Dateiauswahl: [password] null = ohne Passwortschutz. */
 fun SettingsViewModel.prepareExport(password: String?) {
@@ -32,22 +35,49 @@ private inline fun SettingsViewModel.working(block: () -> Unit) {
     }
 }
 
-fun SettingsViewModel.exportBackup(uri: android.net.Uri) = update { working { writeBackup(uri) } }
+/**
+ * Sichern in die gewählte Datei [uri]. [withPassword]: Schutz, für den die Dateiauswahl geöffnet wurde (übersteht einen
+ * Prozess-Neustart, das Passwort nicht); fehlt danach das Passwort, ruft [onPasswordMissing] den Dialog erneut auf.
+ */
+fun SettingsViewModel.exportBackup(uri: android.net.Uri, withPassword: Boolean? = null, onPasswordMissing: () -> Unit = {}) =
+    update { working { writeBackup(uri, withPassword, onPasswordMissing) } }
 
-/** Sichern: Datei schreiben und zurücklesen ([exportBackup]). */
-private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri) {
-    val request = pendingExport
+/**
+ * Sichern: Datei schreiben und zurücklesen ([exportBackup]). Gescheitert: eine von der Dateiauswahl eben angelegte
+ * (leere) Datei wird gelöscht — sonst läge eine leere oder halbe Datei mit dem Namen einer Sicherung da. Eine
+ * gewählte bestehende Datei (nicht leer) bleibt.
+ */
+private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri, withPassword: Boolean?, onPasswordMissing: () -> Unit) {
+    // Nach einem Prozess-Neustart fehlt der Auftrag: ohne Passwort gewählt → so weiter (die Regel unten prüft
+    // nochmals), mit Passwort → nie still ohne sichern
+    val request = pendingExport ?: SettingsViewModel.ExportRequest(null).takeIf { withPassword == false }
     pendingExport = null
+    val created = isEmptyDocument(uri)
+    if (request == null) {
+        if (created) UriExportTarget(context).delete(uri)
+        if (withPassword == true) onPasswordMissing() else _backupMessage.value = BackupMessage.SaveFailed
+        return
+    }
     // Mit Portfolio-Daten nie ohne Passwort (das Formular erzwingt es schon; hier nochmals vor dem Schreiben)
-    val allowed = request != null &&
-        PortfolioLockPolicy.backupExportAllowed(hasPassword = request.password != null, hasPortfolioData = backupHasPortfolioData())
+    val allowed = PortfolioLockPolicy.backupExportAllowed(hasPassword = request.password != null, hasPortfolioData = backupHasPortfolioData())
     // Gescheitert: «Die Sicherung konnte nicht gespeichert werden» — nicht die Frage nach der Datei, die erst entstehen sollte
-    _backupMessage.value = if (request == null || !allowed) {
+    val message = if (!allowed) {
         BackupMessage.SaveFailed
     } else {
         runCatchingCancellable { backupManager.export(uri, request.password) }
             .fold({ BackupMessage.Exported }, { BackupMessage.failure(it, saving = true) })
     }
+    if (message != BackupMessage.Exported && created) UriExportTarget(context).delete(uri)
+    _backupMessage.value = message
+}
+
+/** Datei ist leer, also eben von der Dateiauswahl angelegt? Unlesbar → nein (dann wird nichts gelöscht). */
+private suspend fun SettingsViewModel.isEmptyDocument(uri: android.net.Uri): Boolean = withContext(Dispatchers.IO) {
+    runCatchingCancellable {
+        context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)?.use { c ->
+            c.moveToFirst() && !c.isNull(0) && c.getLong(0) == 0L
+        } ?: false
+    }.getOrDefault(false)
 }
 
 /** Sperr-Zustand frisch gelesen (die Einstellungen können noch nicht geladen sein). */
@@ -132,6 +162,8 @@ private suspend fun SettingsViewModel.replaceFromBackup(uri: android.net.Uri, pa
                     notifier.cancelAllPrices(result.replacedWatchIds)
                     result.replacedWatchIds.forEach { notifier.cancelActivity(it) }
                     notifier.cancelAlarms(result.replacedAlarmIds, result.replacedPortfolioAlarmIds)
+                    // Laufende «1 h später»-Pausen gehören zu den ersetzten Alarmen (gleiche Id → fremder Alarm)
+                    notifier.clearAlarmSnoozes()
                 }.onFailure { timber.log.Timber.w(it, "Meldungen nach dem Wiederherstellen nicht entfernt") }
                 // Neue Einstellungen gleich anwenden
                 val s = settingsRepository.current()

@@ -96,14 +96,22 @@ object GasFees {
         val slow = nextBase + tips[0]
         val normal = maxOf(slow, nextBase + tips[1])
         val fast = maxOf(normal, nextBase + tips[2])
-        return Triple(slow, normal, fast)
+        return Triple(slow, normal, fast).also { requirePositive(it.second) }
     }
 
-    /** eth_gasPrice → gwei. */
+    /** eth_gasPrice → gwei; 0 oder leeres «0x» = keine Daten ([requirePositive]). */
     fun parseGasPrice(response: String): Double {
         val json = JsonObject(response)
         json.optJSONObject("error")?.let { throw IllegalStateException(it.optString("message")) }
-        return hexToGwei(json.getString("result"))
+        return hexToGwei(json.getString("result")).also { requirePositive(it) }
+    }
+
+    /**
+     * Gebühr 0 (oder nicht endlich) ist keine Messung, sondern ein gestörter Knoten («0x0», leeres «0x», im Aufholen):
+     * werfen → nächster Knoten, sonst keine Daten. Sonst meldete der Gas-Alarm «unter x gwei» (Spiegel: GasFees.swift).
+     */
+    private fun requirePositive(value: Double) {
+        if (!(value.isFinite() && value > 0.0)) throw IllegalStateException("Gebühr 0: keine Daten")
     }
 
     /** mempool.space /api/v1/fees/recommended → (schnell, normal, langsam). */
@@ -112,6 +120,7 @@ object GasFees {
         val fast = json.getDouble("fastestFee")
         val normal = json.optDouble("halfHourFee", fast)
         val slow = json.optDouble("hourFee", normal)
+        listOf(fast, normal, slow).forEach { requirePositive(it) }
         return Triple(fast, normal, slow)
     }
 

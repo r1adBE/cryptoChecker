@@ -91,6 +91,8 @@
     <string name="check_result_ok">კარგადაა</string>
     <string name="check_result_partial">ნაწილობრივ</string>
     <string name="check_result_skipped">გამოტოვებულია</string>
+    <string name="check_result_paused">შეჩერებულია, არაფერი შემოწმებულა</string>
+    <string name="check_result_offline">გამოტოვებულია (ხაზგარეშე)</string>
     <string name="check_trigger_bgtask">ფონი</string>
     <string name="check_trigger_exact">ზუსტ დროზე</string>
     <string name="check_trigger_foreground">აპი</string>

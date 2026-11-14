@@ -66,5 +66,6 @@
     <string name="alarm_reliability_never">Brīdinājumi ieslēgti – pārbaudes fonā vēl nav bijis</string>
     <string name="alarm_reliability_notifications_off">Paziņojumi izslēgti – brīdinājumi nepienāks</string>
     <string name="alarm_reliability_battery">Akumulatora taupīšana var apturēt brīdinājumu pārbaudes</string>
+    <string name="alarm_reliability_offline">Nav savienojuma – brīdinājumi tiks pārbaudīti, kad tīkls atgriezīsies</string>
     <string name="alarm_reliability_background_refresh">Fona lietotņu atsvaidzināšana izslēgta – brīdinājumi var nepienākt</string>
 </resources>

@@ -165,13 +165,12 @@ internal fun parsePercent(text: String): Double? {
 }
 
 /**
- * Tastatureingabe fürs Prozentfeld: Ziffern jeder Schrift ([Char.isDigit]), «,» und «.» sowie das
- * arabische Dezimalzeichen «٫» — sonst würde aus «٢٫٥» still «25». Die arabische Tausendertrennung
- * «٬» bleibt stehen, damit [parsePercent] sie ablehnt und das Feld den Fehler zeigt (wie iOS
- * `SettingsPercentOption.filterInput`); höchstens sechs Zeichen.
+ * Eingabe fürs Prozentfeld: nur Leerraum fällt weg, höchstens sechs Zeichen. Nichts wird still entfernt — aus
+ * eingefügtem «1e3» würde sonst «13», aus «-5» «5»; so lehnt [parsePercent] es ab und das Feld zeigt den Fehler.
+ * Ziffern jeder Schrift und «٫» liest [parsePercent]; «٬» (Tausendertrennung) lehnt es ab. Wie iOS
+ * `SettingsPercentOption.filterInput`.
  */
-internal fun filterPercentInput(input: String): String =
-    input.filter { it.isDigit() || it == ',' || it == '.' || it == '\u066B' || it == '\u066C' }.take(6)
+internal fun filterPercentInput(input: String): String = input.filterNot { it.isWhitespace() }.take(6)
 
 /** Rote Markierung und Hinweis erst, wenn etwas eingegeben ist, das nicht 0 – 100 ergibt. */
 internal fun percentInputError(text: String): Boolean = text.isNotEmpty() && parsePercent(text) == null

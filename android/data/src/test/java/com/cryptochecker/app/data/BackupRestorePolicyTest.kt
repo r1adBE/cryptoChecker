@@ -144,4 +144,25 @@ class BackupRestorePolicyTest {
         assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(false, false, true, true, trusted = false, lockNow = true))
         assertEquals(BackupRestorePolicy.LoweredProtection(), lowered(false, false, true, true, trusted = true, lock = true, lockNow = true))
     }
+
+    /** Doppelte Kennungen (S3-08): wie ungültige gezählt, nie still ersetzt (backup_duplicate_ids.json). */
+    @Test
+    fun duplicateIdsCountAsInvalid() {
+        val fixture = JSONObject(java.io.File(com.cryptochecker.app.parity.ParityJson.dir(), "backup_duplicate_ids.json").readText())
+        val cases = fixture.getJSONArray("cases")
+        assertTrue(cases.length() >= 5)
+        for (i in 0 until cases.length()) {
+            val c = cases.getJSONObject(i)
+            val ids = c.getJSONArray("ids").let { a -> (0 until a.length()).map { a.getLong(it) } }
+            val keep = c.getJSONArray("keep").let { a -> (0 until a.length()).map { a.getBoolean(it) } }
+            val got = BackupRestorePolicy.keepFirstIds(ids)
+            assertEquals(c.getString("name"), keep, got)
+            assertEquals(c.getString("name"), c.getInt("invalid"), got.count { !it })
+        }
+        // Im Lesen der Sicherung: der zweite Eintrag mit Kennung 7 zählt als ungültig
+        val tx = com.cryptochecker.app.data.portfolio.PortfolioJson.txToJson(PortfolioTxEntity(id = 7, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal.ONE, time = 1))
+        val parsed = com.cryptochecker.app.data.portfolio.PortfolioJson.parseTxs(org.json.JSONArray().put(tx).put(JSONObject(tx.toString())))
+        assertEquals(1, parsed.items.size)
+        assertEquals(1, parsed.invalid)
+    }
 }

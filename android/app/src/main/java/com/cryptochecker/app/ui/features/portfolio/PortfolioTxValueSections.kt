@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.ambiguousNumberText
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -67,7 +68,8 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
             supportingText = {
                 Text(
                     when {
-                        !d.swapValueValid -> stringResource(R.string.portfolio_tx_price_invalid)
+                        !d.swapValueValid -> ambiguousNumberText(state.swapValueText, state.decimalSeparator)
+                            ?: stringResource(R.string.portfolio_tx_price_invalid)
                         converted != null -> listOfNotNull(
                             stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second), usdtAssumed,
                         ).joinToString(" · ")
@@ -109,7 +111,8 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
                         // Anzeigewährung ohne (geladenen) Kurs: Hinweis steht schon über dem Feld
                         d.priceZero -> stringResource(R.string.portfolio_tx_price_zero)
                         !d.priceValid && d.fiatActive && d.fxRate == null -> stringResource(R.string.portfolio_tx_fiat_no_fx)
-                        !d.priceValid -> stringResource(R.string.portfolio_tx_price_invalid)
+                        !d.priceValid -> ambiguousNumberText(state.priceText, state.decimalSeparator, d.priceHintEntry)
+                            ?: stringResource(R.string.portfolio_tx_price_invalid)
                         converted != null -> listOfNotNull(
                             stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second), usdtAssumed,
                         ).joinToString(" · ")

@@ -161,6 +161,9 @@ class PortfolioCsvLinksTest {
         assertEquals("old", tx.importRestoreState?.importBatch)
         assertEquals(PortfolioFeeUnit.COIN.name, tx.feeUnit)
         assertNull(tx.priceUsdt)
+        // Umbuchung: Wallet ist die Quelle (wie iOS)
+        assertNull(tx.exchange)
+        assertEquals("Binance", tx.transferFrom)
     }
 
     /** Teilwert: Wert und darunter «unvollständig – Grund»; ohne Wert steht der Hinweis an Stelle des Werts. */

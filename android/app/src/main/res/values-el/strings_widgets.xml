@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Φόντο</string>
-    <string name="widget_configure_hint">Επίλεξε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει όλη τη λίστα· πάτα μια γραμμή για να ανοίξει η εφαρμογή.</string>
+    <string name="widget_configure_hint">Επίλεξε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει τη λίστα σου ή την ομάδα που επιλέγεις παρακάτω· πάτησε μια γραμμή για να ανοίξει η εφαρμογή.</string>
     <string name="widget_configure_title">Ρύθμιση widget</string>
     <string name="widget_description">Εμφανίζει την τιμή ενός ζεύγους από τη λίστα παρακολούθησης.</string>
     <string name="widget_empty">Δεν υπάρχουν ζεύγη στη λίστα παρακολούθησης ακόμα.</string>

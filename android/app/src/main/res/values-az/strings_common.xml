@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Birja hazırda əlçatan deyil</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Birja bu regionda bloklanıb</string>
+    <string name="error_exchange_access_denied">Birja girişi rədd etdi</string>
     <string name="loading_hint">Yüklənir…</string>
     <string name="option_off">Söndürülüb</string>
     <string name="something_went_wrong">Nəsə səhv getdi</string>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ფონი</string>
-    <string name="widget_configure_hint">აირჩიე ფონი და გაუმჭვირვალობა. ფერი აპს მიჰყვება. ვიჯეტი შენს მთელ დაკვირვების სიას აჩვენებს; შეეხე სტრიქონს აპის გასახსნელად.</string>
+    <string name="widget_configure_hint">აირჩიე ფონი და გაუმჭვირვალობა. ფერი აპს მიჰყვება. ვიჯეტი აჩვენებს შენს დაკვირვების სიას ან ქვემოთ არჩეულ ჯგუფს; აპის გასახსნელად შეეხე მწკრივს.</string>
     <string name="widget_configure_title">ვიჯეტის მორგება</string>
     <string name="widget_description">აჩვენებს წყვილის ფასს შენი დაკვირვების სიიდან.</string>
     <string name="widget_empty">დაკვირვების სიაში წყვილები ჯერ არ არის.</string>

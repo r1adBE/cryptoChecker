@@ -72,7 +72,11 @@ fun Throwable.toExchangeFailure(): ExchangeFailure = when (this) {
         else ExchangeFailure.HttpStatus(httpCode)
     // Hülle: die Ursache sagt, was geschah (Host unbekannt, TLS, Zeit …)
     is TimeoutError -> ExchangeFailure.Timeout
-    is NetworkError -> cause?.toExchangeFailure()?.takeUnless { it == ExchangeFailure.Other } ?: ExchangeFailure.Other
+    // Übrige Ein-/Ausgabefehler beim Transport (Verbindung mitten in der Antwort getrennt: «Software caused connection
+    // abort», «unexpected end of stream», «stream was reset», «Socket closed») = keine Verbindung, wiederholbar — wie
+    // iOS `.networkConnectionLost`. HTTP-Fehler, Grösse und Zeit sind vorher eigene Arten.
+    is NetworkError -> cause?.toExchangeFailure()?.takeUnless { it == ExchangeFailure.Other }
+        ?: if (cause is IOException) ExchangeFailure.Offline else ExchangeFailure.Other
     is UnknownExchangeError -> cause?.toExchangeFailure() ?: ExchangeFailure.Other
     is ParseError -> ExchangeFailure.Parse
     is UserFriendlyExchangeError -> exchangeFailure(message)

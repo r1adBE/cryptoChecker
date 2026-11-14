@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Összesen</string>
     <string name="portfolio_hide_amounts">Összegek elrejtése</string>
-    <string name="portfolio_hide_amounts_hint">Az összegeket és értékeket a portfólióban és a portfólió-widgeten •••-ként mutatja – a százalékok láthatók maradnak.</string>
+    <string name="portfolio_hide_amounts_hint">Az összegeket és értékeket a portfólióban, a portfólió-widgeten, az órán és a portfólióriasztásokban •••-ként mutatja – a százalékok láthatók maradnak.</string>
     <string name="portfolio_invested">Bekerülési érték</string>
     <string name="portfolio_total_no_fx">Nincs árfolyam: %1$s – összegek USDT-ben</string>
     <string name="portfolio_total_value">Teljes érték</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Elveted a módosításokat?</string>
     <string name="portfolio_edit_tx">Tranzakció szerkesztése</string>
     <string name="portfolio_invalid">Adj meg egy 0-nál nagyobb érvényes számot.</string>
+    <string name="number_ambiguous">Nem egyértelmű: %1$s vagy %2$s? Írd be a kettő közül az egyiket.</string>
     <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizd a tranzakciókat.</string>
     <string name="portfolio_sell">Eladás</string>
     <string name="portfolio_sell_exceeds">Több, mint az állományod (%1$s)</string>

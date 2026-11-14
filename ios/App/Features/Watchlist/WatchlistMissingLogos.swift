@@ -102,6 +102,8 @@ final class MissingLogosModel: ObservableObject {
     @Published private(set) var rows: [MissingLogosSheet.Row] = []
     @Published var showList = false
     private var names: [String: String] = [:]
+    /// Davon «noch nicht geladen» (Adresse bekannt, nicht gescheitert: kommt mit dem nächsten Abgleich bzw. im WLAN).
+    private var notYet: Set<String> = []
 
     /// Paare → Schlüssel (`MissingLogoNotice.key`, ohne doppelte) samt erstem Paar je Coin (für den Namen).
     static func entries(_ watches: [Watch]) -> [(key: String, watch: Watch)] {
@@ -120,20 +122,25 @@ final class MissingLogosModel: ObservableObject {
         guard enabled, !loading, CoinLogoLoading.firstLoadDone() else { return show(nil) }
         var without: [String] = []
         var names: [String: String] = [:]
+        var notYet: Set<String> = []
         for entry in entries {
             if await !CoinLogoStore.shared.hasLogo(entry.key) {
                 without.append(entry.key)
                 names[entry.key] = CoinLogoStore.name(for: entry.watch)
+                if await CoinLogoStore.shared.notYetLoaded(entry.key) { notYet.insert(entry.key) }
             }
         }
         guard !Task.isCancelled else { return }
         self.names = names
+        self.notYet = notYet
         show(without)
     }
 
     /// Tipp auf den Text: Liste der Coins (Kürzel, Name falls bekannt).
     func openList() {
-        rows = (missing ?? []).map { MissingLogosSheet.Row(symbol: MissingLogoNotice.displaySymbol($0), name: names[$0]) }
+        rows = (missing ?? []).map {
+            MissingLogosSheet.Row(symbol: MissingLogoNotice.displaySymbol($0), name: names[$0], notYet: notYet.contains($0))
+        }
         showList = true
     }
 
@@ -154,11 +161,13 @@ final class MissingLogosModel: ObservableObject {
     }
 }
 
-/// Liste der Coins ohne Logo (Kürzel, Name falls bekannt) und eine Zeile Erklärung; nur «Schliessen».
+/// Liste der Coins ohne Logo (Kürzel, Name falls bekannt, «noch nicht geladen») und eine Zeile Erklärung — ohne solche
+/// «kein Logo verfügbar», sonst beides unterschieden (wie Android); nur «Schliessen».
 struct MissingLogosSheet: View {
     struct Row {
         let symbol: String
         let name: String?
+        var notYet = false
     }
 
     let rows: [Row]
@@ -169,7 +178,8 @@ struct MissingLogosSheet: View {
         VStack(alignment: .leading, spacing: Spacing.lg) {
             Text(L("watchlist_missing_logos", count: rows.count))
                 .font(.headline)
-            Text(L("watchlist_missing_logos_explain"))
+            Text(rows.contains(where: \.notYet) ? L("watchlist_missing_logos_explain_pending")
+                                                 : L("watchlist_missing_logos_explain"))
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
@@ -180,6 +190,11 @@ struct MissingLogosSheet: View {
                             Text(row.symbol).font(.body.weight(.semibold))
                             if let name = row.name {
                                 Text(name)
+                                    .foregroundStyle(AppColors.onSurfaceVariant)
+                                    .lineLimit(1)
+                            }
+                            if row.notYet {
+                                Text(L("watchlist_missing_logos_pending"))
                                     .foregroundStyle(AppColors.onSurfaceVariant)
                                     .lineLimit(1)
                             }

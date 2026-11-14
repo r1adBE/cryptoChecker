@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Leaves the portfolio (withdrawal)</string>
     <string name="portfolio_csv_import_choose_each">Choose for each withdrawal where it went.</string>
     <string name="portfolio_csv_import_columns">Recognized columns: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Already imported: lines %1$s</string>
     <string name="portfolio_csv_import_confirm">Import (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Day/Month</string>
     <string name="portfolio_csv_import_date_month_first">Month/Day</string>
@@ -43,6 +44,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Trades against stablecoins (USDT, USDC …) are booked as swaps – the stablecoin appears in your holdings.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Several matches possible – pick the right one or none.</string>
+    <string name="portfolio_csv_import_transfer_loose">High fee or late arrival – check that it is the same transfer.</string>
     <string name="portfolio_csv_import_transfer_fee">Network fee: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Book as one transfer</string>
     <string name="portfolio_csv_import_transfer_stored">Counterpart from an earlier import</string>
@@ -101,7 +103,7 @@
     <string name="portfolio_csv_import_fx_zone">Daily rates use the calendar day in: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Daily rates could not be loaded.</string>
     <string name="portfolio_csv_import_anyway">Import anyway</string>
-    <string name="portfolio_csv_import_anyway_hint">Without a daily rate, the price or fee stays missing for good. Retry, or import anyway – those transactions then get a note.</string>
+    <string name="portfolio_csv_import_anyway_hint">Without a daily rate, the price or fee is missing until you add it. Retry, or import anyway – those transactions then get a note.</string>
     <string name="portfolio_csv_note_price_no_rate">Price without daily rate</string>
     <string name="portfolio_csv_note_fee_no_rate">Fee without daily rate</string>
     <!-- CSV-Import: Preis- bzw. Gebühr-Währung ohne mögliche Tageskurse (z. B. ein Coin), statt «Erneut versuchen» (CsvImportRateGate.retry) -->

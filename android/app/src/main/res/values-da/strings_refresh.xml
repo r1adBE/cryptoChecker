@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Delvis</string>
     <string name="check_result_skipped">Sprunget over</string>
+    <string name="check_result_paused">Sat på pause, intet kontrolleret</string>
+    <string name="check_result_offline">Sprunget over (offline)</string>
     <string name="check_trigger_bgtask">Baggrund</string>
     <string name="check_trigger_exact">Til tiden</string>
     <string name="check_trigger_foreground">App</string>

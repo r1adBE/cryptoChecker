@@ -20,7 +20,8 @@ typealias MirrorLoader = suspend (url: String, maxBytes: Long) -> String?
  * [MirrorManifest.SIGNATURE_MAX_BYTES]. Gleich in iOS `MirrorTrust.swift`.
  *
  * Gesperrte Schlüssel ([MirrorRevocations]) zählen bei jeder Prüfung nicht; eine neue Sperre aus einem gültigen
- * Manifest wird sofort dauerhaft gemerkt.
+ * Manifest wird sofort dauerhaft gemerkt. Ein Manifest, das älter ist als das neueste schon angenommene, gilt als zu alt
+ * (kein Zurückspielen eines älteren Stands innerhalb der 7 Tage; je Prozess, ohne Ablage).
  *
  * Die App nutzt nur [shared] (eingebaute Schlüssel [MirrorManifest.PUBLIC_KEYS], Systemuhr,
  * [MirrorRevocations.shared]); Schlüssel, Uhr und Sperrliste setzen nur Tests über den internen Konstruktor
@@ -40,6 +41,9 @@ class MirrorTrust constructor(
 
     @Volatile
     private var cached: Cached? = null
+
+    /** Erstellzeit des neuesten angenommenen Manifests in diesem Prozess: ein älteres gilt danach als zu alt. */
+    private var newestCreated = 0L
 
     /** Stand der letzten Prüfung; null = noch keine. */
     val lastStatus: MirrorManifest.Status? get() = cached?.verification?.status
@@ -71,7 +75,8 @@ class MirrorTrust constructor(
         // parallel Wartende
         currentCoroutineContext().ensureActive()
         val store = revocations()
-        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKeys, store.current())
+        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKeys, store.current(), newestCreated)
+        verification.manifest?.let { newestCreated = maxOf(newestCreated, it.created) }
         if (verification.revoke.isNotEmpty()) {
             store.add(verification.revoke)
             Timber.w("Spiegel-Manifest: %d Schlüssel gesperrt", verification.revoke.size)

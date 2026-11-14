@@ -299,6 +299,20 @@ final class CoinLogosAlphaTests: XCTestCase {
         XCTAssertFalse(CoinLogoRetry.downloadsFailedForNetwork(online: false, failed: 0, attempted: 0))
     }
 
+    /// Lauter «gibt es nicht» ist kein Netzfehler; erst eine Störung darunter. Server, der Verbindungen schluckt: nach
+    /// vier gestörten Bildern in Folge pausiert (N3-03, wie Android).
+    func testTransientRulesForImages() {
+        XCTAssertFalse(CoinLogoRetry.downloadsFailedForNetwork(online: true, failed: 3, attempted: 3, transient: 0))
+        XCTAssertTrue(CoinLogoRetry.downloadsFailedForNetwork(online: true, failed: 3, attempted: 3, transient: 1))
+        XCTAssertTrue(CoinLogoRetry.downloadsFailedForNetwork(online: false, failed: 3, attempted: 3, transient: 0))
+        var streak = 0
+        for _ in 0..<3 { streak = CoinLogoRetry.nextTransientStreak(streak, transient: true) }
+        XCTAssertFalse(CoinLogoRetry.transientStreakPauses(streak))
+        streak = CoinLogoRetry.nextTransientStreak(streak, transient: true)
+        XCTAssertTrue(CoinLogoRetry.transientStreakPauses(streak))
+        XCTAssertEqual(CoinLogoRetry.nextTransientStreak(streak, transient: false), 0)
+    }
+
     func testRetryBackoffGrowsAndIsCapped() {
         XCTAssertEqual(CoinLogoRetry.backoffMillis(failures: 0), 0)
         XCTAssertEqual(CoinLogoRetry.backoffMillis(failures: 1), 5_000)

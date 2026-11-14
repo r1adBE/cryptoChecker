@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">เปิดสัญญาณเตือนแล้ว – ยังไม่มีการตรวจสอบเบื้องหลัง</string>
     <string name="alarm_reliability_notifications_off">ปิดการแจ้งเตือนอยู่ – สัญญาณเตือนจะไม่มาถึง</string>
     <string name="alarm_reliability_battery">การประหยัดแบตเตอรี่อาจหยุดการตรวจสอบสัญญาณเตือน</string>
+    <string name="alarm_reliability_offline">ไม่มีการเชื่อมต่อ – จะตรวจสอบการแจ้งเตือนเมื่อเครือข่ายกลับมา</string>
     <string name="alarm_reliability_background_refresh">ปิดรีเฟรชแอปเบื้องหลังอยู่ – สัญญาณเตือนอาจไม่มาถึง</string>
 </resources>

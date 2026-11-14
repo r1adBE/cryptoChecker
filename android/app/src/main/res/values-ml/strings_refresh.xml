@@ -91,6 +91,8 @@
     <string name="check_result_ok">ശരി</string>
     <string name="check_result_partial">ഭാഗികം</string>
     <string name="check_result_skipped">ഒഴിവാക്കി</string>
+    <string name="check_result_paused">താൽക്കാലികമായി നിർത്തി, ഒന്നും പരിശോധിച്ചില്ല</string>
+    <string name="check_result_offline">ഒഴിവാക്കി (ഓഫ്‌ലൈൻ)</string>
     <string name="check_trigger_bgtask">പശ്ചാത്തലം</string>
     <string name="check_trigger_exact">കൃത്യസമയം</string>
     <string name="check_trigger_foreground">ആപ്പ്</string>

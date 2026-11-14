@@ -45,7 +45,7 @@ suspend fun WatchRepository.tryAddWatch(
     pair: ExchangePair,
     group: String? = null,
     notificationEnabled: Boolean = WatchRepository.DEFAULT_NOTIFICATION_ENABLED,
-): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else database.withTransaction {
+): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else guardedWrite<AddWatchOutcome>(AddWatchOutcome.Locked) { database.withTransaction {
     // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
     // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
     val contractType = pair.contractType
@@ -74,7 +74,7 @@ suspend fun WatchRepository.tryAddWatch(
         )
     )
     if (id > 0) AddWatchOutcome.Added(id) else AddWatchOutcome.Duplicate
-}
+} }
 
 /**
  * Legt mehrere Paare auf einmal an. Bereits vorhandene werden übersprungen, nicht doppelt eingetragen; ist die
@@ -131,11 +131,13 @@ suspend fun collectBulkAdd(
  */
 suspend fun WatchRepository.deleteWatchesWithoutAlarms(ids: Collection<Long>): Boolean {
     if (ids.isEmpty() || userWriteRefused()) return false
-    database.withTransaction {
-        // Gelöscht werden nur Paare ohne Alarm: das Alarm-Protokoll bleibt unberührt
-        withoutAlarms(ids) { chunk -> watchDao.getWatchIdsWithAlarms(chunk) }.forEach { watchDao.deleteWatch(it) }
+    return guardedWrite(false) {
+        database.withTransaction {
+            // Gelöscht werden nur Paare ohne Alarm: das Alarm-Protokoll bleibt unberührt
+            withoutAlarms(ids) { chunk -> watchDao.getWatchIdsWithAlarms(chunk) }.forEach { watchDao.deleteWatch(it) }
+        }
+        true
     }
-    return true
 }
 
 /**
@@ -177,7 +179,7 @@ enum class RestoreOutcome {
  * `AppData.restore`.
  */
 suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
-    if (userWriteRefused()) RestoreOutcome.BLOCKED else database.withTransaction {
+    if (userWriteRefused()) RestoreOutcome.BLOCKED else guardedWrite(RestoreOutcome.BLOCKED) { database.withTransaction {
         val watch = snapshot.watch
         val blocked = watchDao.getWatch(watch.id) != null ||
             watchDao.findWatchId(
@@ -190,7 +192,7 @@ suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
         } else {
             RestoreOutcome.BLOCKED
         }
-    }
+    } }
 
 /**
  * Vor dem Anlegen ([tryAddWatch]): schon vorhanden ([exists]) geht vor «voll» — ein bekanntes Paar ist kein Fehler;

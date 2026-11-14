@@ -96,4 +96,14 @@ final class CsvExchangeImportTests: XCTestCase {
         let trades = try parse(string(c["trades"]) ?? "").rows.map(\.key)
         XCTAssertEqual(trades.filter { ledger.contains($0) }, (c["shared"] as? [String]) ?? [])
     }
+
+    /// Binance-Paar ohne Trenner: «USDTUSD» = USDT/USD (nicht USD/TUSD), «BNBUSD» = BNB/USD.
+    func testBinanceSplitPair() throws {
+        for c in S.list(try data()["splitPair"]) {
+            let pair = string(c["pair"]) ?? ""
+            let split = CsvImportBinance.splitPair(pair)
+            XCTAssertEqual(split?.base, string(c["base"]), pair)
+            XCTAssertEqual(split?.quote, string(c["quote"]), pair)
+        }
+    }
 }

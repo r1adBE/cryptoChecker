@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Achtergrond</string>
-    <string name="widget_configure_hint">Kies achtergrond en dekking. De kleur volgt de app. De widget toont je hele lijst; tik op een rij om de app te openen.</string>
+    <string name="widget_configure_hint">Kies achtergrond en dekking. De kleur volgt de app. De widget toont je lijst of de hieronder gekozen groep; tik op een rij om de app te openen.</string>
     <string name="widget_configure_title">Widget instellen</string>
     <string name="widget_description">Toont de koers van een paar uit je volglijst.</string>
     <string name="widget_empty">Nog geen paren in de volglijst.</string>

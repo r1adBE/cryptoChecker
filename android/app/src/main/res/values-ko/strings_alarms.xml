@@ -51,6 +51,8 @@
     <string name="alarm_threshold_error_funding">펀딩비는 −10~+10퍼센트 사이의 숫자여야 합니다.</string>
     <string name="alarm_threshold_error_invalid">0보다 큰 올바른 숫자를 입력하세요.</string>
     <string name="alarm_threshold_error_oi">미결제약정 변화: 최대 1000퍼센트.</string>
+    <string name="alarm_threshold_error_percent_max">최대 1000퍼센트입니다.</string>
+    <string name="alarm_threshold_error_distance">거리는 100퍼센트 미만이어야 합니다.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d시간 이내</item>
     </plurals>
@@ -166,6 +168,7 @@
     <string name="alarm_a11y_speak_on">음성 안내 켬</string>
     <string name="alarm_unchecked_no_candles">확인할 수 없음(캔들 데이터 없음)</string>
     <string name="alarm_unchecked_no_rate">확인할 수 없음(환율 없음)</string>
+    <string name="alarm_unchecked_no_window_price">확인할 수 없음(기간 내 가격 없음)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">알림 꺼짐 – 이 경보는 전달되지 않습니다</string>

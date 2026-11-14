@@ -197,6 +197,8 @@ struct BackupSettingsPage: View {
     /// Sichern: Enthält die Datei Portfolio-Daten (Trades, beobachtete Adressen inkl. xpub oder Portfolio-Alarme)
     /// und ist gesperrt, erst entsperren — wie Android.
     private func startExport() {
+        // Gespeicherter Stand nicht lesbar: keine Datei, die ihn nicht enthält und gültig aussieht (wie Android)
+        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
             portfolioAlarms: data.portfolioAlarms.count)
@@ -218,9 +220,9 @@ struct BackupSettingsPage: View {
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
             portfolioAlarms: data.portfolioAlarms.count)
+        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
         guard PortfolioLockPolicy.backupExportAllowed(hasPassword: password != nil, hasPortfolioData: hasPortfolio) else {
-            fail("backup_save_failed")
-            return
+            return fail("backup_save_failed")
         }
         let input = BackupManager.exportInput(data)
         Task {
@@ -280,6 +282,7 @@ struct BackupSettingsPage: View {
 
     /// Wiederherstellen: solange gesperrt, erst entsperren (die Sicherung kann die Sperre ausschalten).
     private func startImport() {
+        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
         Task {
             let open = await AppLock.shared.requireUnlock(PortfolioLockPolicy.restoreNeedsUnlock(locked:))
             if open { importing = true }
@@ -312,15 +315,8 @@ struct BackupSettingsPage: View {
                 if asDialog { askAfterResult = true } else { NotificationPrePrompt.request(.pairsAdded) }
                 Task { await data.refreshAll() }
             }
-        } catch BackupVersion.Failure.newer {
-            fail("backup_restore_newer_version")
-        } catch BackupManager.Failure.journalUnavailable {
-            // Ohne Journal nichts ersetzt: später erneut
-            fail("backup_restore_journal_unavailable")
-        } catch let error where BackupManager.isStorageFailure(error) {
-            fail("backup_restore_storage_unavailable") // Speicher nicht beschreibbar: zurückgerollt, Daten unverändert
         } catch {
-            fail("backup_failed")
+            fail(BackupManager.restoreFailureKey(error)) // neuere Version, ohne Journal, nicht lesbar, nicht beschreibbar …
         }
     }
 

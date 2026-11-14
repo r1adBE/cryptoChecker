@@ -21,7 +21,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import com.cryptochecker.app.domain.util.DomainLog
-import kotlin.math.abs
 import kotlinx.coroutines.CoroutineDispatcher
 
 /**
@@ -261,6 +260,11 @@ class RefreshEffects constructor(
             }
             return
         }
+        // Bewegungs-Alarm ohne Kurs im Zeitfenster (lange Pause): nicht als «geprüft» ausgeben
+        if (alarmEvaluator.moveWindowUncheckable(alarm, comparePrice, now, moveHistory)) {
+            unchecked(alarm, AlarmCheckStatus.Reason.NO_WINDOW_PRICE)
+            return
+        }
         alarmCheckStatus.markChecked(alarm.id)
         // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
         if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
@@ -319,30 +323,26 @@ class RefreshEffects constructor(
         }
     }
 
-    /** Was mit der Kurs-Benachrichtigung eines Paars geschieht ([priceUpdate]). */
-    enum class PriceUpdate { NONE, SHOW, CANCEL }
+    /** Was mit der Kurs-Benachrichtigung eines Paars geschieht ([priceUpdate], [PriceUpdateRule]). */
+    enum class PriceUpdate { NONE, SHOW, CANCEL, RESTORE }
 
     /**
      * Kurs-Benachrichtigung zeigen — je nach Einstellung nur dann, wenn sich der Kurs seit der
-     * letzten Meldung deutlich genug bewegt hat — oder entfernen. Gemeldet wird gesammelt nach
-     * den Alarmen (AppNotifier.showPrices: höchstens 20 einzeln, Alarme haben Vorrang); der
-     * Aufrufer setzt danach den neuen Bezugspunkt der gezeigten Paare.
+     * letzten Meldung deutlich genug bewegt hat — oder entfernen; angeheftet und verschwunden ([shown] false):
+     * wieder zeigen ([PriceUpdateRule]). Gemeldet wird gesammelt nach den Alarmen (AppNotifier.showPrices: höchstens
+     * 20 einzeln, Alarme haben Vorrang); der Aufrufer setzt danach den neuen Bezugspunkt der gezeigten Paare (nicht bei
+     * [PriceUpdate.RESTORE]).
      */
-    fun priceUpdate(watch: WatchEntity, settings: AppSettings): PriceUpdate {
-        if (!settings.priceNotifications || !watch.notificationEnabled) return PriceUpdate.CANCEL
-
-        val price = watch.lastPrice
-        if (price == null || price <= 0.0) return PriceUpdate.CANCEL
-
-        val threshold = settings.notificationChangePercent
-        val reference = watch.notifiedPrice
-
-        if (threshold > 0 && reference != null && reference > 0.0) {
-            val change = abs((price - reference) / reference * 100.0)
-            if (change < threshold) return PriceUpdate.NONE
-        }
-        return PriceUpdate.SHOW
-    }
+    fun priceUpdate(watch: WatchEntity, settings: AppSettings, shown: Boolean = true): PriceUpdate =
+        PriceUpdateRule.decide(
+            notificationsOn = settings.priceNotifications,
+            pairOn = watch.notificationEnabled,
+            price = watch.lastPrice,
+            reference = watch.notifiedPrice,
+            threshold = settings.notificationChangePercent,
+            ongoing = settings.ongoingNotifications,
+            shown = shown,
+        )
 
     /** Kursansage in die Warteschlange der Sprachausgabe — die Aktualisierung wartet nicht darauf. */
     fun speakPriceIfWanted(

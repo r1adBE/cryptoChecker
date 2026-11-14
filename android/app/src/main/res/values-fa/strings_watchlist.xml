@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">آخرین تازه‌سازی</string>
     <string name="watchlist_symbols_legend">توضیح نمادها</string>
     <string name="watchlist_symbols_legend_alarms">هشدارهای فعال و تعداد آن‌ها</string>
+    <string name="watchlist_symbols_legend_warning">قیمت قدیمی است یا صرافی در دسترس نیست</string>
     <string name="watchlist_refresh_report_empty">هنوز جزئیاتی نیست: هنوز هیچ تازه‌سازی کاملی انجام نشده است. روی تازه‌سازی بزن و صبر کن تا نشانگر چرخان متوقف شود.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d از %2$d قدیمی</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">بستن اعلان</string>
     <string name="watchlist_missing_logos_explain">برای این ارزها لوگویی در دسترس نیست. برنامه حروف اول آن‌ها را نشان می‌دهد.</string>
+    <string name="watchlist_missing_logos_pending">هنوز بارگیری نشده</string>
+    <string name="watchlist_missing_logos_explain_pending">لوگوهایی که «هنوز بارگیری نشده» علامت خورده‌اند با همگام‌سازی بعدی می‌آیند، برخی فقط با Wi-Fi. برای سایر کوین‌ها لوگویی موجود نیست. برنامه حروف اول آن‌ها را نشان می‌دهد.</string>
     <string name="exchange_retiring_notice">از %2$s، %1$s دیگر قیمت عمومی ارائه نخواهد داد. برای این ارزها صرافی دیگری انتخاب کن.</string>
     <string name="exchange_retiring_reason">از %2$s، %1$s دیگر قیمت ارائه نخواهد داد</string>
     <string name="exchange_retired_since">از %2$s، %1$s دیگر قیمت ارائه نمی‌دهد</string>

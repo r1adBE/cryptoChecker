@@ -57,7 +57,8 @@ final class AddressPrivacyParityTests: XCTestCase {
             let to = try XCTUnwrap(URL(string: try XCTUnwrap(c["to"] as? String)))
             let follow = try XCTUnwrap(c["follow"] as? Bool)
             XCTAssertEqual(AddressRedirect.allowed(fromScheme: from.scheme, fromHost: from.host,
-                                                   toScheme: to.scheme, toHost: to.host), follow, "\(from) → \(to)")
+                                                   toScheme: to.scheme, toHost: to.host, fromPort: from.port,
+                                                   toPort: to.port), follow, "\(from) → \(to)")
         }
         XCTAssertTrue(WatchedAddressSource.session.delegate is SameHostRedirectDelegate)
     }

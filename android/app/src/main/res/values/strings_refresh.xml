@@ -92,6 +92,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Partial</string>
     <string name="check_result_skipped">Skipped</string>
+    <string name="check_result_paused">Paused, nothing checked</string>
+    <string name="check_result_offline">Skipped (offline)</string>
     <string name="check_trigger_bgtask">Background</string>
     <string name="check_trigger_exact">On time</string>
     <string name="check_trigger_foreground">App</string>

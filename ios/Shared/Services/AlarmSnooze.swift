@@ -69,6 +69,12 @@ enum AlarmSnooze {
         return Int64(value)
     }
 
+    /// Alle Pausen weg — nach dem Wiederherstellen einer Sicherung: deren Alarm-Ids können sich mit bisherigen decken, eine
+    /// alte Pause hielte sonst einen fremden Alarm bis zu einer Stunde zurück. Wie Android `AlarmSnoozeStore.clear`.
+    static func clearAll(store: UserDefaults = SharedStorage.defaults) {
+        store.removeObject(forKey: storeKey)
+    }
+
     /// «1 h später» für `alarmId` ab `now`; räumt abgelaufene Pausen mit weg. Kommt nur aus der App (Knopf der
     /// Mitteilung, MainActor) — gleichzeitiges Schreiben aus zwei Prozessen gibt es darum nicht.
     static func snooze(_ alarmId: Int64, now: Int64, store: UserDefaults = SharedStorage.defaults) {

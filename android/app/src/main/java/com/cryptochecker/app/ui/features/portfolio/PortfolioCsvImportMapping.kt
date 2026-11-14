@@ -51,6 +51,8 @@ internal fun CsvImportTx.toEntity() = PortfolioTxEntity(
     feeCoinAmount = feeCoinAmount,
     transferFrom = transferFrom,
     transferTo = transferTo,
+    // Wallet = Börse der Datei (FIFO je Wallet; wie iOS `tx`)
+    exchange = exchange,
     importKey = importKey,
     // Verknüpfte Umbuchung zweier neuer Zeilen: Herkunft der Einzahlung
     linkedImportKey = linkedImportKey,

@@ -108,6 +108,7 @@ private class AppNotifierPort(private val notifier: AppNotifier) : RefreshNotifi
     override fun cancelAlarms(alarmIds: Collection<Long>) = notifier.cancelAlarms(alarmIds)
     override fun activeNotificationIds() = notifier.activeNotificationIds()
     override fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?) = notifier.cancelPrices(watchIds, shown)
+    override fun priceMaybeShown(watchId: Long, shown: Set<Int>?) = notifier.priceMaybeShown(watchId, shown)
     override suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean) = notifier.showPrices(watches, ongoing)
     override fun alarmSnoozeUntil(alarmId: Long) = notifier.alarmSnoozeUntil(alarmId)
     override fun alarmPostedAt(alarmId: Long) = notifier.activePostTimes()?.get(AppNotifier.alarmNotificationId(alarmId))

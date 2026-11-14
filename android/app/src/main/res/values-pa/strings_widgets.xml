@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ਪਿਛੋਕੜ</string>
-    <string name="widget_configure_hint">ਪਿਛੋਕੜ ਅਤੇ ਧੁੰਦਲਾਪਣ ਚੁਣੋ। ਰੰਗ ਐਪ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ। ਵਿਜੇਟ ਤੁਹਾਡੀ ਪੂਰੀ ਵਾਚਲਿਸਟ ਦਿਖਾਉਂਦਾ ਹੈ; ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਕਿਸੇ ਕਤਾਰ ’ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="widget_configure_hint">ਪਿਛੋਕੜ ਅਤੇ ਧੁੰਦਲਾਪਨ ਚੁਣੋ। ਰੰਗ ਐਪ ਦੇ ਅਨੁਸਾਰ ਰਹਿੰਦਾ ਹੈ। ਵਿਜੇਟ ਤੁਹਾਡੀ ਵਾਚਲਿਸਟ ਜਾਂ ਹੇਠਾਂ ਚੁਣਿਆ ਗਰੁੱਪ ਦਿਖਾਉਂਦਾ ਹੈ; ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਕਿਸੇ ਕਤਾਰ ’ਤੇ ਟੈਪ ਕਰੋ।</string>
     <string name="widget_configure_title">ਵਿਜੇਟ ਸੈੱਟ ਕਰੋ</string>
     <string name="widget_description">ਤੁਹਾਡੀ ਵਾਚਲਿਸਟ ਦੇ ਕਿਸੇ ਜੋੜੇ ਦੀ ਕੀਮਤ ਦਿਖਾਉਂਦਾ ਹੈ।</string>
     <string name="widget_empty">ਵਾਚਲਿਸਟ ਵਿੱਚ ਹਾਲੇ ਕੋਈ ਜੋੜਾ ਨਹੀਂ।</string>

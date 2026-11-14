@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ออกจากพอร์ต (ถอน)</string>
     <string name="portfolio_csv_import_choose_each">เลือกสำหรับการถอนแต่ละรายการว่าไปที่ใด</string>
     <string name="portfolio_csv_import_columns">คอลัมน์ที่รู้จัก: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">นำเข้าแล้ว: บรรทัด %1$s</string>
     <string name="portfolio_csv_import_confirm">นำเข้า (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">วัน/เดือน</string>
     <string name="portfolio_csv_import_date_month_first">เดือน/วัน</string>
@@ -38,6 +39,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">การซื้อขายแลกกับสเตเบิลคอยน์ (USDT, USDC …) จะบันทึกเป็นการสลับเหรียญ – สเตเบิลคอยน์จะแสดงในยอดถือครองของคุณ</string>
     <string name="portfolio_csv_import_transfer_ambiguous">อาจตรงกันได้หลายรายการ – เลือกรายการที่ถูกต้องหรือไม่เลือกเลย</string>
+    <string name="portfolio_csv_import_transfer_loose">ค่าธรรมเนียมสูงหรือเข้าช้า – โปรดตรวจสอบว่าเป็นการโอนเดียวกัน</string>
     <string name="portfolio_csv_import_transfer_fee">ค่าธรรมเนียมเครือข่าย: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">บันทึกเป็นการโอนย้ายครั้งเดียว</string>
     <string name="portfolio_csv_import_transfer_stored">รายการคู่จากการนำเข้าครั้งก่อน</string>
@@ -92,7 +94,7 @@
     <string name="portfolio_csv_import_fx_zone">อัตรารายวันตามวันปฏิทินใน: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">โหลดอัตรารายวันไม่ได้</string>
     <string name="portfolio_csv_import_anyway">นำเข้าต่อไป</string>
-    <string name="portfolio_csv_import_anyway_hint">หากไม่มีอัตรารายวัน ราคาหรือค่าธรรมเนียมจะขาดหายอย่างถาวร โปรดลองใหม่ หรือนำเข้าต่อไป – รายการเหล่านั้นจะมีหมายเหตุกำกับ</string>
+    <string name="portfolio_csv_import_anyway_hint">หากไม่มีอัตรารายวัน ราคาหรือค่าธรรมเนียมจะขาดหายไปจนกว่าคุณจะเพิ่ม โปรดลองอีกครั้งหรือนำเข้าต่อไป – ธุรกรรมเหล่านั้นจะมีหมายเหตุ</string>
     <string name="portfolio_csv_note_price_no_rate">ราคาไม่มีอัตรารายวัน</string>
     <string name="portfolio_csv_note_fee_no_rate">ค่าธรรมเนียมไม่มีอัตรารายวัน</string>
     <string name="portfolio_csv_import_no_rates_for">ไม่มีอัตรารายวันสำหรับ %1$s การลองใหม่จึงไม่ช่วย หากนำเข้าต่อไป รายการเหล่านั้นจะมีหมายเหตุกำกับ</string>

@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Дохио асаалттай – арын шалгалт хараахан хийгдээгүй</string>
     <string name="alarm_reliability_notifications_off">Мэдэгдэл унтраалттай – дохио ирэхгүй</string>
     <string name="alarm_reliability_battery">Батарей хэмнэлт дохионы шалгалтыг зогсоож болно</string>
+    <string name="alarm_reliability_offline">Холболт алга – сүлжээ сэргэмэгц сэрэмжлүүлгийг шалгана</string>
     <string name="alarm_reliability_background_refresh">Арын горимд шинэчлэх унтраалттай – дохио ирэхгүй байж магадгүй</string>
 </resources>

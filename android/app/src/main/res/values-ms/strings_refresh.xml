@@ -82,6 +82,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Sebahagian</string>
     <string name="check_result_skipped">Dilangkau</string>
+    <string name="check_result_paused">Dijeda, tiada yang disemak</string>
+    <string name="check_result_offline">Dilangkau (luar talian)</string>
     <string name="check_trigger_bgtask">Latar belakang</string>
     <string name="check_trigger_exact">Tepat masa</string>
     <string name="check_trigger_foreground">Apl</string>

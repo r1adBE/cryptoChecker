@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">Cảnh báo đang bật – chưa có lần kiểm tra nền nào</string>
     <string name="alarm_reliability_notifications_off">Thông báo đang tắt – cảnh báo sẽ không đến</string>
     <string name="alarm_reliability_battery">Tiết kiệm pin có thể dừng việc kiểm tra cảnh báo</string>
+    <string name="alarm_reliability_offline">Không có kết nối – cảnh báo sẽ được kiểm tra khi mạng trở lại</string>
     <string name="alarm_reliability_background_refresh">Làm mới ứng dụng trong nền đang tắt – cảnh báo có thể không đến</string>
 </resources>

@@ -12,6 +12,7 @@
     <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
     <string name="watchlist_symbols_legend">Giải thích ký hiệu</string>
     <string name="watchlist_symbols_legend_alarms">Cảnh báo đang bật và số lượng</string>
+    <string name="watchlist_symbols_legend_warning">Giá đã cũ hoặc không kết nối được sàn</string>
     <string name="watchlist_refresh_report_empty">Chưa có chi tiết: chưa có lần làm mới đầy đủ nào. Nhấn làm mới và chờ đến khi biểu tượng tải dừng lại.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="other">%1$d/%2$d đã cũ</item>
@@ -242,6 +243,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Đóng thông báo</string>
     <string name="watchlist_missing_logos_explain">Không có logo cho các coin này. Ứng dụng hiển thị chữ viết tắt.</string>
+    <string name="watchlist_missing_logos_pending">chưa tải</string>
+    <string name="watchlist_missing_logos_explain_pending">Các logo được đánh dấu là chưa tải sẽ có ở lần đồng bộ tiếp theo, một số chỉ qua Wi-Fi. Các coin khác không có logo. Ứng dụng hiển thị chữ cái đầu của chúng.</string>
     <string name="exchange_retiring_notice">Từ %2$s, %1$s sẽ không còn cung cấp giá công khai. Vui lòng chọn sàn khác cho các coin này.</string>
     <string name="exchange_retiring_reason">Từ %2$s, %1$s sẽ không còn cung cấp giá</string>
     <string name="exchange_retired_since">Từ %2$s, %1$s không còn cung cấp giá</string>

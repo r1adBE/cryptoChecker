@@ -20,6 +20,8 @@ internal class FetchedPrices(
     val fetched: HashMap<Long, Fetched>,
     val reports: List<ExchangeRefresh>,
     val pausedIds: Set<Long>,
+    /** Am Zeitbudget der Prüfung gescheiterte Abfragen ([FetchedGroup.cutByBudget]): dann keine volle Prüfung. */
+    val cutByBudget: Int = 0,
 )
 
 /**
@@ -79,6 +81,7 @@ internal suspend fun PriceRefresher.fetchAllGroups(
         .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) && !ExchangeRetirement.isRetired(it.key, startedAt) }
     val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
     val fetched = HashMap<Long, Fetched>()
+    var cutByBudget = 0
     val activeReports = coroutineScope {
         activeGroups
             // Mit Frist: je Börse eigenes Budget, eine langsame Börse hält die anderen nicht auf
@@ -88,6 +91,7 @@ internal suspend fun PriceRefresher.fetchAllGroups(
             .awaitAll()
     }.map { (results, fetchedGroup) ->
         fetched.putAll(results)
+        cutByBudget += fetchedGroup.cutByBudget
         // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
         val key = fetchedGroup.exchangeKey
         // Nur am eigenen Budget gescheitert: Pause unverändert lassen (CheckBudget.backoffOutcome)
@@ -122,5 +126,5 @@ internal suspend fun PriceRefresher.fetchAllGroups(
         )
     }
     refreshStats.setBackoffStates(ExchangeBackoff.withHostGroupPauses(backoff, System.currentTimeMillis()))
-    return FetchedPrices(fetched, activeReports + pausedReports, pausedIds)
+    return FetchedPrices(fetched, activeReports + pausedReports, pausedIds, cutByBudget)
 }

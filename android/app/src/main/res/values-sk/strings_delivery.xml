@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Alarmy zapnuté – zatiaľ žiadna kontrola na pozadí</string>
     <string name="alarm_reliability_notifications_off">Upozornenia vypnuté – alarmy neprídu</string>
     <string name="alarm_reliability_battery">Šetrenie batérie môže zastaviť kontrolu alarmov</string>
+    <string name="alarm_reliability_offline">Bez pripojenia – upozornenia sa skontrolujú, keď bude sieť späť</string>
     <string name="alarm_reliability_background_refresh">Obnova na pozadí vypnutá – alarmy nemusia prísť</string>
 </resources>

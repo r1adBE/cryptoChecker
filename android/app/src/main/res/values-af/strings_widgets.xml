@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Agtergrond</string>
-    <string name="widget_configure_hint">Kies agtergrond en ondeursigtigheid. Die kleur volg die app. Die legstuk wys jou hele volglys; tik op \'n ry om die app oop te maak.</string>
+    <string name="widget_configure_hint">Kies agtergrond en deursigtigheid. Die kleur volg die app. Die legstuk wys jou volglys of die groep wat jy hieronder kies; tik op \'n ry om die app oop te maak.</string>
     <string name="widget_configure_title">Stel legstuk op</string>
     <string name="widget_description">Wys die prys van \'n paar uit jou volglys.</string>
     <string name="widget_empty">Nog geen pare in die volglys nie.</string>

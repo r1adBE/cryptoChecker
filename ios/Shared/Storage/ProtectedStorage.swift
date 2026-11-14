@@ -66,6 +66,8 @@ enum ProtectedStorage {
                                 asideDeletionAllowed: Bool = false, now: Int64 = EpochTime.nowMillis) -> LaunchOutcome {
         var outcome = LaunchOutcome()
         let fm = FileManager.default
+        // Zwischendateien eines beim Schreiben beendeten Prozesses (`ProtectedFile.writeSealed`) entfernen
+        for dir in Set(files.map { $0.url.deletingLastPathComponent() }) { ProtectedFile.removeStaleTemps(in: dir, now: now) }
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
         let plainCapable = present.filter { !$0.sealedOnly }
         // Schon versiegelt (normal geschrieben, das Merkmal setzte der Schreiber): kein gemerktes Merkmal mehr nötig

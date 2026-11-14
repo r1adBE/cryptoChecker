@@ -86,6 +86,11 @@ data class WatchedAddress(
      */
     val staleTokens: List<String> = emptyList(),
     /**
+     * Schlüssel, deren Guthaben der letzte Abruf als 0 meldete, vorher > 0 ([ZeroConfirm]; [ZeroConfirm.MAIN] = Guthaben
+     * der Kette): der alte Wert bleibt bis zur Bestätigung durch den nächsten Abruf. Leer = nichts wartet.
+     */
+    val zeroPending: List<String> = emptyList(),
+    /**
      * Wann die Adresse auf DIESEM Gerät aus einer Sicherung eingespielt oder per «Rückgängig» zurückgeholt
      * wurde; 0 = nie (beim Hinzufügen zählt [addedAt], das dann ohnehin «jetzt» ist). Eingespielte Adressen behalten ihr altes [addedAt] (auch 0) — ohne
      * diesen Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
@@ -152,7 +157,8 @@ data class WatchedAddressBackupEntry(
  * `{"o":[…],"tb":{"USDT":"12.5"},"to":{"USDT":[…]},"tokens":false,"x":{…},"n":["BSC"],"show":false,"uk":2}` —
  * «tokens»/«show» nur, wenn aus; «x» = [XpubCache]; «n» = EVM-Netze; «uk» = unbekannte Solana-Token; «ovl»: true =
  * Überschneidung entschieden ([WatchedAddress.overlapChecked]); «stk» = nicht bestätigte Token
- * ([WatchedAddress.staleTokens]); «ps» = angelegt auf diesem Gerät ([WatchedAddress.pendingSince]).
+ * ([WatchedAddress.staleTokens]); «ps» = angelegt auf diesem Gerät ([WatchedAddress.pendingSince]); «zp» = 0 wartet auf
+ * Bestätigung ([WatchedAddress.zeroPending]).
  * Lesen versteht beide Formen; unlesbar = leer. iOS speichert dieselben Felder in `watched_addresses.json`.
  */
 object WatchedAddressExtras {
@@ -169,12 +175,13 @@ object WatchedAddressExtras {
         val overlapChecked: Boolean = false,
         val staleTokens: List<String> = emptyList(),
         val pendingSince: Long = 0,
+        val zeroPending: List<String> = emptyList(),
     )
 
     fun encode(a: WatchedAddress): String? {
         val plain = a.tokenBalances.isEmpty() && a.tokenObservations.isEmpty() && a.countTokens && a.xpub == null &&
             a.networks == null && a.countInPortfolio && a.unknownTokens == 0 && !a.overlapChecked && a.staleTokens.isEmpty() &&
-            a.pendingSince <= 0
+            a.pendingSince <= 0 && a.zeroPending.isEmpty()
         if (plain) return AddressBalanceHistory.encode(a.observations)
         val o = JsonObject()
         o.put("o", AddressBalanceHistory.toJson(a.observations))
@@ -192,6 +199,7 @@ object WatchedAddressExtras {
         if (a.overlapChecked) o.put("ovl", true)
         if (a.staleTokens.isNotEmpty()) o.put("stk", JsonArray(a.staleTokens))
         if (a.pendingSince > 0) o.put("ps", a.pendingSince)
+        if (a.zeroPending.isNotEmpty()) o.put("zp", JsonArray(a.zeroPending))
         return o.toString()
     }
 
@@ -222,6 +230,9 @@ object WatchedAddressExtras {
                 (0 until arr.length()).map { arr.optString(it) }.filter { k -> k in balances }.distinct()
             }.orEmpty(),
             pendingSince = ((o.opt("ps") as? Number)?.toLong() ?: 0L).coerceAtLeast(0L),
+            zeroPending = o.optJSONArray("zp")?.let { arr ->
+                (0 until arr.length()).map { arr.optString(it) }.filter { k -> k == ZeroConfirm.MAIN || k in balances }.distinct()
+            }.orEmpty(),
         )
     }
 

@@ -15,6 +15,7 @@
     <string name="watchlist_refresh_report">Останнє оновлення</string>
     <string name="watchlist_symbols_legend">Пояснення символів</string>
     <string name="watchlist_symbols_legend_alarms">Активні сигнали та їх кількість</string>
+    <string name="watchlist_symbols_legend_warning">Курс застарів або біржа недоступна</string>
     <string name="watchlist_refresh_report_empty">Деталізації ще немає: повного оновлення ще не було. Натисни «Оновити» й зачекай, доки індикатор зупиниться.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Застаріло: %1$d з %2$d</item>
@@ -293,6 +294,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Закрити сповіщення</string>
     <string name="watchlist_missing_logos_explain">Для цих монет логотип недоступний. Застосунок показує ініціали.</string>
+    <string name="watchlist_missing_logos_pending">ще не завантажено</string>
+    <string name="watchlist_missing_logos_explain_pending">Логотипи з позначкою «ще не завантажено» з’являться під час наступної синхронізації, деякі лише через Wi-Fi. Для інших монет логотипа немає. Застосунок показує їхні ініціали.</string>
     <string name="exchange_retiring_notice">З %2$s %1$s більше не надаватиме публічні ціни. Обери іншу біржу для цих монет.</string>
     <string name="exchange_retiring_reason">З %2$s %1$s більше не надаватиме ціни</string>
     <string name="exchange_retired_since">З %2$s %1$s більше не надає ціни</string>

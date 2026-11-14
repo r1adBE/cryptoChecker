@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Laaste herlaai</string>
     <string name="watchlist_symbols_legend">Simbole verduidelik</string>
     <string name="watchlist_symbols_legend_alarms">Aktiewe alarms, met hul aantal</string>
+    <string name="watchlist_symbols_legend_warning">Prys verouderd of beurs nie bereikbaar nie</string>
     <string name="watchlist_refresh_report_empty">Nog geen uiteensetting nie – tot dusver geen volledige herlaai nie. Tik op herlaai en wag totdat die sirkel stop.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d van %2$d verouderd</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Maak kennisgewing toe</string>
     <string name="watchlist_missing_logos_explain">Vir hierdie munte is geen logo beskikbaar nie. Die app wys hul voorletters.</string>
+    <string name="watchlist_missing_logos_pending">nog nie gelaai nie</string>
+    <string name="watchlist_missing_logos_explain_pending">Logo’s wat as nog nie gelaai nie gemerk is, volg met die volgende sinkronisering, sommige net op Wi-Fi. Vir die ander munte is geen logo beskikbaar nie. Die app wys hul voorletters.</string>
     <string name="exchange_retiring_notice">Vanaf %2$s verskaf %1$s nie meer openbare pryse nie. Kies ’n ander beurs vir hierdie munte.</string>
     <string name="exchange_retiring_reason">Vanaf %2$s verskaf %1$s nie meer pryse nie</string>
     <string name="exchange_retired_since">Sedert %2$s verskaf %1$s nie meer pryse nie</string>

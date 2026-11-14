@@ -17,7 +17,8 @@ struct HistoricFx: Sendable {
 /// nur, wenn sie den Coin heute als denselben Token führt wie das Portfolio (ihr jüngster Schluss
 /// gegen den aktuellen Kurs, 1/3…3; Ausweich-Quellen ±25 %; eine Abfrage mehr, nur bei einem Treffer
 /// dort); sonst nächste Quelle. Ohne gültigen aktuellen Kurs keine Abfrage, der Coin ist «ungeprüft»
-/// (`CutoffCloses.unchecked`), ebenso wenn nur nicht passende Kurse gefunden wurden.
+/// (`CutoffCloses.unchecked`), ebenso wenn nur nicht passende Kurse gefunden wurden. Eine nicht erreichbare Quelle
+/// (Netz, 5xx, Pause; einmal wiederholt, `getDay`) ist nicht «keine Kerze»: kein Kurs statt der nächsten Quelle.
 /// Ausweich-Kette (`HistoricCloseChain`, HistoricPriceSource+Chain.swift): eigene Börse des Coins zuerst (Tageskerzen
 /// dieser Börse, 1/3…3 wie Binance-Spot), nach Binance und Coinbase noch Kraken → OKX → Bybit (eigene Kerzen, ±25 % und
 /// Name) — nur Hosts, die die App ohnehin anfragt. Der Kurs trägt seine Quelle (`CloseResult.source`).
@@ -118,17 +119,23 @@ enum HistoricPriceSource {
         let start = day.utcStartMillis
         let ownName = names.map { $0[b] } ?? watchNames([b])[b]
         let resolved = await HistoricCloseChain.resolve(HistoricCloseChain.order(own?.exchangeKey)) { source in
-            if let own, source == own.exchangeKey {
-                return await ownOutcome(own, base: b, day: day, start: start, reference: reference, ownName: ownName,
-                                        fetch: fetch)
-            }
-            switch source {
-            case HistoricCloseChain.binance:
-                return await binanceOutcome(b, start: start, reference: reference, ownName: ownName, fetch: fetch)
-            case HistoricCloseChain.coinbase:
-                return await coinbaseOutcome(b, day: day, start: start, reference: reference, fetch: fetch)
-            default:
-                return await chainOutcome(source, base: b, start: start, reference: reference, ownName: ownName, fetch: fetch)
+            do {
+                if let own, source == own.exchangeKey {
+                    return try await ownOutcome(own, base: b, day: day, start: start, reference: reference,
+                                                ownName: ownName, fetch: fetch)
+                }
+                switch source {
+                case HistoricCloseChain.binance:
+                    return try await binanceOutcome(b, start: start, reference: reference, ownName: ownName, fetch: fetch)
+                case HistoricCloseChain.coinbase:
+                    return try await coinbaseOutcome(b, day: day, start: start, reference: reference, fetch: fetch)
+                default:
+                    return try await chainOutcome(source, base: b, start: start, reference: reference, ownName: ownName,
+                                                  fetch: fetch)
+                }
+            } catch {
+                // Nicht erreichbar (auch nach einer Wiederholung): kein Kurs statt der nächsten Quelle (wiederholbar)
+                return HistoricCloseChain.Outcome(price: nil, failed: true)
             }
         }
         return CloseResult(price: resolved.price, unchecked: resolved.unchecked, source: resolved.provider)
@@ -136,14 +143,14 @@ enum HistoricPriceSource {
 
     /// Coinbase (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %).
     static func coinbaseOutcome(_ b: String, day: CutoffDay, start: Int64, reference: Double,
-                                fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
-        let r = await coinbaseClose(b, day: day, start: start, current: reference, fetch: fetch)
+                                fetch: any HistoricCloseFetch) async throws -> HistoricCloseChain.Outcome {
+        let r = try await coinbaseClose(b, day: day, start: start, current: reference, fetch: fetch)
         return HistoricCloseChain.Outcome(price: r.price, rejected: r.unchecked, provider: DataFreshness.coinbase)
     }
 
     /// Binance-Gruppe: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
     private static func binanceOutcome(_ b: String, start: Int64, reference: Double, ownName: String?,
-                                       fetch: any HistoricCloseFetch) async -> HistoricCloseChain.Outcome {
+                                       fetch: any HistoricCloseFetch) async throws -> HistoricCloseChain.Outcome {
         // Gab es einen Kurs, der die Prüfung nicht bestand?
         var rejected = false
 
@@ -156,8 +163,20 @@ enum HistoricPriceSource {
         // Gleicher Token: Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
         let binanceOk = TokenIdentityStore.shared.binanceAllowed(base: b, ownName: ownName)
         if !binanceOk { rejected = true }
-        for source in binance where binanceOk {
-            let r = await binanceClose(host: source.host, endpoint: source.endpoint, symbol: b + "USDT",
+        do {
+            return try await binanceGroup(b, sources: binanceOk ? binance : [], start: start, reference: reference,
+                                          fetch: fetch, rejected: &rejected)
+        } catch {
+            // Nicht erreichbar: Kette bricht ab, ein schon verworfener Schluss bleibt «ungeprüft» — wie Android
+            return HistoricCloseChain.Outcome(price: nil, rejected: rejected, failed: true)
+        }
+    }
+
+    private static func binanceGroup(_ b: String, sources binance: [(host: String, endpoint: String, primary: Bool)],
+                                     start: Int64, reference: Double, fetch: any HistoricCloseFetch,
+                                     rejected: inout Bool) async throws -> HistoricCloseChain.Outcome {
+        for source in binance {
+            let r = try await binanceClose(host: source.host, endpoint: source.endpoint, symbol: b + "USDT",
                                        start: start, primary: source.primary, current: reference, fetch: fetch)
             if let price = r.price {
                 return HistoricCloseChain.Outcome(price: price, provider: DataFreshness.candleProvider(host: source.host))
@@ -165,7 +184,7 @@ enum HistoricPriceSource {
             rejected = rejected || r.unchecked
         }
         for symbol in [b + "USDT", b + "USD"] {
-            let r = await binanceClose(host: "api.binance.us", endpoint: "https://api.binance.us/api/v3/klines",
+            let r = try await binanceClose(host: "api.binance.us", endpoint: "https://api.binance.us/api/v3/klines",
                                        symbol: symbol, start: start, primary: false, current: reference, fetch: fetch)
             if let price = r.price { return HistoricCloseChain.Outcome(price: price, provider: DataFreshness.binanceUS) }
             rejected = rejected || r.unchecked
@@ -174,25 +193,28 @@ enum HistoricPriceSource {
     }
 
     private static func binanceClose(host: String, endpoint: String, symbol: String, start: Int64,
-                                     primary: Bool, current: Double, fetch: any HistoricCloseFetch) async -> CloseResult {
+                                     primary: Bool, current: Double, fetch: any HistoricCloseFetch) async throws -> CloseResult {
+        // Pause nach «zu viele Anfragen»: vorübergehend, nicht «keine Kerze»; Geo-Sperre (403/451): Quelle übersprungen
+        if BlockedSources.groupPausedUntil(host) != nil { throw HistoricSourceUnavailable(host: host) }
         if BlockedSources.isBlocked(host) { return CloseResult(price: nil) }
-        guard let close = await fetch.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start) else {
+        guard let close = try await fetch.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start) else {
             return CloseResult(price: nil)
         }
         // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
-        let latest = await fetch.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
+        let latest = try await fetch.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
         return PricePlausibility.acceptSourceClose(close, primary: primary, sourceLatest: latest, current: current)
             ? CloseResult(price: close) : CloseResult(price: nil, unchecked: true)
     }
 
     private static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64, current: Double,
-                                      fetch: any HistoricCloseFetch) async -> CloseResult {
+                                      fetch: any HistoricCloseFetch) async throws -> CloseResult {
         var rejected = false
         for quote in ["USD", "USDC"] {
+            if BlockedSources.groupPausedUntil(coinbaseHost) != nil { throw HistoricSourceUnavailable(host: coinbaseHost) }
             if BlockedSources.isBlocked(coinbaseHost) { break }
-            guard let close = await fetch.coinbaseDay(product: "\(b)-\(quote)", day: day, start: start) else { continue }
+            guard let close = try await fetch.coinbaseDay(product: "\(b)-\(quote)", day: day, start: start) else { continue }
             // Jüngste Tageskerzen desselben Produkts
-            let latest = await fetch.coinbaseLatest(product: "\(b)-\(quote)")
+            let latest = try await fetch.coinbaseLatest(product: "\(b)-\(quote)")
             if PricePlausibility.acceptSourceClose(close, primary: false, sourceLatest: latest, current: current) {
                 return CloseResult(price: close)
             }
@@ -309,14 +331,22 @@ enum HistoricPriceSource {
         return inRange(days)
     }
 
-    /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
-    static func get(_ host: String, _ url: String) async -> String? {
-        do {
-            return try await ExchangeHTTP.call(url, session: session)
-        } catch {
-            BlockedSources.noteFailure(host, error)
-            return nil
+    /// GET für Tageskerzen: Antwort, nil = keine Daten (4xx) bzw. Quelle gesperrt (403/451; `BlockedSources`);
+    /// vorübergehende Fehler (`HistoricCloseChain.fetchFailure`) einmal wiederholt, dann `HistoricSourceUnavailable` —
+    /// «nicht erreichbar» ist nicht «keine Kerze». Wie Android `getDay`.
+    static func getDay(_ host: String, _ url: String) async throws -> String? {
+        for _ in 0..<2 {
+            if BlockedSources.groupPausedUntil(host) != nil { break }
+            do {
+                return try await ExchangeHTTP.call(url, session: session)
+            } catch {
+                try Task.checkCancellation()
+                BlockedSources.noteFailure(host, error)
+                let code = (error as? HttpExchangeError)?.httpCode
+                if HistoricCloseChain.fetchFailure(httpCode: code) != .TRANSIENT { return nil }
+            }
         }
+        throw HistoricSourceUnavailable(host: host)
     }
 
     /// Namen der Merkliste je Coin (`TokenIdentityStore.watchName`), der Stand der Merkliste einmal gelesen.

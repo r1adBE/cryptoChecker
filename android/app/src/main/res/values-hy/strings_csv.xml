@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Դուրս է գալիս պորտֆելից (դուրսբերում)</string>
     <string name="portfolio_csv_import_choose_each">Յուրաքանչյուր դուրսբերման համար ընտրիր, թե ուր է գնացել։</string>
     <string name="portfolio_csv_import_columns">Ճանաչված սյունակներ՝ %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Արդեն ներմուծված է՝ տողեր %1$s</string>
     <string name="portfolio_csv_import_confirm">Ներմուծել (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Օր/Ամիս</string>
     <string name="portfolio_csv_import_date_month_first">Ամիս/Օր</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Ստեյբլքոինների (USDT, USDC …) դիմաց գործարքները գրանցվում են որպես փոխանակումներ – ստեյբլքոինը հայտնվում է քո ակտիվներում։</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Հնարավոր են մի քանի համընկնումներ – ընտրիր ճիշտը կամ ոչ մեկը։</string>
+    <string name="portfolio_csv_import_transfer_loose">Բարձր վճար կամ ուշ ժամանում – ստուգիր, որ նույն փոխանցումն է։</string>
     <string name="portfolio_csv_import_transfer_fee">Ցանցի միջնորդավճար՝ %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Գրանցել որպես մեկ փոխանցում</string>
     <string name="portfolio_csv_import_transfer_stored">Զույգ գրառում ավելի վաղ ներմուծումից</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">Օրական փոխարժեքները՝ ըստ օրացուցային օրվա այստեղ՝ %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Չհաջողվեց բեռնել օրական փոխարժեքները։</string>
     <string name="portfolio_csv_import_anyway">Այնուամենայնիվ ներմուծել</string>
-    <string name="portfolio_csv_import_anyway_hint">Առանց օրական փոխարժեքի գինը կամ միջնորդավճարը մշտապես կբացակայի։ Կրկին փորձիր կամ այնուամենայնիվ ներմուծիր – այդ գործարքները նշում կստանան։</string>
+    <string name="portfolio_csv_import_anyway_hint">Առանց օրական փոխարժեքի գինը կամ վճարը բացակայում է, մինչև դու այն ավելացնես։ Փորձիր կրկին կամ ներմուծիր այնուամենայնիվ – այդ գործարքները նշում կստանան։</string>
     <string name="portfolio_csv_note_price_no_rate">Գին առանց օրական փոխարժեքի</string>
     <string name="portfolio_csv_note_fee_no_rate">Միջնորդավճար առանց օրական փոխարժեքի</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-ի համար օրական փոխարժեքներ չկան, ուստի կրկին փորձելը չի օգնի։ Եթե այնուամենայնիվ ներմուծես, այդ գործարքները նշում կստանան։</string>

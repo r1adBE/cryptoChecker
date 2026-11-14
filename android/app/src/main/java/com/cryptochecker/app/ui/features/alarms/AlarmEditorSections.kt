@@ -2,6 +2,7 @@
 // Eigene Datei, weil `AlarmEditorSheet` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.compose.ui.platform.LocalConfiguration
 import android.content.Context
@@ -159,7 +160,7 @@ private fun templateA11y(context: Context, template: AlarmTemplates.Template, lo
  * Fehlertext unter dem Schwellwert-Feld ([AlarmDraft.thresholdProblem]): erklärt, warum der Knopf
  * gesperrt ist; null = gültig (kein Text). Wie iOS `AlarmThresholdError`.
  */
-internal fun thresholdErrorText(problem: ThresholdProblem?): (@Composable () -> Unit)? {
+internal fun thresholdErrorText(problem: ThresholdProblem?, ambiguity: ThresholdParser.Ambiguity? = null): (@Composable () -> Unit)? {
     val res = when (problem) {
         null -> return null
         ThresholdProblem.EMPTY -> R.string.alarm_threshold_error_empty
@@ -167,6 +168,14 @@ internal fun thresholdErrorText(problem: ThresholdProblem?): (@Composable () -> 
         ThresholdProblem.FUNDING_RANGE -> R.string.alarm_threshold_error_funding
         ThresholdProblem.OI_RANGE -> R.string.alarm_threshold_error_oi
         ThresholdProblem.PERCENT_RANGE -> R.string.alarm_threshold_error_percent_down_below // «unter 100»
+        ThresholdProblem.PERCENT_MAX -> R.string.alarm_threshold_error_percent_max // «höchstens 1000»
+        ThresholdProblem.DISTANCE_RANGE -> R.string.alarm_threshold_error_distance // «unter 100»
+        // «1.234» in DE: beide Schreibweisen nennen statt still zu raten
+        ThresholdProblem.AMBIGUOUS -> if (ambiguity != null) {
+            return { Text(stringResource(R.string.number_ambiguous, ambiguity.grouped, ambiguity.decimal)) }
+        } else {
+            R.string.alarm_threshold_error_invalid
+        }
     }
     return { Text(stringResource(res)) }
 }
@@ -224,7 +233,7 @@ internal fun SimpleSentence(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             // Fehlertext sagt, warum «Speichern» gesperrt ist
             isError = draft.visibleProblem != null,
-            supportingText = thresholdErrorText(draft.visibleProblem),
+            supportingText = thresholdErrorText(draft.visibleProblem, draft.ambiguity),
             modifier = Modifier.widthIn(min = 160.dp, max = 280.dp).align(Alignment.Top).focusRequester(focusRequester)
                 .testTag(UiTestTags.ALARM_THRESHOLD)
         )

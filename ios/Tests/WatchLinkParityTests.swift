@@ -61,6 +61,15 @@ final class WatchLinkParityTests: XCTestCase {
                                              remoteIsPhone: c["remoteIsPhone"] as? Bool ?? false)
             XCTAssertEqual(merged, settings(c["expected"]), c["name"] as? String ?? "")
         }
+        // Uhr meldet einen anderen iPhone-Teil: das iPhone sendet den ganzen Stand noch einmal
+        for c in TestSupport.list(data["phoneSideDiffers"]) {
+            XCTAssertEqual(WatchSettings.phoneSideDiffers(settings(c["phone"]), watch: settings(c["watch"])),
+                           c["expected"] as? Bool, c["name"] as? String ?? "")
+        }
+        // iPhone ohne Stand (Apple Watch: iPhone-App entfernt; Wear: Eintrag gelöscht)
+        for c in TestSupport.list(data["forgetPhone"]) {
+            XCTAssertEqual(WatchSettings.forgetPhone(settings(c["local"])), settings(c["expected"]), c["name"] as? String ?? "")
+        }
     }
 
     func testPickAndQuotesJson() throws {
@@ -98,6 +107,28 @@ final class WatchLinkParityTests: XCTestCase {
         }
     }
 
+    /// iPhone weg: gleiche Grenze auf beiden Uhren (Intervall + 5 Min. nach der letzten Lieferung).
+    func testUsePhone() throws {
+        let u = try XCTUnwrap(TestSupport.fixture("watch_link")["usePhone"] as? [String: Any])
+        let now = TestSupport.millis(u["now"])
+        for s in TestSupport.list(u["silentAfter"]) {
+            XCTAssertEqual(WatchPhoneQuotes.phoneSilentAfterMillis(int(s["interval"])), TestSupport.millis(s["millis"]))
+        }
+        for d in TestSupport.list(u["deliveryTime"]) {
+            let quotes = (d["times"] as? [Any] ?? []).map {
+                WatchPhoneQuotes.Quote(symbol: "BTC", price: 1, change24h: nil, exchange: "Binance", time: TestSupport.millis($0))
+            }
+            XCTAssertEqual(WatchPhoneQuotes.deliveryTime(quotes), TestSupport.millis(d["expected"]))
+        }
+        for c in TestSupport.list(u["cases"]) {
+            let source = WatchSettings.Source(rawValue: c["source"] as? String ?? "") ?? .phone
+            let got = WatchPhoneQuotes.usePhone(source: source, connected: c["connected"] as? Bool ?? false,
+                                                lastDelivery: TestSupport.millis(c["lastDelivery"]), now: now,
+                                                intervalMinutes: int(c["interval"]))
+            XCTAssertEqual(got, c["expected"] as? Bool, c["name"] as? String ?? "")
+        }
+    }
+
     func testPortfolio() throws {
         let data = try TestSupport.fixture("watch_link")
         for c in TestSupport.list(data["portfolioMessage"]) {
@@ -106,7 +137,8 @@ final class WatchLinkParityTests: XCTestCase {
                 onWatch: c["onWatch"] as? Bool ?? false, portfolioEnabled: c["portfolioEnabled"] as? Bool ?? false,
                 hidden: c["hidden"] as? Bool ?? false, locked: c["locked"] as? Bool ?? false,
                 total: TestSupport.number(c["total"]), changePercent: TestSupport.number(c["changePercent"]),
-                currency: c["currency"] as? String, time: TestSupport.millis(c["time"]))
+                currency: c["currency"] as? String, time: TestSupport.millis(c["time"]),
+                fallbackCurrency: c["fallbackCurrency"] as? String, now: TestSupport.millis(c["now"]))
             XCTAssertEqual(message, portfolio(c["expected"]), name)
             if let message {
                 XCTAssertEqual(WatchPortfolio.fromJson(WatchPortfolio.toJson(message)), message, name)

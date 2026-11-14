@@ -37,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -46,6 +47,8 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvLineList
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
@@ -211,7 +214,9 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
             if (link.withdrawalId != null || link.depositId != null) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_stored))
             }
-            if (!link.unambiguous) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_ambiguous))
+            // Weitere Kandidaten (hohe Gebühr, späte Einzahlung): eigener Hinweis statt «mehrere Treffer»
+            if (link.loose) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_loose))
+            else if (!link.unambiguous) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_ambiguous))
         }
         Spacer(Modifier.width(12.dp))
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur, Screenreader liest «Als eine Umbuchung buchen»
@@ -263,6 +268,36 @@ internal fun CsvRateGate(
         Spacer(Modifier.width(12.dp))
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur
         Switch(checked = accepted, onCheckedChange = null, enabled = enabled, colors = DisabledColors.switch())
+    }
+}
+
+/**
+ * Schon importierte Zeilen: Anzahl (solange übersprungen), welche Zeilen ([CsvLineList]) und «Trotzdem importieren»
+ * — dann liest die Vorschau sie mit freiem Schlüssel neu ([onKeep], `CsvReadChoice.keepDuplicates`). Wie iOS.
+ */
+@Composable
+internal fun DuplicatesHint(preview: CsvImportPreview, onKeep: (Boolean) -> Unit, enabled: Boolean) {
+    if (preview.duplicates <= 0) return
+    if (!preview.duplicatesKept) {
+        Text(pluralStringResource(R.plurals.portfolio_csv_import_duplicates, preview.duplicates, preview.duplicates))
+    }
+    val list = remember(preview.duplicateLines) { CsvLineList.of(preview.duplicateLines) }
+    val more = if (list.more > 0) " " + stringResource(R.string.portfolio_csv_import_more, list.more) else ""
+    PreviewHint(stringResource(R.string.portfolio_csv_import_duplicate_lines, list.shown.joinToString(", ") + more))
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(value = preview.duplicatesKept, enabled = enabled, role = Role.Switch, onValueChange = onKeep)
+            .padding(vertical = 4.dp),
+    ) {
+        Text(
+            stringResource(R.string.portfolio_csv_import_anyway),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f),
+        )
+        Spacer(Modifier.width(12.dp))
+        Switch(checked = preview.duplicatesKept, onCheckedChange = null, enabled = enabled, colors = DisabledColors.switch())
     }
 }
 

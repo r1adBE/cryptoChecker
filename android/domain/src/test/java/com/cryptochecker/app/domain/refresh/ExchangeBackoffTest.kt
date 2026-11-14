@@ -63,6 +63,33 @@ class ExchangeBackoffTest {
         assertNull(broken)
     }
 
+    /** Stufe sinkt: Ende der letzten Pause länger als 15 Min. her → wieder ab 30 s (N3-09). */
+    @Test
+    fun pauseLevelDecaysAfterQuietTime() {
+        val high = ExchangeBackoff.State(strikes = 6, pausedUntil = now, reason = RefreshFailure.TIMEOUT, timeoutRuns = 1)
+        val soon = ExchangeBackoff.next(high, Outcome.TIMEOUT, now + 60_000L)!!
+        assertEquals(7, soon.strikes)
+        val later = ExchangeBackoff.next(high, Outcome.TIMEOUT, now + ExchangeBackoff.MAX_MILLIS + 1)!!
+        assertEquals(1, later.strikes)
+        assertEquals(now + ExchangeBackoff.MAX_MILLIS + 1 + 30_000L, later.pausedUntil)
+        val limited = ExchangeBackoff.next(high, Outcome.RATE_LIMITED, now + ExchangeBackoff.MAX_MILLIS + 1)!!
+        assertEquals(1, limited.strikes)
+    }
+
+    /** Netz wieder da: Zeit-Pausen weg, Bremsen-Pausen bleiben (N3-09). */
+    @Test
+    fun reconnectDropsTimeoutPausesOnly() {
+        val states = mapOf(
+            "kraken" to ExchangeBackoff.State(3, now + 60_000L, RefreshFailure.TIMEOUT, 0),
+            "binance" to ExchangeBackoff.State(2, now + 60_000L, RefreshFailure.RATE_LIMIT, 1),
+            "okx" to ExchangeBackoff.State(0, 0L, null, 1),
+        )
+        assertEquals(
+            mapOf("binance" to ExchangeBackoff.State(2, now + 60_000L, RefreshFailure.RATE_LIMIT, 0)),
+            ExchangeBackoff.withoutTimeoutPauses(states),
+        )
+    }
+
     @Test
     fun outcomeFromFailures() {
         assertEquals(Outcome.RATE_LIMITED, ExchangeBackoff.outcome(listOf(RefreshFailure.RATE_LIMIT), updated = 3))

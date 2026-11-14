@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Συναγερμοί ενεργοί – δεν έγινε ακόμη έλεγχος στο παρασκήνιο</string>
     <string name="alarm_reliability_notifications_off">Ειδοποιήσεις απενεργοποιημένες – οι συναγερμοί δεν θα φτάσουν</string>
     <string name="alarm_reliability_battery">Η εξοικονόμηση μπαταρίας μπορεί να σταματήσει τους ελέγχους συναγερμών</string>
+    <string name="alarm_reliability_offline">Χωρίς σύνδεση – οι ειδοποιήσεις ελέγχονται μόλις επανέλθει το δίκτυο</string>
     <string name="alarm_reliability_background_refresh">Ανανέωση στο παρασκήνιο απενεργοποιημένη – οι συναγερμοί μπορεί να μη φτάσουν</string>
 </resources>

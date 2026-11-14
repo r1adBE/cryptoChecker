@@ -91,6 +91,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Bahagya</string>
     <string name="check_result_skipped">Nilaktawan</string>
+    <string name="check_result_paused">Naka-pause, walang na-check</string>
+    <string name="check_result_offline">Nilaktawan (offline)</string>
     <string name="check_trigger_bgtask">Background</string>
     <string name="check_trigger_exact">Sa takdang oras</string>
     <string name="check_trigger_foreground">App</string>

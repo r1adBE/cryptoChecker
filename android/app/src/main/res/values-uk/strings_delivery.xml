@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Сигнали ввімкнено – фонової перевірки ще не було</string>
     <string name="alarm_reliability_notifications_off">Сповіщення вимкнено – сигнали не надійдуть</string>
     <string name="alarm_reliability_battery">Економія заряду може зупиняти перевірку сигналів</string>
+    <string name="alarm_reliability_offline">Немає мережі – сповіщення перевірять, щойно з’явиться зв’язок</string>
     <string name="alarm_reliability_background_refresh">Оновлення у фоні вимкнено – сигнали можуть не надійти</string>
 </resources>

@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">পোর্টফোলিও থেকে বেরিয়ে যায় (উত্তোলন)</string>
     <string name="portfolio_csv_import_choose_each">প্রতিটি উত্তোলনের জন্য বেছে নিন এটি কোথায় গেছে।</string>
     <string name="portfolio_csv_import_columns">চেনা কলাম: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">আগেই ইমপোর্ট করা: লাইন %1$s</string>
     <string name="portfolio_csv_import_confirm">ইমপোর্ট (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">দিন/মাস</string>
     <string name="portfolio_csv_import_date_month_first">মাস/দিন</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">স্টেবলকয়েনের (USDT, USDC …) বিপরীতে ট্রেড সোয়াপ হিসেবে লেখা হয় – স্টেবলকয়েন আপনার হোল্ডিংয়ে দেখা যায়।</string>
     <string name="portfolio_csv_import_transfer_ambiguous">একাধিক মিল সম্ভব – সঠিকটি বা কোনোটিই না বেছে নিন।</string>
+    <string name="portfolio_csv_import_transfer_loose">উচ্চ ফি বা দেরিতে পৌঁছানো – একই ট্রান্সফার কিনা দেখে নাও।</string>
     <string name="portfolio_csv_import_transfer_fee">নেটওয়ার্ক ফি: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">একটি ট্রান্সফার হিসেবে লিখুন</string>
     <string name="portfolio_csv_import_transfer_stored">আগের ইমপোর্টের প্রতিপক্ষ এন্ট্রি</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">দৈনিক হার এই টাইম জোনের ক্যালেন্ডার দিন অনুযায়ী: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">দৈনিক হার লোড করা যায়নি।</string>
     <string name="portfolio_csv_import_anyway">তবুও ইমপোর্ট করুন</string>
-    <string name="portfolio_csv_import_anyway_hint">দৈনিক হার ছাড়া দাম বা ফি স্থায়ীভাবে বাদ থেকে যাবে। আবার চেষ্টা করুন, অথবা তবুও ইমপোর্ট করুন – তখন ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।</string>
+    <string name="portfolio_csv_import_anyway_hint">দৈনিক হার ছাড়া দাম বা ফি আপনি যোগ না করা পর্যন্ত অনুপস্থিত থাকে। আবার চেষ্টা করুন বা তবুও ইমপোর্ট করুন – তখন সেই লেনদেনগুলোতে একটি নোট থাকবে।</string>
     <string name="portfolio_csv_note_price_no_rate">দৈনিক হার ছাড়া দাম</string>
     <string name="portfolio_csv_note_fee_no_rate">দৈনিক হার ছাড়া ফি</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s-এর জন্য কোনো দৈনিক হার নেই, তাই আবার চেষ্টা করে লাভ হবে না। তবুও ইমপোর্ট করলে ওই লেনদেনগুলোতে একটি নোট যুক্ত হবে।</string>

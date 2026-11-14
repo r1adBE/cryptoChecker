@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Atzeko planoa</string>
-    <string name="widget_configure_hint">Aukeratu atzeko planoa eta opakutasuna. Koloreak aplikazioari jarraitzen dio. Widgetak zure zerrenda osoa erakusten du; sakatu errenkada bat aplikazioa irekitzeko.</string>
+    <string name="widget_configure_hint">Aukeratu atzeko planoa eta opakutasuna. Koloreak aplikazioari jarraitzen dio. Widgetak zure zerrenda edo behean aukeratutako taldea erakusten du; sakatu errenkada bat aplikazioa irekitzeko.</string>
     <string name="widget_configure_title">Konfiguratu widgeta</string>
     <string name="widget_description">Zure zerrendako pare baten prezioa erakusten du.</string>
     <string name="widget_empty">Oraindik ez dago parerik zerrendan.</string>

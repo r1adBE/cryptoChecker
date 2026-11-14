@@ -123,7 +123,7 @@ extension PortfolioTxSheet {
         let amountError = (tried || !amountText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) && value == nil
         let message: String?
         if amountError {
-            message = L("portfolio_invalid")
+            message = numberError(amountText, "portfolio_invalid")
         } else if walletExceeds, let walletHoldings {
             message = L("portfolio_sell_exceeds_wallet", PortfolioFormat.exactAmount(walletHoldings, coin),
                         walletName.isEmpty ? L("tax_export_wallet_unspecified") : walletName)
@@ -186,9 +186,14 @@ extension PortfolioTxSheet {
                 // Anzeigewährung ohne (geladenen) Kurs
                 errorText(L("portfolio_tx_fiat_no_fx"))
             } else {
-                errorText(L("portfolio_tx_price_invalid"))
+                errorText(numberError(priceText, "portfolio_tx_price_invalid", priceHint: priceHintEntry))
             }
         }
+    }
+
+    /// Fehlertext eines Zahlenfelds: mehrdeutige Eingabe («1.234» in DE) mit beiden Schreibweisen, sonst `fallback`.
+    func numberError(_ text: String, _ fallback: String, priceHint: Double? = nil) -> String {
+        ambiguousNumberText(text, decimalSeparator: decimalSeparator, priceHint: priceHint) ?? L(fallback)
     }
 
     private func priceHintText(receipt: Bool) -> String {
@@ -279,7 +284,7 @@ extension PortfolioTxSheet {
             }
             .modifier(PortfolioFieldStyle(error: amountError, focused: focusedField == .toAmount))
             if amountError {
-                errorText(L("portfolio_invalid"))
+                errorText(numberError(toAmountText, "portfolio_invalid"))
             }
         }
     }
@@ -339,7 +344,7 @@ extension PortfolioTxSheet {
                     .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
             } else {
-                errorText(L("portfolio_tx_price_invalid"))
+                errorText(numberError(swapValueText, "portfolio_tx_price_invalid"))
             }
         }
     }

@@ -23,15 +23,20 @@ sealed interface AlarmSaveResult {
  * einem Vorgang). Bearbeiten (feste id) zählt nicht.
  */
 suspend fun WatchRepository.trySaveAlarm(alarm: AlarmEntity): AlarmSaveResult =
-    if (userWriteRefused()) AlarmSaveResult.Refused else if (alarm.id == 0L) database.withTransaction {
-        if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) {
-            AlarmSaveResult.Saved(alarm.copy(id = watchDao.insertAlarm(alarm)))
+    if (userWriteRefused()) AlarmSaveResult.Refused else guardedWrite<AlarmSaveResult>(AlarmSaveResult.Refused) {
+        // Schreibfehler (Speicher voll): Hinweis statt Absturz, nichts gespeichert (`guardedWrite`)
+        if (alarm.id == 0L) {
+            database.withTransaction {
+                if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) {
+                    AlarmSaveResult.Saved(alarm.copy(id = watchDao.insertAlarm(alarm)))
+                } else {
+                    AlarmSaveResult.Full
+                }
+            }
         } else {
-            AlarmSaveResult.Full
+            watchDao.updateAlarm(alarm)
+            AlarmSaveResult.Saved(alarm)
         }
-    } else {
-        watchDao.updateAlarm(alarm)
-        AlarmSaveResult.Saved(alarm)
     }
 
 /**
@@ -40,7 +45,7 @@ suspend fun WatchRepository.trySaveAlarm(alarm: AlarmEntity): AlarmSaveResult =
  * Meldung). Neuer Alarm (id 0) nur unter der Obergrenze je Paar.
  */
 suspend fun WatchRepository.trySaveAlarmMerged(id: Long, build: (AlarmEntity?) -> AlarmEntity): AlarmSaveResult =
-    if (userWriteRefused()) AlarmSaveResult.Refused else database.withTransaction {
+    if (userWriteRefused()) AlarmSaveResult.Refused else guardedWrite<AlarmSaveResult>(AlarmSaveResult.Refused) { database.withTransaction {
         val alarm = build(if (id != 0L) watchDao.getAlarm(id) else null)
         if (alarm.id != 0L) {
             watchDao.updateAlarm(alarm)
@@ -50,4 +55,4 @@ suspend fun WatchRepository.trySaveAlarmMerged(id: Long, build: (AlarmEntity?) -
         } else {
             AlarmSaveResult.Full
         }
-    }
+    } }

@@ -91,6 +91,8 @@
     <string name="check_result_ok">හරි</string>
     <string name="check_result_partial">අර්ධ</string>
     <string name="check_result_skipped">මඟ හැරිණි</string>
+    <string name="check_result_paused">විරාම කර ඇත, කිසිවක් පරීක්ෂා කළේ නැත</string>
+    <string name="check_result_offline">මඟ හැරිණි (නොබැඳි)</string>
     <string name="check_trigger_bgtask">පසුබිම</string>
     <string name="check_trigger_exact">නියමිත වේලාවට</string>
     <string name="check_trigger_foreground">යෙදුම</string>

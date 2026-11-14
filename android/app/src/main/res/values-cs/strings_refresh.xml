@@ -109,6 +109,8 @@
     <string name="check_result_ok">OK</string>
     <string name="check_result_partial">Částečně</string>
     <string name="check_result_skipped">Přeskočeno</string>
+    <string name="check_result_paused">Pozastaveno, nic nezkontrolováno</string>
+    <string name="check_result_offline">Přeskočeno (offline)</string>
     <string name="check_trigger_bgtask">Pozadí</string>
     <string name="check_trigger_exact">Včas</string>
     <string name="check_trigger_foreground">Aplikace</string>

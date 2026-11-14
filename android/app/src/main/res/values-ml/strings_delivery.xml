@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">അലേർട്ടുകൾ ഓൺ – ഇതുവരെ പശ്ചാത്തല പരിശോധനയില്ല</string>
     <string name="alarm_reliability_notifications_off">അറിയിപ്പുകൾ ഓഫ് – അലേർട്ടുകൾ എത്തില്ല</string>
     <string name="alarm_reliability_battery">ബാറ്ററി ലാഭിക്കൽ അലേർട്ട് പരിശോധനകൾ നിർത്തിയേക്കാം</string>
+    <string name="alarm_reliability_offline">കണക്ഷനില്ല – നെറ്റ്‌വർക്ക് തിരികെ വന്നാൽ അലാറങ്ങൾ പരിശോധിക്കും</string>
     <string name="alarm_reliability_background_refresh">പശ്ചാത്തല ആപ്പ് പുതുക്കൽ ഓഫ് – അലേർട്ടുകൾ എത്താതിരുന്നേക്കാം</string>
 </resources>

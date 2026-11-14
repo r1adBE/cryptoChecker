@@ -44,7 +44,10 @@ enum PriceRefresher {
         // «Offline · Stand …». Kommt das Netz zurück, aktualisiert `AppData` einmal. Mit Endzeit (Hintergrund,
         // Widget) nie nach dem gemerkten Stand aussetzen: der kann nach einer Pause des Prozesses veraltet sein —
         // dann einfach versuchen; sonst ein gemerktes «offline» frisch nachprüfen.
-        guard deadline != nil || NetworkStatus.shared.isOnlineFresh else { return outcome }
+        guard deadline != nil || NetworkStatus.shared.isOnlineFresh else {
+            outcome.skippedOffline = true
+            return outcome
+        }
         // Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen): diesmal aussen vor.
         // Beim Speichern mit dem dann gespeicherten Stand zusammenführen (`ExchangeBackoff.merge`): ein anderer
         // Prozess (Widget, Hintergrund) kann inzwischen eine Pause gemerkt haben
@@ -129,6 +132,8 @@ enum PriceRefresher {
         // sonst meldet ein zweiter Prozess, was der erste gerade gemeldet hat.
         let leased = await leasedAlarms(prefetchAlarms: prefetchAlarms, deferExtra: deferExtra, deadline: deadline)
         if let lease = leased.lease { outcome.alarmLease = lease }
+        // Alarme da, aber keine Lease (anderer Prozess prüft gerade): diesmal nicht geprüft — nicht als «OK» zählen
+        if !prefetchAlarms.isEmpty && leased.lease == nil { outcome.alarmsUnchecked = true }
         let alarmsByWatch = leased.byWatch
         // Alarm-Protokoll («Kein Kurs», Sperrgründe): auch die erst später geprüften Alarme mit Zusatzdaten — nur
         // festgehalten, entschieden wird damit nichts

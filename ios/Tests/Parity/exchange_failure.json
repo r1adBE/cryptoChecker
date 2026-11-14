@@ -1,9 +1,13 @@
 {
-  "description": "Typed failure next to the error text (Android ExchangeFailure.kt / iOS ExchangeFailure.swift). classify: RefreshReportLogic.classify(failure, text) - a failure kind that decides (timeout, offline, ssl, httpStatus, rateLimited, unknownInstrument) wins over the text; parse, message, other and no failure (null, e.g. stored error strings) fall back to the keyword match on the text. httpStatus: code from the kind, else from the text. confirmedBySingle: NotTraded.confirmedBySingle(gotPrice, text, failure) - the kind decides where it can; other (internal error without a clear type) never confirms; parse and exchange fall back to the text rules, but a blank text only confirms without a kind (null). The single ticker reports an answer without a valid price (missing, 0, NaN, infinite) as parse with 'Parsed ticker has no data'. regionBlocked: RefreshReportLogic.isRegionBlocked(text) - HTTP 451 in the stored text is the region block (own message instead of «not reachable», no retry hint).",
+  "description": "Typed failure next to the error text (Android ExchangeFailure.kt / iOS ExchangeFailure.swift). classify: RefreshReportLogic.classify(failure, text) - a failure kind that decides (timeout, offline, ssl, httpStatus, rateLimited, unknownInstrument) wins over the text; parse, message, other and no failure (null, e.g. stored error strings) fall back to the keyword match on the text. httpStatus: code from the kind, else from the text. confirmedBySingle: NotTraded.confirmedBySingle(gotPrice, text, failure) - the kind decides where it can; other (internal error without a clear type) never confirms; parse and exchange fall back to the text rules, but a blank text only confirms without a kind (null). The single ticker reports an answer without a valid price (missing, 0, NaN, infinite) as parse with 'Parsed ticker has no data'. regionBlocked: RefreshReportLogic.isRegionBlocked(text) - HTTP 451 in the stored text is the region block (own message instead of «not reachable», no retry hint). accessDenied: RefreshReportLogic.isAccessDenied(text) - HTTP 403 in the stored text without a rate-limit text is a refused access (own message «denied access» instead of «not reachable», no retry hint). pairListAborts: pairListCallAborts(call, allRequired, failure) - a pair list loaded in several requests (BitFlyer, Deribit) aborts as a whole (the stored list stays) when the failing request is the first, every request is required, or the failure is transient (timeout, offline, ssl, rate limit, HTTP 408 or 5xx); a lasting failure of a later request (4xx, unreadable) skips that part. pairListAttempt: remembersPairListAttempt(failure) - the portfolio remembers a pair-list load (hours of rest) only after a result: loaded (null) or a lasting answer; a transient failure is retried on the next refresh.",
   "classify": [
     {"failure": null, "text": "java.net.SocketTimeoutException: timeout", "expected": "TIMEOUT"},
     {"failure": null, "text": "javax.net.ssl.SSLHandshakeException: handshake failed", "expected": "OFFLINE"},
     {"failure": null, "text": "java.io.EOFException", "expected": "OFFLINE"},
+    {"failure": null, "text": "java.net.SocketException: Software caused connection abort", "expected": "OFFLINE"},
+    {"failure": null, "text": "java.io.IOException: unexpected end of stream on https://api.example.com/...", "expected": "OFFLINE"},
+    {"failure": null, "text": "okhttp3.internal.http2.StreamResetException: stream was reset: CANCEL", "expected": "OFFLINE"},
+    {"failure": null, "text": "java.net.SocketException: Socket closed", "expected": "OFFLINE"},
     {"failure": null, "text": "HttpCode: 429 (retry-after 30 s)", "expected": "RATE_LIMIT"},
     {"failure": null, "text": "HTTP 503", "expected": "SERVER"},
     {"failure": null, "text": "NETWORK_OFFLINE", "expected": "OFFLINE"},
@@ -40,6 +44,39 @@
     {"text": "HTTP 4510", "expected": false},
     {"text": "Exchange unavailable", "expected": false},
     {"text": null, "expected": false}
+  ],
+  "accessDenied": [
+    {"text": "HTTP 403", "expected": true},
+    {"text": "HttpCode: 403", "expected": true},
+    {"text": "HTTP 403: access too frequent", "expected": false},
+    {"text": "HTTP 451", "expected": false},
+    {"text": "HTTP 4031", "expected": false},
+    {"text": null, "expected": false}
+  ],
+  "pairListAborts": [
+    {"call": 0, "allRequired": false, "failure": {"kind": "httpStatus", "code": 404}, "aborts": true},
+    {"call": 1, "allRequired": true, "failure": {"kind": "parse"}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "timeout"}, "aborts": true},
+    {"call": 2, "allRequired": false, "failure": {"kind": "offline"}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "ssl"}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "rateLimited", "code": 429}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "httpStatus", "code": 503}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "httpStatus", "code": 408}, "aborts": true},
+    {"call": 1, "allRequired": false, "failure": {"kind": "httpStatus", "code": 404}, "aborts": false},
+    {"call": 1, "allRequired": false, "failure": {"kind": "parse"}, "aborts": false},
+    {"call": 1, "allRequired": false, "failure": {"kind": "other"}, "aborts": false},
+    {"call": 1, "allRequired": false, "failure": {"kind": "message", "detail": "Invalid currency"}, "aborts": false}
+  ],
+  "pairListAttempt": [
+    {"failure": null, "remembers": true},
+    {"failure": {"kind": "httpStatus", "code": 404}, "remembers": true},
+    {"failure": {"kind": "parse"}, "remembers": true},
+    {"failure": {"kind": "other"}, "remembers": true},
+    {"failure": {"kind": "timeout"}, "remembers": false},
+    {"failure": {"kind": "offline"}, "remembers": false},
+    {"failure": {"kind": "ssl"}, "remembers": false},
+    {"failure": {"kind": "rateLimited", "code": 429}, "remembers": false},
+    {"failure": {"kind": "httpStatus", "code": 502}, "remembers": false}
   ],
   "confirmedBySingle": [
     {"gotPrice": false, "failure": {"kind": "unknownInstrument"}, "text": "Invalid symbol.", "confirmed": true},

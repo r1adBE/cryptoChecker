@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">پس منظر</string>
-    <string name="widget_configure_hint">پس منظر اور دھندلاپن منتخب کریں۔ رنگ ایپ کی پیروی کرتا ہے۔ ویجیٹ آپ کی پوری واچ لسٹ دکھاتا ہے؛ ایپ کھولنے کے لیے کسی قطار پر ٹیپ کریں۔</string>
+    <string name="widget_configure_hint">پس منظر اور دھندلاپن منتخب کریں۔ رنگ ایپ کے مطابق رہتا ہے۔ ویجیٹ آپ کی واچ لسٹ یا نیچے منتخب کردہ گروپ دکھاتا ہے؛ ایپ کھولنے کے لیے کسی قطار پر ٹیپ کریں۔</string>
     <string name="widget_configure_title">ویجیٹ سیٹ اپ کریں</string>
     <string name="widget_description">آپ کی واچ لسٹ کے کسی جوڑے کی قیمت دکھاتا ہے۔</string>
     <string name="widget_empty">واچ لسٹ میں ابھی کوئی جوڑا نہیں۔</string>

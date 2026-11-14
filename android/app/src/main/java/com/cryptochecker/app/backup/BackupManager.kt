@@ -28,6 +28,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
+import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -87,6 +88,8 @@ class BackupManager @Inject constructor(
     /** Sperre der Aktualisierung: Merkliste ersetzen, ohne dass ein Durchlauf dazwischen Kurse schreibt. */
     internal val priceRefresher: PriceRefresher,
     internal val livePriceStream: LivePriceStream,
+    /** Sperre der Adress-Aktualisierung: Adressen und eigenen Server ersetzen, ohne dass dazwischen abgefragt wird. */
+    internal val addressRefresher: WatchedAddressRefresher,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     internal val database: AppDatabase get() = stores.database
@@ -140,7 +143,7 @@ class BackupManager @Inject constructor(
                     put(kind.name, JSONArray(favoritesRepository.favorites(kind).value.toList()))
                 }
             })
-            .put("settings", settingsCodec.settingsToJson())
+            .put("settings", settingsCodec.settingsToJson(encrypted = password != null))
             .put("portfolio", JSONArray().apply { portfolio.first.forEach { put(PortfolioJson.txToJson(it)) } })
             .put("portfolioAlarms", JSONArray().apply { portfolio.second.forEach { put(PortfolioJson.alarmToJson(it)) } })
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
@@ -274,8 +277,9 @@ class BackupManager @Inject constructor(
         val watchlist = input.watchlist
         // ── 2. Bisherigen Stand merken (für das Zurückrollen) ──
         val previous = previousState()
-        // ── 3. Schreiben ── (Speicher nicht beschreibbar: eigene Meldung, Daten unverändert — RestoreRun.forMessage)
-        val settingsNotes = try { writeRestored(input, previous, encrypted) } catch (e: Exception) { throw RestoreRun.forMessage(e) }
+        // ── 3. Schreiben ── (Speicher nicht beschreibbar: eigene Meldung, Daten unverändert — RestoreRun.forMessage), unter
+        // der Sperre der Adress-Aktualisierung: nie neue Adressen mit dem alten Server (oder umgekehrt) abgefragt
+        val settingsNotes = try { addressRefresher.withRefreshLock { writeRestored(input, previous, encrypted) } } catch (e: Exception) { throw RestoreRun.forMessage(e) }
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
         runCatchingCancellable { StorageRecoveryNotice.acknowledgeSetAside(context) }
 

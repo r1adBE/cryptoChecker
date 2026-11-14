@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Бирж одоогоор холбогдохгүй байна</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Энэ бүс нутагт бирж хаагдсан</string>
+    <string name="error_exchange_access_denied">Бирж хандалтыг татгалзсан</string>
     <string name="loading_hint">Ачаалж байна…</string>
     <string name="option_off">Унтраалттай</string>
     <string name="something_went_wrong">Алдаа гарлаа</string>

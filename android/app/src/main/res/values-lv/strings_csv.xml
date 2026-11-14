@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">Atstāj portfeli (izmaksa)</string>
     <string name="portfolio_csv_import_choose_each">Katrai izmaksai izvēlies, kurp tā devās.</string>
     <string name="portfolio_csv_import_columns">Atpazītās kolonnas: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">Jau importēts: rindas %1$s</string>
     <string name="portfolio_csv_import_confirm">Importēt (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Diena/mēnesis</string>
     <string name="portfolio_csv_import_date_month_first">Mēnesis/diena</string>
@@ -46,6 +47,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Darījumi pret stabilajām monētām (USDT, USDC …) tiek uzskaitīti kā maiņa – stabilā monēta parādās tavos turējumos.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">Iespējamas vairākas atbilstības – izvēlies pareizo vai nevienu.</string>
+    <string name="portfolio_csv_import_transfer_loose">Augsta maksa vai vēla saņemšana – pārbaudi, vai tas ir tas pats pārskaitījums.</string>
     <string name="portfolio_csv_import_transfer_fee">Tīkla maksa: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Uzskaitīt kā vienu pārvedumu</string>
     <string name="portfolio_csv_import_transfer_stored">Pretdarījums no agrāka importa</string>
@@ -108,7 +110,7 @@
     <string name="portfolio_csv_import_fx_zone">Dienas kursi pēc kalendārās dienas šeit: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">Dienas kursus neizdevās ielādēt.</string>
     <string name="portfolio_csv_import_anyway">Tomēr importēt</string>
-    <string name="portfolio_csv_import_anyway_hint">Bez dienas kursa cena vai maksa trūkst neatgriezeniski. Mēģini vēlreiz vai tomēr importē – šie darījumi tad saņems piezīmi.</string>
+    <string name="portfolio_csv_import_anyway_hint">Bez dienas kursa cena vai maksa trūkst, līdz tu to pievieno. Mēģini vēlreiz vai tomēr importē – šie darījumi saņems piezīmi.</string>
     <string name="portfolio_csv_note_price_no_rate">Cena bez dienas kursa</string>
     <string name="portfolio_csv_note_fee_no_rate">Maksa bez dienas kursa</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s dienas kursu nav, tāpēc atkārtots mēģinājums nepalīdzēs. Ja tomēr importēsi, šie darījumi saņems piezīmi.</string>

@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Берза тренутно није доступна</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Берза је блокирана у овом региону</string>
+    <string name="error_exchange_access_denied">Берза је одбила приступ</string>
     <string name="loading_hint">Учитавање…</string>
     <string name="option_off">Искључено</string>
     <string name="something_went_wrong">Нешто није у реду</string>

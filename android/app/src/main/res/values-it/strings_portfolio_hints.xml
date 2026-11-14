@@ -14,6 +14,7 @@
     <string name="portfolio_alarms_address_failing_generic">Gli allarmi del portafoglio controllano senza gli indirizzi il cui saldo non si carica da oltre 24 ore</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token in parte non aggiornati</string>
+    <string name="portfolio_address_zero_unconfirmed">0 non ancora confermato</string>
     <string name="portfolio_address_restore_failed">Impossibile ripristinare l’indirizzo – aggiungilo di nuovo se serve</string>
     <string name="portfolio_address_remove_failed">Impossibile rimuovere l’indirizzo – riprova</string>
 </resources>

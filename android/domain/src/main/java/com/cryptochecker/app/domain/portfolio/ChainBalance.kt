@@ -146,7 +146,7 @@ object ChainBalance {
     /** Einzelantwort `getTokenAccountsByOwner` (Rückfall ohne Stapel). */
     fun parseSolanaTokensBody(body: String): Map<String, String> = parseSolanaTokens(JsonObject(body))
 
-    /** Ergebnisse zusammenführen: bekannte Mints nach [ChainAssets.SOLANA_TOKENS]; unbekannte > 0 nur gezählt. */
+    /** Ergebnisse zusammenführen: bekannte Mints nach [ChainAssets.SOLANA_TOKENS] (ohne Konto = 0); unbekannte > 0 nur gezählt. */
     fun solana(lamports: String, mints: List<Map<String, String>>): Solana {
         val total = LinkedHashMap<String, BigInteger>()
         for (m in mints) for ((mint, digits) in m) total[mint] = (total[mint] ?: BigInteger.ZERO) + BigInteger(digits)
@@ -160,6 +160,9 @@ object ChainBalance {
             }
             tokens[token.symbol] = AddressBalance.unitsText(sum.toString(), token.decimals)
         }
+        // Vollständige Antwort (beide Token-Programme): ein bekannter Token ohne Konto (geschlossen) hat 0 — sonst behielte
+        // er sein altes Guthaben für immer (der Sprung auf 0 wartet auf Bestätigung, ZeroConfirm)
+        for (token in ChainAssets.SOLANA_TOKENS) if (token.symbol !in tokens) tokens[token.symbol] = "0"
         return Solana(lamports, tokens, unknown)
     }
 

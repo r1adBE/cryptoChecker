@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">רקע</string>
-    <string name="widget_configure_hint">בחרו רקע ושקיפות. הצבע תואם לאפליקציה. הווידג׳ט מציג את כל הרשימה; הקישו על שורה כדי לפתוח את האפליקציה.</string>
+    <string name="widget_configure_hint">בחר רקע ואטימות. הצבע תואם לאפליקציה. הווידג׳ט מציג את הרשימה או את הקבוצה שנבחרה למטה; הקש על שורה כדי לפתוח את האפליקציה.</string>
     <string name="widget_configure_title">הגדרת ווידג׳ט</string>
     <string name="widget_description">מציג את המחיר של צמד מרשימת המעקב שלך.</string>
     <string name="widget_empty">אין עדיין צמדים ברשימת המעקב.</string>

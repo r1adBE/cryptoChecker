@@ -254,6 +254,29 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertEqual(AlarmThresholdError.key(.PERCENT_RANGE), "alarm_threshold_error_percent_down_below")
     }
 
+    /// «steigt um» höchstens 1000 % (wie der Portfolio-Alarm), Abstand zum Hoch/Tief unter 100 %, «1,234» nie still 1234 —
+    /// wie Android `riseAndDistanceAreCappedAndAmbiguousInputIsNamed`.
+    func testRiseAndDistanceAreCappedAndAmbiguousInputIsNamed() {
+        let sep = ThresholdParser.localeDecimalSeparator
+        let other: Character = sep == "." ? "," : "."
+        func draft(_ condition: AlarmCondition, _ text: String) -> AlarmDraft {
+            AlarmDraft(condition: condition, thresholdText: text)
+        }
+        XCTAssertNil(draft(.CHANGE_PERCENT_UP, "1000").thresholdProblem)
+        XCTAssertEqual(draft(.CHANGE_PERCENT_UP, "1000\(sep)5").thresholdProblem, .PERCENT_MAX)
+        XCTAssertEqual(draft(.MOVE_PERCENT_WINDOW, "1234").thresholdProblem, .PERCENT_MAX)
+        XCTAssertNil(draft(.CHANGE_PERCENT_UP, "1234").threshold)
+        XCTAssertNil(draft(.NEAR_HIGH, "99\(sep)9").thresholdProblem)
+        XCTAssertEqual(draft(.NEAR_HIGH, "100").thresholdProblem, .DISTANCE_RANGE)
+        XCTAssertEqual(draft(.NEAR_LOW, "150").thresholdProblem, .DISTANCE_RANGE)
+        // Das andere Zeichen als das Dezimalzeichen der Region: nicht still 1234 %, beide Schreibweisen im Fehlertext
+        let ambiguous = draft(.CHANGE_PERCENT_UP, "1\(other)234")
+        XCTAssertEqual(ambiguous.thresholdProblem, .AMBIGUOUS)
+        XCTAssertEqual(ambiguous.ambiguity, ThresholdParser.Ambiguity(grouped: "1234", decimal: "1\(sep)234"))
+        XCTAssertEqual(AlarmThresholdError.key(.PERCENT_MAX), "alarm_threshold_error_percent_max")
+        XCTAssertEqual(AlarmThresholdError.key(.DISTANCE_RANGE), "alarm_threshold_error_distance")
+    }
+
     // MARK: «Nicht geprüft seit …»
 
     func testUncheckedKeepsFirstTimeAndLatestReason() {

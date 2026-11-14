@@ -31,8 +31,7 @@ suspend fun CoinListSync.symbolMap(onEarly: (suspend (Map<String, String>) -> Un
 
 suspend fun CoinListSync.lockedSymbolMap(onEarly: (suspend (Map<String, String>) -> Unit)?): Map<String, String> {
     val now = System.currentTimeMillis()
-    val known = map ?: withContext(Dispatchers.IO) { CoinLogos.decode(CoinLogoStorage.readNonBlank(mapFile)) }
-        .also { map = it }
+    val known = map ?: savedMapFile().also { map = it }
     names.loadSavedNames()
     val saved = savedLists()
     mapNetworkFailed = false
@@ -82,7 +81,11 @@ suspend fun CoinListSync.lockedSymbolMap(onEarly: (suspend (Map<String, String>)
             Timber.i("Coin-Logos: getaktetes Netz, Zusatzseiten der Rangliste erst im WLAN")
         }
     }
-    prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
+    // Netzfehler auf einer Folgeseite (oder den Zusatzseiten): Teil-Ergebnis nutzen, aber bald erneut wie bei leerer
+    // erster Seite — nicht Stunden «unvollständig» (kein Versuch, keine Zeit gemerkt; retryPending über mapNetworkFailed)
+    val networkCut = net.failed
+    if (CoinLogoRetry.recordsAttempt(networkCut)) prefs.edit { putLong(KEY_MAP_ATTEMPT, now) }
+    mapNetworkFailed = networkCut
     val merged = CoinMeta.merge(top, binance, alphaList, extra)
     // Kürzel nur aus den Zusatzseiten merken: ihre Logos lädt der Sammel-Abruf nur ohne getaktetes Netz
     if (extraFetched) imageStore.saveExtraOnly(CoinLogos.extraOnlyKeys(merged.map, CoinMeta.merge(top, binance, alphaList).map))
@@ -93,11 +96,11 @@ suspend fun CoinListSync.lockedSymbolMap(onEarly: (suspend (Map<String, String>)
     withContext(Dispatchers.IO) {
         runCatchingCancellable {
             mapFile.parentFile?.mkdirs()
-            mapFile.writeText(CoinLogos.encode(fresh))
+            LogoFiles.writeText(mapFile, CoinLogos.encode(fresh))
             names.writeNamesFile(newNames)
         }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
     }
-    prefs.edit { putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full)) }
+    if (!networkCut) prefs.edit { putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full)) }
     // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
     imageStore.dropChangedImages(known, fresh, skip = handled)
     Timber.i("Coin-Logos: Liste mit %d Einträgen (%s)", fresh.size, if (full) "vollständig" else "unvollständig")
@@ -105,6 +108,21 @@ suspend fun CoinListSync.lockedSymbolMap(onEarly: (suspend (Map<String, String>)
     mergedListsVersion = listsVersion
     return fresh
 }
+
+/** Gespeicherte Zuordnung aus der Datei (ohne Sperre, ohne Netz). */
+private suspend fun CoinListSync.savedMapFile(): Map<String, String> =
+    withContext(Dispatchers.IO) { CoinLogos.decode(CoinLogoStorage.readNonBlank(mapFile)) }
+
+/**
+ * Zuordnung für die Start-Logos ([LogoImageStore.ensureStarterLogos]) OHNE die Sperre des Abgleichs: [symbolMap] hält sie
+ * über alle Seiten der Rangliste mit ihren Pausen, die Start-Logos kämen sonst erst nach ihrer Frist. Bei Binance gelistete
+ * Krypto-Kürzel aus der gespeicherten Symbolliste zuerst ([CoinMeta.binanceFirst], wie im Abgleich), Lücken aus der
+ * gespeicherten Zuordnung; nie ein Abruf. Fehler: leer.
+ */
+suspend fun CoinListSync.starterMap(): Map<String, String> = runCatchingCancellable {
+    val first = CoinMeta.binanceFirst(savedLists()?.binance?.takeIf { it.isNotEmpty() })
+    CoinLogos.withKnown(first, map ?: savedMapFile())
+}.getOrDefault(emptyMap())
 
 /**
  * Zuordnung ohne neue Rangliste: neue Binance-/Alpha-Einträge ([refreshLists]) füllen nur Lücken
@@ -121,7 +139,7 @@ suspend fun CoinListSync.withListsMerged(known: Map<String, String>): Map<String
     withContext(Dispatchers.IO) {
         runCatchingCancellable {
             mapFile.parentFile?.mkdirs()
-            mapFile.writeText(CoinLogos.encode(out))
+            LogoFiles.writeText(mapFile, CoinLogos.encode(out))
         }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
     }
     return out

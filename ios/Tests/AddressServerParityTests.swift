@@ -94,6 +94,27 @@ final class AddressServerParityTests: XCTestCase {
         }
     }
 
+    /// Sicherungsdatei: Server nur mit Passwort (`AddressServer.exported`) — wie Android.
+    func testServerNurInDateiMitPasswort() throws {
+        let list = try cases("export")
+        XCTAssertGreaterThanOrEqual(list.count, 4)
+        for c in list {
+            let encrypted = try XCTUnwrap(c["encrypted"] as? Bool)
+            XCTAssertEqual(AddressServer.exported(c["server"] as? String, encrypted: encrypted), c["result"] as? String, "\(c)")
+        }
+    }
+
+    /// Server unbekannt (Einstellungen ersetzt): Bitcoin wird nicht abgefragt (`AddressServer.queryAllowed`).
+    func testUnbekannterServerSperrtBitcoin() throws {
+        let list = try cases("unknownServer")
+        XCTAssertTrue(list.contains { $0["allowed"] as? Bool == false })
+        for c in list {
+            let chain = try XCTUnwrap(AddressChain(rawValue: try XCTUnwrap(c["chain"] as? String)))
+            let unknown = try XCTUnwrap(c["serverUnknown"] as? Bool)
+            XCTAssertEqual(AddressServer.queryAllowed(chain, serverUnknown: unknown), c["allowed"] as? Bool, "\(c)")
+        }
+    }
+
     /// Gesetzt: nur der eigene Server, kein Rückfall auf öffentliche Hosts.
     func testEigenerServerOhneRueckfall() {
         XCTAssertEqual(AddressServer.btcEntries("https://node.example.org/api"), ["https://node.example.org/api"])

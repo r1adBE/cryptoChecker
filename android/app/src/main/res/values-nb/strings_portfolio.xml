@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Totalt</string>
     <string name="portfolio_hide_amounts">Skjul beløp</string>
-    <string name="portfolio_hide_amounts_hint">Viser beløp og verdier i porteføljen og porteføljewidgeten som ••• – prosenter forblir synlige.</string>
+    <string name="portfolio_hide_amounts_hint">Viser beløp og verdier i porteføljen, porteføljewidgeten, på klokken og i porteføljevarsler som ••• – prosenter forblir synlige.</string>
     <string name="portfolio_invested">Inngangsverdi</string>
     <string name="portfolio_total_no_fx">Ingen valutakurs for %1$s – beløp i USDT</string>
     <string name="portfolio_total_value">Samlet verdi</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Forkaste endringene?</string>
     <string name="portfolio_edit_tx">Rediger transaksjon</string>
     <string name="portfolio_invalid">Angi et gyldig tall større enn 0.</string>
+    <string name="number_ambiguous">Uklart: %1$s eller %2$s? Skriv en av de to.</string>
     <string name="portfolio_oversold">Salg overstiger beholdningen – sjekk transaksjonene.</string>
     <string name="portfolio_sell">Salg</string>
     <string name="portfolio_sell_exceeds">Mer enn beholdningen din (%1$s)</string>

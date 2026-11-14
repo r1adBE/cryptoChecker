@@ -159,6 +159,26 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(Set(trades.map(\.id)).count, trades.count)
     }
 
+    /// Sprung auf 0: erst der zweite gleiche Abruf gilt (N3-13/N3-14, `address_balance.json` › «zeroConfirm»).
+    func testZeroConfirm() throws {
+        let block = try XCTUnwrap(try data()["zeroConfirm"] as? [String: Any])
+        let cases = S.list(block["cases"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let start = try XCTUnwrap(c["start"] as? [String: Any])
+            let a = WatchedAddress(chain: AddressChain(rawValue: start["chain"] as? String ?? "") ?? .BTC, address: "x",
+                                   lastBalance: start["lastBalance"] as? String,
+                                   tokenBalances: start["tokenBalances"] as? [String: String] ?? [:],
+                                   zeroPending: start["zeroPending"] as? [String] ?? [])
+            let r = ZeroConfirm.apply(a, balance: c["balance"] as? String ?? "", tokens: c["tokens"] as? [String: String])
+            let e = try XCTUnwrap(c["expected"] as? [String: Any])
+            let name = c["name"] as? String ?? ""
+            XCTAssertEqual(r.balance, e["balance"] as? String, name)
+            XCTAssertEqual(r.tokens, e["tokens"] as? [String: String], name)
+            XCTAssertEqual(r.pending, e["pending"] as? [String], name)
+        }
+    }
+
     func testApplyFetched() throws {
         let f = try XCTUnwrap(try data()["applyFetched"] as? [String: Any])
         var a = watched(try XCTUnwrap(f["start"] as? [String: Any]))
@@ -169,10 +189,13 @@ final class XpubTokenTests: XCTestCase {
             XCTAssertEqual(tokenObsText(a.tokenObservations), tokenObsText(tokenObs(s["tokenObservations"])), "tokenObservations \(i)")
             XCTAssertEqual(obsText(a.observations), obsText(obs(s["observations"])), "observations \(i)")
             XCTAssertEqual(a.lastUpdated, int64(s["time"]))
+            // Sprung auf 0 wartet auf den zweiten gleichen Abruf (`ZeroConfirm`)
+            XCTAssertEqual(a.zeroPending, s["zeroPending"] as? [String], "zeroPending \(i)")
+            XCTAssertEqual(a.staleTokens, s["staleTokens"] as? [String], "staleTokens \(i)")
             // Speicherform (watched_addresses.json) hin und zurück
             let decoded = try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(a))
             XCTAssertEqual(decoded, a)
-            if i == 1 {
+            if i == int(f["historyStep"]) {
                 let history = AddressBalanceHistory.trades(AddressBalanceHistory.of([a])).filter { $0.coin == "USDT" || $0.coin == "LINK" }
                 let expected = S.list(f["history"])
                 XCTAssertEqual(history.count, expected.count)

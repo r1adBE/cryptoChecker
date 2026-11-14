@@ -11,7 +11,11 @@ enum ConnectionErrors {
             switch e.code {
             case .notConnectedToInternet, .cannotFindHost, .cannotConnectToHost, .timedOut,
                  .networkConnectionLost, .dnsLookupFailed, .internationalRoamingOff,
-                 .dataNotAllowed, .secureConnectionFailed, .cannotLoadFromNetwork:
+                 .dataNotAllowed, .secureConnectionFailed, .cannotLoadFromNetwork,
+                 // Antwort mitten im Körper abgebrochen bzw. unbrauchbar übertragen — wie Android jede übrige
+                 // Ein-/Ausgabe-Ausnahme beim Transport: keine Verbindung, wiederholbar
+                 .badServerResponse, .cannotParseResponse, .cannotDecodeContentData, .cannotDecodeRawData,
+                 .resourceUnavailable:
                 return offlineMarker
             default:
                 break
@@ -34,6 +38,8 @@ enum ConnectionErrors {
         if isOffline(stored) { return L("watch_error_offline") }
         // HTTP 451: die Börse sperrt die Region des Geräts (z. B. Binance TR ausserhalb der Türkei)
         if RefreshReportLogic.isRegionBlocked(stored) { return L("error_exchange_region_blocked") }
+        // HTTP 403 ohne Bremse: Zugriff verweigert — kein «erneut versuchen»
+        if RefreshReportLogic.isAccessDenied(stored) { return L("error_exchange_access_denied") }
         if isRetryable(stored) { return L("error_exchange_unreachable_short") }
         // Schon übersetzte, eigene Texte (z. B. «Keine Kursdaten») so lassen
         let known = [L("exchange_data_empty_error"), L("exchange_unavailable_error"), L("something_went_wrong")]
@@ -46,9 +52,11 @@ enum ConnectionErrors {
     }
 
     /// Börse gerade nicht erreichbar (Netz, Zeitüberschreitung, HTTP-Fehler, zu viele Anfragen):
-    /// ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar oder Standort-Sperre (HTTP 451).
+    /// ein neuer Versuch kann helfen. Nicht bei «nicht mehr gehandelt», unbekanntem Paar, Standort-Sperre (HTTP 451) oder
+    /// verweigertem Zugriff (HTTP 403).
     static func isRetryable(_ stored: String?) -> Bool {
-        guard let stored, !isNotTraded(stored), !RefreshReportLogic.isRegionBlocked(stored) else { return false }
+        guard let stored, !isNotTraded(stored), !RefreshReportLogic.isRegionBlocked(stored),
+              !RefreshReportLogic.isAccessDenied(stored) else { return false }
         if isOffline(stored) { return true }
         switch RefreshReportLogic.classify(stored) {
         case .TIMEOUT, .OFFLINE, .RATE_LIMIT, .SERVER: return true

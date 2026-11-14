@@ -324,6 +324,23 @@ final class CsvImportTests: XCTestCase {
         XCTAssertTrue(CsvImport.splitDuplicates(rows, existingKeys: Set(rows.map(\.key))).fresh.isEmpty)
     }
 
+    /// Freie Vorlage mit ID-Spalte: gleiche ID allein ist kein Doppel; «Trotzdem importieren» vergibt freie Schlüssel.
+    func testGenericIdDedupe() throws {
+        let cases = S.list(try S.fixture("csv_import")["genericIdDedupe"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let name = string(c["name"]) ?? ""
+            let first = Set(CsvImportParser.parse(string(c["first"]) ?? "", deviceZone: "UTC", zone: nil).rows.map(\.key))
+            let second = CsvImportParser.parse(string(c["second"]) ?? "", deviceZone: "UTC", zone: nil)
+            let lines = ((c["duplicateLines"] as? [Any]) ?? []).map { int($0) }
+            XCTAssertEqual(CsvImport.splitDuplicates(second.rows, existingKeys: first).duplicates.map(\.line), lines, name)
+            let kept = CsvImportMapping.preview(second, existingKeys: first, keepDuplicates: true) { _, _ in nil }
+            XCTAssertEqual(kept.duplicateLines, lines, "\(name) lines")
+            XCTAssertEqual(kept.duplicatesKept, !lines.isEmpty, "\(name) kept")
+            XCTAssertEqual(kept.transactions.map(\.importKey), (c["keys"] as? [String]) ?? [], "\(name) keys")
+        }
+    }
+
     /// Schlüssel ohne Versatz unabhängig von der Zeitzone.
     func testZoneKeys() throws {
         let d = try S.fixture("csv_import")

@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">கடைசிப் புதுப்பிப்பு</string>
     <string name="watchlist_symbols_legend">குறியீடுகளின் விளக்கம்</string>
     <string name="watchlist_symbols_legend_alarms">செயலில் உள்ள விழிப்பூட்டல்களும் அவற்றின் எண்ணிக்கையும்</string>
+    <string name="watchlist_symbols_legend_warning">விலை பழையது அல்லது பரிமாற்றகத்தை அணுக முடியவில்லை</string>
     <string name="watchlist_refresh_report_empty">இன்னும் விவரம் இல்லை – இதுவரை முழுப் புதுப்பிப்பு நடக்கவில்லை. புதுப்பிக்கவும் என்பதைத் தட்டி வட்டம் நிற்கும் வரை காத்திருக்கவும்.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d இல் %1$d காலாவதியானது</item>
@@ -260,6 +261,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">அறிவிப்பை மூடவும்</string>
     <string name="watchlist_missing_logos_explain">இந்தக் காயின்களுக்கு லோகோ கிடைக்கவில்லை. ஆப் அவற்றின் முதலெழுத்துகளைக் காட்டும்.</string>
+    <string name="watchlist_missing_logos_pending">இன்னும் ஏற்றப்படவில்லை</string>
+    <string name="watchlist_missing_logos_explain_pending">இன்னும் ஏற்றப்படவில்லை எனக் குறிக்கப்பட்ட லோகோக்கள் அடுத்த ஒத்திசைவில் வரும், சில Wi-Fi-இல் மட்டும். மற்ற காயின்களுக்கு லோகோ இல்லை. ஆப் அவற்றின் முதலெழுத்துகளைக் காட்டுகிறது.</string>
     <string name="exchange_retiring_notice">%2$s முதல் %1$s பொது விலைகளை வழங்காது. இந்த காயின்களுக்கு வேறு எக்ஸ்சேஞ்சைத் தேர்ந்தெடுக்கவும்.</string>
     <string name="exchange_retiring_reason">%2$s முதல் %1$s விலைகளை வழங்காது</string>
     <string name="exchange_retired_since">%2$s முதல் %1$s இனி விலைகளை வழங்குவதில்லை</string>

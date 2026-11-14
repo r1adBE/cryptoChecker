@@ -91,6 +91,8 @@
     <string name="check_result_ok">Sawa</string>
     <string name="check_result_partial">Kwa kiasi</string>
     <string name="check_result_skipped">Imerukwa</string>
+    <string name="check_result_paused">Imesitishwa, hakuna kilichokaguliwa</string>
+    <string name="check_result_offline">Imerukwa (nje ya mtandao)</string>
     <string name="check_trigger_bgtask">Chinichini</string>
     <string name="check_trigger_exact">Kwa wakati</string>
     <string name="check_trigger_foreground">Programu</string>

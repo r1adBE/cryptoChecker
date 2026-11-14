@@ -165,6 +165,11 @@ internal class FakeRefreshNotifier(
         cancelledPrices += watchIds
     }
 
+    /** Welche Kurs-Mitteilungen noch zu sehen sind (Tests: nach einem Neustart keine). */
+    var priceVisible: (Long) -> Boolean = { true }
+
+    override fun priceMaybeShown(watchId: Long, shown: Set<Int>?): Boolean = priceVisible(watchId)
+
     /** Vor jedem [showPrices] (Tests: Kurs-Meldungen aufhalten). */
     var beforeShowPrices: suspend () -> Unit = {}
 

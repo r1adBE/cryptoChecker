@@ -146,7 +146,8 @@ struct PortfolioAddressLotEditor: View {
                     Picker("", selection: $coin) { ForEach(coins, id: \.self) { Text($0).tag($0) } }
                         .pickerStyle(.segmented)
                 }
-                DatePicker(L("address_lots_date"), selection: $date, in: ...Date(), displayedComponents: .date)
+                // Ab 1.1.2009 wie alle Datumsfelder (Android `DateDialog` MIN_YEAR)
+                DatePicker(L("address_lots_date"), selection: $date, in: PortfolioTxSheet.dateRange(), displayedComponents: .date)
                 TextField(placeholder: L("address_lots_amount") + " (\(coin))", text: $amountText)
                     .keyboardType(.decimalPad)
                 Picker("", selection: $perCoin) {
@@ -165,7 +166,9 @@ struct PortfolioAddressLotEditor: View {
                     }
                 }
                 if tried && lot == nil {
-                    Text(L("address_lots_invalid")).font(.subheadline).foregroundStyle(AppColors.error)
+                    // Mehrdeutig («1.234» in DE): beide Schreibweisen nennen statt «ungültig»
+                    Text(ambiguousNumberText(amountText, decimalSeparator: sep) ?? ambiguousNumberText(valueText, decimalSeparator: sep)
+                         ?? L("address_lots_invalid")).font(.subheadline).foregroundStyle(AppColors.error)
                 }
                 if !isNew {
                     Button(L("action_delete"), role: .destructive) { askDelete = true }

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
@@ -67,19 +68,22 @@ object PortfolioJson {
      * Alle Transaktionen einer Liste (Felder geprüft, [com.cryptochecker.app.data.BackupFields.TX]); ungültige werden
      * gezählt, nicht still verworfen.
      */
-    fun parseTxs(array: JSONArray): Parsed<PortfolioTxEntity> = parse(array, ::jsonToTx)
+    fun parseTxs(array: JSONArray): Parsed<PortfolioTxEntity> = parse(array, ::jsonToTx) { it.id }
 
     /** Alle Portfolio-Alarme einer Liste (Felder geprüft); ungültige werden gezählt. */
-    fun parseAlarms(array: JSONArray): Parsed<PortfolioAlarmEntity> = parse(array, ::jsonToAlarm)
+    fun parseAlarms(array: JSONArray): Parsed<PortfolioAlarmEntity> = parse(array, ::jsonToAlarm) { it.id }
 
-    private fun <T> parse(array: JSONArray, read: (JSONObject) -> T?): Parsed<T> {
+    /** Doppelte Kennungen zählen wie ungültige Einträge ([BackupRestorePolicy.keepFirstIds]) — nie still ersetzt. */
+    private fun <T> parse(array: JSONArray, read: (JSONObject) -> T?, id: (T) -> Long): Parsed<T> {
         val items = ArrayList<T>(array.length())
         var invalid = 0
         for (i in 0 until array.length()) {
             val item = read(array.getJSONObject(i))
             if (item == null) invalid++ else items += item
         }
-        return Parsed(items, invalid)
+        val keep = BackupRestorePolicy.keepFirstIds(items.map(id))
+        val unique = items.filterIndexed { i, _ -> keep[i] }
+        return Parsed(unique, invalid + items.size - unique.size)
     }
 
     /**

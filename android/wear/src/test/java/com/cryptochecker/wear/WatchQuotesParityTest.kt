@@ -129,6 +129,7 @@ class WatchQuotesParityTest {
     fun cache() {
         val cache = data.getJSONObject("cache")
         val now = cache.getLong("now")
+        val interval = cache.getInt("interval")
         for (c in objects(cache.getJSONArray("cases"))) {
             val name = c.getString("name")
             val old = objects(c.getJSONArray("old")).associate { it.getString("symbol") to WatchCached(quote(it), it.getLong("time")) }
@@ -140,7 +141,7 @@ class WatchQuotesParityTest {
                 val got = merged.getValue(e.getString("symbol"))
                 assertEquals(name, quote(e), got.quote)
                 assertEquals(name, e.getLong("time"), got.time)
-                assertEquals(name, e.getBoolean("outdated"), WatchFreshness.isOutdated(got.time, now))
+                assertEquals(name, e.getBoolean("outdated"), WatchFreshness.isOutdated(got.time, now, interval))
                 val age = WatchFreshness.age(got.time, now)
                 assertEquals(name, e.getString("unit"), unitKey(age.unit))
                 assertEquals(name, e.getInt("count"), age.count)

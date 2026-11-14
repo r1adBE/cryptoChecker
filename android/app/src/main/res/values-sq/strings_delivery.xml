@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmet aktive – ende asnjë kontroll në sfond</string>
     <string name="alarm_reliability_notifications_off">Njoftimet joaktive – alarmet nuk do të mbërrijnë</string>
     <string name="alarm_reliability_battery">Kursimi i baterisë mund të ndalojë kontrollin e alarmeve</string>
+    <string name="alarm_reliability_offline">Pa lidhje – alarmet kontrollohen sapo të kthehet rrjeti</string>
     <string name="alarm_reliability_background_refresh">Rifreskimi në sfond joaktiv – alarmet mund të mos mbërrijnë</string>
 </resources>

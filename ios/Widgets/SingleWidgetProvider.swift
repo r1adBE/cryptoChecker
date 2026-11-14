@@ -172,8 +172,9 @@ struct SingleProvider: AppIntentTimelineProvider {
 
     /// Paar des Widgets in der schon gelesenen Merkliste `watches`.
     private static func watch(for configuration: SingleWidgetIntent, in watches: [Watch]) -> Watch? {
-        guard let id = configuration.watch?.watchId else { return nil }
-        return watches.first { $0.id == id }
+        guard let chosen = configuration.watch, let id = chosen.watchId else { return nil }
+        // Gleiche Id, anderes Paar (eingespielte Sicherung): «Paar wählen» statt still ein fremdes Paar (wie Android)
+        return watches.first { $0.id == id }.flatMap { chosen.showsSamePair($0) ? $0 : nil }
     }
 
     /// Börse der Kerzen, falls nicht die des Paars (wie Android `SingleWidgetRenderer`, `DayChange.foreignCandleSource`).

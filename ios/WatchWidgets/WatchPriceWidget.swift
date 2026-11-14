@@ -5,8 +5,9 @@ import WidgetKit
 /// «BTC / 84’450» (`WatchPriceFormat.compactPrice`; die Änderung nennt VoiceOver), rechteckig «BTC • 84’450.00 USDT
 /// +1.2%» mit der Gegenwährung des Paars (`WatchPriceFormat.line`). Zeitleiste im Intervall des iPhones (`WatchInterval`);
 /// geladen wird nur, was nach `WatchPhoneQuotes.selfFetch` fällig ist — nichts, solange das iPhone frische Kurse liefert (die Erweiterung kennt die
-/// Verbindung nicht: sie verlässt sich auf das Alter der Kurse vom iPhone), sonst ab dem Intervall weniger 5 Minuten;
-/// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
+/// Verbindung nicht: das iPhone gilt als weg, sobald seine letzte Lieferung älter ist als Intervall + 5 Minuten,
+/// `WatchPhoneQuotes.usePhone`), sonst ab dem Intervall weniger 5 Minuten;
+/// ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 3 × Intervall des iPhones ab dem
 /// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «… +1.2%  ·  vor 47 Min.», rund,
 /// Ecke und Zeile knapp «BTC 47m» (`WatchFreshness.shortTitle`, wie Android der Kurztitel); sonst rechteckig mit der Börse, die den Kurs geliefert hat («+1.2%  ·  Binance Futures», wie
 /// die Zeile der Uhr-App); VoiceOver nennt Alter und Börse immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
@@ -33,6 +34,8 @@ struct WatchPriceEntry: TimelineEntry {
     /// (`WatchText.missingShort`/`missingReason`, wie die Zeile der Uhr-App und Android). nil = mit Kurs.
     var missing: String?
     var missingSpoken: String?
+    /// Intervall des iPhones (`WatchSettings.interval`): «veraltet» nach 3 × Intervall (`WatchFreshness`).
+    var interval: Int = WatchInterval.defaultMinutes
 
     var outdated: Bool { age != nil }
 }
@@ -50,7 +53,8 @@ struct WatchPriceProvider: TimelineProvider {
         let settings = WatchStore.settings
         let coin = settings.shown.first
         completion(context.isPreview ? placeholder(in: context)
-                   : Self.entry(coin, coin.flatMap { WatchStore.quotes()[$0] }, at: Date(), phone: settings.mode == .phone))
+                   : Self.entry(coin, coin.flatMap { WatchStore.quotes()[$0] }, at: Date(), phone: settings.mode == .phone,
+                                interval: settings.interval))
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPriceEntry>) -> Void) {
@@ -60,8 +64,13 @@ struct WatchPriceProvider: TimelineProvider {
             let first = coins.first
             let stored = WatchStore.quotes()
             var cached = first.flatMap { stored[$0] }
+            // Die Erweiterung kennt die Verbindung nicht: das iPhone gilt als weg, sobald seine letzte Lieferung älter ist
+            // als Intervall + 5 Min. (`WatchPhoneQuotes.usePhone`, gleiche Grenze wie Wear OS)
+            let usePhone = WatchPhoneQuotes.usePhone(source: settings.source, connected: true,
+                                                     lastDelivery: WatchStore.phoneTime, now: WatchStore.now(),
+                                                     intervalMinutes: settings.interval)
             let need = WatchPhoneQuotes.selfFetch(coins, times: stored.mapValues(\.time), phoneCoins: WatchStore.phoneCoins,
-                                                  usePhone: settings.source == .phone,
+                                                  usePhone: usePhone,
                                                   intervalMinutes: settings.interval, now: WatchStore.now(), force: false)
             if let first, !need.isEmpty {
                 let startedAt = WatchStore.now()
@@ -78,24 +87,25 @@ struct WatchPriceProvider: TimelineProvider {
             let now = Date()
             let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(settings.interval) * 60))
             let phone = settings.mode == .phone
-            var entries = [Self.entry(first, cached, at: now, phone: phone)]
+            var entries = [Self.entry(first, cached, at: now, phone: phone, interval: settings.interval)]
             // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
             if let time = cached?.time {
-                let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
+                let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis(settings.interval) + 1)
                 if staleAt > now, staleAt < next {
-                    entries.append(Self.entry(first, cached, at: staleAt, phone: phone))
+                    entries.append(Self.entry(first, cached, at: staleAt, phone: phone, interval: settings.interval))
                 }
             }
             completion(Timeline(entries: entries, policy: .after(next)))
         }
     }
 
-    /// `phone`: Liste vom iPhone («Wie Handy») — bestimmt den Hinweis ohne Coins.
-    private static func entry(_ coin: String?, _ stored: WatchCached?, at date: Date, phone: Bool) -> WatchPriceEntry {
+    /// `phone`: Liste vom iPhone («Wie Handy») — bestimmt den Hinweis ohne Coins; `interval`: Intervall des iPhones.
+    private static func entry(_ coin: String?, _ stored: WatchCached?, at date: Date, phone: Bool,
+                              interval: Int) -> WatchPriceEntry {
         guard let coin else {
             // Keine Coins: «Kurs / +» mit dem nächsten Schritt statt «— / —» — wie Android
             return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—", compact: "+",
-                                   empty: WatchText.t(phone ? "watch_phone_empty" : "watch_choose"))
+                                   empty: WatchText.t(phone ? "watch_phone_empty" : "watch_choose"), interval: interval)
         }
         let now = Int64(date.timeIntervalSince1970 * 1000)
         // Börse des Paars stillgelegt (`ExchangeRetirement`): kein alter Kurs — wie Android
@@ -103,7 +113,7 @@ struct WatchPriceProvider: TimelineProvider {
         let cached = retired ? nil : stored
         let q = cached?.quote
         let time = cached?.time ?? 0
-        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
+        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now, intervalMinutes: interval)
         // Paar des iPhones wie dort angezeigt («BANK Perp»), Kürzel der eigenen Liste unverändert (gegen USDT)
         let label = WatchPair.label(of: coin)
         let source = q.map(\.source).flatMap { $0.isEmpty ? nil : $0 }
@@ -119,7 +129,8 @@ struct WatchPriceProvider: TimelineProvider {
                                compact: q.map { WatchText.compactPrice($0.price) } ?? "—", line: line,
                                source: source, age: age,
                                spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil, time: time,
-                               missing: missing, missingSpoken: q == nil ? WatchText.missingReason(coin) : nil)
+                               missing: missing, missingSpoken: q == nil ? WatchText.missingReason(coin) : nil,
+                               interval: interval)
     }
 }
 
@@ -150,7 +161,7 @@ struct WatchPriceWidgetView: View {
         let coin = entry.coin ?? WatchText.t("watch_complication_label")
         let now = Int64(entry.date.timeIntervalSince1970 * 1000)
         // Veraltet: Alter knapp auch in den kleinen Familien («BTC 47m»), wie Android der Kurztitel
-        let title = WatchFreshness.shortTitle(coin, time: entry.time, now: now)
+        let title = WatchFreshness.shortTitle(coin, time: entry.time, now: now, intervalMinutes: entry.interval)
         switch family {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
@@ -160,7 +171,8 @@ struct WatchPriceWidgetView: View {
             }
         case .accessoryInline:
             // Eine Zeile, veraltet mit dem Alter «BTC 84’450 · 47m»; das System färbt sie selbst
-            Text(WatchFreshness.inlineLine("\(coin) \(entry.compact)", time: entry.time, now: now))
+            Text(WatchFreshness.inlineLine("\(coin) \(entry.compact)", time: entry.time, now: now,
+                                           intervalMinutes: entry.interval))
         case .accessoryCorner:
             Text(entry.compact).foregroundStyle(valueStyle).widgetLabel(title)
         default:

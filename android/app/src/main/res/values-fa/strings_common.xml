@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">صرافی الان در دسترس نیست</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">صرافی در این منطقه مسدود است</string>
+    <string name="error_exchange_access_denied">صرافی دسترسی را رد کرد</string>
     <string name="loading_hint">در حال بارگیری…</string>
     <string name="option_off">خاموش</string>
     <string name="something_went_wrong">مشکلی پیش آمد</string>

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">पार्श्वभूमी</string>
-    <string name="widget_configure_hint">पार्श्वभूमी आणि अपारदर्शकता निवडा. रंग ॲपनुसार असतो. विजेट तुमची संपूर्ण वॉचलिस्ट दाखवते; ॲप उघडण्यासाठी एखाद्या ओळीवर टॅप करा.</string>
+    <string name="widget_configure_hint">पार्श्वभूमी आणि अपारदर्शकता निवडा. रंग ॲपनुसार राहतो. विजेट तुमची वॉचलिस्ट किंवा खाली निवडलेला गट दाखवते; ॲप उघडण्यासाठी एखाद्या ओळीवर टॅप करा.</string>
     <string name="widget_configure_title">विजेट सेट करा</string>
     <string name="widget_description">तुमच्या वॉचलिस्टमधील एका जोडीची किंमत दाखवते.</string>
     <string name="widget_empty">वॉचलिस्टमध्ये अजून एकही जोडी नाही.</string>

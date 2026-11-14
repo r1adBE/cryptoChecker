@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">ផ្ទៃខាងក្រោយ</string>
-    <string name="widget_configure_hint">ជ្រើសរើសផ្ទៃខាងក្រោយ និងភាពស្រអាប់។ ពណ៌អនុវត្តតាមកម្មវិធី។ វិដជិតបង្ហាញបញ្ជីតាមដានទាំងមូលរបស់អ្នក។ ចុចលើជួរមួយដើម្បីបើកកម្មវិធី។</string>
+    <string name="widget_configure_hint">សូមជ្រើសរើសផ្ទៃខាងក្រោយ និងភាពស្រអាប់។ ពណ៌ធ្វើតាមកម្មវិធី។ វិដជិតបង្ហាញបញ្ជីតាមដានរបស់អ្នក ឬក្រុមដែលបានជ្រើសរើសខាងក្រោម។ សូមចុចលើជួរដើម្បីបើកកម្មវិធី។</string>
     <string name="widget_configure_title">រៀបចំវិដជិត</string>
     <string name="widget_description">បង្ហាញតម្លៃនៃគូមួយពីបញ្ជីតាមដានរបស់អ្នក។</string>
     <string name="widget_empty">មិនទាន់មានគូនៅក្នុងបញ្ជីតាមដានទេ។</string>

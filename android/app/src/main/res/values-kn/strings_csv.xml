@@ -9,6 +9,7 @@
     <string name="portfolio_csv_import_choice_withdrawal">ಪೋರ್ಟ್‌ಫೋಲಿಯೊದಿಂದ ಹೊರಗೆ (ಹಿಂಪಡೆಯುವಿಕೆ)</string>
     <string name="portfolio_csv_import_choose_each">ಪ್ರತಿ ಹಿಂಪಡೆಯುವಿಕೆ ಎಲ್ಲಿಗೆ ಹೋಯಿತು ಎಂದು ಆರಿಸಿ.</string>
     <string name="portfolio_csv_import_columns">ಗುರುತಿಸಲಾದ ಕಾಲಮ್‌ಗಳು: %1$s</string>
+    <string name="portfolio_csv_import_duplicate_lines">ಈಗಾಗಲೇ ಆಮದು ಮಾಡಲಾಗಿದೆ: ಸಾಲುಗಳು %1$s</string>
     <string name="portfolio_csv_import_confirm">ಆಮದು ಮಾಡಿ (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">ದಿನ/ತಿಂಗಳು</string>
     <string name="portfolio_csv_import_date_month_first">ತಿಂಗಳು/ದಿನ</string>
@@ -42,6 +43,7 @@
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್‌ಗಳ (USDT, USDC …) ವಿರುದ್ಧದ ವಹಿವಾಟುಗಳನ್ನು ಸ್ವಾಪ್‌ಗಳಾಗಿ ದಾಖಲಿಸಲಾಗುತ್ತದೆ – ಸ್ಟೇಬಲ್‌ಕಾಯಿನ್ ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</string>
     <string name="portfolio_csv_import_transfer_ambiguous">ಹಲವು ಹೊಂದಾಣಿಕೆಗಳು ಸಾಧ್ಯ – ಸರಿಯಾದದ್ದನ್ನು ಆರಿಸಿ ಅಥವಾ ಯಾವುದನ್ನೂ ಆರಿಸಬೇಡಿ.</string>
+    <string name="portfolio_csv_import_transfer_loose">ಹೆಚ್ಚಿನ ಶುಲ್ಕ ಅಥವಾ ತಡವಾದ ಆಗಮನ – ಇದು ಅದೇ ವರ್ಗಾವಣೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ.</string>
     <string name="portfolio_csv_import_transfer_fee">ನೆಟ್‌ವರ್ಕ್ ಶುಲ್ಕ: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">ಒಂದೇ ವರ್ಗಾವಣೆಯಾಗಿ ದಾಖಲಿಸಿ</string>
     <string name="portfolio_csv_import_transfer_stored">ಹಿಂದಿನ ಆಮದಿನಿಂದ ಪ್ರತಿ-ನಮೂದು</string>
@@ -100,7 +102,7 @@
     <string name="portfolio_csv_import_fx_zone">ದೈನಂದಿನ ದರಗಳು ಈ ಸಮಯ ವಲಯದ ಕ್ಯಾಲೆಂಡರ್ ದಿನದ ಪ್ರಕಾರ: %1$s</string>
     <string name="portfolio_csv_import_rates_failed">ದೈನಂದಿನ ದರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ.</string>
     <string name="portfolio_csv_import_anyway">ಆದರೂ ಆಮದು ಮಾಡಿ</string>
-    <string name="portfolio_csv_import_anyway_hint">ದೈನಂದಿನ ದರವಿಲ್ಲದೆ ಬೆಲೆ ಅಥವಾ ಶುಲ್ಕ ಶಾಶ್ವತವಾಗಿ ಕಾಣೆಯಾಗುತ್ತದೆ. ಮರುಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಆದರೂ ಆಮದು ಮಾಡಿ – ಆಗ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ.</string>
+    <string name="portfolio_csv_import_anyway_hint">ದೈನಂದಿನ ದರವಿಲ್ಲದೆ, ನೀವು ಸೇರಿಸುವವರೆಗೆ ಬೆಲೆ ಅಥವಾ ಶುಲ್ಕ ಇರುವುದಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಹಾಗೆಯೇ ಆಮದು ಮಾಡಿ – ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸಿಗುತ್ತದೆ.</string>
     <string name="portfolio_csv_note_price_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಬೆಲೆ</string>
     <string name="portfolio_csv_note_fee_no_rate">ದೈನಂದಿನ ದರವಿಲ್ಲದ ಶುಲ್ಕ</string>
     <string name="portfolio_csv_import_no_rates_for">%1$s ಗೆ ದೈನಂದಿನ ದರಗಳಿಲ್ಲ, ಆದ್ದರಿಂದ ಮರುಪ್ರಯತ್ನದಿಂದ ಪ್ರಯೋಜನವಿಲ್ಲ. ಆದರೂ ಆಮದು ಮಾಡಿದರೆ ಆ ವಹಿವಾಟುಗಳಿಗೆ ಟಿಪ್ಪಣಿ ಸೇರುತ್ತದೆ.</string>

@@ -54,6 +54,8 @@
     <string name="alarm_threshold_error_funding">Funding musí byť číslo od −10 do +10 percent.</string>
     <string name="alarm_threshold_error_invalid">Zadaj platné číslo väčšie ako 0.</string>
     <string name="alarm_threshold_error_oi">Zmena open interestu: najviac 1000 percent.</string>
+    <string name="alarm_threshold_error_percent_max">Najviac 1000 percent.</string>
+    <string name="alarm_threshold_error_distance">Vzdialenosť musí byť menšia ako 100 percent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">za %1$d h</item>
         <item quantity="few">za %1$d h</item>
@@ -184,6 +186,7 @@
     <string name="alarm_a11y_speak_on">Hlas zapnutý</string>
     <string name="alarm_unchecked_no_candles">Nepodarilo sa skontrolovať (chýbajú údaje o priebehu)</string>
     <string name="alarm_unchecked_no_rate">Nepodarilo sa skontrolovať (chýba devízový kurz)</string>
+    <string name="alarm_unchecked_no_window_price">Nepodarilo sa skontrolovať (v časovom okne chýba cena)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
     <string name="alarm_status_notifications_off">Upozornenia vypnuté – tento alarm k tebe nepríde</string>

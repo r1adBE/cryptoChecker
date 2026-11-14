@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Nền</string>
-    <string name="widget_configure_hint">Chọn nền và độ mờ. Màu theo ứng dụng. Tiện ích hiển thị toàn bộ danh sách; chạm vào một dòng để mở ứng dụng.</string>
+    <string name="widget_configure_hint">Vui lòng chọn nền và độ mờ. Màu theo ứng dụng. Tiện ích hiển thị danh sách của bạn hoặc nhóm được chọn bên dưới; chạm vào một dòng để mở ứng dụng.</string>
     <string name="widget_configure_title">Thiết lập tiện ích</string>
     <string name="widget_description">Hiển thị giá của một cặp trong danh sách theo dõi.</string>
     <string name="widget_empty">Chưa có cặp nào trong danh sách theo dõi.</string>

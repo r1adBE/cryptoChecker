@@ -14,6 +14,8 @@
     <string name="watchlist_refresh_report">Last refresh</string>
     <string name="watchlist_symbols_legend">Symbols explained</string>
     <string name="watchlist_symbols_legend_alarms">Active alerts, with their number</string>
+    <!-- «Symbole erklärt»: Warn-Dreieck vor der Zeitzeile -->
+    <string name="watchlist_symbols_legend_warning">Price out of date or exchange not reachable</string>
     <string name="watchlist_refresh_report_empty">No breakdown yet – no full refresh so far. Tap refresh and wait until the circle stops.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d of %2$d outdated</item>
@@ -277,6 +279,8 @@
     <string name="watchlist_missing_logos_dismiss">Close notice</string>
     <!-- Eine Zeile Erklärung in der Liste der Coins ohne Logo -->
     <string name="watchlist_missing_logos_explain">No logo is available for these coins. The app shows their initials.</string>
+    <string name="watchlist_missing_logos_pending">not loaded yet</string>
+    <string name="watchlist_missing_logos_explain_pending">Logos marked as not loaded yet follow with the next sync, some only on Wi-Fi. No logo is available for the other coins. The app shows their initials.</string>
     <!-- Ankündigung über der Merkliste mit eigenem ✕ (ab 1. Januar 2027, vor dem Ende); %1$s = Börse, %2$s = Datum des Endes (lang) -->
     <string name="exchange_retiring_notice">From %2$s, %1$s will no longer provide public prices. Choose another exchange for these coins.</string>
     <!-- Grund auf Paarseite und Alarmseite vor dem Ende (Alarme prüfen weiter); %1$s = Börse, %2$s = Datum des Endes -->

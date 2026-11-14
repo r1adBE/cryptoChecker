@@ -85,20 +85,26 @@ internal fun WatchlistSymbolLegendSheet(onDismiss: () -> Unit) {
 
 @DrawableRes
 private fun WatchlistSymbol.icon(): Int = when (this) {
+    WatchlistSymbol.FAVORITE -> R.drawable.ic_star
     WatchlistSymbol.TOKEN -> R.drawable.ic_token
     WatchlistSymbol.TRADFI -> R.drawable.ic_bank
     WatchlistSymbol.ALPHA -> R.drawable.ic_alpha
     WatchlistSymbol.PRICE_NOTIFICATION_ON -> R.drawable.ic_notifications
     WatchlistSymbol.PRICE_NOTIFICATION_OFF -> R.drawable.ic_notifications_off
     WatchlistSymbol.ACTIVE_ALARMS -> R.drawable.ic_notifications_active
+    WatchlistSymbol.NOTE -> R.drawable.ic_note
+    WatchlistSymbol.WARNING -> R.drawable.ic_warning
 }
 
 @StringRes
 private fun WatchlistSymbol.text(): Int = when (this) {
+    WatchlistSymbol.FAVORITE -> R.string.a11y_favorite
     WatchlistSymbol.TOKEN -> R.string.asset_kind_token
     WatchlistSymbol.TRADFI -> R.string.asset_kind_tradfi
     WatchlistSymbol.ALPHA -> R.string.asset_kind_alpha
     WatchlistSymbol.PRICE_NOTIFICATION_ON -> R.string.a11y_price_notification_on
     WatchlistSymbol.PRICE_NOTIFICATION_OFF -> R.string.a11y_price_notification_off
     WatchlistSymbol.ACTIVE_ALARMS -> R.string.watchlist_symbols_legend_alarms
+    WatchlistSymbol.NOTE -> R.string.note_title
+    WatchlistSymbol.WARNING -> R.string.watchlist_symbols_legend_warning
 }

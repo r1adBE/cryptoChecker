@@ -9,8 +9,10 @@ import Foundation
 ///   Mit `indianGrouping` (Region mit Zweier-Nebengruppen wie hi-IN) auch indisch: «1,00,000».
 /// - Einmal ein Zeichen mit genau drei Ziffern danach («60,000», «60.000») ist mehrdeutig:
 ///   Mit `priceHint` (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
-///   näher am Kurs liegt (Verhältnis am nächsten bei 1); ohne Kurs entscheidet das
-///   Dezimalzeichen der Region (`decimalSeparator`).
+///   näher am Kurs liegt (Verhältnis am nächsten bei 1) — nur, wenn sie höchstens Faktor 10 vom Kurs
+///   entfernt ist. Sonst und ohne Kurs: Ist das Zeichen das Dezimalzeichen der Region (`decimalSeparator`),
+///   ist es eine Dezimalzahl; sonst wird nicht still als Tausendertrennung geraten — ungültig, `ambiguity`
+///   nennt beide Schreibweisen für den Fehlertext. Gilt für jedes Zahlenfeld der App.
 /// - Arabisch-indische und persische Ziffern sowie «٫»/«٬» gelten wie 0–9, «.» und «’» (`latinDigits`).
 /// - Alles andere (Buchstaben wie «60k», Vorzeichen, Exponent) ist ungültig → nil.
 ///
@@ -58,13 +60,7 @@ enum ThresholdParser {
     /// oben; nil = ungültig. Der Wert kann 0 sein (prüfen die Aufrufer).
     private static func canonical(_ text: String, decimalSeparator: Character, priceHint: Double?,
                                   indianGrouping: Bool) -> String? {
-        var cleaned = ""
-        for c in latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines) {
-            if grouping.contains(c) { continue }
-            guard isAsciiDigit(c) || c == "." || c == "," else { return nil }
-            cleaned.append(c)
-        }
-        guard !cleaned.isEmpty, cleaned.contains(where: isAsciiDigit) else { return nil }
+        guard let cleaned = digitsAndSeparators(text) else { return nil }
 
         let dots = cleaned.filter { $0 == "." }.count
         let commas = cleaned.filter { $0 == "," }.count
@@ -91,19 +87,54 @@ enum ThresholdParser {
             // Mehrfach: nur Tausendertrennung
             return validGrouping(cleaned, sep, indian: indianGrouping) ? cleaned.replacingOccurrences(of: String(sep), with: "") : nil
         }
-        guard let index = cleaned.firstIndex(of: sep) else { return nil }
+        return single(cleaned, sep, decimalSeparator: decimalSeparator, priceHint: priceHint).value
+    }
+
+    /// Mehrdeutige Eingabe (ein Zeichen mit genau drei Ziffern danach, nicht das Dezimalzeichen der Region, kein Kurs
+    /// entscheidet): die zwei eindeutigen Schreibweisen — `grouped` ohne Trennung («1234»), `decimal` mit dem
+    /// Dezimalzeichen der Region («1,234» in DE). Für den Fehlertext «… oder …?». Wie Android `ThresholdParser.Ambiguity`.
+    struct Ambiguity: Equatable {
+        let grouped: String
+        let decimal: String
+    }
+
+    /// Ist `text` mehrdeutig (dann liest `parse` nil)? Sonst nil. Wie Android `ThresholdParser.ambiguity`.
+    static func ambiguity(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Ambiguity? {
+        guard let cleaned = digitsAndSeparators(text), cleaned.filter({ $0 == "." || $0 == "," }).count == 1 else { return nil }
+        return single(cleaned, cleaned.contains(".") ? "." : ",", decimalSeparator: decimalSeparator,
+                      priceHint: priceHint).ambiguity
+    }
+
+    /// Ziffern, Punkt und Komma ohne Tausendertrennung; nil = andere Zeichen oder keine Ziffer.
+    private static func digitsAndSeparators(_ text: String) -> String? {
+        var cleaned = ""
+        for c in latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines) {
+            if grouping.contains(c) { continue }
+            guard isAsciiDigit(c) || c == "." || c == "," else { return nil }
+            cleaned.append(c)
+        }
+        return cleaned.isEmpty || !cleaned.contains(where: isAsciiDigit) ? nil : cleaned
+    }
+
+    /// Lesart bei genau einem Trennzeichen `sep`: Wert (`value`, nil = ungültig) bzw. mehrdeutig (`ambiguity`).
+    private static func single(_ cleaned: String, _ sep: Character, decimalSeparator: Character,
+                               priceHint: Double?) -> (value: String?, ambiguity: Ambiguity?) {
+        guard let index = cleaned.firstIndex(of: sep) else { return (nil, nil) }
         let intPart = String(cleaned[..<index])
         let fracPart = String(cleaned[cleaned.index(after: index)...])
         let asDecimal = number(intPart, fracPart)
         let asGrouping: String? = validGrouping(cleaned, sep) ? intPart + fracPart : nil
-        guard let asGrouping, let groupingValue = Double(asGrouping) else { return asDecimal }
-        guard let asDecimal, let decimalValue = Double(asDecimal), decimalValue > 0 else { return asGrouping }
+        guard let asGrouping, let groupingValue = Double(asGrouping) else { return (asDecimal, nil) }
+        guard let asDecimal, let decimalValue = Double(asDecimal), decimalValue > 0 else { return (asGrouping, nil) }
         // Der Kurs entscheidet nur, wenn eine Lesart höchstens Faktor 10 von ihm entfernt ist — wie Android
         if let hint = priceHint, hint.isFinite, hint > 0,
            min(distance(groupingValue, hint), distance(decimalValue, hint)) < log(hintMaxFactor) {
-            return distance(groupingValue, hint) < distance(decimalValue, hint) ? asGrouping : asDecimal
+            return (distance(groupingValue, hint) < distance(decimalValue, hint) ? asGrouping : asDecimal, nil)
         }
-        return normalized(decimalSeparator) == sep ? asDecimal : asGrouping
+        if normalized(decimalSeparator) == sep { return (asDecimal, nil) }
+        // Die Region läse das Zeichen als Tausendertrennung, der Kurs entscheidet nicht: nicht still raten
+        return (nil, Ambiguity(grouped: intPart + fracPart,
+                               decimal: intPart + String(normalized(decimalSeparator)) + fracPart))
     }
 
     /// Wie `parse`, aber auch 0 gilt («0», «0,00», «.0», «0’000») — für Menge und Kurs einer

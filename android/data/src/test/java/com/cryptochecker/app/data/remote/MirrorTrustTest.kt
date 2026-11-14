@@ -177,4 +177,27 @@ class MirrorTrustTest {
         assertEquals(2, manifestCalls)
         assertEquals(MirrorManifest.Status.OK, trust.lastStatus)
     }
+
+    /** S3-15: Nach einem neueren Manifest gilt ein älteres (wieder eingespielt) als zu alt, auch innerhalb der 7 Tage. */
+    @Test
+    fun olderManifestAfterNewerIsTooOld() = runBlocking {
+        val newer = list("verify").first { it["name"] == "signed with an unknown extra field" }
+        var now = fixtureNow
+        val trust = MirrorTrust(testKey) { now }
+        var served = newer
+        val loader: MirrorLoader = { url, _ ->
+            when (url) {
+                MirrorManifest.URL -> served["manifest"] as String
+                MirrorManifest.SIGNATURE_URL -> served["signature"] as String
+                else -> null
+            }
+        }
+        trust.verified("fng.txt", okText, loader)
+        assertEquals(MirrorManifest.Status.OK, trust.lastStatus)
+        // Nach Ablauf des Zwischenspeichers kommt der ältere Stand
+        served = valid
+        now += 16 * 60 * 1000L
+        assertFalse(trust.verified("fng.txt", okText, loader))
+        assertEquals(MirrorManifest.Status.TOO_OLD, trust.lastStatus)
+    }
 }

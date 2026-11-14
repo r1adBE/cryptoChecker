@@ -60,7 +60,7 @@
     <string name="settings_price_pairs_hint">选择哪些交易对在通知栏显示价格。</string>
     <string name="settings_quiet_hours">静音时段</string>
     <string name="settings_quiet_hours_from">开始</string>
-    <string name="settings_quiet_hours_hint">%1$s 至 %2$s 之间，提醒会等到静音时段结束后再响铃提示。其他通知将静音送达，不进行语音播报。</string>
+    <string name="settings_quiet_hours_hint">%1$s 至 %2$s 之间，提醒会等到静音时段结束后再响铃提示（前提是届时条件仍满足）。其他通知将静音送达，不进行语音播报。</string>
     <string name="settings_quiet_hours_to">结束</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -313,6 +313,8 @@
     <string name="settings_address_server_active">使用中：%1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">未设置——使用公共节点</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">设置已重置，因此无法得知您是否使用自己的比特币服务器。在您重新输入服务器或选择公共节点之前，不会查询比特币地址和 xpub 密钥。</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">只允许 https:// 地址</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

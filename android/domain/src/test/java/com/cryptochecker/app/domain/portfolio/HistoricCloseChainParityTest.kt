@@ -72,7 +72,10 @@ class HistoricCloseChainParityTest {
             val r = HistoricCloseChain.resolve(c["order"].list().map { it as String }) { source ->
                 asked += source
                 val o = outcomes[source]?.obj()
-                HistoricCloseChain.Outcome(o?.get("price").num(), o?.get("rejected") as Boolean? ?: false, o?.get("provider") as String?)
+                HistoricCloseChain.Outcome(
+                    o?.get("price").num(), o?.get("rejected") as Boolean? ?: false, o?.get("provider") as String?,
+                    failed = o?.get("failed") as Boolean? ?: false,
+                )
             }
             val e = c["expected"].obj()
             val name = c["name"]
@@ -82,6 +85,15 @@ class HistoricCloseChainParityTest {
             assertEquals("provider $name", e["provider"], r.provider)
             assertEquals("unchecked $name", e["unchecked"], r.unchecked)
             assertEquals("asked $name", e["asked"].list(), asked)
+            assertEquals("failed $name", e["failed"] as Boolean? ?: false, r.failed)
+        }
+    }
+
+    /** Gescheiterter Abruf: keine Daten / gesperrt (nächste Quelle) oder vorübergehend (Kette bricht ab). */
+    @Test
+    fun fetchFailure() {
+        data["fetchFailure"].list().map { it.obj() }.forEach { c ->
+            assertEquals("fetchFailure: $c", c["expected"], HistoricCloseChain.fetchFailure(c["httpCode"].num()?.toInt()).name)
         }
     }
 

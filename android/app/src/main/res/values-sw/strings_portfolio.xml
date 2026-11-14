@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Jumla</string>
     <string name="portfolio_hide_amounts">Ficha kiasi</string>
-    <string name="portfolio_hide_amounts_hint">Huonyesha kiasi na thamani kwenye jalada na wijeti ya jalada kama ••• – asilimia zinabaki kuonekana.</string>
+    <string name="portfolio_hide_amounts_hint">Huonyesha kiasi na thamani kwenye jalada, wijeti ya jalada, saa na arifa za jalada kama ••• – asilimia zinabaki kuonekana.</string>
     <string name="portfolio_invested">Gharama ya msingi</string>
     <string name="portfolio_total_no_fx">Hakuna kiwango cha ubadilishaji cha %1$s – kiasi kwa USDT</string>
     <string name="portfolio_total_value">Thamani ya jumla</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Utupe mabadiliko?</string>
     <string name="portfolio_edit_tx">Badilisha muamala</string>
     <string name="portfolio_invalid">Weka namba halali iliyo kubwa kuliko 0.</string>
+    <string name="number_ambiguous">Haieleweki: %1$s au %2$s? Andika mojawapo ya hizo mbili.</string>
     <string name="portfolio_oversold">Mauzo yanazidi mali – tafadhali angalia miamala.</string>
     <string name="portfolio_sell">Uza</string>
     <string name="portfolio_sell_exceeds">Zaidi ya mali zako (%1$s)</string>

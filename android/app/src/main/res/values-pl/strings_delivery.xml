@@ -67,5 +67,6 @@
     <string name="alarm_reliability_never">Alarmy włączone – jeszcze bez sprawdzenia w tle</string>
     <string name="alarm_reliability_notifications_off">Powiadomienia wyłączone – alarmy nie dotrą</string>
     <string name="alarm_reliability_battery">Oszczędzanie baterii może zatrzymać sprawdzanie alarmów</string>
+    <string name="alarm_reliability_offline">Brak połączenia – alarmy zostaną sprawdzone po powrocie sieci</string>
     <string name="alarm_reliability_background_refresh">Odświeżanie w tle wyłączone – alarmy mogą nie dotrzeć</string>
 </resources>

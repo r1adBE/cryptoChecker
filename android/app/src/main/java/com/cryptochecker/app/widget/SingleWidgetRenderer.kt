@@ -106,7 +106,9 @@ class SingleWidgetRenderer @Inject constructor(
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
             val colors = WidgetColors.of(accent, dark, settings.priceColorScheme, highContrast, settings.priceColorsInverted)
+            // Gemerkte Id zeigt inzwischen ein anderes Paar (eingespielte Sicherung): «Paar wählen» statt ein fremdes Paar
             val watch = widgetPrefs.getWatchId(appWidgetId)?.let { watches[it] }
+                ?.takeIf { widgetPrefs.showsSamePair(appWidgetId, widgetPairText(it)) }
             val views = RemoteViews(context.packageName, R.layout.widget_single)
 
             toolkit.background(views, R.id.single_bg, colors, widgetPrefs.getOpacity(appWidgetId))
@@ -372,3 +374,11 @@ class SingleWidgetRenderer @Inject constructor(
         const val ACTION_OPEN_SINGLE_WIDGET = "com.cryptochecker.app.action.OPEN_FROM_SINGLE_WIDGET"
     }
 }
+
+/** Paar eines Eintrags als Text für das Einzel-Widget ([WidgetPrefs.showsSamePair]). */
+internal fun widgetPairText(watch: com.cryptochecker.app.domain.model.WatchEntity): String =
+    com.cryptochecker.app.domain.watch.WatchIdentity.text(
+        com.cryptochecker.app.domain.watch.WatchIdentity.key(
+            watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
+        ),
+    )

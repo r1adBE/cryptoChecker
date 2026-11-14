@@ -45,7 +45,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
     <string name="portfolio_hide_amounts">Masquer les montants</string>
-    <string name="portfolio_hide_amounts_hint">Affiche les montants et valeurs du portefeuille et du widget portefeuille sous la forme ••• – les pourcentages restent visibles.</string>
+    <string name="portfolio_hide_amounts_hint">Affiche les montants et valeurs du portefeuille, du widget portefeuille, de la montre et des alertes de portefeuille sous la forme ••• – les pourcentages restent visibles.</string>
     <string name="portfolio_invested">Coût de revient</string>
     <string name="portfolio_total_no_fx">Pas de taux de change pour %1$s – montants en USDT</string>
     <string name="portfolio_total_value">Valeur totale</string>
@@ -103,6 +103,7 @@
     <string name="portfolio_discard_title">Abandonner les modifications ?</string>
     <string name="portfolio_edit_tx">Modifier la transaction</string>
     <string name="portfolio_invalid">Saisis un nombre valide supérieur à 0.</string>
+    <string name="number_ambiguous">Ambigu : %1$s ou %2$s ? Saisis l’une des deux écritures.</string>
     <string name="portfolio_oversold">Les ventes dépassent les avoirs – vérifie les transactions.</string>
     <string name="portfolio_sell">Vente</string>
     <string name="portfolio_sell_exceeds">Plus que tes avoirs (%1$s)</string>

@@ -129,7 +129,7 @@ class SingleWidgetConfigureViewModel @Inject constructor(
         onDone: () -> Unit,
     ) {
         viewModelScope.launch {
-            widgetPrefs.setWatchId(appWidgetId, watchId)
+            widgetPrefs.setWatchId(appWidgetId, watchId, watches.value.firstOrNull { it.id == watchId }?.let(::widgetPairText))
             widgetPrefs.setChartRange(appWidgetId, chartRange)
             widgetPrefs.setChartType(appWidgetId, chartType)
             widgetPrefs.setTheme(appWidgetId, theme)

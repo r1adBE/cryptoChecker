@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-/** Was die Navigation aus den Einstellungen braucht: ist der Portfolio-Tab an? */
+/** Was die Navigation aus den Einstellungen braucht: ist der Portfolio-Tab an, sind Beträge verborgen? */
 @HiltViewModel
 class AppNavViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
@@ -22,4 +22,13 @@ class AppNavViewModel @Inject constructor(
         .map { it.portfolioEnabled }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioEnabled)
+
+    /**
+     * «Beträge verbergen» für die ganze App (`LocalHidePortfolioAmounts` an der Wurzel): jedes Blatt und jeder Dialog
+     * mit Portfolio-Beträgen sieht den Schalter, ohne dass ihn jemand weiterreichen muss.
+     */
+    val hidePortfolioAmounts: StateFlow<Boolean> = settingsRepository.settings
+        .map { it.hidePortfolioAmounts }
+        .distinctUntilChanged()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.hidePortfolioAmounts)
 }

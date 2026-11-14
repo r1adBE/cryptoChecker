@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Alarmer på – ingen sjekk i bakgrunnen ennå</string>
     <string name="alarm_reliability_notifications_off">Varsler av – alarmer kommer ikke frem</string>
     <string name="alarm_reliability_battery">Batterisparing kan stoppe sjekk av alarmer</string>
+    <string name="alarm_reliability_offline">Ingen tilkobling – alarmer kontrolleres når nettet er tilbake</string>
     <string name="alarm_reliability_background_refresh">Oppdatering i bakgrunnen av – alarmer kommer kanskje ikke frem</string>
 </resources>

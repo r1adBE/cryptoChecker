@@ -91,6 +91,8 @@
     <string name="check_result_ok">እሺ</string>
     <string name="check_result_partial">በከፊል</string>
     <string name="check_result_skipped">ተዘሏል</string>
+    <string name="check_result_paused">ባለበት ቆሟል፣ ምንም አልተረጋገጠም</string>
+    <string name="check_result_offline">ተዘሏል (ከመስመር ውጭ)</string>
     <string name="check_trigger_bgtask">ከበስተጀርባ</string>
     <string name="check_trigger_exact">በሰዓቱ</string>
     <string name="check_trigger_foreground">መተግበሪያ</string>

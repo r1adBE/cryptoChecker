@@ -43,7 +43,7 @@
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Yhteensä</string>
     <string name="portfolio_hide_amounts">Piilota summat</string>
-    <string name="portfolio_hide_amounts_hint">Näyttää salkun ja salkkuwidgetin summat ja arvot muodossa ••• – prosentit pysyvät näkyvissä.</string>
+    <string name="portfolio_hide_amounts_hint">Näyttää salkun, salkkuwidgetin, kellon ja salkkuhälytysten summat ja arvot muodossa ••• – prosentit pysyvät näkyvissä.</string>
     <string name="portfolio_invested">Hankintahinta</string>
     <string name="portfolio_total_no_fx">Ei valuuttakurssia: %1$s – summat USDT:nä</string>
     <string name="portfolio_total_value">Kokonaisarvo</string>
@@ -100,6 +100,7 @@
     <string name="portfolio_discard_title">Hylätäänkö muutokset?</string>
     <string name="portfolio_edit_tx">Muokkaa tapahtumaa</string>
     <string name="portfolio_invalid">Syötä kelvollinen luku, joka on suurempi kuin 0.</string>
+    <string name="number_ambiguous">Epäselvä: %1$s vai %2$s? Kirjoita jompikumpi.</string>
     <string name="portfolio_oversold">Myynnit ylittävät omistuksen – tarkista tapahtumat.</string>
     <string name="portfolio_sell">Myynti</string>
     <string name="portfolio_sell_exceeds">Enemmän kuin omistuksesi (%1$s)</string>

@@ -101,6 +101,8 @@
     <string name="check_result_ok">U redu</string>
     <string name="check_result_partial">Delimično</string>
     <string name="check_result_skipped">Preskočeno</string>
+    <string name="check_result_paused">Pauzirano, ništa provereno</string>
+    <string name="check_result_offline">Preskočeno (van mreže)</string>
     <string name="check_trigger_bgtask">Pozadina</string>
     <string name="check_trigger_exact">U tačno vreme</string>
     <string name="check_trigger_foreground">Aplikacija</string>

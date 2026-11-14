@@ -64,5 +64,6 @@
     <string name="alarm_reliability_never">Amaran hidup – belum ada semakan latar belakang</string>
     <string name="alarm_reliability_notifications_off">Pemberitahuan dimatikan – amaran tidak akan sampai</string>
     <string name="alarm_reliability_battery">Penjimatan bateri mungkin menghentikan semakan amaran</string>
+    <string name="alarm_reliability_offline">Tiada sambungan – penggera disemak sebaik rangkaian kembali</string>
     <string name="alarm_reliability_background_refresh">Segar Semula Apl di Latar mati – amaran mungkin tidak sampai</string>
 </resources>

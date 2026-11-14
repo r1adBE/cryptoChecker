@@ -30,6 +30,7 @@
     <string name="error_exchange_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
     <!-- HTTP 451: Börse sperrt Abrufe aus der Region des Geräts (Binance TR, Tokocrypto, Binance in den USA) -->
     <string name="error_exchange_region_blocked">Το ανταλλακτήριο είναι αποκλεισμένο σε αυτή την περιοχή</string>
+    <string name="error_exchange_access_denied">Το ανταλλακτήριο αρνήθηκε την πρόσβαση</string>
     <string name="loading_hint">Φόρτωση…</string>
     <string name="option_off">Ανενεργό</string>
     <string name="something_went_wrong">Κάτι πήγε στραβά</string>

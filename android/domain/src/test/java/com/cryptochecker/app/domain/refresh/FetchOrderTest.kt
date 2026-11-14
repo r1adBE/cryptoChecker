@@ -20,4 +20,13 @@ class FetchOrderTest {
         assertSame(ids, FetchOrder.alarmsFirst(ids, setOf(1L, 2L, 3L)) { it })
         assertSame(ids, FetchOrder.alarmsFirst(ids, setOf(9L)) { it })
     }
+
+    /** Mit Zeitbudget je Lauf anderer Beginn — Alarm-Paare bleiben vorn (B3-03). */
+    @Test
+    fun rotationShiftsBothPartsAndKeepsAlarmsFirst() {
+        val ids = listOf(1L, 2L, 3L, 4L, 5L)
+        assertEquals(listOf(5L, 2L, 3L, 4L, 1L), FetchOrder.alarmsFirst(ids, setOf(5L, 2L), rotation = 1) { it })
+        assertEquals(listOf(3L, 1L, 2L), FetchOrder.alarmsFirst(listOf(1L, 2L, 3L), emptySet(), rotation = -1) { it })
+        assertEquals(ids, FetchOrder.alarmsFirst(ids, emptySet(), rotation = 5) { it })
+    }
 }

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Bakgrunnur</string>
-    <string name="widget_configure_hint">Veldu bakgrunn og ógegnsæi. Liturinn fylgir forritinu. Græjan sýnir allan vaktlistann; ýttu á línu til að opna forritið.</string>
+    <string name="widget_configure_hint">Veldu bakgrunn og ógagnsæi. Liturinn fylgir forritinu. Græjan sýnir vaktlistann þinn eða hópinn sem valinn er hér fyrir neðan; ýttu á línu til að opna forritið.</string>
     <string name="widget_configure_title">Setja upp græju</string>
     <string name="widget_description">Sýnir verð pars af vaktlistanum þínum.</string>
     <string name="widget_empty">Engin pör á vaktlistanum enn.</string>

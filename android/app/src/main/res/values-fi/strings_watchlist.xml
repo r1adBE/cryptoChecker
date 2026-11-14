@@ -13,6 +13,7 @@
     <string name="watchlist_refresh_report">Viimeisin päivitys</string>
     <string name="watchlist_symbols_legend">Symbolien selitykset</string>
     <string name="watchlist_symbols_legend_alarms">Aktiiviset hälytykset ja niiden määrä</string>
+    <string name="watchlist_symbols_legend_warning">Kurssi vanhentunut tai pörssiin ei saada yhteyttä</string>
     <string name="watchlist_refresh_report_empty">Erittelyä ei vielä ole: täyttä päivitystä ei ole vielä tehty. Napauta päivitä ja odota, kunnes latausilmaisin pysähtyy.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d / %2$d vanhentunut</item>
@@ -259,6 +260,8 @@
     </plurals>
     <string name="watchlist_missing_logos_dismiss">Sulje ilmoitus</string>
     <string name="watchlist_missing_logos_explain">Näille kolikoille ei ole saatavilla logoa. Sovellus näyttää niiden nimikirjaimet.</string>
+    <string name="watchlist_missing_logos_pending">ei vielä ladattu</string>
+    <string name="watchlist_missing_logos_explain_pending">Ei vielä ladatuiksi merkityt logot tulevat seuraavassa synkronoinnissa, osa vain Wi-Fi-yhteydellä. Muille kolikoille logoa ei ole saatavilla. Sovellus näyttää niiden alkukirjaimet.</string>
     <string name="exchange_retiring_notice">%2$s alkaen %1$s ei enää tarjoa julkisia hintoja. Valitse näille kolikoille toinen pörssi.</string>
     <string name="exchange_retiring_reason">%2$s alkaen %1$s ei enää tarjoa hintoja</string>
     <string name="exchange_retired_since">%2$s alkaen %1$s ei ole enää tarjonnut hintoja</string>

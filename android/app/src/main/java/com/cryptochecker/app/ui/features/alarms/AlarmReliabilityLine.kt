@@ -82,6 +82,7 @@ private fun AlarmReliabilityContent(
     val lastCheck by viewModel.lastBackgroundCheck.collectAsStateWithLifecycle()
     val lastFailedCheck by viewModel.lastFailedBackgroundCheck.collectAsStateWithLifecycle()
     val failingSince by viewModel.failingSince.collectAsStateWithLifecycle()
+    val offlineSkipped by viewModel.offlineSkipped.collectAsStateWithLifecycle()
     // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel): Ein Hintergrund-Prozess sieht diese
     // Paare nicht — nicht bei «gespeicherter Stand kommt zurück»
     val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
@@ -103,6 +104,7 @@ private fun AlarmReliabilityContent(
     val status = AlarmReliability.status(
         input.copy(
             now = now, lastFailedBackgroundCheck = lastFailedCheck, failingSince = failingSince, storageNoKey = storageNoKey,
+            offline = offlineSkipped,
         ),
     )
     // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs
@@ -116,6 +118,7 @@ private fun AlarmReliabilityContent(
         AlarmReliability.Kind.STORAGE_NO_KEY -> stringResource(R.string.alarm_reliability_storage_no_key)
         AlarmReliability.Kind.BATTERY -> stringResource(R.string.alarm_reliability_battery)
         AlarmReliability.Kind.BACKGROUND_REFRESH -> stringResource(R.string.alarm_reliability_background_refresh)
+        AlarmReliability.Kind.OFFLINE -> stringResource(R.string.alarm_reliability_offline)
         AlarmReliability.Kind.HIDDEN, AlarmReliability.Kind.RECENT -> return
     }
     val color = if (status.warn) AppColors.warningText else MaterialTheme.colorScheme.onSurfaceVariant

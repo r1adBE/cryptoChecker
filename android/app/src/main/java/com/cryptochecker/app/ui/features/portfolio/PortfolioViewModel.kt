@@ -219,6 +219,9 @@ class PortfolioViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.changeBasis.storage)
 
+    /** Speichern einer Transaktion: kein zweites Anlegen derselben Eingaben (Doppeltipp, Drehen; [TxSaveGuard]). */
+    internal val txSaveGuard = TxSaveGuard()
+
     /** «Beträge verbergen»: alle Beträge als «•••», Prozente bleiben. */
     val hideAmounts: StateFlow<Boolean> = settingsRepository.settings
         .map { it.hidePortfolioAmounts }

@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">ఏ జతలు నోటిఫికేషన్ బార్‌లో తమ ధరను చూపాలో ఎంచుకోండి.</string>
     <string name="settings_quiet_hours">నిశ్శబ్ద సమయం</string>
     <string name="settings_quiet_hours_from">నుండి</string>
-    <string name="settings_quiet_hours_hint">%1$s నుండి %2$s వరకు, అలర్ట్‌లు నిశ్శబ్ద సమయం ముగిసే వరకు వేచి ఉండి, ఆ తర్వాత శబ్దంతో మోగుతాయి. ఇతర నోటిఫికేషన్‌లు శబ్దం లేకుండా, స్పీచ్ లేకుండా వస్తాయి.</string>
+    <string name="settings_quiet_hours_hint">%1$s నుండి %2$s వరకు, అలర్ట్‌లు నిశ్శబ్ద సమయం ముగిసే వరకు వేచి ఉండి, ఆ తర్వాత శబ్దంతో మోగుతాయి, అప్పటికీ షరతు నెరవేరితే. ఇతర నోటిఫికేషన్‌లు శబ్దం లేకుండా, స్పీచ్ లేకుండా వస్తాయి.</string>
     <string name="settings_quiet_hours_to">వరకు</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">ఉపయోగంలో: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">సెట్ చేయలేదు – పబ్లిక్ నోడ్‌లు ఉపయోగించబడుతున్నాయి</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">సెట్టింగ్‌లు రీసెట్ అయ్యాయి, కాబట్టి మీరు మీ స్వంత Bitcoin సర్వర్‌ను ఉపయోగించారో లేదో తెలియదు. మీరు సర్వర్‌ను మళ్లీ నమోదు చేసే వరకు లేదా పబ్లిక్ నోడ్‌లను ఎంచుకునే వరకు Bitcoin చిరునామాలు, xpub కీలు అడగబడవు.</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// అడ్రస్‌లు మాత్రమే అనుమతించబడతాయి</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

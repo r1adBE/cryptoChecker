@@ -300,7 +300,9 @@ override fun parseBulkTickers(call: Int, body: String, tickers: MutableMap<Strin
   unfiltered one once instead. URLs are compared without a `timestamp=<digits>` parameter (`RequestKey`, BingX
   stamps every URL), also for sharing identical concurrent requests.
 * Pause after 429/418 (`ExchangeBackoff`) is per market key; spot and futures keys on the same host (BingX, Bybit,
-  OKX, Phemex, Bitget, WOO: `HOST_GROUPS` / `hostGroups`) share it (`withHostGroupPauses`).
+  OKX, Phemex, Bitget, WOO: `HOST_GROUPS` / `hostGroups`) share it (`withHostGroupPauses`). The pause level starts
+  again at 30 s when the last pause ended more than 15 minutes ago; pauses for repeated timeouts are dropped when the
+  device comes back online (`withoutTimeoutPauses`), rate-limit pauses stay.
 
 ## 7. Errors
 
@@ -371,7 +373,9 @@ override `tickerCallCount(info)` (Swift: `tickerCallCount(_:)`) and use `call`
 on `call` in `pairListAddress` / `fillPairList`. If the pair list can only be
 built from all responses together (e.g. instruments plus symbol details), set
 `pairListCombined = true` and implement `fillPairListCombined(bodies, out)`
-(Swift: `fillPairListCombined(bodies:)`).
+(Swift: `fillPairListCombined(bodies:)`). A failing later request is skipped only for a lasting answer (4xx,
+unreadable); a timeout, no connection, rate limit or 5xx aborts the whole list so the stored one stays
+(`pairListCallAborts`, parity `exchange_failure.json` › `pairListAborts`); `pairListAllCallsRequired` aborts always.
 
 **POST requests.** Return a `PostRequest` from `tickerPostBody`,
 `pairListPostBody` or `getBulkTickersPostRequest`.
@@ -1102,7 +1106,8 @@ environment exists GitHub creates it unprotected on the first run, which changes
 and only if that one is validly signed (the old asset stays on the release). The apps read every file under
 `releases/download/data/` (also `altseason.txt` and `coin_meta.json`) only if the signature matches the built-in public
 keys (`MirrorManifest.PUBLIC_KEYS`: the active `PUBLIC_KEY` and the reserve `RESERVE_PUBLIC_KEY`, ECDSA P-256 because Android minSdk 26 has no Ed25519 in the platform), the manifest
-is less than 7 days old and not more than 5 minutes in the future (no replay of old data), and the file's SHA-256 (over
+is less than 7 days old, not more than 5 minutes in the future and not older than the newest manifest accepted since
+the process started (`newestSeen`, kept in `MirrorTrust`; no replay of old data), and the file's SHA-256 (over
 its UTF-8 bytes) matches. Otherwise the file is ignored exactly like an unreachable mirror and the app asks the
 provider directly — no message, no crash. Manifest and signature are kept in memory only: 15 minutes when valid,
 5 minutes after a failure; a file newer than the remembered manifest reloads it once (at most once a minute).
@@ -1735,7 +1740,11 @@ the tests named here.
     sources need the same name (`nameAllowed` = `TokenIdentity.fallbackSeriesAllowed`; a clash between the watchlist
     name and Binance's name disables the whole chain, as for charts) **and** their latest close within ±25 % of the
     current price (`decide` → `PricePlausibility.acceptSourceClose`). USD/USDC count as USDT here, as Binance.US and
-    Coinbase always did. Only rejected closes → «unchecked»; no close anywhere → «no price». The result carries its
+    Coinbase always did. Only rejected closes → «unchecked»; no close anywhere → «no price». A source that is
+    unreachable (network, timeout, 5xx, 429/418 pause; retried once – `HistoricCloseChain.fetchFailure`, Android
+    `getDay`, iOS `HistoricPriceSource.getDay`) is not «no candle»: the chain stops for that day with «no price»
+    (`Outcome.failed`) instead of taking the next source, so a second export gives the same numbers; 4xx and 403/451
+    still move on. The result carries its
     source (`CloseResult.source`, e.g. «Kraken», «Binance.US»). Kraken serves 720 daily candles, OKX/Coinbase about
     600 via the candle sources, Bybit 1000 – older days stay without a close there.
   - Many days (tax export: fee rows, rewards without value, network fees, FR total value): `dayClosesUsdt` runs the
@@ -2040,8 +2049,15 @@ the tests named here.
   sync (same bulk sync, privacy-neutral; switches, list freshness and host pauses apply). One run fetches each
   file name once (`CoinLogos.downloadJobs`: «FLOKI» and «1000FLOKI» both write `FLOKI.png`). Files are written to
   a uniquely named temp file and renamed in one step (Android `LogoFiles.write`, iOS `Data.write(.atomic)`), so a
-  concurrent starter-logo and bulk download never leaves half an image; a write that fails counts as a failed
-  image (1-day rule, retried) and never as «new» without a file.
+  concurrent starter-logo and bulk download never leaves half an image; a write that fails (storage full) is its own
+  kind (`UNSAVED`/`.unsaved`): no 1-day rule, no network failure, never «new» without a file — the run downloads
+  nothing more and the next sync tries again. A host whose images end in a short disturbance four times in a row in
+  one run is paused like a 503 (`CoinLogoRetry.transientStreakPauses`), so a host that swallows connections costs
+  seconds, not hours. «All failed» counts as a network failure (no 1-day rule, retried with the network) only if at
+  least one of them was a disturbance (`downloadsFailedForNetwork(…, transient)`); only 404/unreadable images are
+  blocked for a day. The first-load marker is set only after a complete run (nothing failed for the network, paused
+  or left open, ranking and lists not cut by the network, `LogoLoadingHint.runFinished(complete)`); «coins without a
+  logo» marks a coin whose logo is known and not blocked as «not loaded yet» (`notYetLoaded`).
 * **Gift, fee rows, same-time events, bulk rows, colours.** Gift vs payment: `PAYMENT` is a disposal at market value in every template, `GIFT` only where
   `TaxTemplate.giftIsDisposal` (UK, CA, AU), elsewhere it leaves like a withdrawal. A fee row is SELL + price 0 + an
   import key; a manual sell at 0 is a real sale. Same-time events: inflows before outflows, then id (ledger comparator,
@@ -2178,7 +2194,13 @@ the tests named here.
   every host listed in the privacy policy (a test checks it). «Show only» addresses never count; an address
   whose coin is also in own transactions asks «Count / Show only».
 * **CSV import.** `csvimport/` parsers detect Relai/Swissquote by header names; times without
-  offset are Europe/Zurich; duplicates by `importKey` (stored on the transaction). A key longer than **200 UTF-8 bytes**
+  offset are Europe/Zurich; duplicates by `importKey` (stored on the transaction). The free template's ID column is not
+  unique per row (same txid on two exchanges, numbers from 1 per table): its key is `GENERIC|id|kind|coin|time|amount`
+  (fixture `genericIdDedupe`). The preview names the already imported lines and offers «Import anyway»
+  (`CsvReadChoice.keepDuplicates` → `CsvImport.keptAnyway`: free key «key+2», «+3» …). Every imported row carries the
+  exchange of its format as wallet (`exchange` = `CsvTransferMatch.placeOf(key)`, free template: none; transfers
+  `transferFrom`), also «to own wallet» and «Undo import» – the same names a linked transfer uses, so FIFO per wallet
+  and the DE/AT/US templates never book a linked transfer against an empty wallet (fixture `walletEndToEnd`). A key longer than **200 UTF-8 bytes**
   (e.g. an ID cell over 190 characters) is replaced by `«format»|h:«SHA-256 hex»` of the whole key including `#n`
   (`CsvImport.stableKey`, applied in `withOccurrence`); saving and backups accept at most 200 UTF-8 bytes on both
   platforms (`cleanImportKey`), so a key is never dropped silently (fixture `importKeys`, `cleanImportKeys`). Numbers in
@@ -2210,7 +2232,10 @@ the tests named here.
   2 h before and 72 h after the withdrawal, deposit ≤ withdrawal, difference ≤ 5 % → one TRANSFER (amount sent,
   fee = difference in the coin). Within one file and against stored *imported* rows (manual rows are never
   changed). Exactly one candidate → preselected; several → shown, off (preview id `linkId` = «withdrawal →
-  deposit», never stored). The linked row keeps both import keys in own fields – `importKey` = withdrawal,
+  deposit», never stored). Sides without such a candidate get further ones up to 14 days later and up to 50 % fee
+  (`loose`, own hint, never preselected). «To own wallet» for a withdrawal with a free matching deposit links them
+  (`linkOwnWallet`/`linkOwnWallets`, also after turning a link off, which clears that withdrawal's choice) – a
+  transfer next to the same coins as a separate deposit would count twice. The linked row keeps both import keys in own fields – `importKey` = withdrawal,
   `linkedImportKey` = deposit – so re-importing either file finds duplicates (`importKeys()` returns
   both). A stored row that gets linked moves into the new import run and keeps its original state plus the state of
   the absorbed row of the later file in `importRestoreState` (`CsvRestoreState`, versioned JSON `{"v":1,"stored":
@@ -2343,8 +2368,8 @@ the tests named here.
   future; warning once the Firefox version is estimated older than 6 months (assumption: a new major version every
   4 weeks up to Firefox 154 on 18 August 2026, every 2 weeks from then on – `REFERENCE_DATE` in the script). Then
   update `HttpUserAgent.NEUTRAL`, `HttpUserAgent.neutral` and `address_privacy.json` together.
-  Redirects of address queries are followed only to the same host and never from https to http
-  (`AddressRedirect.allowed`; Android `SameHostRedirectInterceptor` with `followRedirects(false)`, at most
+  Redirects of address queries are followed only to the same host and port (no port = the scheme's default; only
+  http 80 → https 443 may change it) and never from https to http (`AddressRedirect.allowed`; Android `SameHostRedirectInterceptor` with `followRedirects(false)`, at most
   `MAX_HOPS` = 5, 307/308 keep method and body; iOS `SameHostRedirectDelegate` on `WatchedAddressSource.session`);
   any other redirect is the response (HTTP error, next host). Cases: `address_privacy.json` «redirectCases».
 * **Live stream message cap (residual risk).** Android checks the 1 MiB cap only after OkHttp has read
@@ -3081,7 +3106,9 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
 * **«Check on time» follows the interval** (Android): the exact alarm fires at the chosen background interval, never
   below 15 minutes (`BackgroundSchedule.exactIntervalMillis`, parity `exact_cadence.json`). While it is armed, a
   WorkManager run is skipped unless the interval minus a tolerance of 2 minutes has passed since the last full check
-  (`dedupeWindowMillis`; the full check is stamped at the end of a run, the next WorkManager run starts one interval
+  (`dedupeWindowMillis`; the full check is stamped at the end of a run — never when pairs missed the run's own time
+  budget, `isFullCheck(…, cutByBudget)`, and with a budget each run starts the fetch order elsewhere
+  (`FetchOrder.alarmsFirst(…, rotation)`) —, the next WorkManager run starts one interval
   after the start of the previous one – without the tolerance every second run was skipped when the alarm stayed
   away) – WorkManager stays scheduled as the net below the alarm. The alarm is armed whenever there is something to
   check on time: active pairs, an armed portfolio alarm or a gas/depeg alarm (`ExactCheckDemand`,
@@ -3124,6 +3151,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 230: SettingsDataPages: HideOverlaysEffect(exportDialog != null) for the backup password dialog (external review of build 229).
 * Build 231: AccessibilityAuditTests: Dynamic Type recheck pass; ios.yml: retry on main/tags too, ui_retry_policy.py (with self-test) fails the job for any retried test whose failures were not Simulator hiccups.
 * Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos. Performance tests: scaling factor 6 (was 5) on both platforms.
+* Build 233: Audit of build 232 (S3/F3/N3/B3/U3, 73 findings): fixed in five groups A–E; see ROADMAP block «Audit von Build 232».
 
 ## Known warnings
 

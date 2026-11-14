@@ -25,6 +25,9 @@ class AlarmCheckStatus @Inject constructor() {
 
         /** Keine Funding- bzw. Open-Interest-Werte der Quelle (Fehlschlag, gesperrt, nicht geliefert). */
         NO_DATA,
+
+        /** Bewegungs-Alarm: kein Kurs im Zeitfenster ([AlarmEvaluator.moveWindowUncheckable]). */
+        NO_WINDOW_PRICE,
     }
 
     /** [since] = erste ausgelassene Prüfung in Folge; [reason] = Grund der letzten. */

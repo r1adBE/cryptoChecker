@@ -61,7 +61,7 @@
     <string name="settings_price_pairs_hint">कुन जोडीहरूले सूचना बारमा आफ्नो मूल्य देखाउने छान्नुहोस्।</string>
     <string name="settings_quiet_hours">शान्त समय</string>
     <string name="settings_quiet_hours_from">देखि</string>
-    <string name="settings_quiet_hours_hint">%1$s र %2$s बीच, अलर्टहरू शान्त समय सकिएसम्म पर्खन्छन् र त्यसपछि ध्वनिसहित बज्छन्। अन्य सूचनाहरू बोलीबिना चुपचाप आउँछन्।</string>
+    <string name="settings_quiet_hours_hint">%1$s र %2$s बीच, अलर्टहरू शान्त समय सकिएसम्म पर्खन्छन् र त्यसपछि ध्वनिसहित बज्छन्, यदि तब पनि सर्त पूरा भएमा। अन्य सूचनाहरू बोलीबिना चुपचाप आउँछन्।</string>
     <string name="settings_quiet_hours_to">सम्म</string>
 
     <!-- Einstellungen › Kurs-Aktualisierung (Hintergrund, Akku, Live, Prüfprotokoll) -->
@@ -316,6 +316,8 @@
     <string name="settings_address_server_active">प्रयोगमा: %1$s</string>
     <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
     <string name="settings_address_server_none">सेट गरिएको छैन – सार्वजनिक नोडहरू प्रयोग हुन्छन्</string>
+    <!-- Einstellungen ersetzt (unlesbar): unbekannt, ob ein eigener Bitcoin-Server eingetragen war – Bitcoin-Adressen ruhen bis zur Wahl (auch im Hinweis «Einstellungen zurückgesetzt») -->
+    <string name="settings_address_server_unknown">सेटिङहरू रिसेट भए, त्यसैले तपाईंले आफ्नै Bitcoin सर्भर प्रयोग गर्नुहुन्थ्यो कि थिएन थाहा छैन। तपाईंले सर्भर फेरि नहालेसम्म वा सार्वजनिक नोडहरू नरोजेसम्म Bitcoin ठेगाना र xpub कुञ्जीहरू सोधिँदैनन्।</string>
     <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
     <string name="settings_address_server_error_https">https:// ठेगानाहरू मात्र अनुमति छ</string>
     <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->

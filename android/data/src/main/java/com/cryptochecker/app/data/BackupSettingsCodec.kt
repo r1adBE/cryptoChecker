@@ -18,7 +18,11 @@ class BackupSettingsCodec(
     private val canAuthenticate: () -> Boolean,
 ) {
 
-    suspend fun settingsToJson(): JSONObject {
+    /**
+     * [encrypted]: Datei mit Passwort bzw. Journal (Standard); eine Datei ohne Passwort enthält den eigenen Bitcoin-Server
+     * nicht ([AddressServer.exported]).
+     */
+    suspend fun settingsToJson(encrypted: Boolean = true): JSONObject {
         val s = settings.current()
         return JSONObject()
             // «Wie aktuell?»
@@ -75,8 +79,8 @@ class BackupSettingsCodec(
             .put("taxTemplate", s.taxTemplate.name)
             // Spaltensortierung der Merkliste; null = eigene Reihenfolge
             .put(ColumnSort.BACKUP_FIELD, ColumnSort.backupValue(s.watchlistColumnSort) ?: JSONObject.NULL)
-            // Eigener Bitcoin-Server für Adressabfragen; null = öffentliche Knoten (wie iOS)
-            .put(ADDRESS_SERVER, settings.addressServer() ?: JSONObject.NULL)
+            // Eigener Bitcoin-Server für Adressabfragen; null = öffentliche Knoten bzw. Datei ohne Passwort (wie iOS)
+            .put(ADDRESS_SERVER, AddressServer.exported(settings.addressServer(), encrypted) ?: JSONObject.NULL)
     }
 
     /**

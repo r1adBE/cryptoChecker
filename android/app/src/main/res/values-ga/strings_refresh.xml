@@ -118,6 +118,8 @@
     <string name="check_result_ok">Ceart go leor</string>
     <string name="check_result_partial">I bpáirt</string>
     <string name="check_result_skipped">Scipeáilte</string>
+    <string name="check_result_paused">Ar sos, níor seiceáladh faic</string>
+    <string name="check_result_offline">Scipeáilte (as líne)</string>
     <string name="check_trigger_bgtask">Cúlra</string>
     <string name="check_trigger_exact">In am</string>
     <string name="check_trigger_foreground">Aip</string>

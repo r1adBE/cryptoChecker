@@ -65,5 +65,6 @@
     <string name="alarm_reliability_never">Ama-alamu avuliwe – akukabi khona ukuhlola ngemuva</string>
     <string name="alarm_reliability_notifications_off">Izaziso zivaliwe – ama-alamu ngeke afike</string>
     <string name="alarm_reliability_battery">Ukonga ibhethri kungamisa ukuhlolwa kwama-alamu</string>
+    <string name="alarm_reliability_offline">Akukho ukuxhumana – ama-alamu azohlolwa uma inethiwekhi ibuya</string>
     <string name="alarm_reliability_background_refresh">I-Background App Refresh ivaliwe – ama-alamu angase angafiki</string>
 </resources>
