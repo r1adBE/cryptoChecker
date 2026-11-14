@@ -77,7 +77,7 @@ fun Throwable.toExchangeFailure(): ExchangeFailure = when (this) {
     // iOS `.networkConnectionLost`. HTTP-Fehler, Grösse und Zeit sind vorher eigene Arten.
     is NetworkError -> cause?.toExchangeFailure()?.takeUnless { it == ExchangeFailure.Other }
         // «Canceled» = von uns abgebrochener Aufruf (OkHttp), keine Störung der Verbindung
-        ?: if (cause is IOException && cause.message != "Canceled") ExchangeFailure.Offline else ExchangeFailure.Other
+        ?: (cause as? IOException)?.takeIf { it.message != "Canceled" }?.let { ExchangeFailure.Offline } ?: ExchangeFailure.Other
     is UnknownExchangeError -> cause?.toExchangeFailure() ?: ExchangeFailure.Other
     is ParseError -> ExchangeFailure.Parse
     is UserFriendlyExchangeError -> exchangeFailure(message)
