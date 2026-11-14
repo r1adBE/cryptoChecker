@@ -134,6 +134,9 @@ extension SharedStorage {
                                           includePortfolioInBackup: include, durability: durability)
             }
             if replace { replacePendingBox.current = !written }
+            // Der Stand der App (Speicher) ist auf der Platte: der Merker «nicht gespeichert» gilt nicht mehr (nur hier,
+            // nie nach einem Schreiben aus der Datei, `writeFiles`)
+            if written { watchlistWriteFailed = false }
             // Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
             lastQueuedWriteBox.current = written
             // Am Speicher gescheitert (z. B. voll): die Oberfläche nennt es (`watchlistLockedHint`), nie still

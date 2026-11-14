@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Bateria e atividade</string>
+    <string name="usage_intro">As apps não conseguem ler o seu próprio consumo de energia. Por isso a app mostra o que ela própria fez nas últimas 24 horas – contado apenas neste dispositivo, sem qualquer conteúdo.</string>
+    <string name="usage_phone">Telemóvel</string>
+    <string name="usage_watch">Relógio</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d execução em segundo plano</item>
+        <item quantity="many">%d execuções em segundo plano</item>
+        <item quantity="other">%d execuções em segundo plano</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d pedido de rede</item>
+        <item quantity="many">%d pedidos de rede</item>
+        <item quantity="other">%d pedidos de rede</item>
+    </plurals>
+    <string name="usage_received">%1$s recebidos</string>
+    <string name="usage_level_low">Atividade baixa</string>
+    <string name="usage_level_medium">Atividade média</string>
+    <string name="usage_level_high">Atividade alta</string>
+    <string name="usage_driver_interval">Sobretudo devido à verificação em segundo plano (%1$s).</string>
+    <string name="usage_driver_exact">Sobretudo devido à verificação em segundo plano (%1$s) e a «%2$s».</string>
+    <string name="usage_driver_none">Nenhuma verificação em segundo plano agendada – conta o que a app aberta e os widgets obtêm.</string>
+    <string name="usage_driver_watch">Conta o que a app do relógio e as suas complicações obtêm por si.</string>
+    <string name="usage_watch_none">Nenhum relógio ligado</string>
+    <string name="usage_as_of">Atualizado: %1$s</string>
+    <string name="usage_battery_android">O Android mostra o consumo de bateria por app nas suas definições de bateria.</string>
+</resources>

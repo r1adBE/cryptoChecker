@@ -8,8 +8,9 @@
     <string name="why_details_hide">پنهان کردن جزئیات</string>
     <string name="why_disclaimer">ارزیابی خودکار بر اساس داده‌های بازار: نشان می‌دهد چه چیزی هم‌زمان رخ می‌دهد، نه اثبات علت.</string>
     <string name="why_footer_short">هم‌زمانی به معنای علت نیست · مشاوره سرمایه‌گذاری نیست</string>
-    <string name="why_no_data">داده‌ای از Binance برای این جفت وجود ندارد</string>
-    <string name="why_no_data_hint">قیمت، حجم و نوسان از کندل‌های ساعتی Binance می‌آیند.</string>
+    <string name="why_no_candles">برای این جفت کندل ساعتی وجود ندارد</string>
+    <string name="why_no_candles_hint">قیمت، حجم و نوسان از کندل‌های ساعتی %1$s یا در صورت امکان از صرافی دیگری با همان کوین می‌آیند.</string>
+    <string name="why_no_data_retry_hint">قیمت، حجم و نوسان بارگیری نشد. دوباره تلاش کن.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">برداشت احتمالی</string>
     <string name="why_section_observation">مشاهده</string>

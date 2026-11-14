@@ -106,10 +106,10 @@ struct MarketAlertsSettingsPage: View {
             .settingsAnchor("market.sensitivity")
             SettingsHint(text: L("settings_activity_sensitivity_hint"))
             RowDivider()
-            // Wirtschaftstermine: Morgen-Mitteilung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
+            // Wirtschaftstermine: Morgen-Mitteilung um 08:00 (spätestens 08:00 New York) an Tagen mit US-Daten (CPI, Fed …)
             SwitchRow(
                 title: L("settings_macro_notifications"),
-                subtitle: L("settings_macro_notifications_hint"),
+                subtitle: L("settings_macro_notifications_hint") + " " + L("settings_macro_notifications_us_hint"),
                 isOn: Binding(
                     get: { data.settings.macroNotifications },
                     set: { on in
@@ -151,7 +151,8 @@ struct SpeechSettingsPage: View {
         SettingsSubPage(title: L("settings_tts")) {
             SwitchRow(
                 title: L("settings_tts"),
-                subtitle: L("settings_tts_hint_silent"),
+                // iOS spricht nur bei offener App (kein Audio-Hintergrundmodus) – wie im Alarm-Editor sagen
+                subtitle: L("settings_tts_hint_silent") + " " + L("alarm_speak_ios_open_only"),
                 isOn: $data.settings.ttsEnabled
             )
             .settingsAnchor("speech.enabled")

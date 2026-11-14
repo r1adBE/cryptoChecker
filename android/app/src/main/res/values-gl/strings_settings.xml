@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Indicadores de Bitcoin, comprobados dúas veces ao día. Ti escolles os límites – a app non valora os valores.</string>
     <string name="settings_macro_notifications">Calendario económico</string>
     <string name="settings_macro_notifications_hint">Ás 08:00 os días con datos económicos importantes dos EUA (inflación, informe de emprego, decisión da Fed). O calendario procede da web da app e cárgase unha vez ao día.</string>
+    <string name="settings_macro_notifications_us_hint">Nos EUA a notificación chega como moi tarde ás 08:00, hora de Nova York, antes dos primeiros datos.</string>
     <string name="settings_market_alerts">Alarmas de mercado</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Compartir</string>
     <string name="settings_price_overlay">Superposición de prezo</string>
     <string name="settings_price_overlay_hint">Mostra os pares da notificación de prezo permanente como unha pequena pastilla flotante sobre outras apps. Toca para abrir a app; arrastra ata a × da parte inferior para pechala.</string>
+    <string name="settings_price_overlay_restart_hint">Se o sistema pecha a app, a superposición de prezo volve coa seguinte actualización en segundo plano.</string>
     <string name="settings_price_overlay_needs">Só funciona xunto con «%1$s».</string>
     <string name="settings_price_overlay_grant">Permitir a visualización sobre outras apps</string>
     <string name="price_overlay_close">Pechar superposición</string>

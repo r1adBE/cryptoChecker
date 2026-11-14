@@ -8,8 +8,9 @@
     <string name="why_details_hide">Dölj detaljer</string>
     <string name="why_disclaimer">Automatisk bedömning utifrån marknadsdata: visar vad som sker samtidigt, inget bevis för en orsak.</string>
     <string name="why_footer_short">Samtidigt betyder inte orsak · Ingen investeringsrådgivning</string>
-    <string name="why_no_data">Inga data från Binance för det här paret</string>
-    <string name="why_no_data_hint">Kurs, volym och volatilitet kommer från Binances candlesticks per timme.</string>
+    <string name="why_no_candles">Inga timcandlesticks för det här paret</string>
+    <string name="why_no_candles_hint">Kurs, volym och volatilitet kommer från candlesticks per timme från %1$s eller, där det går, från en annan börs med samma coin.</string>
+    <string name="why_no_data_retry_hint">Kurs, volym och volatilitet kunde inte läsas in. Försök igen.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Möjlig tolkning</string>
     <string name="why_section_observation">Observation</string>

@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">ขณะนี้ไม่มีข้อมูลย้อนหลัง</string>
     <string name="portfolio_history_utc_days">วันตาม UTC (แท่งเทียนรายวัน)</string>
     <string name="portfolio_history_without_matching">ไม่รวม %1$s (ไม่มีราคารายวันที่ตรงกัน)</string>
+    <string name="portfolio_history_entry">นับตั้งแต่ราคารายวันแรก: %1$s (ก่อนหน้านั้นไม่มีราคารายวัน)</string>
     <string name="portfolio_period_rewards">รางวัล +%1$s (ไม่รวมในกำไร)</string>
     <string name="portfolio_period_scaled">7 วัน/1 ปี ของ %1$s: ประวัติ Binance ปรับตามราคากระดาน</string>
 

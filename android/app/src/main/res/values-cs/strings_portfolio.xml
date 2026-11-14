@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Vývoj teď není k dispozici.</string>
     <string name="portfolio_history_utc_days">Dny v UTC (denní svíčky)</string>
     <string name="portfolio_history_without_matching">Bez %1$s (žádné odpovídající denní ceny)</string>
+    <string name="portfolio_history_entry">Vstup od první denní ceny: %1$s (dříve žádné denní ceny)</string>
     <string name="portfolio_period_rewards">Odměny +%1$s (mimo zisk)</string>
     <string name="portfolio_period_scaled">7 D/1 R pro %1$s: historie Binance přepočtená na cenu burzy</string>
 

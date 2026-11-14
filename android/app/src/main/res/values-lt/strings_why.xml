@@ -8,8 +8,9 @@
     <string name="why_details_hide">Slėpti detales</string>
     <string name="why_disclaimer">Automatinis vertinimas pagal rinkos duomenis: rodoma, kas vyksta tuo pačiu metu, o ne priežasties įrodymas.</string>
     <string name="why_footer_short">Tuo pačiu metu nereiškia priežasties · Ne investavimo patarimas</string>
-    <string name="why_no_data">Šiai porai nėra Binance duomenų</string>
-    <string name="why_no_data_hint">Kaina, apimtis ir nepastovumas gaunami iš Binance valandinių žvakių.</string>
+    <string name="why_no_candles">Šiai porai nėra valandinių žvakių</string>
+    <string name="why_no_candles_hint">Kaina, apimtis ir nepastovumas gaunami iš %1$s valandinių žvakių arba, kai įmanoma, iš kitos biržos su ta pačia moneta.</string>
+    <string name="why_no_data_retry_hint">Nepavyko įkelti kainos, apimties ir nepastovumo. Bandyk dar kartą.</string>
     <string name="why_ref_alts">Altcoinai</string>
     <string name="why_section_context">Galimas paaiškinimas</string>
     <string name="why_section_observation">Stebėjimas</string>

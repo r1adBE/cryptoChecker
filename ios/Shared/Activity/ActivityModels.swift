@@ -180,7 +180,7 @@ struct WhyReport: Equatable, Sendable {
     let change24h: Double?
     /// 2–5 Gründe, auffällige zuerst (höchstens `ActivityAnalyzer.maxReasons`).
     let reasons: [WhyReason]
-    /// false = keine Quelle führt das Paar (Leerzustand zeigen).
+    /// false = keine Stundenkerzen (Leerzustand zeigen, Grund in `candlesFailure`).
     let hasMarketData: Bool
     /// Zeitpunkt der Daten (Epoch-ms).
     let dataTime: Int64
@@ -204,4 +204,20 @@ struct WhyReport: Equatable, Sendable {
     var stable: Bool = false
     /// Herkunft der Daten (`WhySources`); nil = unbekannt (dann der feste Quellen-Satz).
     var sources: WhySources? = nil
+    /// Ohne Kerzen: nicht abrufbar (offline, Zeitgrenze) statt «Quelle führt das Paar nicht»; nil = kein Fehler.
+    var candlesFailure: WhyCandlesFailure? = nil
+}
+
+/// Warum «Was bewegt sich mit?» keine Kerzen hat, wenn es kein «gibt es nicht» ist: ohne Verbindung bzw.
+/// die Börse antwortete nicht innerhalb der Zeitgrenze. Dann «Erneut versuchen»; sonst führt keine Quelle das Paar.
+/// Wie Android `WhyCandlesFailure`.
+enum WhyCandlesFailure: Equatable, Sendable {
+    case offline
+    case timeout
+
+    /// Grund ohne Kerzen: offline geht vor; nil = die Quellen haben geantwortet, führen das Paar aber nicht.
+    static func of(online: Bool, timedOut: Bool) -> WhyCandlesFailure? {
+        if !online { return .offline }
+        return timedOut ? .timeout : nil
+    }
 }

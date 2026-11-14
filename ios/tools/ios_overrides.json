@@ -16,7 +16,7 @@
     "neutral_channel_market": "Markt-Mitteilungen",
     "neutral_info_btc_how": "Zu jedem Wert steht ein Satz, was er misst, und wo er in seinem eigenen Verlauf seit 2016 liegt. Die App bewertet die Werte nicht und leitet keine Marktphase ab; Grenzen für Markt-Mitteilungen gibt es nur, wenn du sie selbst setzt. Frühere Muster müssen sich nicht wiederholen.",
     "alarm_saved_notifications_off": "Mitteilungen aus",
-    "settings_quiet_hours_hint": "Zwischen %1$s und %2$s warten Alarme bis zum Ende der Nachtruhe und melden sich dann mit Ton. Andere Mitteilungen kommen lautlos, ohne Sprachausgabe.",
+    "settings_quiet_hours_hint": "Zwischen %1$s und %2$s warten Alarme bis zum Ende der Nachtruhe und melden sich dann mit Ton – sofern die Bedingung dann noch erfüllt ist. Andere Mitteilungen kommen lautlos, ohne Sprachausgabe.",
     "watch_disable_hint": "Keine Abfragen, keine Mitteilungen",
     "watch_enable_hint": "Kurse und Mitteilungen wieder an",
     "watchlist_notification": "Kursmitteilung",
@@ -37,6 +37,7 @@
     "alarm_outcome_not_shown": "Nicht ausgelöst – Mitteilung kam nicht an, neuer Versuch folgt",
     "delivery_alert_off": "Banner aus – Alarme erscheinen nur in der Mitteilungszentrale",
     "delivery_time_sensitive": "Dringliche Mitteilungen",
-    "alarm_reliability_notifications_off": "Mitteilungen aus – Alarme kommen nicht an"
+    "alarm_reliability_notifications_off": "Mitteilungen aus – Alarme kommen nicht an",
+    "settings_macro_notifications_us_hint": "In den USA kommt die Mitteilung spätestens um 08:00 New Yorker Zeit, vor den ersten Daten."
   }
 }

@@ -1,5 +1,5 @@
 {
- "_comment": "Gemeinsame Testfälle der Umbuchungen über Börsen und Dateien hinweg (CsvTransferMatch, Android CsvTransferMatchParityTest / iOS CsvTransferMatchTests). Mengen als Text, Zeiten ISO-UTC; Kandidat: gleicher Coin, Einzahlung ≤ 72 h nach (≥ 2 h vor) der Auszahlung, angekommen ≤ abgeschickt, Differenz ≤ 5 %, nicht dieselbe Börse, höchstens eine Seite gespeichert. Kennung eines Kandidaten (key) = «Auszahlung → Einzahlung» (CsvTransferMatch.linkId, nur Vorschau). Verknüpfte Umbuchung: importKey = Auszahlung, linkedImportKey = Einzahlung; gegen eine gespeicherte Seite dazu restoreState (Format CsvRestoreState, Fassung 1). Seiten ohne solchen Kandidaten: weitere bis 14 Tage danach und bis 50 % Gebühr (loose, nie vorausgewählt). ownWallet: «Auf eigene Wallet» wählt den besten freien Kandidaten (CsvTransferMatch.linkOwnWallet).",
+ "_comment": "Gemeinsame Testfälle der Umbuchungen über Börsen und Dateien hinweg (CsvTransferMatch, Android CsvTransferMatchParityTest / iOS CsvTransferMatchTests). Mengen als Text, Zeiten ISO-UTC; Kandidat: gleicher Coin, Einzahlung ≤ 72 h nach (≥ 2 h vor) der Auszahlung, angekommen ≤ abgeschickt, Differenz ≤ 5 %, nicht dieselbe Börse, höchstens eine Seite gespeichert. Kennung eines Kandidaten (key) = «Auszahlung → Einzahlung» (CsvTransferMatch.linkId, nur Vorschau). Verknüpfte Umbuchung: importKey = Auszahlung, linkedImportKey = Einzahlung; gegen eine gespeicherte Seite dazu restoreState (Format CsvRestoreState, Fassung 1). Seiten ohne solchen Kandidaten: weitere bis 14 Tage danach und bis 50 % Gebühr (loose, nie vorausgewählt). ownWallet / ownWallets: «Auf eigene Wallet» verknüpft nur einen eindeutigen üblichen Kandidaten mit freier Einzahlung (CsvTransferMatch.linkOwnWallet, CsvImportMapping.linkOwnWallets): nie einen weiten (loose), nie mehrdeutig (mehrere übliche oder eine andere Auszahlung mit «Auf eigene Wallet» wirbt um dieselbe Einzahlung), nie eine Auszahlung in declined (Verknüpfung vom Nutzer ausgeschaltet).",
  "cases": [
   {
    "name": "new withdrawal and deposit in one generic file become one transfer",
@@ -286,9 +286,7 @@
     {
      "withdrawal": "GENERIC|W1",
      "chosen": [],
-     "expected": [
-      "GENERIC|W1 → GENERIC|D_LATE"
-     ]
+     "expected": []
     },
     {
      "withdrawal": "GENERIC|W3",
@@ -461,7 +459,6 @@
       "GENERIC|W2 → GENERIC|D2"
      ],
      "expected": [
-      "GENERIC|W1 → GENERIC|D1",
       "GENERIC|W2 → GENERIC|D2"
      ]
     }
@@ -617,6 +614,49 @@
      "chosen": [],
      "expected": [
       "GENERIC|W2 → GENERIC|D1"
+     ]
+    },
+    {
+     "withdrawal": "GENERIC|W2",
+     "chosen": [],
+     "declined": [
+      "GENERIC|W2"
+     ],
+     "expected": []
+    }
+   ],
+   "ownWallets": [
+    {
+     "choices": {
+      "GENERIC|W1": "TRANSFER",
+      "GENERIC|W2": "TRANSFER"
+     },
+     "chosen": [],
+     "declined": [],
+     "expected": []
+    },
+    {
+     "choices": {
+      "GENERIC|W1": "TRANSFER",
+      "GENERIC|W2": "WITHDRAWAL"
+     },
+     "chosen": [],
+     "declined": [],
+     "expected": [
+      "GENERIC|W1 → GENERIC|D1"
+     ]
+    },
+    {
+     "choices": {
+      "GENERIC|W1": "TRANSFER",
+      "GENERIC|W2": "TRANSFER"
+     },
+     "chosen": [],
+     "declined": [
+      "GENERIC|W2"
+     ],
+     "expected": [
+      "GENERIC|W1 → GENERIC|D1"
      ]
     }
    ]
@@ -1613,6 +1653,173 @@
    ],
    "default": [
     "KRAKEN|R2 → COINBASE|X12"
+   ]
+  },
+  {
+   "name": "own wallet never links a loose candidate on its own; switched off stays off",
+   "place": "Binance",
+   "txs": [
+    {
+     "key": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-05-01T12:00:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    },
+    {
+     "key": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
+     "type": "WITHDRAWAL",
+     "coin": "ETH",
+     "amount": "1",
+     "time": "2024-05-01T12:00:00Z",
+     "line": 3,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 11,
+     "importKey": "KRAKEN|QD60",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.6",
+     "time": "2024-05-11T12:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": "KRAKEN:1714000000000:0a1b2c3d",
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    },
+    {
+     "id": 12,
+     "importKey": "KRAKEN|QE1",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "0.999",
+     "time": "2024-05-01T13:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": "KRAKEN:1714000000000:0a1b2c3d",
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null
+    }
+   ],
+   "links": [
+    {
+     "key": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|- → KRAKEN|QD60",
+     "withdrawalKey": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-",
+     "depositKey": "KRAKEN|QD60",
+     "withdrawalId": null,
+     "depositId": 11,
+     "sent": "1",
+     "received": "0.6",
+     "fee": "0.4",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Binance",
+     "to": "Kraken",
+     "unambiguous": false,
+     "loose": true
+    },
+    {
+     "key": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1",
+     "withdrawalKey": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
+     "depositKey": "KRAKEN|QE1",
+     "withdrawalId": null,
+     "depositId": 12,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Binance",
+     "to": "Kraken",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1"
+   ],
+   "ownWallet": [
+    {
+     "withdrawal": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-",
+     "chosen": [],
+     "expected": []
+    },
+    {
+     "withdrawal": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
+     "chosen": [],
+     "expected": [
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1"
+     ]
+    },
+    {
+     "withdrawal": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
+     "chosen": [],
+     "declined": [
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-"
+     ],
+     "expected": []
+    }
+   ],
+   "ownWallets": [
+    {
+     "choices": {
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-": "TRANSFER",
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-": "TRANSFER"
+     },
+     "chosen": [],
+     "declined": [],
+     "expected": [
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1"
+     ]
+    },
+    {
+     "choices": {
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-": "TRANSFER",
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-": "TRANSFER"
+     },
+     "chosen": [
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|- → KRAKEN|QD60"
+     ],
+     "declined": [],
+     "expected": [
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|- → KRAKEN|QD60",
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1"
+     ]
+    },
+    {
+     "choices": {
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-": "TRANSFER",
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-": "TRANSFER"
+     },
+     "chosen": [],
+     "declined": [
+      "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-",
+      "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-"
+     ],
+     "expected": []
+    }
    ]
   }
  ],

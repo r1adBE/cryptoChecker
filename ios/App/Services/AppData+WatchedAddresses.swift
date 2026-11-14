@@ -179,7 +179,8 @@ extension AppData {
     /// scheitert das Schreiben, kommt sie unverändert zurück.
     private func replaceWatchedAddressFile(_ file: WatchedAddressFile) -> Bool {
         if watchedAddressIntact { return setWatchedAddressFile(file) }
-        guard WatchedAddressStore.setAsideUnreadable() else { return false }
+        // Nur über eine beschädigte, nie über eine gerade gesperrte Datei (R4-02, `ProtectedFile.unreadableIsDamaged`)
+        guard ProtectedFile.unreadableIsDamaged(WatchedAddressStore.url), WatchedAddressStore.setAsideUnreadable() else { return false }
         watchedAddressIntact = true
         guard setWatchedAddressFile(file) else {
             WatchedAddressStore.putBackUnreadable()

@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Hauptseite der Einstellungen, Akku & Aktivität: Batterie mit zwei Balken (dünne Linie wie die Tab-Symbole) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M5,7h12a1.5,1.5 0 0,1 1.5,1.5v7a1.5,1.5 0 0,1 -1.5,1.5h-12a1.5,1.5 0 0,1 -1.5,-1.5v-7a1.5,1.5 0 0,1 1.5,-1.5z M21,10.5v3 M7,10v4 M10,10v4" />
+</vector>

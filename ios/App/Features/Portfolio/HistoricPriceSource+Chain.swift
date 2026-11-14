@@ -29,12 +29,13 @@ extension HistoricPriceSource {
 
     /// Schluss der Tageskerze, die genau bei `start` beginnt, und jüngster Schluss derselben Reihe (Identitätsprüfung);
     /// nil = keine laufende Reihe oder der Tag fehlt (z. B. älter als die Börse liefert).
-    /// Börse nicht erreichbar und der Tag fehlt: `HistoricSourceUnavailable` (die Kette bricht ab) — wie Android.
+    /// Börse nicht abrufbar und der Tag fehlt: `HistoricSourceUnavailable` (Fehler-Antwort: die Kette bricht ab; ganz
+    /// ohne Antwort, `Load.silent`: übersprungen) — wie Android.
     static func seriesClose(_ pair: CandlePair, start: Int64) async throws -> (close: Double, latest: Double?)? {
         let load = await OwnCandleDataSource.shared.load(pair, interval: .d1, limit: chainDays)
         guard let candles = load.value?.value,
               let close = candles.first(where: { $0.openTime == start })?.close, close > 0, close.isFinite else {
-            if load.unreachable { throw HistoricSourceUnavailable(host: pair.exchangeKey) }
+            if load.unreachable { throw HistoricSourceUnavailable(host: pair.exchangeKey, unreachable: load.silent) }
             return nil
         }
         return (close, candles.last?.close)
@@ -51,7 +52,8 @@ extension HistoricPriceSource {
                                                     providerName: names.pairName(exchangeKey: own.exchangeKey, base: b))
         var outcome = HistoricCloseChain.Outcome(price: nil, rejected: true)
         if nameOk { outcome = try await ownDayClose(own, day: day, start: start, reference: reference, fetch: fetch) }
-        if outcome.price == nil, HistoricCloseChain.chain.contains(own.exchangeKey), own.exchangeKey != HistoricCloseChain.binance {
+        let inChain = HistoricCloseChain.chain.contains(own.exchangeKey) && own.exchangeKey != HistoricCloseChain.binance
+        if outcome.price == nil, !outcome.failed, inChain {
             var chained: HistoricCloseChain.Outcome
             if own.exchangeKey == HistoricCloseChain.coinbase {
                 chained = try await coinbaseOutcome(b, day: day, start: start, reference: reference, fetch: fetch)
@@ -72,13 +74,16 @@ extension HistoricPriceSource {
         var close = raw.close
         var latest = raw.latest
         if quote != "USDT" && quote != "USD" && quote != "USDC" {
-            // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss
-            guard let dayFx = await fetch.usdTo(quote, day: day)?.rate, dayFx > 0, dayFx.isFinite else {
+            // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss. EZB
+            // nicht erreichbar: kein Kurs statt der nächsten Quelle (die hätte einen anderen Kurs; Export wiederholbar)
+            let dayRate = await fetch.usdTo(quote, day: day)
+            if dayRate.failed { return HistoricCloseChain.Outcome(price: nil, failed: true) }
+            guard let dayFx = dayRate.fx?.rate, dayFx > 0, dayFx.isFinite else {
                 return HistoricCloseChain.Outcome(price: nil)
             }
             var utc = Calendar(identifier: .gregorian)
             utc.timeZone = TimeZone(identifier: "UTC") ?? .current
-            let nowFx = await fetch.usdTo(quote, day: CutoffDay(Date(), calendar: utc))?.rate
+            let nowFx = await fetch.usdTo(quote, day: CutoffDay(Date(), calendar: utc)).fx?.rate
             close = raw.close / dayFx
             if let l = raw.latest, let nowFx, nowFx > 0, nowFx.isFinite { latest = l / nowFx } else { latest = nil }
         }

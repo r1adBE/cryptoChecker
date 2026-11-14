@@ -8,8 +8,9 @@
     <string name="why_details_hide">Fela nánar</string>
     <string name="why_disclaimer">Sjálfvirkt mat út frá markaðsgögnum: það sýnir hvað gerist á sama tíma, ekki sönnun á orsök.</string>
     <string name="why_footer_short">Samtímis þýðir ekki orsök · Engin fjárfestingarráðgjöf</string>
-    <string name="why_no_data">Engin gögn frá Binance fyrir þetta par</string>
-    <string name="why_no_data_hint">Verð, velta og sveiflur koma úr klukkustundarkertum Binance.</string>
+    <string name="why_no_candles">Engin klukkustundarkerti fyrir þetta par</string>
+    <string name="why_no_candles_hint">Verð, velta og sveiflur koma úr klukkustundarkertum frá %1$s eða, þegar hægt er, frá annarri kauphöll með sömu mynt.</string>
+    <string name="why_no_data_retry_hint">Ekki tókst að hlaða verði, veltu og sveiflum. Reyndu aftur.</string>
     <string name="why_ref_alts">Altmyntir</string>
     <string name="why_section_context">Möguleg skýring</string>
     <string name="why_section_observation">Athugun</string>

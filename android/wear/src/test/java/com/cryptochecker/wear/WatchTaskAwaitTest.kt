@@ -107,6 +107,12 @@ class WatchTaskAwaitTest {
         assertFalse("runCatching schluckt den Abbruch", Regex("""\brunCatching\b""").containsMatchIn(source))
         assertEquals(5, Regex("""WatchTaskAwait\.await\(""").findAll(source).count())
         assertEquals(6, Regex("""WatchTaskAwait\.catching \{""").findAll(source).count())
+        // Zähler fürs Handy («Akku & Aktivität») über denselben Weg
+        val usage = listOf("src/main/java", "wear/src/main/java", "android/wear/src/main/java")
+            .map { File(it, "com/cryptochecker/wear/WatchUsage.kt") }.first { it.isFile }.readText(Charsets.UTF_8)
+        assertFalse("Tasks.await blockiert einen Thread", usage.contains("Tasks.await"))
+        assertFalse("runCatching schluckt den Abbruch", Regex("""\brunCatching\b""").containsMatchIn(usage))
+        assertEquals(1, Regex("""WatchTaskAwait\.await\(""").findAll(usage).count())
     }
 
     private companion object {

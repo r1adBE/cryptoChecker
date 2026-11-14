@@ -188,6 +188,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin rodikliai, tikrinami du kartus per dieną. Ribas renkiesi tu – programėlė vertių nevertina.</string>
     <string name="settings_macro_notifications">Ekonominis kalendorius</string>
     <string name="settings_macro_notifications_hint">08:00 dienomis, kai skelbiami svarbūs JAV ekonominiai duomenys (infliacija, darbo rinkos ataskaita, FED sprendimas). Kalendorius gaunamas iš programėlės svetainės, įkeliamas kartą per dieną.</string>
+    <string name="settings_macro_notifications_us_hint">JAV pranešimas ateina ne vėliau kaip 08:00 Niujorko laiku, prieš pirmuosius duomenis.</string>
     <string name="settings_market_alerts">Rinkos įspėjimai</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -300,6 +301,7 @@
     <string name="diagnostics_action_share">Bendrinti</string>
     <string name="settings_price_overlay">Kainos perdanga</string>
     <string name="settings_price_overlay_hint">Nuolatinio kainos pranešimo poras rodo kaip mažą slankiojantį ženklelį virš kitų programų. Bakstelėjus atidaroma programėlė, nutempus prie × apačioje – uždaroma.</string>
+    <string name="settings_price_overlay_restart_hint">Jei sistema uždaro programėlę, kainos perdanga grįžta su kitu atnaujinimu fone.</string>
     <string name="settings_price_overlay_needs">Veikia tik kartu su „%1$s“.</string>
     <string name="settings_price_overlay_grant">Leisti rodyti virš kitų programų</string>
     <string name="price_overlay_close">Uždaryti perdangą</string>

@@ -8,8 +8,9 @@
     <string name="why_details_hide">تفصیلات چھپائیں</string>
     <string name="why_disclaimer">مارکیٹ ڈیٹا سے خودکار جائزہ: یہ دکھاتا ہے کہ ایک ہی وقت میں کیا ہو رہا ہے، وجہ کا ثبوت نہیں۔</string>
     <string name="why_footer_short">ایک ساتھ ہونے کا مطلب وجہ نہیں · سرمایہ کاری کا مشورہ نہیں</string>
-    <string name="why_no_data">اس جوڑے کے لیے Binance سے کوئی ڈیٹا نہیں</string>
-    <string name="why_no_data_hint">قیمت، والیوم اور اتار چڑھاؤ Binance کی گھنٹہ وار کینڈلز سے آتے ہیں۔</string>
+    <string name="why_no_candles">اس جوڑے کے لیے گھنٹہ وار کینڈلز نہیں ہیں</string>
+    <string name="why_no_candles_hint">قیمت، والیوم اور اتار چڑھاؤ %1$s کی گھنٹہ وار کینڈلز سے، یا ممکن ہو تو اسی کوائن والے کسی دوسرے ایکسچینج سے آتے ہیں۔</string>
+    <string name="why_no_data_retry_hint">قیمت، والیوم اور اتار چڑھاؤ لوڈ نہیں ہو سکے۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="why_ref_alts">آلٹس</string>
     <string name="why_section_context">ممکنہ وضاحت</string>
     <string name="why_section_observation">مشاہدہ</string>

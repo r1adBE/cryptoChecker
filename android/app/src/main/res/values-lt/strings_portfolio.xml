@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Šiuo metu istorijos nėra.</string>
     <string name="portfolio_history_utc_days">Dienos pagal UTC (dienos žvakės)</string>
     <string name="portfolio_history_without_matching">Be %1$s (nėra atitinkamų dienos kainų)</string>
+    <string name="portfolio_history_entry">Įtraukta nuo pirmos dienos kainos: %1$s (anksčiau dienos kainų nėra)</string>
     <string name="portfolio_period_rewards">Atlygiai +%1$s (neįskaičiuoti į pelną)</string>
     <string name="portfolio_period_scaled">7 d./1 m. %1$s: Binance istorija pritaikyta biržos kainai</string>
 

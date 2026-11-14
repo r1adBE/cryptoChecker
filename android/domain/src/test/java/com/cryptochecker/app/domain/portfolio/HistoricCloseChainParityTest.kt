@@ -75,6 +75,7 @@ class HistoricCloseChainParityTest {
                 HistoricCloseChain.Outcome(
                     o?.get("price").num(), o?.get("rejected") as Boolean? ?: false, o?.get("provider") as String?,
                     failed = o?.get("failed") as Boolean? ?: false,
+                    unreachable = o?.get("unreachable") as Boolean? ?: false,
                 )
             }
             val e = c["expected"].obj()

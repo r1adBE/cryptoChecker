@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Моментално нема достапна историја.</string>
     <string name="portfolio_history_utc_days">Денови во UTC (дневни свеќи)</string>
     <string name="portfolio_history_without_matching">Без %1$s (нема соодветни дневни цени)</string>
+    <string name="portfolio_history_entry">Влез од првата дневна цена: %1$s (порано нема дневни цени)</string>
     <string name="portfolio_period_rewards">Награди +%1$s (не во добивката)</string>
     <string name="portfolio_period_scaled">7 Д/1 Г за %1$s: историјата од Binance скалирана според цената на берзата</string>
 

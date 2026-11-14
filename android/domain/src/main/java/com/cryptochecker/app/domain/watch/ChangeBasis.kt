@@ -301,6 +301,17 @@ object ChangeBasisMath {
      * Gelten die gespeicherten Werte noch? Ohne Stempel (noch nichts berechnet)
      * gelten sie als rollend. Tages-Basen: gleicher Tagesbeginn wie jetzt.
      */
+    /**
+     * Veränderung für die Uhr, die sie als «24 h» beschriftet und bei eigenem Abruf ebenfalls rollend rechnet:
+     * nur, wenn die gespeicherten Werte rollend sind (Basis rollend bzw. «seit letzter Aktualisierung», Stempel ebenso);
+     * bei einer Tages-Basis null — die Uhr zeigt dann «—» statt der Tagesveränderung unter «24 h». Wie iOS.
+     */
+    fun watchChange24h(change: Double?, basis: ChangeBasis, stamp: ChangeStamp?): Double? {
+        val rolling = basis.storage.kind == ChangeBasis.Kind.ROLLING_24H &&
+            (stamp == null || stamp.basis.storage.kind == ChangeBasis.Kind.ROLLING_24H)
+        return change?.takeIf { rolling && it.isFinite() }
+    }
+
     fun isCurrent(stamp: ChangeStamp?, basis: ChangeBasis, now: Long, zone: ZoneId = ZoneId.systemDefault()): Boolean {
         val s = stamp ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
         if (s.basis.storage != basis.storage) return false

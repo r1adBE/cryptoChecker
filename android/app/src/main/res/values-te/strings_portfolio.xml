@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ప్రస్తుతం చరిత్ర అందుబాటులో లేదు.</string>
     <string name="portfolio_history_utc_days">UTCలో రోజులు (రోజువారీ క్యాండిల్‌లు)</string>
     <string name="portfolio_history_without_matching">%1$s లేకుండా (సరిపోలే రోజువారీ ధరలు లేవు)</string>
+    <string name="portfolio_history_entry">మొదటి రోజువారీ ధర నుండి లెక్కించబడింది: %1$s (ముందు రోజువారీ ధరలు లేవు)</string>
     <string name="portfolio_period_rewards">రివార్డ్‌లు +%1$s (లాభంలో కాదు)</string>
     <string name="portfolio_period_scaled">%1$sకు 7 రో/1 సం: ఎక్స్ఛేంజ్ ధరకు స్కేల్ చేసిన Binance చరిత్ర</string>
 

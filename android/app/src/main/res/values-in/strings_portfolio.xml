@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">Riwayat tidak tersedia saat ini.</string>
     <string name="portfolio_history_utc_days">Hari dalam UTC (candle harian)</string>
     <string name="portfolio_history_without_matching">Tanpa %1$s (tidak ada harga harian yang cocok)</string>
+    <string name="portfolio_history_entry">Masuk sejak harga harian pertama: %1$s (sebelumnya tidak ada harga harian)</string>
     <string name="portfolio_period_rewards">Hadiah +%1$s (tidak termasuk untung)</string>
     <string name="portfolio_period_scaled">7 H/1 T untuk %1$s: riwayat Binance diskalakan ke harga bursa</string>
 

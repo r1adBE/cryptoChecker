@@ -15,6 +15,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredMove
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.fallbacks
 import com.cryptochecker.app.domain.portfolio.csvimport.withFallbacks
 import java.io.File
@@ -110,17 +111,37 @@ class CsvTransferMatchParityTest {
         }
     }
 
-    /** «Auf eigene Wallet» mit freiem Kandidaten verknüpft ihn (sonst zählte die Einzahlung doppelt). */
+    private fun keys(v: Any?): Set<String> = (v as List<*>?)?.map { it as String }?.toSet() ?: emptySet()
+
+    /**
+     * «Auf eigene Wallet» verknüpft nur einen eindeutigen üblichen Kandidaten mit freier Einzahlung (sonst zählte die
+     * Einzahlung doppelt) — nie einen weiten, nie nach Ausschalten (declined). Früher nahm sie den besten Kandidaten, auch
+     * einen weiten: das verknüpfte eine fremde Einzahlung ohne Zutun und erfand eine Gebühr.
+     */
     @Test
-    fun ownWalletLinksTheBestFreeCandidate() {
+    fun ownWalletLinksOnlyAnUnambiguousUsualCandidate() {
         val all = cases().filter { it["ownWallet"] != null }
-        assertTrue(all.size >= 3)
+        assertTrue(all.size >= 4)
         all.forEach { c ->
             val links = linksOf(c)
             c["ownWallet"].list().map { it.obj() }.forEach { t ->
-                val chosen = t["chosen"].list().map { it as String }.toSet()
-                assertEquals("${c["name"]} ownWallet $t", t["expected"].list().map { it as String }.toSet(),
-                    CsvTransferMatch.linkOwnWallet(links, chosen, t["withdrawal"] as String))
+                assertEquals("${c["name"]} ownWallet $t", keys(t["expected"]),
+                    CsvTransferMatch.linkOwnWallet(links, keys(t["chosen"]), t["withdrawal"] as String, keys(t["declined"])))
+            }
+        }
+    }
+
+    /** Alle Auszahlungen mit «Auf eigene Wallet»: zwei werben um dieselbe Einzahlung → keine verknüpft. */
+    @Test
+    fun ownWalletsSkipContestedLooseAndDeclinedCandidates() {
+        val all = cases().filter { it["ownWallets"] != null }
+        assertTrue(all.size >= 2)
+        all.forEach { c ->
+            val links = linksOf(c)
+            c["ownWallets"].list().map { it.obj() }.forEach { t ->
+                val choices = t["choices"].obj().mapValues { CsvWithdrawalChoice.valueOf(it.value as String) }
+                assertEquals("${c["name"]} ownWallets $t", keys(t["expected"]),
+                    CsvImportMapping.linkOwnWallets(links, keys(t["chosen"]), choices, keys(t["declined"])))
             }
         }
     }

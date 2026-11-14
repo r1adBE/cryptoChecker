@@ -8,8 +8,9 @@
     <string name="why_details_hide">Részletek elrejtése</string>
     <string name="why_disclaimer">Automatikus értékelés piaci adatokból: azt mutatja, mi történik egy időben, nem bizonyítja az okot.</string>
     <string name="why_footer_short">Az egyidejűség nem ok · Nem befektetési tanácsadás</string>
-    <string name="why_no_data">Nincs Binance-adat ehhez a párhoz</string>
-    <string name="why_no_data_hint">Az árfolyam, a forgalom és a volatilitás a Binance órás gyertyáiból származik.</string>
+    <string name="why_no_candles">Ehhez a párhoz nincsenek órás gyertyák</string>
+    <string name="why_no_candles_hint">Az árfolyam, a forgalom és a volatilitás a(z) %1$s órás gyertyáiból, vagy ha lehet, egy másik, ugyanazt az érmét kínáló tőzsdéről származik.</string>
+    <string name="why_no_data_retry_hint">Az árfolyamot, a forgalmat és a volatilitást nem sikerült betölteni. Próbáld újra.</string>
     <string name="why_ref_alts">Altok</string>
     <string name="why_section_context">Lehetséges értelmezés</string>
     <string name="why_section_observation">Megfigyelés</string>

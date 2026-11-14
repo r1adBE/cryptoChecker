@@ -40,26 +40,6 @@ extension BackupManager {
         }
     }
 
-    /// Gespeicherter Stand gerade nicht (ganz) lesbar — Merkliste gesperrt, `portfolio.json`, `watched_addresses.json`
-    /// bzw. `portfolio_alarms.json` da, aber nicht lesbar? Dann weder sichern (die Datei enthielte ihn nicht und sähe
-    /// gültig aus) noch einspielen (das Journal hielte einen leeren Stand) — wie Android `ensureStoredReadable`.
-    /// Einzelne übersprungene Einträge (neuere Version) zählen nicht: Die Datei ist gelesen, ihre Kopie liegt daneben.
-    @MainActor
-    static func storageKept(_ data: AppData) -> Bool {
-        let alarmsUnreadable = data.snapshot.portfolioAlarms == nil
-            && FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path)
-        return storageKept(watchlistLocked: data.watchlistLocked,
-                           portfolioUnreadable: !data.portfolioIntact && data.portfolioFile.dropped == 0,
-                           addressesUnreadable: !data.watchedAddressIntact && data.watchedAddresses.isEmpty,
-                           portfolioAlarmsUnreadable: alarmsUnreadable)
-    }
-
-    /// Rein (testbar): ein Teil nicht lesbar → abgelehnt.
-    static func storageKept(watchlistLocked: Bool, portfolioUnreadable: Bool, addressesUnreadable: Bool,
-                            portfolioAlarmsUnreadable: Bool) -> Bool {
-        watchlistLocked || portfolioUnreadable || addressesUnreadable || portfolioAlarmsUnreadable
-    }
-
     /// Meldung zu einem gescheiterten Wiederherstellen (Schlüssel des Texts) — wie Android `BackupMessage`.
     static func restoreFailureKey(_ error: Error) -> String {
         switch error {
@@ -72,14 +52,32 @@ extension BackupManager {
         }
     }
 
-    /// Journal: bisheriger Stand im Sicherungsformat (mit eigenem Server) samt Alarm-Zustand.
+    /// Journal: bisheriger Stand im Sicherungsformat (mit eigenem Server) samt Alarm-Zustand und den beschädigten Dateien,
+    /// die das Wiederherstellen daneben legt (`journalDamagedKey`).
     @MainActor
     static func journalData(_ data: AppData) throws -> Data {
         let input = exportInput(data)
         var root = exportRoot(input, encrypted: true)
         let state = JournalAlarmState(alarms: input.alarms, portfolioAlarms: data.snapshot.portfolioAlarms ?? [])
         root[journalStateKey] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(state))
+        let damaged = [data.portfolioIntact ? nil : damagedPortfolio, data.watchedAddressIntact ? nil : damagedAddresses]
+        if !damaged.compactMap({ $0 }).isEmpty { root[journalDamagedKey] = damaged.compactMap { $0 } }
         return try encode(root)
+    }
+
+    /// Schlüssel im Journal: Teile, deren beschädigte Datei das Wiederherstellen daneben legt (R4-02). Das Zurückrollen nach
+    /// einem Abbruch legt sie unverändert zurück, statt den leeren Stand des Journals stehen zu lassen.
+    static let journalDamagedKey = "journalDamaged"
+    static let damagedPortfolio = "portfolio"
+    static let damagedAddresses = "watchedAddresses"
+
+    /// Zurückrollen nach einem Abbruch (`journal` false): die im Journal genannten beschädigten Dateien zurücklegen —
+    /// wie das Zurückrollen eines gescheiterten Laufs (`rollBackPortfolio`, `AppData.rollBackWatchedAddresses`).
+    @MainActor
+    static func putBackJournalDamaged(_ root: [String: Any], into data: AppData) {
+        let parts = Set(root[journalDamagedKey] as? [String] ?? [])
+        if parts.contains(damagedPortfolio) { rollBackPortfolio(PortfolioFile(), wasIntact: false, into: data) }
+        if parts.contains(damagedAddresses) { data.rollBackWatchedAddresses(WatchedAddressFile(), wasIntact: false) }
     }
 
     /// Alarm-Zustand aus dem Journal; nil = keiner (Sicherungsdatei) oder unlesbar.

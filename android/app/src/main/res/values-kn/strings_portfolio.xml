@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ಸದ್ಯ ಇತಿಹಾಸ ಲಭ್ಯವಿಲ್ಲ.</string>
     <string name="portfolio_history_utc_days">UTC ಯಲ್ಲಿ ದಿನಗಳು (ದೈನಂದಿನ ಕ್ಯಾಂಡಲ್‌ಗಳು)</string>
     <string name="portfolio_history_without_matching">%1$s ಇಲ್ಲದೆ (ಹೊಂದುವ ದೈನಂದಿನ ಬೆಲೆಗಳಿಲ್ಲ)</string>
+    <string name="portfolio_history_entry">ಮೊದಲ ದೈನಂದಿನ ಬೆಲೆಯಿಂದ ಎಣಿಕೆ: %1$s (ಮೊದಲು ದೈನಂದಿನ ಬೆಲೆಗಳಿಲ್ಲ)</string>
     <string name="portfolio_period_rewards">ಬಹುಮಾನಗಳು +%1$s (ಲಾಭದಲ್ಲಿಲ್ಲ)</string>
     <string name="portfolio_period_scaled">%1$s ಗೆ 7 ದಿ/1 ವ: ಎಕ್ಸ್‌ಚೇಂಜ್ ಬೆಲೆಗೆ ಹೊಂದಿಸಿದ Binance ಇತಿಹಾಸ</string>
 

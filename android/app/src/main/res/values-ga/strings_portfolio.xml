@@ -227,6 +227,7 @@
     <string name="portfolio_history_unavailable">Níl stair ar fáil anois.</string>
     <string name="portfolio_history_utc_days">Laethanta in UTC (coinnle laethúla)</string>
     <string name="portfolio_history_without_matching">Gan %1$s (gan praghsanna laethúla meaitseála)</string>
+    <string name="portfolio_history_entry">Iontráil ag an gcéad phraghas laethúil: %1$s (gan praghsanna laethúla roimhe sin)</string>
     <string name="portfolio_period_rewards">Luach saothair +%1$s (ní sa ghnóthachan)</string>
     <string name="portfolio_period_scaled">7 L/1 B do %1$s: stair Binance scálaithe go praghas an mhalartáin</string>
 

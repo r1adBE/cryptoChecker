@@ -189,16 +189,30 @@ enum ExchangeHTTP {
     /// Antwort (`expectedContentLength`) gar nicht erst lesen. So landet nie mehr als die Grenze (plus ein
     /// Block) im Speicher. `limit` nil = Grenze der Session (`bodyLimit`); eigene Sessions (beobachtete Adressen)
     /// geben ihre Grenze mit.
+    ///
+    /// «Akku & Aktivität»: jede Anfrage zählt (`UsageTaskMetrics`, Bytes wie übertragen). Sessions mit eigenem Delegate
+    /// (Weiterleitungs-Regel der beobachteten Adressen) bekommen keinen zweiten — sie zählen hier die gelesenen Bytes.
     static func readLimited(_ request: URLRequest, session: URLSession,
                             limit: Int? = nil) async throws -> (Data, URLResponse) {
-        let (bytes, response) = try await session.bytes(for: request)
+        let metered = session.delegate == nil
+        let delegate: (any URLSessionTaskDelegate)? = metered ? UsageTaskMetrics.shared : nil
+        let opened: (URLSession.AsyncBytes, URLResponse)
+        do {
+            opened = try await session.bytes(for: request, delegate: delegate)
+        } catch {
+            if !metered { UsageMeter.shared.countRequest(bytes: 0) }
+            throw error
+        }
+        let (bytes, response) = opened
         let limit = limit ?? bodyLimit(session: session)
         do {
             let data = try await collectLimited(bytes, limit: limit, expected: response.expectedContentLength)
+            if !metered { UsageMeter.shared.countRequest(bytes: Int64(data.count)) }
             return (data, response)
         } catch {
             // Zu gross oder abgebrochen: die Übertragung sofort beenden, nicht im Hintergrund weiterladen
             bytes.task.cancel()
+            if !metered { UsageMeter.shared.countRequest(bytes: 0) }
             throw error
         }
     }

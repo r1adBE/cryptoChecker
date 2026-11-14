@@ -34,11 +34,30 @@ final class WatchlistWriteFailedTests: XCTestCase {
                                                 includePortfolioInBackup: false, keys: keys()))
         XCTAssertTrue(SharedStorage.watchlistWriteFailed)
         XCTAssertFalse(SharedStorage.watchlistPending)
-        // Nächstes Schreiben gelingt: Merker weg
+        // Nächstes Schreiben gelingt: Merker bleibt (G4-03) — `writeFiles` schreibt auch Stände aus der Datei
+        // (`updateSnapshot` im Hintergrund-Abruf) ohne die ungespeicherte Änderung im Speicher der App; früher löschte
+        // jedes geglückte Schreiben den Merker, und das nächste Lesen ersetzte die Änderung still
         XCTAssertTrue(SharedStorage.writeFiles(snapshot, watchlist: dir.appendingPathComponent("watchlist.json"),
                                                portfolioAlarms: dir.appendingPathComponent("pa.json"),
                                                includePortfolioInBackup: false, keys: keys()))
-        XCTAssertFalse(SharedStorage.watchlistWriteFailed)
+        XCTAssertTrue(SharedStorage.watchlistWriteFailed)
+    }
+
+    /// Gelöscht wird der Merker nur, wenn der Stand der App geschrieben ist (`saveSnapshotInBackground`), nie in
+    /// `writeFiles` bzw. `updateSnapshot` (Stand aus der Datei).
+    func testMerkerFaelltNurMitDemStandDerApp() throws {
+        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+        let files = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Files.swift"), encoding: .utf8)
+        XCTAssertFalse(files.contains("watchlistWriteFailed = false"))
+        let snapshot = try String(contentsOf: root.appendingPathComponent("Shared/Storage/SharedStorage+Snapshot.swift"),
+                                  encoding: .utf8)
+        XCTAssertEqual(snapshot.components(separatedBy: "watchlistWriteFailed = false").count - 1, 1)
+        let save = try XCTUnwrap(snapshot.components(separatedBy: "static func saveSnapshotInBackground(").last)
+        XCTAssertTrue(save.components(separatedBy: "static func mergeAndWriteFiles(").first?
+            .contains("if written { watchlistWriteFailed = false }") == true)
+        let update = try XCTUnwrap(snapshot.components(separatedBy: "static func updateSnapshot(").last?
+            .components(separatedBy: "static func saveSnapshotInBackground(").first)
+        XCTAssertFalse(update.contains("watchlistWriteFailed"))
     }
 
     /// Liegen gebliebene Zwischendateien (N3-11): nur alte `.<Name>.<UUID>.tmp` weg; junge und echte Dateien bleiben.

@@ -62,7 +62,7 @@ fun SettingsViewModel.setAlarmSound(uri: android.net.Uri?) = update {
 /** Eigene Audiodatei übernehmen (ab Android 10). Meldet Fehler über [soundError]. */
 fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
     if (!AlarmSoundStore.supportsCustomFile) return@update
-    val imported = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+    val imported = kotlinx.coroutines.withContext(ioDispatcher) {
         AlarmSoundStore.importFile(context, source)
     }
     if (imported == null) {
@@ -80,7 +80,7 @@ fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
  */
 private suspend fun SettingsViewModel.deletePreviousOwnTone(previous: String?, next: String?) {
     if (!AlarmSoundStore.supportsCustomFile) return
-    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+    kotlinx.coroutines.withContext(ioDispatcher) {
         AlarmSoundStore.deletePreviousIfOwn(context, previous, next)
     }
 }

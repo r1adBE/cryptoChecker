@@ -8,8 +8,9 @@
     <string name="why_details_hide">Itago ang mga detalye</string>
     <string name="why_disclaimer">Awtomatikong pagtatasa mula sa market data: ipinapakita nito kung ano ang nangyayari nang sabay, hindi patunay ng sanhi.</string>
     <string name="why_footer_short">Ang sabay ay hindi nangangahulugang sanhi · Hindi investment advice</string>
-    <string name="why_no_data">Walang data mula sa Binance para sa pares na ito</string>
-    <string name="why_no_data_hint">Galing sa mga hourly candle ng Binance ang presyo, volume at volatility.</string>
+    <string name="why_no_candles">Walang hourly candle para sa pares na ito</string>
+    <string name="why_no_candles_hint">Galing ang presyo, volume at volatility sa mga hourly candle ng %1$s o, kung maaari, sa ibang exchange na may parehong coin.</string>
+    <string name="why_no_data_retry_hint">Hindi ma-load ang presyo, volume at volatility. Subukan ulit.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Posibleng paliwanag</string>
     <string name="why_section_observation">Obserbasyon</string>

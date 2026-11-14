@@ -122,8 +122,8 @@ extension AppData {
     }
 
     /// Daten für «Was bewegt sich mit?»; nil, wenn abgebrochen.
-    nonisolated func explain(_ watch: Watch) async -> WhyReport? {
-        await ActivityMonitor.explain(watch)
+    nonisolated func explain(_ watch: Watch, refresh: Bool = false) async -> WhyReport? {
+        await ActivityMonitor.explain(watch, refresh: refresh)
     }
 
     /// Pausen je Börse neu lesen (gemeinsam mit Hintergrund und Widget gespeichert); nur bei Änderung veröffentlichen.

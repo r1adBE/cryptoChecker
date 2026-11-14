@@ -15,7 +15,7 @@
     <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->
     <string name="alarm_last_check">Last checked: %1$s</string>
     <!-- Ergebnisse einer Alarm-Prüfung (AlarmLogOutcome) -->
-    <string name="alarm_outcome_fired">Fired</string>
+    <string name="alarm_outcome_fired">Triggered</string>
     <string name="alarm_outcome_not_reached">Threshold not reached</string>
     <string name="alarm_outcome_already_triggered">Already reported – waits until the price is back on the other side</string>
     <string name="alarm_outcome_cooldown">Not fired – quiet time after the last alert</string>

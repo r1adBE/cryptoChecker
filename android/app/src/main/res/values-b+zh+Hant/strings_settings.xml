@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">比特幣指標每天檢查兩次。門檻由你選擇——應用程式不評價這些數值。</string>
     <string name="settings_macro_notifications">經濟日曆</string>
     <string name="settings_macro_notifications_hint">在有重要美國經濟數據（通膨、就業報告、聯準會利率決議）的日子 08:00 提醒。日曆每天從應用程式網站載入一次。</string>
+    <string name="settings_macro_notifications_us_hint">在美國，通知最遲於紐約時間 08:00 送達，早於第一批數據。</string>
     <string name="settings_market_alerts">市場通知</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">分享</string>
     <string name="settings_price_overlay">價格浮動視窗</string>
     <string name="settings_price_overlay_hint">以小型懸浮膠囊在其他應用程式上方顯示常駐價格通知中的交易對。點按可開啟應用程式，拖到底部的 × 可關閉。</string>
+    <string name="settings_price_overlay_restart_hint">如果系統關閉了 App，價格浮動視窗會在下次背景更新時恢復。</string>
     <string name="settings_price_overlay_needs">僅在開啟「%1$s」時可用。</string>
     <string name="settings_price_overlay_grant">允許顯示在其他應用程式上層</string>
     <string name="price_overlay_close">關閉浮動視窗</string>

@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin rādītāji, pārbaudīti divreiz dienā. Robežas izvēlies tu – lietotne vērtības nevērtē.</string>
     <string name="settings_macro_notifications">Ekonomikas kalendārs</string>
     <string name="settings_macro_notifications_hint">Plkst. 08:00 dienās ar svarīgiem ASV ekonomikas datiem (inflācija, darba tirgus pārskats, FRS lēmums). Kalendārs nāk no lietotnes vietnes, ielādēts reizi dienā.</string>
+    <string name="settings_macro_notifications_us_hint">ASV paziņojums pienāk ne vēlāk kā 08:00 pēc Ņujorkas laika, pirms pirmajiem datiem.</string>
     <string name="settings_market_alerts">Tirgus brīdinājumi</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Kopīgot</string>
     <string name="settings_price_overlay">Cenas pārklājums</string>
     <string name="settings_price_overlay_hint">Rāda pastāvīgā cenas paziņojuma pārus kā mazu peldošu plāksnīti virs citām lietotnēm. Pieskaroties atveras lietotne, velkot uz × apakšā – aizveras.</string>
+    <string name="settings_price_overlay_restart_hint">Ja sistēma aizver lietotni, cenas pārklājums atgriežas ar nākamo atjaunināšanu fonā.</string>
     <string name="settings_price_overlay_needs">Darbojas tikai kopā ar „%1$s“.</string>
     <string name="settings_price_overlay_grant">Atļaut rādīt virs citām lietotnēm</string>
     <string name="price_overlay_close">Aizvērt pārklājumu</string>

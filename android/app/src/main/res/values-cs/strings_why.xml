@@ -8,8 +8,9 @@
     <string name="why_details_hide">Skrýt podrobnosti</string>
     <string name="why_disclaimer">Automatické vyhodnocení z tržních dat: ukazuje, co se děje současně, není to důkaz příčiny.</string>
     <string name="why_footer_short">Současně neznamená příčinu · Žádné investiční doporučení</string>
-    <string name="why_no_data">Žádná data z Binance pro tento pár</string>
-    <string name="why_no_data_hint">Cena, objem a volatilita pocházejí z hodinových svíček Binance.</string>
+    <string name="why_no_candles">Pro tento pár nejsou hodinové svíčky</string>
+    <string name="why_no_candles_hint">Cena, objem a volatilita pocházejí z hodinových svíček %1$s, nebo pokud to jde, z jiné burzy se stejnou mincí.</string>
+    <string name="why_no_data_retry_hint">Cenu, objem a volatilitu se nepodařilo načíst. Zkus to znovu.</string>
     <string name="why_ref_alts">Alty</string>
     <string name="why_section_context">Možný výklad</string>
     <string name="why_section_observation">Pozorování</string>

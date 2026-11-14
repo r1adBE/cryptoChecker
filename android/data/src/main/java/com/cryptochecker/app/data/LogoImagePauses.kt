@@ -53,6 +53,18 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
         prefs.edit { putString(KEY_FAILED, failures.entries.joinToString(";") { "${it.key}:${it.value}" }) }
     }
 
+    /**
+     * Nach einem Durchgang, der nicht am Netz scheiterte: offene Bilder ([open], gestört bzw. gebremst) zählen, die übrigen
+     * versuchten ([attempted]) vergessen ([CoinLogoRetry.nextOpenPasses]). Ergebnis: die Bilder, die jetzt
+     * [CoinLogoRetry.OPEN_PASSES_FAIL] Durchgänge in Folge offen sind — sie gelten als gescheitert (Tagessperre).
+     */
+    fun noteOpenPasses(attempted: Collection<String>, open: Collection<String>): Set<String> {
+        val next = CoinLogoRetry.nextOpenPasses(CoinLogoRetry.decodeOpenPasses(prefs.getString(KEY_OPEN_PASSES, null)), attempted, open)
+        val failed = next.filterValues { CoinLogoRetry.openPassesFail(it) }.keys
+        prefs.edit { putString(KEY_OPEN_PASSES, CoinLogoRetry.encodeOpenPasses(next - failed)) }
+        return failed
+    }
+
     /** Kürzeste verbleibende Pause der Server von [jobs] (ms); null = keiner (mehr) pausiert — wie iOS `remainingMillis`. */
     fun shortestPauseMillis(jobs: List<Pair<String, String>>): Long? {
         val now = System.currentTimeMillis()
@@ -94,5 +106,7 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
         const val KEY_FAILED = "failed"
         /** Pausen je Bild-Server ([CoinLogoRetry.encodePauses]). */
         const val KEY_IMAGE_PAUSES = "image_pauses"
+        /** Offene Durchgänge je Bild ([noteOpenPasses], [CoinLogoRetry.encodeOpenPasses]). */
+        const val KEY_OPEN_PASSES = "open_passes"
     }
 }

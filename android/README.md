@@ -26,7 +26,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   `WatchInterval`); Liste «wie Handy» (Favoriten ★) oder eigene (bis 8 Coins), Abgleich über die Wear-Daten-Schicht;
   Komplikationen mit dem Kurs des ersten Coins («84’450», langes Feld mit Paar, Kurs und 24 h) und (nur mit Schalter)
   dem Portfolio-Wert, sonst «am Handy einschalten»; alter Kurs grau mit Alter.
-* **Preis-Overlay** (optional, Berechtigung «Über anderen Apps einblenden») — Pille mit bis zu 3 Paaren der dauerhaften
+* **Kurs-Overlay** (optional, Berechtigung «Über anderen Apps einblenden») — Pille mit bis zu 3 Paaren der dauerhaften
   Kurs-Mitteilung über anderen Apps, verschiebbar, Tippen öffnet die App (`overlay/`).
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
   alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
@@ -163,7 +163,7 @@ app/
   notification/ Kanäle und Benachrichtigungen
   settings/   Einstellungs-Hilfen der Oberfläche (Sprachen, Akzentfarbe, Kurzwerte, Rückfragen, Einstellungs-Suche);
               DataStore liegt in data/settings, «Wie aktuell?» in domain/settings
-  overlay/    Preis-Overlay über anderen Apps
+  overlay/    Kurs-Overlay über anderen Apps
   tts/        Sprachausgabe
   util/       Hilfen (Zahlen-Eingabe, TalkBack-Texte, Chart-Beschreibungen)
   wearable/   Abgleich mit der Uhr (Wear-Daten-Schicht)

@@ -81,7 +81,7 @@ internal class WatchlistContentFlows(
         // gibt, «Alpha» nur mit Alpha- und anderen Paaren
         if (!WatchFilter.isAvailable(group, groupNames, alphaFlags)) {
             val renamed = group?.let { renamedGroup(it) }?.takeIf { it in groups }
-            settingsRepository.setWatchlistGroup(renamed)
+            settingsRepository.guarded { setWatchlistGroup(renamed) }
             GroupFilter(groups, renamed, tokens, alpha, kinds)
         } else {
             GroupFilter(groups, group, tokens, alpha, kinds)

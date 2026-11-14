@@ -8,8 +8,9 @@
     <string name="why_details_hide">Amaga els detalls</string>
     <string name="why_disclaimer">Valoració automàtica a partir de dades del mercat: mostra què passa al mateix temps, no és una prova d\'una causa.</string>
     <string name="why_footer_short">Simultani no vol dir causa · No és un assessorament d\'inversió</string>
-    <string name="why_no_data">No hi ha dades de Binance per a aquest parell</string>
-    <string name="why_no_data_hint">El preu, el volum i la volatilitat provenen d\'espelmes horàries de Binance.</string>
+    <string name="why_no_candles">No hi ha espelmes horàries per a aquest parell</string>
+    <string name="why_no_candles_hint">El preu, el volum i la volatilitat provenen d\'espelmes horàries de %1$s o, si és possible, d\'un altre exchange amb la mateixa moneda.</string>
+    <string name="why_no_data_retry_hint">No s\'han pogut carregar el preu, el volum i la volatilitat. Torna-ho a provar.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Possible explicació</string>
     <string name="why_section_observation">Observació</string>

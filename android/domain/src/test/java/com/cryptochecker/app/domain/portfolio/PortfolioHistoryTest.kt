@@ -91,21 +91,33 @@ class PortfolioHistoryTest {
         assertEquals(366, year.points.size)
     }
 
+    /**
+     * NEW gehalten ab Tag −20, erste Kerze erst Tag −5 (Liefergrenze der Börse oder Kauf vor dem Listing): zählt ab Tag
+     * −5 mit «Einstieg» — sein Wert dort ist ein Zufluss, «Veränderung ohne Käufe» und Gewinn/Verlust bleiben ohne Sprung.
+     * Früher fehlte NEW im ganzen Zeitraum (und allein gab es gar keinen Verlauf).
+     */
     @Test
-    fun coinHeldBeforeItsFirstCloseIsSkippedWithoutJump() {
-        // NEW gehalten ab Tag −20, erste Kerze erst Tag −5: fehlt im ganzen Zeitraum (sonst Sprung am Tag −5)
+    fun coinHeldBeforeItsFirstCloseEntersWithoutJump() {
         val trades = listOf(buy("BTC", 1.0, noon(today - 20)), buy("NEW", 1.0, noon(today - 20)))
         val closes = mapOf("BTC" to (0 until 30).associate { (today - it) to 50.0 }, "NEW" to (1..5).associate { (today - it) to 10.0 })
         val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 50.0, "NEW" to 10.0), PortfolioHistoryRange.WEEK, today)
-        assertEquals(listOf("NEW"), s.skipped)
-        assertEquals(50.0, s.points.first().value, d)
-        assertEquals(50.0, s.points.last().value, d)
-        assertEquals(0.0, s.change!!, d)
+        assertTrue(s.skipped.isEmpty())
+        assertEquals(mapOf("NEW" to today - 5), s.entries)
+        assertEquals(listOf(50.0, 50.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0), s.points.map { it.value })
+        assertEquals(10.0, s.change!!, d)
+        assertEquals(listOf(PortfolioCashFlow(today - 5, 10.0)), s.cashFlows)
+        assertEquals(0.0, s.netChange!!, d)
+        assertTrue(s.tradesInRange)
         assertTrue(s.pnlSkipped.isEmpty())
-        // Allein: kein Verlauf statt einer Kurve mit Sprung
+        assertEquals(0.0, s.pnlChange!!, d)
+        // Allein: Verlauf ab dem ersten Kurs-Tag (keine Nullen davor), der Einstieg ist dort der Anfangswert
         val alone = PortfolioHistory.build(listOf(buy("NEW", 1.0, noon(today - 20))), closes, mapOf("NEW" to 10.0), PortfolioHistoryRange.WEEK, today)
-        assertEquals(listOf("NEW"), alone.skipped)
-        assertTrue(alone.points.isEmpty())
+        assertTrue(alone.skipped.isEmpty())
+        assertEquals(mapOf("NEW" to today - 5), alone.entries)
+        assertEquals(today - 5, alone.points.first().epochDay)
+        assertEquals(List(6) { 10.0 }, alone.points.map { it.value })
+        assertEquals(emptyList<PortfolioCashFlow>(), alone.cashFlows)
+        assertEquals(0.0, alone.pnlChange!!, d)
     }
 
     @Test
@@ -208,14 +220,19 @@ class PortfolioHistoryTest {
     }
 
     @Test
-    fun beforeFirstCandleCoinDoesNotCount() {
+    fun beforeFirstCandleCoinCountsFromItsFirstClose() {
         val trades = listOf(buy("NEW", 1.0, noon(today - 3)))
         val closes = mapOf("NEW" to mapOf(today - 1 to 5.0))
         val s = PortfolioHistory.build(trades, closes, mapOf("NEW" to 5.0), PortfolioHistoryRange.WEEK, today)
-        // Gehalten vor der ersten Kerze: der Coin fehlt im ganzen Zeitraum (kein Sprung von 0 auf 5), steht unter «ohne …»
-        assertTrue(s.points.isEmpty())
-        assertEquals(listOf("NEW"), s.skipped)
-        assertNull(s.change)
+        // Gehalten vor der ersten Kerze: ab der ersten Kerze gezählt («Einstieg»), nicht «ohne …» und kein Sprung von 0
+        assertTrue(s.skipped.isEmpty())
+        assertEquals(mapOf("NEW" to today - 1), s.entries)
+        assertEquals(listOf(5.0, 5.0), s.points.map { it.value })
+        assertEquals(0.0, s.change!!, d)
+        // Ganz ohne Kurs an einem gehaltenen Tag: weiter «ohne …»
+        val none = PortfolioHistory.build(trades, mapOf("NEW" to emptyMap()), mapOf("NEW" to 5.0), PortfolioHistoryRange.WEEK, today)
+        assertEquals(listOf("NEW"), none.skipped)
+        assertTrue(none.points.isEmpty())
     }
 
     @Test

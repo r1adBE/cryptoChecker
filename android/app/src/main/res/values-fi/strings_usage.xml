@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Akku ja aktiivisuus</string>
+    <string name="usage_intro">Sovellukset eivät voi lukea omaa virrankulutustaan. Siksi sovellus näyttää, mitä se itse teki viimeisten 24 tunnin aikana – laskettu vain tällä laitteella, ilman sisältöä.</string>
+    <string name="usage_phone">Puhelin</string>
+    <string name="usage_watch">Kello</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d taustasuoritus</item>
+        <item quantity="other">%d taustasuoritusta</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d verkkopyyntö</item>
+        <item quantity="other">%d verkkopyyntöä</item>
+    </plurals>
+    <string name="usage_received">%1$s vastaanotettu</string>
+    <string name="usage_level_low">Vähäinen aktiivisuus</string>
+    <string name="usage_level_medium">Kohtalainen aktiivisuus</string>
+    <string name="usage_level_high">Suuri aktiivisuus</string>
+    <string name="usage_driver_interval">Eniten taustatarkistuksesta (%1$s).</string>
+    <string name="usage_driver_exact">Eniten taustatarkistuksesta (%1$s) ja kohdasta ”%2$s”.</string>
+    <string name="usage_driver_none">Taustatarkistusta ei ole ajoitettu – lasketaan, mitä avoin sovellus ja widgetit hakevat.</string>
+    <string name="usage_driver_watch">Lasketaan, mitä kellosovellus ja sen komplikaatiot hakevat itse.</string>
+    <string name="usage_watch_none">Kelloa ei ole yhdistetty</string>
+    <string name="usage_as_of">Tilanne %1$s</string>
+    <string name="usage_battery_android">Android näyttää sovelluskohtaisen akunkäytön akkuasetuksissaan.</string>
+</resources>

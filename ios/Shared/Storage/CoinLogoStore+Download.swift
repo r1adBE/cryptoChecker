@@ -75,7 +75,7 @@ extension CoinLogoStore {
         }.map { DownloadJob(name: $0.name, url: $0.url, alternates: altByFile[$0.name] ?? []) }
         guard !pending.isEmpty else { return DownloadResult() }
         await CoinLogoLoading.imagesPending(pending.count, last: lastStage)
-        let attempted = pending.count
+        let names = pending.map(\.name)
         var added = 0
         var unsaved = 0
         var newFailures: [String] = []
@@ -128,8 +128,11 @@ extension CoinLogoStore {
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
         let network = CoinLogoRetry.downloadsFailedForNetwork(online: NetworkStatus.shared.isOnline,
                                                               failed: newFailures.count + transientLeft.count,
-                                                              attempted: attempted - paused.count - unsaved,
+                                                              attempted: names.count - paused.count - unsaved,
                                                               transient: transientLeft.count)
+        // Drei Durchgänge in Folge offen (gestört, gebremst) zählt wie gescheitert, sonst bliebe das erste Laden offen
+        let capped: Set<String> = network ? [] : noteOpenPasses(attempted: names, open: (transientLeft + paused).map(\.name))
+        newFailures += capped.sorted()
         if !newFailures.isEmpty, !network {
             var failed = loadFailures(now: EpochTime.nowMillis)
             for name in newFailures { failed[name] = now }
@@ -137,9 +140,10 @@ extension CoinLogoStore {
         }
         if added > 0 { await CoinLogoRevision.bump() }
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
-        let pausedUntil = paused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(paused) ?? 0)
+        let stillPaused = paused.filter { !capped.contains($0.name) }
+        let pausedUntil = stillPaused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(stillPaused) ?? 0)
         return DownloadResult(added: added, network: network, pausedUntil: pausedUntil,
-                              incomplete: !transientLeft.isEmpty || unsaved > 0)
+                              incomplete: transientLeft.contains { !capped.contains($0.name) } || unsaved > 0)
     }
 
     /// Erst `job.url`, scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als
@@ -231,8 +235,9 @@ extension CoinLogoStore {
     /// Ein Bild laden: erst der Status (Bremse auch bei grossem Körper erkennen), dann höchstens `maxImageBytes`
     /// lesen — mehr → `ResponseTooLargeError`, ohne das ganze Bild in den Speicher zu holen (wie Android `download`).
     /// `body` nil = kein Erfolg (HTTP ≠ 2xx), dann wird nichts gelesen.
+    /// Zählt für «Akku & Aktivität» (`UsageTaskMetrics`, Bytes wie übertragen).
     static func loadImage(_ url: URL, session: URLSession) async throws -> (response: HTTPURLResponse, body: Data?) {
-        let (bytes, response) = try await session.bytes(from: url)
+        let (bytes, response) = try await session.bytes(from: url, delegate: UsageTaskMetrics.shared)
         guard let http = response as? HTTPURLResponse else {
             bytes.task.cancel()
             throw URLError(.badServerResponse)
@@ -268,6 +273,20 @@ extension CoinLogoStore {
     private static func saveFailures(_ failures: [String: Int64]) {
         let text = failures.map { "\($0.key):\($0.value)" }.joined(separator: ";")
         SharedStorage.defaults.set(text, forKey: failedKey)
+    }
+
+    /// Offene Durchgänge je Bild («name=zahl;…», `CoinLogoRetry.encodeOpenPasses`).
+    static let openPassesKey = "coin_logos_open_passes"
+
+    /// Nach einem Durchgang, der nicht am Netz scheiterte: offene Bilder (`open`, gestört bzw. gebremst) zählen, die übrigen
+    /// versuchten vergessen (`CoinLogoRetry.nextOpenPasses`). Ergebnis: die Bilder, die jetzt
+    /// `CoinLogoRetry.openPassesLimit` Durchgänge in Folge offen sind — sie gelten als gescheitert. Wie Android `noteOpenPasses`.
+    private static func noteOpenPasses(attempted: [String], open: [String]) -> Set<String> {
+        let stored = CoinLogoRetry.decodeOpenPasses(SharedStorage.defaults.string(forKey: openPassesKey))
+        let next = CoinLogoRetry.nextOpenPasses(stored, attempted: attempted, open: open)
+        let failed = Set(next.filter { CoinLogoRetry.openPassesFail($0.value) }.keys)
+        SharedStorage.defaults.set(CoinLogoRetry.encodeOpenPasses(next.filter { !failed.contains($0.key) }), forKey: openPassesKey)
+        return failed
     }
 }
 

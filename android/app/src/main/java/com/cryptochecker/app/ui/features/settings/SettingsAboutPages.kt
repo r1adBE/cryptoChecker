@@ -71,6 +71,8 @@ internal fun AboutPage(
             Column(modifier = Modifier.padding(vertical = 8.dp)) {
                 AboutContent(
                     showHeading = false,
+                    // Nur im Debug-Build zählen und melden: im Release gibt es keine Entwickleroptionen, eine
+                    // Meldung «freigeschaltet» ohne neue Zeile wäre falsch
                     onVersionTap = {
                         if (!settings.developerUnlocked) {
                             versionTaps++
@@ -84,7 +86,7 @@ internal fun AboutPage(
                                 showToast(resources.getQuantityString(R.plurals.developer_taps_left, left, left))
                             }
                         }
-                    }
+                    }.takeIf { BuildConfig.DEBUG }
                 )
             }
         }

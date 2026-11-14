@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">비트코인 지표를 하루 두 번 확인합니다. 기준은 직접 고르며 앱은 값을 평가하지 않습니다.</string>
     <string name="settings_macro_notifications">경제 일정</string>
     <string name="settings_macro_notifications_hint">중요한 미국 경제 지표(물가, 고용보고서, 연준 금리 결정)가 나오는 날 08:00에 알려 줍니다. 일정은 앱 웹사이트에서 하루에 한 번 불러옵니다.</string>
+    <string name="settings_macro_notifications_us_hint">미국에서는 알림이 늦어도 뉴욕 시간 08:00, 첫 데이터 발표 전에 도착합니다.</string>
     <string name="settings_market_alerts">시장 알림</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">공유</string>
     <string name="settings_price_overlay">가격 오버레이</string>
     <string name="settings_price_overlay_hint">고정 가격 알림의 페어를 다른 앱 위에 작은 플로팅 알약 형태로 표시합니다. 탭하면 앱이 열리고, 아래의 ×로 끌면 닫힙니다.</string>
+    <string name="settings_price_overlay_restart_hint">시스템이 앱을 종료하면 가격 오버레이는 다음 백그라운드 업데이트 때 다시 나타납니다.</string>
     <string name="settings_price_overlay_needs">«%1$s»와 함께일 때만 작동합니다.</string>
     <string name="settings_price_overlay_grant">다른 앱 위에 표시 허용</string>
     <string name="price_overlay_close">오버레이 닫기</string>

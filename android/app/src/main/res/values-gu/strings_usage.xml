@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">બેટરી અને પ્રવૃત્તિ</string>
+    <string name="usage_intro">ઍપ પોતાનો વીજ વપરાશ વાંચી શકતી નથી. તેથી ઍપ બતાવે છે કે તેણે છેલ્લા 24 કલાકમાં પોતે શું કર્યું – ફક્ત આ ઉપકરણ પર ગણેલું, કોઈ સામગ્રી વિના.</string>
+    <string name="usage_phone">ફોન</string>
+    <string name="usage_watch">ઘડિયાળ</string>
+    <plurals name="usage_runs">
+        <item quantity="one">બૅકગ્રાઉન્ડ રન: %d</item>
+        <item quantity="other">બૅકગ્રાઉન્ડ રન: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">નેટવર્ક વિનંતીઓ: %d</item>
+        <item quantity="other">નેટવર્ક વિનંતીઓ: %d</item>
+    </plurals>
+    <string name="usage_received">મળેલું: %1$s</string>
+    <string name="usage_level_low">ઓછી પ્રવૃત્તિ</string>
+    <string name="usage_level_medium">મધ્યમ પ્રવૃત્તિ</string>
+    <string name="usage_level_high">વધુ પ્રવૃત્તિ</string>
+    <string name="usage_driver_interval">મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસને કારણે (%1$s).</string>
+    <string name="usage_driver_exact">મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસ (%1$s) અને “%2$s”ને કારણે.</string>
+    <string name="usage_driver_none">કોઈ બૅકગ્રાઉન્ડ તપાસ નક્કી નથી – ખુલ્લી ઍપ અને વિજેટ જે લાવે તે જ ગણાય છે.</string>
+    <string name="usage_driver_watch">ઘડિયાળની ઍપ અને તેની કૉમ્પ્લિકેશન પોતે જે લાવે તે જ ગણાય છે.</string>
+    <string name="usage_watch_none">કોઈ ઘડિયાળ કનેક્ટ નથી</string>
+    <string name="usage_as_of">%1$s મુજબ</string>
+    <string name="usage_battery_android">Android દરેક ઍપનો બેટરી વપરાશ તેની બેટરી સેટિંગમાં બતાવે છે.</string>
+</resources>

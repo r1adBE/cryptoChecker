@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Indicatori Bitcoin, verificați de două ori pe zi. Limitele le alegi tu – aplicația nu evaluează valorile.</string>
     <string name="settings_macro_notifications">Calendar economic</string>
     <string name="settings_macro_notifications_hint">La 08:00 în zilele cu date economice importante din SUA (inflație, locuri de muncă, decizia Fed). Calendarul vine de pe site-ul aplicației și se încarcă o dată pe zi.</string>
+    <string name="settings_macro_notifications_us_hint">În SUA notificarea vine cel târziu la 08:00, ora New Yorkului, înaintea primelor date.</string>
     <string name="settings_market_alerts">Alerte de piață</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Partajează</string>
     <string name="settings_price_overlay">Suprapunere prețuri</string>
     <string name="settings_price_overlay_hint">Afișează perechile din notificarea permanentă de preț ca o pastilă plutitoare mică peste alte aplicații. Atinge pentru a deschide aplicația, trage la × jos pentru a închide.</string>
+    <string name="settings_price_overlay_restart_hint">Dacă sistemul închide aplicația, suprapunerea prețurilor revine la următoarea actualizare în fundal.</string>
     <string name="settings_price_overlay_needs">Funcționează doar împreună cu «%1$s».</string>
     <string name="settings_price_overlay_grant">Permite afișarea peste alte aplicații</string>
     <string name="price_overlay_close">Închide suprapunerea</string>

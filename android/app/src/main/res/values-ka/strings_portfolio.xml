@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ისტორია ახლა მიუწვდომელია.</string>
     <string name="portfolio_history_utc_days">დღეები UTC-ით (დღიური სანთლები)</string>
     <string name="portfolio_history_without_matching">%1$s-ის გარეშე (შესაბამისი დღიური ფასები არ არის)</string>
+    <string name="portfolio_history_entry">აღრიცხულია პირველი დღიური ფასიდან: %1$s (ადრე დღიური ფასები არ არის)</string>
     <string name="portfolio_period_rewards">ჯილდოები +%1$s (მოგებაში არ შედის)</string>
     <string name="portfolio_period_scaled">7 დ/1 წ %1$s-ისთვის: Binance-ის ისტორია ბირჟის ფასზე მასშტაბირებული</string>
 

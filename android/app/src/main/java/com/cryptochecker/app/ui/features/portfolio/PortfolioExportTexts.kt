@@ -121,6 +121,7 @@ internal fun cutoffTexts(currency: String): CutoffCsvTexts = CutoffCsvTexts(
     noPrice = stringResource(R.string.portfolio_export_no_price),
     noFx = stringResource(R.string.portfolio_export_no_fx),
     unchecked = stringResource(R.string.portfolio_export_unchecked),
+    unavailable = stringResource(R.string.portfolio_price_unavailable),
     incomplete = stringResource(R.string.portfolio_export_incomplete),
     // Ohne Argumente bleibt %1$s … stehen und wird erst beim Bauen ersetzt
     commentFormat = stringResource(R.string.portfolio_export_comment),

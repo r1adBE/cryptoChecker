@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Indicatori Bitcoin, controllati due volte al giorno. Le soglie le scegli tu – l’app non valuta i valori.</string>
     <string name="settings_macro_notifications">Calendario economico</string>
     <string name="settings_macro_notifications_hint">Alle 08:00 nei giorni con dati economici USA importanti (inflazione, occupazione, decisione della Fed). Il calendario arriva dal sito web dell\'app e viene caricato una volta al giorno.</string>
+    <string name="settings_macro_notifications_us_hint">Negli USA la notifica arriva al più tardi alle 08:00 ora di New York, prima dei primi dati.</string>
     <string name="settings_market_alerts">Avvisi di mercato</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Condividi</string>
     <string name="settings_price_overlay">Overlay prezzi</string>
     <string name="settings_price_overlay_hint">Mostra le coppie della notifica prezzi permanente in una piccola pillola fluttuante sopra le altre app. Tocca per aprire l’app, trascina sulla × in basso per chiudere.</string>
+    <string name="settings_price_overlay_restart_hint">Se il sistema chiude l\'app, l\'overlay prezzi torna con il prossimo aggiornamento in background.</string>
     <string name="settings_price_overlay_needs">Funziona solo insieme a «%1$s».</string>
     <string name="settings_price_overlay_grant">Consenti la visualizzazione sopra altre app</string>
     <string name="price_overlay_close">Chiudi overlay</string>

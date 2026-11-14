@@ -95,19 +95,29 @@ object HistoricCloseChain {
     /**
      * Ergebnis einer Quelle: übernommener Schluss oder keiner; [rejected] = es gab einen, der die Prüfung nicht bestand.
      * [provider] = genauerer Anbieter des Treffers (z. B. «Binance.US» in der Binance-Gruppe); null = [provider] der Quelle.
+     * [failed] = die Quelle antwortete mit einem Fehler (auch nach der Wiederholung, [FetchFailure.TRANSIENT]);
+     * [unreachable] = sie antwortete gar nicht ([FetchFailure.UNREACHABLE]).
      */
-    data class Outcome(val price: Double?, val rejected: Boolean = false, val provider: String? = null, val failed: Boolean = false)
+    data class Outcome(
+        val price: Double?,
+        val rejected: Boolean = false,
+        val provider: String? = null,
+        val failed: Boolean = false,
+        val unreachable: Boolean = false,
+    )
 
     /**
-     * Art eines gescheiterten Abrufs ([httpCode] = HTTP-Status, null = Netz, Zeitgrenze oder unlesbare Antwort):
+     * Art eines gescheiterten Abrufs ([httpCode] = HTTP-Status, null = keine Antwort: Netz, DNS, Zeitgrenze):
      * [FetchFailure.NO_DATA] (4xx: Paar unbekannt) und [FetchFailure.BLOCKED] (403/451: Geo-Sperre) → nächste Quelle wie
-     * «keine Kerze»; [FetchFailure.TRANSIENT] (Netz, 5xx, 408, 429/418) → einmal wiederholen, sonst bricht die Kette für
-     * diesen Tag ab ([Outcome.failed]): eine andere Quelle hätte einen anderen Kurs, der Export wäre nicht wiederholbar.
+     * «keine Kerze»; [FetchFailure.TRANSIENT] (die Quelle antwortet, aber mit 5xx, 408, 429/418) → einmal wiederholen,
+     * sonst bricht die Kette für diesen Tag ab ([Outcome.failed]): eine andere Quelle hätte einen anderen Kurs, der
+     * Export wäre nicht wiederholbar. [FetchFailure.UNREACHABLE] (gar keine Antwort, auch nach der Wiederholung — z. B.
+     * per DNS oder vom Anbieter gesperrt) → die Quelle wird übersprungen wie gesperrt ([Outcome.unreachable], [resolve]).
      */
-    enum class FetchFailure { NO_DATA, BLOCKED, TRANSIENT }
+    enum class FetchFailure { NO_DATA, BLOCKED, TRANSIENT, UNREACHABLE }
 
     fun fetchFailure(httpCode: Int?): FetchFailure = when {
-        httpCode == null -> FetchFailure.TRANSIENT
+        httpCode == null -> FetchFailure.UNREACHABLE
         httpCode == 403 || httpCode == 451 -> FetchFailure.BLOCKED
         httpCode == 408 || httpCode == 418 || httpCode == 429 || httpCode >= 500 -> FetchFailure.TRANSIENT
         httpCode in 400..499 -> FetchFailure.NO_DATA
@@ -123,17 +133,23 @@ object HistoricCloseChain {
         val source: String?,
         val unchecked: Boolean,
         val provider: String? = null,
-        /** Eine Quelle war nicht erreichbar ([Outcome.failed]): kein Kurs, die Kette brach dort ab (später erneut). */
+        /**
+         * Kein Kurs, weil eine Quelle nicht abrufbar war ([Outcome.failed], oder [Outcome.unreachable] und keine spätere
+         * Quelle hatte einen Schluss): «nicht abrufbar» statt «ohne Kurs» (später erneut).
+         */
         val failed: Boolean = false,
     )
 
     /**
      * Quellen in [order] der Reihe nach fragen ([outcome], z. B. Abfrage), bis eine einen Schluss liefert. Ohne
-     * Treffer: [Resolved.unchecked], wenn irgendeine Quelle einen Schluss verworfen hat. Eine nicht erreichbare Quelle
-     * ([Outcome.failed]) beendet die Kette ohne Kurs ([Resolved.failed]) — nie die nächste Quelle an ihrer Stelle.
+     * Treffer: [Resolved.unchecked], wenn irgendeine Quelle einen Schluss verworfen hat. Antwortet eine Quelle mit einem
+     * Fehler ([Outcome.failed]), endet die Kette ohne Kurs ([Resolved.failed]) — nie die nächste Quelle an ihrer
+     * Stelle. Antwortet sie gar nicht ([Outcome.unreachable]: ganz nicht erreichbar), wird sie übersprungen wie eine
+     * gesperrte; ohne Treffer danach ist das Ergebnis [Resolved.failed] (sie hätte einen haben können).
      */
     inline fun resolve(order: List<String>, outcome: (String) -> Outcome): Resolved {
         var rejected = false
+        var unreachable = false
         for (source in order) {
             val r = outcome(source)
             val price = r.price
@@ -142,8 +158,9 @@ object HistoricCloseChain {
             }
             rejected = rejected || r.rejected
             if (r.failed) return Resolved(null, null, unchecked = rejected, failed = true)
+            unreachable = unreachable || r.unreachable
         }
-        return Resolved(null, null, unchecked = rejected)
+        return Resolved(null, null, unchecked = rejected, failed = unreachable)
     }
 
     /**

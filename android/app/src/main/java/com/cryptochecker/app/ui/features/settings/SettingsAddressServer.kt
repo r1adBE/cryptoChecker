@@ -135,8 +135,7 @@ class AddressServerViewModel @Inject constructor(
     /** Öffentliche Knoten bestätigt (nach Rückfrage): Bitcoin-Adressen gehen wieder an die öffentlichen Knoten. */
     fun confirmPublic(onDone: () -> Unit) {
         viewModelScope.launch {
-            settingsRepository.confirmAddressServer()
-            onDone()
+            if (settingsRepository.guarded { confirmAddressServer() }) onDone()
         }
     }
 
@@ -163,7 +162,8 @@ class AddressServerViewModel @Inject constructor(
     fun save(url: String?, onDone: () -> Unit) {
         resetTest()
         viewModelScope.launch {
-            settingsRepository.setAddressServer(url)
+            // Speicher voll: Hinweis statt Absturz, das Feld bleibt offen
+            if (!settingsRepository.guarded { setAddressServer(url) }) return@launch
             url?.let { source.clearServerPauses(it) }
             onDone()
         }

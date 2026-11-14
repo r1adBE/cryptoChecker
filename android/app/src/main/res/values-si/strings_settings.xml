@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin දර්ශක, දිනකට දෙවරක් පරීක්ෂා කෙරේ. ඔබ සීමා තෝරයි – යෙදුම අගයන් ශ්‍රේණිගත නොකරයි.</string>
     <string name="settings_macro_notifications">ආර්ථික දින දර්ශනය</string>
     <string name="settings_macro_notifications_hint">වැදගත් එ.ජ. ආර්ථික දත්ත (උද්ධමනය, රැකියා වාර්තාව, ෆෙඩ් තීරණය) ඇති දිනවල 08:00 ට. දින දර්ශනය යෙදුමේ වෙබ් අඩවියෙන් පැමිණේ, දිනකට එක් වරක් පූරණය වේ.</string>
+    <string name="settings_macro_notifications_us_hint">එක්සත් ජනපදයේ දැනුම්දීම උපරිම වශයෙන් නිව් යෝර්ක් වේලාවෙන් 08:00 ට, පළමු දත්තවලට පෙර පැමිණේ.</string>
     <string name="settings_market_alerts">වෙළඳපොළ ඇඟවීම්</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">බෙදාගන්න</string>
     <string name="settings_price_overlay">මිල ආවරණය</string>
     <string name="settings_price_overlay_hint">ස්ථිර මිල දැනුම්දීමේ යුගල වෙනත් යෙදුම් මත කුඩා පාවෙන පිල්ලක් ලෙස පෙන්වයි. යෙදුම විවෘත කිරීමට තට්ටු කරන්න, වැසීමට පහළ ඇති × වෙත ඇදගෙන යන්න.</string>
+    <string name="settings_price_overlay_restart_hint">පද්ධතිය යෙදුම වසා දැමුවහොත්, මිල ආවරණය මීළඟ පසුබිම් යාවත්කාලීනය සමඟ නැවත පැමිණේ.</string>
     <string name="settings_price_overlay_needs">“%1$s” සමඟ පමණක් ක්‍රියා කරයි.</string>
     <string name="settings_price_overlay_grant">වෙනත් යෙදුම් මත පෙන්වීමට ඉඩ දෙන්න</string>
     <string name="price_overlay_close">ආවරණය වසන්න</string>

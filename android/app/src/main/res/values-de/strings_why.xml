@@ -8,8 +8,9 @@
     <string name="why_details_hide">Details ausblenden</string>
     <string name="why_disclaimer">Automatische Einordnung aus Marktdaten: Gezeigt wird, was zur selben Zeit passiert. Das ist kein Beweis für eine Ursache.</string>
     <string name="why_footer_short">Zeitgleich heisst nicht Ursache · Keine Anlageberatung</string>
-    <string name="why_no_data">Keine Daten von Binance für dieses Paar</string>
-    <string name="why_no_data_hint">Kurs, Volumen und Volatilität stammen aus Binance-Stundenkerzen.</string>
+    <string name="why_no_candles">Keine Stundenkerzen für dieses Paar</string>
+    <string name="why_no_candles_hint">Kurs, Volumen und Volatilität stammen aus Stundenkerzen von %1$s oder, wenn möglich, einer anderen Börse mit demselben Coin.</string>
+    <string name="why_no_data_retry_hint">Kurs, Volumen und Volatilität liessen sich nicht laden. Versuche es erneut.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Mögliche Einordnung</string>
     <string name="why_section_observation">Beobachtung</string>

@@ -256,6 +256,12 @@ keys or other secrets never belong in this repository.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.
+* **«Battery & activity» counts locally, it is not analytics.** The app counts only
+  its own background runs, network requests and bytes received per hour (kept 7 days
+  at most, in `usage_log.txt`, excluded from backups) – no hosts, addresses or
+  content. The watch sends only its 24-hour totals and their time to its own phone
+  over the existing watch connection (Wear data layer, WatchConnectivity); nothing
+  goes anywhere else.
 * **Links and shortcuts** (`cryptochecker://…`, app shortcuts, notification and
   widget taps) can only open fixed screens; they never change data. The Android
   boot receiver accepts only protected system broadcasts, which no other app can
@@ -318,6 +324,9 @@ IP-Adresse. Beobachtete Adressen (beim xpub die auf dem Gerät abgeleiteten
 Adressen – der xpub selbst bleibt auf dem Gerät) gehen zusammen mit der
 IP-Adresse an die in der Datenschutzerklärung genannten öffentlichen
 Blockchain-Knoten.
+«Akku & Aktivität» zählt nur auf dem Gerät eigene Hintergrund-Läufe, Netzanfragen
+und empfangene Bytes je Stunde (höchstens 7 Tage, ohne Hosts oder Inhalte); die Uhr
+gibt nur ihre 24-h-Summen samt Zeit an ihr eigenes Handy.
 Keine sensiblen Daten im Protokoll, kein Tracking, keine Werbung. Links und
 Verknüpfungen öffnen nur feste Bereiche und ändern keine Daten.
 

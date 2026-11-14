@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Bateria i activitat</string>
+    <string name="usage_intro">Les apps no poden llegir el seu propi consum d’energia. Per això l’app mostra el que ha fet ella mateixa en les últimes 24 hores, comptat només en aquest dispositiu i sense cap contingut.</string>
+    <string name="usage_phone">Telèfon</string>
+    <string name="usage_watch">Rellotge</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d execució en segon pla</item>
+        <item quantity="many">%d execucions en segon pla</item>
+        <item quantity="other">%d execucions en segon pla</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d sol·licitud de xarxa</item>
+        <item quantity="many">%d sol·licituds de xarxa</item>
+        <item quantity="other">%d sol·licituds de xarxa</item>
+    </plurals>
+    <string name="usage_received">%1$s rebuts</string>
+    <string name="usage_level_low">Activitat baixa</string>
+    <string name="usage_level_medium">Activitat mitjana</string>
+    <string name="usage_level_high">Activitat alta</string>
+    <string name="usage_driver_interval">Sobretot per la comprovació en segon pla (%1$s).</string>
+    <string name="usage_driver_exact">Sobretot per la comprovació en segon pla (%1$s) i «%2$s».</string>
+    <string name="usage_driver_none">No hi ha cap comprovació en segon pla programada: compta el que obtenen l’app oberta i els widgets.</string>
+    <string name="usage_driver_watch">Compta el que obtenen per si mateixes l’app del rellotge i les seves complicacions.</string>
+    <string name="usage_watch_none">Cap rellotge connectat</string>
+    <string name="usage_as_of">Actualitzat: %1$s</string>
+    <string name="usage_battery_android">Android mostra el consum de bateria per app a la seva configuració de bateria.</string>
+</resources>

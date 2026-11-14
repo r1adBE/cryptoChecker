@@ -8,8 +8,9 @@
     <string name="why_details_hide">Թաքցնել մանրամասները</string>
     <string name="why_disclaimer">Ավտոմատ գնահատում շուկայական տվյալներից՝ ցույց է տալիս, թե ինչ է կատարվում միաժամանակ, ոչ թե պատճառի ապացույց։</string>
     <string name="why_footer_short">Միաժամանակ չի նշանակում պատճառ · Ներդրումային խորհուրդ չէ</string>
-    <string name="why_no_data">Այս զույգի համար Binance-ից տվյալներ չկան</string>
-    <string name="why_no_data_hint">Գինը, ծավալը և տատանողականությունը գալիս են Binance-ի ժամային մոմերից։</string>
+    <string name="why_no_candles">Այս զույգի համար ժամային մոմեր չկան</string>
+    <string name="why_no_candles_hint">Գինը, ծավալը և տատանողականությունը գալիս են %1$s-ի ժամային մոմերից կամ, հնարավորության դեպքում, նույն մետաղադրամով այլ բորսայից։</string>
+    <string name="why_no_data_retry_hint">Չհաջողվեց բեռնել գինը, ծավալը և տատանողականությունը։ Կրկին փորձիր։</string>
     <string name="why_ref_alts">Ալթեր</string>
     <string name="why_section_context">Հնարավոր բացատրություն</string>
     <string name="why_section_observation">Դիտարկում</string>

@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Nessun andamento disponibile al momento.</string>
     <string name="portfolio_history_utc_days">Giorni in UTC (candele giornaliere)</string>
     <string name="portfolio_history_without_matching">Senza %1$s (nessun prezzo giornaliero corrispondente)</string>
+    <string name="portfolio_history_entry">Ingresso al primo prezzo giornaliero: %1$s (nessun prezzo giornaliero prima)</string>
     <string name="portfolio_period_rewards">Ricompense +%1$s (escluse dal guadagno)</string>
     <string name="portfolio_period_scaled">7 G/1 A per %1$s: storico Binance adattato al prezzo dell’exchange</string>
 

@@ -72,8 +72,17 @@ object MacroCalendar {
     /** Ältere Termine werden beim Lesen verworfen. */
     const val MAX_AGE_MILLIS = 2 * 24 * 60 * 60_000L
 
-    /** Morgen-Meldung um 08:00 Ortszeit. */
+    /** Morgen-Meldung um 08:00 Ortszeit – früher, wenn die Termine es verlangen ([notifyAtOnDay]). */
     const val NOTIFY_MINUTE_OF_DAY = 8 * 60
+
+    /** Zone der Termine (US-Daten erscheinen nach New Yorker Zeit, meist 08:30). */
+    val RELEASE_ZONE: ZoneId = ZoneId.of("America/New_York")
+
+    /** Spätestens 08:00 in der Zone der Termine melden (30 Min. vor den 08:30-Daten). */
+    const val RELEASE_NOTIFY_MINUTE_OF_DAY = 8 * 60
+
+    /** Nie vor 05:00 Ortszeit (Nacht). */
+    const val EARLIEST_NOTIFY_MINUTE_OF_DAY = 5 * 60
 
     /** Kommt die Hintergrund-Aufgabe zu spät (nach 12:00), wird die Meldung des Tages ausgelassen. */
     const val NOTIFY_LATEST_MINUTE_OF_DAY = 12 * 60
@@ -162,23 +171,33 @@ object MacroCalendar {
         return events.filter { it.time > now && localDate(it.time, zone) == today }.sortedBy { it.time }
     }
 
-    /** Nächster Zeitpunkt 08:00 Ortszeit nach [now] (heute, wenn noch nicht vorbei). */
-    fun nextNotifyAt(now: Long, zone: ZoneId): Long {
-        val nowZoned = Instant.ofEpochMilli(now).atZone(zone)
-        var at = nowZoned.toLocalDate()
-            .atTime(NOTIFY_MINUTE_OF_DAY / 60, NOTIFY_MINUTE_OF_DAY % 60)
-            .atZone(zone)
-        if (!at.isAfter(nowZoned)) {
-            at = nowZoned.toLocalDate().plusDays(1)
-                .atTime(NOTIFY_MINUTE_OF_DAY / 60, NOTIFY_MINUTE_OF_DAY % 60)
-                .atZone(zone)
-        }
-        return at.toInstant().toEpochMilli()
+    /**
+     * Zeitpunkt der Morgen-Meldung am Ortsdatum [day]: das Fenster gilt in der Zone der Termine. 08:00 Ortszeit,
+     * aber spätestens 08:00 New Yorker Zeit ([RELEASE_ZONE]), wenn das auf denselben Ortstag und nicht vor 05:00 fällt –
+     * sonst kämen CPI, PPI, Arbeitsmarkt und PCE (08:30 New York) in Chicago (07:30), Denver und Los Angeles nie in die
+     * Meldung. Zürich bleibt bei 08:00 (New York 08:00 = 14:00), Tokio ebenso. Wie iOS `MacroCalendar.notifyAt`.
+     */
+    fun notifyAtOnDay(day: LocalDate, zone: ZoneId): Long {
+        fun at(date: LocalDate, minute: Int, z: ZoneId) = date.atTime(minute / 60, minute % 60).atZone(z).toInstant()
+        val local = at(day, NOTIFY_MINUTE_OF_DAY, zone)
+        val earliest = at(day, EARLIEST_NOTIFY_MINUTE_OF_DAY, zone)
+        val release = (-1L..1L).map { at(day.plusDays(it), RELEASE_NOTIFY_MINUTE_OF_DAY, RELEASE_ZONE) }
+            .filter { it.atZone(zone).toLocalDate() == day && !it.isBefore(earliest) }
+        return (release + local).minOf { it.toEpochMilli() }
     }
 
-    /** Darf die Morgen-Meldung jetzt (Minute des Tages in Ortszeit) noch kommen? */
-    fun isNotifyWindow(minuteOfDay: Int): Boolean =
-        minuteOfDay in NOTIFY_MINUTE_OF_DAY until NOTIFY_LATEST_MINUTE_OF_DAY
+    /** Nächster Zeitpunkt der Morgen-Meldung nach [now] (heute, wenn noch nicht vorbei; [notifyAtOnDay]). */
+    fun nextNotifyAt(now: Long, zone: ZoneId): Long {
+        val today = localDate(now, zone)
+        return (0L..2L).map { notifyAtOnDay(today.plusDays(it), zone) }.first { it > now }
+    }
+
+    /** Darf die Morgen-Meldung jetzt noch kommen? Ab [notifyAtOnDay] bis 12:00 Ortszeit. */
+    fun isNotifyWindow(now: Long, zone: ZoneId): Boolean {
+        val local = Instant.ofEpochMilli(now).atZone(zone)
+        val minute = local.hour * 60 + local.minute
+        return now >= notifyAtOnDay(local.toLocalDate(), zone) && minute < NOTIFY_LATEST_MINUTE_OF_DAY
+    }
 
     /** Zwischenspeicher frisch? (Zeitpunkt in der Zukunft oder ≤ 0 gilt nie als frisch.) */
     fun isFresh(savedAt: Long, now: Long): Boolean = savedAt in 1..now && now - savedAt < TTL_MILLIS

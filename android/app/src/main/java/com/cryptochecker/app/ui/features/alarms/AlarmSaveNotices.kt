@@ -61,7 +61,8 @@ internal class AlarmSaveNotices(
     fun chooseExactMode(choice: com.cryptochecker.app.work.ExactCheckOffer.Choice) {
         val enabled = com.cryptochecker.app.work.ExactCheckOffer.exactChecksFor(choice)
         scope.launch {
-            settingsRepository.setExactChecks(enabled)
+            // Speicher voll: Hinweis statt Absturz, der Wecker bleibt dann, wie er war
+            if (!settingsRepository.guarded { setExactChecks(enabled) }) return@launch
             exactScheduler.sync(enabled, hasWork = true)
         }
     }
@@ -82,7 +83,7 @@ internal class AlarmSaveNotices(
      */
     private suspend fun markTimingHint(firstAlarmDialog: Boolean): Boolean {
         val shown = settingsRepository.current().alarmTimingHintShown
-        if (!shown) settingsRepository.setAlarmTimingHintShown(true)
+        if (!shown) settingsRepository.guarded { setAlarmTimingHintShown(true) }
         return AlarmTimingHint.shouldShow(alreadyShown = shown, firstAlarmDialog = firstAlarmDialog)
     }
 
@@ -105,7 +106,7 @@ internal class AlarmSaveNotices(
      * «Wann Alarme geprüft werden» jetzt zeigen ([firstEver] = die Bestätigung kommt, sie hat denselben Satz).
      */
     suspend fun markSaved(firstEver: Boolean): Boolean {
-        if (!settingsRepository.current().firstAlarmShown) settingsRepository.setFirstAlarmShown(true)
+        if (!settingsRepository.current().firstAlarmShown) settingsRepository.guarded { setFirstAlarmShown(true) }
         return markTimingHint(firstAlarmDialog = firstEver)
     }
 }

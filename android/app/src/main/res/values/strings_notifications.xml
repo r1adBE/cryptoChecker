@@ -52,7 +52,7 @@
     <string name="channel_prices_description">Silent price notification with the current price of a pair.</string>
     <string name="channel_service">Price updates</string>
     <string name="channel_service_description">Notification while prices are being updated.</string>
-    <string name="neutral_channel_market">Market alerts</string>
+    <string name="neutral_channel_market">Market notifications</string>
     <string name="neutral_channel_market_description">Fear &amp; Greed, gas fees, “Notable” and economic dates</string>
 
     <!-- Sprachausgabe -->

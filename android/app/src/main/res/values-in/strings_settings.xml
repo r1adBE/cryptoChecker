@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Indikator Bitcoin, diperiksa dua kali sehari. Kamu yang memilih batasnya – aplikasi tidak menilai nilainya.</string>
     <string name="settings_macro_notifications">Kalender ekonomi</string>
     <string name="settings_macro_notifications_hint">Pukul 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, tenaga kerja, keputusan The Fed). Kalender diambil dari situs web aplikasi sekali sehari.</string>
+    <string name="settings_macro_notifications_us_hint">Di AS, notifikasi datang paling lambat pukul 08:00 waktu New York, sebelum data pertama.</string>
     <string name="settings_market_alerts">Peringatan pasar</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">Bagikan</string>
     <string name="settings_price_overlay">Overlay harga</string>
     <string name="settings_price_overlay_hint">Menampilkan pasangan dari notifikasi harga permanen sebagai pil kecil mengambang di atas aplikasi lain. Ketuk untuk membuka aplikasi, seret ke × di bawah untuk menutup.</string>
+    <string name="settings_price_overlay_restart_hint">Jika sistem menutup aplikasi, overlay harga kembali dengan pembaruan latar belakang berikutnya.</string>
     <string name="settings_price_overlay_needs">Hanya berfungsi bersama «%1$s».</string>
     <string name="settings_price_overlay_grant">Izinkan tampil di atas aplikasi lain</string>
     <string name="price_overlay_close">Tutup overlay</string>

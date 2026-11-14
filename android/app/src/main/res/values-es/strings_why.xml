@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ocultar detalles</string>
     <string name="why_disclaimer">Valoración automática a partir de datos de mercado: muestra lo que ocurre al mismo tiempo, no prueba una causa.</string>
     <string name="why_footer_short">Simultáneo no significa causa · No es asesoramiento de inversión</string>
-    <string name="why_no_data">No hay datos de Binance para este par</string>
-    <string name="why_no_data_hint">Precio, volumen y volatilidad provienen de las velas horarias de Binance.</string>
+    <string name="why_no_candles">No hay velas horarias para este par</string>
+    <string name="why_no_candles_hint">Precio, volumen y volatilidad provienen de velas horarias de %1$s o, cuando es posible, de otro exchange con la misma moneda.</string>
+    <string name="why_no_data_retry_hint">No se pudieron cargar el precio, el volumen y la volatilidad. Vuelve a intentarlo.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Posible lectura</string>
     <string name="why_section_observation">Observación</string>

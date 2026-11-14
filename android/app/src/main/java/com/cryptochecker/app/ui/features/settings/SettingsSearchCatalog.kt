@@ -91,6 +91,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),
         stringResource(R.string.alarm_log_open), stringResource(R.string.alarm_log_intro),
         stringResource(R.string.settings_check_runs_title))
+    // «Akku & Aktivität»: eigene Zähler von Handy und Uhr, Weg in die Akku-Einstellungen
+    val usage = stringResource(R.string.settings_row_usage)
+    addPage(SettingsPage.USAGE, usage, stringResource(R.string.battery_open_settings))
+    add("usage.watch", stringResource(R.string.usage_watch), usage, SettingsSearchTarget.Page(SettingsPage.USAGE, "usage.watch"),
+        stringResource(R.string.usage_watch_none))
     val watchlist = stringResource(R.string.settings_row_watchlist)
     addPage(SettingsPage.WATCHLIST, watchlist)
     add("watchlist.names", stringResource(R.string.settings_watchlist_names), watchlist,

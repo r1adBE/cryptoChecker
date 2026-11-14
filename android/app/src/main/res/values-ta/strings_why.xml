@@ -8,8 +8,9 @@
     <string name="why_details_hide">விவரங்களை மறைக்கவும்</string>
     <string name="why_disclaimer">சந்தைத் தரவிலிருந்து தானியங்கு மதிப்பீடு: ஒரே நேரத்தில் நடப்பதைக் காட்டுகிறது, காரணத்துக்கான சான்று அல்ல.</string>
     <string name="why_footer_short">ஒரே நேரத்தில் நடப்பது காரணம் அல்ல · முதலீட்டு ஆலோசனை அல்ல</string>
-    <string name="why_no_data">இந்த ஜோடிக்கு Binance இலிருந்து தரவு இல்லை</string>
-    <string name="why_no_data_hint">விலை, வால்யூம் மற்றும் ஏற்ற இறக்கம் Binance மணிநேர கேண்டில்களிலிருந்து வருகின்றன.</string>
+    <string name="why_no_candles">இந்த ஜோடிக்கு மணிநேர கேண்டில்கள் இல்லை</string>
+    <string name="why_no_candles_hint">விலை, வால்யூம் மற்றும் ஏற்ற இறக்கம் %1$s மணிநேர கேண்டில்களிலிருந்து, அல்லது முடிந்தால் அதே காயின் உள்ள வேறு எக்ஸ்சேஞ்சிலிருந்து வருகின்றன.</string>
+    <string name="why_no_data_retry_hint">விலை, வால்யூம் மற்றும் ஏற்ற இறக்கத்தை ஏற்ற முடியவில்லை. தயவுசெய்து மீண்டும் முயலவும்.</string>
     <string name="why_ref_alts">ஆல்ட்ஸ்</string>
     <string name="why_section_context">சாத்தியமான விளக்கம்</string>
     <string name="why_section_observation">கவனிப்பு</string>

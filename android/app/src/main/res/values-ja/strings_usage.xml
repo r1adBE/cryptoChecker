@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">バッテリーとアクティビティ</string>
+    <string name="usage_intro">アプリは自身の電力消費を読み取ることができません。そのため、このアプリが過去24時間に自ら行ったことを表示します。この端末上だけで数え、内容は一切含みません。</string>
+    <string name="usage_phone">スマートフォン</string>
+    <string name="usage_watch">ウォッチ</string>
+    <plurals name="usage_runs">
+        <item quantity="other">バックグラウンド実行 %d 回</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">ネットワークリクエスト %d 件</item>
+    </plurals>
+    <string name="usage_received">受信 %1$s</string>
+    <string name="usage_level_low">アクティビティ：低</string>
+    <string name="usage_level_medium">アクティビティ：中</string>
+    <string name="usage_level_high">アクティビティ：高</string>
+    <string name="usage_driver_interval">主にバックグラウンドでの確認（%1$s）によるものです。</string>
+    <string name="usage_driver_exact">主にバックグラウンドでの確認（%1$s）と「%2$s」によるものです。</string>
+    <string name="usage_driver_none">バックグラウンドでの確認は予定されていません。開いているアプリとウィジェットが取得した分を数えています。</string>
+    <string name="usage_driver_watch">ウォッチのアプリとそのコンプリケーションが自ら取得した分を数えています。</string>
+    <string name="usage_watch_none">接続されているウォッチはありません</string>
+    <string name="usage_as_of">%1$s 時点</string>
+    <string name="usage_battery_android">Android ではアプリごとのバッテリー使用量をバッテリー設定で確認できます。</string>
+</resources>

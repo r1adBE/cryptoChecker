@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Aucun historique disponible pour le moment.</string>
     <string name="portfolio_history_utc_days">Jours en UTC (bougies journalières)</string>
     <string name="portfolio_history_without_matching">Sans %1$s (pas de cours journaliers concordants)</string>
+    <string name="portfolio_history_entry">Entrée au premier cours journalier : %1$s (pas de cours journaliers avant)</string>
     <string name="portfolio_period_rewards">Récompenses +%1$s (hors gain)</string>
     <string name="portfolio_period_scaled">7 J/1 A pour %1$s : historique Binance ajusté au cours de la plateforme</string>
 

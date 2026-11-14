@@ -94,4 +94,15 @@ final class WatchPriceFormatParityTests: XCTestCase {
                        "Text(WatchText.portfolioCompact(p))"]
         XCTAssertEqual(amounts.reduce(0) { $0 + value.components(separatedBy: $1).count - 1 }, 5)
     }
+
+    /// X4-04: verdeckt (gesenktes Handgelenk) nennt VoiceOver keinen Betrag – wie das iPhone-Widget (`spokenHidden`).
+    func testPortfolioKomplikationSprichtVerdecktOhneBetrag() throws {
+        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+        let source = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
+                                encoding: .utf8)
+        XCTAssertTrue(source.contains("@Environment(\\.redactionReasons) private var redactionReasons"))
+        XCTAssertTrue(source.contains("if redactionReasons.contains(.privacy) { spokenPortfolio.hidden = true }"))
+        XCTAssertTrue(source.contains("WatchText.portfolioSpoken(spokenPortfolio)"))
+        XCTAssertFalse(source.contains("WatchText.portfolioSpoken(p)"))
+    }
 }

@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Engin saga tiltæk núna.</string>
     <string name="portfolio_history_utc_days">Dagar í UTC (dagskerti)</string>
     <string name="portfolio_history_without_matching">Án %1$s (engin samsvarandi dagsverð)</string>
+    <string name="portfolio_history_entry">Talið frá fyrsta dagsverði: %1$s (engin dagsverð fyrr)</string>
     <string name="portfolio_period_rewards">Umbun +%1$s (ekki í hagnaði)</string>
     <string name="portfolio_period_scaled">7 D/1 Á fyrir %1$s: saga frá Binance kvörðuð að verði kauphallarinnar</string>
 

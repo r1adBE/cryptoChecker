@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Baterai &amp; aktivitas</string>
+    <string name="usage_intro">Aplikasi tidak dapat membaca pemakaian dayanya sendiri. Karena itu aplikasi menampilkan apa yang dilakukannya sendiri dalam 24 jam terakhir – dihitung hanya di perangkat ini, tanpa konten apa pun.</string>
+    <string name="usage_phone">Ponsel</string>
+    <string name="usage_watch">Jam</string>
+    <plurals name="usage_runs">
+        <item quantity="other">%d proses di latar belakang</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">%d permintaan jaringan</item>
+    </plurals>
+    <string name="usage_received">%1$s diterima</string>
+    <string name="usage_level_low">Aktivitas rendah</string>
+    <string name="usage_level_medium">Aktivitas sedang</string>
+    <string name="usage_level_high">Aktivitas tinggi</string>
+    <string name="usage_driver_interval">Terutama karena pemeriksaan di latar belakang (%1$s).</string>
+    <string name="usage_driver_exact">Terutama karena pemeriksaan di latar belakang (%1$s) dan “%2$s”.</string>
+    <string name="usage_driver_none">Tidak ada pemeriksaan latar belakang yang dijadwalkan – yang dihitung adalah apa yang diambil aplikasi yang terbuka dan widget.</string>
+    <string name="usage_driver_watch">Yang dihitung adalah apa yang diambil sendiri oleh aplikasi jam dan komplikasinya.</string>
+    <string name="usage_watch_none">Tidak ada jam yang terhubung</string>
+    <string name="usage_as_of">Per %1$s</string>
+    <string name="usage_battery_android">Android menampilkan pemakaian baterai per aplikasi di setelan baterainya.</string>
+</resources>

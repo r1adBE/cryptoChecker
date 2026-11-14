@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-ий үзүүлэлтүүд, өдөрт хоёр удаа шалгана. Хязгаарыг та сонгоно – апп утгыг үнэлдэггүй.</string>
     <string name="settings_macro_notifications">Эдийн засгийн хуанли</string>
     <string name="settings_macro_notifications_hint">АНУ-ын эдийн засгийн чухал мэдээлэлтэй (инфляц, ажлын байрны тайлан, ХНС-ийн шийдвэр) өдрүүдэд 08:00 цагт. Хуанлийг аппын вэбсайтаас өдөрт нэг удаа ачаална.</string>
+    <string name="settings_macro_notifications_us_hint">АНУ-д мэдэгдэл хамгийн оройдоо Нью-Йоркийн цагаар 08:00-д, эхний өгөгдлөөс өмнө ирнэ.</string>
     <string name="settings_market_alerts">Зах зээлийн дохио</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Хуваалцах</string>
     <string name="settings_price_overlay">Ханшийн давхарга</string>
     <string name="settings_price_overlay_hint">Байнгын ханшийн мэдэгдлийн хосуудыг бусад аппын дээр жижиг хөвөгч тэмдэг болгон харуулна. Аппыг нээхийн тулд товшиж, хаахын тулд доод × руу чирнэ үү.</string>
+    <string name="settings_price_overlay_restart_hint">Систем аппыг хаавал ханшийн давхарга дараагийн арын шинэчлэлээр буцаж гарна.</string>
     <string name="settings_price_overlay_needs">Зөвхөн «%1$s»-тэй хамт ажиллана.</string>
     <string name="settings_price_overlay_grant">Бусад аппын дээр харуулахыг зөвшөөрөх</string>
     <string name="price_overlay_close">Давхаргыг хаах</string>

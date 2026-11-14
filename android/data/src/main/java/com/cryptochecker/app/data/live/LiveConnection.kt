@@ -8,6 +8,8 @@ import com.cryptochecker.app.domain.live.LiveConnectionSpec
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
+import com.cryptochecker.marketdata.usage.UsageLog
+import com.cryptochecker.marketdata.usage.UsageMeter
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -88,6 +90,8 @@ class LiveConnection(
                     return
                 }
                 lastMessageAt.set(System.currentTimeMillis())
+                // «Akku & Aktivität»: empfangene Bytes (UTF-8) zählen, nicht den Inhalt
+                UsageMeter.shared.countBytes(UsageLog.utf8Length(text))
                 if (onText(spec.exchange, text)) receivedData.set(true)
             }
 
@@ -116,6 +120,8 @@ class LiveConnection(
                 ended.complete(Ended(receivedData.get(), rateLimited = code == 429 || code == 418))
             }
         }
+        // Jeder Verbindungsversuch zählt als eine Anfrage (OkHttp meldet WebSockets nicht an UsageEventListener)
+        UsageMeter.shared.countRequest(0)
         val socket = client.newWebSocket(Request.Builder().url(spec.exchange.url).build(), listener)
         // Ping der Börse (Textnachricht) und Wächter: ohne Lebenszeichen neu verbinden
         val heartbeat = launch {

@@ -263,10 +263,10 @@ final class ParityFixtureTests: XCTestCase {
         let texts = CutoffCsvTexts(
             coin: "Coin", amount: "Menge", priceUsdt: "Kurs USDT", valueUsdt: "Wert USDT", rate: "Kurs",
             valueTarget: "Wert", note: "Hinweis", total: "Total", noPrice: "kein Kurs", noFx: "kein Devisenkurs",
-            unchecked: "ungeprüft", incomplete: "unvollständig", commentFormat: "# %@ %@ %@"
+            unchecked: "ungeprüft", incomplete: "unvollständig", commentFormat: "# %@ %@ %@", unavailable: "nicht abrufbar"
         )
         let cases = S.list(data["cases"])
-        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        XCTAssertGreaterThanOrEqual(cases.count, 4)
         for c in cases {
             let name = c["name"] as? String ?? ""
             let holdings = (c["holdings"] as? [[String]] ?? []).map { pair in
@@ -280,7 +280,8 @@ final class ParityFixtureTests: XCTestCase {
             let unchecked = Set(c["unchecked"] as? [String] ?? [])
             let format = CutoffCsvFormat(separator: Character(c["separator"] as? String ?? ";"),
                                          decimal: Character(c["decimal"] as? String ?? "."))
-            let rows = CutoffExport.rows(holdings, prices: prices, fxRate: fx, unchecked: unchecked)
+            let rows = CutoffExport.rows(holdings, prices: prices, fxRate: fx, unchecked: unchecked,
+                                         unavailable: Set(c["unavailable"] as? [String] ?? []))
             let lines = CutoffExport.csv(day: CutoffDay(year: 2025, month: 12, day: 31), currency: "CHF", fxDate: nil,
                                          rows: rows, texts: texts, format: format)
                 .replacingOccurrences(of: "\u{FEFF}", with: "").components(separatedBy: "\r\n")

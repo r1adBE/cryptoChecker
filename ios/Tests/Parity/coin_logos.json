@@ -1246,5 +1246,19 @@
       {"shown": 40, "next": 40, "elapsed": 5000, "show": false},
       {"shown": null, "next": null, "elapsed": 5000, "show": false}
     ]
+  },
+  "openPasses": {
+    "description": "Logos: images a whole pass left open (transient error or host paused) count per image; after OPEN_PASSES_FAIL (3) passes in a row they count as failed (day block), so a permanently disturbed image never keeps the first load open (R4-05). Attempted images that settled (loaded, failed, not saved) drop out; images not attempted keep their count. A pass that failed for the network does not count (not part of these cases).",
+    "failAfter": 3,
+    "next": [
+      {"previous": {}, "attempted": ["a.png", "b.png"], "open": ["a.png"], "expected": {"a.png": 1}, "failed": []},
+      {"previous": {"a.png": 2, "c.png": 1}, "attempted": ["a.png", "b.png"], "open": ["a.png", "b.png"], "expected": {"a.png": 3, "b.png": 1, "c.png": 1}, "failed": ["a.png"]},
+      {"previous": {"a.png": 2}, "attempted": ["a.png"], "open": [], "expected": {}, "failed": []},
+      {"previous": {"a.png": 1}, "attempted": [], "open": [], "expected": {"a.png": 1}, "failed": []}
+    ],
+    "codec": [
+      {"text": "b.png=2;a.png=1;x=;=3;c.png=0;d.png=zwei", "decoded": {"a.png": 1, "b.png": 2}, "encoded": "a.png=1;b.png=2"},
+      {"text": "", "decoded": {}, "encoded": ""}
+    ]
   }
 }

@@ -312,23 +312,23 @@ enum CsvTransferMatch {
         return !(diff > 0 && w.quoteFee != nil)
     }
 
-    /// «Auf eigene Wallet» für die Auszahlung `withdrawalKey`: hat sie einen Kandidaten mit freier Einzahlung, wird der
-    /// beste gewählt (übliche vor weiteren, dann die nächste Einzahlung, dann die kleinste Gebühr) — sonst zählte die
-    /// Einzahlung ein zweites Mal. Schon verknüpft oder ohne freien Kandidaten: unverändert. Wie Android.
-    static func linkOwnWallet(_ links: [CsvTransferLink], chosen: Set<String>, withdrawalKey: String) -> Set<String> {
+    /// «Auf eigene Wallet» für die Auszahlung `withdrawalKey` (sonst zählte eine passende Einzahlung neben der Umbuchung
+    /// doppelt): nur ein eindeutiger üblicher Kandidat mit freier Einzahlung, um die keine andere Auszahlung aus `wanting`
+    /// wirbt. Weitere (`loose`) und mehrdeutige nie automatisch, nur über den Schalter; nach Ausschalten (`declined`)
+    /// bleibt «Auf eigene Wallet» ohne Verknüpfung. Schon verknüpft oder sonst: unverändert. Wie Android.
+    static func linkOwnWallet(_ links: [CsvTransferLink], chosen: Set<String>, withdrawalKey: String,
+                              declined: Set<String> = [], wanting: Set<String>? = nil) -> Set<String> {
         let active = links.filter { chosen.contains($0.key) }
-        if active.contains(where: { $0.withdrawalKey == withdrawalKey }) { return chosen }
-        let used = Set(active.map(\.depositKey))
-        let free = links.filter { $0.withdrawalKey == withdrawalKey && !used.contains($0.depositKey) }
-        let best = free.min { a, b in
-            if a.loose != b.loose { return !a.loose }
-            let ta = abs(a.depositTime - a.withdrawalTime), tb = abs(b.depositTime - b.withdrawalTime)
-            if ta != tb { return ta < tb }
-            if a.sent - a.received != b.sent - b.received { return a.sent - a.received < b.sent - b.received }
-            return a.key.unicodeScalars.lexicographicallyPrecedes(b.key.unicodeScalars, by: { $0.value < $1.value })
-        }
-        guard let best else { return chosen }
-        return toggle(links, chosen: chosen, key: best.key, on: true)
+        if declined.contains(withdrawalKey) || active.contains(where: { $0.withdrawalKey == withdrawalKey }) { return chosen }
+        let linkedOut = Set(active.map(\.withdrawalKey)), used = Set(active.map(\.depositKey))
+        let free = links.filter { !$0.loose && !linkedOut.contains($0.withdrawalKey) && !used.contains($0.depositKey) }
+        let mine = free.filter { $0.withdrawalKey == withdrawalKey }
+        guard mine.count == 1, let only = mine.first else { return chosen }
+        let wants = wanting ?? [withdrawalKey]
+        let rivals = free.filter {
+            $0.depositKey == only.depositKey && wants.contains($0.withdrawalKey) && !declined.contains($0.withdrawalKey)
+        }.count
+        return rivals == 1 ? toggle(links, chosen: chosen, key: only.key, on: true) : chosen
     }
 
     /// Vorauswahl: alle eindeutigen Kandidaten.

@@ -8,8 +8,9 @@
     <string name="why_details_hide">Versteek besonderhede</string>
     <string name="why_disclaimer">Outomatiese beoordeling uit markdata: dit wys wat terselfdertyd gebeur, nie bewys van \'n oorsaak nie.</string>
     <string name="why_footer_short">Gelyktydig beteken nie oorsaak nie · Geen beleggingsadvies nie</string>
-    <string name="why_no_data">Geen data van Binance vir hierdie paar nie</string>
-    <string name="why_no_data_hint">Prys, volume en wisselvalligheid kom van Binance se uurkerse.</string>
+    <string name="why_no_candles">Geen uurkerse vir hierdie paar nie</string>
+    <string name="why_no_candles_hint">Prys, volume en wisselvalligheid kom van uurkerse van %1$s of, waar moontlik, van \'n ander beurs met dieselfde munt.</string>
+    <string name="why_no_data_retry_hint">Prys, volume en wisselvalligheid kon nie gelaai word nie. Probeer weer.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Moontlike verklaring</string>
     <string name="why_section_observation">Waarneming</string>

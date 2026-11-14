@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin সূচক, দিনে দুবার যাচাই হয়। সীমা আপনি বেছে নেন – অ্যাপ মানগুলোর মূল্যায়ন করে না।</string>
     <string name="settings_macro_notifications">অর্থনৈতিক ক্যালেন্ডার</string>
     <string name="settings_macro_notifications_hint">গুরুত্বপূর্ণ মার্কিন অর্থনৈতিক ডেটার দিনগুলোতে 08:00-এ (মূল্যস্ফীতি, চাকরির প্রতিবেদন, ফেডের সিদ্ধান্ত)। ক্যালেন্ডার অ্যাপের ওয়েবসাইট থেকে আসে, দিনে একবার লোড হয়।</string>
+    <string name="settings_macro_notifications_us_hint">যুক্তরাষ্ট্রে বিজ্ঞপ্তিটি সর্বশেষ নিউ ইয়র্ক সময় 08:00-এ, প্রথম ডেটার আগে আসে।</string>
     <string name="settings_market_alerts">বাজার অ্যালার্ট</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">শেয়ার করুন</string>
     <string name="settings_price_overlay">দামের ওভারলে</string>
     <string name="settings_price_overlay_hint">স্থায়ী দামের নোটিফিকেশনের পেয়ারগুলো অন্যান্য অ্যাপের উপর একটি ছোট ভাসমান পিল হিসেবে দেখায়। অ্যাপ খুলতে ট্যাপ করুন, বন্ধ করতে নিচের ×-এ টেনে আনুন।</string>
+    <string name="settings_price_overlay_restart_hint">সিস্টেম অ্যাপটি বন্ধ করলে, পরবর্তী ব্যাকগ্রাউন্ড আপডেটের সাথে দামের ওভারলে ফিরে আসে।</string>
     <string name="settings_price_overlay_needs">শুধু «%1$s»-এর সঙ্গে কাজ করে।</string>
     <string name="settings_price_overlay_grant">অন্যান্য অ্যাপের উপর দেখানোর অনুমতি দিন</string>
     <string name="price_overlay_close">ওভারলে বন্ধ করুন</string>

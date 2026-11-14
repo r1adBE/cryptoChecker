@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Pil ve etkinlik</string>
+    <string name="usage_intro">Uygulamalar kendi güç tüketimlerini okuyamaz. Bu yüzden uygulama son 24 saatte kendisinin ne yaptığını gösterir – yalnızca bu cihazda sayılır, hiçbir içerik olmadan.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Saat</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d arka plan çalıştırması</item>
+        <item quantity="other">%d arka plan çalıştırması</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d ağ isteği</item>
+        <item quantity="other">%d ağ isteği</item>
+    </plurals>
+    <string name="usage_received">%1$s alındı</string>
+    <string name="usage_level_low">Düşük etkinlik</string>
+    <string name="usage_level_medium">Orta etkinlik</string>
+    <string name="usage_level_high">Yüksek etkinlik</string>
+    <string name="usage_driver_interval">Çoğunlukla arka plan kontrolünden (%1$s).</string>
+    <string name="usage_driver_exact">Çoğunlukla arka plan kontrolünden (%1$s) ve “%2$s” seçeneğinden.</string>
+    <string name="usage_driver_none">Planlanmış arka plan kontrolü yok – açık uygulamanın ve widget’ların getirdikleri sayılır.</string>
+    <string name="usage_driver_watch">Saat uygulamasının ve komplikasyonlarının kendilerinin getirdikleri sayılır.</string>
+    <string name="usage_watch_none">Bağlı saat yok</string>
+    <string name="usage_as_of">Durum: %1$s</string>
+    <string name="usage_battery_android">Android, uygulama başına pil kullanımını pil ayarlarında gösterir.</string>
+</resources>

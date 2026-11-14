@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-ის ინდიკატორები, მოწმდება დღეში ორჯერ. ლიმიტებს შენ ირჩევ – აპი მნიშვნელობებს არ აფასებს.</string>
     <string name="settings_macro_notifications">ეკონომიკური კალენდარი</string>
     <string name="settings_macro_notifications_hint">08:00-ზე იმ დღეებში, როცა აშშ-ის მნიშვნელოვანი ეკონომიკური მონაცემები ქვეყნდება (ინფლაცია, დასაქმების ანგარიში, ფედის გადაწყვეტილება). კალენდარი მოდის აპის ვებგვერდიდან, იტვირთება დღეში ერთხელ.</string>
+    <string name="settings_macro_notifications_us_hint">აშშ-ში შეტყობინება მოდის არაუგვიანეს 08:00-ისა ნიუ-იორკის დროით, პირველ მონაცემებამდე.</string>
     <string name="settings_market_alerts">საბაზრო განგაშები</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">გაზიარება</string>
     <string name="settings_price_overlay">ფასის გადაფარვა</string>
     <string name="settings_price_overlay_hint">მუდმივი ფასის შეტყობინების წყვილებს აჩვენებს პატარა მცურავ ნიშნულად სხვა აპების ზემოთ. შეეხე აპის გასახსნელად, ჩაათრიე ქვემოთ ×-ზე დასახურად.</string>
+    <string name="settings_price_overlay_restart_hint">თუ სისტემა აპს დახურავს, ფასის გადაფარვა დაბრუნდება ფონური განახლების შემდეგ ჯერზე.</string>
     <string name="settings_price_overlay_needs">მუშაობს მხოლოდ «%1$s»-თან ერთად.</string>
     <string name="settings_price_overlay_grant">სხვა აპების ზემოთ ჩვენების დაშვება</string>
     <string name="price_overlay_close">გადაფარვის დახურვა</string>

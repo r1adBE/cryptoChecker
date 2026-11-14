@@ -127,10 +127,13 @@ extension PortfolioModel {
         await loadCostFx()
     }
 
-    /// Beginn der Devisenkurs-Abfrage für den gewählten Zeitraum (`PortfolioHistoryFx.requestRange`).
+    /// Beginn der Devisenkurs-Abfrage für den gewählten Zeitraum (`PortfolioHistoryFx.requestRange`), mindestens aber für
+    /// «1 J» der Karte (`PortfolioPeriodChange.yearDays`) — sonst rechnete «1 J» in der Anzeigewährung je nach Zeitraum
+    /// des Diagramms mit oder ohne Tageskurse (zwei Zahlen für dieselbe Zeile). Wie Android `fxSeriesFrom`.
     func fxSeriesFrom() -> LocalDay {
         let days = historyRange == .sinceFirst ? historyRequest().days : historyRange.days
-        return PortfolioHistoryFx.requestRange(days: days, today: LocalDay(epochDay: PortfolioHistory.utcToday())).from
+        return PortfolioHistoryFx.requestRange(days: max(days, PortfolioPeriodChange.yearDays),
+                                               today: LocalDay(epochDay: PortfolioHistory.utcToday())).from
     }
 
     /// Devisen-Tageskurse für den Verlauf: eine Abfrage je Währung und Zeitraum (6 h zwischengespeichert);

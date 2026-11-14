@@ -8,8 +8,9 @@
     <string name="why_details_hide">ซ่อนรายละเอียด</string>
     <string name="why_disclaimer">การประเมินอัตโนมัติจากข้อมูลตลาด: แสดงสิ่งที่เกิดขึ้นพร้อมกัน ไม่ใช่หลักฐานของสาเหตุ</string>
     <string name="why_footer_short">เกิดพร้อมกันไม่ได้แปลว่าเป็นสาเหตุ · ไม่ใช่คำแนะนำการลงทุน</string>
-    <string name="why_no_data">ไม่มีข้อมูลจาก Binance สำหรับคู่นี้</string>
-    <string name="why_no_data_hint">ราคา ปริมาณ และความผันผวนมาจากแท่งเทียนรายชั่วโมงของ Binance</string>
+    <string name="why_no_candles">ไม่มีแท่งเทียนรายชั่วโมงสำหรับคู่นี้</string>
+    <string name="why_no_candles_hint">ราคา ปริมาณ และความผันผวนมาจากแท่งเทียนรายชั่วโมงของ %1$s หรือหากเป็นไปได้ จากกระดานเทรดอื่นที่มีเหรียญเดียวกัน</string>
+    <string name="why_no_data_retry_hint">โหลดราคา ปริมาณ และความผันผวนไม่ได้ โปรดลองอีกครั้ง</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">การตีความที่เป็นไปได้</string>
     <string name="why_section_observation">การสังเกต</string>

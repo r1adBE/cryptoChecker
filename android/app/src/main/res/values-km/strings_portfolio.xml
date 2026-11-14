@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">មិនមានប្រវត្តិនៅពេលនេះទេ។</string>
     <string name="portfolio_history_utc_days">ថ្ងៃជា UTC (ទៀនប្រចាំថ្ងៃ)</string>
     <string name="portfolio_history_without_matching">មិនរាប់ %1$s (គ្មានតម្លៃប្រចាំថ្ងៃដែលត្រូវគ្នា)</string>
+    <string name="portfolio_history_entry">គិតចាប់ពីតម្លៃប្រចាំថ្ងៃដំបូង៖ %1$s (មុននេះគ្មានតម្លៃប្រចាំថ្ងៃ)</string>
     <string name="portfolio_period_rewards">រង្វាន់ +%1$s (មិនរាប់ក្នុងចំណេញ)</string>
     <string name="portfolio_period_scaled">7 ថ្ងៃ/1 ឆ្នាំសម្រាប់ %1$s៖ ប្រវត្តិ Binance ធ្វើមាត្រដ្ឋានទៅតម្លៃផ្សារប្តូរ</string>
 

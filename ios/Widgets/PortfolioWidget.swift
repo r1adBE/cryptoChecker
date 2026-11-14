@@ -205,6 +205,8 @@ struct PortfolioProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: PortfolioWidgetIntent, in context: Context) async -> Timeline<PortfolioEntry> {
+        // «Akku & Aktivität»: Zähler vor dem Ende schreiben (Lauf nur, wenn unten neu gerechnet wird)
+        defer { UsageMeter.shared.flush() }
         // Alter Stand: selbst nachrechnen (Kurse 60 s zwischengespeichert), damit
         // das Widget nicht vom Öffnen der App abhängt. Gesperrt oder Portfolio aus: nichts holen.
         let loaded = SharedStorage.loadSettingsChecked()
@@ -214,6 +216,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         var timedOut = false
         if settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed)
             && age >= WidgetRefresh.staleAfterMillis {
+            UsageMeter.shared.countRun()
             // Kurse (bis 20 s), zwei Devisenquellen und Kerzen nacheinander können bei langsamem Netz über 40 s
             // brauchen — dann verwirft WidgetKit die Timeline. Höchstens `refreshDeadlineMillis` warten, sonst mit
             // dem gespeicherten Stand zeichnen und bald neu versuchen (wie Merkliste und Puls).

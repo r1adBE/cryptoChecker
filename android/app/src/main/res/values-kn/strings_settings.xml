@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin ಸೂಚಕಗಳು, ದಿನಕ್ಕೆ ಎರಡು ಬಾರಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತದೆ. ಮಿತಿಗಳನ್ನು ನೀವೇ ಆರಿಸುತ್ತೀರಿ – ಆ್ಯಪ್ ಮೌಲ್ಯಗಳನ್ನು ರೇಟ್ ಮಾಡುವುದಿಲ್ಲ.</string>
     <string name="settings_macro_notifications">ಆರ್ಥಿಕ ಕ್ಯಾಲೆಂಡರ್</string>
     <string name="settings_macro_notifications_hint">ಪ್ರಮುಖ US ಆರ್ಥಿಕ ಡೇಟಾ ಇರುವ ದಿನಗಳಲ್ಲಿ 08:00 ಕ್ಕೆ (ಹಣದುಬ್ಬರ, ಉದ್ಯೋಗ ವರದಿ, Fed ನಿರ್ಧಾರ). ಕ್ಯಾಲೆಂಡರ್ ಆ್ಯಪ್‌ನ ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಬರುತ್ತದೆ, ದಿನಕ್ಕೆ ಒಮ್ಮೆ ಲೋಡ್ ಆಗುತ್ತದೆ.</string>
+    <string name="settings_macro_notifications_us_hint">ಅಮೆರಿಕದಲ್ಲಿ ಅಧಿಸೂಚನೆ ಹೆಚ್ಚೆಂದರೆ ನ್ಯೂಯಾರ್ಕ್ ಸಮಯ 08:00ಕ್ಕೆ, ಮೊದಲ ಡೇಟಾಕ್ಕಿಂತ ಮೊದಲು ಬರುತ್ತದೆ.</string>
     <string name="settings_market_alerts">ಮಾರುಕಟ್ಟೆ ಅಲರ್ಟ್‌ಗಳು</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="settings_price_overlay">ಬೆಲೆ ಓವರ್‌ಲೇ</string>
     <string name="settings_price_overlay_hint">ಶಾಶ್ವತ ಬೆಲೆ ಅಧಿಸೂಚನೆಯ ಜೋಡಿಗಳನ್ನು ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೆ ಚಿಕ್ಕ ತೇಲುವ ಪಟ್ಟಿಯಾಗಿ ತೋರಿಸುತ್ತದೆ. ಆ್ಯಪ್ ತೆರೆಯಲು ಟ್ಯಾಪ್ ಮಾಡಿ, ಮುಚ್ಚಲು ಕೆಳಗಿನ × ಗೆ ಎಳೆಯಿರಿ.</string>
+    <string name="settings_price_overlay_restart_hint">ಸಿಸ್ಟಮ್ ಆ್ಯಪ್ ಅನ್ನು ಮುಚ್ಚಿದರೆ, ಬೆಲೆ ಓವರ್‌ಲೇ ಮುಂದಿನ ಹಿನ್ನೆಲೆ ಅಪ್‌ಡೇಟ್‌ನೊಂದಿಗೆ ಮರಳುತ್ತದೆ.</string>
     <string name="settings_price_overlay_needs">«%1$s» ಜೊತೆಗೆ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
     <string name="settings_price_overlay_grant">ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೆ ಪ್ರದರ್ಶನವನ್ನು ಅನುಮತಿಸಿ</string>
     <string name="price_overlay_close">ಓವರ್‌ಲೇ ಮುಚ್ಚಿ</string>

@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-индикатори, проверувани двапати дневно. Ти ги избираш границите – апликацијата не ги оценува вредностите.</string>
     <string name="settings_macro_notifications">Економски календар</string>
     <string name="settings_macro_notifications_hint">Во 08:00 во денови со важни американски економски податоци (инфлација, извештај за вработеност, одлука на Fed). Календарот доаѓа од веб-страницата на апликацијата, се вчитува еднаш дневно.</string>
+    <string name="settings_macro_notifications_us_hint">Во САД известувањето стигнува најдоцна во 08:00 по њујоршко време, пред првите податоци.</string>
     <string name="settings_market_alerts">Пазарни аларми</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Сподели</string>
     <string name="settings_price_overlay">Лебдечка цена</string>
     <string name="settings_price_overlay_hint">Ги прикажува паровите од трајното известување за цена како мало лебдечко копче над другите апликации. Допри за да ја отвориш апликацијата, повлечи до × долу за да го затвориш.</string>
+    <string name="settings_price_overlay_restart_hint">Ако системот ја затвори апликацијата, лебдечката цена се враќа со следното ажурирање во заднина.</string>
     <string name="settings_price_overlay_needs">Работи само заедно со «%1$s».</string>
     <string name="settings_price_overlay_grant">Дозволи прикажување над други апликации</string>
     <string name="price_overlay_close">Затвори лебдечка цена</string>

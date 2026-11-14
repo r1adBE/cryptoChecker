@@ -133,6 +133,10 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             }
         }
 
+        // «Akku & Aktivität»: Zähler des Prozesses (Läufe, Anfragen, Bytes) in ihre Datei, nicht gesichert
+        com.cryptochecker.marketdata.usage.UsageMeter.shared.attach(
+            java.io.File(noBackupFilesDir, com.cryptochecker.marketdata.usage.UsageMeter.FILE_NAME)
+        )
         // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
         com.cryptochecker.marketdata.model.exchange.PhemexScales.store =
             com.cryptochecker.marketdata.model.exchange.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))

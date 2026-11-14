@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Izinkomba ze-Bitcoin, zihlolwa kabili ngosuku. Wena ukhetha imikhawulo – i-app ayiwahloli amanani.</string>
     <string name="settings_macro_notifications">Ikhalenda yomnotho</string>
     <string name="settings_macro_notifications_hint">Ngo-08:00 ezinsukwini ezinedatha ebalulekile yomnotho wase-US (ukwehla kwenani lemali, umbiko wemisebenzi, isinqumo se-Fed). Ikhalenda ivela kuwebhusayithi ye-app, ilayishwa kanye ngosuku.</string>
+    <string name="settings_macro_notifications_us_hint">E-US isaziso sifika kungakadluli u-08:00 ngesikhathi sase-New York, ngaphambi kwedatha yokuqala.</string>
     <string name="settings_market_alerts">Ama-alamu emakethe</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Yabelana</string>
     <string name="settings_price_overlay">Intengo phezu kwama-app</string>
     <string name="settings_price_overlay_hint">Ibonisa amapheya esaziso sentengo esihlala njalo njengephilisi elincane elintantayo phezu kwamanye ama-app. Thepha ukuze uvule i-app, hudula uye ku-× ngezansi ukuze uvale.</string>
+    <string name="settings_price_overlay_restart_hint">Uma isistimu ivala i-app, intengo phezu kwama-app ibuya nesibuyekezo esilandelayo sangemuva.</string>
     <string name="settings_price_overlay_needs">Isebenza kuphela kanye no-«%1$s».</string>
     <string name="settings_price_overlay_grant">Vumela ukubonisa phezu kwamanye ama-app</string>
     <string name="price_overlay_close">Vala iphilisi lentengo</string>

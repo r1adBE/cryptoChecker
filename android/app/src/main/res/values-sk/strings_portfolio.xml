@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Priebeh momentálne nie je k dispozícii.</string>
     <string name="portfolio_history_utc_days">Dni v UTC (denné sviečky)</string>
     <string name="portfolio_history_without_matching">Bez %1$s (žiadne zodpovedajúce denné kurzy)</string>
+    <string name="portfolio_history_entry">Vstup od prvého denného kurzu: %1$s (predtým žiadne denné kurzy)</string>
     <string name="portfolio_period_rewards">Odmeny +%1$s (nie v zisku)</string>
     <string name="portfolio_period_scaled">7 D/1 R pre %1$s: priebeh Binance prispôsobený kurzu burzy</string>
 

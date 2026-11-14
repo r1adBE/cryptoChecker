@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoini näitajad, kontrollitakse kaks korda päevas. Piirid valid ise – rakendus väärtusi ei hinda.</string>
     <string name="settings_macro_notifications">Majanduskalender</string>
     <string name="settings_macro_notifications_hint">Kell 08:00 päevadel, mil avaldatakse olulisi USA majandusandmeid (inflatsioon, tööturuaruanne, Föderaalreservi otsus). Kalender pärineb rakenduse veebilehelt ja laaditakse kord päevas.</string>
+    <string name="settings_macro_notifications_us_hint">USA-s tuleb teavitus hiljemalt kell 08:00 New Yorgi aja järgi, enne esimesi andmeid.</string>
     <string name="settings_market_alerts">Turuhoiatused</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Jaga</string>
     <string name="settings_price_overlay">Hinna ülekate</string>
     <string name="settings_price_overlay_hint">Näitab püsiva hinnamärguande paare väikese hõljuva märgina teiste rakenduste kohal. Puudutus avab rakenduse, alla ×-ile lohistamine sulgeb selle.</string>
+    <string name="settings_price_overlay_restart_hint">Kui süsteem rakenduse sulgeb, tuleb hinna ülekate tagasi järgmise taustavärskendusega.</string>
     <string name="settings_price_overlay_needs">Töötab ainult koos valikuga „%1$s“.</string>
     <string name="settings_price_overlay_grant">Luba kuvamine teiste rakenduste peal</string>
     <string name="price_overlay_close">Sulge ülekate</string>

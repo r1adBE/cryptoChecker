@@ -43,6 +43,16 @@ object BatteryOptimization {
         start(context, fallback)
     }
 
+    /**
+     * «Akku & Aktivität»: Akkuverbrauch je App von Android ([Intent.ACTION_POWER_USAGE_SUMMARY]); blendet ein Hersteller
+     * die Seite aus, die App-Info ([openSettings]).
+     */
+    fun openUsageSummary(context: Context) {
+        val summary = Intent(Intent.ACTION_POWER_USAGE_SUMMARY).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (start(context, summary)) return
+        openSettings(context)
+    }
+
     private fun start(context: Context, intent: Intent): Boolean =
         runCatching { context.startActivity(intent); true }
             .onFailure { Timber.w(it, "Akku-Einstellungen nicht erreichbar") }

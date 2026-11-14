@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">比特币指标每天检查两次。阈值由你选择——应用不评价这些数值。</string>
     <string name="settings_macro_notifications">经济日历</string>
     <string name="settings_macro_notifications_hint">在有重要美国经济数据（通胀、就业报告、美联储利率决议）的日子 08:00 提醒。日历每天从应用网站加载一次。</string>
+    <string name="settings_macro_notifications_us_hint">在美国，通知最晚于纽约时间 08:00 送达，早于第一批数据。</string>
     <string name="settings_market_alerts">市场通知</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">分享</string>
     <string name="settings_price_overlay">价格悬浮窗</string>
     <string name="settings_price_overlay_hint">以小型悬浮胶囊在其他应用上方显示常驻价格通知中的交易对。点按可打开应用，拖到底部的 × 可关闭。</string>
+    <string name="settings_price_overlay_restart_hint">如果系统关闭了 App，价格悬浮窗会在下次后台更新时恢复。</string>
     <string name="settings_price_overlay_needs">仅在开启“%1$s”时可用。</string>
     <string name="settings_price_overlay_grant">允许显示在其他应用上层</string>
     <string name="price_overlay_close">关闭悬浮窗</string>

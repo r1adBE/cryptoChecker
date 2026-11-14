@@ -8,8 +8,9 @@
     <string name="why_details_hide">លាក់ព័ត៌មានលម្អិត</string>
     <string name="why_disclaimer">ការវាយតម្លៃស្វ័យប្រវត្តិពីទិន្នន័យទីផ្សារ៖ វាបង្ហាញអ្វីដែលកើតឡើងក្នុងពេលតែមួយ មិនមែនភស្តុតាងនៃមូលហេតុទេ។</string>
     <string name="why_footer_short">ក្នុងពេលតែមួយមិនមានន័យថាជាមូលហេតុទេ · មិនមែនដំបូន្មានវិនិយោគ</string>
-    <string name="why_no_data">គ្មានទិន្នន័យពី Binance សម្រាប់គូនេះទេ</string>
-    <string name="why_no_data_hint">តម្លៃ បរិមាណ និងភាពប្រែប្រួលមកពីទៀនប្រចាំម៉ោងរបស់ Binance។</string>
+    <string name="why_no_candles">គ្មានទៀនប្រចាំម៉ោងសម្រាប់គូនេះទេ</string>
+    <string name="why_no_candles_hint">តម្លៃ បរិមាណ និងភាពប្រែប្រួលមកពីទៀនប្រចាំម៉ោងរបស់ %1$s ឬបើអាច មកពីផ្សារប្តូរប្រាក់ផ្សេងដែលមានកាក់ដូចគ្នា។</string>
+    <string name="why_no_data_retry_hint">មិនអាចផ្ទុកតម្លៃ បរិមាណ និងភាពប្រែប្រួលបានទេ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">ការពន្យល់ដែលអាចមាន</string>
     <string name="why_section_observation">ការសង្កេត</string>

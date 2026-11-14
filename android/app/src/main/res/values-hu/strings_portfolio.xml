@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Jelenleg nem érhető el értékalakulás.</string>
     <string name="portfolio_history_utc_days">Napok UTC szerint (napi gyertyák)</string>
     <string name="portfolio_history_without_matching">%1$s nélkül (nincs egyező napi árfolyam)</string>
+    <string name="portfolio_history_entry">Belépés az első napi árfolyamtól: %1$s (korábban nincs napi árfolyam)</string>
     <string name="portfolio_period_rewards">Jutalmak +%1$s (nyereségen kívül)</string>
     <string name="portfolio_period_scaled">7 n/1 é %1$s: Binance-előzmény a tőzsdei árra skálázva</string>
 

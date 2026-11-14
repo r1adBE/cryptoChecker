@@ -183,6 +183,9 @@ struct PulseProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: PulseWidgetIntent, in context: Context) async -> Timeline<PulseEntry> {
+        // «Akku & Aktivität»: jede Timeline ruft ab — ein Hintergrund-Lauf, Zähler vor dem Ende schreiben
+        UsageMeter.shared.countRun()
+        defer { UsageMeter.shared.flush() }
         let data = await PulseWidgetData.current()
         var first = Self.entry(data, theme: configuration.theme, width: context.displaySize.width)
         first.offline = await WidgetOffline.isOffline()

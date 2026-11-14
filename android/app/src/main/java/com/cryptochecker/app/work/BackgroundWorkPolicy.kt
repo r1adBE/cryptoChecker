@@ -129,8 +129,7 @@ object BackgroundWorkPolicy {
      */
     fun macroDelayAfterClockChange(now: Long, zone: ZoneId, lastNotifiedDay: Long): Long {
         val local = Instant.ofEpochMilli(now).atZone(zone)
-        val minute = local.hour * 60 + local.minute
-        if (MacroCalendar.isNotifyWindow(minute) && local.toLocalDate().toEpochDay() != lastNotifiedDay) return 0L
+        if (MacroCalendar.isNotifyWindow(now, zone) && local.toLocalDate().toEpochDay() != lastNotifiedDay) return 0L
         return (MacroCalendar.nextNotifyAt(now, zone) - now).coerceAtLeast(0L)
     }
 

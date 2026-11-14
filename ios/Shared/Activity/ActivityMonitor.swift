@@ -170,7 +170,7 @@ enum ActivityMonitor {
             await VolumeDataSource.pairCandles(pair, price: price, interval: .h1, limit: VolumeDataSource.limit)?.value
         }
         async let futuresJob = perpetualFutures(watch)
-        let candles = await candlesJob
+        let (candles, candlesFailed) = await candlesJob
         let futures = await futuresJob
         // Abbruch des ganzen Durchlaufs (Zeitbudget): Ergebnis verwerfen
         guard !Task.isCancelled else { return }
@@ -221,7 +221,8 @@ enum ActivityMonitor {
     /// Stundenkerzen des Paars, von BTC (bei Bitcoin ETH) und ETH (nicht für BTC/ETH selbst),
     /// den breiten Markt (CoinGecko-Top-40), Futures-Kennzahlen samt Funding-Verlauf,
     /// Fear & Greed und Tageskerzen (30-Tage-Hoch/-Tief). nil nur, wenn der Aufrufer abgebrochen hat.
-    static func explain(_ watch: Watch) async -> WhyReport? {
+    /// `refresh` («Erneut versuchen»): Kerzen neu fragen statt des gemerkten Leerstands.
+    static func explain(_ watch: Watch, refresh: Bool = false) async -> WhyReport? {
         // Nicht mehr gehandelt bzw. deaktiviert: nichts laden, nichts einordnen (die Merkliste bietet «Warum?» dann nicht an)
         if watch.isNotTraded || watch.disabled { return ActivityAnalyzer.notLive(now: EpochTime.nowMillis) }
         let base = watch.baseAsset.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -237,8 +238,9 @@ enum ActivityMonitor {
         // gleichem Token wie der Chart (`VolumeDataSource.pairCandles`; nicht für TradFi, DEX, Laufzeit-Kontrakte)
         let pair = CandlePair.of(watch)
         let price = watch.lastPrice
-        async let candlesJob = timed {
-            await VolumeDataSource.pairCandles(pair, price: price, interval: .h1, limit: count)
+        // Mit Ausgang: Zeitgrenze heisst «nicht abrufbar», nicht «gibt es nicht»
+        async let candlesJob = timedOutcome {
+            await VolumeDataSource.pairCandles(pair, price: price, interval: .h1, limit: count, refresh: refresh)
         }
         let referenceBase = isBtc ? "ETH" : "BTC"
         async let referenceJob = timed { () async -> Sourced<[MarketCandle]>? in
@@ -267,7 +269,7 @@ enum ActivityMonitor {
         let oi = watch.contractType.isPerpetual
             ? openInterest(watch, futures, now: EpochTime.nowMillis, store: true) : nil
         let fng = await fearGreedJob
-        let candles = await candlesJob
+        let (candles, candlesFailed) = await candlesJob
         let reference = await referenceJob
         let eth = await ethJob
         let broad = await broadJob
@@ -309,7 +311,11 @@ enum ActivityMonitor {
         input.fundingSource = futures?.source
         input.fundingIntervalHours = futures?.fundingIntervalHours
         input.sources = sources
-        return ActivityAnalyzer.explain(input)
+        var report = ActivityAnalyzer.explain(input)
+        if !report.hasMarketData {
+            report.candlesFailure = WhyCandlesFailure.of(online: NetworkStatus.shared.isOnlineFresh, timedOut: candlesFailed)
+        }
+        return report
     }
 
     /// Wie die Futures-Quelle zum Paar steht (`FuturesSources.note`): Daten der beobachteten Börse,
@@ -354,6 +360,20 @@ enum ActivityMonitor {
     // MARK: Zeitgrenze
 
     /// Ergebnis von `body` oder nil nach `sourceTimeoutMillis` (dann wird `body` abgebrochen).
+    /// Wie `timed`; zweiter Wert true = Zeitgrenze (nicht «die Quelle führt es nicht»). Wie Android `timedOutcome`.
+    private static func timedOutcome<T: Sendable>(_ body: @escaping @Sendable () async -> T?) async -> (T?, Bool) {
+        await withTaskGroup(of: Optional<(T?, Bool)>.self) { group in
+            group.addTask { (await body(), false) }
+            group.addTask {
+                try? await Task.sleep(nanoseconds: UInt64(sourceTimeoutMillis) * 1_000_000)
+                return (nil, true)
+            }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first ?? (nil, true)
+        }
+    }
+
     private static func timed<T: Sendable>(_ body: @escaping @Sendable () async -> T?) async -> T? {
         await withTaskGroup(of: Optional<T>.self) { group in
             group.addTask { await body() }

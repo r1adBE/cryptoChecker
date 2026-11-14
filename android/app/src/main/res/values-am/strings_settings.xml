@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">የBitcoin አመላካቾች፣ በቀን ሁለት ጊዜ ይፈተሻሉ። ገደቦቹን እርስዎ ይመርጣሉ – መተግበሪያው እሴቶቹን አይገመግምም።</string>
     <string name="settings_macro_notifications">የኢኮኖሚ ቀን መቁጠሪያ</string>
     <string name="settings_macro_notifications_hint">አስፈላጊ የአሜሪካ ኢኮኖሚ ውሂብ ባላቸው ቀናት (የዋጋ ግሽበት፣ የሥራ ሪፖርት፣ የፌድ ውሳኔ) በ08:00። የቀን መቁጠሪያው ከመተግበሪያው ድረ ገጽ ይመጣል፣ በቀን አንድ ጊዜ ይጫናል።</string>
+    <string name="settings_macro_notifications_us_hint">በአሜሪካ ማሳወቂያው ቢዘገይ በኒው ዮርክ ሰዓት 08:00 ላይ፣ ከመጀመሪያው መረጃ በፊት ይመጣል።</string>
     <string name="settings_market_alerts">የገበያ ማንቂያዎች</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">ያጋሩ</string>
     <string name="settings_price_overlay">የዋጋ ተደራቢ</string>
     <string name="settings_price_overlay_hint">የቋሚ የዋጋ ማሳወቂያውን ጥንዶች ከሌሎች መተግበሪያዎች በላይ እንደ ትንሽ ተንሳፋፊ ምልክት ያሳያል። መተግበሪያውን ለመክፈት ይንኩ፣ ለመዝጋት ታች ወዳለው × ይጎትቱ።</string>
+    <string name="settings_price_overlay_restart_hint">ስርዓቱ መተግበሪያውን ከዘጋው፣ የዋጋ ተደራቢው በሚቀጥለው የበስተጀርባ ዝማኔ ይመለሳል።</string>
     <string name="settings_price_overlay_needs">ከ«%1$s» ጋር ብቻ ይሰራል።</string>
     <string name="settings_price_overlay_grant">ከሌሎች መተግበሪያዎች በላይ ማሳየትን ይፍቀዱ</string>
     <string name="price_overlay_close">ተደራቢውን ይዝጉ</string>

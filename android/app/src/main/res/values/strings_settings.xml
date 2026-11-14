@@ -93,7 +93,7 @@
     <string name="settings_activity_sensitivity">Sensitivity</string>
     <string name="settings_activity_sensitivity_hint">How easily a coin counts as unusual – the same for the watchlist card and market alerts. With “Less”, the card shows only the 3 strongest.</string>
     <string name="settings_watchlist_activity_card">Notable: show in the list</string>
-    <string name="settings_watchlist_activity_card_hint">Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market alerts.</string>
+    <string name="settings_watchlist_activity_card_hint">Shows the ⚡ chip next to the groups: tap it to see only the pairs where something is happening right now. Notifications for it are set under Market notifications.</string>
     <string name="settings_watchlist_names">Show names</string>
     <string name="settings_watchlist_names_hint">Name under the pair, e.g. Bitcoin or NVIDIA. Comes with the logo lists, loaded once for all coins.</string>
     <string name="settings_watchlist_sparkline">Mini chart in watchlist</string>
@@ -192,7 +192,8 @@
     <string name="settings_indicator_alerts_hint">Bitcoin indicators, checked twice a day. You choose the limits – the app does not rate the values.</string>
     <string name="settings_macro_notifications">Economic calendar</string>
     <string name="settings_macro_notifications_hint">At 08:00 on days with important US economic data (inflation, jobs report, Fed decision). The calendar comes from the app\'s website, loaded once a day.</string>
-    <string name="settings_market_alerts">Market alerts</string>
+    <string name="settings_macro_notifications_us_hint">In the US the notification comes by 08:00 New York time at the latest, before the first data.</string>
+    <string name="settings_market_alerts">Market notifications</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
         <item quantity="one">%1$d active</item>
@@ -301,6 +302,7 @@
     <!-- Preis-Overlay (nur Android); settings_price_overlay_needs: %1$s = Titel «dauerhafte Kurs-Mitteilung» -->
     <string name="settings_price_overlay">Price overlay</string>
     <string name="settings_price_overlay_hint">Shows the pairs of the permanent price notification as a small floating pill over other apps. Tap to open the app, drag to × at the bottom to close.</string>
+    <string name="settings_price_overlay_restart_hint">If the system closes the app, the overlay returns with the next background update.</string>
     <string name="settings_price_overlay_needs">Only works together with “%1$s”.</string>
     <string name="settings_price_overlay_grant">Allow display over other apps</string>
     <string name="price_overlay_close">Close overlay</string>

@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ficha maelezo</string>
     <string name="why_disclaimer">Tathmini ya kiotomatiki kutoka data ya soko: inaonyesha kinachotokea wakati huo huo, si uthibitisho wa chanzo.</string>
     <string name="why_footer_short">Wakati mmoja haimaanishi chanzo · Si ushauri wa uwekezaji</string>
-    <string name="why_no_data">Hakuna data kutoka Binance kwa jozi hii</string>
-    <string name="why_no_data_hint">Bei, kiasi na tete vinatoka kwenye mishumaa ya kila saa ya Binance.</string>
+    <string name="why_no_candles">Hakuna mishumaa ya kila saa kwa jozi hii</string>
+    <string name="why_no_candles_hint">Bei, kiasi na tete vinatoka kwenye mishumaa ya kila saa ya %1$s au, inapowezekana, kwenye soko lingine lenye sarafu ileile.</string>
+    <string name="why_no_data_retry_hint">Bei, kiasi na tete havikuweza kupakiwa. Jaribu tena.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Maelezo yanayowezekana</string>
     <string name="why_section_observation">Uchunguzi</string>

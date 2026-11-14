@@ -91,17 +91,21 @@ enum HistoricCloseChain {
         var price: Double?
         var rejected = false
         var provider: String?
-        /// Quelle nicht erreichbar (nach einer Wiederholung): die Kette bricht für diesen Tag ab.
+        /// Quelle antwortete mit einem Fehler (nach einer Wiederholung, `FetchFailure.TRANSIENT`): die Kette bricht ab.
         var failed = false
+        /// Quelle antwortete gar nicht (`FetchFailure.UNREACHABLE`): übersprungen wie gesperrt (`resolve`).
+        var unreachable = false
     }
 
-    /// Art eines gescheiterten Abrufs (`httpCode` = HTTP-Status, nil = Netz, Zeitgrenze oder unlesbare Antwort): 4xx
-    /// (Paar unbekannt) und 403/451 (Geo-Sperre) → nächste Quelle wie «keine Kerze»; Netz, 5xx, 408, 429/418 →
-    /// einmal wiederholen, sonst bricht die Kette ab (`Outcome.failed`) — wie Android.
-    enum FetchFailure: String { case NO_DATA, BLOCKED, TRANSIENT }
+    /// Art eines gescheiterten Abrufs (`httpCode` = HTTP-Status, nil = keine Antwort: Netz, DNS, Zeitgrenze): 4xx
+    /// (Paar unbekannt) und 403/451 (Geo-Sperre) → nächste Quelle wie «keine Kerze»; `TRANSIENT` (die Quelle antwortet,
+    /// aber mit 5xx, 408, 429/418) → einmal wiederholen, sonst bricht die Kette ab (`Outcome.failed`): eine andere Quelle
+    /// hätte einen anderen Kurs. `UNREACHABLE` (gar keine Antwort, auch nach der Wiederholung — z. B. per DNS oder vom
+    /// Anbieter gesperrt) → die Quelle wird übersprungen wie gesperrt (`Outcome.unreachable`). Wie Android.
+    enum FetchFailure: String { case NO_DATA, BLOCKED, TRANSIENT, UNREACHABLE }
 
     static func fetchFailure(httpCode: Int?) -> FetchFailure {
-        guard let code = httpCode else { return .TRANSIENT }
+        guard let code = httpCode else { return .UNREACHABLE }
         if code == 403 || code == 451 { return .BLOCKED }
         if code == 408 || code == 418 || code == 429 || code >= 500 { return .TRANSIENT }
         return (400...499).contains(code) ? .NO_DATA : .TRANSIENT
@@ -114,14 +118,18 @@ enum HistoricCloseChain {
         var source: String?
         var unchecked: Bool
         var provider: String?
-        /// Eine Quelle war nicht erreichbar (`Outcome.failed`): kein Kurs, die Kette brach dort ab (später erneut).
+        /// Kein Kurs, weil eine Quelle nicht abrufbar war (`Outcome.failed`, oder `Outcome.unreachable` und keine spätere
+        /// Quelle hatte einen Schluss): «nicht abrufbar» statt «ohne Kurs» (später erneut).
         var failed = false
     }
 
     /// Quellen in `order` der Reihe nach fragen (`outcome`, z. B. Abfrage), bis eine einen Schluss liefert. Ohne
-    /// Treffer: `unchecked`, wenn irgendeine Quelle einen Schluss verworfen hat.
+    /// Treffer: `unchecked`, wenn irgendeine Quelle einen Schluss verworfen hat. Fehler-Antwort (`Outcome.failed`):
+    /// Ende ohne Kurs, nie die nächste Quelle an ihrer Stelle; gar keine Antwort (`Outcome.unreachable`): übersprungen
+    /// wie gesperrt, ohne Treffer danach `failed`. Wie Android.
     static func resolve(_ order: [String], outcome: (String) async -> Outcome) async -> Resolved {
         var rejected = false
+        var unreachable = false
         for source in order {
             let r = await outcome(source)
             if let price = r.price, price > 0, price.isFinite {
@@ -129,8 +137,9 @@ enum HistoricCloseChain {
             }
             rejected = rejected || r.rejected
             if r.failed { return Resolved(price: nil, source: nil, unchecked: rejected, provider: nil, failed: true) }
+            unreachable = unreachable || r.unreachable
         }
-        return Resolved(price: nil, source: nil, unchecked: rejected, provider: nil)
+        return Resolved(price: nil, source: nil, unchecked: rejected, provider: nil, failed: unreachable)
     }
 
     /// Ausweich-Reihe für den Wertverlauf übernehmen? Jüngster Schluss `latest` der Reihe gegen den aktuellen Kurs

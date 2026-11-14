@@ -18,7 +18,8 @@ enum ProtectedStorage {
     /// Bewusst unverschlüsselt (keine Beträge, Adressen oder Notizen; gleich wie Android, wo sie ausserhalb der
     /// Datenbank liegen): Kurs-Zwischenspeicher des Portfolio-Widgets (`portfolio_widget_history/hourly/daily/
     /// candle_attempts.json`, gemerkte Kurse `portfolio_last_prices.txt`), «Letzte Prüfungen» (`check_runs.txt`),
-    /// Coin-Namen und -Logos, `phemex_scales.json`, `alarm.lease` und die Einstellungen (App-Group-Defaults).
+    /// Zähler von «Akku & Aktivität» (`usage_log.txt`, `watch_usage.txt`, nur Zahlen), Coin-Namen und -Logos,
+    /// `phemex_scales.json`, `alarm.lease` und die Einstellungen (App-Group-Defaults).
     static var files: [Entry] {
         let watchlist = SharedStorage.watchlistURL
         let alarms = SharedStorage.portfolioAlarmsURL

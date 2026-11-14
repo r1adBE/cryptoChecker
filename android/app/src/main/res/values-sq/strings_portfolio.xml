@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Për momentin nuk ka ecuri të disponueshme.</string>
     <string name="portfolio_history_utc_days">Ditët në UTC (qirinj ditorë)</string>
     <string name="portfolio_history_without_matching">Pa %1$s (pa çmime ditore që përputhen)</string>
+    <string name="portfolio_history_entry">Hyrja me çmimin e parë ditor: %1$s (më parë pa çmime ditore)</string>
     <string name="portfolio_period_rewards">Shpërblime +%1$s (jo në fitim)</string>
     <string name="portfolio_period_scaled">7 D/1 V për %1$s: historiku Binance i shkallëzuar me çmimin e bursës</string>
 

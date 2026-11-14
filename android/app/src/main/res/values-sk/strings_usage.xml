@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Batéria a aktivita</string>
+    <string name="usage_intro">Aplikácie nemôžu zistiť vlastnú spotrebu energie. Preto aplikácia ukazuje, čo sama urobila za posledných 24 hodín – počítané len v tomto zariadení, bez akéhokoľvek obsahu.</string>
+    <string name="usage_phone">Telefón</string>
+    <string name="usage_watch">Hodinky</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d spustenie na pozadí</item>
+        <item quantity="few">%d spustenia na pozadí</item>
+        <item quantity="many">%d spustenia na pozadí</item>
+        <item quantity="other">%d spustení na pozadí</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d sieťová požiadavka</item>
+        <item quantity="few">%d sieťové požiadavky</item>
+        <item quantity="many">%d sieťovej požiadavky</item>
+        <item quantity="other">%d sieťových požiadaviek</item>
+    </plurals>
+    <string name="usage_received">Prijaté: %1$s</string>
+    <string name="usage_level_low">Nízka aktivita</string>
+    <string name="usage_level_medium">Stredná aktivita</string>
+    <string name="usage_level_high">Vysoká aktivita</string>
+    <string name="usage_driver_interval">Hlavne pre kontrolu na pozadí (%1$s).</string>
+    <string name="usage_driver_exact">Hlavne pre kontrolu na pozadí (%1$s) a „%2$s“.</string>
+    <string name="usage_driver_none">Nie je naplánovaná žiadna kontrola na pozadí – počíta sa, čo sťahuje otvorená aplikácia a widgety.</string>
+    <string name="usage_driver_watch">Počíta sa, čo si aplikácia v hodinkách a jej komplikácie sťahujú samy.</string>
+    <string name="usage_watch_none">Nie sú pripojené žiadne hodinky</string>
+    <string name="usage_as_of">Stav %1$s</string>
+    <string name="usage_battery_android">Android ukazuje spotrebu batérie podľa aplikácií vo svojich nastaveniach batérie.</string>
+</resources>

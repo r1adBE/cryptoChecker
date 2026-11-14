@@ -89,13 +89,13 @@
     <!-- Handelspaare einer Börse laden und wählen -->
     <!-- Nur iOS: Android nutzt diesen Text nicht -->
     <string name="explorer_sync_sheet_text" tools:ignore="UnusedResources">Loads the current pairs of the selected exchange.</string>
-    <string name="explorer_no_pair_list">No currency pairs</string>
+    <string name="explorer_no_pair_list">No trading pairs</string>
     <!-- Nur iOS: Android nutzt diesen Text nicht -->
     <string name="explorer_sync_sheet_last" tools:ignore="UnusedResources">Last sync: %1$s</string>
     <string name="explorer_sync_never">never</string>
     <!-- Nur iOS: Android nutzt diese Texte nicht -->
     <string name="explorer_sync_sheet_action" tools:ignore="UnusedResources">Sync now</string>
-    <string name="explorer_sync_sheet_title" tools:ignore="UnusedResources">Update currency pairs</string>
+    <string name="explorer_sync_sheet_title" tools:ignore="UnusedResources">Sync trading pairs</string>
     <string name="explorer_field_coin">Coin</string>
     <string name="explorer_field_contract">Contract type</string>
     <string name="explorer_field_exchange">Exchange</string>

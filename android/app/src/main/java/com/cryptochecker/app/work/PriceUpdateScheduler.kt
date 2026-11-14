@@ -124,6 +124,12 @@ class PriceUpdateScheduler @Inject constructor(
             .map { infos -> infos.any { !it.state.isFinished } }
             .distinctUntilChanged()
 
+    /** Periodische Hintergrund-Prüfung gerade geplant (eingereiht oder laufend)? Für «Akku & Aktivität». */
+    fun observePeriodicPlanned(): Flow<Boolean> =
+        workManager.getWorkInfosForUniqueWorkFlow(PriceUpdateWorker.PERIODIC_WORK_NAME)
+            .map { infos -> infos.any { !it.state.isFinished } }
+            .distinctUntilChanged()
+
     /**
      * Zeitpunkt des nächsten Versuchs, solange die Aktualisierung aus dem Widget nach «erneut versuchen»
      * (Datenbank-Schlüssel noch nicht lesbar) wartet ([RetryWait.retryAt]); sonst null.

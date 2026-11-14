@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Ceallra agus gníomhaíocht</string>
+    <string name="usage_intro">Ní féidir le haipeanna a n-úsáid chumhachta féin a léamh. Dá bhrí sin taispeánann an aip a ndearna sí féin le 24 uair an chloig anuas – comhairthe ar an ngléas seo amháin, gan aon ábhar.</string>
+    <string name="usage_phone">Fón</string>
+    <string name="usage_watch">Uaireadóir</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Ritheanna sa chúlra: %d</item>
+        <item quantity="two">Ritheanna sa chúlra: %d</item>
+        <item quantity="few">Ritheanna sa chúlra: %d</item>
+        <item quantity="many">Ritheanna sa chúlra: %d</item>
+        <item quantity="other">Ritheanna sa chúlra: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Iarratais líonra: %d</item>
+        <item quantity="two">Iarratais líonra: %d</item>
+        <item quantity="few">Iarratais líonra: %d</item>
+        <item quantity="many">Iarratais líonra: %d</item>
+        <item quantity="other">Iarratais líonra: %d</item>
+    </plurals>
+    <string name="usage_received">Faighte: %1$s</string>
+    <string name="usage_level_low">Gníomhaíocht íseal</string>
+    <string name="usage_level_medium">Gníomhaíocht mheánach</string>
+    <string name="usage_level_high">Gníomhaíocht ard</string>
+    <string name="usage_driver_interval">Go príomha ón seiceáil sa chúlra (%1$s).</string>
+    <string name="usage_driver_exact">Go príomha ón seiceáil sa chúlra (%1$s) agus “%2$s”.</string>
+    <string name="usage_driver_none">Níl aon seiceáil sa chúlra pleanáilte – áirítear a bhfaigheann an aip oscailte agus na giuirléidí.</string>
+    <string name="usage_driver_watch">Áirítear a bhfaigheann aip an uaireadóra agus a giuirléidí féin.</string>
+    <string name="usage_watch_none">Níl aon uaireadóir ceangailte</string>
+    <string name="usage_as_of">Staid %1$s</string>
+    <string name="usage_battery_android">Taispeánann Android úsáid ceallra in aghaidh na haipe ina shocruithe ceallra.</string>
+</resources>

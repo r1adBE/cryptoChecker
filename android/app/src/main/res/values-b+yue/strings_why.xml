@@ -8,8 +8,9 @@
     <string name="why_details_hide">隱藏詳情</string>
     <string name="why_disclaimer">根據市場數據自動評估：顯示同一時間發生嘅事，唔係原因嘅證明。</string>
     <string name="why_footer_short">同時發生唔代表係原因 · 唔係投資建議</string>
-    <string name="why_no_data">Binance 冇呢個交易對嘅資料</string>
-    <string name="why_no_data_hint">價格、成交量同波幅來自 Binance 每小時 K 線。</string>
+    <string name="why_no_candles">呢個交易對冇每小時 K 線</string>
+    <string name="why_no_candles_hint">價格、成交量同波幅來自 %1$s 嘅每小時 K 線，或者喺可行時來自有同一隻幣嘅其他交易所。</string>
+    <string name="why_no_data_retry_hint">未能載入價格、成交量同波幅。請再試一次。</string>
     <string name="why_ref_alts">山寨幣</string>
     <string name="why_section_context">可能嘅解釋</string>
     <string name="why_section_observation">觀察</string>

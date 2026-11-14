@@ -8,8 +8,9 @@
     <string name="why_details_hide">వివరాలను దాచండి</string>
     <string name="why_disclaimer">మార్కెట్ డేటా నుండి ఆటోమేటిక్ అంచనా: ఒకే సమయంలో ఏమి జరుగుతుందో చూపుతుంది, కారణానికి రుజువు కాదు.</string>
     <string name="why_footer_short">ఒకేసారి జరగడం కారణం కాదు · పెట్టుబడి సలహా కాదు</string>
-    <string name="why_no_data">ఈ జతకు Binance నుండి డేటా లేదు</string>
-    <string name="why_no_data_hint">ధర, వాల్యూమ్, ఒడిదుడుకులు Binance గంటవారీ క్యాండిల్‌ల నుండి వస్తాయి.</string>
+    <string name="why_no_candles">ఈ జతకు గంటవారీ క్యాండిల్‌లు లేవు</string>
+    <string name="why_no_candles_hint">ధర, వాల్యూమ్, ఒడిదుడుకులు %1$s గంటవారీ క్యాండిల్‌ల నుండి, లేదా వీలైతే అదే కాయిన్ ఉన్న మరో ఎక్స్ఛేంజ్ నుండి వస్తాయి.</string>
+    <string name="why_no_data_retry_hint">ధర, వాల్యూమ్, ఒడిదుడుకులను లోడ్ చేయలేకపోయాం. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
     <string name="why_ref_alts">ఆల్ట్స్</string>
     <string name="why_section_context">సాధ్యమైన వివరణ</string>
     <string name="why_section_observation">పరిశీలన</string>

@@ -7,7 +7,7 @@ import SwiftUI
 
 /// Unterseiten, zu denen ein Treffer führt.
 enum SettingsSearchPage: Hashable {
-    case currency, updates, watchlist, displayMode, theme, priceColors, changeBasis, coinLogos
+    case currency, updates, usage, watchlist, displayMode, theme, priceColors, changeBasis, coinLogos
     case alarms, marketAlerts, speech, portfolio, backup, about, developer
     /// Widget-Seite (Zeile «Widgets» unter «Darstellung»).
     case widgets
@@ -20,7 +20,7 @@ enum SettingsSearchPage: Hashable {
     /// Die Suche zeigt daraus den Pfad ihrer Treffer — wie `SettingsPage.home` (Android).
     var home: SettingsHome? {
         switch self {
-        case .currency, .watchlist, .portfolio, .alarms, .updates: return .general
+        case .currency, .watchlist, .portfolio, .alarms, .updates, .usage: return .general
         case .displayMode, .theme, .priceColors, .coinLogos, .widgets: return .appearance
         case .backup, .about: return .more
         case .licenses, .changeBasis, .exchanges, .marketAlerts, .speech, .developer: return nil

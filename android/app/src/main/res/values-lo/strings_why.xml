@@ -8,8 +8,9 @@
     <string name="why_details_hide">ເຊື່ອງລາຍລະອຽດ</string>
     <string name="why_disclaimer">ການປະເມີນອັດຕະໂນມັດຈາກຂໍ້ມູນຕະຫຼາດ: ມັນສະແດງສິ່ງທີ່ເກີດຂຶ້ນໃນເວລາດຽວກັນ, ບໍ່ແມ່ນຫຼັກຖານຂອງສາເຫດ.</string>
     <string name="why_footer_short">ເກີດພ້ອມກັນບໍ່ໄດ້ໝາຍເຖິງສາເຫດ · ບໍ່ແມ່ນຄຳແນະນຳການລົງທຶນ</string>
-    <string name="why_no_data">ບໍ່ມີຂໍ້ມູນຈາກ Binance ສຳລັບຄູ່ເທຣດນີ້</string>
-    <string name="why_no_data_hint">ລາຄາ, ປະລິມານ ແລະ ຄວາມຜັນຜວນມາຈາກແທ່ງທຽນລາຍຊົ່ວໂມງຂອງ Binance.</string>
+    <string name="why_no_candles">ບໍ່ມີແທ່ງທຽນລາຍຊົ່ວໂມງສຳລັບຄູ່ເທຣດນີ້</string>
+    <string name="why_no_candles_hint">ລາຄາ, ປະລິມານ ແລະ ຄວາມຜັນຜວນມາຈາກແທ່ງທຽນລາຍຊົ່ວໂມງຂອງ %1$s ຫຼື ຖ້າເປັນໄປໄດ້ ຈາກຕະຫຼາດແລກປ່ຽນອື່ນທີ່ມີຫຼຽນດຽວກັນ.</string>
+    <string name="why_no_data_retry_hint">ບໍ່ສາມາດໂຫຼດລາຄາ, ປະລິມານ ແລະ ຄວາມຜັນຜວນໄດ້. ກະລຸນາລອງອີກຄັ້ງ.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">ຄຳອະທິບາຍທີ່ເປັນໄປໄດ້</string>
     <string name="why_section_observation">ການສັງເກດ</string>

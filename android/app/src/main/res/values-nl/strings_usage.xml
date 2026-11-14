@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Batterij en activiteit</string>
+    <string name="usage_intro">Apps kunnen hun eigen stroomverbruik niet uitlezen. Daarom toont de app wat ze de afgelopen 24 uur zelf heeft gedaan – alleen op dit apparaat geteld, zonder inhoud.</string>
+    <string name="usage_phone">Telefoon</string>
+    <string name="usage_watch">Horloge</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d achtergrondrun</item>
+        <item quantity="other">%d achtergrondruns</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d netwerkverzoek</item>
+        <item quantity="other">%d netwerkverzoeken</item>
+    </plurals>
+    <string name="usage_received">%1$s ontvangen</string>
+    <string name="usage_level_low">Lage activiteit</string>
+    <string name="usage_level_medium">Gemiddelde activiteit</string>
+    <string name="usage_level_high">Hoge activiteit</string>
+    <string name="usage_driver_interval">Vooral door de controle op de achtergrond (%1$s).</string>
+    <string name="usage_driver_exact">Vooral door de controle op de achtergrond (%1$s) en ‘%2$s’.</string>
+    <string name="usage_driver_none">Geen controle op de achtergrond gepland – telt wat de geopende app en de widgets ophalen.</string>
+    <string name="usage_driver_watch">Telt wat de horloge-app en haar complicaties zelf ophalen.</string>
+    <string name="usage_watch_none">Geen horloge verbonden</string>
+    <string name="usage_as_of">Stand %1$s</string>
+    <string name="usage_battery_android">Android toont het batterijverbruik per app in de batterij-instellingen.</string>
+</resources>

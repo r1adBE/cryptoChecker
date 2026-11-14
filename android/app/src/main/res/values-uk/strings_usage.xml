@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Батарея й активність</string>
+    <string name="usage_intro">Застосунки не можуть дізнатися власну витрату енергії. Тому застосунок показує, що він сам зробив за останні 24 години, – пораховано лише на цьому пристрої, без жодного вмісту.</string>
+    <string name="usage_phone">Телефон</string>
+    <string name="usage_watch">Годинник</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d запуск у фоні</item>
+        <item quantity="few">%d запуски у фоні</item>
+        <item quantity="many">%d запусків у фоні</item>
+        <item quantity="other">%d запуску у фоні</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d мережевий запит</item>
+        <item quantity="few">%d мережеві запити</item>
+        <item quantity="many">%d мережевих запитів</item>
+        <item quantity="other">%d мережевого запиту</item>
+    </plurals>
+    <string name="usage_received">Отримано: %1$s</string>
+    <string name="usage_level_low">Низька активність</string>
+    <string name="usage_level_medium">Середня активність</string>
+    <string name="usage_level_high">Висока активність</string>
+    <string name="usage_driver_interval">Переважно через фонову перевірку (%1$s).</string>
+    <string name="usage_driver_exact">Переважно через фонову перевірку (%1$s) і «%2$s».</string>
+    <string name="usage_driver_none">Фонову перевірку не заплановано – враховується те, що завантажують відкритий застосунок і віджети.</string>
+    <string name="usage_driver_watch">Враховується те, що застосунок на годиннику та його ускладнення завантажують самі.</string>
+    <string name="usage_watch_none">Годинник не підключено</string>
+    <string name="usage_as_of">Станом на %1$s</string>
+    <string name="usage_battery_android">Android показує витрату батареї застосунками у своїх налаштуваннях батареї.</string>
+</resources>

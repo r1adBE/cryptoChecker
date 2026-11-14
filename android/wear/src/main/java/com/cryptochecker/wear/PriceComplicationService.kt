@@ -13,6 +13,7 @@ import androidx.wear.watchface.complications.data.TimeDifferenceComplicationText
 import androidx.wear.watchface.complications.data.TimeDifferenceStyle
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
+import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.watch.WatchFreshness
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -55,6 +56,9 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val need = WatchPhoneQuotes.selfFetch(favorites, store.quotes().mapValues { it.value.time }, store.phoneCoins,
             usePhone, settings.interval, System.currentTimeMillis(), force = false)
         if (need.isNotEmpty()) {
+            // Komplikation ruft selbst ab: zählt für «Akku & Aktivität» als Hintergrund-Lauf
+            WatchUsage.attach(this)
+            UsageMeter.shared.countRun()
             val startedAt = System.currentTimeMillis()
             // Abbruch des Aufrufs nicht schlucken; höchstens [WatchPriceSource.FETCH_DEADLINE_MS], danach der gespeicherte Kurs
             val fresh = try {
@@ -67,6 +71,8 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
             // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
             // schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
             if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, startedAt)[coin] ?: cached
+            UsageMeter.shared.flush()
+            WatchUsage.publish(this)
         }
         // Börse des Paars stillgelegt (ExchangeRetirement) bzw. noch ohne Kurs: kein alter Kurs, sondern «Paar / —» mit
         // dem Grund und Tipp-Ziel (wie die Zeile der Uhr-App) statt «keine Daten»

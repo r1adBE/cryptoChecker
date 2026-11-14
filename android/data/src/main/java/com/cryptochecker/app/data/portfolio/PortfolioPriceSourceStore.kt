@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.ChainAssets
+import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.StoredPrice
 import kotlinx.coroutines.sync.withLock
@@ -108,3 +109,23 @@ suspend fun PortfolioPriceSource.persist(generation: Int) {
 /** Zwischenspeicher als gemerkte Kurse; «Kurs ungeprüft» wird mitgemerkt ([StoredPrice.unverified]). */
 fun PortfolioPriceSource.currentEntries(): Map<String, StoredPrice> =
     cache.entries.associate { (coin, entry) -> coin to StoredPrice(entry.first, entry.second, coin in unverifiedCoins) }
+
+/**
+ * Bezugskurse der Exporte für die Identitätsprüfung der Tagesschlüsse ([CutoffExport.referencePrices]): frisch
+ * abgefragt, fehlt einer, aus dem gemerkten Stand ([stored], wie der Wertverlauf, `chainReference`). [ExportReference.unavailable]
+ * = Coins ohne Bezug, weil die Abfrage gerade scheiterte (Netz, Quellen; [PortfolioPrices.unavailable] oder Ausnahme):
+ * im Export «nicht abrufbar» statt «ungeprüft». Wie iOS.
+ */
+suspend fun PortfolioPriceSource.exportReference(coins: Collection<String>): ExportReference {
+    if (coins.isEmpty()) return ExportReference(emptyMap(), emptySet())
+    fun reference(p: PortfolioPrices?) = p?.let { CutoffExport.referencePrices(it.prices, it.unchecked, it.unverified) }.orEmpty()
+    val fresh = runCatchingCancellable { prices(coins) }.onFailure { Timber.w(it, "Export: aktuelle Kurse fehlen") }.getOrNull()
+    val kept = runCatchingCancellable { stored(coins) }.getOrNull()
+    // Frischer Kurs vor dem gemerkten
+    val prices = reference(kept) + reference(fresh)
+    val unavailable = coins.filterTo(HashSet()) { it !in prices && (fresh == null || it in fresh.unavailable) }
+    return ExportReference(prices, unavailable)
+}
+
+/** Ergebnis von [exportReference]: Bezugskurse je Coin (USDT) und Coins ohne Bezug wegen eines Abruffehlers. */
+data class ExportReference(val prices: Map<String, Double>, val unavailable: Set<String>)

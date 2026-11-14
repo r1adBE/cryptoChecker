@@ -59,6 +59,10 @@ enum SettingsSearchCatalog {
         // Alarm-Protokoll: Zeile in der Karte «Letzte Prüfungen» (ganz unten auf der Seite) — dorthin springen, wie Android
         add("updates.alarm_log", L("alarm_log_title"), updatesPath, .page(.updates, anchor: "updates.check_runs"),
             [L("alarm_log_open"), L("alarm_log_intro"), L("settings_check_runs_title")])
+        // «Akku & Aktivität»: eigene Zähler von iPhone und Uhr, Weg in die Einstellungen — wie Android
+        let usage = L("settings_row_usage")
+        addPage("page.usage", .usage, usage, [L("ios_usage_battery_hint")])
+        add("usage.watch", L("usage_watch"), usage, .page(.usage, anchor: "usage.watch"), [L("usage_watch_none")])
         let watchlist = L("settings_row_watchlist")
         addPage("page.watchlist", .watchlist, watchlist)
         add("watchlist.names", L("settings_watchlist_names"), watchlist, .page(.watchlist, anchor: "watchlist.names"),
@@ -214,6 +218,7 @@ enum SettingsSearchCatalog {
         switch page {
         case .currency: CurrencySettingsPage()
         case .updates: UpdatesSettingsPage()
+        case .usage: UsageSettingsPage()
         case .watchlist: WatchlistSettingsPage()
         case .displayMode: DisplayModeSettingsPage()
         case .theme: ThemeSettingsPage()

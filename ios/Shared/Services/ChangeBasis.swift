@@ -283,6 +283,15 @@ enum ChangeBasisMath {
     }
 
     /// Gelten die gespeicherten Werte noch? Ohne Stempel: rollend. Tages-Basen: gleicher Tagesbeginn.
+    /// Veränderung für die Uhr, die sie als «24 h» beschriftet und bei eigenem Abruf ebenfalls rollend rechnet:
+    /// nur, wenn die gespeicherten Werte rollend sind (Basis rollend bzw. «seit letzter Aktualisierung», Stempel ebenso);
+    /// bei einer Tages-Basis nil — die Uhr zeigt dann «—» statt der Tagesveränderung unter «24 h». Wie Android.
+    static func watchChange24h(_ change: Double?, basis: ChangeBasis, stamp: ChangeStamp?) -> Double? {
+        let rolling = basis.storage.kind == .rolling24h && (stamp.map { $0.basis.storage.kind == .rolling24h } ?? true)
+        guard rolling, let change, change.isFinite else { return nil }
+        return change
+    }
+
     static func isCurrent(stamp: ChangeStamp?, basis: ChangeBasis, now: Int64, timeZone: TimeZone = .current) -> Bool {
         let s = stamp ?? ChangeStamp(basis: .ROLLING_24H, dayStart: 0)
         guard s.basis.storage == basis.storage else { return false }

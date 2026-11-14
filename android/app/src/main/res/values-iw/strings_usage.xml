@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">סוללה ופעילות</string>
+    <string name="usage_intro">אפליקציות לא יכולות לקרוא את צריכת החשמל שלהן. לכן האפליקציה מציגה מה היא עשתה בעצמה ב־24 השעות האחרונות – נספר רק במכשיר הזה, בלי שום תוכן.</string>
+    <string name="usage_phone">טלפון</string>
+    <string name="usage_watch">שעון</string>
+    <plurals name="usage_runs">
+        <item quantity="one">הרצות ברקע: %d</item>
+        <item quantity="two">הרצות ברקע: %d</item>
+        <item quantity="other">הרצות ברקע: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">בקשות רשת: %d</item>
+        <item quantity="two">בקשות רשת: %d</item>
+        <item quantity="other">בקשות רשת: %d</item>
+    </plurals>
+    <string name="usage_received">התקבלו: %1$s</string>
+    <string name="usage_level_low">פעילות נמוכה</string>
+    <string name="usage_level_medium">פעילות בינונית</string>
+    <string name="usage_level_high">פעילות גבוהה</string>
+    <string name="usage_driver_interval">בעיקר בגלל הבדיקה ברקע (%1$s).</string>
+    <string name="usage_driver_exact">בעיקר בגלל הבדיקה ברקע (%1$s) ו״%2$s״.</string>
+    <string name="usage_driver_none">לא מתוזמנת בדיקה ברקע – נספר מה שהאפליקציה הפתוחה והווידג׳טים מורידים.</string>
+    <string name="usage_driver_watch">נספר מה שאפליקציית השעון והתוספות שלה מורידות בעצמן.</string>
+    <string name="usage_watch_none">אין שעון מחובר</string>
+    <string name="usage_as_of">נכון ל־%1$s</string>
+    <string name="usage_battery_android">Android מציג את צריכת הסוללה לפי אפליקציה בהגדרות הסוללה שלו.</string>
+</resources>

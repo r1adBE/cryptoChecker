@@ -2,7 +2,7 @@ package com.cryptochecker.app.data.local
 
 import android.content.Context
 import androidx.core.content.edit
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -133,21 +133,21 @@ object StorageRecoveryNotice {
 
     /**
      * Portfolio-Sperre unbekannt (Einstellungen beschädigt, [recordSettingsReset])? Gibt bei jeder Vormerkung neu aus;
-     * gelesen im Hintergrund. Für `SettingsLockFallback`.
+     * gelesen auf [io] (dem injizierten IO-Dispatcher des Aufrufers). Für `SettingsLockFallback`.
      */
-    fun appLockUnknown(context: Context): Flow<Boolean> = changes
+    fun appLockUnknown(context: Context, io: CoroutineDispatcher): Flow<Boolean> = changes
         .map { prefs(context).getBoolean(KEY_APP_LOCK_UNKNOWN, false) }
         .distinctUntilChanged()
-        .flowOn(Dispatchers.IO)
+        .flowOn(io)
 
     /**
      * Eigener Bitcoin-Server unbekannt (Einstellungen ersetzt, [recordSettingsReset])? Dann fragt die App keine
-     * Bitcoin-Adressen ab (`AddressServer.queryAllowed`). Gibt bei jeder Vormerkung neu aus; gelesen im Hintergrund.
+     * Bitcoin-Adressen ab (`AddressServer.queryAllowed`). Gibt bei jeder Vormerkung neu aus; gelesen auf [io].
      */
-    fun addressServerUnknown(context: Context): Flow<Boolean> = changes
+    fun addressServerUnknown(context: Context, io: CoroutineDispatcher): Flow<Boolean> = changes
         .map { isAddressServerUnknown(context) }
         .distinctUntilChanged()
-        .flowOn(Dispatchers.IO)
+        .flowOn(io)
 
     /** Wie [addressServerUnknown], einmal gelesen (nicht auf dem Hauptthread). */
     fun isAddressServerUnknown(context: Context): Boolean = prefs(context).getBoolean(KEY_ADDRESS_SERVER_UNKNOWN, false)

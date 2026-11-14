@@ -168,6 +168,13 @@ struct PortfolioHistoryCard: View {
             // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)
             caption(L("portfolio_history_without_matching", series.skipped.joined(separator: ", ")))
         }
+        if series.hasChart && !series.entries.isEmpty {
+            // Schon vor dem ersten Tageskurs gehalten: ab dort gezählt («Einstieg», Wert dort als Zufluss) — wie Android
+            let text = series.entries.sorted { $0.key < $1.key }.map { coin, day in
+                "\(coin) (\(LocalDay(epochDay: day).date.formatted(date: .abbreviated, time: .omitted)))"
+            }.joined(separator: ", ")
+            caption(L("portfolio_history_entry", text))
+        }
         if series.hasChart && !history.chainSources.isEmpty {
             // Binance führt den Coin nicht: Tageskurse einer anderen Börse (geprüft auf denselben Token)
             caption(L("portfolio_history_chain_sources", PortfolioExchangeRoute.sourcesText(history.chainSources)))

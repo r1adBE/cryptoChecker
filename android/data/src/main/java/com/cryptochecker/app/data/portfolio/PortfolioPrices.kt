@@ -60,7 +60,8 @@ enum class PortfolioPriceIssue {
 
     companion object {
         /**
-         * Kerzen-Kette ohne Kurs für einen Coin: [UNAVAILABLE], wenn die Abfrage scheiterte ([failed]: Ausnahme), alle
+         * Kerzen-Kette ohne Kurs für einen Coin: [UNAVAILABLE], wenn die Abfrage scheiterte ([failed]: Netz, Zeitgrenze, 5xx
+         * einer Quelle oder Ausnahme), alle
          * Kerzen-Quellen gesperrt/pausiert sind ([allSourcesBlocked]) oder schon die Sammelabfrage am Netz scheiterte
          * ([networkFailed]) — dann ist «kein Kurs» nicht belegt. Sonst [NO_PRICE].
          */

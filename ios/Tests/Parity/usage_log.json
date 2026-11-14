@@ -1,0 +1,534 @@
+{
+  "_comment": "«Akku & Aktivität» (Entscheid Inhaber 14.11.2026): Zähler je Stunde (UsageLog, Android marketdata/usage/UsageLog.kt, iOS WatchCore/UsageLog.swift). Eimer als [stunde, läufe, anfragen, bytes] mit stunde = floor(ms / 3600000). «merge»: je Stunde summiert, aufsteigend, nur Stunden in (jetzt − 168, jetzt], negative Werte = 0, Summen höchstens 2147483647. «totals»: Summe über (jetzt − 24, jetzt]. «level»: feste Grenzen je 24 h, höchste der drei Stufen (mittel ab 48 Läufen, 500 Anfragen oder 10 000 000 Bytes; hoch ab 144, 2000 bzw. 50 000 000). «driver»: ohne geplante Hintergrund-Prüfung none, sonst interval bzw. mit wirksamem «Pünktlich prüfen» interval_exact. «decode»: Zeilen stunde;läufe;anfragen;bytes, unlesbare fallen weg, negative = 0. «utf8»: Bytes einer Live-Nachricht. «report»: Stand der Uhr fürs Handy 1;zeit;läufe;anfragen;bytes. Gemeinsam für UsageLogParityTest.kt und UsageLogParityTests.swift.",
+  "now": 1700000000000,
+  "constants": {
+    "hourMillis": 3600000,
+    "windowHours": 24,
+    "keepHours": 168,
+    "mediumRuns": 48,
+    "highRuns": 144,
+    "mediumRequests": 500,
+    "highRequests": 2000,
+    "mediumBytes": 10000000,
+    "highBytes": 50000000
+  },
+  "hourOf": [
+    {
+      "millis": 0,
+      "hour": 0
+    },
+    {
+      "millis": 3599999,
+      "hour": 0
+    },
+    {
+      "millis": 3600000,
+      "hour": 1
+    },
+    {
+      "millis": -1,
+      "hour": -1
+    },
+    {
+      "millis": -3600000,
+      "hour": -1
+    },
+    {
+      "millis": -3600001,
+      "hour": -2
+    },
+    {
+      "millis": 1700000000000,
+      "hour": 472222
+    }
+  ],
+  "merge": [
+    {
+      "name": "same hour summed, sorted",
+      "a": [
+        [
+          472222,
+          1,
+          2,
+          100
+        ],
+        [
+          472220,
+          1,
+          0,
+          0
+        ]
+      ],
+      "b": [
+        [
+          472222,
+          2,
+          3,
+          50
+        ]
+      ],
+      "expected": [
+        [
+          472220,
+          1,
+          0,
+          0
+        ],
+        [
+          472222,
+          3,
+          5,
+          150
+        ]
+      ]
+    },
+    {
+      "name": "older than 168 h and future dropped",
+      "a": [
+        [
+          472054,
+          9,
+          9,
+          9
+        ],
+        [
+          472055,
+          1,
+          1,
+          1
+        ],
+        [
+          472223,
+          5,
+          5,
+          5
+        ]
+      ],
+      "b": [],
+      "expected": [
+        [
+          472055,
+          1,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "negative values count as 0",
+      "a": [
+        [
+          472222,
+          -5,
+          3,
+          -10
+        ]
+      ],
+      "b": [
+        [
+          472222,
+          2,
+          -1,
+          7
+        ]
+      ],
+      "expected": [
+        [
+          472222,
+          2,
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "name": "runs saturate",
+      "a": [
+        [
+          472222,
+          2147483000,
+          1,
+          1
+        ]
+      ],
+      "b": [
+        [
+          472222,
+          1000,
+          1,
+          1
+        ]
+      ],
+      "expected": [
+        [
+          472222,
+          2147483647,
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "name": "both empty",
+      "a": [],
+      "b": [],
+      "expected": []
+    }
+  ],
+  "add": [
+    {
+      "name": "into the current hour",
+      "buckets": [
+        [
+          472222,
+          1,
+          1,
+          10
+        ]
+      ],
+      "runs": 1,
+      "requests": 0,
+      "bytes": 0,
+      "expected": [
+        [
+          472222,
+          2,
+          1,
+          10
+        ]
+      ]
+    },
+    {
+      "name": "new hour, old kept",
+      "buckets": [
+        [
+          472221,
+          1,
+          1,
+          10
+        ]
+      ],
+      "runs": 0,
+      "requests": 1,
+      "bytes": 2048,
+      "expected": [
+        [
+          472221,
+          1,
+          1,
+          10
+        ],
+        [
+          472222,
+          0,
+          1,
+          2048
+        ]
+      ]
+    }
+  ],
+  "totals": [
+    {
+      "name": "window is the last 24 hours",
+      "buckets": [
+        [
+          472222,
+          1,
+          10,
+          1000
+        ],
+        [
+          472199,
+          2,
+          20,
+          2000
+        ],
+        [
+          472198,
+          4,
+          40,
+          4000
+        ],
+        [
+          472223,
+          8,
+          80,
+          8000
+        ]
+      ],
+      "expected": [
+        3,
+        30,
+        3000
+      ]
+    },
+    {
+      "name": "empty",
+      "buckets": [],
+      "expected": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "runs saturate",
+      "buckets": [
+        [
+          472222,
+          2147483647,
+          0,
+          0
+        ],
+        [
+          472221,
+          1,
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        2147483647,
+        0,
+        0
+      ]
+    }
+  ],
+  "level": [
+    {
+      "runs": 0,
+      "requests": 0,
+      "bytes": 0,
+      "expected": "low"
+    },
+    {
+      "runs": 47,
+      "requests": 499,
+      "bytes": 9999999,
+      "expected": "low"
+    },
+    {
+      "runs": 48,
+      "requests": 0,
+      "bytes": 0,
+      "expected": "medium"
+    },
+    {
+      "runs": 0,
+      "requests": 500,
+      "bytes": 0,
+      "expected": "medium"
+    },
+    {
+      "runs": 0,
+      "requests": 0,
+      "bytes": 10000000,
+      "expected": "medium"
+    },
+    {
+      "runs": 143,
+      "requests": 1999,
+      "bytes": 49999999,
+      "expected": "medium"
+    },
+    {
+      "runs": 144,
+      "requests": 0,
+      "bytes": 0,
+      "expected": "high"
+    },
+    {
+      "runs": 0,
+      "requests": 2000,
+      "bytes": 0,
+      "expected": "high"
+    },
+    {
+      "runs": 0,
+      "requests": 0,
+      "bytes": 50000000,
+      "expected": "high"
+    },
+    {
+      "runs": 200,
+      "requests": 10,
+      "bytes": 10,
+      "expected": "high"
+    }
+  ],
+  "driver": [
+    {
+      "planned": false,
+      "exact": false,
+      "expected": "none"
+    },
+    {
+      "planned": false,
+      "exact": true,
+      "expected": "none"
+    },
+    {
+      "planned": true,
+      "exact": false,
+      "expected": "interval"
+    },
+    {
+      "planned": true,
+      "exact": true,
+      "expected": "interval_exact"
+    }
+  ],
+  "decode": [
+    {
+      "name": "bad lines dropped, negatives 0, spaces trimmed",
+      "text": "472222;1;2;3\nbad\n472221;x;1;1\n472220;-1;-2;-3\n\n 472219;4;5;6 \n1;2;3\n1;2;3;4;5",
+      "expected": [
+        [
+          472222,
+          1,
+          2,
+          3
+        ],
+        [
+          472220,
+          0,
+          0,
+          0
+        ],
+        [
+          472219,
+          4,
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "name": "empty",
+      "text": "",
+      "expected": []
+    },
+    {
+      "name": "blank",
+      "text": " \n ",
+      "expected": []
+    }
+  ],
+  "encode": [
+    {
+      "buckets": [
+        [
+          472220,
+          1,
+          0,
+          0
+        ],
+        [
+          472222,
+          3,
+          5,
+          150
+        ]
+      ],
+      "text": "472220;1;0;0\n472222;3;5;150"
+    },
+    {
+      "buckets": [],
+      "text": ""
+    }
+  ],
+  "utf8": [
+    {
+      "text": "",
+      "bytes": 0
+    },
+    {
+      "text": "abc",
+      "bytes": 3
+    },
+    {
+      "text": "é",
+      "bytes": 2
+    },
+    {
+      "text": "€",
+      "bytes": 3
+    },
+    {
+      "text": "😀",
+      "bytes": 4
+    },
+    {
+      "text": "a€😀{\"p\":1}",
+      "bytes": 15
+    }
+  ],
+  "reportEncode": [
+    {
+      "at": 1700000000000,
+      "runs": 12,
+      "requests": 345,
+      "bytes": 67890,
+      "text": "1;1700000000000;12;345;67890"
+    },
+    {
+      "at": 1,
+      "runs": 0,
+      "requests": 0,
+      "bytes": 0,
+      "text": "1;1;0;0;0"
+    }
+  ],
+  "reportDecode": [
+    {
+      "name": "valid",
+      "text": "1;1700000000000;12;345;67890",
+      "expected": [
+        1700000000000,
+        12,
+        345,
+        67890
+      ]
+    },
+    {
+      "name": "trimmed",
+      "text": " 1;5;1;2;3 \n",
+      "expected": [
+        5,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "other version",
+      "text": "2;5;1;2;3",
+      "expected": null
+    },
+    {
+      "name": "time not positive",
+      "text": "1;0;1;1;1",
+      "expected": null
+    },
+    {
+      "name": "negative count",
+      "text": "1;5;-1;0;0",
+      "expected": null
+    },
+    {
+      "name": "too few parts",
+      "text": "1;5;1;1",
+      "expected": null
+    },
+    {
+      "name": "not a number",
+      "text": "1;5;x;1;1",
+      "expected": null
+    },
+    {
+      "name": "empty",
+      "text": "",
+      "expected": null
+    }
+  ]
+}

@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-nøgletal, tjekket to gange om dagen. Du vælger grænserne – appen vurderer ikke værdierne.</string>
     <string name="settings_macro_notifications">Økonomisk kalender</string>
     <string name="settings_macro_notifications_hint">Kl. 08:00 på dage med vigtige amerikanske økonomiske tal (inflation, jobrapport, rentebeslutning). Kalenderen kommer fra appens hjemmeside og hentes én gang om dagen.</string>
+    <string name="settings_macro_notifications_us_hint">I USA kommer notifikationen senest kl. 08:00 New York-tid, før de første data.</string>
     <string name="settings_market_alerts">Markedsmeddelelser</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Del</string>
     <string name="settings_price_overlay">Prisoverlay</string>
     <string name="settings_price_overlay_hint">Viser parrene fra den faste kursnotifikation som en lille svævende pille over andre apps. Tryk for at åbne appen, træk til × nederst for at lukke.</string>
+    <string name="settings_price_overlay_restart_hint">Hvis systemet lukker appen, vender prisoverlayet tilbage med den næste opdatering i baggrunden.</string>
     <string name="settings_price_overlay_needs">Virker kun sammen med «%1$s».</string>
     <string name="settings_price_overlay_grant">Tillad visning over andre apps</string>
     <string name="price_overlay_close">Luk overlay</string>

@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Awukho umlando otholakalayo okwamanje.</string>
     <string name="portfolio_history_utc_days">Izinsuku nge-UTC (ama-candle ansuku zonke)</string>
     <string name="portfolio_history_without_matching">Ngaphandle kwe-%1$s (azikho izintengo zansuku zonke ezihambisanayo)</string>
+    <string name="portfolio_history_entry">Kubalwe kusukela entengweni yokuqala yosuku: %1$s (azikho izintengo zansuku zonke ngaphambili)</string>
     <string name="portfolio_period_rewards">Imivuzo +%1$s (ayikho enzuzweni)</string>
     <string name="portfolio_period_scaled">Izinsuku 7/Unyaka 1 we-%1$s: umlando we-Binance ulinganiswe nentengo ye-exchange</string>
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Batteri og aktivitet</string>
+    <string name="usage_intro">Apper kan ikke lese av sitt eget strømforbruk. Derfor viser appen hva den selv har gjort de siste 24 timene – telt bare på denne enheten, uten innhold.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Klokke</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d bakgrunnskjøring</item>
+        <item quantity="other">%d bakgrunnskjøringer</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d nettverksforespørsel</item>
+        <item quantity="other">%d nettverksforespørsler</item>
+    </plurals>
+    <string name="usage_received">%1$s mottatt</string>
+    <string name="usage_level_low">Lav aktivitet</string>
+    <string name="usage_level_medium">Middels aktivitet</string>
+    <string name="usage_level_high">Høy aktivitet</string>
+    <string name="usage_driver_interval">Mest fra bakgrunnssjekken (%1$s).</string>
+    <string name="usage_driver_exact">Mest fra bakgrunnssjekken (%1$s) og «%2$s».</string>
+    <string name="usage_driver_none">Ingen bakgrunnssjekk planlagt – det som teller, er hva den åpne appen og modulene henter.</string>
+    <string name="usage_driver_watch">Det som teller, er hva klokkeappen og komplikasjonene selv henter.</string>
+    <string name="usage_watch_none">Ingen klokke tilkoblet</string>
+    <string name="usage_as_of">Per %1$s</string>
+    <string name="usage_battery_android">Android viser batteribruken per app i batteriinnstillingene.</string>
+</resources>

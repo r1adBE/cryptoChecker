@@ -73,6 +73,8 @@ struct WatchPriceProvider: TimelineProvider {
                                                   usePhone: usePhone,
                                                   intervalMinutes: settings.interval, now: WatchStore.now(), force: false)
             if let first, !need.isEmpty {
+                // Komplikation ruft selbst ab: zählt für «Akku & Aktivität» als Hintergrund-Lauf (wie Wear OS)
+                UsageMeter.shared.countRun()
                 let startedAt = WatchStore.now()
                 // Höchstens 20 s für alle Börsen zusammen (wie Android), danach der gespeicherte Kurs
                 let fresh = await WatchQuoteFetch.within(seconds: WatchQuoteFetch.complicationTimeoutSeconds) {
@@ -83,6 +85,7 @@ struct WatchPriceProvider: TimelineProvider {
                 if !fresh.isEmpty {
                     cached = WatchStore.mergeQuotes(fresh, startedAt: startedAt)?[first] ?? cached
                 }
+                UsageMeter.shared.flush()
             }
             let now = Date()
             let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(settings.interval) * 60))

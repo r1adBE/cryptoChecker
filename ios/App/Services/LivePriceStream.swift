@@ -271,6 +271,8 @@ actor LivePriceStream {
         var request = URLRequest(url: url)
         request.setValue(HttpUserAgent.value, forHTTPHeaderField: HttpUserAgent.header)
         let socket = session.webSocketTask(with: request)
+        // «Akku & Aktivität»: jeder Verbindungsversuch eine Anfrage, dann die Bytes der Nachrichten (wie Android)
+        UsageMeter.shared.countRequest(bytes: 0)
         // Ausdrücklich 1 MiB: grössere Nachricht → Fehler → Neuverbindung wie Android
         socket.maximumMessageSize = LiveRules.maxMessageBytes
         socket.resume()
@@ -333,6 +335,7 @@ actor LivePriceStream {
                 case .data(let data): text = String(decoding: data, as: UTF8.self)
                 @unknown default: continue
                 }
+                UsageMeter.shared.countBytes(UsageLog.utf8Length(text))
                 if onText(spec.exchange, text) {
                     received = true
                     clock.markPriced()

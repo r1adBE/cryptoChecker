@@ -162,7 +162,7 @@ class InfoViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.marketMoreExpanded)
 
     fun setMoreExpanded(expanded: Boolean) {
-        viewModelScope.launch { settingsRepository.setMarketMoreExpanded(expanded) }
+        viewModelScope.launch { settingsRepository.guarded { setMarketMoreExpanded(expanded) } }
     }
 
     // ---- Weitere Bereiche: Fear & Greed, Dominanz, Altcoin-Saison, Zyklus-Vergleich, Coin

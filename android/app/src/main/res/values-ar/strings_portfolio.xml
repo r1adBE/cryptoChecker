@@ -230,6 +230,7 @@
     <string name="portfolio_history_unavailable">لا يتوفر تطور حاليًا.</string>
     <string name="portfolio_history_utc_days">الأيام بتوقيت UTC (شموع يومية)</string>
     <string name="portfolio_history_without_matching">بدون %1$s (لا أسعار يومية مطابقة)</string>
+    <string name="portfolio_history_entry">الاحتساب من أول سعر يومي: %1$s (لا أسعار يومية قبل ذلك)</string>
     <string name="portfolio_period_rewards">المكافآت +%1$s (خارج الربح)</string>
     <string name="portfolio_period_scaled">7 أيام/سنة لـ %1$s: سجل Binance مُعدّل إلى سعر المنصة</string>
 

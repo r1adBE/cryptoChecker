@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Indicadores de Bitcoin, verificados duas vezes por dia. Os limites escolhes tu – a app não avalia os valores.</string>
     <string name="settings_macro_notifications">Calendário económico</string>
     <string name="settings_macro_notifications_hint">Às 08:00 nos dias com dados económicos importantes dos EUA (inflação, emprego, decisão da Fed). O calendário vem do site da app e é carregado uma vez por dia.</string>
+    <string name="settings_macro_notifications_us_hint">Nos EUA, a notificação chega o mais tardar às 08:00, hora de Nova Iorque, antes dos primeiros dados.</string>
     <string name="settings_market_alerts">Avisos de mercado</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Partilhar</string>
     <string name="settings_price_overlay">Sobreposição de preços</string>
     <string name="settings_price_overlay_hint">Mostra os pares da notificação de preço permanente numa pequena pílula flutuante sobre outras apps. Toca para abrir a app, arrasta para o × em baixo para fechar.</string>
+    <string name="settings_price_overlay_restart_hint">Se o sistema fechar a app, a sobreposição de preços volta com a próxima atualização em segundo plano.</string>
     <string name="settings_price_overlay_needs">Só funciona com «%1$s».</string>
     <string name="settings_price_overlay_grant">Permitir sobreposição a outras apps</string>
     <string name="price_overlay_close">Fechar sobreposição</string>

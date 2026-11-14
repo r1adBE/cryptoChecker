@@ -88,6 +88,9 @@ class HistoricPriceSource @Inject constructor(
     /** Je (Coin, Tag) eine Abfrage je Quelle ([DayFetch]). */
     internal val dayFetch = DayFetch(this)
 
+    /** Host → Zeit, seit der er gar nicht antwortet ([getDay], [SILENT_HOST_MILLIS]). */
+    internal val silentHosts = ConcurrentHashMap<String, Long>()
+
     /**
      * Schlusskurse der Coins am Tag [date]; Coins ohne bestätigten Kurs fehlen in den Preisen.
      * [current]: Bezugskurse in USDT für die Identitätsprüfung ([CutoffExport.referencePrices]);
@@ -113,14 +116,16 @@ class HistoricPriceSource @Inject constructor(
                 // Kerzenkurse kommen als Double: exakt über die kürzeste Darstellung (= Text der Quelle)
                 prices = results.mapNotNull { (coin, r) -> PortfolioDecimal.of(r.price)?.let { coin to it } }.toMap(),
                 unchecked = results.filter { it.second.unchecked }.map { it.first }.toSet(),
+                unavailable = results.filter { it.second.failed && !it.second.unchecked }.map { it.first }.toSet(),
             )
         }
 
     /**
      * Ergebnis je Coin: bestätigter Kurs, sonst [unchecked] = Kurs nicht als derselbe Token bestätigt. [source] =
-     * Anbieter des Kurses (z. B. «Binance», «Kraken»; null ohne Kurs bzw. USDT = 1).
+     * Anbieter des Kurses (z. B. «Binance», «Kraken»; null ohne Kurs bzw. USDT = 1). [failed] = ohne Kurs, weil eine
+     * Quelle nicht abrufbar war ([HistoricCloseChain.Resolved.failed]): «nicht abrufbar» statt «ohne Kurs».
      */
-    data class CloseResult(val price: Double?, val unchecked: Boolean = false, val source: String? = null)
+    data class CloseResult(val price: Double?, val unchecked: Boolean = false, val source: String? = null, val failed: Boolean = false)
 
     /**
      * Schlusskurs eines Coins am Tag [date] (UTC-Tageskerze). USDT = 1. [current] = aktueller
@@ -160,12 +165,13 @@ class HistoricPriceSource @Inject constructor(
                     else -> chainOutcome(source, b, start, reference, ownName)
                 }
             } catch (e: HistoricSourceUnavailable) {
-                // Nicht erreichbar (auch nach einer Wiederholung): kein Kurs statt der nächsten Quelle (wiederholbar)
+                // Fehler-Antwort (auch nach einer Wiederholung): kein Kurs statt der nächsten Quelle (wiederholbar);
+                // gar keine Antwort: übersprungen wie gesperrt ([HistoricCloseChain.resolve])
                 Timber.d(e, "Tagesschluss %s %s: Quelle %s nicht erreichbar", b, date, source)
-                HistoricCloseChain.Outcome(null, failed = true)
+                HistoricCloseChain.Outcome(null, failed = !e.unreachable, unreachable = e.unreachable)
             }
         }
-        return CloseResult(resolved.price, resolved.unchecked, resolved.provider)
+        return CloseResult(resolved.price, resolved.unchecked, resolved.provider, failed = resolved.failed)
     }
 
     /** Coinbase (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %). */
@@ -189,8 +195,17 @@ class HistoricPriceSource @Inject constructor(
         ownName: String?,
         fetch: DayCloseFetch,
     ): HistoricCloseChain.Outcome {
-        // Gab es einen Kurs, der die Prüfung nicht bestand?
+        // Gab es einen Kurs, der die Prüfung nicht bestand? Antwortete ein Host gar nicht (nächster Host der Gruppe)?
         var rejected = false
+        var silent = false
+        var answered = false
+        suspend fun close(host: String, endpoint: String, symbol: String, primary: Boolean): CloseResult = try {
+            binanceClose(fetch, host, endpoint, symbol, start, primary, reference).also { answered = answered || primary }
+        } catch (e: HistoricSourceUnavailable) {
+            if (!e.unreachable) throw e
+            silent = true
+            CloseResult(null)
+        }
 
         // Binance-Spot: Identitätsprüfung 1/3…3; Futures und Ausweich-Quellen zusätzlich ±25 %
         val binance = listOf(
@@ -204,58 +219,21 @@ class HistoricPriceSource @Inject constructor(
         try {
             for ((host, endpoint, primary) in binance) {
                 if (!binanceOk) break
-                val r = binanceClose(fetch, host, endpoint, "${b}USDT", start, primary, reference)
+                val r = close(host, endpoint, "${b}USDT", primary)
                 r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.candleProvider(host)) }
                 rejected = rejected || r.unchecked
             }
             for (symbol in listOf("${b}USDT", "${b}USD")) {
-                val r = binanceClose(fetch, "api.binance.us", "https://api.binance.us/api/v3/klines", symbol, start, false, reference)
+                val r = close("api.binance.us", "https://api.binance.us/api/v3/klines", symbol, false)
                 r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.BINANCE_US) }
                 rejected = rejected || r.unchecked
             }
         } catch (e: HistoricSourceUnavailable) {
-            // Nicht erreichbar: Kette bricht ab, ein schon verworfener Schluss bleibt «ungeprüft»
+            // Fehler-Antwort: Kette bricht ab, ein schon verworfener Schluss bleibt «ungeprüft»
             return HistoricCloseChain.Outcome(null, rejected, failed = true)
         }
-        return HistoricCloseChain.Outcome(null, rejected)
-    }
-
-    private suspend fun binanceClose(
-        fetch: DayCloseFetch,
-        host: String,
-        endpoint: String,
-        symbol: String,
-        start: Long,
-        primary: Boolean,
-        current: Double,
-    ): CloseResult {
-        // Pause nach «zu viele Anfragen»: vorübergehend, nicht «keine Kerze»; Geo-Sperre (403/451): Quelle übersprungen
-        if (BlockedSources.groupPausedUntil(host) != null) throw HistoricSourceUnavailable(host)
-        if (BlockedSources.isBlocked(host)) return CloseResult(null)
-        val close = fetch.binanceDay(host, endpoint, symbol, start) ?: return CloseResult(null)
-        // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
-        val latest = fetch.binanceLatest(host, endpoint, symbol)
-        return if (PricePlausibility.acceptSourceClose(close, primary, sourceLatest = latest, current = current)) {
-            CloseResult(close)
-        } else {
-            CloseResult(null, unchecked = true)
-        }
-    }
-
-    private suspend fun coinbaseClose(b: String, date: LocalDate, start: Long, current: Double, fetch: DayCloseFetch): CloseResult {
-        var rejected = false
-        for (quote in listOf("USD", "USDC")) {
-            if (BlockedSources.groupPausedUntil(COINBASE_HOST) != null) throw HistoricSourceUnavailable(COINBASE_HOST)
-            if (BlockedSources.isBlocked(COINBASE_HOST)) break
-            val close = fetch.coinbaseDay("$b-$quote", date, start) ?: continue
-            // Jüngste Tageskerzen desselben Produkts
-            val latest = fetch.coinbaseLatest("$b-$quote")
-            if (PricePlausibility.acceptSourceClose(close, primary = false, sourceLatest = latest, current = current)) {
-                return CloseResult(close)
-            }
-            rejected = true
-        }
-        return CloseResult(null, unchecked = rejected)
+        // Kein Spot-Host antwortete: Binance übersprungen (ohne Treffer danach «nicht abrufbar»)
+        return HistoricCloseChain.Outcome(null, rejected, unreachable = silent && !answered)
     }
 
     internal fun closeOf(candles: List<HourCandle>, start: Long): Double? =
@@ -267,14 +245,18 @@ class HistoricPriceSource @Inject constructor(
      * letzte Geschäftstag, dessen Datum in [HistoricFx.date] steht; Kreuzkurs wie [EcbRates.cross]. Lew nach der
      * Euro-Einführung aus dem EUR-Kurs desselben Tags (eine Abfrage). null, wenn kein Kurs zu haben ist.
      */
-    suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? {
+    suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? = usdToDay(currency, date).fx
+
+    /** Wie [usdTo]; [HistoricFxDay.failed] = die EZB antwortete nicht (nicht: «kein Kurs für diesen Tag»). */
+    internal suspend fun usdToDay(currency: String, date: LocalDate): HistoricFxDay {
         val target = currency.trim().uppercase()
-        if (target == "USD") return HistoricFx(1.0, null)
-        if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
+        if (target == "USD") return HistoricFxDay(HistoricFx(1.0, null))
+        if (target.length != 3 || !target.all { it in 'A'..'Z' }) return HistoricFxDay(null)
         return withContext(ioDispatcher) {
             val days = ecbDays(PortfolioHistoryFx.requestCurrencies(target), date.minusDays(FX_LOOKBACK_DAYS), date)
-            val (day, rates) = days.orEmpty().entries.filter { it.key <= date.toString() && "USD" in it.value }
-                .maxByOrNull { it.key } ?: return@withContext null
+                ?: return@withContext HistoricFxDay(null, failed = true)
+            val (day, rates) = days.entries.filter { it.key <= date.toString() && "USD" in it.value }
+                .maxByOrNull { it.key } ?: return@withContext HistoricFxDay(null)
             val rate = EcbRates.cross(rates, "USD", target)
                 ?: if (CurrencyConversion.deriveBgnFromEur(target, date)) {
                     // Lew nach der Euro-Einführung: EUR × 1.95583 (fester Kurs)
@@ -282,7 +264,7 @@ class HistoricPriceSource @Inject constructor(
                 } else {
                     null
                 }
-            rate?.takeIf { it > 0.0 && it.isFinite() }?.let { HistoricFx(it, day) }
+            HistoricFxDay(rate?.takeIf { it > 0.0 && it.isFinite() }?.let { HistoricFx(it, day) })
         }
     }
 
@@ -394,3 +376,6 @@ class HistoricPriceSource @Inject constructor(
 
 /** Ergebnis von [HistoricPriceSource.usdToSeriesChecked]: [rates] wie `usdToSeries`; [failed] = keine gültige Antwort. */
 class FxSeriesLoad(val rates: Map<Long, Double>?, val failed: Boolean = false)
+
+/** Ergebnis von [HistoricPriceSource.usdToDay]: [fx] wie `usdTo`; [failed] = keine gültige Antwort der EZB. */
+data class HistoricFxDay(val fx: HistoricFx?, val failed: Boolean = false)

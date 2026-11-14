@@ -58,12 +58,13 @@ enum CutoffExport {
     /// Zeilen aus Bestand, Kursen (Coin → Tagesschluss in USDT) und Devisenkurs (nil = unbekannt), alles
     /// exakt: Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs (je 34 gültige Stellen, wie Android).
     /// Stablecoins nach `PortfolioStables.price`: USDT = 1, die übrigen ihr Tagesschluss, fehlt er,
-    /// «ohne Kurs» wie jeder Coin. Coins in `unchecked` (ausser USDT): kein Kurs, Hinweis «ungeprüft».
+    /// «ohne Kurs» wie jeder Coin. Coins in `unchecked` (ausser USDT): kein Kurs, Hinweis «ungeprüft». Coins in
+    /// `unavailable` ohne Kurs: «ohne Kurs» mit Hinweis «nicht abrufbar» (geht vor «ungeprüft»). Wie Android.
     static func rows(_ holdings: [CutoffHolding], prices: [String: Decimal], fxRate: Decimal?,
-                     unchecked: Set<String> = []) -> [CutoffRow] {
+                     unchecked: Set<String> = [], unavailable: Set<String> = []) -> [CutoffRow] {
         let rate = fxRate.flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
         return holdings.map { h in
-            let notChecked = unchecked.contains(h.coin) && PortfolioStables.needsQuote(h.coin)
+            let notChecked = unchecked.contains(h.coin) && !unavailable.contains(h.coin) && PortfolioStables.needsQuote(h.coin)
             let price = notChecked ? nil : stablePrice(h.coin, market: prices[h.coin])
             let value = price.map { PortfolioDecimal.multiply(h.amount, $0) }
             var target: Decimal?
@@ -71,7 +72,7 @@ enum CutoffExport {
             return CutoffRow(
                 coin: h.coin, amount: h.amount, priceUsdt: price, valueUsdt: value,
                 rate: rate, valueTarget: target, noPrice: price == nil && !notChecked, noFx: rate == nil,
-                unchecked: notChecked
+                unchecked: notChecked, unavailable: price == nil && unavailable.contains(h.coin)
             )
         }
     }
@@ -82,9 +83,10 @@ enum CutoffExport {
     /// Coins, deren Adresse erst später beobachtet wurde (`unobserved`), stehen mit Hinweis und ohne fehlenden Teil da
     /// (`addressUnobserved`) — nie rückwirkend geschätzt. Wie Android.
     static func addressRows(_ at: AddressBalancesAt, prices: [String: Decimal], fxRate: Decimal?,
-                            unchecked: Set<String> = []) -> [CutoffRow] {
+                            unchecked: Set<String> = [], unavailable: Set<String> = []) -> [CutoffRow] {
         let holdings = at.balances.map { CutoffHolding(coin: $0.key, amount: $0.value) }.sorted { $0.coin < $1.coin }
-        let priced = rows(holdings, prices: prices, fxRate: fxRate, unchecked: unchecked).map { r -> CutoffRow in
+        let priced = rows(holdings, prices: prices, fxRate: fxRate, unchecked: unchecked,
+                          unavailable: unavailable).map { r -> CutoffRow in
             var row = r
             row.fromAddress = true
             row.addressUnobserved = at.unobserved.contains(r.coin)
@@ -148,7 +150,7 @@ enum CutoffExport {
             var notes: [String] = []
             if r.fromAddress && !texts.fromAddress.isEmpty { notes.append(texts.fromAddress) }
             if r.addressUnobserved && !texts.addressUnobserved.isEmpty { notes.append(texts.addressUnobserved) }
-            if r.noPrice { notes.append(texts.noPrice) }
+            if r.noPrice { notes.append(r.unavailable && !texts.unavailable.isEmpty ? texts.unavailable : texts.noPrice) }
             if r.unchecked { notes.append(texts.unchecked) }
             if r.noFx { notes.append(texts.noFx) }
             // Adresse nicht beobachtet und kein beobachteter Teil: keine Menge

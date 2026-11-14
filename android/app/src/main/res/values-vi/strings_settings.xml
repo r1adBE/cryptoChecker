@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Chỉ số Bitcoin, kiểm tra hai lần mỗi ngày. Bạn tự chọn ngưỡng – ứng dụng không đánh giá giá trị.</string>
     <string name="settings_macro_notifications">Lịch kinh tế</string>
     <string name="settings_macro_notifications_hint">Lúc 08:00 vào những ngày có dữ liệu kinh tế Mỹ quan trọng (lạm phát, việc làm, quyết định của Fed). Lịch được tải từ trang web của ứng dụng mỗi ngày một lần.</string>
+    <string name="settings_macro_notifications_us_hint">Tại Mỹ, thông báo đến muộn nhất lúc 08:00 giờ New York, trước dữ liệu đầu tiên.</string>
     <string name="settings_market_alerts">Thông báo thị trường</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">Chia sẻ</string>
     <string name="settings_price_overlay">Lớp phủ giá</string>
     <string name="settings_price_overlay_hint">Hiển thị các cặp của thông báo giá cố định dưới dạng viên nổi nhỏ trên các ứng dụng khác. Chạm để mở ứng dụng, kéo đến dấu × ở dưới để đóng.</string>
+    <string name="settings_price_overlay_restart_hint">Nếu hệ thống đóng ứng dụng, lớp phủ giá sẽ quay lại cùng lần cập nhật nền tiếp theo.</string>
     <string name="settings_price_overlay_needs">Chỉ hoạt động cùng với «%1$s».</string>
     <string name="settings_price_overlay_grant">Cho phép hiển thị trên ứng dụng khác</string>
     <string name="price_overlay_close">Đóng lớp phủ</string>

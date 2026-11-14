@@ -76,7 +76,7 @@
     <string name="settings_check_runs_title">Letzte Prüfungen</string>
     <string name="settings_http_log">HTTP-Protokoll anzeigen</string>
     <string name="settings_http_log_hint">Zeigt unten auf der Seite «Paar hinzufügen» die Anfragen an die Börsen – für die Fehlersuche.</string>
-    <string name="settings_retirement_preview">Stichtag vorziehen</string>
+    <string name="settings_retirement_preview">Stilllegung vorziehen</string>
     <string name="settings_retirement_preview_hint">Verschiebt nur die Uhr der Stilllegungs-Regel, nicht die des Geräts.</string>
     <string name="settings_live_service">Häufig aktualisieren</string>
     <string name="settings_live_websocket">Live-Kurse</string>
@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-Kennzahlen, zweimal täglich geprüft. Die Grenzen wählst du selbst – die App bewertet die Werte nicht.</string>
     <string name="settings_macro_notifications">Wirtschaftstermine</string>
     <string name="settings_macro_notifications_hint">Um 08:00 an Tagen mit wichtigen US-Wirtschaftsdaten (Inflation, Arbeitsmarkt, Zinsentscheid). Der Kalender kommt von der Webseite der App und wird einmal am Tag geladen.</string>
+    <string name="settings_macro_notifications_us_hint">In den USA kommt die Benachrichtigung spätestens um 08:00 New Yorker Zeit, vor den ersten Daten.</string>
     <string name="settings_market_alerts">Markt-Benachrichtigungen</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -292,8 +293,9 @@
     <string name="diagnostics_share_hint">Textdatei für den Support: Version, Gerät, Alarm-Einstellungen, letzte Prüfungen und Alarm-Protokoll – ohne Portfolio, Beträge, Adressen und Notizen. Du siehst sie zuerst; gesendet wird nichts automatisch.</string>
     <string name="diagnostics_preview_title">Diagnose – Vorschau</string>
     <string name="diagnostics_action_share">Teilen</string>
-    <string name="settings_price_overlay">Preis-Overlay</string>
+    <string name="settings_price_overlay">Kurs-Overlay</string>
     <string name="settings_price_overlay_hint">Zeigt die Paare der dauerhaften Kursbenachrichtigung als kleine schwebende Pille über anderen Apps. Tippen öffnet die App, nach unten auf × ziehen schliesst sie.</string>
+    <string name="settings_price_overlay_restart_hint">Beendet das System die App, kommt das Kurs-Overlay mit der nächsten Aktualisierung im Hintergrund zurück.</string>
     <string name="settings_price_overlay_needs">Nur zusammen mit «%1$s».</string>
     <string name="settings_price_overlay_grant">Über anderen Apps einblenden erlauben</string>
     <string name="price_overlay_close">Overlay schliessen</string>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">باتری و فعالیت</string>
+    <string name="usage_intro">برنامه‌ها نمی‌توانند مصرف انرژی خودشان را بخوانند. به همین دلیل برنامه نشان می‌دهد در ۲۴ ساعت گذشته خودش چه کرده است – فقط روی همین دستگاه شمرده می‌شود، بدون هیچ محتوایی.</string>
+    <string name="usage_phone">تلفن</string>
+    <string name="usage_watch">ساعت</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d اجرا در پس‌زمینه</item>
+        <item quantity="other">%d اجرا در پس‌زمینه</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d درخواست شبکه</item>
+        <item quantity="other">%d درخواست شبکه</item>
+    </plurals>
+    <string name="usage_received">دریافت‌شده: %1$s</string>
+    <string name="usage_level_low">فعالیت کم</string>
+    <string name="usage_level_medium">فعالیت متوسط</string>
+    <string name="usage_level_high">فعالیت زیاد</string>
+    <string name="usage_driver_interval">بیشتر به‌خاطر بررسی در پس‌زمینه (%1$s).</string>
+    <string name="usage_driver_exact">بیشتر به‌خاطر بررسی در پس‌زمینه (%1$s) و «%2$s».</string>
+    <string name="usage_driver_none">بررسی در پس‌زمینه برنامه‌ریزی نشده است – آنچه برنامهٔ باز و ابزارک‌ها دریافت می‌کنند شمرده می‌شود.</string>
+    <string name="usage_driver_watch">آنچه برنامهٔ ساعت و ابزارک‌هایش خودشان دریافت می‌کنند شمرده می‌شود.</string>
+    <string name="usage_watch_none">هیچ ساعتی وصل نیست</string>
+    <string name="usage_as_of">وضعیت %1$s</string>
+    <string name="usage_battery_android">Android مصرف باتری هر برنامه را در تنظیمات باتری خود نشان می‌دهد.</string>
+</resources>

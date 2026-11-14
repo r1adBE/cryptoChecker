@@ -5,6 +5,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
+import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.candleDays
@@ -71,12 +72,17 @@ class PortfolioHistoryLoadTest {
 
     // ---- Beginn der Devisenkurs-Abfrage ----
 
+    /**
+     * Kurze Zeiträume laden die Devisen-Tageskurse trotzdem für «1 J» der Karte: früher nur für den Diagramm-Zeitraum
+     * (Monat = 30 Tage), dann rechnete «1 J» in CHF bei «1 W»/«1 M» ohne, bei «1 J» mit Tageskursen (zwei Zahlen).
+     */
     @Test
-    fun fxSeriesFromFixedRangeUsesRangeDays() {
+    fun fxSeriesFromFixedRangeCoversTheYearRow() {
         val today = LocalDate.ofEpochDay(PortfolioHistory.utcToday())
-        val from = fxSeriesFrom(emptyList(), PortfolioHistoryRange.MONTH)
-        assertEquals(PortfolioHistoryFx.requestRange(30, today).first, from)
-        assertEquals(today.minusDays(30L + PortfolioHistoryFx.LEAD_DAYS), from)
+        val year = today.minusDays(PortfolioPeriodChange.YEAR_DAYS.toLong() + PortfolioHistoryFx.LEAD_DAYS)
+        for (range in listOf(PortfolioHistoryRange.WEEK, PortfolioHistoryRange.MONTH, PortfolioHistoryRange.YEAR)) {
+            assertEquals(range.name, year, fxSeriesFrom(emptyList(), range))
+        }
     }
 
     @Test

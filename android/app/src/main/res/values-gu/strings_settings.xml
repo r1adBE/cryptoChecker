@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin સૂચકાંકો, દિવસમાં બે વાર તપાસાય છે. મર્યાદાઓ તમે પસંદ કરો છો – ઍપ મૂલ્યોનું મૂલ્યાંકન કરતી નથી.</string>
     <string name="settings_macro_notifications">આર્થિક કૅલેન્ડર</string>
     <string name="settings_macro_notifications_hint">મહત્ત્વના US આર્થિક ડેટાવાળા દિવસોએ 08:00 વાગ્યે (મોંઘવારી, રોજગાર અહેવાલ, ફેડ નિર્ણય). કૅલેન્ડર ઍપની વેબસાઇટ પરથી આવે છે, દિવસમાં એક વાર લોડ થાય છે.</string>
+    <string name="settings_macro_notifications_us_hint">અમેરિકામાં સૂચના મોડામાં મોડી ન્યૂ યૉર્ક સમય મુજબ 08:00 વાગ્યે, પ્રથમ ડેટા પહેલાં આવે છે.</string>
     <string name="settings_market_alerts">માર્કેટ એલર્ટ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">શેર કરો</string>
     <string name="settings_price_overlay">ભાવ ઓવરલે</string>
     <string name="settings_price_overlay_hint">કાયમી ભાવ સૂચનાની જોડીઓને બીજી ઍપ પર તરતી નાની પિલ તરીકે બતાવે છે. ઍપ ખોલવા ટૅપ કરો, બંધ કરવા નીચેના × તરફ ખેંચો.</string>
+    <string name="settings_price_overlay_restart_hint">જો સિસ્ટમ ઍપ બંધ કરે, તો ભાવ ઓવરલે આગામી બેકગ્રાઉન્ડ અપડેટ સાથે પાછું આવે છે.</string>
     <string name="settings_price_overlay_needs">ફક્ત «%1$s» સાથે જ કામ કરે છે.</string>
     <string name="settings_price_overlay_grant">બીજી ઍપ પર બતાવવાની મંજૂરી આપો</string>
     <string name="price_overlay_close">ઓવરલે બંધ કરો</string>

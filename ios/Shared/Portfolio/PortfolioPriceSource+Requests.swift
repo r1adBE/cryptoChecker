@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Abfragen ohne eigenen Zustand (Teil von `PortfolioPriceSource`): Kurse aus Merklisten-Paaren anderer Spot-Börsen,
 // Binance-Sammelabfrage, Kerzenkurs und GET mit Sperre der Quelle — wie `PortfolioPriceSource.kt` und
@@ -105,13 +106,15 @@ extension PortfolioPriceSource {
         return .prices(result)
     }
 
-    static func candlePrice(_ coin: String, identityName: String?) async -> Double? {
-        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token)
-        guard let close = await CandleDataSource.candles(base: coin, quote: stable, interval: .h1, limit: 2,
-                                                         identityName: identityName)?.last?.close,
+    static func candlePrice(_ coin: String, identityName: String?) async -> (price: Double?, failed: Bool) {
+        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token); `failed`: eine Quelle
+        // der Kette scheiterte (Netz, Zeitgrenze, 5xx) — ohne Kurs «nicht abrufbar», nicht «kein Kurs». Wie Android.
+        let attempt = OSAllocatedUnfairLock(initialState: false)
+        guard let close = await CandleDataSource.candlesSourced(base: coin, quote: stable, interval: .h1, limit: 2,
+                                                                identityName: identityName, attempt: attempt)?.value.last?.close,
               close > 0, close.isFinite
-        else { return nil }
-        return close
+        else { return (nil, attempt.withLock { $0 }) }
+        return (close, false)
     }
 
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).

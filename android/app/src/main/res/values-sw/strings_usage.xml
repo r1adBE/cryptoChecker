@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Betri na shughuli</string>
+    <string name="usage_intro">Programu haziwezi kusoma matumizi yake ya nishati. Kwa hiyo programu inaonyesha ilichofanya yenyewe katika saa 24 zilizopita – kimehesabiwa kwenye kifaa hiki tu, bila maudhui yoyote.</string>
+    <string name="usage_phone">Simu</string>
+    <string name="usage_watch">Saa</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Uendeshaji chinichini: %d</item>
+        <item quantity="other">Uendeshaji chinichini: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Maombi ya mtandao: %d</item>
+        <item quantity="other">Maombi ya mtandao: %d</item>
+    </plurals>
+    <string name="usage_received">Imepokelewa: %1$s</string>
+    <string name="usage_level_low">Shughuli ndogo</string>
+    <string name="usage_level_medium">Shughuli ya wastani</string>
+    <string name="usage_level_high">Shughuli nyingi</string>
+    <string name="usage_driver_interval">Hasa kwa sababu ya ukaguzi chinichini (%1$s).</string>
+    <string name="usage_driver_exact">Hasa kwa sababu ya ukaguzi chinichini (%1$s) na “%2$s”.</string>
+    <string name="usage_driver_none">Hakuna ukaguzi chinichini uliopangwa – kinachohesabiwa ni kile ambacho programu iliyofunguliwa na wijeti hupakua.</string>
+    <string name="usage_driver_watch">Kinachohesabiwa ni kile ambacho programu ya saa na vipengele vyake hupakua vyenyewe.</string>
+    <string name="usage_watch_none">Hakuna saa iliyounganishwa</string>
+    <string name="usage_as_of">Hadi %1$s</string>
+    <string name="usage_battery_android">Android huonyesha matumizi ya betri kwa kila programu katika mipangilio yake ya betri.</string>
+</resources>

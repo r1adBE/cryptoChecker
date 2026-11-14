@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-vísar, athugaðir tvisvar á dag. Þú velur mörkin – forritið metur ekki gildin.</string>
     <string name="settings_macro_notifications">Efnahagsdagatal</string>
     <string name="settings_macro_notifications_hint">Kl. 08:00 á dögum með mikilvæg bandarísk efnahagsgögn (verðbólga, atvinnuskýrsla, ákvörðun Fed). Dagatalið kemur af vefsíðu forritsins, hlaðið einu sinni á dag.</string>
+    <string name="settings_macro_notifications_us_hint">Í Bandaríkjunum kemur tilkynningin í síðasta lagi kl. 08:00 að New York-tíma, á undan fyrstu gögnunum.</string>
     <string name="settings_market_alerts">Markaðsviðvaranir</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Deila</string>
     <string name="settings_price_overlay">Fljótandi verð</string>
     <string name="settings_price_overlay_hint">Sýnir pör varanlegu verðtilkynningarinnar sem lítinn fljótandi hnapp ofan á öðrum forritum. Ýttu til að opna forritið, dragðu að × neðst til að loka.</string>
+    <string name="settings_price_overlay_restart_hint">Ef kerfið lokar forritinu kemur fljótandi verðið aftur með næstu uppfærslu í bakgrunni.</string>
     <string name="settings_price_overlay_needs">Virkar aðeins ásamt «%1$s».</string>
     <string name="settings_price_overlay_grant">Leyfa birtingu ofan á öðrum forritum</string>
     <string name="price_overlay_close">Loka fljótandi verði</string>

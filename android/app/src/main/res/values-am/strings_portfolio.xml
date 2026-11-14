@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">አሁን ምንም ታሪክ አይገኝም።</string>
     <string name="portfolio_history_utc_days">ቀናት በUTC (ዕለታዊ ሻማዎች)</string>
     <string name="portfolio_history_without_matching">ያለ %1$s (ተዛማጅ ዕለታዊ ዋጋዎች የሉም)</string>
+    <string name="portfolio_history_entry">ከመጀመሪያው ዕለታዊ ዋጋ ጀምሮ ተቆጥሯል፦ %1$s (ከዚያ በፊት ዕለታዊ ዋጋዎች የሉም)</string>
     <string name="portfolio_period_rewards">ሽልማቶች +%1$s (በትርፍ ውስጥ አይደሉም)</string>
     <string name="portfolio_period_scaled">7 ቀ/1 ዓ ለ%1$s፦ የBinance ታሪክ ወደ ልውውጡ ዋጋ ተመጣጥኗል</string>
 

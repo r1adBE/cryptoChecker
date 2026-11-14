@@ -99,7 +99,9 @@ extension SharedStorage {
             return false
         }
         watchlistPending = false
-        watchlistWriteFailed = false
+        // `watchlistWriteFailed` bleibt: Dieses Schreiben kann ein Stand aus der Datei sein (`updateSnapshot`, Hintergrund-
+        // Abruf) ohne die ungespeicherte Änderung im Speicher der App — gelöscht erst mit deren Stand
+        // (`saveSnapshotInBackground`)
         return true
     }
 
@@ -108,6 +110,9 @@ extension SharedStorage {
     /// der Datei), die App zeigt «Konnte nicht gespeichert werden» und schreibt beim nächsten Speichern bzw. Lesen erneut.
     /// Gesetzt von `writeFiles`, gelöscht nach dem nächsten geschriebenen Stand. Wie Android `guardedWrite` (dort bleibt
     /// der gespeicherte Stand dank Transaktion unverändert und der Hinweis kommt sofort).
+    /// «Gelöscht nach dem nächsten geschriebenen Stand» heisst: nach dem nächsten Stand der App (`saveSnapshotInBackground`,
+    /// immer der Speicher der App). Ein Schreiben aus der Datei (`updateSnapshot` im Hintergrund-Abruf) löscht ihn nicht —
+    /// sonst ersetzte das nächste Lesen die ungespeicherte Änderung still durch den älteren Dateistand (G4-03).
     static var watchlistWriteFailed: Bool {
         get { watchlistWriteFailedBox.current }
         set { watchlistWriteFailedBox.current = newValue }

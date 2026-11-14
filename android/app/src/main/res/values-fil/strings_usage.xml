@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Baterya at aktibidad</string>
+    <string name="usage_intro">Hindi mabasa ng mga app ang sarili nilang paggamit ng kuryente. Kaya ipinapakita ng app ang ginawa nito mismo sa nakalipas na 24 na oras – binilang lang sa device na ito, nang walang anumang nilalaman.</string>
+    <string name="usage_phone">Telepono</string>
+    <string name="usage_watch">Relo</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d pagtakbo sa background</item>
+        <item quantity="other">%d na pagtakbo sa background</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d kahilingan sa network</item>
+        <item quantity="other">%d na kahilingan sa network</item>
+    </plurals>
+    <string name="usage_received">Natanggap: %1$s</string>
+    <string name="usage_level_low">Mababang aktibidad</string>
+    <string name="usage_level_medium">Katamtamang aktibidad</string>
+    <string name="usage_level_high">Mataas na aktibidad</string>
+    <string name="usage_driver_interval">Pangunahing dahil sa pagsusuri sa background (%1$s).</string>
+    <string name="usage_driver_exact">Pangunahing dahil sa pagsusuri sa background (%1$s) at “%2$s”.</string>
+    <string name="usage_driver_none">Walang nakaiskedyul na pagsusuri sa background – ang binibilang ay ang kinukuha ng nakabukas na app at ng mga widget.</string>
+    <string name="usage_driver_watch">Ang binibilang ay ang kinukuha mismo ng app sa relo at ng mga complication nito.</string>
+    <string name="usage_watch_none">Walang nakakonektang relo</string>
+    <string name="usage_as_of">Noong %1$s</string>
+    <string name="usage_battery_android">Ipinapakita ng Android ang paggamit ng baterya ng bawat app sa mga setting nito ng baterya.</string>
+</resources>

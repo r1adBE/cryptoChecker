@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Hazırda tarixçə mövcud deyil.</string>
     <string name="portfolio_history_utc_days">Günlər UTC ilə (günlük şamlar)</string>
     <string name="portfolio_history_without_matching">%1$s olmadan (uyğun günlük qiymətlər yoxdur)</string>
+    <string name="portfolio_history_entry">İlk günlük qiymətdən hesablanır: %1$s (əvvəl günlük qiymət yoxdur)</string>
     <string name="portfolio_period_rewards">Mükafatlar +%1$s (gəlirə daxil deyil)</string>
     <string name="portfolio_period_scaled">%1$s üçün 7 G/1 İ: birja qiymətinə miqyaslanmış Binance tarixçəsi</string>
 

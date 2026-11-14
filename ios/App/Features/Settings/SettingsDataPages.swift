@@ -197,8 +197,8 @@ struct BackupSettingsPage: View {
     /// Sichern: Enthält die Datei Portfolio-Daten (Trades, beobachtete Adressen inkl. xpub oder Portfolio-Alarme)
     /// und ist gesperrt, erst entsperren — wie Android.
     private func startExport() {
-        // Gespeicherter Stand nicht lesbar: keine Datei, die ihn nicht enthält und gültig aussieht (wie Android)
-        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
+        // Gespeicherter Stand gesperrt bzw. beschädigt: keine Datei, die ihn nicht enthält und gültig aussieht (R4-02)
+        if let key = BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
             portfolioAlarms: data.portfolioAlarms.count)
@@ -220,7 +220,7 @@ struct BackupSettingsPage: View {
         let hasPortfolio = PortfolioLockPolicy.backupHasPortfolioData(
             transactions: data.portfolio.count, watchedAddresses: data.watchedAddresses.count,
             portfolioAlarms: data.portfolioAlarms.count)
-        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
+        if let key = BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }
         guard PortfolioLockPolicy.backupExportAllowed(hasPassword: password != nil, hasPortfolioData: hasPortfolio) else {
             return fail("backup_save_failed")
         }
@@ -282,7 +282,7 @@ struct BackupSettingsPage: View {
 
     /// Wiederherstellen: solange gesperrt, erst entsperren (die Sicherung kann die Sperre ausschalten).
     private func startImport() {
-        guard !BackupManager.storageKept(data) else { return fail("backup_storage_kept") }
+        if let key = BackupManager.restoreRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }
         Task {
             let open = await AppLock.shared.requireUnlock(PortfolioLockPolicy.restoreNeedsUnlock(locked:))
             if open { importing = true }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ბატარეა და აქტივობა</string>
+    <string name="usage_intro">აპებს არ შეუძლიათ საკუთარი ენერგიის მოხმარების წაკითხვა. ამიტომ აპი აჩვენებს, რა გააკეთა თავად ბოლო 24 საათში – დათვლილი მხოლოდ ამ მოწყობილობაზე, ყოველგვარი შინაარსის გარეშე.</string>
+    <string name="usage_phone">ტელეფონი</string>
+    <string name="usage_watch">საათი</string>
+    <plurals name="usage_runs">
+        <item quantity="one">ფონური გაშვებები: %d</item>
+        <item quantity="other">ფონური გაშვებები: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">ქსელის მოთხოვნები: %d</item>
+        <item quantity="other">ქსელის მოთხოვნები: %d</item>
+    </plurals>
+    <string name="usage_received">მიღებულია: %1$s</string>
+    <string name="usage_level_low">დაბალი აქტივობა</string>
+    <string name="usage_level_medium">საშუალო აქტივობა</string>
+    <string name="usage_level_high">მაღალი აქტივობა</string>
+    <string name="usage_driver_interval">ძირითადად ფონური შემოწმების გამო (%1$s).</string>
+    <string name="usage_driver_exact">ძირითადად ფონური შემოწმების (%1$s) და „%2$s“-ის გამო.</string>
+    <string name="usage_driver_none">ფონური შემოწმება დაგეგმილი არ არის – ითვლება ის, რასაც ღია აპი და ვიჯეტები იღებენ.</string>
+    <string name="usage_driver_watch">ითვლება ის, რასაც საათის აპი და მისი დამატებები თავად იღებენ.</string>
+    <string name="usage_watch_none">საათი არ არის დაკავშირებული</string>
+    <string name="usage_as_of">მდგომარეობა: %1$s</string>
+    <string name="usage_battery_android">Android ბატარეის პარამეტრებში აჩვენებს თითოეული აპის ბატარეის მოხმარებას.</string>
+</resources>

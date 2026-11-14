@@ -39,19 +39,22 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
     // Saveable: der Dialog muss Drehen überstehen (einmalige Hinweise sind beim Zeigen schon bestätigt)
     var shown by rememberSaveable { mutableStateOf<Kind?>(null) }
     val changes by StorageRecoveryNotice.changes.collectAsState()
-    // Einstellungen ersetzt: der eigene Bitcoin-Server ist unbekannt — der Hinweis nennt ihn (Bitcoin-Abfragen ruhen)
-    val serverUnknown by remember { StorageRecoveryNotice.addressServerUnknown(context) }.collectAsState(initial = false)
+    // Einstellungen ersetzt: der eigene Bitcoin-Server ist unbekannt — der Hinweis nennt ihn (Bitcoin-Abfragen ruhen);
+    // gelesen mit jeder Vormerkung ([changes]) im selben Lesen wie der nächste Hinweis
+    var serverUnknown by remember { mutableStateOf(false) }
     // Auch nach dem Schliessen (shown → null): ein weiterer vorgemerkter Hinweis folgt
     LaunchedEffect(changes, shown) {
-        if (shown != null) return@LaunchedEffect
-        val next = withContext(Dispatchers.IO) {
-            StorageRecoveryNotice.pending(context)?.also { kind ->
+        val open = shown != null
+        val (unknown, next) = withContext(Dispatchers.IO) {
+            val pending = if (open) null else StorageRecoveryNotice.pending(context)?.also { kind ->
                 // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden», «Einstellungen
                 // zurückgesetzt» erst beim Schliessen (der Nutzer soll die Sperre sicher prüfen können)
                 if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) StorageRecoveryNotice.acknowledge(context, kind)
             }
+            StorageRecoveryNotice.isAddressServerUnknown(context) to pending
         }
-        shown = next
+        serverUnknown = unknown
+        if (!open) shown = next
     }
     fun acknowledge(kind: Kind) {
         // Sofort im Speicher ausblenden (die Prüfung oben läuft gleich wieder), dann dauerhaft bestätigen

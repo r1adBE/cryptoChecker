@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Сейчас динамика недоступна.</string>
     <string name="portfolio_history_utc_days">Дни в UTC (дневные свечи)</string>
     <string name="portfolio_history_without_matching">Без %1$s (нет подходящих дневных цен)</string>
+    <string name="portfolio_history_entry">Учёт с первой дневной цены: %1$s (раньше дневных цен нет)</string>
     <string name="portfolio_period_rewards">Награды +%1$s (не в прибыли)</string>
     <string name="portfolio_period_scaled">7 Д/1 Г для %1$s: история Binance, приведённая к цене биржи</string>
 

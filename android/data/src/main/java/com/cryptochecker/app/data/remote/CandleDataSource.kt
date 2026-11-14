@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.util.EpochTime
@@ -69,6 +70,16 @@ class CandleDataSource @Inject constructor(
     private val working = ConcurrentHashMap<String, Pair<Source, Long>>()
 
     /**
+     * Fehler eines Durchgangs ([candlesSourced] mit `attempt`): [failed] = eine Quelle scheiterte vorübergehend (Netz,
+     * Zeitgrenze, 5xx, 429 — [com.cryptochecker.app.domain.portfolio.HistoricCloseChain.fetchFailure]), nicht «Paar
+     * unbekannt» oder gesperrt. Ohne Kerzen heisst das «nicht abrufbar», nicht «gibt es nicht».
+     */
+    class Attempt {
+        @Volatile
+        var failed = false
+    }
+
+    /**
      * Bis zu [limit] Kerzen, aufsteigend; null, wenn keine Quelle das Paar liefert.
      * Coinbase liefert höchstens 300 Rohkerzen je Anfrage; für längere Reihen kommt eine
      * ältere Seite dazu ([CandleSeries.coinbaseOlderWindow]), also bis 600 Rohkerzen.
@@ -92,7 +103,8 @@ class CandleDataSource @Inject constructor(
      * [accept]: Prüfung des Aufrufers (z. B. gleicher Token, Kurs ±25 %); false = nächste Quelle
      * der Kette statt aufgeben (eine fremde Reihe gleichen Kürzels bei der ersten Quelle).
      * [identityName]: wie bei [candles] — Quellen nur ohne klaren Namens-Widerspruch (gleiche Regel wie
-     * [com.cryptochecker.app.domain.watch.TokenIdentity.fallbackSeriesAllowed]).
+     * [com.cryptochecker.app.domain.watch.TokenIdentity.fallbackSeriesAllowed]). [attempt]: erfährt vorübergehende
+     * Fehler der Quellen ([Attempt.failed]).
      */
     suspend fun candlesSourced(
         base: String,
@@ -101,6 +113,7 @@ class CandleDataSource @Inject constructor(
         limit: Int,
         preferFutures: Boolean = false,
         identityName: String? = null,
+        attempt: Attempt? = null,
         accept: (suspend (List<HourCandle>) -> Boolean)? = null,
     ): Sourced<List<HourCandle>>? {
         val b = base.trim().uppercase()
@@ -122,7 +135,7 @@ class CandleDataSource @Inject constructor(
                 // Namenssperre wie Mini-Chart und Widget: heisst der Coin bei Binance klar anders, fällt die
                 // ganze Kette aus (anderer Token gleichen Kürzels); dazu der Name beim Anbieter selbst
                 if (!tokenIdentityStore.chainSourceAllowed(b, identityName, source.key)) continue
-                val result = fetchFrom(source, b, q, interval, n)
+                val result = fetchFrom(source, b, q, interval, n, attempt)
                 // Reihe, die vor langem endet (Paar dort nicht mehr gehandelt): nächste Quelle
                 if (result != null && result.size >= 2 &&
                     CandleSeries.isLive(result, interval.millis, System.currentTimeMillis()) &&
@@ -138,38 +151,38 @@ class CandleDataSource @Inject constructor(
     }
 
     private suspend fun fetchFrom(
-        source: Source, b: String, q: String, interval: CandleInterval, limit: Int,
+        source: Source, b: String, q: String, interval: CandleInterval, limit: Int, attempt: Attempt?,
     ): List<HourCandle>? {
         val binanceSymbol = b + binanceQuote(q)
         return when (source) {
             Source.BINANCE_VISION ->
-                binance(source, "https://data-api.binance.vision/api/v3/klines", listOf(binanceSymbol), interval, limit)
+                binance(source, "https://data-api.binance.vision/api/v3/klines", listOf(binanceSymbol), interval, limit, attempt)
             Source.BINANCE_SPOT ->
-                binance(source, "https://api.binance.com/api/v3/klines", listOf(binanceSymbol), interval, limit)
+                binance(source, "https://api.binance.com/api/v3/klines", listOf(binanceSymbol), interval, limit, attempt)
             Source.BINANCE_FUTURES ->
-                binance(source, "https://fapi.binance.com/fapi/v1/klines", listOf(binanceSymbol), interval, limit)
+                binance(source, "https://fapi.binance.com/fapi/v1/klines", listOf(binanceSymbol), interval, limit, attempt)
             Source.BINANCE_US -> {
                 // Binance.US führt viele Paare nur gegen USD
                 val symbols = listOfNotNull(binanceSymbol, if (binanceQuote(q) == "USDT") b + "USD" else null).distinct()
-                binance(source, "https://api.binance.us/api/v3/klines", symbols, interval, limit)
+                binance(source, "https://api.binance.us/api/v3/klines", symbols, interval, limit, attempt)
             }
-            Source.COINBASE -> coinbase(b, q, interval, limit)
+            Source.COINBASE -> coinbase(b, q, interval, limit, attempt)
         }
     }
 
     private suspend fun binance(
-        source: Source, endpoint: String, symbols: List<String>, interval: CandleInterval, limit: Int,
+        source: Source, endpoint: String, symbols: List<String>, interval: CandleInterval, limit: Int, attempt: Attempt?,
     ): List<HourCandle>? {
         for (symbol in symbols) {
             if (BlockedSources.isBlocked(source.key)) return null
-            val body = get(source, "$endpoint?symbol=$symbol&interval=${interval.binanceCode}&limit=$limit") ?: continue
+            val body = get(source, "$endpoint?symbol=$symbol&interval=${interval.binanceCode}&limit=$limit", attempt) ?: continue
             val candles = runCatchingCancellable { parseBinance(body) }.getOrNull()
             if (candles != null && candles.size >= 2) return candles
         }
         return null
     }
 
-    private suspend fun coinbase(b: String, q: String, interval: CandleInterval, limit: Int): List<HourCandle>? {
+    private suspend fun coinbase(b: String, q: String, interval: CandleInterval, limit: Int, attempt: Attempt?): List<HourCandle>? {
         // Erlaubt sind nur 60, 300, 900, 3600, 21600, 86400 s
         val granularity = when (interval) {
             CandleInterval.H1, CandleInterval.H4 -> 3600
@@ -179,7 +192,7 @@ class CandleDataSource @Inject constructor(
         for (cq in quotes) {
             if (BlockedSources.isBlocked(Source.COINBASE.key)) return null
             val url = "https://api.exchange.coinbase.com/products/$b-$cq/candles?granularity=$granularity"
-            val body = get(Source.COINBASE, url) ?: continue
+            val body = get(Source.COINBASE, url, attempt) ?: continue
             var raw = runCatchingCancellable { parseCoinbase(body) }.getOrNull() ?: continue
             // Je Anfrage höchstens 300 Kerzen: für lange Reihen (1 Jahr) eine ältere Seite dazu
             val rawNeeded = limit * when (interval) {
@@ -205,13 +218,21 @@ class CandleDataSource @Inject constructor(
         return null
     }
 
-    /** Eine Anfrage mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle, 429/418 pausiert Binance. */
-    private suspend fun get(source: Source, url: String): String? {
+    /**
+     * Eine Anfrage mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle, 429/418 pausiert Binance.
+     * Vorübergehender Fehler (Netz, Zeitgrenze, 5xx, 429): [attempt] erfährt ihn ([Attempt.failed]).
+     */
+    private suspend fun get(source: Source, url: String, attempt: Attempt? = null): String? {
         val body = try {
             withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
+                .also { if (it == null) attempt?.failed = true }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()
+            val kind = HistoricCloseChain.fetchFailure((e as? HttpExchangeError)?.httpCode)
+            if (kind == HistoricCloseChain.FetchFailure.TRANSIENT || kind == HistoricCloseChain.FetchFailure.UNREACHABLE) {
+                attempt?.failed = true
+            }
             if (!BlockedSources.noteFailure(source.key, e)) Timber.d(e, "Kerzen nicht verfügbar: %s", url)
             null
         }

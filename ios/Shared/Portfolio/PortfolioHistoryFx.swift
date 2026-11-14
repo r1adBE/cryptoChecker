@@ -193,7 +193,7 @@ enum PortfolioHistoryFx {
                                                capped: series.capped, cashFlows: flows,
                                                pnlValues: series.pnlValues.map(convertPoint), pnlFlows: pnlFlows,
                                                pnlSkipped: series.pnlSkipped, pnlSinceFirst: series.pnlSinceFirst,
-                                               withdrawalsInRange: series.withdrawalsInRange)
+                                               withdrawalsInRange: series.withdrawalsInRange, entries: series.entries)
         return PortfolioHistoryConverted(series: converted, approximate: approximate, usdtApproximate: usdtApprox)
     }
 }

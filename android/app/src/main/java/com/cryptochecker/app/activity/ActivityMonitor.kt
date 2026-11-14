@@ -11,6 +11,7 @@ import com.cryptochecker.app.domain.activity.FuturesSourceNote
 import com.cryptochecker.app.domain.activity.OiSample
 import com.cryptochecker.app.domain.activity.OiSeries
 import com.cryptochecker.app.domain.activity.StablePeg
+import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhyFreshness
 import com.cryptochecker.app.domain.activity.WhyInput
 import com.cryptochecker.app.domain.activity.WhyReport
@@ -27,6 +28,7 @@ import com.cryptochecker.app.domain.remote.FuturesSources
 import com.cryptochecker.app.data.remote.InsightsDataSource
 import com.cryptochecker.app.data.remote.SpotDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
+import com.cryptochecker.app.data.util.ConnectivityMonitor
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.FearGreed
@@ -71,6 +73,7 @@ class ActivityMonitor @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val notifier: AppNotifier,
     private val candlePairs: com.cryptochecker.app.data.remote.candles.CandlePairs,
+    private val connectivity: ConnectivityMonitor,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     /** Nur eine Auswertung zur Zeit; läuft schon eine, wird die neue übersprungen. */
@@ -231,7 +234,7 @@ class ActivityMonitor @Inject constructor(
      * den breiten Markt (CoinGecko-Top-40), Futures-Kennzahlen samt Funding-Verlauf,
      * Fear & Greed und Tageskerzen (30-Tage-Hoch/-Tief).
      */
-    suspend fun explain(watch: WatchEntity): WhyReport = withContext(ioDispatcher) {
+    suspend fun explain(watch: WatchEntity, refresh: Boolean = false): WhyReport = withContext(ioDispatcher) {
         // Nicht mehr gehandelt bzw. deaktiviert: nichts laden, nichts einordnen (die Merkliste bietet «Warum?» dann nicht an)
         if (watch.isNotTraded || watch.disabled) return@withContext ActivityAnalyzer.notLive(System.currentTimeMillis())
         coroutineScope {
@@ -242,8 +245,10 @@ class ActivityMonitor @Inject constructor(
             // Kerzen der eigenen Börse des Paars; sonst Ausweich-Kette (Futures-Paar: USDⓈ-M zuerst) nur
             // bei gleichem Token wie der Chart ([VolumeDataSource.pairCandles])
             val pair = candlePairs.of(watch)
+            // Mit Ausgang: Zeitgrenze/Fehler heisst «nicht abrufbar», nicht «gibt es nicht»; «Erneut
+            // versuchen» ([refresh]) fragt neu statt den gemerkten Leerstand zu liefern
             val candlesJob = async {
-                timed { volumeDataSource.pairCandles(pair, watch.lastPrice, CandleInterval.H1, limit) }
+                timedOutcome { volumeDataSource.pairCandles(pair, watch.lastPrice, CandleInterval.H1, limit, refresh) }
             }
             // Stablecoins: kein Markt-Vergleich (Abweichung von 1:1), also auch keine Vergleichsdaten dafür
             val stable = StablePeg.isPegged(watch.baseAsset, watch.quoteAsset)
@@ -293,7 +298,7 @@ class ActivityMonitor @Inject constructor(
                 null
             }
             val fearGreed = fearGreedJob.await()
-            val candles = candlesJob.await()
+            val (candles, candlesFailed) = candlesJob.await()
             val reference = referenceJob.await()
             val broad = broadJob.await()
             val now = System.currentTimeMillis()
@@ -331,7 +336,10 @@ class ActivityMonitor @Inject constructor(
                         broadTime = broad?.time,
                     ),
                 )
-            )
+            ).let { r ->
+                if (r.hasMarketData) r
+                else r.copy(candlesFailure = WhyCandlesFailure.of(connectivity.isOnlineNow(), candlesFailed))
+            }
         }
     }
 
@@ -357,6 +365,15 @@ class ActivityMonitor @Inject constructor(
 
     /** Futures-Abfrage mit Zeitgrenze; null bei Fehler oder ohne Kontrakt. */
     private suspend fun futures(block: suspend () -> FuturesInfo?): FuturesInfo? = timed(block)
+
+    /** Wie [timed]; zweiter Wert true = Fehler oder Zeitgrenze (nicht «die Quelle führt es nicht»). */
+    private suspend fun <T> timedOutcome(block: suspend () -> T?): Pair<T?, Boolean> {
+        val boxed = runCatchingCancellable { withTimeoutOrNull(SOURCE_TIMEOUT_MILLIS) { Outcome(block()) } }.getOrNull()
+        currentCoroutineContext().ensureActive()
+        return boxed?.value to (boxed == null)
+    }
+
+    private class Outcome<T>(val value: T?)
 
     private suspend fun <T> timed(block: suspend () -> T?): T? {
         val result = runCatchingCancellable { withTimeoutOrNull(SOURCE_TIMEOUT_MILLIS) { block() } }.getOrNull()

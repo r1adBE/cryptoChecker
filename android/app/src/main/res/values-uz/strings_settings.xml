@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin indikatorlari, kuniga ikki marta tekshiriladi. Chegaralarni siz tanlaysiz – ilova qiymatlarni baholamaydi.</string>
     <string name="settings_macro_notifications">Iqtisodiy kalendar</string>
     <string name="settings_macro_notifications_hint">AQSHning muhim iqtisodiy maʼlumotlari (inflyatsiya, bandlik hisoboti, FZT qarori) boʻlgan kunlarda soat 08:00 da. Kalendar ilova saytidan olinadi, kuniga bir marta yuklanadi.</string>
+    <string name="settings_macro_notifications_us_hint">AQShda bildirishnoma eng kechi bilan Nyu-York vaqti bilan 08:00 da, birinchi maʼlumotlardan oldin keladi.</string>
     <string name="settings_market_alerts">Bozor signallari</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Ulashish</string>
     <string name="settings_price_overlay">Kurs qatlami</string>
     <string name="settings_price_overlay_hint">Doimiy kurs bildirishnomasidagi juftliklarni boshqa ilovalar ustida kichik suzuvchi belgi sifatida koʻrsatadi. Ilovani ochish uchun bosing, yopish uchun pastdagi × ga torting.</string>
+    <string name="settings_price_overlay_restart_hint">Tizim ilovani yopsa, kurs qatlami keyingi fon yangilanishi bilan qaytadi.</string>
     <string name="settings_price_overlay_needs">Faqat «%1$s» bilan birga ishlaydi.</string>
     <string name="settings_price_overlay_grant">Boshqa ilovalar ustidan koʻrsatishga ruxsat berish</string>
     <string name="price_overlay_close">Qatlamni yopish</string>

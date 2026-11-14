@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">지금은 추이를 볼 수 없습니다.</string>
     <string name="portfolio_history_utc_days">날짜는 UTC 기준(일봉)</string>
     <string name="portfolio_history_without_matching">%1$s 제외(일치하는 일별 가격 없음)</string>
+    <string name="portfolio_history_entry">첫 일별 가격부터 반영: %1$s(그 이전 일별 가격 없음)</string>
     <string name="portfolio_period_rewards">보상 +%1$s(손익 미포함)</string>
     <string name="portfolio_period_scaled">%1$s 7일/1년: Binance 기록을 거래소 가격에 맞춤</string>
 

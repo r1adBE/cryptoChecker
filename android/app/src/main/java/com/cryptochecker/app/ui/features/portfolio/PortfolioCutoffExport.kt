@@ -6,6 +6,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.HistoricFx
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
+import com.cryptochecker.app.data.portfolio.exportReference
 import com.cryptochecker.app.domain.portfolio.AddressCutoff
 import com.cryptochecker.app.domain.portfolio.AddressCutoffView
 import com.cryptochecker.app.domain.portfolio.CostMethod
@@ -51,19 +52,11 @@ internal suspend fun PortfolioExportViewModel.chYearEnd(
     }
     val holdings = AddressCutoff.holdingsAt(trades, view, cutoff, method.costMethod ?: CostMethod.DEFAULT)
     val coins = (holdings.map { it.coin } + view.part.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
-    val current = try {
-        if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
-            CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified)
-        }
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        Timber.w(e, "CH-Vermögenswert: aktuelle Kurse fehlen, alle Kurse ungeprüft")
-        emptyMap()
-    }
+    // Bezug frisch, sonst gemerkt; fehlt er wegen eines Abruffehlers, ist der Coin «nicht abrufbar» (nicht «ungeprüft»)
+    val reference = priceSource.exportReference(coins)
     // Fehler beim Laden: keine Kurse → jeder Coin «nicht gerechnet», die Summe unvollständig
     val closes = try {
-        historic.dailyClosesUsdt(coins, end, current)
+        historic.dailyClosesUsdt(coins, end, reference.prices).withUnavailable(reference.unavailable)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -106,27 +99,18 @@ internal suspend fun PortfolioExportViewModel.build(
     val holdings = AddressCutoff.holdingsAt(trades, view, cutoff, method ?: settingsRepository.current().costMethod)
     // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs: «ohne Kurs»)
     val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
-    // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle); ohne passenden Bezug wird kein
-    // Tagesschluss übernommen («ungeprüft») — auch nicht, wenn das Laden ganz scheitert
-    val current = try {
-        if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
-            CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified)
-        }
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        Timber.w(e, "Stichtag: aktuelle Kurse fehlen, alle Kurse ungeprüft")
-        emptyMap()
-    }
-    val closes = historic.dailyClosesUsdt(coins, date, current)
+    // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle; frisch, sonst der gemerkte Stand); ohne passenden
+    // Bezug wird kein Tagesschluss übernommen («ungeprüft»), fehlt er wegen eines Abruffehlers: «nicht abrufbar»
+    val reference = priceSource.exportReference(coins)
+    val closes = historic.dailyClosesUsdt(coins, date, reference.prices).withUnavailable(reference.unavailable)
     val empty = holdings.isEmpty() && addressAt.balances.isEmpty()
     val fx: HistoricFx? = if (empty && currency != "USD") null else historic.usdTo(currency, date)
     // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»); USDT zum Marktkurs:
     // × USDT/USD des Stichtags (heute live, sonst Tagesschluss) — ohne Kurs 1, in der Datei vermerkt
     val usdt = cutoffUsdtUsd(currency, date)
     val rate = PortfolioDecimal.of(fx?.rate)?.let { r -> usdt?.let { r.multiply(it, PortfolioDecimal.MC) } ?: r }
-    val rows = CutoffExport.rows(holdings, closes.prices, rate, closes.unchecked) +
-        CutoffExport.addressRows(addressAt, closes.prices, rate, closes.unchecked)
+    val rows = CutoffExport.rows(holdings, closes.prices, rate, closes.unchecked, closes.unavailable) +
+        CutoffExport.addressRows(addressAt, closes.prices, rate, closes.unchecked, closes.unavailable)
     // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
     val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
     val usdtApproximate = rate != null && usdt == null && CutoffExport.convertsUsdt(currency)

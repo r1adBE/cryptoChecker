@@ -45,12 +45,18 @@ class VolumeDataSource @Inject constructor(
 
     /**
      * Kerzen eines Paars der Merkliste ([pair], Kurs [price]) wie der Chart, siehe [pairCandlesOf];
-     * kurz zwischengespeichert (auch «nicht gefunden»).
+     * kurz zwischengespeichert (auch «nicht gefunden»); [refresh] («Erneut versuchen») fragt trotzdem neu.
      */
-    suspend fun pairCandles(pair: CandlePair, price: Double?, interval: CandleInterval, limit: Int): Sourced<List<HourCandle>>? {
+    suspend fun pairCandles(
+        pair: CandlePair,
+        price: Double?,
+        interval: CandleInterval,
+        limit: Int,
+        refresh: Boolean = false,
+    ): Sourced<List<HourCandle>>? {
         val key = "P|${pair.cacheKey}|${interval.name}|$limit"
         val now = System.currentTimeMillis()
-        cache[key]?.let { (time, value) ->
+        if (!refresh) cache[key]?.let { (time, value) ->
             if (now - time in 0 until CACHE_MILLIS) return value
         }
         val result = pairCandlesOf(

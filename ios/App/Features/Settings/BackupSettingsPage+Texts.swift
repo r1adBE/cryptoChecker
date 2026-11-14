@@ -24,7 +24,8 @@ extension BackupSettingsPage {
 
     /// «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort
     /// wollte sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt, ersetzt oder neu gesetzt (mit
-    /// Hostnamen); «Portfolio in Systemsicherung» eingeschaltet, «Beträge verbergen» bzw. Portfolio-Sperre ausgeschaltet.
+    /// Hostnamen); «Portfolio in Systemsicherung» eingeschaltet, «Beträge verbergen» bzw. Portfolio-Sperre ausgeschaltet;
+    /// beschädigte Portfolio-Daten ersetzt (Datei daneben).
     static func restoredText(_ result: BackupManager.RestoreResult) -> String {
         let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                          L("backup_restored_alarms", count: result.alarms))
@@ -36,6 +37,8 @@ extension BackupSettingsPage {
             result.lowered.systemBackupOn ? L("backup_restore_system_backup_on") : nil,
             result.lowered.amountsShown ? L("backup_restore_amounts_shown") : nil,
             result.lowered.lockOff ? L("backup_restore_app_lock_off") : nil,
+            // Beschädigte Portfolio-Daten ersetzt (R4-02): nie still, die Datei liegt daneben
+            result.damagedSetAside ? L("ios_backup_restore_damaged_set_aside") : nil,
         ].compactMap { $0 }.joined(separator: "\n")
     }
 

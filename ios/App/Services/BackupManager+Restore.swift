@@ -26,9 +26,17 @@ extension BackupManager {
         let favorites: [FavoriteKind: Set<String>]
         let columnSort: String?
         let portfolio: PortfolioFile
+        /// Beschädigte Datei (R4-02): Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben.
+        var portfolioIntact = true
         let watched: WatchedAddressFile
         /// Unlesbare Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben.
         let watchedIntact: Bool
+        /// `portfolio_alarms.json` beschädigt (R4-02): vor dem Ersetzen unverändert daneben gelegt; Rückrollen schreibt
+        /// keine Portfolio-Alarme (leer, wie das Journal), die Datei bleibt daneben.
+        var alarmsDamaged = false
+
+        /// Ein beschädigter Teil wurde ersetzt und liegt daneben (Hinweis in der Meldung).
+        var damagedSetAside: Bool { !portfolioIntact || !watchedIntact || alarmsDamaged }
     }
 
     /// Liest die ganze Sicherung, bevor etwas geschrieben wird; mehr ungültige Einträge als bestätigt →
@@ -87,8 +95,17 @@ extension BackupManager {
     static func previousState(_ data: AppData) -> PreviousState {
         PreviousState(snapshot: data.snapshot, settings: data.settings, favorites: data.favorites,
                       columnSort: UserDefaults.standard.string(forKey: ColumnSort.storageKey),
-                      portfolio: data.portfolioFileForRollback(), watched: data.currentWatchedAddressFile(),
-                      watchedIntact: data.watchedAddressIntact)
+                      portfolio: data.currentPortfolioFile(), portfolioIntact: data.portfolioIntact,
+                      watched: data.currentWatchedAddressFile(), watchedIntact: data.watchedAddressIntact,
+                      alarmsDamaged: portfolioAlarmsDamaged(data))
+    }
+
+    /// `portfolio_alarms.json` da, aber nicht gelesen (`portfolioAlarms` nil) und beschädigt statt nur gesperrt?
+    @MainActor
+    static func portfolioAlarmsDamaged(_ data: AppData) -> Bool {
+        let url = SharedStorage.portfolioAlarmsURL
+        return data.snapshot.portfolioAlarms == nil && FileManager.default.fileExists(atPath: url.path)
+            && ProtectedFile.unreadableIsDamaged(url)
     }
 
     /// Neuer Stand von Merkliste und Alarmen aus der Sicherung; Zähler der Ids über dem bisherigen Stand `old`.
@@ -166,11 +183,20 @@ extension BackupManager {
     @MainActor
     private static func runRestoreSteps(_ steps: inout RestoreSteps, _ input: RestoreInput, snapshot: SharedStorage.Snapshot,
                                         previous: PreviousState, into data: AppData) throws {
+        // Beschädigte Portfolio-Alarme: unverändert daneben legen, bevor die Sicherung sie ersetzt (Bytes exakt)
+        if previous.alarmsDamaged {
+            guard WatchedAddressStore.setAsideUnreadable(at: SharedStorage.portfolioAlarmsURL) else {
+                throw Failure.invalid("portfolioAlarms")
+            }
+        }
         steps.run({
             data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)
             restoreColumnSort(input.settingsJson)
         }, undo: {
-            data.replaceAll(snapshot: previous.snapshot, settings: previous.settings, favorites: previous.favorites)
+            // Beschädigte Portfolio-Alarme liegen daneben: leer zurück (wie das Journal), nie die eingespielten behalten
+            var old = previous.snapshot
+            if previous.alarmsDamaged && old.portfolioAlarms == nil { old.portfolioAlarms = [] }
+            data.replaceAll(snapshot: old, settings: previous.settings, favorites: previous.favorites)
             if let oldColumnSort = previous.columnSort {
                 UserDefaults.standard.set(oldColumnSort, forKey: ColumnSort.storageKey)
             } else {
@@ -180,8 +206,8 @@ extension BackupManager {
         // Portfolio ersetzen
         // Nicht still: konnte das Portfolio nicht geschrieben werden, meldet das Wiederherstellen einen Fehler
         try steps.run({
-            guard data.restorePortfolio(input.portfolio) else { throw Failure.invalid("portfolio") }
-        }, undo: { _ = data.rollBackPortfolioFile(previous.portfolio) })
+            guard restorePortfolio(input.portfolio, into: data) else { throw Failure.invalid("portfolio") }
+        }, undo: { _ = rollBackPortfolio(previous.portfolio, wasIntact: previous.portfolioIntact, into: data) })
         // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
         try steps.run({
             guard data.replaceWatchedAddresses(input.watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }

@@ -189,6 +189,7 @@
     <string name="settings_indicator_alerts_hint">Táscairí Bitcoin, seiceáilte faoi dhó sa lá. Is tusa a roghnaíonn na teorainneacha – ní dhéanann an aip na luachanna a rátáil.</string>
     <string name="settings_macro_notifications">Féilire eacnamaíoch</string>
     <string name="settings_macro_notifications_hint">Ag 08:00 ar laethanta le sonraí eacnamaíocha tábhachtacha SAM (boilsciú, tuarascáil fostaíochta, cinneadh Fed). Tagann an féilire ó shuíomh gréasáin na haipe, lódáilte uair sa lá.</string>
+    <string name="settings_macro_notifications_us_hint">Sna Stáit Aontaithe tagann an fógra ar 08:00 am Nua-Eabhrac ar a dhéanaí, roimh na chéad sonraí.</string>
     <string name="settings_market_alerts">Foláirimh mhargaidh</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -303,6 +304,7 @@
     <string name="diagnostics_action_share">Comhroinn</string>
     <string name="settings_price_overlay">Praghas ar foluain</string>
     <string name="settings_price_overlay_hint">Taispeánann sé péirí an fhógra praghais bhuain mar phiollaire beag ar foluain os cionn aipeanna eile. Tapáil chun an aip a oscailt, tarraing go × ag an mbun chun é a dhúnadh.</string>
+    <string name="settings_price_overlay_restart_hint">Má dhúnann an córas an aip, filleann an praghas ar foluain leis an gcéad nuashonrú eile sa chúlra.</string>
     <string name="settings_price_overlay_needs">Ní oibríonn sé ach in éineacht le «%1$s».</string>
     <string name="settings_price_overlay_grant">Ceadaigh taispeáint os cionn aipeanna eile</string>
     <string name="price_overlay_close">Dún an praghas ar foluain</string>

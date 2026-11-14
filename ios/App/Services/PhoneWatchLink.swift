@@ -65,7 +65,8 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
             next.pairs = pairs
             update(next, publish: true)
         }
-        quoteRows = Self.quoteRows(watches)
+        // Nur rollende 24-h-Werte an die Uhr: %-Basis und Stempel der gespeicherten Werte
+        quoteRows = Self.quoteRows(watches, basis: SharedStorage.loadSettings().changeBasis, stamp: SharedStorage.changeStamp)
         refreshQuotes()
     }
 
@@ -197,8 +198,11 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
 
     /// Paare der Merkliste, aus denen die Uhr Kurse bekommen kann (eigene Liste: gegen USDT, Spot; «Wie iPhone»: genau
     /// das Paar des Favoriten, auch Futures/Perp und andere Börsen); gesendet werden sie nur bei «Kurse vom Handy, sonst
-    /// selbst» (`send`). Wie Android `PhoneWatchFeed.quotesJson`.
-    static func quoteRows(_ watches: [Watch]) -> [WatchPhoneQuotes.Row] {
+    /// selbst» (`send`). Veränderung nur rollend über 24 h (`ChangeBasisMath.watchChange24h`): die Uhr beschriftet sie
+    /// mit «24 h» und rechnet beim eigenen Abruf ebenso — bei einer Tages-Basis keine (Uhr «—»). Wie Android
+    /// `PhoneWatchFeed.quotesJson`.
+    static func quoteRows(_ watches: [Watch], basis: ChangeBasis = .ROLLING_24H,
+                          stamp: ChangeStamp? = nil) -> [WatchPhoneQuotes.Row] {
         watches.map { w -> WatchPhoneQuotes.Row in
             let contract = watchContract(w)
             // Börse stillgelegt (`Watch.retiredExchange`: Marker oder Ende erreicht): kein alter Kurs an die Uhr, sie zeigt
@@ -208,7 +212,8 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
             return WatchPhoneQuotes.Row(base: w.baseAsset, quote: w.quoteAsset, spot: w.contractType == .none && contract.isEmpty,
                                         disabled: w.disabled,
                                         price: retired ? nil : w.lastPrice,
-                                        change24h: retired ? nil : w.change24h,
+                                        change24h: retired ? nil
+                                            : ChangeBasisMath.watchChange24h(w.change24h, basis: basis, stamp: stamp),
                                         exchange: w.exchangeName, time: w.lastUpdate, sortOrder: w.sortOrder,
                                         contract: contract)
         }
@@ -248,6 +253,7 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
                              error: Error?) {
         guard activationState == .activated else { return }
         let json = session.receivedApplicationContext[Self.contextKey] as? String
+        WatchUsageStore.take(session.receivedApplicationContext[WatchUsageStore.contextKey] as? String)
         Task { @MainActor in
             self.take(json)
             self.send()
@@ -256,6 +262,8 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
 
     nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         let json = applicationContext[Self.contextKey] as? String
+        // Zähler der Uhr («Akku & Aktivität»): nur eine kleine Datei, gleich hier
+        WatchUsageStore.take(applicationContext[WatchUsageStore.contextKey] as? String)
         Task { @MainActor in self.take(json) }
     }
 

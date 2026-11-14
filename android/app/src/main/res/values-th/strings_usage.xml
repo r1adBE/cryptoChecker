@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">แบตเตอรี่และกิจกรรม</string>
+    <string name="usage_intro">แอปไม่สามารถอ่านการใช้พลังงานของตนเองได้ ดังนั้นแอปจึงแสดงสิ่งที่แอปทำเองในช่วง 24 ชั่วโมงที่ผ่านมา โดยนับเฉพาะในอุปกรณ์นี้และไม่มีเนื้อหาใด ๆ</string>
+    <string name="usage_phone">โทรศัพท์</string>
+    <string name="usage_watch">นาฬิกา</string>
+    <plurals name="usage_runs">
+        <item quantity="other">ทำงานเบื้องหลัง %d ครั้ง</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">คำขอเครือข่าย %d รายการ</item>
+    </plurals>
+    <string name="usage_received">ได้รับ %1$s</string>
+    <string name="usage_level_low">กิจกรรมต่ำ</string>
+    <string name="usage_level_medium">กิจกรรมปานกลาง</string>
+    <string name="usage_level_high">กิจกรรมสูง</string>
+    <string name="usage_driver_interval">ส่วนใหญ่มาจากการตรวจสอบเบื้องหลัง (%1$s)</string>
+    <string name="usage_driver_exact">ส่วนใหญ่มาจากการตรวจสอบเบื้องหลัง (%1$s) และ “%2$s”</string>
+    <string name="usage_driver_none">ไม่มีการตรวจสอบเบื้องหลังตามกำหนด ระบบนับสิ่งที่แอปที่เปิดอยู่และวิดเจ็ตดึงมา</string>
+    <string name="usage_driver_watch">ระบบนับสิ่งที่แอปบนนาฬิกาและคอมพลิเคชันดึงมาเอง</string>
+    <string name="usage_watch_none">ไม่มีนาฬิกาที่เชื่อมต่อ</string>
+    <string name="usage_as_of">ณ %1$s</string>
+    <string name="usage_battery_android">Android แสดงการใช้แบตเตอรี่ของแต่ละแอปในการตั้งค่าแบตเตอรี่</string>
+</resources>

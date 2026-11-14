@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ezkutatu xehetasunak</string>
     <string name="why_disclaimer">Merkatuko datuetatik egindako balorazio automatikoa: aldi berean gertatzen dena erakusten du, ez kausa baten froga.</string>
     <string name="why_footer_short">Aldiberekoak ez du kausa esan nahi · Ez da inbertsio-aholkularitza</string>
-    <string name="why_no_data">Ez dago Binanceko daturik pare honetarako</string>
-    <string name="why_no_data_hint">Prezioa, bolumena eta hegazkortasuna Binanceko orduko kandeletatik datoz.</string>
+    <string name="why_no_candles">Ez dago orduko kandelarik pare honetarako</string>
+    <string name="why_no_candles_hint">Prezioa, bolumena eta hegazkortasuna %1$s(e)ko orduko kandeletatik datoz edo, ahal denean, txanpon bera duen beste truke-etxe batetik.</string>
+    <string name="why_no_data_retry_hint">Ezin izan dira kargatu prezioa, bolumena eta hegazkortasuna. Saiatu berriro.</string>
     <string name="why_ref_alts">Altak</string>
     <string name="why_section_context">Azalpen posiblea</string>
     <string name="why_section_observation">Behaketa</string>

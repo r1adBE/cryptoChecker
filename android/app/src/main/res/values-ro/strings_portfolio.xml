@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Momentan nu este disponibilă nicio evoluție.</string>
     <string name="portfolio_history_utc_days">Zile în UTC (lumânări zilnice)</string>
     <string name="portfolio_history_without_matching">Fără %1$s (fără prețuri zilnice potrivite)</string>
+    <string name="portfolio_history_entry">Intrare la primul preț zilnic: %1$s (fără prețuri zilnice înainte)</string>
     <string name="portfolio_period_rewards">Recompense +%1$s (nu în câștig)</string>
     <string name="portfolio_period_scaled">7 Z/1 A pentru %1$s: istoric Binance scalat la prețul bursei</string>
 

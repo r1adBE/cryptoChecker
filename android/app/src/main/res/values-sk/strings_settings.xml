@@ -188,6 +188,7 @@
     <string name="settings_indicator_alerts_hint">Ukazovatele Bitcoinu, kontrolované dvakrát denne. Hranice určuješ ty – aplikácia hodnoty nehodnotí.</string>
     <string name="settings_macro_notifications">Ekonomický kalendár</string>
     <string name="settings_macro_notifications_hint">O 08:00 v dňoch s dôležitými americkými ekonomickými údajmi (inflácia, správa o trhu práce, rozhodnutie Fedu). Kalendár pochádza z webovej stránky aplikácie a načíta sa raz denne.</string>
+    <string name="settings_macro_notifications_us_hint">V USA príde oznámenie najneskôr o 08:00 newyorského času, pred prvými údajmi.</string>
     <string name="settings_market_alerts">Trhové upozornenia</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -300,6 +301,7 @@
     <string name="diagnostics_action_share">Zdieľať</string>
     <string name="settings_price_overlay">Prekrytie kurzu</string>
     <string name="settings_price_overlay_hint">Zobrazí páry trvalého upozornenia na kurz ako malý plávajúci štítok nad inými aplikáciami. Ťuknutím otvoríš aplikáciu, potiahnutím na × dole ho zavrieš.</string>
+    <string name="settings_price_overlay_restart_hint">Ak systém aplikáciu zatvorí, prekrytie kurzu sa vráti s ďalšou aktualizáciou na pozadí.</string>
     <string name="settings_price_overlay_needs">Funguje iba spolu s „%1$s“.</string>
     <string name="settings_price_overlay_grant">Povoliť zobrazenie nad inými aplikáciami</string>
     <string name="price_overlay_close">Zavrieť prekrytie</string>

@@ -213,14 +213,23 @@ class PortfolioPriceSourceTest {
         assertEquals(3, http.count("ticker/price"))
     }
 
-    /** Ohne Binance-Namen und ohne jede Quelle mit Kurs (Weg b): «Kein Markt», nicht «Kurs ungeprüft». */
+    /**
+     * Ohne Binance-Namen und ohne jede Quelle mit Kurs (Weg b, alle Quellen «Paar unbekannt»): «Kein Markt», nicht «Kurs
+     * ungeprüft». Ohne Netz ist das nicht belegt: «nicht abrufbar», kein «Kein Markt» (früher galt auch das als «Kein
+     * Markt», und der gemerkte Kurs flog aus dem Zwischenspeicher).
+     */
     @Test
     fun noSourceAtAllIsNoMarket() = runBlocking {
-        val result = source(RouteHttp { null }, context = FolderContext(temp.newFolder())).prices(listOf("ZZZ"))
+        val unknown = Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 404)
+        val result = source(RouteHttp { unknown }, context = FolderContext(temp.newFolder())).prices(listOf("ZZZ"))
         assertNull(result.prices["ZZZ"])
         assertEquals(setOf("ZZZ"), result.noMarket)
         assertTrue(result.unchecked.isEmpty())
         assertTrue(result.unavailable.isEmpty())
+
+        val offline = source(RouteHttp { null }, context = FolderContext(temp.newFolder())).prices(listOf("ZZZ"))
+        assertTrue(offline.noMarket.isEmpty())
+        assertEquals(setOf("ZZZ"), offline.unavailable)
 
         // Kerzenkurs ohne Bezug (Weg a): weiterhin «Kurs ungeprüft»
         val candle = source(candles(10.4), context = FolderContext(temp.newFolder())).prices(listOf("XYZ"))

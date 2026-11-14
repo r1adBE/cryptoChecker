@@ -8,8 +8,9 @@
     <string name="why_details_hide">Details verbergen</string>
     <string name="why_disclaimer">Automatische inschatting op basis van marktgegevens: laat zien wat tegelijk gebeurt, geen bewijs van een oorzaak.</string>
     <string name="why_footer_short">Gelijktijdig betekent niet oorzaak · Geen beleggingsadvies</string>
-    <string name="why_no_data">Geen gegevens van Binance voor dit paar</string>
-    <string name="why_no_data_hint">Koers, volume en volatiliteit komen uit de uurcandles van Binance.</string>
+    <string name="why_no_candles">Geen uurcandles voor dit paar</string>
+    <string name="why_no_candles_hint">Koers, volume en volatiliteit komen uit uurcandles van %1$s of, waar mogelijk, van een andere exchange met dezelfde coin.</string>
+    <string name="why_no_data_retry_hint">Koers, volume en volatiliteit konden niet worden geladen. Probeer het opnieuw.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Mogelijke duiding</string>
     <string name="why_section_observation">Waarneming</string>

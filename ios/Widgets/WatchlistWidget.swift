@@ -97,6 +97,8 @@ struct WatchlistProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: WatchlistWidgetIntent, in context: Context) async -> Timeline<WatchlistEntry> {
+        // «Akku & Aktivität»: Abrufe dieser Timeline vor dem Ende schreiben (der Lauf selbst zählt in `CheckRunStore`)
+        defer { UsageMeter.shared.flush() }
         // Eben eingerichtet oder geändert (z. B. andere Gruppe): sofort mit den gespeicherten Kursen
         // zeichnen, statt auf das Auffrischen zu warten; die Kurse folgen kurz danach.
         // Sonst alte Kurse zuerst auffrischen (mit Kurs-Mitteilungen und Kursalarmen — siehe `WidgetRefresh`;

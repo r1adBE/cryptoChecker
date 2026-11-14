@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Историја тренутно није доступна.</string>
     <string name="portfolio_history_utc_days">Дани у UTC-у (дневне свеће)</string>
     <string name="portfolio_history_without_matching">Без %1$s (нема одговарајућих дневних цена)</string>
+    <string name="portfolio_history_entry">Улаз од прве дневне цене: %1$s (раније нема дневних цена)</string>
     <string name="portfolio_period_rewards">Награде +%1$s (нису у добити)</string>
     <string name="portfolio_period_scaled">7 Д/1 Г за %1$s: историја с Binance-а скалирана на цену берзе</string>
 

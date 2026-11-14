@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin 指標，每日檢查兩次。界限由你揀 – App 唔會評價數值。</string>
     <string name="settings_macro_notifications">經濟日曆</string>
     <string name="settings_macro_notifications_hint">喺有重要美國經濟數據嘅日子（通脹、非農就業報告、聯儲局決定）08:00 通知。日曆來自 App 網站，每日載入一次。</string>
+    <string name="settings_macro_notifications_us_hint">喺美國，通知最遲會喺紐約時間 08:00 送到，早過第一批數據。</string>
     <string name="settings_market_alerts">市場提示</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">分享</string>
     <string name="settings_price_overlay">價格浮窗</string>
     <string name="settings_price_overlay_hint">將常駐價格通知嘅交易對以細小浮動標籤顯示喺其他 App 上面。撳一下開啟 App，拖去底部嘅 × 就關閉。</string>
+    <string name="settings_price_overlay_restart_hint">如果系統關閉咗 App，價格浮窗會喺下一次背景更新時返嚟。</string>
     <string name="settings_price_overlay_needs">只可以同「%1$s」一齊使用。</string>
     <string name="settings_price_overlay_grant">允許喺其他 App 上層顯示</string>
     <string name="price_overlay_close">關閉浮窗</string>

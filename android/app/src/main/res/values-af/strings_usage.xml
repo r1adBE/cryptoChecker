@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Battery en aktiwiteit</string>
+    <string name="usage_intro">Programme kan nie hul eie kragverbruik lees nie. Daarom wys die program wat dit self in die afgelope 24 uur gedoen het – net op hierdie toestel getel, sonder enige inhoud.</string>
+    <string name="usage_phone">Foon</string>
+    <string name="usage_watch">Horlosie</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d agtergrondlopie</item>
+        <item quantity="other">%d agtergrondlopies</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d netwerkversoek</item>
+        <item quantity="other">%d netwerkversoeke</item>
+    </plurals>
+    <string name="usage_received">%1$s ontvang</string>
+    <string name="usage_level_low">Lae aktiwiteit</string>
+    <string name="usage_level_medium">Gemiddelde aktiwiteit</string>
+    <string name="usage_level_high">Hoë aktiwiteit</string>
+    <string name="usage_driver_interval">Meestal van die agtergrondkontrole (%1$s).</string>
+    <string name="usage_driver_exact">Meestal van die agtergrondkontrole (%1$s) en “%2$s”.</string>
+    <string name="usage_driver_none">Geen agtergrondkontrole beplan nie – wat tel, is wat die oop program en die legstukke haal.</string>
+    <string name="usage_driver_watch">Wat tel, is wat die horlosieprogram en sy komplikasies self haal.</string>
+    <string name="usage_watch_none">Geen horlosie gekoppel nie</string>
+    <string name="usage_as_of">Stand %1$s</string>
+    <string name="usage_battery_android">Android wys batterygebruik per program in sy batteryinstellings.</string>
+</resources>

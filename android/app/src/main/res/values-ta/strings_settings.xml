@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin குறிகாட்டிகள், நாளுக்கு இருமுறை சரிபார்க்கப்படும். வரம்புகளை நீங்கள் தேர்ந்தெடுக்கிறீர்கள் – ஆப் மதிப்புகளை மதிப்பிடாது.</string>
     <string name="settings_macro_notifications">பொருளாதார நாட்காட்டி</string>
     <string name="settings_macro_notifications_hint">முக்கியமான அமெரிக்கப் பொருளாதாரத் தரவு உள்ள நாட்களில் 08:00 மணிக்கு (பணவீக்கம், வேலைவாய்ப்பு அறிக்கை, Fed முடிவு). நாட்காட்டி ஆப்பின் இணையதளத்திலிருந்து வருகிறது, நாளுக்கு ஒருமுறை ஏற்றப்படும்.</string>
+    <string name="settings_macro_notifications_us_hint">அமெரிக்காவில் அறிவிப்பு அதிகபட்சம் நியூயார்க் நேரம் 08:00 மணிக்கு, முதல் தரவுக்கு முன் வரும்.</string>
     <string name="settings_market_alerts">சந்தை விழிப்பூட்டல்கள்</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">பகிரவும்</string>
     <string name="settings_price_overlay">விலை மேலடுக்கு</string>
     <string name="settings_price_overlay_hint">நிரந்தர விலை அறிவிப்பின் ஜோடிகளைப் பிற ஆப்ஸின் மேல் ஒரு சிறிய மிதக்கும் பட்டையாகக் காட்டும். ஆப்பைத் திறக்கத் தட்டவும், மூட கீழே உள்ள × க்கு இழுக்கவும்.</string>
+    <string name="settings_price_overlay_restart_hint">சிஸ்டம் ஆப்பை மூடினால், விலை மேலடுக்கு அடுத்த பின்னணி புதுப்பிப்புடன் திரும்ப வரும்.</string>
     <string name="settings_price_overlay_needs">«%1$s» உடன் சேர்ந்து மட்டுமே வேலை செய்யும்.</string>
     <string name="settings_price_overlay_grant">பிற ஆப்ஸின் மேல் காட்ட அனுமதிக்கவும்</string>
     <string name="price_overlay_close">மேலடுக்கை மூடவும்</string>

@@ -63,7 +63,7 @@ extension PairScreen {
                 data.withWatchlistConfirm {
                     // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
                     if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
-                        toast = ToastMessage(L("watchlist_tts_speech_on"))
+                        toast = ToastMessage(L("watchlist_tts_speech_on") + " " + L("alarm_speak_ios_open_only"))
                     }
                     if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                 } cancelled: { refusedToggles &+= 1 }

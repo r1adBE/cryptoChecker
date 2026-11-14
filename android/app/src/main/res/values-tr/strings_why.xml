@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ayrıntıları gizle</string>
     <string name="why_disclaimer">Piyasa verilerinden otomatik değerlendirme: aynı anda olanları gösterir, bir nedenin kanıtı değildir.</string>
     <string name="why_footer_short">Eş zamanlı olmak neden demek değildir · Yatırım tavsiyesi değildir</string>
-    <string name="why_no_data">Bu çift için Binance verisi yok</string>
-    <string name="why_no_data_hint">Fiyat, hacim ve volatilite Binance saatlik mumlarından gelir.</string>
+    <string name="why_no_candles">Bu çift için saatlik mum yok</string>
+    <string name="why_no_candles_hint">Fiyat, hacim ve volatilite %1$s saatlik mumlarından ya da mümkünse aynı coine sahip başka bir borsadan gelir.</string>
+    <string name="why_no_data_retry_hint">Fiyat, hacim ve volatilite yüklenemedi. Tekrar dene.</string>
     <string name="why_ref_alts">Altlar</string>
     <string name="why_section_context">Olası yorum</string>
     <string name="why_section_observation">Gözlem</string>

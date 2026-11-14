@@ -8,8 +8,9 @@
     <string name="why_details_hide">隐藏详情</string>
     <string name="why_disclaimer">基于市场数据的自动评估：显示同一时间发生的情况，并非原因的证明。</string>
     <string name="why_footer_short">同时发生不等于因果 · 不构成投资建议</string>
-    <string name="why_no_data">该交易对没有 Binance 数据</string>
-    <string name="why_no_data_hint">价格、成交量和波动率来自 Binance 小时 K 线。</string>
+    <string name="why_no_candles">该交易对没有小时 K 线</string>
+    <string name="why_no_candles_hint">价格、成交量和波动率来自 %1$s 的小时 K 线，或在可行时来自有相同币种的其他交易所。</string>
+    <string name="why_no_data_retry_hint">无法加载价格、成交量和波动率。请重试。</string>
     <string name="why_ref_alts">山寨币</string>
     <string name="why_section_context">可能的解读</string>
     <string name="why_section_observation">观察</string>

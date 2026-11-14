@@ -41,7 +41,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 
 /** Unterseiten der Einstellungen; der Name steht in der Route `settings/page/{page}`. */
 enum class SettingsPage {
-    LANGUAGE, CURRENCY, UPDATES, WATCHLIST,
+    LANGUAGE, CURRENCY, UPDATES, USAGE, WATCHLIST,
     DISPLAY_MODE, THEME, PRICE_COLORS, CHANGE_BASIS, COIN_LOGOS,
     ALARMS, PRICE_PAIRS,
     PORTFOLIO,
@@ -67,7 +67,7 @@ enum class SettingsHome { GENERAL, APPEARANCE, MORE }
 val SettingsPage.home: SettingsHome?
     get() = when (this) {
         SettingsPage.LANGUAGE, SettingsPage.CURRENCY, SettingsPage.WATCHLIST, SettingsPage.PORTFOLIO,
-        SettingsPage.ALARMS, SettingsPage.UPDATES -> SettingsHome.GENERAL
+        SettingsPage.ALARMS, SettingsPage.UPDATES, SettingsPage.USAGE -> SettingsHome.GENERAL
         SettingsPage.DISPLAY_MODE, SettingsPage.THEME, SettingsPage.PRICE_COLORS, SettingsPage.COIN_LOGOS,
         SettingsPage.WIDGETS -> SettingsHome.APPEARANCE
         SettingsPage.BACKUP, SettingsPage.ABOUT -> SettingsHome.MORE
@@ -94,6 +94,7 @@ fun SettingsPageScreen(
         SettingsPage.LANGUAGE -> LanguagePage(onBack)
         SettingsPage.CURRENCY -> CurrencyPage(onBack)
         SettingsPage.UPDATES -> UpdatesPage(onBack)
+        SettingsPage.USAGE -> UsagePage(onBack)
         SettingsPage.WATCHLIST -> WatchlistPage(onBack, onOpenPage)
         SettingsPage.DISPLAY_MODE -> DisplayModePage(onBack)
         SettingsPage.THEME -> ThemePage(onBack)

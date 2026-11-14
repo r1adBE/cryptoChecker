@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Батарея и активность</string>
+    <string name="usage_intro">Приложения не могут узнать собственный расход энергии. Поэтому приложение показывает, что оно само сделало за последние 24 часа, – подсчитано только на этом устройстве, без какого-либо содержимого.</string>
+    <string name="usage_phone">Телефон</string>
+    <string name="usage_watch">Часы</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d запуск в фоне</item>
+        <item quantity="few">%d запуска в фоне</item>
+        <item quantity="many">%d запусков в фоне</item>
+        <item quantity="other">%d запуска в фоне</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d сетевой запрос</item>
+        <item quantity="few">%d сетевых запроса</item>
+        <item quantity="many">%d сетевых запросов</item>
+        <item quantity="other">%d сетевого запроса</item>
+    </plurals>
+    <string name="usage_received">Получено: %1$s</string>
+    <string name="usage_level_low">Низкая активность</string>
+    <string name="usage_level_medium">Средняя активность</string>
+    <string name="usage_level_high">Высокая активность</string>
+    <string name="usage_driver_interval">В основном из-за фоновой проверки (%1$s).</string>
+    <string name="usage_driver_exact">В основном из-за фоновой проверки (%1$s) и «%2$s».</string>
+    <string name="usage_driver_none">Фоновая проверка не запланирована – учитывается то, что загружают открытое приложение и виджеты.</string>
+    <string name="usage_driver_watch">Учитывается то, что приложение на часах и его расширения загружают сами.</string>
+    <string name="usage_watch_none">Часы не подключены</string>
+    <string name="usage_as_of">На %1$s</string>
+    <string name="usage_battery_android">Android показывает расход батареи по приложениям в своих настройках батареи.</string>
+</resources>

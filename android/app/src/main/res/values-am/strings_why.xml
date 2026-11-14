@@ -8,8 +8,9 @@
     <string name="why_details_hide">ዝርዝሮችን ይደብቁ</string>
     <string name="why_disclaimer">ከገበያ ውሂብ የተገኘ ራስ-ሰር ግምገማ፦ በተመሳሳይ ጊዜ የሚሆነውን ያሳያል እንጂ የምክንያት ማረጋገጫ አይደለም።</string>
     <string name="why_footer_short">በአንድ ጊዜ መከሰት ምክንያት ማለት አይደለም · የኢንቨስትመንት ምክር አይደለም</string>
-    <string name="why_no_data">ለዚህ ጥንድ ከBinance ምንም ውሂብ የለም</string>
-    <string name="why_no_data_hint">ዋጋ፣ መጠንና ተለዋዋጭነት ከBinance የሰዓት ሻማዎች ይመጣሉ።</string>
+    <string name="why_no_candles">ለዚህ ጥንድ የሰዓት ሻማዎች የሉም</string>
+    <string name="why_no_candles_hint">ዋጋ፣ መጠንና ተለዋዋጭነት ከ%1$s የሰዓት ሻማዎች ወይም፣ ከተቻለ፣ ተመሳሳይ ሳንቲም ካለው ሌላ ልውውጥ ይመጣሉ።</string>
+    <string name="why_no_data_retry_hint">ዋጋ፣ መጠንና ተለዋዋጭነት ሊጫኑ አልቻሉም። እባክዎ እንደገና ይሞክሩ።</string>
     <string name="why_ref_alts">አልትኮይኖች</string>
     <string name="why_section_context">ሊሆን የሚችል ማብራሪያ</string>
     <string name="why_section_observation">ምልከታ</string>

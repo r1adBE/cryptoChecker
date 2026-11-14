@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">ຕອນນີ້ບໍ່ມີປະຫວັດ.</string>
     <string name="portfolio_history_utc_days">ມື້ເປັນ UTC (ແທ່ງທຽນລາຍວັນ)</string>
     <string name="portfolio_history_without_matching">ບໍ່ລວມ %1$s (ບໍ່ມີລາຄາລາຍວັນທີ່ກົງກັນ)</string>
+    <string name="portfolio_history_entry">ນັບແຕ່ລາຄາລາຍວັນທຳອິດ: %1$s (ກ່ອນໜ້ານັ້ນບໍ່ມີລາຄາລາຍວັນ)</string>
     <string name="portfolio_period_rewards">ລາງວັນ +%1$s (ບໍ່ລວມໃນກຳໄລ)</string>
     <string name="portfolio_period_scaled">7 ມື້/1 ປີ ສຳລັບ %1$s: ປະຫວັດ Binance ປັບສັດສ່ວນຕາມລາຄາກະດານແລກປ່ຽນ</string>
 

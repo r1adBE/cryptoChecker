@@ -83,4 +83,18 @@ final class PhoneWatchLinkTests: XCTestCase {
         XCTAssertEqual(quotes.map(\.exchange), ["Bybit", "Binance Futures", "Kraken"])
         XCTAssertEqual(quotes.map(\.price), [0.07, 0.0712, 60_000])
     }
+
+    /// G4-02: die Uhr beschriftet die Veränderung mit «24 h» – vom iPhone kommt sie nur rollend; bei «Seit 00:00» bzw.
+    /// UTC keine (Uhr «—»), auch nicht, solange die gespeicherten Werte noch mit einer Tages-Basis gestempelt sind.
+    @MainActor
+    func testOnlyRolling24hChangeGoesToTheWatch() {
+        func change(_ basis: ChangeBasis, _ stamp: ChangeStamp?) -> Double? {
+            PhoneWatchLink.quoteRows([watch(1, "BTC")], basis: basis, stamp: stamp).first?.change24h
+        }
+        XCTAssertEqual(change(.ROLLING_24H, nil), 1.5)
+        XCTAssertEqual(change(.SINCE_LAST, ChangeStamp(basis: .ROLLING_24H, dayStart: 0)), 1.5)
+        XCTAssertNil(change(.LOCAL_DAY, ChangeStamp(basis: .LOCAL_DAY, dayStart: 1)))
+        XCTAssertNil(change(.UTC_DAY, nil))
+        XCTAssertNil(change(.ROLLING_24H, ChangeStamp(basis: .LOCAL_DAY, dayStart: 1)))
+    }
 }

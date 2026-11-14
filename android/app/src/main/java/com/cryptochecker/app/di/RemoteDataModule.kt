@@ -2,6 +2,7 @@ package com.cryptochecker.app.di
 
 import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.remote.HttpLoggerImpl
+import com.cryptochecker.app.data.remote.UsageEventListener
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import dagger.Module
@@ -59,6 +60,8 @@ object RemoteDataModule {
             // Zuerst: meldet der Wache den Start der Ausführung (Warteschlange zählt nicht)
             .addInterceptor(CallStartInterceptor)
             .addInterceptor(UserAgentInterceptor(USER_AGENT))
+            // «Akku & Aktivität»: Anfragen und empfangene Bytes zählen (nur Zahlen)
+            .eventListenerFactory(UsageEventListener.factory)
         // Mitschnitt nur im Debug-Build (src/debug); der Release liefert null und enthält
         // logging-interceptor gar nicht (debugImplementation).
         HttpLogInterceptorProvider.create(httpLogger)?.let(builder::addInterceptor)

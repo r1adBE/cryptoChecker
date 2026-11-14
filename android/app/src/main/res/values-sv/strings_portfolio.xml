@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Ingen utveckling tillgänglig just nu.</string>
     <string name="portfolio_history_utc_days">Dagar i UTC (dagliga ljus)</string>
     <string name="portfolio_history_without_matching">Utan %1$s (inga matchande dagskurser)</string>
+    <string name="portfolio_history_entry">Inträde vid första dagskursen: %1$s (inga dagskurser före)</string>
     <string name="portfolio_period_rewards">Belöningar +%1$s (ingår inte i vinst)</string>
     <string name="portfolio_period_scaled">7 D/1 Å för %1$s: Binance-historik skalad till börskursen</string>
 

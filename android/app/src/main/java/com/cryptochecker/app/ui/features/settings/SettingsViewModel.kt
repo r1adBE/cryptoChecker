@@ -35,8 +35,8 @@ class SettingsViewModel @Inject constructor(
     internal val scheduler: PriceUpdateScheduler,
     internal val notifier: AppNotifier,
     internal val appearanceApplier: AppearanceApplier,
-    /** Widgets neu zeichnen ([SettingsWidgets]). */
-    private val widgets: SettingsWidgets,
+    private val widgets: SettingsWidgets, // Widgets neu zeichnen
+    @param:com.cryptochecker.app.domain.util.IoDispatcher internal val ioDispatcher: kotlinx.coroutines.CoroutineDispatcher,
     private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
     internal val backupManager: com.cryptochecker.app.backup.BackupManager,
     internal val appLockState: AppLockState,

@@ -8,8 +8,9 @@
     <string name="why_details_hide">დეტალების დამალვა</string>
     <string name="why_disclaimer">ავტომატური შეფასება საბაზრო მონაცემებიდან: აჩვენებს, რა ხდება ერთდროულად, და არა მიზეზის მტკიცებულებას.</string>
     <string name="why_footer_short">ერთდროულობა მიზეზს არ ნიშნავს · არ არის საინვესტიციო რჩევა</string>
-    <string name="why_no_data">ამ წყვილისთვის Binance-იდან მონაცემები არ არის</string>
-    <string name="why_no_data_hint">ფასი, მოცულობა და ვოლატილობა Binance-ის საათობრივი სანთლებიდან მოდის.</string>
+    <string name="why_no_candles">ამ წყვილისთვის საათობრივი სანთლები არ არის</string>
+    <string name="why_no_candles_hint">ფასი, მოცულობა და ვოლატილობა მოდის %1$s-ის საათობრივი სანთლებიდან ან, თუ შესაძლებელია, იმავე მონეტის მქონე სხვა ბირჟიდან.</string>
+    <string name="why_no_data_retry_hint">ფასის, მოცულობისა და ვოლატილობის ჩატვირთვა ვერ მოხერხდა. კიდევ სცადე.</string>
     <string name="why_ref_alts">ალტები</string>
     <string name="why_section_context">შესაძლო ახსნა</string>
     <string name="why_section_observation">დაკვირვება</string>

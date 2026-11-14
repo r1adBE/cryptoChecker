@@ -8,8 +8,9 @@
     <string name="why_details_hide">Скрыть подробности</string>
     <string name="why_disclaimer">Автоматическая оценка по рыночным данным: показывает, что происходит одновременно, а не доказывает причину.</string>
     <string name="why_footer_short">Одновременно не значит причина · Не инвестиционная рекомендация</string>
-    <string name="why_no_data">Нет данных Binance для этой пары</string>
-    <string name="why_no_data_hint">Цена, объём и волатильность берутся из часовых свечей Binance.</string>
+    <string name="why_no_candles">Для этой пары нет часовых свечей</string>
+    <string name="why_no_candles_hint">Цена, объём и волатильность берутся из часовых свечей %1$s или, если возможно, с другой биржи с той же монетой.</string>
+    <string name="why_no_data_retry_hint">Не удалось загрузить цену, объём и волатильность. Попробуй ещё раз.</string>
     <string name="why_ref_alts">Альты</string>
     <string name="why_section_context">Возможная трактовка</string>
     <string name="why_section_observation">Наблюдение</string>

@@ -183,6 +183,11 @@ struct SettingsScreen: View {
             SettingsNavRow(title: L("settings_row_updates"), icon: .system("arrow.clockwise"), value: SettingsSummary.updatesText(settings)) {
                 UpdatesSettingsPage()
             }
+            RowDivider()
+            // Gleich daneben: was die Hintergrund-Prüfung kostet (Läufe, Anfragen, Bytes) — wie Android
+            SettingsNavRow(title: L("settings_row_usage"), icon: .system("battery.75percent"), value: nil) {
+                UsageSettingsPage()
+            }
         }
     }
 

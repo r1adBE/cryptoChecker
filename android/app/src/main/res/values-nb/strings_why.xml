@@ -8,8 +8,9 @@
     <string name="why_details_hide">Skjul detaljer</string>
     <string name="why_disclaimer">Automatisk vurdering basert på markedsdata: viser hva som skjer samtidig, ikke bevis for en årsak.</string>
     <string name="why_footer_short">Samtidig betyr ikke årsak · Ingen investeringsråd</string>
-    <string name="why_no_data">Ingen data fra Binance for dette paret</string>
-    <string name="why_no_data_hint">Kurs, volum og volatilitet kommer fra Binances candlesticks per time.</string>
+    <string name="why_no_candles">Ingen timecandlesticks for dette paret</string>
+    <string name="why_no_candles_hint">Kurs, volum og volatilitet kommer fra candlesticks per time fra %1$s eller, der det er mulig, fra en annen børs med samme coin.</string>
+    <string name="why_no_data_retry_hint">Kurs, volum og volatilitet kunne ikke lastes inn. Prøv igjen.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Mulig tolkning</string>
     <string name="why_section_observation">Observasjon</string>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Батерија и активност</string>
+    <string name="usage_intro">Апликације не могу да очитају сопствену потрошњу енергије. Зато апликација приказује шта је сама радила у последња 24 сата – бројано само на овом уређају, без икаквог садржаја.</string>
+    <string name="usage_phone">Телефон</string>
+    <string name="usage_watch">Сат</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d покретање у позадини</item>
+        <item quantity="few">%d покретања у позадини</item>
+        <item quantity="other">%d покретања у позадини</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d мрежни захтев</item>
+        <item quantity="few">%d мрежна захтева</item>
+        <item quantity="other">%d мрежних захтева</item>
+    </plurals>
+    <string name="usage_received">Примљено: %1$s</string>
+    <string name="usage_level_low">Ниска активност</string>
+    <string name="usage_level_medium">Средња активност</string>
+    <string name="usage_level_high">Висока активност</string>
+    <string name="usage_driver_interval">Највише због провере у позадини (%1$s).</string>
+    <string name="usage_driver_exact">Највише због провере у позадини (%1$s) и „%2$s“.</string>
+    <string name="usage_driver_none">Није заказана провера у позадини – броји се оно што преузимају отворена апликација и виџети.</string>
+    <string name="usage_driver_watch">Броји се оно што апликација на сату и њене компликације саме преузимају.</string>
+    <string name="usage_watch_none">Није повезан ниједан сат</string>
+    <string name="usage_as_of">Стање %1$s</string>
+    <string name="usage_battery_android">Android приказује потрошњу батерије по апликацији у својим подешавањима батерије.</string>
+</resources>

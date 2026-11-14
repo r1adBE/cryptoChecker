@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Ahora no hay evolución disponible.</string>
     <string name="portfolio_history_utc_days">Días en UTC (velas diarias)</string>
     <string name="portfolio_history_without_matching">Sin %1$s (sin precios diarios coincidentes)</string>
+    <string name="portfolio_history_entry">Entrada en el primer precio diario: %1$s (sin precios diarios antes)</string>
     <string name="portfolio_period_rewards">Recompensas +%1$s (no incluidas en la ganancia)</string>
     <string name="portfolio_period_scaled">7 D/1 A para %1$s: historial de Binance escalado al precio del exchange</string>
 

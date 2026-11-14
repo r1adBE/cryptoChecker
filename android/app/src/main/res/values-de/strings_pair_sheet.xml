@@ -18,10 +18,10 @@
     <!-- Umsatz der Kerze beim Ziehen; %1$s z. B. «12.3M USDT» -->
     <string name="sheet_chart_volume">Vol. %1$s</string>
 
-    <!-- Kennzahlen des Tickers (Hoch, Tief, Geld, Brief, Volumen) -->
-    <string name="ticker_ask">Brief</string>
-    <string name="ticker_bid">Geld</string>
-    <string name="explain_bid_ask">Geld ist der höchste Preis, den Käufer gerade bieten, Brief der tiefste, den Verkäufer verlangen.</string>
+    <!-- Kennzahlen des Tickers (Hoch, Tief, Kauf, Verkauf, Volumen) -->
+    <string name="ticker_ask">Verkauf</string>
+    <string name="ticker_bid">Kauf</string>
+    <string name="explain_bid_ask">Kauf ist der höchste Preis, den Käufer gerade bieten, Verkauf der tiefste, den Verkäufer verlangen.</string>
     <string name="ticker_high">Hoch</string>
     <string name="ticker_low">Tief</string>
     <string name="ticker_timestamp">Zeit</string>
@@ -92,7 +92,7 @@
     <string name="converted_fx_stale">%1$s · Kurs %2$s</string>
     <string name="sats_per_unit">%1$s %2$s = %3$s Sats</string>
 
-    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <!-- Kursblatt: Abstand Kauf/Verkauf über 2 % der Mitte (BidAskSpread) -->
     <string name="ticker_wide_spread">Grosser Abstand Kauf/Verkauf (%1$s)</string>
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->

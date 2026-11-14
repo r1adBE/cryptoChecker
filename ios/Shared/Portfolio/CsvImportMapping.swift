@@ -327,12 +327,13 @@ enum CsvImportMapping {
     }
 
     /// Jede Auszahlung der Vorschau hat eine Wahl (`choices` je `CsvImportTx.importKey`) — erst dann «Importieren».
-    /// Jede Auszahlung mit «Auf eigene Wallet» (`choices`) und freier passender Einzahlung wird deren Umbuchung
-    /// (`CsvTransferMatch.linkOwnWallet`) — sonst zählte die Einzahlung neben der Umbuchung doppelt. Wie Android.
+    /// Jede Auszahlung mit «Auf eigene Wallet» (`choices`) und eindeutiger üblicher Einzahlung wird deren Umbuchung
+    /// (`CsvTransferMatch.linkOwnWallet`; nicht die in `declined`, deren Verknüpfung der Nutzer ausgeschaltet hat). Wie Android.
     static func linkOwnWallets(_ links: [CsvTransferLink], chosen: Set<String>,
-                               choices: [String: CsvWithdrawalChoice]) -> Set<String> {
-        choices.filter { $0.value == .TRANSFER }.keys.sorted().reduce(chosen) { acc, key in
-            CsvTransferMatch.linkOwnWallet(links, chosen: acc, withdrawalKey: key)
+                               choices: [String: CsvWithdrawalChoice], declined: Set<String> = []) -> Set<String> {
+        let wanting = Set(choices.filter { $0.value == .TRANSFER }.keys)
+        return wanting.sorted().reduce(chosen) { acc, key in
+            CsvTransferMatch.linkOwnWallet(links, chosen: acc, withdrawalKey: key, declined: declined, wanting: wanting)
         }
     }
 

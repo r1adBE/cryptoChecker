@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Batteri och aktivitet</string>
+    <string name="usage_intro">Appar kan inte läsa av sin egen strömförbrukning. Därför visar appen vad den själv har gjort de senaste 24 timmarna – räknat bara på den här enheten, utan något innehåll.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Klocka</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d bakgrundskörning</item>
+        <item quantity="other">%d bakgrundskörningar</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d nätverksförfrågan</item>
+        <item quantity="other">%d nätverksförfrågningar</item>
+    </plurals>
+    <string name="usage_received">%1$s mottaget</string>
+    <string name="usage_level_low">Låg aktivitet</string>
+    <string name="usage_level_medium">Medelhög aktivitet</string>
+    <string name="usage_level_high">Hög aktivitet</string>
+    <string name="usage_driver_interval">Mest från bakgrundskontrollen (%1$s).</string>
+    <string name="usage_driver_exact">Mest från bakgrundskontrollen (%1$s) och ”%2$s”.</string>
+    <string name="usage_driver_none">Ingen bakgrundskontroll planerad – det som räknas är vad den öppna appen och widgetarna hämtar.</string>
+    <string name="usage_driver_watch">Det som räknas är vad klockappen och dess komplikationer själva hämtar.</string>
+    <string name="usage_watch_none">Ingen klocka ansluten</string>
+    <string name="usage_as_of">Per %1$s</string>
+    <string name="usage_battery_android">Android visar batteriförbrukningen per app i sina batteriinställningar.</string>
+</resources>

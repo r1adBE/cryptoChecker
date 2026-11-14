@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Δείκτες Bitcoin, ελέγχονται δύο φορές την ημέρα. Τα όρια τα επιλέγεις εσύ – η εφαρμογή δεν αξιολογεί τις τιμές.</string>
     <string name="settings_macro_notifications">Οικονομικό ημερολόγιο</string>
     <string name="settings_macro_notifications_hint">Στις 08:00 τις ημέρες με σημαντικά οικονομικά στοιχεία των ΗΠΑ (πληθωρισμός, απασχόληση, απόφαση της Fed). Το ημερολόγιο έρχεται από τον ιστότοπο της εφαρμογής και φορτώνεται μία φορά την ημέρα.</string>
+    <string name="settings_macro_notifications_us_hint">Στις ΗΠΑ η ειδοποίηση έρχεται το αργότερο στις 08:00 ώρα Νέας Υόρκης, πριν από τα πρώτα δεδομένα.</string>
     <string name="settings_market_alerts">Ειδοποιήσεις αγοράς</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Κοινοποίηση</string>
     <string name="settings_price_overlay">Επικάλυψη τιμών</string>
     <string name="settings_price_overlay_hint">Δείχνει τα ζεύγη της μόνιμης ειδοποίησης τιμών ως μικρή αιωρούμενη κάψουλα πάνω από άλλες εφαρμογές. Πάτησε για να ανοίξει η εφαρμογή, σύρε στο × κάτω για κλείσιμο.</string>
+    <string name="settings_price_overlay_restart_hint">Αν το σύστημα κλείσει την εφαρμογή, η επικάλυψη τιμών επιστρέφει με την επόμενη ενημέρωση στο παρασκήνιο.</string>
     <string name="settings_price_overlay_needs">Λειτουργεί μόνο μαζί με «%1$s».</string>
     <string name="settings_price_overlay_grant">Να επιτρέπεται η εμφάνιση πάνω από άλλες εφαρμογές</string>
     <string name="price_overlay_close">Κλείσιμο επικάλυψης</string>

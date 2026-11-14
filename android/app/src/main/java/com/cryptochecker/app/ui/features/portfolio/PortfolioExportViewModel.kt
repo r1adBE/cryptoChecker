@@ -94,7 +94,7 @@ class PortfolioExportViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.taxTemplateConfirmed)
 
     fun confirmTaxTemplate() {
-        viewModelScope.launch { settingsRepository.setTaxTemplateConfirmed() }
+        viewModelScope.launch { settingsRepository.guarded { setTaxTemplateConfirmed() } }
     }
 
     /** Eigene Transaktionen; null, bis geladen. */
@@ -125,7 +125,7 @@ class PortfolioExportViewModel @Inject constructor(
 
     /** Vorlage ausdrücklich wählen (z. B. «Vorschlag für deine Region übernehmen»). */
     fun setTaxTemplate(template: TaxTemplate) {
-        viewModelScope.launch { settingsRepository.setTaxTemplate(template) }
+        viewModelScope.launch { settingsRepository.guarded { setTaxTemplate(template) } }
     }
 
     /** Währung der Arbeitsunterlage: die der Vorlage, Neutral die Anzeigewährung [display]. */

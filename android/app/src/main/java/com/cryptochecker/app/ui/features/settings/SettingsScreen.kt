@@ -103,14 +103,14 @@ fun SettingsScreen(
                 TextButton(onClick = {
                     askReset = false
                     resetScope.launch {
-                        // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
-                        // sie liegen (darum vorher gelöscht, abseits des Hauptthreads)
-                        if (AlarmSoundStore.supportsCustomFile) {
-                            withContext(Dispatchers.IO) { AlarmSoundStore.deleteAllOwn(resetContext) }
+                        withContext(Dispatchers.IO) {
+                            // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
+                            // sie liegen (darum vorher gelöscht, abseits des Hauptthreads)
+                            if (AlarmSoundStore.supportsCustomFile) AlarmSoundStore.deleteAllOwn(resetContext)
+                            // Einträge für die Uhr liegen bei den Play-Diensten: löschen, damit die Uhr Portfolio-Wert,
+                            // Favoriten und Kurse vom Handy vergisst (wartet auf die Play-Dienste, darum ebenfalls hier)
+                            PhoneWatchSync.clearWatch(resetContext)
                         }
-                        // Einträge für die Uhr liegen bei den Play-Diensten: löschen, damit die Uhr Portfolio-Wert,
-                        // Favoriten und Kurse vom Handy vergisst
-                        PhoneWatchSync.clearWatch(resetContext)
                         // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
                         // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
                         // danach, beim nächsten Öffnen startet sie wie neu installiert.
@@ -206,6 +206,12 @@ fun SettingsScreen(
                             icon = R.drawable.ic_settings_updates,
                             value = updatesSummary(settings),
                             onClick = { onOpenPage(SettingsPage.UPDATES) }
+                        )
+                        // Gleich daneben: was die Hintergrund-Prüfung kostet (Läufe, Anfragen, Bytes)
+                        SettingsNavRow(
+                            title = stringResource(R.string.settings_row_usage),
+                            icon = R.drawable.ic_settings_usage,
+                            onClick = { onOpenPage(SettingsPage.USAGE) }
                         )
                     }
 

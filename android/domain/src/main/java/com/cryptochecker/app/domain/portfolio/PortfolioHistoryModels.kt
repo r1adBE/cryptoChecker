@@ -85,6 +85,12 @@ data class PortfolioHistorySeries(
      * («Seit Kauf», «realisiert») nicht. Kopf/Hinweis: «inkl. Wertänderung ausgebuchter Coins».
      */
     val withdrawalsInRange: Boolean = false,
+    /**
+     * «Einstieg»: Coin → erster Tag mit Kurs (epochDay) für Coins, die schon davor gehalten wurden (keine Tageskurse davor,
+     * z. B. Liefergrenze der Börse): ab dort gezählt, der Wert dort ist ein Zufluss in [cashFlows] und [pnlFlows]
+     * ([PortfolioHistoryEntries]). Hinweis unter dem Chart.
+     */
+    val entries: Map<String, Long> = emptyMap(),
 ) {
     /** Genug für eine Linie. */
     val hasChart: Boolean get() = points.size >= 2

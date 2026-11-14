@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">現在、推移を表示できません。</string>
     <string name="portfolio_history_utc_days">日付は UTC（日足）</string>
     <string name="portfolio_history_without_matching">%1$s を除く（一致する日次価格なし）</string>
+    <string name="portfolio_history_entry">最初の日次価格から計上：%1$s（それ以前の日次価格はありません）</string>
     <string name="portfolio_period_rewards">報酬 +%1$s（損益に含まず）</string>
     <string name="portfolio_period_scaled">%1$s の 7日/1年：Binance の推移を取引所価格に換算</string>
 

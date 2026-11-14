@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import com.cryptochecker.app.data.guardedWrite
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -40,7 +41,7 @@ class SettingsRepository @Inject constructor(
 ) : SettingsBackupTarget {
 
     // Lesefehler (I/O): Standardwerte statt Absturz; Portfolio-Sperre dann und nach beschädigter Datei an ([SettingsLockFallback])
-    val settings: Flow<AppSettings> = SettingsLockFallback.settings(context, context.settingsDataStore.data)
+    val settings: Flow<AppSettings> = SettingsLockFallback.settings(context, context.settingsDataStore.data, ioDispatcher)
         .map { read ->
             read.also {
                 cached = it
@@ -349,7 +350,7 @@ class SettingsRepository @Inject constructor(
     }
 
     /** Server unbekannt (Einstellungen ersetzt): Bitcoin-Adressen nicht abfragen ([StorageRecoveryNotice.addressServerUnknown]). */
-    val addressServerUnknownFlow: Flow<Boolean> = StorageRecoveryNotice.addressServerUnknown(context)
+    val addressServerUnknownFlow: Flow<Boolean> = StorageRecoveryNotice.addressServerUnknown(context, ioDispatcher)
     suspend fun addressServerUnknown(): Boolean =
         withContext(ioDispatcher) { StorageRecoveryNotice.isAddressServerUnknown(context) }
 
@@ -376,6 +377,13 @@ class SettingsRepository @Inject constructor(
         /** Merker «Portfolio-Daten prüfen» nach neu angelegten Einstellungen ([PortfolioDataCheck]). */
         const val KEY_PORTFOLIO_DATA_CHECK = "portfolio_data_check"
     }
+
+    /**
+     * Schreibweg der Oberfläche ausserhalb von «Einstellungen» (Merkliste, Portfolio, Alarme, Markt, Sperre): ein
+     * Schreibfehler (DataStore-IOException, z. B. Speicher voll) beendet die App nicht, sondern wird genannt
+     * ([guardedWrite]); true = geschrieben. Wiederherstellen und Hintergrund rufen die Setter direkt (Fehler gehen weiter).
+     */
+    suspend fun guarded(block: suspend SettingsRepository.() -> Unit): Boolean = guardedWrite(false) { block(); true }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.settingsDataStore.edit(block)

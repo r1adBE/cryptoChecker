@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Historia jest teraz niedostępna.</string>
     <string name="portfolio_history_utc_days">Dni w UTC (świece dzienne)</string>
     <string name="portfolio_history_without_matching">Bez %1$s (brak pasujących kursów dziennych)</string>
+    <string name="portfolio_history_entry">Wejście od pierwszego kursu dziennego: %1$s (wcześniej brak kursów dziennych)</string>
     <string name="portfolio_period_rewards">Nagrody +%1$s (poza zyskiem)</string>
     <string name="portfolio_period_scaled">7 D/1 R dla %1$s: historia Binance przeskalowana do kursu giełdy</string>
 

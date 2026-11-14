@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin اشاریے، دن میں دو بار جانچے جاتے ہیں۔ حدیں آپ خود منتخب کریں – ایپ قدروں کی درجہ بندی نہیں کرتی۔</string>
     <string name="settings_macro_notifications">معاشی کیلنڈر</string>
     <string name="settings_macro_notifications_hint">اہم امریکی معاشی ڈیٹا والے دنوں میں 08:00 بجے (افراطِ زر، روزگار رپورٹ، فیڈ کا فیصلہ)۔ کیلنڈر ایپ کی ویب سائٹ سے آتا ہے، دن میں ایک بار لوڈ ہوتا ہے۔</string>
+    <string name="settings_macro_notifications_us_hint">امریکہ میں اطلاع زیادہ سے زیادہ نیویارک کے وقت 08:00 بجے، پہلے ڈیٹا سے پہلے آتی ہے۔</string>
     <string name="settings_market_alerts">مارکیٹ الرٹس</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">شیئر کریں</string>
     <string name="settings_price_overlay">قیمت اوورلے</string>
     <string name="settings_price_overlay_hint">مستقل قیمت کی اطلاع والے جوڑوں کو دوسری ایپس کے اوپر ایک چھوٹی تیرتی پِل کے طور پر دکھاتا ہے۔ ایپ کھولنے کے لیے ٹیپ کریں، بند کرنے کے لیے نیچے × تک گھسیٹیں۔</string>
+    <string name="settings_price_overlay_restart_hint">اگر سسٹم ایپ بند کر دے تو قیمت اوورلے اگلی بیک گراؤنڈ اپ ڈیٹ کے ساتھ واپس آتا ہے۔</string>
     <string name="settings_price_overlay_needs">صرف «%1$s» کے ساتھ کام کرتا ہے۔</string>
     <string name="settings_price_overlay_grant">دوسری ایپس کے اوپر دکھانے کی اجازت دیں</string>
     <string name="price_overlay_close">اوورلے بند کریں</string>

@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Hozir tarix mavjud emas.</string>
     <string name="portfolio_history_utc_days">UTC boʻyicha kunlar (kunlik shamlar)</string>
     <string name="portfolio_history_without_matching">%1$s hisobga olinmagan (mos kunlik kurslar yoʻq)</string>
+    <string name="portfolio_history_entry">Birinchi kunlik kursdan hisoblangan: %1$s (avval kunlik kurslar yoʻq)</string>
     <string name="portfolio_period_rewards">Mukofotlar +%1$s (foydaga kirmaydi)</string>
     <string name="portfolio_period_scaled">%1$s uchun 7 K/1 Y: Binance tarixi birja kursiga moslashtirilgan</string>
 

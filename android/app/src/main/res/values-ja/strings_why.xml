@@ -8,8 +8,9 @@
     <string name="why_details_hide">詳細を隠す</string>
     <string name="why_disclaimer">市場データに基づく自動評価です。同時に起きていることを示すもので、原因の証明ではありません。</string>
     <string name="why_footer_short">同時に起きても原因とは限りません · 投資助言ではありません</string>
-    <string name="why_no_data">このペアの Binance データはありません</string>
-    <string name="why_no_data_hint">価格、出来高、ボラティリティは Binance の1時間足から取得しています。</string>
+    <string name="why_no_candles">このペアの1時間足はありません</string>
+    <string name="why_no_candles_hint">価格、出来高、ボラティリティは %1$s の1時間足、または可能な場合は同じコインを扱う別の取引所から取得しています。</string>
+    <string name="why_no_data_retry_hint">価格、出来高、ボラティリティを読み込めませんでした。もう一度お試しください。</string>
     <string name="why_ref_alts">アルト</string>
     <string name="why_section_context">考えられる解釈</string>
     <string name="why_section_observation">観測</string>

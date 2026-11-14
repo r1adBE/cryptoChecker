@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">बॅटरी आणि क्रियाकलाप</string>
+    <string name="usage_intro">ॲप्स स्वतःचा वीज वापर वाचू शकत नाहीत. म्हणून ॲप दाखवते की गेल्या 24 तासांत त्याने स्वतः काय केले – फक्त याच डिव्हाइसवर मोजलेले, कोणत्याही मजकुराशिवाय.</string>
+    <string name="usage_phone">फोन</string>
+    <string name="usage_watch">घड्याळ</string>
+    <plurals name="usage_runs">
+        <item quantity="one">बॅकग्राउंड रन: %d</item>
+        <item quantity="other">बॅकग्राउंड रन: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">नेटवर्क विनंत्या: %d</item>
+        <item quantity="other">नेटवर्क विनंत्या: %d</item>
+    </plurals>
+    <string name="usage_received">मिळाले: %1$s</string>
+    <string name="usage_level_low">कमी क्रियाकलाप</string>
+    <string name="usage_level_medium">मध्यम क्रियाकलाप</string>
+    <string name="usage_level_high">जास्त क्रियाकलाप</string>
+    <string name="usage_driver_interval">मुख्यतः बॅकग्राउंड तपासणीमुळे (%1$s).</string>
+    <string name="usage_driver_exact">मुख्यतः बॅकग्राउंड तपासणी (%1$s) आणि “%2$s” मुळे.</string>
+    <string name="usage_driver_none">कोणतीही बॅकग्राउंड तपासणी नियोजित नाही – उघडे ॲप आणि विजेट जे आणतात तेच मोजले जाते.</string>
+    <string name="usage_driver_watch">घड्याळाचे ॲप आणि त्याची कॉम्प्लिकेशन्स स्वतः जे आणतात तेच मोजले जाते.</string>
+    <string name="usage_watch_none">कोणतेही घड्याळ कनेक्ट केलेले नाही</string>
+    <string name="usage_as_of">%1$s नुसार</string>
+    <string name="usage_battery_android">Android प्रत्येक ॲपचा बॅटरी वापर त्याच्या बॅटरी सेटिंग्जमध्ये दाखवते.</string>
+</resources>

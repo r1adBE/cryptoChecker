@@ -43,6 +43,14 @@ enum PortfolioStore {
         return true
     }
 
+    /// Wiederherstellen über eine beschädigte Datei: unverändert daneben legen (`portfolio.unreadable.json`, verschoben,
+    /// Bytes exakt — wie `WatchedAddressStore.setAsideUnreadable`). false = keine Datei da oder nicht verschiebbar.
+    static func setAsideUnreadable() -> Bool { WatchedAddressStore.setAsideUnreadable(at: url) }
+
+    /// Zurückrollen: die daneben gelegte Datei unverändert zurück (`WatchedAddressStore.putBackUnreadable`). true = zurück.
+    @discardableResult
+    static func putBackUnreadable() -> Bool { WatchedAddressStore.putBackUnreadable(at: url) }
+
     /// Ergebnis von `save`.
     enum SaveResult: Equatable {
         case saved

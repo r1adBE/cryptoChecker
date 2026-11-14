@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">பேட்டரி மற்றும் செயல்பாடு</string>
+    <string name="usage_intro">ஆப்ஸால் தங்கள் சொந்த மின் பயன்பாட்டைப் படிக்க முடியாது. எனவே கடந்த 24 மணி நேரத்தில் ஆப் தானே என்ன செய்தது என்பதைக் காட்டுகிறது – இந்தச் சாதனத்தில் மட்டும் எண்ணப்பட்டது, எந்த உள்ளடக்கமும் இல்லாமல்.</string>
+    <string name="usage_phone">ஃபோன்</string>
+    <string name="usage_watch">வாட்ச்</string>
+    <plurals name="usage_runs">
+        <item quantity="one">பின்னணி இயக்கங்கள்: %d</item>
+        <item quantity="other">பின்னணி இயக்கங்கள்: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">நெட்வொர்க் கோரிக்கைகள்: %d</item>
+        <item quantity="other">நெட்வொர்க் கோரிக்கைகள்: %d</item>
+    </plurals>
+    <string name="usage_received">பெறப்பட்டது: %1$s</string>
+    <string name="usage_level_low">குறைவான செயல்பாடு</string>
+    <string name="usage_level_medium">நடுத்தர செயல்பாடு</string>
+    <string name="usage_level_high">அதிக செயல்பாடு</string>
+    <string name="usage_driver_interval">பெரும்பாலும் பின்னணிச் சரிபார்ப்பால் (%1$s).</string>
+    <string name="usage_driver_exact">பெரும்பாலும் பின்னணிச் சரிபார்ப்பு (%1$s) மற்றும் “%2$s” காரணமாக.</string>
+    <string name="usage_driver_none">பின்னணிச் சரிபார்ப்பு திட்டமிடப்படவில்லை – திறந்த ஆப்பும் விட்ஜெட்களும் பெறுவது மட்டுமே கணக்கில் வரும்.</string>
+    <string name="usage_driver_watch">வாட்ச் ஆப்பும் அதன் காம்ப்ளிகேஷன்களும் தாமே பெறுவது கணக்கில் வரும்.</string>
+    <string name="usage_watch_none">வாட்ச் எதுவும் இணைக்கப்படவில்லை</string>
+    <string name="usage_as_of">%1$s நிலவரப்படி</string>
+    <string name="usage_battery_android">Android ஒவ்வொரு ஆப்பின் பேட்டரி பயன்பாட்டையும் அதன் பேட்டரி அமைப்புகளில் காட்டுகிறது.</string>
+</resources>

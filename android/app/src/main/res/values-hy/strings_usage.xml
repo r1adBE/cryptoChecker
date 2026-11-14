@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Մարտկոց և ակտիվություն</string>
+    <string name="usage_intro">Հավելվածները չեն կարող կարդալ իրենց էներգիայի ծախսը։ Դրա համար հավելվածը ցույց է տալիս, թե ինքը ինչ է արել վերջին 24 ժամում՝ հաշված միայն այս սարքում, առանց որևէ բովանդակության։</string>
+    <string name="usage_phone">Հեռախոս</string>
+    <string name="usage_watch">Ժամացույց</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Ֆոնային գործարկումներ՝ %d</item>
+        <item quantity="other">Ֆոնային գործարկումներ՝ %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Ցանցային հարցումներ՝ %d</item>
+        <item quantity="other">Ցանցային հարցումներ՝ %d</item>
+    </plurals>
+    <string name="usage_received">Ստացված՝ %1$s</string>
+    <string name="usage_level_low">Ցածր ակտիվություն</string>
+    <string name="usage_level_medium">Միջին ակտիվություն</string>
+    <string name="usage_level_high">Բարձր ակտիվություն</string>
+    <string name="usage_driver_interval">Հիմնականում ֆոնային ստուգման պատճառով (%1$s)։</string>
+    <string name="usage_driver_exact">Հիմնականում ֆոնային ստուգման (%1$s) և «%2$s»-ի պատճառով։</string>
+    <string name="usage_driver_none">Ֆոնային ստուգում պլանավորված չէ – հաշվվում է այն, ինչ բեռնում են բաց հավելվածը և վիջեթները։</string>
+    <string name="usage_driver_watch">Հաշվվում է այն, ինչ ժամացույցի հավելվածը և նրա հավելումները բեռնում են իրենք։</string>
+    <string name="usage_watch_none">Ժամացույց միացված չէ</string>
+    <string name="usage_as_of">%1$s դրությամբ</string>
+    <string name="usage_battery_android">Android-ը ցույց է տալիս յուրաքանչյուր հավելվածի մարտկոցի օգտագործումը իր մարտկոցի կարգավորումներում։</string>
+</resources>

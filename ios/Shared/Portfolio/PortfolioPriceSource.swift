@@ -149,8 +149,8 @@ enum PortfolioPriceSource {
                 }
                 let watches = SharedStorage.loadSnapshot().watches
                 let identityNames = missing.map { TokenIdentityStore.shared.watchName($0, watches: watches) }
-                let results = await withTaskGroup(of: (String, Double?).self,
-                                                  returning: [(String, Double?)].self) { group in
+                let results = await withTaskGroup(of: (String, (price: Double?, failed: Bool)).self,
+                                                  returning: [(String, (price: Double?, failed: Bool))].self) { group in
                     // Höchstens `candleParallel` zugleich, auch bei vielen Coins (wie Android)
                     var pending = zip(missing, identityNames).makeIterator()
                     for _ in 0..<Self.candleParallel {
@@ -158,7 +158,7 @@ enum PortfolioPriceSource {
                         let (coin, identityName) = next
                         group.addTask { (coin, await Self.candlePrice(coin, identityName: identityName)) }
                     }
-                    var out: [(String, Double?)] = []
+                    var out: [(String, (price: Double?, failed: Bool))] = []
                     for await r in group {
                         out.append(r)
                         guard let next = pending.next() else { continue }
@@ -168,10 +168,11 @@ enum PortfolioPriceSource {
                     return out
                 }
                 let sourcesBlocked = Self.candleHosts.allSatisfy { BlockedSources.isBlocked($0) }
-                for (coin, price) in results {
+                for (coin, outcome) in results {
+                    let price = outcome.price
                     // Kein Kurs: Fehler (Netz/Sperre) von «gibt es nicht» unterscheiden
                     if price == nil {
-                        let issue = PortfolioPriceIssue.of(failed: false, allSourcesBlocked: sourcesBlocked,
+                        let issue = PortfolioPriceIssue.of(failed: outcome.failed, allSourcesBlocked: sourcesBlocked,
                                                            networkFailed: batch.failed)
                         if issue == .unavailable { unavailable.insert(coin) } else { noPrice.insert(coin) }
                     }

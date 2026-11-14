@@ -215,8 +215,6 @@ object PortfolioHistory {
         val dayCount = (todayEpochDay - start + 1).toInt().coerceAtLeast(1)
         // Je Coin und Tag der Wert samt Eröffnung/Hoch/Tief; null = nicht gehalten oder ohne Kurs
         val cells = HashMap<String, Array<DayCell?>>()
-        // Gehalten, aber an einem Tag ohne Kurs (vor der ersten Kerze): fehlt wie ein Coin ganz ohne Kerzen — sonst
-        // sprang die Wertkurve am ersten Kurs-Tag um den ganzen Wert des Coins, und «Veränderung» zählte den Sprung mit
         val unpriced = HashSet<String>()
         for (coin in included) {
             val timeline = exactTimelines.getValue(coin)
@@ -253,17 +251,21 @@ object PortfolioHistory {
             cells[coin] = row
         }
 
-        val drawn = included.filter { it !in unpriced }
-        val left = held.filter { it in skipped || it in unpriced }
+        // Gehalten vor dem ersten Kurs: «Einstieg» ab dem ersten Kurs-Tag, Wert dort als Zufluss ([PortfolioHistoryEntries])
+        val entries = PortfolioHistoryEntries.of(unpriced, cells, start, rate)
+        val drawn = included.filter { it !in unpriced || it in entries }
+        val left = held.filter { it in skipped || (it in unpriced && it !in entries) }
         if (drawn.isEmpty()) {
             return PortfolioHistorySeries(emptyList(), left, null, null, false, capped)
         }
-        val points = sumCells(drawn, cells, start, dayCount, rate)
+        val (from, days, shown) = PortfolioHistoryEntries.window(entries, drawn, cells, start, dayCount)
+        val points = sumCells(drawn, shown, from, days, rate)
         val first = points.first().value
         val last = points.last().value
         val change = if (points.size >= 2) last - first else null
         val percent = if (change != null && first > PortfolioCalculator.EPS) change / first * 100.0 else null
-        val tradesInRange = valid.any { it.time > dayEndMillis(start) }
+        val inflows = entries.filterValues { it.epochDay > from }
+        val tradesInRange = valid.any { it.time > dayEndMillis(from) } || inflows.isNotEmpty()
         // Marktkurs eines Tags (Auszahlung/Belohnung ohne Preis, Adress-Änderung, Gebühr im dritten Coin ohne Preis):
         // heute der aktuelle Kurs, sonst der Schluss. Ein Gebühr-Coin ohne Bestand im Zeitraum: seine Kerzen mit
         // derselben Identitätsprüfung
@@ -274,18 +276,18 @@ object PortfolioHistory {
                 .takeIf { live == null || PricePlausibility.closesMatchLive(it, live) }.orEmpty()
             PortfolioStables.price(coin, if (day == todayEpochDay && live != null) live else closeOnOrBefore(series, day))
         }
-        val flows = cashFlows(events, drawn, start, todayEpochDay, dayEndMillis, rate, market, method)
+        val flows = cashFlows(events, drawn, from, todayEpochDay, dayEndMillis, rate, market, method, inflows)
 
         // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
         // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
         // und Gebühren des ersten Kaufs), der Kopf «7 T/1 J» ([PortfolioPeriodChange.gain]) zählt ihn
-        val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST || start > todayEpochDay - range.days
+        val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST || from > todayEpochDay - range.days
         val pnlFlows = ArrayList<PortfolioCashFlow>()
         val pnlSkipped = ArrayList<String>()
         val pnlCoins = ArrayList<String>()
         for (coin in drawn) {
             val coinFlows = pnlFlows(
-                coin, events.getValue(coin), start, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method,
+                coin, events.getValue(coin), from, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method, entries[coin]?.takeIf { sinceFirst || it.epochDay > from },
             )
             if (coinFlows == null) {
                 pnlSkipped += coin
@@ -294,8 +296,8 @@ object PortfolioHistory {
                 pnlFlows += coinFlows
             }
         }
-        val pnlValues = if (pnlCoins.isEmpty()) emptyList() else sumCells(pnlCoins, cells, start, dayCount, rate)
-        val rangeEnd = dayEndMillis(start)
+        val pnlValues = if (pnlCoins.isEmpty()) emptyList() else sumCells(pnlCoins, shown, from, days, rate)
+        val rangeEnd = dayEndMillis(from)
         val withdrawalsInRange = valid.any { t ->
             t.type.isWithdrawalLike && !AddressBalance.isAddressTrade(t.id) &&
                 PortfolioCalculator.normalizeCoin(t.coin) in pnlCoins && (sinceFirst || t.time > rangeEnd)
@@ -307,6 +309,7 @@ object PortfolioHistory {
             pnlSkipped = pnlSkipped.sorted(),
             pnlSinceFirst = sinceFirst,
             withdrawalsInRange = withdrawalsInRange,
+            entries = entries.mapValues { it.value.epochDay },
         )
     }
 

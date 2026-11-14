@@ -1,5 +1,7 @@
 package com.cryptochecker.wear
 
+import com.cryptochecker.marketdata.usage.UsageLog
+import com.cryptochecker.marketdata.usage.UsageMeter
 import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchPair
 import kotlinx.coroutines.CancellationException
@@ -141,10 +143,25 @@ object WatchPriceSource {
         }
 
     /**
+     * Abfrage mit Zählung für «Akku & Aktivität»: eine Anfrage (gelungen oder nicht) und die Länge der Antwort in Bytes
+     * ([UsageMeter.shared], nur Zahlen). Wie iOS `WatchPriceSource.get`.
+     */
+    private suspend fun get(url: String): String {
+        var received = 0L
+        try {
+            val body = getUncounted(url)
+            received = UsageLog.utf8Length(body)
+            return body
+        } finally {
+            UsageMeter.shared.countRequest(received)
+        }
+    }
+
+    /**
      * Blockierende Abfrage, abbrechbar: Wird der Aufruf abgebrochen (Gesamtfrist, Ansicht weg), schliesst ein Wächter
      * die Verbindung — das blockierte Lesen endet sofort statt erst nach [TIMEOUT_MS].
      */
-    private suspend fun get(url: String): String {
+    private suspend fun getUncounted(url: String): String {
         val connection = URL(url).openConnection() as HttpURLConnection
         return try {
             coroutineScope {

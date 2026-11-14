@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Momenteel geen verloop beschikbaar.</string>
     <string name="portfolio_history_utc_days">Dagen in UTC (dagcandles)</string>
     <string name="portfolio_history_without_matching">Zonder %1$s (geen passende dagkoersen)</string>
+    <string name="portfolio_history_entry">Instap bij de eerste dagkoers: %1$s (eerder geen dagkoersen)</string>
     <string name="portfolio_period_rewards">Beloningen +%1$s (niet in winst)</string>
     <string name="portfolio_period_scaled">7 D/1 J voor %1$s: Binance-verloop geschaald naar de beurskoers</string>
 

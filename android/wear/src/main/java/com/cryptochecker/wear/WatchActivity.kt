@@ -11,6 +11,9 @@ import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUp
 class WatchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // «Akku & Aktivität»: eigene Zähler, Summe ans Handy (höchstens alle 30 Min.)
+        WatchUsage.attach(this)
+        WatchUsage.publish(this)
         val store = WatchStore(this)
         setContent { WatchApp(store, onQuotesChanged = { requestComplicationUpdate(this) }) }
     }

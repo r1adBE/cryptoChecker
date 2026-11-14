@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-ի ցուցանիշներ, ստուգվում են օրը երկու անգամ։ Սահմանները դու ես ընտրում – հավելվածը չի գնահատում արժեքները։</string>
     <string name="settings_macro_notifications">Տնտեսական օրացույց</string>
     <string name="settings_macro_notifications_hint">Ժամը 08:00-ին՝ ԱՄՆ-ի կարևոր տնտեսական տվյալներով օրերին (գնաճ, աշխատաշուկայի զեկույց, ԴՊՀ-ի որոշում)։ Օրացույցը գալիս է հավելվածի կայքից, բեռնվում է օրը մեկ անգամ։</string>
+    <string name="settings_macro_notifications_us_hint">ԱՄՆ-ում ծանուցումը գալիս է ամենաուշը Նյու Յորքի ժամանակով 08:00-ին՝ առաջին տվյալներից առաջ։</string>
     <string name="settings_market_alerts">Շուկայի ահազանգեր</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Կիսվել</string>
     <string name="settings_price_overlay">Գնի ծածկույթ</string>
     <string name="settings_price_overlay_hint">Մշտական գնի ծանուցման զույգերը ցույց է տալիս որպես փոքր լողացող պիտակ այլ հավելվածների վրա։ Հպիր՝ հավելվածը բացելու համար, քաշիր ներքևի ×-ի վրա՝ փակելու համար։</string>
+    <string name="settings_price_overlay_restart_hint">Եթե համակարգը փակի հավելվածը, գնի ծածկույթը կվերադառնա ֆոնային հաջորդ թարմացման հետ։</string>
     <string name="settings_price_overlay_needs">Աշխատում է միայն «%1$s»-ի հետ միասին։</string>
     <string name="settings_price_overlay_grant">Թույլատրել ցուցադրումն այլ հավելվածների վրա</string>
     <string name="price_overlay_close">Փակել ծածկույթը</string>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Batterie et activité</string>
+    <string name="usage_intro">Une app ne peut pas lire sa propre consommation d’énergie. L’app montre donc ce qu’elle a fait elle-même au cours des dernières 24 heures – compté uniquement sur cet appareil, sans aucun contenu.</string>
+    <string name="usage_phone">Téléphone</string>
+    <string name="usage_watch">Montre</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d exécution en arrière-plan</item>
+        <item quantity="many">%d exécutions en arrière-plan</item>
+        <item quantity="other">%d exécutions en arrière-plan</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d requête réseau</item>
+        <item quantity="many">%d requêtes réseau</item>
+        <item quantity="other">%d requêtes réseau</item>
+    </plurals>
+    <string name="usage_received">%1$s reçus</string>
+    <string name="usage_level_low">Activité faible</string>
+    <string name="usage_level_medium">Activité moyenne</string>
+    <string name="usage_level_high">Activité élevée</string>
+    <string name="usage_driver_interval">Surtout dû à la vérification en arrière-plan (%1$s).</string>
+    <string name="usage_driver_exact">Surtout dû à la vérification en arrière-plan (%1$s) et à « %2$s ».</string>
+    <string name="usage_driver_none">Aucune vérification en arrière-plan prévue – seul compte ce que l’app ouverte et les widgets récupèrent.</string>
+    <string name="usage_driver_watch">Seul compte ce que l’app de la montre et ses complications récupèrent elles-mêmes.</string>
+    <string name="usage_watch_none">Aucune montre connectée</string>
+    <string name="usage_as_of">État : %1$s</string>
+    <string name="usage_battery_android">Android affiche la consommation de batterie par app dans ses réglages de batterie.</string>
+</resources>

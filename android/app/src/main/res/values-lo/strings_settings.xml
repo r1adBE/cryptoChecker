@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">ຕົວຊີ້ວັດ Bitcoin, ກວດມື້ລະສອງຄັ້ງ. ທ່ານເລືອກຂີດຈຳກັດ – ແອັບບໍ່ໄດ້ປະເມີນຄ່າເຫຼົ່ານີ້.</string>
     <string name="settings_macro_notifications">ປະຕິທິນເສດຖະກິດ</string>
     <string name="settings_macro_notifications_hint">ເວລາ 08:00 ໃນມື້ທີ່ມີຂໍ້ມູນເສດຖະກິດສຳຄັນຂອງສະຫະລັດ (ເງິນເຟີ້, ລາຍງານການຈ້າງງານ, ການຕັດສິນໃຈຂອງ Fed). ປະຕິທິນມາຈາກເວັບໄຊຂອງແອັບ, ໂຫຼດມື້ລະຄັ້ງ.</string>
+    <string name="settings_macro_notifications_us_hint">ໃນສະຫະລັດ ການແຈ້ງເຕືອນຈະມາຮອດຊ້າສຸດເວລາ 08:00 ຕາມເວລານິວຢອກ ກ່ອນຂໍ້ມູນທຳອິດ.</string>
     <string name="settings_market_alerts">ສັນຍານເຕືອນຕະຫຼາດ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">ແບ່ງປັນ</string>
     <string name="settings_price_overlay">ລາຄາຊ້ອນ</string>
     <string name="settings_price_overlay_hint">ສະແດງຄູ່ເທຣດຂອງການແຈ້ງເຕືອນລາຄາຖາວອນເປັນປ້າຍລອຍນ້ອຍເທິງແອັບອື່ນ. ແຕະເພື່ອເປີດແອັບ, ລາກໄປ × ທາງລຸ່ມເພື່ອປິດ.</string>
+    <string name="settings_price_overlay_restart_hint">ຖ້າລະບົບປິດແອັບ, ລາຄາຊ້ອນຈະກັບມາພ້ອມການອັບເດດໃນພື້ນຫຼັງຄັ້ງຕໍ່ໄປ.</string>
     <string name="settings_price_overlay_needs">ໃຊ້ໄດ້ພ້ອມກັບ «%1$s» ເທົ່ານັ້ນ.</string>
     <string name="settings_price_overlay_grant">ອະນຸຍາດໃຫ້ສະແດງທັບແອັບອື່ນ</string>
     <string name="price_overlay_close">ປິດການຊ້ອນ</string>

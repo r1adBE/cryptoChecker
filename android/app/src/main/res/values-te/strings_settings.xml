@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin సూచికలు, రోజుకు రెండుసార్లు తనిఖీ చేయబడతాయి. పరిమితులను మీరే ఎంచుకుంటారు – యాప్ విలువలను రేట్ చేయదు.</string>
     <string name="settings_macro_notifications">ఆర్థిక క్యాలెండర్</string>
     <string name="settings_macro_notifications_hint">ముఖ్యమైన US ఆర్థిక డేటా ఉన్న రోజుల్లో 08:00కు (ద్రవ్యోల్బణం, ఉద్యోగాల నివేదిక, Fed నిర్ణయం). క్యాలెండర్ యాప్ వెబ్‌సైట్ నుండి వస్తుంది, రోజుకు ఒకసారి లోడ్ అవుతుంది.</string>
+    <string name="settings_macro_notifications_us_hint">అమెరికాలో నోటిఫికేషన్ ఆలస్యమైనా న్యూయార్క్ సమయం 08:00కి, మొదటి డేటాకు ముందు వస్తుంది.</string>
     <string name="settings_market_alerts">మార్కెట్ అలర్ట్‌లు</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">షేర్ చేయండి</string>
     <string name="settings_price_overlay">ధర ఓవర్‌లే</string>
     <string name="settings_price_overlay_hint">శాశ్వత ధర నోటిఫికేషన్ జతలను ఇతర యాప్‌లపై చిన్న తేలియాడే పట్టీగా చూపుతుంది. యాప్‌ను తెరవడానికి నొక్కండి, మూసివేయడానికి దిగువన ఉన్న ×కు లాగండి.</string>
+    <string name="settings_price_overlay_restart_hint">సిస్టమ్ యాప్‌ను మూసివేస్తే, ధర ఓవర్‌లే తదుపరి బ్యాక్‌గ్రౌండ్ అప్‌డేట్‌తో తిరిగి వస్తుంది.</string>
     <string name="settings_price_overlay_needs">«%1$s»తో కలిపి మాత్రమే పని చేస్తుంది.</string>
     <string name="settings_price_overlay_grant">ఇతర యాప్‌లపై ప్రదర్శనను అనుమతించండి</string>
     <string name="price_overlay_close">ఓవర్‌లేను మూసివేయండి</string>

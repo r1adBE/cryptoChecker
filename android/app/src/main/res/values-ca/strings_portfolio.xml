@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Ara mateix no hi ha historial disponible.</string>
     <string name="portfolio_history_utc_days">Dies en UTC (espelmes diàries)</string>
     <string name="portfolio_history_without_matching">Sense %1$s (no hi ha preus diaris coincidents)</string>
+    <string name="portfolio_history_entry">Entrada al primer preu diari: %1$s (abans no hi ha preus diaris)</string>
     <string name="portfolio_period_rewards">Recompenses +%1$s (no incloses al guany)</string>
     <string name="portfolio_period_scaled">7 D/1 A per a %1$s: historial de Binance escalat al preu de l\'exchange</string>
 

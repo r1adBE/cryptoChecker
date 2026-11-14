@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">شاخص‌های بیت‌کوین، دو بار در روز بررسی می‌شوند. مرزها را خودت انتخاب می‌کنی – برنامه مقادیر را ارزیابی نمی‌کند.</string>
     <string name="settings_macro_notifications">تقویم اقتصادی</string>
     <string name="settings_macro_notifications_hint">ساعت 08:00 در روزهایی که داده‌های مهم اقتصادی آمریکا منتشر می‌شود (تورم، اشتغال، تصمیم فدرال رزرو). تقویم روزی یک بار از وب‌سایت برنامه بارگیری می‌شود.</string>
+    <string name="settings_macro_notifications_us_hint">در آمریکا اعلان حداکثر تا ساعت 08:00 به وقت نیویورک، پیش از نخستین داده‌ها می‌رسد.</string>
     <string name="settings_market_alerts">اعلان‌های بازار</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">اشتراک‌گذاری</string>
     <string name="settings_price_overlay">لایه قیمت</string>
     <string name="settings_price_overlay_hint">جفت‌های اعلان قیمت دائمی را به‌صورت یک قرص شناور کوچک روی برنامه‌های دیگر نشان می‌دهد. برای باز کردن برنامه ضربه بزن و برای بستن به × پایین بکش.</string>
+    <string name="settings_price_overlay_restart_hint">اگر سیستم برنامه را ببندد، لایه قیمت با به‌روزرسانی بعدی در پس‌زمینه برمی‌گردد.</string>
     <string name="settings_price_overlay_needs">فقط همراه با «%1$s» کار می‌کند.</string>
     <string name="settings_price_overlay_grant">اجازه نمایش روی برنامه‌های دیگر</string>
     <string name="price_overlay_close">بستن لایه</string>

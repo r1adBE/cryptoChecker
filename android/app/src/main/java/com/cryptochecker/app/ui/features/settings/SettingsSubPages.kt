@@ -278,11 +278,12 @@ fun MarketAlertsSettingsScreen(
             }
             Hint(stringResource(R.string.settings_activity_sensitivity_hint))
             RowDivider()
-            // Wirtschaftstermine: Morgen-Meldung um 08:00 an Tagen mit US-Daten (CPI, Fed …)
+            // Wirtschaftstermine: Morgen-Meldung um 08:00 (spätestens 08:00 New York) an Tagen mit US-Daten (CPI, Fed …)
             SettingsAnchor("market.macro") {
                 SwitchRow(
                     title = stringResource(R.string.settings_macro_notifications),
-                    subtitle = stringResource(R.string.settings_macro_notifications_hint),
+                    subtitle = stringResource(R.string.settings_macro_notifications_hint) + " " +
+                        stringResource(R.string.settings_macro_notifications_us_hint),
                     checked = settings.macroNotifications,
                     onCheckedChange = {
                         if (it) requestNotifications()

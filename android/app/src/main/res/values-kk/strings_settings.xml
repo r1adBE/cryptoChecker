@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin индикаторлары, күніне екі рет тексеріледі. Шектерді сіз таңдайсыз – қолданба мәндерді бағаламайды.</string>
     <string name="settings_macro_notifications">Экономикалық күнтізбе</string>
     <string name="settings_macro_notifications_hint">АҚШ-тың маңызды экономикалық деректері (инфляция, жұмыспен қамту есебі, ФРЖ шешімі) бар күндері 08:00-де. Күнтізбе қолданба сайтынан алынады, күніне бір рет жүктеледі.</string>
+    <string name="settings_macro_notifications_us_hint">АҚШ-та хабарландыру ең кешікпегенде Нью-Йорк уақытымен 08:00-де, алғашқы деректерден бұрын келеді.</string>
     <string name="settings_market_alerts">Нарық ескертулері</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Бөлісу</string>
     <string name="settings_price_overlay">Бағам қабаты</string>
     <string name="settings_price_overlay_hint">Тұрақты бағам хабарландыруындағы жұптарды басқа қолданбалардың үстінде шағын қалқымалы белгі ретінде көрсетеді. Қолданбаны ашу үшін түртіңіз, жабу үшін төмендегі × белгісіне сүйреңіз.</string>
+    <string name="settings_price_overlay_restart_hint">Жүйе қолданбаны жапса, бағам қабаты келесі фондық жаңартумен қайта оралады.</string>
     <string name="settings_price_overlay_needs">Тек «%1$s» функциясымен бірге жұмыс істейді.</string>
     <string name="settings_price_overlay_grant">Басқа қолданбалардың үстінен көрсетуге рұқсат ету</string>
     <string name="price_overlay_close">Қабатты жабу</string>

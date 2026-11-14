@@ -44,10 +44,12 @@ actor OwnCandleDataSource {
     }()
 
     /// Ergebnis eines Abrufs: Kerzen oder nil; `unreachable` = eine Anfrage scheiterte vorübergehend (Netz, Zeitgrenze,
-    /// 5xx, Pause — `HistoricCloseChain.fetchFailure`); nil ohne `unreachable` = keine Reihe. Wie Android `Load`.
+    /// 5xx, Pause — `HistoricCloseChain.fetchFailure`); nil ohne `unreachable` = keine Reihe. `silent` = dabei kam gar
+    /// keine Antwort (Netz, DNS, Zeitgrenze), nie eine Fehler-Antwort oder Pause. Wie Android `Load`.
     struct Load: Sendable {
         var value: Sourced<[MarketCandle]>?
         var unreachable = false
+        var silent = false
     }
 
     // Begrenzt: Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
@@ -96,27 +98,32 @@ actor OwnCandleDataSource {
 
     private static func fetch(_ source: any ExchangeCandleSource, pair: CandlePair, interval: CandleInterval,
                               limit: Int) async -> Load {
-        let unreachable = OSAllocatedUnfairLock(initialState: false)
-        let http = CandleHTTP(get: { url in await get(source, url, json: nil, unreachable: unreachable) },
-                              post: { url, json in await get(source, url, json: json, unreachable: unreachable) },
+        // Gescheitert mit Fehler-Antwort bzw. Pause (`answered`) oder ganz ohne Antwort (`silent`)
+        let failures = OSAllocatedUnfairLock(initialState: (answered: false, silent: false))
+        let http = CandleHTTP(get: { url in await get(source, url, json: nil, failures: failures) },
+                              post: { url, json in await get(source, url, json: json, failures: failures) },
                               now: EpochTime.nowMillis)
         let fetched = await source.fetch(pair, interval: interval, limit: limit, http: http)
-        let failed = unreachable.withLock { $0 }
+        let state = failures.withLock { $0 }
+        let failed = state.answered || state.silent
+        let silent = state.silent && !state.answered
         guard let candles = fetched, candles.count >= 2,
               CandleSeries.isLive(candles, intervalMillis: interval.millis, now: EpochTime.nowMillis) else {
-            return Load(value: nil, unreachable: failed)
+            return Load(value: nil, unreachable: failed, silent: silent)
         }
-        return Load(value: Sourced(value: candles, provider: OwnCandlePolicy.provider(pair)), unreachable: failed)
+        return Load(value: Sourced(value: candles, provider: OwnCandlePolicy.provider(pair)), unreachable: failed,
+                    silent: silent)
     }
 
-    /// Eine Anfrage (GET, mit `json` POST); nil bei Fehler, Sperre oder Pause. `unreachable` wird gesetzt, wenn der
-    /// Fehler vorübergehend war (Netz, Zeitgrenze, 5xx, Pause) — nicht bei «keine Daten» oder Geo-Sperre.
+    /// Eine Anfrage (GET, mit `json` POST); nil bei Fehler, Sperre oder Pause. `failures` wird gesetzt, wenn der
+    /// Fehler vorübergehend war (5xx, Pause: `answered`; Netz, DNS, Zeitgrenze: `silent`) — nicht bei «keine Daten» oder
+    /// Geo-Sperre.
     private static func get(_ source: any ExchangeCandleSource, _ url: String, json: String?,
-                            unreachable: OSAllocatedUnfairLock<Bool>) async -> String? {
+                            failures: OSAllocatedUnfairLock<(answered: Bool, silent: Bool)>) async -> String? {
         let host = hostOf(url)
         if Task.isCancelled { return nil }
         if BlockedSources.groupPausedUntil(host) != nil || CandleHostPauses.isPaused(host) {
-            unreachable.withLock { $0 = true }
+            failures.withLock { $0.answered = true }
             return nil
         }
         if BlockedSources.isBlocked(host) { return nil }
@@ -126,7 +133,11 @@ actor OwnCandleDataSource {
             body = try await ExchangeHTTP.call(url, post: post, session: session)
         } catch {
             let http = error as? HttpExchangeError
-            if HistoricCloseChain.fetchFailure(httpCode: http?.httpCode) == .TRANSIENT { unreachable.withLock { $0 = true } }
+            switch HistoricCloseChain.fetchFailure(httpCode: http?.httpCode) {
+            case .TRANSIENT: failures.withLock { $0.answered = true }
+            case .UNREACHABLE: failures.withLock { $0.silent = true }
+            case .NO_DATA, .BLOCKED: break
+            }
             if !BlockedSources.noteFailure(host, error), let http, ExchangeBackoff.isRateLimitCode(http.httpCode) {
                 CandleHostPauses.pause(host, httpCode: http.httpCode, retryAfterSeconds: http.retryAfterSeconds)
             }
@@ -134,7 +145,7 @@ actor OwnCandleDataSource {
         }
         if source.isRateLimited(body) {
             if ExchangeBackoff.sharedGroup(host) == nil { CandleHostPauses.pause(host, httpCode: 429, retryAfterSeconds: nil) }
-            unreachable.withLock { $0 = true }
+            failures.withLock { $0.answered = true }
             return nil
         }
         return body

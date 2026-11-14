@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">البطارية والنشاط</string>
+    <string name="usage_intro">لا تستطيع التطبيقات قراءة استهلاكها للطاقة. لذلك يعرض التطبيق ما فعله بنفسه خلال آخر 24 ساعة – يُحسب على هذا الجهاز فقط ودون أي محتوى.</string>
+    <string name="usage_phone">الهاتف</string>
+    <string name="usage_watch">الساعة</string>
+    <plurals name="usage_runs">
+        <item quantity="zero">عمليات تشغيل في الخلفية: %d</item>
+        <item quantity="one">عمليات تشغيل في الخلفية: %d</item>
+        <item quantity="two">عمليات تشغيل في الخلفية: %d</item>
+        <item quantity="few">عمليات تشغيل في الخلفية: %d</item>
+        <item quantity="many">عمليات تشغيل في الخلفية: %d</item>
+        <item quantity="other">عمليات تشغيل في الخلفية: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="zero">طلبات الشبكة: %d</item>
+        <item quantity="one">طلبات الشبكة: %d</item>
+        <item quantity="two">طلبات الشبكة: %d</item>
+        <item quantity="few">طلبات الشبكة: %d</item>
+        <item quantity="many">طلبات الشبكة: %d</item>
+        <item quantity="other">طلبات الشبكة: %d</item>
+    </plurals>
+    <string name="usage_received">المستلَم: %1$s</string>
+    <string name="usage_level_low">نشاط منخفض</string>
+    <string name="usage_level_medium">نشاط متوسط</string>
+    <string name="usage_level_high">نشاط مرتفع</string>
+    <string name="usage_driver_interval">غالبًا بسبب الفحص في الخلفية (%1$s).</string>
+    <string name="usage_driver_exact">غالبًا بسبب الفحص في الخلفية (%1$s) و«%2$s».</string>
+    <string name="usage_driver_none">لا يوجد فحص مجدول في الخلفية – يُحتسب ما يجلبه التطبيق المفتوح والأدوات.</string>
+    <string name="usage_driver_watch">يُحتسب ما يجلبه تطبيق الساعة وإضافاته بأنفسهم.</string>
+    <string name="usage_watch_none">لا توجد ساعة متصلة</string>
+    <string name="usage_as_of">حتى %1$s</string>
+    <string name="usage_battery_android">يعرض Android استخدام البطارية لكل تطبيق في إعدادات البطارية.</string>
+</resources>

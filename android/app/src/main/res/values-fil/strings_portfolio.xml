@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Walang available na kasaysayan ngayon.</string>
     <string name="portfolio_history_utc_days">Mga araw sa UTC (daily candles)</string>
     <string name="portfolio_history_without_matching">Wala ang %1$s (walang katugmang daily price)</string>
+    <string name="portfolio_history_entry">Simula sa unang daily price: %1$s (walang daily price bago nito)</string>
     <string name="portfolio_period_rewards">Mga reward +%1$s (hindi kasama sa tubo)</string>
     <string name="portfolio_period_scaled">7 A/1 T para sa %1$s: kasaysayan ng Binance na in-scale sa presyo ng exchange</string>
 

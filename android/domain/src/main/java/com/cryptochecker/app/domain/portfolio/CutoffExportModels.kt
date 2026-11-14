@@ -30,6 +30,8 @@ data class CutoffRow(
     val noFx: Boolean,
     /** Kurs nicht als derselbe Token bestätigt ([PricePlausibility.acceptSourceClose]) — Feld leer. */
     val unchecked: Boolean = false,
+    /** Ohne Kurs ([noPrice]), weil eine Quelle bzw. der aktuelle Kurs gerade nicht abrufbar war — Hinweis «nicht abrufbar». */
+    val unavailable: Boolean = false,
     /** Guthaben einer beobachteten Adresse ([CutoffExport.addressRows]) — eigene Zeile «aus Adresse – ohne Kaufpreis». */
     val fromAddress: Boolean = false,
     /**
@@ -41,13 +43,21 @@ data class CutoffRow(
 
 /**
  * Tagesschlüsse des Stichtags: [prices] Coin → Kurs in USDT; [unchecked] = Coins, deren Kurs mangels
- * passendem aktuellem Kurs nicht als derselbe Token bestätigt werden konnte (Hinweis «ungeprüft»).
+ * passendem aktuellem Kurs nicht als derselbe Token bestätigt werden konnte (Hinweis «ungeprüft»); [unavailable] =
+ * ohne Kurs, weil eine Quelle nicht abrufbar war ([HistoricCloseChain.Resolved.failed], Hinweis «nicht abrufbar»).
  */
 data class CutoffCloses(
     /** Exakt aus der kürzesten Darstellung des Quellkurses ([PortfolioDecimal.of]). */
     val prices: Map<String, BigDecimal> = emptyMap(),
     val unchecked: Set<String> = emptySet(),
-)
+    val unavailable: Set<String> = emptySet(),
+) {
+    /** [coins] ohne Kurs, deren Bezug gerade nicht abrufbar war: «nicht abrufbar» statt «ungeprüft». */
+    fun withUnavailable(coins: Set<String>): CutoffCloses {
+        val missing = coins.filterTo(HashSet()) { it !in prices }
+        return if (missing.isEmpty()) this else copy(unchecked = unchecked - missing, unavailable = unavailable + missing)
+    }
+}
 
 /** Übersetzte Texte für die CSV-Datei (Kopfzeile, Hinweise); kommen aus den Ressourcen. */
 data class CutoffCsvTexts(
@@ -65,6 +75,8 @@ data class CutoffCsvTexts(
     val noFx: String,
     /** «ungeprüft (kein passender Kurs)». */
     val unchecked: String,
+    /** «Kurs gerade nicht abrufbar» ([CutoffRow.unavailable]); leer = [noPrice]. */
+    val unavailable: String = "",
     val incomplete: String,
     /** Kommentarzeile mit %1$s = Stichtag, %2$s = Währung, %3$s = Datum des Devisenkurses. */
     val commentFormat: String,

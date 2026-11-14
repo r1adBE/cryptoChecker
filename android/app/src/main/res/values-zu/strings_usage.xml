@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Ibhethri nomsebenzi</string>
+    <string name="usage_intro">Ama-app awakwazi ukufunda ukusetshenziswa kwawo kwamandla. Ngakho i-app ibonisa lokho eyakwenza ngokwayo emahoreni angu-24 edlule – kubalwe kule divayisi kuphela, ngaphandle kokuqukethwe.</string>
+    <string name="usage_phone">Ifoni</string>
+    <string name="usage_watch">Iwashi</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Ukusebenza ngemuva: %d</item>
+        <item quantity="other">Ukusebenza ngemuva: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Izicelo zenethiwekhi: %d</item>
+        <item quantity="other">Izicelo zenethiwekhi: %d</item>
+    </plurals>
+    <string name="usage_received">Kwamukelwe: %1$s</string>
+    <string name="usage_level_low">Umsebenzi ophansi</string>
+    <string name="usage_level_medium">Umsebenzi ophakathi</string>
+    <string name="usage_level_high">Umsebenzi ophezulu</string>
+    <string name="usage_driver_interval">Ikakhulukazi ngenxa yokuhlola ngemuva (%1$s).</string>
+    <string name="usage_driver_exact">Ikakhulukazi ngenxa yokuhlola ngemuva (%1$s) no-“%2$s”.</string>
+    <string name="usage_driver_none">Akukho kuhlola ngemuva okuhleliwe – kubalwa lokho okulandwa i-app evuliwe namawijethi.</string>
+    <string name="usage_driver_watch">Kubalwa lokho okulandwa yi-app yewashi nezengezo zayo ngokwazo.</string>
+    <string name="usage_watch_none">Alikho iwashi elixhunyiwe</string>
+    <string name="usage_as_of">Kuze kube ngu-%1$s</string>
+    <string name="usage_battery_android">I-Android ibonisa ukusetshenziswa kwebhethri nge-app ngayinye kuzilungiselelo zayo zebhethri.</string>
+</resources>

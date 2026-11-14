@@ -8,8 +8,9 @@
     <string name="why_details_hide">Skrij podrobnosti</string>
     <string name="why_disclaimer">Samodejna ocena iz tržnih podatkov: prikazuje, kaj se dogaja ob istem času, ni pa dokaz za vzrok.</string>
     <string name="why_footer_short">Sočasno ne pomeni vzrok · Ni naložbeni nasvet</string>
-    <string name="why_no_data">Za ta par ni podatkov z Binance</string>
-    <string name="why_no_data_hint">Tečaj, volumen in nestanovitnost so iz urnih sveč Binance.</string>
+    <string name="why_no_candles">Za ta par ni urnih sveč</string>
+    <string name="why_no_candles_hint">Tečaj, volumen in nestanovitnost so iz urnih sveč %1$s ali, kadar je mogoče, z druge borze z istim kovancem.</string>
+    <string name="why_no_data_retry_hint">Tečaja, volumna in nestanovitnosti ni bilo mogoče naložiti. Poskusi znova.</string>
     <string name="why_ref_alts">Alti</string>
     <string name="why_section_context">Možna razlaga</string>
     <string name="why_section_observation">Opažanje</string>

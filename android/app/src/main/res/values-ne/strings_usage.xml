@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ब्याट्री र गतिविधि</string>
+    <string name="usage_intro">एपहरूले आफ्नो बिजुली खपत पढ्न सक्दैनन्। त्यसैले एपले पछिल्ला 24 घण्टामा आफैँले के गर्‍यो देखाउँछ – यही उपकरणमा मात्र गनिएको, कुनै सामग्रीबिना।</string>
+    <string name="usage_phone">फोन</string>
+    <string name="usage_watch">घडी</string>
+    <plurals name="usage_runs">
+        <item quantity="one">पृष्ठभूमि रन: %d</item>
+        <item quantity="other">पृष्ठभूमि रन: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">नेटवर्क अनुरोध: %d</item>
+        <item quantity="other">नेटवर्क अनुरोध: %d</item>
+    </plurals>
+    <string name="usage_received">प्राप्त: %1$s</string>
+    <string name="usage_level_low">कम गतिविधि</string>
+    <string name="usage_level_medium">मध्यम गतिविधि</string>
+    <string name="usage_level_high">उच्च गतिविधि</string>
+    <string name="usage_driver_interval">मुख्यतः पृष्ठभूमि जाँचका कारण (%1$s)।</string>
+    <string name="usage_driver_exact">मुख्यतः पृष्ठभूमि जाँच (%1$s) र “%2$s” का कारण।</string>
+    <string name="usage_driver_none">कुनै पृष्ठभूमि जाँच तय छैन – खुला एप र विजेटले जे ल्याउँछन् त्यही गनिन्छ।</string>
+    <string name="usage_driver_watch">घडीको एप र यसका कम्प्लिकेसनले आफैँ जे ल्याउँछन् त्यही गनिन्छ।</string>
+    <string name="usage_watch_none">कुनै घडी जोडिएको छैन</string>
+    <string name="usage_as_of">%1$s सम्म</string>
+    <string name="usage_battery_android">Android ले हरेक एपको ब्याट्री प्रयोग आफ्नो ब्याट्री सेटिङमा देखाउँछ।</string>
+</resources>

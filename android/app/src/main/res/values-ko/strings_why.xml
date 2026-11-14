@@ -8,8 +8,9 @@
     <string name="why_details_hide">자세히 숨기기</string>
     <string name="why_disclaimer">시장 데이터 기반의 자동 평가: 같은 시간에 일어나는 일을 보여 줄 뿐, 원인의 증거가 아닙니다.</string>
     <string name="why_footer_short">동시에 일어났다고 원인은 아님 · 투자 조언 아님</string>
-    <string name="why_no_data">이 거래쌍에 대한 Binance 데이터가 없습니다</string>
-    <string name="why_no_data_hint">시세, 거래량, 변동성은 Binance 1시간봉에서 가져옵니다.</string>
+    <string name="why_no_candles">이 거래쌍의 1시간봉이 없습니다</string>
+    <string name="why_no_candles_hint">시세, 거래량, 변동성은 %1$s의 1시간봉에서, 가능하면 같은 코인을 다루는 다른 거래소에서 가져옵니다.</string>
+    <string name="why_no_data_retry_hint">시세, 거래량, 변동성을 불러오지 못했습니다. 다시 시도해 주세요.</string>
     <string name="why_ref_alts">알트</string>
     <string name="why_section_context">가능한 해석</string>
     <string name="why_section_observation">관찰</string>

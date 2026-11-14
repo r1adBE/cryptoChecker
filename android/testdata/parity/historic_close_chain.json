@@ -1,5 +1,5 @@
 {
-  "_comment": "Ausweich-Kette der historischen Tagesschlüsse (HistoricCloseChain.kt / HistoricCloseChain.swift): Reihenfolge, Paare je Quelle, Namensprüfung, Urteil je Schluss, Auflösung der Kette, Ausweich-Reihe des Verlaufs und Lückenfüller USDT/USD. Gleiche Fälle auf beiden Plattformen.",
+  "_comment": "Ausweich-Kette der historischen Tagesschlüsse (HistoricCloseChain.kt / HistoricCloseChain.swift): Reihenfolge, Paare je Quelle, Namensprüfung, Urteil je Schluss, Auflösung der Kette, Ausweich-Reihe des Verlaufs und Lückenfüller USDT/USD. Gleiche Fälle auf beiden Plattformen. fetchFailure: httpCode null = keine Antwort (Netz, DNS, Zeitgrenze) → UNREACHABLE (nach einer Wiederholung übersprungen wie gesperrt, Outcome.unreachable); 5xx/408/418/429 = Fehler-Antwort → TRANSIENT (einmal wiederholen, dann bricht die Kette ab, Outcome.failed). resolve: ohne Treffer nach einer übersprungenen stummen Quelle → failed («nicht abrufbar»).",
   "order": [
     {"own": null, "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
     {"own": "", "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
@@ -100,20 +100,38 @@
       "expected": {"price": 5, "source": "Bybit", "provider": "Bybit", "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
     },
     {
-      "name": "Binance nicht erreichbar: kein Kurs, Coinbase wird nicht gefragt (Export wiederholbar)",
+      "name": "Binance antwortet mit Fehler (5xx, nach Wiederholung): kein Kurs, Coinbase wird nicht gefragt (Export wiederholbar)",
       "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
       "outcomes": {"Binance": {"price": null, "rejected": false, "failed": true}, "Coinbase": {"price": 2.0, "rejected": false}},
       "expected": {"price": null, "source": null, "provider": null, "unchecked": false, "failed": true, "asked": ["Binance"]}
     },
     {
-      "name": "verworfen, dann nicht erreichbar: ungeprüft und abgebrochen",
+      "name": "verworfen, dann Fehler-Antwort: ungeprüft und abgebrochen",
       "order": ["Kraken", "Binance", "Coinbase", "Okex", "Bybit"],
       "outcomes": {"Kraken": {"price": null, "rejected": true}, "Binance": {"price": null, "rejected": false, "failed": true}, "Coinbase": {"price": 2.0, "rejected": false}},
       "expected": {"price": null, "source": null, "provider": null, "unchecked": true, "failed": true, "asked": ["Kraken", "Binance"]}
+    },
+    {
+      "name": "Binance ganz ohne Antwort (DNS-Sperre): übersprungen wie gesperrt, Coinbase liefert",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": false, "unreachable": true}, "Coinbase": {"price": 2.0, "rejected": false}},
+      "expected": {"price": 2.0, "source": "Coinbase", "provider": "Coinbase", "unchecked": false, "asked": ["Binance", "Coinbase"]}
+    },
+    {
+      "name": "ohne Antwort und danach nirgends ein Schluss: nicht abrufbar statt ohne Kurs",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": false, "unreachable": true}},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": false, "failed": true, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+    },
+    {
+      "name": "ohne Antwort, dann Fehler-Antwort: Kette bricht bei der Fehler-Antwort ab",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": false, "unreachable": true}, "Coinbase": {"price": null, "rejected": false, "failed": true}, "Kraken": {"price": 3.0, "rejected": false}},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": false, "failed": true, "asked": ["Binance", "Coinbase"]}
     }
   ],
   "fetchFailure": [
-    {"httpCode": null, "expected": "TRANSIENT"},
+    {"httpCode": null, "expected": "UNREACHABLE"},
     {"httpCode": 500, "expected": "TRANSIENT"},
     {"httpCode": 503, "expected": "TRANSIENT"},
     {"httpCode": 408, "expected": "TRANSIENT"},

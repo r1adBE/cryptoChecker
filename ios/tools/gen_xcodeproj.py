@@ -14,7 +14,8 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
                 identifiers in app and tests). Run one bundle with `-only-testing:CryptoCheckerTests` etc.
   App/PrivacyInfo.xcprivacy -> resource in the app, the widgets and both watch targets (privacy manifest per bundle)
   WatchCore/**     -> app, watch app and watch widgets (list choice shared by iPhone and Apple Watch);
-                      WatchCore/ExchangeRetirement.swift also in the widget extension
+                      WatchCore/ExchangeRetirement.swift, UsageLog.swift and UsageMeter.swift also in the widget
+                      extension
   Watch/**         -> watchOS app "CryptoCheckerWatch" (embedded in the app under Watch/); Watch/Device/** also in
                       the watch widgets, including Watch/Device/Localizable.xcstrings: the small catalogue with the
                       texts of the watch (tools/convert_strings.py, key list tools/watch_string_keys.txt)
@@ -43,7 +44,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "233"
+CURRENT_PROJECT_VERSION = "234"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -75,8 +76,10 @@ BOTH_TARGET_RESOURCE_DIRS = {os.path.join("App", "Resources", "Sounds")}
 # `accessibilityIdentifier` in der App und die Abfragen der UI-Tests).
 APP_AND_UITEST_SOURCES = {os.path.join("App", "Components", "UiTestTags.swift")}
 # Quellen aus WatchCore/, die auch die Widget-Erweiterung kompiliert: die Regel stillgelegter Börsen (Kursabruf und
-# Anzeige im Widget, dieselbe Regel wie iPhone und Uhr).
-WATCHCORE_AND_WIDGET_SOURCES = {os.path.join("WatchCore", "ExchangeRetirement.swift")}
+# Anzeige im Widget, dieselbe Regel wie iPhone und Uhr) und die Zähler von «Akku & Aktivität» (das Widget zählt seine
+# Läufe und Abrufe selbst).
+WATCHCORE_AND_WIDGET_SOURCES = {os.path.join("WatchCore", n) for n in ("ExchangeRetirement.swift", "UsageLog.swift",
+                                                                       "UsageMeter.swift")}
 # Gemeinsame Testfälle Android/iOS: Quelle im Android-Projekt (öffentliches Repo: android/,
 # lokal auch cryptoChecker/), Kopie im Testziel.
 PARITY_SOURCES = [os.path.join(os.path.dirname(ROOT), d, "testdata", "parity") for d in ("android", "cryptoChecker")]

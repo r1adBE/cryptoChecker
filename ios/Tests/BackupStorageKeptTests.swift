@@ -1,35 +1,92 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Sichern/Wiederherstellen bei nicht lesbarem Stand (S3-01), Journal mit Alarm-Zustand (S3-09) und Datei ohne Passwort
+/// Sichern/Wiederherstellen bei nicht lesbarem Stand (S3-01, R4-02: gesperrt ≠ beschädigt), Journal mit Alarm-Zustand (S3-09) und Datei ohne Passwort
 /// ohne eigenen Bitcoin-Server (S3-04). Gegenstück Android: `BackupRestorePolicyTest.kt` (Ablehnen),
 /// `BackupSettingsCodecTest.dateiOhnePasswortOhneServer`.
 final class BackupStorageKeptTests: XCTestCase {
-    func testEinTeilNichtLesbarLehntAb() {
-        XCTAssertFalse(BackupManager.storageKept(watchlistLocked: false, portfolioUnreadable: false,
-                                                 addressesUnreadable: false, portfolioAlarmsUnreadable: false))
-        XCTAssertTrue(BackupManager.storageKept(watchlistLocked: true, portfolioUnreadable: false,
-                                                addressesUnreadable: false, portfolioAlarmsUnreadable: false))
-        XCTAssertTrue(BackupManager.storageKept(watchlistLocked: false, portfolioUnreadable: true,
-                                                addressesUnreadable: false, portfolioAlarmsUnreadable: false))
-        XCTAssertTrue(BackupManager.storageKept(watchlistLocked: false, portfolioUnreadable: false,
-                                                addressesUnreadable: true, portfolioAlarmsUnreadable: false))
-        XCTAssertTrue(BackupManager.storageKept(watchlistLocked: false, portfolioUnreadable: false,
-                                                addressesUnreadable: false, portfolioAlarmsUnreadable: true))
+    /// Gesperrt (abwarten) geht vor beschädigt (ersetzen, R4-02): Sichern lehnt beides ab, Wiederherstellen nur «gesperrt».
+    /// Vorher sperrte auch eine dauerhaft beschädigte Datei das Wiederherstellen — den Rettungsweg — mit «Starte die App
+    /// neu», was nie half.
+    func testGesperrtLehntAbBeschaedigtWirdErsetzt() {
+        typealias B = BackupManager
+        XCTAssertEqual(B.storageAccess(watchlistLocked: false, parts: [.readable, .readable, .readable]), .readable)
+        XCTAssertEqual(B.storageAccess(watchlistLocked: true, parts: [.readable, .readable, .readable]), .locked)
+        XCTAssertEqual(B.storageAccess(watchlistLocked: false, parts: [.locked, .readable, .readable]), .locked)
+        XCTAssertEqual(B.storageAccess(watchlistLocked: false, parts: [.readable, .damaged, .readable]), .damaged)
+        XCTAssertEqual(B.storageAccess(watchlistLocked: false, parts: [.damaged, .readable, .locked]), .locked)
+        XCTAssertNil(B.backupRefusalKey(.readable))
+        XCTAssertEqual(B.backupRefusalKey(.locked), "backup_storage_kept")
+        XCTAssertEqual(B.backupRefusalKey(.damaged), "ios_backup_storage_damaged")
+        XCTAssertNil(B.restoreRefusalKey(.readable))
+        XCTAssertEqual(B.restoreRefusalKey(.locked), "backup_storage_kept")
+        XCTAssertNil(B.restoreRefusalKey(.damaged))
+        XCTAssertEqual(B.partState(unreadable: false, file: URL(fileURLWithPath: "/fehlt")), .readable)
+        // Weg bzw. nicht zugänglich: nie ersetzen
+        XCTAssertEqual(B.partState(unreadable: true, file: URL(fileURLWithPath: "/fehlt/portfolio.json")), .locked)
     }
 
-    /// Sichern (Start und vor dem Schreiben) und Wiederherstellen fragen vorher; `restore` lehnt selbst auch ab.
+    /// Beschädigt heisst: Bytes lesbar (kaputt bzw. unverschlüsselt); ohne Schlüssel bzw. weg: gesperrt.
+    func testBeschaedigtOderGesperrt() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("damaged-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let fake = ProtectedFileTests.FakeKeychain()
+        fake.stored = Data(repeating: 7, count: 32)
+        let keys = StorageKey(keychain: fake)
+        let plain = dir.appendingPathComponent("plain.json")
+        try Data("kaputt".utf8).write(to: plain)
+        XCTAssertTrue(ProtectedFile.unreadableIsDamaged(plain, keys: keys))
+        let sealed = dir.appendingPathComponent("sealed.json")
+        try ProtectedFile.write(Data("{".utf8), to: sealed, keys: keys, requireSealed: true)
+        XCTAssertTrue(ProtectedFile.unreadableIsDamaged(sealed, keys: keys))
+        let noKey = StorageKey(keychain: ProtectedFileTests.FakeKeychain())
+        XCTAssertFalse(ProtectedFile.unreadableIsDamaged(sealed, keys: noKey))
+        XCTAssertFalse(ProtectedFile.unreadableIsDamaged(dir.appendingPathComponent("fehlt.json"), keys: keys))
+    }
+
+    /// Sichern (Start und vor dem Schreiben) und Wiederherstellen fragen vorher; `restore` lehnt selbst auch ab (nur
+    /// gesperrt). Beschädigte Teile kommen vor dem Ersetzen daneben und beim Zurückrollen zurück.
     func testSeiteUndRestorePruefen() throws {
         let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-        let page = try String(contentsOf: root.appendingPathComponent("App/Features/Settings/SettingsDataPages.swift"),
-                              encoding: .utf8)
-        let guardLine = "guard !BackupManager.storageKept(data) else { return fail(\"backup_storage_kept\") }"
-        XCTAssertEqual(page.components(separatedBy: guardLine).count - 1, 3)
-        let manager = try String(contentsOf: root.appendingPathComponent("App/Services/BackupManager.swift"), encoding: .utf8)
-        XCTAssertTrue(manager.contains("if journal && storageKept(data) { throw Failure.storageKept }"))
-        let restore = try String(contentsOf: root.appendingPathComponent("App/Services/BackupManager+Restore.swift"),
-                                 encoding: .utf8)
+        func source(_ path: String) throws -> String {
+            try String(contentsOf: root.appendingPathComponent(path), encoding: .utf8)
+        }
+        let page = try source("App/Features/Settings/SettingsDataPages.swift")
+        let backup = "if let key = BackupManager.backupRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }"
+        XCTAssertEqual(page.components(separatedBy: backup).count - 1, 2)
+        let restoreGuard = "if let key = BackupManager.restoreRefusalKey(BackupManager.storageAccess(data)) { return fail(key) }"
+        XCTAssertEqual(page.components(separatedBy: restoreGuard).count - 1, 1)
+        let manager = try source("App/Services/BackupManager.swift")
+        XCTAssertTrue(manager.contains("if journal && storageAccess(data) == .locked { throw Failure.storageKept }"))
+        XCTAssertTrue(manager.contains("if !journal { putBackJournalDamaged(root, into: data) }"))
+        let restore = try source("App/Services/BackupManager+Restore.swift")
         XCTAssertTrue(restore.contains("try requireJournal(try? journalData(data)"))
+        XCTAssertTrue(restore.contains(
+            "undo: { _ = rollBackPortfolio(previous.portfolio, wasIntact: previous.portfolioIntact, into: data) })"))
+        XCTAssertTrue(restore.contains("guard WatchedAddressStore.setAsideUnreadable(at: SharedStorage.portfolioAlarmsURL) else {"))
+        let portfolio = try source("App/Services/BackupManager+PortfolioFile.swift")
+        XCTAssertTrue(portfolio.contains(
+            "guard ProtectedFile.unreadableIsDamaged(PortfolioStore.url), PortfolioStore.setAsideUnreadable() else { return false }"))
+        let addresses = try source("App/Services/AppData+WatchedAddresses.swift")
+        XCTAssertTrue(addresses.contains(
+            "guard ProtectedFile.unreadableIsDamaged(WatchedAddressStore.url), WatchedAddressStore.setAsideUnreadable() else { return false }"))
+    }
+
+    /// Daneben gelegt und zurückgelegt: Bytes exakt, auch für die Portfolio-Datei.
+    func testBeiseiteUndZurueck() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("aside-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let file = dir.appendingPathComponent("portfolio.json")
+        let bytes = Data([0, 1, 2, 250])
+        try bytes.write(to: file)
+        XCTAssertTrue(WatchedAddressStore.setAsideUnreadable(at: file))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: file.path))
+        try Data("ersatz".utf8).write(to: file)
+        XCTAssertTrue(WatchedAddressStore.putBackUnreadable(at: file))
+        XCTAssertEqual(try Data(contentsOf: file), bytes)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: SharedStorage.unreadableCopyURL(of: file).path))
     }
 
     /// Zurückrollen: gemeldete Alarme bleiben gemeldet (Zustand aus dem Journal), nicht wieder scharf.

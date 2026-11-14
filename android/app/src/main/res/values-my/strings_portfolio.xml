@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">ယခု သမိုင်း မရရှိနိုင်ပါ။</string>
     <string name="portfolio_history_utc_days">UTC ဖြင့် ရက်များ (နေ့စဉ် ဖယောင်းတိုင်များ)</string>
     <string name="portfolio_history_without_matching">%1$s မပါ (ကိုက်ညီသော နေ့စဉ်ဈေးနှုန်း မရှိ)</string>
+    <string name="portfolio_history_entry">ပထမ နေ့စဉ်ဈေးနှုန်းမှ စတင်ရေတွက်သည်- %1$s (ယခင် နေ့စဉ်ဈေးနှုန်း မရှိ)</string>
     <string name="portfolio_period_rewards">ဆုလာဘ် +%1$s (အမြတ်တွင် မပါ)</string>
     <string name="portfolio_period_scaled">%1$s အတွက် ရက် 7/1 နှစ်: Binance သမိုင်းကို လဲလှယ်ရေးဌာန ဈေးနှုန်းသို့ အချိုးချထားသည်</string>
 

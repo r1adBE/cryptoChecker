@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">សូចនាករ Bitcoin ពិនិត្យពីរដងក្នុងមួយថ្ងៃ។ អ្នកជ្រើសរើសដែនកំណត់ – កម្មវិធីមិនវាយតម្លៃតម្លៃទាំងនេះទេ។</string>
     <string name="settings_macro_notifications">ប្រតិទិនសេដ្ឋកិច្ច</string>
     <string name="settings_macro_notifications_hint">នៅម៉ោង 08:00 នៅថ្ងៃដែលមានទិន្នន័យសេដ្ឋកិច្ចសំខាន់ៗរបស់សហរដ្ឋអាមេរិក (អតិផរណា របាយការណ៍ការងារ ការសម្រេចរបស់ Fed)។ ប្រតិទិនមកពីគេហទំព័ររបស់កម្មវិធី ផ្ទុកម្តងក្នុងមួយថ្ងៃ។</string>
+    <string name="settings_macro_notifications_us_hint">នៅសហរដ្ឋអាមេរិក ការជូនដំណឹងមកដល់យឺតបំផុតនៅម៉ោង 08:00 តាមម៉ោងញូវយ៉ក មុនទិន្នន័យដំបូង។</string>
     <string name="settings_market_alerts">ការដាស់តឿនទីផ្សារ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">ចែករំលែក</string>
     <string name="settings_price_overlay">តម្លៃត្រួតលើ</string>
     <string name="settings_price_overlay_hint">បង្ហាញគូនៃការជូនដំណឹងតម្លៃអចិន្ត្រៃយ៍ជាស្លាកអណ្ដែតតូចមួយលើកម្មវិធីផ្សេងទៀត។ ចុចដើម្បីបើកកម្មវិធី អូសទៅ × នៅខាងក្រោមដើម្បីបិទ។</string>
+    <string name="settings_price_overlay_restart_hint">ប្រសិនបើប្រព័ន្ធបិទកម្មវិធី តម្លៃត្រួតលើនឹងត្រឡប់មកវិញជាមួយការធ្វើបច្ចុប្បន្នភាពផ្ទៃខាងក្រោយបន្ទាប់។</string>
     <string name="settings_price_overlay_needs">ដំណើរការតែជាមួយ «%1$s» ប៉ុណ្ណោះ។</string>
     <string name="settings_price_overlay_grant">អនុញ្ញាតបង្ហាញលើកម្មវិធីផ្សេងទៀត</string>
     <string name="price_overlay_close">បិទការត្រួតលើ</string>

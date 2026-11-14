@@ -192,7 +192,7 @@ data class WhyReport(
     val change24h: Double?,
     /** 2–5 Gründe, auffällige zuerst (höchstens [ActivityAnalyzer.MAX_REASONS]). */
     val reasons: List<Reason>,
-    /** false = Binance führt das Paar nicht (Leerzustand zeigen). */
+    /** false = keine Stundenkerzen (Leerzustand zeigen, Grund in [candlesFailure]). */
     val hasMarketData: Boolean,
     /** Zeitpunkt der Daten (Epoch-ms). */
     val dataTime: Long,
@@ -216,4 +216,25 @@ data class WhyReport(
     val stable: Boolean = false,
     /** Herkunft der Daten ([WhySources]); null = unbekannt (dann der feste Quellen-Satz). */
     val sources: WhySources? = null,
+    /** Ohne Kerzen: nicht abrufbar (offline, Zeitgrenze) statt «Quelle führt das Paar nicht»; null = kein Fehler. */
+    val candlesFailure: WhyCandlesFailure? = null,
 )
+
+/**
+ * Warum «Was bewegt sich mit?» keine Kerzen hat, wenn es kein «gibt es nicht» ist: ohne Verbindung bzw.
+ * die Börse antwortete nicht innerhalb der Zeitgrenze. Dann «Erneut versuchen»; sonst führt keine Quelle das Paar.
+ * Wie iOS `WhyCandlesFailure`.
+ */
+enum class WhyCandlesFailure {
+    OFFLINE,
+    TIMEOUT;
+
+    companion object {
+        /** Grund ohne Kerzen: offline geht vor; null = die Quellen haben geantwortet, führen das Paar aber nicht. */
+        fun of(online: Boolean, timedOut: Boolean): WhyCandlesFailure? = when {
+            !online -> OFFLINE
+            timedOut -> TIMEOUT
+            else -> null
+        }
+    }
+}

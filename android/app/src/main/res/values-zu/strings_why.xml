@@ -8,8 +8,9 @@
     <string name="why_details_hide">Fihla imininingwane</string>
     <string name="why_disclaimer">Ukuhlola okuzenzakalelayo kusukela kudatha yemakethe: kubonisa okwenzeka ngesikhathi esifanayo, hhayi ubufakazi bembangela.</string>
     <string name="why_footer_short">Ngesikhathi esisodwa akusho imbangela · Akusona iseluleko sokutshala imali</string>
-    <string name="why_no_data">Ayikho idatha evela ku-Binance yaleli pheya</string>
-    <string name="why_no_data_hint">Intengo, ivolumu nokuguquguquka kuvela kuma-candle ehora ngalinye e-Binance.</string>
+    <string name="why_no_candles">Awekho ama-candle ehora ngalinye yaleli pheya</string>
+    <string name="why_no_candles_hint">Intengo, ivolumu nokuguquguquka kuvela kuma-candle ehora ngalinye e-%1$s noma, uma kungenzeka, kokunye ukushintshana okunohlamvu lwemali olufanayo.</string>
+    <string name="why_no_data_retry_hint">Intengo, ivolumu nokuguquguquka akukwazanga ukulayishwa. Zama futhi.</string>
     <string name="why_ref_alts">Ama-alt</string>
     <string name="why_section_context">Incazelo engaba khona</string>
     <string name="why_section_observation">Okubonwayo</string>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- «Akku & Aktivität» (Einstellungen): eigene Zähler von Handy und Uhr, nur Zahlen, nur auf dem Gerät -->
+    <string name="settings_row_usage">Battery &amp; activity</string>
+    <string name="usage_intro">Apps can’t read their own power use. So the app shows what it did itself in the last 24 hours – counted only on this device, without any content.</string>
+    <string name="usage_phone">Phone</string>
+    <string name="usage_watch">Watch</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d background run</item>
+        <item quantity="other">%d background runs</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d network request</item>
+        <item quantity="other">%d network requests</item>
+    </plurals>
+    <string name="usage_received">%1$s received</string>
+    <string name="usage_level_low">Low activity</string>
+    <string name="usage_level_medium">Medium activity</string>
+    <string name="usage_level_high">High activity</string>
+    <string name="usage_driver_interval">Mostly from the background check (%1$s).</string>
+    <string name="usage_driver_exact">Mostly from the background check (%1$s) and “%2$s”.</string>
+    <string name="usage_driver_none">No background check planned – what counts is what the open app and the widgets fetch.</string>
+    <string name="usage_driver_watch">What counts is what the watch app and its complications fetch themselves.</string>
+    <string name="usage_watch_none">No watch connected</string>
+    <string name="usage_as_of">As of %1$s</string>
+    <string name="usage_battery_android">Android shows battery use per app in its battery settings.</string>
+</resources>

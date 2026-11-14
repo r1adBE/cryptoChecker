@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">இப்போது வரலாறு கிடைக்கவில்லை.</string>
     <string name="portfolio_history_utc_days">UTC இல் நாட்கள் (தினசரி கேண்டில்கள்)</string>
     <string name="portfolio_history_without_matching">%1$s இல்லாமல் (பொருந்தும் தினசரி விலைகள் இல்லை)</string>
+    <string name="portfolio_history_entry">முதல் தினசரி விலையிலிருந்து கணக்கிடப்பட்டது: %1$s (முன்பு தினசரி விலைகள் இல்லை)</string>
     <string name="portfolio_period_rewards">வெகுமதிகள் +%1$s (லாபத்தில் இல்லை)</string>
     <string name="portfolio_period_scaled">%1$s க்கு 7 நா/1 ஆ: எக்ஸ்சேஞ்ச் விலைக்கு அளவிடப்பட்ட Binance வரலாறு</string>
 

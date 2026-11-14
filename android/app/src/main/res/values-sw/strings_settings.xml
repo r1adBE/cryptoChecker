@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Viashiria vya Bitcoin, hukaguliwa mara mbili kwa siku. Wewe unachagua vikomo – programu haitathmini thamani.</string>
     <string name="settings_macro_notifications">Kalenda ya uchumi</string>
     <string name="settings_macro_notifications_hint">Saa 08:00 siku zenye data muhimu za uchumi wa Marekani (mfumuko wa bei, ripoti ya ajira, uamuzi wa Fed). Kalenda inatoka tovuti ya programu, hupakiwa mara moja kwa siku.</string>
+    <string name="settings_macro_notifications_us_hint">Nchini Marekani arifa hufika kabla ya saa 08:00 kwa saa za New York, kabla ya data za kwanza.</string>
     <string name="settings_market_alerts">Kengele za soko</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Shiriki</string>
     <string name="settings_price_overlay">Bei juu ya programu nyingine</string>
     <string name="settings_price_overlay_hint">Huonyesha jozi za arifa ya kudumu ya bei kama kibonye kidogo kinachoelea juu ya programu nyingine. Gusa ili kufungua programu, buruta hadi × chini ili kufunga.</string>
+    <string name="settings_price_overlay_restart_hint">Mfumo ukifunga programu, bei juu ya programu nyingine hurudi na sasisho linalofuata la chinichini.</string>
     <string name="settings_price_overlay_needs">Inafanya kazi tu pamoja na «%1$s».</string>
     <string name="settings_price_overlay_grant">Ruhusu kuonyesha juu ya programu nyingine</string>
     <string name="price_overlay_close">Funga kibonye</string>

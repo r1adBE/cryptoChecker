@@ -337,12 +337,14 @@ object CsvImportMapping {
     }
 
     /**
-     * Jede Auszahlung mit «Auf eigene Wallet» ([choices]) und freier passender Einzahlung wird deren Umbuchung
-     * ([CsvTransferMatch.linkOwnWallet]) — sonst zählte die Einzahlung neben der Umbuchung doppelt. Wie iOS.
+     * Jede Auszahlung mit «Auf eigene Wallet» ([choices]) und eindeutiger üblicher Einzahlung wird deren Umbuchung
+     * ([CsvTransferMatch.linkOwnWallet]; nicht die in [declined], deren Verknüpfung der Nutzer ausgeschaltet hat). Wie iOS.
      */
-    fun linkOwnWallets(links: List<CsvTransferLink>, chosen: Set<String>, choices: Map<String, CsvWithdrawalChoice>): Set<String> =
-        choices.filterValues { it == CsvWithdrawalChoice.TRANSFER }.keys.sorted()
-            .fold(chosen) { acc, key -> CsvTransferMatch.linkOwnWallet(links, acc, key) }
+    fun linkOwnWallets(links: List<CsvTransferLink>, chosen: Set<String>, choices: Map<String, CsvWithdrawalChoice>,
+                       declined: Set<String> = emptySet()): Set<String> {
+        val wanting = choices.filterValues { it == CsvWithdrawalChoice.TRANSFER }.keys
+        return wanting.sorted().fold(chosen) { acc, key -> CsvTransferMatch.linkOwnWallet(links, acc, key, declined, wanting) }
+    }
 
     /** Jede Auszahlung der Vorschau hat eine Wahl ([choices] je [CsvImportTx.importKey]) — erst dann «Importieren». */
     fun allWithdrawalsDecided(txs: List<CsvImportTx>, choices: Map<String, CsvWithdrawalChoice>): Boolean =

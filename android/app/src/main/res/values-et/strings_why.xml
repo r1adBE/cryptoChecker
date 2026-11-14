@@ -8,8 +8,9 @@
     <string name="why_details_hide">Peida üksikasjad</string>
     <string name="why_disclaimer">Automaatne hinnang turuandmete põhjal: näitab, mis toimub samal ajal, mitte põhjuse tõestust.</string>
     <string name="why_footer_short">Samaaegne ei tähenda põhjust · Ei ole investeerimisnõuanne</string>
-    <string name="why_no_data">Selle paari kohta pole Binance’i andmeid</string>
-    <string name="why_no_data_hint">Hind, maht ja volatiilsus pärinevad Binance’i tunniküünaldest.</string>
+    <string name="why_no_candles">Selle paari kohta pole tunniküünlaid</string>
+    <string name="why_no_candles_hint">Hind, maht ja volatiilsus pärinevad %1$s tunniküünaldest või võimaluse korral mõnelt teiselt sama mündiga börsilt.</string>
+    <string name="why_no_data_retry_hint">Hinda, mahtu ja volatiilsust ei õnnestunud laadida. Proovi uuesti.</string>
     <string name="why_ref_alts">Altcoinid</string>
     <string name="why_section_context">Võimalik selgitus</string>
     <string name="why_section_observation">Tähelepanek</string>

@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-aanwysers, twee keer per dag gekontroleer. Jy kies die limiete – die app beoordeel nie die waardes nie.</string>
     <string name="settings_macro_notifications">Ekonomiese kalender</string>
     <string name="settings_macro_notifications_hint">Om 08:00 op dae met belangrike Amerikaanse ekonomiese data (inflasie, werksverslag, Fed-besluit). Die kalender kom van die app se webwerf, een keer per dag gelaai.</string>
+    <string name="settings_macro_notifications_us_hint">In die VSA kom die kennisgewing teen 08:00 New Yorkse tyd op die laatste, voor die eerste data.</string>
     <string name="settings_market_alerts">Markalarms</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Deel</string>
     <string name="settings_price_overlay">Prysoorleg</string>
     <string name="settings_price_overlay_hint">Wys die pare van die permanente pryskennisgewing as \'n klein swewende pil oor ander apps. Tik om die app oop te maak, sleep na × onderaan om toe te maak.</string>
+    <string name="settings_price_overlay_restart_hint">As die stelsel die app sluit, kom die prysoorleg met die volgende agtergrondopdatering terug.</string>
     <string name="settings_price_overlay_needs">Werk slegs saam met “%1$s”.</string>
     <string name="settings_price_overlay_grant">Laat vertoon oor ander apps toe</string>
     <string name="price_overlay_close">Maak oorleg toe</string>

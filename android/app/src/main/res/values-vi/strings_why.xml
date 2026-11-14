@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ẩn chi tiết</string>
     <string name="why_disclaimer">Đánh giá tự động từ dữ liệu thị trường: cho thấy những gì diễn ra cùng lúc, không phải bằng chứng về nguyên nhân.</string>
     <string name="why_footer_short">Đồng thời không có nghĩa là nguyên nhân · Không phải lời khuyên đầu tư</string>
-    <string name="why_no_data">Không có dữ liệu Binance cho cặp này</string>
-    <string name="why_no_data_hint">Giá, khối lượng và độ biến động lấy từ nến giờ của Binance.</string>
+    <string name="why_no_candles">Không có nến giờ cho cặp này</string>
+    <string name="why_no_candles_hint">Giá, khối lượng và độ biến động lấy từ nến giờ của %1$s hoặc, khi có thể, từ sàn khác có cùng đồng coin.</string>
+    <string name="why_no_data_retry_hint">Không tải được giá, khối lượng và độ biến động. Vui lòng thử lại.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Cách hiểu có thể</string>
     <string name="why_section_observation">Quan sát</string>

@@ -44,7 +44,7 @@ class BatteryOptimizationViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun dismiss() {
-        viewModelScope.launch { settingsRepository.setBatteryPromptSeen(true) }
+        viewModelScope.launch { settingsRepository.guarded { setBatteryPromptSeen(true) } }
     }
 }
 

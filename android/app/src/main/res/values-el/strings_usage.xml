@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Μπαταρία και δραστηριότητα</string>
+    <string name="usage_intro">Οι εφαρμογές δεν μπορούν να διαβάσουν τη δική τους κατανάλωση ενέργειας. Γι’ αυτό η εφαρμογή δείχνει τι έκανε η ίδια τις τελευταίες 24 ώρες – μετρημένο μόνο σε αυτή τη συσκευή, χωρίς κανένα περιεχόμενο.</string>
+    <string name="usage_phone">Τηλέφωνο</string>
+    <string name="usage_watch">Ρολόι</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d εκτέλεση στο παρασκήνιο</item>
+        <item quantity="other">%d εκτελέσεις στο παρασκήνιο</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d αίτημα δικτύου</item>
+        <item quantity="other">%d αιτήματα δικτύου</item>
+    </plurals>
+    <string name="usage_received">Λήφθηκαν %1$s</string>
+    <string name="usage_level_low">Χαμηλή δραστηριότητα</string>
+    <string name="usage_level_medium">Μέτρια δραστηριότητα</string>
+    <string name="usage_level_high">Υψηλή δραστηριότητα</string>
+    <string name="usage_driver_interval">Κυρίως από τον έλεγχο στο παρασκήνιο (%1$s).</string>
+    <string name="usage_driver_exact">Κυρίως από τον έλεγχο στο παρασκήνιο (%1$s) και το «%2$s».</string>
+    <string name="usage_driver_none">Δεν έχει προγραμματιστεί έλεγχος στο παρασκήνιο – μετράει ό,τι φέρνουν η ανοιχτή εφαρμογή και τα γραφικά στοιχεία.</string>
+    <string name="usage_driver_watch">Μετράει ό,τι φέρνουν μόνες τους η εφαρμογή του ρολογιού και οι επιπλοκές της.</string>
+    <string name="usage_watch_none">Κανένα συνδεδεμένο ρολόι</string>
+    <string name="usage_as_of">Κατάσταση %1$s</string>
+    <string name="usage_battery_android">Το Android δείχνει τη χρήση μπαταρίας ανά εφαρμογή στις ρυθμίσεις μπαταρίας του.</string>
+</resources>

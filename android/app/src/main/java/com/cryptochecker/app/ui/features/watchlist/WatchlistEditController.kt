@@ -75,7 +75,7 @@ internal class WatchlistEditController @AssistedInject constructor(
         scope.launch { if (watchRepository.confirmUserWrite()) block() else cancelled() }
 
     fun selectGroup(group: String?) {
-        scope.launch { settingsRepository.setWatchlistGroup(group) }
+        scope.launch { settingsRepository.guarded { setWatchlistGroup(group) } }
     }
 
     /** Notiz bzw. Gruppe eines Paars; [onProceed]: nach bestätigter Rückfrage (Dialog zu). */
@@ -113,7 +113,8 @@ internal class WatchlistEditController @AssistedInject constructor(
     fun deleteGroup(name: String, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) {
         launchWrite(cancelled) {
             renamedGroups.remove(name)
-            if (groupFilter()?.selected == name) settingsRepository.setWatchlistGroup(null)
+            // Speicher voll: Hinweis statt Absturz; die Gruppe wird trotzdem aufgelöst (eigener Schutz)
+            if (groupFilter()?.selected == name) settingsRepository.guarded { setWatchlistGroup(null) }
             watchRepository.clearGroup(name)
             onDone()
             widgetPrefs.replaceGroup(name, null)
@@ -389,8 +390,7 @@ internal class WatchlistEditController @AssistedInject constructor(
         launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist
             if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {
-                settingsRepository.setTtsEnabled(true)
-                settingsRepository.setTtsAlarmsOnly(false)
+                if (settingsRepository.guarded { setTtsEnabled(true) }) settingsRepository.guarded { setTtsAlarmsOnly(false) }
             }
         }
         return turnOnSpeech && !asksFirst

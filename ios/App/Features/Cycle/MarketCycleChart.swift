@@ -88,9 +88,10 @@ struct CycleHistoryChart: View {
     /// erreicht als Grafik mindestens 3:1: 65 % von onSurfaceVariant ergibt hell 3.5:1 auf dem Papier #FBF9F6
     /// (3.4:1 auf der Karte #F1EEE9), dunkel 5.2:1 auf #131313 (4.9:1 auf #1F1F1F); mit 35 % waren es nur 1.8:1.
     private func colors(_ series: [CycleSeries]) -> [Color] {
-        let older = [AppColors.onSurfaceVariant.opacity(0.65), AppColors.onSurfaceVariant.opacity(0.85)]
-        return series.indices.map { i in
-            i == series.count - 1 ? accent.primary : older[min(i, older.count - 1)]
+        // Jeder frühere Zyklus mit eigenem Ton, auch ab dem Halving 2028 (`CycleShades`, wie Android)
+        series.indices.map { i in
+            i == series.count - 1 ? accent.primary
+                : AppColors.onSurfaceVariant.opacity(CycleShades.olderAlpha(i, olderCount: series.count - 1))
         }
     }
 

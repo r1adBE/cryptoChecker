@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ಬ್ಯಾಟರಿ ಮತ್ತು ಚಟುವಟಿಕೆ</string>
+    <string name="usage_intro">ಆ್ಯಪ್‌ಗಳು ತಮ್ಮದೇ ವಿದ್ಯುತ್ ಬಳಕೆಯನ್ನು ಓದಲಾರವು. ಆದ್ದರಿಂದ ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ ಆ್ಯಪ್ ತಾನೇ ಏನು ಮಾಡಿತು ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ – ಈ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಎಣಿಸಲಾಗಿದೆ, ಯಾವುದೇ ವಿಷಯವಿಲ್ಲದೆ.</string>
+    <string name="usage_phone">ಫೋನ್</string>
+    <string name="usage_watch">ವಾಚ್</string>
+    <plurals name="usage_runs">
+        <item quantity="one">ಹಿನ್ನೆಲೆ ರನ್‌ಗಳು: %d</item>
+        <item quantity="other">ಹಿನ್ನೆಲೆ ರನ್‌ಗಳು: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">ನೆಟ್‌ವರ್ಕ್ ವಿನಂತಿಗಳು: %d</item>
+        <item quantity="other">ನೆಟ್‌ವರ್ಕ್ ವಿನಂತಿಗಳು: %d</item>
+    </plurals>
+    <string name="usage_received">ಸ್ವೀಕರಿಸಲಾಗಿದೆ: %1$s</string>
+    <string name="usage_level_low">ಕಡಿಮೆ ಚಟುವಟಿಕೆ</string>
+    <string name="usage_level_medium">ಮಧ್ಯಮ ಚಟುವಟಿಕೆ</string>
+    <string name="usage_level_high">ಹೆಚ್ಚು ಚಟುವಟಿಕೆ</string>
+    <string name="usage_driver_interval">ಮುಖ್ಯವಾಗಿ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆಯಿಂದ (%1$s).</string>
+    <string name="usage_driver_exact">ಮುಖ್ಯವಾಗಿ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ (%1$s) ಮತ್ತು “%2$s” ನಿಂದ.</string>
+    <string name="usage_driver_none">ಯಾವುದೇ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ ನಿಗದಿಯಾಗಿಲ್ಲ – ತೆರೆದ ಆ್ಯಪ್ ಮತ್ತು ವಿಜೆಟ್‌ಗಳು ತರುವುದನ್ನೇ ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="usage_driver_watch">ವಾಚ್ ಆ್ಯಪ್ ಮತ್ತು ಅದರ ಕಾಂಪ್ಲಿಕೇಶನ್‌ಗಳು ತಾವೇ ತರುವುದನ್ನು ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="usage_watch_none">ಯಾವುದೇ ವಾಚ್ ಸಂಪರ್ಕಗೊಂಡಿಲ್ಲ</string>
+    <string name="usage_as_of">%1$s ರಂತೆ</string>
+    <string name="usage_battery_android">Android ಪ್ರತಿ ಆ್ಯಪ್‌ನ ಬ್ಯಾಟರಿ ಬಳಕೆಯನ್ನು ತನ್ನ ಬ್ಯಾಟರಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ತೋರಿಸುತ್ತದೆ.</string>
+</resources>

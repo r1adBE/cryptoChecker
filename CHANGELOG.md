@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 234)
+
+Fixes from the rest and cross-check of the audit (31 findings): «own wallet» never links a loose transfer candidate on its own; daily rates fall back when Binance is unreachable; coins with short candle series count from their first close; «1 Y» in display currency independent of the chart range; restore over damaged files works again; full storage handled everywhere; watch percent labelled correctly; pulse widget always shows its age; US macro releases in the morning notification; consistent terms (bid/ask = «Kauf/Verkauf» in German). New: «Battery & activity» shows the app's own background runs, requests and data for phone and watch.
+
 ## 16.2.2 (build 233)
 
 Fixes from the full audit of build 232: «Hide amounts» in every portfolio sheet; overlay/screenshot protection outside the portfolio tab; ambiguous numbers asked instead of guessed; CSV imports keep their exchange as wallet, safer transfer matching and duplicate detection; backups refuse unreadable data and never leak the own server; no crash or silent loss when storage is full; price notifications survive short outages; Solana closed token accounts and empty answers handled; «nothing checked» shown honestly; watches get the phone list when installed later, are cleared on reset and use the phone's staleness rule; iOS restore removes old alarm notifications; Live Activity follows pair changes.

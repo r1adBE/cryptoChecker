@@ -325,13 +325,16 @@ class PortfolioPriceSource @Inject constructor(
     }
 
     /**
-     * Letzter Kerzenkurs und ob die Abfrage scheiterte (Ausnahme) — statt Fehler still als «kein Kurs» zu schlucken
-     * ([PortfolioPriceIssue]).
+     * Letzter Kerzenkurs und ob die Abfrage scheiterte (Netz, Zeitgrenze, 5xx einer Quelle der Kette,
+     * [CandleDataSource.Attempt], oder Ausnahme) — statt Fehler still als «kein Kurs» zu schlucken ([PortfolioPriceIssue]).
      */
     private suspend fun candleOutcome(coin: String): Pair<Double?, Boolean> = try {
         // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token)
-        candleDataSource.candles(coin, STABLE, CandleInterval.H1, 2, identityName = tokenIdentityStore.watchName(coin))
-            ?.lastOrNull()?.close?.takeIf { it > 0.0 } to false
+        val attempt = CandleDataSource.Attempt()
+        val price = candleDataSource.candlesSourced(
+            coin, STABLE, CandleInterval.H1, 2, identityName = tokenIdentityStore.watchName(coin), attempt = attempt,
+        )?.value?.lastOrNull()?.close?.takeIf { it > 0.0 }
+        price to (price == null && attempt.failed)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {

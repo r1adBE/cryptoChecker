@@ -8,8 +8,9 @@
     <string name="why_details_hide">Piilota tiedot</string>
     <string name="why_disclaimer">Automaattinen arvio markkinadatasta: näyttää, mitä tapahtuu samaan aikaan, ei todista syytä.</string>
     <string name="why_footer_short">Samanaikaisuus ei ole syy · Ei sijoitusneuvontaa</string>
-    <string name="why_no_data">Ei Binance-tietoja tälle parille</string>
-    <string name="why_no_data_hint">Hinta, volyymi ja volatiliteetti tulevat Binancen tuntikynttilöistä.</string>
+    <string name="why_no_candles">Tälle parille ei ole tuntikynttilöitä</string>
+    <string name="why_no_candles_hint">Hinta, volyymi ja volatiliteetti tulevat palvelun %1$s tuntikynttilöistä tai mahdollisuuksien mukaan toisesta pörssistä, jossa on sama kolikko.</string>
+    <string name="why_no_data_retry_hint">Hintaa, volyymia ja volatiliteettia ei voitu ladata. Yritä uudelleen.</string>
     <string name="why_ref_alts">Altit</string>
     <string name="why_section_context">Mahdollinen tulkinta</string>
     <string name="why_section_observation">Havainto</string>

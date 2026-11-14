@@ -210,17 +210,32 @@ struct WatchlistWhySkeleton: View {
     }
 }
 
-/// Leerzustand: keine Quelle führt das Paar (oder nichts erreichbar).
+/// Leerzustand: offline bzw. Börse antwortete nicht (`failure`, mit «Erneut versuchen») oder keine Quelle führt
+/// das Paar — mit der Börse des Paars `exchange`, wie Android `EmptyReasons`.
 struct WatchlistWhyEmpty: View {
+    let failure: WhyCandlesFailure?
+    let exchange: String
     let onRetry: (() -> Void)?
     @Environment(\.appAccent) private var accent
 
+    private var title: String {
+        switch failure {
+        case .offline: L("offline_status")
+        case .timeout: L("refresh_sheet_exchange_unreachable", exchange)
+        case nil: L("why_no_candles")
+        }
+    }
+
+    private var hint: String {
+        failure == nil ? L("why_no_candles_hint", exchange) : L("why_no_data_retry_hint")
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(L("why_no_data"))
+            Text(title)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(AppColors.onSurface)
-            Text(L("why_no_data_hint"))
+            Text(hint)
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)

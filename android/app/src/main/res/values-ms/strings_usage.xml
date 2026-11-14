@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Bateri &amp; aktiviti</string>
+    <string name="usage_intro">Apl tidak dapat membaca penggunaan kuasanya sendiri. Oleh itu apl menunjukkan apa yang dilakukannya sendiri dalam 24 jam yang lalu – dikira hanya pada peranti ini, tanpa sebarang kandungan.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Jam</string>
+    <plurals name="usage_runs">
+        <item quantity="other">%d larian latar belakang</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">%d permintaan rangkaian</item>
+    </plurals>
+    <string name="usage_received">%1$s diterima</string>
+    <string name="usage_level_low">Aktiviti rendah</string>
+    <string name="usage_level_medium">Aktiviti sederhana</string>
+    <string name="usage_level_high">Aktiviti tinggi</string>
+    <string name="usage_driver_interval">Kebanyakannya kerana semakan latar belakang (%1$s).</string>
+    <string name="usage_driver_exact">Kebanyakannya kerana semakan latar belakang (%1$s) dan “%2$s”.</string>
+    <string name="usage_driver_none">Tiada semakan latar belakang dijadualkan – yang dikira ialah apa yang diambil oleh apl yang dibuka dan widget.</string>
+    <string name="usage_driver_watch">Yang dikira ialah apa yang diambil sendiri oleh apl jam dan komplikasinya.</string>
+    <string name="usage_watch_none">Tiada jam disambungkan</string>
+    <string name="usage_as_of">Setakat %1$s</string>
+    <string name="usage_battery_android">Android menunjukkan penggunaan bateri setiap apl dalam tetapan baterinya.</string>
+</resources>

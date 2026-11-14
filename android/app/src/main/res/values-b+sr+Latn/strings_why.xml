@@ -9,8 +9,9 @@
     <string name="why_details_hide">Sakrij detalje</string>
     <string name="why_disclaimer">Automatska procena iz tržišnih podataka: prikazuje šta se događa istovremeno, a ne dokaz uzroka.</string>
     <string name="why_footer_short">Istovremeno ne znači uzrok · Nije savet za ulaganje</string>
-    <string name="why_no_data">Nema podataka s Binance-a za ovaj par</string>
-    <string name="why_no_data_hint">Cena, volumen i volatilnost dolaze iz satnih sveća s Binance-a.</string>
+    <string name="why_no_candles">Nema satnih sveća za ovaj par</string>
+    <string name="why_no_candles_hint">Cena, volumen i volatilnost dolaze iz satnih sveća sa %1$s ili, kad je moguće, sa druge berze sa istim koinom.</string>
+    <string name="why_no_data_retry_hint">Cena, volumen i volatilnost nisu mogli da se učitaju. Pokušaj ponovo.</string>
     <string name="why_ref_alts">Altkoini</string>
     <string name="why_section_context">Moguće objašnjenje</string>
     <string name="why_section_observation">Zapažanje</string>

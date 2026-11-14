@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin の指標を1日2回確認します。しきい値はご自身で選び、アプリは値を評価しません。</string>
     <string name="settings_macro_notifications">経済指標カレンダー</string>
     <string name="settings_macro_notifications_hint">重要な米経済指標（インフレ、雇用統計、FOMC）の発表日の 08:00 に通知します。カレンダーはアプリのウェブサイトから1日1回読み込みます。</string>
+    <string name="settings_macro_notifications_us_hint">米国では、通知は遅くともニューヨーク時間の 08:00、最初のデータの前に届きます。</string>
     <string name="settings_market_alerts">相場のお知らせ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">共有</string>
     <string name="settings_price_overlay">価格オーバーレイ</string>
     <string name="settings_price_overlay_hint">常時表示の価格通知のペアを、ほかのアプリの上に小さなフローティング表示で示します。タップでアプリを開き、下の × へドラッグすると閉じます。</string>
+    <string name="settings_price_overlay_restart_hint">システムがアプリを終了した場合、価格オーバーレイは次回のバックグラウンド更新で戻ります。</string>
     <string name="settings_price_overlay_needs">「%1$s」と一緒の場合のみ動作します。</string>
     <string name="settings_price_overlay_grant">ほかのアプリの上に重ねて表示を許可</string>
     <string name="price_overlay_close">オーバーレイを閉じる</string>

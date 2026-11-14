@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin ਸੂਚਕ, ਦਿਨ ਵਿੱਚ ਦੋ ਵਾਰ ਜਾਂਚੇ ਜਾਂਦੇ ਹਨ। ਸੀਮਾਵਾਂ ਤੁਸੀਂ ਖੁਦ ਚੁਣੋ – ਐਪ ਮੁੱਲਾਂ ਦਾ ਮੁਲਾਂਕਣ ਨਹੀਂ ਕਰਦੀ।</string>
     <string name="settings_macro_notifications">ਆਰਥਿਕ ਕੈਲੰਡਰ</string>
     <string name="settings_macro_notifications_hint">ਮਹੱਤਵਪੂਰਨ ਅਮਰੀਕੀ ਆਰਥਿਕ ਡਾਟੇ ਵਾਲੇ ਦਿਨਾਂ ’ਤੇ 08:00 ਵਜੇ (ਮਹਿੰਗਾਈ, ਨੌਕਰੀਆਂ ਦੀ ਰਿਪੋਰਟ, ਫੈਡ ਦਾ ਫੈਸਲਾ)। ਕੈਲੰਡਰ ਐਪ ਦੀ ਵੈੱਬਸਾਈਟ ਤੋਂ ਆਉਂਦਾ ਹੈ, ਦਿਨ ਵਿੱਚ ਇੱਕ ਵਾਰ ਲੋਡ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="settings_macro_notifications_us_hint">ਅਮਰੀਕਾ ਵਿੱਚ ਸੂਚਨਾ ਵੱਧ ਤੋਂ ਵੱਧ ਨਿਊਯਾਰਕ ਸਮੇਂ 08:00 ਵਜੇ, ਪਹਿਲੇ ਡਾਟਾ ਤੋਂ ਪਹਿਲਾਂ ਆਉਂਦੀ ਹੈ।</string>
     <string name="settings_market_alerts">ਬਾਜ਼ਾਰ ਅਲਰਟ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">ਸਾਂਝਾ ਕਰੋ</string>
     <string name="settings_price_overlay">ਕੀਮਤ ਓਵਰਲੇ</string>
     <string name="settings_price_overlay_hint">ਸਥਾਈ ਕੀਮਤ ਸੂਚਨਾ ਵਾਲੇ ਜੋੜਿਆਂ ਨੂੰ ਹੋਰ ਐਪਾਂ ਦੇ ਉੱਪਰ ਇੱਕ ਛੋਟੀ ਤੈਰਦੀ ਪਿੱਲ ਵਜੋਂ ਦਿਖਾਉਂਦਾ ਹੈ। ਐਪ ਖੋਲ੍ਹਣ ਲਈ ਟੈਪ ਕਰੋ, ਬੰਦ ਕਰਨ ਲਈ ਹੇਠਾਂ × ਤੱਕ ਘਸੀਟੋ।</string>
+    <string name="settings_price_overlay_restart_hint">ਜੇ ਸਿਸਟਮ ਐਪ ਬੰਦ ਕਰ ਦੇਵੇ, ਤਾਂ ਕੀਮਤ ਓਵਰਲੇ ਅਗਲੇ ਬੈਕਗ੍ਰਾਊਂਡ ਅੱਪਡੇਟ ਨਾਲ ਵਾਪਸ ਆਉਂਦਾ ਹੈ।</string>
     <string name="settings_price_overlay_needs">ਸਿਰਫ਼ «%1$s» ਦੇ ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ।</string>
     <string name="settings_price_overlay_grant">ਹੋਰ ਐਪਾਂ ਦੇ ਉੱਪਰ ਦਿਖਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
     <string name="price_overlay_close">ਓਵਰਲੇ ਬੰਦ ਕਰੋ</string>

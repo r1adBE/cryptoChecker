@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.mutablePreferencesOf
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.settings.AppSettings
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -32,8 +33,8 @@ object SettingsLockFallback {
     /** Ablage beim Lesefehler: Standardwerte, aber Sperre an. */
     fun unreadable(): Preferences = mutablePreferencesOf(SettingsKeys.appLock to true)
 
-    /** Einstellungen aus [data] samt Lesefehler und vorgemerkter unbekannter Sperre. */
-    fun settings(context: Context, data: Flow<Preferences>): Flow<AppSettings> = combine(
+    /** Einstellungen aus [data] samt Lesefehler und vorgemerkter unbekannter Sperre (gelesen auf [io]). */
+    fun settings(context: Context, data: Flow<Preferences>, io: CoroutineDispatcher): Flow<AppSettings> = combine(
         // Lesefehler (I/O): mit Standardwerten weiter statt Absturz; andere Fehler weiterreichen
         data.catch { e ->
             if (e !is IOException) throw e
@@ -42,6 +43,6 @@ object SettingsLockFallback {
                 .onFailure { Timber.w(it, "Hinweis «Einstellungen zurückgesetzt» nicht vorgemerkt") }
             emit(unreadable())
         },
-        StorageRecoveryNotice.appLockUnknown(context),
+        StorageRecoveryNotice.appLockUnknown(context, io),
     ) { prefs, lockUnknown -> effective(appSettingsOf(prefs), lockUnknown) }
 }

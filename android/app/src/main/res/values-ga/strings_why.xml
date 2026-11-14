@@ -8,8 +8,9 @@
     <string name="why_details_hide">Folaigh sonraí</string>
     <string name="why_disclaimer">Measúnú uathoibríoch ó shonraí margaidh: taispeánann sé cad a tharlaíonn ag an am céanna, ní cruthúnas ar chúis.</string>
     <string name="why_footer_short">Ní chiallaíonn comhuaineach cúis · Ní comhairle infheistíochta</string>
-    <string name="why_no_data">Gan sonraí ó Binance don phéire seo</string>
-    <string name="why_no_data_hint">Tagann praghas, toirt agus luaineacht ó choinnle uaire Binance.</string>
+    <string name="why_no_candles">Níl aon choinnle uaire don phéire seo</string>
+    <string name="why_no_candles_hint">Tagann praghas, toirt agus luaineacht ó choinnle uaire %1$s nó, nuair is féidir, ó mhalartán eile a bhfuil an bonn céanna aige.</string>
+    <string name="why_no_data_retry_hint">Níorbh fhéidir praghas, toirt agus luaineacht a lódáil. Bain triail eile as.</string>
     <string name="why_ref_alts">Altboinn</string>
     <string name="why_section_context">Míniú féideartha</string>
     <string name="why_section_observation">Breathnóireacht</string>

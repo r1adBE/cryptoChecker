@@ -8,8 +8,9 @@
     <string name="why_details_hide">ವಿವರಗಳನ್ನು ಮರೆಮಾಡಿ</string>
     <string name="why_disclaimer">ಮಾರುಕಟ್ಟೆ ಡೇಟಾದಿಂದ ಸ್ವಯಂಚಾಲಿತ ಮೌಲ್ಯಮಾಪನ: ಒಂದೇ ಸಮಯದಲ್ಲಿ ಏನಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ, ಕಾರಣಕ್ಕೆ ಪುರಾವೆಯಲ್ಲ.</string>
     <string name="why_footer_short">ಏಕಕಾಲಿಕ ಎಂದರೆ ಕಾರಣವಲ್ಲ · ಹೂಡಿಕೆ ಸಲಹೆಯಲ್ಲ</string>
-    <string name="why_no_data">ಈ ಜೋಡಿಗೆ Binance ನಿಂದ ಡೇಟಾ ಇಲ್ಲ</string>
-    <string name="why_no_data_hint">ಬೆಲೆ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಚಂಚಲತೆ Binance ಗಂಟೆಯ ಕ್ಯಾಂಡಲ್‌ಗಳಿಂದ ಬರುತ್ತವೆ.</string>
+    <string name="why_no_candles">ಈ ಜೋಡಿಗೆ ಗಂಟೆಯ ಕ್ಯಾಂಡಲ್‌ಗಳಿಲ್ಲ</string>
+    <string name="why_no_candles_hint">ಬೆಲೆ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಚಂಚಲತೆ %1$s ಗಂಟೆಯ ಕ್ಯಾಂಡಲ್‌ಗಳಿಂದ, ಅಥವಾ ಸಾಧ್ಯವಾದರೆ ಅದೇ ಕಾಯಿನ್ ಇರುವ ಇನ್ನೊಂದು ಎಕ್ಸ್‌ಚೇಂಜ್‌ನಿಂದ ಬರುತ್ತವೆ.</string>
+    <string name="why_no_data_retry_hint">ಬೆಲೆ, ವಾಲ್ಯೂಮ್ ಮತ್ತು ಚಂಚಲತೆಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="why_ref_alts">ಆಲ್ಟ್ಸ್</string>
     <string name="why_section_context">ಸಂಭವನೀಯ ವಿವರಣೆ</string>
     <string name="why_section_observation">ಗಮನಿಕೆ</string>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Aku ja tegevus</string>
+    <string name="usage_intro">Rakendused ei saa oma energiatarbimist lugeda. Seepärast näitab rakendus, mida ta viimase 24 tunni jooksul ise tegi – loendatud ainult selles seadmes, ilma sisuta.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Kell</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d taustakäivitus</item>
+        <item quantity="other">%d taustakäivitust</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d võrgupäring</item>
+        <item quantity="other">%d võrgupäringut</item>
+    </plurals>
+    <string name="usage_received">Vastu võetud: %1$s</string>
+    <string name="usage_level_low">Vähene tegevus</string>
+    <string name="usage_level_medium">Keskmine tegevus</string>
+    <string name="usage_level_high">Suur tegevus</string>
+    <string name="usage_driver_interval">Enamasti taustakontrollist (%1$s).</string>
+    <string name="usage_driver_exact">Enamasti taustakontrollist (%1$s) ja valikust „%2$s“.</string>
+    <string name="usage_driver_none">Taustakontrolli pole ajastatud – loeb see, mida avatud rakendus ja vidinad laadivad.</string>
+    <string name="usage_driver_watch">Loeb see, mida kellarakendus ja selle vidinad ise laadivad.</string>
+    <string name="usage_watch_none">Kella pole ühendatud</string>
+    <string name="usage_as_of">Seis %1$s</string>
+    <string name="usage_battery_android">Android näitab rakenduste akukasutust oma akuseadetes.</string>
+</resources>

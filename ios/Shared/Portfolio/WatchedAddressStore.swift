@@ -76,8 +76,8 @@ enum WatchedAddressStore {
         let fm = FileManager.default
         guard fm.fileExists(atPath: file.path) else { return false }
         let aside = SharedStorage.unreadableCopyURL(of: file)
-        AppLog.remove(aside, "Ältere unlesbare Adressdatei löschen", fileManager: fm)
-        return AppLog.attempt("Unlesbare Adressdatei beiseitelegen") { try fm.moveItem(at: file, to: aside) }
+        AppLog.remove(aside, "Ältere unlesbare Kopie löschen (\(aside.lastPathComponent))", fileManager: fm)
+        return AppLog.attempt("Unlesbare Datei beiseitelegen (\(file.lastPathComponent))") { try fm.moveItem(at: file, to: aside) }
     }
 
     /// Rückrollen eines Ersetzens über eine unlesbare Datei: die daneben gelegte Datei unverändert zurück an
@@ -87,8 +87,8 @@ enum WatchedAddressStore {
         let fm = FileManager.default
         let aside = SharedStorage.unreadableCopyURL(of: file)
         guard fm.fileExists(atPath: aside.path) else { return false }
-        AppLog.remove(file, "Ersatz der Adressdatei löschen", fileManager: fm)
-        return AppLog.attempt("Unlesbare Adressdatei zurücklegen") { try fm.moveItem(at: aside, to: file) }
+        AppLog.remove(file, "Ersatz löschen (\(file.lastPathComponent))", fileManager: fm)
+        return AppLog.attempt("Unlesbare Datei zurücklegen (\(file.lastPathComponent))") { try fm.moveItem(at: aside, to: file) }
     }
 
     /// Hinzufügen (wie `INSERT … IGNORE`): doppelte Adresse oder volle Liste → nil, sonst neue Id.

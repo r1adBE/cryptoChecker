@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin ညွှန်ကိန်းများ၊ တစ်ရက်လျှင် နှစ်ကြိမ် စစ်ဆေးသည်။ ကန့်သတ်ချက်များကို သင်ရွေးသည် – အက်ပ်က တန်ဖိုးများကို အဆင့်မသတ်မှတ်ပါ။</string>
     <string name="settings_macro_notifications">စီးပွားရေး ပြက္ခဒိန်</string>
     <string name="settings_macro_notifications_hint">အရေးကြီးသော အမေရိကန် စီးပွားရေးဒေတာ (ငွေကြေးဖောင်းပွမှု၊ အလုပ်အကိုင် အစီရင်ခံစာ၊ Fed ဆုံးဖြတ်ချက်) ရှိသော နေ့များတွင် 08:00 နာရီ၌။ ပြက္ခဒိန်သည် အက်ပ်၏ ဝက်ဘ်ဆိုက်မှ လာပြီး တစ်ရက်လျှင် တစ်ကြိမ် ဖွင့်သည်။</string>
+    <string name="settings_macro_notifications_us_hint">အမေရိကန်တွင် အကြောင်းကြားချက်သည် အနောက်ဆုံး နယူးယောက်စံတော်ချိန် 08:00 တွင် ပထမဒေတာမတိုင်မီ ရောက်ပါသည်။</string>
     <string name="settings_market_alerts">ဈေးကွက် သတိပေးချက်များ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">မျှဝေရန်</string>
     <string name="settings_price_overlay">ဈေးနှုန်း ထပ်ပြချက်</string>
     <string name="settings_price_overlay_hint">အမြဲတမ်း ဈေးနှုန်း အကြောင်းကြားချက်၏ အတွဲများကို အခြားအက်ပ်များပေါ်တွင် လွင့်နေသော တံဆိပ်ငယ်အဖြစ် ပြသည်။ အက်ပ်ဖွင့်ရန် တို့ပါ၊ ပိတ်ရန် အောက်ခြေရှိ × သို့ ဆွဲပါ။</string>
+    <string name="settings_price_overlay_restart_hint">စနစ်က အက်ပ်ကို ပိတ်လိုက်ပါက ဈေးနှုန်း ထပ်ပြချက်သည် နောက်တစ်ကြိမ် နောက်ခံအပ်ဒိတ်နှင့်အတူ ပြန်ပေါ်ပါသည်။</string>
     <string name="settings_price_overlay_needs">«%1$s» နှင့်အတူသာ အလုပ်လုပ်သည်။</string>
     <string name="settings_price_overlay_grant">အခြားအက်ပ်များပေါ်တွင် ပြသခွင့် ပေးရန်</string>
     <string name="price_overlay_close">ထပ်ပြချက် ပိတ်ရန်</string>

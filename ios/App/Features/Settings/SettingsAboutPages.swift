@@ -13,7 +13,8 @@ struct AboutSettingsPage: View {
     var body: some View {
         SettingsCardsPage(title: L("settings_row_about")) {
             SettingsCard {
-                AboutContent(onVersionTap: versionTapped)
+                // Nur wo es Entwickleroptionen gibt (Debug): im Release keine Meldung «freigeschaltet» ohne neue Zeile
+                AboutContent(onVersionTap: DeveloperOptions.available ? versionTapped : nil)
                     .padding(.vertical, Spacing.sm)
             }
             // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen

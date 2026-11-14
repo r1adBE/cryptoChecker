@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Pin và hoạt động</string>
+    <string name="usage_intro">Ứng dụng không thể đọc mức tiêu thụ điện của chính mình. Vì vậy ứng dụng hiển thị những gì nó tự làm trong 24 giờ qua – chỉ đếm trên thiết bị này, không có bất kỳ nội dung nào.</string>
+    <string name="usage_phone">Điện thoại</string>
+    <string name="usage_watch">Đồng hồ</string>
+    <plurals name="usage_runs">
+        <item quantity="other">%d lần chạy nền</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">%d yêu cầu mạng</item>
+    </plurals>
+    <string name="usage_received">Đã nhận %1$s</string>
+    <string name="usage_level_low">Hoạt động thấp</string>
+    <string name="usage_level_medium">Hoạt động trung bình</string>
+    <string name="usage_level_high">Hoạt động cao</string>
+    <string name="usage_driver_interval">Chủ yếu do kiểm tra trong nền (%1$s).</string>
+    <string name="usage_driver_exact">Chủ yếu do kiểm tra trong nền (%1$s) và “%2$s”.</string>
+    <string name="usage_driver_none">Không có kiểm tra nền nào được lên lịch – chỉ tính những gì ứng dụng đang mở và tiện ích tải về.</string>
+    <string name="usage_driver_watch">Tính những gì ứng dụng trên đồng hồ và các tiện ích của nó tự tải về.</string>
+    <string name="usage_watch_none">Không có đồng hồ nào được kết nối</string>
+    <string name="usage_as_of">Tính đến %1$s</string>
+    <string name="usage_battery_android">Android hiển thị mức sử dụng pin theo từng ứng dụng trong phần cài đặt pin.</string>
+</resources>

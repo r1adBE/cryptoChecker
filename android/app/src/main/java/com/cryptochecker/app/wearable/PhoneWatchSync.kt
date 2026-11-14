@@ -24,7 +24,6 @@ import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -48,7 +47,7 @@ import javax.inject.Singleton
  * wenn sie gerade nicht verbunden ist). Ohne Play-Dienste oder ohne Uhr: nichts, die Einstellung bleibt lokal.
  * Der ganze Stand geht nicht nur bei einer Änderung weg, sondern auch, wenn die Uhr-App dazukommt
  * ([PhoneWatchListener.onCapabilityChanged] → [republish]), beim Prozessstart, solange der aktuelle Stand noch nicht
- * abgelegt ist (gescheitert oder noch keine Uhr, [KEY_PUBLISHED]), und wenn die Uhr einen anderen Handy-Teil meldet
+ * erledigt ist (Ablegen gescheitert, [KEY_PUBLISHED]; ohne Uhr nicht), und wenn die Uhr einen anderen Handy-Teil meldet
  * ([WatchSettings.phoneSideDiffers]) — wie iOS `sessionWatchStateDidChange`. Gegenstück: `WatchDataLayer` in `:wear`.
  */
 @Singleton
@@ -74,7 +73,7 @@ class PhoneWatchSync @Inject constructor(
 
     /**
      * Einmal beim Start des Prozesses: gespeicherten Stand laden und den Favoriten folgen. Ist der aktuelle Stand noch
-     * nicht in der Daten-Schicht (letztes Ablegen gescheitert oder damals keine Uhr mit der App), jetzt ablegen; sonst
+     * nicht erledigt (letztes Ablegen gescheitert, [publish]; ohne Uhr gilt er als erledigt), jetzt ablegen; sonst
      * werden die Play-Dienste erst gefragt, wenn sich etwas ändert, die Uhr-App dazukommt oder die Seite «Widgets» offen ist.
      */
     fun start() {
@@ -192,29 +191,40 @@ class PhoneWatchSync @Inject constructor(
         if (publish) publishing.publish({ _state.value }) { publish(it) }
     }
 
-    /** Ablegen; gelungen → als abgelegt merken ([KEY_PUBLISHED], [start] legt sonst beim nächsten Start nach). */
+    /**
+     * Ablegen; gelungen oder keine Uhr mit der App → als erledigt merken ([KEY_PUBLISHED]): Ohne Uhr fragt dann nicht
+     * jeder Prozessstart (auch im Hintergrund) die Play-Dienste — kommt die Uhr-App dazu, legt
+     * [PhoneWatchListener.onCapabilityChanged] alles ab ([republish]). Nur ein Fehler (keine Play-Dienste, Frist) holt
+     * [start] beim nächsten Start nach.
+     */
     private suspend fun publish(settings: WatchSettings) {
         val json = settings.toJson()
-        if (put(PATH, json)) prefs.edit { putString(KEY_PUBLISHED, json) }
+        if (putResult(PATH, json).settled) prefs.edit { putString(KEY_PUBLISHED, json) }
     }
+
+    /** Ergebnis von [putResult]; [settled] = nichts nachzuholen (abgelegt oder keine Uhr mit der App). */
+    internal enum class PutResult(val settled: Boolean) { PUBLISHED(true), NO_WATCH(true), FAILED(false) }
 
     /**
      * [json] unter [path] in die Daten-Schicht legen (dringend, damit die Uhr es gleich bekommt) — nur, wenn eine Uhr die
      * App hat; Fehler bleiben still. Gleicher Inhalt wie zuvor löst auf der Uhr keine Änderung aus. true = abgelegt
      * (false: keine Uhr mit der App, keine Play-Dienste oder Fehler — nachgeholt bei [republish]).
      */
-    internal suspend fun put(path: String, json: String): Boolean = withContext(ioDispatcher) {
+    internal suspend fun put(path: String, json: String): Boolean = putResult(path, json) == PutResult.PUBLISHED
+
+    /** Wie [put], unterscheidet aber «keine Uhr mit der App» ([PutResult.NO_WATCH]) von einem Fehler. */
+    private suspend fun putResult(path: String, json: String): PutResult = withContext(ioDispatcher) {
         runCatchingCancellable {
             val nodes = Tasks.await(
                 Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
                 TIMEOUT_S, TimeUnit.SECONDS
             ).nodes
-            if (nodes.isEmpty()) return@runCatchingCancellable false
+            if (nodes.isEmpty()) return@runCatchingCancellable PutResult.NO_WATCH
             val request = PutDataMapRequest.create(path).apply { dataMap.putString(DATA_KEY, json) }
                 .asPutDataRequest().setUrgent()
             Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
-            true
-        }.getOrDefault(false)
+            PutResult.PUBLISHED
+        }.getOrDefault(PutResult.FAILED)
     }
 
     /** Stand der Uhr (Einträge anderer Geräte unter [PATH]); null = keiner oder keine Play-Dienste. */
@@ -271,16 +281,16 @@ class PhoneWatchSync @Inject constructor(
          * Daten-Schicht löschen, bevor die App ihren Speicher leert — die liegen bei den Play-Diensten, nicht im
          * App-Speicher. Die Uhr vergisst dann, was vom Handy stammt (`WatchDataLayer.take`: gelöschte Einträge).
          * Höchstens [CLEAR_TIMEOUT_S] je Schritt; ohne Play-Dienste oder bei Fehler: nichts. true = gelöscht.
+         * Blockiert (wartet auf die Play-Dienste): nur abseits des Hauptthreads aufrufen — der Aufrufer wählt den Dispatcher
+         * (`SettingsScreen`, zusammen mit dem Löschen der eigenen Alarmtöne).
          */
-        suspend fun clearWatch(context: Context): Boolean = withContext(Dispatchers.IO) {
-            runCatchingCancellable {
-                val local = Tasks.await(Wearable.getNodeClient(context).localNode, CLEAR_TIMEOUT_S, TimeUnit.SECONDS).id
-                val uri = "${PutDataRequest.WEAR_URI_SCHEME}://$local$PATH".toUri()
-                Tasks.await(Wearable.getDataClient(context).deleteDataItems(uri, DataClient.FILTER_PREFIX),
-                    CLEAR_TIMEOUT_S, TimeUnit.SECONDS)
-                true
-            }.getOrDefault(false)
-        }
+        suspend fun clearWatch(context: Context): Boolean = runCatchingCancellable {
+            val local = Tasks.await(Wearable.getNodeClient(context).localNode, CLEAR_TIMEOUT_S, TimeUnit.SECONDS).id
+            val uri = "${PutDataRequest.WEAR_URI_SCHEME}://$local$PATH".toUri()
+            Tasks.await(Wearable.getDataClient(context).deleteDataItems(uri, DataClient.FILTER_PREFIX),
+                CLEAR_TIMEOUT_S, TimeUnit.SECONDS)
+            true
+        }.getOrDefault(false)
 
         /** Geänderte Einträge unter [PATH] aus [events] — sofort gelesen, solange der Puffer gültig ist. */
         fun changed(events: DataEventBuffer): List<Item> = events

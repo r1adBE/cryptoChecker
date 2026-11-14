@@ -77,7 +77,7 @@ final class RestoreStepsParityTests: XCTestCase {
             .appendingPathComponent("App/Services/BackupManager+Restore.swift")
         let source = try String(contentsOf: file, encoding: .utf8)
         let marks = ["data.replaceAll(snapshot: snapshot, settings: input.newSettings, favorites: input.favorites)",
-                     "guard data.restorePortfolio(input.portfolio) else",
+                     "guard restorePortfolio(input.portfolio, into: data) else",
                      "guard data.replaceWatchedAddresses(input.watched) != nil else"]
         let positions = try marks.map { try XCTUnwrap(source.range(of: $0), $0).lowerBound }
         XCTAssertEqual(positions, positions.sorted())

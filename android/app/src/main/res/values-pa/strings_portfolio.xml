@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ਹੁਣੇ ਕੋਈ ਇਤਿਹਾਸ ਉਪਲਬਧ ਨਹੀਂ।</string>
     <string name="portfolio_history_utc_days">UTC ਵਿੱਚ ਦਿਨ (ਰੋਜ਼ਾਨਾ ਕੈਂਡਲਾਂ)</string>
     <string name="portfolio_history_without_matching">%1$s ਤੋਂ ਬਿਨਾਂ (ਮੇਲ ਖਾਂਦੀਆਂ ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ ਨਹੀਂ)</string>
+    <string name="portfolio_history_entry">ਪਹਿਲੀ ਰੋਜ਼ਾਨਾ ਕੀਮਤ ਤੋਂ ਗਿਣਿਆ: %1$s (ਪਹਿਲਾਂ ਰੋਜ਼ਾਨਾ ਕੀਮਤਾਂ ਨਹੀਂ)</string>
     <string name="portfolio_period_rewards">ਇਨਾਮ +%1$s (ਮੁਨਾਫ਼ੇ ਵਿੱਚ ਨਹੀਂ)</string>
     <string name="portfolio_period_scaled">%1$s ਲਈ 7 ਦਿਨ/1 ਸਾਲ: Binance ਇਤਿਹਾਸ ਐਕਸਚੇਂਜ ਦੀ ਕੀਮਤ ਮੁਤਾਬਕ ਢਾਲਿਆ</string>
 

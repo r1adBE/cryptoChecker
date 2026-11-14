@@ -137,8 +137,11 @@ object PulseWidgetMath {
     /** Ältere Daten zeigt das Widget nicht mehr (dann «nicht verfügbar»), 6 Stunden. */
     const val MAX_AGE_MILLIS = 6 * 3_600_000L
 
-    /** Ab dieser Höhe (dp) zwei Zeilen Leitsatz und der Stand; darunter eine Zeile, ohne Stand. */
+    /** Ab dieser Höhe (dp) zwei Zeilen Leitsatz und der Stand; darunter eine Zeile (bzw. keine, [leadLines]). */
     const val FULL_MIN_HEIGHT_DP = 150
+
+    /** Höhe einer Zeile des Leitsatzes (dp, 12 sp). */
+    const val LEAD_LINE_DP = 16
 
     /** Daten noch zeigen? Zeitpunkt in der Zukunft (Uhr verstellt) oder ≤ 0: nein. */
     fun isShowable(savedAt: Long, now: Long): Boolean = savedAt in 1..now && now - savedAt <= MAX_AGE_MILLIS
@@ -146,14 +149,20 @@ object PulseWidgetMath {
     /** Zweizeilige Schlagzeile braucht so viel mehr Höhe (dp, 14 sp-Zeile). */
     const val HEADLINE_SECOND_LINE_DP = 19
 
-    /** Zeilen des Leitsatzes: 2, bei wenig Höhe 1 (unbekannte Höhe: 2). */
-    fun leadLines(heightDp: Int, headlineLines: Int = 1): Int {
-        val needed = FULL_MIN_HEIGHT_DP + if (headlineLines > 1) HEADLINE_SECOND_LINE_DP else 0
-        return if (heightDp <= 0 || heightDp >= needed) 2 else 1
+    /**
+     * Zeilen des Leitsatzes: 2, bei wenig Höhe 1 (unbekannte Höhe: 2). Die Zeile «Stand …» bzw. «Keine Verbindung ·
+     * Stand …» steht in jeder Grösse (wie iOS) und hat Vorrang: reicht die Höhe nicht für eine Zeile Leitsatz
+     * und den Stand ([showsTime]), entfällt der Leitsatz (0) – Schlagzeile, Coins und Stand bleiben.
+     */
+    fun leadLines(heightDp: Int, headlineLines: Int = 1, showsTime: Boolean = true): Int {
+        if (heightDp <= 0) return 2
+        val extra = if (headlineLines > 1) HEADLINE_SECOND_LINE_DP else 0
+        return when {
+            heightDp >= FULL_MIN_HEIGHT_DP + extra -> 2
+            !showsTime || heightDp >= FULL_MIN_HEIGHT_DP - LEAD_LINE_DP + extra -> 1
+            else -> 0
+        }
     }
-
-    /** Zeile «Stand …» nur mit genug Höhe (unbekannte Höhe: ja). */
-    fun showsTime(heightDp: Int): Boolean = heightDp <= 0 || heightDp >= FULL_MIN_HEIGHT_DP
 
     /** Fear & Greed im Widget höchstens so alt (nur Zwischenspeicher, kein eigener Abruf): 24 h. */
     const val FEAR_GREED_MAX_AGE_MILLIS = 24 * 3_600_000L

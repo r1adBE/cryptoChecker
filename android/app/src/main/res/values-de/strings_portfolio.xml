@@ -188,7 +188,7 @@
     <string name="portfolio_currency_effect">Währungseffekt: %1$s</string>
     <!-- «Seit 1. Kauf» beginnt frühestens beim ersten Tag mit Kursdaten -->
     <string name="portfolio_history_capped_data_start">Kursdaten reichen nur bis August 2017 zurück — der Verlauf beginnt dort.</string>
-    <string name="portfolio_history_chip_since_first">Seit Kauf</string>
+    <string name="portfolio_history_chip_since_first">Alles</string>
     <string name="portfolio_history_collapse">Wertverlauf zuklappen</string>
     <string name="portfolio_history_converted">Umgerechnet zum heutigen Kurs</string>
     <string name="portfolio_history_expand">Wertverlauf aufklappen</string>
@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Gerade kein Verlauf verfügbar.</string>
     <string name="portfolio_history_utc_days">Tage in UTC (Tageskerzen)</string>
     <string name="portfolio_history_without_matching">Ohne %1$s (keine passenden Tageskurse)</string>
+    <string name="portfolio_history_entry">Einstieg ab dem ersten Tageskurs: %1$s (vorher keine Tageskurse)</string>
     <string name="portfolio_period_rewards">Belohnungen +%1$s (nicht im Gewinn)</string>
     <string name="portfolio_period_scaled">7 T/1 J für %1$s: Binance-Verlauf auf den Börsenkurs skaliert</string>
 

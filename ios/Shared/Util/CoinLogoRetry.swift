@@ -92,6 +92,41 @@ enum CoinLogoRetry {
 
     /// Pausiert diese Folge gestörter Bilder den Server (`transientPauseStreak`)?
     static func transientStreakPauses(_ streak: Int) -> Bool { streak >= transientPauseStreak }
+
+    /// So viele Durchgänge in Folge ein Bild offen gelassen (gestört bzw. sein Server gebremst): Es zählt dann wie
+    /// gescheitert (Tagessperre) — sonst hielte ein dauerhaft gestörtes Bild bzw. ein gesperrter Bild-Server das erste
+    /// Laden für immer offen. Ein Durchgang ohne Netz zählt nicht. Wie Android `OPEN_PASSES_FAIL` (coin_logos.json › openPasses).
+    static let openPassesLimit = 3
+
+    /// Offene Durchgänge je Bild nach einem Durchgang: versucht wurden `attempted`, offen blieben `open` (+1); die übrigen
+    /// versuchten fallen weg, nicht versuchte behalten ihre Zahl.
+    static func nextOpenPasses(_ previous: [String: Int], attempted: [String], open: [String]) -> [String: Int] {
+        let tried = Set(attempted)
+        var next = previous.filter { !tried.contains($0.key) }
+        for name in Set(open) { next[name] = (previous[name] ?? 0) + 1 }
+        return next
+    }
+
+    /// Gilt ein Bild mit `passes` offenen Durchgängen in Folge als gescheitert (`openPassesLimit`)?
+    static func openPassesFail(_ passes: Int) -> Bool { passes >= openPassesLimit }
+
+    /// Offene Durchgänge speichern: «name=zahl;…», nach Namen sortiert.
+    static func encodeOpenPasses(_ passes: [String: Int]) -> String {
+        passes.filter { $0.value > 0 }.sorted { $0.key < $1.key }.map { "\($0.key)=\($0.value)" }.joined(separator: ";")
+    }
+
+    /// Gespeicherte offene Durchgänge; ungültige Teile fallen weg.
+    static func decodeOpenPasses(_ text: String?) -> [String: Int] {
+        var out: [String: Int] = [:]
+        for part in (text ?? "").split(separator: ";", omittingEmptySubsequences: false) {
+            let pieces = part.split(separator: "=", maxSplits: 1, omittingEmptySubsequences: false)
+            guard pieces.count == 2 else { continue }
+            let name = pieces[0].trimmingCharacters(in: .whitespaces)
+            guard !name.isEmpty, let passes = Int(pieces[1].trimmingCharacters(in: .whitespaces)), passes > 0 else { continue }
+            out[name] = passes
+        }
+        return out
+    }
     /// Pause ohne Angabe des Servers.
     static let defaultImagePauseMillis: Int64 = 15 * 60_000
     /// Höchstens so lange (auch bei längerer «Retry-After»-Angabe).

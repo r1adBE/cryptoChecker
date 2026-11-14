@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Akumulators un aktivitāte</string>
+    <string name="usage_intro">Lietotnes nevar nolasīt savu enerģijas patēriņu. Tāpēc lietotne rāda, ko tā pati darīja pēdējās 24 stundās, – skaitīts tikai šajā ierīcē, bez jebkāda satura.</string>
+    <string name="usage_phone">Tālrunis</string>
+    <string name="usage_watch">Pulkstenis</string>
+    <plurals name="usage_runs">
+        <item quantity="zero">%d palaišanu fonā</item>
+        <item quantity="one">%d palaišana fonā</item>
+        <item quantity="other">%d palaišanas fonā</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="zero">%d tīkla pieprasījumu</item>
+        <item quantity="one">%d tīkla pieprasījums</item>
+        <item quantity="other">%d tīkla pieprasījumi</item>
+    </plurals>
+    <string name="usage_received">Saņemts: %1$s</string>
+    <string name="usage_level_low">Zema aktivitāte</string>
+    <string name="usage_level_medium">Vidēja aktivitāte</string>
+    <string name="usage_level_high">Augsta aktivitāte</string>
+    <string name="usage_driver_interval">Galvenokārt fona pārbaudes dēļ (%1$s).</string>
+    <string name="usage_driver_exact">Galvenokārt fona pārbaudes (%1$s) un “%2$s” dēļ.</string>
+    <string name="usage_driver_none">Fona pārbaude nav ieplānota – skaitās tas, ko ielādē atvērtā lietotne un logrīki.</string>
+    <string name="usage_driver_watch">Skaitās tas, ko pulksteņa lietotne un tās komplikācijas ielādē pašas.</string>
+    <string name="usage_watch_none">Nav pievienots pulkstenis</string>
+    <string name="usage_as_of">Stāvoklis %1$s</string>
+    <string name="usage_battery_android">Android rāda akumulatora lietojumu pa lietotnēm savos akumulatora iestatījumos.</string>
+</resources>

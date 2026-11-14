@@ -94,6 +94,7 @@ final class SettingsSearchTests: XCTestCase {
     /// Lizenzen und Entwickler auf «Über die App». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
+        XCTAssertEqual(SettingsSearchPage.usage.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
         XCTAssertEqual(SettingsSearchPage.widgets.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.priceColors.home, .appearance)

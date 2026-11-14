@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Պատմությունը հիմա հասանելի չէ։</string>
     <string name="portfolio_history_utc_days">Օրերը՝ UTC-ով (օրական մոմեր)</string>
     <string name="portfolio_history_without_matching">Առանց %1$s-ի (համապատասխան օրական գներ չկան)</string>
+    <string name="portfolio_history_entry">Հաշվվում է առաջին օրական գնից՝ %1$s (ավելի վաղ օրական գներ չկան)</string>
     <string name="portfolio_period_rewards">Պարգևներ +%1$s (ներառված չէ շահույթում)</string>
     <string name="portfolio_period_scaled">7 օ/1 տ %1$s-ի համար՝ Binance-ի պատմությունը՝ մասշտաբավորված բորսայի գնին</string>
 

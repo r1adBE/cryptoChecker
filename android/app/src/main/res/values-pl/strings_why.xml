@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ukryj szczegóły</string>
     <string name="why_disclaimer">Automatyczna ocena na podstawie danych rynkowych: pokazuje, co dzieje się w tym samym czasie, nie dowodzi przyczyny.</string>
     <string name="why_footer_short">Jednoczesność to nie przyczyna · To nie jest porada inwestycyjna</string>
-    <string name="why_no_data">Brak danych z Binance dla tej pary</string>
-    <string name="why_no_data_hint">Cena, wolumen i zmienność pochodzą z godzinnych świec Binance.</string>
+    <string name="why_no_candles">Brak godzinnych świec dla tej pary</string>
+    <string name="why_no_candles_hint">Cena, wolumen i zmienność pochodzą z godzinnych świec %1$s lub, gdy to możliwe, z innej giełdy z tą samą monetą.</string>
+    <string name="why_no_data_retry_hint">Nie udało się wczytać ceny, wolumenu i zmienności. Spróbuj ponownie.</string>
     <string name="why_ref_alts">Alty</string>
     <string name="why_section_context">Możliwa interpretacja</string>
     <string name="why_section_observation">Obserwacja</string>

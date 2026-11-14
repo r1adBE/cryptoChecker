@@ -8,8 +8,9 @@
     <string name="why_details_hide">إخفاء التفاصيل</string>
     <string name="why_disclaimer">تقييم تلقائي من بيانات السوق: يُظهر ما يحدث في الوقت نفسه، وليس دليلًا على سبب.</string>
     <string name="why_footer_short">التزامن لا يعني السبب · ليست نصيحة استثمارية</string>
-    <string name="why_no_data">لا توجد بيانات من Binance لهذا الزوج</string>
-    <string name="why_no_data_hint">السعر والحجم والتقلب مصدرها شموع Binance الساعية.</string>
+    <string name="why_no_candles">لا توجد شموع ساعية لهذا الزوج</string>
+    <string name="why_no_candles_hint">السعر والحجم والتقلب مصدرها الشموع الساعية من %1$s أو، إن أمكن، من منصة أخرى بالعملة نفسها.</string>
+    <string name="why_no_data_retry_hint">تعذّر تحميل السعر والحجم والتقلب. حاول مرة أخرى.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">قراءة محتملة</string>
     <string name="why_section_observation">الملاحظة</string>

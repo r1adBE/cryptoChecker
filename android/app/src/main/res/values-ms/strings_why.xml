@@ -8,8 +8,9 @@
     <string name="why_details_hide">Sembunyikan butiran</string>
     <string name="why_disclaimer">Penilaian automatik daripada data pasaran: ia menunjukkan apa yang berlaku pada masa yang sama, bukan bukti sesuatu punca.</string>
     <string name="why_footer_short">Serentak tidak bermakna punca · Bukan nasihat pelaburan</string>
-    <string name="why_no_data">Tiada data daripada Binance untuk pasangan ini</string>
-    <string name="why_no_data_hint">Harga, volum dan kemeruapan datang daripada lilin setiap jam Binance.</string>
+    <string name="why_no_candles">Tiada lilin setiap jam untuk pasangan ini</string>
+    <string name="why_no_candles_hint">Harga, volum dan kemeruapan datang daripada lilin setiap jam %1$s atau, jika boleh, daripada bursa lain dengan syiling yang sama.</string>
+    <string name="why_no_data_retry_hint">Harga, volum dan kemeruapan tidak dapat dimuatkan. Sila cuba lagi.</string>
     <string name="why_ref_alts">Alt</string>
     <string name="why_section_context">Kemungkinan penjelasan</string>
     <string name="why_section_observation">Pemerhatian</string>

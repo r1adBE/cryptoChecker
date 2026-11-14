@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Kehitystä ei ole juuri nyt saatavilla.</string>
     <string name="portfolio_history_utc_days">Päivät UTC-ajassa (päiväkynttilät)</string>
     <string name="portfolio_history_without_matching">Ilman %1$s (ei vastaavia päiväkursseja)</string>
+    <string name="portfolio_history_entry">Mukana ensimmäisestä päiväkurssista: %1$s (aiemmin ei päiväkursseja)</string>
     <string name="portfolio_period_rewards">Palkkiot +%1$s (ei voitossa)</string>
     <string name="portfolio_period_scaled">7 pv/1 v %1$s: Binancen historia skaalattu pörssin hintaan</string>
 

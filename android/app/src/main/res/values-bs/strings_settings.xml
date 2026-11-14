@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin pokazatelji, provjeravaju se dvaput dnevno. Granice biraš ti – aplikacija ne ocjenjuje vrijednosti.</string>
     <string name="settings_macro_notifications">Ekonomski kalendar</string>
     <string name="settings_macro_notifications_hint">U 08:00 na dane s važnim američkim ekonomskim podacima (inflacija, izvještaj o zaposlenosti, odluka Fed-a). Kalendar dolazi s web-stranice aplikacije i učitava se jednom dnevno.</string>
+    <string name="settings_macro_notifications_us_hint">U SAD-u obavijest stiže najkasnije u 08:00 po njujorškom vremenu, prije prvih podataka.</string>
     <string name="settings_market_alerts">Tržišni alarmi</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Podijeli</string>
     <string name="settings_price_overlay">Plutajuća cijena</string>
     <string name="settings_price_overlay_hint">Prikazuje parove iz trajne obavijesti o cijeni kao malu plutajuću oznaku iznad drugih aplikacija. Dodirni za otvaranje aplikacije, povuci do × na dnu za zatvaranje.</string>
+    <string name="settings_price_overlay_restart_hint">Ako sistem zatvori aplikaciju, plutajuća cijena se vraća sa sljedećim ažuriranjem u pozadini.</string>
     <string name="settings_price_overlay_needs">Radi samo zajedno s «%1$s».</string>
     <string name="settings_price_overlay_grant">Dozvoli prikaz iznad drugih aplikacija</string>
     <string name="price_overlay_close">Zatvori plutajuću cijenu</string>

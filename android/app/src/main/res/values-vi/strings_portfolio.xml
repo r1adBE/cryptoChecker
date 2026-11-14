@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">Hiện chưa có diễn biến.</string>
     <string name="portfolio_history_utc_days">Ngày theo UTC (nến ngày)</string>
     <string name="portfolio_history_without_matching">Không gồm %1$s (không có giá ngày khớp)</string>
+    <string name="portfolio_history_entry">Tính từ giá ngày đầu tiên: %1$s (trước đó không có giá ngày)</string>
     <string name="portfolio_period_rewards">Phần thưởng +%1$s (không tính vào lãi)</string>
     <string name="portfolio_period_scaled">7N/1N cho %1$s: lịch sử Binance quy theo giá sàn</string>
 

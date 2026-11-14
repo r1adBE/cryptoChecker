@@ -8,8 +8,9 @@
     <string name="why_details_hide">Paslēpt detaļas</string>
     <string name="why_disclaimer">Automātisks novērtējums no tirgus datiem: tas rāda, kas notiek vienlaikus, nevis pierāda cēloni.</string>
     <string name="why_footer_short">Vienlaicīgi nenozīmē cēloni · Nav ieguldījumu padoms</string>
-    <string name="why_no_data">Šim pārim nav Binance datu</string>
-    <string name="why_no_data_hint">Cena, apjoms un svārstīgums nāk no Binance stundas svecēm.</string>
+    <string name="why_no_candles">Šim pārim nav stundas sveču</string>
+    <string name="why_no_candles_hint">Cena, apjoms un svārstīgums nāk no %1$s stundas svecēm vai, ja iespējams, no citas biržas ar to pašu monētu.</string>
+    <string name="why_no_data_retry_hint">Cenu, apjomu un svārstīgumu neizdevās ielādēt. Mēģini vēlreiz.</string>
     <string name="why_ref_alts">Altkoini</string>
     <string name="why_section_context">Iespējamais skaidrojums</string>
     <string name="why_section_observation">Novērojums</string>

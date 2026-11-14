@@ -8,8 +8,9 @@
     <string name="why_details_hide">အသေးစိတ် ဖျောက်ရန်</string>
     <string name="why_disclaimer">ဈေးကွက်ဒေတာမှ အလိုအလျောက် အကဲဖြတ်ချက်- တစ်ချိန်တည်းတွင် ဖြစ်ပျက်သည်ကို ပြခြင်းသာ ဖြစ်ပြီး အကြောင်းရင်း၏ သက်သေ မဟုတ်ပါ။</string>
     <string name="why_footer_short">တစ်ပြိုင်နက် ဖြစ်ခြင်းသည် အကြောင်းရင်း မဟုတ် · ရင်းနှီးမြှုပ်နှံမှု အကြံဉာဏ် မဟုတ်</string>
-    <string name="why_no_data">ဤအတွဲအတွက် Binance မှ ဒေတာ မရှိပါ</string>
-    <string name="why_no_data_hint">ဈေးနှုန်း၊ ပမာဏနှင့် အတက်အကျသည် Binance နာရီအလိုက် ဖယောင်းတိုင်များမှ လာသည်။</string>
+    <string name="why_no_candles">ဤအတွဲအတွက် နာရီအလိုက် ဖယောင်းတိုင်များ မရှိပါ</string>
+    <string name="why_no_candles_hint">ဈေးနှုန်း၊ ပမာဏနှင့် အတက်အကျသည် %1$s ၏ နာရီအလိုက် ဖယောင်းတိုင်များမှ သို့မဟုတ် ဖြစ်နိုင်ပါက တူညီသော ဒင်္ဂါးရှိသည့် အခြားဖလှယ်ရေးမှ လာပါသည်။</string>
+    <string name="why_no_data_retry_hint">ဈေးနှုန်း၊ ပမာဏနှင့် အတက်အကျကို မဖွင့်နိုင်ပါ။ ထပ်စမ်းကြည့်ပါ။</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">ဖြစ်နိုင်သော ရှင်းလင်းချက်</string>
     <string name="why_section_observation">တွေ့ရှိချက်</string>

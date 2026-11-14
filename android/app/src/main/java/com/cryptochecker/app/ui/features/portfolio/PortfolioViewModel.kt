@@ -353,23 +353,23 @@ class PortfolioViewModel @Inject constructor(
     }
 
     fun setHistoryRange(range: PortfolioHistoryRange) {
-        viewModelScope.launch { settingsRepository.setPortfolioHistoryRange(range) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioHistoryRange(range) } }
     }
 
     fun setHistoryExpanded(expanded: Boolean) {
-        viewModelScope.launch { settingsRepository.setPortfolioHistoryExpanded(expanded) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioHistoryExpanded(expanded) } }
     }
 
     fun setHistoryView(view: PortfolioHistoryView) {
-        viewModelScope.launch { settingsRepository.setPortfolioHistoryView(view) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioHistoryView(view) } }
     }
 
     fun setHistoryPnl(pnl: Boolean) {
-        viewModelScope.launch { settingsRepository.setPortfolioHistoryPnl(pnl) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioHistoryPnl(pnl) } }
     }
 
     fun setHistoryCandles(candles: Boolean) {
-        viewModelScope.launch { settingsRepository.setPortfolioHistoryCandles(candles) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioHistoryCandles(candles) } }
     }
 
     internal val _exchanges = MutableStateFlow<List<String>>(emptyList())
@@ -380,13 +380,13 @@ class PortfolioViewModel @Inject constructor(
     /** «Beträge verbergen» umschalten; das Portfolio-Widget zeichnet gleich neu. */
     fun setHideAmounts(hidden: Boolean) {
         viewModelScope.launch {
-            settingsRepository.setHidePortfolioAmounts(hidden)
+            if (!settingsRepository.guarded { setHidePortfolioAmounts(hidden) }) return@launch
             safe { snapshotUpdater.redrawWidgets() }
         }
     }
 
     fun setCurrency(code: String) {
-        viewModelScope.launch { settingsRepository.setPortfolioCurrency(code) }
+        viewModelScope.launch { settingsRepository.guarded { setPortfolioCurrency(code) } }
     }
 
 }

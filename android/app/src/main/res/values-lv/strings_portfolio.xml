@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">Pašlaik vēsture nav pieejama.</string>
     <string name="portfolio_history_utc_days">Dienas pēc UTC (dienas sveces)</string>
     <string name="portfolio_history_without_matching">Bez %1$s (nav atbilstošu dienas cenu)</string>
+    <string name="portfolio_history_entry">Ieskaitīts no pirmās dienas cenas: %1$s (agrāk dienas cenu nav)</string>
     <string name="portfolio_period_rewards">Atlīdzības +%1$s (nav ieskaitītas peļņā)</string>
     <string name="portfolio_period_scaled">7 d./1 g. %1$s: Binance vēsture pielāgota biržas cenai</string>
 

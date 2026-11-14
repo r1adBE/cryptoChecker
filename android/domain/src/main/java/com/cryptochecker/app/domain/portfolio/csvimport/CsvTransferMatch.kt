@@ -305,21 +305,21 @@ object CsvTransferMatch {
     }
 
     /**
-     * «Auf eigene Wallet» für die Auszahlung [withdrawalKey]: hat sie einen Kandidaten, dessen Einzahlung frei ist, wird
-     * der beste gewählt (übliche vor weiteren, dann die nächste Einzahlung, dann die kleinste Gebühr) — sonst zählte die
-     * Einzahlung ein zweites Mal (Umbuchung behält die Coins, die Einzahlung bringt sie noch einmal). Schon verknüpft
-     * oder ohne freien Kandidaten: unverändert.
+     * «Auf eigene Wallet» für die Auszahlung [withdrawalKey] (sonst zählte eine passende Einzahlung neben der Umbuchung
+     * doppelt): nur ein eindeutiger üblicher Kandidat mit freier Einzahlung, um die keine andere Auszahlung aus [wanting]
+     * wirbt. Weitere ([CsvTransferLink.loose]) und mehrdeutige nie automatisch, nur über den Schalter; nach Ausschalten
+     * ([declined]) bleibt «Auf eigene Wallet» ohne Verknüpfung. Schon verknüpft oder sonst: unverändert.
      */
-    fun linkOwnWallet(links: List<CsvTransferLink>, chosen: Set<String>, withdrawalKey: String): Set<String> {
+    fun linkOwnWallet(links: List<CsvTransferLink>, chosen: Set<String>, withdrawalKey: String,
+                      declined: Set<String> = emptySet(), wanting: Set<String> = setOf(withdrawalKey)): Set<String> {
         val active = links.filter { it.key in chosen }
-        if (active.any { it.withdrawalKey == withdrawalKey }) return chosen
+        if (withdrawalKey in declined || active.any { it.withdrawalKey == withdrawalKey }) return chosen
+        val linkedOut = active.mapTo(HashSet()) { it.withdrawalKey }
         val usedDeposits = active.mapTo(HashSet()) { it.depositKey }
-        val best = links.filter { it.withdrawalKey == withdrawalKey && it.depositKey !in usedDeposits }
-            .minWithOrNull(
-                compareBy({ it.loose }, { kotlin.math.abs(it.depositTime - it.withdrawalTime) }, { it.sent - it.received }, { it.key }),
-            )
-            ?: return chosen
-        return toggle(links, chosen, best.key, on = true)
+        val free = links.filter { !it.loose && it.withdrawalKey !in linkedOut && it.depositKey !in usedDeposits }
+        val only = free.filter { it.withdrawalKey == withdrawalKey }.singleOrNull() ?: return chosen
+        val rivals = free.count { it.depositKey == only.depositKey && it.withdrawalKey in wanting && it.withdrawalKey !in declined }
+        return if (rivals == 1) toggle(links, chosen, only.key, on = true) else chosen
     }
 
     /** Vorauswahl: alle eindeutigen Kandidaten. */

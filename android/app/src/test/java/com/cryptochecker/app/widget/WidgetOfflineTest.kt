@@ -69,6 +69,10 @@ class WidgetOfflineTest {
         assertTrue(src("SingleWidgetRenderer.kt").contains("offline -> WidgetOffline.label(context, watch.lastUpdate)"))
         assertTrue(src("PortfolioWidgetTexts.kt").contains("WidgetStatusRule.kind(!offline, outdated, snapshot.time)"))
         assertTrue(src("PulseWidgetTexts.kt").contains("WidgetStatusRule.Kind.OFFLINE -> WidgetOffline.label(context, time)"))
+        // V4-01: Puls zeigt «Stand» / «Keine Verbindung · Stand» in jeder Grösse (keine Höhenbedingung mehr, wie iOS)
+        val pulse = src("PulseWidgetRenderer.kt")
+        assertTrue(pulse.contains("views.setViewVisibility(R.id.pulse_time, if (stand != null) View.VISIBLE else View.GONE)"))
+        assertTrue(pulse.contains("PulseWidgetMath.leadLines(heightDp, headlineStyle.lines, showsTime = stand != null)"))
     }
 
     @Test

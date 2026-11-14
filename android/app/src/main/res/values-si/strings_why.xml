@@ -8,8 +8,9 @@
     <string name="why_details_hide">විස්තර සඟවන්න</string>
     <string name="why_disclaimer">වෙළඳපොළ දත්තවලින් ස්වයංක්‍රීය තක්සේරුවක්: එය එකම වේලාවේ සිදු වන දේ පෙන්වයි, හේතුවක සාක්ෂියක් නොවේ.</string>
     <string name="why_footer_short">එකවර සිදු වීම යනු හේතුව නොවේ · ආයෝජන උපදෙස් නොවේ</string>
-    <string name="why_no_data">මෙම යුගලය සඳහා Binance වෙතින් දත්ත නැත</string>
-    <string name="why_no_data_hint">මිල, පරිමාව සහ අස්ථායීතාව Binance පැය ඉටිපන්දම්වලින් පැමිණේ.</string>
+    <string name="why_no_candles">මෙම යුගලය සඳහා පැය ඉටිපන්දම් නැත</string>
+    <string name="why_no_candles_hint">මිල, පරිමාව සහ අස්ථායීතාව %1$s පැය ඉටිපන්දම්වලින්, හෝ හැකි නම් එම කාසියම ඇති වෙනත් හුවමාරුවකින් පැමිණේ.</string>
+    <string name="why_no_data_retry_hint">මිල, පරිමාව සහ අස්ථායීතාව පූරණය කළ නොහැකි විය. කරුණාකර යළි උත්සාහ කරන්න.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">විය හැකි පැහැදිලි කිරීම</string>
     <string name="why_section_observation">නිරීක්ෂණය</string>

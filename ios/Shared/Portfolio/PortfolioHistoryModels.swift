@@ -81,6 +81,10 @@ struct PortfolioHistorySeries: Equatable, Sendable {
     /// der ausgebuchten Coins, solange sie gehalten wurden (Abfluss zum Marktwert) — die Karte («Seit Kauf»,
     /// «realisiert») nicht. Kopf/Hinweis: «inkl. Wertänderung ausgebuchter Coins». Wie Android.
     var withdrawalsInRange: Bool = false
+    /// «Einstieg»: Coin → erster Tag mit Kurs (epochDay) für Coins, die schon davor gehalten wurden (keine Tageskurse
+    /// davor, z. B. Liefergrenze der Börse): ab dort gezählt, der Wert dort ist ein Zufluss in `cashFlows` und `pnlFlows`
+    /// (`PortfolioHistory.entries`). Hinweis unter dem Chart. Wie Android.
+    var entries: [String: Int] = [:]
 
     /// Genug für eine Linie.
     var hasChart: Bool { points.count >= 2 }

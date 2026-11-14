@@ -44,6 +44,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
+import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhyFactors
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.ui.components.rememberReduceMotion
@@ -74,7 +75,8 @@ private sealed interface WhyState {
 internal fun WhySheet(
     watch: WatchEntity,
     signals: List<ActivitySignal>,
-    load: suspend (WatchEntity) -> WhyReport?,
+    /** Zweiter Wert: «Erneut versuchen» – neu fragen statt gemerkter Leerstand. */
+    load: suspend (WatchEntity, Boolean) -> WhyReport?,
     onDismiss: () -> Unit,
     /** 24-h-Wert (= Änderung, rollend) aus den Kerzen einer anderen Börse; null = nicht. */
     candleSource: String? = null,
@@ -82,7 +84,7 @@ internal fun WhySheet(
     var attempt by remember { mutableIntStateOf(0) }
     val state by produceState<WhyState>(initialValue = WhyState.Loading, watch.id, attempt) {
         value = WhyState.Loading
-        value = load(watch)?.let { WhyState.Loaded(it) } ?: WhyState.Failed
+        value = load(watch, attempt > 0)?.let { WhyState.Loaded(it) } ?: WhyState.Failed
     }
     // «Alle Werte und Quellen»: Startwert zuletzt in dieser Sitzung
     var allValues by remember { mutableStateOf(WhyAllValuesState.expanded) }
@@ -185,7 +187,7 @@ internal fun WhySheet(
                 when (s) {
                     WhyState.Loading -> WhyBriefSkeleton()
                     WhyState.Failed -> Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
-                        EmptyReasons(onRetry = { attempt++ })
+                        EmptyReasons(failure = WhyCandlesFailure.TIMEOUT, exchange = watch.exchangeName, onRetry = { attempt++ })
                         WhySignals(signals)
                     }
                     is WhyState.Loaded -> {
@@ -193,7 +195,12 @@ internal fun WhySheet(
                         val factors = remember(r) { WhyFactors.rank(r) }
                         Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
                             if (!r.hasMarketData) {
-                                EmptyReasons(onRetry = null)
+                                // Nicht abrufbar (offline, Zeitgrenze): mit «Erneut versuchen»; sonst führt es keine Quelle
+                                EmptyReasons(
+                                    failure = r.candlesFailure,
+                                    exchange = watch.exchangeName,
+                                    onRetry = if (r.candlesFailure != null) ({ attempt += 1 }) else null,
+                                )
                             }
                             WhyBriefCard(r, factors)
                             WhyAllValuesCard(

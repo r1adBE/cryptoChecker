@@ -92,8 +92,8 @@ class PortfolioLockViewModel @Inject constructor(
      */
     fun turnOffLockWithoutScreenLock() {
         viewModelScope.launch {
-            settingsRepository.setAppLock(false)
-            appLockState.unlock()
+            // Speicher voll: Hinweis statt Absturz, die Sperre bleibt dann an (nicht entsperrt)
+            if (settingsRepository.guarded { setAppLock(false) }) appLockState.unlock()
         }
     }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ແບັດເຕີຣີ ແລະ ກິດຈະກຳ</string>
+    <string name="usage_intro">ແອັບບໍ່ສາມາດອ່ານການໃຊ້ພະລັງງານຂອງຕົນເອງໄດ້. ດັ່ງນັ້ນ ແອັບຈຶ່ງສະແດງສິ່ງທີ່ມັນເຮັດເອງໃນ 24 ຊົ່ວໂມງຜ່ານມາ – ນັບສະເພາະໃນອຸປະກອນນີ້, ບໍ່ມີເນື້ອຫາໃດໆ.</string>
+    <string name="usage_phone">ໂທລະສັບ</string>
+    <string name="usage_watch">ໂມງ</string>
+    <plurals name="usage_runs">
+        <item quantity="other">ແລ່ນໃນພື້ນຫຼັງ %d ຄັ້ງ</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">ຄຳຂໍເຄືອຂ່າຍ %d ລາຍການ</item>
+    </plurals>
+    <string name="usage_received">ໄດ້ຮັບ %1$s</string>
+    <string name="usage_level_low">ກິດຈະກຳຕ່ຳ</string>
+    <string name="usage_level_medium">ກິດຈະກຳປານກາງ</string>
+    <string name="usage_level_high">ກິດຈະກຳສູງ</string>
+    <string name="usage_driver_interval">ສ່ວນໃຫຍ່ມາຈາກການກວດສອບໃນພື້ນຫຼັງ (%1$s).</string>
+    <string name="usage_driver_exact">ສ່ວນໃຫຍ່ມາຈາກການກວດສອບໃນພື້ນຫຼັງ (%1$s) ແລະ “%2$s”.</string>
+    <string name="usage_driver_none">ບໍ່ມີການກວດສອບໃນພື້ນຫຼັງຕາມກຳນົດ – ນັບສິ່ງທີ່ແອັບທີ່ເປີດຢູ່ ແລະ ວິດເຈັດດຶງມາ.</string>
+    <string name="usage_driver_watch">ນັບສິ່ງທີ່ແອັບໃນໂມງ ແລະ ສ່ວນເສີມຂອງມັນດຶງມາເອງ.</string>
+    <string name="usage_watch_none">ບໍ່ມີໂມງເຊື່ອມຕໍ່</string>
+    <string name="usage_as_of">ນັບຮອດ %1$s</string>
+    <string name="usage_battery_android">Android ສະແດງການໃຊ້ແບັດເຕີຣີຂອງແຕ່ລະແອັບໃນການຕັ້ງຄ່າແບັດເຕີຣີ.</string>
+</resources>

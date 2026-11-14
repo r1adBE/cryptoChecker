@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">暫時冇歷史資料。</string>
     <string name="portfolio_history_utc_days">以 UTC 計日（日 K 線）</string>
     <string name="portfolio_history_without_matching">唔計 %1$s（冇對應嘅每日價格）</string>
+    <string name="portfolio_history_entry">由第一個每日價格開始計：%1$s（之前冇每日價格）</string>
     <string name="portfolio_period_rewards">獎勵 +%1$s（唔計入盈利）</string>
     <string name="portfolio_period_scaled">%1$s 嘅 7 日／1 年：Binance 歷史按交易所價格比例調整</string>
 

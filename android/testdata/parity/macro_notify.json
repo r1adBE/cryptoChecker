@@ -1,0 +1,39 @@
+{
+  "_comment": "Morgen-Meldung «Wirtschaftstermine»: Zeitpunkt je Ortstag = 08:00 Ortszeit, aber spätestens 08:00 New York (Zone der US-Daten), wenn das auf denselben Ortstag und nicht vor 05:00 fällt. Android MacroCalendarNotifyParityTest, iOS MacroNotifyParityTests.",
+  "notifyAt": [
+    {"zone": "Europe/Zurich", "day": "2026-10-14", "expected": "2026-10-14T06:00:00Z", "note": "08:00 Zürich (New York 08:00 = 14:00)"},
+    {"zone": "America/New_York", "day": "2026-10-14", "expected": "2026-10-14T12:00:00Z", "note": "08:00 New York"},
+    {"zone": "America/Chicago", "day": "2026-10-14", "expected": "2026-10-14T12:00:00Z", "note": "07:00 Chicago, vor CPI 07:30"},
+    {"zone": "America/Denver", "day": "2026-10-14", "expected": "2026-10-14T12:00:00Z", "note": "06:00 Denver"},
+    {"zone": "America/Los_Angeles", "day": "2026-10-14", "expected": "2026-10-14T12:00:00Z", "note": "05:00 Los Angeles, vor CPI 05:30"},
+    {"zone": "America/Phoenix", "day": "2026-10-14", "expected": "2026-10-14T12:00:00Z", "note": "05:00 Phoenix (ohne Sommerzeit)"},
+    {"zone": "America/Anchorage", "day": "2026-10-14", "expected": "2026-10-14T16:00:00Z", "note": "New York 08:00 = 04:00 (Nacht) → 08:00 Ortszeit"},
+    {"zone": "Pacific/Honolulu", "day": "2026-10-14", "expected": "2026-10-14T18:00:00Z", "note": "New York 08:00 = 02:00 (Nacht) → 08:00 Ortszeit"},
+    {"zone": "Asia/Tokyo", "day": "2026-10-14", "expected": "2026-10-13T23:00:00Z", "note": "08:00 Tokio (New York 08:00 = 21:00)"},
+    {"zone": "America/Los_Angeles", "day": "2026-12-10", "expected": "2026-12-10T13:00:00Z", "note": "Winterzeit: 05:00 PST = 08:00 EST"},
+    {"zone": "America/Chicago", "day": "2026-12-10", "expected": "2026-12-10T13:00:00Z", "note": "Winterzeit: 07:00 CST"},
+    {"zone": "Europe/Zurich", "day": "2026-03-20", "expected": "2026-03-20T07:00:00Z", "note": "USA schon Sommerzeit, Europa noch nicht: 08:00 MEZ"}
+  ],
+  "window": [
+    {"zone": "America/Chicago", "now": "2026-10-14T11:59:00Z", "expected": false},
+    {"zone": "America/Chicago", "now": "2026-10-14T12:00:00Z", "expected": true},
+    {"zone": "America/Chicago", "now": "2026-10-14T16:59:00Z", "expected": true},
+    {"zone": "America/Chicago", "now": "2026-10-14T17:00:00Z", "expected": false},
+    {"zone": "Europe/Zurich", "now": "2026-10-14T05:59:00Z", "expected": false},
+    {"zone": "Europe/Zurich", "now": "2026-10-14T06:00:00Z", "expected": true},
+    {"zone": "Europe/Zurich", "now": "2026-10-14T09:59:00Z", "expected": true},
+    {"zone": "Europe/Zurich", "now": "2026-10-14T10:00:00Z", "expected": false}
+  ],
+  "next": [
+    {"zone": "Europe/Zurich", "now": "2026-10-14T05:59:00Z", "expected": "2026-10-14T06:00:00Z"},
+    {"zone": "Europe/Zurich", "now": "2026-10-14T06:00:00Z", "expected": "2026-10-15T06:00:00Z"},
+    {"zone": "America/Los_Angeles", "now": "2026-10-14T11:00:00Z", "expected": "2026-10-14T12:00:00Z"},
+    {"zone": "America/Los_Angeles", "now": "2026-10-14T12:00:00Z", "expected": "2026-10-15T12:00:00Z"}
+  ],
+  "events": [
+    {"zone": "America/Chicago", "day": "2026-10-14", "events": ["2026-10-14T12:30:00Z", "2026-10-14T18:00:00Z", "2026-10-15T12:30:00Z"],
+     "expected": ["2026-10-14T12:30:00Z", "2026-10-14T18:00:00Z"], "note": "CPI 07:30 Chicago und Fed 13:00 heute, NFP morgen nicht"},
+    {"zone": "Europe/Zurich", "day": "2026-10-14", "events": ["2026-10-14T05:00:00Z", "2026-10-14T12:30:00Z"],
+     "expected": ["2026-10-14T12:30:00Z"], "note": "07:00 Zürich liegt vor der Meldung"}
+  ]
+}

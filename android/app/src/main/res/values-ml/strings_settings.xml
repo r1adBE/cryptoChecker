@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin സൂചകങ്ങൾ, ദിവസത്തിൽ രണ്ടുതവണ പരിശോധിക്കുന്നു. പരിധികൾ നിങ്ങൾ തിരഞ്ഞെടുക്കുന്നു – ആപ്പ് മൂല്യങ്ങളെ വിലയിരുത്തുന്നില്ല.</string>
     <string name="settings_macro_notifications">സാമ്പത്തിക കലണ്ടർ</string>
     <string name="settings_macro_notifications_hint">പ്രധാന US സാമ്പത്തിക ഡാറ്റയുള്ള ദിവസങ്ങളിൽ 08:00-ന് (പണപ്പെരുപ്പം, തൊഴിൽ റിപ്പോർട്ട്, ഫെഡ് തീരുമാനം). കലണ്ടർ ആപ്പിന്റെ വെബ്സൈറ്റിൽ നിന്നാണ്, ദിവസത്തിൽ ഒരിക്കൽ ലോഡ് ചെയ്യുന്നു.</string>
+    <string name="settings_macro_notifications_us_hint">യുഎസിൽ അറിയിപ്പ് പരമാവധി ന്യൂയോർക്ക് സമയം 08:00-ന്, ആദ്യ ഡാറ്റയ്ക്ക് മുമ്പ് എത്തും.</string>
     <string name="settings_market_alerts">മാർക്കറ്റ് അലേർട്ടുകൾ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">പങ്കിടുക</string>
     <string name="settings_price_overlay">വില ഓവർലേ</string>
     <string name="settings_price_overlay_hint">സ്ഥിരമായ വില അറിയിപ്പിലെ ജോഡികളെ മറ്റ് ആപ്പുകൾക്ക് മുകളിൽ ഒഴുകുന്ന ഒരു ചെറിയ പിൽ ആയി കാണിക്കുന്നു. ആപ്പ് തുറക്കാൻ ടാപ്പ് ചെയ്യുക, അടയ്ക്കാൻ താഴെയുള്ള ×-ലേക്ക് വലിക്കുക.</string>
+    <string name="settings_price_overlay_restart_hint">സിസ്റ്റം ആപ്പ് അടച്ചാൽ, അടുത്ത പശ്ചാത്തല അപ്ഡേറ്റിനൊപ്പം വില ഓവർലേ തിരികെ വരും.</string>
     <string name="settings_price_overlay_needs">«%1$s»-നൊപ്പം മാത്രമേ പ്രവർത്തിക്കൂ.</string>
     <string name="settings_price_overlay_grant">മറ്റ് ആപ്പുകൾക്ക് മുകളിൽ കാണിക്കാൻ അനുവദിക്കുക</string>
     <string name="price_overlay_close">ഓവർലേ അടയ്ക്കുക</string>

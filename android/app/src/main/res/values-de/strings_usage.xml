@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Akku &amp; Aktivität</string>
+    <string name="usage_intro">Apps können ihren eigenen Stromverbrauch nicht auslesen. Darum zeigt die App, was sie in den letzten 24 Stunden selbst getan hat – gezählt nur auf diesem Gerät, ohne Inhalte.</string>
+    <string name="usage_phone">Handy</string>
+    <string name="usage_watch">Uhr</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d Hintergrund-Lauf</item>
+        <item quantity="other">%d Hintergrund-Läufe</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d Netzanfrage</item>
+        <item quantity="other">%d Netzanfragen</item>
+    </plurals>
+    <string name="usage_received">%1$s empfangen</string>
+    <string name="usage_level_low">Geringe Aktivität</string>
+    <string name="usage_level_medium">Mittlere Aktivität</string>
+    <string name="usage_level_high">Hohe Aktivität</string>
+    <string name="usage_driver_interval">Am meisten zählt die Hintergrund-Prüfung (%1$s).</string>
+    <string name="usage_driver_exact">Am meisten zählen die Hintergrund-Prüfung (%1$s) und «%2$s».</string>
+    <string name="usage_driver_none">Keine Hintergrund-Prüfung geplant – es zählt, was die offene App und die Widgets abrufen.</string>
+    <string name="usage_driver_watch">Es zählt, was die Uhr-App und ihre Komplikationen selbst abrufen.</string>
+    <string name="usage_watch_none">Keine Uhr verbunden</string>
+    <string name="usage_as_of">Stand %1$s</string>
+    <string name="usage_battery_android">Den Akkuverbrauch je App zeigt Android in seinen Akku-Einstellungen.</string>
+</resources>

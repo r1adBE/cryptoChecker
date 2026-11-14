@@ -51,8 +51,14 @@ enum MacroCalendar {
     static let lookaheadMillis: Int64 = 18 * 60 * 60_000
     static let releasedAfterMillis: Int64 = 2 * 60 * 60_000
     static let maxAgeMillis: Int64 = 2 * 24 * 60 * 60_000
-    /// Morgen-Mitteilung um 08:00 Ortszeit.
+    /// Morgen-Mitteilung um 08:00 Ortszeit – früher, wenn die Termine es verlangen (`notifyAt`).
     static let notifyHour = 8
+    /// Zone der Termine (US-Daten erscheinen nach New Yorker Zeit, meist 08:30).
+    static let releaseTimeZone = TimeZone(identifier: "America/New_York") ?? TimeZone(secondsFromGMT: -5 * 3600) ?? .current
+    /// Spätestens 08:00 in der Zone der Termine melden (30 Min. vor den 08:30-Daten).
+    static let releaseNotifyHour = 8
+    /// Nie vor 05:00 Ortszeit (Nacht).
+    static let earliestNotifyHour = 5
 
     /// Datei lesen; nil, wenn kein gültiges Kalender-Objekt. Unbekannte Typen und ungültige Zeiten
     /// werden übergangen, Termine älter als 2 Tage verworfen. Sortiert, ohne Doppelte.
@@ -128,11 +134,29 @@ enum MacroCalendar {
         hint.items.contains { abs($0.event.time - now) <= topWindowMillis }
     }
 
+    /// Zeitpunkt der Morgen-Mitteilung am Ortstag von `day`: das Fenster gilt in der Zone der Termine. 08:00
+    /// Ortszeit, aber spätestens 08:00 New Yorker Zeit (`releaseTimeZone`), wenn das auf denselben Ortstag und nicht vor
+    /// 05:00 fällt – sonst kämen CPI, PPI, Arbeitsmarkt und PCE (08:30 New York) in Chicago, Denver und Los Angeles nie
+    /// in die Mitteilung. Zürich und Tokio bleiben bei 08:00. Wie Android `MacroCalendar.notifyAtOnDay`.
+    static func notifyAt(day: Date, calendar: Calendar = .current) -> Date? {
+        let start = calendar.startOfDay(for: day)
+        guard let local = calendar.date(bySettingHour: notifyHour, minute: 0, second: 0, of: start),
+              let earliest = calendar.date(bySettingHour: earliestNotifyHour, minute: 0, second: 0, of: start) else { return nil }
+        var release = Calendar(identifier: .gregorian)
+        release.timeZone = releaseTimeZone
+        let releaseStart = release.startOfDay(for: start)
+        let candidates = (-1...1).compactMap { offset -> Date? in
+            guard let d = release.date(byAdding: .day, value: offset, to: releaseStart) else { return nil }
+            return release.date(bySettingHour: releaseNotifyHour, minute: 0, second: 0, of: d)
+        }.filter { calendar.isDate($0, inSameDayAs: start) && $0 >= earliest }
+        return (candidates + [local]).min()
+    }
+
     /// Termine für die Morgen-Mitteilung eines Tages (`day` = beliebiger Zeitpunkt dieses Tages):
-    /// am selben Ortsdatum und nach 08:00.
+    /// am selben Ortsdatum und nach dem Zeitpunkt der Mitteilung (`notifyAt`).
     static func eventsOnDay(_ events: [MacroEvent], day: Date, calendar: Calendar = .current) -> [MacroEvent] {
-        guard let notifyAt = calendar.date(bySettingHour: notifyHour, minute: 0, second: 0, of: day) else { return [] }
-        let after = Int64(notifyAt.timeIntervalSince1970 * 1000)
+        guard let at = notifyAt(day: day, calendar: calendar) else { return [] }
+        let after = Int64(at.timeIntervalSince1970 * 1000)
         return events.filter { calendar.isDate(date($0.time), inSameDayAs: day) && $0.time > after }
             .sorted { $0.time < $1.time }
     }

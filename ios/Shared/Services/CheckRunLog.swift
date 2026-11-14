@@ -133,7 +133,14 @@ enum CheckRunStore {
     /// Lauf vorne anfügen (höchstens `CheckRunLog.max`) und schreiben. Lesen und Schreiben als ein abgestimmter
     /// Schritt über die Prozesse (App, Hintergrund-Aufgabe, Widget: `SharedStorage.coordinatedWrite`), sonst ginge
     /// ein gleichzeitig vermerkter Lauf verloren; `lock` hält zusätzlich den eigenen Prozess in Reihe.
-    static func add(_ run: CheckRun, to url: URL = CheckRunStore.url) {
+    ///
+    /// Jeder Lauf ausser in der offenen App (`.foreground`) zählt für «Akku & Aktivität» als Hintergrund-Lauf
+    /// (`UsageMeter`); der Lauf ist hier zu Ende, darum die Zähler gleich mitschreiben. Wie Android.
+    static func add(_ run: CheckRun, to url: URL = CheckRunStore.url, meter: UsageMeter = .shared) {
+        if run.trigger != .foreground {
+            meter.countRun()
+            meter.flush()
+        }
         lock.lock()
         defer { lock.unlock() }
         SharedStorage.coordinatedWrite(at: url) { () -> Void in

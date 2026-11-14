@@ -8,8 +8,9 @@
     <string name="why_details_hide">Дэлгэрэнгүйг нуух</string>
     <string name="why_disclaimer">Зах зээлийн өгөгдлөөс автомат үнэлгээ: нэгэн зэрэг юу болж байгааг харуулна, шалтгааны нотолгоо биш.</string>
     <string name="why_footer_short">Нэгэн зэрэг болох нь шалтгаан гэсэн үг биш · Хөрөнгө оруулалтын зөвлөгөө биш</string>
-    <string name="why_no_data">Энэ хосын Binance-ийн өгөгдөл алга</string>
-    <string name="why_no_data_hint">Ханш, хэмжээ, хэлбэлзлийг Binance-ийн цагийн лаанаас авна.</string>
+    <string name="why_no_candles">Энэ хосын цагийн лаа алга</string>
+    <string name="why_no_candles_hint">Ханш, хэмжээ, хэлбэлзлийг %1$s-ийн цагийн лаанаас, боломжтой бол ижил зоостой өөр биржээс авна.</string>
+    <string name="why_no_data_retry_hint">Ханш, хэмжээ, хэлбэлзлийг ачаалж чадсангүй. Дахин оролдоно уу.</string>
     <string name="why_ref_alts">Альт</string>
     <string name="why_section_context">Боломжит тайлбар</string>
     <string name="why_section_observation">Ажиглалт</string>

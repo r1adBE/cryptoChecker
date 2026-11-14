@@ -35,7 +35,9 @@ extension PortfolioCsvImportSheet {
             get: { linked.contains(link.key) },
             set: { on in
                 linked = CsvTransferMatch.toggle(links, chosen: linked, key: link.key, on: on)
-                // Ausgeschaltet braucht die Auszahlung eine neue Wahl (sonst «Auf eigene Wallet» neben der Einzahlung)
+                // Ausgeschaltet braucht die Auszahlung eine neue Wahl (sonst «Auf eigene Wallet» neben der Einzahlung);
+                // «Auf eigene Wallet» verknüpft sie danach nicht wieder (die Wahl des Nutzers bleibt) — wie Android
+                if on { declined.remove(link.withdrawalKey) } else { declined.insert(link.withdrawalKey) }
                 if !on { choices[link.withdrawalKey] = nil }
                 linkOwnWallets()
             }
@@ -168,10 +170,10 @@ extension PortfolioCsvImportSheet {
         linkOwnWallets()
     }
 
-    /// «Auf eigene Wallet» mit freier passender Einzahlung wird deren Umbuchung (`CsvImportMapping.linkOwnWallets`), dann
-    /// den Plan neu — wie Android `linkOwnWallets`.
+    /// «Auf eigene Wallet» mit eindeutiger üblicher Einzahlung wird deren Umbuchung (`CsvImportMapping.linkOwnWallets`),
+    /// dann den Plan neu — wie Android `linkOwnWallets`.
     func linkOwnWallets() {
-        linked = CsvImportMapping.linkOwnWallets(links, chosen: linked, choices: choices)
+        linked = CsvImportMapping.linkOwnWallets(links, chosen: linked, choices: choices, declined: declined)
         updatePlan()
     }
 

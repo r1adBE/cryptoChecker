@@ -61,8 +61,8 @@ suspend fun HistoricPriceSource.ownRoutes(coins: Collection<String>): Map<String
 
 /**
  * Schluss der Tageskerze, die genau bei [start] beginnt, und jüngster Schluss derselben Reihe (Identitätsprüfung);
- * null = keine laufende Reihe oder der Tag fehlt (z. B. älter als die Börse liefert). Börse nicht erreichbar und der Tag
- * fehlt: [HistoricSourceUnavailable] (die Kette bricht ab, statt eine andere Quelle zu nehmen).
+ * null = keine laufende Reihe oder der Tag fehlt (z. B. älter als die Börse liefert). Börse nicht abrufbar und der Tag
+ * fehlt: [HistoricSourceUnavailable] (Fehler-Antwort: die Kette bricht ab; ganz ohne Antwort: übersprungen).
  */
 suspend fun HistoricPriceSource.seriesClose(pair: CandlePair, start: Long): Pair<Double, Double?>? {
     val load = try {
@@ -75,7 +75,8 @@ suspend fun HistoricPriceSource.seriesClose(pair: CandlePair, start: Long): Pair
     val candles = load.value?.value
     val close = candles?.firstOrNull { it.openTime == start }?.close?.takeIf { it > 0.0 && it.isFinite() }
     if (close == null) {
-        if (load.unreachable) throw HistoricSourceUnavailable(pair.exchangeKey)
+        // Fehler-Antwort: Kette bricht ab; gar keine Antwort ([OwnCandleDataSource.Load.silent]): übersprungen
+        if (load.unreachable) throw HistoricSourceUnavailable(pair.exchangeKey, unreachable = load.silent)
         return null
     }
     return close to candles.lastOrNull()?.close
@@ -100,7 +101,8 @@ internal suspend fun HistoricPriceSource.ownOutcome(
         binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(own.exchangeKey, b),
     )
     var outcome = if (!nameOk) Outcome(null, rejected = true) else ownDayClose(own, date, start, reference, fetch)
-    if (outcome.price == null && own.exchangeKey in HistoricCloseChain.CHAIN && own.exchangeKey != HistoricCloseChain.BINANCE) {
+    val inChain = own.exchangeKey in HistoricCloseChain.CHAIN && own.exchangeKey != HistoricCloseChain.BINANCE
+    if (outcome.price == null && !outcome.failed && inChain) {
         val chain = if (own.exchangeKey == HistoricCloseChain.COINBASE) {
             coinbaseOutcome(b, date, start, reference, fetch)
         } else {
@@ -123,9 +125,12 @@ private suspend fun HistoricPriceSource.ownDayClose(
     var close = raw
     var latest = rawLatest
     if (quote != "USDT" && quote != "USD" && quote != "USDC") {
-        // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss
-        val dayFx = fetch.usdTo(quote, date)?.rate?.takeIf { it > 0.0 && it.isFinite() } ?: return Outcome(null)
-        val nowFx = fetch.usdTo(quote, LocalDate.now(ZoneOffset.UTC))?.rate?.takeIf { it > 0.0 && it.isFinite() }
+        // Fiat-Paar: Devisenkurs DES Tags (Wochenende → letzter Geschäftstag) bzw. heute für den jüngsten Schluss. EZB
+        // nicht erreichbar: kein Kurs statt der nächsten Quelle (die hätte einen anderen Kurs; Export wiederholbar)
+        val day = fetch.usdTo(quote, date)
+        if (day.failed) return Outcome(null, failed = true)
+        val dayFx = day.fx?.rate?.takeIf { it > 0.0 && it.isFinite() } ?: return Outcome(null)
+        val nowFx = fetch.usdTo(quote, LocalDate.now(ZoneOffset.UTC)).fx?.rate?.takeIf { it > 0.0 && it.isFinite() }
         close = raw / dayFx
         latest = if (rawLatest != null && nowFx != null) rawLatest / nowFx else null
     }

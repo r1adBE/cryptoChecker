@@ -8,8 +8,9 @@
     <string name="why_details_hide">വിശദാംശങ്ങൾ മറയ്ക്കുക</string>
     <string name="why_disclaimer">മാർക്കറ്റ് ഡാറ്റയിൽ നിന്നുള്ള സ്വയമേവയുള്ള വിലയിരുത്തൽ: ഒരേ സമയം എന്ത് സംഭവിക്കുന്നു എന്ന് കാണിക്കുന്നു, കാരണത്തിന്റെ തെളിവല്ല.</string>
     <string name="why_footer_short">ഒരേസമയം സംഭവിക്കുന്നത് കാരണമാകണമെന്നില്ല · നിക്ഷേപ ഉപദേശമല്ല</string>
-    <string name="why_no_data">ഈ ജോഡിക്ക് Binance-ൽ നിന്ന് ഡാറ്റയില്ല</string>
-    <string name="why_no_data_hint">വില, വോളിയം, ചാഞ്ചാട്ടം എന്നിവ Binance മണിക്കൂർ കാൻഡിലുകളിൽ നിന്നാണ്.</string>
+    <string name="why_no_candles">ഈ ജോഡിക്ക് മണിക്കൂർ കാൻഡിലുകളില്ല</string>
+    <string name="why_no_candles_hint">വില, വോളിയം, ചാഞ്ചാട്ടം എന്നിവ %1$s മണിക്കൂർ കാൻഡിലുകളിൽ നിന്നോ, സാധ്യമെങ്കിൽ അതേ കോയിനുള്ള മറ്റൊരു എക്സ്ചേഞ്ചിൽ നിന്നോ ആണ്.</string>
+    <string name="why_no_data_retry_hint">വില, വോളിയം, ചാഞ്ചാട്ടം ലോഡ് ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="why_ref_alts">ആൾട്ടുകൾ</string>
     <string name="why_section_context">സാധ്യമായ വിശദീകരണം</string>
     <string name="why_section_observation">നിരീക്ഷണം</string>

@@ -31,6 +31,7 @@ class SettingsPlacementTest {
     @Test
     fun pagesSitWhereTheMainPageShowsThem() {
         assertEquals(SettingsHome.GENERAL, SettingsPage.UPDATES.home)
+        assertEquals(SettingsHome.GENERAL, SettingsPage.USAGE.home)
         assertEquals(SettingsHome.GENERAL, SettingsPage.ALARMS.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.WIDGETS.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.PRICE_COLORS.home)

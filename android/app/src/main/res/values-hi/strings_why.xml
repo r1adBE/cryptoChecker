@@ -8,8 +8,9 @@
     <string name="why_details_hide">विवरण छिपाएँ</string>
     <string name="why_disclaimer">मार्केट डेटा से स्वचालित आकलन: यह दिखाता है कि एक ही समय पर क्या हो रहा है, किसी कारण का सबूत नहीं।</string>
     <string name="why_footer_short">एक साथ होने का मतलब कारण नहीं · निवेश सलाह नहीं</string>
-    <string name="why_no_data">इस पेयर के लिए Binance से कोई डेटा नहीं</string>
-    <string name="why_no_data_hint">भाव, वॉल्यूम और अस्थिरता Binance की घंटेवार कैंडल से आते हैं।</string>
+    <string name="why_no_candles">इस पेयर के लिए घंटेवार कैंडल नहीं हैं</string>
+    <string name="why_no_candles_hint">भाव, वॉल्यूम और अस्थिरता %1$s की घंटेवार कैंडल से, या संभव हो तो उसी कॉइन वाले किसी दूसरे एक्सचेंज से आते हैं।</string>
+    <string name="why_no_data_retry_hint">भाव, वॉल्यूम और अस्थिरता लोड नहीं हो सके। कृपया फिर से कोशिश करें।</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">संभावित व्याख्या</string>
     <string name="why_section_observation">अवलोकन</string>

@@ -8,8 +8,9 @@
     <string name="why_details_hide">Sakrij pojedinosti</string>
     <string name="why_disclaimer">Automatska procjena iz tržišnih podataka: prikazuje što se događa istodobno, a ne dokaz uzroka.</string>
     <string name="why_footer_short">Istodobno ne znači uzrok · Nije savjet za ulaganje</string>
-    <string name="why_no_data">Nema podataka s Binancea za ovaj par</string>
-    <string name="why_no_data_hint">Cijena, volumen i volatilnost dolaze iz satnih svijeća s Binancea.</string>
+    <string name="why_no_candles">Nema satnih svijeća za ovaj par</string>
+    <string name="why_no_candles_hint">Cijena, volumen i volatilnost dolaze iz satnih svijeća s %1$s ili, kad je moguće, s druge burze s istim coinom.</string>
+    <string name="why_no_data_retry_hint">Cijena, volumen i volatilnost nisu se mogli učitati. Pokušaj ponovno.</string>
     <string name="why_ref_alts">Altcoini</string>
     <string name="why_section_context">Moguće objašnjenje</string>
     <string name="why_section_observation">Zapažanje</string>

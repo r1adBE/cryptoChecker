@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">電池同活動</string>
+    <string name="usage_intro">App 讀唔到自己嘅耗電量。所以本 App 會顯示佢喺過去 24 小時入面自己做咗啲乜——只喺呢部裝置上計數，唔包含任何內容。</string>
+    <string name="usage_phone">手機</string>
+    <string name="usage_watch">手錶</string>
+    <plurals name="usage_runs">
+        <item quantity="other">背景執行 %d 次</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">網絡請求 %d 次</item>
+    </plurals>
+    <string name="usage_received">已接收 %1$s</string>
+    <string name="usage_level_low">活動較少</string>
+    <string name="usage_level_medium">活動中等</string>
+    <string name="usage_level_high">活動較多</string>
+    <string name="usage_driver_interval">主要嚟自背景檢查（%1$s）。</string>
+    <string name="usage_driver_exact">主要嚟自背景檢查（%1$s）同「%2$s」。</string>
+    <string name="usage_driver_none">未安排背景檢查——只計開咗嘅 App 同小工具攞到嘅內容。</string>
+    <string name="usage_driver_watch">計手錶 App 同佢嘅複雜功能自己攞到嘅內容。</string>
+    <string name="usage_watch_none">未連接手錶</string>
+    <string name="usage_as_of">截至 %1$s</string>
+    <string name="usage_battery_android">Android 會喺電池設定入面顯示每個 App 嘅耗電量。</string>
+</resources>

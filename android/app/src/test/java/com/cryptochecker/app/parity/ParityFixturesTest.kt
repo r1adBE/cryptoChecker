@@ -314,7 +314,7 @@ class ParityFixturesTest {
             coin = "Coin", amount = "Menge", priceUsdt = "Kurs USDT", valueUsdt = "Wert USDT",
             rate = "Kurs", valueTarget = "Wert", note = "Hinweis", total = "Total",
             noPrice = "kein Kurs", noFx = "kein Devisenkurs", unchecked = "ungeprüft", incomplete = "unvollständig",
-            commentFormat = "# %1\$s %2\$s %3\$s",
+            commentFormat = "# %1\$s %2\$s %3\$s", unavailable = "nicht abrufbar",
         )
         val cases = data["cases"].list()
         cases.forEach { raw ->
@@ -326,15 +326,16 @@ class ParityFixturesTest {
             val prices = c["prices"].obj().mapValues { (_, v) -> BigDecimal(v as String) }
             val fx = (c["fxRate"] as String?)?.let { BigDecimal(it) }
             val unchecked = c["unchecked"].list().map { it as String }.toSet()
+            val unavailable = (c["unavailable"] as List<*>?)?.map { it as String }?.toSet().orEmpty()
             val format = CutoffCsvFormat((c["separator"] as String).single(), (c["decimal"] as String).single())
-            val rows = CutoffExport.rows(holdings, prices, fx, unchecked)
+            val rows = CutoffExport.rows(holdings, prices, fx, unchecked, unavailable)
             val lines = CutoffExport.csv(LocalDate.of(2025, 12, 31), "CHF", null, rows, texts, format)
                 .removePrefix("\uFEFF").split("\r\n")
             val expected = c["expected"].list().map { it as String }
             assertEquals("cutoff ${c["name"]}", expected, lines.subList(2, 2 + expected.size))
             assertEquals("cutoff ${c["name"]} Ende", listOf(""), lines.drop(2 + expected.size))
         }
-        assertTrue(cases.size >= 3)
+        assertTrue(cases.size >= 4)
     }
 
     /** Bezugskurse der Tagesschlüsse: ohne ungeprüfte und ohne «Kurs ungeprüft». */

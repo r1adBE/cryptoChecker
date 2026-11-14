@@ -8,8 +8,9 @@
     <string name="why_details_hide">विवरण लुकाउनुहोस्</string>
     <string name="why_disclaimer">बजार डेटाबाट स्वचालित मूल्याङ्कन: यसले एकै समयमा के हुन्छ देखाउँछ, कारणको प्रमाण होइन।</string>
     <string name="why_footer_short">एकै समयमा हुनु भनेको कारण होइन · लगानी सल्लाह होइन</string>
-    <string name="why_no_data">यो जोडीका लागि Binance बाट डेटा छैन</string>
-    <string name="why_no_data_hint">मूल्य, भोल्युम र अस्थिरता Binance का घण्टे क्यान्डलबाट आउँछन्।</string>
+    <string name="why_no_candles">यो जोडीका लागि घण्टे क्यान्डल छैनन्</string>
+    <string name="why_no_candles_hint">मूल्य, भोल्युम र अस्थिरता %1$s का घण्टे क्यान्डलबाट, वा सम्भव भए उही कोइन भएको अर्को एक्सचेन्जबाट आउँछन्।</string>
+    <string name="why_no_data_retry_hint">मूल्य, भोल्युम र अस्थिरता लोड गर्न सकिएन। कृपया फेरि प्रयास गर्नुहोस्।</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">सम्भावित व्याख्या</string>
     <string name="why_section_observation">अवलोकन</string>

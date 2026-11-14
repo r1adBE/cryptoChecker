@@ -98,12 +98,16 @@ class PulseWidgetMathTest {
         assertFalse(PulseWidgetMath.isShowable(0L, now))
         assertEquals(2, PulseWidgetMath.leadLines(0))
         assertEquals(2, PulseWidgetMath.leadLines(180))
-        assertEquals(1, PulseWidgetMath.leadLines(120))
+        assertEquals(1, PulseWidgetMath.leadLines(140))
+        assertEquals(1, PulseWidgetMath.leadLines(134))
+        // V4-01: der Stand steht in jeder Grösse (wie iOS) – reicht die Höhe nicht für Leitsatz und Stand, weicht
+        // der Leitsatz (früher fiel unter 150 dp der Stand weg, auch «Keine Verbindung»)
+        assertEquals(0, PulseWidgetMath.leadLines(120))
+        assertEquals(1, PulseWidgetMath.leadLines(120, showsTime = false))
         // Zweizeilige Schlagzeile: zwei Zeilen Leitsatz erst mit mehr Höhe
         assertEquals(1, PulseWidgetMath.leadLines(160, headlineLines = 2))
         assertEquals(2, PulseWidgetMath.leadLines(169, headlineLines = 2))
-        assertTrue(PulseWidgetMath.showsTime(150))
-        assertFalse(PulseWidgetMath.showsTime(149))
+        assertEquals(0, PulseWidgetMath.leadLines(150, headlineLines = 2))
     }
 
     @Test

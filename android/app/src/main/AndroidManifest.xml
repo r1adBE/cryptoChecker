@@ -309,6 +309,14 @@
                     android:path="/cc/watch"
                     android:scheme="wear" />
             </intent-filter>
+            <!-- «Akku & Aktivität»: Zähler der Uhr (PhoneWatchUsage) -->
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:path="/cc/usage"
+                    android:scheme="wear" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
                 <data

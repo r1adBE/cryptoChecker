@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">এখন কোনো ইতিহাস পাওয়া যাচ্ছে না।</string>
     <string name="portfolio_history_utc_days">UTC-তে দিন (দৈনিক ক্যান্ডেল)</string>
     <string name="portfolio_history_without_matching">%1$s ছাড়া (মেলানো দৈনিক দাম নেই)</string>
+    <string name="portfolio_history_entry">প্রথম দৈনিক দাম থেকে গণনা: %1$s (আগে দৈনিক দাম নেই)</string>
     <string name="portfolio_period_rewards">পুরস্কার +%1$s (লাভে নয়)</string>
     <string name="portfolio_period_scaled">%1$s-এর জন্য 7 দি./1 ব.: Binance-এর ইতিহাস এক্সচেঞ্জের দামে মাপানো</string>
 

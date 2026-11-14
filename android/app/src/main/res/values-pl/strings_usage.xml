@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Bateria i aktywność</string>
+    <string name="usage_intro">Aplikacje nie mogą odczytać własnego zużycia energii. Dlatego aplikacja pokazuje, co sama zrobiła w ciągu ostatnich 24 godzin – liczone tylko na tym urządzeniu, bez żadnych treści.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Zegarek</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d uruchomienie w tle</item>
+        <item quantity="few">%d uruchomienia w tle</item>
+        <item quantity="many">%d uruchomień w tle</item>
+        <item quantity="other">%d uruchomienia w tle</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d żądanie sieciowe</item>
+        <item quantity="few">%d żądania sieciowe</item>
+        <item quantity="many">%d żądań sieciowych</item>
+        <item quantity="other">%d żądania sieciowego</item>
+    </plurals>
+    <string name="usage_received">Odebrano %1$s</string>
+    <string name="usage_level_low">Niska aktywność</string>
+    <string name="usage_level_medium">Średnia aktywność</string>
+    <string name="usage_level_high">Wysoka aktywność</string>
+    <string name="usage_driver_interval">Głównie przez sprawdzanie w tle (%1$s).</string>
+    <string name="usage_driver_exact">Głównie przez sprawdzanie w tle (%1$s) i „%2$s”.</string>
+    <string name="usage_driver_none">Brak zaplanowanego sprawdzania w tle – liczy się to, co pobiera otwarta aplikacja i widżety.</string>
+    <string name="usage_driver_watch">Liczy się to, co aplikacja na zegarku i jej komplikacje pobierają same.</string>
+    <string name="usage_watch_none">Brak połączonego zegarka</string>
+    <string name="usage_as_of">Stan: %1$s</string>
+    <string name="usage_battery_android">Android pokazuje zużycie baterii przez aplikacje w swoich ustawieniach baterii.</string>
+</resources>

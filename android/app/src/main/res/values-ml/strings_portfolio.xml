@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ഇപ്പോൾ ചരിത്രം ലഭ്യമല്ല.</string>
     <string name="portfolio_history_utc_days">UTC-യിലെ ദിവസങ്ങൾ (പ്രതിദിന കാൻഡിലുകൾ)</string>
     <string name="portfolio_history_without_matching">%1$s ഇല്ലാതെ (യോജിക്കുന്ന പ്രതിദിന വിലകളില്ല)</string>
+    <string name="portfolio_history_entry">ആദ്യ പ്രതിദിന വില മുതൽ കണക്കാക്കി: %1$s (മുമ്പ് പ്രതിദിന വിലകളില്ല)</string>
     <string name="portfolio_period_rewards">റിവാർഡുകൾ +%1$s (ലാഭത്തിൽ ഉൾപ്പെടുന്നില്ല)</string>
     <string name="portfolio_period_scaled">%1$s-ന് 7 ദി./1 വ.: എക്സ്ചേഞ്ച് വിലയിലേക്ക് സ്കെയിൽ ചെയ്ത Binance ചരിത്രം</string>
 

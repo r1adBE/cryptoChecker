@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">Penunjuk Bitcoin, disemak dua kali sehari. Anda memilih hadnya – apl tidak menilai nilai-nilai ini.</string>
     <string name="settings_macro_notifications">Kalendar ekonomi</string>
     <string name="settings_macro_notifications_hint">Pada 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, laporan pekerjaan, keputusan Fed). Kalendar datang daripada laman web apl, dimuatkan sekali sehari.</string>
+    <string name="settings_macro_notifications_us_hint">Di AS, pemberitahuan tiba selewat-lewatnya pada 08:00 waktu New York, sebelum data pertama.</string>
     <string name="settings_market_alerts">Pemberitahuan pasaran</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">Kongsi</string>
     <string name="settings_price_overlay">Tindanan harga</string>
     <string name="settings_price_overlay_hint">Menunjukkan pasangan pemberitahuan harga kekal sebagai pil terapung kecil di atas apl lain. Ketik untuk membuka apl, seret ke × di bahagian bawah untuk menutup.</string>
+    <string name="settings_price_overlay_restart_hint">Jika sistem menutup aplikasi, tindanan harga kembali dengan kemas kini latar belakang seterusnya.</string>
     <string name="settings_price_overlay_needs">Hanya berfungsi bersama “%1$s”.</string>
     <string name="settings_price_overlay_grant">Benarkan paparan di atas apl lain</string>
     <string name="price_overlay_close">Tutup tindanan</string>

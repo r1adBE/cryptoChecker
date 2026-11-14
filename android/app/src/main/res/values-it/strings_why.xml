@@ -8,8 +8,9 @@
     <string name="why_details_hide">Nascondi dettagli</string>
     <string name="why_disclaimer">Valutazione automatica dai dati di mercato: mostra ciò che accade nello stesso momento, non è la prova di una causa.</string>
     <string name="why_footer_short">Contemporaneo non significa causa · Non è una consulenza finanziaria</string>
-    <string name="why_no_data">Nessun dato Binance per questa coppia</string>
-    <string name="why_no_data_hint">Prezzo, volume e volatilità provengono dalle candele orarie di Binance.</string>
+    <string name="why_no_candles">Nessuna candela oraria per questa coppia</string>
+    <string name="why_no_candles_hint">Prezzo, volume e volatilità provengono dalle candele orarie di %1$s o, se possibile, da un altro exchange con la stessa moneta.</string>
+    <string name="why_no_data_retry_hint">Impossibile caricare prezzo, volume e volatilità. Riprova.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Possibile lettura</string>
     <string name="why_section_observation">Osservazione</string>

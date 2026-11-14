@@ -12,7 +12,6 @@ import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.clearAlarmSnoozes
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.features.portfolio.UriExportTarget
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -73,7 +72,7 @@ private suspend fun SettingsViewModel.writeBackup(uri: android.net.Uri, withPass
 }
 
 /** Datei ist leer, also eben von der Dateiauswahl angelegt? Unlesbar → nein (dann wird nichts gelöscht). */
-private suspend fun SettingsViewModel.isEmptyDocument(uri: android.net.Uri): Boolean = withContext(Dispatchers.IO) {
+private suspend fun SettingsViewModel.isEmptyDocument(uri: android.net.Uri): Boolean = withContext(ioDispatcher) {
     runCatchingCancellable {
         context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)?.use { c ->
             c.moveToFirst() && !c.isNull(0) && c.getLong(0) == 0L

@@ -233,12 +233,12 @@ struct CryptoCheckerApp: App {
                 BackgroundRefresh.schedule(settings: data.settings)
             case .background:
                 data.setAppActive(false)
-                // Letzten Stand sicher auf die Platte, bevor iOS die App anhält — ohne den Haupt-Thread zu blockieren
-                // (das Schreiben kann über `NSFileCoordinator` auf das Widget warten): die Hintergrund-Zeit hält die
-                // App wach, bis die Warteschlange leer ist; reicht sie nicht, meldet sich die Aufgabe selbst ab
+                // Letzten Stand und Zähler («Akku & Aktivität») auf die Platte, bevor iOS die App anhält — abseits des
+                // Haupt-Threads (`NSFileCoordinator` kann auf das Widget warten); die Hintergrund-Zeit hält die App wach
                 let flushTask = BackgroundTaskGuard.begin("flushSnapshot")
                 Task { @MainActor in
                     await SharedStorage.snapshotWritesSettled()
+                    await Task.detached(priority: .utility) { UsageMeter.shared.flush() }.value
                     flushTask.end()
                 }
                 BackgroundRefresh.schedule(settings: data.settings)

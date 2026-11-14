@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">ابھی کوئی تاریخ دستیاب نہیں۔</string>
     <string name="portfolio_history_utc_days">UTC میں دن (روزانہ کینڈلز)</string>
     <string name="portfolio_history_without_matching">%1$s کے بغیر (مماثل روزانہ قیمتیں نہیں)</string>
+    <string name="portfolio_history_entry">پہلی روزانہ قیمت سے شمار: %1$s (اس سے پہلے روزانہ قیمتیں نہیں)</string>
     <string name="portfolio_period_rewards">انعامات +%1$s (نفع میں نہیں)</string>
     <string name="portfolio_period_scaled">%1$s کے لیے 7 دن/1 سال: Binance کی تاریخ ایکسچینج کی قیمت کے مطابق ڈھالی گئی</string>
 

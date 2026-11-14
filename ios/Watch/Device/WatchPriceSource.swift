@@ -29,7 +29,8 @@ enum WatchPriceSource {
         var request = URLRequest(url: url, timeoutInterval: timeout)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-        guard let result = try? await session.bytes(for: request) else { return nil }
+        // «Akku & Aktivität»: jede Abfrage zählt (`UsageTaskMetrics`, Bytes wie übertragen; wie Android)
+        guard let result = try? await session.bytes(for: request, delegate: UsageTaskMetrics.shared) else { return nil }
         let (bytes, response) = result
         // HTTP 400 = Antwort «Paar unbekannt» (Binance `-1121`): Inhalt lesen, die Auswertung findet keinen Kurs
         guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) || http.statusCode == 400 else {

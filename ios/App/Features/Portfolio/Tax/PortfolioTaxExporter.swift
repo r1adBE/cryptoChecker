@@ -132,9 +132,8 @@ enum PortfolioTaxExporter {
     private static func dailyCloses(_ wanted: [String: Set<Int>]) async -> (String, Int64) -> Decimal? {
         if wanted.isEmpty { return { _, _ in nil } }
         let coins = wanted.keys.sorted()
-        let live = await PortfolioPriceSource.prices(coins)
-        let current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
-                                                   unverifiedCurrent: live.unverified)
+        // Bezug frisch, sonst der gemerkte Stand (wie Stichtag und Wertverlauf)
+        let current = await PortfolioPriceSource.exportReference(coins).prices
         var closes: [String: Decimal] = [:]
         for (coin, byDay) in await HistoricPriceSource.dayClosesUsdt(wanted, current: current) {
             for (epochDay, r) in byDay {
@@ -192,13 +191,10 @@ enum PortfolioTaxExporter {
         var seen: Set<String> = []
         let coins = (holdings.map(\.coin) + view.part.balances.keys.sorted())
             .filter { seen.insert($0).inserted && PortfolioStables.needsQuote($0) }
-        var current: [String: Double] = [:]
-        if !coins.isEmpty {
-            let live = await PortfolioPriceSource.prices(coins)
-            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
-                                                   unverifiedCurrent: live.unverified)
-        }
-        let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
+        // Bezug frisch, sonst gemerkt; fehlt er wegen eines Abruffehlers: «nicht abrufbar» (nicht «ungeprüft»)
+        let reference = await PortfolioPriceSource.exportReference(coins)
+        let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: reference.prices)
+            .withUnavailable(reference.unavailable)
         return (closes, view)
     }
 

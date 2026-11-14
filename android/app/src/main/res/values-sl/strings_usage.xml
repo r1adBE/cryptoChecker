@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Baterija in dejavnost</string>
+    <string name="usage_intro">Aplikacije ne morejo prebrati lastne porabe energije. Zato aplikacija pokaže, kaj je sama naredila v zadnjih 24 urah – šteto samo v tej napravi, brez vsebine.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Ura</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d zagon v ozadju</item>
+        <item quantity="two">%d zagona v ozadju</item>
+        <item quantity="few">%d zagoni v ozadju</item>
+        <item quantity="other">%d zagonov v ozadju</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d omrežna zahteva</item>
+        <item quantity="two">%d omrežni zahtevi</item>
+        <item quantity="few">%d omrežne zahteve</item>
+        <item quantity="other">%d omrežnih zahtev</item>
+    </plurals>
+    <string name="usage_received">Prejeto: %1$s</string>
+    <string name="usage_level_low">Nizka dejavnost</string>
+    <string name="usage_level_medium">Srednja dejavnost</string>
+    <string name="usage_level_high">Visoka dejavnost</string>
+    <string name="usage_driver_interval">Predvsem zaradi preverjanja v ozadju (%1$s).</string>
+    <string name="usage_driver_exact">Predvsem zaradi preverjanja v ozadju (%1$s) in »%2$s«.</string>
+    <string name="usage_driver_none">Preverjanje v ozadju ni načrtovano – šteje, kar prenašata odprta aplikacija in pripomočki.</string>
+    <string name="usage_driver_watch">Šteje, kar aplikacija na uri in njeni pripomočki prenašajo sami.</string>
+    <string name="usage_watch_none">Nobena ura ni povezana</string>
+    <string name="usage_as_of">Stanje %1$s</string>
+    <string name="usage_battery_android">Android prikaže porabo baterije po aplikacijah v svojih nastavitvah baterije.</string>
+</resources>

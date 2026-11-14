@@ -224,6 +224,7 @@
     <string name="portfolio_history_unavailable">Potek trenutno ni na voljo.</string>
     <string name="portfolio_history_utc_days">Dnevi v UTC (dnevne sveče)</string>
     <string name="portfolio_history_without_matching">Brez %1$s (ni ustreznih dnevnih tečajev)</string>
+    <string name="portfolio_history_entry">Vstop ob prvem dnevnem tečaju: %1$s (prej ni dnevnih tečajev)</string>
     <string name="portfolio_period_rewards">Nagrade +%1$s (niso v dobičku)</string>
     <string name="portfolio_period_scaled">7 D/1 L za %1$s: potek Binance, prilagojen tečaju borze</string>
 

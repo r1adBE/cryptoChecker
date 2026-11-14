@@ -82,17 +82,19 @@ object CutoffExport {
      * [fxRate] (null = unbekannt), alles exakt: Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs
      * (je 34 gültige Stellen, wie iOS). Stablecoins nach [PortfolioStables.price]: USDT = 1, die
      * übrigen ihr Tagesschluss, fehlt er, «ohne Kurs» wie jeder Coin. Coins in [unchecked]
-     * (ausser USDT): kein Kurs, Hinweis «ungeprüft» statt «ohne Kurs».
+     * (ausser USDT): kein Kurs, Hinweis «ungeprüft» statt «ohne Kurs». Coins in [unavailable] ohne Kurs: «ohne Kurs»
+     * mit Hinweis «nicht abrufbar» (Quelle bzw. aktueller Kurs nicht abrufbar — nicht «ungeprüft», nicht «gibt es nicht»).
      */
     fun rows(
         holdings: List<CutoffHolding>,
         prices: Map<String, BigDecimal>,
         fxRate: BigDecimal?,
         unchecked: Set<String> = emptySet(),
+        unavailable: Set<String> = emptySet(),
     ): List<CutoffRow> {
         val rate = fxRate?.takeIf { it.signum() > 0 }
         return holdings.map { h ->
-            val notChecked = h.coin in unchecked && PortfolioStables.needsQuote(h.coin)
+            val notChecked = h.coin in unchecked && h.coin !in unavailable && PortfolioStables.needsQuote(h.coin)
             val price = if (notChecked) null else stablePrice(h.coin, prices[h.coin])
             val value = price?.let { h.amount.multiply(it, PortfolioDecimal.MC) }
             CutoffRow(
@@ -105,6 +107,7 @@ object CutoffExport {
                 noPrice = price == null && !notChecked,
                 noFx = rate == null,
                 unchecked = notChecked,
+                unavailable = price == null && h.coin in unavailable,
             )
         }
     }
@@ -121,9 +124,10 @@ object CutoffExport {
         prices: Map<String, BigDecimal>,
         fxRate: BigDecimal?,
         unchecked: Set<String> = emptySet(),
+        unavailable: Set<String> = emptySet(),
     ): List<CutoffRow> {
         val holdings = at.balances.map { (coin, amount) -> CutoffHolding(coin, amount) }.sortedBy { it.coin }
-        val priced = rows(holdings, prices, fxRate, unchecked).map { r ->
+        val priced = rows(holdings, prices, fxRate, unchecked, unavailable).map { r ->
             r.copy(fromAddress = true, addressUnobserved = r.coin in at.unobserved)
         }
         val rate = fxRate?.takeIf { it.signum() > 0 }
@@ -202,7 +206,7 @@ object CutoffExport {
             val notes = listOfNotNull(
                 texts.fromAddress.takeIf { r.fromAddress && it.isNotEmpty() },
                 texts.addressUnobserved.takeIf { r.addressUnobserved && it.isNotEmpty() },
-                texts.noPrice.takeIf { r.noPrice },
+                (texts.unavailable.takeIf { r.unavailable && it.isNotEmpty() } ?: texts.noPrice).takeIf { r.noPrice },
                 texts.unchecked.takeIf { r.unchecked },
                 texts.noFx.takeIf { r.noFx },
             ).joinToString(", ")

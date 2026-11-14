@@ -236,6 +236,16 @@ private fun HistoryContent(
         // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)
         HistoryCaption(stringResource(R.string.portfolio_history_without_matching, series.skipped.joinToString(", ")))
     }
+    if (series.hasChart && series.entries.isNotEmpty()) {
+        // Schon vor dem ersten Tageskurs gehalten: ab dort gezählt («Einstieg», Wert dort als Zufluss)
+        val days = com.cryptochecker.app.domain.util.LocaleNumbers.dates(
+            java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM),
+        )
+        val text = series.entries.entries.sortedBy { it.key }.joinToString(", ") { (coin, day) ->
+            "$coin (${LocalDate.ofEpochDay(day).format(days)})"
+        }
+        HistoryCaption(stringResource(R.string.portfolio_history_entry, text))
+    }
     if (series.hasChart && history.chainSources.isNotEmpty()) {
         // Binance führt den Coin nicht: Tageskurse einer anderen Börse (geprüft auf denselben Token)
         HistoryCaption(

@@ -18,7 +18,7 @@ import com.cryptochecker.app.ui.components.SwitchRow
 // «Aktualisierung» › Preis-Overlay (nur Android): Schalter unter «dauerhafte Kurs-Mitteilung».
 
 /**
- * Schalter «Preis-Overlay» (Standard aus): wirkt nur mit der dauerhaften Kurs-Mitteilung ([ongoing]); ohne die
+ * Schalter «Kurs-Overlay» (Standard aus): wirkt nur mit der dauerhaften Kurs-Mitteilung ([ongoing]); ohne die
  * Berechtigung «Über anderen Apps einblenden» ([permitted]) führt Einschalten zur Android-Einstellung und darunter steht
  * ein Knopf dorthin. Das Overlay selbst: `PriceOverlay`.
  */
@@ -28,8 +28,12 @@ internal fun PriceOverlayRow(enabled: Boolean, ongoing: Boolean, permitted: Bool
     val ongoingTitle = stringResource(R.string.settings_ongoing_notifications)
     SwitchRow(
         title = stringResource(R.string.settings_price_overlay),
-        subtitle = if (ongoing) stringResource(R.string.settings_price_overlay_hint)
-        else stringResource(R.string.settings_price_overlay_needs, ongoingTitle),
+        // Kein Dienst: nach dem Ende der App kommt es erst mit der nächsten Aktualisierung zurück – so sagen
+        subtitle = if (ongoing) {
+            stringResource(R.string.settings_price_overlay_hint) + " " + stringResource(R.string.settings_price_overlay_restart_hint)
+        } else {
+            stringResource(R.string.settings_price_overlay_needs, ongoingTitle)
+        },
         checked = enabled && ongoing,
         enabled = ongoing,
         onCheckedChange = { on ->

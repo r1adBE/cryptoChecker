@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">బ్యాటరీ మరియు కార్యకలాపం</string>
+    <string name="usage_intro">యాప్‌లు తమ సొంత విద్యుత్ వినియోగాన్ని చదవలేవు. అందుకే గత 24 గంటల్లో యాప్ తానే ఏమి చేసిందో చూపిస్తుంది – ఈ పరికరంలో మాత్రమే లెక్కించబడింది, ఎలాంటి కంటెంట్ లేకుండా.</string>
+    <string name="usage_phone">ఫోన్</string>
+    <string name="usage_watch">వాచ్</string>
+    <plurals name="usage_runs">
+        <item quantity="one">బ్యాక్‌గ్రౌండ్ రన్‌లు: %d</item>
+        <item quantity="other">బ్యాక్‌గ్రౌండ్ రన్‌లు: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">నెట్‌వర్క్ అభ్యర్థనలు: %d</item>
+        <item quantity="other">నెట్‌వర్క్ అభ్యర్థనలు: %d</item>
+    </plurals>
+    <string name="usage_received">అందినది: %1$s</string>
+    <string name="usage_level_low">తక్కువ కార్యకలాపం</string>
+    <string name="usage_level_medium">మధ్యస్థ కార్యకలాపం</string>
+    <string name="usage_level_high">అధిక కార్యకలాపం</string>
+    <string name="usage_driver_interval">ఎక్కువగా బ్యాక్‌గ్రౌండ్ తనిఖీ వల్ల (%1$s).</string>
+    <string name="usage_driver_exact">ఎక్కువగా బ్యాక్‌గ్రౌండ్ తనిఖీ (%1$s) మరియు “%2$s” వల్ల.</string>
+    <string name="usage_driver_none">బ్యాక్‌గ్రౌండ్ తనిఖీ ఏదీ షెడ్యూల్ కాలేదు – తెరిచిన యాప్ మరియు విడ్జెట్‌లు తెచ్చేవే లెక్కలోకి వస్తాయి.</string>
+    <string name="usage_driver_watch">వాచ్ యాప్ మరియు దాని కాంప్లికేషన్‌లు తామే తెచ్చేవే లెక్కలోకి వస్తాయి.</string>
+    <string name="usage_watch_none">వాచ్ ఏదీ కనెక్ట్ కాలేదు</string>
+    <string name="usage_as_of">%1$s నాటికి</string>
+    <string name="usage_battery_android">Android ప్రతి యాప్ బ్యాటరీ వినియోగాన్ని తన బ్యాటరీ సెట్టింగ్‌లలో చూపిస్తుంది.</string>
+</resources>

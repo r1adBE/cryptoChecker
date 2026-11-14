@@ -1561,6 +1561,12 @@ the tests named here.
   Z = Y ÷ (start value + gross inflows in the range; sales not subtracted – the same base as «Today» and the rows), «Since 1st buy» ÷ all money put in; base ≤ 0 → amount only.
   Coins with unpriced trades or missing day prices are left out and named
   (`portfolio_history_pnl_without`). The old «value now vs. range start» figure is never shown as gain.
+  A coin held before its first daily close (the exchange's delivery limit – Kraken returns at most 720 daily
+  candles, OKX/Coinbase about 600 – or bought before the listing) enters at its first close («entry»,
+  `PortfolioHistoryEntries`, `portfolio_history_entry`): its value there is a cash flow on that day, so the value
+  curve rises but «change without trades» and gain/loss show no jump; steps up to that day are inside the entry
+  value. If nothing else has a value before it, the range starts at the entry day. Only a coin without any priced
+  held day is left out («without …»).
 * **One «Today».** The snapshot computes today's change once: `todayFromCoinChanges` (coins without
   a day change are left out, never filled flat), then `todayAdjusted` removes today's trades
   (Android `PortfolioSnapshotUpdater.withHonestToday`, iOS `PortfolioWidgetStore.compute`). Card,
@@ -2233,9 +2239,11 @@ the tests named here.
   fee = difference in the coin). Within one file and against stored *imported* rows (manual rows are never
   changed). Exactly one candidate → preselected; several → shown, off (preview id `linkId` = «withdrawal →
   deposit», never stored). Sides without such a candidate get further ones up to 14 days later and up to 50 % fee
-  (`loose`, own hint, never preselected). «To own wallet» for a withdrawal with a free matching deposit links them
-  (`linkOwnWallet`/`linkOwnWallets`, also after turning a link off, which clears that withdrawal's choice) – a
-  transfer next to the same coins as a separate deposit would count twice. The linked row keeps both import keys in own fields – `importKey` = withdrawal,
+  (`loose`, own hint, never preselected and never linked automatically – only when the user turns one on).
+  «To own wallet» links a withdrawal automatically only to its one usual candidate with a free deposit that no other
+  «to own wallet» withdrawal also matches (`linkOwnWallet`/`linkOwnWallets`) – a transfer next to the same coins as a
+  separate deposit would count twice. Turning a link off clears that withdrawal's choice and marks it declined: «to own
+  wallet» then stays a transfer without a link (the user's choice sticks). The linked row keeps both import keys in own fields – `importKey` = withdrawal,
   `linkedImportKey` = deposit – so re-importing either file finds duplicates (`importKeys()` returns
   both). A stored row that gets linked moves into the new import run and keeps its original state plus the state of
   the absorbed row of the later file in `importRestoreState` (`CsvRestoreState`, versioned JSON `{"v":1,"stored":
@@ -2955,7 +2963,8 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   (`fx_*`, no holdings). Never in a backup rule.
 * Other Android files outside the databases (no amounts or addresses): settings
   DataStore, `refresh_stats`, `activity`, `move_history`, `widgets` (widget configuration), `recent_searches`,
-  `check_runs.txt`, `token_names.json`, coin lists/logos and `portfolio_last_prices.txt` (USDT prices of the held
+  `check_runs.txt`, `usage_log.txt` / `watch_usage.txt` (counters of «Battery & activity», §20), `token_names.json`,
+  coin lists/logos and `portfolio_last_prices.txt` (USDT prices of the held
   coins – reveals which coins, not how many; same as iOS). `portfolio_system_backup.json` is the documented
   opt-in plaintext mirror.
 * Tests: `DatabaseOpenPlannerTest`, `DatabaseFingerprintTest`, `DatabaseKeyRetryTest`, `DatabaseKeyRecoveryTest`,
@@ -2987,7 +2996,8 @@ an atomic rename; without a key nothing with user data is written in plaintext.
   defaults. Only the `.unreadable` copies of watchlist, portfolio alarms and portfolio (`ProtectedFile.writeCopy`) may
   be written plain without a key; the next start seals them. Plain on purpose (no amounts, addresses or notes;
   Android keeps them outside the databases too): price caches of the portfolio widget, `portfolio_last_prices.txt`,
-  `check_runs.txt`, coin names/logos, `phemex_scales.json`, `alarm.lease`, App Group defaults.
+  `check_runs.txt`, `usage_log.txt` / `watch_usage.txt` (counters only, §20), coin names/logos, `phemex_scales.json`,
+  `alarm.lease`, App Group defaults.
 * All reads/writes of these files go through `ProtectedFile`: `read` opens a sealed file, throws `.locked` without
   key or for a newer container version (callers treat it as «inaccessible»: never overwrite) and `.damaged(raw)` for
   a broken sealed file **or a plaintext file** (treated like corrupt JSON: raw bytes preserved). `write` seals,
@@ -3131,6 +3141,25 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
 * **Destructive or far-reaching taps ask first.** Swiping a transaction away asks like the editor (no Undo banner
   afterwards); changing the cost method and switching «Portfolio in system backup» on ask too (parity
   `settings_confirm.json`).
+* **«Battery & activity» counts, it does not measure power.** Apps cannot read their own battery use (Android only
+  for system apps, iOS/watchOS not at all), so Settings › «Battery & activity» shows the app's own activity of the
+  last 24 hours, separately for the phone and the watch: background runs, network requests and bytes received
+  (`UsageLog` – Android `marketdata/usage`, iOS `WatchCore`, parity `usage_log.json`). Counted in hourly buckets
+  (rolling 24 h, kept 7 days at most) by `UsageMeter` per process, in memory and written at most once a minute and at
+  the end of each background run (`usage_log.txt`; Android `noBackupFilesDir`, iOS the App Group via
+  `NSFileCoordinator`, excluded from backups). A run is every entry of «Last checks» except the open app
+  (`CheckRunStore.add`), plus Android's market-notice and economic-calendar workers and widget updates that fetch
+  (`countedRun`), the iOS pulse/portfolio widget timelines that fetch and watch complications that fetch. Requests and
+  bytes: Android `UsageEventListener` on the shared OkHttp client (body bytes as transferred), iOS `UsageTaskMetrics`
+  (`countOfResponseBodyBytesReceived`; sessions with their own delegate count the bytes read), WebSockets one request
+  per connection attempt plus the UTF-8 bytes of each message, the watches in their own fetch. No hosts, addresses or
+  content are stored. Rating from fixed thresholds per 24 h, the highest of the three wins: medium from 48 runs,
+  500 requests or 10 MB, high from 144 runs, 2,000 requests or 50 MB. The watch sends only its 24 h totals and their
+  time (`1;time;runs;requests;bytes`) to its phone – Wear OS as a non-urgent data item `/cc/usage`
+  (`WatchUsage` → `PhoneWatchUsage`), Apple Watch under `usage` in its application context (`WatchLink` →
+  `WatchUsageStore`), at most every 30 minutes; nothing else leaves the devices. The button opens Android's battery
+  usage (`ACTION_POWER_USAGE_SUMMARY`, fallback the app details) or the iOS settings of the app (the list per app is
+  under Settings › Battery).
 
 ## Build notes
 
@@ -3152,6 +3181,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 231: AccessibilityAuditTests: Dynamic Type recheck pass; ios.yml: retry on main/tags too, ui_retry_policy.py (with self-test) fails the job for any retried test whose failures were not Simulator hiccups.
 * Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos. Performance tests: scaling factor 6 (was 5) on both platforms.
 * Build 233: Audit of build 232 (S3/F3/N3/B3/U3, 73 findings): fixed in five groups A–E; see ROADMAP block «Audit von Build 232».
+* Build 234: Rest of the build-232 audit and cross-check of the build-233 fixes (R4/G4/V4/X4, 31 findings) fixed in groups F–H; new «Akku & Aktivität» (group I, local counters only).
 
 ## Known warnings
 

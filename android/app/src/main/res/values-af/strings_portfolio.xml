@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Geen geskiedenis nou beskikbaar nie.</string>
     <string name="portfolio_history_utc_days">Dae in UTC (daaglikse kerse)</string>
     <string name="portfolio_history_without_matching">Sonder %1$s (geen passende daaglikse pryse nie)</string>
+    <string name="portfolio_history_entry">Instap by die eerste daaglikse prys: %1$s (geen daaglikse pryse vroeër nie)</string>
     <string name="portfolio_period_rewards">Belonings +%1$s (nie in wins nie)</string>
     <string name="portfolio_period_scaled">7 D/1 J vir %1$s: Binance-geskiedenis na die beursprys geskaal</string>
 

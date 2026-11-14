@@ -20,8 +20,9 @@ struct PortfolioCsvImportSheet: View {
     @State var choices: [String: CsvWithdrawalChoice] = [:]
     /// Mögliche Umbuchungen (Auszahlung + Einzahlung desselben Coins, `CsvTransferMatch.candidates`) — wie Android.
     @State var links: [CsvTransferLink] = []
-    /// Gewählte Umbuchungen (`CsvTransferLink.key`); eindeutige sind vorgewählt.
+    /// Gewählte Umbuchungen (`CsvTransferLink.key`); eindeutige vorgewählt. `declined`: Verknüpfung vom Nutzer ausgeschaltet.
     @State var linked: Set<String> = []
+    @State var declined: Set<String> = []
     /// Gewählte Zeitzone der Zeiten ohne Versatz (nil = Regel: Swissquote Europe/Zurich, sonst Gerät).
     @State var zone: String? = nil
     /// Gewählte Reihenfolge Tag/Monat bei mehrdeutigen Daten (nil = Standard, Tag zuerst) — wie Android `setDateOrder`.

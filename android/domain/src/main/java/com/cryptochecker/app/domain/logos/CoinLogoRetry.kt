@@ -77,6 +77,37 @@ object CoinLogoRetry {
     /** Pausiert diese Folge gestörter Bilder den Server ([TRANSIENT_PAUSE_STREAK])? Dann ohne Angabe [IMAGE_PAUSE_MILLIS]. */
     fun transientStreakPauses(streak: Int): Boolean = streak >= TRANSIENT_PAUSE_STREAK
 
+    /**
+     * So viele Durchgänge in Folge ein Bild offen gelassen (gestört bzw. sein Server gebremst): Es zählt dann wie
+     * gescheitert (Tagessperre) — sonst hielte ein dauerhaft gestörtes Bild bzw. ein gesperrter Bild-Server das erste
+     * Laden für immer offen. Ein Durchgang ohne Netz zählt nicht. Gleiche Fälle: coin_logos.json › openPasses.
+     */
+    const val OPEN_PASSES_FAIL = 3
+
+    /**
+     * Offene Durchgänge je Bild nach einem Durchgang: versucht wurden [attempted], offen blieben [open] (+1); die übrigen
+     * versuchten (geladen, gescheitert, nicht gespeichert) fallen weg, nicht versuchte behalten ihre Zahl.
+     */
+    fun nextOpenPasses(previous: Map<String, Int>, attempted: Collection<String>, open: Collection<String>): Map<String, Int> {
+        val next = previous.filterKeys { it !in attempted }.toMutableMap()
+        for (name in open.toSet()) next[name] = (previous[name] ?: 0) + 1
+        return next
+    }
+
+    /** Gilt ein Bild mit [passes] offenen Durchgängen in Folge als gescheitert ([OPEN_PASSES_FAIL])? */
+    fun openPassesFail(passes: Int): Boolean = passes >= OPEN_PASSES_FAIL
+
+    /** Offene Durchgänge speichern: «name=zahl;…», nach Namen sortiert. */
+    fun encodeOpenPasses(passes: Map<String, Int>): String =
+        passes.entries.filter { it.value > 0 }.sortedBy { it.key }.joinToString(";") { "${it.key}=${it.value}" }
+
+    /** Gespeicherte offene Durchgänge; ungültige Teile fallen weg. */
+    fun decodeOpenPasses(text: String?): Map<String, Int> = text.orEmpty().split(';').mapNotNull { part ->
+        val name = part.substringBefore('=').trim()
+        val passes = part.substringAfter('=', "").trim().toIntOrNull() ?: return@mapNotNull null
+        if (name.isEmpty() || passes <= 0) null else name to passes
+    }.toMap()
+
     /** Pause ohne Angabe des Servers. */
     const val IMAGE_PAUSE_MILLIS = 15 * 60_000L
 

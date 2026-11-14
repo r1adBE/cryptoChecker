@@ -188,6 +188,7 @@
     <string name="settings_indicator_alerts_hint">Kazalniki Bitcoina, preverjeni dvakrat na dan. Meje določiš ti – aplikacija vrednosti ne ocenjuje.</string>
     <string name="settings_macro_notifications">Gospodarski koledar</string>
     <string name="settings_macro_notifications_hint">Ob 08:00 na dneve s pomembnimi ameriškimi gospodarskimi podatki (inflacija, poročilo o trgu dela, odločitev Fed). Koledar je s spletne strani aplikacije in se naloži enkrat na dan.</string>
+    <string name="settings_macro_notifications_us_hint">V ZDA obvestilo pride najpozneje ob 08:00 po newyorškem času, pred prvimi podatki.</string>
     <string name="settings_market_alerts">Tržna obvestila</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -300,6 +301,7 @@
     <string name="diagnostics_action_share">Deli</string>
     <string name="settings_price_overlay">Prekrivanje tečaja</string>
     <string name="settings_price_overlay_hint">Pare iz trajnega obvestila o tečaju prikaže kot majhno lebdečo oznako nad drugimi aplikacijami. Tapni za odprtje aplikacije, povleci na × spodaj za zaprtje.</string>
+    <string name="settings_price_overlay_restart_hint">Če sistem zapre aplikacijo, se prekrivanje tečaja vrne z naslednjo posodobitvijo v ozadju.</string>
     <string name="settings_price_overlay_needs">Deluje samo skupaj z „%1$s“.</string>
     <string name="settings_price_overlay_grant">Dovoli prikaz nad drugimi aplikacijami</string>
     <string name="price_overlay_close">Zapri prekrivanje</string>

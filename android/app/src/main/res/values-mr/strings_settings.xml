@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin निर्देशक, दिवसातून दोनदा तपासले जातात. मर्यादा तुम्ही निवडता – ॲप मूल्यांचे मूल्यमापन करत नाही.</string>
     <string name="settings_macro_notifications">आर्थिक कॅलेंडर</string>
     <string name="settings_macro_notifications_hint">महत्त्वाचा US आर्थिक डेटा असलेल्या दिवशी 08:00 वाजता (महागाई, रोजगार अहवाल, फेड निर्णय). कॅलेंडर ॲपच्या वेबसाइटवरून येते, दिवसातून एकदा लोड होते.</string>
+    <string name="settings_macro_notifications_us_hint">अमेरिकेत सूचना जास्तीत जास्त न्यूयॉर्क वेळेनुसार 08:00 वाजता, पहिल्या डेटापूर्वी येते.</string>
     <string name="settings_market_alerts">मार्केट अलर्ट</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">शेअर करा</string>
     <string name="settings_price_overlay">किंमत ओव्हरले</string>
     <string name="settings_price_overlay_hint">कायमस्वरूपी किंमत सूचनेतील जोड्या इतर ॲप्सवर तरंगणाऱ्या छोट्या पिलच्या रूपात दाखवते. ॲप उघडण्यासाठी टॅप करा, बंद करण्यासाठी खालच्या × कडे ओढा.</string>
+    <string name="settings_price_overlay_restart_hint">सिस्टमने ॲप बंद केल्यास, किंमत ओव्हरले पुढील बॅकग्राउंड अपडेटसोबत परत येतो.</string>
     <string name="settings_price_overlay_needs">फक्त «%1$s» सोबतच काम करते.</string>
     <string name="settings_price_overlay_grant">इतर ॲप्सवर दाखवण्याची परवानगी द्या</string>
     <string name="price_overlay_close">ओव्हरले बंद करा</string>

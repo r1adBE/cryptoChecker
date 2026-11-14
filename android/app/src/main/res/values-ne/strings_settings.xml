@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin सूचकहरू, दिनमा दुई पटक जाँच गरिन्छ। सीमा तपाईं छान्नुहुन्छ – एपले मानहरूको मूल्याङ्कन गर्दैन।</string>
     <string name="settings_macro_notifications">आर्थिक क्यालेन्डर</string>
     <string name="settings_macro_notifications_hint">महत्त्वपूर्ण अमेरिकी आर्थिक डेटा (मुद्रास्फीति, रोजगार प्रतिवेदन, फेड निर्णय) भएका दिनमा 08:00 बजे। क्यालेन्डर एपको वेबसाइटबाट आउँछ, दिनमा एक पटक लोड हुन्छ।</string>
+    <string name="settings_macro_notifications_us_hint">अमेरिकामा सूचना बढीमा न्युयोर्क समय 08:00 मा, पहिलो डेटाभन्दा अघि आउँछ।</string>
     <string name="settings_market_alerts">बजार अलर्टहरू</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">साझा गर्नुहोस्</string>
     <string name="settings_price_overlay">मूल्य ओभरले</string>
     <string name="settings_price_overlay_hint">स्थायी मूल्य सूचनाका जोडीहरूलाई अन्य एपहरूमाथि सानो तैरने पिलका रूपमा देखाउँछ। एप खोल्न ट्याप गर्नुहोस्, बन्द गर्न तल × मा तान्नुहोस्।</string>
+    <string name="settings_price_overlay_restart_hint">प्रणालीले एप बन्द गरेमा, मूल्य ओभरले अर्को ब्याकग्राउन्ड अपडेटसँगै फर्किन्छ।</string>
     <string name="settings_price_overlay_needs">“%1$s” सँग मात्र काम गर्छ।</string>
     <string name="settings_price_overlay_grant">अन्य एपहरूमाथि देखाउन अनुमति दिनुहोस्</string>
     <string name="price_overlay_close">ओभरले बन्द गर्नुहोस्</string>

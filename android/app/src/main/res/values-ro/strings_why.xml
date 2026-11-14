@@ -8,8 +8,9 @@
     <string name="why_details_hide">Ascunde detaliile</string>
     <string name="why_disclaimer">Evaluare automată din datele pieței: arată ce se întâmplă în același timp, nu dovedește o cauză.</string>
     <string name="why_footer_short">Simultan nu înseamnă cauză · Nu este consultanță de investiții</string>
-    <string name="why_no_data">Nu există date Binance pentru această pereche</string>
-    <string name="why_no_data_hint">Prețul, volumul și volatilitatea provin din lumânările orare Binance.</string>
+    <string name="why_no_candles">Nu există lumânări orare pentru această pereche</string>
+    <string name="why_no_candles_hint">Prețul, volumul și volatilitatea provin din lumânările orare %1$s sau, când este posibil, de la alt exchange cu aceeași monedă.</string>
+    <string name="why_no_data_retry_hint">Prețul, volumul și volatilitatea nu au putut fi încărcate. Încearcă din nou.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Interpretare posibilă</string>
     <string name="why_section_observation">Observație</string>

@@ -177,7 +177,7 @@ class LogoImageStore @Inject constructor(
         if (pending.isEmpty()) return LogoDownloads()
         loadingHint.imagesPending(pending.size, last = lastStage)
         val altByFile = alternates.entries.mapNotNull { (key, urls) -> CoinLogos.fileName(key)?.let { it to urls } }.toMap()
-        val attempted = pending.size
+        val names = pending.map { it.first }
         val added = AtomicInteger()
         val unsaved = AtomicInteger()
         val newFailures = ConcurrentHashMap<String, Long>()
@@ -223,21 +223,23 @@ class LogoImageStore @Inject constructor(
             pending = next
         }
         val paused = parked
-        // Fortschritt schliessen: diese Bilder kommen erst mit dem nächsten Abgleich
-        transientLeft.forEach { _ -> loadingHint.imageDone() }
+        transientLeft.forEach { _ -> loadingHint.imageDone() } // Fortschritt schliessen (kommen mit dem nächsten Abgleich)
         // Am fehlenden Netz gescheitert: nicht einen Tag sperren, sondern mit dem Netz nachholen
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
         val network = CoinLogoRetry.downloadsFailedForNetwork(
-            connectivity.isOnline(), newFailures.size + transientLeft.size, attempted - paused.size - unsaved.get(),
+            connectivity.isOnline(), newFailures.size + transientLeft.size, names.size - paused.size - unsaved.get(),
             transient = transientLeft.size,
         )
+        // Drei Durchgänge in Folge offen (gestört, gebremst) zählt wie gescheitert, sonst bliebe das erste Laden offen
+        val capped = (if (network) emptySet() else pauses.noteOpenPasses(names, (transientLeft + paused).map { it.first })).onEach { newFailures[it] = now }
         if (newFailures.isNotEmpty() && !network) pauses.saveFailures(pauses.loadFailures(System.currentTimeMillis()) + newFailures)
         if (added.get() > 0) bumpRevision(force = true)
         Timber.i("Coin-Logos: %d neu, %d fehlgeschlagen, %d gebremst, %d gestört, %d nicht gespeichert", added.get(),
             newFailures.size, paused.size, transientLeft.size, unsaved.get())
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
-        val pausedUntil = if (paused.isEmpty()) null else pauses.earliestPauseEnd(paused) ?: System.currentTimeMillis()
-        return LogoDownloads(added.get(), network, pausedUntil, incomplete = transientLeft.isNotEmpty() || unsaved.get() > 0)
+        val pausedUntil = paused.filter { it.first !in capped }.takeIf { it.isNotEmpty() }
+            ?.let { pauses.earliestPauseEnd(it) ?: System.currentTimeMillis() }
+        return LogoDownloads(added.get(), network, pausedUntil, incomplete = transientLeft.any { it.first !in capped } || unsaved.get() > 0)
     }
 
     /** Erst [url], scheitert es, die Ersatz-Adressen der Reihe nach; bremst dabei ein Server, gilt das Bild als gebremst. */

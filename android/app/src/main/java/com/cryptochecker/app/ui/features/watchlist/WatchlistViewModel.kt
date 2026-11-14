@@ -133,13 +133,13 @@ class WatchlistViewModel @Inject internal constructor(
     fun tapColumn(key: SortKey) {
         // Vom gespeicherten Stand aus, nicht vom angezeigten (der kann bei schnellen Tipps noch nachhinken)
         viewModelScope.launch {
-            settingsRepository.updateWatchlistColumnSort { ColumnSort.next(ColumnSort.decode(it), key)?.encode() }
+            settingsRepository.guarded { updateWatchlistColumnSort { ColumnSort.next(ColumnSort.decode(it), key)?.encode() } }
         }
     }
 
     /** Sortieren nach Spalte aus (z. B. beim manuellen Sortieren, das die eigene Reihenfolge zeigt). */
     fun clearColumnSort() {
-        if (columnSort.value != null) viewModelScope.launch { settingsRepository.setWatchlistColumnSort(null) }
+        if (columnSort.value != null) viewModelScope.launch { settingsRepository.guarded { setWatchlistColumnSort(null) } }
     }
 
     /** Chart-Art im Aktionsblatt: zuletzt gewählt, für alle Paare gleich (Standard Kerzen). */
@@ -148,20 +148,20 @@ class WatchlistViewModel @Inject internal constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.sheetChartLine)
 
     fun setSheetChartLine(line: Boolean) {
-        viewModelScope.launch { settingsRepository.setSheetChartLine(line) }
+        viewModelScope.launch { settingsRepository.guarded { setSheetChartLine(line) } }
     }
 
     fun dismissGestureHint() {
-        viewModelScope.launch { settingsRepository.setGestureHintSeen(true) }
+        viewModelScope.launch { settingsRepository.guarded { setGestureHintSeen(true) } }
     }
 
     fun dismissFirstAlarmCard() {
-        viewModelScope.launch { settingsRepository.setFirstAlarmCardDismissed(true) }
+        viewModelScope.launch { settingsRepository.guarded { setFirstAlarmCardDismissed(true) } }
     }
 
     /** Öffnen heute zählen (lokaler Kalendertag), für [com.cryptochecker.app.domain.watch.WatchlistOnboarding]. */
     fun recordUsageDay() {
-        viewModelScope.launch { settingsRepository.recordUsageDay(java.time.LocalDate.now().toEpochDay()) }
+        viewModelScope.launch { settingsRepository.guarded { recordUsageDay(java.time.LocalDate.now().toEpochDay()) } }
     }
 
     /**
@@ -344,7 +344,7 @@ class WatchlistViewModel @Inject internal constructor(
 
     suspend fun satsRate(quote: String): Pair<String, Double>? = sheetData.satsRate(quote)
 
-    suspend fun explain(watch: WatchEntity): WhyReport? = sheetData.explain(watch)
+    suspend fun explain(watch: WatchEntity, refresh: Boolean = false): WhyReport? = sheetData.explain(watch, refresh)
 
     suspend fun fetchFutures(watch: WatchEntity): com.cryptochecker.app.domain.remote.FuturesInfo? = sheetData.fetchFutures(watch)
 

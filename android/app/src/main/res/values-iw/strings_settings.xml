@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">מדדי ביטקוין, נבדקים פעמיים ביום. הגבולות נקבעים על ידך – האפליקציה לא מעריכה את הערכים.</string>
     <string name="settings_macro_notifications">לוח אירועים כלכליים</string>
     <string name="settings_macro_notifications_hint">ב־08:00 בימים עם נתונים כלכליים חשובים מארה״ב (אינפלציה, תעסוקה, החלטת הפד). הלוח נטען מאתר האפליקציה פעם ביום.</string>
+    <string name="settings_macro_notifications_us_hint">בארה״ב ההתראה מגיעה לכל המאוחר ב-08:00 שעון ניו יורק, לפני הנתונים הראשונים.</string>
     <string name="settings_market_alerts">הודעות שוק</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">שיתוף</string>
     <string name="settings_price_overlay">שכבת מחירים</string>
     <string name="settings_price_overlay_hint">מציגה את הצמדים של התראת המחיר הקבועה כגלולה צפה קטנה מעל אפליקציות אחרות. הקישו כדי לפתוח את האפליקציה, גררו אל × למטה כדי לסגור.</string>
+    <string name="settings_price_overlay_restart_hint">אם המערכת סוגרת את האפליקציה, שכבת המחירים חוזרת עם העדכון הבא ברקע.</string>
     <string name="settings_price_overlay_needs">פועל רק יחד עם «%1$s».</string>
     <string name="settings_price_overlay_grant">אפשרו הצגה מעל אפליקציות אחרות</string>
     <string name="price_overlay_close">סגירת השכבה</string>

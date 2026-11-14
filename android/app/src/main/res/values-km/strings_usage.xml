@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ថ្ម និងសកម្មភាព</string>
+    <string name="usage_intro">កម្មវិធីមិនអាចអានការប្រើថាមពលរបស់ខ្លួនបានទេ។ ដូច្នេះ កម្មវិធីបង្ហាញអ្វីដែលវាបានធ្វើដោយខ្លួនឯងក្នុងរយៈពេល 24 ម៉ោងចុងក្រោយ – រាប់តែលើឧបករណ៍នេះប៉ុណ្ណោះ ដោយគ្មានខ្លឹមសារណាមួយ។</string>
+    <string name="usage_phone">ទូរសព្ទ</string>
+    <string name="usage_watch">នាឡិកា</string>
+    <plurals name="usage_runs">
+        <item quantity="other">ដំណើរការផ្ទៃខាងក្រោយ %d ដង</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">សំណើបណ្ដាញ %d</item>
+    </plurals>
+    <string name="usage_received">បានទទួល %1$s</string>
+    <string name="usage_level_low">សកម្មភាពទាប</string>
+    <string name="usage_level_medium">សកម្មភាពមធ្យម</string>
+    <string name="usage_level_high">សកម្មភាពខ្ពស់</string>
+    <string name="usage_driver_interval">ភាគច្រើនដោយសារការពិនិត្យផ្ទៃខាងក្រោយ (%1$s)។</string>
+    <string name="usage_driver_exact">ភាគច្រើនដោយសារការពិនិត្យផ្ទៃខាងក្រោយ (%1$s) និង «%2$s»។</string>
+    <string name="usage_driver_none">គ្មានការពិនិត្យផ្ទៃខាងក្រោយបានកំណត់ទេ – រាប់តែអ្វីដែលកម្មវិធីដែលបើក និងធាតុក្រាហ្វិកទាញយក។</string>
+    <string name="usage_driver_watch">រាប់អ្វីដែលកម្មវិធីនាឡិកា និងធាតុបន្ថែមរបស់វាទាញយកដោយខ្លួនឯង។</string>
+    <string name="usage_watch_none">គ្មាននាឡិកាបានភ្ជាប់</string>
+    <string name="usage_as_of">គិតត្រឹម %1$s</string>
+    <string name="usage_battery_android">Android បង្ហាញការប្រើថ្មតាមកម្មវិធីនីមួយៗនៅក្នុងការកំណត់ថ្មរបស់វា។</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">电池与活动</string>
+    <string name="usage_intro">应用无法读取自身的耗电量。因此，本应用显示它在过去 24 小时内自己做了什么——仅在此设备上计数，不含任何内容。</string>
+    <string name="usage_phone">手机</string>
+    <string name="usage_watch">手表</string>
+    <plurals name="usage_runs">
+        <item quantity="other">后台运行 %d 次</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="other">网络请求 %d 次</item>
+    </plurals>
+    <string name="usage_received">已接收 %1$s</string>
+    <string name="usage_level_low">活动较少</string>
+    <string name="usage_level_medium">活动中等</string>
+    <string name="usage_level_high">活动较多</string>
+    <string name="usage_driver_interval">主要来自后台检查（%1$s）。</string>
+    <string name="usage_driver_exact">主要来自后台检查（%1$s）和“%2$s”。</string>
+    <string name="usage_driver_none">未安排后台检查——只计算打开的应用和小组件获取的内容。</string>
+    <string name="usage_driver_watch">计算手表应用及其复杂功能自行获取的内容。</string>
+    <string name="usage_watch_none">未连接手表</string>
+    <string name="usage_as_of">截至 %1$s</string>
+    <string name="usage_battery_android">Android 会在电池设置中显示各应用的耗电量。</string>
+</resources>

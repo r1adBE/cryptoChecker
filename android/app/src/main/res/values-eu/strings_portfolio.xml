@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Une honetan ez dago historiarik erabilgarri.</string>
     <string name="portfolio_history_utc_days">Egunak UTCn (eguneko kandelak)</string>
     <string name="portfolio_history_without_matching">%1$s gabe (ez dago bat datorren eguneko preziorik)</string>
+    <string name="portfolio_history_entry">Eguneko lehen preziotik zenbatuta: %1$s (lehenago ez dago eguneko preziorik)</string>
     <string name="portfolio_period_rewards">Sariak +%1$s (ez irabazian)</string>
     <string name="portfolio_period_scaled">7 E/1 U %1$s-(r)entzat: Binanceko historia burtsaren preziora eskalatua</string>
 

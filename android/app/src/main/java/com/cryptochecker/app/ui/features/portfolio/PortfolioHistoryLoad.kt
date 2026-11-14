@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioHistorySeries
+import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.RoutedHistory
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
@@ -106,11 +107,15 @@ internal fun snapshotUsdtFactor(snapshot: com.cryptochecker.app.domain.portfolio
     com.cryptochecker.app.widget.PortfolioWidgetChart.fxFactor(snapshot)
         ?: if (snapshot.currency == "USD") 1.0 else fxRate?.takeIf { it > 0.0 }
 
-/** Beginn der Devisenkurs-Abfrage für den Verlauf [range] (siehe [PortfolioHistoryFx.requestRange]). */
+/**
+ * Beginn der Devisenkurs-Abfrage für den Verlauf [range] (siehe [PortfolioHistoryFx.requestRange]), mindestens aber für
+ * «1 J» der Karte ([PortfolioPeriodChange.YEAR_DAYS]) — sonst rechnete «1 J» in der Anzeigewährung je nach Zeitraum des
+ * Diagramms mit oder ohne Tageskurse (zwei Zahlen für dieselbe Zeile). Wie iOS.
+ */
 internal fun fxSeriesFrom(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): LocalDate {
     val today = LocalDate.ofEpochDay(PortfolioHistory.utcToday())
     val days = if (range == PortfolioHistoryRange.SINCE_FIRST) historyRequest(txs, range).days else range.days
-    return PortfolioHistoryFx.requestRange(days, today).first
+    return PortfolioHistoryFx.requestRange(maxOf(days, PortfolioPeriodChange.YEAR_DAYS), today).first
 }
 
 /** Welche Tagesschlusskurse der gewählte Zeitraum braucht: Coins und Tage bis heute. */

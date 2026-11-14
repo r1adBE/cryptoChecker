@@ -47,6 +47,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.CycleMarker
 import com.cryptochecker.app.domain.market.CycleSeries
+import com.cryptochecker.app.domain.market.CycleShades
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
@@ -125,21 +126,18 @@ internal fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
     val accent = MaterialTheme.colorScheme.primary
     val grid = MaterialTheme.colorScheme.outlineVariant
     val cardBackground = MaterialTheme.colorScheme.surfaceContainer
-    // Auch die älteste Linie erreicht als Grafik mindestens 3:1: 65 % von onSurfaceVariant ergibt hell 3.5:1
+    // Auch die älteste Linie erreicht als Grafik mindestens 3:1 (CycleShades.OLDEST): 65 % von onSurfaceVariant ergibt hell 3.5:1
     // auf dem Papier #FBF9F6 (3.4:1 auf der Karte #F1EEE9), dunkel 5.2:1 auf #131313 (4.9:1 auf #1F1F1F);
     // mit 35 % waren es nur 1.8:1. Der laufende Zyklus bleibt in der Akzentfarbe hervorgehoben.
-    val older = listOf(
-        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f),
-        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f),
-    )
+    val older = MaterialTheme.colorScheme.onSurfaceVariant
     val series = history.series
     if (series.isEmpty()) return
 
     val model = remember(history, currentHalving) { CycleChartModel(history, currentHalving) }
     val maxDay = CYCLE_MAX_DAY
-    // Ältere Zyklen grau (älteste am hellsten), der laufende in der Akzentfarbe
+    // Ältere Zyklen grau (älteste am hellsten, jeder mit eigenem Ton, auch ab 2028), der laufende in der Akzentfarbe
     val colors = series.mapIndexed { i, _ ->
-        if (i == series.lastIndex) accent else older[i.coerceAtMost(older.lastIndex)]
+        if (i == series.lastIndex) accent else older.copy(alpha = CycleShades.olderAlpha(i, series.lastIndex))
     }
     // Höchstens eine Sprechblase; Index in model.markers
     var selected by remember(model) { mutableStateOf<Int?>(null) }

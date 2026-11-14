@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Показатели на Bitcoin, проверявани два пъти дневно. Границите избираш ти – приложението не оценява стойностите.</string>
     <string name="settings_macro_notifications">Икономически календар</string>
     <string name="settings_macro_notifications_hint">В 08:00 в дни с важни икономически данни за САЩ (инфлация, доклад за заетостта, решение на Фед). Календарът идва от уебсайта на приложението и се зарежда веднъж дневно.</string>
+    <string name="settings_macro_notifications_us_hint">В САЩ известието идва най-късно в 08:00 нюйоркско време, преди първите данни.</string>
     <string name="settings_market_alerts">Пазарни известия</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Сподели</string>
     <string name="settings_price_overlay">Наслагване на курса</string>
     <string name="settings_price_overlay_hint">Показва двойките от постоянното известие за курс като малък плаващ етикет върху други приложения. Докосни, за да отвориш приложението, плъзни към × долу, за да го затвориш.</string>
+    <string name="settings_price_overlay_restart_hint">Ако системата затвори приложението, наслагването на курса се връща със следващото обновяване във фонов режим.</string>
     <string name="settings_price_overlay_needs">Работи само заедно с „%1$s“.</string>
     <string name="settings_price_overlay_grant">Разреши показване върху други приложения</string>
     <string name="price_overlay_close">Затвори наслагването</string>

@@ -26,12 +26,13 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
     @Inject lateinit var scheduler: com.cryptochecker.app.work.PriceUpdateScheduler
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        launchAsync("Portfolio-Widget aktualisieren") {
+        // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
+        launchAsync("Portfolio-Widget aktualisieren") { com.cryptochecker.app.work.countedRun {
             // Sofort mit der letzten Aufnahme zeichnen, dann frisch berechnen
             widgetUpdater.updatePortfolio(appWidgetIds)
             // goAsync erlaubt nur rund 10 s
             withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { snapshotUpdater.refresh() }
-        }
+        } }
     }
 
     /** Grösse geändert: aus der letzten Aufnahme in der neuen Stufe zeichnen (ohne Netz). */

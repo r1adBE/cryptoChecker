@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">बिटकॉइन संकेतक, दिन में दो बार जाँचे जाते हैं। सीमाएँ आप चुनते हैं – ऐप मानों का मूल्यांकन नहीं करता।</string>
     <string name="settings_macro_notifications">आर्थिक कैलेंडर</string>
     <string name="settings_macro_notifications_hint">महत्वपूर्ण अमेरिकी आर्थिक आँकड़ों (महँगाई, जॉब्स रिपोर्ट, फ़ेड फ़ैसला) वाले दिनों में 08:00 बजे। कैलेंडर ऐप की वेबसाइट से दिन में एक बार लोड होता है।</string>
+    <string name="settings_macro_notifications_us_hint">अमेरिका में सूचना ज़्यादा से ज़्यादा न्यूयॉर्क समय 08:00 बजे, पहले डेटा से पहले आती है।</string>
     <string name="settings_market_alerts">बाज़ार सूचनाएँ</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">शेयर करें</string>
     <string name="settings_price_overlay">कीमत ओवरले</string>
     <string name="settings_price_overlay_hint">स्थायी कीमत सूचना के जोड़े दूसरे ऐप्स के ऊपर एक छोटी तैरती गोली में दिखाता है। ऐप खोलने के लिए टैप करें, बंद करने के लिए नीचे × पर खींचें।</string>
+    <string name="settings_price_overlay_restart_hint">अगर सिस्टम ऐप बंद कर दे, तो कीमत ओवरले अगले बैकग्राउंड अपडेट के साथ वापस आता है।</string>
     <string name="settings_price_overlay_needs">सिर्फ़ «%1$s» के साथ काम करता है।</string>
     <string name="settings_price_overlay_grant">दूसरे ऐप्स के ऊपर दिखाने की अनुमति दें</string>
     <string name="price_overlay_close">ओवरले बंद करें</string>

@@ -8,8 +8,9 @@
     <string name="why_details_hide">Скрий подробностите</string>
     <string name="why_disclaimer">Автоматична оценка от пазарни данни: показва какво се случва по същото време, не е доказателство за причина.</string>
     <string name="why_footer_short">Едновременно не означава причина · Не е инвестиционен съвет</string>
-    <string name="why_no_data">Няма данни от Binance за тази двойка</string>
-    <string name="why_no_data_hint">Курсът, обемът и волатилността идват от часовите свещи на Binance.</string>
+    <string name="why_no_candles">Няма часови свещи за тази двойка</string>
+    <string name="why_no_candles_hint">Курсът, обемът и волатилността идват от часовите свещи на %1$s или, когато е възможно, от друга борса със същата монета.</string>
+    <string name="why_no_data_retry_hint">Курсът, обемът и волатилността не можаха да се заредят. Опитай отново.</string>
     <string name="why_ref_alts">Алтове</string>
     <string name="why_section_context">Възможно обяснение</string>
     <string name="why_section_observation">Наблюдение</string>

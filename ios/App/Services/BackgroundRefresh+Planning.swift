@@ -15,6 +15,8 @@ extension BackgroundRefresh {
     /// Uhr oder Zeitzone geändert (`significantTimeChange`, `NSSystemClockDidChange`): vorgemerkte Anfrage prüfen.
     static func clockChanged() {
         scheduleRefresh(settings: SharedStorage.loadSettings())
+        // Wirtschaftstermine: Uhrzeit im Text und Zeitpunkt der Mitteilung in der neuen Zone neu planen
+        MacroNotifications.clockChanged()
     }
 
     /// Plant die Kurs-Aktualisierung im Hintergrund. Ist schon eine vorgemerkt, bleibt sie stehen — ähnlich Android

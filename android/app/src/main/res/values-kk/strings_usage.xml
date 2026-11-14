@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Батарея және белсенділік</string>
+    <string name="usage_intro">Қолданбалар өздерінің қуат шығынын оқи алмайды. Сондықтан қолданба соңғы 24 сағатта өзі не істегенін көрсетеді – тек осы құрылғыда саналған, ешқандай мазмұнсыз.</string>
+    <string name="usage_phone">Телефон</string>
+    <string name="usage_watch">Сағат</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Фондық іске қосулар: %d</item>
+        <item quantity="other">Фондық іске қосулар: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Желі сұраулары: %d</item>
+        <item quantity="other">Желі сұраулары: %d</item>
+    </plurals>
+    <string name="usage_received">Алынды: %1$s</string>
+    <string name="usage_level_low">Төмен белсенділік</string>
+    <string name="usage_level_medium">Орташа белсенділік</string>
+    <string name="usage_level_high">Жоғары белсенділік</string>
+    <string name="usage_driver_interval">Негізінен фондық тексеру салдарынан (%1$s).</string>
+    <string name="usage_driver_exact">Негізінен фондық тексеру (%1$s) және «%2$s» салдарынан.</string>
+    <string name="usage_driver_none">Фондық тексеру жоспарланбаған – ашық қолданба мен виджеттер жүктейтіні ғана саналады.</string>
+    <string name="usage_driver_watch">Сағат қолданбасы мен оның кеңейтімдері өздері жүктейтіні саналады.</string>
+    <string name="usage_watch_none">Сағат қосылмаған</string>
+    <string name="usage_as_of">%1$s бойынша</string>
+    <string name="usage_battery_android">Android әр қолданбаның батарея шығынын өзінің батарея параметрлерінде көрсетеді.</string>
+</resources>

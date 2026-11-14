@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Baterie și activitate</string>
+    <string name="usage_intro">Aplicațiile nu își pot citi propriul consum de energie. De aceea aplicația arată ce a făcut ea însăși în ultimele 24 de ore – numărat doar pe acest dispozitiv, fără niciun conținut.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Ceas</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d rulare în fundal</item>
+        <item quantity="few">%d rulări în fundal</item>
+        <item quantity="other">%d de rulări în fundal</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d cerere de rețea</item>
+        <item quantity="few">%d cereri de rețea</item>
+        <item quantity="other">%d de cereri de rețea</item>
+    </plurals>
+    <string name="usage_received">Primit: %1$s</string>
+    <string name="usage_level_low">Activitate redusă</string>
+    <string name="usage_level_medium">Activitate medie</string>
+    <string name="usage_level_high">Activitate ridicată</string>
+    <string name="usage_driver_interval">Mai ales din cauza verificării în fundal (%1$s).</string>
+    <string name="usage_driver_exact">Mai ales din cauza verificării în fundal (%1$s) și a „%2$s”.</string>
+    <string name="usage_driver_none">Nicio verificare în fundal programată – contează ce preiau aplicația deschisă și widgeturile.</string>
+    <string name="usage_driver_watch">Contează ce preiau singure aplicația de pe ceas și complicațiile ei.</string>
+    <string name="usage_watch_none">Niciun ceas conectat</string>
+    <string name="usage_as_of">Stare la %1$s</string>
+    <string name="usage_battery_android">Android arată consumul bateriei pe aplicații în setările sale pentru baterie.</string>
+</resources>

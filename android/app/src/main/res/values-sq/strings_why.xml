@@ -8,8 +8,9 @@
     <string name="why_details_hide">Fshih detajet</string>
     <string name="why_disclaimer">Vlerësim automatik nga të dhënat e tregut: tregon çfarë ndodh në të njëjtën kohë, jo provë për një shkak.</string>
     <string name="why_footer_short">Njëkohësisht nuk do të thotë shkak · Jo këshillë investimi</string>
-    <string name="why_no_data">Nuk ka të dhëna nga Binance për këtë çift</string>
-    <string name="why_no_data_hint">Çmimi, vëllimi dhe luhatshmëria vijnë nga qirinjtë orarë të Binance.</string>
+    <string name="why_no_candles">Nuk ka qirinj orarë për këtë çift</string>
+    <string name="why_no_candles_hint">Çmimi, vëllimi dhe luhatshmëria vijnë nga qirinjtë orarë të %1$s ose, kur është e mundur, nga një bursë tjetër me të njëjtën monedhë.</string>
+    <string name="why_no_data_retry_hint">Çmimi, vëllimi dhe luhatshmëria nuk u ngarkuan. Provo përsëri.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Lexim i mundshëm</string>
     <string name="why_section_observation">Vëzhgim</string>

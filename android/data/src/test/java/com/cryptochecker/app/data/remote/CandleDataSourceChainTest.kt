@@ -6,6 +6,7 @@ import com.cryptochecker.app.domain.remote.BlockedSources
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -135,6 +136,24 @@ class CandleDataSourceChainTest {
         val none = RouteHttp { Reply(Klines.binance(4) { 10.0 }) }
         assertNull(source(none).candlesSourced("ABC", "USDT", CandleInterval.D1, 4, accept = { false }))
         assertTrue("alle Quellen gefragt", none.count("api.exchange.coinbase.com") >= 1)
+    }
+
+    /**
+     * Ohne Kerzen: «Paar unbekannt» überall (404) ist kein Fehler; Zeitüberschreitung, Netz oder 5xx einer Quelle
+     * schon ([CandleDataSource.Attempt.failed]) — das Portfolio sagt dann «nicht abrufbar» statt «kein Kurs».
+     */
+    @Test
+    fun attemptTellsFailureFromNoData() = runBlocking {
+        val unknown = CandleDataSource.Attempt()
+        assertNull(source(RouteHttp { notFound }).candlesSourced("ABC", "USDT", CandleInterval.H1, 2, attempt = unknown))
+        assertFalse(unknown.failed)
+        val busy = CandleDataSource.Attempt()
+        val coinbaseDown = RouteHttp { url -> if ("coinbase" in url) Reply("busy", 503) else notFound }
+        assertNull(source(coinbaseDown).candlesSourced("ABC", "USDT", CandleInterval.H1, 2, attempt = busy))
+        assertTrue(busy.failed)
+        val offline = CandleDataSource.Attempt()
+        assertNull(source(RouteHttp { null }).candlesSourced("ABC", "USDT", CandleInterval.H1, 2, attempt = offline))
+        assertTrue(offline.failed)
     }
 
     @Test

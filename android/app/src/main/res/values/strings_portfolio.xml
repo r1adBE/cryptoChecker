@@ -38,7 +38,7 @@
     <string name="portfolio_card_details">Details</string>
     <!-- Screenreader, Kennzahl ohne Wert; %1$s Beschriftung (z. B. «7 Tage») -->
     <string name="portfolio_card_figure_none_a11y">%1$s: not available yet</string>
-    <string name="portfolio_card_hints_count">Notes (%1$d)</string>
+    <string name="portfolio_card_hints_count">Hints (%1$d)</string>
     <string name="portfolio_card_today">Today</string>
     <!-- Gesamt = Gewinn/Verlust seit Kauf (unrealisiert) -->
     <string name="portfolio_card_total">Total</string>
@@ -219,6 +219,8 @@
     <string name="portfolio_history_unavailable">No history available right now.</string>
     <string name="portfolio_history_utc_days">Days in UTC (daily candles)</string>
     <string name="portfolio_history_without_matching">Without %1$s (no matching daily prices)</string>
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die schon vor ihrem ersten Tageskurs gehalten wurden, zählen ab dort («Einstieg», Wert dort als Zufluss); %1$s = «BTC (12.03.2024), ETH (…)» -->
+    <string name="portfolio_history_entry">Entry at the first daily price: %1$s (no daily prices before)</string>
     <string name="portfolio_period_rewards">Rewards +%1$s (not in gain)</string>
     <string name="portfolio_period_scaled">7 D/1 Y for %1$s: Binance history scaled to the exchange price</string>
 

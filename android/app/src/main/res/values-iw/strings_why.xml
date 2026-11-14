@@ -8,8 +8,9 @@
     <string name="why_details_hide">הסתרת פרטים</string>
     <string name="why_disclaimer">הערכה אוטומטית מנתוני שוק: מראה מה קורה באותו זמן, לא הוכחה לסיבה.</string>
     <string name="why_footer_short">בו-זמנית אין פירושו סיבה · אין ייעוץ השקעות</string>
-    <string name="why_no_data">אין נתונים מ-Binance לצמד זה</string>
-    <string name="why_no_data_hint">מחיר, מחזור ותנודתיות מגיעים מנרות שעתיים של Binance.</string>
+    <string name="why_no_candles">אין נרות שעתיים לצמד זה</string>
+    <string name="why_no_candles_hint">מחיר, מחזור ותנודתיות מגיעים מנרות שעתיים של %1$s או, כשאפשר, מבורסה אחרת עם אותו מטבע.</string>
+    <string name="why_no_data_retry_hint">לא ניתן לטעון מחיר, מחזור ותנודתיות. כדאי לנסות שוב.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">פרשנות אפשרית</string>
     <string name="why_section_observation">תצפית</string>

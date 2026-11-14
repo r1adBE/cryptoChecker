@@ -73,16 +73,37 @@ final class CsvTransferMatchTests: XCTestCase {
         }
     }
 
-    /// «Auf eigene Wallet» mit freiem Kandidaten verknüpft ihn (sonst zählte die Einzahlung doppelt) — wie Android.
-    func testOwnWalletLinksTheBestFreeCandidate() throws {
+    /// «Auf eigene Wallet» verknüpft nur einen eindeutigen üblichen Kandidaten mit freier Einzahlung (sonst zählte die
+    /// Einzahlung doppelt) — nie einen weiten, nie nach Ausschalten (declined). Früher nahm sie den besten Kandidaten,
+    /// auch einen weiten: das verknüpfte eine fremde Einzahlung ohne Zutun und erfand eine Gebühr. Wie Android.
+    func testOwnWalletLinksOnlyAnUnambiguousUsualCandidate() throws {
         let all = try cases().filter { $0["ownWallet"] != nil }
-        XCTAssertGreaterThanOrEqual(all.count, 3)
+        XCTAssertGreaterThanOrEqual(all.count, 4)
         for c in all {
             let found = links(c)
             for t in S.list(c["ownWallet"]) {
                 XCTAssertEqual(CsvTransferMatch.linkOwnWallet(found, chosen: Set(strings(t["chosen"])),
-                                                              withdrawalKey: string(t["withdrawal"]) ?? ""),
+                                                              withdrawalKey: string(t["withdrawal"]) ?? "",
+                                                              declined: Set(strings(t["declined"]))),
                                Set(strings(t["expected"])), "\(string(c["name"]) ?? "?") ownWallet \(t)")
+            }
+        }
+    }
+
+    /// Alle Auszahlungen mit «Auf eigene Wallet»: zwei werben um dieselbe Einzahlung → keine verknüpft — wie Android.
+    func testOwnWalletsSkipContestedLooseAndDeclinedCandidates() throws {
+        let all = try cases().filter { $0["ownWallets"] != nil }
+        XCTAssertGreaterThanOrEqual(all.count, 2)
+        for c in all {
+            let found = links(c)
+            for t in S.list(c["ownWallets"]) {
+                var choices: [String: CsvWithdrawalChoice] = [:]
+                for (key, value) in t["choices"] as? [String: Any] ?? [:] {
+                    choices[key] = string(value).flatMap(CsvWithdrawalChoice.init(rawValue:))
+                }
+                XCTAssertEqual(CsvImportMapping.linkOwnWallets(found, chosen: Set(strings(t["chosen"])), choices: choices,
+                                                               declined: Set(strings(t["declined"]))),
+                               Set(strings(t["expected"])), "\(string(c["name"]) ?? "?") ownWallets \(t)")
             }
         }
     }

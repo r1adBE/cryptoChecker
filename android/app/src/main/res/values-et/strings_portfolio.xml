@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Ajalugu pole praegu saadaval.</string>
     <string name="portfolio_history_utc_days">Päevad UTC järgi (päevaküünlad)</string>
     <string name="portfolio_history_without_matching">Ilma %1$s (sobivad päevahinnad puuduvad)</string>
+    <string name="portfolio_history_entry">Arvestatud esimesest päevahinnast: %1$s (varem päevahindu pole)</string>
     <string name="portfolio_period_rewards">Preemiad +%1$s (kasumis arvestamata)</string>
     <string name="portfolio_period_scaled">7 p/1 a %1$s jaoks: Binance’i ajalugu skaleeritud börsi hinnale</string>
 

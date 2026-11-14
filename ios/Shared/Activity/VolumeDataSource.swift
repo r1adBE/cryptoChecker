@@ -53,10 +53,11 @@ enum VolumeDataSource {
 
     /// Kerzen eines Paars der Merkliste (`pair`, Kurs `price`) wie der Chart, siehe `pairCandlesOf`;
     /// kurz zwischengespeichert (auch «nicht gefunden»).
+    /// `refresh` («Erneut versuchen»): trotz gemerktem Stand neu fragen. Wie Android.
     static func pairCandles(_ pair: CandlePair, price: Double?, interval: CandleInterval,
-                            limit count: Int) async -> Sourced<[MarketCandle]>? {
+                            limit count: Int, refresh: Bool = false) async -> Sourced<[MarketCandle]>? {
         let key = "P|\(pair.cacheKey)|\(interval.rawValue)|\(count)"
-        if let hit = cached(key, now: EpochTime.nowMillis) { return hit.candles }
+        if !refresh, let hit = cached(key, now: EpochTime.nowMillis) { return hit.candles }
         // Name des Coins an der Börse des Paars (gleicher Token) — wie der Chart
         let identityName = TokenIdentityStore.shared.pairName(exchangeKey: pair.exchangeKey, base: pair.base)
         let result = await pairCandlesOf(

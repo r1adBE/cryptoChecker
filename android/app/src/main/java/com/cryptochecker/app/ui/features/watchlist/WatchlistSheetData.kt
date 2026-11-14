@@ -74,8 +74,8 @@ class WatchlistSheetData @Inject constructor(
     }
 
     /** Daten für «Was bewegt sich mit?»; null, wenn gar nichts geladen werden konnte. */
-    suspend fun explain(watch: WatchEntity): WhyReport? =
-        runCatching { activityMonitor.explain(watch) }
+    suspend fun explain(watch: WatchEntity, refresh: Boolean = false): WhyReport? =
+        runCatching { activityMonitor.explain(watch, refresh) }
             .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
             .getOrNull()
 

@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin-mutatók, naponta kétszer ellenőrizve. A határokat te választod – az app nem értékeli az értékeket.</string>
     <string name="settings_macro_notifications">Gazdasági naptár</string>
     <string name="settings_macro_notifications_hint">08:00-kor azokon a napokon, amikor fontos amerikai gazdasági adatok jelennek meg (infláció, munkaerőpiac, kamatdöntés). A naptár az alkalmazás weboldaláról töltődik le naponta egyszer.</string>
+    <string name="settings_macro_notifications_us_hint">Az USA-ban az értesítés legkésőbb New York-i idő szerint 08:00-kor érkezik, az első adatok előtt.</string>
     <string name="settings_market_alerts">Piaci értesítések</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Megosztás</string>
     <string name="settings_price_overlay">Ár-átfedés</string>
     <string name="settings_price_overlay_hint">Az állandó árértesítés párjait kis lebegő kapszulaként mutatja más alkalmazások fölött. Koppintással megnyílik az alkalmazás, az alsó ×-re húzva bezárul.</string>
+    <string name="settings_price_overlay_restart_hint">Ha a rendszer bezárja az alkalmazást, az ár-átfedés a következő háttérfrissítéssel visszatér.</string>
     <string name="settings_price_overlay_needs">Csak ezzel együtt működik: «%1$s».</string>
     <string name="settings_price_overlay_grant">Megjelenítés más alkalmazások fölött engedélyezése</string>
     <string name="price_overlay_close">Átfedés bezárása</string>

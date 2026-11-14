@@ -87,9 +87,10 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val _links = MutableStateFlow<List<CsvTransferLink>>(emptyList())
     val links: StateFlow<List<CsvTransferLink>> = _links.asStateFlow()
 
-    /** Gewählte Umbuchungen ([CsvTransferLink.key]); eindeutige sind vorgewählt. */
+    /** Gewählte Umbuchungen ([CsvTransferLink.key]); eindeutige vorgewählt. [declined]: Verknüpfung vom Nutzer ausgeschaltet. */
     private val _linked = MutableStateFlow<Set<String>>(emptySet())
     val linked: StateFlow<Set<String>> = _linked.asStateFlow()
+    private var declined: Set<String> = emptySet()
 
     /** Fortschritt des langen Schritts (Vorschau umrechnen, Speichern), gedrosselt; null = ohne Zeilenzahl (Kreis). */
     private val _progress = MutableStateFlow<CsvImportProgress?>(null)
@@ -117,10 +118,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioRepository.insertImported]), dann nichts gespeichert. */
     private val saveCancelled = AtomicBoolean(false)
 
-    /**
-     * Gewählte Lesart (Zeitzone der Zeiten ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel). Eine
-     * Wahl samt der Lesart der gezeigten Vorschau ([CsvImportInput.choice]): «Importieren» nur, wenn beide gleich sind.
-     */
+    /** Gewählte Lesart (Zeitzone ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel); «Importieren» nur gleich [CsvImportInput.choice]. */
     private var chosen = CsvReadChoice()
 
     /** Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
@@ -188,10 +186,12 @@ class PortfolioCsvImportViewModel @Inject constructor(
         linkOwnWallets()
     }
 
-    /** Umbuchung ein/aus (ein: Kandidaten derselben Seite weg; aus: die Auszahlung braucht eine neue Wahl). */
+    /** Umbuchung ein/aus (ein: Kandidaten derselben Seite weg; aus: neue Wahl nötig, «Auf eigene Wallet» verknüpft nicht wieder). */
     fun setLink(key: String, on: Boolean) {
         _linked.value = CsvTransferMatch.toggle(_links.value, _linked.value, key, on)
-        if (!on) _links.value.firstOrNull { it.key == key }?.let { _choices.value = _choices.value - it.withdrawalKey }
+        val link = _links.value.firstOrNull { it.key == key }
+        if (link != null) declined = if (on) declined - link.withdrawalKey else declined + link.withdrawalKey
+        if (!on && link != null) _choices.value = _choices.value - link.withdrawalKey
         linkOwnWallets()
     }
 
@@ -207,9 +207,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
         linkOwnWallets()
     }
 
-    /** «Auf eigene Wallet» mit freier passender Einzahlung wird deren Umbuchung ([CsvImportMapping.linkOwnWallets]). */
+    /** «Auf eigene Wallet» mit eindeutiger üblicher Einzahlung wird deren Umbuchung ([CsvImportMapping.linkOwnWallets]). */
     private fun linkOwnWallets() {
-        _linked.value = CsvImportMapping.linkOwnWallets(_links.value, _linked.value, _choices.value)
+        _linked.value = CsvImportMapping.linkOwnWallets(_links.value, _linked.value, _choices.value, declined)
     }
 
     private suspend fun buildPreview(uri: Uri): CsvImportPreview {
@@ -395,5 +395,6 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _choices.value = emptyMap()
         _links.value = emptyList()
         _linked.value = emptySet()
+        declined = emptySet()
     }
 }

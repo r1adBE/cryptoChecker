@@ -103,7 +103,7 @@ final class HistoricDayClosesBatchTests: XCTestCase {
     }
 
     private func fetch(_ m: Market) -> HistoricDayFetch {
-        HistoricDayFetch(get: { _, url in m.reply(url) }, series: { _, _ in nil }, fx: { _, _ in nil })
+        HistoricDayFetch(get: { _, url in m.reply(url) }, series: { _, _ in nil }, fx: { _, _ in HistoricFxDay() })
     }
 
     func testBatchedClosesEqualPerDayCloses() async throws {
@@ -146,9 +146,10 @@ final class HistoricDayClosesBatchTests: XCTestCase {
         XCTAssertLessThan(batchMarket.total * 10, perDayMarket.total)
     }
 
-    /// Netzfehler ist nicht «keine Kerze»: die Kette bricht ab (kein Kurs), nie still die nächste Quelle — im Export
-    /// fragen die übrigen Tage desselben Stücks nicht erneut. Wie HistoricPriceSourceTest.kt.
-    func testUnreachableSourceStopsTheChain() async throws {
+    /// Fehler-Antwort (5xx, nach der Wiederholung) ist nicht «keine Kerze»: die Kette bricht ab (kein Kurs, «nicht
+    /// abrufbar»), nie still die nächste Quelle — im Export fragen die übrigen Tage desselben Stücks nicht erneut. Wie
+    /// HistoricPriceSourceTest.kt.
+    func testServerErrorStopsTheChain() async throws {
         for host in ["data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com"] {
             BlockedSources.clearForTest(host)
         }
@@ -158,10 +159,10 @@ final class HistoricDayClosesBatchTests: XCTestCase {
             asked.withLock { $0.append(host) }
             if host == "data-api.binance.vision" { throw HistoricSourceUnavailable(host: host) }
             return m.reply(url)
-        }, series: { _, _ in nil }, fx: { _, _ in nil })
+        }, series: { _, _ in nil }, fx: { _, _ in HistoricFxDay() })
         let day = CutoffDay(year: 2024, month: 1, day: 2)
         let single = await HistoricPriceSource.dailyCloseUsdt("NEW", day: day, current: 10.5, fetch: offline)
-        XCTAssertEqual(single, HistoricPriceSource.CloseResult(price: nil))
+        XCTAssertEqual(single, HistoricPriceSource.CloseResult(price: nil, failed: true))
         XCTAssertEqual(asked.withLock { $0 }, ["data-api.binance.vision"])
 
         asked.withLock { $0.removeAll() }
@@ -169,5 +170,23 @@ final class HistoricDayClosesBatchTests: XCTestCase {
         let batch = await HistoricPriceSource.dayClosesUsdt(["NEW": days], current: ["NEW": 10.5], fetch: offline)
         XCTAssertTrue(batch["NEW"]?.values.allSatisfy { $0.price == nil } ?? false)
         XCTAssertEqual(asked.withLock { $0 }, ["data-api.binance.vision"])
+    }
+
+    /// Binance ganz ohne Antwort (z. B. per DNS gesperrt): übersprungen wie gesperrt, die Kette fragt Coinbase; ohne
+    /// Treffer dort «nicht abrufbar» (nicht «ohne Kurs»). Wie HistoricPriceSourceTest.kt.
+    func testSilentBinanceIsSkipped() async throws {
+        for host in ["data-api.binance.vision", "api.binance.com", "fapi.binance.com", "api.binance.us", "api.exchange.coinbase.com"] {
+            BlockedSources.clearForTest(host)
+        }
+        let asked = OSAllocatedUnfairLock(initialState: [String]())
+        let silent = HistoricDayFetch(get: { host, _ in
+            asked.withLock { $0.append(host) }
+            if host.contains("binance") { throw HistoricSourceUnavailable(host: host, unreachable: true) }
+            return nil
+        }, series: { _, _ in nil }, fx: { _, _ in HistoricFxDay() })
+        let day = CutoffDay(year: 2024, month: 1, day: 2)
+        let single = await HistoricPriceSource.dailyCloseUsdt("NEW", day: day, current: 10.5, fetch: silent)
+        XCTAssertEqual(single, HistoricPriceSource.CloseResult(price: nil, failed: true))
+        XCTAssertTrue(asked.withLock { $0 }.contains(HistoricPriceSource.coinbaseHost))
     }
 }

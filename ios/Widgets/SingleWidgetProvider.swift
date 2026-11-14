@@ -111,6 +111,8 @@ struct SingleProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: SingleWidgetIntent, in context: Context) async -> Timeline<SingleEntry> {
+        // «Akku & Aktivität»: Abrufe dieser Timeline vor dem Ende schreiben (der Lauf selbst zählt in `CheckRunStore`)
+        defer { UsageMeter.shared.flush() }
         // Merkliste einmal lesen: für das Paar, die Aktualisierung und — ohne Aktualisierung — den Eintrag. Zeitpunkt
         // der Datei VOR dem Lesen: ein späteres Schreiben (App, Hintergrund) erkennt `rereadWatch` sicher
         let writtenBefore = SharedStorage.watchlistWrittenAt

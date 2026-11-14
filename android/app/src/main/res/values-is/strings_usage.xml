@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Rafhlaða og virkni</string>
+    <string name="usage_intro">Forrit geta ekki lesið eigin orkunotkun. Þess vegna sýnir forritið hvað það gerði sjálft síðustu 24 klukkustundir – aðeins talið á þessu tæki, án nokkurs efnis.</string>
+    <string name="usage_phone">Sími</string>
+    <string name="usage_watch">Úr</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Keyrslur í bakgrunni: %d</item>
+        <item quantity="other">Keyrslur í bakgrunni: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Netbeiðnir: %d</item>
+        <item quantity="other">Netbeiðnir: %d</item>
+    </plurals>
+    <string name="usage_received">Móttekið: %1$s</string>
+    <string name="usage_level_low">Lítil virkni</string>
+    <string name="usage_level_medium">Miðlungs virkni</string>
+    <string name="usage_level_high">Mikil virkni</string>
+    <string name="usage_driver_interval">Aðallega vegna athugunar í bakgrunni (%1$s).</string>
+    <string name="usage_driver_exact">Aðallega vegna athugunar í bakgrunni (%1$s) og „%2$s“.</string>
+    <string name="usage_driver_none">Engin athugun í bakgrunni áætluð – það sem telur er það sem opið forrit og græjur sækja.</string>
+    <string name="usage_driver_watch">Það sem telur er það sem úrforritið og græjur þess sækja sjálf.</string>
+    <string name="usage_watch_none">Ekkert úr tengt</string>
+    <string name="usage_as_of">Staða %1$s</string>
+    <string name="usage_battery_android">Android sýnir rafhlöðunotkun hvers forrits í rafhlöðustillingum sínum.</string>
+</resources>

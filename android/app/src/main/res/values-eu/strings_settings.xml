@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin adierazleak, egunean bitan egiaztatuak. Zuk aukeratzen dituzu mugak – aplikazioak ez ditu balioak baloratzen.</string>
     <string name="settings_macro_notifications">Egutegi ekonomikoa</string>
     <string name="settings_macro_notifications_hint">08:00etan, AEBko datu ekonomiko garrantzitsuak dauden egunetan (inflazioa, enplegu-txostena, Fed-en erabakia). Egutegia aplikazioaren webgunetik dator, egunean behin kargatuta.</string>
+    <string name="settings_macro_notifications_us_hint">AEBetan jakinarazpena beranduenez 08:00etan iristen da, New Yorkeko orduan, lehen datuen aurretik.</string>
     <string name="settings_market_alerts">Merkatu-alarmak</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Partekatu</string>
     <string name="settings_price_overlay">Prezio-gainjartzea</string>
     <string name="settings_price_overlay_hint">Prezio-jakinarazpen iraunkorreko pareak beste aplikazioen gainean pilula flotatzaile txiki gisa erakusten ditu. Sakatu aplikazioa irekitzeko; arrastatu beheko ×-ra ixteko.</string>
+    <string name="settings_price_overlay_restart_hint">Sistemak aplikazioa ixten badu, prezio-gainjartzea atzeko planoko hurrengo eguneratzearekin itzultzen da.</string>
     <string name="settings_price_overlay_needs">Honekin batera bakarrik funtzionatzen du: «%1$s».</string>
     <string name="settings_price_overlay_grant">Baimendu beste aplikazioen gainean bistaratzea</string>
     <string name="price_overlay_close">Itxi gainjartzea</string>

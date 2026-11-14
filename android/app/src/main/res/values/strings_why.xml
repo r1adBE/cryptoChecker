@@ -8,8 +8,9 @@
     <string name="why_details_hide">Hide details</string>
     <string name="why_disclaimer">Automatic assessment from market data: it shows what happens at the same time, not proof of a cause.</string>
     <string name="why_footer_short">Simultaneous does not mean cause · No investment advice</string>
-    <string name="why_no_data">No data from Binance for this pair</string>
-    <string name="why_no_data_hint">Price, volume and volatility come from Binance hourly candles.</string>
+    <string name="why_no_candles">No hourly candles for this pair</string>
+    <string name="why_no_candles_hint">Price, volume and volatility come from hourly candles from %1$s or, where possible, another exchange with the same coin.</string>
+    <string name="why_no_data_retry_hint">Price, volume and volatility could not be loaded. Try again.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Possible explanation</string>
     <string name="why_section_observation">Observation</string>

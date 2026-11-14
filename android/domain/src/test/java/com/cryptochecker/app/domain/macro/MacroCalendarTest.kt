@@ -182,12 +182,13 @@ class MacroCalendarTest {
         assertEquals(t("2026-10-25T07:00:00Z"), MacroCalendar.nextNotifyAt(t("2026-10-24T12:00:00Z"), zurich))
     }
 
+    /** Fenster ab dem Zeitpunkt der Meldung bis 12:00 Ortszeit; in den USA früher (macro_notify.json). */
     @Test
     fun notifyWindow_eightToNoon() {
-        assertFalse(MacroCalendar.isNotifyWindow(7 * 60 + 59))
-        assertTrue(MacroCalendar.isNotifyWindow(8 * 60))
-        assertTrue(MacroCalendar.isNotifyWindow(11 * 60 + 59))
-        assertFalse(MacroCalendar.isNotifyWindow(12 * 60))
+        assertFalse(MacroCalendar.isNotifyWindow(t("2026-10-14T05:59:00Z"), zurich))
+        assertTrue(MacroCalendar.isNotifyWindow(t("2026-10-14T06:00:00Z"), zurich))
+        assertTrue(MacroCalendar.isNotifyWindow(t("2026-10-14T09:59:00Z"), zurich))
+        assertFalse(MacroCalendar.isNotifyWindow(t("2026-10-14T10:00:00Z"), zurich))
     }
 
     @Test

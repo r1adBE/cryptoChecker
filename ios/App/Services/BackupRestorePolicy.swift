@@ -97,7 +97,6 @@ enum BackupRestorePolicy {
                            canAuthenticate: true).apply == false)
     }
 
-    /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).
     /// Welche Einträge einer Liste mit den Kennungen `ids` übernommen werden (Transaktionen, Portfolio-Alarme): je Kennung
     /// > 0 nur der erste. Weitere mit derselben Kennung (z. B. von Hand zusammengeführte Sicherungen) zählen wie ungültige
     /// Einträge — die Rückfrage nennt sie, statt dass der zweite den ersten beim Speichern still ersetzt. Kennung ≤ 0
@@ -114,6 +113,7 @@ enum BackupRestorePolicy {
         return (unique, parsed.invalid + parsed.items.count - unique.count)
     }
 
+    /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).
     static func noticeTotal(pending: Int, added: Int) -> Int {
         let sum = Int64(max(pending, 0)) + Int64(max(added, 0))
         return Int(min(sum, Int64(Int32.max)))

@@ -190,6 +190,7 @@
     <string name="settings_indicator_alerts_hint">مؤشرات بيتكوين، تُفحص مرتين يوميًا. أنت تختار الحدود – لا يقيّم التطبيق القيم.</string>
     <string name="settings_macro_notifications">التقويم الاقتصادي</string>
     <string name="settings_macro_notifications_hint">في الساعة 08:00 في أيام صدور بيانات اقتصادية أمريكية مهمة (التضخم، الوظائف، قرار الفيدرالي). يُحمَّل التقويم من موقع التطبيق مرة واحدة يوميًا.</string>
+    <string name="settings_macro_notifications_us_hint">في الولايات المتحدة يصل الإشعار في موعد أقصاه 08:00 بتوقيت نيويورك، قبل أولى البيانات.</string>
     <string name="settings_market_alerts">إشعارات السوق</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -306,6 +307,7 @@
     <string name="diagnostics_action_share">مشاركة</string>
     <string name="settings_price_overlay">تراكب الأسعار</string>
     <string name="settings_price_overlay_hint">يعرض أزواج إشعار السعر الدائم في حبّة عائمة صغيرة فوق التطبيقات الأخرى. اضغط لفتح التطبيق، واسحب إلى × في الأسفل للإغلاق.</string>
+    <string name="settings_price_overlay_restart_hint">إذا أغلق النظام التطبيق، يعود تراكب الأسعار مع التحديث التالي في الخلفية.</string>
     <string name="settings_price_overlay_needs">يعمل فقط مع «%1$s».</string>
     <string name="settings_price_overlay_grant">السماح بالظهور فوق التطبيقات الأخرى</string>
     <string name="price_overlay_close">إغلاق التراكب</string>

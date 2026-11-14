@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Δεν υπάρχει διαθέσιμη εξέλιξη αυτή τη στιγμή.</string>
     <string name="portfolio_history_utc_days">Ημέρες σε UTC (ημερήσια κεριά)</string>
     <string name="portfolio_history_without_matching">Χωρίς %1$s (χωρίς αντίστοιχες ημερήσιες τιμές)</string>
+    <string name="portfolio_history_entry">Είσοδος από την πρώτη ημερήσια τιμή: %1$s (καμία ημερήσια τιμή νωρίτερα)</string>
     <string name="portfolio_period_rewards">Ανταμοιβές +%1$s (εκτός κέρδους)</string>
     <string name="portfolio_period_scaled">7 Η/1 Ε για %1$s: ιστορικό Binance κλιμακωμένο στην τιμή του ανταλλακτηρίου</string>
 

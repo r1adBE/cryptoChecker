@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ባትሪ እና እንቅስቃሴ</string>
+    <string name="usage_intro">መተግበሪያዎች የራሳቸውን የኃይል ፍጆታ ማንበብ አይችሉም። ስለዚህ መተግበሪያው ባለፉት 24 ሰዓታት ራሱ ያደረገውን ያሳያል – በዚህ መሣሪያ ላይ ብቻ የተቆጠረ፣ ያለ ምንም ይዘት።</string>
+    <string name="usage_phone">ስልክ</string>
+    <string name="usage_watch">ሰዓት</string>
+    <plurals name="usage_runs">
+        <item quantity="one">የዳራ ሂደቶች፦ %d</item>
+        <item quantity="other">የዳራ ሂደቶች፦ %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">የአውታረ መረብ ጥያቄዎች፦ %d</item>
+        <item quantity="other">የአውታረ መረብ ጥያቄዎች፦ %d</item>
+    </plurals>
+    <string name="usage_received">የተቀበለው፦ %1$s</string>
+    <string name="usage_level_low">ዝቅተኛ እንቅስቃሴ</string>
+    <string name="usage_level_medium">መካከለኛ እንቅስቃሴ</string>
+    <string name="usage_level_high">ከፍተኛ እንቅስቃሴ</string>
+    <string name="usage_driver_interval">በአብዛኛው በዳራ ፍተሻው ምክንያት (%1$s)።</string>
+    <string name="usage_driver_exact">በአብዛኛው በዳራ ፍተሻው (%1$s) እና «%2$s» ምክንያት።</string>
+    <string name="usage_driver_none">ምንም የዳራ ፍተሻ አልተያዘም – የሚቆጠረው የተከፈተው መተግበሪያ እና ምግብሮች የሚያመጡት ነው።</string>
+    <string name="usage_driver_watch">የሚቆጠረው የሰዓቱ መተግበሪያ እና ተጨማሪዎቹ ራሳቸው የሚያመጡት ነው።</string>
+    <string name="usage_watch_none">ምንም ሰዓት አልተገናኘም</string>
+    <string name="usage_as_of">እስከ %1$s</string>
+    <string name="usage_battery_android">Android የእያንዳንዱን መተግበሪያ የባትሪ አጠቃቀም በባትሪ ቅንብሮቹ ውስጥ ያሳያል።</string>
+</resources>

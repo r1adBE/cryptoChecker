@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">දැන් ඉතිහාසයක් ලබා ගත නොහැක.</string>
     <string name="portfolio_history_utc_days">UTC හි දින (දෛනික ඉටිපන්දම්)</string>
     <string name="portfolio_history_without_matching">%1$s නොමැතිව (ගැළපෙන දෛනික මිල නැත)</string>
+    <string name="portfolio_history_entry">පළමු දෛනික මිලෙන් ගණන් කරයි: %1$s (ඊට පෙර දෛනික මිල නැත)</string>
     <string name="portfolio_period_rewards">ත්‍යාග +%1$s (ලාභයට ඇතුළත් නොවේ)</string>
     <string name="portfolio_period_scaled">%1$s සඳහා දින 7/වසර 1: හුවමාරු මිලට පරිමාණය කළ Binance ඉතිහාසය</string>
 

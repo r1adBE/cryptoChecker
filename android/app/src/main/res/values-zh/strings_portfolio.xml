@@ -215,6 +215,7 @@
     <string name="portfolio_history_unavailable">暂无走势数据。</string>
     <string name="portfolio_history_utc_days">日期按 UTC（日K线）</string>
     <string name="portfolio_history_without_matching">不含 %1$s（无匹配的每日价格）</string>
+    <string name="portfolio_history_entry">自首个每日价格起计入：%1$s（之前无每日价格）</string>
     <string name="portfolio_period_rewards">奖励 +%1$s（不计入盈亏）</string>
     <string name="portfolio_period_scaled">%1$s 的 7天/1年：按交易所价格换算的 Binance 走势</string>
 

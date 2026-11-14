@@ -76,12 +76,12 @@ class HistoricPriceSourceTest {
     @Test
     fun foreignTokenEverywhereIsUnchecked() = runBlocking {
         // Jede Binance-Quelle führt unter «ETH» heute einen Kurs von 0.6 — nicht derselbe Token wie im Portfolio (3000)
-        val http = RouteHttp { url -> if ("binance" in url && "klines" in url) binance(url, close = 0.5, latest = 0.6) else null }
+        // Coinbase, Kraken, OKX und Bybit führen ETH nicht (404; ganz ohne Antwort hiesse es zusätzlich «nicht abrufbar»)
+        val http = RouteHttp { url -> if ("binance" in url && "klines" in url) binance(url, close = 0.5, latest = 0.6) else notFound }
         val result = source(http).dailyCloseUsdt("ETH", date, current = 3000.0)
         assertEquals(HistoricPriceSource.CloseResult(null, unchecked = true), result)
         assertEquals(2, http.count("api.binance.us/api/v3/klines?symbol=ETHUSDT&interval=1d"))
         assertEquals(2, http.count("api.binance.us/api/v3/klines?symbol=ETHUSD&interval=1d"))
-        // Coinbase, Kraken, OKX und Bybit offline: nur gefragt, ohne Kurs
         assertTrue(http.count("api.exchange.coinbase.com") >= 1)
     }
 
@@ -91,7 +91,7 @@ class HistoricPriceSourceTest {
             when {
                 url.startsWith("https://data-api.binance.vision/") || url.startsWith("https://api.binance.com/") -> notFound
                 url.startsWith("https://fapi.binance.com/fapi/v1/klines?symbol=ETHUSDT") -> binance(url, close = 2000.0, latest = 3000.0)
-                else -> null
+                else -> notFound
             }
         }
         // Jüngster Futures-Schluss 3000 gegen den Portfolio-Kurs 3500: innerhalb von ±25 %
@@ -152,20 +152,55 @@ class HistoricPriceSourceTest {
         assertEquals(2, http.count("products/ETH-USDC/"))
     }
 
-    /** Netzfehler ist nicht «keine Kerze»: einmal wiederholt, dann kein Kurs — nie still die nächste Quelle. */
+    /**
+     * Fehler-Antwort (5xx) ist nicht «keine Kerze»: einmal wiederholt, dann kein Kurs («nicht abrufbar») — nie still die
+     * nächste Quelle (die hätte einen anderen Kurs, der Export wäre nicht wiederholbar).
+     */
     @Test
-    fun unreachableSourceStopsTheChainAfterOneRetry() = runBlocking {
+    fun serverErrorStopsTheChainAfterOneRetry() = runBlocking {
         val http = RouteHttp { url ->
             when {
-                url.startsWith("https://data-api.binance.vision/") -> null
-                url.startsWith("https://api.exchange.coinbase.com/") -> Reply(Klines.coinbase(1, Klines.DAY, start) { 2000.0 })
+                url.startsWith("https://data-api.binance.vision/") -> Reply("busy", 503)
+                url.startsWith("https://api.exchange.coinbase.com/") -> Reply(Klines.coinbase(1, Klines.DAY, start) { 3000.0 })
                 else -> notFound
             }
         }
-        assertEquals(HistoricPriceSource.CloseResult(null), source(http).dailyCloseUsdt("ETH", date, current = 3100.0))
+        assertEquals(HistoricPriceSource.CloseResult(null, failed = true), source(http).dailyCloseUsdt("ETH", date, current = 3100.0))
         assertEquals(2, http.count("data-api.binance.vision"))
         assertEquals(0, http.count("api.binance.com"))
         assertEquals(0, http.count("api.exchange.coinbase.com"))
+    }
+
+    /**
+     * Binance ganz ohne Antwort (z. B. per DNS gesperrt): nach einer Wiederholung je Host übersprungen wie gesperrt,
+     * Coinbase liefert den Kurs; der stumme Host wird danach eine Weile nicht erneut gefragt.
+     */
+    @Test
+    fun silentBinanceIsSkippedAndCoinbaseAnswers() = runBlocking {
+        val http = RouteHttp { url ->
+            when {
+                "binance" in url -> null
+                url.startsWith("https://api.exchange.coinbase.com/products/ETH-USD/") -> Reply(Klines.coinbase(1, Klines.DAY, start) { 3000.0 })
+                else -> notFound
+            }
+        }
+        val historic = source(http)
+        assertEquals(
+            HistoricPriceSource.CloseResult(3000.0, source = DataFreshness.COINBASE),
+            historic.dailyCloseUsdt("ETH", date, current = 3100.0),
+        )
+        assertEquals(2, http.count("data-api.binance.vision"))
+        assertEquals(2, http.count("api.binance.com"))
+        // Zweiter Tag: Binance nicht erneut abgewartet
+        historic.dailyCloseUsdt("ETH", date.minusDays(1), current = 3100.0)
+        assertEquals(2, http.count("data-api.binance.vision"))
+    }
+
+    /** Ganz ohne Netz: jede Quelle übersprungen, Ergebnis «nicht abrufbar» (nicht «ohne Kurs», nicht «ungeprüft»). */
+    @Test
+    fun offlineEverywhereIsUnavailable() = runBlocking {
+        val result = source(RouteHttp { null }).dailyCloseUsdt("ETH", date, current = 3100.0)
+        assertEquals(HistoricPriceSource.CloseResult(null, failed = true), result)
     }
 
     @Test

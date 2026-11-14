@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Одоогоор түүх алга.</string>
     <string name="portfolio_history_utc_days">UTC-ээрх өдрүүд (өдрийн лаа)</string>
     <string name="portfolio_history_without_matching">%1$s-гүй (тохирох өдрийн ханш алга)</string>
+    <string name="portfolio_history_entry">Анхны өдрийн ханшаас тооцсон: %1$s (өмнө нь өдрийн ханш алга)</string>
     <string name="portfolio_period_rewards">Шагнал +%1$s (ашигт ороогүй)</string>
     <string name="portfolio_period_scaled">%1$s-ийн 7 Х/1 Ж: Binance-ийн түүхийг биржийн ханшид тохируулсан</string>
 

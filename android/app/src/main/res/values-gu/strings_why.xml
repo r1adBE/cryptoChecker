@@ -8,8 +8,9 @@
     <string name="why_details_hide">વિગતો છુપાવો</string>
     <string name="why_disclaimer">માર્કેટ ડેટા પરથી આપમેળે મૂલ્યાંકન: તે એક જ સમયે શું થાય છે તે બતાવે છે, કારણનો પુરાવો નથી.</string>
     <string name="why_footer_short">એકસાથે થવું એટલે કારણ નહીં · રોકાણ સલાહ નથી</string>
-    <string name="why_no_data">આ જોડી માટે Binance પરથી ડેટા નથી</string>
-    <string name="why_no_data_hint">ભાવ, વૉલ્યુમ અને અસ્થિરતા Binance ના કલાકના કૅન્ડલ પરથી આવે છે.</string>
+    <string name="why_no_candles">આ જોડી માટે કલાકના કૅન્ડલ નથી</string>
+    <string name="why_no_candles_hint">ભાવ, વૉલ્યુમ અને અસ્થિરતા %1$s ના કલાકના કૅન્ડલ પરથી, અથવા શક્ય હોય ત્યારે એ જ કૉઇનવાળા બીજા એક્સચેન્જ પરથી આવે છે.</string>
+    <string name="why_no_data_retry_hint">ભાવ, વૉલ્યુમ અને અસ્થિરતા લોડ થઈ શક્યા નહીં. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
     <string name="why_ref_alts">ઑલ્ટ</string>
     <string name="why_section_context">સંભવિત સમજૂતી</string>
     <string name="why_section_observation">અવલોકન</string>

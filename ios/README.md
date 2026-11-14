@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 233 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 234 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -22,7 +22,7 @@ gehören nicht zum Code und fallen nicht unter die MIT-Lizenz (siehe `LICENSE` i
 
 ## Schwerpunkte von 16.2.2
 
-Gleicher Funktionsumfang wie Android 16.2.2 (ohne Preis-Overlay, das gibt es unter iOS nicht), u. a.:
+Gleicher Funktionsumfang wie Android 16.2.2 (ohne Kurs-Overlay, das gibt es unter iOS nicht), u. a.:
 
 - **Apple-Watch-App** (`Watch/`, Komplikationen in `WatchWidgets/`): Kurse und 24 h der Lieblings-Coins vom iPhone (die es
   schon hat) oder ohne iPhone bzw. mit «Immer selbst abrufen» direkt von den Börsen, im Intervall des iPhones (15–60 Min.,

@@ -8,8 +8,9 @@
     <string name="why_details_hide">বিস্তারিত লুকান</string>
     <string name="why_disclaimer">বাজারের ডেটা থেকে স্বয়ংক্রিয় মূল্যায়ন: এটি দেখায় একই সময়ে কী ঘটছে, কারণের প্রমাণ নয়।</string>
     <string name="why_footer_short">একই সময়ে ঘটা মানেই কারণ নয় · বিনিয়োগ পরামর্শ নয়</string>
-    <string name="why_no_data">এই পেয়ারের জন্য Binance থেকে কোনো ডেটা নেই</string>
-    <string name="why_no_data_hint">দাম, ভলিউম ও অস্থিরতা Binance-এর ঘণ্টাভিত্তিক ক্যান্ডেল থেকে আসে।</string>
+    <string name="why_no_candles">এই পেয়ারের জন্য কোনো ঘণ্টাভিত্তিক ক্যান্ডেল নেই</string>
+    <string name="why_no_candles_hint">দাম, ভলিউম ও অস্থিরতা %1$s-এর ঘণ্টাভিত্তিক ক্যান্ডেল থেকে, বা সম্ভব হলে একই কয়েনের অন্য কোনো এক্সচেঞ্জ থেকে আসে।</string>
+    <string name="why_no_data_retry_hint">দাম, ভলিউম ও অস্থিরতা লোড করা যায়নি। আবার চেষ্টা করুন।</string>
     <string name="why_ref_alts">অল্ট</string>
     <string name="why_section_context">সম্ভাব্য ব্যাখ্যা</string>
     <string name="why_section_observation">পর্যবেক্ষণ</string>

@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Bitcoin göstəriciləri, gündə iki dəfə yoxlanılır. Limitləri sən seçirsən – tətbiq dəyərləri qiymətləndirmir.</string>
     <string name="settings_macro_notifications">İqtisadi təqvim</string>
     <string name="settings_macro_notifications_hint">ABŞ-ın mühüm iqtisadi məlumatları olan günlərdə saat 08:00-da (inflyasiya, məşğulluq hesabatı, FED qərarı). Təqvim tətbiqin veb-saytından gəlir, gündə bir dəfə yüklənir.</string>
+    <string name="settings_macro_notifications_us_hint">ABŞ-da bildiriş ən gec Nyu-York vaxtı ilə 08:00-da, ilk məlumatlardan əvvəl gəlir.</string>
     <string name="settings_market_alerts">Bazar alarmları</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Paylaş</string>
     <string name="settings_price_overlay">Qiymət örtüyü</string>
     <string name="settings_price_overlay_hint">Daimi qiymət bildirişinin cütlərini digər tətbiqlərin üzərində kiçik üzən nişan kimi göstərir. Tətbiqi açmaq üçün toxun, bağlamaq üçün aşağıdakı ×-a sürüşdür.</string>
+    <string name="settings_price_overlay_restart_hint">Sistem tətbiqi bağlasa, qiymət örtüyü növbəti fon yeniləməsi ilə geri qayıdır.</string>
     <string name="settings_price_overlay_needs">Yalnız «%1$s» ilə birlikdə işləyir.</string>
     <string name="settings_price_overlay_grant">Digər tətbiqlərin üzərində göstərməyə icazə ver</string>
     <string name="price_overlay_close">Örtüyü bağla</string>

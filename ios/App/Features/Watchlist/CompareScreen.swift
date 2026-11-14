@@ -196,13 +196,16 @@ struct CompareScreen: View {
         let line = series.map { index < $0.count ? $0[index] : [] }
         let noData = line?.isEmpty == true
         let f = figures.flatMap { index < $0.count ? $0[index] : nil }
-        let values: [(String, Double?)] = [
-            (shortLabel(range), line.flatMap(CompareMath.last)),
+        let rangeLabel = shortLabel(range)
+        let all: [(String, Double?)] = [
+            (rangeLabel, line.flatMap(CompareMath.last)),
             (A11y.changeShortLabel(changeView.basis), changeView.shown(watch.shownChange24h)),
             (L("widget_range_short_7d"), f?.change7d),
             (L("widget_range_short_30d"), f?.change30d),
             (L("compare_from_high"), f?.fromHigh30d),
         ]
+        // Nie zweimal «7T» mit zwei Werten: die feste Spalte des gewählten Zeitraums entfällt (wie Android)
+        let values = all.enumerated().filter { $0.offset == 0 || $0.element.0 != rangeLabel }.map(\.element)
         let price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
         var spoken = [watch.displayName, L("label_value", L("watchlist_sort_price"), price)]
         if noData { spoken.append(L("sheet_chart_no_data")) }

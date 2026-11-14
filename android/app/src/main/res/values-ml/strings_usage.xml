@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">ബാറ്ററിയും പ്രവർത്തനവും</string>
+    <string name="usage_intro">ആപ്പുകൾക്ക് സ്വന്തം വൈദ്യുതി ഉപയോഗം വായിക്കാനാകില്ല. അതിനാൽ കഴിഞ്ഞ 24 മണിക്കൂറിൽ ആപ്പ് സ്വയം ചെയ്തത് കാണിക്കുന്നു – ഈ ഉപകരണത്തിൽ മാത്രം എണ്ണിയത്, ഒരു ഉള്ളടക്കവുമില്ലാതെ.</string>
+    <string name="usage_phone">ഫോൺ</string>
+    <string name="usage_watch">വാച്ച്</string>
+    <plurals name="usage_runs">
+        <item quantity="one">പശ്ചാത്തല റണ്ണുകൾ: %d</item>
+        <item quantity="other">പശ്ചാത്തല റണ്ണുകൾ: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">നെറ്റ്‌വർക്ക് അഭ്യർത്ഥനകൾ: %d</item>
+        <item quantity="other">നെറ്റ്‌വർക്ക് അഭ്യർത്ഥനകൾ: %d</item>
+    </plurals>
+    <string name="usage_received">ലഭിച്ചത്: %1$s</string>
+    <string name="usage_level_low">കുറഞ്ഞ പ്രവർത്തനം</string>
+    <string name="usage_level_medium">ഇടത്തരം പ്രവർത്തനം</string>
+    <string name="usage_level_high">കൂടിയ പ്രവർത്തനം</string>
+    <string name="usage_driver_interval">പ്രധാനമായും പശ്ചാത്തല പരിശോധന കാരണം (%1$s).</string>
+    <string name="usage_driver_exact">പ്രധാനമായും പശ്ചാത്തല പരിശോധനയും (%1$s) “%2$s” ഉം കാരണം.</string>
+    <string name="usage_driver_none">പശ്ചാത്തല പരിശോധന ഒന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല – തുറന്ന ആപ്പും വിജറ്റുകളും കൊണ്ടുവരുന്നത് മാത്രം എണ്ണുന്നു.</string>
+    <string name="usage_driver_watch">വാച്ച് ആപ്പും അതിന്റെ കോംപ്ലിക്കേഷനുകളും സ്വയം കൊണ്ടുവരുന്നത് എണ്ണുന്നു.</string>
+    <string name="usage_watch_none">വാച്ച് ഒന്നും കണക്റ്റ് ചെയ്തിട്ടില്ല</string>
+    <string name="usage_as_of">%1$s പ്രകാരം</string>
+    <string name="usage_battery_android">Android ഓരോ ആപ്പിന്റെയും ബാറ്ററി ഉപയോഗം അതിന്റെ ബാറ്ററി ക്രമീകരണങ്ങളിൽ കാണിക്കുന്നു.</string>
+</resources>

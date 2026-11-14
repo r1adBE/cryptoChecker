@@ -38,7 +38,9 @@ class ZoneCheckWorker @AssistedInject constructor(
     private val notifier: AppNotifier,
 ) : CoroutineWorker(appContext, params) {
 
-    override suspend fun doWork(): Result {
+    override suspend fun doWork(): Result = countedRun { runCheck() }
+
+    private suspend fun runCheck(): Result {
         val prefs = applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         // Unter der Sperre des Zurücksetzens (MarketAlertReset): Wird eine Grenze während des Abrufs ausgeschaltet,
         // wartet das «Aus», bis diese Prüfung geschrieben hat — sie überschreibt es also nicht mit dem alten Stand

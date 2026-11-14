@@ -64,7 +64,7 @@
         <item quantity="one">%1$d %2$s-Paar gefunden</item>
         <item quantity="other">%1$d %2$s-Paare gefunden</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Keine %1$s-Paare auf dieser Börse für den gewählten Kontrakttyp. Zuerst die Börse synchronisieren, oder einen anderen Kontrakttyp wählen.</string>
+    <string name="bulk_all_pairs_empty">Keine %1$s-Paare auf dieser Börse für den gewählten Kontrakttyp. Zuerst die Börse abgleichen, oder einen anderen Kontrakttyp wählen.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">%1$d Paar in die Merkliste</item>
         <item quantity="other">Alle %1$d Paare in die Merkliste</item>
@@ -91,8 +91,8 @@
     <string name="explorer_no_pair_list">Keine Handelspaare</string>
     <string name="explorer_sync_sheet_last">Zuletzt: %1$s</string>
     <string name="explorer_sync_never">nie</string>
-    <string name="explorer_sync_sheet_action">Jetzt synchronisieren</string>
-    <string name="explorer_sync_sheet_title">Handelspaare aktualisieren</string>
+    <string name="explorer_sync_sheet_action">Jetzt abgleichen</string>
+    <string name="explorer_sync_sheet_title">Handelspaare abgleichen</string>
     <string name="explorer_field_coin">Coin</string>
     <string name="explorer_field_contract">Kontrakt</string>
     <string name="explorer_field_exchange">Börse</string>

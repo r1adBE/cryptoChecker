@@ -8,8 +8,9 @@
     <string name="why_details_hide">Sembunyikan detail</string>
     <string name="why_disclaimer">Penilaian otomatis dari data pasar: menunjukkan apa yang terjadi bersamaan, bukan bukti suatu penyebab.</string>
     <string name="why_footer_short">Bersamaan bukan berarti penyebab · Bukan saran investasi</string>
-    <string name="why_no_data">Tidak ada data Binance untuk pasangan ini</string>
-    <string name="why_no_data_hint">Harga, volume, dan volatilitas berasal dari candle per jam Binance.</string>
+    <string name="why_no_candles">Tidak ada candle per jam untuk pasangan ini</string>
+    <string name="why_no_candles_hint">Harga, volume, dan volatilitas berasal dari candle per jam %1$s atau, jika memungkinkan, dari exchange lain dengan koin yang sama.</string>
+    <string name="why_no_data_retry_hint">Harga, volume, dan volatilitas tidak dapat dimuat. Coba lagi.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Kemungkinan tafsiran</string>
     <string name="why_section_observation">Pengamatan</string>

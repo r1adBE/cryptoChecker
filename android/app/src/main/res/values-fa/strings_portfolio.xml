@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">اکنون روندی در دسترس نیست.</string>
     <string name="portfolio_history_utc_days">روزها به UTC (کندل‌های روزانه)</string>
     <string name="portfolio_history_without_matching">بدون %1$s (قیمت روزانهٔ منطبق نیست)</string>
+    <string name="portfolio_history_entry">ورود از نخستین قیمت روزانه: %1$s (پیش از آن قیمت روزانه نیست)</string>
     <string name="portfolio_period_rewards">پاداش‌ها +%1$s (خارج از سود)</string>
     <string name="portfolio_period_scaled">۷ روز/۱ سال برای %1$s: سابقهٔ Binance مقیاس‌شده با قیمت صرافی</string>
 

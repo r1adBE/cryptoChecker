@@ -480,23 +480,32 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertTrue(alone.points.isEmpty)
     }
 
-    func testHistoryCoinHeldBeforeItsFirstCloseIsSkippedWithoutJump() {
-        // Wie PortfolioHistoryTest.kt: NEW gehalten ab Tag −20, erste Kerze erst Tag −5 → fehlt im ganzen Zeitraum
+    func testHistoryCoinHeldBeforeItsFirstCloseEntersWithoutJump() {
+        // Wie PortfolioHistoryTest.kt: NEW gehalten ab Tag −20, erste Kerze erst Tag −5 → zählt ab Tag −5 mit «Einstieg»
+        // (Wert dort als Zufluss, «Veränderung ohne Käufe» und Gewinn/Verlust ohne Sprung); früher fehlte NEW ganz
         var btc: [Int: Double] = [:]
         for i in 0..<30 { btc[today - i] = 50 }
         var new: [Int: Double] = [:]
         for i in 1...5 { new[today - i] = 10 }
         let s = build([buy("BTC", 1, noon(today - 20)), buy("NEW", 1, noon(today - 20))],
                       ["BTC": btc, "NEW": new], ["BTC": 50, "NEW": 10])
-        XCTAssertEqual(s.skipped, ["NEW"])
-        XCTAssertEqual(s.points.first?.value ?? .nan, 50, accuracy: d)
-        XCTAssertEqual(s.points.last?.value ?? .nan, 50, accuracy: d)
-        XCTAssertEqual(s.change ?? .nan, 0, accuracy: d)
+        XCTAssertTrue(s.skipped.isEmpty)
+        XCTAssertEqual(s.entries, ["NEW": today - 5])
+        XCTAssertEqual(s.points.map(\.value), [50, 50, 60, 60, 60, 60, 60, 60])
+        XCTAssertEqual(s.change ?? .nan, 10, accuracy: d)
+        XCTAssertEqual(s.cashFlows, [PortfolioCashFlow(epochDay: today - 5, amount: 10)])
+        XCTAssertEqual(s.netChange ?? .nan, 0, accuracy: d)
+        XCTAssertTrue(s.tradesInRange)
         XCTAssertTrue(s.pnlSkipped.isEmpty)
-        // Allein: kein Verlauf statt einer Kurve mit Sprung
+        XCTAssertEqual(s.pnlChange ?? .nan, 0, accuracy: d)
+        // Allein: Verlauf ab dem ersten Kurs-Tag (keine Nullen davor), der Einstieg ist dort der Anfangswert
         let alone = build([buy("NEW", 1, noon(today - 20))], ["NEW": new], ["NEW": 10])
-        XCTAssertEqual(alone.skipped, ["NEW"])
-        XCTAssertTrue(alone.points.isEmpty)
+        XCTAssertTrue(alone.skipped.isEmpty)
+        XCTAssertEqual(alone.entries, ["NEW": today - 5])
+        XCTAssertEqual(alone.points.first?.epochDay, today - 5)
+        XCTAssertEqual(alone.points.map(\.value), Array(repeating: 10, count: 6))
+        XCTAssertEqual(alone.cashFlows, [])
+        XCTAssertEqual(alone.pnlChange ?? .nan, 0, accuracy: d)
     }
 
     func testHistorySoldCoinWithoutLivePriceStillCounts() {

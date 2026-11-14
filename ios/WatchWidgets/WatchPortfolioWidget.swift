@@ -7,7 +7,7 @@ import WidgetKit
 /// «Portfolio / aus», rechteckig «Portfolio / am Handy einschalten», als Zeile «Portfolio · am Handy einschalten»
 /// (`WatchPortfolioOff`); Tippen öffnet die Uhr-App. Veraltet (`WatchFreshness`): grau, rechteckig mit Alter, rund, Ecke
 /// und Zeile knapp «USD 47m» (`WatchFreshness.shortTitle`);
-/// VoiceOver nennt es immer. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android `PortfolioComplicationService`.
+/// VoiceOver nennt es immer; verdeckt (`redactionReasons.privacy`) ohne Betrag. Neu gezeichnet bei jedem neuen Wert (`WatchModel`). Wie Android `PortfolioComplicationService`.
 struct WatchPortfolioEntry: TimelineEntry {
     let date: Date
     let portfolio: WatchPortfolio?
@@ -48,6 +48,8 @@ struct WatchPortfolioProvider: TimelineProvider {
 
 struct WatchPortfolioWidgetView: View {
     @Environment(\.widgetFamily) private var family
+    /// Gesenktes Handgelenk mit «Sensible Komplikationen ausblenden»: Beträge verdeckt (`privacySensitive`).
+    @Environment(\.redactionReasons) private var redactionReasons
     let entry: WatchPortfolioEntry
 
     var body: some View {
@@ -61,7 +63,10 @@ struct WatchPortfolioWidgetView: View {
         guard let p = entry.portfolio else {
             return WatchPortfolioOff.spoken(title: WatchText.t("watch_portfolio"), hint: WatchText.t("watch_portfolio_turn_on"))
         }
-        let row = WatchText.portfolioSpoken(p)
+        // Verdeckt: VoiceOver nennt keinen Betrag, wie das iPhone-Widget (`spokenHidden`)
+        var spokenPortfolio = p
+        if redactionReasons.contains(.privacy) { spokenPortfolio.hidden = true }
+        let row = WatchText.portfolioSpoken(spokenPortfolio)
         return entry.outdated ? row + ", " + WatchText.spokenAge(p.time, now: Int64(entry.date.timeIntervalSince1970 * 1000)) : row
     }
 

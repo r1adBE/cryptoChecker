@@ -14,4 +14,17 @@ final class FailurePathGuardTests: XCTestCase {
         XCTAssertTrue(steps.contains("if notTraded { cancelIds.append(watch.id) }"))
         XCTAssertFalse(steps.contains("            cancelIds.append(watch.id)\n"), "kein Entfernen ohne Bedingung")
     }
+
+    /// Portfolio-Kurse: Netz, Zeitgrenze oder 5xx in der Kerzen-Kette heissen «nicht abrufbar», nicht «kein Kurs» bzw.
+    /// «Kein Markt» — der Fehler kommt aus der Kette (`CandleDataSource` `attempt`), kein fester Wert. Wie Android
+    /// `CandleDataSourceChainTest.attemptTellsFailureFromNoData`.
+    func testCandleChainFailureIsUnavailable() throws {
+        let prices = try source("Shared/Portfolio/PortfolioPriceSource.swift")
+        XCTAssertTrue(prices.contains("PortfolioPriceIssue.of(failed: outcome.failed, allSourcesBlocked: sourcesBlocked,"))
+        XCTAssertFalse(prices.contains("PortfolioPriceIssue.of(failed: false"))
+        let requests = try source("Shared/Portfolio/PortfolioPriceSource+Requests.swift")
+        XCTAssertTrue(requests.contains("identityName: identityName, attempt: attempt)"))
+        let chain = try source("Shared/Insights/CandleDataSource.swift")
+        XCTAssertTrue(chain.contains("case .TRANSIENT, .UNREACHABLE: attempt?.withLock { $0 = true }"))
+    }
 }

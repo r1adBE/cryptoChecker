@@ -282,6 +282,21 @@ enum ProtectedFile {
         }
     }
 
+    /// Eine Datei, die der Aufrufer nicht (ganz) lesen konnte: beschädigt statt nur gerade gesperrt? true = ihre Bytes sind
+    /// lesbar und entschlüsselbar (dann ist der Inhalt kaputt bzw. hat übersprungene Einträge) oder `damaged` — ein Neustart
+    /// hilft nicht, nur Ersetzen (Wiederherstellen, R4-02). false = gerade nicht zugänglich (kein Schlüssel, Datenschutz vor
+    /// dem ersten Entsperren, neueres Format) oder weg: abwarten, nie ersetzen.
+    static func unreadableIsDamaged(_ url: URL, keys: StorageKey = .shared) -> Bool {
+        do {
+            _ = try read(url, keys: keys)
+            return true
+        } catch ReadError.damaged {
+            return true
+        } catch {
+            return false
+        }
+    }
+
     /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt (nur die Kopien unlesbarer
     /// Dateien, `writeCopy`) — der nächste Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte
     /// Datei, wird sie ohne Schlüssel nie durch Klartext ersetzt (`locked`). Das Backup-Merkmal setzen die Aufrufer

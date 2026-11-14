@@ -124,7 +124,7 @@ struct WatchlistWhySheet: View {
                         .transition(.opacity)
                 case .failed:
                     VStack(alignment: .leading, spacing: Spacing.md) {
-                        WatchlistWhyEmpty(onRetry: { attempt += 1 })
+                        WatchlistWhyEmpty(failure: .timeout, exchange: watch.exchangeName, onRetry: { attempt += 1 })
                         WatchlistWhySignals(signals: signals)
                     }
                 case .loaded(let r):
@@ -150,7 +150,8 @@ struct WatchlistWhySheet: View {
         .background(AppColors.background.ignoresSafeArea())
         .task(id: attempt) {
             state = .loading
-            if let loaded = await data.explain(watch) {
+            // «Erneut versuchen»: neu fragen statt gemerkter Leerstand
+            if let loaded = await data.explain(watch, refresh: attempt > 0) {
                 state = .loaded(loaded)
             } else if !Task.isCancelled {
                 state = .failed
@@ -168,7 +169,9 @@ struct WatchlistWhySheet: View {
         let factors = WhyFactors.rank(r)
         return VStack(alignment: .leading, spacing: Spacing.md) {
             if !r.hasMarketData {
-                WatchlistWhyEmpty(onRetry: nil)
+                // Nicht abrufbar (offline, Zeitgrenze): mit «Erneut versuchen»; sonst führt es keine Quelle
+                WatchlistWhyEmpty(failure: r.candlesFailure, exchange: watch.exchangeName,
+                                  onRetry: r.candlesFailure == nil ? nil : { () -> Void in attempt += 1 })
             }
             WatchlistWhyBriefCard(report: r, factors: factors)
             WatchlistWhyAllValuesCard(expanded: $allValues) {

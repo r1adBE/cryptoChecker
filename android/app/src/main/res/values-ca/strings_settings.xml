@@ -187,6 +187,7 @@
     <string name="settings_indicator_alerts_hint">Indicadors de Bitcoin, comprovats dues vegades al dia. Tu tries els límits – l\'app no valora els valors.</string>
     <string name="settings_macro_notifications">Calendari econòmic</string>
     <string name="settings_macro_notifications_hint">A les 08:00 els dies amb dades econòmiques importants dels EUA (inflació, informe d\'ocupació, decisió de la Fed). El calendari prové del web de l\'app i es carrega un cop al dia.</string>
+    <string name="settings_macro_notifications_us_hint">Als EUA la notificació arriba com a molt tard a les 08:00, hora de Nova York, abans de les primeres dades.</string>
     <string name="settings_market_alerts">Alarmes de mercat</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -297,6 +298,7 @@
     <string name="diagnostics_action_share">Comparteix</string>
     <string name="settings_price_overlay">Superposició de preu</string>
     <string name="settings_price_overlay_hint">Mostra els parells de la notificació de preu permanent com una petita pastilla flotant sobre altres apps. Toca per obrir l\'app; arrossega fins a la × de la part inferior per tancar-la.</string>
+    <string name="settings_price_overlay_restart_hint">Si el sistema tanca l\'app, la superposició de preu torna amb la següent actualització en segon pla.</string>
     <string name="settings_price_overlay_needs">Només funciona juntament amb «%1$s».</string>
     <string name="settings_price_overlay_grant">Permet la visualització sobre altres apps</string>
     <string name="price_overlay_close">Tanca la superposició</string>

@@ -1,6 +1,8 @@
 package com.cryptochecker.app.wearable
 
 import com.cryptochecker.app.domain.model.WatchEntity
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.watch.WatchPair
 import com.cryptochecker.marketdata.watch.WatchPhoneQuotes
@@ -94,5 +96,22 @@ class PhoneWatchFeedTest {
     fun nothingWhenTheWatchAlwaysFetchesItself() {
         val settings = WatchSettings(source = WatchSettings.Source.SELF)
         assertNull(PhoneWatchFeed.quotesJson(listOf(watch("BTC")), settings))
+    }
+
+    /**
+     * G4-02: die Uhr beschriftet die Veränderung mit «24 h» – vom Handy kommt sie nur rollend; bei «Seit 00:00» bzw.
+     * UTC keine (Uhr «—»), auch nicht, solange die gespeicherten Werte noch mit einer Tages-Basis gestempelt sind.
+     */
+    @Test
+    fun onlyRolling24hChangeGoesToTheWatch() {
+        val settings = WatchSettings(mode = WatchSettings.Mode.OWN, own = listOf("BTC"))
+        fun change(basis: ChangeBasis, stamp: ChangeStamp?) =
+            WatchPhoneQuotes.fromJson(PhoneWatchFeed.quotesJson(listOf(watch("BTC")), settings, basis, stamp))!!.single().change24h
+        assertEquals(1.5, change(ChangeBasis.ROLLING_24H, null)!!, 0.0)
+        assertEquals(1.5, change(ChangeBasis.SINCE_LAST, ChangeStamp(ChangeBasis.ROLLING_24H, 0L))!!, 0.0)
+        assertNull(change(ChangeBasis.LOCAL_DAY, ChangeStamp(ChangeBasis.LOCAL_DAY, 1L)))
+        assertNull(change(ChangeBasis.UTC_DAY, null))
+        // Basis eben auf rollend gestellt, Werte noch seit 00:00 gerechnet: noch keine
+        assertNull(change(ChangeBasis.ROLLING_24H, ChangeStamp(ChangeBasis.LOCAL_DAY, 1L)))
     }
 }

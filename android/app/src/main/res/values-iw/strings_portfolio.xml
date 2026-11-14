@@ -221,6 +221,7 @@
     <string name="portfolio_history_unavailable">אין כרגע התפתחות זמינה.</string>
     <string name="portfolio_history_utc_days">ימים ב-UTC (נרות יומיים)</string>
     <string name="portfolio_history_without_matching">ללא %1$s (אין מחירים יומיים תואמים)</string>
+    <string name="portfolio_history_entry">כניסה מהמחיר היומי הראשון: %1$s (אין מחירים יומיים לפני כן)</string>
     <string name="portfolio_period_rewards">תגמולים +%1$s (לא ברווח)</string>
     <string name="portfolio_period_scaled">7 י׳/שנה עבור %1$s: היסטוריית Binance מותאמת למחיר הבורסה</string>
 

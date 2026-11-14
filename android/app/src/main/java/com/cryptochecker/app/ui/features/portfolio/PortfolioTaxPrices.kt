@@ -6,6 +6,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.dayClosesUsdt
+import com.cryptochecker.app.data.portfolio.exportReference
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -191,14 +192,8 @@ internal suspend fun PortfolioExportViewModel.dailyCloses(
     if (wanted.isEmpty()) return { _, _ -> null }
     val days = LinkedHashMap<String, MutableList<LocalDate>>()
     for ((coin, day) in wanted) days.getOrPut(coin) { ArrayList() } += day
-    val current = try {
-        priceSource.prices(days.keys.toList()).let { p -> CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified) }
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        Timber.w(e, "Steuer-Vorlage: aktuelle Kurse fehlen")
-        emptyMap()
-    }
+    // Bezug frisch, sonst der gemerkte Stand (wie Stichtag und Wertverlauf)
+    val current = priceSource.exportReference(days.keys).prices
     val closes = HashMap<Pair<String, LocalDate>, BigDecimal>()
     for ((coin, byDay) in historic.dayClosesUsdt(days, current)) {
         for ((day, r) in byDay) PortfolioDecimal.of(r.price)?.let { closes[coin to day] = it }

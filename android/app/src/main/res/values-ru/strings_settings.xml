@@ -188,6 +188,7 @@
     <string name="settings_indicator_alerts_hint">Показатели биткоина проверяются дважды в день. Границы выбираешь ты – приложение не оценивает значения.</string>
     <string name="settings_macro_notifications">Экономический календарь</string>
     <string name="settings_macro_notifications_hint">В 08:00 в дни важных экономических данных США (инфляция, рынок труда, решение ФРС). Календарь загружается с сайта приложения раз в день.</string>
+    <string name="settings_macro_notifications_us_hint">В США уведомление приходит не позднее 08:00 по нью-йоркскому времени, до первых данных.</string>
     <string name="settings_market_alerts">Рыночные уведомления</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -300,6 +301,7 @@
     <string name="diagnostics_action_share">Поделиться</string>
     <string name="settings_price_overlay">Оверлей цен</string>
     <string name="settings_price_overlay_hint">Показывает пары из постоянного уведомления о цене в маленькой плавающей таблетке поверх других приложений. Нажми, чтобы открыть приложение, перетащи на × внизу, чтобы закрыть.</string>
+    <string name="settings_price_overlay_restart_hint">Если система закроет приложение, оверлей цен вернётся со следующим фоновым обновлением.</string>
     <string name="settings_price_overlay_needs">Работает только вместе с «%1$s».</string>
     <string name="settings_price_overlay_grant">Разрешить показ поверх других приложений</string>
     <string name="price_overlay_close">Закрыть оверлей</string>

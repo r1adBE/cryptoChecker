@@ -188,6 +188,7 @@
     <string name="settings_indicator_alerts_hint">Показники біткоїна перевіряються двічі на день. Межі обираєш ти – застосунок не оцінює значення.</string>
     <string name="settings_macro_notifications">Економічний календар</string>
     <string name="settings_macro_notifications_hint">О 08:00 у дні важливих економічних даних США (інфляція, ринок праці, рішення ФРС). Календар завантажується з вебсайту застосунку раз на день.</string>
+    <string name="settings_macro_notifications_us_hint">У США сповіщення приходить не пізніше 08:00 за нью-йоркським часом, до перших даних.</string>
     <string name="settings_market_alerts">Ринкові сповіщення</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -300,6 +301,7 @@
     <string name="diagnostics_action_share">Поділитися</string>
     <string name="settings_price_overlay">Оверлей цін</string>
     <string name="settings_price_overlay_hint">Показує пари з постійного сповіщення про ціну в маленькій плаваючій пігулці поверх інших застосунків. Торкнись, щоб відкрити застосунок, перетягни на × унизу, щоб закрити.</string>
+    <string name="settings_price_overlay_restart_hint">Якщо система закриє застосунок, оверлей цін повернеться з наступним оновленням у фоні.</string>
     <string name="settings_price_overlay_needs">Працює лише разом із «%1$s».</string>
     <string name="settings_price_overlay_grant">Дозволити показ поверх інших застосунків</string>
     <string name="price_overlay_close">Закрити оверлей</string>

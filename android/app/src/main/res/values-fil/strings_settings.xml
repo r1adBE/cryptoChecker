@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Mga indicator ng Bitcoin, sinusuri dalawang beses kada araw. Ikaw ang pipili ng mga limitasyon – hindi nire-rate ng app ang mga value.</string>
     <string name="settings_macro_notifications">Economic calendar</string>
     <string name="settings_macro_notifications_hint">Sa 08:00 sa mga araw na may mahalagang economic data ng US (inflation, jobs report, desisyon ng Fed). Galing ang kalendaryo sa website ng app, nilo-load isang beses kada araw.</string>
+    <string name="settings_macro_notifications_us_hint">Sa US, darating ang notification nang hindi lalampas sa 08:00 oras sa New York, bago ang unang data.</string>
     <string name="settings_market_alerts">Mga market alert</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Ibahagi</string>
     <string name="settings_price_overlay">Overlay ng presyo</string>
     <string name="settings_price_overlay_hint">Ipinapakita ang mga pares ng permanenteng notification ng presyo bilang maliit na lumulutang na pill sa ibabaw ng ibang app. I-tap para buksan ang app, i-drag sa × sa ibaba para isara.</string>
+    <string name="settings_price_overlay_restart_hint">Kapag isinara ng system ang app, babalik ang overlay ng presyo sa susunod na update sa background.</string>
     <string name="settings_price_overlay_needs">Gumagana lang kasabay ng «%1$s».</string>
     <string name="settings_price_overlay_grant">Payagang magpakita sa ibabaw ng ibang app</string>
     <string name="price_overlay_close">Isara ang overlay</string>

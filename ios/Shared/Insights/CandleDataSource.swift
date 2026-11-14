@@ -113,9 +113,11 @@ enum CandleDataSource {
     /// `accept`: Prüfung des Aufrufers (z. B. gleicher Token, Kurs ±25 %); false = nächste Quelle
     /// der Kette statt aufgeben (eine fremde Reihe gleichen Kürzels bei der ersten Quelle).
     /// `identityName`: wie bei `candles` — Quellen nur ohne klaren Namens-Widerspruch (gleiche Regel wie
-    /// `TokenIdentity.fallbackSeriesAllowed`).
+    /// `TokenIdentity.fallbackSeriesAllowed`). `attempt`: wird true, wenn eine Quelle vorübergehend scheiterte (Netz,
+    /// Zeitgrenze, 5xx, 429 — `HistoricCloseChain.fetchFailure`); ohne Kerzen heisst das «nicht abrufbar». Wie Android.
     static func candlesSourced(base: String, quote: String, interval: CandleInterval, limit: Int,
                                preferFutures: Bool = false, identityName: String? = nil,
+                               attempt: OSAllocatedUnfairLock<Bool>? = nil,
                                accept: (@Sendable ([MarketCandle]) async -> Bool)? = nil) async -> Sourced<[MarketCandle]>? {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
@@ -136,7 +138,7 @@ enum CandleDataSource {
             // Namenssperre wie Mini-Chart und Widget: heisst der Coin bei Binance klar anders, fällt die
             // ganze Kette aus (anderer Token gleichen Kürzels); dazu der Name beim Anbieter selbst
             if !TokenIdentityStore.shared.chainSourceAllowed(base: b, ownName: identityName, host: source.rawValue) { continue }
-            guard let result = await fetch(from: source, base: b, quote: q, interval: interval, limit: n),
+            guard let result = await fetch(from: source, base: b, quote: q, interval: interval, limit: n, attempt: attempt),
                   result.count >= 2 else { continue }
             // Reihe, die vor langem endet (Paar dort nicht mehr gehandelt): nächste Quelle
             let live = CandleSeries.isLive(result, intervalMillis: interval.millis, now: EpochTime.nowMillis)
@@ -153,42 +155,45 @@ enum CandleDataSource {
     }
 
     private static func fetch(from source: Source, base b: String, quote q: String,
-                              interval: CandleInterval, limit: Int) async -> [MarketCandle]? {
+                              interval: CandleInterval, limit: Int,
+                              attempt: OSAllocatedUnfairLock<Bool>?) async -> [MarketCandle]? {
         let binanceSymbol = b + binanceQuote(q)
         switch source {
         case .binanceVision:
             return await binance(source, endpoint: "https://data-api.binance.vision/api/v3/klines",
-                                 symbols: [binanceSymbol], interval: interval, limit: limit)
+                                 symbols: [binanceSymbol], interval: interval, limit: limit, attempt: attempt)
         case .binanceSpot:
             return await binance(source, endpoint: "https://api.binance.com/api/v3/klines",
-                                 symbols: [binanceSymbol], interval: interval, limit: limit)
+                                 symbols: [binanceSymbol], interval: interval, limit: limit, attempt: attempt)
         case .binanceFutures:
             return await binance(source, endpoint: "https://fapi.binance.com/fapi/v1/klines",
-                                 symbols: [binanceSymbol], interval: interval, limit: limit)
+                                 symbols: [binanceSymbol], interval: interval, limit: limit, attempt: attempt)
         case .binanceUS:
             // Binance.US führt viele Paare nur gegen USD
             var symbols = [binanceSymbol]
             if binanceQuote(q) == "USDT" { symbols.append(b + "USD") }
             return await binance(source, endpoint: "https://api.binance.us/api/v3/klines",
-                                 symbols: symbols, interval: interval, limit: limit)
+                                 symbols: symbols, interval: interval, limit: limit, attempt: attempt)
         case .coinbase:
-            return await coinbase(base: b, quote: q, interval: interval, limit: limit)
+            return await coinbase(base: b, quote: q, interval: interval, limit: limit, attempt: attempt)
         }
     }
 
     private static func binance(_ source: Source, endpoint: String, symbols: [String],
-                                interval: CandleInterval, limit: Int) async -> [MarketCandle]? {
+                                interval: CandleInterval, limit: Int,
+                                attempt: OSAllocatedUnfairLock<Bool>?) async -> [MarketCandle]? {
         for symbol in symbols {
             if Task.isCancelled || BlockedSources.isBlocked(source.rawValue) { return nil }
             let url = "\(endpoint)?symbol=\(symbol)&interval=\(interval.binanceCode)&limit=\(limit)"
-            guard let text = await get(source, url),
+            guard let text = await get(source, url, attempt: attempt),
                   let candles = try? parseBinance(text), candles.count >= 2 else { continue }
             return candles
         }
         return nil
     }
 
-    private static func coinbase(base b: String, quote q: String, interval: CandleInterval, limit: Int) async -> [MarketCandle]? {
+    private static func coinbase(base b: String, quote q: String, interval: CandleInterval, limit: Int,
+                                 attempt: OSAllocatedUnfairLock<Bool>?) async -> [MarketCandle]? {
         // Erlaubt sind nur 60, 300, 900, 3600, 21600, 86400 s
         let granularity: Int
         switch interval {
@@ -199,7 +204,7 @@ enum CandleDataSource {
         for cq in quotes {
             if Task.isCancelled || BlockedSources.isBlocked(Source.coinbase.rawValue) { return nil }
             let url = "https://api.exchange.coinbase.com/products/\(b)-\(cq)/candles?granularity=\(granularity)"
-            guard let text = await get(.coinbase, url), var raw = try? parseCoinbase(text) else { continue }
+            guard let text = await get(.coinbase, url, attempt: attempt), var raw = try? parseCoinbase(text) else { continue }
             // Je Anfrage höchstens 300 Kerzen: für lange Reihen (1 Jahr) eine ältere Seite dazu
             let rawPerCandle: Int
             switch interval {
@@ -235,12 +240,17 @@ enum CandleDataSource {
         return f.string(from: Date(timeIntervalSince1970: TimeInterval(millis) / 1000))
     }
 
-    /// Eine Anfrage; nil bei Fehler. 451/403 sperrt die Quelle (siehe `BlockedSources`).
-    private static func get(_ source: Source, _ url: String) async -> String? {
+    /// Eine Anfrage; nil bei Fehler. 451/403 sperrt die Quelle (siehe `BlockedSources`). Vorübergehender Fehler (Netz,
+    /// Zeitgrenze, 5xx, 429): `attempt` wird true.
+    private static func get(_ source: Source, _ url: String, attempt: OSAllocatedUnfairLock<Bool>? = nil) async -> String? {
         do {
             return try await ExchangeHTTP.call(url, session: session)
         } catch {
             BlockedSources.noteFailure(source.rawValue, error)
+            switch HistoricCloseChain.fetchFailure(httpCode: (error as? HttpExchangeError)?.httpCode) {
+            case .TRANSIENT, .UNREACHABLE: attempt?.withLock { $0 = true }
+            case .NO_DATA, .BLOCKED: break
+            }
             return nil
         }
     }

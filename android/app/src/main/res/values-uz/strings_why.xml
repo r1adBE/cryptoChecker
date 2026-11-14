@@ -8,8 +8,9 @@
     <string name="why_details_hide">Tafsilotlarni yashirish</string>
     <string name="why_disclaimer">Bozor maʼlumotlaridan avtomatik baho: bir vaqtda nima boʻlayotganini koʻrsatadi, sabab isboti emas.</string>
     <string name="why_footer_short">Bir vaqtdalik sabab degani emas · Investitsiya maslahati emas</string>
-    <string name="why_no_data">Bu juftlik uchun Binance’dan maʼlumot yoʻq</string>
-    <string name="why_no_data_hint">Narx, hajm va volatillik Binance soatlik shamlaridan olinadi.</string>
+    <string name="why_no_candles">Bu juftlik uchun soatlik shamlar yoʻq</string>
+    <string name="why_no_candles_hint">Narx, hajm va volatillik %1$s soatlik shamlaridan yoki iloji boʻlsa, xuddi shu tangali boshqa birjadan olinadi.</string>
+    <string name="why_no_data_retry_hint">Narx, hajm va volatillikni yuklab boʻlmadi. Qayta urinib koʻring.</string>
     <string name="why_ref_alts">Altlar</string>
     <string name="why_section_context">Ehtimoliy izoh</string>
     <string name="why_section_observation">Kuzatuv</string>

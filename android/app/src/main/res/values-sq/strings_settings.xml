@@ -186,6 +186,7 @@
     <string name="settings_indicator_alerts_hint">Treguesit e Bitcoin, kontrollohen dy herë në ditë. Kufijtë i zgjedh ti – aplikacioni nuk i vlerëson vlerat.</string>
     <string name="settings_macro_notifications">Kalendari ekonomik</string>
     <string name="settings_macro_notifications_hint">Në 08:00 në ditët me të dhëna të rëndësishme ekonomike të SHBA-së (inflacioni, punësimi, vendimi i Fed-it). Kalendari vjen nga faqja e internetit e aplikacionit dhe ngarkohet një herë në ditë.</string>
+    <string name="settings_macro_notifications_us_hint">Në SHBA njoftimi vjen më së voni në 08:00 sipas orës së Nju Jorkut, para të dhënave të para.</string>
     <string name="settings_market_alerts">Njoftime tregu</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -294,6 +295,7 @@
     <string name="diagnostics_action_share">Ndaj</string>
     <string name="settings_price_overlay">Mbishtresë çmimesh</string>
     <string name="settings_price_overlay_hint">Shfaq çiftet e njoftimit të përhershëm të çmimit si një kapsulë e vogël lundruese mbi aplikacionet e tjera. Prek për të hapur aplikacionin, tërhiqe te × poshtë për ta mbyllur.</string>
+    <string name="settings_price_overlay_restart_hint">Nëse sistemi e mbyll aplikacionin, mbishtresa e çmimeve kthehet me përditësimin e radhës në sfond.</string>
     <string name="settings_price_overlay_needs">Funksionon vetëm bashkë me «%1$s».</string>
     <string name="settings_price_overlay_grant">Lejo shfaqjen mbi aplikacionet e tjera</string>
     <string name="price_overlay_close">Mbyll mbishtresën</string>

@@ -259,4 +259,23 @@ class CoinLogosParityTest {
             CoinLogos.changedKeys(c["old"].obj().mapValues { it.value as String }, c["new"].obj().mapValues { it.value as String }),
         )
     }
+
+    /** Dauerhaft gestörte Bilder halten das erste Laden nicht für immer offen (R4-05, `openPasses`). */
+    @Test
+    fun openPasses() {
+        val o = data["openPasses"].obj()
+        assertEquals((o["failAfter"] as Number).toInt(), CoinLogoRetry.OPEN_PASSES_FAIL)
+        fun counts(v: Any?) = v.obj().mapValues { (it.value as Number).toInt() }
+        fun names(v: Any?) = v.list().map { it as String }
+        o["next"].list().map { it.obj() }.forEach { c ->
+            val next = CoinLogoRetry.nextOpenPasses(counts(c["previous"]), names(c["attempted"]), names(c["open"]))
+            assertEquals("next: $c", counts(c["expected"]), next)
+            assertEquals("failed: $c", names(c["failed"]).toSet(), next.filterValues { CoinLogoRetry.openPassesFail(it) }.keys)
+        }
+        o["codec"].list().map { it.obj() }.forEach { c ->
+            val decoded = CoinLogoRetry.decodeOpenPasses(c["text"] as String)
+            assertEquals("decode: $c", counts(c["decoded"]), decoded)
+            assertEquals("encode: $c", c["encoded"], CoinLogoRetry.encodeOpenPasses(decoded))
+        }
+    }
 }

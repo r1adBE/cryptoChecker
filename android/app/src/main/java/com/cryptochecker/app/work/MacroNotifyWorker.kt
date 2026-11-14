@@ -19,14 +19,13 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CancellationException
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 import com.cryptochecker.app.notification.showGas
 
 /**
- * Morgen-Meldung «Wirtschaftstermine»: läuft täglich um 08:00 Ortszeit und meldet die
+ * Morgen-Meldung «Wirtschaftstermine»: läuft täglich um 08:00 Ortszeit (spätestens 08:00 New York, nicht vor 05:00:
+ * [MacroCalendar.notifyAtOnDay]) und meldet die
  * wichtigen US-Wirtschaftsdaten des Tages (z. B. «Heute 14:30: US-Inflationsdaten (CPI) – …»).
  * Ohne Termin keine Meldung. Höchstens eine Meldung am Tag; kommt die Aufgabe erst nach
  * 12:00 dran (Doze), entfällt sie für diesen Tag. Nachtruhe gilt wie bei den übrigen
@@ -42,7 +41,9 @@ class MacroNotifyWorker @AssistedInject constructor(
     private val notifier: AppNotifier,
 ) : CoroutineWorker(appContext, params) {
 
-    override suspend fun doWork(): Result {
+    override suspend fun doWork(): Result = countedRun { runCheck() }
+
+    private suspend fun runCheck(): Result {
         try {
             if (!settingsRepository.current().macroNotifications) return Result.success()
             notifyIfDue()
@@ -62,11 +63,9 @@ class MacroNotifyWorker @AssistedInject constructor(
     private suspend fun notifyIfDue() {
         val zone = ZoneId.systemDefault()
         val now = System.currentTimeMillis()
-        val local = LocalDateTime.now(zone)
-        val today = LocalDate.now(zone).toEpochDay()
+        val today = MacroCalendar.localDate(now, zone).toEpochDay()
         val prefs = applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        val minute = local.hour * 60 + local.minute
-        if (MacroCalendar.isNotifyWindow(minute) && prefs.getLong(KEY_LAST_DAY, Long.MIN_VALUE) != today) {
+        if (MacroCalendar.isNotifyWindow(now, zone) && prefs.getLong(KEY_LAST_DAY, Long.MIN_VALUE) != today) {
             val events = MacroCalendar.notificationEvents(calendar.events(), now, zone)
             if (events.isNotEmpty()) {
                 notifier.showGas(
@@ -88,7 +87,7 @@ class MacroNotifyWorker @AssistedInject constructor(
         private const val KEY_LAST_DAY = "last_day"
         private const val MACRO_NOTIFICATION_ID = 41
 
-        /** Nächsten Lauf um 08:00 Ortszeit planen. */
+        /** Nächsten Lauf zur Morgen-Meldung planen ([MacroCalendar.nextNotifyAt]). */
         fun schedule(context: Context, policy: ExistingWorkPolicy = ExistingWorkPolicy.KEEP) {
             val now = System.currentTimeMillis()
             val delay = (MacroCalendar.nextNotifyAt(now, ZoneId.systemDefault()) - now).coerceAtLeast(0L)

@@ -93,14 +93,28 @@ struct CutoffRow: Equatable, Sendable {
     var fromAddress: Bool = false
     /// Adresse am Stichtag (noch) nicht beobachtet: ihr Guthaben fehlt; ohne beobachteten Teil keine Menge.
     var addressUnobserved: Bool = false
+    /// Ohne Kurs (`noPrice`), weil eine Quelle bzw. der aktuelle Kurs gerade nicht abrufbar war — «nicht abrufbar».
+    var unavailable: Bool = false
 }
 
 /// Tagesschlüsse des Stichtags: `prices` Coin → Kurs in USDT; `unchecked` = Coins, deren Kurs mangels
-/// passendem aktuellem Kurs nicht als derselbe Token bestätigt werden konnte (Hinweis «ungeprüft»).
+/// passendem aktuellem Kurs nicht als derselbe Token bestätigt werden konnte (Hinweis «ungeprüft»); `unavailable` =
+/// ohne Kurs, weil eine Quelle nicht abrufbar war (`HistoricCloseChain.Resolved.failed`, Hinweis «nicht abrufbar»).
 struct CutoffCloses: Equatable, Sendable {
     /// Exakt aus der kürzesten Darstellung des Quellkurses (`PortfolioDecimal.of`).
     var prices: [String: Decimal] = [:]
     var unchecked: Set<String> = []
+    var unavailable: Set<String> = []
+
+    /// `coins` ohne Kurs, deren Bezug gerade nicht abrufbar war: «nicht abrufbar» statt «ungeprüft». Wie Android.
+    func withUnavailable(_ coins: Set<String>) -> CutoffCloses {
+        let missing = coins.filter { prices[$0] == nil }
+        if missing.isEmpty { return self }
+        var out = self
+        out.unchecked.subtract(missing)
+        out.unavailable.formUnion(missing)
+        return out
+    }
 }
 
 /// Übersetzte Texte für die CSV-Datei.
@@ -136,6 +150,8 @@ struct CutoffCsvTexts: Sendable {
     var addressesUnreadable: String = ""
     /// Zeile «Posten nach der letzten Beobachtung einer Adresse – können fehlen» (`CutoffExport.csv` `addressLots`); leer = keine.
     var addressLots: String = ""
+    /// «Kurs gerade nicht abrufbar» (`CutoffRow.unavailable`); leer = `noPrice`.
+    var unavailable: String = ""
 
     /// Aus den App-Texten, Spaltentitel mit der Zielwährung.
     static func localized(currency: String) -> CutoffCsvTexts {
@@ -161,7 +177,8 @@ struct CutoffCsvTexts: Sendable {
             addressUnobserved: L("portfolio_export_address_unobserved"),
             usdtAssumed: L("portfolio_usdt_assumed"),
             addressesUnreadable: L("portfolio_export_addresses_unreadable"),
-            addressLots: L("portfolio_export_address_lots_note")
+            addressLots: L("portfolio_export_address_lots_note"),
+            unavailable: L("portfolio_price_unavailable")
         )
     }
 }
@@ -227,15 +244,11 @@ enum PortfolioCutoffExporter {
         var seenCoins: Set<String> = []
         let coins = (holdings.map(\.coin) + addressAt.balances.keys.sorted())
             .filter { seenCoins.insert($0).inserted && PortfolioStables.needsQuote($0) }
-        // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle); ohne passenden Bezug wird kein
-        // Tagesschluss übernommen («ungeprüft») — auch nicht, wenn das Laden ganz scheitert
-        var current: [String: Double] = [:]
-        if !coins.isEmpty {
-            let live = await PortfolioPriceSource.prices(coins)
-            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
-                                                   unverifiedCurrent: live.unverified)
-        }
-        let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
+        // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle; frisch, sonst der gemerkte Stand); ohne passenden
+        // Bezug wird kein Tagesschluss übernommen («ungeprüft»), fehlt er wegen eines Abruffehlers: «nicht abrufbar»
+        let reference = await PortfolioPriceSource.exportReference(coins)
+        let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: reference.prices)
+            .withUnavailable(reference.unavailable)
         var fx: HistoricFx?
         if !holdings.isEmpty || !addressAt.balances.isEmpty || currency == "USD" {
             fx = await HistoricPriceSource.usdTo(currency, day: day)
@@ -244,8 +257,10 @@ enum PortfolioCutoffExporter {
         // × USDT/USD des Stichtags (heute live, sonst Tagesschluss) — ohne Kurs 1, in der Datei vermerkt
         let usdt = await cutoffUsdtUsd(currency, day: day)
         let rate = PortfolioDecimal.of(fx?.rate).map { r in usdt.map { PortfolioDecimal.multiply(r, $0) } ?? r }
-        let rows = CutoffExport.rows(holdings, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
-            + CutoffExport.addressRows(addressAt, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
+        let rows = CutoffExport.rows(holdings, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked,
+                                     unavailable: closes.unavailable)
+            + CutoffExport.addressRows(addressAt, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked,
+                                       unavailable: closes.unavailable)
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
         let usdtApproximate = rate != nil && usdt == nil && CutoffExport.convertsUsdt(currency)
         return CutoffExport.csv(day: day, currency: currency, fxDate: fx?.date, rows: rows, texts: texts,
@@ -284,5 +299,33 @@ struct CutoffCsvDocument: FileDocument {
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         FileWrapper(regularFileWithContents: data)
+    }
+}
+
+// MARK: Bezug der Exporte
+
+/// Ergebnis von `PortfolioPriceSource.exportReference`: Bezugskurse je Coin (USDT) und Coins ohne Bezug wegen eines
+/// Abruffehlers. Wie Android `ExportReference`.
+struct ExportReference: Sendable {
+    var prices: [String: Double]
+    var unavailable: Set<String>
+}
+
+extension PortfolioPriceSource {
+    /// Bezugskurse der Exporte für die Identitätsprüfung der Tagesschlüsse (`CutoffExport.referencePrices`): frisch
+    /// abgefragt, fehlt einer, aus dem gemerkten Stand (`stored`, wie der Wertverlauf). `unavailable` = Coins ohne Bezug,
+    /// weil die Abfrage gerade scheiterte (`PortfolioPrices.unavailable`): im Export «nicht abrufbar» statt «ungeprüft».
+    /// Wie Android.
+    static func exportReference(_ coins: [String]) async -> ExportReference {
+        if coins.isEmpty { return ExportReference(prices: [:], unavailable: []) }
+        func reference(_ p: PortfolioPrices) -> [String: Double] {
+            CutoffExport.referencePrices(p.prices, uncheckedCurrent: p.unchecked, unverifiedCurrent: p.unverified)
+        }
+        let fresh = await prices(coins)
+        let kept = await stored(coins)
+        // Frischer Kurs vor dem gemerkten
+        let merged = reference(kept).merging(reference(fresh)) { _, new in new }
+        let unavailable = Set(coins.filter { merged[$0] == nil && fresh.unavailable.contains($0) })
+        return ExportReference(prices: merged, unavailable: unavailable)
     }
 }

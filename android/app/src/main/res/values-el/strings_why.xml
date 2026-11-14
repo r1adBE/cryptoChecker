@@ -8,8 +8,9 @@
     <string name="why_details_hide">Απόκρυψη λεπτομερειών</string>
     <string name="why_disclaimer">Αυτόματη εκτίμηση από δεδομένα αγοράς: δείχνει τι συμβαίνει ταυτόχρονα, όχι απόδειξη αιτίας.</string>
     <string name="why_footer_short">Ταυτόχρονο δεν σημαίνει αιτία · Όχι επενδυτική συμβουλή</string>
-    <string name="why_no_data">Δεν υπάρχουν δεδομένα από Binance για αυτό το ζεύγος</string>
-    <string name="why_no_data_hint">Τιμή, όγκος και μεταβλητότητα προέρχονται από ωριαία κεριά του Binance.</string>
+    <string name="why_no_candles">Δεν υπάρχουν ωριαία κεριά για αυτό το ζεύγος</string>
+    <string name="why_no_candles_hint">Τιμή, όγκος και μεταβλητότητα προέρχονται από ωριαία κεριά του %1$s ή, όπου γίνεται, από άλλο ανταλλακτήριο με το ίδιο νόμισμα.</string>
+    <string name="why_no_data_retry_hint">Δεν ήταν δυνατή η φόρτωση τιμής, όγκου και μεταβλητότητας. Δοκίμασε ξανά.</string>
     <string name="why_ref_alts">Alts</string>
     <string name="why_section_context">Πιθανή ερμηνεία</string>
     <string name="why_section_observation">Παρατήρηση</string>

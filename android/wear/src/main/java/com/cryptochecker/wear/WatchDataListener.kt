@@ -15,6 +15,8 @@ class WatchDataListener : WearableListenerService() {
         val items = WatchDataLayer.changed(dataEvents)
         if (items.isEmpty()) return
         val context = applicationContext
+        // Uhr ohnehin wach: eigene Zähler fürs Handy mitgeben («Akku & Aktivität», höchstens alle 30 Min.)
+        WatchUsage.publish(context)
         WatchDataLayer.processScope.launch {
             val taken = WatchDataLayer.take(context, WatchStore(context), items)
             if (taken.settings || taken.quotes) requestComplicationUpdate(context)

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">بیٹری اور سرگرمی</string>
+    <string name="usage_intro">ایپس اپنی بجلی کا استعمال نہیں پڑھ سکتیں۔ اس لیے ایپ دکھاتی ہے کہ اس نے پچھلے 24 گھنٹوں میں خود کیا کیا – صرف اسی آلے پر گنا گیا، بغیر کسی مواد کے۔</string>
+    <string name="usage_phone">فون</string>
+    <string name="usage_watch">گھڑی</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d پس منظر رن</item>
+        <item quantity="other">%d پس منظر رنز</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d نیٹ ورک درخواست</item>
+        <item quantity="other">%d نیٹ ورک درخواستیں</item>
+    </plurals>
+    <string name="usage_received">موصول: %1$s</string>
+    <string name="usage_level_low">کم سرگرمی</string>
+    <string name="usage_level_medium">درمیانی سرگرمی</string>
+    <string name="usage_level_high">زیادہ سرگرمی</string>
+    <string name="usage_driver_interval">زیادہ تر پس منظر کی جانچ کی وجہ سے (%1$s)۔</string>
+    <string name="usage_driver_exact">زیادہ تر پس منظر کی جانچ (%1$s) اور ”%2$s“ کی وجہ سے۔</string>
+    <string name="usage_driver_none">پس منظر کی کوئی جانچ طے نہیں – وہی گنا جاتا ہے جو کھلی ایپ اور ویجٹس حاصل کرتے ہیں۔</string>
+    <string name="usage_driver_watch">وہی گنا جاتا ہے جو گھڑی کی ایپ اور اس کے ویجٹس خود حاصل کرتے ہیں۔</string>
+    <string name="usage_watch_none">کوئی گھڑی منسلک نہیں</string>
+    <string name="usage_as_of">بمطابق %1$s</string>
+    <string name="usage_battery_android">Android ہر ایپ کا بیٹری استعمال اپنی بیٹری کی ترتیبات میں دکھاتا ہے۔</string>
+</resources>

@@ -62,7 +62,8 @@ final class HistoricCloseChainParityTests: XCTestCase {
                 asked.append(source)
                 let o = outcomes[source]
                 return HistoricCloseChain.Outcome(price: TestSupport.number(o?["price"]), rejected: o?["rejected"] as? Bool ?? false,
-                                                  provider: o?["provider"] as? String, failed: o?["failed"] as? Bool ?? false)
+                                                  provider: o?["provider"] as? String, failed: o?["failed"] as? Bool ?? false,
+                                                  unreachable: o?["unreachable"] as? Bool ?? false)
             }
             let e = c["expected"] as? [String: Any] ?? [:]
             let name = c["name"] as? String ?? ""

@@ -116,7 +116,7 @@ class PulseWidgetRenderer @Inject constructor(
             )
         }
         val fearGreedText = fearGreedValue?.let { PulseWidgetTexts.fearGreed(context, it) }
-        // «Kurz gesagt» aus denselben Eingaben und mit derselben Frische-Regel wie im Markt-Tab
+        // «Kurz gesagt» aus denselben Eingaben und derselben Frische-Regel wie im Markt-Tab
         val plainInput = if (fresh == null || report == null) null else {
             PulseWidgetPlain.input(
                 now = now,
@@ -177,7 +177,9 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setTextViewTextSize(R.id.pulse_headline, TypedValue.COMPLEX_UNIT_SP, headlineStyle.sizeSp)
                 views.setInt(R.id.pulse_headline, "setMaxLines", headlineStyle.lines)
 
-                val leadLines = PulseWidgetMath.leadLines(heightDp, headlineStyle.lines)
+                // «Stand» bzw. «Keine Verbindung · Stand» in jeder Grösse (wie iOS); der Leitsatz weicht ihm notfalls
+                val stand = PulseWidgetTexts.stand(context, report.time, online)
+                val leadLines = PulseWidgetMath.leadLines(heightDp, headlineStyle.lines, showsTime = stand != null)
 
                 // Nebenzeile «Fear & Greed 72 · Gier · Top 30 ↗ 22 ↘ 8»: nur mittel/gross; passt nicht
                 // alles in eine Zeile, die Marktbreite in einer zweiten Zeile darunter (wenn die Höhe
@@ -261,7 +263,8 @@ class PulseWidgetRenderer @Inject constructor(
                 val lead = firstSentence?.takeIf { sentenceLead } ?: PulseWidgetTexts.lead(context, report)
                 views.setTextViewText(R.id.pulse_lead, lead)
                 views.setTextColor(R.id.pulse_lead, colors.textColor)
-                views.setInt(R.id.pulse_lead, "setMaxLines", leadLines)
+                views.setViewVisibility(R.id.pulse_lead, if (leadLines > 0) View.VISIBLE else View.GONE)
+                views.setInt(R.id.pulse_lead, "setMaxLines", leadLines.coerceAtLeast(1))
 
                 val shownPlain = if (size == PulseWidgetSize.LARGE) plainSentences.take(plainCount) else emptyList()
                 views.setViewVisibility(R.id.pulse_plain, if (shownPlain.isNotEmpty()) View.VISIBLE else View.GONE)
@@ -313,13 +316,9 @@ class PulseWidgetRenderer @Inject constructor(
                     )
                     views.setTextColor(id, color)
                 }
-
-                val stand = PulseWidgetTexts.stand(context, report.time, online)
-                val showTime = stand != null && PulseWidgetMath.showsTime(heightDp)
-                views.setViewVisibility(R.id.pulse_time, if (showTime) View.VISIBLE else View.GONE)
+                views.setViewVisibility(R.id.pulse_time, if (stand != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(R.id.pulse_time, stand.orEmpty())
                 views.setTextColor(R.id.pulse_time, colors.secondaryTextColor)
-
                 // «Was gerade auffällt. Breite Stärke. Bitcoin führt den Markt an. Bitcoin gestiegen um 2.8%, …»
                 val spokenCoins = coins.joinToString(", ") { coin ->
                     coin.name + " " + A11yText.change(context, PulseWidgetMath.spokenChange(coin.change), decimals = 1)
@@ -327,7 +326,7 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setContentDescription(
                     R.id.pulse_root,
                     listOfNotNull(
-                        "$title. $headline. $lead",
+                        if (leadLines > 0) "$title. $headline. $lead" else "$title. $headline.", // nur Gezeigtes
                         "$spokenCoins.",
                         fearGreedText?.takeIf { showFng }?.let { "$it." },
                         breadth?.takeIf { showBreadth }?.let {

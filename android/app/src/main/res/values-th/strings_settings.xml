@@ -185,6 +185,7 @@
     <string name="settings_indicator_alerts_hint">ตัวชี้วัด Bitcoin ตรวจวันละสองครั้ง คุณเลือกเกณฑ์เอง – แอปไม่ประเมินค่า</string>
     <string name="settings_macro_notifications">ปฏิทินเศรษฐกิจ</string>
     <string name="settings_macro_notifications_hint">เวลา 08:00 ในวันที่มีข้อมูลเศรษฐกิจสหรัฐฯ สำคัญ (เงินเฟ้อ การจ้างงาน การตัดสินใจของเฟด) ปฏิทินโหลดจากเว็บไซต์ของแอปวันละครั้ง</string>
+    <string name="settings_macro_notifications_us_hint">ในสหรัฐฯ การแจ้งเตือนจะมาถึงอย่างช้าที่สุดเวลา 08:00 ตามเวลานิวยอร์ก ก่อนข้อมูลแรก</string>
     <string name="settings_market_alerts">การแจ้งเตือนตลาด</string>
     <!-- Kurzwert rechts in der Zeile: Anzahl eingeschalteter Themen (0 = «Off») -->
     <plurals name="settings_market_alerts_active">
@@ -291,6 +292,7 @@
     <string name="diagnostics_action_share">แชร์</string>
     <string name="settings_price_overlay">โอเวอร์เลย์ราคา</string>
     <string name="settings_price_overlay_hint">แสดงคู่เทรดจากการแจ้งเตือนราคาแบบถาวรเป็นแคปซูลลอยขนาดเล็กเหนือแอปอื่น แตะเพื่อเปิดแอป ลากไปที่ × ด้านล่างเพื่อปิด</string>
+    <string name="settings_price_overlay_restart_hint">หากระบบปิดแอป โอเวอร์เลย์ราคาจะกลับมาพร้อมการอัปเดตเบื้องหลังครั้งถัดไป</string>
     <string name="settings_price_overlay_needs">ใช้ได้เฉพาะร่วมกับ «%1$s»</string>
     <string name="settings_price_overlay_grant">อนุญาตให้แสดงทับแอปอื่น</string>
     <string name="price_overlay_close">ปิดโอเวอร์เลย์</string>

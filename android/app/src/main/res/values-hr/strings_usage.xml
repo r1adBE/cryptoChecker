@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Baterija i aktivnost</string>
+    <string name="usage_intro">Aplikacije ne mogu očitati vlastitu potrošnju energije. Zato aplikacija prikazuje što je sama radila u posljednja 24 sata – brojano samo na ovom uređaju, bez ikakva sadržaja.</string>
+    <string name="usage_phone">Telefon</string>
+    <string name="usage_watch">Sat</string>
+    <plurals name="usage_runs">
+        <item quantity="one">%d pokretanje u pozadini</item>
+        <item quantity="few">%d pokretanja u pozadini</item>
+        <item quantity="other">%d pokretanja u pozadini</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">%d mrežni zahtjev</item>
+        <item quantity="few">%d mrežna zahtjeva</item>
+        <item quantity="other">%d mrežnih zahtjeva</item>
+    </plurals>
+    <string name="usage_received">Primljeno: %1$s</string>
+    <string name="usage_level_low">Niska aktivnost</string>
+    <string name="usage_level_medium">Srednja aktivnost</string>
+    <string name="usage_level_high">Visoka aktivnost</string>
+    <string name="usage_driver_interval">Najviše zbog provjere u pozadini (%1$s).</string>
+    <string name="usage_driver_exact">Najviše zbog provjere u pozadini (%1$s) i „%2$s“.</string>
+    <string name="usage_driver_none">Nije planirana provjera u pozadini – broji se ono što dohvaćaju otvorena aplikacija i widgeti.</string>
+    <string name="usage_driver_watch">Broji se ono što aplikacija na satu i njezine komplikacije same dohvaćaju.</string>
+    <string name="usage_watch_none">Nije povezan nijedan sat</string>
+    <string name="usage_as_of">Stanje %1$s</string>
+    <string name="usage_battery_android">Android prikazuje potrošnju baterije po aplikaciji u svojim postavkama baterije.</string>
+</resources>

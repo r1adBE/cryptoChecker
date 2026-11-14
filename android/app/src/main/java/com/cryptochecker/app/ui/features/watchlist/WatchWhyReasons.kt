@@ -36,6 +36,7 @@ import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.MarketRef
 import com.cryptochecker.app.domain.activity.Reason
 import com.cryptochecker.app.domain.activity.ReasonKind
+import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhySummary
 import com.cryptochecker.app.notification.ActivityTexts
 import com.cryptochecker.app.ui.components.ChangePill
@@ -169,7 +170,15 @@ private fun reasonFactor(r: Reason): ReasonFactor {
 
 /** Leerzustand: Binance führt das Paar nicht (oder nichts erreichbar). */
 @Composable
-internal fun EmptyReasons(onRetry: (() -> Unit)?) {
+internal fun EmptyReasons(failure: WhyCandlesFailure?, exchange: String, onRetry: (() -> Unit)?) {
+    // Offline bzw. Börse antwortete nicht: so sagen, mit «Erneut versuchen»; sonst führt keine Quelle das Paar
+    val title = when (failure) {
+        WhyCandlesFailure.OFFLINE -> stringResource(R.string.offline_status)
+        WhyCandlesFailure.TIMEOUT -> stringResource(R.string.refresh_sheet_exchange_unreachable, exchange)
+        null -> stringResource(R.string.why_no_candles)
+    }
+    val hint = if (failure != null) stringResource(R.string.why_no_data_retry_hint)
+    else stringResource(R.string.why_no_candles_hint, exchange)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,12 +187,12 @@ internal fun EmptyReasons(onRetry: (() -> Unit)?) {
             .padding(16.dp)
     ) {
         Text(
-            stringResource(R.string.why_no_data),
+            title,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            stringResource(R.string.why_no_data_hint),
+            hint,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 2.dp)

@@ -2,6 +2,7 @@ package com.cryptochecker.app.wearable
 
 import android.content.Context
 import androidx.core.content.edit
+import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.WatchEntity
@@ -11,6 +12,9 @@ import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotStore
+import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
+import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.RetiredWatch
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.watch.WatchPair
@@ -52,6 +56,7 @@ class PhoneWatchFeed @Inject constructor(
     private val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val snapshotStore: PortfolioSnapshotStore,
+    private val refreshStats: RefreshStats,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
     private val scope = appScope(ioDispatcher, "PhoneWatchFeed")
@@ -87,7 +92,11 @@ class PhoneWatchFeed @Inject constructor(
                 .collect { publishPortfolio() }
         }
         scope.launch {
-            combine(watchRepository.observeWatches(), sync.state) { watches, settings -> quotesJson(watches, settings) }
+            // %-Basis und Stempel: die Uhr bekommt nur rollende 24-h-Werte
+            val basis = settingsRepository.settings.map { it.changeBasis }.distinctUntilChanged().catch { }
+            combine(watchRepository.observeWatches(), sync.state, basis, refreshStats.changeStamp) { watches, settings, b, stamp ->
+                quotesJson(watches, settings, b, stamp)
+            }
                 .filterNotNull()
                 .distinctUntilChanged()
                 .conflate()
@@ -152,8 +161,17 @@ class PhoneWatchFeed @Inject constructor(
         private const val KEY_PORTFOLIO = "portfolio_on_watch"
         private const val MIN_GAP_MS = 60_000L
 
-        /** Kurse für beide Listen der Uhr; null bei «Immer selbst abrufen» (dann nichts senden). */
-        internal fun quotesJson(watches: List<WatchEntity>, settings: WatchSettings): String? {
+        /**
+         * Kurse für beide Listen der Uhr; null bei «Immer selbst abrufen» (dann nichts senden). Veränderung nur rollend
+         * über 24 h ([ChangeBasisMath.watchChange24h]): die Uhr beschriftet sie mit «24 h» und rechnet beim eigenen
+         * Abruf ebenso — bei einer Tages-Basis des Handys ([basis], [stamp]) keine (Uhr «—»), nie die Tagesveränderung.
+         */
+        internal fun quotesJson(
+            watches: List<WatchEntity>,
+            settings: WatchSettings,
+            basis: ChangeBasis = ChangeBasis.ROLLING_24H,
+            stamp: ChangeStamp? = null,
+        ): String? {
             if (settings.source == WatchSettings.Source.SELF) return null
             val rows = watches.map {
                 val contract = watchContract(it)
@@ -167,7 +185,7 @@ class PhoneWatchFeed @Inject constructor(
                     spot = it.contractType == FuturesContractType.NONE && contract.isEmpty(),
                     disabled = it.disabled,
                     price = if (retired) null else it.lastPrice,
-                    change24h = if (retired) null else it.change24h,
+                    change24h = if (retired) null else ChangeBasisMath.watchChange24h(it.change24h, basis, stamp),
                     exchange = it.exchangeName,
                     time = it.lastUpdate,
                     sortOrder = it.sortOrder,

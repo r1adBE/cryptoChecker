@@ -58,9 +58,10 @@ actor MacroCalendarSource {
 }
 
 /// Morgen-Mitteilung «Wirtschaftstermine» (Einstellungen › Alarme › Markt-Meldungen, Standard aus):
-/// lokal geplante Mitteilungen um 08:00 an den nächsten Tagen mit Terminen, aus dem gespeicherten
-/// Kalender — wie `MacroNotifyWorker.kt`. Nachtruhe wie bei den übrigen Markt-Mitteilungen (lautlos).
-/// Neu geplant beim Öffnen der App, beim Laden des Markt-Tabs und beim Umschalten.
+/// lokal geplante Mitteilungen um 08:00 (spätestens 08:00 New York, `MacroCalendar.notifyAt`) an den nächsten Tagen mit
+/// Terminen, aus dem gespeicherten Kalender — wie `MacroNotifyWorker.kt`. Nachtruhe wie bei den übrigen
+/// Markt-Mitteilungen (lautlos). Neu geplant beim Öffnen der App, beim Laden des Markt-Tabs, beim Umschalten und nach
+/// einem Wechsel von Zeitzone oder Uhr (Text und Uhrzeit in der neuen Zone, `AppDelegate`).
 enum MacroNotifications {
     static let idPrefix = "macro-"
     /// Höchstens so viele Tage im Voraus planen (iOS erlaubt insgesamt 64 geplante Mitteilungen).
@@ -76,6 +77,13 @@ enum MacroNotifications {
                 await plan(settings: settings, events: events, isCurrent: isCurrent)
             }
         }
+    }
+
+    /// Zeitzone oder Uhr gewechselt (`AppDelegate`): Uhrzeit im Text und Zeitpunkt der Mitteilung in der neuen Zone
+    /// neu planen – sonst käme «Heute 14:30» der alten Zone. Wie Android (`BootReceiver` plant neu).
+    static func clockChanged() {
+        NSTimeZone.resetSystemTimeZone()
+        refresh(settings: SharedStorage.loadSettings())
     }
 
     /// Wie `refresh`, mit schon geladenen Terminen; reiht sich in dieselbe Warteschlange ein.
@@ -106,7 +114,7 @@ enum MacroNotifications {
         var planned = 0
         for day in days.sorted() {
             guard planned < maxDays,
-                  let notifyAt = calendar.date(bySettingHour: MacroCalendar.notifyHour, minute: 0, second: 0, of: day),
+                  let notifyAt = MacroCalendar.notifyAt(day: day, calendar: calendar),
                   notifyAt > now else { continue }
             let todays = MacroCalendar.eventsOnDay(events, day: day, calendar: calendar)
             guard !todays.isEmpty else { continue }

@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Hakuna historia inayopatikana sasa hivi.</string>
     <string name="portfolio_history_utc_days">Siku kwa UTC (mishumaa ya kila siku)</string>
     <string name="portfolio_history_without_matching">Bila %1$s (hakuna bei za kila siku zinazolingana)</string>
+    <string name="portfolio_history_entry">Imehesabiwa tangu bei ya kwanza ya siku: %1$s (hakuna bei za kila siku kabla)</string>
     <string name="portfolio_period_rewards">Tuzo +%1$s (si sehemu ya faida)</string>
     <string name="portfolio_period_scaled">Siku 7/Mwaka 1 kwa %1$s: historia ya Binance iliyolinganishwa na bei ya jukwaa</string>
 

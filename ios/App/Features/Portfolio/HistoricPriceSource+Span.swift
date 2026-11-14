@@ -5,10 +5,55 @@ import Foundation
 // Abfrageart vom Ablauf der Kette getrennt lesbar sein soll; beide Arten liefern je UTC-Tag dieselbe Kerze, die Kette und
 // ihre Prüfungen (`HistoricPriceSource.closeUsdt`) sind dieselben. Wie HistoricPriceSourceSpan.kt (Android).
 
-/// Quelle nicht erreichbar (Netz, Zeitgrenze, 5xx, «zu viele Anfragen» — auch nach einer Wiederholung,
-/// `HistoricCloseChain.fetchFailure`): die Kette bricht für diesen Tag ab, statt eine andere Quelle zu nehmen. Wie Android.
+/// Quelle nicht abrufbar, auch nach einer Wiederholung (`HistoricCloseChain.fetchFailure`): Fehler-Antwort (5xx, «zu
+/// viele Anfragen», Pause) → die Kette bricht für diesen Tag ab, statt eine andere Quelle zu nehmen; `unreachable` = gar
+/// keine Antwort (Netz, DNS, Zeitgrenze) → die Quelle wird übersprungen (`HistoricCloseChain.Outcome.unreachable`). Wie
+/// Android.
 struct HistoricSourceUnavailable: Error {
     let host: String
+    var unreachable = false
+}
+
+/// Devisenkurs eines Tags (`HistoricPriceSource.usdToDay`): `fx` wie `usdTo`; `failed` = keine gültige Antwort der EZB
+/// (nicht: «kein Kurs für diesen Tag»). Wie Android `HistoricFxDay`.
+struct HistoricFxDay: Sendable {
+    var fx: HistoricFx?
+    var failed = false
+}
+
+extension HistoricPriceSource {
+    /// Binance-Kerze eines Hosts der Gruppe mit Identitätsprüfung (`PricePlausibility.acceptSourceClose`). Wie Android.
+    static func binanceClose(host: String, endpoint: String, symbol: String, start: Int64,
+                             primary: Bool, current: Double, fetch: any HistoricCloseFetch) async throws -> CloseResult {
+        // Pause nach «zu viele Anfragen»: vorübergehend, nicht «keine Kerze»; Geo-Sperre (403/451): Quelle übersprungen
+        if BlockedSources.groupPausedUntil(host) != nil { throw HistoricSourceUnavailable(host: host) }
+        if BlockedSources.isBlocked(host) { return CloseResult(price: nil) }
+        guard let close = try await fetch.binanceDay(host: host, endpoint: endpoint, symbol: symbol, start: start) else {
+            return CloseResult(price: nil)
+        }
+        // Führt die Quelle den Coin heute als denselben Token? (jüngste Tageskerze)
+        let latest = try await fetch.binanceLatest(host: host, endpoint: endpoint, symbol: symbol)
+        return PricePlausibility.acceptSourceClose(close, primary: primary, sourceLatest: latest, current: current)
+            ? CloseResult(price: close) : CloseResult(price: nil, unchecked: true)
+    }
+
+    /// Coinbase (USD, sonst USDC) mit Identitätsprüfung (±25 %). Wie Android.
+    static func coinbaseClose(_ b: String, day: CutoffDay, start: Int64, current: Double,
+                              fetch: any HistoricCloseFetch) async throws -> CloseResult {
+        var rejected = false
+        for quote in ["USD", "USDC"] {
+            if BlockedSources.groupPausedUntil(coinbaseHost) != nil { throw HistoricSourceUnavailable(host: coinbaseHost) }
+            if BlockedSources.isBlocked(coinbaseHost) { break }
+            guard let close = try await fetch.coinbaseDay(product: "\(b)-\(quote)", day: day, start: start) else { continue }
+            // Jüngste Tageskerzen desselben Produkts
+            let latest = try await fetch.coinbaseLatest(product: "\(b)-\(quote)")
+            if PricePlausibility.acceptSourceClose(close, primary: false, sourceLatest: latest, current: current) {
+                return CloseResult(price: close)
+            }
+            rejected = true
+        }
+        return CloseResult(price: nil, unchecked: rejected)
+    }
 }
 
 /// Kerzen der Binance-Gruppe und von Coinbase für `HistoricPriceSource.closeUsdt`, die eigenen Tageskerzen der übrigen
@@ -23,7 +68,7 @@ protocol HistoricCloseFetch: Sendable {
     /// Jüngster Schluss desselben Produkts (ohne Zeitfenster = die neuesten Kerzen).
     func coinbaseLatest(product: String) async throws -> Double?
     func seriesClose(_ pair: CandlePair, start: Int64) async throws -> (close: Double, latest: Double?)?
-    func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFx?
+    func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFxDay
 }
 
 /// Je Tag eine Abfrage (Stichtag, Vorschlag beim Erfassen): Binance mit `startTime` und `limit=1`, Coinbase genau über den
@@ -33,7 +78,7 @@ struct HistoricDayFetch: HistoricCloseFetch {
     var series: @Sendable (CandlePair, Int64) async throws -> (close: Double, latest: Double?)? = {
         try await HistoricPriceSource.seriesClose($0, start: $1)
     }
-    var fx: @Sendable (String, CutoffDay) async -> HistoricFx? = { await HistoricPriceSource.usdTo($0, day: $1) }
+    var fx: @Sendable (String, CutoffDay) async -> HistoricFxDay = { await HistoricPriceSource.usdToDay($0, day: $1) }
 
     func binanceDay(host: String, endpoint: String, symbol: String, start: Int64) async throws -> Double? {
         guard let body = try await get(host, "\(endpoint)?symbol=\(symbol)&interval=1d&startTime=\(start)&limit=1"),
@@ -65,7 +110,7 @@ struct HistoricDayFetch: HistoricCloseFetch {
         try await series(pair, start)
     }
 
-    func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFx? { await fx(currency, day) }
+    func usdTo(_ currency: String, day: CutoffDay) async -> HistoricFxDay { await fx(currency, day) }
 
     /// Coinbase-Tageskerzen von `from` bis `to` (ISO 8601, UTC, ganze Tage); ohne Fenster die neuesten.
     static func coinbaseUrl(_ product: String, from: CutoffDay?, to: CutoffDay?) -> String {
@@ -92,9 +137,9 @@ actor HistoricSpanFetch: HistoricCloseFetch {
     private var loaded: [String: [Int64: Double]] = [:]
     /// «Quelle|Reihe» → jüngster Schluss (auch nil = keiner).
     private var latest: [String: Double?] = [:]
-    private var fxMemo: [String: HistoricFx?] = [:]
-    /// Schlüssel von `loaded`/`latest`, deren Abruf nicht erreichbar war: im selben Export nicht erneut (kein Kurs).
-    private var unavailable: Set<String> = []
+    private var fxMemo: [String: HistoricFxDay] = [:]
+    /// Schlüssel von `loaded`/`latest`, deren Abruf nicht erreichbar war (→ ganz ohne Antwort): im selben Export nicht erneut.
+    private var unavailable: [String: Bool] = [:]
 
     /// `days`: verlangte Tage (epochDay) dieses Coins.
     init(days: Set<Int>, day: HistoricDayFetch) {
@@ -174,20 +219,20 @@ actor HistoricSpanFetch: HistoricCloseFetch {
 
     /// Nicht erreichbar: gemerkt (die übrigen Tage des Stücks fragen nicht erneut) und weitergereicht — wie Android.
     private func unlessUnavailable<T>(_ key: String, host: String, _ load: () async throws -> T) async throws -> T {
-        if unavailable.contains(key) { throw HistoricSourceUnavailable(host: host) }
+        if let silent = unavailable[key] { throw HistoricSourceUnavailable(host: host, unreachable: silent) }
         do {
             return try await load()
         } catch let error as HistoricSourceUnavailable {
-            unavailable.insert(key)
+            unavailable[key] = error.unreachable
             throw error
         }
     }
 
-    func usdTo(_ currency: String, day cutoffDay: CutoffDay) async -> HistoricFx? {
+    func usdTo(_ currency: String, day cutoffDay: CutoffDay) async -> HistoricFxDay {
         let key = "\(currency)|\(cutoffDay.iso)"
         if let hit = fxMemo[key] { return hit }
         let value = await day.usdTo(currency, day: cutoffDay)
-        fxMemo[key] = .some(value)
+        fxMemo[key] = value
         return value
     }
 

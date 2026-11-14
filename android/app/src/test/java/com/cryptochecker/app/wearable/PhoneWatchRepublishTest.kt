@@ -31,9 +31,15 @@ class PhoneWatchRepublishTest {
         val sync = file("app/src/main/java/com/cryptochecker/app/wearable/PhoneWatchSync.kt")
         assertTrue(sync.contains("if (prefs.getString(KEY_PUBLISHED, null) != current.toJson()) republish()"))
         assertTrue(sync.contains("if (WatchSettings.phoneSideDiffers(_state.value, remote)) republish()"))
-        // Nur Gelungenes gilt als abgelegt
-        assertTrue(sync.contains("if (put(PATH, json)) prefs.edit { putString(KEY_PUBLISHED, json) }"))
-        assertTrue(sync.contains("if (nodes.isEmpty()) return@runCatchingCancellable false"))
+        // Abgelegt oder keine Uhr mit der App gilt als erledigt (R4-06: ohne Uhr fragt nicht jeder Prozessstart die
+        // Play-Dienste; kommt die Uhr-App dazu, legt onCapabilityChanged ab); nur ein Fehler wird beim Start nachgeholt
+        assertTrue(sync.contains("if (putResult(PATH, json).settled) prefs.edit { putString(KEY_PUBLISHED, json) }"))
+        assertTrue(sync.contains("if (nodes.isEmpty()) return@runCatchingCancellable PutResult.NO_WATCH"))
+        assertTrue(sync.contains("}.getOrDefault(PutResult.FAILED)"))
+        assertTrue(PhoneWatchSync.PutResult.PUBLISHED.settled && PhoneWatchSync.PutResult.NO_WATCH.settled)
+        assertTrue(!PhoneWatchSync.PutResult.FAILED.settled)
+        // Kurse und Portfolio-Wert (PhoneWatchFeed) zählen nur, was wirklich abgelegt ist
+        assertTrue(sync.contains("putResult(path, json) == PutResult.PUBLISHED"))
         val feed = file("app/src/main/java/com/cryptochecker/app/wearable/PhoneWatchFeed.kt")
         assertTrue(feed.contains("if (sync.put(PORTFOLIO_PATH, json)) lastPortfolio = json"))
         assertEquals(1, Regex("lastPortfolio = json").findAll(feed).count())

@@ -8,8 +8,9 @@
     <string name="why_details_hide">Толығырақ жасыру</string>
     <string name="why_disclaimer">Нарық деректерінен автоматты бағалау: бір уақытта не болып жатқанын көрсетеді, себептің дәлелі емес.</string>
     <string name="why_footer_short">Бір уақытта болу себеп дегенді білдірмейді · Инвестициялық кеңес емес</string>
-    <string name="why_no_data">Бұл жұп үшін Binance-тен дерек жоқ</string>
-    <string name="why_no_data_hint">Баға, көлем және құбылмалылық Binance сағаттық шамдарынан алынады.</string>
+    <string name="why_no_candles">Бұл жұп үшін сағаттық шамдар жоқ</string>
+    <string name="why_no_candles_hint">Баға, көлем және құбылмалылық %1$s сағаттық шамдарынан немесе мүмкін болса, сол монетасы бар басқа биржадан алынады.</string>
+    <string name="why_no_data_retry_hint">Бағаны, көлемді және құбылмалылықты жүктеу мүмкін болмады. Қайталап көріңіз.</string>
     <string name="why_ref_alts">Альттар</string>
     <string name="why_section_context">Ықтимал түсіндірме</string>
     <string name="why_section_observation">Бақылау</string>

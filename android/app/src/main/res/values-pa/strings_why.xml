@@ -8,8 +8,9 @@
     <string name="why_details_hide">ਵੇਰਵੇ ਲੁਕਾਓ</string>
     <string name="why_disclaimer">ਬਾਜ਼ਾਰ ਡਾਟੇ ਤੋਂ ਆਪਣੇ-ਆਪ ਮੁਲਾਂਕਣ: ਇਹ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਇੱਕੋ ਸਮੇਂ ਕੀ ਹੋ ਰਿਹਾ ਹੈ, ਕਾਰਨ ਦਾ ਸਬੂਤ ਨਹੀਂ।</string>
     <string name="why_footer_short">ਇੱਕੋ ਸਮੇਂ ਹੋਣ ਦਾ ਮਤਲਬ ਕਾਰਨ ਨਹੀਂ · ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ</string>
-    <string name="why_no_data">ਇਸ ਜੋੜੇ ਲਈ Binance ਤੋਂ ਕੋਈ ਡਾਟਾ ਨਹੀਂ</string>
-    <string name="why_no_data_hint">ਕੀਮਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਥਿਰਤਾ Binance ਦੀਆਂ ਘੰਟੇਵਾਰ ਕੈਂਡਲਾਂ ਤੋਂ ਆਉਂਦੇ ਹਨ।</string>
+    <string name="why_no_candles">ਇਸ ਜੋੜੇ ਲਈ ਘੰਟੇਵਾਰ ਕੈਂਡਲਾਂ ਨਹੀਂ ਹਨ</string>
+    <string name="why_no_candles_hint">ਕੀਮਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਥਿਰਤਾ %1$s ਦੀਆਂ ਘੰਟੇਵਾਰ ਕੈਂਡਲਾਂ ਤੋਂ, ਜਾਂ ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਉਸੇ ਕੌਇਨ ਵਾਲੇ ਕਿਸੇ ਹੋਰ ਐਕਸਚੇਂਜ ਤੋਂ ਆਉਂਦੇ ਹਨ।</string>
+    <string name="why_no_data_retry_hint">ਕੀਮਤ, ਵਾਲੀਅਮ ਅਤੇ ਅਸਥਿਰਤਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="why_ref_alts">ਆਲਟ</string>
     <string name="why_section_context">ਸੰਭਾਵੀ ਵਿਆਖਿਆ</string>
     <string name="why_section_observation">ਨਿਰੀਖਣ</string>

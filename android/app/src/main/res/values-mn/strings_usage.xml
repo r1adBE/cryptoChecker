@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_row_usage">Батарей ба идэвх</string>
+    <string name="usage_intro">Аппууд өөрсдийн эрчим хүчний хэрэглээг уншиж чаддаггүй. Тиймээс апп сүүлийн 24 цагт өөрөө юу хийснийг харуулна – зөвхөн энэ төхөөрөмж дээр тоолсон, ямар ч агуулгагүй.</string>
+    <string name="usage_phone">Утас</string>
+    <string name="usage_watch">Цаг</string>
+    <plurals name="usage_runs">
+        <item quantity="one">Арын ажиллагаа: %d</item>
+        <item quantity="other">Арын ажиллагаа: %d</item>
+    </plurals>
+    <plurals name="usage_requests">
+        <item quantity="one">Сүлжээний хүсэлт: %d</item>
+        <item quantity="other">Сүлжээний хүсэлт: %d</item>
+    </plurals>
+    <string name="usage_received">Хүлээн авсан: %1$s</string>
+    <string name="usage_level_low">Бага идэвх</string>
+    <string name="usage_level_medium">Дунд идэвх</string>
+    <string name="usage_level_high">Өндөр идэвх</string>
+    <string name="usage_driver_interval">Голчлон арын шалгалтаас (%1$s).</string>
+    <string name="usage_driver_exact">Голчлон арын шалгалт (%1$s) болон «%2$s»-аас.</string>
+    <string name="usage_driver_none">Арын шалгалт төлөвлөөгүй – нээлттэй апп болон виджетүүдийн татаж авсан нь тоологдоно.</string>
+    <string name="usage_driver_watch">Цагны апп болон түүний нэмэлтүүдийн өөрсдөө татаж авсан нь тоологдоно.</string>
+    <string name="usage_watch_none">Цаг холбогдоогүй</string>
+    <string name="usage_as_of">%1$s-ны байдлаар</string>
+    <string name="usage_battery_android">Android апп тус бүрийн батарейн хэрэглээг батарейн тохиргоондоо харуулдаг.</string>
+</resources>

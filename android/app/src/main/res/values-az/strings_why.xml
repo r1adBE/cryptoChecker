@@ -8,8 +8,9 @@
     <string name="why_details_hide">Təfərrüatı gizlət</string>
     <string name="why_disclaimer">Bazar məlumatlarından avtomatik qiymətləndirmə: eyni vaxtda nə baş verdiyini göstərir, səbəbin sübutu deyil.</string>
     <string name="why_footer_short">Eyni vaxtda baş vermək səbəb demək deyil · İnvestisiya məsləhəti deyil</string>
-    <string name="why_no_data">Bu cüt üçün Binance-dən məlumat yoxdur</string>
-    <string name="why_no_data_hint">Qiymət, həcm və volatillik Binance-in saatlıq şamlarından gəlir.</string>
+    <string name="why_no_candles">Bu cüt üçün saatlıq şam yoxdur</string>
+    <string name="why_no_candles_hint">Qiymət, həcm və volatillik %1$s saatlıq şamlarından və ya mümkün olduqda eyni koinli başqa birjadan gəlir.</string>
+    <string name="why_no_data_retry_hint">Qiymət, həcm və volatillik yüklənmədi. Yenidən cəhd et.</string>
     <string name="why_ref_alts">Altlar</string>
     <string name="why_section_context">Mümkün izah</string>
     <string name="why_section_observation">Müşahidə</string>

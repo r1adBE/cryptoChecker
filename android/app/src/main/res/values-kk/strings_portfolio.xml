@@ -218,6 +218,7 @@
     <string name="portfolio_history_unavailable">Қазір тарих қолжетімсіз.</string>
     <string name="portfolio_history_utc_days">UTC бойынша күндер (күндік шамдар)</string>
     <string name="portfolio_history_without_matching">%1$s есептелмеген (сәйкес күндік бағамдар жоқ)</string>
+    <string name="portfolio_history_entry">Алғашқы күндік бағамнан бастап есептеледі: %1$s (бұған дейін күндік бағамдар жоқ)</string>
     <string name="portfolio_period_rewards">Сыйақылар +%1$s (пайдаға кірмейді)</string>
     <string name="portfolio_period_scaled">%1$s үшін 7 К/1 Ж: Binance тарихы биржа бағамына масштабталған</string>
 

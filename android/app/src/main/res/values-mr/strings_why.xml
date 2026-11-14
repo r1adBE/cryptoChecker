@@ -8,8 +8,9 @@
     <string name="why_details_hide">तपशील लपवा</string>
     <string name="why_disclaimer">मार्केट डेटावरून स्वयंचलित मूल्यमापन: एकाच वेळी काय घडते ते दाखवते, कारणाचा पुरावा नाही.</string>
     <string name="why_footer_short">एकाच वेळी घडणे म्हणजे कारण नव्हे · गुंतवणूक सल्ला नाही</string>
-    <string name="why_no_data">या जोडीसाठी Binance कडून डेटा नाही</string>
-    <string name="why_no_data_hint">किंमत, व्हॉल्यूम आणि अस्थिरता Binance च्या तासाच्या कँडलवरून येतात.</string>
+    <string name="why_no_candles">या जोडीसाठी तासाचे कँडल नाहीत</string>
+    <string name="why_no_candles_hint">किंमत, व्हॉल्यूम आणि अस्थिरता %1$s च्या तासाच्या कँडलवरून, किंवा शक्य असल्यास त्याच कॉइनच्या दुसऱ्या एक्सचेंजवरून येतात.</string>
+    <string name="why_no_data_retry_hint">किंमत, व्हॉल्यूम आणि अस्थिरता लोड करता आली नाही. कृपया पुन्हा प्रयत्न करा.</string>
     <string name="why_ref_alts">ऑल्ट</string>
     <string name="why_section_context">संभाव्य स्पष्टीकरण</string>
     <string name="why_section_observation">निरीक्षण</string>

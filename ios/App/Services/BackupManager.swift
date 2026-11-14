@@ -194,6 +194,9 @@ enum BackupManager {
         var addressServerHost: String?
         /// Von der Sicherung abgeschalteter Schutz (`BackupRestorePolicy.loweredProtection`).
         var lowered = BackupRestorePolicy.LoweredProtection()
+        /// Beschädigte Portfolio-Daten ersetzt, ihre Datei liegt unverändert daneben (R4-02, nur iOS: Android legt eine
+        /// beschädigte Datenbank schon beim Öffnen beiseite und nennt es dann).
+        var damagedSetAside = false
     }
 
     /// Nur die ungültigen Einträge aus `preview`.
@@ -255,9 +258,10 @@ enum BackupManager {
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
         _ = try BackupVersion.check(root["version"])
         try BackupFields.checkParts(root)
-        // Gespeicherter Stand nicht lesbar: nichts ersetzen (das Journal hielte sonst einen leeren Stand); nicht beim
-        // Zurückrollen eines abgebrochenen Laufs (`journal` false)
-        if journal && storageKept(data) { throw Failure.storageKept }
+        // Gespeicherter Stand gerade gesperrt: nichts ersetzen (das Journal hielte sonst einen leeren Stand, die Daten kämen
+        // nach dem Entsperren zurück); beschädigt: ersetzen, die Datei kommt daneben (R4-02). Nicht beim Zurückrollen eines
+        // abgebrochenen Laufs (`journal` false)
+        if journal && storageAccess(data) == .locked { throw Failure.storageKept }
 
         // 1. Alles lesen und prüfen, bevor etwas geschrieben wird
         let input = try readRestoreInput(root, data: data, acceptInvalid: acceptInvalid, encrypted: encrypted,
@@ -269,6 +273,8 @@ enum BackupManager {
         var snapshot = restoredSnapshot(input, old: previous.snapshot)
         if !journal { applyJournalAlarmState(journalAlarmState(root), to: &snapshot) }
         try writeRestored(input, snapshot: snapshot, previous: previous, into: data, journal: journal)
+        // Zurückrollen nach einem Abbruch: beschädigte Dateien von damals unverändert zurück
+        if !journal { putBackJournalDamaged(root, into: data) }
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         previous.snapshot.watches.forEach { Notifier.cancelPrice($0.id) }
         // Alarm-Mitteilungen der ersetzten Alarme samt «1 h später»-Pausen: ihre Aktionen wirken über die Id und träfen
@@ -283,7 +289,7 @@ enum BackupManager {
         return RestoreResult(watches: watchlist.watches.count, alarms: watchlist.alarms.count, appLockKept: input.lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
                              addressServerNote: input.serverNote, addressServerHost: input.serverHost,
-                             lowered: input.lowered)
+                             lowered: input.lowered, damagedSetAside: journal && previous.damagedSetAside)
     }
 
     /// Mitteilungen der Paar- und Portfolio-Alarme aus `old` (Stand vor dem Wiederherstellen) entfernen und alle

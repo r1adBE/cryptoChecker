@@ -93,7 +93,7 @@ class AlarmsViewModel @Inject constructor(
 
     /** Akku-Einstellungen aus der Bestätigung geöffnet: der eigene Akku-Dialog kommt nicht mehr. */
     fun batteryHintUsed() {
-        viewModelScope.launch { settingsRepository.setBatteryPromptSeen(true) }
+        viewModelScope.launch { settingsRepository.guarded { setBatteryPromptSeen(true) } }
     }
 
     /** Wahl «Sparsam» / «Etwa alle 15 Minuten» zeigen (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */

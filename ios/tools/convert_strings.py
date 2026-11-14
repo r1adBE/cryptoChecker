@@ -73,6 +73,17 @@ PLURAL_CATS = {
 PLURAL_ORDER = ["zero", "one", "two", "few", "many", "other"]
 
 
+# ios_overrides.json darf je Sprache nur diese Wörter ersetzen (Android «Benachrichtigung», iOS «Mitteilung»)
+OVERRIDE_SWAPS = {"de": [("Benachrichtigungen", "Mitteilungen"), ("Benachrichtigung", "Mitteilung"),
+                         ("benachrichtigung", "mitteilung")]}
+
+
+def override_word_swap(code, text):
+    for old, new in OVERRIDE_SWAPS.get(code, []):
+        text = text.replace(old, new)
+    return text
+
+
 def plural_cats(code):
     return PLURAL_CATS.get(code, {"one", "other"})
 
@@ -312,9 +323,16 @@ def main():
                     # Plural: {quantity: Text}; Zahl wie bei Android-Plurals als %lld
                     if not isinstance(langs[code][key], dict):
                         raise SystemExit(f"ios_overrides.json: {code_android}/{key} ist auf Android kein Plural")
-                    langs[code][key] = {q: convert_format(android_unescape(v), "lld") for q, v in value.items()}
+                    new = {q: convert_format(android_unescape(v), "lld") for q, v in value.items()}
+                    same = all(override_word_swap(code, langs[code][key].get(q, "")) == v for q, v in new.items())
                 else:
-                    langs[code][key] = convert_format(android_unescape(value))
+                    new = convert_format(android_unescape(value))
+                    same = override_word_swap(code, langs[code][key]) == new
+                # Nur der Wortersatz ist erlaubt – sonst läuft der iOS-Text dem Android-Text davon
+                if not same:
+                    raise SystemExit(f"ios_overrides.json: {code_android}/{key} weicht vom Android-Text ab "
+                                     f"(erlaubt ist nur der Wortersatz aus OVERRIDE_SWAPS)")
+                langs[code][key] = new
 
     all_langs = sorted(langs)
     keys = sorted(set().union(*[set(v) for v in langs.values()]))
