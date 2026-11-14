@@ -25,6 +25,8 @@
     <string name="usage_driver_none">Фоновая проверка не запланирована – учитывается то, что загружают открытое приложение и виджеты.</string>
     <string name="usage_driver_watch">Учитывается то, что приложение на часах и его расширения загружают сами.</string>
     <string name="usage_watch_none">Часы не подключены</string>
+    <string name="usage_watch_no_app">Crypto Checker не установлен на часах</string>
+    <string name="usage_watch_waiting">С часов пока нет данных – открой Crypto Checker на часах</string>
     <string name="usage_as_of">На %1$s</string>
     <string name="usage_battery_android">Android показывает расход батареи по приложениям в своих настройках батареи.</string>
 </resources>

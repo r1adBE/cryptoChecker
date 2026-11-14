@@ -21,6 +21,8 @@
     <string name="usage_driver_none">ਕੋਈ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ ਤੈਅ ਨਹੀਂ – ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ ਜੋ ਖੁੱਲ੍ਹੀ ਐਪ ਅਤੇ ਵਿਜੇਟ ਲਿਆਉਂਦੇ ਹਨ।</string>
     <string name="usage_driver_watch">ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ ਜੋ ਘੜੀ ਦੀ ਐਪ ਅਤੇ ਉਸ ਦੀਆਂ ਕੰਪਲੀਕੇਸ਼ਨਾਂ ਆਪ ਲਿਆਉਂਦੀਆਂ ਹਨ।</string>
     <string name="usage_watch_none">ਕੋਈ ਘੜੀ ਕਨੈਕਟ ਨਹੀਂ</string>
+    <string name="usage_watch_no_app">ਘੜੀ ’ਤੇ Crypto Checker ਇੰਸਟਾਲ ਨਹੀਂ ਹੈ</string>
+    <string name="usage_watch_waiting">ਘੜੀ ਤੋਂ ਹਾਲੇ ਕੋਈ ਅੰਕੜੇ ਨਹੀਂ ਆਏ – ਕਿਰਪਾ ਕਰਕੇ ਘੜੀ ’ਤੇ Crypto Checker ਖੋਲ੍ਹੋ</string>
     <string name="usage_as_of">%1$s ਤੱਕ</string>
     <string name="usage_battery_android">Android ਹਰ ਐਪ ਦੀ ਬੈਟਰੀ ਵਰਤੋਂ ਆਪਣੀਆਂ ਬੈਟਰੀ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।</string>
 </resources>

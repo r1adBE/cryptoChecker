@@ -21,6 +21,8 @@
     <string name="usage_driver_none">કોઈ બૅકગ્રાઉન્ડ તપાસ નક્કી નથી – ખુલ્લી ઍપ અને વિજેટ જે લાવે તે જ ગણાય છે.</string>
     <string name="usage_driver_watch">ઘડિયાળની ઍપ અને તેની કૉમ્પ્લિકેશન પોતે જે લાવે તે જ ગણાય છે.</string>
     <string name="usage_watch_none">કોઈ ઘડિયાળ કનેક્ટ નથી</string>
+    <string name="usage_watch_no_app">ઘડિયાળ પર Crypto Checker ઇન્સ્ટોલ નથી</string>
+    <string name="usage_watch_waiting">ઘડિયાળમાંથી હજી કોઈ આંકડા નથી – કૃપા કરીને ઘડિયાળ પર Crypto Checker ખોલો</string>
     <string name="usage_as_of">%1$s મુજબ</string>
     <string name="usage_battery_android">Android દરેક ઍપનો બેટરી વપરાશ તેની બેટરી સેટિંગમાં બતાવે છે.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Intet baggrundstjek planlagt – det, der tæller, er, hvad den åbne app og widgets henter.</string>
     <string name="usage_driver_watch">Det, der tæller, er, hvad ur-appen og dens komplikationer selv henter.</string>
     <string name="usage_watch_none">Intet ur forbundet</string>
+    <string name="usage_watch_no_app">Crypto Checker er ikke installeret på uret</string>
+    <string name="usage_watch_waiting">Ingen tal fra uret endnu – åbn Crypto Checker på uret</string>
     <string name="usage_as_of">Status %1$s</string>
     <string name="usage_battery_android">Android viser batteriforbruget pr. app i sine batteriindstillinger.</string>
 </resources>

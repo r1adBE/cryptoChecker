@@ -21,6 +21,8 @@
     <string name="usage_driver_none">ಯಾವುದೇ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ ನಿಗದಿಯಾಗಿಲ್ಲ – ತೆರೆದ ಆ್ಯಪ್ ಮತ್ತು ವಿಜೆಟ್‌ಗಳು ತರುವುದನ್ನೇ ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="usage_driver_watch">ವಾಚ್ ಆ್ಯಪ್ ಮತ್ತು ಅದರ ಕಾಂಪ್ಲಿಕೇಶನ್‌ಗಳು ತಾವೇ ತರುವುದನ್ನು ಎಣಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="usage_watch_none">ಯಾವುದೇ ವಾಚ್ ಸಂಪರ್ಕಗೊಂಡಿಲ್ಲ</string>
+    <string name="usage_watch_no_app">ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ಇನ್‌ಸ್ಟಾಲ್ ಆಗಿಲ್ಲ</string>
+    <string name="usage_watch_waiting">ಗಡಿಯಾರದಿಂದ ಇನ್ನೂ ಸಂಖ್ಯೆಗಳು ಬಂದಿಲ್ಲ – ದಯವಿಟ್ಟು ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ತೆರೆಯಿರಿ</string>
     <string name="usage_as_of">%1$s ರಂತೆ</string>
     <string name="usage_battery_android">Android ಪ್ರತಿ ಆ್ಯಪ್‌ನ ಬ್ಯಾಟರಿ ಬಳಕೆಯನ್ನು ತನ್ನ ಬ್ಯಾಟರಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ತೋರಿಸುತ್ತದೆ.</string>
 </resources>

@@ -19,6 +19,8 @@
     <string name="usage_driver_none">Tidak ada pemeriksaan latar belakang yang dijadwalkan – yang dihitung adalah apa yang diambil aplikasi yang terbuka dan widget.</string>
     <string name="usage_driver_watch">Yang dihitung adalah apa yang diambil sendiri oleh aplikasi jam dan komplikasinya.</string>
     <string name="usage_watch_none">Tidak ada jam yang terhubung</string>
+    <string name="usage_watch_no_app">Crypto Checker tidak terpasang di jam</string>
+    <string name="usage_watch_waiting">Belum ada angka dari jam – buka Crypto Checker di jam</string>
     <string name="usage_as_of">Per %1$s</string>
     <string name="usage_battery_android">Android menampilkan pemakaian baterai per aplikasi di setelan baterainya.</string>
 </resources>

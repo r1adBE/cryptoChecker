@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Ingen bakgrundskontroll planerad – det som räknas är vad den öppna appen och widgetarna hämtar.</string>
     <string name="usage_driver_watch">Det som räknas är vad klockappen och dess komplikationer själva hämtar.</string>
     <string name="usage_watch_none">Ingen klocka ansluten</string>
+    <string name="usage_watch_no_app">Crypto Checker är inte installerad på klockan</string>
+    <string name="usage_watch_waiting">Inga siffror från klockan än – öppna Crypto Checker på klockan</string>
     <string name="usage_as_of">Per %1$s</string>
     <string name="usage_battery_android">Android visar batteriförbrukningen per app i sina batteriinställningar.</string>
 </resources>

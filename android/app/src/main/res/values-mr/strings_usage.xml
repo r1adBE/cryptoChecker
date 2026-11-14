@@ -21,6 +21,8 @@
     <string name="usage_driver_none">कोणतीही बॅकग्राउंड तपासणी नियोजित नाही – उघडे ॲप आणि विजेट जे आणतात तेच मोजले जाते.</string>
     <string name="usage_driver_watch">घड्याळाचे ॲप आणि त्याची कॉम्प्लिकेशन्स स्वतः जे आणतात तेच मोजले जाते.</string>
     <string name="usage_watch_none">कोणतेही घड्याळ कनेक्ट केलेले नाही</string>
+    <string name="usage_watch_no_app">घड्याळावर Crypto Checker इंस्टॉल केलेले नाही</string>
+    <string name="usage_watch_waiting">घड्याळाकडून अजून आकडे आलेले नाहीत – कृपया घड्याळावर Crypto Checker उघडा</string>
     <string name="usage_as_of">%1$s नुसार</string>
     <string name="usage_battery_android">Android प्रत्येक ॲपचा बॅटरी वापर त्याच्या बॅटरी सेटिंग्जमध्ये दाखवते.</string>
 </resources>

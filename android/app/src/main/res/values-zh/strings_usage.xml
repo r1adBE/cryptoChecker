@@ -19,6 +19,8 @@
     <string name="usage_driver_none">未安排后台检查——只计算打开的应用和小组件获取的内容。</string>
     <string name="usage_driver_watch">计算手表应用及其复杂功能自行获取的内容。</string>
     <string name="usage_watch_none">未连接手表</string>
+    <string name="usage_watch_no_app">手表上未安装 Crypto Checker</string>
+    <string name="usage_watch_waiting">尚未收到手表的数据 – 请在手表上打开 Crypto Checker</string>
     <string name="usage_as_of">截至 %1$s</string>
     <string name="usage_battery_android">Android 会在电池设置中显示各应用的耗电量。</string>
 </resources>

@@ -23,6 +23,8 @@
     <string name="usage_driver_none">Fona pārbaude nav ieplānota – skaitās tas, ko ielādē atvērtā lietotne un logrīki.</string>
     <string name="usage_driver_watch">Skaitās tas, ko pulksteņa lietotne un tās komplikācijas ielādē pašas.</string>
     <string name="usage_watch_none">Nav pievienots pulkstenis</string>
+    <string name="usage_watch_no_app">Crypto Checker nav instalēta pulkstenī</string>
+    <string name="usage_watch_waiting">No pulksteņa vēl nav skaitļu – atver Crypto Checker pulkstenī</string>
     <string name="usage_as_of">Stāvoklis %1$s</string>
     <string name="usage_battery_android">Android rāda akumulatora lietojumu pa lietotnēm savos akumulatora iestatījumos.</string>
 </resources>

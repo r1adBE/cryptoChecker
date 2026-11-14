@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Non hai comprobación en segundo plano programada: conta o que obteñen a app aberta e os widgets.</string>
     <string name="usage_driver_watch">Conta o que obteñen por si mesmas a app do reloxo e as súas complicacións.</string>
     <string name="usage_watch_none">Ningún reloxo conectado</string>
+    <string name="usage_watch_no_app">Crypto Checker non está instalado no reloxo</string>
+    <string name="usage_watch_waiting">Aínda non hai cifras do reloxo: abre Crypto Checker no reloxo</string>
     <string name="usage_as_of">Actualizado: %1$s</string>
     <string name="usage_battery_android">Android mostra o consumo de batería por app na súa configuración de batería.</string>
 </resources>

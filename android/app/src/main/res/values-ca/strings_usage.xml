@@ -23,6 +23,8 @@
     <string name="usage_driver_none">No hi ha cap comprovació en segon pla programada: compta el que obtenen l’app oberta i els widgets.</string>
     <string name="usage_driver_watch">Compta el que obtenen per si mateixes l’app del rellotge i les seves complicacions.</string>
     <string name="usage_watch_none">Cap rellotge connectat</string>
+    <string name="usage_watch_no_app">Crypto Checker no està instal·lat al rellotge</string>
+    <string name="usage_watch_waiting">Encara no hi ha xifres del rellotge – obre Crypto Checker al rellotge</string>
     <string name="usage_as_of">Actualitzat: %1$s</string>
     <string name="usage_battery_android">Android mostra el consum de bateria per app a la seva configuració de bateria.</string>
 </resources>

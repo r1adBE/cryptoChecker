@@ -21,6 +21,8 @@
     <string name="usage_driver_none">پس منظر کی کوئی جانچ طے نہیں – وہی گنا جاتا ہے جو کھلی ایپ اور ویجٹس حاصل کرتے ہیں۔</string>
     <string name="usage_driver_watch">وہی گنا جاتا ہے جو گھڑی کی ایپ اور اس کے ویجٹس خود حاصل کرتے ہیں۔</string>
     <string name="usage_watch_none">کوئی گھڑی منسلک نہیں</string>
+    <string name="usage_watch_no_app">‏گھڑی پر Crypto Checker انسٹال نہیں ہے</string>
+    <string name="usage_watch_waiting">گھڑی سے ابھی تک کوئی اعداد نہیں آئے – براہ کرم گھڑی پر Crypto Checker کھولیں</string>
     <string name="usage_as_of">بمطابق %1$s</string>
     <string name="usage_battery_android">Android ہر ایپ کا بیٹری استعمال اپنی بیٹری کی ترتیبات میں دکھاتا ہے۔</string>
 </resources>

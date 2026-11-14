@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Planlanmış arka plan kontrolü yok – açık uygulamanın ve widget’ların getirdikleri sayılır.</string>
     <string name="usage_driver_watch">Saat uygulamasının ve komplikasyonlarının kendilerinin getirdikleri sayılır.</string>
     <string name="usage_watch_none">Bağlı saat yok</string>
+    <string name="usage_watch_no_app">Crypto Checker saatte yüklü değil</string>
+    <string name="usage_watch_waiting">Saatten henüz rakam yok – saatte Crypto Checker’ı aç</string>
     <string name="usage_as_of">Durum: %1$s</string>
     <string name="usage_battery_android">Android, uygulama başına pil kullanımını pil ayarlarında gösterir.</string>
 </resources>

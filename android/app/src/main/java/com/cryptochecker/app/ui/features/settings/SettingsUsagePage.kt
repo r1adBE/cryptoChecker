@@ -50,6 +50,8 @@ import com.cryptochecker.marketdata.usage.UsageReport
 import com.cryptochecker.marketdata.usage.UsageTotals
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -88,19 +90,50 @@ class UsageViewModel @Inject constructor(
     private val _watch = MutableStateFlow<UsageReport?>(null)
     val watch: StateFlow<UsageReport?> = _watch.asStateFlow()
 
-    /** Zahlen neu lesen (beim Öffnen und nach der Rückkehr aus den Android-Einstellungen). */
+    /** Verbundene Uhr; null = noch nicht ermittelt (dann noch kein Satz auf der Karte). */
+    private val _presence = MutableStateFlow<PhoneWatchUsage.Presence?>(null)
+    val presence: StateFlow<PhoneWatchUsage.Presence?> = _presence.asStateFlow()
+
+    private var refreshJob: Job? = null
+
+    /**
+     * Zahlen neu lesen (beim Öffnen und nach der Rückkehr aus den Android-Einstellungen). Hat die verbundene Uhr die
+     * App und ist ihr Stand fehlend oder älter als [WATCH_FRESH_MILLIS], wird sie gebeten, gleich zu schicken; danach
+     * bis [WATCH_WAIT_ROUNDS]× nachsehen.
+     */
     fun refresh() {
-        viewModelScope.launch {
+        refreshJob?.cancel()
+        refreshJob = viewModelScope.launch {
             _phone.value = withContext(ioDispatcher) { UsageMeter.shared.totals() }
             _watch.value = withContext(ioDispatcher) { watchUsage.load() }
             _watch.value = watchUsage.pull()
+            val presence = watchUsage.presence()
+            _presence.value = presence
+            val known = _watch.value?.at ?: 0L
+            val fresh = System.currentTimeMillis() - known < WATCH_FRESH_MILLIS
+            if (presence != PhoneWatchUsage.Presence.APP || fresh || !watchUsage.request()) return@launch
+            repeat(WATCH_WAIT_ROUNDS) {
+                delay(WATCH_WAIT_MILLIS)
+                val report = watchUsage.pull()
+                if (report != null && report.at > known) {
+                    _watch.value = report
+                    return@launch
+                }
+            }
         }
+    }
+
+    private companion object {
+        const val WATCH_FRESH_MILLIS = 5 * 60_000L
+        const val WATCH_WAIT_ROUNDS = 5
+        const val WATCH_WAIT_MILLIS = 2_000L
     }
 }
 
 /**
  * Seite «Akku & Aktivität»: ehrlicher Satz (Apps sehen ihren Akkuverbrauch nicht), je eine Karte «Handy» und «Uhr»
- * ([UsageCard]; ohne Bericht der Uhr «Keine Uhr verbunden»), dann der Weg in die Akku-Einstellungen von Android
+ * ([UsageCard]; ohne Bericht der Uhr je nach [PhoneWatchUsage.Presence] «Keine Uhr verbunden», «nicht installiert»
+ * oder «noch keine Zahlen»), dann der Weg in die Akku-Einstellungen von Android
  * ([BatteryOptimization.openUsageSummary]). Wie iOS `UsageSettingsPage`.
  */
 @Composable
@@ -110,6 +143,7 @@ internal fun UsagePage(onBack: () -> Unit, viewModel: UsageViewModel = hiltViewM
     val hasWork by viewModel.hasWork.collectAsStateWithLifecycle()
     val phone by viewModel.phone.collectAsStateWithLifecycle()
     val watch by viewModel.watch.collectAsStateWithLifecycle()
+    val presence by viewModel.presence.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var exactPermitted by remember { mutableStateOf(ExactCheckScheduler.canScheduleExact(context)) }
     LifecycleResumeEffect(Unit) {
@@ -136,7 +170,13 @@ internal fun UsagePage(onBack: () -> Unit, viewModel: UsageViewModel = hiltViewM
             val report = watch
             if (report == null) {
                 GroupCard(title = stringResource(R.string.usage_watch)) {
-                    Hint(stringResource(R.string.usage_watch_none))
+                    // Noch keine Zahlen der Uhr: sagen, woran es liegt (null = wird noch ermittelt)
+                    when (presence) {
+                        PhoneWatchUsage.Presence.NO_WATCH -> Hint(stringResource(R.string.usage_watch_none))
+                        PhoneWatchUsage.Presence.NO_APP -> Hint(stringResource(R.string.usage_watch_no_app))
+                        PhoneWatchUsage.Presence.APP -> Hint(stringResource(R.string.usage_watch_waiting))
+                        null -> Unit
+                    }
                 }
             } else {
                 UsageCard(stringResource(R.string.usage_watch), report.totals, stringResource(R.string.usage_driver_watch),

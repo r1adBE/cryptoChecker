@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Ֆոնային ստուգում պլանավորված չէ – հաշվվում է այն, ինչ բեռնում են բաց հավելվածը և վիջեթները։</string>
     <string name="usage_driver_watch">Հաշվվում է այն, ինչ ժամացույցի հավելվածը և նրա հավելումները բեռնում են իրենք։</string>
     <string name="usage_watch_none">Ժամացույց միացված չէ</string>
+    <string name="usage_watch_no_app">Crypto Checker-ը ժամացույցում տեղադրված չէ</string>
+    <string name="usage_watch_waiting">Ժամացույցից դեռ թվեր չկան – բացիր Crypto Checker-ը ժամացույցում</string>
     <string name="usage_as_of">%1$s դրությամբ</string>
     <string name="usage_battery_android">Android-ը ցույց է տալիս յուրաքանչյուր հավելվածի մարտկոցի օգտագործումը իր մարտկոցի կարգավորումներում։</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Арын шалгалт төлөвлөөгүй – нээлттэй апп болон виджетүүдийн татаж авсан нь тоологдоно.</string>
     <string name="usage_driver_watch">Цагны апп болон түүний нэмэлтүүдийн өөрсдөө татаж авсан нь тоологдоно.</string>
     <string name="usage_watch_none">Цаг холбогдоогүй</string>
+    <string name="usage_watch_no_app">Цаган дээр Crypto Checker суулгаагүй байна</string>
+    <string name="usage_watch_waiting">Цагнаас одоогоор тоо ирээгүй байна – цаган дээр Crypto Checker-ийг нээнэ үү</string>
     <string name="usage_as_of">%1$s-ны байдлаар</string>
     <string name="usage_battery_android">Android апп тус бүрийн батарейн хэрэглээг батарейн тохиргоондоо харуулдаг.</string>
 </resources>

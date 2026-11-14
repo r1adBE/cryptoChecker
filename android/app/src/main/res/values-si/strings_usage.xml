@@ -21,6 +21,8 @@
     <string name="usage_driver_none">කිසිදු පසුබිම් පරීක්ෂාවක් සැලසුම් කර නැත – විවෘත යෙදුම සහ විජට් ලබා ගන්නා දේ පමණක් ගණන් වේ.</string>
     <string name="usage_driver_watch">ඔරලෝසු යෙදුම සහ එහි සංකූලතා තමන්ම ලබා ගන්නා දේ ගණන් වේ.</string>
     <string name="usage_watch_none">ඔරලෝසුවක් සම්බන්ධ කර නැත</string>
+    <string name="usage_watch_no_app">ඔරලෝසුවේ Crypto Checker ස්ථාපනය කර නැත</string>
+    <string name="usage_watch_waiting">ඔරලෝසුවෙන් තවම අංක නැත – කරුණාකර ඔරලෝසුවේ Crypto Checker විවෘත කරන්න</string>
     <string name="usage_as_of">%1$s වන විට</string>
     <string name="usage_battery_android">Android එහි බැටරි සැකසීම්වල එක් එක් යෙදුමේ බැටරි භාවිතය පෙන්වයි.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Akukho kuhlola ngemuva okuhleliwe – kubalwa lokho okulandwa i-app evuliwe namawijethi.</string>
     <string name="usage_driver_watch">Kubalwa lokho okulandwa yi-app yewashi nezengezo zayo ngokwazo.</string>
     <string name="usage_watch_none">Alikho iwashi elixhunyiwe</string>
+    <string name="usage_watch_no_app">I-Crypto Checker ayifakwanga ewashini</string>
+    <string name="usage_watch_waiting">Azikabi khona izinombolo ezivela ewashini – vula i-Crypto Checker ewashini</string>
     <string name="usage_as_of">Kuze kube ngu-%1$s</string>
     <string name="usage_battery_android">I-Android ibonisa ukusetshenziswa kwebhethri nge-app ngayinye kuzilungiselelo zayo zebhethri.</string>
 </resources>

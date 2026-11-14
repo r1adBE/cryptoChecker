@@ -23,6 +23,8 @@
     <string name="usage_driver_none">Nessun controllo in background pianificato: conta ciò che scaricano l’app aperta e i widget.</string>
     <string name="usage_driver_watch">Conta ciò che scaricano da sé l’app dell’orologio e le sue complicazioni.</string>
     <string name="usage_watch_none">Nessun orologio connesso</string>
+    <string name="usage_watch_no_app">Crypto Checker non è installato sull’orologio</string>
+    <string name="usage_watch_waiting">Ancora nessun dato dall’orologio – apri Crypto Checker sull’orologio</string>
     <string name="usage_as_of">Aggiornato: %1$s</string>
     <string name="usage_battery_android">Android mostra il consumo di batteria per app nelle sue impostazioni della batteria.</string>
 </resources>

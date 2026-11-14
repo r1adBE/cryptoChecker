@@ -19,6 +19,8 @@
     <string name="usage_driver_none">バックグラウンドでの確認は予定されていません。開いているアプリとウィジェットが取得した分を数えています。</string>
     <string name="usage_driver_watch">ウォッチのアプリとそのコンプリケーションが自ら取得した分を数えています。</string>
     <string name="usage_watch_none">接続されているウォッチはありません</string>
+    <string name="usage_watch_no_app">ウォッチに Crypto Checker がインストールされていません</string>
+    <string name="usage_watch_waiting">ウォッチからの数値はまだありません。ウォッチで Crypto Checker を開いてください</string>
     <string name="usage_as_of">%1$s 時点</string>
     <string name="usage_battery_android">Android ではアプリごとのバッテリー使用量をバッテリー設定で確認できます。</string>
 </resources>

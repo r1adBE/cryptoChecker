@@ -21,6 +21,8 @@
     <string name="usage_driver_none">بررسی در پس‌زمینه برنامه‌ریزی نشده است – آنچه برنامهٔ باز و ابزارک‌ها دریافت می‌کنند شمرده می‌شود.</string>
     <string name="usage_driver_watch">آنچه برنامهٔ ساعت و ابزارک‌هایش خودشان دریافت می‌کنند شمرده می‌شود.</string>
     <string name="usage_watch_none">هیچ ساعتی وصل نیست</string>
+    <string name="usage_watch_no_app">‏Crypto Checker روی ساعت نصب نیست</string>
+    <string name="usage_watch_waiting">هنوز عددی از ساعت نرسیده است – Crypto Checker را روی ساعت باز کن</string>
     <string name="usage_as_of">وضعیت %1$s</string>
     <string name="usage_battery_android">Android مصرف باتری هر برنامه را در تنظیمات باتری خود نشان می‌دهد.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Keine Hintergrund-Prüfung geplant – es zählt, was die offene App und die Widgets abrufen.</string>
     <string name="usage_driver_watch">Es zählt, was die Uhr-App und ihre Komplikationen selbst abrufen.</string>
     <string name="usage_watch_none">Keine Uhr verbunden</string>
+    <string name="usage_watch_no_app">Crypto Checker ist auf der Uhr nicht installiert</string>
+    <string name="usage_watch_waiting">Noch keine Zahlen von der Uhr – öffne Crypto Checker auf der Uhr</string>
     <string name="usage_as_of">Stand %1$s</string>
     <string name="usage_battery_android">Den Akkuverbrauch je App zeigt Android in seinen Akku-Einstellungen.</string>
 </resources>

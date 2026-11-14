@@ -25,6 +25,8 @@
     <string name="usage_driver_none">Фонову перевірку не заплановано – враховується те, що завантажують відкритий застосунок і віджети.</string>
     <string name="usage_driver_watch">Враховується те, що застосунок на годиннику та його ускладнення завантажують самі.</string>
     <string name="usage_watch_none">Годинник не підключено</string>
+    <string name="usage_watch_no_app">Crypto Checker не встановлено на годиннику</string>
+    <string name="usage_watch_waiting">З годинника ще немає даних – відкрий Crypto Checker на годиннику</string>
     <string name="usage_as_of">Станом на %1$s</string>
     <string name="usage_battery_android">Android показує витрату батареї застосунками у своїх налаштуваннях батареї.</string>
 </resources>

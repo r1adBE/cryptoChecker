@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Fon yoxlaması planlaşdırılmayıb – açıq tətbiqin və vidjetlərin yüklədikləri sayılır.</string>
     <string name="usage_driver_watch">Saat tətbiqinin və onun komplikasiyalarının özlərinin yüklədikləri sayılır.</string>
     <string name="usage_watch_none">Qoşulmuş saat yoxdur</string>
+    <string name="usage_watch_no_app">Crypto Checker saatda quraşdırılmayıb</string>
+    <string name="usage_watch_waiting">Saatdan hələ rəqəm yoxdur – saatda Crypto Checker-i aç</string>
     <string name="usage_as_of">Vəziyyət: %1$s</string>
     <string name="usage_battery_android">Android hər tətbiqin batareya istifadəsini öz batareya ayarlarında göstərir.</string>
 </resources>

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 236)
+
+- Battery & activity: the watch card now says whether no watch is connected, the watch app isn't installed, or the watch hasn't sent numbers yet; the phone asks the watch for fresh numbers when the page opens.
+
 ## 16.2.2 (build 235)
 
 - The build number is shown on Android (Settings › About) and at the bottom of the list on Wear OS and Apple Watch, as on iPhone.

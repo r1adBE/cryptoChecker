@@ -19,6 +19,8 @@
     <string name="usage_driver_none">နောက်ခံစစ်ဆေးမှု စီစဉ်ထားခြင်းမရှိပါ – ဖွင့်ထားသောအက်ပ်နှင့် ဝိဂျက်များ ရယူသည်ကိုသာ ရေတွက်ပါသည်။</string>
     <string name="usage_driver_watch">နာရီအက်ပ်နှင့် ၎င်း၏ ဖြည့်စွက်ချက်များ ကိုယ်တိုင်ရယူသည်ကို ရေတွက်ပါသည်။</string>
     <string name="usage_watch_none">ချိတ်ဆက်ထားသော နာရီ မရှိပါ</string>
+    <string name="usage_watch_no_app">နာရီပေါ်တွင် Crypto Checker ထည့်သွင်းမထားပါ</string>
+    <string name="usage_watch_waiting">နာရီမှ ကိန်းဂဏန်းများ မရသေးပါ – နာရီပေါ်တွင် Crypto Checker ကို ဖွင့်ပါ</string>
     <string name="usage_as_of">%1$s အထိ</string>
     <string name="usage_battery_android">Android သည် အက်ပ်တစ်ခုချင်းစီ၏ ဘက်ထရီအသုံးပြုမှုကို ၎င်း၏ ဘက်ထရီဆက်တင်များတွင် ပြသပါသည်။</string>
 </resources>

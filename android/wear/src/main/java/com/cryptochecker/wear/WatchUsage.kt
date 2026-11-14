@@ -31,10 +31,20 @@ object WatchUsage {
         UsageMeter.shared.attach(File(context.applicationContext.noBackupFilesDir, UsageMeter.FILE_NAME))
     }
 
-    /** Zähler schreiben und die Summe ans Handy geben, höchstens alle [PUBLISH_GAP_MILLIS]; läuft im Prozess weiter. */
-    fun publish(context: Context) {
+    /** Bitte des Handys «Zähler jetzt schicken» (Nachricht; gleich in `PhoneWatchUsage.REQUEST_PATH`). */
+    const val REQUEST_PATH = "/cc/usage/request"
+
+    /** Auf Bitte des Handys höchstens so oft: die Seite «Akku & Aktivität» fragt bei jedem Öffnen. */
+    const val REQUEST_GAP_MILLIS = 60_000L
+
+    /**
+     * Zähler schreiben und die Summe ans Handy geben, höchstens alle [PUBLISH_GAP_MILLIS]; auf Bitte des Handys
+     * ([requested]) höchstens alle [REQUEST_GAP_MILLIS] und dringend (sonst darf das System bis zu 30 Min. bündeln).
+     * Läuft im Prozess weiter.
+     */
+    fun publish(context: Context, requested: Boolean = false) {
         val now = System.currentTimeMillis()
-        if (now - lastPublished < PUBLISH_GAP_MILLIS) return
+        if (now - lastPublished < if (requested) REQUEST_GAP_MILLIS else PUBLISH_GAP_MILLIS) return
         lastPublished = now
         val app = context.applicationContext
         attach(app)
@@ -43,6 +53,7 @@ object WatchUsage {
             val text = UsageLog.encodeReport(UsageReport(now, UsageMeter.shared.totals()))
             WatchTaskAwait.catching {
                 val request = PutDataMapRequest.create(PATH).apply { dataMap.putString(KEY, text) }.asPutDataRequest()
+                if (requested) request.setUrgent()
                 WatchTaskAwait.await(Wearable.getDataClient(app).putDataItem(request), TIMEOUT_S)
             }
         }

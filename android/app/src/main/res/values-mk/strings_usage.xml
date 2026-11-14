@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Нема закажана проверка во позадина – се брои она што го преземаат отворената апликација и виџетите.</string>
     <string name="usage_driver_watch">Се брои она што апликацијата на часовникот и нејзините компликации го преземаат сами.</string>
     <string name="usage_watch_none">Нема поврзан часовник</string>
+    <string name="usage_watch_no_app">Crypto Checker не е инсталиран на часовникот</string>
+    <string name="usage_watch_waiting">Сè уште нема бројки од часовникот – отвори го Crypto Checker на часовникот</string>
     <string name="usage_as_of">Состојба %1$s</string>
     <string name="usage_battery_android">Android ја покажува потрошувачката на батерија по апликација во своите поставки за батерија.</string>
 </resources>

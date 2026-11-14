@@ -48,6 +48,14 @@
                     android:pathPrefix="/cc/watch"
                     android:scheme="wear" />
             </intent-filter>
+            <!-- Bitte des Handys: Zähler für «Akku & Aktivität» jetzt schicken -->
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
+                <data
+                    android:host="*"
+                    android:path="/cc/usage/request"
+                    android:scheme="wear" />
+            </intent-filter>
         </service>
 
         <service

@@ -25,6 +25,8 @@
     <string name="usage_driver_none">Tikrinimas fone nesuplanuotas – skaičiuojama tai, ką atsisiunčia atidaryta programa ir valdikliai.</string>
     <string name="usage_driver_watch">Skaičiuojama tai, ką laikrodžio programa ir jos valdikliai atsisiunčia patys.</string>
     <string name="usage_watch_none">Laikrodis neprijungtas</string>
+    <string name="usage_watch_no_app">Crypto Checker neįdiegta laikrodyje</string>
+    <string name="usage_watch_waiting">Iš laikrodžio dar nėra skaičių – atidaryk Crypto Checker laikrodyje</string>
     <string name="usage_as_of">Būsena %1$s</string>
     <string name="usage_battery_android">„Android“ rodo akumuliatoriaus naudojimą pagal programas savo akumuliatoriaus nustatymuose.</string>
 </resources>

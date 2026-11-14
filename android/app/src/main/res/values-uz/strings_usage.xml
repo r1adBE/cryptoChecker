@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Fondagi tekshiruv rejalashtirilmagan – ochiq ilova va vidjetlar yuklaydigani sanaladi.</string>
     <string name="usage_driver_watch">Soat ilovasi va uning qo‘shimchalari o‘zlari yuklaydigani sanaladi.</string>
     <string name="usage_watch_none">Soat ulanmagan</string>
+    <string name="usage_watch_no_app">Crypto Checker soatga o‘rnatilmagan</string>
+    <string name="usage_watch_waiting">Soatdan hali raqamlar kelmadi – iltimos, soatda Crypto Checker’ni oching</string>
     <string name="usage_as_of">%1$s holatiga ko‘ra</string>
     <string name="usage_battery_android">Android har bir ilovaning batareya sarfini o‘z batareya sozlamalarida ko‘rsatadi.</string>
 </resources>

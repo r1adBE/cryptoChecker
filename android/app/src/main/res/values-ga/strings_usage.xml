@@ -27,6 +27,8 @@
     <string name="usage_driver_none">Níl aon seiceáil sa chúlra pleanáilte – áirítear a bhfaigheann an aip oscailte agus na giuirléidí.</string>
     <string name="usage_driver_watch">Áirítear a bhfaigheann aip an uaireadóra agus a giuirléidí féin.</string>
     <string name="usage_watch_none">Níl aon uaireadóir ceangailte</string>
+    <string name="usage_watch_no_app">Níl Crypto Checker suiteáilte ar an uaireadóir</string>
+    <string name="usage_watch_waiting">Níl aon uimhreacha ón uaireadóir fós – oscail Crypto Checker ar an uaireadóir</string>
     <string name="usage_as_of">Staid %1$s</string>
     <string name="usage_battery_android">Taispeánann Android úsáid ceallra in aghaidh na haipe ina shocruithe ceallra.</string>
 </resources>

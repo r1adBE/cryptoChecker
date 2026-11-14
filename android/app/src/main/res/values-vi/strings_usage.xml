@@ -19,6 +19,8 @@
     <string name="usage_driver_none">Không có kiểm tra nền nào được lên lịch – chỉ tính những gì ứng dụng đang mở và tiện ích tải về.</string>
     <string name="usage_driver_watch">Tính những gì ứng dụng trên đồng hồ và các tiện ích của nó tự tải về.</string>
     <string name="usage_watch_none">Không có đồng hồ nào được kết nối</string>
+    <string name="usage_watch_no_app">Crypto Checker chưa được cài trên đồng hồ</string>
+    <string name="usage_watch_waiting">Chưa có số liệu từ đồng hồ – vui lòng mở Crypto Checker trên đồng hồ</string>
     <string name="usage_as_of">Tính đến %1$s</string>
     <string name="usage_battery_android">Android hiển thị mức sử dụng pin theo từng ứng dụng trong phần cài đặt pin.</string>
 </resources>

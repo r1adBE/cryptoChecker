@@ -19,6 +19,8 @@
     <string name="usage_driver_none">ບໍ່ມີການກວດສອບໃນພື້ນຫຼັງຕາມກຳນົດ – ນັບສິ່ງທີ່ແອັບທີ່ເປີດຢູ່ ແລະ ວິດເຈັດດຶງມາ.</string>
     <string name="usage_driver_watch">ນັບສິ່ງທີ່ແອັບໃນໂມງ ແລະ ສ່ວນເສີມຂອງມັນດຶງມາເອງ.</string>
     <string name="usage_watch_none">ບໍ່ມີໂມງເຊື່ອມຕໍ່</string>
+    <string name="usage_watch_no_app">ບໍ່ໄດ້ຕິດຕັ້ງ Crypto Checker ໃນໂມງ</string>
+    <string name="usage_watch_waiting">ຍັງບໍ່ມີຕົວເລກຈາກໂມງ – ກະລຸນາເປີດ Crypto Checker ໃນໂມງ</string>
     <string name="usage_as_of">ນັບຮອດ %1$s</string>
     <string name="usage_battery_android">Android ສະແດງການໃຊ້ແບັດເຕີຣີຂອງແຕ່ລະແອັບໃນການຕັ້ງຄ່າແບັດເຕີຣີ.</string>
 </resources>
