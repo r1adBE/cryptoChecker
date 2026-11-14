@@ -21,7 +21,7 @@ struct BitunixFutures: Exchange {
 
     /// Nur die Zeile des gefragten Symbols zählt; fehlt sie (oder `data` ist null), «keine Daten» — wie Android.
     func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
-        let rows = json.optArray("data")?.allObjects() ?? []
+        let rows = try json.optArray("data")?.allObjects() ?? []
         guard let row = rows.first(where: { $0.optString("symbol") == info.pairId }) else {
             throw JSONError(message: JSONError.noData)
         }

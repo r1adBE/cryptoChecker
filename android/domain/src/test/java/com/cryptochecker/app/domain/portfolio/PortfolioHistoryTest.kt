@@ -212,9 +212,10 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("NEW", 1.0, noon(today - 3)))
         val closes = mapOf("NEW" to mapOf(today - 1 to 5.0))
         val s = PortfolioHistory.build(trades, closes, mapOf("NEW" to 5.0), PortfolioHistoryRange.WEEK, today)
-        assertEquals(listOf(0.0, 0.0, 5.0, 5.0), s.points.map { it.value })
-        assertNull(s.changePercent)                       // Ausgangswert 0
-        assertEquals(5.0, s.change!!, d)
+        // Gehalten vor der ersten Kerze: der Coin fehlt im ganzen Zeitraum (kein Sprung von 0 auf 5), steht unter «ohne …»
+        assertTrue(s.points.isEmpty())
+        assertEquals(listOf("NEW"), s.skipped)
+        assertNull(s.change)
     }
 
     @Test

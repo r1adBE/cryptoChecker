@@ -76,7 +76,8 @@ fun Throwable.toExchangeFailure(): ExchangeFailure = when (this) {
     // abort», «unexpected end of stream», «stream was reset», «Socket closed») = keine Verbindung, wiederholbar — wie
     // iOS `.networkConnectionLost`. HTTP-Fehler, Grösse und Zeit sind vorher eigene Arten.
     is NetworkError -> cause?.toExchangeFailure()?.takeUnless { it == ExchangeFailure.Other }
-        ?: if (cause is IOException) ExchangeFailure.Offline else ExchangeFailure.Other
+        // «Canceled» = von uns abgebrochener Aufruf (OkHttp), keine Störung der Verbindung
+        ?: if (cause is IOException && cause.message != "Canceled") ExchangeFailure.Offline else ExchangeFailure.Other
     is UnknownExchangeError -> cause?.toExchangeFailure() ?: ExchangeFailure.Other
     is ParseError -> ExchangeFailure.Parse
     is UserFriendlyExchangeError -> exchangeFailure(message)

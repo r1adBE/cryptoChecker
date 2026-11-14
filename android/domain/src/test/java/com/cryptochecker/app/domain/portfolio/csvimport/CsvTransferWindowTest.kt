@@ -65,11 +65,16 @@ class CsvTransferWindowTest {
                 .map { emptyList<CsvImportTx>() to listOf(it) }
         val ins = txs.filter { it.type == PortfolioTxType.DEPOSIT }.map { listOf(it) to emptyList<CsvStoredMove>() } +
             free.filter { it.type == PortfolioTxType.DEPOSIT }.map { emptyList<CsvImportTx>() to listOf(it) }
-        val found = ArrayList<CsvTransferLink>()
-        for (w in outs) for (d in ins) found += CsvTransferMatch.candidates(w.first + d.first, place, w.second + d.second)
-        val perOut = found.groupingBy { it.withdrawalKey }.eachCount()
-        val perIn = found.groupingBy { it.depositKey }.eachCount()
-        return found.map { it.copy(unambiguous = perOut[it.withdrawalKey] == 1 && perIn[it.depositKey] == 1) }
+        val all = ArrayList<CsvTransferLink>()
+        for (w in outs) for (d in ins) all += CsvTransferMatch.candidates(w.first + d.first, place, w.second + d.second)
+        // Weitere Kandidaten ([CsvTransferLink.loose]) nur zwischen Seiten ohne üblichen Kandidaten
+        val strict = all.filter { !it.loose }
+        val strictOut = strict.mapTo(HashSet()) { it.withdrawalKey }
+        val strictIn = strict.mapTo(HashSet()) { it.depositKey }
+        val found = strict + all.filter { it.loose && it.withdrawalKey !in strictOut && it.depositKey !in strictIn }
+        val perOut = strict.groupingBy { it.withdrawalKey }.eachCount()
+        val perIn = strict.groupingBy { it.depositKey }.eachCount()
+        return found.map { it.copy(unambiguous = !it.loose && perOut[it.withdrawalKey] == 1 && perIn[it.depositKey] == 1) }
             .sortedWith(compareBy({ it.withdrawalTime }, { it.depositTime }, { it.key }))
     }
 

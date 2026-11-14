@@ -305,10 +305,22 @@ class ExchangeHttpTest {
 
     @Test
     fun failedSecondPairListCallKeepsTheFirstList() = runBlocking {
+        // Bleibend fehlende Teilliste (404): übersprungen, die erste zählt
         respond(body = """{"pairs":[["BTC","USDT","BTCUSDT"],["ETH","USDT","ETHUSDT"]]}""")
-        respond(502, body = "bad gateway")
+        respond(404, body = "not found")
         val info = ExchangeRemoteDataSource(client()).fetchExchangeCurrencyPairsInfo(StubExchange(url("").trimEnd('/')))
         assertEquals(listOf("BTCUSDT", "ETHUSDT"), info.pairs.mapNotNull { it.pairId })
+    }
+
+    @Test
+    fun transientSecondPairListCallAbortsTheWholeList() = runBlocking {
+        // Vorübergehende Störung (502): ganze Liste bricht ab, die gespeicherte bleibt (keine halbe Liste)
+        respond(body = """{"pairs":[["BTC","USDT","BTCUSDT"]]}""")
+        respond(502, body = "bad gateway")
+        val e = expect<HttpExchangeError> {
+            runBlocking { ExchangeRemoteDataSource(client()).fetchExchangeCurrencyPairsInfo(StubExchange(url("").trimEnd('/'))) }
+        }
+        assertEquals(502, e.httpCode)
     }
 
     @Test
