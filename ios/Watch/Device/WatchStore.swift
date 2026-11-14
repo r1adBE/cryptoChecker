@@ -1,7 +1,7 @@
 import Foundation
 
 /// Speicher der Uhr (App-Gruppe, damit die Komplikation mitliest; nichts davon im Backup): die Wahl der Liste in einer
-/// eigenen Datei (`watch_settings.json` — UserDefaults der App-Gruppe liessen sich nicht vom Backup ausnehmen, X4-03; Wear
+/// eigenen Datei (`watch_settings.json` — die Standard-Einstellungen der App-Gruppe liessen sich nicht vom Backup ausnehmen, X4-03; Wear
 /// OS: `allowBackup="false"`) und die zuletzt geladenen Kurse, je Coin mit dem Start seines Abrufs (`WatchCached.time`),
 /// in einer Datei, die Uhr-App und Komplikation nur über `NSFileCoordinator` lesen und zusammenführen (`WatchQuoteFile`)
 /// — die Komplikation zeigt sie auch ohne Netz. Dazu die Coins der letzten Kurse vom iPhone (`phoneCoins`, `phoneTime`:

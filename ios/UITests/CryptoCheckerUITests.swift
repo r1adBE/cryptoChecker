@@ -190,7 +190,7 @@ final class CryptoCheckerUITests: XCTestCase {
         openBackupPage(app)
         tap(app, UiTestTags.backupExport)
         tap(app, UiTestTags.backupExportConfirm)
-        let plain = app.alerts.firstMatch.buttons["Save without password"]
+        let plain = app.alerts.firstMatch.buttons["Back up without password"]
         XCTAssertTrue(plain.waitForExistence(timeout: uiTimeout), "plain backup confirmation not shown")
         plain.tap()
 
