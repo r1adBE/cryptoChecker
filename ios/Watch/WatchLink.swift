@@ -15,6 +15,8 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     private static let quotesKey = "quotes"
     private static let portfolioKey = "portfolio"
     private static let usageKey = "usage"
+    /// Bitte des iPhones «Zähler jetzt schicken» (gleich in `WatchUsageStore.requestKey`).
+    private static let usageRequestKey = "usageRequest"
     /// Zähler höchstens so oft eigens ans iPhone (wie Wear OS `WatchUsage.PUBLISH_GAP_MILLIS`).
     private static let usageGapMillis: Int64 = 30 * 60_000
     private static let usageSentAt = OSAllocatedUnfairLock(initialState: Int64(0))
@@ -97,6 +99,18 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     func sessionCompanionAppInstalledDidChange(_ session: WCSession) {
         guard !session.isCompanionAppInstalled else { return }
         Task { @MainActor in WatchModel.shared.forgetPhone() }
+    }
+
+    /// Bitte des iPhones (Seite «Akku & Aktivität»): Zähler gleich als Antwort — wie Wear OS
+    /// `WatchDataListener.onMessageReceived`.
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any],
+                 replyHandler: @escaping ([String: Any]) -> Void) {
+        guard message[Self.usageRequestKey] as? Bool == true else {
+            replyHandler([:])
+            return
+        }
+        replyHandler([Self.usageKey: UsageLog.encodeReport(UsageReport(at: WatchStore.now(),
+                                                                      totals: UsageMeter.shared.totals()))])
     }
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {

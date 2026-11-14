@@ -18,7 +18,8 @@ class PriceUpdateRuleTest {
         shown: Boolean = true,
         notificationsOn: Boolean = true,
         pairOn: Boolean = true,
-    ) = PriceUpdateRule.decide(notificationsOn, pairOn, price, reference, threshold, ongoing, shown)
+        refresh: Boolean = false,
+    ) = PriceUpdateRule.decide(notificationsOn, pairOn, price, reference, threshold, ongoing, shown, refresh)
 
     @Test
     fun ongoingAndMissingIsRestoredBelowTheThreshold() {
@@ -44,5 +45,16 @@ class PriceUpdateRuleTest {
         assertEquals(PriceUpdate.CANCEL, decide(pairOn = false, shown = false))
         assertEquals(PriceUpdate.CANCEL, decide(price = null))
         assertEquals(PriceUpdate.CANCEL, decide(price = 0.0, shown = false))
+    }
+
+    @Test
+    fun afterAnOutageTheStandingNotificationIsRefreshed() {
+        // Unter der Schwelle, Mitteilung steht noch: nach dem Aussetzer mit dem neuen Kurs (alter Bezug, ohne Ton)
+        assertEquals(PriceUpdate.RESTORE, decide(refresh = true, ongoing = false))
+        assertEquals(PriceUpdate.RESTORE, decide(refresh = true))
+        // Ohne Aussetzer bleibt sie, wie sie ist
+        assertEquals(PriceUpdate.NONE, decide(refresh = false, ongoing = false))
+        // Über der Schwelle wie immer: neu zeigen
+        assertEquals(PriceUpdate.SHOW, decide(price = 106.0, refresh = true))
     }
 }

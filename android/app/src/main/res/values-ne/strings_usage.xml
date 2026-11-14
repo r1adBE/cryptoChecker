@@ -21,6 +21,8 @@
     <string name="usage_driver_none">कुनै पृष्ठभूमि जाँच तय छैन – खुला एप र विजेटले जे ल्याउँछन् त्यही गनिन्छ।</string>
     <string name="usage_driver_watch">घडीको एप र यसका कम्प्लिकेसनले आफैँ जे ल्याउँछन् त्यही गनिन्छ।</string>
     <string name="usage_watch_none">कुनै घडी जोडिएको छैन</string>
+    <string name="usage_watch_no_app">घडीमा Crypto Checker इन्स्टल गरिएको छैन</string>
+    <string name="usage_watch_waiting">घडीबाट अझै कुनै अङ्क आएको छैन – कृपया घडीमा Crypto Checker खोल्नुहोस्</string>
     <string name="usage_as_of">%1$s सम्म</string>
     <string name="usage_battery_android">Android ले हरेक एपको ब्याट्री प्रयोग आफ्नो ब्याट्री सेटिङमा देखाउँछ।</string>
 </resources>

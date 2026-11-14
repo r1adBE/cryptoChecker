@@ -25,6 +25,8 @@
     <string name="usage_driver_none">Nie je naplánovaná žiadna kontrola na pozadí – počíta sa, čo sťahuje otvorená aplikácia a widgety.</string>
     <string name="usage_driver_watch">Počíta sa, čo si aplikácia v hodinkách a jej komplikácie sťahujú samy.</string>
     <string name="usage_watch_none">Nie sú pripojené žiadne hodinky</string>
+    <string name="usage_watch_no_app">Crypto Checker nie je v hodinkách nainštalovaný</string>
+    <string name="usage_watch_waiting">Z hodiniek zatiaľ neprišli žiadne čísla – otvor Crypto Checker v hodinkách</string>
     <string name="usage_as_of">Stav %1$s</string>
     <string name="usage_battery_android">Android ukazuje spotrebu batérie podľa aplikácií vo svojich nastaveniach batérie.</string>
 </resources>

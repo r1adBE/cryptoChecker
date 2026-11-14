@@ -39,19 +39,28 @@ enum CheckResult: String, CaseIterable, Sendable {
     var countsAsCheck: Bool { self == .ok || self == .partial || self == .skipped }
 }
 
-/// Ein Lauf: Ende, Auslöser, Ergebnis, Dauer.
+/// Ein Lauf: Ende, Auslöser, Ergebnis, Dauer und — bei «failed», «paused» — der Grund als kurzer Code (`reason`,
+/// `CheckRunLog.cleanReason`), z. B. «cancelled:expired», «all_pairs_failed». Nur für den Diagnosebericht; nil = keiner.
+/// Wie Android `CheckRun`.
 struct CheckRun: Equatable, Sendable {
     let at: Int64
     let trigger: CheckTrigger
     let result: CheckResult
     let durationMillis: Int64
+    var reason: String?
 }
 
 /// «Letzte Prüfungen»: die letzten `max` Läufe der Hintergrund-Prüfung, neueste zuerst, in
-/// einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer`). Zeigt
+/// einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer[;grund]`). Zeigt
 /// ehrlich, wann iOS wirklich geprüft hat. Reine Logik — wie `CheckRunLog.kt`.
 enum CheckRunLog {
     static let max = 20
+
+    /// Zählt `run` für «Akku & Aktivität» als Hintergrund-Lauf? Nicht in der offenen App und nicht, wenn er gar nicht
+    /// prüfte (übersprungen, offline ausgelassen). Wie Android.
+    static func countsAsRun(_ run: CheckRun) -> Bool {
+        run.trigger != .foreground && run.result != .skipped && run.result != .offline
+    }
 
     /// Neuen Lauf vorne anfügen, höchstens `max` behalten (Ringpuffer).
     static func add(_ runs: [CheckRun], _ run: CheckRun, max: Int = CheckRunLog.max) -> [CheckRun] {
@@ -92,24 +101,65 @@ enum CheckRunLog {
         lastBackgroundCheck(runs) != nil ? nil : runs.last { $0.trigger.scheduled }?.at
     }
 
-    static func encode(_ runs: [CheckRun]) -> String {
-        runs.map { "\($0.at);\($0.trigger.rawValue);\($0.result.rawValue);\($0.durationMillis)" }
-            .joined(separator: "\n")
+    /// Grund eines gescheiterten Laufs: Abbruch (bei iOS «expired»: Hintergrundzeit abgelaufen).
+    static let reasonCancelled = "cancelled"
+    /// Alle Paare scheiterten am Abruf (Netz, Börse).
+    static let reasonAllPairsFailed = "all_pairs_failed"
+    /// Alle Börsen pausiert bzw. Alarme ohne Lease ausgelassen.
+    static let reasonExchangesPaused = "exchanges_paused"
+    /// Kurse geholt, aber nicht gespeichert (Datei gerade nicht zugreifbar).
+    static let reasonNotSaved = "not_saved"
+    /// Vormerken der Hintergrund-Aufgabe gescheitert.
+    static let reasonSubmitFailed = "submit_failed"
+    /// Höchstens so lang (`cleanReason`).
+    static let reasonMax = 40
+
+    /// Grund als Code: nur a–z, A–Z, 0–9, «_», «:» und «.», höchstens `reasonMax` Zeichen; leer → nil. Wie Android.
+    static func cleanReason(_ raw: String?) -> String? {
+        guard let raw else { return nil }
+        let kept = raw.unicodeScalars.filter {
+            ($0.isASCII && CharacterSet.alphanumerics.contains($0)) || $0 == "_" || $0 == ":" || $0 == "."
+        }
+        let text = String(String.UnicodeScalarView(kept.prefix(reasonMax)))
+        return text.isEmpty ? nil : text
     }
 
-    /// Unlesbare Zeilen fallen weg; höchstens `max` Läufe, Reihenfolge der Datei.
+    /// Code für einen Abbruch: «cancelled» bzw. «cancelled:`detail`». Wie Android.
+    static func cancelledReason(_ detail: String?) -> String {
+        cleanReason(detail).map { "\(reasonCancelled):\($0)" } ?? reasonCancelled
+    }
+
+    /// Grund aus dem Ergebnis selbst: «failed» → alle Paare gescheitert, «paused» → Börsen pausiert. Wie Android.
+    static func reasonFor(_ result: CheckResult) -> String? {
+        switch result {
+        case .failed: return reasonAllPairsFailed
+        case .paused: return reasonExchangesPaused
+        case .ok, .partial, .skipped, .offline: return nil
+        }
+    }
+
+    static func encode(_ runs: [CheckRun]) -> String {
+        runs.map { run in
+            "\(run.at);\(run.trigger.rawValue);\(run.result.rawValue);\(run.durationMillis)"
+                + (cleanReason(run.reason).map { ";\($0)" } ?? "")
+        }
+        .joined(separator: "\n")
+    }
+
+    /// Unlesbare Zeilen fallen weg; höchstens `max` Läufe, Reihenfolge der Datei. Grund (5. Feld) freiwillig.
     static func decode(_ text: String?) -> [CheckRun] {
         guard let text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return [] }
         var runs: [CheckRun] = []
         for raw in text.split(separator: "\n", omittingEmptySubsequences: false) {
             let line = raw.trimmingCharacters(in: .whitespaces)
             let parts = line.split(separator: ";", omittingEmptySubsequences: false).map(String.init)
-            guard parts.count == 4,
+            guard parts.count == 4 || parts.count == 5,
                   let at = Int64(parts[0]),
                   let trigger = CheckTrigger(rawValue: parts[1]),
                   let result = CheckResult(rawValue: parts[2]),
                   let duration = Int64(parts[3]) else { continue }
-            runs.append(CheckRun(at: at, trigger: trigger, result: result, durationMillis: Swift.max(duration, 0)))
+            runs.append(CheckRun(at: at, trigger: trigger, result: result, durationMillis: Swift.max(duration, 0),
+                                 reason: parts.count == 5 ? cleanReason(parts[4]) : nil))
             if runs.count >= CheckRunLog.max { break }
         }
         return runs
@@ -134,10 +184,11 @@ enum CheckRunStore {
     /// Schritt über die Prozesse (App, Hintergrund-Aufgabe, Widget: `SharedStorage.coordinatedWrite`), sonst ginge
     /// ein gleichzeitig vermerkter Lauf verloren; `lock` hält zusätzlich den eigenen Prozess in Reihe.
     ///
-    /// Jeder Lauf ausser in der offenen App (`.foreground`) zählt für «Akku & Aktivität» als Hintergrund-Lauf
-    /// (`UsageMeter`); der Lauf ist hier zu Ende, darum die Zähler gleich mitschreiben. Wie Android.
+    /// Jeder Lauf ausser in der offenen App (`.foreground`), der wirklich geprüft hat (`CheckRunLog.countsAsRun`), zählt
+    /// für «Akku & Aktivität» als Hintergrund-Lauf (`UsageMeter`); der Lauf ist hier zu Ende, darum die Zähler gleich
+    /// mitschreiben. Wie Android.
     static func add(_ run: CheckRun, to url: URL = CheckRunStore.url, meter: UsageMeter = .shared) {
-        if run.trigger != .foreground {
+        if CheckRunLog.countsAsRun(run) {
             meter.countRun()
             meter.flush()
         }
@@ -157,18 +208,21 @@ enum CheckRunStore {
     }
 
     /// Lauf vermerken, der bei `startedAt` begann und jetzt endet.
-    static func log(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64) {
+    static func log(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64, reason: String? = nil) {
         let now = EpochTime.nowMillis
-        add(CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0)))
+        add(CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0),
+                     reason: CheckRunLog.cleanReason(reason ?? CheckRunLog.reasonFor(result))))
     }
 
     /// Wie `log`, aber abseits des Aufrufers (die Datei-Abstimmung kann auf einen anderen Prozess warten) —
     /// für Hauptfaden und `expirationHandler`. Die Dauer zählt bis jetzt; mit `await …value` abwarten, wo der Eintrag vor
     /// dem Ende der Aufgabe stehen muss.
     @discardableResult
-    static func logDetached(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64) -> Task<Void, Never> {
+    static func logDetached(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64,
+                            reason: String? = nil) -> Task<Void, Never> {
         let now = EpochTime.nowMillis
-        let run = CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0))
+        let run = CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0),
+                           reason: CheckRunLog.cleanReason(reason ?? CheckRunLog.reasonFor(result)))
         return Task.detached(priority: .utility) { add(run) }
     }
 }

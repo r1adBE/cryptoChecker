@@ -54,5 +54,15 @@ object LogoImageCodec {
         ).also { if (it !== decoded) decoded.recycle() }
     }
 
-    fun decodeFile(file: File): Bitmap? = runCatching { BitmapFactory.decodeFile(file.path) }.getOrNull()
+    /**
+     * Gespeichertes Logo lesen; null = Datei unlesbar (kaputt). Speichermangel ([OutOfMemoryError]) geht weiter: Das Bild
+     * ist dann nicht kaputt und darf nicht gelöscht werden ([LogoImageStore] zeigt so lange die Initialen).
+     */
+    fun decodeFile(file: File): Bitmap? = try {
+        BitmapFactory.decodeFile(file.path)
+    } catch (e: OutOfMemoryError) {
+        throw e
+    } catch (e: Exception) {
+        null
+    }
 }

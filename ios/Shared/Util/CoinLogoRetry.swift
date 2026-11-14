@@ -75,6 +75,12 @@ enum CoinLogoRetry {
         return httpCode == 408 || (500...599).contains(httpCode)
     }
 
+    /// Bleibt ein Bild nach dieser Antwort offen statt gesperrt? Nur 403 (ohne «Retry-After»): CloudFront/S3 antworten
+    /// so auf eine fehlende Datei, aber auch beim Bremsen — offen heisst: nicht im selben Durchgang wiederholen, beim
+    /// nächsten Abgleich erneut, erst nach `openPassesFail` Durchgängen in Folge gesperrt. 404 bleibt «gibt es nicht».
+    /// Wie Android.
+    static func leavesOpen(httpCode: Int) -> Bool { httpCode == 403 }
+
     /// So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren.
     static let forbiddenPauseStreak = 3
 

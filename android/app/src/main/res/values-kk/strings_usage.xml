@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Фондық тексеру жоспарланбаған – ашық қолданба мен виджеттер жүктейтіні ғана саналады.</string>
     <string name="usage_driver_watch">Сағат қолданбасы мен оның кеңейтімдері өздері жүктейтіні саналады.</string>
     <string name="usage_watch_none">Сағат қосылмаған</string>
+    <string name="usage_watch_no_app">Crypto Checker сағатқа орнатылмаған</string>
+    <string name="usage_watch_waiting">Сағаттан әлі сандар жоқ – сағатта Crypto Checker қолданбасын ашыңыз</string>
     <string name="usage_as_of">%1$s бойынша</string>
     <string name="usage_battery_android">Android әр қолданбаның батарея шығынын өзінің батарея параметрлерінде көрсетеді.</string>
 </resources>

@@ -53,22 +53,34 @@ enum class CheckResult(val code: String) {
     }
 }
 
-/** Ein Lauf: Ende, Auslöser, Ergebnis, Dauer. */
+/**
+ * Ein Lauf: Ende, Auslöser, Ergebnis, Dauer und — bei «failed», «paused» — der Grund als kurzer Code ([reason], nur
+ * Buchstaben, Ziffern, «_» und «:»; [CheckRunLog.cleanReason]), z. B. «cancelled:quota», «all_pairs_failed». Nur für den
+ * Diagnosebericht; null = keiner.
+ */
 data class CheckRun(
     val at: Long,
     val trigger: CheckTrigger,
     val result: CheckResult,
     val durationMillis: Long,
+    val reason: String? = null,
 )
 
 /**
  * «Letzte Prüfungen»: die letzten [MAX] Läufe der Hintergrund-Prüfung, neueste zuerst, in
- * einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer`). Zeigt
+ * einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer[;grund]`). Zeigt
  * ehrlich, wann das System wirklich geprüft hat. Reine Logik — wie `CheckRunLog.swift`.
  */
 object CheckRunLog {
 
     const val MAX = 20
+
+    /**
+     * Zählt [run] für «Akku & Aktivität» als Hintergrund-Lauf? Nicht in der offenen App ([CheckTrigger.FOREGROUND]) und
+     * nicht, wenn er gar nicht prüfte (übersprungen, offline ausgelassen): Die zählten sonst wie volle Läufe. Wie iOS.
+     */
+    fun countsAsRun(run: CheckRun): Boolean =
+        run.trigger != CheckTrigger.FOREGROUND && run.result != CheckResult.SKIPPED && run.result != CheckResult.OFFLINE
 
     /** Neuen Lauf vorne anfügen, höchstens [max] behalten (Ringpuffer). */
     fun add(runs: List<CheckRun>, run: CheckRun, max: Int = MAX): List<CheckRun> =
@@ -114,20 +126,80 @@ object CheckRunLog {
     fun failingSince(runs: List<CheckRun>): Long? =
         if (lastBackgroundCheck(runs) != null) null else runs.lastOrNull { it.trigger.scheduled }?.at
 
-    fun encode(runs: List<CheckRun>): String =
-        runs.joinToString("\n") { "${it.at};${it.trigger.code};${it.result.code};${it.durationMillis}" }
+    /** Grund eines gescheiterten Laufs: Abbruch (WorkManager-Stoppgrund bzw. iOS-Ablauf in [detail]). */
+    const val REASON_CANCELLED = "cancelled"
 
-    /** Unlesbare Zeilen fallen weg; höchstens [MAX] Läufe, Reihenfolge der Datei. */
+    /** Alle Paare scheiterten am Abruf (Netz, Börse). */
+    const val REASON_ALL_PAIRS_FAILED = "all_pairs_failed"
+
+    /** Alle Börsen pausiert (zu viele Anfragen, Zeitüberschreitungen). */
+    const val REASON_EXCHANGES_PAUSED = "exchanges_paused"
+
+    /** Datenbank-Schlüssel gerade nicht lesbar. */
+    const val REASON_DB_KEY = "db_key"
+
+    /** Höchstens so lang ([cleanReason]). */
+    const val REASON_MAX = 40
+
+    /**
+     * Grund als Code: nur a–z, A–Z, 0–9, «_», «:» und «.», höchstens [REASON_MAX] Zeichen; leer → null. Hält Zeile und
+     * Datei lesbar (kein «;», kein Zeilenumbruch) und lässt nie Text aus einer Fehlermeldung durch.
+     */
+    fun cleanReason(raw: String?): String? =
+        raw?.filter { (it.isLetterOrDigit() && it.code < 128) || it == '_' || it == ':' || it == '.' }
+            ?.take(REASON_MAX)?.takeIf { it.isNotEmpty() }
+
+    /** Code für einen Abbruch: «cancelled» bzw. «cancelled:[detail]». */
+    fun cancelledReason(detail: String?): String =
+        cleanReason(detail)?.let { "$REASON_CANCELLED:$it" } ?: REASON_CANCELLED
+
+    /** Grund aus dem Ergebnis selbst ([result]): «failed» → alle Paare gescheitert, «paused» → Börsen pausiert. */
+    fun reasonFor(result: CheckResult): String? = when (result) {
+        CheckResult.OK, CheckResult.PARTIAL, CheckResult.SKIPPED, CheckResult.OFFLINE -> null
+        CheckResult.FAILED -> REASON_ALL_PAIRS_FAILED
+        CheckResult.PAUSED -> REASON_EXCHANGES_PAUSED
+    }
+
+    /**
+     * Stoppgrund eines Hintergrund-Auftrags (Werte von `JobParameters.STOP_REASON_*` bzw. `WorkInfo.STOP_REASON_*`) als
+     * Code für [cancelledReason]; unbekannte als «stopN», nicht gestoppt (≤ 0) null.
+     */
+    fun stopReasonCode(stopReason: Int): String? = when (stopReason) {
+        1 -> "by_app"
+        2 -> "preempt"
+        3 -> "timeout"
+        4 -> "device_state"
+        5 -> "battery_low"
+        6 -> "charging"
+        7 -> "connectivity"
+        8 -> "device_idle"
+        9 -> "storage_low"
+        10 -> "quota"
+        11 -> "background_restriction"
+        12 -> "app_standby"
+        13 -> "user"
+        14 -> "system_processing"
+        15 -> "launch_estimate"
+        else -> if (stopReason > 0) "stop$stopReason" else null
+    }
+
+    fun encode(runs: List<CheckRun>): String =
+        runs.joinToString("\n") { run ->
+            "${run.at};${run.trigger.code};${run.result.code};${run.durationMillis}" +
+                (cleanReason(run.reason)?.let { ";$it" } ?: "")
+        }
+
+    /** Unlesbare Zeilen fallen weg; höchstens [MAX] Läufe, Reihenfolge der Datei. Grund (5. Feld) freiwillig. */
     fun decode(text: String?): List<CheckRun> {
         if (text.isNullOrBlank()) return emptyList()
         return text.lineSequence().mapNotNull { line ->
             val parts = line.trim().split(';')
-            if (parts.size != 4) return@mapNotNull null
+            if (parts.size != 4 && parts.size != 5) return@mapNotNull null
             val at = parts[0].toLongOrNull() ?: return@mapNotNull null
             val trigger = CheckTrigger.fromCode(parts[1]) ?: return@mapNotNull null
             val result = CheckResult.fromCode(parts[2]) ?: return@mapNotNull null
             val duration = parts[3].toLongOrNull() ?: return@mapNotNull null
-            CheckRun(at, trigger, result, duration.coerceAtLeast(0))
+            CheckRun(at, trigger, result, duration.coerceAtLeast(0), cleanReason(parts.getOrNull(4)))
         }.take(MAX).toList()
     }
 }

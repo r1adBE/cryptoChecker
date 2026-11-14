@@ -21,6 +21,8 @@
     <string name="usage_driver_none">பின்னணிச் சரிபார்ப்பு திட்டமிடப்படவில்லை – திறந்த ஆப்பும் விட்ஜெட்களும் பெறுவது மட்டுமே கணக்கில் வரும்.</string>
     <string name="usage_driver_watch">வாட்ச் ஆப்பும் அதன் காம்ப்ளிகேஷன்களும் தாமே பெறுவது கணக்கில் வரும்.</string>
     <string name="usage_watch_none">வாட்ச் எதுவும் இணைக்கப்படவில்லை</string>
+    <string name="usage_watch_no_app">கடிகாரத்தில் Crypto Checker நிறுவப்படவில்லை</string>
+    <string name="usage_watch_waiting">கடிகாரத்திலிருந்து இன்னும் எண்கள் வரவில்லை – தயவுசெய்து கடிகாரத்தில் Crypto Checker-ஐத் திறக்கவும்</string>
     <string name="usage_as_of">%1$s நிலவரப்படி</string>
     <string name="usage_battery_android">Android ஒவ்வொரு ஆப்பின் பேட்டரி பயன்பாட்டையும் அதன் பேட்டரி அமைப்புகளில் காட்டுகிறது.</string>
 </resources>

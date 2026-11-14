@@ -40,6 +40,8 @@ struct DiagnosticInput: Sendable {
     var sourceCommit: String = DiagnosticReport.localCommit
     /// Gezählte Fehler im Hintergrund je Bereich (`BackgroundErrors`), nur Zahlen.
     var backgroundErrors = BackgroundErrorSummary()
+    /// Coin-Logos: nur Zahlen (`LogoDiagnostics`); nil = Abschnitt fehlt (Logos aus bzw. nicht lesbar).
+    var logos: LogoDiagnostics?
 }
 
 /// «Diagnose teilen»: reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
@@ -120,7 +122,8 @@ enum DiagnosticReport {
         if runs.isEmpty { lines.append(none) }
         for run in runs {
             let seconds = String(format: "%.1f s", Double(max(run.durationMillis, 0)) / 1000)
-            lines.append([at(run.at), run.trigger.rawValue, run.result.rawValue, seconds].joined(separator: " | "))
+            let reason = CheckRunLog.cleanReason(run.reason).map { [$0] } ?? []
+            lines.append(([at(run.at), run.trigger.rawValue, run.result.rawValue, seconds] + reason).joined(separator: " | "))
         }
 
         lines.append("")
@@ -141,6 +144,19 @@ enum DiagnosticReport {
                 ? "paused until \(at(state.pausedUntil))" : "not paused"
             lines.append([clean(key), paused, state.reason?.rawValue ?? "-", "strikes \(state.strikes)"]
                 .joined(separator: " | "))
+        }
+
+        if let logos = input.logos {
+            lines.append("")
+            lines.append("== Coin logos ==")
+            lines.append("On device: \(logos.onDevice) | locked after failure: \(logos.locked)")
+            if let pass = logos.lastPass {
+                lines.append(["Last pass: \(at(pass.at))", "new \(pass.added)", "failed \(pass.failed)",
+                              "paused \(pass.paused)", "open \(pass.open)", "unsaved \(pass.unsaved)"]
+                    .joined(separator: " | "))
+            } else {
+                lines.append("Last pass: \(none)")
+            }
         }
 
         lines.append("")

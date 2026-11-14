@@ -73,6 +73,7 @@ struct DiagnosticsPreviewPage: View {
             AlarmDeliveryScreen.alarmKinds(settings, pairAlarm: activeAlarms > 0, portfolioAlarm: false), platform: .ios)
         let readiness = AlarmReadiness.rows(await AlarmReadinessProbe.read(settings: settings, hasAlarms: hasAlarms))
         let info = Bundle.main.infoDictionary
+        let logosOn = CoinLogoUse.needed(settings)
         let input = DiagnosticInput(
             createdAt: EpochTime.nowMillis,
             zone: TimeZone.current.identifier,
@@ -107,6 +108,8 @@ struct DiagnosticsPreviewPage: View {
             full.alarmEvents = AlarmLogStore.load().events
             // Nur Anzahl Fehler im Hintergrund je Bereich
             full.backgroundErrors = BackgroundErrorCounter.summary()
+            // Coin-Logos nur als Zahlen (auf dem Gerät, gesperrt, letzter Durchgang) — nur mit eingeschalteten Logos
+            if logosOn { full.logos = CoinLogoStore.diagnostics() }
             return DiagnosticReport.build(full)
         }.value
     }

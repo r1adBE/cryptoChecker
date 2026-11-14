@@ -19,6 +19,8 @@
     <string name="usage_driver_none">ไม่มีการตรวจสอบเบื้องหลังตามกำหนด ระบบนับสิ่งที่แอปที่เปิดอยู่และวิดเจ็ตดึงมา</string>
     <string name="usage_driver_watch">ระบบนับสิ่งที่แอปบนนาฬิกาและคอมพลิเคชันดึงมาเอง</string>
     <string name="usage_watch_none">ไม่มีนาฬิกาที่เชื่อมต่อ</string>
+    <string name="usage_watch_no_app">ยังไม่ได้ติดตั้ง Crypto Checker บนนาฬิกา</string>
+    <string name="usage_watch_waiting">ยังไม่มีตัวเลขจากนาฬิกา – โปรดเปิด Crypto Checker บนนาฬิกา</string>
     <string name="usage_as_of">ณ %1$s</string>
     <string name="usage_battery_android">Android แสดงการใช้แบตเตอรี่ของแต่ละแอปในการตั้งค่าแบตเตอรี่</string>
 </resources>

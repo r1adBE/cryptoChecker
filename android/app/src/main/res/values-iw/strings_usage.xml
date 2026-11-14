@@ -23,6 +23,8 @@
     <string name="usage_driver_none">לא מתוזמנת בדיקה ברקע – נספר מה שהאפליקציה הפתוחה והווידג׳טים מורידים.</string>
     <string name="usage_driver_watch">נספר מה שאפליקציית השעון והתוספות שלה מורידות בעצמן.</string>
     <string name="usage_watch_none">אין שעון מחובר</string>
+    <string name="usage_watch_no_app">‏Crypto Checker לא מותקן בשעון</string>
+    <string name="usage_watch_waiting">עדיין אין מספרים מהשעון – פתח את Crypto Checker בשעון</string>
     <string name="usage_as_of">נכון ל־%1$s</string>
     <string name="usage_battery_android">Android מציג את צריכת הסוללה לפי אפליקציה בהגדרות הסוללה שלו.</string>
 </resources>

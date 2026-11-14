@@ -71,12 +71,12 @@ extension CoinLogoStore {
         Self.stored(symbol) != nil
     }
 
-    /// Logo fehlt, kommt aber noch: Adresse bekannt, keine Tagessperre — «noch nicht geladen» statt «kein Logo» im Hinweis
-    /// «Coins ohne Logo» (`MissingLogoNotice`). Wie Android `LogoImageStore.notYetLoaded`.
+    /// Logo fehlt, kommt aber noch: Adresse bekannt (mit den Aktien-Logos wie im Abgleich) — auch nach einem
+    /// gescheiterten Abruf, der nach seiner Sperre wieder versucht wird. «Kein Logo» nur, wenn keine Quelle eines kennt
+    /// («Coins ohne Logo», `MissingLogoNotice`). Wie Android `LogoImageStore.notYetLoaded`.
     func notYetLoaded(_ symbol: String) -> Bool {
         let known = map ?? CoinLogos.decode(Self.readNonBlank(Self.mapURL))
-        guard CoinLogos.urlFor(known, symbol: symbol) != nil, let name = CoinLogos.fileName(symbol) else { return false }
-        return Self.loadFailures(now: EpochTime.nowMillis)[name] == nil
+        return CoinLogos.urlFor(CoinLogos.withStockLogos(known, tradFiBases: Self.tradFiBases), symbol: symbol) != nil
     }
 
     /// Logos mehrerer Symbole vom Gerät (Widgets).

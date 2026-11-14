@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Ez dago atzeko planoko egiaztapenik programatuta: aplikazio irekiak eta widgetek eskuratzen dutena zenbatzen da.</string>
     <string name="usage_driver_watch">Erlojuaren aplikazioak eta bere konplikazioek beraiek eskuratzen dutena zenbatzen da.</string>
     <string name="usage_watch_none">Ez dago erlojurik konektatuta</string>
+    <string name="usage_watch_no_app">Crypto Checker ez dago erlojuan instalatuta</string>
+    <string name="usage_watch_waiting">Oraindik ez dago erlojuko zenbakirik – ireki Crypto Checker erlojuan</string>
     <string name="usage_as_of">Eguneratua: %1$s</string>
     <string name="usage_battery_android">Android-ek aplikazio bakoitzaren bateria-erabilera erakusten du bateriaren ezarpenetan.</string>
 </resources>

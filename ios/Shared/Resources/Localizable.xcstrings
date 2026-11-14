@@ -973545,6 +973545,461 @@
         }
       }
     },
+    "usage_watch_no_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker is nie op die horlosie geïnstalleer nie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker በሰዓቱ ላይ አልተጫነም"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‏Crypto Checker غير مثبّت على الساعة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker saatda quraşdırılmayıb"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker не е инсталиран на часовника"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়িতে Crypto Checker ইনস্টল করা নেই"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nije instaliran na satu"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker no està instal·lat al rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker není v hodinkách nainstalovaný"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker er ikke installeret på uret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker ist auf der Uhr nicht installiert"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Crypto Checker δεν είναι εγκατεστημένο στο ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker isn’t installed on the watch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker no está instalado en el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker pole kellas installitud"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker ez dago erlojuan instalatuta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‏Crypto Checker روی ساعت نصب نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checkeria ei ole asennettu kelloon"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi naka-install ang Crypto Checker sa relo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker n’est pas installé sur la montre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níl Crypto Checker suiteáilte ar an uaireadóir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker non está instalado no reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ઘડિયાળ પર Crypto Checker ઇન્સ્ટોલ નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‏Crypto Checker לא מותקן בשעון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी पर Crypto Checker इंस्टॉल नहीं है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nije instaliran na satu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Crypto Checker nincs telepítve az órára"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker-ը ժամացույցում տեղադրված չէ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker tidak terpasang di jam"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker er ekki uppsett á úrinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker non è installato sull’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチに Crypto Checker がインストールされていません"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker საათზე დაინსტალირებული არ არის"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker сағатқа орнатылмаған"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker មិនទាន់បានដំឡើងនៅលើនាឡិកាទេ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ಇನ್‌ಸ್ಟಾಲ್ ಆಗಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "워치에 Crypto Checker가 설치되어 있지 않습니다"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ບໍ່ໄດ້ຕິດຕັ້ງ Crypto Checker ໃນໂມງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker neįdiegta laikrodyje"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nav instalēta pulkstenī"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker не е инсталиран на часовникот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ചിൽ Crypto Checker ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цаган дээр Crypto Checker суулгаагүй байна"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड्याळावर Crypto Checker इंस्टॉल केलेले नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker tidak dipasang pada jam tangan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီပေါ်တွင် Crypto Checker ထည့်သွင်းမထားပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker er ikke installert på klokken"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीमा Crypto Checker इन्स्टल गरिएको छैन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker is niet geïnstalleerd op het horloge"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ’ਤੇ Crypto Checker ਇੰਸਟਾਲ ਨਹੀਂ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nie jest zainstalowany na zegarku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Crypto Checker não está instalado no relógio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Crypto Checker não está instalado no relógio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nu este instalat pe ceas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker не установлен на часах"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුවේ Crypto Checker ස්ථාපනය කර නැත"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nie je v hodinkách nainštalovaný"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker ni nameščen na uri"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nuk është i instaluar në orë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker није инсталиран на сату"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker nije instaliran na satu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker är inte installerad på klockan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker haijasakinishwa kwenye saa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரத்தில் Crypto Checker நிறுவப்படவில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "గడియారంలో Crypto Checker ఇన్‌స్టాల్ కాలేదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่ได้ติดตั้ง Crypto Checker บนนาฬิกา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker saatte yüklü değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker не встановлено на годиннику"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‏گھڑی پر Crypto Checker انسٹال نہیں ہے"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker soatga o‘rnatilmagan"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crypto Checker chưa được cài trên đồng hồ"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶未安裝 Crypto Checker"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手表上未安装 Crypto Checker"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手錶未安裝 Crypto Checker"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-Crypto Checker ayifakwanga ewashini"
+          }
+        }
+      }
+    },
     "usage_watch_none" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -973996,6 +974451,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alikho iwashi elixhunyiwe"
+          }
+        }
+      }
+    },
+    "usage_watch_waiting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nog geen syfers van die horlosie nie – maak Crypto Checker op die horlosie oop"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ከሰዓቱ እስካሁን ቁጥሮች የሉም – እባክዎ Crypto Checkerን በሰዓቱ ላይ ይክፈቱ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد أرقام من الساعة بعد – افتح Crypto Checker على الساعة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatdan hələ rəqəm yoxdur – saatda Crypto Checker-i aç"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все още няма данни от часовника – отвори Crypto Checker на часовника"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়ি থেকে এখনও কোনো সংখ্যা আসেনি – অনুগ্রহ করে ঘড়িতে Crypto Checker খুলুন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema brojeva sa sata – otvori Crypto Checker na satu"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encara no hi ha xifres del rellotge – obre Crypto Checker al rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z hodinek zatím nepřišla žádná čísla – otevři Crypto Checker v hodinkách"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen tal fra uret endnu – åbn Crypto Checker på uret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Zahlen von der Uhr – öffne Crypto Checker auf der Uhr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν υπάρχουν ακόμη αριθμοί από το ρολόι – άνοιξε το Crypto Checker στο ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No numbers from the watch yet – open Crypto Checker on the watch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay cifras del reloj: abre Crypto Checker en el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kellalt pole veel numbreid – ava kellas Crypto Checker"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oraindik ez dago erlojuko zenbakirik – ireki Crypto Checker erlojuan"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنوز عددی از ساعت نرسیده است – Crypto Checker را روی ساعت باز کن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kellosta ei ole vielä lukuja – avaa Crypto Checker kellossa"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wala pang numero mula sa relo – buksan ang Crypto Checker sa relo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore de chiffres de la montre – ouvre Crypto Checker sur la montre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Níl aon uimhreacha ón uaireadóir fós – oscail Crypto Checker ar an uaireadóir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aínda non hai cifras do reloxo: abre Crypto Checker no reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ઘડિયાળમાંથી હજી કોઈ આંકડા નથી – કૃપા કરીને ઘડિયાળ પર Crypto Checker ખોલો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עדיין אין מספרים מהשעון – פתח את Crypto Checker בשעון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी से अभी तक कोई आँकड़े नहीं आए – कृपया घड़ी पर Crypto Checker खोलें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema brojeva sa sata – otvori Crypto Checker na satu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Még nincsenek számok az órától – nyisd meg a Crypto Checkert az órán"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ժամացույցից դեռ թվեր չկան – բացիր Crypto Checker-ը ժամացույցում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum ada angka dari jam – buka Crypto Checker di jam"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engar tölur frá úrinu enn – opnaðu Crypto Checker á úrinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ancora nessun dato dall’orologio – apri Crypto Checker sull’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチからの数値はまだありません。ウォッチで Crypto Checker を開いてください"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საათიდან ჯერ ციფრები არ არის – გახსენი Crypto Checker საათზე"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сағаттан әлі сандар жоқ – сағатта Crypto Checker қолданбасын ашыңыз"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "មិនទាន់មានលេខពីនាឡិកានៅឡើយទេ – សូមបើក Crypto Checker នៅលើនាឡិកា"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಗಡಿಯಾರದಿಂದ ಇನ್ನೂ ಸಂಖ್ಯೆಗಳು ಬಂದಿಲ್ಲ – ದಯವಿಟ್ಟು ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ತೆರೆಯಿರಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 워치에서 받은 수치가 없습니다. 워치에서 Crypto Checker를 열어 주세요"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຍັງບໍ່ມີຕົວເລກຈາກໂມງ – ກະລຸນາເປີດ Crypto Checker ໃນໂມງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iš laikrodžio dar nėra skaičių – atidaryk Crypto Checker laikrodyje"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No pulksteņa vēl nav skaitļu – atver Crypto Checker pulkstenī"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сè уште нема бројки од часовникот – отвори го Crypto Checker на часовникот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ചിൽ നിന്ന് ഇതുവരെ സംഖ്യകളൊന്നുമില്ല – ദയവായി വാച്ചിൽ Crypto Checker തുറക്കുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цагнаас одоогоор тоо ирээгүй байна – цаган дээр Crypto Checker-ийг нээнэ үү"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड्याळाकडून अजून आकडे आलेले नाहीत – कृपया घड्याळावर Crypto Checker उघडा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum ada angka daripada jam tangan – sila buka Crypto Checker pada jam tangan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီမှ ကိန်းဂဏန်းများ မရသေးပါ – နာရီပေါ်တွင် Crypto Checker ကို ဖွင့်ပါ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen tall fra klokken ennå – åpne Crypto Checker på klokken"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीबाट अझै कुनै अङ्क आएको छैन – कृपया घडीमा Crypto Checker खोल्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nog geen cijfers van het horloge – open Crypto Checker op het horloge"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ਤੋਂ ਹਾਲੇ ਕੋਈ ਅੰਕੜੇ ਨਹੀਂ ਆਏ – ਕਿਰਪਾ ਕਰਕੇ ਘੜੀ ’ਤੇ Crypto Checker ਖੋਲ੍ਹੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak jeszcze liczb z zegarka – otwórz Crypto Checker na zegarku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há números do relógio – abre o Crypto Checker no relógio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há números do relógio – abra o Crypto Checker no relógio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încă nu există cifre de la ceas – deschide Crypto Checker pe ceas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "С часов пока нет данных – открой Crypto Checker на часах"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුවෙන් තවම අංක නැත – කරුණාකර ඔරලෝසුවේ Crypto Checker විවෘත කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z hodiniek zatiaľ neprišli žiadne čísla – otvor Crypto Checker v hodinkách"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z ure še ni številk – odpri Crypto Checker na uri"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ende asnjë shifër nga ora – hap Crypto Checker në orë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Још нема бројева са сата – отвори Crypto Checker на сату"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Još nema brojeva sa sata – otvori Crypto Checker na satu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inga siffror från klockan än – öppna Crypto Checker på klockan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bado hakuna takwimu kutoka kwa saa – fungua Crypto Checker kwenye saa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரத்திலிருந்து இன்னும் எண்கள் வரவில்லை – தயவுசெய்து கடிகாரத்தில் Crypto Checker-ஐத் திறக்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "గడియారం నుండి ఇంకా సంఖ్యలు రాలేదు – దయచేసి గడియారంలో Crypto Checker తెరవండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่มีตัวเลขจากนาฬิกา – โปรดเปิด Crypto Checker บนนาฬิกา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatten henüz rakam yok – saatte Crypto Checker’ı aç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "З годинника ще немає даних – відкрий Crypto Checker на годиннику"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گھڑی سے ابھی تک کوئی اعداد نہیں آئے – براہ کرم گھڑی پر Crypto Checker کھولیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soatdan hali raqamlar kelmadi – iltimos, soatda Crypto Checker’ni oching"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa có số liệu từ đồng hồ – vui lòng mở Crypto Checker trên đồng hồ"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫時未有手錶嘅數字 – 請喺手錶上開啟 Crypto Checker"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未收到手表的数据 – 请在手表上打开 Crypto Checker"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未收到手錶的數字 – 請在手錶上開啟 Crypto Checker"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Azikabi khona izinombolo ezivela ewashini – vula i-Crypto Checker ewashini"
           }
         }
       }

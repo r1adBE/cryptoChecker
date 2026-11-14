@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Geen agtergrondkontrole beplan nie – wat tel, is wat die oop program en die legstukke haal.</string>
     <string name="usage_driver_watch">Wat tel, is wat die horlosieprogram en sy komplikasies self haal.</string>
     <string name="usage_watch_none">Geen horlosie gekoppel nie</string>
+    <string name="usage_watch_no_app">Crypto Checker is nie op die horlosie geïnstalleer nie</string>
+    <string name="usage_watch_waiting">Nog geen syfers van die horlosie nie – maak Crypto Checker op die horlosie oop</string>
     <string name="usage_as_of">Stand %1$s</string>
     <string name="usage_battery_android">Android wys batterygebruik per program in sy batteryinstellings.</string>
 </resources>

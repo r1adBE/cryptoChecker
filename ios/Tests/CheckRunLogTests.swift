@@ -110,6 +110,24 @@ final class CheckRunLogTests: XCTestCase {
         XCTAssertEqual(loaded.first?.at, 25)
         XCTAssertEqual(BackupExclusion.isExcluded(url), true)
     }
+
+    func testReasonRoundTripAndOldLines() {
+        let runs = [CheckRun(at: 5, trigger: .bgTask, result: .failed, durationMillis: 3800, reason: "cancelled:expired"),
+                    CheckRun(at: 4, trigger: .widget, result: .ok, durationMillis: 22_000)]
+        XCTAssertEqual(CheckRunLog.encode(runs), "5;bgtask;failed;3800;cancelled:expired\n4;widget;ok;22000")
+        XCTAssertEqual(CheckRunLog.decode(CheckRunLog.encode(runs)), runs)
+        XCTAssertNil(CheckRunLog.decode("1;bgtask;failed;10").first?.reason)
+    }
+
+    func testReasonIsCleaned() {
+        XCTAssertEqual(CheckRunLog.cleanReason("a b;c_1.2\n"), "abc_1.2")
+        XCTAssertNil(CheckRunLog.cleanReason(" ;\n"))
+        XCTAssertEqual(CheckRunLog.cleanReason(String(repeating: "x", count: 99))?.count, CheckRunLog.reasonMax)
+        XCTAssertEqual(CheckRunLog.cancelledReason(nil), "cancelled")
+        XCTAssertEqual(CheckRunLog.cancelledReason("expired"), "cancelled:expired")
+        XCTAssertEqual(CheckRunLog.reasonFor(.failed), "all_pairs_failed")
+        XCTAssertNil(CheckRunLog.reasonFor(.ok))
+    }
 }
 
 /// Wie `BackgroundScheduleTest.kt`.

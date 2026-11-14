@@ -123,4 +123,30 @@ class CheckRunLogTest {
         val text = (1..30).joinToString("\n") { "$it;worker;ok;1" }
         assertEquals(CheckRunLog.MAX, CheckRunLog.decode(text).size)
     }
+
+    @Test
+    fun reasonRoundTripAndOldLines() {
+        val runs = listOf(
+            CheckRun(5, CheckTrigger.WORKER, CheckResult.FAILED, 3800, "cancelled:quota"),
+            CheckRun(4, CheckTrigger.WIDGET, CheckResult.OK, 22_000),
+        )
+        assertEquals("5;worker;failed;3800;cancelled:quota\n4;widget;ok;22000", CheckRunLog.encode(runs))
+        assertEquals(runs, CheckRunLog.decode(CheckRunLog.encode(runs)))
+        // Zeilen ohne Grund (ältere Datei) bleiben lesbar
+        assertEquals(null, CheckRunLog.decode("1;worker;failed;10").single().reason)
+    }
+
+    @Test
+    fun reasonIsCleaned() {
+        assertEquals("cancelled:quota", CheckRunLog.cleanReason("cancelled:quota;\nx".substringBefore(';')))
+        assertEquals("abc_1.2", CheckRunLog.cleanReason("a b;c_1.2\n"))
+        assertEquals(null, CheckRunLog.cleanReason(" ;\n"))
+        assertEquals(CheckRunLog.REASON_MAX, CheckRunLog.cleanReason("x".repeat(99))?.length)
+        assertEquals("cancelled", CheckRunLog.cancelledReason(null))
+        assertEquals("cancelled:quota", CheckRunLog.cancelledReason(CheckRunLog.stopReasonCode(10)))
+        assertEquals("stop99", CheckRunLog.stopReasonCode(99))
+        assertEquals(null, CheckRunLog.stopReasonCode(-256))
+        assertEquals("all_pairs_failed", CheckRunLog.reasonFor(CheckResult.FAILED))
+        assertEquals(null, CheckRunLog.reasonFor(CheckResult.OK))
+    }
 }

@@ -100,6 +100,15 @@ class RefreshResultProcessor constructor(
         return count
     }
 
+    /**
+     * Paare, die zuletzt einen Fehler hatten und jetzt wieder einen Kurs haben (Aussetzer vorbei): ihre stehende
+     * Kurs-Mitteilung wird gleich nachgeführt ([PriceUpdateRule], refresh) — sonst zeigte sie den Kurs von vorher. Nur noch
+     * stehende Mitteilungen (eine weggewischte bleibt weg): gefiltert in [processRun].
+     */
+    private fun recoveredAfterError(watches: List<WatchEntity>, fetched: Map<Long, Fetched>): Set<Long> =
+        watches.filter { it.lastError != null && fetched[it.id]?.let { f -> f.error == null && f.ticker != null } == true }
+            .mapTo(HashSet()) { it.id }
+
     /** [process] ohne Sperr-Nachweis; Vermerke «nicht geprüft» gesammelt ([AlarmCheckStatus.batch]). */
     private suspend fun processRun(
         watches: List<WatchEntity>,
@@ -172,12 +181,12 @@ class RefreshResultProcessor constructor(
         // Nicht gespeichert (Eintrag ist inzwischen ein anderes Paar): weder Alarme noch Meldungen mit diesem Kurs
         updatedWatches.retainAll { it.id in written }
         val dbMillis = System.currentTimeMillis() - dbStartedAt
-
         val effectsStartedAt = System.currentTimeMillis()
 
         // Gezeigte Meldungen EINMAL abfragen: Bei hunderten Paaren ohne Kurs-Meldung kostete
         // sonst jedes Paar je Durchlauf einen Aufruf an den Systemdienst (cancel).
         val shownNotifications = notifier.activeNotificationIds()
+        val refreshIds = recoveredAfterError(watches, fetched).filterTo(HashSet()) { notifier.priceMaybeShown(it, shownNotifications) }
 
         // Kurs-Meldung entfernen (gesammelt nach den Alarmen) nur, wenn das Paar nicht mehr gehandelt wird bzw. die
         // Börse stillgelegt ist. Ein gewöhnlicher Fehler (Zeit, 5xx, Netz) lässt sie stehen: Der Meldekurs bleibt, eine
@@ -230,7 +239,7 @@ class RefreshResultProcessor constructor(
             alarms += triggered
 
             val priceShown = !settings.ongoingNotifications || notifier.priceMaybeShown(watch.id, shownNotifications)
-            when (effects.priceUpdate(watch, settings, shown = priceShown)) {
+            when (effects.priceUpdate(watch, settings, shown = priceShown, refresh = watch.id in refreshIds)) {
                 RefreshEffects.PriceUpdate.SHOW -> pricePosts += watch
                 RefreshEffects.PriceUpdate.RESTORE -> {
                     pricePosts += watch

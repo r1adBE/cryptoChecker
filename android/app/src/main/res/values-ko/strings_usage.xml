@@ -19,6 +19,8 @@
     <string name="usage_driver_none">예약된 백그라운드 확인이 없습니다. 열려 있는 앱과 위젯이 가져온 것을 집계합니다.</string>
     <string name="usage_driver_watch">워치 앱과 컴플리케이션이 직접 가져온 것을 집계합니다.</string>
     <string name="usage_watch_none">연결된 워치가 없습니다</string>
+    <string name="usage_watch_no_app">워치에 Crypto Checker가 설치되어 있지 않습니다</string>
+    <string name="usage_watch_waiting">아직 워치에서 받은 수치가 없습니다. 워치에서 Crypto Checker를 열어 주세요</string>
     <string name="usage_as_of">%1$s 기준</string>
     <string name="usage_battery_android">Android는 배터리 설정에서 앱별 배터리 사용량을 보여 줍니다.</string>
 </resources>

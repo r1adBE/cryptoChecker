@@ -83,6 +83,8 @@ extension CoinLogoStore {
         var paused: [DownloadJob] = []
         // Nach der letzten Runde noch gestört (`.transient`): kein Fehlschlag, der nächste Abgleich holt nach
         var transientLeft: [DownloadJob] = []
+        // 403 ohne «Retry-After» (`.open`): nicht in diesem Durchgang wiederholen, offen bis zum nächsten
+        var openLeft: [String] = []
         // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
         let streaks = ForbiddenStreaks()
         for round in 1...pauseRounds {
@@ -109,6 +111,10 @@ extension CoinLogoStore {
                 case .transient:
                     // Kurze Störung: in der nächsten Runde noch einmal
                     roundTransient.append(job)
+                case .open:
+                    // 403: offen bis zum nächsten Abgleich (keine Tagessperre, kein Netzfehler)
+                    openLeft.append(job.name)
+                    await CoinLogoLoading.imageDone()
                 }
             }
             transientLeft = roundTransient
@@ -128,10 +134,12 @@ extension CoinLogoStore {
         // (gebremste Bilder zählen nicht als Versuch — sonst galt «alle gebremst» als Netzfehler)
         let network = CoinLogoRetry.downloadsFailedForNetwork(online: NetworkStatus.shared.isOnline,
                                                               failed: newFailures.count + transientLeft.count,
-                                                              attempted: names.count - paused.count - unsaved,
+                                                              attempted: names.count - paused.count - unsaved
+                                                                  - openLeft.count,
                                                               transient: transientLeft.count)
-        // Drei Durchgänge in Folge offen (gestört, gebremst) zählt wie gescheitert, sonst bliebe das erste Laden offen
-        let capped: Set<String> = network ? [] : noteOpenPasses(attempted: names, open: (transientLeft + paused).map(\.name))
+        // Drei Durchgänge in Folge offen (gestört, gebremst, 403) zählt wie gescheitert, sonst bliebe das erste Laden offen
+        let stillOpen = (transientLeft + paused).map(\.name) + openLeft
+        let capped: Set<String> = network ? [] : noteOpenPasses(attempted: names, open: stillOpen)
         newFailures += capped.sorted()
         if !newFailures.isEmpty, !network {
             var failed = loadFailures(now: EpochTime.nowMillis)
@@ -139,6 +147,10 @@ extension CoinLogoStore {
             saveFailures(failed)
         }
         if added > 0 { await CoinLogoRevision.bump() }
+        // Letzter Durchgang für den Diagnosebericht (nur Zahlen)
+        recordPass(LogoPassSummary(at: EpochTime.nowMillis, added: added, failed: newFailures.count, paused: paused.count,
+                                   open: transientLeft.count + openLeft.filter { !capped.contains($0) }.count,
+                                   unsaved: unsaved))
         // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
         let stillPaused = paused.filter { !capped.contains($0.name) }
         let pausedUntil = stillPaused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(stillPaused) ?? 0)
@@ -150,16 +162,20 @@ extension CoinLogoStore {
     /// gebremst — wie Android `fetchWithAlternates`.
     private static func downloadWithAlternates(_ job: DownloadJob, streaks: ForbiddenStreaks) async -> Fetched {
         var result = await download(name: job.name, url: job.url, streaks: streaks)
-        guard result == .failed else { return result }
+        guard result == .failed || result == .open else { return result }
         var paused = false
         var transient = false
+        var open = result == .open
         for alt in job.alternates where alt != job.url {
             result = await download(name: job.name, url: alt, streaks: streaks)
             if result == .ok || result == .unsaved { return result }
             if result == .paused { paused = true }
             if result == .transient { transient = true }
+            if result == .open { open = true }
         }
-        return paused ? .paused : (transient ? .transient : .failed)
+        if paused { return .paused }
+        if transient { return .transient }
+        return open ? .open : .failed
     }
 
     /// Kürzeste verbleibende Pause der Server von `jobs` (ms); nil = keiner (mehr) pausiert — wie Android.
@@ -171,8 +187,10 @@ extension CoinLogoStore {
 
     /// Ergebnis eines Bild-Abrufs; `failed` = gibt es nicht bzw. unlesbar (Tagessperre); `paused` = Bild-Server bremst
     /// (`CoinLogoRetry.pausesImages`); `transient` = kurze Störung — beide nicht fehlgeschlagen; `unsaved` = geladen, aber
-    /// nicht gespeichert (Speicher voll): keine Sperre, kein Netzfehler, der Durchgang lädt nichts mehr. Wie Android `Fetched`.
-    enum Fetched: Sendable { case ok, failed, paused, transient, unsaved }
+    /// nicht gespeichert (Speicher voll): keine Sperre, kein Netzfehler, der Durchgang lädt nichts mehr; `open` = 403 ohne
+    /// «Retry-After» (`CoinLogoRetry.leavesOpen`): offen bis zum nächsten Abgleich, erst nach `openPassesFail`
+    /// Durchgängen gesperrt. Wie Android `Fetched`.
+    enum Fetched: Sendable { case ok, failed, paused, transient, unsaved, open }
 
     /// Erst die kleine Fassung, sonst das Bild aus der Rangliste. Ein 403 ohne «Retry-After» ist nur dieses Bild;
     /// erst das dritte Bild des Servers in Folge mit 403 (`streaks`) pausiert den Server — wie Android `fetchTo`.
@@ -229,7 +247,8 @@ extension CoinLogoStore {
                 return .paused
             }
         }
-        return transient ? .transient : .failed
+        if transient { return .transient }
+        return forbidden && CoinLogoRetry.leavesOpen(httpCode: 403) ? .open : .failed
     }
 
     /// Ein Bild laden: erst der Status (Bremse auch bei grossem Körper erkennen), dann höchstens `maxImageBytes`
@@ -253,40 +272,6 @@ extension CoinLogoStore {
             bytes.task.cancel()
             throw error
         }
-    }
-
-    // MARK: Fehlschläge (Name → Zeitpunkt), einen Tag lang nicht wiederholen
-
-    static func loadFailures(now: Int64) -> [String: Int64] {
-        let text = SharedStorage.defaults.string(forKey: failedKey) ?? ""
-        var out: [String: Int64] = [:]
-        for part in text.split(separator: ";") {
-            let pieces = part.split(separator: ":", maxSplits: 1)
-            guard pieces.count == 2, let at = Int64(pieces[1]), !pieces[0].isEmpty,
-                  CoinLogos.isFresh(savedAt: at, now: now, ttl: CoinLogos.failureTTLMillis)
-            else { continue }
-            out[String(pieces[0])] = at
-        }
-        return out
-    }
-
-    private static func saveFailures(_ failures: [String: Int64]) {
-        let text = failures.map { "\($0.key):\($0.value)" }.joined(separator: ";")
-        SharedStorage.defaults.set(text, forKey: failedKey)
-    }
-
-    /// Offene Durchgänge je Bild («name=zahl;…», `CoinLogoRetry.encodeOpenPasses`).
-    static let openPassesKey = "coin_logos_open_passes"
-
-    /// Nach einem Durchgang, der nicht am Netz scheiterte: offene Bilder (`open`, gestört bzw. gebremst) zählen, die übrigen
-    /// versuchten vergessen (`CoinLogoRetry.nextOpenPasses`). Ergebnis: die Bilder, die jetzt
-    /// `CoinLogoRetry.openPassesLimit` Durchgänge in Folge offen sind — sie gelten als gescheitert. Wie Android `noteOpenPasses`.
-    private static func noteOpenPasses(attempted: [String], open: [String]) -> Set<String> {
-        let stored = CoinLogoRetry.decodeOpenPasses(SharedStorage.defaults.string(forKey: openPassesKey))
-        let next = CoinLogoRetry.nextOpenPasses(stored, attempted: attempted, open: open)
-        let failed = Set(next.filter { CoinLogoRetry.openPassesFail($0.value) }.keys)
-        SharedStorage.defaults.set(CoinLogoRetry.encodeOpenPasses(next.filter { !failed.contains($0.key) }), forKey: openPassesKey)
-        return failed
     }
 }
 

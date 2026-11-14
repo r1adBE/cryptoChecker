@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Taustakontrolli pole ajastatud – loeb see, mida avatud rakendus ja vidinad laadivad.</string>
     <string name="usage_driver_watch">Loeb see, mida kellarakendus ja selle vidinad ise laadivad.</string>
     <string name="usage_watch_none">Kella pole ühendatud</string>
+    <string name="usage_watch_no_app">Crypto Checker pole kellas installitud</string>
+    <string name="usage_watch_waiting">Kellalt pole veel numbreid – ava kellas Crypto Checker</string>
     <string name="usage_as_of">Seis %1$s</string>
     <string name="usage_battery_android">Android näitab rakenduste akukasutust oma akuseadetes.</string>
 </resources>

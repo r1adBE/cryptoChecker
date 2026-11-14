@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Nincs ütemezett háttér-ellenőrzés – az számít, amit a megnyitott alkalmazás és a widgetek letöltenek.</string>
     <string name="usage_driver_watch">Az számít, amit az órás alkalmazás és a komplikációi maguk töltenek le.</string>
     <string name="usage_watch_none">Nincs csatlakoztatott óra</string>
+    <string name="usage_watch_no_app">A Crypto Checker nincs telepítve az órára</string>
+    <string name="usage_watch_waiting">Még nincsenek számok az órától – nyisd meg a Crypto Checkert az órán</string>
     <string name="usage_as_of">Állapot: %1$s</string>
     <string name="usage_battery_android">Az Android az akkumulátor-beállításaiban mutatja az alkalmazásonkénti akkuhasználatot.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">പശ്ചാത്തല പരിശോധന ഒന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല – തുറന്ന ആപ്പും വിജറ്റുകളും കൊണ്ടുവരുന്നത് മാത്രം എണ്ണുന്നു.</string>
     <string name="usage_driver_watch">വാച്ച് ആപ്പും അതിന്റെ കോംപ്ലിക്കേഷനുകളും സ്വയം കൊണ്ടുവരുന്നത് എണ്ണുന്നു.</string>
     <string name="usage_watch_none">വാച്ച് ഒന്നും കണക്റ്റ് ചെയ്തിട്ടില്ല</string>
+    <string name="usage_watch_no_app">വാച്ചിൽ Crypto Checker ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല</string>
+    <string name="usage_watch_waiting">വാച്ചിൽ നിന്ന് ഇതുവരെ സംഖ്യകളൊന്നുമില്ല – ദയവായി വാച്ചിൽ Crypto Checker തുറക്കുക</string>
     <string name="usage_as_of">%1$s പ്രകാരം</string>
     <string name="usage_battery_android">Android ഓരോ ആപ്പിന്റെയും ബാറ്ററി ഉപയോഗം അതിന്റെ ബാറ്ററി ക്രമീകരണങ്ങളിൽ കാണിക്കുന്നു.</string>
 </resources>

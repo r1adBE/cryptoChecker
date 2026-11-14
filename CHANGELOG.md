@@ -16,6 +16,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 237)
+
+- Coin logos: a logo the image server refused once (HTTP 403) is retried with the next sync instead of being blocked for a day, a logo file is no longer deleted when the phone is short of memory, and the list «Coins without logo» says «not loaded yet» whenever a source knows a logo (also stocks).
+- Diagnostics: failed checks name their reason (e.g. stopped by the system, all pairs failed); new section «Coin logos» with counts only.
+- Android: price notifications follow the system setting «hide sensitive content» when the app lock is off; the exact check skips when a full check ran less than half an interval ago; a standing price notification shows the current price after an outage.
+- Battery & activity: skipped runs no longer count as background runs.
+
+## 16.2.2 (build 236)
+
+- Battery & activity: the watch card now says whether no watch is connected, the watch app isn't installed, or the watch hasn't sent numbers yet; the phone asks the watch for fresh numbers when the page opens.
+
 ## 16.2.2 (build 235)
 
 - The build number is shown on Android (Settings › About) and at the bottom of the list on Wear OS and Apple Watch, as on iPhone.

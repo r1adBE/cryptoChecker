@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Hakuna ukaguzi chinichini uliopangwa – kinachohesabiwa ni kile ambacho programu iliyofunguliwa na wijeti hupakua.</string>
     <string name="usage_driver_watch">Kinachohesabiwa ni kile ambacho programu ya saa na vipengele vyake hupakua vyenyewe.</string>
     <string name="usage_watch_none">Hakuna saa iliyounganishwa</string>
+    <string name="usage_watch_no_app">Crypto Checker haijasakinishwa kwenye saa</string>
+    <string name="usage_watch_waiting">Bado hakuna takwimu kutoka kwa saa – fungua Crypto Checker kwenye saa</string>
     <string name="usage_as_of">Hadi %1$s</string>
     <string name="usage_battery_android">Android huonyesha matumizi ya betri kwa kila programu katika mipangilio yake ya betri.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">బ్యాక్‌గ్రౌండ్ తనిఖీ ఏదీ షెడ్యూల్ కాలేదు – తెరిచిన యాప్ మరియు విడ్జెట్‌లు తెచ్చేవే లెక్కలోకి వస్తాయి.</string>
     <string name="usage_driver_watch">వాచ్ యాప్ మరియు దాని కాంప్లికేషన్‌లు తామే తెచ్చేవే లెక్కలోకి వస్తాయి.</string>
     <string name="usage_watch_none">వాచ్ ఏదీ కనెక్ట్ కాలేదు</string>
+    <string name="usage_watch_no_app">గడియారంలో Crypto Checker ఇన్‌స్టాల్ కాలేదు</string>
+    <string name="usage_watch_waiting">గడియారం నుండి ఇంకా సంఖ్యలు రాలేదు – దయచేసి గడియారంలో Crypto Checker తెరవండి</string>
     <string name="usage_as_of">%1$s నాటికి</string>
     <string name="usage_battery_android">Android ప్రతి యాప్ బ్యాటరీ వినియోగాన్ని తన బ్యాటరీ సెట్టింగ్‌లలో చూపిస్తుంది.</string>
 </resources>

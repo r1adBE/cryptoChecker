@@ -3,7 +3,8 @@ import SwiftUI
 import UIKit
 
 /// «Akku & Aktivität»: ehrlicher Satz (Apps sehen ihren Akkuverbrauch nicht), je eine Karte «Handy» (eigene Zähler der
-/// letzten 24 h, `UsageMeter`) und «Uhr» (Stand der Apple Watch, `WatchUsageStore`; ohne «Keine Uhr verbunden»), dann der
+/// letzten 24 h, `UsageMeter`) und «Uhr» (Stand der Apple Watch, `WatchUsageStore`; ohne Stand je nach
+/// `WatchUsageStore.presence` «Keine Uhr verbunden», «nicht installiert» oder «noch keine Zahlen»), dann der
 /// Weg in die iOS-Einstellungen — die Liste je App zeigt iOS unter Einstellungen › Batterie. Wie Android `UsagePage`
 /// (dort mit «Pünktlich prüfen» im Satz zum Treiber).
 @MainActor
@@ -12,7 +13,11 @@ struct UsageSettingsPage: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var phone = UsageTotals.zero
     @State private var watch: UsageReport?
+    /// Uhr am iPhone; nil = noch nicht ermittelt (dann noch kein Satz auf der Karte).
+    @State private var presence: WatchUsageStore.Presence?
     @State private var planned = false
+
+    private static let watchFreshMillis: Int64 = 5 * 60_000
 
     init() {}
 
@@ -35,7 +40,13 @@ struct UsageSettingsPage: View {
                     UsageCard(title: L("usage_watch"), totals: watch.totals, driver: L("usage_driver_watch"), asOf: watch.at)
                 } else {
                     SettingsCard(title: L("usage_watch")) {
-                        SettingsHint(text: L("usage_watch_none"))
+                        // Noch keine Zahlen der Uhr: sagen, woran es liegt
+                        switch presence {
+                        case .noWatch?: SettingsHint(text: L("usage_watch_none"))
+                        case .noApp?: SettingsHint(text: L("usage_watch_no_app"))
+                        case .app?: SettingsHint(text: L("usage_watch_waiting"))
+                        case nil: EmptyView()
+                        }
                     }
                 }
             }
@@ -67,6 +78,13 @@ struct UsageSettingsPage: View {
     private func reload() async {
         phone = await Task.detached(priority: .utility) { UsageMeter.shared.totals() }.value
         watch = await Task.detached(priority: .utility) { WatchUsageStore.load() }.value
+        presence = WatchUsageStore.presence
+        // Uhr-App erreichbar und Stand fehlt oder ist älter als 5 Min.: gleich nachfragen (wie Android)
+        let known = watch?.at ?? 0
+        if presence == .app, Int64(Date().timeIntervalSince1970 * 1000) - known >= Self.watchFreshMillis,
+           await WatchUsageStore.request() {
+            watch = await Task.detached(priority: .utility) { WatchUsageStore.load() }.value
+        }
         planned = await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
             BGTaskScheduler.shared.getPendingTaskRequests { requests in
                 continuation.resume(returning: requests.contains { $0.identifier == BackgroundRefresh.refreshId })

@@ -22,6 +22,8 @@
     <string name="usage_driver_none">No background check planned – what counts is what the open app and the widgets fetch.</string>
     <string name="usage_driver_watch">What counts is what the watch app and its complications fetch themselves.</string>
     <string name="usage_watch_none">No watch connected</string>
+    <string name="usage_watch_no_app">Crypto Checker isn’t installed on the watch</string>
+    <string name="usage_watch_waiting">No numbers from the watch yet – open Crypto Checker on the watch</string>
     <string name="usage_as_of">As of %1$s</string>
     <string name="usage_battery_android">Android shows battery use per app in its battery settings.</string>
 </resources>

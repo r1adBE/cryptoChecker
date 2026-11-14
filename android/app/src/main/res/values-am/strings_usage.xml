@@ -21,6 +21,8 @@
     <string name="usage_driver_none">ምንም የዳራ ፍተሻ አልተያዘም – የሚቆጠረው የተከፈተው መተግበሪያ እና ምግብሮች የሚያመጡት ነው።</string>
     <string name="usage_driver_watch">የሚቆጠረው የሰዓቱ መተግበሪያ እና ተጨማሪዎቹ ራሳቸው የሚያመጡት ነው።</string>
     <string name="usage_watch_none">ምንም ሰዓት አልተገናኘም</string>
+    <string name="usage_watch_no_app">Crypto Checker በሰዓቱ ላይ አልተጫነም</string>
+    <string name="usage_watch_waiting">ከሰዓቱ እስካሁን ቁጥሮች የሉም – እባክዎ Crypto Checkerን በሰዓቱ ላይ ይክፈቱ</string>
     <string name="usage_as_of">እስከ %1$s</string>
     <string name="usage_battery_android">Android የእያንዳንዱን መተግበሪያ የባትሪ አጠቃቀም በባትሪ ቅንብሮቹ ውስጥ ያሳያል።</string>
 </resources>

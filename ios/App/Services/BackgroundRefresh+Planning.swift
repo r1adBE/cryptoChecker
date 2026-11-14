@@ -102,7 +102,7 @@ extension BackgroundRefresh {
     static func logSubmitError(_ error: Error) {
         guard BackgroundSchedule.shouldLogSubmitError(newest: CheckRunStore.load().first) else { return }
         let now = EpochTime.nowMillis
-        CheckRunStore.log(.bgTask, .failed, startedAt: now)
+        CheckRunStore.log(.bgTask, .failed, startedAt: now, reason: CheckRunLog.reasonSubmitFailed)
     }
 
     /// Braucht es die Aufgabe? Ermittelt abseits des Aufrufers: Widgets über WidgetKit (ohne Auskunft: vorhanden),

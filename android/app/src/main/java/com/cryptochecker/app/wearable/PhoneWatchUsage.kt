@@ -7,11 +7,13 @@ import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.usage.UsageLog
 import com.cryptochecker.marketdata.usage.UsageReport
 import com.google.android.gms.tasks.Tasks
+import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.Wearable
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -70,8 +72,59 @@ class PhoneWatchUsage @Inject constructor(
         load()
     }
 
+    /** Uhr am Handy: keine verbunden, verbunden ohne die App ([PhoneWatchSync.CAPABILITY]) oder mit der App. */
+    enum class Presence { NO_WATCH, NO_APP, APP }
+
+    /**
+     * Welche Uhr gerade verbunden ist ([Presence]); ohne Play-Dienste oder bei Fehler [Presence.NO_WATCH]. Der Text der
+     * Karte hängt daran, solange die Uhr noch keine Zahlen geschickt hat (statt immer «Keine Uhr verbunden»).
+     */
+    suspend fun presence(): Presence = withContext(ioDispatcher) {
+        runCatchingCancellable {
+            val nodes = Tasks.await(Wearable.getNodeClient(context).connectedNodes, TIMEOUT_S, TimeUnit.SECONDS)
+            if (nodes.isEmpty()) return@runCatchingCancellable Presence.NO_WATCH
+            val withApp = Tasks.await(
+                Wearable.getCapabilityClient(context)
+                    .getCapability(PhoneWatchSync.CAPABILITY, CapabilityClient.FILTER_REACHABLE),
+                TIMEOUT_S, TimeUnit.SECONDS
+            ).nodes
+            if (withApp.isEmpty()) Presence.NO_APP else Presence.APP
+        }.getOrDefault(Presence.NO_WATCH)
+    }
+
+    /**
+     * Die Uhr bitten, ihre Zähler gleich zu schicken ([REQUEST_PATH], Gegenstück
+     * `WatchDataListener.onMessageReceived`). true = an mindestens eine Uhr mit der App zugestellt; die Antwort kommt
+     * über [PATH] ([take], [pull]).
+     */
+    suspend fun request(): Boolean = withContext(ioDispatcher) {
+        runCatchingCancellable {
+            val nodes = Tasks.await(
+                Wearable.getCapabilityClient(context)
+                    .getCapability(PhoneWatchSync.CAPABILITY, CapabilityClient.FILTER_REACHABLE),
+                TIMEOUT_S, TimeUnit.SECONDS
+            ).nodes
+            val client = Wearable.getMessageClient(context)
+            nodes.count { node ->
+                try {
+                    Tasks.await(client.sendMessage(node.id, REQUEST_PATH, ByteArray(0)), TIMEOUT_S,
+                        TimeUnit.SECONDS)
+                    true
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    // Diese Uhr nicht erreicht (ausser Reichweite, Zeit abgelaufen): die nächste versuchen
+                    false
+                }
+            } > 0
+        }.getOrDefault(false)
+    }
+
     companion object {
         const val PATH = "/cc/usage"
+
+        /** Nachricht ans Handy-Gegenstück: «Zähler jetzt schicken» (gleich in `WatchUsage.REQUEST_PATH`). */
+        const val REQUEST_PATH = "/cc/usage/request"
         const val KEY = "report"
         const val FILE_NAME = "watch_usage.txt"
         private const val TIMEOUT_S = 10L

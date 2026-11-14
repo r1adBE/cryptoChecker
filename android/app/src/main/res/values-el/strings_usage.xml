@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Δεν έχει προγραμματιστεί έλεγχος στο παρασκήνιο – μετράει ό,τι φέρνουν η ανοιχτή εφαρμογή και τα γραφικά στοιχεία.</string>
     <string name="usage_driver_watch">Μετράει ό,τι φέρνουν μόνες τους η εφαρμογή του ρολογιού και οι επιπλοκές της.</string>
     <string name="usage_watch_none">Κανένα συνδεδεμένο ρολόι</string>
+    <string name="usage_watch_no_app">Το Crypto Checker δεν είναι εγκατεστημένο στο ρολόι</string>
+    <string name="usage_watch_waiting">Δεν υπάρχουν ακόμη αριθμοί από το ρολόι – άνοιξε το Crypto Checker στο ρολόι</string>
     <string name="usage_as_of">Κατάσταση %1$s</string>
     <string name="usage_battery_android">Το Android δείχνει τη χρήση μπαταρίας ανά εφαρμογή στις ρυθμίσεις μπαταρίας του.</string>
 </resources>

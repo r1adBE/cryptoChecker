@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
+import com.cryptochecker.app.domain.logos.withStockLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
@@ -76,10 +77,11 @@ class CoinLogoRepository @Inject constructor(
     /** Liegt für [symbol] ein Logo auf dem Gerät — geladen oder mitgeliefert ([logo]; nie Netz)? */
     suspend fun hasLogo(symbol: String): Boolean = images.logo(symbol) != null
 
-    /** Coins ohne Logo, deren Logo noch kommt (Adresse bekannt, keine Tagessperre) — «noch nicht geladen» statt «keines». */
+    /** Coins ohne Logo, deren Logo noch kommt (Adresse bekannt) — «noch nicht geladen» statt «keines». */
     suspend fun logosNotYetLoaded(symbols: List<String>): Set<String> {
         if (symbols.isEmpty()) return emptySet()
-        val map = listSync.map ?: listSync.starterMap()
+        // Mit den Aktien-Logos (TradFi-Kürzel), wie der Abgleich sie lädt — sonst hiessen sie immer «kein Logo»
+        val map = CoinLogos.withStockLogos(listSync.map ?: listSync.starterMap(), coinNames.tradFiBases)
         return withContext(ioDispatcher) { symbols.filterTo(HashSet()) { images.notYetLoaded(it, map) } }
     }
 
@@ -89,6 +91,9 @@ class CoinLogoRepository @Inject constructor(
     suspend fun loadMissingLogosDismissed() = missingDismissals.load()
 
     fun dismissMissingLogos(keys: Set<String>) = missingDismissals.dismiss(keys)
+
+    /** Logos für den Diagnosebericht ([LogoImageStore.diagnostics]); liest Dateien, nur abseits des Hauptfadens. */
+    fun logoDiagnostics() = images.diagnostics()
 
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
     val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs

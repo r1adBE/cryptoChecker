@@ -57,9 +57,16 @@ class BackgroundCheck @Inject constructor(
     suspend fun hasWork(): Boolean = exactDemand.hasWork()
 
     /** Lauf vermerken (Ergebnis, übersprungen oder gescheitert). */
-    fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long) {
+    fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long, reason: String? = null) {
         val now = System.currentTimeMillis()
-        checkRuns.add(CheckRun(now, trigger, result, (now - startedAt).coerceAtLeast(0)))
+        checkRuns.add(CheckRun(now, trigger, result, (now - startedAt).coerceAtLeast(0), CheckRunLog.cleanReason(reason)))
+    }
+
+    /** Grund eines gescheiterten Laufs ([CheckRun.reason]): Abbruch samt Stoppgrund, Schlüssel oder Art des Fehlers. */
+    private fun failureReason(e: Throwable, stopDetail: () -> String?): String = when {
+        e is CancellationException -> CheckRunLog.cancelledReason(stopDetail())
+        e.isDatabaseKeyUnavailable() -> CheckRunLog.REASON_DB_KEY
+        else -> e.javaClass.simpleName.ifEmpty { "error" }
     }
 
     /**
@@ -74,6 +81,8 @@ class BackgroundCheck @Inject constructor(
         deadlineAt: Long? = null,
         /** Sperrfenster gegen doppelte geplante Läufe ([BackgroundSchedule.dedupeWindowMillis]). */
         dedupeWindowMillis: Long = BackgroundSchedule.DEDUPE_WINDOW_MILLIS,
+        /** Stoppgrund des Auftrags bei Abbruch ([CheckRunLog.stopReasonCode]); null = unbekannt. */
+        stopDetail: () -> String? = { null },
     ): RefreshSummary? {
         val startedAt = System.currentTimeMillis()
         // Geplanter Lauf, während schon einer läuft: überspringen statt doppelt abfragen.
@@ -91,21 +100,22 @@ class BackgroundCheck @Inject constructor(
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
         val summary = running.withLock { runLocked(
-            trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis,
+            trigger, networkGuaranteed, startedAt, deadlineAt, dedupeWindowMillis, stopDetail,
         ) } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu
         // 20 s und mehr, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg
         try {
             awaitSideEffects(ttsWaitMillis, deadlineAt)
         } catch (e: CancellationException) {
-            log(trigger, CheckResult.FAILED, startedAt)
+            log(trigger, CheckResult.FAILED, startedAt, failureReason(e, stopDetail))
             throw e
         } catch (e: Exception) {
-            log(trigger, CheckResult.FAILED, startedAt)
+            log(trigger, CheckResult.FAILED, startedAt, failureReason(e, stopDetail))
             throw e
         }
         // Alle Börsen pausiert: «pausiert, nichts geprüft» statt «OK» (zählt nicht als gelungene Prüfung)
-        log(trigger, CheckRunLog.result(summary.checked, summary.failed, paused = summary.paused), startedAt)
+        val result = CheckRunLog.result(summary.checked, summary.failed, paused = summary.paused)
+        log(trigger, result, startedAt, CheckRunLog.reasonFor(result))
         // Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
         if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
             BackgroundErrorCounter.record(BackgroundErrors.REFRESH, kind = BackgroundErrors.ALL_FAILED_KIND)
@@ -134,6 +144,7 @@ class BackgroundCheck @Inject constructor(
         startedAt: Long,
         deadlineAt: Long?,
         dedupeWindowMillis: Long,
+        stopDetail: () -> String?,
     ): RefreshSummary? {
         // Nur die letzte VOLLE Prüfung zählt (Live-Takte und Teil-Läufe nicht: sie prüfen nicht alle Alarme)
         if (BackgroundSchedule.shouldSkip(trigger, refreshStats.lastFullCheck(), System.currentTimeMillis(), dedupeWindowMillis)) {
@@ -150,10 +161,10 @@ class BackgroundCheck @Inject constructor(
                 )
             }
         } catch (e: CancellationException) {
-            log(trigger, CheckResult.FAILED, startedAt)
+            log(trigger, CheckResult.FAILED, startedAt, failureReason(e, stopDetail))
             throw e
         } catch (e: Exception) {
-            log(trigger, CheckResult.FAILED, startedAt)
+            log(trigger, CheckResult.FAILED, startedAt, failureReason(e, stopDetail))
             // Lauf gescheitert — gezählt (Schlüssel gerade nicht lesbar ist kein Fehler)
             if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.REFRESH, error = e)
             throw e

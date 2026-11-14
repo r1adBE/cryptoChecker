@@ -79,7 +79,8 @@ enum BackgroundRefresh {
                                  // Dauer bis zum Ablauf, nicht bis zum (vielleicht späteren) Schreiben
                                  if logs {
                                      CheckRunStore.add(CheckRun(at: endedAt, trigger: .bgTask, result: result,
-                                                                durationMillis: max(endedAt - startedAt, 0)))
+                                                                durationMillis: max(endedAt - startedAt, 0),
+                                                                reason: CheckRunLog.cancelledReason("expired")))
                                  }
                                  scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
                              }, detach: seams.detachAfterExpiry).run()
@@ -105,7 +106,10 @@ enum BackgroundRefresh {
                 if entered { gate.release() }
                 // Nicht gespeichert → auch nichts melden; die Alarme bleiben scharf.
                 outcome.releaseAlarmLease()
-                if logGate.claim() { await CheckRunStore.logDetached(.bgTask, .failed, startedAt: startedAt).value }
+                if logGate.claim() {
+                    await CheckRunStore.logDetached(.bgTask, .failed, startedAt: startedAt,
+                                                    reason: CheckRunLog.cancelledReason(nil)).value
+                }
                 completion.complete(success: false)
                 return
             }
@@ -116,7 +120,9 @@ enum BackgroundRefresh {
             gate.release()
             let current = saved ?? snapshot
             // Ergebnis für «Letzte Prüfungen»: Kurse geholt, aber nicht gespeichert zählt als fehlgeschlagen
-            let priceResult: CheckResult = (saved == nil && outcome.checked > 0) ? .failed : outcome.checkResult
+            let notSaved = saved == nil && outcome.checked > 0
+            let priceResult: CheckResult = notSaved ? .failed : outcome.checkResult
+            let priceReason: String? = notSaved ? CheckRunLog.reasonNotSaved : nil
             priceBox.set(priceResult)
             // Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
             if saved == nil && outcome.checked > 0 {
@@ -152,7 +158,9 @@ enum BackgroundRefresh {
             if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
             if expired {
                 outcome.releaseAlarmLease()
-                if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
+                if logGate.claim() {
+                    await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt, reason: priceReason).value
+                }
                 completion.complete(success: false)
                 return
             }
@@ -195,7 +203,9 @@ enum BackgroundRefresh {
             // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält — abgewartet, ohne den Hauptfaden zu
             // blockieren
             await SharedStorage.snapshotWritesSettled()
-            if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
+            if logGate.claim() {
+                await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt, reason: priceReason).value
+            }
             AppLog.background.info("BG-Aufgabe beendet nach \(EpochTime.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
             completion.complete(success: !Task.isCancelled)
         }

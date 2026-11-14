@@ -23,6 +23,8 @@
     <string name="usage_driver_none">Nicio verificare în fundal programată – contează ce preiau aplicația deschisă și widgeturile.</string>
     <string name="usage_driver_watch">Contează ce preiau singure aplicația de pe ceas și complicațiile ei.</string>
     <string name="usage_watch_none">Niciun ceas conectat</string>
+    <string name="usage_watch_no_app">Crypto Checker nu este instalat pe ceas</string>
+    <string name="usage_watch_waiting">Încă nu există cifre de la ceas – deschide Crypto Checker pe ceas</string>
     <string name="usage_as_of">Stare la %1$s</string>
     <string name="usage_battery_android">Android arată consumul bateriei pe aplicații în setările sale pentru baterie.</string>
 </resources>

@@ -3,7 +3,9 @@ import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrorSummary
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
+import com.cryptochecker.app.domain.logos.LogoDiagnostics
 import com.cryptochecker.app.domain.refresh.CheckRun
+import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import java.time.Instant
 import java.time.ZoneId
@@ -51,6 +53,8 @@ data class DiagnosticInput(
     val sourceCommit: String = DiagnosticReport.LOCAL_COMMIT,
     /** Gezählte Fehler im Hintergrund je Bereich ([BackgroundErrors]), nur Zahlen. */
     val backgroundErrors: BackgroundErrorSummary = BackgroundErrorSummary(),
+    /** Coin-Logos: nur Zahlen ([LogoDiagnostics]); null = Abschnitt fehlt (Logos aus bzw. nicht lesbar). */
+    val logos: LogoDiagnostics? = null,
 )
 
 
@@ -128,10 +132,10 @@ object DiagnosticReport {
         val runs = input.checkRuns.take(MAX_CHECK_RUNS)
         if (runs.isEmpty()) lines += NONE
         runs.forEach { run ->
-            lines += listOf(
+            lines += (listOf(
                 at(run.at), run.trigger.code, run.result.code,
                 String.format(Locale.ROOT, "%.1f s", run.durationMillis.coerceAtLeast(0) / 1000.0),
-            ).joinToString(" | ")
+            ) + listOfNotNull(CheckRunLog.cleanReason(run.reason))).joinToString(" | ")
         }
 
         lines += ""
@@ -148,6 +152,17 @@ object DiagnosticReport {
         input.exchangePauses.toSortedMap().forEach { (key, state) ->
             val paused = if (ExchangeBackoff.isPaused(state, input.createdAt)) "paused until ${at(state.pausedUntil)}" else "not paused"
             lines += listOf(clean(key), paused, state.reason?.name ?: "-", "strikes ${state.strikes}").joinToString(" | ")
+        }
+
+        input.logos?.let { logos ->
+            lines += ""
+            lines += "== Coin logos =="
+            lines += "On device: ${logos.onDevice} | locked after failure: ${logos.locked}"
+            val pass = logos.lastPass
+            lines += if (pass == null) "Last pass: $NONE" else listOf(
+                "Last pass: ${at(pass.at)}", "new ${pass.added}", "failed ${pass.failed}", "paused ${pass.paused}",
+                "open ${pass.open}", "unsaved ${pass.unsaved}",
+            ).joinToString(" | ")
         }
 
         lines += ""

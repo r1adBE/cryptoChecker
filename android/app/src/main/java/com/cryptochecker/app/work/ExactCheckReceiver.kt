@@ -103,6 +103,11 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 val done = withTimeoutOrNull(timeoutMillis - (System.currentTimeMillis() - startedAt)) {
                     backgroundCheck.run(
                         CheckTrigger.EXACT, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS, deadlineAt = deadlineAt,
+                        // Hat WorkManager eben voll geprüft (weniger als ein halbes Intervall her): Wecker setzt aus
+                        dedupeWindowMillis = BackgroundSchedule.dedupeWindowMillis(
+                            CheckTrigger.EXACT, exactArmed = true,
+                            intervalMillis = BackgroundSchedule.exactIntervalMillis(interval),
+                        ),
                     )
                     true
                 }

@@ -82,19 +82,21 @@ object BackgroundSchedule {
      * das Netz darunter: ein WorkManager-Lauf entfällt, solange die letzte volle Prüfung kein Intervall her ist — er
      * läuft also nur, wenn der Wecker ausbleibt (Hersteller-Akkusparen, Berechtigung entzogen, offline). WorkManager
      * bleibt dafür geplant (robuster als ihn abzusagen: fällt der Wecker still weg, prüft sonst niemand mehr).
-     * Wecker selbst, iOS-Aufgabe und alles ohne Wecker: [DEDUPE_WINDOW_MILLIS].
+     * Wecker selbst: ein halbes Intervall (mindestens [DEDUPE_WINDOW_MILLIS]); iOS-Aufgabe und alles ohne Wecker:
+     * [DEDUPE_WINDOW_MILLIS].
      *
      * Das Fenster ist um [DEDUPE_TOLERANCE_MILLIS] kürzer als das Intervall (nie unter [DEDUPE_WINDOW_MILLIS]): Die letzte
      * volle Prüfung wird am ENDE eines Laufs vermerkt, der nächste WorkManager-Lauf beginnt aber ein Intervall nach dem
      * BEGINN des vorigen — ihr Alter läge sonst immer knapp unter dem Intervall, und bliebe der Wecker aus, fiele jeder
      * zweite Lauf weg (Prüfung nur alle zwei Intervalle).
      */
-    fun dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Boolean, intervalMillis: Long): Long =
-        if (trigger == CheckTrigger.WORKER && exactArmed) {
-            maxOf(intervalMillis - DEDUPE_TOLERANCE_MILLIS, DEDUPE_WINDOW_MILLIS)
-        } else {
-            DEDUPE_WINDOW_MILLIS
-        }
+    fun dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Boolean, intervalMillis: Long): Long = when {
+        trigger == CheckTrigger.WORKER && exactArmed -> maxOf(intervalMillis - DEDUPE_TOLERANCE_MILLIS, DEDUPE_WINDOW_MILLIS)
+        // Wecker selbst: Hat WorkManager vor weniger als einem halben Intervall voll geprüft, setzt er aus (sonst holte
+        // er dieselben Kurse gleich noch einmal); länger her → prüft er, damit der Abstand nie über ein Intervall wächst
+        trigger == CheckTrigger.EXACT -> maxOf(intervalMillis / 2, DEDUPE_WINDOW_MILLIS)
+        else -> DEDUPE_WINDOW_MILLIS
+    }
 
     /**
      * Volle Prüfung für [shouldSkip]? Alle abfragbaren Paare ([attempted]; Paare pausierter Börsen

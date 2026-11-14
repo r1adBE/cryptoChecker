@@ -63,7 +63,8 @@ internal fun AppNotifier.postPrice(watch: WatchEntity, ongoing: Boolean): Boolea
     if (settings.appLock) {
         builder.privateOnLockScreen(NotificationChannels.PRICES, R.drawable.ic_stat_logo, context.getString(R.string.channel_prices))
     } else {
-        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        // Ohne Sperre entscheidet die Einstellung des Systems («Sensible Inhalte verbergen»), nicht die App
+        builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
     }
 
     val posted = notifyInGroup(priceNotificationId(watch.id), builder.build(), Group.PRICES)
@@ -108,7 +109,8 @@ internal fun AppNotifier.postOverflow(lines: LinkedHashMap<Long, String>, ongoin
     if (settings.appLock) {
         builder.privateOnLockScreen(NotificationChannels.PRICES, R.drawable.ic_stat_logo, context.getString(R.string.channel_prices))
     } else {
-        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        // Ohne Sperre entscheidet die Einstellung des Systems («Sensible Inhalte verbergen»), nicht die App
+        builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
     }
     val posted = notifyInGroup(PRICE_OVERFLOW_ID, builder.build(), Group.PRICES)
     if (posted) {

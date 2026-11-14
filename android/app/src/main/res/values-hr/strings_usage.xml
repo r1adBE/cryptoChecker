@@ -23,6 +23,8 @@
     <string name="usage_driver_none">Nije planirana provjera u pozadini – broji se ono što dohvaćaju otvorena aplikacija i widgeti.</string>
     <string name="usage_driver_watch">Broji se ono što aplikacija na satu i njezine komplikacije same dohvaćaju.</string>
     <string name="usage_watch_none">Nije povezan nijedan sat</string>
+    <string name="usage_watch_no_app">Crypto Checker nije instaliran na satu</string>
+    <string name="usage_watch_waiting">Još nema brojeva sa sata – otvori Crypto Checker na satu</string>
     <string name="usage_as_of">Stanje %1$s</string>
     <string name="usage_battery_android">Android prikazuje potrošnju baterije po aplikaciji u svojim postavkama baterije.</string>
 </resources>

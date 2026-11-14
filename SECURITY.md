@@ -364,6 +364,12 @@ Deliberate trade-offs, stated so that nobody relies on more than the app does:
   system's biometric / device-credential prompt and no key depends on it, so on
   a rooted, jailbroken or otherwise instrumented (hooked) device the lock can be
   bypassed.
+* **Alarms are checked only with prices.** The app checks an alarm when it
+  has a fresh price from the exchange. If prices could not be fetched for a
+  while (no network, the exchange did not answer, the system did not run the
+  background check) and the price crossed an alarm level only during that gap
+  and was back before the next successful check, the alarm does not trigger –
+  there is no price history for the gap that the app could check afterwards.
 * **The deep-link secret is not a credential.** Links from the app's own
   widgets carry a random per-install secret (`OpenTargetGuard`) so that other
   apps and web pages cannot open protected screens through `cryptochecker://`.

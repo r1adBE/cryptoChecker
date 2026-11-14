@@ -21,6 +21,8 @@
     <string name="usage_driver_none">ფონური შემოწმება დაგეგმილი არ არის – ითვლება ის, რასაც ღია აპი და ვიჯეტები იღებენ.</string>
     <string name="usage_driver_watch">ითვლება ის, რასაც საათის აპი და მისი დამატებები თავად იღებენ.</string>
     <string name="usage_watch_none">საათი არ არის დაკავშირებული</string>
+    <string name="usage_watch_no_app">Crypto Checker საათზე დაინსტალირებული არ არის</string>
+    <string name="usage_watch_waiting">საათიდან ჯერ ციფრები არ არის – გახსენი Crypto Checker საათზე</string>
     <string name="usage_as_of">მდგომარეობა: %1$s</string>
     <string name="usage_battery_android">Android ბატარეის პარამეტრებში აჩვენებს თითოეული აპის ბატარეის მოხმარებას.</string>
 </resources>

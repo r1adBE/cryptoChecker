@@ -131,7 +131,7 @@ enum WidgetRefresh {
             // Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
             if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind) }
             defaults.set(Double(EpochTime.nowMillis), forKey: failedAtKey)
-            CheckRunStore.log(.widget, .failed, startedAt: started)
+            CheckRunStore.log(.widget, .failed, startedAt: started, reason: CheckRunLog.reasonNotSaved)
             return .failed
         }
         CheckRunStore.log(.widget, outcome.checkResult, startedAt: started)

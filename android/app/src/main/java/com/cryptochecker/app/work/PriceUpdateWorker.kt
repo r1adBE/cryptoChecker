@@ -1,6 +1,7 @@
 package com.cryptochecker.app.work
 
 import android.content.Context
+import android.os.Build
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -9,6 +10,7 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
+import com.cryptochecker.app.domain.refresh.CheckRunLog
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.notification.AppNotifier
@@ -63,6 +65,8 @@ class PriceUpdateWorker @AssistedInject constructor(
             )
             val summary = backgroundCheck.run(
                 trigger, networkGuaranteed = true, ttsWaitMillis = TTS_WAIT_MILLIS, dedupeWindowMillis = window,
+                // Abbruch durch das System: Grund für «Letzte Prüfungen» im Diagnosebericht (Kontingent, Netz weg …)
+                stopDetail = ::stopDetail,
             )
             // Netz unter dem Wecker «Pünktlich prüfen»: fehlt er (z. B. Paare neu hinzugefügt), neu stellen
             if (BackgroundWorkPolicy.syncsExactAfterRun(manual)) syncExact()
@@ -103,6 +107,10 @@ class PriceUpdateWorker @AssistedInject constructor(
             BackgroundWorkPolicy.outcomeOnError(manual).toResult()
         }
     }
+
+    /** Stoppgrund des Systems für «Letzte Prüfungen» ([CheckRunLog.stopReasonCode]; erst ab Android 12 bekannt). */
+    private fun stopDetail(): String? =
+        if (isStopped && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) CheckRunLog.stopReasonCode(stopReason) else null
 
     /** Wecker «Pünktlich prüfen» abgleichen (stellt nur, wenn keiner gestellt ist); Fehler bleiben still. */
     private suspend fun syncExact() {

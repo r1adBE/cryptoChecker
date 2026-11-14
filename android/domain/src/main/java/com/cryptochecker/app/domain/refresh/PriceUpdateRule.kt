@@ -10,6 +10,8 @@ import kotlin.math.abs
  *  - [PriceUpdate.RESTORE]: unter der Schwelle, aber «Nicht wegwischbar» ([ongoing]) ist an und die Mitteilung fehlt
  *    ([shown] false: Neustart, App-Update, «Stopp erzwingen», ab Android 14 Wegwischen) — wieder zeigen, ohne Ton und
  *    mit dem alten Bezug, damit «angeheftet» stimmt und die Schwelle weiter vom letzten gemeldeten Kurs zählt.
+ *  - [PriceUpdate.RESTORE] ebenso nach einem Aussetzer ([refresh]: das Paar hatte zuletzt einen Fehler, die Mitteilung
+ *    steht noch): sonst zeigte sie bis zur nächsten Bewegung um die Schwelle den Kurs von vor dem Aussetzer.
  *  - [PriceUpdate.NONE]: sonst (bleibt, wie sie ist).
  * Reine Logik (Test `PriceUpdateRuleTest`); iOS hat kein Gegenstück (Mitteilungen überdauern dort den Neustart, und
  * angeheftete gibt es nicht).
@@ -23,12 +25,13 @@ object PriceUpdateRule {
         threshold: Double,
         ongoing: Boolean,
         shown: Boolean,
+        refresh: Boolean = false,
     ): PriceUpdate {
         if (!notificationsOn || !pairOn) return PriceUpdate.CANCEL
         if (price == null || price <= 0.0) return PriceUpdate.CANCEL
         if (threshold > 0 && reference != null && reference > 0.0) {
             val change = abs((price - reference) / reference * 100.0)
-            if (change < threshold) return if (ongoing && !shown) PriceUpdate.RESTORE else PriceUpdate.NONE
+            if (change < threshold) return if ((ongoing && !shown) || refresh) PriceUpdate.RESTORE else PriceUpdate.NONE
         }
         return PriceUpdate.SHOW
     }

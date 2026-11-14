@@ -21,6 +21,8 @@
     <string name="usage_driver_none">কোনো ব্যাকগ্রাউন্ড যাচাই নির্ধারিত নেই – খোলা অ্যাপ ও উইজেট যা আনে তা-ই গোনা হয়।</string>
     <string name="usage_driver_watch">ঘড়ির অ্যাপ ও তার কমপ্লিকেশন নিজেরা যা আনে তা-ই গোনা হয়।</string>
     <string name="usage_watch_none">কোনো ঘড়ি সংযুক্ত নেই</string>
+    <string name="usage_watch_no_app">ঘড়িতে Crypto Checker ইনস্টল করা নেই</string>
+    <string name="usage_watch_waiting">ঘড়ি থেকে এখনও কোনো সংখ্যা আসেনি – অনুগ্রহ করে ঘড়িতে Crypto Checker খুলুন</string>
     <string name="usage_as_of">%1$s অনুযায়ী</string>
     <string name="usage_battery_android">Android প্রতিটি অ্যাপের ব্যাটারি ব্যবহার তার ব্যাটারি সেটিংসে দেখায়।</string>
 </resources>

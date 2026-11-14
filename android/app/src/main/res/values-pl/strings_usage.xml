@@ -25,6 +25,8 @@
     <string name="usage_driver_none">Brak zaplanowanego sprawdzania w tle – liczy się to, co pobiera otwarta aplikacja i widżety.</string>
     <string name="usage_driver_watch">Liczy się to, co aplikacja na zegarku i jej komplikacje pobierają same.</string>
     <string name="usage_watch_none">Brak połączonego zegarka</string>
+    <string name="usage_watch_no_app">Crypto Checker nie jest zainstalowany na zegarku</string>
+    <string name="usage_watch_waiting">Brak jeszcze liczb z zegarka – otwórz Crypto Checker na zegarku</string>
     <string name="usage_as_of">Stan: %1$s</string>
     <string name="usage_battery_android">Android pokazuje zużycie baterii przez aplikacje w swoich ustawieniach baterii.</string>
 </resources>

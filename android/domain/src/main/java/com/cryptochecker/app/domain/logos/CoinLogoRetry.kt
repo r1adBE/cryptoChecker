@@ -53,6 +53,14 @@ object CoinLogoRetry {
      */
     fun isTransient(httpCode: Int?): Boolean = httpCode == null || httpCode == 408 || httpCode in 500..599
 
+    /**
+     * Bleibt ein Bild nach dieser Antwort offen statt gesperrt? Nur 403 (ohne «Retry-After»): CloudFront/S3 antworten so
+     * auf eine fehlende Datei, aber auch, wenn sie bremsen — offen heisst: nicht im selben Durchgang wiederholen, beim
+     * nächsten Abgleich erneut, erst nach [OPEN_PASSES_FAIL] Durchgängen in Folge gesperrt. Sonst galt ein gebremstes Logo
+     * einen Tag lang als «kein Logo». 404 bleibt «gibt es nicht» (gesperrt).
+     */
+    fun leavesOpen(httpCode: Int): Boolean = httpCode == 403
+
     /** So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren. */
     const val FORBIDDEN_PAUSE_STREAK = 3
 

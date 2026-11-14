@@ -1,6 +1,7 @@
 package com.cryptochecker.wear
 
 import com.google.android.gms.wearable.DataEventBuffer
+import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.WearableListenerService
 import kotlinx.coroutines.launch
 
@@ -8,7 +9,8 @@ import kotlinx.coroutines.launch
  * Neue Wahl, Favoriten, Kurse oder neuer Portfolio-Wert vom Handy: Einträge sofort aus dem Puffer lesen (das System gibt
  * ihn nach dem Aufruf frei), dann ohne den Aufruf zu blockieren in den gemeinsamen [WatchStore] übernehmen — die offene
  * Uhr-App folgt — und die betroffenen Komplikationen neu zeichnen. Die Übernahme läuft in [WatchDataLayer.processScope]
- * weiter, auch wenn der Dienst schon beendet ist.
+ * weiter, auch wenn der Dienst schon beendet ist. Dazu die Bitte des Handys um die Zähler ([WatchUsage.REQUEST_PATH],
+ * Seite «Akku & Aktivität»).
  */
 class WatchDataListener : WearableListenerService() {
     override fun onDataChanged(dataEvents: DataEventBuffer) {
@@ -22,5 +24,9 @@ class WatchDataListener : WearableListenerService() {
             if (taken.settings || taken.quotes) requestComplicationUpdate(context)
             if (taken.portfolio) requestPortfolioComplicationUpdate(context)
         }
+    }
+
+    override fun onMessageReceived(messageEvent: MessageEvent) {
+        if (messageEvent.path == WatchUsage.REQUEST_PATH) WatchUsage.publish(applicationContext, requested = true)
     }
 }

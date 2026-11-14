@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Nuk ka kontroll të planifikuar në sfond – numërohet ajo që marrin aplikacioni i hapur dhe miniaplikacionet.</string>
     <string name="usage_driver_watch">Numërohet ajo që marrin vetë aplikacioni i orës dhe komplikimet e tij.</string>
     <string name="usage_watch_none">Asnjë orë e lidhur</string>
+    <string name="usage_watch_no_app">Crypto Checker nuk është i instaluar në orë</string>
+    <string name="usage_watch_waiting">Ende asnjë shifër nga ora – hap Crypto Checker në orë</string>
     <string name="usage_as_of">Gjendja %1$s</string>
     <string name="usage_battery_android">Android tregon përdorimin e baterisë sipas aplikacionit në cilësimet e tij të baterisë.</string>
 </resources>

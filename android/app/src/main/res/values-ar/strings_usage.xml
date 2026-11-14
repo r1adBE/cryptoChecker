@@ -29,6 +29,8 @@
     <string name="usage_driver_none">لا يوجد فحص مجدول في الخلفية – يُحتسب ما يجلبه التطبيق المفتوح والأدوات.</string>
     <string name="usage_driver_watch">يُحتسب ما يجلبه تطبيق الساعة وإضافاته بأنفسهم.</string>
     <string name="usage_watch_none">لا توجد ساعة متصلة</string>
+    <string name="usage_watch_no_app">‏Crypto Checker غير مثبّت على الساعة</string>
+    <string name="usage_watch_waiting">لا توجد أرقام من الساعة بعد – افتح Crypto Checker على الساعة</string>
     <string name="usage_as_of">حتى %1$s</string>
     <string name="usage_battery_android">يعرض Android استخدام البطارية لكل تطبيق في إعدادات البطارية.</string>
 </resources>

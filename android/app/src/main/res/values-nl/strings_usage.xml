@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Geen controle op de achtergrond gepland – telt wat de geopende app en de widgets ophalen.</string>
     <string name="usage_driver_watch">Telt wat de horloge-app en haar complicaties zelf ophalen.</string>
     <string name="usage_watch_none">Geen horloge verbonden</string>
+    <string name="usage_watch_no_app">Crypto Checker is niet geïnstalleerd op het horloge</string>
+    <string name="usage_watch_waiting">Nog geen cijfers van het horloge – open Crypto Checker op het horloge</string>
     <string name="usage_as_of">Stand %1$s</string>
     <string name="usage_battery_android">Android toont het batterijverbruik per app in de batterij-instellingen.</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Engin athugun í bakgrunni áætluð – það sem telur er það sem opið forrit og græjur sækja.</string>
     <string name="usage_driver_watch">Það sem telur er það sem úrforritið og græjur þess sækja sjálf.</string>
     <string name="usage_watch_none">Ekkert úr tengt</string>
+    <string name="usage_watch_no_app">Crypto Checker er ekki uppsett á úrinu</string>
+    <string name="usage_watch_waiting">Engar tölur frá úrinu enn – opnaðu Crypto Checker á úrinu</string>
     <string name="usage_as_of">Staða %1$s</string>
     <string name="usage_battery_android">Android sýnir rafhlöðunotkun hvers forrits í rafhlöðustillingum sínum.</string>
 </resources>

@@ -84,8 +84,9 @@ object AddressServer {
 
     /**
      * Server in einer Sicherungsdatei: nur in einer Datei mit Passwort ([encrypted]), sonst null. Einspielen ohne Passwort
-     * ändert den Server ohnehin nie ([restored]); eine lesbare Datei verriete nur, wo die Bitcoin-Adressen abgefragt werden
-     * (gleiche Regel wie die Android-Systemsicherung, die die Einstellungen darum ausschliesst). Journal: unverändert.
+     * ändert den Server ohnehin nie ([restored]); eine lesbare Datei verriete nur, wo die Bitcoin-Adressen abgefragt werden.
+     * Die Android-Systemsicherung nimmt die Einstellungen samt Server mit, aber nur Ende-zu-Ende-verschlüsselt bzw. bei
+     * der direkten Übertragung von Gerät zu Gerät (backup_rules, requireFlags). Journal: unverändert.
      */
     fun exported(server: String?, encrypted: Boolean): String? = if (encrypted) server else null
 

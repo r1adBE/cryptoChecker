@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
@@ -39,6 +40,7 @@ import com.cryptochecker.app.diagnostics.DiagnosticSettings
 import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.data.settings.SettingsRepository
+import com.cryptochecker.app.logos.CoinLogoUse
 import com.cryptochecker.app.util.AlarmReadinessProbe
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -68,6 +70,7 @@ class DiagnosticsViewModel @Inject constructor(
     private val alarmLogStore: AlarmLogStore,
     private val refreshStats: RefreshStats,
     private val watchRepository: WatchRepository,
+    private val coinLogoRepository: CoinLogoRepository,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -124,6 +127,12 @@ class DiagnosticsViewModel @Inject constructor(
                 errorLog = null,
                 // Nur Anzahl Fehler im Hintergrund je Bereich
                 backgroundErrors = com.cryptochecker.app.domain.util.BackgroundErrorCounter.summary(),
+                // Coin-Logos nur als Zahlen (auf dem Gerät, gesperrt, letzter Durchgang) — nur mit eingeschalteten Logos
+                logos = if (CoinLogoUse.needed(settings)) {
+                    runCatchingCancellable { coinLogoRepository.logoDiagnostics() }.getOrNull()
+                } else {
+                    null
+                },
             )
         )
     }

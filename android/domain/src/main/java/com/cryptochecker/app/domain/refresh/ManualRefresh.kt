@@ -100,7 +100,8 @@ class ManualRefresh(
             val startedAt = System.currentTimeMillis()
             // «Letzte Prüfungen»: auch der Knopf in der App zählt (Auslöser «App»)
             fun log(result: CheckResult) = checkRuns.add(
-                CheckRun(System.currentTimeMillis(), CheckTrigger.FOREGROUND, result, System.currentTimeMillis() - startedAt)
+                CheckRun(System.currentTimeMillis(), CheckTrigger.FOREGROUND, result, System.currentTimeMillis() - startedAt,
+                    CheckRunLog.reasonFor(result))
             )
             try {
                 // Offline überspringt refreshAll (gleicher Netzstatus) — als «übersprungen» vermerken

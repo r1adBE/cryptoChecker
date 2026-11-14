@@ -333,7 +333,7 @@ class RefreshEffects constructor(
      * 20 einzeln, Alarme haben Vorrang); der Aufrufer setzt danach den neuen Bezugspunkt der gezeigten Paare (nicht bei
      * [PriceUpdate.RESTORE]).
      */
-    fun priceUpdate(watch: WatchEntity, settings: AppSettings, shown: Boolean = true): PriceUpdate =
+    fun priceUpdate(watch: WatchEntity, settings: AppSettings, shown: Boolean = true, refresh: Boolean = false): PriceUpdate =
         PriceUpdateRule.decide(
             notificationsOn = settings.priceNotifications,
             pairOn = watch.notificationEnabled,
@@ -342,6 +342,7 @@ class RefreshEffects constructor(
             threshold = settings.notificationChangePercent,
             ongoing = settings.ongoingNotifications,
             shown = shown,
+            refresh = refresh,
         )
 
     /** Kursansage in die Warteschlange der Sprachausgabe — die Aktualisierung wartet nicht darauf. */

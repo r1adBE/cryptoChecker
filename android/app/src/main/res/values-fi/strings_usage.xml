@@ -21,6 +21,8 @@
     <string name="usage_driver_none">Taustatarkistusta ei ole ajoitettu – lasketaan, mitä avoin sovellus ja widgetit hakevat.</string>
     <string name="usage_driver_watch">Lasketaan, mitä kellosovellus ja sen komplikaatiot hakevat itse.</string>
     <string name="usage_watch_none">Kelloa ei ole yhdistetty</string>
+    <string name="usage_watch_no_app">Crypto Checkeria ei ole asennettu kelloon</string>
+    <string name="usage_watch_waiting">Kellosta ei ole vielä lukuja – avaa Crypto Checker kellossa</string>
     <string name="usage_as_of">Tilanne %1$s</string>
     <string name="usage_battery_android">Android näyttää sovelluskohtaisen akunkäytön akkuasetuksissaan.</string>
 </resources>

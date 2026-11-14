@@ -19,6 +19,8 @@
     <string name="usage_driver_none">未安排背景檢查——只計開咗嘅 App 同小工具攞到嘅內容。</string>
     <string name="usage_driver_watch">計手錶 App 同佢嘅複雜功能自己攞到嘅內容。</string>
     <string name="usage_watch_none">未連接手錶</string>
+    <string name="usage_watch_no_app">手錶未安裝 Crypto Checker</string>
+    <string name="usage_watch_waiting">暫時未有手錶嘅數字 – 請喺手錶上開啟 Crypto Checker</string>
     <string name="usage_as_of">截至 %1$s</string>
     <string name="usage_battery_android">Android 會喺電池設定入面顯示每個 App 嘅耗電量。</string>
 </resources>

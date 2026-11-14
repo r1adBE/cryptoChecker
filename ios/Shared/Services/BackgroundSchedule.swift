@@ -58,8 +58,10 @@ enum BackgroundSchedule {
     /// volle Prüfung wird am Ende eines Laufs vermerkt, der nächste Lauf beginnt ein Intervall nach dem Beginn des
     /// vorigen — sonst fiele bei ausbleibendem Wecker jeder zweite Lauf weg.
     static func dedupeWindowMillis(trigger: CheckTrigger, exactArmed: Bool, intervalMillis: Int64) -> Int64 {
-        trigger == .worker && exactArmed
-            ? max(intervalMillis - dedupeToleranceMillis, dedupeWindowMillis) : dedupeWindowMillis
+        if trigger == .worker && exactArmed { return max(intervalMillis - dedupeToleranceMillis, dedupeWindowMillis) }
+        // Wecker selbst (Android): ein halbes Intervall — wie Android
+        if trigger == .exact { return max(intervalMillis / 2, dedupeWindowMillis) }
+        return dedupeWindowMillis
     }
 
     /// Zählt ein Lauf als «Prüfung mit allen Alarmen» (iOS `lastAlarmCheckAt`, Android `lastFullCheck`)? Nur eine volle

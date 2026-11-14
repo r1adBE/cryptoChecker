@@ -22,11 +22,12 @@ class CheckRunStore(private val file: File, private val meter: UsageMeter = Usag
 
     /**
      * Lauf vorne anfügen (höchstens [CheckRunLog.MAX]) und gleich schreiben. Jeder Lauf ausser in der offenen App
-     * ([CheckTrigger.FOREGROUND]) zählt für «Akku & Aktivität» als Hintergrund-Lauf ([meter]); der Lauf ist hier zu
-     * Ende, darum die Zähler gleich mitschreiben.
+     * ([CheckTrigger.FOREGROUND]), der wirklich geprüft hat ([CheckRunLog.countsAsRun]: nicht übersprungen, nicht
+     * offline ausgelassen), zählt für «Akku & Aktivität» als Hintergrund-Lauf ([meter]); der Lauf ist hier zu Ende,
+     * darum die Zähler gleich mitschreiben.
      */
     fun add(run: CheckRun) {
-        if (run.trigger != CheckTrigger.FOREGROUND) {
+        if (CheckRunLog.countsAsRun(run)) {
             meter.countRun()
             meter.flush()
         }
