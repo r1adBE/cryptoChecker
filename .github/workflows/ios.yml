@@ -73,11 +73,17 @@ jobs:
           set -euo pipefail
           CODE=true
           if [ "$EVENT" = pull_request ]; then
-            CHANGED=$(git diff --name-only HEAD^1 HEAD)
-            printf 'Changed files:\n%s\n' "$CHANGED"
+            CHANGED="$RUNNER_TEMP/changed-files.txt"
+            git diff --name-only HEAD^1 HEAD > "$CHANGED"
+            echo "Changed files: $(wc -l < "$CHANGED")"
+            cat "$CHANGED"
             # Markdown and issue templates only: no test or check of this workflow reads them (store texts and the
-            # privacy page are read by tests and run everything)
-            if [ -n "$CHANGED" ] && ! printf '%s\n' "$CHANGED" | grep -qvE '\.md$|^\.github/ISSUE_TEMPLATE/'; then
+            # privacy page are read by tests and run everything). grep reads the file, never a pipe: with pipefail,
+            # «printf | grep -q» failed by SIGPIPE on a long list and a large pull request counted as documents only.
+            # Only grep's explicit «no other file» (exit 1) skips; an error (exit 2) runs everything.
+            OTHER=0
+            grep -qvE '\.md$|^\.github/ISSUE_TEMPLATE/' "$CHANGED" || OTHER=$?
+            if [ -s "$CHANGED" ] && [ "$OTHER" -eq 1 ]; then
               CODE=false
             fi
           fi

@@ -74,19 +74,27 @@ jobs:
         id: diff
         run: |
           set -euo pipefail
-          CHANGED=$(git diff --name-only HEAD^1 HEAD)
-          printf 'Changed files:\n%s\n' "$CHANGED"
+          CHANGED="$RUNNER_TEMP/changed-files.txt"
+          git diff --name-only HEAD^1 HEAD > "$CHANGED"
+          echo "Changed files: $(wc -l < "$CHANGED")"
+          cat "$CHANGED"
+          # grep reads files, never a pipe: with pipefail, «printf | grep -q» failed by SIGPIPE on a long list and
+          # skipped jobs of a large pull request. Fail-safe: only grep's explicit «no match» (exit 1) is «no».
+          has() { local rc=0; grep -q "$@" || rc=$?; [ "$rc" -ne 1 ]; }
           CONNECTED=false
           MIGRATION=false
           RELEASE=false
           # Unit tests (src/test, src/testDebug …) do not run on a device
-          if printf '%s\n' "$CHANGED" | grep -vE '^android/[a-z]+/src/test[A-Za-z]*/' | grep -qE '^android/(app|domain|data|marketdata)/src/|^android/testdata/uitest/|^\.github/workflows/android-device-tests\.yml$'; then
+          # (grep error → keep every file, so the tests run)
+          grep -vE '^android/[a-z]+/src/test[A-Za-z]*/' "$CHANGED" > "$RUNNER_TEMP/changed-device.txt" \
+            || [ $? -eq 1 ] || cp "$CHANGED" "$RUNNER_TEMP/changed-device.txt"
+          if has -E '^android/(app|domain|data|marketdata)/src/|^android/testdata/uitest/|^\.github/workflows/android-device-tests\.yml$' "$RUNNER_TEMP/changed-device.txt"; then
             CONNECTED=true
           fi
-          if printf '%s\n' "$CHANGED" | grep -qE '^android/(app|domain|data)/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$'; then
+          if has -E '^android/(app|domain|data)/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$' "$CHANGED"; then
             MIGRATION=true
           fi
-          if printf '%s\n' "$CHANGED" | grep -qxE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/domain/build\.gradle\.kts|android/data/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml'; then
+          if has -xE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/domain/build\.gradle\.kts|android/data/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml' "$CHANGED"; then
             RELEASE=true
           fi
           echo "connected tests: $CONNECTED · migration tests: $MIGRATION · release smoke: $RELEASE"
@@ -318,7 +326,7 @@ jobs:
           done < <(find app/src/androidTest -type f \( -name 'RoomSchemaMigrationTest.kt' -o -name 'DatabaseFreshInstall*.kt' \
             -o -name 'DatabaseEncryption*.kt' \) | sort)
           for required in RoomSchemaMigrationTest DatabaseFreshInstallTest; do
-            printf '%s\n' "${CLASSES//,/$'\n'}" | grep -qE "(^|\.)$required\$" \
+            grep -qE "(^|\.)$required\$" <<< "${CLASSES//,/$'\n'}" \
               || { echo "::error title=Migration tests::$required not found in app/src/androidTest"; exit 1; }
           done
           echo "Migration test classes: $CLASSES"
