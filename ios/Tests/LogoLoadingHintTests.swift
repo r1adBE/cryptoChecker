@@ -95,7 +95,7 @@ final class LogoLoadingHintTests: XCTestCase {
         let sync = store.components(separatedBy: "func syncAll(").last ?? ""
         let start = try XCTUnwrap(sync.range(of: "if images { await CoinLogoLoading.runStarted() }"))
         let rest = try XCTUnwrap(sync.range(of: "let rest = await Self.downloadMissing("))
-        let finish = try XCTUnwrap(sync.range(of: "await CoinLogoLoading.runFinished()"))
+        let finish = try XCTUnwrap(sync.range(of: "await CoinLogoLoading.runFinished(complete:"))
         XCTAssertTrue(start.upperBound < rest.lowerBound && rest.upperBound < finish.lowerBound)
         // Erst nach «nichts zu laden»: Coins ohne Logo-Adresse lösen nie einen Hinweis aus
         let download = try text("Shared/Storage/CoinLogoStore+Download.swift")

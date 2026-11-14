@@ -78,7 +78,7 @@ suspend fun HistoricPriceSource.seriesClose(pair: CandlePair, start: Long): Pair
         if (load.unreachable) throw HistoricSourceUnavailable(pair.exchangeKey)
         return null
     }
-    return close to candles?.lastOrNull()?.close
+    return close to candles.lastOrNull()?.close
 }
 
 /**
