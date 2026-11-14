@@ -44,7 +44,7 @@ actor CoinLogoStore {
     private static let metaAttemptKey = "coin_logos_coin_meta_attempt"
     /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
     static let mapRetryMillis: Int64 = 60 * 60 * 1000
-    private var map: [String: String]?
+    private(set) var map: [String: String]?
     private var syncing = false
     /// Letzter Abgleich scheiterte am fehlenden Netz (z. B. kein Internet direkt nach der Installation):
     /// `AppData` holt ihn nach, sobald wieder Netz da ist (`CoinLogoRetry.syncNeeded`). Nur im Speicher —

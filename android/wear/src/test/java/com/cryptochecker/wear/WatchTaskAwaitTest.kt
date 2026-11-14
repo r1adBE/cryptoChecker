@@ -105,8 +105,8 @@ class WatchTaskAwaitTest {
             .map { File(it, "com/cryptochecker/wear/WatchDataLayer.kt") }.first { it.isFile }.readText(Charsets.UTF_8)
         assertFalse("Tasks.await blockiert einen Thread", source.contains("Tasks.await"))
         assertFalse("runCatching schluckt den Abbruch", Regex("""\brunCatching\b""").containsMatchIn(source))
-        assertEquals(4, Regex("""WatchTaskAwait\.await\(""").findAll(source).count())
-        assertEquals(5, Regex("""WatchTaskAwait\.catching \{""").findAll(source).count())
+        assertEquals(5, Regex("""WatchTaskAwait\.await\(""").findAll(source).count())
+        assertEquals(6, Regex("""WatchTaskAwait\.catching \{""").findAll(source).count())
     }
 
     private companion object {

@@ -164,8 +164,9 @@ jobs:
         run: |
           chmod +x gradlew
           set -o pipefail
+          # --continue: every module's tests run, so one run shows all failing tests (the job still fails on any)
           ./gradlew -Pcoverage=true testDebugUnitTest :app:koverXmlReportDebug :marketdata:koverXmlReportDebug \
-            --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log" \
+            --continue --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log" \
             || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-test.log"; exit 1; }
 
       # testReleaseUnitTest of all modules (release source sets, e.g. src/withoutHttpLog) only on main and release
