@@ -3182,6 +3182,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 232: CoinLogoRetry.isTransient (parity logo_fallback.json › transient); LogoImageStore/CoinLogoStore+Download: Fetched.TRANSIENT, up to three rounds 5 s apart, not saved as failure; LogoImageDownload extracted; Android logos in noBackupFilesDir/coin_logos. Performance tests: scaling factor 6 (was 5) on both platforms.
 * Build 233: Audit of build 232 (S3/F3/N3/B3/U3, 73 findings): fixed in five groups A–E; see ROADMAP block «Audit von Build 232».
 * Build 234: Rest of the build-232 audit and cross-check of the build-233 fixes (R4/G4/V4/X4, 31 findings) fixed in groups F–H; new «Akku & Aktivität» (group I, local counters only).
+* Build 235: build number visible on Android and both watches (AppVersion, PHONE_BUILD)
 
 ## Known warnings
 

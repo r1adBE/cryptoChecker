@@ -199,6 +199,16 @@ private fun QuoteList(
                     colors = ChipDefaults.secondaryChipColors(), modifier = Modifier.fillMaxWidth())
             }
         }
+        item {
+            // Version samt Build-Nummer der Handy-App, z. B. «16.2.2 (234)» — wie watchOS und «Über» auf dem Handy
+            Text(
+                "${BuildConfig.VERSION_NAME.removeSuffix("-debug")} (${BuildConfig.PHONE_BUILD})",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.caption3,
+                color = MaterialTheme.colors.onSurfaceVariant,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
 

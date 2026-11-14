@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 235)
+
+- The build number is shown on Android (Settings › About) and at the bottom of the list on Wear OS and Apple Watch, as on iPhone.
+
 ## 16.2.2 (build 234)
 
 Fixes from the rest and cross-check of the audit (31 findings): «own wallet» never links a loose transfer candidate on its own; daily rates fall back when Binance is unreachable; coins with short candle series count from their first close; «1 Y» in display currency independent of the chart range; restore over damaged files works again; full storage handled everywhere; watch percent labelled correctly; pulse widget always shows its age; US macro releases in the morning notification; consistent terms (bid/ask = «Kauf/Verkauf» in German). New: «Battery & activity» shows the app's own background runs, requests and data for phone and watch.
