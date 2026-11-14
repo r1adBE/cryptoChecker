@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
@@ -51,6 +50,7 @@ import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.notification.AlarmSoundStore
+import com.cryptochecker.app.util.AppVersion
 import com.cryptochecker.app.wearable.PhoneWatchSync
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -280,7 +280,7 @@ fun SettingsScreen(
                         SettingsNavRow(
                             title = stringResource(R.string.settings_row_about),
                             icon = R.drawable.ic_settings_about,
-                            value = BuildConfig.VERSION_NAME,
+                            value = AppVersion.text,
                             onClick = { onOpenPage(SettingsPage.ABOUT) }
                         )
                     }

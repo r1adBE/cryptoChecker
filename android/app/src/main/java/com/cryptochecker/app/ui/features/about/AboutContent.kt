@@ -29,11 +29,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.ExchangeVerification
 import com.cryptochecker.app.domain.util.LocaleNumbers
+import com.cryptochecker.app.util.AppVersion
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -84,7 +84,7 @@ fun ColumnScope.AboutContent(
         )
         Column(modifier = Modifier.padding(start = Spacing.md)) {
             Text(
-                text = stringResource(R.string.about_version, BuildConfig.VERSION_NAME),
+                text = stringResource(R.string.about_version, AppVersion.text),
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(

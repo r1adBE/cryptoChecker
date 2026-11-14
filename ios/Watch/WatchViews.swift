@@ -45,7 +45,19 @@ struct WatchQuoteList: View {
             if !phone {
                 NavigationLink(WatchText.t("watch_choose")) { WatchChooseList(model: model) }
             }
+            // Version samt Build-Nummer, z. B. «16.2.2 (234)» — wie Wear OS und «Über» auf dem iPhone
+            Text(Self.versionText).font(.footnote).foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+                .listRowBackground(Color.clear)
         }
+    }
+
+    /// «16.2.2 (234)» aus dem Bundle der Uhr-App (gleiche Version und Build-Nummer wie die iPhone-App).
+    static var versionText: String {
+        let info = Bundle.main.infoDictionary
+        let short = info?["CFBundleShortVersionString"] as? String ?? "—"
+        guard let build = info?["CFBundleVersion"] as? String, !build.isEmpty, build != short else { return short }
+        return "\(short) (\(build))"
     }
 
     /// «Stand …» = ältester gezeigter Kurs (je Coin eigene Zeit).

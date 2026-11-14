@@ -47,6 +47,8 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 90_000 + phoneBuild
         versionName = phoneVersion
+        // Build-Nummer der Handy-App für die Anzeige unten in der Liste (versionCode der Uhr ist 90 000 + diese)
+        buildConfigField("int", "PHONE_BUILD", "$phoneBuild")
     }
 
     signingConfigs {
