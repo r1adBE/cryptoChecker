@@ -190,7 +190,7 @@ class HistoricPriceSourceTest {
             historic.dailyCloseUsdt("ETH", date, current = 3100.0),
         )
         assertEquals(2, http.count("data-api.binance.vision"))
-        assertEquals(2, http.count("api.binance.com"))
+        assertEquals(2, http.count("://api.binance.com"))  // nicht fapi.binance.com
         // Zweiter Tag: Binance nicht erneut abgewartet
         historic.dailyCloseUsdt("ETH", date.minusDays(1), current = 3100.0)
         assertEquals(2, http.count("data-api.binance.vision"))

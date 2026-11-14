@@ -196,7 +196,8 @@ class PortfolioPriceSourceTest {
         names.saveBinance(mapOf("BTC" to "Bitcoin", "ETH" to "Ethereum", "IOTA" to "IOTA", "FUT" to "Futures Only"))
         val known = mapOf("BTCUSDT" to "60000.5", "IOTAUSDT" to "0.21")
         val http = RouteHttp { url ->
-            if (!url.startsWith(tickers)) return@RouteHttp null
+            // Andere Quellen kennen den unbekannten Coin nicht (404) — keine Antwort hiesse «nicht abrufbar» (G4-05)
+            if (!url.startsWith(tickers)) return@RouteHttp Reply("", 404)
             val asked = java.net.URLDecoder.decode(url.removePrefix(tickers), "UTF-8")
             if ("FUTUSDT" in asked) return@RouteHttp Reply("""{"code":-1121,"msg":"Invalid symbol."}""", 400)
             Reply(known.filterKeys { "\"$it\"" in asked }.entries.joinToString(",", "[", "]") {

@@ -166,7 +166,7 @@ enum ActivityMonitor {
         // Wie der Chart: eigene Börse, sonst Ausweich-Kette nur bei gleichem Token (nie für Laufzeit-Kontrakte)
         let pair = CandlePair.of(watch)
         let price = watch.lastPrice
-        async let candlesJob = timed {
+        async let candlesJob = timedOutcome {
             await VolumeDataSource.pairCandles(pair, price: price, interval: .h1, limit: VolumeDataSource.limit)?.value
         }
         async let futuresJob = perpetualFutures(watch)

@@ -1724,6 +1724,22 @@
    ],
    "links": [
     {
+     "key": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1",
+     "withdrawalKey": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
+     "depositKey": "KRAKEN|QE1",
+     "withdrawalId": null,
+     "depositId": 12,
+     "sent": "1",
+     "received": "0.999",
+     "fee": "0.001",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Binance",
+     "to": "Kraken",
+     "unambiguous": true
+    },
+    {
      "key": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|- → KRAKEN|QD60",
      "withdrawalKey": "BINANCE|WITHDRAWAL|BTC|L1714564800000|1|-",
      "depositKey": "KRAKEN|QD60",
@@ -1739,22 +1755,6 @@
      "to": "Kraken",
      "unambiguous": false,
      "loose": true
-    },
-    {
-     "key": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|- → KRAKEN|QE1",
-     "withdrawalKey": "BINANCE|WITHDRAWAL|ETH|L1714564800000|1|-",
-     "depositKey": "KRAKEN|QE1",
-     "withdrawalId": null,
-     "depositId": 12,
-     "sent": "1",
-     "received": "0.999",
-     "fee": "0.001",
-     "feeUnit": "COIN",
-     "feeCoin": null,
-     "feeCoinAmount": null,
-     "from": "Binance",
-     "to": "Kraken",
-     "unambiguous": true
     }
    ],
    "default": [

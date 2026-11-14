@@ -72,6 +72,7 @@ class UsageViewModel @Inject constructor(
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     val settings: StateFlow<AppSettings> = settingsRepository.settings
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached)
 
     /** Periodische Hintergrund-Prüfung geplant (WorkManager)? */
     val periodicPlanned: StateFlow<Boolean> = scheduler.observePeriodicPlanned()
