@@ -14,7 +14,7 @@ struct AboutSettingsPage: View {
         SettingsCardsPage(title: L("settings_row_about")) {
             SettingsCard {
                 // Nur wo es Entwickleroptionen gibt (Debug): im Release keine Meldung «freigeschaltet» ohne neue Zeile
-                AboutContent(onVersionTap: DeveloperOptions.available ? versionTapped : nil)
+                AboutContent(onVersionTap: versionTap)
                     .padding(.vertical, Spacing.sm)
             }
             // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen
@@ -105,6 +105,13 @@ struct AboutSettingsPage: View {
     static let countdownFrom = 3
 
     /// 7 Tipps auf die Version schalten die Entwickleroptionen frei; die letzten zählen herunter.
+    /// Tipp-Handler der Versionszeile; nil ohne Entwickleroptionen (Release). Eigene Eigenschaft mit festem Typ:
+    /// ein Bedingungsausdruck im View-Builder überfordert die Typprüfung.
+    private var versionTap: (() -> Void)? {
+        guard DeveloperOptions.available else { return nil }
+        return { versionTapped() }
+    }
+
     private func versionTapped() {
         guard !data.settings.developerUnlocked else { return }
         versionTaps += 1
