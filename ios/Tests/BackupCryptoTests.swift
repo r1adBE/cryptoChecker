@@ -299,9 +299,10 @@ final class BackupLimitsTests: XCTestCase {
     /// Grenzen der exakten Zahlen (wie Android `PortfolioJson.decimal`).
     func testTextNumbersHaveLimits() throws {
         let json = try backupJSON(portfolio: [
-            tx(["amountText": "0.5"]), tx(["amountText": "1e300"]), tx(["amountText": "1e-50"]),
-            tx(["priceText": "1e31"]), tx(["feeText": "1e35"]),
+            tx(["id": 1, "amountText": "0.5"]), tx(["id": 2, "amountText": "1e300"]), tx(["id": 3, "amountText": "1e-50"]),
+            tx(["id": 4, "priceText": "1e31"]), tx(["id": 5, "feeText": "1e35"]),
         ])
+        // Eigene Kennungen: doppelte zählten ebenfalls als ungültig (S3-08)
         // Menge zu gross bzw. zu fein → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
         XCTAssertEqual(try BackupManager.invalidEntries(json), 2)
         // Zahl statt Text: Sicherung unlesbar

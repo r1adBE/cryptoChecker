@@ -67,15 +67,20 @@ final class CsvTransferWindowTests: XCTestCase {
             + free.filter { $0.type == .WITHDRAWAL || ($0.type == .TRANSFER && $0.transferTo == nil) }.map { ([], [$0]) }
         let ins: [Side] = txs.filter { $0.type == .DEPOSIT }.map { ([$0], []) }
             + free.filter { $0.type == .DEPOSIT }.map { ([], [$0]) }
-        var found: [CsvTransferLink] = []
+        var all: [CsvTransferLink] = []
         for w in outs {
             for d in ins {
-                found += CsvTransferMatch.candidates(w.txs + d.txs, place: place, stored: w.stored + d.stored)
+                all += CsvTransferMatch.candidates(w.txs + d.txs, place: place, stored: w.stored + d.stored)
             }
         }
+        // Weitere Kandidaten (`loose`) nur zwischen Seiten ohne üblichen Kandidaten; «eindeutig» nur unter den üblichen
+        let strict = all.filter { !$0.loose }
+        let strictOut = Set(strict.map(\.withdrawalKey))
+        let strictIn = Set(strict.map(\.depositKey))
+        let found = strict + all.filter { $0.loose && !strictOut.contains($0.withdrawalKey) && !strictIn.contains($0.depositKey) }
         var perOut: [String: Int] = [:]
         var perIn: [String: Int] = [:]
-        for l in found {
+        for l in strict {
             perOut[l.withdrawalKey, default: 0] += 1
             perIn[l.depositKey, default: 0] += 1
         }
@@ -85,8 +90,8 @@ final class CsvTransferWindowTests: XCTestCase {
                 withdrawalId: l.withdrawalId, depositId: l.depositId, sent: l.sent, received: l.received, fee: l.fee,
                 feeUnit: l.feeUnit, feeCoin: l.feeCoin, feeCoinAmount: l.feeCoinAmount, withdrawalTime: l.withdrawalTime,
                 depositTime: l.depositTime, from: l.from, to: l.to,
-                unambiguous: perOut[l.withdrawalKey] == 1 && perIn[l.depositKey] == 1, stored: l.stored,
-                absorbed: l.absorbed)
+                unambiguous: !l.loose && perOut[l.withdrawalKey] == 1 && perIn[l.depositKey] == 1, stored: l.stored,
+                absorbed: l.absorbed, loose: l.loose)
         }
         return marked.enumerated().sorted { a, b in
             if a.element.withdrawalTime != b.element.withdrawalTime {

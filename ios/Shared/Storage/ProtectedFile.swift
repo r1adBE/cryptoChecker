@@ -336,7 +336,7 @@ enum ProtectedFile {
             let url = dir.appendingPathComponent(name)
             guard let modified = (try? fm.attributesOfItem(atPath: url.path))?[.modificationDate] as? Date,
                   now - Int64(modified.timeIntervalSince1970 * 1000) > staleTempMillis,
-                  (try? fm.removeItem(at: url)) != nil else { continue }
+                  AppLog.attempt("Zwischendatei entfernen", { try fm.removeItem(at: url) }) else { continue }
             removed += 1
         }
         return removed

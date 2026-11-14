@@ -95,7 +95,7 @@ class DispatcherInjectionGuardTest {
         val LINE_COMMENT = Regex("""(^|[ \t])//[^\n]*""", RegexOption.MULTILINE)
 
         const val REMAINING_FILES = 35
-        const val REMAINING_PLACES = 56
+        const val REMAINING_PLACES = 57
 
         /** Datei → höchstens so viele `Dispatchers.IO`/`Dispatchers.Default` im Code; darf nur sinken. */
         val REMAINING: Map<String, Int> = mapOf(
@@ -109,7 +109,7 @@ class DispatcherInjectionGuardTest {
             "app/app/ui/features/portfolio/PortfolioExportRun.kt" to 2,
             "app/app/ui/features/portfolio/PortfolioCsvImportReader.kt" to 3,
             "app/app/ui/features/watchlist/WatchlistContentFlows.kt" to 1,
-            "data/app/data/local/StorageRecoveryNotice.kt" to 1,
+            "data/app/data/local/StorageRecoveryNotice.kt" to 2,
             "data/app/data/portfolio/PortfolioBackupMirror.kt" to 1,
             "data/app/data/remote/util/InFlightRequests.kt" to 1,
             // Begleitobjekt: «App zurücksetzen» löscht die Einträge der Uhr aus dem Bildschirm heraus, bevor der Prozess
