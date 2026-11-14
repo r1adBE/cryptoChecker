@@ -8,7 +8,8 @@
     { "name": "worker, armed, 60 min: 58 min", "trigger": "worker", "exactArmed": true, "minutes": 60, "expected": 3480000 },
     { "name": "worker, armed, 5 min counts as 15: 13 min", "trigger": "worker", "exactArmed": true, "minutes": 5, "expected": 780000 },
     { "name": "worker, not armed: 5 min", "trigger": "worker", "exactArmed": false, "minutes": 60, "expected": 300000 },
-    { "name": "exact itself: 5 min", "trigger": "exact", "exactArmed": true, "minutes": 60, "expected": 300000 },
+    { "name": "exact itself, 60 min: half the interval (30 min)", "trigger": "exact", "exactArmed": true, "minutes": 60, "expected": 1800000 },
+    { "name": "exact itself, 15 min: 7.5 min", "trigger": "exact", "exactArmed": true, "minutes": 15, "expected": 450000 },
     { "name": "widget: 5 min (never skipped anyway)", "trigger": "widget", "exactArmed": true, "minutes": 60, "expected": 300000 }
   ],
   "interval": [
@@ -36,6 +37,8 @@
     { "name": "worker without exact, 4 min", "trigger": "worker", "exactArmed": false, "minutes": 30, "age": 240000, "expected": true },
     { "name": "exact itself, 20 min after worker", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 1200000, "expected": false },
     { "name": "exact itself, 4 min", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 240000, "expected": true },
+    { "name": "exact itself, 30 min, worker fully checked 10 min ago: skipped", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 600000, "expected": true },
+    { "name": "exact itself, 30 min, exactly half the interval: runs", "trigger": "exact", "exactArmed": true, "minutes": 30, "age": 900000, "expected": false },
     { "name": "widget never skipped", "trigger": "widget", "exactArmed": true, "minutes": 60, "age": 1000, "expected": false },
     { "name": "worker, armed, 60 min, 57 min", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": 3420000, "expected": true },
     { "name": "worker, armed, 60 min, 59 min: within the tolerance, runs", "trigger": "worker", "exactArmed": true, "minutes": 60, "age": 3540000, "expected": false },
