@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 240)
+
+- CI: the iOS Simulator for UI tests gets a keyboard without introductions and suggestions, so the tests no longer hang after the first tap into a text field.
+
 ## 16.2.2 (build 239)
 
 - Android: new setting «Show on watch»: price notifications, alerts and market notifications appear silently on the watch, shown by the Crypto Checker watch app (not twice). iPhone: a hint where the Watch app controls mirroring to the Apple Watch.

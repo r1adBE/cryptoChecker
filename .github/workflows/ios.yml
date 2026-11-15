@@ -401,6 +401,16 @@ jobs:
         run: |
           xcrun simctl boot "$SIM_DEVICE" || true
           xcrun simctl bootstatus "$SIM_DEVICE" -b
+          # Keyboard without first-use introductions and suggestions: the «slide to type» introduction and the
+          # prediction bar can keep animating on a fresh Simulator, so XCUITest never sees the app idle after the
+          # first tap into a text field (each step then waits 60 s until the test times out; builds 236, 237, main 239)
+          for key in DidShowContinuousPathIntroduction KeyboardDidShowProductivityTutorial \
+                     DidShowGestureKeyboardIntroduction UIKeyboardDidShowInternationalInfoIntroduction; do
+            xcrun simctl spawn "$SIM_DEVICE" defaults write com.apple.Preferences "$key" -bool true
+          done
+          for key in KeyboardPrediction KeyboardAutocorrection KeyboardContinuousPathEnabled KeyboardShowPredictionBar; do
+            xcrun simctl spawn "$SIM_DEVICE" defaults write com.apple.Preferences "$key" -bool false
+          done
 
       # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the Simulator.
       # The app runs with -uiTesting (Debug build only): empty storage per launch, fixed exchange
