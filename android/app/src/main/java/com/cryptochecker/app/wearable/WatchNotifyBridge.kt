@@ -31,7 +31,7 @@ import javax.inject.Singleton
 class WatchNotifyBridge @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepository,
-    @param:IoDispatcher ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher ioDispatcher: CoroutineDispatcher,
 ) {
     private val scope = appScope(ioDispatcher, "Mitteilungen an die Uhr")
 
