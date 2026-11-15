@@ -12,7 +12,7 @@ when an adapter changes its URL or fields.
 Result handling (GitHub Actions, gh CLI with GITHUB_TOKEN):
   - any failure: open ONE issue "Exchange API check failed" or update the open one
   - all pass:    close that issue (with a comment) if it is open
-Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs, or
+Blocked answers (HTTP 451 or 403 — geo or IP blocks of cloud addresses — or
 the exchange's own block answer listed under "blocked", e.g. Mercado Bitcoin's
 302 without Location to «Página indisponível») count as "skipped", not as failure:
 GitHub's runners are in the US. Skipped
@@ -431,8 +431,11 @@ def check(entry):
     if status == 0 or status >= 500 or status == 429:
         time.sleep(3)
         status, body = fetch(entry)
-    if status == 451 or (status == 403 and entry.get("geo")) or status in entry.get("blocked", ()):
-        return SKIP, f"HTTP {status} (geo-blocked from this runner)"
+    # 451 and every 403: the exchange refuses this runner (geo or IP block of cloud addresses, e.g. Cloudflare in
+    # front of Mercado Bitcoin and ZebPay since 11/2026) — skipped, no issue (owner 15.11.2026). The apps on a phone are
+    # not affected; a removed endpoint answers 404/410 or with changed fields and still fails.
+    if status in (403, 451) or status in entry.get("blocked", ()):
+        return SKIP, f"HTTP {status} (blocked from this runner)"
     if status != 200:
         return FAIL, f"HTTP {status}" if status else f"no connection ({body})"
     if len(body) > 2 * 1024 * 1024:

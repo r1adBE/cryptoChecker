@@ -3188,6 +3188,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 238: usage_counts_note, usage_driver_interval/exact «Planned: …» in 75 languages (review 235 point 8)
 * Build 239: WatchNotifyBridge (/cc/notify) + WatchNotifications on Wear, FLAG_LOCAL_ONLY when forwarded; diagnostics gated by developerUnlocked; release test APKs signed with runner debug key
 * Build 240: ios.yml: Simulator keyboard defaults before UI tests
+* Build 241: exchange_live_check.py: every 403 = skipped (runner blocked)
 
 ## Known warnings
 

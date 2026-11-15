@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 241)
+
+- CI: the weekly exchange check counts HTTP 403 (like 451) as blocked from the GitHub runner and no longer opens an issue for it.
+
 ## 16.2.2 (build 240)
 
 - CI: the iOS Simulator for UI tests gets a keyboard without introductions and suggestions, so the tests no longer hang after the first tap into a text field.
