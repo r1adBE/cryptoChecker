@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.Manifest
 import android.content.Context
 import android.os.Build
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,9 +12,6 @@ import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUp
 
 /** Einstieg der Uhr-App: Liste der Favoriten mit Kurs und 24 h, Auswahl der Coins ([WatchApp]). */
 class WatchActivity : ComponentActivity() {
-    /** Erlaubnis für Mitteilungen («Auf der Uhr zeigen»); das Ergebnis braucht keine weitere Handlung. */
-    private val askNotifications = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // «Akku & Aktivität»: eigene Zähler, Summe ans Handy (höchstens alle 30 Min.)
@@ -23,12 +20,16 @@ class WatchActivity : ComponentActivity() {
         // «Auf der Uhr zeigen» am Handy eingeschaltet, Erlaubnis fehlt: einmal fragen
         if (WatchNotifications.wantsPermission(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             WatchNotifications.asked(this)
-            askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+            // Ergebnis braucht keine Handlung (ohne Erlaubnis zeigt die Uhr nichts); ohne Fragment-Ergebnis-API
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_NOTIFICATIONS)
         }
         val store = WatchStore(this)
         setContent { WatchApp(store, onQuotesChanged = { requestComplicationUpdate(this) }) }
     }
 }
+
+/** Anfrage-Nummer der Erlaubnis für Mitteilungen («Auf der Uhr zeigen»). */
+private const val REQUEST_NOTIFICATIONS = 1
 
 /** Komplikationen neu zeichnen lassen (neue Kurse oder anderer erster Favorit). */
 fun requestComplicationUpdate(context: Context) = requestUpdate(context, PriceComplicationService::class.java)
