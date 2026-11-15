@@ -44,9 +44,9 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
         ) ?: return
         plan.demote.forEach { cancelPriceSingle(it) }
         plan.overflowLines?.let { postOverflow(it, ongoing = settingsRepository.cached.ongoingNotifications) }
-        plan.cancelActivity.forEach { manager.cancel(it) }
+        plan.cancelActivity.forEach { cancelId(it) }
         if (plan.removeOverflow) postOverflow(LinkedHashMap(), ongoing = false)
-        plan.evictAlarms.forEach { manager.cancel(it) }
+        plan.evictAlarms.forEach { cancelId(it) }
         Timber.d(
             "Platz für Alarm: %d Kurs-Mitteilungen verschoben, Sammelmeldung entfernt: %b, ältere Alarme entfernt: %d",
             plan.demote.size, plan.removeOverflow, plan.evictAlarms.size,
@@ -75,6 +75,12 @@ internal fun AppNotifier.activePostTimes(): Map<Int, Long>? = runCatching {
     context.getSystemService(android.app.NotificationManager::class.java)
         ?.activeNotifications?.associate { it.id to it.postTime }
 }.getOrNull()
+
+/** Mitteilung [id] entfernen — mit «Auf der Uhr zeigen» auch auf der Uhr. */
+internal fun AppNotifier.cancelId(id: Int) {
+    manager.cancel(id)
+    watchBridge.cancel(id)
+}
 
 internal fun AppNotifier.notify(id: Int, notification: Notification) {
     notifyChecked(id, notification)
@@ -173,9 +179,13 @@ internal fun AppNotifier.notifyChecked(id: Int, notification: Notification): Boo
         Timber.d("Benachrichtigung unterdrückt: keine Berechtigung")
         return false
     }
+    // «Auf der Uhr zeigen»: die Uhr-App zeigt ihre eigene, die des Handys bleibt nur auf dem Handy
+    val toWatch = watchBridge.forwards(notification)
+    if (toWatch) watchBridge.localOnly(notification)
     return runCatching { manager.notify(id, notification) }
         .onFailure { Timber.w(it, "Benachrichtigung fehlgeschlagen") }
         .isSuccess
+        .also { posted -> if (posted && toWatch) watchBridge.show(id, notification) }
 }
 
 internal fun AppNotifier.openAppIntent(watchId: Long?): PendingIntent {

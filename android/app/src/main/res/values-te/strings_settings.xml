@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">చివరి నోటిఫికేషన్ నుండి ధర కనీసం ఇంత కదిలిన తర్వాతే ధర నోటిఫికేషన్ కనిపిస్తుంది. డేటా లేనప్పుడు ఏమీ చూపబడదు. అలర్ట్‌లపై ప్రభావం ఉండదు.</string>
     <string name="settings_ongoing_notifications">స్వైప్ చేసి తీసివేయలేరు</string>
     <string name="settings_ongoing_notifications_hint">ధర నోటిఫికేషన్‌లను పిన్ చేసి ఉంచుతుంది.</string>
+    <string name="settings_watch_notifications">గడియారంలో చూపించు</string>
+    <string name="settings_watch_notifications_hint">ధర నోటిఫికేషన్‌లు, హెచ్చరికలు మరియు మార్కెట్ నోటిఫికేషన్‌లు గడియారంలో శబ్దం లేకుండా కనిపిస్తాయి. గడియారంలో Crypto Checker అవసరం – దయచేసి అక్కడ ఒకసారి తెరిచి నోటిఫికేషన్‌లను అనుమతించండి.</string>
     <string name="settings_price_notifications">ధర నోటిఫికేషన్‌లు</string>
     <string name="settings_price_notifications_hint">ఎనేబుల్ చేసిన జతల ప్రస్తుత ధరను స్టేటస్ బార్‌లో చూపండి.</string>
     <string name="settings_price_pairs">జతలు</string>

@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">मागच्या सूचनेपासून किंमत किमान इतकी हलल्यावरच किंमत सूचना दिसते. डेटा नसताना काहीही दाखवले जात नाही. अलर्टवर परिणाम होत नाही.</string>
     <string name="settings_ongoing_notifications">स्वाइप करून काढता येत नाही</string>
     <string name="settings_ongoing_notifications_hint">किंमत सूचना पिन केलेल्या ठेवते.</string>
+    <string name="settings_watch_notifications">घड्याळावर दाखवा</string>
+    <string name="settings_watch_notifications_hint">किंमत सूचना, अलर्ट आणि बाजार सूचना घड्याळावर आवाजाशिवाय दिसतात. घड्याळावर Crypto Checker आवश्यक आहे – कृपया तेथे एकदा उघडा आणि सूचनांना परवानगी द्या.</string>
     <string name="settings_price_notifications">किंमत सूचना</string>
     <string name="settings_price_notifications_hint">सक्रिय जोड्यांची सध्याची किंमत स्टेटस बारमध्ये दाखवा.</string>
     <string name="settings_price_pairs">जोड्या</string>

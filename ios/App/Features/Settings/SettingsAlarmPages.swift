@@ -118,6 +118,9 @@ struct AlarmSettingsPage: View {
                 .settingsAnchor("alarms.change")
                 SettingsHint(text: L("settings_notification_change_hint"))
             }
+            // Apple Watch: das Spiegeln regelt die Watch-App des iPhones (iOS kennt dafür keinen Schalter je App);
+            // Android hat hier «Auf der Uhr zeigen»
+            SettingsHint(text: L("ios_watch_mirroring_hint"))
 
             RowDivider()
             ChoiceRow(

@@ -44,7 +44,8 @@ private const val DEVELOPER_COUNTDOWN_FROM = 3
 
 /**
  * Über die App: Zweck, Version (7 Tipps schalten «Entwickler» frei), Hinweis zu den Daten; darunter
- * Datenschutz, Börse wünschen, Quellcode, Lizenzen, (freigeschaltet, nur Debug) Entwickler und «Diagnose teilen».
+ * Datenschutz, Börse wünschen, Quellcode, Lizenzen, (freigeschaltet, nur Debug) Entwickler und (freigeschaltet)
+ * «Diagnose teilen».
  */
 @Composable
 internal fun AboutPage(
@@ -71,8 +72,8 @@ internal fun AboutPage(
             Column(modifier = Modifier.padding(vertical = 8.dp)) {
                 AboutContent(
                     showHeading = false,
-                    // Nur im Debug-Build zählen und melden: im Release gibt es keine Entwickleroptionen, eine
-                    // Meldung «freigeschaltet» ohne neue Zeile wäre falsch
+                    // In jedem Build: 7 Tipps schalten die Diagnose frei (Inhaber 15.11.), im Debug-Build dazu
+                    // «Entwickler» — die Meldung «freigeschaltet» hat so überall eine neue Zeile
                     onVersionTap = {
                         if (!settings.developerUnlocked) {
                             versionTaps++
@@ -86,7 +87,7 @@ internal fun AboutPage(
                                 showToast(resources.getQuantityString(R.plurals.developer_taps_left, left, left))
                             }
                         }
-                    }.takeIf { BuildConfig.DEBUG }
+                    }
                 )
             }
         }
@@ -146,9 +147,12 @@ internal fun AboutPage(
                 )
             }
         }
-        Spacer(Modifier.height(12.dp))
-        // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg
-        DiagnosticsCard()
+        // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg. Erst nach
+        // 7 Tipps auf die Version (Inhaber 15.11.: nicht für alle sichtbar), in jedem Build
+        if (settings.developerUnlocked) {
+            Spacer(Modifier.height(12.dp))
+            DiagnosticsCard()
+        }
         Spacer(Modifier.height(12.dp))
         // Was die App kann
         GroupCard {

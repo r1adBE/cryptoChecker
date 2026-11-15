@@ -53,6 +53,8 @@
     <string name="settings_notification_change_hint">A price notification appears only once the price has moved by at least this much since the last one. Nothing is shown while data is missing. Alerts are unaffected.</string>
     <string name="settings_ongoing_notifications">Cannot be swiped away</string>
     <string name="settings_ongoing_notifications_hint">Keeps price notifications pinned.</string>
+    <string name="settings_watch_notifications">Show on watch</string>
+    <string name="settings_watch_notifications_hint">Price notifications, alerts and market notifications appear silently on the watch. Needs Crypto Checker on the watch – open it there once and allow notifications.</string>
     <string name="settings_price_notifications">Price notifications</string>
     <string name="settings_price_notifications_hint">Show the current price of enabled pairs in the status bar.</string>
     <string name="settings_price_pairs">Pairs</string>

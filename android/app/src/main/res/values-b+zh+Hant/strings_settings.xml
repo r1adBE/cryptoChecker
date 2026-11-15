@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">只有當價格自上次通知以來變動至少達到此幅度時才會通知。資料缺失時不顯示任何內容。提醒不受影響。</string>
     <string name="settings_ongoing_notifications">無法滑動清除</string>
     <string name="settings_ongoing_notifications_hint">保持價格通知常駐。</string>
+    <string name="settings_watch_notifications">在手錶上顯示</string>
+    <string name="settings_watch_notifications_hint">價格通知、提醒與市場通知會以靜音方式顯示在手錶上。手錶上需要有 Crypto Checker – 請在手錶上開啟一次並允許通知。</string>
     <string name="settings_price_notifications">價格通知</string>
     <string name="settings_price_notifications_hint">在狀態列中顯示已啟用交易對的目前價格。</string>
     <string name="settings_price_pairs">交易對</string>

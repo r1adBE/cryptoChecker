@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Isaziso sentengo sivela kuphela uma intengo isinyakaze okungenani lokhu kusukela kwesokugcina. Akukho okuboniswayo lapho idatha ingekho. Ama-alamu awathinteki.</string>
     <string name="settings_ongoing_notifications">Azikwazi ukususwa ngokuswayipha</string>
     <string name="settings_ongoing_notifications_hint">Igcina izaziso zentengo ziphiniwe.</string>
+    <string name="settings_watch_notifications">Bonisa ewashini</string>
+    <string name="settings_watch_notifications_hint">Izaziso zentengo, izexwayiso nezaziso zemakethe zivela ngokuthula ewashini. Kudingeka i-Crypto Checker ewashini – yivule lapho kanye bese uvumela izaziso.</string>
     <string name="settings_price_notifications">Izaziso zentengo</string>
     <string name="settings_price_notifications_hint">Bonisa intengo yamanje yamapheya avuliwe kubha yesimo.</string>
     <string name="settings_price_pairs">Amapheya</string>

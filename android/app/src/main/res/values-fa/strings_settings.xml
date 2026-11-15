@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">اعلان فقط زمانی نمایش داده می‌شود که قیمت از اعلان قبلی دست‌کم به این اندازه تغییر کرده باشد. وقتی داده‌ای در دسترس نیست چیزی نمایش داده نمی‌شود. هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
     <string name="settings_ongoing_notifications">قابل کنار زدن نباشد</string>
     <string name="settings_ongoing_notifications_hint">اعلان‌های قیمت را ثابت نگه می‌دارد.</string>
+    <string name="settings_watch_notifications">نمایش روی ساعت</string>
+    <string name="settings_watch_notifications_hint">اعلان‌های قیمت، هشدارها و اعلان‌های بازار بی‌صدا روی ساعت نمایش داده می‌شوند. Crypto Checker باید روی ساعت باشد – یک بار آنجا بازش کن و اجازهٔ اعلان بده.</string>
     <string name="settings_price_notifications">اعلان‌های قیمت</string>
     <string name="settings_price_notifications_hint">قیمت فعلی جفت‌های فعال را در نوار وضعیت نشان بده.</string>
     <string name="settings_price_pairs">جفت‌ها</string>

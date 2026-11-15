@@ -6,6 +6,7 @@
     <string name="watch_updated">Стање од %1$s</string>
     <string name="watch_refresh">Освежи</string>
     <string name="watch_choose">Изабери криптовалуте</string>
+    <string name="watch_notify_channel">Са телефона</string>
     <string name="watch_choose_hint">Криптовалуте: највише %1$d</string>
     <string name="watch_complication_label">Цена</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s у 24 сата</string>

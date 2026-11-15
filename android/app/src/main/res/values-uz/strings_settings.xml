@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Kurs bildirishnomasi faqat kurs oxirgisidan beri kamida shuncha oʻzgarganda chiqadi. Maʼlumot yoʻq paytda hech narsa koʻrsatilmaydi. Signallarga taʼsir qilmaydi.</string>
     <string name="settings_ongoing_notifications">Surib yopib boʻlmaydi</string>
     <string name="settings_ongoing_notifications_hint">Kurs bildirishnomalarini mahkamlangan holda saqlaydi.</string>
+    <string name="settings_watch_notifications">Soatda ko‘rsatish</string>
+    <string name="settings_watch_notifications_hint">Narx bildirishnomalari, ogohlantirishlar va bozor bildirishnomalari soatda ovozsiz chiqadi. Soatda Crypto Checker kerak – iltimos, uni u yerda bir marta oching va bildirishnomalarga ruxsat bering.</string>
     <string name="settings_price_notifications">Kurs bildirishnomalari</string>
     <string name="settings_price_notifications_hint">Yoqilgan juftliklarning joriy kursini holat qatorida koʻrsatish.</string>
     <string name="settings_price_pairs">Juftliklar</string>

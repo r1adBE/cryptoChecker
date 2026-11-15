@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">Obavijest o cijeni pojavljuje se tek kada se cijena od posljednje obavijesti pomakne barem za toliko. Dok nedostaju podaci, ništa se ne prikazuje. Na alarme to ne utječe.</string>
     <string name="settings_ongoing_notifications">Ne može se odgurnuti</string>
     <string name="settings_ongoing_notifications_hint">Obavijesti o cijenama ostaju prikvačene.</string>
+    <string name="settings_watch_notifications">Prikaži na satu</string>
+    <string name="settings_watch_notifications_hint">Obavijesti o cijenama, upozorenja i obavijesti o tržištu prikazuju se tiho na satu. Potreban je Crypto Checker na satu – otvori ga ondje jednom i dopusti obavijesti.</string>
     <string name="settings_price_notifications">Obavijesti o cijenama</string>
     <string name="settings_price_notifications_hint">Prikazuj trenutnu cijenu uključenih parova na traci stanja.</string>
     <string name="settings_price_pairs">Parovi</string>

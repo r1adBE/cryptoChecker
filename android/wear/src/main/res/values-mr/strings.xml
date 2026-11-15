@@ -6,6 +6,7 @@
     <string name="watch_updated">%1$s नुसार</string>
     <string name="watch_refresh">रिफ्रेश करा</string>
     <string name="watch_choose">कॉइन निवडा</string>
+    <string name="watch_notify_channel">फोनवरून</string>
     <string name="watch_choose_hint">कॉइन: कमाल %1$d</string>
     <string name="watch_complication_label">किंमत</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 तासांत %3$s</string>

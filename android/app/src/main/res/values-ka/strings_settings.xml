@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">ფასის შეტყობინება ჩნდება მხოლოდ მაშინ, როცა ფასი წინას შემდეგ მინიმუმ ამდენით შეიცვალა. სანამ მონაცემები აკლია, არაფერი ჩანს. განგაშებზე გავლენა არ აქვს.</string>
     <string name="settings_ongoing_notifications">გადაფურცვლით ვერ მოიხსნება</string>
     <string name="settings_ongoing_notifications_hint">ფასის შეტყობინებებს მიმაგრებულს ტოვებს.</string>
+    <string name="settings_watch_notifications">საათზე ჩვენება</string>
+    <string name="settings_watch_notifications_hint">ფასის შეტყობინებები, გაფრთხილებები და ბაზრის შეტყობინებები საათზე ჩუმად ჩნდება. საჭიროა Crypto Checker საათზე – ერთხელ გახსენი იქ და დაუშვი შეტყობინებები.</string>
     <string name="settings_price_notifications">ფასის შეტყობინებები</string>
     <string name="settings_price_notifications_hint">ჩართული წყვილების მიმდინარე ფასის ჩვენება სტატუსის ზოლში.</string>
     <string name="settings_price_pairs">წყვილები</string>

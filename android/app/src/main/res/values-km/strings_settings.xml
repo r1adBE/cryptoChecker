@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">ការជូនដំណឹងតម្លៃបង្ហាញតែនៅពេលតម្លៃបានផ្លាស់ទីយ៉ាងហោចណាស់ប៉ុណ្ណេះតាំងពីការជូនដំណឹងចុងក្រោយ។ គ្មានអ្វីបង្ហាញខណៈពេលខ្វះទិន្នន័យទេ។ ការដាស់តឿនមិនរងផលប៉ះពាល់ទេ។</string>
     <string name="settings_ongoing_notifications">មិនអាចអូសចោលបាន</string>
     <string name="settings_ongoing_notifications_hint">រក្សាការជូនដំណឹងតម្លៃឱ្យខ្ទាស់។</string>
+    <string name="settings_watch_notifications">បង្ហាញលើនាឡិកា</string>
+    <string name="settings_watch_notifications_hint">ការជូនដំណឹងតម្លៃ ការជូនដំណឹងដាស់តឿន និងការជូនដំណឹងទីផ្សារ បង្ហាញស្ងាត់ៗលើនាឡិកា។ ត្រូវការ Crypto Checker លើនាឡិកា – សូមបើកវានៅទីនោះម្តង ហើយអនុញ្ញាតការជូនដំណឹង។</string>
     <string name="settings_price_notifications">ការជូនដំណឹងតម្លៃ</string>
     <string name="settings_price_notifications_hint">បង្ហាញតម្លៃបច្ចុប្បន្ននៃគូដែលបានបើកនៅក្នុងរបារស្ថានភាព។</string>
     <string name="settings_price_pairs">គូ</string>

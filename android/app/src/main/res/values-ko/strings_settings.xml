@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">마지막 알림 이후 가격이 이만큼 이상 움직였을 때만 알림이 표시됩니다. 데이터가 없으면 아무것도 표시되지 않습니다. 경보에는 영향이 없습니다.</string>
     <string name="settings_ongoing_notifications">밀어서 지우기 불가</string>
     <string name="settings_ongoing_notifications_hint">가격 알림을 고정해 둡니다.</string>
+    <string name="settings_watch_notifications">워치에 표시</string>
+    <string name="settings_watch_notifications_hint">가격 알림, 경보 및 시장 알림이 워치에 소리 없이 표시됩니다. 워치에 Crypto Checker가 필요합니다. 워치에서 한 번 열고 알림을 허용해 주세요.</string>
     <string name="settings_price_notifications">가격 알림</string>
     <string name="settings_price_notifications_hint">사용 설정한 거래쌍의 현재 가격을 상태 표시줄에 표시합니다.</string>
     <string name="settings_price_pairs">페어</string>

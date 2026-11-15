@@ -6,6 +6,7 @@
     <string name="watch_updated">እስከ %1$s</string>
     <string name="watch_refresh">ያድሱ</string>
     <string name="watch_choose">ሳንቲሞችን ይምረጡ</string>
+    <string name="watch_notify_channel">ከስልኩ</string>
     <string name="watch_choose_hint">ሳንቲሞች፦ ቢበዛ %1$d</string>
     <string name="watch_complication_label">ዋጋ</string>
     <string name="a11y_watch_row">%1$s %2$s፣ %3$s በ24 ሰዓት ውስጥ</string>

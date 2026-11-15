@@ -53,6 +53,8 @@
     <string name="settings_notification_change_hint">Уведомление появится, только когда цена изменится хотя бы на эту величину с момента предыдущего. Пока данных нет, ничего не показывается. На оповещения не влияет.</string>
     <string name="settings_ongoing_notifications">Нельзя смахнуть</string>
     <string name="settings_ongoing_notifications_hint">Уведомления о цене остаются закреплёнными.</string>
+    <string name="settings_watch_notifications">Показывать на часах</string>
+    <string name="settings_watch_notifications_hint">Уведомления о ценах, оповещения и уведомления о рынке беззвучно появляются на часах. Нужен Crypto Checker на часах – открой его там один раз и разреши уведомления.</string>
     <string name="settings_price_notifications">Уведомления о цене</string>
     <string name="settings_price_notifications_hint">Показывать текущую цену включённых пар в строке состояния.</string>
     <string name="settings_price_pairs">Пары</string>

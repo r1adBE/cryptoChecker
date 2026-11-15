@@ -390022,6 +390022,461 @@
         }
       }
     },
+    "ios_watch_mirroring_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: of kennisgewings op die horlosie verskyn, stel jy in die Watch-app op die iPhone › Kennisgewings › Crypto Checker."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch፦ ማሳወቂያዎች በሰዓቱ ላይ ይታዩ እንደሆነ በiPhone ላይ ባለው Watch መተግበሪያ › ማሳወቂያዎች › Crypto Checker ውስጥ ይቀናበራል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: يُضبط ظهور الإشعارات على الساعة في تطبيق Watch على iPhone › الإشعارات › Crypto Checker."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: bildirişlərin saatda görünüb-görünməməsi iPhone-dakı Watch tətbiqində › Bildirişlər › Crypto Checker bölməsində tənzimlənir."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: дали известията се показват на часовника се задава в приложението Watch на iPhone › Известия › Crypto Checker."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: বিজ্ঞপ্তি ঘড়িতে দেখাবে কি না তা iPhone-এর Watch অ্যাপ › বিজ্ঞপ্তি › Crypto Checker-এ সেট করা হয়।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: da li se obavještenja prikazuju na satu podešava se u aplikaciji Watch na iPhoneu › Obavještenja › Crypto Checker."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: si les notificacions apareixen al rellotge es configura a l’app Watch de l’iPhone › Notificacions › Crypto Checker."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: zda se oznámení zobrazí na hodinkách, nastavíš v aplikaci Watch na iPhonu › Oznámení › Crypto Checker."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: om notifikationer vises på uret, indstiller du i Watch-appen på iPhone › Notifikationer › Crypto Checker."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: Ob Mitteilungen auf der Uhr erscheinen, stellst du in der Watch-App auf dem iPhone ein › Mitteilungen › Crypto Checker."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: το αν οι ειδοποιήσεις εμφανίζονται στο ρολόι ρυθμίζεται στην εφαρμογή Watch του iPhone › Ειδοποιήσεις › Crypto Checker."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: whether notifications appear on the watch is set in the Watch app on iPhone › Notifications › Crypto Checker."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: si las notificaciones aparecen en el reloj se ajusta en la app Watch del iPhone › Notificaciones › Crypto Checker."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: kas teated kellal ilmuvad, seadistatakse iPhone’i rakenduses Watch › Teavitused › Crypto Checker."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: jakinarazpenak erlojuan agertzen diren iPhoneko Watch aplikazioan ezartzen da › Jakinarazpenak › Crypto Checker."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: نمایش اعلان‌ها روی ساعت در برنامهٔ Watch روی iPhone › اعلان‌ها › Crypto Checker تنظیم می‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: näkyvätkö ilmoitukset kellossa, asetetaan iPhonen Watch-apissa › Ilmoitukset › Crypto Checker."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: kung lalabas ang mga notification sa relo ay itinatakda sa Watch app sa iPhone › Mga Notification › Crypto Checker."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch : l’affichage des notifications sur la montre se règle dans l’app Watch de l’iPhone › Notifications › Crypto Checker."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: socraítear an dtaispeántar fógraí ar an uaireadóir san aip Watch ar an iPhone › Fógraí › Crypto Checker."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: se as notificacións aparecen no reloxo axústase na app Watch do iPhone › Notificacións › Crypto Checker."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: સૂચનાઓ ઘડિયાળ પર દેખાય કે નહીં તે iPhone પરની Watch ઍપ › સૂચનાઓ › Crypto Checker માં સેટ થાય છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: הופעת ההתראות בשעון נקבעת באפליקציית Watch ב‑iPhone › הודעות › Crypto Checker."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: सूचनाएँ घड़ी पर दिखें या नहीं, यह iPhone के Watch ऐप › सूचनाएँ › Crypto Checker में तय होता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: hoće li se obavijesti prikazati na satu postavlja se u aplikaciji Watch na iPhoneu › Obavijesti › Crypto Checker."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: azt, hogy az értesítések megjelennek-e az órán, az iPhone Watch appjában állíthatod be › Értesítések › Crypto Checker."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch․ ծանուցումների հայտնվելը ժամացույցում կարգավորվում է iPhone-ի Watch հավելվածում › Ծանուցումներ › Crypto Checker։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: apakah notifikasi muncul di jam diatur di app Watch pada iPhone › Notifikasi › Crypto Checker."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: hvort tilkynningar birtast á úrinu er stillt í Watch-appinu á iPhone › Tilkynningar › Crypto Checker."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: se le notifiche compaiono sull’orologio si imposta nell’app Watch dell’iPhone › Notifiche › Crypto Checker."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch：通知をウォッチに表示するかどうかは、iPhone の Watch アプリ › 通知 › Crypto Checker で設定します。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: გამოჩნდება თუ არა შეტყობინებები საათზე, iPhone-ის Watch აპში ყენდება › შეტყობინებები › Crypto Checker."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: хабарландырулардың сағатта шығуы iPhone-дағы Watch қолданбасында › Хабарландырулар › Crypto Checker бөлімінде орнатылады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch៖ ថាតើការជូនដំណឹងបង្ហាញលើនាឡិកាឬអត់ ត្រូវកំណត់ក្នុងកម្មវិធី Watch លើ iPhone › ការជូនដំណឹង › Crypto Checker។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ಅಧಿಸೂಚನೆಗಳು ಗಡಿಯಾರದಲ್ಲಿ ಕಾಣಿಸಬೇಕೇ ಎಂಬುದನ್ನು iPhone ನ Watch ಆ್ಯಪ್ › ಅಧಿಸೂಚನೆಗಳು › Crypto Checker ನಲ್ಲಿ ಹೊಂದಿಸಲಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: 알림을 워치에 표시할지는 iPhone의 Watch 앱 › 알림 › Crypto Checker에서 설정합니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ການສະແດງການແຈ້ງເຕືອນໃນໂມງ ຕັ້ງໄດ້ໃນແອັບ Watch ຂອງ iPhone › ການແຈ້ງເຕືອນ › Crypto Checker."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ar pranešimai rodomi laikrodyje, nustatoma iPhone programėlėje Watch › Pranešimai › Crypto Checker."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: vai paziņojumi parādās pulkstenī, iestata iPhone lietotnē Watch › Paziņojumi › Crypto Checker."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: дали известувањата се прикажуваат на часовникот се поставува во апликацијата Watch на iPhone › Известувања › Crypto Checker."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: അറിയിപ്പുകൾ വാച്ചിൽ കാണിക്കണോ എന്നത് iPhone-ലെ Watch ആപ്പ് › അറിയിപ്പുകൾ › Crypto Checker-ൽ സജ്ജമാക്കാം."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: мэдэгдэл цаган дээр харагдах эсэхийг iPhone дээрх Watch апп › Мэдэгдэл › Crypto Checker хэсэгт тохируулна."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: सूचना घड्याळावर दिसाव्यात का हे iPhone वरील Watch ॲप › सूचना › Crypto Checker मध्ये ठरवले जाते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: sama ada pemberitahuan dipaparkan pada jam ditetapkan dalam apl Watch pada iPhone › Pemberitahuan › Crypto Checker."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch- အသိပေးချက်များ နာရီပေါ်တွင် ပေါ်မပေါ်ကို iPhone ရှိ Watch အက်ပ် › အသိပေးချက်များ › Crypto Checker တွင် သတ်မှတ်ပါသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: om varsler vises på klokken, stiller du inn i Watch-appen på iPhone › Varslinger › Crypto Checker."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: सूचना घडीमा देखिने कि नदेखिने भन्ने iPhone को Watch एप › सूचना › Crypto Checker मा सेट गरिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: of meldingen op het horloge verschijnen, stel je in in de Watch-app op de iPhone › Berichtgeving › Crypto Checker."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ਸੂਚਨਾਵਾਂ ਘੜੀ ’ਤੇ ਦਿਖਣ ਜਾਂ ਨਹੀਂ, ਇਹ iPhone ਦੀ Watch ਐਪ › ਸੂਚਨਾਵਾਂ › Crypto Checker ਵਿੱਚ ਸੈੱਟ ਹੁੰਦਾ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: to, czy powiadomienia pojawiają się na zegarku, ustawisz w aplikacji Watch na iPhonie › Powiadomienia › Crypto Checker."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: se as notificações aparecem no relógio define-se na app Watch do iPhone › Notificações › Crypto Checker."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: se as notificações aparecem no relógio é definido no app Watch do iPhone › Notificações › Crypto Checker."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: dacă notificările apar pe ceas se setează în aplicația Watch de pe iPhone › Notificări › Crypto Checker."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: показываются ли уведомления на часах, настраивается в приложении Watch на iPhone › Уведомления › Crypto Checker."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: දැනුම්දීම් ඔරලෝසුවේ පෙන්වන්නේද යන්න iPhone හි Watch යෙදුම › දැනුම්දීම් › Crypto Checker තුළ සකසයි."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: či sa upozornenia zobrazia na hodinkách, nastavíš v aplikácii Watch na iPhone › Upozornenia › Crypto Checker."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ali se obvestila prikažejo na uri, nastaviš v aplikaciji Watch na iPhonu › Obvestila › Crypto Checker."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: nëse njoftimet shfaqen në orë caktohet në aplikacionin Watch në iPhone › Njoftimet › Crypto Checker."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: да ли се обавештења приказују на сату подешава се у апликацији Watch на iPhone-у › Обавештења › Crypto Checker."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: da li se obaveštenja prikazuju na satu podešava se u aplikaciji Watch na iPhone-u › Obaveštenja › Crypto Checker."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: om notiser visas på klockan ställer du in i Watch-appen på iPhone › Notiser › Crypto Checker."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: ikiwa arifa zinaonekana kwenye saa huwekwa katika programu ya Watch kwenye iPhone › Arifa › Crypto Checker."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: அறிவிப்புகள் கடிகாரத்தில் தோன்றுமா என்பதை iPhone இன் Watch ஆப் › அறிவிப்புகள் › Crypto Checker இல் அமைக்கலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: నోటిఫికేషన్‌లు గడియారంలో కనిపించాలా అనేది iPhone లోని Watch యాప్ › నోటిఫికేషన్‌లు › Crypto Checker లో సెట్ చేస్తారు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: การแสดงการแจ้งเตือนบนนาฬิกาตั้งค่าได้ในแอป Watch บน iPhone › การแจ้งเตือน › Crypto Checker"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: bildirimlerin saatte görünüp görünmeyeceği iPhone’daki Watch uygulamasında › Bildirimler › Crypto Checker bölümünden ayarlanır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: чи з’являються сповіщення на годиннику, налаштовується в застосунку Watch на iPhone › Сповіщення › Crypto Checker."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: اطلاعات گھڑی پر دکھیں یا نہیں، یہ iPhone کی Watch ایپ › اطلاعات › Crypto Checker میں طے ہوتا ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: bildirishnomalar soatda chiqishi iPhone’dagi Watch ilovasida › Bildirishnomalar › Crypto Checker bo‘limida sozlanadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch: việc thông báo có hiện trên đồng hồ hay không được đặt trong ứng dụng Watch trên iPhone › Thông báo › Crypto Checker."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch：通知會唔會喺手錶顯示，喺 iPhone 嘅 Watch App › 通知 › Crypto Checker 度設定。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch：通知是否显示在手表上，请在 iPhone 的 Watch App › 通知 › Crypto Checker 中设置。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch：通知是否顯示在手錶上，請在 iPhone 的 Watch App › 通知 › Crypto Checker 中設定。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-Apple Watch: ukuthi izaziso ziyavela yini ewashini kusethwa ku-app ye-Watch ku-iPhone › Izaziso › Crypto Checker."
+          }
+        }
+      }
+    },
     "label_value" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -827246,6 +827701,916 @@
         }
       }
     },
+    "settings_watch_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wys op horlosie"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "በሰዓቱ ላይ አሳይ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض على الساعة"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatda göstər"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показване на часовника"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঘড়িতে দেখান"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prikaži na satu"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra al rellotge"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobrazit na hodinkách"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis på uret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf der Uhr zeigen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εμφάνιση στο ρολόι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show on watch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar en el reloj"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näita kellal"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erakutsi erlojuan"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایش روی ساعت"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytä kellossa"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ipakita sa relo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher sur la montre"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taispeáin ar an uaireadóir"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amosar no reloxo"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ઘડિયાળ પર બતાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצגה בשעון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड़ी पर दिखाएँ"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prikaži na satu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Megjelenítés az órán"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ցույց տալ ժամացույցում"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan di jam"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sýna á úrinu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra sull’orologio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチに表示"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "საათზე ჩვენება"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сағатта көрсету"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បង្ហាញលើនាឡិកា"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಗಡಿಯಾರದಲ್ಲಿ ತೋರಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "워치에 표시"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ສະແດງໃນໂມງ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rodyti laikrodyje"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rādīt pulkstenī"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прикажи на часовникот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വാച്ചിൽ കാണിക്കുക"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цаган дээр харуулах"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घड्याळावर दाखवा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tunjukkan pada jam"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "နာရီပေါ်တွင် ပြရန်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vis på klokken"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "घडीमा देखाउनुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Op horloge tonen"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਘੜੀ ’ਤੇ ਦਿਖਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaż na zegarku"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar no relógio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar no relógio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișează pe ceas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показывать на часах"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ඔරලෝසුවේ පෙන්වන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť na hodinkách"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokaži na uri"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shfaq në orë"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прикажи на сату"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prikaži na satu"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa på klockan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onyesha kwenye saa"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடிகாரத்தில் காட்டு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "గడియారంలో చూపించు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงบนนาฬิกา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saatte göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показувати на годиннику"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گھڑی پر دکھائیں"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soatda ko‘rsatish"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị trên đồng hồ"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "喺手錶顯示"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在手表上显示"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在手錶上顯示"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonisa ewashini"
+          }
+        }
+      }
+    },
+    "settings_watch_notifications_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pryskennisgewings, waarskuwings en markkennisgewings verskyn stil op die horlosie. Benodig Crypto Checker op die horlosie – maak dit een keer daar oop en laat kennisgewings toe."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የዋጋ ማሳወቂያዎች፣ ማንቂያዎች እና የገበያ ማሳወቂያዎች በሰዓቱ ላይ በጸጥታ ይታያሉ። Crypto Checker በሰዓቱ ላይ ያስፈልጋል – እባክዎ እዚያ አንድ ጊዜ ይክፈቱት እና ማሳወቂያዎችን ይፍቀዱ።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تظهر إشعارات الأسعار والتنبيهات وإشعارات السوق بصمت على الساعة. يلزم وجود Crypto Checker على الساعة – افتحه هناك مرة واسمح بالإشعارات."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qiymət bildirişləri, xəbərdarlıqlar və bazar bildirişləri saatda səssiz görünür. Saatda Crypto Checker lazımdır – orada bir dəfə aç və bildirişlərə icazə ver."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Известията за цени, сигналите и пазарните известия се показват тихо на часовника. Нужен е Crypto Checker на часовника – отвори го там веднъж и разреши известията."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "দামের বিজ্ঞপ্তি, সতর্কতা ও বাজারের বিজ্ঞপ্তি ঘড়িতে নিঃশব্দে দেখায়। ঘড়িতে Crypto Checker দরকার – অনুগ্রহ করে সেখানে একবার খুলুন এবং বিজ্ঞপ্তির অনুমতি দিন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obavještenja o cijenama, upozorenja i obavještenja o tržištu prikazuju se tiho na satu. Potreban je Crypto Checker na satu – otvori ga tamo jednom i dozvoli obavještenja."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les notificacions de preu, les alertes i les notificacions de mercat apareixen en silenci al rellotge. Cal Crypto Checker al rellotge: obre’l allà un cop i permet les notificacions."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenová oznámení, upozornění a tržní oznámení se tiše zobrazí na hodinkách. Je potřeba Crypto Checker v hodinkách – jednou ho tam otevři a povol oznámení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursnotifikationer, alarmer og markedsnotifikationer vises lydløst på uret. Kræver Crypto Checker på uret – åbn den der én gang og tillad notifikationer."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurs-Mitteilungen, Alarme und Markt-Mitteilungen erscheinen still auf der Uhr. Dafür braucht es Crypto Checker auf der Uhr – dort einmal öffnen und Mitteilungen erlauben."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις τιμών, οι ειδοποιήσεις ορίων και οι ειδοποιήσεις αγοράς εμφανίζονται αθόρυβα στο ρολόι. Χρειάζεται το Crypto Checker στο ρολόι – άνοιξέ το εκεί μία φορά και επίτρεψε τις ειδοποιήσεις."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price notifications, alerts and market notifications appear silently on the watch. Needs Crypto Checker on the watch – open it there once and allow notifications."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las notificaciones de precio, las alertas y las notificaciones del mercado aparecen en silencio en el reloj. Requiere Crypto Checker en el reloj: ábrelo allí una vez y permite las notificaciones."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinnateated, hoiatused ja turuteated ilmuvad kellale vaikselt. Vaja on Crypto Checkerit kellas – ava see seal korra ja luba teavitused."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezio-jakinarazpenak, alertak eta merkatu-jakinarazpenak isilik agertzen dira erlojuan. Crypto Checker behar da erlojuan – ireki behin han eta baimendu jakinarazpenak."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان‌های قیمت، هشدارها و اعلان‌های بازار بی‌صدا روی ساعت نمایش داده می‌شوند. Crypto Checker باید روی ساعت باشد – یک بار آنجا بازش کن و اجازهٔ اعلان بده."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hintailmoitukset, hälytykset ja markkinailmoitukset näkyvät kellossa äänettömästi. Kellossa on oltava Crypto Checker – avaa se siellä kerran ja salli ilmoitukset."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tahimik na lalabas sa relo ang mga notification ng presyo, alerto at notification ng merkado. Kailangan ang Crypto Checker sa relo – buksan ito roon nang isang beses at payagan ang notification."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les notifications de cours, les alertes et les notifications de marché s’affichent en silence sur la montre. Crypto Checker doit être installé sur la montre – ouvre-le une fois et autorise les notifications."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taispeántar fógraí praghais, foláirimh agus fógraí margaidh go ciúin ar an uaireadóir. Tá Crypto Checker ag teastáil ar an uaireadóir – oscail ann é uair amháin agus ceadaigh fógraí."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificacións de prezo, as alertas e as notificacións do mercado aparecen en silencio no reloxo. Precisa Crypto Checker no reloxo: ábreo alí unha vez e permite as notificacións."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ભાવ સૂચનાઓ, ચેતવણીઓ અને બજાર સૂચનાઓ ઘડિયાળ પર શાંતિથી દેખાય છે. ઘડિયાળ પર Crypto Checker જરૂરી છે – કૃપા કરીને ત્યાં એક વાર ખોલો અને સૂચનાઓની મંજૂરી આપો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות מחיר, התראות סף והתראות שוק מופיעות בשעון בשקט. נדרש Crypto Checker בשעון – יש לפתוח אותו שם פעם אחת ולאשר התראות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कीमत सूचनाएँ, अलर्ट और बाज़ार सूचनाएँ घड़ी पर बिना आवाज़ दिखती हैं। घड़ी पर Crypto Checker ज़रूरी है – कृपया वहाँ एक बार खोलें और सूचनाओं की अनुमति दें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obavijesti o cijenama, upozorenja i obavijesti o tržištu prikazuju se tiho na satu. Potreban je Crypto Checker na satu – otvori ga ondje jednom i dopusti obavijesti."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az árértesítések, riasztások és piaci értesítések hang nélkül jelennek meg az órán. Kell hozzá a Crypto Checker az órán – nyisd meg ott egyszer, és engedélyezd az értesítéseket."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Գնի ծանուցումները, ազդանշանները և շուկայի ծանուցումները լուռ հայտնվում են ժամացույցում։ Պետք է Crypto Checker ժամացույցում – մեկ անգամ բացիր այն այնտեղ և թույլատրիր ծանուցումները։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikasi harga, peringatan, dan notifikasi pasar muncul tanpa suara di jam. Perlu Crypto Checker di jam – buka sekali di sana dan izinkan notifikasi."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verðtilkynningar, viðvaranir og markaðstilkynningar birtast hljóðlaust á úrinu. Crypto Checker þarf að vera á úrinu – opnaðu það þar einu sinni og leyfðu tilkynningar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le notifiche dei prezzi, gli avvisi e le notifiche di mercato compaiono in silenzio sull’orologio. Serve Crypto Checker sull’orologio: aprilo lì una volta e consenti le notifiche."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格通知、アラート、マーケット通知がウォッチに無音で表示されます。ウォッチに Crypto Checker が必要です。ウォッチで一度開き、通知を許可してください。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ფასის შეტყობინებები, გაფრთხილებები და ბაზრის შეტყობინებები საათზე ჩუმად ჩნდება. საჭიროა Crypto Checker საათზე – ერთხელ გახსენი იქ და დაუშვი შეტყობინებები."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Баға хабарландырулары, ескертулер және нарық хабарландырулары сағатта дыбыссыз шығады. Сағатта Crypto Checker қажет – оны сонда бір рет ашып, хабарландыруларға рұқсат беріңіз."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ការជូនដំណឹងតម្លៃ ការជូនដំណឹងដាស់តឿន និងការជូនដំណឹងទីផ្សារ បង្ហាញស្ងាត់ៗលើនាឡិកា។ ត្រូវការ Crypto Checker លើនាឡិកា – សូមបើកវានៅទីនោះម្តង ហើយអនុញ្ញាតការជូនដំណឹង។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳು, ಎಚ್ಚರಿಕೆಗಳು ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಅಧಿಸೂಚನೆಗಳು ಗಡಿಯಾರದಲ್ಲಿ ಸದ್ದಿಲ್ಲದೆ ಕಾಣಿಸುತ್ತವೆ. ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ಅಗತ್ಯ – ದಯವಿಟ್ಟು ಅಲ್ಲಿ ಒಮ್ಮೆ ತೆರೆದು ಅಧಿಸೂಚನೆಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 알림, 경보 및 시장 알림이 워치에 소리 없이 표시됩니다. 워치에 Crypto Checker가 필요합니다. 워치에서 한 번 열고 알림을 허용해 주세요."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ການແຈ້ງເຕືອນລາຄາ, ການເຕືອນ ແລະ ການແຈ້ງເຕືອນຕະຫຼາດ ຈະສະແດງແບບງຽບໃນໂມງ. ຕ້ອງມີ Crypto Checker ໃນໂມງ – ກະລຸນາເປີດມັນຢູ່ທີ່ນັ້ນເທື່ອໜຶ່ງ ແລະ ອະນຸຍາດການແຈ້ງເຕືອນ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kainų pranešimai, įspėjimai ir rinkos pranešimai tyliai rodomi laikrodyje. Reikia Crypto Checker laikrodyje – vieną kartą jį ten atidaryk ir leisk pranešimus."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenu paziņojumi, brīdinājumi un tirgus paziņojumi pulkstenī parādās klusi. Pulkstenī vajadzīga Crypto Checker – atver to tur vienreiz un atļauj paziņojumus."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Известувањата за цени, предупредувањата и известувањата за пазарот се прикажуваат тивко на часовникот. Потребен е Crypto Checker на часовникот – отвори го таму еднаш и дозволи известувања."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വില അറിയിപ്പുകളും അലേർട്ടുകളും വിപണി അറിയിപ്പുകളും വാച്ചിൽ ശബ്ദമില്ലാതെ കാണിക്കും. വാച്ചിൽ Crypto Checker വേണം – ദയവായി അവിടെ ഒരിക്കൽ തുറന്ന് അറിയിപ്പുകൾ അനുവദിക്കുക."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Үнийн мэдэгдэл, сэрэмжлүүлэг болон зах зээлийн мэдэгдэл цаган дээр дуугүй харагдана. Цаган дээр Crypto Checker хэрэгтэй – тэнд нэг удаа нээж, мэдэгдлийг зөвшөөрнө үү."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "किंमत सूचना, अलर्ट आणि बाजार सूचना घड्याळावर आवाजाशिवाय दिसतात. घड्याळावर Crypto Checker आवश्यक आहे – कृपया तेथे एकदा उघडा आणि सूचनांना परवानगी द्या."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemberitahuan harga, amaran dan pemberitahuan pasaran dipaparkan secara senyap pada jam. Perlu Crypto Checker pada jam – sila buka sekali di sana dan benarkan pemberitahuan."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ဈေးနှုန်းအသိပေးချက်များ၊ သတိပေးချက်များနှင့် စျေးကွက်အသိပေးချက်များကို နာရီပေါ်တွင် အသံမဲ့ ပြပါမည်။ နာရီပေါ်တွင် Crypto Checker လိုအပ်ပါသည် – ထိုနေရာတွင် တစ်ကြိမ်ဖွင့်ပြီး အသိပေးချက်များကို ခွင့်ပြုပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursvarsler, alarmer og markedsvarsler vises lydløst på klokken. Krever Crypto Checker på klokken – åpne den der én gang og tillat varsler."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मूल्य सूचना, सतर्कता र बजार सूचना घडीमा आवाजविना देखिन्छन्। घडीमा Crypto Checker चाहिन्छ – कृपया त्यहाँ एक पटक खोल्नुहोस् र सूचनालाई अनुमति दिनुहोस्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koersmeldingen, alarmen en marktmeldingen verschijnen stil op het horloge. Vereist Crypto Checker op het horloge – open de app daar één keer en sta meldingen toe."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੀਮਤ ਸੂਚਨਾਵਾਂ, ਅਲਰਟ ਅਤੇ ਬਾਜ਼ਾਰ ਸੂਚਨਾਵਾਂ ਘੜੀ ’ਤੇ ਬਿਨਾਂ ਅਵਾਜ਼ ਦਿਖਦੀਆਂ ਹਨ। ਘੜੀ ’ਤੇ Crypto Checker ਲੋੜੀਂਦਾ ਹੈ – ਕਿਰਪਾ ਕਰਕੇ ਉੱਥੇ ਇੱਕ ਵਾਰ ਖੋਲ੍ਹੋ ਅਤੇ ਸੂਚਨਾਵਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadomienia o cenach, alerty i powiadomienia rynkowe pojawiają się na zegarku bez dźwięku. Wymaga Crypto Checker na zegarku – otwórz go tam raz i zezwól na powiadomienia."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificações de preço, os alertas e as notificações de mercado aparecem em silêncio no relógio. Requer o Crypto Checker no relógio – abre-o lá uma vez e permite as notificações."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações de preço, alertas e notificações de mercado aparecem em silêncio no relógio. Requer o Crypto Checker no relógio – abra-o lá uma vez e permita as notificações."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificările de preț, alertele și notificările de piață apar fără sunet pe ceas. Este nevoie de Crypto Checker pe ceas – deschide-l acolo o dată și permite notificările."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомления о ценах, оповещения и уведомления о рынке беззвучно появляются на часах. Нужен Crypto Checker на часах – открой его там один раз и разреши уведомления."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මිල දැනුම්දීම්, ඇඟවීම් සහ වෙළඳපොළ දැනුම්දීම් ඔරලෝසුවේ නිහඬව පෙන්වයි. ඔරලෝසුවේ Crypto Checker අවශ්‍යයි – කරුණාකර එහි එක් වරක් විවෘත කර දැනුම්දීම්වලට අවසර දෙන්න."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cenové upozornenia, výstrahy a trhové upozornenia sa ticho zobrazia na hodinkách. Treba Crypto Checker v hodinkách – raz ho tam otvor a povoľ upozornenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obvestila o cenah, opozorila in tržna obvestila se tiho prikažejo na uri. Potreben je Crypto Checker na uri – enkrat ga tam odpri in dovoli obvestila."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njoftimet e çmimeve, sinjalizimet dhe njoftimet e tregut shfaqen në heshtje në orë. Duhet Crypto Checker në orë – hape atje një herë dhe lejo njoftimet."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обавештења о ценама, упозорења и обавештења о тржишту приказују се тихо на сату. Потребан је Crypto Checker на сату – отвори га тамо једном и дозволи обавештења."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obaveštenja o cenama, upozorenja i obaveštenja o tržištu prikazuju se tiho na satu. Potreban je Crypto Checker na satu – otvori ga tamo jednom i dozvoli obaveštenja."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursnotiser, larm och marknadsnotiser visas tyst på klockan. Kräver Crypto Checker på klockan – öppna den där en gång och tillåt notiser."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arifa za bei, tahadhari na arifa za soko huonekana kimya kwenye saa. Inahitaji Crypto Checker kwenye saa – ifungue huko mara moja na uruhusu arifa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விலை அறிவிப்புகள், எச்சரிக்கைகள் மற்றும் சந்தை அறிவிப்புகள் கடிகாரத்தில் ஒலியின்றித் தோன்றும். கடிகாரத்தில் Crypto Checker தேவை – தயவுசெய்து அங்கு ஒருமுறை திறந்து அறிவிப்புகளை அனுமதிக்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ధర నోటిఫికేషన్‌లు, హెచ్చరికలు మరియు మార్కెట్ నోటిఫికేషన్‌లు గడియారంలో శబ్దం లేకుండా కనిపిస్తాయి. గడియారంలో Crypto Checker అవసరం – దయచేసి అక్కడ ఒకసారి తెరిచి నోటిఫికేషన్‌లను అనుమతించండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแจ้งเตือนราคา การเตือน และการแจ้งเตือนตลาดจะแสดงบนนาฬิกาแบบไม่มีเสียง ต้องมี Crypto Checker บนนาฬิกา โปรดเปิดแอปบนนาฬิกาหนึ่งครั้งและอนุญาตการแจ้งเตือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyat bildirimleri, uyarılar ve piyasa bildirimleri saatte sessizce görünür. Saatte Crypto Checker gerekir – orada bir kez aç ve bildirimlere izin ver."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення про ціни, попередження та сповіщення про ринок беззвучно з’являються на годиннику. Потрібен Crypto Checker на годиннику – відкрий його там один раз і дозволь сповіщення."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قیمت کی اطلاعات، الرٹس اور مارکیٹ کی اطلاعات گھڑی پر خاموشی سے ظاہر ہوتی ہیں۔ گھڑی پر Crypto Checker درکار ہے – براہ کرم وہاں ایک بار کھولیں اور اطلاعات کی اجازت دیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Narx bildirishnomalari, ogohlantirishlar va bozor bildirishnomalari soatda ovozsiz chiqadi. Soatda Crypto Checker kerak – iltimos, uni u yerda bir marta oching va bildirishnomalarga ruxsat bering."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông báo giá, cảnh báo và thông báo thị trường sẽ hiện im lặng trên đồng hồ. Cần có Crypto Checker trên đồng hồ – vui lòng mở ứng dụng ở đó một lần và cho phép thông báo."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格通知、提醒同市場通知會靜音噉喺手錶上顯示。需要手錶上有 Crypto Checker – 請喺嗰度開一次並允許通知。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格通知、提醒和市场通知会静音显示在手表上。手表上需要 Crypto Checker – 请在手表上打开一次并允许通知。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "價格通知、提醒與市場通知會以靜音方式顯示在手錶上。手錶上需要有 Crypto Checker – 請在手錶上開啟一次並允許通知。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izaziso zentengo, izexwayiso nezaziso zemakethe zivela ngokuthula ewashini. Kudingeka i-Crypto Checker ewashini – yivule lapho kanye bese uvumela izaziso."
+          }
+        }
+      }
+    },
     "settings_watch_own_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -989478,6 +990843,461 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Akusahwebelwana ngayo kule exchange"
+          }
+        }
+      }
+    },
+    "watch_notify_channel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Van die foon"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ከስልኩ"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "من الهاتف"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefondan"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "От телефона"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফোন থেকে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sa telefona"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Del telèfon"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z telefonu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fra telefonen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vom Handy"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Από το τηλέφωνο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From the phone"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Del teléfono"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefonist"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefonotik"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از تلفن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puhelimesta"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mula sa phone"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du téléphone"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ón bhfón"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do teléfono"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ફોનમાંથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מהטלפון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ोन से"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S telefona"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A telefonról"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Հեռախոսից"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dari ponsel"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úr símanum"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dal telefono"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートフォンから"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ტელეფონიდან"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Телефоннан"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ពីទូរសព្ទ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಫೋನ್‌ನಿಂದ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "휴대폰에서"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຈາກໂທລະສັບ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iš telefono"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tālruņa"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Од телефонот"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഫോണിൽ നിന്ന്"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Утаснаас"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फोनवरून"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daripada telefon"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ဖုန်းမှ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fra telefonen"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फोनबाट"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Van de telefoon"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫ਼ੋਨ ਤੋਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z telefonu"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do telemóvel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do celular"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De pe telefon"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "С телефона"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "දුරකථනයෙන්"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z telefónu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S telefona"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nga telefoni"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Са телефона"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sa telefona"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Från telefonen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kutoka kwa simu"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தொலைபேசியிலிருந்து"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఫోన్ నుండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จากโทรศัพท์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefondan"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "З телефона"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فون سے"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefondan"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Từ điện thoại"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "嚟自手機"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "来自手机"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "來自手機"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kusuka efonini"
           }
         }
       }

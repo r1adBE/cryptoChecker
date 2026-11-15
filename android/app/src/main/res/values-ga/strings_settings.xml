@@ -54,6 +54,8 @@
     <string name="settings_notification_change_hint">Ní thaispeántar fógra praghais ach nuair a bhog an praghas an méid seo ar a laghad ón gceann deireanach. Ní thaispeántar aon rud fad atá sonraí ar iarraidh. Ní théann sé i bhfeidhm ar fholáirimh.</string>
     <string name="settings_ongoing_notifications">Ní féidir iad a scuabadh ar shiúl</string>
     <string name="settings_ongoing_notifications_hint">Coinníonn sé fógraí praghais greamaithe.</string>
+    <string name="settings_watch_notifications">Taispeáin ar an uaireadóir</string>
+    <string name="settings_watch_notifications_hint">Taispeántar fógraí praghais, foláirimh agus fógraí margaidh go ciúin ar an uaireadóir. Tá Crypto Checker ag teastáil ar an uaireadóir – oscail ann é uair amháin agus ceadaigh fógraí.</string>
     <string name="settings_price_notifications">Fógraí praghais</string>
     <string name="settings_price_notifications_hint">Taispeáin praghas reatha na bpéirí cumasaithe sa bharra stádais.</string>
     <string name="settings_price_pairs">Péirí</string>

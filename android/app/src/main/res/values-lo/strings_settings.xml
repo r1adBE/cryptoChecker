@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">ການແຈ້ງເຕືອນລາຄາຈະປາກົດກໍ່ຕໍ່ເມື່ອລາຄາເໜັງຕີງຢ່າງໜ້ອຍເທົ່ານີ້ນັບແຕ່ຄັ້ງຫຼ້າສຸດ. ບໍ່ສະແດງຫຍັງໃນຂະນະທີ່ຂາດຂໍ້ມູນ. ສັນຍານເຕືອນບໍ່ໄດ້ຮັບຜົນກະທົບ.</string>
     <string name="settings_ongoing_notifications">ປັດອອກບໍ່ໄດ້</string>
     <string name="settings_ongoing_notifications_hint">ປັກໝຸດການແຈ້ງເຕືອນລາຄາໄວ້.</string>
+    <string name="settings_watch_notifications">ສະແດງໃນໂມງ</string>
+    <string name="settings_watch_notifications_hint">ການແຈ້ງເຕືອນລາຄາ, ການເຕືອນ ແລະ ການແຈ້ງເຕືອນຕະຫຼາດ ຈະສະແດງແບບງຽບໃນໂມງ. ຕ້ອງມີ Crypto Checker ໃນໂມງ – ກະລຸນາເປີດມັນຢູ່ທີ່ນັ້ນເທື່ອໜຶ່ງ ແລະ ອະນຸຍາດການແຈ້ງເຕືອນ.</string>
     <string name="settings_price_notifications">ການແຈ້ງເຕືອນລາຄາ</string>
     <string name="settings_price_notifications_hint">ສະແດງລາຄາປັດຈຸບັນຂອງຄູ່ເທຣດທີ່ເປີດໃນແຖບສະຖານະ.</string>
     <string name="settings_price_pairs">ຄູ່ເທຣດ</string>

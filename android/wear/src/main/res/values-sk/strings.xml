@@ -6,6 +6,7 @@
     <string name="watch_updated">Stav %1$s</string>
     <string name="watch_refresh">Obnoviť</string>
     <string name="watch_choose">Vybrať coiny</string>
+    <string name="watch_notify_channel">Z telefónu</string>
     <string name="watch_choose_hint">Coiny: najviac %1$d</string>
     <string name="watch_complication_label">Kurz</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s za 24 hodín</string>

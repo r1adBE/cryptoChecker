@@ -6,6 +6,7 @@
     <string name="watch_updated">Saat %1$s</string>
     <string name="watch_refresh">Yenile</string>
     <string name="watch_choose">Coin seç</string>
+    <string name="watch_notify_channel">Telefondan</string>
     <string name="watch_choose_hint">Coinler: en fazla %1$d</string>
     <string name="watch_complication_label">Fiyat</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 saatte %3$s</string>

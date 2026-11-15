@@ -93,6 +93,7 @@ class SettingsRepository @Inject constructor(
 
     /** Preis-Overlay ein/aus (gerätebezogen). */
     suspend fun setPriceOverlay(enabled: Boolean) = edit { it[SettingsKeys.priceOverlay] = enabled }
+    suspend fun setWatchNotifications(enabled: Boolean) = edit { it[SettingsKeys.watchNotifications] = enabled }
 
     override suspend fun setPriceNotifications(enabled: Boolean) = edit { it[SettingsKeys.priceNotifications] = enabled }
 

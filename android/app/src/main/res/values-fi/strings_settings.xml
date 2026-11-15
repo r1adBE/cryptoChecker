@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Ilmoitus näytetään vasta, kun hinta on muuttunut vähintään tämän verran edellisestä ilmoituksesta. Kun tietoja puuttuu, mitään ei näytetä. Ei vaikuta hälytyksiin.</string>
     <string name="settings_ongoing_notifications">Ei voi pyyhkäistä pois</string>
     <string name="settings_ongoing_notifications_hint">Pitää hintailmoitukset kiinnitettyinä.</string>
+    <string name="settings_watch_notifications">Näytä kellossa</string>
+    <string name="settings_watch_notifications_hint">Hintailmoitukset, hälytykset ja markkinailmoitukset näkyvät kellossa äänettömästi. Kellossa on oltava Crypto Checker – avaa se siellä kerran ja salli ilmoitukset.</string>
     <string name="settings_price_notifications">Hintailmoitukset</string>
     <string name="settings_price_notifications_hint">Näytä käytössä olevien parien nykyinen hinta tilapalkissa.</string>
     <string name="settings_price_pairs">Parit</string>

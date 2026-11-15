@@ -53,6 +53,8 @@
     <string name="settings_notification_change_hint">Obvestilo o tečaju se prikaže šele, ko se je tečaj od zadnjega premaknil vsaj za toliko. Ko podatki manjkajo, se nič ne prikaže. Na alarme to ne vpliva.</string>
     <string name="settings_ongoing_notifications">Ni mogoče odriniti</string>
     <string name="settings_ongoing_notifications_hint">Obvestila o tečajih ostanejo pripeta.</string>
+    <string name="settings_watch_notifications">Pokaži na uri</string>
+    <string name="settings_watch_notifications_hint">Obvestila o cenah, opozorila in tržna obvestila se tiho prikažejo na uri. Potreben je Crypto Checker na uri – enkrat ga tam odpri in dovoli obvestila.</string>
     <string name="settings_price_notifications">Obvestila o tečajih</string>
     <string name="settings_price_notifications_hint">V vrstici stanja prikaže tečaj omogočenih parov.</string>
     <string name="settings_price_pairs">Pari</string>

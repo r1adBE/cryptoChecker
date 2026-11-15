@@ -6,6 +6,7 @@
     <string name="watch_updated">Būsena %1$s</string>
     <string name="watch_refresh">Atnaujinti</string>
     <string name="watch_choose">Pasirinkti monetas</string>
+    <string name="watch_notify_channel">Iš telefono</string>
     <string name="watch_choose_hint">Monetų: daugiausia %1$d</string>
     <string name="watch_complication_label">Kaina</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s per 24 valandas</string>

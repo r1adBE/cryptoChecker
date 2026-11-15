@@ -32,8 +32,11 @@ struct AboutSettingsPage: View {
             SettingsCard {
                 aboutLinkRows
             }
-            // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg (wie Android)
-            DiagnosticsCard()
+            // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg. Erst nach 7 Tipps
+            // auf die Version, in jedem Build (wie Android)
+            if data.settings.developerUnlocked {
+                DiagnosticsCard()
+            }
             // Was die App kann
             SettingsCard {
                 AboutFeatures()
@@ -104,12 +107,10 @@ struct AboutSettingsPage: View {
     /// Ab so vielen fehlenden Tipps zählt ein Hinweis herunter («Noch 3-mal tippen …»).
     static let countdownFrom = 3
 
-    /// 7 Tipps auf die Version schalten die Entwickleroptionen frei; die letzten zählen herunter.
-    /// Tipp-Handler der Versionszeile; nil ohne Entwickleroptionen (Release). Eigene Eigenschaft mit festem Typ:
-    /// ein Bedingungsausdruck im View-Builder überfordert die Typprüfung.
+    /// 7 Tipps auf die Version schalten in jedem Build die Diagnose frei (im Debug-Build dazu die Entwickleroptionen);
+    /// die letzten zählen herunter. Wie Android.
     private var versionTap: (() -> Void)? {
-        guard DeveloperOptions.available else { return nil }
-        return { versionTapped() }
+        { versionTapped() }
     }
 
     private func versionTapped() {

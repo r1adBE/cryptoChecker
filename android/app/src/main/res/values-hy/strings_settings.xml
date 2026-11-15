@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Գնի ծանուցումը հայտնվում է միայն այն ժամանակ, երբ գինը վերջինից հետո շարժվել է առնվազն այսքան։ Քանի դեռ տվյալներ չկան, ոչինչ չի ցուցադրվում։ Ահազանգերի վրա չի ազդում։</string>
     <string name="settings_ongoing_notifications">Հնարավոր չէ սահեցնելով հեռացնել</string>
     <string name="settings_ongoing_notifications_hint">Պահում է գնի ծանուցումները ամրացված։</string>
+    <string name="settings_watch_notifications">Ցույց տալ ժամացույցում</string>
+    <string name="settings_watch_notifications_hint">Գնի ծանուցումները, ազդանշանները և շուկայի ծանուցումները լուռ հայտնվում են ժամացույցում։ Պետք է Crypto Checker ժամացույցում – մեկ անգամ բացիր այն այնտեղ և թույլատրիր ծանուցումները։</string>
     <string name="settings_price_notifications">Գնի ծանուցումներ</string>
     <string name="settings_price_notifications_hint">Ցույց տալ միացված զույգերի ընթացիկ գինը կարգավիճակի գոտում։</string>
     <string name="settings_price_pairs">Զույգեր</string>

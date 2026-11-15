@@ -33,13 +33,15 @@ class UiHonestyGuardTest {
     }
 
     @Test
-    fun entwicklerFreischaltungNurImDebugBuild() {
+    fun diagnoseErstNachFreischaltungEntwicklerNurImDebugBuild() {
+        // Seit Build 239: 7 Tipps in jedem Build (Diagnose), «Entwickler» nur im Debug-Build
         val android = source("src/main/java/com/cryptochecker/app/ui/features/settings/SettingsAboutPages.kt")
-        assertTrue(android.contains("}.takeIf { BuildConfig.DEBUG }"))
+        assertTrue(android.contains("if (settings.developerUnlocked) {\n            Spacer(Modifier.height(12.dp))\n            DiagnosticsCard()"))
+        assertTrue(android.contains("if (settings.developerUnlocked && BuildConfig.DEBUG) {"))
         val swift = ios("App/Features/Settings/SettingsAboutPages.swift")
         assertTrue(swift.contains("AboutContent(onVersionTap: versionTap)"))
-        assertTrue(swift.contains("guard DeveloperOptions.available else { return nil }"))
-        assertFalse(swift.contains("AboutContent(onVersionTap: versionTapped)"))
+        assertTrue(swift.contains("if data.settings.developerUnlocked {\n                DiagnosticsCard()"))
+        assertTrue(swift.contains("if data.settings.developerUnlocked && DeveloperOptions.available {"))
     }
 
     @Test

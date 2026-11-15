@@ -6,6 +6,7 @@
     <string name="watch_updated">%1$s অনুযায়ী</string>
     <string name="watch_refresh">রিফ্রেশ</string>
     <string name="watch_choose">কয়েন বেছে নিন</string>
+    <string name="watch_notify_channel">ফোন থেকে</string>
     <string name="watch_choose_hint">কয়েন: সর্বোচ্চ %1$d</string>
     <string name="watch_complication_label">দাম</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ঘণ্টায় %3$s</string>

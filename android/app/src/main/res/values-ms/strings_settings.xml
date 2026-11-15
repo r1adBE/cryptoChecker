@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">Pemberitahuan harga hanya muncul apabila harga telah bergerak sekurang-kurangnya sebanyak ini sejak yang terakhir. Tiada apa-apa ditunjukkan semasa data tiada. Amaran tidak terjejas.</string>
     <string name="settings_ongoing_notifications">Tidak boleh dileret keluar</string>
     <string name="settings_ongoing_notifications_hint">Memastikan pemberitahuan harga kekal disematkan.</string>
+    <string name="settings_watch_notifications">Tunjukkan pada jam</string>
+    <string name="settings_watch_notifications_hint">Pemberitahuan harga, amaran dan pemberitahuan pasaran dipaparkan secara senyap pada jam. Perlu Crypto Checker pada jam – sila buka sekali di sana dan benarkan pemberitahuan.</string>
     <string name="settings_price_notifications">Pemberitahuan harga</string>
     <string name="settings_price_notifications_hint">Tunjukkan harga semasa pasangan yang didayakan dalam bar status.</string>
     <string name="settings_price_pairs">Pasangan</string>

@@ -30,6 +30,13 @@ data class AppSettings(
     val priceOverlay: Boolean = false,
 
     /**
+     * «Auf der Uhr zeigen» (nur Android): Kurs-Mitteilungen, Alarme und Markt-Mitteilungen zeigt die Crypto-Checker-
+     * Uhr-App still selbst (`WatchNotifyBridge`); die des Handys bleiben dann nur auf dem Handy. Gerätebezogen, nicht in
+     * der Sicherung. Standard aus. iOS: das Spiegeln regelt die Watch-App des iPhones.
+     */
+    val watchNotifications: Boolean = false,
+
+    /**
      * Mindestveränderung in Prozent, ab der eine Kurs-Benachrichtigung gezeigt wird. 0 bedeutet: bei jeder Aktualisierung melden.
      */
     val notificationChangePercent: Double = 5.0,

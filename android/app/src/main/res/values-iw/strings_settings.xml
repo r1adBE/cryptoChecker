@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
     <string name="settings_ongoing_notifications">לא ניתן להחליק לסגירה</string>
     <string name="settings_ongoing_notifications_hint">משאיר את עדכוני המחיר מוצמדים.</string>
+    <string name="settings_watch_notifications">הצגה בשעון</string>
+    <string name="settings_watch_notifications_hint">התראות מחיר, התראות סף והתראות שוק מופיעות בשעון בשקט. נדרש Crypto Checker בשעון – יש לפתוח אותו שם פעם אחת ולאשר התראות.</string>
     <string name="settings_price_notifications">עדכוני מחיר</string>
     <string name="settings_price_notifications_hint">מציג את המחיר הנוכחי של צמדים מופעלים בשורת המצב.</string>
     <string name="settings_price_pairs">צמדים</string>

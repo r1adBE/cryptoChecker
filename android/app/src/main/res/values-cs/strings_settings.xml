@@ -53,6 +53,8 @@
     <string name="settings_notification_change_hint">Oznámení se zobrazí, až když se cena od posledního oznámení změní alespoň o tuto hodnotu. Pokud chybí data, nezobrazí se nic. Alarmů se to netýká.</string>
     <string name="settings_ongoing_notifications">Nelze zavřít přejetím</string>
     <string name="settings_ongoing_notifications_hint">Cenová oznámení zůstanou připnutá.</string>
+    <string name="settings_watch_notifications">Zobrazit na hodinkách</string>
+    <string name="settings_watch_notifications_hint">Cenová oznámení, upozornění a tržní oznámení se tiše zobrazí na hodinkách. Je potřeba Crypto Checker v hodinkách – jednou ho tam otevři a povol oznámení.</string>
     <string name="settings_price_notifications">Cenová oznámení</string>
     <string name="settings_price_notifications_hint">Zobrazovat aktuální cenu zapnutých párů ve stavovém řádku.</string>
     <string name="settings_price_pairs">Páry</string>

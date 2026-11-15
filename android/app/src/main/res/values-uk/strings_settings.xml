@@ -53,6 +53,8 @@
     <string name="settings_notification_change_hint">Сповіщення з\'являється лише тоді, коли ціна змінилася щонайменше на цю величину від попереднього. Поки даних немає, нічого не показується. На сигнали це не впливає.</string>
     <string name="settings_ongoing_notifications">Не можна змахнути</string>
     <string name="settings_ongoing_notifications_hint">Цінові сповіщення залишаються закріпленими.</string>
+    <string name="settings_watch_notifications">Показувати на годиннику</string>
+    <string name="settings_watch_notifications_hint">Сповіщення про ціни, попередження та сповіщення про ринок беззвучно з’являються на годиннику. Потрібен Crypto Checker на годиннику – відкрий його там один раз і дозволь сповіщення.</string>
     <string name="settings_price_notifications">Цінові сповіщення</string>
     <string name="settings_price_notifications_hint">Показувати поточну ціну ввімкнених пар у рядку стану.</string>
     <string name="settings_price_pairs">Пари</string>

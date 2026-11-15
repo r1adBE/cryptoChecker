@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Et varsel vises først når kursen har beveget seg minst så mye siden forrige varsel. Ingenting vises mens data mangler. Alarmer påvirkes ikke.</string>
     <string name="settings_ongoing_notifications">Kan ikke sveipes bort</string>
     <string name="settings_ongoing_notifications_hint">Holder kursvarslene festet.</string>
+    <string name="settings_watch_notifications">Vis på klokken</string>
+    <string name="settings_watch_notifications_hint">Kursvarsler, alarmer og markedsvarsler vises lydløst på klokken. Krever Crypto Checker på klokken – åpne den der én gang og tillat varsler.</string>
     <string name="settings_price_notifications">Kursvarsler</string>
     <string name="settings_price_notifications_hint">Vis gjeldende kurs for aktiverte par i statusfeltet.</string>
     <string name="settings_price_pairs">Par</string>

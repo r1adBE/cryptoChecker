@@ -190,6 +190,16 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 )
             }
             RowDivider()
+            // «Auf der Uhr zeigen»: Mitteilungen still auf der Uhr, von der Crypto-Checker-Uhr-App gezeigt
+            SettingsAnchor("updates.watch") {
+                SwitchRow(
+                    title = stringResource(R.string.settings_watch_notifications),
+                    subtitle = stringResource(R.string.settings_watch_notifications_hint),
+                    checked = settings.watchNotifications,
+                    onCheckedChange = { viewModel.setWatchNotifications(it) }
+                )
+            }
+            RowDivider()
             // Preis-Overlay: dieselben Paare als schwebende Pille über anderen Apps
             SettingsAnchor("updates.overlay") {
                 Column {

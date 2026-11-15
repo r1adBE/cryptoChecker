@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">\'n Pryskennisgewing verskyn eers wanneer die prys sedert die vorige een met minstens soveel beweeg het. Niks word gewys terwyl data ontbreek nie. Alarms word nie geraak nie.</string>
     <string name="settings_ongoing_notifications">Kan nie weggeswiep word nie</string>
     <string name="settings_ongoing_notifications_hint">Hou pryskennisgewings vasgespeld.</string>
+    <string name="settings_watch_notifications">Wys op horlosie</string>
+    <string name="settings_watch_notifications_hint">Pryskennisgewings, waarskuwings en markkennisgewings verskyn stil op die horlosie. Benodig Crypto Checker op die horlosie – maak dit een keer daar oop en laat kennisgewings toe.</string>
     <string name="settings_price_notifications">Pryskennisgewings</string>
     <string name="settings_price_notifications_hint">Wys die huidige prys van geaktiveerde pare in die statusbalk.</string>
     <string name="settings_price_pairs">Pare</string>

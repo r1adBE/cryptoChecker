@@ -78,6 +78,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))
+    add("updates.watch", stringResource(R.string.settings_watch_notifications), updatesPath,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.watch"),
+        stringResource(R.string.settings_watch_notifications_hint))
     // Preis-Overlay (nur Android)
     add("updates.overlay", stringResource(R.string.settings_price_overlay), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.overlay"),
@@ -279,9 +282,12 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("about.source", stringResource(R.string.about_source_code), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.source"))
     add("about.licenses", stringResource(R.string.about_licenses), about, SettingsSearchTarget.Page(SettingsPage.LICENSES))
-    add("about.diagnostics", stringResource(R.string.diagnostics_share), about,
-        SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics"),
-        stringResource(R.string.diagnostics_share_hint))
+    // Diagnose nur, wenn freigeschaltet (wie auf «Über die App»), in jedem Build
+    if (settings.developerUnlocked) {
+        add("about.diagnostics", stringResource(R.string.diagnostics_share), about,
+            SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics"),
+            stringResource(R.string.diagnostics_share_hint))
+    }
     // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile auf «Über die App»)
     if (settings.developerUnlocked && BuildConfig.DEBUG) {
         val developer = stringResource(R.string.settings_section_developer)

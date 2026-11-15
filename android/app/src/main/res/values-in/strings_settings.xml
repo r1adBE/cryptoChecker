@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">Notifikasi hanya muncul jika harga sudah bergerak setidaknya sebesar ini sejak notifikasi terakhir. Tidak ada yang ditampilkan selama data belum tersedia. Alarm tidak terpengaruh.</string>
     <string name="settings_ongoing_notifications">Tidak bisa digeser untuk menutup</string>
     <string name="settings_ongoing_notifications_hint">Notifikasi harga tetap disematkan.</string>
+    <string name="settings_watch_notifications">Tampilkan di jam</string>
+    <string name="settings_watch_notifications_hint">Notifikasi harga, peringatan, dan notifikasi pasar muncul tanpa suara di jam. Perlu Crypto Checker di jam – buka sekali di sana dan izinkan notifikasi.</string>
     <string name="settings_price_notifications">Notifikasi harga</string>
     <string name="settings_price_notifications_hint">Tampilkan harga terkini pasangan yang diaktifkan di bilah status.</string>
     <string name="settings_price_pairs">Pasangan</string>

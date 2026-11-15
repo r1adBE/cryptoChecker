@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">只有当价格自上次通知以来变动至少达到此幅度时才会通知。数据缺失时不显示任何内容。提醒不受影响。</string>
     <string name="settings_ongoing_notifications">无法滑动清除</string>
     <string name="settings_ongoing_notifications_hint">保持价格通知常驻。</string>
+    <string name="settings_watch_notifications">在手表上显示</string>
+    <string name="settings_watch_notifications_hint">价格通知、提醒和市场通知会静音显示在手表上。手表上需要 Crypto Checker – 请在手表上打开一次并允许通知。</string>
     <string name="settings_price_notifications">价格通知</string>
     <string name="settings_price_notifications_hint">在状态栏中显示已启用交易对的当前价格。</string>
     <string name="settings_price_pairs">交易对</string>

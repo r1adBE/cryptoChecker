@@ -6,6 +6,7 @@
     <string name="watch_updated">Kusukela ku-%1$s</string>
     <string name="watch_refresh">Vuselela</string>
     <string name="watch_choose">Khetha ama-coin</string>
+    <string name="watch_notify_channel">Kusuka efonini</string>
     <string name="watch_choose_hint">Ama-coin: angu-%1$d ubuningi</string>
     <string name="watch_complication_label">Intengo</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s emahoreni angu-24</string>

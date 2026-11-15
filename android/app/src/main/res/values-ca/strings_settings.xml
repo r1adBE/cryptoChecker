@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">Una notificació de preu només apareix quan el preu s\'ha mogut com a mínim aquesta quantitat des de l\'última. No es mostra res mentre falten dades. Les alarmes no es veuen afectades.</string>
     <string name="settings_ongoing_notifications">No es poden descartar</string>
     <string name="settings_ongoing_notifications_hint">Manté fixades les notificacions de preu.</string>
+    <string name="settings_watch_notifications">Mostra al rellotge</string>
+    <string name="settings_watch_notifications_hint">Les notificacions de preu, les alertes i les notificacions de mercat apareixen en silenci al rellotge. Cal Crypto Checker al rellotge: obre’l allà un cop i permet les notificacions.</string>
     <string name="settings_price_notifications">Notificacions de preu</string>
     <string name="settings_price_notifications_hint">Mostra el preu actual dels parells activats a la barra d\'estat.</string>
     <string name="settings_price_pairs">Parells</string>

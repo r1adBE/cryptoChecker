@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Bildirim, fiyat bir öncekinden bu yana en az bu kadar değiştiğinde gösterilir. Veri eksikken hiçbir şey gösterilmez. Alarmlar etkilenmez.</string>
     <string name="settings_ongoing_notifications">Kaydırılarak kapatılamaz</string>
     <string name="settings_ongoing_notifications_hint">Fiyat bildirimlerini sabit tutar.</string>
+    <string name="settings_watch_notifications">Saatte göster</string>
+    <string name="settings_watch_notifications_hint">Fiyat bildirimleri, uyarılar ve piyasa bildirimleri saatte sessizce görünür. Saatte Crypto Checker gerekir – orada bir kez aç ve bildirimlere izin ver.</string>
     <string name="settings_price_notifications">Fiyat bildirimleri</string>
     <string name="settings_price_notifications_hint">Etkin çiftlerin güncel fiyatını durum çubuğunda göster.</string>
     <string name="settings_price_pairs">Pariteler</string>

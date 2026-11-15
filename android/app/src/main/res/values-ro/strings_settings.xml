@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">O notificare apare doar după ce prețul s-a modificat cu cel puțin această valoare față de ultima. Cât timp lipsesc date, nu se afișează nimic. Alarmele nu sunt afectate.</string>
     <string name="settings_ongoing_notifications">Nu pot fi glisate</string>
     <string name="settings_ongoing_notifications_hint">Păstrează notificările de preț fixate.</string>
+    <string name="settings_watch_notifications">Afișează pe ceas</string>
+    <string name="settings_watch_notifications_hint">Notificările de preț, alertele și notificările de piață apar fără sunet pe ceas. Este nevoie de Crypto Checker pe ceas – deschide-l acolo o dată și permite notificările.</string>
     <string name="settings_price_notifications">Notificări de preț</string>
     <string name="settings_price_notifications_hint">Afișează prețul curent al perechilor activate în bara de stare.</string>
     <string name="settings_price_pairs">Perechi</string>

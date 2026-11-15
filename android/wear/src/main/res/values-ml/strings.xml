@@ -6,6 +6,7 @@
     <string name="watch_updated">%1$s പ്രകാരം</string>
     <string name="watch_refresh">പുതുക്കുക</string>
     <string name="watch_choose">കോയിനുകൾ തിരഞ്ഞെടുക്കുക</string>
+    <string name="watch_notify_channel">ഫോണിൽ നിന്ന്</string>
     <string name="watch_choose_hint">കോയിനുകൾ: പരമാവധി %1$d</string>
     <string name="watch_complication_label">വില</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 മണിക്കൂറിൽ %3$s</string>

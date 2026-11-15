@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">Cenas paziņojums parādās tikai tad, kad cena kopš pēdējā paziņojuma mainījusies vismaz par tik. Kamēr trūkst datu, nekas netiek rādīts. Brīdinājumus tas neietekmē.</string>
     <string name="settings_ongoing_notifications">Nevar aizvilkt prom</string>
     <string name="settings_ongoing_notifications_hint">Cenu paziņojumi paliek piesprausti.</string>
+    <string name="settings_watch_notifications">Rādīt pulkstenī</string>
+    <string name="settings_watch_notifications_hint">Cenu paziņojumi, brīdinājumi un tirgus paziņojumi pulkstenī parādās klusi. Pulkstenī vajadzīga Crypto Checker – atver to tur vienreiz un atļauj paziņojumus.</string>
     <string name="settings_price_notifications">Cenu paziņojumi</string>
     <string name="settings_price_notifications_hint">Rāda ieslēgto pāru pašreizējo cenu statusa joslā.</string>
     <string name="settings_price_pairs">Pāri</string>

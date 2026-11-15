@@ -52,6 +52,8 @@
     <string name="settings_notification_change_hint">Une notification n\'apparaît que si le prix a varié d\'au moins cette valeur depuis la dernière. Rien n\'est affiché tant que des données manquent. Les alertes ne sont pas concernées.</string>
     <string name="settings_ongoing_notifications">Non balayables</string>
     <string name="settings_ongoing_notifications_hint">Garde les notifications de prix épinglées.</string>
+    <string name="settings_watch_notifications">Afficher sur la montre</string>
+    <string name="settings_watch_notifications_hint">Les notifications de cours, les alertes et les notifications de marché s’affichent en silence sur la montre. Crypto Checker doit être installé sur la montre – ouvre-le une fois et autorise les notifications.</string>
     <string name="settings_price_notifications">Notifications de prix</string>
     <string name="settings_price_notifications_hint">Affiche le prix actuel des paires activées dans la barre d\'état.</string>
     <string name="settings_price_pairs">Paires</string>

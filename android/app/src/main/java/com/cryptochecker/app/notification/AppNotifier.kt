@@ -36,6 +36,8 @@ class AppNotifier @Inject constructor(
     /** Coin-Logo als grosses Bild der Alarm-Meldung (nur vom Gerät, nie aus dem Netz); erst bei Bedarf erzeugt. */
     internal val coinLogos: dagger.Lazy<com.cryptochecker.app.data.CoinLogoRepository>,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    /** «Auf der Uhr zeigen»: gezeigte und entfernte Mitteilungen auch an die Uhr-App (nur mit Schalter). */
+    internal val watchBridge: com.cryptochecker.app.wearable.WatchNotifyBridge,
 ) {
     internal val manager get() = NotificationManagerCompat.from(context)
 
@@ -201,7 +203,7 @@ class AppNotifier @Inject constructor(
         for (watchId in watchIds) {
             val id = priceNotificationId(watchId)
             if (shown == null || id in shown || recentPrices.containsKey(watchId)) {
-                manager.cancel(id)
+                cancelId(id)
                 removed += id
             }
             recentPrices.remove(watchId)
@@ -296,7 +298,7 @@ class AppNotifier @Inject constructor(
     // Melden: Alarme in AppNotifierAlarms.kt, Markt-Mitteilungen (Aktivität, Fear & Greed, Kennzahlen, Gas) in
     // AppNotifierMarket.kt.
 
-    fun cancelActivity(watchId: Long) = manager.cancel(activityNotificationId(watchId))
+    fun cancelActivity(watchId: Long) = cancelId(activityNotificationId(watchId))
 
     /**
      * Alarm-Meldungen der Paar-Alarme [alarmIds] und der Portfolio-Alarme [portfolioAlarmIds] entfernen
@@ -308,7 +310,7 @@ class AppNotifier @Inject constructor(
         val removed = HashSet<Int>()
         alarmIds.mapTo(removed) { alarmNotificationId(it) }
         portfolioAlarmIds.mapTo(removed) { portfolioAlarmNotificationId(it) }
-        removed.forEach { manager.cancel(it) }
+        removed.forEach { cancelId(it) }
         cancelSummaryIfEmpty(Group.ALARMS, removed)
     }
 

@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">နောက်ဆုံး အကြောင်းကြားချက်ကတည်းက ဈေးနှုန်း အနည်းဆုံး ဤမျှ ရွေ့ပြီးမှသာ ဈေးနှုန်း အကြောင်းကြားချက် ပေါ်သည်။ ဒေတာ မရှိစဉ် ဘာမှ မပြပါ။ သတိပေးချက်များ မထိခိုက်ပါ။</string>
     <string name="settings_ongoing_notifications">ပွတ်ဆွဲ ဖယ်၍ မရ</string>
     <string name="settings_ongoing_notifications_hint">ဈေးနှုန်း အကြောင်းကြားချက်များကို ပင်ထိုးထားသည်။</string>
+    <string name="settings_watch_notifications">နာရီပေါ်တွင် ပြရန်</string>
+    <string name="settings_watch_notifications_hint">ဈေးနှုန်းအသိပေးချက်များ၊ သတိပေးချက်များနှင့် စျေးကွက်အသိပေးချက်များကို နာရီပေါ်တွင် အသံမဲ့ ပြပါမည်။ နာရီပေါ်တွင် Crypto Checker လိုအပ်ပါသည် – ထိုနေရာတွင် တစ်ကြိမ်ဖွင့်ပြီး အသိပေးချက်များကို ခွင့်ပြုပါ။</string>
     <string name="settings_price_notifications">ဈေးနှုန်း အကြောင်းကြားချက်များ</string>
     <string name="settings_price_notifications_hint">ဖွင့်ထားသော အတွဲများ၏ လက်ရှိဈေးနှုန်းကို အခြေအနေဘားတွင် ပြရန်။</string>
     <string name="settings_price_pairs">အတွဲများ</string>

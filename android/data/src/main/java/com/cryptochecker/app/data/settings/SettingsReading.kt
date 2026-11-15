@@ -36,6 +36,7 @@ fun appSettingsOf(prefs: Preferences): AppSettings {
         ongoingNotifications = prefs[SettingsKeys.ongoingNotifications]
             ?: defaults.ongoingNotifications,
         priceOverlay = prefs[SettingsKeys.priceOverlay] ?: defaults.priceOverlay,
+        watchNotifications = prefs[SettingsKeys.watchNotifications] ?: defaults.watchNotifications,
         notificationChangePercent = prefs[SettingsKeys.notificationChange] ?: defaults.notificationChangePercent,
         ttsEnabled = prefs[SettingsKeys.tts] ?: defaults.ttsEnabled,
         ttsAlarmsOnly = prefs[SettingsKeys.ttsAlarmsOnly] ?: defaults.ttsAlarmsOnly,

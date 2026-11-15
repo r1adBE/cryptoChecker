@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">അവസാനത്തേതിന് ശേഷം വില കുറഞ്ഞത് ഇത്രയും നീങ്ങിയാൽ മാത്രമേ വില അറിയിപ്പ് കാണിക്കൂ. ഡാറ്റ ഇല്ലാത്തപ്പോൾ ഒന്നും കാണിക്കില്ല. അലേർട്ടുകളെ ബാധിക്കില്ല.</string>
     <string name="settings_ongoing_notifications">സ്വൈപ്പ് ചെയ്ത് മാറ്റാനാകില്ല</string>
     <string name="settings_ongoing_notifications_hint">വില അറിയിപ്പുകൾ പിൻ ചെയ്ത് നിലനിർത്തുന്നു.</string>
+    <string name="settings_watch_notifications">വാച്ചിൽ കാണിക്കുക</string>
+    <string name="settings_watch_notifications_hint">വില അറിയിപ്പുകളും അലേർട്ടുകളും വിപണി അറിയിപ്പുകളും വാച്ചിൽ ശബ്ദമില്ലാതെ കാണിക്കും. വാച്ചിൽ Crypto Checker വേണം – ദയവായി അവിടെ ഒരിക്കൽ തുറന്ന് അറിയിപ്പുകൾ അനുവദിക്കുക.</string>
     <string name="settings_price_notifications">വില അറിയിപ്പുകൾ</string>
     <string name="settings_price_notifications_hint">പ്രവർത്തനക്ഷമമായ ജോഡികളുടെ നിലവിലെ വില സ്റ്റാറ്റസ് ബാറിൽ കാണിക്കുക.</string>
     <string name="settings_price_pairs">ജോഡികൾ</string>

@@ -6,6 +6,7 @@
     <string name="watch_updated">Noong %1$s</string>
     <string name="watch_refresh">I-refresh</string>
     <string name="watch_choose">Pumili ng mga coin</string>
+    <string name="watch_notify_channel">Mula sa phone</string>
     <string name="watch_choose_hint">Mga coin: hanggang %1$d</string>
     <string name="watch_complication_label">Presyo</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s sa loob ng 24 na oras</string>

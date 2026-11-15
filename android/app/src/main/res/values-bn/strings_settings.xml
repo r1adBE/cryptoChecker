@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">শেষটির পর থেকে দাম কমপক্ষে এতটা নড়লেই কেবল দামের নোটিফিকেশন দেখা যায়। ডেটা না থাকলে কিছু দেখানো হয় না। অ্যালার্টে এর প্রভাব নেই।</string>
     <string name="settings_ongoing_notifications">সোয়াইপ করে সরানো যাবে না</string>
     <string name="settings_ongoing_notifications_hint">দামের নোটিফিকেশন পিন করে রাখে।</string>
+    <string name="settings_watch_notifications">ঘড়িতে দেখান</string>
+    <string name="settings_watch_notifications_hint">দামের বিজ্ঞপ্তি, সতর্কতা ও বাজারের বিজ্ঞপ্তি ঘড়িতে নিঃশব্দে দেখায়। ঘড়িতে Crypto Checker দরকার – অনুগ্রহ করে সেখানে একবার খুলুন এবং বিজ্ঞপ্তির অনুমতি দিন।</string>
     <string name="settings_price_notifications">দামের নোটিফিকেশন</string>
     <string name="settings_price_notifications_hint">স্ট্যাটাস বারে চালু করা পেয়ারগুলোর বর্তমান দাম দেখান।</string>
     <string name="settings_price_pairs">পেয়ার</string>

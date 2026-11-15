@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Бағам хабарландыруы бағам соңғысынан бері кемінде осынша өзгергенде ғана шығады. Деректер жоқ кезде ештеңе көрсетілмейді. Ескертулерге әсер етпейді.</string>
     <string name="settings_ongoing_notifications">Сырғытып жабу мүмкін емес</string>
     <string name="settings_ongoing_notifications_hint">Бағам хабарландыруларын бекітулі ұстайды.</string>
+    <string name="settings_watch_notifications">Сағатта көрсету</string>
+    <string name="settings_watch_notifications_hint">Баға хабарландырулары, ескертулер және нарық хабарландырулары сағатта дыбыссыз шығады. Сағатта Crypto Checker қажет – оны сонда бір рет ашып, хабарландыруларға рұқсат беріңіз.</string>
     <string name="settings_price_notifications">Бағам хабарландырулары</string>
     <string name="settings_price_notifications_hint">Қосылған жұптардың ағымдағы бағамын күй жолағында көрсету.</string>
     <string name="settings_price_pairs">Жұптар</string>

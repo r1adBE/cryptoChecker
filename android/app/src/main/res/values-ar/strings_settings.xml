@@ -55,6 +55,8 @@
     <string name="settings_notification_change_hint">لا يظهر الإشعار إلا بعد أن يتحرك السعر بهذا القدر على الأقل منذ الإشعار السابق. لا يُعرض شيء أثناء غياب البيانات. لا تتأثر التنبيهات.</string>
     <string name="settings_ongoing_notifications">غير قابلة للإزالة بالسحب</string>
     <string name="settings_ongoing_notifications_hint">يُبقي إشعارات الأسعار مثبّتة.</string>
+    <string name="settings_watch_notifications">عرض على الساعة</string>
+    <string name="settings_watch_notifications_hint">تظهر إشعارات الأسعار والتنبيهات وإشعارات السوق بصمت على الساعة. يلزم وجود Crypto Checker على الساعة – افتحه هناك مرة واسمح بالإشعارات.</string>
     <string name="settings_price_notifications">إشعارات الأسعار</string>
     <string name="settings_price_notifications_hint">عرض السعر الحالي للأزواج المفعّلة في شريط الحالة.</string>
     <string name="settings_price_pairs">الأزواج</string>

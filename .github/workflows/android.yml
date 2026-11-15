@@ -417,6 +417,40 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
+      # Release-near test build for the owner's device test: the audited R8 release APKs (phone and watch), signed
+      # with this runner's debug key (the same key as «cryptochecker-debug» of this run, so phone and watch can
+      # talk over the Data Layer). Not for Play: the Play upload key never touches CI. A new runner key means
+      # uninstall before installing (test devices are reinstalled anyway).
+      - name: Sign release APKs for device tests (runner debug key)
+        run: |
+          set -euo pipefail
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n 1)"
+          KS="$HOME/.android/debug.keystore"
+          test -f "$KS" || { echo "::error title=Release test APK::debug keystore missing ($KS)"; exit 1; }
+          OUT="$RUNNER_TEMP/release-test"
+          mkdir -p "$OUT"
+          sign() {
+            local in="$1" out="$2"
+            test -f "$in" || { echo "::error title=Release test APK::$in missing"; exit 1; }
+            "$BT/zipalign" -f -p 4 "$in" "$OUT/aligned.apk"
+            "$BT/apksigner" sign --ks "$KS" --ks-pass pass:android --key-pass pass:android \
+              --ks-key-alias androiddebugkey --out "$out" "$OUT/aligned.apk"
+            "$BT/apksigner" verify "$out"
+            rm -f "$OUT/aligned.apk"
+          }
+          PHONE=$(find app/build/outputs/apk/release -maxdepth 1 -name '*.apk' | sort | head -n 1)
+          WEAR=$(find wear/build/outputs/apk/release -maxdepth 1 -name '*.apk' | sort | head -n 1)
+          sign "$PHONE" "$OUT/CryptoChecker-release-test-phone.apk"
+          sign "$WEAR" "$OUT/CryptoChecker-release-test-wear.apk"
+
+      - name: Upload release test APKs (phone and watch)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cryptochecker-release-test
+          path: ${{ runner.temp }}/release-test/*.apk
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Upload debug APKs (phone and watch)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

@@ -6,6 +6,7 @@
     <string name="watch_updated">Առ %1$s</string>
     <string name="watch_refresh">Թարմացնել</string>
     <string name="watch_choose">Ընտրել կոիններ</string>
+    <string name="watch_notify_channel">Հեռախոսից</string>
     <string name="watch_choose_hint">Կոիններ՝ առավելագույնը %1$d</string>
     <string name="watch_complication_label">Գին</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ժամում</string>

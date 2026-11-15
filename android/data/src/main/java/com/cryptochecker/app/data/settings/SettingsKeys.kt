@@ -25,6 +25,7 @@ object SettingsKeys {
     val ongoingNotifications = booleanPreferencesKey(KEY_ONGOING_NOTIFICATIONS)
     /** Preis-Overlay (nur Android, gerätebezogen, nicht in der Sicherung). */
     val priceOverlay = booleanPreferencesKey("price_overlay")
+    val watchNotifications = booleanPreferencesKey("watch_notifications")
     /** Freie Eingabe mit Nachkommastellen, z. B. 2,5 %. */
     val notificationChange = doublePreferencesKey("notification_change_percent_exact")
     val tts = booleanPreferencesKey("tts_enabled")

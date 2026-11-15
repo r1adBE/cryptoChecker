@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Известување за цена се појавува само откако цената ќе се помести најмалку толку од последното. Ништо не се прикажува додека недостасуваат податоци. Алармите не се засегнати.</string>
     <string name="settings_ongoing_notifications">Не може да се повлече настрана</string>
     <string name="settings_ongoing_notifications_hint">Ги држи известувањата за цени закачени.</string>
+    <string name="settings_watch_notifications">Прикажи на часовникот</string>
+    <string name="settings_watch_notifications_hint">Известувањата за цени, предупредувањата и известувањата за пазарот се прикажуваат тивко на часовникот. Потребен е Crypto Checker на часовникот – отвори го таму еднаш и дозволи известувања.</string>
     <string name="settings_price_notifications">Известувања за цени</string>
     <string name="settings_price_notifications_hint">Прикажи ја тековната цена на вклучените парови во статусната лента.</string>
     <string name="settings_price_pairs">Парови</string>

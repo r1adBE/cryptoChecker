@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">ਕੀਮਤ ਸੂਚਨਾ ਸਿਰਫ਼ ਉਦੋਂ ਆਉਂਦੀ ਹੈ ਜਦੋਂ ਪਿਛਲੀ ਤੋਂ ਬਾਅਦ ਕੀਮਤ ਘੱਟੋ-ਘੱਟ ਇੰਨੀ ਬਦਲੀ ਹੋਵੇ। ਡਾਟਾ ਗੁੰਮ ਹੋਵੇ ਤਾਂ ਕੁਝ ਨਹੀਂ ਦਿਖਾਇਆ ਜਾਂਦਾ। ਅਲਰਟਾਂ ’ਤੇ ਅਸਰ ਨਹੀਂ।</string>
     <string name="settings_ongoing_notifications">ਸਵਾਈਪ ਕਰਕੇ ਹਟਾਈਆਂ ਨਹੀਂ ਜਾ ਸਕਦੀਆਂ</string>
     <string name="settings_ongoing_notifications_hint">ਕੀਮਤ ਸੂਚਨਾਵਾਂ ਨੂੰ ਪਿੰਨ ਰੱਖਦਾ ਹੈ।</string>
+    <string name="settings_watch_notifications">ਘੜੀ ’ਤੇ ਦਿਖਾਓ</string>
+    <string name="settings_watch_notifications_hint">ਕੀਮਤ ਸੂਚਨਾਵਾਂ, ਅਲਰਟ ਅਤੇ ਬਾਜ਼ਾਰ ਸੂਚਨਾਵਾਂ ਘੜੀ ’ਤੇ ਬਿਨਾਂ ਅਵਾਜ਼ ਦਿਖਦੀਆਂ ਹਨ। ਘੜੀ ’ਤੇ Crypto Checker ਲੋੜੀਂਦਾ ਹੈ – ਕਿਰਪਾ ਕਰਕੇ ਉੱਥੇ ਇੱਕ ਵਾਰ ਖੋਲ੍ਹੋ ਅਤੇ ਸੂਚਨਾਵਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ।</string>
     <string name="settings_price_notifications">ਕੀਮਤ ਸੂਚਨਾਵਾਂ</string>
     <string name="settings_price_notifications_hint">ਸਟੇਟਸ ਬਾਰ ਵਿੱਚ ਚਾਲੂ ਕੀਤੇ ਜੋੜਿਆਂ ਦੀ ਮੌਜੂਦਾ ਕੀਮਤ ਦਿਖਾਓ।</string>
     <string name="settings_price_pairs">ਜੋੜੇ</string>

@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">قیمت کی اطلاع صرف تب آتی ہے جب پچھلی اطلاع کے بعد قیمت کم از کم اتنی بدلی ہو۔ ڈیٹا موجود نہ ہو تو کچھ نہیں دکھایا جاتا۔ الرٹس پر اثر نہیں۔</string>
     <string name="settings_ongoing_notifications">سوائپ کر کے نہیں ہٹائی جا سکتیں</string>
     <string name="settings_ongoing_notifications_hint">قیمت کی اطلاعات کو پن رکھتا ہے۔</string>
+    <string name="settings_watch_notifications">گھڑی پر دکھائیں</string>
+    <string name="settings_watch_notifications_hint">قیمت کی اطلاعات، الرٹس اور مارکیٹ کی اطلاعات گھڑی پر خاموشی سے ظاہر ہوتی ہیں۔ گھڑی پر Crypto Checker درکار ہے – براہ کرم وہاں ایک بار کھولیں اور اطلاعات کی اجازت دیں۔</string>
     <string name="settings_price_notifications">قیمت کی اطلاعات</string>
     <string name="settings_price_notifications_hint">فعال جوڑوں کی موجودہ قیمت اسٹیٹس بار میں دکھائیں۔</string>
     <string name="settings_price_pairs">جوڑے</string>

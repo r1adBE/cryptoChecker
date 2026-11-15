@@ -200,8 +200,11 @@ enum SettingsSearchCatalog {
         add("about.exchange", L("about_request_exchange"), about, .page(.about, anchor: "about.exchange"))
         add("about.source", L("about_source_code"), about, .page(.about, anchor: "about.source"))
         add("about.licenses", L("about_licenses"), about, .page(.licenses, anchor: nil))
-        add("about.diagnostics", L("diagnostics_share"), about, .page(.about, anchor: "about.diagnostics"),
-            [L("diagnostics_share_hint")])
+        // Diagnose nur, wenn freigeschaltet (wie auf «Über die App»), in jedem Build
+        if settings.developerUnlocked {
+            add("about.diagnostics", L("diagnostics_share"), about, .page(.about, anchor: "about.diagnostics"),
+                [L("diagnostics_share_hint")])
+        }
         // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile auf «Über die App»)
         if settings.developerUnlocked && DeveloperOptions.available {
             let developer = L("settings_section_developer")

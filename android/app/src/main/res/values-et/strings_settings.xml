@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Hinnamärguanne ilmub alles siis, kui hind on pärast eelmist liikunud vähemalt nii palju. Andmete puudumisel ei näidata midagi. Hoiatusi see ei mõjuta.</string>
     <string name="settings_ongoing_notifications">Ei saa ära pühkida</string>
     <string name="settings_ongoing_notifications_hint">Hinnamärguanded jäävad kinnitatuks.</string>
+    <string name="settings_watch_notifications">Näita kellal</string>
+    <string name="settings_watch_notifications_hint">Hinnateated, hoiatused ja turuteated ilmuvad kellale vaikselt. Vaja on Crypto Checkerit kellas – ava see seal korra ja luba teavitused.</string>
     <string name="settings_price_notifications">Hinnamärguanded</string>
     <string name="settings_price_notifications_hint">Näitab sisselülitatud paaride praegust hinda olekuribal.</string>
     <string name="settings_price_pairs">Paarid</string>

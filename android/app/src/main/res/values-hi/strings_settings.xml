@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">पिछले नोटिफ़िकेशन के बाद कीमत कम से कम इतनी बदलने पर ही नोटिफ़िकेशन दिखता है। डेटा न होने पर कुछ नहीं दिखाया जाता। अलार्म पर इसका असर नहीं पड़ता।</string>
     <string name="settings_ongoing_notifications">स्वाइप करके हटाया नहीं जा सकता</string>
     <string name="settings_ongoing_notifications_hint">प्राइस नोटिफ़िकेशन को पिन करके रखता है।</string>
+    <string name="settings_watch_notifications">घड़ी पर दिखाएँ</string>
+    <string name="settings_watch_notifications_hint">कीमत सूचनाएँ, अलर्ट और बाज़ार सूचनाएँ घड़ी पर बिना आवाज़ दिखती हैं। घड़ी पर Crypto Checker ज़रूरी है – कृपया वहाँ एक बार खोलें और सूचनाओं की अनुमति दें।</string>
     <string name="settings_price_notifications">प्राइस नोटिफ़िकेशन</string>
     <string name="settings_price_notifications_hint">चालू किए गए पेयर की मौजूदा कीमत स्टेटस बार में दिखाएँ।</string>
     <string name="settings_price_pairs">जोड़े</string>

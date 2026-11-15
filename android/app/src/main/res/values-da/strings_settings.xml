@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">En notifikation vises først, når kursen har bevæget sig mindst så meget siden den forrige. Der vises intet, mens der mangler data. Alarmer påvirkes ikke.</string>
     <string name="settings_ongoing_notifications">Kan ikke stryges væk</string>
     <string name="settings_ongoing_notifications_hint">Holder kursnotifikationerne fastgjort.</string>
+    <string name="settings_watch_notifications">Vis på uret</string>
+    <string name="settings_watch_notifications_hint">Kursnotifikationer, alarmer og markedsnotifikationer vises lydløst på uret. Kræver Crypto Checker på uret – åbn den der én gang og tillad notifikationer.</string>
     <string name="settings_price_notifications">Kursnotifikationer</string>
     <string name="settings_price_notifications_hint">Vis den aktuelle kurs for aktiverede par i statuslinjen.</string>
     <string name="settings_price_pairs">Par</string>

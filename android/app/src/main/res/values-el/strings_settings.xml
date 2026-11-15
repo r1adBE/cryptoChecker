@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">Η ειδοποίηση τιμής εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
     <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμής παραμένουν καρφιτσωμένες.</string>
+    <string name="settings_watch_notifications">Εμφάνιση στο ρολόι</string>
+    <string name="settings_watch_notifications_hint">Οι ειδοποιήσεις τιμών, οι ειδοποιήσεις ορίων και οι ειδοποιήσεις αγοράς εμφανίζονται αθόρυβα στο ρολόι. Χρειάζεται το Crypto Checker στο ρολόι – άνοιξέ το εκεί μία φορά και επίτρεψε τις ειδοποιήσεις.</string>
     <string name="settings_price_notifications">Ειδοποιήσεις τιμής</string>
     <string name="settings_price_notifications_hint">Εμφάνιση της τρέχουσας τιμής των ενεργών ζευγών στη γραμμή κατάστασης.</string>
     <string name="settings_price_pairs">Ζεύγη</string>

@@ -27,6 +27,9 @@ class WatchDataListener : WearableListenerService() {
     }
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
-        if (messageEvent.path == WatchUsage.REQUEST_PATH) WatchUsage.publish(applicationContext, requested = true)
+        when (messageEvent.path) {
+            WatchUsage.REQUEST_PATH -> WatchUsage.publish(applicationContext, requested = true)
+            WatchNotifications.PATH -> WatchNotifications.handle(applicationContext, messageEvent.data)
+        }
     }
 }

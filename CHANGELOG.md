@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 239)
+
+- Android: new setting «Show on watch»: price notifications, alerts and market notifications appear silently on the watch, shown by the Crypto Checker watch app (not twice). iPhone: a hint where the Watch app controls mirroring to the Apple Watch.
+- Diagnostics are only shown after tapping the version 7 times (in every build).
+- CI: release-near test APKs (R8 release, phone and watch) as artifact «cryptochecker-release-test».
+
 ## 16.2.2 (build 238)
 
 - Battery & activity: a note says what the numbers include (received data also while the app is open and for live prices; skipped runs don’t count), and the sentence below the numbers now says what is planned instead of what counts most.

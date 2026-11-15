@@ -79,7 +79,7 @@ internal fun AppNotifier.postPrice(watch: WatchEntity, ongoing: Boolean): Boolea
  */
 internal fun AppNotifier.postOverflow(lines: LinkedHashMap<Long, String>, ongoing: Boolean): Boolean {
     if (lines.isEmpty()) {
-        if (overflowCache != null || overflowPostedAt > 0L) manager.cancel(PRICE_OVERFLOW_ID)
+        if (overflowCache != null || overflowPostedAt > 0L) cancelId(PRICE_OVERFLOW_ID)
         overflowCache = null
         overflowPostedAt = 0L
         return false
@@ -149,7 +149,7 @@ internal fun AppNotifier.buildComparisonText(watch: WatchEntity, price: Double):
 
 /** Nur die einzelne Meldung (sie wandert in die Sammelmeldung bzw. macht einem Alarm Platz). */
 internal fun AppNotifier.cancelPriceSingle(watchId: Long) {
-    manager.cancel(priceNotificationId(watchId))
+    cancelId(priceNotificationId(watchId))
     recentPrices.remove(watchId)
 }
 

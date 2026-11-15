@@ -51,6 +51,8 @@
     <string name="settings_notification_change_hint">पछिल्लो सूचनादेखि मूल्य कम्तीमा यति चलेपछि मात्र मूल्य सूचना देखिन्छ। डेटा नहुँदा केही देखाइँदैन। अलर्टहरूमा असर पर्दैन।</string>
     <string name="settings_ongoing_notifications">स्वाइप गरेर हटाउन सकिँदैन</string>
     <string name="settings_ongoing_notifications_hint">मूल्य सूचनाहरू पिन गरेर राख्छ।</string>
+    <string name="settings_watch_notifications">घडीमा देखाउनुहोस्</string>
+    <string name="settings_watch_notifications_hint">मूल्य सूचना, सतर्कता र बजार सूचना घडीमा आवाजविना देखिन्छन्। घडीमा Crypto Checker चाहिन्छ – कृपया त्यहाँ एक पटक खोल्नुहोस् र सूचनालाई अनुमति दिनुहोस्।</string>
     <string name="settings_price_notifications">मूल्य सूचनाहरू</string>
     <string name="settings_price_notifications_hint">सक्रिय जोडीहरूको हालको मूल्य स्टाटस बारमा देखाउनुहोस्।</string>
     <string name="settings_price_pairs">जोडीहरू</string>

@@ -4,6 +4,8 @@
 
     <!-- Kurse direkt bei den Börsen (Binance, Bybit, OKX); keine weiteren Berechtigungen -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- «Auf der Uhr zeigen» (Handy-Schalter): Mitteilungen des Handys zeigt die Uhr-App selbst -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -54,6 +56,11 @@
                 <data
                     android:host="*"
                     android:path="/cc/usage/request"
+                    android:scheme="wear" />
+                <!-- «Auf der Uhr zeigen»: Mitteilung vom Handy zeigen bzw. entfernen -->
+                <data
+                    android:host="*"
+                    android:path="/cc/notify"
                     android:scheme="wear" />
             </intent-filter>
         </service>

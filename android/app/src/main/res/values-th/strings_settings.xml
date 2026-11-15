@@ -50,6 +50,8 @@
     <string name="settings_notification_change_hint">การแจ้งเตือนจะแสดงเมื่อราคาเปลี่ยนอย่างน้อยเท่านี้นับจากครั้งก่อนเท่านั้น จะไม่แสดงอะไรขณะไม่มีข้อมูล สัญญาณเตือนไม่ได้รับผลกระทบ</string>
     <string name="settings_ongoing_notifications">ปัดทิ้งไม่ได้</string>
     <string name="settings_ongoing_notifications_hint">ปักหมุดการแจ้งเตือนราคาไว้</string>
+    <string name="settings_watch_notifications">แสดงบนนาฬิกา</string>
+    <string name="settings_watch_notifications_hint">การแจ้งเตือนราคา การเตือน และการแจ้งเตือนตลาดจะแสดงบนนาฬิกาแบบไม่มีเสียง ต้องมี Crypto Checker บนนาฬิกา โปรดเปิดแอปบนนาฬิกาหนึ่งครั้งและอนุญาตการแจ้งเตือน</string>
     <string name="settings_price_notifications">การแจ้งเตือนราคา</string>
     <string name="settings_price_notifications_hint">แสดงราคาปัจจุบันของคู่ที่เปิดใช้ในแถบสถานะ</string>
     <string name="settings_price_pairs">คู่เทรด</string>
