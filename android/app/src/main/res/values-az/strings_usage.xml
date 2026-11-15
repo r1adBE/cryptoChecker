@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Batareya və fəaliyyət</string>
     <string name="usage_intro">Tətbiqlər öz enerji sərfiyyatını oxuya bilməz. Ona görə tətbiq son 24 saatda özünün nə etdiyini göstərir – yalnız bu cihazda sayılır, heç bir məzmun olmadan.</string>
+    <string name="usage_counts_note">«Alındı» tətbiqin gətirdiyi hər şeyi sayır – açıq olanda və canlı qiymətlər üçün də. Ötürülən işləmələr sayılmır.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Saat</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Aşağı fəaliyyət</string>
     <string name="usage_level_medium">Orta fəaliyyət</string>
     <string name="usage_level_high">Yüksək fəaliyyət</string>
-    <string name="usage_driver_interval">Əsasən fon yoxlamasına görə (%1$s).</string>
-    <string name="usage_driver_exact">Əsasən fon yoxlamasına (%1$s) və “%2$s” seçiminə görə.</string>
+    <string name="usage_driver_interval">Planlaşdırılıb: fon yoxlaması (%1$s).</string>
+    <string name="usage_driver_exact">Planlaşdırılıb: fon yoxlaması (%1$s) və “%2$s”.</string>
     <string name="usage_driver_none">Fon yoxlaması planlaşdırılmayıb – açıq tətbiqin və vidjetlərin yüklədikləri sayılır.</string>
     <string name="usage_driver_watch">Saat tətbiqinin və onun komplikasiyalarının özlərinin yüklədikləri sayılır.</string>
     <string name="usage_watch_none">Qoşulmuş saat yoxdur</string>

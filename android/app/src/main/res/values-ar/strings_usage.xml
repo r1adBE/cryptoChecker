@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">البطارية والنشاط</string>
     <string name="usage_intro">لا تستطيع التطبيقات قراءة استهلاكها للطاقة. لذلك يعرض التطبيق ما فعله بنفسه خلال آخر 24 ساعة – يُحسب على هذا الجهاز فقط ودون أي محتوى.</string>
+    <string name="usage_counts_note">يشمل «المستلَم» كل ما جلبه التطبيق – أيضًا وهو مفتوح وللأسعار المباشرة. لا تُحتسب الجولات المتخطاة.</string>
     <string name="usage_phone">الهاتف</string>
     <string name="usage_watch">الساعة</string>
     <plurals name="usage_runs">
@@ -24,8 +25,8 @@
     <string name="usage_level_low">نشاط منخفض</string>
     <string name="usage_level_medium">نشاط متوسط</string>
     <string name="usage_level_high">نشاط مرتفع</string>
-    <string name="usage_driver_interval">غالبًا بسبب الفحص في الخلفية (%1$s).</string>
-    <string name="usage_driver_exact">غالبًا بسبب الفحص في الخلفية (%1$s) و«%2$s».</string>
+    <string name="usage_driver_interval">المخطط: الفحص في الخلفية (%1$s).</string>
+    <string name="usage_driver_exact">المخطط: الفحص في الخلفية (%1$s) و«%2$s».</string>
     <string name="usage_driver_none">لا يوجد فحص مجدول في الخلفية – يُحتسب ما يجلبه التطبيق المفتوح والأدوات.</string>
     <string name="usage_driver_watch">يُحتسب ما يجلبه تطبيق الساعة وإضافاته بأنفسهم.</string>
     <string name="usage_watch_none">لا توجد ساعة متصلة</string>

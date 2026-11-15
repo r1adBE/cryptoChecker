@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Bu zaxira nusxa ilovaning yangiroq versiyasidan – avval ilovani yangilang. Hech narsa tiklanmadi.</string>
     <string name="backup_restore_unencrypted_warning">Bu zaxira nusxa shifrlanmagan – u sizdan ekanini tekshiring. Sozlamalar qoʻllanadi – himoyani pasaytiradigan oʻzgarishlardan tashqari (Portfel qulfi, Manzillar uchun shaxsiy server, Miqdorlarni yashirish, Portfel tizim zaxirasida).</string>
+    <string name="backup_restore_unencrypted_replaces">Parolsiz faylni kimdir o‘zgartirganini tekshirib bo‘lmaydi – u savdolaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillarni ham almashtiradi.</string>
     <string name="backup_restored">Tiklandi: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d ta signal</item>

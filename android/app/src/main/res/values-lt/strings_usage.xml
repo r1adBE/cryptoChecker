@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Akumuliatorius ir veikla</string>
     <string name="usage_intro">Programos negali nuskaityti savo energijos sąnaudų. Todėl programa rodo, ką pati padarė per pastarąsias 24 valandas, – skaičiuojama tik šiame įrenginyje, be jokio turinio.</string>
+    <string name="usage_counts_note">„Gauta“ apima viską, ką programėlė atsisiuntė – ir kai ji atidaryta, ir tiesioginėms kainoms. Praleisti paleidimai neskaičiuojami.</string>
     <string name="usage_phone">Telefonas</string>
     <string name="usage_watch">Laikrodis</string>
     <plurals name="usage_runs">
@@ -20,8 +21,8 @@
     <string name="usage_level_low">Maža veikla</string>
     <string name="usage_level_medium">Vidutinė veikla</string>
     <string name="usage_level_high">Didelė veikla</string>
-    <string name="usage_driver_interval">Daugiausia dėl tikrinimo fone (%1$s).</string>
-    <string name="usage_driver_exact">Daugiausia dėl tikrinimo fone (%1$s) ir „%2$s“.</string>
+    <string name="usage_driver_interval">Suplanuota: tikrinimas fone (%1$s).</string>
+    <string name="usage_driver_exact">Suplanuota: tikrinimas fone (%1$s) ir „%2$s“.</string>
     <string name="usage_driver_none">Tikrinimas fone nesuplanuotas – skaičiuojama tai, ką atsisiunčia atidaryta programa ir valdikliai.</string>
     <string name="usage_driver_watch">Skaičiuojama tai, ką laikrodžio programa ir jos valdikliai atsisiunčia patys.</string>
     <string name="usage_watch_none">Laikrodis neprijungtas</string>

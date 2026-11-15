@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ова је резервна копија из новије верзије апликације – најпре ажурирај апликацију. Ништа није враћено.</string>
     <string name="backup_restore_unencrypted_warning">Ова резервна копија није шифрована – провери да ли потиче од тебе. Подешавања ће се применити – осим промена које смањују заштиту (Закључавање портфолија, Сопствени сервер за адресе, Сакриј износе, Портфолио у резервној копији система).</string>
+    <string name="backup_restore_unencrypted_replaces">Без лозинке не може се проверити да ли је неко изменио ову датотеку – она замењује и твоје трансакције, упозорења портфолија и праћене адресе.</string>
     <string name="backup_restored">Враћено: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d аларм</item>

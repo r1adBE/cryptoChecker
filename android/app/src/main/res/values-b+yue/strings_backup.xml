@@ -42,6 +42,7 @@
     </plurals>
     <string name="backup_restore_newer_version">呢個備份來自較新版本嘅 App – 請先更新 App。乜都冇還原。</string>
     <string name="backup_restore_unencrypted_warning">呢個備份冇加密 – 請確認係你自己嘅。設定會套用 – 但會降低保護嘅更改除外（投資組合鎖、地址用嘅自家伺服器、隱藏金額、系統備份包括投資組合）。</string>
+    <string name="backup_restore_unencrypted_replaces">冇密碼就冇辦法檢查有冇人改過呢個檔案 – 佢亦會取代你嘅交易、投資組合提醒同埋監察緊嘅地址。</string>
     <string name="backup_restored">已還原：%1$s、%2$s。</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d 個提示</item>

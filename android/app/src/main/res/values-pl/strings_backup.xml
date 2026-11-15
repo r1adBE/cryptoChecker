@@ -45,6 +45,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ta kopia pochodzi z nowszej wersji aplikacji – najpierw zaktualizuj aplikację. Nic nie przywrócono.</string>
     <string name="backup_restore_unencrypted_warning">Ta kopia nie jest zaszyfrowana – sprawdź, czy pochodzi od ciebie. Ustawienia zostaną przejęte – z wyjątkiem zmian obniżających ochronę (Blokada portfela, Własny serwer dla adresów, Ukryj kwoty, Portfel w kopii systemowej).</string>
+    <string name="backup_restore_unencrypted_replaces">Bez hasła nie da się sprawdzić, czy ktoś zmienił ten plik – zastępuje on też twoje transakcje, alerty portfela i obserwowane adresy.</string>
     <string name="backup_restored">Przywrócono: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

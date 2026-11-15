@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Batería y actividad</string>
     <string name="usage_intro">Las apps no pueden leer su propio consumo de energía. Por eso la app muestra lo que hizo ella misma en las últimas 24 horas, contado solo en este dispositivo y sin ningún contenido.</string>
+    <string name="usage_counts_note">«Recibidos» cuenta todo lo que descargó la app – también con la app abierta y para precios en directo. Las ejecuciones omitidas no cuentan.</string>
     <string name="usage_phone">Teléfono</string>
     <string name="usage_watch">Reloj</string>
     <plurals name="usage_runs">
@@ -18,8 +19,8 @@
     <string name="usage_level_low">Actividad baja</string>
     <string name="usage_level_medium">Actividad media</string>
     <string name="usage_level_high">Actividad alta</string>
-    <string name="usage_driver_interval">Sobre todo por la comprobación en segundo plano (%1$s).</string>
-    <string name="usage_driver_exact">Sobre todo por la comprobación en segundo plano (%1$s) y «%2$s».</string>
+    <string name="usage_driver_interval">Previsto: comprobación en segundo plano (%1$s).</string>
+    <string name="usage_driver_exact">Previsto: comprobación en segundo plano (%1$s) y «%2$s».</string>
     <string name="usage_driver_none">No hay comprobación en segundo plano programada: cuenta lo que obtienen la app abierta y los widgets.</string>
     <string name="usage_driver_watch">Cuenta lo que obtienen por sí mismas la app del reloj y sus complicaciones.</string>
     <string name="usage_watch_none">Ningún reloj conectado</string>

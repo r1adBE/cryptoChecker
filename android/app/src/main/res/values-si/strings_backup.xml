@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">මෙම උපස්ථය වඩා නව යෙදුම් අනුවාදයකින්ය – පළමුව යෙදුම යාවත්කාලීන කරන්න. කිසිවක් ප්‍රතිසාධනය නොකළා.</string>
     <string name="backup_restore_unencrypted_warning">මෙම උපස්ථය සංකේතනය කර නැත – එය ඔබෙන් පැමිණි බව පරීක්ෂා කරන්න. සැකසීම් යෙදේ – ආරක්ෂාව අඩු කරන වෙනස්කම් හැර (කළඹ අගුල, ලිපින සඳහා ඔබේම සේවාදායකය, ප්‍රමාණ සඟවන්න, පද්ධති උපස්ථයේ කළඹ).</string>
+    <string name="backup_restore_unencrypted_replaces">මුරපදයක් නොමැතිව කිසිවෙකු මෙම ගොනුව වෙනස් කළාදැයි පරීක්ෂා කළ නොහැක – එය ඔබේ ගනුදෙනු, කළඹ ඇඟවීම් සහ නිරීක්ෂණය කරන ලිපිනද ප්‍රතිස්ථාපනය කරයි.</string>
     <string name="backup_restored">ප්‍රතිසාධනය කළා: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">ඇඟවීම් %1$d</item>

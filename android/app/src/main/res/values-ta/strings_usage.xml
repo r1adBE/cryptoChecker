@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">பேட்டரி மற்றும் செயல்பாடு</string>
     <string name="usage_intro">ஆப்ஸால் தங்கள் சொந்த மின் பயன்பாட்டைப் படிக்க முடியாது. எனவே கடந்த 24 மணி நேரத்தில் ஆப் தானே என்ன செய்தது என்பதைக் காட்டுகிறது – இந்தச் சாதனத்தில் மட்டும் எண்ணப்பட்டது, எந்த உள்ளடக்கமும் இல்லாமல்.</string>
+    <string name="usage_counts_note">«பெறப்பட்டது» ஆப் கொண்டுவந்த அனைத்தையும் எண்ணுகிறது – திறந்திருக்கும்போதும் நேரலை விலைகளுக்கும். தவிர்க்கப்பட்ட இயக்கங்கள் எண்ணப்படாது.</string>
     <string name="usage_phone">ஃபோன்</string>
     <string name="usage_watch">வாட்ச்</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">குறைவான செயல்பாடு</string>
     <string name="usage_level_medium">நடுத்தர செயல்பாடு</string>
     <string name="usage_level_high">அதிக செயல்பாடு</string>
-    <string name="usage_driver_interval">பெரும்பாலும் பின்னணிச் சரிபார்ப்பால் (%1$s).</string>
-    <string name="usage_driver_exact">பெரும்பாலும் பின்னணிச் சரிபார்ப்பு (%1$s) மற்றும் “%2$s” காரணமாக.</string>
+    <string name="usage_driver_interval">திட்டமிடப்பட்டது: பின்னணிச் சரிபார்ப்பு (%1$s).</string>
+    <string name="usage_driver_exact">திட்டமிடப்பட்டது: பின்னணிச் சரிபார்ப்பு (%1$s) மற்றும் “%2$s”.</string>
     <string name="usage_driver_none">பின்னணிச் சரிபார்ப்பு திட்டமிடப்படவில்லை – திறந்த ஆப்பும் விட்ஜெட்களும் பெறுவது மட்டுமே கணக்கில் வரும்.</string>
     <string name="usage_driver_watch">வாட்ச் ஆப்பும் அதன் காம்ப்ளிகேஷன்களும் தாமே பெறுவது கணக்கில் வரும்.</string>
     <string name="usage_watch_none">வாட்ச் எதுவும் இணைக்கப்படவில்லை</string>

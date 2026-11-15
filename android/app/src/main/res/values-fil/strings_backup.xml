@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Mula sa mas bagong bersyon ng app ang backup na ito – i-update muna ang app. Walang na-restore.</string>
     <string name="backup_restore_unencrypted_warning">Hindi naka-encrypt ang backup na ito – tiyaking galing ito sa iyo. Ilalapat ang mga setting – maliban sa mga pagbabagong nagpapababa ng proteksyon (Lock ng portfolio, Sariling server para sa mga address, Itago ang mga halaga, Portfolio sa system backup).</string>
+    <string name="backup_restore_unencrypted_replaces">Kung walang password, hindi masusuri kung may nagbago sa file na ito – papalitan din nito ang iyong mga trade, alerto ng portfolio at binabantayang address.</string>
     <string name="backup_restored">Na-restore: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alerto</item>

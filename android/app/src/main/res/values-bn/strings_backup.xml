@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">এই ব্যাকআপ অ্যাপের নতুন সংস্করণের – আগে অ্যাপ আপডেট করুন। কিছুই পুনরুদ্ধার করা হয়নি।</string>
     <string name="backup_restore_unencrypted_warning">এই ব্যাকআপ এনক্রিপ্ট করা নয় – এটি আপনার কিনা যাচাই করুন। সেটিংস প্রয়োগ হবে – তবে সুরক্ষা কমায় এমন পরিবর্তন বাদে (পোর্টফোলিও লক, ঠিকানার জন্য নিজের সার্ভার, পরিমাণ লুকান, সিস্টেম ব্যাকআপে পোর্টফোলিও)।</string>
+    <string name="backup_restore_unencrypted_replaces">পাসওয়ার্ড ছাড়া কেউ ফাইলটি বদলেছে কি না তা যাচাই করা যায় না – এটি আপনার ট্রেড, পোর্টফোলিও সতর্কতা ও নজরে রাখা ঠিকানাও প্রতিস্থাপন করে।</string>
     <string name="backup_restored">পুনরুদ্ধার হয়েছে: %1$s, %2$s।</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$dটি অ্যালার্ট</item>

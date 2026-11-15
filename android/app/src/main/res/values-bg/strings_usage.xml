@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Батерия и активност</string>
     <string name="usage_intro">Приложенията не могат да разчетат собствения си разход на енергия. Затова приложението показва какво е направило само през последните 24 часа – отчетено само на това устройство, без никакво съдържание.</string>
+    <string name="usage_counts_note">„Получени“ включва всичко, което приложението е изтеглило – и докато е отворено, и за цените на живо. Пропуснатите изпълнения не се броят.</string>
     <string name="usage_phone">Телефон</string>
     <string name="usage_watch">Часовник</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Ниска активност</string>
     <string name="usage_level_medium">Средна активност</string>
     <string name="usage_level_high">Висока активност</string>
-    <string name="usage_driver_interval">Най-вече заради проверката във фонов режим (%1$s).</string>
-    <string name="usage_driver_exact">Най-вече заради проверката във фонов режим (%1$s) и „%2$s“.</string>
+    <string name="usage_driver_interval">Планирано: проверка във фонов режим (%1$s).</string>
+    <string name="usage_driver_exact">Планирано: проверка във фонов режим (%1$s) и „%2$s“.</string>
     <string name="usage_driver_none">Няма планирана проверка във фонов режим – брои се това, което изтеглят отвореното приложение и уиджетите.</string>
     <string name="usage_driver_watch">Брои се това, което приложението на часовника и усложненията му изтеглят сами.</string>
     <string name="usage_watch_none">Няма свързан часовник</string>

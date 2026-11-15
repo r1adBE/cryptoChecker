@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">הגיבוי הזה הוא מגרסה חדשה יותר של האפליקציה – עדכנו קודם את האפליקציה. לא שוחזר דבר.</string>
     <string name="backup_restore_unencrypted_warning">הגיבוי הזה לא מוצפן – ודאו שהוא שלכם. ההגדרות יוחלו – למעט שינויים שמפחיתים את ההגנה (נעילת תיק השקעות, שרת משלכם לכתובות, הסתרת סכומים, תיק השקעות בגיבוי המערכת).</string>
+    <string name="backup_restore_unencrypted_replaces">ללא סיסמה אי אפשר לבדוק אם מישהו שינה את הקובץ – הוא מחליף גם את העסקאות, התראות התיק והכתובות שבמעקב.</string>
     <string name="backup_restored">שוחזרו: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d התראה</item>

@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Батарея и активность</string>
     <string name="usage_intro">Приложения не могут узнать собственный расход энергии. Поэтому приложение показывает, что оно само сделало за последние 24 часа, – подсчитано только на этом устройстве, без какого-либо содержимого.</string>
+    <string name="usage_counts_note">«Получено» учитывает всё, что загрузило приложение, – и когда оно открыто, и для цен в реальном времени. Пропущенные запуски не учитываются.</string>
     <string name="usage_phone">Телефон</string>
     <string name="usage_watch">Часы</string>
     <plurals name="usage_runs">
@@ -20,8 +21,8 @@
     <string name="usage_level_low">Низкая активность</string>
     <string name="usage_level_medium">Средняя активность</string>
     <string name="usage_level_high">Высокая активность</string>
-    <string name="usage_driver_interval">В основном из-за фоновой проверки (%1$s).</string>
-    <string name="usage_driver_exact">В основном из-за фоновой проверки (%1$s) и «%2$s».</string>
+    <string name="usage_driver_interval">Запланировано: фоновая проверка (%1$s).</string>
+    <string name="usage_driver_exact">Запланировано: фоновая проверка (%1$s) и «%2$s».</string>
     <string name="usage_driver_none">Фоновая проверка не запланирована – учитывается то, что загружают открытое приложение и виджеты.</string>
     <string name="usage_driver_watch">Учитывается то, что приложение на часах и его расширения загружают сами.</string>
     <string name="usage_watch_none">Часы не подключены</string>

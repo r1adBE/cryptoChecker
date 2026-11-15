@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Esta copia de seguranza é dunha versión máis nova da app – actualiza primeiro a app. Non se restaurou nada.</string>
     <string name="backup_restore_unencrypted_warning">Esta copia de seguranza non está cifrada – comproba que é túa. Aplicarase a configuración – agás os cambios que reducen a protección (Bloqueo da carteira, Servidor propio para enderezos, Ocultar importes, Carteira na copia do sistema).</string>
+    <string name="backup_restore_unencrypted_replaces">Sen contrasinal non se pode comprobar se alguén modificou este ficheiro: tamén substitúe as túas operacións, alertas da carteira e enderezos vixiados.</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarma</item>

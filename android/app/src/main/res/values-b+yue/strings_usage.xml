@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">電池同活動</string>
     <string name="usage_intro">App 讀唔到自己嘅耗電量。所以本 App 會顯示佢喺過去 24 小時入面自己做咗啲乜——只喺呢部裝置上計數，唔包含任何內容。</string>
+    <string name="usage_counts_note">「已接收」包括 App 攞過嘅所有資料 – 包括 App 開住同即時價格。略過嘅執行唔計。</string>
     <string name="usage_phone">手機</string>
     <string name="usage_watch">手錶</string>
     <plurals name="usage_runs">
@@ -14,8 +15,8 @@
     <string name="usage_level_low">活動較少</string>
     <string name="usage_level_medium">活動中等</string>
     <string name="usage_level_high">活動較多</string>
-    <string name="usage_driver_interval">主要嚟自背景檢查（%1$s）。</string>
-    <string name="usage_driver_exact">主要嚟自背景檢查（%1$s）同「%2$s」。</string>
+    <string name="usage_driver_interval">已排程：背景檢查（%1$s）。</string>
+    <string name="usage_driver_exact">已排程：背景檢查（%1$s）同「%2$s」。</string>
     <string name="usage_driver_none">未安排背景檢查——只計開咗嘅 App 同小工具攞到嘅內容。</string>
     <string name="usage_driver_watch">計手錶 App 同佢嘅複雜功能自己攞到嘅內容。</string>
     <string name="usage_watch_none">未連接手錶</string>

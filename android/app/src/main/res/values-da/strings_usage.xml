@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Batteri og aktivitet</string>
     <string name="usage_intro">Apps kan ikke aflæse deres eget strømforbrug. Derfor viser appen, hvad den selv har gjort de seneste 24 timer – kun talt på denne enhed og uden indhold.</string>
+    <string name="usage_counts_note">Modtaget tæller alt, hvad appen har hentet – også mens den er åben og til livekurser. Oversprungne kørsler tæller ikke.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Ur</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Lav aktivitet</string>
     <string name="usage_level_medium">Middel aktivitet</string>
     <string name="usage_level_high">Høj aktivitet</string>
-    <string name="usage_driver_interval">Mest fra baggrundstjekket (%1$s).</string>
-    <string name="usage_driver_exact">Mest fra baggrundstjekket (%1$s) og »%2$s«.</string>
+    <string name="usage_driver_interval">Planlagt: baggrundstjek (%1$s).</string>
+    <string name="usage_driver_exact">Planlagt: baggrundstjek (%1$s) og »%2$s«.</string>
     <string name="usage_driver_none">Intet baggrundstjek planlagt – det, der tæller, er, hvad den åbne app og widgets henter.</string>
     <string name="usage_driver_watch">Det, der tæller, er, hvad ur-appen og dens komplikationer selv henter.</string>
     <string name="usage_watch_none">Intet ur forbundet</string>

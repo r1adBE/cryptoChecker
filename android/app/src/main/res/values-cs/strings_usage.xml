@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Baterie a aktivita</string>
     <string name="usage_intro">Aplikace nemohou zjistit vlastní spotřebu energie. Proto aplikace ukazuje, co sama udělala za posledních 24 hodin – počítáno jen na tomto zařízení, bez jakéhokoli obsahu.</string>
+    <string name="usage_counts_note">„Přijato“ zahrnuje vše, co aplikace stáhla – i když je otevřená a pro živé ceny. Přeskočená spuštění se nepočítají.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Hodinky</string>
     <plurals name="usage_runs">
@@ -20,8 +21,8 @@
     <string name="usage_level_low">Nízká aktivita</string>
     <string name="usage_level_medium">Střední aktivita</string>
     <string name="usage_level_high">Vysoká aktivita</string>
-    <string name="usage_driver_interval">Hlavně kvůli kontrole na pozadí (%1$s).</string>
-    <string name="usage_driver_exact">Hlavně kvůli kontrole na pozadí (%1$s) a „%2$s“.</string>
+    <string name="usage_driver_interval">Naplánováno: kontrola na pozadí (%1$s).</string>
+    <string name="usage_driver_exact">Naplánováno: kontrola na pozadí (%1$s) a „%2$s“.</string>
     <string name="usage_driver_none">Žádná kontrola na pozadí není naplánovaná – počítá se, co stahuje otevřená aplikace a widgety.</string>
     <string name="usage_driver_watch">Počítá se, co si aplikace v hodinkách a její komplikace stahují samy.</string>
     <string name="usage_watch_none">Nejsou připojené žádné hodinky</string>

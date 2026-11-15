@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">ਇਹ ਬੈਕਅੱਪ ਐਪ ਦੇ ਨਵੇਂ ਵਰਜ਼ਨ ਦਾ ਹੈ – ਪਹਿਲਾਂ ਐਪ ਅੱਪਡੇਟ ਕਰੋ। ਕੁਝ ਵੀ ਬਹਾਲ ਨਹੀਂ ਹੋਇਆ।</string>
     <string name="backup_restore_unencrypted_warning">ਇਹ ਬੈਕਅੱਪ ਇਨਕ੍ਰਿਪਟ ਨਹੀਂ ਹੈ – ਜਾਂਚੋ ਕਿ ਇਹ ਤੁਹਾਡਾ ਹੀ ਹੈ। ਸੈਟਿੰਗਾਂ ਲਾਗੂ ਹੋਣਗੀਆਂ – ਉਨ੍ਹਾਂ ਤਬਦੀਲੀਆਂ ਤੋਂ ਸਿਵਾਏ ਜੋ ਸੁਰੱਖਿਆ ਘਟਾਉਂਦੀਆਂ ਹਨ (ਪੋਰਟਫੋਲੀਓ ਲੌਕ, ਪਤਿਆਂ ਲਈ ਆਪਣਾ ਸਰਵਰ, ਰਕਮਾਂ ਲੁਕਾਓ, ਸਿਸਟਮ ਬੈਕਅੱਪ ਵਿੱਚ ਪੋਰਟਫੋਲੀਓ)।</string>
+    <string name="backup_restore_unencrypted_replaces">ਪਾਸਵਰਡ ਤੋਂ ਬਿਨਾਂ ਇਹ ਜਾਂਚਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਕਿ ਕਿਸੇ ਨੇ ਫ਼ਾਈਲ ਬਦਲੀ ਹੈ ਜਾਂ ਨਹੀਂ – ਇਹ ਤੁਹਾਡੇ ਟ੍ਰੇਡ, ਪੋਰਟਫੋਲੀਓ ਚਿਤਾਵਨੀਆਂ ਅਤੇ ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਵੀ ਬਦਲ ਦਿੰਦੀ ਹੈ।</string>
     <string name="backup_restored">ਬਹਾਲ ਹੋਇਆ: %1$s, %2$s।</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d ਅਲਰਟ</item>

@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Þetta öryggisafrit er úr nýrri útgáfu forritsins – uppfærðu forritið fyrst. Ekkert var endurheimt.</string>
     <string name="backup_restore_unencrypted_warning">Þetta öryggisafrit er ekki dulkóðað – gakktu úr skugga um að það komi frá þér. Stillingum verður beitt – nema breytingum sem draga úr vernd (lás eignasafns, eigin netþjónn fyrir vistföng, fela upphæðir, eignasafn í kerfisafriti).</string>
+    <string name="backup_restore_unencrypted_replaces">Án lykilorðs er ekki hægt að kanna hvort einhver hafi breytt skránni – hún kemur líka í stað viðskipta þinna, eignasafnsviðvarana og vaktaðra vistfanga.</string>
     <string name="backup_restored">Endurheimt: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d viðvörun</item>

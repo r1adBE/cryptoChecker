@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Diese Sicherung stammt aus einer neueren App-Version – aktualisiere zuerst die App. Nichts wurde übernommen.</string>
     <string name="backup_restore_unencrypted_warning">Diese Sicherung ist nicht verschlüsselt – prüfe, ob sie von dir stammt. Einstellungen werden übernommen – ausser Änderungen, die den Schutz senken (Portfolio-Sperre, Eigener Server für Adressen, Beträge verbergen, Portfolio in Systemsicherung).</string>
+    <string name="backup_restore_unencrypted_replaces">Ohne Passwort lässt sich nicht prüfen, ob jemand die Datei verändert hat – sie ersetzt auch deine Trades, Portfolio-Alarme und beobachteten Adressen.</string>
     <string name="backup_restored">Wiederhergestellt: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d Alarm</item>

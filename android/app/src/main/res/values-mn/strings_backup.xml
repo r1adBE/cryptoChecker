@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Энэ нөөц хуулбар аппын шинэ хувилбараас гарсан – эхлээд аппаа шинэчилнэ үү. Юу ч сэргээгдсэнгүй.</string>
     <string name="backup_restore_unencrypted_warning">Энэ нөөц хуулбар шифрлэгдээгүй – таных мөн эсэхийг шалгана уу. Тохиргоог хэрэгжүүлнэ – хамгаалалтыг сулруулах өөрчлөлтөөс бусдыг (Багцын түгжээ, Хаягийн өөрийн сервер, Дүнг нуух, Багц системийн нөөцөд).</string>
+    <string name="backup_restore_unencrypted_replaces">Нууц үггүйгээр хэн нэгэн файлыг өөрчилсөн эсэхийг шалгах боломжгүй – энэ нь таны арилжаа, багцын сэрэмжлүүлэг болон хянаж буй хаягуудыг ч орлуулна.</string>
     <string name="backup_restored">Сэргээсэн: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d дохио</item>

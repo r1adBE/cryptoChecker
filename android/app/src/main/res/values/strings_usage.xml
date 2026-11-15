@@ -3,6 +3,7 @@
     <!-- «Akku & Aktivität» (Einstellungen): eigene Zähler von Handy und Uhr, nur Zahlen, nur auf dem Gerät -->
     <string name="settings_row_usage">Battery &amp; activity</string>
     <string name="usage_intro">Apps can’t read their own power use. So the app shows what it did itself in the last 24 hours – counted only on this device, without any content.</string>
+    <string name="usage_counts_note">Received counts everything the app fetched – also while it’s open and for live prices. Skipped runs don’t count.</string>
     <string name="usage_phone">Phone</string>
     <string name="usage_watch">Watch</string>
     <plurals name="usage_runs">
@@ -17,8 +18,8 @@
     <string name="usage_level_low">Low activity</string>
     <string name="usage_level_medium">Medium activity</string>
     <string name="usage_level_high">High activity</string>
-    <string name="usage_driver_interval">Mostly from the background check (%1$s).</string>
-    <string name="usage_driver_exact">Mostly from the background check (%1$s) and “%2$s”.</string>
+    <string name="usage_driver_interval">Planned: background check (%1$s).</string>
+    <string name="usage_driver_exact">Planned: background check (%1$s) and “%2$s”.</string>
     <string name="usage_driver_none">No background check planned – what counts is what the open app and the widgets fetch.</string>
     <string name="usage_driver_watch">What counts is what the watch app and its complications fetch themselves.</string>
     <string name="usage_watch_none">No watch connected</string>

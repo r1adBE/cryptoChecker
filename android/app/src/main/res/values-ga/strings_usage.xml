@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Ceallra agus gníomhaíocht</string>
     <string name="usage_intro">Ní féidir le haipeanna a n-úsáid chumhachta féin a léamh. Dá bhrí sin taispeánann an aip a ndearna sí féin le 24 uair an chloig anuas – comhairthe ar an ngléas seo amháin, gan aon ábhar.</string>
+    <string name="usage_counts_note">Áirítear le Faighte gach rud a fuair an aip – fiú agus í oscailte agus do phraghsanna beo. Ní áirítear ritheanna a scipeáladh.</string>
     <string name="usage_phone">Fón</string>
     <string name="usage_watch">Uaireadóir</string>
     <plurals name="usage_runs">
@@ -22,8 +23,8 @@
     <string name="usage_level_low">Gníomhaíocht íseal</string>
     <string name="usage_level_medium">Gníomhaíocht mheánach</string>
     <string name="usage_level_high">Gníomhaíocht ard</string>
-    <string name="usage_driver_interval">Go príomha ón seiceáil sa chúlra (%1$s).</string>
-    <string name="usage_driver_exact">Go príomha ón seiceáil sa chúlra (%1$s) agus “%2$s”.</string>
+    <string name="usage_driver_interval">Pleanáilte: seiceáil sa chúlra (%1$s).</string>
+    <string name="usage_driver_exact">Pleanáilte: seiceáil sa chúlra (%1$s) agus “%2$s”.</string>
     <string name="usage_driver_none">Níl aon seiceáil sa chúlra pleanáilte – áirítear a bhfaigheann an aip oscailte agus na giuirléidí.</string>
     <string name="usage_driver_watch">Áirítear a bhfaigheann aip an uaireadóra agus a giuirléidí féin.</string>
     <string name="usage_watch_none">Níl aon uaireadóir ceangailte</string>

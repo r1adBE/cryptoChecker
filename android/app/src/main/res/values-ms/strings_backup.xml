@@ -42,6 +42,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Sandaran ini daripada versi apl yang lebih baharu – kemas kini apl dahulu. Tiada apa-apa dipulihkan.</string>
     <string name="backup_restore_unencrypted_warning">Sandaran ini tidak disulitkan – pastikan ia daripada anda. Tetapan akan digunakan – kecuali perubahan yang mengurangkan perlindungan (Kunci portfolio, Pelayan sendiri untuk alamat, Sembunyikan amaun, Portfolio dalam sandaran sistem).</string>
+    <string name="backup_restore_unencrypted_replaces">Tanpa kata laluan, tidak dapat disemak sama ada seseorang telah mengubah fail ini – ia juga menggantikan dagangan, amaran portfolio dan alamat yang dipantau.</string>
     <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d amaran</item>

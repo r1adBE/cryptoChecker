@@ -42,6 +42,7 @@
     </plurals>
     <string name="backup_restore_newer_version">ການສຳຮອງນີ້ມາຈາກແອັບເວີຊັນໃໝ່ກວ່າ – ໃຫ້ອັບເດດແອັບກ່ອນ. ບໍ່ມີຫຍັງຖືກກູ້ຄືນ.</string>
     <string name="backup_restore_unencrypted_warning">ການສຳຮອງນີ້ບໍ່ໄດ້ເຂົ້າລະຫັດ – ກວດເບິ່ງວ່າມັນມາຈາກທ່ານ. ການຕັ້ງຄ່າຈະຖືກນຳໃຊ້ – ຍົກເວັ້ນການປ່ຽນແປງທີ່ຫຼຸດການປ້ອງກັນ (ລັອກພອດໂຟລິໂອ, ເຊີບເວີຂອງຕົນເອງສຳລັບທີ່ຢູ່, ເຊື່ອງຈຳນວນ, ພອດໂຟລິໂອໃນການສຳຮອງລະບົບ).</string>
+    <string name="backup_restore_unencrypted_replaces">ຖ້າບໍ່ມີລະຫັດຜ່ານ ຈະກວດບໍ່ໄດ້ວ່າມີຄົນປ່ຽນໄຟລ໌ນີ້ຫຼືບໍ່ – ມັນຍັງແທນທີ່ການຊື້ຂາຍ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມນຳ.</string>
     <string name="backup_restored">ກູ້ຄືນແລ້ວ: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d ສັນຍານເຕືອນ</item>

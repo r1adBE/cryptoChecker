@@ -162,6 +162,8 @@ internal fun UsagePage(onBack: () -> Unit, viewModel: UsageViewModel = hiltViewM
     }
     SettingsSubPage(title = stringResource(R.string.settings_row_usage), onBack = onBack) {
         Hint(stringResource(R.string.usage_intro), top = Spacing.xs)
+        // Was die Zahlen umfassen: «empfangen» auch offene App und Live-Kurse, übersprungene Läufe nicht
+        Hint(stringResource(R.string.usage_counts_note))
         SettingsAnchor("usage.phone") {
             UsageCard(stringResource(R.string.usage_phone), phone, driver, asOf = null)
         }

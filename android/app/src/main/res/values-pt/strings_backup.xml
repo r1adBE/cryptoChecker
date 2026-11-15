@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Esta cópia é de uma versão mais recente da app – atualiza primeiro a app. Nada foi restaurado.</string>
     <string name="backup_restore_unencrypted_warning">Esta cópia não está encriptada – confirma que é tua. As definições serão aplicadas, exceto alterações que reduzem a proteção (Bloqueio do portfólio, Servidor próprio para endereços, Ocultar montantes, Portfólio na cópia do sistema).</string>
+    <string name="backup_restore_unencrypted_replaces">Sem palavra-passe não é possível verificar se alguém alterou este ficheiro – também substitui as tuas transações, alertas da carteira e endereços vigiados.</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarme</item>

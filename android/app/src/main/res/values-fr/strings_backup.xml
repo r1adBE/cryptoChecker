@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Cette sauvegarde provient d’une version plus récente de l’app – mets d’abord l’app à jour. Rien n’a été restauré.</string>
     <string name="backup_restore_unencrypted_warning">Cette sauvegarde n’est pas chiffrée – vérifie qu’elle vient bien de toi. Les réglages seront appliqués, sauf les changements qui réduisent la protection (Verrouillage du portefeuille, Serveur perso pour les adresses, Masquer les montants, Portefeuille dans la sauvegarde système).</string>
+    <string name="backup_restore_unencrypted_replaces">Sans mot de passe, impossible de vérifier si quelqu’un a modifié ce fichier – il remplace aussi tes transactions, alertes de portefeuille et adresses surveillées.</string>
     <string name="backup_restored">Restauré : %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alerte</item>

@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Hierdie rugsteun is van \'n nuwer app-weergawe – werk eers die app by. Niks is herstel nie.</string>
     <string name="backup_restore_unencrypted_warning">Hierdie rugsteun is nie geënkripteer nie – maak seker dit kom van jou. Instellings sal toegepas word – behalwe veranderinge wat beskerming verlaag (Portefeuljeslot, Eie bediener vir adresse, Versteek bedrae, Portefeulje in stelselrugsteun).</string>
+    <string name="backup_restore_unencrypted_replaces">Sonder wagwoord kan niemand nagaan of iemand hierdie lêer verander het nie – dit vervang ook jou transaksies, portefeulje-waarskuwings en dopgehoue adresse.</string>
     <string name="backup_restored">Herstel: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

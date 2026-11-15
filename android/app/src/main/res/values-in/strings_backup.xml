@@ -42,6 +42,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Cadangan ini dari versi aplikasi yang lebih baru – perbarui aplikasi terlebih dulu. Tidak ada yang dipulihkan.</string>
     <string name="backup_restore_unencrypted_warning">Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan – kecuali perubahan yang menurunkan perlindungan (Kunci portofolio, Server sendiri untuk alamat, Sembunyikan jumlah, Portofolio di cadangan sistem).</string>
+    <string name="backup_restore_unencrypted_replaces">Tanpa kata sandi, tidak bisa diperiksa apakah seseorang mengubah file ini – file ini juga mengganti transaksi, peringatan portofolio, dan alamat yang dipantau.</string>
     <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d alarm</item>

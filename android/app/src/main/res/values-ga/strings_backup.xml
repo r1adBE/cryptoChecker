@@ -46,6 +46,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Is ó leagan níos nuaí den aip an cúltaca seo – nuashonraigh an aip ar dtús. Níor athchóiríodh aon rud.</string>
     <string name="backup_restore_unencrypted_warning">Níl an cúltaca seo criptithe – seiceáil gur uaitse a tháinig sé. Cuirfear socruithe i bhfeidhm – seachas athruithe a laghdaíonn an chosaint (glas na punainne, freastalaí féin do sheoltaí, folaigh méideanna, punann i gcúltaca an chórais).</string>
+    <string name="backup_restore_unencrypted_replaces">Gan phasfhocal, ní féidir a sheiceáil ar athraigh duine éigin an comhad seo – cuirfidh sé do thrádálacha, foláirimh punainne agus seoltaí faoi fhaire in ionad freisin.</string>
     <string name="backup_restored">Athchóirithe: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d fholáireamh</item>

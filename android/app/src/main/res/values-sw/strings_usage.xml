@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Betri na shughuli</string>
     <string name="usage_intro">Programu haziwezi kusoma matumizi yake ya nishati. Kwa hiyo programu inaonyesha ilichofanya yenyewe katika saa 24 zilizopita – kimehesabiwa kwenye kifaa hiki tu, bila maudhui yoyote.</string>
+    <string name="usage_counts_note">«Imepokelewa» huhesabu kila kitu ambacho programu ilileta – pia ikiwa wazi na kwa bei za moja kwa moja. Mizunguko iliyorukwa haihesabiwi.</string>
     <string name="usage_phone">Simu</string>
     <string name="usage_watch">Saa</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Shughuli ndogo</string>
     <string name="usage_level_medium">Shughuli ya wastani</string>
     <string name="usage_level_high">Shughuli nyingi</string>
-    <string name="usage_driver_interval">Hasa kwa sababu ya ukaguzi chinichini (%1$s).</string>
-    <string name="usage_driver_exact">Hasa kwa sababu ya ukaguzi chinichini (%1$s) na “%2$s”.</string>
+    <string name="usage_driver_interval">Imepangwa: ukaguzi chinichini (%1$s).</string>
+    <string name="usage_driver_exact">Imepangwa: ukaguzi chinichini (%1$s) na “%2$s”.</string>
     <string name="usage_driver_none">Hakuna ukaguzi chinichini uliopangwa – kinachohesabiwa ni kile ambacho programu iliyofunguliwa na wijeti hupakua.</string>
     <string name="usage_driver_watch">Kinachohesabiwa ni kile ambacho programu ya saa na vipengele vyake hupakua vyenyewe.</string>
     <string name="usage_watch_none">Hakuna saa iliyounganishwa</string>

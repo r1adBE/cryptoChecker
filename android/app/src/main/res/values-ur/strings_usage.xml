@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">بیٹری اور سرگرمی</string>
     <string name="usage_intro">ایپس اپنی بجلی کا استعمال نہیں پڑھ سکتیں۔ اس لیے ایپ دکھاتی ہے کہ اس نے پچھلے 24 گھنٹوں میں خود کیا کیا – صرف اسی آلے پر گنا گیا، بغیر کسی مواد کے۔</string>
+    <string name="usage_counts_note">«موصول» میں ایپ کا لایا ہوا سب کچھ شامل ہے – ایپ کھلی ہونے پر اور لائیو قیمتوں کے لیے بھی۔ چھوڑے گئے رن شمار نہیں ہوتے۔</string>
     <string name="usage_phone">فون</string>
     <string name="usage_watch">گھڑی</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">کم سرگرمی</string>
     <string name="usage_level_medium">درمیانی سرگرمی</string>
     <string name="usage_level_high">زیادہ سرگرمی</string>
-    <string name="usage_driver_interval">زیادہ تر پس منظر کی جانچ کی وجہ سے (%1$s)۔</string>
-    <string name="usage_driver_exact">زیادہ تر پس منظر کی جانچ (%1$s) اور ”%2$s“ کی وجہ سے۔</string>
+    <string name="usage_driver_interval">منصوبہ بند: پس منظر کی جانچ (%1$s)۔</string>
+    <string name="usage_driver_exact">منصوبہ بند: پس منظر کی جانچ (%1$s) اور ”%2$s“۔</string>
     <string name="usage_driver_none">پس منظر کی کوئی جانچ طے نہیں – وہی گنا جاتا ہے جو کھلی ایپ اور ویجٹس حاصل کرتے ہیں۔</string>
     <string name="usage_driver_watch">وہی گنا جاتا ہے جو گھڑی کی ایپ اور اس کے ویجٹس خود حاصل کرتے ہیں۔</string>
     <string name="usage_watch_none">کوئی گھڑی منسلک نہیں</string>

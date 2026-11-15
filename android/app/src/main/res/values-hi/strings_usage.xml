@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">बैटरी और गतिविधि</string>
     <string name="usage_intro">ऐप्स अपनी बिजली की खपत नहीं पढ़ सकते। इसलिए ऐप दिखाता है कि उसने पिछले 24 घंटों में स्वयं क्या किया – केवल इसी डिवाइस पर गिना गया, बिना किसी सामग्री के।</string>
+    <string name="usage_counts_note">«प्राप्त» में ऐप द्वारा लाया गया सब कुछ गिना जाता है – ऐप खुला रहने पर और लाइव कीमतों के लिए भी। छोड़े गए रन नहीं गिने जाते।</string>
     <string name="usage_phone">फ़ोन</string>
     <string name="usage_watch">घड़ी</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">कम गतिविधि</string>
     <string name="usage_level_medium">मध्यम गतिविधि</string>
     <string name="usage_level_high">अधिक गतिविधि</string>
-    <string name="usage_driver_interval">मुख्य रूप से बैकग्राउंड जाँच के कारण (%1$s)।</string>
-    <string name="usage_driver_exact">मुख्य रूप से बैकग्राउंड जाँच (%1$s) और “%2$s” के कारण।</string>
+    <string name="usage_driver_interval">नियोजित: बैकग्राउंड जाँच (%1$s)।</string>
+    <string name="usage_driver_exact">नियोजित: बैकग्राउंड जाँच (%1$s) और “%2$s”।</string>
     <string name="usage_driver_none">कोई बैकग्राउंड जाँच निर्धारित नहीं – वही गिना जाता है जो खुला ऐप और विजेट लाते हैं।</string>
     <string name="usage_driver_watch">वही गिना जाता है जो घड़ी का ऐप और उसकी कॉम्प्लिकेशन स्वयं लाते हैं।</string>
     <string name="usage_watch_none">कोई घड़ी कनेक्ट नहीं है</string>

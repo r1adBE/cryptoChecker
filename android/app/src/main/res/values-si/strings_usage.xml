@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">බැටරිය සහ ක්‍රියාකාරකම්</string>
     <string name="usage_intro">යෙදුම්වලට තමන්ගේම බලශක්ති භාවිතය කියවිය නොහැක. එබැවින් පසුගිය පැය 24 තුළ යෙදුම තමන් කළ දේ පෙන්වයි – මෙම උපාංගයේ පමණක් ගණන් කළ, කිසිදු අන්තර්ගතයක් නොමැතිව.</string>
+    <string name="usage_counts_note">«ලැබුණු» යෙදුම ගෙනා සියල්ල ගණන් කරයි – විවෘතව ඇති විට සහ සජීවී මිල සඳහාද. මඟ හැරුණු ධාවන ගණන් නොකෙරේ.</string>
     <string name="usage_phone">දුරකථනය</string>
     <string name="usage_watch">ඔරලෝසුව</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">අඩු ක්‍රියාකාරකම්</string>
     <string name="usage_level_medium">මධ්‍යම ක්‍රියාකාරකම්</string>
     <string name="usage_level_high">ඉහළ ක්‍රියාකාරකම්</string>
-    <string name="usage_driver_interval">ප්‍රධාන වශයෙන් පසුබිම් පරීක්ෂාව නිසා (%1$s).</string>
-    <string name="usage_driver_exact">ප්‍රධාන වශයෙන් පසුබිම් පරීක්ෂාව (%1$s) සහ “%2$s” නිසා.</string>
+    <string name="usage_driver_interval">සැලසුම් කළ: පසුබිම් පරීක්ෂාව (%1$s).</string>
+    <string name="usage_driver_exact">සැලසුම් කළ: පසුබිම් පරීක්ෂාව (%1$s) සහ “%2$s”.</string>
     <string name="usage_driver_none">කිසිදු පසුබිම් පරීක්ෂාවක් සැලසුම් කර නැත – විවෘත යෙදුම සහ විජට් ලබා ගන්නා දේ පමණක් ගණන් වේ.</string>
     <string name="usage_driver_watch">ඔරලෝසු යෙදුම සහ එහි සංකූලතා තමන්ම ලබා ගන්නා දේ ගණන් වේ.</string>
     <string name="usage_watch_none">ඔරලෝසුවක් සම්බන්ධ කර නැත</string>

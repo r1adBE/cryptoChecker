@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 238)
+
+- Battery & activity: a note says what the numbers include (received data also while the app is open and for live prices; skipped runs don’t count), and the sentence below the numbers now says what is planned instead of what counts most.
+- Restoring a backup without password: a stronger warning says that nobody can check whether the file was changed and that it also replaces trades, portfolio alerts and watched addresses.
+
 ## 16.2.2 (build 237)
 
 - Coin logos: a logo the image server refused once (HTTP 403) is retried with the next sync instead of being blocked for a day, a logo file is no longer deleted when the phone is short of memory, and the list «Coins without logo» says «not loaded yet» whenever a source knows a logo (also stocks).

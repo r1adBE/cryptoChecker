@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">See varukoopia on rakenduse uuemast versioonist – uuenda esmalt rakendust. Midagi ei taastatud.</string>
     <string name="backup_restore_unencrypted_warning">See varukoopia pole krüpteeritud – kontrolli, et see pärineb sinult. Seaded rakendatakse – välja arvatud muudatused, mis vähendavad kaitset (Portfelli lukk, Oma server aadresside jaoks, Peida summad, Portfell süsteemi varukoopias).</string>
+    <string name="backup_restore_unencrypted_replaces">Paroolita ei saa kontrollida, kas keegi on faili muutnud – see asendab ka sinu tehingud, portfelli hoiatused ja jälgitavad aadressid.</string>
     <string name="backup_restored">Taastatud: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d hoiatus</item>

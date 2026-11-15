@@ -45,6 +45,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ta varnostna kopija je iz novejše različice aplikacije – najprej posodobi aplikacijo. Nič ni bilo obnovljeno.</string>
     <string name="backup_restore_unencrypted_warning">Ta varnostna kopija ni šifrirana – preveri, ali je od tebe. Nastavitve bodo prevzete – razen sprememb, ki znižajo zaščito (Zaklep portfelja, Lasten strežnik za naslove, Skrij zneske, Portfelj v sistemski varnostni kopiji).</string>
+    <string name="backup_restore_unencrypted_replaces">Brez gesla ni mogoče preveriti, ali je kdo spremenil datoteko – zamenja tudi tvoje posle, opozorila portfelja in spremljane naslove.</string>
     <string name="backup_restored">Obnovljeno: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

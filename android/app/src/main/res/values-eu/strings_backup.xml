@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Babeskopia hau aplikazioaren bertsio berriago batekoa da – eguneratu aplikazioa lehenik. Ez da ezer leheneratu.</string>
     <string name="backup_restore_unencrypted_warning">Babeskopia hau ez dago zifratuta – egiaztatu zurea dela. Ezarpenak aplikatuko dira – babesa murrizten duten aldaketak izan ezik (Zorroaren blokeoa, Helbideetarako zerbitzari propioa, Ezkutatu zenbatekoak, Zorroa sistemaren babeskopian).</string>
+    <string name="backup_restore_unencrypted_replaces">Pasahitzik gabe ezin da egiaztatu inork fitxategia aldatu duen – zure eragiketak, zorroko alertak eta jarraitutako helbideak ere ordezten ditu.</string>
     <string name="backup_restored">Leheneratuta: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarma</item>

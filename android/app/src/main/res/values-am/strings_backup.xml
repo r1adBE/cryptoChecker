@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">ይህ ምትኬ ከአዲስ የመተግበሪያ ስሪት የመጣ ነው – መጀመሪያ መተግበሪያውን ያዘምኑ። ምንም አልተመለሰም።</string>
     <string name="backup_restore_unencrypted_warning">ይህ ምትኬ አልተመሰጠረም – ከእርስዎ የመጣ መሆኑን ያረጋግጡ። ቅንብሮች ይተገበራሉ – ጥበቃን የሚቀንሱ ለውጦች በስተቀር (የፖርትፎሊዮ መቆለፊያ፣ ለአድራሻዎች የራስ አገልጋይ፣ መጠኖችን ይደብቁ፣ ፖርትፎሊዮ በሲስተም ምትኬ ውስጥ)።</string>
+    <string name="backup_restore_unencrypted_replaces">ያለ የይለፍ ቃል ፋይሉ በሆነ ሰው መለወጡን ማረጋገጥ አይቻልም – ግብይቶችዎን፣ የፖርትፎሊዮ ማንቂያዎችዎን እና የሚከታተሏቸውን አድራሻዎች ደግሞ ይተካል።</string>
     <string name="backup_restored">ተመልሷል፦ %1$s፣ %2$s።</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d ማንቂያ</item>

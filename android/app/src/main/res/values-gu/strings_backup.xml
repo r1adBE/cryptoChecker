@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">આ બૅકઅપ ઍપના નવા વર્ઝનનો છે – પહેલાં ઍપ અપડેટ કરો. કંઈ પુનઃસ્થાપિત થયું નથી.</string>
     <string name="backup_restore_unencrypted_warning">આ બૅકઅપ એન્ક્રિપ્ટેડ નથી – તે તમારો જ છે તેની ખાતરી કરો. સેટિંગ્સ લાગુ થશે – સુરક્ષા ઘટાડે તેવા ફેરફારો સિવાય (પોર્ટફોલિયો લૉક, સરનામાં માટે પોતાનું સર્વર, રકમ છુપાવો, સિસ્ટમ બૅકઅપમાં પોર્ટફોલિયો).</string>
+    <string name="backup_restore_unencrypted_replaces">પાસવર્ડ વિના કોઈએ ફાઇલ બદલી છે કે નહીં તે ચકાસી શકાતું નથી – તે તમારા ટ્રેડ, પોર્ટફોલિયો ચેતવણીઓ અને નજર રાખેલાં સરનામાં પણ બદલે છે.</string>
     <string name="backup_restored">પુનઃસ્થાપિત: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d એલર્ટ</item>

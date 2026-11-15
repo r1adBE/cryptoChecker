@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Батарея й активність</string>
     <string name="usage_intro">Застосунки не можуть дізнатися власну витрату енергії. Тому застосунок показує, що він сам зробив за останні 24 години, – пораховано лише на цьому пристрої, без жодного вмісту.</string>
+    <string name="usage_counts_note">«Отримано» враховує все, що завантажив застосунок, – і коли він відкритий, і для цін наживо. Пропущені запуски не враховуються.</string>
     <string name="usage_phone">Телефон</string>
     <string name="usage_watch">Годинник</string>
     <plurals name="usage_runs">
@@ -20,8 +21,8 @@
     <string name="usage_level_low">Низька активність</string>
     <string name="usage_level_medium">Середня активність</string>
     <string name="usage_level_high">Висока активність</string>
-    <string name="usage_driver_interval">Переважно через фонову перевірку (%1$s).</string>
-    <string name="usage_driver_exact">Переважно через фонову перевірку (%1$s) і «%2$s».</string>
+    <string name="usage_driver_interval">Заплановано: фонова перевірка (%1$s).</string>
+    <string name="usage_driver_exact">Заплановано: фонова перевірка (%1$s) і «%2$s».</string>
     <string name="usage_driver_none">Фонову перевірку не заплановано – враховується те, що завантажують відкритий застосунок і віджети.</string>
     <string name="usage_driver_watch">Враховується те, що застосунок на годиннику та його ускладнення завантажують самі.</string>
     <string name="usage_watch_none">Годинник не підключено</string>

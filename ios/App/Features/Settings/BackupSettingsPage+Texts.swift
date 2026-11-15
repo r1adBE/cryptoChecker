@@ -55,6 +55,8 @@ extension BackupSettingsPage {
     static func confirmText(_ preview: BackupManager.RestorePreview, encrypted: Bool) -> String {
         let parts: [String?] = [
             L("backup_restore_confirm"),
+            // Verschärft (Inhaber 14.11.): ersetzt auch Trades, Portfolio-Alarme und Adressen — wie Android
+            encrypted ? nil : L("backup_restore_unencrypted_replaces"),
             encrypted ? nil : L("backup_restore_unencrypted_warning"),
             preview.invalid > 0 ? L("backup_restore_invalid", count: preview.invalid) : nil,
             overLimitsText("backup_restore_over_limits", pairs: preview.droppedPairs, alarms: preview.droppedAlarms),

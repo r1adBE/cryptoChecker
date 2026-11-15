@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Akku ja aktiivisuus</string>
     <string name="usage_intro">Sovellukset eivät voi lukea omaa virrankulutustaan. Siksi sovellus näyttää, mitä se itse teki viimeisten 24 tunnin aikana – laskettu vain tällä laitteella, ilman sisältöä.</string>
+    <string name="usage_counts_note">Vastaanotettu sisältää kaiken, mitä sovellus haki – myös avoinna ollessaan ja reaaliaikaisille hinnoille. Ohitettuja ajoja ei lasketa.</string>
     <string name="usage_phone">Puhelin</string>
     <string name="usage_watch">Kello</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Vähäinen aktiivisuus</string>
     <string name="usage_level_medium">Kohtalainen aktiivisuus</string>
     <string name="usage_level_high">Suuri aktiivisuus</string>
-    <string name="usage_driver_interval">Eniten taustatarkistuksesta (%1$s).</string>
-    <string name="usage_driver_exact">Eniten taustatarkistuksesta (%1$s) ja kohdasta ”%2$s”.</string>
+    <string name="usage_driver_interval">Ajoitettu: taustatarkistus (%1$s).</string>
+    <string name="usage_driver_exact">Ajoitettu: taustatarkistus (%1$s) ja kohdasta ”%2$s”.</string>
     <string name="usage_driver_none">Taustatarkistusta ei ole ajoitettu – lasketaan, mitä avoin sovellus ja widgetit hakevat.</string>
     <string name="usage_driver_watch">Lasketaan, mitä kellosovellus ja sen komplikaatiot hakevat itse.</string>
     <string name="usage_watch_none">Kelloa ei ole yhdistetty</string>

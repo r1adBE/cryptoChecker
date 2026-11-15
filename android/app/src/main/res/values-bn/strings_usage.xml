@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">ব্যাটারি ও কার্যকলাপ</string>
     <string name="usage_intro">অ্যাপ নিজের বিদ্যুৎ খরচ পড়তে পারে না। তাই অ্যাপ দেখায় গত 24 ঘণ্টায় সে নিজে কী করেছে – শুধু এই ডিভাইসে গোনা, কোনো বিষয়বস্তু ছাড়াই।</string>
+    <string name="usage_counts_note">«প্রাপ্ত» অ্যাপ যা এনেছে তার সবই গোনে – অ্যাপ খোলা থাকাকালীন এবং লাইভ দামের জন্যও। বাদ পড়া রান গোনা হয় না।</string>
     <string name="usage_phone">ফোন</string>
     <string name="usage_watch">ঘড়ি</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">কম কার্যকলাপ</string>
     <string name="usage_level_medium">মাঝারি কার্যকলাপ</string>
     <string name="usage_level_high">বেশি কার্যকলাপ</string>
-    <string name="usage_driver_interval">মূলত ব্যাকগ্রাউন্ড যাচাইয়ের কারণে (%1$s)।</string>
-    <string name="usage_driver_exact">মূলত ব্যাকগ্রাউন্ড যাচাই (%1$s) ও “%2$s”-এর কারণে।</string>
+    <string name="usage_driver_interval">পরিকল্পিত: ব্যাকগ্রাউন্ড যাচাই (%1$s)।</string>
+    <string name="usage_driver_exact">পরিকল্পিত: ব্যাকগ্রাউন্ড যাচাই (%1$s) ও “%2$s”।</string>
     <string name="usage_driver_none">কোনো ব্যাকগ্রাউন্ড যাচাই নির্ধারিত নেই – খোলা অ্যাপ ও উইজেট যা আনে তা-ই গোনা হয়।</string>
     <string name="usage_driver_watch">ঘড়ির অ্যাপ ও তার কমপ্লিকেশন নিজেরা যা আনে তা-ই গোনা হয়।</string>
     <string name="usage_watch_none">কোনো ঘড়ি সংযুক্ত নেই</string>

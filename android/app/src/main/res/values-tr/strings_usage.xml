@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Pil ve etkinlik</string>
     <string name="usage_intro">Uygulamalar kendi güç tüketimlerini okuyamaz. Bu yüzden uygulama son 24 saatte kendisinin ne yaptığını gösterir – yalnızca bu cihazda sayılır, hiçbir içerik olmadan.</string>
+    <string name="usage_counts_note">“Alındı” uygulamanın getirdiği her şeyi sayar – açıkken ve canlı fiyatlar için de. Atlanan çalıştırmalar sayılmaz.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Saat</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Düşük etkinlik</string>
     <string name="usage_level_medium">Orta etkinlik</string>
     <string name="usage_level_high">Yüksek etkinlik</string>
-    <string name="usage_driver_interval">Çoğunlukla arka plan kontrolünden (%1$s).</string>
-    <string name="usage_driver_exact">Çoğunlukla arka plan kontrolünden (%1$s) ve “%2$s” seçeneğinden.</string>
+    <string name="usage_driver_interval">Planlanan: arka plan kontrolü (%1$s).</string>
+    <string name="usage_driver_exact">Planlanan: arka plan kontrolü (%1$s) ve “%2$s”.</string>
     <string name="usage_driver_none">Planlanmış arka plan kontrolü yok – açık uygulamanın ve widget’ların getirdikleri sayılır.</string>
     <string name="usage_driver_watch">Saat uygulamasının ve komplikasyonlarının kendilerinin getirdikleri sayılır.</string>
     <string name="usage_watch_none">Bağlı saat yok</string>

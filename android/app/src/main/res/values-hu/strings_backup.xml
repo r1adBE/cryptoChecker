@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ez a mentés egy újabb alkalmazásverzióból származik – előbb frissítsd az alkalmazást. Semmi sem lett visszaállítva.</string>
     <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (Portfóliózár, Saját szerver a címekhez, Összegek elrejtése, Portfólió a rendszermentésben).</string>
+    <string name="backup_restore_unencrypted_replaces">Jelszó nélkül nem ellenőrizhető, hogy valaki módosította-e a fájlt – a kereskedéseidet, portfólió-riasztásaidat és figyelt címeidet is lecseréli.</string>
     <string name="backup_restored">Visszaállítva: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d riasztás</item>

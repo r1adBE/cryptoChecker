@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Šis dublējums ir no jaunākas lietotnes versijas – vispirms atjaunini lietotni. Nekas netika atjaunots.</string>
     <string name="backup_restore_unencrypted_warning">Šis dublējums nav šifrēts – pārbaudi, vai tas ir no tevis. Iestatījumi tiks piemēroti – izņemot izmaiņas, kas samazina aizsardzību (Portfeļa bloķēšana, Savs serveris adresēm, Paslēpt summas, Portfelis sistēmas dublējumā).</string>
+    <string name="backup_restore_unencrypted_replaces">Bez paroles nevar pārbaudīt, vai kāds ir mainījis šo failu – tas aizstāj arī tavus darījumus, portfeļa brīdinājumus un novērotās adreses.</string>
     <string name="backup_restored">Atjaunots: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="zero">%1$d brīdinājumi</item>

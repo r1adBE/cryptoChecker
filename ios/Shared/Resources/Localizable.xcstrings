@@ -199987,6 +199987,461 @@
         }
       }
     },
+    "backup_restore_unencrypted_replaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonder wagwoord kan niemand nagaan of iemand hierdie lêer verander het nie – dit vervang ook jou transaksies, portefeulje-waarskuwings en dopgehoue adresse."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ያለ የይለፍ ቃል ፋይሉ በሆነ ሰው መለወጡን ማረጋገጥ አይቻልም – ግብይቶችዎን፣ የፖርትፎሊዮ ማንቂያዎችዎን እና የሚከታተሏቸውን አድራሻዎች ደግሞ ይተካል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون كلمة مرور لا يمكن التحقق مما إذا كان أحد قد غيّر هذا الملف – وهو يستبدل أيضًا صفقاتك وتنبيهات المحفظة والعناوين المراقبة."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parol olmadan faylın kimsə tərəfindən dəyişdirilib-dəyişdirilmədiyini yoxlamaq olmur – o, əməliyyatlarını, portfel xəbərdarlıqlarını və izlənən ünvanları da əvəz edir."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без парола не може да се провери дали някой е променил файла – той заменя и твоите сделки, сигнали за портфейла и наблюдаваните адреси."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "পাসওয়ার্ড ছাড়া কেউ ফাইলটি বদলেছে কি না তা যাচাই করা যায় না – এটি আপনার ট্রেড, পোর্টফোলিও সতর্কতা ও নজরে রাখা ঠিকানাও প্রতিস্থাপন করে।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez lozinke ne može se provjeriti je li neko izmijenio ovu datoteku – ona zamjenjuje i tvoje transakcije, upozorenja portfolija i praćene adrese."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sense contrasenya no es pot comprovar si algú ha modificat aquest fitxer – també substitueix les teves operacions, alertes de cartera i adreces vigilades."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez hesla nelze ověřit, zda soubor někdo nezměnil – nahradí také tvé obchody, upozornění portfolia a sledované adresy."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uden adgangskode kan ingen kontrollere, om nogen har ændret filen – den erstatter også dine handler, porteføljealarmer og overvågede adresser."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Passwort lässt sich nicht prüfen, ob jemand die Datei verändert hat – sie ersetzt auch deine Trades, Portfolio-Alarme und beobachteten Adressen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς κωδικό δεν μπορεί να ελεγχθεί αν κάποιος άλλαξε το αρχείο – αντικαθιστά επίσης τις συναλλαγές σου, τις ειδοποιήσεις χαρτοφυλακίου και τις διευθύνσεις που παρακολουθείς."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without a password, nobody can check whether someone changed this file – it also replaces your trades, portfolio alerts and watched addresses."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin contraseña no se puede comprobar si alguien modificó este archivo: también sustituye tus operaciones, alertas de cartera y direcciones vigiladas."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paroolita ei saa kontrollida, kas keegi on faili muutnud – see asendab ka sinu tehingud, portfelli hoiatused ja jälgitavad aadressid."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pasahitzik gabe ezin da egiaztatu inork fitxategia aldatu duen – zure eragiketak, zorroko alertak eta jarraitutako helbideak ere ordezten ditu."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون گذرواژه نمی‌توان بررسی کرد که کسی این فایل را تغییر داده است یا نه – معاملات، هشدارهای سبد و نشانی‌های زیر نظرت را هم جایگزین می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilman salasanaa ei voi tarkistaa, onko joku muuttanut tiedostoa – se korvaa myös kauppasi, salkun hälytykset ja seuratut osoitteet."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kung walang password, hindi masusuri kung may nagbago sa file na ito – papalitan din nito ang iyong mga trade, alerto ng portfolio at binabantayang address."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans mot de passe, impossible de vérifier si quelqu’un a modifié ce fichier – il remplace aussi tes transactions, alertes de portefeuille et adresses surveillées."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gan phasfhocal, ní féidir a sheiceáil ar athraigh duine éigin an comhad seo – cuirfidh sé do thrádálacha, foláirimh punainne agus seoltaí faoi fhaire in ionad freisin."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sen contrasinal non se pode comprobar se alguén modificou este ficheiro: tamén substitúe as túas operacións, alertas da carteira e enderezos vixiados."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "પાસવર્ડ વિના કોઈએ ફાઇલ બદલી છે કે નહીં તે ચકાસી શકાતું નથી – તે તમારા ટ્રેડ, પોર્ટફોલિયો ચેતવણીઓ અને નજર રાખેલાં સરનામાં પણ બદલે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ללא סיסמה אי אפשר לבדוק אם מישהו שינה את הקובץ – הוא מחליף גם את העסקאות, התראות התיק והכתובות שבמעקב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पासवर्ड के बिना यह जाँचा नहीं जा सकता कि किसी ने फ़ाइल बदली है या नहीं – यह आपके ट्रेड, पोर्टफ़ोलियो अलर्ट और देखे जा रहे पते भी बदल देती है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez lozinke ne može se provjeriti je li netko izmijenio ovu datoteku – ona zamjenjuje i tvoje transakcije, upozorenja portfelja i praćene adrese."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jelszó nélkül nem ellenőrizhető, hogy valaki módosította-e a fájlt – a kereskedéseidet, portfólió-riasztásaidat és figyelt címeidet is lecseréli."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Առանց գաղտնաբառի հնարավոր չէ ստուգել՝ արդյոք որևէ մեկը փոխել է ֆայլը – այն փոխարինում է նաև քո գործարքները, պորտֆելի ծանուցումները և հետևվող հասցեները։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanpa kata sandi, tidak bisa diperiksa apakah seseorang mengubah file ini – file ini juga mengganti transaksi, peringatan portofolio, dan alamat yang dipantau."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Án lykilorðs er ekki hægt að kanna hvort einhver hafi breytt skránni – hún kemur líka í stað viðskipta þinna, eignasafnsviðvarana og vaktaðra vistfanga."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senza password non si può verificare se qualcuno ha modificato il file – sostituisce anche le tue operazioni, gli avvisi del portafoglio e gli indirizzi monitorati."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードがないと、誰かがこのファイルを変更したかどうかを確認できません。取引、ポートフォリオのアラート、監視中のアドレスも置き換えられます。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პაროლის გარეშე ვერ შემოწმდება, შეცვალა თუ არა ვინმემ ეს ფაილი – ის ასევე ჩაანაცვლებს შენს გარიგებებს, პორტფელის შეტყობინებებს და თვალყურდევნებულ მისამართებს."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Құпиясөзсіз біреу файлды өзгерткенін тексеру мүмкін емес – ол сіздің мәмілелеріңізді, портфель ескертулерін және бақыланатын мекенжайларды да ауыстырады."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "បើគ្មានពាក្យសម្ងាត់ មិនអាចពិនិត្យថាតើមាននរណាម្នាក់បានកែឯកសារនេះឬទេ – វាក៏ជំនួសការជួញដូរ ការជូនដំណឹងផលប័ត្រ និងអាសយដ្ឋានដែលអ្នកតាមដានផងដែរ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪಾಸ್‌ವರ್ಡ್ ಇಲ್ಲದೆ ಯಾರಾದರೂ ಈ ಫೈಲ್ ಬದಲಿಸಿದ್ದಾರೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ – ಇದು ನಿಮ್ಮ ವಹಿವಾಟುಗಳು, ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ಎಚ್ಚರಿಕೆಗಳು ಮತ್ತು ಗಮನಿಸುತ್ತಿರುವ ವಿಳಾಸಗಳನ್ನೂ ಬದಲಿಸುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비밀번호가 없으면 누군가 이 파일을 바꿨는지 확인할 수 없습니다. 거래, 포트폴리오 알림, 지켜보는 주소도 함께 바뀝니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ຖ້າບໍ່ມີລະຫັດຜ່ານ ຈະກວດບໍ່ໄດ້ວ່າມີຄົນປ່ຽນໄຟລ໌ນີ້ຫຼືບໍ່ – ມັນຍັງແທນທີ່ການຊື້ຂາຍ, ການແຈ້ງເຕືອນພອດໂຟລິໂອ ແລະ ທີ່ຢູ່ທີ່ຕິດຕາມນຳ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Be slaptažodžio neįmanoma patikrinti, ar kas nors pakeitė šį failą – jis taip pat pakeis tavo sandorius, portfelio įspėjimus ir stebimus adresus."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez paroles nevar pārbaudīt, vai kāds ir mainījis šo failu – tas aizstāj arī tavus darījumus, portfeļa brīdinājumus un novērotās adreses."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без лозинка не може да се провери дали некој ја променил датотеката – таа ги заменува и твоите трансакции, предупредувањата за портфолиото и следените адреси."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പാസ്‌വേഡില്ലാതെ ആരെങ്കിലും ഈ ഫയൽ മാറ്റിയോ എന്ന് പരിശോധിക്കാനാവില്ല – ഇത് നിങ്ങളുടെ ട്രേഡുകളും പോർട്ട്‌ഫോളിയോ അലേർട്ടുകളും നിരീക്ഷിക്കുന്ന വിലാസങ്ങളും മാറ്റിസ്ഥാപിക്കും."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нууц үггүйгээр хэн нэгэн файлыг өөрчилсөн эсэхийг шалгах боломжгүй – энэ нь таны арилжаа, багцын сэрэмжлүүлэг болон хянаж буй хаягуудыг ч орлуулна."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पासवर्डशिवाय कोणी ही फाइल बदलली आहे का हे तपासता येत नाही – ती तुमचे ट्रेड, पोर्टफोलिओ सूचना आणि लक्ष ठेवलेले पत्तेही बदलते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanpa kata laluan, tidak dapat disemak sama ada seseorang telah mengubah fail ini – ia juga menggantikan dagangan, amaran portfolio dan alamat yang dipantau."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "စကားဝှက်မရှိပါက ဤဖိုင်ကို တစ်စုံတစ်ယောက် ပြောင်းထားခြင်း ရှိမရှိ စစ်ဆေး၍မရပါ – ၎င်းသည် သင့်အရောင်းအဝယ်များ၊ ပေါ့တ်ဖိုလီယို သတိပေးချက်များနှင့် စောင့်ကြည့်နေသော လိပ်စာများကိုလည်း အစားထိုးပါသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uten passord kan ingen kontrollere om noen har endret filen – den erstatter også handlene, porteføljevarslene og de overvåkede adressene dine."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पासवर्ड बिना कसैले यो फाइल परिवर्तन गरेको छ कि छैन जाँच गर्न सकिँदैन – यसले तपाईंका कारोबार, पोर्टफोलियो सतर्कता र निगरानीका ठेगानाहरू पनि बदल्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zonder wachtwoord kan niemand nagaan of iemand dit bestand heeft gewijzigd – het vervangt ook je transacties, portefeuillemeldingen en gevolgde adressen."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪਾਸਵਰਡ ਤੋਂ ਬਿਨਾਂ ਇਹ ਜਾਂਚਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਕਿ ਕਿਸੇ ਨੇ ਫ਼ਾਈਲ ਬਦਲੀ ਹੈ ਜਾਂ ਨਹੀਂ – ਇਹ ਤੁਹਾਡੇ ਟ੍ਰੇਡ, ਪੋਰਟਫੋਲੀਓ ਚਿਤਾਵਨੀਆਂ ਅਤੇ ਨਿਗਰਾਨੀ ਵਾਲੇ ਪਤੇ ਵੀ ਬਦਲ ਦਿੰਦੀ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez hasła nie da się sprawdzić, czy ktoś zmienił ten plik – zastępuje on też twoje transakcje, alerty portfela i obserwowane adresy."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem palavra-passe não é possível verificar se alguém alterou este ficheiro – também substitui as tuas transações, alertas da carteira e endereços vigiados."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem senha, não dá para verificar se alguém alterou este arquivo – ele também substitui suas operações, alertas da carteira e endereços monitorados."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără parolă nu se poate verifica dacă cineva a modificat fișierul – înlocuiește și tranzacțiile, alertele de portofoliu și adresele urmărite."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без пароля нельзя проверить, не изменил ли кто-то этот файл, – он заменит также твои сделки, оповещения портфеля и отслеживаемые адреса."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "මුරපදයක් නොමැතිව කිසිවෙකු මෙම ගොනුව වෙනස් කළාදැයි පරීක්ෂා කළ නොහැක – එය ඔබේ ගනුදෙනු, කළඹ ඇඟවීම් සහ නිරීක්ෂණය කරන ලිපිනද ප්‍රතිස්ථාපනය කරයි."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez hesla sa nedá overiť, či niekto súbor nezmenil – nahradí aj tvoje obchody, upozornenia portfólia a sledované adresy."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brez gesla ni mogoče preveriti, ali je kdo spremenil datoteko – zamenja tudi tvoje posle, opozorila portfelja in spremljane naslove."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa fjalëkalim nuk mund të kontrollohet nëse dikush e ka ndryshuar skedarin – ai zëvendëson edhe transaksionet, sinjalizimet e portofolit dhe adresat e ndjekura."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без лозинке не може се проверити да ли је неко изменио ову датотеку – она замењује и твоје трансакције, упозорења портфолија и праћене адресе."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez lozinke ne može se proveriti da li je neko izmenio ovu datoteku – ona zamenjuje i tvoje transakcije, upozorenja portfolija i praćene adrese."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utan lösenord går det inte att kontrollera om någon har ändrat filen – den ersätter också dina affärer, portföljlarm och bevakade adresser."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bila nenosiri, haiwezekani kuthibitisha ikiwa mtu amebadilisha faili hili – pia hubadilisha biashara zako, arifa za kwingineko na anwani unazofuatilia."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கடவுச்சொல் இல்லாமல் யாராவது இந்தக் கோப்பை மாற்றினார்களா என்று சரிபார்க்க முடியாது – இது உங்கள் வர்த்தகங்கள், போர்ட்ஃபோலியோ விழிப்பூட்டல்கள் மற்றும் கண்காணிக்கும் முகவரிகளையும் மாற்றும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పాస్‌వర్డ్ లేకుండా ఎవరైనా ఈ ఫైల్ మార్చారో లేదో తనిఖీ చేయలేము – ఇది మీ ట్రేడ్‌లు, పోర్ట్‌ఫోలియో హెచ్చరికలు మరియు గమనిస్తున్న చిరునామాలనూ భర్తీ చేస్తుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หากไม่มีรหัสผ่าน จะตรวจไม่ได้ว่ามีผู้ใดแก้ไขไฟล์นี้หรือไม่ ไฟล์นี้จะแทนที่รายการซื้อขาย การแจ้งเตือนพอร์ตโฟลิโอ และที่อยู่ที่ติดตามด้วย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parola olmadan dosyayı birinin değiştirip değiştirmediği kontrol edilemez – işlemlerini, portföy uyarılarını ve izlenen adresleri de değiştirir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без пароля неможливо перевірити, чи хтось не змінив цей файл, – він замінить також твої угоди, сповіщення портфеля та відстежувані адреси."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاس ورڈ کے بغیر یہ جانچا نہیں جا سکتا کہ کسی نے فائل بدلی ہے یا نہیں – یہ آپ کی ٹریڈز، پورٹ فولیو الرٹس اور زیرِ نگرانی پتوں کو بھی بدل دیتی ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parolsiz faylni kimdir o‘zgartirganini tekshirib bo‘lmaydi – u savdolaringiz, portfel ogohlantirishlari va kuzatilayotgan manzillarni ham almashtiradi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có mật khẩu thì không thể kiểm tra liệu ai đó đã sửa tệp này hay chưa – tệp này cũng thay thế giao dịch, cảnh báo danh mục và địa chỉ đang theo dõi của bạn."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "冇密碼就冇辦法檢查有冇人改過呢個檔案 – 佢亦會取代你嘅交易、投資組合提醒同埋監察緊嘅地址。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有密码就无法检查是否有人改过此文件 – 它还会替换你的交易、投资组合提醒和监视中的地址。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有密碼就無法檢查是否有人改過此檔案 – 它也會取代您的交易、投資組合提醒及監看中的地址。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngaphandle kwephasiwedi akukwazi ukuhlolwa ukuthi ukhona oshintshe leli fayela – lishintsha nokuhweba kwakho, izexwayiso zephothifoliyo namakheli owalandelelayo."
+          }
+        }
+      }
+    },
     "backup_restore_unencrypted_warning" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -965566,457 +966021,912 @@
         }
       }
     },
+    "usage_counts_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ontvang tel alles wat die app gelaai het – ook terwyl dit oop is en vir regstreekse pryse. Oorgeslaande lopies tel nie."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የተቀበለው መተግበሪያው ያመጣውን ሁሉ ይቆጥራል – ክፍት ሲሆንም እና ለቀጥታ ዋጋዎች። የተዘለሉ ሩጫዎች አይቆጠሩም።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يشمل «المستلَم» كل ما جلبه التطبيق – أيضًا وهو مفتوح وللأسعار المباشرة. لا تُحتسب الجولات المتخطاة."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Alındı» tətbiqin gətirdiyi hər şeyi sayır – açıq olanda və canlı qiymətlər üçün də. Ötürülən işləmələr sayılmır."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Получени“ включва всичко, което приложението е изтеглило – и докато е отворено, и за цените на живо. Пропуснатите изпълнения не се броят."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«প্রাপ্ত» অ্যাপ যা এনেছে তার সবই গোনে – অ্যাপ খোলা থাকাকালীন এবং লাইভ দামের জন্যও। বাদ পড়া রান গোনা হয় না।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Primljeno“ broji sve što je aplikacija preuzela – i dok je otvorena i za cijene uživo. Preskočena pokretanja se ne broje."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Rebuts» compta tot el que ha baixat l’app – també amb l’app oberta i per als preus en directe. Les execucions omeses no compten."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Přijato“ zahrnuje vše, co aplikace stáhla – i když je otevřená a pro živé ceny. Přeskočená spuštění se nepočítají."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modtaget tæller alt, hvad appen har hentet – også mens den er åben og til livekurser. Oversprungne kørsler tæller ikke."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Empfangen» zählt alles, was die App geholt hat – auch bei offener App und für Live-Kurse. Übersprungene Läufe zählen nicht."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τα «Λήφθηκαν» μετρούν ό,τι έφερε η εφαρμογή – και όταν είναι ανοιχτή και για τις ζωντανές τιμές. Οι παραλειπόμενες εκτελέσεις δεν μετρούν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Received counts everything the app fetched – also while it’s open and for live prices. Skipped runs don’t count."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Recibidos» cuenta todo lo que descargó la app – también con la app abierta y para precios en directo. Las ejecuciones omitidas no cuentan."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Vastu võetud“ loeb kõike, mida rakendus tõi – ka avatuna ja reaalajas hindade jaoks. Vahele jäetud käivitusi ei loeta."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Jasota» aplikazioak ekarritako guztia zenbatzen du – irekita dagoenean eta zuzeneko prezioetarako ere. Saltatutako exekuzioak ez dira zenbatzen."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«دریافت‌شده» هر چیزی را که برنامه آورده می‌شمارد – وقتی باز است و برای قیمت‌های زنده هم. اجراهای ردشده شمرده نمی‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vastaanotettu sisältää kaiken, mitä sovellus haki – myös avoinna ollessaan ja reaaliaikaisille hinnoille. Ohitettuja ajoja ei lasketa."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Binibilang ng Natanggap ang lahat ng kinuha ng app – pati habang bukas ito at para sa live na presyo. Hindi binibilang ang nilaktawang takbo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« Reçus » compte tout ce que l’app a récupéré – aussi app ouverte et pour les cours en direct. Les passages ignorés ne comptent pas."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Áirítear le Faighte gach rud a fuair an aip – fiú agus í oscailte agus do phraghsanna beo. Ní áirítear ritheanna a scipeáladh."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Recibidos» conta todo o que descargou a app – tamén coa app aberta e para os prezos en directo. As execucións omitidas non contan."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«મળેલું» ઍપે મેળવેલું બધું ગણે છે – ઍપ ખુલ્લી હોય ત્યારે અને લાઇવ ભાવ માટે પણ. છોડી દેવાયેલી રન ગણાતી નથી."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„התקבלו“ כולל את כל מה שהאפליקציה הורידה – גם כשהיא פתוחה ולמחירים חיים. ריצות שדולגו אינן נספרות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«प्राप्त» में ऐप द्वारा लाया गया सब कुछ गिना जाता है – ऐप खुला रहने पर और लाइव कीमतों के लिए भी। छोड़े गए रन नहीं गिने जाते।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Primljeno“ broji sve što je aplikacija preuzela – i dok je otvorena i za cijene uživo. Preskočena pokretanja se ne broje."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A „fogadva” mindent tartalmaz, amit az app letöltött – nyitott appnál és az élő árfolyamokhoz is. A kihagyott futások nem számítanak."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Ստացված»-ը հաշվում է այն ամենը, ինչ հավելվածը բեռնել է՝ նաև բաց վիճակում և ուղիղ գների համար։ Բաց թողնված գործարկումները չեն հաշվվում։"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diterima menghitung semua yang diambil aplikasi – juga saat terbuka dan untuk harga langsung. Proses yang dilewati tidak dihitung."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Móttekið“ telur allt sem appið sótti – líka þegar það er opið og fyrir rauntímaverð. Keyrslur sem var sleppt teljast ekki."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Ricevuti» conta tutto ciò che l’app ha scaricato – anche con l’app aperta e per i prezzi in tempo reale. Le esecuzioni saltate non contano."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「受信」には、アプリを開いているときやライブ価格を含め、アプリが取得したすべてが含まれます。スキップされた実行は数えません。"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„მიღებული“ ითვლის ყველაფერს, რაც აპმა ჩამოტვირთა – ღია მდგომარეობაშიც და პირდაპირი ფასებისთვისაც. გამოტოვებული გაშვებები არ ითვლება."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Алынды» қолданба алған бәрін санайды – ашық тұрғанда да, тікелей бағалар үшін де. Өткізілген іске қосулар есептелмейді."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«បានទទួល» រាប់អ្វីៗទាំងអស់ដែលកម្មវិធីបានទាញយក – រួមទាំងពេលកំពុងបើក និងសម្រាប់តម្លៃផ្ទាល់។ ការដំណើរការដែលបានរំលងមិនត្រូវបានរាប់ទេ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ಸ್ವೀಕರಿಸಲಾಗಿದೆ» ಆ್ಯಪ್ ತಂದ ಎಲ್ಲವನ್ನೂ ಎಣಿಸುತ್ತದೆ – ತೆರೆದಿರುವಾಗ ಮತ್ತು ಲೈವ್ ಬೆಲೆಗಳಿಗೂ. ಬಿಟ್ಟುಹೋದ ರನ್‌ಗಳನ್ನು ಎಣಿಸುವುದಿಲ್ಲ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘수신’에는 앱을 열어 둔 동안과 실시간 시세를 포함해 앱이 가져온 모든 데이터가 포함됩니다. 건너뛴 실행은 세지 않습니다."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ໄດ້ຮັບ» ນັບທຸກຢ່າງທີ່ແອັບດຶງມາ – ລວມທັງຕອນເປີດຢູ່ ແລະ ລາຄາສົດ. ການເຮັດວຽກທີ່ຂ້າມໄປບໍ່ຖືກນັບ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Gauta“ apima viską, ką programėlė atsisiuntė – ir kai ji atidaryta, ir tiesioginėms kainoms. Praleisti paleidimai neskaičiuojami."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Saņemts” ietver visu, ko lietotne ielādēja – arī atvērtā stāvoklī un tiešsaistes cenām. Izlaistās palaišanas netiek skaitītas."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Примено“ го брои сето она што апликацијата го презела – и додека е отворена и за цените во живо. Прескокнатите извршувања не се бројат."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ലഭിച്ചത്» ആപ്പ് കൊണ്ടുവന്ന എല്ലാം എണ്ണുന്നു – തുറന്നിരിക്കുമ്പോഴും തത്സമയ വിലകൾക്കും. ഒഴിവാക്കിയ റണ്ണുകൾ എണ്ണില്ല."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Хүлээн авсан» нь апп-ын татсан бүхнийг тоолно – нээлттэй үед болон шууд үнэд ч. Алгассан ажиллагааг тоолохгүй."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«मिळाले» मध्ये ॲपने आणलेले सर्व मोजले जाते – ॲप उघडे असताना आणि लाइव्ह किमतींसाठीही. वगळलेल्या रन मोजल्या जात नाहीत."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diterima mengira semua yang diambil oleh aplikasi – juga semasa dibuka dan untuk harga langsung. Larian yang dilangkau tidak dikira."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«လက်ခံရရှိ» တွင် အက်ပ်ဖွင့်ထားစဉ်နှင့် တိုက်ရိုက်ဈေးနှုန်းများအပါအဝင် အက်ပ်ရယူခဲ့သမျှ ပါဝင်ပါသည်။ ကျော်သွားသော လုပ်ဆောင်မှုများကို မရေတွက်ပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mottatt teller alt appen har hentet – også mens den er åpen og for direktekurser. Hoppede kjøringer telles ikke."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«प्राप्त» मा एपले ल्याएको सबै गनिन्छ – एप खुला हुँदा र प्रत्यक्ष मूल्यका लागि पनि। छोडिएका रन गनिँदैनन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘Ontvangen’ telt alles wat de app heeft opgehaald – ook terwijl hij open is en voor live koersen. Overgeslagen runs tellen niet."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ਪ੍ਰਾਪਤ» ਵਿੱਚ ਐਪ ਵੱਲੋਂ ਲਿਆਂਦਾ ਸਭ ਕੁਝ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ – ਐਪ ਖੁੱਲ੍ਹੀ ਹੋਣ ’ਤੇ ਅਤੇ ਲਾਈਵ ਕੀਮਤਾਂ ਲਈ ਵੀ। ਛੱਡੀਆਂ ਗਈਆਂ ਰਨ ਨਹੀਂ ਗਿਣੀਆਂ ਜਾਂਦੀਆਂ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Odebrano” obejmuje wszystko, co aplikacja pobrała – także gdy jest otwarta i dla cen na żywo. Pominięte uruchomienia się nie liczą."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Recebidos» conta tudo o que a app obteve – também com a app aberta e para preços em direto. Execuções ignoradas não contam."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Recebidos” conta tudo o que o app baixou – também com o app aberto e para preços ao vivo. Execuções puladas não contam."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Primit” include tot ce a descărcat aplicația – și când e deschisă, și pentru prețurile live. Rulările omise nu se numără."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Получено» учитывает всё, что загрузило приложение, – и когда оно открыто, и для цен в реальном времени. Пропущенные запуски не учитываются."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ලැබුණු» යෙදුම ගෙනා සියල්ල ගණන් කරයි – විවෘතව ඇති විට සහ සජීවී මිල සඳහාද. මඟ හැරුණු ධාවන ගණන් නොකෙරේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Prijaté“ zahŕňa všetko, čo aplikácia stiahla – aj keď je otvorená a pre živé ceny. Preskočené spustenia sa nepočítajú."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "»Prejeto« šteje vse, kar je aplikacija prenesla – tudi ko je odprta in za cene v živo. Preskočeni zagoni se ne štejejo."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Marrë» numëron gjithçka që mori aplikacioni – edhe kur është e hapur dhe për çmimet live. Ekzekutimet e anashkaluara nuk numërohen."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Примљено“ броји све што је апликација преузела – и док је отворена и за цене уживо. Прескочена покретања се не броје."
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Primljeno“ broji sve što je aplikacija preuzela – i dok je otvorena i za cene uživo. Preskočena pokretanja se ne broje."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mottaget räknar allt appen har hämtat – även när den är öppen och för livekurser. Överhoppade körningar räknas inte."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Imepokelewa» huhesabu kila kitu ambacho programu ilileta – pia ikiwa wazi na kwa bei za moja kwa moja. Mizunguko iliyorukwa haihesabiwi."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«பெறப்பட்டது» ஆப் கொண்டுவந்த அனைத்தையும் எண்ணுகிறது – திறந்திருக்கும்போதும் நேரலை விலைகளுக்கும். தவிர்க்கப்பட்ட இயக்கங்கள் எண்ணப்படாது."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«అందినది» యాప్ తెచ్చిన ప్రతిదాన్నీ లెక్కిస్తుంది – తెరిచి ఉన్నప్పుడు మరియు లైవ్ ధరలకూ. దాటవేసిన రన్‌లు లెక్కించబడవు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«ได้รับ» นับทุกอย่างที่แอปดึงมา รวมถึงตอนที่เปิดแอปอยู่และราคาสด การทำงานที่ข้ามไปจะไม่ถูกนับ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Alındı” uygulamanın getirdiği her şeyi sayar – açıkken ve canlı fiyatlar için de. Atlanan çalıştırmalar sayılmaz."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Отримано» враховує все, що завантажив застосунок, – і коли він відкритий, і для цін наживо. Пропущені запуски не враховуються."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«موصول» میں ایپ کا لایا ہوا سب کچھ شامل ہے – ایپ کھلی ہونے پر اور لائیو قیمتوں کے لیے بھی۔ چھوڑے گئے رن شمار نہیں ہوتے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Qabul qilindi» ilova yuklagan hamma narsani hisoblaydi – ochiq paytda va jonli narxlar uchun ham. O‘tkazib yuborilgan ishga tushirishlar hisoblanmaydi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "«Đã nhận» tính mọi thứ ứng dụng đã tải – kể cả khi đang mở và cho giá trực tiếp. Các lần chạy bị bỏ qua không được tính."
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「已接收」包括 App 攞過嘅所有資料 – 包括 App 開住同即時價格。略過嘅執行唔計。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“已接收”包含 App 获取的所有数据 – 也包括 App 打开时和实时价格。跳过的运行不计入。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「已接收」包含 App 取得的所有資料 – 也包括 App 開啟時與即時價格。略過的執行不計入。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Okwamukelwe kubala konke okulethwe uhlelo lokusebenza – nalapho luvuliwe naku-zintengo ezibukhoma. Ukugijima okweqiwe akubalwa."
+          }
+        }
+      }
+    },
     "usage_driver_exact" : {
       "extractionState" : "manual",
       "localizations" : {
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meestal van die agtergrondkontrole (%1$@) en “%2$@”."
+            "value" : "Beplan: agtergrondkontrole (%1$@) en “%2$@”."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "በአብዛኛው በዳራ ፍተሻው (%1$@) እና «%2$@» ምክንያት።"
+            "value" : "የታቀደ፦ የዳራ ፍተሻ (%1$@) እና «%2$@»።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "غالبًا بسبب الفحص في الخلفية (%1$@) و«%2$@»."
+            "value" : "المخطط: الفحص في الخلفية (%1$@) و«%2$@»."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Əsasən fon yoxlamasına (%1$@) və “%2$@” seçiminə görə."
+            "value" : "Planlaşdırılıb: fon yoxlaması (%1$@) və “%2$@”."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Най-вече заради проверката във фонов режим (%1$@) и „%2$@“."
+            "value" : "Планирано: проверка във фонов режим (%1$@) и „%2$@“."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "মূলত ব্যাকগ্রাউন্ড যাচাই (%1$@) ও “%2$@”-এর কারণে।"
+            "value" : "পরিকল্পিত: ব্যাকগ্রাউন্ড যাচাই (%1$@) ও “%2$@”।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provjere u pozadini (%1$@) i „%2$@“."
+            "value" : "Planirano: provjera u pozadini (%1$@) i „%2$@“."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobretot per la comprovació en segon pla (%1$@) i «%2$@»."
+            "value" : "Previst: comprovació en segon pla (%1$@) i «%2$@»."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlavně kvůli kontrole na pozadí (%1$@) a „%2$@“."
+            "value" : "Naplánováno: kontrola na pozadí (%1$@) a „%2$@“."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest fra baggrundstjekket (%1$@) og »%2$@«."
+            "value" : "Planlagt: baggrundstjek (%1$@) og »%2$@«."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Am meisten zählen die Hintergrund-Prüfung (%1$@) und «%2$@»."
+            "value" : "Geplant: Hintergrund-Prüfung (%1$@) und «%2$@»."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Κυρίως από τον έλεγχο στο παρασκήνιο (%1$@) και το «%2$@»."
+            "value" : "Προγραμματισμένο: έλεγχος στο παρασκήνιο (%1$@) και το «%2$@»."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostly from the background check (%1$@) and “%2$@”."
+            "value" : "Planned: background check (%1$@) and “%2$@”."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobre todo por la comprobación en segundo plano (%1$@) y «%2$@»."
+            "value" : "Previsto: comprobación en segundo plano (%1$@) y «%2$@»."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enamasti taustakontrollist (%1$@) ja valikust „%2$@“."
+            "value" : "Plaanitud: taustakontroll (%1$@) ja valikust „%2$@“."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Batez ere atzeko planoko egiaztapenagatik (%1$@) eta «%2$@» aukeragatik."
+            "value" : "Programatuta: atzeko planoko egiaztapena (%1$@) eta «%2$@»."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بیشتر به‌خاطر بررسی در پس‌زمینه (%1$@) و «%2$@»."
+            "value" : "برنامه‌ریزی‌شده: بررسی در پس‌زمینه (%1$@) و «%2$@»."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eniten taustatarkistuksesta (%1$@) ja kohdasta ”%2$@”."
+            "value" : "Ajoitettu: taustatarkistus (%1$@) ja kohdasta ”%2$@”."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pangunahing dahil sa pagsusuri sa background (%1$@) at “%2$@”."
+            "value" : "Nakaplano: pagsusuri sa background (%1$@) at “%2$@”."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Surtout dû à la vérification en arrière-plan (%1$@) et à « %2$@ »."
+            "value" : "Prévu : vérification en arrière-plan (%1$@) et à « %2$@ ."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Go príomha ón seiceáil sa chúlra (%1$@) agus “%2$@”."
+            "value" : "Pleanáilte: seiceáil sa chúlra (%1$@) agus “%2$@”."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobre todo pola comprobación en segundo plano (%1$@) e «%2$@»."
+            "value" : "Previsto: comprobación en segundo plano (%1$@) e «%2$@»."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસ (%1$@) અને “%2$@”ને કારણે."
+            "value" : "આયોજિત: બૅકગ્રાઉન્ડ તપાસ (%1$@) અને “%2$@”."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בעיקר בגלל הבדיקה ברקע (%1$@) ו״%2$@״."
+            "value" : "מתוכנן: בדיקה ברקע (%1$@) ו״%2$@״."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्य रूप से बैकग्राउंड जाँच (%1$@) और “%2$@” के कारण।"
+            "value" : "नियोजित: बैकग्राउंड जाँच (%1$@) और “%2$@”।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provjere u pozadini (%1$@) i „%2$@“."
+            "value" : "Planirano: provjera u pozadini (%1$@) i „%2$@“."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Főleg a háttérben végzett ellenőrzés (%1$@) és a(z) „%2$@” miatt."
+            "value" : "Ütemezve: háttérben végzett ellenőrzés (%1$@) és a(z) „%2$@”."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Հիմնականում ֆոնային ստուգման (%1$@) և «%2$@»-ի պատճառով։"
+            "value" : "Պլանավորված՝ ֆոնային ստուգում (%1$@) և «%2$@»։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Terutama karena pemeriksaan di latar belakang (%1$@) dan “%2$@”."
+            "value" : "Terjadwal: pemeriksaan di latar belakang (%1$@) dan “%2$@”."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aðallega vegna athugunar í bakgrunni (%1$@) og „%2$@“."
+            "value" : "Áætlað: athugun í bakgrunni (%1$@) og „%2$@“."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soprattutto per il controllo in background (%1$@) e «%2$@»."
+            "value" : "Pianificato: controllo in background (%1$@) e «%2$@»."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主にバックグラウンドでの確認（%1$@）と「%2$@」によるものです。"
+            "value" : "予定：バックグラウンドでの確認（%1$@）と「%2$@」。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ძირითადად ფონური შემოწმების (%1$@) და „%2$@“-ის გამო."
+            "value" : "დაგეგმილი: ფონური შემოწმება (%1$@) და „%2$@“."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Негізінен фондық тексеру (%1$@) және «%2$@» салдарынан."
+            "value" : "Жоспарланған: фондық тексеру (%1$@) және «%2$@»."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ភាគច្រើនដោយសារការពិនិត្យផ្ទៃខាងក្រោយ (%1$@) និង «%2$@»។"
+            "value" : "បានគ្រោង៖ ការពិនិត្យផ្ទៃខាងក្រោយ (%1$@) និង «%2$@»។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಮುಖ್ಯವಾಗಿ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ (%1$@) ಮತ್ತು “%2$@” ನಿಂದ."
+            "value" : "ಯೋಜಿತ: ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ (%1$@) ಮತ್ತು “%2$@”."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "주로 백그라운드 확인(%1$@)과 ‘%2$@’ 때문입니다."
+            "value" : "예정: 백그라운드 확인(%1$@)과 ‘%2$@’."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ສ່ວນໃຫຍ່ມາຈາກການກວດສອບໃນພື້ນຫຼັງ (%1$@) ແລະ “%2$@”."
+            "value" : "ກຳນົດໄວ້: ການກວດສອບໃນພື້ນຫຼັງ (%1$@) ແລະ “%2$@”."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daugiausia dėl tikrinimo fone (%1$@) ir „%2$@“."
+            "value" : "Suplanuota: tikrinimas fone (%1$@) ir „%2$@“."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Galvenokārt fona pārbaudes (%1$@) un “%2$@” dēļ."
+            "value" : "Plānots: fona pārbaude (%1$@) un “%2$@”."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Најмногу поради проверката во позадина (%1$@) и „%2$@“."
+            "value" : "Планирано: проверка во позадина (%1$@) и „%2$@“."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "പ്രധാനമായും പശ്ചാത്തല പരിശോധനയും (%1$@) “%2$@” ഉം കാരണം."
+            "value" : "ആസൂത്രണം ചെയ്തത്: പശ്ചാത്തല പരിശോധന (%1$@) “%2$@”."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Голчлон арын шалгалт (%1$@) болон «%2$@»-аас."
+            "value" : "Төлөвлөсөн: арын шалгалт (%1$@) болон «%2$@»."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्यतः बॅकग्राउंड तपासणी (%1$@) आणि “%2$@” मुळे."
+            "value" : "नियोजित: बॅकग्राउंड तपासणी (%1$@) आणि “%2$@”."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kebanyakannya kerana semakan latar belakang (%1$@) dan “%2$@”."
+            "value" : "Dijadualkan: semakan latar belakang (%1$@) dan “%2$@”."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "အဓိကအားဖြင့် နောက်ခံစစ်ဆေးမှု (%1$@) နှင့် “%2$@” ကြောင့်ဖြစ်ပါသည်။"
+            "value" : "စီစဉ်ထားသည်- နောက်ခံစစ်ဆေးမှု (%1$@) နှင့် “%2$@”။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest fra bakgrunnssjekken (%1$@) og «%2$@»."
+            "value" : "Planlagt: bakgrunnssjekk (%1$@) og «%2$@»."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्यतः पृष्ठभूमि जाँच (%1$@) र “%2$@” का कारण।"
+            "value" : "योजनाबद्ध: पृष्ठभूमि जाँच (%1$@) र “%2$@”।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vooral door de controle op de achtergrond (%1$@) en ‘%2$@’."
+            "value" : "Gepland: controle op de achtergrond (%1$@) en ‘%2$@’."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਮੁੱਖ ਤੌਰ ’ਤੇ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$@) ਅਤੇ “%2$@” ਕਾਰਨ।"
+            "value" : "ਯੋਜਨਾਬੱਧ: ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$@) ਅਤੇ “%2$@”।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Głównie przez sprawdzanie w tle (%1$@) i „%2$@”."
+            "value" : "Zaplanowane: sprawdzanie w tle (%1$@) i „%2$@”."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobretudo devido à verificação em segundo plano (%1$@) e a «%2$@»."
+            "value" : "Previsto: verificação em segundo plano (%1$@) e a «%2$@»."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Principalmente pela verificação em segundo plano (%1$@) e por “%2$@”."
+            "value" : "Programado: verificação em segundo plano (%1$@) e por “%2$@”."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mai ales din cauza verificării în fundal (%1$@) și a „%2$@”."
+            "value" : "Planificat: verificare în fundal (%1$@) și a „%2$@”."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "В основном из-за фоновой проверки (%1$@) и «%2$@»."
+            "value" : "Запланировано: фоновая проверка (%1$@) и «%2$@»."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ප්‍රධාන වශයෙන් පසුබිම් පරීක්ෂාව (%1$@) සහ “%2$@” නිසා."
+            "value" : "සැලසුම් කළ: පසුබිම් පරීක්ෂාව (%1$@) සහ “%2$@”."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlavne pre kontrolu na pozadí (%1$@) a „%2$@“."
+            "value" : "Naplánované: kontrola na pozadí (%1$@) a „%2$@“."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Predvsem zaradi preverjanja v ozadju (%1$@) in »%2$@«."
+            "value" : "Načrtovano: preverjanje v ozadju (%1$@) in »%2$@«."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kryesisht nga kontrolli në sfond (%1$@) dhe «%2$@»."
+            "value" : "Planifikuar: kontrolli në sfond (%1$@) dhe «%2$@»."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Највише због провере у позадини (%1$@) и „%2$@“."
+            "value" : "Планирано: провера у позадини (%1$@) и „%2$@“."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provere u pozadini (%1$@) i „%2$@“."
+            "value" : "Planirano: provera u pozadini (%1$@) i „%2$@“."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest från bakgrundskontrollen (%1$@) och ”%2$@”."
+            "value" : "Planerat: bakgrundskontroll (%1$@) och ”%2$@”."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hasa kwa sababu ya ukaguzi chinichini (%1$@) na “%2$@”."
+            "value" : "Imepangwa: ukaguzi chinichini (%1$@) na “%2$@”."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பெரும்பாலும் பின்னணிச் சரிபார்ப்பு (%1$@) மற்றும் “%2$@” காரணமாக."
+            "value" : "திட்டமிடப்பட்டது: பின்னணிச் சரிபார்ப்பு (%1$@) மற்றும் “%2$@”."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎక్కువగా బ్యాక్‌గ్రౌండ్ తనిఖీ (%1$@) మరియు “%2$@” వల్ల."
+            "value" : "ప్రణాళిక: బ్యాక్‌గ్రౌండ్ తనిఖీ (%1$@) మరియు “%2$@”."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ส่วนใหญ่มาจากการตรวจสอบเบื้องหลัง (%1$@) และ “%2$@”"
+            "value" : "ตามกำหนด: การตรวจสอบเบื้องหลัง (%1$@) และ “%2$@”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çoğunlukla arka plan kontrolünden (%1$@) ve “%2$@” seçeneğinden."
+            "value" : "Planlanan: arka plan kontrolü (%1$@) ve “%2$@”."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Переважно через фонову перевірку (%1$@) і «%2$@»."
+            "value" : "Заплановано: фонова перевірка (%1$@) і «%2$@»."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "زیادہ تر پس منظر کی جانچ (%1$@) اور ”%2$@“ کی وجہ سے۔"
+            "value" : "منصوبہ بند: پس منظر کی جانچ (%1$@) اور ”%2$@“۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Asosan fondagi tekshiruv (%1$@) va “%2$@” tufayli."
+            "value" : "Rejalashtirilgan: fondagi tekshiruv (%1$@) va “%2$@”."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chủ yếu do kiểm tra trong nền (%1$@) và “%2$@”."
+            "value" : "Đã lên lịch: kiểm tra trong nền (%1$@) và “%2$@”."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要嚟自背景檢查（%1$@）同「%2$@」。"
+            "value" : "已排程：背景檢查（%1$@）同「%2$@」。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要来自后台检查（%1$@）和“%2$@”。"
+            "value" : "已计划：后台检查（%1$@）和“%2$@”。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要來自背景檢查（%1$@）和「%2$@」。"
+            "value" : "已排程：背景檢查（%1$@）和「%2$@」。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ikakhulukazi ngenxa yokuhlola ngemuva (%1$@) no-“%2$@”."
+            "value" : "Kuhleliwe: ukuhlola ngemuva (%1$@) no-“%2$@”."
           }
         }
       }
@@ -966027,451 +966937,451 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meestal van die agtergrondkontrole (%1$@)."
+            "value" : "Beplan: agtergrondkontrole (%1$@)."
           }
         },
         "am" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "በአብዛኛው በዳራ ፍተሻው ምክንያት (%1$@)።"
+            "value" : "የታቀደ፦ የዳራ ፍተሻ (%1$@)።"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "غالبًا بسبب الفحص في الخلفية (%1$@)."
+            "value" : "المخطط: الفحص في الخلفية (%1$@)."
           }
         },
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Əsasən fon yoxlamasına görə (%1$@)."
+            "value" : "Planlaşdırılıb: fon yoxlaması (%1$@)."
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Най-вече заради проверката във фонов режим (%1$@)."
+            "value" : "Планирано: проверка във фонов режим (%1$@)."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "মূলত ব্যাকগ্রাউন্ড যাচাইয়ের কারণে (%1$@)।"
+            "value" : "পরিকল্পিত: ব্যাকগ্রাউন্ড যাচাই (%1$@)।"
           }
         },
         "bs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provjere u pozadini (%1$@)."
+            "value" : "Planirano: provjera u pozadini (%1$@)."
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobretot per la comprovació en segon pla (%1$@)."
+            "value" : "Previst: comprovació en segon pla (%1$@)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlavně kvůli kontrole na pozadí (%1$@)."
+            "value" : "Naplánováno: kontrola na pozadí (%1$@)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest fra baggrundstjekket (%1$@)."
+            "value" : "Planlagt: baggrundstjek (%1$@)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Am meisten zählt die Hintergrund-Prüfung (%1$@)."
+            "value" : "Geplant: Hintergrund-Prüfung (%1$@)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Κυρίως από τον έλεγχο στο παρασκήνιο (%1$@)."
+            "value" : "Προγραμματισμένο: έλεγχος στο παρασκήνιο (%1$@)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mostly from the background check (%1$@)."
+            "value" : "Planned: background check (%1$@)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobre todo por la comprobación en segundo plano (%1$@)."
+            "value" : "Previsto: comprobación en segundo plano (%1$@)."
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enamasti taustakontrollist (%1$@)."
+            "value" : "Plaanitud: taustakontroll (%1$@)."
           }
         },
         "eu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Batez ere atzeko planoko egiaztapenagatik (%1$@)."
+            "value" : "Programatuta: atzeko planoko egiaztapena (%1$@)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بیشتر به‌خاطر بررسی در پس‌زمینه (%1$@)."
+            "value" : "برنامه‌ریزی‌شده: بررسی در پس‌زمینه (%1$@)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eniten taustatarkistuksesta (%1$@)."
+            "value" : "Ajoitettu: taustatarkistus (%1$@)."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pangunahing dahil sa pagsusuri sa background (%1$@)."
+            "value" : "Nakaplano: pagsusuri sa background (%1$@)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Surtout dû à la vérification en arrière-plan (%1$@)."
+            "value" : "Prévu : vérification en arrière-plan (%1$@)."
           }
         },
         "ga" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Go príomha ón seiceáil sa chúlra (%1$@)."
+            "value" : "Pleanáilte: seiceáil sa chúlra (%1$@)."
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobre todo pola comprobación en segundo plano (%1$@)."
+            "value" : "Previsto: comprobación en segundo plano (%1$@)."
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસને કારણે (%1$@)."
+            "value" : "આયોજિત: બૅકગ્રાઉન્ડ તપાસ (%1$@)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "בעיקר בגלל הבדיקה ברקע (%1$@)."
+            "value" : "מתוכנן: בדיקה ברקע (%1$@)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्य रूप से बैकग्राउंड जाँच के कारण (%1$@)।"
+            "value" : "नियोजित: बैकग्राउंड जाँच (%1$@)।"
           }
         },
         "hr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provjere u pozadini (%1$@)."
+            "value" : "Planirano: provjera u pozadini (%1$@)."
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Főleg a háttérben végzett ellenőrzés miatt (%1$@)."
+            "value" : "Ütemezve: háttérben végzett ellenőrzés (%1$@)."
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Հիմնականում ֆոնային ստուգման պատճառով (%1$@)։"
+            "value" : "Պլանավորված՝ ֆոնային ստուգում (%1$@)։"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Terutama karena pemeriksaan di latar belakang (%1$@)."
+            "value" : "Terjadwal: pemeriksaan di latar belakang (%1$@)."
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aðallega vegna athugunar í bakgrunni (%1$@)."
+            "value" : "Áætlað: athugun í bakgrunni (%1$@)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soprattutto per il controllo in background (%1$@)."
+            "value" : "Pianificato: controllo in background (%1$@)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主にバックグラウンドでの確認（%1$@）によるものです。"
+            "value" : "予定：バックグラウンドでの確認（%1$@）。"
           }
         },
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ძირითადად ფონური შემოწმების გამო (%1$@)."
+            "value" : "დაგეგმილი: ფონური შემოწმება (%1$@)."
           }
         },
         "kk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Негізінен фондық тексеру салдарынан (%1$@)."
+            "value" : "Жоспарланған: фондық тексеру (%1$@)."
           }
         },
         "km" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ភាគច្រើនដោយសារការពិនិត្យផ្ទៃខាងក្រោយ (%1$@)។"
+            "value" : "បានគ្រោង៖ ការពិនិត្យផ្ទៃខាងក្រោយ (%1$@)។"
           }
         },
         "kn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ಮುಖ್ಯವಾಗಿ ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆಯಿಂದ (%1$@)."
+            "value" : "ಯೋಜಿತ: ಹಿನ್ನೆಲೆ ಪರಿಶೀಲನೆ (%1$@)."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "주로 백그라운드 확인(%1$@) 때문입니다."
+            "value" : "예정: 백그라운드 확인(%1$@)."
           }
         },
         "lo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ສ່ວນໃຫຍ່ມາຈາກການກວດສອບໃນພື້ນຫຼັງ (%1$@)."
+            "value" : "ກຳນົດໄວ້: ການກວດສອບໃນພື້ນຫຼັງ (%1$@)."
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daugiausia dėl tikrinimo fone (%1$@)."
+            "value" : "Suplanuota: tikrinimas fone (%1$@)."
           }
         },
         "lv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Galvenokārt fona pārbaudes dēļ (%1$@)."
+            "value" : "Plānots: fona pārbaude (%1$@)."
           }
         },
         "mk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Најмногу поради проверката во позадина (%1$@)."
+            "value" : "Планирано: проверка во позадина (%1$@)."
           }
         },
         "ml" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "പ്രധാനമായും പശ്ചാത്തല പരിശോധന കാരണം (%1$@)."
+            "value" : "ആസൂത്രണം ചെയ്തത്: പശ്ചാത്തല പരിശോധന (%1$@)."
           }
         },
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Голчлон арын шалгалтаас (%1$@)."
+            "value" : "Төлөвлөсөн: арын шалгалт (%1$@)."
           }
         },
         "mr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्यतः बॅकग्राउंड तपासणीमुळे (%1$@)."
+            "value" : "नियोजित: बॅकग्राउंड तपासणी (%1$@)."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kebanyakannya kerana semakan latar belakang (%1$@)."
+            "value" : "Dijadualkan: semakan latar belakang (%1$@)."
           }
         },
         "my" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "အဓိကအားဖြင့် နောက်ခံစစ်ဆေးမှု (%1$@) ကြောင့်ဖြစ်ပါသည်။"
+            "value" : "စီစဉ်ထားသည်- နောက်ခံစစ်ဆေးမှု (%1$@)။"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest fra bakgrunnssjekken (%1$@)."
+            "value" : "Planlagt: bakgrunnssjekk (%1$@)."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "मुख्यतः पृष्ठभूमि जाँचका कारण (%1$@)।"
+            "value" : "योजनाबद्ध: पृष्ठभूमि जाँच (%1$@)।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vooral door de controle op de achtergrond (%1$@)."
+            "value" : "Gepland: controle op de achtergrond (%1$@)."
           }
         },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਮੁੱਖ ਤੌਰ ’ਤੇ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ ਕਾਰਨ (%1$@)।"
+            "value" : "ਯੋਜਨਾਬੱਧ: ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$@)।"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Głównie przez sprawdzanie w tle (%1$@)."
+            "value" : "Zaplanowane: sprawdzanie w tle (%1$@)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobretudo devido à verificação em segundo plano (%1$@)."
+            "value" : "Previsto: verificação em segundo plano (%1$@)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Principalmente pela verificação em segundo plano (%1$@)."
+            "value" : "Programado: verificação em segundo plano (%1$@)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mai ales din cauza verificării în fundal (%1$@)."
+            "value" : "Planificat: verificare în fundal (%1$@)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "В основном из-за фоновой проверки (%1$@)."
+            "value" : "Запланировано: фоновая проверка (%1$@)."
           }
         },
         "si" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ප්‍රධාන වශයෙන් පසුබිම් පරීක්ෂාව නිසා (%1$@)."
+            "value" : "සැලසුම් කළ: පසුබිම් පරීක්ෂාව (%1$@)."
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlavne pre kontrolu na pozadí (%1$@)."
+            "value" : "Naplánované: kontrola na pozadí (%1$@)."
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Predvsem zaradi preverjanja v ozadju (%1$@)."
+            "value" : "Načrtovano: preverjanje v ozadju (%1$@)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kryesisht nga kontrolli në sfond (%1$@)."
+            "value" : "Planifikuar: kontrolli në sfond (%1$@)."
           }
         },
         "sr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Највише због провере у позадини (%1$@)."
+            "value" : "Планирано: провера у позадини (%1$@)."
           }
         },
         "sr-Latn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Najviše zbog provere u pozadini (%1$@)."
+            "value" : "Planirano: provera u pozadini (%1$@)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mest från bakgrundskontrollen (%1$@)."
+            "value" : "Planerat: bakgrundskontroll (%1$@)."
           }
         },
         "sw" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hasa kwa sababu ya ukaguzi chinichini (%1$@)."
+            "value" : "Imepangwa: ukaguzi chinichini (%1$@)."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "பெரும்பாலும் பின்னணிச் சரிபார்ப்பால் (%1$@)."
+            "value" : "திட்டமிடப்பட்டது: பின்னணிச் சரிபார்ப்பு (%1$@)."
           }
         },
         "te" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ఎక్కువగా బ్యాక్‌గ్రౌండ్ తనిఖీ వల్ల (%1$@)."
+            "value" : "ప్రణాళిక: బ్యాక్‌గ్రౌండ్ తనిఖీ (%1$@)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ส่วนใหญ่มาจากการตรวจสอบเบื้องหลัง (%1$@)"
+            "value" : "ตามกำหนด: การตรวจสอบเบื้องหลัง (%1$@)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çoğunlukla arka plan kontrolünden (%1$@)."
+            "value" : "Planlanan: arka plan kontrolü (%1$@)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Переважно через фонову перевірку (%1$@)."
+            "value" : "Заплановано: фонова перевірка (%1$@)."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "زیادہ تر پس منظر کی جانچ کی وجہ سے (%1$@)۔"
+            "value" : "منصوبہ بند: پس منظر کی جانچ (%1$@)۔"
           }
         },
         "uz" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Asosan fondagi tekshiruv tufayli (%1$@)."
+            "value" : "Rejalashtirilgan: fondagi tekshiruv (%1$@)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chủ yếu do kiểm tra trong nền (%1$@)."
+            "value" : "Đã lên lịch: kiểm tra trong nền (%1$@)."
           }
         },
         "yue-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要嚟自背景檢查（%1$@）。"
+            "value" : "已排程：背景檢查（%1$@）。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要来自后台检查（%1$@）。"
+            "value" : "已计划：后台检查（%1$@）。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主要來自背景檢查（%1$@）。"
+            "value" : "已排程：背景檢查（%1$@）。"
           }
         },
         "zu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ikakhulukazi ngenxa yokuhlola ngemuva (%1$@)."
+            "value" : "Kuhleliwe: ukuhlola ngemuva (%1$@)."
           }
         }
       }

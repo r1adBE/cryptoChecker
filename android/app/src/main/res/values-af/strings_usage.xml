@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Battery en aktiwiteit</string>
     <string name="usage_intro">Programme kan nie hul eie kragverbruik lees nie. Daarom wys die program wat dit self in die afgelope 24 uur gedoen het – net op hierdie toestel getel, sonder enige inhoud.</string>
+    <string name="usage_counts_note">Ontvang tel alles wat die app gelaai het – ook terwyl dit oop is en vir regstreekse pryse. Oorgeslaande lopies tel nie.</string>
     <string name="usage_phone">Foon</string>
     <string name="usage_watch">Horlosie</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Lae aktiwiteit</string>
     <string name="usage_level_medium">Gemiddelde aktiwiteit</string>
     <string name="usage_level_high">Hoë aktiwiteit</string>
-    <string name="usage_driver_interval">Meestal van die agtergrondkontrole (%1$s).</string>
-    <string name="usage_driver_exact">Meestal van die agtergrondkontrole (%1$s) en “%2$s”.</string>
+    <string name="usage_driver_interval">Beplan: agtergrondkontrole (%1$s).</string>
+    <string name="usage_driver_exact">Beplan: agtergrondkontrole (%1$s) en “%2$s”.</string>
     <string name="usage_driver_none">Geen agtergrondkontrole beplan nie – wat tel, is wat die oop program en die legstukke haal.</string>
     <string name="usage_driver_watch">Wat tel, is wat die horlosieprogram en sy komplikasies self haal.</string>
     <string name="usage_watch_none">Geen horlosie gekoppel nie</string>

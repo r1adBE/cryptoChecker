@@ -45,6 +45,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Táto záloha pochádza z novšej verzie aplikácie – najprv aplikáciu aktualizuj. Nič sa neobnovilo.</string>
     <string name="backup_restore_unencrypted_warning">Táto záloha nie je zašifrovaná – over si, či pochádza od teba. Nastavenia sa prevezmú – okrem zmien, ktoré znižujú ochranu (Zámok portfólia, Vlastný server pre adresy, Skryť sumy, Portfólio v systémovej zálohe).</string>
+    <string name="backup_restore_unencrypted_replaces">Bez hesla sa nedá overiť, či niekto súbor nezmenil – nahradí aj tvoje obchody, upozornenia portfólia a sledované adresy.</string>
     <string name="backup_restored">Obnovené: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

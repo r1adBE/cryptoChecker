@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Bateria dhe aktiviteti</string>
     <string name="usage_intro">Aplikacionet nuk mund ta lexojnë konsumin e tyre të energjisë. Prandaj aplikacioni tregon çfarë ka bërë vetë në 24 orët e fundit – numëruar vetëm në këtë pajisje, pa asnjë përmbajtje.</string>
+    <string name="usage_counts_note">«Marrë» numëron gjithçka që mori aplikacioni – edhe kur është e hapur dhe për çmimet live. Ekzekutimet e anashkaluara nuk numërohen.</string>
     <string name="usage_phone">Telefoni</string>
     <string name="usage_watch">Ora</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Aktivitet i ulët</string>
     <string name="usage_level_medium">Aktivitet mesatar</string>
     <string name="usage_level_high">Aktivitet i lartë</string>
-    <string name="usage_driver_interval">Kryesisht nga kontrolli në sfond (%1$s).</string>
-    <string name="usage_driver_exact">Kryesisht nga kontrolli në sfond (%1$s) dhe «%2$s».</string>
+    <string name="usage_driver_interval">Planifikuar: kontrolli në sfond (%1$s).</string>
+    <string name="usage_driver_exact">Planifikuar: kontrolli në sfond (%1$s) dhe «%2$s».</string>
     <string name="usage_driver_none">Nuk ka kontroll të planifikuar në sfond – numërohet ajo që marrin aplikacioni i hapur dhe miniaplikacionet.</string>
     <string name="usage_driver_watch">Numërohet ajo që marrin vetë aplikacioni i orës dhe komplikimet e tij.</string>
     <string name="usage_watch_none">Asnjë orë e lidhur</string>

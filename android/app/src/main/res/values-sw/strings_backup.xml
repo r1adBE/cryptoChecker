@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Nakala rudufu hii ni ya toleo jipya zaidi la programu – sasisha programu kwanza. Hakuna kilichorejeshwa.</string>
     <string name="backup_restore_unencrypted_warning">Nakala rudufu hii haijasimbwa – hakikisha imetoka kwako. Mipangilio itatumika – isipokuwa mabadiliko yanayopunguza ulinzi (Kufuli ya jalada, Seva yako ya anwani, Ficha kiasi, Jalada kwenye nakala rudufu ya mfumo).</string>
+    <string name="backup_restore_unencrypted_replaces">Bila nenosiri, haiwezekani kuthibitisha ikiwa mtu amebadilisha faili hili – pia hubadilisha biashara zako, arifa za kwingineko na anwani unazofuatilia.</string>
     <string name="backup_restored">Imerejeshwa: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">kengele %1$d</item>

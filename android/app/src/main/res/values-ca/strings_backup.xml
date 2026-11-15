@@ -44,6 +44,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Aquesta còpia de seguretat és d\'una versió més nova de l\'app – actualitza primer l\'app. No s\'ha restaurat res.</string>
     <string name="backup_restore_unencrypted_warning">Aquesta còpia de seguretat no està xifrada – comprova que és teva. S\'aplicarà la configuració – excepte els canvis que redueixen la protecció (Bloqueig de la cartera, Servidor propi per a adreces, Amaga els imports, Cartera a la còpia del sistema).</string>
+    <string name="backup_restore_unencrypted_replaces">Sense contrasenya no es pot comprovar si algú ha modificat aquest fitxer – també substitueix les teves operacions, alertes de cartera i adreces vigilades.</string>
     <string name="backup_restored">Restaurat: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarma</item>

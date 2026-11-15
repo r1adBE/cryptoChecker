@@ -45,6 +45,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ši atsarginė kopija iš naujesnės programėlės versijos – pirmiausia atnaujink programėlę. Niekas neatkurta.</string>
     <string name="backup_restore_unencrypted_warning">Ši atsarginė kopija neužšifruota – patikrink, ar ji tikrai tavo. Nustatymai bus pritaikyti – išskyrus pakeitimus, kurie mažina apsaugą (Portfelio užraktas, Savas serveris adresams, Slėpti sumas, Portfelis sistemos atsarginėje kopijoje).</string>
+    <string name="backup_restore_unencrypted_replaces">Be slaptažodžio neįmanoma patikrinti, ar kas nors pakeitė šį failą – jis taip pat pakeis tavo sandorius, portfelio įspėjimus ir stebimus adresus.</string>
     <string name="backup_restored">Atkurta: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d įspėjimas</item>

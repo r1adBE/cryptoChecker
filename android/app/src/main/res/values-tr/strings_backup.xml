@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Bu yedek daha yeni bir uygulama sürümünden – önce uygulamayı güncelle. Hiçbir şey geri yüklenmedi.</string>
     <string name="backup_restore_unencrypted_warning">Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır – korumayı azaltan değişiklikler hariç (Portföy kilidi, Adresler için kendi sunucun, Tutarları gizle, Portföy sistem yedeğinde).</string>
+    <string name="backup_restore_unencrypted_replaces">Parola olmadan dosyayı birinin değiştirip değiştirmediği kontrol edilemez – işlemlerini, portföy uyarılarını ve izlenen adresleri de değiştirir.</string>
     <string name="backup_restored">Geri yüklendi: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

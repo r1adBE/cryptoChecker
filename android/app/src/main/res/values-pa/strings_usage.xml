@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">ਬੈਟਰੀ ਅਤੇ ਗਤੀਵਿਧੀ</string>
     <string name="usage_intro">ਐਪਾਂ ਆਪਣੀ ਬਿਜਲੀ ਦੀ ਖਪਤ ਨਹੀਂ ਪੜ੍ਹ ਸਕਦੀਆਂ। ਇਸ ਲਈ ਐਪ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਉਸ ਨੇ ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਵਿੱਚ ਆਪ ਕੀ ਕੀਤਾ – ਸਿਰਫ਼ ਇਸੇ ਡਿਵਾਈਸ ’ਤੇ ਗਿਣਿਆ, ਬਿਨਾਂ ਕਿਸੇ ਸਮੱਗਰੀ ਦੇ।</string>
+    <string name="usage_counts_note">«ਪ੍ਰਾਪਤ» ਵਿੱਚ ਐਪ ਵੱਲੋਂ ਲਿਆਂਦਾ ਸਭ ਕੁਝ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ – ਐਪ ਖੁੱਲ੍ਹੀ ਹੋਣ ’ਤੇ ਅਤੇ ਲਾਈਵ ਕੀਮਤਾਂ ਲਈ ਵੀ। ਛੱਡੀਆਂ ਗਈਆਂ ਰਨ ਨਹੀਂ ਗਿਣੀਆਂ ਜਾਂਦੀਆਂ।</string>
     <string name="usage_phone">ਫ਼ੋਨ</string>
     <string name="usage_watch">ਘੜੀ</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">ਘੱਟ ਗਤੀਵਿਧੀ</string>
     <string name="usage_level_medium">ਦਰਮਿਆਨੀ ਗਤੀਵਿਧੀ</string>
     <string name="usage_level_high">ਵੱਧ ਗਤੀਵਿਧੀ</string>
-    <string name="usage_driver_interval">ਮੁੱਖ ਤੌਰ ’ਤੇ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ ਕਾਰਨ (%1$s)।</string>
-    <string name="usage_driver_exact">ਮੁੱਖ ਤੌਰ ’ਤੇ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$s) ਅਤੇ “%2$s” ਕਾਰਨ।</string>
+    <string name="usage_driver_interval">ਯੋਜਨਾਬੱਧ: ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$s)।</string>
+    <string name="usage_driver_exact">ਯੋਜਨਾਬੱਧ: ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ (%1$s) ਅਤੇ “%2$s”।</string>
     <string name="usage_driver_none">ਕੋਈ ਬੈਕਗ੍ਰਾਊਂਡ ਜਾਂਚ ਤੈਅ ਨਹੀਂ – ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ ਜੋ ਖੁੱਲ੍ਹੀ ਐਪ ਅਤੇ ਵਿਜੇਟ ਲਿਆਉਂਦੇ ਹਨ।</string>
     <string name="usage_driver_watch">ਉਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ ਜੋ ਘੜੀ ਦੀ ਐਪ ਅਤੇ ਉਸ ਦੀਆਂ ਕੰਪਲੀਕੇਸ਼ਨਾਂ ਆਪ ਲਿਆਉਂਦੀਆਂ ਹਨ।</string>
     <string name="usage_watch_none">ਕੋਈ ਘੜੀ ਕਨੈਕਟ ਨਹੀਂ</string>

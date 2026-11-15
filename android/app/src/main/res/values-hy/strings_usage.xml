@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Մարտկոց և ակտիվություն</string>
     <string name="usage_intro">Հավելվածները չեն կարող կարդալ իրենց էներգիայի ծախսը։ Դրա համար հավելվածը ցույց է տալիս, թե ինքը ինչ է արել վերջին 24 ժամում՝ հաշված միայն այս սարքում, առանց որևէ բովանդակության։</string>
+    <string name="usage_counts_note">«Ստացված»-ը հաշվում է այն ամենը, ինչ հավելվածը բեռնել է՝ նաև բաց վիճակում և ուղիղ գների համար։ Բաց թողնված գործարկումները չեն հաշվվում։</string>
     <string name="usage_phone">Հեռախոս</string>
     <string name="usage_watch">Ժամացույց</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Ցածր ակտիվություն</string>
     <string name="usage_level_medium">Միջին ակտիվություն</string>
     <string name="usage_level_high">Բարձր ակտիվություն</string>
-    <string name="usage_driver_interval">Հիմնականում ֆոնային ստուգման պատճառով (%1$s)։</string>
-    <string name="usage_driver_exact">Հիմնականում ֆոնային ստուգման (%1$s) և «%2$s»-ի պատճառով։</string>
+    <string name="usage_driver_interval">Պլանավորված՝ ֆոնային ստուգում (%1$s)։</string>
+    <string name="usage_driver_exact">Պլանավորված՝ ֆոնային ստուգում (%1$s) և «%2$s»։</string>
     <string name="usage_driver_none">Ֆոնային ստուգում պլանավորված չէ – հաշվվում է այն, ինչ բեռնում են բաց հավելվածը և վիջեթները։</string>
     <string name="usage_driver_watch">Հաշվվում է այն, ինչ ժամացույցի հավելվածը և նրա հավելումները բեռնում են իրենք։</string>
     <string name="usage_watch_none">Ժամացույց միացված չէ</string>

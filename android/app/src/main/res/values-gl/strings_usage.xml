@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Batería e actividade</string>
     <string name="usage_intro">As apps non poden ler o seu propio consumo de enerxía. Por iso a app mostra o que fixo ela mesma nas últimas 24 horas, contado só neste dispositivo e sen ningún contido.</string>
+    <string name="usage_counts_note">«Recibidos» conta todo o que descargou a app – tamén coa app aberta e para os prezos en directo. As execucións omitidas non contan.</string>
     <string name="usage_phone">Teléfono</string>
     <string name="usage_watch">Reloxo</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Actividade baixa</string>
     <string name="usage_level_medium">Actividade media</string>
     <string name="usage_level_high">Actividade alta</string>
-    <string name="usage_driver_interval">Sobre todo pola comprobación en segundo plano (%1$s).</string>
-    <string name="usage_driver_exact">Sobre todo pola comprobación en segundo plano (%1$s) e «%2$s».</string>
+    <string name="usage_driver_interval">Previsto: comprobación en segundo plano (%1$s).</string>
+    <string name="usage_driver_exact">Previsto: comprobación en segundo plano (%1$s) e «%2$s».</string>
     <string name="usage_driver_none">Non hai comprobación en segundo plano programada: conta o que obteñen a app aberta e os widgets.</string>
     <string name="usage_driver_watch">Conta o que obteñen por si mesmas a app do reloxo e as súas complicacións.</string>
     <string name="usage_watch_none">Ningún reloxo conectado</string>

@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">यो ब्याकअप एपको नयाँ संस्करणको हो – पहिले एप अपडेट गर्नुहोस्। केही पनि पुनर्स्थापना भएन।</string>
     <string name="backup_restore_unencrypted_warning">यो ब्याकअप इन्क्रिप्ट गरिएको छैन – यो तपाईंकै हो भनी जाँच्नुहोस्। सेटिङहरू लागू हुनेछन् – सुरक्षा घटाउने परिवर्तनहरूबाहेक (पोर्टफोलियो लक, ठेगानाका लागि आफ्नो सर्भर, रकम लुकाउनुहोस्, सिस्टम ब्याकअपमा पोर्टफोलियो)।</string>
+    <string name="backup_restore_unencrypted_replaces">पासवर्ड बिना कसैले यो फाइल परिवर्तन गरेको छ कि छैन जाँच गर्न सकिँदैन – यसले तपाईंका कारोबार, पोर्टफोलियो सतर्कता र निगरानीका ठेगानाहरू पनि बदल्छ।</string>
     <string name="backup_restored">पुनर्स्थापित: %1$s, %2$s।</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d अलर्ट</item>

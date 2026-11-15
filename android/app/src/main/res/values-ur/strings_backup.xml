@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">یہ بیک اپ ایپ کے نئے ورژن کا ہے – پہلے ایپ اپ ڈیٹ کریں۔ کچھ بھی بحال نہیں ہوا۔</string>
     <string name="backup_restore_unencrypted_warning">یہ بیک اپ انکرپٹ شدہ نہیں – تصدیق کریں کہ یہ آپ ہی کا ہے۔ ترتیبات لاگو ہوں گی – سوائے ان تبدیلیوں کے جو تحفظ کم کریں (پورٹ فولیو لاک، پتوں کے لیے اپنا سرور، رقوم چھپائیں، سسٹم بیک اپ میں پورٹ فولیو)۔</string>
+    <string name="backup_restore_unencrypted_replaces">پاس ورڈ کے بغیر یہ جانچا نہیں جا سکتا کہ کسی نے فائل بدلی ہے یا نہیں – یہ آپ کی ٹریڈز، پورٹ فولیو الرٹس اور زیرِ نگرانی پتوں کو بھی بدل دیتی ہے۔</string>
     <string name="backup_restored">بحال ہو گیا: %1$s، %2$s۔</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d الرٹ</item>

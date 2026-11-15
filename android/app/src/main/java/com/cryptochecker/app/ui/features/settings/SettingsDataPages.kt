@@ -33,6 +33,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -191,6 +192,13 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                     Text(stringResource(R.string.backup_restore_confirm))
                     // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen
                     if (step.unencrypted) {
+                        // Verschärft (Inhaber 14.11.): ersetzt auch Trades, Portfolio-Alarme und Adressen — fett vorneweg
+                        Text(
+                            stringResource(R.string.backup_restore_unencrypted_replaces),
+                            color = AppColors.warningText,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
                         Text(
                             stringResource(R.string.backup_restore_unencrypted_warning),
                             color = AppColors.warningText,

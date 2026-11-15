@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Akku &amp; Aktivität</string>
     <string name="usage_intro">Apps können ihren eigenen Stromverbrauch nicht auslesen. Darum zeigt die App, was sie in den letzten 24 Stunden selbst getan hat – gezählt nur auf diesem Gerät, ohne Inhalte.</string>
+    <string name="usage_counts_note">«Empfangen» zählt alles, was die App geholt hat – auch bei offener App und für Live-Kurse. Übersprungene Läufe zählen nicht.</string>
     <string name="usage_phone">Handy</string>
     <string name="usage_watch">Uhr</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Geringe Aktivität</string>
     <string name="usage_level_medium">Mittlere Aktivität</string>
     <string name="usage_level_high">Hohe Aktivität</string>
-    <string name="usage_driver_interval">Am meisten zählt die Hintergrund-Prüfung (%1$s).</string>
-    <string name="usage_driver_exact">Am meisten zählen die Hintergrund-Prüfung (%1$s) und «%2$s».</string>
+    <string name="usage_driver_interval">Geplant: Hintergrund-Prüfung (%1$s).</string>
+    <string name="usage_driver_exact">Geplant: Hintergrund-Prüfung (%1$s) und «%2$s».</string>
     <string name="usage_driver_none">Keine Hintergrund-Prüfung geplant – es zählt, was die offene App und die Widgets abrufen.</string>
     <string name="usage_driver_watch">Es zählt, was die Uhr-App und ihre Komplikationen selbst abrufen.</string>
     <string name="usage_watch_none">Keine Uhr verbunden</string>

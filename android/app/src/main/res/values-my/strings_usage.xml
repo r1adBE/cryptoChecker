@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">ဘက်ထရီနှင့် လုပ်ဆောင်ချက်</string>
     <string name="usage_intro">အက်ပ်များသည် ၎င်းတို့၏ ကိုယ်ပိုင်စွမ်းအင်သုံးစွဲမှုကို မဖတ်နိုင်ပါ။ ထို့ကြောင့် အက်ပ်သည် ပြီးခဲ့သော ၂၄ နာရီအတွင်း ၎င်းကိုယ်တိုင်လုပ်ခဲ့သည်ကို ပြသပါသည် – ဤစက်ပေါ်တွင်သာ ရေတွက်ပြီး မည်သည့်အကြောင်းအရာမျှ မပါဝင်ပါ။</string>
+    <string name="usage_counts_note">«လက်ခံရရှိ» တွင် အက်ပ်ဖွင့်ထားစဉ်နှင့် တိုက်ရိုက်ဈေးနှုန်းများအပါအဝင် အက်ပ်ရယူခဲ့သမျှ ပါဝင်ပါသည်။ ကျော်သွားသော လုပ်ဆောင်မှုများကို မရေတွက်ပါ။</string>
     <string name="usage_phone">ဖုန်း</string>
     <string name="usage_watch">နာရီ</string>
     <plurals name="usage_runs">
@@ -14,8 +15,8 @@
     <string name="usage_level_low">လုပ်ဆောင်ချက် နည်း</string>
     <string name="usage_level_medium">လုပ်ဆောင်ချက် အလယ်အလတ်</string>
     <string name="usage_level_high">လုပ်ဆောင်ချက် များ</string>
-    <string name="usage_driver_interval">အဓိကအားဖြင့် နောက်ခံစစ်ဆေးမှု (%1$s) ကြောင့်ဖြစ်ပါသည်။</string>
-    <string name="usage_driver_exact">အဓိကအားဖြင့် နောက်ခံစစ်ဆေးမှု (%1$s) နှင့် “%2$s” ကြောင့်ဖြစ်ပါသည်။</string>
+    <string name="usage_driver_interval">စီစဉ်ထားသည်- နောက်ခံစစ်ဆေးမှု (%1$s)။</string>
+    <string name="usage_driver_exact">စီစဉ်ထားသည်- နောက်ခံစစ်ဆေးမှု (%1$s) နှင့် “%2$s”။</string>
     <string name="usage_driver_none">နောက်ခံစစ်ဆေးမှု စီစဉ်ထားခြင်းမရှိပါ – ဖွင့်ထားသောအက်ပ်နှင့် ဝိဂျက်များ ရယူသည်ကိုသာ ရေတွက်ပါသည်။</string>
     <string name="usage_driver_watch">နာရီအက်ပ်နှင့် ၎င်း၏ ဖြည့်စွက်ချက်များ ကိုယ်တိုင်ရယူသည်ကို ရေတွက်ပါသည်။</string>
     <string name="usage_watch_none">ချိတ်ဆက်ထားသော နာရီ မရှိပါ</string>

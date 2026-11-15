@@ -45,6 +45,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Ця копія створена новішою версією застосунку – спершу онови застосунок. Нічого не відновлено.</string>
     <string name="backup_restore_unencrypted_warning">Ця копія не зашифрована – переконайся, що вона твоя. Налаштування буде застосовано – крім змін, що знижують захист (Блокування портфеля, Власний сервер для адрес, Сховати суми, Портфель у системній копії).</string>
+    <string name="backup_restore_unencrypted_replaces">Без пароля неможливо перевірити, чи хтось не змінив цей файл, – він замінить також твої угоди, сповіщення портфеля та відстежувані адреси.</string>
     <string name="backup_restored">Відновлено: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d сигнал</item>

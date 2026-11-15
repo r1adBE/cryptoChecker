@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Rafhlaða og virkni</string>
     <string name="usage_intro">Forrit geta ekki lesið eigin orkunotkun. Þess vegna sýnir forritið hvað það gerði sjálft síðustu 24 klukkustundir – aðeins talið á þessu tæki, án nokkurs efnis.</string>
+    <string name="usage_counts_note">„Móttekið“ telur allt sem appið sótti – líka þegar það er opið og fyrir rauntímaverð. Keyrslur sem var sleppt teljast ekki.</string>
     <string name="usage_phone">Sími</string>
     <string name="usage_watch">Úr</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Lítil virkni</string>
     <string name="usage_level_medium">Miðlungs virkni</string>
     <string name="usage_level_high">Mikil virkni</string>
-    <string name="usage_driver_interval">Aðallega vegna athugunar í bakgrunni (%1$s).</string>
-    <string name="usage_driver_exact">Aðallega vegna athugunar í bakgrunni (%1$s) og „%2$s“.</string>
+    <string name="usage_driver_interval">Áætlað: athugun í bakgrunni (%1$s).</string>
+    <string name="usage_driver_exact">Áætlað: athugun í bakgrunni (%1$s) og „%2$s“.</string>
     <string name="usage_driver_none">Engin athugun í bakgrunni áætluð – það sem telur er það sem opið forrit og græjur sækja.</string>
     <string name="usage_driver_watch">Það sem telur er það sem úrforritið og græjur þess sækja sjálf.</string>
     <string name="usage_watch_none">Ekkert úr tengt</string>

@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Това резервно копие е от по-нова версия на приложението – първо обнови приложението. Нищо не беше възстановено.</string>
     <string name="backup_restore_unencrypted_warning">Това резервно копие не е шифровано – провери дали е от теб. Настройките ще бъдат приложени – с изключение на промени, които намаляват защитата (Заключване на портфолиото, Собствен сървър за адреси, Скрий сумите, Портфолио в системното резервно копие).</string>
+    <string name="backup_restore_unencrypted_replaces">Без парола не може да се провери дали някой е променил файла – той заменя и твоите сделки, сигнали за портфейла и наблюдаваните адреси.</string>
     <string name="backup_restored">Възстановено: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d аларма</item>

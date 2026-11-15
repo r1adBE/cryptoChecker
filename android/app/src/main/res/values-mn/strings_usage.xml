@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Батарей ба идэвх</string>
     <string name="usage_intro">Аппууд өөрсдийн эрчим хүчний хэрэглээг уншиж чаддаггүй. Тиймээс апп сүүлийн 24 цагт өөрөө юу хийснийг харуулна – зөвхөн энэ төхөөрөмж дээр тоолсон, ямар ч агуулгагүй.</string>
+    <string name="usage_counts_note">«Хүлээн авсан» нь апп-ын татсан бүхнийг тоолно – нээлттэй үед болон шууд үнэд ч. Алгассан ажиллагааг тоолохгүй.</string>
     <string name="usage_phone">Утас</string>
     <string name="usage_watch">Цаг</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Бага идэвх</string>
     <string name="usage_level_medium">Дунд идэвх</string>
     <string name="usage_level_high">Өндөр идэвх</string>
-    <string name="usage_driver_interval">Голчлон арын шалгалтаас (%1$s).</string>
-    <string name="usage_driver_exact">Голчлон арын шалгалт (%1$s) болон «%2$s»-аас.</string>
+    <string name="usage_driver_interval">Төлөвлөсөн: арын шалгалт (%1$s).</string>
+    <string name="usage_driver_exact">Төлөвлөсөн: арын шалгалт (%1$s) болон «%2$s».</string>
     <string name="usage_driver_none">Арын шалгалт төлөвлөөгүй – нээлттэй апп болон виджетүүдийн татаж авсан нь тоологдоно.</string>
     <string name="usage_driver_watch">Цагны апп болон түүний нэмэлтүүдийн өөрсдөө татаж авсан нь тоологдоно.</string>
     <string name="usage_watch_none">Цаг холбогдоогүй</string>

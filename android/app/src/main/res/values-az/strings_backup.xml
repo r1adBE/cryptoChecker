@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Bu ehtiyat nüsxə tətbiqin daha yeni versiyasındandır – əvvəlcə tətbiqi yenilə. Heç nə bərpa edilmədi.</string>
     <string name="backup_restore_unencrypted_warning">Bu ehtiyat nüsxə şifrələnməyib – onun səndən olduğunu yoxla. Ayarlar tətbiq ediləcək – qorumanı azaldan dəyişikliklər istisna olmaqla (Portfel kilidi, Ünvanlar üçün öz server, Məbləğləri gizlət, Portfel sistem ehtiyat nüsxəsində).</string>
+    <string name="backup_restore_unencrypted_replaces">Parol olmadan faylın kimsə tərəfindən dəyişdirilib-dəyişdirilmədiyini yoxlamaq olmur – o, əməliyyatlarını, portfel xəbərdarlıqlarını və izlənən ünvanları da əvəz edir.</string>
     <string name="backup_restored">Bərpa edildi: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

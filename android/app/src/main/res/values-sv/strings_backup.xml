@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Den här säkerhetskopian är från en nyare appversion – uppdatera appen först. Inget återställdes.</string>
     <string name="backup_restore_unencrypted_warning">Den här säkerhetskopian är inte krypterad – kontrollera att den kommer från dig. Inställningar tas över – utom ändringar som sänker skyddet (Portföljlås, Egen server för adresser, Dölj belopp, Portfölj i systemsäkerhetskopia).</string>
+    <string name="backup_restore_unencrypted_replaces">Utan lösenord går det inte att kontrollera om någon har ändrat filen – den ersätter också dina affärer, portföljlarm och bevakade adresser.</string>
     <string name="backup_restored">Återställt: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d larm</item>

@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">Lesi sipele sivela kunguqulo entsha ye-app – buyekeza i-app kuqala. Akukho okubuyiselwe.</string>
     <string name="backup_restore_unencrypted_warning">Lesi sipele asibethelwe – qinisekisa ukuthi sivela kuwe. Izilungiselelo zizosetshenziswa – ngaphandle kwezinguquko ezehlisa ukuvikelwa (Ukhiye we-portfolio, Iseva yakho yamakheli, Fihla amanani, I-portfolio esipeleni sesistimu).</string>
+    <string name="backup_restore_unencrypted_replaces">Ngaphandle kwephasiwedi akukwazi ukuhlolwa ukuthi ukhona oshintshe leli fayela – lishintsha nokuhweba kwakho, izexwayiso zephothifoliyo namakheli owalandelelayo.</string>
     <string name="backup_restored">Kubuyiselwe: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">i-alamu engu-%1$d</item>

@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Baterija in dejavnost</string>
     <string name="usage_intro">Aplikacije ne morejo prebrati lastne porabe energije. Zato aplikacija pokaže, kaj je sama naredila v zadnjih 24 urah – šteto samo v tej napravi, brez vsebine.</string>
+    <string name="usage_counts_note">»Prejeto« šteje vse, kar je aplikacija prenesla – tudi ko je odprta in za cene v živo. Preskočeni zagoni se ne štejejo.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Ura</string>
     <plurals name="usage_runs">
@@ -20,8 +21,8 @@
     <string name="usage_level_low">Nizka dejavnost</string>
     <string name="usage_level_medium">Srednja dejavnost</string>
     <string name="usage_level_high">Visoka dejavnost</string>
-    <string name="usage_driver_interval">Predvsem zaradi preverjanja v ozadju (%1$s).</string>
-    <string name="usage_driver_exact">Predvsem zaradi preverjanja v ozadju (%1$s) in »%2$s«.</string>
+    <string name="usage_driver_interval">Načrtovano: preverjanje v ozadju (%1$s).</string>
+    <string name="usage_driver_exact">Načrtovano: preverjanje v ozadju (%1$s) in »%2$s«.</string>
     <string name="usage_driver_none">Preverjanje v ozadju ni načrtovano – šteje, kar prenašata odprta aplikacija in pripomočki.</string>
     <string name="usage_driver_watch">Šteje, kar aplikacija na uri in njeni pripomočki prenašajo sami.</string>
     <string name="usage_watch_none">Nobena ura ni povezana</string>

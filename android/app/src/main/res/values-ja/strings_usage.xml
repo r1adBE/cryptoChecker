@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">バッテリーとアクティビティ</string>
     <string name="usage_intro">アプリは自身の電力消費を読み取ることができません。そのため、このアプリが過去24時間に自ら行ったことを表示します。この端末上だけで数え、内容は一切含みません。</string>
+    <string name="usage_counts_note">「受信」には、アプリを開いているときやライブ価格を含め、アプリが取得したすべてが含まれます。スキップされた実行は数えません。</string>
     <string name="usage_phone">スマートフォン</string>
     <string name="usage_watch">ウォッチ</string>
     <plurals name="usage_runs">
@@ -14,8 +15,8 @@
     <string name="usage_level_low">アクティビティ：低</string>
     <string name="usage_level_medium">アクティビティ：中</string>
     <string name="usage_level_high">アクティビティ：高</string>
-    <string name="usage_driver_interval">主にバックグラウンドでの確認（%1$s）によるものです。</string>
-    <string name="usage_driver_exact">主にバックグラウンドでの確認（%1$s）と「%2$s」によるものです。</string>
+    <string name="usage_driver_interval">予定：バックグラウンドでの確認（%1$s）。</string>
+    <string name="usage_driver_exact">予定：バックグラウンドでの確認（%1$s）と「%2$s」。</string>
     <string name="usage_driver_none">バックグラウンドでの確認は予定されていません。開いているアプリとウィジェットが取得した分を数えています。</string>
     <string name="usage_driver_watch">ウォッチのアプリとそのコンプリケーションが自ら取得した分を数えています。</string>
     <string name="usage_watch_none">接続されているウォッチはありません</string>

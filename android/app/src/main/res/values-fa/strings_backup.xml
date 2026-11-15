@@ -43,6 +43,7 @@
     </plurals>
     <string name="backup_restore_newer_version">این پشتیبان از نسخهٔ جدیدتر برنامه است – اول برنامه را به‌روز کن. چیزی بازیابی نشد.</string>
     <string name="backup_restore_unencrypted_warning">این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند – به‌جز تغییراتی که حفاظت را کم می‌کنند (قفل پرتفوی، سرور خودت برای آدرس‌ها، پنهان کردن مبالغ، پرتفوی در پشتیبان سیستم).</string>
+    <string name="backup_restore_unencrypted_replaces">بدون گذرواژه نمی‌توان بررسی کرد که کسی این فایل را تغییر داده است یا نه – معاملات، هشدارهای سبد و نشانی‌های زیر نظرت را هم جایگزین می‌کند.</string>
     <string name="backup_restored">بازیابی شد: %1$s، %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d هشدار</item>

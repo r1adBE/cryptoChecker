@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Akumulators un aktivitāte</string>
     <string name="usage_intro">Lietotnes nevar nolasīt savu enerģijas patēriņu. Tāpēc lietotne rāda, ko tā pati darīja pēdējās 24 stundās, – skaitīts tikai šajā ierīcē, bez jebkāda satura.</string>
+    <string name="usage_counts_note">“Saņemts” ietver visu, ko lietotne ielādēja – arī atvērtā stāvoklī un tiešsaistes cenām. Izlaistās palaišanas netiek skaitītas.</string>
     <string name="usage_phone">Tālrunis</string>
     <string name="usage_watch">Pulkstenis</string>
     <plurals name="usage_runs">
@@ -18,8 +19,8 @@
     <string name="usage_level_low">Zema aktivitāte</string>
     <string name="usage_level_medium">Vidēja aktivitāte</string>
     <string name="usage_level_high">Augsta aktivitāte</string>
-    <string name="usage_driver_interval">Galvenokārt fona pārbaudes dēļ (%1$s).</string>
-    <string name="usage_driver_exact">Galvenokārt fona pārbaudes (%1$s) un “%2$s” dēļ.</string>
+    <string name="usage_driver_interval">Plānots: fona pārbaude (%1$s).</string>
+    <string name="usage_driver_exact">Plānots: fona pārbaude (%1$s) un “%2$s”.</string>
     <string name="usage_driver_none">Fona pārbaude nav ieplānota – skaitās tas, ko ielādē atvērtā lietotne un logrīki.</string>
     <string name="usage_driver_watch">Skaitās tas, ko pulksteņa lietotne un tās komplikācijas ielādē pašas.</string>
     <string name="usage_watch_none">Nav pievienots pulkstenis</string>

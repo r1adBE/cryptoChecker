@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">Batareya va faollik</string>
     <string name="usage_intro">Ilovalar o‘z quvvat sarfini o‘qiy olmaydi. Shuning uchun ilova so‘nggi 24 soatda o‘zi nima qilganini ko‘rsatadi – faqat shu qurilmada sanalgan, hech qanday tarkibsiz.</string>
+    <string name="usage_counts_note">«Qabul qilindi» ilova yuklagan hamma narsani hisoblaydi – ochiq paytda va jonli narxlar uchun ham. O‘tkazib yuborilgan ishga tushirishlar hisoblanmaydi.</string>
     <string name="usage_phone">Telefon</string>
     <string name="usage_watch">Soat</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">Past faollik</string>
     <string name="usage_level_medium">O‘rtacha faollik</string>
     <string name="usage_level_high">Yuqori faollik</string>
-    <string name="usage_driver_interval">Asosan fondagi tekshiruv tufayli (%1$s).</string>
-    <string name="usage_driver_exact">Asosan fondagi tekshiruv (%1$s) va “%2$s” tufayli.</string>
+    <string name="usage_driver_interval">Rejalashtirilgan: fondagi tekshiruv (%1$s).</string>
+    <string name="usage_driver_exact">Rejalashtirilgan: fondagi tekshiruv (%1$s) va “%2$s”.</string>
     <string name="usage_driver_none">Fondagi tekshiruv rejalashtirilmagan – ochiq ilova va vidjetlar yuklaydigani sanaladi.</string>
     <string name="usage_driver_watch">Soat ilovasi va uning qo‘shimchalari o‘zlari yuklaydigani sanaladi.</string>
     <string name="usage_watch_none">Soat ulanmagan</string>

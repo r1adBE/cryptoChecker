@@ -47,6 +47,7 @@
     </plurals>
     <string name="backup_restore_newer_version">هذه النسخة من إصدار أحدث من التطبيق – حدّث التطبيق أولًا. لم يُستعَد شيء.</string>
     <string name="backup_restore_unencrypted_warning">هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات – باستثناء التغييرات التي تُضعف الحماية (قفل المحفظة، خادم خاص للعناوين، إخفاء المبالغ، المحفظة في نسخ النظام الاحتياطي).</string>
+    <string name="backup_restore_unencrypted_replaces">بدون كلمة مرور لا يمكن التحقق مما إذا كان أحد قد غيّر هذا الملف – وهو يستبدل أيضًا صفقاتك وتنبيهات المحفظة والعناوين المراقبة.</string>
     <string name="backup_restored">تمت الاستعادة: %1$s، %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="zero">%1$d تنبيه</item>

@@ -2,6 +2,7 @@
 <resources>
     <string name="settings_row_usage">બેટરી અને પ્રવૃત્તિ</string>
     <string name="usage_intro">ઍપ પોતાનો વીજ વપરાશ વાંચી શકતી નથી. તેથી ઍપ બતાવે છે કે તેણે છેલ્લા 24 કલાકમાં પોતે શું કર્યું – ફક્ત આ ઉપકરણ પર ગણેલું, કોઈ સામગ્રી વિના.</string>
+    <string name="usage_counts_note">«મળેલું» ઍપે મેળવેલું બધું ગણે છે – ઍપ ખુલ્લી હોય ત્યારે અને લાઇવ ભાવ માટે પણ. છોડી દેવાયેલી રન ગણાતી નથી.</string>
     <string name="usage_phone">ફોન</string>
     <string name="usage_watch">ઘડિયાળ</string>
     <plurals name="usage_runs">
@@ -16,8 +17,8 @@
     <string name="usage_level_low">ઓછી પ્રવૃત્તિ</string>
     <string name="usage_level_medium">મધ્યમ પ્રવૃત્તિ</string>
     <string name="usage_level_high">વધુ પ્રવૃત્તિ</string>
-    <string name="usage_driver_interval">મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસને કારણે (%1$s).</string>
-    <string name="usage_driver_exact">મુખ્યત્વે બૅકગ્રાઉન્ડ તપાસ (%1$s) અને “%2$s”ને કારણે.</string>
+    <string name="usage_driver_interval">આયોજિત: બૅકગ્રાઉન્ડ તપાસ (%1$s).</string>
+    <string name="usage_driver_exact">આયોજિત: બૅકગ્રાઉન્ડ તપાસ (%1$s) અને “%2$s”.</string>
     <string name="usage_driver_none">કોઈ બૅકગ્રાઉન્ડ તપાસ નક્કી નથી – ખુલ્લી ઍપ અને વિજેટ જે લાવે તે જ ગણાય છે.</string>
     <string name="usage_driver_watch">ઘડિયાળની ઍપ અને તેની કૉમ્પ્લિકેશન પોતે જે લાવે તે જ ગણાય છે.</string>
     <string name="usage_watch_none">કોઈ ઘડિયાળ કનેક્ટ નથી</string>
