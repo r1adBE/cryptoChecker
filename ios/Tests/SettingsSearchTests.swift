@@ -137,7 +137,11 @@ final class SettingsSearchTests: XCTestCase {
     /// wie `SettingsSearchAnchorsTest` (Android).
     @MainActor
     func testDeliveryDiagnosticsAndAlarmLogAreSearchable() {
-        let items = SettingsSearchCatalog.items(settings: AppSettings())
+        // «Diagnose teilen» erst nach 7 Tipps auf die Version (seit Build 239, in jedem Build)
+        XCTAssertFalse(SettingsSearchCatalog.items(settings: AppSettings()).contains { $0.entry.id == "about.diagnostics" })
+        var unlocked = AppSettings()
+        unlocked.developerUnlocked = true
+        let items = SettingsSearchCatalog.items(settings: unlocked)
         func item(_ id: String) -> SettingsSearchItem? { items.first { $0.entry.id == id } }
         XCTAssertEqual(item("alarms.delivery")?.target, .page(.alarms, anchor: "alarms.delivery"))
         XCTAssertEqual(item("alarms.delivery")?.entry.path, L("settings_row_alarms"))
