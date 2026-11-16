@@ -3190,7 +3190,7 @@ Android-only ones in the first table.
 | Watch | Difference |
 |---|---|
 | Wear OS app is standalone (`com.google.android.wearable.standalone`) | the Apple Watch app needs the iPhone app to be installed (`WKRunsIndependentlyOfCompanionApp` not set); both run without the phone afterwards |
-| Wear OS complications short/long text only, no tile yet | Apple Watch also shows its rectangular widget in the Smart Stack |
+| Wear OS: complications (short/long text) and a tile with the first three favorites | Apple Watch: complications and the rectangular widget in the Smart Stack |
 | «Show on watch» notifications on Wear OS come from the watch app (alerts vibrate, the rest silent) | on Apple Watch the system mirrors the iPhone's notifications |
 
 ## Build notes
@@ -3229,6 +3229,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 247: CallStartInterceptor in derived clients, selectable/toggleable rows, debug StrictMode, PlatformSettingsParityTest, platform differences section, AlarmLease partial write, Xcode version summary.
 * Build 248: RunCatchingUsageTest over all modules; PortfolioCsvLinks, LogoLoadingHint use runCatchingCancellable.
 * Build 249: iOS-only keys ios_…iphone… (ios_extra_strings.json), watch key list, Swift references.
+* Build 250: PriceTileService (tiles 1.6.2, concurrent-futures), requestTileUpdate with complication updates, verification metadata/keyring/lockfile, PriceTileRowsTest.
 
 ## Known warnings
 

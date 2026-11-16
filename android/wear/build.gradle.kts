@@ -110,6 +110,8 @@ dependencies {
     implementation(libs.androidx.wear.compose.material)
     implementation(libs.androidx.wear.compose.foundation)
     implementation(libs.androidx.wear.complications.datasource)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.concurrent.futures)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.junit)
     // Echtes org.json für die Parser-Tests (wie :app)

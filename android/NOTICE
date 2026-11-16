@@ -21,7 +21,8 @@ The full license texts ship inside the Android app
   Compose (UI, UI Util, Material 3, ConstraintLayout), Kotlin standard library,
   kotlinx.coroutines, kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
   Wear OS app (android/wear) in addition: Compose for Wear OS (Material,
-  Foundation) and the Wear complications data source.
+  Foundation), the Wear complications data source and Wear Tiles / ProtoLayout
+  (androidx.wear.tiles, androidx.wear.protolayout).
 
 - Google Play services Wearable (com.google.android.gms:play-services-wearable;
   phone app and Wear OS app, data layer between phone and watch)

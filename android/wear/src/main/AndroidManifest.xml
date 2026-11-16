@@ -84,6 +84,20 @@
 
         <!-- Portfolio-Wert vom Handy (nur mit «Portfolio-Wert auf der Uhr»); neu gezeichnet bei jedem neuen Wert,
              alle 15 Min. nur für das Alter -->
+        <!-- Kachel: die ersten Favoriten mit Kurs, Tippen öffnet die App -->
+        <service
+            android:name=".PriceTileService"
+            android:exported="true"
+            android:icon="@mipmap/ic_watch"
+            android:label="@string/watch_app_name"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@mipmap/ic_watch" />
+        </service>
         <service
             android:name=".PortfolioComplicationService"
             android:exported="true"

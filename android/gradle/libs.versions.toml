@@ -53,6 +53,8 @@ androidJson = "0.0.20131108.vaadin1"
 # Wear-OS-App (:wear): Compose für Wear OS und Komplikationen
 wearCompose = "1.7.1"
 wearComplications = "1.2.1"
+# Kachel (Tile) der Wear-OS-App, Inhaber 16.11.2026
+wearTiles = "1.6.2"
 # Handy ↔ Uhr: nur die Coin-Liste der Uhr (Wear-Daten-Schicht der Google Play-Dienste)
 playServicesWearable = "20.0.1"
 # Testabdeckung (CI-Schwelle «Coverage (logic gate)» in android.yml): Kover wird nur mit -Pcoverage=true angewendet, der normale
@@ -97,6 +99,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-wear-compose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearCompose" }
 androidx-wear-compose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearCompose" }
 androidx-wear-complications-datasource = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "wearComplications" }
+androidx-wear-tiles = { module = "androidx.wear.tiles:tiles", version.ref = "wearTiles" }
 play-services-wearable = { module = "com.google.android.gms:play-services-wearable", version.ref = "playServicesWearable" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }

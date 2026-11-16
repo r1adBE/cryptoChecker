@@ -48,7 +48,11 @@ class WatchActivity : ComponentActivity() {
 private const val REQUEST_NOTIFICATIONS = 1
 
 /** Komplikationen neu zeichnen lassen (neue Kurse oder anderer erster Favorit). */
-fun requestComplicationUpdate(context: Context) = requestUpdate(context, PriceComplicationService::class.java)
+fun requestComplicationUpdate(context: Context) {
+    requestUpdate(context, PriceComplicationService::class.java)
+    // Gleiche Kurse auf der Kachel
+    requestTileUpdate(context)
+}
 
 /** Portfolio-Komplikation neu zeichnen lassen (neuer Wert vom Handy oder entfernt). */
 fun requestPortfolioComplicationUpdate(context: Context) = requestUpdate(context, PortfolioComplicationService::class.java)

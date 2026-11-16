@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 250)
+
+- Wear OS: new tile «Crypto Checker» with the first three favorites (price and 24 h change from the watch's cache, no own fetching), refreshed with new prices and at least every 15 minutes; tapping opens the app. New dependency androidx.wear.tiles 1.6.2 (with ProtoLayout), checksums, signing keys and lockfile updated.
+
 ## 16.2.2 (build 249)
 
 - iOS and Apple Watch say «iPhone» instead of «phone» in the watch settings, the activity page and on the watch (all 75 languages); Android unchanged.
