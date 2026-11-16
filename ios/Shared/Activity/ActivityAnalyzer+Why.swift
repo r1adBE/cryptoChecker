@@ -61,61 +61,13 @@ extension ActivityAnalyzer {
         }
 
         // 2) Volumen
-        if let stats, let ratio = stats.volumeRatio {
-            let moving = volatile || coinMoves
-            let approximate = stats.volumeApproximate
-            if ratio >= volumeHighRatio {
-                reasons.append(WhyReason(kind: .VOLUME_HIGH, tone: .warning, value: ratio,
-                                         strong: ratio >= volumeSpikeRatio, approximate: approximate))
-            } else if ratio <= volumeLowRatio && moving {
-                reasons.append(WhyReason(kind: .VOLUME_LOW, tone: .warning, value: ratio, approximate: approximate))
-            } else {
-                reasons.append(WhyReason(kind: .VOLUME_NORMAL, tone: .neutral, value: ratio, approximate: approximate))
-            }
-        }
-
+        if let stats, let reason = volumeReason(stats, moving: volatile || coinMoves) { reasons.append(reason) }
         // 3) Hebel (Futures)
-        if let funding = input.fundingPercent {
-            let oi = input.openInterestChangePercent
-            // Sprung nur bei einheitlicher Richtung gegenüber den älteren Messungen (OiSeries)
-            let oiJump = input.openInterestConsistent && (oi.map { abs($0) >= oiJumpPercent } ?? false)
-            // Angezeigt wird der Satz der Börse, verglichen auf 8 Stunden umgerechnet
-            let interval = fundingIntervalHours(input.fundingSource, reported: input.fundingIntervalHours)
-            let per8h = fundingPer8h(funding, intervalHours: interval)
-            if per8h >= fundingExtremePercent {
-                reasons.append(WhyReason(kind: .LEVERAGE_LONGS, tone: .warning, value: funding, secondary: oi,
-                                         strong: per8h >= fundingStrongPercent || oiJump, intervalHours: interval))
-            } else if per8h <= -fundingExtremePercent {
-                reasons.append(WhyReason(kind: .LEVERAGE_SHORTS, tone: .warning, value: funding, secondary: oi,
-                                         strong: per8h <= -fundingStrongPercent || oiJump, intervalHours: interval))
-            } else {
-                reasons.append(WhyReason(kind: .LEVERAGE_BALANCED, tone: .neutral, value: funding, secondary: oi,
-                                         strong: oiJump, intervalHours: interval))
-            }
-        }
-
+        if let reason = leverageReason(input) { reasons.append(reason) }
         // 4) Volatilität (nicht bei Stablecoins: dort zählt die Abweichung von 1:1)
-        if let stats, !stable {
-            let factor = abs(stats.zScore)
-            if volatile {
-                reasons.append(WhyReason(kind: .VOLATILITY_HIGH, tone: toneOf(stats.movePercent), value: factor,
-                                         secondary: stats.movePercent, strong: factor >= priceZThreshold))
-            } else {
-                reasons.append(WhyReason(kind: .VOLATILITY_NORMAL, tone: .neutral, value: factor, secondary: stats.movePercent))
-            }
-        }
-
+        if let stats, !stable { reasons.append(volatilityReason(stats, volatile: volatile)) }
         // 5) Stimmung
-        if let value = input.fearGreed {
-            let level = fearGreedLevel(value)
-            let extreme = level == .extremeFear || level == .extremeGreed
-            reasons.append(WhyReason(
-                kind: .SENTIMENT,
-                tone: extreme ? .warning : .neutral,
-                value: Double(value),
-                secondary: input.fearGreedYesterday.map { Double(value - $0) }
-            ))
-        }
+        if let reason = sentimentReason(input) { reasons.append(reason) }
 
         // Stabil sortiert: auffällige zuerst, sonst in obiger Reihenfolge
         let ordered = reasons.filter(\.strong) + reasons.filter { !$0.strong }
@@ -151,6 +103,62 @@ extension ActivityAnalyzer {
             candleTime: candles?.last?.openTime,
             stable: stable,
             sources: input.sources
+        )
+    }
+
+    /// 2) Volumen der letzten Stunde gegenüber üblich; `moving` = Coin bewegt sich deutlich. Teil von `explain`.
+    private static func volumeReason(_ stats: HourStats, moving: Bool) -> WhyReason? {
+        guard let ratio = stats.volumeRatio else { return nil }
+        let approximate = stats.volumeApproximate
+        if ratio >= volumeHighRatio {
+            return WhyReason(kind: .VOLUME_HIGH, tone: .warning, value: ratio,
+                             strong: ratio >= volumeSpikeRatio, approximate: approximate)
+        } else if ratio <= volumeLowRatio && moving {
+            return WhyReason(kind: .VOLUME_LOW, tone: .warning, value: ratio, approximate: approximate)
+        }
+        return WhyReason(kind: .VOLUME_NORMAL, tone: .neutral, value: ratio, approximate: approximate)
+    }
+
+    /// 3) Hebel (Futures): Funding auf 8 Stunden umgerechnet, Sprung des Open Interest. Teil von `explain`.
+    private static func leverageReason(_ input: WhyInput) -> WhyReason? {
+        guard let funding = input.fundingPercent else { return nil }
+        let oi = input.openInterestChangePercent
+        // Sprung nur bei einheitlicher Richtung gegenüber den älteren Messungen (OiSeries)
+        let oiJump = input.openInterestConsistent && (oi.map { abs($0) >= oiJumpPercent } ?? false)
+        // Angezeigt wird der Satz der Börse, verglichen auf 8 Stunden umgerechnet
+        let interval = fundingIntervalHours(input.fundingSource, reported: input.fundingIntervalHours)
+        let per8h = fundingPer8h(funding, intervalHours: interval)
+        if per8h >= fundingExtremePercent {
+            return WhyReason(kind: .LEVERAGE_LONGS, tone: .warning, value: funding, secondary: oi,
+                             strong: per8h >= fundingStrongPercent || oiJump, intervalHours: interval)
+        } else if per8h <= -fundingExtremePercent {
+            return WhyReason(kind: .LEVERAGE_SHORTS, tone: .warning, value: funding, secondary: oi,
+                             strong: per8h <= -fundingStrongPercent || oiJump, intervalHours: interval)
+        }
+        return WhyReason(kind: .LEVERAGE_BALANCED, tone: .neutral, value: funding, secondary: oi,
+                         strong: oiJump, intervalHours: interval)
+    }
+
+    /// 4) Schwankung der letzten Stunde gegenüber üblich. Teil von `explain`.
+    private static func volatilityReason(_ stats: HourStats, volatile: Bool) -> WhyReason {
+        let factor = abs(stats.zScore)
+        if volatile {
+            return WhyReason(kind: .VOLATILITY_HIGH, tone: toneOf(stats.movePercent), value: factor,
+                             secondary: stats.movePercent, strong: factor >= priceZThreshold)
+        }
+        return WhyReason(kind: .VOLATILITY_NORMAL, tone: .neutral, value: factor, secondary: stats.movePercent)
+    }
+
+    /// 5) Stimmung (Fear & Greed) und ihre Änderung seit gestern. Teil von `explain`.
+    private static func sentimentReason(_ input: WhyInput) -> WhyReason? {
+        guard let value = input.fearGreed else { return nil }
+        let level = fearGreedLevel(value)
+        let extreme = level == .extremeFear || level == .extremeGreed
+        return WhyReason(
+            kind: .SENTIMENT,
+            tone: extreme ? .warning : .neutral,
+            value: Double(value),
+            secondary: input.fearGreedYesterday.map { Double(value - $0) }
         )
     }
 

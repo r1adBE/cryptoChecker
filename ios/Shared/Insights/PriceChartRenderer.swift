@@ -97,49 +97,10 @@ enum PriceChartRenderer {
         // 3. Kerzen oder Linie
         switch type {
         case .candles:
-            let bodyW = Swift.max(px, (slot * 0.65 / px).rounded() * px)
-            let wickW = Swift.max(px, Swift.min(1, bodyW * 0.3))
-            for (i, candle) in data.enumerated() {
-                let color = WidgetChartGeometry.isUp(candle) ? style.up : style.down
-                let cx = ((plotLeft + (CGFloat(i) + 0.5) * slot) / px).rounded() * px
-                var wick = Path()
-                wick.move(to: CGPoint(x: cx, y: y(WidgetChartGeometry.top(candle))))
-                wick.addLine(to: CGPoint(x: cx, y: y(WidgetChartGeometry.bottom(candle))))
-                ctx.stroke(wick, with: .color(color), lineWidth: wickW)
-                let yOpen = y(candle.open)
-                let yClose = y(candle.close)
-                var bodyTop = Swift.min(yOpen, yClose)
-                var bodyH = abs(yOpen - yClose)
-                if bodyH < px {
-                    bodyTop = (yOpen + yClose) / 2 - px / 2
-                    bodyH = px
-                }
-                ctx.fill(Path(CGRect(x: cx - bodyW / 2, y: bodyTop, width: bodyW, height: bodyH)), with: .color(color))
-            }
+            drawCandles(&ctx, data: data, plotLeft: plotLeft, slot: slot, px: px, style: style, y: y)
         case .line:
-            // Farbe nach Richtung über den Zeitraum
-            let color = last.close >= first.close ? style.up : style.down
-            var points: [CGPoint] = []
-            for (i, candle) in data.enumerated() {
-                points.append(CGPoint(x: plotLeft + (CGFloat(i) + 0.5) * slot, y: y(candle.close)))
-            }
-            if let p0 = points.first, let pn = points.last {
-                var line = Path()
-                line.move(to: p0)
-                for p in points.dropFirst() { line.addLine(to: p) }
-                var area = line
-                area.addLine(to: CGPoint(x: pn.x, y: size.height))
-                area.addLine(to: CGPoint(x: p0.x, y: size.height))
-                area.closeSubpath()
-                ctx.fill(area, with: .linearGradient(Gradient(colors: [color.opacity(0.28), color.opacity(0)]),
-                                                     startPoint: CGPoint(x: 0, y: top),
-                                                     endPoint: CGPoint(x: 0, y: size.height)))
-                ctx.stroke(line, with: .color(color),
-                           style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
-                let r = lineWidth * 1.3
-                ctx.fill(Path(ellipseIn: CGRect(x: pn.x - r, y: pn.y - r, width: 2 * r, height: 2 * r)),
-                         with: .color(color))
-            }
+            drawLine(&ctx, data: data, plotLeft: plotLeft, slot: slot, size: size, top: top, style: style,
+                     lineWidth: lineWidth, y: y)
         }
 
         // 4. Gestrichelte Akzent-Linie beim aktuellen Kurs; ausserhalb tief..hoch an den Rand geklemmt
@@ -168,5 +129,58 @@ enum PriceChartRenderer {
         ctx.fill(Path(roundedRect: tagRect, cornerRadius: 3, style: .continuous), with: .color(style.accent))
         ctx.draw(tagText, at: CGPoint(x: tagRect.midX, y: tagRect.midY), anchor: .center)
         return layout
+    }
+    /// 3. Kerzen: Docht und Körper je Kerze (Körper mindestens ein Pixel hoch). Teil von `render`.
+    private static func drawCandles(_ ctx: inout GraphicsContext, data: [MarketCandle], plotLeft: CGFloat, slot: CGFloat,
+                                    px: CGFloat, style: PriceChartStyle, y: (Double) -> CGFloat) {
+        let bodyW = Swift.max(px, (slot * 0.65 / px).rounded() * px)
+        let wickW = Swift.max(px, Swift.min(1, bodyW * 0.3))
+        for (i, candle) in data.enumerated() {
+            let color = WidgetChartGeometry.isUp(candle) ? style.up : style.down
+            let cx = ((plotLeft + (CGFloat(i) + 0.5) * slot) / px).rounded() * px
+            var wick = Path()
+            wick.move(to: CGPoint(x: cx, y: y(WidgetChartGeometry.top(candle))))
+            wick.addLine(to: CGPoint(x: cx, y: y(WidgetChartGeometry.bottom(candle))))
+            ctx.stroke(wick, with: .color(color), lineWidth: wickW)
+            let yOpen = y(candle.open)
+            let yClose = y(candle.close)
+            var bodyTop = Swift.min(yOpen, yClose)
+            var bodyH = abs(yOpen - yClose)
+            if bodyH < px {
+                bodyTop = (yOpen + yClose) / 2 - px / 2
+                bodyH = px
+            }
+            ctx.fill(Path(CGRect(x: cx - bodyW / 2, y: bodyTop, width: bodyW, height: bodyH)), with: .color(color))
+        }
+    }
+
+    /// 3. Linie mit Fläche darunter, Farbe nach Richtung über den Zeitraum, Punkt am letzten Kurs. Teil von `render`.
+    private static func drawLine(_ ctx: inout GraphicsContext, data: [MarketCandle], plotLeft: CGFloat, slot: CGFloat,
+                                 size: CGSize, top: CGFloat, style: PriceChartStyle, lineWidth: CGFloat,
+                                 y: (Double) -> CGFloat) {
+        // Farbe nach Richtung über den Zeitraum
+        guard let first = data.first, let last = data.last else { return }
+        let color = last.close >= first.close ? style.up : style.down
+        var points: [CGPoint] = []
+        for (i, candle) in data.enumerated() {
+            points.append(CGPoint(x: plotLeft + (CGFloat(i) + 0.5) * slot, y: y(candle.close)))
+        }
+        if let p0 = points.first, let pn = points.last {
+            var line = Path()
+            line.move(to: p0)
+            for p in points.dropFirst() { line.addLine(to: p) }
+            var area = line
+            area.addLine(to: CGPoint(x: pn.x, y: size.height))
+            area.addLine(to: CGPoint(x: p0.x, y: size.height))
+            area.closeSubpath()
+            ctx.fill(area, with: .linearGradient(Gradient(colors: [color.opacity(0.28), color.opacity(0)]),
+                                                 startPoint: CGPoint(x: 0, y: top),
+                                                 endPoint: CGPoint(x: 0, y: size.height)))
+            ctx.stroke(line, with: .color(color),
+                       style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+            let r = lineWidth * 1.3
+            ctx.fill(Path(ellipseIn: CGRect(x: pn.x - r, y: pn.y - r, width: 2 * r, height: 2 * r)),
+                     with: .color(color))
+        }
     }
 }

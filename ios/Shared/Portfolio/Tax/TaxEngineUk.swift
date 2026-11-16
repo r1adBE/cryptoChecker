@@ -9,28 +9,11 @@ extension TaxEngines {
                                _ unassigned: inout [PortfolioUnassignedFee]) -> [PortfolioDisposal] {
         // Netzwerkgebühren sind hier schon eigene Verkäufe (`applyRules`, HMRC CRYPTO22280) — sie zählen so in der
         // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
-        // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
-        // Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
-        func late(_ s: TaxStep) -> Bool { s.trade.type == .DEPOSIT && s.trade.acquiredTime == nil }
-        // Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
-        // wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
-        // Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
-        func moved(_ s: TaxStep) -> Bool { day(s.acquired, zone) != day(s.time, zone) }
-        // Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt
-        var dayPools: [LocalDay: TaxPool] = [:]
-        var dayFirst: [LocalDay: Int64] = [:]
-        // Menge je Tag noch nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen)
-        var dayLeft: [LocalDay: Decimal] = [:]
-        var dayOwn: [LocalDay: Decimal] = [:]
-        for s in steps where s.kind == .acquire && !late(s) {
-            let d = day(s.acquired, zone)
-            var pool = dayPools[d] ?? TaxPool()
-            pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
-            dayPools[d] = pool
-            dayFirst[d] = min(dayFirst[d] ?? Int64.max, s.acquired)
-            dayLeft[d] = (dayLeft[d] ?? 0) + s.qty
-            if !moved(s) { dayOwn[d] = (dayOwn[d] ?? 0) + s.qty }
-        }
+        let days = ukDays(steps, zone)
+        var dayPools = days.pools
+        let dayFirst = days.first
+        var dayLeft = days.left
+        let dayOwn = days.own
         let poolDays = dayPools.keys.sorted()
         let disposeIdx: [Int] = steps.indices.filter { steps[$0].kind == .dispose }
         var remaining: [Int: Decimal] = [:]
@@ -40,34 +23,11 @@ extension TaxEngines {
             pieces[i] = []
         }
         // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200): jede Zuordnung (gleicher Tag, 30 Tage, Pool) gilt
-        // der Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt — Menge `q`, letzter Abgang mit Rest
-        // bekommt den Rest (Summe exakt `q`); `take` nimmt je Abgang seinen Anteil. Wie Android `split`.
-        func split(_ idx: [Int], _ q: Decimal, _ take: (Int, Decimal) -> Void) {
-            let total: Decimal = idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) }
-            guard q > 0, total > 0 else { return }
-            let last = idx.lastIndex { (remaining[$0] ?? 0) > 0 }
-            var left = q
-            for (n, i) in idx.enumerated() {
-                let r = remaining[i] ?? 0
-                guard r > 0 else { continue }
-                let want: Decimal = n == last ? left : PortfolioDecimal.divide(q, r, by: total)
-                left -= want
-                take(i, want)
-            }
-        }
+        // der Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt (`ukSplit`)
+        func split(_ idx: [Int], _ q: Decimal, _ take: (Int, Decimal) -> Void) { ukSplit(remaining, idx, q, take) }
         func openOf(_ idx: [Int]) -> Decimal { idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) } }
         // Gruppen je Tag in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang)
-        var groups: [(day: LocalDay, idx: [Int])] = []
-        var groupOf: [LocalDay: Int] = [:]
-        for i in disposeIdx {
-            let d = day(steps[i].time, zone)
-            if let k = groupOf[d] {
-                groups[k].idx.append(i)
-            } else {
-                groupOf[d] = groups.count
-                groups.append((d, [i]))
-            }
-        }
+        let (groups, groupOf) = ukGroups(steps, disposeIdx, zone)
         // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
         for g in groups {
             guard var pool = dayPools[g.day] else { continue }
@@ -81,14 +41,8 @@ extension TaxEngines {
         // 2. 30 Tage: früheste Gruppe zuerst, Zugänge der 30 Tage danach früheste zuerst
         for g in groups {
             let to = g.day.plusDays(TaxTemplate.ukBbDays)
-            // Erster Zugangstag nach dem Tag der Gruppe per binärer Suche, dann nur die Tage bis `to` — wie `subMap` (Android)
-            var lo = 0
-            var hi = poolDays.count
-            while lo < hi {
-                let mid = (lo + hi) / 2
-                if g.day < poolDays[mid] { hi = mid } else { lo = mid + 1 }
-            }
-            for ad in poolDays[lo...] {
+            // Erster Zugangstag nach dem Tag der Gruppe, dann nur die Tage bis `to` — wie `subMap` (Android)
+            for ad in poolDays[firstDayAfter(poolDays, g.day)...] {
                 if to < ad { break }
                 let r = openOf(g.idx)
                 if r <= 0 { break }
@@ -106,12 +60,7 @@ extension TaxEngines {
         for g in groups { if let last = g.idx.last { groupAt[last] = g.idx } }
         // Auszahlung zwischen zwei Abgängen derselben Gruppe: erst nach deren Pool-Teil gebucht (die Abgänge des Tags sind
         // EINE Veräusserung und werden zuerst zugeordnet) — sonst leerte sie den Pool vor dem früheren Abgang. Wie Android.
-        var deferred: [Int: [Int]] = [:]
-        for (i, s) in steps.enumerated() where s.kind == .remove {
-            guard let k = groupOf[day(s.time, zone)], let first = groups[k].idx.first, let last = groups[k].idx.last,
-                  first < i, i < last else { continue }
-            deferred[last, default: []].append(i)
-        }
+        let deferred = ukDeferred(steps, groups, groupOf, zone)
         let deferredSteps = Set(deferred.values.joined())
         // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
         // Buchungstag), Rest der Abgänge aus dem Pool
@@ -137,9 +86,9 @@ extension TaxEngines {
             switch s.kind {
             case .acquire:
                 let d = day(s.acquired, zone)
-                if late(s) {
+                if ukLate(s) {
                     pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
-                } else if moved(s) {
+                } else if ukMoved(s, zone) {
                     enter(d, s.qty)
                 } else if added.insert(d).inserted {
                     enter(d, dayOwn[d] ?? 0)
@@ -169,5 +118,93 @@ extension TaxEngines {
             }
         }
         return out
+    }
+
+    // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
+    // Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
+    private static func ukLate(_ s: TaxStep) -> Bool { s.trade.type == .DEPOSIT && s.trade.acquiredTime == nil }
+
+    // Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
+    // wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
+    // Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
+    private static func ukMoved(_ s: TaxStep, _ zone: TimeZone) -> Bool { day(s.acquired, zone) != day(s.time, zone) }
+
+    /// Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt, erster Erwerbszeitpunkt je Tag, Menge je Tag noch
+    /// nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen); Teil von `ukPool`.
+    private struct UkDays {
+        var pools: [LocalDay: TaxPool] = [:]
+        var first: [LocalDay: Int64] = [:]
+        var left: [LocalDay: Decimal] = [:]
+        var own: [LocalDay: Decimal] = [:]
+    }
+
+    private static func ukDays(_ steps: [TaxStep], _ zone: TimeZone) -> UkDays {
+        var days = UkDays()
+        for s in steps where s.kind == .acquire && !ukLate(s) {
+            let d = day(s.acquired, zone)
+            var pool = days.pools[d] ?? TaxPool()
+            pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
+            days.pools[d] = pool
+            days.first[d] = min(days.first[d] ?? Int64.max, s.acquired)
+            days.left[d] = (days.left[d] ?? 0) + s.qty
+            if !ukMoved(s, zone) { days.own[d] = (days.own[d] ?? 0) + s.qty }
+        }
+        return days
+    }
+
+    /// Menge `q` anteilig nach dem offenen Rest (`remaining`) der Abgänge einer Gruppe verteilen — der letzte Abgang mit
+    /// Rest bekommt den Rest (Summe exakt `q`); `take` nimmt je Abgang seinen Anteil. Wie Android `ukSplit`.
+    private static func ukSplit(_ remaining: [Int: Decimal], _ idx: [Int], _ q: Decimal, _ take: (Int, Decimal) -> Void) {
+        let total: Decimal = idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) }
+        guard q > 0, total > 0 else { return }
+        let last = idx.lastIndex { (remaining[$0] ?? 0) > 0 }
+        var left = q
+        for (n, i) in idx.enumerated() {
+            let r = remaining[i] ?? 0
+            guard r > 0 else { continue }
+            let want: Decimal = n == last ? left : PortfolioDecimal.divide(q, r, by: total)
+            left -= want
+            take(i, want)
+        }
+    }
+
+    /// Gruppen je Tag in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang).
+    private static func ukGroups(_ steps: [TaxStep], _ disposeIdx: [Int], _ zone: TimeZone)
+        -> (groups: [(day: LocalDay, idx: [Int])], groupOf: [LocalDay: Int]) {
+        var groups: [(day: LocalDay, idx: [Int])] = []
+        var groupOf: [LocalDay: Int] = [:]
+        for i in disposeIdx {
+            let d = day(steps[i].time, zone)
+            if let k = groupOf[d] {
+                groups[k].idx.append(i)
+            } else {
+                groupOf[d] = groups.count
+                groups.append((d, [i]))
+            }
+        }
+        return (groups, groupOf)
+    }
+
+    /// Erster Index in den aufsteigenden `days` mit Tag nach `day` (binäre Suche).
+    private static func firstDayAfter(_ days: [LocalDay], _ day: LocalDay) -> Int {
+        var lo = 0
+        var hi = days.count
+        while lo < hi {
+            let mid = (lo + hi) / 2
+            if day < days[mid] { hi = mid } else { lo = mid + 1 }
+        }
+        return lo
+    }
+
+    /// Auszahlungen zwischen zwei Abgängen derselben Tages-Gruppe, je letztem Abgang der Gruppe; Teil von `ukPool`.
+    private static func ukDeferred(_ steps: [TaxStep], _ groups: [(day: LocalDay, idx: [Int])], _ groupOf: [LocalDay: Int],
+                                   _ zone: TimeZone) -> [Int: [Int]] {
+        var deferred: [Int: [Int]] = [:]
+        for (i, s) in steps.enumerated() where s.kind == .remove {
+            guard let k = groupOf[day(s.time, zone)], let first = groups[k].idx.first, let last = groups[k].idx.last,
+                  first < i, i < last else { continue }
+            deferred[last, default: []].append(i)
+        }
+        return deferred
     }
 }

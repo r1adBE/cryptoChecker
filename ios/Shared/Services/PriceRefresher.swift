@@ -53,13 +53,7 @@ enum PriceRefresher {
         // Prozess (Widget, Hintergrund) kann inzwischen eine Pause gemerkt haben
         let initialBackoff = SharedStorage.exchangeBackoff
         var backoff = initialBackoff
-        // Live-Kurse: nur diese Paare (nicht mehr gehandelte bleiben unberührt), keine Pause je Börse.
-        // Deaktivierte Paare nie: keine Abfrage, keine Alarme, keine Mitteilungen (wie Android)
-        let all = snapshot.watches.filter { w in
-            if w.disabled { return false }
-            if let liveQuotes { return liveQuotes[w.id] != nil && !w.isNotTraded }
-            return onlyWatchId == nil || w.id == onlyWatchId
-        }
+        let all = refreshedWatches(snapshot, liveQuotes: liveQuotes, onlyWatchId: onlyWatchId)
         // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
         // sonst verlängerte die Kursabfrage die IP-Sperre (siehe `BlockedSources`) — wie Android
         if liveQuotes == nil { adoptGroupPauses(&backoff, watches: all, started: started) }
@@ -74,13 +68,7 @@ enum PriceRefresher {
             outcome.durationMillis = EpochTime.nowMillis - started
             // Alle Börsen pausiert: der Bericht sagt bis wann
             if onlyWatchId == nil && !paused.isEmpty {
-                // Übernommene gemeinsame Binance-Pause mit speichern (wie Android)
-                SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
-                                                                      stored: SharedStorage.exchangeBackoff,
-                                                                      now: EpochTime.nowMillis)
-                outcome.report = RefreshReport(at: EpochTime.nowMillis, totalMillis: outcome.durationMillis,
-                                               pairs: all.count, networkMillis: 0,
-                                               exchanges: pausedExchanges(paused, backoff: backoff))
+                notePausedOnly(&outcome, paused: paused, pairs: all.count, backoff: backoff, initialBackoff: initialBackoff)
             }
             return outcome
         }
@@ -162,5 +150,27 @@ enum PriceRefresher {
                           dayLoads: loaded.dayLoads, networkMillis: networkMillis, exchanges: loaded.exchanges)
         }
         return outcome
+    }
+    /// Live-Kurse: nur diese Paare (nicht mehr gehandelte bleiben unberührt), keine Pause je Börse. Deaktivierte Paare
+    /// nie: keine Abfrage, keine Alarme, keine Mitteilungen (wie Android). Teil von `refresh`.
+    private static func refreshedWatches(_ snapshot: SharedStorage.Snapshot, liveQuotes: [Int64: LiveQuote]?,
+                                         onlyWatchId: Int64?) -> [Watch] {
+        snapshot.watches.filter { w in
+            if w.disabled { return false }
+            if let liveQuotes { return liveQuotes[w.id] != nil && !w.isNotTraded }
+            return onlyWatchId == nil || w.id == onlyWatchId
+        }
+    }
+
+    /// Alle Börsen pausiert: übernommene gemeinsame Binance-Pause mit speichern (wie Android) und Bericht, bis wann.
+    private static func notePausedOnly(_ outcome: inout Outcome, paused: [Watch], pairs: Int,
+                                       backoff: [String: ExchangeBackoff.State],
+                                       initialBackoff: [String: ExchangeBackoff.State]) {
+        SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
+                                                              stored: SharedStorage.exchangeBackoff,
+                                                              now: EpochTime.nowMillis)
+        outcome.report = RefreshReport(at: EpochTime.nowMillis, totalMillis: outcome.durationMillis,
+                                       pairs: pairs, networkMillis: 0,
+                                       exchanges: pausedExchanges(paused, backoff: backoff))
     }
 }

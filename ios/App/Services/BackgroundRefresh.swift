@@ -70,20 +70,8 @@ enum BackgroundRefresh {
         // gleich beim Anlegen ab (`TaskCancelBox.set`).
         let workBox = TaskCancelBox()
         task.onExpiration {
-            let endedAt = EpochTime.nowMillis
-            let result = priceBox.get()
-            let logs = logGate.claim()
-            BackgroundExpiry(cancel: { workBox.cancel() }, complete: { completion.complete(success: false) },
-                             afterwards: {
-                                 AppLog.background.notice("BG-Aufgabe abgelaufen nach \(endedAt - startedAt, privacy: .public) ms")
-                                 // Dauer bis zum Ablauf, nicht bis zum (vielleicht späteren) Schreiben
-                                 if logs {
-                                     CheckRunStore.add(CheckRun(at: endedAt, trigger: .bgTask, result: result,
-                                                                durationMillis: max(endedAt - startedAt, 0),
-                                                                reason: CheckRunLog.cancelledReason("expired")))
-                                 }
-                                 scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
-                             }, detach: seams.detachAfterExpiry).run()
+            expire(startedAt: startedAt, priceBox: priceBox, logGate: logGate, workBox: workBox, completion: completion,
+                   seams: seams)
         }
         AppLog.background.info("BG-Aufgabe gestartet")
         let work = Task { @MainActor in
@@ -124,35 +112,13 @@ enum BackgroundRefresh {
             let priceResult: CheckResult = notSaved ? .failed : outcome.checkResult
             let priceReason: String? = notSaved ? CheckRunLog.reasonNotSaved : nil
             priceBox.set(priceResult)
-            // Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
-            if saved == nil && outcome.checked > 0 {
-                BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind)
-            } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
-                BackgroundErrorCounter.record(BackgroundErrors.refresh, kind: BackgroundErrors.allFailedKind)
-            }
+            countFailures(outcome, saved: saved != nil)
             await seams.afterPriceSave()
             // Während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
             // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,
             // damit «Alarme geprüft» und Melden zusammenpassen
             let expired = Task.isCancelled
-            var fullCheck = false
-            // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
-            // auf der Platte sonst für frisch (`WidgetDataFreshness`)
-            if saved != nil && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed,
-                                                            notTraded: outcome.notTraded) {
-                SharedStorage.markFullRefresh()
-                SharedStorage.lastRefreshDuration = outcome.durationMillis
-                // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
-                // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht.
-                // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
-                // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
-                // Ohne Alarm-Lease bzw. mit Budget-Lücken keine volle Prüfung (der nächste Lauf wird nicht übersprungen)
-                fullCheck = !expired && outcome.isFullCheck
-                if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
-                                                      deferredChecked: false) {
-                    SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
-                }
-            }
+            let fullCheck = markRefreshed(outcome, saved: saved != nil, expired: expired)
             if let report = outcome.report { SharedStorage.lastRefreshReport = report }
             // Mit dieser %-Basis gerechnet (Änderung, Widgets und Live-Aktivität prüfen das)
             if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
@@ -164,19 +130,7 @@ enum BackgroundRefresh {
                 completion.complete(success: false)
                 return
             }
-            if let saved {
-                // Erst jetzt Alarme melden, je bestätigter Mitteilung den Alarm speichern und die Lease freigeben —
-                // nach der Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`)
-                // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
-                _ = await outcome.keepingCurrentPairs(saved.watches)
-                    .deliverAlarms(settings: settings, current: saved.alarms,
-                                   save: { PriceRefresher.saveAlarmOnDisk($0, $1) }, notifier: seams.notifier,
-                                   recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
-            } else {
-                // Nicht gespeichert (keine Merkliste, unlesbar, nicht zugreifbar) → nichts melden; die
-                // Alarme bleiben scharf. Portfolio-Widget, Portfolio- und Gas-Alarm laufen trotzdem.
-                outcome.releaseAlarmLease()
-            }
+            await deliverAlarms(outcome, saved: saved, settings: settings, seams: seams)
             await AppData.shared.reloadFromDisk()
             // Widgets nur neu laden, wenn sich der gespeicherte Stand geändert hat (Kurse, Fehler, %-Basis) — sonst
             // verbraucht jeder Lauf ohne Ergebnis (offline, alles pausiert) Teile des Widget-Budgets
@@ -211,6 +165,75 @@ enum BackgroundRefresh {
         }
         workBox.set(work)
         return work
+    }
+
+    /// Zeit abgelaufen (`task.onExpiration` in `handleRefresh`): Arbeit abbrechen UND sofort das Ende melden; danach
+    /// abseits des Aufrufers (`BackgroundExpiry`) Eintrag in «Letzte Prüfungen» und noch einmal vormerken.
+    private static func expire(startedAt: Int64, priceBox: CheckResultBox, logGate: OnceGate, workBox: TaskCancelBox,
+                               completion: BackgroundTaskCompletion, seams: BackgroundRunSeams) {
+        let endedAt = EpochTime.nowMillis
+        let result = priceBox.get()
+        let logs = logGate.claim()
+        BackgroundExpiry(cancel: { workBox.cancel() }, complete: { completion.complete(success: false) },
+                         afterwards: {
+                             AppLog.background.notice("BG-Aufgabe abgelaufen nach \(endedAt - startedAt, privacy: .public) ms")
+                             // Dauer bis zum Ablauf, nicht bis zum (vielleicht späteren) Schreiben
+                             if logs {
+                                 CheckRunStore.add(CheckRun(at: endedAt, trigger: .bgTask, result: result,
+                                                            durationMillis: max(endedAt - startedAt, 0),
+                                                            reason: CheckRunLog.cancelledReason("expired")))
+                             }
+                             scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
+                         }, detach: seams.detachAfterExpiry).run()
+    }
+
+    /// Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck).
+    @MainActor private static func countFailures(_ outcome: PriceRefresher.Outcome, saved: Bool) {
+        if !saved && outcome.checked > 0 {
+            BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind)
+        } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
+            BackgroundErrorCounter.record(BackgroundErrors.refresh, kind: BackgroundErrors.allFailedKind)
+        }
+    }
+
+    /// Uhrzeit und «Alarme geprüft» nach dem Speichern; Rückgabe: volle Prüfung. Uhrzeit nur mit gespeichertem Stand:
+    /// Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse auf der Platte sonst für frisch
+    /// (`WidgetDataFreshness`).
+    @MainActor private static func markRefreshed(_ outcome: PriceRefresher.Outcome, saved: Bool, expired: Bool) -> Bool {
+        var fullCheck = false
+        if saved && BackgroundSchedule.refreshed(attempted: outcome.checked, failed: outcome.failed,
+                                                 notTraded: outcome.notTraded) {
+            SharedStorage.markFullRefresh()
+            SharedStorage.lastRefreshDuration = outcome.durationMillis
+            // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
+            // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht.
+            // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
+            // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
+            // Ohne Alarm-Lease bzw. mit Budget-Lücken keine volle Prüfung (der nächste Lauf wird nicht übersprungen)
+            fullCheck = !expired && outcome.isFullCheck
+            if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
+                                                  deferredChecked: false) {
+                SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
+            }
+        }
+        return fullCheck
+    }
+
+    /// Erst jetzt Alarme melden, je bestätigter Mitteilung den Alarm speichern und die Lease freigeben — nach der
+    /// Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`). Nicht gespeichert (keine Merkliste,
+    /// unlesbar, nicht zugreifbar) → nichts melden; die Alarme bleiben scharf. Portfolio-Widget, Portfolio- und
+    /// Gas-Alarm laufen trotzdem.
+    @MainActor private static func deliverAlarms(_ outcome: PriceRefresher.Outcome, saved: SharedStorage.Snapshot?,
+                                                 settings: AppSettings, seams: BackgroundRunSeams) async {
+        guard let saved else {
+            outcome.releaseAlarmLease()
+            return
+        }
+        // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
+        _ = await outcome.keepingCurrentPairs(saved.watches)
+            .deliverAlarms(settings: settings, current: saved.alarms,
+                           save: { PriceRefresher.saveAlarmOnDisk($0, $1) }, notifier: seams.notifier,
+                           recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
     }
 
     /// Kurse eben erst geprüft, Fear & Greed aber fällig: nur diese Prüfung. Den `expirationHandler` ZUERST

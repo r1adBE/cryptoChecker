@@ -237,36 +237,8 @@ extension TaxEngines {
                 switch s.kind {
                 case .acquire:
                     let carry: AtCarry? = s.swap ? carries.removeValue(forKey: s.id) : nil
-                    if let carry, carry.realized {
-                        // Tausch vor dem 1.3.2022 = Anschaffung zum Wert des Tauschs: vor dem 1.3.2021 Altbestand (Frist 1 Jahr
-                        // ab dem Tausch), danach Neubestand
-                        // Wert des Tauschs zum Tagesschluss: Einstand geschätzt
-                        let est = s.trade.valueEstimated
-                        if s.time < newFrom {
-                            c.insertOld(AtLot(txId: s.id, acquired: s.time, kind: s.trade.type, qty: s.qty, cost: carry.value,
-                                              estimated: est))
-                        } else {
-                            c.addNew(s.qty, cost: carry.value, time: s.time, est: est)
-                        }
-                    } else if let carry {
-                        if carry.total > 0 {
-                            // Erhaltene Menge anteilig: aus Altbestand (Einstand = Wert), aus Neubestand fortgeführt, Rest ohne Kaufpreis
-                            // — Tausch ab dem 1.3.2022, also kein späterer Verkauf nach alter Rechtslage: ohne Gebührenteil
-                            func part(_ q: Decimal) -> Decimal { q == carry.total ? s.qty : PortfolioDecimal.divide(s.qty, q, by: carry.total) }
-                            let fromOld = part(carry.oldQty)
-                            if fromOld > 0 {
-                                let v: Decimal? = carry.value.map {
-                                    carry.oldQty == carry.total ? $0 : PortfolioDecimal.divide($0, carry.oldQty, by: carry.total)
-                                }
-                                c.addNew(fromOld, cost: v, time: s.time, est: s.trade.valueEstimated)
-                            }
-                            let fromPriced = part(carry.taken.removedPriced)
-                            if fromPriced > 0 { c.addNewCarried(fromPriced, from: carry.taken.parts, est: carry.taken.estimated) }
-                            let restQty = s.qty - fromOld - fromPriced
-                            if restQty > 0 { c.addNew(restQty, cost: nil, time: s.time) }
-                        } else {
-                            c.addNew(s.qty, cost: nil, time: s.time)
-                        }
+                    if let carry {
+                        atSwapIn(&c, s, carry, newFrom: newFrom)
                     } else if s.acquired < newFrom {
                         // Nach Erwerb einsortieren: eine nachdatierte Einzahlung (Kaufdatum vor einem früher gebuchten Kauf)
                         // ist der ältere Posten und geht beim Verkauf zuerst ab
@@ -284,29 +256,9 @@ extension TaxEngines {
                         out += atSale(coin, &c, s, neutralFrom: neutralFrom, &lost)
                         break
                     }
-                    let both = takeBoth(&c, s.qty)
-                    let oldQty: Decimal = both.pieces.reduce(Decimal(0)) { $0 + $1.amount }
-                    var rows: [PortfolioDisposal] = []
-                    if s.time < neutralFrom {
-                        // Tausch vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Tausch = Veräusserung des ganzen
-                        // abgegebenen Coins (Alt- und Neubestand, EStR Rz 6103k), der erhaltene Coin ist neu angeschafft;
-                        // Einstand des Neubestands mit Anschaffungsnebenkosten wie beim Verkauf in dieser Zeit
-                        var list = both.pieces
-                        list += piecesOf(withFees(both.taken, both.fees), oldHolding: false)
-                        let rest = s.qty - oldQty - both.taken.removed
-                        if rest > 0 { list.append(Piece(amount: rest, cost: nil, uncovered: true)) }
-                        rows = emit(coin, s, list, proceeds: s.proceeds)
-                        carries[s.id] = AtCarry(total: s.qty, oldQty: oldQty, taken: both.taken, value: s.gross, realized: true)
-                    } else {
-                        // Tausch ab 1.3.2022: nur der Altbestand-Teil ist eine Veräusserung (§ 31 EStG a. F., Rz 6103k);
-                        // Neubestand geht steuerneutral über (§ 27b Abs. 3 Z 2 EStG) — auch in einen Stablecoin (USDT, USDC …):
-                        // der Einstand geht mit, steuerbar erst der Verkauf gegen Euro
-                        let proceedsOld: Decimal? = s.proceeds.map {
-                            oldQty == s.qty ? $0 : PortfolioDecimal.divide($0, oldQty, by: s.qty)
-                        }
-                        if oldQty > 0 { rows = emit(coin, s, both.pieces, proceeds: proceedsOld) }
-                        carries[s.id] = AtCarry(total: s.qty, oldQty: oldQty, taken: both.taken, value: s.gross, realized: false)
-                    }
+                    let (swapRows, carry) = atSwapOut(coin, &c, s, neutralFrom: neutralFrom)
+                    var rows = swapRows
+                    carries[s.id] = carry
                     for i in rows.indices { rows[i].wallet = c.wallet }
                     out += rows
                 case .remove:
@@ -320,5 +272,72 @@ extension TaxEngines {
             coins[k] = c
         }
         return out
+    }
+    /// Erhaltene Seite eines Tauschs (`carry` = abgegebene Seite). Tausch vor dem 1.3.2022 (`realized`) = Anschaffung zum
+    /// Wert des Tauschs: vor dem 1.3.2021 Altbestand (Frist 1 Jahr ab dem Tausch), danach Neubestand; Wert des Tauschs
+    /// zum Tagesschluss: Einstand geschätzt. Teil von `atSplit`.
+    private static func atSwapIn(_ c: inout AtCoin, _ s: TaxStep, _ carry: AtCarry, newFrom: Int64) {
+        if carry.realized {
+            // Tausch vor dem 1.3.2022 = Anschaffung zum Wert des Tauschs: vor dem 1.3.2021 Altbestand (Frist 1 Jahr
+            // ab dem Tausch), danach Neubestand
+            // Wert des Tauschs zum Tagesschluss: Einstand geschätzt
+            let est = s.trade.valueEstimated
+            if s.time < newFrom {
+                c.insertOld(AtLot(txId: s.id, acquired: s.time, kind: s.trade.type, qty: s.qty, cost: carry.value,
+                                  estimated: est))
+            } else {
+                c.addNew(s.qty, cost: carry.value, time: s.time, est: est)
+            }
+            return
+        }
+        if carry.total > 0 {
+            // Erhaltene Menge anteilig: aus Altbestand (Einstand = Wert), aus Neubestand fortgeführt, Rest ohne Kaufpreis
+            // — Tausch ab dem 1.3.2022, also kein späterer Verkauf nach alter Rechtslage: ohne Gebührenteil
+            func part(_ q: Decimal) -> Decimal { q == carry.total ? s.qty : PortfolioDecimal.divide(s.qty, q, by: carry.total) }
+            let fromOld = part(carry.oldQty)
+            if fromOld > 0 {
+                let v: Decimal? = carry.value.map {
+                    carry.oldQty == carry.total ? $0 : PortfolioDecimal.divide($0, carry.oldQty, by: carry.total)
+                }
+                c.addNew(fromOld, cost: v, time: s.time, est: s.trade.valueEstimated)
+            }
+            let fromPriced = part(carry.taken.removedPriced)
+            if fromPriced > 0 { c.addNewCarried(fromPriced, from: carry.taken.parts, est: carry.taken.estimated) }
+            let restQty = s.qty - fromOld - fromPriced
+            if restQty > 0 { c.addNew(restQty, cost: nil, time: s.time) }
+        } else {
+            c.addNew(s.qty, cost: nil, time: s.time)
+        }
+    }
+
+    /// Abgegebene Seite eines Tauschs: Zeilen der Veräusserung (ohne Wallet) und was zur erhaltenen Seite mitgeht.
+    /// Teil von `atSplit`.
+    private static func atSwapOut(_ coin: String, _ c: inout AtCoin, _ s: TaxStep,
+                                  neutralFrom: Int64) -> ([PortfolioDisposal], AtCarry) {
+        let both = takeBoth(&c, s.qty)
+        let oldQty: Decimal = both.pieces.reduce(Decimal(0)) { $0 + $1.amount }
+        var rows: [PortfolioDisposal] = []
+        let carry: AtCarry
+        if s.time < neutralFrom {
+            // Tausch vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Tausch = Veräusserung des ganzen
+            // abgegebenen Coins (Alt- und Neubestand, EStR Rz 6103k), der erhaltene Coin ist neu angeschafft;
+            // Einstand des Neubestands mit Anschaffungsnebenkosten wie beim Verkauf in dieser Zeit
+            var list = both.pieces
+            list += piecesOf(withFees(both.taken, both.fees), oldHolding: false)
+            let rest = s.qty - oldQty - both.taken.removed
+            if rest > 0 { list.append(Piece(amount: rest, cost: nil, uncovered: true)) }
+            rows = emit(coin, s, list, proceeds: s.proceeds)
+            carry = AtCarry(total: s.qty, oldQty: oldQty, taken: both.taken, value: s.gross, realized: true)
+        } else {
+            // Tausch ab 1.3.2022: nur der Altbestand-Teil ist eine Veräusserung (§ 31 EStG a. F., Rz 6103k);
+            // Neubestand geht steuerneutral über (§ 27b Abs. 3 Z 2 EStG) — auch in einen Stablecoin (USDT, USDC …):
+            // der Einstand geht mit, steuerbar erst der Verkauf gegen Euro
+            let proceedsOld: Decimal? = s.proceeds.map {
+                oldQty == s.qty ? $0 : PortfolioDecimal.divide($0, oldQty, by: s.qty)
+            }
+            if oldQty > 0 { rows = emit(coin, s, both.pieces, proceeds: proceedsOld) }
+            carry = AtCarry(total: s.qty, oldQty: oldQty, taken: both.taken, value: s.gross, realized: false)
+        }
+        return (rows, carry)
     }
 }

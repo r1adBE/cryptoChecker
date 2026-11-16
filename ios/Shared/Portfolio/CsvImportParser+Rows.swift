@@ -199,37 +199,69 @@ extension CsvImportParser {
         return out
     }
 
-    /// Eine Zeile samt Vorzeichen der Menge in der Datei (−1 negativ, sonst 1; für Tausch-Seiten).
-    private static func row(_ format: CsvImportFormat, _ h: Header, _ rec: Record, hint: Character?, zone: String,
-                            monthFirst: Bool) throws -> (row: CsvImportRow, sign: Int) {
+    /// Zellen einer Zeile nach Rolle; Zahlen im Dezimalzeichen `hint`. Teil von `row` — wie Android `RowCells`.
+    private struct RowCells {
+        let h: Header
+        let rec: Record
+        let hint: Character?
+
         func cell(_ role: Role) -> String {
             guard let i = h.index[role], i < rec.cells.count else { return "" }
             return rec.cells[i]
         }
+
         func number(_ role: Role) throws -> Decimal? {
             let t = cell(role)
             // «-» / «–» = leer (manche Exporte für fehlende Gebühr)
             if t.isEmpty || t == "-" || t == "–" { return nil }
-            guard let v = parseNumber(t, hint: hint) else { throw Skip(reason: .BAD_NUMBER) }
+            guard let v = CsvImportParser.parseNumber(t, hint: hint) else { throw Skip(reason: .BAD_NUMBER) }
             return v
         }
+    }
+
+    /// Coin: Relai nur Bitcoin; Swissquote nur Zeilen ohne ISIN (Aktien/ETF haben eine). Teil von `row`.
+    private static func coinOf(_ format: CsvImportFormat, _ cells: RowCells) throws -> String {
+        let coinText: String
+        switch format {
+        case .RELAI:
+            coinText = cells.cell(.coin).isEmpty ? "BTC" : cells.cell(.coin)
+        case .SWISSQUOTE:
+            if !cells.cell(.isin).isEmpty || cells.cell(.coin).isEmpty { throw Skip(reason: .NOT_CRYPTO) }
+            coinText = cells.cell(.coin)
+        case .KRAKEN, .BINANCE, .COINBASE, .BITPANDA, .GENERIC, .UNKNOWN:
+            coinText = cells.cell(.coin)
+        }
+        return coinText.uppercased()
+    }
+
+    /// Gebühr und ihre Einheit (Satoshi → BTC; ohne Einheit die Preiswährung `quote`); ohne Gebühr (nil, nil).
+    private static func feeOf(_ cells: RowCells, quote: String?) throws -> (Decimal?, String?) {
+        guard var fee = try cells.number(.fee).map({ $0 < 0 ? -$0 : $0 }), fee != 0 else { return (nil, nil) }
+        let unitText = cells.cell(.feeUnit).uppercased()
+        var feeUnit: String? = unitText.isEmpty ? nil : unitText
+        if let u = feeUnit, ["SATS", "SAT", "SATOSHI", "SATOSHIS"].contains(u) {
+            fee = fee / satsPerBtc
+            feeUnit = "BTC"
+        }
+        if feeUnit == nil {
+            guard let q = quote else { throw Skip(reason: .MISSING_FIELD) }
+            feeUnit = q
+        }
+        return (fee, feeUnit)
+    }
+
+    /// Eine Zeile samt Vorzeichen der Menge in der Datei (−1 negativ, sonst 1; für Tausch-Seiten).
+    private static func row(_ format: CsvImportFormat, _ h: Header, _ rec: Record, hint: Character?, zone: String,
+                            monthFirst: Bool) throws -> (row: CsvImportRow, sign: Int) {
+        let cells = RowCells(h: h, rec: rec, hint: hint)
+        func cell(_ role: Role) -> String { cells.cell(role) }
+        func number(_ role: Role) throws -> Decimal? { try cells.number(role) }
         func nonEmpty(_ s: String) -> String? { s.isEmpty ? nil : s }
 
         let rawKind = cell(.kind)
         guard let kind = classify(rawKind) else { throw Skip(reason: .UNSUPPORTED_KIND) }
 
-        // Coin: Relai nur Bitcoin; Swissquote nur Zeilen ohne ISIN (Aktien/ETF haben eine)
-        let coinText: String
-        switch format {
-        case .RELAI:
-            coinText = nonEmpty(cell(.coin)) ?? "BTC"
-        case .SWISSQUOTE:
-            if !cell(.isin).isEmpty || cell(.coin).isEmpty { throw Skip(reason: .NOT_CRYPTO) }
-            coinText = cell(.coin)
-        case .KRAKEN, .BINANCE, .COINBASE, .BITPANDA, .GENERIC, .UNKNOWN:
-            coinText = cell(.coin)
-        }
-        let coin = coinText.uppercased()
+        let coin = try coinOf(format, cells)
         if coin.isEmpty { throw Skip(reason: .MISSING_FIELD) }
         // Nur Geld («EUR»-Einzahlung u. ä.): kein Krypto
         if CsvImport.isFiat(coin) { throw Skip(reason: .NOT_CRYPTO) }
@@ -283,22 +315,7 @@ extension CsvImportParser {
         }
         if price != nil && quote == nil { throw Skip(reason: .MISSING_FIELD) }
 
-        var fee = try number(.fee).map { $0 < 0 ? -$0 : $0 }
-        if let f = fee, f == 0 { fee = nil }
-        var feeUnit = nonEmpty(cell(.feeUnit).uppercased())
-        if var f = fee {
-            if let u = feeUnit, ["SATS", "SAT", "SATOSHI", "SATOSHIS"].contains(u) {
-                f = f / satsPerBtc
-                fee = f
-                feeUnit = "BTC"
-            }
-            if feeUnit == nil {
-                guard let q = quote else { throw Skip(reason: .MISSING_FIELD) }
-                feeUnit = q
-            }
-        } else {
-            feeUnit = nil
-        }
+        let (fee, feeUnit) = try feeOf(cells, quote: quote)
 
         // Swissquote: «00000000» = ohne Auftrag (Gebühren, Zahlungen)
         let idText = cell(.id)

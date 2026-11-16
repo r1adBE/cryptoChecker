@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 252)
+
+- iOS code: the 11 longest logic functions (portfolio widget computation, background task, UK/CA/AT tax engines, price fetching and refresh, portfolio history, «why is it moving», CSV import rows, chart drawing) split into named helper functions without behaviour change, mirroring Android; ceiling for Swift logic functions lowered from 240 to 136 lines.
+
 ## 16.2.2 (build 251)
 
 - Android code: the 12 longest logic functions (over 100 lines: refresh processing, Canadian ACB and UK share pooling, tax CSV and rows, «why is it moving», price fetching, CSV import rows, portfolio history, app start) split into named helper functions without behaviour change; ceiling for Kotlin logic functions lowered from 166 to 100 lines.

@@ -52,7 +52,7 @@ PROPS_CEILING = 26  # ExplorerViewModel
 # long functions from growing and goes down with every split.
 FUNCTION_CEILINGS = {"Kotlin": 326, "Swift": 247}  # AppNavHost; WatchlistList.list (both user interface)
 # Longest logic function (not user interface, see the module text): TaxExportCsv.gainsCsv; PortfolioWidgetStore.compute
-LOGIC_CEILINGS = {"Kotlin": 100, "Swift": 240}
+LOGIC_CEILINGS = {"Kotlin": 100, "Swift": 136}
 FUNCTION_TARGET = 80
 TOP_FUNCTIONS = 30
 TOP_LOGIC_FUNCTIONS = 12

@@ -72,39 +72,11 @@ extension PriceRefresher {
         // Börse stillgelegt (`ExchangeRetirement`): keine Anfrage, jedes Paar mit dem Marker der Börse — wie Android
         if ExchangeRetirement.isRetired(sample.exchangeKey, now: started) { return retiredGroup(group, sample: sample, started: started) }
 
-        var bulk = BulkTickers()
-        var bulkTried = group.count >= minWatchesForBulk
-        if lowMemory, bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
-            var seen: Set<String> = []
-            let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
-            switch LowMemoryBulk.plan(exchangeKey: exchange.key, pairs: group.count,
-                                      unfilteredOnly: LowMemoryBulk.isUnfiltered(exchange, pairIds: ids)) {
-            case .bulk:
-                break
-            case .singles:
-                bulkTried = false
-            case .skip:
-                // Zu viele Paare für Einzelabfragen, Liste zu gross: diesmal nicht abfragen (kein Bericht, keine Pause)
-                return (Dictionary(uniqueKeysWithValues: group.map { ($0.id, Fetched(skipped: true)) }), nil)
-            }
+        // Zu viele Paare für Einzelabfragen, Liste zu gross: diesmal nicht abfragen (kein Bericht, keine Pause)
+        guard let loaded = await loadBulk(group, sample: sample, lowMemory: lowMemory) else {
+            return (Dictionary(uniqueKeysWithValues: group.map { ($0.id, Fetched(skipped: true)) }), nil)
         }
-        if bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
-            var seen: Set<String> = []
-            let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
-            // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
-            // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
-            let notTradedIds = Set(group.filter { !NotTraded.askSingleWhenMissing(lastError: $0.lastError) }.compactMap(\.pairId))
-            let plan = BulkDelistedMemory.shared.plan(sample.exchangeKey, pairIds: ids, notTraded: notTradedIds,
-                                                      now: EpochTime.nowMillis, lowMemory: lowMemory)
-            if plan.request.isEmpty {
-                // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
-                // die Liste gilt als vollständig ohne sie
-                bulk = BulkTickers(complete: true)
-            } else {
-                bulk = await ExchangeService.fetchBulkTickers(exchange: exchange, pairIds: plan.request, lowMemory: lowMemory)
-                BulkDelistedMemory.shared.learn(sample.exchangeKey, plan: plan, result: bulk, now: EpochTime.nowMillis)
-            }
-        }
+        let (bulk, bulkTried) = loaded
         let bulkMillis = EpochTime.nowMillis - started
 
         // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher —
@@ -198,6 +170,52 @@ extension PriceRefresher {
             }
         }
 
+        let signals = groupSignals(group, sample: sample, results: results, bulk: bulk, bulkTried: bulkTried,
+                                   bulkMillis: bulkMillis, sent: sent, started: started)
+        return (results, signals)
+    }
+
+    /// Sammelabfrage einer Börse (Widget-Erweiterung: `LowMemoryBulk`); nil = diesmal gar nicht abfragen. Rückgabe mit
+    /// `bulkTried` = Sammelabfrage versucht. Teil von `fetchGroup`.
+    private static func loadBulk(_ group: [Watch], sample: Watch, lowMemory: Bool) async -> (BulkTickers, Bool)? {
+        var bulk = BulkTickers()
+        var bulkTried = group.count >= minWatchesForBulk
+        if lowMemory, bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
+            var seen: Set<String> = []
+            let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
+            switch LowMemoryBulk.plan(exchangeKey: exchange.key, pairs: group.count,
+                                      unfilteredOnly: LowMemoryBulk.isUnfiltered(exchange, pairIds: ids)) {
+            case .bulk:
+                break
+            case .singles:
+                bulkTried = false
+            case .skip:
+                return nil
+            }
+        }
+        if bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
+            var seen: Set<String> = []
+            let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
+            // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
+            // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
+            let notTradedIds = Set(group.filter { !NotTraded.askSingleWhenMissing(lastError: $0.lastError) }.compactMap(\.pairId))
+            let plan = BulkDelistedMemory.shared.plan(sample.exchangeKey, pairIds: ids, notTraded: notTradedIds,
+                                                      now: EpochTime.nowMillis, lowMemory: lowMemory)
+            if plan.request.isEmpty {
+                // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
+                // die Liste gilt als vollständig ohne sie
+                bulk = BulkTickers(complete: true)
+            } else {
+                bulk = await ExchangeService.fetchBulkTickers(exchange: exchange, pairIds: plan.request, lowMemory: lowMemory)
+                BulkDelistedMemory.shared.learn(sample.exchangeKey, plan: plan, result: bulk, now: EpochTime.nowMillis)
+            }
+        }
+        return (bulk, bulkTried)
+    }
+
+    /// Bericht und Signale (Fehlerarten, Pause) einer Börse aus den Ergebnissen ihrer Paare; Teil von `fetchGroup`.
+    private static func groupSignals(_ group: [Watch], sample: Watch, results: [Int64: Fetched], bulk: BulkTickers,
+                                     bulkTried: Bool, bulkMillis: Int64, sent: Int, started: Int64) -> GroupSignals {
         let notTraded = results.values.filter(\.notTraded).count
         let errors = results.values.filter { ($0.ticker == nil || $0.error != nil) && !$0.notTraded }
         // Ursache: die beim Abfragen erkannte (z. B. Zeitüberschreitung), sonst aus dem Fehlertext
@@ -218,14 +236,13 @@ extension PriceRefresher {
             detail: StoredError.reportDetail(errors.map(\.error), reason: reason)
         )
         let errorTexts = errors.map(\.error) + [bulk.error]
-        let signals = GroupSignals(
+        return GroupSignals(
             exchangeKey: sample.exchangeKey,
             report: entry,
             failures: failures + (bulk.error.map { [RefreshReportLogic.classify(bulk.exchangeFailure, $0)] } ?? []),
             retryAfterMillis: ExchangeBackoff.retryAfterMillis(errorTexts),
             banned: ExchangeBackoff.banned(errorTexts)
         )
-        return (results, signals)
     }
 
     /// Stillgelegte Börse (`ExchangeRetirement`): ohne Anfrage jedes Paar «nicht gehandelt» mit dem Marker der Börse
