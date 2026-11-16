@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 246)
+
+- Internal documentation only (work list shortened, build process written down); no change to the apps.
+
 ## 16.2.2 (build 245)
 
 - Chinese (simplified, traditional, Cantonese): consistently polite «您» in the apps, watch apps, store texts and screenshot captions.
