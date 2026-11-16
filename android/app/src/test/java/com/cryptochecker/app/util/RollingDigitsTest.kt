@@ -1,5 +1,7 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.format.RollingDigits
+import com.cryptochecker.app.domain.format.RollingDirection
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

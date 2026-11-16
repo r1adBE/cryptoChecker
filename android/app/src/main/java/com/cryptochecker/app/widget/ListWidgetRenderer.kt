@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.*
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -22,7 +23,6 @@ import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes

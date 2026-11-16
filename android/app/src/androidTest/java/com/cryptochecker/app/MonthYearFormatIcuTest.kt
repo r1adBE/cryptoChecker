@@ -1,7 +1,7 @@
 package com.cryptochecker.app
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.cryptochecker.app.util.MonthYearFormat
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import java.time.LocalDate
 import java.util.Locale
 import org.junit.Assert.assertEquals

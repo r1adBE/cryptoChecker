@@ -1,5 +1,7 @@
 package com.cryptochecker.app.notification
 
+import com.cryptochecker.app.domain.notification.NotificationIds
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager

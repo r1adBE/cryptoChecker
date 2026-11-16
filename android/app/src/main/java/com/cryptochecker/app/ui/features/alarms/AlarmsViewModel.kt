@@ -97,10 +97,10 @@ class AlarmsViewModel @Inject constructor(
     }
 
     /** Wahl «Sparsam» / «Etwa alle 15 Minuten» zeigen (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
-    val exactOffer: StateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?> = notices.exactOffer
+    val exactOffer: StateFlow<com.cryptochecker.app.domain.work.ExactCheckOffer.Kind?> = notices.exactOffer
 
     /** Wahl übernehmen: «Pünktlich prüfen» ein oder aus ([ExactCheckOffer.exactChecksFor]). */
-    fun chooseExactMode(choice: com.cryptochecker.app.work.ExactCheckOffer.Choice) = notices.chooseExactMode(choice)
+    fun chooseExactMode(choice: com.cryptochecker.app.domain.work.ExactCheckOffer.Choice) = notices.chooseExactMode(choice)
 
     /** Hinweis «Wann Alarme geprüft werden» jetzt zeigen ([AlarmTimingHint]): einmal nach dem Speichern, nicht zur ersten Bestätigung. */
     val timingHint: StateFlow<Boolean> = notices.timingHint

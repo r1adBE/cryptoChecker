@@ -1,5 +1,8 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.ListWidgetHeader
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

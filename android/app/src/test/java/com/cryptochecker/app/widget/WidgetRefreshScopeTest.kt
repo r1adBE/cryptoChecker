@@ -1,5 +1,8 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.LatestPerWidget
+import com.cryptochecker.app.domain.widget.PortfolioDrawState
+import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

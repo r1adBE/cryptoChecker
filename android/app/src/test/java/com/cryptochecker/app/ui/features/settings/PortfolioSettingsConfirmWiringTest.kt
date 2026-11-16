@@ -8,7 +8,7 @@ import java.io.File
 
 /**
  * Einstellungen › Portfolio: Einstandsmethode und «Portfolio in Systemsicherung» gehen über die Rückfrage
- * ([com.cryptochecker.app.settings.SettingsConfirm]); die Arbeitsunterlage nennt vor dem Export, was in den Dateien steht.
+ * ([com.cryptochecker.app.domain.settings.SettingsConfirm]); die Arbeitsunterlage nennt vor dem Export, was in den Dateien steht.
  * Wächter auf den Quelltext beider Plattformen.
  */
 class PortfolioSettingsConfirmWiringTest {

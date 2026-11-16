@@ -1,5 +1,7 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
+import com.cryptochecker.app.domain.work.countedRun
 import android.content.Context
 import androidx.core.content.edit
 import androidx.hilt.work.HiltWorker

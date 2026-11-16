@@ -5,7 +5,7 @@ import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.PreviousKey
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

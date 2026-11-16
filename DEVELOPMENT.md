@@ -3235,6 +3235,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 253: Oberflächen-Funktionen zerlegt (A241-A-02, I-02), `FUNCTION_CEILINGS` Kotlin 317, Swift 205.
 * Build 254: Build-Werkzeug-Constraints (A241-C-07), Abschnitt «buildtool» im Versionskatalog.
 * Build 255: Sicherung in `data.backup` (A241-A-03 Teil 1), `data.logos`, `data.cycle`.
+* Build 256: Reine Logik aus `app` nach `domain` (A241-A-03 Teil 2).
 
 ## Known warnings
 

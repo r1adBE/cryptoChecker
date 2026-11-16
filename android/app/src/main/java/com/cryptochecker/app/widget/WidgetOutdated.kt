@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetFreshness
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context

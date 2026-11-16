@@ -2,7 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.logos.CoinLogoPlaceholder
 import com.cryptochecker.app.util.SourceGuard
-import com.cryptochecker.app.widget.WidgetContrast
+import com.cryptochecker.app.domain.widget.WidgetContrast
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

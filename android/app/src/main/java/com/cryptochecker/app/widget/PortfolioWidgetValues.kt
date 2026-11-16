@@ -3,6 +3,7 @@
 // Eigene Datei, weil alle Ansichten (Chart, Übersicht, Liste) dieselbe Wert-Bindung nutzen.
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R

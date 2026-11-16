@@ -1,5 +1,7 @@
 package com.cryptochecker.app.lock
 
+import com.cryptochecker.app.domain.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.data.local.SystemBackupScope
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals

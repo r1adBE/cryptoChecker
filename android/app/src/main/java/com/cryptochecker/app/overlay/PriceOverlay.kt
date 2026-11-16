@@ -1,5 +1,6 @@
 package com.cryptochecker.app.overlay
 
+import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -32,7 +33,7 @@ import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.features.watchlist.midSentence
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.domain.util.appScope

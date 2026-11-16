@@ -1,6 +1,6 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.work.BackgroundWorkPolicy
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

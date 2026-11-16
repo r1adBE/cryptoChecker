@@ -12,7 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.ui.features.alarms.AlarmsOverviewScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmsScreen
 import com.cryptochecker.app.ui.features.alarms.AlarmLogScreen

@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.theme.displayCompact
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 

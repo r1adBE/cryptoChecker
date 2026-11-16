@@ -34,13 +34,13 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
-import com.cryptochecker.app.settings.SettingsConfirm
+import com.cryptochecker.app.domain.settings.SettingsConfirm
 import com.cryptochecker.app.domain.settings.deviceRegionLocale
 import com.cryptochecker.app.ui.features.portfolio.taxMethodName
 import com.cryptochecker.app.ui.features.portfolio.TaxTemplateConfirmDialog
 import com.cryptochecker.app.ui.features.portfolio.taxTemplateLabel
 import com.cryptochecker.app.lock.AppLockAuth
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing

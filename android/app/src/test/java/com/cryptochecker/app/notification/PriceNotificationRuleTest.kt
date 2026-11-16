@@ -1,5 +1,6 @@
 package com.cryptochecker.app.notification
 
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

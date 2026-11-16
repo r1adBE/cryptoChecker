@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.util.SourceGuard
-import com.cryptochecker.app.widget.WidgetContrast
+import com.cryptochecker.app.domain.widget.WidgetContrast
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull

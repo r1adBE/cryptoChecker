@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.ListWidgetDataVersion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals

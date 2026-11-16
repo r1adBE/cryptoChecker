@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 
 /** Ton der [DataStatusPill] — gleiche Farben wie die Status-Pille der Merkliste. */
 enum class DataStatusTone {

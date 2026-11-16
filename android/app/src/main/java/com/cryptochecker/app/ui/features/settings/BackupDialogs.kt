@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.backup.BackupCrypto
 import com.cryptochecker.app.data.backup.BackupPasswordStrength
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.SwitchRow

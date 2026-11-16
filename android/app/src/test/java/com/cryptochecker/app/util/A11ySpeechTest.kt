@@ -1,8 +1,9 @@
 package com.cryptochecker.app.util
 
-import com.cryptochecker.app.util.A11ySpeech.Age
-import com.cryptochecker.app.util.A11ySpeech.Freshness
-import com.cryptochecker.app.util.A11ySpeech.StatusKind
+import com.cryptochecker.app.domain.format.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech.Age
+import com.cryptochecker.app.domain.format.A11ySpeech.Freshness
+import com.cryptochecker.app.domain.format.A11ySpeech.StatusKind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

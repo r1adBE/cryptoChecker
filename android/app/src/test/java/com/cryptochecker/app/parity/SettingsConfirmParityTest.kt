@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.CostMethod
-import com.cryptochecker.app.settings.SettingsConfirm
+import com.cryptochecker.app.domain.settings.SettingsConfirm
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

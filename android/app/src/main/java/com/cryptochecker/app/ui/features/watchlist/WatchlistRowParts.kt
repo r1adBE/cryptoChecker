@@ -70,7 +70,7 @@ import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.body
-import com.cryptochecker.app.util.DenseRowText
+import com.cryptochecker.app.domain.format.DenseRowText
 import com.cryptochecker.app.util.PriceFormat
 
 /** Coin-Plakette in der Zeile: in allen Coin-Listen gleich gross ([ListSegment.Logo]). */
@@ -191,7 +191,7 @@ internal fun RowPrice(
     /** Referenzkurs (EZB, NBU, NBP): klein «täglich» bzw. «wöchentlich» nach dem Takt der Quelle. */
     reference: com.cryptochecker.marketdata.model.ReferenceSource? = null,
     /**
-     * Kurs eine Stufe grösser (`titleLarge` statt `titleMedium`, [com.cryptochecker.app.util.DenseRowText.largePrice]);
+     * Kurs eine Stufe grösser (`titleLarge` statt `titleMedium`, [com.cryptochecker.app.domain.format.DenseRowText.largePrice]);
      * bei grosser Schrift neben dem Paar oder in schmalen Zeilen die alte Stufe.
      */
     largePrice: Boolean = false,

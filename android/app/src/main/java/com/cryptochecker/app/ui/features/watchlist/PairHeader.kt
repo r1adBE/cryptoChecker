@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.components.ReferenceSourceLine
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.display
 import com.cryptochecker.app.ui.theme.headline
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.domain.util.LocaleNumbers

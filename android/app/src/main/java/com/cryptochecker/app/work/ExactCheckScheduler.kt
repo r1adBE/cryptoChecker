@@ -1,5 +1,6 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context

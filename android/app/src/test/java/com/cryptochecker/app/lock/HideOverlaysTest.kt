@@ -1,5 +1,6 @@
 package com.cryptochecker.app.lock
 
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

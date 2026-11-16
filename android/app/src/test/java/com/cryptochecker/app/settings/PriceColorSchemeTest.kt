@@ -315,7 +315,7 @@ class PriceColorSchemeTest {
     @Test
     fun `Hoher Kontrast Ersatz klar verschieden`() {
         for (scheme in PriceColorScheme.entries) for (accent in AccentColor.entries) for (dark in listOf(false, true)) {
-            val hcAccent = com.cryptochecker.app.widget.WidgetContrast.highContrastAccent(accent.primary(dark), dark)
+            val hcAccent = com.cryptochecker.app.domain.widget.WidgetContrast.highContrastAccent(accent.primary(dark), dark)
             for (up in listOf(true, false)) {
                 if (!scheme.clashesWith(accent)) continue
                 val color = if (up) scheme.up(dark, true, accent = accent) else scheme.down(dark, true, accent = accent)

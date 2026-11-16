@@ -8,7 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.ChangeBasisText
-import com.cryptochecker.app.util.WidgetQuantityFormat
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import kotlin.math.roundToInt
 
 /**

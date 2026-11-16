@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.AppLockState
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages

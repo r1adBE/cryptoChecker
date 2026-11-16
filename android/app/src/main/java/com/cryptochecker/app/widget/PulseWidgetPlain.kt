@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetType
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.DataStamp

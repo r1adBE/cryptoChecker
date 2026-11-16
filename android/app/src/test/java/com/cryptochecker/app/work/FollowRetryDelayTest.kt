@@ -1,5 +1,6 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

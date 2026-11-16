@@ -39,11 +39,11 @@ internal class AlarmSaveNotices(
     }
 
     /** Wahl «Sparsam» / «Etwa alle 15 Minuten» zeigen (einmal, im Dialog nach dem allerersten Alarm); null = nicht. */
-    private val _exactOffer = MutableStateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?>(null)
-    val exactOffer: StateFlow<com.cryptochecker.app.work.ExactCheckOffer.Kind?> = _exactOffer.asStateFlow()
+    private val _exactOffer = MutableStateFlow<com.cryptochecker.app.domain.work.ExactCheckOffer.Kind?>(null)
+    val exactOffer: StateFlow<com.cryptochecker.app.domain.work.ExactCheckOffer.Kind?> = _exactOffer.asStateFlow()
 
     private suspend fun offerExactChecksOnce() {
-        val kind = com.cryptochecker.app.work.ExactCheckOffer.decide(
+        val kind = com.cryptochecker.app.domain.work.ExactCheckOffer.decide(
             exactOn = settingsRepository.current().exactChecks,
             permitted = exactScheduler.canScheduleExact(),
             offeredBefore = exactScheduler.offerShown,
@@ -58,8 +58,8 @@ internal class AlarmSaveNotices(
      * absagen (ohne Berechtigung stellt ihn der BootReceiver, sobald sie erteilt ist). Die Wahl bleibt im Dialog
      * sichtbar und lässt sich dort bis zum Schliessen noch ändern.
      */
-    fun chooseExactMode(choice: com.cryptochecker.app.work.ExactCheckOffer.Choice) {
-        val enabled = com.cryptochecker.app.work.ExactCheckOffer.exactChecksFor(choice)
+    fun chooseExactMode(choice: com.cryptochecker.app.domain.work.ExactCheckOffer.Choice) {
+        val enabled = com.cryptochecker.app.domain.work.ExactCheckOffer.exactChecksFor(choice)
         scope.launch {
             // Speicher voll: Hinweis statt Absturz, der Wecker bleibt dann, wie er war
             if (!settingsRepository.guarded { setExactChecks(enabled) }) return@launch

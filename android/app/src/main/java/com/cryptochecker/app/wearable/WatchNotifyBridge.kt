@@ -1,5 +1,6 @@
 package com.cryptochecker.app.wearable
 
+import com.cryptochecker.app.domain.wearable.WatchNotifyPolicy
 import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat

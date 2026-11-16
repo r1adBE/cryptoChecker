@@ -1,5 +1,7 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.ListWidgetHeader
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

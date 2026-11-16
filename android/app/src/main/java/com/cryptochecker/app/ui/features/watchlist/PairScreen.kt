@@ -35,7 +35,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.AppSnackbarHost

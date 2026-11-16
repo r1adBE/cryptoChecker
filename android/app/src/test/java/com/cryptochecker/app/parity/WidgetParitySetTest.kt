@@ -3,13 +3,13 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.util.DecimalText
-import com.cryptochecker.app.util.WidgetQuantityFormat
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import com.cryptochecker.app.widget.PortfolioChartRange
 import com.cryptochecker.app.widget.PortfolioDisplay
 import com.cryptochecker.app.widget.PortfolioWidgetOptions
 import com.cryptochecker.app.widget.PortfolioWidgetView
-import com.cryptochecker.app.widget.WidgetListRows
-import com.cryptochecker.app.widget.WidgetStatusRule
+import com.cryptochecker.app.domain.widget.WidgetListRows
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue

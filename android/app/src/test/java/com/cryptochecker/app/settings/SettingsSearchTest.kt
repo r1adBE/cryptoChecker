@@ -1,5 +1,7 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.domain.settings.SettingsSearch
+import com.cryptochecker.app.domain.settings.SettingsSearchEntry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

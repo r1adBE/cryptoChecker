@@ -41,7 +41,7 @@ import com.cryptochecker.app.ui.components.RegisterTabs
 import com.cryptochecker.app.ui.components.TonePill
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
-import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.FuturesContractType

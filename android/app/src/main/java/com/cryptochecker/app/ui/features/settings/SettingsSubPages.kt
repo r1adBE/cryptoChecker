@@ -36,7 +36,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.settings.SettingsSummary
+import com.cryptochecker.app.domain.settings.SettingsSummary
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest

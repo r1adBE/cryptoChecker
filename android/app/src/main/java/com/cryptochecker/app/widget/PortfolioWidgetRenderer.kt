@@ -1,5 +1,7 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.LatestPerWidget
+import com.cryptochecker.app.domain.widget.PortfolioDrawState
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -18,7 +20,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes

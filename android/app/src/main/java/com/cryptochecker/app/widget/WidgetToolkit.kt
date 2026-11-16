@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetQuoteText
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName

@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.cryptochecker.app.domain.market.MarketSections
-import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.ui.features.explorer.ExplorerScreen
 import com.cryptochecker.app.ui.features.explorer.ExplorerSectionsState
 import com.cryptochecker.app.ui.features.explorer.ExplorerViewModel

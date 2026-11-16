@@ -1,5 +1,6 @@
 package com.cryptochecker.app.overlay
 
+import com.cryptochecker.app.domain.overlay.PriceOverlayRules
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.settings.AppSettings

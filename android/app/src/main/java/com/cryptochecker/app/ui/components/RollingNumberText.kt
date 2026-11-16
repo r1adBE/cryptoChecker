@@ -44,8 +44,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
-import com.cryptochecker.app.util.RollingDigits
-import com.cryptochecker.app.util.RollingDirection
+import com.cryptochecker.app.domain.format.RollingDigits
+import com.cryptochecker.app.domain.format.RollingDirection
 
 /** Dauer, in der eine Ziffer heraus- und die neue hineingleitet. */
 private const val ROLL_MILLIS = 250

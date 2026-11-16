@@ -1,11 +1,12 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckTrigger
-import com.cryptochecker.app.work.BackgroundWorkPolicy.ExactAction
-import com.cryptochecker.app.work.BackgroundWorkPolicy.FiredAction
-import com.cryptochecker.app.work.BackgroundWorkPolicy.WorkOutcome
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.ExactAction
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.FiredAction
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy.WorkOutcome
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

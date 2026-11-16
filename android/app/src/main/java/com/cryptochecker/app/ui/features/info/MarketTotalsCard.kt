@@ -13,7 +13,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.MarketTotals
 import com.cryptochecker.app.util.A11yText
-import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.domain.format.CompactAmount
 
 // ───────────────────────── Krypto-Markt (Marktkapitalisierung, Volumen) ─────────────────────────
 

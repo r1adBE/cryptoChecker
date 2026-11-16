@@ -1,5 +1,10 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.LatestPerWidget
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
+import com.cryptochecker.app.domain.widget.WidgetTextFit
+import com.cryptochecker.app.domain.widget.WidgetType
 import androidx.core.net.toUri
 import com.cryptochecker.app.domain.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.domain.BoundedCache

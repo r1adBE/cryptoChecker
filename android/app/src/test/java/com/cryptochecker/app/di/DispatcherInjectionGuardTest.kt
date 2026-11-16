@@ -104,7 +104,7 @@ class DispatcherInjectionGuardTest {
             "app/app/CryptoCheckerApp.kt" to 2,
             "app/app/util/ReceiverAsync.kt" to 1,
             "app/app/work/ExactCheckReceiver.kt" to 1,
-            "app/app/widget/PulseBackgroundFetch.kt" to 1,
+            "domain/app/domain/widget/PulseBackgroundFetch.kt" to 1,
             "app/app/widget/PortfolioWidgetChartView.kt" to 1,
             "app/app/ui/features/portfolio/PortfolioExportRun.kt" to 2,
             "app/app/ui/features/portfolio/PortfolioCsvImportReader.kt" to 3,

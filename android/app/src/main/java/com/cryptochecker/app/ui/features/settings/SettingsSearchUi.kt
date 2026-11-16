@@ -36,7 +36,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.settings.SettingsSearch
+import com.cryptochecker.app.domain.settings.SettingsSearch
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing

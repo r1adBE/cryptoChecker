@@ -39,7 +39,7 @@ import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
-import com.cryptochecker.app.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.Spacing
@@ -82,7 +82,7 @@ fun AlarmsOverviewScreen(
     val lockEnabled by lockViewModel.lockEnabled.collectAsStateWithLifecycle()
     com.cryptochecker.app.ui.lock.HideOverlaysEffect(showsPortfolioAmounts)
     com.cryptochecker.app.ui.lock.SecureWindowEffect(
-        com.cryptochecker.app.lock.PortfolioLockPolicy.secureWindow(
+        com.cryptochecker.app.domain.lock.PortfolioLockPolicy.secureWindow(
             lockSetting = lockEnabled, portfolioVisible = showsPortfolioAmounts, sdkInt = android.os.Build.VERSION.SDK_INT,
         )
     )

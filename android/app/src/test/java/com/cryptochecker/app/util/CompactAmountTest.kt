@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import com.cryptochecker.app.domain.format.CompactAmount
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

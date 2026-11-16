@@ -57,7 +57,7 @@ import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.AppColors
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 import java.util.Locale
 import kotlin.math.abs
 

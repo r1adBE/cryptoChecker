@@ -127,7 +127,7 @@ internal class WatchlistContentFlows(
 
     /**
      * Letzte Auslösung je Paar (Epoch-ms; auch abgeschaltete Einmal-Alarme, die nach dem Auslösen
-     * aus sind) — für «Alarm ausgelöst» im Screenreader-Satz der Zeile ([com.cryptochecker.app.util.A11ySpeech.firedRecently]).
+     * aus sind) — für «Alarm ausgelöst» im Screenreader-Satz der Zeile ([com.cryptochecker.app.domain.format.A11ySpeech.firedRecently]).
      */
     private val alarmFiredAt: StateFlow<Map<Long, Long>> = pairAlarms
         .map { alarms ->

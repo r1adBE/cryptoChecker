@@ -36,7 +36,7 @@ import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.work.ExactCheckOffer
+import com.cryptochecker.app.domain.work.ExactCheckOffer
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.marketdata.model.ReferenceSource

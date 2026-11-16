@@ -35,8 +35,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
 import com.cryptochecker.app.lock.AppLockState
-import com.cryptochecker.app.lock.PortfolioAccess
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioAccess
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.data.settings.SettingsRepository

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 256)
+
+- Android code structure (no behaviour change): 33 files of pure logic without Android dependencies moved from `app` to `domain` (widget rules, background-work rules, notification ids, lock rule, settings search, number and screen-reader formats in `domain.format`, watch rules).
+
 ## 16.2.2 (build 255)
 
 - Android code structure (no behaviour change): backup and restore now live in one module (`data`, package `data.backup`: the backup manager and restore steps moved from `app`, format, encryption and journal from the root package); device-lock check passed in from the app (`DeviceAuthCheck`); the portfolio alarm repository moved to `data.portfolio`; the flat root package of `data` grouped (`data.logos`, `data.cycle`).

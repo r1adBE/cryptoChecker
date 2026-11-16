@@ -1,5 +1,6 @@
 package com.cryptochecker.app.lock
 
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.ContextWrapper

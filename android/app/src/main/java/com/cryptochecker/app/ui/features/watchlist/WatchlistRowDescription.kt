@@ -10,7 +10,7 @@ import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.marketdata.model.ReferenceSource

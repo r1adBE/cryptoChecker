@@ -59,7 +59,7 @@ import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.watch.RowPause
-import com.cryptochecker.app.util.DenseRowText
+import com.cryptochecker.app.domain.format.DenseRowText
 
 /**
  * Kompakte Zeile: Coin-Logo (mit Stern bei Favoriten), Paar, Börse, Kurs und Prozent-Änderung.

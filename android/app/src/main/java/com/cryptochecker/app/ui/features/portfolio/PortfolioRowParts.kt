@@ -34,7 +34,7 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.util.WidgetQuantityFormat
+import com.cryptochecker.app.domain.format.WidgetQuantityFormat
 import java.util.Locale
 
 /**

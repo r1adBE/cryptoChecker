@@ -8,7 +8,7 @@ import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.notification.NotificationChannels
-import com.cryptochecker.app.notification.PriceNotificationRule
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.notification.alarmChannel
 

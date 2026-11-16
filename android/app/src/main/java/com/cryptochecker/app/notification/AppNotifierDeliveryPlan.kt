@@ -4,6 +4,7 @@
 // Systemdienst, fragen hier nach dem Plan und melden bzw. entfernen danach. Reines Kotlin, per JVM-Test geprüft.
 package com.cryptochecker.app.notification
 
+import com.cryptochecker.app.domain.notification.NotificationIds
 import com.cryptochecker.app.domain.notification.NotificationBudget
 
 object AppNotifierDeliveryPlan {

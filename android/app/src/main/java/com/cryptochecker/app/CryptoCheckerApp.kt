@@ -11,7 +11,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.mirror.MirrorRevocations
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.AppearanceApplier

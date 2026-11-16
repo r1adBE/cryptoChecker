@@ -1,5 +1,8 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.ListWidgetDataVersion
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.widget.WidgetGroupSelection

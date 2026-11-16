@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.util.SourceGuard
-import com.cryptochecker.app.work.BackgroundWorkPolicy
+import com.cryptochecker.app.domain.work.BackgroundWorkPolicy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

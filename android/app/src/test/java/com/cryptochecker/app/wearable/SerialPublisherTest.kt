@@ -1,5 +1,6 @@
 package com.cryptochecker.app.wearable
 
+import com.cryptochecker.app.domain.wearable.SerialPublisher
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch

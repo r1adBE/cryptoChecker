@@ -1,7 +1,7 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.lock.PortfolioLockPolicy
-import com.cryptochecker.app.settings.SettingsSummary
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.settings.SettingsSummary
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

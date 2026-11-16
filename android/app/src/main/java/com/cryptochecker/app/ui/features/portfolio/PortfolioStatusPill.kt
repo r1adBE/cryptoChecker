@@ -15,7 +15,7 @@ import com.cryptochecker.app.ui.components.DataStatusPill
 import com.cryptochecker.app.ui.components.DataStatusTone
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.features.watchlist.spokenAgo
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 
 /** Uhrzeit des Stands, bei älteren Kursen (nicht von heute) mit Datum — «Stand 14:05» bzw. «Stand 3. Okt., 14:05». */
 @Composable

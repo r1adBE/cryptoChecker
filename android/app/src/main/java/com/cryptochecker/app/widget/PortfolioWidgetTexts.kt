@@ -3,6 +3,7 @@
 // Gesamtwert. Eigene Datei, weil es reine Textregeln sind, die alle Ansichten des Widgets teilen.
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot

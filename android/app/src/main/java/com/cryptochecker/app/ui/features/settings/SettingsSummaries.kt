@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
-import com.cryptochecker.app.settings.SettingsSummary
+import com.cryptochecker.app.domain.settings.SettingsSummary
 import com.cryptochecker.app.domain.settings.UpdateMode
 
 /** «Ein» / «Aus» als Kurzwert. */

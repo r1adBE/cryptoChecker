@@ -1,5 +1,10 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetConfigureGuard
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetQuoteText
+import com.cryptochecker.app.domain.widget.WidgetScreenGate
+import com.cryptochecker.app.domain.widget.WidgetTextFit
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import java.util.Locale

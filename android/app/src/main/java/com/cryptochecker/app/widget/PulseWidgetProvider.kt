@@ -39,7 +39,7 @@ class PulseWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
-        launchAsync("Pulse-Widget aktualisieren") { com.cryptochecker.app.work.countedRun {
+        launchAsync("Pulse-Widget aktualisieren") { com.cryptochecker.app.domain.work.countedRun {
             // goAsync erlaubt nur rund 10 s: sofort aus dem Zwischenspeicher, dann frisch
             val done = withTimeoutOrNull(REFRESH_TIMEOUT_MILLIS) { widgetUpdater.updatePulse(appWidgetIds, fetch = true) }
             // Zeitgrenze erreicht (ohne Zwischenspeicher bliebe das Widget sonst leer):

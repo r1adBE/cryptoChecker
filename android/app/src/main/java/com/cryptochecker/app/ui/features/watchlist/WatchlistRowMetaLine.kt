@@ -8,7 +8,7 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.util.DenseRowText
+import com.cryptochecker.app.domain.format.DenseRowText
 
 /**
  * Zeile «Börse ◇ 🔔 🔔 1» der Merkliste: Passen Börsentext ([lead], samt ⚠) und Symbole ([icons]) nicht

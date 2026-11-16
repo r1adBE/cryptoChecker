@@ -13,7 +13,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.platform.LocalDensity
-import com.cryptochecker.app.util.DenseRowText
+import com.cryptochecker.app.domain.format.DenseRowText
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -221,7 +221,7 @@ internal fun RowInfo(
                     // Kursmitteilung: schlichte Glocke = an, durchgestrichene
                     // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
                     // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
-                    val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(
+                    val priceOn = com.cryptochecker.app.domain.format.A11ySpeech.priceNotificationOn(
                         pairOn = watch.notificationEnabled,
                         masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
                     )

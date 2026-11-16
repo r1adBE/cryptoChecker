@@ -17,7 +17,7 @@ import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.HalvingEstimate
 import com.cryptochecker.app.domain.market.HalvingInfo
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.util.MonthYearFormat
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

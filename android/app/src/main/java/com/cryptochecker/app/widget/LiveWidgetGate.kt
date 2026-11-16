@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.WidgetScreenGate
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent

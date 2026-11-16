@@ -1,5 +1,6 @@
 package com.cryptochecker.app.wearable
 
+import com.cryptochecker.app.domain.wearable.SerialPublisher
 import android.content.Context
 import androidx.core.content.edit
 import androidx.core.net.toUri

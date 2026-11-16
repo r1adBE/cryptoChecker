@@ -30,7 +30,7 @@ import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.util.LocaleNumbers
-import com.cryptochecker.app.util.MonthYearFormat
+import com.cryptochecker.app.domain.format.MonthYearFormat
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 

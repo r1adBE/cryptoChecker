@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.theme
 
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.widget.WidgetColors
-import com.cryptochecker.app.widget.WidgetContrast
+import com.cryptochecker.app.domain.widget.WidgetContrast
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

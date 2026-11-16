@@ -26,7 +26,7 @@ import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.domain.util.BidiText
-import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.domain.format.CompactAmount
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.domain.widget.WidgetCandle
 import com.cryptochecker.app.domain.widget.WidgetChartType

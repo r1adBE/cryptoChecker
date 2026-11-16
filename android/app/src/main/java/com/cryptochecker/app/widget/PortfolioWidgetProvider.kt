@@ -27,7 +27,7 @@ class PortfolioWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // Abruf vom System angestossen: zählt für «Akku & Aktivität» als Hintergrund-Lauf
-        launchAsync("Portfolio-Widget aktualisieren") { com.cryptochecker.app.work.countedRun {
+        launchAsync("Portfolio-Widget aktualisieren") { com.cryptochecker.app.domain.work.countedRun {
             // Sofort mit der letzten Aufnahme zeichnen, dann frisch berechnen
             widgetUpdater.updatePortfolio(appWidgetIds)
             // goAsync erlaubt nur rund 10 s

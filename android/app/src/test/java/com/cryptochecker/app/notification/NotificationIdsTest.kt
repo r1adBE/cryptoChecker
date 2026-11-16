@@ -1,6 +1,7 @@
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.notification.NotificationIds.Kind
+import com.cryptochecker.app.domain.notification.NotificationIds
+import com.cryptochecker.app.domain.notification.NotificationIds.Kind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue

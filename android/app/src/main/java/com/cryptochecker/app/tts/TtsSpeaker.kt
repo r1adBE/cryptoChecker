@@ -1,5 +1,6 @@
 package com.cryptochecker.app.tts
 
+import com.cryptochecker.app.domain.tts.AnnouncementQueue
 import android.content.Context
 import android.media.AudioAttributes
 import android.os.SystemClock

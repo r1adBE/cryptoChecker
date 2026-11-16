@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.offset
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
-import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.domain.format.A11ySpeech
 import com.cryptochecker.app.util.PriceFormat
 
 /** Punkt in der Statusfarbe und der Satz dazu, z. B. «Kurse der gewählten Börsen · vor 2 Min.». */

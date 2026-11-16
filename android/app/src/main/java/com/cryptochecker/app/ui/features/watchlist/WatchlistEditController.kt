@@ -19,7 +19,7 @@ import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.UndoSlot
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.notification.PriceNotificationRule
+import com.cryptochecker.app.domain.notification.PriceNotificationRule
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater

@@ -18,7 +18,7 @@ data class PortfolioPosition(
     val change24hPercent: Double?,
     /**
      * Gehaltene Menge als Dezimaltext ([com.cryptochecker.app.domain.util.DecimalText.plain]) für «1.3 BTC» im
-     * Widget ([com.cryptochecker.app.util.WidgetQuantityFormat]); null = ohne Menge.
+     * Widget ([com.cryptochecker.app.domain.format.WidgetQuantityFormat]); null = ohne Menge.
      */
     val quantity: String? = null,
     /**

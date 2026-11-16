@@ -1,7 +1,8 @@
 package com.cryptochecker.app.tts
 
-import com.cryptochecker.app.tts.AnnouncementQueue.Item
-import com.cryptochecker.app.tts.AnnouncementQueue.Kind
+import com.cryptochecker.app.domain.tts.AnnouncementQueue
+import com.cryptochecker.app.domain.tts.AnnouncementQueue.Item
+import com.cryptochecker.app.domain.tts.AnnouncementQueue.Kind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

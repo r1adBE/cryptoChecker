@@ -1,6 +1,7 @@
 package com.cryptochecker.app.wearable
 
-import com.cryptochecker.app.wearable.WatchNotifyPolicy.Visibility
+import com.cryptochecker.app.domain.wearable.WatchNotifyPolicy
+import com.cryptochecker.app.domain.wearable.WatchNotifyPolicy.Visibility
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

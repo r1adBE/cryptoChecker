@@ -1,5 +1,8 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.widget.PortfolioDrawState
+import com.cryptochecker.app.domain.widget.WidgetFreshness
+import com.cryptochecker.app.domain.widget.WidgetRefreshScope
 import android.content.Context
 import android.os.PowerManager
 import com.cryptochecker.app.data.RefreshStats
@@ -8,7 +11,7 @@ import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
