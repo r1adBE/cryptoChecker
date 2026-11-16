@@ -1,6 +1,6 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.features.portfolio.ExportFailureKind
 import com.cryptochecker.app.ui.features.portfolio.ExportFailures
 import com.cryptochecker.app.ui.features.portfolio.ExportWriteException
@@ -61,7 +61,7 @@ class ExportErrorsParityTest {
     /** Jeder Schlüssel (samt «Erneut versuchen») steht in den englischen Standardtexten. */
     @Test
     fun texteVorhanden() {
-        val rel = "src/main/res/values"
+        val rel = "../resources/src/main/res/values"
         val dir = listOf(File(rel), File("app/$rel")).first { it.isDirectory }
         val all = dir.listFiles { f -> f.name.startsWith("strings") }.orEmpty().joinToString("\n") { it.readText() }
         val keys = fixture["keys"].obj().values.map { it as String } + (fixture["retryKey"] as String)

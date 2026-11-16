@@ -8,7 +8,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.util.LocaleNumbers

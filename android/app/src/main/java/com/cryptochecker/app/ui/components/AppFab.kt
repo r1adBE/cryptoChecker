@@ -23,7 +23,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.AddButtonScroll
 import com.cryptochecker.app.ui.theme.AppColors
 

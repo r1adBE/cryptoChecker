@@ -23,7 +23,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.WatchEntity

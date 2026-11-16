@@ -24,6 +24,7 @@ rootProject.name = "cryptoChecker"
 include(":marketdata")
 include(":domain")
 include(":data")
+include(":resources")
 include(":app")
 // Wear-OS-App
 include(":wear")

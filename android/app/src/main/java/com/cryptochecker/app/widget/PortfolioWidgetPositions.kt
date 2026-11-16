@@ -3,7 +3,7 @@ package com.cryptochecker.app.widget
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis

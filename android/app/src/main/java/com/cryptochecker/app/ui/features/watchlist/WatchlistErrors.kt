@@ -7,7 +7,7 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic

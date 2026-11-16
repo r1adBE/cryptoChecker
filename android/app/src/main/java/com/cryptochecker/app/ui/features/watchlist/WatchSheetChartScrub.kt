@@ -19,7 +19,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.theme.ChipShape

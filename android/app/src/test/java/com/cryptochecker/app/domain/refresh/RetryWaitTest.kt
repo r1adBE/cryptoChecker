@@ -123,7 +123,7 @@ class RetryWaitTest {
 
     @Test
     fun widgetLayoutHasNoCountdown() {
-        val path = listOf("", "app/", "android/app/").map { "${it}src/main/res/layout/widget_list.xml" }
+        val path = listOf("", "app/", "android/app/").map { "${it}../resources/src/main/res/layout/widget_list.xml" }
             .firstOrNull { java.io.File(it).isFile }
         val layout = java.io.File(SourceGuard.android(path, "widget_list.xml")).readText()
         // Uhrzeit des Versuchs als einfacher Text, nicht als herunterzählender Chronometer

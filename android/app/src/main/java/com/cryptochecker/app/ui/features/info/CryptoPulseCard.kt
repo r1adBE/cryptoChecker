@@ -22,7 +22,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PulseAlts

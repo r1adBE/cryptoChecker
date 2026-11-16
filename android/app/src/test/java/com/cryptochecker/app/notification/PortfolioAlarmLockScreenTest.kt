@@ -1,6 +1,6 @@
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -61,7 +61,7 @@ class PortfolioAlarmLockScreenTest {
     /** Titel und neutraler Satz enthalten in keiner Sprache eine Ziffer oder einen Platzhalter. */
     @Test
     fun neutralerTextOhneZifferUndPlatzhalterInAllenSprachen() {
-        val res = SourceGuard.android(main("res"), "src/main/res")
+        val res = SourceGuard.android(main("../../../resources/src/main/res"), "../resources/src/main/res")
         val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_notifications.xml").exists() }.orEmpty()
         assertTrue("${folders.size} Sprachen", folders.size >= 75)
         for (folder in folders) {

@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceState
 import com.cryptochecker.app.ui.components.DataStatusPill
 import com.cryptochecker.app.ui.components.DataStatusTone

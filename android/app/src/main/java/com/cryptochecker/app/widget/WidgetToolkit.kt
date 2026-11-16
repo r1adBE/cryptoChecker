@@ -12,7 +12,7 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView

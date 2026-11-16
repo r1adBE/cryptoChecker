@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 257)
+
+- Android code structure (no behaviour change): all resources (strings in 75 languages, layouts, drawables, font, XML) moved to a new module `resources` (R class `com.cryptochecker.resources.R`), shared by the app and later the widgets; app lint checks them (`checkDependencies`); string check, iOS string conversion, lint report and tests read the new location. Contributors: strings now live in `android/resources/src/main/res`.
+
 ## 16.2.2 (build 256)
 
 - Android code structure (no behaviour change): 33 files of pure logic without Android dependencies moved from `app` to `domain` (widget rules, background-work rules, notification ids, lock rule, settings search, number and screen-reader formats in `domain.format`, watch rules).

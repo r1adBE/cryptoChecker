@@ -1,7 +1,7 @@
 package com.cryptochecker.app.tts
 
 import android.content.Context
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat

@@ -14,7 +14,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app` (Handy und Uhr; Debug-Builds beider mit `.debug`)
-* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App), `wear` (Wear-OS-App), `baselineprofile` (erzeugt das gemessene Start-Profil, wird nicht ausgeliefert)
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen, Sicherung), `resources` (Texte in 75 Sprachen, Layouts, Bilder, Schrift; R-Klasse `com.cryptochecker.resources.R`), `app` (die App), `wear` (Wear-OS-App), `baselineprofile` (erzeugt das gemessene Start-Profil, wird nicht ausgeliefert)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app` (`…app.domain`, `…app.data` = Module `domain` und `data`), `com.cryptochecker.wear`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
@@ -310,5 +310,5 @@ und fallen nicht unter die MIT-Lizenz.
 Schrift für Beträge: **Rubik** (Copyright 2015 The Rubik Project Authors,
 SIL Open Font License 1.1), aus google/fonts `ofl/rubik`, als Schnitte
 Regular/Medium/SemiBold aus der variablen Schrift erzeugt und auf Latein,
-Kyrillisch, Hebräisch und Satzzeichen beschränkt (`app/src/main/res/font/rubik_*.ttf`,
+Kyrillisch, Hebräisch und Satzzeichen beschränkt (`resources/src/main/res/font/rubik_*.ttf`,
 zusammen rund 360 KB). Lizenztext: `app/src/main/assets/licenses/Rubik-OFL.txt`.

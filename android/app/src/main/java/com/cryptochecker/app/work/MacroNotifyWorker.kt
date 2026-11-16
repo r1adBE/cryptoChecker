@@ -10,7 +10,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.MacroCalendarRepository
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.notification.AppNotifier

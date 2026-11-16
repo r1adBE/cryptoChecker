@@ -33,9 +33,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 # Android resources next to this project: ../cryptoChecker (local folders) or ../android
 # (GitHub repository and ZIP bundle); --android-res overrides.
-DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "app", "src", "main", "res"))
+DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "resources", "src", "main", "res"))
                     for d in ("cryptoChecker", "android")) if os.path.isdir(p)),
-                   os.path.normpath(os.path.join(ROOT, "..", "android", "app", "src", "main", "res")))
+                   os.path.normpath(os.path.join(ROOT, "..", "android", "resources", "src", "main", "res")))
 A = "{http://schemas.android.com/apk/res/android}"
 AAPT = "{http://schemas.android.com/aapt}"
 

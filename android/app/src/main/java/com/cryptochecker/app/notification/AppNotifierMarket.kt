@@ -5,7 +5,7 @@
 package com.cryptochecker.app.notification
 
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.notification.AppNotifier.Companion.FNG_NOTIFICATION_ID

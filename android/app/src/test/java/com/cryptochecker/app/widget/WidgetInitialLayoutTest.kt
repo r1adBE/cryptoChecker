@@ -170,7 +170,7 @@ class WidgetInitialLayoutTest {
         Regex("""<color name="(\w+)">#([0-9A-Fa-f]{8})</color>""").findAll(res(rel))
             .associate { it.groupValues[1] to it.groupValues[2].toLong(16).toInt() }
 
-    private fun res(rel: String): String = read("src/main/res/$rel")
+    private fun res(rel: String): String = read("../resources/src/main/res/$rel")
 
     private fun src(name: String): String = read("src/main/java/com/cryptochecker/app/widget/$name")
 

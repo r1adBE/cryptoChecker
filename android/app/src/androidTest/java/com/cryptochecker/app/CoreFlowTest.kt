@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import android.app.NotificationManager
 import android.view.View
 import androidx.compose.ui.semantics.SemanticsActions

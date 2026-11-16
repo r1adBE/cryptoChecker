@@ -56,7 +56,7 @@ class SpacingUsageTest {
     @Test
     fun androidWidgetLayoutsStayOnGrid() {
         val dir = androidLayouts()
-        assertNotNull("android/app/src/main/res/layout nicht gefunden (Arbeitsverzeichnis?)", dir)
+        assertNotNull("android/resources/src/main/res/layout nicht gefunden (Arbeitsverzeichnis?)", dir)
         val problems = dir!!.listFiles { f -> f.isFile && f.name.startsWith("widget_") && f.extension == "xml" }
             .orEmpty()
             .sortedBy { it.name }
@@ -148,7 +148,7 @@ class SpacingUsageTest {
 
     private fun androidSources(): File? = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app" })
 
-    private fun androidLayouts(): File? = findUp(listOf("", "app/", "android/app/").map { it + "src/main/res/layout" })
+    private fun androidLayouts(): File? = findUp(listOf("", "app/", "android/app/").map { it + "../resources/src/main/res/layout" })
 
     /** `ios/` (mit `App`, `Widgets`, `Shared`). */
     private fun iosRoot(): File? = findUp(listOf("ios/App", "../ios/App", "../../ios/App"))?.parentFile

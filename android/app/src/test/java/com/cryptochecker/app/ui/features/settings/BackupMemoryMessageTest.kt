@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.BackupCrypto
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

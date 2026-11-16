@@ -1,7 +1,7 @@
 package com.cryptochecker.app.alarm
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.ExchangeRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository

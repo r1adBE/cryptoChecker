@@ -203,8 +203,8 @@ enum class PortfolioWriteResult { OK, LOCKED, FAILED }
 
 /** Hinweis zu einem nicht geschriebenen Ergebnis: gesperrt → Sperr-Text, sonst «Konnte nicht gespeichert werden» (wie iOS). */
 internal fun PortfolioWriteResult.notSavedText(): Int =
-    if (this == PortfolioWriteResult.LOCKED) com.cryptochecker.app.R.string.portfolio_storage_locked
-    else com.cryptochecker.app.R.string.portfolio_write_failed
+    if (this == PortfolioWriteResult.LOCKED) com.cryptochecker.resources.R.string.portfolio_storage_locked
+    else com.cryptochecker.resources.R.string.portfolio_write_failed
 
 /** [block] schreiben; Fehler werden protokolliert und als [PortfolioWriteResult] gemeldet statt still verschluckt. */
 internal suspend fun <T> portfolioWrite(label: String, block: suspend () -> T): Pair<PortfolioWriteResult, T?> = try {

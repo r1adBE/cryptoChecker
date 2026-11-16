@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 /**
  * Knopf, der etwas auf- bzw. zuklappt («Was bewegt sich mit?», «Details anzeigen», «Indikatoren einblenden»,

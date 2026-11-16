@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import android.net.Uri
 import android.util.Log
 import androidx.compose.ui.test.hasClickAction

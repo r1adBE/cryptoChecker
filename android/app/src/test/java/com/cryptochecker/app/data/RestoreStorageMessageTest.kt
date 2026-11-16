@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
 import com.cryptochecker.app.data.backup.BackupRestoreStorageException
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.RestoreRun
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.ui.features.settings.BackupMessage

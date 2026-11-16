@@ -60,7 +60,7 @@ guide [`DEVELOPMENT.md`](DEVELOPMENT.md) explains the adapters step by step.
 ## Translations
 
 All texts live in the Android string resources:
-`android/app/src/main/res/values/strings*.xml` (English) and
+`android/resources/src/main/res/values/strings*.xml` (English) and
 `values-xx/strings*.xml` (75 languages). Every folder has the same area files,
 one per part of the app (`strings_common.xml`, `strings_watchlist.xml`,
 `strings_alarms.xml`, `strings_portfolio.xml`, `strings_tax.xml`,
@@ -74,7 +74,7 @@ prefix, in all languages. To fix or add a translation:
    `values-sr`, then regenerate the Latin `values-b+sr+Latn` with
    `python3 android/tools/sr_latn.py` (never edit the Latin files by hand; `check_strings.py` fails otherwise).
 2. Rebuild the iOS string catalog:
-   `python3 ios/tools/convert_strings.py --android-res android/app/src/main/res`
+   `python3 ios/tools/convert_strings.py --android-res android/resources/src/main/res`
    (iOS-only texts are in `ios/tools/ios_extra_strings.json`).
 3. Run `python3 .github/scripts/check_strings.py`.
 

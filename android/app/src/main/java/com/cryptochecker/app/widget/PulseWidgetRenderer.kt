@@ -10,7 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.cycle.CachedValue
 import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.data.cycle.CycleCacheStore

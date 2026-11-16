@@ -27,11 +27,11 @@ object StringResources {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
             for (prefix in listOf("", "app/", "android/app/")) {
-                val res = File(dir, prefix + "src/main/res")
+                val res = File(dir, prefix + "../resources/src/main/res")
                 if (File(res, "values").isDirectory) return res
             }
             dir = dir.parentFile
         }
-        error("src/main/res nicht gefunden")
+        error("../resources/src/main/res nicht gefunden")
     }
 }

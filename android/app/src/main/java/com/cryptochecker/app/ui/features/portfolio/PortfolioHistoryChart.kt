@@ -31,7 +31,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCandle
 import com.cryptochecker.app.domain.portfolio.PortfolioCandleBucket
 import com.cryptochecker.app.domain.portfolio.PortfolioCandles

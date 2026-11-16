@@ -41,7 +41,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.data.backup.BackupRestorePolicy

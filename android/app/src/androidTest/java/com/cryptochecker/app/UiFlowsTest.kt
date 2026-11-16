@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed

@@ -6,7 +6,7 @@ package com.cryptochecker.app.widget
 import com.cryptochecker.app.domain.widget.WidgetTextFit
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath

@@ -2,7 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.widget.WidgetStatusRule
 import android.content.Context
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.ActivityAnalyzer
 import com.cryptochecker.app.domain.activity.FearGreedLevel
 import com.cryptochecker.app.domain.market.CryptoPulse

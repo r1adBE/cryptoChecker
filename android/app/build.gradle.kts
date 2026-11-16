@@ -77,7 +77,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 256
+        versionCode = 257
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -179,6 +179,8 @@ android {
         disable += setOf("TypographyDashes", "TypographyFractions")
         // Ordner values-in/values-iw (alte Codes) und id/he in res/xml/locales_config.xml sind dieselben Sprachen.
         disable += "UnusedTranslation"
+        // Die Ressourcen liegen in :resources: dort mitprüfen (fehlende Übersetzungen, ungenutzte Ressourcen app-weit)
+        checkDependencies = true
     }
 
     // JVM-Unit-Tests mit fester Sprache und Zeitzone: Erwartete Datums- und Zahlentexte sollen auf jedem Rechner gleich
@@ -253,6 +255,7 @@ dependencies {
     implementation(project(":marketdata"))
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":resources"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

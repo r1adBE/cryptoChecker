@@ -29,7 +29,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.BackupCrypto
 import com.cryptochecker.app.data.backup.BackupPasswordStrength
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy

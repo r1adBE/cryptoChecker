@@ -43,7 +43,7 @@ class WidgetTypeTest {
 
     @Test
     fun widgetLayoutsUseAppTypeScale() {
-        val dir = findUp(listOf("", "app/", "android/app/").map { it + "src/main/res/layout" })
+        val dir = findUp(listOf("", "app/", "android/app/").map { it + "../resources/src/main/res/layout" })
         assertNotNull("res/layout nicht gefunden (Arbeitsverzeichnis?)", dir)
         val allowed = WidgetType.ALL.map { it.toInt() }.toSet()
         val problems = dir!!.listFiles { f -> f.isFile && f.name.startsWith("widget_") && f.extension == "xml" }

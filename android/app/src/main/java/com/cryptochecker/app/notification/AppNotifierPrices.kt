@@ -8,7 +8,7 @@ import android.app.Notification
 import android.os.Bundle
 import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.notification.AppNotifier.Companion.PRICE_SUMMARY_ID

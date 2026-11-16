@@ -3236,6 +3236,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 254: Build-Werkzeug-Constraints (A241-C-07), Abschnitt «buildtool» im Versionskatalog.
 * Build 255: Sicherung in `data.backup` (A241-A-03 Teil 1), `data.logos`, `data.cycle`.
 * Build 256: Reine Logik aus `app` nach `domain` (A241-A-03 Teil 2).
+* Build 257: Modul `resources` (A241-A-03 Teil 3a), Strings unter `android/resources/src/main/res`.
 
 ## Known warnings
 

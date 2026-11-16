@@ -16,7 +16,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.util.ChangeBasisText

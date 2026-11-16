@@ -5,7 +5,7 @@ Run from the repository root (no dependencies besides Python 3.9+):
 
     python3 .github/scripts/check_strings.py [--root PATH]
 
-Android (android/app/src/main/res and the watch app android/wear/src/main/res):
+Android (android/resources/src/main/res and the watch app android/wear/src/main/res):
   * every values-xx/strings*.xml parses and has every translatable key of values/
   * same printf placeholders (%s, %1$d, ...) as English
   * <plurals>: at least the CLDR integer quantities of the language, same placeholders
@@ -207,7 +207,7 @@ def check_references(android, module, known):
 
 
 def check_android(android):
-    res = os.path.join(android, "app", "src", "main", "res")
+    res = os.path.join(android, "resources", "src", "main", "res")
     if not os.path.isdir(res):
         problem("MISSING", res)
         return 0
@@ -267,7 +267,7 @@ def check_ios(ios, android):
     overrides_path = os.path.join(tools, "ios_overrides.json")
     if os.path.isfile(overrides_path):
         base = {}
-        for f in sorted(glob.glob(os.path.join(android, "app", "src", "main", "res", "values", "strings*.xml"))):
+        for f in sorted(glob.glob(os.path.join(android, "resources", "src", "main", "res", "values", "strings*.xml"))):
             base.update(load_xml(f))
         overrides = json.load(open(overrides_path, encoding="utf-8"))
         for lang, per_key in overrides.items():
@@ -293,7 +293,7 @@ def check_ios(ios, android):
     res_dir = os.path.join(ios, "Shared", "Resources")
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [sys.executable, os.path.join(tools, "convert_strings.py"),
-               "--android-res", os.path.join(android, "app", "src", "main", "res"),
+               "--android-res", os.path.join(android, "resources", "src", "main", "res"),
                "--extra", extra_path, "--out", tmp, "--watch-out", os.path.join(tmp, "watch")]
         run = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
         if run.returncode != 0:
@@ -307,7 +307,7 @@ def check_ios(ios, android):
                     problem("MISSING", os.path.relpath(committed, ios))
                 elif open(gen, encoding="utf-8").read() != open(committed, encoding="utf-8").read():
                     problem("OUT OF DATE", "ios/" + os.path.relpath(committed, ios).replace(os.sep, "/"),
-                            "- run: python3 ios/tools/convert_strings.py --android-res android/app/src/main/res")
+                            "- run: python3 ios/tools/convert_strings.py --android-res android/resources/src/main/res")
 
     catalog_path = os.path.join(res_dir, "Localizable.xcstrings")
     if os.path.isfile(catalog_path):

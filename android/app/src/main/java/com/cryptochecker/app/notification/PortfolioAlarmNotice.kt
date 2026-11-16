@@ -1,6 +1,6 @@
 package com.cryptochecker.app.notification
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 /**
  * Inhalt der Mitteilung eines Portfolio-Alarms (rein, testbar) — wie iOS `PortfolioAlarmNotice.content()`: immer nur

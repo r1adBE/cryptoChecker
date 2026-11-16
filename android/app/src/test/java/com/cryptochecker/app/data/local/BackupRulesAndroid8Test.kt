@@ -17,7 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 class BackupRulesAndroid8Test {
 
     private val includes: List<Pair<String, String>> by lazy {
-        val file = SourceGuard.android(resourceFile("xml/backup_rules.xml"), "res/xml/backup_rules.xml")
+        val file = SourceGuard.android(resourceFile("xml/backup_rules.xml"), "../resources/src/main/res/xml/backup_rules.xml")
         val factory = DocumentBuilderFactory.newInstance().apply {
             setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
         }
@@ -54,7 +54,7 @@ class BackupRulesAndroid8Test {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
             for (prefix in listOf("", "app/", "android/app/")) {
-                val f = File(dir, prefix + "src/main/res/" + rel)
+                val f = File(dir, prefix + "../resources/src/main/res/" + rel)
                 if (f.isFile) return f
             }
             dir = dir.parentFile

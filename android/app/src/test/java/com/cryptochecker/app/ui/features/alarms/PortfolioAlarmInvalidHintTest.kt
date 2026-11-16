@@ -41,7 +41,7 @@ class PortfolioAlarmInvalidHintTest {
 
     @Test
     fun textInAllenSprachen() {
-        val res = SourceGuard.android(file("src/main/res"), "src/main/res")
+        val res = SourceGuard.android(file("../resources/src/main/res"), "../resources/src/main/res")
         val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_portfolio.xml").exists() }.orEmpty()
         assertTrue(folders.size >= 75)
         for (folder in folders) {

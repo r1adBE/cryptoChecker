@@ -34,9 +34,9 @@ sys.path.insert(0, HERE)  # also when started with -I (no script directory on th
 import watch_strings  # noqa: E402
 # Android resources next to this project: ../cryptoChecker (local folders) or ../android
 # (GitHub repository and ZIP bundle); --android-res overrides.
-DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "app", "src", "main", "res"))
+DEFAULT_RES = next((p for p in (os.path.normpath(os.path.join(ROOT, "..", d, "resources", "src", "main", "res"))
                     for d in ("cryptoChecker", "android")) if os.path.isdir(p)),
-                   os.path.normpath(os.path.join(ROOT, "..", "android", "app", "src", "main", "res")))
+                   os.path.normpath(os.path.join(ROOT, "..", "android", "resources", "src", "main", "res")))
 DEFAULT_EXTRA = os.path.join(HERE, "ios_extra_strings.json")
 # iOS-eigene Fassungen einzelner Android-Texte je Sprache (Android «Benachrichtigung», iOS «Mitteilung»)
 DEFAULT_OVERRIDES = os.path.join(HERE, "ios_overrides.json")

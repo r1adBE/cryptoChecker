@@ -87,7 +87,7 @@ def short_path(path):
     path = path.replace("\\", "/")
     marker = "/android/"
     path = path.split(marker, 1)[1] if marker in path else path
-    return path.replace("app/src/main/java/com/cryptochecker/app/", "~/").replace("app/src/main/res/", "res/")
+    return path.replace("app/src/main/java/com/cryptochecker/app/", "~/").replace("resources/src/main/res/", "res/")
 
 
 def details(items):
@@ -138,8 +138,8 @@ def self_test():
         # A twice from XML, A line 1 again from text (same message: counted once), B once
         assert head.startswith("3 lint warnings in 2 ids"), head
         assert lines[0].split() == ["2", "A"] and lines[1].split() == ["1", "B"], lines
-        rows = details({("A", "/w/r/android/app/src/main/res/values/s.xml", "12", "m" * 150),
-                        ("A", "/w/r/android/app/src/main/res/values/s.xml", "3", "x"), ("B", "/w/G.kt", "", "b")})
+        rows = details({("A", "/w/r/android/resources/src/main/res/values/s.xml", "12", "m" * 150),
+                        ("A", "/w/r/android/resources/src/main/res/values/s.xml", "3", "x"), ("B", "/w/G.kt", "", "b")})
         assert rows[1] == "  res/values/s.xml:3,12" and rows[2] == "B: b" and rows[3] == "  /w/G.kt", rows
         assert rows[0] == "A: " + "m" * 90, rows
         parts = chunks(["r" * 3000] * 30)

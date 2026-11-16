@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.app.KeyguardManager

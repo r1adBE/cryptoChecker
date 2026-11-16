@@ -22,7 +22,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.domain.market.Indicator
 import com.cryptochecker.app.domain.market.IndicatorId

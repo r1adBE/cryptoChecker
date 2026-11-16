@@ -1,6 +1,6 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.backup.BackupPasswordStrength
 import com.cryptochecker.app.data.backup.BackupRestorePolicy

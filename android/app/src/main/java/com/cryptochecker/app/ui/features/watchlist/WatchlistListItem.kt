@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.compose.ui.platform.testTag
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.model.WatchEntity

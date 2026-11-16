@@ -14,7 +14,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.util.PriceFormat

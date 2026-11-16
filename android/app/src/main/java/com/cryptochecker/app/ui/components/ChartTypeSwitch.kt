@@ -23,7 +23,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 /**
  * Kerzen | Linie als zwei Symbole in einer Pille: je Hälfte 48 × 48 dp (Trefferfläche), gewählte Hälfte im

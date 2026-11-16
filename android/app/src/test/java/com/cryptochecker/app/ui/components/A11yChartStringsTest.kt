@@ -39,7 +39,7 @@ class A11yChartStringsTest {
     private fun resDir(): File {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
-            for (rel in listOf("src/main/res", "app/src/main/res", "android/app/src/main/res")) {
+            for (rel in listOf("../resources/src/main/res", "resources/src/main/res", "android/resources/src/main/res")) {
                 val f = File(dir, rel)
                 if (f.isDirectory) return f
             }

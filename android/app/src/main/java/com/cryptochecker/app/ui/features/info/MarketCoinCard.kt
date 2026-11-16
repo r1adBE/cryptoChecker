@@ -21,7 +21,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.components.PriceWithQuote
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.CoinReport
 import com.cryptochecker.app.domain.market.DataStamp
 import com.cryptochecker.app.ui.components.DropdownField

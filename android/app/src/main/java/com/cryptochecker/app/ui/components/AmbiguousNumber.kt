@@ -3,7 +3,7 @@ package com.cryptochecker.app.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.settings.inputDecimalSeparator
 

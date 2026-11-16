@@ -25,7 +25,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.ExchangeCategory

@@ -27,6 +27,7 @@ val testInputRoots: List<String> = listOf(
     "fastlane/metadata/android",
     "app/schemas",
     "app/src/main",
+    "resources/src/main",
     "app/src/debug",
     "app/src/withoutHttpLog",
     "app/src/test",

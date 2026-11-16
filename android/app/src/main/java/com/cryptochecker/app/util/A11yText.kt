@@ -2,7 +2,7 @@ package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.format.A11ySpeech
 import android.content.Context
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.util.ChangeDirection
 import com.cryptochecker.app.domain.util.ChartSummary
 import java.util.Locale

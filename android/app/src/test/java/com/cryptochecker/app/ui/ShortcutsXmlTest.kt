@@ -17,7 +17,7 @@ class ShortcutsXmlTest {
 
     private fun withoutComments(xml: String) = xml.replace(Regex("<!--.*?-->", RegexOption.DOT_MATCHES_ALL), "")
 
-    private val main by lazy { withoutComments(file("src/main/res/xml/shortcuts.xml").readText()) }
+    private val main by lazy { withoutComments(file("../resources/src/main/res/xml/shortcuts.xml").readText()) }
     private val debug by lazy { withoutComments(file("src/debug/res/xml/shortcuts.xml").readText()) }
 
     private fun packages(xml: String) =
@@ -40,7 +40,7 @@ class ShortcutsXmlTest {
         val shortcuts = Regex("""android:shortcutId="""").findAll(main).count()
         val longKeys = Regex("""android:shortcutLongLabel="@string/([a-z_]+)"""").findAll(main).map { it.groupValues[1] }.toList()
         assertEquals(shortcuts, longKeys.size)
-        val res = file("src/main/res")
+        val res = file("../resources/src/main/res")
         val locales = res.listFiles().orEmpty().filter { File(it, "strings_common.xml").exists() }
         assertTrue(locales.size >= 75)
         for (dir in locales) {

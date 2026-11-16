@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.widget.WidgetChartType

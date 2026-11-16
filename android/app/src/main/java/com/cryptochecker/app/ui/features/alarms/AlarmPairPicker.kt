@@ -37,7 +37,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 /**
  * «Neuer Alarm» ohne Paar: erst das Paar wählen, dann dessen Alarm-Seite (öffnet ohne Alarm gleich den Editor).

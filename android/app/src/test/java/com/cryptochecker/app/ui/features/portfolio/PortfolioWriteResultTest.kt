@@ -63,8 +63,8 @@ class PortfolioWriteResultTest {
 
     @Test
     fun lockedAndFailedNameTheirReason() {
-        assertEquals(com.cryptochecker.app.R.string.portfolio_storage_locked, PortfolioWriteResult.LOCKED.notSavedText())
-        assertEquals(com.cryptochecker.app.R.string.portfolio_write_failed, PortfolioWriteResult.FAILED.notSavedText())
+        assertEquals(com.cryptochecker.resources.R.string.portfolio_storage_locked, PortfolioWriteResult.LOCKED.notSavedText())
+        assertEquals(com.cryptochecker.resources.R.string.portfolio_write_failed, PortfolioWriteResult.FAILED.notSavedText())
     }
 
     @Test

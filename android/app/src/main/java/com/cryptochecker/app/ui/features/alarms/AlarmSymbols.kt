@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.alarms
 
 import androidx.annotation.DrawableRes
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.AlarmCondition
 
 /**

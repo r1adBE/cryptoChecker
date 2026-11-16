@@ -15,7 +15,7 @@ class NetworkSecurityConfigTest {
             val manifest = file(module, "src/main/AndroidManifest.xml")
             assertTrue(module, manifest.contains("android:usesCleartextTraffic=\"false\""))
             assertTrue(module, manifest.contains("android:networkSecurityConfig=\"@xml/network_security_config\""))
-            val config = file(module, "src/main/res/xml/network_security_config.xml")
+            val config = file(if (module == "app") "resources" else module, "src/main/res/xml/network_security_config.xml")
             assertTrue(module, config.contains("<base-config cleartextTrafficPermitted=\"false\" />"))
             assertFalse(module, config.contains("cleartextTrafficPermitted=\"true\""))
             assertFalse(module, config.contains("<pin-set"))

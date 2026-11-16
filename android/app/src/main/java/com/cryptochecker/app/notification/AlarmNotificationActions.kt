@@ -7,7 +7,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable

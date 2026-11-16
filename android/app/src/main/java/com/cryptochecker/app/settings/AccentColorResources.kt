@@ -1,6 +1,6 @@
 package com.cryptochecker.app.settings
 
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AccentColor
 
 /** Name der Akzentfarbe in der Farbauswahl und der Einstellungs-Suche ([AccentColor]). */

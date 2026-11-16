@@ -32,7 +32,7 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 /**
  * ⚡-Chip in der Zeile eines Paars mit aktiven Signalen, beschriftet mit der Kurzform von «Was bewegt sich mit?»

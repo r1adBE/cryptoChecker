@@ -43,7 +43,7 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.ui.platform.testTag
 import java.util.Locale
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CoinPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath

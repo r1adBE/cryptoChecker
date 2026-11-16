@@ -49,7 +49,7 @@ class LabelValueUsageTest {
     /** Alle 75 Sprachen haben `label_value` mit beiden Platzhaltern und der Typografie der Sprache. */
     @Test
     fun labelValueHasLanguageTypography() {
-        val res = findUp(listOf("src/main/res", "app/src/main/res", "android/app/src/main/res"))
+        val res = findUp(listOf("../resources/src/main/res", "resources/src/main/res", "android/resources/src/main/res"))
         assertNotNull("res-Verzeichnis nicht gefunden", res)
         val files = res!!.listFiles { f -> f.isDirectory && f.name.startsWith("values") }!!
             .map { File(it, "strings_common.xml") }

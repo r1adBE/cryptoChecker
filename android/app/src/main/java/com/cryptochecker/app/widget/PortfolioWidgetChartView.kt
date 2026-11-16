@@ -9,7 +9,7 @@ import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.os.BundleCompat
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot

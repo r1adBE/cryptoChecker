@@ -45,7 +45,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.ui.components.readableWidth
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.MarketReveal

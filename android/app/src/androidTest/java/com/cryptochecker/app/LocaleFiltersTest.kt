@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import com.cryptochecker.resources.R
 import android.content.Context
 import android.content.res.Configuration
 import androidx.test.ext.junit.runners.AndroidJUnit4

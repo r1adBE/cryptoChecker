@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
 
 /** Anlass der Frage nach der Benachrichtigungs-Erlaubnis ([rememberNotificationPermissionRequest]). */

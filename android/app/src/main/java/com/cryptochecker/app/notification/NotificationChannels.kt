@@ -7,7 +7,7 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 
 object NotificationChannels {

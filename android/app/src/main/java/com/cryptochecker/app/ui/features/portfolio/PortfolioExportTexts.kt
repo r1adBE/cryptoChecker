@@ -7,7 +7,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
 import com.cryptochecker.app.domain.portfolio.EstvKursliste
 import com.cryptochecker.app.domain.portfolio.TAX_NOTE_DATE

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.annotation.StringRes
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.backup.BackupRestorePolicy
 
 /**

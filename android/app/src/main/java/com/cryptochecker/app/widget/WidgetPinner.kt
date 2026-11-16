@@ -7,7 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import timber.log.Timber
 
 /** Die Widgets der App, wie sie die App zum Hinzufügen anbietet (Einstellungen › Widgets). */

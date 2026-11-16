@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.watch.AlarmPulse

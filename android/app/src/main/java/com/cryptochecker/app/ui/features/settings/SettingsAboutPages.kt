@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.features.about.AboutContent
 import com.cryptochecker.app.ui.features.about.AboutFeatures

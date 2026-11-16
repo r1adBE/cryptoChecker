@@ -121,7 +121,7 @@ class WidgetOfflineTest {
         }
     }
 
-    private fun res(rel: String): String = read("src/main/res/$rel")
+    private fun res(rel: String): String = read("../resources/src/main/res/$rel")
 
     private fun src(name: String): String = read("src/main/java/com/cryptochecker/app/widget/$name")
 

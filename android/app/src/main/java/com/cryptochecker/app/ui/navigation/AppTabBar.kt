@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalDarkTheme

@@ -4,7 +4,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.content.res.Resources
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 
 internal class RemovedBatch {
     /** Schlüssel des Rückgängig-Speichers für die laufende Sammlung (Id des ersten Paars); null = keine. */

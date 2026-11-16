@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 256 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 257 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -117,7 +117,7 @@ dieselben Werte tragen: `gen_xcodeproj.py` (auch mit `--check`) bricht mit einer
 ## Generatoren erneut ausführen
 
 Alle Skripte brauchen nur Python 3 (für die Grafiken zusätzlich Pillow und die Systembibliothek libcairo)
-und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../android/app/src/main/res`
+und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../android/resources/src/main/res`
 (sonst `--android-res PFAD`).
 
 ```sh

@@ -84,8 +84,8 @@ class PortfolioLockPolicyTest {
      */
     @Test
     fun backupRulesKeepPortfolioAndDatabaseCopyOffAndroid8() {
-        val base = SourceGuard.android(resourceText("xml/backup_rules.xml"), "res/xml/backup_rules.xml")
-        val v28 = SourceGuard.android(resourceText("xml-v28/backup_rules.xml"), "res/xml-v28/backup_rules.xml")
+        val base = SourceGuard.android(resourceText("xml/backup_rules.xml"), "../resources/src/main/res/xml/backup_rules.xml")
+        val v28 = SourceGuard.android(resourceText("xml-v28/backup_rules.xml"), "../resources/src/main/res/xml-v28/backup_rules.xml")
         val include = Regex("""<include[^>]*path="([^"]+)"""")
         val basePaths = include.findAll(base).map { it.groupValues[1] }.toSet()
         assertFalse(basePaths.any { it.contains("portfolio_system_backup") || it.startsWith("cryptochecker_portfolio") })
@@ -133,7 +133,7 @@ class PortfolioLockPolicyTest {
         var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
         while (dir != null) {
             for (prefix in listOf("", "app/", "android/app/")) {
-                val f = java.io.File(dir, prefix + "src/main/res/" + rel)
+                val f = java.io.File(dir, prefix + "../resources/src/main/res/" + rel)
                 if (f.isFile) return f.readText(Charsets.UTF_8)
             }
             dir = dir.parentFile

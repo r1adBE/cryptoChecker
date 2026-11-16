@@ -30,7 +30,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.domain.model.convertCurrency

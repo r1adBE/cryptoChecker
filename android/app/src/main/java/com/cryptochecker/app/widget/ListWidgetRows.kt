@@ -13,7 +13,7 @@ import android.util.TypedValue
 import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos

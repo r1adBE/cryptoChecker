@@ -27,8 +27,8 @@ class DialogScrollGuardTest {
             "android/app/src/main/java"
         )
         val res = SourceGuard.android(
-            findUp(listOf("src/main/res/values", "app/src/main/res/values", "android/app/src/main/res/values")),
-            "android/app/src/main/res/values"
+            findUp(listOf("../resources/src/main/res/values", "resources/src/main/res/values", "android/resources/src/main/res/values")),
+            "android/resources/src/main/res/values"
         )
         val strings = loadStrings(res)
         assertTrue("keine Text-Ressourcen gelesen", strings.size > 100)

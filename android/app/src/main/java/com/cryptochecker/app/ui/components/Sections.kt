@@ -177,7 +177,7 @@ fun BoltHintText(text: String, style: TextStyle, color: Color, modifier: Modifie
             Placeholder(width = 1.em, height = 1.em, placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter)
         ) {
             Icon(
-                painterResource(com.cryptochecker.app.R.drawable.ic_bolt),
+                painterResource(com.cryptochecker.resources.R.drawable.ic_bolt),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxSize()

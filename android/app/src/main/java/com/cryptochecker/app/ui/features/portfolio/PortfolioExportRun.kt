@@ -6,7 +6,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import android.content.Context
 import android.net.Uri
 import android.provider.DocumentsContract
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart

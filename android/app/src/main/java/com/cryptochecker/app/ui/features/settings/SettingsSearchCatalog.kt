@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.BuildConfig
-import com.cryptochecker.app.R
+import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.PriceColorScheme
