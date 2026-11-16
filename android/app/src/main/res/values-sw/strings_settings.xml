@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Leseni</string>
     <string name="about_privacy_policy">Sera ya faragha</string>
+    <string name="about_terms">Masharti ya matumizi</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Omba jukwaa</string>
     <string name="about_source_code">Msimbo chanzo kwenye GitHub</string>

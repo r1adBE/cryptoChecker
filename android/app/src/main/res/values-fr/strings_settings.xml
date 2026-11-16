@@ -247,6 +247,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Licences</string>
     <string name="about_privacy_policy">Politique de confidentialité</string>
+    <string name="about_terms">Conditions d’utilisation</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Demander une plateforme</string>
     <string name="about_source_code">Code source sur GitHub</string>

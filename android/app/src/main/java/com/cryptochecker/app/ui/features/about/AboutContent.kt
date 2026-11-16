@@ -50,6 +50,9 @@ const val SOURCE_CODE_URL = "https://github.com/r1adBE/cryptoChecker"
 /** Datenschutzerklärung (GitHub Pages), gleich wie im Store-Eintrag und in iOS `AppLinks`. */
 const val PRIVACY_POLICY_URL = "https://r1adbe.github.io/cryptoChecker/privacy/"
 
+/** Nutzungsbedingungen (GitHub Pages), gleich wie iOS `AppLinks.termsOfUse`. */
+const val TERMS_OF_USE_URL = "https://r1adbe.github.io/cryptoChecker/terms/"
+
 /**
  * Kurzinfo zur App — Reihenfolge wie iOS `AboutContent`: App-Symbol mit Version zuerst, dann die Einleitung.
  * In den Einstellungen auf der Seite «Über die App»; Datenschutz, Börse

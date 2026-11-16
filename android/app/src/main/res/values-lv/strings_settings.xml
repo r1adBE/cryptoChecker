@@ -247,6 +247,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Licences</string>
     <string name="about_privacy_policy">Privātuma politika</string>
+    <string name="about_terms">Lietošanas noteikumi</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Ieteikt biržu</string>
     <string name="about_source_code">Pirmkods GitHub</string>

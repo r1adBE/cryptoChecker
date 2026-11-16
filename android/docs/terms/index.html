@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Checker – Nutzungsbedingungen / Terms of Use</title>
+<meta name="description" content="Nutzungsbedingungen der App Crypto Checker für Android und iOS. Terms of use of the Crypto Checker app for Android and iOS.">
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --bg: #faf7f5;
+    --surface: #ffffff;
+    --text: #1f2328;
+    --muted: #5d636b;
+    --border: #e7e1dc;
+    --accent: #d2693f;
+    --accent-soft: #fbe9e1;
+    --code: #f3eeea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171b;
+      --surface: #1d2026;
+      --text: #e8e9eb;
+      --muted: #a1a7b0;
+      --border: #2e323a;
+      --accent: #ef9571;
+      --accent-soft: #33241e;
+      --code: #262a31;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px 64px; }
+  header.top {
+    padding: 40px 0 24px;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .logo {
+    width: 56px; height: 56px; flex: none; border-radius: 14px;
+    background: linear-gradient(135deg, #ee9571, #b04e2d);
+    display: grid; place-items: center;
+  }
+  .logo svg { width: 34px; height: 34px; }
+  header.top h1 { margin: 0; font-size: 1.6rem; line-height: 1.2; }
+  header.top p { margin: 2px 0 0; color: var(--muted); }
+  nav.lang {
+    position: sticky; top: 0; z-index: 2;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -16px; padding: 10px 16px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  nav.lang a {
+    text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); background: var(--surface);
+    padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+  }
+  nav.lang a:hover { border-color: var(--accent); color: var(--accent); }
+  section.policy {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 8px 24px 24px; margin-top: 28px;
+  }
+  section.policy > h2 {
+    font-size: 1.35rem; margin: 20px 0 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .badge {
+    font-size: .75rem; font-weight: 700; letter-spacing: .04em;
+    background: var(--accent-soft); color: var(--accent);
+    padding: 2px 8px; border-radius: 6px;
+  }
+  .meta { color: var(--muted); font-size: .92rem; margin: 0 0 12px; }
+  h3 { font-size: 1.08rem; margin: 26px 0 6px; }
+  p, li { overflow-wrap: anywhere; }
+  ul { padding-left: 1.25rem; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); }
+  .summary {
+    background: var(--accent-soft); border-radius: 12px;
+    padding: 12px 16px; margin: 16px 0;
+  }
+  .summary strong { display: block; margin-bottom: 4px; }
+  .summary ul { margin: 0; }
+  .providers {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 16px; padding: 0; list-style: none;
+  }
+  .providers li { margin: 0; }
+  .providers small { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; }
+  code { background: var(--code); padding: 1px 5px; border-radius: 5px; font-size: .88em; overflow-wrap: anywhere; }
+  .table-scroll { overflow-x: auto; }
+  h4 { font-size: 1rem; margin: 18px 0 4px; display: flex; align-items: center; gap: 8px; }
+  footer { color: var(--muted); font-size: .9rem; text-align: center; margin-top: 32px; }
+  @media (max-width: 560px) {
+    section.policy { padding: 4px 16px 18px; border-radius: 12px; }
+    header.top h1 { font-size: 1.3rem; }
+    th, td { padding: 6px 4px; }
+    td code { font-size: .8em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="logo" aria-hidden="true">
+    <svg viewBox="162 171 700 700">
+      <path fill="#fff" fill-rule="evenodd" d="M512,190c-150,0 -215,120 -215,270v130l-75,95h580l-75,-95V460c0,-150 -65,-270 -215,-270zM379.8,579.8L452.63,506.97L513.2,552.4A28,28 0 0,0 550.52,549.05L680.52,409.05A28,28 0 0,0 679.05,369.48A28,28 0 0,0 639.48,370.95L526.63,492.48L466.8,447.6A28,28 0 0,0 430.2,450.2L340.2,540.2A28,28 0 0,0 340.2,579.8A28,28 0 0,0 379.8,579.8zM450,790a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z"/>
+    </svg>
+  </div>
+  <div>
+    <h1>Crypto Checker</h1>
+    <p>Nutzungsbedingungen · Terms of Use</p>
+  </div>
+</header>
+
+<nav class="lang" aria-label="Sprache / Language">
+  <a href="#de" hreflang="de">Deutsch</a>
+  <a href="#en" hreflang="en">English</a>
+</nav>
+
+<section class="policy" id="de" lang="de">
+  <h2>Nutzungsbedingungen <span class="badge">DE</span></h2>
+  <p class="meta">Gültig für die App «Crypto Checker» für Android (inkl. Wear-OS-App) und iPhone (inkl. Widgets und Apple-Watch-App) · Stand: 16. November 2026</p>
+
+  <div class="summary">
+    <strong>Kurz gesagt</strong>
+    <ul>
+      <li>Die App ist kostenlos und Open Source. Sie zeigt öffentliche Kurs- und Marktdaten an – ohne Gewähr.</li>
+      <li>Sie ist keine Börse, keine Wallet und keine Anlage-, Steuer- oder Rechtsberatung. Deine Entscheide triffst du selbst.</li>
+      <li>Alarme und Benachrichtigungen können verspätet kommen oder ausbleiben. Verlass dich bei wichtigen Entscheiden nicht allein darauf.</li>
+    </ul>
+  </div>
+
+  <h3 id="de-geltung">1. Geltungsbereich und Anbieter</h3>
+  <p>Diese Bedingungen gelten für die Nutzung der App «Crypto Checker». Anbieter ist der Entwickler der App; Name und Anschrift stehen in Abschnitt&nbsp;1 der <a href="../privacy/#de">Datenschutzerklärung</a>. Mit der Nutzung der App erklärst du dich mit diesen Bedingungen einverstanden. Lädst du die App aus dem App Store, gilt zusätzlich Apples Standard-Lizenzvertrag für Endnutzer (EULA); bei Widersprüchen gehen diese Bedingungen vor, soweit Apple das zulässt.</p>
+
+  <h3 id="de-leistung">2. Leistung</h3>
+  <p>Die App ist kostenlos. Sie hat kein Konto, keinen Server des Anbieters und keine Zahlungen. Der Quellcode steht unter der MIT-Lizenz auf <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">GitHub</a>; für den Code selbst gilt diese Lizenz. Der Anbieter kann Funktionen, Börsen und Datenquellen jederzeit ändern, einschränken oder entfernen, zum Beispiel wenn ein Anbieter seine Schnittstelle abschaltet.</p>
+
+  <h3 id="de-kein-finanzdienst">3. Keine Beratung, keine Finanzdienstleistung</h3>
+  <p>Die App zeigt öffentlich verfügbare Kurs- und Marktdaten an. Sie ist keine Börse und keine Wallet, ermöglicht keinen Handel und keine Zahlungen und stellt keine Anlage-, Steuer- oder Rechtsberatung dar. Kennzahlen, Erklärungen («Was bewegt sich mit?»), Portfolio-Auswertungen und Steuer-Vorlagen sind automatisch berechnete Hilfen. Die Steuer-Vorlagen sind als «Beta» gekennzeichnet und nicht von einer Steuerfachperson geprüft. Für alle Entscheide, die du auf Grundlage der App triffst – insbesondere Käufe, Verkäufe und Steuererklärungen –, bist du allein verantwortlich.</p>
+
+  <h3 id="de-daten">4. Daten Dritter</h3>
+  <p>Kurse und Marktdaten stammen direkt von Börsen und Datenanbietern (Liste in Abschnitt&nbsp;4 der Datenschutzerklärung). Der Anbieter der App hat darauf keinen Einfluss und garantiert weder Richtigkeit, Vollständigkeit noch Aktualität. Daten können verzögert, fehlerhaft oder zeitweise nicht verfügbar sein.</p>
+  <p><b>CoinGecko:</b> Ranglisten, Marktkapitalisierung, Marktsummen und Coin-Logos stammen teilweise von der CoinGecko API («Powered by CoinGecko»). Die CoinGecko API ist Eigentum von CoinGecko (Gecko Labs Pte. Ltd.). Für alle Offenlegungen, Haftungsausschlüsse und Warnungen dir gegenüber ist allein der Anbieter dieser App verantwortlich. CoinGecko trägt keine Verantwortung oder Haftung für finanzielle Entscheide oder Ergebnisse, die du aufgrund dieser Daten triffst.</p>
+  <p>Weitere Quellen und ihre Lizenzen (unter anderem Coin Metrics, alternative.me, Binance) sind in der App unter Einstellungen › Über die App › Lizenzen und in der Datei NOTICE des Quellcodes genannt.</p>
+
+  <h3 id="de-alarme">5. Alarme und Benachrichtigungen</h3>
+  <p>Die App prüft Kurse im Hintergrund in den Abständen, die dein Betriebssystem zulässt. Energiesparfunktionen, fehlende Berechtigungen, Netzprobleme oder Ausfälle einer Börse können Prüfungen verzögern oder verhindern. Eine rechtzeitige Benachrichtigung ist deshalb nicht garantiert.</p>
+
+  <h3 id="de-marken">6. Marken und Logos</h3>
+  <p>Namen und Logos von Börsen, Coins und Datenanbietern gehören ihren Inhabern. Sie dienen nur der Erkennung; eine Verbindung zu diesen Unternehmen oder eine Empfehlung besteht nicht.</p>
+
+  <h3 id="de-haftung">7. Haftung</h3>
+  <p>Die App wird ohne Gewähr bereitgestellt («wie besehen»). Die Haftung des Anbieters ist ausgeschlossen, soweit das Gesetz es zulässt; ausgenommen sind Schäden, die er absichtlich oder grobfahrlässig verursacht hat.</p>
+
+  <h3 id="de-aenderungen">8. Änderungen und anwendbares Recht</h3>
+  <p>Der Anbieter kann diese Bedingungen anpassen; es gilt die jeweils auf dieser Seite veröffentlichte Fassung. Es gilt Schweizer Recht. Zwingende Verbraucherschutzvorschriften deines Wohnsitzstaates bleiben vorbehalten.</p>
+
+  <h3 id="de-kontakt">9. Kontakt</h3>
+  <p>Kontaktangaben stehen in Abschnitt&nbsp;1 und 15 der <a href="../privacy/#de">Datenschutzerklärung</a>.</p>
+</section>
+
+<section class="policy" id="en" lang="en">
+  <h2>Terms of Use <span class="badge">EN</span></h2>
+  <p class="meta">Valid for the app “Crypto Checker” for Android (including the Wear OS app) and iPhone (including widgets and the Apple Watch app) · Last updated: 16 November 2026</p>
+
+  <div class="summary">
+    <strong>In short</strong>
+    <ul>
+      <li>The app is free and open source. It shows public price and market data – without warranty.</li>
+      <li>It is not an exchange, not a wallet and not investment, tax or legal advice. You make your own decisions.</li>
+      <li>Alerts and notifications may arrive late or not at all. Do not rely on them alone for important decisions.</li>
+    </ul>
+  </div>
+
+  <h3 id="en-scope">1. Scope and provider</h3>
+  <p>These terms apply to the use of the app “Crypto Checker”. The provider is the developer of the app; name and address are in section&nbsp;1 of the <a href="../privacy/#en">Privacy Policy</a>. By using the app you agree to these terms. If you get the app from the App Store, Apple’s standard End User License Agreement (EULA) also applies; in case of conflict these terms prevail where Apple allows it.</p>
+
+  <h3 id="en-service">2. Service</h3>
+  <p>The app is free of charge. It has no account, no server of the provider and no payments. The source code is available under the MIT License on <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">GitHub</a>; that license governs the code itself. The provider may change, limit or remove features, exchanges and data sources at any time, for example when a provider shuts down its interface.</p>
+
+  <h3 id="en-no-advice">3. No advice, no financial service</h3>
+  <p>The app displays publicly available price and market data. It is not an exchange or a wallet, does not enable trading or payments and does not provide investment, tax or legal advice. Indicators, explanations (“What is moving with it?”), portfolio evaluations and tax templates are automatically calculated aids. The tax templates are marked “Beta” and have not been reviewed by a tax professional. You alone are responsible for all decisions you make based on the app – in particular purchases, sales and tax returns.</p>
+
+  <h3 id="en-data">4. Third-party data</h3>
+  <p>Prices and market data come directly from exchanges and data providers (list in section&nbsp;4 of the Privacy Policy). The provider of the app has no influence on them and does not guarantee their accuracy, completeness or timeliness. Data may be delayed, wrong or temporarily unavailable.</p>
+  <p><b>CoinGecko:</b> Rankings, market capitalisation, market totals and coin logos partly come from the CoinGecko API (“Powered by CoinGecko”). The CoinGecko API is the property of CoinGecko (Gecko Labs Pte. Ltd.). The provider of this app is solely responsible for all disclosures, disclaimers and warnings to you. CoinGecko bears no responsibility or liability for any financial decisions or outcomes you make or experience based on this data.</p>
+  <p>Further sources and their licenses (among others Coin Metrics, alternative.me, Binance) are listed in the app under Settings › About › Licenses and in the NOTICE file of the source code.</p>
+
+  <h3 id="en-alerts">5. Alerts and notifications</h3>
+  <p>The app checks prices in the background at the intervals your operating system allows. Battery saving, missing permissions, network problems or exchange outages can delay or prevent checks. A timely notification is therefore not guaranteed.</p>
+
+  <h3 id="en-trademarks">6. Trademarks and logos</h3>
+  <p>Names and logos of exchanges, coins and data providers belong to their owners. They are used for identification only; there is no affiliation with or endorsement by these companies.</p>
+
+  <h3 id="en-liability">7. Liability</h3>
+  <p>The app is provided “as is”, without warranty. The provider’s liability is excluded to the extent permitted by law; this does not apply to damage caused intentionally or through gross negligence.</p>
+
+  <h3 id="en-changes">8. Changes and applicable law</h3>
+  <p>The provider may update these terms; the version published on this page applies. Swiss law applies. Mandatory consumer protection rules of your country of residence remain unaffected.</p>
+
+  <h3 id="en-contact">9. Contact</h3>
+  <p>Contact details are in sections&nbsp;1 and 15 of the <a href="../privacy/#en">Privacy Policy</a>.</p>
+</section>
+
+<footer>Crypto Checker · <a href="../privacy/">Datenschutz / Privacy</a> · <a href="https://github.com/r1adBE/cryptoChecker" rel="noopener">GitHub</a></footer>
+</div>
+</body>
+</html>

@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">লাইসেন্স</string>
     <string name="about_privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="about_terms">ব্যবহারের শর্তাবলী</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">একটি এক্সচেঞ্জের অনুরোধ করুন</string>
     <string name="about_source_code">GitHub-এ সোর্স কোড</string>

@@ -52181,6 +52181,461 @@
         }
       }
     },
+    "about_terms" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruiksvoorwaardes"
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "የአጠቃቀም ደንቦች"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروط الاستخدام"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İstifadə şərtləri"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Условия за ползване"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ব্যবহারের শর্তাবলী"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uslovi korištenja"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condicions d’ús"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podmínky použití"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brugsbetingelser"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzungsbedingungen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όροι χρήσης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of use"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condiciones de uso"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasutustingimused"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erabilera-baldintzak"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرایط استفاده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käyttöehdot"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga tuntunin ng paggamit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions d’utilisation"
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Téarmaí úsáide"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condicións de uso"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ઉપયોગની શરતો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תנאי שימוש"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "उपयोग की शर्तें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uvjeti korištenja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Felhasználási feltételek"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Օգտագործման պայմաններ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ketentuan penggunaan"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notkunarskilmálar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condizioni d’uso"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "გამოყენების პირობები"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пайдалану шарттары"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "លក្ខខណ្ឌប្រើប្រាស់"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬಳಕೆಯ ನಿಯಮಗಳು"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이용약관"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ເງື່ອນໄຂການນຳໃຊ້"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naudojimo sąlygos"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lietošanas noteikumi"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Услови за користење"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഉപയോഗ നിബന്ധനകൾ"
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ашиглалтын нөхцөл"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वापराच्या अटी"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terma penggunaan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "အသုံးပြုမှုစည်းကမ်းများ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vilkår for bruk"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्रयोगका सर्तहरू"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruiksvoorwaarden"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warunki korzystania"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termos de utilização"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termos de uso"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condiții de utilizare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Условия использования"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "භාවිත නියම"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podmienky používania"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pogoji uporabe"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kushtet e përdorimit"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Услови коришћења"
+          }
+        },
+        "sr-Latn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uslovi korišćenja"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Användarvillkor"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masharti ya matumizi"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பயன்பாட்டு விதிமுறைகள்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "వినియోగ నిబంధనలు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อกำหนดการใช้งาน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kullanım koşulları"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Умови використання"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استعمال کی شرائط"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foydalanish shartlari"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điều khoản sử dụng"
+          }
+        },
+        "yue-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用條款"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用条款"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用條款"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imigomo yokusebenzisa"
+          }
+        }
+      }
+    },
     "about_version" : {
       "extractionState" : "manual",
       "localizations" : {

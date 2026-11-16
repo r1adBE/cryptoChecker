@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">లైసెన్స్‌లు</string>
     <string name="about_privacy_policy">గోప్యతా విధానం</string>
+    <string name="about_terms">వినియోగ నిబంధనలు</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ఎక్స్ఛేంజ్‌ను అభ్యర్థించండి</string>
     <string name="about_source_code">GitHubలో సోర్స్ కోడ్</string>

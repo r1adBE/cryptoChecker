@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">ಪರವಾನಗಿಗಳು</string>
     <string name="about_privacy_policy">ಗೌಪ್ಯತಾ ನೀತಿ</string>
+    <string name="about_terms">ಬಳಕೆಯ ನಿಯಮಗಳು</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ಎಕ್ಸ್‌ಚೇಂಜ್ ವಿನಂತಿಸಿ</string>
     <string name="about_source_code">GitHub ನಲ್ಲಿ ಮೂಲ ಕೋಡ್</string>

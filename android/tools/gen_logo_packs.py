@@ -6,8 +6,10 @@
    downloaded logo of a coin is there (lookup CoinLogos.bundledIconName; downloaded logos keep precedence).
 2. exchange_logos.bin — the logo of every exchange with a logo (ExchangeLogos.LOGOS on both platforms; futures use
    the parent's logo): CoinGecko's public exchange list (/exchanges pages, detail page /exchanges/<id> for
-   exchanges missing from the list), for exchanges CoinGecko does not list the App Store icon (iTunes lookup by
-   app id). Android assets + iOS App/Resources (app only).
+   exchanges missing from the list), for exchanges CoinGecko does not list the CoinMarketCap exchange image
+   (s2.coinmarketcap.com, by CoinMarketCap exchange id), and where neither has one a neutral monogram (letter on a
+   grey circle, drawn once and kept from the current pack). No App Store icons (Audit 241, K-02).
+   Android assets + iOS App/Resources (app only).
 
 Format (CoinLogos.parseIconPack on both platforms): "CCIP1\\n", one line "<name> <byte length>\\n" per logo, an
 empty line, then the PNG bytes in the same order; names [a-z0-9] (coins: lower-case symbol, exchanges: the names
@@ -17,8 +19,8 @@ android/tools/logo_packs_manifest.json lists per logo: pack, name, symbol/exchan
 the source and of the stored PNG, fetch date.
 
 Usage: python3 -I android/tools/gen_logo_packs.py [--coins N] [--only coins|exchanges] [--cache DIR]
-Run it before a release (network needed: api.coingecko.com, coin-images.coingecko.com, itunes.apple.com,
-is1-ssl.mzstatic.com); outputs are committed. Skipped coins (image format without a standard-library decoder,
+Run it before a release (network needed: api.coingecko.com, coin-images.coingecko.com, s2.coinmarketcap.com);
+outputs are committed. Skipped coins (image format without a standard-library decoder,
 e.g. WebP) are listed in the manifest; the next coin by market cap takes the place.
 """
 import argparse
@@ -50,10 +52,10 @@ USER_AGENT = "cryptoChecker-logo-packs/1 (+https://github.com/r1adBE/cryptoCheck
 MARKETS_URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1"
 EXCHANGES_URL = "https://api.coingecko.com/api/v3/exchanges?per_page=250&page={page}"
 EXCHANGE_URL = "https://api.coingecko.com/api/v3/exchanges/{id}"
-ITUNES_URL = "https://itunes.apple.com/lookup?id={id}&country={country}"
+CMC_URL = "https://s2.coinmarketcap.com/static/img/exchanges/128x128/{id}.png"
 PAUSE_SECONDS = 2.5
 MAX_PAGES = 6
-# Pack name → source: ("coingecko", exchange id) or ("appstore", app id, store country). Same names as
+# Pack name → source: ("coingecko", exchange id), ("cmc", CoinMarketCap exchange id) or ("monogram", letter). Same names as
 # ExchangeLogos.LOGOS (Android) / ExchangeLogos.logos (iOS); the parity test checks that every name is in the pack.
 EXCHANGES = {
     "gdax": ("coingecko", "gdax"), "kraken": ("coingecko", "kraken"), "gate": ("coingecko", "gate"),
@@ -78,9 +80,9 @@ EXCHANGES = {
     "coinjar": ("coingecko", "coinjar"), "gmocoin": ("coingecko", "gmo_japan"), "latoken": ("coingecko", "latoken"),
     "nonkyc": ("coingecko", "nonkyc_io"),
     # Not listed by CoinGecko («bitpanda» there is One Trading): official App Store icon
-    "bitpanda": ("appstore", "1449018960", "at"), "coinspot": ("appstore", "1541949985", "au"),
-    "quidax": ("appstore", "6742988930", "ng"), "swyftx": ("appstore", "1516986805", "au"),
-    "ndax": ("appstore", "1412219882", "ca"), "bitoasis": ("appstore", "1521661794", "ae"),
+    "bitpanda": ("cmc", "1296"), "coinspot": ("cmc", "1421"),
+    "quidax": ("cmc", "1336"), "swyftx": ("monogram", "S"),
+    "ndax": ("cmc", "1043"), "bitoasis": ("monogram", "B"),
 }
 
 
@@ -175,30 +177,41 @@ def exchange_images():
     return found
 
 
-def app_store_icon(app_id, country):
-    results = json.loads(fetch(ITUNES_URL.format(id=app_id, country=country))).get("results") or []
-    if not results:
-        raise SystemExit(f"App Store app {app_id} ({country}) not found")
-    art = results[0]["artworkUrl512"]
-    # Same icon as PNG in the size needed (mzstatic renders the requested size and format)
-    return art.rsplit("/", 1)[0] + "/256x256bb.png"
+def current_pack():
+    """Name → PNG of the committed exchange pack (monograms are kept from it, no drawing library needed)."""
+    with open(os.path.join(ANDROID_ASSETS, EXCHANGE_PACK), "rb") as f:
+        pack = f.read()
+    end = pack.find(b"\n\n")
+    offset, out = end + 2, {}
+    for line in pack[:end].decode("ascii").split("\n")[1:]:
+        name, length = line.split(" ")
+        out[name] = pack[offset:offset + int(length)]
+        offset += int(length)
+    return out
 
 
 def exchange_entries(today):
     images = exchange_images()
+    kept = current_pack()
     entries = []
     for name, src in EXCHANGES.items():
         if not plain(name):
             raise SystemExit(f"bad pack name {name}")
+        if src[0] == "monogram":
+            if name not in kept:
+                raise SystemExit(f"monogram {name} missing in the current pack")
+            entries.append((name, kept[name], {"pack": EXCHANGE_PACK, "name": name, "source": "monogram:" + src[1],
+                                               "sha256": "", "fetched": today, "monogram": src[1]}))
+            continue
         if src[0] == "coingecko":
             url = large(images[src[1]])
         else:
             time.sleep(PAUSE_SECONDS)
-            url = app_store_icon(src[1], src[2])
+            url = CMC_URL.format(id=src[1])
         source, png = logo_png(url)
         info = {"pack": EXCHANGE_PACK, "name": name, "source": url, "sha256": hashlib.sha256(source).hexdigest(),
                 "fetched": today}
-        info["coingecko" if src[0] == "coingecko" else "appstore"] = src[1]
+        info["coingecko" if src[0] == "coingecko" else "coinmarketcap"] = src[1]
         entries.append((name, png, info))
     return entries
 

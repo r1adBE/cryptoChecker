@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Amalayisensi</string>
     <string name="about_privacy_policy">Inqubomgomo yobumfihlo</string>
+    <string name="about_terms">Imigomo yokusebenzisa</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Cela i-exchange</string>
     <string name="about_source_code">Ikhodi yomthombo ku-GitHub</string>

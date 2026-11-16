@@ -248,6 +248,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Licence</string>
     <string name="about_privacy_policy">Politika privatnosti</string>
+    <string name="about_terms">Uslovi korišćenja</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Predloži berzu</string>
     <string name="about_source_code">Izvorni kod na GitHub-u</string>

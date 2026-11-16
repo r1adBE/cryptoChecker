@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">مجوزها</string>
     <string name="about_privacy_policy">سیاست حفظ حریم خصوصی</string>
+    <string name="about_terms">شرایط استفاده</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">درخواست صرافی</string>
     <string name="about_source_code">کد منبع در GitHub</string>

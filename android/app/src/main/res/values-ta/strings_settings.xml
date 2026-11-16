@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">உரிமங்கள்</string>
     <string name="about_privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="about_terms">பயன்பாட்டு விதிமுறைகள்</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ஒரு எக்ஸ்சேஞ்சைக் கோரு</string>
     <string name="about_source_code">GitHub இல் மூலக் குறியீடு</string>

@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">බලපත්‍ර</string>
     <string name="about_privacy_policy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</string>
+    <string name="about_terms">භාවිත නියම</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">හුවමාරුවක් ඉල්ලන්න</string>
     <string name="about_source_code">GitHub හි මූලාශ්‍ර කේතය</string>

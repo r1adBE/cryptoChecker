@@ -277,6 +277,8 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     addPage(SettingsPage.ABOUT, about)
     add("about.privacy", stringResource(R.string.about_privacy_policy), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.privacy"))
+    add("about.terms", stringResource(R.string.about_terms), about,
+        SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.terms"))
     add("about.exchange", stringResource(R.string.about_request_exchange), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.exchange"))
     add("about.source", stringResource(R.string.about_source_code), about,

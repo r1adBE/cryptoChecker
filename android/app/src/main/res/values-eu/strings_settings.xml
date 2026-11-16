@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Lizentziak</string>
     <string name="about_privacy_policy">Pribatutasun-politika</string>
+    <string name="about_terms">Erabilera-baldintzak</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Eskatu burtsa bat</string>
     <string name="about_source_code">Iturburu-kodea GitHub-en</string>

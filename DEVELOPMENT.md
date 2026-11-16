@@ -2041,7 +2041,9 @@ the tests named here.
   (every exchange in «Add pair», futures share the parent's logo, DexScreener/ECB a fixed symbol; Android assets,
   iOS `App/Resources`), 80 px near-lossless PNGs in the `CCIP1` pack format, built by
   `android/tools/gen_logo_packs.py` (standard library only; sources and sha256 in
-  `android/tools/logo_packs_manifest.json`; run it before a release). Images: all entries are downloaded (never per watchlist coin, in a fixed order for everyone), 6 at once, 4 per host, a
+  `android/tools/logo_packs_manifest.json`; run it before a release; exchanges CoinGecko does not list come from
+  CoinMarketCap's exchange images, otherwise a neutral monogram kept from the pack – no App Store icons since
+  build 242). Images: all entries are downloaded (never per watchlist coin, in a fixed order for everyone), 6 at once, 4 per host, a
   429/503, or a 403 with Retry-After, pauses only that host (Retry-After, ≤ 6 h) and is never a per-image failure. A
   403 without Retry-After (CloudFront/S3 also answers a missing file that way) fails only that image (1-day rule; the
   small variant still falls through to the large one); only the third image of a host in a row ending in 403 within
@@ -3189,6 +3191,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 239: WatchNotifyBridge (/cc/notify) + WatchNotifications on Wear, FLAG_LOCAL_ONLY when forwarded; diagnostics gated by developerUnlocked; release test APKs signed with runner debug key
 * Build 240: ios.yml: Simulator keyboard defaults before UI tests
 * Build 241: exchange_live_check.py: every 403 = skipped (runner blocked)
+* Build 242: terms of use page + in-app link (about.terms), privacy policy rights/Wear/crash reports/Show on watch, Pulse top-coins cache 30 min (TOP_CACHE_MILLIS / topCacheMillis), exchange logos from CoinMarketCap or monogram (gen_logo_packs.py source types cmc/monogram), Play data safety: in-app search history.
 
 ## Known warnings
 

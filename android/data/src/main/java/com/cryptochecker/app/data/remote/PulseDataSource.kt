@@ -63,7 +63,7 @@ class PulseDataSource @Inject constructor(
         val gasJob = async {
             timed { gasDataSource.fetch().evm.firstOrNull { it.network == GasNetwork.ETHEREUM }?.normalGwei }
         }
-        val topJob = async { timed { topCoins() } }
+        val topJob = async { timed { cachedTopCoins() } }
         val globalJob = async { timed { globalTotals() } }
 
         val now = System.currentTimeMillis()
@@ -124,6 +124,18 @@ class PulseDataSource @Inject constructor(
         return TopCoins(changes, MarketMovers.select(coins))
     }
 
+    @Volatile private var topCache: Pair<Long, TopCoins>? = null
+
+    /**
+     * Rangliste höchstens alle [TOP_CACHE_MILLIS] neu (wie `/global`): CoinGecko sieht die schlüssellose API nicht
+     * für regelmässige Abfragen vor; die Pulse-Karte und das Widget fragen sonst bei jeder Prüfung. Wie iOS.
+     */
+    private suspend fun cachedTopCoins(): TopCoins {
+        val now = System.currentTimeMillis()
+        topCache?.let { (at, top) -> if (now - at in 0 until TOP_CACHE_MILLIS) return top }
+        return topCoins().also { topCache = now to it }
+    }
+
     @Volatile private var globalCache: Pair<Long, MarketTotals>? = null
 
     /** Markt-Summen von CoinGecko `/global`, 30 Minuten im Speicher. */
@@ -172,6 +184,7 @@ class PulseDataSource @Inject constructor(
         const val COINGECKO_TOP_URL = "https://api.coingecko.com/api/v3/coins/markets" +
             "?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
         const val GLOBAL_CACHE_MILLIS = 30 * 60_000L
+        const val TOP_CACHE_MILLIS = 30 * 60_000L
         const val SOURCE_TIMEOUT_MILLIS = 10_000L
     }
 }

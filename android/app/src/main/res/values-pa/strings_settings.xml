@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">ਲਾਇਸੈਂਸ</string>
     <string name="about_privacy_policy">ਪਰਦੇਦਾਰੀ ਨੀਤੀ</string>
+    <string name="about_terms">ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ਕਿਸੇ ਐਕਸਚੇਂਜ ਦੀ ਬੇਨਤੀ ਕਰੋ</string>
     <string name="about_source_code">GitHub ’ਤੇ ਸਰੋਤ ਕੋਡ</string>

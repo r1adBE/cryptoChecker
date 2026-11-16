@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">สัญญาอนุญาต</string>
     <string name="about_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="about_terms">ข้อกำหนดการใช้งาน</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ขอเพิ่มกระดานเทรด</string>
     <string name="about_source_code">ซอร์สโค้ดบน GitHub</string>

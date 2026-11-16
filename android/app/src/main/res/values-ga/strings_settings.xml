@@ -251,6 +251,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Ceadúnais</string>
     <string name="about_privacy_policy">Polasaí príobháideachais</string>
+    <string name="about_terms">Téarmaí úsáide</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Iarr malartán</string>
     <string name="about_source_code">Cód foinse ar GitHub</string>

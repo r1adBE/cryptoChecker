@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Lisenssit</string>
     <string name="about_privacy_policy">Tietosuojaseloste</string>
+    <string name="about_terms">Käyttöehdot</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Ehdota pörssiä</string>
     <string name="about_source_code">Lähdekoodi GitHubissa</string>

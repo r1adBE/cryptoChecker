@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">许可声明</string>
     <string name="about_privacy_policy">隐私政策</string>
+    <string name="about_terms">使用条款</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">申请添加交易所</string>
     <string name="about_source_code">GitHub 上的源代码</string>

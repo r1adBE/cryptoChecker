@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">ലൈസൻസുകൾ</string>
     <string name="about_privacy_policy">സ്വകാര്യതാ നയം</string>
+    <string name="about_terms">ഉപയോഗ നിബന്ധനകൾ</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ഒരു എക്സ്ചേഞ്ച് അഭ്യർത്ഥിക്കുക</string>
     <string name="about_source_code">GitHub-ലെ സോഴ്സ് കോഡ്</string>

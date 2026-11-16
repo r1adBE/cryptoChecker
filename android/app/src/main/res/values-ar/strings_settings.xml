@@ -253,6 +253,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">التراخيص</string>
     <string name="about_privacy_policy">سياسة الخصوصية</string>
+    <string name="about_terms">شروط الاستخدام</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">اطلب منصة</string>
     <string name="about_source_code">الشيفرة المصدرية على GitHub</string>

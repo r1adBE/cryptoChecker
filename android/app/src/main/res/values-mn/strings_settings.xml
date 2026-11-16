@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Лиценз</string>
     <string name="about_privacy_policy">Нууцлалын бодлого</string>
+    <string name="about_terms">Ашиглалтын нөхцөл</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Бирж хүсэх</string>
     <string name="about_source_code">GitHub дээрх эх код</string>

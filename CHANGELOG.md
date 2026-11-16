@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 242)
+
+- Terms of use (DE/EN) at docs/terms/, linked in the app (About, settings search), in the privacy policy and on the start page; they contain the points the CoinGecko API terms (7.1) require.
+- Privacy policy: rights of restriction, portability and objection, a time limit for emails, the Wear data layer route via Google servers without Bluetooth, store crash reports, «Show on watch».
+- Pulse card: the CoinGecko ranking is fetched at most every 30 minutes (like /global).
+- Exchange logos: no App Store icons any more – Bitpanda, CoinSpot, Quidax and Ndax from CoinMarketCap, Swyftx and BitOasis as a neutral monogram.
+
 ## 16.2.2 (build 241)
 
 - CI: the weekly exchange check counts HTTP 403 (like 451) as blocked from the GitHub runner and no longer opens an issue for it.

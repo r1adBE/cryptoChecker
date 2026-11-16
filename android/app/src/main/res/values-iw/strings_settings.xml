@@ -247,6 +247,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">רישיונות</string>
     <string name="about_privacy_policy">מדיניות פרטיות</string>
+    <string name="about_terms">תנאי שימוש</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">בקשת בורסה</string>
     <string name="about_source_code">קוד המקור ב-GitHub</string>

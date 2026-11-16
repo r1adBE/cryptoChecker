@@ -1650,58 +1650,58 @@
    "source": "https://coin-images.coingecko.com/markets/images/1281/large/NKYC-Logo.png?1706865279"
   },
   {
-   "appstore": "1449018960",
-   "fetched": "2026-11-03",
+   "coinmarketcap": "1296",
+   "fetched": "2026-11-16",
    "name": "bitpanda",
    "pack": "exchange_logos.bin",
-   "png_sha256": "e405c20fab013d5eee27e66ed27e0707535cf9c731d100f982d4e42800c227c2",
-   "sha256": "75a744ef93ed4c74b61ee38dd940f8fe8012e098a0370d8f49ae66ec900aab41",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/29/8e/27/298e2730-fffb-a108-cc2b-6adbecaa907c/AppIcon-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/256x256bb.png"
+   "png_sha256": "84c17bc523c05bad4852be6d53b0497dd76527e8b52e8f33b4f0ac4e8641bfa5",
+   "sha256": "ba1d0a0eca56128114f566a11bf6309f0ec86767eb95bf0d56302a4078462d84",
+   "source": "https://s2.coinmarketcap.com/static/img/exchanges/128x128/1296.png"
   },
   {
-   "appstore": "1541949985",
-   "fetched": "2026-11-03",
+   "coinmarketcap": "1421",
+   "fetched": "2026-11-16",
    "name": "coinspot",
    "pack": "exchange_logos.bin",
-   "png_sha256": "655d41ada49040408585481ef773ee024bbdf6e57716985405bb1d9e173de61d",
-   "sha256": "786b1ba22c3a3f1a4af38949c3b39a7b60868e31882c7d33b422e8a64bf99d8c",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e3/9a/09/e39a09b6-1051-0cd4-8197-e96e96f97b1d/AppIcon-0-0-1x_U007epad-0-9-0-0-85-220.png/256x256bb.png"
+   "png_sha256": "675b75c2570df597374ee84309755c855c8be464a432aa0da230f5f48791d37a",
+   "sha256": "749539547ccabd32c747e288f340abf5ab017ae40ad86d5948c6a3527c846a4c",
+   "source": "https://s2.coinmarketcap.com/static/img/exchanges/128x128/1421.png"
   },
   {
-   "appstore": "6742988930",
-   "fetched": "2026-11-03",
+   "coinmarketcap": "1336",
+   "fetched": "2026-11-16",
    "name": "quidax",
    "pack": "exchange_logos.bin",
-   "png_sha256": "3b542b6d14f02b14d03999c998e2825e7e9d8a4101f5e87229dda8e53dfc2a3c",
-   "sha256": "995152f67cdf620ac17f370ad57172868c32624635e2eba4ab0c8eee0c3bb518",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/84/45/c484452e-11fa-929e-6a98-41a3408612a0/AppIcon-0-0-1x_U007emarketing-0-6-0-85-220.png/256x256bb.png"
+   "png_sha256": "b954d1fd6e05b5084d6e0d97f46dcd6cac7203f6dfd618821ba01b063e80dfbe",
+   "sha256": "71839d68886b9966db77f84701b112eaae6032c0ba8f3fad2130f5bf45207e21",
+   "source": "https://s2.coinmarketcap.com/static/img/exchanges/128x128/1336.png"
   },
   {
-   "appstore": "1516986805",
-   "fetched": "2026-11-03",
+   "fetched": "2026-11-16",
+   "monogram": "S",
    "name": "swyftx",
    "pack": "exchange_logos.bin",
-   "png_sha256": "fab56e9444bb2189c2e86f8643a7296924bf09cbbeacb4559361fc5b64804c71",
-   "sha256": "4e9ffadd3de124b062da3c3974267fbbe6a269130f543a046730da34ce2f3d94",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5e/2b/18/5e2b18d8-9e45-e8da-4feb-cab0f7942c51/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/256x256bb.png"
+   "png_sha256": "a5b9a347a24eba1867473fa9db19132129bdf2dde8ebd49ed5d02433ed6e5419",
+   "sha256": "",
+   "source": "monogram:S"
   },
   {
-   "appstore": "1412219882",
-   "fetched": "2026-11-03",
+   "coinmarketcap": "1043",
+   "fetched": "2026-11-16",
    "name": "ndax",
    "pack": "exchange_logos.bin",
-   "png_sha256": "4c66f4b76257bf72ed991b811a00756ac8dca77e51bb5c5bf5e43d051dd0072c",
-   "sha256": "abeba264df3038d9b56c0917dfaf81ee9d03549969774507772b31f8c773aa21",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/46/7d/5a/467d5aa3-646f-94e4-bb05-32eabc6e001a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/256x256bb.png"
+   "png_sha256": "89646fb51a0c68fad017dc56de93cb51d81ec2bc9a0e6819793662920083dccf",
+   "sha256": "871c04f29da4eea24c90d6ae468fcf74966a239b52569ba265c5e3c8f62f9f81",
+   "source": "https://s2.coinmarketcap.com/static/img/exchanges/128x128/1043.png"
   },
   {
-   "appstore": "1521661794",
-   "fetched": "2026-11-03",
+   "fetched": "2026-11-16",
+   "monogram": "B",
    "name": "bitoasis",
    "pack": "exchange_logos.bin",
-   "png_sha256": "4f7d3be37c4d3140581f9a142c597790661c0626232a5569cb75addf4afd90ad",
-   "sha256": "5030b37854c69172194d5159b28ff1d087326af63d38502d9b6b9723f5b57942",
-   "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e5/c2/3b/e5c23baa-fa0d-6818-4bda-f4a6e235ae00/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.jpeg/256x256bb.png"
+   "png_sha256": "ae4cabbe3a044c44ffc1b88b0c13864aa42a53f94d2e8bb6f886dfea59ccc018",
+   "sha256": "",
+   "source": "monogram:B"
   }
  ]
 }

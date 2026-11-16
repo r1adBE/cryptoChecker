@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Лицензиялар</string>
     <string name="about_privacy_policy">Құпиялылық саясаты</string>
+    <string name="about_terms">Пайдалану шарттары</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Биржа сұрау</string>
     <string name="about_source_code">GitHub-тағы бастапқы код</string>

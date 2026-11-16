@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">لائسنس</string>
     <string name="about_privacy_policy">رازداری کی پالیسی</string>
+    <string name="about_terms">استعمال کی شرائط</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">کسی ایکسچینج کی درخواست کریں</string>
     <string name="about_source_code">GitHub پر سورس کوڈ</string>

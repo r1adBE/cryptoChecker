@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">ፈቃዶች</string>
     <string name="about_privacy_policy">የግላዊነት መመሪያ</string>
+    <string name="about_terms">የአጠቃቀም ደንቦች</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ልውውጥ ይጠይቁ</string>
     <string name="about_source_code">የምንጭ ኮድ በGitHub ላይ</string>

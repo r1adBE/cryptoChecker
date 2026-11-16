@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Άδειες χρήσης</string>
     <string name="about_privacy_policy">Πολιτική απορρήτου</string>
+    <string name="about_terms">Όροι χρήσης</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Αίτημα για ανταλλακτήριο</string>
     <string name="about_source_code">Πηγαίος κώδικας στο GitHub</string>

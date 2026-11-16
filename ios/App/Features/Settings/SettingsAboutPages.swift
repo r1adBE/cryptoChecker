@@ -71,6 +71,12 @@ struct AboutSettingsPage: View {
         }
         .settingsAnchor("about.privacy")
         RowDivider()
+        // Nutzungsbedingungen (u. a. Pflichtpunkte der CoinGecko-API-Bedingungen)
+        SettingsButtonRow(title: L("about_terms"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("doc.text")) {
+            Self.open(AppLinks.termsOfUse)
+        }
+        .settingsAnchor("about.terms")
+        RowDivider()
         // Fehlende Börse direkt mit der GitHub-Vorlage wünschen
         SettingsButtonRow(title: L("about_request_exchange"), trailingIcon: "arrow.up.forward", hint: L("a11y_external_link"), icon: .system("storefront")) {
             Self.open(AppLinks.exchangeRequest)

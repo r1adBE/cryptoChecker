@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Լիցենզիաներ</string>
     <string name="about_privacy_policy">Գաղտնիության քաղաքականություն</string>
+    <string name="about_terms">Օգտագործման պայմաններ</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Խնդրել բորսա</string>
     <string name="about_source_code">Ելակետային կոդը GitHub-ում</string>

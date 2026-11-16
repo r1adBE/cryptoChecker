@@ -33,6 +33,8 @@ actor CryptoPulseSource {
     /// Krypto-Markt gesamt bewegt sich langsam: 30 Minuten im Speicher (schont das Abruflimit).
     private var globalCache: (at: Int64, market: GlobalMarket)?
     static let globalCacheMillis: Int64 = 30 * 60_000
+    private var topCache: (at: Int64, top: (changes: [Double], movers: MarketMoversResult?))?
+    static let topCacheMillis: Int64 = 30 * 60_000
 
     /// - Parameter force: Zwischenspeicher übergehen (Ziehen nach unten, «Erneut»).
     /// Wirft, wenn die 24-h-Veränderungen fehlen.
@@ -48,7 +50,7 @@ actor CryptoPulseSource {
         async let changesJob = Self.changes()
         async let spikeJob = VolumeDataSource.hourlySpike(base: "BTC", quote: "USDT")
         async let fundingJob = Self.funding()
-        async let topJob = Self.topCoins()
+        async let topJob = cachedTopCoins()
         async let globalJob = globalMarket()
         let changes = await changesJob
         let spike = await spikeJob
@@ -88,6 +90,18 @@ actor CryptoPulseSource {
     private static func store(_ data: PulseMarketData) {
         guard let raw = try? JSONEncoder().encode(data) else { return }
         SharedStorage.defaults.set(raw, forKey: storeKey)
+    }
+
+    /// Rangliste höchstens alle `topCacheMillis` neu (wie `/global`): CoinGecko sieht die schlüssellose API nicht
+    /// für regelmässige Abfragen vor. Nur ein geladener Stand wird gemerkt. Wie Android.
+    private func cachedTopCoins() async -> (changes: [Double], movers: MarketMoversResult?) {
+        let now = EpochTime.nowMillis
+        if let topCache, now - topCache.at >= 0, now - topCache.at < Self.topCacheMillis {
+            return topCache.top
+        }
+        let top = await Self.topCoins()
+        if top.movers != nil { topCache = (now, top) }
+        return top
     }
 
     private func globalMarket() async -> GlobalMarket? {

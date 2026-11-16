@@ -50,6 +50,9 @@ terms apply.
 
 - CoinGecko (market data, coin and exchange logos): "Powered by CoinGecko"
   (https://www.coingecko.com), as required by the CoinGecko API terms.
+- CoinMarketCap (logos of four exchanges CoinGecko does not list: Bitpanda,
+  CoinSpot, Quidax, Ndax; https://coinmarketcap.com). Swyftx and BitOasis
+  show a neutral monogram.
 - Coin Metrics Community API (on-chain values): licensed under Creative
   Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0). Non-commercial use
   only: a fork that is monetised (paid app, ads, subscriptions) must not use

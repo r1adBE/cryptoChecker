@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">လိုင်စင်များ</string>
     <string name="about_privacy_policy">ကိုယ်ရေးကိုယ်တာ မူဝါဒ</string>
+    <string name="about_terms">အသုံးပြုမှုစည်းကမ်းများ</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">လဲလှယ်ရေးဌာန တောင်းဆိုရန်</string>
     <string name="about_source_code">GitHub ပေါ်ရှိ ရင်းမြစ်ကုဒ်</string>

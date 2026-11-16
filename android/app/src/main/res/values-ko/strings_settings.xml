@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">라이선스</string>
     <string name="about_privacy_policy">개인정보 처리방침</string>
+    <string name="about_terms">이용약관</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">거래소 요청</string>
     <string name="about_source_code">GitHub의 소스 코드</string>

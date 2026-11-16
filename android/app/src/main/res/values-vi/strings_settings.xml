@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Giấy phép</string>
     <string name="about_privacy_policy">Chính sách quyền riêng tư</string>
+    <string name="about_terms">Điều khoản sử dụng</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Đề xuất sàn</string>
     <string name="about_source_code">Mã nguồn trên GitHub</string>

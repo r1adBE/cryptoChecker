@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Mga lisensya</string>
     <string name="about_privacy_policy">Patakaran sa privacy</string>
+    <string name="about_terms">Mga tuntunin ng paggamit</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Humiling ng exchange</string>
     <string name="about_source_code">Source code sa GitHub</string>

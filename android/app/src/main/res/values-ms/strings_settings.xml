@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Lesen</string>
     <string name="about_privacy_policy">Dasar privasi</string>
+    <string name="about_terms">Terma penggunaan</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Minta bursa</string>
     <string name="about_source_code">Kod sumber di GitHub</string>

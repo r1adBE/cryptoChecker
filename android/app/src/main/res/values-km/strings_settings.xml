@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">អាជ្ញាប័ណ្ណ</string>
     <string name="about_privacy_policy">គោលការណ៍ឯកជនភាព</string>
+    <string name="about_terms">លក្ខខណ្ឌប្រើប្រាស់</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">ស្នើសុំផ្សារប្តូរ</string>
     <string name="about_source_code">កូដប្រភពនៅលើ GitHub</string>

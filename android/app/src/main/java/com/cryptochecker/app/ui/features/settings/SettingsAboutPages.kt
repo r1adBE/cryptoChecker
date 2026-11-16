@@ -30,6 +30,7 @@ import com.cryptochecker.app.ui.features.about.AboutContent
 import com.cryptochecker.app.ui.features.about.AboutFeatures
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
 import com.cryptochecker.app.ui.features.about.PRIVACY_POLICY_URL
+import com.cryptochecker.app.ui.features.about.TERMS_OF_USE_URL
 import com.cryptochecker.app.ui.features.about.SOURCE_CODE_URL
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
@@ -111,6 +112,15 @@ internal fun AboutPage(
                     icon = R.drawable.ic_settings_privacy,
                     external = true,
                     onClick = { runCatching { uriHandler.openUri(PRIVACY_POLICY_URL) } }
+                )
+            }
+            // Nutzungsbedingungen (u. a. Pflichtpunkte der CoinGecko-API-Bedingungen, Ziff. 7.1)
+            SettingsAnchor("about.terms") {
+                SettingsNavRow(
+                    title = stringResource(R.string.about_terms),
+                    icon = R.drawable.ic_settings_licenses,
+                    external = true,
+                    onClick = { runCatching { uriHandler.openUri(TERMS_OF_USE_URL) } }
                 )
             }
             SettingsAnchor("about.exchange") {

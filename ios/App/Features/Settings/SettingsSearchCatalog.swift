@@ -197,6 +197,7 @@ enum SettingsSearchCatalog {
         let about = L("settings_row_about")
         addPage("page.about", .about, about)
         add("about.privacy", L("about_privacy_policy"), about, .page(.about, anchor: "about.privacy"))
+        add("about.terms", L("about_terms"), about, .page(.about, anchor: "about.terms"))
         add("about.exchange", L("about_request_exchange"), about, .page(.about, anchor: "about.exchange"))
         add("about.source", L("about_source_code"), about, .page(.about, anchor: "about.source"))
         add("about.licenses", L("about_licenses"), about, .page(.licenses, anchor: nil))

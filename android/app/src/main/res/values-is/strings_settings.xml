@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Leyfi</string>
     <string name="about_privacy_policy">Persónuverndarstefna</string>
+    <string name="about_terms">Notkunarskilmálar</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Óska eftir kauphöll</string>
     <string name="about_source_code">Frumkóði á GitHub</string>

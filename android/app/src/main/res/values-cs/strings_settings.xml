@@ -249,6 +249,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Licence</string>
     <string name="about_privacy_policy">Zásady ochrany osobních údajů</string>
+    <string name="about_terms">Podmínky použití</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Navrhnout burzu</string>
     <string name="about_source_code">Zdrojový kód na GitHubu</string>

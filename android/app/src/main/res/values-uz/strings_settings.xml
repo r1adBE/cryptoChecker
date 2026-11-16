@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Litsenziyalar</string>
     <string name="about_privacy_policy">Maxfiylik siyosati</string>
+    <string name="about_terms">Foydalanish shartlari</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Birja soʻrash</string>
     <string name="about_source_code">GitHub’dagi manba kodi</string>

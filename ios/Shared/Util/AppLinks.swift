@@ -6,6 +6,9 @@ enum AppLinks {
     // GitHub Pages von r1adBE/cryptoChecker (gleich wie in fastlane/metadata/*/privacy_url.txt).
     static let privacyPolicy = "https://r1adbe.github.io/cryptoChecker/privacy/"
 
+    /// Nutzungsbedingungen (u. a. Pflichtpunkte der CoinGecko-API-Bedingungen, Ziff. 7.1), gleich wie Android `TERMS_OF_USE_URL`.
+    static let termsOfUse = "https://r1adbe.github.io/cryptoChecker/terms/"
+
     /// Fragen und Wünsche in «Über» (`about_why`): GitHub-Issues, gleich wie in Android.
     static let feedbackLabel = "github.com/r1adBE/cryptoChecker"
     static let feedback = "https://github.com/r1adBE/cryptoChecker/issues/new/choose"

@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Licencat</string>
     <string name="about_privacy_policy">Politika e privatësisë</string>
+    <string name="about_terms">Kushtet e përdorimit</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Kërko një bursë</string>
     <string name="about_source_code">Kodi burimor në GitHub</string>

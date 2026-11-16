@@ -247,6 +247,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Лиценце</string>
     <string name="about_privacy_policy">Политика приватности</string>
+    <string name="about_terms">Услови коришћења</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Предложи берзу</string>
     <string name="about_source_code">Изворни код на GitHub-у</string>

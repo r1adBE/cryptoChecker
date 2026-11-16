@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Lisensies</string>
     <string name="about_privacy_policy">Privaatheidsbeleid</string>
+    <string name="about_terms">Gebruiksvoorwaardes</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Versoek \'n beurs</string>
     <string name="about_source_code">Bronkode op GitHub</string>

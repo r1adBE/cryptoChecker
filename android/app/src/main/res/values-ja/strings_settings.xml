@@ -243,6 +243,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">ライセンス</string>
     <string name="about_privacy_policy">プライバシーポリシー</string>
+    <string name="about_terms">利用規約</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">取引所をリクエスト</string>
     <string name="about_source_code">GitHub のソースコード</string>

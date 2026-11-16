@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Lisenser</string>
     <string name="about_privacy_policy">Personvernerklæring</string>
+    <string name="about_terms">Vilkår for bruk</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Be om en børs</string>
     <string name="about_source_code">Kildekode på GitHub</string>

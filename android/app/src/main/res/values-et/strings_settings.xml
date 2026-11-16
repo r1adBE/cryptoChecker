@@ -245,6 +245,7 @@
     <!-- Texte der Lizenzen liegen in assets/licenses -->
     <string name="about_licenses">Litsentsid</string>
     <string name="about_privacy_policy">Privaatsuspoliitika</string>
+    <string name="about_terms">Kasutustingimused</string>
     <!-- GitHub-Vorlage exchange_request.md -->
     <string name="about_request_exchange">Soovi börsi</string>
     <string name="about_source_code">Lähtekood GitHubis</string>
