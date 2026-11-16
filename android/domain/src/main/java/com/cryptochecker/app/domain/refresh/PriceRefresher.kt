@@ -163,14 +163,7 @@ class PriceRefresher(
         // Deaktivierte Paare: keine Abfrage, keine Alarme, keine Meldungen — sie behalten Kurs und Zustand
         val allWatches = watchRepository.getWatches().filterNot { it.disabled }
 
-        if (allWatches.isEmpty()) {
-            refreshStats.setLastFullRefresh(System.currentTimeMillis() - startedAt)
-            // Unter der Sperre ohne Netz zeichnen, Charts danach (refreshAll)
-            if (liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)) chartRefresher.markIfStale()
-            return RefreshSummary(
-                durationMillis = System.currentTimeMillis() - startedAt
-            )
-        }
+        if (allWatches.isEmpty()) return nothingToRefresh(startedAt)
 
         // %-Basis: rollend (Ticker, Kerzen nur als Ausweich-Weg) oder seit Tagesbeginn (immer Kerzen)
         val changeStamp = ChangeBasisMath.stamp(settings.changeBasis, startedAt)
@@ -237,18 +230,46 @@ class PriceRefresher(
         refreshLock.stageTail(
             lock, resultProcessor.pricesTail(processed) { shown -> report.get()?.let { noteShownPrices(it, shown) } },
         )
-        // Neue Basis oder neuer Tag: alte Werte von Paaren ohne neuen Kurs gehören nicht mehr dazu
-        // (ohne Stempel: Werte von vorher, also rollend)
-        val previousStamp = refreshStats.changeStamp.value ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
-        if (previousStamp != changeStamp) watchRepository.clearChanges(processed.failedIds + pausedIds)
-        // Mit dieser Basis (und diesem Tagesbeginn) gerechnet — die Anzeige prüft das
-        refreshStats.setChangeStamp(changeStamp)
+        noteChangeStamp(changeStamp, processed.failedIds + pausedIds)
         // Mit Frist: Kerzen-Nachlader nicht über die Frist laufen lassen; sonst Tages-Basen: späte Bezüge nachtragen («—»)
         if (deadlineAt != null) dayLoads.forEach { it.cancel() }
         else if (dayStart != null) fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp)
         // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
         val duration = System.currentTimeMillis() - startedAt
+        noteRefreshed(processed, prices.cutByBudget, duration)
+        val widgetMillis = drawAllWidgets()
+        report.set(recordReport(watches.size, duration, networkMillis, groupReports, processed, widgetMillis))
+
+        return RefreshSummary(
+            checked = processed.checked,
+            failed = processed.failed,
+            alarmsTriggered = processed.alarms,
+            durationMillis = duration,
+            paused = pausedIds.size,
+            cutByBudget = prices.cutByBudget,
+        )
+    }
+
+    /** Keine (aktiven) Paare: Zeit setzen, unter der Sperre ohne Netz zeichnen, Charts danach (refreshAll). */
+    private suspend fun nothingToRefresh(startedAt: Long): RefreshSummary {
+        refreshStats.setLastFullRefresh(System.currentTimeMillis() - startedAt)
+        if (liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)) chartRefresher.markIfStale()
+        return RefreshSummary(durationMillis = System.currentTimeMillis() - startedAt)
+    }
+
+    /**
+     * Neue Basis oder neuer Tag: alte Werte von Paaren ohne neuen Kurs ([withoutPrice]) gehören nicht mehr dazu (ohne
+     * Stempel: Werte von vorher, also rollend); danach den Stempel dieses Durchlaufs speichern — die Anzeige prüft ihn.
+     */
+    private suspend fun noteChangeStamp(changeStamp: ChangeStamp, withoutPrice: List<Long>) {
+        val previousStamp = refreshStats.changeStamp.value ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
+        if (previousStamp != changeStamp) watchRepository.clearChanges(withoutPrice)
+        refreshStats.setChangeStamp(changeStamp)
+    }
+
+    /** Zeit der letzten Aktualisierung bzw. vollen Prüfung nach einem Durchlauf; Teil von [refreshAllLocked]. */
+    private fun noteRefreshed(processed: RefreshResultProcessor.Processed, cutByBudget: Int, duration: Long) {
         // Nur wenn mindestens ein Kurs kam (oder alle Paare nicht gehandelt bzw. stillgelegt sind): Ohne Verbindung bleibt
         // im Widget die Zeit der letzten ERFOLGREICHEN Aktualisierung stehen.
         if (BackgroundSchedule.refreshed(processed.checked, processed.failed, processed.notTraded)) {
@@ -257,21 +278,35 @@ class PriceRefresher(
         // Sperre gegen doppelte Hintergrund-Läufe: nur nach einer vollen Prüfung (nicht live, nicht Teil-Lauf)
         // (alle Alarmarten sind hier schon ausgewertet: kein späterer Schritt mit Zusatzdaten wie in der iOS-Aufgabe)
         // Paare am Zeitbudget gescheitert (exakter Wecker): keine volle Prüfung — der Lauf ohne Frist (WorkManager) holt nach
-        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded, prices.cutByBudget)
+        val fullCheck = BackgroundSchedule.isFullCheck(processed.checked, processed.failed, processed.notTraded, cutByBudget)
         if (BackgroundSchedule.marksAlarmCheck(fullCheck)) refreshStats.setLastFullCheck()
+    }
 
+    /**
+     * Voller Durchlauf zeichnet immer (bei ausgeschaltetem Bildschirm ist er die einzige Aktualisierung). Unter der Sperre
+     * nur aus dem Zwischenspeicher (kein Kerzen-Abruf): die Charts lädt refreshAll danach ausserhalb der Sperre nach,
+     * sofern die Frist es erlaubt. Rückgabe: Dauer des Zeichnens (null = nicht gezeichnet).
+     */
+    private suspend fun drawAllWidgets(): Long? {
         val widgetStartedAt = System.currentTimeMillis()
-        // Voller Durchlauf zeichnet immer (bei ausgeschaltetem Bildschirm ist er die einzige Aktualisierung).
-        // Unter der Sperre nur aus dem Zwischenspeicher (kein Kerzen-Abruf): die Charts lädt refreshAll
-        // danach ausserhalb der Sperre nach, sofern die Frist es erlaubt
         val drawWidgets = liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)
         if (drawWidgets) chartRefresher.markIfStale()
-        val widgetMillis = if (drawWidgets) System.currentTimeMillis() - widgetStartedAt else null
+        return if (drawWidgets) System.currentTimeMillis() - widgetStartedAt else null
+    }
 
+    /** Bericht eines vollen Durchlaufs protokollieren und speichern; Teil von [refreshAllLocked]. */
+    private fun recordReport(
+        pairs: Int,
+        duration: Long,
+        networkMillis: Long,
+        groupReports: List<ExchangeRefresh>,
+        processed: RefreshResultProcessor.Processed,
+        widgetMillis: Long?,
+    ): RefreshReport {
         val finished = RefreshReport(
             at = System.currentTimeMillis(),
             totalMillis = duration,
-            pairs = watches.size,
+            pairs = pairs,
             networkMillis = networkMillis,
             exchanges = groupReports,
             dbMillis = processed.dbMillis,
@@ -282,16 +317,7 @@ class PriceRefresher(
         )
         DomainLog.i("Aktualisierung: %s", finished)
         refreshStats.setLastReport(finished)
-        report.set(finished)
-
-        return RefreshSummary(
-            checked = processed.checked,
-            failed = processed.failed,
-            alarmsTriggered = processed.alarms,
-            durationMillis = duration,
-            paused = pausedIds.size,
-            cutByBudget = prices.cutByBudget,
-        )
+        return finished
     }
 
     suspend fun refreshOne(watchId: Long): RefreshSummary {

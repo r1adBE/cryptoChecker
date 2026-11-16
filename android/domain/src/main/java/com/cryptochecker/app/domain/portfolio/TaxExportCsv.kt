@@ -54,88 +54,19 @@ fun TaxExport.gainsCsv(
     /** [unassignedFeesIn]: je eine Zeile nach der Summe (Datum, Betrag USDT, Vermerk [TaxCsvTexts.unassignedFee]). */
     unassignedFees: List<PortfolioUnassignedFee> = emptyList(),
 ): String {
-    fun n(text: String): String = if (format.decimal == ',') text.replace('.', ',') else text
-    fun money(v: BigDecimal?): CsvCell = CsvCell(n(v?.let { CutoffExport.money(it) }.orEmpty()), numeric = true)
-    fun t(v: String): CsvCell = CsvCell(v)
-    val adj = rows.any { it.adjustmentUsdt != null }
-    val fr = rows.any { it.portfolioValueUsdt != null || it.grossProceedsUsdt != null }
-    /** Zusatzspalten einer Zeile (leer, wenn es sie nicht gibt). */
-    fun extra(a: BigDecimal?, aT: BigDecimal?, g: BigDecimal?, gT: BigDecimal?, v: BigDecimal?, vT: BigDecimal?): List<CsvCell> =
-        (if (adj) listOf(money(a), money(aT)) else emptyList()) +
-            (if (fr) listOf(money(g), money(gT), money(v), money(vT)) else emptyList())
-    val blank = CsvCell("", numeric = true)
+    val c = GainsCells(
+        format,
+        adj = rows.any { it.adjustmentUsdt != null },
+        fr = rows.any { it.portfolioValueUsdt != null || it.grossProceedsUsdt != null },
+    )
+    fun money(v: BigDecimal?): CsvCell = c.money(v)
+    fun t(v: String): CsvCell = c.t(v)
+    val blank = c.blank
     val sb = StringBuilder(BOM)
     header.forEach { sb.append(line(listOf(t(it)), format)) }
     if (texts.timeZone.isNotEmpty()) sb.append(line(listOf(t(texts.timeZone)), format))
-    sb.append(
-        line(
-            listOf(
-                texts.coin, texts.acquired, texts.sold, texts.holdingDays, texts.longTerm, texts.amount,
-                texts.costUsdt, texts.proceedsUsdt, texts.gainUsdt,
-                texts.costTarget, texts.proceedsTarget, texts.gainTarget,
-            ).map { t(it) } +
-                (if (adj) listOf(t(texts.adjustmentUsdt), t(texts.adjustmentTarget)) else emptyList()) +
-                (if (fr) listOf(t(texts.grossUsdt), t(texts.grossTarget), t(texts.portfolioValueUsdt), t(texts.portfolioValueTarget)) else emptyList()) +
-                t(texts.note),
-            format,
-        )
-    )
-    for (r in rows) {
-        val notes = listOfNotNull(
-            when (r.feeExpense) {
-                PortfolioFeeExpense.CONSUMED -> texts.feeConsumed
-                PortfolioFeeExpense.WITHDRAWAL -> texts.withdrawalFeeInfo.takeIf { r.feeInfoOnly && it.isNotEmpty() } ?: texts.withdrawalFee
-                PortfolioFeeExpense.TRANSFER -> texts.transferFeeInfo
-                null -> null
-            }?.takeIf { it.isNotEmpty() },
-            texts.feeRow.takeIf { r.feeRow && it.isNotEmpty() },
-            texts.gift.takeIf { r.gift && it.isNotEmpty() },
-            texts.spouseGift.takeIf { r.spouseGift && it.isNotEmpty() },
-            texts.payment.takeIf { r.payment && it.isNotEmpty() },
-            texts.valueEstimated.takeIf { r.valueEstimated && it.isNotEmpty() },
-            texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },
-            when (r.match) {
-                TaxMatch.SAME_DAY -> texts.matchSameDay
-                TaxMatch.THIRTY_DAY -> texts.matchThirtyDay
-                TaxMatch.POOL -> texts.matchPool
-                null -> null
-            }?.takeIf { it.isNotEmpty() },
-            when (r.oldHolding) {
-                true -> texts.oldHolding
-                false -> texts.newHolding
-                null -> null
-            }?.takeIf { it.isNotEmpty() },
-            texts.swap.takeIf { r.swap && it.isNotEmpty() },
-            r.wallet?.takeIf { texts.wallet.isNotEmpty() }?.let { w ->
-                texts.wallet.replace("%s", w.ifEmpty { texts.walletUnspecified })
-            },
-            texts.feeLeg.takeIf { r.feeLeg },
-            texts.costMissing.takeIf { r.costMissing },
-            texts.oversold.takeIf { r.uncovered && it.isNotEmpty() },
-            texts.proceedsMissing.takeIf { r.proceedsMissing },
-            texts.feeValueMissing.takeIf { r.feeValueMissing },
-            texts.costIncomplete.takeIf { r.costIncomplete && it.isNotEmpty() },
-            texts.adjustment.takeIf { r.adjustmentUsdt != null && it.isNotEmpty() },
-            texts.avgCostRates.takeIf { r.pooled && r.costTarget != null },
-            texts.noFx.takeIf { r.fxMissing },
-        ).joinToString(", ")
-        sb.append(
-            line(
-                listOf(
-                    t(r.coin),
-                    t(r.acquiredDate?.toString().orEmpty()),
-                    t(r.soldDate.toString()),
-                    CsvCell(r.holdingDays?.toString().orEmpty(), numeric = true),
-                    t(when (r.longTerm) { true -> texts.yes; false -> texts.no; null -> "" }),
-                    CsvCell(n(CutoffExport.amount(r.amount)), numeric = true),
-                    money(r.costUsdt), money(r.proceedsUsdt), money(r.shownGainUsdt),
-                    money(r.costTarget), money(r.proceedsTarget), money(r.shownGainTarget),
-                ) + extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget, r.portfolioValueUsdt, r.portfolioValueTarget) +
-                    t(notes),
-                format,
-            )
-        )
-    }
+    sb.append(line(gainsHeaderCells(c, texts), format))
+    for (r in rows) sb.append(line(gainRowCells(c, r, texts), format))
     // Summe nur vollständiger Zeilen; fehlt irgendwo etwas, «unvollständig». Gebühren nur zur Information
     // ([TaxGainRow.feeInfoOnly]) zählen nicht mit, DE/AT auch die Auszahlungsgebühren nicht (eigene Summenzeile unten)
     val feesApart = texts.withdrawalFeesTotal.isNotEmpty()
@@ -154,7 +85,7 @@ fun TaxExport.gainsCsv(
                     t(label), t(""), t(""), blank, t(""), blank,
                     money(total(usdt) { it.costUsdt }), money(total(usdt) { it.proceedsUsdt }), money(total(usdt) { it.shownGainUsdt }),
                     money(total(target) { it.costTarget }), money(total(target) { it.proceedsTarget }), money(total(target) { it.shownGainTarget }),
-                ) + extra(
+                ) + c.extra(
                     sum(list) { it.adjustmentUsdt }, sum(list) { it.adjustmentTarget },
                     sum(list) { it.grossProceedsUsdt }, sum(list) { it.grossProceedsTarget }, null, null,
                 ) + t(if (incomplete) texts.incomplete else ""),
@@ -166,49 +97,111 @@ fun TaxExport.gainsCsv(
     // Erlös der Zeilen ohne Kaufpreis (nicht in der Summe oben)
     val noCost = counted.filter { it.costMissing && it.proceedsUsdt != null }
     if (noCost.isNotEmpty()) {
-        sb.append(
-            line(
-                listOf(
-                    t(texts.proceedsWithoutCost), t(""), t(""), blank, t(""), blank,
-                    blank, money(sum(noCost) { it.proceedsUsdt }), blank,
-                    blank, money(sum(noCost) { it.proceedsTarget }), blank,
-                ) + extra(null, null, null, null, null, null) + t(texts.incomplete),
-                format,
-            )
-        )
+        val cells = listOf(
+            t(texts.proceedsWithoutCost), t(""), t(""), blank, t(""), blank,
+            blank, money(sum(noCost) { it.proceedsUsdt }), blank,
+            blank, money(sum(noCost) { it.proceedsTarget }), blank,
+        ) + c.extra(null, null, null, null, null, null) + t(texts.incomplete)
+        sb.append(line(cells, format))
     }
     // DE/AT: Auszahlungsgebühren — keine Veräusserung, darum eigene Summe (wie der Posten der Jahresübersicht)
     if (apart.isNotEmpty()) totalLine(texts.withdrawalFeesTotal, apart)
     // Netzwerkgebühr-Einstand ohne bezahlten Posten: kein Gewinn/Verlust, aber nicht still verloren
     if (texts.lostFeeCost.isNotEmpty()) {
-        for (l in lostFeeCosts) {
-            sb.append(
-                line(
-                    listOf(
-                        t(l.coin), t(""), t(localDate(l.time, zone).toString()), blank, t(""), blank,
-                        money(l.costUsdt), blank, blank, blank, blank, blank,
-                    ) + extra(null, null, null, null, null, null) + t(texts.lostFeeCost),
-                    format,
-                )
-            )
-        }
+        for (l in lostFeeCosts) sb.append(line(feeNoteCells(c, l.coin, localDate(l.time, zone), l.costUsdt, texts.lostFeeCost), format))
     }
     // Umbuchungsgebühr auf Bestand ohne Kaufpreis: offener Posten, sichtbar statt still verworfen
     if (texts.unassignedFee.isNotEmpty()) {
-        for (f in unassignedFees) {
-            sb.append(
-                line(
-                    listOf(
-                        t(f.coin), t(""), t(localDate(f.time, zone).toString()), blank, t(""), blank,
-                        money(f.usdt), blank, blank, blank, blank, blank,
-                    ) + extra(null, null, null, null, null, null) + t(texts.unassignedFee),
-                    format,
-                )
-            )
-        }
+        for (f in unassignedFees) sb.append(line(feeNoteCells(c, f.coin, localDate(f.time, zone), f.usdt, texts.unassignedFee), format))
     }
     return sb.toString()
 }
+
+/** Zellen von [gainsCsv]: Zahlenformat und Zusatzspalten (CA [adj], FR [fr]) nur, wenn eine Zeile sie hat. */
+private class GainsCells(val format: CutoffCsvFormat, val adj: Boolean, val fr: Boolean) {
+    val blank = CsvCell("", numeric = true)
+    fun n(text: String): String = if (format.decimal == ',') text.replace('.', ',') else text
+    fun money(v: BigDecimal?): CsvCell = CsvCell(n(v?.let { CutoffExport.money(it) }.orEmpty()), numeric = true)
+    fun t(v: String): CsvCell = CsvCell(v)
+
+    /** Zusatzspalten einer Zeile (leer, wenn es sie nicht gibt). */
+    fun extra(a: BigDecimal?, aT: BigDecimal?, g: BigDecimal?, gT: BigDecimal?, v: BigDecimal?, vT: BigDecimal?): List<CsvCell> =
+        (if (adj) listOf(money(a), money(aT)) else emptyList()) +
+            (if (fr) listOf(money(g), money(gT), money(v), money(vT)) else emptyList())
+}
+
+/** Spaltenköpfe von [gainsCsv]. */
+private fun gainsHeaderCells(c: GainsCells, texts: TaxCsvTexts): List<CsvCell> =
+    listOf(
+        texts.coin, texts.acquired, texts.sold, texts.holdingDays, texts.longTerm, texts.amount,
+        texts.costUsdt, texts.proceedsUsdt, texts.gainUsdt,
+        texts.costTarget, texts.proceedsTarget, texts.gainTarget,
+    ).map { c.t(it) } +
+        (if (c.adj) listOf(c.t(texts.adjustmentUsdt), c.t(texts.adjustmentTarget)) else emptyList()) +
+        (if (c.fr) listOf(c.t(texts.grossUsdt), c.t(texts.grossTarget), c.t(texts.portfolioValueUsdt), c.t(texts.portfolioValueTarget)) else emptyList()) +
+        c.t(texts.note)
+
+/** Eine Gewinnzeile von [gainsCsv]. */
+private fun gainRowCells(c: GainsCells, r: TaxGainRow, texts: TaxCsvTexts): List<CsvCell> =
+    listOf(
+        c.t(r.coin),
+        c.t(r.acquiredDate?.toString().orEmpty()),
+        c.t(r.soldDate.toString()),
+        CsvCell(r.holdingDays?.toString().orEmpty(), numeric = true),
+        c.t(when (r.longTerm) { true -> texts.yes; false -> texts.no; null -> "" }),
+        CsvCell(c.n(CutoffExport.amount(r.amount)), numeric = true),
+        c.money(r.costUsdt), c.money(r.proceedsUsdt), c.money(r.shownGainUsdt),
+        c.money(r.costTarget), c.money(r.proceedsTarget), c.money(r.shownGainTarget),
+    ) + c.extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget, r.portfolioValueUsdt, r.portfolioValueTarget) +
+        c.t(gainNotes(r, texts))
+
+/** Gebühren-Zeile nach der Summe (Datum, Betrag USDT in der Einstand-Spalte, Vermerk [note]); Teil von [gainsCsv]. */
+private fun feeNoteCells(c: GainsCells, coin: String, date: java.time.LocalDate, usdt: BigDecimal?, note: String): List<CsvCell> =
+    listOf(
+        c.t(coin), c.t(""), c.t(date.toString()), c.blank, c.t(""), c.blank,
+        c.money(usdt), c.blank, c.blank, c.blank, c.blank, c.blank,
+    ) + c.extra(null, null, null, null, null, null) + c.t(note)
+
+/** Vermerke einer Gewinnzeile (Spalte «Hinweis»), kommagetrennt; Teil von [gainsCsv]. */
+private fun gainNotes(r: TaxGainRow, texts: TaxCsvTexts): String =
+    listOfNotNull(
+        when (r.feeExpense) {
+            PortfolioFeeExpense.CONSUMED -> texts.feeConsumed
+            PortfolioFeeExpense.WITHDRAWAL -> texts.withdrawalFeeInfo.takeIf { r.feeInfoOnly && it.isNotEmpty() } ?: texts.withdrawalFee
+            PortfolioFeeExpense.TRANSFER -> texts.transferFeeInfo
+            null -> null
+        }?.takeIf { it.isNotEmpty() },
+        texts.feeRow.takeIf { r.feeRow && it.isNotEmpty() },
+        texts.gift.takeIf { r.gift && it.isNotEmpty() },
+        texts.spouseGift.takeIf { r.spouseGift && it.isNotEmpty() },
+        texts.payment.takeIf { r.payment && it.isNotEmpty() },
+        texts.valueEstimated.takeIf { r.valueEstimated && it.isNotEmpty() },
+        texts.usdtAssumed.takeIf { r.usdtApproximate && it.isNotEmpty() },
+        when (r.match) {
+            TaxMatch.SAME_DAY -> texts.matchSameDay
+            TaxMatch.THIRTY_DAY -> texts.matchThirtyDay
+            TaxMatch.POOL -> texts.matchPool
+            null -> null
+        }?.takeIf { it.isNotEmpty() },
+        when (r.oldHolding) {
+            true -> texts.oldHolding
+            false -> texts.newHolding
+            null -> null
+        }?.takeIf { it.isNotEmpty() },
+        texts.swap.takeIf { r.swap && it.isNotEmpty() },
+        r.wallet?.takeIf { texts.wallet.isNotEmpty() }?.let { w ->
+            texts.wallet.replace("%s", w.ifEmpty { texts.walletUnspecified })
+        },
+        texts.feeLeg.takeIf { r.feeLeg },
+        texts.costMissing.takeIf { r.costMissing },
+        texts.oversold.takeIf { r.uncovered && it.isNotEmpty() },
+        texts.proceedsMissing.takeIf { r.proceedsMissing },
+        texts.feeValueMissing.takeIf { r.feeValueMissing },
+        texts.costIncomplete.takeIf { r.costIncomplete && it.isNotEmpty() },
+        texts.adjustment.takeIf { r.adjustmentUsdt != null && it.isNotEmpty() },
+        texts.avgCostRates.takeIf { r.pooled && r.costTarget != null },
+        texts.noFx.takeIf { r.fxMissing },
+    ).joinToString(", ")
 
 /**
  * CSV «Einkünfte» mit BOM; [header] = Kopfzeilen (je ein Feld). Mit [TaxCsvTexts.totalInterest] und

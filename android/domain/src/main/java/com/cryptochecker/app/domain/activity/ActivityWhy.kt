@@ -69,67 +69,13 @@ fun ActivityAnalyzer.explain(input: WhyInput): WhyReport {
     }
 
     // 2) Volumen
-    stats?.volumeRatio?.let { ratio ->
-        val moving = volatile || coinMoves
-        val approximate = stats.volumeApproximate
-        reasons += when {
-            ratio >= VOLUME_HIGH_RATIO -> Reason(
-                ReasonKind.VOLUME_HIGH, ReasonTone.WARNING, ratio,
-                strong = ratio >= VOLUME_SPIKE_RATIO, approximate = approximate,
-            )
-            ratio <= VOLUME_LOW_RATIO && moving ->
-                Reason(ReasonKind.VOLUME_LOW, ReasonTone.WARNING, ratio, approximate = approximate)
-            else -> Reason(ReasonKind.VOLUME_NORMAL, ReasonTone.NEUTRAL, ratio, approximate = approximate)
-        }
-    }
-
+    stats?.let { volumeReason(it, moving = volatile || coinMoves) }?.let { reasons += it }
     // 3) Hebel (Futures)
-    input.fundingPercent?.let { funding ->
-        val oi = input.openInterestChangePercent
-        // Sprung nur bei einheitlicher Richtung gegenüber den älteren Messungen (OiSeries)
-        val oiJump = oi != null && input.openInterestConsistent && abs(oi) >= OI_JUMP_PERCENT
-        // Angezeigt wird der Satz der Börse, verglichen auf 8 Stunden umgerechnet
-        val interval = fundingIntervalHours(input.fundingSource, input.fundingIntervalHours)
-        val per8h = fundingPer8h(funding, interval)
-        reasons += when {
-            per8h >= FUNDING_EXTREME_PERCENT -> Reason(
-                ReasonKind.LEVERAGE_LONGS, ReasonTone.WARNING, funding, oi,
-                strong = per8h >= FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
-            )
-            per8h <= -FUNDING_EXTREME_PERCENT -> Reason(
-                ReasonKind.LEVERAGE_SHORTS, ReasonTone.WARNING, funding, oi,
-                strong = per8h <= -FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
-            )
-            else -> Reason(
-                ReasonKind.LEVERAGE_BALANCED, ReasonTone.NEUTRAL, funding, oi, strong = oiJump, intervalHours = interval,
-            )
-        }
-    }
-
+    leverageReason(input)?.let { reasons += it }
     // 4) Volatilität (nicht bei Stablecoins: dort zählt die Abweichung von 1:1)
-    if (stats != null && !stable) {
-        val factor = abs(stats.zScore)
-        reasons += if (volatile) {
-            Reason(
-                ReasonKind.VOLATILITY_HIGH, toneOf(stats.movePercent), factor, stats.movePercent,
-                strong = factor >= PRICE_Z_THRESHOLD,
-            )
-        } else {
-            Reason(ReasonKind.VOLATILITY_NORMAL, ReasonTone.NEUTRAL, factor, stats.movePercent)
-        }
-    }
-
+    if (stats != null && !stable) reasons += volatilityReason(stats, volatile)
     // 5) Stimmung
-    input.fearGreed?.let { value ->
-        val level = fearGreedLevel(value)
-        val extreme = level == FearGreedLevel.EXTREME_FEAR || level == FearGreedLevel.EXTREME_GREED
-        reasons += Reason(
-            kind = ReasonKind.SENTIMENT,
-            tone = if (extreme) ReasonTone.WARNING else ReasonTone.NEUTRAL,
-            value = value.toDouble(),
-            secondary = input.fearGreedYesterday?.let { (value - it).toDouble() },
-        )
-    }
+    sentimentReason(input)?.let { reasons += it }
 
     // Lage (Hoch/Tief) nur mit Kerzen und nicht bei Stablecoins
     val withRange = candles != null && !stable
@@ -156,6 +102,71 @@ fun ActivityAnalyzer.explain(input: WhyInput): WhyReport {
         candleTime = candles?.last()?.openTime,
         stable = stable,
         sources = input.sources,
+    )
+}
+
+/** 2) Volumen der letzten Stunde gegenüber üblich; [moving] = Coin bewegt sich deutlich. Teil von [explain]. */
+private fun ActivityAnalyzer.volumeReason(stats: HourStats, moving: Boolean): Reason? {
+    val ratio = stats.volumeRatio ?: return null
+    val approximate = stats.volumeApproximate
+    return when {
+        ratio >= VOLUME_HIGH_RATIO -> Reason(
+            ReasonKind.VOLUME_HIGH, ReasonTone.WARNING, ratio,
+            strong = ratio >= VOLUME_SPIKE_RATIO, approximate = approximate,
+        )
+        ratio <= VOLUME_LOW_RATIO && moving ->
+            Reason(ReasonKind.VOLUME_LOW, ReasonTone.WARNING, ratio, approximate = approximate)
+        else -> Reason(ReasonKind.VOLUME_NORMAL, ReasonTone.NEUTRAL, ratio, approximate = approximate)
+    }
+}
+
+/** 3) Hebel (Futures): Funding auf 8 Stunden umgerechnet, Sprung des Open Interest. Teil von [explain]. */
+private fun ActivityAnalyzer.leverageReason(input: WhyInput): Reason? {
+    val funding = input.fundingPercent ?: return null
+    val oi = input.openInterestChangePercent
+    // Sprung nur bei einheitlicher Richtung gegenüber den älteren Messungen (OiSeries)
+    val oiJump = oi != null && input.openInterestConsistent && abs(oi) >= OI_JUMP_PERCENT
+    // Angezeigt wird der Satz der Börse, verglichen auf 8 Stunden umgerechnet
+    val interval = fundingIntervalHours(input.fundingSource, input.fundingIntervalHours)
+    val per8h = fundingPer8h(funding, interval)
+    return when {
+        per8h >= FUNDING_EXTREME_PERCENT -> Reason(
+            ReasonKind.LEVERAGE_LONGS, ReasonTone.WARNING, funding, oi,
+            strong = per8h >= FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
+        )
+        per8h <= -FUNDING_EXTREME_PERCENT -> Reason(
+            ReasonKind.LEVERAGE_SHORTS, ReasonTone.WARNING, funding, oi,
+            strong = per8h <= -FUNDING_STRONG_PERCENT || oiJump, intervalHours = interval,
+        )
+        else -> Reason(
+            ReasonKind.LEVERAGE_BALANCED, ReasonTone.NEUTRAL, funding, oi, strong = oiJump, intervalHours = interval,
+        )
+    }
+}
+
+/** 4) Schwankung der letzten Stunde gegenüber üblich. Teil von [explain]. */
+private fun ActivityAnalyzer.volatilityReason(stats: HourStats, volatile: Boolean): Reason {
+    val factor = abs(stats.zScore)
+    return if (volatile) {
+        Reason(
+            ReasonKind.VOLATILITY_HIGH, toneOf(stats.movePercent), factor, stats.movePercent,
+            strong = factor >= PRICE_Z_THRESHOLD,
+        )
+    } else {
+        Reason(ReasonKind.VOLATILITY_NORMAL, ReasonTone.NEUTRAL, factor, stats.movePercent)
+    }
+}
+
+/** 5) Stimmung (Fear & Greed) und ihre Änderung seit gestern. Teil von [explain]. */
+private fun ActivityAnalyzer.sentimentReason(input: WhyInput): Reason? {
+    val value = input.fearGreed ?: return null
+    val level = fearGreedLevel(value)
+    val extreme = level == FearGreedLevel.EXTREME_FEAR || level == FearGreedLevel.EXTREME_GREED
+    return Reason(
+        kind = ReasonKind.SENTIMENT,
+        tone = if (extreme) ReasonTone.WARNING else ReasonTone.NEUTRAL,
+        value = value.toDouble(),
+        secondary = input.fearGreedYesterday?.let { (value - it).toDouble() },
     )
 }
 

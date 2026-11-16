@@ -183,17 +183,9 @@ fun TaxExport.gainRows(
     val acquired = d.acquiredTime?.let { localDate(it, zone) }
     val saleRate = rateOn(rates, sold, currency, usdtUsd)
     fun atSale(v: BigDecimal?): BigDecimal? = v?.let { x -> saleRate?.let { x.multiply(it, PortfolioDecimal.MC) } }
-    // Herkunftsteile je zum Kurs ihres Datums (fehlt einer: leer); FIFO-Posten zum Kurs des Kaufdatums
-    var costFxMissing = false
-    val costTarget: BigDecimal? = d.costUsdt?.let { c ->
-        when {
-            d.costParts.isNotEmpty() -> d.costParts.weightedSum(partRate)
-            acquired != null -> rateOn(rates, acquired, currency, usdtUsd)?.let { c.multiply(it, PortfolioDecimal.MC) }
-            // Einstand 0 (z. B. Belohnung zum Wert 0): nichts umzurechnen
-            c.signum() == 0 -> BigDecimal.ZERO
-            else -> saleRate?.let { c.multiply(it, PortfolioDecimal.MC) }
-        }.also { if (it == null) costFxMissing = true }
-    }
+    val costTarget = costTargetOf(d, partRate, acquired?.let { rateOn(rates, it, currency, usdtUsd) }, acquired != null, saleRate)
+    // Einstand vorhanden, aber ein Kurs fehlt
+    val costFxMissing = d.costUsdt != null && costTarget == null
     // Schenkung an Ehe-/Lebenspartner: kein Gewinn/Verlust auch in der Steuerwährung (TCGA 1992 s. 58, ITA 73(1)) —
     // der Erlös gilt als genau der umgerechnete Einstand, nicht als Einstand in USDT zum Kurs des Schenkungstags
     val proceedsTarget = if (d.spouseGift) costTarget else atSale(d.proceedsUsdt)
@@ -231,26 +223,53 @@ fun TaxExport.gainRows(
         // Durchschnitt/Pool (Herkunftsteile ohne Posten-Datum); FIFO-Posten tragen ihre Teile ohne diesen Vermerk
         pooled = (d.method == CostMethod.AVERAGE && d.feeExpense == null) || (d.costParts.isNotEmpty() && d.acquiredTime == null),
         feeExpense = d.feeExpense,
-        // Schenkung als Veräusserung ist keine Gebühr, auch wenn die Transaktion kein Verkauf ist
-        feeRow = !d.feeLeg && d.feeExpense == null && !d.gift && !d.payment &&
-            (d.sellTxId in feeSales || (!d.swap && d.sellTxId in nonSales)),
+        feeRow = isFeeRow(d, feeSales, nonSales),
         gift = d.gift,
         payment = d.payment,
         valueEstimated = d.valueEstimated,
         spouseGift = d.spouseGift,
-        // TRANSFER-Zeilen gibt es nur mit dieser Regel ([TaxEngines.disposals]). FR: die Auszahlungsgebühr mindert den
-        // Gewinn nicht (art. 150 VH bis kennt nur Gebühren der Abtretung) — wie in der Jahresübersicht nur Information,
-        // sonst stünde sie in der Summe der Gewinne-CSV
-        feeInfoOnly = d.feeExpense == PortfolioFeeExpense.TRANSFER ||
-            ((rules.quoteFeeIsInfo || method == TaxMethod.FR_PTA) && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL),
+        feeInfoOnly = isFeeInfoOnly(d, rules, method),
         // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
-        usdtApproximate = (listOf(sold) + listOfNotNull(acquired)).any { usdtApproximateOn(usdtUsd, it) } ||
-            d.costParts.anyTime(partUsdtApproximate),
+        usdtApproximate = usdtApproximateOn(usdtUsd, sold) || (acquired != null && usdtApproximateOn(usdtUsd, acquired)) || d.costParts.anyTime(partUsdtApproximate),
         proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt,
         proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt),
     )
 }
 }
+
+/**
+ * Einstand einer Veräusserung in der Anzeigewährung: Herkunftsteile je zum Kurs ihres Datums (fehlt einer: null),
+ * FIFO-Posten zum Kurs des Kaufdatums ([acquiredRate], [hasAcquired]), sonst zum Kurs des Verkaufs; Teil von [gainRows].
+ */
+private fun costTargetOf(
+    d: PortfolioDisposal,
+    partRate: PortfolioPartWeight,
+    acquiredRate: BigDecimal?,
+    hasAcquired: Boolean,
+    saleRate: BigDecimal?,
+): BigDecimal? = d.costUsdt?.let { c ->
+    when {
+        d.costParts.isNotEmpty() -> d.costParts.weightedSum(partRate)
+        hasAcquired -> acquiredRate?.let { c.multiply(it, PortfolioDecimal.MC) }
+        // Einstand 0 (z. B. Belohnung zum Wert 0): nichts umzurechnen
+        c.signum() == 0 -> BigDecimal.ZERO
+        else -> saleRate?.let { c.multiply(it, PortfolioDecimal.MC) }
+    }
+}
+
+/**
+ * Gebühr nur zur Information: TRANSFER-Zeilen gibt es nur mit dieser Regel ([TaxEngines.disposals]). FR: die
+ * Auszahlungsgebühr mindert den Gewinn nicht (art. 150 VH bis kennt nur Gebühren der Abtretung) — wie in der
+ * Jahresübersicht nur Information, sonst stünde sie in der Summe der Gewinne-CSV. Teil von [gainRows].
+ */
+private fun isFeeInfoOnly(d: PortfolioDisposal, rules: TaxEventRules, method: TaxMethod): Boolean =
+    d.feeExpense == PortfolioFeeExpense.TRANSFER ||
+        ((rules.quoteFeeIsInfo || method == TaxMethod.FR_PTA) && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL)
+
+/** Schenkung als Veräusserung ist keine Gebühr, auch wenn die Transaktion kein Verkauf ist; Teil von [gainRows]. */
+private fun isFeeRow(d: PortfolioDisposal, feeSales: Set<Long>, nonSales: Set<Long>): Boolean =
+    !d.feeLeg && d.feeExpense == null && !d.gift && !d.payment &&
+        (d.sellTxId in feeSales || (!d.swap && d.sellTxId in nonSales))
 
 fun TaxExport.incomeRows(
     trades: List<PortfolioTrade>,

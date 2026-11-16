@@ -256,28 +256,15 @@ class ActivityMonitor @Inject constructor(
             val usdQuote = ActivityAnalyzer.isUsdQuote(watch.quoteAsset)
             val compare = !isBtc && !stable && usdQuote
             val referenceJob = async {
-                if (stable || !usdQuote) {
-                    null
-                } else {
-                    timed { volumeDataSource.hourlyCandlesSourced(if (isBtc) "ETH" else "BTC", "USDT", limit = limit) }
-                }
+                if (stable || !usdQuote) null
+                else timed { volumeDataSource.hourlyCandlesSourced(if (isBtc) "ETH" else "BTC", "USDT", limit = limit) }
             }
             // Zweite Markt-Referenz ETH (für BTC ist ETH schon die Referenz, für ETH ist BTC sie)
             val ethJob = async {
-                if (!compare || isEth) {
-                    null
-                } else {
-                    timed { volumeDataSource.hourlyCandlesSourced("ETH", "USDT", limit = limit) }
-                }
+                if (!compare || isEth) null else timed { volumeDataSource.hourlyCandlesSourced("ETH", "USDT", limit = limit) }
             }
             // Breiter Markt aus der CoinGecko-Top-40 (dieselbe Abfrage wie der Spot-Tab)
-            val broadJob = async {
-                if (compare) {
-                    timed { spotDataSource.broadMarket(base) }
-                } else {
-                    null
-                }
-            }
+            val broadJob = async { if (compare) timed { spotDataSource.broadMarket(base) } else null }
             val futuresJob = async {
                 futures {
                     if (watch.contractType.isPerpetual) futuresDataSource.fetch(watch)
@@ -292,11 +279,7 @@ class ActivityMonitor @Inject constructor(
             }
 
             val futures = futuresJob.await()
-            val oi = if (watch.contractType.isPerpetual) {
-                openInterest(watch, futures, System.currentTimeMillis(), store = true)
-            } else {
-                null
-            }
+            val oi = if (watch.contractType.isPerpetual) openInterest(watch, futures, System.currentTimeMillis(), store = true) else null
             val fearGreed = fearGreedJob.await()
             val (candles, candlesFailed) = candlesJob.await()
             val reference = referenceJob.await()

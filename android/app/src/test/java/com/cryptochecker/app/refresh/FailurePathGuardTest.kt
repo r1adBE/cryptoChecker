@@ -67,7 +67,7 @@ class FailurePathGuardTest {
         val exact = android("app/src/main/java/com/cryptochecker/app/work/ExactCheckReceiver.kt")
         assertTrue(exact.contains("backgroundCheck.log(CheckTrigger.EXACT, CheckResult.OFFLINE, startedAt)"))
         val refresher = android("domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceRefresher.kt")
-        assertTrue(refresher.contains("processed.notTraded, prices.cutByBudget)"))
+        assertTrue(refresher.contains("processed.notTraded, cutByBudget)"))
         val fetcher = android("domain/src/main/java/com/cryptochecker/app/domain/refresh/PriceFetcher.kt")
         assertTrue(fetcher.contains("FetchOrder.alarmsFirst(group, alarmed, rotation) { it.id }"))
         val steps = ios("Shared/Services/PriceRefresher+Steps.swift")

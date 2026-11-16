@@ -189,6 +189,39 @@ private fun CsvImportParser.pairSwapLegs(
     return out
 }
 
+/** Zellen einer Zeile nach Rolle; Zahlen im Dezimalzeichen [hint]. Teil von [row]. */
+private class RowCells(private val h: Header, private val rec: Record, private val hint: Char?) {
+    fun cell(role: Role): String = h.index[role]?.let { rec.cells.getOrNull(it) }.orEmpty()
+
+    fun number(role: Role): BigDecimal? {
+        val t = cell(role)
+        // «-» / «–» = leer (manche Exporte für fehlende Gebühr)
+        if (t.isEmpty() || t == "-" || t == "–") return null
+        return CsvImportParser.parseNumber(t, hint) ?: throw Skip(CsvImportSkipReason.BAD_NUMBER)
+    }
+}
+
+/** Coin: Relai nur Bitcoin; Swissquote nur Zeilen ohne ISIN (Aktien/ETF haben eine). Teil von [row]. */
+private fun coinOf(format: CsvImportFormat, cells: RowCells): String = when (format) {
+    CsvImportFormat.RELAI -> cells.cell(Role.COIN).ifEmpty { "BTC" }
+    CsvImportFormat.SWISSQUOTE -> {
+        if (cells.cell(Role.ISIN).isNotEmpty() || cells.cell(Role.COIN).isEmpty()) throw Skip(CsvImportSkipReason.NOT_CRYPTO)
+        cells.cell(Role.COIN)
+    }
+    else -> cells.cell(Role.COIN)
+}.uppercase()
+
+/** Gebühr und ihre Einheit (Satoshi → BTC; ohne Einheit die Preiswährung [quote]); ohne Gebühr (null, null). */
+private fun CsvImportParser.feeOf(cells: RowCells, quote: String?): Pair<BigDecimal?, String?> {
+    var fee = cells.number(Role.FEE)?.abs()?.takeIf { it.signum() > 0 } ?: return null to null
+    var feeUnit = cells.cell(Role.FEE_UNIT).uppercase().ifEmpty { null }
+    if (feeUnit in setOf("SATS", "SAT", "SATOSHI", "SATOSHIS")) {
+        fee = fee.divide(SATS_PER_BTC)
+        feeUnit = "BTC"
+    }
+    return fee to (feeUnit ?: quote ?: throw Skip(CsvImportSkipReason.MISSING_FIELD))
+}
+
 /** Eine Zeile samt Vorzeichen der Menge in der Datei (−1 negativ, sonst 1; für Tausch-Seiten). */
 private fun CsvImportParser.row(
     format: CsvImportFormat,
@@ -198,26 +231,14 @@ private fun CsvImportParser.row(
     zone: String,
     monthFirst: Boolean,
 ): Pair<CsvImportRow, Int> {
-    fun cell(role: Role): String = h.index[role]?.let { rec.cells.getOrNull(it) }.orEmpty()
-    fun number(role: Role): BigDecimal? {
-        val t = cell(role)
-        // «-» / «–» = leer (manche Exporte für fehlende Gebühr)
-        if (t.isEmpty() || t == "-" || t == "–") return null
-        return parseNumber(t, hint) ?: throw Skip(CsvImportSkipReason.BAD_NUMBER)
-    }
+    val cells = RowCells(h, rec, hint)
+    fun cell(role: Role): String = cells.cell(role)
+    fun number(role: Role): BigDecimal? = cells.number(role)
 
     val rawKind = cell(Role.KIND)
     val kind = classify(rawKind) ?: throw Skip(CsvImportSkipReason.UNSUPPORTED_KIND)
 
-    // Coin: Relai nur Bitcoin; Swissquote nur Zeilen ohne ISIN (Aktien/ETF haben eine)
-    val coin = when (format) {
-        CsvImportFormat.RELAI -> cell(Role.COIN).ifEmpty { "BTC" }
-        CsvImportFormat.SWISSQUOTE -> {
-            if (cell(Role.ISIN).isNotEmpty() || cell(Role.COIN).isEmpty()) throw Skip(CsvImportSkipReason.NOT_CRYPTO)
-            cell(Role.COIN)
-        }
-        else -> cell(Role.COIN)
-    }.uppercase()
+    val coin = coinOf(format, cells)
     if (coin.isEmpty()) throw Skip(CsvImportSkipReason.MISSING_FIELD)
     // Nur Geld («EUR»-Einzahlung u. ä.): kein Krypto
     if (CsvImport.isFiat(coin)) throw Skip(CsvImportSkipReason.NOT_CRYPTO)
@@ -260,17 +281,7 @@ private fun CsvImportParser.row(
     }
     if (price != null && quote == null) throw Skip(CsvImportSkipReason.MISSING_FIELD)
 
-    var fee = number(Role.FEE)?.abs()?.takeIf { it.signum() > 0 }
-    var feeUnit = cell(Role.FEE_UNIT).uppercase().ifEmpty { null }
-    if (fee != null) {
-        if (feeUnit in setOf("SATS", "SAT", "SATOSHI", "SATOSHIS")) {
-            fee = fee.divide(SATS_PER_BTC)
-            feeUnit = "BTC"
-        }
-        if (feeUnit == null) feeUnit = quote ?: throw Skip(CsvImportSkipReason.MISSING_FIELD)
-    } else {
-        feeUnit = null
-    }
+    val (fee, feeUnit) = feeOf(cells, quote)
 
     // Swissquote: «00000000» = ohne Auftrag (Gebühren, Zahlungen)
     val externalId = cell(Role.ID).takeIf { id -> id.isNotEmpty() && id.any { it != '0' } }

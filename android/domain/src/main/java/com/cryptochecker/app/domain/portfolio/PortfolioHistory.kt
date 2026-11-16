@@ -1,8 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
-import kotlin.math.max
-import kotlin.math.min
 
 /**
  * Wertverlauf des Portfolios aus den Transaktionen (reines Kotlin, testbar; gespiegelt in
@@ -113,7 +111,7 @@ object PortfolioHistory {
     }
 
     /** Exakter Bestand zum Zeitpunkt [atMillis] (einschliesslich) aus [holdingsTimelineExact]. */
-    private fun holdingsAtExact(timeline: List<Pair<Long, BigDecimal>>, atMillis: Long): BigDecimal {
+    internal fun holdingsAtExact(timeline: List<Pair<Long, BigDecimal>>, atMillis: Long): BigDecimal {
         var result = BigDecimal.ZERO
         for ((time, holdings) in timeline) {
             if (time > atMillis) break
@@ -190,20 +188,8 @@ object PortfolioHistory {
         val startMillis = dayEndMillis(start - 1) + 1
         val held = coins.filter { coin -> heldWithin(timelines.getValue(coin), startMillis) }
 
-        // Je Coin die Kerzen aufsteigend, für «letzter bekannter Schluss» (USDT braucht keine).
-        // Identitätsprüfung: liegt der jüngste Schluss um mehr als Faktor 3 neben dem aktuellen
-        // Kurs, gehört die Reihe wohl zu einem anderen Token und zählt nicht (grosse echte
-        // Tagesbewegungen bleiben drin; der heutige Punkt nimmt den aktuellen Kurs).
-        // Heute gehaltener Coin ohne aktuellen Kurs: Token nicht bestätigt → fehlt (strenge Prüfung);
-        // ohne heutigen Bestand gibt es keinen Kurs zum Vergleichen, die Reihe bleibt.
-        val sortedCloses = held.filter { PortfolioStables.needsQuote(it) }.associateWith { coin ->
-            val live = livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() }
-            val heldToday = (timelines.getValue(coin).lastOrNull()?.second ?: 0.0) > 0.0
-            closes[coin].orEmpty().entries.filter { it.value > 0.0 && it.value.isFinite() }
-                .sortedBy { it.key }.map { it.key to it.value }
-                .takeIf { (live == null && !heldToday) || PricePlausibility.closesMatchLive(it, live) }
-                .orEmpty()
-        }
+        // Je Coin die Kerzen aufsteigend mit Identitätsprüfung ([verifiedCloses])
+        val sortedCloses = verifiedCloses(held, timelines, closes, livePrices)
         // Nur USDT fehlt nie (immer 1); alle anderen Coins ohne (passende) Kerzen schon — auch
         // Stablecoins wie USDC (kein stilles 1)
         val skipped = held.filter { PortfolioStables.needsQuote(it) && sortedCloses[it].isNullOrEmpty() }
@@ -213,44 +199,8 @@ object PortfolioHistory {
         }
 
         val dayCount = (todayEpochDay - start + 1).toInt().coerceAtLeast(1)
-        // Je Coin und Tag der Wert samt Eröffnung/Hoch/Tief; null = nicht gehalten oder ohne Kurs
-        val cells = HashMap<String, Array<DayCell?>>()
-        val unpriced = HashSet<String>()
-        for (coin in included) {
-            val timeline = exactTimelines.getValue(coin)
-            val series = sortedCloses[coin].orEmpty()
-            val row = arrayOfNulls<DayCell>(dayCount)
-            for (index in 0 until dayCount) {
-                val day = start + index
-                val isToday = day == todayEpochDay
-                val amount = if (isToday) timeline.lastOrNull()?.second ?: BigDecimal.ZERO else holdingsAtExact(timeline, dayEndMillis(day))
-                if (amount.signum() <= 0) continue
-                val market = when {
-                    isToday -> livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() } ?: closeOnOrBefore(series, day)
-                    else -> closeOnOrBefore(series, day)
-                }
-                // Stablecoin-Regel: USDT 1, andere Stablecoins Kurs des Tags, sonst kein Wert
-                val price = PortfolioStables.price(coin, market)
-                if (price == null) {
-                    unpriced += coin
-                    continue
-                }
-                // Kerze genau dieses Tags (nicht fortgeschrieben); Hoch/Tief schliessen den Tageswert ein
-                val dayRange = if (PortfolioStables.needsQuote(coin) && series.isNotEmpty()) {
-                    ranges[coin]?.get(day)?.takeIf { it.valid }
-                } else null
-                // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag ([sumCells])
-                fun times(p: Double): BigDecimal = amount.multiply(BigDecimal.valueOf(p), PortfolioDecimal.MC)
-                row[index] = if (dayRange != null) {
-                    DayCell(times(price), times(dayRange.open), times(max(dayRange.high, price)), times(min(dayRange.low, price)), true)
-                } else {
-                    val v = times(price)
-                    DayCell(v, v, v, v, false)
-                }
-            }
-            cells[coin] = row
-        }
-
+        // Je Coin und Tag der Wert samt Eröffnung/Hoch/Tief; null = nicht gehalten oder ohne Kurs ([dayCells])
+        val (cells, unpriced) = dayCells(included, exactTimelines, sortedCloses, livePrices, ranges, start, dayCount, todayEpochDay)
         // Gehalten vor dem ersten Kurs: «Einstieg» ab dem ersten Kurs-Tag, Wert dort als Zufluss ([PortfolioHistoryEntries])
         val entries = PortfolioHistoryEntries.of(unpriced, cells, start, rate)
         val drawn = included.filter { it !in unpriced || it in entries }
@@ -266,36 +216,15 @@ object PortfolioHistory {
         val percent = if (change != null && first > PortfolioCalculator.EPS) change / first * 100.0 else null
         val inflows = entries.filterValues { it.epochDay > from }
         val tradesInRange = valid.any { it.time > dayEndMillis(from) } || inflows.isNotEmpty()
-        // Marktkurs eines Tags (Auszahlung/Belohnung ohne Preis, Adress-Änderung, Gebühr im dritten Coin ohne Preis):
-        // heute der aktuelle Kurs, sonst der Schluss. Ein Gebühr-Coin ohne Bestand im Zeitraum: seine Kerzen mit
-        // derselben Identitätsprüfung
-        val market: (String, Long) -> Double? = { coin, day ->
-            val live = livePrices[coin]?.takeIf { it > 0.0 && it.isFinite() }
-            val series = sortedCloses[coin] ?: closes[coin].orEmpty().entries.filter { it.value > 0.0 && it.value.isFinite() }
-                .sortedBy { it.key }.map { it.key to it.value }
-                .takeIf { live == null || PricePlausibility.closesMatchLive(it, live) }.orEmpty()
-            PortfolioStables.price(coin, if (day == todayEpochDay && live != null) live else closeOnOrBefore(series, day))
-        }
+        // Marktkurs eines Tags ([marketAt])
+        val market = marketAt(sortedCloses, closes, livePrices, todayEpochDay)
         val flows = cashFlows(events, drawn, from, todayEpochDay, dayEndMillis, rate, market, method, inflows)
 
         // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
         // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
         // und Gebühren des ersten Kaufs), der Kopf «7 T/1 J» ([PortfolioPeriodChange.gain]) zählt ihn
         val sinceFirst = range == PortfolioHistoryRange.SINCE_FIRST || from > todayEpochDay - range.days
-        val pnlFlows = ArrayList<PortfolioCashFlow>()
-        val pnlSkipped = ArrayList<String>()
-        val pnlCoins = ArrayList<String>()
-        for (coin in drawn) {
-            val coinFlows = pnlFlows(
-                coin, events.getValue(coin), from, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method, entries[coin]?.takeIf { sinceFirst || it.epochDay > from },
-            )
-            if (coinFlows == null) {
-                pnlSkipped += coin
-            } else {
-                pnlCoins += coin
-                pnlFlows += coinFlows
-            }
-        }
+        val (pnlCoins, pnlSkipped, pnlFlows) = pnlParts(drawn, events, from, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method, entries)
         val pnlValues = if (pnlCoins.isEmpty()) emptyList() else sumCells(pnlCoins, shown, from, days, rate)
         val rangeEnd = dayEndMillis(from)
         val withdrawalsInRange = valid.any { t ->

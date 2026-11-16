@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 251)
+
+- Android code: the 12 longest logic functions (over 100 lines: refresh processing, Canadian ACB and UK share pooling, tax CSV and rows, «why is it moving», price fetching, CSV import rows, portfolio history, app start) split into named helper functions without behaviour change; ceiling for Kotlin logic functions lowered from 166 to 100 lines.
+
 ## 16.2.2 (build 250)
 
 - Wear OS: new tile «Crypto Checker» with the first three favorites (price and 24 h change from the watch's cache, no own fetching), refreshed with new prices and at least every 15 minutes; tapping opens the app. New dependency androidx.wear.tiles 1.6.2 (with ProtoLayout), checksums, signing keys and lockfile updated.

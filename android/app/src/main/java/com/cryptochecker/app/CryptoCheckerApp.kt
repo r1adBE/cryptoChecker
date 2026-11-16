@@ -109,17 +109,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         }
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
         com.cryptochecker.app.domain.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
-        // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
-        // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner); eine noch nicht
-        // verschlüsselte Wiederherstellung (keine Hauptdatenbank) bleibt fürs erste Öffnen
-        if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {
-            runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
-                .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
-        }
-        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (abgebrochene Sicherung); ohne
-        // Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
-        runCatching { PortfolioBackupMirror.cleanUpLeftover(this) }
-            .onFailure { Timber.w(it, "Portfolio: Kopie für die Systemsicherung nicht aufgeräumt") }
+        cleanUpBeforeHilt()
         super.onCreate()
 
         AppLanguages.restoreForActivities(this)
@@ -130,26 +120,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
         // Debug-Schalter «Stichtag vorziehen»: Uhr der Stilllegungs-Regel (nicht die des Geräts), nur im Debug-Build
         com.cryptochecker.app.ui.features.settings.RetirementPreview.apply(this)
-        // Protokoll der Abläufe in :domain (ohne Timber dort) über Timber — wie vorher nur mit Baum sichtbar
-        com.cryptochecker.app.domain.util.DomainLog.sink = com.cryptochecker.app.domain.util.DomainLog.Sink { level, error, message, args ->
-            when (level) {
-                com.cryptochecker.app.domain.util.DomainLog.Level.DEBUG -> Timber.d(error, message, *args)
-                com.cryptochecker.app.domain.util.DomainLog.Level.INFO -> Timber.i(error, message, *args)
-                com.cryptochecker.app.domain.util.DomainLog.Level.WARN -> Timber.w(error, message, *args)
-            }
-        }
-
-        // «Akku & Aktivität»: Zähler des Prozesses (Läufe, Anfragen, Bytes) in ihre Datei, nicht gesichert
-        com.cryptochecker.marketdata.usage.UsageMeter.shared.attach(
-            java.io.File(noBackupFilesDir, com.cryptochecker.marketdata.usage.UsageMeter.FILE_NAME)
-        )
-        // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
-        com.cryptochecker.marketdata.model.exchange.PhemexScales.store =
-            com.cryptochecker.marketdata.model.exchange.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))
-        // Daten-Spiegel: gesperrte Signatur-Schlüssel bleiben über Neustarts gesperrt
-        MirrorRevocations.shared = MirrorRevocations(
-            MirrorRevocations.FileStore(java.io.File(noBackupFilesDir, MirrorRevocations.FILE_NAME))
-        )
+        installStaticHooks()
 
         NotificationChannels.createAll(this)
 
@@ -190,6 +161,55 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             }
         }
 
+        followPortfolioSystemBackup()
+
+        Timber.i("Crypto Checker gestartet")
+    }
+
+    /**
+     * Vor Hilt (öffnet evtl. schon die Datenbank): unverschlüsselte Kopien abgebrochener Systemsicherungen wegräumen;
+     * Teil von [onCreate].
+     */
+    private fun cleanUpBeforeHilt() {
+        // Eine bei abgebrochener Systemsicherung liegengebliebene,
+        // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner); eine noch nicht
+        // verschlüsselte Wiederherstellung (keine Hauptdatenbank) bleibt fürs erste Öffnen
+        if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {
+            runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
+                .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
+        }
+        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (abgebrochene Sicherung); ohne
+        // Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
+        runCatching { PortfolioBackupMirror.cleanUpLeftover(this) }
+            .onFailure { Timber.w(it, "Portfolio: Kopie für die Systemsicherung nicht aufgeräumt") }
+    }
+
+    /** Statische Haken ausserhalb von Hilt (siehe [onCreate]): Protokoll, Zähler, Phemex-Faktoren, gesperrte Schlüssel. */
+    private fun installStaticHooks() {
+        // Protokoll der Abläufe in :domain (ohne Timber dort) über Timber — wie vorher nur mit Baum sichtbar
+        com.cryptochecker.app.domain.util.DomainLog.sink = com.cryptochecker.app.domain.util.DomainLog.Sink { level, error, message, args ->
+            when (level) {
+                com.cryptochecker.app.domain.util.DomainLog.Level.DEBUG -> Timber.d(error, message, *args)
+                com.cryptochecker.app.domain.util.DomainLog.Level.INFO -> Timber.i(error, message, *args)
+                com.cryptochecker.app.domain.util.DomainLog.Level.WARN -> Timber.w(error, message, *args)
+            }
+        }
+
+        // «Akku & Aktivität»: Zähler des Prozesses (Läufe, Anfragen, Bytes) in ihre Datei, nicht gesichert
+        com.cryptochecker.marketdata.usage.UsageMeter.shared.attach(
+            java.io.File(noBackupFilesDir, com.cryptochecker.marketdata.usage.UsageMeter.FILE_NAME)
+        )
+        // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
+        com.cryptochecker.marketdata.model.exchange.PhemexScales.store =
+            com.cryptochecker.marketdata.model.exchange.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))
+        // Daten-Spiegel: gesperrte Signatur-Schlüssel bleiben über Neustarts gesperrt
+        MirrorRevocations.shared = MirrorRevocations(
+            MirrorRevocations.FileStore(java.io.File(noBackupFilesDir, MirrorRevocations.FILE_NAME))
+        )
+    }
+
+    /** Teil von [onCreate]. */
+    private fun followPortfolioSystemBackup() {
         // «Portfolio in Systemsicherung»: Merker für den Sicherungs-Agenten nachführen (er schreibt die Kopie nur während
         // einer Sicherung); aus → Merker und eine noch liegende Kopie weg (auch bei jedem Start)
         scope.launch {
@@ -202,8 +222,6 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
                     PortfolioBackupMirror.setEnabled(this@CryptoCheckerApp, allowed)
                 }
         }
-
-        Timber.i("Crypto Checker gestartet")
     }
 
     /**

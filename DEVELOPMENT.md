@@ -3230,6 +3230,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 248: RunCatchingUsageTest over all modules; PortfolioCsvLinks, LogoLoadingHint use runCatchingCancellable.
 * Build 249: iOS-only keys ios_…iphone… (ios_extra_strings.json), watch key list, Swift references.
 * Build 250: PriceTileService (tiles 1.6.2, concurrent-futures), requestTileUpdate with complication updates, verification metadata/keyring/lockfile, PriceTileRowsTest.
+* Build 251: lange Kotlin-Logik-Funktionen zerlegt (A241-A-02), Obergrenze `LOGIC_CEILINGS` Kotlin 100.
 
 ## Known warnings
 

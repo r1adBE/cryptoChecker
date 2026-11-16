@@ -116,6 +116,19 @@ class PriceFetcher @Inject constructor(
             }.awaitAll()
         }
 
+        val signals = groupSignals(group, results, bulk, bulkTried, bulkMillis, groupStartedAt)
+        return results.associate { (watch, fetched) -> watch.id to fetched } to signals
+    }
+
+    /** Bericht und Signale (Fehlerarten, Pause, Budget) einer Börse aus den Ergebnissen ihrer Paare; Teil von [fetchGroup]. */
+    private fun groupSignals(
+        group: List<WatchEntity>,
+        results: List<Pair<WatchEntity, Fetched>>,
+        bulk: BulkResult,
+        bulkTried: Boolean,
+        bulkMillis: Long,
+        groupStartedAt: Long,
+    ): FetchedGroup {
         val notTraded = results.count { it.second.notTraded }
         val errors = results.map { it.second }.filter { (it.ticker == null || it.error != null) && !it.notTraded }
         // Am eigenen Budget gescheitert: zählt als Fehler im Bericht, aber nicht für die Pause je Börse
@@ -133,7 +146,7 @@ class PriceFetcher @Inject constructor(
             failed = errors.size,
             bulkTried = bulkTried,
             bulkMillis = bulkMillis,
-            bulkPrices = bulkTickers.size,
+            bulkPrices = bulk.tickers.size,
             singles = results.count { it.second.fromSingle },
             reason = reason,
             detail = StoredError.reportDetail(errors.map { it.error }, reason, failures),
@@ -141,7 +154,7 @@ class PriceFetcher @Inject constructor(
         val counted = errors.filterNot { it.budgetCut }
         val bulkCounted = bulk.error != null && !bulk.budgetCut
         val errorTexts = counted.map { it.error } + listOfNotNull(bulk.error.takeIf { bulkCounted })
-        val signals = FetchedGroup(
+        return FetchedGroup(
             exchangeKey = group.first().exchangeKey,
             report = entry,
             failures = counted.map { RefreshReportLogic.classify(it.failure, it.error) } +
@@ -150,8 +163,6 @@ class PriceFetcher @Inject constructor(
             banned = ExchangeBackoff.banned(errorTexts),
             cutByBudget = cut + (if (bulk.budgetCut) 1 else 0),
         )
-
-        return results.associate { (watch, fetched) -> watch.id to fetched } to signals
     }
 
     /**

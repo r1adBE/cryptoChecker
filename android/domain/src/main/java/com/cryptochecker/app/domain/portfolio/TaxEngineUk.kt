@@ -6,6 +6,68 @@ import java.time.ZoneId
 
 // UK: Share Pooling (gleicher Tag, 30 Tage, Section-104-Pool) — Regeln in [TaxEngines].
 
+// Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
+// Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
+private fun late(s: TaxStep): Boolean = s.trade.type == PortfolioTxType.DEPOSIT && s.trade.acquiredTime == null
+
+// Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
+// wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
+// Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
+private fun TaxEngines.moved(s: TaxStep, zone: ZoneId): Boolean = day(s.acquired, zone) != day(s.time, zone)
+
+/**
+ * Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt, erster Erwerbszeitpunkt je Tag, Menge je Tag noch
+ * nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen); Teil von [ukPool].
+ */
+private data class UkDays(
+    val pools: java.util.SortedMap<LocalDate, TaxPool>,
+    val first: HashMap<LocalDate, Long>,
+    val left: HashMap<LocalDate, BigDecimal>,
+    val own: HashMap<LocalDate, BigDecimal>,
+)
+
+private fun TaxEngines.ukDays(steps: List<TaxStep>, zone: ZoneId): UkDays {
+    val days = UkDays(sortedMapOf(), HashMap(), HashMap(), HashMap())
+    for (s in steps) if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
+        val d = day(s.acquired, zone)
+        days.pools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired, s.costEstimated)
+        days.first[d] = minOf(days.first[d] ?: Long.MAX_VALUE, s.acquired)
+        days.left[d] = (days.left[d] ?: BigDecimal.ZERO) + s.qty
+        if (!moved(s, zone)) days.own[d] = (days.own[d] ?: BigDecimal.ZERO) + s.qty
+    }
+    return days
+}
+
+/**
+ * Menge [q] anteilig nach dem offenen Rest ([remaining]) der Abgänge einer Gruppe verteilen — der letzte Abgang mit Rest
+ * bekommt den Rest (Summe exakt [q]); [take] nimmt je Abgang seinen Anteil. Teil von [ukPool].
+ */
+private fun ukSplit(remaining: Map<TaxStep, BigDecimal>, group: List<TaxStep>, q: BigDecimal, take: (TaxStep, BigDecimal) -> Unit) {
+    val total = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
+    if (q.signum() <= 0 || total.signum() <= 0) return
+    val last = group.indexOfLast { remaining.getValue(it).signum() > 0 }
+    var left = q
+    group.forEachIndexed { i, s ->
+        val r = remaining.getValue(s)
+        if (r.signum() <= 0) return@forEachIndexed
+        val want = if (i == last) left else q.multiply(r).divide(total, PortfolioDecimal.MC)
+        left -= want
+        take(s, want)
+    }
+}
+
+/** Auszahlungen zwischen zwei Abgängen derselben Tages-Gruppe, je letztem Abgang der Gruppe; Teil von [ukPool]. */
+private fun TaxEngines.ukDeferred(steps: List<TaxStep>, groups: Map<LocalDate, List<TaxStep>>, zone: ZoneId): Map<TaxStep, List<TaxStep>> {
+    val index = steps.withIndex().associate { (i, s) -> s to i }
+    val deferred = HashMap<TaxStep, ArrayList<TaxStep>>()
+    for (s in steps) if (s.kind == TaxStepKind.REMOVE) {
+        val group = groups[day(s.time, zone)] ?: continue
+        val i = index.getValue(s)
+        if (index.getValue(group.first()) < i && i < index.getValue(group.last())) deferred.getOrPut(group.last()) { ArrayList() } += s
+    }
+    return deferred
+}
+
 fun TaxEngines.ukPool(
     coin: String,
     steps: List<TaxStep>,
@@ -15,46 +77,14 @@ fun TaxEngines.ukPool(
 ): List<PortfolioDisposal> {
     // Netzwerkgebühren sind hier schon eigene Verkäufe ([applyRules], HMRC CRYPTO22280) — sie zählen so in der
     // Same-Day-Gruppe ihres Tags und in der 30-Tage-Regel wie jeder andere Abgang
-    // Einzahlung ohne Kaufdatum: eigene Coins von anderswo sind kein Erwerb an diesem Tag (CRYPTO22200 ordnet nur
-    // Erwerbe zu) — direkt in den Pool, nicht «gleicher Tag»/«30 Tage»; sie dürfen keinen früheren Verkauf umleiten
-    fun late(s: TaxStep): Boolean = s.trade.type == PortfolioTxType.DEPOSIT && s.trade.acquiredTime == null
-    // Einzahlung mit früherem ursprünglichem Kaufdatum: Umbuchung zwischen eigenen Wallets ist kein Erwerb — erworben
-    // wurde am Kaufdatum, also «gleicher Tag»/«30 Tage» nach dem Kaufdatum (Teil des Tages-Zugangs dieses Tags); den
-    // Rest übernimmt der Pool erst am BUCHUNGSTAG (die App kennt die Coins erst ab da, siehe Schritt 3)
-    fun moved(s: TaxStep): Boolean = day(s.acquired, zone) != day(s.time, zone)
-    // Zugänge je Tag (Erwerbsdatum) als ein Zugang zum Durchschnitt
-    val dayPools = sortedMapOf<LocalDate, TaxPool>()
-    val dayFirst = HashMap<LocalDate, Long>()
-    // Menge je Tag noch nicht im Pool (alle Zugänge) bzw. am Tag selbst gebucht (ohne nachgebuchte Einzahlungen)
-    val dayLeft = HashMap<LocalDate, BigDecimal>()
-    val dayOwn = HashMap<LocalDate, BigDecimal>()
-    for (s in steps) if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
-        val d = day(s.acquired, zone)
-        dayPools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired, s.costEstimated)
-        dayFirst[d] = minOf(dayFirst[d] ?: Long.MAX_VALUE, s.acquired)
-        dayLeft[d] = (dayLeft[d] ?: BigDecimal.ZERO) + s.qty
-        if (!moved(s)) dayOwn[d] = (dayOwn[d] ?: BigDecimal.ZERO) + s.qty
-    }
+    val (dayPools, dayFirst, dayLeft, dayOwn) = ukDays(steps, zone)
     val disposes = steps.filter { it.kind == TaxStepKind.DISPOSE }
     val remaining = HashMap<TaxStep, BigDecimal>()
     val pieces = HashMap<TaxStep, ArrayList<TaxPiece>>()
     disposes.forEach { remaining[it] = it.qty; pieces[it] = ArrayList() }
     // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200): jede Zuordnung (gleicher Tag, 30 Tage, Pool) gilt der
-    // Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt — Menge [q], letzter Abgang mit Rest bekommt
-    // den Rest (Summe exakt [q]); [take] nimmt je Abgang seinen Anteil
-    fun split(group: List<TaxStep>, q: BigDecimal, take: (TaxStep, BigDecimal) -> Unit) {
-        val total = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
-        if (q.signum() <= 0 || total.signum() <= 0) return
-        val last = group.indexOfLast { remaining.getValue(it).signum() > 0 }
-        var left = q
-        group.forEachIndexed { i, s ->
-            val r = remaining.getValue(s)
-            if (r.signum() <= 0) return@forEachIndexed
-            val want = if (i == last) left else q.multiply(r).divide(total, PortfolioDecimal.MC)
-            left -= want
-            take(s, want)
-        }
-    }
+    // Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt ([ukSplit])
+    fun split(group: List<TaxStep>, q: BigDecimal, take: (TaxStep, BigDecimal) -> Unit) = ukSplit(remaining, group, q, take)
     fun openOf(group: List<TaxStep>): BigDecimal = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
     // Gruppen je Tag, zeitlich (Abgänge sind zeitlich sortiert)
     val groups = disposes.groupBy { day(it.time, zone) }
@@ -84,13 +114,7 @@ fun TaxEngines.ukPool(
     val groupAt = groups.values.associateBy { it.last() }
     // Auszahlung zwischen zwei Abgängen derselben Gruppe: erst nach deren Pool-Teil gebucht (die Abgänge des Tags sind
     // EINE Veräusserung und werden zuerst zugeordnet) — sonst leerte sie den Pool vor dem früheren Abgang
-    val index = steps.withIndex().associate { (i, s) -> s to i }
-    val deferred = HashMap<TaxStep, ArrayList<TaxStep>>()
-    for (s in steps) if (s.kind == TaxStepKind.REMOVE) {
-        val group = groups[day(s.time, zone)] ?: continue
-        val i = index.getValue(s)
-        if (index.getValue(group.first()) < i && i < index.getValue(group.last())) deferred.getOrPut(group.last()) { ArrayList() } += s
-    }
+    val deferred = ukDeferred(steps, groups, zone)
     val deferredSteps = deferred.values.flatten().toHashSet()
     // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
     // Buchungstag), Rest der Abgänge aus dem Pool
@@ -116,7 +140,7 @@ fun TaxEngines.ukPool(
                 val d = day(s.acquired, zone)
                 when {
                     late(s) -> pool.add(s.qty, s.cost, s.acquired, s.costEstimated)
-                    moved(s) -> enter(d, s.qty)
+                    moved(s, zone) -> enter(d, s.qty)
                     added.add(d) -> enter(d, dayOwn.getValue(d))
                 }
             }

@@ -120,6 +120,97 @@ class RefreshResultProcessor constructor(
     ): Processed {
         val now = System.currentTimeMillis()
 
+        val (priceWrites, errorWrites, updatedWatches, markFallbackIds) = collectWrites(watches, fetched, settings, dayStart, live, now)
+
+        val dbStartedAt = System.currentTimeMillis()
+        val written = watchRepository.applyRefresh(priceWrites, errorWrites)
+        // Nicht gespeichert (Eintrag ist inzwischen ein anderes Paar): weder Alarme noch Meldungen mit diesem Kurs
+        updatedWatches.retainAll { it.id in written }
+        val dbMillis = System.currentTimeMillis() - dbStartedAt
+        val effectsStartedAt = System.currentTimeMillis()
+
+        // Gezeigte Meldungen EINMAL abfragen: Bei hunderten Paaren ohne Kurs-Meldung kostete
+        // sonst jedes Paar je Durchlauf einen Aufruf an den Systemdienst (cancel).
+        val shownNotifications = notifier.activeNotificationIds()
+        val refreshIds = recoveredAfterError(watches, fetched).filterTo(HashSet()) { notifier.priceMaybeShown(it, shownNotifications) }
+
+        // Kurs-Meldung entfernen (gesammelt nach den Alarmen) nur, wenn das Paar nicht mehr gehandelt wird bzw. die
+        // Börse stillgelegt ist. Ein gewöhnlicher Fehler (Zeit, 5xx, Netz) lässt sie stehen: Der Meldekurs bleibt, eine
+        // entfernte Meldung käme sonst erst nach der nächsten Bewegung um die Schwelle wieder (wie iOS).
+        val priceCancels = errorWrites.filter { fetched[it.id]?.notTraded == true }.mapTo(ArrayList()) { it.id }
+        val pricePosts = ArrayList<WatchEntity>()
+        // «Nicht wegwischbar», aber verschwunden (Neustart, Update, Wegwischen ab Android 14): wieder zeigen, alter Bezug
+        val priceRestores = HashSet<Long>()
+
+        val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) emptyMap()
+        else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
+
+        var alarms = 0
+        // Alarm-Protokoll: nur mitschreiben, am Ende einmal speichern
+        val log = AlarmLogCollector(now)
+
+        for (watch in updatedWatches) {
+            val price = watch.lastPrice ?: continue
+            // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
+            val triggered = checkWatchAlarms(watch, price, alarmsByWatch[watch.id].orEmpty(), watch.id in markFallbackIds, settings, now, live, log)
+            alarms += triggered
+
+            val priceShown = !settings.ongoingNotifications || notifier.priceMaybeShown(watch.id, shownNotifications)
+            when (effects.priceUpdate(watch, settings, shown = priceShown, refresh = watch.id in refreshIds)) {
+                RefreshEffects.PriceUpdate.SHOW -> pricePosts += watch
+                RefreshEffects.PriceUpdate.RESTORE -> {
+                    pricePosts += watch
+                    priceRestores += watch.id
+                }
+                RefreshEffects.PriceUpdate.CANCEL -> priceCancels += watch.id
+                RefreshEffects.PriceUpdate.NONE -> Unit
+            }
+            if (!live) effects.speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
+        }
+
+        // Kurs-Mitteilungen NACH den Alarmen und gesammelt: höchstens 20 einzeln, der Rest in einer
+        // Sammelmeldung (Android verwirft ab rund 50 offenen Mitteilungen je App weitere still).
+        // Neuer Bezugspunkt nur für Paare, deren Kurs jetzt gezeigt wird.
+        notifier.cancelPrices(priceCancels, shownNotifications)
+        val pending = PendingPrices(pricePosts, settings.ongoingNotifications, now, priceRestores)
+        val shown = if (deferPrices) 0 else showAndRecord(pending)
+
+        recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
+
+        // Nicht gehandelt bzw. Börse stillgelegt: ein Zustand, kein Abruf — weder «geprüft» noch «fehlgeschlagen»
+        // (sonst kippten «Zuletzt geprüft», Widget-Kopf und «Letzte Prüfungen», BackgroundSchedule.isFullCheck)
+        val notTraded = watches.count { fetched[it.id]?.notTraded == true }
+        return Processed(
+            checked = watches.size - notTraded,
+            failed = errorWrites.size - notTraded,
+            notTraded = notTraded,
+            alarms = alarms,
+            notificationsShown = shown,
+            dbMillis = dbMillis,
+            effectsMillis = System.currentTimeMillis() - effectsStartedAt,
+            missingDayChange = updatedWatches.filter { it.change24h == null },
+            failedIds = errorWrites.map { it.id },
+            pendingPrices = pending.takeIf { deferPrices && pricePosts.isNotEmpty() },
+        )
+    }
+
+    /** Gelesene Kurse bzw. Fehler je Paar; Teil von [processRun]. */
+    private data class Writes(
+        val priceWrites: ArrayList<PriceWrite>,
+        val errorWrites: ArrayList<ErrorWrite>,
+        val updatedWatches: ArrayList<WatchEntity>,
+        val markFallbackIds: Set<Long>,
+    )
+
+    /** Schreibaufträge aus den Antworten (Kurs oder Fehler) und Merker je Paar; Teil von [processRun]. */
+    private suspend fun collectWrites(
+        watches: List<WatchEntity>,
+        fetched: Map<Long, Fetched>,
+        settings: AppSettings,
+        dayStart: Long?,
+        live: Boolean,
+        now: Long,
+    ): Writes {
         val priceWrites = ArrayList<PriceWrite>()
         val errorWrites = ArrayList<ErrorWrite>()
         val updatedWatches = ArrayList<WatchEntity>()
@@ -175,106 +266,50 @@ class RefreshResultProcessor constructor(
                 exchangeTime = exchangeTime,
             )
         }
+        return Writes(priceWrites, errorWrites, updatedWatches, markFallbackIds)
+    }
 
-        val dbStartedAt = System.currentTimeMillis()
-        val written = watchRepository.applyRefresh(priceWrites, errorWrites)
-        // Nicht gespeichert (Eintrag ist inzwischen ein anderes Paar): weder Alarme noch Meldungen mit diesem Kurs
-        updatedWatches.retainAll { it.id in written }
-        val dbMillis = System.currentTimeMillis() - dbStartedAt
-        val effectsStartedAt = System.currentTimeMillis()
-
-        // Gezeigte Meldungen EINMAL abfragen: Bei hunderten Paaren ohne Kurs-Meldung kostete
-        // sonst jedes Paar je Durchlauf einen Aufruf an den Systemdienst (cancel).
-        val shownNotifications = notifier.activeNotificationIds()
-        val refreshIds = recoveredAfterError(watches, fetched).filterTo(HashSet()) { notifier.priceMaybeShown(it, shownNotifications) }
-
-        // Kurs-Meldung entfernen (gesammelt nach den Alarmen) nur, wenn das Paar nicht mehr gehandelt wird bzw. die
-        // Börse stillgelegt ist. Ein gewöhnlicher Fehler (Zeit, 5xx, Netz) lässt sie stehen: Der Meldekurs bleibt, eine
-        // entfernte Meldung käme sonst erst nach der nächsten Bewegung um die Schwelle wieder (wie iOS).
-        val priceCancels = errorWrites.filter { fetched[it.id]?.notTraded == true }.mapTo(ArrayList()) { it.id }
-        val pricePosts = ArrayList<WatchEntity>()
-        // «Nicht wegwischbar», aber verschwunden (Neustart, Update, Wegwischen ab Android 14): wieder zeigen, alter Bezug
-        val priceRestores = HashSet<Long>()
-
-        val alarmsByWatch: Map<Long, List<AlarmEntity>> = if (updatedWatches.isEmpty()) emptyMap()
-        else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
-
-        var alarms = 0
-        // Alarm-Protokoll: nur mitschreiben, am Ende einmal speichern
-        val log = AlarmLogCollector(now)
-
-        for (watch in updatedWatches) {
-            val price = watch.lastPrice ?: continue
-            // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
-            val triggered = if (!ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).allowsAlarms) {
-                // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
-                0
-            } else if (dexLiquidity.blocksAlarms(watch.exchangeKey, watch.pairId)) {
-                // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
-                log.noteBlocked(
-                    watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = true,
-                    markFallback = watch.id in markFallbackIds, cooldownMinutes = settings.alarmCooldownMinutes,
-                )
-                0
-            } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, watch.id in markFallbackIds, now)) {
-                // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
-                DomainLog.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
-                log.noteBlocked(
-                    watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = false,
-                    markFallback = watch.id in markFallbackIds, cooldownMinutes = settings.alarmCooldownMinutes,
-                )
-                0
-            } else try {
-                effects.checkAlarms(
-                    watch, price, watch.previousPrice,
-                    alarmsByWatch[watch.id].orEmpty(), settings, now, live,
-                    trace = log.sinkFor(watch),
-                )
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                DomainLog.w(e, "Alarme für %s nicht geprüft", watch.displayName)
-                0
-            }
-            alarms += triggered
-
-            val priceShown = !settings.ongoingNotifications || notifier.priceMaybeShown(watch.id, shownNotifications)
-            when (effects.priceUpdate(watch, settings, shown = priceShown, refresh = watch.id in refreshIds)) {
-                RefreshEffects.PriceUpdate.SHOW -> pricePosts += watch
-                RefreshEffects.PriceUpdate.RESTORE -> {
-                    pricePosts += watch
-                    priceRestores += watch.id
-                }
-                RefreshEffects.PriceUpdate.CANCEL -> priceCancels += watch.id
-                RefreshEffects.PriceUpdate.NONE -> Unit
-            }
-            if (!live) effects.speakPriceIfWanted(watch, price, settings, spokenAlready = triggered > 0)
+    /** Alarme eines Paars prüfen, sofern Börse, Liquidität und Frische es erlauben; Anzahl ausgelöster. Teil von [processRun]. */
+    private suspend fun checkWatchAlarms(
+        watch: WatchEntity,
+        price: Double,
+        alarms: List<AlarmEntity>,
+        markFallback: Boolean,
+        settings: AppSettings,
+        now: Long,
+        live: Boolean,
+        log: AlarmLogCollector,
+    ): Int {
+        return if (!ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).allowsAlarms) {
+            // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
+            0
+        } else if (dexLiquidity.blocksAlarms(watch.exchangeKey, watch.pairId)) {
+            // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
+            log.noteBlocked(
+                watch, alarms, lowLiquidity = true,
+                markFallback = markFallback, cooldownMinutes = settings.alarmCooldownMinutes,
+            )
+            0
+        } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, markFallback, now)) {
+            // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
+            DomainLog.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
+            log.noteBlocked(
+                watch, alarms, lowLiquidity = false,
+                markFallback = markFallback, cooldownMinutes = settings.alarmCooldownMinutes,
+            )
+            0
+        } else try {
+            effects.checkAlarms(
+                watch, price, watch.previousPrice,
+                alarms, settings, now, live,
+                trace = log.sinkFor(watch),
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            DomainLog.w(e, "Alarme für %s nicht geprüft", watch.displayName)
+            0
         }
-
-        // Kurs-Mitteilungen NACH den Alarmen und gesammelt: höchstens 20 einzeln, der Rest in einer
-        // Sammelmeldung (Android verwirft ab rund 50 offenen Mitteilungen je App weitere still).
-        // Neuer Bezugspunkt nur für Paare, deren Kurs jetzt gezeigt wird.
-        notifier.cancelPrices(priceCancels, shownNotifications)
-        val pending = PendingPrices(pricePosts, settings.ongoingNotifications, now, priceRestores)
-        val shown = if (deferPrices) 0 else showAndRecord(pending)
-
-        recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
-
-        // Nicht gehandelt bzw. Börse stillgelegt: ein Zustand, kein Abruf — weder «geprüft» noch «fehlgeschlagen»
-        // (sonst kippten «Zuletzt geprüft», Widget-Kopf und «Letzte Prüfungen», BackgroundSchedule.isFullCheck)
-        val notTraded = watches.count { fetched[it.id]?.notTraded == true }
-        return Processed(
-            checked = watches.size - notTraded,
-            failed = errorWrites.size - notTraded,
-            notTraded = notTraded,
-            alarms = alarms,
-            notificationsShown = shown,
-            dbMillis = dbMillis,
-            effectsMillis = System.currentTimeMillis() - effectsStartedAt,
-            missingDayChange = updatedWatches.filter { it.change24h == null },
-            failedIds = errorWrites.map { it.id },
-            pendingPrices = pending.takeIf { deferPrices && pricePosts.isNotEmpty() },
-        )
     }
 
     /**
