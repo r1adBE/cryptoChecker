@@ -28,6 +28,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -166,9 +167,9 @@ internal class WatchlistEditController @AssistedInject constructor(
      * zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
      * Erst nach dem Löschen ruft es [onDeleted] (Banner, Haptik; liefert den Rückgängig-Schlüssel — liegt
      * dort schon etwas, Sammlung solange der Banner steht, [RemovedBatch], kommt das Paar dazu), danach Rückgängig-Eintrag
-     * und Mitteilungen. «Abbrechen» in der Rückfrage bzw. abgelehnt: nichts davon.
+     * und Mitteilungen. «Abbrechen» in der Rückfrage bzw. abgelehnt: nichts davon. Der Job endet nach allem (Tests warten darauf).
      */
-    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }) {
+    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }): Job =
         launchWrite {
             undoMutex.withLock {
                 val snapshot = watchRepository.snapshot(watch.id) ?: return@withLock
@@ -181,7 +182,6 @@ internal class WatchlistEditController @AssistedInject constructor(
                 widgetUpdater.updateAll()
             }
         }
-    }
 
     /**
      * «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. Nur bis zur

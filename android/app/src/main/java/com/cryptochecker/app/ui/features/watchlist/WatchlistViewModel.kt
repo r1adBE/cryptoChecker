@@ -30,6 +30,7 @@ import com.cryptochecker.app.domain.watch.SortKey
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -291,7 +292,7 @@ class WatchlistViewModel @Inject internal constructor(
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (Long?, Boolean) -> Unit) = edits.addPreview(watch, onFull, onDone)
 
     /** Löschen mit «Rückgängig»; [onDeleted] erst nach dem Löschen (Banner, liefert den Rückgängig-Schlüssel, [RemovedBatch]). */
-    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }) = edits.deleteWithUndo(watch, onDeleted)
+    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }): Job = edits.deleteWithUndo(watch, onDeleted)
 
     /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]; [onFull]: Merkliste voll. */
     fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) = edits.undoDelete(watchId, onFull)

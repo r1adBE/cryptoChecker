@@ -267,6 +267,42 @@ class WatchlistViewModelTest {
         }
     }
 
+    /**
+     * Gesperrte Merkliste (gespeicherter Stand nur gerade nicht lesbar): Löschen und Schalter schreiben nichts, und die
+     * Folgen laufen nicht — kein «Rückgängig» (onDeleted bzw. onDone mit 0), keine Mitteilung entfernt, Schalter melden
+     * «nicht geschrieben». Gegenprobe ungesperrt: dieselben Wege löschen und melden ihre Folgen.
+     */
+    @Test
+    fun lockedWatchlistRunsNoFollowUpsOfDeletesAndToggles() = runBlocking {
+        val id = add("BTC")
+        add("ETH")
+        val watch = checkNotNull(watchRepository.getWatch(id))
+        DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME, storedKept = true)
+        try {
+            var undoOffered = false
+            withTimeout(10_000) { vm.deleteWithUndo(watch) { undoOffered = true; id }.join() }
+            assertEquals(0, awaitDone<Int> { done -> vm.deleteSelectedWithUndo(listOf(id), done) })
+            assertEquals(0, awaitDone<Int> { done -> vm.deleteAllWithUndo(done) })
+            assertFalse(awaitDone { done -> vm.setNotificationEnabled(watch, false, done) })
+            assertFalse("Rückgängig angeboten, obwohl nichts gelöscht wurde", undoOffered)
+            assertEquals(2, watchRepository.getWatches().size)
+            assertTrue(checkNotNull(watchRepository.getWatch(id)).notificationEnabled)
+        } finally {
+            DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
+        }
+        // Gegenprobe ungesperrt
+        assertTrue(awaitDone { done -> vm.setNotificationEnabled(watch, false, done) })
+        assertEquals(1, awaitDone<Int> { done -> vm.deleteSelectedWithUndo(listOf(id), done) })
+        assertEquals(1, watchRepository.getWatches().size)
+    }
+
+    /** Wartet auf den Rückruf einer Aktion (höchstens 10 s). */
+    private suspend fun <T> awaitDone(action: ((T) -> Unit) -> Unit): T {
+        val done = CompletableDeferred<T>()
+        action { done.complete(it) }
+        return withTimeout(10_000) { done.await() }
+    }
+
     private companion object {
         val TIMEOUT = 30.seconds
     }

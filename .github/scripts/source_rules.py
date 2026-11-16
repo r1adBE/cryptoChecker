@@ -20,6 +20,8 @@ Rules (ids in the annotation title):
   layers             package = module; :domain and :data import only their own layers; no module loses its tests
   dialog-scroll      dialog texts with more than one sentence scroll (DialogText)
   write-consent      every user write of WatchRepository outside data/ asks confirmUserWrite() first
+  ios-write-consent  every iOS screen calling a user write of AppData asks withWatchlistConfirm first
+  write-order        results of user writes are never discarded (follow-ups only after the write); consent before locks
   settings-write     settings written outside the settings screen go through settingsRepository.guarded
   compose-stability  gradle/compose-stability.conf lists exactly the immutable models
   test-inputs        every path the unit tests read is a declared input of the test tasks
@@ -683,7 +685,7 @@ TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
 TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
 # Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
 # Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
-TEST_FLOOR = {"app": 1536, "domain": 1616, "data": 603, "marketdata": 32, "wear": 51}
+TEST_FLOOR = {"app": 1528, "domain": 1616, "data": 605, "marketdata": 32, "wear": 51}
 # Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
 DOMAIN_EXCEPTIONS = {}
 DATA_EXCEPTIONS = {}
@@ -1378,6 +1380,135 @@ def rule_write_consent(t):
 
 
 # --------------------------------------------------------------------------------------------------------------------
+# write-order: Folgen eines Schreibwegs erst nach dem Schreiben, Rückfrage vor Sperren
+
+
+# Schreibwege des Nutzers mit eindeutigem Ergebnis (false = abgelehnt, nichts geschrieben)
+WO_BOOLEAN_WRITES = ("deleteWatch", "deleteWatches", "deleteAllWatches", "deleteWatchesWithoutAlarms", "setDisabled",
+                     "deleteAlarm", "setNotificationEnabled", "setAlarmEnabled", "setTtsEnabled")
+WO_DISCARDED = re.compile(r"(?:^|[{;])[ \t]*(\w+)\s*\.\s*(" + "|".join(WO_BOOLEAN_WRITES) + r")\(", re.M | A)
+# Sperren und sichtbare Folgen, vor denen die Rückfrage «nicht gespeichert» kommt (ein offener Dialog hielte sie sonst)
+WO_LOCK = re.compile(r"undoMutex\.withLock|withRefreshLock\s*\{|addMoments\.post")
+WO_ASK = re.compile(r"launchWrite\s*[({]|confirmUserWrite\(\)")
+
+
+def write_order_violations(file, text):
+    """Befunde in einer (Kommentar-bereinigten) Datei: verworfenes Ergebnis eines Schreibwegs mit Ergebnis (Folgen liefen
+    sonst auch nach «abgelehnt»), Sperre bzw. Folge vor der Rückfrage."""
+    out = []
+    receivers = wc_receivers(text)
+    for m in WO_DISCARDED.finditer(text):
+        if m.group(1) in receivers and (file, m.group(2)) not in WC_SYSTEM_CALLS:
+            out.append(f"{file}:{line_of(text, m.start(2))}: Ergebnis von {m.group(2)}( verworfen — Folgen nur nach "
+                       "dem Schreiben (if (!…) return)")
+    for fn in wc_functions(text):
+        body = text[fn.body_start:fn.end]
+        lock = WO_LOCK.search(body)
+        if lock:
+            ask = WO_ASK.search(body)
+            if ask is None or ask.start() > lock.start():
+                out.append(f"{file}:{line_of(text, fn.body_start + lock.start())} fun {fn.name}: {lock.group(0)} vor der "
+                           "Rückfrage (launchWrite bzw. confirmUserWrite() zuerst)")
+    return out
+
+
+def rule_write_order(t):
+    """Schreibwege des Nutzers mit Ergebnis: Rückgängig, Mitteilungen und Protokoll laufen erst nach dem Schreiben (das
+    Ergebnis wird nie verworfen); die Rückfrage «nicht gespeichert» kommt vor Sperren und sichtbaren Folgen. Das
+    Verhalten (gesperrt: keine Folgen) prüfen WatchlistViewModelTest und WatchlistLockDeviceTest auf dem Gerät."""
+    problems = []
+    for module in ("app", "coreui", "widget"):
+        for rel, path in files_under(need_dir(t.java(module)), "kt"):
+            if not rel.startswith("data/"):
+                problems += write_order_violations(rel, wc_strip(read(path)))
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# ios-write-consent: iOS-Gegenstück zu write-consent
+
+
+IOS_FUNC = re.compile(r"(?m)^[ \t]*(?:@\w+(?:\([^)\n]*\))?\s+)*(?:(?:private|fileprivate|internal|public|static|nonisolated|"
+                      r"mutating|final)\s+)*func\s+(\w+)\s*[(<]")
+IOS_WRITE_SERVICES = "App/Services"
+# Hintergrund (Kurse, Live-Kurse, Laden): schreibt weiter, auch gesperrt — nie über die Sicherung
+IOS_BACKGROUND_FILES = ("AppData+Refresh.swift", "AppData+Live.swift", "AppData.swift")
+
+
+def _ios_arity(text, open_):
+    """Zahl der Argumente bzw. Parameter in der Klammer bei text[open_] (Kommas auf oberster Ebene)."""
+    close = ds_closing(text, open_)
+    inner = text[open_ + 1:close if close >= 0 else len(text)]
+    if not inner.strip():
+        return 0
+    depth, count = 0, 1
+    for c in inner:
+        if c in "([{":
+            depth += 1
+        elif c in ")]}":
+            depth -= 1
+        elif c == "," and depth == 0:
+            count += 1
+    return count
+
+
+def ios_write_paths(texts):
+    """{Schreibweg des Nutzers: Parameterzahlen}: Funktionen von AppData, deren Rumpf watchlistWriteRefused( enthält; bei
+    gleichem Namen ohne Sicherung (z. B. Favoriten im Explorer mit zwei Parametern) zählt nur die Parameterzahl der
+    gesicherten Fassung, die es ungesichert nicht gibt."""
+    locked, unlocked = {}, {}
+    for text in texts:
+        found = list(IOS_FUNC.finditer(text))
+        for i, f in enumerate(found):
+            if f.group(1) == "watchlistWriteRefused":
+                continue
+            body = text[f.end():found[i + 1].start() if i + 1 < len(found) else len(text)]
+            open_ = text.find("(", f.end() - 1)
+            arity = _ios_arity(text, open_)
+            (locked if "watchlistWriteRefused(" in body else unlocked).setdefault(f.group(1), set()).add(arity)
+    return {n: arities - unlocked.get(n, set()) for n, arities in locked.items() if arities - unlocked.get(n, set())}
+
+
+def ios_unconfirmed_calls(file, text, writes):
+    """Aufrufe `data.<Schreibweg>(` (mit der Argumentzahl einer gesicherten Fassung) in einer Datei ohne
+    withWatchlistConfirm."""
+    if "withWatchlistConfirm" in text or not writes:
+        return []
+    call = re.compile(r"\bdata\s*\.\s*(" + "|".join(sorted(writes)) + r")\s*\(", A)
+    return [f"{file}:{line_of(text, m.start())}: data.{m.group(1)}( ohne withWatchlistConfirm"
+            for m in call.finditer(text) if _ios_arity(text, m.end() - 1) in writes[m.group(1)]]
+
+
+def rule_ios_write_consent(t):
+    """iOS: Jeder Bildschirm, der einen Schreibweg des Nutzers von AppData aufruft (Funktionen mit watchlistWriteRefused(),
+    hergeleitet), fragt vorher über withWatchlistConfirm; der Schreibweg selbst fragt nicht und führt nichts erneut aus
+    (kein retry); Hintergrund-Dateien nutzen die Sicherung nie; die Rückfrage erscheint über allem (kein .alert im
+    Hinweis). Das Verhalten prüfen WatchlistLockBehaviorTests und WatchlistConsentBehaviorTests."""
+    services = need_dir(t.i("App", "Services"))
+    names = sorted(n for n in os.listdir(services) if n.startswith("AppData") and n.endswith(".swift"))
+    texts = {n: read(os.path.join(services, n)) for n in names}
+    writes = ios_write_paths(texts.values())
+    problems = []
+    if not {"changePair", "deleteAlarm", "setNotificationEnabled", "tryAddWatch"} <= set(writes):
+        problems.append(f"Ableitung der Schreibwege greift nicht: {sorted(writes)}")
+    for rel, path in files_under(need_dir(t.i("App", "Features")), "swift"):
+        problems += ios_unconfirmed_calls(f"App/Features/{rel}", read(path), writes)
+    for name in IOS_BACKGROUND_FILES:
+        if "watchlistWriteRefused(" in texts.get(name, ""):
+            problems.append(f"App/Services/{name}: Hintergrund darf die Sicherung nicht nutzen")
+    lock = texts.get("AppData+WatchlistLock.swift", "")
+    if "private func confirmWatchlistWrite() async -> Bool" not in lock:
+        problems.append("AppData+WatchlistLock.swift: confirmWatchlistWrite ist nicht privat (nur über withWatchlistConfirm)")
+    for name, text in texts.items():
+        if "retry:" in text or (name == "AppData+WatchlistLock.swift" and "retry" in text):
+            problems.append(f"App/Services/{name}: Schreibweg mit retry (führt nach «Trotzdem» erneut aus)")
+    hint = read(need_file(t.i("App", "Components", "WatchlistLockedHint.swift")))
+    if ".alert(" in hint:
+        problems.append("WatchlistLockedHint.swift: Rückfrage als .alert (erscheint unter einem Blatt nicht)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
 # settings-write, compose-stability, bounded-caches
 
 
@@ -1602,6 +1733,8 @@ RULES = [
     ("layers", rule_layers),
     ("dialog-scroll", rule_dialog_scroll),
     ("write-consent", rule_write_consent),
+    ("write-order", rule_write_order),
+    ("ios-write-consent", rule_ios_write_consent),
     ("settings-write", rule_settings_write),
     ("compose-stability", rule_compose_stability),
     ("test-inputs", rule_test_inputs),
@@ -1678,6 +1811,25 @@ def self_test():
     eq((in_package(DOMAIN, DOMAIN), in_package(DOMAIN + "x.A", DOMAIN)), (True, False), "layers: in_package")
     _self_test_dialog(eq)
     _self_test_write_consent(eq)
+    eq(len(write_order_violations("ui/A.kt", "fun a() = scope.launch {\n    watchRepository.deleteAlarm(id)\n    notifier.cancel()\n}")), 1,
+       "write-order: verworfenes Ergebnis")
+    eq(write_order_violations("ui/A.kt", "fun a() = scope.launch {\n    if (!watchRepository.deleteAlarm(id)) return@launch\n}"), [],
+       "write-order: Ergebnis benutzt")
+    eq(write_order_violations("ui/A.kt", "fun a() = scope.launch { settingsRepository.setTtsEnabled(true) }"), [],
+       "write-order: anderes Repository")
+    eq(len(write_order_violations("ui/A.kt", "fun a() {\n    scope.launch { undoMutex.withLock { x() }; watchRepository.confirmUserWrite() }\n}")), 1,
+       "write-order: Sperre vor der Rückfrage")
+    eq(write_order_violations("ui/A.kt", "fun a() {\n    launchWrite { undoMutex.withLock { x() } }\n}"), [],
+       "write-order: Rückfrage zuerst")
+    writes = ios_write_paths(["    func setNote(_ w: Watch) {\n        if watchlistWriteRefused() { return }\n    }\n"
+                                         "    func toggleFavorite(_ w: Watch) {\n        guard !watchlistWriteRefused() else { return }\n    }\n"
+                                         "    func toggleFavorite(_ kind: Kind, _ n: String) {\n        favorites.toggle(n)\n    }\n"])
+    eq(writes, {"setNote": {1}, "toggleFavorite": {1}}, "ios-write-consent: Ableitung")
+    eq(len(ios_unconfirmed_calls("A.swift", "Button { data.setNote(w) }", writes)), 1, "ios-write-consent: ohne Frage")
+    eq(len(ios_unconfirmed_calls("A.swift", "Button { data.toggleFavorite(w) }", writes)), 1, "ios-write-consent: Favorit")
+    eq(ios_unconfirmed_calls("A.swift", "data.withWatchlistConfirm { data.setNote(w) }", writes), [],
+       "ios-write-consent: mit Frage")
+    eq(ios_unconfirmed_calls("A.swift", "data.toggleFavorite(kind, s)", writes), [], "ios-write-consent: Explorer-Favorit")
     # test-inputs: Vorlagen, Präfixe und Nicht-Pfade
     for literal, expected in (("ios/$rel", "ios"), ("${prefix}src/main/$rel", "src/main"), ("../ios/App/", "../ios/App"),
                               ("./testdata/parity", "testdata/parity"), ("LICENSE", "LICENSE"), ("$dir/strings_common.xml", None),

@@ -13,6 +13,8 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.domain.WatchSnapshot
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.addWatches
+import com.cryptochecker.app.data.markAlarmTriggered
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.data.deleteWatchesWithoutAlarms
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
@@ -49,8 +51,7 @@ import org.junit.runner.RunWith
 /**
  * Notfall-Sperre der Merkliste auf dem Gerät: Liegt die gespeicherte Merkliste nur leer im
  * Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept]), ruft der Test JEDEN Schreibweg des Nutzers von
- * [WatchRepository] mit echtem Room auf und prüft, dass sich keine Zeile ändert — ergänzt den Quelltext-Test
- * `WatchRepositoryLockTest` (JVM). Per Reflection muss jede öffentliche suspend-Funktion des Repositorys (Klasse und
+ * [WatchRepository] mit echtem Room auf und prüft, dass sich keine Zeile ändert. Per Reflection muss jede öffentliche suspend-Funktion des Repositorys (Klasse und
  * Erweiterungen in `WatchRepositoryAdd.kt`/`WatchRepositoryRefresh.kt`) in genau einer Liste stehen: Schreibweg des
  * Nutzers (hier aufgerufen), nur lesen oder Hintergrund — ein neuer Schreibweg fällt so auf, bis er eingeordnet ist.
  * Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
@@ -238,6 +239,34 @@ class WatchlistLockDeviceTest {
             visible.cancelAndJoin()
             WatchlistNotSavedGate.resetForTest()
         }
+    }
+
+    /**
+     * Hintergrund schreibt weiter, auch gesperrt (leere Datenbank im Arbeitsspeicher, siehe `WatchRepositoryLock.kt`):
+     * ein ausgelöster Alarm wird vermerkt, ohne Rückfrage und ohne Hinweis.
+     */
+    @Test
+    fun backgroundWritesStillWriteWhenLocked() = runBlocking {
+        DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME, storedKept = true)
+        val alarm = checkNotNull(db.getWatchDao().getAlarm(alarmId))
+        val before = dump()
+        assertTrue(repo.markAlarmTriggered(alarm, price = 100_500.0, time = 1_800_000_000_000L))
+        assertNotEquals("Alarm-Vermerk im Hintergrund trotz Sperre nicht geschrieben", before, dump())
+    }
+
+    /** «Rückgängig» hält die Obergrenze der Merkliste wie das Anlegen: bei [WatchlistLimits.MAX_PAIRS] Paaren FULL. */
+    @Test
+    fun restoreRespectsThePairLimit() = runBlocking {
+        val gone = checkNotNull(repo.getWatch(plainWatchId))
+        assertTrue(repo.deleteWatch(plainWatchId))
+        val fill = (0 until WatchlistLimits.MAX_PAIRS - repo.getWatches().size).map { ExchangePair("C$it", "USDT", "C${it}USDT") }
+        fill.chunked(500).forEach { repo.addWatches(BINANCE, it) }
+        assertEquals(WatchlistLimits.MAX_PAIRS, repo.getWatches().size)
+        assertEquals(RestoreOutcome.FULL, repo.restore(WatchSnapshot(gone, emptyList())))
+        // Ein Platz frei: zurückgeholt, mit derselben Id
+        assertTrue(repo.deleteWatches(listOf(repo.getWatches().last().id)))
+        assertEquals(RestoreOutcome.RESTORED, repo.restore(WatchSnapshot(gone, emptyList())))
+        assertEquals("ETH", repo.getWatch(plainWatchId)?.baseAsset)
     }
 
     @Test

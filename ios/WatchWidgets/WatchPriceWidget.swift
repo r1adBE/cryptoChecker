@@ -87,18 +87,11 @@ struct WatchPriceProvider: TimelineProvider {
                 }
                 UsageMeter.shared.flush()
             }
-            let now = Date()
-            let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(settings.interval) * 60))
             let phone = settings.mode == .phone
-            var entries = [Self.entry(first, cached, at: now, phone: phone, interval: settings.interval)]
-            // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
-            if let time = cached?.time {
-                let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis(settings.interval) + 1)
-                if staleAt > now, staleAt < next {
-                    entries.append(Self.entry(first, cached, at: staleAt, phone: phone, interval: settings.interval))
-                }
-            }
-            completion(Timeline(entries: entries, policy: .after(next)))
+            // Zweiter Eintrag, sobald der Kurs veraltet (`WatchFreshness.complicationDates`, getestet)
+            let plan = WatchFreshness.complicationDates(now: Date(), cachedTime: cached?.time, intervalMinutes: settings.interval)
+            let entries = plan.dates.map { Self.entry(first, cached, at: $0, phone: phone, interval: settings.interval) }
+            completion(Timeline(entries: entries, policy: .after(plan.next)))
         }
     }
 

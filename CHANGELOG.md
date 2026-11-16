@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 264)
+
+- Tests: the watchlist lock is tested by behaviour instead of source text (device tests: locked, deleting and toggles run no follow-ups, background writes go on, undo keeps the pair limit); the result of saving an alert is a function with tests on both platforms; new source rules write-order and ios-write-consent; the timeline of the Apple Watch price complication is in WatchCore with tests.
+
 ## 16.2.2 (build 263)
 
 - Tests: the widgets are inflated on the emulator as the launcher does (every widget layout, list rows with pair, price, exchange and «disabled» in every accent colour, light and dark); a new job runs the Wear OS release app on a Wear OS emulator (start, price tile, monkey, crash buffer); the weekly mutation test fails below a score of 50 %.

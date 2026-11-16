@@ -8,7 +8,7 @@ import java.io.File
 /**
  * Eine Regel für alle `IN (:ids)`-Abfragen der Merkliste: Jeder Aufruf mit einer Id-Liste läuft in Blöcken von
  * `SQL_ID_CHUNK` (WatchRepositoryAdd.kt) — auch «alle auswählen › deaktivieren» mit bis zu 2000 Paaren. Room läuft nur
- * auf dem Gerät, darum am Quelltext wie [WatchRepositoryLockTest].
+ * auf dem Gerät, darum am Quelltext.
  */
 class SqlIdChunkTest {
 

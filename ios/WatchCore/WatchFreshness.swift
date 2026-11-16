@@ -75,4 +75,14 @@ enum WatchFreshness {
         guard isOutdated(time, now: now, intervalMinutes: intervalMinutes), let age = shortAge(time, now: now, locale: locale) else { return text }
         return text + " · " + age
     }
+
+    /// Zeitleiste der Komplikation: ein Eintrag jetzt und — wird der Kurs (Stand `cachedTime`, ms) vor dem nächsten
+    /// Neuladen veraltet — ein zweiter 1 ms nach der Grenze, damit «veraltet» ohne Neuladen erscheint (wie
+    /// `OutdatedRule.nextChangeAt`). `next` = nächstes Neuladen nach dem Intervall des iPhones (`WatchInterval.clamp`).
+    static func complicationDates(now: Date, cachedTime: Int64?, intervalMinutes: Int) -> (dates: [Date], next: Date) {
+        let next = now.addingTimeInterval(TimeInterval(WatchInterval.clamp(intervalMinutes) * 60))
+        guard let time = cachedTime else { return ([now], next) }
+        let staleAt = Date(timeIntervalSince1970: TimeInterval(time + outdatedAfterMillis(intervalMinutes) + 1) / 1000)
+        return (staleAt > now && staleAt < next ? [now, staleAt] : [now], next)
+    }
 }

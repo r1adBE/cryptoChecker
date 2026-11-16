@@ -28,10 +28,7 @@ extension AlarmsScreen {
                            repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
                            windowHours: saved.windowHours, currency: saved.condition.isPriceThreshold ? saved.currency : nil)
         }
-        guard case .saved(let firstAlarm) = outcome else {
-            if outcome == .full { showAlarmLimit() }
-            return
-        }
+        guard let firstAlarm = outcome.savedOr(onLimit: { showAlarmLimit() }) else { return }
         Haptics.play(.success)
         firstAlarmPending = firstAlarm
         noteTimingHint(firstAlarm: firstAlarm)

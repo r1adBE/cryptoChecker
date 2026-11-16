@@ -297,12 +297,6 @@ class AlarmsViewModel @Inject constructor(
         }
     }
 
-    /** Gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still. */
-    private fun AlarmSaveResult.savedOr(onLimit: () -> Unit): AlarmEntity? = when (this) {
-        is AlarmSaveResult.Saved -> alarm
-        AlarmSaveResult.Full -> { onLimit(); null }
-        AlarmSaveResult.Refused -> null
-    }
 
     /** Eigene Währung nur bei Kursalarmen und nur, wenn sie von der Quote abweicht. */
     private fun alarmCurrency(draft: AlarmDraft): String? = draft.currency
@@ -395,4 +389,11 @@ class AlarmsViewModel @Inject constructor(
             if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)
         }
     }
+}
+
+/** Gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still (AlarmSaveOutcomeTest). */
+internal fun AlarmSaveResult.savedOr(onLimit: () -> Unit): AlarmEntity? = when (this) {
+    is AlarmSaveResult.Saved -> alarm
+    AlarmSaveResult.Full -> { onLimit(); null }
+    AlarmSaveResult.Refused -> null
 }
