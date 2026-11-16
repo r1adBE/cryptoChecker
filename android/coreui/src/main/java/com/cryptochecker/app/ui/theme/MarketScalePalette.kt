@@ -66,7 +66,7 @@ object MarketScalePalette {
     ): Int = steps(scheme, dark, highContrast, inverted, accent)[level(value)]
 
     /** Mischung im sRGB-Raum, [t] = Anteil von [b]; deckend. */
-    internal fun mix(a: Int, b: Int, t: Double): Int {
+    fun mix(a: Int, b: Int, t: Double): Int {
         fun channel(shift: Int): Int {
             val ca = (a shr shift) and 0xFF
             val cb = (b shr shift) and 0xFF

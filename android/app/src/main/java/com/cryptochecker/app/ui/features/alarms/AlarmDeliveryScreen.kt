@@ -58,9 +58,9 @@ import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.features.settings.formatMinuteOfDay
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.AlarmReadinessProbe
-import com.cryptochecker.app.util.BatteryOptimization
-import com.cryptochecker.app.util.OemBatterySettings
+import com.cryptochecker.app.work.AlarmReadinessProbe
+import com.cryptochecker.app.work.BatteryOptimization
+import com.cryptochecker.app.work.OemBatterySettings
 import com.cryptochecker.app.work.ExactCheckScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

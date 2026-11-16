@@ -1,4 +1,4 @@
-package com.cryptochecker.app.util
+package com.cryptochecker.app.diagnostics
 
 import com.cryptochecker.app.BuildConfig
 

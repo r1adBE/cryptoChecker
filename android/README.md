@@ -14,7 +14,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app` (Handy und Uhr; Debug-Builds beider mit `.debug`)
-* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen, Sicherung), `resources` (Texte in 75 Sprachen, Layouts, Bilder, Schrift; R-Klasse `com.cryptochecker.resources.R`), `app` (die App), `wear` (Wear-OS-App), `baselineprofile` (erzeugt das gemessene Start-Profil, wird nicht ausgeliefert)
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen, Sicherung), `resources` (Texte in 75 Sprachen, Layouts, Bilder, Schrift; R-Klasse `com.cryptochecker.resources.R`), `coreui` (Theme, Zahlen- und Zeit-Texte, Hilfen für App und Widgets), `app` (die App), `wear` (Wear-OS-App), `baselineprofile` (erzeugt das gemessene Start-Profil, wird nicht ausgeliefert)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app` (`…app.domain`, `…app.data` = Module `domain` und `data`), `com.cryptochecker.wear`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)

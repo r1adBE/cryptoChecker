@@ -31,7 +31,7 @@ import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.components.ReadableInset
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.alarms.AlarmEditorHostState
 import com.cryptochecker.app.ui.features.alarms.AlarmsViewModel
 import com.cryptochecker.app.ui.features.alarms.PairAlarmLimits

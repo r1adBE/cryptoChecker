@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

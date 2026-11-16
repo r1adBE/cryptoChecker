@@ -100,4 +100,4 @@ object AssetColors {
 fun accentButtonColor(accent: AccentColor, dark: Boolean): Color = appColorScheme(accent, dark).primary
 
 /** Neutrale Fläche für «ausgewählt» im Dunkelmodus (Chips, Tab-Markierung, Segmente). */
-internal val DarkSelectedContainer = Color(0xFF333333)
+val DarkSelectedContainer = Color(0xFF333333)

@@ -1,4 +1,4 @@
-package com.cryptochecker.app.settings
+package com.cryptochecker.app.setup
 
 import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
@@ -56,7 +56,7 @@ object PortfolioDataCheck {
      * gespeicherte Stand ist dann nicht zu sehen — der Merker darf nicht weg, sonst bliebe das Portfolio nach dem
      * nächsten Start mit lesbarem Schlüssel aus. Daten gefunden: entscheiden (einschalten).
      */
-    internal fun keepMarker(hasData: Boolean, portfolioInMemory: Boolean): Boolean = !hasData && portfolioInMemory
+    fun keepMarker(hasData: Boolean, portfolioInMemory: Boolean): Boolean = !hasData && portfolioInMemory
 
     private fun applyCheck(prefs: MutablePreferences, hasData: Boolean) {
         val enable = AppSettings.enablePortfolioForData(

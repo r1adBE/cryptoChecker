@@ -87,7 +87,7 @@ class SpacingUsageTest {
         val androidRoot = SourceGuard.android(androidSources(), "android/app/src/main/java")
         val iosRoot = SourceGuard.ios(iosRoot(), "ios/App")
         val android = Regex("""val (\w+) = (\d+)\.dp""")
-            .findAll(File(androidRoot, "ui/theme/Spacing.kt").readText(Charsets.UTF_8))
+            .findAll(File(androidRoot, "../../../../../../../coreui/src/main/java/com/cryptochecker/app/ui/theme/Spacing.kt").readText(Charsets.UTF_8))
             .associate { it.groupValues[1] to it.groupValues[2].toInt() }
         val swift = File(iosRoot, "Shared/Util/Spacing.swift").readText(Charsets.UTF_8)
         val block = swift.substringAfter("enum Spacing {").substringBefore("}")
@@ -106,7 +106,7 @@ class SpacingUsageTest {
     @Test
     fun fabClearanceIsDerivedFromGrid() {
         val androidRoot = SourceGuard.android(androidSources(), "android/app/src/main/java")
-        assertTrue(File(androidRoot, "ui/theme/Spacing.kt").readText(Charsets.UTF_8).contains("val fabClearance = xxl * 3"))
+        assertTrue(File(androidRoot, "../../../../../../../coreui/src/main/java/com/cryptochecker/app/ui/theme/Spacing.kt").readText(Charsets.UTF_8).contains("val fabClearance = xxl * 3"))
         val literal = Regex("""bottom = 96\.dp""")
         val androidHits = androidRoot.walkTopDown().filter { it.isFile && it.extension == "kt" }
             .filter { literal.containsMatchIn(it.readText(Charsets.UTF_8)) }.map { it.name }.toList()

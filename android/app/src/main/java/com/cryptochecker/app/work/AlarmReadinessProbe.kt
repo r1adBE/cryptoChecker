@@ -1,5 +1,7 @@
-package com.cryptochecker.app.util
+package com.cryptochecker.app.work
 
+import com.cryptochecker.app.work.BatteryOptimization
+import com.cryptochecker.app.work.OemBatterySettings
 import android.Manifest
 import android.app.ActivityManager
 import android.app.NotificationManager

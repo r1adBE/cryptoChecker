@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.label
 

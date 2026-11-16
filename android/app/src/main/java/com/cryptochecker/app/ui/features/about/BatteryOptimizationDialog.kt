@@ -72,7 +72,7 @@ fun BatteryOptimizationDialog(
 
     if (!calm || pending != true) return
     if (BatteryHintSession.coveredByFirstAlarm) return
-    if (com.cryptochecker.app.util.BatteryOptimization.isIgnoring(context)) return
+    if (com.cryptochecker.app.work.BatteryOptimization.isIgnoring(context)) return
 
     AlertDialog(
         onDismissRequest = viewModel::dismiss,
@@ -88,7 +88,7 @@ fun BatteryOptimizationDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    com.cryptochecker.app.util.BatteryOptimization.openSettings(context)
+                    com.cryptochecker.app.work.BatteryOptimization.openSettings(context)
                     viewModel.dismiss()
                 }
             ) {

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.setup.PortfolioDataCheck
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

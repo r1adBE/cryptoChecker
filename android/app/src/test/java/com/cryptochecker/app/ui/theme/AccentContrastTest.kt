@@ -244,7 +244,7 @@ class AccentContrastTest {
      */
     /** Pflicht: fehlt die Datei, nicht still grün. */
     private fun schemesSource(): String =
-        SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"), "ui/theme/AppColorSchemes.kt")
+        SourceGuard.android(sourceFile("../coreui/src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"), "ui/theme/AppColorSchemes.kt")
 
     private fun sourceFile(rel: String): String? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

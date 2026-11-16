@@ -16,12 +16,12 @@ import androidx.compose.ui.graphics.Color
  * #FFDBD0 (12:1). Die Flächen tragen den Banner «Mitteilungen aus» und die Wisch-Leiste Löschen.
  */
 
-internal val ErrorLight = Color(0xFFB13419)
-internal val ErrorContainerLight = Color(0xFFFFDBD0)
-internal val OnErrorContainerLight = Color(0xFF4A1C10)
-internal val ErrorDark = Color(0xFFFF5833)
+val ErrorLight = Color(0xFFB13419)
+val ErrorContainerLight = Color(0xFFFFDBD0)
+val OnErrorContainerLight = Color(0xFF4A1C10)
+val ErrorDark = Color(0xFFFF5833)
 
-internal fun ColorScheme.withWarmError(dark: Boolean): ColorScheme = if (dark) {
+fun ColorScheme.withWarmError(dark: Boolean): ColorScheme = if (dark) {
     copy(
         error = ErrorDark,
         onError = Color.Black,

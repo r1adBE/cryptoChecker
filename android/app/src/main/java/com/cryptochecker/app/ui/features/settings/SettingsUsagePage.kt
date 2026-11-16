@@ -38,7 +38,7 @@ import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.util.IoDispatcher
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BatteryOptimization
+import com.cryptochecker.app.work.BatteryOptimization
 import com.cryptochecker.app.wearable.PhoneWatchUsage
 import com.cryptochecker.app.work.ExactCheckScheduler
 import com.cryptochecker.app.work.PriceUpdateScheduler

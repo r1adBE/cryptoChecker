@@ -50,7 +50,7 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.RowHighlight
 import com.cryptochecker.app.ui.components.SkeletonList
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.util.StartupClock
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -4,7 +4,7 @@ package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.ui.components.DialogText
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.ui.platform.LocalContext
@@ -50,7 +50,7 @@ import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.notification.AlarmSoundStore
-import com.cryptochecker.app.util.AppVersion
+import com.cryptochecker.app.diagnostics.AppVersion
 import com.cryptochecker.app.wearable.PhoneWatchSync
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

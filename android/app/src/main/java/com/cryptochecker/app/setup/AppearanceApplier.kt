@@ -1,4 +1,4 @@
-package com.cryptochecker.app.settings
+package com.cryptochecker.app.setup
 
 import android.content.ComponentName
 import android.content.Context

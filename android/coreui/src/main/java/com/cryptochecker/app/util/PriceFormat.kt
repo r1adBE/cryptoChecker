@@ -43,7 +43,7 @@ object PriceFormat {
     private val thresholdFormats = ConcurrentHashMap<Locale, DecimalFormat>()
 
     /** Neuer Formatierer für [threshold] in [locale]. */
-    internal fun thresholdFormat(locale: Locale): DecimalFormat =
+    fun thresholdFormat(locale: Locale): DecimalFormat =
         DecimalFormat("#,##0", DecimalFormatSymbols.getInstance(locale)).apply {
             maximumFractionDigits = THRESHOLD_MAX_DECIMALS
             minimumFractionDigits = 0
@@ -212,7 +212,7 @@ object PriceFormat {
     }
 
     /** Ersatz ohne ICU (z. B. in JVM-Tests): Ziffern der Sprache, Kürzel wie Englisch NARROW. */
-    internal fun ageFallback(value: Long, unit: AgeUnit, locale: Locale = LocaleNumbers.appLocale): String =
+    fun ageFallback(value: Long, unit: AgeUnit, locale: Locale = LocaleNumbers.appLocale): String =
         LocaleNumbers.integer(value, locale) + when (unit) {
             AgeUnit.DAYS -> "d"
             AgeUnit.HOURS -> "h"

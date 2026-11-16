@@ -46,7 +46,7 @@ import com.cryptochecker.app.domain.market.PlainSummary
 import com.cryptochecker.app.domain.market.PlainSummaryInput
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.UnusualReport
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat

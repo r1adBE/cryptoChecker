@@ -27,14 +27,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import com.cryptochecker.app.data.portfolio.FxRateSource
-import com.cryptochecker.app.settings.AppLanguages
+import com.cryptochecker.app.setup.AppLanguages
 import java.util.Locale
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.AppSettings
 import com.cryptochecker.app.domain.settings.UpdateMode
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.BatteryOptimization
+import com.cryptochecker.app.work.BatteryOptimization
 
 // ── Allgemein ────────────────────────────────────────────────────────────────
 

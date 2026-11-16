@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.navigation
 
-import com.cryptochecker.app.ui.OpenTargetGuard
+import com.cryptochecker.app.util.OpenTargetGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

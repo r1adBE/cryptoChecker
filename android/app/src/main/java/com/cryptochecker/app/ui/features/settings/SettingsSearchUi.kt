@@ -37,7 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.settings.SettingsSearch
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay

@@ -9,9 +9,9 @@ import com.cryptochecker.app.lock.AppLockState
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.settings.AppLanguages
+import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.domain.settings.AppSettings
-import com.cryptochecker.app.settings.AppearanceApplier
+import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetUpdater

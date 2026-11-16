@@ -1,5 +1,6 @@
-package com.cryptochecker.app.util
+package com.cryptochecker.app.work
 
+import com.cryptochecker.app.work.AlarmReadinessProbe
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent

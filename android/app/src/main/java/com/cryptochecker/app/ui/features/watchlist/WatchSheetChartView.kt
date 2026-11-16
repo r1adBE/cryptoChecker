@@ -48,7 +48,7 @@ import com.cryptochecker.app.ui.components.ChangePillSize
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.domain.util.BidiText

@@ -46,7 +46,7 @@ import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label

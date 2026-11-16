@@ -76,7 +76,7 @@ class ErrorContrastTest {
     /** Hoher Kontrast übernimmt die Fehlerfarbe (#B13419 erreicht AA schon auf der dunkelsten Karte). */
     @Test
     fun `hoher Kontrast setzt die Fehlerfarbe nicht neu`() {
-        val source = SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")
+        val source = SourceGuard.android(sourceFile("../coreui/src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")
         val start = source.indexOf("private fun ColorScheme.withHighContrast(")
         assertTrue("withHighContrast fehlt", start >= 0)
         val end = source.indexOf("\n}", start)

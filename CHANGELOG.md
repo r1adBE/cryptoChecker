@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 258)
+
+- Android code structure (no behaviour change): new module `coreui` with the shared basis of app and widgets (theme, number/time/screen-reader texts, contrast and accent resources); app-only parts renamed (`setup`: language, appearance, portfolio check; battery helpers to `work`; `AppVersion` to `diagnostics`).
+
 ## 16.2.2 (build 257)
 
 - Android code structure (no behaviour change): all resources (strings in 75 languages, layouts, drawables, font, XML) moved to a new module `resources` (R class `com.cryptochecker.resources.R`), shared by the app and later the widgets; app lint checks them (`checkDependencies`); string check, iOS string conversion, lint report and tests read the new location. Contributors: strings now live in `android/resources/src/main/res`.

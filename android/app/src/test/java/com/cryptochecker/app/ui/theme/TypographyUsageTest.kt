@@ -38,7 +38,7 @@ class TypographyUsageTest {
     @Test
     fun labelSmallIsAtLeast12sp() {
         val root = SourceGuard.android(androidSources(), "android/app/src/main/java")
-        val source = File(root, "ui/theme/Typography.kt").readText(Charsets.UTF_8)
+        val source = File(root, "../../../../../../../coreui/src/main/java/com/cryptochecker/app/ui/theme/Typography.kt").readText(Charsets.UTF_8)
         val match = Regex("""labelSmall = base\.labelSmall\.copy\(fontSize = (\d+)\.sp""").find(source)
         assertNotNull("labelSmall-Grösse in Typography.kt nicht gefunden", match)
         val size = match!!.groupValues[1].toInt()

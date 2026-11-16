@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui
 
+import com.cryptochecker.app.util.OpenTargetGuard
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.util.AppVisibility
 import com.cryptochecker.app.util.StartupClock
@@ -32,7 +33,7 @@ import com.cryptochecker.app.ui.components.LocalCoinSearchNameSource
 import com.cryptochecker.app.ui.navigation.AppNavHost
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
-import com.cryptochecker.app.settings.AppearanceApplier
+import com.cryptochecker.app.setup.AppearanceApplier
 import com.cryptochecker.app.data.settings.SettingsRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // AppCompat setzt die Sprache neu: Zahlen-Locale (Sprache + Region) nachziehen
-        com.cryptochecker.app.settings.AppLanguages.applyNumberLocale()
+        com.cryptochecker.app.setup.AppLanguages.applyNumberLocale()
         if (savedInstanceState == null) {
             // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
             StartupClock.onUiCreated()

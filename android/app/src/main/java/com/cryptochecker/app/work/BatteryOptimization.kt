@@ -1,4 +1,4 @@
-package com.cryptochecker.app.util
+package com.cryptochecker.app.work
 
 import android.content.Context
 import android.content.Intent

@@ -86,7 +86,7 @@ class DispatcherInjectionGuardTest {
     }
 
     private companion object {
-        val MODULES = listOf("app", "data", "domain")
+        val MODULES = listOf("app", "coreui", "data", "domain")
 
         /** Liefert die Dispatcher und nennt sie darum selbst (zweimal). */
         const val PROVIDER = "app/app/di/DispatcherModule.kt"
@@ -102,7 +102,7 @@ class DispatcherInjectionGuardTest {
             // Von Android erzeugt oder ohne Hilt-Konstruktor (Application vor der Injektion, Receiver, `object`,
             // Hilfsklassen und -funktionen, die von Hand gebaut werden)
             "app/app/CryptoCheckerApp.kt" to 2,
-            "app/app/util/ReceiverAsync.kt" to 1,
+            "coreui/app/util/ReceiverAsync.kt" to 1,
             "app/app/work/ExactCheckReceiver.kt" to 1,
             "domain/app/domain/widget/PulseBackgroundFetch.kt" to 1,
             "app/app/widget/PortfolioWidgetChartView.kt" to 1,

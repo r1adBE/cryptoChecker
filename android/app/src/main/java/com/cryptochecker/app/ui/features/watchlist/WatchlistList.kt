@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import androidx.compose.ui.graphics.Shape
 import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background

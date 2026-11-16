@@ -154,7 +154,7 @@ def pairs():
 
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-THEME_KT = "android/app/src/main/java/com/cryptochecker/app/ui/theme/"
+THEME_KT = "android/coreui/src/main/java/com/cryptochecker/app/ui/theme/"
 SCHEME_NAMES = {"Orange": "orange", "Rot": "red", "Blau": "blue", "Grün": "green", "Marrs Green": "marrsGreen"}
 
 

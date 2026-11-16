@@ -56,7 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 
 internal data class BottomTab(

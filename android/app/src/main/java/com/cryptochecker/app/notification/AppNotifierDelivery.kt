@@ -19,7 +19,7 @@ import com.cryptochecker.app.notification.AppNotifier.Companion.ALARM_SUMMARY_ID
 import com.cryptochecker.app.notification.AppNotifier.Companion.ACTION_OPEN_NOTIFICATION
 import com.cryptochecker.app.notification.AppNotifier.Companion.WHY_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Group
-import com.cryptochecker.app.ui.withOpenToken
+import com.cryptochecker.app.util.withOpenToken
 
 /**
  * Platz für den Alarm [id] schaffen — welche Mitteilungen weichen, entscheidet

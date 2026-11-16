@@ -34,7 +34,7 @@ import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.lock.PortfolioAccess
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.about.BatteryOptimizationDialog
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmDelivery
 import com.cryptochecker.app.ui.features.alarms.LocalOpenAlarmLog

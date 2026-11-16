@@ -47,7 +47,7 @@ import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.WhyCandlesFailure
 import com.cryptochecker.app.domain.activity.WhyFactors
 import com.cryptochecker.app.domain.activity.WhyReport
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.tabularNumbers

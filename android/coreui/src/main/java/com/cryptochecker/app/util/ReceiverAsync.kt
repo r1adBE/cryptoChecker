@@ -38,7 +38,7 @@ object ReceiverAsync {
      * Führt [block] in [scope] aus, höchstens [timeoutMillis]; Fehler werden protokolliert, [onDone] kommt immer
      * (auch nach Zeitgrenze, Fehler oder Abbruch). Kern von [launchAsync], eigens für Tests.
      */
-    internal fun launchBounded(
+    fun launchBounded(
         label: String,
         timeoutMillis: Long = TIMEOUT_MILLIS,
         onDone: () -> Unit,

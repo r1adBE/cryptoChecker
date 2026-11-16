@@ -89,7 +89,7 @@ class FileLengthTest {
     private companion object {
         const val LIMIT = 400
 
-        val ANDROID_MODULES = listOf("app", "domain", "data", "marketdata", "wear")
+        val ANDROID_MODULES = listOf("app", "coreui", "domain", "data", "marketdata", "wear")
         val IOS_AREAS = listOf("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
         /**

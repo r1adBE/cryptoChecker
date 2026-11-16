@@ -37,7 +37,7 @@ import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.app.util.AlarmReadinessProbe
+import com.cryptochecker.app.work.AlarmReadinessProbe
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val ALARM_RELIABILITY_TAG = "alarm_reliability_line"

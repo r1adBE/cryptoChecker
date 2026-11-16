@@ -25,7 +25,7 @@ import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
-import com.cryptochecker.app.ui.withOpenToken
+import com.cryptochecker.app.util.withOpenToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull

@@ -117,7 +117,7 @@ internal fun PortfolioAddressSheet(
     var askPrivacy by remember { mutableStateOf(false) }
     var askRemove by remember { mutableStateOf<WatchedAddress?>(null) }
     var busy by remember { mutableStateOf(false) }
-    val reduceMotion = com.cryptochecker.app.ui.components.rememberReduceMotion()
+    val reduceMotion = com.cryptochecker.app.ui.theme.rememberReduceMotion()
     // Eigenes Banner im Blatt: das des Portfolio-Tabs läge hinter dem Blatt («entfernt» mit «Rückgängig», Sperre)
     val banner = rememberWatchlistBanner(rememberCoroutineScope())
     val resources = LocalResources.current

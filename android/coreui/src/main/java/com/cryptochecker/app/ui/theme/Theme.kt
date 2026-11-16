@@ -25,8 +25,8 @@ import androidx.core.view.WindowCompat
 import com.cryptochecker.app.domain.settings.AccentColor
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.domain.settings.PriceColorScheme
-import com.cryptochecker.app.ui.components.LocalReduceMotion
-import com.cryptochecker.app.ui.components.observeReduceMotion
+import com.cryptochecker.app.ui.theme.LocalReduceMotion
+import com.cryptochecker.app.ui.theme.observeReduceMotion
 
 /** Aktuelle Akzentfarbe, z. B. für das passende Logo. */
 val LocalAccentColor = staticCompositionLocalOf { AccentColor.DEFAULT }
@@ -63,7 +63,7 @@ fun rememberHighContrast(setting: Boolean): Boolean {
 }
 
 /** WCAG-Kontrast zweier Farben. */
-internal fun contrastRatio(a: Color, b: Color): Double {
+fun contrastRatio(a: Color, b: Color): Double {
     val la = a.luminance().toDouble()
     val lb = b.luminance().toDouble()
     return (maxOf(la, lb) + 0.05) / (minOf(la, lb) + 0.05)
@@ -73,7 +73,7 @@ internal fun contrastRatio(a: Color, b: Color): Double {
  * Mischt [color] schrittweise mit Schwarz (hell) bzw. Weiss (dunkel), bis der
  * Kontrast zu [background] mindestens [target] beträgt. Farbton bleibt erhalten.
  */
-internal fun withContrast(color: Color, background: Color, dark: Boolean, target: Double = 7.0): Color {
+fun withContrast(color: Color, background: Color, dark: Boolean, target: Double = 7.0): Color {
     val toward = if (dark) Color.White else Color.Black
     var t = 0f
     var result = color

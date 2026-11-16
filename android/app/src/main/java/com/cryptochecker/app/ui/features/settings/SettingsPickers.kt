@@ -64,7 +64,7 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.util.DecimalText
 import com.cryptochecker.app.domain.util.PercentText
 import com.cryptochecker.app.domain.settings.AccentColor
-import com.cryptochecker.app.settings.AppLanguages
+import com.cryptochecker.app.setup.AppLanguages
 import com.cryptochecker.app.domain.settings.PriceColorScheme
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.LocalAccentColor

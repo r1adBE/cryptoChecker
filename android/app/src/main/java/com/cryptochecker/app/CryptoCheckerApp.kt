@@ -13,9 +13,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.mirror.MirrorRevocations
 import com.cryptochecker.app.domain.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.NotificationChannels
-import com.cryptochecker.app.settings.AppLanguages
-import com.cryptochecker.app.settings.AppearanceApplier
-import com.cryptochecker.app.settings.PortfolioDataCheck
+import com.cryptochecker.app.setup.AppLanguages
+import com.cryptochecker.app.setup.AppearanceApplier
+import com.cryptochecker.app.setup.PortfolioDataCheck
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.domain.util.appScope
 import com.cryptochecker.app.work.PriceUpdateScheduler

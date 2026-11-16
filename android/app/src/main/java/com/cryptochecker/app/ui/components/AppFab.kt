@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition

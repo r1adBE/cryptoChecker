@@ -61,7 +61,7 @@ import com.cryptochecker.app.notification.MacroTexts
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.readableWidth
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.util.LocaleNumbers

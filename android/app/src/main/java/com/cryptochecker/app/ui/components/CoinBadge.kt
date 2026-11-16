@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import android.graphics.Bitmap
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

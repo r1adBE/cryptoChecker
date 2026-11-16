@@ -55,7 +55,7 @@ internal fun FirstAlarmDialog(
     testAlarm: () -> Unit,
 ) {
     val context = LocalContext.current
-    val batteryRestricted = remember { !com.cryptochecker.app.util.BatteryOptimization.isIgnoring(context) }
+    val batteryRestricted = remember { !com.cryptochecker.app.work.BatteryOptimization.isIgnoring(context) }
     var batteryDone by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         com.cryptochecker.app.ui.features.about.BatteryHintSession.coveredByFirstAlarm = true
@@ -85,7 +85,7 @@ internal fun FirstAlarmDialog(
                         modifier = Modifier.padding(top = 8.dp),
                     )
                     TextButton(onClick = {
-                        com.cryptochecker.app.util.BatteryOptimization.openSettings(context)
+                        com.cryptochecker.app.work.BatteryOptimization.openSettings(context)
                         viewModel.batteryHintUsed()
                         batteryDone = true
                     }) {

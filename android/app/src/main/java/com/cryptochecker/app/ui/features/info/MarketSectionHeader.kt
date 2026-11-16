@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.market.MarketReveal
 import com.cryptochecker.app.ui.components.SectionTitle
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label

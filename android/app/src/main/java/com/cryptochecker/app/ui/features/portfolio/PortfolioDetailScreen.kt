@@ -54,7 +54,7 @@ import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.SectionTitle
 import com.cryptochecker.app.ui.components.SkeletonList
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner

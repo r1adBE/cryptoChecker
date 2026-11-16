@@ -41,7 +41,7 @@ import com.cryptochecker.app.data.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.logos.CoinLogoUse
-import com.cryptochecker.app.util.AlarmReadinessProbe
+import com.cryptochecker.app.work.AlarmReadinessProbe
 import com.cryptochecker.app.domain.util.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File

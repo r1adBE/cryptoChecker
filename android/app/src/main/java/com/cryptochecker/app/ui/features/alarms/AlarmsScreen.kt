@@ -56,7 +56,7 @@ fun AlarmsScreen(
     val watch by viewModel.watch.collectAsStateWithLifecycle()
     val alarms by viewModel.alarms.collectAsStateWithLifecycle()
     val unchecked by viewModel.unchecked.collectAsStateWithLifecycle()
-    val reduceMotion = com.cryptochecker.app.ui.components.rememberReduceMotion()
+    val reduceMotion = com.cryptochecker.app.ui.theme.rememberReduceMotion()
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true

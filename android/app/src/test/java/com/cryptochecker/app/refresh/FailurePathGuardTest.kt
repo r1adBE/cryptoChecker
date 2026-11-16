@@ -85,7 +85,7 @@ class FailurePathGuardTest {
     /** Android 8–12: Sprachwechsel stellt den App-Kontext sofort um (Widgets, Mitteilungen); Alarm-Kanäle umbenannt (B3-07). */
     @Test
     fun languageChangeReachesWidgetsAndChannels() {
-        val languages = android("app/src/main/java/com/cryptochecker/app/settings/AppLanguages.kt")
+        val languages = android("app/src/main/java/com/cryptochecker/app/setup/AppLanguages.kt")
         assertTrue(languages.contains("        applyToProcess(context.applicationContext, tag)\n"))
         assertTrue(languages.contains("resources.updateConfiguration(config, resources.displayMetrics)"))
         assertTrue(languages.contains("com.cryptochecker.app.notification.NotificationChannels.createAll(context.applicationContext)"))

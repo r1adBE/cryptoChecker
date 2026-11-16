@@ -38,7 +38,7 @@ import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.rememberFabScroll
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.SnackbarKind
 

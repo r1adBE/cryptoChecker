@@ -31,7 +31,7 @@ import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
 import com.cryptochecker.app.ui.components.ExpandToggleButton
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing

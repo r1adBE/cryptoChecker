@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui
 
+import com.cryptochecker.app.util.OpenTargetGuard
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
