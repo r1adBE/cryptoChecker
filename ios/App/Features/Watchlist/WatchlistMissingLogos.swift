@@ -117,17 +117,28 @@ final class MissingLogosModel: ObservableObject {
         }
     }
 
+    /// Woher der Hinweis seine Antworten holt; Tests setzen eigene (`MissingLogosModelTests`).
+    struct Lookup: Sendable {
+        var firstLoadDone: @Sendable () -> Bool
+        var hasLogo: @Sendable (String) async -> Bool
+        var notYetLoaded: @Sendable (String) async -> Bool
+
+        static let live = Lookup(firstLoadDone: { CoinLogoLoading.firstLoadDone() },
+                                 hasLogo: { await CoinLogoStore.shared.hasLogo($0) },
+                                 notYetLoaded: { await CoinLogoStore.shared.notYetLoaded($0) })
+    }
+
     /// Coins ohne mitgeliefertes oder geladenes Logo bestimmen (Dateien lesen im Actor `CoinLogoStore`).
-    func refresh(_ entries: [(key: String, watch: Watch)], enabled: Bool, loading: Bool) async {
-        guard enabled, !loading, CoinLogoLoading.firstLoadDone() else { return show(nil) }
+    func refresh(_ entries: [(key: String, watch: Watch)], enabled: Bool, loading: Bool, lookup: Lookup = .live) async {
+        guard enabled, !loading, lookup.firstLoadDone() else { return show(nil) }
         var without: [String] = []
         var names: [String: String] = [:]
         var notYet: Set<String> = []
         for entry in entries {
-            if await !CoinLogoStore.shared.hasLogo(entry.key) {
+            if await !lookup.hasLogo(entry.key) {
                 without.append(entry.key)
                 names[entry.key] = CoinLogoStore.name(for: entry.watch)
-                if await CoinLogoStore.shared.notYetLoaded(entry.key) { notYet.insert(entry.key) }
+                if await lookup.notYetLoaded(entry.key) { notYet.insert(entry.key) }
             }
         }
         guard !Task.isCancelled else { return }
@@ -174,12 +185,16 @@ struct MissingLogosSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
 
+    /// Erklärung über der Liste: mit «noch nicht geladenen» Coins beides unterschieden, sonst «kein Logo verfügbar».
+    static func explanation(_ rows: [Row]) -> String {
+        rows.contains(where: \.notYet) ? L("watchlist_missing_logos_explain_pending") : L("watchlist_missing_logos_explain")
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.lg) {
             Text(L("watchlist_missing_logos", count: rows.count))
                 .font(.headline)
-            Text(rows.contains(where: \.notYet) ? L("watchlist_missing_logos_explain_pending")
-                                                 : L("watchlist_missing_logos_explain"))
+            Text(Self.explanation(rows))
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)

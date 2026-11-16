@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.domain.model.WatchEntity
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
@@ -52,6 +53,13 @@ class WidgetPrefs @Inject constructor(
         if (stored == null) prefs.edit { putString(identityKey(appWidgetId), identity) }
         return stored == null || stored == identity
     }
+
+    /**
+     * Paar des Einzel-Widgets in [watches] (nach Id): nur, wenn unter der gemerkten Id noch dasselbe Paar steht
+     * ([showsSamePair]); sonst null = «Paar wählen». Wie iOS `SingleWidgetChoice.chosen`.
+     */
+    fun chosenWatch(appWidgetId: Int, watches: Map<Long, WatchEntity>): WatchEntity? =
+        getWatchId(appWidgetId)?.let { watches[it] }?.takeIf { showsSamePair(appWidgetId, widgetPairText(it)) }
 
     fun setTheme(appWidgetId: Int, theme: WidgetTheme) {
         prefs.edit { putString(themeKey(appWidgetId), theme.name) }

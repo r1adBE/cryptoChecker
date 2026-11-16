@@ -254,7 +254,7 @@ jobs:
           ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-apks.log" \
             || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-apks.log"; exit 1; }
 
-      - name: Run TextLimit and MonthYearFormat device tests (API 26)
+      - name: Run TextLimit, MonthYearFormat and LanguageSwitch device tests (API 26)
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
           api-level: 26
@@ -265,8 +265,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: android
           emulator-boot-timeout: 900
-          # Two small classes: per-test limit as in connected-tests, the whole Gradle call stopped after 15 min
-          script: timeout --kill-after=60 15m ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest,com.cryptochecker.app.MonthYearFormatIcuTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace || { rc=$?; [ "$rc" -ne 124 ] || echo "::error title=Device tests API 26::the Gradle call was stopped after 15 min (emulator hung?)"; exit "$rc"; }
+          # Three small classes: per-test limit as in connected-tests, the whole Gradle call stopped after 15 min
+          script: timeout --kill-after=60 15m ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest,com.cryptochecker.app.MonthYearFormatIcuTest,com.cryptochecker.app.LanguageSwitchDeviceTest -Pandroid.testInstrumentationRunnerArguments.timeout_msec=300000 --stacktrace || { rc=$?; [ "$rc" -ne 124 ] || echo "::error title=Device tests API 26::the Gradle call was stopped after 15 min (emulator hung?)"; exit "$rc"; }
 
       - name: Failed tests
         if: failure()

@@ -63,7 +63,7 @@ class LogoRankingNetworkCutTest {
             if (page == 2 && cutSecondPage) throw IOException("Verbindung abgebrochen (Test)")
             val rows = if (page == 1) firstPageRows else 0
             respond(chain.request(), 200, (0 until rows).joinToString(",", "[", "]") { i ->
-                """{"symbol":"c$page$i","name":"Coin $page $i","image":"https://example.org/$page/$i.png"}"""
+                """{"symbol":"c$page$i","name":"Coin $page $i","image":"https://coin-images.coingecko.com/coins/images/$page$i/large/c.png"}"""
             })
         }.build()
         val sync = CoinListSync(context, client, connectivity, tokenIdentityStore, imageStore, names, alpha)

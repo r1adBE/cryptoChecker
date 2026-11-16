@@ -71,8 +71,13 @@ object FakeExchange {
     @Volatile
     var marketData: Boolean = false
 
+    /** Binance bremst: jede Abfrage 429 mit «Retry-After: 600» (Börse pausiert, `BackgroundRunLogTest`). */
+    @Volatile
+    var rateLimited: Boolean = false
+
     fun reset() {
         btcPrice = START_PRICE
+        rateLimited = false
         binanceMirror = false
         marketData = false
     }
@@ -88,6 +93,10 @@ class FakeExchangeInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
+        if (FakeExchange.rateLimited && request.url.host.startsWith("api.binance")) {
+            return Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(429).message("Too Many Requests")
+                .header("Retry-After", "600").body("{\"code\":-1003}".toResponseBody(JSON)).build()
+        }
         val body = answer(request.url)
         return Response.Builder()
             .request(request)

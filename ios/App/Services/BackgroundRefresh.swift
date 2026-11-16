@@ -210,7 +210,7 @@ enum BackgroundRefresh {
             // Warten Alarme mit Zusatzdaten (Schritt 3), zählt der Lauf erst, wenn auch sie geprüft sind —
             // sonst bleibt der alte Wert (`BackgroundSchedule.marksAlarmCheck`)
             // Ohne Alarm-Lease bzw. mit Budget-Lücken keine volle Prüfung (der nächste Lauf wird nicht übersprungen)
-            fullCheck = !expired && outcome.isFullCheck
+            fullCheck = outcome.isFullCheck(expired: expired)
             if BackgroundSchedule.marksAlarmCheck(fullCheck: fullCheck, deferredWaiting: !outcome.deferredAlarms.isEmpty,
                                                   deferredChecked: false) {
                 SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis

@@ -85,8 +85,12 @@ enum ExchangeHTTP {
         return URLSession(configuration: c)
     }
 
+    /// Nur Tests: Antworten statt Netz (z. B. `CoinLogoNetworkTests`); nil = echtes Netz. Wirft wie das Netz.
+    static let testTransport = OSAllocatedUnfairLock<(@Sendable (String) async throws -> String)?>(initialState: nil)
+
     /// GET (oder POST, wenn `post` gesetzt) — liefert den Text der Antwort.
     static func call(_ url: String, post: PostRequest? = nil, session: URLSession = ExchangeHTTP.session) async throws -> String {
+        if let transport = testTransport.withLock({ $0 }) { return try await transport(url) }
         // Für alle gleiche Marktdaten zuerst vom Spiegel auf GitHub (`DataMirror`), sonst beim Anbieter
         if post == nil, let entry = DataMirror.entry(for: url),
            let text = try? await call(entry.url, session: session),

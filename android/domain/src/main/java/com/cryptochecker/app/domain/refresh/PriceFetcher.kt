@@ -45,8 +45,8 @@ class PriceFetcher @Inject constructor(
         group: List<WatchEntity>,
         includeRollingFutures: Boolean,
         deadlineAt: Long? = null,
-        /** Paare mit aktivem Alarm: werden einzeln zuerst abgefragt ([FetchOrder]). */
-        alarmed: Set<Long> = emptySet(),
+        /** Paare mit aktivem Alarm: werden einzeln zuerst abgefragt ([FetchOrder]). Ohne Vorgabe, damit kein Aufrufer sie vergisst. */
+        alarmed: Set<Long>,
     ): Pair<Map<Long, Fetched>, FetchedGroup> {
         val groupStartedAt = System.currentTimeMillis()
         // Börse stillgelegt (ExchangeRetirement): keine Anfrage, jedes Paar mit dem Marker der Börse

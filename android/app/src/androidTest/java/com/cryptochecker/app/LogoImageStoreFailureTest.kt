@@ -78,7 +78,7 @@ class LogoImageStoreFailureTest {
     }
 
     private fun map(count: Int, prefix: String) =
-        (0 until count).associate { "$prefix$it" to "https://logos.example.org/$prefix$it.png" }
+        (0 until count).associate { "$prefix$it" to "https://coin-images.coingecko.com/coins/images/$it/large/$prefix$it.png" }
 
     @Test
     fun storageFullIsNeitherFailureNorNetworkAndTheNextPassCatchesUp() = runBlocking {

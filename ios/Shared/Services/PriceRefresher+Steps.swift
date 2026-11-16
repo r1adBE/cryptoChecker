@@ -141,15 +141,7 @@ extension PriceRefresher {
             for await (results, signal, timedOut) in group {
                 if timedOut {
                     group.cancelAll()
-                    // Budget um: schon geholte Kurse der laufenden Börsen bleiben; die übrigen Paare «Zeitüberschreitung»
-                    // (am Budget, nicht an der Börse: kein Backoff, keine volle Prüfung)
-                    for (id, value) in partial.all where fetched[id] == nil { fetched[id] = value }
-                    for (_, list) in groups {
-                        for w in list where fetched[w.id] == nil {
-                            fetched[w.id] = Fetched(ticker: nil, error: budgetTimeoutError, failure: .TIMEOUT,
-                                                    exchangeFailure: .timeout, budgetCut: true)
-                        }
-                    }
+                    fetched = budgetSpent(fetched, partial: partial.all, groups: groups)
                     break
                 }
                 fetched.merge(results) { a, _ in a }
@@ -389,4 +381,7 @@ extension PriceRefresher.Outcome {
         !alarmsUnchecked && BackgroundSchedule.isFullCheck(attempted: checked, failed: failed, notTraded: notTraded,
                                                            cutByBudget: cutByBudget)
     }
+
+    /// Hintergrund-Aufgabe: abgelaufen (Zeit des Systems um) zählt nie als volle Prüfung.
+    func isFullCheck(expired: Bool) -> Bool { !expired && isFullCheck }
 }

@@ -39,6 +39,20 @@ extension PriceRefresher {
 
     static let notTradedError = NotTraded.marker
 
+    /// Budget um: schon geholte Kurse der laufenden Börsen bleiben (auch Teilergebnisse aus `partial`); die übrigen
+    /// Paare «Zeitüberschreitung» am Budget, nicht an der Börse (`budgetCut`: kein Backoff, keine volle Prüfung).
+    static func budgetSpent(_ done: [Int64: Fetched], partial: [Int64: Fetched], groups: [String: [Watch]]) -> [Int64: Fetched] {
+        var fetched = done
+        for (id, value) in partial where fetched[id] == nil { fetched[id] = value }
+        for (_, list) in groups {
+            for w in list where fetched[w.id] == nil {
+                fetched[w.id] = Fetched(ticker: nil, error: budgetTimeoutError, failure: .TIMEOUT,
+                                        exchangeFailure: .timeout, budgetCut: true)
+            }
+        }
+        return fetched
+    }
+
     // MARK: Netz
 
     /// Bericht-Einträge der übersprungenen (pausierten) Börsen.

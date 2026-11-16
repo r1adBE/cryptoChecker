@@ -3,6 +3,9 @@ import Foundation
 // Gedächtnis des Logo-Ladens (Teil von `CoinLogoStore`, aus `CoinLogoStore+Download` wegen der Zeilengrenze):
 // gescheiterte Bilder (einen Tag gesperrt), offene Durchgänge je Bild und der letzte Durchgang für den Diagnosebericht.
 extension CoinLogoStore {
+    /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
+    static let mapRetryMillis: Int64 = 60 * 60 * 1000
+
     // MARK: Diagnose (nur Zahlen)
 
     private static let lastPassKey = "coin_logos_last_pass"

@@ -3248,6 +3248,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 263: A241-C-10 Teil 1: WidgetRenderDeviceTest, Job wear-smoke, Mutationsscore-Untergrenze, gradle_warmup.sh.
 * Build 264: A241-A-01 Teil 2 (1): Sperre als Verhalten; I-01 Komplikations-Zeitleiste.
 * Build 265: A241-A-01 Teil 2 (2): Fehlerwege Logos/Devisen als Verhalten.
+* Build 266: A-01 Teil 2 (3): FailurePathGuard ersetzt (BackgroundRunLogTest, ExactFiredStep(+Test), PriceFetcherOrderTest, LanguageSwitchDeviceTest, SingleWidgetChoice, MissingLogosHintTest; iOS BackgroundRunOutcomeTests, CoinLogoNetworkTests, CandleChainAttemptTests, SingleWidgetChoiceTests, MissingLogosModelTests; Test-Transporte ExchangeHTTP/CoinLogoStore); Gradle repository.max.retries=6.
 
 ## Known warnings
 

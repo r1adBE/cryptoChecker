@@ -136,18 +136,12 @@ struct WidgetWatchEntity: AppEntity {
     }
 
     init(watch: Watch) {
-        id = "\(watch.id)|" + WatchIdentity.text(watch.identity)
+        id = SingleWidgetChoice.entityId(watch)
         title = watch.displayName
         subtitle = watch.exchangeName
     }
 
-    var watchId: Int64? { Int64(id.split(separator: "|", maxSplits: 1).first.map(String.init) ?? id) }
-
-    /// Zeigt `watch` (gleiche Id) noch das gewählte Paar? Ohne gemerktes Paar (nur Id): ja.
-    func showsSamePair(_ watch: Watch) -> Bool {
-        guard let bar = id.firstIndex(of: "|") else { return true }
-        return String(id[id.index(after: bar)...]) == WatchIdentity.text(watch.identity)
-    }
+    var watchId: Int64? { SingleWidgetChoice.watchId(id) }
 }
 
 /// Liest die Paare aus dem gemeinsamen Speicher — gleiche Reihenfolge wie die App.

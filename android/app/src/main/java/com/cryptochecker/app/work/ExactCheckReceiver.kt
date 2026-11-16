@@ -10,7 +10,6 @@ import com.cryptochecker.app.domain.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
-import com.cryptochecker.app.domain.refresh.CheckResult
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.data.settings.SettingsRepository
 import com.cryptochecker.app.data.util.ConnectivityMonitor
@@ -46,6 +45,8 @@ class ExactCheckReceiver : BroadcastReceiver() {
 
     @Inject lateinit var connectivity: ConnectivityMonitor
 
+    @Inject lateinit var firedStep: ExactFiredStep
+
     private val scope = appScope(Dispatchers.Default, "ExactCheckReceiver")
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -77,27 +78,12 @@ class ExactCheckReceiver : BroadcastReceiver() {
                 val permitted = scheduler.canScheduleExact()
                 // Netz frisch abfragen (der Prozess kann eingefroren gewesen sein) — nur wenn es zählt
                 val online = BackgroundSchedule.shouldArmExact(enabled, permitted, hasWork) && connectivity.isOnlineNow()
-                when (BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online)) {
-                    // Aus, keine Berechtigung mehr oder nichts zu prüfen (ExactCheckDemand): absagen, nicht neu stellen
-                    BackgroundWorkPolicy.FiredAction.CANCEL -> {
-                        scheduler.sync(enabled, hasWork, intervalMinutes = interval)
-                        chainHandled = true
-                        return@launch
-                    }
-                    // Offline: kein Versuch — sonst stünden alle Paare auf Fehler. WorkManager holt
-                    // nach, sobald Netz da ist. Eintrag «Übersprungen (offline)»: zählt nicht als Prüfung (die
-                    // Zuverlässigkeitszeile wirkt nicht frisch), nennt aber das Netz als Grund statt «Akku»
-                    BackgroundWorkPolicy.FiredAction.REARM_SKIP_OFFLINE -> {
-                        backgroundCheck.log(CheckTrigger.EXACT, CheckResult.OFFLINE, startedAt)
-                        scheduler.rearm(interval)
-                        chainHandled = true
-                        return@launch
-                    }
-                    BackgroundWorkPolicy.FiredAction.REARM_AND_CHECK -> {
-                        scheduler.rearm(interval)
-                        chainHandled = true
-                    }
-                }
+                val check = firedStep.apply(
+                    BackgroundWorkPolicy.firedAction(enabled, permitted, hasWork, online), enabled, hasWork, interval, startedAt,
+                )
+                // Wecker ist neu gestellt bzw. bewusst abgesagt (ExactFiredStep)
+                chainHandled = true
+                if (!check) return@launch
                 // Frist für die Prüfung selbst (etwas vor der harten Grenze): je Börse ein Budget,
                 // danach wird gespeichert und ausgewertet, was da ist (CheckBudget)
                 val deadlineAt = startedAt + timeoutMillis - DEADLINE_MARGIN_MILLIS

@@ -251,11 +251,16 @@ extension CoinLogoStore {
         return forbidden && CoinLogoRetry.leavesOpen(httpCode: 403) ? .open : .failed
     }
 
+    /// Nur Tests: Bild-Antworten statt Netz (`CoinLogoNetworkTests`); nil = echtes Netz. Wirft wie das Netz.
+    static let imageTestTransport =
+        OSAllocatedUnfairLock<(@Sendable (URL) async throws -> (response: HTTPURLResponse, body: Data?))?>(initialState: nil)
+
     /// Ein Bild laden: erst der Status (Bremse auch bei grossem Körper erkennen), dann höchstens `maxImageBytes`
     /// lesen — mehr → `ResponseTooLargeError`, ohne das ganze Bild in den Speicher zu holen (wie Android `download`).
     /// `body` nil = kein Erfolg (HTTP ≠ 2xx), dann wird nichts gelesen.
     /// Zählt für «Akku & Aktivität» (`UsageTaskMetrics`, Bytes wie übertragen).
     static func loadImage(_ url: URL, session: URLSession) async throws -> (response: HTTPURLResponse, body: Data?) {
+        if let transport = imageTestTransport.withLock({ $0 }) { return try await transport(url) }
         let (bytes, response) = try await session.bytes(from: url, delegate: UsageTaskMetrics.shared)
         guard let http = response as? HTTPURLResponse else {
             bytes.task.cancel()

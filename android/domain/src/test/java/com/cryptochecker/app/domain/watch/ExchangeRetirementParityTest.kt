@@ -159,7 +159,7 @@ class ExchangeRetirementParityTest {
         val repo = CountingRepository()
         val fetcher = PriceFetcher(repo, BulkDelistedStore { MemoryStore() })
         val group = (1L..4L).map { watch(it, error = if (it == 4L) NotTraded.MARKER else null) }
-        val (results, signals) = fetcher.fetchGroup(group, includeRollingFutures = false)
+        val (results, signals) = fetcher.fetchGroup(group, includeRollingFutures = false, alarmed = emptySet())
         assertEquals(0, repo.calls)
         assertEquals(group.map { it.id }.toSet(), results.keys)
         for (fetched in results.values) {
@@ -181,7 +181,7 @@ class ExchangeRetirementParityTest {
         ExchangeRetirement.clock = { end - 1 }
         val repo = CountingRepository()
         val fetcher = PriceFetcher(repo, BulkDelistedStore { MemoryStore() })
-        fetcher.fetchGroup((1L..4L).map { watch(it) }, includeRollingFutures = false)
+        fetcher.fetchGroup((1L..4L).map { watch(it) }, includeRollingFutures = false, alarmed = emptySet())
         assertTrue(repo.calls > 0)
     }
 

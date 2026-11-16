@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 266)
+
+- Tests: the remaining source-text guards for failure paths are now behaviour tests on both platforms (honest «last checks» when an exchange is paused, the budget runs out or the exact alarm fires offline; alarmed pairs first; language switch and alarm channel names; the single widget keeps its pair; «coins without logo» list; coin logos and portfolio candles with a test transport on iOS).
+- CI: Gradle retries repository downloads longer (Maven Central answered 429).
+
 ## 16.2.2 (build 265)
 
 - Tests: failure paths tested by behaviour instead of source text: coin-logo ranking cut by the network on a later page, logo images with full storage, starter logos loaded at the same time (emulator), exchange rate not fetched again within a minute after a failure (both platforms).

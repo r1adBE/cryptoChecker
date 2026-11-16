@@ -30,9 +30,9 @@ actor CoinLogoStore {
     /// daher ohne Actor-Sprung lesbar.
     static let memory = OSAllocatedUnfairLock(initialState: BoundedCache<String, UIImage>(maxEntries: 300))
 
-    /// Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs.
-    private static let mapTimeKey = "coin_logos_map_time"
-    private static let mapAttemptKey = "coin_logos_map_attempt"
+    /// Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs (`CoinLogoNetworkTests` liest sie).
+    static let mapTimeKey = "coin_logos_map_time"
+    static let mapAttemptKey = "coin_logos_map_attempt"
     /// Fehlgeschlagene Bilder (Name → Zeitpunkt der letzten `CoinLogos.failureTTLMillis`).
     static let failedKey = "coin_logos_failed"
     /// Kürzel, die nur die Zusatzseiten der Rangliste bringen (`CoinLogos.extraOnlyKeys`).
@@ -42,9 +42,10 @@ actor CoinLogoStore {
     private static let binanceAttemptKey = "coin_logos_binance_list_attempt"
     /// Letzter unbrauchbarer Abruf der Ersatzdatei `coin_meta.json` (dann frühestens nach einer Stunde).
     private static let metaAttemptKey = "coin_logos_coin_meta_attempt"
-    /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
-    static let mapRetryMillis: Int64 = 60 * 60 * 1000
     private(set) var map: [String: String]?
+    /// Nur Tests (`CoinLogoNetworkTests`): Zuordnung vergessen (Datei, Zeitpunkte räumt der Test), Rangliste holen.
+    func forgetMapForTest() { map = nil }
+    func symbolMapForTest() async -> [String: String] { await symbolMap() }
     private var syncing = false
     /// Letzter Abgleich scheiterte am fehlenden Netz (z. B. kein Internet direkt nach der Installation):
     /// `AppData` holt ihn nach, sobald wieder Netz da ist (`CoinLogoRetry.syncNeeded`). Nur im Speicher —
@@ -63,7 +64,7 @@ actor CoinLogoStore {
     private var mergedListsVersion = -1
     /// Letzte fällige Liste bzw. Rangliste scheiterte am Netz (für `retryPending`).
     private var listsNetworkFailed = false
-    private var mapNetworkFailed = false
+    private(set) var mapNetworkFailed = false
 
     // MARK: Ordner
 
