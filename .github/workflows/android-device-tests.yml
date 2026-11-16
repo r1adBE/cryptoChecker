@@ -4,7 +4,7 @@
 # with password — fake exchange answers, no network; the document picker is answered by
 # DocumentPickerStub).
 # Every instrumented test class runs (no filter), also AccessibilityAuditTest; ScreenshotTourTest skips itself here (screenshots.yml).
-# Runs on pushes to main, on release tags and by hand (Actions › Android device tests › Run workflow). On a pull
+# Runs weekly on main (Sundays), on release tags and by hand (Actions › Android device tests › Run workflow). On a pull
 # request the job «changes» (git diff against the base branch) decides what runs: connected-tests (all classes, API
 # 34) when the sources of a phone module, its device tests or the shared UI test files change, so a broken UI flow is
 # seen before the merge and not only on main; release-smoke only when a file changes that decides about the R8
@@ -23,10 +23,10 @@ name: Android device tests
 
 on:
   workflow_dispatch:
-  # Also on every push to main that touches the Android app or the shared test data (UI, database and migration
-  # tests on an emulator are part of the push gate, not only a manual run), and on every release tag v*.
+  # Also on every release tag v* (full gate).
   push:
-    branches: [main]
+    # Not on pushes to main: the pull request already ran the same tree; the
+    # weekly schedule runs the full gate on main (flaky detector, writes the caches).
     # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
@@ -40,9 +40,9 @@ on:
   # Every pull request (no paths filter): «Android device tests» is a required check, and a required check whose
   # workflow is skipped by a paths filter would wait forever («Expected»). The job «changes» picks the jobs.
   pull_request:
-  # Optional weekly run (Monday 04:17 UTC); uncomment to enable.
-  # schedule:
-  #   - cron: '17 4 * * 1'
+  # Weekly full run on main (Sundays 03:13 UTC; kept enabled by keepalive.yml)
+  schedule:
+    - cron: '13 3 * * 0'
 
 permissions:
   contents: read

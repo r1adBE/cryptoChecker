@@ -5,7 +5,14 @@
 # Setzt IMMER -PrequireReleaseSigning=true (ohne vollständige keystore.properties bricht Gradle ab, statt still ein
 # unsigniertes Bundle zu bauen) und -PgitCommit=<voller Commit des Tags aus dem öffentlichen Klon> («Diagnose teilen»
 # zeigt ihn als «Source:»). Bricht ab, wenn der Tag fehlt, nicht zu versionName/versionCode passt oder der Klon
-# lokale Änderungen hat. Ergebnis: app/build/outputs/bundle/release/app-release.aab (Hochladen bleibt Handarbeit).
+# lokale Änderungen hat. Gebaut wird NICHT dieser Arbeitsordner, sondern genau der Baum des Tags: ein temporärer
+# Worktree des öffentlichen Klons am Tag-Commit (Audit 16.11.2026, C-02 – so können hochgeladenes Bundle, «Source:»
+# und Herkunftsnachweis nie auseinanderlaufen). Nur keystore.properties und local.properties werden aus diesem
+# Ordner hineinkopiert und mit dem Worktree wieder gelöscht. Ergebnis (zurückkopiert in diesen Ordner):
+# app/… und wear/build/outputs/bundle/release/*.aab samt mapping.txt (Hochladen bleibt Handarbeit).
+require "fileutils"
+require "tmpdir"
+
 default_platform(:android)
 
 platform :android do
@@ -29,13 +36,39 @@ platform :android do
     UI.user_error!("Kein voller Commit-Hash für #{tag}: #{commit}") unless commit.match?(/\A[0-9a-f]{40}\z/)
     UI.message("Store-Build #{tag}, Commit #{commit}")
 
-    gradlew = File.join(android_dir, Gem.win_platform? ? "gradlew.bat" : "gradlew")
-    gradle(
-      task: "clean bundleRelease",
-      project_dir: android_dir,
-      gradle_path: gradlew,
-      properties: { "requireReleaseSigning" => "true", "gitCommit" => commit },
-    )
-    UI.success("Fertig: app/build/outputs/bundle/release/app-release.aab – mapping.txt mit dem Tag ablegen")
+    work = File.join(Dir.tmpdir, "cryptochecker-store-#{version_code}")
+    sh("git", "-C", public_clone, "worktree", "remove", "--force", work, log: false) if File.exist?(work)
+    sh("git", "-C", public_clone, "worktree", "add", "--detach", work, commit, log: false)
+    begin
+      tag_android = File.join(work, "android")
+      tag_gradle = File.read(File.join(tag_android, "app", "build.gradle.kts"), encoding: "UTF-8")
+      unless tag_gradle[/versionCode\s*=\s*(\d+)/, 1] == version_code
+        UI.user_error!("Tag #{tag} enthält einen anderen versionCode als dieser Ordner – erst abgleichen")
+      end
+      %w[keystore.properties local.properties].each do |name|
+        source = File.join(android_dir, name)
+        FileUtils.cp(source, File.join(tag_android, name)) if File.file?(source)
+      end
+      gradlew = File.join(tag_android, Gem.win_platform? ? "gradlew.bat" : "gradlew")
+      gradle(
+        task: "clean bundleRelease",
+        project_dir: tag_android,
+        gradle_path: gradlew,
+        properties: { "requireReleaseSigning" => "true", "gitCommit" => commit },
+      )
+      %w[app wear].each do |mod|
+        %w[bundle/release mapping/release].each do |sub|
+          from = File.join(tag_android, mod, "build", "outputs", sub)
+          next unless File.directory?(from)
+          to = File.join(android_dir, mod, "build", "outputs", sub)
+          FileUtils.rm_rf(to)
+          FileUtils.mkdir_p(File.dirname(to))
+          FileUtils.cp_r(from, to)
+        end
+      end
+    ensure
+      sh("git", "-C", public_clone, "worktree", "remove", "--force", work, log: false)
+    end
+    UI.success("Fertig (gebaut aus dem Tag #{tag}): app/ und wear/build/outputs/bundle/release – mapping.txt mit dem Tag ablegen")
   end
 end

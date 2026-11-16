@@ -182,7 +182,7 @@ the DE summary the €256 limit for other income is marked «estimated» when a 
 
 Values that are the same for every user — the Fear & Greed index (alternative.me), Coin
 Metrics' on-chain values and BTC price history, and the altcoin season computed from Binance
-daily candles — are fetched once an hour by
+daily candles — are fetched by (scheduled hourly; GitHub often runs scheduled jobs only every few hours)
 [`.github/workflows/market-data.yml`](.github/workflows/market-data.yml)
 ([`.github/scripts/mirror_data.py`](.github/scripts/mirror_data.py)) and attached to the
 release [`data`](https://github.com/r1adBE/cryptoChecker/releases/tag/data) (`fng.txt`,
@@ -198,10 +198,10 @@ straight from the exchanges.
 
 CoinGecko data is **not** mirrored: the CoinGecko API terms forbid redistributing it. The
 apps ask CoinGecko directly (market cap and dominance cached 30 minutes, top 30/40 for the
-starter coins 24 hours, top 40 for the Spot tab and «What is moving with it?» 10 minutes), no API key is used, and every screen with CoinGecko data
+starter coins 24 hours, top 40 for the Spot tab and «What is moving with it?» 10 minutes, top 100 for Crypto Pulse 30 minutes), no API key is used, and every screen with CoinGecko data
 says «Powered by CoinGecko».
 
-> **Deutsch:** Marktdaten, die für alle gleich sind, holt eine GitHub Action stündlich an
+> **Deutsch:** Marktdaten, die für alle gleich sind, holt eine GitHub Action (geplant stündlich, von GitHub oft nur alle paar Stunden ausgeführt) an
 > einen Ort; die App fragt die Anbieter nur noch, wenn der Spiegel fehlt, zu alt oder nicht
 > gültig signiert ist (signiertes Verzeichnis `manifest.json`, ECDSA P-256, höchstens 7 Tage alt).
 > CoinGecko-Daten werden nicht gespiegelt — die App fragt CoinGecko direkt.

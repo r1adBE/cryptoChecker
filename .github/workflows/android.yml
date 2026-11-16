@@ -11,8 +11,11 @@
 name: Android
 
 on:
+  schedule:
+    - cron: '43 2 * * 0'   # Sundays 02:43 UTC: full run on main (kept enabled by keepalive.yml)
   push:
-    branches: [main]
+    # Not on pushes to main: the pull request already ran the same tree; the
+    # weekly schedule below runs the full gate on main (flaky detector, writes the caches).
     # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
@@ -495,7 +498,7 @@ jobs:
   # an artifact of this run; «dependency-submission» (write permission) runs no Gradle and only submits that
   # artifact. This way the third-party build code (lenient, the action's plugin) never runs with a write token.
   dependency-graph:
-    if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     continue-on-error: true
@@ -520,7 +523,7 @@ jobs:
 
   dependency-submission:
     needs: dependency-graph
-    if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     continue-on-error: true

@@ -7,13 +7,13 @@
 # no build. Results: Security › Code scanning. Requires «CodeQL analysis: Advanced» in the repository settings –
 # while the default setup is on, GitHub rejects the uploads of this workflow.
 # Pull requests analyse only the languages whose files they change (job «changes», git diff against the base
-# branch); a pull request without such files (documents, translations, test data) starts no analysis. Pushes to
-# main, the weekly run and manual runs always analyse all four languages.
+# branch); a pull request without such files (documents, translations, test data) starts no analysis. The weekly
+# run and manual runs always analyse all four languages.
 name: CodeQL
 
 on:
-  push:
-    branches: [main]
+  # No push trigger: the pull request already analysed the same tree; the
+  # weekly run analyses main.
   pull_request:
   schedule:
     - cron: '17 5 * * 3'   # Wednesdays 05:17 UTC (kept enabled by keepalive.yml)

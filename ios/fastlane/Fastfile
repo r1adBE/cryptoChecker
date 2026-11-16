@@ -1,12 +1,17 @@
 # Store-Build für den App Store (APP_STORE.md, Abschnitte 4.6 und 5). Im Ordner ios:
-#   fastlane ios store_build public:<Pfad zum öffentlichen Klon>
+#   fastlane ios store_build public:<Pfad zum öffentlichen Klon> team:<Apple-Team-ID>
+# (team: auch über die Umgebungsvariable DEVELOPMENT_TEAM; der Tag-Stand hat kein Team eingetragen.)
 # Optional tag:v<Version>-<Build> (Standard: MARKETING_VERSION / CURRENT_PROJECT_VERSION aus project.yml).
 #
 # Archiviert IMMER mit REQUIRE_GIT_COMMIT=YES und GIT_COMMIT=<voller Commit des Tags aus dem öffentlichen Klon>
 # (die Build-Phase «Check source commit» bricht sonst ab; «Diagnose teilen» zeigt den Commit als «Source:»). Bricht
 # ab, wenn der Tag fehlt, nicht zur Version passt oder der Klon lokale Änderungen hat. Ergebnis:
 # build/CryptoChecker-<Build>.xcarchive; Hochladen weiter im Organizer (Abschnitt 5, Schritt 3).
+# Archiviert wird NICHT dieser Arbeitsordner, sondern genau der Baum des Tags: ein temporärer Worktree des
+# öffentlichen Klons am Tag-Commit (Audit 16.11.2026, C-02), danach wieder entfernt.
 # Lädt nichts hoch und liest fastlane/metadata nicht (das macht nur deliver mit dem Deliverfile).
+require "tmpdir"
+
 default_platform(:ios)
 
 platform :ios do
@@ -30,16 +35,30 @@ platform :ios do
     UI.user_error!("Kein voller Commit-Hash für #{tag}: #{commit}") unless commit.match?(/\A[0-9a-f]{40}\z/)
     UI.message("Store-Build #{tag}, Commit #{commit}")
 
+    team = (options[:team] || ENV["DEVELOPMENT_TEAM"]).to_s
+    UI.user_error!("team:<Apple-Team-ID> angeben (Xcode › Settings › Accounts, 10 Zeichen)") unless team.match?(/\A[A-Z0-9]{10}\z/)
     archive = File.join(ios_dir, "build", "CryptoChecker-#{build}.xcarchive")
-    sh(
-      "xcodebuild", "archive",
-      "-project", File.join(ios_dir, "CryptoChecker.xcodeproj"),
-      "-scheme", "CryptoChecker",
-      "-configuration", "Release",
-      "-destination", "generic/platform=iOS",
-      "-archivePath", archive,
-      "GIT_COMMIT=#{commit}", "REQUIRE_GIT_COMMIT=YES",
-    )
+    work = File.join(Dir.tmpdir, "cryptochecker-store-ios-#{build}")
+    sh("git", "-C", public_clone, "worktree", "remove", "--force", work, log: false) if File.exist?(work)
+    sh("git", "-C", public_clone, "worktree", "add", "--detach", work, commit, log: false)
+    begin
+      tag_yml = File.read(File.join(work, "ios", "project.yml"), encoding: "UTF-8")
+      unless tag_yml[/CURRENT_PROJECT_VERSION:\s*"?(\d+)"?/, 1] == build
+        UI.user_error!("Tag #{tag} enthält eine andere Build-Nummer als dieser Ordner – erst abgleichen")
+      end
+      sh(
+        "xcodebuild", "archive",
+        "-project", File.join(work, "ios", "CryptoChecker.xcodeproj"),
+        "-scheme", "CryptoChecker",
+        "-configuration", "Release",
+        "-destination", "generic/platform=iOS",
+        "-archivePath", archive,
+        "-allowProvisioningUpdates",
+        "DEVELOPMENT_TEAM=#{team}", "GIT_COMMIT=#{commit}", "REQUIRE_GIT_COMMIT=YES",
+      )
+    ensure
+      sh("git", "-C", public_clone, "worktree", "remove", "--force", work, log: false)
+    end
     UI.success("Fertig: #{archive} – mit «open» im Organizer öffnen und hochladen")
   end
 end

@@ -4,15 +4,17 @@
 # CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
 # Gate: line coverage of the unit tests (notice with total, logic = Shared/ and App/ without views and shared logic =
 # Shared/ without views; the number chosen by GATE_SCOPE below MIN_LOGIC is red).
-# Runs on every pull request (one that changes only Markdown skips the three macOS jobs, job «changes»), on pushes
-# to main when ios/ changes, and by hand (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only
-# pushes to main skip it.
+# Runs on every pull request (one that changes only Markdown skips the three macOS jobs, job «changes»), on release
+# tags, weekly on main (Sundays) and by hand (Actions -> iOS -> Run workflow).
 # Signing, archiving and uploading happen locally in Xcode.
 name: iOS
 
 on:
+  schedule:
+    - cron: '13 2 * * 0'   # Sundays 02:13 UTC: full run on main (kept enabled by keepalive.yml)
   push:
-    branches: [main]
+    # Not on pushes to main: the pull request already ran the same tree; the
+    # weekly schedule below runs the full gate on main (flaky detector, writes the caches).
     # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']

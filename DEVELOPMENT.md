@@ -3075,25 +3075,25 @@ pull request that changes only Markdown (or issue templates) skips the heavy job
 
 | Workflow | Runs on | Purpose |
 |---|---|---|
-| ⬤ `android.yml` *Android* | every pull request; `main` (`android/`, the checked Swift sources, its scripts); by hand | three parallel jobs – unit tests with source checks, Kotlin warnings, Room schema drift and coverage gate · lint with the instrumented tests compiled · debug and R8 release build with manifest and APK audit and SBOM – collected by the job «Android build»; dependency graph (`main`) and review (pull requests) |
-| ⬤ `android-device-tests.yml` | every pull request; `main` (`android/`, its scripts); by hand | instrumented tests on an emulator (API 34, on `main` also the ICU tests on API 26), R8 smoke test; on pull requests the job «changes» picks: all device tests for source changes, the migration tests for schema-only changes, the smoke test for release-build files – collected by the job «Android device tests» (jobs not picked count as green) |
-| ⬤ `ios.yml` *iOS* | every pull request; `main` (`ios/`, shared fixtures, its scripts); by hand | release build with audit (settings, bundle contents, size ceilings), unit tests with coverage gate, UI tests – collected by the job «iOS build» |
+| ⬤ `android.yml` *Android* | every pull request; weekly on `main` (Sunday; not on pushes since build 243 – the pull request ran the same tree); release tags; by hand | three parallel jobs – unit tests with source checks, Kotlin warnings, Room schema drift and coverage gate · lint with the instrumented tests compiled · debug and R8 release build with manifest and APK audit and SBOM – collected by the job «Android build»; dependency graph (`main`) and review (pull requests) |
+| ⬤ `android-device-tests.yml` | every pull request; weekly on `main` (Sunday; not on pushes since build 243); release tags; by hand | instrumented tests on an emulator (API 34, on `main` also the ICU tests on API 26), R8 smoke test; on pull requests the job «changes» picks: all device tests for source changes, the migration tests for schema-only changes, the smoke test for release-build files – collected by the job «Android device tests» (jobs not picked count as green) |
+| ⬤ `ios.yml` *iOS* | every pull request; weekly on `main` (Sunday; not on pushes since build 243); release tags; by hand | release build with audit (settings, bundle contents, size ceilings), unit tests with coverage gate, UI tests – collected by the job «iOS build» |
 | ⬤ `strings.yml` *Strings* | every pull request; `main` (string resources, Kotlin and Swift sources, `ios/tools/`, catalogues); by hand | placeholders, plurals, missing translations (`check_strings.py`), Serbian Latin, string catalogues up to date including the small watch catalogue and its key list |
 | ⬤ `parity.yml` *Parity fixtures* | every pull request; `main` (fixtures, `gen_xcodeproj.py`); by hand | `android/testdata/parity` = `ios/Tests/Parity`, byte for byte |
 | ⬤ `release-readiness.yml` | every pull request; `main`; by hand | store text limits, version parity, Xcode project drift, User-Agent, iOS privacy manifest |
 | ⬤ `osv.yml` *Dependency vulnerabilities* | pull requests and `main` (`android/`, the check itself); weekly (Tuesday); by hand | OSV check of the release classpath |
 | ⬤ `reproducible.yml` | weekly (Sunday); by hand; pull requests that change the check itself – not on pushes to `main` | two release builds compared byte for byte; provenance attestation on tags |
 | ⬤ `screenshots.yml` | by hand – not on pushes to `main` | screenshot tour of both apps; published to the branch `screenshots` from a release tag or a manual run on `main` |
-| `codeql.yml` *CodeQL* | `main` (every push); weekly (Wednesday); by hand; every pull request, there only the languages whose files changed (job «changes»; none for documents, translations or test data) | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows, with the `security-extended` query suite; results under Security › Code scanning |
+| `codeql.yml` *CodeQL* | weekly on `main` (Wednesday; not on pushes since build 243); by hand; every pull request, there only the languages whose files changed (job «changes»; none for documents, translations or test data) | code scanning for Kotlin/Java (debug compile by hand, dependency verification on), Swift, Python and the workflows, with the `security-extended` query suite; results under Security › Code scanning |
 | `ios-performance.yml` | weekly (Thursday); by hand; pull requests that change the performance tests or the workflow | iOS performance tests in a Release build |
 | `mutation.yml` | weekly (Saturday); by hand | mutation tests of the portfolio and tax logic |
 | `baseline-profile.yml` | by hand | measured baseline profile (artifact) |
 | `supply-chain-update.yml` | by hand (monthly and before a release, see «Supply chain») | regenerates verification metadata, keyring and lock files (branch `supply-chain/update`) |
 | `record-exchange-fixtures.yml` | by hand | records real exchange responses for the contract tests (artifact, nothing committed) |
 | `exchange-live-check.yml` | weekly (Wednesday); by hand | calls every adapter's public endpoint, one issue on failure |
-| `market-data.yml` | hourly; by hand | signed data mirror (release `data`) |
+| `market-data.yml` | scheduled hourly – GitHub delays and drops scheduled runs, in practice about every 3–9 hours (median 5.3 h in October/November 2026); by hand | signed data mirror (release `data`) |
 | `macro-calendar.yml` | weekly (Monday); by hand | economic calendar (branch `macro`), then Pages |
-| `pages.yml` | `main` (`docs/`); by hand; called by the calendar | GitHub Pages: start page, privacy policy, calendar |
+| `pages.yml` | `main` (`docs/`); by hand; called by the calendar | GitHub Pages: start page, privacy policy, terms of use, calendar |
 | `keepalive.yml` | weekly (Sunday); by hand | re-enables the scheduled workflows through the API (GitHub disables them after 60 days without activity) |
 
 Artifacts are kept 14 days (test reports, lint reports, logs, baseline profile), the SBOM and the Pages archive 90 days, the
@@ -3192,6 +3192,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 240: ios.yml: Simulator keyboard defaults before UI tests
 * Build 241: exchange_live_check.py: every 403 = skipped (runner blocked)
 * Build 242: terms of use page + in-app link (about.terms), privacy policy rights/Wear/crash reports/Show on watch, Pulse top-coins cache 30 min (TOP_CACHE_MILLIS / topCacheMillis), exchange logos from CoinMarketCap or monogram (gen_logo_packs.py source types cmc/monogram), Play data safety: in-app search history.
+* Build 243: CI push-to-main runs dropped for ios/android/device tests/CodeQL + weekly schedule (keepalive list), store_build from a tag worktree (android/ios Fastfile, iOS team:), setup-github-settings: bypass pull_request only, rebase merges, mirror cadence documented.
 
 ## Known warnings
 

@@ -16,6 +16,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 243)
+
+- CI: iOS, Android, Android device tests and CodeQL no longer run again on pushes to main (the pull request ran the same tree); a weekly full run on main (Sundays) instead, kept enabled by Keepalive.
+- Store builds (fastlane store_build, Android and iOS) are built from a temporary worktree of the public clone at the tag commit, never from the working folder.
+- Repository settings script: admins may bypass the main rules only through a pull request; merges by rebase, squash off.
+- Docs: actual cadence of the scheduled data mirror.
+
 ## 16.2.2 (build 242)
 
 - Terms of use (DE/EN) at docs/terms/, linked in the app (About, settings search), in the privacy policy and on the start page; they contain the points the CoinGecko API terms (7.1) require.
