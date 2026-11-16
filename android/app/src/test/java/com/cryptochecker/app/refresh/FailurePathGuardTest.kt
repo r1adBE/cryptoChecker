@@ -15,26 +15,15 @@ class FailurePathGuardTest {
     /** Rangliste der Logos: Netzfehler auf einer Folgeseite = bald erneut, nicht Stunden «unvollständig». */
     @Test
     fun rankingNetworkCutRetriesSoon() {
-        val map = android("data/src/main/java/com/cryptochecker/app/data/CoinListSyncMap.kt")
-        assertTrue(map.contains("val networkCut = net.failed"))
-        assertTrue(map.contains("if (!networkCut) prefs.edit { putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full)) }"))
-        assertTrue(map.contains("mapNetworkFailed = networkCut"))
+        // Android als Verhalten: LogoRankingNetworkCutTest (Gerät)
         val ios = ios("Shared/Storage/CoinLogoStore.swift")
         assertTrue(ios.contains("if networkError { mapFetchFailed(networkError: true, previousAttempt: attempt) } else {"))
-        assertFalse(map.contains("    prefs.edit { putLong(KEY_MAP_TIME,"))
     }
 
     /** Logos: Speicher voll = eigene Art (keine Tagessperre, kein Netz, Durchgang lädt nichts mehr); Start-Logos parallel. */
     @Test
     fun logoStorageFullAndStarterLogos() {
-        // Abrufe samt Einordnung seit Build 237 in LogoImageFetcher (Zeilengrenze)
-        val store = android("data/src/main/java/com/cryptochecker/app/data/logos/LogoImageStore.kt") +
-            android("data/src/main/java/com/cryptochecker/app/data/logos/LogoImageFetcher.kt")
-        assertTrue(store.contains("Fetched.UNSAVED -> unsaved.incrementAndGet().also { loadingHint.imageDone() }"))
-        assertTrue(store.contains("if (streaks.unsaved) return Fetched.UNSAVED"))
-        assertTrue(store.contains("transient = transientLeft.size,"))
-        assertTrue(store.contains("if (streaks.noteTransient(host, transient) || forbiddenPause) {"))
-        assertTrue(store.contains(".map { (name, url) -> async { fetcher.fetchLimited(name, url, streaks) == Fetched.OK } }.awaitAll()"))
+        // Android als Verhalten: LogoImageStoreFailureTest (Gerät: Speicher voll, Start-Logos gleichzeitig)
         val repo = android("data/src/main/java/com/cryptochecker/app/data/logos/CoinLogoRepository.kt")
         assertTrue(repo.contains("images.ensureStarterLogos(symbols, listSync.starterMap())"))
         val ios = ios("Shared/Storage/CoinLogoStore+Download.swift")
@@ -46,17 +35,6 @@ class FailurePathGuardTest {
         assertTrue(line.contains("value = missing?.let { source.notYetLoaded(it) }.orEmpty()"))
         val sheet = ios("App/Features/Watchlist/WatchlistMissingLogos.swift")
         assertTrue(sheet.contains("if await CoinLogoStore.shared.notYetLoaded(entry.key) { notYet.insert(entry.key) }"))
-    }
-
-    /** Devisenkurs: nach einem Abruf ohne Antwort beider Quellen eine Minute kein neuer Versuch (N3-12). */
-    @Test
-    fun fxRateRemembersAFailedFetch() {
-        val fx = android("data/src/main/java/com/cryptochecker/app/data/portfolio/FxRateSource.kt")
-        assertTrue(fx.contains("if (now - failedAt in 0 until FAILED_RETRY_MILLIS) return cache[target]"))
-        assertTrue(fx.contains("        failedAt = now\n"))
-        val ios = ios("Shared/Portfolio/FxRateSource.swift")
-        assertTrue(ios.contains("now - failed < Self.failedRetryMillis"))
-        assertTrue(ios.contains("Self.memory.withLock { ${'$'}0.failedAt = now }"))
     }
 
     /** Hintergrund: pausiert/offline ehrlich vermerkt, Budget-Lücken keine volle Prüfung, Netzbudget behält Kurse (iOS). */

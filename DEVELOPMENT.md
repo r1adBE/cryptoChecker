@@ -3247,6 +3247,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 262: A241-A-01 Teil 1: source_rules.py (13 Regeln) statt 14 Quelltext-Testdateien.
 * Build 263: A241-C-10 Teil 1: WidgetRenderDeviceTest, Job wear-smoke, Mutationsscore-Untergrenze, gradle_warmup.sh.
 * Build 264: A241-A-01 Teil 2 (1): Sperre als Verhalten; I-01 Komplikations-Zeitleiste.
+* Build 265: A241-A-01 Teil 2 (2): Fehlerwege Logos/Devisen als Verhalten.
 
 ## Known warnings
 

@@ -153,4 +153,19 @@ class FxRateSourceTest {
         assertEquals(list.size, list.toSet().size)
         assertTrue(list.all { it.length == 3 && it.all { c -> c in 'A'..'Z' } })
     }
+
+    /**
+     * Abruf ohne Antwort beider Quellen: eine Minute kein neuer Versuch — sonst wartete jede weitere Währung erneut bis
+     * 2 × 10 s (früher Quelltext-Wächter, Audit A-01).
+     */
+    @Test
+    fun failedFetchIsNotRepeatedWithinAMinute() = runBlocking {
+        val fx = source(emptyMap())
+        assertNull(fx.usdTo("CHF"))
+        val first = hits.toMap()
+        assertTrue("gefragt: $first", first.keys.any { it.contains("open.er-api") })
+        assertNull(fx.usdTo("JPY"))
+        assertNull(fx.usdTo("CHF"))
+        assertEquals("innerhalb der Minute keine neue Anfrage", first, hits.toMap())
+    }
 }

@@ -216,7 +216,16 @@ enum FxRateSource {
         return value
     }
 
+    /// Nur Tests: Antworten statt Netz (`FxRateFailureTests`); nil = echtes Netz.
+    static let testTransport = OSAllocatedUnfairLock<(@Sendable (String) async -> String?)?>(initialState: nil)
+
+    /// Nur Tests: Zwischenspeicher und gemerkte Fehlschläge leeren.
+    static func resetForTest() {
+        memory.withLock { $0 = Memory() }
+    }
+
     private static func get(_ url: String) async -> String? {
-        try? await ExchangeHTTP.call(url)
+        if let transport = testTransport.withLock({ $0 }) { return await transport(url) }
+        return try? await ExchangeHTTP.call(url)
     }
 }
