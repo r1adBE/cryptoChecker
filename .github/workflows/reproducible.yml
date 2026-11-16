@@ -62,6 +62,11 @@ jobs:
         with:
           cache-disabled: true
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       # Same flags as the Android workflow; -PgitCommit is the commit itself (identical in both runs)
       - name: Build release APK and AAB (unsigned)
         run: |

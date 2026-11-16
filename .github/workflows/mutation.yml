@@ -3,8 +3,9 @@
 # changes one operator, literal or return value at a time, runs the unit-test classes that cover the file and reports
 # whether the tests noticed it. The choice of mutants uses the ISO calendar week (UTC) as seed, so every week tests
 # another sample; the seed is printed in the log (rerun a week with --seed <week> --list locally). A surviving
-# mutant is a warning (a gap in the tests, not a bug); the run is red only when the baseline unit tests fail or the
-# script itself fails (missing target file, test filter without tests, a file that could not be restored).
+# mutant is a warning (a gap in the tests, not a bug); the run is red when the baseline unit tests fail, the script
+# itself fails (missing target file, test filter without tests, a file that could not be restored) or the score of at
+# least 20 counted mutants falls below 50 % (weekly scores were 62–66 %; the floor leaves room for the weekly sample).
 # Never a required check. Weekly on Saturdays and by hand.
 name: Mutation tests
 
@@ -59,6 +60,11 @@ jobs:
         with:
           cache-read-only: true
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       # Mutants are only meaningful against green tests; this run also fills the Gradle caches, so the mutant runs
       # below work with --offline. The test classes of the targets live in :app (parity fixtures) and :domain;
       # mutation_test.py gives every --tests pattern to the task of its module
@@ -88,7 +94,7 @@ jobs:
           : > "$F"
           set +e
           python3 -I .github/scripts/mutation_test.py --findings "$F" --per-file "$PER_FILE" --max-total "$MAX_TOTAL" \
-            --time-limit 55 --mutant-timeout 600 --only "$ONLY" --seed "$SEED"
+            --time-limit 55 --mutant-timeout 600 --only "$ONLY" --seed "$SEED" --min-score 50
           code=$?
           set -e
           # Surviving mutants are warnings (annotate.py exits 0 for them); the step fails only with the script

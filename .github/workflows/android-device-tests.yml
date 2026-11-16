@@ -34,6 +34,8 @@ on:
       - 'android/**'
       - '.github/workflows/android-device-tests.yml'
       - '.github/scripts/android_smoke_test.sh'
+      - '.github/scripts/wear_smoke_test.sh'
+      - '.github/scripts/gradle_warmup.sh'
       - '.github/scripts/annotate.py'
       - '.github/scripts/collect_jobs.py'
       - '.github/scripts/run_device_classes.sh'
@@ -63,6 +65,7 @@ jobs:
       connected: ${{ steps.diff.outputs.connected }}
       migration: ${{ steps.diff.outputs.migration }}
       release: ${{ steps.diff.outputs.release }}
+      wear: ${{ steps.diff.outputs.wear }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -84,23 +87,29 @@ jobs:
           CONNECTED=false
           MIGRATION=false
           RELEASE=false
+          WEAR=false
           # Unit tests (src/test, src/testDebug …) do not run on a device
           # (grep error → keep every file, so the tests run)
           grep -vE '^android/[a-z]+/src/test[A-Za-z]*/' "$CHANGED" > "$RUNNER_TEMP/changed-device.txt" \
             || [ $? -eq 1 ] || cp "$CHANGED" "$RUNNER_TEMP/changed-device.txt"
-          if has -E '^android/(app|domain|data|marketdata)/src/|^android/testdata/uitest/|^\.github/workflows/android-device-tests\.yml$' "$RUNNER_TEMP/changed-device.txt"; then
+          if has -E '^android/(app|domain|data|marketdata|coreui|widget|resources)/src/|^android/testdata/uitest/|^\.github/workflows/android-device-tests\.yml$' "$RUNNER_TEMP/changed-device.txt"; then
             CONNECTED=true
           fi
           if has -E '^android/(app|domain|data)/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$' "$CHANGED"; then
             MIGRATION=true
           fi
-          if has -xE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/domain/build\.gradle\.kts|android/data/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml' "$CHANGED"; then
+          if has -xE 'android/app/proguard-rules\.pro|android/(app|domain|data|coreui|widget|resources)/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml' "$CHANGED"; then
             RELEASE=true
           fi
-          echo "connected tests: $CONNECTED · migration tests: $MIGRATION · release smoke: $RELEASE"
+          # Wear OS app: its sources, build and rules, the shared libraries and the smoke script
+          if has -E '^android/wear/|^android/gradle/libs\.versions\.toml$|^\.github/scripts/wear_smoke_test\.sh$|^\.github/workflows/android-device-tests\.yml$' "$CHANGED"; then
+            WEAR=true
+          fi
+          echo "connected tests: $CONNECTED · migration tests: $MIGRATION · release smoke: $RELEASE · Wear OS smoke: $WEAR"
           echo "connected=$CONNECTED" >> "$GITHUB_OUTPUT"
           echo "migration=$MIGRATION" >> "$GITHUB_OUTPUT"
           echo "release=$RELEASE" >> "$GITHUB_OUTPUT"
+          echo "wear=$WEAR" >> "$GITHUB_OUTPUT"
 
   connected-tests:
     # Pull requests: only when «changes» found sources that the device tests cover (see header). «changes» is
@@ -128,6 +137,11 @@ jobs:
         uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
 
       # Hardware acceleration for the x86_64 emulator (see reactivecircus/android-emulator-runner).
       - name: Enable KVM
@@ -221,6 +235,11 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       - name: Enable KVM
         working-directory: .
         run: |
@@ -306,6 +325,11 @@ jobs:
         uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           cache-read-only: true
+
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
 
       - name: Enable KVM
         working-directory: .
@@ -444,6 +468,11 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       - name: Enable KVM
         working-directory: .
         run: |
@@ -521,13 +550,111 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  # Wear OS app on a Wear OS emulator (audit C-10): signed R8 release APK, start, price tile through the debug surface,
+  # monkey, crash buffer (wear_smoke_test.sh). On pull requests when the Wear OS app or its libraries change.
+  wear-smoke:
+    needs: changes
+    if: ${{ !cancelled() && (github.event_name != 'pull_request' || needs.changes.outputs.wear == 'true') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Build Wear OS release APK (R8, unsigned)
+        run: |
+          chmod +x gradlew
+          ./gradlew :wear:assembleRelease --stacktrace
+
+      # Throwaway key, valid for one day and never stored: only so the emulator accepts the APK
+      - name: Sign Wear OS release APK with a throwaway key
+        run: |
+          set -euo pipefail
+          BT=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)
+          UNSIGNED=$(find wear/build/outputs/apk/release -maxdepth 1 -name '*.apk' | sort | head -n 1)
+          test -n "$UNSIGNED" || { echo "::error::No release APK in wear/build/outputs/apk/release"; exit 1; }
+          KS="$RUNNER_TEMP/wear-smoke.jks"
+          keytool -genkeypair -noprompt -keystore "$KS" -storepass smokepass -keypass smokepass \
+            -alias smoke -keyalg RSA -keysize 2048 -validity 1 -dname "CN=CI smoke test"
+          "$BT/zipalign" -f -P 16 4 "$UNSIGNED" "$RUNNER_TEMP/wear-aligned.apk"
+          "$BT/apksigner" sign --ks "$KS" --ks-pass pass:smokepass --key-pass pass:smokepass \
+            --out "$RUNNER_TEMP/wear-smoke.apk" "$RUNNER_TEMP/wear-aligned.apk"
+          "$BT/apksigner" verify "$RUNNER_TEMP/wear-smoke.apk"
+          rm -f "$KS"
+
+      # Emulator boot problems are environmental: the step may fail without failing the job; the results step then
+      # warns «no results» (error on main and release tags). App crashes are judged there, not here.
+      - name: Wear OS smoke test on emulator (API 33)
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 33
+          target: android-wear
+          arch: x86_64
+          profile: wearos_small_round
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/wear_smoke_test.sh" "$RUNNER_TEMP/wear-smoke.apk" "$RUNNER_TEMP/wear-findings.tsv" "$RUNNER_TEMP/wear-logs"
+
+      - name: Wear OS smoke test results
+        if: always()
+        run: |
+          F="$RUNNER_TEMP/wear-findings.tsv"
+          if [ ! -s "$F" ]; then
+            if [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+              echo "::error title=Wear OS smoke test::No smoke test results (emulator did not start or the script did not run)"
+              exit 1
+            fi
+            echo "::warning title=Wear OS smoke test::No smoke test results (emulator did not start or the script did not run)"
+            exit 0
+          fi
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "Wear OS smoke test"
+
+      - name: Upload Wear OS smoke test logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wear-smoke-logs
+          path: ${{ runner.temp }}/wear-logs/
+          if-no-files-found: ignore
+          retention-days: 14
+
   # Required check «Android device tests» (ruleset «protect-main»): green when every job that should run for this
   # event passed and the jobs «changes» did not pick were skipped; red for a failed, hung (time limit) or never
   # started job. On pull requests: changes, then connected-tests, migration-tests and release-smoke as picked; on
   # every other event connected-tests, the API 26 tests and release-smoke.
   collect:
     name: Android device tests
-    needs: [changes, connected-tests, connected-tests-api26, migration-tests, release-smoke]
+    needs: [changes, connected-tests, connected-tests-api26, migration-tests, release-smoke, wear-smoke]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -545,9 +672,11 @@ jobs:
           API26: ${{ needs.connected-tests-api26.result }}
           MIGRATION: ${{ needs.migration-tests.result }}
           RELEASE: ${{ needs.release-smoke.result }}
+          WEAR: ${{ needs.wear-smoke.result }}
           PICK_CONNECTED: ${{ needs.changes.outputs.connected }}
           PICK_MIGRATION: ${{ needs.changes.outputs.migration }}
           PICK_RELEASE: ${{ needs.changes.outputs.release }}
+          PICK_WEAR: ${{ needs.changes.outputs.wear }}
         run: |
           set -u
           python3 -I .github/scripts/collect_jobs.py --self-test
@@ -556,8 +685,9 @@ jobs:
             if [ "$PICK_MIGRATION" = true ] && [ "$PICK_CONNECTED" != true ]; then RUN_MIGRATION=true; else RUN_MIGRATION=false; fi
             python3 -I .github/scripts/collect_jobs.py "Android device tests" "changes=$CHANGES" \
               "connected tests=$CONNECTED$(may "$PICK_CONNECTED")" "migration tests=$MIGRATION$(may "$RUN_MIGRATION")" \
-              "release smoke=$RELEASE$(may "$PICK_RELEASE")" "API 26 tests=$API26:may-skip"
+              "release smoke=$RELEASE$(may "$PICK_RELEASE")" "Wear OS smoke=$WEAR$(may "$PICK_WEAR")" "API 26 tests=$API26:may-skip"
           else
             python3 -I .github/scripts/collect_jobs.py "Android device tests" "changes=$CHANGES:may-skip" \
-              "connected tests=$CONNECTED" "API 26 tests=$API26" "release smoke=$RELEASE" "migration tests=$MIGRATION:may-skip"
+              "connected tests=$CONNECTED" "API 26 tests=$API26" "release smoke=$RELEASE" "Wear OS smoke=$WEAR" \
+              "migration tests=$MIGRATION:may-skip"
           fi

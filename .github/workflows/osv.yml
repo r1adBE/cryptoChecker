@@ -57,6 +57,11 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       # Dependency tree after conflict resolution (what ships in the release APK/AAB); no build needed
       - name: Resolve release runtime classpath
         run: |

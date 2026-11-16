@@ -85,6 +85,12 @@ jobs:
         with:
           cache-read-only: true
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        if: ${{ inputs.run_contract_test }}
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       - name: Contract test with recordings
         if: ${{ inputs.run_contract_test }}
         working-directory: android

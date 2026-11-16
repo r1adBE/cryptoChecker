@@ -31,7 +31,8 @@ the daemon, which would otherwise go on with the hung test run and hold its lock
 Report: findings for annotate.py (one line «level<TAB>file<TAB>line<TAB>message»): a notice per file with the share
 of killed mutants, a warning per surviving mutant (file:line, the change), a notice with the total. Errors (exit 1)
 only when the script itself fails: target file missing, a test pattern that matches no test, a file that could not
-be restored. Surviving mutants never fail the run.
+be restored. Surviving mutants never fail the run on their own; with --min-score the run fails when the share of
+killed mutants (from MIN_SCORED counted mutants) is below that floor.
 
 Usage (from the repository root, after a green
 `./gradlew :app:testDebugUnitTest :domain:testDebugUnitTest :data:testDebugUnitTest` in android/):
@@ -51,6 +52,8 @@ import sys
 import tempfile
 import time
 
+# Fewest counted mutants for the score floor (--min-score): below, a run is too short to judge
+MIN_SCORED = 20
 PORTFOLIO = "android/domain/src/main/java/com/cryptochecker/app/domain/portfolio/"
 PARITY_PORTFOLIO = "*.PortfolioParityTest"
 PARITY_TAX = "*.TaxTemplatesParityTest"
@@ -613,8 +616,14 @@ def run(args, targets, runner=gradle_runner, clock=time.monotonic):
         summary += f"; time limit reached, {not_run} mutant(s) not run"
     # The total first: GitHub shows only the first notices of a step as annotations
     findings.append(("notice", "", "", summary))
+    # Floor of the score (audit C-10): only with enough counted mutants, so a short or cut run cannot fail on chance
+    floor = getattr(args, "min_score", 0)
+    below = bool(floor) and total_counted >= MIN_SCORED and 100 * total_killed < floor * total_counted
+    if below:
+        findings.append(("error", "", "", f"Mutation score {share} below the floor of {floor} % "
+                                          f"({total_killed}/{total_counted}): the tests stopped noticing changes"))
     findings.extend(per_file)
-    return findings, 1 if errors else 0
+    return findings, 1 if errors or below else 0
 
 
 def write_findings(path, findings):
@@ -900,6 +909,8 @@ def main():
     ap.add_argument("--mutant-timeout", type=int, default=900, help="seconds per Gradle run")
     ap.add_argument("--only", default="", help="only target files whose path contains this text")
     ap.add_argument("--seed", default="", help="changes the deterministic choice of mutants")
+    ap.add_argument("--min-score", type=int, default=0,
+                    help=f"percent of killed mutants below which the run fails (from {MIN_SCORED} counted mutants; 0 = off)")
     ap.add_argument("--target", action="append", help="PATH=PATTERN[,PATTERN] (replaces the built-in list)")
     ap.add_argument("--online", action="store_true", help="run Gradle without --offline")
     args = ap.parse_args()

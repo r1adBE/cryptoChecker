@@ -40,6 +40,7 @@ on:
       - '.github/scripts/line_limit.py'
       - '.github/scripts/code_metrics.py'
       - '.github/scripts/source_rules.py'
+      - '.github/scripts/gradle_warmup.sh'
       - '.github/scripts/lint_warnings.py'
       - '.github/scripts/coverage_summary.py'
       - '.github/scripts/sbom.py'
@@ -128,6 +129,11 @@ jobs:
         uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
 
       # Production sources (android/*/src/main, ios/App, ios/Shared, ios/Widgets) at most 400 lines each — fails
       # fast without Gradle
@@ -291,6 +297,11 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
       # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;
       # in CI: workflow «Android device tests» on every push to main, by hand and on pull requests that change the
@@ -376,6 +387,11 @@ jobs:
         uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
 
       # Phone and watch debug APKs (both in the artifact «cryptochecker-debug» for device tests)
       - name: Build debug APKs (phone and watch)

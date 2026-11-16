@@ -53,6 +53,11 @@ jobs:
         with:
           cache-read-only: true
 
+      # Plugins once into the cache, network failures retried (gradle_warmup.sh)
+      - name: Gradle warm-up
+        working-directory: android
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/gradle_warmup.sh"
+
       # Hardware acceleration for the x86_64 emulator (see reactivecircus/android-emulator-runner).
       - name: Enable KVM
         working-directory: .

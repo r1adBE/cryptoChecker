@@ -16,6 +16,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 263)
+
+- Tests: the widgets are inflated on the emulator as the launcher does (every widget layout, list rows with pair, price, exchange and «disabled» in every accent colour, light and dark); a new job runs the Wear OS release app on a Wear OS emulator (start, price tile, monkey, crash buffer); the weekly mutation test fails below a score of 50 %.
+- CI: a Gradle warm-up in every workflow fetches the plugins first and retries only network failures; device tests on pull requests now also run for changes in the modules coreui, widget and resources.
+
 ## 16.2.2 (build 262)
 
 - Checks: the rules of the code base that were unit tests reading source text (no plain runCatching in coroutines, haptics only through the catalogue, typography and spacing ceilings, label_value, injected dispatchers, layer boundaries, scrolling dialog texts, write consent before every user write, guarded settings writes, Compose stability, declared test inputs, bounded caches) are now one script, .github/scripts/source_rules.py, with a self-test of its detectors; it runs in the Android workflow without Gradle and now also covers the modules coreui, widget, data and domain.

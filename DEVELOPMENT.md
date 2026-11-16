@@ -3245,6 +3245,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 260: Oberflächen-Funktionen Kotlin ≤ 250 Zeilen (A241-A-02/I-02 Rest), acht neue Teil-Dateien.
 * Build 261: Swift-Oberflächenfunktionen ≤ 150 Zeilen (A241-A-02/I-02 Rest).
 * Build 262: A241-A-01 Teil 1: source_rules.py (13 Regeln) statt 14 Quelltext-Testdateien.
+* Build 263: A241-C-10 Teil 1: WidgetRenderDeviceTest, Job wear-smoke, Mutationsscore-Untergrenze, gradle_warmup.sh.
 
 ## Known warnings
 
