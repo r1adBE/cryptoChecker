@@ -56,7 +56,7 @@
     <string name="settings_ongoing_notifications">غير قابلة للإزالة بالسحب</string>
     <string name="settings_ongoing_notifications_hint">يُبقي إشعارات الأسعار مثبّتة.</string>
     <string name="settings_watch_notifications">عرض على الساعة</string>
-    <string name="settings_watch_notifications_hint">تظهر إشعارات الأسعار والتنبيهات وإشعارات السوق بصمت على الساعة. يلزم وجود Crypto Checker على الساعة – افتحه هناك مرة واسمح بالإشعارات.</string>
+    <string name="settings_watch_notifications_hint">تهتز التنبيهات على الساعة، وتظهر إشعارات الأسعار والسوق بصمت. إذا كانت الساعة خارج النطاق، يمررها الهاتف كالمعتاد. يلزم وجود Crypto Checker على الساعة – افتحه هناك مرة واسمح بالإشعارات.</string>
     <string name="settings_price_notifications">إشعارات الأسعار</string>
     <string name="settings_price_notifications_hint">عرض السعر الحالي للأزواج المفعّلة في شريط الحالة.</string>
     <string name="settings_price_pairs">الأزواج</string>

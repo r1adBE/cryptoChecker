@@ -53,7 +53,7 @@
     <string name="settings_ongoing_notifications">Non rimovibili</string>
     <string name="settings_ongoing_notifications_hint">Mantiene fisse le notifiche di prezzo.</string>
     <string name="settings_watch_notifications">Mostra sull’orologio</string>
-    <string name="settings_watch_notifications_hint">Le notifiche dei prezzi, gli avvisi e le notifiche di mercato compaiono in silenzio sull’orologio. Serve Crypto Checker sull’orologio: aprilo lì una volta e consenti le notifiche.</string>
+    <string name="settings_watch_notifications_hint">Gli avvisi vibrano sull’orologio; le notifiche di prezzo e di mercato compaiono in silenzio. Se l’orologio è fuori portata, il telefono le inoltra come sempre. Serve Crypto Checker sull’orologio: aprilo lì una volta e consenti le notifiche.</string>
     <string name="settings_price_notifications">Notifiche di prezzo</string>
     <string name="settings_price_notifications_hint">Mostra il prezzo attuale delle coppie attivate nella barra di stato.</string>
     <string name="settings_price_pairs">Coppie</string>

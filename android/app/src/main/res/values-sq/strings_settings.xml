@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Nuk mund të hiqen me rrëshqitje</string>
     <string name="settings_ongoing_notifications_hint">Mban të fiksuara njoftimet e çmimit.</string>
     <string name="settings_watch_notifications">Shfaq në orë</string>
-    <string name="settings_watch_notifications_hint">Njoftimet e çmimeve, sinjalizimet dhe njoftimet e tregut shfaqen në heshtje në orë. Duhet Crypto Checker në orë – hape atje një herë dhe lejo njoftimet.</string>
+    <string name="settings_watch_notifications_hint">Sinjalizimet dridhen në orë; njoftimet e çmimeve dhe të tregut shfaqen në heshtje. Nëse ora është jashtë rrezes, telefoni i përcjell si zakonisht. Duhet Crypto Checker në orë – hape atje një herë dhe lejo njoftimet.</string>
     <string name="settings_price_notifications">Njoftimet e çmimit</string>
     <string name="settings_price_notifications_hint">Shfaq çmimin aktual të çifteve të aktivizuara në shiritin e statusit.</string>
     <string name="settings_price_pairs">Çifte</string>

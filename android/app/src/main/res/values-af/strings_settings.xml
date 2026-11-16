@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Kan nie weggeswiep word nie</string>
     <string name="settings_ongoing_notifications_hint">Hou pryskennisgewings vasgespeld.</string>
     <string name="settings_watch_notifications">Wys op horlosie</string>
-    <string name="settings_watch_notifications_hint">Pryskennisgewings, waarskuwings en markkennisgewings verskyn stil op die horlosie. Benodig Crypto Checker op die horlosie – maak dit een keer daar oop en laat kennisgewings toe.</string>
+    <string name="settings_watch_notifications_hint">Waarskuwings vibreer op die horlosie; prys- en markkennisgewings verskyn stil. Is die horlosie buite bereik, stuur die foon hulle soos gewoonlik aan. Benodig Crypto Checker op die horlosie – maak dit een keer daar oop en laat kennisgewings toe.</string>
     <string name="settings_price_notifications">Pryskennisgewings</string>
     <string name="settings_price_notifications_hint">Wys die huidige prys van geaktiveerde pare in die statusbalk.</string>
     <string name="settings_price_pairs">Pare</string>

@@ -7,6 +7,7 @@
     <string name="watch_refresh">புதுப்பிக்கவும்</string>
     <string name="watch_choose">காயின்களைத் தேர்ந்தெடுக்கவும்</string>
     <string name="watch_notify_channel">தொலைபேசியிலிருந்து</string>
+    <string name="watch_alarm_channel">ஃபோனிலிருந்து எச்சரிக்கைகள்</string>
     <string name="watch_choose_hint">காயின்கள்: அதிகபட்சம் %1$d</string>
     <string name="watch_complication_label">விலை</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 மணிநேரத்தில் %3$s</string>

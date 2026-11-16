@@ -7,6 +7,7 @@
     <string name="watch_refresh">Жаңарту</string>
     <string name="watch_choose">Монета таңдау</string>
     <string name="watch_notify_channel">Телефоннан</string>
+    <string name="watch_alarm_channel">Телефоннан ескертулер</string>
     <string name="watch_choose_hint">Монеталар: ең көбі %1$d</string>
     <string name="watch_complication_label">Бағам</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 сағатта %3$s</string>

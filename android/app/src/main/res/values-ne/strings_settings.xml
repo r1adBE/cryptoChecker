@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">स्वाइप गरेर हटाउन सकिँदैन</string>
     <string name="settings_ongoing_notifications_hint">मूल्य सूचनाहरू पिन गरेर राख्छ।</string>
     <string name="settings_watch_notifications">घडीमा देखाउनुहोस्</string>
-    <string name="settings_watch_notifications_hint">मूल्य सूचना, सतर्कता र बजार सूचना घडीमा आवाजविना देखिन्छन्। घडीमा Crypto Checker चाहिन्छ – कृपया त्यहाँ एक पटक खोल्नुहोस् र सूचनालाई अनुमति दिनुहोस्।</string>
+    <string name="settings_watch_notifications_hint">सतर्कताहरू घडीमा कम्पन गर्छन्; मूल्य र बजार सूचना आवाजविना देखिन्छन्। घडी पहुँचबाहिर भए फोनले तिनलाई सधैँझैँ पठाउँछ। घडीमा Crypto Checker चाहिन्छ – कृपया त्यहाँ एक पटक खोल्नुहोस् र सूचनालाई अनुमति दिनुहोस्।</string>
     <string name="settings_price_notifications">मूल्य सूचनाहरू</string>
     <string name="settings_price_notifications_hint">सक्रिय जोडीहरूको हालको मूल्य स्टाटस बारमा देखाउनुहोस्।</string>
     <string name="settings_price_pairs">जोडीहरू</string>

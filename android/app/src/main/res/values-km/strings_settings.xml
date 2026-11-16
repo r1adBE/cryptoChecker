@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">មិនអាចអូសចោលបាន</string>
     <string name="settings_ongoing_notifications_hint">រក្សាការជូនដំណឹងតម្លៃឱ្យខ្ទាស់។</string>
     <string name="settings_watch_notifications">បង្ហាញលើនាឡិកា</string>
-    <string name="settings_watch_notifications_hint">ការជូនដំណឹងតម្លៃ ការជូនដំណឹងដាស់តឿន និងការជូនដំណឹងទីផ្សារ បង្ហាញស្ងាត់ៗលើនាឡិកា។ ត្រូវការ Crypto Checker លើនាឡិកា – សូមបើកវានៅទីនោះម្តង ហើយអនុញ្ញាតការជូនដំណឹង។</string>
+    <string name="settings_watch_notifications_hint">ការជូនដំណឹងដាស់តឿនញ័រលើនាឡិកា ហើយការជូនដំណឹងតម្លៃ និងទីផ្សារបង្ហាញស្ងាត់ៗ។ បើនាឡិកានៅក្រៅចម្ងាយ ទូរសព្ទនឹងបញ្ជូនបន្តដូចធម្មតា។ ត្រូវការ Crypto Checker លើនាឡិកា – សូមបើកវានៅទីនោះម្តង ហើយអនុញ្ញាតការជូនដំណឹង។</string>
     <string name="settings_price_notifications">ការជូនដំណឹងតម្លៃ</string>
     <string name="settings_price_notifications_hint">បង្ហាញតម្លៃបច្ចុប្បន្ននៃគូដែលបានបើកនៅក្នុងរបារស្ថានភាព។</string>
     <string name="settings_price_pairs">គូ</string>

@@ -7,6 +7,7 @@
     <string name="watch_refresh">ರಿಫ್ರೆಶ್ ಮಾಡಿ</string>
     <string name="watch_choose">ಕಾಯಿನ್‌ಗಳನ್ನು ಆರಿಸಿ</string>
     <string name="watch_notify_channel">ಫೋನ್‌ನಿಂದ</string>
+    <string name="watch_alarm_channel">ಫೋನ್‌ನಿಂದ ಎಚ್ಚರಿಕೆಗಳು</string>
     <string name="watch_choose_hint">ಕಾಯಿನ್‌ಗಳು: ಗರಿಷ್ಠ %1$d</string>
     <string name="watch_complication_label">ಬೆಲೆ</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ಗಂಟೆಗಳಲ್ಲಿ %3$s</string>

@@ -54,7 +54,7 @@
     <string name="settings_ongoing_notifications">Нельзя смахнуть</string>
     <string name="settings_ongoing_notifications_hint">Уведомления о цене остаются закреплёнными.</string>
     <string name="settings_watch_notifications">Показывать на часах</string>
-    <string name="settings_watch_notifications_hint">Уведомления о ценах, оповещения и уведомления о рынке беззвучно появляются на часах. Нужен Crypto Checker на часах – открой его там один раз и разреши уведомления.</string>
+    <string name="settings_watch_notifications_hint">Оповещения вибрируют на часах, а уведомления о ценах и рынке появляются беззвучно. Если часы вне досягаемости, телефон пересылает их как обычно. Нужен Crypto Checker на часах – открой его там один раз и разреши уведомления.</string>
     <string name="settings_price_notifications">Уведомления о цене</string>
     <string name="settings_price_notifications_hint">Показывать текущую цену включённых пар в строке состояния.</string>
     <string name="settings_price_pairs">Пары</string>

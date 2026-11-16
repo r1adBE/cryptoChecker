@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Hindi ma-swipe palayo</string>
     <string name="settings_ongoing_notifications_hint">Pinapanatiling naka-pin ang mga notification ng presyo.</string>
     <string name="settings_watch_notifications">Ipakita sa relo</string>
-    <string name="settings_watch_notifications_hint">Tahimik na lalabas sa relo ang mga notification ng presyo, alerto at notification ng merkado. Kailangan ang Crypto Checker sa relo – buksan ito roon nang isang beses at payagan ang notification.</string>
+    <string name="settings_watch_notifications_hint">Nagba-vibrate sa relo ang mga alerto; tahimik na lalabas ang mga notification ng presyo at merkado. Kung wala sa abot ang relo, ipapasa ito ng telepono gaya ng dati. Kailangan ang Crypto Checker sa relo – buksan ito roon nang isang beses at payagan ang notification.</string>
     <string name="settings_price_notifications">Mga notification ng presyo</string>
     <string name="settings_price_notifications_hint">Ipakita sa status bar ang kasalukuyang presyo ng mga naka-enable na pares.</string>
     <string name="settings_price_pairs">Mga pares</string>

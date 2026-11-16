@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Ei saa ära pühkida</string>
     <string name="settings_ongoing_notifications_hint">Hinnamärguanded jäävad kinnitatuks.</string>
     <string name="settings_watch_notifications">Näita kellal</string>
-    <string name="settings_watch_notifications_hint">Hinnateated, hoiatused ja turuteated ilmuvad kellale vaikselt. Vaja on Crypto Checkerit kellas – ava see seal korra ja luba teavitused.</string>
+    <string name="settings_watch_notifications_hint">Hoiatused vibreerivad kellas; hinna- ja turuteated ilmuvad vaikselt. Kui kell on levist väljas, edastab telefon need nagu tavaliselt. Vaja on Crypto Checkerit kellas – ava see seal korra ja luba teavitused.</string>
     <string name="settings_price_notifications">Hinnamärguanded</string>
     <string name="settings_price_notifications_hint">Näitab sisselülitatud paaride praegust hinda olekuribal.</string>
     <string name="settings_price_pairs">Paarid</string>

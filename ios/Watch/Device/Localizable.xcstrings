@@ -13305,7 +13305,7 @@
         "ka" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "გამორთული"
+            "value" : "გამორთ."
           }
         },
         "kk" : {
@@ -13365,7 +13365,7 @@
         "mn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "унтраалттай"
+            "value" : "унтр."
           }
         },
         "mr" : {
@@ -13419,13 +13419,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desligado"
+            "value" : "deslig."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desligado"
+            "value" : "deslig."
           }
         },
         "ro" : {

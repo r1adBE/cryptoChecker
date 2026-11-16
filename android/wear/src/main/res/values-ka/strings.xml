@@ -7,6 +7,7 @@
     <string name="watch_refresh">განახლება</string>
     <string name="watch_choose">მონეტების არჩევა</string>
     <string name="watch_notify_channel">ტელეფონიდან</string>
+    <string name="watch_alarm_channel">გაფრთხილებები ტელეფონიდან</string>
     <string name="watch_choose_hint">მონეტები: მაქს. %1$d</string>
     <string name="watch_complication_label">ფასი</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 საათში</string>
@@ -15,7 +16,7 @@
     <string name="watch_portfolio">პორტფელი</string>
     <string name="watch_portfolio_today">დღეს %1$s</string>
     <string name="a11y_watch_portfolio_hidden">თანხა დამალულია</string>
-    <string name="watch_portfolio_off">გამორთული</string>
+    <string name="watch_portfolio_off">გამორთ.</string>
     <string name="watch_portfolio_turn_on">ჩართე ტელეფონში</string>
     <string name="a11y_watch_outdated">ფასი მოძველებულია</string>
     <string name="a11y_watch_no_price_unreachable">ფასი არ არის, %1$s მიუწვდომელია</string>

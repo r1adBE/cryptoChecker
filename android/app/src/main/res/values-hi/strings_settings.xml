@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">स्वाइप करके हटाया नहीं जा सकता</string>
     <string name="settings_ongoing_notifications_hint">प्राइस नोटिफ़िकेशन को पिन करके रखता है।</string>
     <string name="settings_watch_notifications">घड़ी पर दिखाएँ</string>
-    <string name="settings_watch_notifications_hint">कीमत सूचनाएँ, अलर्ट और बाज़ार सूचनाएँ घड़ी पर बिना आवाज़ दिखती हैं। घड़ी पर Crypto Checker ज़रूरी है – कृपया वहाँ एक बार खोलें और सूचनाओं की अनुमति दें।</string>
+    <string name="settings_watch_notifications_hint">अलर्ट घड़ी पर वाइब्रेट करते हैं; कीमत और बाज़ार सूचनाएँ बिना आवाज़ दिखती हैं। घड़ी पहुँच से बाहर हो तो फ़ोन उन्हें हमेशा की तरह आगे भेजता है। घड़ी पर Crypto Checker ज़रूरी है – कृपया वहाँ एक बार खोलें और सूचनाओं की अनुमति दें।</string>
     <string name="settings_price_notifications">प्राइस नोटिफ़िकेशन</string>
     <string name="settings_price_notifications_hint">चालू किए गए पेयर की मौजूदा कीमत स्टेटस बार में दिखाएँ।</string>
     <string name="settings_price_pairs">जोड़े</string>

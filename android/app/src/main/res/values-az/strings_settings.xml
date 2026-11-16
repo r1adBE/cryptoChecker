@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Sürüşdürərək silinmir</string>
     <string name="settings_ongoing_notifications_hint">Qiymət bildirişlərini sabitlənmiş saxlayır.</string>
     <string name="settings_watch_notifications">Saatda göstər</string>
-    <string name="settings_watch_notifications_hint">Qiymət bildirişləri, xəbərdarlıqlar və bazar bildirişləri saatda səssiz görünür. Saatda Crypto Checker lazımdır – orada bir dəfə aç və bildirişlərə icazə ver.</string>
+    <string name="settings_watch_notifications_hint">Xəbərdarlıqlar saatda titrəyir; qiymət və bazar bildirişləri səssiz görünür. Saat əlçatan deyilsə, telefon onları adi qaydada ötürür. Saatda Crypto Checker lazımdır – orada bir dəfə aç və bildirişlərə icazə ver.</string>
     <string name="settings_price_notifications">Qiymət bildirişləri</string>
     <string name="settings_price_notifications_hint">Aktiv cütlərin cari qiymətini status panelində göstər.</string>
     <string name="settings_price_pairs">Cütlər</string>

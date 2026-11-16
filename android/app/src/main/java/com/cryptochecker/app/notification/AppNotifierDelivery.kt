@@ -179,8 +179,9 @@ internal fun AppNotifier.notifyChecked(id: Int, notification: Notification): Boo
         Timber.d("Benachrichtigung unterdrückt: keine Berechtigung")
         return false
     }
-    // «Auf der Uhr zeigen»: die Uhr-App zeigt ihre eigene, die des Handys bleibt nur auf dem Handy
-    val toWatch = watchBridge.forwards(notification)
+    // «Auf der Uhr zeigen»: übernimmt die Uhr-App sicher, zeigt sie ihre eigene und die des Handys bleibt nur auf dem
+    // Handy; sonst leitet das System weiter wie ohne Schalter (kein Alarm verloren)
+    val toWatch = watchBridge.forwards(notification) && watchBridge.ready()
     if (toWatch) watchBridge.localOnly(notification)
     return runCatching { manager.notify(id, notification) }
         .onFailure { Timber.w(it, "Benachrichtigung fehlgeschlagen") }

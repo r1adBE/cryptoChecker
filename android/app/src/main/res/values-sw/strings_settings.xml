@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Haziwezi kuondolewa kwa kutelezesha</string>
     <string name="settings_ongoing_notifications_hint">Huweka arifa za bei zikiwa zimebanwa.</string>
     <string name="settings_watch_notifications">Onyesha kwenye saa</string>
-    <string name="settings_watch_notifications_hint">Arifa za bei, tahadhari na arifa za soko huonekana kimya kwenye saa. Inahitaji Crypto Checker kwenye saa – ifungue huko mara moja na uruhusu arifa.</string>
+    <string name="settings_watch_notifications_hint">Tahadhari hutetemeka kwenye saa; arifa za bei na soko huonekana kimya. Saa ikiwa nje ya masafa, simu huzisambaza kama kawaida. Inahitaji Crypto Checker kwenye saa – ifungue huko mara moja na uruhusu arifa.</string>
     <string name="settings_price_notifications">Arifa za bei</string>
     <string name="settings_price_notifications_hint">Onyesha bei ya sasa ya jozi zilizowashwa kwenye upau wa hali.</string>
     <string name="settings_price_pairs">Jozi</string>

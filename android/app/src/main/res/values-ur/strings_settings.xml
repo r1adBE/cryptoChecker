@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">سوائپ کر کے نہیں ہٹائی جا سکتیں</string>
     <string name="settings_ongoing_notifications_hint">قیمت کی اطلاعات کو پن رکھتا ہے۔</string>
     <string name="settings_watch_notifications">گھڑی پر دکھائیں</string>
-    <string name="settings_watch_notifications_hint">قیمت کی اطلاعات، الرٹس اور مارکیٹ کی اطلاعات گھڑی پر خاموشی سے ظاہر ہوتی ہیں۔ گھڑی پر Crypto Checker درکار ہے – براہ کرم وہاں ایک بار کھولیں اور اطلاعات کی اجازت دیں۔</string>
+    <string name="settings_watch_notifications_hint">الرٹس گھڑی پر وائبریٹ کرتے ہیں؛ قیمت اور مارکیٹ کی اطلاعات خاموشی سے ظاہر ہوتی ہیں۔ اگر گھڑی رسائی سے باہر ہو تو فون انہیں معمول کے مطابق آگے بھیجتا ہے۔ گھڑی پر Crypto Checker درکار ہے – براہ کرم وہاں ایک بار کھولیں اور اطلاعات کی اجازت دیں۔</string>
     <string name="settings_price_notifications">قیمت کی اطلاعات</string>
     <string name="settings_price_notifications_hint">فعال جوڑوں کی موجودہ قیمت اسٹیٹس بار میں دکھائیں۔</string>
     <string name="settings_price_pairs">جوڑے</string>

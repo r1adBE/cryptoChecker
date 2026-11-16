@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Dauerhaft in den Benachrichtigungen</string>
     <string name="settings_ongoing_notifications_hint">Heftet die Kursbenachrichtigungen an.</string>
     <string name="settings_watch_notifications">Auf der Uhr zeigen</string>
-    <string name="settings_watch_notifications_hint">Kurs-Mitteilungen, Alarme und Markt-Mitteilungen erscheinen still auf der Uhr. Dafür braucht es Crypto Checker auf der Uhr – dort einmal öffnen und Mitteilungen erlauben.</string>
+    <string name="settings_watch_notifications_hint">Alarme vibrieren auf der Uhr, Kursbenachrichtigungen und Markt-Benachrichtigungen erscheinen still. Ist die Uhr nicht erreichbar, leitet das Handy sie wie gewohnt weiter. Dafür braucht es Crypto Checker auf der Uhr – dort einmal öffnen und Benachrichtigungen erlauben.</string>
     <string name="settings_price_notifications">Kursbenachrichtigungen</string>
     <string name="settings_price_notifications_hint">Zeigt den Kurs der aktivierten Paare in der Statusleiste.</string>
     <string name="settings_price_pairs">Paare</string>

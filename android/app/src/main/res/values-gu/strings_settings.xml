@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">સ્વાઇપ કરીને હટાવી શકાતી નથી</string>
     <string name="settings_ongoing_notifications_hint">ભાવ સૂચનાઓને પિન કરેલી રાખે છે.</string>
     <string name="settings_watch_notifications">ઘડિયાળ પર બતાવો</string>
-    <string name="settings_watch_notifications_hint">ભાવ સૂચનાઓ, ચેતવણીઓ અને બજાર સૂચનાઓ ઘડિયાળ પર શાંતિથી દેખાય છે. ઘડિયાળ પર Crypto Checker જરૂરી છે – કૃપા કરીને ત્યાં એક વાર ખોલો અને સૂચનાઓની મંજૂરી આપો.</string>
+    <string name="settings_watch_notifications_hint">ચેતવણીઓ ઘડિયાળ પર વાઇબ્રેટ થાય છે; ભાવ અને બજાર સૂચનાઓ શાંતિથી દેખાય છે. ઘડિયાળ પહોંચની બહાર હોય તો ફોન તેમને હંમેશની જેમ આગળ મોકલે છે. ઘડિયાળ પર Crypto Checker જરૂરી છે – કૃપા કરીને ત્યાં એક વાર ખોલો અને સૂચનાઓની મંજૂરી આપો.</string>
     <string name="settings_price_notifications">ભાવ સૂચનાઓ</string>
     <string name="settings_price_notifications_hint">સક્રિય જોડીઓનો વર્તમાન ભાવ સ્ટેટસ બારમાં બતાવો.</string>
     <string name="settings_price_pairs">જોડીઓ</string>

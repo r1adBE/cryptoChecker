@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Не може да се премахне с плъзгане</string>
     <string name="settings_ongoing_notifications_hint">Известията за курсове остават закачени.</string>
     <string name="settings_watch_notifications">Показване на часовника</string>
-    <string name="settings_watch_notifications_hint">Известията за цени, сигналите и пазарните известия се показват тихо на часовника. Нужен е Crypto Checker на часовника – отвори го там веднъж и разреши известията.</string>
+    <string name="settings_watch_notifications_hint">Сигналите вибрират на часовника; известията за цени и пазара се показват тихо. Ако часовникът е извън обхват, телефонът ги препраща както обикновено. Нужен е Crypto Checker на часовника – отвори го там веднъж и разреши известията.</string>
     <string name="settings_price_notifications">Известия за курсове</string>
     <string name="settings_price_notifications_hint">Показва курса на включените двойки в лентата на състоянието.</string>
     <string name="settings_price_pairs">Двойки</string>

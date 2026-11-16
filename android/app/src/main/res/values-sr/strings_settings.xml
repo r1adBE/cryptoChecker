@@ -53,7 +53,7 @@
     <string name="settings_ongoing_notifications">Не може се одгурнути</string>
     <string name="settings_ongoing_notifications_hint">Обавештења о ценама остају прикачена.</string>
     <string name="settings_watch_notifications">Прикажи на сату</string>
-    <string name="settings_watch_notifications_hint">Обавештења о ценама, упозорења и обавештења о тржишту приказују се тихо на сату. Потребан је Crypto Checker на сату – отвори га тамо једном и дозволи обавештења.</string>
+    <string name="settings_watch_notifications_hint">Упозорења вибрирају на сату; обавештења о ценама и тржишту приказују се тихо. Ако је сат ван домета, телефон их прослеђује као и обично. Потребан је Crypto Checker на сату – отвори га тамо једном и дозволи обавештења.</string>
     <string name="settings_price_notifications">Обавештења о ценама</string>
     <string name="settings_price_notifications_hint">Приказуј тренутну цену укључених парова на траци стања.</string>
     <string name="settings_price_pairs">Парови</string>

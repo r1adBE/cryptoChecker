@@ -7,6 +7,7 @@
     <string name="watch_refresh">Onyesha upya</string>
     <string name="watch_choose">Chagua sarafu</string>
     <string name="watch_notify_channel">Kutoka kwa simu</string>
+    <string name="watch_alarm_channel">Arifa kutoka kwa simu</string>
     <string name="watch_choose_hint">Sarafu: hadi %1$d</string>
     <string name="watch_complication_label">Bei</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s katika saa 24</string>

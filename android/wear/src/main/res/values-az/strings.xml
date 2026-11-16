@@ -7,6 +7,7 @@
     <string name="watch_refresh">Yenilə</string>
     <string name="watch_choose">Koin seç</string>
     <string name="watch_notify_channel">Telefondan</string>
+    <string name="watch_alarm_channel">Telefondan xəbərdarlıqlar</string>
     <string name="watch_choose_hint">Koinlər: maks. %1$d</string>
     <string name="watch_complication_label">Qiymət</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 saatda %3$s</string>

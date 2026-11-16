@@ -7,6 +7,7 @@
     <string name="watch_refresh">Actualizează</string>
     <string name="watch_choose">Alege monede</string>
     <string name="watch_notify_channel">De pe telefon</string>
+    <string name="watch_alarm_channel">Alerte de pe telefon</string>
     <string name="watch_choose_hint">Monede: maximum %1$d</string>
     <string name="watch_complication_label">Preț</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s în 24 de ore</string>

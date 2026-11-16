@@ -21,11 +21,12 @@ import javax.inject.Singleton
 
 /**
  * «Auf der Uhr zeigen» (nur Android, Inhaber 15.11.): Kurs-Mitteilungen, Alarme und Markt-Mitteilungen gehen als
- * Nachricht ([PATH]) an die Crypto-Checker-Uhr-App, die sie still selbst zeigt (`WatchNotifications`) — unabhängig von
- * der Weiterleitung des Systems (Samsung: nur bei unbenutztem Handy). Die Mitteilung des Handys bleibt dann nur auf
- * dem Handy ([localOnly]), sonst stünde sie doppelt auf der Uhr. Nur Titel und Text, nie Beträge des Portfolios
- * darüber hinaus; ohne Uhr mit der App ([PhoneWatchSync.CAPABILITY]) geht nichts weg. Fehler bleiben ohne Folgen für
- * das Handy (die Mitteilung dort ist schon gezeigt).
+ * Nachricht ([PATH]) an die Crypto-Checker-Uhr-App, die sie selbst zeigt (`WatchNotifications`: Alarme mit Vibration,
+ * der Rest still, Inhaber 16.11.) — unabhängig von der Weiterleitung des Systems (Samsung: nur bei unbenutztem Handy).
+ * Nur wenn die Uhr-App sicher übernimmt ([ready]: zuletzt erreichbar und Erlaubnis gemeldet, [WatchNotifyPolicy]),
+ * bleibt die Mitteilung des Handys nur auf dem Handy ([localOnly]); sonst leitet das System sie weiter wie ohne
+ * Schalter, und es geht nichts an die Uhr-App (kein Alarm verloren, nichts doppelt). Nur Titel und Text, nie Beträge
+ * des Portfolios darüber hinaus. Fehler bleiben ohne Folgen für das Handy (die Mitteilung dort ist schon gezeigt).
  */
 @Singleton
 class WatchNotifyBridge @Inject constructor(
@@ -34,6 +35,7 @@ class WatchNotifyBridge @Inject constructor(
     @IoDispatcher ioDispatcher: CoroutineDispatcher,
 ) {
     private val scope = appScope(ioDispatcher, "Mitteilungen an die Uhr")
+    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
     /** Schalter an? (zuletzt gelesene Einstellungen, ohne zu warten) */
     fun enabled(): Boolean = settingsRepository.cached.watchNotifications
@@ -46,24 +48,42 @@ class WatchNotifyBridge @Inject constructor(
             notification.category != NotificationCompat.CATEGORY_PROGRESS &&
             notification.category != NotificationCompat.CATEGORY_SERVICE
 
+    /** Übernimmt die Uhr-App? (Schalter an, Uhr mit der App zuletzt erreichbar, Erlaubnis gemeldet) */
+    fun ready(): Boolean = WatchNotifyPolicy.ready(enabled(), flag(KEY_REACHABLE), flag(KEY_PERMITTED))
+
+    /** Meldung der Uhr: darf sie Mitteilungen zeigen? (Datenelement [STATE_PATH], `PhoneWatchListener`) */
+    fun takePermitted(permitted: Boolean) = prefs.edit().putBoolean(KEY_PERMITTED, permitted).apply()
+
+    /** Uhr mit der App erreichbar? (Fähigkeit geändert oder Ergebnis eines Sendeversuchs) */
+    fun takeReachable(reachable: Boolean) = prefs.edit().putBoolean(KEY_REACHABLE, reachable).apply()
+
+    private fun flag(key: String): Boolean? = if (prefs.contains(key)) prefs.getBoolean(key, false) else null
+
     /** Mitteilung des Handys nur auf dem Handy lassen (die Uhr-App zeigt ihre eigene). */
     fun localOnly(notification: Notification) {
         notification.flags = notification.flags or Notification.FLAG_LOCAL_ONLY
     }
 
-    /** Gezeigte Mitteilung [id] an die Uhr (Titel und Text wie auf dem Handy). */
+    /** Gezeigte Mitteilung [id] an die Uhr (Titel und Text wie auf dem Sperrbildschirm, [WatchNotifyPolicy.payload]). */
     fun show(id: Int, notification: Notification) {
-        // Geheim (Sperre): nichts; privat mit öffentlicher Fassung: nur die (wie auf dem Sperrbildschirm)
-        if (notification.visibility == Notification.VISIBILITY_SECRET) return
-        val source = notification.publicVersion
-            ?.takeIf { notification.visibility == Notification.VISIBILITY_PRIVATE } ?: notification
-        val extras = source.extras
-        val title = extras?.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
-        val text = (extras?.getCharSequence(Notification.EXTRA_BIG_TEXT) ?: extras?.getCharSequence(Notification.EXTRA_TEXT))
-            ?.toString().orEmpty()
-        if (title.isBlank() && text.isBlank()) return
-        send(JSONObject().put(KEY_OP, OP_SHOW).put(KEY_ID, id).put(KEY_TITLE, title.take(MAX_TITLE))
-            .put(KEY_TEXT, text.take(MAX_TEXT)))
+        val visibility = when (notification.visibility) {
+            Notification.VISIBILITY_SECRET -> WatchNotifyPolicy.Visibility.SECRET
+            Notification.VISIBILITY_PRIVATE -> WatchNotifyPolicy.Visibility.PRIVATE
+            else -> WatchNotifyPolicy.Visibility.PUBLIC
+        }
+        val payload = WatchNotifyPolicy.payload(
+            visibility, texts(notification), notification.publicVersion?.let(::texts),
+            alarm = notification.category == NotificationCompat.CATEGORY_ALARM,
+        ) ?: return
+        send(JSONObject().put(KEY_OP, OP_SHOW).put(KEY_ID, id).put(KEY_TITLE, payload.title)
+            .put(KEY_TEXT, payload.text).put(KEY_ALARM, payload.alarm))
+    }
+
+    private fun texts(notification: Notification): Pair<String?, String?> {
+        val extras = notification.extras
+        return extras?.getCharSequence(Notification.EXTRA_TITLE)?.toString() to
+            (extras?.getCharSequence(Notification.EXTRA_BIG_TEXT) ?: extras?.getCharSequence(Notification.EXTRA_TEXT))
+                ?.toString()
     }
 
     /** Mitteilung [id] auch auf der Uhr entfernen. */
@@ -85,15 +105,19 @@ class WatchNotifyBridge @Inject constructor(
                     TIMEOUT_S, TimeUnit.SECONDS
                 ).nodes
                 val client = Wearable.getMessageClient(context)
+                var delivered = false
                 nodes.forEach { node ->
                     try {
                         Tasks.await(client.sendMessage(node.id, PATH, bytes), TIMEOUT_S, TimeUnit.SECONDS)
+                        delivered = true
                     } catch (e: CancellationException) {
                         throw e
                     } catch (e: Exception) {
                         Timber.d(e, "Uhr %s nicht erreicht", node.id)
                     }
                 }
+                // Nächste Mitteilung entscheidet danach: nicht erreicht → wieder die Weiterleitung des Systems
+                takeReachable(delivered)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -112,9 +136,15 @@ class WatchNotifyBridge @Inject constructor(
         const val KEY_TEXT = "text"
         const val OP_SHOW = "show"
         const val OP_CANCEL = "cancel"
+        const val KEY_ALARM = "alarm"
         const val OP_HELLO = "hello"
-        private const val MAX_TITLE = 120
-        private const val MAX_TEXT = 600
+
+        /** Meldung der Uhr, ob sie Mitteilungen zeigen darf (gleich in `WatchNotifications.STATE_PATH`). */
+        const val STATE_PATH = "/cc/notify/state"
+        const val STATE_KEY_PERMITTED = "permitted"
+        private const val PREFS = "watch_notify"
+        private const val KEY_PERMITTED = "permitted"
+        private const val KEY_REACHABLE = "reachable"
         private const val TIMEOUT_S = 10L
     }
 }

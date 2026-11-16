@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import kotlinx.coroutines.flow.StateFlow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -59,13 +60,17 @@ import java.util.Date
  * Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
  */
 @Composable
-fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
+fun WatchApp(store: WatchStore, visible: StateFlow<Boolean>, onQuotesChanged: () -> Unit) {
     MaterialTheme {
         val context = LocalContext.current
         val settings by store.settingsFlow.collectAsState()
         val cache by store.quotesFlow.collectAsState()
         val portfolio by store.portfolioFlow.collectAsState()
         var pulled by remember { mutableStateOf(false) }
+        // Nur solange die App sichtbar ist (wie `.task` unter watchOS): weggedreht oder verlassen ruht der Abruf
+        val shown by visible.collectAsState()
+        var everShown by remember { mutableStateOf(false) }
+        var hiddenSinceShown by remember { mutableStateOf(false) }
         var choosing by remember { mutableStateOf(false) }
         // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 3 × Intervall auch ohne neue Kurse)
         var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -102,15 +107,26 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         }
         // Neu laden bei anderer Liste und bei anderer Kursquelle («Immer selbst abrufen» sofort), wie iOS takeFromPhone
         LaunchedEffect(settings.shown, settings.source, pulled) { if (pulled) fetcher.refresh() }
-        // Offen: im Intervall des Handys, nur was fällig ist
-        LaunchedEffect(settings.interval, pulled) {
-            while (pulled) {
+        // Sichtbar: im Intervall des Handys, nur was fällig ist; nach dem Zurückkehren (nicht beim ersten Öffnen, da lädt
+        // schon der Effekt oben) gleich das Fällige
+        LaunchedEffect(settings.interval, pulled, shown) {
+            if (!shown) {
+                if (everShown) hiddenSinceShown = true
+                return@LaunchedEffect
+            }
+            everShown = true
+            if (!pulled) return@LaunchedEffect
+            if (hiddenSinceShown) {
+                hiddenSinceShown = false
+                fetcher.refresh(force = false)
+            }
+            while (true) {
                 delay(WatchInterval.clamp(settings.interval) * 60_000L)
                 fetcher.refresh(force = false)
             }
         }
-        LaunchedEffect(Unit) {
-            while (true) {
+        LaunchedEffect(shown) {
+            while (shown) {
                 now = System.currentTimeMillis()
                 delay(AGE_TICK_MS)
             }

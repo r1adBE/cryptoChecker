@@ -7,6 +7,7 @@
     <string name="watch_refresh">Athnuaigh</string>
     <string name="watch_choose">Roghnaigh boinn</string>
     <string name="watch_notify_channel">Ón bhfón</string>
+    <string name="watch_alarm_channel">Foláirimh ón bhfón</string>
     <string name="watch_choose_hint">Boinn: %1$d ar a mhéad</string>
     <string name="watch_complication_label">Praghas</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uair an chloig</string>

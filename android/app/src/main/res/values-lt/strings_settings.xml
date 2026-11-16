@@ -54,7 +54,7 @@
     <string name="settings_ongoing_notifications">Negalima nubraukti</string>
     <string name="settings_ongoing_notifications_hint">Kainų pranešimai lieka prisegti.</string>
     <string name="settings_watch_notifications">Rodyti laikrodyje</string>
-    <string name="settings_watch_notifications_hint">Kainų pranešimai, įspėjimai ir rinkos pranešimai tyliai rodomi laikrodyje. Reikia Crypto Checker laikrodyje – vieną kartą jį ten atidaryk ir leisk pranešimus.</string>
+    <string name="settings_watch_notifications_hint">Įspėjimai laikrodyje vibruoja; kainų ir rinkos pranešimai rodomi tyliai. Jei laikrodis nepasiekiamas, telefonas juos persiunčia kaip įprasta. Reikia Crypto Checker laikrodyje – vieną kartą jį ten atidaryk ir leisk pranešimus.</string>
     <string name="settings_price_notifications">Kainų pranešimai</string>
     <string name="settings_price_notifications_hint">Rodo įjungtų porų dabartinę kainą būsenos juostoje.</string>
     <string name="settings_price_pairs">Poros</string>

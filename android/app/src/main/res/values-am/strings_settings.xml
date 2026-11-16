@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">አንሸራትቶ ማስወገድ አይቻልም</string>
     <string name="settings_ongoing_notifications_hint">የዋጋ ማሳወቂያዎችን ተሰክተው ያቆያቸዋል።</string>
     <string name="settings_watch_notifications">በሰዓቱ ላይ አሳይ</string>
-    <string name="settings_watch_notifications_hint">የዋጋ ማሳወቂያዎች፣ ማንቂያዎች እና የገበያ ማሳወቂያዎች በሰዓቱ ላይ በጸጥታ ይታያሉ። Crypto Checker በሰዓቱ ላይ ያስፈልጋል – እባክዎ እዚያ አንድ ጊዜ ይክፈቱት እና ማሳወቂያዎችን ይፍቀዱ።</string>
+    <string name="settings_watch_notifications_hint">ማንቂያዎች በሰዓቱ ላይ ይንቀጠቀጣሉ፤ የዋጋ እና የገበያ ማሳወቂያዎች በጸጥታ ይታያሉ። ሰዓቱ በማይደረስበት ጊዜ ስልኩ እንደተለመደው ያስተላልፋቸዋል። Crypto Checker በሰዓቱ ላይ ያስፈልጋል – እባክዎ እዚያ አንድ ጊዜ ይክፈቱት እና ማሳወቂያዎችን ይፍቀዱ።</string>
     <string name="settings_price_notifications">የዋጋ ማሳወቂያዎች</string>
     <string name="settings_price_notifications_hint">የነቁ ጥንዶችን የአሁን ዋጋ በሁኔታ አሞሌው ውስጥ ያሳዩ።</string>
     <string name="settings_price_pairs">ጥንዶች</string>

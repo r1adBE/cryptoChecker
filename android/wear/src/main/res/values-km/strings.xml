@@ -7,6 +7,7 @@
     <string name="watch_refresh">ផ្ទុកឡើងវិញ</string>
     <string name="watch_choose">ជ្រើសរើសកាក់</string>
     <string name="watch_notify_channel">ពីទូរសព្ទ</string>
+    <string name="watch_alarm_channel">ការជូនដំណឹងពីទូរសព្ទ</string>
     <string name="watch_choose_hint">កាក់៖ អតិបរមា %1$d</string>
     <string name="watch_complication_label">តម្លៃ</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s ក្នុងរយៈពេល 24 ម៉ោង</string>

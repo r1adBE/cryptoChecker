@@ -7,6 +7,7 @@
     <string name="watch_refresh">ໂຫຼດຄືນໃໝ່</string>
     <string name="watch_choose">ເລືອກຫຼຽນ</string>
     <string name="watch_notify_channel">ຈາກໂທລະສັບ</string>
+    <string name="watch_alarm_channel">ການແຈ້ງເຕືອນຈາກໂທລະສັບ</string>
     <string name="watch_choose_hint">ຫຼຽນ: ສູງສຸດ %1$d</string>
     <string name="watch_complication_label">ລາຄາ</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s ໃນ 24 ຊົ່ວໂມງ</string>

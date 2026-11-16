@@ -7,6 +7,7 @@
     <string name="watch_refresh">Atualizar</string>
     <string name="watch_choose">Escolher moedas</string>
     <string name="watch_notify_channel">Do telemóvel</string>
+    <string name="watch_alarm_channel">Alertas do telemóvel</string>
     <string name="watch_choose_hint">Moedas: máximo %1$d</string>
     <string name="watch_complication_label">Preço</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s em 24 horas</string>
@@ -15,7 +16,7 @@
     <string name="watch_portfolio">Portfólio</string>
     <string name="watch_portfolio_today">%1$s hoje</string>
     <string name="a11y_watch_portfolio_hidden">montante oculto</string>
-    <string name="watch_portfolio_off">desligado</string>
+    <string name="watch_portfolio_off">deslig.</string>
     <string name="watch_portfolio_turn_on">ativar no telemóvel</string>
     <string name="a11y_watch_outdated">Cotação desatualizada</string>
     <string name="a11y_watch_no_price_unreachable">sem cotação, %1$s inacessível</string>

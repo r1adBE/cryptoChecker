@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 244)
+
+- «Show on watch» (Wear OS): alerts vibrate (own channel, no sound), price and market notifications stay silent; the phone keeps its notification local only when the watch app was last reachable and reported that it may show notifications, otherwise the system forwards it as before (no lost alert). Settings hint updated in all 75 languages.
+- Wear OS: fetching and the age tick run only while the app is visible; prices are no longer sent to the watch as urgent; the loading spinner no longer stays on when a result is discarded; shorter complication texts (mn, pt, pt-BR, ka).
+- Apple Watch: responses are read in blocks; a failed hand-over to the iPhone is retried (at most 3 times) and logged; a missing App Group container is logged.
+
 ## 16.2.2 (build 243)
 
 - CI: iOS, Android, Android device tests and CodeQL no longer run again on pushes to main (the pull request ran the same tree); a weekly full run on main (Sundays) instead, kept enabled by Keepalive.

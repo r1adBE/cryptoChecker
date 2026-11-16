@@ -53,7 +53,7 @@
     <string name="settings_ongoing_notifications">Não podem ser dispensadas</string>
     <string name="settings_ongoing_notifications_hint">Mantém as notificações de preço fixas.</string>
     <string name="settings_watch_notifications">Mostrar no relógio</string>
-    <string name="settings_watch_notifications_hint">Notificações de preço, alertas e notificações de mercado aparecem em silêncio no relógio. Requer o Crypto Checker no relógio – abra-o lá uma vez e permita as notificações.</string>
+    <string name="settings_watch_notifications_hint">Os alertas vibram no relógio; as notificações de preço e de mercado aparecem em silêncio. Se o relógio estiver fora de alcance, o celular as encaminha como de costume. Requer o Crypto Checker no relógio – abra-o lá uma vez e permita as notificações.</string>
     <string name="settings_price_notifications">Notificações de preço</string>
     <string name="settings_price_notifications_hint">Mostra o preço atual dos pares ativados na barra de status.</string>
     <string name="settings_price_pairs">Pares</string>

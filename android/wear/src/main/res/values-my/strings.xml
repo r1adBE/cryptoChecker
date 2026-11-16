@@ -7,6 +7,7 @@
     <string name="watch_refresh">ပြန်တင်ရန်</string>
     <string name="watch_choose">ကွိုင် ရွေးရန်</string>
     <string name="watch_notify_channel">ဖုန်းမှ</string>
+    <string name="watch_alarm_channel">ဖုန်းမှ သတိပေးချက်များ</string>
     <string name="watch_choose_hint">ကွိုင်: အများဆုံး %1$d</string>
     <string name="watch_complication_label">ဈေးနှုန်း</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 နာရီအတွင်း %3$s</string>

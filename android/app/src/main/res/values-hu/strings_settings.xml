@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Nem söpörhető el</string>
     <string name="settings_ongoing_notifications_hint">Az árértesítések rögzítve maradnak.</string>
     <string name="settings_watch_notifications">Megjelenítés az órán</string>
-    <string name="settings_watch_notifications_hint">Az árértesítések, riasztások és piaci értesítések hang nélkül jelennek meg az órán. Kell hozzá a Crypto Checker az órán – nyisd meg ott egyszer, és engedélyezd az értesítéseket.</string>
+    <string name="settings_watch_notifications_hint">A riasztások rezegnek az órán; az ár- és piaci értesítések hang nélkül jelennek meg. Ha az óra hatótávolságon kívül van, a telefon a szokott módon továbbítja őket. Kell hozzá a Crypto Checker az órán – nyisd meg ott egyszer, és engedélyezd az értesítéseket.</string>
     <string name="settings_price_notifications">Árértesítések</string>
     <string name="settings_price_notifications_hint">A bekapcsolt párok aktuális árának megjelenítése az állapotsorban.</string>
     <string name="settings_price_pairs">Párok</string>

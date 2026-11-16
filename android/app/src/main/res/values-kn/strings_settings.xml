@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">ಸ್ವೈಪ್ ಮಾಡಿ ತೆಗೆಯಲಾಗುವುದಿಲ್ಲ</string>
     <string name="settings_ongoing_notifications_hint">ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳನ್ನು ಪಿನ್ ಮಾಡಿ ಇರಿಸುತ್ತದೆ.</string>
     <string name="settings_watch_notifications">ಗಡಿಯಾರದಲ್ಲಿ ತೋರಿಸಿ</string>
-    <string name="settings_watch_notifications_hint">ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳು, ಎಚ್ಚರಿಕೆಗಳು ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಅಧಿಸೂಚನೆಗಳು ಗಡಿಯಾರದಲ್ಲಿ ಸದ್ದಿಲ್ಲದೆ ಕಾಣಿಸುತ್ತವೆ. ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ಅಗತ್ಯ – ದಯವಿಟ್ಟು ಅಲ್ಲಿ ಒಮ್ಮೆ ತೆರೆದು ಅಧಿಸೂಚನೆಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ.</string>
+    <string name="settings_watch_notifications_hint">ಎಚ್ಚರಿಕೆಗಳು ಗಡಿಯಾರದಲ್ಲಿ ಕಂಪಿಸುತ್ತವೆ; ಬೆಲೆ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಅಧಿಸೂಚನೆಗಳು ಸದ್ದಿಲ್ಲದೆ ಕಾಣಿಸುತ್ತವೆ. ಗಡಿಯಾರ ವ್ಯಾಪ್ತಿಯ ಹೊರಗಿದ್ದರೆ ಫೋನ್ ಅವುಗಳನ್ನು ಎಂದಿನಂತೆ ಮುಂದೆ ಕಳುಹಿಸುತ್ತದೆ. ಗಡಿಯಾರದಲ್ಲಿ Crypto Checker ಅಗತ್ಯ – ದಯವಿಟ್ಟು ಅಲ್ಲಿ ಒಮ್ಮೆ ತೆರೆದು ಅಧಿಸೂಚನೆಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ.</string>
     <string name="settings_price_notifications">ಬೆಲೆ ಅಧಿಸೂಚನೆಗಳು</string>
     <string name="settings_price_notifications_hint">ಸಕ್ರಿಯಗೊಳಿಸಿದ ಜೋಡಿಗಳ ಪ್ರಸ್ತುತ ಬೆಲೆಯನ್ನು ಸ್ಥಿತಿ ಪಟ್ಟಿಯಲ್ಲಿ ತೋರಿಸಿ.</string>
     <string name="settings_price_pairs">ಜೋಡಿಗಳು</string>

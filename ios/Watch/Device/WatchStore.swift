@@ -1,4 +1,13 @@
 import Foundation
+import os
+
+/// Systemprotokoll der Uhr-App und der Komplikation (nur feste Texte und Fehlercodes, keine Coins oder Werte; wie
+/// iPhone `AppLog`).
+enum WatchLog {
+    static let subsystem = "com.cryptochecker.app.watch"
+    static let link = Logger(subsystem: subsystem, category: "link")
+    static let storage = Logger(subsystem: subsystem, category: "storage")
+}
 
 /// Speicher der Uhr (App-Gruppe, damit die Komplikation mitliest; nichts davon im Backup): die Wahl der Liste in einer
 /// eigenen Datei (`watch_settings.json` — die Standard-Einstellungen der App-Gruppe liessen sich nicht vom Backup ausnehmen, X4-03; Wear
@@ -15,8 +24,13 @@ enum WatchStore {
     private static let portfolioFileName = "watch_portfolio.json"
 
     private static var directory: URL {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group)
-            ?? FileManager.default.temporaryDirectory
+        if let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) {
+            return container
+        }
+        // Ohne App-Group-Container (Einrichtung kaputt) sieht die Komplikation nichts, und das System kann den
+        // Ausweichordner leeren: festhalten statt still ausweichen (wie iPhone `SharedStorage`)
+        WatchLog.storage.fault("App-Group-Container fehlt, Ausweichordner")
+        return FileManager.default.temporaryDirectory
     }
 
     /// `data` atomar als `name` in den Container schreiben, vom Backup ausgenommen. false = nicht geschrieben.
@@ -26,7 +40,12 @@ enum WatchStore {
         guard (try? data.write(to: url, options: .atomic)) != nil else { return false }
         var values = URLResourceValues()
         values.isExcludedFromBackup = true
-        try? url.setResourceValues(values)
+        do {
+            try url.setResourceValues(values)
+        } catch {
+            let nsError = error as NSError
+            WatchLog.storage.error("Backup-Ausschluss: \(nsError.domain, privacy: .public) \(nsError.code, privacy: .public)")
+        }
         return true
     }
 

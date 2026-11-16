@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Kan ikke sveipes bort</string>
     <string name="settings_ongoing_notifications_hint">Holder kursvarslene festet.</string>
     <string name="settings_watch_notifications">Vis på klokken</string>
-    <string name="settings_watch_notifications_hint">Kursvarsler, alarmer og markedsvarsler vises lydløst på klokken. Krever Crypto Checker på klokken – åpne den der én gang og tillat varsler.</string>
+    <string name="settings_watch_notifications_hint">Alarmer vibrerer på klokken; kurs- og markedsvarsler vises lydløst. Er klokken utenfor rekkevidde, videresender telefonen dem som vanlig. Krever Crypto Checker på klokken – åpne den der én gang og tillat varsler.</string>
     <string name="settings_price_notifications">Kursvarsler</string>
     <string name="settings_price_notifications_hint">Vis gjeldende kurs for aktiverte par i statusfeltet.</string>
     <string name="settings_price_pairs">Par</string>

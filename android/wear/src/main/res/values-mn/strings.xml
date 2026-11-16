@@ -7,6 +7,7 @@
     <string name="watch_refresh">Шинэчлэх</string>
     <string name="watch_choose">Зоос сонгох</string>
     <string name="watch_notify_channel">Утаснаас</string>
+    <string name="watch_alarm_channel">Утаснаас ирэх сэрэмжлүүлэг</string>
     <string name="watch_choose_hint">Зоос: дээд тал нь %1$d</string>
     <string name="watch_complication_label">Ханш</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 цагт %3$s</string>
@@ -15,7 +16,7 @@
     <string name="watch_portfolio">Багц</string>
     <string name="watch_portfolio_today">өнөөдөр %1$s</string>
     <string name="a11y_watch_portfolio_hidden">дүнг нуусан</string>
-    <string name="watch_portfolio_off">унтраалттай</string>
+    <string name="watch_portfolio_off">унтр.</string>
     <string name="watch_portfolio_turn_on">утсан дээрээ асаана уу</string>
     <string name="a11y_watch_outdated">Ханш хуучирсан</string>
     <string name="a11y_watch_no_price_unreachable">ханш алга, %1$s-д холбогдох боломжгүй</string>

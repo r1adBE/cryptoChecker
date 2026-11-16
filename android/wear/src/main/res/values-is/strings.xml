@@ -7,6 +7,7 @@
     <string name="watch_refresh">Endurnýja</string>
     <string name="watch_choose">Velja myntir</string>
     <string name="watch_notify_channel">Úr símanum</string>
+    <string name="watch_alarm_channel">Viðvaranir úr símanum</string>
     <string name="watch_choose_hint">Myntir: hám. %1$d</string>
     <string name="watch_complication_label">Verð</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s á 24 klukkustundum</string>

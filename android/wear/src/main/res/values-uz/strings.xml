@@ -7,6 +7,7 @@
     <string name="watch_refresh">Yangilash</string>
     <string name="watch_choose">Tanga tanlash</string>
     <string name="watch_notify_channel">Telefondan</string>
+    <string name="watch_alarm_channel">Telefondan ogohlantirishlar</string>
     <string name="watch_choose_hint">Tangalar: koʻpi bilan %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 soatda %3$s</string>

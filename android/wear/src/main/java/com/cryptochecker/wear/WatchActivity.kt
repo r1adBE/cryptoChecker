@@ -9,9 +9,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /** Einstieg der Uhr-App: Liste der Favoriten mit Kurs und 24 h, Auswahl der Coins ([WatchApp]). */
 class WatchActivity : ComponentActivity() {
+    /** Sichtbar (zwischen onResume und onPause): nur dann laufen Abruf und Alterstakt der Liste. */
+    private val visible = MutableStateFlow(false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // «Akku & Aktivität»: eigene Zähler, Summe ans Handy (höchstens alle 30 Min.)
@@ -24,7 +28,19 @@ class WatchActivity : ComponentActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_NOTIFICATIONS)
         }
         val store = WatchStore(this)
-        setContent { WatchApp(store, onQuotesChanged = { requestComplicationUpdate(this) }) }
+        setContent { WatchApp(store, visible, onQuotesChanged = { requestComplicationUpdate(this) }) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        visible.value = true
+        // Auch nach der Frage um Erlaubnis: dem Handy melden, ob die Uhr Mitteilungen zeigen darf
+        WatchNotifications.publishState(this)
+    }
+
+    override fun onPause() {
+        visible.value = false
+        super.onPause()
     }
 }
 

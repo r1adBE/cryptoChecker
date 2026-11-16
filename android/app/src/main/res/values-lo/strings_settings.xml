@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">ປັດອອກບໍ່ໄດ້</string>
     <string name="settings_ongoing_notifications_hint">ປັກໝຸດການແຈ້ງເຕືອນລາຄາໄວ້.</string>
     <string name="settings_watch_notifications">ສະແດງໃນໂມງ</string>
-    <string name="settings_watch_notifications_hint">ການແຈ້ງເຕືອນລາຄາ, ການເຕືອນ ແລະ ການແຈ້ງເຕືອນຕະຫຼາດ ຈະສະແດງແບບງຽບໃນໂມງ. ຕ້ອງມີ Crypto Checker ໃນໂມງ – ກະລຸນາເປີດມັນຢູ່ທີ່ນັ້ນເທື່ອໜຶ່ງ ແລະ ອະນຸຍາດການແຈ້ງເຕືອນ.</string>
+    <string name="settings_watch_notifications_hint">ການເຕືອນຈະສັ່ນໃນໂມງ, ການແຈ້ງເຕືອນລາຄາ ແລະ ຕະຫຼາດຈະສະແດງແບບງຽບ. ຖ້າໂມງຢູ່ນອກໄລຍະ, ໂທລະສັບຈະສົ່ງຕໍ່ຕາມປົກກະຕິ. ຕ້ອງມີ Crypto Checker ໃນໂມງ – ກະລຸນາເປີດມັນຢູ່ທີ່ນັ້ນເທື່ອໜຶ່ງ ແລະ ອະນຸຍາດການແຈ້ງເຕືອນ.</string>
     <string name="settings_price_notifications">ການແຈ້ງເຕືອນລາຄາ</string>
     <string name="settings_price_notifications_hint">ສະແດງລາຄາປັດຈຸບັນຂອງຄູ່ເທຣດທີ່ເປີດໃນແຖບສະຖານະ.</string>
     <string name="settings_price_pairs">ຄູ່ເທຣດ</string>

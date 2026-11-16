@@ -65,13 +65,27 @@ final class WatchLink: NSObject, WCSessionDelegate, Sendable {
     }
 
     /// Eigenen Stand ans iPhone geben (dort gewinnt die höhere Änderungsnummer). Vor der Aktivierung geht nichts weg;
-    /// `activationDidComplete` sendet den dann aktuellen Stand nach.
-    func publish(_ settings: WatchSettings) {
+    /// `activationDidComplete` sendet den dann aktuellen Stand nach. Scheitert das Ablegen, nach `retryDelay` noch
+    /// einmal mit dem dann aktuellen Stand (höchstens `maxRetries` Mal in Folge) – wie das iPhone (`PhoneWatchLink`).
+    func publish(_ settings: WatchSettings, attempt: Int = 0) {
         guard WCSession.isSupported(), WCSession.default.activationState == .activated else { return }
         // Jeder Kontext ersetzt den vorigen: Wahl und Zähler der letzten 24 h immer zusammen
         let usage = UsageLog.encodeReport(UsageReport(at: WatchStore.now(), totals: UsageMeter.shared.totals()))
-        try? WCSession.default.updateApplicationContext([Self.key: settings.toJson(), Self.usageKey: usage])
+        do {
+            try WCSession.default.updateApplicationContext([Self.key: settings.toJson(), Self.usageKey: usage])
+        } catch {
+            let nsError = error as NSError
+            WatchLog.link.error("Stand nicht ans iPhone: \(nsError.domain, privacy: .public) \(nsError.code, privacy: .public)")
+            guard attempt < Self.maxRetries else { return }
+            Task { @MainActor in
+                try? await Task.sleep(for: Self.retryDelay)
+                self.publish(WatchModel.shared.settings, attempt: attempt + 1)
+            }
+        }
     }
+
+    private static let maxRetries = 3
+    private static let retryDelay: Duration = .seconds(30)
 
     // MARK: WCSessionDelegate (Aufrufe auf einem Hintergrund-Thread: nur das JSON auslesen; Zusammenführen und
     // Speichern auf dem MainActor in `WatchModel`, wo auch die Änderungen auf der Uhr laufen)

@@ -7,6 +7,7 @@
     <string name="watch_refresh">रिफ्रेस गर्नुहोस्</string>
     <string name="watch_choose">कोइन छान्नुहोस्</string>
     <string name="watch_notify_channel">फोनबाट</string>
+    <string name="watch_alarm_channel">फोनबाट सचेतनाहरू</string>
     <string name="watch_choose_hint">कोइन: बढीमा %1$d</string>
     <string name="watch_complication_label">मूल्य</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 घण्टामा %3$s</string>

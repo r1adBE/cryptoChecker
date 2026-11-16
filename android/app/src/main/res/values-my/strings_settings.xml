@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">ပွတ်ဆွဲ ဖယ်၍ မရ</string>
     <string name="settings_ongoing_notifications_hint">ဈေးနှုန်း အကြောင်းကြားချက်များကို ပင်ထိုးထားသည်။</string>
     <string name="settings_watch_notifications">နာရီပေါ်တွင် ပြရန်</string>
-    <string name="settings_watch_notifications_hint">ဈေးနှုန်းအသိပေးချက်များ၊ သတိပေးချက်များနှင့် စျေးကွက်အသိပေးချက်များကို နာရီပေါ်တွင် အသံမဲ့ ပြပါမည်။ နာရီပေါ်တွင် Crypto Checker လိုအပ်ပါသည် – ထိုနေရာတွင် တစ်ကြိမ်ဖွင့်ပြီး အသိပေးချက်များကို ခွင့်ပြုပါ။</string>
+    <string name="settings_watch_notifications_hint">သတိပေးချက်များသည် နာရီပေါ်တွင် တုန်ခါပြီး ဈေးနှုန်းနှင့် စျေးကွက်အသိပေးချက်များကို အသံမဲ့ ပြပါမည်။ နာရီ မရောက်နိုင်ပါက ဖုန်းက ပုံမှန်အတိုင်း ပေးပို့ပါမည်။ နာရီပေါ်တွင် Crypto Checker လိုအပ်ပါသည် – ထိုနေရာတွင် တစ်ကြိမ်ဖွင့်ပြီး အသိပေးချက်များကို ခွင့်ပြုပါ။</string>
     <string name="settings_price_notifications">ဈေးနှုန်း အကြောင်းကြားချက်များ</string>
     <string name="settings_price_notifications_hint">ဖွင့်ထားသော အတွဲများ၏ လက်ရှိဈေးနှုန်းကို အခြေအနေဘားတွင် ပြရန်။</string>
     <string name="settings_price_pairs">အတွဲများ</string>

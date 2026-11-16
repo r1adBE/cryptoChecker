@@ -7,6 +7,7 @@
     <string name="watch_refresh">Обновить</string>
     <string name="watch_choose">Выбрать монеты</string>
     <string name="watch_notify_channel">С телефона</string>
+    <string name="watch_alarm_channel">Оповещения с телефона</string>
     <string name="watch_choose_hint">Монеты: не более %1$d</string>
     <string name="watch_complication_label">Курс</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 часа</string>

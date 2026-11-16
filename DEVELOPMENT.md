@@ -3193,6 +3193,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 241: exchange_live_check.py: every 403 = skipped (runner blocked)
 * Build 242: terms of use page + in-app link (about.terms), privacy policy rights/Wear/crash reports/Show on watch, Pulse top-coins cache 30 min (TOP_CACHE_MILLIS / topCacheMillis), exchange logos from CoinMarketCap or monogram (gen_logo_packs.py source types cmc/monogram), Play data safety: in-app search history.
 * Build 243: CI push-to-main runs dropped for ios/android/device tests/CodeQL + weekly schedule (keepalive list), store_build from a tag worktree (android/ios Fastfile, iOS team:), setup-github-settings: bypass pull_request only, rebase merges, mirror cadence documented.
+* Build 244: watch notify readiness (WatchNotifyPolicy, /cc/notify/state, takeReachable/takePermitted), wear alarm channel + visible-only loops (WatchActivity visible flow), non-urgent quote puts, WatchFetcher loading reset, WatchBodyLimit chunked, WatchLink retry + WatchLog.
 
 ## Known warnings
 

@@ -7,6 +7,7 @@
     <string name="watch_refresh">Eguneratu</string>
     <string name="watch_choose">Aukeratu txanponak</string>
     <string name="watch_notify_channel">Telefonotik</string>
+    <string name="watch_alarm_channel">Telefonoko alertak</string>
     <string name="watch_choose_hint">Txanponak: gehienez %1$d</string>
     <string name="watch_complication_label">Prezioa</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 ordutan</string>

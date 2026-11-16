@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Ei voi pyyhkäistä pois</string>
     <string name="settings_ongoing_notifications_hint">Pitää hintailmoitukset kiinnitettyinä.</string>
     <string name="settings_watch_notifications">Näytä kellossa</string>
-    <string name="settings_watch_notifications_hint">Hintailmoitukset, hälytykset ja markkinailmoitukset näkyvät kellossa äänettömästi. Kellossa on oltava Crypto Checker – avaa se siellä kerran ja salli ilmoitukset.</string>
+    <string name="settings_watch_notifications_hint">Hälytykset värisevät kellossa; hinta- ja markkinailmoitukset näkyvät äänettömästi. Jos kello on kantaman ulkopuolella, puhelin välittää ne tavalliseen tapaan. Kellossa on oltava Crypto Checker – avaa se siellä kerran ja salli ilmoitukset.</string>
     <string name="settings_price_notifications">Hintailmoitukset</string>
     <string name="settings_price_notifications_hint">Näytä käytössä olevien parien nykyinen hinta tilapalkissa.</string>
     <string name="settings_price_pairs">Parit</string>

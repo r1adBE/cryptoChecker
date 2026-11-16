@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Шударч арилгах боломжгүй</string>
     <string name="settings_ongoing_notifications_hint">Ханшийн мэдэгдлийг бэхэлсэн хэвээр байлгана.</string>
     <string name="settings_watch_notifications">Цаган дээр харуулах</string>
-    <string name="settings_watch_notifications_hint">Үнийн мэдэгдэл, сэрэмжлүүлэг болон зах зээлийн мэдэгдэл цаган дээр дуугүй харагдана. Цаган дээр Crypto Checker хэрэгтэй – тэнд нэг удаа нээж, мэдэгдлийг зөвшөөрнө үү.</string>
+    <string name="settings_watch_notifications_hint">Сэрэмжлүүлэг цаган дээр чичирнэ; үнийн болон зах зээлийн мэдэгдэл дуугүй харагдана. Цаг хүрээнээс гадуур байвал утас тэдгээрийг ердийнхөөрөө дамжуулна. Цаган дээр Crypto Checker хэрэгтэй – тэнд нэг удаа нээж, мэдэгдлийг зөвшөөрнө үү.</string>
     <string name="settings_price_notifications">Ханшийн мэдэгдэл</string>
     <string name="settings_price_notifications_hint">Идэвхжүүлсэн хосуудын одоогийн ханшийг төлөвийн мөрөнд харуулах.</string>
     <string name="settings_price_pairs">Хос</string>

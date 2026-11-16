@@ -7,6 +7,7 @@
     <string name="watch_refresh">Actualizar</string>
     <string name="watch_choose">Escoller moedas</string>
     <string name="watch_notify_channel">Do teléfono</string>
+    <string name="watch_alarm_channel">Alertas do teléfono</string>
     <string name="watch_choose_hint">Moedas: máx. %1$d</string>
     <string name="watch_complication_label">Prezo</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 horas</string>

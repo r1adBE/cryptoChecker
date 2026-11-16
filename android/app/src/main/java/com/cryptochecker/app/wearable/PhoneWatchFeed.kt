@@ -103,7 +103,8 @@ class PhoneWatchFeed @Inject constructor(
                 .catch { }
                 .collect { json ->
                     lastQuotes = json
-                    sync.put(QUOTES_PATH, json)
+                    // Laufende Kurse nicht dringend: das System bündelt sie (die Uhr wird nicht jede Minute geweckt)
+                    sync.put(QUOTES_PATH, json, urgent = false)
                     delay(MIN_GAP_MS)
                 }
         }

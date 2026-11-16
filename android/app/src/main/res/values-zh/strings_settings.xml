@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">无法滑动清除</string>
     <string name="settings_ongoing_notifications_hint">保持价格通知常驻。</string>
     <string name="settings_watch_notifications">在手表上显示</string>
-    <string name="settings_watch_notifications_hint">价格通知、提醒和市场通知会静音显示在手表上。手表上需要 Crypto Checker – 请在手表上打开一次并允许通知。</string>
+    <string name="settings_watch_notifications_hint">提醒会在手表上振动；价格通知和市场通知会静音显示。手表不在范围内时，手机会照常转发。手表上需要 Crypto Checker – 请在手表上打开一次并允许通知。</string>
     <string name="settings_price_notifications">价格通知</string>
     <string name="settings_price_notifications_hint">在状态栏中显示已启用交易对的当前价格。</string>
     <string name="settings_price_pairs">交易对</string>

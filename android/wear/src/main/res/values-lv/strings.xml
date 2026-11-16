@@ -7,6 +7,7 @@
     <string name="watch_refresh">Atsvaidzināt</string>
     <string name="watch_choose">Izvēlēties monētas</string>
     <string name="watch_notify_channel">No tālruņa</string>
+    <string name="watch_alarm_channel">Brīdinājumi no tālruņa</string>
     <string name="watch_choose_hint">Monētas: ne vairāk kā %1$d</string>
     <string name="watch_complication_label">Cena</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s 24 stundās</string>

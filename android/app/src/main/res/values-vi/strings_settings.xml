@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">Không thể vuốt để xóa</string>
     <string name="settings_ongoing_notifications_hint">Giữ cố định thông báo giá.</string>
     <string name="settings_watch_notifications">Hiển thị trên đồng hồ</string>
-    <string name="settings_watch_notifications_hint">Thông báo giá, cảnh báo và thông báo thị trường sẽ hiện im lặng trên đồng hồ. Cần có Crypto Checker trên đồng hồ – vui lòng mở ứng dụng ở đó một lần và cho phép thông báo.</string>
+    <string name="settings_watch_notifications_hint">Cảnh báo sẽ rung trên đồng hồ; thông báo giá và thị trường hiện im lặng. Nếu đồng hồ ở ngoài vùng kết nối, điện thoại sẽ chuyển tiếp như bình thường. Cần có Crypto Checker trên đồng hồ – vui lòng mở ứng dụng ở đó một lần và cho phép thông báo.</string>
     <string name="settings_price_notifications">Thông báo giá</string>
     <string name="settings_price_notifications_hint">Hiển thị giá hiện tại của các cặp đã bật trên thanh trạng thái.</string>
     <string name="settings_price_pairs">Cặp</string>

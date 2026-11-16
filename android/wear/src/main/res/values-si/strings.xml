@@ -7,6 +7,7 @@
     <string name="watch_refresh">නැවුම් කරන්න</string>
     <string name="watch_choose">කාසි තෝරන්න</string>
     <string name="watch_notify_channel">දුරකථනයෙන්</string>
+    <string name="watch_alarm_channel">දුරකථනයෙන් අනතුරු ඇඟවීම්</string>
     <string name="watch_choose_hint">කාසි: උපරිම %1$d</string>
     <string name="watch_complication_label">මිල</string>
     <string name="a11y_watch_row">%1$s %2$s, පැය 24 තුළ %3$s</string>

@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">ஸ்வைப் செய்து அகற்ற முடியாது</string>
     <string name="settings_ongoing_notifications_hint">விலை அறிவிப்புகளைப் பின் செய்து வைக்கும்.</string>
     <string name="settings_watch_notifications">கடிகாரத்தில் காட்டு</string>
-    <string name="settings_watch_notifications_hint">விலை அறிவிப்புகள், எச்சரிக்கைகள் மற்றும் சந்தை அறிவிப்புகள் கடிகாரத்தில் ஒலியின்றித் தோன்றும். கடிகாரத்தில் Crypto Checker தேவை – தயவுசெய்து அங்கு ஒருமுறை திறந்து அறிவிப்புகளை அனுமதிக்கவும்.</string>
+    <string name="settings_watch_notifications_hint">எச்சரிக்கைகள் கடிகாரத்தில் அதிரும்; விலை மற்றும் சந்தை அறிவிப்புகள் ஒலியின்றித் தோன்றும். கடிகாரம் வரம்புக்கு வெளியே இருந்தால், ஃபோன் அவற்றை வழக்கம்போல் அனுப்பும். கடிகாரத்தில் Crypto Checker தேவை – தயவுசெய்து அங்கு ஒருமுறை திறந்து அறிவிப்புகளை அனுமதிக்கவும்.</string>
     <string name="settings_price_notifications">விலை அறிவிப்புகள்</string>
     <string name="settings_price_notifications_hint">இயக்கப்பட்ட ஜோடிகளின் தற்போதைய விலையை நிலைப் பட்டியில் காட்டவும்.</string>
     <string name="settings_price_pairs">ஜோடிகள்</string>

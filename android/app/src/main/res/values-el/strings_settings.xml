@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
     <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμής παραμένουν καρφιτσωμένες.</string>
     <string name="settings_watch_notifications">Εμφάνιση στο ρολόι</string>
-    <string name="settings_watch_notifications_hint">Οι ειδοποιήσεις τιμών, οι ειδοποιήσεις ορίων και οι ειδοποιήσεις αγοράς εμφανίζονται αθόρυβα στο ρολόι. Χρειάζεται το Crypto Checker στο ρολόι – άνοιξέ το εκεί μία φορά και επίτρεψε τις ειδοποιήσεις.</string>
+    <string name="settings_watch_notifications_hint">Οι ειδοποιήσεις ορίων δονούνται στο ρολόι· οι ειδοποιήσεις τιμών και αγοράς εμφανίζονται αθόρυβα. Αν το ρολόι είναι εκτός εμβέλειας, το τηλέφωνο τις προωθεί όπως συνήθως. Χρειάζεται το Crypto Checker στο ρολόι – άνοιξέ το εκεί μία φορά και επίτρεψε τις ειδοποιήσεις.</string>
     <string name="settings_price_notifications">Ειδοποιήσεις τιμής</string>
     <string name="settings_price_notifications_hint">Εμφάνιση της τρέχουσας τιμής των ενεργών ζευγών στη γραμμή κατάστασης.</string>
     <string name="settings_price_pairs">Ζεύγη</string>

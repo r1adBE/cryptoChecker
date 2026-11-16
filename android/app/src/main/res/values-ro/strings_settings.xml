@@ -53,7 +53,7 @@
     <string name="settings_ongoing_notifications">Nu pot fi glisate</string>
     <string name="settings_ongoing_notifications_hint">Păstrează notificările de preț fixate.</string>
     <string name="settings_watch_notifications">Afișează pe ceas</string>
-    <string name="settings_watch_notifications_hint">Notificările de preț, alertele și notificările de piață apar fără sunet pe ceas. Este nevoie de Crypto Checker pe ceas – deschide-l acolo o dată și permite notificările.</string>
+    <string name="settings_watch_notifications_hint">Alertele vibrează pe ceas; notificările de preț și de piață apar fără sunet. Dacă ceasul nu este în rază, telefonul le transmite ca de obicei. Este nevoie de Crypto Checker pe ceas – deschide-l acolo o dată și permite notificările.</string>
     <string name="settings_price_notifications">Notificări de preț</string>
     <string name="settings_price_notifications_hint">Afișează prețul curent al perechilor activate în bara de stare.</string>
     <string name="settings_price_pairs">Perechi</string>

@@ -7,6 +7,7 @@
     <string name="watch_refresh">Osvježi</string>
     <string name="watch_choose">Odaberi kriptovalute</string>
     <string name="watch_notify_channel">Sa telefona</string>
+    <string name="watch_alarm_channel">Upozorenja s telefona</string>
     <string name="watch_choose_hint">Kriptovalute: najviše %1$d</string>
     <string name="watch_complication_label">Cijena</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s u 24 sata</string>

@@ -39,7 +39,7 @@ class PhoneWatchRepublishTest {
         assertTrue(PhoneWatchSync.PutResult.PUBLISHED.settled && PhoneWatchSync.PutResult.NO_WATCH.settled)
         assertTrue(!PhoneWatchSync.PutResult.FAILED.settled)
         // Kurse und Portfolio-Wert (PhoneWatchFeed) zählen nur, was wirklich abgelegt ist
-        assertTrue(sync.contains("putResult(path, json) == PutResult.PUBLISHED"))
+        assertTrue(sync.contains("putResult(path, json, urgent) == PutResult.PUBLISHED"))
         val feed = file("app/src/main/java/com/cryptochecker/app/wearable/PhoneWatchFeed.kt")
         assertTrue(feed.contains("if (sync.put(PORTFOLIO_PATH, json)) lastPortfolio = json"))
         assertEquals(1, Regex("lastPortfolio = json").findAll(feed).count())

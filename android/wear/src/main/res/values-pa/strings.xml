@@ -7,6 +7,7 @@
     <string name="watch_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
     <string name="watch_choose">ਕੌਇਨ ਚੁਣੋ</string>
     <string name="watch_notify_channel">ਫ਼ੋਨ ਤੋਂ</string>
+    <string name="watch_alarm_channel">ਫ਼ੋਨ ਤੋਂ ਚਿਤਾਵਨੀਆਂ</string>
     <string name="watch_choose_hint">ਕੌਇਨ: ਵੱਧ ਤੋਂ ਵੱਧ %1$d</string>
     <string name="watch_complication_label">ਕੀਮਤ</string>
     <string name="a11y_watch_row">%1$s %2$s, 24 ਘੰਟਿਆਂ ਵਿੱਚ %3$s</string>

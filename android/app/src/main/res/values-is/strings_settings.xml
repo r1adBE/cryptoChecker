@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Ekki hægt að strjúka burt</string>
     <string name="settings_ongoing_notifications_hint">Heldur verðtilkynningum föstum.</string>
     <string name="settings_watch_notifications">Sýna á úrinu</string>
-    <string name="settings_watch_notifications_hint">Verðtilkynningar, viðvaranir og markaðstilkynningar birtast hljóðlaust á úrinu. Crypto Checker þarf að vera á úrinu – opnaðu það þar einu sinni og leyfðu tilkynningar.</string>
+    <string name="settings_watch_notifications_hint">Viðvaranir titra á úrinu; verð- og markaðstilkynningar birtast hljóðlaust. Ef úrið er utan sviðs sendir síminn þær áfram eins og venjulega. Crypto Checker þarf að vera á úrinu – opnaðu það þar einu sinni og leyfðu tilkynningar.</string>
     <string name="settings_price_notifications">Verðtilkynningar</string>
     <string name="settings_price_notifications_hint">Sýna núverandi verð virkra para í stöðustikunni.</string>
     <string name="settings_price_pairs">Pör</string>

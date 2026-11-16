@@ -1,6 +1,7 @@
 package com.cryptochecker.wear
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,17 +43,40 @@ class WatchFetcher(
         val startedAt = now()
         job?.cancel()
         _loading.value = true
-        job = scope.launch {
-            val need = runCatching { plan(coins, force) }.getOrElse { if (it is CancellationException) throw it else coins }
-            val quotes = if (need.isEmpty()) {
-                emptyMap()
-            } else {
-                runCatching { fetch(need) }.getOrElse { if (it is CancellationException) throw it else emptyMap() }
+        // Erst zuweisen, dann starten: am Ende setzt nur der jeweils letzte Abruf «lädt» zurück, auch wenn sein
+        // Ergebnis verworfen wird (andere Liste) – sonst bliebe der Ladekreis stehen, falls kein neuer Abruf folgt
+        val launched = scope.launch(start = CoroutineStart.LAZY) {
+            try {
+                load(coins, run, startedAt, force)
+            } finally {
+                if (job === coroutineContext[Job]) _loading.value = false
             }
-            if (!gate.accepts(run, coins, shown())) return@launch
-            if (quotes.isNotEmpty()) save(quotes, startedAt)
-            _failed.value = quotes.isEmpty() && need.isNotEmpty()
-            _loading.value = false
         }
+        job = launched
+        launched.start()
+    }
+
+    private suspend fun load(coins: List<String>, generation: Long, startedAt: Long, force: Boolean) {
+        val need = try {
+            plan(coins, force)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            coins
+        }
+        val quotes = if (need.isEmpty()) {
+            emptyMap()
+        } else {
+            try {
+                fetch(need)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                emptyMap()
+            }
+        }
+        if (!gate.accepts(generation, coins, shown())) return
+        if (quotes.isNotEmpty()) save(quotes, startedAt)
+        _failed.value = quotes.isEmpty() && need.isNotEmpty()
     }
 }

@@ -7,6 +7,7 @@
     <string name="watch_refresh">重新整理</string>
     <string name="watch_choose">揀幣</string>
     <string name="watch_notify_channel">嚟自手機</string>
+    <string name="watch_alarm_channel">來自手機嘅提醒</string>
     <string name="watch_choose_hint">幣：最多 %1$d 隻</string>
     <string name="watch_complication_label">價格</string>
     <string name="a11y_watch_row">%1$s %2$s，24 小時內 %3$s</string>

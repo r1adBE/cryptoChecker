@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Kan inte sveps bort</string>
     <string name="settings_ongoing_notifications_hint">Håller kursaviseringarna fästa.</string>
     <string name="settings_watch_notifications">Visa på klockan</string>
-    <string name="settings_watch_notifications_hint">Kursnotiser, larm och marknadsnotiser visas tyst på klockan. Kräver Crypto Checker på klockan – öppna den där en gång och tillåt notiser.</string>
+    <string name="settings_watch_notifications_hint">Larm vibrerar på klockan; kurs- och marknadsnotiser visas tyst. Är klockan utom räckhåll vidarebefordrar telefonen dem som vanligt. Kräver Crypto Checker på klockan – öppna den där en gång och tillåt notiser.</string>
     <string name="settings_price_notifications">Kursaviseringar</string>
     <string name="settings_price_notifications_hint">Visa aktuell kurs för aktiverade par i statusfältet.</string>
     <string name="settings_price_pairs">Par</string>

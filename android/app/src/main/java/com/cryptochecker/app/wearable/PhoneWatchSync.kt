@@ -210,10 +210,15 @@ class PhoneWatchSync @Inject constructor(
      * App hat; Fehler bleiben still. Gleicher Inhalt wie zuvor löst auf der Uhr keine Änderung aus. true = abgelegt
      * (false: keine Uhr mit der App, keine Play-Dienste oder Fehler — nachgeholt bei [republish]).
      */
-    internal suspend fun put(path: String, json: String): Boolean = putResult(path, json) == PutResult.PUBLISHED
+    internal suspend fun put(path: String, json: String, urgent: Boolean = true): Boolean =
+        putResult(path, json, urgent) == PutResult.PUBLISHED
 
-    /** Wie [put], unterscheidet aber «keine Uhr mit der App» ([PutResult.NO_WATCH]) von einem Fehler. */
-    private suspend fun putResult(path: String, json: String): PutResult = withContext(ioDispatcher) {
+    /**
+     * Wie [put], unterscheidet aber «keine Uhr mit der App» ([PutResult.NO_WATCH]) von einem Fehler. [urgent] = sofort
+     * zustellen (Wahl, Portfolio); laufende Kurse nicht dringend, damit das System sie bündelt und die Uhr nicht jede
+     * Minute weckt (wie iOS `updateApplicationContext`).
+     */
+    private suspend fun putResult(path: String, json: String, urgent: Boolean = true): PutResult = withContext(ioDispatcher) {
         runCatchingCancellable {
             val nodes = Tasks.await(
                 Wearable.getCapabilityClient(context).getCapability(CAPABILITY, CapabilityClient.FILTER_ALL),
@@ -221,7 +226,7 @@ class PhoneWatchSync @Inject constructor(
             ).nodes
             if (nodes.isEmpty()) return@runCatchingCancellable PutResult.NO_WATCH
             val request = PutDataMapRequest.create(path).apply { dataMap.putString(DATA_KEY, json) }
-                .asPutDataRequest().setUrgent()
+                .asPutDataRequest().apply { if (urgent) setUrgent() }
             Tasks.await(Wearable.getDataClient(context).putDataItem(request), TIMEOUT_S, TimeUnit.SECONDS)
             PutResult.PUBLISHED
         }.getOrDefault(PutResult.FAILED)

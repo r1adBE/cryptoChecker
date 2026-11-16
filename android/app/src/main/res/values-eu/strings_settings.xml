@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Ezin dira baztertu</string>
     <string name="settings_ongoing_notifications_hint">Prezio-jakinarazpenak finkatuta mantentzen ditu.</string>
     <string name="settings_watch_notifications">Erakutsi erlojuan</string>
-    <string name="settings_watch_notifications_hint">Prezio-jakinarazpenak, alertak eta merkatu-jakinarazpenak isilik agertzen dira erlojuan. Crypto Checker behar da erlojuan – ireki behin han eta baimendu jakinarazpenak.</string>
+    <string name="settings_watch_notifications_hint">Alertek dar-dar egiten dute erlojuan; prezio- eta merkatu-jakinarazpenak isilik agertzen dira. Erlojua irismenetik kanpo badago, telefonoak ohi bezala birbidaltzen ditu. Crypto Checker behar da erlojuan – ireki behin han eta baimendu jakinarazpenak.</string>
     <string name="settings_price_notifications">Prezio-jakinarazpenak</string>
     <string name="settings_price_notifications_hint">Erakutsi aktibatutako pareen uneko prezioa egoera-barran.</string>
     <string name="settings_price_pairs">Pareak</string>

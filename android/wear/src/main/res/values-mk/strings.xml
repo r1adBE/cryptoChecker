@@ -7,6 +7,7 @@
     <string name="watch_refresh">Освежи</string>
     <string name="watch_choose">Избери монети</string>
     <string name="watch_notify_channel">Од телефонот</string>
+    <string name="watch_alarm_channel">Предупредувања од телефонот</string>
     <string name="watch_choose_hint">Монети: најмногу %1$d</string>
     <string name="watch_complication_label">Цена</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 часа</string>

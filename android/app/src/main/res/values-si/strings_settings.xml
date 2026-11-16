@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">ස්වයිප් කර ඉවත් කළ නොහැක</string>
     <string name="settings_ongoing_notifications_hint">මිල දැනුම්දීම් අමුණා තබයි.</string>
     <string name="settings_watch_notifications">ඔරලෝසුවේ පෙන්වන්න</string>
-    <string name="settings_watch_notifications_hint">මිල දැනුම්දීම්, ඇඟවීම් සහ වෙළඳපොළ දැනුම්දීම් ඔරලෝසුවේ නිහඬව පෙන්වයි. ඔරලෝසුවේ Crypto Checker අවශ්‍යයි – කරුණාකර එහි එක් වරක් විවෘත කර දැනුම්දීම්වලට අවසර දෙන්න.</string>
+    <string name="settings_watch_notifications_hint">ඇඟවීම් ඔරලෝසුවේ කම්පනය වේ; මිල සහ වෙළඳපොළ දැනුම්දීම් නිහඬව පෙන්වයි. ඔරලෝසුව ළඟා විය නොහැකි නම්, දුරකථනය ඒවා සුපුරුදු පරිදි යොමු කරයි. ඔරලෝසුවේ Crypto Checker අවශ්‍යයි – කරුණාකර එහි එක් වරක් විවෘත කර දැනුම්දීම්වලට අවසර දෙන්න.</string>
     <string name="settings_price_notifications">මිල දැනුම්දීම්</string>
     <string name="settings_price_notifications_hint">සක්‍රිය කළ යුගලවල වත්මන් මිල තත්ත්ව තීරුවේ පෙන්වන්න.</string>
     <string name="settings_price_pairs">යුගල</string>

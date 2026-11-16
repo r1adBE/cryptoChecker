@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">밀어서 지우기 불가</string>
     <string name="settings_ongoing_notifications_hint">가격 알림을 고정해 둡니다.</string>
     <string name="settings_watch_notifications">워치에 표시</string>
-    <string name="settings_watch_notifications_hint">가격 알림, 경보 및 시장 알림이 워치에 소리 없이 표시됩니다. 워치에 Crypto Checker가 필요합니다. 워치에서 한 번 열고 알림을 허용해 주세요.</string>
+    <string name="settings_watch_notifications_hint">경보는 워치에서 진동하고, 가격 알림과 시장 알림은 소리 없이 표시됩니다. 워치가 범위를 벗어나면 휴대전화가 평소처럼 전달합니다. 워치에 Crypto Checker가 필요합니다. 워치에서 한 번 열고 알림을 허용해 주세요.</string>
     <string name="settings_price_notifications">가격 알림</string>
     <string name="settings_price_notifications_hint">사용 설정한 거래쌍의 현재 가격을 상태 표시줄에 표시합니다.</string>
     <string name="settings_price_pairs">페어</string>

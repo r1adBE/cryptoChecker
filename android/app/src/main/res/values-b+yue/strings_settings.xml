@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">唔可以掃走</string>
     <string name="settings_ongoing_notifications_hint">將價格通知固定喺度。</string>
     <string name="settings_watch_notifications">喺手錶顯示</string>
-    <string name="settings_watch_notifications_hint">價格通知、提醒同市場通知會靜音噉喺手錶上顯示。需要手錶上有 Crypto Checker – 請喺嗰度開一次並允許通知。</string>
+    <string name="settings_watch_notifications_hint">提醒會喺手錶上震動；價格同市場通知會靜音顯示。手錶唔喺範圍內嘅話，手機會照常轉發。需要手錶上有 Crypto Checker – 請喺嗰度開一次並允許通知。</string>
     <string name="settings_price_notifications">價格通知</string>
     <string name="settings_price_notifications_hint">喺狀態列顯示已啟用交易對嘅現價。</string>
     <string name="settings_price_pairs">交易對</string>

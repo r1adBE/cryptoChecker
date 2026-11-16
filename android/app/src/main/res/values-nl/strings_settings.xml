@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Niet wegvegen</string>
     <string name="settings_ongoing_notifications_hint">Houdt koersmeldingen vastgezet.</string>
     <string name="settings_watch_notifications">Op horloge tonen</string>
-    <string name="settings_watch_notifications_hint">Koersmeldingen, alarmen en marktmeldingen verschijnen stil op het horloge. Vereist Crypto Checker op het horloge – open de app daar één keer en sta meldingen toe.</string>
+    <string name="settings_watch_notifications_hint">Alarmen trillen op het horloge; koers- en marktmeldingen verschijnen stil. Is het horloge buiten bereik, dan stuurt de telefoon ze zoals gewoonlijk door. Vereist Crypto Checker op het horloge – open de app daar één keer en sta meldingen toe.</string>
     <string name="settings_price_notifications">Koersmeldingen</string>
     <string name="settings_price_notifications_hint">Toon de actuele koers van ingeschakelde paren in de statusbalk.</string>
     <string name="settings_price_pairs">Paren</string>

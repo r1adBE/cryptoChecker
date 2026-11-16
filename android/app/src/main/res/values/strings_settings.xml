@@ -54,7 +54,7 @@
     <string name="settings_ongoing_notifications">Cannot be swiped away</string>
     <string name="settings_ongoing_notifications_hint">Keeps price notifications pinned.</string>
     <string name="settings_watch_notifications">Show on watch</string>
-    <string name="settings_watch_notifications_hint">Price notifications, alerts and market notifications appear silently on the watch. Needs Crypto Checker on the watch – open it there once and allow notifications.</string>
+    <string name="settings_watch_notifications_hint">Alerts vibrate on the watch; price and market notifications appear silently. If the watch is out of reach, the phone forwards them as usual. Needs Crypto Checker on the watch – open it there once and allow notifications.</string>
     <string name="settings_price_notifications">Price notifications</string>
     <string name="settings_price_notifications_hint">Show the current price of enabled pairs in the status bar.</string>
     <string name="settings_price_pairs">Pairs</string>

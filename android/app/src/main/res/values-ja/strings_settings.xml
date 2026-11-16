@@ -51,7 +51,7 @@
     <string name="settings_ongoing_notifications">スワイプで消去不可</string>
     <string name="settings_ongoing_notifications_hint">価格通知を固定表示します。</string>
     <string name="settings_watch_notifications">ウォッチに表示</string>
-    <string name="settings_watch_notifications_hint">価格通知、アラート、マーケット通知がウォッチに無音で表示されます。ウォッチに Crypto Checker が必要です。ウォッチで一度開き、通知を許可してください。</string>
+    <string name="settings_watch_notifications_hint">アラートはウォッチで振動し、価格通知とマーケット通知は無音で表示されます。ウォッチが圏外のときは、スマートフォンが通常どおり転送します。ウォッチに Crypto Checker が必要です。ウォッチで一度開き、通知を許可してください。</string>
     <string name="settings_price_notifications">価格通知</string>
     <string name="settings_price_notifications_hint">有効にしたペアの現在価格をステータスバーに表示します。</string>
     <string name="settings_price_pairs">ペア</string>

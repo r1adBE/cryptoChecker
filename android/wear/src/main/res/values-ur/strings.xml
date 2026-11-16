@@ -7,6 +7,7 @@
     <string name="watch_refresh">ریفریش کریں</string>
     <string name="watch_choose">کوائنز منتخب کریں</string>
     <string name="watch_notify_channel">فون سے</string>
+    <string name="watch_alarm_channel">فون سے الرٹس</string>
     <string name="watch_choose_hint">کوائنز: زیادہ سے زیادہ %1$d</string>
     <string name="watch_complication_label">قیمت</string>
     <string name="a11y_watch_row">%1$s %2$s، 24 گھنٹوں میں %3$s</string>

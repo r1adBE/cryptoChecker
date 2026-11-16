@@ -54,7 +54,7 @@
     <string name="settings_ongoing_notifications">Nie można odrzucić</string>
     <string name="settings_ongoing_notifications_hint">Powiadomienia o cenie pozostają przypięte.</string>
     <string name="settings_watch_notifications">Pokaż na zegarku</string>
-    <string name="settings_watch_notifications_hint">Powiadomienia o cenach, alerty i powiadomienia rynkowe pojawiają się na zegarku bez dźwięku. Wymaga Crypto Checker na zegarku – otwórz go tam raz i zezwól na powiadomienia.</string>
+    <string name="settings_watch_notifications_hint">Alerty wibrują na zegarku; powiadomienia o cenach i rynku pojawiają się bez dźwięku. Gdy zegarek jest poza zasięgiem, telefon przekazuje je jak zwykle. Wymaga Crypto Checker na zegarku – otwórz go tam raz i zezwól na powiadomienia.</string>
     <string name="settings_price_notifications">Powiadomienia o cenie</string>
     <string name="settings_price_notifications_hint">Pokazuj aktualną cenę włączonych par na pasku stanu.</string>
     <string name="settings_price_pairs">Pary</string>

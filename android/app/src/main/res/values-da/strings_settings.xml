@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Kan ikke stryges væk</string>
     <string name="settings_ongoing_notifications_hint">Holder kursnotifikationerne fastgjort.</string>
     <string name="settings_watch_notifications">Vis på uret</string>
-    <string name="settings_watch_notifications_hint">Kursnotifikationer, alarmer og markedsnotifikationer vises lydløst på uret. Kræver Crypto Checker på uret – åbn den der én gang og tillad notifikationer.</string>
+    <string name="settings_watch_notifications_hint">Alarmer vibrerer på uret; kurs- og markedsnotifikationer vises lydløst. Er uret uden for rækkevidde, videresender telefonen dem som sædvanligt. Kræver Crypto Checker på uret – åbn den der én gang og tillad notifikationer.</string>
     <string name="settings_price_notifications">Kursnotifikationer</string>
     <string name="settings_price_notifications_hint">Vis den aktuelle kurs for aktiverede par i statuslinjen.</string>
     <string name="settings_price_pairs">Par</string>

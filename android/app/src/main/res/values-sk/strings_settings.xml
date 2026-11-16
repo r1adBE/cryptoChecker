@@ -54,7 +54,7 @@
     <string name="settings_ongoing_notifications">Nedá sa odstrániť potiahnutím</string>
     <string name="settings_ongoing_notifications_hint">Upozornenia na kurzy zostanú pripnuté.</string>
     <string name="settings_watch_notifications">Zobraziť na hodinkách</string>
-    <string name="settings_watch_notifications_hint">Cenové upozornenia, výstrahy a trhové upozornenia sa ticho zobrazia na hodinkách. Treba Crypto Checker v hodinkách – raz ho tam otvor a povoľ upozornenia.</string>
+    <string name="settings_watch_notifications_hint">Výstrahy na hodinkách vibrujú; cenové a trhové upozornenia sa zobrazia ticho. Keď sú hodinky mimo dosahu, telefón ich prepošle ako zvyčajne. Treba Crypto Checker v hodinkách – raz ho tam otvor a povoľ upozornenia.</string>
     <string name="settings_price_notifications">Upozornenia na kurzy</string>
     <string name="settings_price_notifications_hint">V stavovom riadku zobrazí kurz povolených párov.</string>
     <string name="settings_price_pairs">Páry</string>

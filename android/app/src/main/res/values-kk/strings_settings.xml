@@ -52,7 +52,7 @@
     <string name="settings_ongoing_notifications">Сырғытып жабу мүмкін емес</string>
     <string name="settings_ongoing_notifications_hint">Бағам хабарландыруларын бекітулі ұстайды.</string>
     <string name="settings_watch_notifications">Сағатта көрсету</string>
-    <string name="settings_watch_notifications_hint">Баға хабарландырулары, ескертулер және нарық хабарландырулары сағатта дыбыссыз шығады. Сағатта Crypto Checker қажет – оны сонда бір рет ашып, хабарландыруларға рұқсат беріңіз.</string>
+    <string name="settings_watch_notifications_hint">Ескертулер сағатта дірілдейді, ал баға мен нарық хабарландырулары дыбыссыз шығады. Сағат қолжетімсіз болса, телефон оларды әдеттегідей жібереді. Сағатта Crypto Checker қажет – оны сонда бір рет ашып, хабарландыруларға рұқсат беріңіз.</string>
     <string name="settings_price_notifications">Бағам хабарландырулары</string>
     <string name="settings_price_notifications_hint">Қосылған жұптардың ағымдағы бағамын күй жолағында көрсету.</string>
     <string name="settings_price_pairs">Жұптар</string>

@@ -7,6 +7,7 @@
     <string name="watch_refresh">Uppdatera</string>
     <string name="watch_choose">Välj mynt</string>
     <string name="watch_notify_channel">Från telefonen</string>
+    <string name="watch_alarm_channel">Larm från telefonen</string>
     <string name="watch_choose_hint">Mynt: högst %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s på 24 timmar</string>

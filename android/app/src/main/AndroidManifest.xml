@@ -309,6 +309,14 @@
                     android:path="/cc/watch"
                     android:scheme="wear" />
             </intent-filter>
+            <!-- «Auf der Uhr zeigen»: darf die Uhr-App Mitteilungen zeigen? (WatchNotifyBridge) -->
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:path="/cc/notify/state"
+                    android:scheme="wear" />
+            </intent-filter>
             <!-- «Akku & Aktivität»: Zähler der Uhr (PhoneWatchUsage) -->
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />

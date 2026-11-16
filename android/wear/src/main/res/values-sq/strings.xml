@@ -7,6 +7,7 @@
     <string name="watch_refresh">Rifresko</string>
     <string name="watch_choose">Zgjidh monedhat</string>
     <string name="watch_notify_channel">Nga telefoni</string>
+    <string name="watch_alarm_channel">Sinjalizime nga telefoni</string>
     <string name="watch_choose_hint">Monedha: deri në %1$d</string>
     <string name="watch_complication_label">Çmimi</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s në 24 orë</string>
