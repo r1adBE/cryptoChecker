@@ -131,11 +131,7 @@ class ExactCheckScheduler @Inject constructor(
             ) != null
         }.getOrDefault(true)
 
-        fun canScheduleExact(context: Context): Boolean {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return true
-            val manager = context.getSystemService<AlarmManager>() ?: return false
-            return runCatching { manager.canScheduleExactAlarms() }.getOrDefault(false)
-        }
+        fun canScheduleExact(context: Context): Boolean = com.cryptochecker.app.util.ExactAlarms.canSchedule(context)
 
         /** Öffnet «Wecker und Erinnerungen» für diese App (Android 12+); sonst nichts. */
         fun openPermissionSettings(context: Context) {

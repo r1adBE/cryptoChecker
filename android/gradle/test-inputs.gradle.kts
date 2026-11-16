@@ -29,6 +29,7 @@ val testInputRoots: List<String> = listOf(
     "app/src/main",
     "resources/src/main",
     "coreui/src/main",
+    "widget/src/main",
     "app/src/debug",
     "app/src/withoutHttpLog",
     "app/src/test",

@@ -29,5 +29,3 @@ fun AssetKindIcon(kind: AssetKind, tint: Color, size: Dp, modifier: Modifier = M
     }
 }
 
-/** Zeichen für Alpha-Tokens (griechisches Alpha). */
-const val ALPHA_GLYPH = "α"

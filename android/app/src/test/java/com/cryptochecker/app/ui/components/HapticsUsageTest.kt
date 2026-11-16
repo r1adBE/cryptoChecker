@@ -118,10 +118,10 @@ class HapticsUsageTest {
         val ANDROID_PLAYBACK = Regex("""rememberHaptics\(|Haptics\.play\(|\bHapticPlayer\b|performHapticFeedback""")
         val IOS_PLAYBACK = Regex("""Haptics\.play\(|\.haptic\(|FeedbackGenerator""")
 
-        /** Pakete ohne Bildschirm (relativ zu `com/cryptochecker/app`). */
-        val BACKGROUND_DIRS = listOf("notification", "widget", "work", "tts")
+        /** Pakete ohne Bildschirm (relativ zu `com/cryptochecker/app` in :app; Widgets im Modul :widget). */
+        val BACKGROUND_DIRS = listOf("notification", "../../../../../../../widget/src/main/java/com/cryptochecker/app/widget", "work", "tts")
 
         /** Daten-, Domänen- und Hilfspakete (relativ zu `com/cryptochecker/app`): kein Abspielen, Zuordnen erlaubt. */
-        val NON_UI_DIRS = listOf("data", "activity", "alarm", "diagnostics", "gas", "refresh", "lock", "util", "settings", "di")
+        val NON_UI_DIRS = listOf("data", "activity", "alarm", "diagnostics", "gas", "refresh", "lock", "../../../../../../../coreui/src/main/java/com/cryptochecker/app/util", "../../../../../../../coreui/src/main/java/com/cryptochecker/app/settings", "setup", "di")
     }
 }

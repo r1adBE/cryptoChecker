@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 259)
+
+- Android code structure (no behaviour change): the widgets (about 10,500 lines) moved to a new module `widget`; what they need from the app (scheduling, portfolio alarms, watch feed, check after the network returns) comes through interfaces bound in the app (`WidgetHostModule`); the main activity is opened by name (`AppIntents`, checked by a test); `assetKind` and `ALPHA_GLYPH` moved to `domain.watch`.
+
 ## 16.2.2 (build 258)
 
 - Android code structure (no behaviour change): new module `coreui` with the shared basis of app and widgets (theme, number/time/screen-reader texts, contrast and accent resources); app-only parts renamed (`setup`: language, appearance, portfolio check; battery helpers to `work`; `AppVersion` to `diagnostics`).

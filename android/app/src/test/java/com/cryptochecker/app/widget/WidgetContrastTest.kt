@@ -57,8 +57,8 @@ class WidgetContrastTest {
         assertTrue(WidgetContrast.ratio(0xFF5F5F5F.toInt(), 0xFFF1EEE9.toInt()) >= 4.5)
         assertTrue(WidgetContrast.ratio(0xFF919191.toInt(), 0xFF1F1F1F.toInt()) >= 4.5)
         val source = listOf(
-            "src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
-            "app/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
+            "../widget/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
+            "widget/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
         ).map(::File).firstOrNull { it.exists() }?.readText().let { SourceGuard.android(it, "widget/WidgetColors.kt") }
         assertTrue(source.contains("neutralColor = 0xFF5F5F5F.toInt()"))
         assertTrue(!source.contains("neutralColor = 0xFF777777.toInt()"))

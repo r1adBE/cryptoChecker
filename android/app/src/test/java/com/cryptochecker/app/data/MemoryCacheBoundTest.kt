@@ -55,7 +55,7 @@ class MemoryCacheBoundTest {
         )
         for (name in files) {
             val path = "src/main/java/com/cryptochecker/app/$name"
-            val file = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }
+            val file = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path"), File("../widget/$path"), File("widget/$path")).first { it.exists() }
             val text = file.readText()
             assertFalse("$name: ConcurrentHashMap", text.contains("ConcurrentHashMap"))
             assertTrue("$name: BoundedCache", text.contains("BoundedCache"))

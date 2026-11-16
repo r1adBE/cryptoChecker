@@ -80,7 +80,8 @@ class CoinLogoPlaceholderParityTest {
     }
 
     private fun source(rel: String): String {
-        val file = findUp(listOf("", "app/", "android/app/").map { "${it}src/main/java/com/cryptochecker/app/$rel" })
+        val module = if (rel.startsWith("widget/")) "widget" else "app"
+        val file = findUp(listOf("", "$module/", "android/$module/", "../$module/").map { "${it}src/main/java/com/cryptochecker/app/$rel" })
         return SourceGuard.android(file, rel).readText(Charsets.UTF_8)
     }
 

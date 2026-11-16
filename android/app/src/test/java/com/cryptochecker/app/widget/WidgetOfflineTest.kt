@@ -13,7 +13,7 @@ import java.io.File
 /**
  * «Keine Verbindung» in den Widgets (Owner-Wunsch Build 205): ohne Internet «Keine Verbindung · Stand 14:05» in der
  * Zeit-Zeile aller vier Widgets (offline > veraltet > Uhrzeit, [WidgetStatusRule]), Tipp auf «Aktualisieren» ohne
- * Netz holt nichts und zeigt keinen Countdown, bei Rückkehr des Netzes zeichnet [com.cryptochecker.app.work.WidgetReconnectWorker]
+ * Netz holt nichts und zeigt keinen Countdown, bei Rückkehr des Netzes zeichnet [com.cryptochecker.app.widget.WidgetReconnectWorker]
  * neu. Dazu der erste Auftritt der Liste: nur eine Ladeanzeige (Kreisel unten), das Symbol oben ist verborgen.
  */
 class WidgetOfflineTest {
@@ -90,13 +90,16 @@ class WidgetOfflineTest {
 
     @Test
     fun `reconnect waits for the network without a permanent service`() {
-        val worker = read("src/main/java/com/cryptochecker/app/work/WidgetReconnectWorker.kt")
+        val worker = read("../widget/src/main/java/com/cryptochecker/app/widget/WidgetReconnectWorker.kt")
         assertTrue(worker.contains("setRequiredNetworkType(NetworkType.CONNECTED)"))
         assertTrue(worker.contains("enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.KEEP, request)"))
         // Nicht bestätigtes Netz (Captive Portal): später erneut statt sofort wieder
         assertTrue(worker.contains("if (!connectivity.isOnlineNow()) return Result.retry()"))
         assertTrue(worker.contains("widgetUpdater.updateAll(fetch = false)"))
-        assertTrue(worker.contains("backgroundCheck.run(CheckTrigger.WORKER, networkGuaranteed = true"))
+        assertTrue(worker.contains("reconnectCheck.runAfterReconnect(TTS_WAIT_MILLIS)"))
+        // Die App verbindet die Prüfung mit dem Lauf der Hintergrund-Prüfung bei garantiertem Netz
+        val host = read("src/main/java/com/cryptochecker/app/di/WidgetHostModule.kt")
+        assertTrue(host.contains("backgroundCheck.run(CheckTrigger.WORKER, networkGuaranteed = true"))
         assertFalse(worker.contains("registerDefaultNetworkCallback") || worker.contains("Service"))
     }
 
@@ -123,7 +126,7 @@ class WidgetOfflineTest {
 
     private fun res(rel: String): String = read("../resources/src/main/res/$rel")
 
-    private fun src(name: String): String = read("src/main/java/com/cryptochecker/app/widget/$name")
+    private fun src(name: String): String = read("../widget/src/main/java/com/cryptochecker/app/widget/$name")
 
     private fun read(rel: String): String {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

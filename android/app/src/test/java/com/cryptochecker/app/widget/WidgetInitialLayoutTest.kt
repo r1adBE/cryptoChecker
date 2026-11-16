@@ -172,7 +172,7 @@ class WidgetInitialLayoutTest {
 
     private fun res(rel: String): String = read("../resources/src/main/res/$rel")
 
-    private fun src(name: String): String = read("src/main/java/com/cryptochecker/app/widget/$name")
+    private fun src(name: String): String = read("../widget/src/main/java/com/cryptochecker/app/widget/$name")
 
     private fun read(rel: String): String {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

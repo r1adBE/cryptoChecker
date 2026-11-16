@@ -56,7 +56,7 @@ class PriceUpdateScheduler @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val watchRepository: WatchRepository,
     private val portfolioAlarmDao: PortfolioAlarmDao,
-) {
+) : com.cryptochecker.app.widget.WidgetScheduler {
     /** Zähler: Widgets hinzugefügt oder entfernt ([onWidgetsChanged]). */
     private val widgetsChanged = MutableStateFlow(0)
 
@@ -91,7 +91,7 @@ class PriceUpdateScheduler @Inject constructor(
     }
 
     /** Einmalige sofortige Aktualisierung, z. B. aus dem Widget heraus. */
-    fun refreshNow() {
+    override fun refreshNow() {
         val request = OneTimeWorkRequestBuilder<PriceUpdateWorker>()
             .setConstraints(constraints)
             // Bevorzugt ausführen, damit der Knopf im Widget spürbar reagiert.
@@ -186,7 +186,7 @@ class PriceUpdateScheduler @Inject constructor(
     }
 
     /** Widgets hinzugefügt oder entfernt (Widget-Provider): Bedarf neu prüfen. */
-    fun onWidgetsChanged() = widgetsChanged.update { it + 1 }
+    override fun onWidgetsChanged() = widgetsChanged.update { it + 1 }
 
     /**
      * Läuft für die Lebensdauer des Prozesses (CryptoCheckerApp): Paare, Alarme, Einstellungen,

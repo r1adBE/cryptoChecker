@@ -26,6 +26,7 @@ include(":domain")
 include(":data")
 include(":resources")
 include(":coreui")
+include(":widget")
 include(":app")
 // Wear-OS-App
 include(":wear")

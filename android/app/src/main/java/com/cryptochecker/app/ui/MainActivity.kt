@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         /** Paar (Watch-Id), das beim Öffnen gezeigt wird (Merkliste mit seinem Aktionsblatt). */
-        const val EXTRA_WATCH_ID = "watch_id"
+        const val EXTRA_WATCH_ID = com.cryptochecker.app.util.AppIntents.EXTRA_WATCH_ID
         private const val NO_WATCH = -1L
 
         /** Längstens so lange wartet das erste Bild auf die Einstellungen. */
@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity() {
          * Von den App-Verknüpfungen (res/xml/shortcuts.xml), Mitteilungen und Widgets gesetzt; eigene Intents tragen dazu
          * das Geheimnis ([withOpenToken], [OpenTargetGuard]).
          */
-        const val EXTRA_OPEN = "open"
+        const val EXTRA_OPEN = com.cryptochecker.app.util.AppIntents.EXTRA_OPEN
 
         /**
          * Ziel der Mitteilung «Wirtschaftstermine»: Markt-Tab, Register mit dem Hinweis («Jetzt» bei

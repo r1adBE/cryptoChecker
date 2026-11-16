@@ -86,7 +86,7 @@ class DispatcherInjectionGuardTest {
     }
 
     private companion object {
-        val MODULES = listOf("app", "coreui", "data", "domain")
+        val MODULES = listOf("app", "coreui", "data", "domain", "widget")
 
         /** Liefert die Dispatcher und nennt sie darum selbst (zweimal). */
         const val PROVIDER = "app/app/di/DispatcherModule.kt"
@@ -105,7 +105,7 @@ class DispatcherInjectionGuardTest {
             "coreui/app/util/ReceiverAsync.kt" to 1,
             "app/app/work/ExactCheckReceiver.kt" to 1,
             "domain/app/domain/widget/PulseBackgroundFetch.kt" to 1,
-            "app/app/widget/PortfolioWidgetChartView.kt" to 1,
+            "widget/app/widget/PortfolioWidgetChartView.kt" to 1,
             "app/app/ui/features/portfolio/PortfolioExportRun.kt" to 2,
             "app/app/ui/features/portfolio/PortfolioCsvImportReader.kt" to 3,
             "app/app/ui/features/watchlist/WatchlistContentFlows.kt" to 1,

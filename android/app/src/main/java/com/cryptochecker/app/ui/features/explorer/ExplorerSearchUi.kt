@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.app.ui.components.ALPHA_GLYPH
+import com.cryptochecker.app.domain.watch.ALPHA_GLYPH
 import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.theme.Spacing
 

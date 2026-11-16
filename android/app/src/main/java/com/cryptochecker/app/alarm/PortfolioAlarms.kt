@@ -45,19 +45,19 @@ class PortfolioAlarmChecker @Inject constructor(
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** Vermerk «wird gemeldet» der Portfolio-Alarme. */
     deliveryMarkers: PortfolioAlarmDeliveryMarkers,
-) {
+) : com.cryptochecker.app.widget.PortfolioAlarmCheck {
     private val mutex = Mutex()
 
     /** Melden-dann-Speichern; Vermerk dauerhaft und mit eigenen Ids ([PortfolioAlarmDeliveryMarkers]). */
     private val delivery = AlarmDelivery(deliveryMarkers)
 
     /** Braucht die Hintergrund-Aktualisierung eine Momentaufnahme für die Alarme? */
-    suspend fun hasActiveAlarms(): Boolean {
+    override suspend fun hasActiveAlarms(): Boolean {
         if (!settingsRepository.current().portfolioEnabled) return false
         return dao.countEnabled() > 0
     }
 
-    suspend fun check(snapshot: PortfolioSnapshot) = mutex.withLock {
+    override suspend fun check(snapshot: PortfolioSnapshot): Unit = mutex.withLock {
         val settings = settingsRepository.current()
         if (!settings.portfolioEnabled) return@withLock
         val alarms = dao.getAll().filter { it.enabled }

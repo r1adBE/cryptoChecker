@@ -96,7 +96,7 @@ class FailurePathGuardTest {
     /** Einzel-Widget merkt das Paar, nicht nur die Id: anderes Paar unter derselben Id → «Paar wählen» (B3-08). */
     @Test
     fun singleWidgetChecksThePair() {
-        val renderer = android("app/src/main/java/com/cryptochecker/app/widget/SingleWidgetRenderer.kt")
+        val renderer = android("widget/src/main/java/com/cryptochecker/app/widget/SingleWidgetRenderer.kt")
         assertTrue(renderer.contains("?.takeIf { widgetPrefs.showsSamePair(appWidgetId, widgetPairText(it)) }"))
         val provider = ios("Widgets/SingleWidgetProvider.swift")
         assertTrue(provider.contains("return watches.first { ${'$'}0.id == id }.flatMap { chosen.showsSamePair(${'$'}0) ? ${'$'}0 : nil }"))

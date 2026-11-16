@@ -3238,6 +3238,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 256: Reine Logik aus `app` nach `domain` (A241-A-03 Teil 2).
 * Build 257: Modul `resources` (A241-A-03 Teil 3a), Strings unter `android/resources/src/main/res`.
 * Build 258: Modul `coreui` (A241-A-03 Teil 3b).
+* Build 259: Modul `widget` (A241-A-03 Teil 3c), Schnittstellen `WidgetHostPorts.kt`.
 
 ## Known warnings
 

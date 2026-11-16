@@ -4,6 +4,7 @@
 // sie und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.domain.watch.assetKind
 import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository

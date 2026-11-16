@@ -51,7 +51,7 @@ allprojects {
 // ein Modul aus dem Gradle-Build-Cache kommt. Testquellen (Aufgaben *UnitTest*/*AndroidTest*) zählen nicht. :data
 // fehlt: dort kompiliert dieselbe Aufgabe den von Room erzeugten Kotlin-Code, dessen Warnungen der Schritt
 // «Kotlin warnings» in android.yml ausfiltert (er zählt nur Zeilen aus src/main).
-val warningsAsErrorsModules = setOf("app", "coreui", "domain", "marketdata", "wear")
+val warningsAsErrorsModules = setOf("app", "coreui", "domain", "marketdata", "wear", "widget")
 subprojects {
     if (name in warningsAsErrorsModules) {
         tasks.withType<KotlinCompile>().configureEach {

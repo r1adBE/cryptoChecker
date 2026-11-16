@@ -58,7 +58,7 @@ class PhoneWatchFeed @Inject constructor(
     private val snapshotStore: PortfolioSnapshotStore,
     private val refreshStats: RefreshStats,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) {
+) : com.cryptochecker.app.widget.PortfolioWatchFeed {
     private val scope = appScope(ioDispatcher, "PhoneWatchFeed")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val portfolioLock = Mutex()
@@ -127,7 +127,7 @@ class PhoneWatchFeed @Inject constructor(
     }
 
     /** Neue Momentaufnahme des Portfolios gespeichert (`PortfolioSnapshotUpdater.record`). */
-    fun portfolioRecorded() {
+    override fun portfolioRecorded() {
         if (_portfolioOnWatch.value) scope.launch { publishPortfolio() }
     }
 

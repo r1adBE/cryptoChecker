@@ -47,7 +47,7 @@ class RefreshDebounceParityTest {
         // ManualRefresh liegt in :domain (gleiches Paket)
         val domainRoot = SourceGuard.android(domainSources(), "android/domain/src/main/java")
         callers.forEach { path ->
-            val file = File(root, path).takeIf { it.isFile } ?: File(domainRoot, path)
+            val file = File(root, path).takeIf { it.isFile } ?: File(root, "../../../../../../../widget/src/main/java/com/cryptochecker/app/$path").takeIf { it.isFile } ?: File(domainRoot, path)
             assertTrue(path, file.readText().contains("lastFinishedAt = refreshStats.lastFullRefresh()"))
         }
         val controller = File(root, "ui/features/watchlist/WatchlistRefreshController.kt").readText()

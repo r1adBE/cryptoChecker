@@ -25,7 +25,7 @@ class RunCatchingUsageTest {
         assertNotNull("android/app/src/main/java nicht gefunden (Arbeitsverzeichnis?)", root)
         // Alle Module (Audit 16.11.2026, A-05): app plus data, domain, marketdata und wear
         val android = generateSequence(root) { it.parentFile }.drop(7).first()
-        val roots = listOf(root!!) + listOf("data", "domain", "marketdata", "wear").map { File(android, "$it/src/main/java") }
+        val roots = listOf(root!!) + listOf("coreui", "data", "domain", "marketdata", "wear", "widget").map { File(android, "$it/src/main/java") }
         roots.drop(1).forEach { assertTrue("${it.path} fehlt", it.isDirectory) }
         val hits = roots.asSequence().flatMap { dir ->
             dir.walkTopDown()
