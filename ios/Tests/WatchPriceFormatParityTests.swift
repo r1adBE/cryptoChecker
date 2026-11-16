@@ -69,7 +69,7 @@ final class WatchPriceFormatParityTests: XCTestCase {
         XCTAssertTrue(price.contains("let missing = q == nil ? WatchText.missingShort(coin) : nil"))
         let portfolio = try String(contentsOf: root.appendingPathComponent("WatchWidgets/WatchPortfolioWidget.swift"),
                                    encoding: .utf8)
-        XCTAssertTrue(portfolio.contains("WatchText.t(\"watch_portfolio_turn_on\")"))
+        XCTAssertTrue(portfolio.contains("WatchText.t(\"ios_watch_portfolio_turn_on_iphone\")"))
         XCTAssertTrue(portfolio.contains("WatchText.t(\"watch_portfolio_off\")"))
         XCTAssertTrue(portfolio.contains("WatchPortfolioOff.line(title: title, hint: hint)"))
     }

@@ -19,6 +19,7 @@ Detailed build history below.
 ## 16.2.2 (build 260)
 
 - Android code structure (no behaviour change): every user-interface function now has at most 250 lines (ceiling 317 → 250): the watchlist screen, address sheet, portfolio tab, sheet chart, watchlist row, settings search index, pulse widget and transaction sheet were split into smaller parts.
+- Supply chain: SHA-256 checksums added for the libraries of the Wear OS tile and the new modules that are covered by a trusted signing key only, so the software bill of materials lists a checksum for every shipped library again (the Android CI check failed since build 250).
 
 ## 16.2.2 (build 259)
 
