@@ -30,7 +30,7 @@ struct WatchQuoteList: View {
                 portfolioRow(p, now: now)
             }
             if coins.isEmpty {
-                Text(WatchText.t(phone ? "watch_phone_empty" : "watch_empty"))
+                Text(WatchText.t(phone ? "ios_watch_iphone_empty" : "watch_empty"))
                     .multilineTextAlignment(.center)
             }
             ForEach(coins, id: \.self) { coin in
@@ -39,7 +39,7 @@ struct WatchQuoteList: View {
             Text(status(coins)).font(.footnote).foregroundStyle(.secondary)
             Button(WatchText.t("watch_refresh")) { model.refresh() }
             // Schalter statt Knopf mit Zustandstext: an = Favoriten des iPhones, aus = eigene Liste (wie Wear `ToggleChip`)
-            Toggle(WatchText.t("watch_list_from_phone"), isOn: Binding(get: { phone }, set: { on in
+            Toggle(WatchText.t("ios_watch_list_from_iphone"), isOn: Binding(get: { phone }, set: { on in
                 if on != phone { model.toggleMode() }
             }))
             if !phone {

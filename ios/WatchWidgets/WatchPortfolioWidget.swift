@@ -61,7 +61,7 @@ struct WatchPortfolioWidgetView: View {
 
     private var spoken: String {
         guard let p = entry.portfolio else {
-            return WatchPortfolioOff.spoken(title: WatchText.t("watch_portfolio"), hint: WatchText.t("watch_portfolio_turn_on"))
+            return WatchPortfolioOff.spoken(title: WatchText.t("watch_portfolio"), hint: WatchText.t("ios_watch_portfolio_turn_on_iphone"))
         }
         // Verdeckt: VoiceOver nennt keinen Betrag, wie das iPhone-Widget (`spokenHidden`)
         var spokenPortfolio = p
@@ -83,7 +83,7 @@ struct WatchPortfolioWidgetView: View {
     /// Kein Wert vom iPhone (Schalter «Portfolio-Wert auf der Uhr» aus): sagt es, statt «—» zu zeigen.
     @ViewBuilder private var off: some View {
         let title = WatchText.t("watch_portfolio")
-        let hint = WatchText.t("watch_portfolio_turn_on")
+        let hint = WatchText.t("ios_watch_portfolio_turn_on_iphone")
         let short = WatchText.t("watch_portfolio_off")
         switch family {
         case .accessoryRectangular:

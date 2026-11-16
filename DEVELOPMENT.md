@@ -3228,6 +3228,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 246: docs only: ROADMAP archive, build process page (private README).
 * Build 247: CallStartInterceptor in derived clients, selectable/toggleable rows, debug StrictMode, PlatformSettingsParityTest, platform differences section, AlarmLease partial write, Xcode version summary.
 * Build 248: RunCatchingUsageTest over all modules; PortfolioCsvLinks, LogoLoadingHint use runCatchingCancellable.
+* Build 249: iOS-only keys ios_…iphone… (ios_extra_strings.json), watch key list, Swift references.
 
 ## Known warnings
 

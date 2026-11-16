@@ -108,7 +108,7 @@ struct WatchPriceProvider: TimelineProvider {
         guard let coin else {
             // Keine Coins: «Kurs / +» mit dem nächsten Schritt statt «— / —» — wie Android
             return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—", compact: "+",
-                                   empty: WatchText.t(phone ? "watch_phone_empty" : "watch_choose"), interval: interval)
+                                   empty: WatchText.t(phone ? "ios_watch_iphone_empty" : "watch_choose"), interval: interval)
         }
         let now = Int64(date.timeIntervalSince1970 * 1000)
         // Börse des Paars stillgelegt (`ExchangeRetirement`): kein alter Kurs — wie Android

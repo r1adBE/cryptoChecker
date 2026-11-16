@@ -106,7 +106,7 @@ enum SettingsSearchCatalog {
             [L("settings_watch_mode_own"), "watchOS", "Apple Watch"])
         add("widgets.watch_prices", L("settings_watch_prices"), L("settings_widgets"),
             .page(.widgets, anchor: "widgets.watch_prices"),
-            [L("settings_watch_prices_phone"), L("settings_watch_prices_self")])
+            [L("ios_settings_watch_prices_iphone"), L("settings_watch_prices_self")])
 
         // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe auf «Alarme»
         let alarms = L("settings_row_alarms")

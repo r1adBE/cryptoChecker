@@ -25,7 +25,7 @@ enum WatchText {
         case .phoneOnly: return t("a11y_watch_no_price_phone_only")
         case .ownUnreachable: return t("a11y_watch_no_price_unreachable", pair.exchange)
         case .unreachable: return t("a11y_watch_no_price_exchanges_unreachable")
-        case .viaPhone: return t("a11y_watch_no_price_via_phone", pair.exchange)
+        case .viaPhone: return t("ios_a11y_watch_no_price_via_iphone", pair.exchange)
         }
     }
 
@@ -35,7 +35,7 @@ enum WatchText {
         guard let pair = WatchPair.parse(key) else { return t("watch_no_price_unreachable") }
         let reason = WatchPairQuotes.missingReason(pair, outcome: WatchPairOutcomes.outcome(pair.key))
         if reason == .retired { return t("watch_no_price_retired", pair.exchange) }
-        return t(reason.viaPhone ? "watch_no_price_phone" : "watch_no_price_unreachable")
+        return t(reason.viaPhone ? "ios_watch_no_price_iphone" : "watch_no_price_unreachable")
     }
 
     /// Änderung in der Schreibweise der iPhone-App (`WatchPercent`, wie Android `WatchFormat.change`).

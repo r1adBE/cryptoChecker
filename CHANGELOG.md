@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 249)
+
+- iOS and Apple Watch say «iPhone» instead of «phone» in the watch settings, the activity page and on the watch (all 75 languages); Android unchanged.
+
 ## 16.2.2 (build 248)
 
 - Tests: the guard against runCatching in coroutine code now covers all Android modules; two places in :data and :domain use runCatchingCancellable.

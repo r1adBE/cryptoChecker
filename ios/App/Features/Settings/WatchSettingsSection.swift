@@ -19,7 +19,7 @@ struct WatchSettingsSection: View {
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)
             ChoiceChips(options: [WatchSettings.Mode.phone, .own], selection: s.mode,
-                        label: { L($0 == .phone ? "settings_watch_mode_phone" : "settings_watch_mode_own") },
+                        label: { L($0 == .phone ? "ios_settings_watch_mode_iphone" : "settings_watch_mode_own") },
                         onSelect: { link.setMode($0) })
             // Coins, die die Uhr gerade zeigt
             Text(verbatim: s.shown.isEmpty ? L("settings_watch_none") : s.shown.map { WatchPair.label(of: $0) }.joined(separator: " · "))
@@ -40,7 +40,7 @@ struct WatchSettingsSection: View {
                     .accessibilityAddTraits(.isHeader)
                 ForEach([WatchSettings.Source.phone, .alwaysSelf], id: \.self) { source in
                     SettingsChoiceRow(
-                        title: L(source == .phone ? "settings_watch_prices_phone" : "settings_watch_prices_self"),
+                        title: L(source == .phone ? "ios_settings_watch_prices_iphone" : "settings_watch_prices_self"),
                         selected: s.source == source
                     ) { link.setSource(source) }
                 }

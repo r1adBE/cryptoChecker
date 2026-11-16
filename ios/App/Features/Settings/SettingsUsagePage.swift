@@ -35,7 +35,7 @@ struct UsageSettingsPage: View {
             SettingsHint(text: L("usage_intro"), top: Spacing.xs)
             // Was die Zahlen umfassen: «empfangen» auch offene App und Live-Kurse, übersprungene Läufe nicht
             SettingsHint(text: L("usage_counts_note"))
-            UsageCard(title: L("usage_phone"), totals: phone, driver: driver, asOf: nil)
+            UsageCard(title: L("ios_usage_iphone"), totals: phone, driver: driver, asOf: nil)
                 .settingsAnchor("usage.phone")
             Group {
                 if let watch {
