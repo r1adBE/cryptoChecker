@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.cycle.CacheCodec
 import com.cryptochecker.app.domain.macro.MacroEvent
 import com.cryptochecker.app.domain.macro.MacroEventType
 import com.cryptochecker.app.domain.market.TurnoverSample

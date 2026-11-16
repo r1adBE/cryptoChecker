@@ -1,8 +1,8 @@
 package com.cryptochecker.app.performance
 
-import com.cryptochecker.app.data.BackupFormat
-import com.cryptochecker.app.data.BackupLimits
-import com.cryptochecker.app.data.BackupWatchlistCodec
+import com.cryptochecker.app.data.backup.BackupFormat
+import com.cryptochecker.app.data.backup.BackupLimits
+import com.cryptochecker.app.data.backup.BackupWatchlistCodec
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits

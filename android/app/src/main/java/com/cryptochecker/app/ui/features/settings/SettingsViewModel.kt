@@ -38,7 +38,7 @@ class SettingsViewModel @Inject constructor(
     private val widgets: SettingsWidgets, // Widgets neu zeichnen
     @param:com.cryptochecker.app.domain.util.IoDispatcher internal val ioDispatcher: kotlinx.coroutines.CoroutineDispatcher,
     private val coinLogoSync: com.cryptochecker.app.logos.CoinLogoSync,
-    internal val backupManager: com.cryptochecker.app.backup.BackupManager,
+    internal val backupManager: com.cryptochecker.app.data.backup.BackupManager,
     internal val appLockState: AppLockState,
     internal val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
     /** «Alarm testen» und «Stimme testen». */

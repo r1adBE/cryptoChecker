@@ -88,7 +88,7 @@ class WatchIdentityTest {
     fun restoreCleanupKeepsTwoPoolsButMergesTheSamePool() {
         data class W(val id: Long, val pairId: String)
         data class A(val id: Long, val watchId: Long)
-        val (watches, alarms) = com.cryptochecker.app.data.WatchlistRestoreCleanup.clean(
+        val (watches, alarms) = com.cryptochecker.app.data.backup.WatchlistRestoreCleanup.clean(
             watches = listOf(W(1, "ethereum/0xaaa"), W(2, "ethereum/0xbbb"), W(3, "ethereum/0xaaa")),
             alarms = listOf(A(10, 3)),
             watchId = { it.id },

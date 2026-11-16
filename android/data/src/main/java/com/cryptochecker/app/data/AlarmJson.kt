@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.backup.BackupFields
 import com.cryptochecker.app.domain.model.AlarmCondition
 import com.cryptochecker.app.domain.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioJson

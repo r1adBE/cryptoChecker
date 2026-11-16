@@ -1,7 +1,7 @@
 @file:Suppress("UNCHECKED_CAST")
 
 package com.cryptochecker.app.data
-import com.cryptochecker.app.data.CycleCacheCodecs
+import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.MarketMovers
 import com.cryptochecker.app.domain.market.MarketMoversResult

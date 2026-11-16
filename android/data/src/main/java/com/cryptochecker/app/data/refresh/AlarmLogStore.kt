@@ -16,7 +16,7 @@ import javax.crypto.SecretKey
  * Speicher des Alarm-Protokolls ([AlarmLog]), neben «Letzte Prüfungen» ([CheckRunStore]): eine Datei in
  * `noBackupFilesDir` (nie in einer Sicherung, nur dieses Gerät). Inhalt mit Paaren und Schwellen wie die Merkliste, die
  * verschlüsselt in der Datenbank liegt — darum versiegelt (AES-GCM, Schlüssel im Keystore unter eigenem Alias
- * [KEY_ALIAS], wie [com.cryptochecker.app.data.RestoreJournal]); ohne Schlüssel nie Klartext: dann bleibt der Stand nur
+ * [KEY_ALIAS], wie [com.cryptochecker.app.data.backup.RestoreJournal]); ohne Schlüssel nie Klartext: dann bleibt der Stand nur
  * im Speicher. Bereitgestellt von `LocalDataModule`, geschrieben von Hintergrund-Prüfung und Aktualisierung in der App
  * ([RefreshResultProcessor]).
  *

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.CacheCodec
+import com.cryptochecker.app.data.cycle.CacheCodec
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmInput
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain

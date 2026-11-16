@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.CycleCacheStore
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.MarketExtraCodecs
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.domain.exceptions.HttpExchangeError

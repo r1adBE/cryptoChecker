@@ -28,14 +28,14 @@ class FailurePathGuardTest {
     @Test
     fun logoStorageFullAndStarterLogos() {
         // Abrufe samt Einordnung seit Build 237 in LogoImageFetcher (Zeilengrenze)
-        val store = android("data/src/main/java/com/cryptochecker/app/data/LogoImageStore.kt") +
-            android("data/src/main/java/com/cryptochecker/app/data/LogoImageFetcher.kt")
+        val store = android("data/src/main/java/com/cryptochecker/app/data/logos/LogoImageStore.kt") +
+            android("data/src/main/java/com/cryptochecker/app/data/logos/LogoImageFetcher.kt")
         assertTrue(store.contains("Fetched.UNSAVED -> unsaved.incrementAndGet().also { loadingHint.imageDone() }"))
         assertTrue(store.contains("if (streaks.unsaved) return Fetched.UNSAVED"))
         assertTrue(store.contains("transient = transientLeft.size,"))
         assertTrue(store.contains("if (streaks.noteTransient(host, transient) || forbiddenPause) {"))
         assertTrue(store.contains(".map { (name, url) -> async { fetcher.fetchLimited(name, url, streaks) == Fetched.OK } }.awaitAll()"))
-        val repo = android("data/src/main/java/com/cryptochecker/app/data/CoinLogoRepository.kt")
+        val repo = android("data/src/main/java/com/cryptochecker/app/data/logos/CoinLogoRepository.kt")
         assertTrue(repo.contains("images.ensureStarterLogos(symbols, listSync.starterMap())"))
         val ios = ios("Shared/Storage/CoinLogoStore+Download.swift")
         assertTrue(ios.contains("if await streaks.unsaved { return .unsaved }"))

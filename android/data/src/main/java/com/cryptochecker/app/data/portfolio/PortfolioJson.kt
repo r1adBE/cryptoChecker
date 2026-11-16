@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
@@ -65,7 +65,7 @@ object PortfolioJson {
     data class Parsed<T>(val items: List<T>, val invalid: Int)
 
     /**
-     * Alle Transaktionen einer Liste (Felder geprüft, [com.cryptochecker.app.data.BackupFields.TX]); ungültige werden
+     * Alle Transaktionen einer Liste (Felder geprüft, [com.cryptochecker.app.data.backup.BackupFields.TX]); ungültige werden
      * gezählt, nicht still verworfen.
      */
     fun parseTxs(array: JSONArray): Parsed<PortfolioTxEntity> = parse(array, ::jsonToTx) { it.id }

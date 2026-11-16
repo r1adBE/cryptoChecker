@@ -2,8 +2,8 @@ package com.cryptochecker.app
 
 import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.backup.BackupManager
-import com.cryptochecker.app.data.RestoreJournal
+import com.cryptochecker.app.data.backup.BackupManager
+import com.cryptochecker.app.data.backup.RestoreJournal
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.domain.model.AlarmCondition
@@ -37,7 +37,7 @@ import javax.inject.Inject
  * Wiederherstellen einer Sicherung von Anfang bis Ende mit den echten Datenbanken (Hilt, Gerät/Emulator): Merkliste
  * samt Alarmen wird ersetzt; das Journal steht, bevor das Erste geschrieben wird, und ist danach weg; ein Abbruch
  * mittendrin lässt die Daten stehen; ein liegengebliebenes Journal (Prozess beendet) rollt beim nächsten Start zurück;
- * eine Sicherung ohne Passwort schaltet die Portfolio-Sperre nicht aus ([com.cryptochecker.app.data.RestoreResult.appLockKept]).
+ * eine Sicherung ohne Passwort schaltet die Portfolio-Sperre nicht aus ([com.cryptochecker.app.data.backup.RestoreResult.appLockKept]).
  *
  * Die Refresh-Sperre ([PriceRefresher.withRefreshLock]) hält das Wiederherstellen kontrolliert vor dem ersten
  * Schreibvorgang an (es ersetzt die Merkliste nur unter ihr).

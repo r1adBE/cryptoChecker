@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 255)
+
+- Android code structure (no behaviour change): backup and restore now live in one module (`data`, package `data.backup`: the backup manager and restore steps moved from `app`, format, encryption and journal from the root package); device-lock check passed in from the app (`DeviceAuthCheck`); the portfolio alarm repository moved to `data.portfolio`; the flat root package of `data` grouped (`data.logos`, `data.cycle`).
+
 ## 16.2.2 (build 254)
 
 - Build tools only (not in the app): minimum versions without known vulnerabilities for libraries pulled in by the Android Gradle plugin, Lint and other plugins (Bouncy Castle 1.85, Guava 33.7.2, jose4j 0.9.6, JDOM 2.0.6.1, Commons Lang 3.18.0, FreeMarker 2.3.35) as constraints in the root build script; checksums and signing keys added.

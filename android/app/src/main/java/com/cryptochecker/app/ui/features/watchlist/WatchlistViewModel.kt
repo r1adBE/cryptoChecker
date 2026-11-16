@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.alarm.PortfolioAlarmRepository
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.live.LiveDemand
 import com.cryptochecker.app.domain.live.LivePair

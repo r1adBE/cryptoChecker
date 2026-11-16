@@ -1,7 +1,9 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.backup.BackupJournalUnavailableException
+import com.cryptochecker.app.data.backup.BackupRestoreStorageException
 import com.cryptochecker.app.R
-import com.cryptochecker.app.backup.RestoreRun
+import com.cryptochecker.app.data.backup.RestoreRun
 import com.cryptochecker.app.domain.local.DatabaseKeyUnavailableException
 import com.cryptochecker.app.ui.features.settings.BackupMessage
 import com.cryptochecker.app.ui.features.settings.BackupResultPresentation
@@ -54,8 +56,8 @@ class RestoreStorageMessageTest {
     /** Angebunden an das Schreiben in `BackupManager.restore` (nicht an Sichern oder Lesen der Datei). */
     @Test
     fun wiredAtTheRestoreWrite() {
-        val app = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../app/src/main/java/com/cryptochecker/app")
-        val manager = File(app, "backup/BackupManager.kt").readText()
+        val backup = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data/backup")
+        val manager = File(backup, "BackupManager.kt").readText()
         assertTrue(
             manager.contains(
                 "val settingsNotes = try { addressRefresher.withRefreshLock { writeRestored(input, previous, encrypted) } } " +
@@ -70,8 +72,8 @@ class RestoreStorageMessageTest {
      */
     @Test
     fun restoreAndRollBackHoldTheAddressRefreshLock() {
-        val app = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../app/src/main/java/com/cryptochecker/app")
-        val recovery = File(app, "backup/BackupManagerRecovery.kt").readText()
+        val backup = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data/backup")
+        val recovery = File(backup, "BackupManagerRecovery.kt").readText()
         assertTrue(recovery.contains("addressRefresher.withRefreshLock {\n            rollBack(previous, Step.entries.toSet()"))
         val data = File(com.cryptochecker.app.parity.ParityJson.dir(), "../../data/src/main/java/com/cryptochecker/app/data")
         val refresher = File(data, "portfolio/WatchedAddressRefresher.kt").readText()

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.BackupCrypto
+import com.cryptochecker.app.data.backup.BackupCrypto
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -28,15 +28,15 @@ class BackupMemoryMessageTest {
 
     @Test
     fun storageAndSizeRefusalsHaveOwnMessages() {
-        assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageKeptException()))
-        assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageInMemoryException()))
+        assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageKeptException()))
+        assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupStorageInMemoryException()))
         // Ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
-        val journal = BackupMessage.failure(com.cryptochecker.app.data.BackupJournalUnavailableException(null))
+        val journal = BackupMessage.failure(com.cryptochecker.app.data.backup.BackupJournalUnavailableException(null))
         assertEquals(BackupMessage.JournalUnavailable, journal)
         assertEquals(com.cryptochecker.app.ui.components.HapticEvent.ERROR, BackupMessage.haptic(journal))
         // Zu gross zum Schreiben ist nicht «Datei zu gross oder keine Sicherung» (das gilt beim Einlesen)
-        assertEquals(BackupMessage.ExportTooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.ExportTooLargeException(1)))
-        assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.TooLargeException()))
+        assertEquals(BackupMessage.ExportTooLarge, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException(1)))
+        assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.backup.BackupLimits.TooLargeException()))
     }
 
     @Test

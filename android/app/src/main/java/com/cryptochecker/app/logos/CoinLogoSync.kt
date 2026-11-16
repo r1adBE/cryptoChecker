@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.WatchRepository
 
 /**

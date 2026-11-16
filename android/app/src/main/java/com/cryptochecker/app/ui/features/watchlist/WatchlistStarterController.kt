@@ -5,7 +5,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch

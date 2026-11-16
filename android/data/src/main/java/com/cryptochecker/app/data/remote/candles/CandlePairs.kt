@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote.candles
 
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AutoGroup
 import javax.inject.Inject

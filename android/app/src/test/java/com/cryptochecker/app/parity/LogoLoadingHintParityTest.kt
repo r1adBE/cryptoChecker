@@ -189,7 +189,7 @@ class LogoLoadingHintParityTest {
             "app/src/main/java/com/cryptochecker/app/ui",
         )
         val sync = File(data, "CoinListSync.kt").readText()
-        val store = File(data, "LogoImageStore.kt").readText()
+        val store = File(data, "logos/LogoImageStore.kt").readText()
         assertTrue(store.contains("LogoLoadingHint(doneMarker = { File(imageDir, LogoLoadingHint.DONE_MARKER) })"))
         // Nur ein vollständiger Durchgang (nichts am Netz gescheitert, gebremst oder offen) merkt das erste Laden
         assertTrue(

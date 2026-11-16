@@ -6,7 +6,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.clearAlarmSnoozes
@@ -120,7 +120,7 @@ fun SettingsViewModel.submitRestorePassword(uri: android.net.Uri, password: Stri
         RestoreStep.Confirm(uri, password, backupManager.preview(uri, password))
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
-    } catch (e: com.cryptochecker.app.data.BackupCrypto.WrongPasswordException) {
+    } catch (e: com.cryptochecker.app.data.backup.BackupCrypto.WrongPasswordException) {
         RestoreStep.Password(uri, wrong = true, failedAttempts = failed + 1)
     } catch (e: Exception) {
         _backupMessage.value = BackupMessage.failure(e)
@@ -237,7 +237,7 @@ sealed interface RestoreStep {
     class Confirm(
         override val uri: android.net.Uri,
         val password: String?,
-        val preview: com.cryptochecker.app.data.RestorePreview = com.cryptochecker.app.data.RestorePreview(),
+        val preview: com.cryptochecker.app.data.backup.RestorePreview = com.cryptochecker.app.data.backup.RestorePreview(),
     ) : RestoreStep {
         /** Ungültige Einträge: Wiederherstellen lässt sie nur mit dieser bestätigten Anzahl weg (`acceptInvalid`). */
         val invalid: Int get() = preview.invalid
@@ -267,40 +267,40 @@ sealed interface BackupMessage {
     data object Failed : BackupMessage
     /** Sichern gescheitert (Datei nicht geschrieben: Speicher voll, Ablage-Anbieter streikt) — eigener kurzer Text. */
     data object SaveFailed : BackupMessage
-    /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */
+    /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.backup.BackupLimits]). */
     data object TooLarge : BackupMessage
-    /** Zu schreibende Sicherung über 64 MB ([com.cryptochecker.app.data.BackupLimits.ExportTooLargeException]): nicht geschrieben. */
+    /** Zu schreibende Sicherung über 64 MB ([com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException]): nicht geschrieben. */
     data object ExportTooLarge : BackupMessage
-    /** Sicherung einer neueren App-Version ([com.cryptochecker.app.data.BackupVersion]): nichts übernommen. */
+    /** Sicherung einer neueren App-Version ([com.cryptochecker.app.data.backup.BackupVersion]): nichts übernommen. */
     data object NewerVersion : BackupMessage
-    /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.BackupNotVerifiedException]): neue Datei wählen. */
+    /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.backup.BackupNotVerifiedException]): neue Datei wählen. */
     data object NotVerified : BackupMessage
     /**
-     * Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException]) oder
+     * Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.backup.BackupCrypto.NotEnoughMemoryException]) oder
      * zum Lesen bzw. Schreiben einer grossen Sicherung ([OutOfMemoryError]).
      */
     data object NotEnoughMemory : BackupMessage
-    /** Gespeicherter Stand gerade nicht lesbar ([com.cryptochecker.app.data.BackupStorageKeptException]): nach Neustart. */
+    /** Gespeicherter Stand gerade nicht lesbar ([com.cryptochecker.app.data.backup.BackupStorageKeptException]): nach Neustart. */
     data object StorageKept : BackupMessage
-    /** Einspielen in eine Datenbank nur im Arbeitsspeicher ([com.cryptochecker.app.data.BackupStorageInMemoryException]). */
+    /** Einspielen in eine Datenbank nur im Arbeitsspeicher ([com.cryptochecker.app.data.backup.BackupStorageInMemoryException]). */
     data object StorageInMemory : BackupMessage
-    /** Journal nicht geschrieben ([com.cryptochecker.app.data.BackupJournalUnavailableException]): nichts ersetzt, später erneut. */
+    /** Journal nicht geschrieben ([com.cryptochecker.app.data.backup.BackupJournalUnavailableException]): nichts ersetzt, später erneut. */
     data object JournalUnavailable : BackupMessage
-    /** Speicher beim Einspielen nicht beschreibbar ([com.cryptochecker.app.data.BackupRestoreStorageException]): unverändert. */
+    /** Speicher beim Einspielen nicht beschreibbar ([com.cryptochecker.app.data.backup.BackupRestoreStorageException]): unverändert. */
     data object StorageUnavailable : BackupMessage
 
     companion object {
         /** Meldung zu [e]; [saving] = beim Sichern (Rückfall [SaveFailed] statt [Failed], das nach der Datei fragt). */
         fun failure(e: Throwable, saving: Boolean = false): BackupMessage = when (e) {
-            is com.cryptochecker.app.data.BackupLimits.TooLargeException -> TooLarge
-            is com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException -> NotEnoughMemory
-            is com.cryptochecker.app.data.BackupVersion.NewerVersionException -> NewerVersion
-            is com.cryptochecker.app.data.BackupNotVerifiedException -> NotVerified
-            is com.cryptochecker.app.data.BackupStorageKeptException -> StorageKept
-            is com.cryptochecker.app.data.BackupStorageInMemoryException -> StorageInMemory
-            is com.cryptochecker.app.data.BackupJournalUnavailableException -> JournalUnavailable
-            is com.cryptochecker.app.data.BackupRestoreStorageException -> StorageUnavailable
-            is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
+            is com.cryptochecker.app.data.backup.BackupLimits.TooLargeException -> TooLarge
+            is com.cryptochecker.app.data.backup.BackupCrypto.NotEnoughMemoryException -> NotEnoughMemory
+            is com.cryptochecker.app.data.backup.BackupVersion.NewerVersionException -> NewerVersion
+            is com.cryptochecker.app.data.backup.BackupNotVerifiedException -> NotVerified
+            is com.cryptochecker.app.data.backup.BackupStorageKeptException -> StorageKept
+            is com.cryptochecker.app.data.backup.BackupStorageInMemoryException -> StorageInMemory
+            is com.cryptochecker.app.data.backup.BackupJournalUnavailableException -> JournalUnavailable
+            is com.cryptochecker.app.data.backup.BackupRestoreStorageException -> StorageUnavailable
+            is com.cryptochecker.app.data.backup.BackupLimits.ExportTooLargeException -> ExportTooLarge
             // Sicherung bis 64 MB als Text und JSON im Speicher (Meldung statt Absturz)
             is OutOfMemoryError -> NotEnoughMemory
             else -> if (saving) SaveFailed else Failed

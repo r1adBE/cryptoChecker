@@ -4,7 +4,7 @@
 // Oberfläche weiter (die Datenquellen bleiben hier privat).
 package com.cryptochecker.app.ui.features.watchlist
 
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.chart.SheetChartRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.domain.model.WatchEntity

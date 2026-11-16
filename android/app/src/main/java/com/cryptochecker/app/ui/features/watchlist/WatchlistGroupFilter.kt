@@ -26,7 +26,7 @@ data class GroupFilter(
 
 /**
  * Art des Paars ([AssetKind.of]): TradFi aus der gespeicherten Liste der TradFi-Paare
- * ([com.cryptochecker.app.data.CoinLogoRepository.tradFiPairs]) oder der Gruppe «TradFi» (die Liste
+ * ([com.cryptochecker.app.data.logos.CoinLogoRepository.tradFiPairs]) oder der Gruppe «TradFi» (die Liste
  * pflegt nur der Logo-Abgleich), Alpha aus der gespeicherten Alpha-Liste bzw. der Kennung eines
  * Binance-Alpha-Paars; [alphaNames] und [pairName] (Name des Coins an der Börse) gegen Fehltreffer.
  */

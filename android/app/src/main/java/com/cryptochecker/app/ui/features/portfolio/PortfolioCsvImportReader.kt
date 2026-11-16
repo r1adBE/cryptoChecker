@@ -5,7 +5,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import android.content.Context
 import android.net.Uri
-import com.cryptochecker.app.data.BackupLimits
+import com.cryptochecker.app.data.backup.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository

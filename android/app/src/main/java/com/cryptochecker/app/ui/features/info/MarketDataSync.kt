@@ -4,7 +4,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.CacheCodec
+import com.cryptochecker.app.data.cycle.CacheCodec
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.market.CycleSource
 import com.cryptochecker.app.domain.market.DataStamp

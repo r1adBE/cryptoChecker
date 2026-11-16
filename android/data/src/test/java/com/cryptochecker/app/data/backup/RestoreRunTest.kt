@@ -1,0 +1,296 @@
+package com.cryptochecker.app.data.backup
+
+import com.cryptochecker.app.data.backup.BackupManager.Step
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.yield
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
+import org.junit.Test
+import java.io.IOException
+import kotlin.coroutines.cancellation.CancellationException
+import com.cryptochecker.app.data.backup.RestoreRollback
+import com.cryptochecker.app.data.backup.RestoreRun
+
+/**
+ * Wiederherstellen mit Journal und Zurückrollen ([RestoreRun], [RestoreRollback]) mit Fälschungen statt Datenbanken:
+ * ohne Journal wird nichts geschrieben, jeder Zweig des Zurückrollens (Einstellungen, Favoriten,
+ * Portfolio, Merkliste) und «Zurückrollen unvollständig → Journal bleibt».
+ */
+class RestoreRunTest {
+
+    /** Die vier Teile als einfache Werte; [failOn] lässt das Schreiben eines Teils scheitern. */
+    private class World {
+        var watchlist = "alte Merkliste"
+        var portfolio = "altes Portfolio"
+        var favorites = "alte Favoriten"
+        var settings = "alte Einstellungen"
+        val writes = mutableListOf<String>()
+        var failOn: String? = null
+        var failRollBackOf: String? = null
+        var portfolioWritable = true
+
+        /** Dieser Teil schreibt (Commit geschehen) und endet dann wie ein abgebrochener Aufruf. */
+        var cancelAfterWriting: String? = null
+
+        fun write(part: String, value: String, assign: (String) -> Unit) {
+            writes += part
+            if (failOn == part) throw IOException("$part scheitert")
+            assign(value)
+            if (cancelAfterWriting == part) throw CancellationException("beim Commit abgebrochen")
+        }
+
+        fun snapshot() = listOf(watchlist, portfolio, favorites, settings)
+    }
+
+    private class FakeJournal(private val writes: Boolean = true, private val throws: Boolean = false) : RestoreRun.Journal {
+        var written = false
+        var deleted = false
+        override fun write(): Boolean {
+            if (throws) throw IOException("Speicher voll")
+            written = writes
+            return writes
+        }
+        override fun delete() {
+            deleted = true
+        }
+    }
+
+    private val previous = World().snapshot()
+
+    private fun writesOf(w: World) = listOf(
+        RestoreRun.Write(Step.WATCHLIST) { w.write("Merkliste", "neue Merkliste") { w.watchlist = it } },
+        RestoreRun.Write(Step.PORTFOLIO) { w.write("Portfolio", "neues Portfolio") { w.portfolio = it } },
+        RestoreRun.Write(Step.FAVORITES) { w.write("Favoriten", "neue Favoriten") { w.favorites = it } },
+        RestoreRun.Write(Step.SETTINGS) { w.write("Einstellungen", "neue Einstellungen") { w.settings = it } },
+    )
+
+    /** Zurückrollen wie `BackupManager.rollBack`: gemerkten Stand je berührtem Teil zurück. */
+    private fun partsOf(w: World, rolledBack: MutableList<String>) = object : RestoreRollback.Parts {
+        override fun mayWritePortfolio() = w.portfolioWritable
+        override fun mayWriteWatchlist() = true
+        private fun back(part: String, assign: () -> Unit) {
+            rolledBack += part
+            if (w.failRollBackOf == part) throw IOException("$part nicht zurück")
+            assign()
+        }
+        override suspend fun settings() = back("Einstellungen") { w.settings = previous[3] }
+        override suspend fun favorites() = back("Favoriten") { w.favorites = previous[2] }
+        override suspend fun portfolio() = back("Portfolio") { w.portfolio = previous[1] }
+        override suspend fun watchlist() = back("Merkliste") { w.watchlist = previous[0] }
+    }
+
+    private suspend fun run(w: World, journal: FakeJournal, rolledBack: MutableList<String> = mutableListOf()) =
+        RestoreRun.execute(journal, writesOf(w)) { touched, cause -> RestoreRollback.run(touched, cause, partsOf(w, rolledBack)) }
+
+    @Test
+    fun ohneSchluesselFuerDasJournalWirdNichtsGeschrieben() = runTest {
+        val w = World()
+        try {
+            run(w, FakeJournal(writes = false))
+            fail("ohne Journal abgelehnt erwartet")
+        } catch (e: BackupJournalUnavailableException) {
+            // erwartet
+        }
+        assertTrue(w.writes.isEmpty())
+        assertEquals(previous, w.snapshot())
+    }
+
+    @Test
+    fun speicherfehlerBeimJournalLehntAbOhneZuSchreiben() = runTest {
+        val w = World()
+        try {
+            run(w, FakeJournal(throws = true))
+            fail("ohne Journal abgelehnt erwartet")
+        } catch (e: BackupJournalUnavailableException) {
+            assertTrue(e.cause is IOException)
+        }
+        assertTrue(w.writes.isEmpty())
+    }
+
+    @Test
+    fun erfolgSchreibtAllesUndLoeschtDasJournal() = runTest {
+        val w = World()
+        val journal = FakeJournal()
+        run(w, journal)
+        assertEquals(listOf("neue Merkliste", "neues Portfolio", "neue Favoriten", "neue Einstellungen"), w.snapshot())
+        assertTrue(journal.written)
+        assertTrue(journal.deleted)
+    }
+
+    @Test
+    fun abbruchNachDemPortfolioSchrittRolltAlleVierTeileZurueck() = runTest {
+        // Sicherung mit Portfolio, Alarmen und Favoriten; Favoriten scheitern halb (vor dem Schreiben schon berührt)
+        val w = World().apply { failOn = "Favoriten" }
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        try {
+            run(w, journal, rolledBack)
+            fail("Fehler erwartet")
+        } catch (e: IOException) {
+            assertEquals("Favoriten scheitert", e.message)
+        }
+        assertEquals(listOf("Favoriten", "Portfolio", "Merkliste"), rolledBack)
+        assertEquals(previous, w.snapshot())
+        assertTrue(journal.deleted)
+    }
+
+    @Test
+    fun einstellungenScheiternHalbUndWerdenZurueckgeschrieben() = runTest {
+        val w = World().apply { failOn = "Einstellungen" }
+        val rolledBack = mutableListOf<String>()
+        runCatching { run(w, FakeJournal(), rolledBack) }
+        assertEquals(listOf("Einstellungen", "Favoriten", "Portfolio", "Merkliste"), rolledBack)
+        assertEquals(previous, w.snapshot())
+    }
+
+    @Test
+    fun gescheiterteTransaktionGiltAlsBeruehrt() = runTest {
+        // Portfolio-Transaktion scheitert: auch sie wird zurückgeschrieben (der Commit kann trotz Fehler geschehen sein)
+        val w = World().apply { failOn = "Portfolio" }
+        val rolledBack = mutableListOf<String>()
+        runCatching { run(w, FakeJournal(), rolledBack) }
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBack)
+        assertEquals(previous, w.snapshot())
+    }
+
+    /**
+     * Abbruch genau beim Commit: Der Schritt hat geschrieben, endet aber mit `CancellationException`. Er wird trotzdem
+     * zurückgerollt (samt dem Schritt davor), das Journal ist erst danach weg — nie neue Merkliste neben altem Portfolio.
+     */
+    @Test
+    fun abbruchBeimCommitRolltDenGeschriebenenSchrittZurueck() = runTest {
+        for (part in listOf("Merkliste", "Portfolio")) {
+            val w = World().apply { cancelAfterWriting = part }
+            val journal = FakeJournal()
+            val rolledBack = mutableListOf<String>()
+            try {
+                run(w, journal, rolledBack)
+                fail("Abbruch erwartet")
+            } catch (e: CancellationException) {
+                // erwartet: der Abbruch wird weitergereicht
+            }
+            assertEquals(part, if (part == "Merkliste") listOf("Merkliste") else listOf("Portfolio", "Merkliste"), rolledBack)
+            assertEquals(part, previous, w.snapshot())
+            assertTrue(part, journal.deleted)
+        }
+    }
+
+    /** Derselbe Abbruch in einer wirklich abgebrochenen Coroutine: Zurückrollen läuft trotzdem zu Ende (NonCancellable). */
+    @Test
+    fun abgebrocheneCoroutineRolltTrotzdemZurueck() = runTest {
+        val w = World()
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        val job = launch {
+            RestoreRun.execute(
+                journal,
+                listOf(
+                    RestoreRun.Write(Step.WATCHLIST) { w.watchlist = "neue Merkliste" },
+                    RestoreRun.Write(Step.PORTFOLIO) {
+                        // Commit geschehen, dann greift der Abbruch am nächsten Unterbrechungspunkt
+                        w.portfolio = "neues Portfolio"
+                        currentCoroutineContext().cancel()
+                        yield()
+                    },
+                    RestoreRun.Write(Step.FAVORITES) { w.favorites = "neue Favoriten" },
+                    RestoreRun.Write(Step.SETTINGS) { w.settings = "neue Einstellungen" },
+                ),
+            ) { touched, cause ->
+                // Unterbrechungspunkt im Zurückrollen: darf den Abbruch nicht erneut sehen
+                yield()
+                RestoreRollback.run(touched, cause, partsOf(w, rolledBack))
+            }
+        }
+        job.join()
+        assertTrue(job.isCancelled)
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBack)
+        assertEquals(previous, w.snapshot())
+        assertTrue(journal.deleted)
+    }
+
+    /**
+     * «Merkliste» gilt erst unter der Refresh-Sperre als berührt ([RestoreRun.Write.touchedInside]): Ein Abbruch beim Warten
+     * auf eine laufende Aktualisierung rollt nichts zurück (ein eben ausgelöster einmaliger Alarm bliebe aus); hat der Block
+     * die Sperre gemeldet, rollt ein späterer Fehler die Merkliste zurück.
+     */
+    @Test
+    fun merklisteGiltErstUnterDerSperreAlsBeruehrt() = runTest {
+        val w = World()
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        val waiting = listOf(
+            RestoreRun.Write(Step.WATCHLIST, touchedInside = true) { throw CancellationException("beim Warten auf die Sperre") },
+        )
+        val error = runCatching {
+            RestoreRun.execute(journal, waiting) { touched, cause -> RestoreRollback.run(touched, cause, partsOf(w, rolledBack)) }
+        }.exceptionOrNull()
+        assertTrue(error is CancellationException)
+        assertTrue(rolledBack.isEmpty())
+        assertTrue("nichts ersetzt: Journal weg", journal.deleted)
+
+        val locked = World().apply { failOn = "Portfolio" }
+        val rolledBackLocked = mutableListOf<String>()
+        val writes = listOf(
+            RestoreRun.Write(Step.WATCHLIST, touchedInside = true) { touch ->
+                touch()
+                locked.write("Merkliste", "neue Merkliste") { locked.watchlist = it }
+            },
+            RestoreRun.Write(Step.PORTFOLIO) { locked.write("Portfolio", "neues Portfolio") { locked.portfolio = it } },
+        )
+        runCatching {
+            RestoreRun.execute(FakeJournal(), writes) { touched, cause ->
+                RestoreRollback.run(touched, cause, partsOf(locked, rolledBackLocked))
+            }
+        }
+        assertEquals(listOf("Portfolio", "Merkliste"), rolledBackLocked)
+        assertEquals(previous, locked.snapshot())
+    }
+
+    @Test
+    fun unvollstaendigesZurueckrollenBehaeltDasJournal() = runTest {
+        val w = World().apply {
+            failOn = "Einstellungen"
+            failRollBackOf = "Portfolio"
+        }
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        val error = runCatching { run(w, journal, rolledBack) }.exceptionOrNull()
+        // Die übrigen Teile laufen trotzdem; der Fehler des Zurückrollens hängt an der Ursache
+        assertEquals(listOf("Einstellungen", "Favoriten", "Portfolio", "Merkliste"), rolledBack)
+        assertEquals("nicht zurück", error!!.suppressed.single().message!!.substringAfter("Portfolio "))
+        assertFalse(journal.deleted)
+        assertEquals("alte Merkliste", w.watchlist)
+    }
+
+    @Test
+    fun portfolioNurImArbeitsspeicherIstUnvollstaendig() = runTest {
+        val w = World().apply {
+            failOn = "Favoriten"
+            portfolioWritable = false
+        }
+        val journal = FakeJournal()
+        val rolledBack = mutableListOf<String>()
+        runCatching { run(w, journal, rolledBack) }
+        assertEquals(listOf("Favoriten", "Merkliste"), rolledBack)
+        assertFalse(journal.deleted)
+    }
+
+    @Test
+    fun zurueckrollenBeimStartSchreibtAlleTeile() = runTest {
+        // Abgebrochener Lauf (Journal beim Start): welche Schritte liefen, ist unbekannt — alle zurück
+        val w = World().apply {
+            watchlist = "halb"
+            portfolio = "halb"
+        }
+        val rolledBack = mutableListOf<String>()
+        val cause = IllegalStateException("Wiederherstellen abgebrochen")
+        assertTrue(RestoreRollback.run(Step.entries.toSet(), cause, partsOf(w, rolledBack)))
+        assertEquals(previous, w.snapshot())
+        assertEquals(0, cause.suppressed.size)
+    }
+}

@@ -1,0 +1,86 @@
+// Ergebnis und Fehler von Sichern/Wiederherstellen ([BackupManager]).
+package com.cryptochecker.app.data.backup
+
+/**
+ * Was eine Wiederherstellung übernommen hat. [appLockKept] = eine Sicherung ohne Passwort wollte die
+ * Portfolio-Sperre ausschalten, sie blieb an ([BackupRestorePolicy.appLock]).
+ */
+data class RestoreResult(
+    val watches: Int,
+    val alarms: Int,
+    val appLockKept: Boolean = false,
+    /** Ids der ersetzten Paare: ihre Kurs- und Aktivitäts-Meldungen gehören zu den alten Paaren. */
+    val replacedWatchIds: List<Long> = emptyList(),
+    /** Ids der ersetzten Alarme: ihre Alarm-Meldungen gehören zu den alten Alarmen. */
+    val replacedAlarmIds: List<Long> = emptyList(),
+    /** Ids der ersetzten Portfolio-Alarme (leer, wenn die Sicherung keine enthielt und sie blieben). */
+    val replacedPortfolioAlarmIds: List<Long> = emptyList(),
+    /** Paare über den Grenzen bzw. mit unzulässiger Kennung ([BackupRestoreLimits]), nicht übernommen. */
+    val droppedPairs: Int = 0,
+    /** Alarme über den Grenzen bzw. weggelassener Paare ([BackupRestoreLimits]), nicht übernommen. */
+    val droppedAlarms: Int = 0,
+    /** Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]); null = keiner. */
+    val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
+    /** Hostname des neu gesetzten bzw. ersetzten Bitcoin-Servers ([BackupRestorePolicy.addressServerHost]); null = keiner. */
+    val addressServerHost: String? = null,
+    /** Von der Sicherung abgeschalteter Schutz ([BackupRestorePolicy.loweredProtection]). */
+    val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
+)
+
+/**
+ * Hinweise aus den Einstellungen einer Sicherung ([BackupSettingsCodec.restoreSettings]): [appLockKept] wie
+ * [RestoreResult.appLockKept], [addressServer] wie [RestoreResult.addressServerNote], [addressServerHost] wie
+ * [RestoreResult.addressServerHost], [lowered] wie [RestoreResult.lowered].
+ */
+data class SettingsRestoreNotes(
+    val appLockKept: Boolean = false,
+    val addressServer: BackupRestorePolicy.AddressServerNote? = null,
+    val addressServerHost: String? = null,
+    val lowered: BackupRestorePolicy.LoweredProtection = BackupRestorePolicy.LoweredProtection(),
+)
+
+/**
+ * Was die Rückfrage vor dem Wiederherstellen nennt ([BackupManager.preview]): [invalid] = ungültige Einträge (zu
+ * bestätigen, `acceptInvalid`), [droppedPairs]/[droppedAlarms] = über den Grenzen ([BackupRestoreLimits]).
+ */
+data class RestorePreview(val invalid: Int = 0, val droppedPairs: Int = 0, val droppedAlarms: Int = 0)
+
+/**
+ * Die eben geschriebene Sicherungsdatei liest sich nicht so zurück, wie sie geschrieben wurde (Grösse oder Inhalt weichen
+ * ab — z. B. ein Cloud-Anbieter, der die Datei kürzt). Die Datei taugt nicht als Sicherung: in eine neue Datei sichern.
+ */
+class BackupNotVerifiedException(message: String) : java.io.IOException(message)
+
+/**
+ * Merkliste oder Portfolio sind in diesem Lauf nur leer im Arbeitsspeicher geöffnet, weil der Keystore den Schlüssel
+ * der vorhandenen Datei gerade nicht herausgibt ([com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isStoredKept]).
+ * Sichern ergäbe eine leere Datei, Einspielen ginge beim Neustart verloren — beides erst nach einem Neustart.
+ */
+class BackupStorageKeptException : IllegalStateException("Gespeicherter Stand gerade nicht lesbar")
+
+/**
+ * Einspielen abgelehnt: Merkliste oder Portfolio liegen in diesem Lauf nur im Arbeitsspeicher, weil kein Schlüssel da ist
+ * ([com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isInMemory]: neu ohne Datei). Das
+ * Eingespielte wäre nach dem Neustart weg, die Einstellungen aber schon ersetzt.
+ */
+class BackupStorageInMemoryException : IllegalStateException("Datenbank nur im Arbeitsspeicher")
+
+/**
+ * Einspielen abgelehnt, bevor etwas ersetzt wird — das Journal des Wiederherstellens ([RestoreJournal])
+ * liess sich nicht schreiben (Keystore-Schlüssel gerade nicht verfügbar oder Speicherfehler). Ohne Journal rollte ein
+ * mittendrin beendeter Lauf nichts zurück; später erneut versuchen.
+ */
+class BackupJournalUnavailableException(cause: Throwable?) :
+    IllegalStateException("Journal des Wiederherstellens nicht geschrieben", cause)
+
+/**
+ * Wiederherstellen gescheitert, weil der Speicher der App nicht beschreibbar war (Datenbank voll, schreibgeschützt oder
+ * Ein-/Ausgabefehler, Schlüssel gerade nicht verfügbar). Alles Geschriebene ist schon zurückgerollt — oder, gelang das
+ * nicht ganz, bleibt das Journal und der nächste Start rollt zurück: die bisherigen Daten bleiben unverändert.
+ */
+class BackupRestoreStorageException(cause: Throwable) :
+    IllegalStateException("Speicher beim Wiederherstellen nicht beschreibbar", cause)
+
+/** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
+class UnconfirmedInvalidEntriesException(val invalid: Int) :
+    IllegalStateException("$invalid ungültige Portfolio-Einträge nicht bestätigt")

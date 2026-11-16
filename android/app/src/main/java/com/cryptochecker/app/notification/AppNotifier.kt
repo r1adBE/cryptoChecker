@@ -34,7 +34,7 @@ class AppNotifier @Inject constructor(
     /** Für die Akzentfarbe der Benachrichtigungen. */
     internal val settingsRepository: SettingsRepository,
     /** Coin-Logo als grosses Bild der Alarm-Meldung (nur vom Gerät, nie aus dem Netz); erst bei Bedarf erzeugt. */
-    internal val coinLogos: dagger.Lazy<com.cryptochecker.app.data.CoinLogoRepository>,
+    internal val coinLogos: dagger.Lazy<com.cryptochecker.app.data.logos.CoinLogoRepository>,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     /** «Auf der Uhr zeigen»: gezeigte und entfernte Mitteilungen auch an die Uhr-App (nur mit Schalter). */
     internal val watchBridge: com.cryptochecker.app.wearable.WatchNotifyBridge,

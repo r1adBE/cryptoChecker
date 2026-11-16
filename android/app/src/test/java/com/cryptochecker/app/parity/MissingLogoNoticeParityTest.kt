@@ -116,7 +116,7 @@ class MissingLogoNoticeParityTest {
         val notice = body.indexOf("WatchlistMissingLogos(watches, reduceMotion = reduceMotion)")
         assertTrue(hint > 0 && notice > hint)
         // Gemerkter Satz: Einstellungsdatei der Logos (nicht in backup_rules/data_extraction_rules)
-        val store = File(data, "MissingLogoDismissals.kt").readText()
+        val store = File(data, "logos/MissingLogoDismissals.kt").readText()
         assertTrue(store.contains("private val prefs by lazy { CoinLogoStorage.prefs(context) }"))
     }
 }

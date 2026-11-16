@@ -2,6 +2,8 @@
 // aus den Binance-Listen, Seiten der Rangliste. Erweiterungsfunktionen; Sperre ([CoinListSync.symbolMap]) und Zustand in der Klasse.
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.logos.CoinLogoStorage
+import com.cryptochecker.app.data.logos.LogoFiles
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable

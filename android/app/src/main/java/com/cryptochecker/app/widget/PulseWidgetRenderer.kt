@@ -10,9 +10,9 @@ import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.CachedValue
-import com.cryptochecker.app.data.CycleCacheCodecs
-import com.cryptochecker.app.data.CycleCacheStore
+import com.cryptochecker.app.data.cycle.CachedValue
+import com.cryptochecker.app.data.cycle.CycleCacheCodecs
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.remote.PulseDataSource
 import com.cryptochecker.app.domain.market.CryptoPulse
 import com.cryptochecker.app.domain.market.CycleSource

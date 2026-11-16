@@ -1,5 +1,5 @@
 package com.cryptochecker.app.data
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import org.junit.Assert.assertEquals

@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.settings
 
 import androidx.annotation.StringRes
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 
 /**
  * Ergebnis von Sichern/Wiederherstellen als Dialog statt als Toast? Ein Text-Toast zeigt ab Android 12 höchstens

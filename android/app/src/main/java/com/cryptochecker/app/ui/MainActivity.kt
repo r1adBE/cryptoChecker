@@ -23,7 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.lock.AppLockState
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.ui.components.CoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.components.LocalPortfolioCoinLogoSource

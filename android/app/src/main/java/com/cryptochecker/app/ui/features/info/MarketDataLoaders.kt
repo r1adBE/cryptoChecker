@@ -5,7 +5,7 @@
 package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.CycleCacheCodecs
+import com.cryptochecker.app.data.cycle.CycleCacheCodecs
 import com.cryptochecker.app.data.MarketExtraCodecs
 import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.BitcoinIndicatorModel

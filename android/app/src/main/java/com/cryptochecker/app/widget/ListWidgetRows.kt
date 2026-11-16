@@ -1,6 +1,6 @@
 package com.cryptochecker.app.widget
 
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.ui.features.watchlist.assetKind

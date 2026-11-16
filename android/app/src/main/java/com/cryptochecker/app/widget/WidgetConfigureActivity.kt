@@ -3,7 +3,7 @@ package com.cryptochecker.app.widget
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.widget.WidgetGroupSelection
 import com.cryptochecker.app.ui.components.ALPHA_GLYPH

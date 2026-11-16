@@ -134,7 +134,7 @@ class DispatcherInjectionGuardTest {
             // CoinListSync, LogoImageStore und WatchedAddressSource haben genau 400 Zeilen
             "data/app/data/CoinListSync.kt" to 5,
             "data/app/data/CoinListSyncMap.kt" to 4,
-            "data/app/data/LogoImageStore.kt" to 5,
+            "data/app/data/logos/LogoImageStore.kt" to 5,
             "data/app/data/portfolio/WatchedAddressSourceXpub.kt" to 2,
             // 397 Zeilen (FileLengthTest) und 16 Stellen in 6 Testdateien, die die Klasse von Hand bauen
             "data/app/data/remote/ExchangeRemoteDataSource.kt" to 1,

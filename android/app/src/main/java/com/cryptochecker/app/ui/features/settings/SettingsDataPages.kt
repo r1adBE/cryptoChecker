@@ -44,7 +44,7 @@ import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.components.rememberHaptics
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.util.LocaleNumbers

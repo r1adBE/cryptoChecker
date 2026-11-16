@@ -2,7 +2,7 @@ package com.cryptochecker.app.ui.features.info
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.CycleCacheStore
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository

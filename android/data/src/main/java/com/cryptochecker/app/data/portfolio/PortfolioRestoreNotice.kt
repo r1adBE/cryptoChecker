@@ -2,7 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.data.BackupRestorePolicy
+import com.cryptochecker.app.data.backup.BackupRestorePolicy
 
 /**
  * Einmaliger Hinweis nach einer Systemsicherung: «X Einträge … waren ungültig» (gespiegelt in

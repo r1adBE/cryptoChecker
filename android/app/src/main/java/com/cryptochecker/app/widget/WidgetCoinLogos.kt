@@ -9,7 +9,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.LruCache
 import androidx.core.graphics.createBitmap
-import com.cryptochecker.app.data.CoinLogoRepository
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException

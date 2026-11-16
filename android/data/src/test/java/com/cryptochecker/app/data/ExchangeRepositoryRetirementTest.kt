@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.logos.CoinLogoRepository
 import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.data.remote.ExchangeRemoteDataSource
 import com.cryptochecker.app.data.settings.SettingsRepository

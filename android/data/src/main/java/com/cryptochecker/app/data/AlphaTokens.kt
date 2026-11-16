@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.logos.CoinLogoStorage
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.CoinLogos

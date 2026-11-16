@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.data.BackupVerification
+import com.cryptochecker.app.data.backup.BackupVerification
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup

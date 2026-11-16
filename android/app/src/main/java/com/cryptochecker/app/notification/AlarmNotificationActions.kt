@@ -64,7 +64,7 @@ fun AppNotifier.alarmSnoozeUntil(alarmId: Long): Long? = AlarmSnoozeStore(Shared
 fun AppNotifier.clearAlarmSnoozes() = AlarmSnoozeStore(SharedPreferencesStores(context)).clear()
 
 /**
- * Coin-Logo für die Alarm-Meldung — nur, wenn es schon auf dem Gerät liegt ([com.cryptochecker.app.data.CoinLogoRepository.logo]
+ * Coin-Logo für die Alarm-Meldung — nur, wenn es schon auf dem Gerät liegt ([com.cryptochecker.app.data.logos.CoinLogoRepository.logo]
  * liest Speicher, Datei oder mitgeliefertes Icon, nie das Netz). Ohne «Coin-Logos», für DEX-Pools oder nach
  * [LOGO_WAIT_MILLIS]: null (Meldung ohne Bild).
  */

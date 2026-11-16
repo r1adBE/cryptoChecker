@@ -2,7 +2,7 @@
 // unter der Längengrenze bleibt; Format unverändert.
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.CacheCodec
+import com.cryptochecker.app.data.cycle.CacheCodec
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import org.json.JSONArray
 import org.json.JSONObject

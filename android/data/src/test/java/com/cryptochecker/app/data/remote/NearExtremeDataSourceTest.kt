@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.CycleCacheStore
+import com.cryptochecker.app.data.cycle.CycleCacheStore
 import com.cryptochecker.app.data.FolderContext
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.testTokenIdentityStore

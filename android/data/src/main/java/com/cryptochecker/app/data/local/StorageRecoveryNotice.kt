@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.update
  *    Start doch — sie ist zurück ([DatabaseOpenPlanner]). Einmal.
  *  - [Kind.RESTORE_ROLLED_BACK] / [Kind.RESTORE_INCOMPLETE]: Ein Wiederherstellen brach ab (Prozess beendet); der Stand
  *    davor wurde aus dem Journal zurückgeschrieben bzw. liess sich nicht zurückschreiben
- *    ([com.cryptochecker.app.data.RestoreJournal]). Einmal.
+ *    ([com.cryptochecker.app.data.backup.RestoreJournal]). Einmal.
  *  - [Kind.SYSTEM_BACKUP_NOT_IMPORTED] (nur Android): Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch
  *    beim zweiten Versuch nicht übernehmen und wurde gelöscht ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.retryFailed]).
  *    Einmal; Weg zurück ist die eigene Sicherungsdatei.
@@ -95,7 +95,7 @@ object StorageRecoveryNotice {
 
     /**
      * Für das Journal mit Zeitpunkt [journalCreatedAt] wollte ein Start schon zurückrollen (gescheitert)
-     * oder gab auf — der nächste Start rollt es nicht mehr zurück ([com.cryptochecker.app.data.RestoreRecoveryPolicy]).
+     * oder gab auf — der nächste Start rollt es nicht mehr zurück ([com.cryptochecker.app.data.backup.RestoreRecoveryPolicy]).
      * Ein neues Journal hat einen anderen Zeitpunkt, darum muss der Wert nie gelöscht werden.
      */
     fun recordRollBackAttempt(context: Context, journalCreatedAt: Long) {

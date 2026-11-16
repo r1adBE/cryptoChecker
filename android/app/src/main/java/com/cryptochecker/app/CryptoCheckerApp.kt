@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.cryptochecker.app.alarm.PortfolioAlarmRepository
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
@@ -50,7 +50,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     @Inject lateinit var portfolioRepository: dagger.Lazy<PortfolioRepository>
 
     /** Lazy: nur, wenn ein abgebrochenes Wiederherstellen zurückzurollen ist ([RestoreJournal]). */
-    @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.backup.BackupManager>
+    @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.data.backup.BackupManager>
 
     /** Lazy: nur, wenn nach neu angelegten Einstellungen Portfolio-Daten zu prüfen sind ([PortfolioDataCheck]). */
     @Inject lateinit var portfolioAlarmRepository: dagger.Lazy<PortfolioAlarmRepository>
@@ -136,7 +136,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         }
 
         // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken
-        if (java.io.File(noBackupFilesDir, com.cryptochecker.app.data.RestoreJournal.FILE_NAME).exists()) {
+        if (java.io.File(noBackupFilesDir, com.cryptochecker.app.data.backup.RestoreJournal.FILE_NAME).exists()) {
             scope.launch { backupManager.get().recoverInterruptedRestore() }
         }
 

@@ -1,5 +1,9 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.logos.CoinLogoStorage
+import com.cryptochecker.app.data.logos.LogoDownloads
+import com.cryptochecker.app.data.logos.LogoFiles
+import com.cryptochecker.app.data.logos.LogoImageStore
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.data.remote.callExchange
@@ -80,17 +84,14 @@ class CoinListSync @Inject constructor(
     private val scope = appScope(Dispatchers.IO, "CoinListSync")
 
     // ---- 1. Binance-Symbolliste und Alpha-Liste (Namen, Alpha-Kennzeichen) — vor allem anderen
-
     private val listsMutex = Mutex()
 
     /** Zuletzt bekannte Binance- und Alpha-Listen (direkt, Ersatzdatei oder gespeichert). */
     @Volatile var lists: CoinMeta.Meta? = null
     @Volatile private var listsRead = false
-
     /** Stand der Listen; die Zuordnung übernimmt neue Listen auch ohne neue Rangliste ([withListsMerged]). */
     @Volatile var listsVersion = 0
     @Volatile var mergedListsVersion = -1
-
     /** Letzte fällige Liste scheiterte am Netz (für [retryPending]). */
     @Volatile private var listsNetworkFailed = false
 
@@ -220,7 +221,6 @@ class CoinListSync @Inject constructor(
         e is NetworkError || e is TimeoutError || e is java.io.IOException
 
     // ---- 3. Abgleich im Hintergrund
-
     private val syncLock = Any()
     private var syncJob: Job? = null
     @Volatile private var rerunImages = false
