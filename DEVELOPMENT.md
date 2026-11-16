@@ -40,6 +40,7 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 18. [Screen layout rules](#18-screen-layout-rules)
 19. [Storage encryption](#19-storage-encryption)
 20. [Modules, layers and cross-cutting rules](#20-modules-layers-and-cross-cutting-rules)
+21. [Platform differences](#21-platform-differences)
 
 Then: [Build notes](#build-notes) · [Known warnings](#known-warnings)
 
@@ -3163,6 +3164,35 @@ release evidence and recorded exchange responses 30 days; hand-over artifacts be
   usage (`ACTION_POWER_USAGE_SUMMARY`, fallback the app details) or the iOS settings of the app (the list per app is
   under Settings › Battery).
 
+## 21. Platform differences
+
+Android and iOS (phone) have the same features, and Wear OS and Apple Watch the same watch features – except the
+differences below, which the platforms force or which are deliberate. Anything not listed here is a gap, not a
+choice. `PlatformSettingsParityTest` checks that the settings search of both apps has the same entries except the
+Android-only ones in the first table.
+
+| Only on Android | Why |
+|---|---|
+| Battery optimisation (`updates.battery`) | iOS has no per-app battery exemption |
+| «Check on time» with exact alarms (`updates.exact`) | iOS gives no exact background timer (BGTaskScheduler decides) |
+| Persistent notification (`updates.ongoing`) | iOS has no ongoing notification; the Live Activity covers it |
+| Price overlay over other apps (`updates.overlay`) | iOS does not allow drawing over other apps |
+| «Show on watch» (`updates.watch`) | the iPhone's Watch app mirrors notifications; iOS shows a hint instead |
+| Own alarm sound file | iOS plays only sounds bundled with the app (4 sounds) |
+| Widget opacity | WidgetKit draws the background itself |
+| Language choice inside the app | iOS sets the app language in the system settings |
+
+| Only on iOS | Why |
+|---|---|
+| Live Activity, lock-screen widgets | Android has no equivalent; the persistent notification and home-screen widgets cover it |
+| 4 bundled alarm sounds | see above |
+
+| Watch | Difference |
+|---|---|
+| Wear OS app is standalone (`com.google.android.wearable.standalone`) | the Apple Watch app needs the iPhone app to be installed (`WKRunsIndependentlyOfCompanionApp` not set); both run without the phone afterwards |
+| Wear OS complications short/long text only, no tile yet | Apple Watch also shows its rectangular widget in the Smart Stack |
+| «Show on watch» notifications on Wear OS come from the watch app (alerts vibrate, the rest silent) | on Apple Watch the system mirrors the iPhone's notifications |
+
 ## Build notes
 
 One short technical note per build (classes, fixtures, checks), newest last. Only the builds since the last tidy-up
@@ -3196,6 +3226,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 244: watch notify readiness (WatchNotifyPolicy, /cc/notify/state, takeReachable/takePermitted), wear alarm channel + visible-only loops (WatchActivity visible flow), non-urgent quote puts, WatchFetcher loading reset, WatchBodyLimit chunked, WatchLink retry + WatchLog.
 * Build 245: zh/zh-Hant/yue 你→您 (not 迷你), fil translations, iOS PairEdits menu subtitle, unused iOS overrides removed.
 * Build 246: docs only: ROADMAP archive, build process page (private README).
+* Build 247: CallStartInterceptor in derived clients, selectable/toggleable rows, debug StrictMode, PlatformSettingsParityTest, platform differences section, AlarmLease partial write, Xcode version summary.
 
 ## Known warnings
 

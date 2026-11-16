@@ -7,9 +7,10 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.selectable
 import com.cryptochecker.app.ui.theme.DisabledColors
 import com.cryptochecker.app.ui.theme.label
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -93,10 +94,11 @@ private fun GroupOption(text: String, selected: Boolean, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
-            .clickable(onClick = onClick)
+            // Eine Zeile, ein Fokus für TalkBack: Zeile als Optionsfeld mit Zustand, das innere Element ohne eigenen Klick
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
             .padding(vertical = 2.dp)
     ) {
-        RadioButton(selected = selected, onClick = onClick)
+        RadioButton(selected = selected, onClick = null)
         Text(text, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }

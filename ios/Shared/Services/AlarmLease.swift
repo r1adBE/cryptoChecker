@@ -118,8 +118,14 @@ final class AlarmLease: Sendable {
             return errno == EEXIST ? nil : AlarmLease(url: url, token: token, held: false, takenOver: takenOver)
         }
         let bytes = Array(token.utf8)
-        _ = bytes.withUnsafeBytes { buffer in Darwin.write(fd, buffer.baseAddress, buffer.count) }
+        let written = bytes.withUnsafeBytes { buffer in Darwin.write(fd, buffer.baseAddress, buffer.count) }
         _ = Darwin.close(fd)
+        guard written == bytes.count else {
+            // Teilweise geschrieben: das Token passte nie, die Lease gälte bis zum Verfall als fremd und kein Lauf
+            // meldete Alarme. Datei entfernen und ohne Lease auswerten (wie bei einem anderen Fehler beim Anlegen).
+            _ = Darwin.unlink(url.path)
+            return AlarmLease(url: url, token: token, held: false, takenOver: takenOver)
+        }
         return AlarmLease(url: url, token: token, takenOver: takenOver)
     }
 

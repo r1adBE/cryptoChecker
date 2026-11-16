@@ -136,6 +136,8 @@ jobs:
         run: |
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+          # Exact version and build in the summary: a red run after a runner image update is traceable
+          { echo "### Xcode"; xcodebuild -version | tr '\n' ' '; echo; } >> "$GITHUB_STEP_SUMMARY"
 
       # Release build settings of app and widget as annotations (ios_release_audit.py settings):
       # error for DEBUG conditions, testability or a version different from Android; warning for
@@ -228,6 +230,8 @@ jobs:
         run: |
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+          # Exact version and build in the summary: a red run after a runner image update is traceable
+          { echo "### Xcode"; xcodebuild -version | tr '\n' ' '; echo; } >> "$GITHUB_STEP_SUMMARY"
 
       # The whole log goes to a file (a shortened log would cut off the error lines). Compiler errors are printed at
       # the end and turned into annotations, so they show on the run page even without signing in.
@@ -384,6 +388,8 @@ jobs:
         run: |
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+          # Exact version and build in the summary: a red run after a runner image update is traceable
+          { echo "### Xcode"; xcodebuild -version | tr '\n' ' '; echo; } >> "$GITHUB_STEP_SUMMARY"
 
       # Simulator for the tests: "iPhone 17" if the installed Xcode has it, otherwise its
       # first available iPhone.

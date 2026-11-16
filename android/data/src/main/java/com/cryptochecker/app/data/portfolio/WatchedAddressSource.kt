@@ -25,6 +25,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeout
+import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import okhttp3.ConnectionPool
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
@@ -36,15 +37,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Lädt Guthaben beobachteter Adressen ([AddressBalance]: Hosts, Antworten, Abstand) für
- * [WatchedAddressRefresher] (Portfolio-Tab, Hintergrund/Widget).
- *
- * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
+ * Lädt Guthaben beobachteter Adressen ([AddressBalance]: Hosts, Antworten, Abstand) für [WatchedAddressRefresher]
+ * (Portfolio-Tab, Hintergrund/Widget). Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
  * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL]), eigener Verbindungs-Pool und Dispatcher;
  * Protokolle nennen nur die gekürzte Adresse. Eigener Bitcoin-Server ([AddressServer]): nur dorthin.
  * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources], nicht der eigene Server); 429/418 und wiederholte
- * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
- * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
+ * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der nächste Host.
+ * Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
  * ETH: mit «Tokens mitzählen» eine Stapel-Anfrage (ETH + ERC-20, [Erc20Tokens]). xpub: abgeleitete Adressen einzeln
  * mit kurzer Pause ([XpubScan], höchstens [XpubScan.MAX_REQUESTS] je Aktualisierung).
  */
@@ -56,6 +55,7 @@ class WatchedAddressSource @Inject constructor(
         .apply {
             interceptors().clear()
             networkInterceptors().clear()
+            addInterceptor(CallStartInterceptor) // Startsignal der Wache (CallGuard), sonst Frist erst nach dem Rückfall
             // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS
             addInterceptor(UserAgentInterceptor(HttpUserAgent.NEUTRAL))
             // Weiterleitungen nur auf denselben Host ([SameHostRedirectInterceptor]): sonst ginge die Adresse an Dritte
@@ -335,8 +335,7 @@ class WatchedAddressSource @Inject constructor(
                 } catch (c: CancellationException) {
                     throw c
                 } catch (e: Exception) {
-                    // Dieses Token bleibt wie zuletzt
-                    Timber.d("Token %s: %s", token.symbol, e.message)
+                    Timber.d("Token %s: %s", token.symbol, e.message) // dieses Token bleibt wie zuletzt
                 }
             }
             return eth.copy(tokens = tokens)

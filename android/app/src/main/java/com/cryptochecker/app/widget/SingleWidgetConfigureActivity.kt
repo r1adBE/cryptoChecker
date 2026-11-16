@@ -1,5 +1,7 @@
 package com.cryptochecker.app.widget
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.selectable
 import com.cryptochecker.app.domain.widget.WidgetChartType
 import com.cryptochecker.app.ui.theme.AppColors
 import android.app.Activity
@@ -10,7 +12,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -180,10 +181,11 @@ private fun SingleWidgetConfigureContent(
                                 if (selected == watch.id) AppColors.accentTint(0.12f)
                                 else MaterialTheme.colorScheme.surface
                             )
-                            .clickable { selected = watch.id }
+                            // Eine Zeile, ein Fokus für TalkBack: Zeile als Optionsfeld mit Zustand, das innere Element ohne eigenen Klick
+                            .selectable(selected = selected == watch.id, role = Role.RadioButton) { selected = watch.id }
                             .padding(vertical = 4.dp)
                     ) {
-                        RadioButton(selected = selected == watch.id, onClick = { selected = watch.id })
+                        RadioButton(selected = selected == watch.id, onClick = null)
                         Column {
                             Text(watch.displayName, style = MaterialTheme.typography.bodyLarge)
                             Text(

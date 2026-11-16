@@ -44,6 +44,19 @@ final class ExportErrorsParityTests: XCTestCase {
         }
     }
 
+    /// Jeder Schlüssel samt «Erneut versuchen» (`retryKey`) steht im Textkatalog – wie Android `texteVorhanden`.
+    func testTexteVorhanden() throws {
+        let fixture = try S.fixture("export_errors")
+        let keys = Array(try XCTUnwrap(fixture["keys"] as? [String: String]).values)
+            + [try XCTUnwrap(fixture["retryKey"] as? String)]
+        let catalog = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("Shared/Resources/Localizable.xcstrings")
+        let text = try String(contentsOf: catalog, encoding: .utf8)
+        for key in keys {
+            XCTAssertTrue(text.contains("\"\(key)\" : {"), key)
+        }
+    }
+
     /// Abbrechen in der Dateiablage ist kein Fehler; ein Schreibfehler dort zeigt «Datei nicht schreibbar».
     @MainActor
     func testDateiablage() {

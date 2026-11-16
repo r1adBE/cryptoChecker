@@ -101,6 +101,12 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
      * Graphen baut.
      */
     override fun onCreate() {
+        // Nur Debug: Platten- und Netzzugriffe auf dem Hauptthread ins Protokoll (Hinweis, kein Absturz)
+        if (BuildConfig.DEBUG) {
+            android.os.StrictMode.setThreadPolicy(
+                android.os.StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build()
+            )
+        }
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
         com.cryptochecker.app.domain.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,

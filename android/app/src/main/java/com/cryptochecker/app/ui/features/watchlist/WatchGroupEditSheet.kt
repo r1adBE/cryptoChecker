@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -197,10 +199,11 @@ internal fun GroupEditSheet(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(MaterialTheme.shapes.small)
-                        .clickable(onClick = toggle)
+                        // Eine Zeile, ein Fokus für TalkBack: Zeile als Kästchen mit Zustand, das innere ohne eigenen Klick
+                        .toggleable(value = isChecked, role = Role.Checkbox) { toggle() }
                         .padding(end = 12.dp)
                 ) {
-                    Checkbox(checked = isChecked, onCheckedChange = { toggle() })
+                    Checkbox(checked = isChecked, onCheckedChange = null)
                     Column(modifier = Modifier.weight(1f)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             if (watch.favorite) {

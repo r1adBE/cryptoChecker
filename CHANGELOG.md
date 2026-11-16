@@ -16,6 +16,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 247)
+
+- Android: watched-address and logo requests keep the start signal of the hang guard; selection rows in four dialogs are one TalkBack focus with role and state; StrictMode logging in debug builds.
+- iOS: the alarm lease falls back to «no lease» when its file is only partly written; the export error test also checks the retry text.
+- Tests and docs: a test keeps the settings of both platforms equal except the documented Android-only ones (DEVELOPMENT, «Platform differences»); every iOS CI run logs the exact Xcode version.
+
 ## 16.2.2 (build 246)
 
 - Internal documentation only (work list shortened, build process written down); no change to the apps.

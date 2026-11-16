@@ -4,7 +4,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
-import androidx.compose.foundation.clickable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -228,10 +229,11 @@ private fun CurrencyDialog(selected: String, onSelect: (String) -> Unit, onDismi
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { onSelect(code) }
+                            // Eine Zeile, ein Fokus für TalkBack: Zeile als Optionsfeld mit Zustand, das innere Element ohne eigenen Klick
+                            .selectable(selected = code == selected, role = Role.RadioButton) { onSelect(code) }
                             .padding(vertical = 2.dp)
                     ) {
-                        RadioButton(selected = code == selected, onClick = { onSelect(code) })
+                        RadioButton(selected = code == selected, onClick = null)
                         Text(code, style = MaterialTheme.typography.bodyLarge)
                     }
                 }

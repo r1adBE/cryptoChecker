@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
+import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import okhttp3.OkHttpClient
 import timber.log.Timber
 import java.io.File
@@ -24,8 +25,12 @@ internal class LogoImageFetcher(
     private val imageDir: () -> File,
     private val pauses: LogoImagePauses,
 ) {
-    /** Gleiche Verbindungen, aber ohne Mitschnitt (sonst landen Bild-Bytes im Debug-Protokoll). */
-    private val client: OkHttpClient = httpClient.newBuilder().apply { interceptors().clear() }.build()
+    /**
+     * Gleiche Verbindungen, aber ohne Mitschnitt (sonst landen Bild-Bytes im Debug-Protokoll); das Startsignal der
+     * Wache ([CallStartInterceptor]) bleibt.
+     */
+    private val client: OkHttpClient = httpClient.newBuilder()
+        .apply { interceptors().clear(); addInterceptor(CallStartInterceptor) }.build()
 
     /** Harte Grenzen auch für Ersatz-Adressen und Start-Logos ([CoinLogoQueue] ordnet nur nach dem ersten Server). */
     private val downloads = Semaphore(CoinLogoQueue.MAX_PARALLEL)
