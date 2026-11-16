@@ -83,12 +83,7 @@ extension WatchlistScreen {
 
             // «Name ⇅ · Kurs ⇅ · 24h ⇅» — nicht im Sortiermodus und erst ab zwei Paaren
             if !sorting && rows.count > 1 {
-                WatchlistSortBar(sort: columnSort) { key in
-                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) {
-                        columnSortRaw = ColumnSort.next(columnSort, tapped: key)?.encoded ?? ""
-                    }
-                }
-                .plainRow(top: 2, bottom: ListSegment.spacing)
+                sortBar(columnSort)
             }
 
             // Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche
@@ -96,36 +91,10 @@ extension WatchlistScreen {
                 emptyGroupHint(selectedGroup: selectedGroup, groups: groups)
             }
 
-            if sorting {
-                VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(L("watchlist_sort_hint"))
-                        .font(.footnote)
-                        .foregroundStyle(accent.primary)
-                        .padding(.horizontal, 4)
-                    // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
-                    if rows.count > 1 {
-                        autoOrderButtons(rows)
-                    }
-                }
-                .plainRow(top: 2, bottom: ListSegment.spacing)
-                .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
-            } else if showGestureHint {
-                // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
-                gestureHint
-                    .plainRow(top: 2, bottom: ListSegment.spacing)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-                    .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-gesture-hint")
-            }
-
-            // Keine Treffer für die Suche
+            // Sortier- bzw. Gesten-Hinweis; keine Treffer für die Suche
+            listHint(rows: rows, topAnchor: topAnchor, showGestureHint: showGestureHint)
             if filtering && found.isEmpty {
-                Text(L("watchlist_search_empty", trimmed))
-                    .font(.footnote)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 24)
-                    .plainRow(top: 2, bottom: 2)
+                searchEmptyLine(trimmed)
             }
 
             // Zwei Abteilungen: Gezogen wird nur innerhalb der eigenen Abteilung,
@@ -166,18 +135,7 @@ extension WatchlistScreen {
         }
         .modifier(WatchlistScrollPhaseModifier { scrolling in scrollPhaseChanged(scrolling) })
         .overlay(alignment: .bottomTrailing) {
-            // Ein- und Ausblenden nur hier animiert, nicht die Liste darunter
-            ZStack {
-                if jumpVisible {
-                    WatchlistJumpButton(down: jumpDown) { jump(rows: rows, proxy: proxy, hasTopAnchor: topAnchor != .none) }
-                        .transition(.opacity)
-                }
-            }
-            .padding(.trailing, WatchlistJump.margin)
-            // Über dem Banner («… entfernt», «Rückgängig»), solange er steht
-            .padding(.bottom, banner == nil ? WatchlistJump.margin : WatchlistJump.margin + 64)
-            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: jumpVisible)
-            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: banner == nil)
+            jumpOverlay(visible: jumpVisible) { jump(rows: rows, proxy: proxy, hasTopAnchor: topAnchor != .none) }
         }
         // Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare
         .overlay(alignment: .bottom) { selectionBar(watches) }
@@ -197,6 +155,67 @@ extension WatchlistScreen {
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: searching)
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: found.map(\.id))
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
+    }
+
+    /// Sortiermodus: Hinweis und «Automatisch ordnen» für die gezeigten Paare; sonst einmaliger Gesten-Hinweis, bis er
+    /// weggeklickt wird. Anker für «Zum Anfang», wenn der Hinweis die erste Zeile ist; Teil von `list`.
+    @ViewBuilder
+    fileprivate func listHint(rows: [Watch], topAnchor: WatchlistTopAnchor, showGestureHint: Bool) -> some View {
+        if sorting {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                Text(L("watchlist_sort_hint"))
+                    .font(.footnote)
+                    .foregroundStyle(accent.primary)
+                    .padding(.horizontal, 4)
+                // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
+                if rows.count > 1 {
+                    autoOrderButtons(rows)
+                }
+            }
+            .plainRow(top: 2, bottom: ListSegment.spacing)
+            .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
+        } else if showGestureHint {
+            gestureHint
+                .plainRow(top: 2, bottom: ListSegment.spacing)
+                .transition(.opacity.combined(with: .move(edge: .top)))
+                .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-gesture-hint")
+        }
+    }
+
+    /// «Name ⇅ · Kurs ⇅ · 24h ⇅»: Tipp wechselt die Spalte bzw. die Richtung; Teil von `list`.
+    func sortBar(_ sort: ColumnSort?) -> some View {
+        WatchlistSortBar(sort: sort) { key in
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) {
+                columnSortRaw = ColumnSort.next(sort, tapped: key)?.encoded ?? ""
+            }
+        }
+        .plainRow(top: 2, bottom: ListSegment.spacing)
+    }
+
+    /// Keine Treffer für die Suche [trimmed]; Teil von `list`.
+    func searchEmptyLine(_ trimmed: String) -> some View {
+        Text(L("watchlist_search_empty", trimmed))
+            .font(.footnote)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 24)
+            .plainRow(top: 2, bottom: 2)
+    }
+
+    /// Sprungknopf unten rechts; Ein- und Ausblenden nur hier animiert, nicht die Liste darunter. Über dem Banner
+    /// («… entfernt», «Rückgängig»), solange er steht; Teil von `list`.
+    func jumpOverlay(visible: Bool, action: @escaping () -> Void) -> some View {
+        ZStack {
+            if visible {
+                WatchlistJumpButton(down: jumpDown, action: action)
+                    .transition(.opacity)
+            }
+        }
+        .padding(.trailing, WatchlistJump.margin)
+        .padding(.bottom, banner == nil ? WatchlistJump.margin : WatchlistJump.margin + 64)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: visible)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: banner == nil)
     }
 
     /// Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche; Teil von `list`.

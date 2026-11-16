@@ -28,6 +28,41 @@ extension PortfolioScreen {
             && PortfolioPriceFallback.isStale(model.prices.updatedAt, now: now, staleAfterMillis: model.staleAfterMillis))
     }
 
+    /// Gesamtkarte: Wert, Heute/7 T/1 J, Quellen, Hinweise (Fehlbestand, Einträge ohne Einstand, USDT-Messung); Teil von
+    /// `content`.
+    private func totalCard(_ summary: PortfolioSummary, currency: String, stale: Bool) -> some View {
+        PortfolioTotalCard(
+            summary: summary,
+            updatedAt: model.prices.updatedAt,
+            currency: currency,
+            // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
+            fxRate: model.displayRate(for: currency),
+            // «Seit Kauf»/Einstand in der Anzeigewährung zum Kurs der Erwerbstage
+            costFx: model.costFx(for: currency, summary: summary),
+            today: model.today,
+            todaySkipped: model.todaySkipped,
+            weekChange: model.weekChange,
+            yearChange: model.yearChange,
+            stale: stale,
+            priceSources: model.prices.sources,
+            exchangeFailed: model.prices.exchangeFailed,
+            mixedExchange: model.prices.mixedExchange,
+            periodScaled: model.periodScaled,
+            walletShortfalls: walletShortfalls,
+            onShortfall: { id in
+                if id == PortfolioCostGapUi.hintId {
+                    costGapsOpen = true
+                } else if let tx = data.portfolio.first(where: { $0.id == id }) {
+                    sheet = PortfolioTxDraft(tx: tx)
+                }
+            },
+            // «USDT = 1 angenommen»: Messung 6 Std. gültig, mit der Uhr der Ansicht (`DepegAlarm.cardNote` in der Karte)
+            depegReading: DepegAlarmCheck.lastReading,
+            depegThresholdTenths: data.settings.depegThresholdTenths,
+            now: now
+        )
+    }
+
     func content(_ summary: PortfolioSummary, currency: String) -> some View {
         let state = priceState(summary)
         let stale = pricesStale(state)
@@ -37,36 +72,7 @@ extension PortfolioScreen {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .portfolioListRow(top: 4, bottom: 4)
             }
-            PortfolioTotalCard(
-                summary: summary,
-                updatedAt: model.prices.updatedAt,
-                currency: currency,
-                // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
-                fxRate: model.displayRate(for: currency),
-                // «Seit Kauf»/Einstand in der Anzeigewährung zum Kurs der Erwerbstage
-                costFx: model.costFx(for: currency, summary: summary),
-                today: model.today,
-                todaySkipped: model.todaySkipped,
-                weekChange: model.weekChange,
-                yearChange: model.yearChange,
-                stale: stale,
-                priceSources: model.prices.sources,
-                exchangeFailed: model.prices.exchangeFailed,
-                mixedExchange: model.prices.mixedExchange,
-                periodScaled: model.periodScaled,
-                walletShortfalls: walletShortfalls,
-                onShortfall: { id in
-                    if id == PortfolioCostGapUi.hintId {
-                        costGapsOpen = true
-                    } else if let tx = data.portfolio.first(where: { $0.id == id }) {
-                        sheet = PortfolioTxDraft(tx: tx)
-                    }
-                },
-                // «USDT = 1 angenommen»: Messung 6 Std. gültig, mit der Uhr der Ansicht (`DepegAlarm.cardNote` in der Karte)
-                depegReading: DepegAlarmCheck.lastReading,
-                depegThresholdTenths: data.settings.depegThresholdTenths,
-                now: now
-            )
+            totalCard(summary, currency: currency, stale: stale)
             .portfolioListRow(top: 4, bottom: 8)
 
             // Einträge ohne Einstand: sanfte Karte zum Ergänzen

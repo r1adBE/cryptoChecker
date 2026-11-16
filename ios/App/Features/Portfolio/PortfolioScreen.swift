@@ -144,8 +144,13 @@ struct PortfolioScreen: View {
             .onChange(of: addressesOpen) { showAddressOverlapNotice() }
     }
 
-    /// Blätter, Ziele, Dialoge und Hinweise — eigene Funktion, damit der Compiler `body` in vertretbarer Zeit prüft.
+    /// Blätter, Ziele, Dialoge und Hinweise — eigene Funktionen, damit der Compiler `body` in vertretbarer Zeit prüft.
     private func presentations<V: View>(_ base: V) -> some View {
+        importPresentations(sheetPresentations(base))
+    }
+
+    /// Adressen, Einstand, Erfassen, Coin-Seite, Über, Steuer-Arbeitsunterlage, Portfolio-Alarm und Export.
+    private func sheetPresentations<V: View>(_ base: V) -> some View {
         base
         .sheet(isPresented: $addressesOpen) {
             PortfolioAddressSheet(onPortfolioEnabled: { toast = ToastMessage(L("portfolio_enabled_banner")) })
@@ -219,6 +224,11 @@ struct PortfolioScreen: View {
             .presentationCornerRadius(28)
             .presentationBackground(AppColors.background)
         }
+    }
+
+    /// CSV-Import (Datei, Fortschritt, Vorschau, Importe), Hinweise, Banner und Rückfragen zum Löschen.
+    private func importPresentations<V: View>(_ base: V) -> some View {
+        base
         .testableFileImporter(isPresented: $csvPickerOpen, allowedContentTypes: PortfolioCsvImporter.contentTypes,
                               testFile: .csv) { result in
             guard case .success(let url) = result else { return }

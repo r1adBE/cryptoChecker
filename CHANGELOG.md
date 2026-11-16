@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 261)
+
+- iOS code structure (no behaviour change): every user-interface function now has at most 150 lines (ceiling 205 → 150): settings search index in sections, watchlist list, portfolio sheets and dialogs, cycle chart, portfolio total card and the search button of the status line were split into smaller parts.
+
 ## 16.2.2 (build 260)
 
 - Android code structure (no behaviour change): every user-interface function now has at most 250 lines (ceiling 317 → 250): the watchlist screen, address sheet, portfolio tab, sheet chart, watchlist row, settings search index, pulse widget and transaction sheet were split into smaller parts.

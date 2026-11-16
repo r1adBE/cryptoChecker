@@ -11,32 +11,97 @@ enum SettingsSearchCatalog {
     /// Alle durchsuchbaren Punkte in der Sprache der App — Hauptseite und Unterseiten, in der
     /// Reihenfolge der Seiten. Ids sind zugleich die Anker (`settingsAnchor`).
     static func items(settings: AppSettings) -> [SettingsSearchItem] {
-        var items: [SettingsSearchItem] = []
-        func add(_ id: String, _ title: String, _ path: String, _ target: SettingsSearchTarget, _ synonyms: [String] = []) {
-            items.append(SettingsSearchItem(entry: SettingsSearchEntry(id: id, title: title, path: path, synonyms: synonyms),
-                                            target: target))
-        }
-
         // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr). Der Pfad einer Seite kommt
         // aus ihrem Ort (`SettingsSearchPage.home`), damit er nach jeder Umstellung zur Anordnung passt
-        let general = L("settings_group_general")
-        let appearance = L("settings_section_appearance")
-        let more = L("settings_group_more")
-        func homePath(_ page: SettingsSearchPage) -> String {
-            switch page.home {
-            case .general: return general
-            case .appearance: return appearance
-            case .more: return more
-            case nil: return ""
-            }
-        }
-        func addPage(_ id: String, _ page: SettingsSearchPage, _ title: String, anchor: String? = nil, _ synonyms: [String] = []) {
-            add(id, title, homePath(page), .page(page, anchor: anchor), synonyms)
-        }
+        let index = SettingsSearchIndex(general: L("settings_group_general"), appearance: L("settings_section_appearance"),
+                                        more: L("settings_group_more"))
         // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
         // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
         // frühere Stelle zuerst) — wie Android
         let portfolio = L("portfolio_title")
+        let watchlist = L("settings_row_watchlist")
+        index.addGeneral(settings: settings, portfolio: portfolio, watchlist: watchlist)
+        index.addAppearance(watchlist: watchlist)
+        index.addAlarms()
+        index.addPortfolio(portfolio: portfolio)
+        index.addMore(settings: settings, watchlist: watchlist)
+        return index.items
+    }
+
+    /// Unterseite zu einem Ziel.
+    @ViewBuilder
+    static func destination(_ page: SettingsSearchPage) -> some View {
+        switch page {
+        case .currency: CurrencySettingsPage()
+        case .updates: UpdatesSettingsPage()
+        case .usage: UsageSettingsPage()
+        case .watchlist: WatchlistSettingsPage()
+        case .displayMode: DisplayModeSettingsPage()
+        case .theme: ThemeSettingsPage()
+        case .priceColors: PriceColorsSettingsPage()
+        case .changeBasis: ChangeBasisSettingsPage()
+        case .coinLogos: CoinLogosSettingsPage()
+        case .alarms: AlarmSettingsPage()
+        case .marketAlerts: MarketAlertsSettingsPage()
+        case .speech: SpeechSettingsPage()
+        case .portfolio: PortfolioSettingsPage()
+        case .backup: BackupSettingsPage()
+        case .about: AboutSettingsPage()
+        case .developer: DeveloperSettingsPage()
+        case .widgets: WidgetsSearchDestination()
+        case .exchanges: ExchangesSettingsPage()
+        case .licenses: LicensesSheet(asPage: true)
+        }
+    }
+}
+
+/// Widget-Seite als Ziel der Suche (wie die Zeile unter «Darstellung»), mit dem Portfolio-Schalter.
+@MainActor
+private struct WidgetsSearchDestination: View {
+    @EnvironmentObject private var data: AppData
+
+    var body: some View {
+        AddWidgetHelpSheet(portfolioEnabled: data.settings.portfolioEnabled, asPage: true)
+    }
+}
+
+/// Sammelt die Treffer der Suche in Index-Reihenfolge; `homePath` = Gruppe der Hauptseite, unter der eine Seite steht.
+@MainActor
+final class SettingsSearchIndex {
+    private(set) var items: [SettingsSearchItem] = []
+    private let general: String
+    private let appearance: String
+    private let more: String
+
+    init(general: String, appearance: String, more: String) {
+        self.general = general
+        self.appearance = appearance
+        self.more = more
+    }
+
+    func add(_ id: String, _ title: String, _ path: String, _ target: SettingsSearchTarget, _ synonyms: [String] = []) {
+        items.append(SettingsSearchItem(entry: SettingsSearchEntry(id: id, title: title, path: path, synonyms: synonyms),
+                                        target: target))
+    }
+
+    func homePath(_ page: SettingsSearchPage) -> String {
+        switch page.home {
+        case .general: return general
+        case .appearance: return appearance
+        case .more: return more
+        case nil: return ""
+        }
+    }
+
+    func addPage(_ id: String, _ page: SettingsSearchPage, _ title: String, anchor: String? = nil, _ synonyms: [String] = []) {
+        add(id, title, homePath(page), .page(page, anchor: anchor), synonyms)
+    }
+}
+
+/// Abschnitte des Index (Reihenfolge in `SettingsSearchCatalog.items`), wie die Abschnitte in `SettingsSearchCatalog.kt`.
+extension SettingsSearchIndex {
+    /// 1 Allgemein: Portfolio-Seite, Sprache, Währung, Aktualisierung, Akku & Aktivität, Merkliste.
+    func addGeneral(settings: AppSettings, portfolio: String, watchlist: String) {
         addPage("page.portfolio", .portfolio, portfolio, [L("settings_portfolio_tab"), L("portfolio_setting_hint")])
         add("main.language", L("settings_section_language"), general, .main("main.language"), [L("ios_settings_language_hint")])
         let currency = L("settings_row_currency")
@@ -63,7 +128,6 @@ enum SettingsSearchCatalog {
         let usage = L("settings_row_usage")
         addPage("page.usage", .usage, usage, [L("ios_usage_battery_hint")])
         add("usage.watch", L("usage_watch"), usage, .page(.usage, anchor: "usage.watch"), [L("usage_watch_none")])
-        let watchlist = L("settings_row_watchlist")
         addPage("page.watchlist", .watchlist, watchlist)
         add("watchlist.names", L("settings_watchlist_names"), watchlist, .page(.watchlist, anchor: "watchlist.names"),
             [L("settings_watchlist_names_hint")])
@@ -73,7 +137,9 @@ enum SettingsSearchCatalog {
             [L("settings_show_converted_hint", settings.portfolioCurrency)])
         add("watchlist.activity", L("settings_watchlist_activity_card"), watchlist, .page(.watchlist, anchor: "watchlist.activity"),
             [L("settings_watchlist_activity_card_hint"), "⚡"])
+    }
 
+    func addAppearance(watchlist: String) {
         // 2 Darstellung
         let mode = L("settings_theme_mode")
         addPage("page.display_mode", .displayMode, mode,
@@ -107,7 +173,9 @@ enum SettingsSearchCatalog {
         add("widgets.watch_prices", L("settings_watch_prices"), L("settings_widgets"),
             .page(.widgets, anchor: "widgets.watch_prices"),
             [L("ios_settings_watch_prices_iphone"), L("settings_watch_prices_self")])
+    }
 
+    func addAlarms() {
         // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe auf «Alarme»
         let alarms = L("settings_row_alarms")
         addPage("page.alarms", .alarms, alarms)
@@ -151,7 +219,9 @@ enum SettingsSearchCatalog {
         add("speech.alarms_only", L("settings_tts_alarms_only"), speech, .page(.speech, anchor: "speech.alarms_only"),
             [L("settings_tts_alarms_only_hint")])
         add("speech.test", L("settings_tts_test"), speech, .page(.speech, anchor: "speech.test"))
+    }
 
+    func addPortfolio(portfolio: String) {
         // 4 Portfolio (unter «Allgemein»; die Seite selbst steht oben im Index)
         add("portfolio.tab", L("settings_portfolio_tab"), portfolio, .page(.portfolio, anchor: "portfolio.tab"),
             [L("portfolio_setting_hint")])
@@ -169,7 +239,10 @@ enum SettingsSearchCatalog {
             .page(.portfolio, anchor: "portfolio.system_backup"), [L("settings_portfolio_system_backup_hint_ios")])
         add("portfolio.address_server", L("settings_address_server_title"), portfolio,
             .page(.portfolio, anchor: "portfolio.address_server"), [L("settings_address_server_hint")])
+    }
 
+    /// 5 Sicherung, Zurücksetzen, Token & TradFi, 6 Über die App (Diagnose und Entwickler nur freigeschaltet).
+    func addMore(settings: AppSettings, watchlist: String) {
         // 5 Sicherung (unter «Mehr»)
         let backup = L("backup_title")
         addPage("page.backup", .backup, backup, [L("backup_hint")])
@@ -213,42 +286,5 @@ enum SettingsSearchCatalog {
             add("developer.http_log", L("settings_http_log"), developer, .page(.developer, anchor: "developer.http_log"),
                 [L("settings_http_log_hint")])
         }
-        return items
-    }
-
-    /// Unterseite zu einem Ziel.
-    @ViewBuilder
-    static func destination(_ page: SettingsSearchPage) -> some View {
-        switch page {
-        case .currency: CurrencySettingsPage()
-        case .updates: UpdatesSettingsPage()
-        case .usage: UsageSettingsPage()
-        case .watchlist: WatchlistSettingsPage()
-        case .displayMode: DisplayModeSettingsPage()
-        case .theme: ThemeSettingsPage()
-        case .priceColors: PriceColorsSettingsPage()
-        case .changeBasis: ChangeBasisSettingsPage()
-        case .coinLogos: CoinLogosSettingsPage()
-        case .alarms: AlarmSettingsPage()
-        case .marketAlerts: MarketAlertsSettingsPage()
-        case .speech: SpeechSettingsPage()
-        case .portfolio: PortfolioSettingsPage()
-        case .backup: BackupSettingsPage()
-        case .about: AboutSettingsPage()
-        case .developer: DeveloperSettingsPage()
-        case .widgets: WidgetsSearchDestination()
-        case .exchanges: ExchangesSettingsPage()
-        case .licenses: LicensesSheet(asPage: true)
-        }
-    }
-}
-
-/// Widget-Seite als Ziel der Suche (wie die Zeile unter «Darstellung»), mit dem Portfolio-Schalter.
-@MainActor
-private struct WidgetsSearchDestination: View {
-    @EnvironmentObject private var data: AppData
-
-    var body: some View {
-        AddWidgetHelpSheet(portfolioEnabled: data.settings.portfolioEnabled, asPage: true)
     }
 }

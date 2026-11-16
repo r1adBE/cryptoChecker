@@ -218,46 +218,13 @@ struct CycleHistoryChart: View {
             .accessibilityValue(Self.accessibilityText(series))
 
             // Achse: Jahresmarken genau unter den Hilfslinien (gleiche Breite wie die Zeichnung)
-            GeometryReader { geo in
-                let width = geo.size.width
-                ZStack(alignment: .topLeading) {
-                    ForEach(0...4, id: \.self) { year in
-                        let raw = width * CGFloat(Double(year * 360) / Self.maxDay)
-                        let half = Self.labelWidth / 2
-                        Text(verbatim: LocaleNumbers.integer(year))
-                            .font(.caption2)
-                            .monospacedDigit()
-                            .foregroundStyle(AppColors.onSurfaceVariant)
-                            .frame(width: Self.labelWidth, height: axisHeight)
-                            .position(x: min(max(raw, half), max(width - half, half)), y: axisHeight / 2)
-                    }
-                }
-                .frame(width: width, height: axisHeight, alignment: .topLeading)
-            }
-            .frame(height: axisHeight)
-            .padding(.top, 4)
-            // Jahresmarken unter den Hilfslinien: ebenfalls immer von links nach rechts
-            .environment(\.layoutDirection, .leftToRight)
-            .accessibilityHidden(true)
+            yearAxis
 
             Text(L("insights_chart_axis"))
                 .font(.caption2)
                 .foregroundStyle(AppColors.onSurfaceVariant)
 
-            HStack(spacing: 0) {
-                ForEach(Array(series.enumerated()), id: \.offset) { i, s in
-                    Circle()
-                        .fill(lineColors[i])
-                        .frame(width: 10, height: 10)
-                        .accessibilityHidden(true)
-                    Text(verbatim: LocaleNumbers.integer(s.halving.year))
-                        .font(.caption.weight(.medium))
-                        .foregroundStyle(AppColors.onSurface)
-                        .padding(.leading, 4)
-                        .padding(.trailing, 12)
-                }
-            }
-            .padding(.top, 8)
+            legend(series, colors: lineColors)
 
             Text(L("insights_chart_hint"))
                 .font(.footnote)
@@ -265,6 +232,50 @@ struct CycleHistoryChart: View {
                 .padding(.top, Spacing.xs)
             CycleSourceText(text: L("insights_source_history"))
         }
+    }
+
+    /// Jahresmarken genau unter den Hilfslinien (gleiche Breite wie die Zeichnung), immer von links nach rechts; Teil von
+    /// `content`.
+    private var yearAxis: some View {
+        GeometryReader { geo in
+            let width = geo.size.width
+            ZStack(alignment: .topLeading) {
+                ForEach(0...4, id: \.self) { year in
+                    let raw = width * CGFloat(Double(year * 360) / Self.maxDay)
+                    let half = Self.labelWidth / 2
+                    Text(verbatim: LocaleNumbers.integer(year))
+                        .font(.caption2)
+                        .monospacedDigit()
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .frame(width: Self.labelWidth, height: axisHeight)
+                        .position(x: min(max(raw, half), max(width - half, half)), y: axisHeight / 2)
+                }
+            }
+            .frame(width: width, height: axisHeight, alignment: .topLeading)
+        }
+        .frame(height: axisHeight)
+        .padding(.top, 4)
+        // Jahresmarken unter den Hilfslinien: ebenfalls immer von links nach rechts
+        .environment(\.layoutDirection, .leftToRight)
+        .accessibilityHidden(true)
+    }
+
+    /// Legende: Farbe und Halving-Jahr je Zyklus; Teil von `content`.
+    private func legend(_ series: [CycleSeries], colors: [Color]) -> some View {
+        HStack(spacing: 0) {
+            ForEach(Array(series.enumerated()), id: \.offset) { i, s in
+                Circle()
+                    .fill(colors[i])
+                    .frame(width: 10, height: 10)
+                    .accessibilityHidden(true)
+                Text(verbatim: LocaleNumbers.integer(s.halving.year))
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(AppColors.onSurface)
+                    .padding(.leading, 4)
+                    .padding(.trailing, 12)
+            }
+        }
+        .padding(.top, 8)
     }
 }
 

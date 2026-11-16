@@ -136,25 +136,30 @@ extension WatchlistScreen {
 
             // Lupe und «+»: beim Sortieren und Auswählen ausgeblendet
             if !sorting && !selecting {
-                Button { openSearch() } label: {
-                    // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)
-                    Image(systemName: "magnifyingglass")
-                        .scaledFont(size: WatchlistSearch.buttonSymbolSize, weight: .bold, relativeTo: .caption)
-                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                        .foregroundStyle(AppColors.onSurface)
-                        .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
-                        .background(AppColors.containerHighest, in: Circle())
-                        // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
-                        .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L("watchlist_search_open"))
+                searchButton
 
                 // «+» rechts neben der Lupe: kleine Merkliste (bis 3 Paare) mit Text «Paar hinzufügen», damit der
                 // Weg zum nächsten Paar klar ist; sonst nur «+» (Label «Paar hinzufügen»), so bricht der Status nicht um
                 addPairButton(labelled: data.watches.count <= WatchlistSearch.addLabelMaxPairs)
             }
         }
+    }
+
+    /// Lupe neben dem Status: gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe); Teil von `statusRow`.
+    var searchButton: some View {
+        Button { openSearch() } label: {
+            // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)
+            Image(systemName: "magnifyingglass")
+                .scaledFont(size: WatchlistSearch.buttonSymbolSize, weight: .bold, relativeTo: .caption)
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                .foregroundStyle(AppColors.onSurface)
+                .frame(width: WatchlistSearch.buttonSize, height: WatchlistSearch.buttonSize)
+                .background(AppColors.containerHighest, in: Circle())
+                // Tippfläche 44 pt, sichtbar bleibt der kleine Kreis
+                .contentShape(Circle().inset(by: -(44 - WatchlistSearch.buttonSize) / 2))
+        }
+        .buttonStyle(.borderless)
+        .accessibilityLabel(L("watchlist_search_open"))
     }
 
     /// Hinweis «3 deaktiviert» neben dem Status: kleine neutrale Kapsel im Stil des Status

@@ -3240,6 +3240,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 258: Modul `coreui` (A241-A-03 Teil 3b).
 * Build 259: Modul `widget` (A241-A-03 Teil 3c), Schnittstellen `WidgetHostPorts.kt`.
 * Build 260: Oberflächen-Funktionen Kotlin ≤ 250 Zeilen (A241-A-02/I-02 Rest), acht neue Teil-Dateien.
+* Build 261: Swift-Oberflächenfunktionen ≤ 150 Zeilen (A241-A-02/I-02 Rest).
 
 ## Known warnings
 
