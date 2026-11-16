@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
@@ -20,7 +19,6 @@ import androidx.compose.material3.SnackbarDuration
 import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -137,28 +135,7 @@ fun PortfolioTxSheet(
     val focusTargets = remember { TxFocusTargets() }
     val resources = LocalResources.current
 
-    // Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt,
-    // der Kurs dient dann nur als Hinweis für eine mehrdeutige Eingabe. Nicht für einen anderen Tag.
-    LaunchedEffect(coin, coinValid) {
-        state.prefillPrice(coin, coinValid) { viewModel.currentPrice(it) }
-    }
-
-    // Belohnung/Einzahlung an einem vergangenen Tag: geprüften Tagesschluss vorbelegen (markiert)
-    LaunchedEffect(state.type, coin, coinValid, state.time) {
-        state.prefillHistoricClose(coin, coinValid) { c, day -> viewModel.historicClose(c, day) }
-    }
-
-    // Gebühr-Coin: Preis mit dem aktuellen Kurs vorbelegen — nur bei einer Transaktion von heute
-    val feeCoinSymbol = d.feeCoinSymbol
-    LaunchedEffect(feeCoinSymbol) {
-        state.prefillFeeCoinPrice(feeCoinSymbol, coin) { viewModel.currentPrice(it) }
-    }
-
-    // Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung
-    val day = d.day
-    LaunchedEffect(currency, day, state.entryFiat) {
-        state.loadEntryFx(currency, day) { c, dd -> viewModel.entryFx(c, dd) }
-    }
+    TxPrefillEffects(state, d, currency, viewModel)
 
     if (pickDate) {
         DateDialog(
@@ -184,19 +161,7 @@ fun PortfolioTxSheet(
     }
 
     if (askDiscard) {
-        AlertDialog(
-            onDismissRequest = { askDiscard = false },
-            title = { Text(stringResource(R.string.portfolio_discard_title)) },
-            confirmButton = {
-                TextButton(onClick = {
-                    askDiscard = false
-                    onDismiss()
-                }) { Text(stringResource(R.string.portfolio_discard_confirm), color = MaterialTheme.colorScheme.error) }
-            },
-            dismissButton = {
-                TextButton(onClick = { askDiscard = false }) { Text(stringResource(R.string.portfolio_discard_keep)) }
-            }
-        )
+        DiscardChangesDialog(onDiscard = { askDiscard = false; onDismiss() }, onKeep = { askDiscard = false })
     }
 
     if (askDelete) {

@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.ui.features.portfolio
 
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.rememberLazyListState
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -12,13 +14,11 @@ import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -26,13 +26,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.resources.R
-import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.portfolio.PortfolioCoinDeletion
-import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.rememberFabScroll
@@ -40,7 +35,6 @@ import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
-import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». Bedienung wie in der
@@ -137,37 +131,7 @@ fun PortfolioScreen(
     OnTabReselect(ScreenRoute.Portfolio) {
         if (reduceMotion) listState.scrollToItem(0) else listState.animateScrollToItem(0)
     }
-    // Adresse mit später aufgetauchter Überschneidung: einmal automatisch «Nur anzeigen» — sichtbar, mit «Rückgängig»
-    val overlapNotice by viewModel.addressOverlapNotice.collectAsStateWithLifecycle()
-    // Bei offenem Adressen-Blatt erst danach (das Banner läge hinter dem Blatt)
-    LaunchedEffect(overlapNotice, addressesOpen) {
-        val notice = overlapNotice?.takeIf { !addressesOpen } ?: return@LaunchedEffect
-        viewModel.consumeAddressOverlapNotice()
-        val text = resources.getString(
-            R.string.portfolio_address_overlap_auto, notice.names.joinToString(", "), notice.coins.joinToString(", "),
-        )
-        banner.show(text) { viewModel.undoAddressOverlap(notice) }
-    }
-
-    // Kein Schlüssel: Portfolio nur im Arbeitsspeicher, nie unverschlüsselt gespeichert — sagen, nicht still (wie iOS
-    // «portfolio_save_pending»); der nächste Start versucht es erneut
-    val storageInMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
-    val portfolioInMemory = PortfolioDatabase.DB_NAME in storageInMemory
-    // Variante: Datei mit gespeichertem Stand ist da, nur der Schlüssel war gerade nicht lesbar — der Stand kommt nach
-    // einem Neustart zurück, Änderungen dieses Laufs nicht
-    val storageKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val portfolioKept = PortfolioDatabase.DB_NAME in storageKept
-    val closeLabel = stringResource(R.string.action_close)
-    // Dauerhinweis (wie die Merkliste): steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder; bei
-    // offenem Adressen-Blatt erst danach (das Banner läge dahinter). Gesperrtes Schreiben: PortfolioStorageLock
-    LaunchedEffect(portfolioInMemory, portfolioKept, addressesOpen) {
-        if (!portfolioInMemory || addressesOpen) {
-            banner.clearResting()
-            return@LaunchedEffect
-        }
-        val text = if (portfolioKept) R.string.portfolio_storage_kept_in_memory else R.string.portfolio_storage_in_memory
-        banner.showResting(resources.getString(text), closeLabel)
-    }
+    PortfolioBannerEffects(viewModel, banner, addressesOpen)
 
     PortfolioScreenDialogs(
         viewModel = viewModel,
@@ -219,29 +183,8 @@ fun PortfolioScreen(
 
     // Wischen auf einem Coin: erst Rückfrage mit der Zahl der Transaktionen, dann alle weg, «Rückgängig» im Banner
     var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
-    val coinHaptics = rememberHaptics()
-    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt «entfernt» (wie iOS)
-    val notSaved = { result: PortfolioWriteResult ->
-        banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
-    }
-    fun deleteCoin(coin: String) {
-        viewModel.deleteCoin(coin, onFailed = notSaved) { removed ->
-            if (removed.isNotEmpty()) coinHaptics.play(HapticEvent.DESTRUCTIVE)
-            // Zurück kommen auch die Transaktionen, die nur ihre Gebühr in diesem Coin verloren; gezählt werden die gelöschten
-            val key = PortfolioCalculator.normalizeCoin(coin)
-            val count = removed.count { PortfolioCoinDeletion.involves(it, key) }
-            val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, count, coin, count)
-            banner.show(text) { viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) } }
-        }
-    }
     askDeleteCoin?.let { coin ->
-        DeleteCoinDialog(
-            coin = coin,
-            count = txCounts[PortfolioCalculator.normalizeCoin(coin)] ?: 0,
-            feeRefs = PortfolioCoinDeletion.counts(transactions.orEmpty(), coin).second,
-            onConfirm = { askDeleteCoin = null; deleteCoin(coin) },
-            onDismiss = { askDeleteCoin = null },
-        )
+        DeleteCoinFlow(viewModel, banner, transactions.orEmpty(), coin, txCounts) { askDeleteCoin = null }
     }
 
     Scaffold(

@@ -290,33 +290,7 @@ class PulseWidgetRenderer @Inject constructor(
                 views.setViewVisibility(R.id.pulse_coins_period, if (coins.isEmpty()) View.GONE else View.VISIBLE)
                 views.setTextViewText(R.id.pulse_coins_period, period24h)
                 views.setTextColor(R.id.pulse_coins_period, colors.secondaryTextColor)
-                PULSE_CHIPS.forEachIndexed { index, id ->
-                    val coin = coins.getOrNull(index)
-                    if (coin == null) {
-                        views.setViewVisibility(id, View.GONE)
-                        return@forEachIndexed
-                    }
-                    val color = when {
-                        PulseWidgetMath.isFlat(coin.change) -> colors.secondaryTextColor
-                        coin.change > 0 -> colors.upColor
-                        else -> colors.downColor
-                    }
-                    // Farbiger Text ohne Pille (wie iOS): Kürzel in der Textfarbe, Veränderung in der Kursfarbe
-                    val text = PulseWidgetMath.chipText(coin)
-                    views.setViewVisibility(id, View.VISIBLE)
-                    views.setTextViewText(
-                        id,
-                        android.text.SpannableString(text).apply {
-                            setSpan(
-                                android.text.style.ForegroundColorSpan(colors.textColor),
-                                0,
-                                coin.symbol.length,
-                                android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                            )
-                        },
-                    )
-                    views.setTextColor(id, color)
-                }
+                PulseWidgetChips.draw(views, coins, colors)
                 views.setViewVisibility(R.id.pulse_time, if (stand != null) View.VISIBLE else View.GONE)
                 views.setTextViewText(R.id.pulse_time, stand.orEmpty())
                 views.setTextColor(R.id.pulse_time, colors.secondaryTextColor)
@@ -392,9 +366,6 @@ class PulseWidgetRenderer @Inject constructor(
         const val PLAIN_EXPIRY_REQUEST_CODE = -7_015
     }
 }
-
-/** Die drei Coins des Widgets «Was gerade auffällt» als Text (widget_pulse.xml). */
-private val PULSE_CHIPS = listOf(R.id.pulse_chip_1, R.id.pulse_chip_2, R.id.pulse_chip_3)
 
 /** Die bis zu drei Sätze von «Kurz gesagt» im grossen Widget (widget_pulse.xml). */
 private val PULSE_PLAIN_LINES = listOf(R.id.pulse_plain_1, R.id.pulse_plain_2, R.id.pulse_plain_3)

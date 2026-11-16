@@ -24,28 +24,49 @@ internal data class SettingsSearchItem(val entry: SettingsSearchEntry, val targe
  */
 @Composable
 internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem> {
+    // Hauptseite Allgemein · Darstellung · Mehr. Der Pfad einer Seite kommt aus ihrem Ort
+    // (SettingsPage.home), damit er zur Anordnung passt
+    val index = SearchItemsBuilder(
+        general = stringResource(R.string.settings_group_general),
+        appearance = stringResource(R.string.settings_section_appearance),
+        more = stringResource(R.string.settings_group_more),
+    )
+    // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
+    // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
+    // frühere Stelle zuerst)
+    val portfolio = stringResource(R.string.portfolio_title)
+    val watchlist = stringResource(R.string.settings_row_watchlist)
+    return index
+        .generalSection(settings, portfolio, watchlist)
+        .appearanceSection(watchlist)
+        .alarmSection()
+        .portfolioSection(portfolio)
+        .moreSection(settings, watchlist)
+        .items
+}
+
+/** Sammelt die Treffer in Index-Reihenfolge; [homePath] = Gruppe der Hauptseite, unter der eine Seite steht. */
+internal class SearchItemsBuilder(private val general: String, private val appearance: String, private val more: String) {
     val items = ArrayList<SettingsSearchItem>()
+
     fun add(id: String, title: String, path: String, target: SettingsSearchTarget, vararg synonyms: String) {
         items += SettingsSearchItem(SettingsSearchEntry(id, title, path, synonyms.toList()), target)
     }
 
-    // Hauptseite Allgemein · Darstellung · Mehr. Der Pfad einer Seite kommt aus ihrem Ort
-    // (SettingsPage.home), damit er zur Anordnung passt
-    val general = stringResource(R.string.settings_group_general)
-    val appearance = stringResource(R.string.settings_section_appearance)
-    val more = stringResource(R.string.settings_group_more)
     fun homePath(page: SettingsPage): String = when (page.home) {
         SettingsHome.GENERAL -> general
         SettingsHome.APPEARANCE -> appearance
         SettingsHome.MORE -> more
         null -> ""
     }
+
     fun addPage(page: SettingsPage, title: String, vararg synonyms: String) =
         add("page." + page.name.lowercase(), title, homePath(page), SettingsSearchTarget.Page(page), *synonyms)
-    // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
-    // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
-    // frühere Stelle zuerst)
-    val portfolio = stringResource(R.string.portfolio_title)
+}
+
+/** 1 Allgemein: Portfolio-Seite, Sprache, Währung, Aktualisierung, Akku & Aktivität, Merkliste. */
+@Composable
+private fun SearchItemsBuilder.generalSection(settings: AppSettings, portfolio: String, watchlist: String): SearchItemsBuilder {
     addPage(SettingsPage.PORTFOLIO, portfolio,
         stringResource(R.string.settings_portfolio_tab), stringResource(R.string.portfolio_setting_hint))
     add("main.language", stringResource(R.string.settings_section_language), homePath(SettingsPage.LANGUAGE),
@@ -99,7 +120,6 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     addPage(SettingsPage.USAGE, usage, stringResource(R.string.battery_open_settings))
     add("usage.watch", stringResource(R.string.usage_watch), usage, SettingsSearchTarget.Page(SettingsPage.USAGE, "usage.watch"),
         stringResource(R.string.usage_watch_none))
-    val watchlist = stringResource(R.string.settings_row_watchlist)
     addPage(SettingsPage.WATCHLIST, watchlist)
     add("watchlist.names", stringResource(R.string.settings_watchlist_names), watchlist,
         SettingsSearchTarget.Page(SettingsPage.WATCHLIST, "watchlist.names"),
@@ -113,7 +133,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("watchlist.activity", stringResource(R.string.settings_watchlist_activity_card), watchlist,
         SettingsSearchTarget.Page(SettingsPage.WATCHLIST, "watchlist.activity"),
         stringResource(R.string.settings_watchlist_activity_card_hint), "⚡")
+    return this
+}
 
+@Composable
+private fun SearchItemsBuilder.appearanceSection(watchlist: String): SearchItemsBuilder {
     // 2 Darstellung
     val mode = stringResource(R.string.settings_theme_mode)
     addPage(SettingsPage.DISPLAY_MODE, mode,
@@ -158,7 +182,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("widgets.watch_prices", stringResource(R.string.settings_watch_prices), stringResource(R.string.settings_widgets),
         SettingsSearchTarget.Page(SettingsPage.WIDGETS, "widgets.watch_prices"),
         stringResource(R.string.settings_watch_prices_phone), stringResource(R.string.settings_watch_prices_self))
+    return this
+}
 
+@Composable
+private fun SearchItemsBuilder.alarmSection(): SearchItemsBuilder {
     // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe ebenfalls unter «Alarme»
     val alarms = stringResource(R.string.settings_row_alarms)
     addPage(SettingsPage.ALARMS, alarms)
@@ -218,7 +246,11 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("speech.alarms_only", stringResource(R.string.settings_tts_alarms_only), speech,
         SettingsSearchTarget.Speech("speech.alarms_only"), stringResource(R.string.settings_tts_alarms_only_hint))
     add("speech.test", stringResource(R.string.settings_tts_test), speech, SettingsSearchTarget.Speech("speech.test"))
+    return this
+}
 
+@Composable
+private fun SearchItemsBuilder.portfolioSection(portfolio: String): SearchItemsBuilder {
     // 4 Portfolio (unter «Allgemein»; die Seite selbst steht oben im Index)
     add("portfolio.tab", stringResource(R.string.settings_portfolio_tab), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.tab"), stringResource(R.string.portfolio_setting_hint))
@@ -243,7 +275,12 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("portfolio.address_server", stringResource(R.string.settings_address_server_title), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.address_server"),
         stringResource(R.string.settings_address_server_hint))
+    return this
+}
 
+/** 5 Sicherung, Zurücksetzen, Token & TradFi, 6 Über die App (Diagnose und Entwickler nur freigeschaltet). */
+@Composable
+private fun SearchItemsBuilder.moreSection(settings: AppSettings, watchlist: String): SearchItemsBuilder {
     // 5 Sicherung (unter «Mehr»)
     val backup = stringResource(R.string.backup_title)
     addPage(SettingsPage.BACKUP, backup,
@@ -298,5 +335,5 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
             SettingsSearchTarget.Page(SettingsPage.DEVELOPER, "developer.http_log"),
             stringResource(R.string.settings_http_log_hint))
     }
-    return items
+    return this
 }

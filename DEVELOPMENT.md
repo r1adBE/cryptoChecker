@@ -3239,6 +3239,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 257: Modul `resources` (A241-A-03 Teil 3a), Strings unter `android/resources/src/main/res`.
 * Build 258: Modul `coreui` (A241-A-03 Teil 3b).
 * Build 259: Modul `widget` (A241-A-03 Teil 3c), Schnittstellen `WidgetHostPorts.kt`.
+* Build 260: Oberflächen-Funktionen Kotlin ≤ 250 Zeilen (A241-A-02/I-02 Rest), acht neue Teil-Dateien.
 
 ## Known warnings
 

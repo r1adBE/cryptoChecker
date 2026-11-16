@@ -11,29 +11,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.IntSize
@@ -261,103 +251,14 @@ internal fun SheetChartCanvas(
                     scrub = null
                 }
             }
-            .drawWithCache {
-                val geo = geometry ?: return@drawWithCache onDrawBehind { }
-                val shown = geo.candles
-
-                val hairline = max(1f, 0.6f * dp)
-                val gridColor = secondary.copy(alpha = secondary.alpha * if (highContrast) 0.35f else 0.12f)
-                val levelColor = secondary.copy(alpha = secondary.alpha * if (highContrast) 0.35f else 0.20f)
-                val lineColor = if (geo.up) upColor else downColor
-                val linePath = Path().apply {
-                    geo.linePoints.forEachIndexed { i, (px, py) -> if (i == 0) moveTo(px, py) else lineTo(px, py) }
-                }
-                val fillPath = Path().apply {
-                    addPath(linePath)
-                    lineTo(geo.linePoints.last().first, geo.plotBottom)
-                    lineTo(geo.linePoints.first().first, geo.plotBottom)
-                    close()
-                }
-                val dash = PathEffect.dashPathEffect(floatArrayOf(3f * dp, 2.5f * dp), 0f)
-                val tagLeft = geo.plotRight + gap
-
-                onDrawBehind {
-                    // Zeitgitter und Preisstufen
-                    for (gx in geo.gridXs) drawLine(gridColor, Offset(gx, 0f), Offset(gx, size.height), hairline)
-                    for (price in listOf(geo.levels.high, geo.levels.mid, geo.levels.low)) {
-                        val y = geo.y(price)
-                        drawLine(levelColor, Offset(geo.plotLeft, y), Offset(geo.plotRight, y), hairline)
-                    }
-                    // Volumen unten (dezent, hinter Kerzen bzw. Linie)
-                    if (volumes != null) {
-                        val zoneHeight = (geo.plotBottom - geo.plotTop) * SheetChart.VOLUME_HEIGHT_FRACTION
-                        val barWidth = max(1f * dp, geo.slotWidth * 0.6f)
-                        val volumeAlpha = if (highContrast) 0.40f else 0.22f
-                        volumes.forEachIndexed { i, fraction ->
-                            val c = shown.getOrNull(i)
-                            if (c != null && fraction > 0f) {
-                                val h = max(1f * dp, zoneHeight * fraction)
-                                // Nur genäherter Umsatz (Menge × Schluss): halb so kräftig
-                                val alpha = if (c.volumeApproximated) volumeAlpha * 0.5f else volumeAlpha
-                                val color = (if (c.up) upColor else downColor).copy(alpha = alpha)
-                                drawRect(color, Offset(geo.xCenter(i) - barWidth / 2f, geo.plotBottom - h), Size(barWidth, h))
-                            }
-                        }
-                    }
-                    // Kerzen oder Linie
-                    when (type) {
-                        WidgetChartType.CANDLES -> for (c in geo.candleShapes) {
-                            val color = if (c.up) upColor else downColor
-                            val wick = min(1f * dp, c.bodyWidth)
-                            drawRect(color, Offset(c.x - wick / 2f, c.wickTop), Size(wick, c.wickBottom - c.wickTop))
-                            drawRect(color, Offset(c.x - c.bodyWidth / 2f, c.bodyTop), Size(c.bodyWidth, c.bodyBottom - c.bodyTop))
-                        }
-                        WidgetChartType.LINE -> {
-                            drawPath(fillPath, lineColor.copy(alpha = 40f / 255f))
-                            drawPath(
-                                linePath,
-                                lineColor,
-                                style = Stroke(width = 1.5f * dp, cap = StrokeCap.Round, join = StrokeJoin.Round)
-                            )
-                        }
-                    }
-                    // Aktueller Kurs: gestrichelte Akzentlinie und Etikett
-                    drawLine(
-                        accent.copy(alpha = if (highContrast) 1f else 0.7f),
-                        Offset(geo.plotLeft, geo.currentY),
-                        Offset(geo.plotRight, geo.currentY),
-                        strokeWidth = max(1f, 0.8f * dp),
-                        pathEffect = dash,
-                    )
-                    drawRoundRect(
-                        accent,
-                        topLeft = Offset(tagLeft, geo.tagSpan.top),
-                        size = Size(size.width - tagLeft, geo.tagSpan.bottom - geo.tagSpan.top),
-                        cornerRadius = CornerRadius(3f * dp),
-                    )
-                    drawText(
-                        tagLayout,
-                        topLeft = Offset(tagLeft + tagPadH, (geo.tagSpan.top + geo.tagSpan.bottom) / 2f - tagLayout.size.height / 2f),
-                    )
-                    // Beschriftungen der Preisstufen (das Etikett gewinnt)
-                    for (label in geo.labels) {
-                        val layout = labelLayouts.getValue(label.kind)
-                        drawText(layout, topLeft = Offset(tagLeft + tagPadH, label.y - layout.size.height / 2f))
-                    }
-                    // Ziehen: senkrechte Markierung und Punkt auf dem Schluss
-                    scrub?.let { i ->
-                        val candle = shown.getOrNull(i) ?: return@let
-                        val mx = geo.xCenter(i)
-                        drawLine(
-                            marker.copy(alpha = 0.6f),
-                            Offset(mx, geo.plotTop),
-                            Offset(mx, geo.plotBottom),
-                            strokeWidth = max(1f, 1f * dp),
-                        )
-                        drawCircle(marker, radius = 3.5f * dp, center = Offset(mx, geo.y(candle.close)))
-                    }
-                }
-            }
+            .sheetChartDrawing(
+                geometry = { geometry },
+                scrub = { scrub },
+                type = type,
+                volumes = volumes,
+                paint = SheetChartPaint(upColor, downColor, accent, secondary, marker, highContrast),
+                tag = SheetChartTag(tagLayout, labelLayouts, gap, tagPadH),
+            )
     ) {
         // Etikett beim Ziehen: «98’450 USDT · Di 14:00» und die Anzeige «+1.20%», über der Markierung
         val index = scrub

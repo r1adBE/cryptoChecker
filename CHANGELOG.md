@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 260)
+
+- Android code structure (no behaviour change): every user-interface function now has at most 250 lines (ceiling 317 → 250): the watchlist screen, address sheet, portfolio tab, sheet chart, watchlist row, settings search index, pulse widget and transaction sheet were split into smaller parts.
+
 ## 16.2.2 (build 259)
 
 - Android code structure (no behaviour change): the widgets (about 10,500 lines) moved to a new module `widget`; what they need from the app (scheduling, portfolio alarms, watch feed, check after the network returns) comes through interfaces bound in the app (`WidgetHostModule`); the main activity is opened by name (`AppIntents`, checked by a test); `assetKind` and `ALPHA_GLYPH` moved to `domain.watch`.

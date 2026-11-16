@@ -5,12 +5,12 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import androidx.compose.runtime.getValue
 import android.annotation.SuppressLint
 import androidx.compose.ui.zIndex
 import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
-import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
@@ -20,14 +20,8 @@ import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -37,23 +31,14 @@ import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.refresh.RefreshDebounce
-import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.ChangeView
 import com.cryptochecker.app.domain.watch.DisabledView
 import com.cryptochecker.app.domain.watch.QuickView
-import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.ui.components.LocalRowHighlight
-import com.cryptochecker.app.ui.components.RowHighlight
-import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.theme.rememberReduceMotion
-import com.cryptochecker.app.util.StartupClock
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -126,42 +111,15 @@ fun WatchlistScreen(
     val markFallbackIds by viewModel.markFallbackIds.collectAsStateWithLifecycle()
     val hourlyCloseIds by viewModel.hourlyCloseIds.collectAsStateWithLifecycle()
     val exchangePauses by viewModel.exchangePauses.collectAsStateWithLifecycle()
-    LifecycleStartEffect(Unit) {
-        viewModel.setLiveVisible(true)
-        // Tage mit offener App zählen (erster Gebrauch, [com.cryptochecker.app.domain.watch.WatchlistOnboarding])
-        viewModel.recordUsageDay()
-        onStopOrDispose { viewModel.setLiveVisible(false) }
-    }
-
-    // App-Start messen: erstes Bild der Merkliste aus dem Zwischenspeicher (nur lokal, Bericht «Ablauf»)
-    ReportDrawnWhen { loaded }
-    LaunchedEffect(loaded) {
-        if (loaded) {
-            withFrameNanos { }
-            StartupClock.onFirstFrame()?.let(viewModel::recordAppStart)
-        }
-    }
+    WatchlistVisibleEffects(viewModel, loaded)
 
     // Ungewöhnliche Aktivität: nur noch gültige Signale, je Paar stärkstes zuerst
-    val activity = state.content.activity
-    val sensitivity = display.activitySensitivity
     // Nach der gewählten Empfindlichkeit neu beurteilt (gleiche Schwellen wie die Meldungen)
     // Nicht mehr gehandelte Paare: kein ⚡, nicht in der Karte (auch bevor die Auswertung aufräumt)
-    val signals = rememberActivitySignals(watches, activity, now, sensitivity)
+    val signals = rememberActivitySignals(watches, state.content.activity, now, display.activitySensitivity)
     val notTradedIds = signals.notTradedIds
     val activeSignals = signals.activeSignals
     val hot = signals.hot
-
-    // Leere Merkliste: Start-Auswahl der grössten Coins ([StarterUiState])
-    // Start-Auswahl: neue Paare haben Kurs-Mitteilungen an — Erlaubnis jetzt fragen (wie im Explorer)
-    // Start-Auswahl übernommen: erst kurz erklären, dann die System-Abfrage
-    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
-        com.cryptochecker.app.ui.components.NotificationAsk.PAIRS_ADDED
-    )
-    // Erst fragen, wenn das Banner «… wird jetzt überwacht» mit «Alarm setzen» weg ist (abgelaufen oder
-    // weggewischt) — sonst verdeckt die Erklärung genau diesen ersten Schritt. Mit «Alarm setzen» getippt fragt
-    // das Speichern des Alarms selbst (gleich wie iOS).
-    var askNotificationsAfterHint by rememberSaveable { mutableStateOf(false) }
 
     val ui = rememberWatchlistScreenState()
     // ⚡ nur mit Paaren, bei denen gerade etwas passiert (abschaltbar unter Einstellungen › Merkliste)
@@ -171,13 +129,8 @@ fun WatchlistScreen(
     // Gezeigt: die Gruppen-Ansicht oder vorübergehend ⚡, «nur veraltete» bzw. «nur deaktivierte» ([QuickView])
     val visible = rememberVisibleWatches(ui, groupVisible, hot, now, staleAfter, liveIds, activityChip)
     // Mehrfachauswahl: nur Paare, die es noch gibt und die zu sehen sind
-    val selectedIds = remember(ui.selectedIds, visible) {
-        val ids = visible.mapTo(HashSet()) { it.id }
-        ui.selectedIds.filterTo(HashSet()) { it in ids }
-    }
-    // Live-Kurse für die gezeigten Paare (auch in der ⚡-Ansicht über alle Gruppen); deaktivierte nie
-    val livePairs = remember(visible) { DisabledView.active(visible) { it.disabled }.map { it.toLivePair() } }
-    LaunchedEffect(livePairs) { viewModel.setLivePairs(livePairs) }
+    val selectedIds = remember(ui.selectedIds, visible) { visibleSelection(ui.selectedIds, visible) }
+    WatchlistLivePairs(viewModel, visible)
     // Rückkehr aus «Alarme», Blatt aus einer Meldung bzw. Widget-Zeile, Zurück-Taste ([WatchlistNavigationEffects])
     WatchlistNavigationEffects(
         ui = ui,
@@ -205,32 +158,13 @@ fun WatchlistScreen(
     val banner = rememberWatchlistBanner(scope)
     // Alarm löst bei offener App aus: Glocke im Kopf pulsiert einmal (ohne Bewegung: nicht)
     val bellScale = rememberBellPulse(latestAlarmTrigger, reduceMotion)
-    // Erst-Moment (Start-Merkliste, allererstes Paar), siehe [rememberAddMoment]
-    val lifecycle = androidx.lifecycle.compose.LocalLifecycleOwner.current.lifecycle
-    val moment = rememberAddMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms) { alarmTapped ->
-        if (askNotificationsAfterHint) {
-            askNotificationsAfterHint = false
-            // Banner nur weg, weil die Merkliste verlassen wird («+», App zu): nicht fragen — sonst stünde die
-            // Erklärung über dem nächsten Bildschirm (Explorer) bzw. ginge bei der Zurück-Geste wieder auf
-            val onScreen = lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)
-            if (!alarmTapped && onScreen) requestNotifications()
-        }
-    }
+    // Erst-Moment (Start-Merkliste, allererstes Paar) samt Frage nach Mitteilungen ([rememberStarterMoment])
+    val starterMoment = rememberStarterMoment(viewModel, watches, loaded, alarmCounts, banner, onOpenAlarms)
+    val moment = starterMoment.moment
 
-    // Alles aktualisieren (nach unten ziehen, Menü). Eben erst aktualisiert (unter 15 s): kein neuer
-    // Durchlauf — der Menüpunkt ist dann grau mit Countdown ([WatchlistMenu]); wer zieht, sieht den Kreisel
-    // kurz drehen und dann «Gerade aktualisiert · vor N s» (die Sperre bleibt intern, RefreshDebounce.pullEchoSeconds).
-    var pullEcho by remember { mutableStateOf(false) }
-    val requestRefresh: () -> Unit = {
-        val decision = viewModel.refreshAllByUser()
-        val ago = RefreshDebounce.pullEchoSeconds(decision, viewModel.lastFullRefreshAt(), System.currentTimeMillis())
-        if (ago != null && !pullEcho) scope.launch {
-            pullEcho = true
-            delay(RefreshDebounce.PULL_ECHO_MILLIS)
-            pullEcho = false
-            banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
-        }
-    }
+    // Alles aktualisieren (nach unten ziehen, Menü; [rememberPullRefresh])
+    val pull = rememberPullRefresh(viewModel, scope, banner, resources)
+    val requestRefresh = pull.request
     // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
     // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner über Ereignisse im
     // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
@@ -268,13 +202,7 @@ fun WatchlistScreen(
     val listed = rememberColumnSorted(shown, columnSort, sortRates, changeView, ui.sortMode)
     // ★/⚡ in den Zeilen nur farbig, solange der passende Chip gewählt ist
     // ebenso das Art-Symbol vor der Glocke (Token, TradFi, α)
-    val rowHighlight = RowHighlight(
-        favorites = ui.quickView == null && WatchFilter.isFavorites(selectedGroup),
-        activity = ui.quickView == QuickView.ACTIVITY,
-        tokens = ui.quickView == null && WatchFilter.isTokens(selectedGroup),
-        tradFi = ui.quickView == null && selectedGroup == AutoGroup.TRADFI,
-        alpha = ui.quickView == null && WatchFilter.isAlpha(selectedGroup),
-    )
+    val rowHighlight = rowHighlightFor(ui.quickView, selectedGroup)
     CompositionLocalProvider(
         LocalChangeView provides changeView,
         LocalRowHighlight provides rowHighlight,
@@ -306,28 +234,18 @@ fun WatchlistScreen(
             // «Mehrere Paare auf einmal» läuft noch: Balken oben, über der Liste
             WatchlistBulkAdd(banner, Modifier.padding(padding).zIndex(1f))
 
-            if (!loaded) {
-                SkeletonList(modifier = Modifier.padding(padding))
-                return@Scaffold
-            }
-
-            if (watches.isEmpty()) {
-                WatchlistStarterPicker(
-                    modifier = Modifier.fillMaxSize().padding(padding),
-                    starter = starter,
-                    viewModel = viewModel,
-                    onAddClick = onAddClick,
+            // Noch nicht geladen (Gerüst) bzw. leer (Start-Auswahl): [showsNotListed]
+            if (showsNotListed(
+                    loaded, watches.isEmpty(), Modifier.padding(padding), starter, viewModel, onAddClick,
                     // Glocke nur, wenn sie mehr kann als «+» (Alarme vorhanden, z. B. im Portfolio)
                     onOpenAlarms = onBellClick.takeIf { (alarmTotal ?: 0) > 0 },
-                    // Mitteilungs-Erlaubnis erst nach dem Banner (siehe askNotificationsAfterHint)
-                    onStartersAdded = { askNotificationsAfterHint = true },
+                    onStartersAdded = starterMoment.askAfterHint,
                 )
-                return@Scaffold
-            }
+            ) return@Scaffold
 
             // Liste nach unten ziehen = alles aktualisieren (wie der Knopf oben).
             PullToRefreshBox(
-                isRefreshing = refreshing || pullEcho,
+                isRefreshing = refreshing || pull.echo,
                 onRefresh = requestRefresh,
                 modifier = Modifier.fillMaxSize().padding(padding)
             ) {

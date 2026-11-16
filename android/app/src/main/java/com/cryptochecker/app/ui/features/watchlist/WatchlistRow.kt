@@ -7,18 +7,14 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,31 +25,21 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.CustomAccessibilityAction
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
 import com.cryptochecker.resources.R
 import com.cryptochecker.app.domain.WatchMove
 import com.cryptochecker.app.domain.model.WatchEntity
-import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.shownChange
-import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ListSegment
-import com.cryptochecker.app.ui.components.LocalCoinLogoSource
 import com.cryptochecker.app.ui.components.LocalCoinNameSource
-import com.cryptochecker.app.ui.components.LocalRowHighlight
 import com.cryptochecker.app.ui.components.coinName
 import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
@@ -153,20 +139,13 @@ internal fun WatchRow(
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
     // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
-    val moveUpLabel = stringResource(R.string.a11y_move_up)
-    val moveDownLabel = stringResource(R.string.a11y_move_down)
-    val deleteLabel = stringResource(R.string.action_delete)
-    val favoriteLabel = stringResource(if (watch.favorite) R.string.favorite_remove else R.string.favorite_add)
-    val selectLabel = stringResource(R.string.watchlist_select)
-    // Tipp öffnet das Aktionsblatt: TalkBack sagt «zum Kurs und Aktionen zeigen doppeltippen» statt «zum Aktivieren»
-    val openLabel = stringResource(R.string.unusual_action_open)
+    val labels = rememberWatchRowLabels(watch.favorite)
     val changeView = LocalChangeView.current
     val name = coinName(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     // Gezeigte Änderung aus fremden Kerzen: Anbieter für Marker und Zeilensatz (gleiche Regel wie iOS)
     val changeMarker = DayChange.rowChangeMarker(changeSource, watch.shownChange(changeView), changeView.basis.isSinceLast)
     // Tippen auf das «*» (bzw. Screenreader-Aktion der Zeile): kurz erklären, woher die Änderung kommt — ohne das
     // Aktionsblatt zu öffnen. Im Sortier- und Auswahlmodus nicht (dort gehört jeder Tipp der Zeile).
-    val sourceHintLabel = stringResource(R.string.change_candle_source_action)
     val sourceHintText = changeMarker?.let { stringResource(R.string.change_candle_source_hint, it) }
     // Im Banner der Merkliste (Snackbar) statt als Toast: gleiche Stelle wie alle anderen Hinweise
     val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text -> { onSourceHint(text) } }
@@ -213,36 +192,20 @@ internal fun WatchRow(
             .segmentLines(shape, divider = ListSegment.dividerColor(), outline = ListSegment.outlineColor())
             .fillMaxWidth()
             .animateContentSize()
-            .then(
-                // Auswahl: langes Drücken löst beim Loslassen wie ein Tipp aus (hakt an/ab)
-                if (selecting) Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onClick() })
-                // Lange drücken startet die Mehrfachauswahl; im Sortiermodus nicht (dort zieht man)
-                else if (!sortMode && onLongClick != null) Modifier.combinedClickable(
-                    onClickLabel = openLabel,
-                    onLongClickLabel = selectLabel,
-                    onLongClick = onLongClick,
-                    onClick = onClick,
-                )
-                else Modifier.clickable(onClickLabel = openLabel.takeIf { !sortMode }, onClick = onClick)
+            .watchRowActions(
+                labels = labels,
+                description = rowDescription,
+                sortMode = sortMode,
+                selecting = selecting,
+                selected = selected,
+                onClick = onClick,
+                onLongClick = onLongClick,
+                onFavoriteAction = onFavoriteAction,
+                onDeleteAction = onDeleteAction,
+                onSourceHint = showSourceHint,
+                canReorder = canReorder,
+                onMove = onMove,
             )
-            .semantics {
-                contentDescription = rowDescription
-                val actions = buildList {
-                    // Wie die Wisch-Gesten; im Sortier- und Auswahlmodus nicht
-                    if (!sortMode && !selecting) {
-                        onFavoriteAction?.let { action -> add(CustomAccessibilityAction(favoriteLabel) { action(); true }) }
-                        onDeleteAction?.let { action -> add(CustomAccessibilityAction(deleteLabel) { action(); true }) }
-                        // «Auswählen» wie langes Drücken (startet die Mehrfachauswahl mit dieser Zeile)
-                        onLongClick?.let { action -> add(CustomAccessibilityAction(selectLabel) { action(); true }) }
-                    }
-                    showSourceHint?.let { action -> add(CustomAccessibilityAction(sourceHintLabel) { action(); true }) }
-                    if (canReorder) {
-                        add(CustomAccessibilityAction(moveUpLabel) { onMove(WatchMove.UP); true })
-                        add(CustomAccessibilityAction(moveDownLabel) { onMove(WatchMove.DOWN); true })
-                    }
-                }
-                if (actions.isNotEmpty()) customActions = actions
-            }
     ) {
         // Mit «Namen anzeigen» oben bündig: links Paar / Name / Börse, rechts Kurs / Änderung /
         // ≈ Umrechnung stehen je auf einer Linie; Logo, Mini-Chart und Griff bleiben mittig
@@ -289,32 +252,7 @@ internal fun WatchRow(
                             handleModifier = handleModifier,
                         )
                     }
-                    // Coin-Logo (bzw. Initialen) vor dem Paar, Favorit als kleiner Stern daran; feste Grösse,
-                    // nimmt nur dem Paar-Text Platz. Logos aus: keine Plakette, Favorit als eigener kleiner Stern.
-                    if (LocalCoinLogoSource.current == null && watch.favorite && !sortMode) {
-                        Icon(
-                            painterResource(R.drawable.ic_star),
-                            contentDescription = null,
-                            // Wie der Stern am Logo: weiss, in der Themenfarbe nur mit gewähltem ★-Chip
-                            tint = if (LocalRowHighlight.current.favorites) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp, end = Spacing.sm)
-                                .size(16.dp)
-                        )
-                    }
-                    CoinBadge(
-                        watch.baseAsset,
-                        size = ROW_BADGE_SIZE,
-                        logo = CoinLogos.allowedFor(watch.exchangeKey),
-                        pair = CoinLogos.pairKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
-                        favorite = watch.favorite && !sortMode,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(end = 8.dp)
-                            .alpha(if (off) DISABLED_ICON_ALPHA else 1f)
-                    )
+                    RowLogo(watch, sortMode, off)
                     RowInfo(
                         watch = watch,
                         alarmCount = alarmCount,
