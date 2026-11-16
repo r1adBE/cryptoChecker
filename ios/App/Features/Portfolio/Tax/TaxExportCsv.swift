@@ -42,94 +42,16 @@ extension TaxExport {
                          format: CutoffCsvFormat = .semicolonPoint,
                          lostFeeCosts: [PortfolioLostFeeCost] = [], timeZone: TimeZone = TimeZone(identifier: "UTC")!,
                          unassignedFees: [PortfolioUnassignedFee] = []) -> String {
-        func n(_ text: String) -> String {
-            format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text
-        }
-        func money(_ v: Decimal?) -> CsvCell { CsvCell(text: n(v.map { CutoffExport.money($0) } ?? ""), numeric: true) }
-        func t(_ v: String) -> CsvCell { CsvCell(text: v) }
-        let blank = CsvCell(text: "", numeric: true)
-        let adj = rows.contains { $0.adjustmentUsdt != nil }
-        let fr = rows.contains { $0.portfolioValueUsdt != nil || $0.grossProceedsUsdt != nil }
-        /// Zusatzspalten einer Zeile (leer, wenn es sie nicht gibt).
-        func extra(_ a: Decimal?, _ aT: Decimal?, _ g: Decimal?, _ gT: Decimal?, _ v: Decimal?, _ vT: Decimal?) -> [CsvCell] {
-            var out: [CsvCell] = []
-            if adj { out += [money(a), money(aT)] }
-            if fr { out += [money(g), money(gT), money(v), money(vT)] }
-            return out
-        }
+        let c = GainsCells(format: format, adj: rows.contains { $0.adjustmentUsdt != nil },
+                           fr: rows.contains { $0.portfolioValueUsdt != nil || $0.grossProceedsUsdt != nil })
+        func money(_ v: Decimal?) -> CsvCell { c.money(v) }
+        func t(_ v: String) -> CsvCell { c.t(v) }
+        let blank = c.blank
         var out = bom
         for h in header { out += line([t(h)], format) }
         if !texts.timeZone.isEmpty { out += line([t(texts.timeZone)], format) }
-        var head: [CsvCell] = [texts.coin, texts.acquired, texts.sold, texts.holdingDays, texts.longTerm, texts.amount,
-                               texts.costUsdt, texts.proceedsUsdt, texts.gainUsdt,
-                               texts.costTarget, texts.proceedsTarget, texts.gainTarget].map { t($0) }
-        if adj { head += [t(texts.adjustmentUsdt), t(texts.adjustmentTarget)] }
-        if fr { head += [t(texts.grossUsdt), t(texts.grossTarget), t(texts.portfolioValueUsdt), t(texts.portfolioValueTarget)] }
-        head.append(t(texts.note))
-        out += line(head, format)
-        for r in rows {
-            var notes: [String] = []
-            let expenseText: String?
-            switch r.feeExpense {
-            case .some(.CONSUMED): expenseText = texts.feeConsumed
-            case .some(.WITHDRAWAL):
-                expenseText = r.feeInfoOnly && !texts.withdrawalFeeInfo.isEmpty ? texts.withdrawalFeeInfo : texts.withdrawalFee
-            case .some(.TRANSFER): expenseText = texts.transferFeeInfo
-            case .none: expenseText = nil
-            }
-            if let expenseText, !expenseText.isEmpty { notes.append(expenseText) }
-            if r.feeRow && !texts.feeRow.isEmpty { notes.append(texts.feeRow) }
-            if r.gift && !texts.gift.isEmpty { notes.append(texts.gift) }
-            if r.spouseGift && !texts.spouseGift.isEmpty { notes.append(texts.spouseGift) }
-            if r.payment && !texts.payment.isEmpty { notes.append(texts.payment) }
-            if r.valueEstimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
-            if r.usdtApproximate && !texts.usdtAssumed.isEmpty { notes.append(texts.usdtAssumed) }
-            let matchText: String?
-            switch r.match {
-            case .some(.SAME_DAY): matchText = texts.matchSameDay
-            case .some(.THIRTY_DAY): matchText = texts.matchThirtyDay
-            case .some(.POOL): matchText = texts.matchPool
-            case .none: matchText = nil
-            }
-            if let matchText, !matchText.isEmpty { notes.append(matchText) }
-            if let old = r.oldHolding {
-                let text = old ? texts.oldHolding : texts.newHolding
-                if !text.isEmpty { notes.append(text) }
-            }
-            if r.swap && !texts.swap.isEmpty { notes.append(texts.swap) }
-            if let w = r.wallet, !texts.wallet.isEmpty {
-                notes.append(texts.wallet.replacingOccurrences(of: "%s", with: w.isEmpty ? texts.walletUnspecified : w))
-            }
-            if r.feeLeg { notes.append(texts.feeLeg) }
-            if r.costMissing { notes.append(texts.costMissing) }
-            if r.uncovered && !texts.oversold.isEmpty { notes.append(texts.oversold) }
-            if r.proceedsMissing { notes.append(texts.proceedsMissing) }
-            if r.feeValueMissing { notes.append(texts.feeValueMissing) }
-            if r.costIncomplete && !texts.costIncomplete.isEmpty { notes.append(texts.costIncomplete) }
-            if r.adjustmentUsdt != nil && !texts.adjustment.isEmpty { notes.append(texts.adjustment) }
-            if r.pooled && r.costTarget != nil { notes.append(texts.avgCostRates) }
-            if r.fxMissing { notes.append(texts.noFx) }
-            let longTerm: String
-            switch r.longTerm {
-            case .some(true): longTerm = texts.yes
-            case .some(false): longTerm = texts.no
-            case .none: longTerm = ""
-            }
-            var cells: [CsvCell] = [
-                t(r.coin),
-                t(r.acquiredDate?.description ?? ""),
-                t(r.soldDate.description),
-                CsvCell(text: r.holdingDays.map { String($0) } ?? "", numeric: true),
-                t(longTerm),
-                CsvCell(text: n(CutoffExport.amount(r.amount)), numeric: true),
-                money(r.costUsdt), money(r.proceedsUsdt), money(shownGainUsdt(r)),
-                money(r.costTarget), money(r.proceedsTarget), money(shownGainTarget(r)),
-            ]
-            cells += extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget,
-                           r.portfolioValueUsdt, r.portfolioValueTarget)
-            cells.append(t(notes.joined(separator: ", ")))
-            out += line(cells, format)
-        }
+        out += line(gainsHeaderCells(c, texts), format)
+        for r in rows { out += line(gainRowCells(c, r, texts), format) }
         // Summe nur vollständiger Zeilen; fehlt irgendwo etwas, «unvollständig». Gebühren nur zur Information
         // (`TaxGainRow.feeInfoOnly`) zählen nicht mit, DE/AT auch die Auszahlungsgebühren nicht (eigene Summenzeile unten)
         let feesApart = !texts.withdrawalFeesTotal.isEmpty
@@ -152,7 +74,7 @@ extension TaxExport {
                 money(total(target) { $0.costTarget }), money(total(target) { $0.proceedsTarget }),
                 money(total(target, shownGainTarget)),
             ]
-            cells += extra(sum(list) { $0.adjustmentUsdt }, sum(list) { $0.adjustmentTarget },
+            cells += c.extra(sum(list) { $0.adjustmentUsdt }, sum(list) { $0.adjustmentTarget },
                            sum(list) { $0.grossProceedsUsdt }, sum(list) { $0.grossProceedsTarget }, nil, nil)
             cells.append(t(incomplete ? texts.incomplete : ""))
             return line(cells, format)
@@ -166,7 +88,7 @@ extension TaxExport {
                 blank, money(sum(noCost) { $0.proceedsUsdt }), blank,
                 blank, money(sum(noCost) { $0.proceedsTarget }), blank,
             ]
-            cells += extra(nil, nil, nil, nil, nil, nil)
+            cells += c.extra(nil, nil, nil, nil, nil, nil)
             cells.append(t(texts.incomplete))
             out += line(cells, format)
         }
@@ -175,28 +97,134 @@ extension TaxExport {
         // Netzwerkgebühr-Einstand ohne bezahlten Posten: kein Gewinn/Verlust, aber nicht still verloren
         if !texts.lostFeeCost.isEmpty {
             for l in lostFeeCosts {
-                var cells: [CsvCell] = [
-                    t(l.coin), t(""), t(localDay(l.time, timeZone: timeZone).description), blank, t(""), blank,
-                    money(l.costUsdt), blank, blank, blank, blank, blank,
-                ]
-                cells += extra(nil, nil, nil, nil, nil, nil)
-                cells.append(t(texts.lostFeeCost))
-                out += line(cells, format)
+                out += line(feeNoteCells(c, l.coin, localDay(l.time, timeZone: timeZone), l.costUsdt, texts.lostFeeCost), format)
             }
         }
         // Umbuchungsgebühr auf Bestand ohne Kaufpreis: offener Posten, sichtbar statt still verworfen
         if !texts.unassignedFee.isEmpty {
             for f in unassignedFees {
-                var cells: [CsvCell] = [
-                    t(f.coin), t(""), t(localDay(f.time, timeZone: timeZone).description), blank, t(""), blank,
-                    money(f.usdt), blank, blank, blank, blank, blank,
-                ]
-                cells += extra(nil, nil, nil, nil, nil, nil)
-                cells.append(t(texts.unassignedFee))
-                out += line(cells, format)
+                out += line(feeNoteCells(c, f.coin, localDay(f.time, timeZone: timeZone), f.usdt, texts.unassignedFee), format)
             }
         }
         return out
+    }
+
+    /// Zellen von `gainsCsv`: Zahlenformat und Zusatzspalten (CA `adj`, FR `fr`) nur, wenn eine Zeile sie hat — wie
+    /// Android `GainsCells`.
+    private struct GainsCells {
+        let format: CutoffCsvFormat
+        let adj: Bool
+        let fr: Bool
+        let blank = CsvCell(text: "", numeric: true)
+
+        func n(_ text: String) -> String {
+            format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text
+        }
+
+        func money(_ v: Decimal?) -> CsvCell { CsvCell(text: n(v.map { CutoffExport.money($0) } ?? ""), numeric: true) }
+
+        func t(_ v: String) -> CsvCell { CsvCell(text: v) }
+
+        /// Zusatzspalten einer Zeile (leer, wenn es sie nicht gibt).
+        func extra(_ a: Decimal?, _ aT: Decimal?, _ g: Decimal?, _ gT: Decimal?, _ v: Decimal?, _ vT: Decimal?) -> [CsvCell] {
+            var out: [CsvCell] = []
+            if adj { out += [money(a), money(aT)] }
+            if fr { out += [money(g), money(gT), money(v), money(vT)] }
+            return out
+        }
+    }
+
+    /// Spaltenköpfe von `gainsCsv`.
+    private static func gainsHeaderCells(_ c: GainsCells, _ texts: TaxCsvTexts) -> [CsvCell] {
+        var head: [CsvCell] = [texts.coin, texts.acquired, texts.sold, texts.holdingDays, texts.longTerm, texts.amount,
+                               texts.costUsdt, texts.proceedsUsdt, texts.gainUsdt,
+                               texts.costTarget, texts.proceedsTarget, texts.gainTarget].map { c.t($0) }
+        if c.adj { head += [c.t(texts.adjustmentUsdt), c.t(texts.adjustmentTarget)] }
+        if c.fr { head += [c.t(texts.grossUsdt), c.t(texts.grossTarget), c.t(texts.portfolioValueUsdt), c.t(texts.portfolioValueTarget)] }
+        head.append(c.t(texts.note))
+        return head
+    }
+
+    /// Vermerke einer Gewinnzeile (Spalte «Hinweis»), kommagetrennt; Teil von `gainsCsv`.
+    private static func gainNotes(_ r: TaxGainRow, _ texts: TaxCsvTexts) -> String {
+        var notes: [String] = []
+        let expenseText: String?
+        switch r.feeExpense {
+        case .some(.CONSUMED): expenseText = texts.feeConsumed
+        case .some(.WITHDRAWAL):
+            expenseText = r.feeInfoOnly && !texts.withdrawalFeeInfo.isEmpty ? texts.withdrawalFeeInfo : texts.withdrawalFee
+        case .some(.TRANSFER): expenseText = texts.transferFeeInfo
+        case .none: expenseText = nil
+        }
+        if let expenseText, !expenseText.isEmpty { notes.append(expenseText) }
+        if r.feeRow && !texts.feeRow.isEmpty { notes.append(texts.feeRow) }
+        if r.gift && !texts.gift.isEmpty { notes.append(texts.gift) }
+        if r.spouseGift && !texts.spouseGift.isEmpty { notes.append(texts.spouseGift) }
+        if r.payment && !texts.payment.isEmpty { notes.append(texts.payment) }
+        if r.valueEstimated && !texts.valueEstimated.isEmpty { notes.append(texts.valueEstimated) }
+        if r.usdtApproximate && !texts.usdtAssumed.isEmpty { notes.append(texts.usdtAssumed) }
+        let matchText: String?
+        switch r.match {
+        case .some(.SAME_DAY): matchText = texts.matchSameDay
+        case .some(.THIRTY_DAY): matchText = texts.matchThirtyDay
+        case .some(.POOL): matchText = texts.matchPool
+        case .none: matchText = nil
+        }
+        if let matchText, !matchText.isEmpty { notes.append(matchText) }
+        if let old = r.oldHolding {
+            let text = old ? texts.oldHolding : texts.newHolding
+            if !text.isEmpty { notes.append(text) }
+        }
+        if r.swap && !texts.swap.isEmpty { notes.append(texts.swap) }
+        if let w = r.wallet, !texts.wallet.isEmpty {
+            notes.append(texts.wallet.replacingOccurrences(of: "%s", with: w.isEmpty ? texts.walletUnspecified : w))
+        }
+        if r.feeLeg { notes.append(texts.feeLeg) }
+        if r.costMissing { notes.append(texts.costMissing) }
+        if r.uncovered && !texts.oversold.isEmpty { notes.append(texts.oversold) }
+        if r.proceedsMissing { notes.append(texts.proceedsMissing) }
+        if r.feeValueMissing { notes.append(texts.feeValueMissing) }
+        if r.costIncomplete && !texts.costIncomplete.isEmpty { notes.append(texts.costIncomplete) }
+        if r.adjustmentUsdt != nil && !texts.adjustment.isEmpty { notes.append(texts.adjustment) }
+        if r.pooled && r.costTarget != nil { notes.append(texts.avgCostRates) }
+        if r.fxMissing { notes.append(texts.noFx) }
+        return notes.joined(separator: ", ")
+    }
+
+    /// Eine Gewinnzeile von `gainsCsv`.
+    private static func gainRowCells(_ c: GainsCells, _ r: TaxGainRow, _ texts: TaxCsvTexts) -> [CsvCell] {
+        let longTerm: String
+        switch r.longTerm {
+        case .some(true): longTerm = texts.yes
+        case .some(false): longTerm = texts.no
+        case .none: longTerm = ""
+        }
+        var cells: [CsvCell] = [
+            c.t(r.coin),
+            c.t(r.acquiredDate?.description ?? ""),
+            c.t(r.soldDate.description),
+            CsvCell(text: r.holdingDays.map { String($0) } ?? "", numeric: true),
+            c.t(longTerm),
+            CsvCell(text: c.n(CutoffExport.amount(r.amount)), numeric: true),
+            c.money(r.costUsdt), c.money(r.proceedsUsdt), c.money(shownGainUsdt(r)),
+            c.money(r.costTarget), c.money(r.proceedsTarget), c.money(shownGainTarget(r)),
+        ]
+        cells += c.extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget,
+                         r.portfolioValueUsdt, r.portfolioValueTarget)
+        cells.append(c.t(gainNotes(r, texts)))
+        return cells
+    }
+
+    /// Gebühren-Zeile nach der Summe (Datum, Betrag USDT in der Einstand-Spalte, Vermerk `note`); Teil von `gainsCsv`.
+    private static func feeNoteCells(_ c: GainsCells, _ coin: String, _ date: LocalDay, _ usdt: Decimal?,
+                                     _ note: String) -> [CsvCell] {
+        var cells: [CsvCell] = [
+            c.t(coin), c.t(""), c.t(date.description), c.blank, c.t(""), c.blank,
+            c.money(usdt), c.blank, c.blank, c.blank, c.blank, c.blank,
+        ]
+        cells += c.extra(nil, nil, nil, nil, nil, nil)
+        cells.append(c.t(note))
+        return cells
     }
 
     /// CSV «Einkünfte» mit BOM; `header` = Kopfzeilen (je ein Feld). Mit `texts.totalInterest` und `texts.totalStaking`

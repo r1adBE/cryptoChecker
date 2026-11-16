@@ -93,28 +93,7 @@ extension WatchlistScreen {
 
             // Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche
             if watches.isEmpty && !filtering {
-                // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch): Knopf «Gruppe bearbeiten»
-                // unter dem Hinweis — langes Drücken ist nicht auffindbar (wie Android)
-                let editable = selectedGroup.flatMap { group in
-                    quickView == nil && groups.contains(group) && group != AutoGroup.tradFi ? group : nil
-                }
-                VStack(spacing: Spacing.xs) {
-                    Text(L(WatchFilter.isFavorites(selectedGroup) ? "watchlist_favorites_empty_hint" : "watchlist_group_empty_hint"))
-                        .font(.footnote)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .multilineTextAlignment(.center)
-                    if let editable, !WatchFilter.isFavorites(editable) {
-                        Button(L("group_edit_title")) {
-                            groupEdit = WatchGroupEditTarget(name: editable, isNew: false)
-                        }
-                        .font(.subheadline.weight(.semibold))
-                        .tint(accent.primary)
-                        .buttonStyle(.borderless)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 24)
-                .plainRow(top: 2, bottom: 2)
+                emptyGroupHint(selectedGroup: selectedGroup, groups: groups)
             }
 
             if sorting {
@@ -201,42 +180,8 @@ extension WatchlistScreen {
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: banner == nil)
         }
         // Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare
-        .overlay(alignment: .bottom) {
-            if selecting {
-                let chosen = watches.filter { selectedIds.contains($0.id) }
-                let allDisabled = !chosen.isEmpty && chosen.allSatisfy(\.disabled)
-                WatchlistSelectionBar(
-                    count: chosen.count,
-                    allFavorites: !chosen.isEmpty && chosen.allSatisfy(\.favorite),
-                    onFavorite: favoriteSelected,
-                    onGroup: { askGroupForSelection = true },
-                    onDelete: deleteSelected,
-                    allDisabled: allDisabled,
-                    onToggleDisabled: { disableSelected(!allDisabled) },
-                    // Auswahl bleibt stehen: zurück aus dem Vergleich lässt sie sich ändern
-                    onCompare: {
-                        if CompareMath.canCompare(chosen.count) {
-                            compareFor = WatchlistCompareTarget(ids: chosen.map(\.id))
-                        } else {
-                            banner = WatchlistBannerMessage(text: L("watchlist_compare_hint"))
-                        }
-                    }
-                )
-                .padding(.horizontal, 16)
-                .padding(.bottom, 12)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
-        }
-        .sheet(isPresented: $askGroupForSelection) {
-            let chosen = data.watches.filter { selectedIds.contains($0.id) }
-            // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
-            let common = Set(chosen.map { $0.groupName ?? "" })
-            WatchGroupSheet(current: common.count == 1 ? chosen.first?.groupName : nil,
-                            groups: data.watchGroups) { group, _, _ in groupSelected(group) }
-                .environment(\.appAccent, accent)
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
-        }
+        .overlay(alignment: .bottom) { selectionBar(watches) }
+        .sheet(isPresented: $askGroupForSelection) { selectionGroupSheet() }
         .scrollContentBackground(.hidden)
         // iPad/Querformat: Zeilen höchstens 640 pt breit, mittig
         .readableListMargins()
@@ -252,6 +197,75 @@ extension WatchlistScreen {
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: searching)
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: found.map(\.id))
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
+    }
+
+    /// Leere Ansicht (Gruppe ohne Paare): ruhiger Hinweis statt einer leeren Fläche; Teil von `list`.
+    @ViewBuilder
+    func emptyGroupHint(selectedGroup: String?, groups: [String]) -> some View {
+        // Eigene Gruppe (wie die Chips mit langem Drücken; TradFi ist automatisch): Knopf «Gruppe bearbeiten»
+        // unter dem Hinweis — langes Drücken ist nicht auffindbar (wie Android)
+        let editable = selectedGroup.flatMap { group in
+            quickView == nil && groups.contains(group) && group != AutoGroup.tradFi ? group : nil
+        }
+        VStack(spacing: Spacing.xs) {
+            Text(L(WatchFilter.isFavorites(selectedGroup) ? "watchlist_favorites_empty_hint" : "watchlist_group_empty_hint"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .multilineTextAlignment(.center)
+            if let editable, !WatchFilter.isFavorites(editable) {
+                Button(L("group_edit_title")) {
+                    groupEdit = WatchGroupEditTarget(name: editable, isNew: false)
+                }
+                .font(.subheadline.weight(.semibold))
+                .tint(accent.primary)
+                .buttonStyle(.borderless)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 24)
+        .plainRow(top: 2, bottom: 2)
+    }
+
+    /// Mehrfachauswahl: Favorit · Gruppe · Löschen für die angehakten Paare; Teil von `list`.
+    @ViewBuilder
+    func selectionBar(_ watches: [Watch]) -> some View {
+        if selecting {
+            let chosen = watches.filter { selectedIds.contains($0.id) }
+            let allDisabled = !chosen.isEmpty && chosen.allSatisfy(\.disabled)
+            WatchlistSelectionBar(
+                count: chosen.count,
+                allFavorites: !chosen.isEmpty && chosen.allSatisfy(\.favorite),
+                onFavorite: favoriteSelected,
+                onGroup: { askGroupForSelection = true },
+                onDelete: deleteSelected,
+                allDisabled: allDisabled,
+                onToggleDisabled: { disableSelected(!allDisabled) },
+                // Auswahl bleibt stehen: zurück aus dem Vergleich lässt sie sich ändern
+                onCompare: {
+                    if CompareMath.canCompare(chosen.count) {
+                        compareFor = WatchlistCompareTarget(ids: chosen.map(\.id))
+                    } else {
+                        banner = WatchlistBannerMessage(text: L("watchlist_compare_hint"))
+                    }
+                }
+            )
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+        }
+    }
+
+    /// Gruppe für die angehakten Paare wählen; Teil von `list`.
+    @ViewBuilder
+    func selectionGroupSheet() -> some View {
+        let chosen = data.watches.filter { selectedIds.contains($0.id) }
+        // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
+        let common = Set(chosen.map { $0.groupName ?? "" })
+        WatchGroupSheet(current: common.count == 1 ? chosen.first?.groupName : nil,
+                        groups: data.watchGroups) { group, _, _ in groupSelected(group) }
+            .environment(\.appAccent, accent)
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
     }
 
     /// Erster Gebrauch (`WatchlistOnboarding`): Puls und Gesten-Hinweis erst nach dem ersten Alarm

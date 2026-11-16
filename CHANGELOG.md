@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 253)
+
+- Code structure (no behaviour change): Android navigation graph destinations for watchlist, add-pair, market and portfolio moved out of `AppNavHost` (326 → 218 lines), the screen-reader sentence of a watchlist row in its own function; iOS watchlist list (empty-group hint, selection bar, group sheet) and the gains CSV split like Android. Function length ceilings lowered (Kotlin 317, Swift 205).
+
 ## 16.2.2 (build 252)
 
 - iOS code: the 11 longest logic functions (portfolio widget computation, background task, UK/CA/AT tax engines, price fetching and refresh, portfolio history, «why is it moving», CSV import rows, chart drawing) split into named helper functions without behaviour change, mirroring Android; ceiling for Swift logic functions lowered from 240 to 136 lines.

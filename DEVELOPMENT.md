@@ -3232,6 +3232,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 250: PriceTileService (tiles 1.6.2, concurrent-futures), requestTileUpdate with complication updates, verification metadata/keyring/lockfile, PriceTileRowsTest.
 * Build 251: lange Kotlin-Logik-Funktionen zerlegt (A241-A-02), Obergrenze `LOGIC_CEILINGS` Kotlin 100.
 * Build 252: lange Swift-Logik-Funktionen zerlegt (A241-A-02), `LOGIC_CEILINGS` Swift 136.
+* Build 253: Oberflächen-Funktionen zerlegt (A241-A-02, I-02), `FUNCTION_CEILINGS` Kotlin 317, Swift 205.
 
 ## Known warnings
 

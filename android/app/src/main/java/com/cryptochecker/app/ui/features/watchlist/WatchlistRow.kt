@@ -28,10 +28,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.Role
@@ -50,7 +48,6 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.ui.components.CoinBadge
 import com.cryptochecker.app.ui.components.ListSegment
@@ -62,10 +59,7 @@ import com.cryptochecker.app.ui.components.segmentLines
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.domain.watch.RowPause
-import com.cryptochecker.app.util.A11ySpeech
-import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.DenseRowText
-import com.cryptochecker.app.util.PriceFormat
 
 /**
  * Kompakte Zeile: Coin-Logo (mit Stern bei Favoriten), Paar, Börse, Kurs und Prozent-Änderung.
@@ -159,8 +153,6 @@ internal fun WatchRow(
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
     // Alarme, Zustand). ⚡ und Menü bleiben eigene Knöpfe, Favorit als Screenreader-Aktion; Tippen bleibt.
-    val context = LocalContext.current
-    val chartPeriod = stringResource(R.string.widget_range_24h)
     val moveUpLabel = stringResource(R.string.a11y_move_up)
     val moveDownLabel = stringResource(R.string.a11y_move_down)
     val deleteLabel = stringResource(R.string.action_delete)
@@ -184,56 +176,24 @@ internal fun WatchRow(
     val rowExchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
     val hourlyPrice = !markPrice && watch.lastPrice != null && (rowExchange.priceIsHourlyClose || watch.id in LocalHourlyClose.current)
     val reference = com.cryptochecker.marketdata.model.ReferenceSource.of(watch.exchangeKey)?.takeIf { !markPrice && watch.lastPrice != null }
-    // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
-    // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»
-    val notTraded = isNotTraded(watch.lastError)
-    val freshness = A11ySpeech.freshness(
-        disabled = off,
-        notTraded = notTraded,
-        failed = watch.lastError != null && !notTraded,
-        lastUpdate = watch.lastUpdate,
+    val rowDescription = watchRowDescription(
+        watch = watch,
+        name = name,
         now = now,
-        outdatedAfter = staleAfter,
-    )
-    val priceNotificationOn = A11ySpeech.priceNotificationOn(
-        pairOn = watch.notificationEnabled,
-        masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
-    )
-    val rowDescription = A11yText.row(
-        context = context,
-        pair = if (name == null) watch.displayName else "${watch.displayName}, $name",
-        exchange = watch.exchangeName,
-        price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
-        quote = watch.quoteAsset,
-        change24h = watch.shownChange(changeView),
-        basis = changeView.basis,
-        state = listOf(status.paused, A11yText.rowFreshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.spokenAge, status.unchanged),
-        extras = listOf(
-            changeMarker?.let { stringResource(R.string.change_candle_source, it) },
-            if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
-            if (hourlyPrice) stringResource(R.string.watch_price_hourly) else null,
-            reference?.let { com.cryptochecker.app.ui.components.referencePeriodText(it) },
-            (convertedA11y ?: converted)?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
-            sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
-            chartSource?.takeIf { sparkline != null && sparkline.size >= 2 }?.let { stringResource(R.string.watch_row_source_chart, it) },
-            watch.note?.let { stringResource(R.string.a11y_note, it) },
-            if (watch.favorite) stringResource(R.string.a11y_favorite) else null,
-        ),
-        // Art vor der Glocke nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall und
-        // stünde sonst in jeder Zeile
-        kind = if (kind == AssetKind.TOKEN) null else stringResource(kind.spokenRes),
-        alarms = listOf(
-            // Kursmitteilung nur, wenn sie aus ist — «an» ist der Normalfall und stünde sonst in jeder Zeile (wie iOS)
-            if (!priceNotificationOn) stringResource(R.string.a11y_price_notification_off) else null,
-            // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach
-            if (A11ySpeech.firedRecently(alarmFiredAt, now)) stringResource(R.string.a11y_alarm_fired) else null,
-            // «Alarme (2)» wie die Glocke der Zeile und das Aktionsblatt (Mehrzahl je Sprache)
-            if (alarmCount > 0) pluralStringResource(R.plurals.watchlist_alarms_count, alarmCount, alarmCount) else null,
-        ),
-        rest = listOf(
-            // Verständlicher Fehler (z. B. Paar unbekannt); «nicht mehr gehandelt» steht schon oben
-            status.error.takeIf { freshness != A11ySpeech.Freshness.NOT_TRADED },
-        ),
+        staleAfter = staleAfter,
+        off = off,
+        status = status,
+        changeView = changeView,
+        changeMarker = changeMarker,
+        markPrice = markPrice,
+        hourlyPrice = hourlyPrice,
+        reference = reference,
+        converted = convertedA11y ?: converted,
+        sparkline = sparkline,
+        chartSource = chartSource,
+        kind = kind,
+        alarmFiredAt = alarmFiredAt,
+        alarmCount = alarmCount,
     )
 
     // Liste als eine Einheit: kein eigener Rand je Zeile (auch nicht für Favoriten), sondern
