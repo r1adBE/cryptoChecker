@@ -144,6 +144,17 @@ androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "a
 androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiautomator" }
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "benchmark" }
 
+# Nur Build-Werkzeuge (AGP, Lint, Hilt-Plugin): Mindestversionen ohne bekannte Lücken, als Constraints im
+# Wurzel-Buildskript (Audit C-07; OSV-Abfrage 16.11.2026). Nicht in der App.
+buildtool-bcprov = { module = "org.bouncycastle:bcprov-jdk18on", version = "1.85" }
+buildtool-bcpkix = { module = "org.bouncycastle:bcpkix-jdk18on", version = "1.85" }
+buildtool-bcutil = { module = "org.bouncycastle:bcutil-jdk18on", version = "1.85" }
+buildtool-guava = { module = "com.google.guava:guava", version = "33.7.2-jre" }
+buildtool-jose4j = { module = "org.bitbucket.b_c:jose4j", version = "0.9.6" }
+buildtool-jdom2 = { module = "org.jdom:jdom2", version = "2.0.6.1" }
+buildtool-commons-lang3 = { module = "org.apache.commons:commons-lang3", version = "3.18.0" }
+buildtool-freemarker = { module = "org.freemarker:freemarker", version = "2.3.35" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

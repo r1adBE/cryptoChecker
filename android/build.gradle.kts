@@ -11,6 +11,14 @@ buildscript {
     }
     dependencies {
         classpath(libs.kotlin.gradle.plugin)
+        // Build-Werkzeuge (AGP, Lint, Plugins) ziehen ältere Bibliotheken mit bekannten Lücken: Mindestversionen
+        // (Audit C-07; Liste und Gründe im Versionskatalog, Abschnitt «buildtool»)
+        constraints {
+            listOf(
+                libs.buildtool.bcprov, libs.buildtool.bcpkix, libs.buildtool.bcutil, libs.buildtool.guava,
+                libs.buildtool.jose4j, libs.buildtool.jdom2, libs.buildtool.commons.lang3, libs.buildtool.freemarker,
+            ).forEach { classpath(it) }
+        }
     }
 }
 

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 254)
+
+- Build tools only (not in the app): minimum versions without known vulnerabilities for libraries pulled in by the Android Gradle plugin, Lint and other plugins (Bouncy Castle 1.85, Guava 33.7.2, jose4j 0.9.6, JDOM 2.0.6.1, Commons Lang 3.18.0, FreeMarker 2.3.35) as constraints in the root build script; checksums and signing keys added.
+
 ## 16.2.2 (build 253)
 
 - Code structure (no behaviour change): Android navigation graph destinations for watchlist, add-pair, market and portfolio moved out of `AppNavHost` (326 → 218 lines), the screen-reader sentence of a watchlist row in its own function; iOS watchlist list (empty-group hint, selection bar, group sheet) and the gains CSV split like Android. Function length ceilings lowered (Kotlin 317, Swift 205).
