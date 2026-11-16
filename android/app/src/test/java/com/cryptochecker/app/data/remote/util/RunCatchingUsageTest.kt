@@ -23,10 +23,15 @@ class RunCatchingUsageTest {
     fun noPlainRunCatchingInCoroutineCode() {
         val root = androidSources()
         assertNotNull("android/app/src/main/java nicht gefunden (Arbeitsverzeichnis?)", root)
-        val hits = root!!.walkTopDown()
-            .filter { it.isFile && it.extension == "kt" }
-            .flatMap { file -> violations(file.readText(Charsets.UTF_8)).map { "${file.relativeTo(root).path}:$it" } }
-            .toList()
+        // Alle Module (Audit 16.11.2026, A-05): app plus data, domain, marketdata und wear
+        val android = generateSequence(root) { it.parentFile }.drop(7).first()
+        val roots = listOf(root!!) + listOf("data", "domain", "marketdata", "wear").map { File(android, "$it/src/main/java") }
+        roots.drop(1).forEach { assertTrue("${it.path} fehlt", it.isDirectory) }
+        val hits = roots.asSequence().flatMap { dir ->
+            dir.walkTopDown()
+                .filter { it.isFile && it.extension == "kt" }
+                .flatMap { file -> violations(file.readText(Charsets.UTF_8)).map { "${file.relativeTo(android).path}:$it" } }
+        }.toList()
         assertTrue(
             "runCatching { } in Coroutine-Code (runCatchingCancellable nehmen): ${hits.joinToString()}",
             hits.isEmpty()

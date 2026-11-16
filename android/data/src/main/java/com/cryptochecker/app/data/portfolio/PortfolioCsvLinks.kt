@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import androidx.room.withTransaction
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
@@ -31,7 +32,7 @@ suspend fun PortfolioRepository.insertImportedLinked(
 ): CsvImportWritten = database.withTransaction {
     // Nur Seiten, die sich auch speichern lassen (sonst gälte die Zeile als verknüpft und fehlte)
     val changed = linkedStoredEntities(getTransactions(), updates, batch)
-        .filter { runCatching { cleanForSave(it).storable() }.getOrDefault(false) }
+        .filter { runCatchingCancellable { cleanForSave(it).storable() }.getOrDefault(false) }
     val linked = changed.mapTo(HashSet()) { it.id }
     val rows = transactions.filter { tx -> fallbacks[tx.importKey]?.let { it !in linked } ?: true }
     val left = transactions.size - rows.size

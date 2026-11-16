@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.logos
 
+import com.cryptochecker.app.domain.remote.util.runCatchingCancellable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -144,7 +145,7 @@ class LogoLoadingHint(
      * nach einem vollständigen Durchgang ([complete] mit dem Ergebnis); Fehler und Abbruch sind nie vollständig.
      */
     suspend fun <T> during(complete: (T) -> Boolean = { true }, block: suspend () -> T): T {
-        val marker = doneMarker?.let { withContext(Dispatchers.IO) { runCatching { it() }.getOrNull() } }
+        val marker = doneMarker?.let { withContext(Dispatchers.IO) { runCatchingCancellable { it() }.getOrNull() } }
         runStarted(firstLoadDone = marker != null && withContext(Dispatchers.IO) { marker.isFile })
         var finished = false
         try {

@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 248)
+
+- Tests: the guard against runCatching in coroutine code now covers all Android modules; two places in :data and :domain use runCatchingCancellable.
+
 ## 16.2.2 (build 247)
 
 - Android: watched-address and logo requests keep the start signal of the hang guard; selection rows in four dialogs are one TalkBack focus with role and state; StrictMode logging in debug builds.

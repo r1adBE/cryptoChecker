@@ -3227,6 +3227,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 245: zh/zh-Hant/yue 你→您 (not 迷你), fil translations, iOS PairEdits menu subtitle, unused iOS overrides removed.
 * Build 246: docs only: ROADMAP archive, build process page (private README).
 * Build 247: CallStartInterceptor in derived clients, selectable/toggleable rows, debug StrictMode, PlatformSettingsParityTest, platform differences section, AlarmLease partial write, Xcode version summary.
+* Build 248: RunCatchingUsageTest over all modules; PortfolioCsvLinks, LogoLoadingHint use runCatchingCancellable.
 
 ## Known warnings
 
