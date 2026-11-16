@@ -512,8 +512,8 @@ itself and everything that needs an `:app` test helper: source guards (`SourceGu
 several modules), tests with the refresh fakes or string resources, the exchange contract tests (real `org.json`
 over `:marketdata`) and the performance tests. The one shared helper is `ParityJson` in `android/test-shared/java`,
 a test source of `:app`, `:domain` and `:data` (build 223, no new dependency), so parity tests live in their module. `:domain` and `:data` run their tests in the same environment as
-`:app` (en-US/UTC, real `org.json`, `kotlinx-coroutines-test`; `:data` also MockWebServer). `LayerBoundaryTest`
-checks that a test under `domain/src/test` or `data/src/test` keeps to its module (package = module and folder,
+`:app` (en-US/UTC, real `org.json`, `kotlinx-coroutines-test`; `:data` also MockWebServer). The rule `layers` of
+`.github/scripts/source_rules.py` checks that a test under `domain/src/test` or `data/src/test` keeps to its module (package = module and folder,
 from the app only `domain` – for `:data` also `data` – imports, no Room/OkHttp import in `:domain`) and that every
 module keeps at least its count of `@Test` methods (`TEST_FLOOR` = today's counts of all five modules; raise it in
 the commit that adds tests). `./gradlew testDebugUnitTest` (as in the *Android* workflow) runs
@@ -524,8 +524,10 @@ and `:wear:testDebugUnitTest`; one class: `./gradlew :domain:testDebugUnitTest -
 Reports: `android/<module>/build/reports/tests/testDebugUnitTest/index.html` (`app`, `domain`, `data`, `marketdata`,
 `wear`).
 
-Source guards (`FileLengthTest`, `HapticsUsageTest`, contrast and backup-rule checks …) fail when a file they read is
-missing (`SourceGuard`). Swift sources count as optional locally: in an
+Rules of the code base (forbidden patterns, ceilings that may only go down, layer boundaries, write consent, test inputs
+…) are not unit tests: `.github/scripts/source_rules.py` checks them without Gradle (`--self-test` runs its detectors
+against built-in samples; every rule reports a ceiling or allow-list entry that is no longer needed). The remaining
+source guards in the unit tests (contrast and backup-rule checks …) fail when a file they read is missing (`SourceGuard`). Swift sources count as optional locally: in an
 Android-only checkout those tests are reported as skipped; the *Android* workflow sets `REQUIRE_IOS_SOURCES=true`, so
 there a missing Swift file fails the run.
 
@@ -536,9 +538,10 @@ to every module by the root build script) declares these as inputs of every `Tes
 relative path sensitivity, so a folder missing from the checkout (no `ios/`) is simply empty, and both layouts work
 (`public/.github` in the private tree, `.github` next to `android/` in the published repository) – plus
 `REQUIRE_IOS_SOURCES` as an input property. A change to a fixture, a Swift file or a sibling module therefore re-runs
-the tests and changes the build-cache key; `--rerun-tasks` is not needed. `TestInputsGuardTest` (`:app`) reads every
-string literal of the unit tests of all modules: one that names an existing place in the tree must lie under a
-declared root, so a new read location fails that test until it is added to `testInputRoots`.
+the tests and changes the build-cache key; `--rerun-tasks` is not needed. The rule `test-inputs` of
+`.github/scripts/source_rules.py` reads every string literal of the unit tests of all modules: one that names an
+existing place in the tree must lie under a declared root, so a new read location fails until it is added to
+`testInputRoots`.
 
 **Shared test cases (parity).** `android/testdata/parity/*.json` hold input → expected
 result for alarms (crossing, re-arm, cooldown, volume spike), threshold parsing, the basis
@@ -2568,7 +2571,7 @@ Change a rule → change the JSON first, then both implementations.
   errors). Tab bars grow to about 1.3× text size; beyond that iOS shows the Large Content Viewer, Android a
   tooltip. The watchlist base symbol is never truncated. Typography: display 34, headline 22, section title 16
   semibold; `labelSmall` / `.caption2` only for source credits, legal footers and chart labels – capped by
-  `TypographyUsageTest`. A new screen uses these blocks instead of its own variants. The watchlist
+  the rule `typography` of `.github/scripts/source_rules.py`. A new screen uses these blocks instead of its own variants. The watchlist
   mini-chart is 48 instead of 56 dp/pt in rows narrower than 360 (`DenseRowText.sparklineWidth`, both platforms),
   and the watchlist exchange/time line and the converted price use body size (14 sp / `.subheadline`); other
   dense-row metadata (coin name, notes, errors, portfolio rows, market row captions) stays at 12 because a fixed
@@ -3044,7 +3047,7 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
 iOS has no modules: `ios/Shared` (logic for app and widgets), `ios/App`, `ios/Widgets`, `ios/Watch`, `ios/WatchWidgets`
 and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one Xcode project with four shipped targets.
 
-* **Layer boundaries are tested.** `LayerBoundaryTest` (`:app` unit tests) reads the sources: every file of `:domain`
+* **Layer boundaries are checked.** The rule `layers` of `.github/scripts/source_rules.py` reads the sources: every file of `:domain`
   and `:data` sits in the package and folder of its module; `:domain` imports neither `androidx.room` nor `okhttp3`
   nor another app package; `:data` imports from the app only `domain` and `data`; `:app` has neither a `…app.domain`
   nor a `…app.data` package (its code that needs app classes sits in packages of its own such as `…app.backup`,
@@ -3053,10 +3056,10 @@ and `ios/WatchCore` (code the iPhone app and the watch share) are folders of one
   receivers, activities, widget providers, `SystemBackupAgent`, `AppDatabase`, `PortfolioDatabase`) keep their names.
 * **Dispatchers are injected.** A class built by Hilt takes `@IoDispatcher` / `@DefaultDispatcher`
   (`DispatcherQualifiers` in `:domain`, provided by `DispatcherModule` in `:app`) in its constructor instead of naming
-  `Dispatchers.IO` / `Dispatchers.Default`; tests pass their own. `DispatcherInjectionGuardTest` reads every Kotlin
-  main file of `:app`, `:data` and `:domain` (not only the classes built by Hilt; `DispatcherModule` itself is the
-  one exception) and counts the remaining hard-wired places per file in its allowlist `REMAINING`. The current
-  number is the sum of that list in the test – it is not repeated here, so it cannot go stale; the numbers may only
+  `Dispatchers.IO` / `Dispatchers.Default`; tests pass their own. The rule `dispatchers` of `.github/scripts/source_rules.py` reads every
+  Kotlin main file of `:app`, `:coreui`, `:data`, `:domain` and `:widget` (not only the classes built by Hilt; `DispatcherModule` itself is the
+  one exception) and counts the remaining hard-wired places per file in its allowlist `DISPATCHER_REMAINING`. The
+  current number is the sum of that list in the script – it is not repeated here, so it cannot go stale; the numbers may only
   go down. `:wear` is outside the guard.
 * **Permissions.** The merged release manifest holds exactly 13 permissions, each with its reason in
   `manifest_policy.py` (`EXPECTED`): `INTERNET`, `ACCESS_NETWORK_STATE`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`,
@@ -3241,6 +3244,7 @@ their build entry. At a release tag, or when this list has more than ten entries
 * Build 259: Modul `widget` (A241-A-03 Teil 3c), Schnittstellen `WidgetHostPorts.kt`.
 * Build 260: Oberflächen-Funktionen Kotlin ≤ 250 Zeilen (A241-A-02/I-02 Rest), acht neue Teil-Dateien.
 * Build 261: Swift-Oberflächenfunktionen ≤ 150 Zeilen (A241-A-02/I-02 Rest).
+* Build 262: A241-A-01 Teil 1: source_rules.py (13 Regeln) statt 14 Quelltext-Testdateien.
 
 ## Known warnings
 

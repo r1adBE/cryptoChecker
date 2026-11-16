@@ -8,7 +8,7 @@
 // (`.github` neben `android/`). Was im Checkout fehlt (reiner Android-Checkout ohne `ios/`), ist ein leerer Dateibaum
 // und stört die Konfiguration nicht. Relative Pfade: der Cache-Schlüssel hängt nicht vom Ort des Checkouts ab.
 //
-// Neuer Leseort in einem Test → hier eintragen. `TestInputsGuardTest` (:app) liest die Liste zwischen den beiden
+// Neuer Leseort in einem Test → hier eintragen. Die Regel `test-inputs` in `.github/scripts/source_rules.py` liest die Liste zwischen den beiden
 // Markierungen und schlägt fehl, wenn ein Test einen Ort im Baum nennt, der nicht darunter liegt.
 import org.gradle.api.tasks.PathSensitivity
 

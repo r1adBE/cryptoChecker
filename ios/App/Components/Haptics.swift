@@ -3,7 +3,7 @@ import UIKit
 
 /// Haptik-Katalog nach Ereignis (nicht nach API), gleich wie Android `Haptics.kt` — beide Plattformen
 /// vibrieren in denselben Momenten. Der einzige Ort, der die `UI…FeedbackGenerator` anspricht
-/// (`HapticsUsageTest` wacht darüber); auch Wertwechsel laufen über `.haptic(_:trigger:)` statt `.sensoryFeedback`.
+/// (Regel `haptics` in `.github/scripts/source_rules.py`); auch Wertwechsel laufen über `.haptic(_:trigger:)` statt `.sensoryFeedback`.
 ///
 /// | Ereignis      | wann                                                              | iOS                  | Android (API 30+ / 26–29) |
 /// |---------------|-------------------------------------------------------------------|----------------------|---------------------------|

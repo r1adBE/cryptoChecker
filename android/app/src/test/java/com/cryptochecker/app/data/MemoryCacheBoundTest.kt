@@ -6,17 +6,14 @@ import com.cryptochecker.app.domain.watch.SheetChartCache
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /**
  * Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher bleiben begrenzt ([MEMORY_CACHE_ENTRIES]):
- * neue Hilfen von [BoundedCache], das Blatt-Chart als Beispiel und eine Wache, dass die betroffenen Klassen keine
- * unbegrenzte `ConcurrentHashMap` mehr nehmen.
+ * neue Hilfen von [BoundedCache] und das Blatt-Chart als Beispiel. Dass die betroffenen Klassen keine unbegrenzte
+ * `ConcurrentHashMap` mehr nehmen, prüft die Regel `bounded-caches` in `.github/scripts/source_rules.py`.
  */
 class MemoryCacheBoundTest {
 
@@ -44,37 +41,5 @@ class MemoryCacheBoundTest {
         assertNotNull(cache.get("C${MEMORY_CACHE_ENTRIES + 99}", "USDT", SheetChartRange.DAY))
         assertNotNull(cache.get("C100", "USDT", SheetChartRange.DAY))
         assertNull(cache.get("C99", "USDT", SheetChartRange.DAY))
-    }
-
-    @Test
-    fun betroffeneKlassenOhneUnbegrenzteMap() {
-        val files = listOf(
-            "data/remote/VolumeDataSource.kt", "data/remote/NearExtremeDataSource.kt",
-            "data/portfolio/PortfolioHistorySource.kt", "data/alarm/DerivativesAlarmData.kt",
-            "domain/watch/SheetChartCache.kt", "widget/SingleWidgetRenderer.kt",
-        )
-        for (name in files) {
-            val path = "src/main/java/com/cryptochecker/app/$name"
-            val file = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path"), File("../widget/$path"), File("widget/$path")).first { it.exists() }
-            val text = file.readText()
-            assertFalse("$name: ConcurrentHashMap", text.contains("ConcurrentHashMap"))
-            assertTrue("$name: BoundedCache", text.contains("BoundedCache"))
-        }
-        val historic = listOf(
-            File("src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
-            File("app/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
-            File("../data/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
-            File("data/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
-        ).first { it.exists() }.readText()
-        assertTrue(historic.contains("routeMemo = BoundedCache"))
-        // Eigene Kerzen (die Pausen je Host bleiben eine kleine Map, begrenzt durch die Zahl der Börsen)
-        val ownCandles = listOf(
-            File("src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
-            File("app/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
-            File("../data/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
-            File("data/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
-        ).first { it.exists() }.readText()
-        assertTrue(ownCandles.contains("cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)"))
-        assertFalse(ownCandles.contains("cache = ConcurrentHashMap"))
     }
 }

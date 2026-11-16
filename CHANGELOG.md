@@ -16,6 +16,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 262)
+
+- Checks: the rules of the code base that were unit tests reading source text (no plain runCatching in coroutines, haptics only through the catalogue, typography and spacing ceilings, label_value, injected dispatchers, layer boundaries, scrolling dialog texts, write consent before every user write, guarded settings writes, Compose stability, declared test inputs, bounded caches) are now one script, .github/scripts/source_rules.py, with a self-test of its detectors; it runs in the Android workflow without Gradle and now also covers the modules coreui, widget, data and domain.
+
 ## 16.2.2 (build 261)
 
 - iOS code structure (no behaviour change): every user-interface function now has at most 150 lines (ceiling 205 → 150): settings search index in sections, watchlist list, portfolio sheets and dialogs, cycle chart, portfolio total card and the search button of the status line were split into smaller parts.

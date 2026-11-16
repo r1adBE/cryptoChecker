@@ -25,7 +25,7 @@ import com.cryptochecker.app.domain.util.LocaleNumbers
  * Plattformen gleich wirkt; Label bleibt bei den Plattform-Massen (12 sp / iOS footnote 13 pt).
  * `labelSmall` (12 sp statt Material 11 sp: 11 sp ist auf vielen Geräten kaum lesbar) nur für
  * Quellenangaben, rechtliche Fusszeilen und Chart-Beschriftungen — sonst [label];
- * `TypographyUsageTest` hält die Zahl der Stellen fest.
+ * Die Regel `typography` in `.github/scripts/source_rules.py` hält die Zahl der Stellen fest.
  */
 val appTypography = Typography().let { base ->
     base.copy(labelSmall = base.labelSmall.copy(fontSize = 12.sp, lineHeight = 16.sp))

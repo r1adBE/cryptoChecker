@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui
 
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
@@ -11,27 +10,10 @@ import java.io.File
  * `SettingsRepository.guarded` — bei vollem Speicher ein Hinweis statt Absturz (DataStore wirft dann eine IOException,
  * ohne `CoroutineExceptionHandler` beendet sie die App). «Einstellungen» selbst schreibt über `SettingsViewModel.update`.
  * SharedPreferences schreiben mit `apply`/`commit` ohne Ausnahme; Merkliste, Gruppen und Notizen über `guardedWrite`
- * (`GuardedWriteTest`), Portfolio über `safe`.
+ * (`GuardedWriteTest`), Portfolio über `safe`. Dass die Oberfläche nur so schreibt, prüft die Regel
+ * `settings-write` in `.github/scripts/source_rules.py`.
  */
 class SettingsWriteGuardTest {
-
-    @Test
-    fun keinUngeschuetzterEinstellungsSchreibwegInDerOberflaeche() {
-        val ui = dir("app/src/main/java/com/cryptochecker/app/ui")
-        val settingsScreen = File(ui, "features/settings")
-        val write = Regex("""settingsRepository\.(set|record|update|confirm)[A-Za-z]*\(""")
-        val open = ui.walkTopDown().filter { it.isFile && it.extension == "kt" }
-            // «Einstellungen»: über `update { … }` (SettingsViewModel), ausser dem eigenen ViewModel des Bitcoin-Servers
-            .filter { !it.startsWith(settingsScreen) || it.name == "SettingsAddressServer.kt" }
-            .flatMap { file -> file.readLines().mapIndexedNotNull { i, line -> "${file.name}:${i + 1}: ${line.trim()}".takeIf {
-                write.containsMatchIn(line) && !line.contains("runCatchingCancellable") && !line.contains("safe {")
-            } } }
-            .toList()
-        assertEquals("Einstellungen über settingsRepository.guarded { … } schreiben:\n" + open.joinToString("\n"),
-            emptyList<String>(), open)
-        val guardedFiles = ui.walkTopDown().filter { it.isFile && it.readText().contains("settingsRepository.guarded {") }.count()
-        assertTrue("nur $guardedFiles Dateien", guardedFiles >= 11)
-    }
 
     @Test
     fun guardedFaengtSchreibfehlerAb() {

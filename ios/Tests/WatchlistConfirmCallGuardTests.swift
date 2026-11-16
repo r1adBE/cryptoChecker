@@ -1,7 +1,7 @@
 import XCTest
 
 /// Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
-/// Android `WatchRepositoryCallGuardTest`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
+/// Android: Regel `write-consent` in `.github/scripts/source_rules.py`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
 /// deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder
 /// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
 /// `cancelled:`-Block) oder in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`). Ein

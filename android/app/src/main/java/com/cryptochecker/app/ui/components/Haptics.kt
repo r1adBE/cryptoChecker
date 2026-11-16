@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalView
 /**
  * Haptik-Katalog nach Ereignis (nicht nach API), gleich wie iOS `Haptics.swift` — beide Plattformen
  * vibrieren in denselben Momenten. Der einzige Ort, der `performHapticFeedback`
- * aufruft (HapticsUsageTest wacht darüber).
+ * aufruft (Regel haptics in .github/scripts/source_rules.py).
  *
  * | Ereignis      | wann                                                          | Android (API 30+ / 26–29) | iOS                     |
  * |---------------|---------------------------------------------------------------|---------------------------|-------------------------|

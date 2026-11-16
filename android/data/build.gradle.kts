@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 // Speicher und Netz der App: Room-Datenbanken (Merkliste, Alarme, Portfolio) mit DAOs und
 // Verschlüsselung, Einstellungen, Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung. Jede Datei liegt
-// im Paket com.cryptochecker.app.data.* (Paket = Modul, LayerBoundaryTest); Hilt-Module (Datenbanken, OkHttp) bleiben
+// im Paket com.cryptochecker.app.data.* (Paket = Modul, Regel layers in source_rules.py); Hilt-Module (Datenbanken, OkHttp) bleiben
 // in :app. Die Room-Schemas bleiben unter app/schemas (Migrationstests und Schema-Drift-Prüfung lesen sie dort).
 plugins {
     alias(libs.plugins.android.library)
@@ -26,7 +26,7 @@ android {
 
     // Gemeinsamer Test-Helfer (ParityJson: kleiner JSON-Leser für testdata/parity) als Testquelle von :app, :domain
     // und :data — dieselbe Datei, je Modul mitkompiliert (kein eigenes Modul, keine neue Abhängigkeit;
-    // LayerBoundaryTest prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
+    // Regel layers in .github/scripts/source_rules.py prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
     sourceSets {
         getByName("test") {
             kotlin.directories.add("$rootDir/test-shared/java")

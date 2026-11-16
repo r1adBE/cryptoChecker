@@ -57,7 +57,7 @@ class SettingsPlacementTest {
 /**
  * Jedes Ziel der Suche in den Einstellungen ([settingsSearchItems], Composable und darum hier nicht aufrufbar) hat seinen
  * Anker auf der Seite: Sonst öffnete ein Treffer die Seite, ohne zum Punkt zu scrollen. Liest die Quellen von der Platte
- * (wie `SpacingUsageTest`); iOS (`SettingsSearchCatalog.swift` ↔ `.settingsAnchor`) wird mitgeprüft, wenn vorhanden.
+ * (wie die Regeln in `.github/scripts/source_rules.py`); iOS (`SettingsSearchCatalog.swift` ↔ `.settingsAnchor`) wird mitgeprüft, wenn vorhanden.
  * Dazu die Einträge «Damit Alarme ankommen», «Diagnose teilen» und «Alarm-Protokoll» auf beiden Plattformen
  * (iOS: `testDeliveryDiagnosticsAndAlarmLogAreSearchable`).
  */

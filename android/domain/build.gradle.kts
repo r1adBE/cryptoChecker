@@ -1,7 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 // Fachlogik ohne Oberfläche, Datenbank-Zugriff und Netz-Abläufe: Regeln, Berechnungen und Modelle, die :data und
-// :app nutzen. Jede Datei liegt im Paket com.cryptochecker.app.domain.* (Paket = Modul, LayerBoundaryTest); kein
+// :app nutzen. Jede Datei liegt im Paket com.cryptochecker.app.domain.* (Paket = Modul, Regel layers in source_rules.py); kein
 // Room, kein OkHttp. Nächste Schritte: Abläufe (Aktualisierung, Alarme) über Schnittstellen hierher,
 // Android-Abhängigkeiten ablösen (für Kotlin Multiplatform).
 plugins {
@@ -25,7 +25,7 @@ android {
 
     // Gemeinsamer Test-Helfer (ParityJson: kleiner JSON-Leser für testdata/parity) als Testquelle von :app, :domain
     // und :data — dieselbe Datei, je Modul mitkompiliert (kein eigenes Modul, keine neue Abhängigkeit;
-    // LayerBoundaryTest prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
+    // Regel layers in .github/scripts/source_rules.py prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
     sourceSets {
         getByName("test") {
             kotlin.directories.add("$rootDir/test-shared/java")

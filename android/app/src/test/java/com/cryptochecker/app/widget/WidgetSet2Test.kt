@@ -37,7 +37,7 @@ class WidgetSparkFreshnessTest {
  * Widgets nehmen die Schriftstufen der App ([WidgetType] = Label 12, Body 14, Title 16, Headline 22,
  * Display kompakt 28 sp): jedes `android:textSize` in `res/layout/widget_*.xml` ist eine dieser Stufen.
  * Ausgenommen sind TextViews mit `autoSizeTextType` (die Grösse ergibt sich aus Min/Max, `textSize` ist nur
- * die Startgrösse der Messung). Liest die Layouts von der Platte (wie `SpacingUsageTest`).
+ * die Startgrösse der Messung). Liest die Layouts von der Platte (wie die Regel `spacing` in `.github/scripts/source_rules.py`).
  */
 class WidgetTypeTest {
 

@@ -1,5 +1,5 @@
 // Die Widgets der App (Liste, Einzel, Portfolio, Puls): Anbieter, Zeichnen, Einrichten. Paket wie bisher
-// (com.cryptochecker.app.widget; Paket = Modul, LayerBoundaryTest). Was sie von der App brauchen (Planung,
+// (com.cryptochecker.app.widget; Paket = Modul, Regel layers in source_rules.py). Was sie von der App brauchen (Planung,
 // Portfolio-Alarme, Uhr, Prüfung nach Rückkehr des Netzes), kommt über Schnittstellen (WidgetHostPorts.kt), verbunden
 // in :app (di/WidgetHostModule.kt); die Einträge im Manifest stehen in :app.
 plugins {

@@ -39,7 +39,7 @@ import org.junit.Test
  *   Bereich;
  * - gesperrt (KEPT) lehnt trotz Zustimmung ab und meldet den Hinweis; Folge-Schreibwege (`notify = false`) lehnen nie
  *   ab.
- * Dass JEDER Aufrufer vorher fragt, prüft weiter der Wächter [WatchRepositoryCallGuardTest] über alle Dateien.
+ * Dass JEDER Aufrufer vorher fragt, prüft die Regel `write-consent` in `.github/scripts/source_rules.py` über alle Dateien.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class WatchlistWriteConsentTest {

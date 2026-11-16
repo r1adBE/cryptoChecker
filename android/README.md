@@ -177,7 +177,7 @@ wear/         Wear-OS-App mit Komplikationen (Kurs, Portfolio-Wert)
 baselineprofile/  Generator für das gemessene Baseline Profile (nur Werkzeug)
 ```
 
-Die Schichtgrenzen prüft `LayerBoundaryTest` am Quelltext; per Hilt erzeugte Klassen bekommen ihre Dispatcher
+Die Schichtgrenzen prüft die Regel `layers` in `.github/scripts/source_rules.py` am Quelltext; per Hilt erzeugte Klassen bekommen ihre Dispatcher
 über `@IoDispatcher`/`@DefaultDispatcher` (`di/DispatcherModule.kt`). Einzelheiten: `DEVELOPMENT.md` im
 Repository-Hauptordner, Abschnitt 20.
 

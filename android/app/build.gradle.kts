@@ -77,7 +77,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 261
+        versionCode = 262
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -147,7 +147,7 @@ android {
     sourceSets {
         // Gemeinsamer Test-Helfer (ParityJson: kleiner JSON-Leser für testdata/parity) als Testquelle von :app, :domain
         // und :data — dieselbe Datei, je Modul mitkompiliert (kein eigenes Modul, keine neue Abhängigkeit;
-        // LayerBoundaryTest prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
+        // Regel layers in .github/scripts/source_rules.py prüft die Einbindung). So liegen die Paritäts- und Logiktests bei ihrem Modul statt in :app.
         getByName("test") {
             kotlin.directories.add("$rootDir/test-shared/java")
         }

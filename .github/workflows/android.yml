@@ -21,8 +21,8 @@ on:
     tags: ['v*']
     paths:
       - 'android/**'
-      # The source guards (line_limit.py, build-number guard, unit tests like FileLengthTest, HapticsUsageTest,
-      # licences, typography, …) also check the Swift sources: a push to main that only touches iOS must run them too
+      # The source guards (line_limit.py, build-number guard, source_rules.py with haptics, typography, spacing …,
+      # unit tests like the licence checks) also check the Swift sources: a push to main that only touches iOS must run them too
       - 'ios/App/**'
       - 'ios/Shared/**'
       - 'ios/Widgets/**'
@@ -39,6 +39,7 @@ on:
       - '.github/scripts/room_schema_drift.py'
       - '.github/scripts/line_limit.py'
       - '.github/scripts/code_metrics.py'
+      - '.github/scripts/source_rules.py'
       - '.github/scripts/lint_warnings.py'
       - '.github/scripts/coverage_summary.py'
       - '.github/scripts/sbom.py'
@@ -129,11 +130,20 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       # Production sources (android/*/src/main, ios/App, ios/Shared, ios/Widgets) at most 400 lines each — fails
-      # fast without Gradle (same rule as FileLengthTest)
+      # fast without Gradle
       - name: Line limit
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
+
+      # Rules of the code base read from the Kotlin and Swift sources (no plain runCatching in coroutines, haptics only
+      # through the catalogue, typography and spacing ceilings, label_value, injected dispatchers, layer boundaries,
+      # scrolling dialog texts, write consent before every user write, guarded settings writes, Compose stability,
+      # declared test inputs, bounded caches) — an error annotation per finding, fails fast without Gradle
+      - name: Source rules
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/source_rules.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/source_rules.py" "$GITHUB_WORKSPACE"
 
       # Theme colours (every accent, light/dark, high contrast, selection tints, error fills, placeholders) against
       # WCAG 4.5:1 / 3:1; the script cross-checks its values with AppColorSchemes.kt, ErrorColors.kt and Theme.swift

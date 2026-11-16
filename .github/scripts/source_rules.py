@@ -1,0 +1,1889 @@
+#!/usr/bin/env python3
+"""Source rules: static checks of the Kotlin and Swift sources that are rules, not behaviour.
+
+Usage: python3 -I source_rules.py [repository root, default: current directory]   (root with android/ and ios/)
+       python3 -I source_rules.py --self-test   (the detectors against built-in samples)
+
+Each rule reads the sources from disk, prints one error annotation per finding and the script exits 1 when any rule
+finds something. The rules were unit tests that read source text (audit A241-A-01): they are rules of the code base
+(forbidden patterns, ceilings that may only go down, layer boundaries, wiring between configuration and code), so they
+live here next to line_limit.py and code_metrics.py; behaviour stays in the unit tests. A ceiling or allow list that is
+no longer needed is reported too (so it cannot hide a regression later). Both android/ and ios/ are required.
+
+Rules (ids in the annotation title):
+  runcatching        no plain runCatching { } in coroutine code (it swallows the CancellationException)
+  haptics            haptics only through the catalogue (Haptics.kt / Haptics.swift), none in background code
+  typography         smallest text style (labelSmall / .caption2) only goes down; labelSmall at least 12 sp
+  spacing            paddings and gaps on the 4/8/12/16/24/32 grid (Kotlin, Swift, widget layouts), same tokens
+  label-value        «label: value» through the label_value string, never a hard-coded ": "
+  dispatchers        Dispatchers.IO/Default only from DispatcherModule (remaining places may only go down)
+  layers             package = module; :domain and :data import only their own layers; no module loses its tests
+  dialog-scroll      dialog texts with more than one sentence scroll (DialogText)
+  write-consent      every user write of WatchRepository outside data/ asks confirmUserWrite() first
+  settings-write     settings written outside the settings screen go through settingsRepository.guarded
+  compose-stability  gradle/compose-stability.conf lists exactly the immutable models
+  test-inputs        every path the unit tests read is a declared input of the test tasks
+  bounded-caches     per-pair memory caches use BoundedCache, not an unbounded ConcurrentHashMap
+
+The comments and messages are in German like the tests they replace.
+"""
+import os
+import re
+import sys
+
+A = re.ASCII
+APP = "com.cryptochecker.app"
+
+
+class RuleError(Exception):
+    """Broken checkout (missing folder or file): reported as an error of the rule, not as a crash."""
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Files
+
+
+def read(path):
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+
+def files_under(directory, extension):
+    """All files with [extension] below [directory] (sorted, relative paths with «/»)."""
+    if not os.path.isdir(directory):
+        return []
+    out = []
+    for base, dirs, names in os.walk(directory):
+        dirs.sort()
+        for name in sorted(names):
+            if name.endswith("." + extension):
+                full = os.path.join(base, name)
+                out.append((os.path.relpath(full, directory).replace(os.sep, "/"), full))
+    return out
+
+
+def need_dir(path):
+    if not os.path.isdir(path):
+        raise RuleError(f"Ordner fehlt: {path}")
+    return path
+
+
+def need_file(path):
+    if not os.path.isfile(path):
+        raise RuleError(f"Datei fehlt: {path}")
+    return path
+
+
+def is_comment_line(line):
+    code = line.lstrip()
+    return code.startswith("//") or code.startswith("*") or code.startswith("/*")
+
+
+def line_of(text, offset):
+    return text.count("\n", 0, offset) + 1
+
+
+class Tree:
+    """Paths of the checkout: [root] holds android/ and ios/."""
+
+    def __init__(self, root):
+        root = os.path.abspath(root)
+        self.root = root
+        self.android = need_dir(os.path.join(root, "android"))
+        self.ios = need_dir(os.path.join(root, "ios"))
+
+    def a(self, *parts):
+        return os.path.join(self.android, *parts)
+
+    def i(self, *parts):
+        return os.path.join(self.ios, *parts)
+
+    def java(self, module):
+        """android/<module>/src/main/java/com/cryptochecker/app (the app package root of a module)."""
+        return self.a(module, "src", "main", "java", "com", "cryptochecker", "app")
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Kotlin scanning helpers
+
+
+def strip_comments_and_strings(src):
+    """Kommentare, Strings und Zeichenliterale durch Leerzeichen ersetzen (Zeilenumbrüche bleiben)."""
+    out = []
+    i = 0
+    n = len(src)
+
+    def blank(start, to):
+        out.append("".join("\n" if src[k] == "\n" else " " for k in range(start, to)))
+        return to
+
+    while i < n:
+        if src.startswith("//", i):
+            end = src.find("\n", i)
+            i = blank(i, n if end < 0 else end)
+        elif src.startswith("/*", i):
+            end = src.find("*/", i + 2)
+            i = blank(i, n if end < 0 else end + 2)
+        elif src.startswith('"""', i):
+            end = src.find('"""', i + 3)
+            i = blank(i, n if end < 0 else end + 3)
+        elif src[i] == '"':
+            k = i + 1
+            while k < n and src[k] != '"' and src[k] != "\n":
+                if src[k] == "\\":
+                    k += 1
+                k += 1
+            i = blank(i, min(k + 1, n))
+        elif src[i] == "'" and i + 2 < n and (src[i + 1] == "\\" or src[i + 2] == "'"):
+            end = src.find("'", i + 3 if src[i + 1] == "\\" else i + 2)
+            i = blank(i, n if end < 0 else end + 1)
+        else:
+            out.append(src[i])
+            i += 1
+    return "".join(out)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# runcatching: runCatching { } in coroutine code
+
+
+RC_CALL = "runCatching"
+RC_RETHROW_WINDOW = 240
+RC_COROUTINE_BUILDERS = {
+    "launch", "async", "withContext", "coroutineScope", "supervisorScope", "withTimeout",
+    "withTimeoutOrNull", "runBlocking", "LaunchedEffect", "produceState", "flow", "channelFlow",
+    "callbackFlow", "transformLatest", "collect", "collectLatest", "withPermit", "withTransaction",
+}
+RC_NON_SUSPEND = {"synchronized", "sequence", "iterator", "lazy", "get", "set"}
+SUSPEND, PLAIN, INHERIT = "suspend", "plain", "inherit"
+
+
+def _rc_has_expression_body(decl):
+    """Steht nach der Parameterliste ein `=` (Ausdrucksrumpf statt `{`-Rumpf)?"""
+    open_ = decl.find("(")
+    if open_ < 0:
+        return False
+    depth = 0
+    close = -1
+    for k in range(open_, len(decl)):
+        if decl[k] == "(":
+            depth += 1
+        if decl[k] == ")":
+            depth -= 1
+            if depth == 0:
+                close = k
+                break
+    if close < 0:
+        return False
+    return re.search(r"(?<![=!<>])=(?![=>])", decl[close + 1:]) is not None
+
+
+def _rc_is_suspend_modifier(head, fun_start):
+    return re.search(r"\bsuspend\b", head[:fun_start].rsplit("\n", 1)[-1], A) is not None
+
+
+def _rc_matching_open(t, close):
+    depth = 0
+    for k in range(close, -1, -1):
+        if t[k] == ")":
+            depth += 1
+        if t[k] == "(":
+            depth -= 1
+            if depth == 0:
+                return k
+    return -1
+
+
+def _rc_frame(s, pos):
+    """Herkunft der Klammer an [pos]: Funktions-/Klassenrumpf, Coroutine-Lambda oder sonstige Lambda."""
+    head = s[max(0, pos - 400):pos]
+    funs = list(re.finditer(r"\bfun\b", head, A))
+    if funs:
+        fn = funs[-1]
+        rest = head[fn.start():]
+        if not any(c in "{};" for c in rest) and not _rc_has_expression_body(rest):
+            return SUSPEND if _rc_is_suspend_modifier(head, fn.start()) else PLAIN
+    t = head.rstrip()
+    if re.search(r"\b(class|object|interface|init)\b[^{}()=]*$", t, A):
+        return PLAIN
+    if t.endswith(")"):
+        open_ = _rc_matching_open(t, len(t) - 1)
+        before = t[:max(open_, 0)].rstrip()
+        if re.search(r"\b(class|object)\s+\w+\s*(<[^<>]*>)?$", before, A):
+            return PLAIN
+        m = re.search(r"(\w+)\s*(<[^<>]*>)?$", before, A)
+    else:
+        m = re.search(r"(\w+)\s*(<[^<>]*>)?$", t, A)
+    name = m.group(1) if m else ""
+    if name in RC_COROUTINE_BUILDERS:
+        return SUSPEND
+    if name in RC_NON_SUSPEND:
+        return PLAIN
+    return INHERIT
+
+
+def _rc_suspend_expression_body(s, pos):
+    """`suspend fun x(): T =` direkt vor [pos] (Ausdrucksrumpf ohne Klammer)."""
+    head = s[max(0, pos - 400):pos]
+    funs = list(re.finditer(r"\bfun\b", head, A))
+    if not funs:
+        return False
+    fn = funs[-1]
+    decl = head[fn.start():]
+    if any(c in "{};" for c in decl):
+        return False
+    return decl.rstrip().endswith("=") and _rc_has_expression_body(decl) and _rc_is_suspend_modifier(head, fn.start())
+
+
+def _rc_rethrows_after(s, brace):
+    """Wirft die Kette direkt nach dem Block den Abbruch selbst weiter?"""
+    depth = 0
+    k = brace
+    while k < len(s):
+        if s[k] == "{":
+            depth += 1
+        if s[k] == "}":
+            depth -= 1
+            if depth == 0:
+                break
+        k += 1
+    tail = s[min(k + 1, len(s)):min(k + 1 + 4 * RC_RETHROW_WINDOW, len(s))]
+    tail = re.sub(r"\s+", " ", tail)[:RC_RETHROW_WINDOW]
+    return "CancellationException" in tail or "ensureActive" in tail
+
+
+def runcatching_violations(source):
+    """Zeilennummern (ab 1) mit `runCatching {` in Coroutine-Kontext ohne eigenes Weiterwerfen."""
+    s = strip_comments_and_strings(source)
+    frames = []
+    result = []
+    for i, c in enumerate(s):
+        if c == "{":
+            frames.append(_rc_frame(s, i))
+        elif c == "}":
+            if frames:
+                frames.pop()
+        elif c == "r" and s.startswith(RC_CALL, i) and (i == 0 or not (s[i - 1].isalnum() or s[i - 1] in "_.")):
+            brace = i + len(RC_CALL)
+            while brace < len(s) and s[brace].isspace():
+                brace += 1
+            if brace < len(s) and s[brace] == "{":
+                ctx = next((f for f in reversed(frames) if f != INHERIT), PLAIN)
+                in_coroutine = ctx == SUSPEND or _rc_suspend_expression_body(s, i)
+                if in_coroutine and not _rc_rethrows_after(s, brace):
+                    result.append(source.count("\n", 0, i) + 1)
+    return result
+
+
+def rule_runcatching(t):
+    # Alle Module (Audit 16.11.2026, A-05): app plus coreui, data, domain, marketdata, wear und widget
+    roots = [need_dir(t.java("app"))] + [need_dir(t.a(m, "src", "main", "java"))
+                                          for m in ("coreui", "data", "domain", "marketdata", "wear", "widget")]
+    problems = []
+    for root in roots:
+        for _, path in files_under(root, "kt"):
+            for line in runcatching_violations(read(path)):
+                problems.append(f"{os.path.relpath(path, t.android)}:{line}: runCatching {{ }} in Coroutine-Code "
+                                "(runCatchingCancellable nehmen)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# haptics
+
+
+HAPTICS_ANDROID_DIRECT = re.compile(r"performHapticFeedback|LocalHapticFeedback|HapticFeedbackConstants|\bVibrator\b|VibratorManager")
+HAPTICS_ANDROID_CATALOG = re.compile(r"rememberHaptics\(|Haptics\.play\(|HapticEvent\.")
+HAPTICS_IOS_DIRECT = re.compile(r"UIImpactFeedbackGenerator|UINotificationFeedbackGenerator|UISelectionFeedbackGenerator|\.sensoryFeedback\(")
+HAPTICS_IOS_CATALOG = re.compile(r"Haptics\.play\(|\.haptic\(")
+# Abspielen (nicht der Typ): in Code ohne Bildschirm verboten, Zuordnungen auf `HapticEvent` bleiben erlaubt
+HAPTICS_ANDROID_PLAYBACK = re.compile(r"rememberHaptics\(|Haptics\.play\(|\bHapticPlayer\b|performHapticFeedback")
+HAPTICS_IOS_PLAYBACK = re.compile(r"Haptics\.play\(|\.haptic\(|FeedbackGenerator")
+
+
+def find_uses(directory, extension, pattern, allowed=()):
+    """«Datei:Zeile» aller Treffer von [pattern] in Codezeilen (Kommentare zählen nicht) unter [directory]."""
+    hits = []
+    for rel, path in files_under(directory, extension):
+        if rel in allowed:
+            continue
+        for index, line in enumerate(read(path).split("\n")):
+            if not is_comment_line(line) and pattern.search(line):
+                hits.append(f"{rel}:{index + 1}")
+    return hits
+
+
+def rule_haptics(t):
+    """Android spielt Haptik nur über ui/components/Haptics.kt, iOS nur über App/Components/Haptics.swift; Hintergrund,
+    Mitteilungen und Widgets bekommen keine; Daten-, Domänen- und Hilfscode ordnet höchstens zu."""
+    app = need_dir(t.java("app"))
+    problems = [f"app/{h}: Haptik direkt statt über rememberHaptics()/Haptics.play"
+                for h in find_uses(app, "kt", HAPTICS_ANDROID_DIRECT, {"ui/components/Haptics.kt"})]
+    background = [os.path.join(app, d) for d in ("notification", "work", "tts")] + [t.a("widget", "src", "main", "java")]
+    for d in background:
+        need_dir(d)
+        problems += [f"{os.path.relpath(d, t.android)}/{h}: Haptik im Hintergrund, in Mitteilungen oder Widgets"
+                     for h in find_uses(d, "kt", HAPTICS_ANDROID_CATALOG)]
+    non_ui = [os.path.join(app, d) for d in ("activity", "alarm", "diagnostics", "gas", "refresh", "lock", "setup", "di")]
+    non_ui += [os.path.join(t.java("coreui"), d) for d in ("util", "settings")]
+    non_ui += [t.a(m, "src", "main", "java") for m in ("data", "domain")]
+    for d in non_ui:
+        if os.path.isdir(d):
+            problems += [f"{os.path.relpath(d, t.android)}/{h}: Haptik wird in Daten-/Domänen-/Hilfscode abgespielt"
+                         for h in find_uses(d, "kt", HAPTICS_ANDROID_PLAYBACK)]
+    for top in ("App", "Shared", "Widgets"):
+        d = need_dir(t.i(top))
+        problems += [f"ios/{top}/{h}: Haptik direkt statt über Haptics.play/.haptic(_:trigger:)"
+                     for h in find_uses(d, "swift", HAPTICS_IOS_DIRECT, {"Components/Haptics.swift"})]
+    for top in ("Shared", "Widgets"):
+        problems += [f"ios/{top}/{h}: Haptik in Widgets oder geteiltem Code"
+                     for h in find_uses(t.i(top), "swift", HAPTICS_IOS_CATALOG)]
+    services = need_dir(t.i("App", "Services"))
+    problems += [f"ios/App/Services/{h}: Haptik wird in App/Services abgespielt"
+                 for h in find_uses(services, "swift", HAPTICS_IOS_PLAYBACK)]
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# typography
+
+
+LABEL_SMALL = re.compile(r"typography\.labelSmall\b")
+CAPTION2 = re.compile(r"\.caption2\b")
+# Bereich (relativ zu `com/cryptochecker/app` in :app, leer = alles) → höchstens so viele Stellen; darf nur sinken
+TYPOGRAPHY_ANDROID_CEILINGS = {"": 48, "ui/features/info": 8, "ui/features/portfolio": 14, "ui/features/watchlist": 23}
+# Module ausserhalb von :app (seit dem Aufteilen) → höchstens so viele Stellen; darf nur sinken
+TYPOGRAPHY_MODULE_CEILINGS = {"coreui": 0, "widget": 0}
+TYPOGRAPHY_IOS_CAPTION2_CEILING = 44
+
+
+def count_uses(directory, extension, pattern):
+    """Treffer in Codezeilen (Kommentarzeilen zählen nicht) aller Dateien mit [extension] unter [directory]."""
+    total = 0
+    for _, path in files_under(directory, extension):
+        for line in read(path).split("\n"):
+            if not is_comment_line(line):
+                total += len(pattern.findall(line))
+    return total
+
+
+def rule_typography(t):
+    """`typography.labelSmall` (12 sp) bzw. iOS `.caption2` nur für Quellen, rechtliche Fusszeilen und Chart-Beschriftungen;
+    Metadaten nehmen `label` bzw. `.caption`. Obergrenzen = erreichter Stand, dürfen nur sinken."""
+    problems = []
+    app = need_dir(t.java("app"))
+    for area, ceiling in TYPOGRAPHY_ANDROID_CEILINGS.items():
+        uses = count_uses(os.path.join(app, area) if area else app, "kt", LABEL_SMALL)
+        if uses > ceiling:
+            problems.append(f"typography.labelSmall in «{area or 'alle'}»: {uses} Stellen, erlaubt höchstens {ceiling} — "
+                            "für Metadaten MaterialTheme.typography.label nehmen")
+    for module, ceiling in TYPOGRAPHY_MODULE_CEILINGS.items():
+        uses = count_uses(need_dir(t.a(module, "src", "main", "java")), "kt", LABEL_SMALL)
+        if uses > ceiling:
+            problems.append(f"typography.labelSmall in :{module}: {uses} Stellen, erlaubt höchstens {ceiling}")
+    typography = read(need_file(os.path.join(t.java("coreui"), "ui", "theme", "Typography.kt")))
+    m = re.search(r"labelSmall = base\.labelSmall\.copy\(fontSize = (\d+)\.sp", typography)
+    if not m:
+        problems.append("labelSmall-Grösse in coreui Typography.kt nicht gefunden")
+    elif int(m.group(1)) < 12:
+        problems.append(f"labelSmall {m.group(1)} sp, mindestens 12 sp")
+    uses = count_uses(need_dir(t.i("App")), "swift", CAPTION2)
+    if uses > TYPOGRAPHY_IOS_CAPTION2_CEILING:
+        problems.append(f".caption2 in ios/App: {uses} Stellen, erlaubt höchstens {TYPOGRAPHY_IOS_CAPTION2_CEILING} — "
+                        "für Metadaten .caption nehmen")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# spacing
+
+
+OFF_GRID = "5|6|7|9|10|11|13|14|15|17|18|19|20|22|26|28|30"
+# `padding(… 6.dp …)`, `spacedBy(6.dp)`, `PaddingValues(6.dp)`, `Spacer(Modifier.width(6.dp))` und benannte Abstände
+# über mehrere Zeilen (`top = 6.dp`); nicht 1.5.dp oder 16.dp
+SPACING_ANDROID = re.compile(
+    r"(?:(?:padding|spacedBy|PaddingValues|Spacer\(Modifier\.(?:width|height))\([^)]*?|\b(?:start|end|top|bottom|horizontal"
+    r"|vertical|all) = )(?<![\d.])(?:" + OFF_GRID + r")\.dp\b")
+# `spacing: 6`, `Spacer(minLength: 6)`, `.padding(6)`, `.padding(.top, 6)`, `EdgeInsets(top: 6 …)`; nicht -6
+SPACING_IOS = re.compile(
+    r"(?:\b(?:spacing|minLength|top|bottom|leading|trailing):\s*|\.padding\((?:\.\w+,\s*|\[[^\]]*\],\s*)?)(?:" + OFF_GRID +
+    r")(?:\.0)?\b(?![.\d])")
+# `android:paddingStart="6dp"`, `android:layout_marginTop="10dp"`; nicht 1–3 dp (Feinabstimmung) oder 0dp
+SPACING_XML = re.compile(r'android:(?:padding|layout_margin)\w*="(?:' + OFF_GRID + r')dp"')
+SPACING_XML_SPACE = re.compile(r"<Space\b[^>]*>")
+SPACING_XML_SPACE_OFF = re.compile(r'android:layout_(?:width|height)="(?:' + OFF_GRID + r')dp"')
+# Datei → höchstens so viele Stellen, die bewusst bleiben (Kotlin relativ zu `<Modul>/…/com/cryptochecker/app`)
+SPACING_ANDROID_CEILINGS = {
+    # Chart-Inneres: Platz für die Beschriftung über der Kurve
+    "app/ui/features/info/MarketCycleChart.kt": 1,
+    # Suchfeld 48 dp hoch, Pille 44 dp: je 2 dp weniger Abstand (12 − 2 = 10), damit nichts wächst
+    "app/ui/features/watchlist/WatchGroupEditSheet.kt": 1,
+}
+SPACING_ANDROID_MODULES = ("app", "coreui", "widget")
+SPACING_WIDGET_XML_CEILINGS = {
+    # Vorschau: 6 dp stehen für die zwei Leerzeichen vor dem Prozent (WidgetTextFit.PERCENT_GAP)
+    "widget_preview_portfolio.xml": 1,
+}
+SPACING_IOS_AREAS = ("App", "Widgets")
+SPACING_IOS_CEILINGS = {
+    # Zeilen der Marktdaten: wie Android 2 × 3 dp Zeilen-Innenabstand (Feinabstimmung) = 6 (in `PulseFacts`)
+    "App/Features/Cycle/CryptoPulseParts.swift": 1,
+}
+
+
+def offenders(files, pattern, ceilings):
+    """Dateien mit mehr Treffern als erlaubt (nicht gelistete: 0), samt Zeilen; Kommentarzeilen zählen nicht.
+    [files]: (Anzeigename, Pfad). Dazu Einträge in [ceilings], die nicht mehr nötig sind."""
+    problems = []
+    counts = {}
+    for name, path in files:
+        hits = [f"  {i + 1}: {line.strip()}" for i, line in enumerate(read(path).split("\n"))
+                if not is_comment_line(line) for _ in pattern.findall(line)]
+        counts[name] = len(hits)
+        allowed = ceilings.get(name, 0)
+        if len(hits) > allowed:
+            problems.append(f"{name}: {len(hits)} Stellen, erlaubt {allowed}\n" + "\n".join(hits))
+    for name, allowed in ceilings.items():
+        if counts.get(name, 0) < allowed:
+            problems.append(f"{name}: {counts.get(name, 0)} Stellen, Obergrenze {allowed} senken (bei 0 Eintrag entfernen)")
+    return problems
+
+
+def rule_spacing(t):
+    """Abstandsraster 4/8/12/16/24/32 (dp bzw. pt): Innenabstände, spacedBy/spacing:, Spacer als Lücke, contentPadding und
+    die Widget-Layouts; Ausnahmen mit Begründung in den Obergrenzen (dürfen nur sinken)."""
+    files = []
+    for module in SPACING_ANDROID_MODULES:
+        root = need_dir(t.java(module))
+        files += [(f"{module}/{rel}", path) for rel, path in files_under(root, "kt")]
+    problems = offenders(files, SPACING_ANDROID, SPACING_ANDROID_CEILINGS)
+    ios_files = []
+    for area in SPACING_IOS_AREAS:
+        ios_files += [(f"{area}/{rel}", path) for rel, path in files_under(need_dir(t.i(area)), "swift")]
+    problems += offenders(ios_files, SPACING_IOS, SPACING_IOS_CEILINGS)
+    layouts = need_dir(t.a("resources", "src", "main", "res", "layout"))
+    counts = {}
+    for name in sorted(os.listdir(layouts)):
+        if not (name.startswith("widget_") and name.endswith(".xml")):
+            continue
+        text = read(os.path.join(layouts, name))
+        hits = [(line_of(text, m.start()), m.group(0)) for m in SPACING_XML.finditer(text)]
+        for space in SPACING_XML_SPACE.finditer(text):
+            hits += [(line_of(text, space.start() + m.start()), m.group(0)) for m in SPACING_XML_SPACE_OFF.finditer(space.group(0))]
+        hits.sort()
+        counts[name] = len(hits)
+        allowed = SPACING_WIDGET_XML_CEILINGS.get(name, 0)
+        if len(hits) > allowed:
+            problems.append(f"{name}: {len(hits)} Stellen, erlaubt {allowed}\n" + "\n".join(f"  {l}: {v}" for l, v in hits))
+    for name, allowed in SPACING_WIDGET_XML_CEILINGS.items():
+        if counts.get(name, 0) < allowed:
+            problems.append(f"{name}: {counts.get(name, 0)} Stellen, Obergrenze {allowed} senken")
+    # Beide Plattformen haben dieselben Stufen mit denselben Werten
+    spacing_kt = read(need_file(os.path.join(t.java("coreui"), "ui", "theme", "Spacing.kt")))
+    android = {m.group(1): int(m.group(2)) for m in re.finditer(r"val (\w+) = (\d+)\.dp", spacing_kt)}
+    swift = read(need_file(t.i("Shared", "Util", "Spacing.swift")))
+    block = swift.split("enum Spacing {", 1)[-1].split("}", 1)[0]
+    ios = {m.group(1): int(m.group(2)) for m in re.finditer(r"static let (\w+): CGFloat = (\d+)", block)}
+    expected = {"xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 24, "xxl": 32}
+    if android != expected:
+        problems.append(f"Spacing.kt: {android}, erwartet {expected}")
+    if ios != android:
+        problems.append(f"Spacing.swift {ios} ≠ Spacing.kt {android}")
+    # Freiraum unter Listen mit schwebendem «+»: Android nur über Spacing.fabClearance (3 × xxl), iOS per safeAreaInset
+    if "val fabClearance = xxl * 3" not in spacing_kt:
+        problems.append("Spacing.kt: val fabClearance = xxl * 3 fehlt")
+    for module in SPACING_ANDROID_MODULES:
+        for rel, path in files_under(t.java(module), "kt"):
+            if re.search(r"bottom = 96\.dp", read(path)):
+                problems.append(f"{module}/{rel}: bottom = 96.dp statt Spacing.fabClearance")
+    overlay = re.compile(r"\.overlay\(alignment: \.bottomTrailing\) \{\s*PortfolioAddButton")
+    for rel, path in files_under(t.i("App"), "swift"):
+        text = read(path)
+        if "Color.clear.frame(height: 96)" in text:
+            problems.append(f"ios/App/{rel}: leerer Füllblock Color.clear.frame(height: 96)")
+        if overlay.search(text):
+            problems.append(f"ios/App/{rel}: «+»-Knopf als Overlay statt Einschub unten")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# label-value
+
+
+# `a + ": " + b`, `.append(": ")`, `"$a: $b"` und `"$a: " + b`
+LV_KOTLIN = [re.compile(r'\+ ": " \+'), re.compile(r'\.append\(": "\)'), re.compile(r'\$\{?[A-Za-z_][\w.]*\}?: (\$|" \+)', A)]
+# `a + ": " + b`, `"\(a): \(b)"` und `"\(a): " + b`
+LV_SWIFT = [re.compile(r'\+ ": " \+'), re.compile(r'\): \\\('), re.compile(r'\): " \+')]
+# Protokoll und Programmierfehler: nie in der Sprache der Oberfläche
+LV_IGNORED_CALLS = ("HttpLog.", "Log.", "Timber.", "fatalError(", 'error("', "require(", "check(")
+# Pfadende → Zeilenstücke, die bewusst ein festes «: » behalten
+LV_ALLOWED = {
+    # Diagnosebericht zum Kopieren: feste Codes, gleich in jeder Sprache
+    "diagnostics/DiagnosticReport.kt": ["${it.row.code}: "],
+    "Services/DiagnosticReport.swift": ["\\(item.row.rawValue): "],
+    # Prüfprotokoll des Datenbank-Exports (Diagnose, deutsch)
+    "data/local/DatabaseFingerprint.kt": ["$table: "],
+    # Protokoll und Fehlertext beim Öffnen der Datenbank (Diagnose, deutsch, nie in der Oberfläche)
+    "data/local/DatabaseOpenPlanner.kt": ["$database: $reason"],
+    # Orientierungsposten auch in der CSV-Ausgabe: Format der Vorlage, nicht der Oberfläche
+    "domain/portfolio/TaxSummaryTexts.kt": ["$fallback: $label"],
+    "Portfolio/Tax/TaxSummaryTexts.swift": ["\\(fallback): \\(label)"],
+    # Technischer Fehlertext: HTTP-Status und Auszug der Antwort
+    "Core/ExchangeHTTP.swift": ['status + ": " + excerpt'],
+    "Exchanges/BulkTickerRows.swift": ["\\(formatError): "],
+}
+LV_EXPECTED = {
+    "values-fr": "%1$s" + "\\" + "u00A0: %2$s",
+    "values-zh": "%1$s：%2$s", "values-b+zh+Hant": "%1$s：%2$s", "values-b+yue": "%1$s：%2$s", "values-ja": "%1$s：%2$s",
+    "values-am": "%1$s፦ %2$s",
+    "values-hy": "%1$s՝ %2$s",
+    "values-km": "%1$s៖ %2$s",
+}
+
+
+def label_value_offenders(directory, extension, patterns):
+    """Treffer in Codezeilen (ohne Kommentare, Protokoll und LV_ALLOWED) als «Pfad:Zeile: Text»."""
+    out = []
+    for rel, path in files_under(directory, extension):
+        full = path.replace(os.sep, "/")
+        allowed = [piece for end, pieces in LV_ALLOWED.items() if full.endswith(end) for piece in pieces]
+        for index, line in enumerate(read(path).split("\n")):
+            if is_comment_line(line) or any(c in line for c in LV_IGNORED_CALLS):
+                continue
+            if any(p.search(line) for p in patterns) and not any(a in line for a in allowed):
+                out.append(f"{os.path.basename(path)}:{index + 1}: {line.strip()}")
+    return out
+
+
+def rule_label_value(t):
+    """«Bezeichnung: Wert» über R.string.label_value bzw. L("label_value", …), nie über ein festes «: » — sonst fehlt die
+    Typografie der Sprache (Französisch « : », Chinesisch/Japanisch «：»). Alle 75 Sprachen haben label_value."""
+    problems = []
+    for module in ("app", "coreui", "widget", "domain", "data"):
+        problems += [f"{p} — stringResource(R.string.label_value, a, b) nehmen"
+                     for p in label_value_offenders(need_dir(t.java(module)), "kt", LV_KOTLIN)]
+    for top in ("App", "Shared", "Widgets"):
+        problems += [f"{p} — L(\"label_value\", a, b) nehmen"
+                     for p in label_value_offenders(need_dir(t.i(top)), "swift", LV_SWIFT)]
+    res = need_dir(t.a("resources", "src", "main", "res"))
+    folders = sorted(d for d in os.listdir(res) if d.startswith("values") and os.path.isfile(os.path.join(res, d, "strings_common.xml")))
+    if len(folders) != 75:
+        problems.append(f"strings_common.xml in {len(folders)} statt 75 Sprachen")
+    for folder in folders:
+        m = re.search(r'<string name="label_value">([^<]*)</string>', read(os.path.join(res, folder, "strings_common.xml")))
+        expected = LV_EXPECTED.get(folder, "%1$s: %2$s")
+        if not m:
+            problems.append(f"label_value fehlt in {folder}")
+        elif m.group(1) != expected:
+            problems.append(f"label_value in {folder}: «{m.group(1)}», erwartet «{expected}»")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# dispatchers
+
+
+DISPATCHER_MODULES = ("app", "coreui", "data", "domain", "widget")
+# Liefert die Dispatcher und nennt sie darum selbst (zweimal)
+DISPATCHER_PROVIDER = "app/app/di/DispatcherModule.kt"
+DISPATCHER_LITERAL = re.compile(r"\bDispatchers\.(?:IO|Default)\b")
+BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
+DISPATCHER_LINE_COMMENT = re.compile(r"(^|[ \t])//[^\n]*", re.M)
+# Datei (`<Modul>/` + Pfad relativ zu `src/main/java/com/cryptochecker/`) → höchstens so viele Stellen; darf nur sinken.
+# Was noch nicht umgestellt ist, nach Grund geordnet — bei 0 kommt der Eintrag weg.
+DISPATCHER_REMAINING = {
+    # Von Android erzeugt oder ohne Hilt-Konstruktor (Application vor der Injektion, Receiver, `object`,
+    # Hilfsklassen und -funktionen, die von Hand gebaut werden)
+    "app/app/CryptoCheckerApp.kt": 2,
+    "coreui/app/util/ReceiverAsync.kt": 1,
+    "app/app/work/ExactCheckReceiver.kt": 1,
+    "domain/app/domain/widget/PulseBackgroundFetch.kt": 1,
+    "widget/app/widget/PortfolioWidgetChartView.kt": 1,
+    "app/app/ui/features/portfolio/PortfolioExportRun.kt": 2,
+    "app/app/ui/features/portfolio/PortfolioCsvImportReader.kt": 3,
+    "app/app/ui/features/watchlist/WatchlistContentFlows.kt": 1,
+    "data/app/data/portfolio/PortfolioBackupMirror.kt": 1,
+    "data/app/data/remote/util/InFlightRequests.kt": 1,
+    # Composables (LaunchedEffect/produceState): kein Konstruktor, in den Hilt etwas reichen könnte
+    "app/app/ui/features/about/LicensesSheet.kt": 1,
+    "app/app/ui/features/alarms/AlarmPickerRows.kt": 1,
+    "app/app/ui/features/explorer/ExplorerExchangeBadge.kt": 1,
+    "app/app/ui/features/portfolio/PortfolioRestoreNoticeDialog.kt": 1,
+    "app/app/ui/features/settings/SettingsDataPages.kt": 1,
+    "app/app/ui/features/settings/SettingsScreen.kt": 1,
+    "app/app/ui/features/settings/StorageRecoveryNoticeDialog.kt": 3,
+    "app/app/ui/features/watchlist/WatchSheetChartCanvas.kt": 1,
+    # ViewModels mit den meisten Konstruktor-Abhängigkeiten in :app (code_metrics.py) samt Erweiterungsdateien;
+    # Explorer und Portfolio nehmen den Default-Dispatcher schon, IO erst nach dem Aufteilen
+    "app/app/ui/features/alarms/AlarmsViewModel.kt": 1,
+    "app/app/ui/features/explorer/ExplorerBulkActions.kt": 1,
+    "app/app/ui/features/explorer/ExplorerSearchActions.kt": 2,
+    "app/app/ui/features/info/MarketDataLoaders.kt": 1,
+    "app/app/ui/features/info/MarketDataSync.kt": 1,
+    "app/app/ui/features/info/MarketPreviewActions.kt": 1,
+    "app/app/ui/features/portfolio/PortfolioLoadActions.kt": 1,
+    # Dateien an der Zeilengrenze (line_limit.py; ein Konstruktor-Parameter mehr sprengt sie) samt Erweiterungsdateien
+    "data/app/data/CoinListSync.kt": 5,
+    "data/app/data/CoinListSyncMap.kt": 4,
+    "data/app/data/logos/LogoImageStore.kt": 5,
+    "data/app/data/portfolio/WatchedAddressSourceXpub.kt": 2,
+    # Nahe der Zeilengrenze und von Hand gebaut in 6 Testdateien
+    "data/app/data/remote/ExchangeRemoteDataSource.kt": 1,
+    # Gebaut von LogoImageStore (verdrahtet IO selbst, siehe oben); dazu von Hand in den Paritätstests
+    "domain/app/domain/logos/LogoLoadingHint.kt": 2,
+}
+
+
+def dispatcher_literals(text):
+    code = BLOCK_COMMENT.sub("", text)
+    code = DISPATCHER_LINE_COMMENT.sub(r"\1", code)
+    return len(DISPATCHER_LITERAL.findall(code))
+
+
+def rule_dispatchers(t):
+    """Keine Kotlin-Datei von :app, :coreui, :data, :domain und :widget nennt Dispatchers.IO/Default selbst — ausser
+    DispatcherModule. Per Hilt erzeugte Klassen nehmen den Dispatcher im Konstruktor (@param:IoDispatcher …)."""
+    files = {}
+    for module in DISPATCHER_MODULES:
+        main = need_dir(t.a(module, "src", "main"))
+        for rel, path in files_under(main, "kt"):
+            name = f"{module}/" + (rel[len("java/com/cryptochecker/"):] if rel.startswith("java/com/cryptochecker/") else rel)
+            files[name] = path
+    if len(files) <= 900:
+        return [f"nur {len(files)} Kotlin-Dateien gefunden"]
+    problems = []
+    if DISPATCHER_PROVIDER not in files:
+        return [f"{DISPATCHER_PROVIDER} fehlt"]
+    if dispatcher_literals(read(files[DISPATCHER_PROVIDER])) != 2:
+        problems.append(f"{DISPATCHER_PROVIDER}: erwartet genau 2 Dispatcher")
+    counts = {name: dispatcher_literals(read(path)) for name, path in files.items() if name != DISPATCHER_PROVIDER}
+    for name, count in sorted(counts.items()):
+        if count > DISPATCHER_REMAINING.get(name, 0):
+            problems.append(f"{name}: {count}, erlaubt {DISPATCHER_REMAINING.get(name, 0)} — Dispatchers.IO/Default fest "
+                            "verdrahtet; im Konstruktor nehmen (@param:IoDispatcher/@param:DefaultDispatcher)")
+    for name, allowed in sorted(DISPATCHER_REMAINING.items()):
+        if counts.get(name, 0) < allowed:
+            problems.append(f"{name}: {counts.get(name, 0)} statt {allowed} — Zahl in DISPATCHER_REMAINING senken "
+                            "(bei 0 Eintrag entfernen)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# layers
+
+
+DOMAIN = APP + ".domain"
+DATA = APP + ".data"
+# Paket des gemeinsamen Test-Helfers (`test-shared/java`): Tests von :domain und :data dürfen es importieren
+TEST_SHARED = APP + ".parity"
+PACKAGE = re.compile(r"^package\s+([\w.]+)", re.M | A)
+IMPORT = re.compile(r"^import\s+([\w.*]+)", re.M | A)
+LINE_COMMENT = re.compile(r"//[^\n]*")
+TEST_ANNOTATION = re.compile(r"^\s*@Test\b", re.M | A)
+TEST_MODULES = ("app", "domain", "data", "marketdata", "wear")
+# Untergrenze der `@Test`-Methoden je Modul = heutiger Stand: weniger heisst verloren. Wer Tests hinzufügt, hebt die
+# Untergrenze im selben Commit; wer Tests bewusst streicht (oder hierher verschiebt), senkt sie mit Begründung.
+TEST_FLOOR = {"app": 1536, "domain": 1616, "data": 603, "marketdata": 32, "wear": 51}
+# Datei (relativ zu `<Modul>/src/main`) → Grund, warum sie die Regel verletzen darf. Leer: keine Ausnahme.
+DOMAIN_EXCEPTIONS = {}
+DATA_EXCEPTIONS = {}
+
+
+def in_package(name, base):
+    return name == base or name.startswith(base + ".")
+
+
+def parse_source(name, text):
+    m = PACKAGE.search(text)
+    return name, (m.group(1) if m else ""), [i.group(1) for i in IMPORT.finditer(text)]
+
+
+def layer_violations(source, base, forbidden, app_packages):
+    name, package, imports = source
+    folder = name.rsplit("/", 1)[0] if "/" in name else ""
+    folder = (folder[len("java/"):] if folder.startswith("java/") else folder).replace("/", ".")
+    if not in_package(package, base):
+        placement = [f"Paket {package} statt {base}"]
+    elif package != folder:
+        placement = [f"Paket {package} passt nicht zum Ordner"]
+    else:
+        placement = []
+    bad = [f"import {i}" for i in imports
+           if any(in_package(i, f) for f in forbidden) or (in_package(i, APP) and not any(in_package(i, p) for p in app_packages))]
+    return placement + bad
+
+
+def test_methods(text):
+    """`@Test` am Zeilenanfang (nach Einrückung), ohne Kommentare."""
+    return len(TEST_ANNOTATION.findall(LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))))
+
+
+def _layer(t, module, base, forbidden, app_packages, exceptions, source_set="main"):
+    directory = need_dir(t.a(module, "src", source_set))
+    files = files_under(directory, "kt")
+    least = 100 if source_set == "main" else 50
+    if len(files) <= least:
+        return [f"{module}/src/{source_set}: nur {len(files)} Kotlin-Dateien gefunden"]
+    found = {}
+    for rel, path in files:
+        v = layer_violations(parse_source(rel, read(path)), base, forbidden, app_packages)
+        if v:
+            found[rel] = v
+    problems = [f":{module} ({source_set}) {name}: {'; '.join(v)}" for name, v in sorted(found.items()) if name not in exceptions]
+    problems += [f"Ausnahme ohne Verstoss entfernen: {name}" for name in sorted(exceptions) if name not in found]
+    return problems
+
+
+def rule_layers(t):
+    """Schichtgrenzen am Quelltext (Paket = Modul): :domain ohne Room/OkHttp und ohne andere App-Pakete, :data nur mit
+    :domain; :app ohne Pakete domain/data; kein Paket in zwei Modulen; Tests halten dieselben Regeln ein; der gemeinsame
+    Test-Helfer liegt einmal in test-shared/java; kein Modul verliert still seine Tests (TEST_FLOOR)."""
+    problems = _layer(t, "domain", DOMAIN, ["androidx.room", "okhttp3"], [DOMAIN], DOMAIN_EXCEPTIONS)
+    problems += _layer(t, "data", DATA, [], [DATA, DOMAIN], DATA_EXCEPTIONS)
+    problems += _layer(t, "domain", DOMAIN, ["androidx.room", "okhttp3"], [DOMAIN, TEST_SHARED], {}, "test")
+    problems += _layer(t, "data", DATA, [], [DATA, DOMAIN, TEST_SHARED], {}, "test")
+    app_main = need_dir(t.a("app", "src", "main"))
+    for rel, path in files_under(app_main, "kt"):
+        package = parse_source(rel, read(path))[1]
+        if in_package(package, DOMAIN):
+            problems.append(f"Paket {DOMAIN} gehört :domain, in :app liegt: {rel}")
+        if in_package(package, DATA):
+            problems.append(f"Paket {DATA} gehört :data, in :app liegt: {rel}")
+    modules = sorted(d for d in os.listdir(t.android) if os.path.isdir(t.a(d, "src", "main")))
+    if not {"app", "data", "domain", "marketdata", "wear"} <= set(modules):
+        problems.append(f"Module: {modules}")
+    by_package = {}
+    for module in modules:
+        for _, path in files_under(t.a(module, "src", "main"), "kt"):
+            m = PACKAGE.search(read(path))
+            if m:
+                by_package.setdefault(m.group(1), set()).add(module)
+    if len(by_package) <= 50:
+        problems.append(f"nur {len(by_package)} Pakete gefunden")
+    problems += [f"Paket in zwei Modulen (Paket = Modul): {name}: {sorted(owners)}"
+                 for name, owners in sorted(by_package.items()) if len(owners) > 1]
+    # Gemeinsamer Test-Helfer: genau eine Datei, Testquelle von :app, :domain und :data, keine Kopie
+    shared = [f"test-shared/java/{rel}" for rel, _ in files_under(t.a("test-shared", "java"), "kt")]
+    if shared != ["test-shared/java/com/cryptochecker/app/parity/ParityJson.kt"]:
+        problems.append(f"test-shared/java enthält {shared}")
+    elif parse_source("", read(t.a(shared[0])))[1] != TEST_SHARED:
+        problems.append(f"ParityJson.kt nicht im Paket {TEST_SHARED}")
+    for module in ("app", "domain", "data"):
+        gradle = read(need_file(t.a(module, "build.gradle.kts")))
+        if 'getByName("test") {\n            kotlin.directories.add("$rootDir/test-shared/java")' not in gradle:
+            problems.append(f"{module}/build.gradle.kts bindet test-shared/java nicht als Testquelle ein")
+        tests = files_under(t.a(module, "src", "test"), "kt")
+        copies = [rel for rel, _ in tests if rel.endswith("/ParityJson.kt")]
+        if copies:
+            problems.append(f"eigene Kopie von ParityJson in :{module}: {copies}")
+        if module != "app":
+            in_shared = [rel for rel, path in tests if parse_source(rel, read(path))[1] == TEST_SHARED]
+            if in_shared:
+                problems.append(f"Tests im Paket {TEST_SHARED} in :{module}: {in_shared}")
+    counts = {m: sum(test_methods(read(p)) for _, p in files_under(need_dir(t.a(m, "src", "test")), "kt")) for m in TEST_MODULES}
+    lost = [f":{m} {counts[m]} < {floor}" for m, floor in TEST_FLOOR.items() if counts[m] < floor]
+    if lost:
+        problems.append(f"@Test-Methoden verloren (Ordner src/test des Moduls?): {lost} – gezählt: {counts}")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# dialog-scroll
+
+
+DS_DIALOG = re.compile(r"(?<![\w])AlertDialog\(", A)
+DS_TEXT_SLOT = re.compile(r"\btext\s*=\s*\{", A)
+DS_TEXT_CALL = re.compile(r"(?<![\w])Text\(", A)
+DS_COLUMN = re.compile(r"(?<![\w])Column\s*[({]", A)
+DS_JOINED = re.compile(r'"\s*\+|\+\s*"|\+\s*(?:pluralS|s)tringResource\(')
+DS_RESOURCE = re.compile(r"(?<![\w.])R\.(?:string|plurals)\.(\w+)", A)
+DS_SENTENCE_BREAK = re.compile(r"[.!?][\"”»)]?\s+\S")
+DS_SCROLLS = ("DialogText", "verticalScroll", "LazyColumn")
+
+
+def ds_skip_char(code, start):
+    """Ende (exklusiv) des Zeichen-Literals ab code[start]."""
+    from_ = start + 3 if start + 1 < len(code) and code[start + 1] == "\\" else start + 2
+    end = code.find("'", from_)
+    return len(code) if end < 0 else end + 1
+
+
+def ds_skip_string(code, start):
+    """Ende (exklusiv) des String-Literals ab code[start] (`"` oder `\"\"\"`), samt `${…}`."""
+    raw = code.startswith('"""', start)
+    i = start + (3 if raw else 1)
+    while i < len(code):
+        if raw and code.startswith('"""', i):
+            end = i + 3
+            while end < len(code) and code[end] == '"':
+                end += 1
+            return end
+        if not raw and code[i] == "\\":
+            i += 2
+        elif not raw and code[i] == '"':
+            return i + 1
+        elif code.startswith("${", i):
+            c = ds_closing(code, i + 1)
+            i = len(code) if c < 0 else c + 1
+        else:
+            i += 1
+    return len(code)
+
+
+def ds_closing(code, open_):
+    """Index der schliessenden Klammer zu code[open_]; Strings und Zeichen werden übersprungen."""
+    depth = 0
+    i = open_
+    while i < len(code):
+        c = code[i]
+        if c == '"':
+            i = ds_skip_string(code, i)
+            continue
+        if c == "'":
+            i = ds_skip_char(code, i)
+            continue
+        if c in "({[":
+            depth += 1
+        elif c in ")}]":
+            depth -= 1
+            if depth == 0:
+                return i
+        i += 1
+    return -1
+
+
+def ds_strip_comments(source):
+    """Kommentare durch Leerzeichen ersetzen (Zeilenumbrüche bleiben, Strings unverändert)."""
+    out = list(source)
+    i = 0
+    n = len(source)
+    while i < n:
+        if source[i] == '"':
+            i = ds_skip_string(source, i)
+            continue
+        if source[i] == "'":
+            i = ds_skip_char(source, i)
+            continue
+        if source.startswith("//", i):
+            end = source.find("\n", i)
+            end = n if end < 0 else end
+            for k in range(i, end):
+                out[k] = " "
+            i = end
+            continue
+        if source.startswith("/*", i):
+            depth = 0
+            k = i
+            while k < n:
+                if source.startswith("/*", k):
+                    depth += 1
+                    k += 2
+                    continue
+                if source.startswith("*/", k):
+                    k += 2
+                    depth -= 1
+                    if depth == 0:
+                        break
+                    continue
+                k += 1
+            for j in range(i, min(k, n)):
+                if source[j] != "\n":
+                    out[j] = " "
+            i = k
+            continue
+        i += 1
+    return "".join(out)
+
+
+def ds_text_slot(code, open_, close):
+    """Inhalt des Arguments `text = { … }` direkt in der Klammer open_..close, sonst None."""
+    depth = 0
+    i = open_ + 1
+    while i < close:
+        c = code[i]
+        if c == '"':
+            i = ds_skip_string(code, i)
+            continue
+        if c == "'":
+            i = ds_skip_char(code, i)
+            continue
+        if c in "({[":
+            depth += 1
+        elif c in ")}]":
+            depth -= 1
+        elif depth == 0 and c == "t" and not (code[i - 1].isalnum() or code[i - 1] == "_"):
+            m = DS_TEXT_SLOT.match(code, i, close)
+            if m:
+                brace = m.end() - 1
+                return code[brace + 1:ds_closing(code, brace)]
+        i += 1
+    return None
+
+
+def ds_is_long(text):
+    return "\\n" in text or DS_SENTENCE_BREAK.search(text) is not None
+
+
+def ds_reason(slot, strings):
+    """Warum der Slot scrollen muss, oder None."""
+    if any(s in slot for s in DS_SCROLLS):
+        return None
+    names = [m.group(1) for m in DS_RESOURCE.finditer(slot)]
+    texts = len(DS_TEXT_CALL.findall(slot))
+    if texts > 1:
+        return "mehrere Text("
+    if DS_COLUMN.search(slot):
+        return "Column ohne verticalScroll"
+    if DS_JOINED.search(slot) or "\\n" in slot:
+        return "zusammengesetzter Text (+ bzw. \\n)"
+    if any(ds_is_long(text) for name in names for text in strings.get(name, [])):
+        return "Ressource mit mehr als einem Satz"
+    if texts == 1 and not names:
+        return "Inhalt nicht prüfbar (keine Text-Ressource)"
+    return None
+
+
+def dialog_violations(source, strings):
+    """Verstösse in [source] als «Zeile: Grund»; [strings]: Ressourcenname → Texte (Plural: alle Formen)."""
+    code = ds_strip_comments(source)
+    out = []
+    for match in DS_DIALOG.finditer(code):
+        open_ = match.end() - 1
+        close = ds_closing(code, open_)
+        if close < 0:
+            continue
+        slot = ds_text_slot(code, open_, close)
+        if slot is None:
+            continue
+        reason = ds_reason(slot, strings)
+        if reason:
+            out.append(f"{line_of(code, match.start())}: {reason}")
+    return out
+
+
+def load_strings(values):
+    """`<string>` und `<plurals>` (alle Formen) aus den XML-Dateien in `values/` (Englisch)."""
+    result = {}
+    single = re.compile(r'<string name="(\w+)"[^>]*>(.*?)</string>', re.S | A)
+    plural = re.compile(r'<plurals name="(\w+)"[^>]*>(.*?)</plurals>', re.S | A)
+    item = re.compile(r'<item quantity="\w+">(.*?)</item>', re.S | A)
+    for name in sorted(os.listdir(values)):
+        if name.endswith(".xml"):
+            xml = read(os.path.join(values, name))
+            for m in single.finditer(xml):
+                result[m.group(1)] = [m.group(2)]
+            for p in plural.finditer(xml):
+                result[p.group(1)] = [i.group(1) for i in item.finditer(p.group(2))]
+    return result
+
+
+def rule_dialog_scroll(t):
+    """Der text-Slot eines AlertDialog mit mehr als einem Satz scrollt (DialogText { … } bzw. verticalScroll), sonst schneidet
+    Android ihn bei grosser Schrift ab und die Schaltflächen rutschen weg. Kurze einzeilige Ressourcen bleiben ohne."""
+    strings = load_strings(need_dir(t.a("resources", "src", "main", "res", "values")))
+    if len(strings) <= 100:
+        return ["keine Text-Ressourcen gelesen"]
+    problems = []
+    dialogs = 0
+    for module in ("app", "coreui"):
+        for rel, path in files_under(need_dir(t.java(module)), "kt"):
+            source = read(path)
+            dialogs += len(DS_DIALOG.findall(ds_strip_comments(source)))
+            problems += [f"{module}/{rel}:{v} — text = {{ DialogText {{ … }} }} nehmen" for v in dialog_violations(source, strings)]
+    if dialogs <= 20:
+        problems.append(f"nur {dialogs} AlertDialog-Aufrufe gefunden (liest der Wächter nichts?)")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# write-consent: Rückfrage «nicht gespeichert» je Aufruf eines Schreibwegs von WatchRepository
+
+
+WC_FUN = re.compile(
+    r"(?m)^[ \t]*(?:@\w+(?:\([^)\n]*\))?\s+)*(?:(?:private|internal|public|protected|override|suspend|inline|operator|infix|tailrec)\s+)*"
+    r"fun\s+(?:<[^>\n]*>\s*)?((?:[\w<>?]+\.)?)(\w+)\s*\(", A)
+WC_CALL = re.compile(r"(?:\b(\w+)\s*\??\.\s*|(?<![\w.]))(\w+)\(", A)
+WC_REFUSED = re.compile(r"userWriteRefused\(([^)]*)\)")
+WC_TYPED = re.compile(r"\b(\w+)\s*:\s*([\w.]+)", A)
+WC_CONFIRM = re.compile(r"confirmUserWrite\(\)")
+WC_IF_HEAD = re.compile(r"\bif\s*\(\s*(!\s*)?(?:\w+\s*\??\.\s*)?$", A)
+WC_NEGATED = re.compile(r"!\s*(?:\w+\s*\??\.\s*)?$", A)
+WC_BLOCK_CALL = re.compile(r"(?<![\w.])block\(", A)
+# Neue Coroutine mit Empfänger (`appScope.launch(…) {`, `GlobalScope.async {`, `CoroutineScope(…).launch {`)
+WC_ESCAPE = re.compile(r"(?:\b\w+|\))\s*\??\.\s*(?:launch|async)\s*([({])", A)
+WC_LAUNCH_WRITE = re.compile(r"(?<!fun )\blaunchWrite\s*([({])", A)
+# Erlaubte Aufrufe ohne Rückfrage (Datei relativ zu `com/cryptochecker/app`, Schreibweg), nur mit `fromUser = false`:
+# «1 h später» aus der Alarm-Mitteilung stellt die Kursmarke wieder scharf — Systemweg ohne Bildschirm.
+WC_SYSTEM_CALLS = {("notification/AlarmActionReceiver.kt", "setAlarmEnabled")}
+# Folge-Schreibwege: fragen nie und lehnen nie ab (`userWriteRefused(notify = false)`)
+WC_SILENT = {"setNotifiedPrice", "setMissingPercentReferences"}
+
+
+class Fn:
+    def __init__(self, name, receiver, start, body_start, end):
+        self.name, self.receiver, self.start, self.body_start, self.end = name, receiver, start, body_start, end
+
+
+def wc_strip(text):
+    """Kommentare durch Leerraum ersetzen (Positionen bleiben); Zeichenketten bleiben stehen, Kommentarzeichen darin
+    öffnen keinen Kommentar; Blockkommentare verschachtelt wie in Kotlin."""
+    out = list(text)
+    n = len(text)
+    i = 0
+
+    def blank(start, to):
+        for k in range(start, to):
+            if out[k] != "\n":
+                out[k] = " "
+
+    while i < n:
+        if text.startswith("//", i):
+            end = text.find("\n", i)
+            end = n if end < 0 else end
+            blank(i, end)
+            i = end
+        elif text.startswith("/*", i):
+            depth = 0
+            k = i
+            while k < n:
+                if text.startswith("/*", k):
+                    depth += 1
+                    k += 2
+                elif text.startswith("*/", k):
+                    depth -= 1
+                    k += 2
+                    if depth == 0:
+                        break
+                else:
+                    k += 1
+            blank(i, min(k, n))
+            i = k
+        elif text.startswith('"""', i):
+            end = text.find('"""', i + 3)
+            i = n if end < 0 else end + 3
+        elif text[i] in "\"'":
+            quote = text[i]
+            k = i + 1
+            while k < n and text[k] != quote and text[k] != "\n":
+                k += 2 if text[k] == "\\" else 1
+            i = k + 1
+        else:
+            i += 1
+    return "".join(out)
+
+
+def wc_functions(text):
+    found = list(WC_FUN.finditer(text))
+    return [Fn(m.group(2), (m.group(1)[:-1] if m.group(1).endswith(".") else m.group(1)) or None, m.start(), m.end(),
+               found[i + 1].start() if i + 1 < len(found) else len(text)) for i, m in enumerate(found)]
+
+
+def wc_write_paths(repo):
+    """(Schreibwege, stille Folge-Schreibwege) aus den Repository-Dateien."""
+    writes, silent = set(), set()
+    pairs = [(fn, text) for text in repo for fn in wc_functions(text)]
+    for fn, text in pairs:
+        if fn.name in ("userWriteRefused", "confirmUserWrite"):
+            continue
+        calls = [m.group(1) for m in WC_REFUSED.finditer(text[fn.body_start:fn.end])]
+        if not calls:
+            continue
+        if all("notify = false" in c for c in calls):
+            silent.add(fn.name)
+        else:
+            writes.add(fn.name)
+    # Weiterleitungen (saveAlarm → trySaveAlarm, addWatch → tryAddWatch) zählen mit
+    while True:
+        added = {fn.name for fn, text in pairs if fn.name not in writes and fn.name not in silent and
+                 any(re.search(r"(?<![\w])" + re.escape(w) + r"\(", text[fn.body_start:fn.end], A) for w in writes)}
+        if not added:
+            break
+        writes |= added
+    return writes, silent
+
+
+def wc_matching(text, open_, a, b):
+    depth = 0
+    for i in range(open_, len(text)):
+        if text[i] == a:
+            depth += 1
+        elif text[i] == b:
+            depth -= 1
+        if depth == 0:
+            return i
+    return len(text) - 1
+
+
+def wc_skip_ws(text, from_):
+    i = from_
+    while i < len(text) and text[i].isspace():
+        i += 1
+    return i
+
+
+def wc_is_word(text, at, word):
+    def ident(c):
+        return c.isalnum() or c == "_"
+    return (text.startswith(word, at) and (at == 0 or not ident(text[at - 1])) and
+            (at + len(word) >= len(text) or not ident(text[at + len(word)])))
+
+
+def wc_statement_end(text, from_, stop_at_else):
+    """Ende einer Anweisung: Zeilenende bzw. (mit stop_at_else) `else` auf oberster Ebene, oder eine Klammer zu."""
+    depth = 0
+    for i in range(from_, len(text)):
+        c = text[i]
+        if c in "([{":
+            depth += 1
+        elif c in ")]}":
+            if depth == 0:
+                return i
+            depth -= 1
+        elif depth == 0 and (c == "\n" or (stop_at_else and wc_is_word(text, i, "else"))):
+            return i
+    return len(text)
+
+
+def wc_never_below(text, from_, to, minimum, start=0):
+    """Klammertiefe von from_ bis to fällt nie unter minimum (Start bei start)."""
+    depth = start
+    for i in range(from_, to):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+        if depth < minimum:
+            return False
+    return True
+
+
+def wc_has_top_level_or(text, from_, to):
+    depth = 0
+    for i in range(from_, min(to, len(text) - 1)):
+        c = text[i]
+        if c in "([{":
+            depth += 1
+        elif c in ")]}":
+            depth -= 1
+        elif c == "|" and depth == 0 and text[i + 1] == "|":
+            return True
+    return False
+
+
+def wc_escapes(text, from_, pos):
+    """Beginnt zwischen der Zustimmung und dem Schreibweg ein Block `x.launch { … }`/`x.async { … }` mit Empfänger, der pos
+    noch umschliesst? Dann läuft der Schreibweg losgelöst von der Coroutine der Aktion (ihre Zustimmung gilt dort nicht)."""
+    if from_ >= pos:
+        return False
+    for m in WC_ESCAPE.finditer(text[from_:pos]):
+        at = from_ + m.start(1)
+        if text[at] == "(":
+            at = wc_matching(text, at, "(", ")") + 1
+            while at < len(text) and text[at].isspace():
+                at += 1
+        if at < pos and text[at] == "{" and wc_never_below(text, at + 1, pos, 1, start=1):
+            return True
+    return False
+
+
+def wc_consent_covers(text, start, end, pos):
+    """Liegt pos im Zweig NACH der Zustimmung des Aufrufs confirmUserWrite() (start bis end)? Nur die im Code benutzten
+    Formen: `if (!c) return…` (danach, auch im else), `if (!c || write()) return…`, `if (!c) 0 else write()`,
+    `if (c) write() else …`, `f(c && write())`; der Rest der Bedingung muss passen."""
+    if pos < end:
+        return False
+    window = max(0, start - 200)
+    head = WC_IF_HEAD.search(text[window:start])
+    if head is None:
+        if WC_NEGATED.search(text[window:start]):
+            return False
+        rest = wc_skip_ws(text, end)
+        return (text.startswith("&&", rest) and pos < wc_statement_end(text, rest, False)
+                and not wc_has_top_level_or(text, rest, pos))
+    negated = head.group(1) is not None
+    cond_open = text.find("(", window + head.start())
+    cond_close = wc_matching(text, cond_open, "(", ")")
+    rest_at = wc_skip_ws(text, end)
+    if pos < cond_close:
+        if negated:
+            return text.startswith("||", rest_at)
+        return text.startswith("&&", rest_at) and not wc_has_top_level_or(text, rest_at, pos)
+    if rest_at >= cond_close:
+        rest_ok = True
+    elif negated:
+        rest_ok = text.startswith("||", rest_at)
+    else:
+        rest_ok = text.startswith("&&", rest_at) and not wc_has_top_level_or(text, rest_at, cond_close)
+    if not rest_ok:
+        return False
+    then_start = wc_skip_ws(text, cond_close + 1)
+    if then_start < len(text) and text[then_start] == "{":
+        then_end = wc_matching(text, then_start, "{", "}") + 1
+    else:
+        then_end = wc_statement_end(text, then_start, True)
+    if pos < then_end:
+        return not negated and pos >= then_start
+    if not negated:
+        return False
+    body = text[then_start:then_end].strip()
+    body = body[1:] if body.startswith("{") else body
+    body = body[:-1] if body.endswith("}") else body
+    exits = body.strip().replace("\r\n", "\n").replace("\r", "\n").split("\n")[-1].strip().startswith("return")
+    stmt_end = then_end
+    else_at = wc_skip_ws(text, then_end)
+    if wc_is_word(text, else_at, "else"):
+        else_start = wc_skip_ws(text, else_at + 4)
+        if else_start < len(text) and text[else_start] == "{":
+            stmt_end = wc_matching(text, else_start, "{", "}") + 1
+        else:
+            stmt_end = wc_statement_end(text, else_start, False)
+        if pos < stmt_end:
+            return True
+    return exits and wc_never_below(text, stmt_end, pos, 0)
+
+
+def wc_asks_before(text, from_, pos):
+    part = text[from_:pos]
+    for m in WC_CONFIRM.finditer(part):
+        end = from_ + m.end()
+        if wc_consent_covers(text, from_ + m.start(), end, pos) and not wc_escapes(text, end, pos):
+            return True
+    # launchWrite(…) { … }: Aufruf im Block
+    for m in WC_LAUNCH_WRITE.finditer(part):
+        at = from_ + m.start(1)
+        if text[at] == "(":
+            at = wc_matching(text, at, "(", ")") + 1
+            while at < len(text) and text[at].isspace():
+                at += 1
+        # Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
+        if (at < len(text) and text[at] == "{" and at < pos and wc_never_below(text, at + 1, pos, 1, start=1)
+                and not wc_escapes(text, at + 1, pos)):
+            return True
+    return False
+
+
+def wc_launch_write_problems(text):
+    """`launchWrite`-Funktionen, die ihren Block nicht nur nach der Zustimmung ausführen (Befund je Funktion)."""
+    out = []
+    for fn in wc_functions(text):
+        if fn.name != "launchWrite":
+            continue
+        blocks = [b for b in WC_BLOCK_CALL.finditer(text[:fn.end]) if b.start() >= fn.body_start]
+
+        def covered(b):
+            for c in WC_CONFIRM.finditer(text[fn.body_start:b.start()]):
+                end = fn.body_start + c.end()
+                if wc_consent_covers(text, fn.body_start + c.start(), end, b.start()) and not wc_escapes(text, end, b.start()):
+                    return True
+            return False
+        if not blocks or not all(covered(b) for b in blocks):
+            out.append(f"launchWrite@{fn.start}")
+    return out
+
+
+def wc_receivers(text):
+    """Namen der WatchRepository-Felder der Datei (sonst «watchRepository», wenn nicht anders getypt)."""
+    typed = [(m.group(1), m.group(2).rsplit(".", 1)[-1]) for m in WC_TYPED.finditer(text)]
+    own = {n for n, ty in typed if ty == "WatchRepository"}
+    other = {n for n, ty in typed if ty != "WatchRepository"}
+    return ({"watchRepository"} - other) | own
+
+
+def wc_confirmed(sources, functions, file, pos, seen):
+    """Liegt pos hinter einer noch offenen Rückfrage — oder fragen alle Aufrufer des umschliessenden Hilfswegs?"""
+    text = sources[file]
+    fns = [f for f in functions[file] if f.start <= pos]
+    if not fns:
+        return False
+    fn = fns[-1]
+    if pos >= fn.end:
+        return False
+    if wc_asks_before(text, fn.body_start, pos):
+        return True
+    if fn.name in seen or len(seen) > 4:
+        return False
+    call = re.compile(r"(?<![\w])" + re.escape(fn.name) + r"\(", A)
+    sites = []
+    for other, t in sources.items():
+        decls = [(f.start, f.body_start) for f in functions[other]]
+        sites += [(other, m.start()) for m in call.finditer(t) if not any(a <= m.start() < b for a, b in decls)]
+    return bool(sites) and all(wc_confirmed(sources, functions, other, at, seen | {fn.name}) for other, at in sites)
+
+
+def write_consent_check(sources, writes):
+    """(Zahl der Aufrufe, Befunde «Datei:Zeile fun Name: Aufruf», ausgenommene Systemaufrufe)."""
+    problems, exempted = [], set()
+    calls = 0
+    functions = {f: wc_functions(t) for f, t in sources.items()}
+    for file, text in sources.items():
+        receivers = wc_receivers(text)
+        fns = functions[file]
+        for m in WC_CALL.finditer(text):
+            receiver = m.group(1) or ""
+            method = m.group(2)
+            if method not in writes:
+                continue
+            in_extension = not receiver and any(f.receiver == "WatchRepository" and f.body_start <= m.start() < f.end for f in fns)
+            if not (receiver in receivers or in_extension):
+                continue
+            if any(f.start <= m.start() < f.body_start for f in fns):
+                continue  # Deklaration
+            calls += 1
+            paren = m.end() - 1
+            args = text[paren:wc_matching(text, paren, "(", ")") + 1]
+            if "fromUser = false" in args and (file, method) in WC_SYSTEM_CALLS:
+                exempted.add((file, method))
+                continue
+            if not wc_confirmed(sources, functions, file, m.start(), frozenset()):
+                owner = [f.name for f in fns if f.start <= m.start()]
+                problems.append(f"{file}:{line_of(text, m.start())} fun {owner[-1] if owner else None}: {m.group(0)}")
+    return calls, problems, exempted
+
+
+def rule_write_consent(t):
+    """Jeder Aufruf eines Schreibwegs des Nutzers (Funktionen von WatchRepository mit userWriteRefused( samt Weiterleitungen)
+    ausserhalb von data/ liegt in einer Funktion, die vorher confirmUserWrite() fragt (Block noch offen, richtige Richtung
+    der Bedingung, nicht losgelöst in einem fremden Scope) bzw. im Block von launchWrite { … }; ein Hilfsweg ohne eigene
+    Frage gilt, wenn jeder seiner Aufrufer fragt. Das Verhalten der Zustimmung selbst prüfen WatchlistWriteConsentTest und
+    BulkAddRunnerTest; hier: dass JEDER Aufruf in Oberfläche, Mitteilungen und Widgets vorher fragt."""
+    data = need_dir(os.path.join(t.java("data"), "data"))
+    repo = [wc_strip(read(os.path.join(data, n))) for n in sorted(os.listdir(data))
+            if n.startswith("WatchRepository") and n.endswith(".kt")]
+    if not repo:
+        return ["WatchRepository*.kt nicht gefunden"]
+    writes, silent = wc_write_paths(repo)
+    problems = []
+    if silent != WC_SILENT:
+        problems.append(f"Folge-Schreibwege {sorted(silent)}, erwartet {sorted(WC_SILENT)}")
+    if not {"setFavorite", "tryAddWatch", "addWatch", "saveAlarm", "deleteAlarm"} <= writes:
+        problems.append(f"Ableitung der Schreibwege greift nicht: {sorted(writes)}")
+    sources = {}
+    for module in ("app", "coreui", "widget"):
+        for rel, path in files_under(need_dir(t.java(module)), "kt"):
+            if not rel.startswith("data/"):
+                sources[rel] = wc_strip(read(path))
+    calls, found, exempted = write_consent_check(sources, writes)
+    if calls < 20:
+        problems.append(f"zu wenige Aufrufe gefunden ({calls}) — Scan defekt?")
+    if exempted != WC_SYSTEM_CALLS:
+        problems.append(f"Ausnahmeliste veraltet: genutzt {sorted(exempted)}, gelistet {sorted(WC_SYSTEM_CALLS)}")
+    problems += [f"{p} — Schreibweg ohne Rückfrage «nicht gespeichert» davor" for p in found]
+    launch_writes = 0
+    for file, text in sources.items():
+        launch_writes += sum(1 for f in wc_functions(text) if f.name == "launchWrite")
+        problems += [f"{file}: {p} führt den Block nicht nur nach der Zustimmung aus" for p in wc_launch_write_problems(text)]
+    if launch_writes == 0:
+        problems.append("launchWrite nicht gefunden — Scan defekt?")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# settings-write, compose-stability, bounded-caches
+
+
+SW_WRITE = re.compile(r"settingsRepository\.(set|record|update|confirm)[A-Za-z]*\(")
+
+
+def rule_settings_write(t):
+    """Einstellungen aus anderen Bildschirmen als «Einstellungen» schreiben über settingsRepository.guarded { … } — bei vollem
+    Speicher ein Hinweis statt Absturz (DataStore wirft eine IOException). «Einstellungen» schreibt über
+    SettingsViewModel.update, ausser dem eigenen ViewModel des Bitcoin-Servers."""
+    ui = need_dir(os.path.join(t.java("app"), "ui"))
+    problems = []
+    guarded = 0
+    for rel, path in files_under(ui, "kt"):
+        text = read(path)
+        if "settingsRepository.guarded {" in text:
+            guarded += 1
+        if rel.startswith("features/settings/") and os.path.basename(rel) != "SettingsAddressServer.kt":
+            continue
+        for i, line in enumerate(text.split("\n")):
+            if SW_WRITE.search(line) and "runCatchingCancellable" not in line and "safe {" not in line:
+                problems.append(f"{os.path.basename(rel)}:{i + 1}: {line.strip()} — über settingsRepository.guarded {{ … }} schreiben")
+    if guarded < 11:
+        problems.append(f"nur {guarded} Dateien mit settingsRepository.guarded {{ — Scan defekt?")
+    return problems
+
+
+CS_EXPECTED = [
+    "com.cryptochecker.app.domain.model.AlarmEntity",
+    "com.cryptochecker.app.domain.model.ExchangeInfo",
+    "com.cryptochecker.app.domain.model.ExchangePairsInfo",
+    "com.cryptochecker.app.domain.model.WatchEntity",
+    "com.cryptochecker.marketdata.model.ExchangePair",
+    "com.cryptochecker.marketdata.model.PairQuery",
+    "com.cryptochecker.marketdata.model.PostRequest",
+]
+CS_VAR = re.compile(r"\bvar\s")
+CS_MUTABLE = re.compile(r"\b(?:Mutable\w+|Array(?:List)?|\w*HashMap|\w*HashSet|StringBuilder|IntArray|DoubleArray|LongArray)\b", A)
+
+
+def cs_constructor(code, open_):
+    depth = 0
+    for index in range(open_, len(code)):
+        if code[index] == "(":
+            depth += 1
+        elif code[index] == ")":
+            depth -= 1
+            if depth == 0:
+                return code[open_ + 1:index]
+    return code[open_ + 1:]
+
+
+def rule_compose_stability(t):
+    """gradle/compose-stability.conf: Modelle aus :domain und :marketdata, die Compose als stabil behandeln darf — nur
+    solange sie unveränderlich sind (kein var, keine veränderliche Sammlung im Konstruktor); eingebunden in :app."""
+    problems = []
+    gradle = read(need_file(t.a("app", "build.gradle.kts")))
+    if 'stabilityConfigurationFiles.add(rootProject.layout.projectDirectory.file("gradle/compose-stability.conf"))' not in gradle:
+        problems.append("app/build.gradle.kts bindet gradle/compose-stability.conf nicht ein")
+    entries = [line.strip() for line in read(need_file(t.a("gradle", "compose-stability.conf"))).split("\n")
+               if line.strip() and not line.strip().startswith("//")]
+    if entries != CS_EXPECTED:
+        problems.append(f"Einträge {entries}, erwartet {CS_EXPECTED}")
+    for entry in entries:
+        package, name = entry.rsplit(".", 1)
+        relative = package.replace(".", "/") + f"/{name}.kt"
+        file = next((p for p in (t.a(m, "src", "main", "java", relative) for m in ("domain", "marketdata")) if os.path.isfile(p)), None)
+        if file is None:
+            problems.append(f"{entry}: Quelldatei fehlt (umbenannt? Eintrag in gradle/compose-stability.conf anpassen)")
+            continue
+        code = LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", read(file)))
+        if CS_VAR.search(code):
+            problems.append(f"{entry}: `var` in {os.path.basename(file)} — nicht mehr unveränderlich")
+        head = re.search(r"\bclass\s+" + re.escape(name) + r"\s*\(", code, A)
+        if not head:
+            problems.append(f"{entry}: Klasse mit Konstruktor nicht gefunden")
+        elif CS_MUTABLE.search(cs_constructor(code, head.end() - 1)):
+            problems.append(f"{entry}: veränderlicher Typ im Konstruktor")
+    # Gegenprobe an den bewusst nicht gelisteten Klassen: der Prüfer erkennt `var` und veränderliche Typen
+    model = t.a("marketdata", "src", "main", "java", "com", "cryptochecker", "marketdata", "model")
+    if not CS_VAR.search(read(need_file(os.path.join(model, "SimpleTicker.kt")))):
+        problems.append("Gegenprobe: SimpleTicker.kt ohne var — Prüfer prüfen")
+    alias = [l for l in read(need_file(os.path.join(model, "Exchange.kt"))).split("\n") if l.startswith("typealias CurrencyPairsMap")]
+    if not alias or not CS_MUTABLE.search(alias[0]):
+        problems.append("Gegenprobe: typealias CurrencyPairsMap ohne veränderlichen Typ — Prüfer prüfen")
+    return problems
+
+
+# Datei (Modul, Pfad relativ zu `com/cryptochecker/app`) → nimmt BoundedCache statt einer unbegrenzten ConcurrentHashMap
+BC_FILES = [
+    ("data", "data/remote/VolumeDataSource.kt"), ("data", "data/remote/NearExtremeDataSource.kt"),
+    ("data", "data/portfolio/PortfolioHistorySource.kt"), ("data", "data/alarm/DerivativesAlarmData.kt"),
+    ("domain", "domain/watch/SheetChartCache.kt"), ("widget", "widget/SingleWidgetRenderer.kt"),
+]
+
+
+def rule_bounded_caches(t):
+    """Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher bleiben begrenzt (BoundedCache, MEMORY_CACHE_ENTRIES)."""
+    problems = []
+    for module, rel in BC_FILES:
+        text = read(need_file(os.path.join(t.java(module), rel)))
+        if "ConcurrentHashMap" in text:
+            problems.append(f"{module}/{rel}: ConcurrentHashMap statt BoundedCache")
+        if "BoundedCache" not in text:
+            problems.append(f"{module}/{rel}: BoundedCache fehlt")
+    historic = read(need_file(os.path.join(t.java("data"), "data", "portfolio", "HistoricPriceSource.kt")))
+    if "routeMemo = BoundedCache" not in historic:
+        problems.append("HistoricPriceSource.kt: routeMemo = BoundedCache fehlt")
+    # Eigene Kerzen (die Pausen je Host bleiben eine kleine Map, begrenzt durch die Zahl der Börsen)
+    own = read(need_file(os.path.join(t.java("data"), "data", "remote", "candles", "OwnCandleDataSource.kt")))
+    if "cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)" not in own or "cache = ConcurrentHashMap" in own:
+        problems.append("OwnCandleDataSource.kt: cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES) erwartet")
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# test-inputs
+
+
+TI_MODULES = ("app", "domain", "data", "marketdata", "wear")
+# Pfade, die ein Test nur nennt (Meldung, Vergleichstext), aber nicht liest
+TI_NOT_READ = set()
+TI_RAW_STRING = re.compile(r'"""[\s\S]*?"""')
+TI_LITERAL = re.compile(r'"((?:[^"\\\n]|\\.)*)"')
+TI_LEADING_TEMPLATE = re.compile(r"^(\$\{[^}]*\}|\$[A-Za-z_]+)")
+TI_MIN_PATHS = 100
+
+
+def path_part(literal):
+    """Fester Anfang einer Zeichenkette als Pfad: eine Vorlage am Anfang fällt weg, ab der nächsten Vorlage wird am letzten
+    «/» davor abgeschnitten; None für alles, was kein relativer Pfad sein kann."""
+    v = TI_LEADING_TEMPLATE.sub("", literal, count=1)
+    template = v.find("$")
+    if template >= 0:
+        v = v[:template]
+        v = v[:v.rfind("/")] if "/" in v else ""
+    v = v.strip()
+    if not v or v.startswith("/") or "://" in v or "\\" in v or any(c.isspace() for c in v):
+        return None
+    while v.startswith("./"):
+        v = v[2:]
+    v = v.rstrip("/")
+    if not v or all(c in "./" for c in v):
+        return None
+    return v
+
+
+def _under(path, base):
+    """Liegt [path] in [base] (Pfad-Bestandteile, wie File.startsWith)?"""
+    p = os.path.normpath(path).split(os.sep)
+    b = os.path.normpath(base).split(os.sep)
+    return p[:len(b)] == b
+
+
+def rule_test_inputs(t):
+    """Die Test-Aufgaben aller Module kennen die Dateien, die die Tests ausserhalb ihres Klassenpfads lesen
+    (gradle/test-inputs.gradle.kts) — sonst meldet Gradle «UP-TO-DATE» bzw. nimmt das Ergebnis aus dem Build-Cache,
+    obwohl sich eine Fixture, eine Swift-Datei oder ein Nachbarmodul geändert hat. Jede Zeichenkette der Unit-Tests, die
+    einen vorhandenen Ort im Baum bezeichnet, liegt unter einem angemeldeten Ordner (testInputRoots)."""
+    problems = []
+    android = os.path.normpath(t.android)
+    repo = os.path.dirname(android)
+    script = read(need_file(t.a("gradle", "test-inputs.gradle.kts")))
+    block = script.split("// testInputRoots:begin", 1)[-1].split("// testInputRoots:end", 1)[0]
+    declared = [os.path.normpath(os.path.join(android, m.group(1))) for m in re.finditer(r'(?m)^\s*"([^"]+)",\s*$', block)]
+    root = read(need_file(t.a("build.gradle.kts")))
+    if 'subprojects {\n    apply(from = rootProject.file("gradle/test-inputs.gradle.kts"))\n}' not in root:
+        problems.append("build.gradle.kts wendet gradle/test-inputs.gradle.kts nicht auf alle Module an")
+    for piece in ("tasks.withType<Test>().configureEach {", ".withPathSensitivity(PathSensitivity.RELATIVE)",
+                  'providers.environmentVariable("REQUIRE_IOS_SOURCES")', 'inputs.property("requireIosSources", requireIosSources)'):
+        if piece not in script:
+            problems.append(f"gradle/test-inputs.gradle.kts: «{piece}» fehlt")
+    if len(declared) < 20:
+        problems.append(f"nur {len(declared)} Einträge in testInputRoots")
+    if len(declared) != len(set(declared)):
+        problems.append("doppelte Einträge in testInputRoots")
+    with_tests = sorted(d for d in os.listdir(android) if os.path.isdir(os.path.join(android, d, "src", "test")))
+    if with_tests != sorted(TI_MODULES):
+        problems.append(f"Module mit Tests {with_tests}, erwartet {sorted(TI_MODULES)} (neues Modul in TI_MODULES und testInputRoots)")
+    for module in TI_MODULES:
+        for source_set in ("main", "test"):
+            if os.path.normpath(os.path.join(android, module, "src", source_set)) not in declared:
+                problems.append(f"{module}/src/{source_set} fehlt in testInputRoots")
+    bases = [android] + [os.path.join(android, m) for m in TI_MODULES] + [repo, os.path.join(repo, "public")]
+    # Einzelne Namen ohne «/» zählen nur, wenn sie oben im Baum liegen und kein Modul-/Paketname sind
+    single = (set(os.listdir(android)) | set(os.listdir(repo))) - set(TI_MODULES)
+    uncovered = {}
+    paths = 0
+    for module in TI_MODULES:
+        for rel, path in files_under(os.path.join(android, module, "src", "test"), "kt"):
+            text = TI_RAW_STRING.sub('""', read(path))
+            for m in TI_LITERAL.finditer(text):
+                part = path_part(m.group(1))
+                if part is None or ("/" not in part and part not in single):
+                    continue
+                found = [os.path.normpath(os.path.join(b, part)) for b in bases]
+                found = [f for f in found if os.path.exists(f) and _under(f, repo)]
+                if not found or part in TI_NOT_READ:
+                    continue
+                paths += 1
+                if not any(_under(f, d) or _under(d, f) for f in found for d in declared):
+                    uncovered.setdefault(part, f"{module}/src/test/{rel}")
+    # Der Wächter sieht die Pfade wirklich (sonst wäre er still grün)
+    if paths < TI_MIN_PATHS:
+        problems.append(f"nur {paths} Pfade erkannt (mindestens {TI_MIN_PATHS})")
+    problems += [f"{p} (gelesen in {f}): Leseort ohne Eingabe in gradle/test-inputs.gradle.kts (testInputRoots)"
+                 for p, f in sorted(uncovered.items())]
+    return problems
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Run
+
+
+RULES = [
+    ("runcatching", rule_runcatching),
+    ("haptics", rule_haptics),
+    ("typography", rule_typography),
+    ("spacing", rule_spacing),
+    ("label-value", rule_label_value),
+    ("dispatchers", rule_dispatchers),
+    ("layers", rule_layers),
+    ("dialog-scroll", rule_dialog_scroll),
+    ("write-consent", rule_write_consent),
+    ("settings-write", rule_settings_write),
+    ("compose-stability", rule_compose_stability),
+    ("test-inputs", rule_test_inputs),
+    ("bounded-caches", rule_bounded_caches),
+]
+
+
+def escape_data(text):
+    """Message part of a workflow command - same as annotate.py (run with -I, so no import)."""
+    return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+
+def escape_property(text):
+    return escape_data(text).replace(":", "%3A").replace(",", "%2C")
+
+
+def run(root):
+    tree = Tree(root)
+    failed = 0
+    for rule_id, rule in RULES:
+        try:
+            problems = rule(tree)
+        except RuleError as e:
+            problems = [str(e)]
+        for problem in problems:
+            print(f"::error title={escape_property('Source rules (' + rule_id + ')')}::{escape_data(problem)}")
+        print(f"{rule_id}: {'ok' if not problems else str(len(problems)) + ' finding(s)'}")
+        failed += len(problems)
+    return 1 if failed else 0
+
+
+def self_test():
+    def eq(actual, expected, what):
+        if actual != expected:
+            raise AssertionError(f"{what}: {actual!r} != {expected!r}")
+
+    # runcatching: Coroutine-Kontexte werden erkannt; ausserhalb und mit eigenem Weiterwerfen erlaubt
+    eq(runcatching_violations(
+        "class A {\n    suspend fun a() {\n        if (x) { runCatching { load() } }\n    }\n    fun b() {\n"
+        "        scope.launch { list.forEach { runCatching { load() } } }\n    }\n    suspend fun c(): Int? =\n"
+        "        runCatching { load() }.getOrNull()\n    fun d() = scope.launch(Dispatchers.IO) { runCatching { load() } }\n}"),
+        [3, 6, 9, 10], "runcatching: Coroutine-Kontexte")
+    eq(runcatching_violations(
+        "class A {\n    private val x = runCatching { parse() }.getOrNull()\n    fun a() { runCatching { open() } }\n"
+        "    suspend fun b() {\n        val o = object : Callback { override fun done() { runCatching { close() } } }\n"
+        "        runCatching { load() }\n            .onFailure { if (it is CancellationException) throw it }\n"
+        "        runCatchingCancellable { load() }\n        // runCatching { im Kommentar }\n"
+        "        val s = \"runCatching { im Text }\"\n        val c = '{'\n    }\n"
+        "    @Composable fun C() { Button(onClick = { runCatching { open() } }) }\n}"),
+        [], "runcatching: erlaubte Formen")
+    # dispatchers: Code zählt, Kommentare und Import nicht
+    eq(dispatcher_literals("withContext(Dispatchers.IO) { }\nflow.flowOn(kotlinx.coroutines.Dispatchers.Default)"), 2, "dispatchers")
+    eq(dispatcher_literals("import kotlinx.coroutines.Dispatchers\n// Dispatchers.IO\n/** [Dispatchers.Default] */\nval x = 1"), 0,
+       "dispatchers: Kommentare")
+    eq(dispatcher_literals("withContext(Dispatchers.Main) { }\nwithContext(ioDispatcher) { }"), 0, "dispatchers: Main")
+    eq(len(DISPATCHER_REMAINING), 31, "dispatchers: Dateien")
+    eq(sum(DISPATCHER_REMAINING.values()), 51, "dispatchers: Stellen")
+    # layers: @Test am Zeilenanfang ohne Kommentare; Paket und Importe
+    at = "@" + "Test"
+    eq(test_methods(f"class A {{\n    {at}\n    fun a() = Unit\n    // {at}\n    /*\n{at} */\n    {at} fun b() = Unit\n"
+                    f"    val text = \"{at}\"\n}}\n"), 2, "layers: @Test")
+    eq(test_methods(f"{at}Only fun c() = Unit\n"), 0, "layers: @TestOnly")
+    text = f"package {DOMAIN}.util\n\nimport okhttp3.OkHttpClient\n// import x.y\nimport {APP}.data.Foo\nimport {DOMAIN}.model.Bar\n"
+    source = parse_source("java/com/cryptochecker/app/domain/util/A.kt", text)
+    eq(source[1], f"{DOMAIN}.util", "layers: Paket")
+    eq(source[2], ["okhttp3.OkHttpClient", f"{APP}.data.Foo", f"{DOMAIN}.model.Bar"], "layers: Importe")
+    eq(layer_violations(source, DOMAIN, ["androidx.room", "okhttp3"], [DOMAIN]),
+       ["import okhttp3.OkHttpClient", f"import {APP}.data.Foo"], "layers: Importe verboten")
+    eq(layer_violations(source, DOMAIN, [], [DATA, DOMAIN]), [], "layers: erlaubt")
+    eq(layer_violations(parse_source("java/com/cryptochecker/app/util/A.kt", f"package {APP}.util\n"), DOMAIN, [], [DOMAIN]),
+       [f"Paket {APP}.util statt {DOMAIN}"], "layers: Paket falsch")
+    eq(layer_violations(parse_source("java/com/cryptochecker/app/domain/A.kt", f"package {DOMAIN}.util\n"), DOMAIN, [], [DOMAIN]),
+       [f"Paket {DOMAIN}.util passt nicht zum Ordner"], "layers: Ordner")
+    eq((in_package(DOMAIN, DOMAIN), in_package(DOMAIN + "x.A", DOMAIN)), (True, False), "layers: in_package")
+    _self_test_dialog(eq)
+    _self_test_write_consent(eq)
+    # test-inputs: Vorlagen, Präfixe und Nicht-Pfade
+    for literal, expected in (("ios/$rel", "ios"), ("${prefix}src/main/$rel", "src/main"), ("../ios/App/", "../ios/App"),
+                              ("./testdata/parity", "testdata/parity"), ("LICENSE", "LICENSE"), ("$dir/strings_common.xml", None),
+                              ("https://example.org/a", None), ("zwei Wörter/x", None), ("/tmp/x", None), ("../", None), ("", None)):
+        eq(path_part(literal), expected, f"test-inputs: {literal}")
+    # Annotationen: kein Einschleusen weiterer Befehle
+    eq(escape_data("a\nb%"), "a%0Ab%25", "escape")
+    print("source_rules self-test ok")
+    return 0
+
+
+def _self_test_dialog(eq):
+    strings = {"kurz": ["This alert will be removed."], "lang": ["Deletes all data. This cannot be undone."],
+               "mehrzahl": ["One entry.", "%d entries were skipped. Check the file."]}
+
+    def dialog(text):
+        return ("fun f() {\n    AlertDialog(\n        onDismissRequest = {},\n        text = " + text +
+                ",\n        confirmButton = { TextButton(onClick = {}) { Text(\"OK\") } }\n    )\n}\n")
+    bad = [
+        "{ Column { Text(stringResource(R.string.kurz)); Text(stringResource(R.string.kurz)) } }",
+        '{ Text(stringResource(R.string.kurz) + "\\n\\n" + stringResource(R.string.kurz)) }',
+        '{ Text("$a\\n$b") }',
+        "{ Text(stringResource(R.string.lang)) }",
+        "{ Text(pluralStringResource(R.plurals.mehrzahl, n, n)) }",
+        "{ Text(message) }",
+        "{ Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { Text(stringResource(R.string.kurz)) } }",
+    ]
+    for slot in bad:
+        eq(len(dialog_violations(dialog(slot), strings)), 1, f"dialog-scroll nicht erkannt: {slot}")
+    good = [
+        "{ Text(stringResource(R.string.kurz)) }",
+        "{ DialogText { Text(stringResource(R.string.lang)) } }",
+        "{ DialogText { Text(a); Text(b) } }",
+        '{ Column(Modifier.verticalScroll(rememberScrollState())) { Text(x + "\\n" + y) } }',
+        '{\n            // Text(message) — nur Kommentar\n            Text(stringResource(R.string.kurz, "(}"))\n        }',
+    ]
+    for slot in good:
+        eq(dialog_violations(dialog(slot), strings), [], f"dialog-scroll fälschlich gemeldet: {slot}")
+    inner = "AlertDialog(\n    onDismissRequest = {},\n    confirmButton = { Foo(text = { Text(a); Text(b) }) }\n)"
+    eq(dialog_violations(inner, strings), [], "dialog-scroll: innerer text =")
+
+
+def _wc_names(problems):
+    return [p.split("fun ", 1)[1].split(":", 1)[0] for p in problems]
+
+
+def _self_test_write_consent(eq):
+    r = "watchRepository"
+    sample = f"""class C(private val {r}: WatchRepository) {{
+    fun okReturn(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        {r}.setFavorite(id, true)
+    }}
+    fun okBlock(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) {{
+            state = null
+            return@launch
+        }}
+        {r}.setFavorite(id, true)
+    }}
+    fun okElse(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch else {r}.setFavorite(id, true)
+    }}
+    fun okOr(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite() || !{r}.deleteAlarm(id)) return@launch
+        {r}.setFavorite(id, false)
+    }}
+    fun okValueElse(ids: List<Long>) = scope.launch {{
+        val n = if (!{r}.confirmUserWrite()) 0 else lock.withLock {{
+            {r}.reorder(ids)
+        }}
+        onDone(n)
+    }}
+    fun okThen(id: Long) = scope.launch {{ if ({r}.confirmUserWrite()) {r}.setFavorite(id, true) else other() }}
+    fun okAnd(id: Long) = scope.launch {{ onDone({r}.confirmUserWrite() && {r}.setAlarmEnabled(id, true)) }}
+    fun negatedBlock(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) {{ {r}.setFavorite(id, true) }}
+    }}
+    fun negatedStatement(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) {r}.setFavorite(id, true)
+    }}
+    fun positiveElse(ids: List<Long>) = scope.launch {{
+        val n = if ({r}.confirmUserWrite()) 0 else {r}.reorder(ids)
+    }}
+    fun afterPositive(id: Long) = scope.launch {{
+        if ({r}.confirmUserWrite()) other()
+        {r}.setFavorite(id, true)
+    }}
+    fun noReturn(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite()) {{ state = null }}
+        {r}.setFavorite(id, true)
+    }}
+    fun ignoredResult(id: Long) = scope.launch {{
+        {r}.confirmUserWrite()
+        {r}.setFavorite(id, true)
+    }}
+    fun positiveOr(id: Long) = scope.launch {{
+        if ({r}.confirmUserWrite() || {r}.deleteAlarm(id)) other()
+    }}
+    fun negatedAnd(id: Long) = scope.launch {{ onDone(!{r}.confirmUserWrite() && {r}.setAlarmEnabled(id, true)) }}
+    fun okAndThen(id: Long) = scope.launch {{ if ({r}.confirmUserWrite() && flag) {r}.setFavorite(id, true) }}
+    fun negatedAndRest(id: Long) = scope.launch {{
+        if (!{r}.confirmUserWrite() && flag) return@launch
+        {r}.setFavorite(id, true)
+    }}
+    fun positiveOrRest(id: Long) = scope.launch {{ if ({r}.confirmUserWrite() || flag) {r}.setFavorite(id, true) }}
+    fun positiveAndOr(id: Long) = scope.launch {{ if ({r}.confirmUserWrite() && flag || other) {r}.setFavorite(id, true) }}
+    fun andOrInCondition(id: Long) = scope.launch {{ if ({r}.confirmUserWrite() && flag || {r}.deleteAlarm(id)) other() }}
+}}"""
+    calls, problems, _ = write_consent_check({"ui/Sample.kt": wc_strip(sample)}, {"setFavorite", "reorder", "deleteAlarm", "setAlarmEnabled"})
+    eq(_wc_names(problems), ["negatedBlock", "negatedStatement", "positiveElse", "afterPositive", "noReturn", "ignoredResult",
+                             "positiveOr", "negatedAnd", "negatedAndRest", "positiveOrRest", "positiveAndOr", "andOrInCondition"],
+       "write-consent: Richtung der Bedingung")
+    eq(calls, 21, "write-consent: Aufrufe")
+    launch_writes = f"""class D {{
+    private fun launchWrite(cancelled: () -> Unit = {{}}, block: suspend () -> Unit) =
+        scope.launch {{ if (!{r}.confirmUserWrite()) block() else cancelled() }}
+}}
+class E {{
+    private fun launchWrite(block: suspend () -> Unit) = scope.launch {{ if ({r}.confirmUserWrite()) block() }}
+}}"""
+    eq(len(wc_launch_write_problems(wc_strip(launch_writes))), 1, "write-consent: launchWrite im Ablehnungszweig")
+    foreign = f"""class C(private val {r}: WatchRepository) {{
+    private fun launchWrite(block: suspend () -> Unit) = scope.launch {{ if ({r}.confirmUserWrite()) block() }}
+    fun okChild(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        launch {{ {r}.setFavorite(id, true) }}
+        withContext(Dispatchers.IO) {{ {r}.reorder(listOf(id)) }}
+    }}
+    fun okClosedLaunch(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        appScope.launch {{ log() }}
+        {r}.setFavorite(id, true)
+    }}
+    fun foreign(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        appScope.launch {{ {r}.setFavorite(id, true) }}
+    }}
+    fun sameScopeAgain(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        viewModelScope.launch {{ {r}.setFavorite(id, true) }}
+    }}
+    fun global(id: Long) = viewModelScope.launch {{
+        if ({r}.confirmUserWrite()) GlobalScope.launch(Dispatchers.IO) {{ {r}.setFavorite(id, true) }}
+    }}
+    fun newScope(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        CoroutineScope(Dispatchers.IO).async {{ {r}.reorder(listOf(id)) }}
+    }}
+    fun inLaunchWrite(id: Long) {{ launchWrite {{ appScope.launch {{ {r}.setFavorite(id, false) }} }} }}
+    fun viaHelper(id: Long) = viewModelScope.launch {{
+        if (!{r}.confirmUserWrite()) return@launch
+        appScope.launch {{ helper(id) }}
+    }}
+    private suspend fun helper(id: Long) {{ {r}.deleteWatches(listOf(id)) }}
+}}"""
+    calls, problems, _ = write_consent_check({"ui/Sample.kt": wc_strip(foreign)}, {"setFavorite", "reorder", "deleteWatches"})
+    eq(_wc_names(problems), ["foreign", "sameScopeAgain", "global", "newScope", "inLaunchWrite", "helper"], "write-consent: fremder Scope")
+    eq(calls, 9, "write-consent: Aufrufe (fremder Scope)")
+    eq(wc_launch_write_problems(wc_strip(foreign)), [], "write-consent: launchWrite ok")
+    detached = f"""class D {{
+    private fun launchWrite(block: suspend () -> Unit) =
+        scope.launch {{ if ({r}.confirmUserWrite()) appScope.launch {{ block() }} }}
+}}"""
+    eq(len(wc_launch_write_problems(wc_strip(detached))), 1, "write-consent: launchWrite losgelöst")
+    counter = f"""class C(private val {r}: WatchRepository, private val other: Store) {{
+    private fun launchWrite(block: suspend () -> Unit) = scope.launch {{ if ({r}.confirmUserWrite()) block() }}
+    fun ok(id: Long) {{
+        launchWrite {{ {r}.setFavorite(id, true) }}
+    }}
+    fun okGuard(id: Long) {{
+        scope.launch {{
+            if (!{r}.confirmUserWrite()) return@launch
+            helper(id)
+        }}
+    }}
+    private suspend fun helper(id: Long) {{ {r}.deleteWatches(listOf(id)) }}
+    fun bad(id: Long) {{
+        scope.launch {{ {r}.setFavorite(id, false) }}
+    }}
+    fun afterBlock(ids: List<Long>) {{
+        launchWrite {{ }}
+        scope.launch {{ {r}.reorder(ids) }}
+    }}
+    fun closedGuard(id: Long) {{
+        scope.launch {{ {r}.confirmUserWrite() }}
+        scope.launch {{ {r}.setAlarmEnabled(id, true) }}
+    }}
+    fun systemNotListed(id: Long) {{ scope.launch {{ {r}.setAlarmEnabled(id, true, fromUser = false) }} }}
+    fun cancelledPath(id: Long) {{ launchWrite(cancelled = {{ {r}.setFavorite(id, false) }}) {{ }} }}
+    // {r}.setFavorite(1, true) — Kommentar zählt nicht
+    fun notRepo() {{ scope.launch {{ other.reorder(emptyList()) }} }}
+}}"""
+    calls, problems, _ = write_consent_check({"ui/Sample.kt": wc_strip(counter)}, {"setFavorite", "reorder", "deleteWatches", "setAlarmEnabled"})
+    eq(_wc_names(problems), ["bad", "afterBlock", "closedGuard", "systemNotListed", "cancelledPath"], "write-consent: Gegenprobe")
+    eq(calls, 7, "write-consent: Aufrufe (Gegenprobe)")
+
+
+def main(argv):
+    if argv == ["--self-test"]:
+        return self_test()
+    if len(argv) > 1:
+        print("Usage: source_rules.py [repository root] | --self-test", file=sys.stderr)
+        return 2
+    return run(argv[0] if argv else ".")
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

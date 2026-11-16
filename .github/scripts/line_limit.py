@@ -4,9 +4,8 @@ Usage: python3 -I line_limit.py [repository root, default: current directory]
        python3 -I line_limit.py --self-test   (checks the annotation escaping and the comment rules)
 
 Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Shared, ios/Widgets and the watch folders; tests
-(src/test, src/androidTest, ios/Tests) are not checked. Same rule as the unit test FileLengthTest, but without
-Gradle: the result is an error annotation per file and exit 1. A missing ios/ directory (Android-only checkout)
-is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
+(src/test, src/androidTest, ios/Tests) are not checked. Without Gradle: the result is an error annotation per file and
+exit 1. A missing ios/ directory (Android-only checkout) is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
 further workflow commands).
 
 Build numbers («Build NNN») and review tags («(Review D13)», «(D1)») in the same files and in the build and CI

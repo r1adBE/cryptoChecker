@@ -3,7 +3,7 @@ import UIKit
 @testable import CryptoChecker
 
 /// Haptik-Katalog: Ereignis → Generator (gleiche Tabelle wie `HapticsTest.kt`). Dass nur `Haptics.swift` die
-/// Generatoren anspricht, prüft `HapticsUsageTest.kt` (liest auch ios/).
+/// Generatoren anspricht, prüft die Regel `haptics` in `.github/scripts/source_rules.py` (liest auch ios/).
 final class HapticsTests: XCTestCase {
 
     func testEveryEventHasItsGenerator() {

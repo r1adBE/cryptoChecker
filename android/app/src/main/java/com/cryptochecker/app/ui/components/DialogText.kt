@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
  * Text-Slot für AlertDialogs mit mehr als einem Satz: scrollt senkrecht, damit
  * bei grosser Schrift oder kleinem Bildschirm nichts abgeschnitten wird und die
  * Schaltflächen erreichbar bleiben. Kurze einzeilige Texte brauchen ihn nicht.
- * Der Quelltext-Wächter `DialogScrollGuardTest` prüft die Verwendung.
+ * Die Regel `dialog-scroll` in `.github/scripts/source_rules.py` prüft die Verwendung.
  */
 @Composable
 fun DialogText(

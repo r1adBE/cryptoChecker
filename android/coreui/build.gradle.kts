@@ -1,6 +1,6 @@
 // Gemeinsame Grundlage der Oberflächen (App und Widgets): Farben, Schriften und Theme (ui.theme), Zahlen-, Zeit- und
 // Screenreader-Texte (util), Darstellung und Sprache (settings). Pakete wie bisher (com.cryptochecker.app.ui.theme,
-// …util, …settings; Paket = Modul, LayerBoundaryTest).
+// …util, …settings; Paket = Modul, Regel layers in source_rules.py).
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
